@@ -17,11 +17,11 @@ public abstract class Task {
         String content = components[1];
         switch (taskType) {
         case TODO:
-            return Todo.ParseContent(content);
+            return Todo.unpackSaveFormat(content);
         case DEADLINE:
-            return Deadline.ParseContent(content);
+            return Deadline.unpackSaveFormat(content);
         case EVENT:
-            return Event.ParseContent(content);
+            return Event.unpackSaveFormat(content);
         default:
             throw new NoCommandFoundException(taskType.name());
         }
@@ -43,7 +43,7 @@ public abstract class Task {
         this.name = name;
     }
 
-    public static Task Of(String task, TaskType taskType)
+    public static Task of(String task, TaskType taskType)
             throws DukeException {
         switch (taskType) {
             case TODO:
@@ -56,12 +56,13 @@ public abstract class Task {
                 throw new NoCommandFoundException(taskType.name());
         }
     }
-    public void SetCompleted(){
+    public void setCompleted(){
         completed = true;
     }
-    public void SetUncompleted(){
+    public void setUncompleted(){
         completed = false;
     }
+    @Override
     public String toString() {
 
         return completed ? "[X] " + name : "[ ] " + name;

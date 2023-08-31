@@ -8,9 +8,9 @@ public class ErrorMessage extends Message{
     }
 
     @Override
-    public void Print() {
+    public void print() {
         System.out.println(errorLine);
-        System.out.println(this.ToString());
+        System.out.println(this);
         System.out.println(errorLine);
     }
 

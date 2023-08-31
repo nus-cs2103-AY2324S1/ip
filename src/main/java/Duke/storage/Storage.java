@@ -20,7 +20,7 @@ public class Storage {
         }
     }
 
-    public void AddLine(String line) {
+    public void addLine(String line) {
         try {
             bufferedWriter.write(line);
             bufferedWriter.newLine();
@@ -30,7 +30,7 @@ public class Storage {
         }
     }
 
-    public String GetLine(int index) {
+    public String getLine(int index) {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
             String line;
@@ -48,7 +48,7 @@ public class Storage {
     }
 
 
-    public void RemoveLine(int lineIndex) {
+    public void removeLine(int lineIndex) {
         try {
             List<String> lines = new ArrayList<>();
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));

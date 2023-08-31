@@ -16,7 +16,7 @@ public class Duke {
 
     private Application application;
 
-    private boolean awake = true;
+    private boolean isAwake = true;
 
     /**
      * Constructs a Duke object and initializes the components.
@@ -29,7 +29,7 @@ public class Duke {
             Storage storage = new Storage(filePath);
             application = new Application(this, storage);
         } catch (DukeException e) {
-            ui.ShowError(e);
+            ui.showError(e);
         }
     }
 
@@ -37,13 +37,13 @@ public class Duke {
      * Initiates the execution of the Duke application.
      */
     public void run() {
-        ui.ShowMessage(Message.OnGreeting(name));
-        while(awake){
+        ui.showMessage(Message.onGreeting(name));
+        while(isAwake){
             try {
-                if(ui.HasNext())
-                    ui.ShowMessage(ui.ParseLine().execute(application));
+                if(ui.hasNext())
+                    ui.showMessage(ui.parseLine().execute(application));
             } catch (DukeException de){
-                ui.ShowError(de);
+                ui.showError(de);
             }
         }
     }
@@ -52,7 +52,7 @@ public class Duke {
      * Shuts down the program.
      */
     public void kill() {
-        awake = false;
+        isAwake = false;
     }
 
     /**

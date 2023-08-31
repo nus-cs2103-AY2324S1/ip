@@ -43,16 +43,17 @@ public class Event extends Task {
         }
     }
 
-    public static Event ParseContent(String content) throws DukeException {
-        String[] components = content.split("\\|", 4);
+    public static Event unpackSaveFormat(String savedTask) throws DukeException {
+        String[] components = savedTask.split("\\|", 4);
         Event task = new Event(components[2] + "/from " + components[0] + "/to " + components[1]);
         if(components[3].equals("X"))
-            task.SetCompleted();
+            task.setCompleted();
         else
-            task.SetUncompleted();
+            task.setUncompleted();
         return task;
     }
 
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " +
                 startTime.toLocalDate().toString() + "," + startTime.toLocalTime().toString() + " to: " +
