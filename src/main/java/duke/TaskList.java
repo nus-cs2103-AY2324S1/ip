@@ -180,4 +180,32 @@ public class TaskList {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * Displays all tasks in the list containing the keyword.
+     *
+     * @param input User input.
+     */
+    public void find(String input[]) {
+        try {
+            String keyword = input[1];
+            if (keyword.strip().equals("")) {
+                throw new DukeException("    What do you want me to find?");
+            }
+
+            System.out.println("    Here are the matching tasks in your list:");
+            int counter = 1;
+            for (int i = 0; i < taskList.size(); i++) {
+                String s = taskList.get(i).toString();
+                if (s.contains(keyword)) {
+                    System.out.println(String.format("    %d.%s", counter, s));
+                    counter++;
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("    What do you want me to find?");
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

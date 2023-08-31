@@ -2,3 +2,7 @@ T | N | Homework
 D | Y | Project | 2023-11-11
 E | N | Midterms | 2023-10-11 | 2023-10-12
 E | N | Finals | 2023-11-11 | 2023-11-12
+T | N | read book
+T | N | return book
+D | N | write book | 2022-11-11
+E | N | book fair | 2000-11-11 | 2000-11-11

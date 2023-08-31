@@ -39,7 +39,9 @@ public class Parser {
             tasks.addEvent(input);
         } else if (command.equals("todo")) {
             tasks.addToDo(input);
-        } else if (command.equals("bye")) {
+        } else if (command.equals("find")) {
+            tasks.find(input);
+        } else if (command.equals("bye")){
             this.finish = true;
             ui.bye();
         } else {
