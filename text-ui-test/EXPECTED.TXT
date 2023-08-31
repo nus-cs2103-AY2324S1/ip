@@ -1,7 +1,44 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello, my name is Nino!
+What can I do for you?
+=====================
+added: [T][ ] borrow book
+You have 1 tasks.
+=====================
+    1. [T][ ] borrow book
 
+=====================
+added: [D][ ] return book (by Sunday)
+You have 2 tasks.
+=====================
+added: [E][ ] project meeting (from: Mon 2pm to: 4pm)
+You have 3 tasks.
+=====================
+    1. [T][ ] borrow book
+    2. [D][ ] return book (by Sunday)
+    3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+=====================
+Nice! You have completed the task:
+    [T][X] borrow book
+=====================
+    1. [T][X] borrow book
+    2. [D][ ] return book (by Sunday)
+    3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+=====================
+Ok! duke.Task marked undone:
+    [T][X] borrow book
+=====================
+    1. [D][ ] return book (by Sunday)
+    2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+=====================
+removed: [D][ ] return book (by Sunday)
+You have 1 tasks.
+=====================
+Err: no details given after command - deadline
+=====================
+Err: Unknown command - test
+=====================
+Goodbye.
+=====================
