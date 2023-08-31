@@ -59,6 +59,9 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD:
             return prepareDeleteCommand(arguments);
 
+        case FindCommand.COMMAND_WORD:
+            return prepareFindCommand(arguments);
+
         case DueCommand.COMMAND_WORD:
             return prepareDueCommand(arguments);
 
@@ -143,5 +146,20 @@ public class Parser {
     private Command prepareDueCommand(String args) {
         LocalDate dueDate = LocalDate.parse(args.trim(), DATE_FORMAT);
         return new DueCommand(dueDate);
+    }
+
+    /**
+     * Helper function for creating an instance of a FindCommand.
+     *
+     * @param args FindCommand arguments
+     * @return FindCommand
+     * @throws DukeException When there is no keyword specified.
+     */
+    private Command prepareFindCommand(String args) throws DukeException {
+        String keyword = args.trim();
+        if (keyword.isEmpty()) {
+            throw new DukeException(DukeExceptionType.FIND_NO_KEYWORD);
+        }
+        return new FindCommand(keyword);
     }
 }

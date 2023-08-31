@@ -94,11 +94,38 @@ public class UI {
         renderLine();
     }
 
-    public void showHelpMessage() {
-
+    /**
+     * Displays a help guide for the user.
+     *
+     * @param lines Lines from the help guide
+     */
+    public void showHelpMessage(List<String> lines) {
+        renderLine();
+        for (String line : lines) {
+            System.out.println(line);
+        }
+        renderLine();
     }
 
     public void showInvalidCommandMsg() {
         printMessage("I'm sorry, I don't know what that means :-(");
+    }
+
+    /**
+     * Display a list of matching tasks on the command line interface.
+     *
+     * @param tasks A list of matching tasks found
+     */
+    public void showFoundTasks(List<Task> tasks) {
+        renderLine();
+        System.out.println("Here are the matching tasks in your list:");
+        if (!tasks.isEmpty()) {
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.printf("%d.%s%n", i + 1, tasks.get(i));
+            }
+        } else {
+            System.out.println("No matching tasks found :(");
+        }
+        renderLine();
     }
 }
