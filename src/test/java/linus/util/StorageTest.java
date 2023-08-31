@@ -13,10 +13,10 @@ import linus.task.Task;
 import linus.exception.LinusException;
 
 public class StorageTest {
-    String SERIALIZED_LIST = "[" +
-            "{'type':'linus.task.ToDo','description':'task 1', 'isDone':false}," +
-            "{'type':'linus.task.Deadline','description':'task 2','isDone':false,'by':'2023-08-31'}," +
-            "{'type':'linus.task.Event','description':'task 3','isDone':false,'from':'2023-08-31','to':'2023-09-01'}" +
+    String SERIALIZED_LIST = "["
+            + "{'type':'linus.task.ToDo','description':'task 1', 'isDone':false},"
+            + "{'type':'linus.task.Deadline','description':'task 2','isDone':false,'by':'2023-08-31'},"
+            + "{'type':'linus.task.Event','description':'task 3','isDone':false,'from':'2023-08-31','to':'2023-09-01'}" +
             "]";
 
     @Test
