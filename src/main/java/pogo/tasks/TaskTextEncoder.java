@@ -1,22 +1,22 @@
 package pogo.tasks;
 
-import pogo.tasks.exceptions.PogoInvalidTaskException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import pogo.tasks.exceptions.PogoInvalidTaskException;
+
 /**
  * Encodes tasks to text format.
  */
 public class TaskTextEncoder implements TaskEncoder, TaskVisitor {
-    private final StringBuilder tasksOut = new StringBuilder();
     private static final String SEPARATOR_ENCODING = " | ";
     private static final String SEPARATOR_DECODING = " \\| ";
     private static final String ID_DEADLINE = "D";
     private static final String ID_EVENT = "E";
     private static final String ID_TODO = "T";
+    private final StringBuilder tasksOut = new StringBuilder();
 
     /**
      * Encodes a deadline task to a string.
@@ -27,7 +27,9 @@ public class TaskTextEncoder implements TaskEncoder, TaskVisitor {
      */
     @Override
     public void visit(Deadline deadline) {
-        String deadlineString = String.join(SEPARATOR_ENCODING, ID_DEADLINE, deadline.isDone() ? "1" : "0", deadline.getDescription(), deadline.getDeadline());
+        String deadlineString =
+            String.join(SEPARATOR_ENCODING, ID_DEADLINE, deadline.isDone() ? "1" : "0", deadline.getDescription(),
+                deadline.getDeadline());
         tasksOut.append(deadlineString).append(System.lineSeparator());
     }
 
@@ -36,11 +38,13 @@ public class TaskTextEncoder implements TaskEncoder, TaskVisitor {
      * The task is encoded in the following format:
      * E | isDone | description | from | to
      *
-     * @param event
+     * @param event Event task to encode.
      */
     @Override
     public void visit(Event event) {
-        String eventString = String.join(SEPARATOR_ENCODING, ID_EVENT, event.isDone() ? "1" : "0", event.getDescription(), event.getFrom(), event.getTo());
+        String eventString =
+            String.join(SEPARATOR_ENCODING, ID_EVENT, event.isDone() ? "1" : "0", event.getDescription(),
+                event.getFrom(), event.getTo());
         tasksOut.append(eventString).append(System.lineSeparator());
     }
 
@@ -69,7 +73,7 @@ public class TaskTextEncoder implements TaskEncoder, TaskVisitor {
      * Decodes a task from a string.
      * Throws PogoInvalidTaskException if the task is invalid.
      *
-     * @param task Task string to decode.
+     * @param taskString Task string to decode.
      * @return Task decoded from the string.
      * @throws PogoInvalidTaskException If the task is invalid.
      */
@@ -117,9 +121,9 @@ public class TaskTextEncoder implements TaskEncoder, TaskVisitor {
 
     /**
      * Decodes a list of tasks from a string.
-     * If a specific task is invalid, a error message is printed and the task is skipped.
+     * If a specific task is invalid, an error message is printed and the task is skipped.
      *
-     * @param tasks Tasks string to decode.
+     * @param tasksString List of task Strings to decode.
      * @return List of tasks decoded from the string.
      */
     @Override
