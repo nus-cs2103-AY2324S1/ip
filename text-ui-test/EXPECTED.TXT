@@ -1,3 +1,6 @@
+Loading tasks...
+Task failed to load
+:( Chewy can't understand! No Task Id found. Please enter a Task Id after your command
 Hello!
 I'm Chewy,
 What can I do for you?
@@ -8,46 +11,59 @@ Chewy detected no task for you!
 Got it. I've added this task:
 	[T][ ] run script
 Now you have 1 tasks in the list
+Saving tasks...
+Error saving tasks to filedata\duke.txt (The system cannot find the path specified)
+Task saved successfully
 Got it. I've added this task:
 	[D][ ] do something
 Now you have 2 tasks in the list
+Saving tasks...
+Error saving tasks to filedata\duke.txt (The system cannot find the path specified)
+Task saved successfully
 Got it. I've added this task:
-	[D][ ] do something (by: friday morning)
+	[D][ ] do something (by: 24 Oct 2023)
 Now you have 3 tasks in the list
-Got it. I've added this task:
-	[E][ ] some lecture (from today 4pm to 6pm)
-Now you have 4 tasks in the list
-Got it. I've added this task:
-	[E][ ] some recitation (from tomorrow 12pm to 2pm)
-Now you have 5 tasks in the list
+Saving tasks...
+Error saving tasks to filedata\duke.txt (The system cannot find the path specified)
+Task saved successfully
+:( Chewy can't understand! Invalid DateTime format. Here are some example dates:
+6/3/2023 5:30 AM, 16/12/2024 6:30PM
+:( Chewy can't understand! Invalid DateTime format. Here are some example dates:
+6/3/2023 5:30 AM, 16/12/2024 6:30PM
 Nice! I've marked this task as done:
 [T][X] run script
+Saving tasks...
+Error saving tasks to filedata\duke.txt (The system cannot find the path specified)
+Task saved successfully
 Nice! I've marked this task as done:
-[D][X] do something (by: friday morning)
+[D][X] do something (by: 24 Oct 2023)
+Saving tasks...
+Error saving tasks to filedata\duke.txt (The system cannot find the path specified)
+Task saved successfully
 Here are the tasks in your list:
 
 1.[T][X] run script
 2.[D][ ] do something
-3.[D][X] do something (by: friday morning)
-4.[E][ ] some lecture (from today 4pm to 6pm)
-5.[E][ ] some recitation (from tomorrow 12pm to 2pm)
+3.[D][X] do something (by: 24 Oct 2023)
 OK, I've marked this task as not done yet:
 [T][ ] run script
+Saving tasks...
+Error saving tasks to filedata\duke.txt (The system cannot find the path specified)
+Task saved successfully
 Here are the tasks in your list:
 
 1.[T][ ] run script
 2.[D][ ] do something
-3.[D][X] do something (by: friday morning)
-4.[E][ ] some lecture (from today 4pm to 6pm)
-5.[E][ ] some recitation (from tomorrow 12pm to 2pm)
+3.[D][X] do something (by: 24 Oct 2023)
 :( Chewy can't understand! No Task Id found. Please enter a Task Id after your command
 Noted. I've removed this task:
-	[D][X] do something (by: friday morning)
-Now you have 4 tasks in the list
+	[D][X] do something (by: 24 Oct 2023)
+Now you have 2 tasks in the list
+Saving tasks...
+Error saving tasks to filedata\duke.txt (The system cannot find the path specified)
+Task saved successfully
 Here are the tasks in your list:
 
 1.[T][ ] run script
 2.[D][ ] do something
-3.[E][ ] some lecture (from today 4pm to 6pm)
-4.[E][ ] some recitation (from tomorrow 12pm to 2pm)
 Bye. Hope to see you again soon!
