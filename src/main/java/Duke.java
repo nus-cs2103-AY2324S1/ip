@@ -105,10 +105,15 @@ public class Duke {
             ObjectInputStream ois = new ObjectInputStream(fis);
             tasks = (ArrayList<Task>) ois.readObject();
             ois.close();
-        } catch (IOException e) {
-            System.out.println("io reading from file failed, " + e.getMessage());
-        } catch (ClassNotFoundException e) {
-            System.out.println("cnf reading from file failed, " + e.getMessage());
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Reading from file failed, " + e.getMessage());
+            System.out.println("Generating new save file");
+            saveFile.delete();
+            try {
+                saveFile.createNewFile();
+            } catch (IOException ee) {
+                System.out.println("New file could not be generated" + ee.getMessage());
+            }
         }
 
     }
