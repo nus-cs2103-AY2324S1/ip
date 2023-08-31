@@ -10,20 +10,8 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         TaskList list = null;
 
-        try {
-            File dataDirectory = new File("./data");
-            dataDirectory.mkdir();
-            File taskFile = new File("./data/duke.txt");
-            if (taskFile.createNewFile()) {
-                System.out.println("Created new file to store your tasks!");
-            } else {
-                System.out.println("Existing task file exists. ");
-            }
-            list = new TaskList(taskFile);
-        } catch (IOException e) {
-            System.out.println("Unable to create file.");
-            e.printStackTrace();
-        }
+        Storage storage = new Storage();
+        list = new TaskList(storage.getFile());
 
         System.out.println("Hello! I'm Bob");
         System.out.println("What can I do for you?");
