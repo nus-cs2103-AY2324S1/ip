@@ -14,13 +14,13 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         return "[E]" + super.toString() + " (from: " + this.from.format(formatter) + " to: " + this.to.format(formatter) + ")";
     }
 
     @Override
     public String encode() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
-        return "E"+getStatusNumber()+super.description + " /from " + this.from.format(formatter) + " /to " + this.to.format(formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        return "E" + getStatusNumber() + super.description + " /from " + this.from.format(formatter) + " /to " + this.to.format(formatter);
     }
 }

@@ -2,116 +2,84 @@ ____________________________________________________________
 Hello! I'm Smolbrain
 What can I do for you?
 ____________________________________________________________
-
 ____________________________________________________________
 Got it. I've added this task:
 [T][ ] borrow book
 Now you have 1 tasks in the list.
 ____________________________________________________________
-
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T][ ] borrow book
 ____________________________________________________________
-
 ____________________________________________________________
-☹ OOPS!!! The description of a todo cannot be empty.
+ERROR: ☹ OOPS!!! The description of a todo cannot be empty.
 ____________________________________________________________
-
 ____________________________________________________________
-☹ OOPS!!! Please provide a valid number to delete.
+ERROR: ☹ OOPS!!! Please provide a valid number to delete.
 ____________________________________________________________
-
 ____________________________________________________________
-☹ OOPS!!! Please provide a valid number within the range.
+ERROR: java.lang.IndexOutOfBoundsException: Index -2 out of bounds for length 1
 ____________________________________________________________
-
 ____________________________________________________________
 Noted. I've removed this task:
 [T][ ] borrow book
 Now you have 0 tasks in the list.
 ____________________________________________________________
-
 ____________________________________________________________
 Got it. I've added this task:
 [T][ ] read book
 Now you have 1 tasks in the list.
 ____________________________________________________________
-
 ____________________________________________________________
 Got it. I've added this task:
-[D][ ] return book (by: June 6th)
+[D][ ] return book (by: Jun 06 1999 18:00)
 Now you have 2 tasks in the list.
 ____________________________________________________________
-
 ____________________________________________________________
 Got it. I've added this task:
-[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+[E][ ] project meeting (from: Jun 06 1999 18:00 to: Dec 06 2009 22:00)
 Now you have 3 tasks in the list.
 ____________________________________________________________
-
 ____________________________________________________________
 Got it. I've added this task:
 [T][ ] join sports club
 Now you have 4 tasks in the list.
 ____________________________________________________________
-
 ____________________________________________________________
 Got it. I've added this task:
 [T][ ] borrow book
 Now you have 5 tasks in the list.
 ____________________________________________________________
-
 ____________________________________________________________
 Nice! I've marked this task as done:
 [T][X] read book
 ____________________________________________________________
-
 ____________________________________________________________
 Nice! I've marked this task as done:
 [T][X] join sports club
 ____________________________________________________________
-
 ____________________________________________________________
-Got it. I've added this task:
-[D][ ] return book (by: Sunday)
-Now you have 6 tasks in the list.
+ERROR: ☹ OOPS!!! Please provide a valid date and time with format of dd//MM/yyyy HHmm.
 ____________________________________________________________
-
 ____________________________________________________________
-Got it. I've added this task:
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 7 tasks in the list.
+ERROR: ☹ OOPS!!! Please provide a valid date and time with format of dd//MM/yyyy HHmm.
 ____________________________________________________________
-
-____________________________________________________________
-Got it. I've added this task:
-[D][ ] do homework (by: no idea :-p)
-Now you have 8 tasks in the list.
-____________________________________________________________
-
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T][X] read book
-2. [D][ ] return book (by: June 6th)
-3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+2. [D][ ] return book (by: Jun 06 1999 18:00)
+3. [E][ ] project meeting (from: Jun 06 1999 18:00 to: Dec 06 2009 22:00)
 4. [T][X] join sports club
 5. [T][ ] borrow book
-6. [D][ ] return book (by: Sunday)
-7. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-8. [D][ ] do homework (by: no idea :-p)
 ____________________________________________________________
-
 ____________________________________________________________
 ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
 ____________________________________________________________
-
 ____________________________________________________________
 Noted. I've removed this task:
 [T][X] join sports club
-Now you have 7 tasks in the list.
+Now you have 4 tasks in the list.
 ____________________________________________________________
-
 ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________

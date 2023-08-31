@@ -11,6 +11,7 @@ public class Todo extends Task {
 
     @Override
     public String encode() {
-        return "T"+getStatusNumber()+super.description;
+        return "T" + getStatusNumber() + super.description;
     }
+
 }

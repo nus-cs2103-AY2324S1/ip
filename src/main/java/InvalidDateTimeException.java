@@ -6,7 +6,7 @@ public class InvalidDateTimeException extends Exception{
 
     @Override
     public String toString() {
-        return "☹ OOPS!!! Please provide a valid date and time.";
+        return "☹ OOPS!!! Please provide a valid date and time with format of dd//MM/yyyy HHmm.";
     }
 
 }
