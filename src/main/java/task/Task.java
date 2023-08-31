@@ -6,8 +6,13 @@ import java.time.LocalDateTime;
 
 public class Task {
 
+<<<<<<< HEAD
     private String taskName;
     private Boolean done;
+=======
+    String taskName;
+    private Boolean isDone;
+>>>>>>> branch-A-CodingStandard
     private LocalDateTime dateAdded;
 
     public static Task of(String taskName) {
@@ -28,7 +33,7 @@ public class Task {
      */
     private Task(String taskName) {
         this.taskName = taskName;
-        this.done = false;
+        this.isDone = false;
         this.dateAdded = LocalDateTime.now();
     }
 
@@ -38,15 +43,28 @@ public class Task {
      */
     @Override
     public String toString() {
-        return ("[" + (this.done ? "X] " : " ] ") + this.taskName);
+        return ("[" + (this.isDone ? "X] " : " ] ") + this.taskName);
     }
 
+<<<<<<< HEAD
     /**
      * Check if the task is done.
      * @return Returns true if the task is done, false if otherwise.
      */
     public boolean isDone() {
         return this.done;
+=======
+    public void setDone() {
+        this.isDone = true;
+    }
+
+    public void setNotDone() {
+        this.isDone = false;
+    }
+
+    public boolean getIsDone() {
+        return this.isDone;
+>>>>>>> branch-A-CodingStandard
     }
 
     /**
@@ -138,7 +156,8 @@ public class Task {
          */
         @Override
         public String toString() {
-            return "[E]" + super.toString() + "(from: " + startDayDateTime.format(Duke.FORMAT) + " to: " + endDayDateTime.format(Duke.FORMAT) +")";
+            return "[E]" + super.toString() + "(from: " + startDayDateTime.format(Duke.FORMAT)
+                    + " to: " + endDayDateTime.format(Duke.FORMAT) +")";
         }
 
         /**
@@ -147,7 +166,8 @@ public class Task {
          */
         @Override
         public String write() {
-            return "event " + super.taskName + "/from " + this.startDayDateTime.format(Duke.FORMAT) + " /to " + this.endDayDateTime.format(Duke.FORMAT) + "\n";
+            return "event " + super.taskName + "/from " + this.startDayDateTime.format(Duke.FORMAT)
+                    + " /to " + this.endDayDateTime.format(Duke.FORMAT) + "\n";
         }
     }
 }

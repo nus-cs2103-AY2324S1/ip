@@ -207,7 +207,10 @@ public class Commands {
         }
         if (obj instanceof Commands) {
             Commands b = (Commands) obj;
-            if (b.state == this.state && b.dateTime == this.dateTime && b.index == this.index && b.name == this.name) {
+            if (b.state == this.state
+                    && b.dateTime == this.dateTime
+                    && b.index == this.index
+                    && b.name == this.name) {
                 return true;
             }
         }
@@ -267,7 +270,10 @@ public class Commands {
             }
             if (obj instanceof Commands.TwoCommands) {
                 Commands.TwoCommands b = (Commands.TwoCommands) obj;
-                if (super.equals(b) && b.state2 == this.state2 && this.name2.equals(b.name2) && this.secondaryCommand.equals(b.secondaryCommand)) {
+                if (super.equals(b)
+                        && b.state2 == this.state2
+                        && this.name2.equals(b.name2)
+                        && this.secondaryCommand.equals(b.secondaryCommand)) {
                     return true;
                 }
             }

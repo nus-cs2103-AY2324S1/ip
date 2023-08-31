@@ -54,7 +54,7 @@ public class ListOfTaskStud {
 
     public void mark(int index, boolean print) throws DukeException {
         try {
-            listOfTask.get(index - 1).mark();
+            listOfTask.get(index - 1).setDone();
             if (print) {
                 System.out.println(listOfTask.get(index - 1).toString());
                 StorageStud.save(listOfTask);
@@ -66,7 +66,7 @@ public class ListOfTaskStud {
 
     public void unMark(int index, boolean print) throws DukeException {
         try {
-            listOfTask.get(index - 1).unMark();
+            listOfTask.get(index - 1).setNotDone();
             if (print) {
                 System.out.println(listOfTask.get(index - 1).toString());
             }

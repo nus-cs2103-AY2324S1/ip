@@ -27,7 +27,7 @@ public class Storage {
             listOfTask.forEach(x-> {
                 try {
                     writer.write(x.write());
-                    if (x.isDone()) {
+                    if (x.getIsDone()) {
                         writer.write("mark " + (listOfTask.indexOf(x) + 1) + "\n");
                     }
                 } catch (IOException e) {
