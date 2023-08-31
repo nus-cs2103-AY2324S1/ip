@@ -52,7 +52,7 @@ public class Dialogix {
                     String[] parts = userInput.replaceFirst("deadline\\s+", "").split(" /by ");
                     if (parts.length == 2) {
                         LocalDate byDate = LocalDate.parse(parts[1], DATE_TIME_FORMATTER);
-                        list.add(new Deadline(parts[0], byDate, null));
+                        list.add(new Deadline(parts[0], byDate, null, false));
                         System.out.println("Bot: Got it. I've added this task:\n  " + list.get(list.size() - 1).toString());
                     } else {
                         System.out.println("Bot: Invalid input format for 'deadline'.");

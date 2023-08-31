@@ -10,11 +10,13 @@ enum Priority {
 public class Deadline extends Task {
     protected LocalDate by;
     protected Priority priority;
+    protected boolean isDone;
 
-    public Deadline(String description, LocalDate by, Priority priority) {
+    public Deadline(String description, LocalDate by, Priority priority, boolean isDone) {
         super(description);
         this.by = by;
         this.priority = priority;
+        this.isDone = isDone;
     }
 
     public Priority getPriority() {
