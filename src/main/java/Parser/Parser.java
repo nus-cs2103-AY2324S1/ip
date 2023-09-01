@@ -10,6 +10,7 @@ import Command.TodoCommand;
 import Command.DeleteCommand;
 import Command.DeadlineCommand;
 import Command.EventCommand;
+import Command.FindCommand;
 import DukeException.DukeException;
 
 import java.time.DateTimeException;
@@ -90,6 +91,8 @@ public class Parser {
                 return new ClearCommand();
             case "bye":
                 return new ByeCommand();
+            case "find":
+                return new FindCommand(split[1]);
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
