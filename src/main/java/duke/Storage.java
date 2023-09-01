@@ -1,3 +1,11 @@
+package duke;
+
+import duke.exception.InvalidArgumentException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -26,7 +34,7 @@ public class Storage {
         }
         this.filePath = filePath;
     }
-    public List<Task> load() throws InvalidArgumentException{
+    public List<Task> load() throws InvalidArgumentException {
         List<Task> list = new ArrayList<>();
         File file = new File(filePath);
         try (Scanner fileScanner = new Scanner(file)) {

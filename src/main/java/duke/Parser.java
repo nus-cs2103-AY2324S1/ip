@@ -1,9 +1,17 @@
+package duke;
+
+import duke.command.*;
+import duke.exception.InvalidArgumentException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
+
 public class Parser {
     public enum CommandType {
         LIST, DELETE, MARK, UNMARK, ADD, UNKNOWN, BYE
     }
 
-    public static Command parse(String userInput) throws InvalidArgumentException{
+    public static Command parse(String userInput) throws InvalidArgumentException {
         CommandType commandType = parseCommand(userInput);
         switch (commandType) {
             case LIST:

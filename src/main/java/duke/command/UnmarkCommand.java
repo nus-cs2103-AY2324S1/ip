@@ -1,4 +1,12 @@
-public class UnmarkCommand extends Command{
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.command.Command;
+import duke.task.Task;
+
+public class UnmarkCommand extends Command {
     private int index;
 
     public UnmarkCommand(int index) {
