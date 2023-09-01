@@ -10,7 +10,13 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import duke.exceptions.DukeInvalidDateException;
-import duke.task.*;
+
+import duke.task.TaskList;
+import duke.task.Task;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDo;
+
 import duke.ui.Ui;
 
 /**
@@ -38,7 +44,7 @@ public class Storage {
             if (!dataFile.exists()) {
                 dataFile.createNewFile();
             }
-        } catch (IOException error) {
+        } catch (IOException exception) {
             Ui.printLines("Something went wrong when loading tasks :(");
         }
     }
@@ -54,6 +60,7 @@ public class Storage {
         List<Task> tasks = new ArrayList<>();
         File dataFile = new File("./data/data.txt");
         Scanner reader = new Scanner(dataFile);
+
         while (reader.hasNextLine()) {
             String[] currentTask = reader.nextLine().split(Pattern.quote("|"), 2);
             String taskType = currentTask[0];
@@ -75,11 +82,10 @@ public class Storage {
                     default:
                         continue;
                 }
-            } catch (DukeInvalidDateException error) {
+            } catch (DukeInvalidDateException exception) {
                 Ui.printLines("Something went wrong when loading tasks :(");
                 break;
             }
-
 
             if (taskInfo[0].equals("1")) {
                 task.markAsDone();
@@ -102,8 +108,8 @@ public class Storage {
     public void writeTasks(TaskList taskList) {
         try {
             FileWriter dataWriter = new FileWriter("./data/data.txt");
-            for (int taskIndex = 1; taskIndex <= taskList.getSize(); taskIndex++) {
-                dataWriter.write(taskList.getTask(taskIndex).toDataRepresentation() + "\n");
+            for (int i = 1; i <= taskList.getSize(); i++) {
+                dataWriter.write(taskList.getTask(i).getDataRepresentation() + "\n");
             }
             dataWriter.close();
         } catch (IOException error) {

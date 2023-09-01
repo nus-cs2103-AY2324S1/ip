@@ -38,8 +38,8 @@ public class Event extends Task {
     }
 
     @Override
-    public String toDataRepresentation() {
-        return "E|" + super.toDataRepresentation() + "|" + startTime + "|" + endTime;
+    public String getDataRepresentation() {
+        return "E|" + super.getDataRepresentation() + "|" + startTime + "|" + endTime;
     }
 
 

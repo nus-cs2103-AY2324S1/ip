@@ -17,8 +17,8 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String toDataRepresentation() {
-        return "T|" + super.toDataRepresentation();
+    public String getDataRepresentation() {
+        return "T|" + super.getDataRepresentation();
     }
 
     /**

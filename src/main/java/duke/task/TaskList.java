@@ -1,9 +1,9 @@
 package duke.task;
 
-import duke.ui.Ui;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import duke.ui.Ui;
 
 /**
  * TaskList represents the list of tasks of the user.
@@ -123,8 +123,8 @@ public class TaskList {
         if (getSize() > 0) {
             tasksList = "Here are the tasks in your list:\n";
 
-            for (int taskIndex = 1; taskIndex <= tasks.size(); taskIndex++) {
-                tasksList += ("\t " + taskIndex + "." + getTask(taskIndex) + "\n");
+            for (int i = 1; i <= tasks.size(); i++) {
+                tasksList += ("\t " + i + "." + getTask(i) + "\n");
             }
 
             tasksList += ("\t Keep up the good work!");
