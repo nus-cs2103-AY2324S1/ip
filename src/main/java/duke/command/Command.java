@@ -104,6 +104,8 @@ public class Command {
                 addEvent(details, tasks, storage);
             } else if (command.equals("due")) {
                 checkTaskDue(details, tasks);
+            } else if (command.equals("find")) {
+                find(details, tasks);
             } else if (command.equals("bye")) {
                 isExit();
             } else {
@@ -296,9 +298,9 @@ public class Command {
                 dueDateList.add(t);
             }
         }
-        System.out.println(Ui.showLine());
-        System.out.println("\tHere are the " + (dueDateList.size() > 1 ? "tasks that contain" : "task that contains")
-                + " the date:");
+        boolean isGreaterThan1 = dueDateList.size() > 1;
+        System.out.println("\tHere " + (isGreaterThan1 ? "are" : "is") +" the " +
+                (isGreaterThan1 ? "tasks that contain" : "task that contains") + " the date:\n");
         for (Task t : dueDateList) {
             System.out.println("\t\t" + t);
         }
@@ -313,5 +315,29 @@ public class Command {
      */
     public boolean isExit() {
         return (command.equals("bye"));
+    }
+
+    /**
+     * Checks for the task that has the contains the provided message in the task list.
+     *
+     * @param toFind The task with the message in the task list.
+     * @param tasks The task list to search for based on the provided message.
+     */
+    public void find(String toFind, TaskList tasks) {
+
+        ArrayList<Task> contain = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDescription().contains(toFind)) {
+                contain.add(tasks.get(i));
+            }
+        }
+        boolean isGreaterThan1 = contain.size() > 1;
+        System.out.println("\tHere " + (isGreaterThan1 ? "are" : "is") + " are the matching " +
+                (isGreaterThan1 ? "tasks" : "task") + " in your list:\n");
+        for (int i = 0; i < contain.size(); i++) {
+            System.out.println("\t\t" + (i + 1) + ". " + contain.get(i));
+        }
+        System.out.println(Ui.showLine());
+        System.out.println();
     }
 }
