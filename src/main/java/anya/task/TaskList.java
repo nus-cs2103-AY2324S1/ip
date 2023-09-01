@@ -29,11 +29,12 @@ public class TaskList {
         return this.tasks.size();
     }
 
-    public String list() {
-        StringBuilder list = new StringBuilder("Here are the tasks in your list:\n");
+    public void list() {
+        StringBuilder list = new StringBuilder("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
+            list.append(System.lineSeparator());
             list.append(String.format((i + 1) + ". " + tasks.get(i)));
         }
-        return list.toString();
+        System.out.println(list.toString());
     }
 }

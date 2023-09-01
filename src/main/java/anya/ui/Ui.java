@@ -54,4 +54,8 @@ public class Ui {
     public void showTaskList(String list) {
         showToUser(list);
     }
+
+    public void showInitError() {
+        showToUser(MESSAGE_ERROR_INIT);
+    }
 }

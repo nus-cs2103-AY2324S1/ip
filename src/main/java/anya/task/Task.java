@@ -1,3 +1,7 @@
+package anya.task;
+
+import java.time.LocalDateTime;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -8,13 +12,20 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark done anya.task with X
     }
 
     public String getStatusNumber() {
-        return (isDone ? "1" : "0"); // mark done task with 1
+        return (isDone ? "1" : "0"); // mark done anya.task with 1
     }
 
+    public String getType() {
+        return "";
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
 
     public void markAsDone() {
         this.isDone = true;
@@ -26,6 +37,10 @@ public class Task {
 
     public String formatToSave() {
         return " | " + getStatusNumber() + " | " + this.description;
+    }
+
+    public LocalDateTime convertStringToDate(String dateString) {
+        return LocalDateTime.parse(dateString);
     }
 
     @Override

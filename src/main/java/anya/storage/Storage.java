@@ -7,6 +7,7 @@ import anya.task.TaskList;
 import anya.task.Todo;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -51,9 +52,9 @@ public class Storage {
         }
     }
 
-    public TaskList readFile() {
+    public TaskList readFile() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
-        Scanner sc = new Scanner(storageFilePath);
+        Scanner sc = new Scanner(new File(storageFilePath));
         while (sc.hasNext()) {
             try {
                 tasks.add(convertStringToTask(sc.nextLine()));
