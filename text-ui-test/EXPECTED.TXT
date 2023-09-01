@@ -7,19 +7,19 @@
 
 > 
     [0;31mErm... error :([0m
-        Unable to mark task 1 :( You have 0 task(s) stored.
+    Unable to mark task 1 :( You have 0 task(s) stored.
 
 > 
     [0;31mErm... error :([0m
-        Unable to mark task 0 :( You have 0 task(s) stored.
+    Unable to mark task 0 :( You have 0 task(s) stored.
 
 > 
     [0;31mErm... error :([0m
-        Unable to mark task -1 :( You have 0 task(s) stored.
+    Unable to mark task -1 :( You have 0 task(s) stored.
 
 > 
     [0;31mErm... error :([0m
-    [35mmark[0m takes in a number. Try [35mmark[0m 1.
+    [35mmark[0m takes in a number. Try [35mmark[0m 1.
 
 > 
     [0;31mErm... error :([0m
@@ -34,27 +34,27 @@
 > 
     [0;31mErm... error :([0m
     Looks like you're missing a description:
-    Try [35mdeadline[0m submit essay /by Monday, 4pm
+    Try [35mdeadline[0m submit essay /by Oct 10 2023 1600
 
 > 
     [0;31mErm... error :([0m
     Looks like you're missing a date:
     <- Remember to include /by ->
-    Try [35mdeadline[0m submit essay /by Monday, 4pm
+    Try [35mdeadline[0m submit essay /by Oct 10 2023 1600
 
 > 
     [0;31mErm... error :([0m
     Oops, looks like your date is in an invalid format...
     Here are some valid formats:
-    2023-10-20, 20-10-2023, 2023/10/20, 20/10/2023, Oct 10 2023, 10 Oct 2023
-    You can provide a timing as well: 2023-10-20 1800
+    [35m2023-10-20, 20-10-2023, 2023/10/20, 20/10/2023, Oct 10 2023, 10 Oct 2023[0m
+    You can provide a timing as well: [0;33m2023-10-20 1800[0m
 
 > 
     [0;31mErm... error :([0m
     Oops, looks like your date is in an invalid format...
     Here are some valid formats:
-    2023-10-20, 20-10-2023, 2023/10/20, 20/10/2023, Oct 10 2023, 10 Oct 2023
-    You can provide a timing as well: 2023-10-20 1800
+    [35m2023-10-20, 20-10-2023, 2023/10/20, 20/10/2023, Oct 10 2023, 10 Oct 2023[0m
+    You can provide a timing as well: [0;33m2023-10-20 1800[0m
 
 > 
     Okie! I've added a new [0;34mDEADLINE[0m:
@@ -109,22 +109,22 @@
 > 
     [0;31mErm... error :([0m
     Looks like you're missing a description:
-    Try [35mevent[0m NUS carnival /from Aug 21st /to Aug 25th
+    Try [35mevent[0m NUS carnival /from 21 Aug 2023 /to 22 Aug 2023
 
 > 
     [0;31mErm... error :([0m
     Looks like you're missing [35m/from[0m
-    Try [35mevent[0m NUS carnival /from Aug 21st /to Aug 25th
+    Try [35mevent[0m NUS carnival /from 21 Aug 2023 /to 22 Aug 2023
 
 > 
     [0;31mErm... error :([0m
     Looks like you're missing [35m/to[0m
-    Try [35mevent[0m NUS carnival /from Aug 21st /to Aug 25th
+    Try [35mevent[0m NUS carnival /from 21 Aug 2023 /to 22 Aug 2023
 
 > 
     [0;31mErm... error :([0m
     Looks like you're missing [35m/from[0m
-    Try [35mevent[0m NUS carnival /from Aug 21st /to Aug 25th
+    Try [35mevent[0m NUS carnival /from 21 Aug 2023 /to 22 Aug 2023
 
 > 
     Okie! I've added a new [0;33mEVENT[0m:
@@ -153,7 +153,10 @@
 
 > 
     [0;31mErm... error :([0m
-        Oops, looks like your date is in an invalid format...
+    Oops, looks like your date is in an invalid format...
+    Here are some valid formats:
+    [35m2023-10-20, 20-10-2023, 2023/10/20, 20/10/2023, Oct 10 2023, 10 Oct 2023[0m
+    You can provide a timing as well: [0;33m2023-10-20 1800[0m
 
 > 
     Here are the tasks in your list:
@@ -176,7 +179,7 @@
 
 > 
     [0;31mErm... error :([0m
-        Unable to mark task -1 :( You have 16 task(s) stored.
+    Unable to mark task -1 :( You have 16 task(s) stored.
 
 > 
     Nice, I've marked this task as done:
@@ -188,7 +191,7 @@
 
 > 
     [0;31mErm... error :([0m
-        Unable to mark task 90 :( You have 16 task(s) stored.
+    Unable to mark task 90 :( You have 16 task(s) stored.
 
 > 
     Here are the tasks in your list:
@@ -234,11 +237,11 @@
 
 > 
     [0;31mErm... error :([0m
-        Unable to [35mdelete[0m task 0 :( You have 16 task(s) stored.
+    Unable to [35mdelete[0m task 0 :( You have 16 task(s) stored.
 
 > 
     [0;31mErm... error :([0m
-        Unable to [35mdelete[0m task 90 :( You have 16 task(s) stored.
+    Unable to [35mdelete[0m task 90 :( You have 16 task(s) stored.
 
 > 
     Okie! I've deleted task 1:
@@ -247,7 +250,7 @@
 
 > 
     [0;31mErm... error :([0m
-        Unable to [35mdelete[0m task -1 :( You have 15 task(s) stored.
+    Unable to [35mdelete[0m task -1 :( You have 15 task(s) stored.
 
 > 
     Here are the tasks in your list:

@@ -92,7 +92,7 @@ public class Parser {
         if (header.length < 2) {
             throw new DukeException(new String[] {
                 "Looks like you're missing a description:",
-                "Try " + Ui.cTxt("deadline", Ui.COLOR.PURPLE) + " submit essay /by Monday, 4pm"
+                "Try " + Ui.cTxt("deadline", Ui.COLOR.PURPLE) + " submit essay /by Oct 10 2023 1600"
             });
         }
         
@@ -101,7 +101,7 @@ public class Parser {
             throw new DukeException(new String[] {
                 "Looks like you're missing a date:",
                 "<- Remember to include /by ->",
-                "Try " + Ui.cTxt("deadline", Ui.COLOR.PURPLE) + " submit essay /by Monday, 4pm"
+                "Try " + Ui.cTxt("deadline", Ui.COLOR.PURPLE) + " submit essay /by Oct 10 2023 1600"
             });
         }
 
@@ -111,8 +111,12 @@ public class Parser {
             throw new DukeException(new String[] {
                 "Oops, looks like your date is in an invalid format...",
                 "Here are some valid formats:",
-                "2023-10-20, 20-10-2023, 2023/10/20, 20/10/2023, Oct 10 2023, 10 Oct 2023",
-                "You can provide a timing as well: 2023-10-20 1800"
+                Ui.cTxt("2023-10-20, 20-10-2023, 2023/10/20, "
+                        + "20/10/2023, Oct 10 2023, 10 Oct 2023",
+                        Ui.COLOR.PURPLE
+                ),
+                "You can provide a timing as well: " 
+                    + Ui.cTxt("2023-10-20 1800", Ui.COLOR.YELLOW)
             });
         }
         return new DeadlineCommand(
@@ -132,7 +136,7 @@ public class Parser {
         if (header.length < 2) {
             throw new DukeException(new String[] {
                 "Looks like you're missing a description:",
-                "Try " + Ui.cTxt("event", Ui.COLOR.PURPLE) + " NUS carnival /from Aug 21st /to Aug 25th"
+                "Try " + Ui.cTxt("event", Ui.COLOR.PURPLE) + " NUS carnival /from 21 Aug 2023 /to 22 Aug 2023"
             });
         }
 
@@ -140,7 +144,7 @@ public class Parser {
         if (parseArr.length < 2) {
             throw new DukeException(new String[] {
                 "Looks like you're missing " + Ui.cTxt("/from", Ui.COLOR.PURPLE),
-                "Try " + Ui.cTxt("event", Ui.COLOR.PURPLE) + " NUS carnival /from Aug 21st /to Aug 25th"
+                "Try " + Ui.cTxt("event", Ui.COLOR.PURPLE) + " NUS carnival /from 21 Aug 2023 /to 22 Aug 2023"
             });
         }
 
@@ -151,7 +155,7 @@ public class Parser {
         if (dateParse.length < 2) {
             throw new DukeException(new String[] {
                 "Looks like you're missing " + Ui.cTxt("/to", Ui.COLOR.PURPLE),
-                "Try " + Ui.cTxt("event", Ui.COLOR.PURPLE) + " NUS carnival /from Aug 21st /to Aug 25th"
+                "Try " + Ui.cTxt("event", Ui.COLOR.PURPLE) + " NUS carnival /from 21 Aug 2023 /to 22 Aug 2023"
             });
         }
 
@@ -159,9 +163,16 @@ public class Parser {
         LocalDateTime fromDate = DateParser.parseDateString(dateParse[0].strip());
         LocalDateTime toDate   = DateParser.parseDateString(dateParse[1].strip());
         if (fromDate == null || toDate == null) {
-            throw new DukeException(
-                "Oops, looks like your date is in an invalid format..."
-            );
+            throw new DukeException(new String[] {
+                "Oops, looks like your date is in an invalid format...",
+                "Here are some valid formats:",
+                Ui.cTxt("2023-10-20, 20-10-2023, 2023/10/20, "
+                        + "20/10/2023, Oct 10 2023, 10 Oct 2023",
+                        Ui.COLOR.PURPLE
+                ),
+                "You can provide a timing as well: " 
+                    + Ui.cTxt("2023-10-20 1800", Ui.COLOR.YELLOW)
+            });
         }
         
         return new EventCommand(

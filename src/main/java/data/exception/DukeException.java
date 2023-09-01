@@ -4,7 +4,7 @@ public class DukeException extends Exception {
     private String msg;
 
     public DukeException(String msg) {
-        this.msg = String.format("    %s", msg);
+        this.msg = String.format("%s", msg);
     }
 
     public DukeException(String[] msg) {
@@ -12,7 +12,7 @@ public class DukeException extends Exception {
         for (String stub : msg) {
             temp += String.format("    %s\n", stub);
         }
-        this.msg = temp.strip();
+        this.msg = temp.trim().strip();
     }
 
     @Override
