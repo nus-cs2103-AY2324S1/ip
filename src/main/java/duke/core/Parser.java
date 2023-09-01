@@ -13,6 +13,7 @@ import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
@@ -80,6 +81,8 @@ public class Parser {
             return new AddCommand(parameterMap);
         case "delete": 
             return new DeleteCommand(parameterMap);
+        case "find":
+            return new FindCommand(parameterMap);
         default:
             return null;
         }
