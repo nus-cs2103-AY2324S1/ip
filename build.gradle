@@ -32,11 +32,12 @@ application {
 }
 
 shadowJar {
+    archiveFileName = "joe.jar"
     archiveBaseName = "joe"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
-run{
+run {
     standardInput = System.in
 }
