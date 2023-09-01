@@ -8,7 +8,7 @@ import java.nio.file.StandardOpenOption;
  * This class deals with making sense of the user input and carrying out tasks accordingly.
  */
 public class Parser {
-    public enum TaskKeyVal {ToDo, Deadline, Event, Delete, mark, unmark, bye, list};
+    public enum TaskKeyVal {ToDo, Deadline, Event, Delete, mark, unmark, bye, list, find};
 
     /**
      * Returns a boolean based on the user input choice.
@@ -58,7 +58,11 @@ public class Parser {
             Integer delUserChoice = Integer.parseInt(userInputList[1]);
             TaskList.deleteTask(delUserChoice);
             return true;
-        } else {
+        } else if (taskKeyVal == TaskKeyVal.find) {
+            String findThis = userInputList[1];
+            TaskList.taskToBeFound(findThis);
+            return true;
+        } else {                                                                    //in case wrong input like Delete abc entered
             throw new DukeException("☹ OOPS!!! Sorry, but i do not know what that means :-(");
         }
     }

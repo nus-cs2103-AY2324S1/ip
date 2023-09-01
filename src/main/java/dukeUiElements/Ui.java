@@ -43,4 +43,7 @@ public class Ui {
     public static void invalidDateTimeEntry() {
         System.out.println("Invalid date/time entry. Please give in yyyy-mm-dd hh:mm format...");
     }
+    public static void emptyList() {
+        System.out.println("Duke could not find your query! Please try again...");
+    }
 }
