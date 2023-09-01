@@ -24,7 +24,7 @@ class Utils {
      * @param a Array of strings
      * @param start  start index
      * @param end end index
-     * @returns String with all tokens between start and end (not inclusive) index separated by space.
+     * @returns String with all tokens between start and end (not inclusive) index separated by space
      */
     public static String splitStringBySpaces(String[] a, int start, int end){
         String res = "";
@@ -36,6 +36,13 @@ class Utils {
         }
         return res;
     }
+
+    /**
+     * Returns the number of words in a string, separated by spaces.
+     *
+     * @param s String whose words are to be counted
+     * @returns Number of words in the string
+     */
 
     public static int getWordCount(String s) {
         return s.split("\\s+").length;
@@ -67,25 +74,48 @@ class TaskType {
         this.dateString = dateString;
     }
 
-    public String toStringWithDatetimeFormatter(DateTimeFormatter fmt) {
-        String completedBox = "[" + (isCompleted ? "X" : " ") + "] ";
-        String taskTypeBox = "[" + this.toShortString() + "]";
-        String formattedDatetime = this.getFormattedDatetime(fmt);
-        return taskTypeBox + completedBox + " " + task + " "  + formattedDatetime;
+    /**
+     * Returns the boolean value of the isCompleted field.
+     */
+
+    public boolean getIsCompleted() {
+        return isCompleted;
     }
+
+    /**
+     * Sets the isCompleted field to false or true.
+     *
+     * @param x boolean to set the isCompleted field to
+     */
 
     public void setIsCompleted(boolean x) {
         isCompleted = x;
     }
+
+    /**
+     * Produces the string representation of a TaskType to be saved in external storage.
+     */
 
     public String saveStringRep() {
         return Utils.getWordCount(this.task) + " " + this.task + " " + String.valueOf(isCompleted) + " " + this.toShortString() +
                 " " + (dateString == null ? "" : dateString);
     }
 
+    /**
+     * Produces a one-letter representation of the TaskType to be shown in lists.
+     *
+     * @returns one-letter representation of the TaskType
+     */
+
     public String toShortString() {
         return "";
     };
+
+    /**
+     * Returns a string of all datetime-related information, suitable to be shown in lists.
+     *
+     * @returns String of datetime-related information
+     */
 
     public String getFormattedDatetime(DateTimeFormatter formatter) {
         return "";
@@ -94,8 +124,17 @@ class TaskType {
 
 }
 
-
+/**
+ * Represents a task of type Todo.
+ */
 class Todo extends TaskType {
+
+    /**
+     * Constructor for the Todo class.
+     *
+     * @param task Description of task
+     * @param isCompleted Whether of not the task has been completed
+     */
 
     public Todo(String task, boolean isCompleted) {
         super(task, isCompleted, "");
@@ -106,13 +145,28 @@ class Todo extends TaskType {
     public String getFormattedDatetime(DateTimeFormatter formatter) {
         return "";
     }
-
 }
+
+/**
+ * Represents a task of type Deadline.
+ */
 class Deadline extends TaskType {
+
     private LocalDateTime dl;
-    public Deadline(String task, boolean isCompleted, String dl, ArrayList<DateTimeFormatter> formatters) throws DukeException {
-        super(task, isCompleted, dl);
-        String[] s = dl.split("\\s+");
+
+    /**
+     * Constructor for the Deadline class.
+     *
+     * @param task Description of task
+     * @param isCompleted Whether of not the task has been completed
+     * @param dateString String of datetime related information
+     * @param formatters List of Datetime formatters used to convert the dateString into a LocalDateTime
+     * @throws DukeException when the /by description is empty or cannot be interpreted by given formatters.
+     */
+
+    public Deadline(String task, boolean isCompleted, String dateString, ArrayList<DateTimeFormatter> formatters) throws DukeException {
+        super(task, isCompleted, dateString);
+        String[] s = dateString.split("\\s+");
         String a = Utils.splitStringBySpaces(s, 1, s.length);
         if (a.isEmpty()) {
             throw new DukeException("/by description cannot be empty");
@@ -139,12 +193,26 @@ class Deadline extends TaskType {
         return "(by: " +  dl.format(formatter) + ")";
     }
 }
+
+/**
+ * Represents a task of type Event.
+ */
 class Event extends TaskType {
     private LocalDateTime from;
     private LocalDateTime to;
-    public Event(String task, boolean isCompleted, String dl, ArrayList<DateTimeFormatter> formatters) throws DukeException {
-        super(task, isCompleted, dl);
-        String[] s = dl.split("\\s+");
+
+    /**
+     * Constructor for the Event class.
+     *
+     * @param task Description of task
+     * @param isCompleted Whether of not the task has been completed
+     * @param dateString String of datetime related information
+     * @param formatters List of Datetime formatters used to convert the dateString into a LocalDateTime
+     * @throws DukeException when either the /to or /from description is empty or cannot be interpreted by given formatters
+     */
+    public Event(String task, boolean isCompleted, String dateString, ArrayList<DateTimeFormatter> formatters) throws DukeException {
+        super(task, isCompleted, dateString);
+        String[] s = dateString.split("\\s+");
         boolean wasToDetected = false;
         for(int i = 1; i < s.length; i++){
             if(s[i].equals("/to")) {
@@ -194,6 +262,10 @@ class Event extends TaskType {
         return "(from: " +  from.format(formatter) + " to: " + to.format(formatter) + ")";
     }
 }
+
+/**
+ * A checked exception class, personalized to fit the Duke application.
+ */
 class DukeException extends Exception {
     public DukeException(String a){
         super(a);
@@ -201,47 +273,99 @@ class DukeException extends Exception {
 }
 
 
-
+/**
+ * Manages displaying of information to the end-user.
+ */
 
 class Ui{
     private DTFormat dtf;
 
+    /**
+     * Constructor for the Ui class.
+     *
+     * @param dtf DateTimeFormatter to be used in formatting strings to be displayed.
+     */
+
     public Ui(DTFormat dtf) {
         this.dtf = dtf;
     }
+
+    /**
+     * Prints a message to the UI.
+     *
+     * @param msg string to be printed
+     */
+
     public void print(String msg) {
         System.out.println(msg);
     }
 
+    /**
+     * Formats the information of a TaskType into a string to be shown in the UI.
+     *
+     * @param task TaskType to be formatted.
+     * @param fmt DateTimeFormatter to be used in producing the output
+     * @returns String representation of the TaskType to be shown in the UI
+     */
+
+    public String formatTaskToPrint(TaskType task, DateTimeFormatter fmt) {
+        String completedBox = "[" + (task.getIsCompleted() ? "X" : " ") + "] ";
+        String taskTypeBox = "[" + task.toShortString() + "]";
+        String formattedDatetime = task.getFormattedDatetime(fmt);
+        return taskTypeBox + completedBox + " " + task + " "  + formattedDatetime;
+    }
+
+    /**
+     * Prints all TaskTypes in a list to the UI.
+     *
+     * @param items items to be printed
+     */
+
     public void printItems(ArrayList<TaskType> items) {
         for(int i = 0; i < items.size(); i++){
-            print((i + 1) + "." + itemToString(items.get(i)));
+            print((i + 1) + "." + formatTaskToPrint(items.get(i), dtf.getOutFormatter()));
         }
     }
+
+    /**
+     * Prints the introductory message to the end-user.
+     */
 
     public void printIntro() {
         print("Hello I'm Robot!");
         print("What can I do for you?");
     }
 
+    /**
+     * Prints the final message to the end-user when they exit the program.
+     */
+
     public void printExit() {
         print("Bye! Hope to see you again soon!");
     }
+
+    /**
+     * Displays a loading error to the end-user when data cannot be loaded for some reason.
+     */
 
     public void showLoadingError() {
         print("An error occurred while loading data into your list, starting with a blank list...");
     }
 
-    public String itemToString(TaskType a) {
-        return a.toStringWithDatetimeFormatter(dtf.getOutFormatter());
-    }
-
-
 }
+
+/**
+ * Manages DateTimeFormatters to be used in the application.
+ */
 
 class DTFormat{
     private ArrayList<DateTimeFormatter> formatters;
     private DateTimeFormatter out_date_format;
+
+    /**
+     * Constructor for the DTFormat class, creating severaL default DateTimeFormatters to
+     * be used.
+     */
     public DTFormat() {
         formatters = new ArrayList<>();
         DateTimeFormatter f1 = new DateTimeFormatterBuilder()
@@ -266,30 +390,67 @@ class DTFormat{
 
         out_date_format = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm");
     }
+
+    /**
+     * Returns an ArrayList of DateTimeFormatters to recognize user input.
+     *
+     * @returns ArrayList of DateTimeFormatters to recognize user input
+     */
+
     public ArrayList<DateTimeFormatter> getFormatters(){
         return formatters;
     }
+    /**
+     * Adds a datetime format to the list of recognized formats.
+     */
     public void addReadFormat(String k) {
         formatters.add(DateTimeFormatter.ofPattern(k));
     }
+    /**
+     * Removes a datetime format by index from the list of recognized formats.
+     */
     public void removeReadFormat(int x) {
         formatters.remove(x);
     }
+    /**
+     * Returns a DateTimeFormatter to format output.
+     *
+     * @returns DateTimeFormatter to format output
+     */
     public DateTimeFormatter getOutFormatter() {
         return out_date_format;
     }
+    /**
+     * Sets the output DateTimeFormatter to the given datetime format.
+     */
     public void setOutFormatter(String k) {
         out_date_format = DateTimeFormatter.ofPattern(k);
     }
 
 }
 
+/**
+ * Represents the list of tasks created by user.
+ */
 class TaskList{
     ArrayList<TaskType> items;
 
-    public TaskList(){
+    /**
+     * Default constructor for TaskList class, creates an empty list of TaskTypes.
+     */
+    public TaskList() {
         items = new ArrayList<>();
     }
+
+    /**
+     * Secondary constructor for TaskList class, generates a list of TaskTypes
+     * from saved data.
+     *
+     * @param ss ArrayList of strings loaded from external data storage
+     * @param dtf Datetime formatter used to recognize dates in saved data
+     * @throws DukeException when the string format cannot be recognized and converted to TaskType
+     */
+
     public TaskList(ArrayList<String> ss, DTFormat dtf) throws DukeException {
         items = new ArrayList<>();
         for(String s : ss){
@@ -312,32 +473,72 @@ class TaskList{
         }
     }
 
+    /**
+     * Returns the size of the TaskList.
+     *
+     * @returns size of TaskList.
+     */
+
     public int getSize() {
         return items.size();
     }
+
+    /**
+     * Returns an item in the TaskList by index
+     *
+     * @param x index of item
+     * @returns item in the TaskList by index
+     */
 
     public TaskType getItem(int x) {
         return items.get(x);
     }
 
+    /**
+     * Appends an item to the end of the TaskList
+     *
+     * @param y TaskType to be appended
+     */
+
     public void addItem(TaskType y) {
         items.add(y);
     }
+
+    /**
+     * Removes an item from the TaskList by index
+     *
+     * @param x index of item to be removed
+     */
     public void removeItem(int x) {
         items.remove(x);
     }
 
+    /**
+     * Returns all items in the TaskList as an ArrayList of TaskTypes
+     *
+     * @returns ArrayList of TaskTypes
+     */
+
     public ArrayList<TaskType> getItems() {
         return items;
     }
-
-
 }
+
+
+/**
+ * Manages all loading and saving of data to external storage.
+ */
 
 class Storage{
     ArrayList<String> its;
     private String data_file;
 
+    /**
+     * Constructor for Storage class, establishes whether external storage
+     * location exists, and if not, creates it.
+     *
+     * @param data_folder relative pathname to the folder of external storage
+     */
     public Storage(String data_folder) {
         File g = new File(data_folder);
         if(!g.exists()) {
@@ -345,11 +546,14 @@ class Storage{
         }
         data_file = data_folder + "data.txt";
         this.data_file = data_file;
-
-
-
     }
 
+    /**
+     * Loads data from external storage into the application, creating an
+     * ArrayList of items as strings to be further processed.
+     *
+     * @returns ArrayList of strings
+     */
     public ArrayList<String> load() {
         File f = new File(data_file);
         its = new ArrayList<>();
@@ -372,6 +576,12 @@ class Storage{
         return its;
     }
 
+    /**
+     * Saves data from application into external storage.
+     *
+     * @param items list of TaskTypes to be saved to storage
+     */
+
     public void save(ArrayList<TaskType> items){
         try{
             FileWriter fileWriter = new FileWriter(data_file);
@@ -385,17 +595,36 @@ class Storage{
 
     }
 
-
 }
 
+/**
+ * Handles parsing of user input and performing associated actions.
+ */
+
 class Parser{
-    DTFormat dtf;
-    Ui ui;
-    public Parser(DTFormat dtf, Ui ui){
+    private DTFormat dtf;
+    private Ui ui;
+    private TaskList tl;
+    /**
+     * Constructor for Parser class.
+     *
+     * @param dtf DTFormat object used to handle datetime-related strings
+     * @param ui Ui object used to handle displaying output to user.
+     * @param tl TaskList object to track user-created tasks.
+     */
+    public Parser(DTFormat dtf, Ui ui, TaskList tl){
         this.dtf = dtf;
         this.ui = ui;
+        this.tl = tl;
     }
-    public boolean parse(String userInput, TaskList tl) throws DukeException{
+
+    /**
+     * Parses user input and performs associated actions
+     *
+     * @param userInput One line of the user input
+     */
+
+    public boolean parse(String userInput) throws DukeException{
         String[] splitStr = userInput.split("\\s+");
 
             if (userInput.equals("bye")) {
@@ -416,7 +645,7 @@ class Parser{
                 }
                 tl.getItem(x).setIsCompleted(true);
                 ui.print("Nice! I've marked this task as done:");
-                ui.print(ui.itemToString(tl.getItem(x)));
+                ui.print(ui.formatTaskToPrint(tl.getItem(x), dtf.getOutFormatter()));
 
             } else if (splitStr[0].equals("unmark")) {
                 if(splitStr.length != 2) {
@@ -428,7 +657,7 @@ class Parser{
                 }
                 tl.getItem(x).setIsCompleted(false);
                 ui.print("Ok, I've marked this task as not done yet:");
-                ui.print(ui.itemToString(tl.getItem(x)));
+                ui.print(ui.formatTaskToPrint(tl.getItem(x), dtf.getOutFormatter()));
 
             } else if (splitStr[0].equals("remove")) {
                 if(splitStr.length != 2) {
@@ -439,7 +668,7 @@ class Parser{
                     throw new DukeException("Index is out of list range.");
                 }
                 ui.print("Ok, the following item was removed:");
-                ui.print(ui.itemToString(tl.getItem(x)));
+                ui.print(ui.formatTaskToPrint(tl.getItem(x), dtf.getOutFormatter()));
                 tl.removeItem(x);
 
             } else if (splitStr[0].equals("todo")) {
@@ -449,7 +678,7 @@ class Parser{
                 String desc = Utils.splitStringBySpaces(splitStr, 1, splitStr.length);
                 tl.addItem(new Todo(desc, false));
                 ui.print("Got it, I've added this task:");
-                ui.print(ui.itemToString(tl.getItem(tl.getSize()-1)));
+                ui.print(ui.formatTaskToPrint(tl.getItem(tl.getSize()-1), dtf.getOutFormatter()));
                 ui.print("Now you have " + tl.getSize() + " tasks in the list.");
 
             } else if (splitStr[0].equals("deadline")) {
@@ -474,7 +703,7 @@ class Parser{
                     throw new DukeException("/by keyword is necessary and not detected. Use /by to set a deadline.");
                 }
                 ui.print("Got it, I've added this task:");
-                ui.print(ui.itemToString(tl.getItem(tl.getSize()-1)));
+                ui.print(ui.formatTaskToPrint(tl.getItem(tl.getSize()-1), dtf.getOutFormatter()));
                 ui.print("Now you have " + tl.getSize() + " tasks in the list.");
 
             } else if (splitStr[0].equals("event")) {
@@ -498,7 +727,7 @@ class Parser{
                     throw new DukeException("/by keyword is necessary and not detected. Use /by to set a deadline.");
                 }
                 ui.print("Got it, I've added this task:");
-                ui.print(ui.itemToString(tl.getItem(tl.getSize()-1)));
+                ui.print(ui.formatTaskToPrint(tl.getItem(tl.getSize()-1), dtf.getOutFormatter()));
                 ui.print("Now you have " + tl.getSize() + " tasks in the list.");
             } else {
                 throw new DukeException("Sorry, I don't understand that command");
@@ -506,8 +735,11 @@ class Parser{
 
         return true;
     }
-
 }
+
+/**
+ * Entry point of the Duke program.
+ */
 
 public class Duke {
 
@@ -518,12 +750,37 @@ public class Duke {
     private DTFormat dtf;
     private static Scanner sc = new Scanner(System.in);
 
+    /**
+     * Constructor for Duke class, initializing all necessary classes
+     * to manage IO and external storage.
+     *
+     * @param filepath relative pathname to the folder of external storage
+     */
+
+    public Duke(String filepath) {
+        dtf = new DTFormat();
+        ui = new Ui(dtf);
+        storage = new Storage(filepath);
+        try {
+            tasks = new TaskList(storage.load(), dtf);
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+        parser = new Parser(dtf, ui, tasks);
+    }
+
+    /**
+     * Runs the Duke program, beginning the loop of receiving user
+     * input until the user terminates.
+     */
+
     public void run() {
         ui.printIntro();
         while(true) {
             String userInput = sc.nextLine();
             try {
-                if (!parser.parse(userInput, tasks)) {
+                if (!parser.parse(userInput)) {
                     break;
                 }
             } catch (DukeException e) {
@@ -534,19 +791,7 @@ public class Duke {
         storage.save(tasks.getItems());
         ui.printExit();
     }
-    public Duke(String filepath) {
-        dtf = new DTFormat();
-        ui = new Ui(dtf);
-        storage = new Storage(filepath);
-        parser = new Parser(dtf, ui);
-        try {
-            tasks = new TaskList(storage.load(), dtf);
-        } catch (DukeException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
-        }
 
-    }
 
     public static void main(String[] args) {
         new Duke("./data/").run();

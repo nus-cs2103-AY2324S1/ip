@@ -7,7 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DukeTest {
     DTFormat dtf = new DTFormat();
     Ui ui = new Ui(dtf);
-    Parser p = new Parser(dtf, ui);
+    TaskList tl = new TaskList();
+    Parser p = new Parser(dtf, ui, tl);
 
     @Test
     public void test1(){
