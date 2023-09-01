@@ -20,6 +20,18 @@ public class Duke {
 
     }
 
+    private static String getUserTaskName() {
+        Scanner getUserInput = new Scanner(System.in);
+        String taskName = getUserInput.nextLine();
+        if (taskName.isEmpty()) {
+            System.out.println("OOPS!!! The name of a task cannot be empty.");
+            return "";
+        } else {
+            return taskName;
+        }
+
+    }
+
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -93,59 +105,61 @@ public class Duke {
 
                 case "todo":
                     System.out.println("Enter task name:");
-                    String taskName = getUserInput.nextLine();
-                    userList[listPointer] = new Task(taskName, 1, "");
+                    String taskName = getUserTaskName();
+                    if (!(taskName.isEmpty())) {
+                        userList[listPointer] = new Task(taskName, 1, "");
 
-                    System.out.println("Got it. I've added this task:");
+                        System.out.println("Got it. I've added this task:");
 
-                    System.out.println(userList[listPointer].display());
+                        System.out.println(userList[listPointer].display());
 
-                    listPointer = listPointer + 1;
+                        listPointer = listPointer + 1;
 
-                    System.out.println("Now you have " + listPointer + " tasks in the list.");
+                        System.out.println("Now you have " + listPointer + " tasks in the list.");
+                    }
+
                     break;
 
                 case "deadline":
                     System.out.println("Enter task name:");
-                    String taskN = getUserInput.nextLine();
-                    System.out.println("Enter deadline:");
-                    String timePeriod = getUserInput.nextLine();
-                    userList[listPointer] = new Task(taskN, 2, "by:" + timePeriod);
+                    String taskN = getUserTaskName();
+                    if (!(taskN.isEmpty())) {
+                        System.out.println("Enter deadline:");
+                        String timePeriod = getUserInput.nextLine();
+                        userList[listPointer] = new Task(taskN, 2, "by:" + timePeriod);
 
-                    System.out.println("Got it. I've added this task:");
+                        System.out.println("Got it. I've added this task:");
 
-                    System.out.println(userList[listPointer].display());
+                        System.out.println(userList[listPointer].display());
 
-                    listPointer = listPointer + 1;
+                        listPointer = listPointer + 1;
 
-                    System.out.println("Now you have " + listPointer + " tasks in the list.");
+                        System.out.println("Now you have " + listPointer + " tasks in the list.");
+                    }
                     break;
 
                 case "event":
                     System.out.println("Enter task name:");
-                    String tN = getUserInput.nextLine();
-                    System.out.println("Enter start time:");
-                    String startTime = getUserInput.nextLine();
-                    System.out.println("Enter end time:");
-                    String endTime = getUserInput.nextLine();
-                    userList[listPointer] = new Task(tN, 3, "from: " + startTime + " to: " + endTime);
+                    String tN = getUserTaskName();
+                    if (!(tN.isEmpty())) {
+                        System.out.println("Enter start time:");
+                        String startTime = getUserInput.nextLine();
+                        System.out.println("Enter end time:");
+                        String endTime = getUserInput.nextLine();
+                        userList[listPointer] = new Task(tN, 3, "from: " + startTime + " to: " + endTime);
 
-                    System.out.println("Got it. I've added this task:");
+                        System.out.println("Got it. I've added this task:");
 
-                    System.out.println(userList[listPointer].display());
+                        System.out.println(userList[listPointer].display());
 
-                    listPointer = listPointer + 1;
+                        listPointer = listPointer + 1;
 
-                    System.out.println("Now you have " + listPointer + " tasks in the list.");
+                        System.out.println("Now you have " + listPointer + " tasks in the list.");
+                    }
                     break;
 
                 default:
-                    userList[listPointer] = new Task(userInput, 1, "");
-                    listPointer = listPointer + 1;
-
-                    System.out.println("added: " + userInput);
-
-                    System.out.println("Now you have " + listPointer + " tasks in the list.");
+                    System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
 
 
             }
