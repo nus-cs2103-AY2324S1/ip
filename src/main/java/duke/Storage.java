@@ -56,8 +56,7 @@ public class Storage {
             s.close();
         } catch (FileNotFoundException e) {
             System.out.println("\n" + "OOPS!!! Could not find the file " + this.filePath);
-        }
-        finally {
+        } finally {
             return list;
         }
     }
