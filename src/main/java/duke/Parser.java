@@ -121,10 +121,13 @@ public class Parser {
                 throw new DukeException("Please type in INTEGER after this command ^v^");
             }
             return new DeleteCommand(k - 1);
+
         case "exit":
             return new ExitCommand();
+
         case "":
             return new DoNothingCommand();
+
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -136,6 +139,7 @@ public class Parser {
         String[] inputArr = input.split("/");
         Task temp;
         String des = inputArr[1];
+
         if (inputArr.length == 2) {
             temp = new Todo(des);
         } else if (inputArr.length == 3) {
