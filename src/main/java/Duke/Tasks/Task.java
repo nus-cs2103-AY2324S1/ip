@@ -1,9 +1,17 @@
 package Duke.Tasks;
 
+/**
+ * Encapsulates a basic Task.
+ */
 public abstract class Task {
     private String itemName;
     private boolean isDone;
 
+    /**
+     * Generic constructor for a Task
+     *
+     * @param itemName The name of the task
+     */
     public Task(String itemName) {
         this.itemName = itemName;
     }
@@ -23,10 +31,6 @@ public abstract class Task {
 
         Task otherListItem = (Task) o;
         return otherListItem.itemName.equals(this.itemName) && otherListItem.isDone == this.isDone;
-    }
-
-    public String getItemName() {
-        return itemName;
     }
 
     /**
