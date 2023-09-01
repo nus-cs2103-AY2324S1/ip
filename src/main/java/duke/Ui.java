@@ -52,6 +52,14 @@ public class Ui {
     public void showNumberOfTasks(TaskList taskList) {
         System.out.println("Now you have " + taskList.getListSize() + " tasks in the list.");
     }
+    public void showFoundTasks(TaskList tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        int index = 1;
+        for (Task task : tasks) {
+            System.out.println(index + "." + task);
+            index++;
+        }
+    }
     public String readCommand() {
         Scanner myObj = new Scanner(System.in);
         return myObj.nextLine();

@@ -31,6 +31,16 @@ public class TaskList implements Iterable<Task> {
         task.markUndone();
         return task;
     }
+
+    public TaskList findTasksByKeyword(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : this.tasks) {
+            if (task.getDescription().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        return new TaskList(foundTasks);
+    }
     public int getListSize() {
         return this.tasks.size();
     }
