@@ -1,9 +1,6 @@
-package Tasks;
-
-import Tasks.Task;
+package Duke.Tasks;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Stores the list of items that the user has.
@@ -69,7 +66,7 @@ public class TaskList {
     }
 
     /**
-     * Encodes the current Tasks in a string, each task separated by a newline.
+     * Encodes the current Duke.Tasks in a string, each task separated by a newline.
      * @return
      */
     public String serialize() {

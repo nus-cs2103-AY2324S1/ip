@@ -1,13 +1,11 @@
-package UI;
+package Duke.UI;
 
-import Parser.Parser;
-import Storage.Storage;
-import Tasks.Commands;
-import Tasks.Task;
-import Tasks.TaskList;
-import com.sun.source.util.TaskListener;
+import Duke.Parser.Parser;
+import Duke.Storage.Storage;
+import Duke.Tasks.Commands;
+import Duke.Tasks.Task;
+import Duke.Tasks.TaskList;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {

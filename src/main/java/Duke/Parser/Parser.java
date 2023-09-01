@@ -1,8 +1,8 @@
-package Parser;
+package Duke.Parser;
 
-import Exceptions.DukeException;
-import Storage.Storage;
-import Tasks.*;
+import Duke.Exceptions.DukeException;
+import Duke.Storage.Storage;
+import Duke.Tasks.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static UI.Ui.printResult;
+import static Duke.UI.Ui.printResult;
 
 public class Parser {
     private static String UNKNOWN_COMMAND = "\uD83D\uDE21 This command is not something I can handle!";
@@ -22,7 +22,6 @@ public class Parser {
     private static String FROM_EMPTY = "\uD83D\uDE21 Missing from!";
     private static String TO_EMPTY = "\uD83D\uDE21 Missing to!";
     private static String TIME_FORMAT_ERROR = "\uD83D\uDE21 Time format invalid!";
-    private static String FILE_PARSE_ERROR = "\uD83D\uDE21 Error parsing save file!";
     private static String INVALID_DATE_FORMAT = "\uD83D\uDE21 Invalid date format! Try using YYYY-MM-DD";
 
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -30,7 +29,10 @@ public class Parser {
     /**
      * Parses the input string by the user.
      *
-     * @param inputString The input string entered by the user
+     * @param inputString The input string entered by the user.
+     * @param taskList The list of tasks
+     * @param storage The storage object that handles saving updates.
+     *
      * @return true if the program can continue, false if the program has to halt.
      * @throws DukeException
      */
@@ -46,7 +48,6 @@ public class Parser {
         switch (inputCommand) {
             case BYE: {
                 printResult(inputCommand, null, taskList);
-//                break loop;
 
                 canContinue = false;
                 break;
@@ -162,8 +163,7 @@ public class Parser {
                     // yes, formatted correctly
                     from = matcherFrom.group(2);
                 } else {
-//                        System.out.println("ERROR: no pattern found");
-                    throw new DukeException(TIME_FORMAT_ERROR);
+                    throw new DukeException(FROM_EMPTY);
                 }
 
                 // parse the 'from'
