@@ -23,7 +23,7 @@ public class ListCommandTest {
     }
 
     @Test
-    public void run_nonEmptyTaskList_commandExceptionThrown() throws CommandException {
+    public void run_nonEmptyTaskList_success() throws CommandException {
         TaskList tasks = new TaskList();
         Todo todo = new Todo("read book");
         Deadline deadline = new Deadline("assignment", LocalDateTime.parse("2023-09-10T12:00"));
