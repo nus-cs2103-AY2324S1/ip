@@ -11,6 +11,9 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class that parses the input strings.
+ */
 public class Parser {
     private static final String regexPattern =
             "\\b(bye|list|unmark|mark|todo|deadline|event|delete)\\s*"  // match command
@@ -19,7 +22,13 @@ public class Parser {
                     + "(?:(/to)\\s+([^/]*[^/\\s]))?\\s*";               // match /to command and argument
     private static final Pattern pattern = Pattern.compile(regexPattern);
 
-
+    /**
+     * Parses the provided input string and returns the corresponding duke.command.Command instance.
+     *
+     * @param command The command string.
+     * @return The Command instance corresponding to the parsed input.
+     * @throws DukeException if the input command is not valid.
+     */
     public static Command parse(String command) throws DukeException {
         Matcher matcher = pattern.matcher(command);
 
@@ -50,7 +59,7 @@ public class Parser {
                 if (matcher.group(2) == null) {
                     throw new DukeException(Ui.LINE + Messages.INVALID_TODO_MESSAGE + Ui.LINE);
                 }
-                return new TaskCommand(new Todo(matcher.group(2)));
+                return new AddTaskCommand(new Todo(matcher.group(2)));
             case "deadline":
                 if (matcher.group(2) == null
                         || matcher.group(3) == null
@@ -67,7 +76,7 @@ public class Parser {
                     throw new DukeException(Ui.LINE + Messages.INVALID_DEADLINE_MESSAGE + Ui.LINE);
                 }
 
-                return new TaskCommand(new Deadline(matcher.group(2), parsedDate));
+                return new AddTaskCommand(new Deadline(matcher.group(2), parsedDate));
             case "event":
                 if (matcher.group(2) == null
                         || matcher.group(3) == null
@@ -78,7 +87,7 @@ public class Parser {
                         || matcher.group(6) == null) {
                     throw new DukeException(Ui.LINE + Messages.INVALID_EVENT_MESSAGE + Ui.LINE);
                 }
-                return new TaskCommand(new Event(matcher.group(2), matcher.group(4), matcher.group(6)));
+                return new AddTaskCommand(new Event(matcher.group(2), matcher.group(4), matcher.group(6)));
             case "delete":
                 if (matcher.group(2) == null) {
                     throw new DukeException(Ui.LINE + Messages.INVALID_DELETE_MESSAGE + Ui.LINE);

@@ -3,6 +3,9 @@ package duke.command;
 import duke.*;
 import duke.task.Task;
 
+/**
+ * Represents the command of marking a task as done.
+ */
 public class MarkCommand extends Command {
     private final int index;
 

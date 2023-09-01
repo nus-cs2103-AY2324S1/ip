@@ -10,6 +10,11 @@ public class Duke {
     private final Ui ui;
     private TaskList tasks;
 
+    /**
+     * Constructor for a duke.Duke instance.
+     *
+     * @param filePath The location of the save file to be created at and read from.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -21,6 +26,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the main loop of the chatbot.
+     */
     public void run() {
         ui.showGreeting();
         boolean isExit = false;
@@ -35,6 +43,7 @@ public class Duke {
             }
         }
     }
+
     public static void main(String[] args) {
         new Duke("./data/duke.txt").run();
     }

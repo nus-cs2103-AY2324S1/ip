@@ -5,6 +5,9 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
+/**
+ * Represents the command of listing all tasks.
+ */
 public class ListCommand extends Command {
     @Override
     public boolean isExit() {

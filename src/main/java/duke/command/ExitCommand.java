@@ -5,6 +5,9 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
+/**
+ * Represents the command of exiting from the bot.
+ */
 public class ExitCommand extends Command {
     @Override
     public boolean isExit() {
