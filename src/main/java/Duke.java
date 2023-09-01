@@ -221,7 +221,7 @@ public class Duke {
      * Mehod to write tasks frm ArrayList data structure into .txt file.
      * @param taskList
      */
-    public void write(ArrayList<Task> taskList) throws IOException{
+    public void write(ArrayList<Task> taskList) throws IOException {
         FileWriter writer = new FileWriter(filePath);
         for (Task task : taskList) {
             String res = null;
@@ -241,7 +241,9 @@ public class Duke {
      * Method to read tasks from .txt file to ArrayList data structure.
      */
     public void read() {
-        File savedFile = new File(filePath);
+        File folder = new File("./data");
+        File savedFile = new File(folder, "tasks.txt");
+
         try {
             Scanner sc = new Scanner(savedFile);
             while (sc.hasNextLine()) {
@@ -281,6 +283,24 @@ public class Duke {
             }
         } catch (FileNotFoundException e) {
             System.out.println("No such file");
+
+            if (!folder.exists()) {
+                if (folder.mkdir()) {
+                    System.out.println("Folder created: " + folder.getAbsolutePath());
+                } else {
+                    System.err.println("Failed to create the folder.");
+                }
+            }
+            try {
+                if (savedFile.createNewFile()) {
+                    System.out.println("File created: " + savedFile.getAbsolutePath());
+                } else {
+                    System.out.println("File already exists.");
+                }
+            } catch (IOException exc) {
+                System.err.println("An error occurred: " + e.getMessage());
+            }
+
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
@@ -289,9 +309,13 @@ public class Duke {
 
 
     public static void main(String[] args) throws DukeException {
-        Duke dukie = new Duke();
-        dukie.read();
-        dukie.intro();
-        dukie.handleInput();
+        try {
+            Duke dukie = new Duke();
+            dukie.read();
+            dukie.intro();
+            dukie.handleInput();
+            dukie.write(taskList);
+        } catch (IOException e) {
+        }
     }
 }
