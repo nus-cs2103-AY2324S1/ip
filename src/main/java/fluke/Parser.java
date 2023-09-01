@@ -1,3 +1,5 @@
+package fluke;
+
 import fluke.exceptions.EmptyDescriptionException;
 import fluke.exceptions.FlukeException;
 import fluke.exceptions.InvalidInputException;

@@ -1,3 +1,5 @@
+package fluke;
+
 import fluke.exceptions.FlukeException;
 import fluke.exceptions.TaskDoesNotExistException;
 import fluke.tasks.Deadline;

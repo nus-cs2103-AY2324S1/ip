@@ -1,3 +1,5 @@
+package fluke;
+
 import fluke.exceptions.FlukeException;
 import fluke.exceptions.InvalidInputException;
 import fluke.tasks.Task;
@@ -26,7 +28,7 @@ public class Fluke {
     }
 
     public static void main(String[] args) {
-        // initialise Fluke
+        // initialise fluke.Fluke
         Fluke fluke = new Fluke(SAVE_FILE_NAME);
         fluke.run();
     }
@@ -112,7 +114,7 @@ public class Fluke {
      * Helper function for additional logic related to changing the list.
      * @param commandType type of command
      * @param nextCommand the content in the command
-     * @throws FlukeException an exception related to operations with Fluke
+     * @throws FlukeException an exception related to operations with fluke.Fluke
      * @throws IOException an exception related to saving data
      */
     private void changeTodoList(Command commandType, String nextCommand) throws FlukeException {
