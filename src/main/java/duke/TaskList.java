@@ -50,4 +50,24 @@ public class TaskList {
             System.out.println(Ui.indent + "Now you have " + storeTask.size() + " tasks in your task scheduler...");
         }
     }
+    public static void taskToBeFound(String findThis) {
+        ListIterator<Task> ls = storeTask.listIterator();
+        ArrayList<Task> filteredList = new ArrayList<>();
+        while (ls.hasNext()) {
+            Task current = ls.next();
+            String currentDescription = current.getDescription();
+            if (currentDescription.contains(findThis)) {
+                filteredList.add(current);
+            }
+        }
+        ListIterator<Task> iterFilteredList = filteredList.listIterator();
+        if (filteredList.size() == 0) {
+            Ui.emptyList();
+            Ui.printHorizontalLine();
+        } else {
+            System.out.println(Ui.indent + "Tasks that may match your search result...");
+            Ui.printList(iterFilteredList);
+            Ui.printHorizontalLine();
+        }
+    }
 }

@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ListIterator;
 
 public class Parser {
-    public enum TaskKeyVal {ToDo, Deadline, Event, Delete, mark, unmark, bye, list};
+    public enum TaskKeyVal {ToDo, Deadline, Event, Delete, mark, unmark, bye, list, find};
 
     public static boolean parse(String userInput) throws DukeException {
         String[] userInputList = userInput.split(" ", 2);
@@ -40,6 +40,10 @@ public class Parser {
         } else if (taskKeyVal == TaskKeyVal.Delete) {
             Integer delUserChoice = Integer.parseInt(userInputList[1]);
             TaskList.deleteTask(delUserChoice);
+            return true;
+        } else if (taskKeyVal == TaskKeyVal.find) {
+            String findThis = userInputList[1];
+            TaskList.taskToBeFound(findThis);
             return true;
         } else {                                                                    //in case wrong input like Delete abc entered
             throw new DukeException("☹ OOPS!!! Sorry, but i do not know what that means :-(");
