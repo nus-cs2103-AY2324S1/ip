@@ -17,6 +17,9 @@ public class Task {
     public void unmark() {
         this.done = false;
     }
+    public String getItem() {
+        return this.item;
+    }
     @Override
     public String toString() {
         String doneStatus = this.done ? "X" : " ";

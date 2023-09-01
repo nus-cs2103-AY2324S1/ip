@@ -44,6 +44,8 @@ public class Parser {
                     return handleUnmark(fullCommand);
                 case DeleteCommand.COMMAND_WORD:
                     return handleDelete(fullCommand);
+                case FindCommand.COMMAND_WORD:
+                    return handleFind(fullCommand);
 
                 case ExitCommand.COMMAND_WORD:
                     return new ExitCommand();
@@ -134,6 +136,17 @@ public class Parser {
     public Command handleUnmark(String fullCommand) throws MaxException {
         int markNumber = parseInt(fullCommand.substring(7));
         return new MarkCommand(markNumber);
+    }
+
+    /**
+     * Parses user input for phrase to be found.
+     *
+     * @param fullCommand User input
+     * @return Find command
+     */
+    public Command handleFind(String fullCommand) {
+        String item = fullCommand.substring(5).trim();
+        return new FindCommand(item);
     }
 }
 
