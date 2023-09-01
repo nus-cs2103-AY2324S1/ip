@@ -1,7 +1,7 @@
 /**
  * Represent a task that is either done or not done.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -13,6 +13,17 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    /**
+     * Creates a task that could be done or undone.
+     *
+     * @param isDone Whether a task is done or undone
+     * @param description The description of the task that the user inputs
+     */
+    public Task(boolean isDone, String description) {
+        this.isDone = isDone;
+        this.description = description;
     }
 
     /**
@@ -36,6 +47,15 @@ public class Task {
      */
     public void markAsUndone() {
         this.isDone = false;
+    }
+
+    /**
+     * Returns the string of a formatted task for saving
+     *
+     * @return String representation of formatted task
+     */
+    public String toSaveFormat() {
+        return (isDone ? "1" : "0") + " | " + this.description;
     }
 
     @Override

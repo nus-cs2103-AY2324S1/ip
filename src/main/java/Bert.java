@@ -1,17 +1,17 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.lang.StringBuilder;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 /**
  * A chatbot named Bert that keeps track of a task list.
  */
 public class Bert {
-    /**
-     * botName stores the name of the chatbot.
-     */
-    private static final String botName = "Bert";
-    /**
-     * al stores the list of tasks.
-     */
+    private static final String BOT_NAME = "Bert";
+    private static final String FILE_PATH = "./data/bert.txt";
     private static ArrayList<Task> al = new ArrayList<>();
 
     /**
@@ -20,7 +20,7 @@ public class Bert {
     private static void introduce() {
         System.out.println(
                 "____________________________________________________________\n" +
-                "Hello! I'm " + Bert.botName + "\n" +
+                "Hello! I'm " + Bert.BOT_NAME + "\n" +
                 "What can I do for you?\n" +
                 "____________________________________________________________\n"
         );
@@ -55,9 +55,10 @@ public class Bert {
     /**
      * Marks a task at a specific index of the list as done.
      *
-     * @param i The index of a task on the list
+     * @param index The index of a task on the list
      */
-    private static void mark(int i) {
+    private static void mark(String index) {
+        int i = Integer.parseInt(index) - 1;
         Task t = al.get(i);
         t.markAsDone();
         al.set(i, t);
@@ -72,9 +73,10 @@ public class Bert {
     /**
      * Marks a task at a specific index of the list as undone.
      *
-     * @param i The index of a task on the list
+     * @param index The index of a task on the list
      */
-    private static void unmark(int i) {
+    private static void unmark(String index) {
+        int i = Integer.parseInt(index) - 1;
         Task t = al.get(i);
         t.markAsUndone();
         al.set(i, t);
@@ -155,9 +157,10 @@ public class Bert {
     /**
      * Deletes the task at the specific index of the list.
      *
-     * @param i The index of a task on the list
+     * @param index The index of a task on the list
      */
-    private static void delete(int i) {
+    private static void delete(String index) {
+        int i = Integer.parseInt(index) - 1;
         Task t = al.remove(i);
         System.out.println(
                 "____________________________________________________________\n" +
@@ -168,8 +171,121 @@ public class Bert {
         );
     }
 
+    /**
+     * Saves the task list into ip/data/bert.txt.
+     */
+    private static void saveTasks() {
+        try {
+            ensureTaskFileExists();
+        } catch (IOException e) {
+            System.out.println(
+                    "____________________________________________________________\n" +
+                    "OOPS!!! An error occurred while creating the task file.\n" +
+                    "____________________________________________________________\n"
+            );
+            return;
+        }
+
+        try {
+            Bert.writeToFile(FILE_PATH, Bert.taskListToSaveFormat());
+        } catch (IOException e) {
+            System.out.println(
+                    "____________________________________________________________\n" +
+                    "OOPS!!! An error occurred while saving tasks.\n" +
+                    "____________________________________________________________\n"
+            );
+        }
+    }
+
+    /**
+     * Checks if ip/data/bert.txt exists.
+     * If the directory or the file does not exist,
+     * creates the directory and the file.
+     *
+     * @throws IOException This exception is thrown when an error occurs while creating
+     *          the file.
+     */
+    private static void ensureTaskFileExists() throws IOException {
+        File file = new File(FILE_PATH);
+        if (!file.getParentFile().isDirectory()) {
+            file.getParentFile().mkdir();
+        }
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+    }
+
+    /**
+     * Converts the task list into its save format.
+     *
+     * @return The String representation of the formatted task list
+     */
+    private static String taskListToSaveFormat() {
+        StringBuilder sb = new StringBuilder();
+        for (Task t : al) {
+            sb.append(t.toSaveFormat() + System.lineSeparator());
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Writes the textToAdd input into a file specified by filePath.
+     *
+     * @param filePath The path to the file to be written
+     * @param textToAdd The String of text to be written in the file
+     * @throws IOException This exception is thrown when an error occurs while opening
+     *          the file.
+     */
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    /**
+     * Loads tasks from the save data into the chatbot.
+     */
+    private static void loadTasks() {
+        try {
+            ensureTaskFileExists();
+            File file = new File(FILE_PATH);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                String task = sc.nextLine();
+                switch (task.charAt(0)) {
+                    case 'T':
+                        ToDo t = ToDo.createFromSaveFormat(task);
+                        al.add(t);
+                        break;
+                    case 'D':
+                        Deadline d = Deadline.createFromSaveFormat(task);
+                        al.add(d);
+                        break;
+                    case 'E':
+                        Event e = Event.createFromSaveFormat(task);
+                        al.add(e);
+                        break;
+                }
+            }
+            sc.close();
+        } catch (FileNotFoundException e) {
+            System.out.println(
+                    "____________________________________________________________\n" +
+                    "OOPS!!! The attempt to open the file has failed.\n" +
+                    "____________________________________________________________\n"
+            );
+        } catch (IOException e) {
+            System.out.println(
+                    "____________________________________________________________\n" +
+                    "OOPS!!! An error occurred while creating the task file.\n" +
+                    "____________________________________________________________\n"
+            );
+        }
+    }
+
     public static void main(String[] args) {
         Bert.introduce();
+        Bert.loadTasks();
 
         // Initialise a scanner and read the first line of user input
         Scanner sc = new Scanner(System.in);
@@ -179,64 +295,48 @@ public class Bert {
         while (!s.equals("bye")) {
             try {
                 String cmd;
+                String input = "";
                 int indexOfFirstSpace = s.indexOf(" ");
                 if (indexOfFirstSpace == -1) {
                     cmd = s;
                 } else {
                     cmd = s.substring(0, indexOfFirstSpace);
+                    input = s.substring(indexOfFirstSpace + 1);
                 }
-                // Typing 'list' prints out the list of tasks
-                if (cmd.equals("list")) {
-                    Bert.list();
+
+                switch (cmd) {
+                    // Typing 'list' prints out the list of tasks
+                    case "list":
+                        Bert.list();
+                        break;
                     // Typing 'mark x' marks a task at a specific index on the list
-                } else if (cmd.equals("mark")) {
-                    int i = Integer.parseInt(s.substring(indexOfFirstSpace + 1)) - 1;
-                    Bert.mark(i);
+                    case "mark":
+                        Bert.mark(input);
+                        break;
                     // Typing 'unmark x' unmarks a task at a specific index on the list
-                } else if (cmd.equals("unmark")) {
-                    int i = Integer.parseInt(s.substring(indexOfFirstSpace + 1)) - 1;
-                    Bert.unmark(i);
+                    case "unmark":
+                        Bert.unmark(input);
+                        break;
                     // Typing 'todo...' stores a todo task
-                } else if (cmd.equals("todo")) {
-                    String remainder;
-                    if (indexOfFirstSpace == -1) {
-                        remainder = "";
-                    } else {
-                        remainder = s.substring(indexOfFirstSpace + 1);
-                    }
-                    Bert.todo(remainder);
+                    case "todo":
+                        Bert.todo(input);
+                        break;
                     // Typing 'deadline...' stores a deadline task
-                } else if (cmd.equals("deadline")) {
-                    String remainder;
-                    if (indexOfFirstSpace == -1) {
-                        remainder = "";
-                    } else {
-                        remainder = s.substring(indexOfFirstSpace + 1);
-                    }
-                    Bert.deadline(remainder);
+                    case "deadline":
+                        Bert.deadline(input);
+                        break;
                     // Typing 'event...' stores an event task
-                } else if (cmd.equals("event")) {
-                    String remainder;
-                    if (indexOfFirstSpace == -1) {
-                        remainder = "";
-                    } else {
-                        remainder = s.substring(indexOfFirstSpace + 1);
-                    }
-                    Bert.event(remainder);
+                    case "event":
+                        Bert.event(input);
+                        break;
                     // Typing delete deletes a task
-                } else if (cmd.equals("delete")) {
-                    int i = Integer.parseInt(s.substring(indexOfFirstSpace + 1)) - 1;
-                    Bert.delete(i);
-                } else {
-                    throw new BertInvalidTaskException();
+                    case "delete":
+                        Bert.delete(input);
+                        break;
+                    default:
+                        throw new BertInvalidTaskException();
                 }
-            } catch (BertEmptyTaskException e) {
-                System.out.println(
-                        "____________________________________________________________\n" +
-                        "OOPS!!! " + e.getMessage() + "\n" +
-                        "____________________________________________________________\n"
-                );
-            } catch (BertInvalidTaskException e) {
+            } catch (BertException e) {
                 System.out.println(
                         "____________________________________________________________\n" +
                         "OOPS!!! " + e.getMessage() + "\n" +
@@ -248,6 +348,7 @@ public class Bert {
         }
 
         sc.close();
+        Bert.saveTasks();
         Bert.exit();
     }
 }
