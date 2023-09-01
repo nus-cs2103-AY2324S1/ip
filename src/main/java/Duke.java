@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * Represents Duke, a Personal Assistant Chatbot that helps a person to keep track of
  * various things. The name Duke was chosen as a placeholder name, in honor of Duke,
- * the Java Mascot. The current name of the Chatbot is John
+ * the Java Mascot. The current name of the Chatbot is John.
  */
 public class Duke {
 
@@ -50,7 +50,7 @@ public class Duke {
                             System.out.println("Nice! I've marked this task as done:\n" + "[X] "
                                     + taskList.get(taskPos).description);
                         } else {
-                            System.out.println("Invalid number.");
+                            throw new InvalidNumberException();
                         }
 
                     } else if (command.startsWith("unmark ")) { // number index = 7
@@ -63,7 +63,7 @@ public class Duke {
                             System.out.println("OK, I've marked this task as not done yet:\n" + "[ ] "
                                     + taskList.get(taskPos).description);
                         } else {
-                            System.out.println("Invalid number.");
+                            throw new InvalidNumberException();
                         }
 
                     } else if (command.startsWith("todo ")) { // description starting index = 5
@@ -142,7 +142,7 @@ public class Duke {
 
                             itemsAdded--; //decrement number of items
                         } else {
-                            System.out.println("Invalid number.");
+                            throw new InvalidNumberException();
                         }
 
                     } else {
@@ -157,6 +157,8 @@ public class Duke {
                         }
                     }
                 } catch (InvalidCommandException e) {
+                    System.out.println(e.getMessage());
+                } catch (InvalidNumberException e) {
                     System.out.println(e.getMessage());
                 } catch (InvalidDescriptionException e) {
                     System.out.println(e.getMessage());
