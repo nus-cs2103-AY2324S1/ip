@@ -1,6 +1,14 @@
 package monke;
 
-import monke.commands.*;
+import monke.commands.Command;
+import monke.commands.DeadlineCommand;
+import monke.commands.DeleteCommand;
+import monke.commands.EventCommand;
+import monke.commands.ExitCommand;
+import monke.commands.ListCommand;
+import monke.commands.MarkCommand;
+import monke.commands.TodoCommand;
+import monke.commands.UnmarkCommand;
 import monke.tasks.Deadline;
 import monke.tasks.Event;
 import monke.tasks.Task;
@@ -10,7 +18,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class is responsible for parsing user input and data from storage.
+ */
 public class Parser {
+    /**
+     * Parses a string containing loaded data and returns a Task object.
+     *
+     * @param data The data in string format.
+     * @return A Task object parsed from the loaded data.
+     * @throws MonkeException If data provided cannot be parsed.
+     */
     public static Task parseLoadedData(String data) throws MonkeException {
         String[] tmp = data.split(" \\| ");
         String taskType = tmp[0];
@@ -41,6 +59,13 @@ public class Parser {
         return task;
     }
 
+    /**
+     * Parses a full user command and returns the corresponding Command object.
+     *
+     * @param fullCommand The full user command.
+     * @return A Command object which can execute the user command.
+     * @throws MonkeException If the command is not recognized or has invalid arguments.
+     */
     public static Command parse(String fullCommand) throws MonkeException {
         String[] temp = fullCommand.split(" ", 2);
         String command = temp[0];
@@ -76,6 +101,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses mark command and returns a MarkCommand object.
+     *
+     * @param args The arguments of the mark command.
+     * @return A MarkCommand object that can execute the mark command.
+     * @throws MonkeException If no argument provided or argument is not a number.
+     */
     public static MarkCommand parseMark(String args) throws MonkeException {
         if (args.isBlank()) {
             throw new MonkeException("OOGA BOOGA!! Please provide a list number");
@@ -88,6 +120,13 @@ public class Parser {
         return new MarkCommand(args);
     }
 
+    /**
+     * Parses unmark command and returns an UnmarkCommand object.
+     *
+     * @param args The arguments of the unmark command.
+     * @return A UnmarkCommand object that can execute the unmark command.
+     * @throws MonkeException If no argument provided or argument is not a number.
+     */
     public static UnmarkCommand parseUnmark(String args) throws MonkeException {
         if (args.isBlank()) {
             throw new MonkeException("OOGA BOOGA!! Please provide a list number");
@@ -100,6 +139,13 @@ public class Parser {
         return new UnmarkCommand(args);
     }
 
+    /**
+     * Parses todo command and returns an TodoCommand object.
+     *
+     * @param args The arguments of the todo command.
+     * @return A TodoCommand object that can execute the todo command.
+     * @throws MonkeException If no argument provided or whitespace given as argument.
+     */
     public static TodoCommand parseTodo(String args) throws MonkeException {
         if (args.isBlank()) {
             throw new MonkeException("OOGA BOOGA!! The description of a todo cannot be empty.");
@@ -107,6 +153,13 @@ public class Parser {
         return new TodoCommand(args);
     }
 
+    /**
+     * Parses deadline command and returns an DeadlineCommand object.
+     *
+     * @param args The arguments of the deadline command.
+     * @return A DeadlineCommand object that can execute the deadline command.
+     * @throws MonkeException If no arguments provided or arguments not in (task) /by (datetime) format.
+     */
     public static DeadlineCommand parseDeadline(String args) throws MonkeException {
         String[] tmp = args.split(" /by ", 2);
         if (tmp.length < 2 || tmp[0].isBlank() || tmp[1].isBlank()) {
@@ -124,6 +177,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses event command and returns an EventCommand object.
+     *
+     * @param args The arguments of the event command.
+     * @return A EventCommand object that can execute the event command.
+     * @throws MonkeException If no arguments provided or arguments not in (task) /from (start) /to (end) format.
+     */
     public static EventCommand parseEvent(String args) throws MonkeException {
         String[] tmp = args.split(" /from ", 2);
         String description = tmp[0];
@@ -141,6 +201,13 @@ public class Parser {
         return new EventCommand(description, start, end);
     }
 
+    /**
+     * Parses a delete command and returns a DeleteCommand object.
+     *
+     * @param args The arguments of the delete command.
+     * @return A DeleteCommand object that can execute the delete command.
+     * @throws MonkeException If no argument provided or argument is not a number.
+     */
     public static DeleteCommand parseDelete(String args) throws MonkeException {
         if (args.isBlank()) {
             throw new MonkeException("OOGA BOOGA!! Please provide a list number");

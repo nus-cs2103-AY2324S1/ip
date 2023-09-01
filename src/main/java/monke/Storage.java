@@ -9,18 +9,35 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles reading and writing data to a specified file.
+ */
 public class Storage {
-    String filepath;
+    /** The file path where task data is stored */
+    private String filepath;
+
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param filepath The path to the file where task data is stored.
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
     }
+
+    /**
+     * Loads task data from the file and returns a list of tasks.
+     *
+     * @return An ArrayList object containing the loaded tasks.
+     * @throws MonkeException If the file cannot be found.
+     */
     public ArrayList<Task> load() throws MonkeException {
         try {
-            File f = new File(filepath);
-            Scanner s = new Scanner(f);
+            File file = new File(filepath);
+            Scanner scanner = new Scanner(file);
             ArrayList<Task> tasks = new ArrayList<>();
-            while (s.hasNext()) {
-                Task task = Parser.parseLoadedData(s.nextLine());
+            while (scanner.hasNext()) {
+                Task task = Parser.parseLoadedData(scanner.nextLine());
                 tasks.add(task);
             }
             return tasks;
@@ -29,15 +46,21 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves task data to the file.
+     *
+     * @param tasks The list of tasks to be saved.
+     * @throws MonkeException If the file cannot be opened.
+     */
     public void saveData(TaskList tasks) throws MonkeException {
         try {
-            FileWriter fw = new FileWriter(filepath);
+            FileWriter fileWriter = new FileWriter(filepath);
             StringBuilder textToAdd = new StringBuilder();
-            for (Task task: tasks.toList()) {
+            for (Task task : tasks.toList()) {
                 textToAdd.append(task.formatData());
             }
-            fw.write(textToAdd.toString());
-            fw.close();
+            fileWriter.write(textToAdd.toString());
+            fileWriter.close();
         } catch (IOException e) {
             throw new MonkeException("Could not open file");
         }
