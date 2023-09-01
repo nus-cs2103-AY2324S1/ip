@@ -1,6 +1,10 @@
 package duke.command;
 
-import duke.*;
+import duke.DukeException;
+import duke.Messages;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
 
 /**
  * Represents the command of querying the task list.
