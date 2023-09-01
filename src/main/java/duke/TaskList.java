@@ -70,7 +70,6 @@ public class TaskList {
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
-        s.append("Here are the tasks in your list:\n");
         for (int i = 0; i < this.list.size(); i++) {
             s.append((i + 1) + "." + this.list.get(i));
             if (i < this.list.size() - 1) {

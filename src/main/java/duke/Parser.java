@@ -91,4 +91,16 @@ public class Parser {
             throw new DukeDateTimeParseException();
         }
     }
+
+    public TaskList getTaskList(String userInput, TaskList taskList) {
+        TaskList filtered = new TaskList();
+        String keyword = userInput.substring(5);
+
+        for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
+            if (taskList.getTaskAt(i).containsKeyword(keyword)) {
+                filtered.addToList(taskList.getTaskAt(i));
+            }
+        }
+        return filtered;
+    }
 }
