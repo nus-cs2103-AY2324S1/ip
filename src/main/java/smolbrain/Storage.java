@@ -10,27 +10,52 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Manages the save file with creation, editing and loading functionalities.
+ */
 public class Storage {
 
     private String FILE_PATH;
 
+    /**
+     * Creates a storage object.
+     *
+     * @param filePath Filepath of the save file.
+     */
     public Storage(String filePath) {
         FILE_PATH = filePath;
     }
+
+    /**
+     * Appends the text passed into the save file.
+     *
+     * @param text Text to append to save file.
+     * @throws IOException If there is problems accessing the save file.
+     */
     public void appendToFile(String text) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH, true); // create a FileWriter in append mode
+        FileWriter fw = new FileWriter(FILE_PATH, true);
         fw.write(text);
         fw.close();
     }
 
+    /**
+     * Writes the text passed into the save file, overwriting any previous data.
+     *
+     * @param text Text to write to save file.
+     * @throws IOException If there is problems accessing the save file.
+     */
     public void writeToFile(String text) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH); // create a FileWriter in append mode
+        FileWriter fw = new FileWriter(FILE_PATH);
         fw.write(text);
         fw.close();
     }
 
 
-    // Reads the file contents, passes each line into parser
+    /**
+     * Loads the save file contents for the chatbot.
+     *
+     * @return ArrayList of tasks from the save file.
+     */
     public ArrayList<Task> load() {
 
         File f = new File(FILE_PATH);
@@ -38,7 +63,7 @@ public class Storage {
         ArrayList<String> strings = new ArrayList<>();
 
         try {
-            Scanner s = new Scanner(f); // create a Scanner using the File as the source
+            Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 strings.add(s.nextLine());
             }

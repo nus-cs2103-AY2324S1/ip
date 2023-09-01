@@ -11,6 +11,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses any commands or string input.
+ */
 public class Parser {
 
     static String descr;
@@ -18,10 +21,23 @@ public class Parser {
     static LocalDateTime dateTime = LocalDateTime.now();
     static LocalDateTime dateTime2 = LocalDateTime.now();
 
+    /**
+     * Parses a list command.
+     *
+     * @param words Array of strings that was split by spaces.
+     * @return List command.
+     */
     public static Command parseList(String[] words) {
         return new ListCommand();
     }
 
+    /**
+     * Parses a todo command.
+     *
+     * @param words Array of strings that was split by spaces.
+     * @return Todo task.
+     * @throws MissingDescriptionException If there was no description provided.
+     */
     public static Task parseTodo(String[] words) throws MissingDescriptionException {
         descr = "";
         if (words.length < 2) {
@@ -34,6 +50,15 @@ public class Parser {
         return new Todo(descr);
     }
 
+    /**
+     * Parses a deadline command.
+     *
+     * @param words Array of strings that was split by spaces.
+     * @return Deadline task.
+     * @throws MissingDescriptionException If there was no description provided.
+     * @throws MissingTimeException If there was no time provided.
+     * @throws InvalidDateTimeException If the provided date or time was invalid.
+     */
     public static Task parseDeadline(String[] words) throws MissingDescriptionException, MissingTimeException, InvalidDateTimeException {
         boolean by = false;
         descr = "";
@@ -64,6 +89,15 @@ public class Parser {
         return new Deadline(descr, dateTime);
     }
 
+    /**
+     * Parses an event command.
+     *
+     * @param words Array of strings that was split by spaces.
+     * @return Event task.
+     * @throws MissingDescriptionException If there was no description provided.
+     * @throws MissingTimeException If there was no time provided.
+     * @throws InvalidDateTimeException If the provided date or time was invalid.
+     */
     public static Task parseEvent(String[] words) throws MissingDescriptionException, MissingTimeException, InvalidDateTimeException {
         boolean from = false;
         boolean to = false;
@@ -106,6 +140,14 @@ public class Parser {
         return new Event(descr, dateTime, dateTime2);
     }
 
+    /**
+     * Parses a mark command.
+     *
+     * @param words Array of strings that was split by spaces.
+     * @return Mark command.
+     * @throws InvalidNumberException If the provided number cannot be parsed.
+     * @throws InvalidRangeException If the provided number is out of range.
+     */
     public static Command parseMark(String[] words) throws InvalidNumberException, InvalidRangeException {
         if (words.length < 2) {
             throw new InvalidNumberException("mark");
@@ -119,6 +161,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a unmark command.
+     *
+     * @param words Array of strings that was split by spaces.
+     * @return Unmark command.
+     * @throws InvalidNumberException If the provided number cannot be parsed.
+     * @throws InvalidRangeException If the provided number is out of range.
+     */
     public static Command parseUnmark(String[] words) throws InvalidNumberException, InvalidRangeException {
         if (words.length < 2) {
             throw new InvalidNumberException("mark");
@@ -132,6 +182,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a delete command.
+     *
+     * @param words Array of strings that was split by spaces.
+     * @return Delete command.
+     * @throws InvalidNumberException If the provided number cannot be parsed.
+     * @throws InvalidRangeException If the provided number is out of range.
+     */
     public static Command parseDelete(String[] words) throws InvalidNumberException, InvalidRangeException {
         if (words.length < 2) {
             throw new InvalidNumberException("delete");
@@ -157,6 +215,17 @@ public class Parser {
         return new FindCommand(descr);
     }
 
+    /**
+     * Parses the given input by the user including passing it into its separate parse functions.
+     *
+     * @param input String of command.
+     * @return Command that was parsed.
+     * @throws MissingDescriptionException If there was no description provided.
+     * @throws MissingTimeException If there was no time provided.
+     * @throws InvalidDateTimeException If the provided date or time was invalid.
+     * @throws InvalidNumberException If the provided number cannot be parsed.
+     * @throws InvalidRangeException If the provided number is out of range.
+     */
     public static Command parse(String input) throws MissingDescriptionException, MissingTimeException, InvalidDateTimeException, InvalidNumberException, InvalidRangeException, MissingKeywordException {
 
         String[] words = input.split(" ");
@@ -194,6 +263,17 @@ public class Parser {
         }
     }
 
+    /**
+     * Used for save file parsing, it parses the given input by the user including passing it into its separate parse functions.
+     *
+     * @param input String of command.
+     * @return Task parsed.
+     * @throws MissingDescriptionException If there was no description provided.
+     * @throws MissingTimeException If there was no time provided.
+     * @throws InvalidDateTimeException If the provided date or time was invalid.
+     * @throws InvalidNumberException If the provided number cannot be parsed.
+     * @throws InvalidRangeException If the provided number is out of range.
+     */
     public static Task parseLoading(String input) throws MissingDescriptionException, MissingTimeException, InvalidDateTimeException, InvalidNumberException, InvalidRangeException {
 
         String[] words = input.split(" ");
