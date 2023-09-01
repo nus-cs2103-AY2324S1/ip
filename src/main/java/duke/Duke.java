@@ -4,11 +4,18 @@ import duke.command.Command;
 import duke.exception.DukeException;
 import java.io.FileNotFoundException;
 
+/**
+ * Represents the command line chat application Duke
+ */
 public class Duke {
-    private static TaskList tasks;
+    private TaskList tasks;
     private Ui ui;
     private Storage storage;
 
+    /**
+     * Constructs a Duke instance with the specified file path.
+     * @param filePath File path which the Duke instance reads and writes from.
+     */
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -18,7 +25,7 @@ public class Duke {
             tasks =  new TaskList();
         }
     }
-    public void run() {
+    private void run() {
         Ui.greet();
         boolean isExit = false;
         while(!isExit) {
@@ -32,6 +39,11 @@ public class Duke {
             }
         }
     }
+
+    /**
+     * Main method for the Duke instance.
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }

@@ -3,16 +3,33 @@ package duke;
 import duke.task.Task;
 import java.util.ArrayList;
 
+/**
+ * A class to represent a list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
 
+    /**
+     * Constructs a new task list.
+     */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
+
+    /**
+     * Constructs a new task list with the given list of tasks.
+     *
+     * @param tasks The list of tasks to add.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.taskList = tasks;
     }
 
+    /**
+     * Adds a task to the list.
+     *
+     * @param t The task to add.
+     */
     public void addTask(Task t) {
         this.taskList.add(t);
         Ui.showLine();
@@ -22,10 +39,21 @@ public class TaskList {
         Ui.showLine();
 
     }
+
+    /**
+     * Gets the list of tasks.
+     *
+     * @return The list of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return this.taskList;
     }
 
+    /**
+     * Deletes a task from the list.
+     *
+     * @param i The index of the task to delete.
+     */
     public void deleteTask(int i) {
         Task t = this.taskList.get(i);
         this.taskList.remove(i);
@@ -37,6 +65,9 @@ public class TaskList {
         Ui.showLine();
     }
 
+    /**
+     * Prints the tasks in the list.
+     */
     public void printTasks() {
         int len =this.taskList.size();
         System.out.println("Here are the tasks in your list:");

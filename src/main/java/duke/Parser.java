@@ -3,7 +3,17 @@ package duke;
 import duke.command.*;
 import duke.exception.InvalidTaskException;
 
+/**
+ * Represents a parser class to parse user commands for Duke
+ */
 public class Parser {
+
+    /**
+     * Parses a string input and returns the corresponding Command object.
+     * If the command is invalid throws InvalidTaskException
+     * @param fullCommand The String command that is inputeby the user.
+     * @return Command object corresponding to the string command.
+     */
     public static Command parse(String fullCommand) {
         //read first word in command
         String[] words = fullCommand.split(" ", 2);

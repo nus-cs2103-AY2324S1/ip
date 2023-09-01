@@ -6,10 +6,29 @@ import duke.Ui;
 import duke.exception.InvalidArgumentException;
 import duke.task.Task;
 
+/**
+ * The MarkCommand class represents a command to mark tasks as complete.
+ * It parses the user input and handles exceptions related to invalid input.
+ */
 public class MarkCommand extends Command {
+
+    /**
+     * Constructs a new MarkCommand object with the specified full command string.
+     *
+     * @param fullCommand The full command string as entered by the user.
+     */
     public MarkCommand(String fullCommand) {
         super(fullCommand);
     }
+
+    /**
+     * Executes the Mark command, marking a task in tasks as done.
+     *
+     * @param tasks   The task list containing the tasks.
+     * @param ui      The user interface for displaying messages to the user.
+     * @param storage The storage object for reading from or writing to a data file.
+     * @throws InvalidArgumentException If the command is missing required arguments.
+     */
     @Override
     public void execute(TaskList tasks , Ui ui, Storage storage) {
         try {
