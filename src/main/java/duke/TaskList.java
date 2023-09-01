@@ -160,9 +160,9 @@ public class TaskList {
             String[] taskArray = storedData.get(i).split(" / ");
             Task task;
 
-            if (taskArray[0].equals(Command.TODO.getCommand())) {
+            if (taskArray[0].equals("todo")) {
                 task = new ToDo(taskArray[2]);
-            } else if (taskArray[0].equals(Command.DEADLINE.getCommand())) {
+            } else if (taskArray[0].equals("deadline")) {
                 task = new Deadline(taskArray[2], LocalDateTime.parse(taskArray[3], dateTimeInputFormatter));
             } else {
                 task = new Event(taskArray[2], LocalDateTime.parse(taskArray[3], dateTimeInputFormatter),

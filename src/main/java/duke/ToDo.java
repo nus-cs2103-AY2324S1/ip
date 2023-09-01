@@ -29,7 +29,7 @@ public class ToDo extends Task{
      */
     @Override
     public String toSaveStateString() {
-        String[] state = new String[]{ Command.TODO.getCommand(), this.getDone() ? "1" : "0", this.getTaskName() };
+        String[] state = new String[]{ "todo", this.getDone() ? "1" : "0", this.getTaskName() };
         return String.join(" / ", state);
     }
 

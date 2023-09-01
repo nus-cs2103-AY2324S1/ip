@@ -38,7 +38,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toSaveStateString() {
-        String[] state = new String[]{ Command.DEADLINE.getCommand(), this.getDone() ? "1" : "0", this.getTaskName(),
+        String[] state = new String[]{ "deadline", this.getDone() ? "1" : "0", this.getTaskName(),
                 this.by.format(Duke.dateTimeInputFormatter) };
         return String.join(" / ", state);
     }

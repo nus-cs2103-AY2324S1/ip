@@ -46,7 +46,7 @@ public class Event extends Task{
      */
     @Override
     public String toSaveStateString() {
-        String[] state = new String[]{ Command.EVENT.getCommand(), this.getDone() ? "1" : "0", this.getTaskName(),
+        String[] state = new String[]{ "event", this.getDone() ? "1" : "0", this.getTaskName(),
                 this.from.format(Duke.dateTimeInputFormatter), this.to.format(Duke.dateTimeInputFormatter) };
         return String.join(" / ", state);
     }

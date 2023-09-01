@@ -37,37 +37,37 @@ public class Duke {
                 ArrayList<String> parsedInput = Parser.parseUserInput(input);
                 String command = parsedInput.get(0);
 
-                if (command.equals(Command.MARK.getCommand())) {
+                if (command.equals("mark")) {
                     int index = Integer.parseInt(parsedInput.get(1)) - 1;
                     Task task = tasks.mark(index);
                     ui.printTaskMarkedMessage(task);
                     tasks.saveState(storage);
                     continue;
                 }
-                if (command.equals(Command.UNMARK.getCommand())) {
+                if (command.equals("unmark")) {
                     int index = Integer.parseInt(parsedInput.get(1)) - 1;
                     Task task = tasks.unmark(index);
                     ui.printTaskUnmarkedMessage(task);
                     tasks.saveState(storage);
                     continue;
                 }
-                if (command.equals(Command.LIST.getCommand())) {
+                if (command.equals("list")) {
                     tasks.printContents();
                     continue;
                 }
-                if (command.equals(Command.BYE.getCommand())) {
+                if (command.equals("bye")) {
                     ui.printGoodbyeMessage();
                     ui.closeUi();
                     break;
                 }
-                if (command.equals(Command.TODO.getCommand())) {
+                if (command.equals("todo")) {
                     ToDo newTodo = new ToDo(parsedInput.get(1));
                     Task task = tasks.add(newTodo);
                     ui.printTaskAddedMessage(task, tasks.getTaskCount());
                     tasks.saveState(storage);
                     continue;
                 }
-                if (command.equals(Command.DEADLINE.getCommand())) {
+                if (command.equals("deadline")) {
                     Deadline newDeadline = new Deadline(parsedInput.get(1),
                             LocalDateTime.parse(parsedInput.get(2), dateTimeInputFormatter));
                     Task task = tasks.add(newDeadline);
@@ -75,7 +75,7 @@ public class Duke {
                     tasks.saveState(storage);
                     continue;
                 }
-                if (command.equals(Command.EVENT.getCommand())) {
+                if (command.equals("event")) {
                     Event newEvent = new Event(parsedInput.get(1),
                             LocalDateTime.parse(parsedInput.get(2), dateTimeInputFormatter),
                             LocalDateTime.parse(parsedInput.get(3), dateTimeInputFormatter));
@@ -84,20 +84,20 @@ public class Duke {
                     tasks.saveState(storage);
                     continue;
                 }
-                if (command.equals(Command.DELETE.getCommand())) {
+                if (command.equals("delete")) {
                     int index = Integer.parseInt(parsedInput.get(1)) - 1;
                     Task task = tasks.remove(index);
                     ui.printTaskDeletedMessage(task, tasks.getTaskCount());
                     tasks.saveState(storage);
                     continue;
                 }
-                if (command.equals(Command.ON.getCommand())) {
+                if (command.equals("on")) {
                     LocalDate date = LocalDate.parse(parsedInput.get(1));
                     ArrayList<Task> tasksOnDate = tasks.getTasksOn(date);
                     ui.printTasksOn(tasksOnDate);
                     continue;
                 }
-                if (command.equals(Command.FIND.getCommand())) {
+                if (command.equals("find")) {
                     ArrayList<Task> tasksContainingKeyword = tasks.getTasksContainingKeyword(parsedInput.get(1));
                     ui.printTasksMatching(tasksContainingKeyword);
                     continue;
