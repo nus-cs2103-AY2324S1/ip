@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Deadline extends Task {
     protected String by;
@@ -6,6 +7,12 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
+    }
+
+    public Deadline(String description, String by, boolean isDone) {
+        super(description);
+        this.by = by;
+        this.isDone = isDone;
     }
 
     /**
@@ -24,18 +31,12 @@ public class Deadline extends Task {
 
         String front = input.split("/")[0];
         String[] frontWords = front.split(" ");
-        ArrayList<String> desWords = new ArrayList<>();
-        for (int i = 1; i < frontWords.length; i++) {
-            desWords.add(frontWords[i]);
-        }
+        ArrayList<String> desWords = new ArrayList<>(Arrays.asList(frontWords).subList(1, frontWords.length));
         String des = String.join(" ", desWords);
 
         String back = input.split("/")[1];
         String[] backWords = back.split(" ");
-        ArrayList<String> ddlWords = new ArrayList<>();
-        for (int i = 1; i < backWords.length; i++) {
-            ddlWords.add(backWords[i]);
-        }
+        ArrayList<String> ddlWords = new ArrayList<>(Arrays.asList(backWords).subList(1, backWords.length));
         String ddl = String.join(" ", ddlWords);
 
         return new Deadline(des, ddl);

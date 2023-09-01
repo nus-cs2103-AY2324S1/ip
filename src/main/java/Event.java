@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Event extends Task {
     protected String from;
@@ -8,6 +9,13 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+    }
+
+    public Event(String description, String from, String to, boolean isDone) {
+        super(description);
+        this.from = from;
+        this.to = to;
+        this.isDone = isDone;
     }
 
     /**
@@ -24,28 +32,20 @@ public class Event extends Task {
                     Action.HORIZONTAL_LINE);
         }
 
-        String front = input.split("/")[0];
+        String[] wordsSplitBySlash = input.split("/");
+        String front = wordsSplitBySlash[0];
         String[] frontWords = front.split(" ");
-        ArrayList<String> desWords = new ArrayList<>();
-        for (int i = 1; i < frontWords.length; i++) {
-            desWords.add(frontWords[i]);
-        }
+        ArrayList<String> desWords = new ArrayList<>(Arrays.asList(frontWords).subList(1, frontWords.length));
         String des = String.join(" ", desWords);
 
-        String middle = input.split("/")[1];
+        String middle = wordsSplitBySlash[1];
         String[] midWords = middle.split(" ");
-        ArrayList<String> startWords = new ArrayList<>();
-        for (int i = 1; i < midWords.length; i++) {
-            startWords.add(midWords[i]);
-        }
+        ArrayList<String> startWords = new ArrayList<>(Arrays.asList(midWords).subList(1, midWords.length));
         String start = String.join(" ", startWords);
 
-        String back = input.split("/")[2];
+        String back = wordsSplitBySlash[2];
         String[] backWords = back.split(" ");
-        ArrayList<String> endWords = new ArrayList<>();
-        for (int i = 1; i < backWords.length; i++) {
-            endWords.add(backWords[i]);
-        }
+        ArrayList<String> endWords = new ArrayList<>(Arrays.asList(backWords).subList(1, backWords.length));
         String end = String.join(" ", endWords);
 
         return new Event(des, start, end);

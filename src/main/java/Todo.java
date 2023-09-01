@@ -1,8 +1,14 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
+    }
+
+    public Todo(String description, boolean isDone) {
+        super(description);
+        this.isDone = isDone;
     }
 
     /**
@@ -19,10 +25,7 @@ public class Todo extends Task {
                     "To add a Todo, enter \"todo <description>\".\n" +
                     Action.HORIZONTAL_LINE);
         }
-        ArrayList<String> desWords = new ArrayList<>();
-        for (int i = 1; i < words.length; i++) {
-            desWords.add(words[i]);
-        }
+        ArrayList<String> desWords = new ArrayList<>(Arrays.asList(words).subList(1, words.length));
         String des = String.join(" ", desWords);
 
         return new Todo(des);
