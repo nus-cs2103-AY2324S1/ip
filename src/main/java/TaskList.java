@@ -30,4 +30,8 @@ public class TaskList {
     public void deleteTask(int index) {
         taskList.remove(index);
     }
+
+    public Task getLastTask() {
+        return getTask(size() - 1);
+    }
 }

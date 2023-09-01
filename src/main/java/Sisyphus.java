@@ -3,6 +3,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public
+
 
     private static final String NAME = "Sisyphus";
     private static final String HORIZONTAL_LINE = "_________________________________";
