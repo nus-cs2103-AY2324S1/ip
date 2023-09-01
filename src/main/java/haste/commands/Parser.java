@@ -1,5 +1,6 @@
 package haste.commands;
 
+import haste.data.TaskList;
 import haste.exceptions.EmptyTaskException;
 import haste.exceptions.InvalidCommand;
 import haste.tasks.Deadline;
@@ -14,29 +15,29 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
     // used to handle type of tasks
-    public static void handleCommand(String cmd, Ui ui) {
+    public static void handleCommand(String cmd, Ui ui, TaskList tasks) {
         if (cmd.equals("bye")) {
             ui.bye();
             //online = false;
         } else if (cmd.equals("list")) {
             // print list
-            ui.printList();
+            ui.printList(tasks);
         } else if (cmd.startsWith("mark")) {
             try {
-                ui.mark(cmd);
+                ui.mark(cmd, tasks);
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("task does not exist");
             }
 
         } else if (cmd.startsWith("unmark")) {
             try {
-                ui.unmark(cmd);
+                ui.unmark(cmd, tasks);
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("task does not exist");
             }
         } else if (cmd.startsWith("delete")) {
             try {
-                ui.delete(cmd);
+                ui.delete(cmd, tasks);
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("task does not exist");
             }
@@ -60,7 +61,7 @@ public class Parser {
                         throw new InvalidCommand(cmd);
                 }
                 // add new task using ui
-                ui.add(newTask);
+                ui.add(newTask, tasks);
             } catch(EmptyTaskException e) {
                 e.printStackTrace();
             } catch(InvalidCommand e) {
@@ -70,6 +71,7 @@ public class Parser {
         }
     }
 
+    // convert cmd into local date time
     public static LocalDateTime parseTime(String input) {
         // formatting
         String formatPattern = "yyyy-MM-dd HHmm";
@@ -85,6 +87,7 @@ public class Parser {
     }
 
 
+    // convert local date time into printable string
     public static String formatTime(LocalDateTime input) {
         // format time into a string object
         String year = String.valueOf(input.getYear());
@@ -98,6 +101,7 @@ public class Parser {
 
     }
 
+    //converts local date time back to command format
     public static String getCmd(LocalDateTime savedTime) {
         int year = savedTime.getYear();
         String month = savedTime.getMonthValue() >= 10 ? String.valueOf(savedTime.getMonthValue())

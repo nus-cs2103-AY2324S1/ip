@@ -6,8 +6,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ToDo extends Task {
-    public ToDo(String description) {
-        super(description);
+    public ToDo(String description, boolean isComplete) {
+        super(description, isComplete);
     }
 
     public String toString() {
@@ -21,12 +21,12 @@ public class ToDo extends Task {
         if (Task.checkEmpty(desc)) { // check if desc is null
             throw new EmptyTaskException("tasks.ToDo");
         }
-        return new ToDo(desc);
+        return new ToDo(desc, false);
     }
 
     @Override
-    public String getCmd() {
-        return "todo " + super.description;
+    public String save() {
+        return "T|" + super.save();
     }
 }
 

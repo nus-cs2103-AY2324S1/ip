@@ -4,9 +4,9 @@ public abstract class Task {
     protected boolean isComplete;
     protected String description;
 
-    public Task(String description){
+    public Task(String description, boolean isComplete){
         this.description = description;
-        this.isComplete = false;
+        this.isComplete = isComplete;
     }
 
     public void markDone() {
@@ -29,6 +29,8 @@ public abstract class Task {
         return s == null || s.isBlank();
     }
 
-    public abstract String getCmd();
+    public String save() {
+       return this.isComplete + "|" + this.description;
+    }
 
 }

@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
 public class Event extends Task {
     protected LocalDateTime start;
     protected LocalDateTime end;
-    public Event(String description, LocalDateTime start, LocalDateTime end) {
-        super(description);
+    public Event(String description, LocalDateTime start, LocalDateTime end, boolean isComplete) {
+        super(description,isComplete);
         this.start = start;
         this.end = end;
     }
@@ -30,13 +30,13 @@ public class Event extends Task {
         if (Task.checkEmpty(overall) || Task.checkEmpty(desc)) {
             throw new EmptyTaskException("tasks.Event");
         }
-        return new Event(desc, start, end);
+        return new Event(desc, start, end, false);
 
     }
 
     @Override
-    public String getCmd() {
-        return "event " +  super.description + " /from " + Parser.getCmd(this.start) + " /to "
-                + Parser.getCmd(this.end);
+    public String save() {
+        return "E|" + super.save() + "|" + Parser.getCmd(this.start) + "|" + Parser.getCmd(this.end);
     }
+
 }

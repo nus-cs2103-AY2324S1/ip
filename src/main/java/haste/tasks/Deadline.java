@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
 public class Deadline extends Task {
 
     protected LocalDateTime by;
-    public Deadline(String description, LocalDateTime by) {
-        super(description);
+    public Deadline(String description, LocalDateTime by, boolean isComplete) {
+        super(description,isComplete);
         this.by = by;
     }
 
@@ -32,11 +32,11 @@ public class Deadline extends Task {
         if (Task.checkEmpty(overall)|| Task.checkEmpty(desc)) {
             throw new EmptyTaskException("tasks.Deadline");
         }
-        return new Deadline(desc, due);
+        return new Deadline(desc, due, false);
     }
 
     @Override
-    public String getCmd() {
-        return "deadline " + super.description + " /by " + Parser.getCmd(this.by);
+    public String save() {
+        return "D|" + super.save() + "|" + Parser.getCmd(this.by);
     }
 }
