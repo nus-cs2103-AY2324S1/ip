@@ -5,51 +5,66 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import joe.commands.*;
+import joe.commands.ByeCommand;
+import joe.commands.Command;
+import joe.commands.DeadlineCommand;
+import joe.commands.DeleteCommand;
+import joe.commands.EventCommand;
+import joe.commands.InvalidCommand;
+import joe.commands.ListCommand;
+import joe.commands.MarkCommand;
+import joe.commands.TodoCommand;
+import joe.commands.UnmarkCommand;
 import joe.exceptions.JoeException;
 
 public class Parser {
   private enum CommandType {
-    LIST,
-    TODO,
-    DEADLINE,
-    EVENT,
-    MARK,
-    UNMARK,
-    DELETE,
-    BYE,
+    list,
+    todo,
+    deadline,
+    event,
+    mark,
+    unmark,
+    delete,
+    bye,
     INVALID
   }
 
-  private static final Pattern commandPattern = Pattern.compile("^(\\S+)\\s?(.*)$");
+  private static final Pattern COMMAND_PATTERN = Pattern.compile("^(\\S+)\\s?(.*)$");
   private static final String DATETIME_FORMAT = "d/M/yyyy HHmm";
 
   public static Command parse(String input) {
-    Matcher m = commandPattern.matcher(input.trim());
+    Matcher m = COMMAND_PATTERN.matcher(input.trim());
 
     if (!m.matches()) {
       return new InvalidCommand("Invalid Command Format");
     }
 
     CommandType type = parseType(m.group(1));
-    String args = m.group(2);
+    String args = m.group(2).trim();
 
     switch (type) {
-      case BYE:
+      case bye:
+        if (!args.isEmpty()) {
+          return new InvalidCommand("Invalid Command! Too many arguments!");
+        }
         return new ByeCommand();
-      case LIST:
+      case list:
+        if (!args.isEmpty()) {
+          return new InvalidCommand("Invalid Command! Too many arguments!");
+        }
         return new ListCommand();
-      case MARK:
+      case mark:
         return handleMark(args);
-      case UNMARK:
+      case unmark:
         return handleUnmark(args);
-      case TODO:
+      case todo:
         return handleTodo(args);
-      case DEADLINE:
+      case deadline:
         return handleDeadline(args);
-      case EVENT:
+      case event:
         return handleEvent(args);
-      case DELETE:
+      case delete:
         return handleDelete(args);
       default:
         return handleInvalidKeyword();
@@ -58,7 +73,7 @@ public class Parser {
 
   private static CommandType parseType(String input) {
     try {
-      return CommandType.valueOf(input.toUpperCase());
+      return CommandType.valueOf(input);
     } catch (IllegalArgumentException e) {
       return CommandType.INVALID;
     }
@@ -83,7 +98,7 @@ public class Parser {
   }
 
   private static Command handleTodo(String args) {
-    Pattern p = Pattern.compile("(\\S.+)");
+    Pattern p = Pattern.compile("(\\S.*)");
     Matcher m = p.matcher(args.trim());
     if (!m.matches()) {
       return new InvalidCommand("Invalid arguments for todo\nPlease follow: todo <task>");
@@ -92,7 +107,7 @@ public class Parser {
   }
 
   private static Command handleDeadline(String args) {
-    Pattern p = Pattern.compile("(\\S.+)\\s+/by\\s+(\\d{1,2}/\\d{1,2}/\\d{4} \\d{4})");
+    Pattern p = Pattern.compile("(\\S.*)\\s+/by\\s+(\\d{1,2}/\\d{1,2}/\\d{4} \\d{4})");
     Matcher m = p.matcher(args.trim());
     if (!m.matches()) {
       return new InvalidCommand(
@@ -111,7 +126,8 @@ public class Parser {
   private static Command handleEvent(String args) {
     Pattern p =
         Pattern.compile(
-            "(\\S.+)\\s+/from\\s+(\\d{1,2}/\\d{1,2}/\\d{4} \\d{4})\\s+/to\\s+(\\d{1,2}/\\d{1,2}/\\d{4} \\d{4})");
+            "(\\S.*)\\s+/from\\s+(\\d{1,2}/\\d{1,2}/\\d{4} \\d{4})\\s+/to\\s+(\\d{1,2}/\\d{1,2}/\\d{4} "
+                + "\\d{4})");
     Matcher m = p.matcher(args.trim());
     if (!m.matches()) {
       return new InvalidCommand(
@@ -144,17 +160,16 @@ public class Parser {
       if (CommandType.INVALID.equals(cmd)) {
         continue;
       }
-      sb.append(cmd.toString().toLowerCase());
+      sb.append(cmd.toString());
       sb.append(", ");
     }
     sb.setLength(sb.length() - 2);
     String msg =
-        String.format(
-            "Invalid Command Keyword!%nHere is a list of valid commands: %s", sb);
+        String.format("Invalid Command Keyword!%nHere is a list of valid commands: %s", sb);
     return new InvalidCommand(msg);
   }
 
-  private static int parseIndexArgs(String args) throws JoeException {
+  static int parseIndexArgs(String args) throws JoeException {
     Pattern indexPattern = Pattern.compile("^(\\d+)$");
     Matcher m = indexPattern.matcher(args.trim());
     if (!m.matches()) {
