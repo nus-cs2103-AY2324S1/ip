@@ -100,7 +100,7 @@ public class Parser {
      * @param type Indicates whether it is parsing 
      *             a mark or unmark command.
      * @return A {@link MarkCommand} instance.
-     * @throws DukeException
+     * @throws DukeException Thrown when no number is given.
      */
     private Command parseMarkCommand(String input, String type) throws DukeException {
         String[] parseArr = input.split(" ");
@@ -120,7 +120,8 @@ public class Parser {
      * 
      * @param input The todo command.
      * @return A {@link TodoCommand} instance.
-     * @throws DukeException
+     * @throws DukeException Thrown when no description
+     *                       is given.
      */
     private Command parseTodoCommand(String input) throws DukeException {
         String[] parseArr = input.split(" ");
@@ -141,7 +142,8 @@ public class Parser {
      * 
      * @param input The deadline command.
      * @return A {@link DeadlineCommand} instance.
-     * @throws DukeException
+     * @throws DukeException Thrown when no description
+     *                       or invalid date is given.
      */
     private Command parseDeadlineCommand(String input) throws DukeException {
         // Split by the "/by" to separate the first and second part.
@@ -197,7 +199,8 @@ public class Parser {
      * 
      * @param input The event command.
      * @return An {@link EventCommand} instance.
-     * @throws DukeException
+     * @throws DukeException Thrown when no description
+     *                       or invalid dates are given.
      */
     private Command parseEventCommand(String input) throws DukeException {
         // Split by "/from" to separate the first and (second + third) part.
@@ -265,7 +268,7 @@ public class Parser {
      * 
      * @param input The delete command.
      * @return A {@link DeleteCommand} instance.
-     * @throws DukeException
+     * @throws DukeException Thrown when a number is not given.
      */
     private Command parseDeleteCommand(String input) throws DukeException {
         String[] parseArr = input.split(" ");
@@ -279,13 +282,21 @@ public class Parser {
         return new DeleteCommand(parseArr[1]);
     }
 
+    /**
+     * Parses the find command.
+     * Checks if a valid keyword was given.
+     *
+     * @param input The find command.
+     * @return A {@Link FindCommand} instance
+     * @throws DukeException Thrown when a keyword is not given.
+     */
     private Command parseFindCommand(String input) throws DukeException {
         String[] parseArr = input.split(" ");
         if (parseArr.length < 2) {
             throw new DukeException(new String[] {
                 "Looks like you didn't provide a keyword:",
-                "Try " + Ui.cTxt("find", Ui.COLOR.PURPLE) + " read",
-                "Or try " + Ui.cTxt("find", Ui.COLOR.PURPLE) + " read a book"
+                "Try " + Ui.cTxt("find", Ui.Color.PURPLE) + " read",
+                "Or try " + Ui.cTxt("find", Ui.Color.PURPLE) + " read a book"
             });
         }
 
