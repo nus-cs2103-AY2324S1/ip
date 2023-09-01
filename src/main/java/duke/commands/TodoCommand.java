@@ -1,8 +1,8 @@
-package commands;
+package duke.commands;
 
-import records.ChatRecord;
-import storage.SaveData;
-import task.Todo;
+import duke.records.ChatRecord;
+import duke.storage.SaveData;
+import duke.task.Todo;
 
 public class TodoCommand extends Command {
     public static final String COMMAND_PHRASE = "todo";

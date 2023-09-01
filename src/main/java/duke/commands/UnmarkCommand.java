@@ -1,12 +1,12 @@
-package commands;
+package duke.commands;
 
-import records.ChatRecord;
-import storage.SaveData;
-import task.Task;
+import duke.records.ChatRecord;
+import duke.storage.SaveData;
+import duke.task.Task;
 
 public class UnmarkCommand extends Command {
     public static final String COMMAND_PHRASE = "unmark";
-    private static final String COMMAND_DESC = "Marked the following task as incomplete!";
+    private static final String COMMAND_DESC = "Marked the following duke.task as incomplete!";
     private int toUnmark;
 
     public UnmarkCommand(int i) {

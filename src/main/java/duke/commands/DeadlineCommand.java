@@ -1,8 +1,8 @@
-package commands;
+package duke.commands;
 
-import records.ChatRecord;
-import storage.SaveData;
-import task.Deadline;
+import duke.records.ChatRecord;
+import duke.storage.SaveData;
+import duke.task.Deadline;
 
 import java.time.LocalDateTime;
 

@@ -1,6 +1,6 @@
-package commands;
+package duke.commands;
 
-import records.ChatRecord;
+import duke.records.ChatRecord;
 
 public class ListCommand extends Command {
     public static final String COMMAND_PHRASE = "list";

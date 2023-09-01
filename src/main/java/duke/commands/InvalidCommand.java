@@ -1,6 +1,6 @@
-package commands;
+package duke.commands;
 
-import records.ChatRecord;
+import duke.records.ChatRecord;
 
 public class InvalidCommand extends Command {
 

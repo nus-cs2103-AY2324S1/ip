@@ -1,13 +1,13 @@
-package commands;
+package duke.commands;
 
-import records.ChatRecord;
-import storage.SaveData;
-import task.Task;
+import duke.records.ChatRecord;
+import duke.storage.SaveData;
+import duke.task.Task;
 
 public class DeleteCommand extends Command {
     public static final String COMMAND_PHRASE = "delete";
 
-    private static final String COMMAND_DESC = "The following task has been deleted: ";
+    private static final String COMMAND_DESC = "The following duke.task has been deleted: ";
     private int toDelete;
     public DeleteCommand(int i) {
         this.toDelete = i;

@@ -1,11 +1,11 @@
-package storage;
+package duke.storage;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
-import task.*;
-import parser.TaskParser;
+import duke.task.*;
+import duke.parser.TaskParser;
 
 public class SaveData {
     private static final String SAVE_FILE_LOCATION = "./SaveFile.txt";

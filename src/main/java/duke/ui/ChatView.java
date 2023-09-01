@@ -1,6 +1,4 @@
-package ui;
-
-import records.ChatRecord;
+package duke.ui;
 
 public class ChatView {
     private static String LINE_BREAK = "____________________________";

@@ -1,12 +1,9 @@
-package parser;
+package duke.parser;
 
-import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import commands.*;
-import task.Task;
-import task.Todo;
+import duke.commands.*;
 
 public class CommandParser {
     private static Pattern COMMAND_PATTERN = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");

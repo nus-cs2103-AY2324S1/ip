@@ -1,6 +1,6 @@
-package commands;
+package duke.commands;
 
-import records.ChatRecord;
+import duke.records.ChatRecord;
 
 public class ByeCommand extends Command {
     public static final String COMMAND_PHRASE = "bye";

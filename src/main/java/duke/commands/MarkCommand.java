@@ -1,12 +1,12 @@
-package commands;
+package duke.commands;
 
-import records.ChatRecord;
-import storage.SaveData;
-import task.Task;
+import duke.records.ChatRecord;
+import duke.storage.SaveData;
+import duke.task.Task;
 
 public class MarkCommand extends Command {
     public static final String COMMAND_PHRASE = "mark";
-    private static final String COMMAND_DESC = "Marked the following task as completed!";
+    private static final String COMMAND_DESC = "Marked the following duke.task as completed!";
     private int toMark;
     public MarkCommand(int i) {
         this.toMark = i;
