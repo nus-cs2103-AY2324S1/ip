@@ -15,6 +15,18 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    /**
+     * Creates a deadline task that could be done or undone.
+     *
+     * @param description The description of the task that the user inputs
+     * @param isDone Whether the task is done or undone
+     * @param deadline The deadline that the user inputs
+     */
+    public Deadline(String description, boolean isDone, String deadline) {
+        super(description, isDone);
+        this.deadline = deadline;
+    }
+
     @Override
     public String toSaveFormat() {
         return "D | " + super.toSaveFormat() + " | " + this.deadline;

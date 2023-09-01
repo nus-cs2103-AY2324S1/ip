@@ -11,6 +11,16 @@ public class ToDo extends Task {
         super(description);
     }
 
+    /**
+     * Creates a todo task that could be done or undone.
+     *
+     * @param description The description of the task that the user inputs
+     * @param isDone Whether the task is done or undone
+     */
+    public ToDo(String description, boolean isDone) {
+        super(description, isDone);
+    }
+
     @Override
     public String toSaveFormat() {
         return "T | " + super.toSaveFormat();

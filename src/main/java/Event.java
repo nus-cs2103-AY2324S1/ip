@@ -6,7 +6,7 @@ public class Event extends Task {
     protected String end;
 
     /**
-     * Creates a event task that is initially undone.
+     * Creates an event task that is initially undone.
      *
      * @param description The description of the task that the user inputs
      * @param start The start time that the user inputs
@@ -14,6 +14,20 @@ public class Event extends Task {
      */
     public Event(String description, String start, String end) {
         super(description);
+        this.start = start;
+        this.end = end;
+    }
+
+    /**
+     * Creates an event task that could be done or undone.
+     *
+     * @param description The description of the task that the user inputs
+     * @param isDone Whether the task is done or undone
+     * @param start The start time that the user inputs
+     * @param end The ending time that the user inputs
+     */
+    public Event(String description, boolean isDone, String start, String end) {
+        super(description, isDone);
         this.start = start;
         this.end = end;
     }

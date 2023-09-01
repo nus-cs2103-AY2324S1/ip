@@ -16,6 +16,17 @@ public abstract class Task {
     }
 
     /**
+     * Creates a task that could be done or undone.
+     *
+     * @param description The description of the task that the user inputs
+     * @param isDone Whether a task is done or undone
+     */
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
+    /**
      * Returns X if a task is done, returns a blank space if it is not.
      *
      * @return A string which is either X or ' '
