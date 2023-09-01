@@ -1,5 +1,9 @@
+package Duke.Task;
+
+import Duke.DukeException.DukeException;
+
 /**
- * Class For Task
+ * Class For Duke.Duke.Task.Task
  */
 public abstract class Task {
     /**

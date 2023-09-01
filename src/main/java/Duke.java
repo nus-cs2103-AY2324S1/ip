@@ -1,13 +1,15 @@
-import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
-
+import Duke.TaskList.TaskList;
+import Duke.Ui.Ui;
+import Duke.Parser.Parser;
+import Duke.Storage.Storage;
+import Duke.DukeException.DukeException;
 /**
  * Class for duke
  */
 public class Duke {
     private TaskList tasks;
-    private  Ui ui;
+    private Ui ui;
     private Scanner sc;
     private Storage storage;
 
@@ -53,8 +55,8 @@ public class Duke {
 //
 //    public static void main(String[] args) {
 //        try {
-//            Storage storedList = new Storage();
-//            ArrayList<Task> taskList = storedList.getStorage();
+//            Duke.Storage.Storage storedList = new Duke.Storage.Storage();
+//            ArrayList<Duke.Duke.Task.Task> taskList = storedList.getStorage();
 //            System.out.println(
 //                "____________________________________________________________\n" +
 //                        " Hello! I'm Chrainx\n" +
@@ -117,19 +119,19 @@ public class Duke {
 //                                        "____________________________________________________________\n");
 //                    } else {
 //                        System.out.println("____________________________________________________________\n");
-//                        if (ToDos.isTodo(input)) {
-//                            taskList.add(new ToDos(input.substring(5)));
+//                        if (Duke.Task.ToDos.isTodo(input)) {
+//                            taskList.add(new Duke.Task.ToDos(input.substring(5)));
 //                            System.out.println("Got it. I've added this task:");
-//                        } else if (Deadlines.isDeadline(input)) {
+//                        } else if (Duke.Task.Deadlines.isDeadline(input)) {
 //                            taskList.add(
-//                                    new Deadlines(
+//                                    new Duke.Task.Deadlines(
 //                                            input.substring(9, input.indexOf("/by ")),
 //                                            input.substring(input.indexOf("/by ") + 4)
 //                                    )
 //                            );
 //                            System.out.println("Got it. I've added this task:");
-//                        } else if (Events.isEvent(input)) {
-//                            taskList.add(new Events(
+//                        } else if (Duke.Task.Events.isEvent(input)) {
+//                            taskList.add(new Duke.Task.Events(
 //                                            input.substring(6, input.indexOf("/from ")),
 //                                            input.substring(input.indexOf("/from ") + 6, input.indexOf("/to ") - 1),
 //                                            input.substring(input.indexOf("/to ") + 4)
@@ -146,19 +148,19 @@ public class Duke {
 //                            scanner.close();
 //                            break;
 //                        } else {
-//                            Task.isTask(input);
+//                            Duke.Duke.Task.Task.isTask(input);
 //                        }
 //                        System.out.println(
 //                                taskList.get(taskList.size() - 1).toString() + "\n" +
 //                                        "Now you have " + (taskList.size()) + " tasks in the list.\n" +
 //                                        "____________________________________________________________\n");
 //                    }
-//                } catch (DukeException e) {
+//                } catch (Duke.DukeException.DukeException e) {
 //                    System.out.println(e.toString());
 //                }
 //
 //            }
-//        } catch (DukeException e) {
+//        } catch (Duke.DukeException.DukeException e) {
 //            System.out.println(e.toString());
 //        }
 //    }

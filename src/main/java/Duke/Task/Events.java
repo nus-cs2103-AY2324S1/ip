@@ -1,11 +1,15 @@
+package Duke.Task;
+
+import Duke.DukeException.DukeException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
+
 /**
  * class for events
  */
-public class Events extends Task{
+public class Events extends Task {
     /**
      * For the start
      */
@@ -56,7 +60,7 @@ public class Events extends Task{
     }
 
     /**
-     * To check whether the input is a Deadlines
+     * To check whether the input is a Duke.Task.Deadlines
      * @param input the task
      * @return Boolean
      * @throws DukeException

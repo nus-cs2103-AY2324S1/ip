@@ -1,15 +1,19 @@
-public class ToDos extends Task{
+package Duke.Task;
+
+import Duke.DukeException.DukeException;
+
+public class ToDos extends Task {
 
     /**
      * The constructor
-     * @param name the name of the ToDos
+     * @param name the name of the Duke.Task.ToDos
      */
     public ToDos (String name) {
         super(name);
     }
 
     /**
-     * To convert the ToDos to the string
+     * To convert the Duke.Task.ToDos to the string
      * @return a string
      */
     @Override
