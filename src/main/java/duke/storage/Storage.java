@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private String pathFile = "src/main/TaskStorage.txt";
+    private String pathFile = "./data/TaskStorage.txt";
+
     private File file = new File(pathFile);
     public ArrayList<Task> readFile() throws Exception {
         Scanner sc = new Scanner(file);
@@ -67,6 +68,11 @@ public class Storage {
 
     public void checkFile() throws Exception {
         try {
+            File directory = new File("./data");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
             File file = new File(pathFile);
             if (!file.exists()) {
                 boolean created = file.createNewFile();
