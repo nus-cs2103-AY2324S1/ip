@@ -69,6 +69,12 @@ public class Task {
         return this.getStatusNumerical() + " | " + this.description;
     }
 
+    /**
+     * Checks if task contains keyword.
+     *
+     * @param keyword Keyword to be checked.
+     * @return If task contains keyword or not.
+     */
     public boolean containsKeyword(String keyword) {
         return this.description.contains(keyword);
     }

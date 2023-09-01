@@ -92,6 +92,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns task list filtered using the keyword.
+     *
+     * @param userInput User input in String format.
+     * @param taskList TaskList to filter.
+     * @return Filtered TaskList.
+     */
     public TaskList getTaskList(String userInput, TaskList taskList) {
         TaskList filtered = new TaskList();
         String keyword = userInput.substring(5);
