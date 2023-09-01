@@ -16,21 +16,38 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * The Storage class handles the storage and retrieval of task data for the Duke application.
+ * It handles the creation of necessary directories and files, as well as loading and saving tasks to/from a file.
+ */
 public class Storage {
 
+    /** The file path for the storage file. */
     private String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path and ensures the file and directory structure exists.
+     *
+     * @param filePath The file path for storing task data.
+     * @throws DukeException If an error occurs while creating directories or files.
+     */
     public Storage(String filePath) throws DukeException {
         this.filePath = filePath;
 
         try {
-            getFile(filePath);
+            accessOrCreateFile(filePath);
         }  catch (DukeException e) {
             throw e;
         }
     }
 
-    private void getFile(String filePath) throws DukeException {
+    /**
+     * Ensures the directory structure and file exist or creates them if necessary.
+     *
+     * @param filePath The file path to check or create.
+     * @throws DukeException If an error occurs while creating directories or files.
+     */
+    private void accessOrCreateFile(String filePath) throws DukeException {
         try {
             File file = new File(filePath);
             File directory = file.getParentFile();
@@ -55,6 +72,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the storage file and returns them as an ArrayList of tasks.
+     *
+     * @return An ArrayList of tasks loaded from the storage file.
+     * @throws DukeException If an error occurs while reading from the file.
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks;
         try {
@@ -65,7 +88,13 @@ public class Storage {
         }
     }
 
-    public ArrayList<Task> loadTasksFromFile() throws IOException {
+    /**
+     * Loads tasks from the storage file and parses them into Task objects, then returns them as an ArrayList.
+     *
+     * @return An ArrayList of Task objects loaded from the storage file.
+     * @throws IOException If an error occurs while reading from the file or if the file contains invalid data.
+     */
+    private ArrayList<Task> loadTasksFromFile() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
         String line;
@@ -101,6 +130,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to the storage file.
+     *
+     * @param taskList The TaskList containing tasks to be saved.
+     * @throws IOException If an error occurs while writing to the file.
+     */
     public void saveTasksToFile(TaskList taskList) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath);
         ArrayList<Task> tasks = taskList.getTasks();
