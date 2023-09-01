@@ -1,5 +1,3 @@
-import ip.utils.Pair;
-
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 

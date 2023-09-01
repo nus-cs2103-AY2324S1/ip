@@ -1,7 +1,3 @@
-import ip.utils.Pair;
-
-import java.util.Scanner;
-
 public enum CommandType {
     /** Command to exit the program. **/
     BYE ("bye"),

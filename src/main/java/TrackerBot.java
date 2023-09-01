@@ -1,6 +1,3 @@
-import ip.utils.Pair;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**

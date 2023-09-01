@@ -1,5 +1,3 @@
-import ip.utils.Pair;
-
 import java.util.Scanner;
 
 public abstract class Command {
