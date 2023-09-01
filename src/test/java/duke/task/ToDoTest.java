@@ -1,6 +1,7 @@
 package duke.task;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * The ToDoTest class contains unit tests for the ToDo class.
