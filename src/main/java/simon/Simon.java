@@ -1,9 +1,8 @@
 package simon;
 
+import java.util.Scanner;
 import simon.command.Parser;
 import simon.task.Task;
-
-import java.util.Scanner;
 
 /**
  * The main class for the {@code Simon} application.

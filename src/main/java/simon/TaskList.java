@@ -1,8 +1,8 @@
 package simon;
 
+import java.util.ArrayList;
 import simon.task.Task;
 
-import java.util.ArrayList;
 
 /**
  * The {@code TaskList} class manages a list of tasks, allowing for operations such as

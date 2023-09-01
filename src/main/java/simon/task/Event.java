@@ -1,9 +1,10 @@
 package simon.task;
 
-import simon.SimonException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import simon.SimonException;
+
 
 /**
  * The {@code Event} class extends the {@code Task} class and represents a task
