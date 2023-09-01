@@ -4,18 +4,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
-
 public class Duke {
-
-    private Storage storage;
-    public TaskList taskList;
     private Ui ui;
-
     public static Path pathOfDirectory = Paths.get("./data/duke.txt");
-
-
-    ;       //enum that stores all important constants
-
     public Duke(String filePath) {
         ui = new Ui ();
         try {
@@ -24,9 +15,11 @@ public class Duke {
             e.printStackTrace();
             System.out.println("An error occurred...");
         }
-
     }
 
+    /**
+     * Runs the program with a while loop.
+     */
     public void run() {
         ui.showGreeting();
         Scanner userInputObject = new Scanner(System.in);
@@ -53,8 +46,4 @@ public class Duke {
     public static void main(String[] args) {
         new Duke("/data/duke.txt").run();
     }
-
-
-
-
 }

@@ -11,9 +11,9 @@ import java.util.ListIterator;
 /**
  * This class holds the ArrayList to load all the tasks. Contains important Task manipulation methods.
  */
-public class TaskList {
-    public static ArrayList<Task> storeTask = new ArrayList<>(1);   //stores all the tasks. refer to child classes of task
 
+public class TaskList {
+    public static ArrayList<Task> storeTask = new ArrayList<>(1);   //stores all the tasks
     /**
      * Displays the entire list of tasks to user.
      */

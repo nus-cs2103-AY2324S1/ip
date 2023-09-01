@@ -2,7 +2,6 @@ package task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.zip.DataFormatException;
 
 /**
  * This class encapsulates a Task.
@@ -77,11 +76,6 @@ public class Task {
         return this.getStatus() + "|" + this.description;
     }
 
-    /**
-     * Returns String representation of a Task to be printed.
-     *
-     * @return String representation of the Task to be printed.
-     */
     @Override
     public String toString() {
         if (this.getStatus() == 1) {

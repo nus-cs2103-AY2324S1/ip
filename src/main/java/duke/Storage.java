@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * This class handles the data reads from Duke.txt file to load tasks
  */
+
 public class Storage {
     /**
      * Reads data from file and loads into ArrayList if available. Else creates the file.

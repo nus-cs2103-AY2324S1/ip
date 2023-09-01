@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 public class Event extends Task {
     private String from;
     private String to;
-
     private LocalDateTime fromDateTime;
     private LocalDateTime toDateTime;
 

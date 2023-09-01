@@ -4,12 +4,10 @@ import java.time.LocalDateTime;
 /**
  * This class encapsulates a Deadline.
  */
-public class Deadline extends Task {
 
+public class Deadline extends Task {
     private String deadlineBy;
     private LocalDateTime deadlineInDateTime;
-
-
     public Deadline(String description, String deadlineBy) {
         super(description);
         this.deadlineBy = deadlineBy;
