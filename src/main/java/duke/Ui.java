@@ -46,7 +46,7 @@ public class Ui {
      * Print the new task added along with its associated message,
      * the new count of tasks, surrounded by horizontal lines.
      *
-     * @param task The new task added.
+     * @param task       The new task added.
      * @param totalTasks The total count of tasks in the list.
      */
     public void showTaskAdded(Task task, int totalTasks) {
@@ -60,7 +60,7 @@ public class Ui {
      * Print the task deleted along with its associated message,
      * the new count of tasks, surrounded by horizontal lines.
      *
-     * @param task The deleted task.
+     * @param task       The deleted task.
      * @param totalTasks The total count of tasks in the list.
      */
     public void showTaskDeleted(Task task, int totalTasks) {
@@ -90,12 +90,16 @@ public class Ui {
         printWithLines(Messages.MARK_UNDONE_MESSAGE + "  " + task + '\n');
     }
 
-    /** Print the greeting message. */
+    /**
+     * Print the greeting message.
+     */
     public void showGreeting() {
         printWithLines(Messages.GREETING_MESSAGE);
     }
 
-    /** Print the exit message. */
+    /**
+     * Print the exit message.
+     */
     public void showExitMessage() {
         printWithLines(Messages.EXIT_MESSAGE);
     }

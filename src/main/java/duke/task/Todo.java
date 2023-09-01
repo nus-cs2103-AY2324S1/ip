@@ -16,6 +16,7 @@ public class Todo extends Task {
 
     /**
      * Provides the string representation of the duke.task.Todo instance.
+     *
      * @return A string with the relevant information of the duke.task.Todo task.
      */
     @Override

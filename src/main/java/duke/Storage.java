@@ -83,52 +83,52 @@ public class Storage {
                 }
 
                 switch (matcher.group(1)) {
-                    case "T":
-                        if (matcher.group(2) == null || matcher.group(3) == null) {
-                            throw new DukeException(Ui.LINE + Messages.CORRUPT_FILE_MESSAGE + Ui.LINE);
-                        }
+                case "T":
+                    if (matcher.group(2) == null || matcher.group(3) == null) {
+                        throw new DukeException(Ui.LINE + Messages.CORRUPT_FILE_MESSAGE + Ui.LINE);
+                    }
 
-                        Todo newTodo = new Todo(matcher.group(3));
-                        if (matcher.group(2).equals("1")) {
-                            newTodo.markAsDone();
-                        }
-                        tasks.add(newTodo);
-                        break;
-                    case "D":
-                        if (matcher.group(2) == null
-                                || matcher.group(3) == null
-                                || matcher.group(4) == null) {
-                            throw new DukeException(Ui.LINE + Messages.CORRUPT_FILE_MESSAGE + Ui.LINE);
-                        }
+                    Todo newTodo = new Todo(matcher.group(3));
+                    if (matcher.group(2).equals("1")) {
+                        newTodo.markAsDone();
+                    }
+                    tasks.add(newTodo);
+                    break;
+                case "D":
+                    if (matcher.group(2) == null
+                            || matcher.group(3) == null
+                            || matcher.group(4) == null) {
+                        throw new DukeException(Ui.LINE + Messages.CORRUPT_FILE_MESSAGE + Ui.LINE);
+                    }
 
-                        LocalDateTime parsedDate;
-                        try {
-                            parsedDate = LocalDateTime.parse(matcher.group(4),
-                                    DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                        } catch (DateTimeParseException e) {
-                            throw new DukeException(Ui.LINE + Messages.CORRUPT_FILE_MESSAGE + Ui.LINE);
-                        }
+                    LocalDateTime parsedDate;
+                    try {
+                        parsedDate = LocalDateTime.parse(matcher.group(4),
+                                DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException(Ui.LINE + Messages.CORRUPT_FILE_MESSAGE + Ui.LINE);
+                    }
 
-                        Deadline newDeadline = new Deadline(matcher.group(3), parsedDate);
-                        if (matcher.group(2).equals("1")) {
-                            newDeadline.markAsDone();
-                        }
-                        tasks.add(newDeadline);
-                        break;
-                    case "E":
-                        if (matcher.group(2) == null
-                                || matcher.group(3) == null
-                                || matcher.group(4) == null
-                                || matcher.group(5) == null) {
-                            throw new DukeException(Ui.LINE + Messages.CORRUPT_FILE_MESSAGE + Ui.LINE);
-                        }
+                    Deadline newDeadline = new Deadline(matcher.group(3), parsedDate);
+                    if (matcher.group(2).equals("1")) {
+                        newDeadline.markAsDone();
+                    }
+                    tasks.add(newDeadline);
+                    break;
+                case "E":
+                    if (matcher.group(2) == null
+                            || matcher.group(3) == null
+                            || matcher.group(4) == null
+                            || matcher.group(5) == null) {
+                        throw new DukeException(Ui.LINE + Messages.CORRUPT_FILE_MESSAGE + Ui.LINE);
+                    }
 
-                        Event newEvent = new Event(matcher.group(3), matcher.group(4), matcher.group(5));
-                        if (matcher.group(2).equals("1")) {
-                            newEvent.markAsDone();
-                        }
-                        tasks.add(newEvent);
-                        break;
+                    Event newEvent = new Event(matcher.group(3), matcher.group(4), matcher.group(5));
+                    if (matcher.group(2).equals("1")) {
+                        newEvent.markAsDone();
+                    }
+                    tasks.add(newEvent);
+                    break;
                 }
             }
         } catch (IOException e) {

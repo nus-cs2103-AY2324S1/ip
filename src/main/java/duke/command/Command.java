@@ -19,8 +19,8 @@ public abstract class Command {
     /**
      * Executes the required actions for the specific duke.command.Command instance.
      *
-     * @param tasks The existing duke.TaskList instance containing all the tasks.
-     * @param ui The existing duke.Ui instance.
+     * @param tasks   The existing duke.TaskList instance containing all the tasks.
+     * @param ui      The existing duke.Ui instance.
      * @param storage The existing duke.Storage instance.
      * @throws DukeException if anything goes wrong in the execution.
      */

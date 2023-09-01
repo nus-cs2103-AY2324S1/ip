@@ -15,7 +15,7 @@ public class TaskList {
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
-    };
+    }
 
     /**
      * Constructor that converts an ArrayList of duke.task.Tasks into an instance of duke.TaskList.

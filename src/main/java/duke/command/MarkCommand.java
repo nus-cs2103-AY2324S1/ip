@@ -12,6 +12,7 @@ public class MarkCommand extends Command {
     public MarkCommand(int index) {
         this.index = index;
     }
+
     @Override
     public boolean isExit() {
         return false;
