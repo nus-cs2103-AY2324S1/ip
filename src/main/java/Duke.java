@@ -32,7 +32,7 @@ public class Duke {
 
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static Path SAVE_FILE_LOCATION = Paths.get("src", "data", "duke.txt");
-    private static Path SAVE_FILE_DIR = Paths.get("src","data");
+    private static Path SAVE_FILE_DIR = Paths.get("src", "data");
 
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
@@ -46,8 +46,11 @@ public class Duke {
                 "What can I do for you?";
         System.out.println(entranceMsg);
         System.out.println(SEPARATOR_LINE);
+
+        // Load in existing file if it exists
         try {
-            // Load in existing file if it exists
+
+
             if (Files.notExists(SAVE_FILE_DIR)) {
                 // create the directory
                 System.out.println("⏳ Directory not present, creating...");
@@ -56,25 +59,21 @@ public class Duke {
             if (Files.exists(SAVE_FILE_LOCATION)) {
                 System.out.println("⏳ Save file already exists, loading previous data");
                 // it exists, so let's read it
-                try {
-                    Scanner sc = new Scanner(SAVE_FILE_LOCATION);
-                    while (sc.hasNextLine()) {
-                        String inputLine = sc.nextLine();
-                        if (inputLine.isEmpty()) {
-                            continue;
 
-                        }
-                        Task task = parseTask(inputLine);
-
-                        listContainer.addToList(task);
+                Scanner sc = new Scanner(SAVE_FILE_LOCATION);
+                while (sc.hasNextLine()) {
+                    String inputLine = sc.nextLine();
+                    if (inputLine.isEmpty()) {
+                        continue;
 
                     }
-                    System.out.println("✅ Loaded " + listContainer.getSize() + " previous tasks.");
-                } catch (FileNotFoundException e) {
-                    throw new DukeException(FILE_PARSE_ERROR);
-                } catch (IOException e) {
-                    throw new DukeException(FILE_PARSE_ERROR);
+                    Task task = parseTask(inputLine);
+
+                    listContainer.addToList(task);
+
                 }
+                System.out.println("✅ Loaded " + listContainer.getSize() + " previous tasks.");
+
             } else {
 
                 File saveFile = new File(String.valueOf(SAVE_FILE_LOCATION));
@@ -85,15 +84,19 @@ public class Duke {
                     System.out.println("⚠\uFE0F Could not create save file!");
                 }
             }
+        } catch (IOException e) {
+            System.out.println(FILE_PARSE_ERROR);
+        }
 
 
-            String inputString = "";
+        String inputString = "";
 
-            Scanner keyboard = new Scanner(System.in);
+        Scanner keyboard = new Scanner(System.in);
 
-            loop:
-            while (true) {
 
+        loop:
+        while (true) {
+            try {
                 inputString = keyboard.nextLine();
 
 
@@ -176,13 +179,11 @@ public class Duke {
                         }
 
                         // parse the deadline - should be a LocalDate format
-                        String[] deadlineArr = deadline.split(" ");
-                        String deadlineDateStr = deadlineArr[0];
-                        int deadlineTime = Integer.parseInt(deadlineArr.length > 1 ? deadlineArr[1] : "0");
-                        try {
-                            LocalDate deadlineDate = LocalDate.parse(deadlineDateStr);
 
-                            DeadlineTask deadlineTask = new DeadlineTask(itemName, deadlineDate, deadlineTime);
+                        try {
+                            LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, formatter);
+
+                            DeadlineTask deadlineTask = new DeadlineTask(itemName, deadlineDateTime);
 
                             listContainer.addToList(deadlineTask);
 
@@ -244,18 +245,17 @@ public class Duke {
                     default:
                         throw new DukeException(UNKNOWN_COMMAND);
                 }
+
                 System.out.println(SEPARATOR_LINE);
                 saveChanges();
-
+            } catch (DukeException e) {
+                System.out.println(e.printError());
+            } catch (Exception e) {
+                System.out.println("some other exception " + e.getMessage());
+            }
 //            System.out.println(inputString);
 
 
-            }
-
-        } catch (DukeException e) {
-            System.out.println(e.printError());
-        } catch (Exception e) {
-            System.out.println("some other exception " + e.getMessage());
         }
 
 
@@ -280,16 +280,11 @@ public class Duke {
             case "D": {
                 // get the deadline, which is 4th element
                 String deadlineStr = split[3];
-                String[] deadlineArr = deadlineStr.split(" ");
 
-                LocalDate deadline = LocalDate.parse(deadlineArr[0]);
-                int deadlineTime = 0;
-                if (deadlineArr.length > 1) {
-                    // deadline time specified
-                    deadlineTime = Integer.parseInt(deadlineArr[1]);
-                }
 
-                task = new DeadlineTask(taskDescription, deadline, deadlineTime);
+                LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineStr);
+
+                task = new DeadlineTask(taskDescription, deadlineDateTime);
                 break;
             }
             case "E": {

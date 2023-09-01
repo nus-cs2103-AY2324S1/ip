@@ -1,22 +1,17 @@
 package Tasks;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class DeadlineTask extends Task {
-    private String deadline = "";
-    private LocalDate deadlineDate;
-    private int deadlineTime;
-    public DeadlineTask(String itemName, String deadline) {
-        super(itemName);
-        this.deadline = deadline;
-    }
+    private LocalDateTime deadlineDateTime;
 
-    public DeadlineTask(String itemName, LocalDate deadlineDate, int deadlineTime) {
+    public DeadlineTask(String itemName, LocalDateTime deadlineDateTime) {
         super(itemName);
-        this.deadlineDate = deadlineDate;
-        this.deadlineTime = deadlineTime;
+        this.deadlineDateTime = deadlineDateTime;
+
     }
 
     @Override
@@ -26,11 +21,11 @@ public class DeadlineTask extends Task {
 
     @Override
     public String encodeTask() {
-        return super.encodeTask() + " | " + this.deadlineDate + " " + String.valueOf(deadlineTime);
+        return super.encodeTask() + " | " + deadlineDateTime;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadlineDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + LocalTime.parse(String.valueOf(deadlineTime), DateTimeFormatter.ofPattern("HHmm")).format(DateTimeFormatter.ofPattern("h:mm a")) + ")";
+        return "[D]" + super.toString() + " (by: " + this.deadlineDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a")) + ")";
     }
 }
