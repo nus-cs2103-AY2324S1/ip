@@ -14,6 +14,12 @@ public class Duke {
     private final Parser parser;
     boolean isRunning = true;
 
+    /**
+     * Initiates a new {@code Duke} object.
+     *
+     * @throws IOException When the {@code saveTasksToDisk()} method in the {@code Storage} class
+     * fails to function properly.
+     */
     public Duke() throws IOException {
         this.tasks = new TaskList();
         this.ui = new Ui();
@@ -22,6 +28,13 @@ public class Duke {
         this.run();
     }
 
+    /**
+     * Contains the tasks required for {@code Duke} to start.
+     * Also acts as a driver method for the {@code Parser} to read the user input.
+     *
+     * @throws IOException When the {@code saveTasksToDisk()} method in the {@code Storage} class
+     * fails to function properly.
+     */
     public void run() throws IOException {
         storage.launchOnStart();
         try {
@@ -45,6 +58,9 @@ public class Duke {
         this.exit(0);
     }
 
+    /**
+     * Creates a new {@code Task} object with details input by the user and adds it to the list.
+     */
     public void createTask() {
         String details = parser.checkTaskInput("task");
         if (details != null) {
@@ -54,6 +70,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Creates a new {@code Todo} object with details input by the user and adds it to the list.
+     */
     public void createToDo() {
         String details = parser.checkTaskInput("todo");
         if (details != null) {
@@ -63,6 +82,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Creates a new {@code Deadline} object with details input by the user and adds it to the list.
+     * If no time is input by the user, the time will be set to 23:59 by default.
+     */
     public void createDeadline() {
         String details = parser.checkTaskInput("deadline");
         if (details == null) {
@@ -76,7 +99,6 @@ public class Duke {
         if (dueTime == null) {
             // Shouldn't reach here as creation of deadline without time input is supported.
             // Invalid input is also handled in the Parser class.
-            // Default dueTime is 23:59.
             return;
         }
         LocalDateTime due = dueTime.atDate(dueDate);
@@ -88,6 +110,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Creates a new {@code Event} object with details input by the user and adds it to the list.
+     */
     public void createEvent() {
         String details = parser.checkTaskInput("event");
         if (details == null) {
@@ -120,6 +145,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Prints all stored Task objects and prints them in a list format.
+     * Also shows the completion status of each task marked with an "[X]", and the
+     * breakdown of completed/incomplete tasks.
+     */
     public void list() {
         int numOfTasks = tasks.getNumOfTasks();
         int numOfCompletedTasks = tasks.getNumOfCompletedTasks();
@@ -137,6 +167,9 @@ public class Duke {
         ui.printEndOfOperation();
     }
 
+    /**
+     * Marks a selected task as complete, with the task number input by the user.
+     */
     public void markAsComplete() {
         if (tasks.isEmpty()) {
             System.out.println("No tasks to mark.");
@@ -160,6 +193,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Marks a selected task as incomplete, with the task number input by the user.
+     */
     public void markAsIncomplete() {
         if (!tasks.hasCompletedTasks()) {
             System.out.println("No tasks to unmark.");
@@ -187,6 +223,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Deletes a selected task from the list, with the task number input by the user.
+     */
     public void deleteTask() {
         if (tasks.isEmpty()) {
             System.out.println("No tasks to delete.");
@@ -205,6 +244,16 @@ public class Duke {
         }
     }
 
+    /**
+     * Terminates the {@code Duke} object.
+     *
+     * @param status Indicates the cause of termination as follows:
+     *               0 - Normal operations.
+     *               1 - Excessive invalid inputs from user.
+     *               2 - When {@code FileNotFoundException} is thrown.
+     * @throws IOException When the {@code saveTasksToDisk()} method in the {@code Storage} class
+     * fails to function properly.
+     */
     public void exit(int status) throws IOException {
         storage.saveTasksToDisk("./data/tasks.txt", tasks);
         if (status == 1) {

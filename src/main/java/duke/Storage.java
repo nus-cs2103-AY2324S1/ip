@@ -27,6 +27,15 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads previously saved tasks from the specified {@code filePath}, parses them and
+     * directly adds them to the list.
+     *
+     * @param filePath Relative path of the text file containing details on the tasks.
+     * @throws FileNotFoundException When the system is unable to find the specified file.
+     * @throws IllegalArgumentException When the system is unable to parse the saved tasks,
+     * possibly due to the file being corrupted.
+     */
     public void readTasksFromDisk(String filePath) throws FileNotFoundException,
             IllegalArgumentException {
         File f = new File(filePath);
@@ -80,6 +89,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the tasks in the {@code TaskList} in the text file specified by the {@code filePath}.
+     *
+     * @param filePath Relative path of the text file to be written to.
+     * @param tasks {@code TaskList} containing the current tasks.
+     * @throws IOException When the {@code FileWriter} is unable to write to the file.
+     */
     public void saveTasksToDisk(String filePath, duke.TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         BufferedWriter bw = new BufferedWriter(fw);
