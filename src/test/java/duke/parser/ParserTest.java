@@ -23,7 +23,7 @@ public class ParserTest {
     public void setup() {
         this.ui = new UiSample();
         this.tasks = new TaskList(new ArrayList<>());
-        this.storage = new Storage("./sample", "test.txt");
+        this.storage = new Storage("./data", "test.txt");
     }
 
     /**
