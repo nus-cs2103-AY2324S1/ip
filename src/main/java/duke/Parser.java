@@ -9,6 +9,11 @@ import java.util.regex.Pattern;
 
 public class Parser {
 
+    /**
+     * parses a string to match the format to create a deadline task
+     * @param input String to be parsed
+     * @return A string suitable to create a new deadline task
+     */
     public static String convertDeadlineFormat(String input) {
         Pattern pattern = Pattern.compile("by: (\\w{3} \\d{2} \\d{4}, \\d{2}:\\d{2})");
         Matcher matcher = pattern.matcher(input);
@@ -25,6 +30,11 @@ public class Parser {
             return input;
         }
     }
+    /**
+     * parses a string to match the format to create an event task
+     * @param input String to be parsed
+     * @return A string suitable to create a new event task
+     */
     public static String convertEventFormat(String input) {
         // Define a regular expression pattern to match the date and time strings
         Pattern pattern = Pattern.compile("\\((from: ([^)]+) to: ([^)]+))\\)");

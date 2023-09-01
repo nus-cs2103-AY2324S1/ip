@@ -7,10 +7,18 @@ public class Ui {
     public static String exitMessage = line + "\tBye. Hope to see you again\n" + line;
     protected TaskList tasks;
 
+    /**
+     * Constructor to create a new UI
+     * @param tasks lists of tasks
+     */
     public Ui(TaskList tasks) {
         this.tasks = tasks;
     }
 
+
+    /**
+     * Starts the UI interaction with the user.
+     */
     public void startUi() {
         String greeting =
                 line +

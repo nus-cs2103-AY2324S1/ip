@@ -5,6 +5,9 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * @param filePath The file path of the txt document to read and write from.
+     */
     public Duke (String filePath) {
         tasks = new TaskList();
         storage = new Storage(filePath, tasks);
