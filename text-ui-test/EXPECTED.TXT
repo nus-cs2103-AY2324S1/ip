@@ -2,102 +2,93 @@
 	Hello I am Vishnu.
 	What can I do for you?
 	____________________________________________________________
-
+	
 	____________________________________________________________
-	The description of a todo cannot be empty. Try again.
+	Description of a todo cannot be empty. Try again.
 	____________________________________________________________
-
+	
 	____________________________________________________________
 	Got it. I've added this task:
 	 [T][ ] read book
 	Now you have 1 tasks in the list.
 	____________________________________________________________
-
+	
 	____________________________________________________________
 	Unrecognized instruction. Try again.
 	____________________________________________________________
-
+	
 	____________________________________________________________
-	Insufficient number of arguments for a deadline. Try again.
+	Invalid format for deadline. Try again.
 	____________________________________________________________
-
+	
 	____________________________________________________________
-	Got it. I've added this task:
-	 [D][ ] return book (by: sunday)
-	Now you have 2 tasks in the list.
+	Invalid date format. Try again.
 	____________________________________________________________
-
+	
 	____________________________________________________________
-	Insufficient number of arguments for a deadline. Try again.
+	Invalid format for deadline. Try again.
 	____________________________________________________________
-
+	
 	____________________________________________________________
-	Insufficient number of arguments for an event. Try again.
+	Invalid format for event. Try again.
 	____________________________________________________________
-
+	
 	____________________________________________________________
-	Got it. I've added this task:
-	 [E][ ] go library(from: 1pm to: 2pm)
-	Now you have 3 tasks in the list.
+	Invalid date format. Try again. 
 	____________________________________________________________
-
+	
 	____________________________________________________________
-	Insufficient number of arguments for an event. Try again.
+	Invalid format for event. Try again.
 	____________________________________________________________
-
+	
 	____________________________________________________________
 	Here are the tasks in your list:
 	1. [T][ ] read book
-	2. [D][ ] return book (by: sunday)
-	3. [E][ ] go library(from: 1pm to: 2pm)
 	____________________________________________________________
-
+	
 	____________________________________________________________
 	The description of list must be empty. Try again.
 	____________________________________________________________
-
+	
 	____________________________________________________________
 	Nice! I've marked this task as done:
-	  [T][X] read book
+	 [T][X] read book
 	____________________________________________________________
-
-	____________________________________________________________
-	The index is not a valid index. Try again.
-	____________________________________________________________
-
+	
 	____________________________________________________________
 	The index is not a valid index. Try again.
 	____________________________________________________________
-
+	
 	____________________________________________________________
-	Noted. I have removed this task from the list:
-	  [D][ ] return book (by: sunday)
-	Now you have 2 tasks in the list.
+	The index is not a valid index. Try again.
 	____________________________________________________________
-
+	
+	____________________________________________________________
+	The index is not a valid index. Try again.
+	____________________________________________________________
+	
 	____________________________________________________________
 	Got it. I've added this task:
 	 [T][ ] read book
-	Now you have 3 tasks in the list.
+	Now you have 2 tasks in the list.
 	____________________________________________________________
-
+	
 	____________________________________________________________
 	Nice! I've marked this task as done:
-	  [E][X] go library(from: 1pm to: 2pm)
+	 [T][X] read book
 	____________________________________________________________
-
+	
 	____________________________________________________________
 	Ok. I have marked this task as not done yet:
-	  [T][ ] read book
+	 [T][ ] read book
 	____________________________________________________________
-
+	
 	____________________________________________________________
 	Here are the tasks in your list:
 	1. [T][ ] read book
-	2. [E][X] go library(from: 1pm to: 2pm)
-	3. [T][ ] read book
+	2. [T][X] read book
 	____________________________________________________________
-
+	
 	____________________________________________________________
 	Bye. Hope to see you again soon!
 	____________________________________________________________
