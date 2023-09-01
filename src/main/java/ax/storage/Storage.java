@@ -21,33 +21,30 @@ public class Storage {
         // read save file
         Path path = Paths.get("data/save.txt");
         try {
-            Path saveFilepath = path;
-            File saveFile = saveFilepath.toFile();
+            File saveFile = path.toFile();
             Scanner scanner = new Scanner(saveFile);
-            // Declaring loop variable
-            int i;
             // Holds true till there is nothing to read
             while (scanner.hasNextLine()) {
                 String info = scanner.nextLine();
                 // check if index 5 is blank space
                 boolean marked = info.charAt(5) != ' ';
                 // check if index 1 is T D or E
-                int startidx = 8;
+                int startIdx = 8;
                 if (info.charAt(1) == 'T') {
-                    TaskList.getListItems().add(new Todos(info.substring(startidx)));
+                    TaskList.getListItems().add(new Todos(info.substring(startIdx)));
                 } else if (info.charAt(1) == 'D') {
                     // find first ( in info
                     int idx = info.indexOf('(') - 1;
                     int end = info.indexOf(')');
-                    TaskList.getListItems().add(new Deadlines(info.substring(startidx, idx), info.substring(idx + 6, end)));
+                    TaskList.getListItems().add(new Deadlines(info.substring(startIdx, idx), info.substring(idx + 6, end)));
                 } else if (info.charAt(1) == 'E') {
                     // find first ( in info
                     int idx = info.indexOf('(') - 1;
                     int end = info.indexOf(')');
-                    int fromend = info.indexOf("from: ") + 6;
-                    int toend = info.indexOf("to: ") + 4;
-                    int tostart = info.indexOf("to: ") - 1;
-                    TaskList.getListItems().add(new Events(info.substring(startidx, idx), info.substring(fromend, tostart), info.substring(toend, end)));
+                    int fromEnd = info.indexOf("from: ") + 6;
+                    int toEnd = info.indexOf("to: ") + 4;
+                    int toStart = info.indexOf("to: ") - 1;
+                    TaskList.getListItems().add(new Events(info.substring(startIdx, idx), info.substring(fromEnd, toStart), info.substring(toEnd, end)));
                 }
                 TaskList.getListItems().get(TaskList.getListItems().size() - 1).setDone(marked);
 

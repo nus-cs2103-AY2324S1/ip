@@ -4,7 +4,7 @@ import ax.commands.Parser;
 import ax.display.Ui;
 import ax.storage.Storage;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class Ax {
 
