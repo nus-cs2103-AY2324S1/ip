@@ -5,6 +5,7 @@ import command.DeadlineCommand;
 import command.DeleteCommand;
 import command.EventCommand;
 import command.ExitCommand;
+import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.TodoCommand;
@@ -27,22 +28,18 @@ public class Parser {
             switch (commandName) {
                 case MarkCommand.COMMAND_WORD:
                     return prepareMark(details);
-
                 case UnmarkCommand.COMMAND_WORD:
                     return prepareUnmark(details);
-
                 case DeleteCommand.COMMAND_WORD:
                     return prepareDelete(details);
-
                 case TodoCommand.COMMAND_WORD:
                     return prepareTodo(details);
-
                 case DeadlineCommand.COMMAND_WORD:
                     return prepareDeadline(details);
-
                 case EventCommand.COMMAND_WORD:
                     return prepareEvent(details);
-
+                case FindCommand.COMMAND_WORD:
+                    return prepareFind(details);
                 default:
                     throw new DukeException("Sorry! I do not recognise this command");
             }
@@ -123,5 +120,13 @@ public class Parser {
         LocalDateTime from = LocalDateTime.parse(eventTimings[0].trim(), inputFormatter);
         LocalDateTime to = LocalDateTime.parse(eventTimings[1].trim(), inputFormatter);
         return new EventCommand(eventDetails[0].trim(), from, to);
+    }
+
+    private static FindCommand prepareFind (String[] details) throws DukeException {
+        // user input only has the command eg "event"
+        if (details.length < 2 || details[1].trim().isEmpty()) {
+            throw new DukeException("Invalid command! Please include a search keyword");
+        }
+        return new FindCommand(details[1].trim());
     }
 }
