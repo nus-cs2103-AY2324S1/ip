@@ -37,6 +37,15 @@ public abstract class Task {
     abstract Task unmark();
 
     /**
+     * Returns the name of the task
+     *
+     * @return Name of task
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
      * Creates the string to be saved into the save file
      *
      * @return String to be saved

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  */
 public class Deadline extends Task {
     private final LocalDateTime deadline;
-    
+
     public Deadline(String name, String deadline) {
         super(name);
         this.deadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);
@@ -37,7 +37,7 @@ public class Deadline extends Task {
     /**
      * Returns the name of task with deadline.
      *
-     * @return Task.Task to be done
+     * @return Task to be done
      */
     @Override
     public String toString() {

@@ -99,6 +99,22 @@ public class TaskList {
     }
 
     /**
+     * Returns similar queried tasks
+     *
+     * @param query Query term
+     * @return Task list of similar tasks
+     */
+    public TaskList getSimilarTasks(String query) {
+        TaskList similarTasks = new TaskList();
+        for (Task t : this.tasks) {
+            if (t.getName().contains(query)) {
+                similarTasks = similarTasks.addTask((t));
+            }
+        }
+        return similarTasks;
+    }
+
+    /**
      * Returns the list of tasks to be done.
      *
      * @return List of tasks to be done

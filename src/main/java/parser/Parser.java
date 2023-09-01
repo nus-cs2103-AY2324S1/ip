@@ -112,13 +112,18 @@ public class Parser {
         ui.displayTasks(taskList);
     }
 
+    private void findSimilarTasks(String query, TaskList taskList) {
+        TaskList similarTasks = taskList.getSimilarTasks(query);
+        ui.displayTasks(similarTasks);
+    }
+
     /**
      * Returns an updated task list based on user's input
      *
      * @param command User input
      * @param taskList Current task list
      * @return Task list
-     * @throws BocchiException
+     * @throws BocchiException Exception thrown with invalid inputs
      */
     public TaskList process(String command, TaskList taskList) throws BocchiException {
         // This splits the input string into two to isolate the first token as an action
@@ -127,6 +132,9 @@ public class Parser {
         switch (action) {
         case "list":
             displayTasks(taskList);
+            break;
+        case "find":
+            findSimilarTasks(tokens[1], taskList);
             break;
         case "mark":
             taskList = markTask(Integer.parseInt(tokens[1]), taskList);
