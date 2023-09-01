@@ -3,7 +3,7 @@ package commands;
 import storage.DataFile;
 import tasks.TaskList;
 
-public class ByeCommand extends Command{
+public class ByeCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, DataFile dF) {

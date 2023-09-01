@@ -12,17 +12,17 @@ import java.util.ArrayList;
 public class Duke {
 
     private final Ui ui;
-    private final DataFile dF;
-    private TaskList tL;
+    private final DataFile dataFile;
+    private TaskList taskList;
 
     public Duke(String filePath, String fileName) {
         ui = new Ui();
-        dF = new DataFile(filePath, fileName);
+        dataFile = new DataFile(filePath, fileName);
         try {
-            tL = new TaskList(dF.fileToObjects());
+            taskList = new TaskList(dataFile.fileToObjects());
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            tL = new TaskList(new ArrayList<Task>());
+            taskList = new TaskList(new ArrayList<Task>());
         }
 
     }
@@ -40,7 +40,7 @@ public class Duke {
             try {
                 String command = ui.readCommand();
                 Command c = new Parser().getCommand(command);
-                c.execute(tL, dF);
+                c.execute(taskList, dataFile);
                 run = !c.isExit();
             } catch (DukeException e) {
                 System.out.println(e.getMessage());

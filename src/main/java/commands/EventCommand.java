@@ -2,7 +2,6 @@ package commands;
 
 import duke.CustomDate;
 import storage.DataFile;
-import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.TaskList;
@@ -10,7 +9,8 @@ import tasks.TaskList;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class EventCommand extends Command{
+public class EventCommand extends Command {
+
     private final ArrayList<String> texts;
     private Task task;
     private int size;
@@ -37,7 +37,7 @@ public class EventCommand extends Command{
 
     @Override
     public String toString() {
-        return "Got it. I've added this task:\n" + task +
-                "\nNow you have " + size  + " tasks in the list.";
+        return "Got it. I've added this task:\n" + task
+                + "\nNow you have " + size  + " tasks in the list.";
     }
 }

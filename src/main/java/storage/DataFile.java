@@ -85,7 +85,7 @@ public class DataFile {
         fW.close();
     }
 
-    public void deleteTaskFromFile(int n) throws IOException{
+    public void deleteTaskFromFile(int n) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line = reader.readLine();
         StringBuilder oldContent = new StringBuilder();

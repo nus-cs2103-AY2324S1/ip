@@ -7,7 +7,8 @@ import tasks.TaskList;
 
 import java.io.IOException;
 
-public class UnmarkComment extends Command{
+public class UnmarkComment extends Command {
+
     private final int index;
     private Task task;
 
@@ -16,7 +17,7 @@ public class UnmarkComment extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, DataFile dF) throws DukeException{
+    public void execute(TaskList tasks, DataFile dF) throws DukeException {
         if (tasks.isTaskListEmpty()) {
             throw new DukeException("List is empty, nothing to unmark");
         }

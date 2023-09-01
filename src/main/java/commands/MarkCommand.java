@@ -7,7 +7,8 @@ import tasks.TaskList;
 
 import java.io.IOException;
 
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
+
     private Task task;
     private final int index;
 

@@ -1,10 +1,9 @@
 package tasks;
 
-import tasks.Task;
-
 import java.util.ArrayList;
 
 public class TaskList {
+
     ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks){
