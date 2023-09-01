@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -107,7 +110,7 @@ public class Duke {
             throw new TasketException("The deadline cannot be empty");
         }
 
-        return new Deadline(desSplit[0], desSplit[1]);
+        return new Deadline(desSplit[0], convertToDate(desSplit[1]));
     }
 
     public static Task createEventTask(String prompt) throws TasketException {
@@ -127,6 +130,15 @@ public class Duke {
         }
 
         return new Event(desSplit[0], eventLength[0], eventLength[1]);
+    }
+
+    public static String convertToDate(String deadline) {
+        try {
+            LocalDate date = LocalDate.parse(deadline);
+            return date.format(DateTimeFormatter.ofPattern("yyyy MMM d"));
+        } catch (DateTimeParseException exception) {
+            return deadline;
+        }
     }
 
     public static void deleteTask(String prompt) throws TasketException {
