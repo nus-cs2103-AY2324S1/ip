@@ -1,10 +1,10 @@
-package Duke.Tools;
+package duke.tools;
 
-import Duke.Tasks.Task;
-import Duke.Tasks.ToDo;
-import Duke.Tasks.Deadline;
-import Duke.Tasks.Event;
-import Duke.Exceptions.DukeException;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.exceptions.DukeException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -69,8 +69,8 @@ public class TaskList {
     }
 
     /**
-     * Method to mark task
-     * @param task
+     * Method to mark task.
+     * @param task the task being marked
      */
     public void mark(String task) throws DukeException {
         String[] parts = task.split(" ");
@@ -113,7 +113,7 @@ public class TaskList {
             throw new DukeException("Which task do you want to delete?");
         }
         String index = segments[1];
-        int taskIndex = 0;
+        int taskIndex;
         try {
             taskIndex = Integer.parseInt(index) - 1;
         } catch (NumberFormatException e) {

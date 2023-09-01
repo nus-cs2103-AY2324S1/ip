@@ -1,4 +1,4 @@
-package Duke.Tools;
+package duke.tools;
 
 public enum KeywordEnum {
     LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID;

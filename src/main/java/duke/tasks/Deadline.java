@@ -1,6 +1,6 @@
-package Duke.Tasks;
+package duke.tasks;
 
-import Duke.Exceptions.DukeException;
+import duke.exceptions.DukeException;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -18,12 +18,12 @@ public class Deadline extends Task{
     /**
      * Method that checks that 1. task contains deadline, 2. deadline in specified format.
      * @return reformatted deadline
-     * @throws DukeException
+     * @throws DukeException duke exception
      */
     public String checkValidity() throws DukeException {
         String[] descrArr = descr.split("/by "); //you get 0: taskName, 1: deadline
         String date = descrArr[1];
-        String res = null;
+        String res;
         if (descrArr.length < 2) {
             throw new DukeException("You are missing the deadline");
         }
@@ -56,7 +56,7 @@ public class Deadline extends Task{
             String[] parts = this.descr.split("/by");
             String eventType = "deadline";
             String eventDescription = parts[0].substring(eventType.length()).trim();
-            res = "D | " + super.status() + "| " + eventDescription + " | " + checkValidity();
+            res = "D | " + super.status() + " | " + eventDescription + " | " + checkValidity();
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
@@ -68,7 +68,7 @@ public class Deadline extends Task{
     public String toString() {
         String res = "Invalid Deadline";
         try {
-            String deadline = this.descr.split("/by")[1].trim();
+            //String deadline = this.descr.split("/by")[1].trim();
             res = "[D]" + super.toString() + " (by: " + checkValidity() + ")";
         } catch (DukeException e) {
             System.out.println(e.getMessage());

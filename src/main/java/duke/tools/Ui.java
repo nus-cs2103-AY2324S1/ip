@@ -1,4 +1,4 @@
-package Duke.Tools;
+package duke.tools;
 
 public class Ui {
     private static final String line = "___________________________________________";

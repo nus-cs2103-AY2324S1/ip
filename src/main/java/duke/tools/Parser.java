@@ -1,4 +1,4 @@
-package Duke.Tools;
+package duke.tools;
 
 public class Parser {
 

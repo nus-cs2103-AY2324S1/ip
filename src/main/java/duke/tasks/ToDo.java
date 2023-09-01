@@ -1,6 +1,6 @@
-package Duke.Tasks;
+package duke.tasks;
 
-import Duke.Exceptions.DukeException;
+import duke.exceptions.DukeException;
 
 public class ToDo extends Task{
     private final String descr;

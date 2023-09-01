@@ -1,10 +1,10 @@
-package Duke.Tools;
+package duke.tools;
 
-import Duke.Tasks.Task;
-import Duke.Tasks.ToDo;
-import Duke.Tasks.Deadline;
-import Duke.Tasks.Event;
-import Duke.Exceptions.DukeException;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.exceptions.DukeException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -46,7 +46,12 @@ public class Storage {
             } else if (task instanceof Event) {
                 res = ((Event) task).writtenFormat() + "\n";
             }
-            writer.write(res);
+
+            try {
+                writer.write(res);
+            } catch (NullPointerException e) {
+                System.out.println(("Nothing in task list to write to tasks.txt"));
+            }
         }
         writer.close();
     }
