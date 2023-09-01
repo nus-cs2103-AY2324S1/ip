@@ -13,7 +13,7 @@ import java.time.format.DateTimeParseException;
  * @author Ho Khee Wei
  */
 public abstract class DateTimeParser {
-
+    /** Supported date formats */
     public final static String[] DATE_FORMATS = {
             "yyyy-M-d",
             "d-M-yyyy",
@@ -21,6 +21,7 @@ public abstract class DateTimeParser {
             "d/M/yyyy",
     };
 
+    /** Supported time formats */
     public final static String[] TIME_FORMATS = {
             "HH:mm",
             "HH-mm",

@@ -17,8 +17,13 @@ import utility.TextFileHandler;
  * @author Ho Khee Wei
  */
 public abstract class Storage {
+    /** Path to the textfile. */
     public static final String TASK_FILE_PATH = "data/tasks.txt";
+
+    /** Character indicator that separates one elements in the textfile. */
     public static final String TASK_FILE_SEPARATOR = "-";
+
+    /** Standard format for time and date. */
     public static final String TASK_FILE_TB_FORMAT = "dd/MM/yyyy HHmm";
 
     /**

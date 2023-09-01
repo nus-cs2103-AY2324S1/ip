@@ -6,8 +6,8 @@ package task;
  * @author Ho Khee Wei
  */
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
+    private String description;
+    private boolean isDone;
 
     /**
      * Constructs a Task with the specified description.
