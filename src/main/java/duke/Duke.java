@@ -1,14 +1,20 @@
 package duke;
 
 import java.util.Scanner;
+
 /**
- * The duke.Duke class represents a simple chatbot application that helps manage tasks.
+ * The Duke class represents a simple chatbot application that helps manage tasks.
  */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Constructs a new Duke chatbot with the provided file path.
+     *
+     * @param filePath The file path for task data storage.
+     */
     public Duke(String filePath) {
         storage = new Storage(filePath);
         try {
@@ -19,6 +25,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the Duke chatbot and handles user interactions.
+     */
     public void run() {
         Ui.greet();
         Scanner scanner = new Scanner(System.in);
@@ -39,7 +48,7 @@ public class Duke {
     }
 
     /**
-     * The main method to start the duke.Duke chatbot.
+     * The main method to start the Duke chatbot.
      *
      * @param args Command-line arguments (unused).
      */

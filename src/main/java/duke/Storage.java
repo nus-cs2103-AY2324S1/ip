@@ -10,14 +10,28 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Storage class handles loading and saving tasks to a file.
+ */
 public class Storage {
 
     private String filePath;
 
+    /**
+     * Constructs a new Storage object with the specified file path.
+     *
+     * @param filePath The file path where tasks will be stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified by the file path.
+     *
+     * @return A list of Task objects loaded from the file.
+     * @throws DukeException If there is an issue or error encountered during loading.
+     */
     public List<Task> load() throws DukeException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -40,44 +54,43 @@ public class Storage {
                 String[] parts = line.split("\\|");
 
                 String taskType = parts[0].trim();
-                boolean isDone = parts[1].trim().equals("1") ? true : false;
+                boolean isDone = parts[1].trim().equals("1");
                 String description = parts[2].trim();
 
                 if (taskType.equals("T")) {
-                    // Create a duke.task.ToDo duke.task
                     tasks.add(new ToDo(description, isDone));
                 } else if (taskType.equals("D")) {
-                    // Extract 'by' from parts[3] if applicable
                     LocalDate by = LocalDate.parse(parts[3].trim());
-                    // Create a duke.task.Deadline duke.task
                     tasks.add(new Deadline(description, by, isDone));
                 } else if (taskType.equals("E")) {
-                    // Extract 'from' and 'to' from parts[3] and parts[4] if applicable
                     String from = parts[3].trim();
                     String to = parts[4].trim();
-                    // Create an duke.task.Event duke.task
                     tasks.add(new Event(description, from, to, isDone));
                 } else {
-                    // Handle unsupported duke.task type
-                    throw new DukeException("☹ OOPS!!! I'm sorry, but there's an error loading the file");
+                    throw new DukeException("☹ OOPS!!! Invalid task type in file");
                 }
             }
             return tasks;
         } catch (IOException e) {
-            throw new DukeException("☹ OOPS!!! I'm sorry, but there's an error loading the file");
+            throw new DukeException("☹ OOPS!!! Error loading tasks from the file");
         }
     }
 
+    /**
+     * Saves the tasks from the TaskList to the file specified by the file path.
+     *
+     * @param tasks The TaskList object containing the tasks to be saved.
+     * @throws DukeException If there is an issue or error encountered during saving.
+     */
     public void save(TaskList tasks) throws DukeException {
         try {
             FileWriter writer = new FileWriter(filePath);
             for (Task task : tasks.getAll()) {
-                // Convert each duke.task to its string representation and write to file
                 writer.write(task.toFileString() + "\n");
             }
             writer.close();
         } catch (IOException e) {
-            throw new DukeException("☹ OOPS!!! I'm sorry, but there's an error loading the file");
+            throw new DukeException("☹ OOPS!!! Error saving tasks to the file");
         }
     }
 }

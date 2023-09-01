@@ -4,38 +4,50 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The duke.task.Deadline class represents a duke.task of type "duke.task.Deadline" inherited from the duke.task.Task class.
- * It contains a description and a deadline (by when the duke.task should be completed).
+ * The Deadline class represents a task of type "Deadline" inherited from the Task class.
+ * It contains a description and a deadline (by when the task should be completed).
  */
 public class Deadline extends Task {
     protected LocalDate by;
 
     /**
-     * Constructs a new duke.task.Deadline duke.task with the provided description and deadline.
+     * Constructs a new Deadline task with the provided description and deadline.
      *
-     * @param description The description of the duke.task.Deadline duke.task.
-     * @param by          The deadline for completing the duke.task.
+     * @param description The description of the Deadline task.
+     * @param by          The deadline for completing the task.
      */
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
+
+    /**
+     * Constructs a new Deadline task with the provided description, deadline, and completion status.
+     *
+     * @param description The description of the Deadline task.
+     * @param by          The deadline for completing the task.
+     * @param isDone      The completion status of the task.
+     */
     public Deadline(String description, LocalDate by, boolean isDone) {
         super(description, isDone);
         this.by = by;
     }
 
+    /**
+     * Converts the Deadline task to a formatted string suitable for saving to a file.
+     *
+     * @return A string representation of the Deadline task in a format compatible with file storage.
+     */
     @Override
     public String toFileString() {
-        String status = getStatusIcon().equals("X") ? "1" : "0";
-        return "D" + " | " + status + " | " + super.description + " | " + by;
+        String status = isDone ? "1" : "0"; // Using isDone directly for readability
+        return "D | " + status + " | " + description + " | " + by;
     }
 
-
     /**
-     * Returns a string representation of the duke.task.Deadline duke.task, including its completion status, description, and deadline.
+     * Returns a string representation of the Deadline task, including its completion status, description, and deadline.
      *
-     * @return A formatted string indicating the duke.task type, completion status, and deadline.
+     * @return A formatted string indicating the task type, completion status, and deadline.
      */
     @Override
     public String toString() {
