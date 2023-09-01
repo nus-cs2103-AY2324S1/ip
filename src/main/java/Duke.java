@@ -12,12 +12,15 @@ import java.io.InputStreamReader;
 public class Duke {
 
     private Storage storage;
+    private final String DIRECTORY = "data";
     private static TaskList taskList;
     private Ui ui;
 
     public Duke (String filePath) throws ErrorStorageException {
         ui = new Ui();
-        this.storage = new Storage(filePath);
+        String projRoot = System.getProperty("user.dir");
+        String path = projRoot + "/" + DIRECTORY + filePath;
+        this.storage = new Storage(path);
         try {
             taskList = new TaskList(this.storage.read());
         } catch (Exception e) {
@@ -51,7 +54,7 @@ public class Duke {
 
     public static void main(String[] args) throws ErrorStorageException {
 
-        new Duke("tasks.txt").run();
+        new Duke("/tasks.txt").run();
 
     }
 }

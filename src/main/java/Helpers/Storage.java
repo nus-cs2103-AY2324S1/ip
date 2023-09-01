@@ -1,5 +1,6 @@
 package Helpers;
 
+import Exceptions.ErrorStorageException;
 import Tasks.Deadline;
 import Tasks.Events;
 import Tasks.Task;
@@ -17,19 +18,29 @@ public class Storage {
     private final String path;
     private final static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public Storage(String path) {
+    public Storage(String path) throws ErrorStorageException {
+
         this.path = path;
+        File file = new File(this.path);
+        File parentDirectory = file.getParentFile();
+        if (!parentDirectory.exists()) {
+            parentDirectory.mkdirs();
+        }
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new ErrorStorageException(e.getMessage());
+            }
+        }
+
     }
 
-    public ArrayList<Task> read() {
+    public ArrayList<Task> read() throws ErrorStorageException {
         TaskList taskList = new TaskList();
         try {
-            File file = new File("data\\" + this.path);
-            if (!file.getParentFile().exists()) {
-                if (file.getParentFile().mkdirs()) {
-                    file.createNewFile();
-                }
-            }
+            File file = new File(this.path);
             FileReader reader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(reader);
             String readLine;
@@ -62,7 +73,7 @@ public class Storage {
             }
             reader.close();
         } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            throw new ErrorStorageException(ex.getMessage());
 
         }
         return taskList.getTaskList();
@@ -71,7 +82,7 @@ public class Storage {
     public void write(ArrayList<Task> taskList) {
 
         try {
-            FileWriter writer = new FileWriter("data\\" + this.path, false);
+            FileWriter writer = new FileWriter(this.path, false);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
             for (Task task : taskList) {
