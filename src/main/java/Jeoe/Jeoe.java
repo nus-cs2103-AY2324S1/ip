@@ -5,12 +5,10 @@ import Jeoe.Commands.CommandParser;
 import Jeoe.Exceptions.InitializationException;
 import Jeoe.Exceptions.NoCommandException;
 import Jeoe.Exceptions.InvalidCommandException;
-
 import Jeoe.Exceptions.RunException;
 import Jeoe.Others.StorageManager;
 import Jeoe.Others.Ui;
 import Jeoe.Tasks.TaskManager;
-
 
 public class Jeoe {
 
