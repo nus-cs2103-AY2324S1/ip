@@ -2,7 +2,12 @@ package Duke.Parser;
 
 import Duke.Exceptions.DukeException;
 import Duke.Storage.Storage;
-import Duke.Tasks.*;
+import Duke.Tasks.Commands;
+import Duke.Tasks.DeadlineTask;
+import Duke.Tasks.EventTask;
+import Duke.Tasks.Task;
+import Duke.Tasks.TaskList;
+import Duke.Tasks.TodoTask;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -50,159 +55,167 @@ public class Parser {
 
         boolean canContinue;
         switch (inputCommand) {
-            case BYE: {
-                printResult(inputCommand, null, taskList);
+        case BYE: {
+            printResult(inputCommand, null, taskList);
 
-                canContinue = false;
-                break;
+            canContinue = false;
+            break;
+        }
+        case LIST: {
+            printResult(inputCommand, null, taskList);
+
+            canContinue = true;
+            break;
+
+        }
+        case MARK: {
+            // check if is number
+            int index = Integer.parseInt(inputString.split(" ")[1]);
+            Task markedTask = taskList.markAsDone(index);
+
+            printResult(inputCommand, markedTask, taskList);
+            canContinue = true;
+            break;
+        }
+        case UNMARK: {
+            int index = Integer.parseInt(inputString.split(" ")[1]);
+            Task unmarkedTask = taskList.markAsUnDone(index);
+
+            printResult(inputCommand, unmarkedTask, taskList);
+            canContinue = true;
+            break;
+        }
+        case DELETE: {
+            int index = Integer.parseInt(inputString.split(" ")[1]);
+            Task removedTask = taskList.removeFromList(index);
+
+            printResult(inputCommand, removedTask, taskList);
+            canContinue = true;
+            break;
+        }
+        case TODO: {
+            // add a todo
+            String itemName = inputString.replace("todo ", "");
+
+            if (itemName.isEmpty()) {
+                // no item name
+                throw new DukeException(NAME_EMPTY);
             }
-            case LIST: {
-                printResult(inputCommand, null, taskList);
-
-                canContinue = true;
-                break;
-
-            }
-            case MARK: {
-                // check if is number
-                int index = Integer.parseInt(inputString.split(" ")[1]);
-                Optional<Task> markedTask = taskList.markAsDone(index);
-
-                printResult(inputCommand, markedTask, taskList);
-                canContinue = true;
-                break;
-            }
-            case UNMARK: {
-                int index = Integer.parseInt(inputString.split(" ")[1]);
-                Optional<Task> unmarkedTask = taskList.markAsUnDone(index);
-
-                printResult(inputCommand, (unmarkedTask), taskList);
-                canContinue = true;
-                break;
-            }
-            case DELETE: {
-                int index = Integer.parseInt(inputString.split(" ")[1]);
-                Optional<Task> removedTask = taskList.removeFromList(index);
-
-                printResult(inputCommand, removedTask, taskList);
-                canContinue = true;
-                break;
-            }
-            case TODO: {
-                // add a todo
-                String itemName = inputString.replace("todo ", "");
-
-                if (itemName.isEmpty()) {
-                    // no item name
-                    throw new DukeException(NAME_EMPTY);
-                }
 
 
-                TodoTask todoTask = new TodoTask(itemName);
+            TodoTask todoTask = new TodoTask(itemName);
 
-                taskList.addToList(todoTask);
+            taskList.addToList(todoTask);
+
+            printResult(inputCommand, todoTask, taskList);
+            canContinue = true;
+            break;
+        }
+        case DEADLINE: {
+            // format of entry: "deadline return book /by Sunday"
+            String itemName = inputString.replace("deadline ", "").split(" /by ")[0];
+
+            if (itemName.isEmpty()) {
+                // no item name
+                throw new DukeException(NAME_EMPTY);
 
                 printResult(inputCommand, Optional.of(todoTask), taskList);
                 canContinue = true;
                 break;
+
             }
-            case DEADLINE: {
-                // format of entry: "deadline return book /by Sunday"
-                String itemName = inputString.replace("deadline ", "").split(" /by ")[0];
 
-                if (itemName.isEmpty()) {
-                    // no item name
-                    throw new DukeException(NAME_EMPTY);
-                }
+            String[] inputArgs = inputString.replace("deadline ", "").split(" /by ");
+            if (inputArgs.length < 2) {
+                // missing deadline
+                throw new DukeException(DEADLINE_EMPTY);
+            }
+            String deadline = inputArgs[1];
 
-                String[] inputArgs = inputString.replace("deadline ", "").split(" /by ");
-                if (inputArgs.length < 2) {
-                    // missing deadline
-                    throw new DukeException(DEADLINE_EMPTY);
-                }
-                String deadline = inputArgs[1];
+            if (deadline.isEmpty()) {
+                // no item name
+                throw new DukeException(DEADLINE_EMPTY);
+            }
 
-                if (deadline.isEmpty()) {
-                    // no item name
-                    throw new DukeException(DEADLINE_EMPTY);
-                }
+            // parse the deadline - should be a LocalDate format
 
-                // parse the deadline - should be a LocalDate format
-
-                try {
-                    LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, formatter);
-
-                    DeadlineTask deadlineTask = new DeadlineTask(itemName, deadlineDateTime);
-
-                    taskList.addToList(deadlineTask);
-
-                    printResult(inputCommand, Optional.of(deadlineTask), taskList);
-                } catch (DateTimeParseException e) {
-                    throw new DukeException(INVALID_DATE_FORMAT);
-                }
+            try {
+                LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, formatter);
 
 
+                DeadlineTask deadlineTask = new DeadlineTask(itemName, deadlineDateTime);
+                taskList.addToList(deadlineTask);
                 canContinue = true;
+               
+                printResult(inputCommand, Optional.of(deadlineTask), taskList);
                 break;
-            }
-            case EVENT: {
-                String inputArgs = inputString.replace("event ", "");
-
-                // sample format: event project meeting /from Mon 2pm /to 4pm
-                // get the name
-                String itemName = inputArgs.split(" /from ")[0];
-
-                if (itemName.isEmpty()) {
-                    // no item name
-                    throw new DukeException(NAME_EMPTY);
-                }
-
-                // get the 'from...to'
-                // @see https://stackoverflow.com/questions/4662215/how-to-extract-a-substring-using-regex
-                Pattern patternFrom = Pattern.compile("(/from )(.*?)( /to)");
-                Matcher matcherFrom = patternFrom.matcher(inputArgs);
-
-                String from = "";
-                if (matcherFrom.find()) {
-                    // yes, formatted correctly
-                    from = matcherFrom.group(2);
-                } else {
-                    throw new DukeException(FROM_EMPTY);
-                }
-
-                // parse the 'from'
-                LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter);
-
-
-                // get the to...
-                String to = inputArgs.split("/to ")[1];
-
-                if (to.isEmpty()) {
-                    throw new DukeException(TO_EMPTY);
-                }
-                // parse the 'to'
-                LocalDateTime dateTimeTo = LocalDateTime.parse(to, formatter);
-
-                EventTask eventTask = new EventTask(itemName, dateTimeFrom, dateTimeTo);
-
-                taskList.addToList(eventTask);
-
-                printResult(inputCommand, Optional.of(eventTask), taskList);
-                canContinue = true;
-                break;
-            }
-            case FIND: {
-                String searchString = inputString.replace("find ", "");
-
-                ArrayList<Optional<Task>> filtered = taskList.findTasksByName(searchString);
-
-                printResult(inputCommand, null, new TaskList(filtered));
-                canContinue = true;
-                break;
+            } catch (DateTimeParseException e) {
+                throw new DukeException(INVALID_DATE_FORMAT);
             }
 
-            default:
-                throw new DukeException(UNKNOWN_COMMAND);
+
+            canContinue = true;
+            break;
+        }
+        case EVENT: {
+            String inputArgs = inputString.replace("event ", "");
+
+            // sample format: event project meeting /from Mon 2pm /to 4pm
+            // get the name
+            String itemName = inputArgs.split(" /from ")[0];
+
+            if (itemName.isEmpty()) {
+                // no item name
+                throw new DukeException(NAME_EMPTY);
+            }
+
+            // get the 'from...to'
+            // @see https://stackoverflow.com/questions/4662215/how-to-extract-a-substring-using-regex
+            Pattern patternFrom = Pattern.compile("(/from )(.*?)( /to)");
+            Matcher matcherFrom = patternFrom.matcher(inputArgs);
+
+            String from = "";
+            if (matcherFrom.find()) {
+                // yes, formatted correctly
+                from = matcherFrom.group(2);
+            } else {
+                throw new DukeException(FROM_EMPTY);
+            }
+
+            // parse the 'from'
+            LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter);
+
+
+            // get the to...
+            String to = inputArgs.split("/to ")[1];
+
+            if (to.isEmpty()) {
+                throw new DukeException(TO_EMPTY);
+            }
+            // parse the 'to'
+            LocalDateTime dateTimeTo = LocalDateTime.parse(to, formatter);
+
+            EventTask eventTask = new EventTask(itemName, dateTimeFrom, dateTimeTo);
+
+            taskList.addToList(eventTask);
+
+            printResult(inputCommand, eventTask, taskList);
+            canContinue = true;
+            break;
+        }
+        case FIND: {
+            String searchString = inputString.replace("find ", "");
+
+            ArrayList<Optional<Task>> filtered = taskList.findTasksByName(searchString);
+
+            printResult(inputCommand, null, new TaskList(filtered));
+            canContinue = true;
+            break;
+        }
+
+
+        default:
+            throw new DukeException(UNKNOWN_COMMAND);
         }
 
         storage.saveTasks(taskList);
