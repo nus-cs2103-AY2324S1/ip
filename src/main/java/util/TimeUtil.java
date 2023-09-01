@@ -3,7 +3,6 @@ package util;
 
 import exception.TimeUtilException;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -38,11 +37,26 @@ public class TimeUtil {
             }
         }
         // If input is not in a recognised format.
-        throw new TimeUtilException("Invalid date format: " + input);
+        throw new TimeUtilException(getHelpMessage());
     }
 
     public static String formatLocalDateTime(LocalDateTime localDate) {
         return localDate.format(DISPLAY_FORMATTER);
+    }
+
+    public static String getHelpMessage() {
+        return "Invalid date format! Please use one of the following formats:" +
+                "\n- yyyy-MM-dd HHmm (e.g. 2023-05-28 1800)" +
+                "\n- yyyyMMdd HHmm (e.g. 2023-05-28 1800)" +
+                "\n- yyyy-MM-dd (e.g. 2023-05-28)" +
+                "\n- yyyymmdd (e.g. 20230528)" +
+                "\n- d MMM yyyy (e.g. 1 Jan 2023)" +
+                "\n- d MMMM yyyy (e.g. 1 January 2023)" +
+                "\n- yyyy-MM (e.g. 2023-05)" +
+                "\n- yyyyMM (e.g. 202305)" +
+                "\nOr use special terms like:" +
+                "\n- today" +
+                "\n- tomorrow";
     }
 
     private static LocalDateTime handleSpecialStrings(String input) {
