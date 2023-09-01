@@ -15,7 +15,7 @@ public class UnknownCommand extends Command {
     /**
      * Prints the error message indicating an unknown command has been entered.
      *
-     * @param list The given TaskList associated with the chatbot.
+     * @param taskList The given TaskList associated with the chatbot.
      * @param ui The given Ui used to print the error message.
      * @param storage The given Storage that saves the TaskList locally.
      */
