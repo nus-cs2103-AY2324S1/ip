@@ -23,7 +23,7 @@ public class Parser {
      * Parses the user input and returns the corresponding Command to be executed
      *
      * @param fullCommand The raw string the user has input
-     * @return
+     * @return The Command if the fullCommand string was valid
      */
     public static Command parse(String fullCommand) throws DukeException {
         String commandType = fullCommand.split(" ")[0];
@@ -111,10 +111,9 @@ public class Parser {
             return new FindCommand(keyword);
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-("
-                    + "\nMy supported commands are: list, mark, unmark, todo, deadline, event, bye.");
+                    + "\nMy supported commands are: list, mark, unmark, todo, deadline, event, find, bye.");
         }
     }
-
 
     private static LocalDateTime parseDateTimeString(String dateTime) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");

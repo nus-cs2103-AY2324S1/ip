@@ -28,20 +28,22 @@ public class MarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        Task task;
         try {
-            Task task = tasks.get(taskIdx);
-            if (isMark) {
-                ui.showMessage("Nice! I've marked this task as done:");
-                task.markAsDone();
-            } else {
-                ui.showMessage("OK, I've marked this task as not done yet:");
-                task.markAsUndone();
-            }
-            ui.showMessage(task.toString());
+            task = tasks.get(taskIdx);
         } catch (IndexOutOfBoundsException ioe) {
             throw new DukeException("Index provided was out-of-bounds. Use the index"
                     + " number labelled for the task in the command 'list'!");
         }
+
+        if (isMark) {
+            ui.showMessage("Nice! I've marked this task as done:");
+            task.markAsDone();
+        } else {
+            ui.showMessage("OK, I've marked this task as not done yet:");
+            task.markAsUndone();
+        }
+        ui.showMessage(task.toString());
 
         // Save the TaskList to Storage
         try {

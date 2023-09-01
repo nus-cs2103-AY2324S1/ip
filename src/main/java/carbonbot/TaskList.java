@@ -28,9 +28,8 @@ public class TaskList {
      * Constructs a list of tasks based on the serialized list of tasks.
      */
     public TaskList(List<String> tasks) throws DukeException {
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
         for (String str : tasks) {
-
             try {
                 Task task;
 
@@ -47,7 +46,7 @@ public class TaskList {
                         LocalDateTime byDt = parseDateTimeString(cols[3]);
                         task = new Deadline(cols[2], byDt);
                     } catch (DateTimeParseException ex) {
-                        throw new DukeException("☹ OOPS!!! The 'by' datetime was not in a valid format.");
+                        throw new DukeException("☹ OOPS!!! The datetime was not in a valid format.");
                     }
                     break;
                 case "E":
@@ -56,11 +55,11 @@ public class TaskList {
                         LocalDateTime toDt = parseDateTimeString(cols[4]);
                         task = new Event(cols[2], fromDt, toDt);
                     } catch (DateTimeParseException ex) {
-                        throw new DukeException("☹ OOPS!!! The 'by' datetime was not in a valid format.");
+                        throw new DukeException("☹ OOPS!!! The datetime was not in a valid format.");
                     }
                     break;
                 default:
-                    throw new DukeException("Invalid File Format");
+                    throw new DukeException("☹ OOPS!!! The save file wasn't in the correct format.");
                 }
                 if (cols[1].equals("1")) {
                     task.markAsDone();
@@ -120,7 +119,7 @@ public class TaskList {
     public String serialize() {
         StringBuilder sb = new StringBuilder();
         for (Task task : tasks) {
-            sb.append(task.serialize() + "\n");
+            sb.append(task.serialize()).append("\n");
         }
         return sb.toString();
     }
@@ -131,7 +130,7 @@ public class TaskList {
     public void printList() {
         int idx = 1;
         for (Task t : tasks) {
-            System.out.println(String.format("%d.%s", idx, t));
+            System.out.printf("%d.%s%n", idx, t);
             idx++;
         }
     }

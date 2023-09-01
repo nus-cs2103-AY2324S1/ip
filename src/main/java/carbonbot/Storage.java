@@ -32,7 +32,7 @@ public class Storage {
     public List<String> load() throws IOException {
         // Returns an empty list if the file does not exists
         if (!new File(this.filePath).exists()) {
-            return new ArrayList<String>();
+            return new ArrayList<>();
         }
 
         return Files.readAllLines(Paths.get(filePath));
