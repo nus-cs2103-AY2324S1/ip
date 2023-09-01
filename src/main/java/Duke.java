@@ -19,7 +19,7 @@ public class Duke {
     static ArrayList<Task> tasks = new ArrayList<>();
     static final ObjectMapper MAPPER = new ObjectMapper();
 
-    final static String horizontalLine = "   ------------------------\n";
+    final static String horizontalLine = "   -----------------------------\n";
     public static void main(String[] args) {
         try {
             tasks = MAPPER.readValue(new File("tasks.json"), new TypeReference<>() {});
