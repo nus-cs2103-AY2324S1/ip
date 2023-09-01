@@ -21,10 +21,15 @@ public class Storage {
 
     public Storage(String filepath) {
         String homedir = new File(System.getProperty("user.dir")).getParent();
-        String[] splitFilepath = Parser.parseFilePath(filepath);
-        path = Paths.get(homedir, splitFilepath[0], splitFilepath[1]);
+        String[] splitFilepath = Parser.filePathParser(filepath);
+        this.path = Paths.get(homedir, splitFilepath[0], splitFilepath[1]);
     }
 
+    /**
+     * Loads saved data and returns the tasklist.
+     * 
+     * @return the tasklist that was loaded from the file.
+     */
     public TaskList loadFromFile() throws DukeException {
         if (Files.exists(path)) {
             TaskList tasklist = new TaskList();
@@ -47,13 +52,21 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes tasklist to file. This method is used to write a file to the file
+     * system. The file is created if it does not exist.
+     * 
+     * @param tasklist the tasklist to write to file.
+     */
     public void writeToFile(TaskList tasklist) throws DukeException {
         try {
+            // Creates a file if it doesn t exist.
             if (Files.notExists(path)) {
                 Files.createFile(path);
             }
             BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8,
                     StandardOpenOption.TRUNCATE_EXISTING);
+            // This method is used to flush the tasklist into the file.
             while (!tasklist.isEmpty()) {
                 String tempString = tasklist.clearList();
                 writer.write(tempString + "\n");

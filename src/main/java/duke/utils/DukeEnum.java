@@ -17,6 +17,12 @@ public enum DukeEnum {
         this.text = text;
     }
 
+    /**
+     * Returns the string associated with each enum to enable the enum mapping.
+     * 
+     * 
+     * @return the text associated with each enum.
+     */
     public String getText() {
         return text;
     }
