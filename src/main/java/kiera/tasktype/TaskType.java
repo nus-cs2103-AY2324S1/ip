@@ -1,3 +1,7 @@
+package kiera.tasktype;
+
+import kiera.exception.KieraException;
+
 public enum TaskType {
     TODO,
     DEADLINE,

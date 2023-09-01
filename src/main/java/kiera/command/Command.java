@@ -1,3 +1,10 @@
+package kiera.command;
+
+import kiera.Storage;
+import kiera.TaskList;
+import kiera.tasktype.TaskType;
+import kiera.Ui;
+
 public abstract class Command {
     private String desc;
     private TaskType t;
@@ -15,7 +22,7 @@ public abstract class Command {
     public TaskType getTaskType() {
         return this.t;
     }
-    abstract void execute(TaskList tasks, Ui ui, Storage storage);
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
 
-    abstract boolean isExit();
+    public abstract boolean isExit();
 }

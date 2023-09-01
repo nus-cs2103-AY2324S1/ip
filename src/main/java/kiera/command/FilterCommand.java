@@ -1,3 +1,9 @@
+package kiera.command;
+
+import kiera.*;
+import kiera.task.Task;
+import kiera.tasktype.TaskType;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -8,7 +14,7 @@ public class FilterCommand extends Command {
         setTaskType(t);
     }
     @Override
-    void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         TaskType t = this.getTaskType();
         LocalDate d = LocalDate.parse(this.getDescription());
         ArrayList<Task> filtered = new ArrayList<>();
@@ -31,7 +37,7 @@ public class FilterCommand extends Command {
     }
 
     @Override
-    boolean isExit() {
+    public boolean isExit() {
         return false;
     }
 }

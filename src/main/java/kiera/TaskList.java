@@ -1,3 +1,10 @@
+package kiera;
+
+import kiera.task.Deadline;
+import kiera.task.Event;
+import kiera.task.Task;
+import kiera.tasktype.TaskType;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;

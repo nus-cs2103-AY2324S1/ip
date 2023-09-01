@@ -1,3 +1,9 @@
+package kiera.command;
+
+import kiera.*;
+import kiera.exception.KieraException;
+import kiera.task.Task;
+
 import java.util.stream.Collectors;
 
 public class MarkCommand extends Command {
@@ -7,7 +13,7 @@ public class MarkCommand extends Command {
         this.mark = mark;
     }
     @Override
-    void execute(TaskList tasks, Ui ui, Storage storage) throws KieraException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws KieraException {
 
         try {
             int index = Integer.parseInt(this.getDescription());
@@ -34,7 +40,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    boolean isExit() {
+    public boolean isExit() {
         return false;
     }
 }

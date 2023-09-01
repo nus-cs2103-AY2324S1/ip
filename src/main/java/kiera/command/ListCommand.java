@@ -1,10 +1,16 @@
+package kiera.command;
+
+import kiera.Storage;
+import kiera.TaskList;
+import kiera.Ui;
+
 import java.util.stream.Collectors;
 
 public class ListCommand extends Command {
     public ListCommand() {
     }
     @Override
-    void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.isEmpty()) {
             System.out.println("nothing for you to do yet!");
         }
@@ -15,7 +21,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    boolean isExit() {
+    public boolean isExit() {
         return false;
     }
 }

@@ -1,3 +1,13 @@
+package kiera.command;
+
+import kiera.*;
+import kiera.exception.KieraException;
+import kiera.task.Deadline;
+import kiera.task.Event;
+import kiera.task.Task;
+import kiera.task.Todo;
+import kiera.tasktype.TaskType;
+
 public class AddCommand extends Command {
 
     public AddCommand(TaskType t, String desc) {
@@ -5,7 +15,7 @@ public class AddCommand extends Command {
         setTaskType(t);
     }
     @Override
-    void execute(TaskList tasks, Ui ui, Storage storage) throws KieraException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws KieraException {
        TaskType t = this.getTaskType();
        String desc = this.getDescription();
        Task task;
@@ -30,7 +40,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    boolean isExit() {
+    public boolean isExit() {
         return false;
     }
 

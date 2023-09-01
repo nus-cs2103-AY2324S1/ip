@@ -1,3 +1,11 @@
+package kiera;
+
+import kiera.exception.KieraException;
+import kiera.task.Deadline;
+import kiera.task.Event;
+import kiera.task.Task;
+import kiera.task.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,7 +21,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> load() throws KieraException{
+    public ArrayList<Task> load() throws KieraException {
         File f = new File(filePath);
         ArrayList<Task> result = new ArrayList<>();
         try {

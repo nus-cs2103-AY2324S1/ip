@@ -1,3 +1,8 @@
+package kiera;
+
+import kiera.task.Task;
+import kiera.tasktype.TaskType;
+
 import java.time.LocalDate;
 import java.util.Scanner;
 
