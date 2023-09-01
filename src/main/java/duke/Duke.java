@@ -18,9 +18,8 @@ public class Duke {
 
     public Duke(String filePath) {
         ui = new Ui ();
-        TaskList taskList = new TaskList();
         try {
-            Storage.readFromDisk(pathOfDirectory, taskList.storeTask);
+            Storage.readFromDisk(pathOfDirectory, TaskList.storeTask);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("An error occurred...");
