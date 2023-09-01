@@ -4,6 +4,9 @@ import smolbrain.command.Command;
 import smolbrain.exception.*;
 import smolbrain.task.TaskList;
 
+/**
+ * Smolbrain class which is the chatbot. It takes in input to create and save tasks.
+ */
 public class Smolbrain {
 
     public static boolean loading = true;
@@ -12,12 +15,20 @@ public class Smolbrain {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates a smolbrain object.
+     *
+     * @param filePath Filepath of the save file.
+     */
     public Smolbrain(String filePath) {
         storage = new Storage(filePath);
         ui = new Ui();
         tasks = new TaskList(storage.load());
     }
 
+    /**
+     * Runs the smolbrain chatbot.
+     */
     public void run() {
 
         ui.showWelcome();
@@ -38,6 +49,11 @@ public class Smolbrain {
         }
     }
 
+    /**
+     * Creates a new Smolbrain chatbot object with specified save file path and runs the chatbot.
+     *
+     * @param args User inputs for commands.
+     */
     public static void main(String[] args) {
         new Smolbrain("data.txt").run();
     }
