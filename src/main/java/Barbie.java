@@ -2,6 +2,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.io.IOException;
 
@@ -41,10 +43,11 @@ public class Barbie {
                     + "Hi Barbie! Hi Ken!\n"
                     + "\nI'm\n"
                     + logo
-                    + "\nWhat can I do for you?\n" +
-                    line);
-            System.out.println("[you]:");
+                    + "\n\nThis is the list of things you have today!");
+            getDateList(LocalDate.now(), list).forEach(System.out::println);
+            System.out.println("\nWhat can I do for you?\n" + line);
 
+        System.out.println("[you]:");
 
             loop:
             while (true) {
@@ -121,7 +124,7 @@ public class Barbie {
                                         throw new BarbieNoDeadlineException();
                                     }
                                     desc = parts2[0];
-                                    String by = parts2[1];
+                                    LocalDate by = LocalDate.parse(parts2[1]);
                                     list.add(indexNumber, new Deadlines(desc, by));
                                     addToList(path, "D", desc, by);
 
@@ -132,8 +135,8 @@ public class Barbie {
                                         throw new BarbieNoTimingException();
                                     }
                                     desc = parts2[0];
-                                    String from = parts2[1];
-                                    String to = parts2[2];
+                                    LocalDate from = LocalDate.parse(parts2[1].strip());
+                                    LocalDate to = LocalDate.parse(parts2[2].strip());
                                     list.add(indexNumber, new Party(desc, from, to));
                                     addToList(path, "P", desc, from, to);
                                     break;
@@ -172,6 +175,10 @@ public class Barbie {
                 } catch (BarbieException e) {
                     System.out.println("Barbie Error!! " + e.getMessage());
 
+                } catch (DateTimeParseException e) {
+                    System.out.println("Hey Barbie,, make sure to give dates in the format YYYY-MM-DD alright! ");
+                    System.out.println(e.getMessage());
+
                 } catch (Exception ex) {
                     System.out.println(ex.toString());
 
@@ -208,6 +215,7 @@ public class Barbie {
                 Files.createFile(path);
                 System.out.println("[A new list created for current user]");
             } else {
+                System.out.println("-------------------------------------------------");
                 System.out.println("[A current list is being used for current user]");
                 Files.readAllLines(path).forEach(x -> {
 
@@ -220,9 +228,9 @@ public class Barbie {
                     if (Objects.equals(taskType, "T")) {
                         task = new Todo(desc);
                     } else if (Objects.equals(taskType, "D")) {
-                        task = new Deadlines(desc, taskParts[3]);
+                        task = new Deadlines(desc, LocalDate.parse(taskParts[3]));
                     } else if (Objects.equals(taskType, "P")) {
-                        task = new Party(desc, taskParts[3], taskParts[4]);
+                        task = new Party(desc, LocalDate.parse(taskParts[3]), LocalDate.parse(taskParts[4]));
                     } else {
                         task = new Task(desc);
                     }
@@ -265,7 +273,7 @@ public class Barbie {
         }
     }
 
-    protected static void addToList(Path path, String type, String desc, String deadline) {
+    protected static void addToList(Path path, String type, String desc, LocalDate deadline) {
         String line = type + "," + 0 + "," + desc + "," + deadline + "\n";
         try {
             Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
@@ -274,7 +282,7 @@ public class Barbie {
         }
     }
 
-    protected static void addToList(Path path, String type, String desc, String from, String to) {
+    protected static void addToList(Path path, String type, String desc, LocalDate from, LocalDate to) {
         String line = type + "," + 0 + "," + desc + "," + from + "," + to + "\n";
         try {
             Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
@@ -298,5 +306,25 @@ public class Barbie {
         } catch (IOException e) {
             System.out.println(e);
         }
+    }
+
+    protected static ArrayList<Task> getDateList(LocalDate date, ArrayList<Task> lastList) {
+        ArrayList<Task> thisDatesList = new ArrayList<>();
+
+        try {
+            lastList.forEach(x -> {
+                if (x instanceof Deadlines) {
+                    Deadlines y = (Deadlines) x;
+                    if (y.isToday(date)) { thisDatesList.add(y); }
+                } else if (x instanceof Party) {
+                    Party y = (Party) x;
+                    if (y.isToday(date)) { thisDatesList.add(y); }
+                }
+            });
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return thisDatesList;
     }
 }

@@ -1,12 +1,20 @@
-public class Party extends Task {
-    protected String from;
-    protected String to;
+import java.time.LocalDate;
+import java.util.Objects;
 
-    public Party(String description, String from, String to) {
+public class Party extends Task {
+    protected LocalDate from;
+    protected LocalDate to;
+
+    public Party(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
     }
+
+    public boolean isToday(LocalDate date) {
+        return (Objects.equals(this.from, date));
+    }
+
 
     @Override
     public String toString() {
