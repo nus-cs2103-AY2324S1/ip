@@ -3,10 +3,12 @@ public class ToDoTask extends Task {
         super(description);
     }
 
+    @Override
     public String getType() {
         return "Todo";
     }
 
+    @Override
     public String getDateTime() {
         return "";
     }

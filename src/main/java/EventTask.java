@@ -26,10 +26,12 @@ public class EventTask extends Task {
         }
     }
 
+    @Override
     public String getType() {
         return "Event";
     }
 
+    @Override
     public String getDateTime() {
         return formatter.format(this.startDate) + "," + formatter.format(this.endDate);
     }

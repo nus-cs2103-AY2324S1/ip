@@ -10,10 +10,6 @@ public class Parser {
         EVENT
     }
 
-    public Parser() {
-
-    }
-
     public Command parse(String input) throws DukeException {
         String[] inputSplit = input.split(" ");
         Command command = this.getCommand(input);

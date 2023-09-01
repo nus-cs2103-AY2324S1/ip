@@ -8,11 +8,9 @@ import java.io.FileNotFoundException;
 public class Duke {
     public static void main(String[] args) {
         Ui ui = new Ui();
-        TaskList list = null;
-
         Storage storage = new Storage();
+        TaskList list = null;
         list = new TaskList(storage.getFile());
-
         Parser parser = new Parser();
 
         String input = ui.getFirstInput();
