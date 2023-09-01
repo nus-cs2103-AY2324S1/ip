@@ -6,11 +6,17 @@ import chatbuddy.TaskList;
 import chatbuddy.ui.Ui;
 import chatbuddy.task.ToDo;
 
+/** TodoCommand represents a command to create a todo task. */
 public class TodoCommand extends Command {
 
     public static final String COMMAND_WORD = "todo";
     private String taskDescription;
 
+    /**
+     * Creates an instance of a TodoCommand with the given description.
+     *
+     * @param taskDescription The description of the task.
+     */
     public TodoCommand(String taskDescription) {
         this.taskDescription = taskDescription;
     }

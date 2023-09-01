@@ -12,13 +12,29 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage represents a class to handle operations relating to the local storage of task data.
+ * Data from TaskList can be saved into or loaded from the local storage.
+ */
 public class Storage {
+    /** The filepath of the file containing the task data. */
     private String filePath;
 
+    /**
+     * Creates an instance of a Storage object with the given filepath.
+     *
+     * @param filePath The filepath of the file containing the task data.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the task data from the file.
+     *
+     * @return A list of tasks.
+     * @throws ChatBuddyException If there is an error creating or finding the file.
+     */
     public ArrayList<Task> load() throws ChatBuddyException {
         // load file from hard disk
         File file = new File(this.filePath);
@@ -53,6 +69,13 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the task data into the file.
+     * Date in the file is overwritten.
+     *
+     * @param tasks The list of tasks to save.
+     * @throws ChatBuddyException If there is an error saving data into the file.
+     */
     public void save(TaskList tasks) throws ChatBuddyException {
         try {
             FileWriter fileWriter = new FileWriter(this.filePath);

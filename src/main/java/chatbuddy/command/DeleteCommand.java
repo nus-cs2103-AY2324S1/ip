@@ -6,10 +6,16 @@ import chatbuddy.TaskList;
 import chatbuddy.ui.Ui;
 import chatbuddy.task.Task;
 
+/** DeleteCommand represents a command to delete a task. */
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
     private int taskNum;
 
+    /**
+     * Creates an instance of a delete command with the given task number.
+     *
+     * @param taskNum The task number of the task to delete.
+     */
     public DeleteCommand(int taskNum) {
         this.taskNum = taskNum;
     }

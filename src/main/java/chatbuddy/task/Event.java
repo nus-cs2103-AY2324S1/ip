@@ -4,12 +4,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * Event represents an Event object in ChatBuddy.
+ * An event is a task that has a 'from' datetime and a 'to' datetime.
+ */
 public class Event extends Task {
 
+    /** The 'from' datetime of the task. */
     protected LocalDateTime from;
+    /** The 'to' datetime of the task. */
     protected LocalDateTime to;
 
+    /** The formatter used for datetime inputs. */
     private static final DateTimeFormatter FORMATTER_DATETIME_INPUT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    /** The formatter used for datetime outputs. */
     private static final DateTimeFormatter FORMATTER_DATETIME_OUTPUT = DateTimeFormatter.ofPattern("dd MMM yyyy HHmm");
 
     /**
@@ -28,18 +36,13 @@ public class Event extends Task {
     /**
      * Returns a boolean representing whether the event starts within a week.
      *
-     * @return true if the event starts within a week, false otherwise
+     * @return True if the event starts within a week, false otherwise.
      */
     @Override
     public boolean isWithinAWeek() {
         return from.isBefore(LocalDateTime.now().plus(1, ChronoUnit.WEEKS));
     }
 
-    /**
-     * Method to get the string representation of the event task.
-     *
-     * @return The string representation of the event task.
-     */
     @Override
     public String toString() {
         return String.format(
@@ -52,9 +55,9 @@ public class Event extends Task {
 
     /**
      * Returns deadline task information in format for saving.
-     * Format is E | [1 if completed, 0 if not completed] | [task description] | [from] | [to]
+     * The format is E | [1 if completed, 0 if not completed] | [task description] | [from] | [to].
      *
-     * @return chatbuddy.task.Deadline task information in format for saving
+     * @return The event task information in format for saving.
      */
     @Override
     public String getInformationForSaving() {
