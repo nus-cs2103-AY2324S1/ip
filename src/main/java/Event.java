@@ -1,3 +1,5 @@
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
     protected String from;
     protected String to;
@@ -14,12 +16,19 @@ public class Event extends Task {
         this.to = to;
     }
 
+    @Override
+    public String formatFile() {
+        return "E" + " | " + (isDone ? "1" : "0") + " | " + description + " | "
+                + from + " | " + to;
+    }
+
+
     /**
      * Overrides the toString() method in Task.
      * @return the string
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to:" + " 4pm" + ")";
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }

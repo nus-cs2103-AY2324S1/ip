@@ -7,17 +7,84 @@ import java.util.Scanner;
 
 public class AllyList {
     ArrayList<Task> arr;
-    public AllyList() {
+    String filePath;
+    public AllyList(String filePath) throws AllyException {
         arr = new ArrayList<>(100);
+        this.filePath = filePath;
+        try {
+            load();
+        } catch (AllyException e) {
+            throw new AllyException("Unable to load");
+        }
     }
+
+    public void createFile() throws AllyException {
+        File f = new File(filePath);
+        File dir = new File(f.getParent());
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+        try {
+            if (!f.exists()) {
+                f.createNewFile();
+            }
+        } catch (IOException e) {
+            throw new AllyException("Ohnos, you can't create the file :-(");
+        }
+    }
+
+    public void appendToFile(Task task) throws AllyException {
+        try {
+            FileWriter fw = new FileWriter(filePath, true);
+            fw.write(task.formatFile());
+            fw.close();
+        } catch (IOException e) {
+            throw new AllyException("Can't write your file");
+        }
+    }
+
+    public Task readData(String data) {
+        String[] splits = data.split(" | ");
+        Task savedTasks = null;
+
+        if (splits[0].equals("T")) {
+            savedTasks = new Todo(splits[2]);
+        } else if (splits[0].equals("D")) {
+            savedTasks = new Deadline(splits[2], splits[3]);
+        } else if (splits[0].equals("E")) {
+            savedTasks = new Event(splits[2], splits[3], splits[4]);
+        }
+
+        if (splits[1].equals("1")) {
+            savedTasks.setMarked();
+        }
+        return savedTasks;
+    }
+
+    public void load() throws AllyException {
+        ArrayList<Task> loadTasks = new ArrayList<>(100);
+        createFile();
+        File f = new File(filePath);
+        try {
+            Scanner s = new Scanner(f);
+            while(s.hasNext()) {
+                String line = s.nextLine();
+                loadTasks.add(readData(line));
+            }
+        } catch (FileNotFoundException e) {
+            throw new AllyException("Not able to scan!");
+        }
+    }
+
 
     /**
      * Function to add tasks from the input into the arraylist.
      * @param str
      */
-    public void addElements(String str) {
+    public void addElements(String str) throws AllyException {
         Task task = new Task(str);
         arr.add(task);
+        appendToFile(task);
     }
 
     /**
@@ -67,9 +134,10 @@ public class AllyList {
      * Function to add a todo into the arr.
      * @param input
      */
-    public void addTodo(String input) {
+    public void addTodo(String input) throws AllyException {
         Todo todo = new Todo(input);
         arr.add(todo);
+        appendToFile(todo);
         printNewList(todo);
     }
 
@@ -82,6 +150,7 @@ public class AllyList {
     public void addDeadline(String input, String time) throws AllyException {
         Deadline ddline = new Deadline(input, time);
         arr.add(ddline);
+        appendToFile(ddline);
         printNewList(ddline);
     }
 
@@ -95,6 +164,7 @@ public class AllyList {
     public void addEvent(String input, String from, String to) throws AllyException {
         Event event = new Event(input, from, to);
         arr.add(event);
+        appendToFile(event);
         printNewList(event);
     }
 

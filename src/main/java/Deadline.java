@@ -1,7 +1,9 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-
     protected String by;
-
     /**
      * Constructor for Deadline.
      * @param description
@@ -12,6 +14,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    @Override
+    public String formatFile() {
+        return "D" + " | " + (isDone ? "1" : "0") + " | " + description + " " + by;
+    }
     /**
      * Overrides the toString() method in Task.
      * @return the string

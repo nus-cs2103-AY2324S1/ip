@@ -27,5 +27,7 @@ public class Task {
         this.isDone = false;
     }
 
-    //...
+    public String formatFile() {
+        return " ";
+    }
 }
