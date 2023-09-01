@@ -1,7 +1,5 @@
 package ax.task;
 
-import ax.task.ListItem;
-
 public class Todos extends ListItem {
 
     /**

@@ -7,6 +7,7 @@ import java.time.LocalDate;
  */
 public class ListItem {
 
+    @SuppressWarnings("FieldMayBeFinal")
     private String text;
     private boolean done;
 

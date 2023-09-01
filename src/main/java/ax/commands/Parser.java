@@ -1,7 +1,7 @@
 package ax.commands;
 
-import ax.task.*;
 import ax.display.Ui;
+import ax.task.*;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -23,6 +23,7 @@ public class Parser {
      * @param scanner the scanner to use for input
      * @return true if the user wants to exit, false otherwise
      */
+    @SuppressWarnings("unused")
     public static boolean getInput(Scanner scanner) {
         try {
             String input = scanner.nextLine(); // get next input
