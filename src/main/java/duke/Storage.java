@@ -1,13 +1,14 @@
-package Duke;
+package duke;
+
 import java.io.File;
-import java.io.IOException;
 import java.io.FileWriter;
-import java.util.Scanner;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Storage {
-    File storage;
-    Scanner storageScanner;
+    private File storage;
+    private Scanner storageScanner;
 
     public Storage() {
     }
@@ -28,7 +29,7 @@ public class Storage {
         writer.close();
     }
 
-    public ArrayList<String> loadFromDisk() throws IOException{
+    public ArrayList<String> loadFromDisk() throws IOException {
         ArrayList<String> result = new ArrayList<>();
         storageScanner = new Scanner(storage);
         while (storageScanner.hasNextLine()) {

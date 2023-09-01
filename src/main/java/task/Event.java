@@ -1,4 +1,4 @@
-package Task;
+package task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -21,6 +21,6 @@ public class Event extends Task {
                 + " to: " + timeEnd.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")");
     }
     public String fileFormat() {
-        return "EV" + divider + super.fileFormat() + divider + timeStart + divider + timeEnd;
+        return "EV" + DIVIDER + super.fileFormat() + DIVIDER + timeStart + DIVIDER + timeEnd;
     }
 }

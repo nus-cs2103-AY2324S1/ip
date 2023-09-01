@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -11,7 +11,7 @@ public class UserInterface {
     public String input() {
         return userInput.nextLine();
     }
-    public void output(String output){
+    public void output(String output) {
         System.out.println(output);
         System.out.println(lineDivider);
     }

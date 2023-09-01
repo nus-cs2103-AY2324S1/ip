@@ -1,4 +1,4 @@
-package DukeException;
+package dukeexception;
 
 public class CorruptedFileException extends DukeException {
     public CorruptedFileException() {

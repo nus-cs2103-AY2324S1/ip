@@ -1,13 +1,15 @@
-package Duke;
-import DukeException.CorruptedFileException;
-import Task.Task;
-import Task.Event;
-import Task.Deadline;
-import Task.ToDo;
+package duke;
+
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.time.LocalDate;
+
+import dukeexception.CorruptedFileException;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
 
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -32,7 +34,7 @@ public class TaskList {
 
     public void addTask(Task task) throws IOException {
         taskList.add(task);
-        counter +=1;
+        counter += 1;
         writeToDisk(storage);
     }
     public boolean removeTask(int index) throws IOException {
@@ -59,7 +61,7 @@ public class TaskList {
     private ArrayList<Task> stringListToTaskList(ArrayList<String> stringArrayList) throws CorruptedFileException {
         ArrayList<Task> res = new ArrayList<>();
         for (String s : stringArrayList) {
-            String[] temp = s.split(Task.divider);
+            String[] temp = s.split(Task.DIVIDER);
             boolean completeStatus;
             if (temp[1].equals("TRUE")) {
                 completeStatus = true;
@@ -79,6 +81,8 @@ public class TaskList {
                 case ("EV"):
                     res.add(new Event(temp[2], completeStatus, LocalDate.parse(temp[3]), LocalDate.parse(temp[4])));
                     break;
+                default:
+                    throw new CorruptedFileException();
                 }
             } catch (DateTimeParseException e) {
                 throw new CorruptedFileException();
@@ -96,14 +100,14 @@ public class TaskList {
     }
 
     public String listString() {
-            if (counter == -1) {
-                return ("No list, silly!");
-            } else {
-                String res = "Here's the list so far.";
-                for (int i = 0; i < counter + 1; i++) {
-                    res += ("\n" + (i + 1) + ". " + taskList.get(i));
-                }
-                return res;
+        if (counter == -1) {
+            return ("No list, silly!");
+        } else {
+            String res = "Here's the list so far.";
+            for (int i = 0; i < counter + 1; i++) {
+                res += ("\n" + (i + 1) + ". " + taskList.get(i));
             }
+            return res;
+        }
     }
 }

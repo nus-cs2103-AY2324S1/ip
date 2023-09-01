@@ -1,4 +1,4 @@
-package Task;
+package task;
 
 public class ToDo extends Task {
     public ToDo(String name) {
@@ -9,11 +9,11 @@ public class ToDo extends Task {
     }
 
     public String toString() {
-        return "[T]"+ super.toString();
+        return "[T]" + super.toString();
     }
 
     public String fileFormat() {
-        return "TD" + divider + super.fileFormat();
+        return "TD" + DIVIDER + super.fileFormat();
     }
 
 }

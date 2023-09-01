@@ -1,4 +1,4 @@
-package DukeException;
+package dukeexception;
 
 public class InvalidVarException extends DukeException {
     public InvalidVarException() {

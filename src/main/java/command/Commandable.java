@@ -1,7 +1,8 @@
-package Command;
-import DukeException.FailureInExecuteException;
-import Duke.UserInterface;
-import Duke.TaskList;
+package command;
+
+import duke.TaskList;
+import duke.UserInterface;
+import dukeexception.FailureInExecuteException;
 
 
 public interface Commandable {

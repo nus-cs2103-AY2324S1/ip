@@ -1,11 +1,13 @@
-package Command;
-import DukeException.FailureInExecuteException;
-import Duke.TaskList;
-import Duke.UserInterface;
+package command;
+
 import java.io.IOException;
 
+import duke.TaskList;
+import duke.UserInterface;
+import dukeexception.FailureInExecuteException;
+
 public class DeleteCommand implements Commandable {
-    int index;
+    private int index;
     public void setDelete(int index) {
         this.index = index;
     }

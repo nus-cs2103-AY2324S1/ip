@@ -1,9 +1,9 @@
-package Task;
+package task;
 
 public class Task {
+    public static final String DIVIDER = "%!%";
     private String name;
     private boolean completeStatus;
-    public final static String divider = "%!%";
 
     public Task(String name) {
         this.name = name;
@@ -29,8 +29,8 @@ public class Task {
     }
     public String fileFormat() {
         if (completeStatus) {
-            return ("TRUE" + divider + name);
+            return ("TRUE" + DIVIDER + name);
         }
-        return ("FALSE" + divider + name);
+        return ("FALSE" + DIVIDER + name);
     }
 }
