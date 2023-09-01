@@ -1,3 +1,5 @@
+package ax.task;
+
 import java.time.LocalDate;
 
 public class Events extends ListItem {
@@ -6,7 +8,7 @@ public class Events extends ListItem {
     LocalDate end;
 
     /**
-     * Constructor for Events.
+     * Constructor for ax.task.Events.
      */
     public Events(String text, String start, String end) {
         super(text);
@@ -15,7 +17,7 @@ public class Events extends ListItem {
     }
 
     /**
-     * Returns string representation of Events.
+     * Returns string representation of ax.task.Events.
      */
     @Override
     public String toString() {

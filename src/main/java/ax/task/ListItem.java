@@ -1,3 +1,5 @@
+package ax.task;
+
 import java.time.LocalDate;
 
 /**
@@ -9,7 +11,7 @@ public class ListItem {
     private boolean done;
 
     /**
-     * Creates a new ListItem with the given text.
+     * Creates a new ax.task.ListItem with the given text.
      * The item is initially marked as not done.
      *
      * @param text the text of the item

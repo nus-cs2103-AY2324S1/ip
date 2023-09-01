@@ -1,3 +1,10 @@
+package ax.storage;
+
+import ax.task.Deadlines;
+import ax.task.Events;
+import ax.task.TaskList;
+import ax.task.Todos;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -27,12 +34,12 @@ public class Storage {
                 // check if index 1 is T D or E
                 int startidx = 8;
                 if (info.charAt(1) == 'T') {
-                    TaskList.listItems.add(new Todos(info.substring(startidx)));
+                    TaskList.getListItems().add(new Todos(info.substring(startidx)));
                 } else if (info.charAt(1) == 'D') {
                     // find first ( in info
                     int idx = info.indexOf('(') - 1;
                     int end = info.indexOf(')');
-                    TaskList.listItems.add(new Deadlines(info.substring(startidx, idx), info.substring(idx + 6, end)));
+                    TaskList.getListItems().add(new Deadlines(info.substring(startidx, idx), info.substring(idx + 6, end)));
                 } else if (info.charAt(1) == 'E') {
                     // find first ( in info
                     int idx = info.indexOf('(') - 1;
@@ -40,9 +47,9 @@ public class Storage {
                     int fromend = info.indexOf("from: ") + 6;
                     int toend = info.indexOf("to: ") + 4;
                     int tostart = info.indexOf("to: ") - 1;
-                    TaskList.listItems.add(new Events(info.substring(startidx, idx), info.substring(fromend, tostart), info.substring(toend, end)));
+                    TaskList.getListItems().add(new Events(info.substring(startidx, idx), info.substring(fromend, tostart), info.substring(toend, end)));
                 }
-                TaskList.listItems.get(TaskList.listItems.size() - 1).setDone(marked);
+                TaskList.getListItems().get(TaskList.getListItems().size() - 1).setDone(marked);
 
             }
         } catch (FileNotFoundException e) {

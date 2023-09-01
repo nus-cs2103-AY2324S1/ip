@@ -1,3 +1,5 @@
+package ax.task;
+
 import java.time.LocalDate;
 
 public class Deadlines extends ListItem {
@@ -5,7 +7,7 @@ public class Deadlines extends ListItem {
     LocalDate end;
 
     /**
-     * Constructor for Deadlines.
+     * Constructor for ax.task.Deadlines.
      */
     public Deadlines(String text, String end) {
         super(text);
@@ -13,7 +15,7 @@ public class Deadlines extends ListItem {
     }
 
     /**
-     * Returns string representation of Deadlines.
+     * Returns string representation of ax.task.Deadlines.
      */
     @Override
     public String toString() {
