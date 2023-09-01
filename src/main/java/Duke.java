@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.Scanner;
@@ -28,7 +30,7 @@ public class Duke {
     private static String FILE_PARSE_ERROR = "\uD83D\uDE21 Error parsing save file!";
     private static String INVALID_DATE_FORMAT = "\uD83D\uDE21 Invalid date format! Try using YYYY-MM-DD";
 
-
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static Path SAVE_FILE_LOCATION = Paths.get("src", "data", "duke.txt");
     private static Path SAVE_FILE_DIR = Paths.get("src","data");
 
@@ -197,7 +199,7 @@ public class Duke {
 
                         // sample format: event project meeting /from Mon 2pm /to 4pm
                         // get the name
-                        String itemName = inputArgs.split("/from ")[0];
+                        String itemName = inputArgs.split(" /from ")[0];
 
                         if (itemName.isEmpty()) {
                             // no item name
@@ -218,14 +220,20 @@ public class Duke {
                             throw new DukeException(TIME_FORMAT_ERROR);
                         }
 
+                        // parse the 'from'
+                        LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter);
+
+
                         // get the to...
                         String to = inputArgs.split("/to ")[1];
 
                         if (to.isEmpty()) {
                             throw new DukeException(TO_EMPTY);
                         }
+                        // parse the 'to'
+                        LocalDateTime dateTimeTo = LocalDateTime.parse(to, formatter);
 
-                        EventTask eventTask = new EventTask(itemName, from, to);
+                        EventTask eventTask = new EventTask(itemName, dateTimeFrom, dateTimeTo);
 
                         listContainer.addToList(eventTask);
 
@@ -287,9 +295,11 @@ public class Duke {
             case "E": {
                 // get the start date, which is 4th element
                 // get the end date, which is 5th element
-                String start = split[3];
-                String end = split[4];
-                task = new EventTask(taskDescription, start, end);
+                String from = split[3];
+                LocalDateTime dateTimeStart = LocalDateTime.parse(from);
+                String to = split[4];
+                LocalDateTime dateTimeEnd = LocalDateTime.parse(to);
+                task = new EventTask(taskDescription, dateTimeStart, dateTimeEnd);
                 break;
             }
             default:
@@ -370,3 +380,4 @@ public class Duke {
         fw.close();
     }
 }
+

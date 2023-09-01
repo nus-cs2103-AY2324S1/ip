@@ -1,12 +1,29 @@
 package Tasks;
 
+import jdk.jfr.Event;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 public class EventTask extends Task {
     private String from = "";
     private String to = "";
+
+    private LocalDateTime fromDateTime;
+    private LocalDateTime toDateTime;
+
     public EventTask(String itemName, String from, String to) {
         super(itemName);
         this.from = from;
         this.to = to;
+    }
+
+    public EventTask(String itemName, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
+        super(itemName);
+        this.fromDateTime = fromDateTime;
+        this.toDateTime = toDateTime;
     }
 
 
@@ -17,11 +34,13 @@ public class EventTask extends Task {
 
     @Override
     public String encodeTask() {
-        return super.encodeTask() + " | " + this.from + " | " + this.to;
+        return super.encodeTask() + " | " + this.fromDateTime + " | " + this.toDateTime;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString() +
+                " (from: " + this.fromDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a")) +
+                " to: " + this.toDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a")) + ")";
     }
 }
