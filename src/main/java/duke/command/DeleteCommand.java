@@ -25,11 +25,11 @@ public class DeleteCommand extends Command {
             throw new DukeException("There are no tasks added. Please add a task first.");
         }
 
-        if (!super.parameterMap.containsKey("default")) {
+        if (!super.getParameterMap().containsKey("default")) {
             throw new DukeException("Please enter a task number to delete.");
         }
 
-        String taskIndexString = super.parameterMap.get("default");
+        String taskIndexString = super.getParameterMap().get("default");
         try {
             int taskIndex = Integer.parseInt(taskIndexString) - 1;
 
@@ -54,7 +54,7 @@ public class DeleteCommand extends Command {
                                    String.format("  %s",deletedTaskInfo),
                                    String.format("Now you have %d tasks in the list.", tasks.size())));
             tasks.storeTasks();
-        }   catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
                 throw new DukeException(String.format("Task number provided \"%s\" is not a number.\n     "
                                                       + "Please retry with a valid task number.", taskIndexString));
         }

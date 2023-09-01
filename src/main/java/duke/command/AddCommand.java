@@ -53,38 +53,38 @@ public class AddCommand extends Command {
         try {
             switch (taskType) {
             case TODO:
-                if (!super.parameterMap.containsKey("default")) {
+                if (!super.getParameterMap().containsKey("default")) {
                     throw new DukeException("No description specified. Please specify a description.");
                 }
 
-                String todoDescription = super.parameterMap.get("default");
+                String todoDescription = super.getParameterMap().get("default");
                 taskToAdd = new Todo(todoDescription);
                 break;
             case DEADLINE:
-                if (!super.parameterMap.containsKey("default")) {
+                if (!super.getParameterMap().containsKey("default")) {
                     throw new DukeException("No description specified. Please specify a description.");
                 }
-                if (!super.parameterMap.containsKey("by")) {
+                if (!super.getParameterMap().containsKey("by")) {
                     throw new DukeException("No due date/time specified. Please specify a due date/time.");
                 }
 
-                String deadlineDescription = super.parameterMap.get("default");
-                TemporalAccessor dueDate = Parser.parseDateTimeInput(super.parameterMap.get("by"));
+                String deadlineDescription = super.getParameterMap().get("default");
+                TemporalAccessor dueDate = Parser.parseDateTimeInput(super.getParameterMap().get("by"));
                 taskToAdd = new Deadline(deadlineDescription, dueDate);
                 break;
             case EVENT:
-                if (!super.parameterMap.containsKey("default")) {
+                if (!super.getParameterMap().containsKey("default")) {
                     throw new DukeException("No description specified. Please specify a description.");
                 }
-                if (!super.parameterMap.containsKey("from")) {
+                if (!super.getParameterMap().containsKey("from")) {
                     throw new DukeException("No start date/time specified. Please specify a start date/time.");
                 }
-                if (!super.parameterMap.containsKey("to")) {
+                if (!super.getParameterMap().containsKey("to")) {
                     throw new DukeException("No end date/time specified. Please specify an end date/time.");
                 }
-                String eventDescription = super.parameterMap.get("default");
-                TemporalAccessor eventStartDate = Parser.parseDateTimeInput(super.parameterMap.get("from"));
-                TemporalAccessor eventEndDate = Parser.parseDateTimeInput(super.parameterMap.get("to"));
+                String eventDescription = super.getParameterMap().get("default");
+                TemporalAccessor eventStartDate = Parser.parseDateTimeInput(super.getParameterMap().get("from"));
+                TemporalAccessor eventEndDate = Parser.parseDateTimeInput(super.getParameterMap().get("to"));
 
                 if (eventStartDate instanceof LocalDate) {
                     if (!(eventEndDate instanceof LocalDate)) {
@@ -116,13 +116,13 @@ public class AddCommand extends Command {
                 break;
             }
 
-            if (taskToAdd != null && super.parameterMap.containsKey("completed")) {
+            if (!taskToAdd.equals(null) && super.getParameterMap().containsKey("completed")) {
                 taskToAdd.markAsDone();
             }
 
             tasks.addTask(taskToAdd);
 
-            if (super.parameterMap.containsKey("silent")) {
+            if (super.getParameterMap().containsKey("silent")) {
                 return;
             }
 
@@ -131,7 +131,7 @@ public class AddCommand extends Command {
                        String.format("Now you have %d tasks in the list.", tasks.size())));
             tasks.storeTasks();
         } catch (DukeException e) {
-            if (super.parameterMap.containsKey("silent")) {
+            if (super.getParameterMap().containsKey("silent")) {
                 return;
             }
             

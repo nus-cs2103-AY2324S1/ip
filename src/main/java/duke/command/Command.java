@@ -8,10 +8,19 @@ import duke.core.Ui;
 import duke.task.TaskList;
 
 public abstract class Command {
-    Map<String, String> parameterMap;
+    private Map<String, String> parameterMap;
 
     public Command(Map<String, String> parameterMap) {
         this.parameterMap = parameterMap;
+    }
+
+    /**
+     * Returns the parameter map of the command.
+     * 
+     * @return Parameter map of the command.
+     */
+    public Map<String, String> getParameterMap() {
+        return this.parameterMap;
     }
 
     public boolean isExit() {

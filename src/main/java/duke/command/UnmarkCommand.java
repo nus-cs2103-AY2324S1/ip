@@ -26,11 +26,11 @@ public class UnmarkCommand extends Command {
             throw new DukeException("There are no tasks added. Please add a task first.");
         }
 
-        if (!super.parameterMap.containsKey("default")) {
+        if (!super.getParameterMap().containsKey("default")) {
             throw new DukeException("Please enter a task number.");
         }
 
-        String taskIndexString = super.parameterMap.get("default");
+        String taskIndexString = super.getParameterMap().get("default");
         try {
             int taskIndex = Integer.parseInt(taskIndexString) - 1;
 
@@ -54,7 +54,7 @@ public class UnmarkCommand extends Command {
             Ui.respond(Stream.of("OK, I've marked this task as not done yet:",
                                        String.format("  %s",taskUnmarked.toString())));
             tasks.storeTasks();
-        }   catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
                 throw new DukeException(String.format("Task number provided \"%s\" is not a number.\n     "
                                                       + "Please retry with a valid task number.", taskIndexString));
         }
