@@ -1,21 +1,25 @@
 package tasks;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    String dueDate;
+    LocalDateTime dateTime;
 
-    public Deadline(String taskName, String dueDate) {
+    public Deadline(String taskName, LocalDateTime time) {
         super(taskName);
-        this.dueDate = dueDate;
+        this.dateTime = time;
     }
 
-    public Deadline(String taskName, boolean done, String dueDate) {
+    public Deadline(String taskName, boolean done, LocalDateTime time) {
         super(taskName, done);
-        this.dueDate = dueDate;
+        this.dateTime = time;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.dueDate + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm");
+        String formattedDate = dateTime.format(formatter);
+        return "[D]" + super.toString() + " (by: " + formattedDate + ")";
     }
 
 }

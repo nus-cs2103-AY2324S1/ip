@@ -5,6 +5,8 @@ import tasks.Deadline;
 
 import exceptions.StorageException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.io.*;
 import java.io.File;
@@ -13,6 +15,7 @@ import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.time.format.DateTimeFormatter;
 
 public class Storage {
     private String filePath;
@@ -59,6 +62,7 @@ public class Storage {
     // [D][ ] submit assignment (by: Friday)
     // [E][ ] attend lecture (from: Wednesday to: Thursday)
     private Task readLine(String line) throws StorageException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         line = line.trim();
         Pattern todoPattern = Pattern.compile("\\[T\\]\\[(.)\\] (.*)");
         Pattern deadlinePattern = Pattern.compile("\\[D\\]\\[(.)\\] (.*) \\(by: (.*)\\)");
@@ -77,8 +81,9 @@ public class Storage {
         if (matcher.matches()) {
             boolean isDone = matcher.group(1).equals("X");
             String taskName = matcher.group(2).trim();
-            String dueDate = matcher.group(3).trim();
-            Deadline deadline = new Deadline(taskName, isDone, dueDate);
+            String dueString = matcher.group(3).trim();
+            LocalDateTime dueTime = LocalDateTime.parse(dueString, formatter);
+            Deadline deadline = new Deadline(taskName, isDone, dueTime);
             return deadline;
         }
 
@@ -86,9 +91,11 @@ public class Storage {
         if (matcher.matches()) {
             boolean isDone = matcher.group(1).equals("X");
             String taskName = matcher.group(2).trim();
-            String from = matcher.group(3).trim();
-            String to = matcher.group(4).trim();
-            return new Event(taskName, isDone, from, to);
+            String fromString = matcher.group(3).trim();
+            String toString = matcher.group(4).trim();
+            LocalDateTime fromTime = LocalDateTime.parse(fromString, formatter);
+            LocalDateTime toTime = LocalDateTime.parse(toString, formatter);
+            return new Event(taskName, isDone, fromTime, toTime);
         }
 
         throw new StorageException("There was an issue reading your data");
