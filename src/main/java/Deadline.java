@@ -10,7 +10,7 @@ public class Deadline extends Task {
         try {
             this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
         } catch (DateTimeParseException e) {
-            throw new FishronException("☹ OOPS!!! Please provide a valid date/time format.");
+            throw new FishronException("☹ OOPS!!! Please provide a valid date/time format. e.g. 21-05-2023 1200");
         }
     }
 

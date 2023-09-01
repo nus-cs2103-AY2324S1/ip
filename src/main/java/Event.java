@@ -8,11 +8,14 @@ public class Event extends Task {
 
     public Event(String description, String from, String to) throws FishronException {
         super(description);
+        System.out.println(description);
+        System.out.println(from);
+        System.out.println(to);
         try {
             this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
             this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
         } catch (DateTimeParseException e) {
-            throw new FishronException("☹ OOPS!!! Please provide a valid date/time format.");
+            throw new FishronException("☹ OOPS!!! Please provide a valid date/time format. e.g. 21-05-2023 1200");
         }
     }
 
