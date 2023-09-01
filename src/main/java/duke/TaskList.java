@@ -1,3 +1,4 @@
+package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -20,13 +21,13 @@ public class TaskList {
     }
 
     public static void todo(String action) {
-            isDone[counter] = false;
-            actions[counter] = action;
-            type[counter] = "T";
-            counter= counter + 1;
-            System.out.println("Got it. I've added this task:\n" + helper(action, "T", false));
-            System.out.println("Now you have " + counter + " tasks in the list.");
-        }
+        isDone[counter] = false;
+        actions[counter] = action;
+        type[counter] = "T";
+        counter= counter + 1;
+        System.out.println("Got it. I've added this task:\n" + helper(action, "T", false));
+        System.out.println("Now you have " + counter + " tasks in the list.");
+    }
 
 
     public static String helper(String task, String taskType, boolean isDone) {
@@ -47,7 +48,7 @@ public class TaskList {
         String byString = due.trim();
         dueString[counter] = byString;
         actions[counter] = action;
-       // System.out.println(action + "hello");
+        // System.out.println(action + "hello");
         type[counter] = "D";
         isDone[counter] = false;
         counter = counter + 1;

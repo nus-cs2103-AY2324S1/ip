@@ -1,5 +1,2 @@
-4
-T | 0 | eat
-T | 0 | eat
-T | 0 | sleep
+1
 D | 0 | return book | null

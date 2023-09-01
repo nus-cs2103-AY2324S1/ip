@@ -1,3 +1,5 @@
+package duke;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -45,7 +47,7 @@ public class Parser {
             }
         } else if (input.startsWith("deadline")) {
             String action = input.substring(9, input.indexOf("/by")).trim();
-           // System.out.println(action + "action");
+            // System.out.println(action + "action");
             String by = input.substring(input.indexOf("/by") + 4).trim();
             LocalDateTime timeDeadline = dateTask(by);
             //  System.out.println(by);
