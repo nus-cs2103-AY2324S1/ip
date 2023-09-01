@@ -1,8 +1,10 @@
-import Exceptions.LemonException;
-import datafile.Storage;
-import parser.Parser;
-import tasklist.TaskList;
-import ui.Ui;
+package duke;
+
+import duke.Exceptions.LemonException;
+import duke.datafile.Storage;
+import duke.parser.Parser;
+import duke.tasklist.TaskList;
+import duke.ui.Ui;
 
 import java.util.Scanner;
 

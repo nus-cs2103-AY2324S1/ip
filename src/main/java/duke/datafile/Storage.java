@@ -1,11 +1,11 @@
-package datafile;
-import Exceptions.InvalidDeadlineException;
-import Exceptions.InvalidEventException;
-import Exceptions.LemonException;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.Todo;
+package duke.datafile;
+import duke.Exceptions.InvalidDeadlineException;
+import duke.Exceptions.InvalidEventException;
+import duke.Exceptions.LemonException;
+import duke.Tasks.Deadline;
+import duke.Tasks.Event;
+import duke.Tasks.Task;
+import duke.Tasks.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;

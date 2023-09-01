@@ -1,7 +1,7 @@
-package tasklist;
+package duke.tasklist;
 
-import Exceptions.InvalidTaskIndexException;
-import Tasks.Task;
+import duke.Exceptions.InvalidTaskIndexException;
+import duke.Tasks.Task;
 
 import java.util.ArrayList;
 

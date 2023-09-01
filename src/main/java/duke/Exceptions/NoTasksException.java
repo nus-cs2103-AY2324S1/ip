@@ -1,4 +1,4 @@
-package Exceptions;
+package duke.Exceptions;
 
 public class NoTasksException extends LemonException {
     public NoTasksException(String message) {

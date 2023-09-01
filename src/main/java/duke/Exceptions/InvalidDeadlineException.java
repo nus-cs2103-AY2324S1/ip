@@ -1,4 +1,4 @@
-package Exceptions;
+package duke.Exceptions;
 
 public class InvalidDeadlineException extends LemonException {
     public InvalidDeadlineException(String message) {
