@@ -1,5 +1,8 @@
 package duck.task;
 
+/**
+ * Represents the todo type of Task.
+ */
 public class ToDo extends Task {
 
     public ToDo(String str) {

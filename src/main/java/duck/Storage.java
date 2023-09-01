@@ -17,16 +17,29 @@ import duck.task.TaskList;
 import duck.task.ToDo;
 
 
-
+/**
+ * Acts as file handling class which is responsible for storing and reading tasks.
+ */
 public class Storage {
     private File file;
 
+    /**
+     * Constructs a storage object.
+     * @param filePath Consists of a filepath for storing and reading tasks.
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
     }
 
+    /**
+     * Constructs a Storage Object.
+     */
     public Storage() {}
 
+    /**
+     * Creates a File if it is not there
+     * @throws FileIoException If unsuccessful in creating directory.
+     */
     private void create() throws FileIoException {
         try {
             File parent = file.getParentFile();
@@ -40,6 +53,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the tasks in the file from the list of tasks.
+     * @param list List of tasks.
+     * @throws FileIoException if unsuccessful in creating file.
+     */
     public void saveInFile(TaskList list) throws FileIoException {
         try {
             if (!file.exists()) {
@@ -65,6 +83,8 @@ public class Storage {
                     fw.write(toDo.type() + " | " + (toDo.getStatusIcon().isBlank() ? "0" : "1")
                         + " | " + toDo.getDescription());
                     break;
+                default:
+                    throw new FileIoException("Error in file loading");
                 }
                 fw.write("\n");
             }
@@ -74,6 +94,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from a file and returns them as a list of Task objects.
+     *
+     * @return A List of Task objects loaded from the file.
+     */
     public List<Task> load() {
         List<Task> list = new ArrayList<>();
         try {
@@ -112,9 +137,11 @@ public class Storage {
                     }
                     list.add(tempToDo);
                     break;
+                default:
+                    throw new FileIoException("Unable to load");
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | FileIoException e) {
             System.out.println(e.getMessage());
         }
         return list;
