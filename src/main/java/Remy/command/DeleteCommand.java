@@ -5,6 +5,9 @@ import Remy.Ui;
 import Remy.Storage;
 import Remy.ChatbotException;
 
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 public class DeleteCommand extends Command {
     private int index;
     public static final String COMMAND_WORD = "delete";
@@ -15,6 +18,7 @@ public class DeleteCommand extends Command {
         if (index >= 0) {
             this.index = index;
         }
+
     }
 
     @Override
