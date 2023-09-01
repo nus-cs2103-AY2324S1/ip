@@ -28,6 +28,20 @@ public class Parser {
             int target = Integer.parseInt(input.substring(7)) - 1;
             taskList.deleteTask(target);
 
+        } else if (input.startsWith("find")) {
+
+            if (input.length() == 4) {
+                System.out.println("☹ OOPS!!! Please enter a search term");
+            } else {
+                String searchString = input.substring(4).trim();
+                if (searchString.equals("")) {
+                    System.out.println("☹ OOPS!!! Please enter a search term");
+                } else {
+                    taskList.printSearchList(input.substring(5));
+                }
+            }
+            System.out.println(Ballsorter.line);
+
         } else {
 
             Task curr;

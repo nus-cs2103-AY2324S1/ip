@@ -71,4 +71,20 @@ public class TaskList {
         }
         return store.toString();
     }
+    public void printSearchList(String searchString) {
+        ArrayList<Task> searchList = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).description.contains(searchString)) {
+                searchList.add(tasks.get(i));
+            }
+        }
+        if (searchList.isEmpty()) {
+            System.out.println("☹ OOPS!!! No tasks found");
+        } else {
+            for (int j = 0; j < searchList.size(); j++) {
+                int temp = j + 1;
+                System.out.println(temp + ". " + searchList.get(j).toString());
+            }
+        }
+    }
 }
