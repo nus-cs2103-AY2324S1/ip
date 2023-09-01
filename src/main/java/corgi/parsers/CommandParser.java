@@ -8,7 +8,7 @@ import corgi.commands.Command;
 import corgi.commands.CommandType;
 import corgi.commands.DeleteTaskCommand;
 import corgi.commands.ExitCommand;
-import corgi.commands.FindTasksContainKeyword;
+import corgi.commands.FindTasksContainKeywordCommand;
 import corgi.commands.FindTasksOnDateCommand;
 import corgi.commands.InvalidCommandException;
 import corgi.commands.ListTasksCommand;
@@ -157,7 +157,7 @@ public class CommandParser extends Parser<Command>{
 
         String keyword = inputs[1];
 
-        return new FindTasksContainKeyword(keyword);
+        return new FindTasksContainKeywordCommand(keyword);
     }
 
     private Command newAddCommand(String[] inputs, CommandType type) throws InvalidCommandFormatException {

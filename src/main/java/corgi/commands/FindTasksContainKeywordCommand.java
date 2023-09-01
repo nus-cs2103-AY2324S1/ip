@@ -10,7 +10,7 @@ import corgi.ui.Ui;
 /**
  * Represents a command to find tasks containing a specific keyword in the task list.
  */
-public class FindTasksContainKeyword extends Command{
+public class FindTasksContainKeywordCommand extends Command{
     /**
      * The predicate used to filter tasks by keyword.
      */
@@ -26,7 +26,7 @@ public class FindTasksContainKeyword extends Command{
      *
      * @param target The target keyword.
      */
-    public FindTasksContainKeyword(String target) {
+    public FindTasksContainKeywordCommand(String target) {
         super(false, CommandType.FIND);
         this.target = target;
         this.predicate = t -> t.contains(target);
