@@ -54,5 +54,7 @@ class ListItemTest {
     void testToString() {
         ListItem temp = new ListItem("yo");
         assertEquals(temp.toString(), "[ ] yo");
+        temp.setDone(true);
+        assertEquals(temp.toString(), "[✅] yo");
     }
 }
