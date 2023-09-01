@@ -12,17 +12,35 @@ public abstract class Task {
         this.done = false;
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void doTask() {
         this.done = true;
     }
 
+    /**
+     * Marks the task as not done.
+     */
     public void undoTask() {
         this.done = false;
     }
 
+    /**
+     * Checks if the task is on a given date.
+     *
+     * @param date the date to check on.
+     * @return true if date matches task date.
+     */
     public abstract boolean isOnDate(LocalDate date);
 
     // returns "done | task description", can be added with task type for subtypes
+
+    /**
+     * Converts the task to the correct format to save to storage/file.
+     *
+     * @return task string in correct format.
+     */
     public String toSaveFormat() {
         return (this.done ? 1 : 0) + " | " + this.task;
     }

@@ -7,6 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The Object that represents all the different commands given by the users.
+ * Mainly does switch case to determine what to do with the user input.
+ */
 public class Command {
     private static final HashMap<String, Cmd> COMMAND_MAP = new HashMap<>(
             Map.of("todo", Cmd.TODO, "event", Cmd.EVENT, "mark", Cmd.MARK,
@@ -23,6 +27,10 @@ public class Command {
     private String description;
     private Cmd action;
 
+    /**
+     * Creates the Command object.
+     * @param parts The different segment of information to be stored.
+     */
     public Command(List<String> parts) {
         if (!COMMAND_MAP.containsKey(parts.get(0))) {
             this.action = Cmd.INVALID;
@@ -42,6 +50,16 @@ public class Command {
 
     // returns whether this command is to exit, if not continue to carry out the required command
     // and return false
+
+    /**
+     * Executes the command. Main logic of chatbot.
+     *
+     * @param tasks The list of tasks stored in TaskList object.
+     * @param ui The Ui object to interact with user.
+     * @param storage The object used to store the tasks in case of changes
+     * @return true if command is to exit, else false.
+     * @throws DukeException If command is invalid.
+     */
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task task = null;
         switch (this.action) {

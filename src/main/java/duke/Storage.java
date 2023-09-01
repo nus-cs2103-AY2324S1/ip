@@ -7,11 +7,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// deals with loading tasks from the file and saving tasks in the file
+//
+
+/**
+ * Deals with loading tasks from the file and saving tasks in the file
+ */
 public class Storage {
     private final File file;
 
     // finds the file at filePath, creates the file if is not already there
+
+    /**
+     * Creates the Storage object.
+     *
+     * @param filePath
+     * @throws DukeException
+     */
     public Storage(String filePath) throws DukeException {
         this.file = new File(filePath);
         boolean isNewDir = this.file.getParentFile().mkdirs();
@@ -22,6 +33,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the tasks from the file and return in the form of ArrayList of Task.
+     * Parses the text from the file into Task objects.
+     *
+     * @return ArrayList of Tasks.
+     * @throws DukeException If there is any error while parsing the text to Tasks.
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -37,7 +55,12 @@ public class Storage {
         return tasks;
     }
 
-
+    /**
+     * Saves the input string into this object's file.
+     *
+     * @param content The string of text to store.
+     * @throws IOException If there was an error writing into the file.
+     */
     public void save(String content) throws IOException {
         FileWriter fw = new FileWriter(file);
         fw.write(content);

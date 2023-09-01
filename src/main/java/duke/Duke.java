@@ -1,10 +1,18 @@
 package duke;
 
+/**
+ * The chatbot object and also the entry point to start the chatbot.
+ */
 public class Duke {
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
 
+    /**
+     * Creates the Duke chatbot object.
+     *
+     * @param filePath The path to store the tasks.
+     */
     public Duke(String filePath) {
         this.ui = new Ui();
         try {
@@ -15,6 +23,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the chatbot with the main looping logic.
+     */
     public void run() {
         this.ui.greet();
         boolean isExit = false;

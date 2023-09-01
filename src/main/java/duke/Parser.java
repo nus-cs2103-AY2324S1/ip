@@ -2,13 +2,23 @@ package duke;
 
 import java.util.ArrayList;
 
-// deals with making sense of user command
+
+/**
+ * Object that deals with making sense of user command.
+ */
 public class Parser {
 
     public Parser() {
     }
 
     // takes in a line of text, split into different parts and covert them to a task
+
+    /**
+     * Converts a line of text into different useful parts and convert into a task.
+     *
+     * @param text The line of user input.
+     * @return The task made from user input.
+     */
     public static Command parse(String text) {
         ArrayList<String> result = new ArrayList<>();
         String[] parts = text.split(" ", 2);
@@ -42,6 +52,13 @@ public class Parser {
         return new Command(result);
     }
 
+    /**
+     * Converts the segmented strings form the storage/file into Tasks.
+     *
+     * @param parts The segmented strings containing task information.
+     * @return The task described by the information in parts.
+     * @throws DukeException If the parts format is wrong and there is an error parsing them into Tasks.
+     */
     public static Task parseTask(String[] parts) throws DukeException {
         String taskType = parts[0];
         boolean isDone = parts[1].equals("1");
