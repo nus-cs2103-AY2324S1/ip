@@ -1,6 +1,7 @@
 package deterministicparrot;
 
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 /**
@@ -16,7 +17,7 @@ public class Ui {
      * @param s The Scanner to read input from the user.
      * @param pw The PrintWriter to output messages to the user.
      */
-    Ui(Scanner s, PrintWriter pw) {
+    public Ui(Scanner s, PrintWriter pw) {
         this.s = s;
         this.pw = pw;
     }
@@ -24,7 +25,7 @@ public class Ui {
     /**
      * Constructs a Ui instance with default System.in and System.out.
      */
-    Ui() {
+    public Ui() {
         this.s = new Scanner(System.in);
         this.pw = new PrintWriter(System.out, true);
     }

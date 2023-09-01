@@ -7,6 +7,9 @@ import java.util.Map;
  * Parser class for handling user commands in the Deterministic Parrot application.
  */
 public class Parser {
+    public Parser() {
+
+    }
 
     /**
      * Functional interface for a checked consumer that can throw exceptions.

@@ -19,7 +19,7 @@ public class DeterministicParrot {
      * Constructs a DeterministicParrot object.
      * Initializes the task list and sets up command handlers.
      */
-    DeterministicParrot(){
+    public DeterministicParrot(){
         this.taskList = new TaskList();
         this.initCommandHandlers();
     }

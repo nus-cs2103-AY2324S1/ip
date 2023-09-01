@@ -20,7 +20,7 @@ public class Event extends Task {
      * @throws DateTimeParseException If the input time strings are not in the expected format.
      * @throws IllegalArgumentException If the start time is after the end time.
      */
-    Event(String name, String timeStart, String timeEnd) throws DateTimeParseException {
+    public Event(String name, String timeStart, String timeEnd) throws DateTimeParseException {
         super(name);
         try {
             this.timeStart = DPUtils.dPTryParseDateTime(timeStart);

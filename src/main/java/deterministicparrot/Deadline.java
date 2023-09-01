@@ -19,7 +19,7 @@ public class Deadline extends Task {
      * @param by The deadline of the task in string format.
      * @throws DateTimeParseException If the provided deadline is in an invalid date format.
      */
-    Deadline(String description, String by) throws DateTimeParseException {
+    public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
         try {
             this.by = DPUtils.dPTryParseDateTime(by);
