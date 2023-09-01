@@ -14,6 +14,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 public class Storage {
     private static final String filePath = "./data/Pippi.txt";
+
+    /**
+     * Returns an array list of tasks stored in the Pippi.txt file
+     * (array is empty if file is empty or not found)
+     * @return Array List of tasks
+     */
     public static ArrayList<Task> read() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -30,9 +36,7 @@ public class Storage {
                 switch (type) {
                     case "T":
                         ToDo t = new ToDo(parts[2]);
-                        // System.out.println(status);
                         if (status.equals("1")) {
-                            // System.out.println("called");
                             t.mark();
                         }
                         tasks.add(t);
@@ -64,6 +68,11 @@ public class Storage {
         }
         return tasks;
     }
+
+    /**
+     * Updates the memory when a task is modified or added
+     * @param tasks (an array list of tasks after updated)
+     */
     public static void update(ArrayList<Task> tasks) {
         try {
             // Creating a FileWriter object

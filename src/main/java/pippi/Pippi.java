@@ -14,6 +14,9 @@ public class Pippi {
         Pippi.inPokeball = true;
     }
 
+    /**
+     * Initiates the program's start and working flow
+     */
     public void start() {
         Ui.wrapText("Hello trainer, I'm Pippi!\nWhat can I do for you?");
         ArrayList<Task> tasks = Storage.read();
