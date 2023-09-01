@@ -66,4 +66,54 @@ public class TaskListTest {
         TaskList tasks = new TaskList();
         assertThrows(SimonException.class, () -> tasks.markTask("mark 1", true));
     }
+
+    @Test
+    public void findTasks_matchingKeyword_returnMatchingTasks() throws SimonException {
+        TaskList tasks = new TaskList();
+        tasks.addTask(new ToDo("Read book"));
+        tasks.addTask(new ToDo("Return book"));
+        tasks.addTask(new ToDo("Watch movie"));
+
+        TaskList foundTasks = tasks.findTasks("find book");
+
+        assertEquals(2, foundTasks.getTaskCount());
+        assertTrue(foundTasks.getTask(0).toString().contains("Read book"));
+        assertTrue(foundTasks.getTask(1).toString().contains("Return book"));
+    }
+
+    @Test
+    public void findTasks_noMatch_returnEmptyList() throws SimonException {
+        TaskList tasks = new TaskList();
+        tasks.addTask(new ToDo("Read book"));
+        tasks.addTask(new ToDo("Watch movie"));
+
+        TaskList foundTasks = tasks.findTasks("find exercise");
+
+        assertEquals(0, foundTasks.getTaskCount());
+    }
+
+    @Test
+    public void findTasks_emptyList_returnEmptyList() throws SimonException {
+        TaskList tasks = new TaskList();
+        TaskList foundTasks = tasks.findTasks("find book");
+
+        assertEquals(0, foundTasks.getTaskCount());
+    }
+
+    @Test
+    public void getTask_validIndex_returnTask() throws SimonException {
+        TaskList tasks = new TaskList();
+        tasks.addTask(new ToDo("Sample Task"));
+
+        Task retrievedTask = tasks.getTask(0);
+        assertEquals("Sample Task", retrievedTask.taskName);
+    }
+
+    @Test
+    public void getTask_invalidIndex_outOfBoundsException() {
+        TaskList tasks = new TaskList();
+        tasks.addTask(new ToDo("Sample Task"));
+
+        assertThrows(IndexOutOfBoundsException.class, () -> tasks.getTask(100));
+    }
 }

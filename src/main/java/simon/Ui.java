@@ -97,6 +97,19 @@ public class Ui {
     }
 
     /**
+     * Displays the tasks that match the given keyword.
+     *
+     * @param matchedTasks An ArrayList of tasks that match the keyword.
+     */
+    public void showMatchingTasks(TaskList matchedTasks) {
+        System.out.println(Simon.SPACEN + "Here are the matching tasks in your list:");
+        for (int i = 0; i < matchedTasks.getTaskCount(); i++) {
+            System.out.println((i + 1) + "." + matchedTasks.getTask(i));
+        }
+        System.out.println(Simon.SPACE);
+    }
+
+    /**
      * Reads user input from the provided scanner.
      *
      * @param scanner The scanner to read input from.

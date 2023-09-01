@@ -20,7 +20,7 @@ public class Parser {
      * that can be performed by the Simon application.
      */
     public enum Command {
-        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE, UNKNOWN
+        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE, FIND, UNKNOWN
     }
 
     /**
