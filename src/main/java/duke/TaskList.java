@@ -8,10 +8,20 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+/**
+ * The TaskList class represents a list of tasks.
+ */
 public class TaskList {
+    /** List of tasks. **/
     ArrayList<Task> list;
+    /** File storing information to create the list of tasks. **/
     File startFile;
 
+    /**
+     * Instantiates an instance of TaskList.
+     *
+     * @param startFile Information of the file saved.
+     */
     public TaskList(File startFile) {
         this.startFile = startFile;
         this.list = new ArrayList<Task>();
@@ -50,6 +60,12 @@ public class TaskList {
             System.out.println("File not found");
         }
     }
+
+    /**
+     * Returns list of tasks as a string.
+     *
+     * @return List of tasks to be printed.
+     */
     public String showList() {
         StringBuilder listOfTasks = new StringBuilder();
         for (int i = 0; i < list.size() - 1; i++) {
@@ -63,6 +79,11 @@ public class TaskList {
         return listOfTasks.toString();
     }
 
+    /**
+     * Returns a string showing how the tasks are written in the file.
+     *
+     * @return File information in a string
+     */
     public String fileList() {
         StringBuilder listOfTasks = new StringBuilder();
         for (int i = 0; i < list.size() - 1; i++) {
@@ -76,18 +97,41 @@ public class TaskList {
         return listOfTasks.toString();
     }
 
+    /**
+     * Adds a task to the list of tasks.
+     *
+     * @param task Task to be added.
+     */
     public void add(Task task) {
         list.add(task);
     }
 
+    /**
+     * Returns the task removed from a list of tasks.
+     * Removes a task from the list of tasks.
+     *
+     * @param taskNumber Number of the task to be removed.
+     * @return Task removed.
+     */
     public Task delete(int taskNumber) {
         return list.remove(taskNumber);
     }
 
+    /**
+     * Returns the task specified.
+     *
+     * @param taskNumber Number of the task to be removed.
+     * @return Task obtained.
+     */
     public Task get(int taskNumber) {
         return list.get(taskNumber);
     }
 
+    /**
+     * Returns the number of tasks in the list of tasks.
+     *
+     * @return Size of TaskList.
+     */
     public int size() {
         return list.size();
     }

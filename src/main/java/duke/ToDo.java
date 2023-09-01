@@ -1,6 +1,14 @@
 package duke;
 
+/**
+ * The ToDo class represents a Task with a duration.
+ */
 public class ToDo extends Task {
+    /**
+     * Instantiates an instance of ToDo.
+     *
+     * @param description Description of the ToDo task.
+     */
     public ToDo(String description) {
         super(description);
     }
