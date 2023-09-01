@@ -157,4 +157,19 @@ public class TaskList {
         Ui.printUnmarkMsg(task);
         storage.saveTasks(this.taskList);
     }
+
+    /**
+     * Finds all tasks matching search string.
+     * @param searchString String to be matched to tasks.
+     * @return String representation of matching tasks.
+     */
+    public String findTasks(String searchString) {
+        StringBuilder matchingTasks = new StringBuilder();
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).checkMatch(searchString)) {
+                matchingTasks.append(String.format("\t%d. %s\n", i + 1, taskList.get(i)));
+            }
+        }
+        return matchingTasks.toString();
+    }
 }

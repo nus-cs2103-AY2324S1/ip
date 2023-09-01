@@ -52,6 +52,15 @@ public class Task {
     }
 
     /**
+     * Checks if task contains the specified search string.
+     * @param searchString String to be checked against.
+     * @return Boolean whether task contains search string.
+     */
+    public boolean checkMatch(String searchString) {
+        return this.task.toLowerCase().contains(searchString);
+    }
+
+    /**
      * Gets the task in a string to be saved.
      * @return String to be saved.
      */

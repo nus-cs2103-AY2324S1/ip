@@ -69,6 +69,10 @@ public class Parser {
                     Ui.printAddMsg(taskList.getTaskList());
                     storage.saveTasks(taskList.getTaskList());
                     break;
+                case "find":
+                    String searchString = inputScanner.nextLine();
+                    Ui.printFindMsg(taskList, searchString);
+                    break;
                 default:
                     throw new GlubException("OOPS!! I'm sorry, but I don't know what that means :-(\n");
                 }
