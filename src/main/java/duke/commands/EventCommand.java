@@ -8,7 +8,9 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
 public class EventCommand extends Command {
-    private static final Pattern pattern = Pattern.compile("^event\\s+(?<description>.*?)\\s+(?:/from\\s+(?<startFore>.*?)\\s+/to\\s+(?<endAft>.*)|/to\\s+(?<endFore>.*?)\\s+/from\\s+(?<startAft>.*))$");
+    private static final Pattern pattern = Pattern.compile(
+            "^event\\s+(?<description>.*?)\\s+(?:/from\\s+(?<startFore>.*?)\\s+/to\\s+(?<endAft>.*)|/to\\s+" +
+                    "(?<endFore>.*?)\\s+/from\\s+(?<startAft>.*))$");
 
     public EventCommand(String s) throws CommandException {
         super(s, pattern);
@@ -16,7 +18,13 @@ public class EventCommand extends Command {
 
     @Override
     protected String getInvalidFormatMessage() {
-        return String.join("\n", "Invalid format for command `event`!", "Usage: event <DESCRIPTION> [/from <START_TIME> | /to <END_TIME>] [/to <END_TIME> | /from <START_TIME>]", "<START_TIME> and <END_TIME> should be of the format YYYY-MM-DDTHH:mm[:ss.sss]");
+        return String.join(
+                "\n",
+                "Invalid format for command `event`!",
+                "Usage: event <DESCRIPTION> [/from <START_TIME> | /to <END_TIME>] [/to <END_TIME> | /from " +
+                        "<START_TIME>]",
+                "<START_TIME> and <END_TIME> should be of the format YYYY-MM-DDTHH:mm[:ss.sss]"
+        );
     }
 
     @Override
@@ -40,7 +48,16 @@ public class EventCommand extends Command {
             Event event = new Event(description, startTime, endTime);
             tasks.add(event);
 
-            return new CommandResult(true, "Got it. I've added this task:", event.toString(), String.format("Now you have %d %s in the list.", tasks.size(), tasks.size() == 1 ? "task" : "tasks"));
+            return new CommandResult(
+                    true,
+                    "Got it. I've added this task:",
+                    event.toString(),
+                    String.format(
+                            "Now you have %d %s in the list.",
+                            tasks.size(),
+                            tasks.size() == 1 ? "task" : "tasks"
+                    )
+            );
         } catch (DateTimeParseException e) {
             throw new CommandException("Event start or end time is not a valid datetime!");
         }

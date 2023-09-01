@@ -28,6 +28,15 @@ public class TodoCommand extends Command {
         Todo todo = new Todo(description);
         tasks.add(todo);
 
-        return new CommandResult(true, "Got it. I've added this task:", todo.toString(), String.format("Now you have %d %s in the list.", tasks.size(), tasks.size() == 1 ? "task" : "tasks"));
+        return new CommandResult(
+                true,
+                "Got it. I've added this task:",
+                todo.toString(),
+                String.format(
+                        "Now you have %d %s in the list.",
+                        tasks.size(),
+                        tasks.size() == 1 ? "task" : "tasks"
+                )
+        );
     }
 }

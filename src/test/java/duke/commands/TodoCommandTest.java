@@ -10,7 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class TodoCommandTest {
-    private static final String invalidFormatMessage = String.join("\n", "Invalid format for command `todo`!", "Usage: todo <DESCRIPTION>");
+    private static final String invalidFormatMessage = String.join(
+            "\n",
+            "Invalid format for command `todo`!",
+            "Usage: todo <DESCRIPTION>"
+    );
 
     @Test
     public void run_validTodo_success() throws CommandException {
@@ -20,7 +24,10 @@ public class TodoCommandTest {
         CommandResult result = command.run(tasks);
 
         assertEquals(tasks.size(), 1);
-        assertEquals(List.of("Got it. I've added this task:", "[T][ ] read book", "Now you have 1 task in the list."), result.response);
+        assertEquals(
+                List.of("Got it. I've added this task:", "[T][ ] read book", "Now you have 1 task in the list."),
+                result.response
+        );
 
         Task todo = tasks.get(0);
         assertFalse(todo.isDone());

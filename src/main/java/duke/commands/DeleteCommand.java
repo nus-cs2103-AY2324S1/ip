@@ -35,7 +35,16 @@ public class DeleteCommand extends Command {
             Task task = tasks.get(idx);
             tasks.remove(idx);
 
-            return new CommandResult(true, "Noted. I've removed this task:", task.toString(), String.format("You have %d %s in your list.", tasks.size(), tasks.size() == 1 ? "task" : "tasks"));
+            return new CommandResult(
+                    true,
+                    "Noted. I've removed this task:",
+                    task.toString(),
+                    String.format(
+                            "You have %d %s in your list.",
+                            tasks.size(),
+                            tasks.size() == 1 ? "task" : "tasks"
+                    )
+            );
         } catch (NumberFormatException e) {
             throw new CommandException("Task number must be a number!");
         }
