@@ -13,6 +13,7 @@ import duke.Ui;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 /**
  * Represents the Duke chat bot.
@@ -157,6 +158,24 @@ public class Duke {
     }
 
     /**
+     * Finds and lists all tasks that contain the keyword.
+     *
+     * @param keyword The keyword to search for.
+     */
+    public void findAndListTasks(String keyword) {
+        ArrayList<Task> matchedTasks = tasks.findTasks(keyword);
+        if (matchedTasks.size() == 0) {
+            System.out.println(line + "No tasks found with the keyword: " + keyword + "\n" + line);
+            return;
+        }
+        System.out.println(line + "Here are the matching tasks in your list:");
+        for (int i = 0; i < matchedTasks.size(); i++) {
+            System.out.println((i + 1) + "." + matchedTasks.get(i));
+        }
+        System.out.println(line);
+    }
+  
+    /**
      * Processes the user input and responds accordingly.
      * @param input The user input.
      * @return <code>true</code> if the program should continue running, <code>false</code> otherwise.
@@ -173,7 +192,7 @@ public class Duke {
             ui.printMessage(LINE + "Bye. Hope to see you again soon!\n" + LINE);
             return false;
         case "delete":
-            deleteTask(words[1]); // refactored logic to a new method
+            deleteTask(words[1]);
             break;
         case "help":
             ui.printMessage(LINE + "\nCommands:\n"
@@ -200,6 +219,9 @@ public class Duke {
             break;
         case "unmark":
             unmarkTaskDone(words[1]);
+            break;
+        case "find":
+            findAndListTasks(words[1]);
             break;
         default:
             // Handle any other cases or errors
