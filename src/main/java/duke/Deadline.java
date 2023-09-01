@@ -42,8 +42,8 @@ public class Deadline extends Task {
     public String toString() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("E, dd MMM yyyy");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-        return "[D]" + super.toString() + " (by: " +
-                this.due.toLocalDate().format(dateFormatter) + " " +
-                this.due.toLocalTime().format(timeFormatter) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + this.due.toLocalDate().format(dateFormatter) + " "
+                + this.due.toLocalTime().format(timeFormatter) + ")";
     }
 }
