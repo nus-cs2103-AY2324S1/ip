@@ -1,2 +1,5 @@
-D | 0 | watch lecture  | Sept 23 2023
 E | 0 | soc bash  |  friday 6pm  |  10pm
+T | 0 | sleep 
+T | 0 | eat breakfast
+T | 0 | read book
+T | 0 | return book

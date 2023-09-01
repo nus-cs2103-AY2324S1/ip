@@ -1,36 +1,37 @@
-package Pau.util;
+package pau.util;
 
-import Pau.Pau;
-import Pau.task.TaskList;
+import pau.task.TaskList;
 
+/**
+ * Deals with making sense of the user command.
+ */
 public class Parser {
-    public static boolean parseCommand(String input, TaskList list) {
-        if (input.equals("bye")) {
-            return false;
-        } else if (input.equals("list")) {
+
+    /**
+     * Parses the command that user inputs.
+     *
+     * @param input Command that user inputs.
+     * @param list List of the tasks.
+     */
+    public static void parseCommand(String input, TaskList list) {
+        if (input.equals("list")) {
             list.checkList();
-            return true;
         } else if (input.startsWith("mark")) {
             list.markTask(input);
-            return true;
         } else if (input.startsWith("unmark")) {
             list.unMarkTask(input);
-            return true;
         } else if (input.startsWith("delete")) {
             list.deleteTask(input);
-            return true;
         } else if (input.startsWith("todo")) {
             list.addToDo(input);
-            return true;
         } else if (input.startsWith("deadline")) {
             list.addDeadline(input);
-            return true;
         } else if (input.startsWith("event")) {
             list.addEvent(input);
-            return true;
+        } else if (input.startsWith("find")) {
+            list.findTask(input);
         } else {
-            Pau.invalidCommand();
-            return true;
+            System.out.println("can you follow instructions");
         }
     }
 }

@@ -1,23 +1,44 @@
-package Pau.task;
+package pau.task;
 
-import Pau.exception.DeadlineNoEndException;
-import Pau.exception.NoDescException;
-import Pau.exception.NoSuchTaskException;
+import pau.exception.DeadlineNoEndException;
+import pau.exception.NoDescException;
+import pau.exception.NoSuchTaskException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Stores the tasks in an ArrayList;
+ */
 public class TaskList {
+
+    /**
+     * The list where the tasks are stored.
+     */
     private ArrayList<Task> taskList;
 
+    /**
+     * Constructs a new ArrayList for the tasks.
+     */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
+    /**
+     * Retrieves size of the task list.
+     *
+     * @return Size of the task list.
+     */
     public int listSize() {
         return this.taskList.size();
     }
 
+    /**
+     * Retrieves the task at a certain index in the task list.
+     *
+     * @param index The index of the task to be retrieved.
+     * @return The task at the index.
+     */
     public Task getTask(int index) {
         return taskList.get(index);
     }
@@ -47,8 +68,10 @@ public class TaskList {
         int starEyesEmoji = 0x1F929;
         System.out.println("good job, you've completed a task! You're so productive!" + new String(Character.toChars(starEyesEmoji)));
         String parts[] = input.split(" ");
+
         int taskNo = Integer.parseInt(parts[1]);
         Task checkedTask = this.taskList.get(taskNo - 1);
+
         checkedTask.markAsDone();
         System.out.println(checkedTask.toString());
     }
@@ -62,6 +85,7 @@ public class TaskList {
         String parts[] = input.split(" ");
         int taskNo = Integer.parseInt(parts[1]);
         Task checkedTask = this.taskList.get(taskNo - 1);
+
         checkedTask.markAsUndone();
         System.out.println("why are you not going to " + checkedTask.description + "? remember to do it later!");
         System.out.println(checkedTask.toString());
@@ -76,7 +100,7 @@ public class TaskList {
         try {
             String parts[] = input.split(" ");
             int taskNo = Integer.parseInt(parts[1]);
-            if(taskNo > this.listSize()) {
+            if (taskNo > this.listSize()) {
                 throw new NoSuchTaskException("you can't delete this task");
             }
             Task checkedTask = this.taskList.get(taskNo - 1);
@@ -99,16 +123,18 @@ public class TaskList {
     }
 
     /**
-     * Adds a ToDo to the list.
+     * Adds a ToDo to the task list.
      *
      * @param input The ToDo the user wants to add.
      */
     public void addToDo(String input) {
         try {
             ToDo item = new ToDo(input.replace("todo ", ""));
+
             if (item.description.isEmpty()) {
                 throw new NoDescException("here's literally how to create a todo: todo [task name]");
             }
+
             this.taskList.add(item);
             if (input.contains("todo")) {
                 System.out.println("todo added: " + item.toString());
@@ -119,7 +145,7 @@ public class TaskList {
     }
 
     /**
-     * Adds a Deadline to the list.
+     * Adds a Deadline to the task list.
      *
      * @param input The Deadline the user wants to add.
      */
@@ -132,6 +158,7 @@ public class TaskList {
             if (!input.contains("/by")) {
                 throw new DeadlineNoEndException("here's literally how to create a deadline: deadline [task name] /by [date]");
             }
+
             Deadline item = new Deadline(parts[0].replace("deadline ", ""), parts[1]);
             this.taskList.add(item);
             if (input.contains("deadline")) {
@@ -144,7 +171,7 @@ public class TaskList {
     }
 
     /**
-     * Adds an Event to the list.
+     * Adds an Event to the task list.
      *
      * @param input The Event the user wants to add.
      */
@@ -154,7 +181,9 @@ public class TaskList {
             if (parts.length == 1) {
                 throw new NoDescException("how am i suppose to know what is going on...");
             }
+
             String time[] = parts[1].split("/to");
+
             Event item = new Event(parts[0].replace("event ", ""), time[0], time[1]);
             this.taskList.add(item);
             if (input.contains("event")) {
@@ -165,28 +194,53 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds a task based on the keyword.
+     *
+     * @param input The keyword the user wants to find.
+     */
+    public void findTask (String input) {
+        String parts[] = input.split("find ");
+        String keyword = parts[1];
+
+        int count = 1;
+        for (int i = 0; i < listSize(); i++) {
+            Task curr = this.getTask(i);
+            if (curr.description.contains(keyword)) {
+                System.out.println(count + ". " + curr.toString());
+                count++;
+            }
+        }
+    }
+
+    /**
+     * Creates different tasks based on the input when the tasks are loaded.
+     *
+     * @param taskDetails Input of each task when tasks are loaded.
+     */
     public void createTask(String taskDetails) {
         Scanner s = new Scanner(taskDetails).useDelimiter(" \\| ");
         String taskType = s.next();
         String status = s.next();
         String description = s.next();
+
         switch (taskType) {
-            case "T":
-                this.addToDo(description);
-                this.taskList.get(listSize() - 1).setStatus(status);
-                break;
-            case "D":
-                String wholeDeadline = description + "/by " + s.next();
-                this.addDeadline(wholeDeadline);
-                this.taskList.get(listSize() - 1).setStatus(status);
-                break;
-            case "E":
-                String wholeEvent = description + "/from" + s.next() + "/to" + s.next();
-                this.addEvent(wholeEvent);
-                this.taskList.get(listSize() - 1).setStatus(status);
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + taskType);
+        case "T":
+            this.addToDo(description);
+            this.taskList.get(listSize() - 1).setStatus(status);
+            break;
+        case "D":
+            String wholeDeadline = description + "/by " + s.next();
+            this.addDeadline(wholeDeadline);
+            this.taskList.get(listSize() - 1).setStatus(status);
+            break;
+        case "E":
+            String wholeEvent = description + "/from" + s.next() + "/to" + s.next();
+            this.addEvent(wholeEvent);
+            this.taskList.get(listSize() - 1).setStatus(status);
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + taskType);
         }
     }
 

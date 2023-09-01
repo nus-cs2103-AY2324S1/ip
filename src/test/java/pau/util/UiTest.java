@@ -1,19 +1,30 @@
-package Pau.util;
-import Pau.task.TaskList;
+package pau.util;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+/**
+ * Carries out unit testing for Ui class.
+ */
 public class UiTest {
     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
+    /**
+     * Parses the printed output into a string.
+     */
     @BeforeEach
     public void checkPrint() {
         System.setOut(new PrintStream(outContent));
     }
 
+    /**
+     * Tests if chatbot prints introduction correctly.
+     */
     @Test
     public void introduction_introduce_printsIntroduction() {
         Ui ui = new Ui();
@@ -32,6 +43,9 @@ public class UiTest {
         assertEquals(expected, outContent.toString());
     }
 
+    /**
+     * Tests if chatbot prints introduction correctly.
+     */
     @Test
     public void exit_byeInput_printsGoodbyeMessage() {
         Ui ui = new Ui();
