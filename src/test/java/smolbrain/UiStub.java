@@ -1,7 +1,5 @@
 package smolbrain;
 
-import java.util.Scanner;
-
 public class UiStub {
 
     public String showLine() {
