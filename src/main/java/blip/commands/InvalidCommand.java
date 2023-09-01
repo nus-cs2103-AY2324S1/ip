@@ -21,15 +21,13 @@ public class InvalidCommand extends Command {
         this.description = description;
     }
 
-<<<<<<< HEAD
     /**
      * Executes the necessary messages for an invalid command.
      * @param taskList The Array List of tasks to do commands on
      * @param ui The user interface of Blip
      * @param storage The storage for Blip
      */
-=======
->>>>>>> branch-A-CodingStandard
+
     public void execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
         description = description.toLowerCase();
         if (!containsCommands(description)) {

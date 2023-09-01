@@ -143,8 +143,4 @@ public class BlipUI {
         System.out.println(task.toString());
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> branch-A-CodingStandard
 }

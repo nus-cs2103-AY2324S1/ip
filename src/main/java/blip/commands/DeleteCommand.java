@@ -22,15 +22,12 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
-<<<<<<< HEAD
     /**
      * Executes the delete command to delete a task.
      * @param taskList The Array List of tasks to delete task from
      * @param ui The user interface of Blip
      * @param storage The storage for Blip
      */
-=======
->>>>>>> branch-A-CodingStandard
     @Override
     public void execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
         // Task number does not exist.
