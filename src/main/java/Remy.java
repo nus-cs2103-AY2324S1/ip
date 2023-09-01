@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -120,6 +121,8 @@ public class Remy {
                 }
             } catch (ChatbotException e) {
                 printSandwichContent(e.toString(), "long");
+            } catch (DateTimeParseException e) {
+                System.out.println("Don't you know how to write a date?: " + e.getMessage());
             }
         }
     }
@@ -180,6 +183,7 @@ public class Remy {
         } catch (IOException e) {
             System.out.println("error saving tasks to file, probably some issue on your end: " + e.getMessage());
         }
+
     }
 
     // Solution below adapted from https://stackoverflow.com/questions/10404698/saving-arrays-to-the-hard-disk
