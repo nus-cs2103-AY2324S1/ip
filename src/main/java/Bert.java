@@ -4,6 +4,7 @@ import java.lang.StringBuilder;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 
 /**
  * A chatbot named Bert that keeps track of a task list.
@@ -241,8 +242,50 @@ public class Bert {
         fw.close();
     }
 
+    /**
+     * Loads tasks from the save data into the chatbot.
+     */
+    private static void loadTasks() {
+        try {
+            ensureTaskFileExists();
+            File file = new File(FILE_PATH);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                String task = sc.nextLine();
+                switch (task.charAt(0)) {
+                    case 'T':
+                        ToDo t = ToDo.createFromSaveFormat(task);
+                        al.add(t);
+                        break;
+                    case 'D':
+                        Deadline d = Deadline.createFromSaveFormat(task);
+                        al.add(d);
+                        break;
+                    case 'E':
+                        Event e = Event.createFromSaveFormat(task);
+                        al.add(e);
+                        break;
+                }
+            }
+            sc.close();
+        } catch (FileNotFoundException e) {
+            System.out.println(
+                    "____________________________________________________________\n" +
+                    "OOPS!!! The attempt to open the file has failed.\n" +
+                    "____________________________________________________________\n"
+            );
+        } catch (IOException e) {
+            System.out.println(
+                    "____________________________________________________________\n" +
+                    "OOPS!!! An error occurred while creating the task file.\n" +
+                    "____________________________________________________________\n"
+            );
+        }
+    }
+
     public static void main(String[] args) {
         Bert.introduce();
+        Bert.loadTasks();
 
         // Initialise a scanner and read the first line of user input
         Scanner sc = new Scanner(System.in);
