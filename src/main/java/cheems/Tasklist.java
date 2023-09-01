@@ -14,10 +14,12 @@ import java.util.ArrayList;
 public class Tasklist implements ListManageable {
     private final ArrayList<Task> list = new ArrayList<>();
     private int total = 0;  // total also indicates the first free slot
-    private final Storage storage;
+    private final Storable storage;
+    private final Printable ui;
 
-    public Tasklist(Storage storage) {
+    public Tasklist(Storable storage, Printable ui) {
         this.storage = storage;
+        this.ui = ui;
     }
 
     private void checkIndexOutOfBoundsHelper(int index) throws IndexOutOfBoundsException {
@@ -92,9 +94,17 @@ public class Tasklist implements ListManageable {
 
         String resp = "I have added this task for you!\n" + newTask;
         resp += String.format("\nNow you have %d task(s) in your list!", total);
-        UI.printWithFormat(resp);
+        ui.printWithFormat(resp);
     }
 
+
+    public Task getTaskAt(int i) {
+        return list.get(i);
+    }
+
+    public int getTotal() {
+        return total;
+    }
     /**
      * Prints all tasks in the current task list.
      */
@@ -108,7 +118,7 @@ public class Tasklist implements ListManageable {
                 resp += String.format("%d.%s\n", i + 1, list.get(i));
             }
         }
-        UI.printWithFormat(resp);
+        ui.printWithFormat(resp);
     }
 
     /**
@@ -124,7 +134,7 @@ public class Tasklist implements ListManageable {
         taskListToStorage();
 
         String resp = "Good job! I've marked this task as done:\n" + list.get(index);
-        UI.printWithFormat(resp);
+        ui.printWithFormat(resp);
     }
 
     /**
@@ -140,7 +150,7 @@ public class Tasklist implements ListManageable {
         taskListToStorage();
 
         String resp = "Okie dokie! I've unmarked it for you:\n" + list.get(index);
-        UI.printWithFormat(resp);
+        ui.printWithFormat(resp);
     }
 
     /**
@@ -160,7 +170,7 @@ public class Tasklist implements ListManageable {
         String resp = "Noted. I've removed this task:\n" +
                         t +
                         String.format("\nNow you have %d tasks in your list!", total);
-        UI.printWithFormat(resp);
+        ui.printWithFormat(resp);
     }
 
     /**
@@ -183,7 +193,7 @@ public class Tasklist implements ListManageable {
         if (resp == "") {
             resp = "There is no corresponding task in your list!";
         }
-        UI.printWithFormat(resp);
+        ui.printWithFormat(resp);
     }
 
     /**

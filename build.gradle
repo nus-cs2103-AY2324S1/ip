@@ -11,6 +11,10 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    testImplementation "org.mockito:mockito-core:3.+"
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.6.1'
 }
 
 test {
@@ -28,7 +32,7 @@ test {
 }
 
 application {
-    mainClass.set("Cheems")
+    mainClass.set("cheems.Cheems")
 }
 
 shadowJar {

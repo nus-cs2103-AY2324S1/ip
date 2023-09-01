@@ -17,7 +17,7 @@ import java.util.Scanner;
  * Represents the text database that stores the data.
  * Contains methods that interacts with the database and current task list during program run.
  */
-public class Storage {
+public class Storage implements Storable {
 
     /**
      * Each Storage object has a file field storing the file to read and write from.
@@ -73,6 +73,7 @@ public class Storage {
      * @param taskLine The line to be written to the database, formatted based on database specification.
      * @throws InputOutputException If fails to write to file.
      */
+    @Override
     public void saveNewTask(String taskLine) throws InputOutputException {
         try {
             FileWriter fw = new FileWriter(this.file, true);

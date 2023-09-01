@@ -9,9 +9,11 @@ import cheems.exceptions.InvalidKeywordException;
  */
 public class Parser {
     private ListManageable tasklist;
+    private Printable ui;
 
-    public Parser(ListManageable listManager) {
+    public Parser(ListManageable listManager, Printable thisUi) {
         tasklist = listManager;
+        ui = thisUi;
     }
     /**
      * Parses the given input and tells Tasklist the action to take.
@@ -88,7 +90,7 @@ public class Parser {
             }
         } else {
             String resp = "Please give me instructions, if not, I'll serve you some fries.";
-            UI.printWithFormat(resp);
+            ui.printWithFormat(resp);
         }
     }
 

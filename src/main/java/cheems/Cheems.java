@@ -10,20 +10,22 @@ public class Cheems {
     private final Storage storage;
     private final Parser parser;
     private final Tasklist tasklist;
+    private final UI ui;
 
     public Cheems(String filepath) {
+        ui = new UI();
         storage = new Storage(filepath);
-        tasklist = new Tasklist(storage);
-        parser = new Parser(tasklist);
+        tasklist = new Tasklist(storage, ui);
+        parser = new Parser(tasklist, ui);
     }
 
     /**
      * Runs the chatbot.
      */
     public void run() {
-        UI.showWelcomeMsg();
+        ui.showWelcomeMsg();
         tasklist.loadTaskFromDatabase();
-        String input = UI.getInput(scanner);
+        String input = ui.getInput(scanner);
 
         // business logic
         while (!input.equals("bye")) {
@@ -32,10 +34,10 @@ public class Cheems {
             } catch (RuntimeException e) {
                 System.out.println(e.toString());
             }
-            input = UI.getInput(scanner);
+            input = ui.getInput(scanner);
         }
 
-        UI.showExitMsg();
+        ui.showExitMsg();
     }
 
     public static void main(String[] args) {
