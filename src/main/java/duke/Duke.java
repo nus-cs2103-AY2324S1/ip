@@ -20,7 +20,7 @@ public class Duke {
     }
 
     public void run() {
-        ui.printGreetings();
+        ui.showGreetings();
 
         while (true) {
             try {

@@ -4,7 +4,6 @@ import duke.tasks.Task;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.function.Function;
 
 public class Ui {
     private static final String LINE = "    __________________________________________";
@@ -76,14 +75,18 @@ public class Ui {
         this.formatLines(() -> System.out.println("    Error creating new file, quitting program now..."));
     }
 
-    public void printGreetings() {
+    public void showErrorWritingFile() {
+        this.formatLines(() -> System.out.println("    Error saving to file, quitting program now..."));
+    }
+
+    public void showGreetings() {
         this.formatLines(() -> {
             System.out.println("    Hello I'm lynn the koala <3");
             System.out.println("    What can I do for you?");
         });
     }
 
-    public void printExit() {
+    public void showExit() {
         this.formatLines(() -> System.out.println("    Bye. Hope to see you again soon!"));
     }
 

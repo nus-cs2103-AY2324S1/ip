@@ -3,12 +3,12 @@ package duke.tasks;
 import java.time.LocalDateTime;
 
 public class Event extends Task {
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
 
-    public Event(String description, LocalDateTime from, LocalDateTime to, boolean marked) {
-        super(description, "event", marked);
+    public Event(String description, LocalDateTime from, LocalDateTime to, boolean isMarked) {
+        super(description, "event", isMarked);
         this.from = from;
         this.to = to;
     }

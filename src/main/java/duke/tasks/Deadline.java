@@ -3,10 +3,10 @@ package duke.tasks;
 import java.time.LocalDateTime;
 
 public class Deadline extends Task {
-    private LocalDateTime by;
+    private final LocalDateTime by;
 
-    public Deadline(String description, LocalDateTime by, boolean marked) {
-        super(description, "deadline", marked);
+    public Deadline(String description, LocalDateTime by, boolean isMarked) {
+        super(description, "deadline", isMarked);
         this.by = by;
     }
 
