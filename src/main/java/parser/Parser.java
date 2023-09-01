@@ -8,6 +8,7 @@ import commands.DeleteCommand;
 import commands.EmptyCommand;
 import commands.EventCommand;
 import commands.ExitCommand;
+import commands.FindCommand;
 import commands.ListCommand;
 import commands.MarkCommand;
 import commands.TodoCommand;
@@ -41,6 +42,8 @@ public class Parser {
             return parseEventCommand(input);
         case "delete":
             return parseDeleteCommand(input);
+        case "find":
+            return parseFindCommand(input);
         default:
             throw new DukeException(new String[] {
                 "Unrecognized command " + Ui.cTxt(command, Ui.COLOR.PURPLE),
@@ -192,5 +195,18 @@ public class Parser {
         }
 
         return new DeleteCommand(parseArr[1]);
+    }
+
+    private Command parseFindCommand(String input) throws DukeException {
+        String[] parseArr = input.split(" ");
+        if (parseArr.length < 2) {
+            throw new DukeException(new String[] {
+                "Looks like you didn't provide a keyword:",
+                "Try " + Ui.cTxt("find", Ui.COLOR.PURPLE) + " read",
+                "Or try " + Ui.cTxt("find", Ui.COLOR.PURPLE) + " read a book"
+            });
+        }
+
+        return new FindCommand(extractTail(parseArr));
     }
 }

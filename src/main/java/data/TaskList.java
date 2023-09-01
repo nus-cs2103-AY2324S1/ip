@@ -61,6 +61,16 @@ public class TaskList {
         return removedTask;
     }
 
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task t : tasks) {
+            int index = t.findKeyword(keyword);
+            if (index >= 0)
+                result.add(t);
+        }
+        return result;
+    }
+
     @Override
     public String toString() {
         String taskListString = "";

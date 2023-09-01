@@ -22,19 +22,23 @@ public class Task {
         isDone = false;
     }
 
-    @Override
-    public String toString() {
-        return String.format(
-            "[%s] %s",
-            isDone ? "X" : " ", 
-            description
-        );
+    public int findKeyword(String keyword) {
+        return description.indexOf(keyword);
     }
 
     public String toFileFormatString() {
         return String.format(
             "%s|%s",
             isDone ? "1" : "0",
+            description
+        );
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+            "[%s] %s",
+            isDone ? "X" : " ", 
             description
         );
     }
