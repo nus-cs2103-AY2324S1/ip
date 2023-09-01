@@ -1,17 +1,20 @@
 package duke.command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.task.TaskList;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertLinesMatch;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.task.TaskList;
 
 public class EventCommandTest {
 
@@ -22,7 +25,7 @@ public class EventCommandTest {
             TaskList taskList = storage.load();
             Command c = new EventCommand("task /from 2023-08-26 /to 2023-08-27");
             c.execute(taskList, null, storage);
-            assertEquals("[E][ ] task (from: Aug 26 2023 to: Aug 27 2023)",taskList.get(0).toString());
+            assertEquals("[E][ ] task (from: Aug 26 2023 to: Aug 27 2023)", taskList.get(0).toString());
 
             List<String> lines = List.of("0 event task /from 2023-08-26 /to 2023-08-27");
             assertLinesMatch(lines, Files.readAllLines(savePath.resolve("duke.txt")));

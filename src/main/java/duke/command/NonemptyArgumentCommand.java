@@ -2,6 +2,11 @@ package duke.command;
 
 import duke.DukeException;
 
+/**
+ * Represents an argument with one or more non-empty arguments.
+ *
+ * In the structure [command] [args]
+ */
 public abstract class NonemptyArgumentCommand {
 
     /**

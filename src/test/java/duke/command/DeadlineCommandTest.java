@@ -1,19 +1,20 @@
 package duke.command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.task.TaskList;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertLinesMatch;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertLinesMatch;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.task.TaskList;
 
 public class DeadlineCommandTest {
 
@@ -24,11 +25,12 @@ public class DeadlineCommandTest {
             TaskList taskList = storage.load();
             Command c = new DeadlineCommand("task /by 2023-08-26");
             c.execute(taskList, null, storage);
-            assertEquals("[D][ ] task  (by: Aug 26 2023)",taskList.get(0).toString());
+            assertEquals("[D][ ] task  (by: Aug 26 2023)", taskList.get(0).toString());
 
             List<String> lines = List.of("0 deadline task /by 2023-08-26");
             assertLinesMatch(lines, Files.readAllLines(savePath.resolve("duke.txt")));
         } catch (DukeException ignored) {
+            // Do Nothing
         }
     }
 

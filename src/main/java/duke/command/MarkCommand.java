@@ -5,6 +5,9 @@ import duke.Storage;
 import duke.task.TaskList;
 import duke.ui.UI;
 
+/**
+ * Command to mark a Task as done.
+ */
 public class MarkCommand extends NumberedChoiceCommand implements Command {
 
     private static final String commandString = "mark";

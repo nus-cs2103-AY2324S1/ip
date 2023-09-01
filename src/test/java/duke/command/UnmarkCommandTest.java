@@ -1,10 +1,8 @@
 package duke.command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.task.TaskList;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertLinesMatch;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,7 +10,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.task.TaskList;
 
 public class UnmarkCommandTest {
     @Test
@@ -27,10 +30,10 @@ public class UnmarkCommandTest {
             c.execute(taskList, null, storage);
             assertEquals(" ", taskList.get(0).getStatusIcon());
 
-            List<String> lines = List.of("0 todo task","0 todo task1");
+            List<String> lines = List.of("0 todo task", "0 todo task1");
             assertLinesMatch(lines, Files.readAllLines(savePath.resolve("duke.txt")));
         } catch (DukeException ignored) {
-
+            // Do Nothing
         }
     }
 
@@ -49,7 +52,7 @@ public class UnmarkCommandTest {
     }
 
     @Test
-    public void invalidNumericNumber_throwsDukeException(@TempDir Path savePath) throws IOException{
+    public void invalidNumericNumber_throwsDukeException(@TempDir Path savePath) throws IOException {
         try {
             Storage storage = new Storage(savePath.resolve("duke.txt").toString());
             FileWriter writer = new FileWriter(savePath.resolve("duke.txt").toString(), false);
@@ -60,7 +63,7 @@ public class UnmarkCommandTest {
                 new UnmarkCommand("3").execute(taskList, null, storage);
             });
         } catch (DukeException ignored) {
-
+            // Do Nothing
         }
     }
 }

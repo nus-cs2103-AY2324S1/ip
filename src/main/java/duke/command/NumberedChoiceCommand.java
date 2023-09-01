@@ -2,6 +2,11 @@ package duke.command;
 
 import duke.DukeException;
 
+/**
+ * Represents a command with a non-empty numerical argument.
+ *
+ * Should be of the structure [command] [number], where number is a task id.
+ */
 public abstract class NumberedChoiceCommand extends NonemptyArgumentCommand {
 
     /**

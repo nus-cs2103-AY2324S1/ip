@@ -5,6 +5,9 @@ import duke.Storage;
 import duke.task.TaskList;
 import duke.ui.UI;
 
+/**
+ * Command to delete a Task.
+ */
 public class DeleteCommand extends NumberedChoiceCommand implements Command {
     private static final String commandString = "mark";
     private final String arguments;
@@ -40,9 +43,9 @@ public class DeleteCommand extends NumberedChoiceCommand implements Command {
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
         validate(taskList);
         int choice = Integer.parseInt(arguments) - 1;
-        UI.sendMessage("Noted. I've removed this task:\n  " +
-                taskList.get(choice) +
-                String.format("\nNow you have %d tasks in the list.", taskList.size() - 1));
+        UI.sendMessage("Noted. I've removed this task:\n  "
+                + taskList.get(choice)
+                + String.format("\nNow you have %d tasks in the list.", taskList.size() - 1));
         taskList.remove(choice);
         storage.updateFile(taskList);
     }

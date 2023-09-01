@@ -5,6 +5,9 @@ import duke.Storage;
 import duke.task.TaskList;
 import duke.ui.UI;
 
+/**
+ * Command to find a Task.
+ */
 public class FindCommand extends NonemptyArgumentCommand implements Command {
 
     private static final String commandString = "find";

@@ -1,13 +1,16 @@
 package duke.command;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import duke.DukeException;
 import duke.Storage;
 import duke.task.TaskList;
 import duke.ui.UI;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-
+/**
+ * Command to list Tasks.
+ */
 public class ListCommand implements Command {
 
     private static final String commandString = "list";
@@ -56,7 +59,8 @@ public class ListCommand implements Command {
             try {
                 LocalDate date = LocalDate.parse(arguments);
             } catch (DateTimeParseException e) {
-                throw new DukeException("Invalid Date Format Provided, expected either:\n\tlist\n\tlist now\n\tlist YYYY-MM-DD");
+                throw new DukeException(
+                        "Invalid Date Format Provided, expected either:\n\tlist\n\tlist now\n\tlist YYYY-MM-DD");
             }
         }
     }
