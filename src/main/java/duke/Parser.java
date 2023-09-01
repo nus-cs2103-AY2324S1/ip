@@ -157,6 +157,7 @@ public class Parser {
         String[] inputArr = input.split("/");
         Task temp;
         String des = inputArr[1];
+
         if (inputArr.length == 2) {
             temp = new Todo(des);
         } else if (inputArr.length == 3) {
