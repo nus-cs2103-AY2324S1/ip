@@ -1,10 +1,9 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
-import java.util.ArrayList;
-
-import tasks.Task;
+import commands.Command;
+import commands.ExitCommand;
+import parser.Parser;
+import storage.Storage;
+import tasks.TaskList;
+import ui.Ui;
 
 public class Duke {
 
@@ -24,6 +23,7 @@ public class Duke {
         this.tasks = new TaskList(storage.load());
 
         ui.printWelcomeMessage(VERSION);
+        ui.printInstructions();
 
         runCommandLoop();
 
@@ -38,7 +38,12 @@ public class Duke {
 
 
     public void runCommandLoop() {
-        ui.runLoop(tasks);
-
+        Command c;
+        Parser parser = new Parser();
+        do {
+            String userInput = ui.getUserCommand();
+            c = parser.parse(userInput);
+            c.execute(tasks);
+        } while (!ExitCommand.isExit(c));
     }
 }
