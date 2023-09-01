@@ -1,5 +1,6 @@
 package nobita.command;
 
+import nobita.exception.NobitaException;
 import nobita.storage.Storage;
 import nobita.task.Deadline;
 import nobita.task.Event;
@@ -24,7 +25,7 @@ public class AddCommand extends Command {
         this.task = new Event(description, from, to);
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws NobitaException {
         tasks.addTask(this.task);
         ui.showMessage("Got it. I've added this task:\n" + task + "\nNow you have "
                 + tasks.getTotalTask() +" tasks in the list.");

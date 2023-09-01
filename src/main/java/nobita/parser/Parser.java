@@ -3,6 +3,8 @@ package nobita.parser;
 import nobita.command.*;
 import nobita.exception.NobitaException;
 
+import java.rmi.NotBoundException;
+
 public class Parser {
     public static Command parse(String fullCommand)  throws NobitaException {
         String[] commands = fullCommand.split(" ", 2);
@@ -13,9 +15,10 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "mark":
-            return new MarkCommand(Integer.parseInt(commands[1]) - 1);
+
+            return new MarkCommand(checkNumber(commands[1]));
         case "unmark":
-            return new UnmarkCommand(Integer.parseInt(commands[1]) - 1);
+            return new UnmarkCommand(checkNumber(commands[1]));
         case "todo":
             if (commands.length < 2) {
                 throw new NobitaException("The description of a todo cannot be empty.\n"
@@ -41,6 +44,21 @@ public class Parser {
             return new DeleteCommand(Integer.parseInt(commands[1]) - 1);
         default:
             throw new NobitaException("I'm sorry, but I don't know what that means :-(");
+        }
+    }
+
+    private static int checkNumber(String toTest) throws NobitaException {
+        try {
+            return  Integer.parseInt(toTest) - 1;
+        } catch (NumberFormatException e) {
+            throw new NobitaException("Only numbers are allow");
+        }
+    }
+
+    private static void checkParameterLength(String[] toTest, int actual) throws NobitaException {
+        int len = toTest.length;
+        if (len < actual) {
+            throw new NobitaException(String.format("Expected %d parameter but only received %d", actual, len));
         }
     }
 }

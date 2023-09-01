@@ -1,5 +1,6 @@
 package nobita.command;
 
+import nobita.exception.NobitaException;
 import nobita.storage.Storage;
 import nobita.task.TaskList;
 import nobita.ui.Ui;
