@@ -1,5 +1,6 @@
 package duke.command;
 
+import java.util.Map;
 import java.util.stream.Stream;
 
 import duke.core.DukeException;
@@ -8,6 +9,15 @@ import duke.core.Ui;
 import duke.task.TaskList;
 
 public class DeleteCommand extends Command {
+
+    /**
+     * Constructor for DeleteCommand.
+     * 
+     * @param parameterMap Map of parameters for the command.
+     */
+    public DeleteCommand(Map<String, String> parameterMap) {
+        super(parameterMap);
+    }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {

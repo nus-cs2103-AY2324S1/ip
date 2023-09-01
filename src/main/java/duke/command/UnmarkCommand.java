@@ -1,5 +1,6 @@
 package duke.command;
 
+import java.util.Map;
 import java.util.stream.Stream;
 
 import duke.core.DukeException;
@@ -9,6 +10,15 @@ import duke.task.Task;
 import duke.task.TaskList;
 
 public class UnmarkCommand extends Command {
+
+    /**
+     * Constructor for UnmarkCommand.
+     * 
+     * @param parameterMap Map of parameters for the command.
+     */
+    public UnmarkCommand(Map<String, String> parameterMap) {
+        super(parameterMap);
+    }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {

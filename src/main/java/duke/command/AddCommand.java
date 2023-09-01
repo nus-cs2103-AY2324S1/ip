@@ -3,6 +3,8 @@ package duke.command;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAccessor;
+
+import java.util.Map;
 import java.util.stream.Stream;
 
 import duke.core.DukeException;
@@ -22,17 +24,31 @@ public class AddCommand extends Command {
         TODO, DEADLINE, EVENT
     }
 
-    public AddCommand(TaskType taskType) {
-        this.taskType = taskType;
+    /**
+     * Constructor for AddCommand.
+     * 
+     * @param parameterMap Map of parameters for the command.
+     */
+    public AddCommand(Map<String, String> parameterMap) {
+        super(parameterMap);
+
+        // Guard clause to prevent NullPointerException
+        if (parameterMap.equals(null)) {
+            return;
+        }
+
+        if (parameterMap.containsKey("event")) {
+            this.taskType = TaskType.EVENT;
+        } else if (parameterMap.containsKey("deadline")) {
+            this.taskType = TaskType.DEADLINE;
+        } else if (parameterMap.containsKey("todo")) {
+            this.taskType = TaskType.TODO;
+        }
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task taskToAdd = null;
-
-        if (super.parameterMap == null) {
-            throw new DukeException("Please enter additional arguments.");
-        }
 
         try {
             switch (taskType) {

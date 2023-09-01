@@ -10,10 +10,12 @@ import duke.task.TaskList;
 public abstract class Command {
     Map<String, String> parameterMap;
 
-    protected Command() {}
-
-    public void addParameterMap(Map<String, String> parameterMap) {
+    public Command(Map<String, String> parameterMap) {
         this.parameterMap = parameterMap;
+    }
+
+    public boolean isExit() {
+        return false;
     }
 
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;

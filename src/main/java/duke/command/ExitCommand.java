@@ -1,15 +1,27 @@
 package duke.command;
 
-import duke.core.Duke;
+import java.util.Map;
+
 import duke.core.Storage;
 import duke.core.Ui;
 import duke.task.TaskList;
 
 public class ExitCommand extends Command {
 
+    /**
+     * Constructor for ExitCommand.
+     * 
+     * @param parameterMap Map of parameters for the command.
+     */
+    public ExitCommand(Map<String, String> parameterMap) {
+        super(parameterMap);
+    }
+
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        Ui.respond("Bye. Hope to see you again soon!");
-        Duke.stop();
+    public void execute(TaskList tasks, Ui ui, Storage storage) {}
+
+    @Override
+    public boolean isExit() {
+        return true;
     }
 }
