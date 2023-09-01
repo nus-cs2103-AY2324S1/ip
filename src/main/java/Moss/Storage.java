@@ -8,10 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The Storage class handles the loading and saving of tasks to a file.
+ */
 public class Storage {
     private final String filePath;
 
-    public Storage() throws MossException{
+    /**
+     * Constructs a Storage object with the default file path.
+     *
+     * @throws MossException If there's an issue creating the file or directory.
+     */
+    public Storage() throws MossException {
         this.filePath = "./data/Moss.txt";
         File file = new File(filePath);
         if (!file.exists()) {
@@ -19,12 +27,18 @@ public class Storage {
                 Files.createDirectories(Path.of(this.filePath).getParent());
                 Files.createFile(Path.of(this.filePath));
             } catch (IOException e) {
-                throw new MossException("Could not create");
+                throw new MossException("Could not create file or directory");
             }
         }
     }
 
-    public List<Task> loadTasks() throws MossException{
+    /**
+     * Loads tasks from the file and returns a list of tasks.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws MossException If there's an issue reading the file or parsing tasks.
+     */
+    public List<Task> loadTasks() throws MossException {
         List<Task> tasks = new ArrayList<>();
         try {
             File file = new File(filePath);
@@ -55,23 +69,28 @@ public class Storage {
                             task = new Event(description, fromDate, toDate);
                             break;
                         default:
-                            throw new MossException("invalid task type");
+                            throw new MossException("Invalid task type");
                     }
 
-                    if (marked){
+                    if (marked) {
                         task.markDone();
                     }
                     tasks.add(task);
-
                 }
                 reader.close();
             }
         } catch (IOException e) {
-            throw new MossException("error loading");
+            throw new MossException("Error loading tasks from file");
         }
         return tasks;
     }
 
+    /**
+     * Saves a list of tasks to the file.
+     *
+     * @param tasks The list of tasks to be saved.
+     * @throws MossException If there's an issue writing to the file.
+     */
     public void saveTasks(List<Task> tasks) throws MossException {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
@@ -82,10 +101,11 @@ public class Storage {
             Files.write(Path.of(filePath), data);
             writer.close();
         } catch (IOException e) {
-            throw new MossException("Saving error");
+            throw new MossException("Error saving tasks to file");
         }
     }
 }
+
 
 // Example usage
 

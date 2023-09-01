@@ -10,7 +10,17 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The StorageTest class contains unit tests for the Storage class.
+ */
+
 public class StorageTest {
+
+    /**
+     * Tests the loading and saving of tasks using the Storage class.
+     *
+     * @throws MossException If there's an issue with loading or saving tasks.
+     */
     @Test
     public void testLoadAndSaveTasks() throws MossException {
         // Create sample tasks

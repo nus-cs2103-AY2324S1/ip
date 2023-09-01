@@ -3,33 +3,41 @@ package moss;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * The TaskList class handles processing and executing user commands related to task management.
+ */
 public class TaskList {
 
-    public static void command(String message, ArrayList<Task> things, Storage storage) throws MossException{
-        if (message.equals("list")){
+    /**
+     * Processes and executes user commands related to task management.
+     *
+     * @param message The user command to be processed.
+     * @param things The list of tasks being managed.
+     * @param storage The storage object for saving tasks.
+     * @throws MossException If there's an issue with processing commands or managing tasks.
+     */
+    public static void command(String message, ArrayList<Task> things, Storage storage) throws MossException {
+        if (message.equals("list")) {
             // List all tasks
             System.out.println("____________________________________________________________");
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < things.size(); i++) {
-                System.out.println(i+1 + "." + things.get(i).toString("x"));
+                System.out.println(i + 1 + "." + things.get(i).toString("x"));
             }
             System.out.println("____________________________________________________________");
-        }
-        else if (message.startsWith("mark")) {
+        } else if (message.startsWith("mark")) {
             // Mark a task as done
             String indexSubstring = message.substring(5);
             int index = Integer.parseInt(indexSubstring) - 1;
             things.get(index).markDone();
             storage.saveTasks(things);
-        }
-        else if (message.startsWith("unmark")) {
+        } else if (message.startsWith("unmark")) {
             // Mark a task as undone
             String indexSubstring = message.substring(7);
             int index = Integer.parseInt(indexSubstring) - 1;
             things.get(index).markUndone();
             storage.saveTasks(things);
-        }
-        else if (message.startsWith("delete")) {
+        } else if (message.startsWith("delete")) {
             // Delete a task
             String indexSubstring = message.substring(7);
             int index = Integer.parseInt(indexSubstring) - 1;
@@ -39,8 +47,7 @@ public class TaskList {
             System.out.println(temp.toString());
             System.out.println("Now you have " + things.size() + " tasks in the list.");
             storage.saveTasks(things);
-        }
-        else {
+        } else {
             // Process other commands using the command method
             if (message.startsWith("todo")) {
                 // check if the command is valid otherwise throw errors
