@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class UserInputStorage {
     private static ArrayList<Task> userinputs = new ArrayList<>(100);
@@ -16,6 +18,15 @@ public class UserInputStorage {
                 + "Now you have " + UserInputStorage.getNumOfElement() + " tasks in the list.\n"
                 + horizontalLine
         );
+    }
+
+    public static void store(Task task, boolean printToUser) {
+        if (printToUser) {
+            store(task);
+        } else {
+            userinputs.add(task);
+            numberOfElements++;
+        }
     }
 
     public static Task getTaskByIndex(int index) throws AlexException {
@@ -60,5 +71,36 @@ public class UserInputStorage {
                          + "Now you have 4 tasks in the list.\n"
                          + horizontalLine
         );
+    }
+
+    public static void storeToFile() {
+        try {
+            FileWriter fw = new FileWriter("../data/Alex.txt");
+            for (int i = 0; i < numberOfElements; i++) {
+                Task task = userinputs.get(i);
+                String taskInfo = "";
+                if (task instanceof ToDos) {
+                    taskInfo = "T " + task.getDescription() + (task.isDone() ? " 1" : " 0");
+                } else if (task instanceof Deadline) {
+                    Deadline deadline = (Deadline) task;
+                    taskInfo = "D " + deadline.getDescription() + " /by " + deadline.getBy()
+                            + (task.isDone() ? " 1" : " 0");
+                } else if (task instanceof Event) {
+                    Event event = (Event) task;
+                    taskInfo = "E " + event.getDescription() + " /from " + event.getFromTime() + " /to "
+                            + event.getToTime() + (task.isDone() ? " 1" : " 0");
+                }
+
+                if (i == numberOfElements - 1) {
+                    fw.write(taskInfo);
+                } else {
+                    fw.write(taskInfo + "\n");
+                }
+            }
+            fw.close();
+            System.out.println("User data is successfully stored");
+        } catch (IOException e) {
+            System.out.println("Something went wrong when saving users data to Alex.txt: " + e.getMessage());
+        }
     }
 }

@@ -19,6 +19,14 @@ public class Task {
         }
     }
 
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
     public void mark() {
         String tobePrinted = "";
         this.isDone = true;
@@ -29,6 +37,15 @@ public class Task {
                     + "\n"
                     + "_____________________________________________________________\n";
         System.out.println(tobePrinted);
+    }
+
+    public void mark(boolean printToUser) {
+        if (printToUser) {
+            this.mark();
+        } else {
+            String tobePrinted = "";
+            this.isDone = true;
+        }
     }
 
     public void unmark() {
