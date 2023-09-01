@@ -1,4 +1,4 @@
-package JavAI;
+package javai;
 
 /**
  * The Parser class is responsible for parsing user input and executing corresponding commands

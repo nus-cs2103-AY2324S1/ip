@@ -1,4 +1,4 @@
-package JavAI;
+package javai;
 
 import java.io.*;
 import java.util.ArrayList;

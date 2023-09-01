@@ -1,4 +1,4 @@
-package JavAI;
+package javai;
 
 /**
  * The Ui class handles user interface interactions and message display.

@@ -1,4 +1,4 @@
-package JavAI;
+package javai;
 
 /**
  * Represents a task with a description and completion status.
