@@ -14,12 +14,25 @@ import java.util.List;
 
 public class Storage {
 
+    /**
+     * The relative path of the file that contains the information of tasks.
+     */
     private Path relativePath;
 
+    /**
+     * Constructs a Storage object with the provided file path.
+     *
+     * @param relativePath The relative file path where task data is stored.
+     */
     public Storage(Path relativePath) {
         this.relativePath = relativePath;
     }
 
+    /**
+     * Reads and processes data of task from the text file of the relative path.
+     *
+     * @return An ArrayList of `Task` objects representing the tasks read from the file.
+     */
     public ArrayList<Task> processFile() {
 
         ArrayList<Task> result = new ArrayList<>();
@@ -42,6 +55,11 @@ public class Storage {
         return result;
     }
 
+    /**
+     * Writes data of the task from the provided task list into the text file of the relative path.
+     *
+     * @param tasks The task list to be written into the file.
+     */
     public void writeInto(TaskList tasks) {
 
         ArrayList<String> content = new ArrayList<>();
@@ -53,6 +71,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Processes a line of text from the text file and convert it into a Task object accordingly.
+     *
+     * @param line The line of text representing a task in the file.
+     * @return A Task object converted from the line of text.
+     * @throws Exception If the line of text is not in the correct format or is corrupted.
+     */
     public Task processLines(String line) throws Exception {
 
         Task t;
@@ -74,6 +99,12 @@ public class Storage {
         return t;
     }
 
+    /**
+     * Processes a date and time in string format and convert it into a `LocalDateTime` object.
+     *
+     * @param dateAndTime The date and time in string format to be parsed.
+     * @return A LocalDateTime object converted from parsed date and time.
+     */
     public LocalDateTime processDateAndLine(String dateAndTime) {
 
         dateAndTime = dateAndTime.replace("T", "-").replace(":", "");
