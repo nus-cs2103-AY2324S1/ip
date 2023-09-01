@@ -82,19 +82,20 @@ public class Storage {
 
         Task t;
         String[] taskArr = line.split("/");
+
         switch (taskArr[0]) {
-            case "T":
-                t = new Todo(taskArr[2], !taskArr[1].isBlank());
-                break;
-            case "D":
-                t = new Deadline(taskArr[2], !taskArr[1].isBlank(), processDateAndLine(taskArr[3]));
-                break;
-            case "E":
-                t = new Event(taskArr[2], !taskArr[1].isBlank(), processDateAndLine(taskArr[3]),
-                        processDateAndLine(taskArr[4]));
-                break;
-            default:
-                throw new Exception("Some of the content is not in the correct format or it is corrupted");
+        case "T":
+            t = new Todo(taskArr[2], !taskArr[1].isBlank());
+            break;
+        case "D":
+            t = new Deadline(taskArr[2], !taskArr[1].isBlank(), processDateAndLine(taskArr[3]));
+            break;
+        case "E":
+            t = new Event(taskArr[2], !taskArr[1].isBlank(), processDateAndLine(taskArr[3]),
+                    processDateAndLine(taskArr[4]));
+            break;
+        default:
+            throw new Exception("Some of the content is not in the correct format or it is corrupted");
         }
         return t;
     }
