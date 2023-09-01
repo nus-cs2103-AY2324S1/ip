@@ -4,7 +4,7 @@ import duke.TaskList;
 
 public class ByeCommand extends Command {
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return true;
     }
 
