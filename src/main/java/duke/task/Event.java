@@ -4,8 +4,20 @@ import duke.parser.TimeParser;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents an Event Task.
+ * @author Toh Li Yuan (A0255811H)
+ */
 public class Event extends Task {
     private LocalDateTime startDate, endDate;
+
+    /**
+     * Creates a new Event Task.
+     *
+     * @param name the name of the Event.
+     * @param startDate the starting date of the Event.
+     * @param endDate the ending date of the Event.
+     */
     public Event(String name, LocalDateTime startDate, LocalDateTime endDate) {
         this.name = name;
         this.status = false;
@@ -14,6 +26,14 @@ public class Event extends Task {
         this.type = TaskTypes.EVENT;
     }
 
+    /**
+     * Creates a new Event Task.
+     *
+     * @param name the name of the Event.
+     * @param status the completion status of the Event.
+     * @param startDate the starting date of the Event.
+     * @param endDate the ending date of the Event.
+     */
     public Event(String name, boolean status, LocalDateTime startDate, LocalDateTime endDate) {
         this.name = name;
         this.status = status;

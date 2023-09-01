@@ -7,8 +7,18 @@ import duke.task.Todo;
 
 import java.util.Optional;
 
+/**
+ * Parses Task into string and vice versa.
+ * @author Toh Li Yuan (A0255811H)
+ */
 public class TaskParser {
 
+    /**
+     * Formats an array of Task for local storage.
+     *
+     * @param tasks the array of Task to be stored.
+     * @return the formatted string to be stored.
+     */
     public static String formatSave(Task[] tasks) {
         StringBuilder ret = new StringBuilder();
         for (Task task : tasks) {
@@ -18,6 +28,12 @@ public class TaskParser {
         return ret.toString().trim();
     }
 
+    /**
+     * Parses a string of saved data into Task.
+     *
+     * @param saveLine the string of saved data.
+     * @return an Optional class containing the parsed Task.
+     */
     public static Optional<Task> parseSave(String saveLine) {
         String[] splitArray = saveLine.split(" \\|\\| ");
         Optional<Task> ret = Optional.empty();

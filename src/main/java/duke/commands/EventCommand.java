@@ -7,12 +7,23 @@ import duke.task.Event;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The command to add an Event task.
+ * @author Toh Li Yuan (A0255811H)
+ */
 public class EventCommand extends Command{
     public static final String COMMAND_PHRASE = "event";
     private static final String COMMAND_DESC = "New Event Task added to list!";
     private String name;
     private LocalDateTime startDate, endDate;
 
+    /**
+     * Creates a command to add an Event.
+     *
+     * @param name the name of the Event.
+     * @param startDate the starting date of the Event.
+     * @param endDate the ending date of the Event.
+     */
     public EventCommand(String name, LocalDateTime startDate, LocalDateTime endDate) {
         this.name = name;
         this.startDate = startDate;
@@ -23,6 +34,12 @@ public class EventCommand extends Command{
         this.chatRecord = records;
     }
 
+    /**
+     * Executes the created Event Command.
+     * A new Event Task will be added to the records.
+     *
+     * @return The string to be displayed as feedback to the user.
+     */
     @Override
     public String execute() {
         Event ev = new Event(name, startDate, endDate);

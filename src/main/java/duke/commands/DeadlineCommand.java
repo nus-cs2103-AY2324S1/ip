@@ -7,6 +7,10 @@ import duke.task.Deadline;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The command to create a Deadline task.
+ * @author Toh Li Yuan (A0255811H)
+ */
 public class DeadlineCommand extends Command{
     public static final String COMMAND_PHRASE = "deadline";
 
@@ -14,6 +18,12 @@ public class DeadlineCommand extends Command{
     private String name;
     private LocalDateTime date;
 
+    /**
+     * Creates a command to add Deadline Task.
+     *
+     * @param name the name of the Deadline.
+     * @param date the date of the Deadline.
+     */
     public DeadlineCommand(String name, LocalDateTime date) {
         this.name = name;
         this.date = date;
@@ -23,6 +33,12 @@ public class DeadlineCommand extends Command{
         this.chatRecord = records;
     }
 
+    /**
+     * Executes the created Deadline Command.
+     * A new Deadline Task will be added to the records.
+     *
+     * @return The string to be displayed as feedback to the user.
+     */
     @Override
     public String execute() {
         Deadline ddl =  new Deadline(name, date);

@@ -1,12 +1,27 @@
 package duke.task;
 
+/**
+ * Represents a Todo Task.
+ * @author Toh Li Yuan (A0255811H)
+ */
 public class Todo extends Task {
+    /**
+     * Creates a new Todo Task.
+     *
+     * @param name the name of the Todo.
+     */
     public Todo(String name) {
         this.name = name;
         this.status = false;
         this.type = TaskTypes.TODO;
     }
 
+    /**
+     * Creates a new Todo Task.
+     *
+     * @param name the name of the Todo.
+     * @param status the completion status of the Todo.
+     */
     public Todo(String name, boolean status) {
         this.name = name;
         this.status = status;
