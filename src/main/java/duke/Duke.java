@@ -1,14 +1,11 @@
 package duke;
 
 import duke.command.Command;
-import duke.task.*;
+import duke.task.TaskException;
 import duke.util.Parser;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
-
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 public class Duke {
     private Storage storage;
@@ -18,12 +15,7 @@ public class Duke {
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
-        try {
-            this.taskList = new TaskList(storage.load());
-        } catch (FileNotFoundException e) {
-            this.ui.addErrorMessage(e);
-            this.taskList = new TaskList();
-        }
+        this.taskList = new TaskList(storage.load());
     }
 
     public void run() {

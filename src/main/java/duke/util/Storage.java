@@ -36,13 +36,18 @@ public class Storage {
      * Returns an ArrayList of Tasks from local data file.
      *
      * @return ArrayList consisting of Task read from the data file.
-     * @throws FileNotFoundException
      */
-    public ArrayList<Task> load() throws FileNotFoundException {
+    public ArrayList<Task> load() {
         ArrayList<Task> list = new ArrayList<>();
-        Scanner sc = new Scanner(this.file);
 
-        while (sc.hasNextLine()) {
+        Scanner sc = null;
+
+        try {
+            sc = new Scanner(this.file);
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: Unable to load local file");
+        }
+        while (sc != null && sc.hasNextLine()) {
             String input = sc.nextLine();
 
             if (input.charAt(0) == 'D') {
