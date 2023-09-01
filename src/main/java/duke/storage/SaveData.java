@@ -1,11 +1,13 @@
 package duke.storage;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
-import duke.task.*;
+
 import duke.parser.TaskParser;
+import duke.task.Task;
 
 public class SaveData {
     private static final String SAVE_FILE_LOCATION = "./SaveFile.txt";
@@ -32,13 +34,13 @@ public class SaveData {
 
     public static ArrayList<Task> loadData() {
         File f = new File(SAVE_FILE_LOCATION);
-        ArrayList<Task> tasks = new ArrayList();
+        ArrayList<Task> tasks = new ArrayList<>();
         try {
             Scanner sc = new Scanner(f);
             while (sc.hasNextLine()) {
                 Optional<Task> optionalTask = TaskParser.parseSave(sc.nextLine());
-                if (!optionalTask.isEmpty()) {
-                    optionalTask.ifPresent(x -> tasks.add(x));
+                if (optionalTask.isPresent()) {
+                    optionalTask.ifPresent(tasks::add);
                 }
             }
             sc.close();

@@ -4,7 +4,7 @@ import duke.records.ChatRecord;
 
 public class ByeCommand extends Command {
     public static final String COMMAND_PHRASE = "bye";
-    private static String BYE_PHRASE = "Access Terminated! Hope to see you again soon!";
+    private static final String BYE_PHRASE = "Access Terminated! Hope to see you again soon!";
     public ByeCommand() { }
     @Override
     public void init(ChatRecord records) { }
