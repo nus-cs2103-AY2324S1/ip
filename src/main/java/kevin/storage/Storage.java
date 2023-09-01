@@ -9,9 +9,17 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+/**
+ * A class that is responsible for file input output.
+ */
 public class Storage {
     public static final String FILE_FOLDER_NAME = "data";
 
+    /**
+     * Creates a new file to local computer if it does not exit.
+     * @param fileLocation This is the location of the file.
+     * @throws KevinException On the detection of errors.
+     */
     public void createFile(String fileLocation) throws KevinException {
         try {
             File fileFolder = new File(FILE_FOLDER_NAME);
@@ -28,6 +36,13 @@ public class Storage {
         }
     }
 
+
+    /**
+     * Appends text to the local file.
+     * @param fileLocation This is the location of the file.
+     * @param text This is the text that will be appended to the file.
+     * @throws KevinException On the detection of errors.
+     */
     public void appendFile(String fileLocation, String text) throws KevinException {
         try {
             FileWriter fileWriter = new FileWriter(fileLocation, true);
@@ -38,6 +53,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Overwrites a single line with text based on line number.
+     * @param fileLocation This is the location of the file.
+     * @param text This is the text that will overwrite the old line.
+     * @param index The line number to be overwritten.
+     * @throws KevinException On the detection of errors.
+     */
     public void overwriteLine(String fileLocation, String text, int index) throws KevinException {
         try {
             Scanner sc = new Scanner(new File(fileLocation));
@@ -61,6 +83,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads from the local file.
+     * @param fileLocation This is the location of the file.
+     * @return Returns a String of the file content.
+     * @throws KevinException On the detection of errors.
+     */
     public String readFile(String fileLocation) throws  KevinException {
         try {
             String data = "";
