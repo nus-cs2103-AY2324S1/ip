@@ -44,7 +44,7 @@ public class Task {
      *
      * @return The output string representation of the Task object.
      */
-    public String outputMsg() {
+    public String outputMsg() throws InvalidDateAndTimeInputException {
         return "Task | " + (this.isDone ? 1 : 0) + " | " + this.description;
     }
 

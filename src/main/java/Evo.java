@@ -78,8 +78,6 @@ public class Evo {
                     throw new UnexpectedTaskTypeException();
                 }
             }
-            // Saves the tasks in the taskList to the txt file
-            saveTaskListToFile(taskList);
         } catch (IOException ioException) {
             System.out.println("Something went wrong: " + ioException.getMessage() + "\n");
         } catch (NoFolderFoundException noFolderFoundException) {
@@ -171,10 +169,23 @@ public class Evo {
                 } else {
                     String[] typeAndDates = instruction.split("/");
                     String[] actionType = typeAndDates[0].split(" ");
+                    int count = 0;
+                    char target = '/';
+                    for (int i = 0; i < instruction.length(); i++) {
+                        if (instruction.charAt(i) == target) {
+                            count++;
+                        }
+                    }
                     if (Objects.equals(actionType[0], "deadline")) {
+                        if (count != 1) {
+                            throw new InvalidDateInputException();
+                        }
                         // Add Deadline object to the taskList
                         addDeadlineTask(taskList, actionType, typeAndDates);
                     } else if (Objects.equals(actionType[0], "event")) {
+                        if (count != 2) {
+                            throw new InvalidDateAndTimeInputException();
+                        }
                         // Add Event object to the taskList
                         addEventTask(taskList, actionType, typeAndDates);
                     }
@@ -211,6 +222,14 @@ public class Evo {
             } catch (NoTaskException noTaskException) {
                 // Catch the exception when user tries to delete task from an empty taskList
                 System.out.println("This task cannot be deleted as there is no task in the list.\n");
+            } catch (InvalidDateInputException invalidDateInputException) {
+                // Catch the exception when the user types in an invalid date
+                System.out.println("Please type in a valid date input. Eg: deadline return book /from " +
+                        "2019-12-15 1800\n");
+            } catch (InvalidDateAndTimeInputException invalidDateAndTimeInputException) {
+                // Catch the exception when the user types in an invalid date and time
+                System.out.println("Please type in a valid date/time input. Eg: event project meeting /from " +
+                        "2019-12-15 1800 /to 2000\n");
             } catch (IOException ioException) {
                 System.out.println("Something went wrong: " + ioException.getMessage() + "\n");
             }
@@ -322,7 +341,7 @@ public class Evo {
                 taskDescription += actionType[i] + " ";
             }
         }
-        // Construct the task due date/time
+        // Constructs the task due date/time
         String[] dates = typeAndDates[1].split(" ");
         String taskBy = "";
         for (int i = 1; i < dates.length; i++) {
@@ -357,7 +376,7 @@ public class Evo {
      */
     private static void addEventTask(ArrayList<Task> taskList, String[] actionType, String[] typeAndDates)
             throws IOException, MissingDescriptionAndDurationException, MissingDurationException {
-        // Add Event object to the taskList
+        // Adds Event object to the taskList
         String[] datesFrom = typeAndDates[1].split(" ");
         String[] datesTo = typeAndDates[2].split(" ");
         String taskDescription = "";
@@ -385,7 +404,7 @@ public class Evo {
                 taskDuration += datesTo[i];
             }
         }
-        // Create the event object with the taskDescription and taskDuration
+        // Creates the event object with the taskDescription and taskDuration
         Event event = new Event(taskDescription, taskDuration);
         taskList.add(event);
 
@@ -403,18 +422,28 @@ public class Evo {
      *
      * @param taskList The ArrayList containing the list of Task objects to be saved.
      * @throws IOException If an I/O error occurs while attempting to write to the file.
+     * @throws InvalidDateAndTimeInputException If an invalid date/time input is encountered.
      */
-    private static void saveTaskListToFile(ArrayList<Task> taskList) throws IOException {
-        // Create a File object representing the target file path
+    private static void saveTaskListToFile(ArrayList<Task> taskList) throws IOException,
+            InvalidDateAndTimeInputException {
+        // Creates a File object representing the target file path
         File file = new File("./data/evo.txt");
-        // Create a BufferedWriter to write to the file
+        // Creates a BufferedWriter to write to the file
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-        // Iterate through the taskList and write each task's output message to the file
-        for (int i = 0; i < taskList.size(); i++) {
-            writer.append(taskList.get(i).outputMsg());
-            writer.append("\n");
+        try {
+            // Iterates through the taskList and write each task's output message to the file
+            for (int i = 0; i < taskList.size(); i++) {
+                writer.append(taskList.get(i).outputMsg());
+                writer.append("\n");
+            }
+        } catch (InvalidDateAndTimeInputException invalidDateAndTimeInputException) {
+            System.out.println("Please type in a valid date/time input. Eg: event project meeting /from " +
+                    "2019-12-15 1800 /to 2000.\n");
+        } catch (IOException ioException) {
+            System.out.println("Something went wrong: " + ioException.getMessage() + "\n");
+        } finally {
+            // Close the writer
+            writer.close();
         }
-        // Close the writer
-        writer.close();
     }
 }
