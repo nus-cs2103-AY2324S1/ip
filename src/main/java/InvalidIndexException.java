@@ -7,6 +7,6 @@ public class InvalidIndexException extends Exception {
     public String toString() {
 
         String result = "\n\tOOPS! Please choose a proper index.";
-        return Duke.dash + result + "\n" + Duke.dash;
+        return Ui.showLine() + result + "\n" + Ui.showLine();
     }
 }

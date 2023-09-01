@@ -8,6 +8,6 @@ public class EmptyDescriptionException extends Exception {
     public String toString() {
 
         String result = "\n\tOOPS! The description of the " + getMessage() + " cannot be empty.";
-        return Duke.dash + result + " \n" + Duke.dash;
+        return Ui.showLine() + result + " \n" + Ui.showLine();
     }
 }

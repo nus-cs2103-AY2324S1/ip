@@ -14,6 +14,6 @@ public class UnmatchedArgumentException extends Exception {
 
         String result = "\n\tOOPS! The argument passed does not match the requirement.";
         result += "\n\tExpected " + this.actual + " , got " + this.got + "\n";
-        return Duke.dash + result + " \n" + Duke.dash;
+        return Ui.showLine() + result + " \n" + Ui.showLine();
     }
 }
