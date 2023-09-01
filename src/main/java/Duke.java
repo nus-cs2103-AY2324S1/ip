@@ -158,6 +158,43 @@ public class Duke {
                     }
                     break;
 
+                case "delete":
+                    System.out.println("Enter index:");
+                    int ind = getUserIndex.nextInt() - 1;
+                    if (ind < 0 || ind >= listPointer) {
+                        System.out.println("Invalid index.");
+                    } else {
+
+                        System.out.println("Noted. I've removed this task:");
+
+                        System.out.println(userList[listPointer].display());
+
+                        Task[] newUserList = new Task[100];
+
+                        for (int a = 0, k = 0; a < listPointer; a++) {
+
+                            // if the index is
+                            // the removal element index
+                            if (a == ind) {
+                                continue;
+                            }
+
+                            // if the index is not
+                            // the removal element index
+                            newUserList[k++] = userList[a];
+                        }
+
+                        listPointer = listPointer - 1;
+
+                        userList = newUserList;
+
+                        System.out.println("Now you have " + listPointer + " tasks in the list.");
+
+                    }
+
+                    break;
+
+
                 default:
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
 
