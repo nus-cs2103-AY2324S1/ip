@@ -11,9 +11,6 @@ public class TaskList {
     public void addTask(Task taskDesc) {
         if (taskList.size() < 100) {
            taskList.add(taskDesc);
-            System.out.println(" Got it. I've added this task:");
-            System.out.println("   " + taskDesc);
-            System.out.println(" Now you have " + taskList.size() + " tasks in the list.");
         } else {
             System.out.println(" 100/100 Task limit reached.");
             System.out.println(" Pay to upgrade your account.");
@@ -33,8 +30,6 @@ public class TaskList {
     public void doneAndDusted(int taskNum) {
         if (taskNum >= 0 && taskNum < taskList.size()) {
             taskList.get(taskNum).isCompleted();
-            System.out.println(" Nice! I've marked this task as done:");
-            System.out.println("   " + taskList.get(taskNum));
         } else {
             System.out.println(" Error: No such Task Number");
         }
@@ -43,8 +38,6 @@ public class TaskList {
     public void notDoneNotDusted(int taskNum) {
         if (taskNum >= 0 && taskNum < taskList.size()) {
             taskList.get(taskNum).isNotCompleted();
-            System.out.println(" OK, I've marked this task as not done yet:");
-            System.out.println("   " + taskList.get(taskNum));
         } else {
             System.out.println(" Error: No such Task Number");
         }
@@ -59,19 +52,22 @@ public class TaskList {
         }
     }
 
-    public void deleteTask(int taskNum) {
+    public Task deleteTask(int taskNum) {
         if (taskNum >= 0 && taskNum < taskList.size()) {
             Task removedTask = taskList.remove(taskNum);
-            System.out.println("Noted. I've removed this task:");
-            System.out.println("   " + removedTask);
-            System.out.println(" Now you have " + taskList.size() + " tasks in the list.");
+            return removedTask;
         } else {
             System.out.println("Error: No such Task Number");
         }
+        return null;
     }
 
     public ArrayList<Task> getTasks() {
         return taskList;
+    }
+
+    public int getTaskCount() {
+        return taskList.size();
     }
 
     public void loadTasks(TaskList loadedTasks) {

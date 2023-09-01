@@ -1,6 +1,5 @@
-[A][X] hi
-[A][X] you
-[A][X] crazy
-[T][ ] homework
-[D][X] singing competition (by: 12 Dec 2023 14:52)
-[E][X] choir competition (from: 02 Sep 2023 02:00 to: 02 Sep 2023 12:00)
+[D][X] shopping (by: 12 Dec 2023 17:00)
+[T][X] hi
+[T][ ] woops
+[E][ ] happy ending yayyyyy (from: 13 May 2036 16:16 to: 14 Dec 2099 15:12)
+[D][X] sleep (by: 02 Sep 2023 05:00)
