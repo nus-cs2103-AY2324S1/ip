@@ -12,6 +12,14 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
 public class Parser {
+
+    /**
+     * Converts String input to Task object.
+     *
+     * @param userInput User input in String format.
+     * @return Task object.
+     * @throws DukeException If error is encountered while parsing.
+     */
     public Task getTask(String userInput) throws DukeException {
         Task add;
 
@@ -27,7 +35,14 @@ public class Parser {
         return add;
     }
 
-    public Todo parseTodo(String userInput) {
+    /**
+     * Converts String input to Todo object.
+     *
+     * @param userInput User input in String format.
+     * @return Todo object.
+     * @throws DukeParseException If error is encountered while parsing.
+     */
+    public Todo parseTodo(String userInput) throws DukeParseException {
         String description = userInput.substring(userInput.indexOf(' ') + 1);
 
         if (description.isEmpty() || description.equals("todo")) {
@@ -37,7 +52,14 @@ public class Parser {
         return new Todo(description);
     }
 
-    public Deadline parseDeadline(String userInput) {
+    /**
+     * Converts String input to Deadline object.
+     *
+     * @param userInput User input in String format.
+     * @return Deadline object.
+     * @throws DukeParseException If error is encountered while parsing.
+     */
+    public Deadline parseDeadline(String userInput) throws DukeParseException {
         try {
             String description = userInput.substring(userInput.indexOf(' ') + 1, userInput.indexOf('/') - 1);
             String by = userInput.substring(userInput.indexOf("/by") + 4);
@@ -49,7 +71,14 @@ public class Parser {
         }
     }
 
-    public Event parseEvent(String userInput) {
+    /**
+     * Converts String input to Event object.
+     *
+     * @param userInput User input in String format.
+     * @return Event object.
+     * @throws DukeParseException If error is encountered while parsing.
+     */
+    public Event parseEvent(String userInput) throws DukeParseException {
         try {
             String description = userInput.substring(userInput.indexOf(' ') + 1, userInput.indexOf('/') - 1);
             String from = userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") - 1);
