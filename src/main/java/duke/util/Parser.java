@@ -16,7 +16,7 @@ public class Parser {
     private TaskList taskList;
     private Ui ui;
     enum Command {
-        BYE, LIST, MARK, UNMARK, DELETE, DEADLINE, TODO, EVENT, UNKNOWN
+        BYE, LIST, MARK, UNMARK, DELETE, FIND, DEADLINE, TODO, EVENT, UNKNOWN
     }
 
     public Parser(TaskList taskList, Ui ui) {
@@ -63,6 +63,10 @@ public class Parser {
                 break;
             case DELETE:
                 taskList.deleteTask(userInput);
+                break;
+            case FIND:
+                String keyword = userInput.trim().replaceFirst("find", "").trim();
+                taskList.findTask(keyword);
                 break;
             case DEADLINE:
                 Deadline.handleDeadlineTask(userInput);
