@@ -1,8 +1,26 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
 public class Duke {
+
+    private enum Commands {
+        todo, deadline, event, mark, unmark, list, delete, bye;
+    }
     public static void main(String[] args) {
+        try {
+            File myChatBot = new File("./data/gideon.txt");
+            if (myChatBot.createNewFile()) {
+                System.out.println("File created: " + myChatBot.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error has occurred.");
+            e.printStackTrace();
+        }
+
         Scanner scanner = new Scanner(System.in);
         List<Task> tasks = new ArrayList<>();
 
