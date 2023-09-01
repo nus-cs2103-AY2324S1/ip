@@ -1,10 +1,10 @@
 package duke.records;
 
+import java.util.ArrayList;
+
 import duke.parser.TaskParser;
 import duke.storage.SaveData;
 import duke.task.Task;
-
-import java.util.ArrayList;
 
 public class ChatRecord {
     private ArrayList<Task> chatRecords;

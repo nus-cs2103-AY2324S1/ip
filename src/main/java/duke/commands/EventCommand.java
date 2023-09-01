@@ -1,17 +1,18 @@
 package duke.commands;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import duke.records.ChatRecord;
 import duke.storage.SaveData;
 import duke.task.Event;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-public class EventCommand extends Command{
+public class EventCommand extends Command {
     public static final String COMMAND_PHRASE = "event";
     private static final String COMMAND_DESC = "New Event Task added to list!";
     private String name;
-    private LocalDateTime startDate, endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     public EventCommand(String name, LocalDateTime startDate, LocalDateTime endDate) {
         this.name = name;
@@ -39,7 +40,8 @@ public class EventCommand extends Command{
 
     @Override
     public String toString() {
-        return COMMAND_PHRASE + " " + name + " /from " + startDate.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"))
+        return COMMAND_PHRASE + " " + name + " /from "
+                + startDate.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"))
                 + " /to " + endDate.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
     }
 }

@@ -34,7 +34,7 @@ public class SaveData {
                 }
             }
         } catch (Exception e) {
-
+            System.out.println("IO Error! " + e.getMessage());
         }
     }
 
@@ -56,7 +56,7 @@ public class SaveData {
             }
             sc.close();
         } catch (Exception e) {
-
+            System.out.println("IO Error! " + e.getMessage());
         }
         return tasks;
     }

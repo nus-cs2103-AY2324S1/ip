@@ -1,13 +1,13 @@
 package duke.commands;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import duke.records.ChatRecord;
 import duke.storage.SaveData;
 import duke.task.Deadline;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-public class DeadlineCommand extends Command{
+public class DeadlineCommand extends Command {
     public static final String COMMAND_PHRASE = "deadline";
 
     private static final String COMMAND_DESC = "New Deadline Task added to list!";
@@ -31,7 +31,7 @@ public class DeadlineCommand extends Command{
      */
     @Override
     public String execute() {
-        Deadline ddl =  new Deadline(name, date);
+        Deadline ddl = new Deadline(name, date);
         this.chatRecord.addTask(ddl);
         SaveData.saveData(this.chatRecord.toSave());
         return COMMAND_DESC + " " + ddl.toString();

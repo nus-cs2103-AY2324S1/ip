@@ -1,7 +1,7 @@
 package duke.ui;
 
 public class ChatView {
-    private static String LINE_BREAK = "____________________________";
+    private static final String LINE_BREAK = "____________________________";
     public ChatView() {
 
     }
@@ -10,7 +10,8 @@ public class ChatView {
      * Starts the text UI.
      */
     public void startMessage() {
-        System.out.println(String.format("%s\nKnowledgeYuan, at your service!\nWhat can I do for you today?\n%s", LINE_BREAK, LINE_BREAK));
+        System.out.println(String.format("%s\nKnowledgeYuan, at your service!\nWhat can I do for you today?\n%s",
+                LINE_BREAK, LINE_BREAK));
     }
 
     /**

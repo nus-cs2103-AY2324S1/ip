@@ -1,11 +1,10 @@
 package duke.task;
 
 public abstract class Task {
+    protected static final String DISCRIMINATOR = " || ";
     protected String name;
     protected boolean status;
     protected TaskTypes type;
-
-    protected static String DISCRIMINATOR = " || ";
 
     /**
      * Marks the task as done.
