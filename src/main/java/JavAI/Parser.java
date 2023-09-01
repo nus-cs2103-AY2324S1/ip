@@ -1,6 +1,19 @@
 package JavAI;
+
+/**
+ * The Parser class is responsible for parsing user input and executing corresponding commands
+ * to manage tasks in a task list.
+ */
 public class Parser {
 
+    /**
+     * Parses user input to execute commands for managing tasks in the task list.
+     *
+     * @param input The user input string to be parsed.
+     * @param tasks The TaskList to which tasks are added or modified.
+     * @param ui The Ui instance for displaying messages and user interface.
+     * @throws JavAIException If there's an error in parsing or executing the command.
+     */
     public void parse(String input, TaskList tasks, Ui ui) throws JavAIException {
         String[] words = input.split(" ");
         String description = "";

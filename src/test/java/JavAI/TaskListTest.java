@@ -10,6 +10,7 @@ public class TaskListTest {
 
     @BeforeEach
     void setUp() {
+
         taskList = new TaskList();
     }
 

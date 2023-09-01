@@ -10,18 +10,18 @@ import java.util.Scanner;
 public class StorageTest {
 
     private Storage storage;
-    private final String filePath = "./src/main/txtFolder/JavAI.txt";
+    private final String FILE_PATH = "./src/main/txtFolder/JavAI.txt";
 
     @BeforeEach
     void setUp() {
 
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
     }
 
     @Test
     void testLoad() throws IOException {
 
-        File testFile = new File(filePath);
+        File testFile = new File(FILE_PATH);
         FileWriter writer = new FileWriter(testFile);
         writer.write("[T][X] Sample Todo\n");
         writer.write("[D][X] Sample Deadline ( by: Dec 31 2023 23:59 )\n");
@@ -39,7 +39,7 @@ public class StorageTest {
         tasksToWrite.add(new Todo("Write JUnit Tests"));
         tasksToWrite.add(new Deadline("Finish Project", "2023-12-31", "2359"));
         storage.taskListWriter(tasksToWrite);
-        File testFile = new File(filePath);
+        File testFile = new File(FILE_PATH);
         Scanner scanner = new Scanner(testFile);
         StringBuilder fileContent = new StringBuilder();
         while (scanner.hasNextLine()) {

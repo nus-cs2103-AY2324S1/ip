@@ -27,6 +27,7 @@ public class Task {
      * @return The status icon ("X" for done, " " for not done).
      */
     public String getStatusIcon() {
+
         return (isDone ? "X" : " ");
     }
 
@@ -34,6 +35,7 @@ public class Task {
      * Marks the task as done by setting its completion status to true.
      */
     public void markAsDone() {
+
         this.isDone = true;
     }
 
@@ -41,11 +43,13 @@ public class Task {
      * Marks the task as undone by setting its completion status to false.
      */
     public void markAsUndone() {
+
         this.isDone = false;
     }
 
     @Override
     public String toString() {
+
         return "[" + getStatusIcon() + "] " + description;
     }
 

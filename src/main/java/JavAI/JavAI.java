@@ -12,6 +12,11 @@ public class JavAI {
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Constructs a JavAI chatbot instance.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
     public JavAI(String filePath) {
         ui = new Ui();
         parser = new Parser();
@@ -24,6 +29,9 @@ public class JavAI {
         }
     }
 
+    /**
+     * Starts the JavAI chatbot and handles user interactions.
+     */
     public void run() {
         ui.welcome();
         Scanner sc = new Scanner(System.in);
@@ -48,6 +56,7 @@ public class JavAI {
      * @param args Command-line arguments.
      */
     public static void main(String[] args) {
+
         new JavAI("./src/main/txtFolder/JavAI.txt").run();
     }
 }

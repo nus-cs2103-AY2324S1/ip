@@ -5,12 +5,28 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * The Storage class handles loading tasks from and writing tasks to a file.
+ */
 public class Storage {
     String filePath;
+
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param filePath The file path where tasks will be stored.
+     */
     public Storage(String filePath) {
+
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified by the file path.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     */
     public ArrayList<Task> load() {
 
         File file = new File(filePath);
@@ -112,6 +128,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Writes a list of tasks to a file specified by a file path.
+     *
+     * @param tasks The list of Task objects to be written to the file.
+     */
     public static void taskListWriter(ArrayList<Task> tasks) {
 
         File file = new File("./src/main/txtFolder/JavAI.txt");
