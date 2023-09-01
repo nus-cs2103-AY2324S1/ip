@@ -12,11 +12,22 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
+/**
+ * Parses user input.
+ */
 public class Parser {
-    public static Command parse(String command, boolean isRestoring) throws DukeException {
-        if (command.trim().equals("")) return null;
+    /**
+     * Parses user input into a Command object for execution.
+     *
+     * @param input the text input by the user
+     * @param isRestoring boolean value if this is parsing from a data file or real user input
+     * @return Command to be executed
+     * @throws DukeException when the user passes in invalid input
+     */
+    public static Command parse(String input, boolean isRestoring) throws DukeException {
+        if (input.trim().equals("")) return null;
 
-        String[] parsedText = parseText(command);
+        String[] parsedText = parseText(input);
         String action = parsedText[0];
         String arguments = parsedText[1];
         boolean marked = false;
@@ -55,18 +66,27 @@ public class Parser {
         }
     }
 
-    protected static AddCommand handleAdd(String action, String args, boolean marked) throws DukeException {
+    /**
+     * Parses user input for adding into tasks.
+     *
+     * @param taskInput the type of Task
+     * @param args the arguments to be parsed for the Task
+     * @param isMarked boolean value if the Task is marked
+     * @return AddCommand to be executed
+     * @throws DukeException if there is invalid user input
+     */
+    protected static AddCommand handleAdd(String taskInput, String args, boolean isMarked) throws DukeException {
         if (args.equals("")) throw new InvalidArgumentException();
         Task task;
-        switch (action) {
+        switch (taskInput) {
         case AddCommand.COMMAND_WORD_D:
-            task = parseDeadline(args, marked);
+            task = parseDeadline(args, isMarked);
             break;
         case AddCommand.COMMAND_WORD_E:
-            task = parseEvent(args, marked);
+            task = parseEvent(args, isMarked);
             break;
         case AddCommand.COMMAND_WORD_T:
-            task = new Todo(args, marked);
+            task = new Todo(args, isMarked);
             break;
         default:
             throw new InvalidCommandException();
@@ -75,6 +95,12 @@ public class Parser {
         return new AddCommand(task);
     }
 
+    /**
+     * Parses user text into the action type and the arguments
+     *
+     * @param text the text to be parsed
+     * @return String[] where the first index is the action type and second index is the arguments
+     */
     protected static String[] parseText(String text) {
         String[] words = text.trim().split(" ");
         String[] remaining = Arrays.copyOfRange(words, 1, words.length);
@@ -83,6 +109,13 @@ public class Parser {
         return new String[] {words[0], restOfText};
     }
 
+    /**
+     * Parse string arguments into integers.
+     *
+     * @param args the string number to be parsed
+     * @return the integer
+     * @throws DukeException if an invalid string of number is provided
+     */
     protected static int parseArgs(String args) throws DukeException {
         try {
             return Integer.parseInt(args);
@@ -91,6 +124,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a string into a LocalDateTime object.
+     *
+     * @param text the string to be parsed
+     * @return LocalDateTime object after parsed
+     */
     protected static LocalDateTime parseDateTime(String text) {
         String[] datetime = text.split(" ");
         LocalDateTime parsedDateTime;
@@ -109,7 +148,15 @@ public class Parser {
         return parsedDateTime;
     }
 
-    private static Deadline parseDeadline(String text, boolean marked) throws InvalidDeadlineException {
+    /**
+     * Parses arguments for the deadline action type.
+     *
+     * @param text the arguments to be parsed
+     * @param isMarked boolean value if the Task is marked
+     * @return Deadline object created by the arguments
+     * @throws InvalidDeadlineException if invalid arguments are provided
+     */
+    private static Deadline parseDeadline(String text, boolean isMarked) throws InvalidDeadlineException {
         String[] deadline = text.split(" /by ");
         if (deadline.length != 2) {
             throw new InvalidDeadlineException();
@@ -120,10 +167,18 @@ public class Parser {
             throw new InvalidDeadlineException();
         }
 
-        return new Deadline(deadline[0], parsedDateTime, marked);
+        return new Deadline(deadline[0], parsedDateTime, isMarked);
     }
 
-    private static Event parseEvent(String text, boolean marked) throws InvalidEventException {
+    /**
+     * Parses arguments for the event action type.
+     *
+     * @param text the arguments to be parsed
+     * @param isMarked boolean value if the Task is marked
+     * @return Event object created by the arguments
+     * @throws InvalidEventException if invalid arguments are provided
+     */
+    private static Event parseEvent(String text, boolean isMarked) throws InvalidEventException {
         String[] first = text.split(" /from ");
         if (first.length != 2) {
             throw new InvalidEventException();
@@ -139,6 +194,6 @@ public class Parser {
             throw new InvalidEventException();
         }
 
-        return new Event(first[0], fromDate, toDate, marked);
+        return new Event(first[0], fromDate, toDate, isMarked);
     }
 }

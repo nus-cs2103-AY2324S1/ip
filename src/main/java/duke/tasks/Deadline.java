@@ -2,6 +2,9 @@ package duke.tasks;
 
 import java.time.LocalDateTime;
 
+/**
+ * A task object that tracks Deadlines.
+ */
 public class Deadline extends Task {
     private final LocalDateTime by;
 

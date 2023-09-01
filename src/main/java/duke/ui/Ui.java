@@ -150,6 +150,11 @@ public class Ui {
         this.formatLines(() -> System.out.println("    Bye. Hope to see you again soon!"));
     }
 
+    /**
+     * Helper method to format 2 UI lines between all output.
+     *
+     * @param runnable A runnable function to be ran between the two output lines
+     */
     private void formatLines(Runnable runnable) {
         System.out.println(LINE);
         runnable.run();

@@ -15,14 +15,27 @@ import java.io.FileWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Represents a Storage function for the specified filepath.
+ */
 public class Storage {
     private final String filepath;
     private final Ui ui = new Ui();
 
+    /**
+     * Public constructor for the Storage class.
+     *
+     * @param filepath the filepath to the file to be tracked
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
     }
 
+    /**
+     * Loads the data from the given filepath into a Tasks object.
+     *
+     * @return the Tasks object containing data from the data file
+     */
     public Tasks load() {
         Tasks tasks = new Tasks();
         File myObj = new File(this.filepath);
@@ -63,6 +76,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Save tasks into the specified filepath.
+     *
+     * @param tasks the Tasks to be saved
+     */
     public void save(Tasks tasks) {
         // Delete everything in
         try {
@@ -80,6 +98,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Save a task into the specified filepath.
+     *
+     * @param task the Task to be saved
+     */
     private void saveTask(Task task) {
         try {
             FileWriter myWriter = new FileWriter(this.filepath, true);
