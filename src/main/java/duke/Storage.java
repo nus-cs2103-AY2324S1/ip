@@ -9,8 +9,17 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class handles the data reads from Duke.txt file to load tasks
+ */
 public class Storage {
-
+    /**
+     * Reads data from file and loads into ArrayList if available. Else creates the file.
+     *
+     * @param pathOfDirectory Path variable provided
+     * @param storeTask ArrayList<Task> which stores tasks when program is running
+     * @throws IOException if an I/O error occurs
+     */
     public static void readFromDisk(Path pathOfDirectory, ArrayList<Task> storeTask) throws IOException {
         Files.createDirectories(pathOfDirectory.getParent());
         if (Files.exists(pathOfDirectory)) {
@@ -24,8 +33,7 @@ public class Storage {
                     storeTask.add(new Deadline(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2], taskVariablesTemp[3]));
                 } else if (taskVariablesTemp[0].equals("E")) {
                     storeTask.add(new Event(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2], taskVariablesTemp[3], taskVariablesTemp[4]));
-                }
-                else {
+                } else {
                     System.out.println("Error...");
                 }
             }

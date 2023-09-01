@@ -3,12 +3,28 @@ import dukeUiElements.Ui;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
-import java.time.format.DateTimeParseException;
-import java.util.ListIterator;
 
+/**
+ * This class deals with making sense of the user input and carrying out tasks accordingly.
+ */
 public class Parser {
     public enum TaskKeyVal {ToDo, Deadline, Event, Delete, mark, unmark, bye, list};
 
+    /**
+     * Returns a boolean based on the user input choice.
+     * bye -> initiates user exit.
+     * list -> lists all the tasks.
+     * mark -> marks the task.
+     * unmark -> unmarks the task.
+     * ToDo -> creates a new ToDo and adds to task list.
+     * Deadline -> creates a new Deadline and adds to task list.
+     * Event -> creates a new Event and adds to task list.
+     * Delete -> Deletes task at given number.
+     *
+     * @param userInput String value provided to be made sense of and carry task.
+     * @return boolean value false to break out of program, true otherwise.
+     * @throws DukeException when incorrect / invalid input is entered.
+     */
     public static boolean parse(String userInput) throws DukeException {
         String[] userInputList = userInput.split(" ", 2);
         String userTaskChoiceKey = userInputList[0];
@@ -45,7 +61,8 @@ public class Parser {
             throw new DukeException("☹ OOPS!!! Sorry, but i do not know what that means :-(");
         }
     }
-    public static boolean enumCheck (String input){
+
+    private static boolean enumCheck (String input){
         for (TaskKeyVal taskKey : TaskKeyVal.values()) {
             if (taskKey.name().equalsIgnoreCase(input)) {
                 return true;
@@ -53,7 +70,7 @@ public class Parser {
         }
         return false;
     }
-    public static void userExit() {
+    private static void userExit() {
         try {
             Files.write(Duke.pathOfDirectory, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);    //closes file and truncates it
             for (int i = 0; i < TaskList.storeTask.size(); i++) {
