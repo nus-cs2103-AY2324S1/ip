@@ -16,8 +16,7 @@ public class Task {
     public void mark(boolean flag) {
         if (!flag) {
             this.isDone = true;
-        }
-        else {
+        } else {
             System.out.println("Nice! I've marked this task as done:\n");
             this.isDone = true;
             System.out.println(this);

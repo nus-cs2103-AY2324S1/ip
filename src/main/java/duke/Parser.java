@@ -55,32 +55,39 @@ public class Parser {
                 int splitIndex = dateParts.indexOf("/to");
                 String startDate = dateParts.substring(0, splitIndex - 1);
                 String endDate = dateParts.substring(splitIndex + 4);
-                if (DATE_PATTERN_DASH.matcher(startDate).matches() && DATE_PATTERN_DASH.matcher(endDate).matches()) {
+
+                if (DATE_PATTERN_DASH.matcher(startDate).matches() &&
+                        DATE_PATTERN_DASH.matcher(endDate).matches()) {
                     String[] startDateParts = startDate.split("-");
                     String[] endDateParts = endDate.split("-");
-                    Task event = new Event(parts[0].substring(6), LocalDate.of(Integer.parseInt(startDateParts[0]), Integer.parseInt(startDateParts[1]), Integer.parseInt(startDateParts[2])),
-                            LocalDate.of(Integer.parseInt(endDateParts[0]), Integer.parseInt(endDateParts[1]), Integer.parseInt(endDateParts[2])));
+                    Task event = new Event(parts[0].substring(6), LocalDate.of(Integer.parseInt(startDateParts[0]),
+                            Integer.parseInt(startDateParts[1]), Integer.parseInt(startDateParts[2])),
+                            LocalDate.of(Integer.parseInt(endDateParts[0]), Integer.parseInt(endDateParts[1]),
+                                    Integer.parseInt(endDateParts[2])));
                     taskList.add(event, true);
-                }
-                else if (DATE_PATTERN_SLASH.matcher(startDate).matches() && DATE_PATTERN_SLASH.matcher(endDate).matches()) {
+                } else if (DATE_PATTERN_SLASH.matcher(startDate).matches() &&
+                        DATE_PATTERN_SLASH.matcher(endDate).matches()) {
                     String[] startDateParts = startDate.split("/");
                     String[] endDateParts = endDate.split("/");
-                    int startDay = startDateParts[0].length() == 1 ? Integer.valueOf("0" + startDateParts[0]) : Integer.valueOf(startDateParts[0]);
-                    int startMonth = startDateParts[1].length() == 1 ? Integer.valueOf("0" + startDateParts[1]) : Integer.valueOf(startDateParts[1]);
-                    int endDay = endDateParts[0].length() == 1 ? Integer.valueOf("0" + endDateParts[0]) : Integer.valueOf(endDateParts[0]);
-                    int endMonth = endDateParts[1].length() == 1 ? Integer.valueOf("0" + endDateParts[1]) : Integer.valueOf(endDateParts[1]);
+                    int startDay = startDateParts[0].length() == 1 ? Integer.valueOf("0" + startDateParts[0]) :
+                            Integer.valueOf(startDateParts[0]);
+                    int startMonth = startDateParts[1].length() == 1 ? Integer.valueOf("0" + startDateParts[1]) :
+                            Integer.valueOf(startDateParts[1]);
+                    int endDay = endDateParts[0].length() == 1 ? Integer.valueOf("0" + endDateParts[0]) :
+                            Integer.valueOf(endDateParts[0]);
+                    int endMonth = endDateParts[1].length() == 1 ? Integer.valueOf("0" + endDateParts[1]) :
+                            Integer.valueOf(endDateParts[1]);
                     String[] startYearParts = startDateParts[2].split(" ");
                     String[] endYearParts = endDateParts[2].split(" ");
-                    Task event = new Event(parts[0].substring(6), LocalDate.of(Integer.valueOf(startYearParts[0]), startMonth, startDay), LocalDate.of(Integer.valueOf(endYearParts[0]), endMonth, endDay));
+                    Task event = new Event(parts[0].substring(6), LocalDate.of(Integer.valueOf(startYearParts[0]),
+                            startMonth, startDay), LocalDate.of(Integer.valueOf(endYearParts[0]), endMonth, endDay));
                     taskList.add(event, true);
-                }
-                else {
+                } else {
                     Task event = new Event(parts[0].substring(6), startDate, endDate);
                     taskList.add(event, true);
                 }
                 taskList.writeToFile();
-            }
-            catch (StringIndexOutOfBoundsException s) {
+            } catch (StringIndexOutOfBoundsException s) {
                 throw new DukeException("OOPS!! The description of an event cannot be empty.");
             }
         }
@@ -93,16 +100,13 @@ public class Parser {
             if (promptText.startsWith("unmark")) {
                 t.unmark();
                 taskList.writeToFile();
-            }
-            else {
+            } else {
                 t.mark(true);
                 taskList.writeToFile();
             }
-        }
-        catch (NumberFormatException n) {
+        } catch (NumberFormatException n) {
             throw new DukeException("OOPS!! You must mark/unmark an index.");
-        }
-        catch (IndexOutOfBoundsException i) {
+        } catch (IndexOutOfBoundsException i) {
             throw new DukeException("OOPS!! This index doesn't exist.");
         }
     }

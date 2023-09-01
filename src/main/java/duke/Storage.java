@@ -26,8 +26,7 @@ public class Storage {
             while ((line = reader.readLine()) != null) {
                 if (line.trim().isEmpty()) {
                     return returnList;
-                }
-                else {
+                } else {
                     Character done = line.charAt(4);
                     boolean isDone = done.equals('X');
 
@@ -37,23 +36,21 @@ public class Storage {
                             todo.mark(false);
                         }
                         returnList.add(todo, false);
-                    }
-
-                    else if (line.startsWith("[D]")) {
+                    } else if (line.startsWith("[D]")) {
                         int index = line.indexOf("(");
                         int endIndex = line.indexOf(")");
-                        Deadline deadline = new Deadline(line.substring(7, index - 1), line.substring(index + 5, endIndex));
+                        Deadline deadline = new Deadline(line.substring(7, index - 1),
+                                line.substring(index + 5, endIndex));
                         if (isDone) {
                             deadline.mark(false);
                         }
                         returnList.add(deadline, false);
-                    }
-
-                    else {
+                    } else {
                         int index = line.indexOf("(");
                         int midIndex = line.indexOf("to:");
                         int endIndex = line.indexOf(")");
-                        Event event = new Event(line.substring(7, index - 1), line.substring(index + 7, midIndex - 1), line.substring(midIndex + 4, endIndex));
+                        Event event = new Event(line.substring(7, index - 1), line.substring(index + 7, midIndex - 1),
+                                line.substring(midIndex + 4, endIndex));
                         if (isDone) {
                             event.mark(false);
                         }
@@ -62,8 +59,7 @@ public class Storage {
                 }
             }
             return returnList;
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             throw new DukeException("OOPS! File cannot be loaded.");
         }
     }
