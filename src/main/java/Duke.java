@@ -53,7 +53,7 @@ public class Duke {
         Scanner scanner= new Scanner(System.in);
         String input, command, params = "";
         String[] inputArray;
-        ArrayList<Task> taskList = new ArrayList<>();
+        TaskList taskList = new TaskList();
 
 
         while (isChatting) {
@@ -76,7 +76,7 @@ public class Duke {
                     case ("list"): {
                         System.out.println(HORIZONTAL_LINE);
                         for (int i = 0; i < taskList.size(); i++) {
-                            System.out.println(i + 1 + ". " + taskList.get(i));
+                            System.out.println(i + 1 + ". " + taskList.getTask(i));
                         }
                         System.out.println(HORIZONTAL_LINE);
                         break;
@@ -85,21 +85,21 @@ public class Duke {
                         int index;
                         try {
                             index = Integer.parseInt(params.split(" ")[0]) - 1;
-                            taskList.get(index).setDone(true);
+                            taskList.markTask(index);
                         } catch (Exception e) {
                             throw new SisyphusException("You must include a valid task number. "
                                     + "Use list to see what is valid.");
                         }
                         System.out.println(HORIZONTAL_LINE);
                         System.out.println("The following item has been marked as done.");
-                        System.out.println(taskList.get(index));
+                        System.out.println(taskList.getTask(index));
                         break;
                     }
                     case ("unmark"): {
                         int index;
                         try {
                             index = Integer.parseInt(params.split(" ")[0]) - 1;
-                            taskList.get(index).setDone(false);
+                            taskList.unmarkTask(index);
                         } catch (Exception e) {
                             throw new SisyphusException("You must include a valid task number. "
                                     + "Use list to see what is valid.");
@@ -107,7 +107,7 @@ public class Duke {
 
                         System.out.println(HORIZONTAL_LINE);
                         System.out.println("The following item has been unmarked and is now uncompleted.");
-                        System.out.println(taskList.get(index));
+                        System.out.println(taskList.getTask(index));
                         break;
                     }
                     case ("delete"): {
@@ -115,8 +115,8 @@ public class Duke {
                         Task deletedTask;
                         try {
                             index = Integer.parseInt(params.split(" ")[0]) - 1;
-                            deletedTask = taskList.get(index);
-                            taskList.remove(index);
+                            deletedTask = taskList.getTask(index);
+                            taskList.deleteTask(index);
                         } catch (Exception e) {
                             throw new SisyphusException("You must include a valid task number. "
                                     + "Use list to see what is valid.");
@@ -133,7 +133,7 @@ public class Duke {
                                     "todo Roll Boulder");
                         }
                         ToDo todoTask = new ToDo(params);
-                        taskList.add(todoTask);
+                        taskList.addTask(todoTask);
 
                         System.out.println(HORIZONTAL_LINE);
                         System.out.println("The following ToDo has been added.");
@@ -153,7 +153,7 @@ public class Duke {
                         }
 
                         Deadline deadlineTask = new Deadline(description, deadline);
-                        taskList.add(deadlineTask);
+                        taskList.addTask(deadlineTask);
 
                         System.out.println(HORIZONTAL_LINE);
                         System.out.println("The following deadline has been added.");
@@ -175,7 +175,7 @@ public class Duke {
                         }
 
                         Event eventTask = new Event(description, from, to);
-                        taskList.add(eventTask);
+                        taskList.addTask(eventTask);
 
                         System.out.println(HORIZONTAL_LINE);
                         System.out.println("The following event has been added.");
