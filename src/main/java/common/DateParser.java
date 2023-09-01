@@ -8,16 +8,16 @@ import java.time.temporal.ChronoField;
 import java.util.Locale;
 
 public class DateParser {
-    private static final DateTimeFormatter parseFormat = 
+    private static final DateTimeFormatter parseFormat =
         new DateTimeFormatterBuilder()
             .append(DateTimeFormatter.ofPattern(
                 "[d/M/yyyy]"
-                + "[yyyy/M/d]"
-                + "[d-M-yyyy]"
-                + "[yyyy-M-d]"
+                    + "[yyyy/M/d]"
+                    + "[d-M-yyyy]"
+                    + "[yyyy-M-d]"
             ))
             .append(DateTimeFormatter.ofPattern(
-                "[d MMM yyyy]" + "[MMM d yyyy]", 
+                "[d MMM yyyy]" + "[MMM d yyyy]",
                 Locale.ENGLISH
             ))
             .optionalStart()
@@ -27,8 +27,7 @@ public class DateParser {
             .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
             .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
             .toFormatter();
-    
-    private static final DateTimeFormatter displayFormat = 
+    private static final DateTimeFormatter displayFormat =
         DateTimeFormatter.ofPattern(
             "MMM dd yyyy h:mma",
             Locale.ENGLISH

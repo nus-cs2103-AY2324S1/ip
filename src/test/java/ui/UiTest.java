@@ -92,11 +92,11 @@ public class UiTest {
     public void testColors() {
         Ui ui = new Ui();
         ui.displayMsg(new String[] {
-            Ui.cTxt("GREEN", Ui.COLOR.GREEN),
-            Ui.cTxt("YELLOW", Ui.COLOR.YELLOW),
-            Ui.cTxt("BLUE", Ui.COLOR.BLUE),
-            Ui.cTxt("PURPLE", Ui.COLOR.PURPLE),
-            Ui.cTxt("RED", Ui.COLOR.RED),
+            Ui.cTxt("GREEN", Ui.Color.GREEN),
+            Ui.cTxt("YELLOW", Ui.Color.YELLOW),
+            Ui.cTxt("BLUE", Ui.Color.BLUE),
+            Ui.cTxt("PURPLE", Ui.Color.PURPLE),
+            Ui.cTxt("RED", Ui.Color.RED),
         });
         String expected = String.format(
             "\n    " + GREEN + "GREEN" + RESET

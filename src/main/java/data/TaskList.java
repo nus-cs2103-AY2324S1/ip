@@ -1,6 +1,7 @@
 package data;
 
 import java.util.ArrayList;
+
 import data.exception.DukeException;
 import data.tasks.Task;
 import ui.Ui;
@@ -42,17 +43,20 @@ public class TaskList {
         }
 
         Task task = getTask(taskIndex);
-        if (isDone) task.mark(); 
-        else        task.unmark();
+        if (isDone) {
+            task.mark();
+        } else {
+            task.unmark();
+        }
         return task;
     }
 
     public Task delete(int taskIndex) throws DukeException {
         if (taskIndex < 0 || taskIndex >= getSize()) {
             throw new DukeException(String.format(
-                "Unable to " 
-                    + Ui.cTxt("delete", Ui.COLOR.PURPLE) 
-                    + " task %d :( You have %d task(s) stored.",
+                "Unable to "
+                        + Ui.cTxt("delete", Ui.Color.PURPLE)
+                        + " task %d :( You have %d task(s) stored.",
                 taskIndex + 1, getSize()
             ));
         }

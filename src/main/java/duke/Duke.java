@@ -1,6 +1,7 @@
 package duke;
 
 import java.io.IOException;
+
 import commands.Command;
 import data.TaskList;
 import data.exception.DukeException;
@@ -42,7 +43,7 @@ public class Duke {
 
     public static void main(String[] args) throws IOException {
         Duke chatbot = new Duke(
-            "./save/data.txt", 
+            "./save/data.txt",
             "./save"
         );
         chatbot.start();

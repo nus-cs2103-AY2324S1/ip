@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import common.DateParser;
 import data.TaskList;
 import data.exception.DukeException;
@@ -32,10 +33,12 @@ public class Storage {
             );
 
             String line;
-            while((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 String[] parse = line.strip().split("\\|");
                 // Shortest length is 3 for any task type
-                if (parse.length < 3) continue;
+                if (parse.length < 3) {
+                    continue;
+                }
                 Task task = this.createTask(parse);
                 if (task != null) {
                     tasks.add(task);
@@ -63,18 +66,22 @@ public class Storage {
         case "T":
             return new Todo(parse[2], isDone);
         case "D":
-            if (parse.length < 4) break;
+            if (parse.length < 4) {
+                break;
+            }
             return new Deadline(
-                parse[2], 
-                DateParser.parseDateString(parse[3]), 
+                parse[2],
+                DateParser.parseDateString(parse[3]),
                 isDone
             );
         case "E":
-            if (parse.length < 5) break;
+            if (parse.length < 5) {
+                break;
+            }
             return new Event(
-                parse[2], 
-                DateParser.parseDateString(parse[3]), 
-                DateParser.parseDateString(parse[4]), 
+                parse[2],
+                DateParser.parseDateString(parse[3]),
+                DateParser.parseDateString(parse[4]),
                 isDone
             );
         default:

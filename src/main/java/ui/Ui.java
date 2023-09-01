@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Ui {
-    public static enum COLOR {
+    public static enum Color {
         RESET("\u001B[0m"),
         GREEN("\033[0;32m"),
         YELLOW("\033[0;33m"),
@@ -13,10 +13,10 @@ public class Ui {
         PURPLE("\u001B[35m"),
         RED("\033[0;31m");
 
-        public final String VALUE;
+        public final String value;
 
-        private COLOR(String value) {
-            this.VALUE = value;
+        private Color(String value) {
+            this.value = value;
         }
     }
 
@@ -24,13 +24,13 @@ public class Ui {
         new InputStreamReader(System.in)
     );
 
-    public static String cTxt(String text, COLOR color) {
-        return color.VALUE + text + COLOR.RESET.VALUE;
+    public static String cTxt(String text, Color color) {
+        return color.value + text + Color.RESET.value;
     }
 
     public void displayIntro() {
         displayMsg(new String[] {
-            "Hi. I'm " + Ui.cTxt("Bryan", Ui.COLOR.PURPLE),
+            "Hi. I'm " + Ui.cTxt("Bryan", Ui.Color.PURPLE),
             "What can I do for you?"
         });
     }
@@ -62,8 +62,8 @@ public class Ui {
 
     public void displayError(String text) {
         String msg = String.format(
-            "\n    %s\n    %s\n", 
-            cTxt("Erm... error :(", COLOR.RED),
+            "\n    %s\n    %s\n",
+            cTxt("Erm... error :(", Color.RED),
             text
         );
         System.out.println(msg);
@@ -71,8 +71,8 @@ public class Ui {
 
     public void displayError(String[] text) {
         String msg = String.format(
-            "\n    %s\n", 
-            cTxt("Erm... error :(", COLOR.RED)
+            "\n    %s\n",
+            cTxt("Erm... error :(", Color.RED)
         );
         for (String stub : text) {
             msg += String.format("    %s\n", stub);
