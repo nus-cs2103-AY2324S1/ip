@@ -11,7 +11,7 @@ public class Parser {
      * Enumeration representing different types of tasks and commands.
      */
     public enum TaskType {
-        TODO, DEADLINE, EVENT, MARK,UNMARK ,UNKNOWN, BYE;
+        TODO, DEADLINE, EVENT, MARK, UNMARK, UNKNOWN, BYE;
     }
 
     /**

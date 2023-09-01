@@ -19,4 +19,10 @@ public class Todos extends Task {
         return "[T]" + super.toString();
     }
 
+
+    @Override
+    public String toFileFormat() {
+        String done = isDone ? "1" : "0";
+        return String.format("T | %s | %s", done, description);
+    }
 }

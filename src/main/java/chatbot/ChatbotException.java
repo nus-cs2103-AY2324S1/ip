@@ -3,7 +3,7 @@ package chatbot;
 /**
  * Exception class specific for chatbot application
  */
-public class ChatbotException extends Exception{
+public class ChatbotException extends Exception {
 
     /**
      * constructor for ChatbotException class

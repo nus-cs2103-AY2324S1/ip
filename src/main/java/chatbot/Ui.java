@@ -1,7 +1,8 @@
 package chatbot;
 
+import chatbot.task.Task;
+
 import java.util.Scanner;
-import chatbot.task.*;
 
 /**
  * Class which deals with interactions with the user.

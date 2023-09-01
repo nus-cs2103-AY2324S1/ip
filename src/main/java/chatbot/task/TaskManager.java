@@ -1,11 +1,12 @@
 package chatbot.task;
 
+import chatbot.ChatbotException;
+import chatbot.storage.Storage;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import chatbot.storage.Storage;
-import chatbot.*;
+
 
 /**
  * The TaskManager class manages tasks, including adding, marking, unmarking, printing, and deleting tasks.
@@ -14,12 +15,13 @@ public class TaskManager {
     private TaskList tasks;
     private Storage storage;
 
+
     /**
      * Constructor for this class.
      */
-    public TaskManager(){
+    public TaskManager() {
         this.tasks = new TaskList();
-        this.storage = new Storage( "./data/chatbot.txt");
+        this.storage = new Storage("./data/chatbot.txt");
         this.tasks = storage.loadFromFile();
     }
 
@@ -53,8 +55,7 @@ public class TaskManager {
     public void addDeadlines(String t, String date) throws ChatbotException {
         if (t == null || t.trim().isEmpty()) {
             throw new ChatbotException("☹ OOPS!!! The description of a deadlines cannot be empty.");
-        }
-        else if (date == null || date.trim().isEmpty()) {
+        } else if (date == null || date.trim().isEmpty()) {
             throw new ChatbotException("☹ OOPS!!! The date of a deadlines cannot be empty.");
         }
         try {
@@ -85,8 +86,7 @@ public class TaskManager {
     public void addEvents(String t, String start, String end) throws ChatbotException {
         if (t == null || t.trim().isEmpty()) {
             throw new ChatbotException("☹ OOPS!!! The description of a event cannot be empty.");
-        }
-        else if (start == null || start.trim().isEmpty()) {
+        } else if (start == null || start.trim().isEmpty()) {
             throw new ChatbotException("☹ OOPS!!! The starting date of a event cannot be empty.");
         } else if (end == null || end.trim().isEmpty()) {
             throw new ChatbotException("☹ OOPS!!! The end time of a event cannot be empty.");
@@ -117,18 +117,18 @@ public class TaskManager {
      * @param index index of the task
      */
     public void taskDone(int index) {
-       try {
-           tasks.markTaskDone(index);
-           storage.saveToFile(tasks);
-           System.out.println("    ____________________________________________________________");
-           System.out.println("     Nice! I've marked this task as done:");
-           System.out.println("       " + tasks.getTask(index));
-           System.out.println("    ____________________________________________________________");
-       } catch (NumberFormatException e) {
-           System.out.println("    ____________________________________________________________");
-           System.out.println("     Oops! Please enter a valid task number to mark.");
-           System.out.println("    ____________________________________________________________");
-       }
+        try {
+            tasks.markTaskDone(index);
+            storage.saveToFile(tasks);
+            System.out.println("    ____________________________________________________________");
+            System.out.println("     Nice! I've marked this task as done:");
+            System.out.println("       " + tasks.getTask(index));
+            System.out.println("    ____________________________________________________________");
+        } catch (NumberFormatException e) {
+            System.out.println("    ____________________________________________________________");
+            System.out.println("     Oops! Please enter a valid task number to mark.");
+            System.out.println("    ____________________________________________________________");
+        }
     }
 
     /**
@@ -150,6 +150,7 @@ public class TaskManager {
             System.out.println("    ____________________________________________________________");
         }
     }
+
     public void printTasks() {
         tasks.printTasks();
     }
@@ -172,8 +173,6 @@ public class TaskManager {
         } catch (IndexOutOfBoundsException e) {
             throw new ChatbotException("Please provide a valid task number to delete.");
         }
-
-
     }
 
     /**
