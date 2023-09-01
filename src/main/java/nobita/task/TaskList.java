@@ -46,10 +46,7 @@ public class TaskList {
     }
 
     public boolean checkIndexWithinRange(int ind) {
-        if (ind < 1 || ind > this.tasks.size()) {
-            return false;
-        }
-        return true;
+        return ind < 1 || ind > this.tasks.size();
     }
 }
 

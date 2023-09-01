@@ -5,7 +5,21 @@ import nobita.exception.NobitaException;
 
 import java.rmi.NotBoundException;
 
+/**
+ *  Class that encapsulates Parser.
+ *  Parser that is used to read in and understand user commands.
+ *
+ *  @author Zheng Chenglong
+ */
 public class Parser {
+
+    /**
+     * Parses the line of command given by the user.
+     *
+     * @param fullCommand A line of user input command string to be parsed.
+     * @return A Command instruction that the user specify.
+     * @throws NobitaException If command received are of wrong format.
+     */
     public static Command parse(String fullCommand)  throws NobitaException {
         String[] commands = fullCommand.split(" ", 2);
         String commandType = commands[0].toLowerCase();
@@ -47,6 +61,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Check if the task number passed in is a number.
+     *
+     * @param toTest The number parameter that is pass in.
+     * @return An integer representing the correct task index.
+     * @throws NobitaException If parameter receive is not a number.
+     */
     private static int checkNumber(String toTest) throws NobitaException {
         try {
             return  Integer.parseInt(toTest) - 1;
@@ -55,10 +76,10 @@ public class Parser {
         }
     }
 
-    private static void checkParameterLength(String[] toTest, int actual) throws NobitaException {
-        int len = toTest.length;
-        if (len < actual) {
-            throw new NobitaException(String.format("Expected %d parameter but only received %d", actual, len));
-        }
-    }
+//    private static void checkParameterLength(String[] toTest, int actual) throws NobitaException {
+//        int len = toTest.length;
+//        if (len < actual) {
+//            throw new NobitaException(String.format("Expected %d parameter but only received %d", actual, len));
+//        }
+//    }
 }
