@@ -135,4 +135,18 @@ public class TaskList {
     public int size() {
         return list.size();
     }
+
+    public String showSpecificTasks(String search) {
+        String selectedTasks = "";
+        for (int i = 0; i < list.size(); i++) {
+            String taskString = list.get(i).toString();
+            if (!selectedTasks.equals("")) {
+                selectedTasks += "\n";
+            }
+            if (taskString.substring(7).contains(search)) {
+                selectedTasks += "     " + (i + 1) + "." + taskString;
+            }
+        }
+        return selectedTasks;
+    }
 }
