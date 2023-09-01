@@ -7,6 +7,11 @@ import duke.ui.Ui;
 
 import java.util.Scanner;
 
+/**
+ * A chatbot that helps the user take note of tasks.
+ *
+ * @author Armando Jovan Kusuma
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
@@ -18,7 +23,9 @@ public class Duke {
         this.ui = new Ui();
         this.storage = new Storage();
     }
-
+    /**
+     * Runs the Duke chatbot.
+     */
     public void run() {
         this.ui.greet();
         try {

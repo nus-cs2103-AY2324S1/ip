@@ -11,6 +11,11 @@ import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Stores the tasks of the user.
+ *
+ * @author Armando Jovan Kusuma
+ */
 public class Storage {
     private final String DIRECTORY = "./data";
     private final String FILE_PATH = DIRECTORY + "/duke.txt";
@@ -18,6 +23,11 @@ public class Storage {
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
+    /**
+     * Creates a new file as storage if none is created yet.
+     *
+     * @throws DukeException When a file cannot be created.
+     */
     public void init() throws DukeException {
         try {
             File dir = new File(this.DIRECTORY);
@@ -34,6 +44,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the file to retrieve the list of tasks.
+     *
+     * @return a TaskList containing all the tasks read from the file.
+     * @throws DukeException When the process of reading the file fails.
+     */
     public TaskList readFromFile() throws DukeException {
         try {
             TaskList listOfTasks = new TaskList();
@@ -68,21 +84,28 @@ public class Storage {
                     }
                     listOfTasks.add(deadline);
                 } else {
-                    throw new DukeException("OOPS !!! Can't Load duke.task.Task from File");
+                    throw new DukeException("OOPS !!! Can't Load task from File");
                 }
             }
             return listOfTasks;
         } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid date format! Pleas input date using the format yyyy-MM-dd");
+            throw new DukeException("Invalid date format! Please input date using the format yyyy-MM-dd");
         } catch (IOException e) {
-            throw new DukeException("OOPS !!! Can't Load duke.task.Task from File");
+            throw new DukeException("OOPS !!! Can't Load task from File");
         }
     }
 
+
+    /**
+     * Writes the list of tasks to the storage file
+     *
+     * @param tasks the tasks to be written back to the storage file
+     * @throws DukeException When the process of writing to the file fails
+     */
     public void writeToFile(TaskList tasks) throws DukeException {
         try {
             FileWriter fileWriter = new FileWriter(STORAGE_FILE);
-            for (int i = 0; i < tasks.getLength(); i++) {
+            for (int i = 0; i < tasks.getTaskCount(); i++) {
                 Task currTask = tasks.getTask(i);
                 fileWriter.write(currTask.toString() + "\n");
             }
