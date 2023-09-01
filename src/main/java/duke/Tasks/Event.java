@@ -1,14 +1,14 @@
-package Tasks;
+package duke.Tasks;
 
 
-import Exceptions.InvalidEventException;
+import duke.Exceptions.InvalidEventException;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
 public class Event extends Task {
     /**
-     * A child class of Tasks to create tasks with a start time & end time.
+     * A child class of duke.Tasks to create tasks with a start time & end time.
      */
 
     protected LocalDate start;

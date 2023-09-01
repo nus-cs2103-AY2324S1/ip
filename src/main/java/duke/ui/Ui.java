@@ -1,7 +1,7 @@
-package ui;
+package duke.ui;
 
-import Exceptions.InvalidTaskIndexException;
-import tasklist.TaskList;
+import duke.Exceptions.InvalidTaskIndexException;
+import duke.tasklist.TaskList;
 
 public class Ui {
     public Ui() {
