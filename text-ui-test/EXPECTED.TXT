@@ -7,7 +7,7 @@ ____________________________
 	You now have 1 tasks in the list
 	____________________________
 	____________________________
-	I have marked this task as done!
+	I have marked this duke.task as done!
 	[T][✓] read book
 	____________________________
 	____________________________
@@ -25,7 +25,7 @@ ____________________________
 		3. [E][✕] project meeting (from: Aug 6th 2pm to: 4pm)
 	____________________________
 	____________________________
-	I have marked this task as undone!
+	I have marked this duke.task as undone!
 	[T][✕] read book
 	____________________________
 	____________________________
@@ -38,7 +38,7 @@ ____________________________
 	CRITICAL ERROR!!! Command not found! Updates are still ongoing...
 	____________________________
 	____________________________
-	The following task has been deleted: [T][✕] read book
+	The following duke.task has been deleted: [T][✕] read book
 	You now have 2 tasks in the list
 	____________________________
 	____________________________

@@ -1,8 +1,8 @@
-package records;
+package duke.records;
 
-import parser.TaskParser;
-import storage.SaveData;
-import task.*;
+import duke.parser.TaskParser;
+import duke.storage.SaveData;
+import duke.task.*;
 
 import java.util.ArrayList;
 

@@ -1,11 +1,11 @@
 import java.util.Scanner;
 
-import commands.ByeCommand;
-import commands.Command;
-import records.ChatRecord;
-import ui.ChatView;
+import duke.commands.ByeCommand;
+import duke.commands.Command;
+import duke.records.ChatRecord;
+import duke.ui.ChatView;
 
-import parser.CommandParser;
+import duke.parser.CommandParser;
 
 public class Duke {
     public static void main(String[] args) {
