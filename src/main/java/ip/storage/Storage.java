@@ -1,6 +1,5 @@
-package Storage;
-
-import Task.Task;
+package ip.storage;
+import ip.tasks.Task;
 
 import java.io.IOException;
 import java.nio.file.Files;

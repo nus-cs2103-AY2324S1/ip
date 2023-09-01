@@ -1,7 +1,7 @@
-package Parser;
+package ip.parser;
 
-import Exception.UnknownCommandException;
-import Exception.EmptyDescriptionException;
+import ip.exception.UnknownCommandException;
+import ip.exception.EmptyDescriptionException;
 
 public class Parser {
     public static String[] parseCommand(String input) throws UnknownCommandException, EmptyDescriptionException {

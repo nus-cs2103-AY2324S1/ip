@@ -1,4 +1,4 @@
-package Exception;
+package ip.exception;
 
 public class UnknownCommandException extends Exception{
     public UnknownCommandException() {

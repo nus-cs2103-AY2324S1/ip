@@ -1,9 +1,4 @@
-package TaskList;
-
-import Task.Task;
-import Task.Todo;
-import Task.Deadline;
-import Task.Event;
+package ip.tasks;
 
 import java.util.ArrayList;
 
@@ -28,6 +23,18 @@ public class TaskList {
 
     public int getSize() {
         return tasks.size();
+    }
+
+    public Task markDone(int index) {
+        Task task = tasks.get(index);
+        task.markDone();
+        return task;
+    }
+
+    public Task unmarkDone(int index) {
+        Task task = tasks.get(index);
+        task.unmarkDone();
+        return task;
     }
 
     public Task getTask(int index) {

@@ -1,6 +1,4 @@
-package Task;
-
-import Task.Task;
+package ip.tasks;
 
 public class Todo extends Task {
     public Todo(String description) {
