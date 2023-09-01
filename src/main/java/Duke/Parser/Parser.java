@@ -189,6 +189,7 @@ public class Parser {
 
             printResult(inputCommand, eventTask, taskList);
             canContinue = true;
+
             break;
         }
 
