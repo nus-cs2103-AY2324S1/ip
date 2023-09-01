@@ -46,6 +46,7 @@ public class Parser {
             String deadline = arguments.substring(descriptionIndex + 5)
                     .replace(')', ' ')
                     .trim();
+
             if (description.isEmpty()) {
                 throw new RocketIllegalArgumentException("The description of a deadline");
             }
