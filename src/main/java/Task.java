@@ -22,4 +22,8 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    public String forFile() {
+        return "task " + this.description;
+    }
 }
