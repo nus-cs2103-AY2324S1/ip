@@ -14,17 +14,9 @@ public class DeadlineCommand extends Command {
     private String dueDate;
     public static final String COMMAND_WORD = "deadline";
 
+    // Modified from addressBook Level 2
+    // Source: https://github.com/se-edu/addressbook-level2
     public DeadlineCommand(String input) throws ChatbotException {
-        /*
-        if (input.length() < 10) throw new ChatbotException("missing info lah.");
-        String[] parts = input.substring(9).split(" /by ");
-        if (parts.length == 2) {
-            this.taskName = parts[0];
-            this.dueDate = parts[1];
-        } else {
-            throw new ChatbotException("missing info lah.");
-        }
-        */
 
         // Define the regex pattern for the "Deadline" command
         String commandPattern = "^deadline\\s+(.+?)\\s+/by\\s+(\\d{4}-\\d{2}-\\d{2})$";

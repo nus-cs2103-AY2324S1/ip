@@ -12,10 +12,11 @@ public class MarkCommand extends Command {
     private int index;
     public static final String COMMAND_WORD = "mark";
 
+    // Modified from addressBook Level 2
+    // Source: https://github.com/se-edu/addressbook-level2
     public MarkCommand(String input) throws ChatbotException {
 
         // Define and compile the regex pattern
-        // Modified from addressBook Level 2
         Pattern pattern = Pattern.compile("^mark\\s+(\\d+)$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(input);
 
