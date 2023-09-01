@@ -77,7 +77,10 @@ public class TaskList {
         for (int i = 0; i < listOfTasks.size(); i++) {
             Task task = listOfTasks.get(i);
             int number = i + 1;
-            str += ("\n" + number + "." + task);
+            str += (number + "." + task);
+            if (i != listOfTasks.size() - 1) {
+                str += "\n";
+            }
         }
         return str;
     }
