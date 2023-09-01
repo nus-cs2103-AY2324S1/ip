@@ -1,3 +1,7 @@
+package duke.tasks;
+
+import duke.ui.Ui;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -10,7 +14,7 @@ public class TaskList {
     public void addTask(Task task) {
         tasks.add(task);
         Ui.printMessageWithSeparator("Got it. I've added this task:\n" + task.getDescription()
-                + "\nNow you have " + tasks.size() + " tasks in the list.");
+                + "\nNow you have " + tasks.size() + " duke.tasks in the list.");
     }
 
     public void deleteTask(int index) {
@@ -20,7 +24,7 @@ public class TaskList {
             Task task = tasks.get(index);
             tasks.remove(index);
             Ui.printMessageWithSeparator("Noted. I've removed this task:\n" + task.getDescription()
-                    + "\nNow you have " + tasks.size() + " tasks in the list.");
+                    + "\nNow you have " + tasks.size() + " duke.tasks in the list.");
         }
     }
 

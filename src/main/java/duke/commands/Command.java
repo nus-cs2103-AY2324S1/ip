@@ -1,3 +1,11 @@
+package duke.commands;
+
+import duke.DukeException;
+import duke.storage.Storage;
+import duke.ui.Ui;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+
 import java.io.IOException;
 
 public abstract class Command {
@@ -11,7 +19,7 @@ public abstract class Command {
                 storage.saveTasksToFile(tasks);
                 ui.showGoodbye();
             } catch (IOException e) {
-                throw new DukeException("Error saving tasks to file: " + e.getMessage());
+                throw new DukeException("Error saving duke.tasks to file: " + e.getMessage());
             }
         }
     }
