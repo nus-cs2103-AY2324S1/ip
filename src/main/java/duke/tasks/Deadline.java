@@ -8,6 +8,13 @@ import java.time.LocalDateTime;
 public class Deadline extends Task {
     private final LocalDateTime by;
 
+    /**
+     * Public constructor for Deadline.
+     *
+     * @param description of the deadline object
+     * @param by the LocalDateTime object tracking when the deadline should be completed by
+     * @param isMarked boolean value if the Deadline task is marked
+     */
     public Deadline(String description, LocalDateTime by, boolean isMarked) {
         super(description, "deadline", isMarked);
         this.by = by;

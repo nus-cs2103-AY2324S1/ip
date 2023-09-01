@@ -129,6 +129,9 @@ public class Ui {
         this.formatLines(() -> System.out.println("    Error creating new file, quitting program now..."));
     }
 
+    /**
+     * Prints to standard output an error message when writing to data file failed.
+     */
     public void showErrorWritingFile() {
         this.formatLines(() -> System.out.println("    Error saving to file, quitting program now..."));
     }

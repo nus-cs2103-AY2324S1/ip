@@ -16,6 +16,11 @@ public class Duke {
     private final Tasks tasks;
     private final Ui ui;
 
+    /**
+     * Public constructor for Duke.
+     *
+     * <p>Initialises data structures used by the application.</p>
+     */
     public Duke() {
         this.ui = new Ui();
         this.storage = new Storage("./data/duke.txt");

@@ -88,7 +88,7 @@ public class Storage {
             writer.print("");
             writer.close();
         } catch (IOException ex) {
-            System.out.println("    Error saving file... exiting");
+            ui.showErrorWritingFile();
             System.exit(1);
         }
 

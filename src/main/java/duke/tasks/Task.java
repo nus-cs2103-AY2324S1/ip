@@ -109,6 +109,11 @@ public abstract class Task {
         return false;
     }
 
+    /**
+     * Returns a string form of whether the Task is marked.
+     *
+     * @return string representation of the isMarked value
+     */
     private String getStatusIcon() {
         return (isMarked ? "X" : " ");
     }
