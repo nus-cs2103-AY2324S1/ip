@@ -20,6 +20,16 @@ public class Storage {
 
     public Storage(String path) {
         this.file = new File(path);
+        if (!this.file.getParentFile().exists()) {
+            this.file.getParentFile().mkdirs();
+        }
+        if (!this.file.exists()) {
+            try {
+                this.file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error: Unable to create local file");
+            }
+        }
     }
 
     /**
