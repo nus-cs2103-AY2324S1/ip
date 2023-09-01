@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import command.Commandable;
 import dukeexception.CorruptedFileException;
-import dukeexception.InvalidCommandException;
 import dukeexception.FailureInExecuteException;
+import dukeexception.InvalidCommandException;
 import dukeexception.InvalidVarException;
 
 public class Duke {
