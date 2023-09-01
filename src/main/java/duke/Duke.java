@@ -1,4 +1,5 @@
 package duke;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -104,8 +105,8 @@ public class Duke {
         LocalDateTime due = dueTime.atDate(dueDate);
         if (parser.checkStartDateTime("deadline", due)) {
             tasks.add(new Deadline(details, due));
-            System.out.printf("Just saying, better %s now.%n" +
-                    "Not like it's my problem if you don't.%n", details);
+            System.out.printf("Just saying, better %s now.%n"
+                    + "Not like it's my problem if you don't.%n", details);
             ui.printEndOfOperation();
         }
     }
@@ -136,11 +137,10 @@ public class Duke {
         }
         LocalDateTime start = startTime.atDate(startDate);
         LocalDateTime end = endTime.atDate(endDate);
-        if (parser.checkStartDateTime("event", end) &&
-                parser.checkTimeInterval("event", start, end)) {
+        if (parser.checkStartDateTime("event", end)
+                && parser.checkTimeInterval("event", start, end)) {
             tasks.add(new Event(details, start, end));
-            System.out.printf("Wow, you have a %s?%n" +
-                    "Uhh, n-not like I wanna join you!%n", details);
+            System.out.printf("Wow, you have a %s?%n Uhh, n-not like I wanna join you!%n", details);
             ui.printEndOfOperation();
         }
     }
@@ -156,8 +156,7 @@ public class Duke {
         System.out.printf("You have %d tasks. (%d complete, %d incomplete)%n",
                 numOfTasks, numOfCompletedTasks, numOfTasks - numOfCompletedTasks);
         for (int i = 0; i < numOfTasks; i++) {
-            System.out.printf("%d. " + tasks.get(i).toString()
-                    + "%n", i + 1);
+            System.out.printf("%d. " + tasks.get(i).toString() + "%n", i + 1);
         }
         if (numOfCompletedTasks == numOfTasks) {
             System.out.println("You've completed all your tasks. Good for you.");
@@ -185,8 +184,7 @@ public class Duke {
                     tasks.incrementCompletedTasks();
                     System.out.printf("Task %d set as complete.%n", taskNumber);
                 } else {
-                    System.out.printf("Task %d is already complete.%n" +
-                            "Stop wasting my time!%n", taskNumber);
+                    System.out.printf("Task %d is already complete.%n Stop wasting my time!%n", taskNumber);
                 }
             }
             ui.printEndOfOperation();
@@ -237,8 +235,8 @@ public class Duke {
             if (taskNumber != null) {
                 Task task = tasks.get(taskNumber - 1);
                 tasks.remove(task);
-                System.out.printf("Task %d deleted successfully.%n" +
-                        "You now have %d tasks.%n", taskNumber, tasks.getNumOfTasks());
+                System.out.printf("Task %d deleted successfully.%n You now have %d tasks.%n",
+                        taskNumber, tasks.getNumOfTasks());
             }
             ui.printEndOfOperation();
         }
@@ -257,8 +255,7 @@ public class Duke {
     public void exit(int status) throws IOException {
         storage.saveTasksToDisk("./data/tasks.txt", tasks);
         if (status == 1) {
-            System.out.printf("I've had enough of your nonsense!%n" +
-                    "Don't let me see you again!%n");
+            System.out.printf("I've had enough of your nonsense!%n Don't let me see you again!%n");
         } else if (status == 0) {
             System.out.println("Finally I can rest. Bye!");
         }

@@ -1,4 +1,5 @@
 package duke;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -43,8 +44,7 @@ public class Parser {
             executeCommand(Command.valueOf(message.toUpperCase()));
         }
         catch (IllegalArgumentException e) {
-            System.out.printf("I'm just a robot!%n" +
-                    "I don't understand what %s is!%n", message);
+            System.out.printf("I'm just a robot!%n I don't understand what %s is!%n", message);
             ui.incrementInvalidInputs();
             ui.printHorizontalLine();
         }
@@ -57,40 +57,40 @@ public class Parser {
      */
     public void executeCommand(Command command) {
         switch (command) {
-            case TASK:
-                duke.createTask();
-                break;
-            case TODO:
-                duke.createToDo();
-                break;
-            case DEADLINE:
-                duke.createDeadline();
-                break;
-            case EVENT:
-                duke.createEvent();
-                break;
-            case LIST:
-                duke.list();
-                break;
-            case MARK:
-                duke.markAsComplete();
-                break;
-            case UNMARK:
-                duke.markAsIncomplete();
-                break;
-            case DELETE:
-                duke.deleteTask();
-                break;
-            case COMMANDS:
-                ui.printCommands();
-                break;
-            case BYE:
-                duke.isRunning = false;
-                break;
-            default:
-                // Shouldn't reach here
-                // Input errors should already be caught in the readInput() method.
-                break;
+        case TASK:
+            duke.createTask();
+            break;
+        case TODO:
+            duke.createToDo();
+            break;
+        case DEADLINE:
+            duke.createDeadline();
+            break;
+        case EVENT:
+            duke.createEvent();
+            break;
+        case LIST:
+            duke.list();
+            break;
+        case MARK:
+            duke.markAsComplete();
+            break;
+        case UNMARK:
+            duke.markAsIncomplete();
+            break;
+        case DELETE:
+            duke.deleteTask();
+            break;
+        case COMMANDS:
+            ui.printCommands();
+            break;
+        case BYE:
+            duke.isRunning = false;
+            break;
+        default:
+            // Shouldn't reach here
+            // Input errors should already be caught in the readInput() method.
+            break;
         }
     }
 
@@ -193,8 +193,7 @@ public class Parser {
      */
     public boolean checkStartDateTime(String taskType, LocalDateTime dateTime) {
         if (dateTime.isBefore(LocalDateTime.now())) {
-            System.out.printf("Cannot create %s before the current time. " +
-                    "Please try again.%n", taskType);
+            System.out.printf("Cannot create %s before the current time. Please try again.%n", taskType);
             ui.printEndOfOperation();
             return false;
         }
