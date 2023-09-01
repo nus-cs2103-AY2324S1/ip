@@ -1,5 +1,8 @@
 package Tasks;
 
+/**
+ * A parent class that represents the task that the user will input.
+ */
 public class Task {
     private String name;
     private boolean marked;
@@ -15,12 +18,21 @@ public class Task {
         this.isItValid = false;
     }
 
+    /**
+     * A method that will mark a task as marked.
+     */
     public void markDone() {
         marked = true;
     }
+
+    /**
+     * A method that will unmark a task.
+     */
     public void unmarkDone() {
         marked = false;
     }
+
+    /*
     public boolean isMarked() {
         return marked;
     }
@@ -30,6 +42,13 @@ public class Task {
     public boolean isItTask() { return isTask; }
     public void isValid() { isItValid = true; }
     public boolean isItValid() { return isItValid; }
+     */
+
+    /**
+     * A method that will represent the task.
+     *
+     * @return the syntax that will be shown to the user.
+     */
     @Override
     public String toString() {
         String s = "  [" + type + "]" + "[" + (marked ? "X" : " ") + "] " + name;

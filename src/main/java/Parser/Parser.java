@@ -16,9 +16,20 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A parser that takes the input data and checks its syntax followed bt excuting it.
+ */
 public class Parser {
 
     final String UNKNOWN_COMMAND = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
+
+    /**
+     * A method that takes the user input and calls the right command for it.
+     *
+     * @param fullCommand the user command input.
+     * @return a command that will be excuted base on the users input.
+     * @throws DukeException if the command is invalid in any ways.
+     */
     public static Command parse(String fullCommand) throws DukeException{
         String[] split = fullCommand.split(" ", 2);
         String commandAction = split[0];

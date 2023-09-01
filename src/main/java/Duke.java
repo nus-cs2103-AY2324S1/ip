@@ -4,13 +4,23 @@ import DukeException.DukeException;
 import FileStorage.FileStorage;
 import List.TaskList;
 import Parser.Parser;
+import Tasks.Deadline;
 import Ui.Ui;
 
+/**
+ * A class that the chatbot program will run from.
+ */
 public class Duke {
 
     private TaskList userList;
     private FileStorage fileStorage;
     private Ui userInterface;
+
+    /**
+     * A constructor method to initialise the bot.
+     *
+     * @param filePath the file that will be written or read from.
+     */
     public Duke(String filePath) {
         this.userInterface = new Ui();
         this.fileStorage = new FileStorage(filePath);
@@ -23,13 +33,23 @@ public class Duke {
             System.out.println("File Empty");
         }
     }
-    public static void main(String[] args) {
+
+    /**
+     * A method that will need the user to input what Text file they would like to use.
+     *
+     * @param args arguments use to start the program.
+     * @throws DukeException if the file provided is invalid.
+     */
+    public static void main(String[] args) throws DukeException {
         System.out.println("\n \n" + "Please Input the txt file you wish to access");
         Scanner scanner = new Scanner(System.in);
         String textFile = scanner.nextLine();
         new Duke(textFile).run();
    }
 
+    /**
+     * The method that will be running the ongoing program.
+     */
    public void run() {
         userInterface.showGreetings();
         boolean isExit = false;
