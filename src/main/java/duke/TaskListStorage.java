@@ -1,30 +1,36 @@
+package duke;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import exceptions.InvalidParametersException;
-import exceptions.MissingDescriptionException;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import duke.exceptions.IncorrectCommandFormatException;
+import duke.exceptions.InvalidIndexException;
+import duke.exceptions.MissingDescriptionException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 /**
- * The TaskStorage class stores an arraylist of tasks.
+ * The TaskListStorage class stores an arraylist of tasks.
  * It contains functionality to manipulate this list (ie, marking, unmarking,
  * adding, deleting tasks)
  * It also handles saving/loading the list of tasks to/from a file.
- *
+ * 
+ * Notes: Combining Task and Storage is a solution adopted from the discussion
+ * here https://github.com/nus-cs2103-AY2324S1/forum/issues/30
  */
-public class TaskStorage {
+public class TaskListStorage {
     private final ArrayList<Task> taskList = new ArrayList<>();
     private static final String TASK_FILEPATH = "." + File.separator + "data" + File.separator + "tasks.txt";
     private final File file;
 
-    public TaskStorage() {
+    public TaskListStorage() {
         this.file = new File(TASK_FILEPATH);
-        
+
         if (!this.file.exists()) {
             try {
                 this.file.getParentFile().mkdirs();
@@ -38,12 +44,13 @@ public class TaskStorage {
 
         try {
             this.loadFromFile();
-        } catch (FileNotFoundException | InvalidParametersException | MissingDescriptionException e) {
+        } catch (FileNotFoundException | IncorrectCommandFormatException | MissingDescriptionException e) {
             Messages.printInLine(e.getMessage());
         }
     }
 
-    private void loadFromFile() throws FileNotFoundException, InvalidParametersException, MissingDescriptionException {
+    private void loadFromFile()
+            throws FileNotFoundException, IncorrectCommandFormatException, MissingDescriptionException {
         Scanner sc = new Scanner(this.file);
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
@@ -51,18 +58,26 @@ public class TaskStorage {
             String taskType = taskInfo[0];
             boolean isDone = taskInfo[1].equals("1");
             String taskDescription = taskInfo[2];
-            switch (taskType) {
-            case "T":
-                taskList.add(new Todo(taskDescription, isDone));
-                break;
-            case "D":
-                taskList.add(new Deadline(taskDescription, taskInfo[3], isDone));
-                break;
-            case "E":
-                taskList.add(new Event(taskDescription, taskInfo[3], taskInfo[4], isDone));
-                break;
-            default:
-                break;
+            try {
+                switch (taskType) {
+                case "T":
+                    taskList.add(new Todo(taskDescription, isDone));
+                    break;
+                case "D":
+                    taskList.add(new Deadline(taskDescription, LocalDate.parse(taskInfo[3]), isDone));
+                    break;
+                case "E":
+                    taskList.add(
+                            new Event(taskDescription, LocalDate.parse(taskInfo[3]), LocalDate.parse(taskInfo[4]),
+                                    isDone));
+                    break;
+                default:
+                    break;
+                }
+            } catch (java.time.format.DateTimeParseException e) {
+                throw new IncorrectCommandFormatException(
+                        "Error loading tasks from file! Please check your tasks.txt file for errors.\n"
+                                + e.getMessage());
             }
         }
         sc.close();
@@ -98,11 +113,10 @@ public class TaskStorage {
         Messages.printInLine(s);
     }
 
-    public void markAsDone(String input) {
-        int index = Integer.parseInt(input.split(" ")[1]) - 1;
+    public void markAsDone(int index) throws InvalidIndexException {
         if (index >= taskList.size() || index < 0) {
-            Messages.printInLine("Invalid index!");
-            return;
+            throw new InvalidIndexException("Cannot mark task, task list of size " + taskList.size()
+                    + " does not contain a task at index " + index);
         }
         taskList.get(index).markAsDone();
         writeTaskListToFile(taskList, TASK_FILEPATH);
@@ -111,11 +125,10 @@ public class TaskStorage {
         Messages.printInLine(outputString);
     }
 
-    public void markAsUndone(String input) {
-        int index = Integer.parseInt(input.split(" ")[1]) - 1;
+    public void markAsUndone(int index) throws InvalidIndexException {
         if (index >= taskList.size() || index < 0) {
-            Messages.printInLine("Invalid index!");
-            return;
+            throw new InvalidIndexException("Cannot mark task, task list of size " + taskList.size()
+                    + " does not contain a task at index " + index);
         }
         taskList.get(index).markAsUndone();
         writeTaskListToFile(taskList, TASK_FILEPATH);
@@ -124,17 +137,15 @@ public class TaskStorage {
         Messages.printInLine(outputString);
     }
 
-    public void addTodo(String input) throws MissingDescriptionException {
-        taskList.add(new Todo(Commands.extractTaskDescription(input)));
+    public void addTodo(Todo todo) throws MissingDescriptionException {
+        taskList.add(todo);
         writeTaskListToFile(taskList, TASK_FILEPATH);
         String outputString = "Got it. I've added this task:\n" + Messages.TAB + taskList.get(taskList.size() - 1)
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
         Messages.printInLine(outputString);
     }
 
-    public void addDeadline(String input) throws MissingDescriptionException, InvalidParametersException {
-        Deadline deadline = new Deadline(Commands.extractTaskDescription(input),
-                Commands.extractDeadline(input));
+    public void addDeadline(Deadline deadline) throws MissingDescriptionException, IncorrectCommandFormatException {
         taskList.add(deadline);
         writeTaskListToFile(taskList, TASK_FILEPATH);
         String outputString = "Got it. I've added this task:\n" + Messages.TAB + taskList.get(taskList.size() - 1)
@@ -142,9 +153,7 @@ public class TaskStorage {
         Messages.printInLine(outputString);
     }
 
-    public void addEvent(String input) throws MissingDescriptionException, InvalidParametersException {
-        Event event = new Event(Commands.extractTaskDescription(input),
-                Commands.extractEventFrom(input), Commands.extractEventTo(input));
+    public void addEvent(Event event) throws MissingDescriptionException, IncorrectCommandFormatException {
         taskList.add(event);
         writeTaskListToFile(taskList, TASK_FILEPATH);
         String outputString = "Got it. I've added this task:\n" + Messages.TAB + taskList.get(taskList.size() - 1)
@@ -152,11 +161,10 @@ public class TaskStorage {
         Messages.printInLine(outputString);
     }
 
-    public void deleteTask(String input) {
-        int index = Integer.parseInt(input.split(" ")[1]) - 1;
+    public void deleteTask(int index) throws InvalidIndexException {
         if (index >= taskList.size() || index < 0) {
-            Messages.printInLine("Invalid index!");
-            return;
+            throw new InvalidIndexException("Cannot delete task, task list of size " + taskList.size()
+                    + " does not contain a task at index " + index);
         }
         Task task = taskList.get(index);
         taskList.remove(index);

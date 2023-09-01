@@ -1,44 +1,27 @@
+
 import java.util.Scanner;
 
-import exceptions.InvalidParametersException;
-import exceptions.MissingDescriptionException;
-import exceptions.UnknownCommandException;
+import duke.Messages;
+import duke.Parser;
+import duke.TaskListStorage;
+import duke.exceptions.IncorrectCommandFormatException;
+import duke.exceptions.InvalidIndexException;
+import duke.exceptions.InvalidTimeFormatException;
+import duke.exceptions.MissingDescriptionException;
+import duke.exceptions.UnknownCommandException;
 
 public class Duke {
     public static void main(String[] args) {
-        TaskStorage taskStorage = new TaskStorage();
+        TaskListStorage tasklistStorage = new TaskListStorage();
+        Parser parser = new Parser();
 
         Messages.opener();
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         while (!input.equals("bye")) {
             try {
-                Commands command = Commands.parseCommand(input);
-                switch (command) {
-                case LIST:
-                    taskStorage.printList();
-                    break;
-                case MARK:
-                    taskStorage.markAsDone(input);
-                    break;
-                case UNMARK:
-                    taskStorage.markAsUndone(input);
-                    break;
-                case TODO:
-                    taskStorage.addTodo(input);
-                    break;
-                case DEADLINE:
-                    taskStorage.addDeadline(input);
-                    break;
-                case EVENT:
-                    taskStorage.addEvent(input);
-                    break;
-                case DELETE:
-                    taskStorage.deleteTask(input);
-                default:
-                    break;
-                }
-            } catch (UnknownCommandException | MissingDescriptionException | InvalidParametersException e) {
+                parser.dispatch(input).execute(tasklistStorage);
+            } catch (UnknownCommandException | MissingDescriptionException | IncorrectCommandFormatException | InvalidIndexException | InvalidTimeFormatException e) {
                 Messages.printInLine(e.getMessage());
             }
             input = sc.nextLine();

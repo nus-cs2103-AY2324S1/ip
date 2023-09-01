@@ -1,4 +1,6 @@
-package tasks;
+package duke.tasks;
+
+import java.time.LocalDate;
 
 /**
  * Adapted from Partial Solution given in https://nus-cs2103-ay2324s1.github.io/website/schedule/week2/project.html under Level-4
@@ -8,16 +10,16 @@ package tasks;
  */
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    protected LocalDate from;
+    protected LocalDate to;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
-    public Event(String description, String from, String to, boolean isDone) {
+    public Event(String description, LocalDate from, LocalDate to, boolean isDone) {
         super(description, isDone);
         this.from = from;
         this.to = to;
@@ -25,7 +27,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(DATE_TIME_OUTPUT) + " to: " + to.format(DATE_TIME_OUTPUT) + ")";
     }
 
     @Override

@@ -1,4 +1,6 @@
-package tasks;
+package duke.tasks;
+
+import java.time.format.DateTimeFormatter;
 
 /**
  * Adapted from Partial Solution given in https://nus-cs2103-ay2324s1.github.io/website/schedule/week2/project.html under Level-3
@@ -6,9 +8,12 @@ package tasks;
  * Tasks have a desciption of what the task is and a boolean to indicate if it is done
  */
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    protected DateTimeFormatter DATE_TIME_OUTPUT = DateTimeFormatter.ofPattern("MMM dd yyyy");
+
 
     public Task(String description) {
         this.description = description;
@@ -17,7 +22,7 @@ public class Task {
 
     public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public String getStatusIcon() {
@@ -44,6 +49,4 @@ public class Task {
     public String toFileString() {
         return "";
     }
-
-    //...
 }

@@ -1,3 +1,5 @@
+package duke;
+
 /*
  * Static class that handles printing of formatted messages to the user.
  */

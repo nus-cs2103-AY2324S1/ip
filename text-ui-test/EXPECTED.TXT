@@ -10,53 +10,58 @@
     ____________________________________________________________
     ____________________________________________________________
     OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: 
+        You typed: Unknown command: 
     ____________________________________________________________
     ____________________________________________________________
     Invalid index!
+        Cannot delete task, task list of size 0 does not contain a task at index 0
     ____________________________________________________________
     ____________________________________________________________
     OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: asdf
+        You typed: Unknown command: asdf
     ____________________________________________________________
     ____________________________________________________________
     OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: Entry 1 should be empty
+        You typed: Unknown command: Entry
     ____________________________________________________________
     ____________________________________________________________
     OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: Mark 1
+        You typed: Unknown command: Mark
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! Command format is incorrect!
     ____________________________________________________________
     ____________________________________________________________
     OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: mark fail, there isnt an exception to handle this, it just isnt caught in the regex
-    ____________________________________________________________
-    ____________________________________________________________
-    OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: mark1
+        You typed: Unknown command: mark1
     ____________________________________________________________
     ____________________________________________________________
     Invalid index!
+        mark index cannot be less than 0
     ____________________________________________________________
     ____________________________________________________________
     Invalid index!
+        mark index cannot be less than 0
     ____________________________________________________________
     ____________________________________________________________
     OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: Unmark 1
+        You typed: Unknown command: Unmark
     ____________________________________________________________
     ____________________________________________________________
     Invalid index!
+        unmark index cannot be less than 0
     ____________________________________________________________
     ____________________________________________________________
     Invalid index!
+        unmark index cannot be less than 0
     ____________________________________________________________
     ____________________________________________________________
     Invalid index!
+        Cannot mark task, task list of size 0 does not contain a task at index 0
     ____________________________________________________________
     ____________________________________________________________
     OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: Todo Testing Caps would not make TODO
+        You typed: Unknown command: Todo
     ____________________________________________________________
     ____________________________________________________________
     Got it. I've added this task:
@@ -69,19 +74,20 @@
     Now you have 2 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
-    OOPS!!! The description of a todo cannot be empty.
+    OOPS!!! Command format is incorrect!
     ____________________________________________________________
     ____________________________________________________________
-    OOPS!!! The description of a todo cannot be empty.
+    OOPS!!! The description of a Todo cannot be empty.
     ____________________________________________________________
     ____________________________________________________________
-    OOPS!!! The description of a todo cannot be empty.
+    OOPS!!! The description of a Todo cannot be empty.
     ____________________________________________________________
     ____________________________________________________________
-    OOPS!!! The description of a todo cannot be empty.
+    OOPS!!! The description of a Todo cannot be empty.
     ____________________________________________________________
     ____________________________________________________________
     Invalid index!
+        Cannot mark task, task list of size 2 does not contain a task at index 2
     ____________________________________________________________
     ____________________________________________________________
     Nice! I've marked this task as done:
@@ -117,228 +123,200 @@
     ____________________________________________________________
     ____________________________________________________________
     Invalid index!
+        Cannot mark task, task list of size 2 does not contain a task at index 2
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! Command format is incorrect!
+        Usage: Missing /by
     ____________________________________________________________
     ____________________________________________________________
     OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: deadline fail(ByNotMakingRealDeadline)
+        You typed: Unknown command: Deadline
     ____________________________________________________________
     ____________________________________________________________
-    OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: Deadline caps should not make a real deadline
+    OOPS!!! Command format is incorrect!
     ____________________________________________________________
     ____________________________________________________________
-    OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: deadline /by fail
+    OOPS!!! Command format is incorrect!
+        Usage: Missing deadline time
     ____________________________________________________________
     ____________________________________________________________
-    OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: deadline fail /by
+    OOPS!!! Command format is incorrect!
+        Usage: Missing /by
     ____________________________________________________________
     ____________________________________________________________
-    OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: deadline this /from should /to fail
-    ____________________________________________________________
-    ____________________________________________________________
-    OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: deadline clumping/byshouldfail
+    OOPS!!! Command format is incorrect!
+        Usage: Missing /by
     ____________________________________________________________
     ____________________________________________________________
     Got it. I've added this task:
-        [D][ ] should (by: work)
+        [D][ ] work (by: Dec 12 2023)
     Now you have 3 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
-    OOPS!!! The description of a deadline cannot be empty.
+    OOPS!!! The description of a Deadline cannot be empty.
     ____________________________________________________________
     ____________________________________________________________
-    OOPS!!! The /by parameter is invalid!
-        Usage: deadline <description> /by <date>
+    OOPS!!! Command format is incorrect!
+        Usage: Missing deadline time
     ____________________________________________________________
     ____________________________________________________________
     Got it. I've added this task:
-        [D][ ] extra spaces  should (by: work)
+        [D][ ] extra spaces  should (by: Dec 12 2023)
     Now you have 4 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
+    OOPS!!! Command format is incorrect!
+        Usage: Time formatting for deadline incorrect
+    ____________________________________________________________
+    ____________________________________________________________
     Got it. I've added this task:
-        [D][ ] this /from should /to make a (by: deadline)
+        [D][ ] this /from should (by: Dec 12 2023)
     Now you have 5 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
+    1. [T][ ] asdf1
+    2. [T][ ] asdf Testing Spaces
+    3. [D][ ] work (by: Dec 12 2023)
+    4. [D][ ] extra spaces  should (by: Dec 12 2023)
+    5. [D][ ] this /from should (by: Dec 12 2023)
+    ____________________________________________________________
+    ____________________________________________________________
+    Nice! I've marked this task as done:
+        [D][X] extra spaces  should (by: Dec 12 2023)
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [T][ ] asdf1
+    2. [T][ ] asdf Testing Spaces
+    3. [D][ ] work (by: Dec 12 2023)
+    4. [D][X] extra spaces  should (by: Dec 12 2023)
+    5. [D][ ] this /from should (by: Dec 12 2023)
+    ____________________________________________________________
+    ____________________________________________________________
+    Ok! I've marked this task as not done yet:
+        [D][ ] extra spaces  should (by: Dec 12 2023)
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [T][ ] asdf1
+    2. [T][ ] asdf Testing Spaces
+    3. [D][ ] work (by: Dec 12 2023)
+    4. [D][ ] extra spaces  should (by: Dec 12 2023)
+    5. [D][ ] this /from should (by: Dec 12 2023)
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: Unknown command: Event
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: Unknown command: Event
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! Command format is incorrect!
+        Usage: Both /from and /to are missing
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! Command format is incorrect!
+        Usage: Both /from and /to are missing
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! Command format is incorrect!
+        Usage: Both /from and /to are missing
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The description of a Event cannot be empty.
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! Command format is incorrect!
+        Usage: Missing from time
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! Command format is incorrect!
+        Usage: Missing from time
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! Command format is incorrect!
+        Usage: Missing /to
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! Command format is incorrect!
+        Usage: Both /from and /to are missing
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! Command format is incorrect!
+        Usage: Both /from and /to are missing
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! Command format is incorrect!
+        Usage: Missing /to
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! Command format is incorrect!
+        Usage: Both /from and /to are missing
+    ____________________________________________________________
+    ____________________________________________________________
     Got it. I've added this task:
-        [D][ ] this /from should (by: not be mixed)
+        [E][ ] this (from: Dec 12 2023 to: Dec 31 2023)
     Now you have 6 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
     Got it. I've added this task:
-        [D][ ] this (by: should /to not be mixed)
+        [E][ ] Event2 (from: Dec 31 2023 to: Dec 31 2023)
     Now you have 7 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
     1. [T][ ] asdf1
     2. [T][ ] asdf Testing Spaces
-    3. [D][ ] should (by: work)
-    4. [D][ ] extra spaces  should (by: work)
-    5. [D][ ] this /from should /to make a (by: deadline)
-    6. [D][ ] this /from should (by: not be mixed)
-    7. [D][ ] this (by: should /to not be mixed)
-    ____________________________________________________________
-    ____________________________________________________________
-    Nice! I've marked this task as done:
-        [D][X] extra spaces  should (by: work)
-    ____________________________________________________________
-    ____________________________________________________________
-    1. [T][ ] asdf1
-    2. [T][ ] asdf Testing Spaces
-    3. [D][ ] should (by: work)
-    4. [D][X] extra spaces  should (by: work)
-    5. [D][ ] this /from should /to make a (by: deadline)
-    6. [D][ ] this /from should (by: not be mixed)
-    7. [D][ ] this (by: should /to not be mixed)
-    ____________________________________________________________
-    ____________________________________________________________
-    Ok! I've marked this task as not done yet:
-        [D][ ] extra spaces  should (by: work)
-    ____________________________________________________________
-    ____________________________________________________________
-    1. [T][ ] asdf1
-    2. [T][ ] asdf Testing Spaces
-    3. [D][ ] should (by: work)
-    4. [D][ ] extra spaces  should (by: work)
-    5. [D][ ] this /from should /to make a (by: deadline)
-    6. [D][ ] this /from should (by: not be mixed)
-    7. [D][ ] this (by: should /to not be mixed)
-    ____________________________________________________________
-    ____________________________________________________________
-    OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: Event fail(ByNotMakingRealEvent)
-    ____________________________________________________________
-    ____________________________________________________________
-    OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: Event caps should not make a real event
-    ____________________________________________________________
-    ____________________________________________________________
-    OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: event /at fail
-    ____________________________________________________________
-    ____________________________________________________________
-    OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: event fail /at
-    ____________________________________________________________
-    ____________________________________________________________
-    OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: event should /at fail
-    ____________________________________________________________
-    ____________________________________________________________
-    OOPS!!! The description of a event cannot be empty.
-    ____________________________________________________________
-    ____________________________________________________________
-    OOPS!!! The /from parameter is invalid!
-        Usage: event <description> /from <from_date> /to <to_date>
-    ____________________________________________________________
-    ____________________________________________________________
-    OOPS!!! The /to parameter is invalid!
-        Usage: event <description> /from <from_date> /to <to_date>
-    ____________________________________________________________
-    ____________________________________________________________
-    OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: event thisClumping /from Should/by Fail
-    ____________________________________________________________
-    ____________________________________________________________
-    OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: event thisClumping/fromShould /by Fail
-    ____________________________________________________________
-    ____________________________________________________________
-    OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: event thisClumping/fromShould/byFail
-    ____________________________________________________________
-    ____________________________________________________________
-    OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: event this /from should /by fail
-    ____________________________________________________________
-    ____________________________________________________________
-    OOPS!!! I'm sorry, but I don't know what that means :-(
-        You typed: event this /by should /at fail
-    ____________________________________________________________
-    ____________________________________________________________
-    Got it. I've added this task:
-        [E][ ] this (from: should to: work)
-    Now you have 8 tasks in the list.
-    ____________________________________________________________
-    ____________________________________________________________
-    Got it. I've added this task:
-        [E][ ] this (from: should /by not to: be mixed)
-    Now you have 9 tasks in the list.
-    ____________________________________________________________
-    ____________________________________________________________
-    Got it. I've added this task:
-        [E][ ] this /by (from: should to: not be mixed)
-    Now you have 10 tasks in the list.
-    ____________________________________________________________
-    ____________________________________________________________
-    1. [T][ ] asdf1
-    2. [T][ ] asdf Testing Spaces
-    3. [D][ ] should (by: work)
-    4. [D][ ] extra spaces  should (by: work)
-    5. [D][ ] this /from should /to make a (by: deadline)
-    6. [D][ ] this /from should (by: not be mixed)
-    7. [D][ ] this (by: should /to not be mixed)
-    8. [E][ ] this (from: should to: work)
-    9. [E][ ] this (from: should /by not to: be mixed)
-    10. [E][ ] this /by (from: should to: not be mixed)
-    ____________________________________________________________
-    ____________________________________________________________
-    Nice! I've marked this task as done:
-        [E][X] this (from: should /by not to: be mixed)
-    ____________________________________________________________
-    ____________________________________________________________
-    1. [T][ ] asdf1
-    2. [T][ ] asdf Testing Spaces
-    3. [D][ ] should (by: work)
-    4. [D][ ] extra spaces  should (by: work)
-    5. [D][ ] this /from should /to make a (by: deadline)
-    6. [D][ ] this /from should (by: not be mixed)
-    7. [D][ ] this (by: should /to not be mixed)
-    8. [E][ ] this (from: should to: work)
-    9. [E][X] this (from: should /by not to: be mixed)
-    10. [E][ ] this /by (from: should to: not be mixed)
-    ____________________________________________________________
-    ____________________________________________________________
-    Ok! I've marked this task as not done yet:
-        [E][ ] this (from: should /by not to: be mixed)
-    ____________________________________________________________
-    ____________________________________________________________
-    1. [T][ ] asdf1
-    2. [T][ ] asdf Testing Spaces
-    3. [D][ ] should (by: work)
-    4. [D][ ] extra spaces  should (by: work)
-    5. [D][ ] this /from should /to make a (by: deadline)
-    6. [D][ ] this /from should (by: not be mixed)
-    7. [D][ ] this (by: should /to not be mixed)
-    8. [E][ ] this (from: should to: work)
-    9. [E][ ] this (from: should /by not to: be mixed)
-    10. [E][ ] this /by (from: should to: not be mixed)
+    3. [D][ ] work (by: Dec 12 2023)
+    4. [D][ ] extra spaces  should (by: Dec 12 2023)
+    5. [D][ ] this /from should (by: Dec 12 2023)
+    6. [E][ ] this (from: Dec 12 2023 to: Dec 31 2023)
+    7. [E][ ] Event2 (from: Dec 31 2023 to: Dec 31 2023)
     ____________________________________________________________
     ____________________________________________________________
     Invalid index!
+        Cannot mark task, task list of size 7 does not contain a task at index 8
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [T][ ] asdf1
+    2. [T][ ] asdf Testing Spaces
+    3. [D][ ] work (by: Dec 12 2023)
+    4. [D][ ] extra spaces  should (by: Dec 12 2023)
+    5. [D][ ] this /from should (by: Dec 12 2023)
+    6. [E][ ] this (from: Dec 12 2023 to: Dec 31 2023)
+    7. [E][ ] Event2 (from: Dec 31 2023 to: Dec 31 2023)
+    ____________________________________________________________
+    ____________________________________________________________
+    Invalid index!
+        Cannot mark task, task list of size 7 does not contain a task at index 8
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [T][ ] asdf1
+    2. [T][ ] asdf Testing Spaces
+    3. [D][ ] work (by: Dec 12 2023)
+    4. [D][ ] extra spaces  should (by: Dec 12 2023)
+    5. [D][ ] this /from should (by: Dec 12 2023)
+    6. [E][ ] this (from: Dec 12 2023 to: Dec 31 2023)
+    7. [E][ ] Event2 (from: Dec 31 2023 to: Dec 31 2023)
+    ____________________________________________________________
+    ____________________________________________________________
+    Invalid index!
+        delete index cannot be less than 0
     ____________________________________________________________
     ____________________________________________________________
     Noted. I've removed this task:
-    [D][ ] this /from should /to make a (by: deadline)
-    Now you have 9 tasks in the list.
+    [D][ ] this /from should (by: Dec 12 2023)
+    Now you have 6 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
     Noted. I've removed this task:
     [T][ ] asdf1
-    Now you have 8 tasks in the list.
+    Now you have 5 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
     1. [T][ ] asdf Testing Spaces
-    2. [D][ ] should (by: work)
-    3. [D][ ] extra spaces  should (by: work)
-    4. [D][ ] this /from should (by: not be mixed)
-    5. [D][ ] this (by: should /to not be mixed)
-    6. [E][ ] this (from: should to: work)
-    7. [E][ ] this (from: should /by not to: be mixed)
-    8. [E][ ] this /by (from: should to: not be mixed)
+    2. [D][ ] work (by: Dec 12 2023)
+    3. [D][ ] extra spaces  should (by: Dec 12 2023)
+    4. [E][ ] this (from: Dec 12 2023 to: Dec 31 2023)
+    5. [E][ ] Event2 (from: Dec 31 2023 to: Dec 31 2023)
     ____________________________________________________________
