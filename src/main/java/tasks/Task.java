@@ -5,6 +5,7 @@ package tasks;
  * the chatbot.
  */
 public class Task {
+
     private final String desc;
     private boolean isCompleted;
 

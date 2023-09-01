@@ -1,13 +1,12 @@
 package tasks;
 
-import tasks.Task;
-
 import java.util.ArrayList;
 
 /**
  * Represents a list of Tasks object.
  */
 public class TaskList {
+
     ArrayList<Task> tasks;
 
     /**

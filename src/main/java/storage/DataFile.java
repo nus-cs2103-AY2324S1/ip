@@ -104,13 +104,13 @@ public class DataFile {
         fW.write(oldContent.toString());
         fW.close();
     }
-
+    
     /**
      * Deletes a task from the file at line n.
      * @param n The line to be deleted.
      * @throws IOException If any file issues exists.
      */
-    public void deleteTaskFromFile(int n) throws IOException{
+    public void deleteTaskFromFile(int n) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line = reader.readLine();
         StringBuilder oldContent = new StringBuilder();

@@ -11,7 +11,8 @@ import java.util.ArrayList;
 /**
  * Represents a type of command that can be read by the chatbot.
  */
-public class TodoCommand extends Command{
+public class TodoCommand extends Command {
+
     private final ArrayList<String> texts;
     private Task task;
     private int size;
@@ -49,7 +50,7 @@ public class TodoCommand extends Command{
      */
     @Override
     public String toString() {
-        return "Got it. I've added this task:\n" + task +
-                "\nNow you have " + size  + " tasks in the list.";
+        return "Got it. I've added this task:\n" + task
+                + "\nNow you have " + size  + " tasks in the list.";
     }
 }

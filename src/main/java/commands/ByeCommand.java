@@ -6,7 +6,7 @@ import tasks.TaskList;
 /**
  * Represents a type of command that can be read by the chatbot.
  */
-public class ByeCommand extends Command{
+public class ByeCommand extends Command {
 
     /**
      * Executes the bye command.

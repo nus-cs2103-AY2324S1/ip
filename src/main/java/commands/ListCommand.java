@@ -6,7 +6,7 @@ import tasks.TaskList;
 /**
  * Represents a type of command that can be read by the chatbot.
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
 
     /**
      * Executes the list command.

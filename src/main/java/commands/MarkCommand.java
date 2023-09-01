@@ -10,7 +10,8 @@ import java.io.IOException;
 /**
  * Represents a type of command that can be read by the chatbot.
  */
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
+
     private Task task;
     private final int index;
 

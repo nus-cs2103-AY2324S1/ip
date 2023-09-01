@@ -23,8 +23,8 @@ public class CustomDate {
         String mon = addZeroFront(texts.get(1));
         String day = addZeroFront(texts.get(0));
         String time = formatTime(yearNTime.get(1));
-        LocalDateTime d1 = LocalDateTime.parse(year + "-" + mon + "-" + day + "T" + time);
-        return d1;
+        LocalDateTime dOne = LocalDateTime.parse(year + "-" + mon + "-" + day + "T" + time);
+        return dOne;
     }
 
     /**

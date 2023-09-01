@@ -10,7 +10,8 @@ import java.io.IOException;
 /**
  * Represents a type of command that can be read by the chatbot.
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
+
     private final int index;
     private int size = -1;
     private Task task;
@@ -29,15 +30,15 @@ public class DeleteCommand extends Command{
      * @param dF The file to be edited on.
      */
     @Override
-    public void execute(TaskList tasks, DataFile dF) throws DukeException{
+    public void execute(TaskList tasks, DataFile dF) throws DukeException {
         if (tasks.isTaskListEmpty()) {
             throw new DukeException("List is already empty, nothing to catch");
         }
         Task task = tasks.remTask(index);
         size = tasks.getSize();
         this.task = task;
-        System.out.println("Noted. I've removed this task:\n" + task +
-                "\nNow you have " + tasks.getSize()  + " tasks in the list.");
+        System.out.println("Noted. I've removed this task:\n" + task
+                + "\nNow you have " + tasks.getSize()  + " tasks in the list.");
         try {
             dF.deleteTaskFromFile(index);
         } catch (IOException e) {
@@ -52,7 +53,7 @@ public class DeleteCommand extends Command{
      */
     @Override
     public String toString() {
-        return "Noted. I've removed this task:\n" + task +
-                "\nNow you have " + size  + " tasks in the list.";
+        return "Noted. I've removed this task:\n" + task
+                + "\nNow you have " + size  + " tasks in the list.";
     }
 }

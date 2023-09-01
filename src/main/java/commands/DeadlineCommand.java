@@ -11,7 +11,8 @@ import java.util.ArrayList;
 /**
  * Represents a type of command that can be read by the chatbot.
  */
-public class DeadlineCommand extends Command{
+public class DeadlineCommand extends Command {
+
     private final ArrayList<String> texts;
     private Task task;
     private int size;
@@ -32,13 +33,13 @@ public class DeadlineCommand extends Command{
     @Override
     public void execute(TaskList tasks , DataFile dF) {
         CustomDate cD = new CustomDate();
-        Task dl = new Deadline(texts.get(0), cD.strToDateTime(texts.get(1)));
-        tasks.addTask(dl);
-        task = dl;
+        Task dL = new Deadline(texts.get(0), cD.strToDateTime(texts.get(1)));
+        tasks.addTask(dL);
+        task = dL;
         size = tasks.getSize();
         System.out.println(this);
         try {
-            dF.writeToFile(dl);
+            dF.writeToFile(dL);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -50,7 +51,7 @@ public class DeadlineCommand extends Command{
      */
     @Override
     public String toString() {
-        return "Got it. I've added this task:\n" + task +
-                "\nNow you have " + size + " tasks in the list.";
+        return "Got it. I've added this task:\n" + task
+                + "\nNow you have " + size + " tasks in the list.";
     }
 }
