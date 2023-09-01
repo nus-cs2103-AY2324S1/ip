@@ -1,6 +1,10 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
+
 public class Duke {
 
     static final String FILEPATH = "./data/duke.txt";
@@ -79,65 +83,70 @@ public class Duke {
 
     public static void handleTaskAdd(String s) throws Exception {
         if (s.startsWith("todo ")) {
-            String todoName = s.substring(5);
-
-            if (todoName.length() < 1) {
-                throw new InvalidTaskException("Description", "todo");
-            }
-
-            Todo todo = new Todo(todoName);
-            System.out.println("New task added: " + todo);
-            addTaskSuccess(todo);
+            addTodo(s);
         } else if (s.startsWith("deadline ")) {
-            int dlIndex = s.indexOf("/by ");
-
-            if (dlIndex == -1 ) {
-                throw new InvalidTaskException("Deadline", "task with deadline");
-            }
-
-            if (dlIndex <= 9) {
-                throw new InvalidTaskException("Description", "task with deadline");
-            }
-
-            String dlName = s.substring(9, dlIndex - 1);
-            String dlTime = s.substring(dlIndex + 4);
-
-            if (dlTime.length() < 1) {
-                throw new InvalidTaskException("Deadline", "task with deadline");
-            }
-
-            Deadline dl = new Deadline(dlName, dlTime);
-            System.out.println("New task with deadline added: " + dl);
-            addTaskSuccess(dl);
+            addDeadline(s);
         } else if (s.startsWith("event ")) {
-            int fromIndex = s.indexOf("/from ");
-            int toIndex = s.indexOf("/to ");
-
-            if (fromIndex == -1 || toIndex == -1 || toIndex <= fromIndex + 6) {
-                throw new InvalidTaskException("Timing", "event");
-            }
-
-            if (fromIndex <= 6) {
-                throw new InvalidTaskException("Description", "event");
-            }
-
-            String eName = s.substring(6, fromIndex - 1);
-            String eFrom = s.substring(fromIndex + 6, toIndex - 1);
-            String eTo = s.substring(toIndex + 4);
-
-            if (eTo.length() < 1) {
-                throw new InvalidTaskException("Timing", "event");
-            }
-
-            Event e = new Event(eName, eFrom, eTo);
-            System.out.println("New task added: " + e);
-            addTaskSuccess(e);
+            addEvent(s);
         } else if (s.equals("todo") || s.equals("event")) {
             throw new InvalidTaskException("Description", s);
         } else if (s.equals("deadline")) {
             throw new InvalidTaskException("Description", "task with " + s);
         } else {
             throw new InvalidCommandException(s);
+        }
+    }
+
+    public static void addTodo(String s) throws InvalidTaskException {
+        String todoName = s.substring(5);
+
+        if (todoName.length() < 1) {
+            throw new InvalidTaskException("Description", "todo");
+        }
+
+        Todo todo = new Todo(todoName);
+        System.out.println("New task added: " + todo);
+        addTaskSuccess(todo);
+    }
+
+    public static void addDeadline(String s) throws IndexOutOfBoundsException {
+        String[] strArr = s.split(" /by ");
+
+        try {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+            String dlName = strArr[0].substring(9);
+            LocalDateTime dlTime = LocalDateTime.parse(strArr[1], dateTimeFormatter);
+
+            Deadline dl = new Deadline(dlName, dlTime);
+            System.out.println("New task with deadline added: " + dl);
+            addTaskSuccess(dl);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Error: Enter a description or due date with /by");
+        } catch (DateTimeParseException e) {
+            System.out.println("Error: Enter valid date and time in the format DD/MM/YYYY HH:MM");
+        }
+    }
+
+    public static void addEvent(String s) throws IndexOutOfBoundsException, DateTimeParseException {
+        String[] strArr = s.split(" /from ");
+
+        try {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+            String eName = strArr[0].substring(6);
+
+            String[] dueDateArr = strArr[1].split(" /to ");
+            LocalDateTime eFrom = LocalDateTime.parse(dueDateArr[0], dateTimeFormatter);
+            LocalDateTime eTo = LocalDateTime.parse(dueDateArr[1], dateTimeFormatter);
+
+            Event e = new Event(eName, eFrom, eTo);
+            System.out.println("New task added: " + e);
+            addTaskSuccess(e);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Error: Enter description, start date with /from or end date with /to");
+        } catch (DateTimeParseException e) {
+            System.out.println("Error: Enter valid date and time in the format DD/MM/YYYY HH:MM");
         }
     }
 
