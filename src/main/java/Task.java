@@ -11,6 +11,10 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public String getSaveStatusIcon() {
+        return (isDone ? "1" : "0");
+    }
+
     public void markAsDone() {
         isDone = true;
     }
@@ -21,6 +25,10 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", getStatusIcon(), description);
+        return String.format("[%s] %s", getStatusIcon(), this.description);
+    }
+
+    public String exportSaveFormat() {
+        return String.format("%s | %s", getSaveStatusIcon(), this.description);
     }
 }
