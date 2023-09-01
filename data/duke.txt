@@ -2,3 +2,4 @@ T | 0 | read book
 D | 1 | ip 2103 | 2023-08-31T16:00
 E | 0 | event eat dinner | 2023-08-31T18:00 | 2023-08-31T20:00
 T | 0 | study
+T | 1 | return book

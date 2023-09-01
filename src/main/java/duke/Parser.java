@@ -70,6 +70,10 @@ public class Parser {
             ui.printUndone(taskToUnmark);
             storage.save(tasks.getTasks());
             break;
+        case "find":
+            String keyword = fullCommand.substring(5);
+            tasks.find(keyword);
+            break;
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -106,7 +110,7 @@ public class Parser {
 
         if (!input.startsWith("todo ") && !input.startsWith("deadline ") && !input.startsWith("event ")
                 && !input.equals("list") && !input.equals("bye") && !input.startsWith("mark ")
-                && !input.startsWith("unmark ") && !input.startsWith("delete ")) {
+                && !input.startsWith("unmark ") && !input.startsWith("delete ") && !input.startsWith("find ")) {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }

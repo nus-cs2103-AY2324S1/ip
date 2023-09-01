@@ -81,4 +81,17 @@ public class TaskList {
         return this.tasks;
     }
 
+    public void find(String keyword) {
+        int count = 0;
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (this.tasks.get(i).toString().contains(keyword)) {
+                System.out.println((count + 1) + ". " + this.tasks.get(i));
+                count++;
+            }
+        }
+        if (count == 0) {
+            System.out.println("No matching tasks found.");
+        }
+    }
+
 }
