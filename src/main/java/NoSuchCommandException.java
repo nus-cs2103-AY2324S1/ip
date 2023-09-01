@@ -7,6 +7,6 @@ public class NoSuchCommandException extends Exception {
     public String toString() {
 
         String result = "\n\tOOPS!!! I'm sorry , but I don't know what that means :-( ";
-        return Duke.dash + result + " \n" + Duke.dash;
+        return Ui.showLine() + result + " \n" + Ui.showLine();
     }
 }
