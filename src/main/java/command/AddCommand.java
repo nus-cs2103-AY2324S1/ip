@@ -7,17 +7,45 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class AddCommand extends Command {
+    /**
+     * Command to add a todo.
+     */
     public static final String COMMAND_ADD_TODO = "todo";
+    /**
+     * Command to add a deadline.
+     */
     public static final String COMMAND_ADD_DEADLINE = "deadline";
+    /**
+     * Command to add an event.
+     */
     public static final String COMMAND_ADD_EVENT = "event";
 
+    /**
+     * Format of input.
+     */
     private static final String DATETIME_INPUT_FORMAT = "yyyy-MM-dd HHmm";
+    /**
+     * Formatter object to format user datetime inputs.
+     */
     public static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
 
+    /**
+     * Constructor for the Add Command class.
+     *
+     * @param params Parsed user input.
+     */
     public AddCommand(ArrayList<String> params) {
         super(params);
     }
 
+    /**
+     * Executes the command.
+     *
+     * @param tasks List of tasks.
+     * @param ui UI of the application.
+     * @param storage Object to handle data storage.
+     * @throws DukeException If error encountered when saving data.
+     */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) throws StorageException {
         switch (super.params.get(0)) {
@@ -45,6 +73,11 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Returns a boolean representing whether the command requires the application to exit.
+     *
+     * @return Boolean representing whether the command exits the application.
+     */
     @Override
     public boolean isExit() {
         return false;
