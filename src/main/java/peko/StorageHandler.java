@@ -2,6 +2,7 @@ package peko;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -90,6 +91,25 @@ public class StorageHandler {
             System.out.println("You don't have so many Tasks Peko!");
         }
 
+    }
+
+
+    public static Task[] search(String searchQuery) {
+        Task[] temp = todoList;
+        Task[] tempOutput = new Task[100];
+        int pos = 0;
+        for (Task t : temp) {
+            if (t == null) {
+                System.out.println("break");
+                break;
+            }
+            if (t.hasString(searchQuery)) {
+                System.out.println(t);
+                tempOutput[pos] = t;
+                pos++;
+            }
+        }
+        return tempOutput;
     }
 
     /**

@@ -23,6 +23,10 @@ public class Task {
         status = false;
     }
 
+    public boolean hasString(String s) {
+        return name.contains(s);
+    }
+
     public String toStore() {
         String state = status ? "0" : "1";
         return state + " | " + this.name;
