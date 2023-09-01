@@ -1,12 +1,33 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    protected LocalDateTime fromDateTime;
+    protected LocalDateTime toDateTime;
 
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .parseCaseInsensitive()
+                .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
+                .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"))
+                .toFormatter();
+
+        try {
+            this.fromDateTime = LocalDateTime.parse(from, formatter);
+            this.toDateTime = LocalDateTime.parse(to, formatter);
+        } catch (DateTimeParseException e) {
+            this.fromDateTime = null;
+            this.toDateTime = null;
+            System.out.println("Please use the following formats:\n"
+                    + "event task /from yyyy-mm-dd hhmm /to yyyy-mm-dd hhmm\n"
+                    + "deadline task /from dd/mm/yyyy hhmm /to dd/mm/yyyy hhmm\n"
+                    + Duke.horizontalLine);
+        }
     }
 
     @Override
@@ -16,11 +37,11 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return type() + super.toString() + " (from: " + from + " to " + to + ")";
+        return type() + super.toString() + " (from: " + fromDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mma")) + " to " + toDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mma")) + ")";
     }
 
     @Override
     public String toFileString() {
-        return type() + " | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
+        return type() + " | " + (isDone ? "1" : "0") + " | " + description + " | " + fromDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | " + toDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 }
