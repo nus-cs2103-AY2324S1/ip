@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass.set("chatbot.Chatbot")
+}
+
+shadowJar {
+    archiveBaseName = "chatbot"
+    archiveClassifier = null
+    dependsOn("distZip", "distTar")
+}
+
+apply plugin: 'checkstyle'
+
+checkstyle {
+    toolVersion = '8.37' // specify the version
+    configFile = file("${project.rootDir}/config/checkstyle/checkstyle.xml")
+}
+
+run{
+    standardInput = System.in
+}
