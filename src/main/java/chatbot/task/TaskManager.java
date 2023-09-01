@@ -7,26 +7,28 @@ import java.time.format.DateTimeParseException;
 import chatbot.storage.Storage;
 import chatbot.*;
 
+/**
+ * The TaskManager class manages tasks, including adding, marking, unmarking, printing, and deleting tasks.
+ */
 public class TaskManager {
     private TaskList tasks;
     private Storage storage;
 
+    /**
+     * Constructor for this class.
+     */
     public TaskManager(){
         this.tasks = new TaskList();
         this.storage = new Storage( "./data/chatbot.txt");
         this.tasks = storage.loadFromFile();
     }
 
-    private void addTask(Task task) {
-        tasks.add(task);
-        storage.saveToFile(tasks);
-    }
-
-    public Task getTask(int index) {
-        return tasks.getTask(index);
-    }
-
-
+    /**
+     * Add todo task into the list.
+     *
+     * @param t description of todo
+     * @throws ChatbotException when the description is empty
+     */
     public void addTodo(String t) throws ChatbotException {
         if (t == null || t.trim().isEmpty()) {
             throw new ChatbotException("☹ OOPS!!! The description of a todo cannot be empty.");
@@ -40,6 +42,14 @@ public class TaskManager {
         System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("    ____________________________________________________________");
     }
+
+    /**
+     * Add deadline to the list and print out.
+     *
+     * @param t description
+     * @param date date
+     * @throws ChatbotException when one of the param is empty
+     */
     public void addDeadlines(String t, String date) throws ChatbotException {
         if (t == null || t.trim().isEmpty()) {
             throw new ChatbotException("☹ OOPS!!! The description of a deadlines cannot be empty.");
@@ -64,6 +74,14 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Add event to the list and print out.
+     *
+     * @param t description
+     * @param start starting date
+     * @param end end date
+     * @throws ChatbotException when one of the param is empty
+     */
     public void addEvents(String t, String start, String end) throws ChatbotException {
         if (t == null || t.trim().isEmpty()) {
             throw new ChatbotException("☹ OOPS!!! The description of a event cannot be empty.");
@@ -93,6 +111,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * mark the task done and print.
+     *
+     * @param index index of the task
+     */
     public void taskDone(int index) {
        try {
            tasks.markTaskDone(index);
@@ -108,6 +131,11 @@ public class TaskManager {
        }
     }
 
+    /**
+     * unmark the task and print
+     *
+     * @param index index of the task
+     */
     public void unMarktask(int index) {
         try {
             tasks.unMarkTask(index);
@@ -126,6 +154,12 @@ public class TaskManager {
         tasks.printTasks();
     }
 
+    /**
+     * delete the task in the list and print.
+     *
+     * @param index index of the task
+     * @throws ChatbotException when invalid index is given
+     */
     public void deleteTask(int index) throws ChatbotException {
         try {
             Task removedTask = tasks.removeTask(index); // Subtracting 1 because ArrayList is 0-based.
@@ -142,10 +176,11 @@ public class TaskManager {
 
     }
 
-
-
-
-
+    /**
+     * Print the date.
+     *
+     * @param date date
+     */
     public void printTasksOnDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate targetDate = LocalDate.parse(date, formatter);

@@ -4,9 +4,17 @@ import chatbot.Ui;
 import chatbot.ChatbotException;
 import chatbot.task.TaskManager;
 
+/**
+ * class which handle unmark command extends abstract class command.
+ */
 public class UnmarkCommand extends Command {
     private int index;
 
+    /**
+     * COnstructor for this class.
+     *
+     * @param index index of the task
+     */
     public UnmarkCommand(int index) {
         this.index = index;
     }
