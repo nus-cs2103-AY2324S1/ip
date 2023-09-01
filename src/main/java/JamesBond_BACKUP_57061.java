@@ -5,12 +5,15 @@ public class JamesBond {
     public static void main(String[] args) throws EmptyDescException {
         Scanner sc = new Scanner(System.in);
         TaskList taskList = new TaskList();
+<<<<<<< HEAD
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+=======
 
         // load prvs data
         Storage storage = new Storage("/Users/jamesbond/ip/src/main/data/jamesbond.txt");
         taskList = storage.loadTasksFromFile();
 
+>>>>>>> branch-Level-7
         String logo = "____________________________________________________________\n"
                 + "YO! The name's Bond, James Bond.  \n"
                 + "What can I do for you? \n"

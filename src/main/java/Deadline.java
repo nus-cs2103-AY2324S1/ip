@@ -11,7 +11,13 @@ public class Deadline extends UserInput {
             this.by = by;
         }
 
+<<<<<<< HEAD
 
+=======
+    public String toSaveFormat() {
+        return "D" + super.toSaveFormat() + " | " + this.by;
+    }
+>>>>>>> branch-Level-7
 
     @Override
     public String toString() {

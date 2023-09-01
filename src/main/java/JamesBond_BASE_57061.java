@@ -1,16 +1,9 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
 public class JamesBond {
     public static void main(String[] args) throws EmptyDescException {
         Scanner sc = new Scanner(System.in);
         TaskList taskList = new TaskList();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-        // load prvs data
-        Storage storage = new Storage("/Users/jamesbond/ip/src/main/data/jamesbond.txt");
-        taskList = storage.loadTasksFromFile();
-
         String logo = "____________________________________________________________\n"
                 + "YO! The name's Bond, James Bond.  \n"
                 + "What can I do for you? \n"
@@ -39,13 +32,13 @@ public class JamesBond {
                     String input = sc.nextLine().trim();
                     if (firstWord.equalsIgnoreCase("todo")) {
                         taskList.addToDo(input);
-                        storage.saveTasksToFile(taskList);
                     } else if (firstWord.equalsIgnoreCase("deadline")) {
                         int byIndex = input.indexOf("/by");
                         if (byIndex != -1) {
                             String taskDescription = input.substring(0, byIndex).trim();
-                            LocalDateTime dueDate = LocalDateTime.parse(input.substring(byIndex + 4).trim(), formatter);
-
+                            System.out.println(taskDescription);
+                            String dueDate = input.substring(byIndex + 4).trim();
+                            System.out.println(dueDate);
                             taskList.addDead(taskDescription, dueDate);
                         } else {
                             throw new IllegalArgumentException("Deadline not formatted correctly, type again in the format /by (deadline)");
@@ -56,8 +49,8 @@ public class JamesBond {
                         if (fromIndex != -1 && toIndex != -1) {
                             String taskDescription = input.substring(0, fromIndex).trim();
                             System.out.println(taskDescription);
-                            LocalDateTime startTime = LocalDateTime.parse(input.substring(fromIndex + 6, toIndex).trim(), formatter);
-                            LocalDateTime endTime = LocalDateTime.parse(input.substring(toIndex + 4).trim(), formatter);
+                            String startTime = input.substring(fromIndex + 6, toIndex).trim();
+                            String endTime = input.substring(toIndex + 4).trim();
                             taskList.addEvent(taskDescription, startTime, endTime);
                         } else {
                             throw new IllegalArgumentException("Event format incorrect, type again in the format /from (timing) /to (timing)");
@@ -68,13 +61,14 @@ public class JamesBond {
                     } else if (firstWord.equalsIgnoreCase("list")) {
                         taskList.listOut();
                     } else {
-                        throw new EmptyDescException("please indicate task type: Todo, deadline or event");
+                        if (input.isEmpty()) {
+                            taskList.addInput(firstWord);
+                        } else {
+                            taskList.addInput(firstWord + " " + input);
+                        }
                     }
                 }
-
             }
-            // save data
-
         } catch (EmptyDescException e) {
             System.out.println("Error: " + e.getMessage());
         } catch (IllegalArgumentException e) {

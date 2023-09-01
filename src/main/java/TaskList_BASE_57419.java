@@ -1,9 +1,4 @@
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-
 
 public class TaskList {
     ArrayList<UserInput> toDos;
@@ -14,27 +9,32 @@ public class TaskList {
 
     //keep taking in userInput
     //add userInput to the list
-   /* public void addInput(String textInput) {
+    public void addInput(String textInput) {
         UserInput userInput = new UserInput(textInput);
             this.toDos.add(userInput);
             System.out.println("added:" + userInput.text);
-    } */
+    }
 
     public void addToDo(String task) throws EmptyDescException {
         if (task.isEmpty()) {
             throw new EmptyDescException("Task description cannot be empty after 'todo'.");
         }
         ToDo toDo = new ToDo(task);
-        this.toDos.add(toDo);
+        int taskId = findTask(task);
+        toDos.set(taskId, toDo);
             System.out.println("GOT IT. ADDED:\n" + toDo.toString());
     }
 
-    public void addDead(String task, LocalDateTime by) throws EmptyDescException {
+    public void addDead(String task, String by) throws EmptyDescException {
         if (task.isEmpty()) {
             throw new EmptyDescException("Task description cannot be empty after 'deadline'.");
         }
+        if (by.isEmpty()) {
+            throw new EmptyDescException("Deadline not provided, type again in the format /by (deadline)");
+        }
         Deadline dead = new Deadline(task, by);
-        this.toDos.add(dead);
+        int taskId = findTask(task);
+        toDos.set(taskId, dead);
         System.out.println("GOT IT. ADDED. DEADD:\n" + dead.toString());
     }
 
@@ -69,12 +69,16 @@ public class TaskList {
         return -1;
     }
 
-    public void addEvent(String task, LocalDateTime from, LocalDateTime to) throws EmptyDescException {
+    public void addEvent(String task, String from, String to) throws EmptyDescException {
+        if (from.isEmpty() && to.isEmpty()) {
+            throw new EmptyDescException("Event time not provided, type again in the format /from (timing) /to (timing)");
+        }
         if (task.isEmpty()){
-            throw new EmptyDescException("Task description cannot be empty after 'Event', type again in the format event (your task) /from (yyyy-mm-dd TIME) /to (yyyy-mm-dd TIME).");
+            throw new EmptyDescException("Task description cannot be empty after 'Event'.");
         }
         Event event = new Event(task, from, to);
-        this.toDos.add(event);
+        int taskId = findTask(task);
+        toDos.set(taskId, event);
         System.out.println("GOT IT. ADDED:\n" + event.toString());
     }
 

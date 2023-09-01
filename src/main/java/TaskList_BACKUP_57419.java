@@ -25,7 +25,11 @@ public class TaskList {
             throw new EmptyDescException("Task description cannot be empty after 'todo'.");
         }
         ToDo toDo = new ToDo(task);
+<<<<<<< HEAD
+        toDos.add(toDo);
+=======
         this.toDos.add(toDo);
+>>>>>>> branch-Level-7
             System.out.println("GOT IT. ADDED:\n" + toDo.toString());
     }
 
@@ -34,7 +38,11 @@ public class TaskList {
             throw new EmptyDescException("Task description cannot be empty after 'deadline'.");
         }
         Deadline dead = new Deadline(task, by);
+<<<<<<< HEAD
+        toDos.add(dead);
+=======
         this.toDos.add(dead);
+>>>>>>> branch-Level-7
         System.out.println("GOT IT. ADDED. DEADD:\n" + dead.toString());
     }
 
@@ -74,7 +82,11 @@ public class TaskList {
             throw new EmptyDescException("Task description cannot be empty after 'Event', type again in the format event (your task) /from (yyyy-mm-dd TIME) /to (yyyy-mm-dd TIME).");
         }
         Event event = new Event(task, from, to);
+<<<<<<< HEAD
+        toDos.add(event);
+=======
         this.toDos.add(event);
+>>>>>>> branch-Level-7
         System.out.println("GOT IT. ADDED:\n" + event.toString());
     }
 

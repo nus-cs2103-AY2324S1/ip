@@ -14,18 +14,18 @@ public class TaskList {
 
     //keep taking in userInput
     //add userInput to the list
-   /* public void addInput(String textInput) {
+    public void addInput(String textInput) {
         UserInput userInput = new UserInput(textInput);
             this.toDos.add(userInput);
             System.out.println("added:" + userInput.text);
-    } */
+    }
 
     public void addToDo(String task) throws EmptyDescException {
         if (task.isEmpty()) {
             throw new EmptyDescException("Task description cannot be empty after 'todo'.");
         }
         ToDo toDo = new ToDo(task);
-        this.toDos.add(toDo);
+        toDos.add(toDo);
             System.out.println("GOT IT. ADDED:\n" + toDo.toString());
     }
 
@@ -34,7 +34,7 @@ public class TaskList {
             throw new EmptyDescException("Task description cannot be empty after 'deadline'.");
         }
         Deadline dead = new Deadline(task, by);
-        this.toDos.add(dead);
+        toDos.add(dead);
         System.out.println("GOT IT. ADDED. DEADD:\n" + dead.toString());
     }
 
@@ -74,7 +74,7 @@ public class TaskList {
             throw new EmptyDescException("Task description cannot be empty after 'Event', type again in the format event (your task) /from (yyyy-mm-dd TIME) /to (yyyy-mm-dd TIME).");
         }
         Event event = new Event(task, from, to);
-        this.toDos.add(event);
+        toDos.add(event);
         System.out.println("GOT IT. ADDED:\n" + event.toString());
     }
 

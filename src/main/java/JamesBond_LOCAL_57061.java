@@ -1,16 +1,12 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
 public class JamesBond {
     public static void main(String[] args) throws EmptyDescException {
         Scanner sc = new Scanner(System.in);
         TaskList taskList = new TaskList();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-        // load prvs data
-        Storage storage = new Storage("/Users/jamesbond/ip/src/main/data/jamesbond.txt");
-        taskList = storage.loadTasksFromFile();
-
         String logo = "____________________________________________________________\n"
                 + "YO! The name's Bond, James Bond.  \n"
                 + "What can I do for you? \n"
@@ -39,7 +35,6 @@ public class JamesBond {
                     String input = sc.nextLine().trim();
                     if (firstWord.equalsIgnoreCase("todo")) {
                         taskList.addToDo(input);
-                        storage.saveTasksToFile(taskList);
                     } else if (firstWord.equalsIgnoreCase("deadline")) {
                         int byIndex = input.indexOf("/by");
                         if (byIndex != -1) {
@@ -68,13 +63,14 @@ public class JamesBond {
                     } else if (firstWord.equalsIgnoreCase("list")) {
                         taskList.listOut();
                     } else {
-                        throw new EmptyDescException("please indicate task type: Todo, deadline or event");
+                        if (input.isEmpty()) {
+                            taskList.addInput(firstWord);
+                        } else {
+                            taskList.addInput(firstWord + " " + input);
+                        }
                     }
                 }
-
             }
-            // save data
-
         } catch (EmptyDescException e) {
             System.out.println("Error: " + e.getMessage());
         } catch (IllegalArgumentException e) {
