@@ -6,9 +6,11 @@ import java.util.regex.Pattern;
 import duke.commands.*;
 
 public class CommandParser {
-    private static Pattern COMMAND_PATTERN = Pattern.compile("(?<commandWord>\\S+)(?<arguments> \\S.*)");
-    private static Pattern DEADLINE_ARGS_PATTERN = Pattern.compile("(?<name>\\S+.*)( /by )(?<time>\\S.*)");
-    private static Pattern EVENT_ARGS_PATTERN = Pattern.compile("(?<name>\\S+.*)( /from )(?<startTime>\\S.*)( \\/to )(?<endTime>\\S.*)");
+    private static final Pattern COMMAND_PATTERN = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    private static final Pattern TODO_ARGS_PATTERN = Pattern.compile("(?<name>\\S.*)");
+    private static final Pattern DEADLINE_ARGS_PATTERN = Pattern.compile("(?<name>\\S+.*)( /by )(?<time>\\S.*)");
+    private static final Pattern EVENT_ARGS_PATTERN = Pattern.compile("(?<name>\\S+.*)( /from )(?<startTime>\\S.*)( \\/to )(?<endTime>\\S.*)");
     public CommandParser() { }
 
     public Command parseCommand(String input) {
@@ -32,7 +34,12 @@ public class CommandParser {
             case DeleteCommand.COMMAND_PHRASE:
                 return new DeleteCommand(Integer.parseInt(args.trim()));
             case TodoCommand.COMMAND_PHRASE:
-                return new TodoCommand(args.trim());
+                Matcher tdMatcher =TODO_ARGS_PATTERN.matcher(args.trim());
+                if (tdMatcher.find()) {
+                    return new TodoCommand(args.trim());
+                } else {
+                    return new InvalidCommand("Name cannot be empty!");
+                }
             case EventCommand.COMMAND_PHRASE:
                 Matcher evMatcher = EVENT_ARGS_PATTERN.matcher(args.trim());
                 if (evMatcher.find()) {

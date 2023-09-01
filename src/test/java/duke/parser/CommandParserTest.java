@@ -50,7 +50,7 @@ public class CommandParserTest {
         String testInput = "todo";
         Command cmd = cp.parseCommand(testInput);
         assertNotNull(cmd);
-        assertEquals("Invalid Command! Invalid command format", cmd.toString());
+        assertEquals("Invalid Command! Name cannot be empty!", cmd.toString());
     }
 
     @Test
