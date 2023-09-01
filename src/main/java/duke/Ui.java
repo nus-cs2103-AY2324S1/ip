@@ -26,7 +26,7 @@ public class Ui {
      *
      * @param message The message to be printed.
      */
-    private void printWithLines(String message) {
+    public void printWithLines(String message) {
         out.print(LINE + message + LINE);
     }
 
