@@ -101,7 +101,7 @@ public class Aj {
     }
 
 
-    public void setUpBot(String filePath) {
+    public void setUpBot(String filePath) { // add first line of javadoc
         this.parser = new Parser();
         this.storage = new Storage(this.parser, filePath);
         this.taskList = new TaskList(this.storage.initialiseData());
