@@ -1,7 +1,11 @@
 package jarvis;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
+import exceptions.InvalidDateTimeFormatException;
 import exceptions.InvalidIndexException;
 import exceptions.InvalidTaskFormatException;
 
@@ -41,7 +45,7 @@ public class Action {
         }
     }
 
-    public void addTask(String taskDetails, String taskType) throws InvalidTaskFormatException {
+    public void addTask(String taskDetails, String taskType) throws InvalidTaskFormatException, InvalidDateTimeFormatException {
 
         if (taskType.equalsIgnoreCase("todo")) {
             if (taskDetails.equalsIgnoreCase("todo")) {
@@ -61,7 +65,8 @@ public class Action {
             if (indexOfBy != 1 && indexOfBy <= taskDetails.length()) {
                 String taskTitle = taskDetails.substring(9, indexOfBy).trim();
                 String dueDate = taskDetails.substring(indexOfBy + 2).trim();
-                Deadline deadline = new Deadline(taskTitle, dueDate, false);
+                LocalDateTime formattedDueDate = parseDateTime(dueDate);
+                Deadline deadline = new Deadline(taskTitle, formattedDueDate, false);
                 taskList.addTask(deadline);
                 ui.printResponse("Yes Master! I've added this task: \n" + "\t" + deadline.toString() + "\n" +
                         "    Master, you have " + taskList.getTaskCount() + " tasks in the list.");
@@ -71,12 +76,16 @@ public class Action {
                 throw new InvalidTaskFormatException(null);
             }
             int indexOfFrom = taskDetails.indexOf("from");
+            int indexOfTo = taskDetails.indexOf("to");
 
-            if (indexOfFrom != 1 && indexOfFrom <= taskDetails.length()) {
+            if (indexOfFrom != 1 && indexOfFrom <= taskDetails.length() ||
+                    indexOfTo != 1 && indexOfTo <= taskDetails.length()) {
                 String taskTitle = taskDetails.substring(6, indexOfFrom).trim();
-                String dueDate = taskDetails.substring(indexOfFrom + 4).trim();
-
-                Event event = new Event(taskTitle, dueDate, false);
+                String fromDateTime = taskDetails.substring(indexOfFrom + 4, indexOfTo).trim();
+                String toDateTime = taskDetails.substring(indexOfTo + 2).trim();
+                LocalDateTime formattedFromTime = parseDateTime(fromDateTime);
+                LocalDateTime formattedToTime = parseDateTime(toDateTime);
+                Event event = new Event(taskTitle, formattedFromTime, formattedToTime, false);
                 taskList.addTask(event);
                 ui.printResponse("Yes Master! I've added this task: \n" + "\t" + event.toString() + "\n" +
                         "    Master, you have " + taskList.getTaskCount() + " tasks in the list.");
@@ -107,16 +116,46 @@ public class Action {
                 case "T":
                     return new Todo(taskDetails, isCompleted);
                 case "D":
-                    String deadlineBy = lineSplit[3].trim();
-                    return new Deadline(taskDetails, deadlineBy, isCompleted);
+                    String deadlineByString = lineSplit[3].trim();
+                    LocalDateTime formattedDeadlineBy = parseDateTime(deadlineByString);
+                    return new Deadline(taskDetails, formattedDeadlineBy, isCompleted);
                 case "E":
-                    String eventTime = lineSplit[3].trim();
-                    return new Event(taskDetails, eventTime, isCompleted);
+                    String fromTime = lineSplit[3].trim();
+                    String toTime = lineSplit[4].trim();
+                    LocalDateTime formattedFromTime = parseDateTime(fromTime);
+                    LocalDateTime formattedToTime = parseDateTime(toTime);
+                    return new Event(taskDetails, formattedFromTime, formattedToTime, isCompleted);
                 default:
                     throw new InvalidTaskFormatException("Unknown Task Type: " + taskType);
             }
         } catch (Exception e) {
             throw new InvalidTaskFormatException("Invalid task format: " + line);
+        }
+    }
+
+    public static LocalDateTime parseDateTime(String inputDateTime) throws InvalidDateTimeFormatException {
+        List<String> inputFormats = new ArrayList<>();
+        inputFormats.add(Ui.DATE_TIME_FORMAT);
+        inputFormats.add("dd MMM yyyy HHmm");
+        inputFormats.add("yyyy-MM-dd HHmm");
+        inputFormats.add("dd/MM/yyyy HHmm");
+
+        LocalDateTime result = null;
+        for (String inputFormat : inputFormats) {
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(inputFormat);
+                LocalDateTime parsedDateTime = LocalDateTime.parse(inputDateTime, formatter);
+                result = parsedDateTime;
+                break;
+            } catch (Exception e) {
+                continue;
+            }
+        }
+        
+        if (result != null) {
+            return result;
+        } else {
+            throw new InvalidDateTimeFormatException(inputDateTime);
         }
     }
 }

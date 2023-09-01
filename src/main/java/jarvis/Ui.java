@@ -6,18 +6,20 @@ public class Ui {
     /**
      * ASCII Art Generated from http://patorjk.com/software/taag/
      */
-    private static final String logo = 
+    private static final String LOGO = 
     "    ██  █████  ██████  ██    ██ ██ ███████ \n" +
     "    ██ ██   ██ ██   ██ ██    ██ ██ ██      \n" +
     "    ██ ███████ ██████  ██    ██ ██ ███████ \n" +
     "██  ██ ██   ██ ██   ██  ██  ██  ██      ██\n" +
     "█████  ██   ██ ██   ██   ████   ██ ███████ \n";
 
+    public static final String DATE_TIME_FORMAT = "MMM dd yyyy HHmm";
+
     public void printIntro() {
         breakLine();
         System.out.println("    Hi Master! I'm your personal assistant: JARVIS! \n" +
                             "\n" +
-                            logo +
+                            LOGO +
                             "\n" +
                             "    How can I serve you today? \n");
         breakLine();

@@ -1,8 +1,11 @@
 package jarvis;
 
+import java.time.LocalDateTime;
+
 public class Task {
     private String title;
     private boolean isCompleted;
+    private LocalDateTime dueDate;
 
     public Task(String title, boolean isCompleted) {
         this.title = title;
@@ -31,6 +34,14 @@ public class Task {
 
     public void unmarkCompleted() {
         isCompleted = false;
+    }
+
+    public LocalDateTime getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDateTime dueDate) {
+        this.dueDate = dueDate;
     }
 
     public String toString() {
