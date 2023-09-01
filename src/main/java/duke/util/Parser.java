@@ -1,5 +1,8 @@
 package duke.util;
 
+/**
+ * This class encapsulates all methods that parses user input.
+ */
 public class Parser {
 
     /**

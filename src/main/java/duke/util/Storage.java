@@ -15,6 +15,9 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * This class stores and loads previously recorded tasks into a .txt file.
+ */
 public class Storage {
     private File file;
     private static final String PATH = "./data/tasks.txt";

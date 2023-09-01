@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * This is an enum containing all possible commands.
+ */
 public enum CommandEnum {
     LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID;
 

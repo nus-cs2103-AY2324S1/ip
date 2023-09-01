@@ -15,6 +15,10 @@ public class TaskList {
     private ArrayList<Task> tasks;
     private Parser parser;
 
+    /**
+     * Constructor method for a TaskList.
+     * @param tasks A list of the current tasks recorded
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
         this.parser = new Parser();
@@ -62,6 +66,9 @@ public class TaskList {
         System.out.println(line);
     }
 
+    /**
+     * Handles the adding of a Todo task.
+     */
     protected String handleTodo(String task) throws DukeException {
         String[] preprocessedTask = this.parser.parseNewTaskByType(task);
 
@@ -75,6 +82,9 @@ public class TaskList {
         return nextTodo.toString();
     }
 
+    /**
+     * Handles the adding of a Deadline task.
+     */
     protected String handleDeadline(String task) throws DukeException {
         String[] temp = this.parser.parseNewTaskByType(task);
 
@@ -102,6 +112,9 @@ public class TaskList {
         return nextDeadline.toString();
     }
 
+    /**
+     * Handles the adding of an Event task.
+     */
     protected String handleEvent(String task) throws DukeException {
         String[] temp = this.parser.parseNewTaskByType(task);
 
@@ -191,6 +204,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task.
+     */
     private void markTask(int taskIndex) {
         this.tasks.get(taskIndex).doTask();
 
@@ -200,6 +216,9 @@ public class TaskList {
         System.out.println(line);
     }
 
+    /**
+     * Unmarks a task.
+     */
     private void unmarkTask(int taskIndex) {
         this.tasks.get(taskIndex).undoTask();
 

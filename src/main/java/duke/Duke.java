@@ -10,12 +10,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Encapsulates an instance of a chatbot program.
+ */
 public class Duke {
     private final String line = "____________________________________________________________";
     private Ui ui;
     private TaskList tasks;
     private Storage storage;
 
+    /**
+     * Constructor method for Duke.
+     */
     public Duke() {
         this.ui = new Ui();
         this.storage = new Storage();
