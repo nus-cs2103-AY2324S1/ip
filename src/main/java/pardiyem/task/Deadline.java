@@ -1,17 +1,31 @@
 package pardiyem.task;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Deadline extends Task {
 
-    protected String doBy;
+    protected LocalTime doByTime;
+    protected LocalDate doByDate;
 
     public Deadline(String description, String doBy, boolean isDone) throws IllegalArgumentException {
         super(description, isDone);
         if (doBy.isEmpty()) {
             throw new IllegalArgumentException("Whoops, a deadline needs to have a non-empty do by description");
         }
-        this.doBy = doBy;
+        int ind = doBy.indexOf(" ");
+        try {
+            if (ind == -1) {
+                this.doByDate = LocalDate.parse(doBy);
+            } else {
+                this.doByDate = LocalDate.parse(doBy.substring(0, ind));
+                this.doByTime = LocalTime.parse(doBy.substring(ind+1));
+            }
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Please input your time in the format of either \"YYYY-MM-DD\" or \"YYYY-MM-DD HH:MM:SS\"");
+        }
     }
 
     public Deadline(String description, String doBy) {
@@ -20,7 +34,10 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.doBy);
+        return String.format("[D]%s (by: %s%s)",
+                super.toString(), 
+                doByDate.toString(), 
+                doByTime != null ? " " + doByTime.toString() : "");
     }
 
     public static ArrayList<String> parseDesc(String desc) throws IllegalArgumentException {

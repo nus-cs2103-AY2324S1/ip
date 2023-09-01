@@ -1,10 +1,18 @@
 package pardiyem.task;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Event extends Task {
-    protected String to;
-    protected String from;
+
+    protected LocalDate fromDate;
+    protected LocalTime fromTime;
+
+    protected LocalDate toDate;
+    protected LocalTime toTime;
+
     public Event(String description, String from, String to, boolean isDone) throws IllegalArgumentException  {
         super(description, isDone);
         if (to.isEmpty()) {
@@ -13,8 +21,27 @@ public class Event extends Task {
         if (from.isEmpty()) {
             throw new IllegalArgumentException("Whoops, an event need to have a non-empty starting time");
         }
-        this.to = to;
-        this.from = from;
+        
+        int ind1 = from.indexOf(" ");
+        int ind2 = to.indexOf(" ");
+
+        try {
+            if (ind1 == -1) {
+                this.fromDate = LocalDate.parse(from);
+            } else {
+                this.fromDate = LocalDate.parse(from.substring(0, ind1));
+                this.fromTime = LocalTime.parse(from.substring(ind1 + 1));
+            }
+
+            if (ind2 == -1) {
+                this.toDate = LocalDate.parse(to);
+            } else {
+                this.toDate = LocalDate.parse(to.substring(0, ind2));
+                this.toTime = LocalTime.parse(to.substring(ind2 + 1));
+            }
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Please input your time in the format of either \"YYYY-MM-DD\" or \"YYYY-MM-DD HH:MM:SS\"");
+        }
     }
 
     public Event(String description, String from, String to) throws IllegalArgumentException {
@@ -23,7 +50,12 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.from, this.to);
+        return String.format("[E]%s (from: %s%s to: %s%s)", 
+                super.toString(), 
+                fromDate.toString(),
+                fromTime != null ? " " + fromTime.toString() : "", 
+                toDate.toString(),
+                toTime != null ? " " + toTime.toString() : "");
     }
 
     public static ArrayList<String> parseDesc(String desc) throws IllegalArgumentException {

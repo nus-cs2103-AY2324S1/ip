@@ -19,7 +19,7 @@ public class Pardiyem {
         tasks = storage.load();
     }
 
-    public void run() {
+    public void run() throws IOException, NoSuchMethodException {
         ui.showGreeting();
         boolean isExit = false;
         while (!isExit) {
@@ -29,15 +29,13 @@ public class Pardiyem {
                 Command c = Parser.parseCommand(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (Exception e) {
-                ui.showException(e);
             } finally {
                 ui.showDivider();
             }
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, NoSuchMethodException {
         new Pardiyem().run();
     }
 }

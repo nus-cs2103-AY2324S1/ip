@@ -1,4 +1,0 @@
-[T][ ] hahaha
-[D][ ] hahaha (by: 12)
-[E][ ] hahaha (from: 12 to: 13)
-[E][ ] hihihi (from: 13 to: 14)
