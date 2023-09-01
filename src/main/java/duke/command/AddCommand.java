@@ -1,8 +1,10 @@
 package duke.command;
+
 import duke.components.DukeException;
 import duke.components.Storage;
 import duke.components.TaskList;
 import duke.components.Ui;
+
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
@@ -17,7 +19,6 @@ public class AddCommand extends Command {
     private LocalDateTime from;
     private LocalDateTime to;
     private boolean isExit = false;
-
 
     public AddCommand(String type, String task) {
         this.type = type;

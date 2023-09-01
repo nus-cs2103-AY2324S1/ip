@@ -1,8 +1,7 @@
 package duke.components;
+
 import duke.tasks.Task;
-import duke.tasks.Todo;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -38,7 +37,7 @@ public class TaskList {
         }
     }
 
-    public void delete(int index) throws DukeException {
+    public void delete(int index) {
         if (isValidIndex(index)) {
             tasks.remove(index);
         }

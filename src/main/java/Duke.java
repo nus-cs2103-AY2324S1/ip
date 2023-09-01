@@ -1,19 +1,20 @@
 import duke.command.Command;
+
 import duke.components.DukeException;
+import duke.components.Parser;
 import duke.components.Storage;
 import duke.components.TaskList;
-import duke.components.Parser;
 import duke.components.Ui;
 
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import java.time.format.DateTimeParseException;
 
 public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
     public Duke(String filePath) throws DukeException {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -35,7 +36,7 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) throws DukeException, FileNotFoundException {
+    public static void main(String[] args) throws DukeException {
             new Duke("data/tasks.txt").run();
     }
 }

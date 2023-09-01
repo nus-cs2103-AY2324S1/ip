@@ -1,6 +1,8 @@
 package duke.components;
-import java.util.Scanner;
+
 import duke.tasks.Task;
+
+import java.util.Scanner;
 
 public class Ui {
     private Scanner scanner;
@@ -17,7 +19,6 @@ public class Ui {
     public void thank() { // Exits the Bot
         System.out.println("Goodbye and have a nice day.");
     }
-
 
     public String scan() {
         return scanner.nextLine();
@@ -50,7 +51,7 @@ public class Ui {
         System.out.println("You now have " + totalTasks + " tasks remaining.");
     }
 
-    public void showList(TaskList taskList) throws DukeException {
+    public void showList(TaskList taskList) {
         System.out.println(taskList.list());
     }
 }

@@ -1,4 +1,5 @@
 package duke.tasks;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -32,7 +33,8 @@ public class Task {
         String complete = isDone ? "1" : "0";
         return complete + " | " + this.description;
     }
-    public boolean isDone() {
+
+    public boolean getIsDone() {
         return isDone;
     }
 

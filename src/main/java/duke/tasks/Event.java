@@ -1,6 +1,8 @@
 package duke.tasks;
-import java.time.LocalDateTime;
+
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
@@ -10,6 +12,7 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
     }
+
     public Event(String description, LocalDateTime from, LocalDateTime to, boolean isDone) {
         super(description, isDone);
         this.from = from;

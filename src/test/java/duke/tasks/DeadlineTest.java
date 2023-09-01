@@ -1,8 +1,10 @@
 package duke.tasks;
+
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import org.junit.jupiter.api.Test;
 
 
@@ -14,7 +16,7 @@ public class DeadlineTest {
 
         Deadline deadline = new Deadline("Submit report", by);
         assertEquals("Submit report", deadline.getDescription());
-        assertFalse(deadline.isDone());
+        assertFalse(deadline.getIsDone());
         assertEquals(by, deadline.getBy());
     }
 

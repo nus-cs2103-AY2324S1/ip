@@ -3,6 +3,7 @@ package duke.tasks;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
 public class TaskTest {
@@ -11,23 +12,23 @@ public class TaskTest {
     public void testConstructorAndGetters() {
         Task task = new Task("Buy groceries");
         assertEquals("Buy groceries", task.getDescription());
-        assertFalse(task.isDone());
+        assertFalse(task.getIsDone());
 
         Task completedTask = new Task("Finish assignment", true);
         assertEquals("Finish assignment", completedTask.getDescription());
-        assertTrue(completedTask.isDone());
+        assertTrue(completedTask.getIsDone());
     }
 
     @Test
     public void testSetDoneAndSetNotDone() {
         Task task = new Task("Read a book");
-        assertFalse(task.isDone());
+        assertFalse(task.getIsDone());
 
         task.setDone();
-        assertTrue(task.isDone());
+        assertTrue(task.getIsDone());
 
         task.setNotDone();
-        assertFalse(task.isDone());
+        assertFalse(task.getIsDone());
     }
 
     @Test
