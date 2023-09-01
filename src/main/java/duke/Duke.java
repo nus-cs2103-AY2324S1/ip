@@ -11,7 +11,7 @@ import duke.parser.Parser;
  */
 public class Duke {
 
-    private Ui ui; // the ui
+    private Ui ui; // A-Jar
     private TaskList tasks;
     private Storage storage;
 
