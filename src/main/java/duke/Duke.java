@@ -9,6 +9,7 @@ import duke.storage.Storage;
 import duke.utils.Parser;
 import duke.utils.Ui;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -55,7 +56,7 @@ public class Duke {
                         if (tasks.isEmpty()) {
                             ui.showNoTasks();
                         } else {
-                            ui.showAllTasks(tasks.getTasksDes(1));
+                            ui.showTasks(tasks.getTasksDes(1), 0);
                         }
                         break;
 
@@ -63,6 +64,11 @@ public class Duke {
                     case MARK:
                         String completionStatus = tasks.changeTaskCompletion(nextInput, command);
                         ui.showStatusChanged(completionStatus);
+                        break;
+
+                    case FIND:
+                        List<String> matchingTasks = tasks.findTask(nextInput);
+                        ui.showTasks(matchingTasks, 1);
                         break;
 
                     case DELETE:

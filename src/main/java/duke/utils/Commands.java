@@ -7,6 +7,7 @@ public enum Commands {
     LIST,
     UNMARK,
     MARK,
+    FIND,
     DELETE,
     BYE,
     UNKNOWN

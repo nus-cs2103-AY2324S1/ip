@@ -26,4 +26,6 @@ unmark 5
 unmark
 mark 2
 list
+find book
+find Aug 30
 bye
