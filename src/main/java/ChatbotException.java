@@ -5,6 +5,6 @@ public class ChatbotException extends Exception {
 
     @Override
     public String toString() {
-        return "Sucks to be you, but " + this.getMessage();
+        return this.getMessage();
     }
 }
