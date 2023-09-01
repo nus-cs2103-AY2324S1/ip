@@ -1,9 +1,9 @@
 package duke;
 
-import exception.DukeException;
-
 import java.io.PrintStream;
 import java.util.Scanner;
+
+import exception.DukeException;
 
 /**
  * Handles user interaction with Chat Bot.

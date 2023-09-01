@@ -1,16 +1,19 @@
 package duke;
 
-import exception.InvalidIndexException;
-import task.*;
-
 import java.util.ArrayList;
+
+import exception.InvalidIndexException;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
 
 /**
  * Contains the list of tasks. The tasks stored from the file loaded
  * and from inputs given by user.
  */
 public class TaskList {
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
 
     /**
      * Constructs a duke.TaskList with a empty task list.
@@ -82,11 +85,12 @@ public class TaskList {
             taskList.add(new Event(args[0], args[1], args[2]));
             break;
 
+        default:
         }
 
-        return "Got it. I've added this task:\n" +
-                taskList.get(taskList.size() - 1).toString() +
-                "\nNow you have " + (taskList.size()) + " tasks in the list.";
+        return "Got it. I've added this task:\n"
+                + taskList.get(taskList.size() - 1).toString()
+                + "\nNow you have " + (taskList.size()) + " tasks in the list.";
     }
 
     /**
@@ -120,11 +124,19 @@ public class TaskList {
             taskList.remove(ind - 1);
             editDesc += "\nNow you have " + taskList.size() + " tasks in the list.";
             break;
+
+        default:
         }
 
         return editDesc;
     }
 
+    /**
+     * Checks if the index given is out of taskList range.
+     *
+     * @param ind The input index.
+     * @return If the index is within range.
+     */
     public boolean isValidIndex(int ind) {
         if (ind <= 0) {
             return false;
@@ -135,5 +147,35 @@ public class TaskList {
         }
 
         return true;
+    }
+
+    /**
+     * Returns string of tasks matching user's search. Finds list of task description
+     * matching user's input keyword. Returns empty string if no matching task found.
+     *
+     * @param keyword The user input keyword.
+     * @return The string of tasks description matching keyword.
+     */
+    public String findMatchingTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (int i = 0; i < taskList.size(); i++) {
+            String desc = taskList.get(i).getName().toLowerCase();
+
+            if (desc.contains(keyword)) {
+                matchingTasks.add(taskList.get(i));
+            }
+        }
+
+        String action = "";
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            action += (i + 1) + "." + matchingTasks.get(i).toString();
+
+            if (i < matchingTasks.size() - 1) {
+                action += "\n";
+            }
+        }
+
+        return action;
     }
 }

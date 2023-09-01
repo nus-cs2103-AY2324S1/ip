@@ -1,11 +1,13 @@
 package command;
-import duke.TaskList;
-import duke.Ui;
-import duke.Storage;
+
 import java.io.IOException;
 
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+
 /**
- * command.Command to end the Chat Bot. Saves user input into file.
+ * Command to end the Chat Bot. Saves user input into file.
  */
 public class ByeCommand extends Command {
     @Override
@@ -20,5 +22,5 @@ public class ByeCommand extends Command {
     @Override
     public boolean isExit() {
         return true;
-    };
+    }
 }

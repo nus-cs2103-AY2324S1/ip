@@ -5,18 +5,22 @@
  * @since 2023-08-24
  */
 package duke;
-import command.Command;
-import exception.DukeException;
 
 import java.io.IOException;
 
+import command.Command;
+import exception.DukeException;
+
+/**
+ * Duke class instantiates a new Chat Bot.
+ */
 public class Duke {
 
-    /**Reads and writes task data into file*/
+    /** Reads and writes task data into file */
     private Storage storage;
-    /**List of tasks input by user or loaded from file*/
+    /** List of tasks input by user or loaded from file */
     private TaskList tasks;
-    /**Handles user interactions*/
+    /** Handles user interactions */
     private Ui ui;
 
     /**
@@ -43,7 +47,7 @@ public class Duke {
         ui.startBot();
         boolean isExit = false;
 
-        while(!isExit) {
+        while (!isExit) {
             try {
                 String fullCommand = ui.getUserInput();
                 Command c = Parser.parse(fullCommand);
@@ -69,4 +73,5 @@ public class Duke {
     public static void main(String[] args) {
         new Duke("./src/main/data/duke.txt").run();
     }
+
 }

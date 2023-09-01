@@ -13,14 +13,25 @@ public abstract class Task {
      *
      * @param name The name of the task.
      */
-    public Task(String name){
+    public Task(String name) {
         this.name = name;
         this.isDone = false;
     }
 
+    /**
+     * Constructs a new task.Task with the specified name.
+     * Task constructed can be marked as completed.
+     *
+     * @param name The name of the task.
+     * @param isDone If task is completed.
+     */
     public Task(String name, boolean isDone) {
         this.name = name;
         this.isDone = isDone;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     /**
@@ -35,7 +46,7 @@ public abstract class Task {
     /**
      * Marks the task as done.
      */
-    public void markTask(){
+    public void markTask() {
         this.isDone = true;
     }
 
@@ -49,6 +60,7 @@ public abstract class Task {
     /**
      * Returns the string description of the current task. Description includes if task is done and the task name.
      */
+    @Override
     public String toString() {
         return this.getStatusIcon() + " " + this.name;
     }
