@@ -1,3 +1,9 @@
+package Command;
+import Task.*;
+import Ui.*;
+import Duke.*;
+import TaskList.TaskList;
+import Storage.Storage;
 public class DeadLineCommand extends Command {
     private String description;
     private String by;

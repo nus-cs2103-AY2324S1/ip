@@ -1,3 +1,10 @@
+package Command;
+import Task.*;
+import Ui.*;
+import Duke.*;
+import TaskList.TaskList;
+import Storage.Storage;
+
 public class EventCommand extends Command{
     private String description;
     private String from;

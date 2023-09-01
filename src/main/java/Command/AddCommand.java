@@ -1,3 +1,10 @@
+package Command;
+import Task.*;
+import Ui.*;
+import Duke.*;
+import TaskList.TaskList;
+import Storage.Storage;
+
 public class AddCommand extends Command {
     private Task taskToAdd;
 

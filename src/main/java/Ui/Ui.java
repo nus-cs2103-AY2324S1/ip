@@ -1,3 +1,7 @@
+package Ui;
+import Task.*;
+import Duke.*;
+import TaskList.TaskList;
 import java.util.Scanner;
 
 public class Ui {
@@ -60,11 +64,11 @@ public class Ui {
     }
 
     public void showTaskUnmarked(Task taskToUnmark) {
-        System.out.println("Task unmarked: " + taskToUnmark.description);
+        System.out.println("Task unmarked: " + taskToUnmark.getDescription());
     }
 
     public void showTaskMarked(Task taskToUnmark) {
-        System.out.println("Task marked: " + taskToUnmark.description);
+        System.out.println("Task marked: " + taskToUnmark.getDescription());
     }
 
 }

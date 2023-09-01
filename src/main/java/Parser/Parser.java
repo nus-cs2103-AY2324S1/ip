@@ -1,3 +1,9 @@
+package Parser;
+import Task.*;
+import Duke.*;
+import Command.*;
+
+
 import java.io.FileNotFoundException;
 
 public class Parser {
@@ -76,8 +82,7 @@ public class Parser {
                 String[] deadlineParts = deadlineDesc.split("/by");
                 String description = deadlineParts[0].trim();
                 String by = deadlineParts[1].trim();
-                Task deadlineTask = new DeadLine(description, by);
-                return new AddCommand(deadlineTask);
+                return new DeadLineCommand(description, by);
             case "event":
                 String eventDesc = input.substring(5).trim(); // Extract the description
                 if (!eventDesc.contains("/from") || !eventDesc.contains("/to")) {
@@ -88,8 +93,7 @@ public class Parser {
                 String[] dateParts = eventParts[1].split("/to");
                 String from = dateParts[0].trim();
                 String to = dateParts[1].trim();
-                Task eventTask = new Event(eventDescription, from, to);
-                return new AddCommand(eventTask);
+                return new EventCommand(eventDescription, from, to);
             case "unmark":
                 if (words.length < 2) {
                     throw new DukeException("Please specify a task number to unmark.");

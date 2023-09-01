@@ -1,3 +1,4 @@
+package Task;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,6 +12,14 @@ public class Task {
     public Task(String taskDesc) {
         this.description = taskDesc;
         this.isDone = false;
+    }
+
+    public boolean checkIsDone() {
+        return isDone;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void isCompleted() {
