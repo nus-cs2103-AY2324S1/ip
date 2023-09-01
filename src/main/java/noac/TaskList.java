@@ -6,9 +6,7 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-
     private ArrayList<Task> taskList;
-
 
     public TaskList() {
         taskList = new ArrayList<>();
@@ -17,7 +15,6 @@ public class TaskList {
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
-
 
     public Task getTask(int index) {
         return taskList.get(index);
@@ -34,9 +31,4 @@ public class TaskList {
     public int size() {
         return taskList.size();
     }
-
-
-
-
-
 }

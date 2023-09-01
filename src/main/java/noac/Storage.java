@@ -9,7 +9,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -30,19 +32,20 @@ public class Storage {
             file.getParentFile().mkdirs();
             if (!file.createNewFile()) {
                 Scanner scanner = new Scanner(file);
-                while(scanner.hasNextLine()){
+
+                while (scanner.hasNextLine()) {
                     String[] fileLineInput = scanner.nextLine().split("\\|");
 
                     String taskType = fileLineInput[0];
 
-                    switch (taskType){
+                    switch (taskType) {
                     case "T":
                         if (fileLineInput.length != 3) {
                             throw new NoacException("☹ OOPS!!! Corrupted Save file");
                         }
 
                         Todo todo = new Todo(fileLineInput[2]);
-                        if(fileLineInput[1].equals("1")) {
+                        if (fileLineInput[1].equals("1")) {
                             todo.markAsDone();
                         }
 
@@ -62,7 +65,7 @@ public class Storage {
                             throw new NoacException("☹ OOPS!!! Corrupted Save file");
                         }
 
-                        if(fileLineInput[1].equals("1")) {
+                        if (fileLineInput[1].equals("1")) {
                             deadline.markAsDone();
                         }
 
@@ -75,16 +78,14 @@ public class Storage {
                             throw new NoacException("☹ OOPS!!! Corrupted Save file");
                         }
 
-
                         Event event;
                         try{
-                            event = new Event(fileLineInput[2],Parser.parseDate(fileLineInput[3]) , Parser.parseDate(fileLineInput[4]) );
-
+                            event = new Event(fileLineInput[2],Parser.parseDate(fileLineInput[3]) , Parser.parseDate(fileLineInput[4]));
                         } catch (DateTimeParseException e) {
                             throw new NoacException("☹ OOPS!!! Corrupted Save file");
                         }
 
-                        if(fileLineInput[1].equals("1")) {
+                        if (fileLineInput[1].equals("1")) {
                             event.markAsDone();
                         }
 
@@ -94,7 +95,6 @@ public class Storage {
 
                     default:
                         throw new NoacException("☹ OOPS!!! Corrupted Save file");
-
                     }
                 }
             }
@@ -120,8 +120,6 @@ public class Storage {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
-
 
 }

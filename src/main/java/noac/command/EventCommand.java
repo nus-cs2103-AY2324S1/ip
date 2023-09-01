@@ -29,6 +29,5 @@ public class EventCommand extends Command {
         ui.showAddTask(e, tasks.size());
 
         storage.save(tasks);
-
     }
 }

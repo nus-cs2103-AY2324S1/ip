@@ -26,7 +26,6 @@ public class Task {
         return "[" + this.getStatusIcon()  + "] " + this.description;
     }
 
-
     public String printToFile() {
         int i = isDone ? 1 : 0;
         return i + "|" + description;

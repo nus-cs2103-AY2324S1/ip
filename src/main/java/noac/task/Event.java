@@ -16,13 +16,17 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))  + ")";
+        return "[E]" + super.toString() + " (from: "
+                + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + " to: "
+                + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))  + ")";
     }
 
 
     @Override
     public String printToFile() {
-        return "E|" + super.printToFile() + "|" + this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + "|" + this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return "E|" + super.printToFile() + "|"
+                + this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + "|"
+                + this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     public LocalDateTime getFrom() {

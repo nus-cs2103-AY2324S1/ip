@@ -9,7 +9,6 @@ public class DeleteCommand  extends Command {
 
     private int taskIndex;
 
-
     public DeleteCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
