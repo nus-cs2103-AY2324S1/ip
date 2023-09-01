@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.task.Task;
+import duke.ui.Ui;
 
 import java.util.ArrayList;
 
@@ -41,7 +42,7 @@ public class TaskList {
             Task task = tasks.get(taskListIndex);
             return task.toString();
         } else {
-            System.out.println("Invalid Index of task!");
+            Ui.showMessage("Invalid Index of task!");
             return null;
         }
     }
@@ -56,7 +57,7 @@ public class TaskList {
         if (isValidListIndex(taskListIndex)) {
             return tasks.get(taskListIndex);
         } else {
-            System.out.println("Invalid Index of task!");
+            Ui.showMessage("Invalid Index of task!");
             return null;
         }
     }

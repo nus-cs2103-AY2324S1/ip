@@ -58,6 +58,9 @@ public class Parser {
     public static Task parseFileString(String taskData) {
         String[] parts = taskData.split(" \\| ");
         String type = parts[0].trim();
+        if (parts.length < 3) {
+            return null;
+        }
         String isDone = parts[1].trim();
         String description = parts[2].trim();
 
