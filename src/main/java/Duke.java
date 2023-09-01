@@ -58,7 +58,7 @@ public class Duke {
                         if (str.startsWith("todo")) {
                             String todo = str.substring(4);
                             //remove any leading and trailing whitespace characters and
-                            // check whether there is a task after the instruction
+                            //check whether there is a task after the instruction
                             if (todo.trim().isEmpty()) {
                                 //this would mean the instruction is incomplete
                                 throw new ToDoCommandUseException(str);
