@@ -66,7 +66,8 @@ public class Parser {
             if (commandDetails.equals("")) {
                 return new Command.InvalidCommand("☹ OOPS!!! The description of a deadline cannot be empty.");
             } else if (!commandDetails.contains("/by")) {
-                return new Command.InvalidCommand("☹ OOPS!!! Please enter a deadline in the format: deadline <task> /by <date> <time>");
+                return new Command.InvalidCommand("☹ OOPS!!! Please enter a deadline in the format: "
+                        + "deadline <task> /by <date> <time>");
             } else {
                 String[] taskDetailsArray = commandDetails.split("/by");
                 if (taskDetailsArray.length < 2) {
@@ -79,14 +80,16 @@ public class Parser {
                     LocalDateTime deadline = LocalDateTime.parse(stringDeadline, Ui.DATE_FORMAT_INPUT);
                     return new Command.AddCommand(new DeadlineTask(taskName, deadline), CommandType.ADD_DEADLINE);
                 } catch (DateTimeParseException e) {
-                    return new Command.InvalidCommand("☹ OOPS!!! Please enter a valid date and time in the format: dd/MM/yyyy HHmm");
+                    return new Command.InvalidCommand("☹ OOPS!!! Please enter a valid date and time in the format: "
+                            + "dd/MM/yyyy HHmm");
                 }
             }
         case ADD_EVENT:
             if (commandDetails.equals("")) {
                 return new Command.InvalidCommand("☹ OOPS!!! The description of an event cannot be empty.");
             } else if (!commandDetails.contains("/from") || !commandDetails.contains("/to")) {
-                return new Command.InvalidCommand("☹ OOPS!!! Please enter an event in the format: event <task> /from <date> <time> /to <date> <time>");
+                return new Command.InvalidCommand("☹ OOPS!!! Please enter an event in the format: "
+                        + "event <task> /from <date> <time> /to <date> <time>");
             } else {
                 String[] taskDetailsArray = commandDetails.split("/from");
                 if (taskDetailsArray.length < 2) {
@@ -105,7 +108,8 @@ public class Parser {
                     LocalDateTime endTime = LocalDateTime.parse(stringEndTime, Ui.DATE_FORMAT_INPUT);
                     return new Command.AddCommand(new EventTask(taskName, startTime, endTime), CommandType.ADD_EVENT);
                 } catch (DateTimeParseException e) {
-                    return new Command.InvalidCommand("☹ OOPS!!! Please enter a valid date and time in the format: dd/MM/yyyy HHmm");
+                    return new Command.InvalidCommand("☹ OOPS!!! Please enter a valid date and time in the format: "
+                            + "dd/MM/yyyy HHmm");
                 }
             }
         case INVALID:
