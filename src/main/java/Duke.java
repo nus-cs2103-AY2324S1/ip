@@ -12,7 +12,7 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
         List<Task> tasks;
-        tasks = Task.loadTasks("src/data/Duke.txt");
+        tasks = Storage.loadTasks("src/data/Duke.txt");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
             while (!str.equals("bye")) {
@@ -135,7 +135,7 @@ public class Duke {
                 }
                 str = sc.nextLine();
             }
-            Task.saveTasks("src/data/Duke.txt", tasks);
+            Storage.saveTasks("src/data/Duke.txt", tasks);
             ui.printBye();
         } catch (java.time.format.DateTimeParseException e) {
             //detect inputs that don't follow the yyyy-MM-dd HHmm format
