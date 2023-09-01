@@ -14,11 +14,11 @@
               `.  |,-||
                 `.|| ||
 
-Hello, I'm Sisyphus.
+Hello, I'm sisyphus.Sisyphus.
 What can I do for you? Do you want to roll a boulder?
 _________________________________
 _________________________________
-The following ToDo has been added.
+The following sisyphus.task.ToDo has been added.
 [T][ ] roll boulder
 You now have 1 items in the list.
 _________________________________

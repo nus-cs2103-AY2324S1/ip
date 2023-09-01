@@ -1,3 +1,10 @@
+package sisyphus;
+
+import sisyphus.task.Deadline;
+import sisyphus.task.Event;
+import sisyphus.task.TaskList;
+import sisyphus.task.ToDo;
+
 import java.time.LocalDate;
 
 public class Parser {
@@ -59,10 +66,8 @@ public class Parser {
         }
         case ("delete"): {
             int index;
-            Task deletedTask;
             try {
                 index = Integer.parseInt(params.split(" ")[0]) - 1;
-                deletedTask = taskList.getTask(index);
                 taskList.deleteTask(index);
                 storage.writeFile(taskList);
             } catch (Exception e) {
@@ -74,7 +79,7 @@ public class Parser {
         }
         case ("todo"): {
             if (params == "" || params == null) {
-                throw new SisyphusException("Include a description for the ToDo. \nHere is an example: " +
+                throw new SisyphusException("Include a description for the sisyphus.task.ToDo. \nHere is an example: " +
                         "todo Roll Boulder");
             }
             ToDo todoTask = new ToDo(params);
