@@ -15,8 +15,12 @@ public class Parser {
     /**
      * Gets input from the user and performs the corresponding action.
      * If the input is "list", displays the current to-do list.
-     * If the input is "add", prompts the user for a new item to add to the list.
+     * If the input is "todo", adds a todo with specified text.
+     * If the input is "deadline", adds a deadline with specified text and /by for date.
+     * If the input is "event", adds an event with specified text and /from date and /to date.
      * If the input is "delete", prompts the user for the index of the item to delete from the list.
+     * If the input is "mark", sets the item at specified index to true
+     * If the input is "unmark", sets the item at specified index to false
      * If the input is anything else, throws a NoSuchMethodException.
      * If the input is missing an argument, throws a MissingFormatArgumentException.
      *

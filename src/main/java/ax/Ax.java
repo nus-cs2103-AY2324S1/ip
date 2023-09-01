@@ -8,6 +8,10 @@ import java.util.Scanner;
 
 public class Ax {
 
+    /**
+     * the main command for Ax chatbot
+     * @param args does nothing?
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
