@@ -1,8 +1,15 @@
+package Remy.command;
+
+import Remy.task.TaskList;
+import Remy.Ui;
+import Remy.Storage;
+import Remy.ChatbotException;
+
 public class MarkCommand extends Command {
     private int index;
     public static final String COMMAND_WORD = "mark";
 
-    public MarkCommand(String input) throws ChatbotException{
+    public MarkCommand(String input) throws ChatbotException {
         if (input.length() < 6) throw new ChatbotException("missing info lah.");
         int index = Integer.parseInt(input.substring(5)) - 1;
         if (index >= 0) {
