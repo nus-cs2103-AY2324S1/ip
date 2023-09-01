@@ -7,8 +7,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parser class meant to parse strings into relevant data such as the user input and date string.
+ */
 public class Parser {
 
+    /**
+     * Parse the user input and return the relevant command given by the user.
+     *
+     * @param fullCommand The user input.
+     * @return The correct command to be executed based on input.
+     * @throws NoacException For any errors that needs to be displayed to user.
+     */
     public static Command parse(String fullCommand) throws NoacException{
 
         Command returnCommand;
@@ -194,7 +204,13 @@ public class Parser {
     }
 
 
-
+    /**
+     * Parse date string to LoaclDateTime object.
+     *
+     * @param date The string date to be parsed.
+     * @return The parsed LocalDateTime object.
+     * @throws DateTimeParseException Exception if the parsing fails.
+     */
     public static LocalDateTime parseDate(String date) throws DateTimeParseException {
         LocalDateTime localDateTime;
 

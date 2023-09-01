@@ -13,14 +13,28 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * For interactions with the save file such as loading and saving.
+ */
 public class Storage {
 
     private String filePath;
 
+    /**
+     * Initialise the Storage object with the file path.
+     *
+     * @param filePath The file path where the save file should be.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Load the tasks in the save file or created one if it does not exist.
+     *
+     * @return The loaded tasks.
+     * @throws NoacException For any errors that needs to be displayed to user.
+     */
     public ArrayList<Task> load() throws NoacException {
 
         ArrayList<Task> returnList = new ArrayList<>();
@@ -106,6 +120,11 @@ public class Storage {
     }
 
 
+    /**
+     * Write the task list to save file.
+     *
+     * @param taskList The task list to be written.
+     */
     public void save(TaskList taskList) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);

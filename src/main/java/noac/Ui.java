@@ -5,16 +5,25 @@ import noac.task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * For interactions with the user such as printing or getting the input.
+ */
 public class Ui {
 
 
     private Scanner scanner;
 
+    /**
+     * Create the UI object and initialise the scanner.
+     */
     public Ui(){
         scanner = new Scanner(System.in);
     }
 
 
+    /**
+     * Print the welcome message.
+     */
     public void showWelcomeMessage() {
         String logo =  " _   _  ___    _    ____\n" +
                 "| \\ | |/ _ \\  / \\  / ___|\n" +
@@ -32,6 +41,9 @@ public class Ui {
     }
 
 
+    /**
+     * Print the bye message.
+     */
     public void showByeMessage() {
         String byeMessage = "    ____________________________________________________________\n" +
                 "     Bye. Hope to see you again soon!\n" +
@@ -40,6 +52,11 @@ public class Ui {
         System.out.println(byeMessage);
     }
 
+    /**
+     * Prints the error message.
+     *
+     * @param e The error which message is to be printed.
+     */
     public void showErrorMessage(NoacException e) {
         System.out.println("    ____________________________________________________________");
         System.out.println("    " + e.getMessage());
@@ -47,6 +64,11 @@ public class Ui {
     }
 
 
+    /**
+     * Prints all the tasks in the list.
+     *
+     * @param taskList The list to be printed.
+     */
     public void showList(TaskList taskList) {
 
         System.out.println("    ____________________________________________________________");
@@ -58,6 +80,12 @@ public class Ui {
 
     }
 
+    /**
+     * Lets the user know the task has been mark/unmark.
+     *
+     * @param task The task to be mark/unmark.
+     * @param isMark Boolean to determine whether to mark or unmark.
+     */
     public void showMarkOrUnmark(Task task, boolean isMark) {
         System.out.println("    ____________________________________________________________");
 
@@ -73,6 +101,12 @@ public class Ui {
     }
 
 
+    /**
+     * Lets the user know the task has been added.
+     *
+     * @param task The task that was added.
+     * @param listSize The number of task in the list.
+     */
     public void showAddTask(Task task, int listSize) {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Got it. I've added this task:");
@@ -83,6 +117,12 @@ public class Ui {
     }
 
 
+    /**
+     * Lets the user know the task has been deleted.
+     *
+     * @param task The task that was added.
+     * @param listSize The number of task in the list.
+     */
     public void showDeleteTask(Task task, int listSize) {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Noted. I've removed this task:");
@@ -94,6 +134,11 @@ public class Ui {
     }
 
 
+    /**
+     * Shows the task on that date.
+     *
+     * @param tasks The task to be displayed.
+     */
     public void showOnDate(ArrayList<Task> tasks) {
 
         System.out.println("    ____________________________________________________________");
@@ -107,6 +152,11 @@ public class Ui {
     }
 
 
+    /**
+     * Gets the user input.
+     *
+     * @return The user input.
+     */
     public String readCommand(){
         return scanner.nextLine();
     }

@@ -6,17 +6,34 @@ import noac.Storage;
 import noac.TaskList;
 import noac.Ui;
 
-public class MarkCommand  extends Command {
+/**
+ * For executing the mark/unmark command.
+ */
+public class MarkCommand extends Command {
 
     private int taskIndex;
     private boolean isMark;
 
 
+    /**
+     * Create the mark command class.
+     *
+     * @param taskIndex Which task to mark/unmark.
+     * @param isMark Whether to mark/unmark.
+     */
     public MarkCommand(int taskIndex, boolean isMark) {
         this.taskIndex = taskIndex;
         this.isMark = isMark;
     }
 
+    /**
+     * Mark/unmark the task and update the user, task list and save file.
+     *
+     * @param tasks List of all the task.
+     * @param ui UI for printing result to user.
+     * @param storage Storage class meant for saving to file.
+     * @throws NoacException For any errors that needs to be displayed to user.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NoacException {
 
