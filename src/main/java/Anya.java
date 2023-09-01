@@ -2,8 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -158,7 +158,8 @@ public class Anya {
 
                         String taskName = info[0].trim();
                         String deadline = info[1].trim();
-                        Task t = new Deadline(taskName, deadline);
+                        LocalDateTime deadlineDate = convertStringToDate(deadline);
+                        Task t = new Deadline(taskName, deadlineDate);
                         tasks.add(t);
 
                         System.out.println(LINE);
@@ -186,8 +187,10 @@ public class Anya {
 
                         String taskName = details.split("/from")[0].trim();
                         String startTime = details.split("/from")[1].trim().split("/to")[0].trim();
+                        LocalDateTime startTimeDate = convertStringToDate(startTime);
                         String endTime = details.split("/to")[1].trim();
-                        Task t = new Event(taskName, startTime, endTime);
+                        LocalDateTime endTimeDate = convertStringToDate(endTime);
+                        Task t = new Event(taskName, startTimeDate, endTimeDate);
                         tasks.add(t);
 
                         System.out.println(LINE);
@@ -288,7 +291,7 @@ public class Anya {
                 readFile(file);
             }
         } catch (Exception e) {
-            System.out.println("An error occurred." + e.getMessage());
+            System.out.println("An error occurred. " + e.getMessage());
         }
     }
 
@@ -300,15 +303,15 @@ public class Anya {
             TaskType taskType = getTaskType(arguments[0].trim());
             boolean isDone = arguments[1].trim().equals("1");
             String description = arguments[2].trim();
-            String by = "";
-            String from = "";
-            String to = "";
+            LocalDateTime by = LocalDateTime.now();
+            LocalDateTime from = LocalDateTime.now();
+            LocalDateTime to = LocalDateTime.now();
 
             if (arguments.length == 4) {
-                by = arguments[3].trim();
+                by = convertStringToDate(arguments[3].trim());
             } else if (arguments.length == 5) {
-                from = arguments[3].trim();
-                to = arguments[4].trim();
+                from = convertStringToDate(arguments[3].trim());
+                to = convertStringToDate(arguments[4].trim());
             }
 
             Task task;
@@ -372,5 +375,9 @@ public class Anya {
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(text);
         fw.close();
+    }
+
+    private static LocalDateTime convertStringToDate(String dateString) {
+        return LocalDateTime.parse(dateString);
     }
 }
