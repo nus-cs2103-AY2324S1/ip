@@ -1,9 +1,16 @@
 package duck.task;
 
+/**
+ * Contatins the information of the Task.
+ */
 public class Task {
     private String description;
     private boolean isDone;
 
+    /**
+     * Constructs the task object.
+     * @param description Contains the description of the event.
+     */
     public Task(String description) {
         this.description = description.strip();
         this.isDone = false;

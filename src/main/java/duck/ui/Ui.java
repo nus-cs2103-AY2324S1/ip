@@ -1,8 +1,8 @@
 package duck.ui;
 
+/**
+ * Class made for User-Interface.
+ */
 public class Ui {
     public Ui() {}
-    public void showLoadingError() {
-        System.out.println("Loading ERR");
-    }
 }

@@ -11,6 +11,9 @@ import duck.exceptions.IllegalDateFormatException;
 import duck.exceptions.SemanticException;
 import duck.exceptions.SyntaxException;
 
+/**
+ * Manages all the operations of tasks on the list.
+ */
 public class TaskList {
     private List<Task> listOfTasks;
 
@@ -79,9 +82,16 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a particular task from the list.
+     * @param str Contains the delete command.
+     * @param taskList It is the tasklist consisting of all the tasks.
+     * @return Task object.
+     * @throws SyntaxException Throws invalid Syntax exception for wrong syntax.
+     * @throws SemanticException Throws Exception when invalid values are given.
+     */
     public Task deleteTask(String str, TaskList taskList) throws SyntaxException, SemanticException {
         try {
-
             String[] string = str.split(" ");
             if (string.length != 2) {
                 throw new SyntaxException("Need only index number after delete");

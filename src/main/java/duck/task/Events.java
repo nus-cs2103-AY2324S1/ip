@@ -3,11 +3,20 @@ package duck.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Contains the details of events as a part of task.
+ */
 public class Events extends Task {
 
     private LocalDateTime start;
     private LocalDateTime end;
 
+    /**
+     * Constructs the Events Object.
+     * @param start Start date and time of the event.
+     * @param end end date and time of the event.
+     * @param description Contains the description of the event.
+     */
     public Events(LocalDateTime start, LocalDateTime end, String description) {
         super(description);
         this.start = start;
