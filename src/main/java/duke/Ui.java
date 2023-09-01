@@ -84,12 +84,25 @@ public class Ui {
      * @param taskList The task list being printed.
      */
     public void printTaskList(TaskList taskList) {
-        ArrayList<Task> list = taskList.getList();
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i) != null) {
+        taskList.printTaskList();
+    }
+
+    /**
+     * Finds tasks that contain the keyword and prints them in a list.
+     *
+     * @param taskList The task list to find tasks from.
+     * @param keyword The keyword input by the user.
+     * @throws DukeException
+     */
+    public void findTasks(TaskList taskList, String keyword) throws DukeException {
+        try {
+            ArrayList<Task> list = taskList.findTasks(keyword);
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < list.size(); i++) {
                 System.out.println((i + 1) + ". " + list.get(i).displayableForm());
             }
+        } catch (DukeException e) {
+            throw new DukeException(e.getMessage());
         }
     }
 }

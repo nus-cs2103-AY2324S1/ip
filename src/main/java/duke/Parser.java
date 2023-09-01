@@ -9,6 +9,7 @@ import duke.command.AddTodoCommand;
 import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.DeleteTaskCommand;
+import duke.command.FindTaskCommand;
 import duke.command.ListCommand;
 import duke.command.MarkDoneCommand;
 import duke.command.MarkNotDoneCommand;
@@ -234,6 +235,28 @@ public class Parser {
     }
 
     /**
+     * Checks for a valid "find" command.
+     *
+     * @param input The string input by the user.
+     * @return A duke.command.FindTaskCommand if the command is valid and null if the command is not a find command.
+     * @throws DukeException if the command is "find" but the keywords are not valid
+     */
+    public static FindTaskCommand findTaskCommandChecker(String input) throws DukeException {
+        String[] strSegments = input.trim().split(" ");
+        String command = strSegments[0];
+
+        if (command.equals("find")) {
+            String keyword = input.trim().substring(4).trim();
+            if (keyword.equals("")) {
+                throw new DukeException("☹ OOPS!!! Incorrect description of a find command.");
+            }
+            return new FindTaskCommand(keyword);
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Checks for a valid command.
      *
      * @param input the string input by the user
@@ -257,6 +280,8 @@ public class Parser {
             return unmarkCommandChecker(input);
         } else if (deleteCommandChecker(input) != null) {
             return deleteCommandChecker(input);
+        } else if (findTaskCommandChecker(input) != null) {
+            return findTaskCommandChecker(input);
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
