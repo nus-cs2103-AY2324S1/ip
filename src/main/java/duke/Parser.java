@@ -20,8 +20,8 @@ import java.time.format.DateTimeParseException;
  * An object that deals with making sense of user commands.
  */
 public class Parser {
-    /** The TaskArray that the parser will be adding tasks into. */
-    private TaskArray tasks;
+    /** The TaskList that the parser will be adding tasks into. */
+    private TaskList tasks;
     /** The Ui that helps the parser to print messages. */
     private Ui ui;
     /** A boolean to indicate if the user wants to end the conversation. */
@@ -30,10 +30,10 @@ public class Parser {
     /**
      * Constructs a new Parser that stores tasks into the given TaskArray and prints through the given Ui.
      *
-     * @param tasks The TaskArray to store tasks.
+     * @param tasks The TaskList to store tasks.
      * @param ui The Ui to interact with users.
      */
-    public Parser(TaskArray tasks, Ui ui) {
+    public Parser(TaskList tasks, Ui ui) {
         this.tasks = tasks;
         this.ui = ui;
         this.isExit = false;
@@ -42,9 +42,9 @@ public class Parser {
     /**
      * Constructs a new Parser that stores tasks into the given TaskArray.
      *
-     * @param tasks The TaskArray to store tasks.
+     * @param tasks The TaskList to store tasks.
      */
-    public Parser(TaskArray tasks) {
+    public Parser(TaskList tasks) {
         this.tasks = tasks;
         this.ui = null;
         this.isExit = false;
@@ -187,7 +187,7 @@ public class Parser {
      * @param x Details of the task.
      */
     private void addTodo(String x) {
-        if (x == null) {
+        if (x == null || x.trim().isEmpty()) {
             throw new LackDescriptionException("todo");
         }
         Todo t = new Todo(x);
@@ -201,7 +201,7 @@ public class Parser {
      * @param x Details of the task.
      */
     private void addDeadline(String x) {
-        if (x == null || x.equals(" ") || x.startsWith("/by") || x.startsWith(" /by")) {
+        if (x == null || x.trim().isEmpty() || x.trim().startsWith("/by")) {
             throw new LackDescriptionException("deadline");
         }
 
@@ -236,20 +236,19 @@ public class Parser {
      * @param x Details of the task.
      */
     private void addEvent(String x) {
-        if (x == null || x.equals(" ") || x.startsWith("/from")
-                || x.startsWith(" /from") || x.startsWith("/to") || x.startsWith(" /to")) {
+        if (x == null || x.trim().isEmpty() || x.trim().startsWith("/from") || x.trim().startsWith("/to")) {
             throw new LackDescriptionException("event");
         }
 
         String[] s = x.split(" /from ");
         String description = s[0];
-        String fromto;
+        String fromto = null;
         try {
             fromto = s[1];
         } catch (IndexOutOfBoundsException e) {
             throw new LackInformationException("\"/from\"");
         }
-        if (fromto.startsWith("/to") || fromto.startsWith(" /to")) {
+        if (fromto.trim().startsWith("/to")) {
             throw new LackInformationException("\"/from\"");
         }
         String[] ft = fromto.split(" /to ");
@@ -308,7 +307,7 @@ public class Parser {
      * @param x Index of the target task.
      */
     private void markDone(String x) {
-        if (x == null) {
+        if (x == null || x.trim().isEmpty()) {
             throw new InvalidMarkingException("Missing index");
         }
 
@@ -335,7 +334,7 @@ public class Parser {
      * @param x Index of the target task.
      */
     private void markUndone(String x) {
-        if (x == null) {
+        if (x == null || x.trim().isEmpty()) {
             throw new InvalidMarkingException("Missing index");
         }
 
@@ -362,7 +361,7 @@ public class Parser {
      * @param x Index of the target task.
      */
     private void delete(String x) {
-        if (x == null) {
+        if (x == null || x.trim().isEmpty()) {
             throw new InvalidMarkingException("Missing index");
         }
 
@@ -387,7 +386,7 @@ public class Parser {
     }
 
     private void find(String x) {
-        if (x == null || x.equals(" ")) {
+        if (x == null || x.trim().isEmpty()) {
             throw new InvalidFindingException("Missing keyword");
         }
 

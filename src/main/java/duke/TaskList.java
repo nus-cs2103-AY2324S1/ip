@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * A list to store the tasks.
  */
-public class TaskList implements TaskArray {
+public class TaskList {
     /** A list to store the tasks. */
     private ArrayList<Task> tasks;
 

@@ -1,6 +1,6 @@
 package duke.stub;
 
-import duke.TaskArray;
+import duke.TaskList;
 import duke.task.Task;
 
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * A stub for the TaskList class.
  */
-public class TaskListStub implements TaskArray {
+public class TaskListStub extends TaskList {
     /** A list to store the tasks. */
     private ArrayList<Task> tasks;
 
