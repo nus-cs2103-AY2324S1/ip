@@ -25,8 +25,7 @@ public class Event extends Task {
             this.toDateTime = null;
             System.out.println("Please use the following formats:\n"
                     + "event task /from yyyy-mm-dd hhmm /to yyyy-mm-dd hhmm\n"
-                    + "deadline task /from dd/mm/yyyy hhmm /to dd/mm/yyyy hhmm\n"
-                    + Duke.horizontalLine);
+                    + "deadline task /from dd/mm/yyyy hhmm /to dd/mm/yyyy hhmm");
         }
     }
 

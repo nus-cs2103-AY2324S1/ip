@@ -22,8 +22,7 @@ public class Deadline extends Task {
             this.dateTime = null;
             System.out.println("Please use the following formats:\n"
                     + "deadline task /by yyyy-mm-dd hhmm\n"
-                    + "deadline task /by dd/mm/yyyy hhmm\n"
-                    + Duke.horizontalLine);
+                    + "deadline task /by dd/mm/yyyy hhmm");
         }
     }
 
