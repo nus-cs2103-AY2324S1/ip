@@ -1,4 +1,4 @@
-deadline skdjas /by 16:00
+find skd
 mark 4
 unmark 2
 list

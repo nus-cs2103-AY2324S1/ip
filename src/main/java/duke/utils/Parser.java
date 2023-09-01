@@ -199,6 +199,8 @@ public class Parser {
           return eventParser(args, false);
         case DELETE:
           return new DeleteCommand(indexParser(args));
+        case FIND:
+          return new FindCommand(args);
         default:
           throw new InvalidCommandException();
       }

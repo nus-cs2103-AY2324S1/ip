@@ -28,7 +28,8 @@ public class TaskList {
     return deadline.toString();
   }
 
-  public String add(String description, boolean doneness, LocalDate fromDate, LocalTime fromTime, LocalDate toDate, LocalTime toTime) {
+  public String add(String description, boolean doneness, LocalDate fromDate, LocalTime fromTime, LocalDate toDate,
+      LocalTime toTime) {
     Event event = new Event(description, doneness, fromDate, fromTime, toDate, toTime);
     list.add(event);
     return event.toString();
@@ -73,6 +74,23 @@ public class TaskList {
     } catch (NumberFormatException e) {
       throw new InvalidNumberException();
     }
+  }
+
+  public String find(String description) throws DukeException {
+    if (!description.equals("")) {
+      String returnString = new String("");
+      int i = 0;
+      for (Task entry : list) {
+        if (entry.description.contains(description)) {
+          returnString += (entry.toString() + "\n");
+          i++;
+        }
+      }
+      if (!returnString.equals("")) {
+        return (returnString + String.format("There were %d tasks containing %s.", i, description));
+      }
+    }
+    return String.format("There were no tasks containing %s.", description);
   }
 
   public String toString() {
