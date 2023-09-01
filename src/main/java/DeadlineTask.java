@@ -1,8 +1,6 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.format.FormatStyle;
-
 public class DeadlineTask extends Task {
     private LocalDateTime deadlineDate;
     private DateTimeFormatter formatter;
@@ -18,10 +16,12 @@ public class DeadlineTask extends Task {
         }
     }
 
+    @Override
     public String getType() {
         return "Deadline";
     }
 
+    @Override
     public String getDateTime() {
         return formatter.format(this.deadlineDate);
     }
