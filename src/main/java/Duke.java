@@ -5,22 +5,40 @@ import duke.Parser.Parser;
 import duke.Storage.Storage;
 import duke.DukeException.DukeException;
 /**
- * Class for duke
+ * Chatbot that can list tasks.
  */
 public class Duke {
+    /**
+     * Variable to store the list of tasks.
+     */
     private TaskList tasks;
+    /**
+     * Variable to get the reply.
+     */
     private Ui ui;
+    /**
+     * Variable to get the input from the user.
+     */
     private Scanner sc;
+    /**
+     * Variable to access the file where alll of the task is stored.
+     */
     private Storage storage;
 
+    /**
+     * Constructs the instance of the Duke.
+     */
     public Duke() {
         this.ui = new Ui();
         this.storage = new Storage();
         this.sc = new Scanner(System.in);
     }
 
+    /**
+     * Runs the chatbot.
+     */
     public void run() {
-        this.ui.printChat(" Hello! I'm Chrainx\n" + " What can I do for you?");
+        this.ui.Hello();
         try {
             this.storage.createStorage();
             this.tasks = this.storage.getStorage();
@@ -41,128 +59,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Start the chatbot.
+     * @param args args.
+     */
     public static void main(String[] args) {
         new Duke().run();
     }
-//    private static boolean isInteger(String str) {
-//        try {
-//            Integer.parseInt(str);
-//            return true;
-//        } catch (NumberFormatException e) {
-//            return false;
-//        }
-//    }
-//
-//    public static void main(String[] args) {
-//        try {
-//            Duke.Storage.Storage storedList = new Duke.Storage.Storage();
-//            ArrayList<Duke.Duke.Task.Task> taskList = storedList.getStorage();
-//            System.out.println(
-//                "____________________________________________________________\n" +
-//                        " Hello! I'm Chrainx\n" +
-//                        " What can I do for you?\n" +
-//                        "____________________________________________________________\n"
-//            );
-//            Scanner scanner = new Scanner(System.in);
-//            while (scanner.hasNextLine()) {
-//                try {
-//                    String input = scanner.nextLine();
-//                    if (
-//                            input.split(" ").length == 2
-//                                    && input.split(" ")[0].equals("mark")
-//                                    && isInteger(input.split(" ")[1])
-//                                    && Integer.parseInt(input.split(" ")[1]) <= taskList.size()
-//                                    && Integer.parseInt(input.split(" ")[1]) >= 1
-//                    ) {
-//                        taskList.get(Integer.parseInt(input.split(" ")[1]) - 1).changeMarkStatus(true);
-//                        System.out.println(
-//                                "____________________________________________________________\n" +
-//                                        "You have marked this task as done\n" +
-//                                        taskList.get(Integer.parseInt(input.split(" ")[1]) - 1).toString() + "\n" +
-//                                        "____________________________________________________________\n"
-//                        );
-//                    } else if (
-//                            input.split(" ").length == 2
-//                                    && input.split(" ")[0].equals("unmark")
-//                                    && isInteger((input.split(" "))[1])
-//                                    && Integer.parseInt(input.split(" ")[1]) <= taskList.size()
-//                                    && Integer.parseInt(input.split(" ")[1]) >= 1
-//                    ) {
-//                        taskList.get(Integer.parseInt(input.split(" ")[1]) - 1).changeMarkStatus(false);
-//                        System.out.println(
-//                                "____________________________________________________________\n" +
-//                                        "You have marked this task as not done\n" +
-//                                        taskList.get(Integer.parseInt(input.split(" ")[1]) - 1).toString() + "\n" +
-//                                        "____________________________________________________________\n"
-//                        );
-//                    } else if (input.equals("list")) {
-//                        System.out.println("____________________________________________________________\n");
-//                        for (int i = 0; i < taskList.size(); i++) {
-//                            System.out.println(
-//                                    (i + 1) + ". " + taskList.get(i).toString() + "\n"
-//                            );
-//                        }
-//                        System.out.println("____________________________________________________________\n");
-//                    } else if (input.split(" ").length == 2
-//                            && input.split(" ")[0].equals("delete")
-//                            && isInteger((input.split(" "))[1])
-//                            && Integer.parseInt(input.split(" ")[1]) <= taskList.size()
-//                            && Integer.parseInt(input.split(" ")[1]) >= 1) {
-//                        System.out.println(
-//                                "____________________________________________________________\n" +
-//                                        "Noted. I've removed this task:" +
-//                                        taskList.get(Integer.parseInt(input.split(" ")[1]) - 1)
-//                        );
-//                        taskList.remove(Integer.parseInt(input.split(" ")[1]) - 1);
-//                        System.out.println(
-//                                "Now you have " + taskList.size() + "  task in the list\n" +
-//                                        "____________________________________________________________\n");
-//                    } else {
-//                        System.out.println("____________________________________________________________\n");
-//                        if (Duke.Task.ToDos.isTodo(input)) {
-//                            taskList.add(new Duke.Task.ToDos(input.substring(5)));
-//                            System.out.println("Got it. I've added this task:");
-//                        } else if (Duke.Task.Deadlines.isDeadline(input)) {
-//                            taskList.add(
-//                                    new Duke.Task.Deadlines(
-//                                            input.substring(9, input.indexOf("/by ")),
-//                                            input.substring(input.indexOf("/by ") + 4)
-//                                    )
-//                            );
-//                            System.out.println("Got it. I've added this task:");
-//                        } else if (Duke.Task.Events.isEvent(input)) {
-//                            taskList.add(new Duke.Task.Events(
-//                                            input.substring(6, input.indexOf("/from ")),
-//                                            input.substring(input.indexOf("/from ") + 6, input.indexOf("/to ") - 1),
-//                                            input.substring(input.indexOf("/to ") + 4)
-//                                    )
-//                            );
-//                            System.out.println("Got it. I've added this task:");
-//                        } else if (input.equals("bye")){
-//                            storedList.editStorage(taskList);
-//                            System.out.println(
-//                                    " Bye. Hope to see you again soon!\n" +
-//                                            "Wish You a wonderful day\n" +
-//                                            "____________________________________________________________\n"
-//                            );
-//                            scanner.close();
-//                            break;
-//                        } else {
-//                            Duke.Duke.Task.Task.isTask(input);
-//                        }
-//                        System.out.println(
-//                                taskList.get(taskList.size() - 1).toString() + "\n" +
-//                                        "Now you have " + (taskList.size()) + " tasks in the list.\n" +
-//                                        "____________________________________________________________\n");
-//                    }
-//                } catch (Duke.DukeException.DukeException e) {
-//                    System.out.println(e.toString());
-//                }
-//
-//            }
-//        } catch (Duke.DukeException.DukeException e) {
-//            System.out.println(e.toString());
-//        }
-//    }
-
 }

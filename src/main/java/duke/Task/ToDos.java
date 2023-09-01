@@ -5,16 +5,16 @@ import duke.DukeException.DukeException;
 public class ToDos extends Task {
 
     /**
-     * The constructor
-     * @param name the name of the Duke.Task.ToDos
+     * Create the todo task.
+     * @param name Description of the task.
      */
     public ToDos (String name) {
         super(name);
     }
 
     /**
-     * To convert the Duke.Task.ToDos to the string
-     * @return a string
+     * Convert the task to string.
+     * @return String that represent the task.
      */
     @Override
     public String toString() {
@@ -31,10 +31,10 @@ public class ToDos extends Task {
     }
 
     /**
-     * To check whether the input is a Todo
-     * @param input the task
-     * @return Boolean
-     * @throws DukeException
+     * Check whether the input is a todo.
+     * @param input Task to be checked.
+     * @return Boolean that represent whether the task is a todo.
+     * @throws DukeException Exception where the todo is not valid.
      */
     public static boolean isTodo(String input) throws DukeException {
         if(input.split( " ")[0].equals("todo")) {
