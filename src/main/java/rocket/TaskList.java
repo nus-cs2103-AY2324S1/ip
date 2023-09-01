@@ -84,7 +84,7 @@ public class TaskList {
     public String toString(){
         StringBuilder tasksString = new StringBuilder();
         for (Task task: tasks) {
-            tasksString.append(String.valueOf(task));
+            tasksString.append(task);
             tasksString.append("\n");
         }
         return String.valueOf(tasksString);
