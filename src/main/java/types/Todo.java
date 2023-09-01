@@ -1,4 +1,6 @@
-public class Todo extends Task {
+package types;
+
+public class Todo extends types.Task {
     public Todo(String description) {
         super(description);
     }
