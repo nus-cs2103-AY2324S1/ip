@@ -1,3 +1,17 @@
+package duke.command;
+
+import duke.Ui;
+import duke.Storage;
+import duke.Parser;
+import duke.exception.EmptyDescriptionException;
+import duke.exception.InvalidIndexException;
+import duke.exception.NoSuchCommandException;
+import duke.exception.UnmatchedArgumentException;
+import duke.task.Event;
+import duke.task.Deadline;
+import duke.task.TaskList;
+import duke.task.Task;
+import duke.task.Todo;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -194,11 +208,11 @@ public class Command {
 
         for (Task t : tasks.getTasks()) {
             if (t instanceof Deadline &&
-                    ((Deadline) t).dueDate.isEqual(date)){
+                    ((Deadline) t).getDueDate().isEqual(date)){
                 dueDateList.add(t);
             } else if (t instanceof Event &&
-                    (((Event) t).start.isEqual(date) ||
-                            ((Event) t).end.isEqual(date))) {
+                    (((Event) t).getStart().isEqual(date) ||
+                            ((Event) t).getEnd().isEqual(date))) {
                 dueDateList.add(t);
             }
         }

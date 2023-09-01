@@ -1,3 +1,10 @@
+package duke;
+
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
+import duke.task.Event;
+import duke.task.Deadline;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

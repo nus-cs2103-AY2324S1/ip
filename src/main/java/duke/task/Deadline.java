@@ -1,14 +1,20 @@
+package duke.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
-    protected LocalDateTime dueDate;
+    private LocalDateTime dueDate;
 
     public Deadline(String description, boolean isDone, LocalDateTime dueDate) {
 
         super(description, isDone);
         this.dueDate = dueDate;
+    }
+
+    public LocalDateTime getDueDate() {
+        return this.dueDate;
     }
 
     @Override

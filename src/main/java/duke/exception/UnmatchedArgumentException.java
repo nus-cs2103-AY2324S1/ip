@@ -1,3 +1,7 @@
+package duke.exception;
+
+import duke.Ui;
+
 public class UnmatchedArgumentException extends Exception {
 
     private int got;
