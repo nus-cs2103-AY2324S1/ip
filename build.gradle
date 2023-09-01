@@ -1,3 +1,4 @@
+
 plugins {
     id 'java'
     id 'application'
@@ -32,7 +33,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    mainClassName = 'rocket.Rocket'
+    archiveBaseName = "rocket"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

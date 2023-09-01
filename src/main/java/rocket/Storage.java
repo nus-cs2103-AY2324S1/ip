@@ -17,7 +17,8 @@ public class Storage {
     public Storage (String filePath){
         this.filePath = filePath;
         Path path = Paths.get(filePath);
-        String directoryPath = path.getFileName().toString();
+        Path parent = path.getParent();
+        String directoryPath = parent.toString();
 
         // Make new folder if it doesn't exist
         File directory = new File(directoryPath);
