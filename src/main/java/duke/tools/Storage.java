@@ -25,6 +25,7 @@ public class Storage {
 
     /**
      * Method to return the taskList.
+     *
      * @return taskList the task list.
      */
     public ArrayList<Task> getTaskList() {
@@ -33,6 +34,7 @@ public class Storage {
 
     /**
      * Method to write tasks frm ArrayList data structure into .txt file.
+     *
      * @param taskList the data structure that contains task objects
      */
     public void write(ArrayList<Task> taskList) throws IOException {

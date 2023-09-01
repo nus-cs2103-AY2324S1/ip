@@ -18,7 +18,8 @@ public class TaskList {
     }
 
     /**
-     * Method to handle TODOs
+     * Method to handle TODOs.
+     *
      * @param descr the task description
      */
     public void handleTodo(String descr) {
@@ -35,7 +36,8 @@ public class TaskList {
     }
 
     /**
-     * Method to handle Events
+     * Method to handle Events.
+     *
      * @param descr the task description
      */
     public void handleEvent(String descr) {
@@ -52,7 +54,8 @@ public class TaskList {
     }
 
     /**
-     * Method to handle Deadlines
+     * Method to handle Deadlines.
+     *
      * @param descr the task description
      */
     public void handleDeadline(String descr) {
@@ -70,7 +73,9 @@ public class TaskList {
 
     /**
      * Method to mark task.
+     *
      * @param task the task being marked
+     * @throws DukeException if input is invalid.
      */
     public void mark(String task) throws DukeException {
         String[] parts = task.split(" ");
@@ -105,7 +110,9 @@ public class TaskList {
 
     /**
      * Method deletes task from taskList.
+     *
      * @param task The instructions containing index of task to be deleted.
+     * @throws DukeException if input is invalid.
      */
     public void delete(String task) throws DukeException {
         String[] segments = task.split(" ");
@@ -133,6 +140,8 @@ public class TaskList {
 
     /**
      * Method to print taskList.
+     *
+     * @throws DukeException if the list is empty
      */
     public void printList() throws DukeException {
         if (taskList.isEmpty()) {
@@ -148,7 +157,10 @@ public class TaskList {
 
     /**
      * Method to handle inputs.
+     *
      * Entry point linking terminal to system.
+     *
+     * @throws DukeException if input is invalid or double marking/ unmarking
      */
     public void handleInput() throws DukeException {
         Scanner sc = new Scanner(System.in);

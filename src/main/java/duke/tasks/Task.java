@@ -34,6 +34,12 @@ public abstract class Task {
     public String marking() {
         return (isDone ? "X" : " ");
     }
+
+    /**
+     * Method that converts task to string.
+     *
+     * @return formatted String version of the task
+     */
     public String toString() {
         String keyword = this.descr.split(" ")[0];
         String taskDescription = this.descr.substring(keyword.length()).trim();

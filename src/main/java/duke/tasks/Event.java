@@ -10,6 +10,11 @@ public class Event extends Task{
         this.descr = descr;
     }
 
+    /**
+     * Method that checks if the input is valid.
+     *
+     * @throws DukeException if input is invalid.
+     */
     public void checkValidity() throws DukeException {
         String[] descrArr = descr.split("/"); //you get 0: taskName, 1: start, 2: end
         if (descrArr.length < 3) {
@@ -17,6 +22,12 @@ public class Event extends Task{
         }
     }
 
+    /**
+     * Method to format input.
+     *
+     * @param descr the task description.
+     * @return reformatted String version of task.
+     */
     public String breakdown(String descr) {
         String[] descrArr = descr.split("/"); //you get 0: taskName, 1: start, 2: end
 
@@ -32,6 +43,12 @@ public class Event extends Task{
 
         return " (from: " + restOfFrom + " to: " + restOfTo + ")";
     }
+
+    /**
+     * Method that reformats events to be ready to be written into tasks.txt.
+     *
+     * @return the reformatted event.
+     */
 
     public String writtenFormat() {
         String[] descrArr = descr.split("/"); //you get 0: taskName, 1: start, 2: end
@@ -52,6 +69,11 @@ public class Event extends Task{
         return "E | " + super.status() + "| " + eventDescription + " | " + restOfFrom + " to " + restOfTo;
     }
 
+    /**
+     * Method that converts task to string.
+     *
+     * @return formatted String version of the task
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + breakdown(this.descr);

@@ -17,8 +17,9 @@ public class Deadline extends Task{
 
     /**
      * Method that checks that 1. task contains deadline, 2. deadline in specified format.
+     *
      * @return reformatted deadline
-     * @throws DukeException duke exception
+     * @throws DukeException when input is invalid.
      */
     public String checkValidity() throws DukeException {
         String[] descrArr = descr.split("/by "); //you get 0: taskName, 1: deadline
@@ -49,6 +50,11 @@ public class Deadline extends Task{
         return res;
     }
 
+    /**
+     * Method that reformats deadlines to be ready to be written into tasks.txt.
+     *
+     * @return the reformatted deadline.
+     */
     public String writtenFormat() {
         String res = "Invalid Deadline";
         try {
@@ -63,7 +69,11 @@ public class Deadline extends Task{
         return res;
     }
 
-
+    /**
+     * Method that converts task to string.
+     *
+     * @return formatted String version of the task
+     */
     @Override
     public String toString() {
         String res = "Invalid Deadline";
