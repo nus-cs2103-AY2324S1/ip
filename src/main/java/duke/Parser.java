@@ -10,6 +10,12 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
 
+    /**
+     *
+     * @param input
+     * @return
+     * @throws DukeException
+     */
     public static Command parseCommand(String input) throws DukeException {
         String[] inputArr = input.split(" ", 2);
         String command = inputArr[0];
@@ -121,10 +127,22 @@ public class Parser {
                 throw new DukeException("Please type in INTEGER after this command ^v^");
             }
             return new DeleteCommand(k - 1);
+
+        case "find":
+            if (inputArr.length == 1) {
+                throw new DukeException("☹ OOPS!!! The description of a find cannot be empty.");
+            }
+            if (inputArr.length > 2) {
+                throw new DukeException("You only allowed to type ONE keyword!");
+            }
+            return new FindCommand(inputArr[1]);
+
         case "exit":
             return new ExitCommand();
+
         case "":
             return new DoNothingCommand();
+
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
