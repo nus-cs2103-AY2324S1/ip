@@ -2,7 +2,7 @@ package Duke;
 
 import Duke.Exceptions.DukeException;
 import Duke.Storage.Storage;
-import Duke.Tasks.*;
+import Duke.Tasks.TaskList;
 import Duke.UI.Ui;
 
 import java.nio.file.Path;
@@ -26,7 +26,7 @@ public class Duke {
 
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static Path SAVE_FILE_LOCATION = Paths.get("data", "duke.txt");
-    private static Path SAVE_FILE_DIR = Paths.get( "data");
+    private static Path SAVE_FILE_DIR = Paths.get("data");
 
 
     private Storage storage;
@@ -52,7 +52,6 @@ public class Duke {
 
     /**
      * Begins the chatbot.
-     *
      */
     private void run() {
         ui.beginLogging();
