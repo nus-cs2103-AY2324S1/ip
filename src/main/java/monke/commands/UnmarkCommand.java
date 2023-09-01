@@ -39,6 +39,7 @@ public class UnmarkCommand extends Command {
         Task task = tasks.getTask(this.taskNumber);
         task.unmark();
         storage.saveData(tasks);
+
         ui.print("Ooga booga! I've marked this task as undone:");
         ui.print("\t" + task);
     }

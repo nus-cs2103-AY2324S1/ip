@@ -36,8 +36,8 @@ public class Monke {
     public void run() {
         ui.printHorizontalLine();
         ui.showWelcome();
-        boolean isExit = false;
 
+        boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();

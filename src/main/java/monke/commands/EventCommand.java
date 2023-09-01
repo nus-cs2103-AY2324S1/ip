@@ -49,6 +49,7 @@ public class EventCommand extends Command {
         Event event = new Event(this.description, this.start, this.end);
         tasks.add(event);
         storage.saveData(tasks);
+
         ui.showAddTask(event, tasks.size());
     }
 }

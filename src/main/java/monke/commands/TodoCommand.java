@@ -39,6 +39,7 @@ public class TodoCommand extends Command {
         Todo todo = new Todo(this.description);
         tasks.add(todo);
         storage.saveData(tasks);
+
         ui.showAddTask(todo, tasks.size());
     }
 }

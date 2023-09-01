@@ -46,6 +46,7 @@ public class DeadlineCommand extends Command {
         Deadline deadline = new Deadline(this.description, this.date);
         tasks.add(deadline);
         storage.saveData(tasks);
+
         ui.showAddTask(deadline, tasks.size());
     }
 }

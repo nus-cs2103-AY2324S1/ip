@@ -39,6 +39,7 @@ public class MarkCommand extends Command {
         Task task = tasks.getTask(this.taskNumber);
         task.mark();
         storage.saveData(tasks);
+
         ui.print("Ooga booga! I've marked this task as done:");
         ui.print("\t" + task);
     }
