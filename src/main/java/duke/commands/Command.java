@@ -20,6 +20,7 @@ public abstract class Command {
     }
 
     public static Command parse(String s) throws DukeException {
+    public static Command parse(String s) throws CommandException {
         String[] tokens = s.split(" ", 2);
 
         try {
