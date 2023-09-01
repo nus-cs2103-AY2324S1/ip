@@ -5,10 +5,10 @@ package DukePackage;
  */
 public class ChatUI {
 
-    String horizontalLine = "   ------------------------------------------------------------------------";
-    String intro = "    Hello! I'm iPbot \n" +
+    private final String HORIZONTAL_LINE = "   ------------------------------------------------------------------------";
+    private final String INTRO = "    Hello! I'm iPbot \n" +
             "    What can I do for you?";
-    String outro = "    Bye. Hope to see you again soon!";
+    private final String OUTRO = "    Bye. Hope to see you again soon!";
 
     /**
      * Constructs a new ChatUI object.
@@ -20,23 +20,23 @@ public class ChatUI {
     /**
      * Prints a horizontal line divider.
      */
-    public void divider() {
-        System.out.println(horizontalLine);
+    public void printDivider() {
+        System.out.println(HORIZONTAL_LINE);
     }
 
     /**
      * Prints the introduction message.
      */
-    public void intro() {
-        System.out.println(horizontalLine);
-        System.out.println(intro);
-        System.out.println(horizontalLine);
+    public void printIntro() {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println(INTRO);
+        System.out.println(HORIZONTAL_LINE);
     }
 
     /**
      * Prints the outro message.
      */
-    public void outro() {
-        System.out.println(outro);
+    public void printOutro() {
+        System.out.println(OUTRO);
     }
 }

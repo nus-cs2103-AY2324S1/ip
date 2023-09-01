@@ -3,7 +3,6 @@ import DukePackage.Parser;
 import DukePackage.Storage;
 import DukePackage.Task;
 import DukePackage.TaskType;
-
 import java.util.Objects;
 
 
@@ -28,29 +27,29 @@ public class Duke {
         ChatUI ui = new ChatUI();
 
         // read from txt file and create tasks and put into storage
-        storage.load();
-        ui.intro();
+        storage.loadListFromFile();
+        ui.printIntro();
 
         while (true) {
             String input = parser.getInput();
             String[] parts = input.split(" ");
-            ui.divider();
+            ui.printDivider();
 
             switch (parts[0]) {
                 case "bye":
-                    ui.outro();
-                    ui.divider();
+                    ui.printOutro();
+                    ui.printDivider();
                     // write the changes into the file duke.txt
-                    storage.write();
+                    storage.writeTasksToFile();
                     return;
                 case "list":
-                    storage.listPrinter();
+                    storage.printTaskList();
                     break;
                 case "mark":
                     int id = Integer.parseInt(parts[1]) - 1;
                     try {
-                        storage.changeMarking(id, true);
-                        storage.printMarking(id);
+                        storage.changeTaskMarking(id, true);
+                        storage.printTaskMarking(id);
                     } catch (Exception e) {
                         System.out.print(e.getMessage());
                     }
@@ -58,15 +57,15 @@ public class Duke {
                 case "unmark":
                     int id2 = Integer.parseInt(parts[1]) - 1;
                     try {
-                        storage.changeMarking(id2, false);
-                        storage.printMarking(id2);
+                        storage.changeTaskMarking(id2, false);
+                        storage.printTaskMarking(id2);
                     } catch (Exception e) {
                         System.out.print(e.getMessage());
                     }
                     break;
                 case "delete":
                     int id3 = Integer.parseInt(parts[1]) - 1;
-                    storage.delete(id3);
+                    storage.deleteTask(id3);
                     break;
                 case "todo":
                     int indexOfTodo = input.indexOf("todo");
@@ -79,7 +78,7 @@ public class Duke {
                     }
                     Task task = new Task(taskDesc, TaskType.TODO, "", "");
                     storage.addList(task);
-                    storage.printEntry(task);
+                    storage.printTaskEntry(task);
                     break;
                 case "deadline":
                     int indexOfDeadline = input.indexOf("deadline");
@@ -89,7 +88,7 @@ public class Duke {
                     deadlinePart = input.substring(indexOfBy + 3).trim();
                     task = new Task(taskDesc, TaskType.DEADLINE, deadlinePart, "");
                     storage.addList(task);
-                    storage.printEntry(task);
+                    storage.printTaskEntry(task);
                     break;
                 case "event":
                     int indexOfEvent = input.indexOf("event");
@@ -102,12 +101,12 @@ public class Duke {
                     toPart = input.substring(indexOfTo + 3).trim();
                     task = new Task(taskDesc, TaskType.EVENT, fromPart, toPart);
                     storage.addList(task);
-                    storage.printEntry(task);
+                    storage.printTaskEntry(task);
                     break;
                 default:
                     System.out.println(noCommandError);
             }
-            ui.divider();
+            ui.printDivider();
         }
     }
 }

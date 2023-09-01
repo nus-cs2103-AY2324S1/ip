@@ -50,7 +50,7 @@ public class Storage {
      *
      * @param id The index of the task to be deleted.
      */
-    public void delete(int id) {
+    public void deleteTask(int id) {
         System.out.println("     Noted. I've removed this task:");
         Task t = this.taskList.get(id);
         t.printMarking(false);
@@ -62,7 +62,7 @@ public class Storage {
     /**
      * Writes the task list to a file.
      */
-    public void write() {
+    public void writeTasksToFile() {
         try {
             FileWriter fileWriter = new FileWriter("data/duke.txt");
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -80,13 +80,13 @@ public class Storage {
                     case DEADLINE:
                         formattedString = String.format("%c|%d|%s|%s",
                                 'D', priority, tasking.description,
-                                tasking.start.toString().replace("T", " "));
+                                tasking.startTime.toString().replace("T", " "));
                         break;
                     case EVENT:
                         formattedString = String.format("%c|%d|%s|%s|%s",
                                 'E', priority, tasking.description,
-                                tasking.start.toString().replace("T", " "),
-                                tasking.end.toString().replace("T", " "));
+                                tasking.startTime.toString().replace("T", " "),
+                                tasking.endTime.toString().replace("T", " "));
                         break;
                 }
                 bufferedWriter.write(formattedString);
@@ -101,7 +101,7 @@ public class Storage {
     /**
      * Loads the task list from a file.
      */
-    public void load() {
+    public void loadListFromFile() {
         try (BufferedReader reader = new BufferedReader(new FileReader("data/duke.txt"))) {
             File file = new File("data/duke.txt");
             if (!file.exists()) {
@@ -131,7 +131,7 @@ public class Storage {
                     end = "";
                 }
                 Task obj = new Task(values[2], type, start, end); // Instantiate with appropriate arguments
-                obj.marking(!Objects.equals(values[1], "0"));
+                obj.setStatus(!Objects.equals(values[1], "0"));
                 // Store the object in your storage instance
                 addList(obj);
                 bufferedReader.close();
@@ -145,15 +145,15 @@ public class Storage {
     /**
      * Prints the task list.
      */
-    public void listPrinter() {
+    public void printTaskList() {
         for (int i = 0; i < this.taskList.size(); i++) {
             int index = i + 1;
             Task t = this.taskList.get(i);
             System.out.printf("     %d.[%s][%s] %s", index, t.getTypeIcon(), t.getStatusIcon(), t.description);
-            if (!Objects.isNull(t.start) && !Objects.isNull(t.end)) {
-                System.out.printf(" (from: %s to: %s)%n", t.start.toString().replace("T", " "), t.end.toString().replace("T", " "));
-            } else if (!Objects.isNull(t.start)) {
-                System.out.printf(" (by: %s)%n", t.start.toString().replace("T", " "));
+            if (!Objects.isNull(t.startTime) && !Objects.isNull(t.endTime)) {
+                System.out.printf(" (from: %s to: %s)%n", t.startTime.toString().replace("T", " "), t.endTime.toString().replace("T", " "));
+            } else if (!Objects.isNull(t.startTime)) {
+                System.out.printf(" (by: %s)%n", t.startTime.toString().replace("T", " "));
             } else {
                 System.out.print("\n");
             }
@@ -166,7 +166,7 @@ public class Storage {
      * @param i The index of the task.
      * @throws DukeException If the task index is invalid.
      */
-    public void printMarking(int i) throws DukeException {
+    public void printTaskMarking(int i) throws DukeException {
         try {
             Task t = this.taskList.get(i);
             t.printMarking(true);
@@ -183,10 +183,10 @@ public class Storage {
      * @param isDone The new marking status.
      * @throws DukeException If the task index is invalid.
      */
-    public void changeMarking(int i, boolean isDone) throws DukeException {
+    public void changeTaskMarking(int i, boolean isDone) throws DukeException {
         try {
             Task t = this.taskList.get(i);
-            t.marking(isDone);
+            t.setStatus(isDone);
         } catch (Exception e) {
             throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -197,8 +197,8 @@ public class Storage {
      *
      * @param t The task.
      */
-    public void printEntry(Task t) {
-        t.descriptionString();
+    public void printTaskEntry(Task t) {
+        t.printDescription();
         int size = this.taskList.size();
         System.out.printf("\n     Now you have %d tasks in the list.\n", size);
     }

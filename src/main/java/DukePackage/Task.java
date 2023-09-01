@@ -27,22 +27,22 @@ public class Task {
     /**
      * The start time of the task.
      */
-    protected LocalDateTime start;
+    protected LocalDateTime startTime;
 
     /**
      * The end time of the task.
      */
-    protected LocalDateTime end;
+    protected LocalDateTime endTime;
 
     /**
      * The string displayed when the task is marked as done.
      */
-    String markString = "    Nice! I've marked this task as done:";
+    protected final String MARKED_STRING = "    Nice! I've marked this task as done:";
 
     /**
      * The string displayed when the task is marked as not done yet.
      */
-    String unmarkString = "     OK, I've marked this task as not done yet:";
+    protected final String UNMARKED_STRING = "     OK, I've marked this task as not done yet:";
 
     /**
      * Constructs a Task object with the given description, type, start time, and end time.
@@ -58,10 +58,10 @@ public class Task {
         // set to-do as the default type
         this.type = type;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        this.start = Objects.equals(start, "")
+        this.startTime = Objects.equals(start, "")
                 ? null
                 : LocalDateTime.parse(start, formatter);
-        this.end = Objects.equals(end, "")
+        this.endTime = Objects.equals(end, "")
                 ? null
                 : LocalDateTime.parse(end, formatter);
     }
@@ -106,14 +106,14 @@ public class Task {
      *
      * @param checked The new status of the task.
      */
-    public void marking(Boolean checked) {
+    public void setStatus(Boolean checked) {
         this.isDone = checked;
     }
 
     /**
      * Prints the description of the task.
      */
-    public void descriptionString() {
+    public void printDescription() {
         String initStatement = "     Got it. I've added this task:";
         System.out.println(initStatement);
         this.printMarking(false);
@@ -127,16 +127,16 @@ public class Task {
     public void printMarking(boolean mark) {
         if (mark) {
             if (this.isDone) {
-                System.out.println(markString);
+                System.out.println(MARKED_STRING);
             } else {
-                System.out.println(unmarkString);
+                System.out.println(UNMARKED_STRING);
             }
         }
         System.out.printf("       [%s][%s] %s", this.getTypeIcon(), this.getStatusIcon(), this.description);
-        if (!Objects.isNull(this.start) && !Objects.isNull(this.end)) {
-            System.out.printf(" (from: %s to: %s)", this.start.toString().replace("T", " "), this.end.toString().replace("T", " "));
-        } else if (!Objects.isNull(this.start)) {
-            System.out.printf(" (by: %s)", this.start.toString().replace("T", " "));
+        if (!Objects.isNull(this.startTime) && !Objects.isNull(this.endTime)) {
+            System.out.printf(" (from: %s to: %s)", this.startTime.toString().replace("T", " "), this.endTime.toString().replace("T", " "));
+        } else if (!Objects.isNull(this.startTime)) {
+            System.out.printf(" (by: %s)", this.startTime.toString().replace("T", " "));
         } else {
             return;
         }

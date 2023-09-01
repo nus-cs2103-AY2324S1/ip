@@ -41,7 +41,7 @@ public class StorageTest {
         Task task2 = new Task("Task 2", TaskType.TODO, "", "");
         storage.addList(task1);
         storage.addList(task2);
-        storage.delete(0);
+        storage.deleteTask(0);
         assertEquals(1, storage.getTaskList().size());
         assertEquals("Task 2", storage.getTaskList().get(0).getDescription());
     }
