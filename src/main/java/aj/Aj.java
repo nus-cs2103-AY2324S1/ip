@@ -68,6 +68,9 @@ public class Aj {
                 this.storage.deleteData(idx);
                 System.out.println(removedTask);
                 this.ui.printNoTask();
+            } else if (command.equals("find")) {
+                this.ui.checkMessage(command, remaining);
+                this.ui.printKeywordTask(remaining.substring(1));
             } else { // if its none of the main commands, then its a task. do logic for parsing here or thr
 
 //            String remaining = scanner.nextLine();
