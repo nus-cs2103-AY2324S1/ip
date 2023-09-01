@@ -1,9 +1,7 @@
 package horo;
 
 import horo.components.DialogBox;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 public class Ui {
@@ -18,17 +16,13 @@ public class Ui {
   }
 
   public void userOutput(String output) {
-    Label userText = new Label(output);
-
     dialogContainer.getChildren().addAll(
-        DialogBox.getUserDialog(userText, new ImageView(user)));
+        DialogBox.getUserDialog(output, user));
   }
 
   public void horoOutput(String output) {
-    Label horoText = new Label(output);
-
     dialogContainer.getChildren().addAll(
-        DialogBox.getDukeDialog(horoText, new ImageView(user)));
+        DialogBox.getDukeDialog(output, user));
   }
 
   private String getWelcome() {
