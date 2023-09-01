@@ -1,4 +1,4 @@
-package main.java;
+package chadbod;
 
 public class TaskIndexOutOfBoundsException extends ChadBodException {
     public TaskIndexOutOfBoundsException() {

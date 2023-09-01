@@ -1,4 +1,4 @@
-package main.java;
+package chadbod;
 
 import java.io.File;
 import java.io.FileWriter;

@@ -1,4 +1,4 @@
-package main.java;
+package chadbod;
 
 public class Todo extends Task{
     public Todo(String description) {

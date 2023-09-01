@@ -1,4 +1,4 @@
-package main.java;
+package chadbod;
 
 enum Command {
     BYE("bye"),

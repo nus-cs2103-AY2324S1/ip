@@ -1,4 +1,4 @@
-package main.java;
+package chadbod;
 
 public class InvalidInputException extends ChadBodException {
     public InvalidInputException() {

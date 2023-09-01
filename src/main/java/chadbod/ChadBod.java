@@ -1,4 +1,4 @@
-package main.java;
+package chadbod;
 
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
