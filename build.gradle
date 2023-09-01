@@ -5,6 +5,8 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+mainClassName = 'chatbuddy.ChatBuddy'
+
 repositories {
     mavenCentral()
 }
@@ -33,7 +35,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveFileName = 'chatBuddy.jar'
+    archiveBaseName = "chatBuddy"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
