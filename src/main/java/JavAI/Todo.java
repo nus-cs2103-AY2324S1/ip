@@ -1,4 +1,4 @@
-package JavAI;
+package javai;
 /**
  * Represents a todo task with a description.
  */

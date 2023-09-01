@@ -1,4 +1,4 @@
-package JavAI;
+package javai;
 public class Parser {
 
     public void parse(String input, TaskList tasks, Ui ui) throws JavAIException {

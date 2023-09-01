@@ -1,4 +1,4 @@
-package JavAI;
+package javai;
 public class Ui {
 
     String line = "     ____________________________________________________________";
