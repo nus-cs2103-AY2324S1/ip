@@ -165,14 +165,14 @@ public class Duke {
     public void findAndListTasks(String keyword) {
         ArrayList<Task> matchedTasks = tasks.findTasks(keyword);
         if (matchedTasks.size() == 0) {
-            System.out.println(line + "No tasks found with the keyword: " + keyword + "\n" + line);
+            System.out.println(LINE + "No tasks found with the keyword: " + keyword + "\n" + LINE);
             return;
         }
-        System.out.println(line + "Here are the matching tasks in your list:");
+        System.out.println(LINE + "Here are the matching tasks in your list:");
         for (int i = 0; i < matchedTasks.size(); i++) {
             System.out.println((i + 1) + "." + matchedTasks.get(i));
         }
-        System.out.println(line);
+        System.out.println(LINE);
     }
   
     /**
