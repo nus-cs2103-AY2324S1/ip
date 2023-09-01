@@ -16,19 +16,26 @@ public class Ui {
         String promptText = prompt.nextLine();
         if (promptText.equals("bye")) {
             exit();
-        } else if (promptText.equals("list")) {
+        }
+        else if (promptText.equals("list")) {
             if (tasks.size() == 0) {
                 System.out.println("Your task list is empty!");
             }
             list(tasks);
-        } else if (promptText.startsWith("todo") || promptText.startsWith("deadline") ||
-                promptText.startsWith("event")) {
+        }
+        else if (promptText.startsWith("todo") || promptText.startsWith("deadline") || promptText.startsWith("event")) {
             parser.createTask(promptText);
-        } else if (promptText.startsWith("mark") || promptText.startsWith("unmark")) {
+        }
+        else if (promptText.startsWith("mark") || promptText.startsWith("unmark")){
             parser.markTask(promptText);
-        } else if (promptText.startsWith("delete")) {
+        }
+        else if (promptText.startsWith("delete")) {
             deleteTask(tasks,Integer.valueOf(promptText.substring(7)) - 1);
-        } else {
+        }
+        else if (promptText.startsWith("find")) {
+            parser.findTask(promptText);
+        }
+        else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         echo(tasks);
@@ -37,7 +44,8 @@ public class Ui {
     public static void deleteTask(TaskList tasks, int i) throws DukeException {
         try {
             tasks.delete(tasks.get(i));
-        } catch (IndexOutOfBoundsException e) {
+        }
+        catch (IndexOutOfBoundsException e) {
             throw new DukeException("OOPS!! This task doesn't exist!");
         }
     }
