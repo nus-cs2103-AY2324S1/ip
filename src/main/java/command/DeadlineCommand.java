@@ -17,6 +17,7 @@ public class DeadlineCommand extends Command {
         this.by = by;
     }
 
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Deadline deadline = new Deadline(this.description, this.by);
         tasks.addTask(deadline);

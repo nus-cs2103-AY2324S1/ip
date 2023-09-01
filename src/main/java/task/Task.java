@@ -33,6 +33,10 @@ public class Task {
         return " ";
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     public String getDetails() {
         return this.description;
     }

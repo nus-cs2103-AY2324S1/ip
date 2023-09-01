@@ -3,7 +3,7 @@ package task;
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -15,6 +15,10 @@ public class TaskList {
 
     public int getSize() {
         return this.tasks.size();
+    }
+
+    public boolean isEmpty() {
+        return this.getSize() == 0;
     }
 
     public Task getTask(int index) {
@@ -44,5 +48,17 @@ public class TaskList {
             System.out.printf("  %d. %s\n", index, task.toString());
             index++;
         }
+    }
+
+    public ArrayList<Task> filterTasks(String keyword) {
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+        String keywordLowercase = keyword.toLowerCase();
+        for (Task task : tasks) {
+            String description = task.getDescription().toLowerCase();
+            if (description.contains(keywordLowercase)) {
+                filteredTasks.add(task);
+            }
+        }
+        return filteredTasks;
     }
 }

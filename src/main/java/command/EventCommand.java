@@ -19,6 +19,7 @@ public class EventCommand extends Command {
         this.to = to;
     }
 
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Event event = new Event(this.description, this.from, this.to);
         tasks.addTask(event);
