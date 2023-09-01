@@ -63,7 +63,7 @@ public class TaskList {
                 + "     " + removed.printDesc() + "\n"
                 + "     Now you have " + numTask +" tasks in the list.");
     }
-    public static void listTask(String i) {
+    public static void listTask() {
         System.out.println("     Here are the tasks in your list:\n");
         for (int a = 0; a < numTask; a++) {
             System.out.println("     " + (a + 1) + ". " + taskArray.get(a).printDesc());
@@ -107,5 +107,18 @@ public class TaskList {
     }
     protected ArrayList<Task> getTaskArray() {
         return taskArray;
+    }
+    protected void findTask(String info) {
+        String keyword = (parser.commandSplit(info))[1];
+        ArrayList<Task> keywordTasks = new ArrayList<>();
+        for (int i = 0; i < numTask; i++) {
+            if (taskArray.get(i).getDesc().contains(keyword)) {
+                keywordTasks.add(taskArray.get(i));
+            }
+        }
+        System.out.println("     Here are the matching tasks in your list:\n");
+        for (int a = 0; a < keywordTasks.size(); a++) {
+            System.out.println("     " + (a + 1) + ". " + keywordTasks.get(a).printDesc());
+        }
     }
 }

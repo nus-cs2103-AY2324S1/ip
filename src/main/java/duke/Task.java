@@ -49,4 +49,7 @@ public class Task {
             return "notDone~" + this.description;
         }
     }
+    public String getDesc() {
+        return this.description;
+    }
 }

@@ -1,3 +1,5 @@
 T~notDone~work agn
-D~done~hw ~2023-12-02T23:59
-E~done~wedding~2023-09-09T09:00 - 2023-09-09T09:30
+D~notDone~hw ~2023-12-02T23:59
+E~notDone~wedding~2023-09-09T09:00 - 2023-09-09T09:30
+T~notDone~work
+E~notDone~work~2023-09-23T12:00 - 2023-10-10T10:10:10
