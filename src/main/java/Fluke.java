@@ -4,9 +4,9 @@ import java.util.Scanner;
 public class Fluke {
     private final static String SAVE_FILE_NAME = "fluke.txt";
     public enum Command {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT;
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT
     }
-    private Ui ui;
+    private final Ui ui;
     private TaskList tasks;
     private Storage storage;
 
@@ -68,7 +68,7 @@ public class Fluke {
         this.ui = new Ui();
         // initialise task list
         this.tasks = new TaskList();
-    };
+    }
 
     public void addTodo(String command) throws FlukeException {
         String parsedDescription = Parser.parseTodoCommand(command);

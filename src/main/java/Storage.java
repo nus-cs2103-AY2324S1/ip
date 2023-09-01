@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private String filePath;
-    private ArrayList<Task> tasksReadFromStorage;
+    private final String filePath;
+    private final ArrayList<Task> tasksReadFromStorage;
     public Storage(String filePath) {
         this.filePath = filePath;
         this.tasksReadFromStorage = new ArrayList<>();
