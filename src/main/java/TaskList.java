@@ -13,13 +13,10 @@ public class TaskList {
      *
      * @param task The user's task
      */
-    public void addToList(Task task, boolean isQuiet) {
+    public void addToList(Task task) {
         list.add(task);
 
-        if (!isQuiet) {
-            System.out.println("\uD83D\uDE0A I've added a new task: " + task.toString());
-            System.out.println("Now you have " + getSize() + " tasks!");
-        } ;
+
     }
 
     /**
@@ -27,13 +24,12 @@ public class TaskList {
      * Indexes start from 1, not zero
      *
      * @param index the index of the task to remove.
+     * @return the task that was removed
      */
-    public void removeFromList(int index) {
+    public Task removeFromList(int index) {
         Task task = list.get(index - 1);
         list.remove(index - 1);
-        System.out.println("\uD83D\uDE0A I've removed this task: " + task.toString());
-
-//        list.removeIf(item -> item.getItemName().equals(name));
+        return task;
     }
 
     /**
@@ -41,9 +37,12 @@ public class TaskList {
      * Indexes start from 1, not 0
      *
      * @param index
+     * @return the task that was modified
      */
-    public void markAsDone(int index) {
-        list.get(index - 1).setDone();
+    public Task markAsDone(int index) {
+        Task task = list.get(index - 1);
+        task.setDone();
+        return task;
     }
 
     /**
@@ -51,9 +50,12 @@ public class TaskList {
      * Indexes start from 1, not 0
      *
      * @param index
+     * @return the task that was modified
      */
-    public void markAsUnDone(int index) {
-        list.get(index - 1).setUnDone();
+    public Task markAsUnDone(int index) {
+        Task task = list.get(index - 1);
+        task.setUnDone();
+        return task;
     }
 
     public int getSize() {

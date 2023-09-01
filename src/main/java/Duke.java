@@ -1,7 +1,4 @@
-import Tasks.DeadlineTask;
-import Tasks.EventTask;
-import Tasks.Task;
-import Tasks.TodoTask;
+import Tasks.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -52,7 +49,7 @@ public class Duke {
 
                         Task task = parseTask(inputLine);
 
-                        listContainer.addToList(task, true);
+                        listContainer.addToList(task);
 
 
 
@@ -88,27 +85,34 @@ public class Duke {
 
                 System.out.println(SEPARATOR_LINE);
                 switch (inputCommand) {
-                    case BYE:
+                    case BYE: {
+                        printResult(inputCommand, null);
                         break loop;
+                    }
                     case LIST: {
-                        System.out.println(listContainer.toString());
+                        printResult(inputCommand, null);
                         break;
                     }
                     case MARK: {
-                        String userInputIndex = inputString.split(" ")[1];
                         // check if is number
                         int index = Integer.parseInt(inputString.split(" ")[1]);
-                        listContainer.markAsDone(index);
+                        Task markedTask = listContainer.markAsDone(index);
+
+                        printResult(inputCommand, markedTask);
                         break;
                     }
                     case UNMARK: {
                         int index = Integer.parseInt(inputString.split(" ")[1]);
-                        listContainer.markAsUnDone(index);
+                        Task unmarkedTask = listContainer.markAsUnDone(index);
+
+                        printResult(inputCommand, unmarkedTask);
                         break;
                     }
                     case DELETE: {
                         int index = Integer.parseInt(inputString.split(" ")[1]);
-                        listContainer.removeFromList(index);
+                        Task removedTask = listContainer.removeFromList(index);
+
+                        printResult(inputCommand, removedTask);
                         break;
                     }
                     case TODO: {
@@ -123,7 +127,9 @@ public class Duke {
 
                         TodoTask todoTask = new TodoTask(itemName);
 
-                        listContainer.addToList(todoTask, false);
+                        listContainer.addToList(todoTask);
+
+                        printResult(inputCommand, todoTask);
                         break;
                     }
                     case DEADLINE: {
@@ -148,7 +154,9 @@ public class Duke {
                         }
                         DeadlineTask deadlineTask = new DeadlineTask(itemName, deadline);
 
-                        listContainer.addToList(deadlineTask, false);
+                        listContainer.addToList(deadlineTask);
+
+                        printResult(inputCommand, deadlineTask);
                         break;
                     }
                     case EVENT: {
@@ -186,7 +194,9 @@ public class Duke {
 
                         EventTask eventTask = new EventTask(itemName, from, to);
 
-                        listContainer.addToList(eventTask, false);
+                        listContainer.addToList(eventTask);
+
+                        printResult(inputCommand, eventTask);
                         break;
                     }
 
@@ -206,9 +216,7 @@ public class Duke {
             System.out.println("some other exception " + e.getMessage());
         }
 
-        String exitMsg = "Bye! Hope to see you again soon.";
-        System.out.println(exitMsg);
-        System.out.println(SEPARATOR_LINE);
+
 
 
     }
@@ -251,4 +259,43 @@ public class Duke {
         }
         return task;
     }
+
+    /**
+     * Prints feedback to the user on what and how a Task got modified,
+     * based on the user's command.
+     *
+     * @param command
+     */
+    private static void printResult(Commands command, Task task) {
+        switch (command) {
+            case TODO:
+            case DEADLINE:
+            case EVENT: {
+                System.out.println("\uD83D\uDE0A I've added a new task: " + task.toString());
+                System.out.println("Now you have " + listContainer.getSize() + " tasks!");
+                break;
+            }
+            case MARK: {
+                System.out.println("Nice! I've marked this task as done: \n    " + task.toString());
+                break;
+            }
+            case UNMARK: {
+                System.out.println("Nice! I've marked this task as undone: \n    " + task.toString());
+                break;
+            }
+            case DELETE: {
+                System.out.println("\uD83D\uDE0A I've removed this task: " + task.toString());
+                break;
+            }
+            case LIST: {
+                System.out.println(listContainer);
+            }
+            case BYE: {
+                String exitMsg = "Bye! Hope to see you again soon.";
+                System.out.println(exitMsg);
+                System.out.println(SEPARATOR_LINE);
+            }
+        }
+    }
+
 }

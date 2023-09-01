@@ -32,17 +32,19 @@ public class Task {
     /**
      * Marks the item as done.
      */
-    public void setDone() {
+    public boolean setDone() {
         this.isDone = true;
-        System.out.println("Nice! I've marked this task as done: \n    " + this.toString());
+        return true;
+//        System.out.println("Nice! I've marked this task as done: \n    " + this.toString());
     }
 
     /**
      * Marks the item as not done.
      */
-    public void setUnDone() {
+    public boolean setUnDone() {
         this.isDone = false;
-        System.out.println("Nice! I've marked this task as undone: \n    " + this.toString());
+        return false;
+//        System.out.println("Nice! I've marked this task as undone: \n    " + this.toString());
     }
 
 
@@ -62,6 +64,15 @@ public class Task {
      */
     public String getName() {
         return this.itemName;
+    }
+
+
+    public void printActionSuccess(Commands command) {
+        switch(command) {
+            case TODO: {
+
+            }
+        }
     }
 
 
