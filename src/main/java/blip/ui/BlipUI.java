@@ -143,4 +143,9 @@ public class BlipUI {
         System.out.println(task.toString());
     }
 
+
+    public void showNoMatchingTasksMsg() {
+        System.out.println("There are no matching tasks in the list!");
+    }
+
 }
