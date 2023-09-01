@@ -30,6 +30,10 @@ test {
     }
 }
 
+checkstyle {
+    toolVersion = '10.2'
+}
+
 application {
     mainClass.set("duke.Duke")
 }
