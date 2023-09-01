@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import duke.ui.Ui;
+
 import java.time.LocalDateTime;
 
 public class EventTask extends Task {
@@ -14,16 +16,16 @@ public class EventTask extends Task {
 
     @Override
     public String getDescription() {
-        return "[E]" + super.getDescription() + " (from: " + from.format(super.getDateOutputFormat()) + " to: " + to.format(super.getDateOutputFormat()) + ")";
+        return "[E]" + super.getDescription() + " (from: " + from.format(Ui.DATE_OUTPUT_FORMAT) + " to: " + to.format(Ui.DATE_OUTPUT_FORMAT) + ")";
     }
 
     @Override
     public String toFileString() {
-        return "E | " + super.toFileString() + " | " + from.format(super.getDateOutputFormat()) + " | " + to.format(super.getDateOutputFormat());
+        return "E | " + super.toFileString() + " | " + from.format(Ui.DATE_OUTPUT_FORMAT) + " | " + to.format(Ui.DATE_OUTPUT_FORMAT);
     }
 
     @Override
     public String toString() {
-        return super.toString() + " | " + from.format(super.getDateOutputFormat()) + " | " + to.format(super.getDateOutputFormat());
+        return super.toString() + " | " + from.format(Ui.DATE_OUTPUT_FORMAT) + " | " + to.format(Ui.DATE_OUTPUT_FORMAT);
     }
 }

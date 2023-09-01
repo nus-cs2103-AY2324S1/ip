@@ -6,6 +6,7 @@ import duke.tasks.EventTask;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.tasks.ToDoTask;
+import duke.ui.Ui;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Storage {
+
     private String filePath;
 
     public Storage(String filePath) throws DukeException {
@@ -79,11 +81,11 @@ public class Storage {
             if (taskType.equals("T")) {
                 task = new ToDoTask(taskDescription);
             } else if (taskType.equals("D")) {
-                LocalDateTime deadline = LocalDateTime.parse(parts[3], Task.getDateOutputFormat());
+                LocalDateTime deadline = LocalDateTime.parse(parts[3], Ui.DATE_OUTPUT_FORMAT);
                 task = new DeadlineTask(taskDescription, deadline);
             } else if (taskType.equals("E")) {
-                LocalDateTime from = LocalDateTime.parse(parts[3], Task.getDateOutputFormat());
-                LocalDateTime to = LocalDateTime.parse(parts[4], Task.getDateOutputFormat());
+                LocalDateTime from = LocalDateTime.parse(parts[3], Ui.DATE_OUTPUT_FORMAT);
+                LocalDateTime to = LocalDateTime.parse(parts[4], Ui.DATE_OUTPUT_FORMAT);
                 task = new EventTask(taskDescription, from, to);
             } else {
                 throw new IOException("Invalid task type found in file. Data file may be corrupted.");
