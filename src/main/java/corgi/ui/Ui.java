@@ -156,6 +156,26 @@ public class Ui {
     }
 
     /**
+     * Display a message indicating no tasks containing target keyword.
+     * 
+     * @param keyword The target keyword.
+     */
+    public void showNoTaskContainsKeyword(String keyword) {
+        this.println("No tasks containing keyword \"" + keyword + "\".");
+    }
+
+    /**
+     * Display tasks that contained the target keyword.
+     * 
+     * @param keyword The target keyword.
+     * @param tasksContainKeyword The tasks containing the target keyword.
+     */
+    public void showTasksContainKeyword(String keyword, String tasksContainKeyword) {
+        this.println("Here are the tasks containing keyword \"" + keyword + "\":\n");
+        this.println(tasksContainKeyword);
+    }
+
+    /**
      * Display a message indicating a task has been marked as done.
      *
      * @param taskInfo Information about the added task.
