@@ -6,16 +6,18 @@ import java.util.ArrayList;
 
 public class Duke {
 
-    private ArrayList<Task> userList;
+    private TaskList userList;
     private FileStorage fileStorage;
+    private Ui userInterface;
     public Duke(String filePath) {
+        this.userInterface = new Ui();
         this.fileStorage = new FileStorage(filePath);
         try {
             //System.out.println("here");
-            this.userList = fileStorage.read();
+            userList = new TaskList(fileStorage.read());
         } catch (DukeException e) {
             //System.out.println("new userlist");
-            this.userList = new ArrayList<>();
+            this.userList = new TaskList();
             System.out.println("File Empty");
         }
     }
@@ -27,8 +29,26 @@ public class Duke {
    }
 
    public void run() {
+        userInterface.showGreetings();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = userInterface.readCommand();
+                userInterface.showLine();
+                Command c = Parser.parse(fullCommand);
+                c.excute(userList, userInterface, fileStorage);
+                isExit = c.isExit;
+            } catch (DukeException e) {
+                userInterface.showError(e.getMessage());
+            } finally {
+                userInterface.showLine();
+            }
+        }
+       userInterface.closeScanner();
+   }
        //System.out.print(fileStorage.getFile().exists());
        //System.out.print(userList.size());
+       /*
        final String UNKNOWN_COMMAND = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
        final String NAME = "CathyTheChattyCat";
        String lineBreak = "\n_________________________________________\n";
@@ -85,17 +105,15 @@ public class Duke {
            //deleting task
            if (message.startsWith("delete")) {
                int taskIndex = Integer.parseInt(message.substring(7)) - 1;
-               if (taskIndex >= 0 && taskIndex < userList.size()) {
-                   Task removing = userList.get(taskIndex);
-                   System.out.println(lineBreak + "Noted. I've removed this task:");
-                   System.out.println("  " + removing);
-                   userList.remove(removing);
+               try {
+                   task = userList.deleteTask(taskIndex);
+                   System.out.println(lineBreak + "Noted. I've removed this task: \n" + task);
                    System.out.println("Now you have " + userList.size() + " tasks in the list" + lineBreak);
-               } else {
-                   System.out.println(lineBreak + "Invalid Task Number" + lineBreak);
+                   task.notTask();
+                   task.isValid();
+               } catch (DukeException e) {
+                   System.out.println(lineBreak + e.getMessage() + lineBreak);
                }
-               task.notTask();
-               task.isValid();
            }
            // it is a task then
            try {
@@ -109,7 +127,7 @@ public class Duke {
                    task.isValid();
                }
                if (message.startsWith("deadline")) {
-                   String info = message.substring(9);
+                   String info = message.substring(10);
                    String[] split = info.split("/by ");
                    if (split.length != 2) {
                        task.hasError();
@@ -124,7 +142,7 @@ public class Duke {
                    }
                }
                if (message.startsWith("event")) {
-                   String info = message.substring(6);
+                   String info = message.substring(7);
                    String[] split = info.split("/from | /to ");
                    if (split.length != 3) {
                        task.hasError();
@@ -161,6 +179,6 @@ public class Duke {
            System.out.println("Duke Writing Error");;
        }
        userInput.close();
-   }
+        */
 }
 

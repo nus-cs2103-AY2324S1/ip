@@ -16,7 +16,7 @@ public class FileStorage {
         return fileData;
     }
 
-    public void write(ArrayList<Task> userList) throws DukeException {
+    public void write(TaskList userList) throws DukeException {
         try {
             FileWriter fw = new FileWriter(this.fileData);
             for (int i = 0; i < userList.size(); i++) {
