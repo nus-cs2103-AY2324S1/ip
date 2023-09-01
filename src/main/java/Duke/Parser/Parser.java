@@ -15,9 +15,11 @@ import java.util.regex.Pattern;
 
 import static Duke.UI.Ui.printResult;
 
+/**
+ * Controls the parsing of commands and arguments entered by the user.
+ */
 public class Parser {
     private static String UNKNOWN_COMMAND = "\uD83D\uDE21 This command is not something I can handle!";
-
 
     private static String NAME_EMPTY = "\uD83D\uDE21 Your item name cannot be empty!";
     private static String DEADLINE_EMPTY = "\uD83D\uDE21 Missing deadline!";

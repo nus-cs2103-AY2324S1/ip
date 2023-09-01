@@ -6,11 +6,18 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * Stores the list of items that the user has.
+ * Stores the list of tasks that the user has.
+ * Provides additional methods for operating on the tasks.
  */
 public class TaskList {
     private ArrayList<Optional<Task>> list = new ArrayList<>();
 
+
+    /**
+     * The constructor for a basic TaskList.
+     *
+     * @param tasks The default tasks (if any) this should be initialised to
+     */
     public TaskList(ArrayList<Optional<Task>> tasks) {
         this.list = tasks;
     }
