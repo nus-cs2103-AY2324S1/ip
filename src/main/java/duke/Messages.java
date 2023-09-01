@@ -19,7 +19,8 @@ public class Messages {
             + "  delete <index>\n"
             + "  todo <description>\n"
             + "  deadline <description> /by <date>\n"
-            + "  event <description> /from <start> /to <end>\n";
+            + "  event <description> /from <start> /to <end>\n"
+            + "  find <query>\n";
     public static final String INVALID_MARK_MESSAGE = "Great heavens! The index of mark cannot be empty!\n"
             + "Usage: mark <index>\n";
     public static final String INVALID_UNMARK_MESSAGE = "Great heavens! The index of unmark cannot be empty!\n"
@@ -32,6 +33,10 @@ public class Messages {
             + "Usage: event <description> /from <start> /to <end>\n";
     public static final String INVALID_DELETE_MESSAGE = "Great heavens! The index of delete cannot be empty!\n"
             + "Usage: delete <index>\n";
+    public static final String INVALID_FIND_MESSAGE = "Great heavens! Invalid usage of find!\n"
+            + "Usage: find <query>\n";
+    public static final String NO_TASKS_FOUND_MESSAGE = "Great heavens! There are no tasks matching your query!\n";
+    public static final String TASKS_FOUND_MESSAGE = "Very nice! Here are the tasks matching your query:\n";
     public static final String CORRUPT_FILE_MESSAGE = "Great heavens! The data file is corrupted!\n"
             + "Starting with new task list...\n";
 }
