@@ -74,7 +74,28 @@ public class TaskList {
      * @param t The task to be saved.
      */
     public void saveTask(Task t) {
-        Taskmanager.storage.write(t.getSavingFormat());
+        TaskMaster.storage.write(t.getSavingFormat());
+    }
+
+    /**
+     * Finds a task from the ArrayList based on a key.
+     * @param key The keyword to search for within the ArrayList.
+     */
+    public void findTask(String key) {
+        ArrayList<String> lines = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.toString().contains(key)) {
+                lines.add(task.toString());
+            }
+        }
+        if (lines.isEmpty()) {
+            System.out.println("There is no matching task in your list!");
+        } else {
+            System.out.println("This are the matching tasks in your list:");
+            for (int i = 1; i <= lines.size(); ++i) {
+                System.out.println(i + "." + lines.get(i-1));
+            }
+        }
     }
 
     /**
@@ -82,10 +103,16 @@ public class TaskList {
      * @param key The keyword to search for within the storage.
      */
     public void readTask(String key) {
-        if (Taskmanager.storage == null) {
+        if (TaskMaster.storage == null) {
             System.out.println("There is no previously saved task!");
         } else {
-            System.out.println(Taskmanager.storage.read(key));
+            ArrayList<String> lines = TaskMaster.storage.read(key);
+            if (!lines.isEmpty()) {
+                System.out.println("This are the matching tasks in your list:");
+                for (int i = 1; i <= lines.size(); ++i) {
+                    System.out.println(i + "." + lines.get(i-1));
+                }
+            }
         }
     }
 }

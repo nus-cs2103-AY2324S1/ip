@@ -17,17 +17,33 @@ public abstract class Parser {
             throws IllegalArgumentException {
         switch (keyword) {
         case "list":
-            Taskmanager.list();
+            TaskMaster.list();
             break;
         case "delete":
-            Taskmanager.removeTask(Integer.parseInt(split[1]));
+            TaskMaster.removeTask(Integer.parseInt(split[1]));
             break;
         case "mark":
-            Taskmanager.mark(Integer.parseInt(split[1]));
+            TaskMaster.mark(Integer.parseInt(split[1]));
             break;
         case "unmark":
-            Taskmanager.unmark(Integer.parseInt(split[1]));
+            TaskMaster.unmark(Integer.parseInt(split[1]));
             break;
+        case "find":
+            try {
+                String key = "";
+                for (int i = 1; i < split.length; ++i) {
+                    key = key + split[i] + " ";
+                }
+                if (key.isEmpty()) {
+                    throw new IllegalArgumentException(
+                            "☹ OOPS!!! You must enter a keyword to search for tasks.");
+                }
+                key = key.substring(0, key.length() - 1);
+                TaskMaster.findTask(key);
+                break;
+            } catch (IllegalArgumentException e){
+                System.out.println(e.getMessage() + "\nTry again: ");
+            }
         default:
             try {
                 switch (keyword) {
@@ -40,7 +56,8 @@ public abstract class Parser {
                         throw new IllegalArgumentException(
                                 "☹ OOPS!!! The description of a todo cannot be empty.");
                     }
-                    Taskmanager.addTask(new Todos(description));
+                    description = description.substring(0, description.length() - 1);
+                    TaskMaster.addTask(new Todos(description));
                     break;
                 }
                 case "deadline": {
@@ -61,6 +78,7 @@ public abstract class Parser {
                         throw new IllegalArgumentException(
                                 "☹ OOPS!!! The description of a deadline cannot be empty.");
                     }
+                    description = description.substring(0, description.length() - 1);
                     String time = "";
                     while (i < split.length) {
                         time = time + split[i] + " ";
@@ -70,7 +88,8 @@ public abstract class Parser {
                         throw new IllegalArgumentException(
                                 "☹ OOPS!!! The time/date of a deadline cannot be empty.");
                     }
-                    Taskmanager.addTask(new Deadlines(description, time));
+                    time = time.substring(0, time.length() - 1);
+                    TaskMaster.addTask(new Deadlines(description, time));
                     break;
                 }
                 case "event": {
@@ -91,6 +110,7 @@ public abstract class Parser {
                         throw new IllegalArgumentException(
                                 "☹ OOPS!!! The description of an event cannot be empty.");
                     }
+                    description = description.substring(0, description.length() - 1);
                     String start = "";
                     if (i == split.length) {
                         throw new IllegalArgumentException(
@@ -107,6 +127,7 @@ public abstract class Parser {
                         throw new IllegalArgumentException(
                                 "☹ OOPS!!! The starting time of an event cannot be empty.");
                     }
+                    start = start.substring(0, start.length() - 1);
                     String end = "";
                     while (i < split.length) {
                         end = end + split[i] + " ";
@@ -116,7 +137,8 @@ public abstract class Parser {
                         throw new IllegalArgumentException(
                                 "☹ OOPS!!! The ending time of an event cannot be empty.");
                     }
-                    Taskmanager.addTask(new Events(description, start, end));
+                    end = end.substring(0, end.length() - 1);
+                    TaskMaster.addTask(new Events(description, start, end));
                     break;
                 }
                 default:

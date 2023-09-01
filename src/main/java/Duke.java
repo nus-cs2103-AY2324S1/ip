@@ -1,4 +1,4 @@
-import duke.Taskmanager;
+import duke.TaskMaster;
 import duke.Ui;
 
 public class Duke {
@@ -11,7 +11,7 @@ public class Duke {
     public void run(String filePath) {
         this.ui.sayhi();
 
-        Taskmanager.manageTasks(filePath);
+        TaskMaster.masterTasks(filePath);
 
         this.ui.saybye();
     }

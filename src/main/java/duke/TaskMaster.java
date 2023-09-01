@@ -2,11 +2,11 @@ package duke;
 
 import java.util.Scanner;
 
-public abstract class Taskmanager {
+public abstract class TaskMaster {
     protected static TaskList tasks = new TaskList();
     protected static Storage storage;
 
-    public static void manageTasks(String filePath) {
+    public static void masterTasks(String filePath) {
         storage = new Storage(filePath);
         Scanner sn = new Scanner(System.in);
 
@@ -43,5 +43,9 @@ public abstract class Taskmanager {
 
     public static void readTask(String key) {
         tasks.readTask(key);
+    }
+
+    public static void findTask(String key) {
+        tasks.findTask(key);
     }
 }
