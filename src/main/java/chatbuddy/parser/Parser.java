@@ -61,7 +61,7 @@ public class Parser {
         }
     }
 
-    public static TodoCommand prepareAddTodo(String args) throws ChatBuddyException {
+    private static TodoCommand prepareAddTodo(String args) throws ChatBuddyException {
         if (args.trim().equals("")) {
             throw new ChatBuddyException("The description of a todo cannot be empty.");
         }
