@@ -1,11 +1,36 @@
 import java.util.ArrayList;
+import java.io.IOException;
+
 
 /**
  * DukeList stores tasks given by users when communicating with the main Duke chatbot.
  */
 public class DukeList {
-    /**The ArrayList used to store all tasks accordingly, up to a total of 100 tasks*/
-    private ArrayList<Task> tasks = new ArrayList<>();
+    //The ArrayList used to store all tasks accordingly.
+    private ArrayList<Task> tasks;
+    //The path directory to test.s
+    private String path ;
+
+    //The DataSaver class used to transmit and store information during the use of the Duke class
+    private DataSaver middleman;
+
+    /**
+     * Instantiates a new DukeList.
+     * @param path path directory for the test.s file.
+     */
+    public DukeList(String path)  {
+        this.path = path;
+        this.middleman = new DataSaver(path);
+        tasks = middleman.load();
+    }
+
+    /**
+     * Saves the data stored in the DukeList into the data.s file.
+     */
+    public void save() {
+        middleman.store(this.tasks);
+    }
+
 
 
     /**

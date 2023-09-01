@@ -1,12 +1,11 @@
-public class Event extends Task{
-    /**
-     * Start timing for the event task.
-     */
+/**
+ * Event is a type of Task that has both a start and end date, in addition to their name and status.
+ */
+public class Event extends Task {
+    //Start timing for the event task.
     protected String start;
 
-    /**
-     * End timing for the event task.
-     */
+    //End timing for the event task.
     protected String end;
 
     /**

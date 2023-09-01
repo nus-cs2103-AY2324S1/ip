@@ -1,3 +1,6 @@
+/**
+ * ToDo tasks have no deadline.
+ */
 public class ToDo extends Task{
 
     /**
