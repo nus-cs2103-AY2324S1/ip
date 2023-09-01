@@ -2,6 +2,7 @@ package duke;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * Parser class parses user input and executes corresponding commands.
@@ -87,9 +88,12 @@ public class Parser {
             } else {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-        }
+        } else if (input.startsWith("find")) {
+                find(input, taskList);
+                return false;
+            }
         return true;
-    }
+        }
 
     /**
      * Parse date and time and convert into LocalDateTime for storing.
@@ -101,4 +105,22 @@ public class Parser {
         // HHmm for the hour and minutes
         return LocalDateTime.parse(dateTimeStr, DMYhelper);
     }
+    public static void find(String input, TaskList taskList) {
+        String keyword = input.substring(5).trim();
+        ArrayList<String> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < taskList.counter; i++) {
+            if (taskList.actions[i].contains(keyword)) {
+                matchingTasks.add(taskList.helper(taskList.actions[i], taskList.type[i], taskList.isDone[i]));
+            }
+        }
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + "." + matchingTasks.get(i));
+            }
+        }
+    }
+
 }
