@@ -1,5 +1,6 @@
 package duke.exceptions;
 
+/** Encapsulates exceptions due to missing task titles. */
 public class MissingTitleException extends DukeException {
 
     /**

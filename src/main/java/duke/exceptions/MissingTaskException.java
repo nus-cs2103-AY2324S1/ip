@@ -1,5 +1,6 @@
 package duke.exceptions;
 
+/** Encapsulates exceptions due to missing task in the task list. */
 public class MissingTaskException extends DukeException {
     /**
      * Constructor for Exceptions.MissingTaskException.

@@ -1,19 +1,19 @@
 package duke.utils;
 
-import duke.exceptions.DukeException;
-
 import java.util.List;
+
+import duke.exceptions.DukeException;
 
 /**
  * User interface for the chatbot.
  */
 public class Ui {
 
-    private String greeting = "Hello! I'm Toothless.\n" +
-            "What can I do for you today?\n" +
-            "---------------------------------";
-    private String farewell = "Goodbye. Hope to see you soon!\n" +
-            "---------------------------------";
+    private String greeting = "Hello! I'm Toothless.\n"
+            + "What can I do for you today?\n"
+            + "---------------------------------";
+    private String farewell = "Goodbye. Hope to see you soon!\n"
+            + "---------------------------------";
     private String addTask = "A new task has been added!\n ";
 
     /**

@@ -1,9 +1,10 @@
 package duke.tasks;
 
-import duke.utils.DukeDateFormat;
-
 import java.time.LocalDate;
 
+import duke.utils.DukeDateFormat;
+
+/** Encapsulates a task with a from and to date. */
 public class Event extends Task {
 
     /** Date where the event start. */

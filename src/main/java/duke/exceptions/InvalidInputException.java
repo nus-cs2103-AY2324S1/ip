@@ -1,5 +1,6 @@
 package duke.exceptions;
 
+/** Encapsulates exceptions due to invalid input. */
 public class InvalidInputException extends DukeException {
 
     /**

@@ -1,5 +1,6 @@
 package duke.exceptions;
 
+/** Encapsulates exceptions due to missing dates. */
 public class MissingDateException extends DukeException {
 
     /**

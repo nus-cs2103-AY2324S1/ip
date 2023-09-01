@@ -1,5 +1,8 @@
 package duke.utils;
 
+/**
+ * Types of commands that Duke can recognise.
+ */
 public enum Commands {
     TODO,
     DEADLINE,

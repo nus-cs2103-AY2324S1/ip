@@ -1,5 +1,6 @@
 package duke.tasks;
 
+/** Encapsulates a task with a task name and Boolean isDone. */
 public class Task {
 
     /** Completion status of the task. */
@@ -49,6 +50,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return (isDone ? "/C " : "/UC ") + "/TASK" + taskName ;
+        return (isDone ? "/C " : "/UC ") + "/TASK" + taskName;
     }
 }
