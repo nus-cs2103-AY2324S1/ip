@@ -3,8 +3,6 @@ package duke.exception;
  * The Exception for invalid todo command
  */
 public class InvalidToDoException extends Exception {
-    // Constructor
-
     /**
      * The constructor of InvalidToDoException
      */

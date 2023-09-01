@@ -3,8 +3,6 @@ package duke.exception;
  * The Exception for invalid event command
  */
 public class InvalidEventException extends Exception{
-    // Constructor
-
     /**
      * The constructor of InvalidEventException
      */

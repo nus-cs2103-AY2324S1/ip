@@ -7,7 +7,7 @@ public class UiSample extends Ui {
     public int printExceptionCount = 0;
 
     /**
-     * Prints the list of tasks
+     * Prints the list of tasks (Mock)
      *  
      * @param tasks the list of tasks
      */
@@ -17,7 +17,7 @@ public class UiSample extends Ui {
     }
 
     /**
-     * Prints the exception
+     * Prints the exception (Mock)
      * 
      * @param e the exception
      */

@@ -21,11 +21,6 @@ import duke.task.ToDo;
 public class Storage {
     private final String filePath;
 
-
-    // Constructor
-    /**
-     * Constructor for Storage class
-     */
     public Storage(String directoryName, String fileName) {
         this.filePath = directoryName + "/" + fileName;
         
@@ -34,14 +29,14 @@ public class Storage {
             File directory = new File(directoryName);
 
             // Make the directory if not exist
-            if(!directory.exists()) {
+            if (!directory.exists()) {
                 directory.mkdir();
             }
 
             File file = new File(this.filePath);
 
             // Make the file if not exist
-            if(file.exists()) {
+            if (file.exists()) {
                 loadTasks();
             } else {
                 file.createNewFile();
@@ -51,13 +46,11 @@ public class Storage {
         }
     }
 
-    // Method
-
     /**
      * Loads the tasks from the storage
      * 
      * @return the tasks loaded
-     * @throws IOException
+     * @throws IOException when the task stored is invalid (usually the date)
      */
     public ArrayList<Task> loadTasks() throws IOException {
         ArrayList<Task> loadedTasks = new ArrayList<>();
@@ -65,7 +58,7 @@ public class Storage {
         String line = reader.readLine();
 
         // Adds each task
-        while(line != null) {
+        while (line != null) {
             Task currentTask = readTask(line);
             loadedTasks.add(currentTask);
             line = reader.readLine();
@@ -98,9 +91,9 @@ public class Storage {
         return task;
     }
     /**
-     * Method to add task
+     * Adds new task to the storage
      * 
-     * @param task the task added
+     * @param task the new task added
      */
     public void addTask(Task task) {
         try {
@@ -114,7 +107,7 @@ public class Storage {
     }
 
     /**
-     * Method to update the storage based on current tasks
+     * Updates the storage based on current tasks
      * 
      */
     public void updateTask(TaskList tasks) {
