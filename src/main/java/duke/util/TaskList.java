@@ -16,6 +16,9 @@ public class TaskList {
     }
 
     public Task delete(int num) {
+        if (num >= this.arr.size()) {
+            return null;
+        }
         Task task = this.arr.get(num);
         this.arr.remove(num);
         return task;
