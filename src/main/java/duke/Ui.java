@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -152,6 +153,21 @@ public class Ui {
         printLine("____________________________________________________________");
         printLine("OK, I've marked this task as not done yet:");
         printLine("  [" + task.getStatusIcon() + "] " + task.description);
+        printLine("____________________________________________________________");
+    }
+
+    public void showMatchingTasks(ArrayList<Task> matchingTasks) {
+        if (matchingTasks.isEmpty()) {
+            printMessage("No tasks match your search.");
+            return;
+        }
+
+        printLine("____________________________________________________________");
+        printLine("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            Task task = matchingTasks.get(i);
+            printLine((i + 1) + "." + task);
+        }
         printLine("____________________________________________________________");
     }
 }

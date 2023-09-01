@@ -67,6 +67,9 @@ public class Parser {
             } catch (NumberFormatException e) {
                 throw new DukeException("Please provide a valid task number.");
             }
+        } else if (userInput.startsWith("find")) {
+            String keyword = userInput.substring(4).trim();
+            return new FindCommand(keyword);
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
