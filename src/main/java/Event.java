@@ -9,6 +9,10 @@ public class Event extends UserInput {
         this.to = to;
     }
 
+    public String toSaveFormat() {
+        return "E" + super.toSaveFormat() + " | " + this.from + "-" + this.to;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + ")";
