@@ -13,6 +13,7 @@ import blip.tasks.*;
 public class BlipStorage {
 
     private static String filePath;
+
     public BlipStorage(String filePath) {
         this.filePath = filePath;
     }

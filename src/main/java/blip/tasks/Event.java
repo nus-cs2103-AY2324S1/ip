@@ -15,7 +15,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String saveToFileString(){
+    public String saveToFileString() {
         return "E " + (super.isDone ? "| 1 | " : "| 0 | ") + super.toString() + " | "
                 + this.eventFrom.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
                 + " | "

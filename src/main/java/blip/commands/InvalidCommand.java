@@ -10,6 +10,7 @@ public class InvalidCommand extends Command {
     public InvalidCommand(String description) {
         this.description = description;
     }
+
     public void execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
         description = description.toLowerCase();
         if (!containsCommands(description)) {

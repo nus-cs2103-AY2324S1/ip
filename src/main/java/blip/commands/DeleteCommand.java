@@ -11,6 +11,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int index) {
         this.index = index;
     }
+
     @Override
     public void execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
         // Task number does not exist.

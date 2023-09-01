@@ -91,7 +91,4 @@ public class BlipUI {
         System.out.println(task.toString());
     }
 
-    public void showBlipErr() {
-        System.out.println("Some error occurred!");
-    }
 }
