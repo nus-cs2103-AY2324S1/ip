@@ -1,3 +1,10 @@
+package Command;
+import Task.*;
+import Ui.*;
+import Duke.*;
+import TaskList.TaskList;
+import Storage.Storage;
+
 public class MarkCommand extends Command {
     private int taskIndex;
 
@@ -14,7 +21,7 @@ public class MarkCommand extends Command {
         try {
             Task taskToMark = taskList.getTasks().get(taskIndex);
 
-            if (!taskToMark.isDone) {
+            if (!taskToMark.checkIsDone()) {
                 taskToMark.isCompleted();
                 ui.showTaskMarked(taskToMark);
                 storage.saveTask(taskList.getTasks());

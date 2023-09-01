@@ -1,3 +1,6 @@
+package TaskList;
+import Task.*;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -45,7 +48,7 @@ public class TaskList {
 
     public boolean isMarked(int taskNum) {
         if (taskNum >= 0 && taskNum < taskList.size()) {
-            return taskList.get(taskNum).isDone;
+            return taskList.get(taskNum).checkIsDone();
         } else {
             System.out.println("Error: No such Task Number");
             return false;

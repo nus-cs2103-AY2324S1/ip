@@ -1,3 +1,9 @@
+package Command;
+import Task.*;
+import Ui.*;
+import Duke.*;
+import TaskList.TaskList;
+import Storage.Storage;
 public class UnmarkCommand extends Command {
     private int taskIndex;
 
@@ -14,7 +20,7 @@ public class UnmarkCommand extends Command {
         try {
             Task taskToUnmark = taskList.getTasks().get(taskIndex);
 
-            if (taskToUnmark.isDone) {
+            if (taskToUnmark.checkIsDone()) {
                 taskToUnmark.isNotCompleted();
                 ui.showTaskUnmarked(taskToUnmark);
                 storage.saveTask(taskList.getTasks());
