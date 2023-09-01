@@ -11,11 +11,21 @@ import java.util.ArrayList;
  * Represents a task list directly interacts with the user.
  * Interacts with Storage class as well to retrieve and update information to the text database.
  */
-public class Tasklist {
-    private static final ArrayList<Task> list = new ArrayList<>();
-    private static int total = 0;  // total also indicates the first free slot
+public class Tasklist implements ListManageable {
+    private final ArrayList<Task> list = new ArrayList<>();
+    private int total = 0;  // total also indicates the first free slot
+    private static Tasklist instance;
 
-    private static void checkIndexOutOfBoundsHelper(int index) throws IndexOutOfBoundsException {
+    public static Tasklist getInstance() {
+        if (instance == null) {
+            instance = new Tasklist();
+            return instance;
+        } else {
+            return instance;
+        }
+    }
+
+    private void checkIndexOutOfBoundsHelper(int index) throws IndexOutOfBoundsException {
         if (index >= total) {
             String errMsg = String.format("Sorry you do not have task #%d, " +
                     "try \"list\" to check your current list of tasks!", index + 1);
@@ -31,7 +41,7 @@ public class Tasklist {
      * @param params Represents the string parameters used to create the new task.
      * @return A new task object.
      */
-    private static Task identifyCreateTask(boolean isFromDatabase, String... params) {
+    private Task identifyCreateTask(boolean isFromDatabase, String... params) {
         // If the params variable arguments is from the database
         // There is a single digit 0/1 in front to represent isDone status
         // Needs to move the start index to read arguments for creating the task 1 position back
@@ -64,7 +74,7 @@ public class Tasklist {
      * Loads the task from the database to the task list.
      * @param params An array of strings used to create a new task.
      */
-    public static void loadTaskFromDatabase(String... params) {
+    public void loadTaskFromDatabase(String... params) {
         Task newTask = identifyCreateTask(true, params);
         list.add(newTask);
         total++;
@@ -75,7 +85,7 @@ public class Tasklist {
      * Updates the database to include this task.
      * @param params An array of strings used to create a new task.
      */
-    public static void addTaskToDatabase(String... params) {
+    public void addTaskToDatabase(String... params) {
         Task newTask = identifyCreateTask(false, params);
         list.add(newTask);
         total++;
@@ -89,7 +99,7 @@ public class Tasklist {
     /**
      * Prints all tasks in the current task list.
      */
-    public static void displayData() {
+    public void displayData() {
         String resp = "";
         if (total == 0) {
             resp = "You have no task right now:) Happy happy!";
@@ -106,7 +116,7 @@ public class Tasklist {
      * @param index The index of task to be marked done.
      * @throws IndexOutOfBoundsException when the index entered is out of range.
      */
-    public static void markAsDone(int index) throws IndexOutOfBoundsException {
+    public void markAsDone(int index) throws IndexOutOfBoundsException {
         checkIndexOutOfBoundsHelper(index);
 
         list.get(index).markAsDone();
@@ -121,7 +131,7 @@ public class Tasklist {
      * @param index The index of task to be marked undone.
      * @throws IndexOutOfBoundsException when the index entered is out of range.
      */
-    public static void markAsNotDone(int index) throws IndexOutOfBoundsException {
+    public void markAsNotDone(int index) throws IndexOutOfBoundsException {
         checkIndexOutOfBoundsHelper(index);
 
         list.get(index).markAsNotDone();
@@ -136,7 +146,7 @@ public class Tasklist {
      * @param index The index of task to be deleted.
      * @throws IndexOutOfBoundsException when the index entered is out of range.
      */
-    public static void delete(int index) throws IndexOutOfBoundsException {
+    public void delete(int index) throws IndexOutOfBoundsException {
         checkIndexOutOfBoundsHelper(index);
 
         Task t = list.get(index);
@@ -154,7 +164,7 @@ public class Tasklist {
      * Finds and Print the tasks with corresponding keyword in their description.
      * @param search The array of strings that represents the keyword we need to search for.
      */
-    public static void find(String search) {
+    public void find(String search) {
         ArrayList<Task> tempList = new ArrayList<>();
         int a = 1;
         String resp = "";
@@ -176,7 +186,7 @@ public class Tasklist {
      * Converts the tasks in list to Storage compatible string format.
      * @return A string in storage format.
      */
-    public static String taskListToStorage() {
+    public String taskListToStorage() {
         String resp = "";
         for (int i = 0; i < total; i++) {
             resp += list.get(i).toStorage() + "\n";

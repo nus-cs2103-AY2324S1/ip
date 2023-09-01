@@ -9,6 +9,15 @@ import cheems.exceptions.InvalidKeywordException;
  */
 public class Parser {
 
+    private static Parser instance;
+    public static Parser getInstance() {
+        if (instance == null) {
+            instance = new Parser();
+            return instance;
+        } else {
+            return instance;
+        }
+    }
     /**
      * Parses the given input and tells Tasklist the action to take.
      * Exceptions are thrown should the input be invalid.
@@ -17,7 +26,7 @@ public class Parser {
      * @throws EmptyArgumentException if no argument is provided for commands requiring arguments.
      * @throws NumberFormatException if non-digit argument is provided for commands requiring digits as arguments.
      */
-    public static void parseAndExecute(String input)
+    public void parseAndExecute(String input)
             throws InvalidKeywordException, EmptyArgumentException, NumberFormatException {
         if (!input.isEmpty()) {
             String[] words = input.split(" ", 2);
@@ -30,7 +39,7 @@ public class Parser {
             // extract command as the first word
             Keyword currentKey = Keyword.valueOf(words[0].toUpperCase());
             if (currentKey == Keyword.LIST) {
-                Tasklist.displayData();
+                Tasklist.getInstance().displayData();
             } else {
                 // if there is no argument provided for commands supposed to have arguments
                 if (words.length == 1) {
@@ -41,7 +50,7 @@ public class Parser {
                 // if there are indeed arguments provided
                 switch (currentKey) {
                     case FIND:
-                        Tasklist.find(args);
+                        Tasklist.getInstance().find(args);
                         break;
                     case MARK:
                         // Fallthrough
@@ -51,11 +60,11 @@ public class Parser {
                         if (args.chars().allMatch(Character::isDigit)) {
                             int index = Integer.parseInt(args);
                             if (currentKey == Keyword.MARK) {
-                                Tasklist.markAsDone(index - 1);
+                                Tasklist.getInstance().markAsDone(index - 1);
                             } else if (currentKey == Keyword.UNMARK) {
-                                Tasklist.markAsNotDone(index - 1);
+                                Tasklist.getInstance().markAsNotDone(index - 1);
                             } else {
-                                Tasklist.delete(index - 1);
+                                Tasklist.getInstance().delete(index - 1);
                             }
                             break;
                         } else {
@@ -64,7 +73,7 @@ public class Parser {
                         }
 
                     case TODO:
-                        Tasklist.addTaskToDatabase("TODO", args);
+                        Tasklist.getInstance().addTaskToDatabase("TODO", args);
                         break;
                     case EVENT:
                         words = args.split(" /from ");
@@ -72,13 +81,13 @@ public class Parser {
                         String[] words1 = words[1].split(" /to ");
                         String from = words1[0];
                         String to = words1[1];
-                        Tasklist.addTaskToDatabase("EVENT", eventDescription, from, to);
+                        Tasklist.getInstance().addTaskToDatabase("EVENT", eventDescription, from, to);
                         break;
                     case DEADLINE:
                         words = args.split(" /by ");
                         String ddlDescription = words[0];
                         String by = words[1];
-                        Tasklist.addTaskToDatabase("DEADLINE", ddlDescription, by);
+                        Tasklist.getInstance().addTaskToDatabase("DEADLINE", ddlDescription, by);
                         break;
                 }
             }
@@ -88,7 +97,7 @@ public class Parser {
         }
     }
 
-    private static boolean inKeywords(String word) {
+    private boolean inKeywords(String word) {
         for (Keyword k: Keyword.values()) {
             if (k.name().toLowerCase().equals(word)) {
                 return true;
