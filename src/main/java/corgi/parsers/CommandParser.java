@@ -142,20 +142,7 @@ public class CommandParser extends Parser<Command>{
             throw new InvalidCommandFormatException("Invalid date format!");
         }
 
-        final LocalDate FINAL_TARGET = target;
-
-        Predicate<Task> isOnDate = t -> {
-            if (t instanceof Deadline) {
-                Deadline d = (Deadline) t;
-                return d.isHappeningOnDate(FINAL_TARGET);
-            } else if (t instanceof Event) {
-                Event e = (Event) t;
-                return e.isHappeningOnDate(FINAL_TARGET);
-            }
-            return false;
-        };
-
-        return new FindTasksOnDateCommand(isOnDate, dateStr);
+        return new FindTasksOnDateCommand(target);
     }
 
     private Command newAddCommand(String[] inputs, CommandType type) throws InvalidCommandFormatException {
