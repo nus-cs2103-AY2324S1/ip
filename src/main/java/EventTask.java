@@ -12,16 +12,16 @@ public class EventTask extends Task {
 
     @Override
     public String getDescription() {
-        return "[E]" + super.getDescription() + " (from: " + from.format(super.getOutputFormat()) + " to: " + to.format(super.getOutputFormat()) + ")";
+        return "[E]" + super.getDescription() + " (from: " + from.format(super.getDateOutputFormat()) + " to: " + to.format(super.getDateOutputFormat()) + ")";
     }
 
     @Override
     public String toFileString() {
-        return "E | " + super.toFileString() + " | " + from.format(super.getOutputFormat()) + " | " + to.format(super.getOutputFormat());
+        return "E | " + super.toFileString() + " | " + from.format(super.getDateOutputFormat()) + " | " + to.format(super.getDateOutputFormat());
     }
 
     @Override
     public String toString() {
-        return super.toString() + " | " + from.format(super.getOutputFormat()) + " | " + to.format(super.getOutputFormat());
+        return super.toString() + " | " + from.format(super.getDateOutputFormat()) + " | " + to.format(super.getDateOutputFormat());
     }
 }
