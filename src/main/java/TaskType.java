@@ -20,4 +20,5 @@ public enum TaskType {
         }
         return res;
     }
+
 }
