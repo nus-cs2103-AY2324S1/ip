@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -32,7 +34,7 @@ public class Veda {
         return true;
     }
 
-    private static void addTask(String taskArgs) throws NoDescriptionException {
+    private static void addTask(String taskArgs) throws NoDescriptionException, DateTimeParseException {
         String type = taskArgs.split(" ")[0].toLowerCase();
         Task newTask = null;
         String description = "";
@@ -50,28 +52,33 @@ public class Veda {
                 break;
 
             case "deadline":
+                //Expected CL input: deadline <Description> /by <Due date in dd/MM/yyyy HHmm>
                 //TODO add error handling for no "/by" keyword
                 if (description.toLowerCase() == type) {
-                    throw new NoDescriptionException("");
+                    throw new NoDescriptionException("Please input the right order: deadline <Description> /by <due date>");
                 }
 
                 description = taskArgs.replaceFirst("deadline ", "");
-                descriptions = description.split("/by");
+                descriptions = description.split("/by ");
+
+                if (descriptions.length < 2) {
+                    throw new IncorrectInputException("Please input the right order: deadline <Description> /by <due date>");
+                }
 
                 newTask = new Deadline(descriptions[0], descriptions[1]);
                 break;
 
             case "event":
+                //Expected CL input: event <Description> /from <start> /to <end>
                 if (description.toLowerCase() == type) {
                     throw new NoDescriptionException("");
-                } else if (description.split("/").length < 3) {
-                    throw new IncorrectInputException("");
                 }
 
-                description = taskArgs.replaceFirst("event ", "");
-                descriptions = description.split("/from ");
-                String from = descriptions[1].split(" /to ")[0];
-                String to = description.split("/to")[1];
+                description = taskArgs.replaceFirst("event ", ""); //Remove type
+
+                descriptions = description.split("/from "); //Split remaining args into description + (from and to)
+                String from = descriptions[1].split(" /to ")[0]; //Split (from and to) into from and to
+                String to = descriptions[1].split(" /to ")[1];
 
                 newTask = new Event(descriptions[0], from, to);
                 break;
@@ -203,6 +210,8 @@ public class Veda {
                 addTask(input);
             } catch (IncorrectInputException e) {
                 System.out.println(e);
+            } catch (DateTimeParseException e) {
+                System.out.println("Ensure your deadline is of the format {dd MMMM yyyy HHmm}");
             }
         }
 
