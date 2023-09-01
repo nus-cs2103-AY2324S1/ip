@@ -59,6 +59,4 @@ public class Parser {
             throw new DukeException("Wrong storing format in storage");
         }
     }
-
-
 }
