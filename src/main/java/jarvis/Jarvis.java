@@ -7,10 +7,15 @@ public class Jarvis {
 
     private TaskList taskList;
     private Ui ui;
+    private Storage storage;
+    private Action action;
 
     public Jarvis() {
         taskList = new TaskList();
         ui = new Ui();
+        storage = new Storage();
+        action = new Action(taskList, ui);
+        taskList.setTasks(storage.loadTasks());;
     }
 
     public void start() {
@@ -20,10 +25,10 @@ public class Jarvis {
     public void respond(String userInput){
         try {
             String[] userInputSpilt = userInput.split(" ");
-            Action action = new Action(taskList, ui);
 
             if (userInput.equalsIgnoreCase("bye")) {
                 ui.printBye();
+                storage.saveTasks(taskList.getTask());
                 System.exit(0);
             } else if (userInput.equalsIgnoreCase("list")) {
                 action.listTasks();

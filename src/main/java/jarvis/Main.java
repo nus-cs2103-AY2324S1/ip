@@ -10,9 +10,13 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String userInput;
 
-        while (true) {
+        try {
+            while (true) {
             userInput = scanner.nextLine();
             jarvis.respond(userInput);
+            }
+        } finally {
+            scanner.close();
         }
-    } 
+    }
 }

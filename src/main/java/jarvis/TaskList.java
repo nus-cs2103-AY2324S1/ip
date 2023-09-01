@@ -13,6 +13,11 @@ public class TaskList {
         taskList.add(task);
     }
 
+    public void setTasks(ArrayList<Task> tasks) {
+        taskList.clear();
+        taskList.addAll(tasks);
+    }
+
     public ArrayList<Task> getTask() {
         return taskList;
     }
