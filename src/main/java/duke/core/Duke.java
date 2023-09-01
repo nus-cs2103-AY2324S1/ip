@@ -1,6 +1,9 @@
 package duke.core;
 
+import java.util.stream.Stream;
+
 import duke.command.Command;
+
 import duke.task.TaskList;
 
 public class Duke {
@@ -12,7 +15,13 @@ public class Duke {
 
     public static void main(String[] args) {
         try {
-            Duke.tasks = new TaskList(Storage.readFile("tasks.txt"));
+            Stream<String> taskDataStream = Storage.readFile("tasks.txt");
+            Duke.tasks = new TaskList(taskDataStream);
+
+            if (tasks.hasLoadingError()) {
+                Ui.showLoadingError();
+            }
+
         } catch (DukeException e) {
             Ui.respond(e);
         }

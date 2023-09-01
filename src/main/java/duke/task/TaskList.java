@@ -8,18 +8,25 @@ import duke.core.Parser;
 import duke.core.Storage;
 
 public class TaskList {
-    public ArrayList<Task> taskArray = new ArrayList<>();
+    private boolean hasLoadingError = false;
+    private ArrayList<Task> taskArray = new ArrayList<>();
 
-    public TaskList() {}
+    public TaskList() {
+
+    }
 
     public TaskList(Stream<String> taskDataStream) {
         taskDataStream.forEach(taskData -> {
             try {
                 Parser.parseTaskDataString(taskData).execute(this, null, null);
             } catch (DukeException e) {
-
+                this.hasLoadingError = true;
             }
         });
+    }
+
+    public boolean hasLoadingError() {
+        return this.hasLoadingError;
     }
 
     public int size() {
