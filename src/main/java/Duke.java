@@ -7,14 +7,18 @@ import java.io.FileWriter;
 import java.io.BufferedWriter;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.io.FileNotFoundException;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Duke {
 
     Scanner userInput = new Scanner(System.in);
     TaskList tasks = new TaskList();
+
 
     public static void main(String[] args) {
 
@@ -23,7 +27,9 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
+
         System.out.println("Hello from\n" + logo);
+
         Duke duke = new Duke();
         duke.start();
 
