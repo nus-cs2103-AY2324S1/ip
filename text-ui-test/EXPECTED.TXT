@@ -25,7 +25,7 @@ Now you have 3 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
- ☹ OOPS!!! A valid Task is required. Your current input "random grribish" is not a valid task.
+ ☹ OOPS!!! A valid Tasks.Tasks is required. Your current input "random grribish" is not a valid task.
 
 Please enter your input starting with :
 todo
