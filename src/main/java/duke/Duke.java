@@ -8,9 +8,9 @@ import java.util.Scanner;
 //import java.time.LocalDateTime;
 //import java.time.format.DateTimeFormatter;
 public class Duke {
-    private Storage storage;
-    private TaskList taskList;
-    private Ui ui;
+    public Storage storage;
+    public TaskList taskList;
+    public Ui ui;
 
     public Duke(String fileDir) {
         ui = new Ui();
