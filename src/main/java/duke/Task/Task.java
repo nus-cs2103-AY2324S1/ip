@@ -1,6 +1,6 @@
-package Duke.Task;
+package duke.Task;
 
-import Duke.DukeException.DukeException;
+import duke.DukeException.DukeException;
 
 /**
  * Class For Duke.Duke.Task.Task

@@ -1,8 +1,8 @@
-package Duke.Ui;
+package duke.Ui;
 
-import Duke.DukeException.DukeException;
-import Duke.Task.Task;
-import Duke.TaskList.TaskList;
+import duke.DukeException.DukeException;
+import duke.Task.Task;
+import duke.TaskList.TaskList;
 
 public class Ui {
     private final String Border = "____________________________________________________________";

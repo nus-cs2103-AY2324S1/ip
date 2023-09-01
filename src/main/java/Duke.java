@@ -1,9 +1,9 @@
 import java.util.Scanner;
-import Duke.TaskList.TaskList;
-import Duke.Ui.Ui;
-import Duke.Parser.Parser;
-import Duke.Storage.Storage;
-import Duke.DukeException.DukeException;
+import duke.TaskList.TaskList;
+import duke.Ui.Ui;
+import duke.Parser.Parser;
+import duke.Storage.Storage;
+import duke.DukeException.DukeException;
 /**
  * Class for duke
  */

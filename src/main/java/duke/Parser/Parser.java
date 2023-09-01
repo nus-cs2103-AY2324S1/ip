@@ -1,13 +1,13 @@
-package Duke.Parser;
+package duke.Parser;
 
-import Duke.DukeException.DukeException;
-import Duke.Storage.Storage;
-import Duke.Task.Deadlines;
-import Duke.Task.Events;
-import Duke.Task.Task;
-import Duke.Task.ToDos;
-import Duke.TaskList.TaskList;
-import Duke.Ui.Ui;
+import duke.DukeException.DukeException;
+import duke.Storage.Storage;
+import duke.Task.Deadlines;
+import duke.Task.Events;
+import duke.Task.Task;
+import duke.Task.ToDos;
+import duke.TaskList.TaskList;
+import duke.Ui.Ui;
 
 public class Parser {
 
