@@ -11,6 +11,8 @@ import duke.ui.Ui;
  * Chatbot class
  */
 public class Duke {
+    static final String DIRECTORY_NAME = "./data";
+    static final String  FILE_NAME = "storage.txt";
     Ui ui;
     Storage storage;
     TaskList tasks;
@@ -32,7 +34,7 @@ public class Duke {
      * @param args the input argument
      */
     public static void main(String[] args) {
-        new Duke("./data", "storage.txt").run();
+        new Duke(DIRECTORY_NAME, FILE_NAME).run();
     }
 
     /**

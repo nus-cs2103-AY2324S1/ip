@@ -28,12 +28,14 @@ public class Storage {
         try {
             File directory = new File(directoryName);
 
+            // Make the directory if not exist
             if (!directory.exists()) {
                 directory.mkdir();
             }
 
             File file = new File(this.filePath);
 
+            // Make the file if not exist
             if (file.exists()) {
                 loadTasks();
             } else {
@@ -55,26 +57,39 @@ public class Storage {
         BufferedReader reader = new BufferedReader(new FileReader(this.filePath));
         String line = reader.readLine();
 
+        // Adds each task
         while (line != null) {
-            String[] lineSplit = line.split(" \\| ");
-            String type = lineSplit[0];
-            String mark = lineSplit[1];
-            String description = lineSplit[2];
-            Task currentTask = type.equals("T") 
-                                ? new ToDo(description) 
-                                : type.equals("D") 
-                                ? new Deadline(description, LocalDate.parse(lineSplit[3])) 
-                                : new Event(description, LocalDate.parse(lineSplit[3]), LocalDate.parse(lineSplit[4]));
-            if (mark.equals("1")) {
-                currentTask.mark();
-            }
+            Task currentTask = readTask(line);
             loadedTasks.add(currentTask);
             line = reader.readLine();
         }
+
         reader.close();
         return loadedTasks;
     }
-
+    
+    /**
+     * Reads a task stored in the storage
+     * 
+     * @param taskStoredInString the string representative of the task stored in the storage
+     * @return the task
+     * @throws IOException
+     */
+    public static Task readTask(String taskStoredInString) throws IOException {
+        String[] taskInStringSplit = taskStoredInString.split(" \\| ");
+        String type = taskInStringSplit[0];
+        String mark = taskInStringSplit[1];
+        String description = taskInStringSplit[2];
+        Task task = type.equals("T") 
+            ? new ToDo(description) 
+            : type.equals("D") 
+            ? new Deadline(description, LocalDate.parse(taskInStringSplit[3])) 
+            : new Event(description, LocalDate.parse(taskInStringSplit[3]), LocalDate.parse(taskInStringSplit[4]));
+        if(mark.equals("1")) {
+            task.mark();
+        }
+        return task;
+    }
     /**
      * Adds new task to the storage
      * 

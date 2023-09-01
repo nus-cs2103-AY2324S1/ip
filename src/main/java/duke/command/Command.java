@@ -16,6 +16,24 @@ import duke.ui.Ui;
  * The class for Command
  */
 public class Command {
+
+    /**
+     * Lists all the tasks
+     * 
+     * @param message the command message
+     * @param ui the ui of the program
+     * @param tasks the list of tasks
+     * @param storage the storage of the program
+     * @throws InvalidCommandException
+     */
+    public static void list(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
+        if(message.equals("list"))  {
+            ui.printTasks(tasks);
+        } else {
+            throw new InvalidCommandException();
+        }
+    }
+
     /**
      * Marks task
      * 
@@ -27,8 +45,9 @@ public class Command {
      */
     public static void mark(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
         try {
-            if (message.split(" ").length == 2) {
-                Task markTask = tasks.getTask(Integer.parseInt(message.split(" ")[1]) - 1);
+            if (numOfWords == 2) {
+                int index = Integer.parseInt(messageWords[1]) - 1;
+                Task markTask = tasks.getTask(index);
                 markTask.mark();
                 storage.updateTask(tasks);
                 ui.printMarkTask(markTask);
@@ -53,8 +72,12 @@ public class Command {
      */
     public static void unmark(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
         try {
-            if (message.split(" ").length == 2) {
-                Task unmarkTask = tasks.getTask(Integer.parseInt(message.split(" ")[1]) - 1);
+
+            String[] messageWords = message.split(" ");
+            int numOfWords = messageWords.length;
+            if (numOfWords == 2) {
+                int index = Integer.parseInt(messageWords[1]) - 1;
+                Task unmarkTask = tasks.getTask(index);
                 unmarkTask.unmark();
                 storage.updateTask(tasks);
                 ui.printUnmarkTask(unmarkTask);
@@ -127,9 +150,12 @@ public class Command {
      */
     public static void delete(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
         try {
-            if (message.split(" ").length == 2) {
-                Task removedTask = tasks.getTask(Integer.parseInt(message.split(" ")[1]) - 1);
-                tasks.removeTask(Integer.parseInt(message.split(" ")[1]) - 1);
+            String[] messageWords = message.split(" ");
+            int numOfWords = messageWords.length;
+            if (numOfWords == 2) {
+                int index = Integer.parseInt(messageWords[1]) - 1;
+                Task removedTask = tasks.getTask(index);
+                tasks.removeTask(index);
                 storage.updateTask(tasks);
                 ui.printRemoveTask(removedTask, tasks.getSize());
             } else {
