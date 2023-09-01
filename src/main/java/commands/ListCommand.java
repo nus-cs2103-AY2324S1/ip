@@ -14,6 +14,6 @@ public class ListCommand extends Command {
 
     @Override
     public String execute() {
-        return chatRecord.listMessage();
+        return "You have " + chatRecord.getCount() + " tasks in your list!\n" + chatRecord.listMessage();
     }
 }

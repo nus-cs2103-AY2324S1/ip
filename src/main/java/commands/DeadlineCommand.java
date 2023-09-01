@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 
 public class DeadlineCommand extends Command{
     public static final String COMMAND_PHRASE = "deadline";
+
+    private static final String COMMAND_DESC = "New Deadline Task added to list!";
     private String name;
     private LocalDateTime date;
 
@@ -25,7 +27,7 @@ public class DeadlineCommand extends Command{
         Deadline ddl =  new Deadline(name, date);
         this.chatRecord.addTask(ddl);
         SaveData.saveData(this.chatRecord.toSave());
-        return ddl.toString();
+        return COMMAND_DESC + " " + ddl.toString();
     }
 
 }

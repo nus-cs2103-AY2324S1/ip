@@ -1,7 +1,6 @@
 package records;
 
 import parser.TaskParser;
-import parser.TimeParser;
 import storage.SaveData;
 import task.*;
 
@@ -9,39 +8,25 @@ import java.util.ArrayList;
 
 public class ChatRecord {
     private ArrayList<Task> chatRecords;
-    private int counter;
     public ChatRecord() {
-        chatRecords = SaveData.loadData();
-        counter = chatRecords.size();
+        chatRecords = new ArrayList<>();
+    }
+
+    public String loadData() {
+        ArrayList<Task> temp = SaveData.loadData();
+        if (temp.size() >= 0) {
+            chatRecords = temp;
+            return "Save loaded successfully!";
+        } else {
+            return "No valid save found! Starting a new instance...";
+        }
     }
 
     public void addTask(Task task) {
         chatRecords.add(task);
     }
 
-    public Task addTodo(String name) {
-        Task ret = new Todo(name);
-        chatRecords.add(ret);
-        counter++;
-        return ret;
-    }
-
-    public Task addDeadline(String name, String args) {
-        Task ret = new Deadline(name, TimeParser.parseTime(args.trim()));
-        chatRecords.add(ret);
-        counter++;
-        return ret;
-    }
-
-    public Task addEvent(String name, String[] args) {
-        Task ret = new Event(name, TimeParser.parseTime(args[0].trim()), TimeParser.parseTime(args[1].trim()));
-        chatRecords.add(ret);
-        counter++;
-        return ret;
-    }
-
     public Task deleteTask(int n) {
-        counter--;
         return chatRecords.remove(n - 1);
     }
 
@@ -60,7 +45,7 @@ public class ChatRecord {
     }
 
     public int getCount() {
-        return counter;
+        return chatRecords.size();
     }
 
     public Task setMark(int n) {
@@ -71,9 +56,5 @@ public class ChatRecord {
     public Task setUnmark(int n) {
         Task task = chatRecords.get(n - 1).unmark();
         return task;
-    }
-
-    public String getTask(int n) {
-        return chatRecords.get(n - 1).toString();
     }
 }

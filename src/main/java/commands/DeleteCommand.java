@@ -6,6 +6,8 @@ import task.Task;
 
 public class DeleteCommand extends Command {
     public static final String COMMAND_PHRASE = "delete";
+
+    private static final String COMMAND_DESC = "The following task has been deleted: ";
     private int toDelete;
     public DeleteCommand(int i) {
         this.toDelete = i;
@@ -19,6 +21,6 @@ public class DeleteCommand extends Command {
     public String execute() {
         Task task = this.chatRecord.deleteTask(toDelete);
         SaveData.saveData(this.chatRecord.toSave());
-        return task.toString();
+        return COMMAND_DESC + " " + task.toString();
     }
 }

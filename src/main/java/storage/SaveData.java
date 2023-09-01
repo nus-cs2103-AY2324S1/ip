@@ -9,7 +9,6 @@ import parser.TaskParser;
 
 public class SaveData {
     private static final String SAVE_FILE_LOCATION = "./SaveFile.txt";
-    private static final String DISCRIMINATOR = " || ";
     public static void saveData(String taskData) {
         File f = new File(SAVE_FILE_LOCATION);
         try {
@@ -38,9 +37,7 @@ public class SaveData {
             Scanner sc = new Scanner(f);
             while (sc.hasNextLine()) {
                 Optional<Task> optionalTask = TaskParser.parseSave(sc.nextLine());
-                if (optionalTask.isEmpty()) {
-                    System.out.println("Task is corrupted, it has been removed from the list");
-                } else {
+                if (!optionalTask.isEmpty()) {
                     optionalTask.ifPresent(x -> tasks.add(x));
                 }
             }
