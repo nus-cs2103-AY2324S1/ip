@@ -8,6 +8,6 @@ public class Deadline extends Task { // inheritance
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "D | " + super.toString() + "|" + by;
     }
 }
