@@ -12,8 +12,12 @@ public class Cracker {
     private Storage storage;
     enum Type {
         MARK,
+        UNMARK,
         TASK,
-        DELETE
+        DELETE,
+        UNKNOWN,
+        LIST,
+        QUIT
     }
 
     public void startService(){
@@ -34,82 +38,46 @@ public class Cracker {
 
 
             try {
+                Type command = Parser.parseCommand(input);
 
-
-                if (input.startsWith("mark")) {
-                    t = Type.MARK;
-                    int index = Integer.parseInt(input.replace("mark", "").trim()) - 1;
-                    list.markDone(index);
-                    inLine.add(list.getTaskString(index));
-                } else if (input.startsWith("unmark")) {
-                    t = Type.MARK;
-                    int index = Integer.parseInt(input.replace("unmark", "").trim()) - 1;
-                    list.markUndone(index);
-                    inLine.add(list.getTaskString(index));
-                } else if (input.startsWith("deadline")) {
-                    t = Type.TASK;
-                    list.store(new Deadline(input.replace("deadline", "").trim()));
-                    inLine.add(list.getTaskString(list.size() - 1));
-
-                } else if (input.startsWith("event")) {
-                    t = Type.TASK;
-                    list.store(new Event(input.replace("event", "").trim()));
-                    inLine.add(list.getTaskString(list.size() - 1));
-                } else if (input.startsWith("todo")) {
-                    t = Type.TASK;
-                    list.store(new Todo(input.replace("todo", "").trim()));
-                    inLine.add(list.getTaskString(list.size() - 1));
-                } else if (input.startsWith("delete")) {
-                    t = Type.DELETE;
-                    int index = Integer.parseInt(input.replace("delete", "").trim()) - 1;
-                    inLine.add(list.getTaskString(index));
-                    list.deleteTask(index);
-                }else {
-
-                    switch (input) {
-                        case "bye":
-                            sc.close();
-                            talking = false;
-                            try{
-                                storage.save(list);
-                            } catch (IOException e){
-                                System.out.println("Something wrong happened when saving your tasks");
-                            }
-                            break;
-                        case "list":
-                            reply.iterate(list);
-                            break;
-
-                        default:
-                            try {
-                                throw new UnknownCommandException();
-                            } catch (UnknownCommandException e) {
-                                reply.echo(e.toString());
-                            }
-
-                    }
-                }
-                if(t == Type.MARK){
-                    reply.add("Operation Successful: This is the current state of your task:");
-                    for(int i = 0; i < inLine.size();i++){
-                        reply.add(inLine.get(i).toString());
-                    }
-                    reply.echo();
-
-                } else if(t == Type.TASK){
-                    reply.add("Got it. I've added this task:");
-                    reply.add(inLine.get(0).toString());
-                    reply.add("Now you have " + list.size() + " task(s) in the list.");
-                    reply.echo();
-
-                } else if(t == Type.DELETE){
-                    reply.add("Got it. I've removed this task:");
-                    reply.add(inLine.get(0).toString());
-                    reply.add("Now you have " + list.size() + " task(s) in the list.");
-                    reply.echo();
+                switch(command){
+                    case MARK:
+                        list.markDone(Parser.parseIndex(input));
+                        reply.modifyTaskReply(list.getTask(Parser.parseIndex(input)));
+                        break;
+                    case DELETE:
+                        list.markUndone(Parser.parseIndex(input));
+                        reply.modifyTaskReply(list.getTask(Parser.parseIndex(input)));
+                        break;
+                    case TASK:
+                        Task newTask = Parser.parseTask(input);
+                        list.store(newTask);
+                        reply.storeTaskReply(newTask, list.size());
+                        break;
+                    case UNKNOWN:
+                        try {
+                            throw new UnknownCommandException();
+                        } catch (UnknownCommandException e) {
+                            reply.echo(e.toString());
+                        }
+                        break;
+                    case LIST:
+                        reply.iterate(list);
+                        break;
+                    case QUIT:
+                        sc.close();
+                        talking = false;
+                        try{
+                            storage.save(list);
+                        } catch (IOException e){
+                            System.out.println("Something wrong happened when saving your tasks");
+                        }
+                        break;
+                    default:
+                        break;
 
                 }
-                inLine.removeAll(inLine);
+
             } catch (EmptyDescriptionException e){
                 reply.echo(e.toString());
             } catch (IndexOutOfBoundsException e){

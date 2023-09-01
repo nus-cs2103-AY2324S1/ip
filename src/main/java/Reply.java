@@ -15,7 +15,7 @@ public class Reply {
         System.out.println(line);
     }
 
-    public void echo(){
+    private void echo(){
         System.out.println(line);
         for(int i = 0;i< lines.size();i++){
             System.out.println(lines.get(i));
@@ -23,7 +23,7 @@ public class Reply {
         System.out.println(line);
         lines.removeAll(lines);
     }
-    public void add(String s){
+    private void add(String s){
         lines.add(s);
     }
 
@@ -33,6 +33,32 @@ public class Reply {
         for(int i = 0 ; i< list.size(); i++){
             this.add((i+1) + ". " + list.getTaskString(i));
         }
+        echo();
+    }
+
+    public void storeTaskReply(Task t,int size){
+
+        this.add("Got it. I've added this task:");
+        this.add(t.toString());
+        this.add("Now you have " + size + " task(s) in the list.");
+
+        echo();
+    }
+
+    public void deleteTaskReply(Task t, int size){
+
+        this.add("Got it. I've removed this task:");
+        this.add(t.toString());
+        this.add("Now you have " + size + " task(s) in the list.");
+
+        echo();
+    }
+
+    public void modifyTaskReply(Task t){
+
+        this.add("Operation done. This is the current state of your task:");
+        this.add(t.toString());
+
         echo();
     }
 }

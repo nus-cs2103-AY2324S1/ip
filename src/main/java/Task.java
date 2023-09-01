@@ -1,6 +1,6 @@
 import Exceptions.EmptyDescriptionException;
 
-public class Task{
+abstract public class Task{
     private boolean isDone;
     private String description;
 

@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -16,6 +19,11 @@ public class Storage {
     public void save(TodoList list) throws IOException{
         FileWriter writer = null;
 
+        if(!this.file.exists()){
+            Path path = FileSystems.getDefault().getPath("data");
+            Files.createDirectory(path);
+            this.file.createNewFile();
+        }
         writer = new FileWriter(file);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
