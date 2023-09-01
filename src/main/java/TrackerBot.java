@@ -1,6 +1,5 @@
 import ip.utils.Pair;
 
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,7 +20,7 @@ public class TrackerBot {
     private static final String FORMAT_LINE =
             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 
-    private static Storage storage;
+    private static TaskList taskList;
 
     /**
      * Task Array - as TrackerBot is not instantiated, this must be static.
@@ -77,25 +76,25 @@ public class TrackerBot {
                 return true;
             // No break - return exits case immediately.
             case LIST:
-                storage.list();
+                taskList.list();
                 break;
             case MARK:
                 if (scanner.hasNextInt()) {
-                    storage.markTask(scanner.nextInt());
+                    taskList.markTask(scanner.nextInt());
                 } else {
                     throw new TrackerBotException("Compulsory parameter for mark should be a number.");
                 }
                 break;
             case UNMARK:
                 if (scanner.hasNextInt()) {
-                    storage.unmarkTask(scanner.nextInt());
+                    taskList.unmarkTask(scanner.nextInt());
                 } else {
                     throw new TrackerBotException("Compulsory parameter for unmark should be a number.");
                 }
                 break;
             case DELETE:
                 if (scanner.hasNextInt()) {
-                    storage.delete(scanner.nextInt());
+                    taskList.delete(scanner.nextInt());
                 } else {
                     throw new TrackerBotException("Compulsory parameter for delete should be a number.");
                 }
@@ -105,7 +104,7 @@ public class TrackerBot {
             case DEADLINE:
                 // Fallthrough
             case EVENT:
-                storage.add(input);
+                taskList.add(input);
                 break;
             default:
                 throw new TrackerBotException("I could not recognise that keyword. Try another?");
@@ -120,7 +119,7 @@ public class TrackerBot {
     }
 
     public static void main(String[] args) {
-        storage = new Storage();
+        taskList = new TaskList();
         greet();
         Scanner scanner = new Scanner(System.in);
         String input;

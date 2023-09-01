@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 // TODO: Remove UI logic from Storage
 
-public class Storage {
+public class TaskList {
     /**
      * Task Array - as TrackerBot is not instantiated, this must be static.
      * The Task List array itself should be immutable, in case we override it
@@ -123,7 +123,7 @@ public class Storage {
         }
 
         System.out.println("I am tracking these tasks:");
-        System.out.print(getListOfTasks());
+        System.out.println(getListOfTasks());
     }
 
     /**
