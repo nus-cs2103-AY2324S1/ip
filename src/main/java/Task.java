@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
 abstract class Task implements Serializable {
     protected String description;
     protected boolean isDone;

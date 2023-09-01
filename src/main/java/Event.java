@@ -1,13 +1,18 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Event extends Task {
-    protected String from;
-    protected String to;
-    public Event(String description, String from, String to) {
+    private static final long serialVersionUID = -4674004457612195474L;
+    LocalDateTime startDate;
+    LocalDateTime endDate;
+
+    public Event(String description, LocalDateTime startDate, LocalDateTime endDate) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
     @Override
     public String taskString() {
-        return "[E]" + super.taskString() + "(from: " + from + "to: " + to + ")";
+        return "[E]" + super.taskString() + "(from: " + startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"))
+                + "to: " + endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + ")";
     }
 }

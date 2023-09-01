@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 public class Duke {
@@ -11,6 +13,7 @@ public class Duke {
         String str = sc.nextLine();
         List<Task> tasks;
         tasks = Task.loadTasks("src/data/Duke.txt");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
             while (!str.equals("bye")) {
                 if (!str.equals("list")) {
@@ -78,7 +81,7 @@ public class Duke {
                                     throw new DeadlineCommandUseException(str);
                                 }
                                 String workToDo = str.substring(9, index);
-                                Task task = new Deadline(workToDo, deadline);
+                                Task task = new Deadline(workToDo, LocalDateTime.parse(deadline, formatter));
                                 tasks.add(task);
                                 int len = tasks.size();
                                 String output = "\tGot it. I've added this task:\n\t\t"
@@ -110,7 +113,11 @@ public class Duke {
                                             toWhen.trim().isEmpty()) { //needs to check whether there is anything after /by
                                         throw new EventCommandUseException(str);
                                     }
-                                    Task task = new Event(workToDo, fromWhen, toWhen);
+                                    if (LocalDateTime.parse(fromWhen, formatter).isAfter(LocalDateTime.parse(toWhen))) {
+                                        throw new EventDateTimeException(str);
+                                    }
+                                    Task task = new Event(workToDo, LocalDateTime.parse(fromWhen, formatter),
+                                            LocalDateTime.parse(toWhen, formatter));
                                     tasks.add(task);
                                     int len = tasks.size();
                                     String output = "\tGot it. I've added this task:\n\t\t"
@@ -132,9 +139,14 @@ public class Duke {
                 str = sc.nextLine();
             }
             Task.saveTasks("src/data/Duke.txt", tasks);
-            System.out.println("\t" + "Expelliarmus! Hope to see you again muggle!");
+            System.out.println("\t" + "Expelliarmus! Hope to see you again muggle! :D");
+        } catch (java.time.format.DateTimeParseException e) {
+            System.out.println("I don't understand what that means D:" +
+                    " Please input a valid date in the format yyyy-MM-dd HHmm " +
+                    "(the time in the 24-hour format).");
         } catch (InvalidInputException | EventCommandUseException|
-                 DeadlineCommandUseException| ToDoCommandUseException e) {
+                 DeadlineCommandUseException| ToDoCommandUseException|
+                EventDateTimeException e) {
             System.out.println(e.getMessage());
         }
     }

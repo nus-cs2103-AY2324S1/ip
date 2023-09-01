@@ -1,13 +1,15 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime date;
     private static final long serialVersionUID = 6548478093468504893L;
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime date) {
         super(description);
-        this.by = by;
+        this.date = date;
     }
 
     @Override
     public String taskString() {
-        return "[D]" + super.taskString() + " (by: " + by + ")";
+        return "[D]" + super.taskString() + " (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + ")";
     }
 }
