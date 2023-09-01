@@ -22,14 +22,13 @@ public class Records {
 			}
 			fw.close();
 		} catch (IOException e) {
-			System.out.println("not good");
+			throw new IOException("write fail");
 		}
 
 	}
 
 
 	public ArrayList<Task> readFile() throws IOException {
-//		ArrayList<Task> t = new ArrayList<>(100);
 		try (BufferedReader in = new BufferedReader(new FileReader(filePath))) {
 			StringBuilder br = new StringBuilder();
 			String fileLine;
@@ -53,7 +52,7 @@ public class Records {
 		String isDone = str[1];
 		switch(taskType) {
 		case "T":
-			t.add(new ToDos(br.toString()));
+			t.add(new ToDos(str[2]));
 			break;
 		case "D":
 			t.add(new Deadline(str[2], str[3]));
@@ -62,7 +61,7 @@ public class Records {
 			t.add(new Event(str[2], str[3], str[4]));
 			break;
 		default:
-			throw new IOException("file saved has errors");
+			throw new IOException("read fail");
 		}
 	}
 
