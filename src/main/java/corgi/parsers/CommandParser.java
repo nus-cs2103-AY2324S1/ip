@@ -2,17 +2,18 @@ package corgi.parsers;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.function.Predicate;
 
 import corgi.commands.AddTaskCommand;
 import corgi.commands.Command;
 import corgi.commands.CommandType;
 import corgi.commands.DeleteTaskCommand;
 import corgi.commands.ExitCommand;
+import corgi.commands.FindTasksContainKeyword;
 import corgi.commands.FindTasksOnDateCommand;
 import corgi.commands.InvalidCommandException;
 import corgi.commands.ListTasksCommand;
 import corgi.commands.MarkTaskCommand;
+
 import corgi.tasks.Deadline;
 import corgi.tasks.Event;
 import corgi.tasks.Task;
@@ -73,6 +74,9 @@ public class CommandParser extends Parser<Command>{
             break;
         case DATE:
             command = newDateCommand(inputs);
+            break;
+        case FIND:
+            command = newFindCommand(inputs);
             break;
         }
 
@@ -143,6 +147,17 @@ public class CommandParser extends Parser<Command>{
         }
 
         return new FindTasksOnDateCommand(target);
+    }
+
+    private Command newFindCommand(String[] inputs) throws InvalidCommandFormatException {
+        if (inputs.length == 1) {
+            throw new InvalidCommandFormatException("No argument is provided!" + "\nFormat: " +
+                    CommandType.FIND.getCommandFormat());
+        }
+
+        String keyword = inputs[1];
+
+        return new FindTasksContainKeyword(keyword);
     }
 
     private Command newAddCommand(String[] inputs, CommandType type) throws InvalidCommandFormatException {
