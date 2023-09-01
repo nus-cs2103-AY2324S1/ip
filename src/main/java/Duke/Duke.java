@@ -25,8 +25,8 @@ public class Duke {
     private static String INVALID_DATE_FORMAT = "\uD83D\uDE21 Invalid date format! Try using YYYY-MM-DD";
 
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    private static Path SAVE_FILE_LOCATION = Paths.get("src", "data", "duke.txt");
-    private static Path SAVE_FILE_DIR = Paths.get("src", "data");
+    private static Path SAVE_FILE_LOCATION = Paths.get("data", "duke.txt");
+    private static Path SAVE_FILE_DIR = Paths.get( "data");
 
 
     private Storage storage;
