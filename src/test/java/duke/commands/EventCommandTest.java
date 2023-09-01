@@ -30,7 +30,7 @@ public class EventCommandTest {
                 "Got it. I've added this task:",
                 "[E][ ] meeting (from 2023-09-10T12:00 to 2023-09-10T15:00)",
                 "Now you have 1 task in the list."
-        ), result.response);
+        ), result.getResponse());
 
         Task event = tasks.get(0);
         assertFalse(event.isDone());
@@ -48,7 +48,7 @@ public class EventCommandTest {
                 "Got it. I've added this task:",
                 "[E][ ] meeting (from 2023-09-10T12:00 to 2023-09-10T15:00)",
                 "Now you have 1 task in the list."
-        ), result.response);
+        ), result.getResponse());
 
         Task todo = tasks.get(0);
         assertFalse(todo.isDone());

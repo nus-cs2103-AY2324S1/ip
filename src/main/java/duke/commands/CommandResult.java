@@ -3,8 +3,8 @@ package duke.commands;
 import java.util.List;
 
 public class CommandResult {
-    public final boolean shouldSave;
-    public List<String> response;
+    private final boolean shouldSave;
+    private final List<String> response;
 
     CommandResult(String... response) {
         this.shouldSave = false;
@@ -24,5 +24,13 @@ public class CommandResult {
     CommandResult(boolean shouldSave, List<String> response) {
         this.shouldSave = shouldSave;
         this.response = response;
+    }
+
+    public boolean shouldSave() {
+        return shouldSave;
+    }
+
+    public List<String> getResponse() {
+        return response;
     }
 }

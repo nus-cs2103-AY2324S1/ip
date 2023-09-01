@@ -27,7 +27,7 @@ public class TodoCommandTest {
         assertEquals(tasks.size(), 1);
         assertEquals(
                 List.of("Got it. I've added this task:", "[T][ ] read book", "Now you have 1 task in the list."),
-                result.response
+                result.getResponse()
         );
 
         Task todo = tasks.get(0);

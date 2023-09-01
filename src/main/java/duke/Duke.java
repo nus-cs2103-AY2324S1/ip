@@ -8,11 +8,12 @@ import duke.ui.TextUi;
 public class Duke {
     private static final String NAME = "Jimmy";
     private static final String TASKS_CACHE_PATH = ".duke-cache";
-    public static TaskList tasks;
 
     public static void main(String[] args) {
         TextUi ui = new TextUi();
         Storage storage = new Storage(TASKS_CACHE_PATH);
+        TaskList tasks;
+
         try {
             tasks = storage.load();
             ui.say(String.format("Loaded existing tasks from %s", TASKS_CACHE_PATH));
@@ -40,11 +41,11 @@ public class Duke {
 
                 CommandResult result = command.run(tasks);
 
-                if (result.shouldSave) {
+                if (result.shouldSave()) {
                     storage.save(tasks);
                 }
 
-                ui.say(result.response.toArray(new String[0]));
+                ui.say(result.getResponse().toArray(new String[0]));
             } catch (DukeException e) {
                 ui.say(e.getMessage());
             }

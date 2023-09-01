@@ -30,7 +30,7 @@ public class DeadlineCommandTest {
                 "Got it. I've added this task:",
                 "[D][ ] assignment (by 2023-09-10T12:00)",
                 "Now you have 1 task in the list."
-        ), result.response);
+        ), result.getResponse());
 
         Task todo = tasks.get(0);
         assertFalse(todo.isDone());

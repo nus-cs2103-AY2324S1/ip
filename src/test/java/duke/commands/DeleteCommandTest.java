@@ -28,7 +28,7 @@ public class DeleteCommandTest {
         assertEquals(0, tasks.size());
         assertEquals(
                 List.of("Noted. I've removed this task:", todo.toString(), "You have 0 tasks in your list."),
-                result.response
+                result.getResponse()
         );
     }
 

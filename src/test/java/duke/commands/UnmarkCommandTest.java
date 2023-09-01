@@ -28,7 +28,7 @@ public class UnmarkCommandTest {
         CommandResult result = command.run(tasks);
 
         assertFalse(todo.isDone());
-        assertEquals(List.of("OK, I've marked this task as not done yet:", "[T][ ] read book"), result.response);
+        assertEquals(List.of("OK, I've marked this task as not done yet:", "[T][ ] read book"), result.getResponse());
     }
 
     @Test

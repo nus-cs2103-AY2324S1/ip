@@ -27,7 +27,7 @@ public class MarkCommandTest {
         CommandResult result = command.run(tasks);
 
         assertTrue(todo.isDone());
-        assertEquals(List.of("Nice! I've marked this task as done:", "[T][X] read book"), result.response);
+        assertEquals(List.of("Nice! I've marked this task as done:", "[T][X] read book"), result.getResponse());
     }
 
     @Test

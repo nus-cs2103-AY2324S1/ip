@@ -20,7 +20,7 @@ public class ListCommandTest {
 
         CommandResult result = command.run(tasks);
 
-        assertEquals(List.of("You have no tasks in your list!"), result.response);
+        assertEquals(List.of("You have no tasks in your list!"), result.getResponse());
     }
 
     @Test
@@ -46,7 +46,7 @@ public class ListCommandTest {
                 "2. " + deadline,
                 "3. " + event,
                 "You have 3 tasks in your list."
-        ), result.response);
+        ), result.getResponse());
     }
 
 }
