@@ -17,7 +17,7 @@ import data.tasks.Todo;
 
 /**
  * The Storage class.
- * Loads tasks created by the user from previous session
+ * Load tasks created by the user from previous session
  * via a text file. Updates the same text file for each
  * modification to the {@link TaskList}.
  */
@@ -42,7 +42,7 @@ public class Storage {
      * This method loads in the tasks from the file specified by the user.
      * If the file cannot be found, a new directory is created to store the file.
      * 
-     * @return An ArrayList of {@link Tasks} loaded from the file.
+     * @return An ArrayList of {@link Task} loaded from the file.
      */
     public ArrayList<Task> load() {
         try {

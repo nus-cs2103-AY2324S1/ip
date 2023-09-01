@@ -64,7 +64,7 @@ public class Ui {
     }
 
     /**
-     * Displays the first character ">" on the input line.
+     * Displays the first character on the input line.
      * Indicates where the user is typing his command.
      */
     public void displayInputStart() {
