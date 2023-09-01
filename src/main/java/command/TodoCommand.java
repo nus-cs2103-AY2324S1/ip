@@ -1,7 +1,9 @@
 package command;
 
+import exception.FileErrorBotException;
 import task.TaskList;
 import task.Todo;
+import storage.Storage;
 
 public class TodoCommand extends Command {
 
@@ -13,8 +15,9 @@ public class TodoCommand extends Command {
         this.todo = new Todo(taskDetail);
     }
 
-    public void execute() {
+    public void execute() throws FileErrorBotException {
         this.taskList.add(this.todo);
+        Storage.save(this.taskList);
         System.out.println(this);
     }
 

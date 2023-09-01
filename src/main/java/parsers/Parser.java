@@ -1,3 +1,4 @@
+package parsers;
 
 public class Parser {
     private static final String SPLIT_AT_SPACE = " ";

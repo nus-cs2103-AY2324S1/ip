@@ -10,6 +10,10 @@ public class TaskList {
         this.lst = new ArrayList<Task>();
     }
 
+    public TaskList(ArrayList<Task> lst) {
+        this.lst = lst;
+    }
+
     public void add(Task task) {
         this.lst.add(task);
     }
@@ -33,10 +37,10 @@ public class TaskList {
 
     public String list() {
         String str = "";
-        Iterator<Task> iter = this.lst.iterator();
+        Iterator<Task> iterator = this.iterator();
         int i = 1;
-        while (iter.hasNext()) {
-            str += Integer.toString(i) + ". " + iter.next() + "\n";
+        while (iterator.hasNext()) {
+            str += Integer.toString(i) + ". " + iterator.next() + "\n";
             i++;
         }
         return str;

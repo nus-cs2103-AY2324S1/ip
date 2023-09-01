@@ -1,7 +1,20 @@
-import command.*;
+import command.Command;
+import command.DeadlineCommand;
+import command.DeleteCommand;
+import command.ErrorCommand;
+import command.EventCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.TerminateCommand;
+import command.TodoCommand;
+import command.UnmarkCommand;
+
+import exception.FileErrorBotException;
 import exception.IllegalExpressionBotException;
 import exception.IncompleteBotException;
-import task.*;
+
+import parsers.Parser;
+import task.TaskList;
 
 
 public class ControlFlow {
@@ -22,7 +35,8 @@ public class ControlFlow {
     }
 
 
-    public Command execute(String str) throws IllegalExpressionBotException, IncompleteBotException {
+    public Command execute(String str) throws IllegalExpressionBotException,
+            IncompleteBotException, FileErrorBotException {
         if (str.isBlank()) {
             throw new IncompleteBotException("OOPS!!! There is no task specified.");
         }

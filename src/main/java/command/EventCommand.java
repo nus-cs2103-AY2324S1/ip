@@ -1,7 +1,9 @@
 package command;
 
+import exception.FileErrorBotException;
 import task.TaskList;
 import task.Event;
+import storage.Storage;
 
 public class EventCommand extends Command {
 
@@ -13,8 +15,9 @@ public class EventCommand extends Command {
         this.event = new Event(taskDetail, timeFrom, timeTo);
     }
 
-    public void execute() {
+    public void execute() throws FileErrorBotException {
         this.taskList.add(this.event);
+        Storage.save(this.taskList);
         System.out.println(this);
     }
 

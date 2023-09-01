@@ -1,7 +1,9 @@
 package command;
 
+import exception.FileErrorBotException;
 import task.TaskList;
 import task.Deadline;
+import storage.Storage;
 
 public class DeadlineCommand extends Command {
 
@@ -13,8 +15,9 @@ public class DeadlineCommand extends Command {
         this.deadline = new Deadline(taskDetail, dueDate);
     }
 
-    public void execute() {
+    public void execute() throws FileErrorBotException {
         this.taskList.add(this.deadline);
+        Storage.save(this.taskList);
         System.out.println(this);
     }
 

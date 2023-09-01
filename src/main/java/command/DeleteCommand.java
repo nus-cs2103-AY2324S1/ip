@@ -1,6 +1,9 @@
 package command;
 
-import task.*;
+import exception.FileErrorBotException;
+import storage.Storage;
+import task.Task;
+import task.TaskList;
 
 public class DeleteCommand extends Command {
     private final TaskList taskList;
@@ -13,8 +16,9 @@ public class DeleteCommand extends Command {
         this.task = this.taskList.get(this.idx);
     }
 
-    public void execute() {
+    public void execute() throws FileErrorBotException {
         this.taskList.delete(idx);
+        Storage.save(this.taskList);
         System.out.println(this);
     }
 
