@@ -52,6 +52,17 @@ public abstract class Task {
     }
 
     /**
+     * Checks whether the task description contains
+     * the input keyword.
+     *
+     * @param keyword Keyword to be checked.
+     * @return True if contains keyword and False otherwise.
+     */
+    public boolean hasKeyword(String keyword) {
+        return description.toLowerCase().contains(keyword.toLowerCase());
+    }
+
+    /**
      * Returns the representation of the task in data format.
      *
      * @return Data representation of the task.
@@ -67,7 +78,7 @@ public abstract class Task {
     /**
      * Returns the String representation of a task by its status and description.
      *
-     * @return the String representing the task
+     * @return the String representing the task.
      */
     @Override
     public String toString() {
