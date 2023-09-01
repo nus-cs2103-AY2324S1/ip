@@ -7,9 +7,20 @@ import java.util.Scanner;
 import java.io.File;
 public class Storage {
     File tmpDir;
+
+    /**
+     * Creates a new instance of Storage.
+     * @param file File that stores previous chatbot information and will store current chatbot information.
+     */
     public Storage(File file) {
         tmpDir = file;
     }
+
+    /**
+     * Loads the tasks stored in storage.
+     * @param taskList Lists of tasks in chatbot.
+     * @throws FileNotFoundException
+     */
     public void loadFile(TaskList taskList) throws FileNotFoundException {
         Scanner sc = new Scanner(tmpDir);
         while (sc.hasNextLine()) {
@@ -51,6 +62,11 @@ public class Storage {
             taskList.addTaskSilent(curr);
         }
     }
+
+    /**
+     * Writes tasks in list to storage.
+     * @param taskList Tasks in chatbot.
+     */
     public void storeList(TaskList taskList) {
         try {
             Files.write(tmpDir.toPath(), taskList.storeList().getBytes());

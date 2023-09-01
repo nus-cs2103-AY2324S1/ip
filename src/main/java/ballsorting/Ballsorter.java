@@ -9,7 +9,12 @@ public class Ballsorter {
     static DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM, HH:mm");
     TaskList taskList = new TaskList();
     Storage storage;
-    Ui ui;    File tmpDir;
+    Ui ui;
+    File tmpDir;
+
+    /**
+     * Creates a new instance of the chatbot.
+     */
     public Ballsorter() {
         tmpDir = new File("data/Ballsorter.txt");
         //check for storage
@@ -24,6 +29,11 @@ public class Ballsorter {
             System.out.println(e);
         }
     }
+
+    /**
+     * Creates a new instance of the chatbot.
+     * @param filePath Takes in a filePath String that stores the chatbot information.
+     */
     public Ballsorter(String filePath) {
         tmpDir = new File(filePath);
         //check for storage
@@ -38,6 +48,10 @@ public class Ballsorter {
             System.out.println(e);
         }
     }
+
+    /**
+     * Starts the chatbot.
+     */
     public void run() {
         System.out.println(line);
         System.out.println("Hello! I'm Ballsorter\nWhat can I do for you?");

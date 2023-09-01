@@ -3,9 +3,20 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 public class Parser {
     Scanner sc;
+
+    /**
+     * Creates a new instance of the Parser.
+     * @param sc Scans the user input.
+     */
     public Parser(Scanner sc) {
         this.sc = sc;
     }
+
+    /**
+     * Parses the user input.
+     * @param input Command entered by user.
+     * @param taskList Tasks in the chatbot.
+     */
     public void parseUserInput(String input, TaskList taskList) {
         if (input.equals("list")) {
 
