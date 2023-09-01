@@ -43,9 +43,9 @@ public class Storage {
         }
     }
 
-    public ArrayList loadTasks() throws FileNotFoundException {
+    public ArrayList<Task> loadTasks() throws FileNotFoundException {
         File file = new File(filePath);
-        ArrayList tasks = new ArrayList();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         if (!file.exists()) {
             return tasks; // return empty list if file doesn't exist
