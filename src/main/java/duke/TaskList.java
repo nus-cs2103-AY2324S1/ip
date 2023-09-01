@@ -104,6 +104,36 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints the tasks in the list.
+     */
+    public void printTaskList() {
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < this.getSize(); i++) {
+            System.out.println((i + 1) + ". " + this.taskList.get(i).displayableForm());
+        }
+    }
+
+    /**
+     * Finds tasks in the list that contain the keyword.
+     * @param keyword The keyword input by the user.
+     * @return An array list containing the tasks that contain the key word.
+     * @throws DukeException
+     */
+    public ArrayList<Task> findTasks(String keyword) throws DukeException {
+        try {
+            ArrayList<Task> tempList = new ArrayList<>(this.getSize());
+            for (int i = 0; i < this.getSize(); i++) {
+                if (this.taskList.get(i).getName().contains(keyword)) {
+                    tempList.add(this.taskList.get(i));
+                }
+            }
+            return tempList;
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("☹ OOPS!!! There are no tasks in the list.");
+        }
+    }
+
     public int getSize() {
         return this.taskList.size();
     }
