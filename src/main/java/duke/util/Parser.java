@@ -247,6 +247,13 @@ public class Parser {
         return index;
     }
 
+    /**
+     * Returns the query string to be searched based on user input.
+     *
+     * @param input The given user input.
+     * @return The string the users wishes to search.
+     * @throws TaskException if given input is missing information or in wrong format.
+     */
     public static String parseUserFind(String input) throws TaskException {
         if (input.length() <= 5) {
             throw new TaskException("find (query string)");
