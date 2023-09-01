@@ -1,49 +1,67 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Dude {
 
-    static Task[] taskList = new Task[100];
+//    static Task[] taskList = new Task[100];
+    static ArrayList<Task> taskList = new ArrayList<Task>();
     static int nTasks = 0;
 
     public static void addTodo(String task) {
         ToDo newTask = new ToDo(task);
-        taskList[nTasks] = newTask;
+//        taskList[nTasks] = newTask;
+        taskList.add(newTask);
         System.out.printf("Got it. I've added this task:\n%s\n", newTask.toString());
         nTasks += 1;
         System.out.printf("Now you have %d tasks in the list. \n", nTasks);
     }
     public static void addDeadline(String task, String by) {
         Deadline newTask = new Deadline(task, by);
-        taskList[nTasks] = newTask;
+//        taskList[nTasks] = newTask;
+        taskList.add(newTask);
         System.out.printf("Got it. I've added this task:\n%s\n", newTask.toString());
         nTasks += 1;
         System.out.printf("Now you have %d tasks in the list. \n", nTasks);
     }
     public static void addEvent(String task, String from, String to) {
         Event newTask = new Event(task, from, to);
-        taskList[nTasks] = newTask;
+//        taskList[nTasks] = newTask;
+        taskList.add(newTask);
         System.out.printf("Got it. I've added this task:\n%s\n", newTask.toString());
         nTasks += 1;
         System.out.printf("Now you have %d tasks in the list. \n", nTasks);
     }
 
+    public static void delete(int n) {
+        Task removedTask = taskList.get(n-1);
+        taskList.remove(n-1);
+        nTasks -= 1;
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(removedTask.toString());
+        System.out.printf("Now you have %d tasks in the list.\n", nTasks);
+
+    }
+
     public static void list() {
         for (int i = 0; i < nTasks; i++) {
-            Task task = taskList[i];
+            Task task = taskList.get(i);
+//            Task task = taskList[i];
             System.out.printf("%d. %s\n", i+1, task.toString());
         }
     }
 
     public static void mark(int n) {
-        taskList[n-1].setDone(true);
+//        taskList[n-1].setDone(true);
+        taskList.get(n-1).setDone(true);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.printf("%d. %s\n", n, taskList[n-1].toString());
+        System.out.printf("%d. %s\n", n, taskList.get(n-1).toString());
     }
 
     public static void unmark(int n) {
-        taskList[n-1].setDone(false);
+//        taskList[n-1].setDone(false);
+        taskList.get(n-1).setDone(false);
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.printf("%d. %s\n", n, taskList[n-1].toString());
+        System.out.printf("%d. %s\n", n, taskList.get(n-1).toString());
     }
 
     public static void bye() {
@@ -91,6 +109,8 @@ public class Dude {
                 String from = taskWords[1].substring(5);
                 String to = taskWords[2].substring(3);
                 addEvent(taskWords[0], from, to);
+            } else if (words[0].equals("delete")) {
+                delete(Integer.valueOf(words[1]));
             } else {
                 System.out.println(" OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
