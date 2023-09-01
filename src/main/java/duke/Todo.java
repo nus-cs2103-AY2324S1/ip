@@ -5,6 +5,7 @@ package duke;
  * A Todo task is a simple task with just a description and no specific time associated with it.
  */
 public class Todo extends Task {
+
     /**
      * Constructs a Todo task with the given description.
      *
