@@ -43,7 +43,7 @@ public class Storage {
     }
 
     /**
-     * Retrieves data from the storage txt file and converts it into a list of tasks.
+     * Retrieves data from the storage file and converts it into an Array list of tasks.
      *
      * @return An ArrayList of Task objects loaded from the storage file.
      * @throws DukeException If there's an issue during data retrieval.
