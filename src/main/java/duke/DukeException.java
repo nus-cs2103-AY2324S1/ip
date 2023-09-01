@@ -1,3 +1,5 @@
+package duke;
+
 public class DukeException extends RuntimeException {
     private static final String OOPS = "Oopssss!";
     public static final String NON_EMPTY = "The description of %s cannot be empty!";

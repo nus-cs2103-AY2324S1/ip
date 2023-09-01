@@ -1,4 +1,4 @@
-import java.io.FileWriter;
+package duke.task;
 
 public abstract class Task {
     protected String description;
@@ -26,5 +26,5 @@ public abstract class Task {
         return this.getStatusIcon() + this.description;
     }
 
-    abstract String writeToFile();
+    public abstract String writeToFile();
 }
