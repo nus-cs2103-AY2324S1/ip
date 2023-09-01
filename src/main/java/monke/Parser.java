@@ -11,21 +11,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-    private enum CommandWord {
-        LIST("list"),
-        MARK("mark"),
-        UNMARK("unmark"),
-        TODO("todo"),
-        DEADLINE("deadline"),
-        EVENT("event"),
-        DELETE("delete"),
-        EXIT("bye");
-        private final String word;
-        CommandWord(String word) {
-            this.word = word;
-        }
-    }
-
     public static Task parseLoadedData(String data) throws MonkeException {
         String[] tmp = data.split(" \\| ");
         String taskType = tmp[0];
@@ -65,22 +50,22 @@ public class Parser {
             return new ListCommand();
         }
         case MarkCommand.COMMAND_WORD: {
-            return new MarkCommand(args);
+            return parseMark(args);
         }
         case UnmarkCommand.COMMAND_WORD: {
-            return new UnmarkCommand(args);
+            return parseUnmark(args);
         }
         case TodoCommand.COMMAND_WORD: {
             return parseTodo(args);
         }
         case DeadlineCommand.COMMAND_WORD: {
-            return Parser.parseDeadline(args);
+            return parseDeadline(args);
         }
         case EventCommand.COMMAND_WORD: {
-            return Parser.parseEvent(args);
+            return parseEvent(args);
         }
         case DeleteCommand.COMMAND_WORD: {
-            return new DeleteCommand(args);
+            return parseDelete(args);
         }
         case ExitCommand.COMMAND_WORD: {
             return new ExitCommand();
@@ -89,6 +74,30 @@ public class Parser {
             throw new MonkeException("OOGA??!! I'm sorry, but I don't know what that means :-(");
         }
         }
+    }
+
+    public static MarkCommand parseMark(String args) throws MonkeException {
+        if (args.isBlank()) {
+            throw new MonkeException("OOGA BOOGA!! Please provide a list number");
+        }
+        try {
+            Integer.parseInt(args);
+        } catch (NumberFormatException e) {
+            throw new MonkeException("OOGA BOOGA!! Please provide a list number");
+        }
+        return new MarkCommand(args);
+    }
+
+    public static UnmarkCommand parseUnmark(String args) throws MonkeException {
+        if (args.isBlank()) {
+            throw new MonkeException("OOGA BOOGA!! Please provide a list number");
+        }
+        try {
+            Integer.parseInt(args);
+        } catch (NumberFormatException e) {
+            throw new MonkeException("OOGA BOOGA!! Please provide a list number");
+        }
+        return new UnmarkCommand(args);
     }
 
     public static TodoCommand parseTodo(String args) throws MonkeException {
@@ -130,5 +139,17 @@ public class Parser {
         String start = tmp2[0];
         String end = tmp2[1];
         return new EventCommand(description, start, end);
+    }
+
+    public static DeleteCommand parseDelete(String args) throws MonkeException {
+        if (args.isBlank()) {
+            throw new MonkeException("OOGA BOOGA!! Please provide a list number");
+        }
+        try {
+            Integer.parseInt(args);
+        } catch (NumberFormatException e) {
+            throw new MonkeException("OOGA BOOGA!! Please provide a list number");
+        }
+        return new DeleteCommand(args);
     }
 }

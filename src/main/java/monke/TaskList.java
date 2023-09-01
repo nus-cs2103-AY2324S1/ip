@@ -19,10 +19,10 @@ public class TaskList {
         this.tasks.add(task);
     }
 
-    public void deleteFromList(String taskNum) throws MonkeException {
+    public void delete(String taskNum) throws MonkeException {
         try {
             int n = Integer.parseInt(taskNum);
-            if (n > this.tasks.size()) {
+            if (n > this.tasks.size() || n <= 0) {
                 throw new MonkeException("OOGA BOOGA!! Your number is out of range. :(");
             }
             this.tasks.remove(n - 1);
@@ -34,7 +34,7 @@ public class TaskList {
     public Task getTask(String taskNum) throws MonkeException {
         try {
             int n = Integer.parseInt(taskNum);
-            if (n > this.tasks.size()) {
+            if (n > this.tasks.size() || n <= 0) {
                 throw new MonkeException("OOGA BOOGA!! Your number is out of range. :(");
             }
             return tasks.get(n - 1);

@@ -10,7 +10,7 @@ public class DeleteCommand extends Command {
         this.taskNumber = taskNumber;
     }
     public void execute(Ui ui, Storage storage, TaskList tasks) throws MonkeException {
-        tasks.deleteFromList(this.taskNumber);
+        tasks.delete(this.taskNumber);
         ui.print("Noted. I've removed this task:");
         ui.print("\t" + tasks.getTask(this.taskNumber));
         storage.saveData(tasks);
