@@ -1,3 +1,5 @@
+package deterministicparrot;
+
 import java.util.HashMap;
 import java.util.Map;
 
