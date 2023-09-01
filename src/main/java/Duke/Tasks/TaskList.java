@@ -91,6 +91,12 @@ public class TaskList {
         return stringBuilder.toString();
     }
 
+    /**
+     * Finds the tasks that match the provided search string.
+     *
+     * @param searchString the string to match
+     * @return tasks whose name contains the search string.
+     */
     public ArrayList<Optional<Task>> findTasksByName(String searchString) {
         List<Optional<Task>> filtered = this.list.stream().map(Optional::get)
                 .map(a -> a.getName().contains(searchString) ? a : null)
