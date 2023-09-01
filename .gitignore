@@ -17,3 +17,6 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 
 /data/
+
+/out/artifacts/Duke_jar/ip.main.jar
+/src/test/META-INF/MANIFEST.MF
