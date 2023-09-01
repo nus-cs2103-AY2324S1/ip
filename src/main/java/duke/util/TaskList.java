@@ -183,7 +183,7 @@ public class TaskList {
     protected void findTask(String matchingKeyword) {
         try {
             printHorizontalLine();
-            if (taskList.isEmpty()) {
+            if (listOfTasks.isEmpty()) {
                 System.out.println("\t You currently have no tasks so I can't find any matching tasks :/.");
                 return;
             }
@@ -191,9 +191,9 @@ public class TaskList {
             int taskCount = 0;
             StringBuilder matchingTasks = new StringBuilder(String.format(
                     "\t Here are your tasks that contains '%s':", matchingKeyword));
-            for (int i = 0; i < taskList.size(); i++) {
-                if (taskList.get(i).getDescription().contains(matchingKeyword)) {
-                    matchingTasks.append("\n\t ").append(taskList.get(i));
+            for (int i = 0; i < listOfTasks.size(); i++) {
+                if (listOfTasks.get(i).getDescription().contains(matchingKeyword)) {
+                    matchingTasks.append("\n\t ").append(listOfTasks.get(i));
                     taskCount++;
                 }
             }
