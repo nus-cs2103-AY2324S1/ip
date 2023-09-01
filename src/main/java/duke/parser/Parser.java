@@ -10,8 +10,18 @@ import duke.ui.Ui;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class is responsible for parsing user input commands and converting them into executable commands.
+ * It supports commands such as adding tasks, marking tasks as done, deleting tasks, and more.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns an appropriate Command object based on the input.
+     *
+     * @param userInput The user's input command as a string.
+     * @return A command object that corresponds to the parsed input.
+     */
     public static Command parse(String userInput) {
         String[] userInputArray = userInput.split(" ", 2);
         String command = userInputArray[0];
