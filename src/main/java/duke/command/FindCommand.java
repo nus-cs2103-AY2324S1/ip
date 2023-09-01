@@ -21,9 +21,9 @@ public class FindCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         String tasksFound = tasks.findTasks(this.query);
         if (tasksFound.isEmpty()) {
-            ui.printWithLines(Messages.NO_TASKS_FOUND_MESSAGE);
+            ui.printWithLines(Messages.MESSAGE_NO_TASKS_FOUND);
         } else {
-            ui.printWithLines(Messages.TASKS_FOUND_MESSAGE + tasksFound);
+            ui.printWithLines(Messages.MESSAGE_TASKS_FOUND + tasksFound);
         }
     }
 }

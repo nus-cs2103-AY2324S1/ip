@@ -34,7 +34,7 @@ public class Parser {
 
         if (!matcher.matches()) {
             // no match means input is not valid
-            throw new DukeException(Ui.LINE + Messages.INVALID_INPUT_MESSAGE + Ui.LINE);
+            throw new DukeException(Ui.LINE + Messages.MESSAGE_INVALID_INPUT + Ui.LINE);
         }
 
         int index;
@@ -45,19 +45,19 @@ public class Parser {
             return new ListCommand();
         case "mark":
             if (matcher.group(2) == null) {
-                throw new DukeException(Ui.LINE + Messages.INVALID_MARK_MESSAGE + Ui.LINE);
+                throw new DukeException(Ui.LINE + Messages.MESSAGE_INVALID_MARK + Ui.LINE);
             }
             index = Integer.parseInt(matcher.group(2));
             return new MarkCommand(index);
         case "unmark":
             if (matcher.group(2) == null) {
-                throw new DukeException(Ui.LINE + Messages.INVALID_UNMARK_MESSAGE + Ui.LINE);
+                throw new DukeException(Ui.LINE + Messages.MESSAGE_INVALID_UNMARK + Ui.LINE);
             }
             index = Integer.parseInt(matcher.group(2));
             return new UnmarkCommand(index);
         case "todo":
             if (matcher.group(2) == null) {
-                throw new DukeException(Ui.LINE + Messages.INVALID_TODO_MESSAGE + Ui.LINE);
+                throw new DukeException(Ui.LINE + Messages.MESSAGE_INVALID_TODO + Ui.LINE);
             }
             return new AddTaskCommand(new Todo(matcher.group(2)));
         case "deadline":
@@ -65,7 +65,7 @@ public class Parser {
                     || matcher.group(3) == null
                     || !matcher.group(3).equals("/by")
                     || matcher.group(4) == null) {
-                throw new DukeException(Ui.LINE + Messages.INVALID_DEADLINE_MESSAGE + Ui.LINE);
+                throw new DukeException(Ui.LINE + Messages.MESSAGE_INVALID_DEADLINE + Ui.LINE);
             }
 
             LocalDateTime parsedDate;
@@ -73,7 +73,7 @@ public class Parser {
                 parsedDate = LocalDateTime.parse(matcher.group(4),
                         DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
             } catch (DateTimeParseException e) {
-                throw new DukeException(Ui.LINE + Messages.INVALID_DEADLINE_MESSAGE + Ui.LINE);
+                throw new DukeException(Ui.LINE + Messages.MESSAGE_INVALID_DEADLINE + Ui.LINE);
             }
 
             return new AddTaskCommand(new Deadline(matcher.group(2), parsedDate));
@@ -85,22 +85,22 @@ public class Parser {
                     || matcher.group(5) == null
                     || !matcher.group(5).equals("/to")
                     || matcher.group(6) == null) {
-                throw new DukeException(Ui.LINE + Messages.INVALID_EVENT_MESSAGE + Ui.LINE);
+                throw new DukeException(Ui.LINE + Messages.MESSAGE_INVALID_EVENT + Ui.LINE);
             }
             return new AddTaskCommand(new Event(matcher.group(2), matcher.group(4), matcher.group(6)));
         case "delete":
             if (matcher.group(2) == null) {
-                throw new DukeException(Ui.LINE + Messages.INVALID_DELETE_MESSAGE + Ui.LINE);
+                throw new DukeException(Ui.LINE + Messages.MESSAGE_INVALID_DELETE + Ui.LINE);
             }
             index = Integer.parseInt(matcher.group(2));
             return new DeleteCommand(index);
         case "find":
             if (matcher.group(2) == null) {
-                throw new DukeException(Ui.LINE + Messages.INVALID_FIND_MESSAGE + Ui.LINE);
+                throw new DukeException(Ui.LINE + Messages.MESSAGE_INVALID_FIND + Ui.LINE);
             }
             return new FindCommand(matcher.group(2));
         default:
-            throw new DukeException(Ui.LINE + Messages.INVALID_INPUT_MESSAGE + Ui.LINE);
+            throw new DukeException(Ui.LINE + Messages.MESSAGE_INVALID_INPUT + Ui.LINE);
         }
     }
 }

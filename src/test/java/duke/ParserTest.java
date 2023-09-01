@@ -17,7 +17,7 @@ public class ParserTest {
             Parser.parse("invalid input");
             fail();
         } catch (DukeException e) {
-            assertEquals(Ui.LINE + Messages.INVALID_INPUT_MESSAGE + Ui.LINE, e.getMessage());
+            assertEquals(Ui.LINE + Messages.MESSAGE_INVALID_INPUT + Ui.LINE, e.getMessage());
         }
     }
 
@@ -48,7 +48,7 @@ public class ParserTest {
             fail();
         } catch (DukeException e) {
             // should not throw
-            assertEquals(Ui.LINE + Messages.INVALID_MARK_MESSAGE + Ui.LINE, e.getMessage());
+            assertEquals(Ui.LINE + Messages.MESSAGE_INVALID_MARK + Ui.LINE, e.getMessage());
         }
     }
 
@@ -68,7 +68,7 @@ public class ParserTest {
             Parser.parse("deadline assignment");
             fail();
         } catch (DukeException e) {
-            assertEquals(Ui.LINE + Messages.INVALID_DEADLINE_MESSAGE + Ui.LINE, e.getMessage());
+            assertEquals(Ui.LINE + Messages.MESSAGE_INVALID_DEADLINE + Ui.LINE, e.getMessage());
         }
     }
 }

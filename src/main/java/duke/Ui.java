@@ -37,7 +37,7 @@ public class Ui {
      * @param list The list containing the tasks.
      */
     public void showList(TaskList list) {
-        out.print(LINE + Messages.LIST_MESSAGE);
+        out.print(LINE + Messages.MESSAGE_LIST);
         list.printTasks();
         out.print(LINE);
     }
@@ -50,9 +50,9 @@ public class Ui {
      * @param totalTasks The total count of tasks in the list.
      */
     public void showTaskAdded(Task task, int totalTasks) {
-        out.print(LINE + Messages.NEW_TASK_ADDED_MESSAGE);
+        out.print(LINE + Messages.MESSAGE_NEW_TASK_ADDED);
         out.print("  " + task + "\n");
-        out.printf(Messages.TOTAL_TASK_COUNT_MESSAGE, totalTasks);
+        out.printf(Messages.MESSAGE_TOTAL_TASK_COUNT, totalTasks);
         out.print(LINE);
     }
 
@@ -64,9 +64,9 @@ public class Ui {
      * @param totalTasks The total count of tasks in the list.
      */
     public void showTaskDeleted(Task task, int totalTasks) {
-        out.print(LINE + Messages.TASK_DELETED_MESSAGE);
+        out.print(LINE + Messages.MESSAGE_TASK_DELETED);
         out.print("  " + task + "\n");
-        out.printf(Messages.TOTAL_TASK_COUNT_MESSAGE, totalTasks);
+        out.printf(Messages.MESSAGE_TOTAL_TASK_COUNT, totalTasks);
         out.print(LINE);
     }
 
@@ -77,7 +77,7 @@ public class Ui {
      * @param task The done task.
      */
     public void showTaskDone(Task task) {
-        printWithLines(Messages.MARK_DONE_MESSAGE + "  " + task + '\n');
+        printWithLines(Messages.MESSAGE_MARK_DONE + "  " + task + '\n');
     }
 
     /**
@@ -87,21 +87,21 @@ public class Ui {
      * @param task The undone task.
      */
     public void showTaskUndone(Task task) {
-        printWithLines(Messages.MARK_UNDONE_MESSAGE + "  " + task + '\n');
+        printWithLines(Messages.MESSAGE_MARK_UNDONE + "  " + task + '\n');
     }
 
     /**
      * Print the greeting message.
      */
     public void showGreeting() {
-        printWithLines(Messages.GREETING_MESSAGE);
+        printWithLines(Messages.MESSAGE_GREETING);
     }
 
     /**
      * Print the exit message.
      */
     public void showExitMessage() {
-        printWithLines(Messages.EXIT_MESSAGE);
+        printWithLines(Messages.MESSAGE_EXIT);
     }
 
     /**

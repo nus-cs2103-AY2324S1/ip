@@ -39,7 +39,7 @@ public class TaskListTest {
             tasks.remove(5);
             fail();
         } catch (DukeException e) {
-            assertEquals(Ui.LINE + Messages.INVALID_INDEX_MESSAGE + Ui.LINE, e.getMessage());
+            assertEquals(Ui.LINE + Messages.MESSAGE_INVALID_INDEX + Ui.LINE, e.getMessage());
         }
     }
 
@@ -67,7 +67,7 @@ public class TaskListTest {
             tasks.markAsDone(5);
             fail();
         } catch (DukeException e) {
-            assertEquals(Ui.LINE + Messages.INVALID_INDEX_MESSAGE + Ui.LINE, e.getMessage());
+            assertEquals(Ui.LINE + Messages.MESSAGE_INVALID_INDEX + Ui.LINE, e.getMessage());
         }
     }
 
@@ -88,7 +88,7 @@ public class TaskListTest {
             tasks.markAsUndone(5);
             fail();
         } catch (DukeException e) {
-            assertEquals(Ui.LINE + Messages.INVALID_INDEX_MESSAGE + Ui.LINE, e.getMessage());
+            assertEquals(Ui.LINE + Messages.MESSAGE_INVALID_INDEX + Ui.LINE, e.getMessage());
         }
     }
 }
