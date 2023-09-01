@@ -1,13 +1,23 @@
 public class Deadline extends Task {
     String endTime;
-    public Deadline(String name, String endTime) {
-        super(name);
+    public Deadline(String name, Boolean marked, String endTime) {
+        super(name, marked);
         this.endTime = endTime;
     }
 
     @Override
+    public String getType() {
+        return "Deadline";
+    }
+
+    @Override
+    public String getTaskDetails() {
+        return "Deadline," + this.name + "," + this.isMarked + "," + this.endTime;
+    }
+
+    @Override
     public String toString() {
-        if (this.done) {
+        if (this.isMarked) {
             return "[D][X] " + this.name +
                     " (by: " + this.endTime + ")";
         }

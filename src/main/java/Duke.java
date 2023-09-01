@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        TaskArray tasks = new TaskArray("src/data/memory.txt");
         int taskCount = 0;
 
         String introduction = "____________________________________________________________\n" +
@@ -48,15 +48,16 @@ public class Duke {
                 String output = "____________________________________________________________\n" +
                         "Your tasks: \n";
 
-                System.out.println(output);
-
-                for (int i = 0; i < taskCount; i++) {
-                    String entryOutput = (i + 1) + ". " + tasks.get(i);
-                    if (tasks.get(i).isDone()) {
-                        entryOutput = (i + 1) + ". " + tasks.get(i);
-                    }
-                    System.out.println(entryOutput);
-                }
+//                System.out.println(output);
+//
+//                for (int i = 0; i < taskCount; i++) {
+//                    String entryOutput = (i + 1) + ". " + tasks.get(i);
+//                    if (tasks.get(i).isDone()) {
+//                        entryOutput = (i + 1) + ". " + tasks.get(i);
+//                    }
+//                    System.out.println(entryOutput);
+//                }
+                tasks.displayTasks();
 
                 System.out.println("____________________________________________________________\n");
 
@@ -124,7 +125,7 @@ public class Duke {
                 }
 
                 String taskName = input.substring(4).strip();
-                tasks.add(new ToDo(taskName));
+                tasks.addTask(new ToDo(taskName, false));
                 taskCount += 1;
 
                 String output = "____________________________________________________________\n" +
@@ -154,7 +155,7 @@ public class Duke {
                         throw new DukeInvalidFormatException(errorStr);
                     }
 
-                    tasks.add(new Deadline(taskArr[0].strip(), taskArr[1].strip()));
+                    tasks.addTask(new Deadline(taskArr[0].strip(), false, taskArr[1].strip()));
                     taskCount += 1;
 
                 } catch (DukeInvalidFormatException e) {
@@ -194,7 +195,7 @@ public class Duke {
                         throw new DukeInvalidFormatException(errorStr);
                     }
 
-                    tasks.add(new Event(taskArr[0].strip(), taskArr[1].strip(), taskArr[2].strip()));
+                    tasks.addTask(new Event(taskArr[0].strip(), false, taskArr[1].strip(), taskArr[2].strip()));
                     taskCount += 1;
                 } catch (DukeInvalidFormatException e) {
                     String errorString = "____________________________________________________________\n" +
@@ -242,7 +243,7 @@ public class Duke {
 
                     System.out.println(output);
 
-                    tasks.remove(index);
+                    tasks.deleteTask(index);
                     taskCount -= 1;
 
                 } catch (java.lang.NumberFormatException e) {

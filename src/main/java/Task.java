@@ -1,25 +1,35 @@
 public class Task {
-    Boolean done;
+    Boolean isMarked;
     String name;
 
-    public Task(String name) {
+    public Task(String name, Boolean marked) {
         this.name = name;
-        this.done = false;
+        this.isMarked = marked;
     }
     public Boolean isDone() {
-        return this.done;
+        return this.isMarked;
     }
 
     public void markAsDone() {
-        this.done = true;
+        this.isMarked = true;
     }
 
     public void markAsUndone() {
-        this.done = false;
+        this.isMarked = false;
+    }
+
+    public String getName() { return this.name; }
+
+    public String getType() { return "Task"; }
+
+    public Boolean getIsMarked() { return this.isMarked; }
+
+    public String getTaskDetails() {
+        return "Task," + this.name + "," + this.isMarked;
     }
 
     public String toString() {
-        if (this.done) {
+        if (this.isMarked) {
             return "[X] " + this.name;
         }
 
