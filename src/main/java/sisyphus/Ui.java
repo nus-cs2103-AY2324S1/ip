@@ -79,6 +79,16 @@ public class Ui {
         printHorizontalLine();
     }
 
+    public static void printMatchingTasks(TaskList taskList, String keyword) {
+        printHorizontalLine();
+        System.out.println("Below is the list of tasks with keyword - \"" + keyword + "\" :");
+        for (int i = 0; i < taskList.getSize(); i++) {
+            System.out.println(i + 1 + ". " + taskList.getTask(i));
+        }
+        printHorizontalLine();
+    }
+
+
     /**
      * Prints the marked task and the corresponding message.
      *

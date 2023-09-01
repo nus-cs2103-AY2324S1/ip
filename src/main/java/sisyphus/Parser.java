@@ -142,9 +142,14 @@ public class Parser {
             ui.printAddEvent(taskList);
             break;
         }
+        case ("find"): {
+             TaskList matchingTaskList = taskList.findMatchingTasks(params);
+             ui.printMatchingTasks(matchingTaskList, params);
+             break;
+        }
         default: {
             throw new SisyphusException("Enter a valid command. Available comments are " +
-                    "bye, list, event, deadline, todo, mark, unmark.");
+                    "bye, find, list, event, deadline, todo, mark, unmark, delete.");
         }
         }
 
