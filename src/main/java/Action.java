@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -42,7 +44,8 @@ public class Action {
     /**
      * Says goodbye to the user and exits.
      */
-    public static void exit() {
+    public static void exit() throws IOException {
+        updateData();
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(HORIZONTAL_LINE);
@@ -78,7 +81,13 @@ public class Action {
                 }
             }
         }
-        exit();
+
+        try {
+            exit();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+
         sc.close();
     }
 
@@ -121,9 +130,13 @@ public class Action {
      */
     public static void listTasks() {
         System.out.println(HORIZONTAL_LINE);
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+        if (!tasks.isEmpty()) {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
+            }
+        } else {
+            System.out.println("There is no task in your list.");
         }
         System.out.println(HORIZONTAL_LINE);
     }
@@ -220,8 +233,8 @@ public class Action {
 
     public static void handleTaskData(String taskData) throws WrongDataFormatException {
         String[] words = taskData.split(" ");
-        char taskType = words[0].charAt(1);
-        Character status = words[0].charAt(4);
+        char taskType = taskData.charAt(1);
+        Character status = taskData.charAt(4);
         boolean isDone = status.equals('X');
 
         switch (taskType) {
@@ -242,7 +255,7 @@ public class Action {
             ArrayList<String> ddlWords = new ArrayList<>(Arrays.asList(backWords).subList(1, backWords.length));
             String ddl = String.join(" ", ddlWords);
 
-            tasks.add(new Deadline(des2, ddl, isDone));
+            tasks.add(new Deadline(des2, LocalDate.parse(ddl), isDone));
             numOfTasks++;
             break;
         case 'E':
@@ -257,7 +270,7 @@ public class Action {
             String fromTime = fromTo[0].split("from: ")[1];
             String toTime = fromTo[1];
 
-            tasks.add(new Event(des3, fromTime, toTime, isDone));
+            tasks.add(new Event(des3, LocalDateTime.parse(fromTime), LocalDateTime.parse(toTime), isDone));
             numOfTasks++;
             break;
         default:

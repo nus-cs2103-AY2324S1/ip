@@ -11,11 +11,5 @@ public class BellCurveGod {
 
         Action.greet();
         Action.respond();
-
-        try {
-            Action.updateData();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
     }
 }
