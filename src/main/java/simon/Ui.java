@@ -1,8 +1,7 @@
 package simon;
 
-import simon.task.Task;
-
 import java.util.Scanner;
+import simon.task.Task;
 
 public class Ui {
 
