@@ -1,25 +1,32 @@
 package extensions;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a task with a deadline.
  */
 public class Deadline extends Task {
-    String day;
-    public Deadline(String description, String day) {
+    LocalDateTime dateTime;
+    public Deadline(String description, LocalDateTime dateTime) {
         super(description);
-        this.day = day;
+        this.dateTime = dateTime;
+    }
+    public String getDateTimeFormat() {
+        return this.dateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a"));
     }
     @Override
     public String getSaveFormat() {
         return String.format("D | %c | %s | %s",
                 this.getDoneSymbol(),
                 this.description,
-                this.day);
+                this.getDateTimeFormat());
     }
     @Override
     public String toString() {
         return String.format("[D][%c] %s (by: %s)",
                 this.getDoneSymbol(),
                 this.description,
-                this.day);
+                this.getDateTimeFormat());
     }
 }

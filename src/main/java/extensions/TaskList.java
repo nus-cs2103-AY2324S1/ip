@@ -2,6 +2,9 @@ package extensions;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -54,7 +57,6 @@ public class TaskList {
             int index = Integer.valueOf(userArg) - 1;
             Task task = tasks.get(index);
             task.markAsDone();
-
             this.echo("The following task is marked done, sheeesh:\n"
                         + task.toString());
         } catch(NumberFormatException e) {
@@ -113,17 +115,40 @@ public class TaskList {
         try {
             String[] deadlineArgs = userArgs.split(" /by ");
             String description = deadlineArgs[0];
-            String day = deadlineArgs[1];
-            if (description.isBlank() || day.isBlank()) {
-                throw new EkudIllegalArgException("Description/day shouldn't be empty :(");
+            if (deadlineArgs[1].isBlank() || description.isBlank()) {
+                throw new EkudIllegalArgException("Description/deadline shouldn't be empty :(");
             }
-            Deadline newDeadline = new Deadline(description, day);
+            LocalDateTime dateTime = this.parseDateTime(deadlineArgs[1]);
+            Deadline newDeadline = new Deadline(description, dateTime);
             this.tasks.add(newDeadline);
             this.showTaskAdded(newDeadline);
-        } catch(IndexOutOfBoundsException e) {
-            throw new EkudIllegalArgException("Deadline formatted wrongly, " +
-                    "ensure 'deadline <description> /by <day>' is followed");
+        } catch(IndexOutOfBoundsException | DateTimeParseException e) {
+            throw new EkudIllegalArgException("Deadline formatted wrongly\n" +
+                    "-> Ensure 'deadline <description> /by <dd-mm-yyyy> OR <dd-MM-yyyy hhmm>' is followed\n"
+                    + "-> For example: deadline finish quiz /by 03-10-2023 1830");
         }
+    }
+
+    /**
+     * Parses the user's input date and time into a LocalDateTime object.
+     * @param inputDateTime
+     * @return
+     */
+    public LocalDateTime parseDateTime(String inputDateTime) {
+        String[] splitDateTime = inputDateTime.split(" ");
+        String time = splitDateTime.length == 2 ? splitDateTime[1] : "2359";
+        String date = splitDateTime[0];
+        return LocalDateTime.parse(
+                date + " " + time, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+
+    }
+    /**
+     * Parses a date and time from the saved tasks file into a LocalDateTime object.
+     * @param savedDateTime
+     * @return
+     */
+    public LocalDateTime parseSavedDateTime(String savedDateTime) {
+        return LocalDateTime.parse(savedDateTime, DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a"));
     }
     /**
      * Adds an event task to this TaskList.
@@ -135,17 +160,18 @@ public class TaskList {
             String[] eventArgs = userArgs.split(" /from ");
             String[] timings = eventArgs[1].split(" /to ");
             String description = eventArgs[0];
-            String from = timings[0];
-            String to = timings[1];
-            if (description.isBlank() || from.isBlank() || to.isBlank()) {
+            if (description.isBlank() || timings[0].isBlank() || timings[1].isBlank()) {
                 throw new EkudIllegalArgException("Description/start/end shouldn't be empty :(");
             }
-            Event newEvent = new Event(description, from, to);
+            LocalDateTime fromDateTime = this.parseDateTime(timings[0]);
+            LocalDateTime toDateTime = this.parseDateTime(timings[1]);
+            Event newEvent = new Event(description, fromDateTime, toDateTime);
             this.tasks.add(newEvent);
             this.showTaskAdded(newEvent);
-        } catch(IndexOutOfBoundsException e) {
-            throw new EkudIllegalArgException("Event formatted wrongly, " +
-                    "ensure 'event <description> /from <start> /to <end>' is followed");
+        } catch(IndexOutOfBoundsException | DateTimeParseException e) {
+            throw new EkudIllegalArgException("Event formatted wrongly\n" +
+                    "-> Ensure 'event <description> /from <dd-MM-yyyy hhmm> /to <dd-MM-yyyy hhmm>' is followed\n"
+                    + "-> For example: event company dinner /from 03-10-2023 1730 /to 03-10-2023 2215");
         }
     }
     /**
@@ -194,9 +220,12 @@ public class TaskList {
                 if (taskType.equals("T")) {
                     this.tasks.add(new ToDo(taskDetails[2]));
                 } else if (taskType.equals("D")) {
-                    this.tasks.add(new Deadline(taskDetails[2], taskDetails[3]));
+                    LocalDateTime dateTime = this.parseSavedDateTime(taskDetails[3]);
+                    this.tasks.add(new Deadline(taskDetails[2], dateTime));
                 } else if (taskType.equals("E")) {
-                    this.tasks.add(new Event(taskDetails[2], taskDetails[3], taskDetails[4]));
+                    LocalDateTime fromDateTime = this.parseSavedDateTime(taskDetails[3]);
+                    LocalDateTime toDateTime = this.parseSavedDateTime(taskDetails[4]);
+                    this.tasks.add(new Event(taskDetails[2], fromDateTime, toDateTime));
                 }
                 if (isDone) this.tasks.get(tasks.size() - 1).markAsDone();
             }
