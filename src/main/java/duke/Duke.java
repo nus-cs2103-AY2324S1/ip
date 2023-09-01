@@ -8,7 +8,6 @@ import java.util.Scanner;
  * Represents the main class for the Duke application.
  * It initializes the UI, storage, and task list, and then runs the application.
  */
-
 public class Duke {
 
     private Storage storage;
