@@ -80,10 +80,12 @@ public class Duke {
             return;
         }
         LocalDateTime due = dueTime.atDate(dueDate);
-        tasks.add(new Deadline(details, due));
-        System.out.printf("Just saying, better %s now.%n" +
-                "Not like it's my problem if you don't.%n", details);
-        ui.printEndOfOperation();
+        if (parser.checkStartDateTime("deadline", due)) {
+            tasks.add(new Deadline(details, due));
+            System.out.printf("Just saying, better %s now.%n" +
+                    "Not like it's my problem if you don't.%n", details);
+            ui.printEndOfOperation();
+        }
     }
 
     public void createEvent() {
@@ -109,10 +111,13 @@ public class Duke {
         }
         LocalDateTime start = startTime.atDate(startDate);
         LocalDateTime end = endTime.atDate(endDate);
-        tasks.add(new Event(details, start, end));
-        System.out.printf("Wow, you have a %s?%n" +
-                "Uhh, n-not like I wanna join you!%n", details);
-        ui.printEndOfOperation();
+        if (parser.checkStartDateTime("event", end) &&
+                parser.checkTimeInterval("event", start, end)) {
+            tasks.add(new Event(details, start, end));
+            System.out.printf("Wow, you have a %s?%n" +
+                    "Uhh, n-not like I wanna join you!%n", details);
+            ui.printEndOfOperation();
+        }
     }
 
     public void list() {

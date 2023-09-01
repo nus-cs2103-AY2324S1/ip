@@ -1,5 +1,6 @@
 package duke;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
@@ -130,6 +131,25 @@ public class Parser {
             ui.printEndOfOperation();
             return null;
         }
+    }
+
+    public boolean checkStartDateTime(String taskType, LocalDateTime dateTime) {
+        if (dateTime.isBefore(LocalDateTime.now())) {
+            System.out.printf("Cannot create %s before the current time. " +
+                    "Please try again.%n", taskType);
+            ui.printEndOfOperation();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkTimeInterval(String taskType, LocalDateTime start, LocalDateTime end) {
+        if (end.isBefore(start)) {
+            System.out.printf("Invalid %s time interval. Please try again.%n", taskType);
+            ui.printEndOfOperation();
+            return false;
+        }
+        return true;
     }
 
     public Integer launchConfirmationScreen(String message) {
