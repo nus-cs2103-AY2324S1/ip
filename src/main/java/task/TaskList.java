@@ -47,4 +47,13 @@ public class TaskList {
         sb.append("Now you have " + tasks.size() + " tasks in your list\n");
         return sb.toString();
     }
+
+    public String deleteTask(int taskIndex) {
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            Task task = tasks.get(taskIndex);
+            tasks.remove(taskIndex);
+            return "Aite, this task is gone bro: " + task.toString();
+        }
+        return "Invalid task index.";
+    }
 }

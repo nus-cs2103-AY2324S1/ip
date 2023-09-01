@@ -76,6 +76,15 @@ public class ChatEngine {
                     ioHandler.writeOutput("Added new Event: " + eventParts[0] + " from " + eventParts[1] + " to " + eventParts[2]);
                     break;
 
+                case "delete":
+                    if (parts.length < 2) {
+                        throw new ChadException.InvalidArgumentException("Invalid format for Delete Task Operation. Use: delete {taskIndex}");
+                    }
+                    int indexOfTaskToDelete = Integer.parseInt(parts[1]) - 1;
+                    String responseFromDeleteOperation= taskList.deleteTask(indexOfTaskToDelete);
+                    ioHandler.writeOutput(responseFromDeleteOperation);
+                    break;
+
                 default:
                     throw new ChadException.InvalidCommandException("Unknown command: " + command);
             }
