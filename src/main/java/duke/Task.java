@@ -1,5 +1,7 @@
+package duke;
+
 public class Task {
-    private String desc;
+    private final String desc;
     private boolean marked;
 
     public Task(String desc) {
