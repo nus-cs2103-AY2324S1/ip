@@ -1,6 +1,3 @@
-import java.time.LocalDate;
-import java.util.Scanner;
-
 public class Sisyphus {
     private Storage storage;
     private TaskList tasks;
@@ -14,24 +11,6 @@ public class Sisyphus {
         parser = new Parser();
     }
 
-
-    private static final String NAME = "Sisyphus";
-    private static final String HORIZONTAL_LINE = "_________________________________";
-    private static final String LOGO = "\n" +
-            "      ,-'\"\"\"`-.\n" +
-            "    ,'         `.\n" +
-            "   /        `    \\\n" +
-            "  (    /          )\n" +
-            "  |             \" |\n" +
-            "  (               )\n" +
-            " `.\\\\          \\ /\n" +
-            "   `:.     , \\ ,\\ _\n" +
-            " WE   `:-.___,-`-.{\\)\n" +
-            " MUST  `.        |/ \\\n" +
-            " GO      `.        \\ \\\n" +
-            " ON        `-.     _\\,)\n" +
-            "              `.  |,-||\n" +
-            "                `.|| ||\n";
     public void run() {
         ui.greet();
         boolean isChatting = true;
@@ -46,7 +25,7 @@ public class Sisyphus {
         }
         ui.exit();
     }
-    public static void main(String[] args) throws SisyphusException{
+    public static void main(String[] args) {
         Sisyphus sisyphus = new Sisyphus();
         sisyphus.run();
     }
