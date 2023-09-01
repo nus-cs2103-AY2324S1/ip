@@ -8,15 +8,10 @@ import cheems.exceptions.InvalidKeywordException;
  * Exceptions are thrown should the input be invalid.
  */
 public class Parser {
+    private ListManageable tasklist;
 
-    private static Parser instance;
-    public static Parser getInstance() {
-        if (instance == null) {
-            instance = new Parser();
-            return instance;
-        } else {
-            return instance;
-        }
+    public Parser(ListManageable listManager) {
+        tasklist = listManager;
     }
     /**
      * Parses the given input and tells Tasklist the action to take.
@@ -39,7 +34,7 @@ public class Parser {
             // extract command as the first word
             Keyword currentKey = Keyword.valueOf(words[0].toUpperCase());
             if (currentKey == Keyword.LIST) {
-                Tasklist.getInstance().displayData();
+                tasklist.displayData();
             } else {
                 // if there is no argument provided for commands supposed to have arguments
                 if (words.length == 1) {
@@ -50,7 +45,7 @@ public class Parser {
                 // if there are indeed arguments provided
                 switch (currentKey) {
                     case FIND:
-                        Tasklist.getInstance().find(args);
+                        tasklist.find(args);
                         break;
                     case MARK:
                         // Fallthrough
@@ -60,11 +55,11 @@ public class Parser {
                         if (args.chars().allMatch(Character::isDigit)) {
                             int index = Integer.parseInt(args);
                             if (currentKey == Keyword.MARK) {
-                                Tasklist.getInstance().markAsDone(index - 1);
+                                tasklist.markAsDone(index - 1);
                             } else if (currentKey == Keyword.UNMARK) {
-                                Tasklist.getInstance().markAsNotDone(index - 1);
+                                tasklist.markAsNotDone(index - 1);
                             } else {
-                                Tasklist.getInstance().delete(index - 1);
+                                tasklist.delete(index - 1);
                             }
                             break;
                         } else {
@@ -73,7 +68,7 @@ public class Parser {
                         }
 
                     case TODO:
-                        Tasklist.getInstance().addTaskToDatabase("TODO", args);
+                        tasklist.addTaskToDatabase("TODO", args);
                         break;
                     case EVENT:
                         words = args.split(" /from ");
@@ -81,13 +76,13 @@ public class Parser {
                         String[] words1 = words[1].split(" /to ");
                         String from = words1[0];
                         String to = words1[1];
-                        Tasklist.getInstance().addTaskToDatabase("EVENT", eventDescription, from, to);
+                        tasklist.addTaskToDatabase("EVENT", eventDescription, from, to);
                         break;
                     case DEADLINE:
                         words = args.split(" /by ");
                         String ddlDescription = words[0];
                         String by = words[1];
-                        Tasklist.getInstance().addTaskToDatabase("DEADLINE", ddlDescription, by);
+                        tasklist.addTaskToDatabase("DEADLINE", ddlDescription, by);
                         break;
                 }
             }

@@ -8,9 +8,13 @@ import java.util.Scanner;
 public class Cheems {
     private final static Scanner scanner = new Scanner(System.in);
     private final Storage storage;
+    private final Parser parser;
+    private final Tasklist tasklist;
 
     public Cheems(String filepath) {
-        this.storage = Storage.getInstance(filepath);
+        storage = new Storage(filepath);
+        tasklist = new Tasklist(storage);
+        parser = new Parser(tasklist);
     }
 
     /**
@@ -18,13 +22,13 @@ public class Cheems {
      */
     public void run() {
         UI.showWelcomeMsg();
-        storage.loadData();
+        tasklist.loadTaskFromDatabase();
         String input = UI.getInput(scanner);
 
         // business logic
         while (!input.equals("bye")) {
             try {
-                Parser.parseAndExecute(input);
+                parser.parseAndExecute(input);
             } catch (RuntimeException e) {
                 System.out.println(e.toString());
             }
