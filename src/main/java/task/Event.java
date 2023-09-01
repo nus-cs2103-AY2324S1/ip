@@ -1,3 +1,4 @@
+package task;
 import java.time.LocalDateTime;
 
 public class Event extends Task {
@@ -23,7 +24,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String storeToDisk() {
+    public String storeToDiskFormat() {
         return "E" + "|" + this.getStatus() + "|" + this.getDescription() + "|" + this.from + "|" + this.to;
     }
 

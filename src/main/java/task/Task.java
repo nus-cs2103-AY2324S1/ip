@@ -1,3 +1,4 @@
+package task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -53,7 +54,7 @@ public class Task {
         this.description = description;
     }
 
-    public String storeToDisk() {
+    public String storeToDiskFormat() {
         return this.getStatus() + "|" + this.description;
     }
 

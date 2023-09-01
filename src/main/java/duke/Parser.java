@@ -1,3 +1,5 @@
+package duke;
+import dukeUiElements.Ui;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
@@ -55,9 +57,10 @@ public class Parser {
         try {
             Files.write(Duke.pathOfDirectory, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);    //closes file and truncates it
             for (int i = 0; i < TaskList.storeTask.size(); i++) {
-                String taskToString = TaskList.storeTask.get(i).storeToDisk() + "\n";
+                String taskToString = TaskList.storeTask.get(i).storeToDiskFormat() + "\n";
                 Files.write(Duke.pathOfDirectory, taskToString.getBytes(), StandardOpenOption.APPEND);
             }
+            Ui.endDukeMsg();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("An error occurred...");

@@ -1,3 +1,4 @@
+package task;
 import java.time.LocalDateTime;
 
 public class Deadline extends Task {
@@ -18,7 +19,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String storeToDisk() {
+    public String storeToDiskFormat() {
         return "D" + "|" + this.getStatus() + "|" + this.getDescription() + "|" + this.deadlineBy;
     }
 

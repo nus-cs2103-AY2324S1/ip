@@ -1,19 +1,14 @@
+package duke;
+import dukeUiElements.Ui;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+import java.util.Scanner;
 
 public class Duke {
 
     private Storage storage;
-    private TaskList tasks;
+    public TaskList taskList;
     private Ui ui;
 
     public static Path pathOfDirectory = Paths.get("./data/duke.txt");
@@ -23,9 +18,9 @@ public class Duke {
 
     public Duke(String filePath) {
         ui = new Ui ();
-
+        TaskList taskList = new TaskList();
         try {
-            Storage.readFromDisk(pathOfDirectory, TaskList.storeTask);
+            Storage.readFromDisk(pathOfDirectory, taskList.storeTask);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("An error occurred...");
