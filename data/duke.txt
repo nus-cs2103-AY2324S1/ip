@@ -1,2 +1,3 @@
 [T][ ] ip
-[D][ ] assignment (by: 2359)
+[D][X] assignment (by: 2359)
+[E][ ] eat (from: 12pm to: 2pm)
