@@ -1,3 +1,5 @@
+package duke;
+
 import duke.commands.Command;
 import duke.*;
 
