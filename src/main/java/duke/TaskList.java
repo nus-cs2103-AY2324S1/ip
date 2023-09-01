@@ -26,10 +26,14 @@ public class TaskList {
     }
 
 
-    public void addTask(Task task) {
+    public void addTask(Task task, Boolean withString) {
         this.todoList.add(task);
         System.out.println("Roger! I have added the following task to the list");
         System.out.println(task.toString());
+    }
+
+    public void addTask(Task task) {
+        this.todoList.add(task);
     }
 
     public void deleteTask(int taskToDeleteIndex) {
@@ -47,8 +51,21 @@ public class TaskList {
         this.todoList.get(taskToUnmarkIndex).markUndone();
     }
 
+    public TaskList findTask(String query) {
+        TaskList queryList = new TaskList();
+        for (Task t : this.todoList) {
+            if (t.compareTitle(query)) {
+                queryList.addTask(t);
+            } else {
+                continue;
+            }
+        }
+        return queryList;
+    }
+
     public void printTaskListInString() {
-        System.out.println(String.format("You have %d task(s) currently in the list", todoList.size()));
+        System.out.println(String.format("You have %d task(s) currently in the list",
+                todoList.size()));
     }
 
 }
