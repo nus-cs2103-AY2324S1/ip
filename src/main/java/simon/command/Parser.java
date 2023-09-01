@@ -36,7 +36,7 @@ public class Parser {
                 if (deadlineParts.length <= 1 || !inData.contains(" /by ")) {
                     throw new SimonException("☹ OOPS!!! The format for deadline is incorrect. Expected format: 'deadline [task description] /by [dd/mm/yyyy HHmm]'. Time(HHmm) is optional.");
                 }
-                String nameDeadline = deadlineParts.length > 1 ? deadlineParts[1].split("/by ")[0] : "";
+                String nameDeadline = deadlineParts.length > 1 ? deadlineParts[1].split(" /by ")[0] : "";
                 if (nameDeadline.trim().isEmpty()) {
                     throw new SimonException("☹ OOPS!!! The description of a deadline cannot be empty.");
                 }
