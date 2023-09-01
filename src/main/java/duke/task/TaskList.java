@@ -62,7 +62,7 @@ public class TaskList {
         System.out.println(line);
     }
 
-    private String handleTodo(String task) throws DukeException {
+    protected String handleTodo(String task) throws DukeException {
         String[] preprocessedTask = this.parser.parseNewTaskByType(task);
 
         if (preprocessedTask.length <= 1) {
@@ -75,7 +75,7 @@ public class TaskList {
         return nextTodo.toString();
     }
 
-    private String handleDeadline(String task) throws DukeException {
+    protected String handleDeadline(String task) throws DukeException {
         String[] temp = this.parser.parseNewTaskByType(task);
 
         if (temp.length <= 1) {
@@ -102,7 +102,7 @@ public class TaskList {
         return nextDeadline.toString();
     }
 
-    private String handleEvent(String task) throws DukeException {
+    protected String handleEvent(String task) throws DukeException {
         String[] temp = this.parser.parseNewTaskByType(task);
 
         if (temp.length <= 1) {
