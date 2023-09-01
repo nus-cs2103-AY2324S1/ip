@@ -1,100 +1,49 @@
-import tasks.*;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
-import java.util.ArrayList;
-
-import tasks.Task;
+import commands.Command;
+import commands.ExitCommand;
+import parser.Parser;
+import storage.Storage;
 import tasks.TaskList;
+import ui.Ui;
 
 public class Duke {
+
+    public static final String VERSION = "OwO Bot ─ a CS2103T iP ─ Week 3 Update";
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Duke() {
+        storage = new Storage();
+        ui = new Ui();
+    }
+
+    public void run() {
+
+        this.tasks = new TaskList(storage.load());
+
+        ui.printWelcomeMessage(VERSION);
+        ui.printInstructions();
+
+        runCommandLoop();
+
+        storage.save(tasks.getTaskList());
+
+        ui.printExitMessage();
+
+    }
     public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
-
-        String logo = "  OOOO                         OOOO\n" +
-                " O    O     w           w     O    O\n" +
-                " O    O      w   w w   w      O    O\n" +
-                " O    O       w w   w w       O    O\n" +
-                "  OOOO         w     w         OOOO";
-
-        String welcomeMessage = "────────────────────────────────────\n" +
-                "Hello >u<! I'm OwO_bot\n\n" +
-                logo + "\n\n" +
-                "How can I help ♥w♥ ?\n" +
-                "────────────────────────────────────";
-
-        String exitMessage = "────────────────────────────────────\n" +
-                "Bye! Hope to see you again soon!\n" +
-                "────────────────────────────────────";
-
-        System.out.println(welcomeMessage);
-
-        String userInput = scanner.nextLine();
-        String filePath = "data/duke.txt";
-
-        //checking
-        File directory = new File("data");
-        File file = new File(filePath);
-
-
-        if (!directory.exists()) {
-            directory.mkdir();
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        TaskList taskList = new TaskList(filePath);
-
-        while (!userInput.equals("bye")) {
-            System.out.println("────────────────────────────────────\n");
-            taskList.inputHandler(userInput);
-            userInput = scanner.nextLine();
-            System.out.println("────────────────────────────────────");
-        }
-
-        writeToDisk(taskList.getTasks());
-
-        System.out.println(exitMessage);
-        scanner.close();
+        new Duke().run();
     }
 
 
-    public static void writeToDisk(ArrayList<Task> taskList) {
-
-        String filePath = "data/duke.txt";
-
-        File file = new File(filePath);
-
-        try {
-            FileWriter writer = new FileWriter(file, false);
-            for (int i = 0; i < taskList.size(); i++) {
-
-                String content = taskList.get(i).toText();
-                writer.write(content);
-                writer.write("\n");
-
-
-            }
-
-            writer.close();
-            System.out.println("Task list updated.");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void runCommandLoop() {
+        Command c;
+        Parser parser = new Parser();
+        do {
+            String userInput = ui.getUserCommand();
+            c = parser.parse(userInput);
+            c.execute(tasks);
+        } while (!ExitCommand.isExit(c));
     }
 }

@@ -11,6 +11,12 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public Event(String description, boolean isDone, String start, String end) {
+        super(description, isDone);
+        this.start = start;
+        this.end = end;
+    }
+
     @Override
     public String toText() {
         return "E " + this.getDoneStatus() + " " + this.description + " /" + this.start + " /" + this.end;
