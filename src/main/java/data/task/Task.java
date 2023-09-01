@@ -1,3 +1,5 @@
+package data.task;
+
 import java.lang.StringBuilder;
 
 public abstract class Task {
