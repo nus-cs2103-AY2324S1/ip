@@ -6,6 +6,7 @@ abstract class Task implements Serializable {
     protected boolean isDone;
 
     private static final long serialVersionUID = -7108460826726050219L;
+    //included serialVersionUID indicated as the Task implements Serializable Interface
     public Task(String description) {
         this.description = description;
         this.isDone = false;
