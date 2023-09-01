@@ -19,7 +19,7 @@ public class ToDo extends Task{
      * @return String representation of deadline task to save in data file
      */
     @Override
-    public String saveToFileString(){
+    public String saveToFileString() {
         return "T " + (super.isDone ? "| 1 | " : "| 0 | ") + super.toString();
     }
 

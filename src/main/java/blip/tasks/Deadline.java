@@ -28,7 +28,7 @@ public class Deadline extends Task {
      * @return String representation of deadline task to save in data file
      */
     @Override
-    public String saveToFileString(){
+    public String saveToFileString() {
         return "D " + (super.isDone ? "| 1 | " : "| 0 | ") + super.toString() + " | "
                 + this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
