@@ -17,15 +17,6 @@ public class Task {
     }
 
     /**
-     * Method to get name of the task
-     *
-     * @return the name in a String
-     */
-    public String getName() {
-        return this.NAME;
-    }
-
-    /**
      * Checks if the task is marked as done.
      *
      * @return True if the task is done, false otherwise.
