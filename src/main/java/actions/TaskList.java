@@ -1,3 +1,7 @@
+package actions;
+
+import tasks.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -29,7 +33,7 @@ public class TaskList {
             System.out.println(line);
             System.out.println("Your outstanding tasks are...");
             for (int i = 0; i < taskArrayList.size(); i++) {
-                System.out.println("Task " + (i + 1) + ") " + taskArrayList.get(i)); //<<<<<
+                System.out.println("tasks.Task " + (i + 1) + ") " + taskArrayList.get(i)); //<<<<<
             }
             System.out.println("\n" + "Get to work NOW!\n");
             System.out.println(line);

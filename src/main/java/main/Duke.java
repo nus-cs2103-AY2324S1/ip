@@ -1,3 +1,10 @@
+package main;
+
+import parser.Parser;
+import tasks.Task;
+import ui.Ui;
+import actions.TaskList;
+import storage.Storage;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -7,7 +14,7 @@ public class Duke {
     private Ui ui;
     private Storage storage;
     private TaskList tasklist;
-    ArrayList<Task> taskArrayList = new ArrayList<>();
+    public ArrayList<Task> taskArrayList = new ArrayList<>();
     private Parser parser;
 
 

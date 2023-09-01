@@ -1,3 +1,5 @@
+package ui;
+
 public class Ui {
     String line = "~~*~~*~~*~~*~~*~~*~~*~~*~~*~~\n";
 
@@ -43,14 +45,14 @@ public class Ui {
 
     public void chadMarkTaskOutput(String task, String mark){
         System.out.println(line);
-        System.out.println("Good job! Task fulfilled!");
+        System.out.println("Good job! tasks.Task fulfilled!");
         System.out.println(task + " [" + mark + "]\n");
         System.out.println(line);
     }
 
     public void chadUnmarkTaskOutput(String task, String mark){
         System.out.println(line);
-        System.out.println("Boooo! Task is not done!");
+        System.out.println("Boooo! tasks.Task is not done!");
         System.out.println(task + " [" + mark + "]\n");
         System.out.println(line);
     }
