@@ -15,7 +15,19 @@ import task.Deadline;
 import task.Event;
 import task.ToDo;
 
+/**
+ * The Parser class parses user input to create appropriate Command objects.
+ * It handles different types of user commands and returns corresponding Command objects.
+ */
 public class Parser {
+
+    /**
+     * Parses the user's full command and returns the corresponding Command object.
+     *
+     * @param fullCommand The full command entered by the user.
+     * @return A Command object representing the parsed command.
+     * @throws DukeException If the command cannot be parsed or is invalid.
+     */
     public static Command parse(String fullCommand) throws DukeException {
         if (fullCommand.isEmpty()) {
             throw new DukeException("You entered nothing! Try again!");
