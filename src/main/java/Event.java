@@ -18,6 +18,6 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return String.format("E | %d | %s | %s | %s ", super.isDone ? 1 : 0, super.description, this.from, this.to);
+        return String.format("E | %d | %s | %s | %s", super.isDone ? 1 : 0, super.description, this.from, this.to);
     }
 }

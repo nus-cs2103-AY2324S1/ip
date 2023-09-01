@@ -1,6 +1,6 @@
 todo borrow book
-deadline finish english /by Today
-event project meeting /from Mon 4pm /to 6pm
+deadline finish article /by 2023-09-04T16:00
+event project meeting /from 2023-09-04T16:00 /to 18:00
 mark 1
 mark 2
 unmark 1
