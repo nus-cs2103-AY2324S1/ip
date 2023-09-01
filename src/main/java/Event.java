@@ -1,22 +1,28 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
-    private String from;
-    private String to;
-    public Event(String description, String from, String to) {
+    private LocalDateTime from;
+    private LocalDateTime to;
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
     @Override
-    public String toString() {
-        return "E" + super.toString() + " | " + this.from + "-" + this.to;
+    public String toString () {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return "[E]" + super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
     }
 
 
     @Override
     public String toFileString() {
         char taskType = 'E';
-        return taskType + " | " + super.toFileString() + " | " + from + " - " + to;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return taskType + " | " + super.toFileString() + " | " + from.format(formatter) + " | " + to.format(formatter);
     }
 
 
@@ -26,22 +32,17 @@ public class Event extends Task {
         if (taskParts.length >= 4 && taskParts[0].trim().equals("E")) {
             String doneStatus = taskParts[1].trim();
             String description = taskParts[2].trim();
-            String fromTo = taskParts[3].trim(); // Combine from-to time as a single string
 
-            // Split from-to time into separate 'from' and 'to' parts
-            String[] fromToParts = fromTo.split("-");
-            if (fromToParts.length >= 2) {
-                String from = fromToParts[0].trim();
-                String to = fromToParts[1].trim();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime from = LocalDateTime.parse(taskParts[3].trim(), formatter);
+            LocalDateTime to = LocalDateTime.parse(taskParts[4].trim(), formatter);
 
-                Event event = new Event(description, from, to);
-                if (doneStatus.equals("1")) {
-                    event.markDone();
-                }
-                return event;
+            Event event = new Event(description, from, to);
+            if (doneStatus.equals("1")) {
+                event.markDone();
             }
+            return event;
         }
-
         return null; // incomplete data.txt
     }
 

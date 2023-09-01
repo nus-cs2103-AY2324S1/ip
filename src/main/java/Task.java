@@ -56,7 +56,7 @@ public class Task {
 
     @Override
     public String toString() {
-        String status = isDone ? "1" : "0";
-        return getTaskType() + " | " + status + " | " + description;
+        String status = isDone ? "X" : " ";
+        return getTaskType() + " [" + status + "] " + description;
     }
 }

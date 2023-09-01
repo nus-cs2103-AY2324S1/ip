@@ -4,7 +4,7 @@ public class Todo extends Task {
     }
     @Override
     public String toString() {
-        return "T" + " | " + (isDone ? "1" : "0") + " | " + description;
+        return "[T]" + super.toString();
     }
 
     @Override

@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -118,13 +121,20 @@ public class Duke {
         } else {
             String[] splitInput = userInput.split("/by");
             if (splitInput.length == 2) {
-                String description = splitInput[0].substring(9).trim();
-                String by = splitInput[1].trim();
-                Task newTask = new Deadline(description, by);
-                toDoList.add(newTask);
-                System.out.println("Got it. I've added this task:\n " + newTask);
-                System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
-                saveTasksToFile(); // save deadline task to file
+                try {
+                    String description = splitInput[0].substring(9).trim();
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                    LocalDateTime by = LocalDateTime.parse(splitInput[1].trim(), formatter);
+
+                    Task newTask = new Deadline(description, by);
+                    toDoList.add(newTask);
+                    System.out.println("Got it. I've added this task:\n " + newTask);
+                    System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
+                    saveTasksToFile(); // save deadline task to file
+                } catch (DateTimeParseException e) {
+                    throw new DukeException(e.getMessage());
+                }
             }
         }
     }
@@ -138,13 +148,19 @@ public class Duke {
                 String description = splitInput[0].substring(6).trim();
                 String[] eventDetails = splitInput[1].split("/to");
                 if (eventDetails.length == 2) {
-                    String from = eventDetails[0].trim();
-                    String to = eventDetails[1].trim();
-                    Task newTask = new Event(description, from, to);
-                    toDoList.add(newTask);
-                    System.out.println("Got it. I've added this task:\n " + newTask);
-                    System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
-                    saveTasksToFile(); //save event task to file
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        LocalDateTime from = LocalDateTime.parse(eventDetails[0].trim(), formatter);
+                        LocalDateTime to = LocalDateTime.parse(eventDetails[1].trim(), formatter);
+
+                        Task newTask = new Event(description, from, to);
+                        toDoList.add(newTask);
+                        System.out.println("Got it. I've added this task:\n " + newTask);
+                        System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
+                        saveTasksToFile(); //save event task to file
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException(e.getMessage());
+                    }
                 }
             }
         }
