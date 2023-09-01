@@ -4,7 +4,16 @@ import java.util.ArrayList;
 
 import kevin.exception.KevinException;
 
+/**
+ * A class to handle the parsing of text from the kevin.txt file.
+ */
 public class FileParser {
+    /**
+     * Parses the text that is taken from the kevin.txt file to make it a QueryObject.
+     * @param input This is the text input that needs to be parsed.
+     * @return Returns a QueryObject containing the Command and arguments.
+     * @throws KevinException On the detection of errors.
+     */
     public QueryObject parseLine(String input) throws KevinException {
         String[] querySplit = input.trim().split(" - ", 3);
 
