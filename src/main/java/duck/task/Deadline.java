@@ -1,6 +1,5 @@
 package duck.task;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -20,7 +19,10 @@ public class Deadline extends Task {
     public String type() {
         return "D";
     }
+
     public String getBy() {
         return by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
     }
+
 }
+

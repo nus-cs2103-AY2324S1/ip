@@ -17,16 +17,16 @@ public class Events extends Task {
     public String getExact() {
         String mmmDdYyyy = "";
         if (start.toLocalDate().equals(end.toLocalDate())) {
-             mmmDdYyyy = start.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " " +
-                    start.format(DateTimeFormatter.ofPattern("hh:mm a")) + " " +
-                    end.format(DateTimeFormatter.ofPattern("hh:mm a"));
+            mmmDdYyyy = start.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " "
+                + start.format(DateTimeFormatter.ofPattern("hh:mm a")) + " "
+                + end.format(DateTimeFormatter.ofPattern("hh:mm a"));
         } else {
-             mmmDdYyyy =  start.format(DateTimeFormatter.ofPattern("hh:mm a MMM dd yyyy"))
-                     + " to " + end.format(DateTimeFormatter.ofPattern("hh:mm a MMM dd yyyy"));
+            mmmDdYyyy = start.format(DateTimeFormatter.ofPattern("hh:mm a MMM dd yyyy")) + " to "
+                + end.format(DateTimeFormatter.ofPattern("hh:mm a MMM dd yyyy"));
         }
         return mmmDdYyyy;
 
-        }
+    }
 
 
     @Override
@@ -37,7 +37,9 @@ public class Events extends Task {
     public String type() {
         return "E";
     }
+
     public String getDate() {
-        return this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + "-" + this.end.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+        return this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + "-"
+            + this.end.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
     }
 }

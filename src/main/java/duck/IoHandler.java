@@ -1,18 +1,17 @@
 package duck;
-
 import duck.task.*;
 import java.util.Scanner;
 
-public class IOHandler {
+public class IoHandler {
 
     private final Scanner sc = new Scanner(System.in);
 
-    public IOHandler()  {
+    public IoHandler() {
     }
 
     public void welcomeMessage() {
         divider();
-        System.out.println("Hello! I'm duck.Duck");
+        System.out.println("Hello! I'm Duck");
         System.out.println("What can I do for you?");
         divider();
     }
@@ -50,5 +49,5 @@ public class IOHandler {
         taskList.size();
         divider();
     }
-    
+
 }

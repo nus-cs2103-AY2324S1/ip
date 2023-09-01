@@ -1,15 +1,15 @@
 package duck.task;
 
-import duck.exceptions.DuckException;
-import duck.exceptions.IllegalDateFormatException;
-import duck.exceptions.SemanticException;
-import duck.exceptions.SyntaxException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+
+import duck.exceptions.DuckException;
+import duck.exceptions.IllegalDateFormatException;
+import duck.exceptions.SemanticException;
+import duck.exceptions.SyntaxException;
 
 public class TaskList {
     private List<Task> listOfTasks;
@@ -65,7 +65,7 @@ public class TaskList {
                 throw new SyntaxException("Please check the command syntax");
             }
             return new Events(LocalDateTime.parse(event[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")),
-                    LocalDateTime.parse(event[2], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")), event[0]);
+                LocalDateTime.parse(event[2], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")), event[0]);
         } catch (DateTimeParseException e) {
             throw new IllegalDateFormatException("Wrong Format for the date kindly put in \nyyyy-MM-dd HHmm.", str);
         }
@@ -128,10 +128,9 @@ public class TaskList {
         return Integer.parseInt(str.substring(7));
     }
 
-    public ToDo setToDo(String str)
-            throws DuckException {
-        String[] todo = str.split("todo ?+");
-        if (todo.length > 0) {
+    public ToDo setToDo(String str) throws DuckException {
+        String[] todo = str.strip().split("todo ?+");
+        if (todo.length > 0 && !todo[0].isBlank()) {
             return new ToDo(todo[0]);
         } else {
             throw new DuckException("☹ OOPS!!! The description of a todo cannot be empty.");

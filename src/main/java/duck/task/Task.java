@@ -17,8 +17,8 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public String Box() {
-        return "[" + getStatusIcon() +"] ";
+    public String box() {
+        return "[" + getStatusIcon() + "] ";
     }
 
     public void markAsDone() {
@@ -32,7 +32,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[ ]" + this.Box() + this.description;
+        return "[ ]" + this.box() + this.description;
     }
 
     public String type() {
@@ -42,4 +42,6 @@ public class Task {
     public String getBy() {
         return "";
     }
+
 }
+

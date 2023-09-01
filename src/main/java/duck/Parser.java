@@ -1,74 +1,74 @@
+
 package duck;
 
-import duck.task.*;
 import duck.exceptions.DuckException;
 import duck.exceptions.IllegalDateFormatException;
-import duck.exceptions.SemanticException;
-import duck.exceptions.SyntaxException;
+import duck.task.Deadline;
+import duck.task.Events;
+import duck.task.Task;
+import duck.task.TaskList;
+import duck.task.ToDo;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class Parser {
-    private String identify(String command) {
+    public String identify(String command) {
         String[] strings = command.split(" ");
         return strings[0];
     }
 
-    public boolean parse(String str, IOHandler io, TaskList taskList, Storage storage) {
+    public boolean parse(String str, IoHandler io, TaskList taskList, Storage storage) {
         String command = identify(str);
         try {
             switch (command) {
-                case "deadline":
-                    Deadline tempDeadline = taskList.setDeadline(str.substring(8));
-                    taskList.addTask(tempDeadline);
-                    io.echoAdd(tempDeadline, taskList);
-                    storage.saveInFile(taskList);
-                    return true;
-                case "event":
-                    Events tempEvent = taskList.setEvent(str.substring(5));
-                    taskList.addTask(tempEvent);
-                    io.echoAdd(tempEvent, taskList);
-                    storage.saveInFile(taskList);
-                    return true;
-                case "todo":
-                    ToDo tempToDo = taskList.setToDo(str.substring(4));
-                    taskList.addTask(tempToDo);
-                    io.echoAdd(tempToDo, taskList);
-                    storage.saveInFile(taskList);
-                    return true;
-                case "delete":
-                    Task tempDelete = taskList.deleteTask(str, taskList);
-                    storage.saveInFile(taskList);
-                    io.divider();
-                    System.out.println("Noted. I've removed this task:");
-                    System.out.println(" " + tempDelete.toString());
-                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-                    io.divider();
-                    return true;
-                case "mark":
-                    Task tempMark = taskList.setDone(str, taskList);
-                    io.divider();
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + tempMark);
-                    io.divider();
-                    return true;
-                case "unmark":
-                    Task tempUnmark = taskList.setUndone(str, taskList);
-                    io.divider();
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + tempUnmark);
-                    io.divider();
-                    return true;
-                case "list":
-                    io.display(taskList);
-                    return true;
-                case "bye":
-                    io.exit();
-                    return false;
-                default:
-                    throw new DuckException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            case "deadline":
+                Deadline tempDeadline = taskList.setDeadline(str.substring(8));
+                taskList.addTask(tempDeadline);
+                io.echoAdd(tempDeadline, taskList);
+                storage.saveInFile(taskList);
+                return true;
+            case "event":
+                Events tempEvent = taskList.setEvent(str.substring(5));
+                taskList.addTask(tempEvent);
+                io.echoAdd(tempEvent, taskList);
+                storage.saveInFile(taskList);
+                return true;
+            case "todo":
+                ToDo tempToDo = taskList.setToDo(str.substring(4));
+                taskList.addTask(tempToDo);
+                io.echoAdd(tempToDo, taskList);
+                storage.saveInFile(taskList);
+                return true;
+            case "delete":
+                Task tempDelete = taskList.deleteTask(str, taskList);
+                storage.saveInFile(taskList);
+                io.divider();
+                System.out.println("Noted. I've removed this task:");
+                System.out.println(" " + tempDelete.toString());
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                io.divider();
+                return true;
+            case "mark":
+                Task tempMark = taskList.setDone(str, taskList);
+                io.divider();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("  " + tempMark);
+                io.divider();
+                return true;
+            case "unmark":
+                Task tempUnmark = taskList.setUndone(str, taskList);
+                io.divider();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("  " + tempUnmark);
+                io.divider();
+                return true;
+            case "list":
+                io.display(taskList);
+                return true;
+            case "bye":
+                io.exit();
+                return false;
+            default:
+                throw new DuckException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (DuckException | IllegalDateFormatException e) {
             io.divider();

@@ -5,7 +5,7 @@ import duck.ui.Ui;
 
 public class Duck {
     private Ui ui;
-    private final IOHandler ioHandler = new IOHandler();
+    private final IoHandler ioHandler = new IoHandler();
     private final TaskList taskList;
     private Parser parser = new Parser();
     private final Storage storage;
