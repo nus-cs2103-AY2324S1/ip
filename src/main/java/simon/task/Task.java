@@ -1,19 +1,19 @@
 package simon.task;
 
 /**
- * Represents a task with a name or description.
- * Each task can be marked as done or not done.
+ * The {@code Task} class represents a general task with a description and a completion status.
+ * This class serves as the base class for other specialized task types.
  */
 public class Task {
 
     /** The name or description of the task. */
     public String taskName;
 
-    /** Indicates whether the task is done or not. */
+    /** Flag indicating whether the task has been completed. */
     public boolean isDone;
 
     /**
-     * Constructs a new task with the specified name or description.
+     * Constructs a new Task with the given name or description.
      *
      * @param taskName The name or description of the task.
      */
@@ -23,14 +23,14 @@ public class Task {
     }
 
     /**
-     * Marks this task as done.
+     * Marks this task as completed.
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Marks this task as not done.
+     * Marks this task as not completed.
      */
     public void markAsUndone() {
         this.isDone = false;
