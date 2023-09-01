@@ -109,6 +109,18 @@ public class Parser {
             } catch (NumberFormatException e) {
                 ui.print("☹ OOPS!!! Please input a valid numerical value after 'delete'.");
             }
+        } else if (words[0].equals("find")) {
+            if (words.length != 2) {
+                throw new JavAIException("☹ OOPS!!! Please input agi valid keyword after 'find'.");
+            } else {
+                String keyword = words[1];
+                ui.print("Here are the matching tasks in your list:");
+                for (int i = 0; i < tasks.size(); i++) {
+                    if (tasks.get(i).getDescription().contains(keyword)) {
+                        System.out.println((i + 1) + "." + tasks.get(i).toString());
+                    }
+                }
+            }
         } else if (input.equals("list")) {
             ui.printList(tasks);
         } else {
