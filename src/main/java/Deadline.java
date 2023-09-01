@@ -1,16 +1,24 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    private String deadline;
-    public Deadline(boolean isDone, String taskName, String deadline) {
+    private LocalDateTime deadline;
+    public Deadline(boolean isDone, String taskName, LocalDateTime deadline) {
         super(isDone, taskName);
         this.deadline = deadline;
+    }
+
+    public String getDeadlineString(LocalDateTime deadline) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy 'at' HH:mm a");
+        return deadline.format(formatter);
     }
 
     @Override
     public String toString() {
         if (this.isDone) {
-            return "[D]" + "[X] " + this.taskName + "(by:" + this.deadline + ")";
+            return "[D]" + "[X] " + this.taskName + "(by: " + getDeadlineString(this.deadline) + ")";
         } else {
-            return "[D]" + "[ ] " + this.taskName + "(by:" + this.deadline + ")";
+            return "[D]" + "[ ] " + this.taskName + "(by: " + getDeadlineString(this.deadline) + ")";
         }
     }
 
