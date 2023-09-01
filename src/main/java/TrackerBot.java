@@ -16,6 +16,8 @@ public class TrackerBot {
     /** Name of the app. **/
     private static final String APP_NAME = "TrackerBot";
 
+    private static Storage storage;
+
     private static TaskList tasks;
 
     private static Ui ui;
@@ -52,11 +54,24 @@ public class TrackerBot {
     public static void main(String[] args) {
         tasks = new TaskList();
         ui = Ui.instantiate(APP_NAME);
+
+        try {
+            Storage.read(tasks);
+        } catch (TrackerBotException e) {
+            ui.showError(e.getMessage());
+        }
+
         Scanner scanner = new Scanner(System.in);
         String input;
         boolean isBye;
         do {
             isBye = handleInput();
         } while (!isBye);
+
+        try {
+            Storage.save(tasks);
+        } catch (TrackerBotException e) {
+            ui.showError(e.getMessage());
+        }
     }
 }

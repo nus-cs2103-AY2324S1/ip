@@ -24,7 +24,7 @@ public class Deadline extends Task {
         this.by = TaskDateHandler.convertInputToDate(by);
     }
 
-    protected Deadline(String[] args) throws DateTimeParseException {
+    protected Deadline(String[] args) throws DateTimeParseException, NumberFormatException {
         super(args);
         this.by = TaskDateHandler.convertSaveToDate(args[2]);
     }

@@ -56,7 +56,7 @@ public abstract class Command {
         }
 
         public void execute(TaskList tasks, Ui ui) throws TrackerBotException {
-            tasks.add(type, commandFields);
+            ui.showMessage(tasks.add(type, commandFields));
         }
 
         public boolean isExit() {
