@@ -53,5 +53,15 @@ public abstract class Task {
         return "[" + this.getStatusIcon() + "] " +  this.description;
     }
 
+    /**
+     * Returns whether task contains keyword
+     *
+     * @param keyword
+     * @return boolean state.
+     */
+    public boolean hasKeyword(String keyword) {
+        return description.contains(keyword);
+    }
+
     public abstract String toSaveFormat();
 }

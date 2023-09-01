@@ -76,4 +76,20 @@ public class TaskList {
     public Task getLastTask() {
         return getTask(getSize()- 1);
     }
+
+    /**
+     * Searches through tasks for a taskList with description containing keyword.
+     *
+     * @param keyword
+     * @return taskList with only tasks containing then keyword.
+     */
+    public TaskList findMatchingTasks(String keyword) {
+        TaskList matchingTaskList = new TaskList();
+        for (int i = 0; i < getSize(); i++) {
+            if (this.getTask(i).hasKeyword(keyword)) {
+                matchingTaskList.addTask(this.getTask(i));
+            }
+        }
+        return matchingTaskList;
+    }
 }
