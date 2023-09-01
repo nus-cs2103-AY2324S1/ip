@@ -1,6 +1,7 @@
 package commands;
 
 import java.time.LocalDateTime;
+
 import data.TaskList;
 import data.exception.DukeException;
 import data.tasks.Event;
@@ -32,12 +33,13 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws DukeException {
+    public void execute(
+            TaskList tasks, Storage storage, Ui ui) throws DukeException {
         Task event = new Event(description, from, to);
         tasks.add(event);
         storage.update(tasks);
         ui.displayMsg(new String[] {
-            "Okie! I've added a new " + Ui.cTxt("EVENT", Ui.COLOR.YELLOW) + ":",
+            "Okie! I've added a new " + Ui.cTxt("EVENT", Ui.Color.YELLOW) + ":",
             "  " + event.toString(),
             "Total no. of tasks stored: " + tasks.getSize()
         });

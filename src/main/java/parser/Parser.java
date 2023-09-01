@@ -2,6 +2,7 @@ package parser;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+
 import commands.Command;
 import commands.DeadlineCommand;
 import commands.DeleteCommand;
@@ -36,7 +37,9 @@ public class Parser {
      */
     public Command parse(String input) throws DukeException {
         // Ignore empty user input
-        if (input.equals("")) return new EmptyCommand();
+        if (input.equals("")) {
+            return new EmptyCommand();
+        }
 
         // Extract main command first
         String command = input.split(" ")[0];
@@ -61,8 +64,10 @@ public class Parser {
             return parseDeleteCommand(input);
         default:
             throw new DukeException(new String[] {
-                "Unrecognized command " + Ui.cTxt(command, Ui.COLOR.PURPLE),
-                "Maybe create a new TODO with " + Ui.cTxt("todo", Ui.COLOR.PURPLE) + " read a book?"
+                "Unrecognized command " + Ui.cTxt(command, Ui.Color.PURPLE),
+                "Maybe create a new TODO with "
+                        + Ui.cTxt("todo", Ui.Color.PURPLE)
+                        + " read a book?"
             });
         }
     }
@@ -99,7 +104,7 @@ public class Parser {
         if (parseArr.length < 2) {
             throw new DukeException(new String[] {
                 "Looks like you're missing a number:",
-                "Try " + Ui.cTxt("mark", Ui.COLOR.PURPLE) + " 1"
+                "Try " + Ui.cTxt("mark", Ui.Color.PURPLE) + " 1"
             });
         }
 
@@ -119,7 +124,7 @@ public class Parser {
         if (parseArr.length < 2) {
             throw new DukeException(new String[] {
                 "Looks like you're missing a description:",
-                "Try " + Ui.cTxt("todo", Ui.COLOR.PURPLE) + " read a book"
+                "Try " + Ui.cTxt("todo", Ui.Color.PURPLE) + " read a book"
             });
         }
 
@@ -136,26 +141,28 @@ public class Parser {
      * @throws DukeException
      */
     private Command parseDeadlineCommand(String input) throws DukeException {
-        // Split by the "/by" to separate the first and second part. 
-        String[] parseArr = input.split("/by "); 
+        // Split by the "/by" to separate the first and second part.
+        String[] parseArr = input.split("/by ");
 
         // Extract the header (command + description).
         String[] header = parseArr[0].split(" ");
-            
+
         // Check if task descripton exists.
         if (header.length < 2) {
             throw new DukeException(new String[] {
                 "Looks like you're missing a description:",
-                "Try " + Ui.cTxt("deadline", Ui.COLOR.PURPLE) + " submit essay /by Oct 10 2023 1600"
+                "Try " + Ui.cTxt("deadline", Ui.Color.PURPLE)
+                        + " submit essay /by Oct 10 2023 1600"
             });
         }
-        
+
         // Check if a date was provided and the "/by" delimiter was supplied.
         if (parseArr.length < 2) {
             throw new DukeException(new String[] {
                 "Looks like you're missing a date:",
                 "<- Remember to include /by ->",
-                "Try " + Ui.cTxt("deadline", Ui.COLOR.PURPLE) + " submit essay /by Oct 10 2023 1600"
+                "Try " + Ui.cTxt("deadline", Ui.Color.PURPLE)
+                        + " submit essay /by Oct 10 2023 1600"
             });
         }
 
@@ -165,12 +172,13 @@ public class Parser {
             throw new DukeException(new String[] {
                 "Oops, looks like your date is in an invalid format...",
                 "Here are some valid formats:",
-                Ui.cTxt("2023-10-20, 20-10-2023, 2023/10/20, "
-                        + "20/10/2023, Oct 10 2023, 10 Oct 2023",
-                        Ui.COLOR.PURPLE
+                Ui.cTxt(
+                    "2023-10-20, 20-10-2023, 2023/10/20, "
+                            + "20/10/2023, Oct 10 2023, 10 Oct 2023",
+                    Ui.Color.PURPLE
                 ),
-                "You can provide a timing as well: " 
-                    + Ui.cTxt("2023-10-20 1800", Ui.COLOR.YELLOW)
+                "You can provide a timing as well: "
+                        + Ui.cTxt("2023-10-20 1800", Ui.Color.YELLOW)
             });
         }
         return new DeadlineCommand(
@@ -189,7 +197,7 @@ public class Parser {
      * @throws DukeException
      */
     private Command parseEventCommand(String input) throws DukeException {
-        // Split by "/from" to separate the first and (second + third) part. 
+        // Split by "/from" to separate the first and (second + third) part.
         String[] parseArr = input.split("/from ");
 
         // Extract the header (command + description).
@@ -199,45 +207,48 @@ public class Parser {
         if (header.length < 2) {
             throw new DukeException(new String[] {
                 "Looks like you're missing a description:",
-                "Try " + Ui.cTxt("event", Ui.COLOR.PURPLE) + " NUS carnival /from 21 Aug 2023 /to 22 Aug 2023"
+                "Try " + Ui.cTxt("event", Ui.Color.PURPLE)
+                        + " NUS carnival /from 21 Aug 2023 /to 22 Aug 2023"
             });
         }
 
         // Check if /from exists.
         if (parseArr.length < 2) {
             throw new DukeException(new String[] {
-                "Looks like you're missing " + Ui.cTxt("/from", Ui.COLOR.PURPLE),
-                "Try " + Ui.cTxt("event", Ui.COLOR.PURPLE) + " NUS carnival /from 21 Aug 2023 /to 22 Aug 2023"
+                "Looks like you're missing " + Ui.cTxt("/from", Ui.Color.PURPLE),
+                "Try " + Ui.cTxt("event", Ui.Color.PURPLE)
+                        + " NUS carnival /from 21 Aug 2023 /to 22 Aug 2023"
             });
         }
 
-        // Split by "/to" to separate the second and third part. 
+        // Split by "/to" to separate the second and third part.
         String[] dateParse = parseArr[1].split("/to ");
 
         // Check if /to exists.
         if (dateParse.length < 2) {
             throw new DukeException(new String[] {
-                "Looks like you're missing " + Ui.cTxt("/to", Ui.COLOR.PURPLE),
-                "Try " + Ui.cTxt("event", Ui.COLOR.PURPLE) + " NUS carnival /from 21 Aug 2023 /to 22 Aug 2023"
+                "Looks like you're missing " + Ui.cTxt("/to", Ui.Color.PURPLE),
+                "Try " + Ui.cTxt("event", Ui.Color.PURPLE)
+                        + " NUS carnival /from 21 Aug 2023 /to 22 Aug 2023"
             });
         }
 
         // Extract dates and validate them.
         LocalDateTime fromDate = DateParser.parseDateString(dateParse[0].strip());
-        LocalDateTime toDate   = DateParser.parseDateString(dateParse[1].strip());
+        LocalDateTime toDate = DateParser.parseDateString(dateParse[1].strip());
         if (fromDate == null || toDate == null) {
             throw new DukeException(new String[] {
                 "Oops, looks like your date is in an invalid format...",
                 "Here are some valid formats:",
-                Ui.cTxt("2023-10-20, 20-10-2023, 2023/10/20, "
-                        + "20/10/2023, Oct 10 2023, 10 Oct 2023",
-                        Ui.COLOR.PURPLE
+                Ui.cTxt(
+                    "2023-10-20, 20-10-2023, 2023/10/20, "
+                            + "20/10/2023, Oct 10 2023, 10 Oct 2023",
+                    Ui.Color.PURPLE
                 ),
-                "You can provide a timing as well: " 
-                    + Ui.cTxt("2023-10-20 1800", Ui.COLOR.YELLOW)
+                "You can provide a timing as well: "
+                        + Ui.cTxt("2023-10-20 1800", Ui.Color.YELLOW)
             });
         }
-        
         return new EventCommand(
             extractTail(header),
             fromDate,
@@ -258,7 +269,7 @@ public class Parser {
         if (parseArr.length < 2) {
             throw new DukeException(new String[] {
                 "Looks like you're missing a number:",
-                "Try " + Ui.cTxt("delete", Ui.COLOR.PURPLE) + " 1"
+                "Try " + Ui.cTxt("delete", Ui.Color.PURPLE) + " 1"
             });
         }
 

@@ -26,15 +26,16 @@ public class DeleteCommand extends Command {
             this.taskIndex = Integer.parseInt(taskIndex);
         } catch (NumberFormatException e) {
             throw new DukeException(new String[] {
-                Ui.cTxt("delete", Ui.COLOR.PURPLE)
-                + " takes in a number. Try delete 1."
+                Ui.cTxt("delete", Ui.Color.PURPLE)
+                        + " takes in a number. Try delete 1."
             });
         }
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws DukeException {
-        Task removedTask = tasks.delete(taskIndex - 1);
+    public void execute(
+            TaskList tasks, Storage storage, Ui ui) throws DukeException {
+        Task removedTask = tasks.delete(taskCount - 1);
         ui.displayMsg(new String[] {
             "Okie! I've deleted task " + taskIndex + ":",
             "  " + removedTask.toString(),

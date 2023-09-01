@@ -23,12 +23,12 @@ public class DateParser {
         new DateTimeFormatterBuilder()
             .append(DateTimeFormatter.ofPattern(
                 "[d/M/yyyy]"
-                + "[yyyy/M/d]"
-                + "[d-M-yyyy]"
-                + "[yyyy-M-d]"
+                    + "[yyyy/M/d]"
+                    + "[d-M-yyyy]"
+                    + "[yyyy-M-d]"
             ))
             .append(DateTimeFormatter.ofPattern(
-                "[d MMM yyyy]" + "[MMM d yyyy]", 
+                "[d MMM yyyy]" + "[MMM d yyyy]",
                 Locale.ENGLISH
             ))
             .optionalStart()

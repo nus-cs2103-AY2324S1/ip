@@ -1,17 +1,23 @@
 package data.tasks;
 
 import java.time.LocalDateTime;
+
 import common.DateParser;
 
 public class Deadline extends Task {
     private LocalDateTime deadline;
 
-    public Deadline(String detail, LocalDateTime deadline) {
+    public Deadline(
+            String detail,
+            LocalDateTime deadline) {
         super(detail);
         this.deadline = deadline;
     }
 
-    public Deadline(String detail, LocalDateTime deadline, boolean isDone) {
+    public Deadline(
+            String detail,
+            LocalDateTime deadline,
+            boolean isDone) {
         super(detail, isDone);
         this.deadline = deadline;
     }
@@ -20,7 +26,7 @@ public class Deadline extends Task {
     public String toString() {
         return String.format(
             "[D]%s (by: %s)",
-            super.toString(), 
+            super.toString(),
             DateParser.toDisplayString(this.deadline)
         );
     }

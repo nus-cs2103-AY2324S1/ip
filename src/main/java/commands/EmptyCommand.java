@@ -11,7 +11,8 @@ import ui.Ui;
  */
 public class EmptyCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    public void execute(
+            TaskList tasks, Storage storage, Ui ui) {
         return;
     }
 }
