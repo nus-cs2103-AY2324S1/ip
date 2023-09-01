@@ -6,8 +6,8 @@ import java.time.LocalDate;
  * Represents a task with a description and completion status.
  */
 public class Task {
-    public String description;
-    public boolean isDone;
+    private String description;
+    private boolean isDone;
 
 
     /**
@@ -18,6 +18,24 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    /**
+     * Gets the completion status of the task.
+     *
+     * @return True if the task is done, otherwise false.
+     */
+    public boolean isDone() {
+        return isDone;
+    }
+
+    /**
+     * Gets the description of the task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return description;
     }
 
     /**

@@ -11,7 +11,7 @@ public class Deadline extends Task {
     /**
      * The deadline date for the task.
      */
-    public LocalDate date;
+    private LocalDate date;
 
     /**
      * Constructs a new Deadline object with the given description and deadline date.
@@ -22,6 +22,15 @@ public class Deadline extends Task {
     public Deadline(String description, LocalDate date) {
         super(description);
         this.date = date;
+    }
+
+    
+    /** Returns the deadline for the task.
+     *
+     * @return The deadline for the task.
+     */
+    public LocalDate getDate() {
+        return date;
     }
 
     /**
@@ -42,8 +51,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "D | " + super.toString() + " | " + date + "";
+        return "D | " + super.toString() + " | " + date;
     }
-
 }
 

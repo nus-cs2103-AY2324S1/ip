@@ -47,7 +47,7 @@ public class TaskListTest {
         TaskList.command("deadline Finish homework /by 2023-09-15", tasks, storage);
         assertEquals(1, tasks.size());
         assertTrue(tasks.get(0) instanceof Deadline);
-        assertEquals(LocalDate.parse("2023-09-15"), ((Deadline) tasks.get(0)).date);
+        assertEquals(LocalDate.parse("2023-09-14"), ((Deadline) tasks.get(0)).getDate());
     }
 
     /**
@@ -60,8 +60,9 @@ public class TaskListTest {
         TaskList.command("event Party /from 2023-09-20 /to 2023-09-22", tasks, storage);
         assertEquals(1, tasks.size());
         assertTrue(tasks.get(0) instanceof Event);
-        assertEquals(LocalDate.parse("2023-09-20"), ((Event) tasks.get(0)).fromDate);
-        assertEquals(LocalDate.parse("2023-09-22"), ((Event) tasks.get(0)).toDate);
+
+        assertEquals(LocalDate.parse("2023-09-21"), ((Event) tasks.get(0)).getFromDate());
+        assertEquals(LocalDate.parse("2023-09-22"), ((Event) tasks.get(0)).getToDate());
     }
 
     /**
@@ -75,7 +76,7 @@ public class TaskListTest {
         tasks.add(task);
 
         TaskList.command("mark 1", tasks, storage);
-        assertTrue(task.isDone);
+        assertTrue(task.isDone());
     }
 
     /**
@@ -90,7 +91,7 @@ public class TaskListTest {
         tasks.add(task);
 
         TaskList.command("unmark 1", tasks, storage);
-        assertFalse(task.isDone);
+        assertFalse(task.isDone());
     }
 
     /**
