@@ -7,7 +7,7 @@ import duke.ui.Ui;
 
 import java.time.format.DateTimeParseException;
 
-public class AddCommand extends Command{
+public class AddCommand extends Command {
     private String command;
 
     public AddCommand(String command) {

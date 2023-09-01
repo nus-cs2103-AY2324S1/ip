@@ -12,7 +12,7 @@ public class MarkCommand extends Command {
         this.index = index;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.getTask(index);
         task.markDone();
         ui.markDonePrint(task);
