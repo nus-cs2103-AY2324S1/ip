@@ -2,11 +2,24 @@ package duke;
 
 import java.time.DateTimeException;
 
+/**
+ * Event task with start and end time.
+ */
 public class Event extends Task {
-
+    /** Start time. */
     private DateTimeOptional startTime;
+    /** End time. */
     private DateTimeOptional endTime;
-
+    /**
+     * Takes a raw string and attempts to create an Event object from it.
+     * The raw string must be in the format "description /from start_time /to end_time".
+     * If the raw string is empty, does not contain a start time or end time, it throws a DukeException.
+     * If the start time or end time cannot be parsed into a DateTimeOptional object, it throws a DukeException.
+     *
+     * @param rawLine The raw string to be parsed into an Event object.
+     * @return An Event object representing the parsed task.
+     * @throws DukeException If the raw string is empty or does not contain a start or end time.
+     */
     public static Event create(String rawLine) throws DukeException {
         if (rawLine.length() == 0) {
             throw new DukeException("Err: Empty Description");
@@ -37,12 +50,24 @@ public class Event extends Task {
         return new Event(instructions[0], startDate, endDate);
     }
 
+    /**
+     * Constructs an Event object given the description, the start and the end.
+     *
+     * @param description The description of the task.
+     * @param startTime The start time of the task as a DateTimeOptional object.
+     * @param endTime The end time of the task as a DateTimeOptional object.
+     */
     public Event(String description, DateTimeOptional startTime, DateTimeOptional endTime) {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
+    /**
+     * Gives a string representation of the task in file format.
+     *
+     * @return A string representation of the task in file format.
+     */
     @Override
     public String fileString() {
         return String.format(
@@ -53,6 +78,11 @@ public class Event extends Task {
                 this.endTime
         );
     }
+    /**
+     * Gives a string representation of the task in display format.
+     *
+     * @return A string representation of the task in display format.
+     */
 
     @Override
     public String toString() {
