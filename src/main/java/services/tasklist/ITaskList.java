@@ -26,7 +26,12 @@ public interface ITaskList {
      */
     void delete(int taskNumber) throws JarvisException;
 
-    void find(String keyword) throws JarvisException;
+    /**
+     * Finds tasks that contain the given keyword.
+     *
+     * @param keyword the keyword to be searched.
+     */
+    void find(String keyword);
 
 
     /**

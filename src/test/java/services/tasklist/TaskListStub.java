@@ -7,6 +7,7 @@ import java.util.Arrays;
 public class TaskListStub implements ITaskList {
 
     protected String status;
+
     public TaskListStub() {
         status = "";
     }
@@ -20,6 +21,11 @@ public class TaskListStub implements ITaskList {
     @Override
     public void delete(int taskNumber) {
         status = "delete method called with taskNumber: " + taskNumber + ".";
+    }
+
+    @Override
+    public void find(String keyword) {
+        status = "find method called with keyword: " + keyword + ".";
     }
 
     @Override
