@@ -57,8 +57,10 @@ public class Parser {
                 return new Instruction.List();
             }
         case MARK:
-            if (matcher.group(10) == null || matcher.group(10).isBlank()) {
-                throw new DukeException("The description of mark cannot be empty. Try again.");
+            if (matcher.group(10) == null) {
+                throw new DukeException("Invalid format for mark. Try again.");
+            } else if (matcher.group(10).isBlank()) {
+                throw new DukeException("Description of deadline cannot be empty. Try again.");
             } else {
                 try {
                     Integer index = Integer.parseInt(matcher.group(10).trim());
@@ -69,8 +71,10 @@ public class Parser {
                 }
             }
         case UNMARK:
-            if (matcher.group(10) == null || matcher.group(10).isBlank()) {
-                throw new DukeException("The description of unmark cannot be empty. Try again.");
+            if (matcher.group(10) == null) {
+                throw new DukeException("Invalid format for unmark. Try again.");
+            } else if (matcher.group(10).isBlank()) {
+                throw new DukeException("Description of unmark cannot be empty. Try again.");
             } else {
                 try {
                     Integer index = Integer.parseInt(matcher.group(10).trim());
@@ -81,8 +85,10 @@ public class Parser {
                 }
             }
         case DELETE:
-            if (matcher.group(10) == null || matcher.group(10).isBlank()) {
-                throw new DukeException("The description of delete cannot be empty. Try again.");
+            if (matcher.group(10) == null) {
+                throw new DukeException("Invalid format for delete. Try again.");
+            } else if (matcher.group(10).isBlank()) {
+                throw new DukeException("Description of delete cannot be empty. Try again.");
             } else {
                 try {
                     Integer index = Integer.parseInt(matcher.group(10).trim());
@@ -93,14 +99,18 @@ public class Parser {
                 }
             }
         case TODO:
-            if(matcher.group(10) == null || matcher.group(10).isBlank()){
-                throw new DukeException("The description of a todo cannot be empty. Try again.");
+            if (matcher.group(10) == null) {
+                throw new DukeException("Invalid format for todo. Try again.");
+            } else if (matcher.group(10).isBlank()) {
+                throw new DukeException("Description of a todo cannot be empty. Try again.");
             } else {
                 return new Instruction.Add(new Todo(matcher.group(10).trim()));
             }
         case DEADLINE:
-            if (matcher.group(8) == null || matcher.group(8).isBlank()) {
-                throw new DukeException("The description of a deadline cannot be empty. Try again.");
+            if (matcher.group(8) == null) {
+                throw new DukeException("Invalid format for deadline. Try again.");
+            } else if (matcher.group(8).isBlank()) {
+                throw new DukeException("Description of a deadline cannot be empty. Try again.");
             } else {
                 if (matcher.group(9) == null || matcher.group(9).isBlank()) {
                     throw new DukeException("Insufficient number of arguments for a deadline. Try again.");
@@ -116,8 +126,10 @@ public class Parser {
                 }
             }
         case EVENT:
-            if (matcher.group(4) == null || matcher.group(4).isBlank()) {
-                throw new DukeException("The description of an event cannot be empty. Try again.");
+            if (matcher.group(4) == null) {
+                throw new DukeException("Invalid format for event. Try again.");
+            } else if (matcher.group(4).isBlank()) {
+                throw new DukeException("Description of event cannot be empty. Try again.");
             } else {
                 if (matcher.group(5) == null || matcher.group(6) == null
                         || matcher.group(5).isBlank() || matcher.group(6).isBlank()) {
