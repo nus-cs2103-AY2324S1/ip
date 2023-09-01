@@ -62,6 +62,11 @@ abstract class Task implements Serializable {
         List<Task> tasks = new ArrayList<>();
         ObjectInputStream file = null;
         try {
+            @SuppressWarnings("unchecked")
+            //Unchecked warnings are yielded due to an unchecked type conversion
+            //readObject() returns an Object, but am casting it to List<Task>
+            //The compiler has no way to check if the object is of type List<Task>
+            //in compile time, resulting in an unchecked warning being yielded
             File taskFile = new File(filePath);
             if (taskFile.length() > 0) {
                 file = new ObjectInputStream(new FileInputStream(taskFile));
