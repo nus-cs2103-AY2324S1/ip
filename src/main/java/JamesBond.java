@@ -1,9 +1,12 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class JamesBond {
     public static void main(String[] args) throws EmptyDescException {
         Scanner sc = new Scanner(System.in);
         TaskList taskList = new TaskList();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String logo = "____________________________________________________________\n"
                 + "YO! The name's Bond, James Bond.  \n"
                 + "What can I do for you? \n"
@@ -36,9 +39,8 @@ public class JamesBond {
                         int byIndex = input.indexOf("/by");
                         if (byIndex != -1) {
                             String taskDescription = input.substring(0, byIndex).trim();
-                            System.out.println(taskDescription);
-                            String dueDate = input.substring(byIndex + 4).trim();
-                            System.out.println(dueDate);
+                            LocalDateTime dueDate = LocalDateTime.parse(input.substring(byIndex + 4).trim(), formatter);
+
                             taskList.addDead(taskDescription, dueDate);
                         } else {
                             throw new IllegalArgumentException("Deadline not formatted correctly, type again in the format /by (deadline)");
@@ -49,8 +51,8 @@ public class JamesBond {
                         if (fromIndex != -1 && toIndex != -1) {
                             String taskDescription = input.substring(0, fromIndex).trim();
                             System.out.println(taskDescription);
-                            String startTime = input.substring(fromIndex + 6, toIndex).trim();
-                            String endTime = input.substring(toIndex + 4).trim();
+                            LocalDateTime startTime = LocalDateTime.parse(input.substring(fromIndex + 6, toIndex).trim(), formatter);
+                            LocalDateTime endTime = LocalDateTime.parse(input.substring(toIndex + 4).trim(), formatter);
                             taskList.addEvent(taskDescription, startTime, endTime);
                         } else {
                             throw new IllegalArgumentException("Event format incorrect, type again in the format /from (timing) /to (timing)");

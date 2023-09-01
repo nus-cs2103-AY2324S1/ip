@@ -1,4 +1,9 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 
 public class TaskList {
     ArrayList<UserInput> toDos;
@@ -20,21 +25,16 @@ public class TaskList {
             throw new EmptyDescException("Task description cannot be empty after 'todo'.");
         }
         ToDo toDo = new ToDo(task);
-        int taskId = findTask(task);
-        toDos.set(taskId, toDo);
+        toDos.add(toDo);
             System.out.println("GOT IT. ADDED:\n" + toDo.toString());
     }
 
-    public void addDead(String task, String by) throws EmptyDescException {
+    public void addDead(String task, LocalDateTime by) throws EmptyDescException {
         if (task.isEmpty()) {
             throw new EmptyDescException("Task description cannot be empty after 'deadline'.");
         }
-        if (by.isEmpty()) {
-            throw new EmptyDescException("Deadline not provided, type again in the format /by (deadline)");
-        }
         Deadline dead = new Deadline(task, by);
-        int taskId = findTask(task);
-        toDos.set(taskId, dead);
+        toDos.add(dead);
         System.out.println("GOT IT. ADDED. DEADD:\n" + dead.toString());
     }
 
@@ -69,16 +69,12 @@ public class TaskList {
         return -1;
     }
 
-    public void addEvent(String task, String from, String to) throws EmptyDescException {
-        if (from.isEmpty() && to.isEmpty()) {
-            throw new EmptyDescException("Event time not provided, type again in the format /from (timing) /to (timing)");
-        }
+    public void addEvent(String task, LocalDateTime from, LocalDateTime to) throws EmptyDescException {
         if (task.isEmpty()){
-            throw new EmptyDescException("Task description cannot be empty after 'Event'.");
+            throw new EmptyDescException("Task description cannot be empty after 'Event', type again in the format event (your task) /from (yyyy-mm-dd TIME) /to (yyyy-mm-dd TIME).");
         }
         Event event = new Event(task, from, to);
-        int taskId = findTask(task);
-        toDos.set(taskId, event);
+        toDos.add(event);
         System.out.println("GOT IT. ADDED:\n" + event.toString());
     }
 

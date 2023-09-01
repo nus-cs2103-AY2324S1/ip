@@ -1,13 +1,20 @@
-public class Deadline extends UserInput {
-    protected String by;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
-        public Deadline(String text, String by) {
+public class Deadline extends UserInput {
+        protected LocalDateTime by;
+
+        public Deadline(String text, LocalDateTime by) {
             super(text);
             this.by = by;
         }
 
+
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(outputFormatter) + ")";
     }
 }

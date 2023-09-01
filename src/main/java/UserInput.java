@@ -1,8 +1,13 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 public class UserInput {
     protected String text;
     protected boolean isDone;
+    DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d-MMMM-yyyy h:mma", Locale.ENGLISH);
+
 
     public UserInput(String text) {
         this.text = text;
