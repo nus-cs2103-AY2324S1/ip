@@ -89,17 +89,27 @@ public class Duke {
             if (isKeyword) {
                 String[] part = msg.split("\\s+");
                 int ind = Integer.parseInt(part[1]) - 1;
-                switch (part[0]) {
-                case "mark":
-                    tasks.get(ind).MarkAsDone(duke);
-                    break;
-                case "unmark":
-                    tasks.get(ind).MarkAsUnDone(duke);
-                    break;
-                case "delete":
-                    deleteTask(ind);
-                    break;
+                try {
+                    if (ind > Duke.count || ind < 0) {
+                        throw new IndexOutOfBoundsException();
+                    }
+                    switch (part[0]) {
+                    case "mark":
+                        tasks.get(ind).MarkAsDone(duke);
+                        break;
+                    case "unmark":
+                        tasks.get(ind).MarkAsUnDone(duke);
+                        break;
+                    case "delete":
+                        deleteTask(ind);
+                        break;
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println(separation);
+                    System.out.println("The given index is not in the available range");
+                    System.out.println(separation);
                 }
+
             } else {
                 displayInfo(msg);
             }
