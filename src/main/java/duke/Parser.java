@@ -1,28 +1,28 @@
 package duke;
 
-import java.util.Scanner;
-
 /**
  * Represents the parser of the chatbot.
  */
 public class Parser {
-    public static String parseCommand(String input) {
+    TaskList tasks;
+    public Parser(TaskList tasks) {
+        this.tasks = tasks;
+    }
+
+    public Executable parseCommand(String input) {
         // Split into command and rest
         String[] parts = input.split(" ", 2);
         final String command = parts[0];
         final String rest = parts.length > 1 ? parts[1] : "";
 
         switch (command) {
-        case "bye": {
-            return Duke.exit();
-        }
-
         case "deadline": {
             try {
                 final String[] deadlineParts = rest.split(" /by ", 2);
                 final String name = deadlineParts[0];
                 final String endTime = deadlineParts[1];
-                return Duke.add(new Deadline(name, endTime));
+
+                return new DeadlineAdder(tasks, name, endTime);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new IllegalArgumentException("Invalid format. Usage: deadline <name> /by <time>");
             }
@@ -33,7 +33,7 @@ public class Parser {
                 throw new IllegalArgumentException("Task index is missing.");
             }
             int index = Integer.parseInt(rest);
-            return Duke.delete(index);
+            return new TaskDeleter(tasks, index);
         }
 
         case "event": {
@@ -46,18 +46,18 @@ public class Parser {
                 final String startTime = startAndEndParts[0];
                 final String endTime = startAndEndParts[1];
 
-                return Duke.add(new Event(name, startTime, endTime));
+                return new EventAdder(tasks, name, startTime, endTime);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new IllegalArgumentException("Invalid format. Usage: event <name> /from <time> /to <time>");
             }
         }
 
         case "find": {
-            return Duke.listFiltered(rest);
+            return new Finder(tasks, rest);
         }
 
         case "list": {
-            return Duke.list();
+            return new Lister(tasks);
         }
 
         case "mark": {
@@ -65,11 +65,11 @@ public class Parser {
                 throw new IllegalArgumentException("Task index is missing.");
             }
             int index = Integer.parseInt(rest);
-            return Duke.mark(index);
+            return new TaskMarker(tasks, index);
         }
 
         case "todo": {
-            return Duke.add(new ToDo(rest));
+            return new ToDoAdder(tasks, rest);
         }
 
         case "unmark": {
@@ -77,7 +77,7 @@ public class Parser {
                 throw new IllegalArgumentException("Task index is missing.");
             }
             int index = Integer.parseInt(rest);
-            return Duke.unmark(index);
+            return new TaskUnmarker(tasks, index);
         }
 
         default: {

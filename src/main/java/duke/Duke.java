@@ -17,86 +17,14 @@ import javafx.stage.Stage;
  */
 public class Duke extends Application {
     private static TaskList taskList;
-
-    /**
-     * Greets the user with a welcome message.
-     */
-    public static String greet() {
-        return Ui.greet();
-    }
-
-    /**
-     * Displays a farewell message when exiting the program.
-     */
-    public static String exit() {
-        return Ui.exit();
-    }
-
-    /**
-     * Adds a task to the TaskList and displays a confirmation message.
-     *
-     * @param task The task to be added.
-     */
-    public static String add(Task task) {
-        taskList.add(task);
-        return Ui.add(task, taskList.size());
-    }
-
-    /**
-     * Deletes a task at the specified index from the TaskList and displays a confirmation message.
-     *
-     * @param index The index of the task to be deleted.
-     * @throws IndexOutOfBoundsException If the index is out of range.
-     */
-    public static String delete(int index) {
-        final Task task = taskList.get(index);
-        taskList.delete(index);
-        return Ui.delete(task, taskList.size());
-    }
-
-    /**
-     * Lists all tasks in the TaskList and displays them.
-     */
-    public static String list() {
-        return taskList.toString();
-    }
-
-    /**
-     * Lists tasks in the TaskList that match a given regex pattern and displays them.
-     *
-     * @param regex The regular expression pattern to match tasks against.
-     */
-    public static String listFiltered(String regex) {
-        return taskList.filteredToString(regex);
-    }
-
-    /**
-     * Marks a task at the specified index as done and displays a confirmation message.
-     *
-     * @param index The index of the task to be marked as done.
-     * @throws IndexOutOfBoundsException If the index is out of range.
-     */
-    public static String mark(int index) {
-        taskList.mark(index);
-        return Ui.mark(taskList.get(index));
-    }
-
-    /**
-     * Marks a task at the specified index as not done yet and displays a confirmation message.
-     *
-     * @param index The index of the task to be marked as not done yet.
-     * @throws IndexOutOfBoundsException If the index is out of range.
-     */
-    public static String unmark(int index) {
-        taskList.unmark(index);
-        return Ui.unmark(taskList.get(index));
-    }
-
+    private static Parser parser;
     public Duke() {
         final String DATA_DIRECTORY = "data";
         String projectRoot = System.getProperty("user.dir");
         String dataFilePath = projectRoot + "/" + DATA_DIRECTORY + "/tasks.ser";
         taskList = new TaskList(dataFilePath);
+
+        parser = new Parser(taskList);
     }
     
     private ScrollPane scrollPane;
@@ -190,14 +118,10 @@ public class Duke extends Application {
         userInput.clear();
     }
 
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
     public String getResponse(String input) {
         try {
-            return Parser.parseCommand(input);
+            Executable executable = parser.parseCommand(input);
+            return executable.execute();
         } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
             return e.toString();
         }
