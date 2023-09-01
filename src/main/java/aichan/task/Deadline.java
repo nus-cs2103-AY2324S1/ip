@@ -8,7 +8,13 @@ public class Deadline extends Task{
         this.dueDate = strs[1];
     }
 
+    @Override
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), this.dueDate);
+    }
+
+    @Override
+    public String toFileLine() {
+        return String.format("D | %s | %s", super.toFileLine(), this.dueDate);
     }
 }
