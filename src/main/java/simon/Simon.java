@@ -3,34 +3,54 @@ package simon;
 import simon.command.Parser;
 import simon.task.Task;
 
-
 import java.util.Scanner;
 
+/**
+ * The main class for the {@code Simon} application.
+ * It handles the primary loop of the application and interacts with the user.
+ */
 public class Simon {
+
+    /** List of tasks maintained by the {@code Simon} application. */
     private TaskList tasks;
+
+    /** Storage handler for saving and loading tasks from a file. */
     private final Storage storage;
+
+    /** UI handler for displaying messages and prompts to the user. */
     private final Ui ui;
 
+    /** Horizontal line for UI formatting. */
     protected static final String SPACE = "____________________________________________________________";
+
+    /** Horizontal line with newline prefix for UI formatting. */
     protected static final String NSPACE = "\n____________________________________________________________";
+
+    /** Horizontal line with newline suffix for UI formatting. */
     protected static final String SPACEN = "____________________________________________________________\n";
 
+    /**
+     * Constructs a new {@code Simon} application instance.
+     *
+     * @param filePath Path to the file where tasks will be saved and loaded from.
+     */
     public Simon(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-//            ui.showMessage("I've loaded your tasks from the last time you used me!" + NSPACE);
         } catch (SimonException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
     }
 
+    /**
+     * Starts and runs the main loop of the {@code Simon} application.
+     * Continues to prompt the user for commands until the 'bye' command is given.
+     */
     public void run() {
         Scanner scan = new Scanner(System.in);
-
-        // Start Program
         ui.showWelcome();
 
         while (true) {
@@ -78,6 +98,11 @@ public class Simon {
         }
     }
 
+    /**
+     * The main entry point for the {@code Simon} application.
+     *
+     * @param args Command line arguments. Not used.
+     */
     public static void main(String[] args) {
         new Simon("data/simon.txt").run();
     }
