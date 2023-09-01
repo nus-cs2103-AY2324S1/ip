@@ -28,7 +28,8 @@ public class DeleteTaskCommand extends Command{
 
     /**
      * Executes the command by deleting the task at the specified index from the task list,
-     * saving the updated list to storage, and displaying a message to the user indicating that the task has been deleted.
+     * saving the updated list to storage, and displaying a message to the user indicating 
+     * that the task has been deleted.
      * 
      * @param list The task list from which the task should be deleted.
      * @param ui The user interface for displaying feedback to the user.
