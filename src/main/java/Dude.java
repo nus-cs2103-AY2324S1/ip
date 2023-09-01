@@ -30,7 +30,7 @@ public class Dude {
     public static void list() {
         for (int i = 0; i < nTasks; i++) {
             Task task = taskList[i];
-            System.out.printf("%d %s\n", i+1, task.toString());
+            System.out.printf("%d. %s\n", i+1, task.toString());
         }
     }
 
@@ -71,16 +71,28 @@ public class Dude {
             } else if (words[0].equals("unmark")) {
                 unmark(Integer.valueOf(words[1]));
             } else if (words[0].equals("todo")) {
-                addTodo(input.substring(5));
+                if (words.length > 1) {
+                    addTodo(input.substring(5));
+                } else {
+                    System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                }
             } else if (words[0].equals("deadline")) {
+                if (words.length == 1) {
+                    System.out.println("OOPS!!! The description of a deadline cannot be empty.");
+                }
                 String[] taskWords = input.substring(9).split(" /");
                 String by = taskWords[1].substring(3);
                 addDeadline(taskWords[0], by);
             } else if (words[0].equals("event")) {
+                if (words.length == 1) {
+                    System.out.println("OOPS!!! The description of an event cannot be empty.");
+                }
                 String[] taskWords = input.substring(6).split(" /");
                 String from = taskWords[1].substring(5);
                 String to = taskWords[2].substring(3);
                 addEvent(taskWords[0], from, to);
+            } else {
+                System.out.println(" OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
 
 
