@@ -25,22 +25,22 @@ public abstract class Command {
         try {
             Verb verb = Verb.valueOf(tokens[0].toUpperCase());
             switch (verb) {
-                case BYE:
-                    return new ByeCommand();
-                case LIST:
-                    return new ListCommand();
-                case TODO:
-                    return new TodoCommand(s);
-                case DEADLINE:
-                    return new DeadlineCommand(s);
-                case EVENT:
-                    return new EventCommand(s);
-                case MARK:
-                    return new MarkCommand(s);
-                case UNMARK:
-                    return new UnmarkCommand(s);
-                case DELETE:
-                    return new DeleteCommand(s);
+            case BYE:
+                return new ByeCommand();
+            case LIST:
+                return new ListCommand();
+            case TODO:
+                return new TodoCommand(s);
+            case DEADLINE:
+                return new DeadlineCommand(s);
+            case EVENT:
+                return new EventCommand(s);
+            case MARK:
+                return new MarkCommand(s);
+            case UNMARK:
+                return new UnmarkCommand(s);
+            case DELETE:
+                return new DeleteCommand(s);
             }
         } catch (IllegalArgumentException e) {
             throw new CommandException("I'm sorry, but I don't know what that means...");
