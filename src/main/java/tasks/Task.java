@@ -49,4 +49,13 @@ public class Task {
     public void unmarkDone() {
         isDone = false;
     }
+
+    /**
+     * Returns the name of the task
+     *
+     * @return name of task
+     */
+    public String getName() {
+        return this.NAME;
+    }
 }
