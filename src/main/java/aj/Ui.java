@@ -1,6 +1,6 @@
 package aj;
 
-public class Ui {
+class Ui {
     TaskList taskList;
 
     public void horiLine() {
@@ -16,7 +16,8 @@ public class Ui {
         horiLine();
     }
 
-    public void checkMessage(String cmd, String msg) throws EmptyDescriptionException { // if no arguments, give help message
+    public void checkMessage(String cmd,
+                             String msg) throws EmptyDescriptionException { // if no arguments, give help message
         String helpMessage;
         if (msg.length() == 0 || msg.equals(" ")) {
             if (cmd.equals("todo")) {

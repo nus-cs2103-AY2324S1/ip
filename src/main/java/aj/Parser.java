@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class Parser {
+class Parser {
 
     public Task getTodoTask(String remaining, boolean isMark) {
         return new Todo(remaining.substring(1), isMark);

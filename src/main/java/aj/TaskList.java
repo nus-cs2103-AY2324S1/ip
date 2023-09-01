@@ -2,7 +2,7 @@ package aj;
 
 import java.util.List;
 
-public class TaskList {
+class TaskList {
     List<Task> taskList;
 
     public Task getTask(int idx) {

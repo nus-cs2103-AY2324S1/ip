@@ -1,6 +1,6 @@
 package aj;
 
-public class Event extends Task {
+class Event extends Task {
     private final String fromDt, toDt;
 
     public String getFromDt() {

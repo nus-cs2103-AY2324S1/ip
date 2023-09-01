@@ -1,6 +1,6 @@
 package aj;
 
-public class Todo extends Task {
+class Todo extends Task {
     @Override
     public String toString() {
         return "[T]" + super.toString();
