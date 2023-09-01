@@ -1,6 +1,8 @@
 package monke.commands;
 
-import monke.*;
+import monke.Storage;
+import monke.TaskList;
+import monke.Ui;
 
 public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";

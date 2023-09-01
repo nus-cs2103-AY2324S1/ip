@@ -1,6 +1,9 @@
 package monke.commands;
 
-import monke.*;
+import monke.MonkeException;
+import monke.Storage;
+import monke.TaskList;
+import monke.Ui;
 import monke.tasks.Event;
 
 public class EventCommand extends Command {
@@ -20,6 +23,7 @@ public class EventCommand extends Command {
         Event event = new Event(this.description, this.start, this.end);
         tasks.add(event);
         storage.saveData(tasks);
+
         ui.showAddTask(event, tasks.size());
     }
 }

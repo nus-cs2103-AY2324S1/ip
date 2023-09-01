@@ -1,6 +1,9 @@
 package monke.commands;
 
-import monke.*;
+import monke.MonkeException;
+import monke.Storage;
+import monke.TaskList;
+import monke.Ui;
 import monke.tasks.Task;
 
 public class UnmarkCommand extends Command {
@@ -14,6 +17,7 @@ public class UnmarkCommand extends Command {
         Task task = tasks.getTask(this.taskNumber);
         task.unmark();
         storage.saveData(tasks);
+
         ui.print("Ooga booga! I've marked this task as undone:");
         ui.print("\t" + task);
     }

@@ -1,6 +1,14 @@
 package monke;
 
-import monke.commands.*;
+import monke.commands.Command;
+import monke.commands.DeadlineCommand;
+import monke.commands.DeleteCommand;
+import monke.commands.EventCommand;
+import monke.commands.ExitCommand;
+import monke.commands.ListCommand;
+import monke.commands.MarkCommand;
+import monke.commands.TodoCommand;
+import monke.commands.UnmarkCommand;
 import monke.tasks.Deadline;
 import monke.tasks.Event;
 import monke.tasks.Task;
@@ -46,33 +54,24 @@ public class Parser {
         String command = temp[0];
         String args = temp.length > 1 ? temp[1] : "";
         switch (command) {
-        case ListCommand.COMMAND_WORD: {
+        case ListCommand.COMMAND_WORD:
             return new ListCommand();
-        }
-        case MarkCommand.COMMAND_WORD: {
+        case MarkCommand.COMMAND_WORD:
             return parseMark(args);
-        }
-        case UnmarkCommand.COMMAND_WORD: {
+        case UnmarkCommand.COMMAND_WORD:
             return parseUnmark(args);
-        }
-        case TodoCommand.COMMAND_WORD: {
+        case TodoCommand.COMMAND_WORD:
             return parseTodo(args);
-        }
-        case DeadlineCommand.COMMAND_WORD: {
+        case DeadlineCommand.COMMAND_WORD:
             return parseDeadline(args);
-        }
-        case EventCommand.COMMAND_WORD: {
+        case EventCommand.COMMAND_WORD:
             return parseEvent(args);
-        }
-        case DeleteCommand.COMMAND_WORD: {
+        case DeleteCommand.COMMAND_WORD:
             return parseDelete(args);
-        }
-        case ExitCommand.COMMAND_WORD: {
+        case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
-        }
-        default: {
+        default:
             throw new MonkeException("OOGA??!! I'm sorry, but I don't know what that means :-(");
-        }
         }
     }
 

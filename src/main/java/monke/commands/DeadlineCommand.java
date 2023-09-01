@@ -2,7 +2,10 @@ package monke.commands;
 
 import java.time.LocalDateTime;
 
-import monke.*;
+import monke.MonkeException;
+import monke.Storage;
+import monke.TaskList;
+import monke.Ui;
 import monke.tasks.Deadline;
 
 public class DeadlineCommand extends Command {
@@ -20,6 +23,7 @@ public class DeadlineCommand extends Command {
         Deadline deadline = new Deadline(this.description, this.date);
         tasks.add(deadline);
         storage.saveData(tasks);
+
         ui.showAddTask(deadline, tasks.size());
     }
 }

@@ -21,13 +21,11 @@ public class Monke {
     public void run() {
         ui.printHorizontalLine();
         ui.showWelcome();
-        boolean isExit = false;
-//        Scanner sc = new Scanner(System.in);
 
+        boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-//                String fullCommand = sc.nextLine();
                 ui.printHorizontalLine();
                 Command c = Parser.parse(fullCommand);
                 c.execute(ui, storage, tasks);
@@ -38,8 +36,6 @@ public class Monke {
                 ui.printHorizontalLine();
             }
         }
-//        sc.close();
-
     }
 
     public static void main(String[] args) {

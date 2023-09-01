@@ -16,6 +16,7 @@ public class Event extends Task {
 
     @Override
     public String formatData() {
-        return String.format("E | %d | %s | %s | %s\n", this.isDone ? 1 : 0, this.description, this.start, this.end);
+        return String.format("E | %d | %s | %s | %s\n",
+                this.isDone ? 1 : 0, this.description, this.start, this.end);
     }
 }
