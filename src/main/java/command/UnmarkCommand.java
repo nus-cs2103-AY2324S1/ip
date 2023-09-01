@@ -7,7 +7,9 @@ import duke.Ui;
 import task.Task;
 import task.TaskList;
 
-/** Unmarks a task on the todo list */
+/**
+ * Unmarks a task on the todo list
+ */
 public class UnmarkCommand extends Command {
 
     /**

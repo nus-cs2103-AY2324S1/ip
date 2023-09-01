@@ -16,9 +16,7 @@ public class DeadlineCommand extends Command {
     /** Description of the task */
     protected String description;
 
-    /**
-     * Deadline that the task is to be done by
-     */
+    /** Deadline that the task is to be done by */
     protected LocalDateTime by;
     public static final String COMMAND_WORD = "deadline";
     public static final String MESSAGE_SUCCESS = " Got it. I've added this task:\n";
