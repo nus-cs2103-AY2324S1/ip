@@ -1,7 +1,7 @@
+package deterministicparrot;
+
 import java.io.FileNotFoundException;
 import java.util.*;
-
-
 
 public class DeterministicParrot {
     //static variable storing the path to data file

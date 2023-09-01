@@ -1,3 +1,5 @@
+package deterministicparrot;
+
 import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -19,7 +21,7 @@ public class Ui {
 
     public void greet() {
         this.printDash();
-        this.pw.println("     " + "Hello! I'm DeterministicParrot");
+        this.pw.println("     " + "Hello! I'm deterministicparrot.DeterministicParrot");
         this.pw.println("     " +"What can I do for you?");
         this.printDash();
     }
