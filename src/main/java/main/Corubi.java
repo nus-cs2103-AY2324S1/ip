@@ -1,7 +1,8 @@
-import Tasks.*;
-import Parser.Parser;
-import Ui.Ui;
-import Storage.Storage;
+package main;
+import tasks.*;
+import parser.Parser;
+import ui.Ui;
+import storage.Storage;
 import java.io.IOException;
 
 public class Corubi {
@@ -18,10 +19,10 @@ public class Corubi {
      * @param dir The directory path for storing data.
      */
     private Corubi(String dir) {
-        this.userUi = new Ui();
-        this.tasks = new TaskList();
-        this.parser = new Parser();
-        this.store = new Storage(dir, tasks);
+        userUi = new Ui();
+        tasks = new TaskList();
+        parser = new Parser();
+        store = new Storage(dir, tasks);
     }
 
     /**
@@ -40,6 +41,7 @@ public class Corubi {
      * @throws IOException If an I/O operation is interrupted.
      */
     public static void main(String[] args) throws IOException {
-        new Corubi(DIRECTORY).run();
+        new Corubi(DIRECTORY);
+        run();
     }
 }

@@ -1,12 +1,12 @@
-package Ui;
-import Tasks.*;
-import Parser.Parser;
+package ui;
+import tasks.*;
+import parser.Parser;
 import java.io.IOException;
-import CustomExceptions.WrongCommandException;
+import customexceptions.WrongCommandException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
-import Storage.Storage;
+import storage.Storage;
 
 public class Ui {
     // Setting of final parameters
@@ -112,7 +112,8 @@ public class Ui {
                     System.out.println("Okay! I have added the following task\n" + newTask);
                     store.write(newTask);
                 } else if (input.contains("event ")) {
-                    Task newTask = new Events(parser.taskName(input), parser.taskFrom(input), parser.taskTo(input), false);
+                    Task newTask = new Events(parser.taskName(input), parser.taskFrom(input), parser.taskTo(input),
+                            false);
                     tasks.add(newTask);
                     System.out.println("Okay! I have added the following task\n" + newTask.toString());
                     store.write(newTask);

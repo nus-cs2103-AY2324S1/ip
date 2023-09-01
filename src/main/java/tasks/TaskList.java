@@ -1,8 +1,8 @@
-package Tasks;
+package tasks;
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> enteredText = new ArrayList<>();
+    private ArrayList<Task> enteredTexts = new ArrayList<>();
 
     /**
      * Adds a task to the task list.
@@ -10,7 +10,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void add(Task task) {
-        enteredText.add(task);
+        enteredTexts.add(task);
     }
 
     /**
@@ -19,7 +19,7 @@ public class TaskList {
      * @return The number of tasks.
      */
     public int size() {
-        return enteredText.size();
+        return enteredTexts.size();
     }
 
     /**
@@ -28,15 +28,15 @@ public class TaskList {
      * @param task The task to be removed.
      */
     public void remove(Task task) {
-        enteredText.remove(task);
+        enteredTexts.remove(task);
     }
 
     /**
      * Prints the list of tasks with their corresponding indices.
      */
     public void printList() {
-        for (int i = 0; i < enteredText.size(); i++) {
-            System.out.printf("%d. %s \n", i + 1, enteredText.get(i).toString());
+        for (int i = 0; i < enteredTexts.size(); i++) {
+            System.out.printf("%d. %s \n", i + 1, enteredTexts.get(i).toString());
         }
     }
 
@@ -47,6 +47,6 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task retrieve(int index) {
-        return enteredText.get(index);
+        return enteredTexts.get(index);
     }
 }
