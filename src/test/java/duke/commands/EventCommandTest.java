@@ -43,7 +43,7 @@ public class EventCommandTest {
     @Test
     public void run_missingArguments_commandExceptionThrown() {
         try {
-            Command command = new EventCommand("event");
+            new EventCommand("event");
         } catch (CommandException e) {
             assertEquals(invalidFormatMessage, e.getMessage());
         }
@@ -52,7 +52,7 @@ public class EventCommandTest {
     @Test
     public void run_missingArgDescription_commandExceptionThrown() {
         try {
-            Command command = new EventCommand("event /from today 12pm /to today 3pm");
+            new EventCommand("event /from today 12pm /to today 3pm");
         } catch (CommandException e) {
             assertEquals(invalidFormatMessage, e.getMessage());
         }
@@ -61,7 +61,7 @@ public class EventCommandTest {
     @Test
     public void run_missingArgStartTime_commandExceptionThrown() {
         try {
-            Command command = new EventCommand("event meeting /to today 3pm");
+            new EventCommand("event meeting /to today 3pm");
         } catch (CommandException e) {
             assertEquals(invalidFormatMessage, e.getMessage());
         }
@@ -70,7 +70,7 @@ public class EventCommandTest {
     @Test
     public void run_missingArgEndTime_commandExceptionThrown() {
         try {
-            Command command = new EventCommand("event meeting /from today 12pm");
+            new EventCommand("event meeting /from today 12pm");
         } catch (CommandException e) {
             assertEquals(invalidFormatMessage, e.getMessage());
         }
@@ -79,7 +79,7 @@ public class EventCommandTest {
     @Test
     public void run_emptyDescription_commandExceptionThrown() {
         try {
-            Command command = new EventCommand("event  /from today 12pm /to today 3pm");
+            new EventCommand("event  /from today 12pm /to today 3pm");
         } catch (CommandException e) {
             assertEquals("Event description cannot be empty!", e.getMessage());
         }
@@ -88,7 +88,7 @@ public class EventCommandTest {
     @Test
     public void run_emptyStartTime_commandExceptionThrown() {
         try {
-            Command command = new EventCommand("event meeting /from /to today 3pm");
+            new EventCommand("event meeting /from /to today 3pm");
         } catch (CommandException e) {
             assertEquals(invalidFormatMessage, e.getMessage());
         }
@@ -97,7 +97,7 @@ public class EventCommandTest {
     @Test
     public void run_emptyEndTime_commandExceptionThrown() {
         try {
-            Command command = new EventCommand("event meeting /from today 12pm /to ");
+            new EventCommand("event meeting /from today 12pm /to ");
         } catch (CommandException e) {
             assertEquals(invalidFormatMessage, e.getMessage());
         }

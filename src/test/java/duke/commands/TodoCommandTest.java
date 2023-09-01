@@ -29,7 +29,7 @@ public class TodoCommandTest {
     @Test
     public void run_missingArgument_commandExceptionThrown() {
         try {
-            Command command = new TodoCommand("todo");
+            new TodoCommand("todo");
         } catch (CommandException e) {
             assertEquals(invalidFormatMessage, e.getMessage());
         }
@@ -38,7 +38,7 @@ public class TodoCommandTest {
     @Test
     public void run_missingArgumentWithSpace_commandExceptionThrown() {
         try {
-            Command command = new TodoCommand("todo ");
+            new TodoCommand("todo ");
         } catch (CommandException e) {
             assertEquals(invalidFormatMessage, e.getMessage());
         }

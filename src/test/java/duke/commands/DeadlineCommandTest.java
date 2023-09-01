@@ -29,7 +29,7 @@ public class DeadlineCommandTest {
     @Test
     public void run_missingArguments_commandExceptionThrown() {
         try {
-            Command command = new DeadlineCommand("deadline");
+            new DeadlineCommand("deadline");
         } catch (CommandException e) {
             assertEquals(invalidFormatMessage, e.getMessage());
         }
@@ -38,7 +38,7 @@ public class DeadlineCommandTest {
     @Test
     public void run_missingArgDescription_commandExceptionThrown() {
         try {
-            Command command = new DeadlineCommand("deadline /by tmr");
+            new DeadlineCommand("deadline /by tmr");
         } catch (CommandException e) {
             assertEquals(invalidFormatMessage, e.getMessage());
         }
@@ -47,7 +47,7 @@ public class DeadlineCommandTest {
     @Test
     public void run_missingArgDeadline_commandExceptionThrown() {
         try {
-            Command command = new DeadlineCommand("deadline assignment");
+            new DeadlineCommand("deadline assignment");
         } catch (CommandException e) {
             assertEquals(invalidFormatMessage, e.getMessage());
         }
@@ -57,7 +57,7 @@ public class DeadlineCommandTest {
     @Test
     public void run_emptyDescription_commandExceptionThrown() {
         try {
-            Command command = new DeadlineCommand("deadline  /by tmr");
+            new DeadlineCommand("deadline  /by tmr");
         } catch (CommandException e) {
             assertEquals("Deadline description cannot be empty!", e.getMessage());
         }
