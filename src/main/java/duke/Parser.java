@@ -3,7 +3,6 @@ package duke;
 import command.*;
 import exception.DukeException;
 import exception.InvalidCommandException;
-import exception.InvalidIndexException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -139,7 +138,13 @@ public class Parser {
         return input.format(formatter);
     }
 
-
+    /**
+     * Returns a LocalDateTime given by the user input. Formats user input to be
+     * parsed as a LocalDateTime object.
+     *
+     * @param input The user date input.
+     * @return The LocaleDateTime object.
+     */
     public static LocalDateTime parseDateTime(String input) {
         String[] dateTime = input.split(" ", 2);
         String dateTimeFormat = dateTime[0] + "T" + dateTime[1] + ":00";

@@ -5,7 +5,7 @@ import duke.Storage;
 import exception.DukeException;
 
 /**
- * command.Command to edit a task in the task.Task List.
+ * Command to edit a task in the task.Task List.
  */
 public class EditCommand extends Command {
     /** The changes to the task */

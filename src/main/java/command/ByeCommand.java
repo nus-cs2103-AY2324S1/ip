@@ -5,7 +5,7 @@ import duke.Storage;
 import java.io.IOException;
 
 /**
- * command.Command to end the Chat Bot. Saves user input into file.
+ * Command to end the Chat Bot. Saves user input into file.
  */
 public class ByeCommand extends Command {
     @Override

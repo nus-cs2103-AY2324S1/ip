@@ -4,7 +4,7 @@ import duke.Ui;
 import duke.Storage;
 
 /**
- * command.Command that adds a task to the task.Task List.
+ * Command that adds a task to the task.Task List.
  */
 public class AddCommand extends Command {
     /** Type of task to add */
