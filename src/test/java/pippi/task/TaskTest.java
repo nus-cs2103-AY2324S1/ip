@@ -15,20 +15,20 @@ public class TaskTest {
     @Test
     public void testConstructor() {
         assertEquals("Sample task", task.getDescription());
-        assertFalse(task.isDone);
+        assertEquals("[ ] ", task.getStatusIcon());
     }
 
     @Test
     public void testMarkAsDone() {
         task.mark();
-        assertTrue(task.isDone);
+        assertEquals("[X] ", task.getStatusIcon());
     }
 
     @Test
     public void testUnmark() {
         task.mark();
         task.unmark();
-        assertFalse(task.isDone);
+        assertEquals("[ ] ", task.getStatusIcon());
     }
 
     @Test
