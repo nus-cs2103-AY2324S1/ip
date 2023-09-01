@@ -5,21 +5,29 @@ import services.Ui;
 import services.bizerrors.EmptyArgumentException;
 import services.bizerrors.IndexOutOfRangeException;
 import services.bizerrors.JarvisException;
+import services.bizerrors.SaveToFileException;
 import services.tasklist.tasks.Deadline;
 import services.tasklist.tasks.Event;
 import services.tasklist.tasks.Task;
 import services.tasklist.tasks.Todo;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList implements ITaskList {
+    /** The list of tasks. */
     protected List<Task> taskList;
     protected IStorage repo;
+    /** The number of tasks in the list. */
     protected int taskCount;
     protected Ui ui;
 
+    /**
+     * Creates a new TaskList object with the given Storage object and Ui object.
+     *
+     * @param repo the Storage object that stores the list of tasks in a data file.
+     * @param ui   the Ui object that prints the formatted task list to the user.
+     */
     public TaskList(IStorage repo, Ui ui) {
         this.ui = ui;
         this.repo = repo;
@@ -27,6 +35,7 @@ public class TaskList implements ITaskList {
             taskList = repo.load();
             taskCount = taskList.size();
         } catch (JarvisException e) {
+            // Fix the problem here in the future.
             ui.print(e.toString() + "\nA temporary session is opened for you.");
             taskList = new ArrayList<>();
             taskCount = 0;
@@ -41,18 +50,18 @@ public class TaskList implements ITaskList {
             throw new EmptyArgumentException(taskType.toString().toLowerCase());
         }
         switch (taskType) {
-            case TODO:
-                newTask = new Todo(description);
-                break;
-            case DEADLINE:
-                newTask = new Deadline(description, args[0]);
-                break;
-            case EVENT:
-                newTask = new Event(description, args[0], args[1]);
-                break;
-            default:
-                // the program should never reach this point.
-                throw new JarvisException("Default case reached.");
+        case TODO:
+            newTask = new Todo(description);
+            break;
+        case DEADLINE:
+            newTask = new Deadline(description, args[0]);
+            break;
+        case EVENT:
+            newTask = new Event(description, args[0], args[1]);
+            break;
+        default:
+            // the program should never reach this point.
+            throw new JarvisException("Default case reached.");
         }
         taskList.add(newTask);
         taskCount++;
@@ -60,8 +69,15 @@ public class TaskList implements ITaskList {
         ui.print("added: " + newTask + "\n" + taskCount + " more tasks to do, Sir.");
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param taskNumber {@inheritDoc}
+     * @throws SaveToFileException      if the task deletion operation cannot be saved to the data file.
+     * @throws IndexOutOfRangeException if the task number is out of range.
+     */
     @Override
-    public void delete(int taskNumber) throws JarvisException {
+    public void delete(int taskNumber) throws SaveToFileException, IndexOutOfRangeException {
         if (taskNumber <= 0 || taskNumber > taskCount) {
             throw new IndexOutOfRangeException(taskNumber, taskCount);
         }
@@ -72,8 +88,15 @@ public class TaskList implements ITaskList {
         ui.print("removed: " + deletedTask + "\n" + taskCount + " tasks left, Sir.");
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param taskNumber {@inheritDoc}
+     * @throws SaveToFileException      if the task marking operation cannot be saved to the data file.
+     * @throws IndexOutOfRangeException if the task number is out of range.
+     */
     @Override
-    public void markDone(int taskNumber) throws JarvisException {
+    public void markDone(int taskNumber) throws SaveToFileException, IndexOutOfRangeException {
         if (taskNumber <= 0 || taskNumber > taskCount) {
             throw new IndexOutOfRangeException(taskNumber, taskCount);
         }
@@ -83,8 +106,15 @@ public class TaskList implements ITaskList {
         ui.print("Check.\n\t" + task + "\n" + "Way to go, sir.");
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param taskNumber {@inheritDoc}
+     * @throws SaveToFileException      if the task unmarking operation cannot be saved to the data file.
+     * @throws IndexOutOfRangeException if the task number is out of range.
+     */
     @Override
-    public void markUndone(int taskNumber) throws JarvisException {
+    public void markUndone(int taskNumber) throws SaveToFileException, IndexOutOfRangeException {
         if (taskNumber <= 0 || taskNumber > taskCount) {
             throw new IndexOutOfRangeException(taskNumber, taskCount);
         }

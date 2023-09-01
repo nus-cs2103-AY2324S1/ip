@@ -1,7 +1,14 @@
 package services;
 
+/**
+ * Represents the user interface of Jarvis.
+ */
 public class Ui {
-    private final static String HORIZONTAL_LINE = "_________________________________________________________________________\n";
+    /**
+     * The horizontal line for formatting messages.
+     */
+    private final static String HORIZONTAL_LINE = "__________________________________________________"
+            + "_______________________\n";
 
     public void exit() {
         String exitMessage = "Goodbye, sir.\n" + "Shutting down...";
