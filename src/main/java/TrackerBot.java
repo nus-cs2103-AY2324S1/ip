@@ -16,11 +16,14 @@ public class TrackerBot {
     /** Name of the app. **/
     private static final String APP_NAME = "TrackerBot";
 
-    private static Storage storage;
+    private TaskList tasks;
 
-    private static TaskList tasks;
+    private Ui ui;
 
-    private static Ui ui;
+    public TrackerBot(String appName) {
+        tasks = new TaskList();
+        ui = Ui.instantiate(appName);
+    }
 
     /**
      * Input handler function of the app. <br>
@@ -37,7 +40,7 @@ public class TrackerBot {
      * @return true if the handler detects the bye keyword,
      *         false otherwise.
      */
-    private static boolean handleInput() {
+    private boolean handleInput() {
         Command command = Parser.parseCommand(ui.readCommand());
         try {
             ui.showLine();
@@ -51,10 +54,7 @@ public class TrackerBot {
         return command.isExit();
     }
 
-    public static void main(String[] args) {
-        tasks = new TaskList();
-        ui = Ui.instantiate(APP_NAME);
-
+    public void run() {
         try {
             Storage.read(tasks);
         } catch (TrackerBotException e) {
@@ -73,5 +73,9 @@ public class TrackerBot {
         } catch (TrackerBotException e) {
             ui.showError(e.getMessage());
         }
+    }
+
+    public static void main(String[] args) {
+        new TrackerBot(APP_NAME).run();
     }
 }
