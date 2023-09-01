@@ -6,9 +6,9 @@ import java.util.regex.Pattern;
 import duke.commands.*;
 
 public class CommandParser {
-    private static Pattern COMMAND_PATTERN = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    private static Pattern DEADLINE_ARGS_PATTERN = Pattern.compile("(?<name>\\S+.*)( /by )(?<time>.*)");
-    private static Pattern EVENT_ARGS_PATTERN = Pattern.compile("(?<name>\\S+.*)( \\/from )(?<startTime>.*)( \\/to )(?<endTime>.*)");
+    private static Pattern COMMAND_PATTERN = Pattern.compile("(?<commandWord>\\S+)(?<arguments> \\S.*)");
+    private static Pattern DEADLINE_ARGS_PATTERN = Pattern.compile("(?<name>\\S+.*)( /by )(?<time>\\S.*)");
+    private static Pattern EVENT_ARGS_PATTERN = Pattern.compile("(?<name>\\S+.*)( /from )(?<startTime>\\S.*)( \\/to )(?<endTime>\\S.*)");
     public CommandParser() { }
 
     public Command parseCommand(String input) {

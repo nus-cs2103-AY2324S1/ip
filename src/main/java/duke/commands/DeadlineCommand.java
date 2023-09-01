@@ -5,6 +5,7 @@ import duke.storage.SaveData;
 import duke.task.Deadline;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class DeadlineCommand extends Command{
     public static final String COMMAND_PHRASE = "deadline";
@@ -28,6 +29,11 @@ public class DeadlineCommand extends Command{
         this.chatRecord.addTask(ddl);
         SaveData.saveData(this.chatRecord.toSave());
         return COMMAND_DESC + " " + ddl.toString();
+    }
+
+    @Override
+    public String toString() {
+        return COMMAND_PHRASE + " " + name + " /by " + date.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
     }
 
 }
