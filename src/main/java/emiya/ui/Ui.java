@@ -29,7 +29,7 @@ public class Ui {
     public String addedSingularMessage(Task task, TaskList taskList) {
         return "-----------------------------------------\n" +
                 "Sure! I have added this task to the list:\n" + task + "\n"
-                + "Now you have " + taskList.size() + " emiya.task in your list!\n"
+                + "Now you have " + taskList.size() + " task in your list!\n"
                 + "-----------------------------------------\n";
     }
 

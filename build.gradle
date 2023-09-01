@@ -33,8 +33,9 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "emiya"
     archiveClassifier = null
+    archiveFileName = "emiya.jar"
     dependsOn("distZip", "distTar")
 }
 
