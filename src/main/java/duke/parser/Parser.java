@@ -9,6 +9,7 @@ import java.util.Arrays;
 /**
  * Represents a parser to convert user input into executable commands.
  */
+//Solution below inspired by Shishir Bychapur
 public class Parser {
 
     /**
