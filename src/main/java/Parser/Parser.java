@@ -39,7 +39,7 @@ public class Parser {
     /**
      * Extracts and returns the task name from the input string.
      *
-     * @param input The user input string.
+     * @param input The user input strings.
      * @return The extracted task name.
      */
     public String taskName(String input) {
