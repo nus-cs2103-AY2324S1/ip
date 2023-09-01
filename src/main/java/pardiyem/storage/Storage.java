@@ -21,7 +21,6 @@ public class Storage {
 
     public Storage() throws IOException{
         f = new File(DEFAULT_PATH);
-        System.out.println(f.getAbsolutePath());
         f.getParentFile().mkdirs();
         f.createNewFile();
     }
@@ -67,7 +66,7 @@ public class Storage {
             int indTo = line.indexOf("to:");
             return new Event(line.substring(7, indFrom - 2), 
                     line.substring(indFrom + 6, indTo - 1),
-                    line.substring(indTo, line.length() - 1),
+                    line.substring(indTo + 4, line.length() - 1),
                     isDone);
         case 'D':
             int indBy = line.indexOf("by:");
