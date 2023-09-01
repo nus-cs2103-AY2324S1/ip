@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Duke {
     /**
-     * array of duke.task
+     * array of duke task
      */
     private TaskList taskList;
     private Storage storage;
