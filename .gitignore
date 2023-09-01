@@ -22,3 +22,6 @@ text-ui-test/EXPECTED-UNIX.TXT
 # Ignore the data files generated on local machine
 tasks.txt
 
+# Ignore jar files
+*.jar
+

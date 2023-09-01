@@ -33,11 +33,12 @@ test {
 }
 
 application {
-    mainClass.set("src.main.java.duke.Duke")
+    mainClass.set("duke.Duke")
 }
 
 shadowJar {
     archiveBaseName = "duke"
+    archiveFileName = 'duke.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
