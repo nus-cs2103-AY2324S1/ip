@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  */
 public class Parser {
     private static final String regexPattern =
-            "\\b(bye|list|unmark|mark|todo|deadline|event|delete)\\s*"  // match command
+            "\\b(bye|list|unmark|mark|todo|deadline|event|delete|find)\\s*"  // match command
                     + "([^/]*[^/\\s])?\\s*"                             // match chars that are not / after command
                     + "(?:(/by|/from)\\s+([^/]*[^/\\s]))?\\s*"          // match /by or /from command and argument
                     + "(?:(/to)\\s+([^/]*[^/\\s]))?\\s*";               // match /to command and argument
@@ -94,6 +94,11 @@ public class Parser {
             }
             index = Integer.parseInt(matcher.group(2));
             return new DeleteCommand(index);
+        case "find":
+            if (matcher.group(2) == null) {
+                throw new DukeException(Ui.LINE + Messages.INVALID_FIND_MESSAGE + Ui.LINE);
+            }
+            return new FindCommand(matcher.group(2));
         default:
             throw new DukeException(Ui.LINE + Messages.INVALID_INPUT_MESSAGE + Ui.LINE);
         }
