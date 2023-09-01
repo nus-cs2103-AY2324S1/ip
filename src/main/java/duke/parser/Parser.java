@@ -1,7 +1,8 @@
 package duke.parser;
 
-import duke.command.Command;
 import duke.exceptions.DukeUnknownCommandException;
+
+import duke.command.Command;
 
 public class Parser {
     public Command parseInput(String input) throws DukeUnknownCommandException {

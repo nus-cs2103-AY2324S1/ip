@@ -56,7 +56,7 @@ public abstract class Task {
      * The representation of the task to be used in the data.
      * @return Data representation of the task
      */
-    public String toDataRepresentation() {
+    public String getDataRepresentation() {
         if (this.isDone) {
             return "1|" + this.description;
         } else {

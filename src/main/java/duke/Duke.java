@@ -1,17 +1,26 @@
 package duke;
 
-import duke.exceptions.*;
+import java.io.IOException;
+
+import java.util.Scanner;
+
+import duke.exceptions.DukeException;
+import duke.exceptions.DukeEmptyArgumentException;
+import duke.exceptions.DukeInvalidDateException;
+import duke.exceptions.DukeInvalidIndexException;
+import duke.exceptions.DukeUnknownCommandException;
 
 import duke.command.Command;
-
 import duke.parser.Parser;
 import duke.storage.Storage;
 
-import duke.task.*;
-import duke.ui.Ui;
+import duke.task.TaskList;
+import duke.task.Task;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDo;
 
-import java.io.IOException;
-import java.util.Scanner;
+import duke.ui.Ui;
 
 /**
  * A chatbot to keep track of your tasks.
@@ -26,7 +35,7 @@ public class Duke {
     /**
      * Sends a greeting message to the user.
      */
-    private static void greetingMessage() {
+    private static void greetUser() {
         Ui.greetUser();
     }
 
@@ -36,7 +45,8 @@ public class Duke {
      * @param command
      * @param taskInfo
      */
-    private static void addTask(Command command, String taskInfo) throws DukeInvalidDateException {
+    private static void addTask(Command command, String taskInfo)
+            throws DukeInvalidDateException {
         Task newTask;
 
         if (command == Command.TODO) {
@@ -60,7 +70,6 @@ public class Duke {
      * @param taskIndex
      */
     private static void editTask (Command command, int taskIndex) {
-
         if (command == Command.DELETE) {
             tasks.deleteTask(taskIndex);
         } else if (command == Command.MARK) {
@@ -93,11 +102,13 @@ public class Duke {
         if (command == Command.BYE) {
             Ui.printExitMessage();
             storage.writeTasks(tasks);
+
             return false;
         } else if (command == Command.TODO || command == Command.DEADLINE || command == Command.EVENT) {
             if (inputs.length == 1 || inputs[1].equals("")) {
                 throw new DukeEmptyArgumentException("OOPS!!! Argument for this command is invalid.");
             }
+
             if (command == Command.TODO) {
                 addTask(Command.TODO, inputs[1]);
             } else if (command == Command.DEADLINE) {
@@ -114,7 +125,7 @@ public class Duke {
                 if (!tasks.isValidIndex(Integer.parseInt(inputs[1]))) {
                     throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
                 }
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException exception) {
                 throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
             }
 
@@ -130,7 +141,7 @@ public class Duke {
                 if (!tasks.isValidIndex(Integer.parseInt(inputs[1]))) {
                     throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
                 }
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException exception) {
                 throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
             }
 
@@ -144,23 +155,25 @@ public class Duke {
                 if (!tasks.isValidIndex(Integer.parseInt(inputs[1]))) {
                     throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
                 }
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException exception) {
                 throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
             }
 
             Duke.editTask(Command.UNMARK, Integer.parseInt(inputs[1]));
+        } else {
+            throw new DukeUnknownCommandException(inputs[0]);
         }
 
         return true;
     }
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-        Ui.greetUser();
+
+        greetUser();
 
         try {
             storage.getTasksFromData(tasks);
-        } catch (IOException error) {
+        } catch (IOException exception) {
             Ui.printLines("Shutting down...");
             return;
         }
@@ -174,8 +187,8 @@ public class Duke {
                 if (!Duke.runCommand(command, inputs)) break;
                 storage.writeTasks(tasks);
 
-            } catch (Exception e) {
-                Ui.printLines(e.getMessage());
+            } catch (Exception exception) {
+                Ui.printLines(exception.getMessage());
             }
         }
     }
