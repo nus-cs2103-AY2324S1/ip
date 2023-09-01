@@ -9,6 +9,7 @@ public class Output {
             "Usada Pekora-peko! almondo almondo!";
     private static final String exitText = "Otsupeko! Bye bye!";
 
+
     public static void intro() {
         String pekoLogo = " _____      _\n"
                 + "|     |___ | | ______\n"

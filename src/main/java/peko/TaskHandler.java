@@ -60,6 +60,11 @@ public class TaskHandler {
         StorageHandler.addToArray(t);
         System.out.println(lineBreak);
     }
+    private void Find(String s) {
+        Find find = new Find(s);
+        find.display();
+        System.out.println(lineBreak);
+    }
     public void delete(String s) {
         int i = Integer.parseInt(s);
         StorageHandler.setDelete(i);
@@ -69,46 +74,49 @@ public class TaskHandler {
         try {
 
             switch (command) {
-                case ECHO:
-                    echo();
-                    return true;
-                case LIST:
-                    readArray();
-                    return true;
-                case WRITE:
-                    addToArray();
-                    return true;
-                case MARK:
-                    mark(description);
-                    return true;
-                case UNMARK:
-                    unmark(description);
-                    return true;
-                case TODO:
-                    todo(description);
-                    return true;
-                case DEADLINE:
-                    deadline(description);
-                    return true;
-                case EVENT:
-                    Event(description);
-                    return true;
-                case DELETE:
-                    delete(description);
-                    return true;
-                case COPYPASTA:
-                    try {
-                        StorageHandler.degen();
-                    } catch (FileNotFoundException e) {
-                        System.out.println("Hentai!");
-                    } finally {
-                        return false;
-                    }
-                case OTSUPEKO:
-                    SaveHandler.saveTo();
+            case ECHO:
+                echo();
+                return true;
+            case LIST:
+                readArray();
+                return true;
+            case WRITE:
+                addToArray();
+                return true;
+            case MARK:
+                mark(description);
+                return true;
+            case UNMARK:
+                unmark(description);
+                return true;
+            case TODO:
+                todo(description);
+                return true;
+            case DEADLINE:
+                deadline(description);
+                return true;
+            case EVENT:
+                Event(description);
+                return true;
+            case FIND:
+                Find(description);
+                return true;
+            case DELETE:
+                delete(description);
+                return true;
+            case COPYPASTA:
+                try {
+                    StorageHandler.degen();
+                } catch (FileNotFoundException e) {
+                    System.out.println("Hentai!");
+                } finally {
                     return false;
-                default:
-                    return true;
+                }
+            case OTSUPEKO:
+                SaveHandler.saveTo();
+                return false;
+            default:
+                return true;
 
             }
         } catch (InvalidTaskException e) {
