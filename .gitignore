@@ -13,8 +13,13 @@ src/main/resources/docs/
 *.iml
 bin/
 
-/text-ui-test/ACTUAL.TXT
+# Test files
+text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Run data
+data/*
+text-ui-test/data
 
 # Built class files
 *.class
