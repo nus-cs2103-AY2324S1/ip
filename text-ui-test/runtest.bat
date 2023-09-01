@@ -20,3 +20,4 @@ java -classpath ..\bin Duke < .\text-ui-test\input.txt > .\text-ui-test\ACTUAL.T
 
 REM compare the output to the expected output
 FC .\text-ui-test\ACTUAL.TXT .\text-ui-test\EXPECTED.TXT
+

@@ -1,0 +1,4 @@
+T | 0 | 1
+D | 0 | 343  | help
+E | 0 | hello  | today | tomorrow
+D | 0 | sdklafjklsdjfkla | no space
