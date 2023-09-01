@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.ArrayList;
 
 // deals with making sense of user command
