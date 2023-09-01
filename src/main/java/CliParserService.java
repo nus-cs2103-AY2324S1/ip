@@ -1,5 +1,6 @@
 import exception.DukeStorageException;
 import exception.TaskParseException;
+import exception.TimeUtilException;
 
 import java.util.*;
 
@@ -68,7 +69,7 @@ public class CliParserService {
                     dukeBot.getNumberOfTasks(),
                     dukeBot.getNumberOfTasks() == 1 ? "task" : "tasks"));
             outputService.echo(displayText);
-        } catch (TaskParseException e) {
+        } catch (TaskParseException | TimeUtilException e) {
             outputService.echo(e.getMessage());
         } catch (DukeStorageException e) {
             outputService.echo("Failed to write task to storage! :<");

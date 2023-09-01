@@ -1,7 +1,12 @@
+import util.TimeUtil;
+
+import java.time.LocalDateTime;
+
 public class EventTask extends Task {
-    private String startDate;
-    private String endDate;
-    public EventTask(String taskName, String startDate, String endDate) {
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+
+    public EventTask(String taskName, LocalDateTime startDate, LocalDateTime endDate) {
         super(taskName, TaskType.EVENT);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -9,6 +14,8 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s (from: %s to: %s)", super.toString(), startDate, endDate);
+        String formattedStartDate = TimeUtil.formatLocalDateTime(startDate);
+        String formattedEndDate = TimeUtil.formatLocalDateTime(endDate);
+        return String.format("%s (from: %s to: %s)", super.toString(), formattedStartDate, formattedEndDate);
     }
 }
