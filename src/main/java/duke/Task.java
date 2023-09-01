@@ -46,5 +46,4 @@ public abstract class Task {
         Task o = (Task) other;
         return this.done == o.done && this.task.equals(o.task);
     }
-
 }

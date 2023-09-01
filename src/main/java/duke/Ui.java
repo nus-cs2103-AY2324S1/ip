@@ -46,6 +46,4 @@ public class Ui {
     public void display(String msg) {
         out.println(msg);
     }
-
-
 }

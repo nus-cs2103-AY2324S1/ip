@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
-
     private static final String TYPE = "[D]";
     protected LocalDate deadline;
 

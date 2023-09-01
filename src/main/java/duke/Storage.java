@@ -37,7 +37,6 @@ public class Storage {
         return tasks;
     }
 
-
     public void save(String content) throws IOException {
         FileWriter fw = new FileWriter(file);
         fw.write(content);
