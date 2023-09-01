@@ -10,7 +10,11 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>(100);
-    private Storage storage = new Storage();
+    private Storage storage;
+
+    public TaskList(Storage storage) {
+        this.storage = storage;
+    }
 
     public ArrayList<Task> getTasks() {
         return this.tasks;
@@ -38,7 +42,7 @@ public class TaskList {
     }
 
     /**
-     * Delete the task at the given index of the list.
+     * Deletes the task at the given index of the list.
      *
      * @param taskIndex is null if encounter an exception.
      */
@@ -62,7 +66,7 @@ public class TaskList {
     }
 
     /**
-     * Add the given task into the list of tasks.
+     * Adds the given task into the list of tasks.
      *
      * @param task
      */
@@ -113,7 +117,7 @@ public class TaskList {
     }
 
     /**
-     * Mark the task at the given index as undone.
+     * Marks the task at the given index as undone.
      *
      * @param taskIndex
      */

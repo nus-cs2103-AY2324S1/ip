@@ -6,16 +6,36 @@ import java.util.Scanner;
  * @author Sebastian Tay
  */
 public class Ui {
-    private Scanner inScanner = new Scanner(System.in);
+    private Scanner sc;
 
-    public String getUserInput() {
-        return inScanner.nextLine();
+    public Ui(Scanner sc) {
+        this.sc = sc;
     }
 
     /**
-     * Terminates inScanner.
+     * Retrieves input from the user in the command line.
+     *
+     * @return
      */
-    public void terminate() {
-        inScanner.close();
+    public String getInput() {
+        return sc.nextLine();
+    }
+
+    /**
+     * Greets the user.
+     */
+    public void welcome() {
+        System.out.println("____________________________________________________________");
+        System.out.println("Veda initialised. How may I help you?");
+        System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Terminates the ui and closes the scanner.
+     */
+    public void exit() {
+        System.out.println("Terminating reader.");
+        sc.close();
+        System.out.println("Bye. All the best for your mission!");
     }
 }
