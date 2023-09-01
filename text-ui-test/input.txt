@@ -1,0 +1,9 @@
+event project meeting /from 2023-02-21 1600 /to 2023-02-21 1700
+deadline return book /by 2023-06-11 0900
+todo borrow book
+mark 1
+list
+delete 2
+unmark 1
+list
+bye
