@@ -27,18 +27,18 @@ public class Parser {
         switch(headCommand) {
             case "delete":
                 index = Integer.parseInt(commandDetails) - 1;
-                System.out.println(index);
                 return new DeleteCommand(index);
 
             case "mark":
                 index = Integer.parseInt(commandDetails) - 1;
-                System.out.println(index);
                 return new MarkCommand(index, true);
 
             case "unmark":
                 index = Integer.parseInt(commandDetails) - 1;
-                System.out.println(index);
                 return new MarkCommand(index, false);
+
+            case "find":
+                return new FindCommand(commandDetails);
 
             case "todo":
                 task = commandDetails;

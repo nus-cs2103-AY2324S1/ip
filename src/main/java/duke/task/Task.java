@@ -32,4 +32,13 @@ public class Task {
     public String getTaskFileString() {
         return (done ? "1" : "0") + " , " + this.task;
     }
+
+    /**
+     * Check if task description contains the keyword.
+     *
+     * @return true if the task description contains the keyword.
+     */
+    public boolean contains(String keyword) {
+        return this.task.contains(keyword);
+    }
 }

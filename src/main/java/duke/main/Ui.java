@@ -70,4 +70,18 @@ public class Ui {
     public void showUnmark(Task task) {
         System.out.println(DIVIDER + "    chirp! I've mark this task as not done yet:\n" +  String.format("    %s\n", task.toString()) + DIVIDER);
     }
+
+    /**
+     * Display tasks in the filtered list.
+     *
+     * @param filteredTasks The filtered list of tasks
+     */
+    public void showMatch(List<Task> filteredTasks) {
+        System.out.println(DIVIDER);
+        System.out.println("    tweet! Here are the matching tasks in your list:");
+        for (int i = 0; i < filteredTasks.size(); i ++) {
+            System.out.printf("    %d. %s\n", i + 1, filteredTasks.get(i).toString());
+        }
+        System.out.println(DIVIDER);
+    }
 }
