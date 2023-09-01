@@ -106,6 +106,25 @@ public class Ui {
         System.out.println("    ____________________________________________________________");
     }
 
+    /**
+     * Prints all the tasks that matched a word.
+     *
+     * @param tasks The task to be printed.
+     */
+    public void showFind(ArrayList<Task> tasks) {
+
+        System.out.println("    ____________________________________________________________");
+        if (tasks.size() == 0) {
+            System.out.println("     There are no matching tasks in your list. :(");
+        } else {
+            System.out.println("     Here are the matching tasks in your list:");
+
+            for(int i = 0 ; i < tasks.size(); i++) {
+                System.out.println("     " + tasks.get(i).toString());
+            }
+        }
+        System.out.println("    ____________________________________________________________");
+    }
 
     public String readCommand(){
         return scanner.nextLine();

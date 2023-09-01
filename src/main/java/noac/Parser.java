@@ -186,6 +186,17 @@ public class Parser {
             returnCommand = new ExitCommand();
             break;
 
+        case "find":
+
+            String searchString = "";
+            for (int i = 1; i < userInputArr.length; i++) {
+                searchString += userInputArr[i] + " ";
+            }
+
+            returnCommand = new FindCommand(searchString.trim());
+
+            break;
+
         default:
             throw new NoacException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
