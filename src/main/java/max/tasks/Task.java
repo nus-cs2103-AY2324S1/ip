@@ -14,7 +14,7 @@ public class Task {
      */
     public Task(String item) {
         this.item = item;
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -26,14 +26,14 @@ public class Task {
      */
     public Task(String item, boolean done) {
         this.item = item;
-        this.done = done;
+        this.isDone = isDone;
     }
 
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -43,7 +43,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        String doneStatus = this.done ? "X" : " ";
+        String doneStatus = this.isDone ? "X" : " ";
         return "[" + doneStatus + "] " + item;
     }
 
@@ -52,7 +52,7 @@ public class Task {
      * @return String
      */
     public String saveItem() {
-        String number = done ? "1" : "0";
+        String number = isDone ? "1" : "0";
         return number + " | " + item;
     }
 }

@@ -44,32 +44,61 @@ public class Parser {
     public Command parse(String fullCommand) throws MaxException {
         String com = fullCommand.split(" ")[0];
 
-            switch (com) {
-                case AddCommand.COMMAND_WORD_DEADLINE:
-                    return handleDeadline(fullCommand);
+        switch (com) {
+        case AddCommand.COMMAND_WORD_DEADLINE:
+            return handleDeadline(fullCommand);
 
-                case AddCommand.COMMAND_WORD_EVENT:
-                    return handleEvent(fullCommand);
+        case AddCommand.COMMAND_WORD_EVENT:
+            return handleEvent(fullCommand);
 
-                case AddCommand.COMMAND_WORD_TODO:
-                    return handleTodo(fullCommand);
+        case AddCommand.COMMAND_WORD_TODO:
+            return handleTodo(fullCommand);
 
-                case ListCommand.COMMAND_WORD:
-                    return new ListCommand();
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
 
-                case MarkCommand.COMMAND_WORD:
-                    return handleMark(fullCommand);
-                case UnmarkCommand.COMMAND_WORD:
-                    return handleUnmark(fullCommand);
-                case DeleteCommand.COMMAND_WORD:
-                    return handleDelete(fullCommand);
+        case MarkCommand.COMMAND_WORD:
+            return handleMark(fullCommand);
+        case UnmarkCommand.COMMAND_WORD:
+            return handleUnmark(fullCommand);
+        case DeleteCommand.COMMAND_WORD:
+            return handleDelete(fullCommand);
 
-                case ExitCommand.COMMAND_WORD:
-                    return new ExitCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
+<<<<<<< .merge_file_Io4ZfN
                 default:
                     throw new MaxException("Invalid command sir.");
             }
+=======
+        default:
+            throw new MaxException("Invalid command sir.");
+        }
+
+//        max.commands.CommandEnum commandEnum;
+////        switch (command) {
+////            case
+////        }
+//        if (command.equals("bye")) {
+//            // User wants to exit the chatbot
+//            commandEnum = max.commands.CommandEnum.BYE;
+//        } else if (command.equals("list")) {
+//            commandEnum = max.commands.CommandEnum.LIST;
+//        } else if (command.contains("unmark")) {
+//            commandEnum = max.commands.CommandEnum.UNMARK;
+//        } else if (command.contains("mark")) {
+//            commandEnum = max.commands.CommandEnum.MARK;
+//        } else if (command.contains("event") || command.contains("todo") ||
+//                command.contains("deadline")) {
+//            commandEnum = max.commands.CommandEnum.ADD;
+//        } else if (command.contains("delete")) {
+//            commandEnum = max.commands.CommandEnum.DELETE;
+//        } else {
+//            commandEnum = max.commands.CommandEnum.UNKNOWN;
+//        }
+//        return commandEnum;
+>>>>>>> .merge_file_UJt84l
     }
 
     /**
