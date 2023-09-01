@@ -637,130 +637,131 @@ class Parser{
     public boolean parse(String userInput) throws DukeException{
         String[] splitStr = userInput.split("\\s+");
 
-            if (userInput.equals("bye")) {
-                return false;
+        if (userInput.equals("bye")) {
+            return false;
+        }
+
+        if (userInput.equals("list")){
+            ui.print("Here are the tasks in your list:");
+            ui.printItems(tl.getItems());
+
+        } else if (splitStr[0].equals("find")) {
+            if(splitStr.length < 2) {
+                throw new DukeException("Invalid format detected for 'find' command. Enter find [search_term]");
             }
+            String searchTerm = Utils.splitStringBySpaces(splitStr, 1, splitStr.length);
 
-            if (userInput.equals("list")){
-                ui.print("Here are the tasks in your list:");
-                ui.printItems(tl.getItems());
 
-            } else if (splitStr[0].equals("find")) {
-                if(splitStr.length < 2) {
-                    throw new DukeException("Invalid format detected for 'find' command. Enter find [search_term]");
+            ArrayList<TaskType> suitable = new ArrayList<>();
+            for(int i = 0; i < tl.getSize(); i++) {
+                if(tl.getItem(i).getTaskDesc().contains(searchTerm)) {
+                    suitable.add(tl.getItem(i));
                 }
-                String searchTerm = Utils.splitStringBySpaces(splitStr, 1, splitStr.length);
-
-                ArrayList<TaskType> suitable = new ArrayList<>();
-                for(int i = 0; i < tl.getSize(); i++) {
-                    if(tl.getItem(i).getTaskDesc().contains(searchTerm)) {
-                        suitable.add(tl.getItem(i));
-                    }
-                }
-                ui.print("Here are the matching tasks in your list:");
-                ui.printItems(suitable);
-
-            } else if (splitStr[0].equals("mark")) {
-                if(splitStr.length != 2) {
-                    throw new DukeException("Invalid format detected for 'mark' command. Enter mark [item_no]");
-                }
-                int x = Integer.parseInt(splitStr[1]) - 1;
-                if(x < 0 || x+1 > tl.getSize()) {
-                    throw new DukeException("Index is out of list range.");
-                }
-                tl.getItem(x).setIsCompleted(true);
-                ui.print("Nice! I've marked this task as done:");
-                ui.print(ui.formatTaskToPrint(tl.getItem(x), dtf.getOutFormatter()));
-
-            } else if (splitStr[0].equals("unmark")) {
-                if(splitStr.length != 2) {
-                    throw new DukeException("Invalid format detected for 'unmark' command. Enter unmark [item_no]");
-                }
-                int x = Integer.parseInt(splitStr[1]) - 1;
-                if(x < 0 || x+1 > tl.getSize()) {
-                    throw new DukeException("Index is out of list range.");
-                }
-                tl.getItem(x).setIsCompleted(false);
-                ui.print("Ok, I've marked this task as not done yet:");
-                ui.print(ui.formatTaskToPrint(tl.getItem(x), dtf.getOutFormatter()));
-
-            } else if (splitStr[0].equals("remove")) {
-                if(splitStr.length != 2) {
-                    throw new DukeException("Invalid format detected for 'remove' command. Enter remove [item_no]");
-                }
-                int x = Integer.parseInt(splitStr[1]) - 1;
-                if(x < 0 || x+1 > tl.getSize()) {
-                    throw new DukeException("Index is out of list range.");
-                }
-                ui.print("Ok, the following item was removed:");
-                ui.print(ui.formatTaskToPrint(tl.getItem(x), dtf.getOutFormatter()));
-                tl.removeItem(x);
-
-            } else if (splitStr[0].equals("todo")) {
-                if(splitStr.length == 1) {
-                    throw new DukeException("The description of a todo cannot be empty.");
-                }
-                String desc = Utils.splitStringBySpaces(splitStr, 1, splitStr.length);
-                tl.addItem(new Todo(desc, false));
-                ui.print("Got it, I've added this task:");
-                ui.print(ui.formatTaskToPrint(tl.getItem(tl.getSize() - 1), dtf.getOutFormatter()));
-                ui.print("Now you have " + tl.getSize() + " tasks in the list.");
-
-            } else if (splitStr[0].equals("deadline")) {
-                boolean x = false;
-                for(int i = 1; i < splitStr.length; i++) {
-                    if(splitStr[i].equals("/by")) {
-                        String dateString = Utils.splitStringBySpaces(splitStr, i, splitStr.length);
-                        String desc = Utils.splitStringBySpaces(splitStr, 1, i);
-
-                        if(desc.isEmpty()) {
-                            throw new DukeException("Description of task cannot be empty.");
-                        }
-                        if(dateString.isEmpty()) {
-                            throw new DukeException("Deadline cannot be empty.");
-                        }
-                        tl.addItem(new Deadline(desc, false, dateString, dtf.getFormatters()));
-                        x = true;
-                        break;
-                    }
-                }
-                if(!x) {
-                    throw new DukeException("/by keyword is necessary and not detected. Use /by to set a deadline.");
-                }
-                ui.print("Got it, I've added this task:");
-
-                ui.print(ui.formatTaskToPrint(tl.getItem(tl.getSize() - 1), dtf.getOutFormatter()));
-
-                ui.print("Now you have " + tl.getSize() + " tasks in the list.");
-
-            } else if (splitStr[0].equals("event")) {
-                boolean x = false;
-                for (int i = 1; i < splitStr.length; i++){
-                    if (splitStr[i].equals("/from")) {
-                        String dateString = Utils.splitStringBySpaces(splitStr, i, splitStr.length);
-                        String desc = Utils.splitStringBySpaces(splitStr, 1, i);
-                        if (desc.isEmpty()) {
-                            throw new DukeException("Description of task cannot be empty.");
-                        }
-                        if(dateString.isEmpty()) {
-                            throw new DukeException("Event dates cannot be empty.");
-                        }
-                        tl.addItem(new Event(desc, false, dateString, dtf.getFormatters()));
-                        x = true;
-                        break;
-                    }
-                }
-                if (!x) {
-                    throw new DukeException("/by keyword is necessary and not detected. Use /by to set a deadline.");
-                }
-                ui.print("Got it, I've added this task:");
-
-                ui.print(ui.formatTaskToPrint(tl.getItem(tl.getSize() - 1), dtf.getOutFormatter()));
-
-                ui.print("Now you have " + tl.getSize() + " tasks in the list.");
-            } else {
-                throw new DukeException("Sorry, I don't understand that command");
             }
+            ui.print("Here are the matching tasks in your list:");
+            ui.printItems(suitable);
+
+        } else if (splitStr[0].equals("mark")) {
+            if(splitStr.length != 2) {
+                throw new DukeException("Invalid format detected for 'mark' command. Enter mark [item_no]");
+            }
+            int x = Integer.parseInt(splitStr[1]) - 1;
+            if(x < 0 || x+1 > tl.getSize()) {
+                throw new DukeException("Index is out of list range.");
+            }
+            tl.getItem(x).setIsCompleted(true);
+            ui.print("Nice! I've marked this task as done:");
+            ui.print(ui.formatTaskToPrint(tl.getItem(x), dtf.getOutFormatter()));
+
+        } else if (splitStr[0].equals("unmark")) {
+            if(splitStr.length != 2) {
+                throw new DukeException("Invalid format detected for 'unmark' command. Enter unmark [item_no]");
+            }
+            int x = Integer.parseInt(splitStr[1]) - 1;
+            if(x < 0 || x+1 > tl.getSize()) {
+                throw new DukeException("Index is out of list range.");
+            }
+            tl.getItem(x).setIsCompleted(false);
+            ui.print("Ok, I've marked this task as not done yet:");
+            ui.print(ui.formatTaskToPrint(tl.getItem(x), dtf.getOutFormatter()));
+
+        } else if (splitStr[0].equals("remove")) {
+            if(splitStr.length != 2) {
+                throw new DukeException("Invalid format detected for 'remove' command. Enter remove [item_no]");
+            }
+            int x = Integer.parseInt(splitStr[1]) - 1;
+            if(x < 0 || x+1 > tl.getSize()) {
+                throw new DukeException("Index is out of list range.");
+            }
+            ui.print("Ok, the following item was removed:");
+            ui.print(ui.formatTaskToPrint(tl.getItem(x), dtf.getOutFormatter()));
+            tl.removeItem(x);
+
+        } else if (splitStr[0].equals("todo")) {
+            if(splitStr.length == 1) {
+                throw new DukeException("The description of a todo cannot be empty.");
+            }
+            String desc = Utils.splitStringBySpaces(splitStr, 1, splitStr.length);
+            tl.addItem(new Todo(desc, false));
+            ui.print("Got it, I've added this task:");
+            ui.print(ui.formatTaskToPrint(tl.getItem(tl.getSize() - 1), dtf.getOutFormatter()));
+            ui.print("Now you have " + tl.getSize() + " tasks in the list.");
+
+        } else if (splitStr[0].equals("deadline")) {
+            boolean x = false;
+            for(int i = 1; i < splitStr.length; i++) {
+                if(splitStr[i].equals("/by")) {
+                    String dateString = Utils.splitStringBySpaces(splitStr, i, splitStr.length);
+                    String desc = Utils.splitStringBySpaces(splitStr, 1, i);
+
+                    if(desc.isEmpty()) {
+                        throw new DukeException("Description of task cannot be empty.");
+                    }
+                    if(dateString.isEmpty()) {
+                        throw new DukeException("Deadline cannot be empty.");
+                    }
+                    tl.addItem(new Deadline(desc, false, dateString, dtf.getFormatters()));
+                    x = true;
+                    break;
+                }
+            }
+            if(!x) {
+                throw new DukeException("/by keyword is necessary and not detected. Use /by to set a deadline.");
+            }
+            ui.print("Got it, I've added this task:");
+
+            ui.print(ui.formatTaskToPrint(tl.getItem(tl.getSize() - 1), dtf.getOutFormatter()));
+
+            ui.print("Now you have " + tl.getSize() + " tasks in the list.");
+
+        } else if (splitStr[0].equals("event")) {
+            boolean x = false;
+            for (int i = 1; i < splitStr.length; i++){
+                if (splitStr[i].equals("/from")) {
+                    String dateString = Utils.splitStringBySpaces(splitStr, i, splitStr.length);
+                    String desc = Utils.splitStringBySpaces(splitStr, 1, i);
+                    if (desc.isEmpty()) {
+                        throw new DukeException("Description of task cannot be empty.");
+                    }
+                    if(dateString.isEmpty()) {
+                        throw new DukeException("Event dates cannot be empty.");
+                    }
+                    tl.addItem(new Event(desc, false, dateString, dtf.getFormatters()));
+                    x = true;
+                    break;
+                }
+            }
+            if (!x) {
+                throw new DukeException("/by keyword is necessary and not detected. Use /by to set a deadline.");
+            }
+            ui.print("Got it, I've added this task:");
+
+            ui.print(ui.formatTaskToPrint(tl.getItem(tl.getSize() - 1), dtf.getOutFormatter()));
+
+            ui.print("Now you have " + tl.getSize() + " tasks in the list.");
+        } else {
+            throw new DukeException("Sorry, I don't understand that command");
+        }
 
         return true;
     }
