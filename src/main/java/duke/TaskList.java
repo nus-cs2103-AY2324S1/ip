@@ -66,6 +66,24 @@ public class TaskList {
     }
 
     /**
+     * Prints the tasks in the list that contain the String s.
+     *
+     * @param s The string to search among the tasks
+     */
+    public void findMatching(String s) {
+        int index =  1;
+        Ui.showLine();
+        System.out.println("Here are the matching tasks in your list:");
+        for (Task t : this.taskList) {
+            if (t.contains(s)) {
+                System.out.println(index + "." + t);
+                index += 1;
+            }
+        }
+        Ui.showLine();
+    }
+
+    /**
      * Prints the tasks in the list.
      */
     public void printTasks() {
@@ -75,7 +93,7 @@ public class TaskList {
             int task_number = i + 1;
             Task t = this.taskList.get(i);
             System.out.println(task_number
-                    + ". "
+                    + "."
                     + t);
         }
     }

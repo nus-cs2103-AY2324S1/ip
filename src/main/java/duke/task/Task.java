@@ -75,6 +75,16 @@ public class Task {
     }
 
     /**
+     * Returns a boolean value indicating if the tasks description contains the string s.
+     *
+     * @param s The String to be searched in task descripton
+     * @return A true if s in task description and false if not.
+     */
+    public boolean contains(String s) {
+        return this.description.contains(s);
+    }
+
+    /**
      * Returns a string representation of the task, including its status icon and description.
      *
      * @return A string representation of the task.

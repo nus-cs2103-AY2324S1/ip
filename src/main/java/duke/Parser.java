@@ -34,6 +34,8 @@ public class Parser {
             return new DeadlineCommand(fullCommand);
         case "event":
             return new EventCommand(fullCommand);
+        case "find":
+            return new FindCommand(fullCommand);
         default:
             throw new InvalidTaskException();
         }
