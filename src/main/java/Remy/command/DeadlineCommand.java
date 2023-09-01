@@ -1,10 +1,10 @@
 package Remy.command;
 
-import Remy.task.TaskList;
+import Remy.Task.TaskList;
 import Remy.Ui;
 import Remy.Storage;
 import Remy.ChatbotException;
-import Remy.task.Deadline;
+import Remy.Task.Deadline;
 import java.time.format.DateTimeParseException;
 
 public class DeadlineCommand extends Command {

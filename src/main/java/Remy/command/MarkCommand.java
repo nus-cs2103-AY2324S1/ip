@@ -1,6 +1,6 @@
 package Remy.command;
 
-import Remy.task.TaskList;
+import Remy.Task.TaskList;
 import Remy.Ui;
 import Remy.Storage;
 import Remy.ChatbotException;
@@ -24,7 +24,7 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws ChatbotException {
             if (this.index >= taskList.size()) {
-                throw new ChatbotException("Your task list don't have this number lah.");
+                throw new ChatbotException("Your Task list don't have this number lah.");
             }
             taskList.get(index).markAsDone();
             String content = "Done. You happy?\n" + taskList.get(index).toString();
