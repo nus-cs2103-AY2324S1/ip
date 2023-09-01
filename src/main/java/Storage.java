@@ -7,11 +7,11 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 
 // stores the task list in a text file
-public class Backend {
+public class Storage {
     // create text file
     private final String pathString;
 
-    public Backend() {
+    public Storage() {
         this.pathString = "C:\\Users\\Admin\\ip\\text-ui-test\\data\\task.txt";
     }
 

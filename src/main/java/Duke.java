@@ -1,18 +1,25 @@
 public class Duke {
-    public static void main(String[] args) {
-        System.out.println(SystemText.greeting());
+    private Storage storage;
+    private TaskList list;
+    private Ui ui;
+    private Command command;
+
+    public Duke() {
+        this.storage = new Storage();
+        this.list = new TaskList();
 
         // Load list of tasks stored in text file "task.txt" into the local TaskList
-        TaskList list = new TaskList();
-        Backend storage = new Backend();
         storage.handleLoad(list);
 
         // Start Scanner to read user inputs
-        SystemText ui = new SystemText(list);
-        String answer = ui.getInput();
+        this.ui = new Ui(list);
+        this.command = new Command(storage, ui, list);
+    }
 
-        // Initialize relevant classes
-        Command command = new Command(storage, ui, list);
+    public void run() {
+        System.out.println(Ui.greeting());
+
+        String answer = ui.getInput();
 
         // Listens to user commands and perform the relevant functions
         while (true) {
@@ -47,7 +54,11 @@ public class Duke {
                 answer = ui.getInput();
             }
         }
-        System.out.println(SystemText.exit());
+        System.out.println(Ui.exit());
         ui.stopScanner();
+    }
+
+    public static void main(String[] args) {
+        new Duke().run();
     }
 }

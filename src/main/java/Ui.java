@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class SystemText {
+public class Ui {
     private static final String SEPARATOR = "____________________________________________________________\n";
     private static final String GREETING = "Hello! I'm Bobi >.<, what can I do for you?\n";
     private static final String EXIT = "Bye! Hope you have a good day today :)\n";
@@ -13,7 +13,7 @@ public class SystemText {
     private Scanner sc;
     private TaskList taskList;
 
-    public SystemText(TaskList taskList) {
+    public Ui(TaskList taskList) {
         this.sc = new Scanner(System.in);
         this.taskList = taskList;
     }
