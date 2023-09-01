@@ -27,6 +27,9 @@ public class Parser {
             case "list":
                 return new ListCommand();
 
+            case "find":
+                return new FindCommand(fullCommand);
+
             case "delete":
                 try {
                     int taskNumber = Integer.parseInt(words[1]);
