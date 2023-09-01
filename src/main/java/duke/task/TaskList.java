@@ -113,6 +113,22 @@ public class TaskList {
     }
 
     /**
+     * Searches for tasks containing the given keyword and returns a list of matching tasks.
+     *
+     * @param keyword The keyword to search for.
+     * @return A list of matching tasks.
+     */
+    public ArrayList<Task> findTasksByKeyword(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
+
+    /**
      * Displays the tasks in the task list with their details.
      * example: [T][X] return book
      *

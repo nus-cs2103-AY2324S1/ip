@@ -39,15 +39,16 @@ public class Parser {
             return new Command(commandType, getTaskIndex(userInput)); // taskIndex is -1 if invalid
 
         case "todo":
+        case "find":
             return new Command(commandType, getDescription(userInput));
         case "deadline":
-            return new Command(commandType, getDescription(userInput), getDeadlineDate(userInput));
+            return new Command(commandType, getDeadlineDescription(userInput), getDeadlineDate(userInput));
         case "event":
             LocalDate[] eventDates = getEventDates(userInput);
             LocalDate eventFromDate = eventDates[0];
             LocalDate eventToDate = eventDates[1];
 
-            return new Command(commandType, getDescription(userInput), eventFromDate, eventToDate);
+            return new Command(commandType, getEventDescription(userInput), eventFromDate, eventToDate);
 
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
@@ -132,8 +133,18 @@ public class Parser {
     }
 
     public static String getDescription(String userInput) {
-        String[] parts = userInput.split(" ");
+        String[] parts = userInput.split(" ", 2);
         return parts.length > 1 ? parts[1] : "";
+    }
+
+    public static String getDeadlineDescription(String userInput) {
+        String[] parts = userInput.split(" ", 2);
+        return parts.length > 1 ? parts[1].split("/by", 2)[0].trim() : "";
+    }
+
+    public static String getEventDescription(String userInput) {
+        String[] parts = userInput.split(" ", 2);
+        return parts.length > 1 ? parts[1].split("/from", 2)[0].trim() : "";
     }
 
     /**
