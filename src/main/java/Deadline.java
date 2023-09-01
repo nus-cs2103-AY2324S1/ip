@@ -1,5 +1,4 @@
-import java.sql.Date;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -14,6 +13,8 @@ public class Deadline extends Task{
 
     private LocalDateTime deadline;
 
+    private String originalString;
+
     /**
      * Constructor for a deadline object.
      * 
@@ -24,6 +25,7 @@ public class Deadline extends Task{
         super(label);
         this.deadline = LocalDateTime.parse(deadline, DateTimeFormatter
             .ofPattern("yyyy-MM-dd HHmm"));
+        this.originalString = deadline;
     }
 
     /**
@@ -31,8 +33,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toSaveString() {
-        return "D " + super.toSaveString() + " | " + deadline
-            .format(DateTimeFormatter.ofPattern("MMM dd YYYY ha"));
+        return "D " + super.toSaveString() + " | " + originalString;
     }
 
     /**

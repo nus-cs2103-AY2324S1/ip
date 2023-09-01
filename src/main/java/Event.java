@@ -1,4 +1,4 @@
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -13,6 +13,8 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task{
     private LocalDateTime from;
     private LocalDateTime to;
+    private String fromString;
+    private String toString;
 
     /**
      * Constructor for an event object.
@@ -25,8 +27,10 @@ public class Event extends Task{
         super(label);
         this.from = LocalDateTime.parse(from, DateTimeFormatter
             .ofPattern("yyyy-MM-dd HHmm"));
+        this.fromString = from;
         this.to = LocalDateTime.parse(to, DateTimeFormatter
             .ofPattern("yyyy-MM-dd HHmm"));
+        this.toString = to;
     }
 
     /**
@@ -34,9 +38,8 @@ public class Event extends Task{
      */
     @Override
     public String toSaveString() {
-        return "E " + super.toSaveString() + " | " + from
-            .format(DateTimeFormatter.ofPattern("MMM dd YYYY ha")) + " - " + to
-            .format(DateTimeFormatter.ofPattern("MMM dd YYYY ha"));
+        return "E " + super.toSaveString() + " | " + fromString + " | " +
+            toString;
     }
 
     /**
@@ -45,7 +48,7 @@ public class Event extends Task{
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from
-            .format(DateTimeFormatter.ofPattern("MMM dd YYYY ha")) + " to: " + to
+            .format(DateTimeFormatter.ofPattern("MMM dd YYYY ha")) + " | to: " + to
             .format(DateTimeFormatter.ofPattern("MMM dd YYYY ha")) + ")";
     }
 }
