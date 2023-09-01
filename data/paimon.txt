@@ -1,5 +1,5 @@
-[T][ ] hello
-[T][X] do this ples
-[E][X] go to event (from: go to event to: end time)
-[D][ ] finish this   (by: this date)
-[T][ ] new todo
+[T][X] add this todo
+[T][ ] do this
+[D][ ] finish this     (by: 2023-08-31 11:30)
+[D][X] do this task   (by: 2023-11-03 14:00)
+[E][ ] do this (from: 2023-09-01 15:00 to: 2023-09-09 2023-09-09)
