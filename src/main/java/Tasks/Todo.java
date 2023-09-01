@@ -1,7 +1,8 @@
 package Tasks;
 
-import Tasks.Task;
-
+/**
+ * Represents a task that the user has to do.
+ */
 public class Todo extends Task {
     public Todo(String description) {
         super(description);

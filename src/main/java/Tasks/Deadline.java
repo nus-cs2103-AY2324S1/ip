@@ -3,6 +3,10 @@ import Exceptions.DukeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a deadline. A <code>Deadline</code> object
+ * has a <code>LocalDate</code> deadline.
+ */
 public class Deadline extends Task {
     private LocalDate deadline;
     public Deadline(String description) throws DukeException {

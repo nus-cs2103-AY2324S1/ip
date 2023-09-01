@@ -9,6 +9,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task the user has created.
+ */
 public class Task {
     // TODO: Make this class abstract?
     protected String description;
@@ -18,23 +21,47 @@ public class Task {
         this.description = description;
     }
 
+    /**
+     * Retrieves the status of the Task.
+     * An "X" represents that the Task is done.
+     *
+     * @return The status of the Task as a String.
+     */
     public String getStatusIcon() {
         return isDone ? "[X]" : "[ ]";
     }
 
+    /**
+     * Marks the Task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Unmarks the Task as done.
+     */
     public void unmarkAsDone() {
         this.isDone = false;
     }
 
+    /**
+     * Returns the String representation of the Task to be displayed.
+     * It contains the status and description of the Task.
+     *
+     * @return The String to be displayed.
+     */
     @Override
     public String toString() {
         return getStatusIcon() + " " + description;
     }
 
+    /**
+     * Returns the String representation of the Task to be saved in a data file.
+     * It contains the status and description of the Task with "|" as a divider.
+     *
+     * @return The String to be saved as a line in the file.
+     */
     public String toFileString() {
         return isDone
                 ? "X | " + description

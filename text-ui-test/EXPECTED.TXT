@@ -1,5 +1,5 @@
 Loading tasks...
-Tasks.Task failed to load
+Tasks failed to load
 :( Chewy can't understand! No Tasks.Task Id found. Please enter a Tasks.Task Id after your command
 Hello!
 I'm Chewy,

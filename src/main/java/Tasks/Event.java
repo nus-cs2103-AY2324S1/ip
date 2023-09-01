@@ -1,10 +1,13 @@
 package Tasks;
 
 import Exceptions.DukeException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an Event that will happen. An <code>Event</code> object
+ * has a <code>LocalDateTime</code> start and end time.
+ */
 public class Event extends Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;

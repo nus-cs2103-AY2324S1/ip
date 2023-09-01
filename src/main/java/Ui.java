@@ -1,5 +1,9 @@
 import Exceptions.DukeException;
 
+/**
+ * Represents the User Interface of the Duke App.
+ * Each <Code>Ui</Code> method displays a message to the user.
+ */
 public class Ui {
     public void showWelcome() {
         String logo = "I'm Chewy,\n" +
