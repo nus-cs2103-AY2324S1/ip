@@ -1,3 +1,0 @@
-[T][X]  a
-[E][ ]  b (from: now to: then)
-[D][ ]  c (by: tmr)

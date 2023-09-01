@@ -1,7 +1,11 @@
 import java.io.*;
-import java.lang.Exception;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.List;
 
 //My chatbot function
 public class Duke {
@@ -145,13 +149,39 @@ public class Duke {
                     System.out.println(SPACE);
                 }
 
-            // if user input starts with deadline, insert a deadline task into the list and print out the task
+            // if user input starts with deadline, insert a deadline task into the list and print out the task.
             } else if (userInput.toLowerCase().startsWith("deadline")){
                 try {
-
                     String taskName = userInput.split(" /by ", 2)[0].split(" ", 2)[1];
-                    String dueDate = userInput.split(" /by ", 2)[1];
-                    //add item into list
+
+                    // ArrayList containing possible formats of Date and Time.
+                    List<String> formatStrings = Arrays.asList(
+                            "yyyy-MM-dd HH:mm",
+                            "dd/MM/yyyy HH:mm",
+                            "MM-dd-yyyy HH:mm"
+                            // Add other formats here
+                    );
+                    String dateInput = userInput.split(" /by ", 2)[1];
+                    String dueDate = null;
+
+                    // Try parsing with different formats
+                    for (String formatString : formatStrings) {
+                        try {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatString);
+                            LocalDateTime dateTime = LocalDateTime.parse(dateInput, formatter);
+                            dueDate = dateTime.format(formatter);
+                            break;  // Stop at the first successful parse
+                        } catch (DateTimeParseException e) {
+                            // Ignore the exception and try the next format
+                        }
+                    }
+
+                    // if the input fits none of the format, throw DateTimeParseException
+                    if (dueDate == null) {
+                        throw new DateTimeParseException("Invalid date/time format", dateInput, 0);
+                    }
+
+                    // add item into list
                     Deadline task = new Deadline(taskName, dueDate);
                     toDoList.add(counter, task);
                     counter++;
@@ -170,6 +200,10 @@ public class Duke {
                         System.out.println("☹ OOPS!!! The description of a deadline does not have \"/by\" specified");
                         System.out.println(SPACE);
                     }
+                } catch (DateTimeParseException e) {
+                    System.out.println(SPACE);
+                    System.out.println("☹ OOPS!!! The format of deadline is wrong, please write it in the correct format");
+                    System.out.println(SPACE);
                 }
 
             // if user input starts with event, insert an event task into the list and print out the task
@@ -177,9 +211,59 @@ public class Duke {
                 try {
 
                     String taskName = userInput.split(" /from | /to ", 3)[0].split(" ", 2)[1];
-                    String startDate = userInput.split(" /from | /to", 3)[1];
-                    String dueDate = userInput.split(" /from | /to ", 3)[2];
-                    //add item into list
+                    String startDateInput = userInput.split(" /from | /to ", 3)[1];
+                    String dueDateInput = userInput.split(" /from | /to ", 3)[2];
+
+                    // ArrayList containing possible formats of Date and Time.
+                    List<String> formatStrings = Arrays.asList(
+                            "yyyy-MM-dd HH:mm",
+                            "dd/MM/yyyy HH:mm",
+                            "MM-dd-yyyy HH:mm"
+                            // Add other formats here
+                    );
+                    LocalDateTime startDateTime = null;
+                    String startDate = null;
+
+                    // Try parsing with different formats for starting date and time input.
+                    for (String formatString : formatStrings) {
+                        try {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatString);
+                            startDateTime = LocalDateTime.parse(startDateInput, formatter);
+                            startDate = startDateTime.format(formatter);
+                            break;  // Stop at the first successful parse
+                        } catch (DateTimeParseException e) {
+                            // Ignore the exception and try the next format
+                        }
+                    }
+
+                    // if the input fits none of the format, throw DateTimeParseException
+                    if (startDate == null) {
+                        throw new DateTimeParseException("Invalid date/time format", startDate, 0);
+                    }
+                    LocalDateTime dueDateTime = null;
+                    String dueDate = null;
+                    // Try parsing with different formats for due date and time input.
+                    for (String formatString : formatStrings) {
+                        try {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatString);
+                            dueDateTime = LocalDateTime.parse(dueDateInput, formatter);
+                            dueDate = dueDateTime.format(formatter);
+                            break;  // Stop at the first successful parse
+                        } catch (DateTimeParseException e) {
+                            // Ignore the exception and try the next format
+                        }
+                    }
+
+                    // if the input fits none of the format, throw DateTimeParseException
+                    if (dueDate == null) {
+                        throw new DateTimeParseException("Invalid date/time format", dueDateInput, 0);
+                    }
+
+                    // check if start date is before due date.
+                    if (startDateTime.isAfter(dueDateTime) || startDateTime.isEqual(dueDateTime)) {
+                        throw new IllegalArgumentException();
+                    }
+                    // add item into list
                     Event task = new Event(taskName, startDate, dueDate);
                     toDoList.add(counter, task);
                     counter++;
@@ -198,8 +282,15 @@ public class Duke {
                         System.out.println("☹ OOPS!!! The description of a deadline does not have either \"/from\" or \"/to\" specified");
                         System.out.println(SPACE);
                     }
+                } catch (DateTimeParseException e) {
+                    System.out.println(SPACE);
+                    System.out.println("☹ OOPS!!! The format of starting date or due date is wrong, please write it in the format correct format");
+                    System.out.println(SPACE);
+                } catch (IllegalArgumentException e) {
+                    System.out.println(SPACE);
+                    System.out.println("☹ OOPS!!! The starting date cannot be later than the due date.");
+                    System.out.println(SPACE);
                 }
-
             // if user input starts with delete, check the number that the user input and delete the task of that number from the list
             } else if (userInput.toLowerCase().startsWith("delete")) {
                 try {

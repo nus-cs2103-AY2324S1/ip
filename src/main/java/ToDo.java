@@ -15,7 +15,7 @@ public class ToDo extends Task{
      */
     public static ToDo parseFromString(String line) {
         int firstBracketIndex = line.indexOf(']');
-        String description = line.substring(firstBracketIndex + 4);
+        String description = line.substring(firstBracketIndex + 5);
         String mark = line.substring(firstBracketIndex + 2, firstBracketIndex + 3);
         ToDo task = new ToDo(description);
 
