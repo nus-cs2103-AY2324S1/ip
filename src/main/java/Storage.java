@@ -5,6 +5,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage deals with loading tasks from the file and saving tasks in the file.
+ *
+ * @author Sebastian Tay
+ */
 public class Storage {
     private final String dir = "/VedaMissions";
     private final String storagePath = "/VedaMissions/Missions.txt";

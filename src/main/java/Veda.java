@@ -10,29 +10,7 @@ public class Veda {
 
     private final static String NAME = "Veda";
     private final static Storage storage = new Storage();
-    private static ArrayList<Task> tasks = new ArrayList<Task>(100);
-
-    private static boolean addFile() {
-        boolean isSuccessful = storage.addFile();
-
-        return isSuccessful;
-    }
-
-    private static boolean loadData() {
-        if (storage.checkFileExists()) {
-            //File does exist
-            try {
-                tasks = storage.retrieveTasks();
-            } catch (FileNotFoundException e) {
-                System.out.println("Unable to find file.");
-            }
-        } else {
-            //File does not exist
-            addFile();
-        }
-
-        return true;
-    }
+    private final static TaskList tasks = new TaskList();
 
     private static void addTask(String taskArgs) throws NoDescriptionException, DateTimeParseException {
         String type = taskArgs.split(" ")[0].toLowerCase();
@@ -88,82 +66,9 @@ public class Veda {
                 break;
         }
 
-        if (newTask != null && tasks.add(newTask)) {
-            System.out.println("added in mission:\n" + newTask);
-
-            try {
-                storage.updateData(tasks, true);
-            } catch(IOException e) {
-                System.out.println("Error writing to file.");
-            }
-
-        } else {
-            System.out.println("System is unable to accommodate the new mission");
-        }
+        //Trf to tasklist
+        tasks.addTask(newTask);
     }
-
-    private static void deleteTask(int taskIndex) {
-        try {
-            Task task = tasks.remove(taskIndex);
-            storage.updateData(tasks, false);
-
-            System.out.println("Noted. I have removed the following mission:");
-            System.out.println(task);
-
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid index! Please ensure you correctly key in your target index.");
-        } catch (IOException e) {
-            System.out.println("Unable to update file.");
-        }
-    }
-
-    private static void markAsDone(int taskIndex) {
-        try {
-            Task task = tasks.get(taskIndex);
-
-            if (task.isDone()) {
-                //Task already marked as done
-                System.out.println("Mission has been completed previously.");
-                return;
-            }
-
-            task.updateCompletionStatus();
-            storage.updateData(tasks, false);
-
-            System.out.println("Mission status updated! Mission completed successfully.");
-            System.out.println(task);
-
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid index! Please ensure you correctly key in your target index.");
-        } catch (IOException e) {
-            System.out.println("Unable to update file.");
-        }
-    }
-
-    private static void markUndone(int taskIndex) {
-        try {
-            Task task = tasks.get(taskIndex);
-
-            if (!(task.isDone())) {
-                //task already marked as undone
-                System.out.println("Mission is already marked as undone!");
-                return;
-            }
-
-            task.updateCompletionStatus();
-            storage.updateData(tasks, false);
-
-            System.out.println("Mission status updated! Mission completion status reverted.");
-            System.out.println(task);
-
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid index! Please ensure you correctly key in your target index.");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Unable to update file.");
-        }
-    }
-
 
     public static void main(String[] args) {
         //Greet users upon initialisation
@@ -173,7 +78,7 @@ public class Veda {
 
         Scanner inScanner = new Scanner(System.in);
 
-        loadData();
+        tasks.load();
 
         while (true) {
             String input = inScanner.nextLine();
@@ -184,24 +89,20 @@ public class Veda {
                 break;
             } else if (input.toLowerCase().equals("list")) {
                 //User wishes to see his listed missions
-                System.out.println("Missions:");
-
-                tasks.forEach( task -> System.out.println(
-                        (tasks.indexOf(task) + 1) + "." + task
-                ));
+                tasks.printList();
 
                 continue;
             } else if (input.toLowerCase().split(" ")[0].equals("mark")) {
                 //User wishes to mark task as done
-                markAsDone(Integer.parseInt(input.toLowerCase().split(" ")[1]) - 1);
+                tasks.markAsDone(Integer.parseInt(input.toLowerCase().split(" ")[1]) - 1);
                 continue;
             } else if (input.toLowerCase().split(" ")[0].equals("unmark")) {
                 //User wishes to mark task as undone
-                markUndone(Integer.parseInt(input.toLowerCase().split(" ")[1]) - 1);
+                tasks.markUndone(Integer.parseInt(input.toLowerCase().split(" ")[1]) - 1);
                 continue;
             } else if (input.toLowerCase().split(" ")[0].equals("delete")) {
                 //User wishes to delete a task
-                deleteTask(Integer.parseInt(input.toLowerCase().split(" ")[1]) - 1);
+                tasks.deleteTask(Integer.parseInt(input.toLowerCase().split(" ")[1]) - 1);
                 continue;
             }
 
