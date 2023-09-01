@@ -27,6 +27,16 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E][" + getStatusIcon() + "] " + super.getTask() + " (from: " + this.from + " to:" + this.to + ")";
+        return "[E][" + getStatusIcon() + "] " + super.getDescription() + " (from: " + this.from + " to:" + this.to + ")";
+    }
+
+    @Override
+    public String convertToStorageForm() {
+        final String SEPARATOR = "::";
+        final String status = isDone() ? "1" : "0";
+        final String period = this.from + "-" + this.to;
+
+        //E::0::project meeting::Aug 6th 2pm-4pm
+        return SYMBOL + SEPARATOR + status + SEPARATOR + getDescription() + SEPARATOR + period;
     }
 }

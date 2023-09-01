@@ -19,6 +19,14 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        return "[T][" + getStatusIcon() + "] " + super.getTask();
+        return "[T][" + getStatusIcon() + "] " + super.getDescription();
+    }
+
+    @Override
+    public String convertToStorageForm() {
+        final String separator = "::";
+        final String status = isDone() ? "1" : "0";
+
+        return SYMBOL + separator + status + separator + getDescription();
     }
 }

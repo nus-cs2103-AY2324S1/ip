@@ -25,6 +25,15 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by:" + this.by + ")";
+        return "[D]" + super.toString() + "(by: " + this.by + ")";
+    }
+
+    @Override
+    public String convertToStorageForm() {
+        final String SEPARATOR = "::";
+        final String status = isDone() ? "1" : "0";
+
+        //D::0::return book::June 6th
+        return SYMBOL + SEPARATOR + status + SEPARATOR + getDescription() + SEPARATOR + this.by;
     }
 }

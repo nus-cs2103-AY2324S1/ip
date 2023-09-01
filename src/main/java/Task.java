@@ -12,11 +12,9 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
-    public String getTask(){
+    public String getDescription(){
      return this.description;
     }
-
-    public abstract String getType();
 
     /**
      * updateCompletionStatus will change the current completion status of the task
@@ -41,6 +39,10 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() +"] " + getTask();
+        return "[" + getStatusIcon() +"] " + getDescription();
     }
+
+    public abstract String getType();
+
+    public abstract String convertToStorageForm();
 }

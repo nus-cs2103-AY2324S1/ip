@@ -11,12 +11,25 @@ public class Veda {
     private static ArrayList<Task> tasks = new ArrayList<Task>(100);
 
     private static boolean addFile() {
-        final String dirPath = "/Dukedata";
-        final String fileName = dirPath + "/Duke.txt";
-
-        boolean isSuccessful = storage.addFile(new File(dirPath), new File(fileName));
+        boolean isSuccessful = storage.addFile();
 
         return isSuccessful;
+    }
+
+    private static boolean loadData() {
+        if (storage.checkFileExists()) {
+            //File does exist
+            try {
+                tasks = storage.retrieveTasks();
+            } catch (FileNotFoundException e) {
+                System.out.println("Unable to find file.");
+            }
+        } else {
+            //File does not exist
+            addFile();
+        }
+
+        return true;
     }
 
     private static void addTask(String taskArgs) throws NoDescriptionException {
@@ -24,8 +37,6 @@ public class Veda {
         Task newTask = null;
         String description = "";
         String[] descriptions = null; //For multiple arguments
-
-
 
         switch(type) {
             case "todo":
@@ -71,6 +82,14 @@ public class Veda {
 
         if (newTask != null && tasks.add(newTask)) {
             System.out.println("added in mission:\n" + newTask);
+            //TODO update file
+            try {
+                storage.updateData(tasks, true);
+            } catch(IOException e) {
+                e.printStackTrace();
+                System.out.println("Error writing to file.");
+            }
+
         } else {
             System.out.println("System is unable to accommodate the new mission");
         }
@@ -79,12 +98,17 @@ public class Veda {
     private static void deleteTask(int taskIndex) {
         try {
             Task task = tasks.remove(taskIndex);
+            storage.updateData(tasks, false);
 
             System.out.println("Noted. I have removed the following mission:");
             System.out.println(task);
 
         } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
             System.out.println("Invalid index! Please ensure you correctly key in your target index.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Unable to update file.");
         }
     }
 
@@ -99,12 +123,17 @@ public class Veda {
             }
 
             task.updateCompletionStatus();
+            storage.updateData(tasks, false);
 
             System.out.println("Mission status updated! Mission completed successfully.");
             System.out.println(task);
 
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
             System.out.println("Invalid index! Please ensure you correctly key in your target index.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Unable to update file.");
         }
     }
 
@@ -119,12 +148,16 @@ public class Veda {
             }
 
             task.updateCompletionStatus();
+            storage.updateData(tasks, false);
 
             System.out.println("Mission status updated! Mission completion status reverted.");
             System.out.println(task);
 
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Invalid index! Please ensure you correctly key in your target index.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Unable to update file.");
         }
     }
 
@@ -137,25 +170,15 @@ public class Veda {
 
         Scanner inScanner = new Scanner(System.in);
 
-        //TODO load data
-        if (storage.checkFileExists(new File("/Dukedata/Duke.txt"))) {
-            //File does exist
-            //TODO load the data within the file if any
-            try {
-                tasks = storage.retrieveTasks(new File("/Dukedata/Duke.txt"));
-            } catch (FileNotFoundException e) {
-                System.out.println("Unable to find file.");
-            }
-        } else {
-            //File does not exist
-            addFile();
-        }
+        loadData();
 
+        //TODO update data when there are changes to list (Ie. mark, unmark, delete and adding of new task)
         while (true) {
             String input = inScanner.nextLine();
 
             if (input.toLowerCase().equals("bye")) {
                 //User wishes to exit the program
+                inScanner.close();
                 break;
             } else if (input.toLowerCase().equals("list")) {
                 //User wishes to see his listed missions
