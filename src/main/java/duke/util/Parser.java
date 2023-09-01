@@ -4,6 +4,7 @@ import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
+import duke.command.FindCommand;
 import duke.command.MarkCommand;
 import duke.command.PrintListCommand;
 import duke.command.UnknownCommand;
