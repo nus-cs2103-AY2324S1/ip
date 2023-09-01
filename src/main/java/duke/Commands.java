@@ -10,6 +10,7 @@ public enum Commands {
     mark,
     unmark,
     delete,
+    find,
     unknown;
 
     public static Commands get(String cmd) {

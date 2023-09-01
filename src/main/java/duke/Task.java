@@ -36,6 +36,16 @@ public abstract class Task {
 
     public abstract String fileString();
 
+    /**
+     * Checks if the description contains the substring
+     *
+     * @param s
+     * @return
+     */
+    public boolean contains(String s) {
+        return this.description.contains(s);
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);

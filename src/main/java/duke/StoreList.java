@@ -100,4 +100,24 @@ public class StoreList {
         }
         return saveText;
     }
+
+    /**
+     * Finds all tasks that contains the term and returns it as a StoreList.
+     *
+     * @param term
+     * @return the StoreList
+     */
+    public StoreList findAll(String term) {
+        if (term.length() == 0) {
+            return this;
+        }
+        StoreList result = new StoreList();
+        this.list.forEach((task) -> {
+            if (task.contains(term)) {
+                result.add(task);
+            }
+        });
+
+        return result;
+    }
 }

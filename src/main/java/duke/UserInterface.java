@@ -33,8 +33,8 @@ public class UserInterface {
                 display("Err: No command input");
                 continue;
             }
-            String[] instruction = line.split(" ", 2);
-            Commands cmd = Commands.get(instruction[0]);
+            String[] instructions = line.split(" ", 2);
+            Commands cmd = Commands.get(instructions[0]);
             String response;
             switch (cmd) {
             case bye:
@@ -50,7 +50,7 @@ public class UserInterface {
                 // Fallthrough
             case event:
                 try {
-                    Task task = Parser.parseTask(cmd, instruction);
+                    Task task = Parser.parseTask(cmd, instructions);
                     response = list.add(task);
                     display(response);
                 } catch (DukeException e) {
@@ -59,7 +59,7 @@ public class UserInterface {
                 break;
             case mark:
                 try {
-                    response = list.markDone(instruction[1]);
+                    response = list.markDone(instructions[1]);
                     display(response);
                 } catch (IndexOutOfBoundsException e) {
                     display("Err: Index not in range of list.");
@@ -67,7 +67,7 @@ public class UserInterface {
                 break;
             case unmark:
                 try {
-                    response = list.markUndone(instruction[1]);
+                    response = list.markUndone(instructions[1]);
                     display(response);
                 } catch (IndexOutOfBoundsException e) {
                     display("Err: Index not in range of list.");
@@ -75,14 +75,16 @@ public class UserInterface {
                 break;
             case delete:
                 try {
-                    response = list.delete(instruction[1]);
+                    response = list.delete(instructions[1]);
                     display(response);
                 } catch (IndexOutOfBoundsException e) {
                     display("Err: Index not in range of list.");
                 }
                 break;
+            case find:
+                response = Parser.findAll(instructions, list);
             default:
-                response = "Err: Unknown command - " + instruction[0];
+                response = "Err: Unknown command - " + instructions[0];
                 display(response);
                 break;
             }
