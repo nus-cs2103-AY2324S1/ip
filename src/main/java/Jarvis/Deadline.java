@@ -5,16 +5,33 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a deadline task that extends the Task class.
+ * <p>
+ *     The Deadline class is a subclass of the Task class and has 2 additional attributes, by and dateby.
+ *     By represents the time to complete the task by.
+ *     dateBy is by in a Java LocalDate if the formatting of by is correct.
+ * </p>
+ */
 public class Deadline extends Task {
     protected String by;
     protected LocalDate dateBy;
 
+    /**
+     * Constructs a new Deadline object.
+     *
+     * @param description description of the deadline task.
+     * @param by when to complete the task by.
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
         stringToDate();
     }
 
+    /**
+     * Checks and converts the by string to a valid Java LocalDate if the format is correct
+     */
     @Override
     public void stringToDate() {
         Pattern datePattern = Pattern.compile(
@@ -38,6 +55,11 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Converts the task to a user-friendly string representation
+     *
+     * @return A string representation of the task
+     */
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");

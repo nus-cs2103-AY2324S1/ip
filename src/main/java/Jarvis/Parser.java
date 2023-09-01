@@ -4,14 +4,28 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Responsible for parsing user input, executing commands and handling any exceptions
+ * <p>
+ *     This class takes care of interpreting user commands and then calling the appropriate methods to perform
+ *     the actions described by those commands. It also handles any exceptions and calls the appropriate methods
+ *     to print the details of the exception for the user to read.
+ * </p>
+ */
 public class Parser {
     private static ArrayList<String> validCommands; // list of valid commands
 
+    /**
+     * Constructs a new Parser object.
+     */
     public Parser() {
         validCommands = new ArrayList<>();
         addValidCommands();
     }
 
+    /**
+     * Adds the list of valid commands into the validCommands ArrayList.
+     */
     private void addValidCommands() {
         validCommands.add("list");
         validCommands.add("bye");
@@ -20,8 +34,15 @@ public class Parser {
         validCommands.add("todo");
         validCommands.add("deadline");
         validCommands.add("event");
+        validCommands.add("find");
     }
 
+    /**
+     * checks if the user inputted a valid command in the validCommand ArrayList.
+     *
+     * @param inputCommand commands that the user inputs.
+     * @return the valid command that the user inputted, an empty string otherwise.
+     */
     // checks if command is valid and throws Jarvis.IncorrectJarvisCommandException
     private static String isValidCommand(String inputCommand) {
         // check if command is one of the valid keywords
@@ -46,6 +67,15 @@ public class Parser {
         return validInputCommand;
     }
 
+    /**
+     * checks if the command the user inputted has a wrong format, if the format of the command is wrong,
+     * print the details to the screen for the user to know how to correct it. This method assumes that
+     * isValidCommand has been run before this and the user has used a valid command. It just checks if
+     * the formatting of the command is correct.
+     *
+     * @param inputCommand the command the user inputted
+     * @param validInputCommand the valid command which the user inputted
+     */
     // identifies which command has wrong formatting and prints feedback to user
     public static void isWrongFormat(String inputCommand, String validInputCommand) {
         if (validInputCommand.equals("")) { // if input is empty
@@ -93,6 +123,16 @@ public class Parser {
 
     }
 
+    /**
+     * Parses and executes command specified in the given user input.
+     *
+     * @param storage The storage object responsible for task storage operations.
+     * @param tasks The task list that holds all tasks.
+     * @param userInput The string input from the user.
+     * @throws IncorrectJarvisCommandException If the command is incorrect.
+     * @throws InvalidTaskNumberException If the task number is out of the range of the number of tasks.
+     * @throws WrongJarvisCommandFormatException If the command is correct but its formatted incorrectly.
+     */
     public static void parseCommand(Storage storage, TaskList tasks, String userInput) throws
             IncorrectJarvisCommandException, InvalidTaskNumberException, WrongJarvisCommandFormatException {
         Pattern todoPattern = Pattern.compile("(todo) (.+)");

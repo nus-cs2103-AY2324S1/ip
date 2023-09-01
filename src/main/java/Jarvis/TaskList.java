@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class representing a list of tasks.
+ * <p>
+ *     This class encapsulates the list of tasks and provides methods for adding, removing, and retrieving tasks.
+ * </p>
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
     private static final String line = "____________________________________________________________";
@@ -11,6 +17,11 @@ public class TaskList {
     private static final String taskInforming = "As you please Sir, I've added the task:";
     private static final String deleteInforming = "Alright Sir, I've removed this task";
 
+    /**
+     * Constructs a new TaskList object from saved data.
+     *
+     * @param tasks The string that holds the saved data.
+     */
     public TaskList(String tasks) { // tasks is a string
         String[] stringTasks =  tasks.split("\n");
         Pattern todoPattern = Pattern.compile(
