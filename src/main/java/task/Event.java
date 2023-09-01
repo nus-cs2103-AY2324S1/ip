@@ -2,16 +2,34 @@ package task;
 
 import java.time.LocalDateTime;
 
+/**
+ * Class to handle event tasks
+ */
 public class Event extends Task {
     private final LocalDateTime start;
     private final LocalDateTime end;
 
+    /**
+     * Overloaded constructor for Event class
+     *
+     * @param name name of event
+     * @param start start time of event
+     * @param end end time of event
+     */
     public Event(String name, String start, String end) {
         super(name);
         this.start = LocalDateTime.parse(start, INPUT_FORMATTER);
         this.end = LocalDateTime.parse(end, INPUT_FORMATTER);
     }
 
+    /**
+     * Overloaded constructor for Event class
+     *
+     * @param name name of event
+     * @param start start time of event
+     * @param end end time of event
+     * @param marked boolean value of marked
+     */
     public Event(String name, String start, String end, Boolean marked) {
         super(name, marked);
         this.start = LocalDateTime.parse(start, INPUT_FORMATTER);

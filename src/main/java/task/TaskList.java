@@ -2,6 +2,9 @@ package task;
 
 import java.util.ArrayList;
 
+/**
+ * Class that handles task management
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 

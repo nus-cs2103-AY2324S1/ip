@@ -2,6 +2,9 @@ package task;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Super class for all tasks used in Bocchi
+ */
 public abstract class Task {
     protected static final DateTimeFormatter INPUT_FORMATTER =
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

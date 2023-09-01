@@ -6,6 +6,9 @@ import task.TaskList;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Class to saved data to file
+ */
 public class BocchiSaver {
     private static final String DEFAULT_PATH = "./data/bocchi.txt";
     private final TaskList taskList;
