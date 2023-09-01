@@ -22,10 +22,10 @@ public abstract class Task {
 
     public void updateTaskStatus(boolean expectedStatus, String doneMessage, String undoneMessage) {
         if (isDone == expectedStatus) {
-            System.out.println(doneMessage + "\n" + Duke.horizontalLine);
+            System.out.println(doneMessage);
         } else {
             isDone = expectedStatus;
-            System.out.println(undoneMessage + "\n" + Duke.horizontalLine);
+            System.out.println(undoneMessage);
         }
     }
 }
