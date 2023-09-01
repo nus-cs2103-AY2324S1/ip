@@ -1,7 +1,9 @@
 package duke.tasks;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
 public class TodoTest {
@@ -10,11 +12,11 @@ public class TodoTest {
     public void testConstructorAndGetters() {
         Todo todo = new Todo("Buy groceries");
         assertEquals("Buy groceries", todo.getDescription());
-        assertFalse(todo.isDone());
+        assertFalse(todo.getIsDone());
 
         Todo completedTodo = new Todo("Finish assignment", true);
         assertEquals("Finish assignment", completedTodo.getDescription());
-        assertTrue(completedTodo.isDone());
+        assertTrue(completedTodo.getIsDone());
     }
 
     @Test

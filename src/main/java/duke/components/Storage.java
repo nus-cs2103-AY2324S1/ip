@@ -1,15 +1,19 @@
 package duke.components;
+
 import duke.tasks.Task;
 import duke.tasks.Todo;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
+
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
+
 import java.time.LocalDateTime;
 
 /**
@@ -107,17 +111,17 @@ public class Storage {
         String taskDescription = parts[2];
 
         switch (taskType) {
-            case "T":
-                return new Todo(taskDescription, isDone);
-            case "D":
-                LocalDateTime deadline = Parser.parseDateTime(parts[3]);
-                return new Deadline(taskDescription, deadline, isDone);
-            case "E":
-                LocalDateTime start = Parser.parseDateTime(parts[3]);
-                LocalDateTime end = Parser.parseDateTime(parts[4]);
-                return new Event(taskDescription, start, end, isDone);
-            default:
-                return null; // Invalid task type
+        case "T":
+            return new Todo(taskDescription, isDone);
+        case "D":
+            LocalDateTime deadline = Parser.parseDateTime(parts[3]);
+            return new Deadline(taskDescription, deadline, isDone);
+        case "E":
+            LocalDateTime start = Parser.parseDateTime(parts[3]);
+            LocalDateTime end = Parser.parseDateTime(parts[4]);
+            return new Event(taskDescription, start, end, isDone);
+        default:
+            return null; // Invalid task type
         }
     }
 }

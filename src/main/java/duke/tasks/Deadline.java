@@ -1,6 +1,8 @@
 package duke.tasks;
-import java.time.LocalDateTime;
+
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+
 /**
  * A subclass of Task. Contains a description, isDone and by.
  */

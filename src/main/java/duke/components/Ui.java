@@ -1,6 +1,8 @@
 package duke.components;
-import java.util.Scanner;
+
 import duke.tasks.Task;
+
+import java.util.Scanner;
 
 /**
  * Ui class which handles the inputs from the user and prints corresponding messages.
@@ -100,7 +102,7 @@ public class Ui {
      * @param taskList Contains list of tasks.
      * @throws DukeException Empty list.
      */
-    public void showList(TaskList taskList) throws DukeException {
+    public void showList(TaskList taskList) {
         System.out.println(taskList.list());
     }
 }

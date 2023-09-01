@@ -1,8 +1,10 @@
 package duke.tasks;
+
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import org.junit.jupiter.api.Test;
 
 public class EventTest {
@@ -14,7 +16,7 @@ public class EventTest {
 
         Event event = new Event("Meeting", from, to);
         assertEquals("Meeting", event.getDescription());
-        assertFalse(event.isDone());
+        assertFalse(event.getIsDone());
         assertEquals(from, event.getFrom());
         assertEquals(to, event.getTo());
     }

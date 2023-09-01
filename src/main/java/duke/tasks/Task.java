@@ -71,7 +71,7 @@ public class Task {
         return complete + " | " + this.description;
     }
 
-    public boolean isDone() {
+    public boolean getIsDone() {
         return isDone;
     }
 

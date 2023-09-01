@@ -3,11 +3,15 @@ package duke.components;
 import duke.command.Command;
 import duke.command.ExitCommand;
 import duke.command.ModifyCommand;
+
 import java.io.IOException;
+
 import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
 public class ParserTest {
@@ -34,11 +38,8 @@ public class ParserTest {
         assertEquals(1, ((ModifyCommand) command).getIndex());
     }
 
-    // Similarly, add test cases for other commands like "unmark", "todo", "deadline", "event", "delete"
-    // Ensure to cover different scenarios, valid and invalid inputs
-
     @Test
-    public void testParseInvalidCommand() throws DukeException, IOException {
+    public void testParseInvalidCommand() {
         assertThrows(DukeException.class, () -> {
             Parser.parse("invalidcommand");
         });

@@ -1,12 +1,15 @@
 package duke.components;
-import duke.command.ExitCommand;
-import duke.command.ModifyCommand;
+
 import duke.command.AddCommand;
 import duke.command.Command;
+import duke.command.ExitCommand;
+import duke.command.ModifyCommand;
+
 import java.io.IOException;
-import java.time.LocalDateTime;
+
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.LocalDateTime;
 
 /**
  * Class that parses the user input.
@@ -22,6 +25,7 @@ public class Parser {
     public static Command parse(String input) throws DukeException, IOException {
         String[] commandInput = input.split(" ");
         String command = commandInput[0];
+
         try {
             if (command.equals("bye")) {
                 return new ExitCommand();

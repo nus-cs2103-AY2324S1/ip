@@ -1,8 +1,7 @@
 package duke.components;
+
 import duke.tasks.Task;
-import duke.tasks.Todo;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
+
 import java.util.ArrayList;
 
 /**
@@ -110,7 +109,7 @@ public class TaskList {
     /**
      * Checks if index is out of bounds.
      *
-     * @param index Index to be check.
+     * @param index Index to be checked.
      * @return Boolean of whether index is out of bounds.
      */
     private static boolean isValidIndex(int index) {
