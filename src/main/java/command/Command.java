@@ -38,4 +38,12 @@ public abstract class Command {
      * @return Boolean representing whether the command exits the application.
      */
     public abstract boolean isExit();
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Command)) {
+            return false;
+        }
+        return params.equals(((Command) o).params);
+    }
 }
