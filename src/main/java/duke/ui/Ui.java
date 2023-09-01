@@ -8,12 +8,18 @@ import java.util.Scanner;
 public class Ui {
     private static final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Prints the welcome message to the user.
+     */
     public static void showWelcomeMessage() {
         System.out.println("____________________________________________________________");
         System.out.println(" Hello! I'm duke.main.Duke\n What can I do for you?");
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Prints the goodbye message to the user.
+     */
     public static void showGoodByeMessage() {
         System.out.println("____________________________________________________________");
         System.out.println(" Bye. Hope to see you again soon!");
