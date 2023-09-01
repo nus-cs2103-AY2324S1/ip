@@ -1,11 +1,11 @@
 package duke.parser;
 
+import java.util.Optional;
+
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
-
-import java.util.Optional;
 
 /**
  * Parses Task into string and vice versa.
@@ -38,22 +38,26 @@ public class TaskParser {
         String[] splitArray = saveLine.split(" \\|\\| ");
         Optional<Task> ret = Optional.empty();
         switch (splitArray[0]) {
-            case "T": {
-                boolean status = Integer.parseInt(splitArray[2]) >= 1;
-                ret = Optional.of(new Todo(splitArray[1], status));
-                break;
-            }
-            case "D": {
-                boolean status = Integer.parseInt(splitArray[2]) >= 1;
-                ret = Optional.of(new Deadline(splitArray[1], status, TimeParser.parseTime(splitArray[3])));
-                break;
-            }
-            case "E": {
-                boolean status = Integer.parseInt(splitArray[2]) >= 1;
-                String[] timeDescriptor = splitArray[3].split(" to ");
-                ret = Optional.of(new Event(splitArray[1], status, TimeParser.parseTime(timeDescriptor[0]), TimeParser.parseTime(timeDescriptor[1])));
-                break;
-            }
+        case "T": {
+            boolean status = Integer.parseInt(splitArray[2]) >= 1;
+            ret = Optional.of(new Todo(splitArray[1], status));
+            break;
+        }
+        case "D": {
+            boolean status = Integer.parseInt(splitArray[2]) >= 1;
+            ret = Optional.of(new Deadline(splitArray[1], status, TimeParser.parseTime(splitArray[3])));
+            break;
+        }
+        case "E": {
+            boolean status = Integer.parseInt(splitArray[2]) >= 1;
+            String[] timeDescriptor = splitArray[3].split(" to ");
+            ret = Optional.of(new Event(splitArray[1], status, TimeParser.parseTime(timeDescriptor[0]),
+                    TimeParser.parseTime(timeDescriptor[1])));
+            break;
+        }
+        default: {
+            break;
+        }
         }
         return ret;
     }

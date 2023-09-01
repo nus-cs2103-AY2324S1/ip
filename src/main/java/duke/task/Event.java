@@ -1,15 +1,16 @@
 package duke.task;
 
-import duke.parser.TimeParser;
-
 import java.time.LocalDateTime;
+
+import duke.parser.TimeParser;
 
 /**
  * Represents an Event Task.
  * @author Toh Li Yuan (A0255811H)
  */
 public class Event extends Task {
-    private LocalDateTime startDate, endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     /**
      * Creates a new Event Task.
@@ -45,11 +46,14 @@ public class Event extends Task {
     @Override
     public String toString() {
         String statusMark = this.status ? "[✓]" : "[✕]";
-        return String.format("[E]%s %s (from: %s to: %s)", statusMark, name, TimeParser.returnTime(startDate), TimeParser.returnTime(endDate));
+        return String.format("[E]%s %s (from: %s to: %s)", statusMark, name,
+                TimeParser.returnTime(startDate), TimeParser.returnTime(endDate));
     }
 
     @Override
     public String toSave() {
-        return String.format("E%s%s%s%d%s%s to %s", DISCRIMINATOR, name, DISCRIMINATOR, Boolean.compare(status, false), DISCRIMINATOR, TimeParser.toSaveString(startDate), TimeParser.toSaveString(endDate));
+        return String.format("E%s%s%s%d%s%s to %s", DISCRIMINATOR, name, DISCRIMINATOR,
+                Boolean.compare(status, false), DISCRIMINATOR, TimeParser.toSaveString(startDate),
+                TimeParser.toSaveString(endDate));
     }
 }

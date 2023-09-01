@@ -1,8 +1,8 @@
 package duke.task;
 
-import duke.parser.TimeParser;
-
 import java.time.LocalDateTime;
+
+import duke.parser.TimeParser;
 
 /**
  * Represents a Deadline Task.
@@ -46,6 +46,7 @@ public class Deadline extends Task {
 
     @Override
     public String toSave() {
-        return String.format("D%s%s%s%d%s%s", DISCRIMINATOR, name, DISCRIMINATOR, Boolean.compare(status, false), DISCRIMINATOR, TimeParser.toSaveString(date));
+        return String.format("D%s%s%s%d%s%s", DISCRIMINATOR, name, DISCRIMINATOR,
+                Boolean.compare(status, false), DISCRIMINATOR, TimeParser.toSaveString(date));
     }
 }

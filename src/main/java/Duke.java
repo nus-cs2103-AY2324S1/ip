@@ -2,10 +2,9 @@ import java.util.Scanner;
 
 import duke.commands.ByeCommand;
 import duke.commands.Command;
+import duke.parser.CommandParser;
 import duke.records.ChatRecord;
 import duke.ui.ChatView;
-
-import duke.parser.CommandParser;
 
 /**
  * @author Toh Li Yuan (A0255811H)
