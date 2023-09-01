@@ -6,8 +6,8 @@ import duke.task.TaskList;
 /**
  * CS2103T iP Week 3
  * AY23/24 Semester 1
- * A product named Duke, a Personal Assistant Chatbot that helps a person
- * to keep track of various things.
+ * A product named Duke, a Personal Assistant Chatbot that helps
+ * a person to keep track of various things.
  *
  * @author bhnuka, Bhanuka Bandara Ekanayake (AXXX7875J), G01
  * @version 2.0 CS2103T AY 23/24 Sem 1
@@ -17,7 +17,6 @@ import duke.task.TaskList;
  * All the sourcecode behind the chatbot, Duke
  */
 public class Duke {
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;

@@ -32,21 +32,21 @@ public class Storage {
                 String description = parts[2];
 
                 switch (taskType) {
-                    case "T":
-                        tasks.add(new Todo(description, isDone));
-                        break;
-                    case "D":
-                        String by = parts[3];
-                        tasks.add(new Deadline(description, isDone, by));
-                        break;
-                    case "E":
-                        String[] parts2 = parts[3].split(" - ");
-                        String from = parts2[0];
-                        String to = parts2[1];
-                        tasks.add(new Event(description, isDone, from, to));
-                        break;
-                    default:
-                        throw new DukeException("☹ OOPS!!! Couldn't load file.");
+                case "T":
+                    tasks.add(new Todo(description, isDone));
+                    break;
+                case "D":
+                    String by = parts[3];
+                    tasks.add(new Deadline(description, isDone, by));
+                    break;
+                case "E":
+                    String[] parts2 = parts[3].split(" - ");
+                    String from = parts2[0];
+                    String to = parts2[1];
+                    tasks.add(new Event(description, isDone, from, to));
+                    break;
+                default:
+                    throw new DukeException("☹ OOPS!!! Couldn't load file.");
                 }
             }
             fileReader.close();
@@ -57,7 +57,6 @@ public class Storage {
         } catch (DukeException e) {
             throw new DukeException("Error loading tasks: " + e.getMessage());
         }
-
         return tasks;
     }
 
@@ -75,12 +74,15 @@ public class Storage {
                     dateInfo = ((Deadline) tasks.getTask(i)).getBy();
                 } else if (tasks.getTask(i) instanceof Event) {
                     taskType = "E";
-                    dateInfo = ((Event) tasks.getTask(i)).getFrom() + " - " + ((Event) tasks.getTask(i)).getTo();
+                    dateInfo = ((Event) tasks.getTask(i)).getFrom() +
+                    " - " + ((Event) tasks.getTask(i)).getTo();
                 } else {
                     throw new DukeException("Invalid tasks in list.");
                 }
 
-                fileWriter.write(taskType + " | " + (tasks.getTask(i).getDone() ? "1" : "0") + " | " + tasks.getTask(i).getDescription() + " | " + dateInfo + "\n");
+                fileWriter.write(taskType + " | " +
+                (tasks.getTask(i).getDone() ? "1" : "0") + " | " +
+                tasks.getTask(i).getDescription() + " | " + dateInfo + "\n");
             }
             fileWriter.close();
         } catch (IOException e) {

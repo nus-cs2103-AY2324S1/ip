@@ -50,7 +50,8 @@ public class TaskList extends ArrayList<Task>{
                 tasks.remove(index);
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println("\t ☹ OOPS!!! Please enter a valid task index to delete.");
+            System.out.println("\t ☹ OOPS!!! Please enter a" +
+             " valid task index to delete.");
         }
     }
 

@@ -37,12 +37,16 @@ public class Task {
     /**
      * Returns whether task is done
      */
-    public boolean getDone() { return this.isDone; }
+    public boolean getDone() {
+        return this.isDone;
+    }
 
     /**
      * Returns description of task
      */
-    public String getDescription() { return this.description; }
+    public String getDescription() {
+        return this.description;
+    }
 
     /**
      * Returns String representing the task
