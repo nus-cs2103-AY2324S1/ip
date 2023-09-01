@@ -1,9 +1,7 @@
 package parser;
 
 import commands.*;
-import duke.Duke;
 import duke.DukeException;
-import tasks.Task;
 
 import java.util.ArrayList;
 
@@ -19,7 +17,8 @@ public class Parser {
         deadline("deadline"),
         event("event"),
         todo("todo"),
-        delete("delete");
+        delete("delete"),
+        find("find");
 
         private final String command;
 
@@ -97,6 +96,16 @@ public class Parser {
         } else if (input.contains(command.delete.toString())) {
             int selected = Integer.parseInt(input.substring(input.indexOf("delete") + 7)) - 1;
             return new DeleteCommand(selected);
+        } else if (input.contains(command.find.toString())) {
+            if (input.equals(command.find.toString())) {
+                throw new DukeException("find cannot be empty");
+            }
+            if (input.charAt(4) != ' ') {
+                throw new DukeException("Invalid command");
+            }
+            Parser parser = new Parser("P");
+            ArrayList<String> texts = parser.convertTaskInput(input);
+            return new FindCommand(texts.get(0));
         } else {
             throw new DukeException("Invalid command");
         }
@@ -139,6 +148,11 @@ public class Parser {
                 throw new DukeException("Your Todo name is blank");
             }
             texts.add(desc);
+            break;
+        }
+        case "P": {
+            String keyWord = splitter(input, " ").get(1);
+            texts.add(keyWord);
             break;
         }
         }
