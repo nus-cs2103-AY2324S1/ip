@@ -54,4 +54,9 @@ public class Ui {
     public static void showExitMessage() {
         Ui.respond("Bye. Hope to see you again soon!");
     }
+
+    /** Shows the loading error message when there is an error loading the data file. */
+    public static void showLoadingError() {
+        Ui.respond("There was an error loading the data file. Please check the file and try again.");
+    }
 }
