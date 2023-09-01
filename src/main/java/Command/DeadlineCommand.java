@@ -1,3 +1,9 @@
+package Command;
+import List.TaskList;
+import Ui.Ui;
+import FileStorage.FileStorage;
+import DukeException.DukeException;
+import Tasks.Deadline;
 
 public class DeadlineCommand extends Command{
     private String task;

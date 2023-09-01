@@ -1,8 +1,10 @@
-import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-import java.util.ArrayList;
+import Command.Command;
+import DukeException.DukeException;
+import FileStorage.FileStorage;
+import List.TaskList;
+import Parser.Parser;
+import Ui.Ui;
 
 public class Duke {
 
@@ -37,7 +39,7 @@ public class Duke {
                 userInterface.showLine();
                 Command c = Parser.parse(fullCommand);
                 c.excute(userList, userInterface, fileStorage);
-                isExit = c.isExit;
+                isExit = c.isExit();
             } catch (DukeException e) {
                 userInterface.showError(e.getMessage());
             } finally {
@@ -56,12 +58,12 @@ public class Duke {
        System.out.printf("What can I do for you?" + lineBreak);
 
        String message;
-       //ArrayList<Task> userList = new ArrayList<>();
+       //ArrayList<Tasks.Task> userList = new ArrayList<>();
        Scanner userInput = new Scanner(System.in);
        message = userInput.nextLine();
 
        while (!message.equalsIgnoreCase("bye")) {
-           Task task = new Task(message);
+           Tasks.Task task = new Tasks.Task(message);
            // Listing things out
            if (message.equalsIgnoreCase("list")) {
                System.out.println(lineBreak);
@@ -82,7 +84,7 @@ public class Duke {
                    System.out.println(lineBreak + "Nice! I've marked this task as done:");
                    System.out.println("  " + userList.get(taskIndex) + lineBreak);
                } else {
-                   System.out.println(lineBreak + "Invalid Task Number" + lineBreak);
+                   System.out.println(lineBreak + "Invalid Tasks.Task Number" + lineBreak);
                }
                task.notTask();
                task.isValid();
@@ -96,7 +98,7 @@ public class Duke {
                    System.out.println(lineBreak + "OK, I've marked this task as not done yet:");
                    System.out.println("  " + userList.get(taskIndex) + lineBreak);
                } else {
-                   System.out.println(lineBreak + "Invalid Task Number" + lineBreak);
+                   System.out.println(lineBreak + "Invalid Tasks.Task Number" + lineBreak);
                }
                task.notTask();
                task.isValid();
@@ -111,7 +113,7 @@ public class Duke {
                    System.out.println("Now you have " + userList.size() + " tasks in the list" + lineBreak);
                    task.notTask();
                    task.isValid();
-               } catch (DukeException e) {
+               } catch (DukeException.DukeException e) {
                    System.out.println(lineBreak + e.getMessage() + lineBreak);
                }
            }
@@ -121,9 +123,9 @@ public class Duke {
                    String info = message.substring(5);
                    if (info.isEmpty()) {
                        task.hasError();
-                       throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                       throw new DukeException.DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
                    }
-                   task = new Todo(info);
+                   task = new Tasks.Todo(info);
                    task.isValid();
                }
                if (message.startsWith("deadline")) {
@@ -131,14 +133,14 @@ public class Duke {
                    String[] split = info.split("/by ");
                    if (split.length != 2) {
                        task.hasError();
-                       throw new DukeException("☹ OOPS!!! The description of a deadline is invalid.");
+                       throw new DukeException.DukeException("☹ OOPS!!! The description of a deadline is invalid.");
                    }
                    try {
                        String deadDate = LocalDate.parse(split[1]).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-                       task = new Deadline(split[0], deadDate);
+                       task = new Tasks.Deadline(split[0], deadDate);
                        task.isValid();
                    } catch (DateTimeException e) {
-                       throw new DukeException("☹ OOPS!!! The description of a time must be in yyyy-mm-dd");
+                       throw new DukeException.DukeException("☹ OOPS!!! The description of a time must be in yyyy-mm-dd");
                    }
                }
                if (message.startsWith("event")) {
@@ -146,18 +148,18 @@ public class Duke {
                    String[] split = info.split("/from | /to ");
                    if (split.length != 3) {
                        task.hasError();
-                       throw new DukeException("☹ OOPS!!! The description of a event is invalid.");
+                       throw new DukeException.DukeException("☹ OOPS!!! The description of a event is invalid.");
                    }
                    try {
                        String startDate = LocalDate.parse(split[1]).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
                        String endDate = LocalDate.parse(split[2]).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-                       task = new Event(split[0], startDate, endDate);
+                       task = new Tasks.Event(split[0], startDate, endDate);
                        task.isValid();
                    } catch (DateTimeException e) {
-                       throw new DukeException("☹ OOPS!!! The description of a time must be in yyyy-mm-dd");
+                       throw new DukeException.DukeException("☹ OOPS!!! The description of a time must be in yyyy-mm-dd");
                    }
                }
-           } catch (DukeException e) {
+           } catch (DukeException.DukeException e) {
                System.out.printf(lineBreak + e.getMessage() + lineBreak);
            }
            if (!task.isItValid()) {
@@ -175,7 +177,7 @@ public class Duke {
        System.out.print(lineBreak + "Bye. Hope to see you again soon!" + lineBreak);
        try {
            fileStorage.write(userList);
-       } catch (DukeException e) {
+       } catch (DukeException.DukeException e) {
            System.out.println("Duke Writing Error");;
        }
        userInput.close();

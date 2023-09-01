@@ -1,3 +1,10 @@
+package Command;
+
+import List.TaskList;
+import Ui.Ui;
+import FileStorage.FileStorage;
+import DukeException.DukeException;
+import Tasks.Event;
 
 public class EventCommand extends Command{
     private String task;

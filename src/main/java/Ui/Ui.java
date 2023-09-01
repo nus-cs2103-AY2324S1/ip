@@ -1,4 +1,8 @@
-import com.sun.source.tree.BreakTree;
+package Ui;
+
+import DukeException.DukeException;
+import List.TaskList;
+import Tasks.Task;
 
 import java.util.Scanner;
 
@@ -19,7 +23,7 @@ public class Ui {
         System.out.println(lineBreak);
     }
     public void showLoadingError() {
-        System.out.println(lineBreak + "Not detected in data. New TaskList created" + lineBreak);
+        System.out.println(lineBreak + "Not detected in data. New List.TaskList created" + lineBreak);
     }
     public void showRequestForTextFile() {
         System.out.println(lineBreak + "Please Input the txt file you wish to access" + lineBreak);
@@ -63,7 +67,7 @@ public class Ui {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < userList.size(); i++) {
             int index = i + 1;
-            System.out.println(index + ". " + userList.get(i));
+            System.out.println(index + "." + userList.get(i));
         }
         //System.out.println(lineBreak);
     }
