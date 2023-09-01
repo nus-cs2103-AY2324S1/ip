@@ -1,8 +1,10 @@
 package duke;
 
 import duke.commands.Command;
+import duke.commands.CommandException;
 import duke.commands.CommandResult;
 import duke.storage.Storage;
+import duke.storage.StorageException;
 import duke.ui.TextUi;
 
 public class Duke {
@@ -17,7 +19,7 @@ public class Duke {
         try {
             tasks = storage.load();
             ui.say(String.format("Loaded existing tasks from %s", TASKS_CACHE_PATH));
-        } catch (DukeException e) {
+        } catch (StorageException e) {
             ui.say(String.format("%s. Initializing empty task list...", e.getMessage()));
             tasks = new TaskList();
         }
@@ -46,7 +48,7 @@ public class Duke {
                 }
 
                 ui.say(result.getResponse().toArray(new String[0]));
-            } catch (DukeException e) {
+            } catch (CommandException e) {
                 ui.say(e.getMessage());
             }
         }
