@@ -50,6 +50,13 @@ public class TaskList {
                 ToDo task = new ToDo(message.substring(5));
                 things.add(task);
                 storage.saveTasks(things);
+
+                // Provide feedback about the added task
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task: ");
+                System.out.println(things.get(things.size() - 1).toString());
+                System.out.println("Now you have " + things.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
             }
             // Add a deadline task
             else if (message.startsWith("deadline")) {
@@ -74,6 +81,13 @@ public class TaskList {
                 Deadline task = new Deadline(taskDescription, date);
                 things.add(task);
                 storage.saveTasks(things);
+
+                // Provide feedback about the added task
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task: ");
+                System.out.println(things.get(things.size() - 1).toString());
+                System.out.println("Now you have " + things.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
             }
             // Add an event task
             else if (message.startsWith("event")) {
@@ -97,19 +111,34 @@ public class TaskList {
                 Event task = new Event(taskDescription, fromDate, toDate);
                 things.add(task);
                 storage.saveTasks(things);
+
+                // Provide feedback about the added task
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task: ");
+                System.out.println(things.get(things.size() - 1).toString());
+                System.out.println("Now you have " + things.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            }
+            else if (message.startsWith("find")) {
+                String taskDescription = message.substring(5);
+                int count = 0;
+                System.out.println("____________________________________________________________");
+                System.out.println("Here are the matching tasks in your list: ");
+                for (int i = 0; i < things.size(); i++) {
+                    if (things.get(i).description.contains(taskDescription)) {
+                        count++;
+                        System.out.println(count + ". " + things.get(i).toString(""));
+                    }
+                }
+                if (count == 0) {
+                    System.out.println("There is no matching task.");
+                }
             }
             // check if the command is valid otherwise throw errors
             else {
                 // Invalid command
                 throw new MossException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-
-            // Provide feedback about the added task
-            System.out.println("____________________________________________________________");
-            System.out.println("Got it. I've added this task: ");
-            System.out.println(things.get(things.size() - 1).toString());
-            System.out.println("Now you have " + things.size() + " tasks in the list.");
-            System.out.println("____________________________________________________________");
         }
     }
 }
