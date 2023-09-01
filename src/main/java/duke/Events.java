@@ -1,7 +1,5 @@
 package duke;
 
-import duke.DateTime;
-
 public class Events extends Task {
 
     protected String start;
@@ -20,11 +18,13 @@ public class Events extends Task {
 
     @Override
     public String getSavingFormat() {
-        return "[E] | [" + getStatusIcon() + "] | " + description + " | " + start + " | " + end;
+        return "[E] | [" + getStatusIcon() + "] | "
+                + description + " | " + start + " | " + end;
     }
 
     @Override
     public String toString() {
-        return "[E][" + getStatusIcon() + "] " + description + " (from: " + dtStart + ", to: " + dtEnd + ")";
+        return "[E][" + getStatusIcon() + "] " + description
+                + " (from: " + dtStart + ", to: " + dtEnd + ")";
     }
 }

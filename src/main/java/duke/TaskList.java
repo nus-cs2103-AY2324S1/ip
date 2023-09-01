@@ -6,14 +6,16 @@ public class TaskList {
     protected ArrayList<Task> tasks = new ArrayList<>();
     protected int counter = 0;
 
-    public void mark(int i) { //need handling
+    public void mark(int i) {
         tasks.get(i-1).setDone();
-        System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(i-1).toString());
+        System.out.println("Nice! I've marked this task as done:\n  "
+                + tasks.get(i-1).toString());
     }
 
-    public void unmark(int i) { //need handling
+    public void unmark(int i) {
         tasks.get(i-1).setNotDone();
-        System.out.println("OK, I've marked this task as not done yet:\n  " + tasks.get(i-1).toString());
+        System.out.println("OK, I've marked this task as not done yet:\n  "
+                + tasks.get(i-1).toString());
     }
 
     public void list() {
@@ -31,14 +33,16 @@ public class TaskList {
         tasks.add(t);
         counter += 1;
         saveTask(t);
-        System.out.println("Got it. I've added this task:\n  " + t + "\nNow you have " + counter + " tasks in the list.");
+        System.out.println("Got it. I've added this task:\n  "
+                + t + "\nNow you have " + counter + " tasks in the list.");
     }
 
     public void removeTask(int index) {
         String temp = tasks.get(index-1).toString();
         tasks.remove(index-1);
         counter -= 1;
-        System.out.println("Noted. I've removed this task:\n" + temp + "\nNow you have " + counter + " tasks in the list.");
+        System.out.println("Noted. I've removed this task:\n"
+                + temp + "\nNow you have " + counter + " tasks in the list.");
     }
 
     public void saveTask(Task t) {

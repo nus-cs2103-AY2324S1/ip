@@ -1,7 +1,5 @@
 package duke;
 
-import duke.Task;
-
 public class ToDos extends Task {
 
     public ToDos(String description) {
@@ -12,6 +10,7 @@ public class ToDos extends Task {
     public String getSavingFormat() {
         return "[T] | [" + getStatusIcon() + "] | " + description;
     }
+
     @Override
     public String toString() {
         return "[T][" + getStatusIcon() + "] " + description;

@@ -11,8 +11,9 @@ public class DateTime {
     LocalDate ld;
     LocalTime lt;
 
-    public DateTime(String dt) {
+    public DateTime(String dt) throws DateTimeParseException {
         String[] splt = dt.split(" ");
+
         if (splt.length == 1) {
             this.ld = LocalDate.parse(splt[0], dateFormatter);
         } else if (splt.length == 2) {
@@ -20,7 +21,8 @@ public class DateTime {
             this.lt = LocalTime.parse(splt[1], timeFormatter);
         } else {
             throw new DateTimeParseException(
-                    "Sorry I cannot recognise your date and time! Please follow the format: yyyy/M/d HHmm", dt, 0);
+                    "Sorry I cannot recognise your date and time!"
+                            + " Please follow the format: yyyy/M/d HHmm", dt, 0);
         }
     }
 
@@ -36,6 +38,7 @@ public class DateTime {
     }
 
     public String toString(){
-        return getFormattedDate() + ((this.lt == null) ? "" : " " + getFormattedTime());
+        return getFormattedDate() +
+                ((this.lt == null) ? "" : " " + getFormattedTime());
     }
 }

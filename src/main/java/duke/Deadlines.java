@@ -1,7 +1,5 @@
 package duke;
 
-import duke.DateTime;
-
 public class Deadlines extends Task {
 
     protected String date;
@@ -15,11 +13,13 @@ public class Deadlines extends Task {
 
     @Override
     public String getSavingFormat() {
-        return "[D] | [" + getStatusIcon() + "] | " + description + " | " + date;
+        return "[D] | [" + getStatusIcon() + "] | "
+                + description + " | " + date;
     }
 
     @Override
     public String toString() {
-        return "[D][" + getStatusIcon() + "] " + description + " (by: " + dt + ")";
+        return "[D][" + getStatusIcon()
+                + "] " + description + " (by: " + dt + ")";
     }
 }
