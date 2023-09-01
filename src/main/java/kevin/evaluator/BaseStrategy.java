@@ -29,7 +29,7 @@ public abstract class BaseStrategy {
      * @param logger This is the Logger that handles System.out.println.
      * @param fileStorage This is the FileStorage that handles the storage in the local computer.
      * @param isInFile This is the boolean to show whether the task is in the local computer's file.
-     * @return Returns a boolean that determines the continuation of the evaluation
+     * @return Returns a boolean that determines the continuation of the evaluation.
      * @throws KevinException On the detection of errors.
      */
     public boolean evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {

@@ -11,11 +11,27 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * A class responsible for the logic for DEADLINE command.
+ */
 public class DeadlineStrategy extends BaseStrategy {
+    /**
+     * Constructor to initialize DeadlineStrategy.
+     * @param taskList This is the TaskList where the tasks are stored and operations are defined.
+     * @param arguments This is an ArrayList where all the needed arguments are stored.
+     */
     DeadlineStrategy(TaskList taskList, ArrayList<String> arguments) {
         super(taskList, arguments);
     }
 
+    /**
+     * Handles the logic of the DEADLINE command.
+     * @param logger This is the Logger that handles System.out.println.
+     * @param fileStorage This is the FileStorage that handles the storage in the local computer.
+     * @param isInFile This is the boolean to show whether the task is in the local computer's file.
+     * @return Returns a boolean that determines the continuation of the evaluation
+     * @throws KevinException On the detection of errors.
+     */
     @Override
     public boolean evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
         Boolean isDone = Boolean.getBoolean(this.arguments.get(0));
@@ -42,7 +58,7 @@ public class DeadlineStrategy extends BaseStrategy {
                 throw new KevinException("Ensure that the deadline is a valid date");
             }
 
-            Deadline newDeadline = taskList.addDeadline(isDone, name, deadlineDate);
+            taskList.addDeadline(isDone, name, deadlineDate);
         }
         return true;
     }
