@@ -105,6 +105,8 @@ public class Parser {
                     throw new DukeException("You don't have that many tasks");
                 }
             }
+        } else if (command.equals("FIND")) {
+            ui.find(tasks, input.substring(5));
         } else {
             throw new DukeException("OOPS! I don't understand this command");
         }
