@@ -1,6 +1,7 @@
 package duke.records;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import duke.parser.TaskParser;
 import duke.storage.SaveData;
@@ -63,6 +64,19 @@ public class ChatRecord {
      *
      * @return the string representation for the save file.
      */
+    public Optional<String> findMessage(String findWord) {
+        StringBuilder ret = new StringBuilder();
+        for (Task task : chatRecords) {
+            if (task.getName().contains(findWord)) {
+                ret.append(String.format("\t%s\n", task));
+            }
+        }
+        if (ret.length() <= 0) {
+            return Optional.empty();
+        }
+        return Optional.of(ret.toString().stripTrailing());
+    }
+
     public String toSave() {
         Task[] temp = new Task[chatRecords.size()];
         temp = chatRecords.toArray(temp);

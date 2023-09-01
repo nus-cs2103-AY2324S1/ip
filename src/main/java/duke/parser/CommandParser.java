@@ -8,6 +8,7 @@ import duke.commands.Command;
 import duke.commands.DeadlineCommand;
 import duke.commands.DeleteCommand;
 import duke.commands.EventCommand;
+import duke.commands.FindCommand;
 import duke.commands.InvalidCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
@@ -52,6 +53,8 @@ public class CommandParser {
             return new ListCommand();
         case ByeCommand.COMMAND_PHRASE:
             return new ByeCommand();
+        case FindCommand.COMMAND_PHRASE:
+            return new FindCommand(args.trim());
         case DeleteCommand.COMMAND_PHRASE:
             return new DeleteCommand(Integer.parseInt(args.trim()));
         case TodoCommand.COMMAND_PHRASE:
