@@ -435,14 +435,14 @@ public class Duke {
         try {
             int taskNumber = sc.nextInt();
             if (taskNumber > numOfTasks || taskNumber < 1) {
-                System.out.println("Request unsuccessful. (reason: invalid task number)");
+                System.out.println("Request unsuccessful (reason: invalid task number)");
                 return null;
             } else {
                 return taskNumber;
             }
         }
         catch (InputMismatchException e) {
-            System.out.println("Request unsuccessful. (reason: invalid input)");
+            System.out.println("Request unsuccessful (reason: invalid input)");
             return null;
         }
     }
