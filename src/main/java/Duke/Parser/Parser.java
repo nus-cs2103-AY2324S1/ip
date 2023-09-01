@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -63,7 +64,7 @@ public class Parser {
             case MARK: {
                 // check if is number
                 int index = Integer.parseInt(inputString.split(" ")[1]);
-                Task markedTask = taskList.markAsDone(index);
+                Optional<Task> markedTask = taskList.markAsDone(index);
 
                 printResult(inputCommand, markedTask, taskList);
                 canContinue = true;
@@ -71,15 +72,15 @@ public class Parser {
             }
             case UNMARK: {
                 int index = Integer.parseInt(inputString.split(" ")[1]);
-                Task unmarkedTask = taskList.markAsUnDone(index);
+                Optional<Task> unmarkedTask = taskList.markAsUnDone(index);
 
-                printResult(inputCommand, unmarkedTask, taskList);
+                printResult(inputCommand, (unmarkedTask), taskList);
                 canContinue = true;
                 break;
             }
             case DELETE: {
                 int index = Integer.parseInt(inputString.split(" ")[1]);
-                Task removedTask = taskList.removeFromList(index);
+                Optional<Task> removedTask = taskList.removeFromList(index);
 
                 printResult(inputCommand, removedTask, taskList);
                 canContinue = true;
@@ -99,7 +100,7 @@ public class Parser {
 
                 taskList.addToList(todoTask);
 
-                printResult(inputCommand, todoTask, taskList);
+                printResult(inputCommand, Optional.of(todoTask), taskList);
                 canContinue = true;
                 break;
             }
@@ -133,7 +134,7 @@ public class Parser {
 
                     taskList.addToList(deadlineTask);
 
-                    printResult(inputCommand, deadlineTask, taskList);
+                    printResult(inputCommand, Optional.of(deadlineTask), taskList);
                 } catch (DateTimeParseException e) {
                     throw new DukeException(INVALID_DATE_FORMAT);
                 }
@@ -184,14 +185,14 @@ public class Parser {
 
                 taskList.addToList(eventTask);
 
-                printResult(inputCommand, eventTask, taskList);
+                printResult(inputCommand, Optional.of(eventTask), taskList);
                 canContinue = true;
                 break;
             }
             case FIND: {
                 String searchString = inputString.replace("find ", "");
 
-                ArrayList<Task> filtered = taskList.findTasksByName(searchString);
+                ArrayList<Optional<Task>> filtered = taskList.findTasksByName(searchString);
 
                 printResult(inputCommand, null, new TaskList(filtered));
                 canContinue = true;

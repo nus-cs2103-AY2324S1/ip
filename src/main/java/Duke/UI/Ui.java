@@ -6,6 +6,7 @@ import Duke.Tasks.Commands;
 import Duke.Tasks.Task;
 import Duke.Tasks.TaskList;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Ui {
@@ -63,25 +64,29 @@ public class Ui {
      *
      * @param command
      */
-    public static void printResult(Commands command, Task task, TaskList taskList) {
+    public static void printResult(Commands command, Optional<Task> task, TaskList taskList) {
         switch (command) {
             case TODO:
             case DEADLINE:
             case EVENT: {
-                System.out.println("\uD83D\uDE0A I've added a new task: " + task.toString());
-                System.out.println("Now you have " + taskList.getSize() + " tasks!");
+                task.ifPresent(t -> {
+                    System.out.println("\uD83D\uDE0A I've added a new task: " + t.toString());
+                    System.out.println("Now you have " + taskList.getSize() + " tasks!");
+                });
                 break;
             }
             case MARK: {
-                System.out.println("Nice! I've marked this task as done: \n    " + task.toString());
+                task.ifPresent(t -> System.out.println("Nice! I've marked this task as done: \n    " + t.toString()));
+
                 break;
             }
             case UNMARK: {
-                System.out.println("Nice! I've marked this task as undone: \n    " + task.toString());
+                task.ifPresent(t -> System.out.println("Nice! I've marked this task as undone: \n    " + t.toString()));
+
                 break;
             }
             case DELETE: {
-                System.out.println("\uD83D\uDE0A I've removed this task: " + task.toString());
+                task.ifPresent(t -> System.out.println("\uD83D\uDE0A I've removed this task: " + t.toString()));
                 break;
             }
             case LIST: {
