@@ -7,11 +7,8 @@ import java.util.Scanner;
 //The user input will be parsed to extract the date and time of the events and deadlines
 public class Duke {
     public static void main(String[] args) {
-        String name = "Harry Potter";
-        String question = "Introducing the Wizarding World Organizer: Your Trusted Guide" +
-                " to Efficient & Effective Magical Planning";
-        System.out.println("Hello muggle! I'm " + name + "\n" + question);
-
+        Ui ui = new Ui();
+        ui.printHello();
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
         List<Task> tasks;
@@ -139,7 +136,7 @@ public class Duke {
                 str = sc.nextLine();
             }
             Task.saveTasks("src/data/Duke.txt", tasks);
-            System.out.println("\t" + "Expelliarmus! Hope to see you again muggle! :D");
+            ui.printBye();
         } catch (java.time.format.DateTimeParseException e) {
             //detect inputs that don't follow the yyyy-MM-dd HHmm format
             System.out.println("I don't understand what that means D:" +
