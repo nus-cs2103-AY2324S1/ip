@@ -1,8 +1,8 @@
-package data;
+package haste.data;
 
-import exceptions.EmptyTaskException;
-import exceptions.InvalidCommand;
-import tasks.Task;
+import haste.exceptions.EmptyTaskException;
+import haste.exceptions.InvalidCommand;
+import haste.tasks.Task;
 
 import java.util.ArrayList;
 

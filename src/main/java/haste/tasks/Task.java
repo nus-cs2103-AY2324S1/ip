@@ -1,4 +1,4 @@
-package tasks;
+package haste.tasks;
 
 public abstract class Task {
     protected boolean isComplete;

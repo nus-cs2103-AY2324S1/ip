@@ -1,9 +1,11 @@
-package ui;
+package haste.ui;
 
-import data.TaskList;
-import exceptions.EmptyTaskException;
-import exceptions.InvalidCommand;
-import tasks.Task;
+
+
+import haste.data.TaskList;
+import haste.exceptions.EmptyTaskException;
+import haste.exceptions.InvalidCommand;
+import haste.tasks.Task;
 
 import static java.lang.Integer.parseInt;
 

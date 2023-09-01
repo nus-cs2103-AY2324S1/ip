@@ -1,12 +1,12 @@
-package commands;
+package haste.commands;
 
-import exceptions.EmptyTaskException;
-import exceptions.InvalidCommand;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.ToDo;
-import tasks.Task;
-import ui.Ui;
+import haste.exceptions.EmptyTaskException;
+import haste.exceptions.InvalidCommand;
+import haste.tasks.Deadline;
+import haste.tasks.Event;
+import haste.tasks.ToDo;
+import haste.tasks.Task;
+import haste.ui.Ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,11 +22,24 @@ public class Parser {
             // print list
             ui.printList();
         } else if (cmd.startsWith("mark")) {
-            ui.mark(cmd);
+            try {
+                ui.mark(cmd);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("task does not exist");
+            }
+
         } else if (cmd.startsWith("unmark")) {
-            ui.unmark(cmd);
+            try {
+                ui.unmark(cmd);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("task does not exist");
+            }
         } else if (cmd.startsWith("delete")) {
-            ui.delete(cmd);
+            try {
+                ui.delete(cmd);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("task does not exist");
+            }
         } else {
             // add task to list
             try {

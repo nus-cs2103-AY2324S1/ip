@@ -1,4 +1,4 @@
-package exceptions;
+package haste.exceptions;
 
 public class EmptyTaskException extends Exception {
     public EmptyTaskException(String task) {

@@ -1,4 +1,4 @@
-package exceptions;
+package haste.exceptions;
 
 public class InvalidCommand extends Exception {
     public InvalidCommand(String cmd) {

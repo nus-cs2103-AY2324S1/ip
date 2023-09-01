@@ -1,6 +1,8 @@
-import commands.Parser;
-import data.Storage;
-import ui.Ui;
+package haste;
+
+import haste.commands.Parser;
+import haste.data.Storage;
+import haste.ui.Ui;
 
 import java.util.Scanner;
 

@@ -1,7 +1,7 @@
-package tasks;
+package haste.tasks;
 
-import commands.Parser;
-import exceptions.EmptyTaskException;
+import haste.commands.Parser;
+import haste.exceptions.EmptyTaskException;
 
 import java.time.LocalDateTime;
 import java.util.regex.Matcher;

@@ -1,6 +1,6 @@
-package tasks;
+package haste.tasks;
 
-import exceptions.EmptyTaskException;
+import haste.exceptions.EmptyTaskException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

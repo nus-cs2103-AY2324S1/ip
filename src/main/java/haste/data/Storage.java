@@ -1,8 +1,8 @@
-package data;
+package haste.data;
 
-import commands.Parser;
-import tasks.Task;
-import ui.Ui;
+import haste.commands.Parser;
+import haste.tasks.Task;
+import haste.ui.Ui;
 
 import java.io.File;
 import java.io.FileWriter;
