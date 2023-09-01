@@ -134,6 +134,10 @@ public class Fishron {
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("No saved tasks found.");
+        } catch (FishronException e) {
+            System.out.println("____________________________________________________________");
+            System.out.println(e.getMessage());
+            System.out.println("____________________________________________________________");
         }
     }
 
@@ -155,19 +159,19 @@ public class Fishron {
                 if (parts.length < 2) {
                     throw new FishronException("☹ OOPS!!! The description of a todo cannot be empty.");
                 }
-                chatBot.addTask(new ToDo(parts[1]));
+                chatBot.addTask(new ToDo(parts[1].trim()));
             } else if (input.toLowerCase().startsWith("deadline")) {
                 String[] parts = input.split("/by");
-                if (parts.length != 2 || parts[1].isEmpty()) {
+                if (parts.length != 2 || parts[1].trim().isEmpty()) {
                     throw new FishronException("☹ OOPS!!! Please provide a valid deadline format.");
                 }
-                chatBot.addTask(new Deadline(parts[0].split("deadline")[1], parts[1]));
+                chatBot.addTask(new Deadline(parts[0].split("deadline")[1].trim(), parts[1].trim()));
             } else if (input.toLowerCase().startsWith("event")) {
                 String[] parts = input.split("/from|/to");
-                if (parts.length != 3 || parts[1].isEmpty() || parts[2].isEmpty()) {
+                if (parts.length != 3 || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
                     throw new FishronException("☹ OOPS!!! Please provide a valid event format.");
                 }
-                chatBot.addTask(new Event(parts[0].split("event")[1], parts[1], parts[2]));
+                chatBot.addTask(new Event(parts[0].split("event")[1].trim(), parts[1].trim(), parts[2].trim()));
             } else if (input.equalsIgnoreCase("list")) {
                 chatBot.listTasks();
             } else if (input.toLowerCase().startsWith("mark")) {
