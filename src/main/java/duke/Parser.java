@@ -1,12 +1,18 @@
 package duke;
 
-import duke.Deadlines;
-import duke.Events;
-
 import java.time.format.DateTimeParseException;
 
+/**
+ * Provides functionality for parsing user inputs and executing corresponding commands.
+ */
 public abstract class Parser {
 
+    /**
+     * Parses the user input and dispatches corresponding commands.
+     *
+     * @param splt The split of user input as an array of strings.
+     * @param keyword The keyword/command from the user input.
+     */
     public static void parseInput(String[] splt, String keyword) {
         switch (keyword) {
         case "list":
@@ -32,7 +38,7 @@ public abstract class Parser {
                     if (description.isEmpty()) {
                         throw new IllegalArgumentException("☹ OOPS!!! The description of a todo cannot be empty.");
                     }
-                    Taskmanager.addTask(new ToDos(description));
+                    Taskmanager.addTask(new Todos(description));
                     break;
                 }
                 case "deadline": {

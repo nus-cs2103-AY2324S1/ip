@@ -2,20 +2,36 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks. Supports operations to add, remove, mark, unmark, list, save, and read tasks.
+ */
 public class TaskList {
+    /** An ArrayList storing all the Task instances */
     protected ArrayList<Task> tasks = new ArrayList<>();
+    /** Parameter keeping track of the number of Task instances in the Arraylist */
     protected int counter = 0;
 
+    /**
+     * Marks a task as done based on its index.
+     * @param i The index (1-based) of the task to be marked as done.
+     */
     public void mark(int i) { //need handling
         tasks.get(i-1).setDone();
         System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(i-1).toString());
     }
 
+    /**
+     * Marks a task as not done based on its index.
+     * @param i The index (1-based) of the task to be marked as not done.
+     */
     public void unmark(int i) { //need handling
         tasks.get(i-1).setNotDone();
         System.out.println("OK, I've marked this task as not done yet:\n  " + tasks.get(i-1).toString());
     }
 
+    /**
+     * Lists all the tasks currently in the TaskList.
+     */
     public void list() {
         if (counter == 0) {
             System.out.println("There is no task in your list yet.");
@@ -27,6 +43,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a task to the TaskList.
+     * @param t The task to be added.
+     */
     public void addTask(Task t) {
         tasks.add(t);
         counter += 1;
@@ -34,6 +54,10 @@ public class TaskList {
         System.out.println("Got it. I've added this task:\n  " + t + "\nNow you have " + counter + " tasks in the list.");
     }
 
+    /**
+     * Removes a task from the TaskList based on its index.
+     * @param index The index (1-based) of the task to be removed.
+     */
     public void removeTask(int index) {
         String temp = tasks.get(index-1).toString();
         tasks.remove(index-1);
@@ -41,10 +65,18 @@ public class TaskList {
         System.out.println("Noted. I've removed this task:\n" + temp + "\nNow you have " + counter + " tasks in the list.");
     }
 
+    /**
+     * Saves a task to the storage.
+     * @param t The task to be saved.
+     */
     public void saveTask(Task t) {
         Taskmanager.storage.write(t.getSavingFormat());
     }
 
+    /**
+     * Reads a task from the storage based on a key.
+     * @param key The keyword to search for within the storage.
+     */
     public void readTask(String key) {
         if (Taskmanager.storage == null) {
             System.out.println("There is no previously saved task!");
