@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Storage {
-    protected static void addToList(Path path, String type, String desc) {
+    public static void addToList(Path path, String type, String desc) {
         String line = type + "," + 0 + "," + desc + "\n";
         try {
             Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
@@ -26,7 +26,7 @@ public class Storage {
         }
     }
 
-    protected static void addToList(Path path, String type, String desc, LocalDate deadline) {
+    public static void addToList(Path path, String type, String desc, LocalDate deadline) {
         String line = type + "," + 0 + "," + desc + "," + deadline + "\n";
         try {
             Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
@@ -35,7 +35,7 @@ public class Storage {
         }
     }
 
-    protected static void addToList(Path path, String type, String desc, LocalDate from, LocalDate to) {
+    public static void addToList(Path path, String type, String desc, LocalDate from, LocalDate to) {
         String line = type + "," + 0 + "," + desc + "," + from + "," + to + "\n";
         try {
             Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
@@ -43,7 +43,7 @@ public class Storage {
             System.out.println(e);
         }
     }
-    protected static ArrayList<Task> getLastList() {
+    public static ArrayList<Task> getLastList() {
         ArrayList<Task> finalList = new ArrayList<>();
 
         try {
@@ -87,14 +87,14 @@ public class Storage {
 
     }
 
-    protected static void changeLineStatus(Path path, String status, int lineToChange) {
+    public static void changeLineStatus(Path path, String status, int lineToChange) {
         try {
             List<String> lines = Files.readAllLines(path);
 
             if (lineToChange >= 0 && lineToChange < lines.size()) {
                 String[] newContent = lines.get(lineToChange).split(",");
                 newContent[1] = status;
-                lines.set(lineToChange, Arrays.stream(newContent).reduce("", (x, acc) -> x + acc));
+                lines.set(lineToChange, Arrays.stream(newContent).reduce("", (x, acc) -> x + "," + acc));
                 Files.write(path, lines);
             } else {
                 throw new IllegalArgumentException("Invalid line number to change.");
@@ -104,7 +104,7 @@ public class Storage {
         }
     }
 
-    protected static void deleteLine(Path path, int lineToDelete) {
+    public static void deleteLine(Path path, int lineToDelete) {
         try {
             List<String> lines = Files.readAllLines(path);
 

@@ -72,7 +72,6 @@ public class Barbie {
 
                                 case UNMARK:
                                     // Editing variables
-                                    taskNumber = Integer.parseInt(desc);
                                     list.get(taskNumber).unmark();
                                     Storage.changeLineStatus(path, "2", taskNumber);
 
