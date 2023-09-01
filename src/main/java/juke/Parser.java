@@ -10,6 +10,13 @@ public class Parser {
     public Parser(Juke juke) {
         this.juke = juke;
     }
+
+    /**
+     * Parses input and calls the appropriate Juke function.
+     *
+     * @param input Input from the user.
+     * @throws JukeError If there was a problem parsing the input.
+     */
     void parse(String input) throws JukeError {
         if (input.equalsIgnoreCase("bye")) {
             juke.closeBot();

@@ -73,11 +73,10 @@ public class Juke {
     }
 
     public void run() {
-        Scanner scanner = new Scanner(System.in);
         ui.printStart();
         while (!isEnded) {
             try {
-                parser.parse(scanner.nextLine());
+                parser.parse(ui.readInput());
             } catch (JukeError error) {
                 ui.printError(error);
             }

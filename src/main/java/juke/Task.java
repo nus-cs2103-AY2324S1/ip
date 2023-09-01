@@ -14,14 +14,24 @@ public class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Gets the appropriate icon based on whether the task is done.
+     * @return [X] if task is done, [ ] if task is not done.
+     */
     public String getStatusIcon() {
         return (isDone ? "[X] " : "[ ] "); // mark done task with X
     }
 
+    /**
+     * Marks task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Marks task as not done.
+     */
     public void markAsUndone() {
         this.isDone = false;
     }
@@ -31,8 +41,11 @@ public class Task {
         return this.getStatusIcon() + desc;
     }
 
+    /**
+     * Generates string to be stored as data in Storage.
+     * @return String which stores all necessary attributes in the task.
+     */
     public String toData() {
-        String done = isDone ? "1" : "0";
         return "|" + isDone + "|" + desc;
     }
 }

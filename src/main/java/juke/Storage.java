@@ -18,10 +18,20 @@ public class Storage {
         }
     }
 
+    /**
+     * Checks if task in data has been completed.
+     * @param isDone isDone portion of the task in data.
+     * @return Whether the task has been completed.
+     */
     private boolean parseIsDone(String isDone) {
         return isDone.equals("true");
     }
 
+    /**
+     * Parses one task which was stored in the savefile.
+     * @param data The data string representation of the task.
+     * @return The parsed Task object.
+     */
     private Task parseOne(String data) {
         String[] parts = data.split("\\|");
         if (Objects.equals(parts[0], "T")) {
@@ -37,6 +47,11 @@ public class Storage {
         return null;
     }
 
+    /**
+     * Loads all tasks from the savefile.
+     * @return An ArrayList of Tasks which was loaded from the savefile.
+     * @throws JukeError If there was an error parsing any of the data.
+     */
     public ArrayList<Task> load() throws JukeError {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -53,6 +68,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Writes a task to the savefile.
+     * @param task The task to be written.
+     * @throws JukeError If the writing operation failed.
+     */
     public void write(Task task) throws JukeError {
         try {
             FileWriter writer = new FileWriter(savefile, true);
@@ -64,6 +84,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates all tasks in the savefile, useful when a task is deleted or modified.
+     * @param tasks An ArrayList of all tasks to be written.
+     */
     public void updateAll(ArrayList<Task> tasks) {
         try {
             FileWriter deleter = new FileWriter(savefile, false);
