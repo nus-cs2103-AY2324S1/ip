@@ -14,7 +14,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * A chatbot to keep track of your tasks.
+ * The Duke program implements a
+ * chatbot to keep track of your tasks.
  *
  * @author Andrew Daniel Janong
  */
@@ -32,9 +33,10 @@ public class Duke {
 
     /**
      * Adds a task to the task list and sends a message of the task added.
-     * A task can be a task.ToDo, task.Deadline, or task.Event.
-     * @param command
-     * @param taskInfo
+     * A task can be a ToDo, Deadline, or Event.
+     *
+     * @param command Task command of input.
+     * @param taskInfo Info regarding the task.
      */
     private static void addTask(Command command, String taskInfo) throws DukeInvalidDateException {
         Task newTask;
@@ -56,8 +58,9 @@ public class Duke {
     /**
      * Edits a task in the list.
      * Editing a task can be deleting, marking, or unmarking a task.
-     * @param command
-     * @param taskIndex
+     *
+     * @param command Edit command of input.
+     * @param taskIndex Index of task to edit.
      */
     private static void editTask (Command command, int taskIndex) {
 
@@ -73,7 +76,8 @@ public class Duke {
     /**
      * Executes single commands.
      * Single commands consists of: Listing all tasks, Printing goodbye message.
-     * @param command
+     *
+     * @param command Single command of input.
      */
     private static void executeSingleCommand(Command command) {
         if (command == Command.LIST) {
@@ -85,9 +89,11 @@ public class Duke {
 
     /**
      * Runs the command from the user input.
-     * @param inputs
+     *
+     * @param command Command of the user input.
+     * @param inputs Arguments of the input.
      * @return A boolean to stop the chatbot on "bye" command
-     * @throws DukeException
+     * @throws DukeException Error when executing the command.
      */
     private static boolean runCommand(Command command, String[] inputs) throws DukeException {
         if (command == Command.BYE) {

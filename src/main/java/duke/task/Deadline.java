@@ -7,20 +7,20 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents a task that needs to be done before a specific date/time.
+ * A class which represents
+ * a task that needs to be done before a specific date.
  *
  * @author Andrew Daniel Janong
  */
 public class Deadline extends Task {
-    /**
-     * The end time or due date of the deadline.
-     */
+    /** Due date of the deadline */
     protected LocalDate endTime;
 
     /**
-     * A public constructor for the task.Deadline.
-     * @param description
-     * @param endTime
+     * Creates a Deadline object.
+     *
+     * @param description Description of the task.
+     * @param endTime Due date of the deadline.
      */
     public Deadline(String description, String endTime) throws DukeInvalidDateException{
         super(description);
@@ -38,9 +38,10 @@ public class Deadline extends Task {
     }
 
     /**
-     * A string representation of a task.Deadline.
-     * Uses an extra [D] to represent a task.Deadline and the due date.
-     * @return the string representation of the task.Deadline
+     * Returns s string representation of a Deadline.
+     * Uses an extra [D] to represent a Deadline and the due date.
+     *
+     * @return the string representation of the Deadline
      */
     @Override
     public String toString() {

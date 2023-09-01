@@ -1,25 +1,22 @@
 package duke.task;
 
 /**
- * Represents a task.
+ * An abstract class which represents a task for Duke chatbot.
  *
  * @author Andrew Daniel Janong
  */
 public abstract class Task {
-    /**
-     * The task name or description.
-     */
+    /** Task name or description */
     protected String description;
 
-    /**
-     * Marks whether the task is done or not.
-     */
+    /** Status or progress of a task (done or not done) */
     protected boolean isDone;
 
     /**
-     * A public constructor for the task.
+     * Creates a Task object.
      * A task is set to be not done when first constructed.
-     * @param description
+     *
+     * @param description Description of the task.
      */
     public Task(String description) {
         this.description = description;
@@ -41,8 +38,10 @@ public abstract class Task {
     }
 
     /**
-     * Gets the icon that shows whether the task is done or not.
-     * @return The icon representing the progress of the task ([X] for done, [ ] for not done)
+     * Gets the icon that represents
+     * the status of the task ([X] for done, [ ] for not done).
+     *
+     * @return The icon representing the progress of the task.
      */
     public String getStatusIcon() {
         if (this.isDone) {
@@ -53,8 +52,9 @@ public abstract class Task {
     }
 
     /**
-     * The representation of the task to be used in the data.
-     * @return Data representation of the task
+     * Returns the representation of the task in data format.
+     *
+     * @return Data representation of the task.
      */
     public String toDataRepresentation() {
         if (this.isDone) {
@@ -65,7 +65,8 @@ public abstract class Task {
     }
 
     /**
-     * Shows the string representation of a task by its status and name.
+     * Returns the String representation of a task by its status and description.
+     *
      * @return the String representing the task
      */
     @Override

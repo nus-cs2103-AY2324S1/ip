@@ -7,26 +7,24 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents a task that starts at a specific date/time and ends at a specific date/time.
+ * A class which represents
+ * a task that starts and ends at a specific date.
  *
  * @author Andrew Daniel Janong
  */
 public class Event extends Task {
-    /**
-     * The start time of the event.
-     */
+    /** Start time of the event */
     protected LocalDate startTime;
 
-    /**
-     * The end time of the event.
-     */
+    /** End time of the event */
     protected LocalDate endTime;
 
     /**
-     * A public constructor for the task.Event.
-     * @param description
-     * @param startTime
-     * @param endTime
+     * Creates an Event object.
+     *
+     * @param description Description of the task.
+     * @param startTime Start time of the task.
+     * @param endTime End time of the task.
      */
     public Event(String description, String startTime, String endTime) throws  DukeInvalidDateException {
         super(description);
@@ -46,9 +44,10 @@ public class Event extends Task {
 
 
     /**
-     * A string representation of a task.Event.
-     * Uses an extra [E] to represent a task.Event, start time, and end time.
-     * @return the string representation of the task.Event
+     * A string representation of an Event.
+     * Uses an extra [E] to represent a Event, start time, and end time.
+     *
+     * @return the string representation of the Event.
      */
     @Override
     public String toString() {
