@@ -25,6 +25,7 @@ public class Storage {
         FileWriter writer = new FileWriter(storage);
         for (String obj : list) {
             writer.write(obj);
+            writer.write("\n");
         }
         writer.close();
     }

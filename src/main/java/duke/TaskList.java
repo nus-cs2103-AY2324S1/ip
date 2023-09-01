@@ -40,8 +40,14 @@ public class TaskList {
             return false;
         }
         taskList.remove(index);
+        counter -= 1;
         writeToDisk();
         return true;
+    }
+    public void clear() throws IOException {
+        taskList.clear();
+        counter = -1;
+        writeToDisk();
     }
     public boolean setMark(int targetIndex, boolean isToBeMarked) throws IOException {
         if (targetIndex > counter || targetIndex < 0) {
@@ -59,10 +65,10 @@ public class TaskList {
     private ArrayList<Task> stringListToTaskList(ArrayList<String> stringArrayList) throws CorruptedFileException {
         ArrayList<Task> res = new ArrayList<>();
         for (String s : stringArrayList) {
-            if (s.length() >= 1) {
+            String[] temp = s.split(Task.DIVIDER);
+            if (temp.length <= 1) {
                 throw new CorruptedFileException();
             }
-            String[] temp = s.split(Task.DIVIDER);
             boolean completeStatus;
             if (temp[1].equals("TRUE")) {
                 completeStatus = true;
@@ -96,6 +102,16 @@ public class TaskList {
         ArrayList<String> res = new ArrayList<>();
         for (Task s : taskArrayList) {
             res.add(s.fileFormat());
+        }
+        return res;
+    }
+
+    public ArrayList<Task> findTasksMatching(String keyword) {
+        ArrayList<Task> res = new ArrayList<>();
+        for (Task t: taskList) {
+            if (t.toString().contains(keyword)){
+                res.add(t);
+            }
         }
         return res;
     }
