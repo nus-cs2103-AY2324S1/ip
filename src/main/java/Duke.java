@@ -9,10 +9,10 @@ public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println(horizontalLine +
-                "\nHello i'm ChatterBuddy\n" +
-                "Is there anything I can assist you with today?\n" +
-                horizontalLine);
+        System.out.println(horizontalLine
+                + "\nHello i'm ChatterBuddy\n"
+                + "Is there anything I can assist you with today?\n"
+                + horizontalLine);
 
         ArrayList<Task> tasks = new ArrayList<>();
         String userInput;
@@ -85,7 +85,7 @@ public class Duke {
                         throw new MissingInputException("The description of a todo cannot be empty!");
                     }
                     String description = userInput.substring(5).trim();
-                    Task task = new ToDo(description);
+                    ToDo task = new ToDo(description);
                     tasks.add(task);
                     System.out.println("I've added this task:\n  " + task + "\nYou have a total of " + tasks.size() + (tasks.size() == 1 ? " task.\n" : " tasks.\n") + horizontalLine);
 
@@ -98,9 +98,13 @@ public class Duke {
                         String[] parts = fullStr.split("/by");
                         String description = parts[0].trim();
                         String by = parts[1].trim();
-                        Task task = new Deadline(description, by);
-                        tasks.add(task);
-                        System.out.println("I've added this task:\n  " + task + "\nYou have a total of " + tasks.size() + (tasks.size() == 1 ? " task.\n" : " tasks.\n") + horizontalLine);
+                        Deadline task = new Deadline(description, by);
+
+                        if (task.dateTime != null) {
+                            tasks.add(task);
+                            System.out.println("I've added this task:\n  " + task + "\nYou have a total of " + tasks.size() + (tasks.size() == 1 ? " task.\n" : " tasks.\n") + horizontalLine);
+                        }
+
                     } catch (ArrayIndexOutOfBoundsException e) {
                         throw new MissingInputException("You are missing one or some of these inputs - description/ by.");
                     }
@@ -117,9 +121,13 @@ public class Duke {
                         String[] toFrom = partialStr[1].split("/to");
                         String from = toFrom[0].trim();
                         String to = toFrom[1].trim();
-                        Task task = new Event(description, from, to);
-                        tasks.add(task);
-                        System.out.println("I've added this task:\n  " + task + "\nYou have a total of " + tasks.size() + (tasks.size() == 1 ? " task.\n" : " tasks.\n") + horizontalLine);
+                        Event task = new Event(description, from, to);
+
+                        if (task.fromDateTime != null && task.toDateTime != null) {
+                            tasks.add(task);
+                            System.out.println("I've added this task:\n  " + task + "\nYou have a total of " + tasks.size() + (tasks.size() == 1 ? " task.\n" : " tasks.\n") + horizontalLine);
+                        }
+
                     } catch (ArrayIndexOutOfBoundsException e) {
                         throw new MissingInputException("You are missing one or some of these inputs - description/ from/ to.");
                     }
