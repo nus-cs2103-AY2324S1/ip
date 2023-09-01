@@ -46,7 +46,7 @@ public class Storage {
      * Retrieves data from the storage file and converts it into an Array list of tasks.
      *
      * @return An ArrayList of Task objects loaded from the storage file.
-     * @throws DukeException If there's an issue during data retrieval.
+     * @throws DukeException If there are any issues during data retrieval.
      */
     public ArrayList<Task> getData() throws DukeException {
         try {
