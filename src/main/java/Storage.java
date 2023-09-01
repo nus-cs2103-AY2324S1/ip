@@ -3,17 +3,16 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileManager {
+public class Storage {
     private final String pathName;
-    ArrayList<Task> taskList = new ArrayList<>();
+    private TaskList tasks = new TaskList();
 
-    public FileManager(String pathName) {
+    public Storage(String pathName) {
         this.pathName = pathName;
     }
-    public ArrayList<Task> loadFile() throws ChatException{
+    public TaskList loadFile() throws ChatException{
         try {
             File f = new File(this.pathName);
             if (!f.exists()) {
@@ -28,21 +27,21 @@ public class FileManager {
                 switch (pastTaskDetails[0]) {
                     case "T":
                         pastTask = new Task(pastTaskDetails[2]);
-                        taskList.add(pastTask);
+                        tasks.addTask(pastTask);
                         if (pastTaskDetails[1].equals("1")) {
                             pastTask.setTaskState(true);
                         }
                         break;
                     case "D":
                         pastTask = new Deadline(pastTaskDetails[2], LocalDate.parse(pastTaskDetails[3]));
-                        taskList.add(pastTask);
+                        tasks.addTask(pastTask);
                         if (pastTaskDetails[1].equals("1")) {
                             pastTask.setTaskState(true);
                         }
                         break;
                     case "E":
                         pastTask = new Event(pastTaskDetails[2], pastTaskDetails[3], pastTaskDetails[4]);
-                        taskList.add(pastTask);
+                        tasks.addTask(pastTask);
                         if (pastTaskDetails[1].equals("1")) {
                             pastTask.setTaskState(true);
                         }
@@ -51,18 +50,18 @@ public class FileManager {
                         throw new ChatException("☹ OOPS!!! The file is corrupted");
                 }
             }
-            return taskList;
+            return tasks;
         } catch (IOException e) {
             throw new ChatException("☹ OOPS!!! There are errors locating the file.");
         }
     }
-    public void saveList(ArrayList<Task> taskList) throws ChatException {
+    public void saveList(TaskList taskList) throws ChatException {
         try {
             FileWriter fw = new FileWriter(this.pathName);
             BufferedWriter bw = new BufferedWriter(fw);
 
-            for (Task task : taskList) {
-                bw.write(task.fileString());
+            for (int i = 0; i < taskList.getSize(); i++) {
+                bw.write(taskList.getTask(i + 1).fileString());
                 bw.newLine();
             }
             bw.close();
