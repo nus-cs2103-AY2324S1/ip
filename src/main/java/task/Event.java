@@ -5,11 +5,20 @@ import dukeutilities.TimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The Event class represents a task that occurs within a specified time range.
+ * It provides methods to create an Event task and generate file and display strings.
+ */
 public class Event extends Task {
     private String title;
     private TimeFormatter start;
     private TimeFormatter end;
 
+    /**
+     * Constructs an Event object with the specified response string, parsing title and time
+     *
+     * @param response The user's input representing the event task.
+     */
     public Event(String response) {
         super(false);
         int toTrim = response.indexOf(" ");
@@ -29,6 +38,11 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Generates a string representation of the Event task for storage in a file.
+     *
+     * @return A formatted string representing the Event task.
+     */
     @Override
     public String toFileString() {
         if (this.done == true) {
@@ -37,6 +51,12 @@ public class Event extends Task {
         return "D | 0 | " + this.title + " | " +  this.start.formatDate() + " - " + this.end.formatDate();
     }
 
+
+    /**
+     * Generates a string representation of the Event task for display purposes.
+     *
+     * @return A formatted string representing the Event task.
+     */
     @Override
     public String toString() {
         String s = String.format("| FROM: %s TO: %s |", start.formatDate(), end.formatDate());
