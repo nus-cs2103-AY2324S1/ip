@@ -1,6 +1,5 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -125,6 +124,7 @@ public class Duke {
             try {
                 Task newTask = Task.addTask(command, tokeniser);
                 taskList.add(newTask);
+                Task.numberOfTasks++;
             } catch (IllegalCommandException e) {
                 System.out.println(e.getMessage());
             } catch (IllegalDateTimeException e) {

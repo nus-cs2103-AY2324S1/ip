@@ -15,7 +15,6 @@ public abstract class Task implements Comparable<Task> {
         idTracker++;
         this.description = d;
         this.completed = false;
-        numberOfTasks++;
     }
 
     public static Task addTask(String command, Scanner tokeniser) throws IllegalCommandException,

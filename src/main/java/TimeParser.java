@@ -64,7 +64,7 @@ public class TimeParser {
         LocalDate to = LocalDate.parse(toDate,
                 DateTimeFormatter.ofPattern("MMM d yyyy"));
         if (to.isBefore(from)) {
-            throw new IllegalDateTimeException("to cannot be earlier than from");
+            throw new IllegalDateTimeException("to date cannot be earlier than from date");
         }
     }
     public static void checkValidEventTime(String fromTime, String toTime) throws IllegalDateTimeException {
@@ -73,7 +73,7 @@ public class TimeParser {
         LocalTime to = LocalTime.parse(toTime,
                 DateTimeFormatter.ofPattern("h:mm a"));
         if (to.isBefore(from)) {
-            throw new IllegalDateTimeException("end time cannot be before start time");
+            throw new IllegalDateTimeException("to time cannot be before from time");
         }
     }
 }
