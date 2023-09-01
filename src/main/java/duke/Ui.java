@@ -1,23 +1,23 @@
 package duke;
 
-import duke.task.Task;
-
 import java.util.Scanner;
 
+import duke.task.Task;
+
 public class Ui {
-    String logo = "    ___    _   ___   ________  __      ____      __________  ____  _   __\n"
-            + "   /   |  / | / / | / / __ \\ \\/ /     / __ \\    /_  __/ __ \\/ __ \\/ | / /\n"
-            + "  / /| | /  |/ /  |/ / / / /\\  /_____/ / / /_____/ / / /_/ / / / /  |/ / \n"
-            + " / ___ |/ /|  / /|  / /_/ / / /_____/ /_/ /_____/ / / _, _/ /_/ / /|  /  \n"
-            + "/_/  |_/_/ |_/_/ |_/\\____/ /_/      \\____/     /_/ /_/ |_|\\____/_/ |_/   \n";
-    String horizontalLine = "__________________________________________________________________________";
-    String byeMessage = "Bye. Hope to see you again soon!";
+    private String horizontalLine = "__________________________________________________________________________";
 
     public void showWelcome() {
+        String logo = "    ___    _   ___   ________  __      ____      __________  ____  _   __\n"
+                + "   /   |  / | / / | / / __ \\ \\/ /     / __ \\    /_  __/ __ \\/ __ \\/ | / /\n"
+                + "  / /| | /  |/ /  |/ / / / /\\  /_____/ / / /_____/ / / /_/ / / / /  |/ / \n"
+                + " / ___ |/ /|  / /|  / /_/ / / /_____/ /_/ /_____/ / / _, _/ /_/ / /|  /  \n"
+                + "/_/  |_/_/ |_/_/ |_/\\____/ /_/      \\____/     /_/ /_/ |_|\\____/_/ |_/   \n";
         System.out.println(horizontalLine + logo + "Hello! I'm ANNOY-O-TRON!\nWhat can I do for you?\n"
                 + horizontalLine);
     }
     public void showBye() {
+        String byeMessage = "Bye. Hope to see you again soon!";
         System.out.println(byeMessage);
     }
     public void showLine() {

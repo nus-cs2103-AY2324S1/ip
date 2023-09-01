@@ -1,12 +1,12 @@
 package duke;
 
-import duke.task.Task;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class TaskList implements Iterable<Task>{
+import duke.task.Task;
+
+public class TaskList implements Iterable<Task> {
     private List<Task> tasks;
 
     public TaskList() {
