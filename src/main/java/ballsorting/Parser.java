@@ -40,7 +40,7 @@ public class Parser {
                     taskList.printSearchList(input.substring(5));
                 }
             }
-            System.out.println(Ballsorter.line);
+            System.out.println(Ballsorter.LINE);
 
         } else {
 
