@@ -1,3 +1,4 @@
+package BenBen;
 class BenBenException extends RuntimeException {
     BenBenException(String message) {
         super(message);

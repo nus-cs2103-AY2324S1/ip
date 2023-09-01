@@ -1,3 +1,4 @@
+package BenBen;
 public class Ui {
     private static final String line ="_______________________________________\n";
 
