@@ -17,10 +17,12 @@ public class Task {
         return this.description;
     }
 
+    /** Marks task as done by setting isDone to true */
     public void mark() {
         this.isDone = true;
     }
 
+    /** Marks task as undone by setting isDone to false */
     public void unmark() {
         this.isDone = false;
     }

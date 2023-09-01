@@ -73,6 +73,7 @@ public class Ui {
                 "\n" + dottedLine);
     }
 
+
     public void printSearchList(ArrayList<Task> arr) {
         System.out.println(dottedLine +
                 "Here are the matching tasks in your list:");

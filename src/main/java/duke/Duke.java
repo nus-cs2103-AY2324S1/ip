@@ -64,7 +64,7 @@ public class Duke {
                     break;
                 }
                 case "todo": {
-                    Task task = this.tasklist.addTodo(parser.getTodoDescription(input));
+                    Task task = this.tasklist.addToDo(parser.getTodoDescription(input));
                     this.ui.printAddedToListMessage(task, this.tasklist.getTaskList().size());
                     this.storage.appendToFile(task.saveString());
                     break;
@@ -92,7 +92,6 @@ public class Duke {
                     ui.printBotErrorMsg();
                 }
                 }
-
             } catch (DukeException e) {
                 ui.printBotMessage(e.toString());
             } catch (IOException e) {
@@ -103,5 +102,4 @@ public class Duke {
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
     }
-
 }

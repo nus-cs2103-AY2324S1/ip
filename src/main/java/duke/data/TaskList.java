@@ -23,6 +23,13 @@ public class TaskList {
         return this.tasklist;
     }
 
+    /**
+     * Marks a Task in the TaskList
+     * Returns the Task marked.
+     *
+     * @param input The number of the Task to be marked.
+     * @return The marked Task.
+     */
     public Task markTask(int input) throws DukeException {
         if (input < 1 || (input + 1) > tasklist.size()) {
             throw new DukeException("☹ OOPS!!! The task number is invalid.");
@@ -32,6 +39,13 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Unmarks a Task in the TaskList
+     * Returns the Task unmarked.
+     *
+     * @param input The number of the Task to be unmarked.
+     * @return The unmarked Task.
+     */
     public Task unmarkTask(int input) throws DukeException {
         if (input < 1 || (input + 1) > tasklist.size()) {
             throw new DukeException("☹ OOPS!!! The task number is invalid.");
@@ -42,6 +56,13 @@ public class TaskList {
     }
 
 
+    /**
+     * Deletes a Task from the TaskList.
+     * Returns the Task deleted.
+     *
+     * @param input The number of the Task to be deleted.
+     * @return The deleted Task.
+     */
     public Task deleteTask(int input) throws DukeException {
         if (input < 1 || input + 1 > tasklist.size()) {
             throw new DukeException("☹ OOPS!!! The task number is invalid.");
@@ -51,18 +72,39 @@ public class TaskList {
         return task;
     }
 
-    public Task addTodo(String description) {
+    /**
+     * Adds a new ToDo Task to the TaskList.
+     * Returns the ToDo Task added.
+     *
+     * @param description Description of the Task to be added.
+     * @return The newly created ToDo Task.
+     */
+    public Task addToDo(String description) {
         Task newTask = new ToDo(description);
         tasklist.add(newTask);
         return newTask;
     }
 
+    /**
+     * Adds a new Deadline Task to the TaskList.
+     * Returns the Deadline Task added.
+     *
+     * @param description Description of the Task to be added.
+     * @param deadline The deadline of the Deadline Task.
+     * @return The newly created Deadline Task.
+     */
     public Task addDeadline(String description, String deadline) {
         Task newTask = new Deadline(description, deadline);
         tasklist.add(newTask);
         return newTask;
     }
 
+    /**
+     * Searches the Tasklist for tasks with a specific description.
+     *
+     * @param description Description of the Tasks to be found.
+     * @return A new ArrayList of the Tasks found in the search.
+     */
     public ArrayList<Task> searchTasks(String description) {
         ArrayList<Task> result = new ArrayList<>();
         for (Task t : this.tasklist) {
@@ -73,6 +115,16 @@ public class TaskList {
         return result;
     }
 
+
+    /**
+     * Adds a new Event Task to the TaskList.
+     * Returns the Event Task added.
+     *
+     * @param description Description of the Task to be added.
+     * @param from The start time of the Event.
+     * @param to The end time of the Event.
+     * @return The newly created Event Task.
+     */
     public Task addEvent(String description, String from, String to) {
         Task newTask = new Event(description, from, to);
         tasklist.add(newTask);
