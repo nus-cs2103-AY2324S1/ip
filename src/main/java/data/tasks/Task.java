@@ -22,6 +22,10 @@ public class Task {
         isDone = false;
     }
 
+    public int findKeyword(String keyword) {
+        return description.indexOf(keyword);
+    }
+
     @Override
     public String toString() {
         return String.format(
