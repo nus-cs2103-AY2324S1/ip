@@ -28,9 +28,9 @@ public class ListCommand extends Command{
      */
     @Override
     public void execute(TaskList tasks , Ui ui, Storage storage) {
-                Ui.showLine();
-                tasks.printTasks();
-                Ui.showLine();
+        Ui.showLine();
+        tasks.printTasks();
+        Ui.showLine();
     }
     @Override
     public boolean isExit() {

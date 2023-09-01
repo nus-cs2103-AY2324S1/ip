@@ -36,19 +36,19 @@ public class EventCommand extends Command {
     @Override
     public void execute(TaskList tasks , Ui ui, Storage storage) throws InvalidArgumentException, InvalidDateException {
         String[] words = this.fullCommand.split(" ", 2);
-        if(words.length < 2) {
+        if (words.length < 2) {
             throw new InvalidArgumentException("event");
         } else {
             String[] splitCommand = words[1].split("/", 2);
-            if(splitCommand.length < 2) {
+            if (splitCommand.length < 2) {
                 throw new InvalidArgumentException("event");
             }
             String c = splitCommand[0];
             String[] splitDeadline = splitCommand[1].split("/", 2);
-            if(splitDeadline.length < 2) {
+            if (splitDeadline.length < 2) {
                 throw new InvalidArgumentException("event");
             } else {
-                if(splitDeadline[0].split(" ", 2).length < 2
+                if (splitDeadline[0].split(" ", 2).length < 2
                         || splitDeadline[1].split(" ", 2).length < 2) {
                     throw new InvalidArgumentException("event");
                 } else {
@@ -57,7 +57,7 @@ public class EventCommand extends Command {
                         LocalDateTime to = LocalDateTime.parse(splitDeadline[1].split(" ", 2)[1].strip(), Storage.dateTimeInputFormatter);
                         Event t = new Event(c, from, to);
                         tasks.addTask(t);
-                    } catch(DateTimeParseException e) {
+                    } catch (DateTimeParseException e) {
                         throw new InvalidDateException();
                     }
                 }

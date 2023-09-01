@@ -35,7 +35,7 @@ public class ExitCommand extends Command {
         Ui.showLine();
         System.out.println("Bye. Hope to see you again soon!");
         Ui.showLine();
-        try{
+        try {
             storage.writeTasksToFile(tasks.getTasks());
         } catch (IOException e) {
             throw new DukeException("Error in writing taskList to file!");

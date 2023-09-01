@@ -33,7 +33,7 @@ public class Event extends Task {
         boolean isDone = components[1].equals("1");
         Event event = new Event(components[2], LocalDateTime.parse(components[3]),
                 LocalDateTime.parse(components[4]));
-        if(isDone) {
+        if (isDone) {
             event.markDone();
         }
         return event;
