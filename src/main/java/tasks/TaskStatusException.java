@@ -3,7 +3,7 @@ package tasks;
 /**
  * Task status-related exception
  */
-public class TaskStatusException extends Exception{
+public class TaskStatusException extends TaskException {
     /**
      * Constructs a new TaskStatusException with the specified error message.
      *

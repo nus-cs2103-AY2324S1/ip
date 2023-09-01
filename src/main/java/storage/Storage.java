@@ -57,11 +57,9 @@ public class Storage<T extends Storable<T>> {
         }
     }
 
-    public void save(List<T> items) {
+    public void save(StorableList<T> list) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath))) {
-            for (Storable<T> item : items) {
-                writer.write(item.toStorableString() + "\n");
-            }
+            writer.write(list.getStorableString());
         } catch (IOException e) {
             System.err.println("An error occurred when saving data: " + e.getMessage());
         }

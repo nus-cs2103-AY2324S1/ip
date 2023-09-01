@@ -1,0 +1,17 @@
+package ui;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ErrorMessage {
+    public static final Map<String, String> mapper = new HashMap<>();
+
+    static {
+        mapper.put("InvalidCommandTypeException",
+                "Can't believe you're asking that! Grrr, what do you want now?");
+        mapper.put("InvalidCommandFormatException",
+                "Are you trying to confuse me with this nonsense? Try again hooman!");
+        mapper.put("CommandExecutionException",
+                "Argh, something went wrong! Bad hooman, what are you trying to do!?");
+    }
+}

@@ -3,7 +3,7 @@ package parsers;
 /**
  * Custom exception class to handle parsing errors.
  */
-public class ParsingException extends RuntimeException {
+public class ParsingException extends Exception {
     /**
      * Constructs a new ParsingException with the specified error message.
      *
