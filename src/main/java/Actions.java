@@ -8,6 +8,10 @@ public class Actions {
         actions.add(input);
     }
 
+    public void add(List<Task> tasks) {
+        actions.addAll(tasks);
+    }
+
     public ArrayList<Task> list() {
         return actions;
     }
