@@ -5,12 +5,28 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a custom date-time utility to handle and format date and time values.
+ */
 public class DateTime {
+    /** Formatter for the date representation. */
     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+
+    /** Formatter for the time representation. */
     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
+
+    /** The local date object. */
     LocalDate ld;
+
+    /** The local time object. */
     LocalTime lt;
 
+    /**
+     * Initializes a DateTime object based on the given string representation.
+     *
+     * @param dt The string representation of date-time to parse.
+     * @throws DateTimeParseException If the input string cannot be parsed.
+     */
     public DateTime(String dt) {
         String[] splt = dt.split(" ");
         if (splt.length == 1) {
@@ -24,10 +40,20 @@ public class DateTime {
         }
     }
 
+    /**
+     * Returns the formatted date string.
+     *
+     * @return The formatted date string.
+     */
     public String getFormattedDate() {
         return this.ld.format(DateTimeFormatter.ofPattern("MM-d-yyyy"));
     }
 
+    /**
+     * Returns the formatted time string or null if there's no time component.
+     *
+     * @return The formatted time string or null.
+     */
     public String getFormattedTime() {
         if (this.lt != null) {
             return this.lt.format(DateTimeFormatter.ofPattern("HH:mm"));
@@ -35,6 +61,11 @@ public class DateTime {
         return null;
     }
 
+    /**
+     * Returns the string representation of the date-time object.
+     *
+     * @return The formatted string of date-time.
+     */
     public String toString(){
         return getFormattedDate() + ((this.lt == null) ? "" : " " + getFormattedTime());
     }
