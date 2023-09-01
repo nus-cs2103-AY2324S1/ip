@@ -1,50 +1,6 @@
 import java.io.FileNotFoundException;
 
 public class Parser {
-    public static Task parseTaskInput(String input) throws DukeException {
-        String[] words = input.split(" ");
-        TaskType taskType = TaskType.valueOf(words[0].toUpperCase());
-        String taskDescription = input.replaceFirst(words[0], "").trim();
-
-        switch (taskType) {
-            case ADD:
-                if (taskDescription.isEmpty()) {
-                    throw new DukeException("What should I add in? Pleas add in a description :)");
-                }
-                return new Add(taskDescription);
-            case TODO:
-                if (taskDescription.isEmpty()) {
-                    throw new DukeException("Task Description cannot be EMPTY. Please add in a description :)");
-                }
-                return new ToDo(taskDescription);
-            case DEADLINE:
-                String[] deadlineParts = taskDescription.split("/by", 2);
-                String description = deadlineParts[0].trim();
-                if (description.isEmpty()) {
-                    throw new DukeException("Please provide a task description.");
-                }
-                if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty()) {
-                    throw new DukeException("When is " + deadlineParts[0] + " due? use /by: (date)");
-                }
-                return new DeadLine(deadlineParts[0].trim(), deadlineParts[1].trim());
-            case EVENT:
-                String[] eventParts = taskDescription.split("/from", 2);
-                String desc = eventParts[0].trim();
-                if (desc.isEmpty() || desc.equals("/from") || desc.equals("/to") ) {
-                    throw new DukeException("Please provide a task description.");
-                } else if (eventParts.length < 2) {
-                    throw new DukeException("When is " + desc + "? use /from: (date) /to: (date)");
-                } else {
-                    String[] toParts = eventParts[1].split("/to", 2);
-                    if (toParts.length < 2 || toParts[1].trim().isEmpty()) {
-                        throw new DukeException("When is " + eventParts[0] + "? use /from: (date) /to: (date)");
-                    } else {
-                        return new Event(desc, toParts[0].trim(), toParts[1].trim());
-                    }
-                }
-        }
-        return null;
-    }
 
     public static Task parseTask(String taskData) throws FileNotFoundException, DukeException {
         try {
@@ -88,5 +44,77 @@ public class Parser {
             return new Task("(CORRUPTED) " + taskData);
         }
         return null;
+    }
+
+
+    public static Command parse(String input) throws DukeException {
+        String[] words = input.split(" ");
+        String command = words[0].toLowerCase();
+
+        if (words.length < 2 && !command.equals("bye") && !command.equals("list") && !command.equals("help")) {
+            throw new DukeException("The description of the command cannot be empty.");
+        }
+
+        switch (command) {
+            case "bye":
+                return new ByeCommand();
+            case "list":
+                return new ListCommand();
+            case "todo":
+                String todoDesc = input.substring(5).trim(); // Extract the description
+                Task todoTask = new ToDo(todoDesc);
+                return new ToDoCommand(todoTask);
+            case "add":
+                String addDesc = input.substring(4).trim();
+                Task addTask = new ToDo(addDesc);
+                return new AddCommand(addTask);
+            case "deadline":
+                String deadlineDesc = input.substring(8).trim(); // Extract the description
+                if (!deadlineDesc.contains("/by")) {
+                    throw new DukeException("The deadline command should include '/by'.");
+                }
+                String[] deadlineParts = deadlineDesc.split("/by");
+                String description = deadlineParts[0].trim();
+                String by = deadlineParts[1].trim();
+                Task deadlineTask = new DeadLine(description, by);
+                return new AddCommand(deadlineTask);
+            case "event":
+                String eventDesc = input.substring(5).trim(); // Extract the description
+                if (!eventDesc.contains("/from") || !eventDesc.contains("/to")) {
+                    throw new DukeException("The event command should include '/from' and '/to'.");
+                }
+                String[] eventParts = eventDesc.split("/from");
+                String eventDescription = eventParts[0].trim();
+                String[] dateParts = eventParts[1].split("/to");
+                String from = dateParts[0].trim();
+                String to = dateParts[1].trim();
+                Task eventTask = new Event(eventDescription, from, to);
+                return new AddCommand(eventTask);
+            case "unmark":
+                if (words.length < 2) {
+                    throw new DukeException("Please specify a task number to unmark.");
+                }
+                int taskNumberToUnmark = Integer.parseInt(words[1]) - 1; // Assuming tasks are 1-based
+                return new UnmarkCommand(taskNumberToUnmark);
+            case "mark":
+                if (words.length < 2) {
+                    throw new DukeException("Please specify a task number to mark as done.");
+                }
+                int taskNumberToMark = Integer.parseInt(words[1]) - 1; // Assuming tasks are 1-based
+                return new MarkCommand(taskNumberToMark);
+            case "echo":
+                if (words.length < 2) {
+                    throw new DukeException("Please provide text for the echo command.");
+                }
+                String echoText = input.substring(5).trim(); // Extract the text
+                return new EchoCommand(echoText);
+            case "delete":
+                int taskNumToDel = Integer.parseInt(words[1]) - 1;
+                return new DeleteCommand(taskNumToDel);
+            case "help":
+                return new HelpCommand();
+            default:
+                throw new DukeException("I'm sorry, but I don't understand that command.");
+        }
     }
 }
