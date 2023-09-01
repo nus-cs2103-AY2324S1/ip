@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * The duke.Parser class processes commands by breaking it up to words.
+ */
 public class Parser {
     public String[] commandSplit(String command) {
         return command.split(" ", 2);

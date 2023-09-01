@@ -1,8 +1,15 @@
 package duke;
+/**
+ * duke.Task represents a task created by a user.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructor method for duke.Task.
+     * @param description A brief description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

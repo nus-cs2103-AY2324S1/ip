@@ -3,8 +3,17 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A Deadline is a task with an end date and time.
+ */
 public class Deadline extends Task {
     protected LocalDateTime by;
+
+    /**
+     * Constructor method for Deadline.
+     * @param description Description of the Deadline.
+     * @param by Due date of the Deadline.
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = LocalDateTime.parse(by);

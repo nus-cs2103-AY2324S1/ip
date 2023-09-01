@@ -1,10 +1,16 @@
 package duke;
 
+/**
+ * A Todo is a type of task.
+ */
 public class Todo extends Task {
-    protected char type;
+
+    /**
+     * Constructor method for Event.
+     * @param description Description of the Todo.
+     */
     public Todo(String description) {
         super(description);
-        this.type = 'T';
     }
 
     @Override

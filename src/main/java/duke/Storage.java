@@ -9,12 +9,19 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * This class deals with loading tasks from ./data/duke.txt and saving tasks in one file.
+ */
 public class Storage {
     protected String directoryPath;
     protected String filePath;
     private static File hardDisk;
-//    private static ArrayList<Task> taskArray = new ArrayList<>();
     private static Parser parser;
+    /**
+     * Constructor method for the duke.Storage class.
+     * @param filePath The relative path of duke.txt.
+     * @param dirPath the relative path to the data directory.
+     */
     public Storage (String dirPath, String filePath) {
         this.directoryPath = dirPath;
         this.filePath = filePath;

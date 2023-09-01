@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * This class helps Duke interact with the user.
+ */
 public class Ui {
     protected static final String horizontalLine = "    ____________________________________________________________";
     public static void greet() {

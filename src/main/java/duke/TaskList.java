@@ -5,9 +5,10 @@ import Exceptions.DukeArgumentException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * This class encapsulates the current tasks.
+ */
 public class TaskList {
-    protected static final String horizontalLine = "    ____________________________________________________________";
-
     protected static ArrayList<Task> taskArray;
     protected static Storage storage;
     protected static int numTask;
