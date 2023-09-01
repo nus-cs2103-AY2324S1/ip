@@ -34,4 +34,16 @@ public class ParserTest {
         Task task = Parser.parseAddTask(input, Parser.Command.EVENT);
         assertEquals("Sample Event", task.taskName);
     }
+
+    @Test
+    public void parseAddTask_invalidDeadlineFormat_exceptionThrown() {
+        String input = "deadline Sample Task";
+        assertThrows(SimonException.class, () -> Parser.parseAddTask(input, Parser.Command.DEADLINE));
+    }
+
+    @Test
+    public void parseAddTask_invalidEventFormat_exceptionThrown() {
+        String input = "event Sample Event /from 01/01/2023 1800";
+        assertThrows(SimonException.class, () -> Parser.parseAddTask(input, Parser.Command.EVENT));
+    }
 }
