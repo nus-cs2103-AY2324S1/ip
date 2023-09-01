@@ -65,4 +65,19 @@ public class TaskList {
         currentTask.markAsUndone();
         return currentTask;
     }
+
+    public String findTasks(String query) {
+        StringBuilder tempString = new StringBuilder();
+        for (int i = 0; i < this.tasks.size(); i++) {
+            Task task = this.tasks.get(i);
+            if (task.toString().contains(query)) {
+                tempString.append(i + 1)
+                        .append(". ")
+                        .append(task)
+                        .append(System.lineSeparator());
+            }
+        }
+
+        return tempString.toString();
+    }
 }
