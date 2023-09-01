@@ -1,5 +1,6 @@
 package duke;
 
+import Exceptions.DukeArgumentException;
 import Exceptions.DukeException;
 
 import java.io.IOException;
@@ -125,7 +126,7 @@ public class Duke {
                 return TASK.INVALID;
         }
     }
-    public static void printCommand(TASK command, String info) throws DukeException, IOException {
+    public static void printCommand(TASK command, String info) throws DukeException, IOException, DukeArgumentException {
         switch(command) {
             case BYE:
                 ui.exit();
@@ -255,7 +256,7 @@ public class Duke {
             try {
                 printCommand(order, command);
                 storage.saveTask(tasks.getTaskArray());
-            } catch (DukeException message) {
+            } catch (DukeException | DukeArgumentException message) {
                 System.out.println(horizontalLine + "\n" + message.getMessage() + "\n" + horizontalLine);
             } catch (IOException e) {
                 System.out.println("     Oh no, seems like something is not working.. We can't save your data.");
