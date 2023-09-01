@@ -1,23 +1,25 @@
-import exceptions.*;
-import storage.Storage;
-import task.TaskList;
-import ui.Ui;
+import java.io.IOException;
 import java.util.Scanner;
+
 import command.CmdBye;
 import command.Command;
 import command.CommandParser;
-import java.io.IOException;
+import exceptions.InvalidCommandException;
+import exceptions.ThorndikeException;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
 import utility.TextFileHandler;
 
 public class Thorndike {
     private Scanner scanner;
     private TaskList taskList;
-    private Boolean running;
+    private Boolean isRunning;
     private Ui ui;
 
     public Thorndike() {
         this.scanner = new Scanner(System.in);
-        this.running = true;
+        this.isRunning = true;
         this.ui = new Ui();
 
         try {
@@ -33,7 +35,7 @@ public class Thorndike {
      */
     public void start() {
         greet();
-        while (running) {
+        while (isRunning) {
             try {
                 listen();
             } catch (ThorndikeException e) {
@@ -55,7 +57,7 @@ public class Thorndike {
         }
 
         if (command instanceof CmdBye) {
-            this.running = false;
+            this.isRunning = false;
         }
 
         command.execute(taskList, ui);
