@@ -6,12 +6,26 @@ public class TaskList {
     public static String line = "\t____________________________________________________________\n";
     protected ArrayList<Task> strList;
 
+
+    /**
+     * Prints a tasks to the console when a task is added
+     * @param t The task being printed
+     */
     private void printAddTask(Task t) {
         System.out.println(line + "\tGot it. I've added this task: ");
         System.out.println("\t\t" + t.toString());
         System.out.println("\tNow you have " + strList.size() + " tasks in the list.");
         System.out.println(line);
     }
+
+
+    /**
+     * Creates a new todo task given a description, isDone boolean, and boolean readingFile
+     * @param description description of the todo task
+     * @param isDone boolean to mark is the task is done or not
+     * @param readingFile boolean to check if readingFile or not
+     * @throws EmptyDescriptionException
+     */
     public void toDoHandler(String description, boolean isDone, boolean readingFile) throws EmptyDescriptionException {
         if (description.equals("")) {
             throw new EmptyDescriptionException("todo");
@@ -24,7 +38,15 @@ public class TaskList {
         }
     }
 
-    public void deadlineHandler(String description, boolean isDone, boolean readingFile) throws EmptyDescriptionException {
+    /**
+     * Creates a new deadline task given a description, isDone boolean, and readingFile boolean
+     * @param description description of the todo task
+     * @param isDone boolean to mark is the task is done or not
+     * @param readingFile boolean to check if readingFile or not
+     * @throws EmptyDescriptionException
+     */
+    public void deadlineHandler(String description, boolean isDone, boolean readingFile) throws
+            EmptyDescriptionException {
         if (description.equals("")) {
             throw new EmptyDescriptionException("deadline");
         } else {
@@ -38,6 +60,14 @@ public class TaskList {
             }
         }
     }
+
+    /**
+     * creates a event task given a description, isDone boolean, and readingFile boolean
+     * @param description description of the todo task
+     * @param isDone boolean to mark is the task is done or not
+     * @param readingFile boolean to check if readingFile or not
+     * @throws EmptyDescriptionException
+     */
     public void eventHandler(String description, boolean isDone, boolean readingFile) throws EmptyDescriptionException {
         if (description.equals("")) {
             throw new EmptyDescriptionException("event");
@@ -59,6 +89,10 @@ public class TaskList {
             System.out.println(element.toString());
         }
     }
+
+    /**
+     * Prints put the list contents
+     */
     public void printListContent() {
         int arrLength = this.strList.size();
         System.out.println(line);
@@ -70,6 +104,12 @@ public class TaskList {
         }
         System.out.println(line);
     }
+
+    /**
+     * Marks a task in the list to be done
+     * @param number The number of the task in the list
+     * @throws NotANumberException
+     */
 
     public void markTaskAsDone(char number) throws NotANumberException {
         if (!Character.isDigit(number)) {
@@ -85,6 +125,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmarks a task in the list
+     * @param number The number of the task in the list
+     * @throws NotANumberException
+     */
     public void unmarkTask(char number) throws NotANumberException {
         if (!Character.isDigit(number)) {
             throw new NotANumberException();
@@ -99,6 +144,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the list
+     * @param number The number of the task inside the list.
+     * @throws NotANumberException
+     */
     public void deleteTask(char number) throws NotANumberException {
         if (!Character.isDigit(number)) {
             throw new NotANumberException();
@@ -113,10 +163,17 @@ public class TaskList {
         }
     }
 
+    /**
+     * @return an ArrayList of the current Tasks
+     */
     public ArrayList<Task> getTaskList() {
         return this.strList;
     }
 
+    /**
+     * Prints out all the tasks that match the taskName
+     * @param taskName the name of the task that we are finding for
+     */
     public void findTask(String taskName) {
         System.out.println(taskName);
         ArrayList<Task> findList = new ArrayList<>();
@@ -134,6 +191,9 @@ public class TaskList {
         System.out.println(line);
     }
 
+    /**
+     * Constructor to create a new task list
+     */
     public TaskList() {
         this.strList = new ArrayList<>();
     }

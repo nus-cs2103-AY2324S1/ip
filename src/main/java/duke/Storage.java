@@ -10,11 +10,20 @@ public class Storage {
     protected BufferedWriter writer;
     protected BufferedWriter saveWriter;
     protected TaskList tasks;
+
+    /**
+     * Constructor to create a new Storage object
+     * @param filepath The filepath of the .txt file
+     * @param tasks The list of tasks
+     */
     public Storage(String filepath, TaskList tasks) {
         this.filepath = filepath;
         this.tasks = tasks;
     }
 
+    /**
+     * Starts reading the storage
+     */
     public void startStorage() {
         try {
             reader = new BufferedReader(new FileReader(filepath));
@@ -49,6 +58,10 @@ public class Storage {
             //do something
         }
     }
+
+    /**
+     * Method to write to the storage
+     */
 
     public void writeToStorage() {
         try {
