@@ -1,7 +1,17 @@
 package Duke.Tasks;
 
+/**
+ * Encapsulates a specific task of type Todo.
+ *
+ * Does not have any special characteristics.
+ */
 public class TodoTask extends Task {
 
+    /**
+     * Constructor for a Todo task
+     *
+     * @param itemName The name of the Todo
+     */
     public TodoTask(String itemName) {
         super(itemName);
     }

@@ -6,8 +6,13 @@ import Duke.Tasks.Commands;
 import Duke.Tasks.Task;
 import Duke.Tasks.TaskList;
 
+import java.util.Optional;
 import java.util.Scanner;
 
+/**
+ * Controls any user interaction with the user.
+ * Examples: text output, error messages
+ */
 public class Ui {
 
     private TaskList taskList;
@@ -64,7 +69,7 @@ public class Ui {
      *
      * @param command
      */
-    public static void printResult(Commands command, Task task, TaskList listContainer) {
+    public static void printResult(Commands command, Optional<Task> task, TaskList taskList) {
         switch (command) {
         case TODO: // Fallthrough
         case DEADLINE: // Fallthrough
@@ -89,15 +94,26 @@ public class Ui {
             System.out.println(listContainer);
             break;
         }
+        case FIND: {
+            if (taskList.getSize() == 0) {
+                System.out.println("Couldn't find any matching tasks!");
+            } else {
+                System.out.println("I found " + taskList.getSize() + " matching tasks:");
+                System.out.println(taskList.toString());
+            }
+            break;
+        }
         case BYE: {
             String exitMsg = "Bye! Hope to see you again soon.";
             System.out.println(exitMsg);
-
             break;
-        }
+        
         }
     }
 
+    /**
+     * Prints a simple divider line to the screen.
+     */
     public static void printDivider() {
         System.out.println(SEPARATOR_LINE);
     }

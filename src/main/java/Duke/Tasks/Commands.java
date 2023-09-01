@@ -1,5 +1,8 @@
 package Duke.Tasks;
 
+/**
+ * Types of commands that DukeBot accepts.
+ */
 public enum Commands {
     BYE,
     LIST,
@@ -8,8 +11,16 @@ public enum Commands {
     DELETE,
     TODO,
     DEADLINE,
-    EVENT;
+    EVENT,
 
+    FIND;
+
+    /**
+     * Tests to see if a string contains this enum.
+     *
+     * @param test The test string
+     * @return true if is an enum
+     */
     public static boolean contains(String test) {
 
         for (Commands c : Commands.values()) {

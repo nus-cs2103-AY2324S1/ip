@@ -12,14 +12,19 @@ import Duke.Tasks.TodoTask;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static Duke.UI.Ui.printResult;
 
+/**
+ * Controls the parsing of commands and arguments entered by the user.
+ */
 public class Parser {
     private static String UNKNOWN_COMMAND = "\uD83D\uDE21 This command is not something I can handle!";
-
 
     private static String NAME_EMPTY = "\uD83D\uDE21 Your item name cannot be empty!";
     private static String DEADLINE_EMPTY = "\uD83D\uDE21 Missing deadline!";
@@ -113,6 +118,11 @@ public class Parser {
             if (itemName.isEmpty()) {
                 // no item name
                 throw new DukeException(NAME_EMPTY);
+
+                printResult(inputCommand, Optional.of(todoTask), taskList);
+                canContinue = true;
+                break;
+
             }
 
             String[] inputArgs = inputString.replace("deadline ", "").split(" /by ");
@@ -132,11 +142,13 @@ public class Parser {
             try {
                 LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, formatter);
 
+
                 DeadlineTask deadlineTask = new DeadlineTask(itemName, deadlineDateTime);
-
                 taskList.addToList(deadlineTask);
-
-                printResult(inputCommand, deadlineTask, taskList);
+                canContinue = true;
+               
+                printResult(inputCommand, Optional.of(deadlineTask), taskList);
+                break;
             } catch (DateTimeParseException e) {
                 throw new DukeException(INVALID_DATE_FORMAT);
             }
@@ -191,6 +203,16 @@ public class Parser {
             canContinue = true;
             break;
         }
+        case FIND: {
+            String searchString = inputString.replace("find ", "");
+
+            ArrayList<Optional<Task>> filtered = taskList.findTasksByName(searchString);
+
+            printResult(inputCommand, null, new TaskList(filtered));
+            canContinue = true;
+            break;
+        }
+
 
         default:
             throw new DukeException(UNKNOWN_COMMAND);
