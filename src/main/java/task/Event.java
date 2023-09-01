@@ -30,11 +30,16 @@ public class Event extends Task {
     }
 
     @Override
+    public Boolean compareTitle(String query) {
+        return this.title.contains(query);
+    }
+
+    @Override
     public String toFileString() {
         if (this.done == true) {
             return "D | 1 | " + this.title + " | " + this.start.formatDate() + " - " + this.end.formatDate();
         }
-        return "D | 0 | " + this.title + " | " +  this.start.formatDate() + " - " + this.end.formatDate();
+        return "D | 0 | " + this.title + " | " + this.start.formatDate() + " - " + this.end.formatDate();
     }
 
     @Override

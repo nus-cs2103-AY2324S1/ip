@@ -15,6 +15,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public Boolean compareTitle(String query) {
+        return this.title.contains(query);
+    }
+
+    @Override
     public String toFileString() {
         if (this.done == true) {
             return "D | 1 | " + this.title + " | " + this.deadline.formatDate();

@@ -4,6 +4,7 @@ import command.AddCommand;
 import command.Command;
 import command.DeleteCommand;
 import command.ExitCommand;
+import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.UnmarkCommand;
@@ -20,6 +21,8 @@ public class Parser {
             throw new DukeException("You entered nothing! Try again!");
         } else if (fullCommand.equalsIgnoreCase("list")) {
             return new ListCommand();
+        } else if (fullCommand.startsWith("find")) {
+            return new FindCommand(fullCommand);
         } else if (fullCommand.startsWith("todo")) {
             if (fullCommand.equals("todo")) {
                 throw new DukeException("Description cannot be empty!");

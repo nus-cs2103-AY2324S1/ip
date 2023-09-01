@@ -27,7 +27,8 @@ public class Ui {
                     " |[][][][][][][][][]|    |  \\..  |\n" +
                     " \\------------------/    | ( # ) |\n" +
                     "                         |  '''  |\n" +
-                    "                         \\_______/";;
+                    "                         \\_______/";
+    ;
 
     public String readCommand() {
         Scanner scanner = new Scanner(System.in);
@@ -45,7 +46,7 @@ public class Ui {
     }
 
 
-    public void showMarkTaskMessage (String taskMarked, Boolean isMark) {
+    public void showMarkTaskMessage(String taskMarked, Boolean isMark) {
         if (isMark = true) {
             System.out.println("Good Job! I have marked this task as done!");
         } else {
@@ -63,6 +64,14 @@ public class Ui {
             System.out.println(i + ". " + taskList.getTaskInString(i - 1));
         }
         taskList.printTaskListInString();
+    }
+
+    public void showQueryList(TaskList taskList) {
+        for (int i = 1; i < taskList.getLength() + 1; i++) {
+            System.out.println(i + ". " + taskList.getTaskInString(i - 1));
+        }
+        System.out.println(String.format("%d task(s) match your query",
+                taskList.getLength()));
     }
 
 }

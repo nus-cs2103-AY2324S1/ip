@@ -11,6 +11,11 @@ public class ToDo extends Task {
     }
 
     @Override
+    public Boolean compareTitle(String query) {
+        return this.title.contains(query);
+    }
+
+    @Override
     public String toFileString() {
         if (this.done == true) {
             return "T | 1 | " + this.title;

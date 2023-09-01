@@ -16,6 +16,8 @@ public abstract class Task {
         this.done = false;
     }
 
+    public abstract Boolean compareTitle(String query);
+
     public String toFileString() {
         return "task";
     }
