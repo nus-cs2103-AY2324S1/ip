@@ -17,51 +17,51 @@ import duke.tasks.TaskList;
 
 public class Storage {
 
-  private Path path;
+    private Path path;
 
-  public Storage(String filepath) {
-    String homedir = new File(System.getProperty("user.dir")).getParent();
-    String[] splitFilepath = Parser.filePathParser(filepath);
-    this.path = Paths.get(homedir, splitFilepath[0], splitFilepath[1]);
-  }
+    public Storage(String filepath) {
+        String homedir = new File(System.getProperty("user.dir")).getParent();
+        String[] splitFilepath = Parser.parseFilePath(filepath);
+        path = Paths.get(homedir, splitFilepath[0], splitFilepath[1]);
+    }
 
-  public TaskList load() throws DukeException {
-    if (Files.exists(path)) {
-      TaskList tasklist = new TaskList();
-      try {
-        List<String> contents = Files.readAllLines(path);
-        for (String content : contents) {
-          Command c = Parser.fileLineParser(content);
-          c.load(tasklist);
+    public TaskList loadFromFile() throws DukeException {
+        if (Files.exists(path)) {
+            TaskList tasklist = new TaskList();
+            try {
+                List<String> contents = Files.readAllLines(path);
+                for (String content : contents) {
+                    Command c = Parser.parseFileContent(content);
+                    c.load(tasklist);
+                }
+                return tasklist;
+            } catch (FileNotFoundException e) {
+                throw new DukeException(e.getMessage());
+            } catch (IOException e) {
+                throw new DukeException(e.getMessage());
+            } catch (DukeException e) {
+                throw e;
+            }
+        } else {
+            throw new DukeException("File not found");
         }
-        return tasklist;
-      } catch (FileNotFoundException e) {
-        throw new DukeException(e.getMessage());
-      } catch (IOException e) {
-        throw new DukeException(e.getMessage());
-      } catch (DukeException e) {
-        throw e;
-      }
-    } else {
-      throw new DukeException("File not found");
     }
-  }
 
-  public void writeToFile(TaskList tasklist) throws DukeException {
-    try {
-      if (Files.notExists(path)) {
-        Files.createFile(path);
-      }
-      BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8,
-          StandardOpenOption.TRUNCATE_EXISTING);
-      while (!tasklist.isEmpty()) {
-        String tempString = tasklist.clearList();
-        writer.write(tempString + "\n");
-        writer.flush();
-      }
-    } catch (Exception e) {
-      throw new DukeException(e.getMessage());
+    public void writeToFile(TaskList tasklist) throws DukeException {
+        try {
+            if (Files.notExists(path)) {
+                Files.createFile(path);
+            }
+            BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8,
+                    StandardOpenOption.TRUNCATE_EXISTING);
+            while (!tasklist.isEmpty()) {
+                String tempString = tasklist.clearList();
+                writer.write(tempString + "\n");
+                writer.flush();
+            }
+        } catch (Exception e) {
+            throw new DukeException(e.getMessage());
+        }
     }
-  }
 
 }
