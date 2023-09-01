@@ -20,8 +20,8 @@ public class Storage {
     /**
      * Loads any existing tasks from the cache at the storage path.
      *
-     * @return a list of existing tasks loaded from the cache
-     * @throws StorageException if there is no existing task cache or cache is of incorrect format
+     * @return A list of existing tasks loaded from the cache.
+     * @throws StorageException If there is no existing task cache or cache is of incorrect format.
      */
     public TaskList load() throws StorageException {
         if (Files.notExists(path)) {
@@ -49,7 +49,7 @@ public class Storage {
     /**
      * Saves all tasks in the task list to the cache at the storage path. Any existing cache file will be overwritten.
      *
-     * @param tasks a list of tasks to be saved to the cache
+     * @param tasks A list of tasks to be saved to the cache.
      */
     public void save(TaskList tasks) {
         try {

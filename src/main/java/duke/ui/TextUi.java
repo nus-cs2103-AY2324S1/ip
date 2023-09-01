@@ -21,7 +21,7 @@ public class TextUi {
      * Outputs strings to terminal, indenting each string using the `indent` method. If a string is a multi-line
      * string, i.e. contains the `\n` character, each line is split and indented individually.
      *
-     * @param strings a list of strings to be output to the terminal
+     * @param strings A list of strings to be output to the terminal.
      */
     public void whisper(String... strings) {
         for (String string : strings) {
@@ -36,7 +36,7 @@ public class TextUi {
      * to the end of the strings. If a string is a multi-line string, i.e. contains the `\n` character, each line is
      * split and indented individually.
      *
-     * @param strings a list of strings to be output to the terminal
+     * @param strings A list of strings to be output to the terminal.
      */
     public void say(String... strings) {
         whisper(strings);
@@ -46,7 +46,7 @@ public class TextUi {
     /**
      * Returns the input from the user, with leading and trailing removed.
      *
-     * @return the string input from the user
+     * @return The string input from the user.
      */
     public String getInput() {
         return in.nextLine().trim();
@@ -55,7 +55,7 @@ public class TextUi {
     /**
      * Greets the user, and asks the user for a command.
      *
-     * @param me the name the program wants to be known as
+     * @param me The name the program wants to be known as.
      */
     public void greet(String me) {
         say(String.format("Hello! I'm %s", me), "What can I do for you?");

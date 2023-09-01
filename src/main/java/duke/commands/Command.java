@@ -21,9 +21,9 @@ public abstract class Command {
     /**
      * Parses a string into a Command. The string should start with a supported verb.
      *
-     * @param s a string representing a command
-     * @return a command parsed from the string
-     * @throws CommandException if the verb is unsupported
+     * @param s A string representing a command.
+     * @return A command parsed from the string.
+     * @throws CommandException If the verb is unsupported.
      */
     public static Command parse(String s) throws CommandException {
         String[] tokens = s.split(" ", 2);
@@ -57,7 +57,7 @@ public abstract class Command {
     /**
      * Returns whether the program should exit after the command finishes executing.
      *
-     * @return true if the program should exit after its execution
+     * @return true If the program should exit after its execution.
      */
     public boolean shouldExit() {
         return false;
@@ -70,9 +70,9 @@ public abstract class Command {
     /**
      * Executes the command on the given task list.
      *
-     * @param tasks a list of tasks to execute the command on
-     * @return the result from executing the command
-     * @throws CommandException if an error occurs while executing the command
+     * @param tasks A list of tasks to execute the command on.
+     * @return The result from executing the command.
+     * @throws CommandException If an error occurs while executing the command.
      */
     public abstract CommandResult run(TaskList tasks) throws CommandException;
 

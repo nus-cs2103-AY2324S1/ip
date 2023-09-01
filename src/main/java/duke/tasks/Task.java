@@ -18,7 +18,7 @@ public class Task implements Serializable {
     /**
      * Returns whether the task has been done.
      *
-     * @return true if the task has been done
+     * @return True if the task has been done.
      */
     public boolean isDone() {
         return isDone;

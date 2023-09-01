@@ -17,7 +17,7 @@ public class TaskList implements Serializable {
     /**
      * Returns whether the task list is empty.
      *
-     * @return true if the task list is empty
+     * @return True if the task list is empty.
      */
     public boolean isEmpty() {
         return tasks.isEmpty();
@@ -26,7 +26,7 @@ public class TaskList implements Serializable {
     /**
      * Returns the size of the task list.
      *
-     * @return the number of tasks in the task list
+     * @return The number of tasks in the task list.
      */
     public int size() {
         return tasks.size();
@@ -35,8 +35,8 @@ public class TaskList implements Serializable {
     /**
      * Returns the task at the specified position.
      *
-     * @param i the index of the task to return
-     * @return the task at the specified position
+     * @param i The index of the task to return.
+     * @return The task at the specified position.
      */
     public Task get(int i) {
         return tasks.get(i);
@@ -45,7 +45,7 @@ public class TaskList implements Serializable {
     /**
      * Adds a task to the end of the task list.
      *
-     * @param t the task to be added to the list
+     * @param t The task to be added to the list.
      */
     public void add(Task t) {
         tasks.add(t);
@@ -54,7 +54,7 @@ public class TaskList implements Serializable {
     /**
      * Removes the task at the specified position.
      *
-     * @param i the index of the task to be removed
+     * @param i The index of the task to be removed.
      */
     public void remove(int i) {
         tasks.remove(i);
