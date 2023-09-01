@@ -1,17 +1,20 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
-    public Event(String description, String from, String to, boolean isDone) {
+    public Event(String description, LocalDateTime from, LocalDateTime to, boolean isDone) {
         super(description);
         this.from = from;
         this.to = to;
@@ -48,7 +51,19 @@ public class Event extends Task {
         ArrayList<String> endWords = new ArrayList<>(Arrays.asList(backWords).subList(1, backWords.length));
         String end = String.join(" ", endWords);
 
-        return new Event(des, start, end);
+        LocalDateTime from = null;
+        LocalDateTime to = null;
+        try {
+            from = LocalDateTime.parse(start);
+            to = LocalDateTime.parse(end);
+        } catch (DateTimeParseException e) {
+            System.out.println(e);
+            System.out.println("Please enter your times in the following format:");
+            System.out.println("yyyy-mm-dd hhmm");
+            System.out.println("E.g. 2019-10-15 1800");
+        }
+
+        return new Event(des, from, to);
     }
 
     @Override

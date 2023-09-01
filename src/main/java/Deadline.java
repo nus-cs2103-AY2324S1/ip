@@ -1,15 +1,18 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Deadline extends Task {
-    protected String by;
+    protected LocalDate by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
 
-    public Deadline(String description, String by, boolean isDone) {
+    public Deadline(String description, LocalDate by, boolean isDone) {
         super(description);
         this.by = by;
         this.isDone = isDone;
@@ -24,9 +27,9 @@ public class Deadline extends Task {
         if (input.split(" ").length == 1) {
             throw new EmptyDeadlineDescriptionException(
                     Action.HORIZONTAL_LINE + "\n" +
-                    "You did not provide any description to this Deadline.\n" +
-                    "To add a Deadline, enter \"deadline <description> /by <deadline>\".\n" +
-                    Action.HORIZONTAL_LINE);
+                            "You did not provide any description to this Deadline.\n" +
+                            "To add a Deadline, enter \"deadline <description> /by <yyyy-mm-dd>\".\n" +
+                            Action.HORIZONTAL_LINE);
         }
 
         String front = input.split("/")[0];
@@ -39,7 +42,17 @@ public class Deadline extends Task {
         ArrayList<String> ddlWords = new ArrayList<>(Arrays.asList(backWords).subList(1, backWords.length));
         String ddl = String.join(" ", ddlWords);
 
-        return new Deadline(des, ddl);
+        LocalDate deadline = null;
+        try {
+            deadline = LocalDate.parse(ddl);
+        } catch (DateTimeParseException e) {
+            System.out.println(e);
+            System.out.println("Please enter your deadline in the following format:");
+            System.out.println("yyyy-mm-dd");
+            System.out.println("E.g. 2019-10-15");
+        }
+
+        return new Deadline(des, deadline);
     }
 
     @Override
