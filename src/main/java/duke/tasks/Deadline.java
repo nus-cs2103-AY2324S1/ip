@@ -1,8 +1,15 @@
+package duke.tasks;
+
 public class Deadline extends Task {
     String dueDate;
 
     public Deadline(String taskName, String dueDate) {
         super(taskName);
+        this.dueDate = dueDate;
+    }
+
+    public Deadline(String taskName, boolean done, String dueDate) {
+        super(taskName, done);
         this.dueDate = dueDate;
     }
 

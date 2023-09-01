@@ -1,3 +1,7 @@
+package duke.tasks;
+
+import duke.UI;
+
 public class Task {
     protected String taskName;
     protected boolean done;
@@ -5,6 +9,11 @@ public class Task {
     public Task(String taskName) {
         this.taskName = taskName;
         this.done = false;
+    }
+
+    public Task(String taskName, boolean done) {
+        this.taskName = taskName;
+        this.done = done;
     }
 
     //default constructor

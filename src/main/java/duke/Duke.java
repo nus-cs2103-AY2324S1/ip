@@ -1,11 +1,28 @@
-    import exceptions.InvalidArgumentException;
-    import exceptions.UnknownCommandException;
-    import exceptions.DukeException;
+package duke;
 
-    import java.util.Scanner;
+import duke.exceptions.InvalidArgumentException;
+import duke.exceptions.UnknownCommandException;
+import duke.exceptions.DukeException;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
+import duke.tasks.Event;
+import duke.tasks.Deadline;
+import java.util.Scanner;
 
     public class Duke {
-        protected static final String chatBotName = "Cristiano";
+        private static final String FILE_PATH = "./data/duke.txt";
+        private static final String chatBotName = "Cristiano";
+        private Storage storage;
+        private TaskManager taskManager;
+
+        public Duke() {
+            try {
+                storage = new Storage(FILE_PATH);
+                taskManager = storage.loadData();
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
         public static void main(String[] args) {
             String logo = " ____        _\n"
@@ -14,11 +31,12 @@
                     + "| |_| | |_| |   <  __/\n"
                     + "|____/ \\__,_|_|\\_\\___|\n";
             System.out.println("Hello from\n" + logo);
-            greetUser();
-            run();
+            Duke duke = new Duke();
+            duke.greetUser();
+            duke.run();
         }
 
-        protected static void greetUser() {
+        protected void greetUser() {
             UI.printLine();
             System.out.println("Hello! I'm " + chatBotName + "! SUIIII!!!");
             System.out.println("What can I do for you?");
@@ -33,10 +51,9 @@
         /**
          * this is the function that runs while the user is using the application.
          * It takes in users input, calls getCommand to decide which function it should to call to handle the input.
-         * It also handles exceptions and waits for user to say bye.
+         * It also handles duke.exceptions and waits for user to say bye.
          */
-        protected static void run() {
-            TaskManager taskManager = new TaskManager();
+        protected void run() {
             Scanner scanner = new Scanner(System.in);
             String input = "";
             while (!input.equals("bye")) {
@@ -76,13 +93,12 @@
         }
 
 
-
         /**
          * returns the first word of the input string. Helps to determine which function to call.
          * @param input
          * @return command string
          */
-        private static String getCommand(String input) {
+        private String getCommand(String input) {
             return input.split(" ")[0];
         }
 
@@ -92,7 +108,7 @@
          * @param taskManager
          * @throws InvalidArgumentException
          */
-        private static void handleMarking(String input, TaskManager taskManager) throws InvalidArgumentException {
+        private void handleMarking(String input, TaskManager taskManager) throws InvalidArgumentException {
             String[] words = input.split(" ");
             try {
                 int index = Integer.parseInt(words[1]);
@@ -113,7 +129,7 @@
          * @param taskManager
          * @throws InvalidArgumentException
          */
-        private static void handleTodo(String input, TaskManager taskManager) throws InvalidArgumentException {
+        private void handleTodo(String input, TaskManager taskManager) throws InvalidArgumentException {
 
             int indexOfSpace = input.indexOf(" ");
             if (indexOfSpace == -1 || indexOfSpace == input.length() - 1) {
@@ -134,7 +150,7 @@
          * @param taskManager
          * @throws InvalidArgumentException
          */
-        private static void handleDeadline(String input, TaskManager taskManager) throws InvalidArgumentException {
+        private void handleDeadline(String input, TaskManager taskManager) throws InvalidArgumentException {
             String suffix = input.substring(input.indexOf(" ") + 1);
             String[] parts = suffix.split(" /due ");
             if (parts.length != 2) {
@@ -153,7 +169,7 @@
          * @param taskManager
          * @throws InvalidArgumentException
          */
-        private static void handleEvent(String input, TaskManager taskManager) throws InvalidArgumentException {
+        private void handleEvent(String input, TaskManager taskManager) throws InvalidArgumentException {
             String suffix = input.substring(input.indexOf(" ") + 1);
             String[] parts = suffix.split(" /from ");
             if (parts.length != 2) {
@@ -179,7 +195,7 @@
          * @param taskManager
          * @throws InvalidArgumentException
          */
-        private static void handleDelete(String input, TaskManager taskManager) throws InvalidArgumentException {
+        private void handleDelete(String input, TaskManager taskManager) throws InvalidArgumentException {
             String[] words = input.split(" ");
             try {
                 int index = Integer.parseInt(words[1]);
