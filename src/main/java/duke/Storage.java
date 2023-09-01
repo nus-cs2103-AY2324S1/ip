@@ -8,9 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-
 public class Storage {
-
     public static void readFromDisk(Path pathOfDirectory, ArrayList<Task> storeTask) throws IOException {
         Files.createDirectories(pathOfDirectory.getParent());
         if (Files.exists(pathOfDirectory)) {
@@ -24,8 +22,7 @@ public class Storage {
                     storeTask.add(new Deadline(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2], taskVariablesTemp[3]));
                 } else if (taskVariablesTemp[0].equals("E")) {
                     storeTask.add(new Event(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2], taskVariablesTemp[3], taskVariablesTemp[4]));
-                }
-                else {
+                } else {
                     System.out.println("Error...");
                 }
             }

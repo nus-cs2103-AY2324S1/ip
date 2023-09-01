@@ -3,16 +3,14 @@ import dukeUiElements.Ui;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
-import java.time.format.DateTimeParseException;
-import java.util.ListIterator;
 
 public class Parser {
     public enum TaskKeyVal {ToDo, Deadline, Event, Delete, mark, unmark, bye, list};
-
     public static boolean parse(String userInput) throws DukeException {
         String[] userInputList = userInput.split(" ", 2);
         String userTaskChoiceKey = userInputList[0];
-        TaskKeyVal taskKeyVal = TaskKeyVal.valueOf(userTaskChoiceKey);              //Stores enum value. might throw exception if invalid input entered.
+        //Stores enum value. might throw exception if invalid input entered.
+        TaskKeyVal taskKeyVal = TaskKeyVal.valueOf(userTaskChoiceKey);
 
         if (taskKeyVal == TaskKeyVal.bye) {
             userExit();
@@ -41,7 +39,7 @@ public class Parser {
             Integer delUserChoice = Integer.parseInt(userInputList[1]);
             TaskList.deleteTask(delUserChoice);
             return true;
-        } else {                                                                    //in case wrong input like Delete abc entered
+        } else {
             throw new DukeException("☹ OOPS!!! Sorry, but i do not know what that means :-(");
         }
     }
@@ -66,7 +64,4 @@ public class Parser {
             System.out.println("An error occurred...");
         }
     }
-
-
-
 }

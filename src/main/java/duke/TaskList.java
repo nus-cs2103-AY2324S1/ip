@@ -7,10 +7,8 @@ import task.Event;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.ListIterator;
-
 public class TaskList {
-    public static ArrayList<Task> storeTask = new ArrayList<>(1);   //stores all the tasks. refer to child classes of task
-
+    public static ArrayList<Task> storeTask = new ArrayList<>(1);   //stores all the tasks
     public static void userListChoice() {
         ListIterator<Task> ls = storeTask.listIterator();
         Ui.printList(ls);

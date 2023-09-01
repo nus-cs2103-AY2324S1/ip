@@ -1,14 +1,10 @@
 package dukeUiElements;
 import duke.TaskList;
 import task.Task;
-import task.ToDo;
-import task.Deadline;
-import task.Event;
 import java.util.ListIterator;
 import java.util.Map;
 
 public class Ui {
-
     public static String indent = "     ";
     public static String horizontalLine = "-".repeat(22);
     static Map<String, String> hashMap = Map.of(
@@ -17,7 +13,7 @@ public class Ui {
             "listVal", "list");
 
     public void showGreeting() {
-        System.out.println(indent + horizontalLine);                                        //Helps with readability
+        System.out.println(indent + horizontalLine);
         System.out.println(indent + "Hello! I'm Tom!" + "\n" + indent + "What can I do for you?" + "\n");
         System.out.println(indent + horizontalLine);
     }
@@ -44,10 +40,7 @@ public class Ui {
     public static void printHorizontalLine() {
         System.out.println(indent + horizontalLine);
     }
-
     public static void invalidDateTimeEntry() {
         System.out.println("Invalid date/time entry. Please give in yyyy-mm-dd hh:mm format...");
     }
-
-
 }
