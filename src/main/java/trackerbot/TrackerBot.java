@@ -1,5 +1,7 @@
-import trackerbot.TaskList;
-import trackerbot.Ui;
+package trackerbot;
+
+import trackerbot.task.TaskList;
+import trackerbot.utils.Ui;
 import trackerbot.command.Command;
 import trackerbot.exception.TrackerBotException;
 import trackerbot.utils.Parser;

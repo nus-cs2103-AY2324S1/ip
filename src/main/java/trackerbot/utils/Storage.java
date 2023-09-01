@@ -1,6 +1,6 @@
 package trackerbot.utils;
 
-import trackerbot.TaskList;
+import trackerbot.task.TaskList;
 import trackerbot.exception.TrackerBotException;
 import trackerbot.task.Task;
 

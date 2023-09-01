@@ -29,7 +29,7 @@ test {
 }
 
 application {
-    mainClass.set("TrackerBot")
+    mainClass.set("trackerbot.TrackerBot")
 }
 
 shadowJar {

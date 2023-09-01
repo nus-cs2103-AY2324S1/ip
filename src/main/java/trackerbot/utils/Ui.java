@@ -1,4 +1,4 @@
-package trackerbot;
+package trackerbot.utils;
 
 import java.util.Scanner;
 

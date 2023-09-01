@@ -1,7 +1,7 @@
 package trackerbot.command;
 
-import trackerbot.TaskList;
-import trackerbot.Ui;
+import trackerbot.task.TaskList;
+import trackerbot.utils.Ui;
 import trackerbot.exception.TrackerBotException;
 
 import java.util.Scanner;
