@@ -1,14 +1,14 @@
-package Pau.task;
+package pau.task;
 
-import Pau.exception.DeadlineNoEndException;
-import Pau.exception.NoDescException;
-import Pau.exception.NoSuchTaskException;
+import pau.exception.DeadlineNoEndException;
+import pau.exception.NoDescException;
+import pau.exception.NoSuchTaskException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskList {
-    private ArrayList<Task> taskList;
+    private ArrayList<pau.task.Task> taskList;
 
     public TaskList() {
         this.taskList = new ArrayList<>();

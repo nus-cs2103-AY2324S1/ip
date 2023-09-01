@@ -1,4 +1,4 @@
-package Pau.task;
+package pau.task;
 
 public abstract class Task {
     protected String description;

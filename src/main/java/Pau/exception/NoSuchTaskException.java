@@ -1,4 +1,4 @@
-package Pau.exception;
+package pau.exception;
 
 public class NoSuchTaskException extends Exception{
     public NoSuchTaskException(String errorMessage) {

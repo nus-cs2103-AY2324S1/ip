@@ -1,4 +1,4 @@
-package Pau.exception;
+package pau.exception;
 
 public class NoDescException extends Exception {
     public NoDescException(String errorMessage) {

@@ -1,4 +1,4 @@
-package Pau.util;
+package pau.util;
 
 public class Ui {
     private final String botName = "\n" +

@@ -1,9 +1,9 @@
-package Pau;
+package pau;
 
-import Pau.util.Parser;
-import Pau.util.Storage;
-import Pau.task.TaskList;
-import Pau.util.Ui;
+import pau.util.Parser;
+import pau.util.Storage;
+import pau.task.TaskList;
+import pau.util.Ui;
 
 import java.util.Scanner;
 

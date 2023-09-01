@@ -1,7 +1,7 @@
-package Pau.util;
+package pau.util;
 
-import Pau.Pau;
-import Pau.task.TaskList;
+import pau.Pau;
+import pau.task.TaskList;
 
 public class Parser {
     public static boolean parseCommand(String input, TaskList list) {

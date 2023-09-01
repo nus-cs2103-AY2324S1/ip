@@ -1,4 +1,4 @@
-package Pau.exception;
+package pau.exception;
 
 public class DeadlineNoEndException extends Exception {
     public DeadlineNoEndException(String errorMessage) {
