@@ -1,19 +1,43 @@
 import java.time.*;
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import java.time.DayOfWeek;
+import java.io.ObjectOutputStream;
+import java.io.FileOutputStream;
 
 public class Duke {
     static String indent = "   ";
     static String megaIndent = "     ";
     static String horizontalLines = indent  + "__________________________________________";
-    static ArrayList<Task> taskArray = new ArrayList<>();
-    static String dataFile = "data/duke.txt";
+    //static ArrayList<Task> taskArray = new ArrayList<>();
+    static String filePath = "data/duke.txt";
+    private Storage storage;
+    private static TaskList tasks;
+    private Ui ui;
+
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException | IOException | ClassNotFoundException e) {
+            //ui.showLoadingError();
+            System.out.println(e.getMessage()); // on top error
+            createTxtFile();
+            tasks = new TaskList();
+        }
+    }
+    public static void createTxtFile() {
+        try {
+            FileWriter fw = new FileWriter(filePath);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("shag");
+        }
+    }
 
     /**
      * Prints the input string with horizontal lines above and below it
@@ -27,28 +51,7 @@ public class Duke {
     }
 
     /**
-     * @return the last Task from the taskArray
-     */
-    public static Task getLastTask() {
-        return taskArray.get(taskArray.size() - 1);
-    }
-
-    /**
-     * displays the list of Tasks
-     */
-    public static void displayList() {
-        System.out.println(horizontalLines);
-        System.out.println(indent + "Here are the tasks in your list:");
-        for (int i = 0; i < taskArray.size(); i++) {
-            int num = i + 1;
-            Task curr = taskArray.get(i);
-            System.out.println(indent + num + "." + curr.toString());
-        }
-        System.out.println(horizontalLines);
-    }
-
-    /**
-     * Everytime a Task is added to taskArray, clear the duke.txt file, then scan the whole
+     * Everytime a Task is added to tasks, clear the duke.txt file, then scan the whole
      * taskArray and rewrite the entire txt file
      *
      * Initially, I did a writeToFile method where everytime a Task is added to taskArray, write
@@ -61,13 +64,19 @@ public class Duke {
      * @throws IOException if the file at the filePath does not exist (I think)
      */
     private static void updateFile(String filePath) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
-        // Clear the existing content by opening in write mode and immediately closing
-        fw = new FileWriter(filePath, true);
-        for (int i = 0; i < taskArray.size(); i++) {
-            fw.write(taskArray.get(i).toFileString() + "\n");
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(filePath))) {
+            outputStream.writeObject(tasks);
+
+            FileWriter fw = new FileWriter(filePath);
+            // Clear the existing content by opening in write mode and immediately closing
+            fw = new FileWriter(filePath, true);
+            for (int i = 0; i < tasks.getSize(); i++) {
+                fw.write(tasks.getLastTask().toFileString() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
-        fw.close();
     }
     /**
      * For an input such as 'todo borrow book', letter is 'T' and string is 'borrow book'
@@ -76,23 +85,23 @@ public class Duke {
      * @param letter the letter corresponding to the first letter of the Task
      * @param string the string corresponding to the chunk of text after the word todo, deadline, or event
      */
-    public static void whichTask(String letter, String string) {
+    public static void addTask(String letter, String string) {
         try {
             if (letter.equals("T")) {
-                taskArray.add(new ToDo(string));
+                tasks.addTask(new ToDo(string));
             }
             if (letter.equals("D")) {
-                taskArray.add(new Deadline(getDescription(string), convertToLocalDateTime(getBy(string))));
+                tasks.addTask(new Deadline(getDescription(string), convertToLocalDateTime(getBy(string))));
             }
             if (letter.equals("E")) {
-                taskArray.add(new Event(getDescription(string), getFrom(string), getTo(string)));
+                tasks.addTask(new Event(getDescription(string), getFrom(string), getTo(string)));
             }
-            updateFile(dataFile);
+            updateFile(filePath);
 
-            int arrayLength = taskArray.size();
+            int arrayLength = tasks.getSize();
             System.out.println(horizontalLines);
             System.out.println(indent + "Got it. I've added this task:");
-            System.out.println(megaIndent + getLastTask().toString());
+            System.out.println(megaIndent + tasks.getLastTask().toString());
             System.out.println(indent + "Now you have " + arrayLength + " tasks in the list.");
             System.out.println(horizontalLines);
         } catch (DukeException | IOException e) {
@@ -185,22 +194,8 @@ public class Duke {
      */
     public static void markDescription(String string) {
         try {
-            String clean = string.replaceAll("\\D+", ""); //remove non-digits
-            int pos = Integer.parseInt(clean) - 1;
-            Task curr = taskArray.get(pos);
-
-            if (string.contains("unmark")) {
-                curr.markAsUnDone();
-                System.out.println(horizontalLines);
-                System.out.println(indent + "OK, I've marked this task as not done yet:");
-            } else if (string.contains("mark")) {
-                curr.markAsDone();
-                System.out.println(horizontalLines);
-                System.out.println(indent + "Nice! I've marked this task as done:");
-            }
-            System.out.println(megaIndent + curr.getStatusIconWithBracket() + " " + curr.description);
-            System.out.println(horizontalLines);
-            updateFile(dataFile);
+            tasks.markDescription(string);
+            updateFile(filePath);
         } catch (IndexOutOfBoundsException | IOException e) {
             printWithIndent("You are trying to access a Task that does not exist!");
         }
@@ -215,19 +210,8 @@ public class Duke {
      */
     public static void deleteTask(String string) {
         try {
-            String clean = string.replaceAll("\\D+", ""); //remove non-digits
-            int pos = Integer.parseInt(clean);
-            if (pos > taskArray.size()) {
-                printWithIndent("You are trying to delete a Task that does not exist");
-            } else {
-                System.out.println(horizontalLines);
-                System.out.println(indent + "Noted. I've removed this task:");
-                System.out.println(megaIndent + taskArray.get(pos - 1).toString());
-                taskArray.remove(pos - 1);
-                System.out.println(indent + "Now you have " + taskArray.size() + " tasks in the list.");
-                System.out.println(horizontalLines);
-                updateFile(dataFile);
-            }
+            tasks.deleteTask(string);
+            updateFile(filePath);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -375,9 +359,7 @@ public class Duke {
         }
         return result;
     }
-
-
-    public static void main(String[] args) {
+    public void run() {
         String name = "zac";
         Scanner obj = new Scanner(System.in);
 
@@ -387,7 +369,7 @@ public class Duke {
         System.out.println(horizontalLines);
 
         try {
-            printFileContents(dataFile);
+            printFileContents(filePath);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -395,7 +377,7 @@ public class Duke {
         while (true) {
             String userInput = obj.nextLine();
             if (userInput.equals("list")) {
-                displayList();
+                tasks.displayList();
             } else if (userInput.equals("bye")) {
                 printWithIndent("Bye. Hope to see you again soon!");
                 break;
@@ -405,19 +387,19 @@ public class Duke {
                 markDescription(userInput);
             } else if (userInput.contains("todo")) {
                 try {
-                    whichTask("T", userInput.substring(5));
+                    addTask("T", userInput.substring(5));
                 } catch (StringIndexOutOfBoundsException e) {
                     printWithIndent("OOPS!!! The description of a todo cannot be empty.");
                 }
             } else if (userInput.contains("deadline")) {
                 try {
-                    whichTask("D", userInput.substring(9));
+                    addTask("D", userInput.substring(9));
                 } catch (StringIndexOutOfBoundsException e) {
                     printWithIndent("OOPS!!! The description of a deadline cannot be empty.");
                 }
             } else if (userInput.contains("event")) {
                 try {
-                    whichTask("E", userInput.substring(6));
+                    addTask("E", userInput.substring(6));
                 } catch (StringIndexOutOfBoundsException e) {
                     printWithIndent("OOPS!!! The description of a deadline cannot be empty.");
                 }
@@ -427,5 +409,11 @@ public class Duke {
                 printWithIndent("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
+    }
+
+
+    public static void main(String[] args) {
+        new Duke(filePath).run();
+        tasks.printAllForTestingPurposes();
     }
 }
