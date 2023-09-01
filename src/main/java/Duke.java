@@ -126,41 +126,41 @@ public class Duke {
     public boolean processInput(String input) throws EmptyDescriptionException, UnknownCommandException, DateTimeParseException, IOException {
         String[] words = Parser.parseCommand(input);
         switch (words[0]) {
-            case "bye":
-                ui.printMessage(line + "Bye. Hope to see you again soon!\n" + line);
-                return false;
-            case "delete":
-                deleteTask(words[1]); // refactored logic to a new method
-                break;
-            case "help":
-                ui.printMessage(line + "\nCommands:\n" +
-                        "- To add a todo: 'todo [description]'\n" +
-                        "- To add a deadline: 'deadline [description] /by [date in format yyyy-MM-dd]'\n" +
-                        "- To add an event: 'event [description] /from [start date in format yyyy-MM-dd] /to " +
-                        "[end date in format yyyy-MM-dd]'\n" +
-                        line);
-                break;
-            case "todo":
-                addTodo(words[1]);
-                break;
-            case "deadline":
-                addDeadline(words[1]);
-                break;
-            case "event":
-                addEvent(words[1]);
-                break;
-            case "list":
-                listTasks();
-                break;
-            case "mark":
-                markTaskDone(words[1]);
-                break;
-            case "unmark":
-                unmarkTaskDone(words[1]);
-                break;
-            default:
-                // Handle any other cases or errors
-                break;
+        case "bye":
+            ui.printMessage(line + "Bye. Hope to see you again soon!\n" + line);
+            return false;
+        case "delete":
+            deleteTask(words[1]); // refactored logic to a new method
+            break;
+        case "help":
+            ui.printMessage(line + "\nCommands:\n" +
+                    "- To add a todo: 'todo [description]'\n" +
+                    "- To add a deadline: 'deadline [description] /by [date in format yyyy-MM-dd]'\n" +
+                    "- To add an event: 'event [description] /from [start date in format yyyy-MM-dd] /to " +
+                    "[end date in format yyyy-MM-dd]'\n" +
+                    line);
+            break;
+        case "todo":
+            addTodo(words[1]);
+            break;
+        case "deadline":
+            addDeadline(words[1]);
+            break;
+        case "event":
+            addEvent(words[1]);
+            break;
+        case "list":
+            listTasks();
+            break;
+        case "mark":
+            markTaskDone(words[1]);
+            break;
+        case "unmark":
+            unmarkTaskDone(words[1]);
+            break;
+        default:
+            // Handle any other cases or errors
+            break;
         }
         return true;
     }
