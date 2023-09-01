@@ -1,7 +1,7 @@
 package datafile;
 import Exceptions.InvalidDeadlineException;
 import Exceptions.InvalidEventException;
-import Exceptions.NoTasksException;
+import Exceptions.LemonException;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
@@ -15,9 +15,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-        private static final String FILE_PATH = "./datafile/tasks.txt";
+        private final String FILE_PATH;
 
         public Storage() {
+            this.FILE_PATH = "./datafile/tasks.txt";
+        }
+
+        public Storage(String filePath) {
+            this.FILE_PATH = filePath;
         }
 
         public void saveTasks(ArrayList<Task> tasks) {
@@ -55,7 +60,7 @@ public class Storage {
             fw.close();
         }
 
-        public ArrayList<Task> loadFile() {
+        public ArrayList<Task> loadFile() throws LemonException {
             ArrayList<Task> tasks = new ArrayList<>();
             File dataFile = new File(FILE_PATH);
             Scanner scanner;
@@ -102,7 +107,7 @@ public class Storage {
                         }
                     }
                 } catch (FileNotFoundException e) {
-                    System.out.println("File not found!");
+                    throw new LemonException("Storage file not available!");
                 }
             }
             return tasks;
