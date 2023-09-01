@@ -28,7 +28,7 @@ public class TodoCommand extends Command {
         if (obj == null) {
             return false;
         }
-        if (obj instanceof UnmarkCommand) {
+        if (obj instanceof TodoCommand) {
             TodoCommand temp = (TodoCommand)  obj;
             if (temp.description.equals(this.description)) {
                 return true;

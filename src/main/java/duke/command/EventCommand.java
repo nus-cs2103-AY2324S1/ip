@@ -36,7 +36,7 @@ public class EventCommand extends Command {
         if (obj == null) {
             return false;
         }
-        if (obj instanceof UnmarkCommand) {
+        if (obj instanceof EventCommand) {
            EventCommand temp = (EventCommand) obj;
             if (temp.from.equals(this.from) && temp.to.equals(this.to) && this.description.equals(temp.description)) {
                 return true;

@@ -31,7 +31,7 @@ public class DeadlineCommand extends Command {
         if (obj == null) {
             return false;
         }
-        if (obj instanceof UnmarkCommand) {
+        if (obj instanceof DeadlineCommand) {
             DeadlineCommand temp = (DeadlineCommand) obj;
             if (temp.description.equals(temp.description) && this.by.equals(temp.by)) {
                 return true;

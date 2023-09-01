@@ -5,6 +5,8 @@ import duke.command.*;
 import org.junit.jupiter.api.Test;
 
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
@@ -18,7 +20,7 @@ public class ParserTest {
     @Test
     public void testParseCommandTodoCommand() throws DukeException {
         Command command = Parser.parseCommand("todo sleeping");
-        assertTrue(command instanceof TodoCommand);
+        assertEquals(new TodoCommand("sleeping"), command);
     }
     @Test
     public void testParseCommandInvalidTodoCommand() throws DukeException {
@@ -33,7 +35,7 @@ public class ParserTest {
     @Test
     public void testParseCommandDeadlineCommand() throws DukeException {
         Command command = Parser.parseCommand("deadline Submit CS2103 IP /by 2023-09-01");
-        assertTrue(command instanceof DeadlineCommand);
+        assertEquals(new DeadlineCommand("Submit CS2103", LocalDate.parse("2023-09-01")), command);
 
     }
 
@@ -51,7 +53,8 @@ public class ParserTest {
     @Test
     public void testParseCommandEventCommand() throws DukeException {
         Command command = Parser.parseCommand("event Party /from 2023-01-01 /to 2023-01-02");
-        assertTrue(command instanceof EventCommand);
+        assertEquals(new EventCommand("Party", LocalDate.parse("2023-01-01"),
+                LocalDate.parse("2023-01-02")), command);
 
     }
 
@@ -68,13 +71,19 @@ public class ParserTest {
     @Test
     public void testParseCommandMarkCommand() throws DukeException {
         Command command = Parser.parseCommand("mark 1");
-        assertTrue(command instanceof MarkCommand);
+        assertEquals(new MarkCommand(0), command);
+
+        command = Parser.parseCommand("mark 2");
+        assertEquals(new MarkCommand(1), command);
+
+        command = Parser.parseCommand("mark 99");
+        assertEquals(new MarkCommand(98), command);
     }
 
     @Test
     public void testParseCommandInvalidMarkCommand() throws DukeException {
         try {
-            Parser.parseCommand("unmark a");
+            Parser.parseCommand("mark a");
             fail();
         } catch (DukeException e) {
             assertEquals("Please type in INTEGER after this command ^v^", e.getMessage());
@@ -84,7 +93,13 @@ public class ParserTest {
     @Test
     public void testParseCommandUnmarkCommand() throws DukeException {
         Command command = Parser.parseCommand("unmark 1");
-        assertTrue(command instanceof UnmarkCommand);
+        assertEquals(new UnmarkCommand(0), command);
+
+        command = Parser.parseCommand("unmark 2");
+        assertEquals(new UnmarkCommand(1), command);
+
+        command = Parser.parseCommand("unmark 6");
+        assertEquals(new UnmarkCommand(5), command);
     }
 
 
@@ -101,7 +116,10 @@ public class ParserTest {
     @Test
     public void testParseCommandDeleteCommand() throws DukeException {
         Command command = Parser.parseCommand("delete 1");
-        assertTrue(command instanceof DeleteCommand);
+        assertEquals(new DeleteCommand(0), command);
+
+        command = Parser.parseCommand("delete 100");
+        assertEquals(new DeleteCommand(99), command);
     }
 
     @Test

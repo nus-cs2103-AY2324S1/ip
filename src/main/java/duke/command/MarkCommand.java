@@ -6,6 +6,8 @@ import duke.TaskList;
 import duke.Ui;
 import duke.task.Task;
 
+import java.util.Objects;
+
 public class MarkCommand extends Command {
 
     private int index;
@@ -26,9 +28,9 @@ public class MarkCommand extends Command {
         if (obj == null) {
             return false;
         }
-        if (obj instanceof UnmarkCommand) {
+        if (obj instanceof MarkCommand) {
             MarkCommand temp = (MarkCommand) obj;
-            if (temp.index == this.index) {
+            if (this.index == temp.index) {
                 return true;
             }
         }

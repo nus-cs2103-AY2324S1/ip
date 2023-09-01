@@ -27,7 +27,7 @@ public class DeleteCommand extends Command {
         if (obj == null) {
             return false;
         }
-        if (obj instanceof UnmarkCommand) {
+        if (obj instanceof DeleteCommand) {
             DeleteCommand temp = (DeleteCommand) obj;
             if (temp.index == this.index) {
                 return true;
