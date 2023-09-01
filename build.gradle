@@ -13,6 +13,7 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
 
+
 test {
     useJUnitPlatform()
 
@@ -37,12 +38,7 @@ shadowJar {
     dependsOn("distZip", "distTar")
 }
 
-apply plugin: 'checkstyle'
 
-checkstyle {
-    toolVersion = '8.37' // specify the version
-    configFile = file("${project.rootDir}/config/checkstyle/checkstyle.xml")
-}
 
 run{
     standardInput = System.in

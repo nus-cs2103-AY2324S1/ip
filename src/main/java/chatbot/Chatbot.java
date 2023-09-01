@@ -3,16 +3,26 @@ package chatbot;
 import chatbot.task.*;
 import chatbot.command.Command;
 
+/**
+ * The Chatbot class initialises the chatbot application and handles the main
+ * event.
+ */
 public class Chatbot {
     private TaskManager taskManager;
     private Ui ui;
 
+    /**
+     * contructor for Chatbot class.
+     */
     public Chatbot() {
         this.taskManager = new TaskManager();
         this.ui = new Ui();
     }
 
 
+    /**
+    Run chatbot class.
+     */
     public void run() {
         ui.showGreeting();
         boolean isExit = false;
@@ -31,7 +41,10 @@ public class Chatbot {
             }
         }
 
-
+    /**
+     * The Chatbot class initialises the chatbot application and handles the main
+     * event loop.
+     */
     public static void main(String[] args) {
         Chatbot Sara = new Chatbot();
             Sara.run();

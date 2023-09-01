@@ -4,9 +4,18 @@ import chatbot.Ui;
 import chatbot.ChatbotException;
 import chatbot.task.TaskManager;
 
+/**
+ * class which handle unknown command extends abstract class command.
+ */
+
 public class UnknownCommand extends Command{
     private String userInput;
 
+    /**
+     * Constructor for this class.
+     *
+     * @param userInput userInput.
+     */
     public UnknownCommand (String userInput) {
         this.userInput = userInput;
     }

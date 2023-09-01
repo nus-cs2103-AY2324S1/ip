@@ -3,9 +3,17 @@ package chatbot.storage;
 import java.io.*;
 import chatbot.task.*;
 
+/**
+ * The Storage class manages reading from and writing to a file for task data storage.
+ */
 public class Storage {
     private final String FILEPATH;
 
+    /**
+     * Constructor for this class
+     *
+     * @param FILEPATH filepath of the file
+     */
     public Storage(String FILEPATH) {
         this.FILEPATH = FILEPATH;
 
@@ -24,6 +32,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the tasks from the TaskList to the file.
+     *
+     * @param tasks taskList containing tasks to be saved
+     */
     public void saveToFile(TaskList tasks) {
         try {
             FileWriter fileWriter = new FileWriter(FILEPATH);
@@ -41,6 +54,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file and returns them as a TaskList.
+     *
+     * @return TaskList containing tasks loaded from the file
+     */
     public TaskList loadFromFile() {
         TaskList tasks = new TaskList();
         try {
