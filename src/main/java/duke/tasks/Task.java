@@ -24,6 +24,16 @@ public class Task implements Serializable {
         return isDone;
     }
 
+    /**
+     * Returns whether the task description contains a specified keyword.
+     *
+     * @param s The keyword to look for.
+     * @return True if the description contains the specified keyword.
+     */
+    public boolean hasKeyword(String s) {
+        return description.contains(s);
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }

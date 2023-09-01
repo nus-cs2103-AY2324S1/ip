@@ -35,6 +35,8 @@ public abstract class Command {
                 return new ByeCommand();
             case LIST:
                 return new ListCommand();
+            case FIND:
+                return new FindCommand(s);
             case TODO:
                 return new TodoCommand(s);
             case DEADLINE:
@@ -77,6 +79,6 @@ public abstract class Command {
     public abstract CommandResult run(TaskList tasks) throws CommandException;
 
     public enum Verb {
-        BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE
+        BYE, LIST, FIND, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE
     }
 }

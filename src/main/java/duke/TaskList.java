@@ -5,6 +5,8 @@ import duke.tasks.Task;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks.
@@ -12,7 +14,15 @@ import java.util.List;
 public class TaskList implements Serializable {
     private static final long serialVersionUID = 5L;
 
-    private final List<Task> tasks = new ArrayList<>();
+    private final List<Task> tasks;
+
+    private TaskList(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public TaskList() {
+        this(new ArrayList<>());
+    }
 
     /**
      * Returns whether the task list is empty.
@@ -49,6 +59,10 @@ public class TaskList implements Serializable {
      */
     public void add(Task t) {
         tasks.add(t);
+    }
+
+    public TaskList filter(Predicate<? super Task> cond) {
+        return new TaskList(tasks.stream().filter(cond).collect(Collectors.toList()));
     }
 
     /**
