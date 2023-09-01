@@ -5,5 +5,4 @@ D | 0 | todo | 2023-10-10
 T | 0 | runaway
 E | 0 | project meeting | Mon 2pm | 4pm
 D | 0 | read | 2019-12-02 1800
-T | 0 | borrow book
-D | 0 | run | 2019-10-10 1000
+D | 1 | run | 2019-10-10 1000
