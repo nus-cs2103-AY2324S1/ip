@@ -11,11 +11,22 @@ import task.Todo;
 import utility.DateTimeParser;
 import utility.TextFileHandler;
 
+/**
+ * Utility class for reading and writing tasks to/from a textfile.
+ *
+ * @author Ho Khee Wei
+ */
 public abstract class Storage {
     public static final String TASK_FILE_PATH = "data/tasks.txt";
     public static final String TASK_FILE_SEPARATOR = "-";
     public static final String TASK_FILE_TB_FORMAT = "dd/MM/yyyy HHmm";
 
+    /**
+     * Reads task data from the specified file and returns a TaskList containing the
+     * tasks.
+     *
+     * @return A TaskList containing tasks read from the file.
+     */
     public static TaskList readFromFile() {
         TaskList res = new TaskList();
 
@@ -50,6 +61,12 @@ public abstract class Storage {
         return res;
     }
 
+    /**
+     * Writes the tasks from a TaskList to the specified file in the predefined
+     * format.
+     *
+     * @param list The TaskList containing tasks to be written to the file.
+     */
     public static void writeToFile(TaskList list) {
         String output = "";
 

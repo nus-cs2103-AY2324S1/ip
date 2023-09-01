@@ -8,6 +8,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+/**
+ * Utility class for .txt file manipulation operations.
+ *
+ * @author Ho Khee Wei
+ */
 public abstract class TextFileHandler {
 
     /**

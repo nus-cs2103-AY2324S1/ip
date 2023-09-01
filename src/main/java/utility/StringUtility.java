@@ -1,5 +1,10 @@
 package utility;
 
+/**
+ * Utility class for string manipulation operations.
+ *
+ * @author Ho Khee Wei
+ */
 public abstract class StringUtility {
 
     /**

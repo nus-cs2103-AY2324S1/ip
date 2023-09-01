@@ -13,13 +13,21 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import utility.StringUtility;
 
+/**
+ * Utility class responsible for parsing user input and generating corresponding
+ * Command objects.
+ *
+ * @author Ho Khee Wei
+ */
 public abstract class CommandParser {
 
     /**
-     * Parse the input given by user.
-     * 
-     * @param input User input
-     * @return Map of options and values.
+     * Parses the user input to create a corresponding Command object.
+     *
+     * @param input User input string to be parsed.
+     * @return A Command object corresponding to the parsed input.
+     * @throws ThorndikeException If there are errors in parsing or the input is
+     *                            invalid.
      */
     public static Command parse(String input) throws ThorndikeException {
         String command = input.split(" ")[0];
@@ -94,9 +102,11 @@ public abstract class CommandParser {
     }
 
     /**
-     * Gets index from a string.
-     * 
-     * @param idx String to parse index.
+     * Parses an index string and returns the corresponding task list index.
+     *
+     * @param index The string representing the index to be parsed.
+     * @return The parsed task list index (zero-based).
+     * @throws ThorndikeException If the index cannot be parsed or is invalid.
      */
     private static int parseIndex(String index) throws ThorndikeException {
         int idx = -1;

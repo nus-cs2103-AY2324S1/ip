@@ -9,12 +9,22 @@ import command.CommandParser;
 import java.io.IOException;
 import utility.TextFileHandler;
 
+/**
+ * Thorndike - A simple chatbot for managing tasks and user interactions.
+ *
+ * @author Ho Khee Wei
+ */
 public class Thorndike {
     private Scanner scanner;
     private TaskList taskList;
     private Boolean running;
     private Ui ui;
 
+    /**
+     * Constructs a Thorndike chatbot and initializes necessary components.
+     * It sets up the user interface, task list, and handles potential file I/O
+     * exceptions.
+     */
     public Thorndike() {
         this.scanner = new Scanner(System.in);
         this.running = true;
@@ -29,7 +39,9 @@ public class Thorndike {
     }
 
     /**
-     * Starts the chatbot.
+     * Starts the Thorndike chatbot and enters the main interaction loop.
+     * It displays a greeting message and listens for user commands until the
+     * chatbot is terminated.
      */
     public void start() {
         greet();
@@ -42,9 +54,6 @@ public class Thorndike {
         }
     }
 
-    /**
-     * Listens to command given to user.
-     */
     private void listen() throws ThorndikeException {
         System.out.print(">> ");
         String input = scanner.nextLine();
@@ -61,9 +70,6 @@ public class Thorndike {
         command.execute(taskList, ui);
     }
 
-    /**
-     * Sends greetings to user.
-     */
     private void greet() {
         ui.print("Meow! I'm Thorndike.");
         ui.print("What can I do for you?");

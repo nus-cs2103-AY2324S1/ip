@@ -5,6 +5,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Utility class for parsing date and time input strings into LocalDateTime
+ * objects.
+ *
+ *
+ * @author Ho Khee Wei
+ */
 public abstract class DateTimeParser {
 
     public final static String[] DATE_FORMATS = {
@@ -20,6 +27,13 @@ public abstract class DateTimeParser {
             "HHmm"
     };
 
+    /**
+     * Parses a date and/or time string into a LocalDateTime object.
+     *
+     * @param input The input string representing date and/or time.
+     * @return A LocalDateTime object representing the parsed date and time, or null
+     *         if parsing fails.
+     */
     public static LocalDateTime parse(String input) {
         String date = input;
         String time = null;
@@ -59,5 +73,4 @@ public abstract class DateTimeParser {
 
         return null;
     }
-
 }
