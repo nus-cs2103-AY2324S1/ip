@@ -92,6 +92,8 @@ public class Parser {
                 } else {
                     throw new MissingFormatArgumentException("no arg");
                 }
+            } else if (input.startsWith("find")) {
+                Ui.listTheList(inputs[1]);
             } else {
                 throw new NoSuchMethodException("no method");
             }

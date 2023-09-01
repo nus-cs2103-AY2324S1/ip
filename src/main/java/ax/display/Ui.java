@@ -2,6 +2,7 @@ package ax.display;
 
 import ax.task.TaskList;
 
+
 public class Ui {
     /**
      * Displays a horizontal line.
@@ -57,6 +58,15 @@ public class Ui {
     public static void listTheList() {
         for (int i = 1; i < TaskList.getListItems().size() + 1; i++) {
             System.out.printf("%d. %s%n", i, TaskList.getListItems().get(i - 1));
+        }
+        hoLine();
+    }
+
+    public static void listTheList(String str) {
+        for (int i = 1; i < TaskList.getListItems().size() + 1; i++) {
+            if (TaskList.getListItems().get(i - 1).toString().contains(str)) {
+                System.out.printf("%d. %s%n", i, TaskList.getListItems().get(i - 1));
+            }
         }
         hoLine();
     }
