@@ -16,4 +16,8 @@ public class Ui {
     public static void print(String printString) {
         System.out.println(printString);
     }
+
+    public static void printLine() {
+        System.out.println(LINE);
+    }
 }

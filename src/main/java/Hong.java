@@ -1,14 +1,13 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.FileNotFoundException;
+
+import exceptions.DukeException;
 import parsers.DateTimeParser;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
+import tasks.TaskList;
 import ui.Ui;
 import storage.Storage;
 
@@ -18,10 +17,10 @@ import java.time.LocalDateTime;
 public class Hong {
     private static ArrayList<Task> tasks;
 
-    private static final String LINE = "---------------------------------------------------------";
+    //private static final String LINE = "---------------------------------------------------------";
     public static void main(String[] args) {
         Ui.sayHello();
-        tasks = Storage.readTasks();
+        TaskList taskList = new TaskList();
         Scanner myObj = new Scanner(System.in);
         while (true) {
             String userInput = myObj.nextLine();
@@ -29,28 +28,30 @@ public class Hong {
                 myObj.close();
                 break;
             } else if (userInput.equals("list")) {
-                printTasks();
+                taskList.printTasks();
             } else if (userInput.startsWith("mark")) {
-                handleMark(userInput);
-                Storage.storeTasks(tasks);
+                taskList.handleMark(userInput);
+                taskList.storeTasks();
             } else if (userInput.startsWith("deadline")) {
-                createDeadline(userInput);
-                Storage.storeTasks(tasks);
+                taskList.createDeadline(userInput);
+                taskList.storeTasks();
             } else if (userInput.startsWith("event")) {
-                createEvent(userInput);
-                Storage.storeTasks(tasks);
+                taskList.createEvent(userInput);
+                taskList.storeTasks();
             } else if (userInput.startsWith("todo")) {
-                createTodo(userInput);
-                Storage.storeTasks(tasks);
+                taskList.createTodo(userInput);
+                taskList.storeTasks();
             } else if (userInput.startsWith("delete")) {
-                deleteTask(userInput);
-                Storage.storeTasks(tasks);
+                taskList.deleteTask(userInput);
+                taskList.storeTasks();
             } else {
                 Task currentTask = new Task(userInput);
-                String currentMessage = LINE + "\n" + "added: " + userInput + "\n" + LINE;
+                Ui.printLine();
+                String currentMessage = "added: " + userInput + "\n";
                 Ui.print(currentMessage);
+                Ui.printLine();
                 tasks.add(currentTask);
-                Storage.storeTasks(tasks);
+                taskList.storeTasks();
             }
         }
         Ui.sayBye();
@@ -131,86 +132,86 @@ public class Hong {
 //        System.out.println(exitMessage);
 //    }
 
-    private static void printTasks() {
-        Ui.print(LINE);
-        Ui.print("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            Task currentTask = tasks.get(i);
-            String currentItem = (i + 1) + "." + currentTask.toString();
-            Ui.print(currentItem);
-        }
-        Ui.print(LINE);
-    }
-
-    private static void handleMark(String userInput) {
-        String[] arrInput = userInput.split(" ");
-        try {
-            Task currentTask = tasks.get(Integer.valueOf(arrInput[1]) - 1);
-            currentTask.markDone();
-            Ui.print(LINE);
-            Ui.print("Nice! I've marked this task as done:");
-            String currentItem = currentTask.toString();
-            Ui.print(currentItem);
-            Ui.print(LINE);
-        } catch (IndexOutOfBoundsException err){
-            throw new DukeException("This tasks.Task index does not exist!", err);
-        }
-
-    }
-
-    private static void createDeadline(String userInput) {
-        String newInput = userInput.substring(9);
-        String[] arrInput = newInput.split("/by ");
-        if (arrInput.length != 2) {
-            Ui.print("Error! There is an issue with the format of your message. ");
-        } else {
-            LocalDateTime dateTime = DateTimeParser.parseDateTime(arrInput[1]);
-            Deadline newDeadline = new Deadline(dateTime, arrInput[0]);
-            tasks.add(newDeadline);
-            addedMessage(newDeadline.toString());
-        }
-
-    }
-
-    private static void createTodo(String userInput) {
-        String newInput = userInput.substring(5);
-        Todo newTodo = new Todo(newInput);
-        tasks.add(newTodo);
-        addedMessage(newTodo.toString());
-    }
-
-    private static void createEvent(String userInput) {
-        String newInput = userInput.substring(6);
-        String[] arrInput = newInput.split("/from ");
-        String eventDetails = arrInput[0];
-        String[] fromToArr = arrInput[1].split(" /to ");
-        Event newEvent = new Event(DateTimeParser.parseDateTime(fromToArr[0]),
-                DateTimeParser.parseDateTime(fromToArr[1]), eventDetails);
-        tasks.add(newEvent);
-        addedMessage(newEvent.toString());
-    }
-
-    private static void addedMessage(String taskMessage) {
-        String message = LINE + "\nGot it. I've added this task:\n" + taskMessage + "\nNow you have " + tasks.size() +
-                " tasks in the list.\n" + LINE;
-        Ui.print(message);
-    }
-
-    private static void deleteTask(String userInput) {
-        String[] arrInput = userInput.split(" ");
-        try {
-
-            Task currentTask = tasks.get(Integer.valueOf(arrInput[1]) - 1);
-            tasks.remove(Integer.valueOf(arrInput[1]) - 1);
-            Ui.print(LINE);
-            Ui.print("Noted. I've removed this task:");
-            String currentItem = currentTask.toString();
-            Ui.print(currentItem);
-            Ui.print("Now you have " + tasks.size() + " tasks in the list.");
-            Ui.print(LINE);
-        } catch (IndexOutOfBoundsException err){
-            throw new DukeException("This tasks.Task index does not exist!", err);
-        }
-    }
+//    private static void printTasks() {
+//        Ui.print(LINE);
+//        Ui.print("Here are the tasks in your list:");
+//        for (int i = 0; i < tasks.size(); i++) {
+//            Task currentTask = tasks.get(i);
+//            String currentItem = (i + 1) + "." + currentTask.toString();
+//            Ui.print(currentItem);
+//        }
+//        Ui.print(LINE);
+//    }
+//
+//    private static void handleMark(String userInput) {
+//        String[] arrInput = userInput.split(" ");
+//        try {
+//            Task currentTask = tasks.get(Integer.valueOf(arrInput[1]) - 1);
+//            currentTask.markDone();
+//            Ui.print(LINE);
+//            Ui.print("Nice! I've marked this task as done:");
+//            String currentItem = currentTask.toString();
+//            Ui.print(currentItem);
+//            Ui.print(LINE);
+//        } catch (IndexOutOfBoundsException err){
+//            throw new exceptions.DukeException("This tasks.Task index does not exist!", err);
+//        }
+//
+//    }
+//
+//    private static void createDeadline(String userInput) {
+//        String newInput = userInput.substring(9);
+//        String[] arrInput = newInput.split("/by ");
+//        if (arrInput.length != 2) {
+//            Ui.print("Error! There is an issue with the format of your message. ");
+//        } else {
+//            LocalDateTime dateTime = DateTimeParser.parseDateTime(arrInput[1]);
+//            Deadline newDeadline = new Deadline(dateTime, arrInput[0]);
+//            tasks.add(newDeadline);
+//            addedMessage(newDeadline.toString());
+//        }
+//
+//    }
+//
+//    private static void createTodo(String userInput) {
+//        String newInput = userInput.substring(5);
+//        Todo newTodo = new Todo(newInput);
+//        tasks.add(newTodo);
+//        addedMessage(newTodo.toString());
+//    }
+//
+//    private static void createEvent(String userInput) {
+//        String newInput = userInput.substring(6);
+//        String[] arrInput = newInput.split("/from ");
+//        String eventDetails = arrInput[0];
+//        String[] fromToArr = arrInput[1].split(" /to ");
+//        Event newEvent = new Event(DateTimeParser.parseDateTime(fromToArr[0]),
+//                DateTimeParser.parseDateTime(fromToArr[1]), eventDetails);
+//        tasks.add(newEvent);
+//        addedMessage(newEvent.toString());
+//    }
+//
+//    private static void addedMessage(String taskMessage) {
+//        String message = LINE + "\nGot it. I've added this task:\n" + taskMessage + "\nNow you have " + tasks.size() +
+//                " tasks in the list.\n" + LINE;
+//        Ui.print(message);
+//    }
+//
+//    private static void deleteTask(String userInput) {
+//        String[] arrInput = userInput.split(" ");
+//        try {
+//
+//            Task currentTask = tasks.get(Integer.valueOf(arrInput[1]) - 1);
+//            tasks.remove(Integer.valueOf(arrInput[1]) - 1);
+//            Ui.print(LINE);
+//            Ui.print("Noted. I've removed this task:");
+//            String currentItem = currentTask.toString();
+//            Ui.print(currentItem);
+//            Ui.print("Now you have " + tasks.size() + " tasks in the list.");
+//            Ui.print(LINE);
+//        } catch (IndexOutOfBoundsException err){
+//            throw new exceptions.DukeException("This tasks.Task index does not exist!", err);
+//        }
+//    }
 
 }
