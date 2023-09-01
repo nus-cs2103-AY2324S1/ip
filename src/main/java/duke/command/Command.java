@@ -45,6 +45,8 @@ public class Command {
      */
     public static void mark(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
         try {
+            String[] messageWords = message.split(" ");
+            int numOfWords = messageWords.length;
             if (numOfWords == 2) {
                 int index = Integer.parseInt(messageWords[1]) - 1;
                 Task markTask = tasks.getTask(index);
