@@ -112,7 +112,7 @@ public class TaskList {
      */
     public TaskList findTasksByKeyword(String keyword) {
         TaskList output = new TaskList();
-        for (Task task : taskList) {
+        for (Task task : tasks) {
             if (task.containsWord(keyword)) {
                 output.addTask(task);
             }
