@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.io.IOException;
 
 
-public class Aj {
+public class Aj { // add javadoc here
     Parser parser;
     Storage storage;
 
@@ -14,6 +14,7 @@ public class Aj {
 
 
     public boolean askCommand(Scanner scanner) throws NoSuchCommandException, EmptyDescriptionException, IndexOutOfRangeException, IOException {
+        // add coding convention here
 
         String command = scanner.next().toLowerCase();
 
