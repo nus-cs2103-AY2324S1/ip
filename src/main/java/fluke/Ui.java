@@ -1,10 +1,12 @@
+package fluke;
+
 import fluke.tasks.Task;
 
 /**
  * This class contains all user interface related functionalities.
  */
 public class Ui {
-    private final static String CHATBOT_NAME = "Fluke";
+    private final static String CHATBOT_NAME = "fluke.Fluke";
     private final static String LOGO =
             "    ________      __\n" +
                     "   / ____/ /_  __/ /_____\n" +
@@ -16,7 +18,7 @@ public class Ui {
                     "Feeling lucky today?";
     private final static String GOODBYE = "Bye. Good luck!";
     public void greet() {
-        // introduce Fluke
+        // introduce fluke.Fluke
         System.out.println(LOGO);
         addHorizontalLine();
         System.out.println(GREETING);
