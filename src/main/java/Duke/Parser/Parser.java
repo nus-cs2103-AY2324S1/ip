@@ -196,6 +196,7 @@ public class Parser {
 
                 ArrayList<Optional<Task>> filtered = taskList.findTasksByName(searchString);
 
+
                 printResult(inputCommand, null, new TaskList(filtered));
                 canContinue = true;
                 break;
