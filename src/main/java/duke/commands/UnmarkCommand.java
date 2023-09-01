@@ -17,6 +17,11 @@ public class UnmarkCommand extends Command {
         this.chatRecord = records;
     }
 
+    /**
+     * Executes the created Unmark Command.
+     *
+     * @return The string representation of task to be unmarked.
+     */
     @Override
     public String execute() {
         Task task = chatRecord.setUnmark(toUnmark);

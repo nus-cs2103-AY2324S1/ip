@@ -23,6 +23,12 @@ public class DeadlineCommand extends Command{
         this.chatRecord = records;
     }
 
+    /**
+     * Executes the created Deadline Command.
+     * A new Deadline Task will be added to the records.
+     *
+     * @return The string to be displayed as feedback to the user.
+     */
     @Override
     public String execute() {
         Deadline ddl =  new Deadline(name, date);

@@ -2,7 +2,7 @@ package duke.records;
 
 import duke.parser.TaskParser;
 import duke.storage.SaveData;
-import duke.task.*;
+import duke.task.Task;
 
 import java.util.ArrayList;
 

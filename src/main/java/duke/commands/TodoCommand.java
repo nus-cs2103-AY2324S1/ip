@@ -18,6 +18,12 @@ public class TodoCommand extends Command {
         this.chatRecord = records;
     }
 
+    /**
+     * Executes the created Todo Command.
+     * A new Todo Task will be added to the records.
+     *
+     * @return The string to be displayed as feedback to the user.
+     */
     @Override
     public String execute() {
         Todo td = new Todo(this.name);

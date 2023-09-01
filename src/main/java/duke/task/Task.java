@@ -7,11 +7,21 @@ public abstract class Task {
 
     protected static String DISCRIMINATOR = " || ";
 
+    /**
+     * Marks the task as done.
+     *
+     * @return this Task that has been marked as done.
+     */
     public Task mark() {
         this.status = true;
         return this;
     }
 
+    /**
+     * Marks the task as not done.
+     *
+     * @return this Task that has been marked as not done.
+     */
     public Task unmark() {
         this.status = false;
         return this;

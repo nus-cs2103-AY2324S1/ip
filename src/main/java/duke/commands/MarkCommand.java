@@ -16,6 +16,11 @@ public class MarkCommand extends Command {
         this.chatRecord = records;
     }
 
+    /**
+     * Executes the created Mark Command.
+     *
+     * @return The string representation of task to be marked.
+     */
     @Override
     public String execute() {
         Task task = chatRecord.setMark(toMark);

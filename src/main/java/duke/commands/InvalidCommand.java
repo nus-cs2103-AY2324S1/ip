@@ -12,6 +12,12 @@ public class InvalidCommand extends Command {
     }
     @Override
     public void init(ChatRecord records) { }
+
+    /**
+     * Executes the created Invalid Command.
+     *
+     * @return The error string to be displayed as feedback to the user.
+     */
     @Override
     public String execute() {
         return prefix + errMessage;

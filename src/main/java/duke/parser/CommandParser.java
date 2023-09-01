@@ -3,7 +3,16 @@ package duke.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import duke.commands.*;
+import duke.commands.ByeCommand;
+import duke.commands.Command;
+import duke.commands.DeadlineCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.EventCommand;
+import duke.commands.InvalidCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkCommand;
+import duke.commands.TodoCommand;
+import duke.commands.UnmarkCommand;
 
 public class CommandParser {
     private static final Pattern COMMAND_PATTERN = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");

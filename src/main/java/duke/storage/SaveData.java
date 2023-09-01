@@ -11,6 +11,12 @@ import duke.task.Task;
 
 public class SaveData {
     private static final String SAVE_FILE_LOCATION = "./SaveFile.txt";
+
+    /**
+     * Saves the formatted data to local storage.
+     *
+     * @param taskData the formatted string of the data to be saved.
+     */
     public static void saveData(String taskData) {
         File f = new File(SAVE_FILE_LOCATION);
         try {
@@ -32,6 +38,11 @@ public class SaveData {
         }
     }
 
+    /**
+     * Loads the data from the local storage.
+     *
+     * @return An ArrayList of the loaded data. Returns an empty ArrayList if no stored data is found.
+     */
     public static ArrayList<Task> loadData() {
         File f = new File(SAVE_FILE_LOCATION);
         ArrayList<Task> tasks = new ArrayList<>();

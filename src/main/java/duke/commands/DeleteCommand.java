@@ -17,6 +17,12 @@ public class DeleteCommand extends Command {
         this.chatRecord = records;
     }
 
+    /**
+     * Executes the created Delete Command.
+     * The selected Task will be deleted from the record.
+     *
+     * @return The string representation of the Task to be deleted.
+     */
     @Override
     public String execute() {
         Task task = this.chatRecord.deleteTask(toDelete);

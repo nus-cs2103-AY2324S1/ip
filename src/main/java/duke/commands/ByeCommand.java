@@ -8,6 +8,12 @@ public class ByeCommand extends Command {
     public ByeCommand() { }
     @Override
     public void init(ChatRecord records) { }
+
+    /**
+     * Executes the created Bye Command.
+     *
+     * @return The bye phrase to be displayed as feedback to the user.
+     */
     @Override
     public String execute() {
         return BYE_PHRASE;

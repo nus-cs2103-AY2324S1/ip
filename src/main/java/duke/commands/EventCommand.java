@@ -23,6 +23,12 @@ public class EventCommand extends Command{
         this.chatRecord = records;
     }
 
+    /**
+     * Executes the created Event Command.
+     * A new Event Task will be added to the records.
+     *
+     * @return The string to be displayed as feedback to the user.
+     */
     @Override
     public String execute() {
         Event ev = new Event(name, startDate, endDate);

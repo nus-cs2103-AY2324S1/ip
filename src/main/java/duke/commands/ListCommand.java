@@ -12,6 +12,11 @@ public class ListCommand extends Command {
         this.chatRecord = records;
     }
 
+    /**
+     * Executes the created List Command.
+     *
+     * @return The list of task to be displayed to the user.
+     */
     @Override
     public String execute() {
         return "You have " + chatRecord.getCount() + " tasks in your list!\n" + chatRecord.listMessage();
