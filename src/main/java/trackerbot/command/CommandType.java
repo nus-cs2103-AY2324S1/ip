@@ -1,3 +1,5 @@
+package trackerbot.command;
+
 public enum CommandType {
     /** Command to exit the program. **/
     BYE ("bye"),
