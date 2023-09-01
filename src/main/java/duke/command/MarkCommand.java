@@ -21,4 +21,18 @@ public class MarkCommand extends Command {
         storage.save(taskList);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj instanceof UnmarkCommand) {
+            MarkCommand temp = (MarkCommand) obj;
+            if (temp.index == this.index) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

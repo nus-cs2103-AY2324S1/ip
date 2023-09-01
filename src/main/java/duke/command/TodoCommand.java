@@ -22,4 +22,18 @@ public class TodoCommand extends Command {
         ui.printAddTaskMessage(temp, taskList);
         storage.save(taskList);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj instanceof UnmarkCommand) {
+            TodoCommand temp = (TodoCommand)  obj;
+            if (temp.description.equals(this.description)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

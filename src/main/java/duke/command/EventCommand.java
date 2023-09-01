@@ -30,4 +30,18 @@ public class EventCommand extends Command {
         ui.printAddTaskMessage(temp, taskList);
         storage.save(taskList);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj instanceof UnmarkCommand) {
+           EventCommand temp = (EventCommand) obj;
+            if (temp.from.equals(this.from) && temp.to.equals(this.to) && this.description.equals(temp.description)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -25,4 +25,18 @@ public class DeadlineCommand extends Command {
         ui.printAddTaskMessage(temp, taskList);
         storage.save(taskList);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj instanceof UnmarkCommand) {
+            DeadlineCommand temp = (DeadlineCommand) obj;
+            if (temp.description.equals(temp.description) && this.by.equals(temp.by)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
