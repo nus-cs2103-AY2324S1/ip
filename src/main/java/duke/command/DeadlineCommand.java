@@ -28,16 +28,6 @@ public class DeadlineCommand extends NonemptyArgumentCommand implements Command 
     }
 
     /**
-     * If program should exit after command execution.
-     *
-     * @return false
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    /**
      * Validate arguments to this command.
      * They must,
      * 1. Be in the format [description] /by YYYY-MM-DD
@@ -83,10 +73,12 @@ public class DeadlineCommand extends NonemptyArgumentCommand implements Command 
         String[] userArgs = arguments.split("/by ");
         LocalDate date = LocalDate.parse(userArgs[1]);
         taskList.add(new Deadline(userArgs[0], date));
-        UI.sendMessage("Got it. I've added this task:\n  "
-                + taskList.get(taskList.size() - 1)
-                + String.format("\nNow you have %d tasks in the list.", taskList.size()));
-        storage.updateFile(taskList);
+        if (ui != null) {
+            ui.sendMessage("Got it. I've added this task:\n  "
+                    + taskList.get(taskList.size() - 1)
+                    + String.format("\nNow you have %d tasks in the list.", taskList.size()));
+        }
+        storage.updateFile(taskList, ui);
     }
 
     @Override

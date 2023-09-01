@@ -23,16 +23,6 @@ public class MarkCommand extends NumberedChoiceCommand implements Command {
     }
 
     /**
-     * If program should exit after command execution.
-     *
-     * @return false
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    /**
      * Mark a Task as done.
      *
      * @param taskList the current TaskList
@@ -45,8 +35,10 @@ public class MarkCommand extends NumberedChoiceCommand implements Command {
         validate(taskList);
         int choice = Integer.parseInt(arguments) - 1;
         taskList.get(choice).markAsDone();
-        UI.sendMessage("Nice! I've marked this task as done:\n  " + taskList.get(choice));
-        storage.updateFile(taskList);
+        if (ui != null) {
+            ui.sendMessage("Nice! I've marked this task as done:\n  " + taskList.get(choice));
+        }
+        storage.updateFile(taskList, ui);
     }
 
     /**

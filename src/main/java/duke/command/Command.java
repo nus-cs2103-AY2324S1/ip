@@ -20,11 +20,4 @@ public interface Command {
      */
     void execute(TaskList taskList, UI ui, Storage storage) throws DukeException;
 
-    /**
-     * If program should exit after command execution.
-     *
-     * @return true if program should exit, false otherwise
-     */
-    boolean isExit();
-
 }

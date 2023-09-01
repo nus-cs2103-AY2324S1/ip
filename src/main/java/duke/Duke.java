@@ -24,35 +24,23 @@ public class Duke {
         try {
             this.storage = new Storage(savePath);
             this.taskList = this.storage.load();
-            this.ui = new UI("Heimdallr");
         } catch (DukeException e) {
-            UI.sendError(e.getMessage());
+            System.out.println(e);
             System.exit(0);
         }
     }
 
-    /**
-     * Runs the duke program.
-     * Spins up the program until exit command is given by the user
-     */
-    public void run() {
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String rawCommand = UI.readMessage();
-                Command c = Parser.parseCommand(rawCommand);
-                c.execute(this.taskList, this.ui, this.storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                UI.sendError(e.getMessage());
-            }
+    public void setUi(UI ui) {
+        this.ui = ui;
+    }
 
+    public void getResponse(String rawUserInput) {
+        try {
+            Command c = Parser.parseCommand(rawUserInput);
+            c.execute(taskList, ui, storage);
+        } catch (DukeException e) {
+            ui.sendError(e.getMessage());
         }
     }
-
-    public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
-    }
-
 
 }

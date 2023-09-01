@@ -22,16 +22,6 @@ public class DeleteCommand extends NumberedChoiceCommand implements Command {
     }
 
     /**
-     * If program should exit after command execution.
-     *
-     * @return false
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    /**
      * Deletes a specified task.
      *
      * @param taskList the current TaskList
@@ -43,11 +33,13 @@ public class DeleteCommand extends NumberedChoiceCommand implements Command {
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
         validate(taskList);
         int choice = Integer.parseInt(arguments) - 1;
-        UI.sendMessage("Noted. I've removed this task:\n  "
-                + taskList.get(choice)
-                + String.format("\nNow you have %d tasks in the list.", taskList.size() - 1));
+        if (ui != null) {
+            ui.sendMessage("Noted. I've removed this task:\n  "
+                    + taskList.get(choice)
+                    + String.format("\nNow you have %d tasks in the list.", taskList.size() - 1));
+        }
         taskList.remove(choice);
-        storage.updateFile(taskList);
+        storage.updateFile(taskList, ui);
     }
 
     /**

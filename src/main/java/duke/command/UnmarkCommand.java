@@ -22,16 +22,6 @@ public class UnmarkCommand extends NumberedChoiceCommand implements Command {
     }
 
     /**
-     * If program should exit after command execution.
-     *
-     * @return false
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    /**
      * Mark a task as not done.
      *
      * @param taskList the current TaskList
@@ -44,8 +34,10 @@ public class UnmarkCommand extends NumberedChoiceCommand implements Command {
         validate(taskList);
         int choice = Integer.parseInt(arguments) - 1;
         taskList.get(choice).markAsNotDone();
-        UI.sendMessage("OK, I've marked this task as not done yet:\n  " + taskList.get(choice));
-        storage.updateFile(taskList);
+        if (ui != null) {
+            ui.sendMessage("OK, I've marked this task as not done yet:\n  " + taskList.get(choice));
+        }
+        storage.updateFile(taskList, ui);
     }
 
     /**
