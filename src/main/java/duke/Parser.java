@@ -20,12 +20,15 @@ import task.ToDo;
 
 
 /**
- *
- *
+ * Parses inputs passed via the user interface into commands if possible.
  */
 
 public class Parser {
     private HashMap<String, Commandable> stringToCommand;
+
+    /**
+     * Initializes the parser.
+     */
     public Parser() {
         stringToCommand = new HashMap<>();
         init();
@@ -41,6 +44,14 @@ public class Parser {
         stringToCommand.put("mark", new MarkCommand(true));
         stringToCommand.put("unmark", new MarkCommand(false));
     }
+
+    /**
+     * Parses the string passed to it and produces the corresponding command.
+     * @param input the string passed to the parser that is meant to be interpreted.
+     * @return the command that the string represents.
+     * @throws InvalidCommandException if the command cannot be identified.
+     * @throws InvalidVarException if the command is identifiable but the parameters are incorrect.
+     */
     public Commandable parse(String input) throws InvalidCommandException, InvalidVarException {
         String commandIdentifier = input.split(" ")[0];
         Commandable command = stringToCommand.get(commandIdentifier);

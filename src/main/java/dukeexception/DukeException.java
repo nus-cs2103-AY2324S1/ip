@@ -1,6 +1,9 @@
 package dukeexception;
 
-public class DukeException extends Exception {
+/**
+ * Represents any exceptions that are unique to Duke.
+ */
+public abstract class DukeException extends Exception {
     public DukeException() {
         super();
     }

@@ -1,11 +1,14 @@
 package task;
 
+/**
+ * Represents an extension of a task.
+ */
 public class ToDo extends Task {
     public ToDo(String name) {
         super(name);
     }
-    public ToDo(String name, boolean completeStatus) {
-        super(name, completeStatus);
+    public ToDo(String name, boolean isComplete) {
+        super(name, isComplete);
     }
 
     public String toString() {

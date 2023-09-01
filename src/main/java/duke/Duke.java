@@ -4,10 +4,13 @@ import java.io.IOException;
 
 import command.Commandable;
 import dukeexception.CorruptedFileException;
-import dukeexception.InvalidCommandException;
 import dukeexception.FailureInExecuteException;
+import dukeexception.InvalidCommandException;
 import dukeexception.InvalidVarException;
-
+/**
+ * Duke represents a chatbot that parses user inputs and commands, stores tasks given to it in memory and on a file,
+ * and provides a user interface for easier correspondence.
+ */
 public class Duke {
     private static final String FILE_PATH = "./data/tasks.txt";
     private static final String LOGO = " _           _        \n"
@@ -19,12 +22,22 @@ public class Duke {
     private Storage storage;
     private Parser parser;
     private UserInterface ui;
+
+    /**
+     * Creates a new Duke instance.
+     */
     public Duke() {
         storage = new Storage();
         list = new TaskList(storage);
         parser = new Parser();
         ui = new UserInterface();
     }
+
+    /**
+     * Initializes the storage, list and outputs a greeting.
+     * @throws IOException when unable to read from disk.
+     * @throws CorruptedFileException when unable to interpret file.
+     */
     public void startDuke() throws IOException, CorruptedFileException {
         ui.output("Hi, I'm \n" + LOGO);
         storage.init(FILE_PATH);
@@ -34,6 +47,11 @@ public class Duke {
         ui.output("Goodbye!");
     }
 
+    /**
+     * Handler is called when a corrupted file is detected, allowing user to decide how to proceed, such as
+     * clearing the file or shutting down.
+     * @return whether the handler decides to call for a shutdown of the Duke instance.
+     */
     public boolean corruptedFileHandler() {
         ui.output("File not properly formatted;\n"
                 + "Clear corrupted file Y/N?");
