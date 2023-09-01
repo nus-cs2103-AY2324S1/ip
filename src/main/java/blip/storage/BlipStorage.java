@@ -1,11 +1,13 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+package blip.storage;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
-import java.time.LocalDateTime;
+import blip.exceptions.*;
+import blip.tasks.*;
+
 
 
 public class BlipStorage {
@@ -33,7 +35,8 @@ public class BlipStorage {
         } catch (IOException e) {
             System.out.println("Error reading line: " + e.getMessage());
         } catch (DateTimeFormatException e) {
-            System.out.println("Error with date time format: " + e.getMessage());
+            System.out.println(e.getMessage());
+            System.out.println("Please format your date time to be yyyy-mm-dd HH:mm");
         }
         return tasks;
     }

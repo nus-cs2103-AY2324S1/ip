@@ -1,3 +1,9 @@
+package blip.commands;
+
+import blip.ui.*;
+import blip.tasks.*;
+import blip.storage.*;
+
 public class ToDoCommand extends Command {
     String description;
     public ToDoCommand(String description) {

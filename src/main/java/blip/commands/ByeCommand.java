@@ -1,3 +1,9 @@
+package blip.commands;
+
+import blip.ui.*;
+import blip.tasks.*;
+import blip.storage.*;
+
 public class ByeCommand extends Command {
     public ByeCommand() {
     }

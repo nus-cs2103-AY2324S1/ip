@@ -1,3 +1,10 @@
+package blip.commands;
+
+import blip.ui.*;
+import blip.tasks.*;
+import blip.storage.*;
+import blip.exceptions.*;
+
 public class DeleteCommand extends Command {
     int index;
 

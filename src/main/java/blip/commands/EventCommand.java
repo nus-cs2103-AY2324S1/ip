@@ -1,4 +1,10 @@
+package blip.commands;
+
 import java.time.LocalDateTime;
+import blip.ui.*;
+import blip.tasks.*;
+import blip.storage.*;
+
 public class EventCommand extends Command {
     String description;
     LocalDateTime eventStart;

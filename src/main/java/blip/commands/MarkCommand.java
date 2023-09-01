@@ -1,7 +1,14 @@
-public class UnmarkCommand extends Command {
+package blip.commands;
+
+import blip.ui.*;
+import blip.tasks.*;
+import blip.storage.*;
+import blip.exceptions.*;
+
+public class MarkCommand extends Command {
     int index;
 
-    public UnmarkCommand(int index) {
+    public MarkCommand(int index) {
         this.index = index;
     }
 
@@ -12,10 +19,10 @@ public class UnmarkCommand extends Command {
             if (this.index < 0 || this.index >= taskList.size()) {
                 throw new WrongNumberException("!!! Wrong Task Number Error !!!\n");
             }
-            Task taskToUnmark = taskList.getTask(index);
-            taskList.unmarkTask(index);
+            Task taskToMark = taskList.getTask(index);
+            taskList.markTask(index);
             storage.saveToFile(taskList);
-            ui.unmarksTasksMsg(taskToUnmark);
+            ui.marksTasksMsg(taskToMark);
         } catch (WrongNumberException e) {
             ui.showInvalidTaskNumErr();
         }

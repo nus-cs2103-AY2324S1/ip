@@ -1,4 +1,12 @@
+package blip;
+
 import java.util.Scanner;
+import blip.ui.*;
+import blip.tasks.*;
+import blip.storage.*;
+import blip.parser.*;
+import blip.exceptions.*;
+import blip.commands.*;
 
 public class Blip {
 

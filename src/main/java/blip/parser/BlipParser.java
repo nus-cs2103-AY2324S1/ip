@@ -1,3 +1,9 @@
+package blip.parser;
+
+import blip.exceptions.*;
+import blip.ui.*;
+import blip.commands.*;
+
 public class BlipParser {
 
     private BlipUI ui = new BlipUI();

@@ -1,4 +1,8 @@
+package blip.tasks;
+
 import java.time.LocalDateTime;
+import blip.exceptions.*;
+import blip.parser.*;
 
 public abstract class Task {
         protected String description;

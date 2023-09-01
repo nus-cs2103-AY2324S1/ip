@@ -1,6 +1,8 @@
+package blip.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+
 
 public class Event extends Task {
     protected LocalDateTime eventFrom;

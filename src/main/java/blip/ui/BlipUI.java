@@ -1,3 +1,6 @@
+package blip.ui;
+
+import blip.tasks.*;
 
 public class BlipUI {
 
@@ -50,6 +53,13 @@ public class BlipUI {
 
     public void showDateTimeFormatErr() {
         System.out.println("Please format your date time to be yyyy-mm-dd HH:mm");
+    }
+
+    public void showListOfOtherCmds() {
+        System.out.println("4. mark [task number]");
+        System.out.println("5. unmark [task number]");
+        System.out.println("6. delete [task number]");
+        System.out.println("7. list");
     }
 
     public static void listsTasksMsg(TaskList tasks) {
