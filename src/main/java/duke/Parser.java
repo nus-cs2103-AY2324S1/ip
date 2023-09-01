@@ -85,4 +85,18 @@ public class Parser {
         }
         return Task.create(cmd, instructions[1]);
     }
+
+    public static String findAll(String[] instructions, StoreList src) {
+        String listString;
+        if (instructions.length <= 1) {
+            listString = src.toString();
+            return String.format("Here are the tasks:\n%s", listString);
+        }
+
+        String term = instructions[1];
+        StoreList list = src.findAll(term);
+        listString = list.toString();
+        return String.format("Here are the tasks with '%s':\n%s", term, listString);
+    }
+
 }

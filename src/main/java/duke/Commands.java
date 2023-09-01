@@ -13,6 +13,7 @@ public enum Commands {
     mark,
     unmark,
     delete,
+    find,
     unknown;
     /**
      * Takes a string and returns the corresponding Commands enum value.

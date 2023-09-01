@@ -104,6 +104,8 @@ public class UserInterface {
                     display("Err: Index not in range of list.");
                 }
                 break;
+            case find:
+                response = Parser.findAll(instructions, list);
             default:
                 response = "Err: Unknown command - " + instructions[0];
                 display(response);

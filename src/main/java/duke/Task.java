@@ -70,6 +70,16 @@ public abstract class Task {
     public abstract String fileString();
 
     /**
+     * Checks if the description contains the substring
+     *
+     * @param s
+     * @return true if found, false otherwise.
+     */
+    public boolean contains(String s) {
+        return this.description.contains(s);
+    }
+
+    /**
      * Gives a string representation of the task in display format.
      *
      * @return A string representation of the task in display format.
