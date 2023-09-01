@@ -79,4 +79,20 @@ public abstract class Task {
         }
         return false;
     }
+
+    /**
+     * Checks whether the Task's description contains the specified keyword.
+     *
+     * @param keyword The keyword.
+     * @return Whether the Task's description contains the keyword.
+     */
+    public boolean containsWord(String keyword) {
+        String[] words = this.description.split(" ");
+        for (String word : words) {
+            if (word.equalsIgnoreCase(keyword)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

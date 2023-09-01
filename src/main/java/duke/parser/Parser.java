@@ -70,6 +70,9 @@ public class Parser {
         case "delete":
             handleDeleteTask(userInput);
             break;
+        case "find":
+            handleFind(userInput);
+            break;
         default:
             handleInvalidInput();
             break;
@@ -242,6 +245,17 @@ public class Parser {
             } catch (IndexOutOfBoundsException e) {
                 ui.playExceptionMessage(Ui.ExceptionMessage.TaskList_IndexOutOfBoundsException);
             }
+        }
+    }
+
+    private void handleFind(String userInput) {
+        String[] wordsInInput = userInput.split(" ");
+        if (wordsInInput.length != 2) {
+            handleInvalidInput();
+        } else {
+            TaskList tasks = Duke.getTaskList();
+            TaskList matchingTasks = tasks.findTasksByKeyword(wordsInInput[1]);
+            ui.printKeywordSearchResults(matchingTasks);
         }
     }
 
