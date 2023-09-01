@@ -1,4 +1,4 @@
-import java.io.IOException;
+package fishron;
 
 public class AddCommand extends Command {
 

@@ -1,3 +1,5 @@
+package fishron;
+
 public class DeleteCommand extends Command{
     private int taskNum;
     public DeleteCommand(int taskNum) {

@@ -1,3 +1,5 @@
+package fishron;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,7 +14,7 @@ public class Ui {
     public void showWelcomeMessage() {
         System.out.println(
                 "___________________________________________________________\n"
-                        + "Hello! I'm Fishron\n"
+                        + "Hello! I'm fishron.Fishron\n"
                         + "What can I do for you?");
     }
 
