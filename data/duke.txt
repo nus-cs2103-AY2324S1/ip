@@ -1,3 +1,6 @@
-T | 1 | this
 T | 0 | this
-T | 0 | this
+T | 1 | that
+D | 0 | that | now
+E | 0 | that | then-now
+T | 0 | that
+T | 0 | this that then 
