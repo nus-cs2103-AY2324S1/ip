@@ -15,7 +15,7 @@ public class Deadlines extends Task {
 
     @Override
     public String getSavingFormat() {
-        return "[D] | [" + getStatusIcon() + "] | " + description + " | " + date;
+        return "[D] | [" + getStatusIcon() + "] | " + description + " | " + dt;
     }
 
     @Override

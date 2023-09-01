@@ -20,7 +20,7 @@ public class Events extends Task {
 
     @Override
     public String getSavingFormat() {
-        return "[E] | [" + getStatusIcon() + "] | " + description + " | " + start + " | " + end;
+        return "[E] | [" + getStatusIcon() + "] | " + description + " | " + dtStart + " | " + dtEnd;
     }
 
     @Override

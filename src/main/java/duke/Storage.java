@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.ArrayList;
+
 import java.io.*;
 
 public class Storage {
@@ -22,19 +24,40 @@ public class Storage {
         }
     }
 
-    public String read(String key) {
+    public ArrayList<String> read(String key) {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            ArrayList<String> lines = new ArrayList<>();
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.contains(key)) {
-                    return line;
+                    lines.add(line);
                 }
             }
-            System.out.println("Keyword not found, please try again!");
-            return "ERROR_KeyNotFound";
+            if (lines.isEmpty()) {
+                System.out.println("Keyword not found, please try again!");
+                return null;
+            }
+            return convertToDisplayFormat(lines);
         } catch (IOException e) {
             e.printStackTrace();
-            return "ERROR_Exception";
+            return null;
         }
+    }
+
+    private ArrayList<String> convertToDisplayFormat(ArrayList<String> lines) {
+        ArrayList<String> ans = new ArrayList<>();
+        for (String line : lines) {
+            String[] split = line.split("|");
+            if (split[0].equals("[T]")) {
+                ans.add("[T]" + split[2] + " " + split[4]);
+            } else if (split[0].equals("[D]")) {
+                ans.add("[D]" + split[2] + " " + split[4]
+                        + " (by: " + split[6] + ")");
+            } else {
+                ans.add("[D]" + split[2] + " " + split[4]
+                        + " (from: " + split[6] + ", to: " + split[8] + ")");
+            }
+        }
+        return ans;
     }
 }

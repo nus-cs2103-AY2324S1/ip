@@ -48,4 +48,8 @@ public abstract class Taskmanager {
     public static void readTask(String key) {
         tasks.readTask(key);
     }
+
+    public static void findTask(String key) {
+        tasks.findTask(key);
+    }
 }

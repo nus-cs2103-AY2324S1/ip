@@ -21,6 +21,22 @@ public abstract class Parser {
         case "unmark":
             Taskmanager.unmark(Integer.parseInt(splt[1]));
             break;
+        case "find":
+            try {
+                String key = "";
+                for (int i = 1; i < splt.length; ++i) {
+                    key = key + splt[i] + " ";
+                }
+                if (key.isEmpty()) {
+                    throw new IllegalArgumentException(
+                            "☹ OOPS!!! You must enter a keyword to search for tasks.");
+                }
+                key = key.substring(0, key.length() - 1);
+                Taskmanager.findTask(key);
+                break;
+            } catch (IllegalArgumentException e){
+                System.out.println(e.getMessage() + "\nTry again: ");
+            }
         default:
             try {
                 switch (keyword) {
@@ -32,6 +48,7 @@ public abstract class Parser {
                     if (description.isEmpty()) {
                         throw new IllegalArgumentException("☹ OOPS!!! The description of a todo cannot be empty.");
                     }
+                    description = description.substring(0, description.length() - 1);
                     Taskmanager.addTask(new ToDos(description));
                     break;
                 }
@@ -51,6 +68,7 @@ public abstract class Parser {
                     if (description.isEmpty()) {
                         throw new IllegalArgumentException("☹ OOPS!!! The description of a deadline cannot be empty.");
                     }
+                    description = description.substring(0, description.length() - 1);
                     String time = "";
                     while (i < splt.length) {
                         time = time + splt[i] + " ";
@@ -59,6 +77,7 @@ public abstract class Parser {
                     if (time.isEmpty()) {
                         throw new IllegalArgumentException("☹ OOPS!!! The time/date of a deadline cannot be empty.");
                     }
+                    time = time.substring(0, time.length() - 1);
                     Taskmanager.addTask(new Deadlines(description, time));
                     break;
                 }
@@ -78,6 +97,7 @@ public abstract class Parser {
                     if (description.isEmpty()) {
                         throw new IllegalArgumentException("☹ OOPS!!! The description of an event cannot be empty.");
                     }
+                    description = description.substring(0, description.length() - 1);
                     String start = "";
                     if (i == splt.length) {
                         throw new IllegalArgumentException("☹ OOPS!!! The starting time of an event cannot be empty.");
@@ -92,6 +112,7 @@ public abstract class Parser {
                     if (start.isEmpty()) {
                         throw new IllegalArgumentException("☹ OOPS!!! The starting time of an event cannot be empty.");
                     }
+                    start = start.substring(0, start.length() - 1);
                     String end = "";
                     while (i < splt.length) {
                         end = end + splt[i] + " ";
@@ -100,6 +121,7 @@ public abstract class Parser {
                     if (end.isEmpty()) {
                         throw new IllegalArgumentException("☹ OOPS!!! The ending time of an event cannot be empty.");
                     }
+                    end = end.substring(0, end.length() - 1);
                     Taskmanager.addTask(new Events(description, start, end));
                     break;
                 }

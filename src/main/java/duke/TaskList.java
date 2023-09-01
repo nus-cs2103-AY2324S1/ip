@@ -45,11 +45,34 @@ public class TaskList {
         Taskmanager.storage.write(t.getSavingFormat());
     }
 
+    public void findTask(String key) {
+        ArrayList<String> lines = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.toString().contains(key)) {
+                lines.add(task.toString());
+            }
+        }
+        if (lines.isEmpty()) {
+            System.out.println("There is no matching task in your list!");
+        } else {
+            System.out.println("This are the matching tasks in your list:");
+            for (int i = 1; i <= lines.size(); ++i) {
+                System.out.println(i + "." + lines.get(i-1));
+            }
+        }
+    }
+
     public void readTask(String key) {
         if (Taskmanager.storage == null) {
             System.out.println("There is no previously saved task!");
         } else {
-            System.out.println(Taskmanager.storage.read(key));
+            ArrayList<String> lines = Taskmanager.storage.read(key);
+            if (!lines.isEmpty()) {
+                System.out.println("This are the matching tasks in your list:");
+                for (int i = 1; i <= lines.size(); ++i) {
+                    System.out.println(i + "." + lines.get(i-1));
+                }
+            }
         }
     }
 }
