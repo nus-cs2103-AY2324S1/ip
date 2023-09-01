@@ -1,13 +1,17 @@
 package duke.storage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import duke.commands.Parser;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Represents a storage for tasks
