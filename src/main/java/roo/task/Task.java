@@ -1,7 +1,8 @@
 package roo.task;
 
-import roo.RooException;
 import java.time.LocalDateTime;
+
+import roo.RooException;
 
 /**
  * Represents a task in the Duke application.
@@ -16,7 +17,7 @@ public abstract class Task {
      * @param task The description of the task.
      * @throws RooException If the task description is empty or consists only of spaces.
      */
-    public Task (String task) throws RooException {
+    public Task(String task) throws RooException {
         if (task.isEmpty() || task.equals(" ")) {
             throw new RooException("Description is EMPTY!!!\n");
         }
@@ -29,7 +30,7 @@ public abstract class Task {
      * @param task   The description of the task.
      * @param isFinish The completion status of the task.
      */
-    public Task (String task, boolean isFinish) throws RooException {
+    public Task(String task, boolean isFinish) throws RooException {
         this.isFinish = isFinish;
         this.task = task;
     }

@@ -1,8 +1,8 @@
 package roo.task;
 
-import roo.RooException;
-
 import java.time.LocalDateTime;
+
+import roo.RooException;
 
 /**
  * Represents a todo task.

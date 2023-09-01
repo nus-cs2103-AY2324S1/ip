@@ -1,9 +1,9 @@
 package roo;
 
-import roo.task.Task;
-
 import java.time.LocalDate;
 import java.util.Scanner;
+
+import roo.task.Task;
 
 /**
  * Deals with interactions with the user.
@@ -16,7 +16,7 @@ public class Ui {
      * Constructs a Ui object with the given TaskList.
      * @param tasks The TaskList associated with this Ui instance.
      */
-    public Ui (TaskList tasks) {
+    public Ui(TaskList tasks) {
         this.tasks = tasks;
     }
 

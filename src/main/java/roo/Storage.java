@@ -1,7 +1,5 @@
 package roo;
 
-import roo.task.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import roo.task.Task;
 
 /**
  * Deals with loading tasks from the file and saving tasks in the file.
@@ -22,7 +22,7 @@ public class Storage {
      * Constructs a Storage object with the specified file path.
      * @param filePath The path to the file where tasks are stored.
      */
-    public Storage (String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
         file = new File(this.filePath);
     }
@@ -80,7 +80,7 @@ public class Storage {
             this.file = new File(this.filePath);
             FileWriter writer = new FileWriter(filePath, true);
             for (Task t : tasks) {
-                writer.write(t.toString()  + "\n");
+                writer.write(t.toString() + "\n");
             }
             writer.close();
         } catch (IOException e) {

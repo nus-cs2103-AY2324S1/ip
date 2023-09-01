@@ -1,10 +1,10 @@
 package roo.task;
 
-import roo.RooException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import roo.RooException;
 
 /**
  * Represents a event with start and end time.

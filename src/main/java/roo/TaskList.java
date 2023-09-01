@@ -1,9 +1,9 @@
 package roo;
 
-import roo.task.Task;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import roo.task.Task;
 
 /**
  * Manages a list of tasks and interacts with the Storage class for task-related operations.
@@ -16,7 +16,7 @@ public class TaskList {
      * Constructs a TaskList with a reference to the associated Storage.
      * @param storage The Storage instance associated with this TaskList.
      */
-    public TaskList (Storage storage) {
+    public TaskList(Storage storage) {
         this.storage = storage;
     }
 

@@ -1,10 +1,10 @@
 package roo.task;
 
-import roo.RooException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import roo.RooException;
 
 /**
  * Represents a task with deadline.
@@ -76,6 +76,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " by: " + this.date.format(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a"));
+        return "[D]" + super.toString() + " by: "
+                + this.date.format(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a"));
     }
 }

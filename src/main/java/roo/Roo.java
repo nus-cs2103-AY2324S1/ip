@@ -1,11 +1,11 @@
 package roo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import roo.task.Deadline;
 import roo.task.Event;
 import roo.task.Todo;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * The main class for the Roo application, which is a tasks management program.
@@ -20,7 +20,7 @@ public class Roo {
      * Constructs a Roo object with the specified file path.
      * @param filePath The path to the file where tasks are stored.
      */
-    Roo (String filePath) {
+    Roo(String filePath) {
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(storage);
         this.ui = new Ui(tasks);
@@ -134,9 +134,11 @@ public class Roo {
                     this.ui.close();
                     return;
 
-                case UNKNOWN:
+                default:
                     throw new RooException("I dunno what u mean!!!\n");
+
                 }
+
             } catch (RooException exception) {
                 System.err.println(exception.getMessage());
             }
