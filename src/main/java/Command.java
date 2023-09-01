@@ -1,9 +1,13 @@
 import ip.utils.Pair;
 
+import java.util.Scanner;
+
 public abstract class Command {
     public abstract void execute(TaskList tasks, Ui ui) throws TrackerBotException;
 
-    public Command of(String keyword, String rest) {
+    public abstract boolean isExit();
+
+    public static Command of(String keyword, String rest) {
         CommandType parsedType = CommandType.UNKNOWN;
         for (CommandType command: CommandType.values()) {
             if (keyword.equals(command.getKeyword())) {
@@ -30,10 +34,10 @@ public abstract class Command {
             result = new ToggleCommand(parsedType, rest);
             break;
         case LIST:
-            result = new ListCommand(rest);
+            result = new ListCommand();
             break;
         case BYE:
-            result = new ExitCommand(rest);
+            result = new ExitCommand();
             break;
         default:
             // this handles the UNKNOWN case
@@ -42,7 +46,7 @@ public abstract class Command {
         return result;
     }
 
-    private class AddCommand extends Command {
+    private static class AddCommand extends Command {
         private final String commandFields;
         private final CommandType type;
 
@@ -51,12 +55,16 @@ public abstract class Command {
             this.type = type;
         }
 
-        public void execute(TaskList tasks, Ui ui) {
+        public void execute(TaskList tasks, Ui ui) throws TrackerBotException {
+            tasks.add(type, commandFields);
+        }
 
+        public boolean isExit() {
+            return false;
         }
     }
 
-    private class ToggleCommand extends Command {
+    private static class ToggleCommand extends Command {
         private final String commandFields;
         private final CommandType type;
 
@@ -65,50 +73,97 @@ public abstract class Command {
             this.type = type;
         }
 
-        public void execute(TaskList tasks, Ui ui) {
+        public void execute(TaskList tasks, Ui ui) throws TrackerBotException {
+            Scanner scanner = new Scanner(commandFields);
+            if (!scanner.hasNextInt()) {
+                scanner.close();
+                throw new TrackerBotException("Invalid format: mark/unmark [number in list range]");
+            }
+            int index = scanner.nextInt();
 
+            if (scanner.hasNext()) {
+                scanner.close();
+                throw new TrackerBotException("Too many fields: mark/unmark [number in list range]");
+            }
+
+            scanner.close();
+            switch (type) {
+            case MARK:
+                ui.showMessage(tasks.markTask(index));
+                break;
+            case UNMARK:
+                ui.showMessage(tasks.unmarkTask(index));
+                break;
+            default:
+                throw new IllegalStateException("Created ToggleCommand with invalid field.");
+            }
+        }
+
+        public boolean isExit() {
+            return false;
         }
     }
 
-    private class DeleteCommand extends Command {
+    private static class DeleteCommand extends Command {
         private final String commandFields;
 
         private DeleteCommand(String commandFields) {
             this.commandFields = commandFields;
         }
 
-        public void execute(TaskList tasks, Ui ui) {
-
-        }
-    }
-
-    private class ExitCommand extends Command {
-        private final String commandFields;
-
-        private ExitCommand(String commandFields) {
-            this.commandFields = commandFields;
-        }
-
-        public void execute(TaskList tasks, Ui ui) {
-
-        }
-    }
-
-    private class ListCommand extends Command {
-        private final String commandFields;
-
-        private ListCommand(String commandFields) {
-            this.commandFields = commandFields;
-        }
-
-        public void execute(TaskList tasks, Ui ui) {
-
-        }
-    }
-
-    private class UnknownCommand extends Command {
         public void execute(TaskList tasks, Ui ui) throws TrackerBotException {
-            throw new TrackerBotException("Unrecognised Command Type.");
+            Scanner scanner = new Scanner(commandFields);
+            if (!scanner.hasNextInt()) {
+                scanner.close();
+                throw new TrackerBotException("Invalid format: delete [number in list range]");
+            }
+            int index = scanner.nextInt();
+
+            if (scanner.hasNext()) {
+                scanner.close();
+                throw new TrackerBotException("Too many fields: delete [number in list range]");
+            }
+
+            scanner.close();
+            ui.showMessage(tasks.delete(index));
+        }
+
+        public boolean isExit() {
+            return false;
+        }
+    }
+
+    private static class ExitCommand extends Command {
+        private ExitCommand() {}
+
+        public void execute(TaskList tasks, Ui ui) {
+            ui.exitApp();
+        }
+
+        public boolean isExit() {
+            return true;
+        }
+    }
+
+    private static class ListCommand extends Command {
+        private ListCommand() {}
+
+        public void execute(TaskList tasks, Ui ui) {
+            ui.showMessage(tasks.list());
+        }
+
+        public boolean isExit() {
+            return false;
+        }
+    }
+
+    private static class UnknownCommand extends Command {
+        public void execute(TaskList tasks, Ui ui) throws TrackerBotException {
+            throw new TrackerBotException("Unrecognised Command Type. Try another?");
+        }
+
+        public boolean isExit() {
+            return false;
         }
     }
 }
