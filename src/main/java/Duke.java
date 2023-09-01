@@ -1,6 +1,9 @@
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Arrays;
@@ -29,7 +32,7 @@ public class Duke {
                     tasks.add(todo);
                     break;
                 case "D":
-                    Deadline deadline = new Deadline(strings[2], strings[3], Integer.parseInt(strings[1]));
+                    Deadline deadline = new Deadline(strings[2], LocalDate.parse(strings[3]), Integer.parseInt(strings[1]));
                     tasks.add(deadline);
                     break;
                 case "E":
@@ -188,7 +191,7 @@ public class Duke {
                         if (strings.length == 1) {
                             throw new IllegalArgumentDukeException("    Oh no! You forgot to specify the task!\n");
                         }
-                        if (!echo.contains("/")) {
+                        if (!echo.contains("/by")) {
                             throw new IllegalArgumentDukeException("    Whoopsie! The deadline seems a bit confused. Please use '/by' to set it.\n");
                         }
                         int index = -1;
@@ -201,8 +204,19 @@ public class Duke {
                         }
 
                         String description = String.join(" ", Arrays.copyOfRange(strings, 1, index));
-                        String by = String.join(" ", Arrays.copyOfRange(strings, index, strings.length));
-                        Deadline deadline = new Deadline(description, by);
+                        String by = String.join(" ", Arrays.copyOfRange(strings, index + 1, strings.length));
+
+                        LocalDate d = null;
+                        try {
+                            // Attempt to parse as a LocalDate
+                            d = LocalDate.parse(by);
+
+                        } catch (DateTimeParseException e) {
+                            // Handle the case where the format is invalid
+                            throw new IllegalArgumentDukeException("Whoopsie! The deadline seems a bit confused. Please use a 'YYYY-MM-DD' format to set it.\n");
+                        }
+
+                        Deadline deadline = new Deadline(description, d);
                         tasks.add(deadline);
 
                         try {
@@ -225,13 +239,8 @@ public class Duke {
                         if (strings.length == 1) {
                             throw new IllegalArgumentDukeException("    Oh no! You forgot to specify the event!\n");
                         }
-                        int count = 0;
-                        for (int i = 0; i < echo.length(); i++) {
-                            if (echo.charAt(i) == '/') {
-                                count++;
-                            }
-                        }
-                        if (count != 2) { //echo should contain two '/'.
+
+                        if (!(echo.contains("/from") && echo.contains("/to"))) {
                             throw new IllegalArgumentDukeException("    Uh-oh! This event seems to have lost its way. Please use '/from' and '/to' to set it.\n");
                         }
                         int indexStart = -1;
