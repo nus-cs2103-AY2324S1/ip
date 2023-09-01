@@ -57,10 +57,10 @@ public class TaskList {
         try {
             int number = Integer.parseInt(input.substring(7));
             Task t = getTask(number);
-            System.out.println(String.format("Alright say bye bye to task %d!", number));
+            System.out.printf("Alright say bye bye to task %d!%n", number);
             System.out.println(t);
             this.taskList.remove(t);
-            System.out.println(String.format("There's %d task(s) in the list now.", taskList.size()));
+            System.out.printf("There's %d task(s) in the list now.%n", taskList.size());
         }
         catch (NumberFormatException n) {
             System.out.println("Ugh to delete stuff, you have to input \"delete\" and the number...");

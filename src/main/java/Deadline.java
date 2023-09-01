@@ -5,7 +5,6 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     String deadlineString;
 
-
     public Deadline(String msg, boolean isDone, String deadline) {
         super(Type.D,isDone, msg);
         this.deadlineString = deadline;

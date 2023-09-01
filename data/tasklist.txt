@@ -2,4 +2,4 @@ T|true|cry
 T|false|coding homework
 D|false|get better at coding|ASAP
 E|false|more coding|now|end of time
-D|false|finish project|Aug 31 2023
+D|false|something|Dec 03 2011
