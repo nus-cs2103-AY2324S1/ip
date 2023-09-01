@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAccessor;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,47 +30,48 @@ public class Parser {
         }
     }
 
-    private static Command commandSwitcher(String command) {
-        switch (command) {
+    public static Command parseCommand(String fullCommand) {
+        String[] splitCommand = fullCommand.trim().split(" ", 2);
+        String parameters = "";
+
+        if (splitCommand.length == 2) {
+            parameters = splitCommand[1];
+        }
+
+        Map<String, String> parameterMap = parseParameters(parameters);
+
+        switch (splitCommand[0]) {
         case "bye":
-            return new ExitCommand();
+            return new ExitCommand(parameterMap);
         case "list":
-            return new ListCommand();
+            return new ListCommand(parameterMap);
         case "mark":
-            return new MarkCommand();
+            return new MarkCommand(parameterMap);
         case "unmark":
-            return new UnmarkCommand();
+            return new UnmarkCommand(parameterMap);
         case "todo":
-            return new AddCommand(AddCommand.TaskType.TODO);
+            parameterMap.put("todo", "");
+            return new AddCommand(parameterMap);
         case "deadline":
-            return new AddCommand(AddCommand.TaskType.DEADLINE);
+            parameterMap.put("deadline", "");
+            return new AddCommand(parameterMap);
         case "event":
-            return new AddCommand(AddCommand.TaskType.EVENT);
+            parameterMap.put("event", "");
+            return new AddCommand(parameterMap);
         case "delete": 
-            return new DeleteCommand();
+            return new DeleteCommand(parameterMap);
         default:
             return null;
         }
     }
 
-    public static Command parseCommand(String fullCommand) {
-        String[] splitCommand = fullCommand.trim().split(" ", 2);
-        Command command = commandSwitcher(splitCommand[0]);
-
-        if (splitCommand.length == 2) {
-            command.addParameterMap(parseParameters(splitCommand[1]));
-        }
-        return command;
-    }
-
     private static Map<String, String> parseParameters(String parameters) {
         String[] parameterArray = parameters.trim().split("/");
+        HashMap<String, String> parameterMap = new HashMap<>();
 
         if (parameterArray.length == 0) {
-            return new HashMap<>();
+            return parameterMap;
         }
-
-        HashMap<String, String> parameterMap = new HashMap<>();
 
         // Handles default parameter provided
         if (!parameterArray[0].trim().equals("")) {
@@ -111,20 +113,6 @@ public class Parser {
             secondDateTime = parameterArray[4];
         }
 
-        AddCommand command = null;
-
-        switch(taskType) {
-        case "T":
-            command = new AddCommand(AddCommand.TaskType.TODO);
-            break;
-        case "D":
-            command = new AddCommand(AddCommand.TaskType.DEADLINE);
-            break;
-        case "E":
-            command = new AddCommand(AddCommand.TaskType.EVENT);
-            break;
-        }
-
         HashMap<String, String> parameterMap = new HashMap<>();
 
         parameterMap.put("default", description);
@@ -143,8 +131,18 @@ public class Parser {
             parameterMap.put("to", secondDateTime);
         }
 
-        command.addParameterMap(parameterMap);
+        switch(taskType) {
+        case "T":
+            parameterMap.put("todo", "");
+            break;
+        case "D":
+            parameterMap.put("deadline", "");
+            break;
+        case "E":
+            parameterMap.put("event", "");
+            break;
+        }
 
-        return command;
+        return new AddCommand(parameterMap);
     }
 }
