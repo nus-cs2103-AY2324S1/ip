@@ -1,3 +1,4 @@
+package duke;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -11,7 +12,7 @@ public class Parser {
     public enum Command {
         TASK, TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, COMMANDS, BYE
     }
-    Parser(Duke duke, TaskList tasks, Ui ui) { // Can only be instantiated with a Duke object
+    Parser(Duke duke, duke.TaskList tasks, duke.Ui ui) { // Can only be instantiated with a Duke object
         this.duke = duke;
         this.tasks = tasks;
         this.ui = ui;

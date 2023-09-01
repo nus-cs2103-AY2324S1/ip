@@ -1,3 +1,4 @@
+package duke;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -6,7 +7,7 @@ import java.util.Scanner;
 public class Storage {
     private final TaskList tasks;
 
-    public Storage(TaskList tasks) {
+    public Storage(duke.TaskList tasks) {
         this.tasks = tasks;
     }
 
@@ -32,7 +33,7 @@ public class Storage {
         Scanner sc = new Scanner(f);
         while (sc.hasNext()) {
             String[] args = sc.nextLine().split("-", -1);
-            TaskList.TaskType type;
+            duke.TaskList.TaskType type;
             LocalDateTime due = null;
             LocalDateTime start = null;
             LocalDateTime end = null;
@@ -79,13 +80,13 @@ public class Storage {
         }
     }
 
-    public void saveTasksToDisk(String filePath, TaskList tasks) throws IOException {
+    public void saveTasksToDisk(String filePath, duke.TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         BufferedWriter bw = new BufferedWriter(fw);
         try {
             for (int i = 0; i < tasks.getNumOfTasks(); i++) {
                 Task t = tasks.get(i);
-                TaskList.TaskType type = tasks.getTaskType(t);
+                duke.TaskList.TaskType type = tasks.getTaskType(t);
                 switch (type) {
                     case TODO:
                         bw.write(String.format("ToDo-%s-%c",
