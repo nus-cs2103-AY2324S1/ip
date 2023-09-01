@@ -33,6 +33,7 @@ public class Duke {
                 Command command = Ui.readCommand();
 
                 if (command == null) {
+                    Ui.showInputArrow();
                     continue;
                 }
 

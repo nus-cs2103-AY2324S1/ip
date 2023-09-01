@@ -7,31 +7,29 @@ import java.util.stream.Stream;
 import duke.command.Command;
 
 public class Ui {
-    private static String LINE_SEPARATOR = "    ----------------------------------------------------------------------";
-
     private static Scanner scanner = new Scanner(System.in);
 
     public static <T> void respond(T message) {
-        System.out.println(LINE_SEPARATOR);
+        Ui.showSeparator();
         System.out.println(String.format("     %s",  message.toString()));
-        System.out.println(LINE_SEPARATOR);
-        System.out.print(">>> ");
+        Ui.showSeparator();
+        Ui.showInputArrow();
     }
 
     public static <T> void respond(List<T> messages) {
-        System.out.println(LINE_SEPARATOR);
+        Ui.showSeparator();
         for (T message: messages) {
             System.out.println(String.format("     %s",  message.toString()));
         }
-        System.out.println(LINE_SEPARATOR);
-        System.out.print(">>> ");
+        Ui.showSeparator();
+        Ui.showInputArrow();
     }
 
     public static <T> void respond(Stream<T> messages) {
-        System.out.println(LINE_SEPARATOR);
+        Ui.showSeparator();
         messages.forEach(message -> System.out.println(String.format("     %s",  message.toString())));
-        System.out.println(LINE_SEPARATOR);
-        System.out.print(">>> ");
+        Ui.showSeparator();
+        Ui.showInputArrow();
     }
 
     /** Returns the Command after reading the next line of input from the user. */
@@ -43,6 +41,15 @@ public class Ui {
         }
 
         return Parser.parseCommand(input);
+    }
+
+    public static void showSeparator() {
+        System.out.println("    ----------------------------------------------------------------------");
+    }
+
+    /** Shows the input arrow for user to input commands. */
+    public static void showInputArrow() {
+        System.out.print(">>> ");
     }
 
     /** Shows the greeting message when user starts the program. */
