@@ -9,7 +9,7 @@ public class UI {
 
     private enum Colors {
         ERROR("#FF0000"),
-        NORMAL("#00FFFF");
+        NORMAL("#00B0B0");
 
         private final String code;
 
@@ -39,15 +39,15 @@ public class UI {
      * @param msg The message to print
      */
     public void sendMessage(String msg) {
-        mainWindow.addDialog(DialogBox.getDukeDialog(msg, mainWindow.getDukeImage()));
+        mainWindow.addDialog(DialogBox.getDukeDialog(msg, mainWindow.getDukeImage(), Colors.NORMAL.code));
     }
 
     /**
-     * Print a error to GUI.
+     * Print an error to GUI.
      *
      * @param msg The error message to print
      */
     public void sendError(String msg) {
-        mainWindow.addDialog(DialogBox.getDukeDialog(msg, mainWindow.getDukeImage()));
+        mainWindow.addDialog(DialogBox.getDukeDialog(msg, mainWindow.getDukeImage(), Colors.ERROR.code));
     }
 }

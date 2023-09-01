@@ -1,6 +1,6 @@
 package duke;
 
-import duke.ui.Main;
+import duke.ui.GuiBridge;
 import javafx.application.Application;
 
 /**
@@ -8,6 +8,6 @@ import javafx.application.Application;
  */
 public class Launcher {
     public static void main(String[] args) {
-        Application.launch(Main.class, args);
+        Application.launch(GuiBridge.class, args);
     }
 }

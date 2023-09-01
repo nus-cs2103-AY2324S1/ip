@@ -13,11 +13,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
+ * DialogBox Controller.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -49,13 +48,42 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a User DialogBox.
+     *
+     * @param text user text
+     * @param img user image
+     * @return a DialogBox formatted for the user text
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns a Duke DialogBox.
+     * @param text duke message
+     * @param img duke image
+     * @return a DialogBox formatted for the duke text
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.setStyle("-fx-background-color: #E0E0E0");
+        db.flip();
+        return db;
+    }
+
+    /**
+     * Overloaded function to return Duke DialogBox with Colored Text.
+     *
+     * @param text duke message
+     * @param img duke image
+     * @param color text color
+     * @return a DialogBox formatted for the duke text with colored text
+     */
+    public static DialogBox getDukeDialog(String text, Image img, String color) {
+        DialogBox db = new DialogBox(text, img);
+        db.setStyle("-fx-background-color: #E0E0E0");
+        db.dialog.setTextFill(Color.valueOf(color));
         db.flip();
         return db;
     }
