@@ -3,11 +3,20 @@ package duke;
 import duke.command.Command;
 import duke.exception.DukeException;
 
+/**
+ * Represents the main Duke application.
+ */
 public class Duke {
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
 
+    private final Storage storage;
+    private TaskList tasks;
+    private final Ui ui;
+
+    /**
+     * Constructs a new Duke object.
+     *
+     * @param filePath The path to the file where the task data is stored.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -18,6 +27,10 @@ public class Duke {
             tasks = new TaskList();
         }
     }
+
+    /**
+     * Runs the Duke application.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -26,8 +39,10 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.showLine(); // show the divider line ("_______")
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
+                if (c != null) {
+                    c.execute(tasks, ui, storage);
+                    isExit = c.isExit();
+                }
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
             } finally {
@@ -35,6 +50,7 @@ public class Duke {
             }
         }
     }
+
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }

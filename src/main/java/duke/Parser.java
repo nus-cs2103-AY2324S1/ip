@@ -7,17 +7,32 @@ import duke.command.ExitCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
-import duke.exception.InvalidArgumentException;
+import duke.exception.EmptyDescriptionException;
+import duke.exception.InvalidCommandException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
+/**
+ * Represents a parser that parses user input to create appropriate Command objects.
+ */
 public class Parser {
+
+    /**
+     * Enum to identify types of commands.
+     */
     public enum CommandType {
         LIST, DELETE, MARK, UNMARK, ADD, UNKNOWN, BYE
     }
 
-    public static Command parse(String userInput) throws InvalidArgumentException {
+    /**
+     * Parses the user input and returns the appropriate Command object.
+     *
+     * @param userInput The string input by the user.
+     * @return A Command object representing the user's desired action.
+     * @throws InvalidCommandException If the user input is invalid.
+     */
+    public static Command parse(String userInput) throws InvalidCommandException, EmptyDescriptionException {
         CommandType commandType = parseCommand(userInput);
         switch (commandType) {
         case LIST:
@@ -40,6 +55,9 @@ public class Parser {
 
         case ADD:
             if (userInput.startsWith("todo")) {
+                if (userInput.equals("todo")) {
+                    throw new EmptyDescriptionException();
+                }
                 String taskName = userInput.substring(5).trim();
                 return new AddCommand(new Todo(taskName));
             } else {
@@ -64,12 +82,18 @@ public class Parser {
             return new ExitCommand();
 
         default:
-            throw new InvalidArgumentException();
+            throw new InvalidCommandException();
         }
 
         return null;
     }
 
+    /**
+     * Determines the type of command based on the given user input.
+     *
+     * @param userInput The string input by the user.
+     * @return CommandType indicating the type of command.
+     */
     private static CommandType parseCommand(String userInput) {
         if (userInput.equals("bye")) {
             return CommandType.BYE;
