@@ -41,7 +41,7 @@ public class Duke {
 
                 CommandResult result = command.run(tasks);
 
-                if (result.shouldSave()) {
+                if (result.isTaskListDirty()) {
                     storage.save(tasks);
                 }
 

@@ -4,30 +4,31 @@ import java.util.List;
 
 public class CommandResult {
     private final boolean shouldSave;
+    private final boolean isTaskListDirty;
     private final List<String> response;
 
     CommandResult(String... response) {
-        this.shouldSave = false;
+        this.isTaskListDirty = false;
         this.response = List.of(response);
     }
 
     CommandResult(List<String> response) {
-        this.shouldSave = false;
+        this.isTaskListDirty = false;
         this.response = response;
     }
 
-    CommandResult(boolean shouldSave, String... response) {
-        this.shouldSave = shouldSave;
+    CommandResult(boolean isTaskListDirty, String... response) {
+        this.isTaskListDirty = isTaskListDirty;
         this.response = List.of(response);
     }
 
-    CommandResult(boolean shouldSave, List<String> response) {
-        this.shouldSave = shouldSave;
+    CommandResult(boolean isTaskListDirty, List<String> response) {
+        this.isTaskListDirty = isTaskListDirty;
         this.response = response;
     }
 
-    public boolean shouldSave() {
-        return shouldSave;
+    public boolean isTaskListDirty() {
+        return isTaskListDirty;
     }
 
     public List<String> getResponse() {
