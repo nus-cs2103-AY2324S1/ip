@@ -28,7 +28,7 @@ public class Event extends Task {
         this.to = TaskDateHandler.convertInputToDate(to);
     }
 
-    protected Event(String[] args) throws DateTimeParseException {
+    protected Event(String[] args) throws DateTimeParseException, NumberFormatException {
         super(args);
         this.from = TaskDateHandler.convertSaveToDate(args[2]);
         this.to = TaskDateHandler.convertSaveToDate(args[3]);
