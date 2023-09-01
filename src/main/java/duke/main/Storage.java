@@ -12,12 +12,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Storage class handles loading and saving tasks to a file.
+ */
 public class Storage {
     private String filePath;
+
+    /**
+     * Constructs a Storage object with the given file path.
+     *
+     * @param filePath The path to the file used for storing tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file in the constructor.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws IOException If there's an error while reading the file.
+     */
     public ArrayList<Task> load() throws IOException {
         File f = new File(this.filePath);
         if (!f.exists()) f.createNewFile();
@@ -46,12 +61,24 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Appends a task to the file specified in the constructor.
+     *
+     * @param task The task to be appended to the file.
+     * @throws IOException If there's an error while writing to the file.
+     */
     public void append(Task task) throws IOException {
         FileWriter fw = new FileWriter(this.filePath, true);
         fw.write(task.getTaskFileString() + System.lineSeparator());
         fw.close();
     }
 
+    /**
+     * Update the file with a list of tasks, for when deleting or marking.
+     *
+     * @param tasks The list of tasks to be saved to the file.
+     * @throws IOException If there's an error while writing to the file.
+     */
     public void update(List<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
         tasks.forEach(task -> {

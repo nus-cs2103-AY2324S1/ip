@@ -6,7 +6,18 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
+/**
+ * Parser class is responsible for parsing user input, understanding the command and return
+ * the appropriate Command objects.
+ */
 public class Parser {
+    /**
+     * Parses the given full command by user and returns corresponding Command object.
+     *
+     * @param fullCommand The full user input command.
+     * @return A Command object representing the parsed command.
+     * @throws DukeException If there's an error during parsing.
+     */
     public static Command parse(String fullCommand) throws DukeException {
         Command c;
         String[] splitCommand = fullCommand.split(" ", 2);

@@ -5,12 +5,20 @@ import duke.exception.*;
 
 import java.io.IOException;
 
+/**
+ * The main class for Duke chatbot application.
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Duke object with the given file path.
+     *
+     * @param filePath The path to the file used for storing tasks.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -22,6 +30,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the chatbot application
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -39,6 +50,11 @@ public class Duke {
         }
     }
 
+    /**
+     * The main method that starts the chatbot application.
+     *
+     * @param args The command-line arguments.
+     */
     public static void main(String[] args) {
         new Duke("./tasks.txt").run();
     }
