@@ -104,9 +104,9 @@ public class Storage {
         }
         Task toReturn;
         if (next.startsWith("[X]")) {
-            toReturn = task.description(true);
+            toReturn = task.getDescription(true);
         } else {
-            toReturn = task.description(false);
+            toReturn = task.getDescription(false);
         }
         return toReturn;
     }

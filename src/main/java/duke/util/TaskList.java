@@ -44,7 +44,7 @@ public class TaskList {
      * @return the marked Task.
      */
     public Task mark(int num) {
-        return arr.get(num).description(true);
+        return arr.get(num).getDescription(true);
     }
 
     /**
@@ -53,7 +53,7 @@ public class TaskList {
      * @return the unmarked Task.
      */
     public Task unmark(int num){
-        return arr.get(num).description(false);
+        return arr.get(num).getDescription(false);
     }
 
     /**
