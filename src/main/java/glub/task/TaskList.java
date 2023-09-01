@@ -42,17 +42,17 @@ public class TaskList {
             String[] data = task.split("\\|");
             boolean isDone = data[1].equals("X");
             switch (data[0]) {
-                case "T":
-                    addTask(String.format("%s", data[2]), TaskType.TODO, isDone);
-                    break;
-                case "D":
-                    addTask(String.format("%s /by %s", data[2], data[3]),
-                            TaskType.DEADLINE, isDone);
-                    break;
-                case "E":
-                    addTask(String.format("%s /from %s /to %s", data[2], data[3], data[4]),
-                            TaskType.EVENT, isDone);
-                    break;
+            case "T":
+                addTask(String.format("%s", data[2]), TaskType.TODO, isDone);
+                break;
+            case "D":
+                addTask(String.format("%s /by %s", data[2], data[3]),
+                        TaskType.DEADLINE, isDone);
+                break;
+            case "E":
+                addTask(String.format("%s /from %s /to %s", data[2], data[3], data[4]),
+                        TaskType.EVENT, isDone);
+                break;
             }
         }
 
@@ -71,40 +71,40 @@ public class TaskList {
             throw new GlubException(String.format("OOPS!! The description of a %s cannot be empty.\n", taskType));
         }
         switch (taskType) {
-            case TODO:
-                taskList.add(new ToDo(task, isDone));
-                break;
-            case DEADLINE:
-                String[] deadlinePortions = task.split("/");
-                String deadlineDesc = deadlinePortions[0];
-                try {
-                    String deadline = deadlinePortions[1].split(" ", 2)[1];
-                    LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, dateTimeFormat);
-                    taskList.add(new Deadline(deadlineDesc, isDone, deadlineDateTime));
-                } catch (ArrayIndexOutOfBoundsException ex) {
-                    throw new GlubException("OOPS!! Please provide a deadline for your deadline task.\n");
-                } catch (DateTimeParseException ex) {
-                    throw new GlubException("Invalid deadline format! Please ensure it is in dd-MM-yyyy HHmm format!\n");
-                }
-                break;
-            case EVENT:
-                String[] eventPortions = task.split("/");
-                String eventDesc = eventPortions[0];
-                try {
-                    String[] startParts = eventPortions[1].split(" ");
-                    String start = startParts[1] + " " + startParts[2];
-                    String[] endParts = eventPortions[2].split(" ");
-                    String end = endParts[1] + " " + endParts[2];
-                    LocalDateTime startDateTime = LocalDateTime.parse(start, dateTimeFormat);
-                    LocalDateTime endDateTime = LocalDateTime.parse(end, dateTimeFormat);
-                    taskList.add(new Event(eventDesc, isDone, startDateTime, endDateTime));
-                } catch (ArrayIndexOutOfBoundsException ex) {
-                    throw new GlubException("OOPS!! Ensure that your event has a start and end!\n");
-                } catch (DateTimeParseException ex) {
-                    throw new GlubException(
-                            "Invalid start/end format! Please ensure they are in dd/MM/yyyy HH:mm format!\n");
-                }
-                break;
+        case TODO:
+            taskList.add(new ToDo(task, isDone));
+            break;
+        case DEADLINE:
+            String[] deadlinePortions = task.split("/");
+            String deadlineDesc = deadlinePortions[0];
+            try {
+                String deadline = deadlinePortions[1].split(" ", 2)[1];
+                LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, dateTimeFormat);
+                taskList.add(new Deadline(deadlineDesc, isDone, deadlineDateTime));
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                throw new GlubException("OOPS!! Please provide a deadline for your deadline task.\n");
+            } catch (DateTimeParseException ex) {
+                throw new GlubException("Invalid deadline format! Please ensure it is in dd-MM-yyyy HHmm format!\n");
+            }
+            break;
+        case EVENT:
+            String[] eventPortions = task.split("/");
+            String eventDesc = eventPortions[0];
+            try {
+                String[] startParts = eventPortions[1].split(" ");
+                String start = startParts[1] + " " + startParts[2];
+                String[] endParts = eventPortions[2].split(" ");
+                String end = endParts[1] + " " + endParts[2];
+                LocalDateTime startDateTime = LocalDateTime.parse(start, dateTimeFormat);
+                LocalDateTime endDateTime = LocalDateTime.parse(end, dateTimeFormat);
+                taskList.add(new Event(eventDesc, isDone, startDateTime, endDateTime));
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                throw new GlubException("OOPS!! Ensure that your event has a start and end!\n");
+            } catch (DateTimeParseException ex) {
+                throw new GlubException(
+                        "Invalid start/end format! Please ensure they are in dd/MM/yyyy HH:mm format!\n");
+            }
+            break;
         }
         storage.saveTasks(this.taskList);
     }
@@ -119,7 +119,7 @@ public class TaskList {
             Task deleted = taskList.remove(taskNum - 1);
             Ui.printDeleteMsg(taskList, deleted);
         } catch (IndexOutOfBoundsException ex) {
-            throw new GlubException(String.format("OOPS!! Glub.Task %d does not exist!\n", taskNum));
+            throw new GlubException(String.format("OOPS!! Task %d does not exist!\n", taskNum));
         }
         storage.saveTasks(this.taskList);
     }
