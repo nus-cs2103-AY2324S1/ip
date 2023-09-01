@@ -1,7 +1,7 @@
-package ip.parser;
+package duke;
 
-import ip.exception.UnknownCommandException;
-import ip.exception.EmptyDescriptionException;
+import duke.exception.UnknownCommandException;
+import duke.exception.EmptyDescriptionException;
 
 public class Parser {
     public static String[] parseCommand(String input) throws UnknownCommandException, EmptyDescriptionException {

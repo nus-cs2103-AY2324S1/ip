@@ -1,5 +1,5 @@
-package ip.storage;
-import ip.tasks.Task;
+package duke;
+import duke.tasks.Task;
 
 import java.io.IOException;
 import java.nio.file.Files;
