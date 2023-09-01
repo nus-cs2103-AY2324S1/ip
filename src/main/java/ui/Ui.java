@@ -97,7 +97,7 @@ public class Ui {
      */
     public void showError(String exception, String extraMsg) {
         this.showError(exception);
-        this.println("😇: " + extraMsg);
+        this.println("\n😇: " + extraMsg);
     }
      
     /**
@@ -151,7 +151,7 @@ public class Ui {
      * @param tasksOnDate The tasks occurred on the target date.
      */
     public void showTasksOnDate(String date, String tasksOnDate) {
-        this.println("Here are the tasks and events happening on " + date + ":");
+        this.println("Here are the tasks and events happening on " + date + ":\n");
         this.println(tasksOnDate);
     }
 
