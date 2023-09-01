@@ -57,48 +57,21 @@ public class Parser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
-        case MarkCommand.COMMAND_WORD:
-            return handleMark(fullCommand);
-        case UnmarkCommand.COMMAND_WORD:
-            return handleUnmark(fullCommand);
-        case DeleteCommand.COMMAND_WORD:
-            return handleDelete(fullCommand);
+                case MarkCommand.COMMAND_WORD:
+                    return handleMark(fullCommand);
+                case UnmarkCommand.COMMAND_WORD:
+                    return handleUnmark(fullCommand);
+                case DeleteCommand.COMMAND_WORD:
+                    return handleDelete(fullCommand);
+                case FindCommand.COMMAND_WORD:
+                    return handleFind(fullCommand);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
-<<<<<<< .merge_file_Io4ZfN
                 default:
                     throw new MaxException("Invalid command sir.");
             }
-=======
-        default:
-            throw new MaxException("Invalid command sir.");
-        }
-
-//        max.commands.CommandEnum commandEnum;
-////        switch (command) {
-////            case
-////        }
-//        if (command.equals("bye")) {
-//            // User wants to exit the chatbot
-//            commandEnum = max.commands.CommandEnum.BYE;
-//        } else if (command.equals("list")) {
-//            commandEnum = max.commands.CommandEnum.LIST;
-//        } else if (command.contains("unmark")) {
-//            commandEnum = max.commands.CommandEnum.UNMARK;
-//        } else if (command.contains("mark")) {
-//            commandEnum = max.commands.CommandEnum.MARK;
-//        } else if (command.contains("event") || command.contains("todo") ||
-//                command.contains("deadline")) {
-//            commandEnum = max.commands.CommandEnum.ADD;
-//        } else if (command.contains("delete")) {
-//            commandEnum = max.commands.CommandEnum.DELETE;
-//        } else {
-//            commandEnum = max.commands.CommandEnum.UNKNOWN;
-//        }
-//        return commandEnum;
->>>>>>> .merge_file_UJt84l
     }
 
     /**
@@ -200,6 +173,17 @@ public class Parser {
     public Command handleUnmark(String fullCommand) throws MaxException {
         int markNumber = parseInt(fullCommand.substring(7));
         return new MarkCommand(markNumber);
+    }
+
+    /**
+     * Parses user input for phrase to be found.
+     *
+     * @param fullCommand User input
+     * @return Find command
+     */
+    public Command handleFind(String fullCommand) {
+        String item = fullCommand.substring(5).trim();
+        return new FindCommand(item);
     }
 }
 

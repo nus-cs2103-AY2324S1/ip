@@ -35,10 +35,11 @@ public class Task {
     public void unmark() {
         this.isDone = false;
     }
-
-    /**
-     * String representation of Task.
-     *
+    public String getItem() {
+        return this.item;
+    }
+    /** 
+     * String representation of task.
      * @return String
      */
     @Override

@@ -110,12 +110,16 @@ public class Ui {
      * @param list List containing tasks
      */
     public void showList(List list) {
-        System.out.println("     Here are all your tasks:");
+        if (list.isEmpty()) {
+            System.out.println("     Hohoho, you have no tasks.");
+        } else {
+            System.out.println("     Here are all your tasks:");
 
-        // Iterate through ArrayList of tasks and enumerate them
-        for (int i = 0; i < list.size(); i++) {
-            int index = i + 1;
-            System.out.println("     " + index + ". " + list.get(i));
+            // Iterate through ArrayList of tasks and enumerate them
+            for (int i = 0; i < list.size(); i++) {
+                int index = i + 1;
+                System.out.println("     " + index + ". " + list.get(i));
+            }
         }
     }
 
