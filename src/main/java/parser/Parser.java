@@ -5,6 +5,10 @@ import duke.DukeException;
 
 import java.util.ArrayList;
 
+/**
+ * This class handles all string manipulation needed
+ * to read user inputs.
+ */
 public class Parser {
 
     private String type = "";
@@ -32,13 +36,26 @@ public class Parser {
         }
     }
 
+    /**
+     * Parser empty constructor.
+     */
     public Parser(){
     }
 
+    /**
+     * Parser constructor that takes in a String.
+     * @param type The type of task.
+     */
     public Parser(String type) {
         this.type = type;
     }
 
+    /**
+     * Returns the intended command after reading the user input.
+     * @param input Input from the user.
+     * @return The intended command.
+     * @throws DukeException If user typed invalid commands.
+     */
     public Command getCommand(String input) throws DukeException {
         if (input.equals(command.bye.toString())) {
             return new ByeCommand();
@@ -111,6 +128,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Converts the user input of different type of tasks into ArrayList.
+     * @param input User input of the tasks.
+     * @return Required data of task from the user input in ArrayList.
+     * @throws DukeException If user typed invalid tasks commands.
+     */
     public ArrayList<String> convertTaskInput(String input) throws DukeException {
         ArrayList<String> texts = new ArrayList<>();
         switch (type) {
@@ -159,6 +182,13 @@ public class Parser {
        return texts;
     }
 
+    /**
+     * Separating words from a string that has a divider between it and store the words in
+     * ArrayList.
+     * @param text The text to split.
+     * @param cutOff The divider to cut the string.
+     * @return Separated words stored in ArrayList from a string that was merged with a divider.
+     */
     public ArrayList<String> splitter(String text, String cutOff) {
         ArrayList<String> res = new ArrayList<>();
         String resStrAftCutting = text;
