@@ -215,8 +215,8 @@ public class Crusader {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
                 // parse the line
-                Task t = parseSavedTask(line);
-                TASKS.add(t);
+                Task task = parseSavedTask(line);
+                TASKS.add(task);
             }
             say("Saved data has been loaded!");
         } catch (FileNotFoundException e) {
