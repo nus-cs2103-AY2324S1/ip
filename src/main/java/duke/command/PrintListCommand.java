@@ -15,7 +15,7 @@ public class PrintListCommand extends Command {
     /**
      * Executes the list of commands to print the TaskList.
      *
-     * @param list The given TaskList to be printed.
+     * @param taskList The given TaskList to be printed.
      * @param ui The given Ui to print the TaskList.
      * @param storage The given Storage that saves the TaskList locally.
      */
