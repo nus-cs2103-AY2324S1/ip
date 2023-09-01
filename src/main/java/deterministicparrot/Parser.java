@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Parser {
+    public Parser() {
+
+    }
 
     @FunctionalInterface
     interface CheckedConsumer<T> {

@@ -12,7 +12,7 @@ public class DeterministicParrot {
     private Parser parser = new Parser();
     private Storage storage = new Storage();
     private boolean endParrot = false;
-    DeterministicParrot(){
+    public DeterministicParrot(){
         this.taskList = new TaskList();
         this.initCommandHandlers();
     }

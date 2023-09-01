@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     protected LocalDateTime by;
 
-    Deadline(String s, String by) throws DateTimeParseException {
+    public Deadline(String s, String by) throws DateTimeParseException {
         super(s);
         try {
             this.by = DPUtils.dPTryParseDateTime(by);

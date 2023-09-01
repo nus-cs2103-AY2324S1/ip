@@ -11,7 +11,7 @@ public class Ui {
         this.s = s;
         this.pw = pw;
     }
-    Ui(){
+    public Ui(){
         this.s = new Scanner(System.in);
         this.pw = new PrintWriter(System.out, true);
     }

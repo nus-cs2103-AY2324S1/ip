@@ -7,7 +7,7 @@ public class Event extends Task {
     protected LocalDateTime timeStart;
     protected LocalDateTime timeEnd;
 
-    Event(String name, String timeStart, String timeEnd) throws DateTimeParseException {
+    public Event(String name, String timeStart, String timeEnd) throws DateTimeParseException {
         super(name);
         try {
             this.timeStart = DPUtils.dPTryParseDateTime(timeStart);

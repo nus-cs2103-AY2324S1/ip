@@ -1,7 +1,7 @@
 package deterministicparrot;
 
 public class ToDo extends Task {
-    ToDo(String s) {
+    public ToDo(String s) {
         super(s);
     }
 

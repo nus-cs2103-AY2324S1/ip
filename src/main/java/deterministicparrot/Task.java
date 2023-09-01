@@ -5,7 +5,7 @@ import java.time.format.DateTimeParseException;
 abstract public class Task {
     private String name;
     private boolean isDone;
-    Task(String description){
+    public Task(String description){
         this.name = description;
         this.isDone = false;
     }
