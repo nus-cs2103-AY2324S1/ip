@@ -3,17 +3,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.nio.file.StandardCopyOption;
 
 public class Save {
-    ArrayList<Task> taskList;
-    private static final String saveFilePath = "cupid.txt";
+    TaskList taskList;
+    private String saveFilePath;
     private static final String tempFilePath = "temp.txt";
 
-    public Save(ArrayList<Task> taskList) throws IOException {
+    public Save(TaskList taskList, String saveFilePath) throws IOException {
         this.taskList = taskList;
+        this.saveFilePath = saveFilePath;
         saveFile();
         };
 

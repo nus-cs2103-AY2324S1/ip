@@ -1,9 +1,9 @@
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 public class Parser {
 
     private String input;
-    private ArrayList<Task> taskList;
+    private TaskList taskList;
 
     private enum ChatFunction {
         LIST,
@@ -15,7 +15,7 @@ public class Parser {
         DELETE
     }
 
-    public Parser(String input, ArrayList<Task> taskList) {
+    public Parser(String input, TaskList taskList) {
         this.input = input;
         this.taskList = taskList;
     }
@@ -63,18 +63,19 @@ public class Parser {
         } catch (IllegalArgumentException e) {
             // If task inserted not an ENUM
             System.out.println("Oops!!! I'm sorry but I don't know what that means :-(");
-            System.out.println("Please use one of the following commands: list, mark, unmark, todo, deadline, event, bye");
+            System.out.println("Please use one of the following commands: list, mark, unmark," +
+                    " delete, todo, deadline, event, bye");
         }
     }
 
-    public void listCommandHandler(ArrayList<Task> taskList) {
+    public void listCommandHandler(TaskList taskList) {
         for (int i=0; i<taskList.size(); i++) {
             String message = String.format("%d. %s", i+1, taskList.get(i).getTaskAsString());
             System.out.println(message);
         };
     }
 
-    public void markCommandHandler(String[] inputArray, ArrayList<Task> taskList) {
+    public void markCommandHandler(String[] inputArray, TaskList taskList) {
         try {
             int targetTaskIdx = Integer.parseInt(inputArray[1]) -1;
             Task task = taskList.get(targetTaskIdx);
@@ -88,7 +89,7 @@ public class Parser {
         }
     }
 
-    public void unmarkCommandHandler(String[] inputArray, ArrayList<Task> taskList) {
+    public void unmarkCommandHandler(String[] inputArray, TaskList taskList) {
         try {
             int targetTaskIdx = Integer.parseInt(inputArray[1]) -1;
             Task task = taskList.get(targetTaskIdx);
@@ -102,7 +103,7 @@ public class Parser {
         }
     }
 
-    public void deleteCommandHandler(String[] inputArray, ArrayList<Task> taskList) {
+    public void deleteCommandHandler(String[] inputArray, TaskList taskList) {
         try {
             int targetTaskIdx = Integer.parseInt(inputArray[1]) -1;
             Task task = taskList.get(targetTaskIdx);
@@ -116,7 +117,7 @@ public class Parser {
         }
     }
 
-    public void toDoCommandHandler(ArrayList<Task> taskList, String description) {
+    public void toDoCommandHandler(TaskList taskList, String description) {
         if (description.strip().isEmpty() || description.matches("todo")) {
             System.out.println("OOPS! The description of a todo cannot be empty.");
             return;
@@ -126,7 +127,7 @@ public class Parser {
         System.out.println("Added: " + newTodo.getTaskAsString());
     }
 
-    public void deadlineCommandHandler(ArrayList<Task> taskList, String secondHalfInput) {
+    public void deadlineCommandHandler(TaskList taskList, String secondHalfInput) {
         String[] deadlineInputArray = secondHalfInput.split("/");
         String deadlineDescription = deadlineInputArray[0].substring(0,deadlineInputArray[0].length()-1);
         String deadlineDate = deadlineInputArray[1].substring(3);
@@ -136,7 +137,7 @@ public class Parser {
         System.out.println("Added: " + newDeadline.getTaskAsString());
     }
 
-    public void eventCommandHandler(ArrayList<Task> taskList, String input, String secondHalfInput) {
+    public void eventCommandHandler(TaskList taskList, String input, String secondHalfInput) {
         int firstEventSlashIndex = input.indexOf("/");
         String[] inputSplitBySlash = secondHalfInput.split("/");
         String eventDescription = inputSplitBySlash[0].substring(0, inputSplitBySlash[0].length()-1);

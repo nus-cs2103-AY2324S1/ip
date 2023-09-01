@@ -1,7 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Cupid {
 
@@ -11,12 +10,18 @@ public class Cupid {
         System.out.println("____________________________________________________________");
         System.out.println("Initializing...");
 
-        ArrayList<Task> taskList = null;
+        TaskList taskList = null;
+        Storage storage = null;
 
         try {
-            Load load = new Load(saveFilePath);
-            taskList = load.load();
+            storage = new Storage("cupid.txt");
+            taskList = storage.load();
         } catch (IOException e) {
+            System.out.println("File not found. Terminating operation...");
+            return;
+        }
+
+        if (taskList == null) {
             System.out.println("File not found. Terminating operation...");
             return;
         }
@@ -37,7 +42,7 @@ public class Cupid {
         }
 
         try {
-            Save save = new Save(taskList);
+            storage.save(taskList);
             System.out.println("Save successful");
         } catch (IOException e) {
             System.out.println(e);

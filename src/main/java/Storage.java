@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.io.IOException;
 
 public class Storage {
     private String filePath;
@@ -7,8 +7,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> load() {
-        //Todo
-        return new ArrayList<>();
+    public TaskList load() throws IOException {
+        Load load = new Load(this.filePath);
+        return load.load();
+    }
+
+    public void save(TaskList taskList) throws IOException {
+        Save save = new Save(taskList, this.filePath);
     }
 }

@@ -2,28 +2,27 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileReader;
 
 public class Load {
 
-    ArrayList<Task> taskList;
+    TaskList taskList;
     private String loadFilePath;
 
     public Load(String loadFilePath) {
         this.loadFilePath = loadFilePath;
-        this.taskList = new ArrayList<>();
+        this.taskList = new TaskList();
     }
 
-    public ArrayList<Task> load() throws IOException {
+    public TaskList load() throws IOException {
         FileReader f = null;
 
         try {
             f = new FileReader(loadFilePath);
         } catch (IOException e) {
-            System.out.println("File does not exist in directory. Creating a new file...");
-            return new ArrayList<>();
+            System.out.println("File does not exist in directory.");
+            return null;
         }
 
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -31,8 +30,7 @@ public class Load {
         while (s.hasNext()) {
             String currentTaskAsString = s.nextLine();
             String taskType = currentTaskAsString.substring(1,2).toUpperCase();
-            boolean isDone = currentTaskAsString.substring(4,5).toUpperCase() == "X" ? true : false;
-
+            boolean isDone = currentTaskAsString.substring(4, 5).toUpperCase().equals("X");
             int descriptionBeginIndex = 7;
             Integer descriptionEndIndex = null;
 

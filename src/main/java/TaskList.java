@@ -20,5 +20,16 @@ public class TaskList {
         return this.taskList.get(idx);
     }
 
+    public void add(Task task){
+        this.taskList.add(task);
+    }
+
+    public int size() {
+        return this.taskList.size();
+    }
+
+    public void remove(int idx) {
+        this.taskList.remove(idx);
+    }
 
 }
