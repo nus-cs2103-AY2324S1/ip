@@ -7,9 +7,15 @@ public class ToDo extends Task {
         super(description);
     }
     @Override
+    public String getSaveFormat() {
+        return String.format("T | %c | %s",
+                this.getDoneSymbol(),
+                this.description);
+    }
+    @Override
     public String toString() {
         return String.format("[T][%c] %s",
-                this.getDoneStatus(),
+                this.getDoneSymbol(),
                 this.description);
     }
 }

@@ -1,6 +1,8 @@
 import extensions.EkudException;
+import extensions.EkudIOException;
 import extensions.EkudInvalidCommandException;
 import extensions.TaskList;
+
 import java.util.Scanner;
 
 public class Ekud {
@@ -57,33 +59,39 @@ public class Ekud {
             throw new EkudInvalidCommandException("Command not found :(");
         }
         switch (command) {
-            case SHOWTASKS:
-                taskList.showTasks();
-                break;
-            case MARKTASKASDONE:
-                taskList.markTaskAsDone(userArgs);
-                break;
-            case MARKTASKASNOTDONE:
-                taskList.markTaskAsNotDone(userArgs);
-                break;
-            case ADDTODO:
-                taskList.addToDo(userArgs);
-                break;
-            case ADDDEADLINE:
-                taskList.addDeadline(userArgs);
-                break;
-            case ADDEVENT:
-                taskList.addEvent(userArgs);
-                break;
-            case DELETETASK:
-                taskList.deleteTask(userArgs);
-                break;
-            default:
-                throw new EkudInvalidCommandException("Command not found :(");
+        case SHOWTASKS:
+            taskList.showTasks();
+            break;
+        case MARKTASKASDONE:
+            taskList.markTaskAsDone(userArgs);
+            break;
+        case MARKTASKASNOTDONE:
+            taskList.markTaskAsNotDone(userArgs);
+            break;
+        case ADDTODO:
+            taskList.addToDo(userArgs);
+            break;
+        case ADDDEADLINE:
+            taskList.addDeadline(userArgs);
+            break;
+        case ADDEVENT:
+            taskList.addEvent(userArgs);
+            break;
+        case DELETETASK:
+            taskList.deleteTask(userArgs);
+            break;
+        default:
+            throw new EkudInvalidCommandException("Command not found :(");
         }
     }
     // Main chatbot program
     public static void main(String[] args) {
+        // Load up saved tasks
+        try {
+            taskList.loadData();
+        } catch (EkudException e) {
+            System.out.println(e);
+        }
         Scanner scanner = new Scanner(System.in);
         Ekud.echo(INTRO);
         // Process user input
@@ -103,6 +111,13 @@ public class Ekud {
             userInput = scanner.nextLine();
             firstSpace = userInput.indexOf(' ');
             inputCommand = firstSpace == -1 ? userInput : userInput.substring(0, firstSpace);
+        }
+        // Updated saved tasks before exiting the program
+        try {
+            System.out.println("Saving tasks...");
+            taskList.saveData();
+        } catch (EkudIOException e) {
+            System.out.println(e);
         }
         Ekud.echo(OUTRO);
         scanner.close();
