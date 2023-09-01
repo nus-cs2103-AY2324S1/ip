@@ -56,6 +56,9 @@ public class Parser {
             case "delete":
                 int taskIndex = Integer.parseInt(input.substring(7)) - 1;
                 return new DeleteCommand(taskIndex);
+            case "find":
+                String keyword = input.substring(5).trim();
+                return new FindCommand(keyword);
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

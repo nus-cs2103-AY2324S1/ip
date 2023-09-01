@@ -63,6 +63,13 @@ public class Ui {
         tasks.listTasks();
     }
 
+    public void showMatchingTasks(TaskList matchingTasks) {
+        System.out.println("\t Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println("\t " + (i + 1) + "." + matchingTasks.get(i));
+        }
+    }
+
     public String readCommand() {
         return scanner.nextLine();
     }
