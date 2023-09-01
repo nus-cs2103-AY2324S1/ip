@@ -15,7 +15,7 @@ public enum ActionType {
         this.action = action;
     }
 
-    public String toString(){
+    public String toString() {
         return this.action;
     }
 }

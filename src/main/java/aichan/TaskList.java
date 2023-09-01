@@ -1,7 +1,8 @@
 package aichan;
 
-import java.util.ArrayList;
 import aichan.task.Task;
+
+import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> arrTask;

@@ -1,12 +1,12 @@
 package aichan.command;
 
 import aichan.AiChanException;
-import aichan.TaskList;
 import aichan.Storage;
+import aichan.TaskList;
 import aichan.Ui;
 import aichan.task.Task;
 
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
     private int taskId;
     public MarkCommand(int taskId) {
         this.taskId = taskId;

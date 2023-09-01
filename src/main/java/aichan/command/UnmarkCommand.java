@@ -6,7 +6,7 @@ import aichan.TaskList;
 import aichan.Ui;
 import aichan.task.Task;
 
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
     private int taskId;
     public UnmarkCommand(int taskId) {
         this.taskId = taskId;

@@ -4,11 +4,11 @@ import aichan.AiChanException;
 
 public class Task {
     private String taskName;
-    private boolean done;
+    private boolean isDone;
 
     public Task(String taskName) {
         this.taskName = taskName;
-        this.done = false;
+        this.isDone = false;
     }
 
     public static Task stringToTask(String str) throws AiChanException {
@@ -38,20 +38,20 @@ public class Task {
     }
 
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     public String toString() {
-        String status = this.done? "[X]" : "[ ]";
+        String status = this.isDone? "[X]" : "[ ]";
         return status + " " + this.taskName;
     }
 
     public String toFileLine() {
-        int zeroOrOne = this.done? 1: 0;
+        int zeroOrOne = this.isDone? 1: 0;
         return zeroOrOne + " | " + this.taskName;
     }
 

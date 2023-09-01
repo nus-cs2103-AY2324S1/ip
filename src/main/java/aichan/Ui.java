@@ -3,7 +3,7 @@ package aichan;
 import java.util.Scanner;
 public class Ui {
     private Scanner scanner;
-    public Ui(){
+    public Ui() {
         this.scanner = new Scanner(System.in);
     }
     public void showLine() {

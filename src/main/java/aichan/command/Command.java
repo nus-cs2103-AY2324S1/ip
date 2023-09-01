@@ -11,7 +11,7 @@ public class Command {
         // add/delete task + ui shows words
     }
 
-    public boolean isExit(){
+    public boolean isExit() {
         return false;
     }
 }
