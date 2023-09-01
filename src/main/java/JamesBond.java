@@ -3,15 +3,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class JamesBond {
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
     public static void main(String[] args) throws EmptyDescException {
-        Scanner sc = new Scanner(System.in);
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
         TaskList taskList = new TaskList();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        String logo = "____________________________________________________________\n"
-                + "YO! The name's Bond, James Bond.  \n"
-                + "What can I do for you? \n"
-                + "____________________________________________________________\n";
-        System.out.println(logo);
         try {
             while (sc.hasNextLine()) {
                 String firstWord = sc.next();
