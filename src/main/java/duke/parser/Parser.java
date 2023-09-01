@@ -21,8 +21,8 @@ public class Parser {
     public static void parse(String message, Ui ui, TaskList tasks, Storage storage) {
         try{
             String messageType = message.split(" ")[0];
-            if(message.equals("list")) {
-                ui.printTasks(tasks);
+            if(messageType.equals("list")) {
+                Command.list(message, ui, tasks, storage);
             } else if(messageType.equals("mark")) {
                 Command.mark(message, ui, tasks, storage);
             } else if(messageType.equals("unmark")) {

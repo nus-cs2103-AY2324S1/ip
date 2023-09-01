@@ -5,7 +5,7 @@ package duke.task;
 public abstract class Task {
     // Attribute
     private String name;
-    private boolean mark = false;
+    private boolean isMarked = false;
 
     // Constructor
     
@@ -24,14 +24,14 @@ public abstract class Task {
      * Method to mark the task
      */
     public void mark() {
-        this.mark = true;
+        isMarked = true;
     }
 
     /**
      * Method to unmark the task
      */
     public void unmark() {
-        this.mark = false;
+        isMarked = false;
     }
 
     /**
@@ -40,7 +40,7 @@ public abstract class Task {
      * @return the name of the to do
      */
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -49,7 +49,7 @@ public abstract class Task {
      * @return whether the task is marked
      */
     public boolean getMark() {
-        return mark;
+        return isMarked;
     }
 
     /**
@@ -59,7 +59,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return "[" + (this.mark ? "X" : " ") +"] " + this.name;
+        return "[" + (isMarked ? "X" : " ") +"] " + name;
     }
 
     /**
