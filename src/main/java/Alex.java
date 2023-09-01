@@ -157,7 +157,7 @@ public class Alex {
             int inputLength = userInput.length();
             if (userInput.equals("bye") || userInputStripped.equals("bye")) {
                 String bye = horizontalLine
-                        + "Bye. Hope to see you again soon!\n"
+                        + "Bye! Hope to see you again soon!!\n"
                         + horizontalLine;
                 System.out.println(bye);
                 UserInputStorage.storeToFile();
