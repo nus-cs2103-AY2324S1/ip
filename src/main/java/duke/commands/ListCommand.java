@@ -2,6 +2,10 @@ package duke.commands;
 
 import duke.records.ChatRecord;
 
+/**
+ * The command to list all recorded tasks.
+ * @author Toh Li Yuan (A0255811H)
+ */
 public class ListCommand extends Command {
     public static final String COMMAND_PHRASE = "list";
     public ListCommand() {

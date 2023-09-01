@@ -4,9 +4,12 @@ import duke.records.ChatRecord;
 import duke.storage.SaveData;
 import duke.task.Task;
 
+/**
+ * The command to delete a Task.
+ * @author Toh Li Yuan (A0255811H)
+ */
 public class DeleteCommand extends Command {
     public static final String COMMAND_PHRASE = "delete";
-
     private static final String COMMAND_DESC = "The following task has been deleted: ";
     private int toDelete;
     public DeleteCommand(int i) {

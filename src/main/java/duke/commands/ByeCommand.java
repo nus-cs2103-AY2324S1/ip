@@ -2,6 +2,10 @@ package duke.commands;
 
 import duke.records.ChatRecord;
 
+/**
+ * The command to exit the program.
+ * @author Toh Li Yuan (A0255811H)
+ */
 public class ByeCommand extends Command {
     public static final String COMMAND_PHRASE = "bye";
     private static final String BYE_PHRASE = "Access Terminated! Hope to see you again soon!";

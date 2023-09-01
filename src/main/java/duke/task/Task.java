@@ -1,5 +1,9 @@
 package duke.task;
 
+/**
+ * The abstract class for Task.
+ * @author Toh Li Yuan (A0255811H)
+ */
 public abstract class Task {
     protected String name;
     protected boolean status;

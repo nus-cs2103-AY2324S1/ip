@@ -14,6 +14,10 @@ import duke.commands.MarkCommand;
 import duke.commands.TodoCommand;
 import duke.commands.UnmarkCommand;
 
+/**
+ * Parses user input into command.
+ * @author Toh Li Yuan (A0255811H)
+ */
 public class CommandParser {
     private static final Pattern COMMAND_PATTERN = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
@@ -22,6 +26,13 @@ public class CommandParser {
     private static final Pattern EVENT_ARGS_PATTERN = Pattern.compile("(?<name>\\S+.*)( /from )(?<startTime>\\S.*)( \\/to )(?<endTime>\\S.*)");
     public CommandParser() { }
 
+    /**
+     * Processes a user input to a command.
+     *
+     * @param input the input string from the user
+     * @return the correct command from user input.
+     * Returns an Invalid Command if a syntax error in the command is found.
+     */
     public Command parseCommand(String input) {
         Matcher matcher = COMMAND_PATTERN.matcher(input);
         if (!matcher.matches()) {

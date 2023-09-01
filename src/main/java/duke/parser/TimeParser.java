@@ -3,6 +3,10 @@ package duke.parser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Parses Java DateTime to string and vice versa.
+ * @author Toh Li Yuan (A0255811H)
+ */
 public class TimeParser {
 
     private static DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");

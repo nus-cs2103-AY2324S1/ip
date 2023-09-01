@@ -9,6 +9,10 @@ import java.util.Scanner;
 import duke.parser.TaskParser;
 import duke.task.Task;
 
+/**
+ * Handles saving and loading from local storage.
+ * @author Toh Li Yuan (A0255811H)
+ */
 public class SaveData {
     private static final String SAVE_FILE_LOCATION = "./SaveFile.txt";
 

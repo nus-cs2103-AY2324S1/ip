@@ -4,10 +4,20 @@ import duke.records.ChatRecord;
 import duke.storage.SaveData;
 import duke.task.Task;
 
+/**
+ * The command to mark a task as complete.
+ * @author Toh Li Yuan (A0255811H)
+ */
 public class MarkCommand extends Command {
     public static final String COMMAND_PHRASE = "mark";
     private static final String COMMAND_DESC = "Marked the following task as completed!";
     private int toMark;
+
+    /**
+     * Creates a command to mark a task as done.
+     *
+     * @param i the task number of the task to be marked in the list.
+     */
     public MarkCommand(int i) {
         this.toMark = i;
     }

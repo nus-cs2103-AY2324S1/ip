@@ -4,11 +4,21 @@ import duke.records.ChatRecord;
 import duke.storage.SaveData;
 import duke.task.Todo;
 
+/**
+ * The command to add a Todo task.
+ * @author Toh Li Yuan (A0255811H)
+ */
 public class TodoCommand extends Command {
     public static final String COMMAND_PHRASE = "todo";
 
     private static final String COMMAND_DESC = "New Todo Task added to list!";
     private String name;
+
+    /**
+     * Creates a command to add a Todo Task.
+     *
+     * @param name the name of the Todo Task.
+     */
     public TodoCommand(String name) {
         this.name = name;
     }

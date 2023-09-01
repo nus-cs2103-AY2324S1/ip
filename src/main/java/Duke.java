@@ -7,6 +7,9 @@ import duke.ui.ChatView;
 
 import duke.parser.CommandParser;
 
+/**
+ * @author Toh Li Yuan (A0255811H)
+ */
 public class Duke {
     public static void main(String[] args) {
         ChatView chatView = new ChatView();

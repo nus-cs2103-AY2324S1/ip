@@ -2,11 +2,20 @@ package duke.commands;
 
 import duke.records.ChatRecord;
 
+/**
+ * A placeholder command for invalid commands.
+ * @author Toh Li Yuan (A0255811H)
+ */
 public class InvalidCommand extends Command {
 
     private String prefix = "Invalid Command! ";
     private String errMessage;
 
+    /**
+     * Creates a command for invalid commands.
+     *
+     * @param errMessage the error message to show to the user.
+     */
     public InvalidCommand(String errMessage) {
         this.errMessage = errMessage;
     }

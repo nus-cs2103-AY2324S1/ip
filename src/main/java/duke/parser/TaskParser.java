@@ -7,6 +7,10 @@ import duke.task.Todo;
 
 import java.util.Optional;
 
+/**
+ * Parses Task into string and vice versa.
+ * @author Toh Li Yuan (A0255811H)
+ */
 public class TaskParser {
 
     /**

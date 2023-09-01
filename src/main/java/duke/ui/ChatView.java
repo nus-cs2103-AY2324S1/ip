@@ -1,5 +1,9 @@
 package duke.ui;
 
+/**
+ * Handles the UI.
+ * @author Toh Li Yuan (A0255811H)
+ */
 public class ChatView {
     private static String LINE_BREAK = "____________________________";
     public ChatView() {
