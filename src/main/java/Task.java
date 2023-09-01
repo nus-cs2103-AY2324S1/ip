@@ -53,7 +53,6 @@ public class Task {
     }
 
 
-
     @Override
     public String toString() {
         String status = isDone ? "X" : " ";

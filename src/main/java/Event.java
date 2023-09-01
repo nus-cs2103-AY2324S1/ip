@@ -20,9 +20,8 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        char taskType = 'E';
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return taskType + " | " + super.toFileString() + " | " + from.format(formatter) + " | " + to.format(formatter);
+        return "E" + " | " + super.toFileString() + " | " + from.format(formatter) + " | " + to.format(formatter);
     }
 
 

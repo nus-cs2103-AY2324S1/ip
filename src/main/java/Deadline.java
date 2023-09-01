@@ -16,9 +16,8 @@ public class Deadline extends Task {
 
     @Override
     public String toFileString() {
-        char taskType = 'D';//remove ltr
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return taskType + " | " + super.toFileString() + " | " + by.format(formatter);
+        return "D"+ " | " + super.toFileString() + " | " + by.format(formatter);
     }
 
     public static Deadline createDeadlineFromData(String taskData) {
