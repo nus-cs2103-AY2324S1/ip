@@ -2,11 +2,22 @@ package duke.tasks;
 
 import java.time.LocalDateTime;
 
+/**
+ * A task object that tracks Events.
+ */
 public class Event extends Task {
     private final LocalDateTime from;
     private final LocalDateTime to;
 
 
+    /**
+     * Public constructor for Event.
+     *
+     * @param description of the event object
+     * @param from the LocalDateTime object tracking when the event starts
+     * @param to the LocalDateTime object tracking when the event ends
+     * @param isMarked boolean value if the Event task is marked
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to, boolean isMarked) {
         super(description, "event", isMarked);
         this.from = from;
