@@ -10,8 +10,8 @@ import task.Todo;
 
 public class CommandParser {
     private static Pattern COMMAND_PATTERN = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    private static Pattern DEADLINE_ARGS_PATTERN = Pattern.compile("(?<name>\\S+)( /by )(?<time>.*)");
-    private static Pattern EVENT_ARGS_PATTERN = Pattern.compile("(?<name>\\S+)( \\/from )(?<startTime>.*)( \\/to )(?<endTime>.*)");
+    private static Pattern DEADLINE_ARGS_PATTERN = Pattern.compile("(?<name>\\S+.*)( /by )(?<time>.*)");
+    private static Pattern EVENT_ARGS_PATTERN = Pattern.compile("(?<name>\\S+.*)( \\/from )(?<startTime>.*)( \\/to )(?<endTime>.*)");
     public CommandParser() { }
 
     public Command parseCommand(String input) {
@@ -37,14 +37,14 @@ public class CommandParser {
             case TodoCommand.COMMAND_PHRASE:
                 return new TodoCommand(args.trim());
             case EventCommand.COMMAND_PHRASE:
-                Matcher evMatcher = EVENT_ARGS_PATTERN.matcher(input);
+                Matcher evMatcher = EVENT_ARGS_PATTERN.matcher(args.trim());
                 if (evMatcher.find()) {
                     return new EventCommand(evMatcher.group("name"), TimeParser.parseTime(evMatcher.group("startTime").trim()), TimeParser.parseTime(evMatcher.group("endTime").trim()));
                 } else {
                     return new InvalidCommand("Bad event arguments!");
                 }
             case DeadlineCommand.COMMAND_PHRASE:
-                Matcher ddlMatcher = DEADLINE_ARGS_PATTERN.matcher(input);
+                Matcher ddlMatcher = DEADLINE_ARGS_PATTERN.matcher(args.trim());
                 if (ddlMatcher.find()) {
                     return new DeadlineCommand(ddlMatcher.group("name"), TimeParser.parseTime(ddlMatcher.group("time").trim()));
                 } else {
