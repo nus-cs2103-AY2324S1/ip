@@ -4,7 +4,7 @@ package tasks;
  * An exception class representing an index out of bounds error specific to the TaskList class.
  * This exception is thrown when attempting to access or manipulate tasks using an invalid index.
  */
-public class TaskListIndexOutOfBoundsException extends ArrayIndexOutOfBoundsException{
+public class TaskListIndexOutOfBoundsException extends TaskException{
     /**
      * Constructs a TaskListIndexOutOfBoundsException with the specified detail message.
      *
@@ -20,6 +20,6 @@ public class TaskListIndexOutOfBoundsException extends ArrayIndexOutOfBoundsExce
      * @param index The index that caused the exception.
      */
     public TaskListIndexOutOfBoundsException(int index) {
-        super(index);
+        super(Integer.toString(index));
     }
 }
