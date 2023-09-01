@@ -3,15 +3,15 @@ package kevin.parser;
 import java.util.ArrayList;
 
 public class QueryObject {
-    private final Commands commandType;
+    private final Command commandType;
     private final ArrayList<String> args;
 
-    public QueryObject(Commands commandType, ArrayList<String> args) {
+    public QueryObject(Command commandType, ArrayList<String> args) {
         this.commandType = commandType;
         this.args = args;
     }
 
-    public Commands getCommandType() {
+    public Command getCommandType() {
         return commandType;
     }
 

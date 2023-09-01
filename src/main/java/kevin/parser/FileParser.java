@@ -12,24 +12,24 @@ public class FileParser {
             throw new KevinException("Command is not found.");
         }
 
-        Commands command;
+        Command command;
         boolean isDone;
         ArrayList<String> args = new ArrayList<>();
 
         try {
-            command = Commands.valueOf(querySplit[0].toUpperCase());
+            command = Command.valueOf(querySplit[0].toUpperCase());
             isDone = Boolean.parseBoolean(querySplit[1]);
             args.add(String.valueOf(isDone));
         } catch (IllegalArgumentException err) {
             throw new KevinException("Command is invalid.");
         }
 
-        if (command == Commands.TODO) {
+        if (command == Command.TODO) {
             if (querySplit.length != 3) {
                 throw new KevinException("Todo command needs to follow \"Todo - {isDone} - {todo name}.\"");
             }
             args.add(querySplit[2]);
-        } else if (command == Commands.DEADLINE) {
+        } else if (command == Command.DEADLINE) {
             String[] argumentSplit = querySplit[2].split(" - ");
             if (argumentSplit.length != 2) {
                 throw new KevinException("Deadline command needs to follow " +
@@ -37,7 +37,7 @@ public class FileParser {
             }
             args.add(argumentSplit[0]);
             args.add(argumentSplit[1]);
-        } else if (command == Commands.EVENT) {
+        } else if (command == Command.EVENT) {
             String[] argumentGetName = querySplit[2].split(" - ", 2);
             if (argumentGetName.length != 2) {
                 throw new KevinException("Event command needs to follow " +

@@ -1,6 +1,6 @@
 package kevin.parser;
 
-public enum Commands {
+public enum Command {
     BYE,
     LIST,
     MARK,

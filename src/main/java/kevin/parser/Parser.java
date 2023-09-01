@@ -11,22 +11,22 @@ public class Parser {
             throw new KevinException("Please input a command.");
         }
 
-        Commands command;
+        Command command;
         boolean isDone = false;
         ArrayList<String> args = new ArrayList<>();
         args.add(String.valueOf(isDone));
 
         try {
-            command = Commands.valueOf(querySplit[0].toUpperCase());
+            command = Command.valueOf(querySplit[0].toUpperCase());
         } catch (IllegalArgumentException err) {
             throw new KevinException("Command is invalid.");
         }
 
-        if (command == Commands.BYE || command == Commands.LIST) {
+        if (command == Command.BYE || command == Command.LIST) {
             if (querySplit.length > 1) {
                 throw new KevinException(command.name() + " command does not take any input.");
             }
-        } else if (command == Commands.MARK || command == Commands.UNMARK || command == Commands.DELETE) {
+        } else if (command == Command.MARK || command == Command.UNMARK || command == Command.DELETE) {
             if (querySplit.length != 2) {
                 throw new KevinException(command.name() + " command needs to take one input");
             }
@@ -40,12 +40,12 @@ public class Parser {
                 throw new KevinException(command.name() + " input must be an integer.");
             }
             args.add(argumentSplit[0]);
-        } else if (command == Commands.TODO) {
+        } else if (command == Command.TODO) {
             if (querySplit.length != 2) {
                 throw new KevinException("Todo command needs to follow \"todo {todo name}.\"");
             }
             args.add(querySplit[1]);
-        } else if (command == Commands.DEADLINE) {
+        } else if (command == Command.DEADLINE) {
             String[] argumentSplit = querySplit[1].split(" /by");
             if (argumentSplit.length != 2) {
                 throw new KevinException("Deadline command needs to follow " +
@@ -53,7 +53,7 @@ public class Parser {
             }
             args.add(argumentSplit[0]);
             args.add(argumentSplit[1]);
-        } else if (command == Commands.EVENT) {
+        } else if (command == Command.EVENT) {
             String[] argumentGetName = querySplit[1].split(" /from", 2);
             if (argumentGetName.length != 2) {
                 throw new KevinException("Event command needs to follow " +
