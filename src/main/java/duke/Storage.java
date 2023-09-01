@@ -8,15 +8,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import duke.exception.InvalidArgumentException;
+import duke.exception.InvalidCommandException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+/**
+ * Represents a storage for saving and loading task data to and from disk.
+ */
 public class Storage {
+
+    /**
+     * The path to the file where the task data is stored.
+     */
     private final String filePath;
 
+    /**
+     * Constructs a new Storage object.
+     *
+     * @param filePath The path to the file where the task data is stored.
+     */
     public Storage(String filePath) {
         // Create data folder and file if they don't exist
         File file = new File(filePath);
@@ -34,7 +46,14 @@ public class Storage {
         }
         this.filePath = filePath;
     }
-    public List<Task> load() throws InvalidArgumentException {
+
+    /**
+     * Loads the task data from the file.
+     *
+     * @return List of tasks loaded from the file.
+     * @throws InvalidCommandException If the task data in the file is invalid.
+     */
+    public List<Task> load() throws InvalidCommandException {
         List<Task> list = new ArrayList<>();
         File file = new File(filePath);
         try (Scanner fileScanner = new Scanner(file)) {
@@ -48,6 +67,12 @@ public class Storage {
         }
         return list;
     }
+
+    /**
+     * Saves the task data to the file.
+     *
+     * @param list List of tasks to be saved.
+     */
     public void save(TaskList list) {
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : list) {
@@ -57,7 +82,15 @@ public class Storage {
             System.out.println("An error occurred while saving tasks to disk.");
         }
     }
-    private static Task parseFromFile(String line) throws InvalidArgumentException {
+
+    /**
+     * Parses a line from the storage file to generate a Task object.
+     *
+     * @param line The line of task data to be parsed.
+     * @return TA Task object corresponding to the given line.
+     * @throws InvalidCommandException If the task data in the file is invalid.
+     */
+    private static Task parseFromFile(String line) throws InvalidCommandException {
         String[] parts = line.split(" \\| ");
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
@@ -81,7 +114,7 @@ public class Storage {
             task = new Event(description, from, to);
             break;
         default:
-            throw new InvalidArgumentException();
+            throw new InvalidCommandException();
         }
 
         if (isDone) {
