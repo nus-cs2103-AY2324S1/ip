@@ -9,9 +9,10 @@ public class Addlist {
     public void addlist() {
         Scanner sn = new Scanner(System.in);
         String input = sn.nextLine();
+
         while (!input.equals("bye")) {
             if (input.equals("list")) {
-                listing();
+                list();
             } else {
                 this.storage[this.counter] = input;
                 counter += 1;
@@ -20,7 +21,7 @@ public class Addlist {
         }
     }
 
-    private void listing() {
+    private void list() {
         for (int i = 1; i <= counter; i++) {
             System.out.println(i + ". " + storage[i - 1]);
         }

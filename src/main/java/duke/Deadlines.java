@@ -1,7 +1,5 @@
 package duke;
 
-import duke.DateTime;
-
 /**
  * Represents a deadline task with a specified due date.
  */
@@ -31,7 +29,8 @@ public class Deadlines extends Task {
      */
     @Override
     public String getSavingFormat() {
-        return "[D] | [" + getStatusIcon() + "] | " + description + " | " + date;
+        return "[D] | [" + getStatusIcon() + "] | "
+                + description + " | " + date;
     }
 
     /**
@@ -41,6 +40,7 @@ public class Deadlines extends Task {
      */
     @Override
     public String toString() {
-        return "[D][" + getStatusIcon() + "] " + description + " (by: " + dt + ")";
+        return "[D][" + getStatusIcon()
+                + "] " + description + " (by: " + dt + ")";
     }
 }

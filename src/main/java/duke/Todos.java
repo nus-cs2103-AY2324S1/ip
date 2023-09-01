@@ -4,11 +4,10 @@ package duke;
  * Represents a Todo task, a subclass of Task.
  */
 public class Todos extends Task {
-
     /**
      * Creates a new instance of a ToDo task with the provided description.
      *
-     * @param description The description of the ToDo task.
+     * Creates a new instance of a ToDo task with the provided description.
      */
     public Todos(String description) {
         super(description);

@@ -1,10 +1,5 @@
 package duke;
 
-import duke.Parser;
-import duke.Storage;
-import duke.Task;
-import duke.TaskList;
-
 import java.util.Scanner;
 
 public abstract class Taskmanager {
@@ -14,6 +9,7 @@ public abstract class Taskmanager {
     public static void manageTasks(String filePath) {
         storage = new Storage(filePath);
         Scanner sn = new Scanner(System.in);
+
         String input = sn.nextLine();
         String[] splt = input.split(" ");
         String keyword = splt[0];

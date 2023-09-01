@@ -10,7 +10,9 @@ public class Duke {
 
     public void run(String filePath) {
         this.ui.sayhi();
+
         Taskmanager.manageTasks(filePath);
+
         this.ui.saybye();
     }
 

@@ -17,16 +17,18 @@ public class TaskList {
      */
     public void mark(int i) { //need handling
         tasks.get(i-1).setDone();
-        System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(i-1).toString());
+        System.out.println("Nice! I've marked this task as done:\n  "
+                + tasks.get(i-1).toString());
     }
 
     /**
      * Marks a task as not done based on its index.
      * @param i The index (1-based) of the task to be marked as not done.
      */
-    public void unmark(int i) { //need handling
+    public void unmark(int i) {
         tasks.get(i-1).setNotDone();
-        System.out.println("OK, I've marked this task as not done yet:\n  " + tasks.get(i-1).toString());
+        System.out.println("OK, I've marked this task as not done yet:\n  "
+                + tasks.get(i-1).toString());
     }
 
     /**
@@ -51,7 +53,8 @@ public class TaskList {
         tasks.add(t);
         counter += 1;
         saveTask(t);
-        System.out.println("Got it. I've added this task:\n  " + t + "\nNow you have " + counter + " tasks in the list.");
+        System.out.println("Got it. I've added this task:\n  "
+                + t + "\nNow you have " + counter + " tasks in the list.");
     }
 
     /**
@@ -62,7 +65,8 @@ public class TaskList {
         String temp = tasks.get(index-1).toString();
         tasks.remove(index-1);
         counter -= 1;
-        System.out.println("Noted. I've removed this task:\n" + temp + "\nNow you have " + counter + " tasks in the list.");
+        System.out.println("Noted. I've removed this task:\n"
+                + temp + "\nNow you have " + counter + " tasks in the list.");
     }
 
     /**

@@ -1,7 +1,5 @@
 package duke;
 
-import duke.DateTime;
-
 /**
  * Represents an event task with a specified start and end time.
  */
@@ -40,7 +38,8 @@ public class Events extends Task {
      */
     @Override
     public String getSavingFormat() {
-        return "[E] | [" + getStatusIcon() + "] | " + description + " | " + start + " | " + end;
+        return "[E] | [" + getStatusIcon() + "] | "
+                + description + " | " + start + " | " + end;
     }
 
     /**
@@ -50,6 +49,7 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        return "[E][" + getStatusIcon() + "] " + description + " (from: " + dtStart + ", to: " + dtEnd + ")";
+        return "[E][" + getStatusIcon() + "] " + description
+                + " (from: " + dtStart + ", to: " + dtEnd + ")";
     }
 }

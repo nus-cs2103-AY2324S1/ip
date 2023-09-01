@@ -1,6 +1,11 @@
 package duke;
 
-import java.io.*;
+import java.io.File;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * Represents a storage handler for managing reading from and writing to a file.
@@ -9,6 +14,7 @@ import java.io.*;
 public class Storage {
     /** The file name of the user data file. */
     protected String fileName = "userData.txt";
+
     /** The instance of the user data file. */
     protected File file;
 
