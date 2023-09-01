@@ -32,6 +32,9 @@ public class Ui {
         else if (promptText.startsWith("delete")) {
             deleteTask(tasks,Integer.valueOf(promptText.substring(7)) - 1);
         }
+        else if (promptText.startsWith("find")) {
+            parser.findTask(promptText);
+        }
         else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

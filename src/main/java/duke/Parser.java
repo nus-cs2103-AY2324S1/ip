@@ -106,4 +106,16 @@ public class Parser {
             throw new DukeException("OOPS!! This index doesn't exist.");
         }
     }
+
+    public void findTask(String promptText) {
+        String findTask = promptText.substring(5);
+        String returnString = "";
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).description.contains(findTask)) {
+                returnString += i+1 + ". " + taskList.get(i).toString() + "\n";
+            }
+        }
+        System.out.println("Here are the matching tasks in your list: ");
+        System.out.println(returnString);
+    }
 }
