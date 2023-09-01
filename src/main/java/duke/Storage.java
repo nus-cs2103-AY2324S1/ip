@@ -35,6 +35,7 @@ public class Storage {
             return new Storage(filePath, new File(filePath));
         } else {
             System.out.println("File not detected, creating file");
+            createDirectory("./data");
             File file = createFile(filePath);
             return new Storage(filePath, file);
         }
