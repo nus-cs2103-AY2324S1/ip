@@ -1,6 +1,9 @@
 package duke;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
@@ -17,9 +20,18 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("E, dd MMM yyyy");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("E, dd MMM yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         return "[D]" + super.toString() + " (by: " +
-                dateFormatter.format(this.due.toLocalDate()) + " " +
-                this.due.toLocalTime().toString() + ")";
+                this.due.toLocalDate().format(dateFormatter) + " " +
+                this.due.toLocalTime().format(timeFormatter) + ")";
+    }
+
+    public static void main(String[] args) {
+        LocalDate d = LocalDate.of(2023, Month.JANUARY, 1);
+        LocalTime t = LocalTime.of(23, 59);
+        LocalDateTime due = LocalDateTime.of(d, t);
+        Deadline dl = new Deadline("test", due);
+        System.out.println(dl);
     }
 }

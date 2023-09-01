@@ -63,7 +63,8 @@ public class TaskList {
         return false;
     }
 
-    public TaskType getTaskType(Task t) {
+    public TaskType getTaskType(int i) {
+        Task t = this.get(i);
         if (t instanceof ToDo) {
             return TaskType.TODO;
         } else if (t instanceof Deadline) {

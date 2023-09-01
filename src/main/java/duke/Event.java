@@ -1,6 +1,6 @@
 package duke;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
 
@@ -21,11 +21,12 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMM yyyy");
-        String startDate = dateFormatter.format(this.start.toLocalDate());
-        String endDate = dateFormatter.format(this.start.toLocalDate());
-        String startTime = this.start.toLocalTime().toString();
-        String endTime = this.end.toLocalTime().toString();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        String startDate = this.start.toLocalDate().format(dateFormatter);
+        String endDate = this.end.toLocalDate().format(dateFormatter);
+        String startTime = this.start.toLocalTime().format(timeFormatter);
+        String endTime = this.end.toLocalTime().format(timeFormatter);
         return "[E]" + super.toString() + String.format(
                 " (from: %s to: %s)",
                 startDate + " " + startTime,

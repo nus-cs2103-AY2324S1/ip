@@ -32,7 +32,7 @@ public class Storage {
         File f = new File(filePath);
         Scanner sc = new Scanner(f);
         while (sc.hasNext()) {
-            String[] args = sc.nextLine().split("-", -1);
+            String[] args = sc.nextLine().split("/", -1);
             duke.TaskList.TaskType type;
             LocalDateTime due = null;
             LocalDateTime start = null;
@@ -85,29 +85,29 @@ public class Storage {
         BufferedWriter bw = new BufferedWriter(fw);
         try {
             for (int i = 0; i < tasks.getNumOfTasks(); i++) {
+                duke.TaskList.TaskType type = tasks.getTaskType(i);
                 Task t = tasks.get(i);
-                duke.TaskList.TaskType type = tasks.getTaskType(t);
                 switch (type) {
                     case TODO:
-                        bw.write(String.format("ToDo-%s-%c",
+                        bw.write(String.format("ToDo/%s/%c",
                                 t.getDetails(),
                                 t.isCompleted ? 'Y' : 'N'));
                         break;
                     case DEADLINE:
-                        bw.write(String.format("Deadline-%s-%c-%s",
+                        bw.write(String.format("Deadline/%s/%c/%s",
                                 t.getDetails(),
                                 t.isCompleted ? 'Y' : 'N',
                                 ((Deadline) t).due));
                         break;
                     case EVENT:
-                        bw.write(String.format("Event-%s-%c-%s-%s",
+                        bw.write(String.format("Event/%s/%c/%s/%s",
                                 t.getDetails(),
                                 t.isCompleted ? 'Y' : 'N',
                                 ((Event) t).start,
                                 ((Event) t).end));
                         break;
                     case TASK:
-                        bw.write(String.format("Task-%s-%c",
+                        bw.write(String.format("Task/%s/%c",
                                 t.getDetails(),
                                 t.isCompleted ? 'Y' : 'N'));
                         break;
