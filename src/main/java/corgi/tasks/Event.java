@@ -24,17 +24,36 @@ public class Event extends Task{
         this.to = to;
     }
 
+    /**
+     * Initializes a new event task with the given status, description, start date, and end date.
+     *
+     * @param status The status of the task.
+     * @param desc The description of the task.
+     * @param from The start date of the event.
+     * @param to The end date of the event.
+     */
     public Event(boolean status, String desc, LocalDate from, LocalDate to) {
         super(status, desc);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Checks if the event task is happening on the specified target date.
+     *
+     * @param targetDate The date to check against the event duration.
+     * @return True if the task's event duration includes the target date, false otherwise.
+     */
     public boolean isHappeningOnDate(LocalDate targetDate) {
         return targetDate.isEqual(this.from) || targetDate.isEqual(this.to) 
                 || (targetDate.isAfter(this.from) && targetDate.isBefore(this.to));
     }
 
+    /**
+     * Converts the event task to a storable string representation.
+     *
+     * @return A string representing the event task in a storable format.
+     */
     @Override
     public String toStorableString() {
         String[] infos = {"E", this.status ? "1" : "0", this.desc, 
