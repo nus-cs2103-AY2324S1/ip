@@ -1,5 +1,11 @@
 package duke;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.parser.Parser;
@@ -12,7 +18,7 @@ import duke.ui.Ui;
  *
  * @author Shishir
  */
-public class Duke {
+public class Duke extends Application {
 
     /** Task List of all tasks. */
     private TaskList tasks;
@@ -29,6 +35,16 @@ public class Duke {
      */
     public Duke(String filePath) {
         this.storage = new Storage(filePath);
+        this.tasks = new TaskList(this.storage.readData());
+        this.ui = new Ui();
+    }
+
+    /**
+     * Constructs the Duke Object with the default file path
+     * being data/tasks.txt.
+     */
+    public Duke() {
+        this.storage = new Storage("data/tasks.txt");
         this.tasks = new TaskList(this.storage.readData());
         this.ui = new Ui();
     }
@@ -58,7 +74,18 @@ public class Duke {
      * @param args Input args.
      */
     public static void main(String[] args) {
-        Duke bot = new Duke("data/tasks.txt");
-        bot.interact();
+//        Duke bot = new Duke("data/tasks.txt");
+//        bot.interact();
+        launch();
+    }
+
+    @Override
+    public void start(Stage stage) {
+        String javaVersion = System.getProperty("java.version");
+        String javafxVersion = System.getProperty("javafx.version");
+        Label l = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
+        Scene scene = new Scene(new StackPane(l), 640, 480);
+        stage.setScene(scene);
+        stage.show();
     }
 }
