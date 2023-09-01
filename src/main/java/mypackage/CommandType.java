@@ -1,7 +1,15 @@
 package mypackage;
 
 public enum CommandType {
-    BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN;
+    BYE, 
+    LIST, 
+    MARK, 
+    UNMARK, 
+    TODO, 
+    DEADLINE, 
+    EVENT, 
+    DELETE, 
+    UNKNOWN;
 
     public static CommandType getCommandType(String command) {
         if (command.equals("bye")) {

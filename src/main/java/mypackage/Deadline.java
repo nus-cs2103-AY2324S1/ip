@@ -7,6 +7,11 @@ public class Deadline extends Task {
     super(description.substring(0, description.indexOf("/") - 1));
     this.by = description.substring(description.indexOf("/") + 4);
   }
+
+  public Deadline(String description, String by) {
+    super(description);
+    this.by = by;
+  }
   
   @Override
   public String toString() {
