@@ -1,6 +1,7 @@
+import Events.Task;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -98,7 +99,7 @@ public class TaskList {
             Task task = tasks.get(taskIndex);
 
             if (task.isDone()) {
-                //Task already marked as done
+                //Events.Task already marked as done
                 System.out.println("Mission has been completed previously.");
                 return;
             }

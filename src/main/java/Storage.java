@@ -1,3 +1,8 @@
+import Events.Deadline;
+import Events.Event;
+import Events.Task;
+import Events.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -64,12 +69,12 @@ public class Storage {
                         break;
 
                     case 'D':
-                        //Deadline
+                        //Events.Deadline
                         tasks.add(new Deadline(descriptions[2], descriptions[3], descriptions[1].matches("1")));
                         break;
 
                     case 'E':
-                        //Event
+                        //Events.Event
                         tasks.add(new Event(descriptions[2], descriptions[3], descriptions[1].matches("1")));
                         break;
 

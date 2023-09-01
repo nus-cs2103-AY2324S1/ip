@@ -1,3 +1,10 @@
+import Events.Deadline;
+import Events.Event;
+import Events.Task;
+import Events.ToDo;
+import VedaExceptions.IncorrectInputException;
+import VedaExceptions.NoDescriptionException;
+
 /**
  * Parser makes sense of the user command.
  *
@@ -43,7 +50,11 @@ public class Parser {
         return -1;
     }
 
-    public static int getTargetIndex(String args) throws NumberFormatException {
+    public static int getTargetIndex(String args) throws NumberFormatException, NoDescriptionException {
+        if (args.toLowerCase().split(" ").length < 2) {
+            throw new NoDescriptionException("There is no given task index.");
+        }
+
         int targetIndex = Integer.parseInt(args.toLowerCase().split(" ")[1]) - 1;
 
         return  targetIndex;

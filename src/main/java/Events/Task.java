@@ -1,3 +1,5 @@
+package Events;
+
 public abstract class Task {
     private boolean isDone;
     private String description;
@@ -27,7 +29,7 @@ public abstract class Task {
     }
 
     public String getStatusIcon() {
-        //Task is marked as done with an "X"
+        //Events.Task is marked as done with an "X"
         return isDone
                 ? "X"
                 : " ";

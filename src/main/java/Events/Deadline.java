@@ -1,4 +1,5 @@
-import java.time.LocalDate;
+package Events;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -13,13 +14,13 @@ public class Deadline extends Task{
 
     protected LocalDateTime deadline;
 
-    Deadline(String description, String by) {
+    public Deadline(String description, String by) {
         super(description);
         this.by = by;
         this.deadline = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 
-    Deadline(String description, String by, boolean isDone) {
+    public Deadline(String description, String by, boolean isDone) {
         super(description, isDone);
         this.by = by;
         this.deadline = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));

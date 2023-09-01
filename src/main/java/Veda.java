@@ -1,9 +1,7 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.time.LocalDateTime;
+import VedaExceptions.IncorrectInputException;
+import VedaExceptions.NoDescriptionException;
+
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Veda {
@@ -45,6 +43,8 @@ public class Veda {
                         tasks.markAsDone(Parser.getTargetIndex(input));
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid index! Please ensure you correctly key in your target index.");
+                    } catch (NoDescriptionException e) {
+                        System.out.println(e);
                     }
                     break;
 
@@ -54,6 +54,8 @@ public class Veda {
                         tasks.markUndone(Parser.getTargetIndex(input));
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid index! Please ensure you correctly key in your target index.");
+                    } catch (NoDescriptionException e) {
+                        System.out.println(e.getMessage());
                     }
                     break;
 
@@ -63,6 +65,8 @@ public class Veda {
                         tasks.deleteTask(Parser.getTargetIndex(input));
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid index! Please ensure you correctly key in your target index.");
+                    } catch (NoDescriptionException e) {
+                        System.out.println(e.getMessage());
                     }
                     break;
 

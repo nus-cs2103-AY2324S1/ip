@@ -1,11 +1,12 @@
-import java.time.LocalDate;
+package Events;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Tasks that start at a specific date/time and ends at a specific date/time.
+ *
+ * @author Sebastian Tay
  */
 public class Event extends Task {
     //TODO
@@ -15,20 +16,16 @@ public class Event extends Task {
     protected LocalDateTime start;
     protected String to;
 
-    Event(String description, String from, String to) {
+    public Event(String description, String from, String to) {
         super(description);
         this.from = from;
         this.to = to;
 
         this.start = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
 
-//        Pattern fromPattern = Pattern.compile("\\d{2}/\\d{2}/\\d{4} \\d{4}");
-//        if (fromPattern.matcher(from).matches()) {
-//            this.start = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-//        }
     }
 
-    Event(String description, String period, boolean isDone) {
+    public Event(String description, String period, boolean isDone) {
         super(description, isDone);
         this.from = period.split("-")[0];
         this.to = period.split("-")[1];
