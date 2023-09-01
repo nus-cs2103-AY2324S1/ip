@@ -16,7 +16,6 @@ public class Ui {
             + " \\____\\___/|_| \\_\\\\____|___|\n";
     private final static String DIVIDER = "---------------------------------------------------------------------";
     private final static Map<String, String> errorMessage = ErrorMessage.mapper;
-    private final static Map<CommandType, String> commandFormat = CommandFormat.mapper;
     private Scanner sc;
     
     /**
@@ -106,7 +105,7 @@ public class Ui {
      * @param c The specific command type.
      */
     public void showCommandFormat(CommandType c) {
-        this.println("Format: " + commandFormat.get(c));
+        this.println("Format: " + c.getCommandFormat());
     }
 
     /**

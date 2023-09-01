@@ -21,15 +21,33 @@ public class Deadline extends Task{
         this.by = by;
     }
 
+    /**
+     * Initializes a new deadline task with the given status, description, and deadline. 
+     *
+     * @param status The status of the task.
+     * @param desc The description of the task.
+     * @param by The deadline of the task.
+     */
     public Deadline(boolean status, String desc, LocalDate by) {
         super(status, desc);
         this.by = by;
     }
 
+    /**
+     * Checks if the deadline task is happening on the specified target date.
+     *
+     * @param targetDate The date to check against the deadline.
+     * @return True if the task's deadline matches the target date, false otherwise.
+     */
     public boolean isHappeningOnDate(LocalDate targetDate) {
         return this.by.isEqual(targetDate);
     }
 
+    /**
+     * Converts the deadline task to a storable string representation.
+     *
+     * @return A string representing the deadline task in a storable format.
+     */
     @Override
     public String toStorableString() {
         String[] infos = {"D", this.status ? "1" : "0", this.desc, this.by.format(Task.DATE_INPUT_FORMATTER)};

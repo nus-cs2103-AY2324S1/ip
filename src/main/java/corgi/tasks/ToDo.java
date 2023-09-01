@@ -15,10 +15,21 @@ public class ToDo extends Task {
         super(false, desc);
     }
 
+    /**
+     * Initializes a new todo task with the given status and description.
+     *
+     * @param status The status of the task.
+     * @param desc The description of the task.
+     */
     public ToDo(boolean status, String desc) {
         super(status, desc);
     }
 
+    /**
+     * Converts the todo task to a storable string representation.
+     *
+     * @return A string representing the to-do task in a storable format.
+     */
     @Override
     public String toStorableString() {
         String[] infos = {"T", this.status ? "1" : "0", this.desc};
