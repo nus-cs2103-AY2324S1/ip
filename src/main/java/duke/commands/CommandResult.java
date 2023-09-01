@@ -6,8 +6,13 @@ import java.util.List;
  * Represents the result from executing a command.
  */
 public class CommandResult {
-    private final boolean shouldSave;
+    /**
+     * Whether the task list has been modified by a command.
+     */
     private final boolean isTaskListDirty;
+    /**
+     * A list of strings representing the response that should be shown to the user after a command execution.
+     */
     private final List<String> response;
 
     CommandResult(String... response) {

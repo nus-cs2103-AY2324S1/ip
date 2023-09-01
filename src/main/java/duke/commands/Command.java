@@ -11,9 +11,19 @@ import duke.TaskList;
 public abstract class Command {
     protected Matcher matcher;
 
+    /**
+     * Constructor for a command with no arguments.
+     */
     public Command() {
     }
 
+    /**
+     * Constructor for a command with arguments.
+     *
+     * @param s The entire command string, including the verb and arguments.
+     * @param p A regex pattern representing the command format.
+     * @throws CommandException If the command is of an invalid format.
+     */
     public Command(String s, Pattern p) throws CommandException {
         matcher = p.matcher(s);
         if (!matcher.matches()) {
