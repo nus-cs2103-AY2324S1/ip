@@ -21,7 +21,7 @@ public class Duke {
         try {
             this.taskList = new TaskList(storage.load());
         } catch (FileNotFoundException e) {
-            this.ui.printError(e);
+            this.ui.addErrorMessage(e);
             this.taskList = new TaskList();
         }
     }
@@ -37,7 +37,9 @@ public class Duke {
                 c.execute(taskList, ui, storage);
                 isExit = c.isExit();
             } catch (TaskException e) {
-                ui.printError(e);
+                ui.addErrorMessage(e);
+            } finally {
+                ui.printMessage();
             }
         };
     }
