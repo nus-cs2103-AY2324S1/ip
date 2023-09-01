@@ -17,11 +17,16 @@ import duke.util.TaskList;
 
 import duke.exceptions.DukeException;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 /*
  * Duke is a personal assistant chatbot that helps a person to keep track of various things.
  */
 
-public class Duke {
+public class Duke extends Application {
     
     public enum CommandType {
         LIST, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN, FIND
@@ -41,6 +46,14 @@ public class Duke {
         } catch (DukeException e) {
             ui.printErrorMessage(e);
         }
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label label = new Label("Hello World!");
+        Scene scene = new Scene(label, 640, 480);
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void run() {
