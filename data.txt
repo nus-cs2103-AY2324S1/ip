@@ -1,5 +1,8 @@
-T1read book
-T0borrow book
-D0return book /by 2/12/2019 1800
-D0return book /by 2/01/2019 1100
-E0dfasdf /from 2/12/2019 1800 /to 2/12/3011 0800
+T1todo1
+T1todo2
+D0d1 /by 06/12/2001 1800
+D0d2 /by 06/12/2002 2100
+E0e1 /from 06/12/2002 2100 /to 06/12/2002 2200
+T1todo3
+T0todo4
+T1todo5

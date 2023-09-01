@@ -1,3 +1,5 @@
+package smolbrain.exception;
+
 public class InvalidNumberException extends Exception{
 
     String task_type;
@@ -9,7 +11,7 @@ public class InvalidNumberException extends Exception{
 
     @Override
     public String toString() {
-        return "☹ OOPS!!! Please provide a valid number to " + task_type + ".";
+        return "Please provide a valid number to " + task_type + ".";
     }
 
 }

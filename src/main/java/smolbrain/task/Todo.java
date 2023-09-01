@@ -1,3 +1,5 @@
+package smolbrain.task;
+
 public class Todo extends Task {
 
     public Todo(String description) {
@@ -11,6 +13,7 @@ public class Todo extends Task {
 
     @Override
     public String encode() {
-        return "T"+getStatusNumber()+super.description;
+        return "T" + getStatusNumber() + super.description;
     }
+
 }

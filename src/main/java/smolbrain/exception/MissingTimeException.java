@@ -1,3 +1,5 @@
+package smolbrain.exception;
+
 public class MissingTimeException extends Exception{
 
     String task_type;
@@ -10,7 +12,7 @@ public class MissingTimeException extends Exception{
 
     @Override
     public String toString() {
-        return "☹ OOPS!!! The " + time_type + " time of a " + task_type + " cannot be empty.";
+        return "The " + time_type + " time of a " + task_type + " cannot be empty.";
     }
 
 }

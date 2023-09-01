@@ -1,3 +1,5 @@
+package smolbrain.exception;
+
 public class InvalidDateTimeException extends Exception{
 
     public InvalidDateTimeException() {
@@ -6,7 +8,7 @@ public class InvalidDateTimeException extends Exception{
 
     @Override
     public String toString() {
-        return "☹ OOPS!!! Please provide a valid date and time.";
+        return "Please provide a valid date and time with format of dd//MM/yyyy HHmm.";
     }
 
 }

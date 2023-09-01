@@ -1,3 +1,5 @@
+package smolbrain.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -12,13 +14,13 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         return "[D]" + super.toString() + " (by: " + this.by.format(formatter) + ")";
     }
 
     @Override
     public String encode() {
-        DateTimeFormatter stringformatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+        DateTimeFormatter stringformatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         return "D"+getStatusNumber()+super.description + " /by " + this.by.format(stringformatter);
     }
 }
