@@ -6,6 +6,10 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Crusader {
     /** Logo generated from https://patorjk.com/software/taag */
     private static final String LOGO =
@@ -25,6 +29,11 @@ public class Crusader {
      * The filepath used to save data.
      */
     private static final String SAVE_FILE = "./data/crusader.txt";
+
+    /**
+     * The date and time format used for all input in this program.
+     */
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy kk");
 
     /**
      * Describes the list of tasks in the chatbot.
@@ -113,6 +122,13 @@ public class Crusader {
     }
 
     /**
+     * Parses dates and times entered.
+     */
+    private static Date parseDateTime(String dateTimeString) throws ParseException {
+        return DATE_FORMAT.parse(dateTimeString);
+    }
+
+    /**
      * Parses the prompt to generate a new Todo Task.
      * @param prompt The prompt entered by the user
      */
@@ -133,7 +149,7 @@ public class Crusader {
      * Parses the prompt to generate a new Event Task.
      * @param prompt The prompt entered by the user
      */
-    private static void addEvent(String prompt) {
+    private static void addEvent(String prompt) throws ParseException {
         int fromPosition = prompt.indexOf("/from");
         if (fromPosition < 0) {
             throw new IllegalArgumentException("Hmm, an event must have /from!");
@@ -157,7 +173,7 @@ public class Crusader {
         String name = prompt.substring(6, fromPosition - 1);
         String from = prompt.substring(fromPosition + 6, toPosition - 1);
         String to = prompt.substring(toPosition + 4);
-        Event e = new Event(name, from, to);
+        Event e = new Event(name, parseDateTime(from), parseDateTime(to));
         System.out.println("Adding the task:");
         System.out.println(e.toString());
         TASKS.add(e);
@@ -169,7 +185,7 @@ public class Crusader {
      * Parses the prompt to generate a new Deadline Task.
      * @param prompt The prompt entered by the user
      */
-    private static void addDeadline(String prompt) {
+    private static void addDeadline(String prompt) throws ParseException {
         int byPosition = prompt.indexOf("/by");
         if (byPosition < 0) {
             throw new IllegalArgumentException("Hmm, a deadline must have /by!");
@@ -179,7 +195,7 @@ public class Crusader {
         }
         String name = prompt.substring(9, byPosition - 1);
         String by = prompt.substring(byPosition + 4);
-        Deadline d = new Deadline(name, by);
+        Deadline d = new Deadline(name, parseDateTime(by));
         System.out.println("Adding the task:");
         System.out.println(d.toString());
         TASKS.add(d);
@@ -202,9 +218,13 @@ public class Crusader {
                 Task t = parseSavedTask(line);
                 TASKS.add(t);
             }
+            say("Saved data has been loaded!");
         } catch (FileNotFoundException e) {
+            say("No saved data was found!");
             // make the file
             save.createNewFile();
+        } catch (ParseException e) {
+            say("The saved data wasn't saved properly! Ignoring it...");
         }
     }
 
@@ -213,18 +233,18 @@ public class Crusader {
      * @param taskString Line to be parsed.
      * @return A new Task.
      */
-    private static Task parseSavedTask(String taskString) {
+    private static Task parseSavedTask(String taskString) throws ParseException {
         String[] components = taskString.split("\\|");
         Task task;
         switch (components[0]) {
         case "E":
-            task = new Event(components[1], components[3], components[4]);
+            task = new Event(components[1], parseDateTime(components[3]), parseDateTime(components[4]));
             break;
         case "T":
             task = new Todo(components[1]);
             break;
         case "D":
-            task = new Deadline(components[1], components[3]);
+            task = new Deadline(components[1], parseDateTime(components[3]));
             break;
         default:
             throw new IllegalArgumentException();
@@ -246,7 +266,7 @@ public class Crusader {
                 fileWriter.println(task.toFormat());
             }
         } catch (IOException e) {
-
+            say("Critical error in saving the data! It wasn't saved :(\n Error: " + e.getMessage());
         }
     }
 
@@ -306,6 +326,8 @@ public class Crusader {
                     addEvent(currentPrompt);
                 } catch (IllegalArgumentException e) {
                     say(e.getMessage());
+                } catch (ParseException e) {
+                    say("Sorry, I don't quite understand the dates you gave!\nI only understand dd/MM/yyyy HH (24-hour)");
                 }
                 break;
             case "deadline":
@@ -313,6 +335,8 @@ public class Crusader {
                     addDeadline(currentPrompt);
                 } catch (IllegalArgumentException e) {
                     say(e.getMessage());
+                } catch (ParseException e) {
+                    say("Sorry, I don't quite understand the dates you gave!\nI only understand dd/MM/yyyy HH (24-hour)");
                 }
                 break;
             case "delete":
