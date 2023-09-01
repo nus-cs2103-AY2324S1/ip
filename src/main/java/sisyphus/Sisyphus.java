@@ -15,6 +15,9 @@ public class Sisyphus {
         parser = new Parser();
     }
 
+    /**
+     * Driver function to run all components.
+     */
     public void run() {
         ui.greet();
         boolean isChatting = true;

@@ -10,14 +10,32 @@ import java.time.LocalDate;
 public class Parser {
     private boolean isChatting;
 
+    /**
+     * Constructor to initialise isChatting as true.
+     */
     public Parser() {
         isChatting = true;
     }
 
+    /**
+     * Gets whether the parser is still active.
+     *
+     * @return state of isChatting.
+     */
     public boolean getActiveStatus() {
         return this.isChatting;
     }
 
+    /**
+     * Run different process based on the given command. Commands include
+     * bye, mark, unmark, delete, todo, deadline, event, list.
+     *
+     * @param fullCommand
+     * @param taskList
+     * @param storage
+     * @param ui
+     * @throws SisyphusException
+     */
     public void run(String fullCommand, TaskList taskList, Storage storage, Ui ui)  throws SisyphusException {
         String[] inputArray;
         String command, params = "";
