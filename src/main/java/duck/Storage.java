@@ -63,32 +63,32 @@ public class Storage {
             if (!file.exists()) {
                 create();
             }
-            FileWriter fw = new FileWriter(file);
+            FileWriter fileWriter = new FileWriter(file);
             for (int i = 0; i < list.size(); i++) {
                 Task task = list.get(i);
                 switch (task.type()) {
                 case "D":
                     Deadline deadline = (Deadline) task;
-                    fw.write(deadline.type()
+                    fileWriter.write(deadline.type()
                         + " | " + (deadline.getStatusIcon().isBlank() ? "0" : "1")
                         + " | " + deadline.getDescription() + " | " + deadline.getBy());
                     break;
                 case "E":
                     Events events = (Events) task;
-                    fw.write(events.type() + " | " + (events.getStatusIcon().isBlank() ? "0" : "1")
+                    fileWriter.write(events.type() + " | " + (events.getStatusIcon().isBlank() ? "0" : "1")
                         + " | " + events.getDescription() + " | " + events.getDate());
                     break;
                 case "T":
                     ToDo toDo = (ToDo) task;
-                    fw.write(toDo.type() + " | " + (toDo.getStatusIcon().isBlank() ? "0" : "1")
+                    fileWriter.write(toDo.type() + " | " + (toDo.getStatusIcon().isBlank() ? "0" : "1")
                         + " | " + toDo.getDescription());
                     break;
                 default:
                     throw new FileIoException("Error in file loading");
                 }
-                fw.write("\n");
+                fileWriter.write("\n");
             }
-            fw.close();
+            fileWriter.close();
         } catch (IOException e) {
             throw new FileIoException(e.getMessage());
         }
