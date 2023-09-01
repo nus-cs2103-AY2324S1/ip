@@ -27,18 +27,18 @@ public class Storage {
         }
     }
 
-    public String generateTaskListString(ArrayList<Task> stored) {
-        int len = stored.size();
+    public String generateTaskListString(TaskList stored) {
+        int len = stored.getLength();
         String tL = "";
         if (len > 0) {
             for (int i = 1; i < len + 1; i++) {
-                tL = tL + stored.get(i - 1).toSavedString() + "\n";
+                tL = tL + stored.getTask(i - 1).toSavedString() + "\n";
             }
         }
         return tL;
     }
 
-    public void update(ArrayList<Task> storedTasks) throws IOException {
+    public void update(TaskList storedTasks) throws IOException {
         File dataFile = new File(this.path);
         FileWriter writer = new FileWriter(dataFile);
 
@@ -49,7 +49,7 @@ public class Storage {
         writer.close();
     }
 
-    public ArrayList<Task> loadTaskList() throws FileNotFoundException {
+    public ArrayList<Task> loadTaskList() throws FileNotFoundException, DukeException {
         ArrayList<Task> taskList = new ArrayList<>();
 
         File dataFile = new File(this.path);
@@ -62,14 +62,14 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             return taskList;
-        } catch (InvalidTaskStringException e) {
+        } catch (DukeInvalidTaskStringException e) {
             System.out.println(e);
         }
 
         return taskList;
     }
 
-    public Task convertStrToTask(String str) throws InvalidTaskStringException {
+    public Task convertStrToTask(String str) throws DukeInvalidTaskStringException {
         String[] strArr = str.split("//");
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
@@ -88,7 +88,7 @@ public class Storage {
                     LocalDateTime.parse(strArr[4], dateTimeFormatter));
             break;
         default:
-            throw new InvalidTaskStringException();
+            throw new DukeInvalidTaskStringException();
         }
 
         if (isDone) {

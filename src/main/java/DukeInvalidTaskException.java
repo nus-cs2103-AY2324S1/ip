@@ -1,9 +1,9 @@
-public class InvalidTaskException extends Exception {
+public class DukeInvalidTaskException extends DukeException {
 
     String part;
     String type;
 
-    InvalidTaskException(String part, String type) {
+    DukeInvalidTaskException(String part, String type) {
         this.part = part;
         this.type = type;
     }

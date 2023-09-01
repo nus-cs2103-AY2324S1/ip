@@ -1,4 +1,4 @@
-public class InvalidTaskStringException extends Exception {
+public class DukeInvalidTaskStringException extends DukeException {
     String taskNum;
 
     @Override

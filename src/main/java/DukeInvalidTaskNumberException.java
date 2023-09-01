@@ -1,6 +1,6 @@
-public class InvalidTaskNumberException extends Exception {
+public class DukeInvalidTaskNumberException extends DukeException {
     String taskNum;
-    InvalidTaskNumberException(String taskNum) {
+    DukeInvalidTaskNumberException(String taskNum) {
         this.taskNum = taskNum;
     }
 
