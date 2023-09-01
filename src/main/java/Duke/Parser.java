@@ -71,7 +71,11 @@ public class Parser {
                 } catch (GmanException e) {
                     System.out.println(e.getMessage());
                 }
-            } else {
+            } else if (words[0].equals("find")) { //add exception if more than one searched word, i.e space, e.g hi hi
+                String keyword = words[1];
+                taskList.findTasks(keyword);
+            }
+            else {
                 throw new GmanException("OOPS! I'm sorry, I don't know what that means! Please start " +
                         "with keywords: todo, deadline, or event!");
             }

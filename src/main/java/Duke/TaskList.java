@@ -59,4 +59,14 @@ public class TaskList {
         Storage.writeTasks(tasks);
     }
 
+    public void findTasks(String keyword) {
+        ArrayList<Task> tasksWithKeyword = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                tasksWithKeyword.add(task);
+            }
+        }
+        Ui.listTasksFound(tasksWithKeyword);
+    }
+
 }
