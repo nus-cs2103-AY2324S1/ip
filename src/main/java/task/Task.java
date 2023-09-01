@@ -23,6 +23,10 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     /**
      * Returns a string representing if the task is marked as done or not.
      *
@@ -49,6 +53,7 @@ public abstract class Task {
     /**
      * Returns the string description of the current task. Description includes if task is done and the task name.
      */
+    @Override
     public String toString() {
         return this.getStatusIcon() + " " + this.name;
     }

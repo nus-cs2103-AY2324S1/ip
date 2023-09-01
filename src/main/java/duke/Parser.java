@@ -74,6 +74,14 @@ public class Parser {
 
             }
 
+        case "find":
+            if (argument.equals("")) {
+                throw new InvalidCommandException("Please enter keyword to find task");
+            }
+
+            return new FindCommand(argument);
+
+
         case "todo":
             if (argument.equals("")) {
                 throw new InvalidCommandException("ToDo description cannot be empty");
