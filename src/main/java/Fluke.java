@@ -67,13 +67,6 @@ public class Fluke {
         }
     }
 
-    public Fluke() {
-        // initialise ui
-        this.ui = new Ui();
-        // initialise task list
-        this.tasks = new TaskList();
-    }
-
     public void addTodo(String command) throws FlukeException {
         String parsedDescription = Parser.parseTodoCommand(command);
         Task taskAdded = this.tasks.addTodo(parsedDescription);
