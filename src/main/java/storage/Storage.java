@@ -116,7 +116,8 @@ public class Storage {
      * is made by the user.
      * 
      * @param tasks The {@link TaskList} containing the new list of tasks.
-     * @throws DukeException
+     * @throws DukeException Thrown when there's an issue with writing
+     *                       the tasks to file.
      */
     public void update(TaskList tasks) throws DukeException {
         try {

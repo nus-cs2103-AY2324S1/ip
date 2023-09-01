@@ -54,7 +54,8 @@ public class Duke {
      * Starts the Duke chatbot and the main event loop which will await
      * for user commands.
      * 
-     * @throws IOException
+     * @throws IOException Thrown when there's an issue with
+     *                     reading user input.
      */
     public void start() throws IOException {
         ui.displayIntro();

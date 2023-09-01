@@ -21,7 +21,8 @@ public class MarkCommand extends Command {
      * 
      * @param taskCount The index of the task.
      * @param isDone Indicates whether the task is to be marked/unmarked.
-     * @throws DukeException
+     * @throws DukeException Thrown when the taskCount given
+     *                       cannot be converted to a number.
      */
     public MarkCommand(String taskCount, boolean isDone) throws DukeException {
         try {

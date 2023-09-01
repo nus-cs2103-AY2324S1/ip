@@ -31,7 +31,8 @@ public class Parser {
      * 
      * @param input The user command.
      * @return A {@link Command} instance created according to the user command.
-     * @throws DukeException
+     * @throws DukeException Thrown when the command given
+     *                       is unrecognized.
      */
     public Command parse(String input) throws DukeException {
         // Ignore empty user input

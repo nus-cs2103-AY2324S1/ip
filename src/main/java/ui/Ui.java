@@ -75,7 +75,8 @@ public class Ui {
      * Reads the user input.
      * 
      * @return A string containing the user input.
-     * @throws IOException
+     * @throws IOException Thrown when there's an issue
+     *                     with reading user input.
      */
     public String readInput() throws IOException {
         return reader.readLine();

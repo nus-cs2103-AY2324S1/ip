@@ -74,7 +74,8 @@ public class TaskList {
      * @param taskIndex The index of the task stored.
      * @param isDone Whether the task is being marked as done or not done.
      * @return The task that was marked.
-     * @throws DukeException
+     * @throws DukeException Thrown when the taskIndex given
+     *                       is negative or out of bounds.
      */
     public Task mark(int taskIndex, boolean isDone) throws DukeException {
         // User tries to mark/unmark a task that is out of bounds.
@@ -96,7 +97,8 @@ public class TaskList {
      * 
      * @param taskIndex The index of the task stored.
      * @return The task that was deleted.
-     * @throws DukeException
+     * @throws DukeException Thrown when the taskIndex given
+     *      *                is negative or out of bounds.
      */
     public Task delete(int taskIndex) throws DukeException {
         if (taskIndex < 0 || taskIndex >= getSize()) {

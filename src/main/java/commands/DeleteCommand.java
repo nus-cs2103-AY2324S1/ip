@@ -18,7 +18,8 @@ public class DeleteCommand extends Command {
      * Takes in the index of the task to be deleted from {@link TaskList}.
      * 
      * @param taskIndex The index of the task to be deleted.
-     * @throws DukeException
+     * @throws DukeException Thrown when the taskIndex given
+     *                       cannot be converted to a number.
      */
     public DeleteCommand(String taskIndex) throws DukeException {
         try {
