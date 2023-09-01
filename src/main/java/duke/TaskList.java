@@ -52,4 +52,14 @@ public class TaskList {
         }
         tasks.remove(i);
     }
+
+    public TaskList findTasks(String keyword) {
+        TaskList newTaskList = new TaskList();
+        for (Task task: tasks) {
+            if (task.isContains(keyword)) {
+                newTaskList.addTask(task);
+            }
+        }
+        return newTaskList;
+    }
 }

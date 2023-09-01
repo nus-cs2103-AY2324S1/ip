@@ -48,4 +48,14 @@ public abstract class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    public boolean isContains(String keyword) {
+        String[] arr = description.split(" ");
+        for (String str: arr) {
+            if (str.equals(keyword)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

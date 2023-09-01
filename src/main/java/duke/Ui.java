@@ -62,6 +62,15 @@ public class Ui {
 
     }
 
+    public void printMatchingList(TaskList taskList) throws DukeException
+
+    {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i + 1) + "." + taskList.getTask(i).toString());
+        }
+    }
+
     public void showErrorMessage(String s) {
         System.out.println(s);
     }
