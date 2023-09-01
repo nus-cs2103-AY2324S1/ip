@@ -1,5 +1,13 @@
 package duke.main;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Paths;
+
 import duke.exception.DukeException;
 import duke.exception.DukeInvalidSavedToFileLineType;
 import duke.task.Deadline;
@@ -7,21 +15,23 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
-import java.io.BufferedWriter;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import java.nio.file.Paths;
-import java.util.ArrayList;
-
+/**
+ * A class to handle storing and loading.
+ */
 public class Storage {
-    TaskList tasks;
+    private TaskList tasks;
+
+    /**
+     * Constructs Storage objects.
+     * @param tasks
+     */
     public Storage(TaskList tasks) {
         this.tasks = tasks;
     }
+
+    /**
+     * Saves task list into disc.
+     */
     public void save() {
         String dataPath = Paths.get("data", "duke.txt").toString();
         try {
@@ -39,6 +49,9 @@ public class Storage {
 
     }
 
+    /**
+     * Loads tasks from disc into list.
+     */
     public void load() {
         try {
             String dataPath = Paths.get("data", "duke.txt").toString();
@@ -54,6 +67,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads from disc and constructs task string to store in list.
+     * @param line
+     * @return task string
+     * @throws DukeInvalidSavedToFileLineType
+     */
     private Task fileToTask(String line) throws DukeInvalidSavedToFileLineType {
         String[] savedToFileLine = line.split(" \\| ");
         String type = savedToFileLine[0];

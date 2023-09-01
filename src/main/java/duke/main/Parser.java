@@ -1,24 +1,33 @@
 package duke.main;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.Scanner;
+
 import duke.command.FirstWord;
 import duke.exception.DukeEmptyToDoException;
 import duke.exception.DukeException;
 import duke.exception.DukeInvalidDateFormatException;
 import duke.exception.DukeUnknownCommandException;
+import duke.task.Deadline;
+import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
-import duke.task.Event;
-import duke.task.Deadline;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
-
+/**
+ * Parses command and assigns to respective tasks.
+ */
 public class Parser {
     private Scanner sc;
     private Storage storage;
 
     private TaskList tasks;
+
+    /**
+     * Constructs a Parser object.
+     * @param tasks
+     * @param storage
+     */
     public Parser(TaskList tasks, Storage storage) {
         this.tasks = tasks;
         this.sc = new Scanner(System.in);
@@ -38,7 +47,7 @@ public class Parser {
      */
     private void listOutTasks() {
         String tasksList = "";
-        for(int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             tasksList += String.format("%d. %s\n", i + 1, tasks.get(i).toString().trim());
         }
         this.line(tasksList);
@@ -51,7 +60,7 @@ public class Parser {
 
         this.line("  Bye~ Hope to see you again soon! >w<");
     }
-    
+
     /**
      * Marks task as done.
      * @param index
@@ -160,7 +169,7 @@ public class Parser {
      * Triggers respective actions.
      */
     public void interact() {
-        while(true) {
+        while (true) {
             String reply = sc.nextLine();
             FirstWord firstWord;
             try {
@@ -170,35 +179,35 @@ public class Parser {
             }
             try {
                 switch (firstWord) {
-                    case BYE:
-                        exit();
-                        break;
-                    case LIST:
-                        listOutTasks();
-                        break;
-                    case MARK:
-                        mark(Character.getNumericValue(reply.charAt(5) - 1));
-                        break;
-                    case UNMARK:
-                        unmark(Character.getNumericValue(reply.charAt(7) - 1));
-                        break;
-                    case TODO:
-                        addToDo(reply);
-                        break;
-                    case DEADLINE:
-                        addDeadline(reply);
-                        break;
-                    case EVENT:
-                        addEvent(reply);
-                        break;
-                    case DELETE:
-                        delete(Character.getNumericValue(reply.charAt(7) - 1));
-                        break;
-                    case FIND:
-                        find(reply);
-                        break;
-                    default:
-                        throw new DukeUnknownCommandException();
+                case BYE:
+                    exit();
+                    break;
+                case LIST:
+                    listOutTasks();
+                    break;
+                case MARK:
+                    mark(Character.getNumericValue(reply.charAt(5) - 1));
+                    break;
+                case UNMARK:
+                    unmark(Character.getNumericValue(reply.charAt(7) - 1));
+                    break;
+                case TODO:
+                    addToDo(reply);
+                    break;
+                case DEADLINE:
+                    addDeadline(reply);
+                    break;
+                case EVENT:
+                    addEvent(reply);
+                    break;
+                case DELETE:
+                    delete(Character.getNumericValue(reply.charAt(7) - 1));
+                    break;
+                case FIND:
+                    find(reply);
+                    break;
+                default:
+                    throw new DukeUnknownCommandException();
                 }
             } catch (DukeException e) {
                 this.line(e.toString());

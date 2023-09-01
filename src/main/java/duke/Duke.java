@@ -1,21 +1,11 @@
 package duke;
 
-import java.io.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.nio.file.Paths;
 
-import duke.exception.*;
 import duke.main.Parser;
 import duke.main.Storage;
 import duke.main.TaskList;
 import duke.main.Ui;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
 
 /**
  * A chatbot that helps to record tasks and store tasks.
@@ -26,7 +16,11 @@ public class Duke {
     private Parser parser;
     private Ui ui;
 
-    Scanner sc;
+    private Scanner sc;
+
+    /**
+     * Constructs Duke object.
+     */
     public Duke() {
         this.sc = new Scanner(System.in);
         this.tasks = new TaskList();
@@ -44,6 +38,9 @@ public class Duke {
         System.out.println("------------------------------------------");
     }
 
+    /**
+     * Runs Duke chatbot.
+     */
     public void run() {
         storage.load();
         greet();

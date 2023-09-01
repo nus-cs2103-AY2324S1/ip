@@ -1,11 +1,14 @@
 package duke.main;
 
-import duke.task.Task;
-
 import java.util.ArrayList;
 
+import duke.task.Task;
+
+/**
+ * A class for storing tasks.
+ */
 public class TaskList {
-    ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructs TaskList.

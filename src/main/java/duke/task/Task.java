@@ -1,17 +1,19 @@
 package duke.task;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Class for tasks created.
  */
 public class Task {
+    protected DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
     private boolean status;
     private String taskContent;
-    protected DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
-
+    /**
+     * Constructs Task object.
+     * @param reply
+     */
     public Task(String reply) {
         this.status = false;
         this.taskContent = reply;
