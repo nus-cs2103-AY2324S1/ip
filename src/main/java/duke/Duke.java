@@ -14,7 +14,7 @@ public class Duke {
     private static String directoryPath;
     private static String filePath;
     protected static final String horizontalLine = "    ____________________________________________________________";
-    enum TASK { MARK, UNMARK, DELETE, TODO, EVENT, DEADLINE, BYE, LIST, INVALID}
+    enum TASK { MARK, UNMARK, DELETE, TODO, EVENT, DEADLINE, BYE, LIST, INVALID, FIND}
 //    public static void greet() {
 //        System.out.println(horizontalLine + "\n"
 //                + "     Hello! I'm POPOOH\n"
@@ -122,6 +122,8 @@ public class Duke {
                 return TASK.DEADLINE;
             case "event":
                 return TASK.EVENT;
+            case "find":
+                return TASK.FIND;
             default:
                 return TASK.INVALID;
         }
@@ -148,7 +150,7 @@ public class Duke {
                 break;
             case LIST:
                 System.out.println(horizontalLine);
-                tasks.listTask(info);
+                tasks.listTask();
                 System.out.println(horizontalLine);
                 break;
             case TODO:
@@ -159,6 +161,11 @@ public class Duke {
                 break;
             case DEADLINE:
                 tasks.deadlineTask(info);
+                break;
+            case FIND:
+                System.out.println(horizontalLine);
+                tasks.findTask(info);
+                System.out.println(horizontalLine);
                 break;
             default:
                 throw new DukeException("     OOPS!!! I'm sorry, but I don't know what that means :-(");
