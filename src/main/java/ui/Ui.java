@@ -4,7 +4,7 @@ public class Ui {
     private static final String LINE = "---------------------------------------------------------";
 
     public static void sayHello() {
-        String firstMessage = LINE + "\nHello! I'm Hong\nWhat can I do for you?\n" + LINE;
+        String firstMessage = LINE + "\nHello! I'm Hong.\nWhat can I do for you?\n" + LINE;
         System.out.println(firstMessage);
     }
 
