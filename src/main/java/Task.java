@@ -68,7 +68,7 @@ abstract class Task implements Serializable {
             //The compiler has no way to check if the object is of type List<Task>
             //in compile time, resulting in an unchecked warning being yielded
             File taskFile = new File(filePath);
-            if (taskFile.length() > 0) {
+            if (taskFile.length() > 0) { //check if file is empty before attempting to read the file
                 file = new ObjectInputStream(new FileInputStream(taskFile));
                 tasks = (List<Task>) file.readObject();
             }
