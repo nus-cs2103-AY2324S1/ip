@@ -7,18 +7,26 @@ import DukePackage.TaskType;
 import java.util.Objects;
 
 
+/**
+ * The Duke class is the main class that runs the Duke chatbot application.
+ */
 public class Duke {
 
+    /**
+     * The main method that starts the Duke application.
+     * @param args The command-line arguments passed to the application.
+     */
     public static void main(String[] args) {
-
         // standard response
         String horizontalLine = "   ------------------------------------------------------------------------";
         String noDescError = "     ☹ OOPS!!! The description of a todo cannot be empty.";
         String noCommandError = "     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
+
         // initialise
         Storage storage = new Storage();
         Parser parser = new Parser();
         ChatUI ui = new ChatUI();
+
         // read from txt file and create tasks and put into storage
         storage.load();
         ui.intro();
@@ -27,6 +35,7 @@ public class Duke {
             String input = parser.getInput();
             String[] parts = input.split(" ");
             ui.divider();
+
             switch (parts[0]) {
                 case "bye":
                     ui.outro();
@@ -37,7 +46,7 @@ public class Duke {
                 case "list":
                     storage.listPrinter();
                     break;
-                case "mark" :
+                case "mark":
                     int id = Integer.parseInt(parts[1]) - 1;
                     try {
                         storage.changeMarking(id, true);
@@ -46,7 +55,7 @@ public class Duke {
                         System.out.print(e.getMessage());
                     }
                     break;
-                case "unmark" :
+                case "unmark":
                     int id2 = Integer.parseInt(parts[1]) - 1;
                     try {
                         storage.changeMarking(id2, false);
@@ -55,11 +64,11 @@ public class Duke {
                         System.out.print(e.getMessage());
                     }
                     break;
-                case "delete" :
+                case "delete":
                     int id3 = Integer.parseInt(parts[1]) - 1;
                     storage.delete(id3);
                     break;
-                case "todo" :
+                case "todo":
                     int indexOfTodo = input.indexOf("todo");
                     String taskDesc = input.substring(indexOfTodo + 5);
                     if (Objects.equals(taskDesc, "")) {
@@ -72,7 +81,7 @@ public class Duke {
                     storage.addList(task);
                     storage.printEntry(task);
                     break;
-                case "deadline" :
+                case "deadline":
                     int indexOfDeadline = input.indexOf("deadline");
                     int indexOfBy = input.indexOf("/by");
                     taskDesc = input.substring(indexOfDeadline + 9, indexOfBy);
@@ -82,7 +91,7 @@ public class Duke {
                     storage.addList(task);
                     storage.printEntry(task);
                     break;
-                case "event" :
+                case "event":
                     int indexOfEvent = input.indexOf("event");
                     int indexOfFrom = input.indexOf("/from");
                     int indexOfTo = input.indexOf("/to");
@@ -90,7 +99,7 @@ public class Duke {
                     String fromPart = "";
                     fromPart = input.substring(indexOfFrom + 5, indexOfTo).trim();
                     String toPart = "";
-                    toPart = input.substring(indexOfTo +3).trim();
+                    toPart = input.substring(indexOfTo + 3).trim();
                     task = new Task(taskDesc, TaskType.EVENT, fromPart, toPart);
                     storage.addList(task);
                     storage.printEntry(task);

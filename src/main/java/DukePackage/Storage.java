@@ -10,20 +10,46 @@ import java.util.Objects;
 import java.util.ArrayList;
 
 
+/**
+ * The Storage class is responsible for managing the storage of tasks in a task list.
+ */
 public class Storage {
+
+    /**
+     * The list of tasks.
+     */
     protected ArrayList<Task> taskList;
 
+    /**
+     * Constructs a Storage object with an empty task list.
+     */
     public Storage() {
         this.taskList = new ArrayList<Task>();
     }
 
+    /**
+     * Retrieves the task list.
+     *
+     * @return The task list.
+     */
     public ArrayList<Task> getTaskList() {
         return this.taskList;
     }
+
+    /**
+     * Adds a task to the task list.
+     *
+     * @param t The task to be added.
+     */
     public void addList(Task t) {
         this.taskList.add(t);
     }
 
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param id The index of the task to be deleted.
+     */
     public void delete(int id) {
         System.out.println("     Noted. I've removed this task:");
         Task t = this.taskList.get(id);
@@ -33,14 +59,15 @@ public class Storage {
         System.out.printf("\n     Now you have %d tasks in the list.\n", size);
     }
 
+    /**
+     * Writes the task list to a file.
+     */
     public void write() {
         try {
             FileWriter fileWriter = new FileWriter("data/duke.txt");
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
             for (Task tasking : this.taskList) {
                 // format the string
-
                 String formattedString = "";
                 Integer priority = tasking.isDone
                         ? 1
@@ -65,25 +92,24 @@ public class Storage {
                 bufferedWriter.write(formattedString);
                 bufferedWriter.newLine(); // Move to the next line
             }
-
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Loads the task list from a file.
+     */
     public void load() {
         try (BufferedReader reader = new BufferedReader(new FileReader("data/duke.txt"))) {
-
             File file = new File("data/duke.txt");
             if (!file.exists()) {
                 file.createNewFile();
             }
             FileReader fileReader = new FileReader(file); // append mode
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-
             String line;
-
             while ((line = reader.readLine()) != null) {
                 // Assuming your line contains comma-separated values
                 String[] values = line.split("\\|");
@@ -108,12 +134,17 @@ public class Storage {
                 obj.marking(!Objects.equals(values[1], "0"));
                 // Store the object in your storage instance
                 addList(obj);
+                bufferedReader.close();
             }
+            bufferedReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Prints the task list.
+     */
     public void listPrinter() {
         for (int i = 0; i < this.taskList.size(); i++) {
             int index = i + 1;
@@ -129,6 +160,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Prints the marking for a task.
+     *
+     * @param i The index of the task.
+     * @throws DukeException If the task index is invalid.
+     */
     public void printMarking(int i) throws DukeException {
         try {
             Task t = this.taskList.get(i);
@@ -139,6 +176,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Changes the marking of a task.
+     *
+     * @param i      The index of the task.
+     * @param isDone The new marking status.
+     * @throws DukeException If the task index is invalid.
+     */
     public void changeMarking(int i, boolean isDone) throws DukeException {
         try {
             Task t = this.taskList.get(i);
@@ -148,6 +192,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Prints the entry of a task.
+     *
+     * @param t The task.
+     */
     public void printEntry(Task t) {
         t.descriptionString();
         int size = this.taskList.size();
