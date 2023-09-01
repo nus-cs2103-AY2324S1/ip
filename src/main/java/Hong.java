@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 import exceptions.DukeException;
 import parsers.DateTimeParser;
+import parsers.Parser;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -19,39 +20,46 @@ public class Hong {
 
     //private static final String LINE = "---------------------------------------------------------";
     public static void main(String[] args) {
+        boolean isLoopContinuing = true;
         Ui.sayHello();
         TaskList taskList = new TaskList();
         Scanner myObj = new Scanner(System.in);
-        while (true) {
+        while (isLoopContinuing) {
             String userInput = myObj.nextLine();
-            if (userInput.equals("bye")) {
+            Parser parser = new Parser();
+            String parsedCommand = parser.parseCommand(userInput);
+            switch (parsedCommand) {
+            case "bye":
                 myObj.close();
+                isLoopContinuing = false;
                 break;
-            } else if (userInput.equals("list")) {
+            case "list":
                 taskList.printTasks();
-            } else if (userInput.startsWith("mark")) {
+                break;
+            case "mark":
                 taskList.handleMark(userInput);
                 taskList.storeTasks();
-            } else if (userInput.startsWith("deadline")) {
+                break;
+            case "deadline":
                 taskList.createDeadline(userInput);
                 taskList.storeTasks();
-            } else if (userInput.startsWith("event")) {
+                break;
+            case "event":
                 taskList.createEvent(userInput);
                 taskList.storeTasks();
-            } else if (userInput.startsWith("todo")) {
+                break;
+            case "todo":
                 taskList.createTodo(userInput);
                 taskList.storeTasks();
-            } else if (userInput.startsWith("delete")) {
+                break;
+            case "delete":
                 taskList.deleteTask(userInput);
                 taskList.storeTasks();
-            } else {
-                Task currentTask = new Task(userInput);
+                break;
+            default:
                 Ui.printLine();
-                String currentMessage = "added: " + userInput + "\n";
-                Ui.print(currentMessage);
+                Ui.print("I do not recognise that command!");
                 Ui.printLine();
-                tasks.add(currentTask);
-                taskList.storeTasks();
             }
         }
         Ui.sayBye();
