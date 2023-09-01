@@ -1,3 +1,11 @@
+package duke;
+
+import duke.storage.Storage;
+import duke.commands.Command;
+import duke.parser.Parser;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
+
 public class Duke {
 
     private Storage storage;
@@ -10,7 +18,7 @@ public class Duke {
             storage = new Storage(filePath);
             taskList = new TaskList(storage.load());
         } catch (DukeException e) {
-            ui.printMessageWithSeparator("Error loading tasks from file: " + e.getMessage());
+            ui.printMessageWithSeparator("Error loading duke.tasks from file: " + e.getMessage());
         }
     }
 

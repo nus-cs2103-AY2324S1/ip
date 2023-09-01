@@ -1,3 +1,12 @@
+package duke.storage;
+
+import duke.DukeException;
+import duke.tasks.DeadlineTask;
+import duke.tasks.EventTask;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.ToDoTask;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -50,7 +59,7 @@ public class Storage {
             tasks = loadTasksFromFile();
             return tasks;
         } catch (IOException e) {
-            throw new DukeException("Error loading tasks from file: " + e.getMessage());
+            throw new DukeException("Error loading duke.tasks from file: " + e.getMessage());
         }
     }
 
