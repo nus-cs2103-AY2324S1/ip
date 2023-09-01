@@ -25,6 +25,6 @@ public class Deadline extends Task {
     @Override
     public String toSaveFormat() {
         return String.format("D,%s,%s,%s", this.description, this.isDone ? "1" : "0",
-                dateFormatter(this.deadline));
+                this.deadline);
     }
 }
