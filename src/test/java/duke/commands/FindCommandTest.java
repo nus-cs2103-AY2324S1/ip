@@ -12,9 +12,10 @@ import duke.tasks.Deadline;
 import duke.tasks.Todo;
 
 public class FindCommandTest {
-    private static final String invalidFormatMessage = String.join("\n",
-                                                                   "Invalid format for command `find`!",
-                                                                   "Usage: find <KEYWORD>"
+    private static final String invalidFormatMessage = String.join(
+            "\n",
+            "Invalid format for command `find`!",
+            "Usage: find <KEYWORD>"
     );
 
     @Test
@@ -29,9 +30,10 @@ public class FindCommandTest {
 
         CommandResult result = command.run(tasks);
 
-        assertEquals(List.of("Here are the matching tasks in your list:",
-                             "1. [T][X] read book",
-                             "2. [D][ ] return book (by 2023-09-10T12:00)"
+        assertEquals(List.of(
+                "Here are the matching tasks in your list:",
+                "1. [T][X] read book",
+                "2. [D][ ] return book (by 2023-09-10T12:00)"
         ), result.response);
     }
 
