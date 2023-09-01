@@ -5,8 +5,10 @@ import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 
 import command.AddTaskCommand;
+import command.ClearCommand;
 import command.Commandable;
 import command.DeleteCommand;
+import command.FindCommand;
 import command.HelpCommand;
 import command.ListCommand;
 import command.MarkCommand;
@@ -43,6 +45,8 @@ public class Parser {
         stringToCommand.put("delete", new DeleteCommand());
         stringToCommand.put("mark", new MarkCommand(true));
         stringToCommand.put("unmark", new MarkCommand(false));
+        stringToCommand.put("find", new FindCommand());
+        stringToCommand.put("clear", new ClearCommand());
     }
 
     /**
@@ -55,7 +59,10 @@ public class Parser {
     public Commandable parse(String input) throws InvalidCommandException, InvalidVarException {
         String commandIdentifier = input.split(" ")[0];
         Commandable command = stringToCommand.get(commandIdentifier);
-        if (command instanceof ShutdownCommand || command instanceof HelpCommand || command instanceof ListCommand) {
+        if (command instanceof ShutdownCommand
+            || command instanceof HelpCommand
+            || command instanceof ListCommand
+            || command instanceof ClearCommand) {
             if (!input.equals(commandIdentifier)) {
                 throw new InvalidVarException("This command has no variables!");
             }
@@ -130,7 +137,7 @@ public class Parser {
             }
             int number;
             try {
-                number = Integer.parseInt(input.substring(7));
+                number = Integer.parseInt(input.substring(7)) - 1;
             } catch (Exception e) {
                 throw new InvalidVarException("Task number could not be read");
             } (
@@ -146,6 +153,16 @@ public class Parser {
                 throw new InvalidVarException("Task number could not be read");
             } (
                 (MarkCommand) command).setMark(number);
+        }
+        else if (command instanceof FindCommand) {
+            if (input.length() < 6) {
+                throw new InvalidVarException("No keyword!");
+            }
+            String keyword = input.substring(5);
+            if (keyword.isBlank()) {
+                throw new InvalidVarException("Blank keyword!");
+            }
+            ((FindCommand) command).setSearch(keyword);
         } else if (command == null) {
             throw new InvalidCommandException("Unrecognized command");
         }
