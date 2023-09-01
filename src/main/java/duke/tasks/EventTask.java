@@ -42,8 +42,8 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + " " +
-                "to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) 
+                + " " + "to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
     }
 
     /**
@@ -54,7 +54,7 @@ public class EventTask extends Task {
         return "E|" + super.toData() + "|" + from + "|" + to;
     }
 
-    // for testing purposes only
+    //For testing purposes only
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

@@ -10,13 +10,13 @@ import java.util.ArrayList;
  * @author Wu Jingya
  */
 public class TaskList {
-    private ArrayList<Task> taskList;
+    private ArrayList<Task> tasks;
 
     /**
      * Creates an empty TaskList.
      */
     public TaskList() {
-        this.taskList = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -26,7 +26,7 @@ public class TaskList {
      * @return The string representation of the Task.
      */
     public String getTaskAsString(int index) {
-        return taskList.get(index).toString();
+        return tasks.get(index).toString();
     }
 
     /**
@@ -34,7 +34,7 @@ public class TaskList {
      */
     public void printTasksAsList() {
         int index = 1;
-        for (Task task : taskList) {
+        for (Task task : tasks) {
             System.out.println(index + "." + task.toString());
             index++;
         }
@@ -46,7 +46,7 @@ public class TaskList {
      * @param newTask The Task to be added.
      */
     public void addTask(Task newTask) {
-        taskList.add(newTask);
+        tasks.add(newTask);
     }
 
     /**
@@ -55,7 +55,7 @@ public class TaskList {
      * @param index The index of the Task to be removed.
      */
     public void removeTask(int index) {
-        taskList.remove(index);
+        tasks.remove(index);
     }
 
     /**
@@ -65,7 +65,7 @@ public class TaskList {
      * @return The Task at the specified index.
      */
     public Task getTask(int index) {
-        return taskList.get(index);
+        return tasks.get(index);
     }
 
     /**
@@ -74,7 +74,7 @@ public class TaskList {
      * @return The size of the TaskList.
      */
     public int getTaskCount() {
-        return taskList.size();
+        return tasks.size();
     }
 
     /**
@@ -97,7 +97,7 @@ public class TaskList {
      */
     public String getTaskListData() {
         String data = "";
-        for (Task task : taskList) {
+        for (Task task : tasks) {
             data = data.concat(task.toData() + "\n");
         }
         return data;

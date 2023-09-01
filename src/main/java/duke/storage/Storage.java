@@ -41,6 +41,7 @@ public class Storage {
         initialize();
     }
 
+    //For testing purposes only
     /**
      * Constructs a Storage object using the specified TaskList object.
      * This constructor does not initialize the loading of data from the file into the TaskList
@@ -164,7 +165,7 @@ public class Storage {
         }
     }
 
-    // for testing purposes
+    //For testing purposes
     public TaskList getTaskList() {
         return taskList;
     }

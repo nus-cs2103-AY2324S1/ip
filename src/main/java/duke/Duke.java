@@ -14,14 +14,14 @@ import java.util.Scanner;
  * @author Wu Jingya
  */
 public class Duke {
-    private static String NAME = "Moira";
+    private static String name = "Moira";
     /** Whether the chatbot is currently accepting user input */
-    private static boolean IS_RECEIVING_INPUT = false;
-    private static TaskList TASK_LIST;
-    private static Scanner SCANNER;
-    private static Storage STORAGE;
-    private static Ui UI;
-    private static Parser PARSER;
+    private static boolean isReceivingInput = false;
+    private static TaskList tasks;
+    private static Scanner scanner;
+    private static Storage storage;
+    private static Ui ui;
+    private static Parser parser;
     private static String filePath = "./data/duke.txt";
 
     /**
@@ -31,36 +31,36 @@ public class Duke {
      * @param args The command line arguments.
      **/
     public static void main(String[] args) {
-        SCANNER = new Scanner(System.in);
-        TASK_LIST = new TaskList();
-        STORAGE = new Storage(TASK_LIST, filePath);
-        UI = new Ui(NAME);
-        PARSER = new Parser(UI);
+        scanner = new Scanner(System.in);
+        tasks = new TaskList();
+        storage = new Storage(tasks, filePath);
+        ui = new Ui(name);
+        parser = new Parser(ui);
         run();
     }
 
     private static void run() {
-        IS_RECEIVING_INPUT = true;
-        UI.playGreeting();
-        while (IS_RECEIVING_INPUT) {
-            String userInput = SCANNER.nextLine();
-            PARSER.parse(userInput);
+        isReceivingInput = true;
+        ui.playGreeting();
+        while (isReceivingInput) {
+            String userInput = scanner.nextLine();
+            parser.parse(userInput);
         }
         exit();
-        SCANNER.close();
+        scanner.close();
     }
 
     private static void exit() {
-        IS_RECEIVING_INPUT = false;
-        STORAGE.saveData();
-        UI.playGoodbye();
+        isReceivingInput = false;
+        storage.saveData();
+        ui.playGoodbye();
     }
 
     /**
      * Stops the chatbot from receiving user input.
      */
     public static void stopReceivingInput() {
-        IS_RECEIVING_INPUT = false;
+        isReceivingInput = false;
     }
 
     /**
@@ -70,9 +70,10 @@ public class Duke {
      * @see TaskList
      */
     public static TaskList getTaskList() {
-        return TASK_LIST;
+        return tasks;
     }
 
+    //For testing purposes
     /**
      * Changes the path of the file storing TaskList data to the specified path.
      * This method should only be used for testing purposes.
@@ -83,13 +84,13 @@ public class Duke {
         filePath = path;
     }
 
-    // for testing purposes only
+    //For testing purposes
     public static boolean getIsReceivingInput() {
-        return IS_RECEIVING_INPUT;
+        return isReceivingInput;
     }
 
-    // for testing purposes only
+    //For testing purposes
     public static void setIsReceivingInput(boolean isReceivingInput) {
-        IS_RECEIVING_INPUT = isReceivingInput;
+        Duke.isReceivingInput = isReceivingInput;
     }
 }

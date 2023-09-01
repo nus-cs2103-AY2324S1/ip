@@ -2,11 +2,11 @@ package duke.parser;
 
 import duke.Duke;
 import duke.tasks.TaskList;
-import duke.ui.Ui;
 import duke.tasks.DeadlineTask;
 import duke.tasks.EventTask;
 import duke.tasks.Task;
 import duke.tasks.ToDoTask;
+import duke.ui.Ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -47,31 +47,32 @@ public class Parser {
         String prefix = words[0];
 
         switch (prefix) {
-            case "bye":
-                handleExit(userInput);
-                break;
-            case "list":
-                handleList(userInput);
-                break;
-            case "unmark":
-            case "mark":
-                handleMarkOrUnmark(userInput);
-                break;
-            case "todo":
-                handleAddToDoTask(userInput);
-                break;
-            case "deadline":
-                handleAddDeadlineTask(userInput);
-                break;
-            case "event":
-                handleAddEventTask(userInput);
-                break;
-            case "delete":
-                handleDeleteTask(userInput);
-                break;
-            default:
-                handleInvalidInput();
-                break;
+        case "bye":
+            handleExit(userInput);
+            break;
+        case "list":
+            handleList(userInput);
+            break;
+        case "unmark":
+            //Fallthrough
+        case "mark":
+            handleMarkOrUnmark(userInput);
+            break;
+        case "todo":
+            handleAddToDoTask(userInput);
+            break;
+        case "deadline":
+            handleAddDeadlineTask(userInput);
+            break;
+        case "event":
+            handleAddEventTask(userInput);
+            break;
+        case "delete":
+            handleDeleteTask(userInput);
+            break;
+        default:
+            handleInvalidInput();
+            break;
         }
     }
 
