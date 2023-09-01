@@ -23,7 +23,7 @@ public class Parser {
     private static final Pattern pattern = Pattern.compile(regexPattern);
 
     /**
-     * Parses the provided input string and returns the corresponding Command instance.
+     * Parses the provided input string and returns the corresponding duke.command.Command instance.
      *
      * @param command The command string.
      * @return The Command instance corresponding to the parsed input.

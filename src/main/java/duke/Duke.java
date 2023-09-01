@@ -11,7 +11,7 @@ public class Duke {
     private TaskList tasks;
 
     /**
-     * Constructor for a Duke instance.
+     * Constructor for a duke.Duke instance.
      *
      * @param filePath The location of the save file to be created at and read from.
      */

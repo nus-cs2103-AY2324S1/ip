@@ -31,7 +31,7 @@ public class Ui {
     }
 
     /**
-     * Print all the Tasks in the list with their respective indices,
+     * Print all the duke.task.Task instances in the list with their respective indices,
      * surrounded by horizontal lines.
      *
      * @param list The list containing the tasks.
