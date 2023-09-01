@@ -1,7 +1,9 @@
 package Command;
-import Duke.Duke;
+import DukeException.FailureInExecuteException;
+import Duke.UserInterface;
+import Duke.TaskList;
 
 
 public interface Commandable {
-    public void execute(Duke caller);
+    boolean execute(TaskList list, UserInterface ui) throws FailureInExecuteException;
 }

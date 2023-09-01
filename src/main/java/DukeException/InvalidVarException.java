@@ -1,5 +1,6 @@
-package Duke;
-public class InvalidVarException extends DukeException{
+package DukeException;
+
+public class InvalidVarException extends DukeException {
     public InvalidVarException() {
         super();
     }
