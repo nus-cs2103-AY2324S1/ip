@@ -64,7 +64,7 @@ public class TaskList {
      * Removes a task from the list.
      * @param index index of the task to be removed.
      * @return whether the index exists in the list.
-     * @throws IOException if the index exists and was deleted but we cannot write the change to disk.
+     * @throws IOException if the index exists and was deleted, but we cannot write the change to disk.
      */
     public boolean removeTask(int index) throws IOException {
         if (index > counter) {
@@ -100,7 +100,6 @@ public class TaskList {
             if (temp.length <= 1) {
                 throw new CorruptedFileException();
             }
-            String[] temp = s.split(Task.DIVIDER);
             boolean isComplete;
             if (temp[1].equals("TRUE")) {
                 isComplete = true;
