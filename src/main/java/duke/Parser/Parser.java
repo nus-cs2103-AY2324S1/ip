@@ -9,8 +9,16 @@ import duke.Task.ToDos;
 import duke.TaskList.TaskList;
 import duke.Ui.Ui;
 
+/**
+ * Split input into command that the chatbot can understand.
+ */
 public class Parser {
 
+    /**
+     * Check whether the string give is an integer.
+     * @param str String that will be checked.
+     * @return Boolean that represent whether the string is a integer.
+     */
     private static boolean isInteger(String str) {
         try {
             Integer.parseInt(str);
@@ -20,6 +28,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Get the command and translate it to the work that will be done by the chatbot.
+     * @param input String entered by the user.
+     * @param ui The Ui that allow the chatbot to print the message.
+     * @param storage Storage where the tasks will be stored.
+     * @param tasks Temporary place where the tasks is stored before written in the storage.
+     * @throws DukeException Exception to handle unknown command.
+     */
     public static void parse(String input, Ui ui, Storage storage, TaskList tasks) throws DukeException {
         String command = input.split(" ")[0].toUpperCase();
         Task targetTask;

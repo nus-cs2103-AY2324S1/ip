@@ -3,22 +3,15 @@ package duke.Task;
 import duke.DukeException.DukeException;
 
 /**
- * Class For Duke.Duke.Task.Task
+ * Represnt a task.
  */
 public abstract class Task {
-    /**
-     * To show whether it is marked/not
-     */
     private boolean isDone;
-
-    /**
-     * The name of the task
-     */
     private String name;
 
     /**
-     * Constructor
-     * @param name of the task
+     * Create a task.
+     * @param name Description of the task.
      */
     public Task(String name) {
         this.name = name;
@@ -27,15 +20,15 @@ public abstract class Task {
 
     /**
      * Change the status to a new status
-     * @param newStatus that we want to change
+     * @param newStatus New Status that the task will have.
      */
     public void changeMarkStatus(boolean newStatus) {
         this.isDone = newStatus;
     }
 
     /**
-     * to print it as a string
-     * @return a string representing the task
+     * Print task as a string.
+     * @return String representing the task.
      */
     @Override
     public String toString() {
@@ -55,10 +48,10 @@ public abstract class Task {
     }
     public abstract String writeString();
     /**
-     * To check whether the input is a task
-     * @param input the task
-     * @return Boolean
-     * @throws DukeException
+     * Check whether the input is a task.
+     * @param input Task to be checked.
+     * @return Boolean that represent whether the input is a task.
+     * @throws DukeException Exception where the input is not a task.
      */
     public static boolean isTask(String input) throws DukeException {
         if(input.split( " ")[0].equals("todo") || input.split( " ")[0].equals("deadline") || input.split( " ")[0].equals("event")) {

@@ -7,18 +7,18 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * class for deadline
+ * Represent task belong to deadline.
  */
 public class Deadlines extends Task {
     /**
-     * The deadline of the task
+     * Deadline of the task.
      */
     private LocalDate ddl;
 
     /**
-     * The constructor
-     * @param name the name of the deadline task
-     * @param ddl the deadline
+     * Create the deadline task.
+     * @param name Description of the task.
+     * @param ddl Deadline of the task.
      */
     public Deadlines (String name, String ddl) throws DukeException {
         super(name);
@@ -29,6 +29,10 @@ public class Deadlines extends Task {
         }
     }
 
+    /**
+     * Create the string to be saved in storage.
+     * @return String that will be saved in storage.
+     */
     @Override
     public String writeString() {
         if (this.getMarkStatus()) {
@@ -39,8 +43,8 @@ public class Deadlines extends Task {
     }
 
     /**
-     * Convert to string
-     * @return a string
+     * Convert the task to a string.
+     * @return String that represent the deadline.
      */
     @Override
     public String toString() {
@@ -48,10 +52,10 @@ public class Deadlines extends Task {
     }
 
     /**
-     * To check whether the input is a Duke.Task.Deadlines
-     * @param input the task
-     * @return Boolean
-     * @throws DukeException
+     * Check whether the input is a valid deadline.
+     * @param input Task that will be checked.
+     * @return Boolean that represent whether the input is a deadline.
+     * @throws DukeException Exception where the deadline is not valid.
      */
     public static boolean isDeadline(String input) throws DukeException {
         if(input.split( " ")[0].equals("deadline")) {
