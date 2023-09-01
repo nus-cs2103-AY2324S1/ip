@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -22,15 +21,15 @@ public class Duke extends Application {
     /**
      * Greets the user with a welcome message.
      */
-    public static void greet() {
-        Ui.greet();
+    public static String greet() {
+        return Ui.greet();
     }
 
     /**
      * Displays a farewell message when exiting the program.
      */
-    public static void exit() {
-        Ui.exit();
+    public static String exit() {
+        return Ui.exit();
     }
 
     /**
@@ -38,9 +37,9 @@ public class Duke extends Application {
      *
      * @param task The task to be added.
      */
-    public static void add(Task task) {
+    public static String add(Task task) {
         taskList.add(task);
-        Ui.add(task, taskList.size());
+        return Ui.add(task, taskList.size());
     }
 
     /**
@@ -49,17 +48,17 @@ public class Duke extends Application {
      * @param index The index of the task to be deleted.
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
-    public static void delete(int index) {
+    public static String delete(int index) {
         final Task task = taskList.get(index);
         taskList.delete(index);
-        Ui.delete(task, taskList.size());
+        return Ui.delete(task, taskList.size());
     }
 
     /**
      * Lists all tasks in the TaskList and displays them.
      */
-    public static void list() {
-        System.out.println(taskList);
+    public static String list() {
+        return taskList.toString();
     }
 
     /**
@@ -67,8 +66,8 @@ public class Duke extends Application {
      *
      * @param regex The regular expression pattern to match tasks against.
      */
-    public static void listFiltered(String regex) {
-        System.out.println(taskList.filteredToString(regex));
+    public static String listFiltered(String regex) {
+        return taskList.filteredToString(regex);
     }
 
     /**
@@ -77,9 +76,9 @@ public class Duke extends Application {
      * @param index The index of the task to be marked as done.
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
-    public static void mark(int index) {
+    public static String mark(int index) {
         taskList.mark(index);
-        Ui.mark(taskList.get(index));
+        return Ui.mark(taskList.get(index));
     }
 
     /**
@@ -88,23 +87,16 @@ public class Duke extends Application {
      * @param index The index of the task to be marked as not done yet.
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
-    public static void unmark(int index) {
+    public static String unmark(int index) {
         taskList.unmark(index);
-        Ui.unmark(taskList.get(index));
+        return Ui.unmark(taskList.get(index));
     }
 
-    /**
-     * Runs the Duke program.
-     *
-     * @param args Command line arguments (not used).
-     */
-    public static void main(String[] args) {
+    public Duke() {
         final String DATA_DIRECTORY = "data";
         String projectRoot = System.getProperty("user.dir");
         String dataFilePath = projectRoot + "/" + DATA_DIRECTORY + "/tasks.ser";
         taskList = new TaskList(dataFilePath);
-
-        Parser.start();
     }
     
     private ScrollPane scrollPane;
@@ -118,6 +110,7 @@ public class Duke extends Application {
     
     @Override
     public void start(Stage stage) {
+
         //Step 1. Setting up required components
 
         //The container for the content of the chat to scroll.
@@ -203,6 +196,10 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            return Parser.parseCommand(input);
+        } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
+            return e.toString();
+        }
     }
 }

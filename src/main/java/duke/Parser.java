@@ -6,39 +6,7 @@ import java.util.Scanner;
  * Represents the parser of the chatbot.
  */
 public class Parser {
-    private final static Scanner scanner = new Scanner(System.in);
-
-    /**
-     * Starts the chatbot parser.
-     * <p>Prompts the user for input and processes commands until the chatbot should stop.
-     */
-    public static void start() {
-        Duke.greet();
-
-        boolean shouldContinue = true;
-        while (shouldContinue) {
-            String input = scanner.nextLine();
-            try {
-                shouldContinue = parseCommand(input);
-            } catch (IllegalArgumentException e) {
-                System.out.println("Argument Error: " + e.getMessage());
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Out of Bounds Error: " + e.getMessage());
-            }
-        }
-
-        scanner.close();
-    }
-
-    /**
-     * Parses the user's input and performs the corresponding action.
-     *
-     * @param input The user's input command.
-     * @return {@code true} if parsing should continue, {@code false} if parsing should stop.
-     * @throws IllegalArgumentException If the input command has invalid arguments.
-     * @throws IndexOutOfBoundsException If the input command refers to an out-of-range index.
-     */
-    public static boolean parseCommand(String input) {
+    public static String parseCommand(String input) {
         // Split into command and rest
         String[] parts = input.split(" ", 2);
         final String command = parts[0];
@@ -46,8 +14,7 @@ public class Parser {
 
         switch (command) {
         case "bye": {
-            Duke.exit();
-            return false;
+            return Duke.exit();
         }
 
         case "deadline": {
@@ -55,11 +22,10 @@ public class Parser {
                 final String[] deadlineParts = rest.split(" /by ", 2);
                 final String name = deadlineParts[0];
                 final String endTime = deadlineParts[1];
-                Duke.add(new Deadline(name, endTime));
+                return Duke.add(new Deadline(name, endTime));
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new IllegalArgumentException("Invalid format. Usage: deadline <name> /by <time>");
             }
-            break;
         }
 
         case "delete": {
@@ -67,8 +33,7 @@ public class Parser {
                 throw new IllegalArgumentException("Task index is missing.");
             }
             int index = Integer.parseInt(rest);
-            Duke.delete(index);
-            break;
+            return Duke.delete(index);
         }
 
         case "event": {
@@ -81,21 +46,18 @@ public class Parser {
                 final String startTime = startAndEndParts[0];
                 final String endTime = startAndEndParts[1];
 
-                Duke.add(new Event(name, startTime, endTime));
+                return Duke.add(new Event(name, startTime, endTime));
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new IllegalArgumentException("Invalid format. Usage: event <name> /from <time> /to <time>");
             }
-            break;
         }
 
         case "find": {
-            Duke.listFiltered(rest);
-            break;
+            return Duke.listFiltered(rest);
         }
 
         case "list": {
-            Duke.list();
-            break;
+            return Duke.list();
         }
 
         case "mark": {
@@ -103,13 +65,11 @@ public class Parser {
                 throw new IllegalArgumentException("Task index is missing.");
             }
             int index = Integer.parseInt(rest);
-            Duke.mark(index);
-            break;
+            return Duke.mark(index);
         }
 
         case "todo": {
-            Duke.add(new ToDo(rest));
-            break;
+            return Duke.add(new ToDo(rest));
         }
 
         case "unmark": {
@@ -117,15 +77,12 @@ public class Parser {
                 throw new IllegalArgumentException("Task index is missing.");
             }
             int index = Integer.parseInt(rest);
-            Duke.unmark(index);
-            break;
+            return Duke.unmark(index);
         }
 
         default: {
             throw new IllegalArgumentException("Unknown command.");
         }
         }
-
-        return true;
     }
 }
