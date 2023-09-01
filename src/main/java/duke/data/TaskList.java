@@ -19,7 +19,7 @@ public class TaskList {
     public TaskList() {
         this.tasklist = new ArrayList<>();
     }
-    public ArrayList<Task> getTasklist() {
+    public ArrayList<Task> getTaskList() {
         return this.tasklist;
     }
 
@@ -61,6 +61,16 @@ public class TaskList {
         Task newTask = new Deadline(description, deadline);
         tasklist.add(newTask);
         return newTask;
+    }
+
+    public ArrayList<Task> searchTasks(String description) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task t : this.tasklist) {
+            if (t.getDescription().contains(description)) {
+                result.add(t);
+            }
+        }
+        return result;
     }
 
     public Task addEvent(String description, String from, String to) {

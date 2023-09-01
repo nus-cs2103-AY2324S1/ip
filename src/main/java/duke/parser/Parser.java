@@ -8,6 +8,11 @@ public class Parser {
         return command[0];
     }
 
+    public String getDescription(String input) {
+        String[] command = input.split(" ");
+        return command[1];
+    }
+
     public String[] splitInputFromFile(String input) {
         return input.split(" \\| ");
     }
