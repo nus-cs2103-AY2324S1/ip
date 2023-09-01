@@ -5,17 +5,30 @@ public class Deadline extends Task{
     /** LocalDate deadline for Deadline. */
     protected LocalDate by;
 
-    /** Constructor for Deadline.
+    /**
+     * Constructor for Deadline.
      *
      * @param description Description of task.
      * @param by Deadline for Deadline.
+     */
+    public Deadline(String description, String by) {
+        super(description);
+        this.by = LocalDate.parse(by);
+    }
+
+    /**
+     * Constructor for Deadline loaded from Storage.
+     *
+     * @param description Description of task.
+     * @param by Deadline for Deadline as LocalDate.
      */
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
 
-    /** toString method for Deadline.
+    /**
+     * toString method for Deadline.
      *
      * @return String representation of Deadline.
      */
