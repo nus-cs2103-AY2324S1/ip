@@ -8,12 +8,26 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+/**
+ * Represents a Task List which is just a list of Tasks.
+ *
+ * <p>CS2103T AY23/24 Semester 1
+ * Individual Project
+ * SeeWhyAre Bot
+ * 31 Aug 2023
+ *
+ * @author Freddy Chen You Ren
+ */
 public class TaskList {
     protected Storage storage;
     protected ArrayList<Task> listOfTasks;
     protected static String HORIZONTAL_LINE = "    ____________________________________________________________"; //60 underscores.
 
-
+    /**
+     * Constructs a TaskList with the given Storage.
+     *
+     * @param storage the storage from which the list of tasks is to be created.
+     */
     public TaskList(Storage storage) {
         this.storage = storage;
         this.listOfTasks = storage.listOfTasks;
@@ -24,7 +38,7 @@ public class TaskList {
     }
 
     /**
-     * List out all tasks.
+     * List out all tasks available for the user.
      */
     protected void listAllTasks() {
         if (listOfTasks.isEmpty()) {
@@ -80,8 +94,12 @@ public class TaskList {
     }
 
     /**
-     * Mark a given Task as done.
+     * Marks a given Task as done.
+     * Updates the list of tasks in the storage file.
+     * Prints out an error message if index of the task given is out of range or invalid.
+     *
      * @param taskIndex the index of the Task to be marked as done.
+     * @throws IOException if there is an issue with updating the data in the storage file.
      */
     protected void markTask(int taskIndex) throws IOException {
         printHorizontalLine();
@@ -99,8 +117,12 @@ public class TaskList {
     }
 
     /**
-     * Function to mark a given Task as NOT done.
+     * Marks a given Task as NOT done.
+     * Updates the list of tasks in the storage file.
+     * Prints out an error message if index of the task given is out of range or invalid.
+     *
      * @param taskIndex the index of the Task to be marked as not done yet.
+     * @throws IOException if there is an issue with updating the data in the storage file.
      */
     protected void unmarkTask(int taskIndex) throws IOException {
         printHorizontalLine();
@@ -117,6 +139,13 @@ public class TaskList {
         storage.updateData();
     }
 
+    /**
+     * Checks if the line representing task details saved in memory is valid.
+     * This is used when we are loading the list of tasks from user's past data.
+     *
+     * @param line The String representing one task that we are checking.
+     * @return True if this line is a valid Task, False otherwise.
+     */
     protected static boolean isValidTaskLine(String line) {
         String[] tokens = line.split("\\|");
 
@@ -131,6 +160,13 @@ public class TaskList {
         return false; // Line is not valid
     }
 
+    /**
+     * Checks if the date provided is a valid date and in the correct date format.
+     * This is used during task creation and task loading from storage file.
+     *
+     * @param testDate The Date from a task that we are checking
+     * @return True if this Date is a valid Date with the correct date Format "yyyy-MM-dd", False otherwise.
+     */
     public static boolean isValidDate(String testDate) {
         SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
         simpleDate.setLenient(false);

@@ -12,11 +12,12 @@ import duke.util.Ui;
 import java.io.IOException;
 
 /**
- * duke.Duke
+ * Represents the bot SeeWhyAre.
  *
- * CS2103T AY23/24 Semester 1
- * iP - Individual Project
- * duke.Duke Project
+ * <p>CS2103T AY23/24 Semester 1
+ * Individual Project
+ * SeeWhyAre Bot
+ * 31 Aug 2023
  *
  * @author Freddy Chen You Ren
  */
@@ -30,6 +31,11 @@ public class Duke {
     private static Ui ui;
     public static boolean isFinished = false;
 
+    /**
+     * Constructs a new instance of the chat bot.
+     *
+     * @param filePath The file path for storing and loading tasks.
+     */
     public Duke(String filePath) {
         storage = new Storage(filePath);
         ui = new Ui();
@@ -46,6 +52,13 @@ public class Duke {
         }
     }
 
+    /**
+     * Starts the SeeWhyAre bot.
+     *
+     * @throws IOException if there are issues with file handling.
+     * @throws InvalidCommandException if there are invalid commands entered by users.
+     * @throws EmptyDescriptionException if users attempt to create tasks with empty descriptions.
+     */
     private static void start() throws IOException,
             InvalidCommandException, EmptyDescriptionException {
         ui.greet();
@@ -55,19 +68,12 @@ public class Duke {
     }
 
     /**
-     * Main method of the programme.
-     * @param args not used here.
+     * Driver method for CLI version of Duke.
+     *
+     * @param args not used.
      */
     public static void main(String[] args) {
         new Duke("./data/duke.txt");
     }
 }
 
-/**
- * String logo = " ____        _        \n"
- *                 + "|  _ \\ _   _| | _____ \n"
- *                 + "| | | | | | | |/ / _ \\\n"
- *                 + "| |_| | |_| |   <  __/\n"
- *                 + "|____/ \\__,_|_|\\_\\___|\n";
- *         System.out.println("Hello from\n" + logo);
- */

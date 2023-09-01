@@ -19,19 +19,36 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.time.LocalDate;
 
+/**
+ * Represents a Storage to store the list of tasks of a user into a file in hard disk.
+ *
+ * <p>CS2103T AY23/24 Semester 1
+ * Individual Project
+ * SeeWhyAre Bot
+ * 31 Aug 2023
+ *
+ * @author Freddy Chen You Ren
+ */
 public class Storage {
     protected static String filePath;
     public static ArrayList<Task> listOfTasks;
 
+    /**
+     * Constructs a Storage with the specified file path
+     *
+     * @param filePath the file path to create a file to store user data.
+     */
     public Storage(String filePath) {
         Storage.filePath = filePath;
         listOfTasks = new ArrayList<>(100);
     }
 
     /**
-     * Save a Task into Hard Disk after it has been successfully inputted by user.
+     * Saves a Task into Hard Disk after it has been successfully inputted by user.
+     *
      * @param task the Task that is to be saved.
      * @param isAppend a Boolean to determine if we should add a new line in the saved text file.
+     * @throws IOException if there are errors while saving the file.
      */
     public static void saveTask(Task task, boolean isAppend) throws IOException {
 
@@ -66,7 +83,9 @@ public class Storage {
 
     /**
      * Loads tasks saved previously from Hard Disk.
-     * @throws IOException throws an IO Exception if the file is corrupted or invalid.
+     *
+     * @throws IOException if the file is corrupted or invalid.
+     * @throws InvalidDateException if the date format or content in the file is corrupted or invalid.
      */
     public void loadTasks() throws IOException, InvalidDateException {
         // Use FileInputStream and BufferedReader, opposite of saveTask()
@@ -149,6 +168,7 @@ public class Storage {
 
     /**
      * Checks whether a Task has already been done.
+     *
      * @param task The task whose completion status is to be checked.
      * @param completionStatus The completion status read from memory. 0 means not done, 1 means done.
      */
@@ -162,6 +182,7 @@ public class Storage {
 
     /**
      * Clears lines of task in Hard Disk.
+     *
      * @throws IOException throws IO Exception if file format is invalid or corrupted.
      */
     protected void clearAllData() throws IOException {
@@ -172,6 +193,7 @@ public class Storage {
 
     /**
      * Updates all lines of task status in Hard Disk.
+     *
      * @throws IOException throws IO Exception if file format is invalid or corrupted.
      */
     protected void updateData() throws IOException {

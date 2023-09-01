@@ -9,10 +9,26 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a Deadline task.
+ *
+ * <p>CS2103T AY23/24 Semester 1
+ * Individual Project
+ * SeeWhyAre Bot
+ * 31 Aug 2023
+ *
+ * @author Freddy Chen You Ren
+ */
 public class Deadline extends Task {
 
     private LocalDate by;
 
+    /**
+     * Constructs a Deadline task with the given description and deadline date.
+     *
+     * @param description The description of the deadline task.
+     * @param by          The deadline date.
+     */
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
@@ -32,9 +48,10 @@ public class Deadline extends Task {
     }
 
     /**
-     * Function to handle a Deadline Task. If it's inputs are valid, create a Deadline Task.
-     * Otherwise, print an error message in the console.
-     * @param userInput a valid user input for a Deadline Task.
+     * Handles the creation of a Deadline task based on user input.
+     *
+     * @param userInput A valid user input for a Deadline task.
+     * @throws IOException If there is an error with the storage.
      */
     public static void handleDeadlineTask(String userInput) throws IOException {
         String[] details = userInput.split("/by");
