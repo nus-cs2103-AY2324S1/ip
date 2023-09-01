@@ -1,9 +1,19 @@
 package Duke;
 
-
+/**
+ * The Parser class represents the parser for the Duke program.
+ * It provides methods to parse user input and execute commands.
+ */
 public class Parser {
     public Parser() {
     }
+
+    /**
+     * Parses the given user input and executes the corresponding command.
+     * @param s the user input to parse
+     * @param taskList the TaskList object to store and manage tasks
+     * @throws DukeException if there is an error parsing the user input
+     */
     public void parse(String s, TaskList taskList) throws DukeException {
         if (s.matches(".*\\bdelete\\b.*")) {
             String[] parts = s.split(" ");
@@ -23,6 +33,13 @@ public class Parser {
             String[] parts = s.split(" ");
             int number = Integer.parseInt(parts[1]);
             taskList.unmark(number);
+        } else if (s.matches(".*\\bfind\\b.*")) {
+            String[] parts = s.split(" ");
+            if (parts.length < 2) {
+                throw new DukeException("Boy ah need to know which one u want delete eh.");
+            }
+            String keyword = parts[1];
+            taskList.find(keyword);
         } else if (s.matches("(?i)^\\s*(todo|event|deadline)\\b.*")) {
             String[] parts = s.split(" ", 2);
             String TypeOfEvent = parts[0].toLowerCase();

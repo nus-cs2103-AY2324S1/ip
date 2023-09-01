@@ -1,5 +1,9 @@
 package Duke;
 
+/**
+ * The SingleTask class represents a single task for the Duke program.
+ * It is an abstract class that provides a common interface for different types of tasks.
+ */
 public abstract class SingleTask {
     protected  String description;
     protected Boolean isDone;
