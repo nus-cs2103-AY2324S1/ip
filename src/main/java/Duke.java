@@ -8,6 +8,7 @@ import duke.Ui;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 public class Duke {
     private static final String DATA_PATH = "./data";
@@ -123,6 +124,24 @@ public class Duke {
         storage.saveTasks(tasks.getTasks());
     }
 
+    /**
+     * Finds and lists all tasks that contain the keyword.
+     *
+     * @param keyword The keyword to search for.
+     */
+    public void findAndListTasks(String keyword) {
+        ArrayList<Task> matchedTasks = tasks.findTasks(keyword);
+        if (matchedTasks.size() == 0) {
+            System.out.println(line + "No tasks found with the keyword: " + keyword + "\n" + line);
+            return;
+        }
+        System.out.println(line + "Here are the matching tasks in your list:");
+        for (int i = 0; i < matchedTasks.size(); i++) {
+            System.out.println((i + 1) + "." + matchedTasks.get(i));
+        }
+        System.out.println(line);
+    }
+
     public boolean processInput(String input) throws EmptyDescriptionException, UnknownCommandException, DateTimeParseException, IOException {
         String[] words = Parser.parseCommand(input);
         switch (words[0]) {
@@ -130,7 +149,7 @@ public class Duke {
             ui.printMessage(line + "Bye. Hope to see you again soon!\n" + line);
             return false;
         case "delete":
-            deleteTask(words[1]); // refactored logic to a new method
+            deleteTask(words[1]);
             break;
         case "help":
             ui.printMessage(line + "\nCommands:\n" +
@@ -157,6 +176,9 @@ public class Duke {
             break;
         case "unmark":
             unmarkTaskDone(words[1]);
+            break;
+        case "find":
+            findAndListTasks(words[1]);
             break;
         default:
             // Handle any other cases or errors
