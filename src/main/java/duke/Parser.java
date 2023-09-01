@@ -3,9 +3,11 @@ package duke;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
+import duke.task.Task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 public class Parser {
         public static void executeCommand(String command, TaskList tasks) throws DukeException {
@@ -88,7 +90,11 @@ public class Parser {
                 } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("☹ OOPS!!! Invalid number");
                 }
-            }  else {
+            }  else if (command.startsWith(("find"))) {
+                String keyword = command.substring(5).trim();
+                List<Task> matchingTasks = tasks.findTasks(keyword);
+                Ui.listMatchedTasks(matchingTasks);
+            } else {
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
