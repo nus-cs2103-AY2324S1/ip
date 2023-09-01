@@ -26,7 +26,8 @@ public class Duke {
     private static String FILE_PARSE_ERROR = "\uD83D\uDE21 Error parsing save file!";
 
 
-    private static Path SAVE_FILE_LOCATION = Paths.get("./src/data/duke.txt");
+    private static Path SAVE_FILE_LOCATION = Paths.get("src", "data", "duke.txt");
+    private static Path SAVE_FILE_DIR = Paths.get("src","data");
 
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
@@ -42,6 +43,11 @@ public class Duke {
         System.out.println(SEPARATOR_LINE);
         try {
             // Load in existing file if it exists
+            if (Files.notExists(SAVE_FILE_DIR)) {
+                // create the directory
+                System.out.println("⏳ Directory not present, creating...");
+                Files.createDirectory(SAVE_FILE_DIR);
+            }
             if (Files.exists(SAVE_FILE_LOCATION)) {
                 System.out.println("⏳ Save file already exists, loading previous data");
                 // it exists, so let's read it
@@ -67,7 +73,7 @@ public class Duke {
                 File saveFile = new File(String.valueOf(SAVE_FILE_LOCATION));
 
                 if (saveFile.createNewFile()) {
-                    System.out.println("⏳ Created save file!");
+                    System.out.println("✅ Created save file!");
                 } else {
                     System.out.println("⚠\uFE0F Could not create save file!");
                 }
