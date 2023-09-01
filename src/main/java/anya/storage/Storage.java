@@ -1,107 +1,111 @@
 package anya.storage;
 
-import anya.task.*;
+import anya.task.Deadline;
+import anya.task.Event;
+import anya.task.Task;
+import anya.task.TaskList;
+import anya.task.Todo;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static anya.task.TaskType.getTaskType;
-
 public class Storage {
     private final String storageFilePath;
 
-    public Storage(String storageFilePath) {
-        this.storageFilePath = storageFilePath;
+    public Storage(String path) throws InvalidStorageFilePathException {
+        this.storageFilePath = path;
+        if (!isValidPath(path)) {
+            throw new InvalidStorageFilePathException("Storage file should end with '.txt'");
+        }
     }
 
-    public ArrayList<Task> load() throws IOException {
+    /**
+     * Returns true if the given path is acceptable as a storage file.
+     * The file path is considered acceptable if it ends with '.txt'
+     */
+    private static boolean isValidPath(String filePath) {
+        return filePath.endsWith(".txt");
+    }
+
+    public TaskList load() throws StorageOperationException {
+        // Check for directory
         File source = new File(storageFilePath);
         File directory = source.getParentFile();
         if (directory.mkdir()) {
             System.out.println("Directory was not found. New directory " + directory.getName() + " is created");
         }
+        try {
+            if (source.createNewFile()) {
+                System.out.println("File is not found. New File created: " + source.getName());
+                return new TaskList();
+            } else {
+                System.out.println("File already exists. Your data is loaded");
+                return readFile();
+            }
+        } catch (IOException e) {
+            throw new StorageOperationException("Error writing to file: " + storageFilePath);
+        }
+    }
 
+    public TaskList readFile() {
         ArrayList<Task> tasks = new ArrayList<>();
-        if (source.createNewFile()) {
-            System.out.println("File is not found. New File created: " + source.getName());
-        } else {
-            System.out.println("File already exists. Your data is loaded");
-            addTasksTo(tasks, source);
-        }
-        return tasks;
-    }
-
-    private void addTasksTo(ArrayList<Task> tasks, File source) throws FileNotFoundException {
-        Scanner sc = new Scanner(source);
+        Scanner sc = new Scanner(storageFilePath);
         while (sc.hasNext()) {
-            String[] arguments = sc.nextLine().split("\\|");
-
-            TaskType.Type taskType = getTaskType(arguments[0].trim());
-            boolean isDone = arguments[1].trim().equals("1");
-            String description = arguments[2].trim();
-            LocalDateTime by = LocalDateTime.now();
-            LocalDateTime from = LocalDateTime.now();
-            LocalDateTime to = LocalDateTime.now();
-
-            if (arguments.length == 4) {
-                by = convertStringToDate(arguments[3].trim());
-            } else if (arguments.length == 5) {
-                from = convertStringToDate(arguments[3].trim());
-                to = convertStringToDate(arguments[4].trim());
+            try {
+                tasks.add(convertStringToTask(sc.nextLine()));
+            } catch (UnknownTaskException e) {
+                System.out.println(e.getMessage());
             }
+        }
+        return new TaskList(tasks);
+    }
 
-            Task task;
+    public Task convertStringToTask(String input) throws UnknownTaskException {
+        String[] args = input.split("\\|");
 
-            switch (taskType) {
-                case TODO:
-                    task = new Todo(description);
-                    if (isDone) {
-                        task.markAsDone();
-                    }
-                    tasks.add(task);
-                    break;
-                case DEADLINE:
-                    task = new Deadline(description, by);
-                    if (isDone) {
-                        task.markAsDone();
-                    }
-                    tasks.add(task);
-                    break;
-                case EVENT:
-                    task = new Event(description, from, to);
-                    if (isDone) {
-                        task.markAsDone();
-                    }
-                    tasks.add(task);
-                    break;
-                default:
-                    System.out.println("Unknown task type.");
-                    break;
-            }
+        String taskType = args[0].trim();
+        boolean isDone = args[1].trim().equals("1");
+        String description = args[2].trim();
+
+        if (taskType.equals("T")) {
+            return new Todo(description, isDone);
+        } else if (taskType.equals("D")) {
+            String by = args[3].trim();
+            return new Deadline(description, by, isDone);
+        } else if (taskType.equals("E")) {
+            String from = args[3].trim();
+            String to = args[4].trim();
+            return new Event(description, from, to, isDone);
+        } else {
+            throw new UnknownTaskException("Unknown task identified: " + taskType);
         }
     }
 
-    private void save(ArrayList<Task> tasks) {
+    public void save(TaskList tasks) {
         try {
             clearFile();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
 
-        for (Task t : tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
             String text = "";
+            Task t = tasks.get(i);
             try {
-                text += t.formatToSave() + System.lineSeparator();
+                text += convertTaskToString(t) + System.lineSeparator();
                 appendToFile(text);
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    public String convertTaskToString(Task task) {
+        return task.formatToSave();
     }
 
     private void clearFile() throws IOException {
@@ -118,5 +122,30 @@ public class Storage {
 
     private LocalDateTime convertStringToDate(String dateString) {
         return LocalDateTime.parse(dateString);
+    }
+
+    /**
+     * Signals that the given file path does not fulfill the storage filepath constraints.
+     */
+    public static class InvalidStorageFilePathException extends Exception {
+        public InvalidStorageFilePathException(String message) {
+            super(message);
+        }
+    }
+
+    /**
+     * Signals that some error has occured while trying to convert and read/write data between the application
+     * and the storage file.
+     */
+    public static class StorageOperationException extends Exception {
+        public StorageOperationException(String message) {
+            super(message);
+        }
+    }
+
+    public static class UnknownTaskException extends Exception {
+        public UnknownTaskException(String message) {
+            super(message);
+        }
     }
 }
