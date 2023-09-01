@@ -14,6 +14,10 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents the Duke chat bot.
+ * A <code>Duke</code> object corresponds to a chat bot that can process user input and respond accordingly.
+ */
 public class Duke {
     private static final String DATA_PATH = "./data";
     private static final String FILE_PATH = DATA_PATH + "/duke.txt";
@@ -22,11 +26,19 @@ public class Duke {
     private final TaskList tasks;
     private static final String LINE = "_________________________\n";
 
+    /**
+     * Constructs a <code>Duke</code> object.
+     * @throws IOException If there is an error loading the tasks from the file.
+     */
     Duke() throws IOException {
         this.tasks = new TaskList(storage.loadTasks());
     }
 
-    // Delete task
+    /**
+     * Deletes a task from the list.
+     * @param taskIndex The index of the task to be deleted.
+     * @throws IOException If there is an error saving the tasks to the file.
+     */
     public void deleteTask(String taskIndex) throws IOException {
         int index = Integer.parseInt(taskIndex) - 1;
         Task removedTask = tasks.removeTask(index); // Removes and retrieves the task from the list
@@ -37,6 +49,11 @@ public class Duke {
         storage.saveTasks(tasks.getTasks());
     }
 
+    /**
+     * Adds a todo task to the list.
+     * @param task The description of the todo task.
+     * @throws IOException If there is an error saving the tasks to the file.
+     */
     public void addTodo(String task) throws IOException {
         Task newTask = new Todo(task);
         tasks.addTask(newTask);
@@ -47,6 +64,12 @@ public class Duke {
         storage.saveTasks(tasks.getTasks());
     }
 
+    /**
+     * Adds a deadline task to the list.
+     * @param task The description of the deadline task.
+     * @throws DateTimeParseException If the date format is invalid.
+     * @throws IOException If there is an error saving the tasks to the file.
+     */
     public void addDeadline(String task) throws DateTimeParseException, IOException {
         String[] parts = task.split(" /by ");
         if (parts.length < 2) {
@@ -64,6 +87,12 @@ public class Duke {
         storage.saveTasks(tasks.getTasks());
     }
 
+    /**
+     * Adds an event task to the list.
+     * @param task The description of the event task.
+     * @throws DateTimeParseException If the date format is invalid.
+     * @throws IOException If there is an error saving the tasks to the file.
+     */
     public void addEvent(String task) throws DateTimeParseException, IOException {
         String[] parts = task.split(" /from "); // second part will consist the timings
         if (parts.length < 2) {
@@ -89,6 +118,9 @@ public class Duke {
         storage.saveTasks(tasks.getTasks());
     }
 
+    /**
+     * Lists all the tasks in the list.
+     */
     public void listTasks() {
         System.out.println(LINE + "Here are the tasks in your list:");
         for (int i = 0; i < tasks.getSize(); i++) {
@@ -97,6 +129,11 @@ public class Duke {
         System.out.println(LINE);
     }
 
+    /**
+     * Marks a task as done.
+     * @param task The index of the task to be marked as done.
+     * @throws IOException If there is an error saving the tasks to the file.
+     */
     public void markTaskDone(String task) throws IOException {
         int index = Integer.parseInt(task) - 1; // string -> int
         Task taskMarked = tasks.markDone(index); // Update the task in the list
@@ -105,6 +142,11 @@ public class Duke {
         storage.saveTasks(tasks.getTasks());
     }
 
+    /**
+     * Marks a task as not done.
+     * @param task The index of the task to be marked as not done.
+     * @throws IOException If there is an error saving the tasks to the file.
+     */
     public void unmarkTaskDone(String task) throws IOException {
         int index = Integer.parseInt(task) - 1; // string -> int
         Task taskUnmarked = tasks.unmarkDone(index); // Update the task in the list
@@ -114,7 +156,16 @@ public class Duke {
         storage.saveTasks(tasks.getTasks());
     }
 
-    public boolean processInput(String input)
+    /**
+     * Processes the user input and responds accordingly.
+     * @param input The user input.
+     * @return <code>true</code> if the program should continue running, <code>false</code> otherwise.
+     * @throws EmptyDescriptionException If the user input is empty.
+     * @throws UnknownCommandException If the user input is not recognized.
+     * @throws DateTimeParseException If the date format is invalid.
+     * @throws IOException If there is an error saving the tasks to the file.
+     */
+    public boolean processInput(String input) 
             throws EmptyDescriptionException, UnknownCommandException, DateTimeParseException, IOException {
         String[] words = Parser.parseCommand(input);
         switch (words[0]) {
@@ -157,6 +208,10 @@ public class Duke {
         return true;
     }
 
+    /**
+     * Runs the Duke chat bot.
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         String logo = ">. <\n";
         String name = "your father";
