@@ -63,7 +63,7 @@ public class Parser {
             if (commandDetails.equals("")) {
                 return new Command.Invalid("☹ OOPS!!! The description of a todo cannot be empty.");
             } else {
-                return new Command.Add(new ToDoTask(commandDetails));
+                return new Command.Add(new ToDoTask(commandDetails), CommandType.ADD_TODO);
             }
         case ADD_DEADLINE:
             if (commandDetails.equals("")) {
@@ -80,7 +80,7 @@ public class Parser {
 
                 try {
                     LocalDateTime deadline = LocalDateTime.parse(stringDeadline, DATE_INPUT_FORMAT);
-                    return new Command.Add(new DeadlineTask(taskName, deadline));
+                    return new Command.Add(new DeadlineTask(taskName, deadline), CommandType.ADD_DEADLINE);
                 } catch (DateTimeParseException e) {
                     return new Command.Invalid("☹ OOPS!!! Please enter a valid date and time in the format: dd/MM/yyyy HHmm");
                 }
@@ -106,7 +106,7 @@ public class Parser {
                 try {
                     LocalDateTime startTime = LocalDateTime.parse(stringStartTime, DATE_INPUT_FORMAT);
                     LocalDateTime endTime = LocalDateTime.parse(stringEndTime, DATE_INPUT_FORMAT);
-                    return new Command.Add(new EventTask(taskName, startTime, endTime));
+                    return new Command.Add(new EventTask(taskName, startTime, endTime), CommandType.ADD_EVENT);
                 } catch (DateTimeParseException e) {
                     return new Command.Invalid("☹ OOPS!!! Please enter a valid date and time in the format: dd/MM/yyyy HHmm");
                 }

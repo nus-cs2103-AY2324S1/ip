@@ -12,6 +12,8 @@ public abstract class Command {
 
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 
+    public abstract CommandType getType();
+
     public static class Exit extends Command {
         @Override
         public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
@@ -22,12 +24,22 @@ public abstract class Command {
                 throw new DukeException("Error saving duke.tasks to file: " + e.getMessage());
             }
         }
+
+        @Override
+        public CommandType getType() {
+            return CommandType.BYE;
+        }
     }
 
     public static class List extends Command {
         @Override
         public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
             tasks.list();
+        }
+
+        @Override
+        public CommandType getType() {
+            return CommandType.LIST;
         }
     }
 
@@ -43,6 +55,11 @@ public abstract class Command {
             int index = taskNumber - 1;
             tasks.markTaskAsDone(index);
         }
+
+        @Override
+        public CommandType getType() {
+            return CommandType.MARK;
+        }
     }
 
     public static class Unmark extends Command {
@@ -56,6 +73,11 @@ public abstract class Command {
         public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
             int index = taskNumber - 1;
             tasks.unmarkTask(index);
+        }
+
+        @Override
+        public CommandType getType() {
+            return CommandType.UNMARK;
         }
     }
 
@@ -71,18 +93,31 @@ public abstract class Command {
             int index = taskNumber - 1;
             tasks.deleteTask(index);
         }
+
+        @Override
+        public CommandType getType() {
+            return CommandType.DELETE;
+        }
     }
 
     public static class Add extends Command {
         private Task task;
+        private CommandType commandType;
 
-        public Add(Task task) {
+        public Add(Task task, CommandType commandType) {
             this.task = task;
+            this.commandType = commandType;
         }
 
         @Override
         public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
             tasks.addTask(task);
+        }
+
+        @Override
+        public CommandType getType() {
+            return this.commandType;
+
         }
     }
 
@@ -96,6 +131,11 @@ public abstract class Command {
         @Override
         public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
             throw new DukeException(message);
+        }
+
+        @Override
+        public CommandType getType() {
+            return CommandType.INVALID;
         }
     }
 }
