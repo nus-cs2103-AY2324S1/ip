@@ -8,15 +8,28 @@ import java.io.BufferedReader;
 import blip.exceptions.*;
 import blip.tasks.*;
 
-
-
+/**
+ * Represents a storage for Blip ChatBot.
+ */
 public class BlipStorage {
-
+    /**
+     * Path to the data file.
+     */
     private static String filePath;
+
+    /**
+     * Constructor of BlipStorage
+     * @param filePath The data file path for storage
+     */
     public BlipStorage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads data file's tasks.
+     * @return The TaskList of tasks from data file
+     * @throws BlipException If there are any loading errors
+     */
     public static TaskList loadFile() throws BlipException {
         TaskList tasks = new TaskList();
         try {
@@ -41,6 +54,10 @@ public class BlipStorage {
         return tasks;
     }
 
+    /**
+     * Saves list of tasks to data file.
+     * @param tasks The TaskList of tasks to save
+     */
     public static void saveToFile(TaskList tasks) {
         try {
             File file = new File(filePath);

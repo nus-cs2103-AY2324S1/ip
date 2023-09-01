@@ -4,10 +4,21 @@ import blip.exceptions.*;
 import blip.ui.*;
 import blip.commands.*;
 
+/**
+ * Represents a parser that will parse user inputs that are Strings.
+ */
 public class BlipParser {
-
+    /**
+     * The Blip ChatBot user interface that prints messages to the user.
+     */
     private BlipUI ui = new BlipUI();
 
+    /**
+     * Parses string to an int to get the task index to do commands on.
+     * @param input The string input to parse into int index
+     * @return Integer index to do relevant commands on
+     * @throws EmptyTaskNumberException If int task number is missing
+     */
     public static int parseToGetIndex (String input) throws EmptyTaskNumberException {
         String[] components = input.split("\\s+", 2);
         // Missing Delete Index.
@@ -18,6 +29,12 @@ public class BlipParser {
         return taskNum;
     }
 
+    /**
+     * Parses string to get the description of to do task.
+     * @param input The string input to parse into description
+     * @return String description of to do task
+     * @throws EmptyDescriptionException If description of to do task is missing
+     */
     public static String parseToDoInfo (String input) throws EmptyDescriptionException {
         String[] components = input.split("\\s+", 2);
         // Missing Deadline Description.
@@ -27,6 +44,12 @@ public class BlipParser {
         return components[1];
     }
 
+    /**
+     * Parses string to get the deadline information of deadline task.
+     * @param input The string input to parse into 2 components of deadline information
+     * @return An array of string with deadline's description and date time
+     * @throws EmptyDescriptionException If the description or date time is missing
+     */
     public static String[] parseDeadlineInfo (String input) throws EmptyDescriptionException {
             String[] test = input.split("\\s+", 2);
             // Missing Deadline Description.
@@ -43,6 +66,12 @@ public class BlipParser {
 
     }
 
+    /**
+     * Parses string to get the event information of event task.
+     * @param input The string input to parse into 3 components of event information
+     * @return An array of string with event's description and date time(s)
+     * @throws EmptyDescriptionException If the description ot date time is missing
+     */
     public static String[] parseEventInfo (String input) throws EmptyDescriptionException {
         String[] test = input.split("\\s+", 2);
         // Missing Deadline Description.
@@ -59,8 +88,11 @@ public class BlipParser {
         return new String[] {description, eventStart, eventEnd};
     }
 
-
-
+    /**
+     * Parses string to a Command object.
+     * @param input The string input to parse into Commands
+     * @return The Command object relevant to the string input parameter
+     */
     public Command parse(String input) {
         try {
             String[] parts = input.split(" ");
