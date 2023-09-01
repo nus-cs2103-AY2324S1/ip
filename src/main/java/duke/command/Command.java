@@ -18,10 +18,25 @@ import java.util.ArrayList;
 
 public class Command {
 
+    /*
+        The keyword for which command method to call.
+     */
     private String command;
+    /*
+        The details of the command.
+     */
     private String details;
+    /*
+        True if there is a detail for the command, False otherwise.
+     */
     private boolean isValidDetail;
 
+    /**
+     * Creates a new Command object with the command and details passed in.
+     *
+     * @param command The command from user input.
+     * @param details The details of user input.
+     */
     public Command(String command, String details) {
 
         this.command = command;
@@ -33,7 +48,17 @@ public class Command {
         this.details = details;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NoSuchCommandException, InvalidIndexException {
+    /**
+     * Executes the function based on the command and details provided.
+     *
+     * @param tasks The task list for addition of task.
+     * @param storage The storage object for reading or writing tasks into a specific file.
+     * @throws NoSuchCommandException When an invalid command is inputted.
+     * @throws InvalidIndexException If an invalid task index is inputted.
+     * @throws EmptyDescriptionException If a task description is not inputted.
+     * @throws UnmatchedArgumentException If unmatched arguments are inputted.
+     */
+    public void execute(TaskList tasks, Storage storage) throws NoSuchCommandException, InvalidIndexException {
 
         try {
             if (command.equals("list")) {
@@ -102,6 +127,13 @@ public class Command {
         }
     }
 
+    /**
+     * Marks a task as done and updates it into the storage (file).
+     *
+     * @param i The index of the task to be marked as done in the list.
+     * @param tasks The task list containing the tasks.
+     * @param storage The storage object that contains the file for updating.
+     */
     public static void mark(int i, TaskList tasks, Storage storage) {
 
         tasks.get(i - 1).mark();
@@ -113,6 +145,13 @@ public class Command {
         storage.writeInto(tasks);
     }
 
+    /**
+     * Unmarks a task and updates it into the storage (file).
+     *
+     * @param i The index of the task to be unmarked in the list.
+     * @param tasks The task list containing the tasks.
+     * @param storage The storage object that contains the file for updating.
+     */
     public static void unmark(int i, TaskList tasks, Storage storage) {
 
         tasks.get(i - 1).unmark();
@@ -124,6 +163,14 @@ public class Command {
         storage.writeInto(tasks);
     }
 
+    /**
+     * Adds a new task of type Todo into the task list and updates the storage (file).
+     *
+     * @param message The description of the task.
+     * @param tasks The task list for the addition of task.
+     * @param storage The storage object that contains the file for updating.
+     * @throws UnmatchedArgumentException If the description of the task is empty.
+     */
     public static void addTodo(String message, TaskList tasks, Storage storage) throws UnmatchedArgumentException {
 
         if (message.isBlank()) {
@@ -140,7 +187,17 @@ public class Command {
         storage.writeInto(tasks);
     }
 
-    public static void addDeadline(String message, TaskList tasks, Storage storage) throws UnmatchedArgumentException, EmptyDescriptionException {
+    /**
+     * Adds a new task of type Deadline to the task list and updates the storage (file).
+     *
+     * @param message The description and deadline of the task.
+     * @param tasks The task list for the addition of the task.
+     * @param storage The storage object that contains the file for updating.
+     * @throws UnmatchedArgumentException If the arguments passed in are insufficient.
+     * @throws EmptyDescriptionException If the description of the task is empty.
+     */
+    public static void addDeadline(String message, TaskList tasks, Storage storage) throws UnmatchedArgumentException,
+            EmptyDescriptionException {
 
         String[] arr = message.split(" /");
         Parser p = new Parser();
@@ -162,6 +219,16 @@ public class Command {
         storage.writeInto(tasks);
     }
 
+    /**
+     * Adds a task of type Event to the task list and updates the storage (file).
+     *
+     * @param message The description and the event duration of the task.
+     * @param tasks The task list for the addition of the task.
+     * @param storage The storage object for that contains the file for updating.
+     * @throws UnmatchedArgumentException If the arguments passed in are insufficient.
+     * @throws EmptyDescriptionException If the description of the task is empty.
+     * @throws DateTimeException If the start or end time of the event is invalid.
+     */
     public static void addEvent(String message, TaskList tasks, Storage storage) throws UnmatchedArgumentException, EmptyDescriptionException {
 
         String[] arr = message.split(" /");
@@ -188,6 +255,13 @@ public class Command {
         storage.writeInto(tasks);
     }
 
+    /**
+     * Deletes a task from the task list based on the index provided and updates the storage (file).
+     *
+     * @param index The task with the index to be deleted.
+     * @param tasks The task list for the deletion of task.
+     * @param storage The storage object that contains the file for updating.
+     */
     public static void delete(int index, TaskList tasks, Storage storage) {
 
         System.out.println(Ui.showLine());
@@ -200,6 +274,12 @@ public class Command {
         storage.writeInto(tasks);
     }
 
+    /**
+     * Checks for the task that has the contains the same date as provided in the task list.
+     *
+     * @param dueDate The task with the date in the task list.
+     * @param tasks The task list to search for based on the provided date.
+     */
     public static void checkTaskDue(String dueDate, TaskList tasks) {
 
         ArrayList<Task> dueDateList = new ArrayList<>();
@@ -226,6 +306,11 @@ public class Command {
         System.out.println();
     }
 
+    /**
+     * Checks if the program should terminate from the command.
+     *
+     * @return true if the command is "bye", false otherwise.
+     */
     public boolean isExit() {
         return (command.equals("bye"));
     }
