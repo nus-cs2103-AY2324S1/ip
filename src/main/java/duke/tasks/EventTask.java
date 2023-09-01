@@ -4,8 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Encapsulates an event with a start and end time/date.
- * Inherits from duke.tasks.Task class.
+ * Encapsulates an event with a start and end date and time.
+ * Inherits from Task class.
+ *
  * @author Wu Jingya
  */
 public class EventTask extends Task {
@@ -13,10 +14,11 @@ public class EventTask extends Task {
     private LocalDateTime to;
 
     /**
-     * Creates an Event duke.tasks.Task with the specified description and start and end time/date
-     * @param description The task's description
-     * @param from The task's starting time/date
-     * @param to The task's ending time/date
+     * Constructs an EventTask with the specified description and start and end date and time.
+     *
+     * @param description The task's description.
+     * @param from The task's starting date and time.
+     * @param to The task's ending date and time.
      */
     public EventTask(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
@@ -24,22 +26,29 @@ public class EventTask extends Task {
         this.to = to;
     }
 
+    /**
+     * Constructs an EventTask with the specified description, start and end date and time and completion status.
+     *
+     * @param description The task's description.
+     * @param from The task's starting date and time.
+     * @param to The task's ending date and time.
+     * @param done Whether the task is completed.
+     */
     public EventTask(String description, LocalDateTime from, LocalDateTime to, Boolean done) {
         super(description, done);
         this.from = from;
         this.to = to;
     }
 
-    /**
-     * Returns the string representation of the task
-     * @return The string representation of the task
-     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + " " +
                 "to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toData() {
         return "E|" + super.toData() + "|" + from + "|" + to;
