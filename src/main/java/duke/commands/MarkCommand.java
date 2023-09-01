@@ -11,6 +11,12 @@ public class MarkCommand extends Command {
         this.taskNumber = taskNumber;
     }
 
+    /**
+     * Marks the task indicated by taskNumber as completed.
+     *
+     * @param storage
+     * @param tasks
+     */
     @Override
     public void execute(Storage storage, ArrayList<Task> tasks) {
         try {

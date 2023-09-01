@@ -11,6 +11,12 @@ public class DeleteCommand extends Command {
         this.taskNumber = taskNumber;
     }
 
+    /**
+     * Deletes the task indicated by taskNumber.
+     *
+     * @param storage
+     * @param tasks
+     */
     @Override
     public void execute(Storage storage, ArrayList<Task> tasks) {
         try {

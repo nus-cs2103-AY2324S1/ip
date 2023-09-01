@@ -7,6 +7,12 @@ import java.util.ArrayList;
 
 public class ExitCommand extends Command {
 
+    /**
+     * Exits the program.
+     *
+     * @param storage
+     * @param tasks
+     */
     @Override
     public void execute(Storage storage, ArrayList<Task> tasks) {
         try {

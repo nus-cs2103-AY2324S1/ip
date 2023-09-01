@@ -14,6 +14,12 @@ public class AddCommand extends Command {
         this.fullCommand = fullCommand;
     }
 
+    /**
+     * Creates a new task and adds it to the list.
+     *
+     * @param storage
+     * @param tasks
+     */
     public void execute(Storage storage, ArrayList<Task> tasks) {
         String[] words = fullCommand.split(" ");
 
