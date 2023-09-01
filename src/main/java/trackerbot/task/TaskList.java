@@ -1,4 +1,4 @@
-package trackerbot;
+package trackerbot.task;
 
 import trackerbot.command.CommandType;
 import trackerbot.exception.TrackerBotException;
