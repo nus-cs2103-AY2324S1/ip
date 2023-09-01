@@ -9,8 +9,8 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-
     private ArrayList<Task> taskList;
+
 
     /**
      * Create the TaskList object and initialise the empty arraylist.
@@ -27,7 +27,6 @@ public class TaskList {
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
-
 
     /**
      * Return the task at the index.
@@ -65,9 +64,4 @@ public class TaskList {
     public int size() {
         return taskList.size();
     }
-
-
-
-
-
 }

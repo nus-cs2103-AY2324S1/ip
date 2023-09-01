@@ -10,7 +10,6 @@ import java.util.Scanner;
  */
 public class Ui {
 
-
     private Scanner scanner;
 
     /**
@@ -19,7 +18,6 @@ public class Ui {
     public Ui(){
         scanner = new Scanner(System.in);
     }
-
 
     /**
      * Print the welcome message.
@@ -87,6 +85,7 @@ public class Ui {
      * @param isMark Boolean to determine whether to mark or unmark.
      */
     public void showMarkOrUnmark(Task task, boolean isMark) {
+
         System.out.println("    ____________________________________________________________");
 
         if (isMark) {
@@ -95,9 +94,9 @@ public class Ui {
         } else {
             System.out.println("     OK, I've marked this task as not done yet:");
         }
+
         System.out.println("       " + task.toString());
         System.out.println("    ____________________________________________________________");
-
     }
 
 
@@ -113,7 +112,6 @@ public class Ui {
         System.out.println("       " + task.toString());
         System.out.println("     Now you have " + listSize + " tasks in the list.");
         System.out.println("    ____________________________________________________________");
-
     }
 
 
@@ -130,7 +128,6 @@ public class Ui {
 
         System.out.println("     Now you have " + listSize + " tasks in the list.");
         System.out.println("    ____________________________________________________________");
-
     }
 
 
@@ -160,7 +157,4 @@ public class Ui {
     public String readCommand(){
         return scanner.nextLine();
     }
-
-
-
 }

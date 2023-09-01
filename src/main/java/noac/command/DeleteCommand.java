@@ -12,7 +12,6 @@ public class DeleteCommand  extends Command {
 
     private int taskIndex;
 
-
     /**
      * Create the delete command with the which task to delete.
      *

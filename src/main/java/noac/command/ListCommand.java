@@ -9,7 +9,6 @@ import noac.Ui;
  */
 public class ListCommand extends Command {
 
-
     /**
      * Display the list to the user using UI class.
      *

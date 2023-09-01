@@ -1,10 +1,10 @@
 package noac.task;
 
+
 /**
  * To do task which extends the task class.
  */
 public class Todo extends Task {
-
 
     /**
      * Constructor to initialise the task.

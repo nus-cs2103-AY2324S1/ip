@@ -23,13 +23,11 @@ public class Parser {
 
         Command returnCommand;
 
-
         String[] userInputArr = fullCommand.split(" ");
         String command = userInputArr[0];
 
         switch (command) {
         case "list":
-
             returnCommand = new ListCommand();
 
             break;
@@ -39,9 +37,7 @@ public class Parser {
 
             if (userInputArr.length > 2 || userInputArr.length <= 1) {
                 throw new NoacException("☹ OOPS!!! Please enter in the format mark [TASK_NUMBER] e.g. mark 1");
-
             } else if (!userInputArr[1].matches("\\d+")) {
-
                 throw new NoacException("☹ OOPS!!! Please enter in the format mark [TASK_NUMBER] e.g. mark 1");
             }
 
@@ -63,7 +59,6 @@ public class Parser {
 
                 returnCommand = new TodoCommand(description);
 
-
             } else {
                 throw new NoacException("☹ OOPS!!! The description of a todo cannot be empty.");
             }
@@ -71,7 +66,6 @@ public class Parser {
             break;
 
         case "deadline":
-
 
             String description = "";
             String by = "";
@@ -88,7 +82,6 @@ public class Parser {
                 } else {
                     description += userInputArr[i] + " ";
                 }
-
             }
 
             if (!afterBy) {
@@ -106,15 +99,12 @@ public class Parser {
 
             break;
 
-
         case "event":
 
             String descript = "";
             String from = "";
             String to = "";
-
             String status = "event";
-
 
             for (int i = 1; i < userInputArr.length; i++) {
                 if (userInputArr[i].equals("/from")) {
@@ -137,25 +127,19 @@ public class Parser {
             }
 
             if (!status.equals("to")) {
-
                 throw new NoacException("☹ OOPS!!! The input must contain the command /from and /to \n     in this order");
             }
-
             if (descript.length() == 0 || from.length() == 0 || to.length() == 0) {
-
                 throw new NoacException("☹ OOPS!!! The description, from and to of a event cannot \n     be empty!");
-
             }
 
             from = from.substring(0, from.length() - 1);
             to = to.substring(0, to.length() - 1);
             descript = descript.substring(0, descript.length() - 1);
 
-
             returnCommand = new EventCommand(descript, parseDate(from), parseDate(to));
 
             break;
-
 
         case "delete":
 
@@ -166,7 +150,6 @@ public class Parser {
 
                 throw new NoacException("☹ OOPS!!! Please enter in the format delete [TASK_NUMBER] e.g. delete 1");
             }
-
 
             int taskNo2 = Integer.parseInt(userInputArr[1]) - 1;
 
@@ -203,7 +186,6 @@ public class Parser {
         return returnCommand;
     }
 
-
     /**
      * Parse date string to LoaclDateTime object.
      *
@@ -222,6 +204,4 @@ public class Parser {
 
         return localDateTime;
     }
-
-
 }

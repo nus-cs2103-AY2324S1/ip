@@ -1,6 +1,5 @@
 package noac.command;
 
-
 import noac.NoacException;
 import noac.Storage;
 import noac.TaskList;
@@ -13,7 +12,6 @@ public class MarkCommand extends Command {
 
     private int taskIndex;
     private boolean isMark;
-
 
     /**
      * Create the mark command class.
@@ -49,6 +47,5 @@ public class MarkCommand extends Command {
 
         ui.showMarkOrUnmark(tasks.getTask(this.taskIndex), this.isMark);
         storage.save(tasks);
-
     }
 }

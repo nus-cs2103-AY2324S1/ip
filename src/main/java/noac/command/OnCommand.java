@@ -9,6 +9,7 @@ import noac.task.Task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 
 /**
@@ -41,19 +42,20 @@ public class OnCommand extends Command {
 
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.getTask(i) instanceof Deadline) {
-                if (localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(((Deadline) tasks.getTask(i)).getBy().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))) {
+                if (localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(
+                        ((Deadline) tasks.getTask(i)).getBy().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))) {
                     taskArrayList.add(tasks.getTask(i));
                 }
             } else if (tasks.getTask(i) instanceof Event) {
-                if (localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(((Event) tasks.getTask(i)).getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))) || localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(((Event) tasks.getTask(i)).getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))) {
+                if (localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(
+                        ((Event) tasks.getTask(i)).getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                        || localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(
+                                ((Event) tasks.getTask(i)).getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))) {
                     taskArrayList.add(tasks.getTask(i));
                 }
             }
-
         }
 
-
         ui.showOnDate(taskArrayList);
-
     }
 }
