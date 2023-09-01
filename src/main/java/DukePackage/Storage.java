@@ -19,6 +19,7 @@ public class Storage {
      * The list of tasks.
      */
     protected ArrayList<Task> taskList;
+    protected final String MATCHING_STRING = "     Here are the matching tasks in your list:";
 
     /**
      * Constructs a Storage object with an empty task list.
@@ -201,5 +202,23 @@ public class Storage {
         t.printDescription();
         int size = this.taskList.size();
         System.out.printf("\n     Now you have %d tasks in the list.\n", size);
+    }
+
+    public void printMatchingList(String toFindString) {
+        System.out.println(MATCHING_STRING);
+        for (int i = 0; i < this.taskList.size(); i++) {
+            int index = i + 1;
+            Task t = this.taskList.get(i);
+            if (t.getDescription().contains(toFindString)) {
+                System.out.printf("     %d.[%s][%s] %s", index, t.getTypeIcon(), t.getStatusIcon(), t.description);
+                if (!Objects.isNull(t.startTime) && !Objects.isNull(t.endTime)) {
+                    System.out.printf(" (from: %s to: %s)%n", t.startTime.toString().replace("T", " "), t.endTime.toString().replace("T", " "));
+                } else if (!Objects.isNull(t.startTime)) {
+                    System.out.printf(" (by: %s)%n", t.startTime.toString().replace("T", " "));
+                } else {
+                    System.out.print("\n");
+                }
+            }
+        }
     }
 }

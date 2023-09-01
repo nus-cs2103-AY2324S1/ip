@@ -67,6 +67,11 @@ public class Duke {
                     int id3 = Integer.parseInt(parts[1]) - 1;
                     storage.deleteTask(id3);
                     break;
+                case "find":
+                    int indexOfFind = input.indexOf("find");
+                    String toFindString = input.substring(indexOfFind + 5);
+                    storage.printMatchingList(toFindString);
+                    break;
                 case "todo":
                     int indexOfTodo = input.indexOf("todo");
                     String taskDesc = input.substring(indexOfTodo + 5);
