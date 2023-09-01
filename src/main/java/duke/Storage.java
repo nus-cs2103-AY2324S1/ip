@@ -13,9 +13,17 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
+/**
+ * Handles data storage and retrieval.
+ */
 public class Storage {
     private File file;
 
+    /**
+     * Constructs a Storage object and creates the necessary directories and files.
+     *
+     * @param filePath The path to the file for data storage.
+     */
     public Storage(String filePath) {
         try {
             String[] splited = filePath.split("/");
@@ -34,6 +42,12 @@ public class Storage {
 
     }
 
+    /**
+     * Retrieves data from the storage txt file and converts it into a list of tasks.
+     *
+     * @return An ArrayList of Task objects loaded from the storage file.
+     * @throws DukeException If there's an issue during data retrieval.
+     */
     public ArrayList<Task> getData() throws DukeException {
         try {
             ArrayList<Task> oldTasks = new ArrayList<>();
@@ -85,6 +99,11 @@ public class Storage {
         return null;
     }
 
+    /**
+     * Saves the list of tasks into the storage txt file.
+     *
+     * @param tasks The list of Task objects to be saved.
+     */
     public void saveData(ArrayList<Task> tasks) {
         try {
             FileWriter writer = new FileWriter(this.file);
@@ -100,6 +119,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a formatted date and time string into a LocalDateTime object.
+     *
+     * @param data The formatted date and time string.
+     * @return A LocalDateTime object parsed from the input string.
+     */
     public LocalDateTime formatData(String data) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d 'of' MMMM uuuu, h:mma", Locale.ENGLISH);
         LocalDateTime localDateTime = LocalDateTime.parse(data, formatter);

@@ -5,15 +5,29 @@ import duke.task.DukeList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
+/**
+ * Handles the parsing of user input and executes corresponding actions.
+ */
 public class Parser {
     Scanner scanner;
     boolean notBye;
 
+    /**
+     * Constructs a Parser object and initializes the Scanner and notBye flag.
+     */
     public Parser() {
         scanner = new Scanner(System.in);
         notBye = true;
     }
 
+    /**
+     * Parses user input, executes commands, and interacts with DukeList, Storage, and Ui objects.
+     *
+     * @param storage  The Storage object for data persistence.
+     * @param dukelist The DukeList object to manage tasks.
+     * @param ui       The Ui object for user interactions.
+     */
     public void parse(Storage storage, DukeList dukelist, Ui ui) {
         while (notBye) {
 
@@ -92,6 +106,12 @@ public class Parser {
         }
         }
 
+    /**
+     * Converts a formatted string into a LocalDateTime object.
+     *
+     * @param data The formatted string representing a date and time.
+     * @return A LocalDateTime object parsed from the input string.
+     */
         public LocalDateTime formatData(String data) {
             String trimmed = data.trim();
             DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
