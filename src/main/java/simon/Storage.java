@@ -14,13 +14,30 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The {@code Storage} class handles the loading and saving of tasks to a specified file.
+ * It ensures that tasks are persisted across multiple runs of the Simon application.
+ */
 public class Storage {
+
+    /** The path to the file where tasks are stored. */
     private final String filePath;
 
+    /**
+     * Constructs a new {@code Storage} instance with the specified file path.
+     *
+     * @param filePath The path to the file used for storing tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the specified file. If the file does not exist, it is created.
+     *
+     * @return An {@code ArrayList} of tasks loaded from the file.
+     * @throws SimonException If there is an error parsing the saved data.
+     */
     public ArrayList<Task> load() throws SimonException {
         ArrayList<Task> loadedTasks = new ArrayList<>();
 
@@ -86,6 +103,11 @@ public class Storage {
         return loadedTasks;
     }
 
+    /**
+     * Saves the provided list of tasks to the specified file.
+     *
+     * @param tasks The {@code ArrayList} of tasks to be saved.
+     */
     public void save(ArrayList<Task> tasks) {
         try {
             PrintWriter writer = new PrintWriter(this.filePath);
