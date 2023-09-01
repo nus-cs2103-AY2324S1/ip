@@ -1,16 +1,25 @@
 package shiba.commands;
 
+import java.util.List;
+
 import shiba.exceptions.InvalidCommandException;
 import shiba.exceptions.ShibaException;
 import shiba.tasks.PersistentTaskList;
 import shiba.tasks.ShibaTask;
 import shiba.ui.Replier;
 
-import java.util.List;
-
+/**
+ * Represents a command to find tasks with a keyword.
+ */
 public class FindCommand extends ShibaCommand {
     private final String fullCmd;
 
+    /**
+     * Constructs a FindCommand.
+     *
+     * @param tasks Current state of task list
+     * @param cmd Full command string
+     */
     public FindCommand(PersistentTaskList tasks, String cmd) {
         super(tasks);
         fullCmd = cmd;

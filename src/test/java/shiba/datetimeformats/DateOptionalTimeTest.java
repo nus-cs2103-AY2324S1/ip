@@ -1,10 +1,11 @@
 package shiba.datetimeformats;
 
-import org.junit.jupiter.api.Test;
-import shiba.exceptions.InvalidCommandException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import shiba.exceptions.InvalidCommandException;
 
 public class DateOptionalTimeTest {
     @Test

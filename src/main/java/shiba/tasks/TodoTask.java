@@ -3,7 +3,35 @@ package shiba.tasks;
 import shiba.exceptions.InvalidCommandException;
 import shiba.parsers.SpaceSeparatedValuesParser;
 
+/**
+ * Represents a task with no date, time constraints.
+ */
 public class TodoTask extends ShibaTask {
+    /**
+     * Creates a TodoTask.
+     *
+     * @param name The name of the task.
+     */
+    public TodoTask(String name) {
+        super(name, TaskType.TODO);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toSaveString() {
+        return SpaceSeparatedValuesParser.convert("T", isDone ? "1" : "0", name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
     /**
      * Parses a TodoTask from a command.
      *
@@ -23,19 +51,5 @@ public class TodoTask extends ShibaTask {
         }
 
         return new TodoTask(cmdSplit[1]);
-    }
-
-    public TodoTask(String name) {
-        super(name, TaskType.TODO);
-    }
-
-    @Override
-    public String toSaveString() {
-        return SpaceSeparatedValuesParser.convert("T", isDone ? "1" : "0", name);
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
     }
 }

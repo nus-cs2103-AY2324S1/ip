@@ -5,6 +5,9 @@ import shiba.tasks.PersistentTaskList;
 import shiba.tasks.ShibaTask;
 import shiba.ui.Replier;
 
+/**
+ * Represents a command to delete a task from the task list
+ */
 public class DeleteCommand extends ShibaCommand {
     private final String[] params;
 

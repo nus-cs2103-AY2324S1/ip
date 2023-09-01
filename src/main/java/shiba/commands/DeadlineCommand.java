@@ -4,6 +4,9 @@ import shiba.exceptions.ShibaException;
 import shiba.tasks.DeadlineTask;
 import shiba.tasks.PersistentTaskList;
 
+/**
+ * Represents a command to add a deadline task
+ */
 public class DeadlineCommand extends ShibaCommand {
     private final String fullCmd;
 

@@ -1,14 +1,47 @@
 package shiba.tasks;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import shiba.datetimeformats.DateOptionalTime;
 import shiba.exceptions.InvalidCommandException;
 import shiba.parsers.SpaceSeparatedValuesParser;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+/**
+ * Represents a task with a datetime deadline.
+ */
 public class DeadlineTask extends ShibaTask {
     private static final Pattern deadlineRegex = Pattern.compile("(.+?) /by (.+)");
+
+    private final DateOptionalTime deadline;
+
+    /**
+     * Creates a DeadlineTask.
+     *
+     * @param name The name of the task.
+     * @param deadline The deadline of the task.
+     * @throws InvalidCommandException If the command is invalid.
+     */
+    public DeadlineTask(String name, String deadline) throws InvalidCommandException {
+        super(name, TaskType.DEADLINE);
+        this.deadline = new DateOptionalTime(deadline);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toSaveString() {
+        return SpaceSeparatedValuesParser.convert("D", isDone ? "1" : "0", name, deadline.toString());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return super.toString() + " (by: " + deadline.getDisplayRepr() + ")";
+    }
 
     /**
      * Parses a DeadlineTask from a command.
@@ -30,22 +63,5 @@ public class DeadlineTask extends ShibaTask {
 
         throw new InvalidCommandException("Invalid deadline format! Deadline name,"
                 + " /by parameter must be present and not empty.");
-    }
-
-    private final DateOptionalTime deadline;
-
-    public DeadlineTask(String name, String deadline) throws InvalidCommandException {
-        super(name, TaskType.DEADLINE);
-        this.deadline = new DateOptionalTime(deadline);
-    }
-
-    @Override
-    public String toSaveString() {
-        return SpaceSeparatedValuesParser.convert("D", isDone ? "1" : "0", name, deadline.toString());
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() + " (by: " + deadline.getDisplayRepr() + ")";
     }
 }

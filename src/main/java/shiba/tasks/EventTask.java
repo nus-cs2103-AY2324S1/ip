@@ -1,15 +1,53 @@
 package shiba.tasks;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import shiba.datetimeformats.DateOptionalTime;
 import shiba.exceptions.InvalidCommandException;
 import shiba.parsers.SpaceSeparatedValuesParser;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+/**
+ * Represents a task that starts at a specific datetime and ends at a specific datetime.
+ */
 public class EventTask extends ShibaTask {
     private static final Pattern option1Regex = Pattern.compile("(.+?) /from (.+?) /to (.+)");
     private static final Pattern option2Regex = Pattern.compile("(.+?) /to (.+?) /from (.+)");
+
+    private final DateOptionalTime startTime;
+    private final DateOptionalTime endTime;
+
+    /**
+     * Creates a new EventTask.
+     *
+     * @param name The name of the task.
+     * @param from The start time of the task.
+     * @param to The end time of the task.
+     * @throws InvalidCommandException If the command is invalid.
+     */
+    public EventTask(String name, String from, String to) throws InvalidCommandException {
+        super(name, TaskType.EVENT);
+        startTime = new DateOptionalTime(from);
+        endTime = new DateOptionalTime(to);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toSaveString() {
+        return SpaceSeparatedValuesParser.convert("E", isDone ? "1" : "0", name,
+                startTime.toString(), endTime.toString());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return super.toString() + " (from: " + startTime.getDisplayRepr() + " to: "
+                + endTime.getDisplayRepr() + ")";
+    }
 
     /**
      * Parses a EventTask from a command.
@@ -36,26 +74,5 @@ public class EventTask extends ShibaTask {
 
         throw new InvalidCommandException("Invalid event format! Event name, /from and"
                 + " /to parameters must be present and not empty.");
-    }
-
-    private final DateOptionalTime startTime;
-    private final DateOptionalTime endTime;
-
-    public EventTask(String name, String from, String to) throws InvalidCommandException {
-        super(name, TaskType.EVENT);
-        startTime = new DateOptionalTime(from);
-        endTime = new DateOptionalTime(to);
-    }
-
-    @Override
-    public String toSaveString() {
-        return SpaceSeparatedValuesParser.convert("E", isDone ? "1" : "0", name,
-                startTime.toString(), endTime.toString());
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() + " (from: " + startTime.getDisplayRepr() + " to: "
-                + endTime.getDisplayRepr() + ")";
     }
 }

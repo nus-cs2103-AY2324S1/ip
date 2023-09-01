@@ -7,7 +7,13 @@ import shiba.tasks.PersistentTaskList;
 import shiba.tasks.ShibaTask;
 import shiba.ui.Replier;
 
+/**
+ * Represents a command that the user can give to Shiba.
+ */
 public abstract class ShibaCommand {
+    /**
+     * The types of commands that Shiba can execute.
+     */
     public enum CommandType {
         BYE,
         LIST,
@@ -38,8 +44,8 @@ public abstract class ShibaCommand {
      * as the 2nd parameter.
      *
      * @param cmd The command parameters, split by spaces.
-     * @throws ShibaException If the task number is missing, invalid, or there are no tasks in the list.
      * @return The task number if valid.
+     * @throws ShibaException If the task number is missing, invalid, or there are no tasks in the list.
      */
     protected int checkTaskNumber(String[] cmd) throws ShibaException {
         if (cmd.length < 2) {

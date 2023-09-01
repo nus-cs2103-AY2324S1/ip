@@ -3,6 +3,9 @@ package shiba.commands;
 import shiba.tasks.PersistentTaskList;
 import shiba.ui.Replier;
 
+/**
+ * Represents a command that lists all tasks
+ */
 public class ListCommand extends ShibaCommand {
     /**
      * Constructor for ListCommand, which lists all tasks

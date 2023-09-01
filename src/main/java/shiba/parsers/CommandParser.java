@@ -1,16 +1,32 @@
 package shiba.parsers;
 
-import shiba.commands.*;
-import shiba.exceptions.ShibaException;
-import shiba.tasks.*;
-import shiba.ui.Replier;
-
 import java.util.Scanner;
 
+import shiba.commands.DeadlineCommand;
+import shiba.commands.DeleteCommand;
+import shiba.commands.EventCommand;
+import shiba.commands.FindCommand;
+import shiba.commands.ListCommand;
+import shiba.commands.MarkCommand;
+import shiba.commands.ShibaCommand;
+import shiba.commands.TodoCommand;
+import shiba.commands.UnmarkCommand;
+import shiba.exceptions.ShibaException;
+import shiba.tasks.FilePersistentTaskList;
+import shiba.ui.Replier;
+
+/**
+ * Parses user input and executes the corresponding commands.
+ */
 public class CommandParser {
     private static final Scanner SCANNER = new Scanner(System.in);
     private final FilePersistentTaskList tasks;
 
+    /**
+     * Creates a new CommandParser object.
+     *
+     * @param tasks TaskList object to be used by the parser.
+     */
     public CommandParser(FilePersistentTaskList tasks) {
         this.tasks = tasks;
     }
@@ -25,7 +41,7 @@ public class CommandParser {
             try {
                 ShibaCommand.CommandType command = ShibaCommand.CommandType.valueOf(
                         input.split(" ")[0].toUpperCase());
-                ShibaCommand shibaCommand = null;
+                ShibaCommand shibaCommand;
                 switch (command) {
                 case LIST:
                     shibaCommand = new ListCommand(tasks);
@@ -53,6 +69,8 @@ public class CommandParser {
                     break;
                 case BYE:
                     return;
+                default:
+                    throw new IllegalArgumentException();
                 }
                 shibaCommand.execute();
             } catch (ShibaException e) {

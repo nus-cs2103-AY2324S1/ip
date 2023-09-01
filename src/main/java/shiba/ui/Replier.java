@@ -2,6 +2,9 @@ package shiba.ui;
 
 import shiba.exceptions.ShibaException;
 
+/**
+ * Represents a class that prints messages to the user.
+ */
 public class Replier {
     private static final String HORZ_LINE = "____________________________________________________________";
 

@@ -1,8 +1,8 @@
 package shiba.tasks;
 
-import shiba.exceptions.ShibaException;
-
 import java.util.List;
+
+import shiba.exceptions.ShibaException;
 
 /**
  * Interface for a persistent task list, that is, tasks can be saved between

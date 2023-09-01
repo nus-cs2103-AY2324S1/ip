@@ -5,6 +5,9 @@ import shiba.tasks.PersistentTaskList;
 import shiba.tasks.ShibaTask;
 import shiba.ui.Replier;
 
+/**
+ * Represents a command to mark a task as not done
+ */
 public class UnmarkCommand extends ShibaCommand {
     private final String[] params;
 

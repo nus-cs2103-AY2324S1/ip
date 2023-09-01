@@ -3,6 +3,9 @@ package shiba.tasks;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a stub for a persistent task list, which will not perform saving or loading of data from file.
+ */
 public class TaskListStub implements PersistentTaskList {
     private final ArrayList<ShibaTask> tasks = new ArrayList<>();
 

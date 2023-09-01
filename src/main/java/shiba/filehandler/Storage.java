@@ -1,9 +1,5 @@
 package shiba.filehandler;
 
-import shiba.exceptions.ShibaException;
-import shiba.parsers.SpaceSeparatedValuesParser;
-import shiba.tasks.ShibaTask;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,9 +7,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import shiba.exceptions.ShibaException;
+import shiba.parsers.SpaceSeparatedValuesParser;
+import shiba.tasks.ShibaTask;
+
+/**
+ * Handles the saving and reading of tasks to and from the disk.
+ */
 public class Storage {
     private final String dataPath;
 
+    /**
+     * Creates a new Storage object.
+     *
+     * @param dataPath Path to the file to be used for saving and reading tasks.
+     */
     public Storage(String dataPath) {
         this.dataPath = dataPath;
     }
@@ -35,7 +43,7 @@ public class Storage {
             throw new ShibaException("Error creating save file!");
         }
 
-        try(FileWriter fw = new FileWriter(dataPath)) {
+        try (FileWriter fw = new FileWriter(dataPath)) {
             boolean firstLineWritten = false;
             for (ShibaTask task : tasks) {
                 if (firstLineWritten) {

@@ -1,17 +1,15 @@
 package shiba;
 
 import shiba.parsers.CommandParser;
-import shiba.tasks.*;
+import shiba.tasks.FilePersistentTaskList;
 import shiba.ui.Replier;
 
+/**
+ * Represents the main class of the Shiba chatbot.
+ */
 public class Shiba {
     private final String name;
     private final CommandParser parser;
-
-    public static void main(String[] args) {
-        Shiba shiba = new Shiba("SHIBA-BOT", "./shibaData/tasks.txt");
-        shiba.start();
-    }
 
     private Shiba(String name, String dataPath) {
         this.name = name;
@@ -22,5 +20,10 @@ public class Shiba {
         Replier.printGreeting(name);
         parser.processUserInputs();
         Replier.printBye();
+    }
+
+    public static void main(String[] args) {
+        Shiba shiba = new Shiba("SHIBA-BOT", "./shibaData/tasks.txt");
+        shiba.start();
     }
 }

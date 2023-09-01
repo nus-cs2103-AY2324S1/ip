@@ -1,9 +1,12 @@
 package shiba.tasks;
 
-import shiba.exceptions.InvalidCommandException;
-
 import java.util.List;
 
+import shiba.exceptions.InvalidCommandException;
+
+/**
+ * Represents a task that can be added to the task list.
+ */
 public abstract class ShibaTask {
     protected enum TaskType {
         TODO,
@@ -60,6 +63,8 @@ public abstract class ShibaTask {
             return "[D]";
         case EVENT:
             return "[E]";
+        default:
+            break;
         }
 
         return "[?]";
@@ -76,8 +81,8 @@ public abstract class ShibaTask {
      * Parses a task from the provided string parameters.
      *
      * @param params List of string parameters to parse tasks from.
-     * @return The parsed task, or null if the task cannot be parsed from the provided
-     * parameters due to insufficient or incorrect parameters.
+     * @return The parsed task, or null if the task cannot be parsed from the provided parameters
+     *     due to insufficient or incorrect parameters.
      */
     public static ShibaTask fromSaveParams(List<String> params) {
         if (params.size() < 3) {
@@ -127,6 +132,9 @@ public abstract class ShibaTask {
         return name.toLowerCase().contains(keyword.toLowerCase());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return getTaskLabel() + "[" + (isDone ? "X" : " ") + "] " + name;

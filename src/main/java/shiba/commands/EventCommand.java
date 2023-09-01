@@ -4,6 +4,9 @@ import shiba.exceptions.ShibaException;
 import shiba.tasks.EventTask;
 import shiba.tasks.PersistentTaskList;
 
+/**
+ * Represents a command to add an event task
+ */
 public class EventCommand extends ShibaCommand {
     private final String fullCmd;
 

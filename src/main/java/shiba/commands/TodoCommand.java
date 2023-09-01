@@ -4,6 +4,9 @@ import shiba.exceptions.ShibaException;
 import shiba.tasks.PersistentTaskList;
 import shiba.tasks.TodoTask;
 
+/**
+ * Represents a command to add a todo task
+ */
 public class TodoCommand extends ShibaCommand {
     private final String fullCmd;
 

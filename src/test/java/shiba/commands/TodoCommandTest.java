@@ -1,16 +1,17 @@
 package shiba.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
+
 import shiba.exceptions.InvalidCommandException;
 import shiba.exceptions.ShibaException;
 import shiba.tasks.PersistentTaskList;
 import shiba.tasks.TaskListStub;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public class TodoCommandTest {
-    public PersistentTaskList tasks = new TaskListStub();
+    private final PersistentTaskList tasks = new TaskListStub();
 
     @Test
     public void execute_validCommand() throws ShibaException {

@@ -3,6 +3,9 @@ package shiba.parsers;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Parses space-separated values.
+ */
 public class SpaceSeparatedValuesParser {
     /**
      * Converts the given parameters into an escaped space-separated string.
