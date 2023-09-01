@@ -10,10 +10,10 @@ import exception.DukeException;
  */
 public class EditCommand extends Command {
     /** The changes to the task */
-    private String editType;
+    private final String editType;
 
     /** The task to be changed */
-    private int ind;
+    private final int ind;
 
     /**
      * Constructs a new Edit command.Command. Can mark, unmark task as done or
@@ -34,5 +34,5 @@ public class EditCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
-    };
+    }
 }

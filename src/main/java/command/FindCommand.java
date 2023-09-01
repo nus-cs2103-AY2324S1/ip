@@ -3,18 +3,19 @@ package command;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-import exception.DukeException;
-import exception.InvalidCommandException;
 
+/**
+ * Command to find task matching keyword.
+ */
 public class FindCommand extends Command {
 
-    private String keyword;
+    private final String keyword;
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
 
     @Override
-    public void execute (TaskList tasks, Ui ui, Storage store) throws InvalidCommandException {
+    public void execute(TaskList tasks, Ui ui, Storage store) {
         String input = keyword.toLowerCase();
         String action = tasks.findMatchingTasks(input);
 
@@ -26,5 +27,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public boolean isExit() { return false; };
+    public boolean isExit() {
+        return false;
+    }
 }
+

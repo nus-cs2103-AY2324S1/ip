@@ -10,9 +10,9 @@ import duke.Ui;
  */
 public class AddCommand extends Command {
     /** Type of task to add */
-    private String taskType;
+    private final String taskType;
     /** The other information required to instantiate a task.Task */
-    private String[] args;
+    private final String[] args;
 
     /**
      * Constructs a new Add command.
@@ -33,5 +33,5 @@ public class AddCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
-    };
+    }
 }

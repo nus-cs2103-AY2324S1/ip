@@ -18,6 +18,13 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Constructs a new task.Task with the specified name.
+     * Task constructed can be marked as completed.
+     *
+     * @param name The name of the task.
+     * @param isDone If task is completed.
+     */
     public Task(String name, boolean isDone) {
         this.name = name;
         this.isDone = isDone;

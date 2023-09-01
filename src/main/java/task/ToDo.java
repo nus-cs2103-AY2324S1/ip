@@ -14,6 +14,13 @@ public class ToDo extends Task {
         super(description);
     }
 
+    /**
+     * Constructs a new Todo task.
+     * Todo constructed can be completed.
+     *
+     * @param description The name of the task.
+     * @param isDone If task is completed
+     */
     public ToDo(String description, boolean isDone) {
         super(description, isDone);
     }

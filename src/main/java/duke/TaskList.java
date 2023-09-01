@@ -13,7 +13,7 @@ import task.ToDo;
  * and from inputs given by user.
  */
 public class TaskList {
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
 
     /**
      * Constructs a duke.TaskList with a empty task list.
@@ -85,6 +85,7 @@ public class TaskList {
             taskList.add(new Event(args[0], args[1], args[2]));
             break;
 
+        default:
         }
 
         return "Got it. I've added this task:\n"
@@ -123,6 +124,8 @@ public class TaskList {
             taskList.remove(ind - 1);
             editDesc += "\nNow you have " + taskList.size() + " tasks in the list.";
             break;
+
+        default:
         }
 
         return editDesc;
@@ -166,7 +169,7 @@ public class TaskList {
 
         String action = "";
         for (int i = 0; i < matchingTasks.size(); i++) {
-            action += (i + 1) + "." + matchingTasks.get(i).toString() ;
+            action += (i + 1) + "." + matchingTasks.get(i).toString();
 
             if (i < matchingTasks.size() - 1) {
                 action += "\n";

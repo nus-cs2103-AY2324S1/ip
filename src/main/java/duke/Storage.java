@@ -105,6 +105,8 @@ public class Storage {
             }
 
             break;
+
+        default:
         }
     }
 }

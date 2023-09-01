@@ -1,12 +1,5 @@
 package duke;
 
-<<<<<<< HEAD
-import command.*;
-import exception.DukeException;
-import exception.InvalidCommandException;
-
-=======
->>>>>>> branch-A-CodingStandard
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -17,6 +10,7 @@ import command.AddCommand;
 import command.ByeCommand;
 import command.Command;
 import command.EditCommand;
+import command.FindCommand;
 import command.ListCommand;
 import exception.DukeException;
 import exception.InvalidCommandException;
@@ -155,10 +149,10 @@ public class Parser {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy h.mma", Locale.ENGLISH);
         return input.format(formatter);
     }
-    
+
     /**
-     * Returns a LocalDateTime given by the user input. Formats user input to be
-     * parsed as a LocalDateTime object.
+     * Returns a LocalDateTime given by the user input.
+     * Formats user input to be parsed as a LocalDateTime object.
      *
      * @param input The user date input.
      * @return The LocaleDateTime object.

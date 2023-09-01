@@ -8,7 +8,7 @@ public class Deadline extends Task {
     protected String by;
 
     /**
-     * Constructs a deadline task with specified name
+     * Constructs a deadline task with specified name.
      *
      * @param description The name of the task.
      * @param by The date the task needs to be completed.
@@ -18,6 +18,14 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Constructs a deadline task with specified name.
+     * Deadline constructed can be marked as completed.
+     *
+     * @param description The name of the task.
+     * @param isDone If task is completed.
+     * @param by The date the task needs to be completed.
+     */
     public Deadline(String description, boolean isDone, String by) {
         super(description, isDone);
         this.by = by;

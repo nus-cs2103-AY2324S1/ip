@@ -22,6 +22,15 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Constructs a new Event with the specified time period and description.
+     * Event constructed can be marked as completed.
+     *
+     * @param description The name of the task.
+     * @param isDone If task is completed
+     * @param from The start date of the task.
+     * @param to The end date of the task.
+     */
     public Event(String description, boolean isDone, String from, String to) {
         super(description, isDone);
         this.from = from;
