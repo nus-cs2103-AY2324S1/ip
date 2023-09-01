@@ -64,7 +64,7 @@ public class TaskList {
     }
 
     /**
-     * Prints all the tasks in the list.
+     * Prints all tasks in the list.
      */
     public void printList() {
         for (int i = 0; i < this.tasks.size(); i++) {
