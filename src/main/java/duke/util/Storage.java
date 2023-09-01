@@ -16,25 +16,19 @@ import java.io.FileNotFoundException;
 public class Storage {
 
     private File file;
-    private Scanner scanner;
+
     public Storage(String filePath) {
         this.file = new File(filePath);
 
         try {
-            if (!file.getParentFile().isDirectory()) {
-                file.mkdirs();
-                file.createNewFile();
-            } if (!file.exists()) {
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            if (!file.exists()) {
                 file.createNewFile();
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
-        }
-
-        try {
-            this.scanner = new Scanner(file);
-        } catch (FileNotFoundException e) {
-            System.out.println("error file not found");
         }
     }
 
@@ -51,10 +45,16 @@ public class Storage {
 
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
-        while (scanner.hasNextLine()) {
-            String task = scanner.nextLine();
-            Task instance = Storage.readFile(task);
-            tasks.add(instance);
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String task = scanner.nextLine();
+                Task instance = Storage.readFile(task);
+                tasks.add(instance);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("error file not found");
+            System.out.println(e.getMessage());
         }
         return tasks;
     }
