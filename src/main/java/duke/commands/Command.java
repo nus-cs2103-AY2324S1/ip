@@ -49,11 +49,12 @@ public abstract class Command {
                 return new UnmarkCommand(s);
             case DELETE:
                 return new DeleteCommand(s);
+            default:
+                return null;
             }
         } catch (IllegalArgumentException e) {
             throw new CommandException("I'm sorry, but I don't know what that means...");
         }
-        return null;
     }
 
     /**
