@@ -6,13 +6,13 @@ public class Event extends Task {
     private final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
     protected LocalDate from;
     protected LocalDate to;
-    public Event(String description, String from, String to) throws DukeException {
+    public Event(String description, String from, String to) throws FlukeException {
         super(description);
         this.from = LocalDate.parse(from);
         this.to = LocalDate.parse(to);
     }
 
-    public Event(String description, boolean isDone, String from, String to) throws DukeException {
+    public Event(String description, boolean isDone, String from, String to) throws FlukeException {
         super(description, isDone);
         this.from = LocalDate.parse(from);
         this.to = LocalDate.parse(to);

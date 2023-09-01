@@ -1,9 +1,9 @@
 public class Todo extends Task {
-    public Todo(String description) throws DukeException {
+    public Todo(String description) throws FlukeException {
         super(description);
     }
 
-    public Todo(String description, boolean isDone) throws DukeException {
+    public Todo(String description, boolean isDone) throws FlukeException {
         super(description, isDone);
     }
 
