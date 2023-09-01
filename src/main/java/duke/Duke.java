@@ -34,7 +34,7 @@ public class Duke {
                 if (command == null) {
                     continue;
                 }
-                if (command.isExit()) {
+                if (command.shouldExit()) {
                     shouldTerminate = true;
                 }
 

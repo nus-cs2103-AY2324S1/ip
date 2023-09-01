@@ -3,6 +3,9 @@ package duke.tasks;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a deadline that consists of a description and a due date.
+ */
 public class Deadline extends Task implements Serializable {
     private static final long serialVersionUID = 3L;
     protected LocalDateTime by;

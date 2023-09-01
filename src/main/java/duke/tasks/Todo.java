@@ -2,6 +2,9 @@ package duke.tasks;
 
 import java.io.Serializable;
 
+/**
+ * Represents a todo that consists of a description.
+ */
 public class Todo extends Task implements Serializable {
     private static final long serialVersionUID = 2L;
 
