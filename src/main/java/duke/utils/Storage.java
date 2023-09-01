@@ -30,15 +30,13 @@ public class Storage {
      * 
      * @return the tasklist that was loaded from the file.
      */
-    public TaskList load() throws DukeException {
-
+    public TaskList loadFromFile() throws DukeException {
         if (Files.exists(path)) {
-            // Returns a list of all the commands in the file at the given path.
             TaskList tasklist = new TaskList();
             try {
                 List<String> contents = Files.readAllLines(path);
                 for (String content : contents) {
-                    Command c = Parser.fileLineParser(content);
+                    Command c = Parser.parseFileContent(content);
                     c.load(tasklist);
                 }
                 return tasklist;

@@ -24,7 +24,7 @@ public enum DukeEnum {
      * @return the text associated with each enum.
      */
     public String getText() {
-        return this.text;
+        return text;
     }
 
 }
