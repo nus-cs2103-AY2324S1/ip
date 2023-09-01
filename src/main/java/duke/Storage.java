@@ -28,7 +28,7 @@ public class Storage {
      *
      * @param taskList the current list of tasks
      */
-    public void updateFile(TaskList taskList) {
+    public void updateFile(TaskList taskList, UI ui) {
         if (isUpdatable) {
             try {
                 FileWriter writer = new FileWriter(savePath, false);
@@ -37,7 +37,7 @@ public class Storage {
                 }
                 writer.close();
             } catch (IOException e) {
-                UI.sendError(e.getMessage());
+                ui.sendError(e.getMessage());
             }
         }
     }
@@ -68,7 +68,7 @@ public class Storage {
             return taskList;
         } catch (IOException e) {
             try {
-                UI.sendError(e.getMessage());
+                System.out.println(e);
                 File save = new File(this.savePath);
                 save.createNewFile();
                 return new TaskList();

@@ -26,17 +26,6 @@ public class ListCommand implements Command {
     }
 
     /**
-     * If program should exit after command execution.
-     *
-     * @return false
-     */
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    /**
      * Validate arguments to this command.
      * They must have one of the following formats,
      * <ul>
@@ -98,9 +87,9 @@ public class ListCommand implements Command {
             }
         }
         if (output.length() == 0) {
-            UI.sendMessage("No Items in List");
+            ui.sendMessage("No Items in List");
         } else {
-            UI.sendMessage(output.toString());
+            ui.sendMessage(output.toString());
         }
     }
 

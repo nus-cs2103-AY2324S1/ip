@@ -28,16 +28,6 @@ public class EventCommand extends NonemptyArgumentCommand implements Command {
     }
 
     /**
-     * If program should exit after command execution.
-     *
-     * @return false
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    /**
      * Validate arguments for this command.
      * They must,
      * 1. Be in the format [description] /from YYYY-MM-DD /to YYYY-MM-DD
@@ -91,10 +81,12 @@ public class EventCommand extends NonemptyArgumentCommand implements Command {
         LocalDate from = LocalDate.parse(userArgs[1].trim());
         LocalDate to = LocalDate.parse(userArgs[2].trim());
         taskList.add(new Event(userArgs[0].trim(), from, to));
-        UI.sendMessage("Got it. I've added this task:\n  "
-                + taskList.get(taskList.size() - 1)
-                + String.format("\nNow you have %d tasks in the list.", taskList.size()));
-        storage.updateFile(taskList);
+        if (ui != null) {
+            ui.sendMessage("Got it. I've added this task:\n  "
+                    + taskList.get(taskList.size() - 1)
+                    + String.format("\nNow you have %d tasks in the list.", taskList.size()));
+        }
+        storage.updateFile(taskList, ui);
     }
 
     @Override

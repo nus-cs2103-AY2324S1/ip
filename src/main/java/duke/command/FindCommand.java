@@ -18,11 +18,6 @@ public class FindCommand extends NonemptyArgumentCommand implements Command {
     }
 
     @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
     protected void validate(String arguments) throws DukeException {
         super.validate(arguments);
     }
@@ -36,9 +31,9 @@ public class FindCommand extends NonemptyArgumentCommand implements Command {
             }
         }
         if (output.length() == 0) {
-            UI.sendMessage("No Items in List");
+            ui.sendMessage("No Items in List");
         } else {
-            UI.sendMessage("Here are the matching tasks in your list:\n" + output);
+            ui.sendMessage("Here are the matching tasks in your list:\n" + output);
         }
     }
 }

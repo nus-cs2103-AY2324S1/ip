@@ -23,15 +23,6 @@ public class TodoCommand extends NonemptyArgumentCommand implements Command {
         this.arguments = arguments;
     }
 
-    /**
-     * If program should exit after command execution.
-     *
-     * @return false
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 
     /**
      * Validate arguments to this command.
@@ -57,10 +48,12 @@ public class TodoCommand extends NonemptyArgumentCommand implements Command {
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
         validate(this.arguments);
         taskList.add(new Todo(this.arguments));
-        UI.sendMessage("Got it. I've added this task:\n  "
-                + taskList.get(taskList.size() - 1)
-                + String.format("\nNow you have %d tasks in the list.", taskList.size()));
-        storage.updateFile(taskList);
+        if (ui != null) {
+            ui.sendMessage("Got it. I've added this task:\n  "
+                    + taskList.get(taskList.size() - 1)
+                    + String.format("\nNow you have %d tasks in the list.", taskList.size()));
+        }
+        storage.updateFile(taskList, ui);
     }
 
     @Override

@@ -1,25 +1,15 @@
 package duke.ui;
 
-import java.util.Scanner;
-
 /**
  * UI Handler for duke application.
  */
 public class UI {
 
-    private static final Scanner scanner = new Scanner(System.in);
-    private static boolean isActive = false;
-    private final String name;
+    private final MainWindow mainWindow;
 
     private enum Colors {
-        RESET("\u001B[0m"),
-        BLACK("\u001B[30m"),
-        RED("\u001B[31m"),
-        GREEN("\u001B[32m"),
-        YELLOW("\u001B[33m"),
-        BLUE("\u001B[34m"),
-        PURPLE("\u001B[35m"),
-        CYAN("\u001B[36m");
+        ERROR("#FF0000"),
+        NORMAL("#00B0B0");
 
         private final String code;
 
@@ -34,52 +24,30 @@ public class UI {
     }
 
     /**
-     * Constructor for a UI.
-     * @param name name of the application
+     * Constructor for UI Class.
+     *
+     * @param mainWindow MainWindow instance to output to
      */
-    public UI(String name) {
-        this.name = name;
-        UI.isActive = true;
-        // Send Greeting Message
-        sendMessage(String.format("Hello! I'm %s\nWhat can I do for you?", this.name));
-    }
-
-    public static void exit() {
-        sendMessage(" Bye. Hope to see you again soon!");
+    public UI(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
+        sendMessage("Hello! I'm Heimdallr\nWhat can I do for you?");
     }
 
     /**
-     * Prints a message to the set output.
-     * @param msgs the message to print
+     * Print a message to GUI.
+     *
+     * @param msg The message to print
      */
-    public static void sendMessage(String msgs) {
-        if (isActive) {
-            printLine();
-            for (String msg : msgs.split("\n")) {
-                System.out.println("\t" + Colors.CYAN + msg + Colors.RESET);
-            }
-            printLine();
-        }
+    public void sendMessage(String msg) {
+        mainWindow.addDialog(DialogBox.getDukeDialog(msg, mainWindow.getDukeImage(), Colors.NORMAL.code));
     }
 
     /**
-     * Prints a error to the set output.
-     * @param msgs the error to print
+     * Print an error to GUI.
+     *
+     * @param msg The error message to print
      */
-    public static void sendError(String msgs) {
-        printLine();
-        for (String msg : msgs.split("\n")) {
-            System.out.println("\t" + Colors.RED + msg + Colors.RESET);
-        }
-        printLine();
+    public void sendError(String msg) {
+        mainWindow.addDialog(DialogBox.getDukeDialog(msg, mainWindow.getDukeImage(), Colors.ERROR.code));
     }
-
-    public static void printLine() {
-        System.out.println("\t____________________________________________________________");
-    }
-
-    public static String readMessage() {
-        return scanner.nextLine();
-    }
-
 }
