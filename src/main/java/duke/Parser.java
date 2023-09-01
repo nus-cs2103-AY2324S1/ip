@@ -11,6 +11,9 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class that parses the input strings.
+ */
 public class Parser {
     private static final String regexPattern =
             "\\b(bye|list|unmark|mark|todo|deadline|event|delete)\\s*"  // match command
@@ -19,7 +22,13 @@ public class Parser {
                     + "(?:(/to)\\s+([^/]*[^/\\s]))?\\s*";               // match /to command and argument
     private static final Pattern pattern = Pattern.compile(regexPattern);
 
-
+    /**
+     * Parses the provided input string and returns the corresponding Command instance.
+     *
+     * @param command The command string.
+     * @return The Command instance corresponding to the parsed input.
+     * @throws DukeException if the input command is not valid.
+     */
     public static Command parse(String command) throws DukeException {
         Matcher matcher = pattern.matcher(command);
 
