@@ -15,13 +15,13 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
-    public String dateFormatter(LocalDate localDate) {
+    public String formatDate(LocalDate localDate) {
         return localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     @Override
     public String toString() {
-        return "[D][" + this.getStatusIcon() + "] " +  this.description + " (by: " + dateFormatter(this.deadline) + ")";
+        return "[D][" + this.getStatusIcon() + "] " +  this.description + " (by: " + formatDate(this.deadline) + ")";
     }
 
     @Override

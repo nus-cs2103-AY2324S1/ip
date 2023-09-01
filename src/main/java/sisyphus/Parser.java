@@ -18,7 +18,7 @@ public class Parser {
         return this.isChatting;
     }
 
-    public void run(String fullCommand, TaskList taskList, Storage storage, Ui ui)  throws SisyphusException {
+    public void runCommand(String fullCommand, TaskList taskList, Storage storage, Ui ui)  throws SisyphusException {
         String[] inputArray;
         String command, params = "";
 

@@ -10,7 +10,7 @@ public class TaskList {
         taskList = new ArrayList<>();
     }
 
-    public int size() {
+    public int getSize() {
         return taskList.size();
     }
     public void addTask(Task task) {
@@ -34,6 +34,6 @@ public class TaskList {
     }
 
     public Task getLastTask() {
-        return getTask(size() - 1);
+        return getTask(getSize()- 1);
     }
 }

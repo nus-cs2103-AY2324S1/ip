@@ -56,7 +56,7 @@ public class Ui {
 
     public static void printTasks(TaskList taskList) {
         printHorizontalLine();
-        for (int i = 0; i < taskList.size(); i++) {
+        for (int i = 0; i < taskList.getSize(); i++) {
             System.out.println(i + 1 + ". " + taskList.getTask(i));
         }
         printHorizontalLine();
@@ -85,7 +85,7 @@ public class Ui {
         printHorizontalLine();
         System.out.println("The following ToDo has been added.");
         System.out.println(taskList.getLastTask());
-        System.out.println("You now have " + taskList.size() + " items in the list.");
+        System.out.println("You now have " + taskList.getSize() + " items in the list.");
         printHorizontalLine();
     }
 
@@ -94,7 +94,7 @@ public class Ui {
         printHorizontalLine();
         System.out.println("The following deadline has been added.");
         System.out.println(taskList.getLastTask());
-        System.out.println("You now have " + taskList.size() + " items in the list.");
+        System.out.println("You now have " + taskList.getSize() + " items in the list.");
         printHorizontalLine();
     }
 
@@ -102,7 +102,7 @@ public class Ui {
         printHorizontalLine();
         System.out.println("The following event has been added.");
         System.out.println(taskList.getLastTask());
-        System.out.println("You now have " + taskList.size() + " items in the list.");
+        System.out.println("You now have " + taskList.getSize() + " items in the list.");
         printHorizontalLine();
     }
 

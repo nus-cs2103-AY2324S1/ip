@@ -94,7 +94,7 @@ public class Storage {
         try {
             FileWriter fileWriter = new FileWriter(filePath.toString());
             StringBuilder stringBuilder = new StringBuilder();
-            for (int i = 0; i < taskList.size(); i++) {
+            for (int i = 0; i < taskList.getSize(); i++) {
                 stringBuilder.append(taskList.getTask(i).toSaveFormat());
                 stringBuilder.append('\n');
             }
@@ -104,32 +104,5 @@ public class Storage {
             System.err.println("An error occurred while writing to the file: " + e.getMessage());
         }
     }
-
-    /**
-     *
-     * Testing for sisyphus.Storage class.
-     * @param args
-     */
-    public static void main(String[] args) {
-        Storage storage = new Storage();
-        TaskList loaded = storage.loadData();
-        for (int i = 0; i < loaded.size(); i++) {
-            System.out.println(loaded.getTask(i));
-        }
-        TaskList temp = new TaskList();
-        temp.addTask(new ToDo("turtles", true));
-        storage.writeFile(temp);
-
-//        String currentDirectory = System.getProperty("user.dir");
-//        String fileName = "sisyphusData.csv";
-//        String filePath = currentDirectory + "/" + fileName;
-//        Path path = Path.of(currentDirectory, fileName);
-//        System.out.println(filePath);
-//        if(Files.exists(path)) {
-//            System.out.println("Turtles");
-//        }
-//        System.out.println(path);
-    }
-
 
 }
