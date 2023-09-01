@@ -57,6 +57,11 @@ public class Storage<T extends Storable<T>> {
         }
     }
 
+    /**
+     * Saves a list of storable items to a file.
+     *
+     * @param list The list of storable items to be saved.
+     */
     public void save(StorableList<T> list) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath))) {
             writer.write(list.getStorableString());
@@ -65,6 +70,11 @@ public class Storage<T extends Storable<T>> {
         }
     }
 
+    /**
+     * Loads a list of items from a file and returns them as a List.
+     *
+     * @return A List containing the loaded items.
+     */
     public List<T> load() {
         List<T> items = new ArrayList<>();
 
