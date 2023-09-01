@@ -25,4 +25,9 @@ public class TodoCommand extends Command {
         SaveData.saveData(this.chatRecord.toSave());
         return COMMAND_DESC + " " + td.toString();
     }
+
+    @Override
+    public String toString() {
+        return COMMAND_PHRASE + " " + name;
+    }
 }

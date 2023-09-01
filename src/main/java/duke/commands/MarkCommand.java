@@ -6,7 +6,7 @@ import duke.task.Task;
 
 public class MarkCommand extends Command {
     public static final String COMMAND_PHRASE = "mark";
-    private static final String COMMAND_DESC = "Marked the following duke.task as completed!";
+    private static final String COMMAND_DESC = "Marked the following task as completed!";
     private int toMark;
     public MarkCommand(int i) {
         this.toMark = i;
@@ -21,5 +21,10 @@ public class MarkCommand extends Command {
         Task task = chatRecord.setMark(toMark);
         SaveData.saveData(this.chatRecord.toSave());
         return COMMAND_DESC + "\n" + task.toString();
+    }
+
+    @Override
+    public String toString() {
+        return COMMAND_PHRASE + " " + toMark;
     }
 }

@@ -5,6 +5,7 @@ import duke.storage.SaveData;
 import duke.task.Event;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class EventCommand extends Command{
     public static final String COMMAND_PHRASE = "event";
@@ -28,5 +29,11 @@ public class EventCommand extends Command{
         this.chatRecord.addTask(ev);
         SaveData.saveData(this.chatRecord.toSave());
         return COMMAND_DESC + " " + ev.toString();
+    }
+
+    @Override
+    public String toString() {
+        return COMMAND_PHRASE + " " + name + " /from " + startDate.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"))
+                + " /to " + endDate.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
     }
 }
