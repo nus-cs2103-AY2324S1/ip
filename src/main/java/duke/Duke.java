@@ -410,7 +410,7 @@ class Parser{
                 if(splitStr.length != 2) {
                     throw new DukeException("Invalid format detected for 'mark' command. Enter mark [item_no]");
                 }
-                int x = Integer.parseInt(splitStr[1])-1;
+                int x = Integer.parseInt(splitStr[1]) - 1;
                 if(x < 0 || x+1 > tl.getSize()) {
                     throw new DukeException("Index is out of list range.");
                 }
@@ -422,7 +422,7 @@ class Parser{
                 if(splitStr.length != 2) {
                     throw new DukeException("Invalid format detected for 'unmark' command. Enter unmark [item_no]");
                 }
-                int x = Integer.parseInt(splitStr[1])-1;
+                int x = Integer.parseInt(splitStr[1]) - 1;
                 if(x < 0 || x+1 > tl.getSize()) {
                     throw new DukeException("Index is out of list range.");
                 }
@@ -449,7 +449,7 @@ class Parser{
                 String desc = Utils.splitStringBySpaces(splitStr, 1, splitStr.length);
                 tl.addItem(new Todo(desc, false));
                 ui.print("Got it, I've added this task:");
-                ui.print(ui.itemToString(tl.getItem(tl.getSize()-1)));
+                ui.print(ui.itemToString(tl.getItem(tl.getSize() - 1)));
                 ui.print("Now you have " + tl.getSize() + " tasks in the list.");
 
             } else if (splitStr[0].equals("deadline")) {
@@ -474,7 +474,7 @@ class Parser{
                     throw new DukeException("/by keyword is necessary and not detected. Use /by to set a deadline.");
                 }
                 ui.print("Got it, I've added this task:");
-                ui.print(ui.itemToString(tl.getItem(tl.getSize()-1)));
+                ui.print(ui.itemToString(tl.getItem(tl.getSize() - 1)));
                 ui.print("Now you have " + tl.getSize() + " tasks in the list.");
 
             } else if (splitStr[0].equals("event")) {
@@ -498,7 +498,7 @@ class Parser{
                     throw new DukeException("/by keyword is necessary and not detected. Use /by to set a deadline.");
                 }
                 ui.print("Got it, I've added this task:");
-                ui.print(ui.itemToString(tl.getItem(tl.getSize()-1)));
+                ui.print(ui.itemToString(tl.getItem(tl.getSize() - 1)));
                 ui.print("Now you have " + tl.getSize() + " tasks in the list.");
             } else {
                 throw new DukeException("Sorry, I don't understand that command");
