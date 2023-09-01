@@ -60,6 +60,18 @@ public class Ui {
         System.out.println(SPACER);
     }
 
+    /**
+     * Plays a message and prints the specified task list of search results from find to console.
+     *
+     * @param searchResults The TaskList containing the search results.
+     */
+    public void printKeywordSearchResults(TaskList searchResults) {
+        System.out.println(SPACER);
+        System.out.println("Alright buddy, here are the matching tasks I dug up:");
+        searchResults.printTasksAsList();
+        System.out.println(SPACER);
+    }
+
     public void playExceptionMessage(ExceptionMessage exceptionMessage) {
         System.out.println(SPACER);
         System.out.println(exceptionMessage.message);
