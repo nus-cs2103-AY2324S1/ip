@@ -18,13 +18,13 @@ import horo.data.Event;
 import horo.data.Task;
 import horo.data.Todo;
 
-public class Parser {
+/**
+ * Abstract Parser class that has static methods to parse strings
+ */
+public abstract class Parser {
 
   private static final Pattern commandPattern = Pattern
       .compile("^(deadline|todo|event|bye|mark|unmark|list|delete|find)");
-
-  public Parser() {
-  }
 
   /**
    * Returns a task by parsing string from data file
