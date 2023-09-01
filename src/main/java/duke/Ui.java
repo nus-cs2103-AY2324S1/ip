@@ -42,7 +42,7 @@ public class Ui {
      */
     public void handleInvalid() {
         System.out.println(line);
-        System.out.println("You did not enter a valid task. Please enter either a todo, deadline or event.");
+        System.out.println("You did not enter a valid command.");
         System.out.println(line);
     }
 }

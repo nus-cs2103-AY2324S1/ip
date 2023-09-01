@@ -4,7 +4,7 @@ package duke.task;
  * This is an enum containing all possible commands.
  */
 public enum CommandEnum {
-    LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID;
+    LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, INVALID;
 
     public static CommandEnum assignEnum(String task) {
         if (task.startsWith("bye")) return CommandEnum.BYE;
@@ -14,6 +14,7 @@ public enum CommandEnum {
         else if (task.startsWith("todo")) return CommandEnum.TODO;
         else if (task.startsWith("deadline")) return CommandEnum.DEADLINE;
         else if (task.startsWith("event")) return CommandEnum.EVENT;
+        else if (task.startsWith("find")) return CommandEnum.FIND;
         else if (task.startsWith("delete")) return CommandEnum.DELETE;
         else return CommandEnum.INVALID;
     }

@@ -204,9 +204,6 @@ public class TaskList {
         }
     }
 
-    /**
-     * Marks a task.
-     */
     private void markTask(int taskIndex) {
         this.tasks.get(taskIndex).doTask();
 
@@ -216,9 +213,6 @@ public class TaskList {
         System.out.println(line);
     }
 
-    /**
-     * Unmarks a task.
-     */
     private void unmarkTask(int taskIndex) {
         this.tasks.get(taskIndex).undoTask();
 
@@ -226,5 +220,36 @@ public class TaskList {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(this.tasks.get(taskIndex).toString());
         System.out.println(line);
+    }
+
+    /**
+     * Finds the specified task.
+     */
+    public void find(String task) throws DukeException {
+        String[] split = task.split("find ");
+
+        if (split.length <= 1) {
+            throw new DukeException("Please enter a task to find");
+        }
+
+        String taskToFind = split[1];
+
+        ArrayList<Task> similarTasks = new ArrayList<Task>();
+        for (Task recordedTasks : tasks) {
+            if (recordedTasks.getTaskDescription().contains(taskToFind)) {
+                similarTasks.add(recordedTasks);
+            }
+        }
+
+        if (similarTasks.isEmpty()) {
+            throw new DukeException("There is no such task.");
+        } else {
+            System.out.println(line);
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < similarTasks.size(); i++) {
+                System.out.println(i + 1 + ". " + similarTasks.get(i).toString());
+            }
+            System.out.println(line);
+        }
     }
 }

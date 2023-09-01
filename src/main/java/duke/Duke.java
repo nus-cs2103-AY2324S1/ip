@@ -68,6 +68,13 @@ public class Duke {
                     this.ui.explainException(e);
                 }
                 break;
+            case FIND:
+                try {
+                    this.tasks.find(nextTask);
+                } catch (DukeException e) {
+                    this.ui.explainException(e);
+                }
+                break;
             default:
                 this.ui.handleInvalid();
             }
