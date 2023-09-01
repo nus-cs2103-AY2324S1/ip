@@ -3,13 +3,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.Objects;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 // stores the task list in a text file
 public class Backend {
     // create text file
-    private String pathString;
+    private final String pathString;
 
     public Backend() {
         this.pathString = "C:\\Users\\Admin\\ip\\text-ui-test\\data\\task.txt";
@@ -57,7 +57,9 @@ public class Backend {
         } finally {
             try {
                 //Closing the resources
+                assert reader != null;
                 reader.close();
+                assert writer != null;
                 writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -95,7 +97,9 @@ public class Backend {
         } finally {
             try {
                 //Closing the resources
+                assert reader != null;
                 reader.close();
+                assert writer != null;
                 writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -127,11 +131,20 @@ public class Backend {
                         break;
                     case "D":
                         boolean dStatus = keyword[1].equals("1");
-                        list.addTask(new Deadline(dStatus, keyword[2], keyword[3]));
+                        list.addTask(new Deadline(
+                                dStatus,
+                                keyword[2],
+                                LocalDateTime.parse(keyword[3])
+                        ));
                         break;
                     case "E":
                         boolean eStatus = keyword[1].equals("1");
-                        list.addTask(new Event(eStatus, keyword[2], keyword[3], keyword[4]));
+                        list.addTask(new Event(
+                                eStatus,
+                                keyword[2],
+                                LocalDateTime.parse(keyword[3]),
+                                LocalDateTime.parse(keyword[4])
+                        ));
                         break;
                     default:
                         System.out.println("error");
@@ -141,6 +154,7 @@ public class Backend {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
+            assert sc != null;
             sc.close();
         }
     }
