@@ -8,7 +8,9 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
 
+    /** Start date and time of deadline*/
     protected LocalDateTime from;
+    /** End date and time of deadline*/
     protected LocalDateTime to;
 
     /**

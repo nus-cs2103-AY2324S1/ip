@@ -5,6 +5,7 @@ package smolbrain.exception;
  */
 public class InvalidNumberException extends Exception {
 
+    /** Type of task */
     private String taskType;
 
     /**

@@ -76,7 +76,8 @@ public class TaskList {
 
     /**
      * Returns the specified task in tasklist.
-     * @param id Id of task to retriece.
+     * @param id Id of task to retrieve.
+     * @return Task at the specified id.
      */
     public Task getTask(int id) {
         return tasklist.get(id);

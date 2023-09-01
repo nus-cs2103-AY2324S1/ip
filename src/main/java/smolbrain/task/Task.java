@@ -5,7 +5,9 @@ package smolbrain.task;
  */
 public class Task {
 
+    /** Task description */
     protected String description;
+    /** Whether task is done */
     protected boolean isDone;
 
     /**

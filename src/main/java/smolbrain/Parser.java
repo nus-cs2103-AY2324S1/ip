@@ -35,6 +35,13 @@ public class Parser {
     private static LocalDateTime dateTime2 = LocalDateTime.now();
 
     /**
+     * Creates a parser.
+     */
+    public Parser() {
+
+    }
+
+    /**
      * Parses a list command.
      *
      * @param words Array of strings that was split by spaces.
@@ -247,6 +254,7 @@ public class Parser {
      * @throws InvalidDateTimeException If the provided date or time was invalid.
      * @throws InvalidNumberException If the provided number cannot be parsed.
      * @throws InvalidRangeException If the provided number is out of range.
+     * @throws MissingKeywordException If no keyword was provided.
      */
     public static Command parse(String input) throws MissingDescriptionException, MissingTimeException,
             InvalidDateTimeException, InvalidNumberException, InvalidRangeException, MissingKeywordException {

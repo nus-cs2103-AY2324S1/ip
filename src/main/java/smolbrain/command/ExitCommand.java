@@ -12,6 +12,13 @@ public class ExitCommand implements Command {
     private boolean loading;
 
     /**
+     * Creates an exit command.
+     */
+    public ExitCommand() {
+
+    }
+
+    /**
      * Executes this command.
      *
      * @param tasks List of tasks of chatbot.

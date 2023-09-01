@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
+    /** End date and time of deadline */
     protected LocalDateTime by;
 
     /**

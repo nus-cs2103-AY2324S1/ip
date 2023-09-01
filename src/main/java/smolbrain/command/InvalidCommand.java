@@ -13,6 +13,13 @@ public class InvalidCommand implements Command {
     private boolean loading;
 
     /**
+     * Creates an invalid command.
+     */
+    public InvalidCommand() {
+
+    }
+
+    /**
      * Executes this command.
      *
      * @param tasks List of tasks of chatbot.

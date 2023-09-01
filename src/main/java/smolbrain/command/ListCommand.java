@@ -12,6 +12,13 @@ public class ListCommand implements Command {
     private boolean loading;
 
     /**
+     * Creates a list command.
+     */
+    public ListCommand() {
+
+    }
+
+    /**
      * Executes this command.
      *
      * @param tasks List of tasks of chatbot.

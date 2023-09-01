@@ -5,7 +5,9 @@ package smolbrain.exception;
  */
 public class MissingTimeException extends Exception {
 
+    /** Type of task */
     private String taskType;
+    /** Type of time */
     private String timeType;
 
     /**
