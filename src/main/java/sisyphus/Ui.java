@@ -83,7 +83,7 @@ public class Ui {
 
     public static void printAddTodo(TaskList taskList) {
         printHorizontalLine();
-        System.out.println("The following sisyphus.task.ToDo has been added.");
+        System.out.println("The following ToDo has been added.");
         System.out.println(taskList.getLastTask());
         System.out.println("You now have " + taskList.size() + " items in the list.");
         printHorizontalLine();
