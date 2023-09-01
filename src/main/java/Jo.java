@@ -1,10 +1,14 @@
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 
 public class Jo {
 
@@ -22,9 +26,14 @@ public class Jo {
                     throw new JoException("OOPS!!! Please specify a deadline.");
                 } else {
                     String[] description = input.split("/by", 2);
-                    String deadline = description[1].trim();
                     String taskName = description[0].trim();
-                    addTask(new Deadline(taskName, false, deadline));
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        LocalDate deadline = LocalDate.parse(description[1].trim(), formatter);
+                        addTask(new Deadline(taskName, false, deadline));
+                    } catch (DateTimeParseException e) {
+                        throw new JoException("> Invalid date format. Please use yyyy-MM-dd.");
+                    }
                 }
             }
         },
@@ -35,10 +44,25 @@ public class Jo {
                 } else {
                     String[] description = input.split("/from", 2);
                     String[] dates = description[1].split("/to", 2);
-                    String start = dates[0].trim();
-                    String end = dates[1].trim();
                     String taskName = description[0].trim();
-                    addTask(new Event(taskName, false, start, end));
+                    try {
+                        LocalDate start = LocalDate.parse(dates[0].trim());
+                        LocalDate end = LocalDate.parse(dates[1].trim());
+                        addTask(new Event(taskName, false, start, end));
+                    } catch (DateTimeParseException e) {
+                        throw new JoException("> Invalid date format. Please use yyyy-MM-dd with a valid date.");
+                    }
+                }
+            }
+        },
+
+        check {
+            public void perform(String input) throws JoException {
+                try {
+                    LocalDate deadline = LocalDate.parse(input);
+                    search(deadline);
+                } catch (DateTimeParseException e) {
+                    throw new JoException("> Invalid date format. Please use yyyy-MM-dd with a valid date.");
                 }
             }
         };
@@ -80,9 +104,16 @@ public class Jo {
             if (taskType.equals("T")) {
                 taskList.add(new Task(task[2].trim(), isDone));
             } else if (taskType.equals("D")) {
-                taskList.add(new Deadline(task[2].trim(), isDone, task[3].trim()));
+                taskList.add(new Deadline(task[2].trim(), isDone, LocalDate.parse(task[3].trim())));
             } else if (taskType.equals("E")) {
-                taskList.add(new Event(task[2].trim(), isDone, task[3].trim(), task[4].trim()));
+                taskList.add(
+                        new Event(
+                            task[2].trim(),
+                            isDone,
+                            LocalDate.parse(task[3].trim()),
+                            LocalDate.parse(task[4].trim())
+                        )
+                );
             }
         }
     }
@@ -93,16 +124,6 @@ public class Jo {
             fw.write(t.toFile() + System.lineSeparator());
         }
         fw.close();
-    }
-
-    private static void printFileContents(String filePath) throws FileNotFoundException {
-        File f = new File(filePath);
-        Scanner s = new Scanner(f);
-        int i = 1;
-        while (s.hasNext()) {
-            System.out.println("\t" + i + ". " + s.nextLine());
-            i++;
-        }
     }
 
     public static void markDone(Task task) {
@@ -158,6 +179,30 @@ public class Jo {
         System.out.println("> Noted. I've removed this task:");
         System.out.println("\t" + removedTask.toString());
         System.out.println(String.format("> Now you have %d tasks in the list.", taskList.size()));
+    }
+
+    public static void search(LocalDate deadline) {
+        System.out.println("> Here are the tasks that are due on "
+                + deadline.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ": ");
+        boolean hasTaskDue = false;
+        for (Task t : taskList) {
+            if (t instanceof Deadline) {
+                Deadline task = (Deadline) t;
+                if (task.deadline.equals(deadline) && !task.isDone) {
+                    System.out.println("\t" + task);
+                    hasTaskDue = true;
+                }
+            } else if (t instanceof Event) {
+                Event task = (Event) t;
+                if (task.end.equals(deadline) && !task.isDone) {
+                    System.out.println("\t" + task);
+                    hasTaskDue = true;
+                }
+            }
+        }
+        if (!hasTaskDue) {
+            System.out.println("\tYay, you have no task due on this day!");
+        }
     }
 
     public static <E extends Enum<E>> boolean isInEnum(String input, Class<E> enumClass) {
