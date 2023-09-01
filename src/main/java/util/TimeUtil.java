@@ -21,6 +21,8 @@ public class TimeUtil {
             DateTimeFormatter.ofPattern("yyyyMM"), // 202305
     };
 
+    private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH");
+
     private TimeUtil() {}
 
     public static LocalDateTime parseDateTimeString(String input) throws TimeUtilException {
@@ -28,7 +30,6 @@ public class TimeUtil {
         if (dateTime != null) {
             return dateTime;
         }
-        LocalDateTime now = LocalDateTime.now();
         for (DateTimeFormatter formatter : FORMATTERS) {
             try {
                 return LocalDateTime.parse(input, formatter);
@@ -38,6 +39,10 @@ public class TimeUtil {
         }
         // If input is not in a recognised format.
         throw new TimeUtilException("Invalid date format: " + input);
+    }
+
+    public static String formatLocalDateTime(LocalDateTime localDate) {
+        return localDate.format(DISPLAY_FORMATTER);
     }
 
     private static LocalDateTime handleSpecialStrings(String input) {
