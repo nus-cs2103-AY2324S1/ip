@@ -137,8 +137,6 @@ public class Duke {
         } catch (InvalidInputException | EventCommandUseException|
                  DeadlineCommandUseException| ToDoCommandUseException e) {
             System.out.println(e.getMessage());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }

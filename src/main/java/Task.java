@@ -41,7 +41,7 @@ abstract class Task implements Serializable {
             i++;
         }
     }
-     static void saveTasks(String filePath, List<Task> tasks) throws IOException {
+     static void saveTasks(String filePath, List<Task> tasks) {
          ObjectOutputStream file = null;
          try {
              file = new ObjectOutputStream(new FileOutputStream(filePath));
@@ -50,20 +50,28 @@ abstract class Task implements Serializable {
              System.out.println(e.getMessage());
          } finally {
              if (file!= null) {
-                 file.flush();
-                 file.close();
+                 try {
+                     file.close();
+                 } catch (IOException e) {
+                     throw new RuntimeException(e);
+                 }
              }
          }
      }
 
     static List<Task> loadTasks(String filePath) {
         List<Task> tasks = new ArrayList<>();
+        @SuppressWarnings("unchecked")
+        //Unchecked warnings are yielded due to an unchecked type conversion
+        //readObject() returns an Object, but am casting it to List<Task>
+        //The compiler has no way to check if the object is of type List<Task>
+        //in compile time, resulting in an unchecked warning being yielded
         ObjectInputStream file = null;
         try {
             file = new ObjectInputStream(new FileInputStream(filePath));
             tasks = (List<Task>) file.readObject();
         } catch (IOException e) {
-            // Do nothing here or log the exception if needed
+            System.out.println(e.getMessage());
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
