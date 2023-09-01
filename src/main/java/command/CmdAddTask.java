@@ -1,7 +1,7 @@
 package command;
 
-import task.TaskList;
 import task.Task;
+import task.TaskList;
 import ui.Ui;
 
 /**
