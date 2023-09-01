@@ -1,9 +1,24 @@
+package chatbot.commands;
+
+import chatbot.exceptions.InvalidIndexException;
+import chatbot.storage.Storage;
+import chatbot.task.Task;
+import chatbot.task.TaskList;
+import chatbot.ui.Ui;
+
+/**
+ * 
+ */
 public class DeleteItem extends Command{
 
     public DeleteItem(String input) {
         super(input);
     }
-    
+    /**
+     * {@inheritDoc}
+     * 
+     * Deletes item from the TaskList.
+     */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) 
         throws InvalidIndexException {

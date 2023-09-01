@@ -1,3 +1,4 @@
+package chatbot.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,7 +24,7 @@ public class Event extends Task{
      * @param from Start time
      * @param to End time
      */
-    Event(String label, String from, String to) {
+    public Event(String label, String from, String to) {
         super(label);
         this.from = LocalDateTime.parse(from, DateTimeFormatter
             .ofPattern("yyyy-MM-dd HHmm"));

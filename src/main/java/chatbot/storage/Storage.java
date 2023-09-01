@@ -1,3 +1,5 @@
+package chatbot.storage;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -6,14 +8,30 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import chatbot.exceptions.SaveFileNotFound;
+import chatbot.task.ToDo;
+import chatbot.task.TaskList;
+import chatbot.task.Event;
+import chatbot.task.Task;
+import chatbot.task.Deadline;
+
+/**
+ * Storage class that handles storing and loading saved lists.
+ * 
+ * @author Owen Yeo
+ */
 public class Storage {
     private String path;
-    private TaskList storedTasks;
 
     public Storage(String path) {
         this.path = path;
     }
 
+    /**
+     * Saves tasks into a text file.
+     * 
+     * @param tasks TaskList
+     */
     public void saveTasks(TaskList tasks) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter
@@ -30,6 +48,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the existing list found on the storage file into an ArrayList.
+     * 
+     * @return ArrayList containing all the tasks parsed from the file.
+     */
     public ArrayList<Task> load() {
         try {
             ArrayList<Task> loadedList = new ArrayList<>();
@@ -40,7 +63,6 @@ public class Storage {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     String[] parts = line.split("\\|");
-                    System.out.println(parts[1].trim());
                     switch (parts[0].trim()) {
                         case("T"): 
                             loadedList.add(new ToDo(parts[2].trim()));

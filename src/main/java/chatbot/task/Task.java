@@ -1,3 +1,5 @@
+package chatbot.task;
+
 /**
  * Abstract class representing a task object.
  * 

@@ -1,5 +1,37 @@
+package chatbot.parser;
+
+import chatbot.commands.Command;
+import chatbot.commands.AddDeadline;
+import chatbot.commands.AddEvent;
+import chatbot.commands.AddToDo;
+import chatbot.commands.Bye;
+import chatbot.commands.CommandType;
+import chatbot.commands.DeleteItem;
+import chatbot.commands.DisplayList;
+import chatbot.commands.MarkItem;
+import chatbot.commands.UnmarkItem;
+
+import chatbot.exceptions.InvalidCommandException;
+import chatbot.exceptions.InvalidDescriptionException;
+import chatbot.exceptions.InvalidIndexException;
+
+/**
+ * Parser that parses the inputs from the user and inteprets it.
+ * 
+ * @author Owen Yeo
+ */
 public class Parser {
 
+    /**
+     * Parses the input from the user and outputs a command for 
+     * the chatbot to execute.
+     * 
+     * @param input String input from user
+     * @return Command depending on input.
+     * @throws InvalidDescriptionException
+     * @throws InvalidCommandException 
+     * @throws InvalidIndexException
+     */
     public static Command parse(String input) throws 
         InvalidDescriptionException, InvalidCommandException, InvalidIndexException {
         //Split the input so that we can read integers.
@@ -18,7 +50,7 @@ public class Parser {
 
             case MARK:
                 return new MarkItem(inputStrings[1]);
-                
+
             case UNMARK:
                 return new UnmarkItem(inputStrings[1]);
 

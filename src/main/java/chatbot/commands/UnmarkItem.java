@@ -1,17 +1,34 @@
-public class MarkItem extends Command{
+package chatbot.commands;
 
-    public MarkItem(String input) {
+import chatbot.exceptions.InvalidIndexException;
+import chatbot.storage.Storage;
+import chatbot.task.TaskList;
+import chatbot.ui.Ui;
+
+/**
+ * Unmarks a completed item as undone.
+ * 
+ * @author Owen Yeo
+ */
+public class UnmarkItem extends Command{
+
+    public UnmarkItem(String input) {
         super(input);
     }
     
+    /**
+     * {@inheritDoc}
+     * 
+     * unmarks a task as undone.
+     */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) 
         throws InvalidIndexException {
         try {
             int index = Integer.parseInt(input);
-            tasks.mark(index);
+            tasks.unmark(index);
             ui.print(new String[] {
-            "Impossible! You must have cheated. Horrible.",
+            "You incompetent child. I've unmarked the task. Please get it together.",
             tasks.getTask(index).toString()
         });
 

@@ -1,3 +1,6 @@
+package chatbot.task;
+
+
 /**
  * Todo class that is a task.
  * 
@@ -11,7 +14,7 @@ public class ToDo extends Task {
      * 
      * @param label descriptor of the tas
      */
-    ToDo(String label) {
+    public ToDo(String label) {
         super(label);
     }
 

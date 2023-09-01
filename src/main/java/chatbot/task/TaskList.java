@@ -1,17 +1,44 @@
+package chatbot.task;
+
 import java.util.ArrayList;
 
+import chatbot.exceptions.InvalidDescriptionException;
+import chatbot.exceptions.InvalidIndexException;
+
+/**
+ * Representation of a list that takes in tasks,
+ * and is able to modify their states
+ * 
+ * @author Owen Yeo
+ */
 public class TaskList {
 
+    //ArrayList to store the tasks
     private ArrayList<Task> tasks = new ArrayList<>();
 
+    /**
+     * Constructor for an isntance of TaskList
+     * 
+     * @param tasks ArrayList for tasks
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Empty constructor for a TaskList
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Adds a task to the TaskList
+     * 
+     * @param taskString representing the descriptor for the task
+     * @param taskType type of the task getting added
+     * @throws InvalidDescriptionException
+     */
     public void addTask(String taskString, TaskType taskType) 
         throws InvalidDescriptionException {
         switch(taskType) {

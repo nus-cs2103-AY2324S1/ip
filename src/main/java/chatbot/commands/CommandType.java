@@ -1,3 +1,8 @@
+package chatbot.commands;
+
+/**
+ * enum that represents the different command types.
+ */
 public enum CommandType {
     BYE("bye"),
     DISPLAY_LIST("list"),

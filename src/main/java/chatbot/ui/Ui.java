@@ -1,7 +1,12 @@
+package chatbot.ui;
+
 import java.util.Scanner;
 
 /**
+ * Class representing a UI which reads inputs from users
+ * and prints outputs depending on the command or error.
  * 
+ * @author Owen Yeo
  */
 public class Ui {
 
@@ -42,10 +47,20 @@ public class Ui {
         print(new String[] {"Bye. Have a bad day you doofus."});
     }
 
+    /**
+     * Reads the input from the users
+     * 
+     * @return String representing input
+     */
     public String readInput() {
         return sc.nextLine();
     }
 
+    /**
+     * Prints error messages.
+     * 
+     * @param e Exception instance.
+     */
     public void showError(Exception e) {
         System.out.println("Error! " + e.getMessage());
     }

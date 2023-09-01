@@ -1,3 +1,4 @@
+package chatbot.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,7 +22,7 @@ public class Deadline extends Task{
      * @param label Descriptor for the task with deadline
      * @param deadline String representing deadline
      */
-    Deadline(String label, String deadline) {
+    public Deadline(String label, String deadline) {
         super(label);
         this.deadline = LocalDateTime.parse(deadline, DateTimeFormatter
             .ofPattern("yyyy-MM-dd HHmm"));

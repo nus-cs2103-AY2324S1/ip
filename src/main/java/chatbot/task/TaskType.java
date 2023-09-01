@@ -1,3 +1,8 @@
+package chatbot.task;
+
+/**
+ * Enum representing the different types of tasks.
+ */
 public enum TaskType {
     TODO("T"),
     DEADLINE("D"),

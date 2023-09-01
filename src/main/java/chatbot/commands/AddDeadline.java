@@ -1,12 +1,24 @@
-public class AddEvent extends Command {
+package chatbot.commands;
 
-    public AddEvent(String input) {
+import chatbot.storage.Storage;
+import chatbot.task.TaskList;
+import chatbot.task.TaskType;
+import chatbot.ui.Ui;
+
+/**
+ * Adds a deadline task to the TaskList
+ * 
+ * @author Owen Yeo
+ */
+public class AddDeadline extends Command {
+
+    public AddDeadline(String input) {
         super(input);
     }
     
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) {
-        tasks.addTask(input, TaskType.EVENT);
+        tasks.addTask(input, TaskType.DEADLINE);
 
         ui.print(new String[] {
             "What? You ain't finishing it. Added: ",

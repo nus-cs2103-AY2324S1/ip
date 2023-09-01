@@ -1,3 +1,4 @@
+package chatbot.exceptions;
 /**
  * Exception that is thrown when an invalid command is keyed into the chatbot.
  * 

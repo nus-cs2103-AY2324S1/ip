@@ -1,3 +1,5 @@
+package chatbot.exceptions;
+
 /*
  * Class representing exceptions thrown by the chatbot.
  * 
