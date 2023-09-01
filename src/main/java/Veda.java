@@ -211,7 +211,7 @@ public class Veda {
             } catch (IncorrectInputException e) {
                 System.out.println(e);
             } catch (DateTimeParseException e) {
-                System.out.println("Ensure your deadline is of the format {dd MMMM yyyy HHmm}");
+                System.out.println("Ensure your deadline is of the format {dd/MM/yyyy HHmm}");
             }
         }
 

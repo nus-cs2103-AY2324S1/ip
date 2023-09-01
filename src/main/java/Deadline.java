@@ -11,18 +11,18 @@ public class Deadline extends Task{
     final static String SYMBOL = "D";
     protected String by;
 
-    protected LocalDate deadline;
+    protected LocalDateTime deadline;
 
     Deadline(String description, String by) {
         super(description);
         this.by = by;
-        this.deadline = LocalDate.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        this.deadline = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 
     Deadline(String description, String by, boolean isDone) {
         super(description, isDone);
         this.by = by;
-        this.deadline = LocalDate.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        this.deadline = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 
 
@@ -33,7 +33,7 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + this.deadline.format(DateTimeFormatter.ofPattern("dd MMMM yyyy")) + ")";
+        return "[D]" + super.toString() + "(by: " + this.deadline.format(DateTimeFormatter.ofPattern("dd MMMM yyyy HHmm")) + "H)";
     }
 
     @Override
