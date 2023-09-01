@@ -1,11 +1,9 @@
 package duke;
 
+import command.Command;
+
 import java.io.FileNotFoundException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Duke {
     private TaskList tasks;
@@ -34,76 +32,12 @@ public class Duke {
         while (true) {
             input = ui.readCommand();
             try {
-                ArrayList<String> parsedInput = Parser.parseUserInput(input);
-                String command = parsedInput.get(0);
-
-                if (command.equals(Command.MARK.getCommand())) {
-                    int index = Integer.parseInt(parsedInput.get(1)) - 1;
-                    Task task = tasks.mark(index);
-                    ui.printTaskMarkedMessage(task);
-                    tasks.saveState(storage);
-                    continue;
-                }
-                if (command.equals(Command.UNMARK.getCommand())) {
-                    int index = Integer.parseInt(parsedInput.get(1)) - 1;
-                    Task task = tasks.unmark(index);
-                    ui.printTaskUnmarkedMessage(task);
-                    tasks.saveState(storage);
-                    continue;
-                }
-                if (command.equals(Command.LIST.getCommand())) {
-                    tasks.printContents();
-                    continue;
-                }
-                if (command.equals(Command.BYE.getCommand())) {
-                    ui.printGoodbyeMessage();
-                    ui.closeUi();
+                Command command = Parser.parseUserInput(input);
+                command.execute(tasks, ui, storage);
+                if (command.isExit()) {
                     break;
                 }
-                if (command.equals(Command.TODO.getCommand())) {
-                    ToDo newTodo = new ToDo(parsedInput.get(1));
-                    Task task = tasks.add(newTodo);
-                    ui.printTaskAddedMessage(task, tasks.getTaskCount());
-                    tasks.saveState(storage);
-                    continue;
-                }
-                if (command.equals(Command.DEADLINE.getCommand())) {
-                    Deadline newDeadline = new Deadline(parsedInput.get(1),
-                            LocalDateTime.parse(parsedInput.get(2), dateTimeInputFormatter));
-                    Task task = tasks.add(newDeadline);
-                    ui.printTaskAddedMessage(task, tasks.getTaskCount());
-                    tasks.saveState(storage);
-                    continue;
-                }
-                if (command.equals(Command.EVENT.getCommand())) {
-                    Event newEvent = new Event(parsedInput.get(1),
-                            LocalDateTime.parse(parsedInput.get(2), dateTimeInputFormatter),
-                            LocalDateTime.parse(parsedInput.get(3), dateTimeInputFormatter));
-                    Task task = tasks.add(newEvent);
-                    ui.printTaskAddedMessage(task, tasks.getTaskCount());
-                    tasks.saveState(storage);
-                    continue;
-                }
-                if (command.equals(Command.DELETE.getCommand())) {
-                    int index = Integer.parseInt(parsedInput.get(1)) - 1;
-                    Task task = tasks.remove(index);
-                    ui.printTaskDeletedMessage(task, tasks.getTaskCount());
-                    tasks.saveState(storage);
-                    continue;
-                }
-                if (command.equals(Command.ON.getCommand())) {
-                    LocalDate date = LocalDate.parse(parsedInput.get(1));
-                    ArrayList<Task> tasksOnDate = tasks.getTasksOn(date);
-                    ui.printTasksOn(tasksOnDate);
-                    continue;
-                }
-                if (command.equals(Command.FIND.getCommand())) {
-                    ArrayList<Task> tasksContainingKeyword = tasks.getTasksContainingKeyword(parsedInput.get(1));
-                    ui.printTasksMatching(tasksContainingKeyword);
-                    continue;
-                }
-                throw new InvalidCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-            } catch (InvalidCommandException | StorageException e) {
+            } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
         }

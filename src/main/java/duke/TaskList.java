@@ -1,6 +1,7 @@
 package duke;
 
-import java.io.IOException;
+import command.InvalidCommandException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -160,9 +161,9 @@ public class TaskList {
             String[] taskArray = storedData.get(i).split(" / ");
             Task task;
 
-            if (taskArray[0].equals(Command.TODO.getCommand())) {
+            if (taskArray[0].equals("todo")) {
                 task = new ToDo(taskArray[2]);
-            } else if (taskArray[0].equals(Command.DEADLINE.getCommand())) {
+            } else if (taskArray[0].equals("deadline")) {
                 task = new Deadline(taskArray[2], LocalDateTime.parse(taskArray[3], dateTimeInputFormatter));
             } else {
                 task = new Event(taskArray[2], LocalDateTime.parse(taskArray[3], dateTimeInputFormatter),
