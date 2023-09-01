@@ -86,10 +86,17 @@ public class Ui {
     }
 
     /**
-     * Displays an error message when there's an issue loading data.
+     * Lists and displays the tasks that match a specific keyword in the user's task list.
      *
-     * @param e The DukeException containing the error message.
+     * @param matchingTasks A list of tasks that match the user's search keyword.
      */
+    public static void listMatchedTasks(List<Task> matchingTasks) {
+        System.out.println(" Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println(" " + (i + 1) + "." + matchingTasks.get(i).toString());
+        }
+    }
+
     public static void showLoadingError(DukeException e) {
         System.out.println(e);
     }
