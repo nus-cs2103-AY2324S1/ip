@@ -23,7 +23,7 @@ public class TaskList {
                 if (taskString.charAt(0) == 'T') {
                     Task task = new ToDo(taskString.substring(8));
                     if (taskString.charAt(4) == '1') {
-                        task.mark();
+                        task.setMark(true);
                     }
                     list.add(task);
                 } else if (taskString.charAt(0) == 'D') {
@@ -31,7 +31,7 @@ public class TaskList {
                     LocalDateTime dateTime = LocalDateTime.parse(details[1], DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
                     Task task = new Deadline(details[0], dateTime);
                     if (taskString.charAt(4) == '1') {
-                        task.mark();
+                        task.setMark(true);
                     }
                     list.add(task);
                 } else if (taskString.charAt(0) == 'E') {
@@ -41,7 +41,7 @@ public class TaskList {
                     LocalDateTime toDateTime = LocalDateTime.parse(duration[1], DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
                     Task task = new Event(details[0], fromDateTime, toDateTime);
                     if (taskString.charAt(4) == '1') {
-                        task.mark();
+                        task.setMark(true);
                     }
                     list.add(task);
                 }

@@ -4,26 +4,26 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    private LocalDateTime due;
+    private LocalDateTime dateTime;
 
-    public Deadline(String description, LocalDateTime due) {
+    public Deadline(String description, LocalDateTime dateTime) {
         super(description);
-        this.due = due;
+        this.dateTime = dateTime;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.due.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + ")";
+        return "[D]" + super.toString() + " (by: " + this.dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + ")";
     }
 
     @Override
     public String writeToFile() {
         int mark;
-        if (super.getStatusIcon() == "X") {
+        if (super.getStatusIcon().equals("X")) {
             mark = 1;
         } else {
             mark = 0;
         }
-        return "D | " + mark + " | " + super.writeToFile() + " | " + this.due.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
+        return "D | " + mark + " | " + super.writeToFile() + " | " + this.dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
     }
 }

@@ -16,7 +16,7 @@ public class DeadlineTest {
         assertEquals("[D][ ] Apply for internships (by: Sep 23 2023 1800)", new Deadline("Apply for internships", dateTime).toString());
 
         Task task = new Deadline("Make my resume", dateTime);
-        task.mark();
+        task.setMark(true);
 
         assertEquals("[D][X] Make my resume (by: Sep 23 2023 1800)", task.toString());
     }
@@ -28,7 +28,7 @@ public class DeadlineTest {
         assertEquals("D | 0 | Apply for internships | Sep 23 2023 1800", new Deadline("Apply for internships", dateTime).writeToFile());
 
         Task task = new Deadline("Make my resume", dateTime);
-        task.mark();
+        task.setMark(true);
 
         assertEquals("D | 1 | Make my resume | Sep 23 2023 1800", task.writeToFile());
     }

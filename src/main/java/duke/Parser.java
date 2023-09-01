@@ -72,7 +72,7 @@ public class Parser {
                         throw new InvalidTaskException();
                     }
                     Task task = tasks.get(number - 1);
-                    task.mark();
+                    task.setMark(true);
                     storage.rewrite(tasks.fileList());
                     Ui.mark(task);
                 } catch (InvalidTaskException e) {
@@ -85,7 +85,7 @@ public class Parser {
                         throw new InvalidTaskException();
                     }
                     Task task = tasks.get(number - 1);
-                    task.unmark();
+                    task.setMark(false);
                     storage.rewrite(tasks.fileList());
                     Ui.unmark(task);
                 } catch (InvalidTaskException e) {

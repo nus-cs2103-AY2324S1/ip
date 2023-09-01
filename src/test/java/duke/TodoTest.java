@@ -11,7 +11,7 @@ public class TodoTest {
         assertEquals("[T][ ] Apply for internships", new ToDo("Apply for internships").toString());
 
         Task task = new ToDo("Make my resume");
-        task.mark();
+        task.setMark(true);
 
         assertEquals("[T][X] Make my resume", task.toString());
     }
@@ -21,7 +21,7 @@ public class TodoTest {
         assertEquals("T | 0 | Apply for internships", new ToDo("Apply for internships").writeToFile());
 
         Task task = new ToDo("Make my resume");
-        task.mark();
+        task.setMark(true);
 
         assertEquals("T | 1 | Make my resume", task.writeToFile());
     }
