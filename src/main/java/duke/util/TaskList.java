@@ -25,11 +25,11 @@ public class TaskList {
     }
 
     public Task mark(int num) {
-        return arr.get(num).description(true);
+        return arr.get(num).getDescription(true);
     }
 
     public Task unmark(int num){
-        return arr.get(num).description(false);
+        return arr.get(num).getDescription(false);
     }
 
     public int size() {

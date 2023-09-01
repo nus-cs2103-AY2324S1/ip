@@ -14,7 +14,7 @@ public class Task {
     }
 
 
-    public Task description(boolean status) {
+    public Task getDescription(boolean status) {
         isDone = status;
         return this;
     }
