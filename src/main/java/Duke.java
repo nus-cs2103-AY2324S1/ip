@@ -1,14 +1,22 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 public class Duke {
     //create empty list to store stuff to do
     private static List<Task> toDoList = new ArrayList<>();
     //create scanner to read user inputs
     private static Scanner scan = new Scanner(System.in);
+    private static final String DATA_FILE_PATH = "data.txt";
+
 
     public static void main(String[] args) {
+        //load tasks from file
+        loadTasksFromFile();
         //greeting
         System.out.println("Hello! I'm Sara");
         System.out.println("What can I do for you?");
@@ -66,6 +74,7 @@ public class Duke {
             if (taskIndex >= 0 && taskIndex < toDoList.size()) {
                 toDoList.get(taskIndex).markDone();
                 System.out.println("Nice! I've marked this task as done:\n" + toDoList.get(taskIndex));
+                saveTasksToFile();
             } else {
                 throw new DukeException("invalid task number");
             }
@@ -81,6 +90,7 @@ public class Duke {
             if (taskIndex >= 0 && taskIndex < toDoList.size()) {
                 toDoList.get(taskIndex).markNotDone();
                 System.out.println("OK, I've marked this task as not done yet:\n" + toDoList.get(taskIndex));
+                saveTasksToFile();
             } else {
                 throw new DukeException("invalid task number");
             }
@@ -98,6 +108,7 @@ public class Duke {
             toDoList.add(newTask);
             System.out.println("Got it. I've added this task:\n " + newTask);
             System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
+            saveTasksToFile(); //save to-do task to file
         }
     }
 
@@ -113,6 +124,7 @@ public class Duke {
                 toDoList.add(newTask);
                 System.out.println("Got it. I've added this task:\n " + newTask);
                 System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
+                saveTasksToFile(); // save deadline task to file
             }
         }
     }
@@ -132,6 +144,7 @@ public class Duke {
                     toDoList.add(newTask);
                     System.out.println("Got it. I've added this task:\n " + newTask);
                     System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
+                    saveTasksToFile(); //save event task to file
                 }
             }
         }
@@ -147,9 +160,41 @@ public class Duke {
                 Task removedTask = toDoList.remove(taskIndex);
                 System.out.println("Noted. I've removed this task: \n" + removedTask);
                 System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
+                saveTasksToFile();
             } else {
                 throw new DukeException("invalid task number");
             }
+        }
+    }
+
+    private static void saveTasksToFile() {
+        try {
+            FileWriter writer = new FileWriter(DATA_FILE_PATH);
+            for (Task task : toDoList) {
+                writer.write(task.toFileString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving task to file: " + e.getMessage());
+        }
+    }
+
+    private static void loadTasksFromFile() {
+        try {
+            File file = new File(DATA_FILE_PATH);
+            if (file.exists()) {
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNextLine()) {
+                    String taskData = scanner.nextLine();
+                    Task task = Task.createTaskFromData(taskData);
+                    if (task != null) {
+                        toDoList.add(task);
+                    }
+                }
+                scanner.close();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
         }
     }
 }
