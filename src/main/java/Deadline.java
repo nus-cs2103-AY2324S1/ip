@@ -12,12 +12,21 @@ public class Deadline extends UserInput {
         }
 
 <<<<<<< HEAD
+<<<<<<< .merge_file_iBxDM4
 
 =======
     public String toSaveFormat() {
         return "D" + super.toSaveFormat() + " | " + this.by;
     }
 >>>>>>> branch-Level-7
+=======
+    public String toSaveFormat() {
+        return "D" + super.toSaveFormat() + " | " + this.by;
+    }
+=======
+
+>>>>>>> branch-Level-8
+>>>>>>> .merge_file_Olbn4O
 
     @Override
     public String toString() {
