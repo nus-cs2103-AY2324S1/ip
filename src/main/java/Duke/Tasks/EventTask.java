@@ -3,19 +3,23 @@ package Duke.Tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Encapsulates a specific task of type Event.
+ *
+ * Contains a start time, and an end time.
+ */
 public class EventTask extends Task {
-    private String from = "";
-    private String to = "";
 
     private LocalDateTime fromDateTime;
     private LocalDateTime toDateTime;
 
-    public EventTask(String itemName, String from, String to) {
-        super(itemName);
-        this.from = from;
-        this.to = to;
-    }
-
+    /**
+     * Constructor for an Event Task
+     *
+     * @param itemName The name of the task
+     * @param fromDateTime The time the event starts
+     * @param toDateTime The time the event ends
+     */
     public EventTask(String itemName, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
         super(itemName);
         this.fromDateTime = fromDateTime;

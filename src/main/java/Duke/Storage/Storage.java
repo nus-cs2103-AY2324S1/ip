@@ -20,10 +20,13 @@ public class Storage {
     private static final String PARSE_ERROR = "Invalid file format!";
     private String filePath;
 
+    /**
+     * Constructor for the Storage controller.
+     *
+     * @param filePath The filepath of the save file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
-
-
     }
 
     /**

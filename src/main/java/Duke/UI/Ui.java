@@ -8,6 +8,10 @@ import Duke.Tasks.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Controls any user interaction with the user.
+ * Examples: text output, error messages
+ */
 public class Ui {
 
     private TaskList taskList;
@@ -97,6 +101,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints a simple divider line to the screen.
+     */
     public static void printDivider() {
         System.out.println(SEPARATOR_LINE);
     }

@@ -3,11 +3,17 @@ package Duke.Tasks;
 import java.util.ArrayList;
 
 /**
- * Stores the list of items that the user has.
+ * Stores the list of tasks that the user has.
+ * Provides additional methods for operating on the tasks.
  */
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<>();
 
+    /**
+     * The constructor for a basic TaskList.
+     *
+     * @param tasks The default tasks (if any) this should be initialised to
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.list = tasks;
     }
