@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import fluke.tasks.Task;
 
 /**
  * This class contains all user interface related functionalities.
@@ -47,7 +47,7 @@ public class Ui {
     }
 
     public void showTaskDeleted(Task task, TaskList tasks) {
-        System.out.println("Task deleted! I hope it's the right one:");
+        System.out.println("fluke.tasks.Task deleted! I hope it's the right one:");
         System.out.println("  " + task);
         System.out.println("I think there are now " + tasks.getSize() + " tasks in the list.");
         addHorizontalLine();

@@ -1,3 +1,7 @@
+package fluke.tasks;
+
+import fluke.exceptions.FlukeException;
+
 public class Todo extends Task {
     public Todo(String description) throws FlukeException {
         super(description);
