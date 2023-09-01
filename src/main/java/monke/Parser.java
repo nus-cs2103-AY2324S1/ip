@@ -70,6 +70,8 @@ public class Parser {
         case ExitCommand.COMMAND_WORD: {
             return new ExitCommand();
         }
+        case FindCommand.COMMAND_WORD:
+            return parseFindCommand(args);
         default: {
             throw new MonkeException("OOGA??!! I'm sorry, but I don't know what that means :-(");
         }
@@ -151,5 +153,12 @@ public class Parser {
             throw new MonkeException("OOGA BOOGA!! Please provide a list number");
         }
         return new DeleteCommand(args);
+    }
+
+    public static FindCommand parseFindCommand(String args) throws MonkeException {
+        if (args.isBlank()) {
+            throw new MonkeException("OOGA BOOGA!! Provide a keyword to search");
+        }
+        return new FindCommand(args);
     }
 }
