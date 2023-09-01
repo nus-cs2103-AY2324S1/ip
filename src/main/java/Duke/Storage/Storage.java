@@ -1,12 +1,11 @@
-package Storage;
+package Duke.Storage;
 
-import Exceptions.DukeException;
-import Tasks.*;
+import Duke.Exceptions.DukeException;
+import Duke.Tasks.*;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
