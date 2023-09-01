@@ -1,3 +1,5 @@
 [T][ ] ip
-[D][X] assignment (by: 2359)
-[E][ ] eat (from: 12pm to: 2pm)
+[D][X] assignment    (by: 2019-10-15)
+[E][ ] eat (from: 2019-10-15 to: 2019-10-16)
+[D][ ] vote  (by: 2023-09-01)
+[E][ ] repair (from: 2023-09-01 to: 2023-09-02)
