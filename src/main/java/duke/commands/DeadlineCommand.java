@@ -3,26 +3,29 @@ package duke.commands;
 import duke.TaskList;
 import duke.tasks.Deadline;
 
-public class DeadlineCommand extends Command {
-    private final String args;
+import java.util.regex.Pattern;
 
-    public DeadlineCommand(String args) {
-        this.args = args;
+public class DeadlineCommand extends Command {
+    private static final Pattern pattern = Pattern.compile("^deadline\\s+(?<description>.*?)\\s+/by\\s+(?<by>.*)$");
+
+    public DeadlineCommand(String s) throws CommandException {
+        super(s, pattern);
+    }
+
+    @Override
+    protected String getInvalidFormatMessage() {
+        return String.join("\n", "Invalid format for command `deadline`!", "Usage: deadline <DESCRIPTION> /by <DEADLINE>");
     }
 
     @Override
     public CommandResult run(TaskList tasks) throws CommandException {
-        String[] tokens = args.split(" /by ", 2);
-        String description = tokens[0];
+        String description = matcher.group("description");
+        String by = matcher.group("by");
 
         if (description.isEmpty()) {
             throw new CommandException("Deadline description cannot be empty!");
         }
-        if (tokens.length != 2) {
-            throw new CommandException("Deadline due date cannot be empty!");
-        }
 
-        String by = tokens[1];
         Deadline deadline = new Deadline(description, by);
         tasks.add(deadline);
 
