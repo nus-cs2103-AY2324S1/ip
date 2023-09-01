@@ -1,321 +1,33 @@
-import java.io.FileNotFoundException;
-import java.nio.file.NoSuchFileException;
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Duke {
-    private static final String line = "___________________________________________";
-    private static ArrayList<Task> taskList = new ArrayList<>();
-    private final String filePath = "./data/duke.txt";
 
-//    public Duke(String filePath) {
-//        this.filePath = filePath;
-//    }
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-    /**
-     * Method to print outro.
-     */
-    public void outro() {
-        System.out.println(line);
-        System.out.println("Buh-bye! See you soon!");
-        System.out.println(line);
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        tasks = new TaskList(storage.getTaskList());
     }
 
-    /**
-     * Method that prints chatbot intro
-     */
-    public void intro() {
-        System.out.println(line);
-        System.out.println("Hey, I'm joyayaya! What's the move today?");
-        System.out.println(line);
-    }
-
-
-    /**
-     * Method to handle TODOs
-     * @param descr the task description
-     */
-    public void handleTodo(String descr) {
+    public void run() {
         try {
-            ToDo newTodo = new ToDo(descr);
-            newTodo.checkValidity();
-            taskList.add(newTodo);
-            System.out.println("Okie! I've added this ToDo to your task list!");
-            System.out.println(newTodo);
-            System.out.println("Now you've got " + taskList.size() + " tasks in your list.");
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
+            this.ui.intro();
+            this.storage.read();
+            this.tasks.handleInput();
+            this.storage.write(storage.getTaskList());
+            this.ui.outro();
+        } catch (IOException e) {
+            this.ui.showLoadingError(e);
+        } catch (DukeException exc) {
+            this.ui.showLoadingError(exc);
         }
     }
-
-    /**
-     * Method to handle Events
-     * @param descr the task description
-     */
-    public void handleEvent(String descr) {
-        try {
-            Event newEvent = new Event(descr);
-            newEvent.checkValidity();
-            taskList.add(newEvent);
-            System.out.println("Okie! I've added this Event to your task list!");
-            System.out.println(newEvent);
-            System.out.println("Now you've got " + taskList.size() + " tasks in your list.");
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    /**
-     * Method to handle Deadlines
-     * @param descr the task description
-     */
-    public void handleDeadline(String descr) {
-        try {
-            Deadline newDeadline = new Deadline(descr);
-            newDeadline.checkValidity();
-            taskList.add(newDeadline);
-            System.out.println("Okie! I've added this Deadline to your task list!");
-            System.out.println(newDeadline);
-            System.out.println("Now you've got " + taskList.size() + "  tasks in your list.");
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    /**
-     * Method to mark task
-     * @param task
-     */
-    public void mark(String task) throws DukeException {
-        String[] parts = task.split(" ");
-        if (parts.length < 2) {
-            throw new DukeException("Which task do you want to mark as done?");
-        }
-        String index = parts[1];
-        int taskIndex = 0;
-        try {
-            taskIndex = Integer.parseInt(index) - 1;
-        } catch (NumberFormatException e) {
-            System.out.println("Please enter a valid index.");
-        }
-        if (taskIndex > taskList.size() || taskIndex < 0) {
-            throw new IndexOutOfBoundsException("Please enter a valid index.");
-        }
-        Task taskChanged = taskList.get(taskIndex);
-        String action = parts[0];
-        try {
-            if (action.equals("mark")) {
-                taskChanged.markDone();
-                System.out.println("Nice! I've marked this task as done:");
-            } else {
-                taskChanged.markUndone();
-                System.out.println("Nice! I've marked this task as undone:");
-            }
-            System.out.println(taskChanged);
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    /**
-     * Method deletes task from taskList.
-     * @param task The instructions containing index of task to be deleted.
-     */
-    public void delete(String task) throws DukeException {
-        String[] segments = task.split(" ");
-        if (segments.length < 2) {
-            throw new DukeException("Which task do you want to delete?");
-        }
-        String index = segments[1];
-        int taskIndex = 0;
-        try {
-            taskIndex = Integer.parseInt(index) - 1;
-        } catch (NumberFormatException e) {
-            throw new DukeException("Please enter a valid index."); //e.g. delete hi
-        }
-        if (taskIndex > taskList.size() || taskIndex < 0) {
-            throw new DukeException("Please enter a valid index.");
-        }
-        Task deletedTask = taskList.get(Integer.parseInt(index) - 1);
-        taskList.remove(deletedTask);
-
-        System.out.println(line);
-        System.out.println("Deleted the following task: ");
-        System.out.println(deletedTask);
-        System.out.println(line);
-    }
-
-    /**
-     * Method to print taskList.
-     */
-    public void printList() throws DukeException {
-        if (taskList.isEmpty()) {
-            throw new DukeException("You have no tasks in your list! Yay!");
-        } else {
-            int index = 1;
-            for (Task task : taskList) {
-                System.out.println(index + ". " + task);
-                index++;
-            }
-        }
-    }
-
-    /**
-     * Method to handle inputs.
-     * Entry point linking terminal to system.
-     */
-    public void handleInput() throws DukeException {
-        Scanner sc = new Scanner(System.in);
-        String task = sc.nextLine();
-        KeywordEnum keywordEnum = KeywordEnum.assign(task);
-
-        while (true) {
-            switch(keywordEnum) {
-                case LIST:
-                    try {
-                        printList();
-                    } catch (DukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case BYE:
-                    sc.close();
-                    outro();
-                    return;
-                case TODO:
-                    handleTodo(task);
-                    break;
-                case DEADLINE:
-                    handleDeadline(task);
-                    break;
-                case EVENT:
-                    handleEvent(task);
-                    break;
-                case DELETE:
-                    try {
-                        delete(task);
-                    } catch (DukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case MARK:
-                case UNMARK:
-                    try {
-                        this.mark(task);
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                default:
-                    System.out.println("This is not a valid task.");
-            }
-            task = sc.nextLine();
-            keywordEnum = KeywordEnum.assign(task);
-        }
-    }
-
-    /**
-     * Mehod to write tasks frm ArrayList data structure into .txt file.
-     * @param taskList
-     */
-    public void write(ArrayList<Task> taskList) throws IOException {
-        FileWriter writer = new FileWriter(filePath);
-        for (Task task : taskList) {
-            String res = null;
-            if (task instanceof ToDo) {
-                res = ((ToDo) task).writtenFormat() + "\n";
-            } else if (task instanceof Deadline) {
-                res = ((Deadline) task).writtenFormat() + "\n";
-            } else if (task instanceof Event) {
-                res = ((Event) task).writtenFormat() + "\n";
-            }
-            writer.write(res);
-        }
-        writer.close();
-    }
-
-    /**
-     * Method to read tasks from .txt file to ArrayList data structure.
-     */
-    public void read() {
-        File folder = new File("./data");
-        File savedFile = new File(folder, "tasks.txt");
-
-        try {
-            Scanner sc = new Scanner(savedFile);
-            while (sc.hasNextLine()) {
-                String task = sc.nextLine();
-                String[] taskArr = task.split(" \\| ");
-                String type = taskArr[0];
-                String status = taskArr[1];
-                String description = taskArr[2];
-                String date = taskArr[3];
-
-                switch (type) {
-                    case "T":
-                        ToDo newTodo = new ToDo(description);
-                        if (status.equals("1")) {
-                            Task todoTask = (Task) newTodo;
-                            todoTask.markDone();
-                        }
-                        break;
-                    case "D":
-                        Deadline newDeadline = new Deadline(description + "/by " + date);
-                        if (status.equals("1")) {
-                            Task deadlineTask = (Task) newDeadline;
-                            deadlineTask.markDone();
-                        }
-                        break;
-                    case "E":
-                        String[] parts = date.split("to");
-                        Event newEvent = new Event(description + "/from " + parts[0].trim() + "/to " + parts[1].trim());
-                        if (status.equals("1")) {
-                            Task eventTask = (Task) newEvent;
-                            eventTask.markDone();
-                        }
-                        break;
-                    default:
-                        throw new DukeException("tasks.txt is empty");
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("No such file");
-
-            if (!folder.exists()) {
-                if (folder.mkdir()) {
-                    System.out.println("Folder created: " + folder.getAbsolutePath());
-                } else {
-                    System.err.println("Failed to create the folder.");
-                }
-            }
-            try {
-                if (savedFile.createNewFile()) {
-                    System.out.println("File created: " + savedFile.getAbsolutePath());
-                } else {
-                    System.out.println("File already exists.");
-                }
-            } catch (IOException exc) {
-                System.err.println("An error occurred: " + e.getMessage());
-            }
-
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
 
 
     public static void main(String[] args) throws DukeException {
-        try {
-            Duke dukie = new Duke();
-            dukie.read();
-            dukie.intro();
-            dukie.handleInput();
-            dukie.write(taskList);
-        } catch (IOException e) {
-        }
+        new Duke("data/tasks.txt").run();
     }
 }
