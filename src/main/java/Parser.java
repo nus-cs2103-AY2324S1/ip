@@ -1,10 +1,5 @@
-package parser;
-
-import commands.*;
-import exceptions.DukeException;
-
 public class Parser {
-    public static boolean isValid (String command) throws DukeException {
+    public static boolean isValid (String command) throws DukeException{
         if(command.equals("list") || command.equals("bye")){
             return true;
         } else if (command.split(" ")[0].equals("todo") && command.split(" ")[1].length() < 1){
