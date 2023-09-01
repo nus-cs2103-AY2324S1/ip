@@ -26,7 +26,7 @@ public class Storage {
        }
    }
 
-   public TaskList loadTasksFromFile() {
+   public TaskList loadTasksFromFile() throws JamesBondException {
        TaskList tasksList = new TaskList();
        try {
            List<String> lines = Files.readAllLines(Paths.get(file));

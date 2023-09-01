@@ -1,6 +1,5 @@
-public class EmptyDescException extends Exception {
-    public EmptyDescException(String message) {
+public class JamesBondException extends Exception {
+    public JamesBondException(String message) {
         super(message);
     }
-
 }

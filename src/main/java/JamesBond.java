@@ -7,17 +7,36 @@ public class JamesBond {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    public static void main(String[] args) throws EmptyDescException {
+    
+    public JamesBond(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
+            TaskList tasks = new TaskList();
+            tasks = storage.loadTasksFromFile();
+        } catch (JamesBondException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
+    }
+    public static void main(String[] args) throws JamesBondException {
+        
         TaskList taskList = new TaskList();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+
+        // load prvs data
+        Storage storage = new Storage("/Users/jamesbond/ip/src/main/data/jamesbond.txt");
+        taskList = storage.loadTasksFromFile();
+
+        String logo = "____________________________________________________________\n"
+                + "YO! The name's Bond, James Bond.  \n"
+                + "What can I do for you? \n"
+                + "____________________________________________________________\n";
+        System.out.println(logo);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         try {
             while (sc.hasNextLine()) {
                 String firstWord = sc.next();
@@ -70,14 +89,14 @@ public class JamesBond {
                     } else if (firstWord.equalsIgnoreCase("list")) {
                         taskList.listOut();
                     } else {
-                        throw new EmptyDescException("please indicate task type: Todo, deadline or event");
+                        throw new JamesBondException("please indicate task type: Todo, deadline or event");
                     }
                 }
 
             }
             // save data
 
-        } catch (EmptyDescException e) {
+        } catch (JamesBondException e) {
             System.out.println("Error: " + e.getMessage());
         } catch (IllegalArgumentException e) {
             System.out.println("Invalid task number: " + e.getMessage());

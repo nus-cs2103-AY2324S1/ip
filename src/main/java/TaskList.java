@@ -20,18 +20,18 @@ public class TaskList {
             System.out.println("added:" + userInput.text);
     } */
 
-    public void addToDo(String task) throws EmptyDescException {
+    public void addToDo(String task) throws JamesBondException {
         if (task.isEmpty()) {
-            throw new EmptyDescException("Task description cannot be empty after 'todo'.");
+            throw new JamesBondException("Task description cannot be empty after 'todo'.");
         }
         ToDo toDo = new ToDo(task);
         this.toDos.add(toDo);
             System.out.println("GOT IT. ADDED:\n" + toDo.toString());
     }
 
-    public void addDead(String task, LocalDateTime by) throws EmptyDescException {
+    public void addDead(String task, LocalDateTime by) throws JamesBondException {
         if (task.isEmpty()) {
-            throw new EmptyDescException("Task description cannot be empty after 'deadline'.");
+            throw new JamesBondException("Task description cannot be empty after 'deadline'.");
         }
         Deadline dead = new Deadline(task, by);
         this.toDos.add(dead);
@@ -69,9 +69,9 @@ public class TaskList {
         return -1;
     }
 
-    public void addEvent(String task, LocalDateTime from, LocalDateTime to) throws EmptyDescException {
+    public void addEvent(String task, LocalDateTime from, LocalDateTime to) throws JamesBondException {
         if (task.isEmpty()){
-            throw new EmptyDescException("Task description cannot be empty after 'Event', type again in the format event (your task) /from (yyyy-mm-dd TIME) /to (yyyy-mm-dd TIME).");
+            throw new JamesBondException("Task description cannot be empty after 'Event', type again in the format event (your task) /from (yyyy-mm-dd TIME) /to (yyyy-mm-dd TIME).");
         }
         Event event = new Event(task, from, to);
         this.toDos.add(event);

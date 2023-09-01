@@ -22,4 +22,9 @@ public class Ui {
                 + "____________________________________________________________\n";
         out.println(logo);
     }
+
+    public void showLoadingError(){
+        out.println("Failed to load.");
+
+    }
 }
