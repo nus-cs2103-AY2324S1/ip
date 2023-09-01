@@ -8,12 +8,17 @@ import task.Todo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the file used to store the todo list
+ */
 public class Storage {
     private String filePath;
 
@@ -21,6 +26,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the TaskList data to the storage file.
+     *
+     * @param tasks the ArrayList of tasks to be saved
+     */
     public void writeToFile(ArrayList<Task> tasks) {
         try {
             File file = new File(this.filePath);
@@ -45,6 +55,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the todo list data from this storage file, and then returns it
+     * Returns an empty ArrayList of tasks if the file does not exist
+     *
+     * @throws DukeException when data of invalid format is read from Storage file
+     */
     public ArrayList<Task> readFile() {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         ArrayList<Task> tasks = new ArrayList<>();
@@ -62,21 +78,21 @@ public class Storage {
                 String description = line[2];
                 Task task;
                 switch (taskType) {
-                    case "T":
-                        task = new Todo(description);
-                        break;
-                    case "D":
-                        LocalDateTime by = LocalDateTime.parse(line[3].trim(), inputFormatter);
-                        task = new Deadline(description, by);
-                        break;
-                    case "E":
-                        LocalDateTime from = LocalDateTime.parse(line[3].trim(), inputFormatter);
-                        LocalDateTime to = LocalDateTime.parse(line[4].trim(), inputFormatter);
-                        task = new Event(description, from, to);
-                        break;
-                    default:
-                        throw new DukeException("Invalid format found in ./data/tasks.txt," +
-                                " please ensure data is in correct format");
+                case "T":
+                    task = new Todo(description);
+                    break;
+                case "D":
+                    LocalDateTime by = LocalDateTime.parse(line[3].trim(), inputFormatter);
+                    task = new Deadline(description, by);
+                    break;
+                case "E":
+                    LocalDateTime from = LocalDateTime.parse(line[3].trim(), inputFormatter);
+                    LocalDateTime to = LocalDateTime.parse(line[4].trim(), inputFormatter);
+                    task = new Event(description, from, to);
+                    break;
+                default:
+                    throw new DukeException("Invalid format found in ./data/tasks.txt,"
+                            + " please ensure data is in correct format");
                 }
                 if (isDone) {
                     task.setDone(true);

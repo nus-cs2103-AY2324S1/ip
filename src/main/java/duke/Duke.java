@@ -1,40 +1,50 @@
 package duke;
 
 import command.Command;
+
 import task.TaskList;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Entry point of the Duke application.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Duke {
 
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+    private final Storage storage;
+    private final TaskList tasks;
+    private final Ui ui;
 
     public Duke(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-        tasks = new TaskList(storage.readFile());
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        this.tasks = new TaskList(storage.readFile());
     }
 
+    /**
+     * Runs the program until termination
+     */
     public void run() {
-        ui.showWelcome();
+        this.ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
+                String fullCommand = this.ui.readCommand();
+                this.ui.showLine();
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                c.execute(this.tasks, this.ui, this.storage);
                 isExit = c.isExit();
-            } catch (NumberFormatException e) { // user inputs invalid argument for mark and unmark eg. "mark ab"
-                ui.showError("Invalid command! Please enter only one valid task ID (numbers only)");
+            } catch (NumberFormatException e) {
+                // user input has invalid argument for mark and unmark eg. "mark ab"
+                this.ui.showError("Invalid command! Please enter only one valid task ID (numbers only)");
             } catch (DateTimeParseException e) {
-                ui.showError("Invalid date and time format! Please use the format dd/mm/yyyy hhmm");
+                // user input has date/time in invalid format
+                this.ui.showError("Invalid date and time format! Please use the format dd/mm/yyyy hhmm");
             } catch (DukeException e) {
-                ui.showError(e.getMessage());
+                this.ui.showError(e.getMessage());
             } finally {
-                ui.showLine();
+                this.ui.showLine();
             }
         }
     }
