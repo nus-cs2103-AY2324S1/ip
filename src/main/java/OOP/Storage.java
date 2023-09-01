@@ -107,19 +107,19 @@ public class Storage {
     public static Deadline parseDeadlineFromString(String name, String deadlineString) {
         DateTimeFormatter formatter = null;
         Deadline deadline = null;
-        try {
-            if (isValidDate(deadlineString)) {
-                formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                LocalDate parsedDeadlineDate = LocalDate.parse(deadlineString, formatter);
-                deadline = new Deadline(name, false, parsedDeadlineDate);
-            } else if (isValidDateTime(deadlineString)) {
-                formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-                LocalDateTime parsedDeadlineDateTime = LocalDateTime.parse(deadlineString, formatter);
-                deadline = new Deadline(name, false, parsedDeadlineDateTime);
-            }
-        } catch (RuntimeException e) {
-                throw new DukeException("\t Invalid deadline format in storage file. Expected format for deadline (time is optional):\n deadline {deadlineName} /by yyyy-MM-dd HHmm");
-            }
+        if (isValidDate(deadlineString)) {
+            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate parsedDeadlineDate = LocalDate.parse(deadlineString, formatter);
+            deadline = new Deadline(name, false, parsedDeadlineDate);
+        } else if (isValidDateTime(deadlineString)) {
+            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            LocalDateTime parsedDeadlineDateTime = LocalDateTime.parse(deadlineString, formatter);
+            deadline = new Deadline(name, false, parsedDeadlineDateTime);
+        } else {
+            throw new DukeException("\t Invalid deadline format. " +
+                                    "\n\tExpected format for deadline (time is optional):" +
+                                    "\n\t deadline {deadlineName} /by yyyy-MM-dd HHmm");
+        }
         return deadline;
     }
 

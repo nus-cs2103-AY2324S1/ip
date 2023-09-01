@@ -1,4 +1,5 @@
 package Commands;
+import Duke.DukeException;
 import OOP.TaskList;
 import OOP.Ui;
 import OOP.Storage;
@@ -10,7 +11,11 @@ public class DeleteTaskCommand implements Command {
     }
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        Task removedTask = tasks.deleteTask(id);
-        ui.printTaskDeletedMessage(removedTask);
+        try {
+            Task removedTask = tasks.deleteTask(id);
+            ui.printTaskDeletedMessage(removedTask);
+        } catch (RuntimeException e) {
+            throw new DukeException("\tIndex out of bounds. There are " + tasks.getSize() + " tasks currently.");
+        }
     }
 }

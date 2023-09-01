@@ -5,15 +5,18 @@ import OOP.Storage;
 import Tasks.Task;
 import Tasks.ToDo;
 public class AddToDoCommand implements Command {
-    private String name;
+    private ToDo toDo;
     public AddToDoCommand(String name) {
-        this.name = name;
+        this.toDo = new ToDo(name, false);
+    }
+
+    public ToDo getTodo() {
+        return this.toDo;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        Task toDo= new ToDo(name, false);
-        tasks.addTask(toDo);
+        tasks.addTask(this.toDo);
         ui.printTaskAddedMessage(toDo, tasks);
     }
 }

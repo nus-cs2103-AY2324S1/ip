@@ -37,7 +37,7 @@ public class Duke {
             try {
                 String userCommandText = ui.getUserCommand();
                 ui.printDivider();
-                command = new Parser().parseCommand(userCommandText);
+                command = Parser.parseCommand(userCommandText);
                 command.execute(tasks, ui, storage);
                 storage.save(tasks);
             } catch (DukeException e) {

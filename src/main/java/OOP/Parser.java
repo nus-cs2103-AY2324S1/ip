@@ -13,7 +13,7 @@ import Commands.ExitCommand;
 import Duke.DukeException;
 
 public class Parser {
-    public Command parseCommand(String userCommandText) {
+    public static Command parseCommand(String userCommandText) {
             if (!userCommandText.equals("bye")) {
                 if (!userCommandText.equals("list")) {
                     String[] inputWords = userCommandText.split(" ");
@@ -22,14 +22,16 @@ public class Parser {
                         case "todo":
                             String todoName = extractSecondWordOnwards(userCommandText);
                             if (todoName.length() == 0) {
-                                throw new DukeException("Empty Description");
+                                throw new DukeException("\tEmpty Description");
                             }
                             return new AddToDoCommand(todoName);
                         case "deadline":
                             String[] twoParts = userCommandText.split ("/by ");
                             String deadlineName = extractSecondWordOnwards(twoParts[0]);
                             if (deadlineName.length() == 0) {
-                                throw new DukeException("Empty description");
+                                throw new DukeException("\tEmpty Description");
+                            } else if (twoParts.length != 2) {
+                                throw new DukeException("\tUsage: deadline {taskName} /by {yyyy-MM-dd HHmm}");
                             }
                             String deadlineString = twoParts[1];
                             return new AddDeadlineCommand(deadlineName, deadlineString);
@@ -37,23 +39,39 @@ public class Parser {
                             String[] threeParts = userCommandText.split ("/");
                             String eventName = extractSecondWordOnwards(threeParts[0]);
                             if (eventName.length() == 0) {
-                                throw new DukeException("Empty description");
+                                throw new DukeException("\tEmpty Description");
                             }
-                            try {
-                                String eventStart = extractSecondWordOnwards(threeParts[1]);
-                                String eventEnd = extractSecondWordOnwards(threeParts[2]);
-                                return new AddEventCommand(eventName, eventStart, eventEnd);
-                            } catch (RuntimeException e) {
-                                throw new DukeException("Index likely out of bounds due to incorrect format of input. Expected usage: event {eventName} /from {eventStart} /to {eventEnd}");
+                            if (threeParts.length != 3) {
+                                throw new DukeException("\tIncorrect format for event." +
+                                                        "\n\tExpected usage: " +
+                                                        "event {eventName} /from {eventStart} /to {eventEnd}");
                             }
+                            String eventStart = extractSecondWordOnwards(threeParts[1]);
+                            String eventEnd = extractSecondWordOnwards(threeParts[2]);
+                            if (eventStart.length() == 0 || eventEnd.length() == 0) {
+                                throw new DukeException("\tBoth event start and end date times must be specified.");
+                            }
+                            return new AddEventCommand(eventName, eventStart, eventEnd);
                         case "mark":
-                            id = Integer.valueOf(inputWords[1]) - 1;
+                            try {
+                                id = Integer.valueOf(inputWords[1]) - 1;
+                            } catch (RuntimeException e) {
+                                throw new DukeException("\tExpected usage: mark {id}");
+                            }
                             return new MarkTaskCommand(id);
                         case "unmark":
-                            id = Integer.valueOf(inputWords[1]) - 1;
+                            try {
+                                id = Integer.valueOf(inputWords[1]) - 1;
+                            } catch (RuntimeException e) {
+                                throw new DukeException("\tExpected usage: unmark {id}");
+                            }
                             return new UnmarkTaskCommand(id);
                         case "delete":
-                            id = Integer.valueOf(inputWords[1]) - 1;
+                            try {
+                                id = Integer.valueOf(inputWords[1]) - 1;
+                            } catch (RuntimeException e) {
+                                throw new DukeException("\tExpected usage: delete {id}");
+                            }
                             return new DeleteTaskCommand(id);
                         default:
                             return new InvalidCommand();

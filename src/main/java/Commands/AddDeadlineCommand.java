@@ -2,20 +2,22 @@ package Commands;
 import OOP.TaskList;
 import OOP.Ui;
 import OOP.Storage;
+import Tasks.Deadline;
 import Tasks.Task;
 public class AddDeadlineCommand implements Command {
-    private String deadlineName;
-    private String deadlineString;
+    private Deadline deadline;
     public AddDeadlineCommand(String deadlineName, String deadlineString) {
-        this.deadlineName = deadlineName;
-        this.deadlineString = deadlineString;
+        Deadline deadline  = Storage.parseDeadlineFromString(deadlineName, deadlineString);
+        this.deadline = deadline;
+    }
+
+    public Deadline getDeadline() {
+        return this.deadline;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        Task deadline  = Storage.parseDeadlineFromString(deadlineName, deadlineString);
-        tasks.addTask(deadline);
-        ui.printTaskAddedMessage(deadline, tasks);
-
+        tasks.addTask(this.deadline);
+        ui.printTaskAddedMessage(this.deadline, tasks);
     }
 }

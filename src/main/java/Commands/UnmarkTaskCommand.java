@@ -13,7 +13,7 @@ public class UnmarkTaskCommand implements Command {
             tasks.unmarkTask(id);
             ui.printTaskUnmarkedMessage(tasks.getTask(id));
         } catch (RuntimeException e) {
-            throw new DukeException("Index out of bounds. Expected: unmark {id}");
+            throw new DukeException("\tIndex out of bounds. There are " + tasks.getSize() + " tasks currently.");
         }
     }
 }
