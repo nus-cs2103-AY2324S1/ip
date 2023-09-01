@@ -275,24 +275,26 @@ public class Parser {
             DukeEnum commandtype = map(command);
             // Returns a command object for the command type.
             switch (commandtype) {
-                case BYE:
-                    return new ByeCommand();
-                case LIST:
-                    return new ListCommand();
-                case MARK:
-                    return new MarkDoneCommand(true, parseIndex(args));
-                case UNMARK:
-                    return new MarkDoneCommand(false, parseIndex(args));
-                case TODO:
-                    return parseTodo(args, false);
-                case DEADLINE:
-                    return parseDeadline(args, false);
-                case EVENT:
-                    return parseEvent(args, false);
-                case DELETE:
-                    return new DeleteCommand(parseIndex(args));
-                default:
-                    throw new InvalidCommandException();
+            case BYE:
+                return new ByeCommand();
+            case LIST:
+                return new ListCommand();
+            case MARK:
+                return new MarkDoneCommand(true, parseIndex(args));
+            case UNMARK:
+                return new MarkDoneCommand(false, parseIndex(args));
+            case TODO:
+                return parseTodo(args, false);
+            case DEADLINE:
+                return parseDeadline(args, false);
+            case EVENT:
+                return parseEvent(args, false);
+            case DELETE:
+                return new DeleteCommand(parseIndex(args));
+            case FIND:
+                return new FindCommand(args);
+            default:
+                throw new InvalidCommandException();
             }
         } catch (DukeException e) {
             throw e;

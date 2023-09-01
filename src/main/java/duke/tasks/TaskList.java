@@ -129,6 +129,30 @@ public class TaskList {
     }
 
     /**
+     * Returns a string containing all the tasks with the given description.
+     * 
+     * @return a string representation of the list in the form of a list of Task
+     *         objects separated by new lines.
+     */
+    public String find(String description) throws DukeException {
+        if (!description.equals("")) {
+            String returnString = new String("");
+            int i = 0;
+            for (Task entry : list) {
+                if (entry.description.contains(description)) {
+                    returnString += (entry.toString() + "\n");
+                    i++;
+                }
+            }
+            // Returns a string that contains the task description and a summary of the valid tasks.
+            if (!returnString.equals("")) {
+                return (returnString + String.format("There were %d tasks containing %s.", i, description));
+            }
+        }
+        return String.format("There were no tasks containing %s.", description);
+    }
+    
+    /**
      * Returns a string representation of the list of all tasks to display to the
      * user.
      * 
@@ -150,6 +174,7 @@ public class TaskList {
         return list.size() == 0;
     }
 
+    
     /**
      * Removes and retreives the first item in the list to save to file.
      * 
