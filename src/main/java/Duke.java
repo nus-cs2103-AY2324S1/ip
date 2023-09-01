@@ -11,19 +11,10 @@ import duke.ui.Ui;
  * Chatbot class
  */
 public class Duke {
-    // Attribute
     Ui ui;
     Storage storage;
     TaskList tasks;
 
-    // Constructor
-
-    /**
-     * The constructor of Duke
-     * 
-     * @param directoryName the name of directory
-     * @param fileName the name of the file
-     */
     public Duke(String directoryName, String fileName) {
         this.ui = new Ui();
         this.storage = new Storage(directoryName, fileName);
@@ -35,13 +26,10 @@ public class Duke {
         }
     }
 
-    // Method
-
     /**
      * The main method
      * 
      * @param args the input argument
-     * @throws IOException
      */
     public static void main(String[] args) {
         new Duke("./data", "storage.txt").run();
@@ -54,7 +42,7 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         ui.printIntro();
         String message = scanner.nextLine();
-        while(!message.equals("bye")) {
+        while (!message.equals("bye")) {
             Parser.parse(message, ui, tasks, storage);
             message = scanner.nextLine();
         }

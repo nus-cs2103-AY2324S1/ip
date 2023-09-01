@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * The test class for Parser
+ */
 public class ParserTest {
     Parser parser;
     UiSample ui;

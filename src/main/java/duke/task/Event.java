@@ -8,33 +8,21 @@ import duke.exception.InvalidEventException;
  * Event class
  */
 public class Event extends Task {
-    // Attribute
     private LocalDate start;
     private LocalDate end;
 
-    // Constructor
-
-    /**
-     * The constructor of Event class
-     * 
-     * @param name name of the event
-     * @param start the start of the event
-     * @param end the end of the event
-     */
     public Event(String name, LocalDate start, LocalDate end) {
         super(name);
         this.start = start;
         this.end = end;
     }
 
-    // Method
-
     /**
      * Creates a new event based on the message
      * 
      * @param message the message to create the new event
      * @return the new event
-     * @throws InvalidEventException
+     * @throws InvalidEventException when the event command message is invalid
      */
     public static Event create(String message) throws InvalidEventException {
         try {
@@ -46,18 +34,13 @@ public class Event extends Task {
             LocalDate fromDate = LocalDate.parse(fromString);
             LocalDate toDate = LocalDate.parse(toString);
             return new Event(name, fromDate, toDate);
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new InvalidEventException();
-        } catch(DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             throw new InvalidEventException();
         }
     }
 
-    /**
-     * Method to return the string representation of event
-     * 
-     * @return the string representation of event
-     */
     @Override
     public String toString() {
         String startMonth = start.getMonth().toString().substring(0, 3);
@@ -67,14 +50,9 @@ public class Event extends Task {
         String endDay = end.toString().split("-")[2];
         String endYear = end.toString().split("-")[0];
         return "[E]" + super.toString() + " (from: " 
-            + startMonth + " " + startDay + " " + startYear + " to: " + endMonth + " " + endDay + " " + endYear + " )";
+                + startMonth + " " + startDay + " " + startYear + " to: " + endMonth + " " + endDay + " " + endYear + " )";
     }
 
-    /**
-     * Method to return the string format of the event in the storage
-     * 
-     * @return the string format of the event in the storage
-     */
     @Override
     public String storeInString() {
         return "E | " + (this.getMark() ? "1 | " : "0 | ") + this.getName() + " | " + this.start + " | " + this.end;

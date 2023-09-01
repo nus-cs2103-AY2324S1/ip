@@ -29,7 +29,7 @@ public class TaskListTest {
      */
     @Test
     public void size_twoTasks_success() {
-        assertEquals(sampleTasks.size(), 2);
+        assertEquals(sampleTasks.getSize(), 2);
     }
 
     /**
@@ -38,7 +38,7 @@ public class TaskListTest {
     @Test
     public void addTask_success() {
         sampleTasks.addTask(new ToDoSample());
-        assertEquals(sampleTasks.size(), 3);
+        assertEquals(sampleTasks.getSize(), 3);
     }
 
     /**
@@ -47,7 +47,7 @@ public class TaskListTest {
     @Test
     public void removeTask_success() {
         sampleTasks.removeTask(1);
-        assertEquals(sampleTasks.size(), 1);
+        assertEquals(sampleTasks.getSize(), 1);
     }
 
     /**
