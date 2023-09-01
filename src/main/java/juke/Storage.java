@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Storage {
     File savefile;
     public Storage(String filepath) {
-       this.savefile = new File("./savefile.txt");
+       this.savefile = new File(filepath);
         if (!savefile.exists()) {
             try {
                 savefile.createNewFile();
