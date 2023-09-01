@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Scanner;
 
 /**
@@ -58,7 +59,7 @@ public class Storage {
      *
      * @return a list of tasks
      */
-    public ArrayList<Task> load() throws DukeException {
+    public ArrayList<Optional<Task>> load() throws DukeException {
         try {
             Path path = Path.of(filePath);
             if (Files.notExists(path)) {
@@ -71,7 +72,7 @@ public class Storage {
                 // it exists, so let's read it
 
                 Scanner sc = new Scanner(path);
-                ArrayList<Task> tasks = new ArrayList<>();
+                ArrayList<Optional<Task>> tasks = new ArrayList<>();
                 while (sc.hasNextLine()) {
                     String inputLine = sc.nextLine();
                     if (inputLine.isEmpty()) {
@@ -79,7 +80,7 @@ public class Storage {
 
                     }
                     Task task = parseTask(inputLine);
-                    tasks.add(task);
+                    tasks.add(Optional.of(task));
 
 
                 }

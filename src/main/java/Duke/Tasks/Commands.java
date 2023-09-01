@@ -11,7 +11,9 @@ public enum Commands {
     DELETE,
     TODO,
     DEADLINE,
-    EVENT;
+    EVENT,
+
+    FIND;
 
     /**
      * Tests to see if a string contains this enum.
