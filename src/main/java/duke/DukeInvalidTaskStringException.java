@@ -1,3 +1,5 @@
+package duke;
+
 public class DukeInvalidTaskStringException extends DukeException {
     String taskNum;
 

@@ -1,3 +1,5 @@
+package duke;
+
 public class DukeMissingArgumentException extends DukeException {
     @Override
     public String toString() {

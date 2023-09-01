@@ -1,3 +1,5 @@
+package duke;
+
 public class DukeInvalidTaskException extends DukeException {
 
     String part;
