@@ -19,20 +19,20 @@ public class Storage {
     public ArrayList<Task> loadTasksFromFile() {
         try {
             File dataFile = Paths.get(ChatterChicken.PATH).toAbsolutePath().toFile();
+            ArrayList<Task> taskList = new ArrayList<>();
             if (!dataFile.exists()) {
                 dataFile.createNewFile();
             } else {
                 BufferedReader reader = new BufferedReader(new FileReader(dataFile));
                 String currLine = reader.readLine();
-                ArrayList<Task> taskList = new ArrayList<>();
                 while (currLine != null) {
                     Task task = parser.parseTaskFromFile(currLine);
                     taskList.add(task);
                     currLine = reader.readLine();
                 }
                 reader.close();
-                return taskList;
             }
+            return taskList;
         } catch (IOException e) {
             System.err.println("An error occurred while loading tasks from file: " + e.getMessage());
         } catch (CCException e) {
