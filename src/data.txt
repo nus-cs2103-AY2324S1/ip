@@ -1,1 +1,5 @@
 T/0/walk dog
+D/0/do homework/2009-12-02T04:00
+D/0/do project/2024-11-12T16:49
+E/0/project meeting/2024-09-01T22:00/2024-09-01T22:00
+E/0/project meeting/2024-09-01T21:00/2024-09-01T22:00

@@ -1,12 +1,17 @@
-
-
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.File;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.nio.file.Path;
 import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 public class Richie {
     static private String CHATBOT_NAME = "Richie";
     static private ArrayList<Task> itemArray = new ArrayList<>();
@@ -47,14 +52,17 @@ public class Richie {
             return task;
         } else if (array[0].equals("D")) {
             String[] arrayD = line.split("/", 4);
-            Deadline task = new Deadline(arrayD[2], arrayD[3]);
+            LocalDateTime byDateTime = LocalDateTime.parse(arrayD[3]);
+            Deadline task = new Deadline(arrayD[2], byDateTime);
             if (arrayD[1].equals("1")) {
                 task.markAsDone();
             }
             return task;
         } else if (array[0].equals("E")) {
             String[] arrayE = line.split("/", 5);
-            Event task = new Event(arrayE[2], arrayE[3], arrayE[4]);
+            LocalDateTime fromDateTime = LocalDateTime.parse(arrayE[3]);
+            LocalDateTime toDateTime = LocalDateTime.parse(arrayE[4]);
+            Event task = new Event(arrayE[2], fromDateTime, toDateTime);
             if (arrayE[1].equals("1")) {
                 task.markAsDone();
             }
@@ -98,17 +106,40 @@ public class Richie {
                     bufferedWriter.append("\n");
                 } else if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
-                    bufferedWriter.append("D/" + doneNum + "/" + deadline.getDescription() + "/" + deadline.getBy());
+                    bufferedWriter.append("D/" + doneNum + "/" + deadline.getDescription() + "/"
+                            + deadline.getBy().toString());
                     bufferedWriter.append("\n");
                 } else if (task instanceof Event) {
                     Event event = (Event) task;
-                    bufferedWriter.append("E/" + doneNum + "/" + event.getDescription() + "/" + event.getFrom() + "/" + event.getTo());
+                    bufferedWriter.append("E/" + doneNum + "/" + event.getDescription() + "/"
+                            + event.getFrom().toString() + "/"
+                            + event.getTo().toString());
                     bufferedWriter.append("\n");
                 }
             }
             bufferedWriter.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+
+    }
+
+    private static LocalDateTime convertInputDateAndTimeIntoLocalDateTime(String input) throws RichieException {
+        try {
+            String stringDateTime = input;
+            String[] dateTimeArray = stringDateTime.split(" ", 2);
+            String stringDate = dateTimeArray[0];
+            String stringTime = dateTimeArray[1];
+            String[] dayMonthYearArray = stringDate.split("/", 3);
+            LocalDate date = LocalDate.of(Integer.parseInt(dayMonthYearArray[2]), Integer.parseInt(dayMonthYearArray[1]),
+                    Integer.parseInt(dayMonthYearArray[0]));
+            LocalTime time = LocalTime.of(Integer.parseInt(stringTime.substring(0, 2)), Integer.parseInt(stringTime.substring(2, 4)));
+            LocalDateTime dateTime = LocalDateTime.of(date, time);
+            return dateTime;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new RichieException("Date and Time entered is in the wrong format!");
+        } catch (DateTimeException e) {
+            throw new RichieException("Date and Time entered is in the wrong format!");
         }
 
     }
@@ -157,7 +188,8 @@ public class Richie {
             } else if (stringArray[0].equals("deadline")) {
                 try {
                     String[] stringArray2 = stringArray[1].split(" /by ", 2);
-                    Deadline deadline = new Deadline(stringArray2[0], stringArray2[1]);
+                    LocalDateTime dateTime = convertInputDateAndTimeIntoLocalDateTime(stringArray2[1]);
+                    Deadline deadline = new Deadline(stringArray2[0], dateTime);
                     addItem(deadline);
                     saveCurrentTasks();
                     System.out.println("Got it. I've added this task:\n" + deadline.toString()
@@ -165,6 +197,9 @@ public class Richie {
                     message = input.nextLine();
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("OOPS!! Either the description or the deadline is empty!");
+                    message = input.nextLine();
+                } catch (RichieException e) {
+                    System.out.println(e.getMessage());
                     message = input.nextLine();
                 }
 
@@ -185,7 +220,10 @@ public class Richie {
                 try {
                     String[] stringArray2 = stringArray[1].split(" /from ", 2);
                     String[] stringArray3 = stringArray2[1].split(" /to ", 2);
-                    Event event = new Event(stringArray2[0], stringArray3[0], stringArray3[1]);
+                    String stringFromDateTime = stringArray3[0];
+                    String stringToDateTime = stringArray3[1];
+                    Event event = new Event(stringArray2[0], convertInputDateAndTimeIntoLocalDateTime(stringFromDateTime),
+                            convertInputDateAndTimeIntoLocalDateTime(stringToDateTime));
                     addItem(event);
                     saveCurrentTasks();
                     System.out.println("Got it. I've added this task:\n" + event.toString()
@@ -193,6 +231,9 @@ public class Richie {
                     message = input.nextLine();
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("OOPS!! The description of a event or the duration of the event is incomplete");
+                    message = input.nextLine();
+                } catch (RichieException e) {
+                    System.out.println(e.getMessage());
                     message = input.nextLine();
                 }
 

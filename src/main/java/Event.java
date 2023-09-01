@@ -1,9 +1,12 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a Event task in Richie application
  */
 class Event extends Task {
-    private String from;
-    private String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * Constructor for the Event task
@@ -11,7 +14,7 @@ class Event extends Task {
      * @param from The time that the event begins
      * @param to The time that the event ends
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -19,22 +22,38 @@ class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + convertFromToString() + " to: " + convertToToString() + ")";
     }
 
     /**
-     * Returns string date and time of when task starts
-     * @return String of when the task starts
+     * Returns LocalDateTime date and time of when task starts
+     * @return LocalDateTime of when the task starts
      */
-    public String getFrom() {
+    public LocalDateTime getFrom() {
         return this.from;
     }
 
     /**
-     * Returns string date and time of when task is done
-     * @return String of when the task ends
+     * Returns LocalDateTime date and time of when task is done
+     * @return LocalDateTime of when the task ends
      */
-    public String getTo() {
+    public LocalDateTime getTo() {
         return this.to;
+    }
+
+    /**
+     * Converts From to a String format
+     * @return String that represents the From
+     */
+    public String convertFromToString() {
+        return this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy 'at' hh:mm a"));
+    }
+
+    /**
+     * Converts To to a string format
+     * @return String that represents the To
+     */
+    public String convertToToString() {
+        return this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy 'at' hh:mm a"));
     }
 }
