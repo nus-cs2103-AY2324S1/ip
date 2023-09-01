@@ -116,6 +116,10 @@ public abstract class Task {
         return true;
     }
 
+    public boolean contains(String searchStr) {
+        return description.contains(searchStr);
+    }
+
     /**
      * toString method of Task. <br>
      * A Task is formatted as "[X] description of task", where the X may or

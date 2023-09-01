@@ -62,6 +62,31 @@ public class TaskList {
                 + TASKS.size() + " task(s) remain on my list.";
     }
 
+    public String find(String searchStr) {
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 1; i < TASKS.size() + 1; i++) {
+            if (TASKS.get(i - 1).contains(searchStr)) {
+                result.append(i);
+                result.append(". ");
+                result.append(TASKS.get(i - 1).toString());
+                result.append("\n");
+            }
+        }
+
+        if (result.length() == 0) {
+            // we do not throw an error here - having no matches is a valid result from find.
+            return "No results match your search.";
+        }
+
+        // delete the overflow \n from the last append operation
+        if (result.charAt(result.length() - 1) == '\n') {
+            result.deleteCharAt(result.length() - 1);
+        }
+
+        return result.toString();
+    }
+
     /**
      * Function that adds a task to the app. <br>
      * Adds a To-Do, Event or Deadline task to the task list.
