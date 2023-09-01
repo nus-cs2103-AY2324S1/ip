@@ -23,8 +23,8 @@ public class Parser {
     public static TemporalAccessor parseDateTimeInput(String dateTimeString) throws DukeException{
         try {
             return dateTimeParser.parseBest(dateTimeString,
-                                        LocalDateTime::from,
-                                        LocalDate::from);
+                    LocalDateTime::from,
+                    LocalDate::from);
         } catch (DateTimeParseException e) {
             throw new DukeException("Please use the format \"DD-MM-YYYY [HHMM]\"");
         }
