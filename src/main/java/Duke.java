@@ -1,14 +1,85 @@
-import java.util.Scanner;
+import java.io.*;
 import java.lang.Exception;
+import java.util.Scanner;
 import java.util.ArrayList;
 
 //My chatbot function
 public class Duke {
+
+    /**
+     * Create the directory and file to store the previous list, else update it to the current list.
+     */
+    public void createFileIfNotExists() {
+        File directory = new File("./data");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        File file = new File("./data/duke.txt");
+        if(!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Update the list of tasks in the duke.txt according to the current list
+     *
+     * @param tasks the ArrayList of tasks that were added
+     */
+    public void saveTasksToFile(ArrayList<Task> tasks) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("./data/duke.txt"))) {
+            for (Task task : tasks) {
+                writer.write(task.toString() + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Read the list of tasks stored in the duke.txt file and return the ArrayList of tasks.
+     *
+     * @return The ArrayList of tasks saved from previous usage.
+     */
+
+
+    public ArrayList<Task> loadTasksFromFile() {
+        ArrayList<Task> tasks = new ArrayList<Task>();
+        try (BufferedReader reader = new BufferedReader(new FileReader("./data/duke.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String taskType = line.substring(line.indexOf("[") + 1, line.indexOf("]"));
+                // Convert String back to Task object
+                if (taskType.equals("T")) {
+                    System.out.println(line);
+                    tasks.add(ToDo.parseFromString(line));
+                } else if (taskType.equals("D")) {
+                    System.out.println(line);
+                    tasks.add(Deadline.parseFromString(line));
+                } else {
+                    System.out.println(line);
+                    tasks.add(Event.parseFromString(line));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return tasks;
+    }
+
+
     public static void main(String[] args) {
+        Duke duke = new Duke();
+        duke.createFileIfNotExists();
         final String SPACE = "------------------------------------"; // for spacing purposes
         String name = "Adam's Bot"; // name of bot
         ArrayList<Task> toDoList = new ArrayList<Task>(); // ArrayList to store the items
-        int counter = 0; // Counter to keep track of pointer
+        toDoList = duke.loadTasksFromFile();
+        int counter = toDoList.size(); // Counter to keep track of pointer
 
         System.out.println(SPACE);
         System.out.println("Hello! I'm "+ name);
@@ -163,5 +234,7 @@ public class Duke {
         System.out.println(SPACE);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(SPACE);
+        duke.saveTasksToFile(toDoList);
+
     }
 }

@@ -1,7 +1,7 @@
 public class Deadline extends Task {
-    String dueDate;
+    private String dueDate;
     public Deadline(String taskName, String dueDate) {
-        super(taskName, TaskType.DEADLIINE);
+        super(taskName, TaskType.DEADLINE);
         this.dueDate = dueDate;
     }
     @Override
@@ -9,15 +9,22 @@ public class Deadline extends Task {
             return "[D]"+ super.toString() + " (by: " + dueDate + ")";
     }
 
-    // mark task as done and print out the line
-    @Override
-    public void markDone() {
-        isDone = true;
-    }
+    /**
+     * Parse from string to a Deadline task
+     *
+     * @param line The String that is needed to parse into a Deadline Task
+      */
+    public static Deadline parseFromString(String line) {
+        int firstBracketIndex = line.indexOf(']');
+        String description = line.substring(firstBracketIndex + 4).split(" \\(by: ")[0];
+        String dueDate = line.split("\\(by: |\\)")[1];
+        String mark = line.substring(firstBracketIndex + 2, firstBracketIndex + 3);
+        Deadline task = new Deadline(description, dueDate);
 
-    // mark task as undone and print out the line
-    @Override
-    public void unmarkDone() {
-        isDone = false;
+        // if task is initially marked done, then mark the task as done
+        if (mark.equals("X")) {
+            task.markDone();
+        }
+        return task;
     }
 }

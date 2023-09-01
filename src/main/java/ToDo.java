@@ -8,15 +8,21 @@ public class ToDo extends Task{
         return "[T]" + super.toString();
     }
 
-    // mark task as done and print out the line
-    @Override
-    public void markDone() {
-        isDone = true;
-    }
+    /**
+     * Parse from string to a ToDo task
+     *
+     * @param line The String that is needed to parse into a ToDo Task
+     */
+    public static ToDo parseFromString(String line) {
+        int firstBracketIndex = line.indexOf(']');
+        String description = line.substring(firstBracketIndex + 4);
+        String mark = line.substring(firstBracketIndex + 2, firstBracketIndex + 3);
+        ToDo task = new ToDo(description);
 
-    // mark task as undone and print out the line
-    @Override
-    public void unmarkDone() {
-        isDone = false;
+        // if task is initially marked done, then mark the task as done
+        if (mark.equals("X")) {
+            task.markDone();
+        }
+        return task;
     }
 }
