@@ -2,17 +2,15 @@ package jarvis;
 
 public class Event extends Task {
 
-    protected String startTime;
-    protected String endTime;
+    private String dueDate;
     
-    public Event(String title, String startTime, String endTime) {
-        super(title);
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public Event(String title, String dueDate, boolean isCompleted) {
+        super(title, isCompleted);
+        this.dueDate = dueDate;
     }
     
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startTime + " to " + endTime + ")";
+        return "E | " + super.toString() + " | " + dueDate;
     }
 }

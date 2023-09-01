@@ -4,9 +4,9 @@ public class Task {
     private String title;
     private boolean isCompleted;
 
-    public Task(String title) {
+    public Task(String title, boolean isCompleted) {
         this.title = title;
-        isCompleted = false;
+        this.isCompleted = isCompleted;
     }
 
     public String getTitle() {
@@ -18,7 +18,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isCompleted ? "[X]" : "[ ]");
+        return (isCompleted ? "1 | " : "0 | ");
     }
 
    public String getCatIcon() {
@@ -34,6 +34,6 @@ public class Task {
     }
 
     public String toString() {
-        return getStatusIcon() + " " + getTitle();
+        return getStatusIcon() + getTitle();
     }
 }
