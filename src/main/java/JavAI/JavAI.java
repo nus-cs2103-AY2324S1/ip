@@ -36,7 +36,7 @@ public class JavAI {
             } else {
                 try {
                     parser.parse(input, tasks, ui);
-                } catch (JavAIException e) {
+                } catch(JavAIException e) {
                     ui.showLoadingError(e);
                 }
             }
@@ -46,8 +46,6 @@ public class JavAI {
      * The main method that starts the JavAI chatbot.
      *
      * @param args Command-line arguments.
-     * @throws JavAIException If there's an exception in the JavAI program.
-     * @throws Exception If there's an exception in the JavAI program.
      */
     public static void main(String[] args) {
         new JavAI("./src/main/txtFolder/JavAI.txt").run();

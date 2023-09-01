@@ -106,8 +106,6 @@ public class Storage {
                 }
             } catch (FileNotFoundException e) {
                 System.out.println("Something went wrong: " + e.getMessage());
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
             }
 
         }
