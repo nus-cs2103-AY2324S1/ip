@@ -18,11 +18,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("Corubi")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveFileName = "Corubi.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
