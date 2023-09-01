@@ -13,5 +13,5 @@ public abstract class Parser<T> {
      * @param s The string to be parsed.
      * @return An object of type T parsed from the input string.
      */
-    public abstract T parse(String s);
+    public abstract T parse(String s) throws ParsingException;
 }
