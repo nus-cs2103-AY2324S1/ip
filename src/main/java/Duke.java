@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -24,6 +26,7 @@ public class Duke {
     private static String TO_EMPTY = "\uD83D\uDE21 Missing to!";
     private static String TIME_FORMAT_ERROR = "\uD83D\uDE21 Time format invalid!";
     private static String FILE_PARSE_ERROR = "\uD83D\uDE21 Error parsing save file!";
+    private static String INVALID_DATE_FORMAT = "\uD83D\uDE21 Invalid date format! Try using YYYY-MM-DD";
 
 
     private static Path SAVE_FILE_LOCATION = Paths.get("src", "data", "duke.txt");
@@ -55,11 +58,13 @@ public class Duke {
                     Scanner sc = new Scanner(SAVE_FILE_LOCATION);
                     while (sc.hasNextLine()) {
                         String inputLine = sc.nextLine();
+                        if (inputLine.isEmpty()) {
+                            continue;
 
+                        }
                         Task task = parseTask(inputLine);
 
                         listContainer.addToList(task);
-
 
                     }
                     System.out.println("✅ Loaded " + listContainer.getSize() + " previous tasks.");
@@ -167,11 +172,24 @@ public class Duke {
                             // no item name
                             throw new DukeException(DEADLINE_EMPTY);
                         }
-                        DeadlineTask deadlineTask = new DeadlineTask(itemName, deadline);
 
-                        listContainer.addToList(deadlineTask);
+                        // parse the deadline - should be a LocalDate format
+                        String[] deadlineArr = deadline.split(" ");
+                        String deadlineDateStr = deadlineArr[0];
+                        int deadlineTime = Integer.parseInt(deadlineArr.length > 1 ? deadlineArr[1] : "0");
+                        try {
+                            LocalDate deadlineDate = LocalDate.parse(deadlineDateStr);
 
-                        printResult(inputCommand, deadlineTask);
+                            DeadlineTask deadlineTask = new DeadlineTask(itemName, deadlineDate, deadlineTime);
+
+                            listContainer.addToList(deadlineTask);
+
+                            printResult(inputCommand, deadlineTask);
+                        } catch (DateTimeParseException e) {
+                            throw new DukeException(INVALID_DATE_FORMAT);
+                        }
+
+
                         break;
                     }
                     case EVENT: {
@@ -253,8 +271,17 @@ public class Duke {
             }
             case "D": {
                 // get the deadline, which is 4th element
-                String deadline = split[3];
-                task = new DeadlineTask(taskDescription, deadline);
+                String deadlineStr = split[3];
+                String[] deadlineArr = deadlineStr.split(" ");
+
+                LocalDate deadline = LocalDate.parse(deadlineArr[0]);
+                int deadlineTime = 0;
+                if (deadlineArr.length > 1) {
+                    // deadline time specified
+                    deadlineTime = Integer.parseInt(deadlineArr[1]);
+                }
+
+                task = new DeadlineTask(taskDescription, deadline, deadlineTime);
                 break;
             }
             case "E": {
