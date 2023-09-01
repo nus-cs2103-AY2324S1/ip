@@ -3,7 +3,16 @@ package kevin.parser;
 import java.util.ArrayList;
 import kevin.exception.KevinException;
 
+/**
+ * A class to handle the parsing of text from the user's input.
+ */
 public class Parser {
+    /**
+     * Parses the text from the user to make it a QueryObject.
+     * @param userInput This is the user input that needs to be parsed.
+     * @return Returns a QueryObject containing the Command and arguments.
+     * @throws KevinException On the detection of errors.
+     */
     public QueryObject prepareArguments(String userInput) throws KevinException {
         String[] querySplit = userInput.trim().split(" ", 2);
 
