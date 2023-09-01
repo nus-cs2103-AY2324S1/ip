@@ -1,10 +1,5 @@
 package simon;
 
-import simon.task.Task;
-import simon.task.ToDo;
-import simon.task.Deadline;
-import simon.task.Event;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,6 +8,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import simon.task.Deadline;
+import simon.task.Event;
+import simon.task.Task;
+import simon.task.ToDo;
+
 
 public class Storage {
     private final String filePath;
