@@ -1,5 +1,6 @@
 package deterministicparrot;
 
+
 import java.io.FileNotFoundException;
 import java.util.*;
 
@@ -46,6 +47,9 @@ public class DeterministicParrot {
         });
         parser.registerHandler("delete", args -> {
             deleteTask(args);
+        });
+        parser.registerHandler("find", args -> {
+            findTask(args);
         });
     }
 
@@ -238,6 +242,19 @@ public class DeterministicParrot {
         }
     }
 
+    private void findTask(String args[]) throws Exception {
+        if(args.length < 2){
+            throw new DeterministicParrotException("Please provide a search term.");
+        }
+        String searchTerm = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+        List<TaskList.SearchResult> results = this.taskList.findTask(searchTerm);
+        this.ui.println("     " + "Here are the matching tasks in your list:");
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < results.size(); i++){
+            sb.append("     " + results.get(i).index + ". " + results.get(i).task + "\n");
+        }
+        this.ui.println(sb.toString());
+    }
     /**
      * Main method to start the Deterministic Parrot application.
      *
