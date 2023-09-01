@@ -64,7 +64,7 @@ public class ChatterBox {
             } else {
 
                 if (input.equals("todo")) {
-                    if (fullLine.split(" todo").length < 1) {
+                    if (fullLine.split("todo ").length < 1) {
                         linePrinter();
                         tabPrinter("The description of a todo cannot be empty!");
                         linePrinter();
