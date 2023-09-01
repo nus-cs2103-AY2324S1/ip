@@ -4,6 +4,9 @@ public class Todo extends Task {
         super(description);
     }
 
+    public String formatToSave() {
+        return "T" + super.formatToSave();
+    }
     @Override
     public String toString() {
         return "[T]" + super.toString();

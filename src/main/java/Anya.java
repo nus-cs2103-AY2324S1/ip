@@ -1,15 +1,28 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+
+/**
+ * Represents a chatbot named Anya
+ */
 public class Anya {
     final static String LINE = "\n____________________________________________________________\n";
     static ArrayList<Task> tasks = new ArrayList<>();
-    static int taskCount = 0;
+    static String savedFile = "./data/Anya.txt";
     enum Command {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
     }
+
+    enum TaskType {
+        TODO, DEADLINE, EVENT, UNKNOWN
+    }
     public static void main(String[] args) {
         greet();
+        loadFile(savedFile);
         start();
         exit();
     }
@@ -45,6 +58,7 @@ public class Anya {
 
                 switch (command) {
                     case BYE:
+                        saveFile(savedFile);
                         break scan;
                     case LIST:
                         list();
@@ -66,7 +80,7 @@ public class Anya {
                         }
                         // Error: Argument provided is not within task numbers
                         int taskNumber = Integer.parseInt(details);
-                        if (taskNumber < 1 || taskNumber > taskCount) {
+                        if (taskNumber < 1 || taskNumber > tasks.size()) {
                             throw new InvalidArgumentException(LINE
                                     + "☹ Waku waku! I don't see a task with the number:" + taskNumber
                                     + LINE);
@@ -99,7 +113,7 @@ public class Anya {
                         }
                         // Error: Argument provided is not within task numbers
                         int taskNumber = Integer.parseInt(details);
-                        if (taskNumber < 1 || taskNumber > taskCount) {
+                        if (taskNumber < 1 || taskNumber > tasks.size()) {
                             throw new InvalidArgumentException(LINE
                                     + "☹ Waku waku! I don't see a task with the number:" + taskNumber
                                     + LINE);
@@ -123,13 +137,12 @@ public class Anya {
                         }
 
                         Task t = new Todo(details);
-                        taskCount++;
                         tasks.add(t);
 
                         System.out.println(LINE);
                         System.out.println("    Waku waku! I've added this task:");
                         System.out.println("    " + t);
-                        System.out.println("    Now you have " + taskCount + " tasks in the list!");
+                        System.out.println("    Now you have " + tasks.size() + " tasks in the list!");
                         System.out.println(LINE);
                         break;
                     }
@@ -146,13 +159,12 @@ public class Anya {
                         String taskName = info[0].trim();
                         String deadline = info[1].trim();
                         Task t = new Deadline(taskName, deadline);
-                        taskCount++;
                         tasks.add(t);
 
                         System.out.println(LINE);
                         System.out.println("    Waku waku! I've added this task:");
                         System.out.println("    " + t);
-                        System.out.println("    Now you have " + taskCount + " tasks in the list!");
+                        System.out.println("    Now you have " + tasks.size() + " tasks in the list!");
                         System.out.println(LINE);
                         break;
                     }
@@ -173,16 +185,15 @@ public class Anya {
                         }
 
                         String taskName = details.split("/from")[0].trim();
-                        String startTime = details.split("/from")[1].trim();
+                        String startTime = details.split("/from")[1].trim().split("/to")[0].trim();
                         String endTime = details.split("/to")[1].trim();
                         Task t = new Event(taskName, startTime, endTime);
-                        taskCount++;
                         tasks.add(t);
 
                         System.out.println(LINE);
                         System.out.println("    Waku waku! I've added this task:");
                         System.out.println("    " + t);
-                        System.out.println("    Now you have " + taskCount + " tasks in the list!");
+                        System.out.println("    Now you have " + tasks.size() + " tasks in the list!");
                         System.out.println(LINE);
                         break;
                     }
@@ -204,7 +215,7 @@ public class Anya {
                         }
                         // Error: Argument provided is not within task numbers
                         int taskNumber = Integer.parseInt(details);
-                        if (taskNumber < 1 || taskNumber > taskCount) {
+                        if (taskNumber < 1 || taskNumber > tasks.size()) {
                             throw new InvalidArgumentException(LINE
                                     + "☹ Waku waku! I don't see a task with the number:" + taskNumber
                                     + LINE);
@@ -212,26 +223,23 @@ public class Anya {
 
                         Task t = tasks.get(taskNumber - 1);
                         tasks.remove(t);
-                        taskCount--;
 
                         System.out.println(LINE);
                         System.out.println("    Waku waku! I've removed this task as Not Done:");
                         System.out.println("    " + t);
-                        System.out.println("    Now you have " + taskCount + " tasks in the list!");
+                        System.out.println("    Now you have " + tasks.size() + " tasks in the list!");
                         System.out.println(LINE);
                         break;
                     }
                     default:
                         System.out.println(LINE);
-                        System.out.println("☹ Waku waku!!! " +
-                                "I'm sorry, but I don't know what that means (yet) :( ");
+                        System.out.println("☹ Waku waku!!! I'm sorry, but I don't know what that means (yet) :( ");
                         System.out.println(LINE);
                         break;
                 }
             } catch (AnyaException e) {
                 System.out.println(e);
             }
-
         }
     }
 
@@ -239,7 +247,7 @@ public class Anya {
         System.out.println(LINE);
         System.out.println("    Waku waku!\n"
                          + "    Here are the tasks in your list:\n");
-        for (int i = 0; i < taskCount; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.println(" " + (i + 1) + ". " + tasks.get(i));
         }
         System.out.println(LINE);
@@ -255,5 +263,114 @@ public class Anya {
         if (input.equals("event")) return Command.EVENT;
         if (input.equals("delete")) return Command.DELETE;
         return Command.UNKNOWN;
+    }
+    private static TaskType getTaskType(String input) {
+        if (input.equals("T")) return TaskType.TODO;
+        if (input.equals("D")) return TaskType.DEADLINE;
+        if (input.equals("E")) return TaskType.EVENT;
+        return TaskType.UNKNOWN;
+    }
+
+    private static void loadFile(String filePath) {
+        try {
+            File file = new File(filePath);
+            File directory = file.getParentFile();
+
+            // Check if directory exists
+            if (directory.mkdir()) {
+                System.out.println("Directory was not found. New directory " + directory.getName() + " is created");
+            }
+
+            if (file.createNewFile()) {
+                System.out.println("File is not found. New File created: " + file.getName());
+            } else {
+                System.out.println("File already exists. Your data is loaded");
+                readFile(file);
+            }
+        } catch (Exception e) {
+            System.out.println("An error occurred." + e.getMessage());
+        }
+    }
+
+    private static void readFile(File file) throws FileNotFoundException {
+        Scanner sc = new Scanner(file);
+        while (sc.hasNext()) {
+            String[] arguments = sc.nextLine().split("\\|");
+
+            TaskType taskType = getTaskType(arguments[0].trim());
+            boolean isDone = arguments[1].trim().equals("1");
+            String description = arguments[2].trim();
+            String by = "";
+            String from = "";
+            String to = "";
+
+            if (arguments.length == 4) {
+                by = arguments[3].trim();
+            } else if (arguments.length == 5) {
+                from = arguments[3].trim();
+                to = arguments[4].trim();
+            }
+
+            Task task;
+
+            switch (taskType) {
+            case TODO:
+                task = new Todo(description);
+                if (isDone) {
+                    task.markAsDone();
+                }
+                tasks.add(task);
+                break;
+            case DEADLINE:
+                task = new Deadline(description, by);
+                if (isDone) {
+                    task.markAsDone();
+                }
+                tasks.add(task);
+                break;
+            case EVENT:
+                task = new Event(description, from, to);
+                if (isDone) {
+                    task.markAsDone();
+                }
+                tasks.add(task);
+                break;
+            default:
+                System.out.println("Unknown task type.");
+                break;
+            }
+        }
+    }
+
+    private static void saveFile(String filePath) {
+        // Overwrite everything - clear the file
+        try {
+            writeToFile(filePath, "");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        for (int i = 0; i < tasks.size(); i++) {
+            String text = "";
+            Task task = tasks.get(i);
+            try {
+                text += task.formatToSave() + System.lineSeparator();
+                appendToFile(filePath, text);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private static void writeToFile(String filePath, String text) throws IOException {
+        FileWriter fw = new FileWriter(filePath, false);
+        fw.write(text);
+        fw.close();
+    }
+
+    private static void appendToFile(String filePath, String text) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(text);
+        fw.close();
     }
 }
