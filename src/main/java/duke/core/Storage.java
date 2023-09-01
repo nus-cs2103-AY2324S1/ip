@@ -7,9 +7,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
+/**
+ * Class to handle storage of data.
+ */
 public class Storage {
     private static String baseDirectory = "./data/";
 
+    /**
+     * Sets the base directory for storage.
+     * 
+     * @param baseDirectory Base directory for storage.
+     */
     public void setBaseDirectory(String baseDirectory) {
         // Ensures that it is valid directory
         if (baseDirectory.endsWith("/")) {
@@ -31,6 +39,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads a file and returns a stream of lines.
+     * 
+     * @param fileName Name of file to be read.
+     * @return Stream of lines from the file.
+     * @throws DukeException If an error occurs while reading the file.
+     */
     public static Stream<String> readFile(String fileName) throws DukeException {
         Path filePath = Path.of(Storage.baseDirectory + fileName);
 
@@ -46,6 +61,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes to a file.
+     * 
+     * @param fileName Name of file to be written to.
+     * @param content Content to be written to the file.
+     * @throws DukeException If an error occurs while writing to the file.
+     */
     public static void writeFile(String fileName, Stream<String> content) throws DukeException {
         Path filePath = Path.of(Storage.baseDirectory + fileName);
 

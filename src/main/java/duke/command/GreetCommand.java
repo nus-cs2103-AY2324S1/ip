@@ -6,6 +6,9 @@ import duke.core.Storage;
 import duke.core.Ui;
 import duke.task.TaskList;
 
+/**
+ * Command to greet the user.
+ */
 public class GreetCommand extends Command {
     
     @Override

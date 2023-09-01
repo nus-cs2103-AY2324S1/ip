@@ -5,6 +5,9 @@ import duke.core.Storage;
 import duke.core.Ui;
 import duke.task.TaskList;
 
+/**
+ * Command to exit the program.
+ */
 public class ExitCommand extends Command {
 
     @Override

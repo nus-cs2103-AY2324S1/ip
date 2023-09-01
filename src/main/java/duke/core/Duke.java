@@ -5,6 +5,9 @@ import java.util.Scanner;
 import duke.command.GreetCommand;
 import duke.task.TaskList;
 
+/**
+ * Main class for the program.
+ */
 public class Duke {
     private static Boolean programRunning = true;
 
@@ -12,6 +15,9 @@ public class Duke {
     private static TaskList tasks;
     private static Ui ui;
 
+    /**
+     * Stops the program.
+     */
     public static void stop() {
         Duke.programRunning = false;
     }

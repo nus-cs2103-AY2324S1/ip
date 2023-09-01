@@ -15,13 +15,22 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
 
+/**
+ * Command to add a task to the task list.
+ */
 public class AddCommand extends Command {
     private TaskType taskType;
 
+    /** Enum to represent the type of task to be added. */
     public enum TaskType {
         TODO, DEADLINE, EVENT
     }
 
+    /**
+     * Constructor for AddCommand.
+     * 
+     * @param taskType Type of task to be added.
+     */
     public AddCommand(TaskType taskType) {
         this.taskType = taskType;
     }

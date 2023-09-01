@@ -3,10 +3,19 @@ package duke.task;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 
+/**
+ * Class to represent a deadline task.
+ */
 public class Deadline extends Task {
     private static String SYMBOL = "D";
     protected TemporalAccessor dueDatetime;
 
+    /**
+     * Constructor for Deadline.
+     * 
+     * @param description Description of the deadline task.
+     * @param dueDatetime Due date (and time) of the deadline task.
+     */
     public Deadline(String description, TemporalAccessor dueDatetime) {
         super(description);
         this.dueDatetime = dueDatetime;
