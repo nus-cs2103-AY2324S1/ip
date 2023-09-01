@@ -4,73 +4,24 @@ import java.util.Scanner;
 public class Duke {
     private Scanner scanner;
     private TaskList taskList;
-    private TaskListManager taskListManager;
+    private Storage taskListManager;
+    private Ui ui;
 
     public Duke() throws DukeException, FileNotFoundException {
         scanner = new Scanner(System.in);
         taskList = new TaskList();
-        taskListManager = new TaskListManager("data", "tasks.txt", taskList);
+        ui = new Ui();
+        taskListManager = new Storage("data", "tasks.txt", taskList);
         taskListManager.loadTasks();
     }
 
-    private Task parseTaskInput(String input) throws DukeException {
-        String[] words = input.split(" ");
-        TaskType taskType = TaskType.valueOf(words[0].toUpperCase());
-        String taskDescription = input.replaceFirst(words[0], "").trim();
-
-        switch (taskType) {
-            case ADD:
-                if (taskDescription.isEmpty()) {
-                    throw new DukeException("What should I add in? Pleas add in a description :)");
-                }
-                return new Add(taskDescription);
-            case TODO:
-                if (taskDescription.isEmpty()) {
-                    throw new DukeException("Task Description cannot be EMPTY. Please add in a description :)");
-                }
-                return new ToDo(taskDescription);
-            case DEADLINE:
-                String[] deadlineParts = taskDescription.split("/by", 2);
-                String description = deadlineParts[0].trim();
-                if (description.isEmpty()) {
-                    throw new DukeException("Please provide a task description.");
-                }
-                if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty()) {
-                    throw new DukeException("When is " + deadlineParts[0] + " due? use /by: (date)");
-                }
-                return new DeadLine(deadlineParts[0].trim(), deadlineParts[1].trim());
-            case EVENT:
-                String[] eventParts = taskDescription.split("/from", 2);
-                String desc = eventParts[0].trim();
-                if (desc.isEmpty() || desc.equals("/from") || desc.equals("/to") ) {
-                    throw new DukeException("Please provide a task description.");
-                } else if (eventParts.length < 2) {
-                    throw new DukeException("When is " + desc + "? use /from: (date) /to: (date)");
-                } else {
-                    String[] toParts = eventParts[1].split("/to", 2);
-                    if (toParts.length < 2 || toParts[1].trim().isEmpty()) {
-                        throw new DukeException("When is " + eventParts[0] + "? use /from: (date) /to: (date)");
-                    } else {
-                        return new Event(desc, toParts[0].trim(), toParts[1].trim());
-                    }
-                }
-        }
-        return null;
-    }
-
     public void start() throws DukeException {
-        System.out.println("Hello from\n" + "Bloooooooop");
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm BloopBot");
-        System.out.println(" What can I do for you?");
-        System.out.println(" Keywords: add, deadline, event, todo, bye, echo");
-        System.out.println("\n____________________________________________________________");
-
+        ui.showWelcome();
         boolean isEcho = true;
 
         while (isEcho) {
             String strInput = scanner.nextLine();
-            System.out.println("____________________________________________________________");
+            ui.showLine();
 
             String[] words = strInput.split(" ");
             String firstWord = words[0].toLowerCase();
@@ -80,7 +31,7 @@ public class Duke {
 
                 if (firstWord.equals("add") || firstWord.equals("todo") ||
                         firstWord.equals("deadline") || firstWord.equals("event")) {
-                    Task newTasks = parseTaskInput(strInput);
+                    Task newTasks = Parser.parseTaskInput(strInput);
                     if (newTasks != null) {
                         taskList.addTask(newTasks);
                         taskListManager.saveTask(taskList.getTasks());
@@ -95,8 +46,7 @@ public class Duke {
                     break;
 
                 case LIST:
-                    System.out.println("Here are the tasks in your list:");
-                    taskList.displayTasks();
+                    ui.showTasks(taskList);
                     break;
 
                 case MARK:
@@ -134,16 +84,21 @@ public class Duke {
                     System.out.println(" Echo!! " + echoedText);
                     break;
 
+                case HELP:
+                    ui.showCommands();
+                    break;
+
                 case UNKNOWN:
                     throw new DukeException("Woops, I don't know this command. I only know: add, todo, deadline, event, list, mark, unmark, delete, bye, echo");
                 }
+
             } catch (IllegalArgumentException e) {
                 System.out.println("Woops, I don't know this command, sorry :(");
                 System.out.println("Pay $100 to unlock more features!");
             } catch (DukeException e) {
-                System.out.println("Error: " + e.getMessage());
+                ui.showError(e);
             }
-            System.out.println("\n____________________________________________________________");
+            ui.showLine();
         }
     }
 

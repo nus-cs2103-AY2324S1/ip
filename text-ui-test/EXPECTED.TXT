@@ -3,8 +3,6 @@ Bloooooooop
 ____________________________________________________________
  Hello! I'm BloopBot
  What can I do for you?
- Bloop will echo by default, without any keywords
- Keywords: add, deadline, event, todo, bye
 
 ____________________________________________________________
 ____________________________________________________________
