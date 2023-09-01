@@ -1,3 +1,7 @@
+package chatbuddy;
+
+import chatbuddy.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {

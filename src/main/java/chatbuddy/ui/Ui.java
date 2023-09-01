@@ -1,3 +1,7 @@
+package chatbuddy.ui;
+
+import chatbuddy.task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

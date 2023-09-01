@@ -1,3 +1,5 @@
+package chatbuddy;
+
 public class ChatBuddyException extends Exception {
     protected String description;
 

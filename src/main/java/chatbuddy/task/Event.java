@@ -1,4 +1,5 @@
-import java.time.LocalDate;
+package chatbuddy.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -12,7 +13,7 @@ public class Event extends Task {
     private static final DateTimeFormatter FORMATTER_DATETIME_OUTPUT = DateTimeFormatter.ofPattern("dd MMM yyyy HHmm");
 
     /**
-     * Constructor to create an Event object.
+     * Constructor to create an chatbuddy.task.Event object.
      *
      * @param description The task description.
      * @param from The task's start date/time in the format dd/MM/yyyy HHmm.
@@ -53,7 +54,7 @@ public class Event extends Task {
      * Returns deadline task information in format for saving.
      * Format is E | [1 if completed, 0 if not completed] | [task description] | [from] | [to]
      *
-     * @return Deadline task information in format for saving
+     * @return chatbuddy.task.Deadline task information in format for saving
      */
     @Override
     public String getInformationForSaving() {

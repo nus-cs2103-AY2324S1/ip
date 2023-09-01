@@ -1,3 +1,11 @@
+package chatbuddy.command;
+
+import chatbuddy.ChatBuddyException;
+import chatbuddy.storage.Storage;
+import chatbuddy.TaskList;
+import chatbuddy.ui.Ui;
+import chatbuddy.task.Deadline;
+
 import java.time.LocalDate;
 
 public class DeadlineCommand extends Command {

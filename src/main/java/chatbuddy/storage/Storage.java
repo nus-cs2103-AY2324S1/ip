@@ -1,3 +1,10 @@
+package chatbuddy.storage;
+
+import chatbuddy.ChatBuddyException;
+import chatbuddy.parser.Parser;
+import chatbuddy.TaskList;
+import chatbuddy.task.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
