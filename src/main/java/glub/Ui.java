@@ -62,6 +62,23 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Prints tasks that match to the search string.
+     * @param taskList List of tasks to be searched.
+     * @param searchString String tasks should match.
+     */
+    public static void printFindMsg(TaskList taskList, String searchString) {
+        printHorizontalLine();
+        String displayedTasks = taskList.findTasks(searchString);
+        if (displayedTasks.equals("")) {
+            System.out.println("Oops, no tasks match your search :-(");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            System.out.println(displayedTasks);
+        }
+        printHorizontalLine();
+    }
+
     public static void printError(String msg) {
         System.err.println(msg);
     }

@@ -31,6 +31,15 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Checks if task contains the specified search string.
+     * @param searchString String to be checked against.
+     * @return Boolean whether task contains search string.
+     */
+    public boolean checkMatch(String searchString) {
+        return this.task.toLowerCase().contains(searchString);
+    }
+
     public String toSaveFormat() {
         return String.format("%s|%s", getDoneIcon(), task);
     }
