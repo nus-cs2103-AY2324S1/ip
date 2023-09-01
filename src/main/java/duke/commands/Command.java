@@ -14,7 +14,7 @@ public abstract class Command {
 
     public abstract CommandType getType();
 
-    public static class Exit extends Command {
+    public static class ExitCommand extends Command {
         @Override
         public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
             try {
@@ -31,7 +31,7 @@ public abstract class Command {
         }
     }
 
-    public static class List extends Command {
+    public static class ListCommand extends Command {
         @Override
         public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
             tasks.list();
@@ -43,10 +43,10 @@ public abstract class Command {
         }
     }
 
-    public static class Mark extends Command {
+    public static class MarkCommand extends Command {
         private int taskNumber;
 
-        public Mark(int taskNumber) {
+        public MarkCommand(int taskNumber) {
             this.taskNumber = taskNumber;
         }
 
@@ -62,10 +62,10 @@ public abstract class Command {
         }
     }
 
-    public static class Unmark extends Command {
+    public static class UnmarkCommand extends Command {
         private int taskNumber;
 
-        public Unmark(int taskNumber) {
+        public UnmarkCommand(int taskNumber) {
             this.taskNumber = taskNumber;
         }
 
@@ -81,10 +81,10 @@ public abstract class Command {
         }
     }
 
-    public static class Delete extends Command {
+    public static class DeleteCommand extends Command {
         private int taskNumber;
 
-        public Delete(int taskNumber) {
+        public DeleteCommand(int taskNumber) {
             this.taskNumber = taskNumber;
         }
 
@@ -100,11 +100,11 @@ public abstract class Command {
         }
     }
 
-    public static class Add extends Command {
+    public static class AddCommand extends Command {
         private Task task;
         private CommandType commandType;
 
-        public Add(Task task, CommandType commandType) {
+        public AddCommand(Task task, CommandType commandType) {
             this.task = task;
             this.commandType = commandType;
         }
@@ -121,10 +121,10 @@ public abstract class Command {
         }
     }
 
-    public static class Invalid extends Command {
+    public static class InvalidCommand extends Command {
         private String message;
 
-        public Invalid(String message) {
+        public InvalidCommand(String message) {
             this.message = message;
         }
 
