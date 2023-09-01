@@ -7,6 +7,6 @@ public class WrongInputException extends Exception{
      * @return String representation of the Exception.
      */
     public String toString() {
-        return "Wrong input format.";
+        return "Wrong input format. Can type properly anot?";
     }
 }

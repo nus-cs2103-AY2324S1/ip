@@ -86,4 +86,24 @@ public class Tasklist {
     public void addTask(Task task) {
         tasks.add(task);
     }
+
+    /**
+     * Filters tasks by name.
+     *
+     * @param s Substring which must be present in the Task name.
+     * @return An Arraylist containing tasks whose names match the substring provided.
+     */
+    public ArrayList<Task> filterBySubstring(String s) {
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            String taskName = task.getName().toLowerCase();
+            s = s.toLowerCase();
+
+            if (taskName.contains(s)) {
+                filteredTasks.add(task);
+            }
+        }
+        return filteredTasks;
+    }
 }

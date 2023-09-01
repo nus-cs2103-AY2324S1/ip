@@ -1,6 +1,8 @@
 package duke;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Parser {
     /**
@@ -71,6 +73,11 @@ public class Parser {
                     }
                     tasks.addTask(addedTask);
                     Ui.informTaskAdded(addedTask, tasks.getSize());
+                } else if (splitStr[0].equals("find") && splitStr.length > 1 && !splitStr[1].equals("")) {
+                    String subString = s.substring(5);
+                    ArrayList<Task> filteredList = tasks.filterBySubstring(subString);
+                    Tasklist newTasklist = new Tasklist(filteredList);
+                    Ui.listTasks(newTasklist);
                 } else {
                     throw new WrongInputException();
                 }
