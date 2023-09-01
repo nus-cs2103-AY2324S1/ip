@@ -4,11 +4,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.zip.DataFormatException;
 
+/**
+ * This class encapsulates a Task.
+ */
 public class Task {
-
     private String description;
     private boolean status;
-
     private String indent = "    ";
     public Task(String description) {
         this.description = description;
@@ -19,8 +20,11 @@ public class Task {
         this.status = status;
     }
 
-
-
+    /**
+     * Returns task complete/incomplete message based on user input.
+     *
+     * @param userInput mark/unmark which specifies the command.
+     */
     public String changeStatus(String userInput) {
         if (!this.status && userInput.equals("mark")) {
             this.status = !this.status;
@@ -35,10 +39,24 @@ public class Task {
         }
     }
 
+    /**
+     * Returns date and time as a LocalDateTime parsed from user input yyyy-MM-dd HH:mm.
+     *
+     * @param userDateAndTime User provided date and time.
+     * @return Parsed date and time in yyyy-MM-dd HH:mm.
+     * @throws DateTimeParseException If user input does not follow required format.
+     */
     public LocalDateTime formatDateAndTime(String userDateAndTime) throws DateTimeParseException {
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return LocalDateTime.parse(userDateAndTime, inputFormat);
     }
+
+    /**
+     * Returns date and time as a String parsed from LocalDateTime variable yyyy-MM-dd HH:mm.
+     *
+     * @param systemDateAndTime LocalDateTime value stored on disk.
+     * @return String type Date and time in MMM dd, yyyy HH:mm format.
+     */
     public String printDateTimeFormat(LocalDateTime systemDateAndTime) {
         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm");
         return systemDateAndTime.format(outputFormat);
@@ -50,14 +68,20 @@ public class Task {
         return this.description;
     }
 
-    public void storeDescription(String description) {
-        this.description = description;
-    }
-
+    /**
+     * Returns a String to store Task on Duke.txt file.
+     *
+     * @return String to store Task on Duke.txt file.
+     */
     public String storeToDiskFormat() {
         return this.getStatus() + "|" + this.description;
     }
 
+    /**
+     * Returns String representation of a Task to be printed.
+     *
+     * @return String representation of the Task to be printed.
+     */
     @Override
     public String toString() {
         if (this.getStatus() == 1) {

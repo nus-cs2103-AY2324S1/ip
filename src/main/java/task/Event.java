@@ -1,6 +1,9 @@
 package task;
 import java.time.LocalDateTime;
 
+/**
+ * This class encapsulates an Event
+ */
 public class Event extends Task {
     private String from;
     private String to;
@@ -23,11 +26,18 @@ public class Event extends Task {
         this.toDateTime = formatDateAndTime(to);
     }
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public String storeToDiskFormat() {
         return "E" + "|" + this.getStatus() + "|" + this.getDescription() + "|" + this.from + "|" + this.to;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + printDateTimeFormat(this.fromDateTime) + " to: " + printDateTimeFormat(this.toDateTime) + ")";
