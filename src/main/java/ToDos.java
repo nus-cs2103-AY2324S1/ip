@@ -5,6 +5,6 @@ public class ToDos extends Task { // inheritance
 
     @Override
     public String toString() { // polymorphism
-        return "[T]" + super.toString();
+        return "T | " + super.toString();
     }
 }

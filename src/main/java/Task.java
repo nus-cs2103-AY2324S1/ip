@@ -4,13 +4,12 @@ public class Task {
     protected boolean isDone;
 
     public Task(String description) { // constructor
-        System.out.println("Mama mia ! I've just added this task:");
         this.description = description;
         this.isDone = false;
     }
 
     public String toString() { // encapsulation principle
-        return "[" + (isDone ? "X" : " ") + "]" + description;
+        return (isDone ? "1" : "0") + " |" + description;
     }
 
     public void markTask(boolean mark) { // tell-don't-ask principle
