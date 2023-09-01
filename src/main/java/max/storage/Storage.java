@@ -31,19 +31,19 @@ public class Storage {
     }
     public void loadTask(String task, ArrayList<Task> tasks) throws MaxException {
         String type = task.substring(0, 1).trim(); // T, D, E
-        boolean done = task.substring(3, 5).trim().equals("1");
+        boolean isDone = task.substring(3, 5).trim().equals("1");
 
         switch (type) {
         case "T":
             String description = task.substring(7).trim();
-            tasks.add(new Todo(description, done));
+            tasks.add(new Todo(description, isDone));
             break;
         case "D": {
             int byIndex = task.indexOf("by:");
             String item = task.substring(7, byIndex - 1).trim();
             String by = task.substring(byIndex + 3).trim();
             LocalDate byDate = LocalDate.parse(by);
-            tasks.add(new Deadline(item, byDate, done));
+            tasks.add(new Deadline(item, byDate, isDone));
             break;
         }
         case "E": {
@@ -54,7 +54,7 @@ public class Storage {
             String to = task.substring(toIndex + 3).trim();
             LocalDate fromDate = LocalDate.parse(from);
             LocalDate toDate = LocalDate.parse(to);
-            tasks.add(new Event(item, fromDate, toDate, done));
+            tasks.add(new Event(item, fromDate, toDate, isDone));
             break;
         }
         default:

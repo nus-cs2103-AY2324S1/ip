@@ -25,32 +25,32 @@ public class Parser {
     public Command parse(String fullCommand) throws MaxException {
         String com = fullCommand.split(" ")[0];
 
-            switch (com) {
-                case AddCommand.COMMAND_WORD_DEADLINE:
-                    return handleDeadline(fullCommand);
+        switch (com) {
+        case AddCommand.COMMAND_WORD_DEADLINE:
+            return handleDeadline(fullCommand);
 
-                case AddCommand.COMMAND_WORD_EVENT:
-                    return handleEvent(fullCommand);
+        case AddCommand.COMMAND_WORD_EVENT:
+            return handleEvent(fullCommand);
 
-                case AddCommand.COMMAND_WORD_TODO:
-                    return handleTodo(fullCommand);
+        case AddCommand.COMMAND_WORD_TODO:
+            return handleTodo(fullCommand);
 
-                case ListCommand.COMMAND_WORD:
-                    return new ListCommand();
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
 
-                case MarkCommand.COMMAND_WORD:
-                    return handleMark(fullCommand);
-                case UnmarkCommand.COMMAND_WORD:
-                    return handleUnmark(fullCommand);
-                case DeleteCommand.COMMAND_WORD:
-                    return handleDelete(fullCommand);
+        case MarkCommand.COMMAND_WORD:
+            return handleMark(fullCommand);
+        case UnmarkCommand.COMMAND_WORD:
+            return handleUnmark(fullCommand);
+        case DeleteCommand.COMMAND_WORD:
+            return handleDelete(fullCommand);
 
-                case ExitCommand.COMMAND_WORD:
-                    return new ExitCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-                default:
-                    throw new MaxException("Invalid command sir.");
-            }
+        default:
+            throw new MaxException("Invalid command sir.");
+        }
 
 //        max.commands.CommandEnum commandEnum;
 ////        switch (command) {

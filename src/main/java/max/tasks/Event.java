@@ -17,8 +17,8 @@ public class Event extends Task {
         this.fromDate = fromDate;
         this.toDate = toDate;
     }
-    public Event(String item, LocalDate fromDate, LocalDate toDate, boolean done) {
-        super(item, done);
+    public Event(String item, LocalDate fromDate, LocalDate toDate, boolean isDone) {
+        super(item, isDone);
         this.fromDate = fromDate;
         this.toDate = toDate;
     }

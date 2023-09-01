@@ -16,8 +16,8 @@ public class Deadline extends Task {
         super(item);
         this.byDate = byDate;
     }
-    public Deadline(String item, LocalDate byDate, boolean done) {
-        super(item, done);
+    public Deadline(String item, LocalDate byDate, boolean isDone) {
+        super(item, isDone);
         this.byDate = byDate;
     }
     @Override
