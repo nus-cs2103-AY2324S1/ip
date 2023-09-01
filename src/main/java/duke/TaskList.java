@@ -145,4 +145,34 @@ public class TaskList {
 
         return true;
     }
+
+    /**
+     * Returns string of tasks matching user's search. Finds list of task description
+     * matching user's input keyword. Returns empty string if no matching task found.
+     *
+     * @param keyword The user input keyword.
+     * @return The string of tasks description matching keyword.
+     */
+    public String findMatchingTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (int i = 0; i < taskList.size(); i++) {
+            String desc = taskList.get(i).getName().toLowerCase();
+
+            if (desc.contains(keyword)) {
+                matchingTasks.add(taskList.get(i));
+            }
+        }
+
+        String action = "";
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            action += (i + 1) + "." + matchingTasks.get(i).toString() ;
+
+            if (i < matchingTasks.size() - 1) {
+                action += "\n";
+            }
+        }
+
+        return action;
+    }
 }
