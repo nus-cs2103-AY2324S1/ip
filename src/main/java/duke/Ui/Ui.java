@@ -53,4 +53,19 @@ public class Ui {
         }
         printChat(listOfTask);
     }
+
+    /**
+     * Find the task with certain name.
+     * @param tasks List of the tasks.
+     * @param input Name of the task.
+     */
+    public void find(TaskList tasks, String input) {
+        String match = "Here are the matching tasks in your list:\n";
+        for (int i = 0; i < tasks.getNumberOfTask(); i++) {
+            if (tasks.getTask(i).getName().contains(input)) {
+                match = match + tasks.getTask(i).toString() + "\n";
+            }
+        }
+        printChat(match);
+    }
 }
