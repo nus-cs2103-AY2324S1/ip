@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.task.Task;
+
 public class Deadlines extends Task {
     protected String endDate;
 
@@ -8,11 +12,11 @@ public class Deadlines extends Task {
 
     @Override
     public String getTypeIcon() {
-        return "[D]";
+        return "D";
     }
 
     @Override
     public String printTask() {
-        return this.getTypeIcon() + this.getStatusIcon() + this.description + " (by: " + this.endDate + ")";
+        return "[" + this.getTypeIcon() + "]" + this.getStatusIcon() + this.description + " (by: " + this.endDate + ")";
     }
 }

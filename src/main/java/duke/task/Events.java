@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.task.Task;
+
 public class Events extends Task {
     protected String startDate;
 
@@ -10,12 +14,12 @@ public class Events extends Task {
 
     @Override
     public String getTypeIcon() {
-        return "[E]";
+        return "E";
     }
 
     @Override
     public String printTask() {
-        return this.getTypeIcon() + this.getStatusIcon() + this.description +
+        return "[" + this.getTypeIcon() + "]" + this.getStatusIcon() + this.description +
                 " (from: " + this.startDate + " to: " + this.endDate + ")";
     }
 
