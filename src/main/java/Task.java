@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -42,15 +44,18 @@ public class Task {
             int endDesc = next.indexOf("(by: ");
             String desc = next.substring(4, endDesc);
             int len = next.length();
-            String time = next.substring(5, len - 1);
-            t = new Deadline(desc, time);
+            String time = next.substring(endDesc + 5, len - 1);
+            LocalDate d1 = LocalDate.parse(time);
+            t = new Deadline(desc, d1);
         } else {
             int endDesc = next.indexOf("(from: ");
             String desc = next.substring(4, endDesc);
             int endFrom = next.indexOf("to: ");
-            String from = next.substring(endDesc - 6, endFrom);
-            String to = next.substring(endFrom - 3, next.length() - 2);
-            t = new Event(desc, from, to);
+            String from = next.substring(endDesc + 7, endFrom - 1);
+            String to = next.substring(endFrom + 4, next.length() - 1);
+            LocalDate d1 = LocalDate.parse(from);
+            LocalDate d2 = LocalDate.parse(to);
+            t = new Event(desc, d1, d2);
         }
 
         if (next.startsWith("[X]")) {
@@ -62,7 +67,11 @@ public class Task {
         return t;
     }
 
+    public String toWrite() {
+        return "[" + getStatusIcon() + "] " + this.description;
+    }
+
     public String toString(){
-        return "[" + getStatusIcon() + "]" + this.description;
+        return "[" + getStatusIcon() + "] " + this.description;
     }
 }
