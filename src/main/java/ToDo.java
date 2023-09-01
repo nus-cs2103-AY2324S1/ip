@@ -10,4 +10,9 @@ public class ToDo extends Task {
     public String toString() {
         return "[T][" + this.getStatusIcon() + "] " +  this.description;
     }
+
+    @Override
+    public String toSaveFormat() {
+        return String.format("D,%s,%s", description, isDone ? "1" : "0");
+    }
 }
