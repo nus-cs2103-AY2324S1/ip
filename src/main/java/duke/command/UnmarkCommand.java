@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 import duke.core.DukeException;
 import duke.core.Storage;
 import duke.core.Ui;
+
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -35,14 +36,14 @@ public class UnmarkCommand extends Command {
             int taskIndex = Integer.parseInt(taskIndexString) - 1;
 
             if (taskIndex < 0) {
-                    throw new DukeException("Task number cannot be negative.\n     "
-                                            + "Please retry with a valid task number.");
+                throw new DukeException("Task number cannot be negative.\n     "
+                        + "Please retry with a valid task number.");
             }
 
             if (taskIndex >= tasks.size()) {
-                    throw new DukeException(String.format("Task %d does not exist. Use a number between 1 and %d.",
-                                                          taskIndex + 1,
-                                                          tasks.size()));
+                throw new DukeException(String.format("Task %d does not exist. Use a number between 1 and %d.",
+                        taskIndex + 1,
+                        tasks.size()));
             }
 
             Task taskUnmarked = tasks.markAsUndone(taskIndex);
@@ -52,11 +53,11 @@ public class UnmarkCommand extends Command {
             }
     
             Ui.respond(Stream.of("OK, I've marked this task as not done yet:",
-                                       String.format("  %s",taskUnmarked.toString())));
+                    String.format("  %s",taskUnmarked.toString())));
             tasks.storeTasks();
         } catch (NumberFormatException e) {
-                throw new DukeException(String.format("Task number provided \"%s\" is not a number.\n     "
-                                                      + "Please retry with a valid task number.", taskIndexString));
+            throw new DukeException(String.format("Task number provided \"%s\" is not a number.\n     "
+                    + "Please retry with a valid task number.", taskIndexString));
         }
     }
 }

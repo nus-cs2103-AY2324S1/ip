@@ -4,6 +4,7 @@ import java.util.Map;
 
 import duke.core.Storage;
 import duke.core.Ui;
+
 import duke.task.TaskList;
 
 public class ExitCommand extends Command {
@@ -18,7 +19,9 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {}
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        
+    }
 
     @Override
     public boolean isExit() {

@@ -11,6 +11,7 @@ import duke.core.DukeException;
 import duke.core.Parser;
 import duke.core.Storage;
 import duke.core.Ui;
+
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -82,10 +83,12 @@ public class AddCommand extends Command {
                 if (!super.getParameterMap().containsKey("to")) {
                     throw new DukeException("No end date/time specified. Please specify an end date/time.");
                 }
+
                 String eventDescription = super.getParameterMap().get("default");
                 TemporalAccessor eventStartDate = Parser.parseDateTimeInput(super.getParameterMap().get("from"));
                 TemporalAccessor eventEndDate = Parser.parseDateTimeInput(super.getParameterMap().get("to"));
 
+                // If the start date is a LocalDate, the end date must also be a LocalDate
                 if (eventStartDate instanceof LocalDate) {
                     if (!(eventEndDate instanceof LocalDate)) {
                         throw new DukeException("Please ensure that both arguments have the same format.");
@@ -99,6 +102,7 @@ public class AddCommand extends Command {
                     }
                 }
 
+                // If the start date is a LocalDateTime, the end date must also be a LocalDateTime
                 if (eventStartDate instanceof LocalDateTime) {
                     if (!(eventEndDate instanceof LocalDateTime)) {
                         throw new DukeException("Please ensure that both arguments have the same format.");
@@ -122,19 +126,16 @@ public class AddCommand extends Command {
 
             tasks.addTask(taskToAdd);
 
+            // Exit early and do not print anything if the command is silent
             if (super.getParameterMap().containsKey("silent")) {
                 return;
             }
 
             Ui.respond(Stream.of("Got it. I've added this task:",
-                       String.format("  %s", taskToAdd.toString()),
-                       String.format("Now you have %d tasks in the list.", tasks.size())));
+                    String.format("  %s", taskToAdd.toString()),
+                    String.format("Now you have %d tasks in the list.", tasks.size())));
             tasks.storeTasks();
-        } catch (DukeException e) {
-            if (super.getParameterMap().containsKey("silent")) {
-                return;
-            }
-            
+        } catch (DukeException e) {            
             throw e;
         }
 
