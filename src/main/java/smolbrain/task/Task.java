@@ -26,6 +26,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean contain(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     public String encode() { return ""; }
 
     @Override

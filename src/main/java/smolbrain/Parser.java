@@ -145,38 +145,53 @@ public class Parser {
         }
     }
 
-    public static Command parse(String input) throws MissingDescriptionException, MissingTimeException, InvalidDateTimeException, InvalidNumberException, InvalidRangeException {
+    public static Command parseFind(String[] words) throws MissingKeywordException {
+        descr = "";
+        if (words.length < 2) {
+            throw new MissingKeywordException();
+        }
+        for (int i = 1; i < words.length; i++) {
+            descr = descr + words[i] + " ";
+        }
+        descr = descr.substring(0, descr.length() - 1);
+        return new FindCommand(descr);
+    }
+
+    public static Command parse(String input) throws MissingDescriptionException, MissingTimeException, InvalidDateTimeException, InvalidNumberException, InvalidRangeException, MissingKeywordException {
 
         String[] words = input.split(" ");
 
         switch (words[0]) {
-                case "list":
-                    return parseList(words);
+            case "list":
+                return parseList(words);
 
-                case "todo":
-                    return new AddCommand(parseTodo(words));
+            case "todo":
+                return new AddCommand(parseTodo(words));
 
-                case "deadline":
-                    return new AddCommand(parseDeadline(words));
+            case "deadline":
+                return new AddCommand(parseDeadline(words));
 
-                case "event":
-                    return new AddCommand(parseEvent(words));
+            case "event":
+                return new AddCommand(parseEvent(words));
 
-                case "mark":
-                    return parseMark(words);
+            case "mark":
+                return parseMark(words);
 
-                case "unmark":
-                    return parseUnmark(words);
+            case "unmark":
+                return parseUnmark(words);
 
-                case "delete":
-                    return parseDelete(words);
+            case "delete":
+                return parseDelete(words);
 
-                case "bye":
-                    return new ExitCommand();
+            case "bye":
+                return new ExitCommand();
 
-                default:
-                    return new InvalidCommand();
-            }
+            case "find":
+                return parseFind(words);
+
+            default:
+                return new InvalidCommand();
+        }
     }
 
     public static Task parseLoading(String input) throws MissingDescriptionException, MissingTimeException, InvalidDateTimeException, InvalidNumberException, InvalidRangeException {

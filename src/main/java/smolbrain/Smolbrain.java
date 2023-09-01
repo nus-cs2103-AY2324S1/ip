@@ -31,7 +31,7 @@ public class Smolbrain {
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (InvalidRangeException | MissingDescriptionException | MissingTimeException |
-                     InvalidNumberException | InvalidDateTimeException e) {
+                     InvalidNumberException | InvalidDateTimeException | MissingKeywordException e) {
                 ui.showError(e);
             }
             ui.showLine();

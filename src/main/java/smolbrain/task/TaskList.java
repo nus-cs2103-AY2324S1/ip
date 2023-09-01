@@ -62,4 +62,14 @@ public class TaskList {
         }
     }
 
+    public void findTasks(String keyword, Ui ui) {
+        if (tasklist.size() > 0) {
+            for (int i = 0; i < tasklist.size(); i++) {
+                if (tasklist.get(i).contain(keyword)) {
+                    ui.showMessage((i + 1) + ". " + tasklist.get(i));
+                }
+            }
+        }
+    }
+
 }
