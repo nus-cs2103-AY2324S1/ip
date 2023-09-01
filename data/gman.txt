@@ -4,3 +4,5 @@ E | O |  have fun  | now  | then
 E | O |  this  | now  | later
 T | O |  have alot of fun
 D | O |  nice  | 2019-10-15 1800
+T | O |  have fun
+D | O |  have fun  | 2019-10-19 1800
