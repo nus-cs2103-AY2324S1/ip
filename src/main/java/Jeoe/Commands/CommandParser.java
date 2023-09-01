@@ -1,8 +1,8 @@
-package Commands;
+package Jeoe.Commands;
 
-import Exceptions.InvalidCommandException;
-import Exceptions.NoCommandException;
-import Exceptions.RunException;
+import Jeoe.Exceptions.InvalidCommandException;
+import Jeoe.Exceptions.NoCommandException;
+import Jeoe.Exceptions.RunException;
 
 public class CommandParser {
     public static Command parse(String input) throws RunException {

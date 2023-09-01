@@ -1,4 +1,4 @@
-package Exceptions;
+package Jeoe.Exceptions;
 
 public class InitializationException extends Exception {
     public InitializationException(String input) {

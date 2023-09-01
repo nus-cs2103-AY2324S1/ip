@@ -5,7 +5,7 @@
  ____________________________________________________________
 
 +____________________________________________________________
-+ ☹ OOPS!!! A valid Tasks.Tasks is required. Your current input "random grribish" is not a valid task.
++ ☹ OOPS!!! A valid Jeoe.Tasks.Jeoe.Tasks is required. Your current input "random grribish" is not a valid task.
 +
 +Please enter your input starting with :
 +todo

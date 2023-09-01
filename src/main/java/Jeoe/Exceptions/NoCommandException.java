@@ -1,4 +1,4 @@
-package Exceptions;
+package Jeoe.Exceptions;
 
 public class NoCommandException extends RunException {
     public NoCommandException(String input) {

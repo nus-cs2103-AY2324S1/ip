@@ -1,4 +1,4 @@
-package Exceptions;
+package Jeoe.Exceptions;
 
 public class InvalidCommandException extends RunException {
     public InvalidCommandException(String input) {

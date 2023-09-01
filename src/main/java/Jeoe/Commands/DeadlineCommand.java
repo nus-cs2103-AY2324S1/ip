@@ -1,10 +1,9 @@
-package Commands;
+package Jeoe.Commands;
 
-import Others.StorageManager;
-import Others.Ui;
-import Tasks.Deadline;
-import Tasks.TaskManager;
-import Tasks.Todo;
+import Jeoe.Others.StorageManager;
+import Jeoe.Others.Ui;
+import Jeoe.Tasks.Deadline;
+import Jeoe.Tasks.TaskManager;
 
 import java.time.LocalDateTime;
 

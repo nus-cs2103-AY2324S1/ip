@@ -1,9 +1,9 @@
-package Commands;
+package Jeoe.Commands;
 
-import Others.StorageManager;
-import Others.Ui;
-import Tasks.Event;
-import Tasks.TaskManager;
+import Jeoe.Others.StorageManager;
+import Jeoe.Others.Ui;
+import Jeoe.Tasks.Event;
+import Jeoe.Tasks.TaskManager;
 
 public class EventCommand extends Command {
     private String[] eventArr;

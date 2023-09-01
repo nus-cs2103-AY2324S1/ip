@@ -1,8 +1,8 @@
-package Commands;
+package Jeoe.Commands;
 
-import Others.StorageManager;
-import Others.Ui;
-import Tasks.TaskManager;
+import Jeoe.Others.StorageManager;
+import Jeoe.Others.Ui;
+import Jeoe.Tasks.TaskManager;
 
 public class ByeCommand extends Command {
     ByeCommand(String input) {

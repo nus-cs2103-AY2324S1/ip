@@ -1,12 +1,9 @@
-package Commands;
+package Jeoe.Commands;
 
-import Others.StorageManager;
-import Others.Ui;
-import Tasks.Task;
-import Tasks.TaskManager;
-import Tasks.Todo;
-
-import java.util.ArrayList;
+import Jeoe.Others.StorageManager;
+import Jeoe.Others.Ui;
+import Jeoe.Tasks.TaskManager;
+import Jeoe.Tasks.Todo;
 
 public class TodoCommand extends Command {
     String todoDescription;

@@ -1,8 +1,8 @@
-package Commands;
+package Jeoe.Commands;
 
-import Tasks.TaskManager;
-import Others.Ui;
-import Others.StorageManager;
+import Jeoe.Tasks.TaskManager;
+import Jeoe.Others.Ui;
+import Jeoe.Others.StorageManager;
 
 public abstract class Command {
     boolean isExit;

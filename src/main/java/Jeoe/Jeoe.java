@@ -1,21 +1,15 @@
-import java.time.LocalDateTime;
-import java.util.Scanner;
-import java.util.List;
+package Jeoe;
 
-import Commands.Command;
-import Commands.CommandParser;
-import Exceptions.InitializationException;
-import Exceptions.NoCommandException;
-import Exceptions.InvalidCommandException;
+import Jeoe.Commands.Command;
+import Jeoe.Commands.CommandParser;
+import Jeoe.Exceptions.InitializationException;
+import Jeoe.Exceptions.NoCommandException;
+import Jeoe.Exceptions.InvalidCommandException;
 
-import Exceptions.RunException;
-import Others.StorageManager;
-import Others.Ui;
-import Tasks.Task;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Todo;
-import Tasks.TaskManager;
+import Jeoe.Exceptions.RunException;
+import Jeoe.Others.StorageManager;
+import Jeoe.Others.Ui;
+import Jeoe.Tasks.TaskManager;
 
 
 public class Jeoe {
@@ -35,7 +29,7 @@ public class Jeoe {
 
             ui.showOpenString();
         } catch (Exception e) {
-            System.out.println("Jeoe initialization failed");
+            System.out.println("Jeoe.Jeoe initialization failed");
         }
     }
 

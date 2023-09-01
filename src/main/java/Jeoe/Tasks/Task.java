@@ -1,4 +1,4 @@
-package Tasks;
+package Jeoe.Tasks;
 
 
 public class Task {

@@ -1,4 +1,4 @@
-package Others;
+package Jeoe.Others;
 
 import java.util.Scanner;
 

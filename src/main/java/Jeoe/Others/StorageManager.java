@@ -1,6 +1,6 @@
-package Others;
+package Jeoe.Others;
 
-import Tasks.Task;
+import Jeoe.Tasks.Task;
 
 import java.io.File;
 import java.io.FileWriter;
