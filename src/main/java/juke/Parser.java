@@ -36,6 +36,13 @@ public class Parser {
             int index = Integer.parseInt(input.substring(7));
             juke.delete(index);
         }
+        else if (input.startsWith("find ")) {
+            if (input.length() < 6) {
+                throw new JukeError("Please specify a search term.");
+            }
+            String searchTerm = input.substring(5);
+            juke.find(searchTerm);
+        }
         else if (input.startsWith("todo")) {
             if (input.length() < 5 || input.substring(5).length() == 0) {
                 throw new JukeError("The description of a todo cannot be empty.");
