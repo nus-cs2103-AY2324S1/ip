@@ -180,6 +180,12 @@ public class TaskList {
 
     // Find task
     // Get keyword from user. Use StringBuilder: use contains(), for loop all available tasks.
+
+    /**
+     * Finds all tasks that contain a given keyword.
+     * 
+     * @param matchingKeyword The keyword given by the user to find all tasks containing it.
+     */
     protected void findTask(String matchingKeyword) {
         try {
             printHorizontalLine();
