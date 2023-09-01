@@ -31,4 +31,18 @@ public class TaskList {
         return task.get(index);
     }
 
+    public boolean taskListEqual(TaskList other) {
+        if (task.size() != other.task.size()) {
+            return false;
+        }
+
+        for (int i = 0; i < task.size(); i++) {
+            if (!task.get(i).equals(other.task.get(i))) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }

@@ -1,6 +1,7 @@
 package TaskManager;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Deadlines extends Tasks {
 
@@ -57,6 +58,17 @@ public class Deadlines extends Tasks {
         String str1 = String.format("[%s] ", x);
         String str2 = String.format(" (by: %s)", this.dueDateStr);
         return "[D]" + str1 + this.taskDesc + str2 ;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Deadlines deadlines = (Deadlines) o;
+
+        if (!taskDesc.equals(deadlines.taskDesc)) return false;
+        return dueDateStr.equals(deadlines.dueDateStr);
     }
 
 }

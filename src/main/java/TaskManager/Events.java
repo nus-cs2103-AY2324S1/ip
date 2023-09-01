@@ -62,4 +62,18 @@ public class Events extends Tasks {
         return "[E]" + str1 + this.taskDesc + str2;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Events events = (Events) o;
+
+        if (!taskDesc.equals(events.taskDesc)) return false;
+        if (!from.equals(events.from)) return false;
+        return to.equals(events.to);
+    }
+
+
+
 }

@@ -48,4 +48,14 @@ public class ToDos extends Tasks {
         return "[T]" + str1 + this.taskDesc;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ToDos toDos = (ToDos) o;
+
+        return taskDesc.equals(toDos.taskDesc);
+    }
+
 }
