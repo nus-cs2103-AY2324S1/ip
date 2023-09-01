@@ -1,5 +1,3 @@
-package duke.task;
-
 /** Class to represent the task set by user*/
 public class Task {
     /** Description of the task*/
@@ -16,11 +14,15 @@ public class Task {
     /** Method to mark the task as done*/
     public void markAsDone() {
         this.isDone = true;
+        System.out.println("\tNice! I've marked this task as done:");
+        System.out.println("\t\t" +this.printTask());
     }
 
     /** Method to mark the task as undone*/
     public void markAsUndone() {
         this.isDone = false;
+        System.out.println("\tOK, I've marked this task as not done yet:");
+        System.out.println("\t\t" + this.printTask());
     }
 
     /** Return icon based on whether task is done or undone*/
@@ -34,7 +36,7 @@ public class Task {
     }
 
     public String getTypeIcon() {
-        return ("Tk");
+        return ("[Tk]");
     }
 
 }

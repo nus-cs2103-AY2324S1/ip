@@ -1,4 +1,4 @@
-package duke.exception;
+package exception;
 
 public class InvalidSyntaxException extends DukeException {
     public InvalidSyntaxException(String errorMsg) {
