@@ -7,6 +7,11 @@ import duke.ui.Ui;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represent commands Todo, Deadline, Event which add tasks to the list.
+ *
+ * @author Armando Jovan Kusuma
+ */
 public class AddCommand extends Command {
     private String command;
 
@@ -15,6 +20,14 @@ public class AddCommand extends Command {
         this.command = command;
     }
 
+    /**
+     * Executes the command.
+     *
+     * @param tasks The TaskList where the command is to be executed.
+     * @param ui The UI which functions as the user interface of the Chat bot.
+     * @param storage The storage file to store the list of tasks.
+     * @throws DukeException If the command execution fails.
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (command.equalsIgnoreCase("todo")) {
             throw new DukeException("OOPS!!! The description of a todo cannot be empty.");

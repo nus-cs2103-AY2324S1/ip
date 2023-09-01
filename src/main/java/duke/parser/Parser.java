@@ -3,7 +3,20 @@ package duke.parser;
 import duke.command.*;
 import duke.exception.DukeException;
 
+/**
+ * Parses the inputs given by the user
+ *
+ * @author Armando Jovan Kusuma
+ */
 public class Parser {
+
+    /**
+     * Parses the user input into a command.
+     *
+     * @param input The user input to be parsed.
+     * @return the Command that represents the user input.
+     * @throws DukeException When the user input is invalid.
+     */
     public static Command parse(String input) throws DukeException {
         try {
             if (!input.contains(" ")) {
