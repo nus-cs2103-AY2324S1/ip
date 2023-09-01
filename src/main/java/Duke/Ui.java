@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.ArrayList;
+
 public class Ui {
 
     public static void greet() {
@@ -54,6 +56,12 @@ public class Ui {
         System.out.println(taskToString);
     }
 
+    public static void listTasksFound(ArrayList<Task> tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i).toString());
+        }
+    }
 
 
 }

@@ -24,7 +24,7 @@ public class Task {
             System.out.println("Haha nice going... This task is already done, bozo!");
         }
     } */
-    public void mark() throws GmanException{
+    public void mark(){
         try {
             if (isDone == true) {
                 throw new GmanException("Haha nice going... This task is already done, bozo!");
@@ -35,7 +35,7 @@ public class Task {
         }
     }
 
-    public void unmark() throws GmanException{
+    public void unmark() {
         try {
             if (isDone == false) {
                 throw new GmanException("Hey... this task was never done in the first place!");
@@ -67,6 +67,9 @@ public class Task {
         return (symbol + " | " + this.description);
     }
 
+    public String getDescription() {
+        return this.description;
+    }
 
 
 }
