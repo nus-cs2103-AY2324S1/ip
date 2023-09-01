@@ -1,14 +1,17 @@
 package Duke.Tasks;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Stores the list of items that the user has.
  */
 public class TaskList {
-    private ArrayList<Task> list = new ArrayList<>();
+    private ArrayList<Optional<Task>> list = new ArrayList<>();
 
-    public TaskList(ArrayList<Task> tasks) {
+    public TaskList(ArrayList<Optional<Task>> tasks) {
         this.list = tasks;
     }
 
@@ -18,7 +21,7 @@ public class TaskList {
      * @param task The user's task
      */
     public void addToList(Task task) {
-        list.add(task);
+        list.add(Optional.of(task));
 
     }
 
@@ -29,8 +32,8 @@ public class TaskList {
      * @param index the index of the task to remove.
      * @return the task that was removed
      */
-    public Task removeFromList(int index) {
-        Task task = list.get(index - 1);
+    public Optional<Task> removeFromList(int index) {
+        Optional<Task> task = list.get(index - 1);
         list.remove(index - 1);
         return task;
     }
@@ -42,9 +45,10 @@ public class TaskList {
      * @param index
      * @return the task that was modified
      */
-    public Task markAsDone(int index) {
-        Task task = list.get(index - 1);
-        task.setDone();
+    public Optional<Task> markAsDone(int index) {
+        Optional<Task> task = list.get(index - 1);
+        task.ifPresent((t) -> t.setDone());
+
         return task;
     }
 
@@ -55,25 +59,31 @@ public class TaskList {
      * @param index
      * @return the task that was modified
      */
-    public Task markAsUnDone(int index) {
-        Task task = list.get(index - 1);
-        task.setUnDone();
+    public Optional<Task> markAsUnDone(int index) {
+        Optional<Task> task = list.get(index - 1);
+        task.ifPresent((t) -> t.setUnDone());
         return task;
     }
 
+    /**
+     * Gets the number of non-null tasks in the list.
+     *
+     * @return integer representing the size
+     */
     public int getSize() {
-        return this.list.size();
+        return this.list.stream().filter(Optional::isPresent).collect(Collectors.toList()).size();
     }
 
     /**
-     * Encodes the current Duke.Tasks in a string, each task separated by a newline.
-     * @return
+     * Encodes the current Duke. Tasks in a string, each task separated by a newline.
+     * @return String representation
      */
     public String serialize() {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (int i = 0; i < this.list.size(); i++) {
-            stringBuilder.append(this.list.get(i).encodeTask());
+            Optional<Task> task = this.list.get(i);
+            task.ifPresent((t) -> stringBuilder.append(t.encodeTask()));
             stringBuilder.append("\n");
         }
 
@@ -81,14 +91,34 @@ public class TaskList {
         return stringBuilder.toString();
     }
 
+    /**
+     * Finds the tasks that match the provided search string.
+     *
+     * @param searchString the string to match
+     * @return tasks whose name contains the search string.
+     */
+    public ArrayList<Optional<Task>> findTasksByName(String searchString) {
+        List<Optional<Task>> filtered = this.list.stream().map(Optional::get)
+                .map(a -> a.getName().contains(searchString) ? a : null)
+                .map(Optional::ofNullable)
+                .collect(Collectors.toList());
+
+        return new ArrayList<>(filtered);
+
+    }
     @Override
     public String toString() {
         StringBuilder resultMsg = new StringBuilder();
 
         for (int i = 0; i < list.size(); i++) {
-            resultMsg.append(i + 1).append(". ").append(list.get(i).toString());
+            Optional<Task> task = list.get(i);
+            int finalI = i;
+            task.ifPresent((t) -> {
+                resultMsg.append(finalI + 1).append(". ").append(t.toString());
 
-            resultMsg.append("\n");
+                resultMsg.append("\n");
+            });
+
         }
 
         return resultMsg.toString();

@@ -25,10 +25,6 @@ public abstract class Task {
         return otherListItem.itemName.equals(this.itemName) && otherListItem.isDone == this.isDone;
     }
 
-    public String getItemName() {
-        return itemName;
-    }
-
     /**
      * Marks the item as done.
      */
