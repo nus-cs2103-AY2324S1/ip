@@ -19,7 +19,7 @@ public class AddCommand extends Command {
     /**
      * Executes the list of commands to add a Task from a TaskList.
      *
-     * @param list The given TaskList with the Task to be added.
+     * @param taskList The given TaskList with the Task to be added.
      * @param ui The given Ui to show the status of the adding command.
      * @param storage The given Storage that saves the TaskList locally.
      */
