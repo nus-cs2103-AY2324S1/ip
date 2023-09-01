@@ -1,11 +1,5 @@
 package duke;
 
-import duke.exception.InvalidArgumentException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,6 +7,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import duke.exception.InvalidArgumentException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 public class Storage {
     private final String filePath;
@@ -57,7 +57,7 @@ public class Storage {
             System.out.println("An error occurred while saving tasks to disk.");
         }
     }
-    private static Task parseFromFile(String line) throws InvalidArgumentException{
+    private static Task parseFromFile(String line) throws InvalidArgumentException {
         String[] parts = line.split(" \\| ");
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
@@ -66,22 +66,22 @@ public class Storage {
         Task task;
 
         switch (type) {
-            case "T":
-                task = new Todo(description);
-                break;
-            case "D":
-                String deadline = parts[3];
-                task = new Deadline(description, deadline);
-                break;
-            case "E":
-                String eventTime = parts[3];
-                int toIndex = eventTime.indexOf("to");
-                String from = eventTime.substring(0, toIndex).trim();
-                String to = eventTime.substring(toIndex + 2).trim();
-                task = new Event(description, from, to);
-                break;
-            default:
-                throw new InvalidArgumentException();
+        case "T":
+            task = new Todo(description);
+            break;
+        case "D":
+            String deadline = parts[3];
+            task = new Deadline(description, deadline);
+            break;
+        case "E":
+            String eventTime = parts[3];
+            int toIndex = eventTime.indexOf("to");
+            String from = eventTime.substring(0, toIndex).trim();
+            String to = eventTime.substring(toIndex + 2).trim();
+            task = new Event(description, from, to);
+            break;
+        default:
+            throw new InvalidArgumentException();
         }
 
         if (isDone) {
