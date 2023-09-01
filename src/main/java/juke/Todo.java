@@ -15,5 +15,7 @@ public class Todo extends Task {
     }
 
     @Override
-    public String toData() { return "T" + super.toData(); }
+    public String toData() {
+        return "T" + super.toData();
+    }
 }
