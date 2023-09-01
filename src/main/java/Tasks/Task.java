@@ -21,12 +21,15 @@ public class Task {
         return this.isDone ? "x" : " ";
     }
 
-    public void markedAsDone() {
+    public Task markedAsDone() {
         this.isDone = true;
+        return this;
     }
 
-    public void markedAsUndone() {
+    public Task markedAsUndone() {
+
         this.isDone = false;
+        return this;
     }
 
     public boolean getIsDone() {

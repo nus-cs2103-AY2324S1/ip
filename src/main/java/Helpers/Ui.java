@@ -111,4 +111,8 @@ public class Ui {
         System.out.println(DIVIDER);
         throw new EmptyTasksException(DIVIDER);
     }
+
+    public String getDivider() {
+        return DIVIDER;
+    }
 }
