@@ -88,4 +88,11 @@ public class Ui {
         System.out.println("     " + "Bye. Hope to see you again soon!");
         System.out.println("    ____________________________________________________________");
     }
+
+    public static void searchTasks(String selectedTasks) {
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Here are the matching tasks in your list:");
+        System.out.println(selectedTasks);
+        System.out.println("    ____________________________________________________________\n");
+    }
 }

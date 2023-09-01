@@ -103,7 +103,17 @@ public class Parser {
                 } catch (InvalidTaskException e) {
                     Ui.invalidTask();
                 }
-            } else {
+            } else if (input.startsWith("find ") || (input.startsWith("find") && input.length() == 4)) {
+                try {
+                    if (input.length() <= 5 || input.substring(5).isBlank()) {
+                        throw new EmptyDescriptionException();
+                    }
+                } catch (EmptyDescriptionException e) {
+                    Ui.emptyDesc("find");
+                }
+                Ui.searchTasks(tasks.showSpecificTasks(input.substring(5)));
+            }
+            else {
                 throw new InvalidTextException();
             }
         } catch (InvalidTextException e) {
