@@ -122,6 +122,11 @@ public class TaskList {
      * Returns the string representation of the TaskList.
      * Contains string representations of all {@link Task} stored
      * which is suitable for {@link Storage} to write to memory.
+     *
+     * @param keyword The keyword to be used to find tasks
+     *                containing it.
+     * @return An ArrayList of {@link Task} whose description
+     *         contains the keyword given.
      */
     public ArrayList<Task> findTasks(String keyword) {
         ArrayList<Task> result = new ArrayList<>();
