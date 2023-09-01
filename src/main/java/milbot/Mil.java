@@ -1,6 +1,7 @@
 package milbot;
 
 import java.util.Scanner;
+
 /**
  * Mil class represents a chatbot application for managing tasks.
  */
