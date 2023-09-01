@@ -24,7 +24,7 @@ public class Parser {
     private static String HORIZONTAL_LINE = "    ____________________________________________________________"; //60 underscores.
     private TaskList taskList;
     private Ui ui;
-    enum Command {
+    public enum Command {
         BYE, LIST, MARK, UNMARK, DELETE, FIND, DEADLINE, TODO, EVENT, UNKNOWN
     }
 

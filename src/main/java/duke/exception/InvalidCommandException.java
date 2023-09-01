@@ -1,5 +1,7 @@
 package duke.exception;
 
+import duke.util.Parser;
+
 /**
  * Represents an Invalid Command Exception
  *
@@ -24,8 +26,9 @@ public class InvalidCommandException extends Exception {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("     OOPS!!! " + this.getMessage());
         System.out.println("     Please input valid commands. Currently SeeWhyAre bot supports:");
-        System.out.println("     todo      deadline\n     event     list\n"
-                + "     mark      unmark\n     delete    bye");
+        for (Parser.Command c : Parser.Command.values()) {
+            System.out.println("     " + c);
+        }
         System.out.println(HORIZONTAL_LINE);
     }
 }
