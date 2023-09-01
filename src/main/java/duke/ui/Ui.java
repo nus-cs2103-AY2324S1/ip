@@ -2,6 +2,9 @@ package duke.ui;
 
 import java.util.Scanner;
 
+/**
+ * Represents the user interface of the application.
+ */
 public class Ui {
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -17,16 +20,31 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Prints a message to the user.
+     *
+     * @param message The message to be printed.
+     */
     public static void showMessage(String message) {
         System.out.println("____________________________________________________________");
         System.out.println(message);
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Prints an error message to the user.
+     *
+     * @param error The error message to be printed.
+     */
     public static void showErrorMessage(String error) {
         showMessage("☹ OOPS!!! " + error);
     }
 
+    /**
+     * Retrieves the next line of user input.
+     *
+     * @return The next line of user input.
+     */
     public static String getUserInput() {
         return scanner.nextLine();
     }

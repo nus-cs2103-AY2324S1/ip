@@ -1,6 +1,5 @@
 package duke.commands;
 
-import duke.commands.Command;
 import duke.exception.DeadlineException;
 import duke.exception.DukeException;
 import duke.exception.EventException;
@@ -13,9 +12,19 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a parser that parses the user input.
+ */
 public class Parser {
     private static final DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param userInput The user input.
+     * @return The corresponding command.
+     * @throws DukeException If the user input is invalid.
+     */
     public static Command parse(String userInput) throws DukeException {
         String commandType = getCommandType(userInput);
 
@@ -51,7 +60,7 @@ public class Parser {
      * T | 1 | read book
      * D | 0 | return book | June 6th
      * E | 0 | project meeting | Aug 6th 2-4pm
-     * file corruption not handled
+     * File corruption is not handled.
      *
      * @return The completion status of the task.
      */
@@ -127,6 +136,13 @@ public class Parser {
         return parts.length > 1 ? parts[1] : "";
     }
 
+    /**
+     * Returns the task index from the user input.
+     *
+     * @param userInput The user input.
+     * @return The task index.
+     * @throws DukeException If the task index is not numeric.
+     */
     public static int getTaskIndex(String userInput) throws DukeException {
         String[] parts = userInput.split(" ");
         if (parts.length == 2) {
@@ -136,9 +152,17 @@ public class Parser {
                 throw new DukeException("Error, please enter a number.");
             }
         }
-        return -1;
+        throw new DukeException("Error, please enter a number.");
     }
 
+    /**
+     * Returns the deadline date from the user input.
+     * example of deadline date: 2020-02-02
+     *
+     * @param userInput The user input.
+     * @return The deadline date.
+     * @throws DeadlineException If the deadline date is empty or invalid.
+     */
     private static LocalDate getDeadlineDate(String userInput) throws DeadlineException {
         String[] parts = userInput.split(" ", 2);
         if (parts.length < 2) {
@@ -168,6 +192,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the event dates from the user input.
+     * example of event dates: 2020-02-02 2020-02-03
+     *
+     * @param userInput The user input.
+     * @return The event dates.
+     * @throws EventException If the event dates are empty or invalid.
+     */
     private static LocalDate[] getEventDates(String userInput) throws EventException {
         String[] parts = userInput.split(" ", 2);
         if (parts.length < 2) {
