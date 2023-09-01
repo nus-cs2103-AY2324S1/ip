@@ -1,8 +1,12 @@
+package duke.storage;
+
+import duke.exception.DukeException;
+import duke.task.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -64,14 +68,14 @@ public class Storage {
                     }
                     listOfTasks.add(deadline);
                 } else {
-                    throw new DukeException("OOPS !!! Can't Load Task from File");
+                    throw new DukeException("OOPS !!! Can't Load duke.task.Task from File");
                 }
             }
             return listOfTasks;
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid date format! Pleas input date using the format yyyy-MM-dd");
         } catch (IOException e) {
-            throw new DukeException("OOPS !!! Can't Load Task from File");
+            throw new DukeException("OOPS !!! Can't Load duke.task.Task from File");
         }
     }
 

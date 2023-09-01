@@ -9,7 +9,7 @@
 //            + " What can I do for you?\n"
 //            + LINE + "\n";
 //    private Scanner scanner = new Scanner(System.in);
-//    private ArrayList<Task> tasksList = new ArrayList<>();
+//    private ArrayList<duke.task.Task> tasksList = new ArrayList<>();
 //
 //    public static void main(String[] args) {
 //        Duke duke = new Duke();
@@ -30,27 +30,27 @@
 //                + " tasks in this list." + "\n" + LINE);
 //    }
 //
-//    public void todo(String input) throws DukeException {
-//        tasksList.add(new Todo(input.replace("todo", "")));
+//    public void todo(String input) throws duke.exception.DukeException {
+//        tasksList.add(new duke.task.Todo(input.replace("todo", "")));
 //        count++;
 //        taskPrint(tasksList.get(count - 1).toString());
 //    }
 //
-//    public void deadline(String input) throws DukeException {
+//    public void deadline(String input) throws duke.exception.DukeException {
 //        String[] s = input.replace("deadline ", "").split(" /by ");
-//            tasksList.add(new Deadline(s[0], s[1]));
+//            tasksList.add(new duke.task.Deadline(s[0], s[1]));
 //            count++;
 //            taskPrint(tasksList.get(count - 1).toString());
 //    }
 //
-//    public void event(String input) throws DukeException {
+//    public void event(String input) throws duke.exception.DukeException {
 //        String[] s = input.replace("event ", "").split(" /from | /to ");
-//            tasksList.add(new Event(s[0], s[1], s[2]));
+//            tasksList.add(new duke.task.Event(s[0], s[1], s[2]));
 //            count++;
 //            taskPrint(tasksList.get(count - 1).toString());
 //    }
 //
-//    public void delete(String input) throws DukeException {
+//    public void delete(String input) throws duke.exception.DukeException {
 //        int i = Integer.parseInt(input.replace("delete ", "")) - 1;
 //        if (i >= 0 && i < tasksList.size()) {
 //            count--;
@@ -71,7 +71,7 @@
 //        System.out.println(MESSAGE);
 //
 //        try {
-//            Storage storageFile = new Storage();
+//            duke.storage.Storage storageFile = new duke.storage.Storage();
 //            tasksList = storageFile.readFromFile();
 //            count = tasksList.size();
 //            while (true) {
@@ -99,11 +99,11 @@
 //                        tasksList.get(i).unmarkDone();
 //                    } else {
 //                        if (input.equalsIgnoreCase("todo")) {
-//                            throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
+//                            throw new duke.exception.DukeException("OOPS!!! The description of a todo cannot be empty.");
 //                        } else if (input.equalsIgnoreCase("deadline")) {
-//                            throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
+//                            throw new duke.exception.DukeException("OOPS!!! The description of a deadline cannot be empty.");
 //                        } else if (input.equalsIgnoreCase("event")) {
-//                            throw new DukeException("OOPS!!! The description of an event cannot be empty.");
+//                            throw new duke.exception.DukeException("OOPS!!! The description of an event cannot be empty.");
 //                        }
 //                        if (input.startsWith("todo")) {
 //                            todo(input);
@@ -114,18 +114,25 @@
 //                        } else if (input.startsWith("delete")) {
 //                            delete(input);
 //                        } else {
-//                            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+//                            throw new duke.exception.DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
 //                        }
 //                    }
-//                } catch (DukeException e) {
+//                } catch (duke.exception.DukeException e) {
 //                    System.out.println(e.getMessage());
 //                }
 //            }
-//        } catch(DukeException e) {
+//        } catch(duke.exception.DukeException e) {
 //            System.out.println(e.getMessage());
 //        }
 //    }
 //}
+import duke.command.Command;
+import duke.exception.DukeException;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
+
 import java.util.Scanner;
 
 public class Duke {

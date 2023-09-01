@@ -1,3 +1,9 @@
+package duke.ui;
+
+import duke.exception.DukeException;
+import duke.task.Task;
+import duke.task.TaskList;
+
 public class Ui {
     private static final String LINE = "____________________________________________________________";
     private static final String MESSAGE = LINE + "\n"
