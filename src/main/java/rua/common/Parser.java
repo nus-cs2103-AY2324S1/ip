@@ -7,6 +7,7 @@ import rua.command.DeleteCommand;
 import rua.command.ExitCommand;
 import rua.command.ListCommand;
 import rua.command.MarkCommand;
+import rua.command.SearchCommand;
 import rua.command.Command;
 import rua.task.Deadline;
 import rua.task.Event;
@@ -98,6 +99,12 @@ public class Parser {
                 throw new EmptyDescriptionException("date search");
             }
             output = new DateSearchCommand(LocalDate.parse(inputs[1]));
+            break;
+        case "find":
+            if (inputs.length == 1) {
+                throw new EmptyDescriptionException("keyword search");
+            }
+            output = new SearchCommand(inputs[1]);
             break;
         default:
             throw new InvalidCommandException();
