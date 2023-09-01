@@ -1,0 +1,2 @@
+T,0,buy milk
+D,0,milk expire ,today
