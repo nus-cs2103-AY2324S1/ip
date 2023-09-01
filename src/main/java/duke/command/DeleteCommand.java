@@ -3,6 +3,9 @@ package duke.command;
 import duke.*;
 import duke.task.Task;
 
+/**
+ * Represents the command of removing a task from the list.
+ */
 public class DeleteCommand extends Command {
     private final int index;
 
