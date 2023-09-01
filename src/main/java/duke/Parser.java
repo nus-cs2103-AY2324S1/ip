@@ -3,8 +3,6 @@ package duke;
 import duke.command.*;
 
 public class Parser {
-
-    // Interpret the user command and return a duke.commands.Command object or equivalent representation
     public static Command parse(String userInput) throws DukeException {
         if ("bye".equalsIgnoreCase(userInput)) {
             return new ByeCommand();
