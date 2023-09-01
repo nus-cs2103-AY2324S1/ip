@@ -1,3 +1,9 @@
+package Duke.Ui;
+
+import Duke.DukeException.DukeException;
+import Duke.Task.Task;
+import Duke.TaskList.TaskList;
+
 public class Ui {
     private final String Border = "____________________________________________________________";
     public void printChat(String chat) {
