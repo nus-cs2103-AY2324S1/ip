@@ -17,6 +17,6 @@ public class Event extends Task {
     @Override
     public String taskString() {
         return "[E]" + super.taskString() + "(from: " + startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"))
-                + "to: " + endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + ")";
+                + " to: " + endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + ")";
     }
 }

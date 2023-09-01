@@ -9,7 +9,7 @@ public class Duke {
     public static void main(String[] args) {
         String name = "Harry Potter";
         String question = "Introducing the Wizarding World Organizer: Your Trusted Guide" +
-                "to Efficient & Effective Magical Planning";
+                " to Efficient & Effective Magical Planning";
         System.out.println("Hello muggle! I'm " + name + "\n" + question);
 
         Scanner sc = new Scanner(System.in);
@@ -110,14 +110,11 @@ public class Duke {
                                 } else {
                                     String toMarker = "/to "; //mark the /to index of the string
                                     secondIndex = afterFirstIndex.indexOf(toMarker); //to make sure we get the /to after the /from
-                                    fromWhen = afterFirstIndex.substring(0, secondIndex); //get the from timing
-                                    toWhen = afterFirstIndex.substring(secondIndex + 4); //get the to timing
+                                    fromWhen = afterFirstIndex.substring(0, secondIndex).trim(); //get the from timing
+                                    toWhen = afterFirstIndex.substring(secondIndex + 3).trim(); //get the to timing
                                     if (fromWhen.trim().isEmpty() ||
                                             toWhen.trim().isEmpty()) { //needs to check whether there is anything after /by
                                         throw new EventCommandUseException(str);
-                                    }
-                                    if (LocalDateTime.parse(fromWhen, formatter).isAfter(LocalDateTime.parse(toWhen))) {
-                                        throw new EventDateTimeException(str);
                                     }
                                     Task task = new Event(workToDo, LocalDateTime.parse(fromWhen, formatter),
                                             LocalDateTime.parse(toWhen, formatter));
@@ -149,8 +146,7 @@ public class Duke {
                     " Please input a valid date in the format yyyy-MM-dd HHmm " +
                     "(the time in the 24-hour format).");
         } catch (InvalidInputException | EventCommandUseException|
-                 DeadlineCommandUseException| ToDoCommandUseException|
-                EventDateTimeException e) {
+                 DeadlineCommandUseException| ToDoCommandUseException e) {
             System.out.println(e.getMessage());
         }
     }
