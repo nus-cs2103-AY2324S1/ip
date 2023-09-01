@@ -23,7 +23,6 @@ public class ChatRecord {
         Task ret = new Todo(name);
         chatRecords.add(ret);
         counter++;
-        saveChat();
         return ret;
     }
 
@@ -31,7 +30,6 @@ public class ChatRecord {
         Task ret = new Deadline(name, TimeParser.parseTime(args.trim()));
         chatRecords.add(ret);
         counter++;
-        saveChat();
         return ret;
     }
 
@@ -39,13 +37,11 @@ public class ChatRecord {
         Task ret = new Event(name, TimeParser.parseTime(args[0].trim()), TimeParser.parseTime(args[1].trim()));
         chatRecords.add(ret);
         counter++;
-        saveChat();
         return ret;
     }
 
     public Task deleteTask(int n) {
         counter--;
-        saveChat();
         return chatRecords.remove(n - 1);
     }
 
@@ -57,10 +53,10 @@ public class ChatRecord {
         return ret.toString().stripTrailing();
     }
 
-    private void saveChat() {
+    public String toSave() {
         Task[] temp = new Task[chatRecords.size()];
         temp = chatRecords.toArray(temp);
-        SaveData.saveData(TaskParser.formatSave(temp));
+        return TaskParser.formatSave(temp);
     }
 
     public int getCount() {
@@ -69,13 +65,11 @@ public class ChatRecord {
 
     public Task setMark(int n) {
         Task task = chatRecords.get(n - 1).mark();
-        saveChat();
         return task;
     }
 
     public Task setUnmark(int n) {
         Task task = chatRecords.get(n - 1).unmark();
-        saveChat();
         return task;
     }
 

@@ -1,6 +1,7 @@
 package commands;
 
 import records.ChatRecord;
+import storage.SaveData;
 import task.Task;
 
 public class MarkCommand extends Command {
@@ -17,6 +18,7 @@ public class MarkCommand extends Command {
     @Override
     public String execute() {
         Task task = chatRecord.setMark(toMark);
+        SaveData.saveData(this.chatRecord.toSave());
         return task.toString();
     }
 }

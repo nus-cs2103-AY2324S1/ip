@@ -1,6 +1,7 @@
 package commands;
 
 import records.ChatRecord;
+import storage.SaveData;
 import task.Task;
 
 public class UnmarkCommand extends Command {
@@ -18,6 +19,7 @@ public class UnmarkCommand extends Command {
     @Override
     public String execute() {
         Task task = chatRecord.setUnmark(toUnmark);
+        SaveData.saveData(this.chatRecord.toSave());
         return task.toString();
     }
 }

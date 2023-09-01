@@ -1,6 +1,7 @@
 package commands;
 
 import records.ChatRecord;
+import storage.SaveData;
 import task.Task;
 
 public class DeleteCommand extends Command {
@@ -17,6 +18,7 @@ public class DeleteCommand extends Command {
     @Override
     public String execute() {
         Task task = this.chatRecord.deleteTask(toDelete);
+        SaveData.saveData(this.chatRecord.toSave());
         return task.toString();
     }
 }
