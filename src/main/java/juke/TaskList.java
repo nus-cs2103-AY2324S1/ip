@@ -44,4 +44,14 @@ public class TaskList {
         return currTask;
     }
 
+    public ArrayList<Task> find(String searchTerm) {
+        ArrayList<Task> results = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.desc.contains(searchTerm)) {
+                results.add(task);
+            }
+        }
+        return results;
+    }
+
 }

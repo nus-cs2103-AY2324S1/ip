@@ -39,6 +39,11 @@ public class Juke {
         storage.updateAll(tasks.tasks);
     }
 
+    public void find(String searchTerm) {
+        ArrayList<Task> results = tasks.find(searchTerm);
+        ui.find(results);
+    }
+
     public void createTodo(String desc) throws JukeError {
         Task newTask = new Todo(desc);
         tasks.add(newTask);

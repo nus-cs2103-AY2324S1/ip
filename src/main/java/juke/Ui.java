@@ -17,7 +17,7 @@ public class Ui {
     }
     public void printStart() {
         //Introduce itself to the user
-        System.out.println("Hello! I'm juke.Juke!");
+        System.out.println("Hello! I'm Juke!");
         System.out.println("What can I do for you?");
         printLine();
     }
@@ -61,7 +61,24 @@ public class Ui {
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + task.toString());
         System.out.println("Now you have " + size + " tasks in the list.");
+    }
 
+    /**
+     * Prints out corresponding tasks based on search term.
+     * @param results The results of the search.
+     */
+    public void find(ArrayList<Task> results) {
+        if (results.size() == 0) {
+            System.out.println("No results found.");
+        } else {
+            int count = 1;
+            System.out.println("Here are the matching tasks in your list:");
+            for (Task task : results) {
+                System.out.println(count + ". " + task.toString());
+                count++;
+            }
+        }
+        printLine();
     }
 
 }
