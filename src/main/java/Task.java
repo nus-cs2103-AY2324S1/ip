@@ -38,5 +38,21 @@ public class Task {
         this.isDone = true;
     }
 
+    /**
+     * Returns the string description of the task
+     * @return String description of task
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Returns whether the task has been done
+     * @return boolean representing whether the task has been done
+     */
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
 
 }

@@ -18,4 +18,12 @@ class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
+
+    /**
+     * Returns the string date and time of when the task should be done by
+     * @return String of the date and time of deadline of task
+     */
+    public String getBy() {
+        return this.by;
+    }
 }
