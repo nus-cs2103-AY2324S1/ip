@@ -91,11 +91,11 @@ public class Duke {
         int taskIndex = 0;
         try {
             taskIndex = Integer.parseInt(index) - 1;
-            if (taskIndex > taskList.size() || taskIndex < 0) {
-                throw new IndexOutOfBoundsException("Please enter a valid index.");
-            }
         } catch (NumberFormatException e) {
             System.out.println("Please enter a valid index.");
+        }
+        if (taskIndex > taskList.size() || taskIndex < 0) {
+            throw new IndexOutOfBoundsException("Please enter a valid index.");
         }
         Task taskChanged = taskList.get(taskIndex);
         String action = parts[0];
@@ -111,6 +111,34 @@ public class Duke {
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    /**
+     * Method deletes task from taskList.
+     * @param task The instructions containing index of task to be deleted.
+     */
+    public void delete(String task) throws DukeException {
+        String[] segments = task.split(" ");
+        if (segments.length < 2) {
+            throw new DukeException("Which task do you want to delete?");
+        }
+        String index = segments[1];
+        int taskIndex = 0;
+        try {
+            taskIndex = Integer.parseInt(index) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter a valid index."); //e.g. delete hi
+        }
+        if (taskIndex > taskList.size() || taskIndex < 0) {
+            throw new DukeException("Please enter a valid index.");
+        }
+        Task deletedTask = taskList.get(Integer.parseInt(index) - 1);
+        taskList.remove(deletedTask);
+
+        System.out.println(line);
+        System.out.println("Deleted the following task: ");
+        System.out.println(deletedTask);
+        System.out.println(line);
     }
 
     /**
@@ -160,6 +188,12 @@ public class Duke {
                     handleEvent(task);
                     break;
                 case DELETE:
+                    try {
+                        delete(task);
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
                 case MARK:
                 case UNMARK:
                     try {
