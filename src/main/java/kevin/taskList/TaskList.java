@@ -110,6 +110,28 @@ public class TaskList {
         return this.taskList.size();
     }
 
+    /**
+     * Finds tasks based on the keyword.
+     * @param keyword This is the keyword to be checked.
+     * @return Returns a list of task that contains the keyword.
+     */
+    public String find(String keyword) {
+        StringBuilder listOutput = new StringBuilder();
+        Integer number = 1;
+        listOutput.append("Here are the matching tasks in your list: ");
+
+        for (int i = 0; i < this.taskList.size(); i++) {
+            if (this.taskList.get(i).toString().contains(keyword)) {
+                listOutput.append("\n\t").
+                        append((number)).
+                        append(".").
+                        append(this.taskList.get(i));
+                number += 1;
+            }
+        }
+        return listOutput.toString();
+    }
+
 
     /**
      * {@inheritDoc}

@@ -76,6 +76,11 @@ public class Parser {
             args.add(argumentGetName[0]);
             args.add(argumentGetDate[0]);
             args.add(argumentGetDate[1]);
+        } else if (command == Commands.FIND) {
+            if (querySplit.length != 2) {
+                throw new KevinException("Find command needs to follow \"find {keyword}.\"");
+            }
+            args.add(querySplit[1]);
         }
         return new QueryObject(command, args);
     }
