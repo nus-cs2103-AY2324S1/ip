@@ -7,18 +7,24 @@ import duke.storage.Storage;
 import duke.tasks.Tasks;
 import duke.ui.Ui;
 
+/**
+ * Entry point of the Duke application.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Duke {
-    private final String FILE_PATH = "./data/duke.txt";
-    private Storage storage;
-    private Tasks tasks;
-    private Ui ui;
+    private final Storage storage;
+    private final Tasks tasks;
+    private final Ui ui;
 
     public Duke() {
         this.ui = new Ui();
-        this.storage = new Storage(FILE_PATH);
+        this.storage = new Storage("./data/duke.txt");
         tasks = storage.load();
     }
 
+    /**
+     * Runs the program and starts to listen to user input.
+     */
     public void run() {
         ui.showGreetings();
 
@@ -46,6 +52,12 @@ public class Duke {
 
         }
     }
+
+    /**
+     * Main method of the program, entry point of the application.
+     *
+     * @param args arguments supplied by the user at program launch
+     */
     public static void main(String[] args) {
         new Duke().run();
     }

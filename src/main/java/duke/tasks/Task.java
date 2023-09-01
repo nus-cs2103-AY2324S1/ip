@@ -3,18 +3,32 @@ package duke.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task entered by a user.
+ */
 public abstract class Task {
     private final String description;
     private boolean isMarked;
     public final String type;
 
-
+    /**
+     * Public constructor to be called by child classes.
+     *
+     * @param description the description describing the task
+     * @param type the type of task
+     * @param isMarked boolean value tracking whether the task has been marked
+     */
     public Task(String description, String type, boolean isMarked) {
         this.description = description;
         this.type = type;
         this.isMarked = isMarked;
     }
 
+    /**
+     * An abstract method to reconstruct the original message passed by the user.
+     *
+     * @return text string of the original user entered message
+     */
     abstract public String getOriginalMessage();
 
     public String getDescription() {
@@ -25,6 +39,11 @@ public abstract class Task {
         return this.isMarked;
     }
 
+    /**
+     * A setter method for the isMarked field.
+     *
+     * @param isMarked the boolean value to be set
+     */
     public void setMarked(boolean isMarked) {
         this.isMarked = isMarked;
     }
