@@ -117,7 +117,7 @@ public class ChadBod {
         }
         return new Deadline(deadlineDetails[0], byDate);
     }
-    private static Event createEvent(String details) throws InvalidTaskException {
+    public static Event createEvent(String details) throws InvalidTaskException {
         if (details.isEmpty()) {
             throw new InvalidTaskException("Description of event cannot be empty.");
         }
