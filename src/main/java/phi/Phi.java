@@ -28,7 +28,7 @@ public class Phi {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         while (!input.equals("bye")) {
-            phiParser.handle(input);
+            System.out.println(phiParser.handle(input));
             taskStorage.writeToFile(tasks);
             System.out.println();
             input = sc.nextLine();

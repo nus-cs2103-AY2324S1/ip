@@ -18,70 +18,71 @@ public class TaskList {
         }
     }
 
-    public void doTask(String input) {
+    public String doTask(String input) {
         try {
             int number = Integer.parseInt(input.substring(5));
             Task t = getTask(number);
-            System.out.println("ALRIGHT NICE I'll mark this as completed :)");
             t.markDone();
-            System.out.println(t);
+            return "ALRIGHT NICE I'll mark this as completed :)\n" + t;
         }
-        catch (NumberFormatException n) {
-            System.out.println("OI open ur eyes and give a proper input ITS \"mark\" AND A NUMBER");
+        catch (NumberFormatException | StringIndexOutOfBoundsException n) {
+            return "OI open ur eyes and give a proper input ITS \"mark\" AND A NUMBER";
         }
         catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 
-    public void undoTask(String input) {
+    public String undoTask(String input) {
         try {
             int number = Integer.parseInt(input.substring(7));
             Task t = getTask(number);
-            System.out.println("Oh nooo I will mark this undone then :(");
             t.markUndone();
-            System.out.println(t);
+            return "Oh nooo I will mark this undone then :(\n" + t;
         }
         catch (NumberFormatException n) {
-            System.out.println("OI open ur eyes and give a proper input ITS \"unmark\" AND A NUMBER");
+            return "OI open ur eyes and give a proper input ITS \"unmark\" AND A NUMBER";
         }
         catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         this.taskList.add(task);
-        System.out.println("Added:\n" + task.toString());
+        return "Added:\n" + task;
     }
 
-    public void deleteTask(String input) {
+    public String deleteTask(String input) {
         try {
             int number = Integer.parseInt(input.substring(7));
             Task t = getTask(number);
             System.out.printf("Alright say bye bye to task %d!%n", number);
             System.out.println(t);
             this.taskList.remove(t);
-            System.out.printf("There's %d task(s) in the list now.%n", taskList.size());
+            return String.format("There's %d task(s) in the list now.%n", taskList.size());
         }
         catch (NumberFormatException n) {
-            System.out.println("Ugh to delete stuff, you have to input \"delete\" and the number...");
+            return "Ugh to delete stuff, you have to input \"delete\" and the number...";
         }
         catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
+        return "Something went wrong, please try again :/";
     }
 
-    public void printList(String input) {
+    public String printList(String input) {
         if (!input.equals("list")) {
             throw new IllegalArgumentException("Nice job did you mean \"list\" coz what you gave wasn't an accepted input");
         } else {
             if (taskList.isEmpty()) {
-                System.out.println("You do know that to SHOW a list there has to be stuff INSIDE the (currently empty) list right?");
+                return "You do know that to SHOW a list there has to be stuff INSIDE the (currently empty) list right?";
             } else {
+                StringBuilder output = new StringBuilder();
                 for (Task t : taskList) {
-                    System.out.printf("%d.%s%n", taskList.indexOf(t) + 1, t.toString());
+                    output.append(String.format("%d.%s%n", taskList.indexOf(t) + 1, t.toString()));
                 }
+                return output.toString();
             }
         }
     }
