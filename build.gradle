@@ -12,10 +12,25 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
-
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'duke.Duke'
+        )
+    }
+}
 test {
     useJUnitPlatform()
 
+    testLogging {
+        events "passed", "skipped", "failed"
+
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
 }
 
 application {
