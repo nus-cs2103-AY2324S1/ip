@@ -1,0 +1,5 @@
+[T][ ] hello
+[T][X] do this ples
+[E][X] go to event (from: go to event to: end time)
+[D][ ] finish this   (by: this date)
+[T][ ] new todo

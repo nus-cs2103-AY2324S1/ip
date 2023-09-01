@@ -4,13 +4,21 @@ import exception.EmptyDateTimeException;
 import exception.EmptyInputException;
 import exception.InvalidFormatException;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import java.io.File;
+import java.io.FileWriter;
 
 public class Duke {
     private static String separator = "\n-----------------------------------------------------------------";
+    ArrayList<Task> ls;
+    public Duke() {
+        this.ls = Duke.initTasks();
+    }
     public static void main(String[] args) {
         String logo =" ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣤⣶⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ \n"
                 + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣾⠿⠛⠋⠉⠩⣄⠘⢿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ \n"
@@ -53,52 +61,43 @@ public class Duke {
 
         System.out.println(logo + "\n" + msg);
 
-        Scanner sc = new Scanner(System.in);
+        Duke paimon = new Duke();
 
-        ArrayList<Task> ls = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
 
         boolean running = true;
 
-        String markCommand = "mark";
-        String unmarkCommand = "unmark";
-        String listCommand = "list";
-        String deleteCommand = "delete";
-        String byeCommand = "bye";
-        String todoCommand = "todo";
-        String deadlineCommand = "deadline";
-        String eventCommand = "event";
-
-        String input = sc.nextLine();
-
         while (running) {
+            String input = sc.nextLine();
             try {
                 String command = input.split(" ")[0];
                 Command c = Command.valueOf(command.toUpperCase());
                 switch (c) {
                 case MARK:
-                    Duke.markTask(input, ls);
+                    Duke.markTask(input, paimon.ls);
                     break;
                 case UNMARK:
-                    Duke.unmarkTask(input, ls);
+                    Duke.unmarkTask(input, paimon.ls);
                     break;
                 case LIST:
-                    Duke.listItems(ls);
+                    Duke.listItems(paimon.ls);
                     break;
                 case BYE:
                     System.out.println("Bye Bye! See you soon :D"
                             + separator);
                     running = false;
+                    break;
                 case TODO:
-                    Duke.todo(input, ls);
+                    Duke.todo(input, paimon.ls);
                     break;
                 case DEADLINE:
-                    Duke.deadline(input, ls);
+                    Duke.deadline(input, paimon.ls);
                     break;
                 case EVENT:
-                    Duke.event(input, ls);
+                    Duke.event(input, paimon.ls);
                     break;
                 case DELETE:
-                    Duke.delete(input, ls);
+                    Duke.delete(input, paimon.ls);
                     break;
                 default:
                     throw new InvalidCommandException(
@@ -112,13 +111,96 @@ public class Duke {
             } catch (InvalidFormatException e) {
                 System.out.println(e.getMessage());
             } catch (InvalidCommandException e) {
-                System.out.println(e.getMessage());
+                System.out.println("☹ OOPS!!! ");
             } catch (Exception e) {
                 System.out.println("☹ OOPS!!! Something went wrong D:"
                         + separator);
+            } finally {
+                writeTasks(paimon.ls);
             }
         }
         sc.close();
+    }
+
+    private static void writeTasks(ArrayList<Task> ls) {
+        try {
+            FileWriter fw = new FileWriter("./data/paimon.txt");
+            for (Task t : ls) {
+                fw.write(t.toString() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println(e);
+        }
+    }
+    private static ArrayList<Task> readTasks(File file) {
+        ArrayList<Task> inputList = new ArrayList<>();
+        try {
+            Scanner s = new Scanner(file);
+            while (s.hasNextLine()) {
+                String input = s.nextLine();
+                char taskType = input.charAt(1);
+                boolean isDone = input.charAt(4) == 'X';
+                String des = input.split("] ")[1];
+                if (taskType == 'T') {
+                    Todo t = new Todo(des);
+                    if (isDone) {
+                        t.markDone();
+                    }
+                    inputList.add(t);
+                } else if (taskType == 'D') {
+                    int byIndex = des.indexOf("(by: ");
+                    int endIndex = des.indexOf(")");
+                    String deadlineDes = des.substring(0, byIndex);
+                    String by = des.substring(byIndex + 5, endIndex);
+                    Deadline d = new Deadline(deadlineDes, by);
+                    if (isDone) {
+                        d.markDone();
+                    }
+                    inputList.add(d);
+                } else if (taskType == 'E') {
+                    int fromIndex = des.indexOf("(from: ");
+                    int toIndex = des.indexOf(" to: ");
+                    int endIndex = des.indexOf(")");
+                    String eventDes = des.substring(0, fromIndex - 1);
+                    String start = des.substring(fromIndex + 7, toIndex);
+                    String end = des.substring(toIndex + 5, endIndex);
+                    Event e = new Event(eventDes, start, end);
+                    if (isDone) {
+                        e.markDone();
+                    }
+                    inputList.add(e);
+                }
+            }
+            s.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println(e);
+        } finally {
+            return inputList;
+        }
+    }
+
+    private static ArrayList<Task> initTasks() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            File dir = new File("./data");
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+            File inputFile = new File("./data/paimon.txt");
+            if (inputFile.createNewFile()) {
+                // creates new file
+            } else {
+                tasks = readTasks(inputFile);
+            }
+        } catch (IOException e) {
+            System.out.println("IOException occured");
+            e.printStackTrace();
+        } finally {
+            return tasks;
+        }
     }
 
     private static void markTask(String input, ArrayList<Task> ls) {
@@ -153,7 +235,7 @@ public class Duke {
 
     private static void todo(String input, ArrayList<Task> ls) throws EmptyInputException {
         if (input.split(" ").length > 1) {
-            String des = input.split(" ")[1];
+            String des = input.split(" ", 2)[1];
             Todo t = new Todo(des);
             ls.add(t);
             System.out.println(
@@ -176,13 +258,14 @@ public class Duke {
             throw new EmptyDateTimeException("deadline");
         } else {
             String tempDes = input.split(" ", 2)[1];
+            System.out.println(tempDes);
             String des = tempDes.split(" /by " )[0];
             String by = tempDes.split(" /by ")[1];
             Deadline d = new Deadline(des, by);
             ls.add(d);
             System.out.println(
                     "Got it. Task successfully added: \n"
-                            + d
+                            + d.toString()
                             + "\nNow you have " + ls.size() + " tasks in the list"
                             + separator);
         }
