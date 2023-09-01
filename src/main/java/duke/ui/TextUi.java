@@ -18,8 +18,10 @@ public class TextUi {
     }
 
     public void whisper(String... strings) {
-        for (String s : strings) {
-            out.println(indent(s));
+        for (String string : strings) {
+            for (String s : string.split("\n")) {
+                out.println(indent(s));
+            }
         }
     }
 
