@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 class TaskList {
+    public class SearchResult{
+        public int index;
+        public Task task;
+    }
     private List<Task> list;
     public TaskList() {
         this.list = new ArrayList<>();
@@ -96,5 +100,18 @@ class TaskList {
         Task t = getTask(idx);
         t.markAsUndone();
         return t;
+    }
+    public List<SearchResult> findTask(String keyword){
+        List<SearchResult> results = new ArrayList<>();
+        for(int i = 0; i < this.list.size(); i++){
+            Task t = this.list.get(i);
+            if(t.getName().contains(keyword)){
+                SearchResult sr = new SearchResult();
+                sr.index = i+1;
+                sr.task = t;
+                results.add(sr);
+            }
+        }
+        return results;
     }
 }
