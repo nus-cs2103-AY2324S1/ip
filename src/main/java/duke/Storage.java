@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ * Represents a storage class which takes care of the reading
+ * and writing of the list of tasks for Duke
+ */
 public class Storage {
     //path for file to read/right to
     private final String FILE_PATH;
@@ -16,10 +21,20 @@ public class Storage {
     public static final DateTimeFormatter dateTimeInputFormatter
             = DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
 
+    /**
+     * Constructs a Storage instance with the specified filePath
+     * @param filePath The file path to read and write from
+     */
     public Storage(String filePath) {
         this.FILE_PATH = filePath;
 
     }
+
+    /**
+     * Writes the tasks in the task list to a file as specified
+     * @param taskList The list of tasks to write
+     * @throws IOException Throws IOException when the writing is unsuccessful
+     */
     public void writeTasksToFile(ArrayList<Task> taskList) throws IOException {
         //check if file path exists already or not
         String fileDirectory = "./" + FILE_PATH.split("/",2)[0];
@@ -33,6 +48,12 @@ public class Storage {
         }
         fw.close();
     }
+
+    /**
+     * Reads saved tasks from file path
+     * @return Returns an arraylist of tasks
+     * @throws FileNotFoundException Throws FileNotFoundException if the file path does not exist
+     */
     public ArrayList<Task> readTasksFromFile() throws FileNotFoundException {
         File file = new File(FILE_PATH);
         Scanner scanner = new Scanner(file);
