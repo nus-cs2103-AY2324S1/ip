@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.core.DukeException;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,7 +22,7 @@ public class TaskListTest {
         try {
             tasks.markAsDone(-1);
             fail();
-        } catch (Exception e) {
+        } catch (DukeException e) {
             assertEquals("Task number provided does not exist.", e.getMessage());
         }
     }
@@ -34,7 +36,7 @@ public class TaskListTest {
             assertEquals(" ", task.getStatusIcon());
             tasks.markAsDone(0);
             assertEquals("X", task.getStatusIcon());
-        } catch (Exception e) {
+        } catch (DukeException e) {
             fail();
         }
     }
@@ -49,7 +51,7 @@ public class TaskListTest {
             tasks.markAsDone(1);
             assertEquals("X", task.getStatusIcon());
             fail();
-        } catch (Exception e) {
+        } catch (DukeException e) {
             assertEquals("Task number provided does not exist.", e.getMessage());
         }
     }
@@ -60,7 +62,7 @@ public class TaskListTest {
         try {
             tasks.markAsUndone(-1);
             fail();
-        } catch (Exception e) {
+        } catch (DukeException e) {
             assertEquals("Task number provided does not exist.", e.getMessage());
         }
     }
@@ -75,7 +77,7 @@ public class TaskListTest {
             assertEquals("X", task.getStatusIcon());
             tasks.markAsUndone(0);
             assertEquals(" ", task.getStatusIcon());
-        } catch (Exception e) {
+        } catch (DukeException e) {
             fail();
         }
     }
@@ -91,42 +93,46 @@ public class TaskListTest {
             tasks.markAsUndone(1);
             assertEquals(" ", task.getStatusIcon());
             fail();
-        } catch (Exception e) {
+        } catch (DukeException e) {
             assertEquals("Task number provided does not exist.", e.getMessage());
         }
     }
 
     @Test
-    public void deleteTask_negativeIndex_exceptionThrown() throws Exception{
+    public void deleteTask_negativeIndex_exceptionThrown() {
         TaskList tasks = new TaskList();
         Todo task = new Todo("Task");
         tasks.addTask(task);
         try {
             tasks.deleteTask(-1);
             fail();
-        } catch (Exception e) {
+        } catch (DukeException e) {
             assertEquals("Task number provided does not exist.", e.getMessage());
         }
     }
 
     @Test
-    public void deleteTask_validIndex_success() throws Exception{
+    public void deleteTask_validIndex_success() {
         TaskList tasks = new TaskList();
         Todo task = new Todo("Task");
         tasks.addTask(task);
-        tasks.deleteTask(0);
+        try {
+            tasks.deleteTask(0);
+        } catch (DukeException e) {
+            fail();
+        }
         assertEquals(0, tasks.size());
     }
 
     @Test
-    public void deleteTask_indexGreaterThanSize_exceptionThrown() throws Exception{
+    public void deleteTask_indexGreaterThanSize_exceptionThrown() {
         TaskList tasks = new TaskList();
         Todo task = new Todo("Task");
         tasks.addTask(task);
         try {
             tasks.deleteTask(1);
             fail();
-        } catch (Exception e) {
+        } catch (DukeException e) {
             assertEquals("Task number provided does not exist.", e.getMessage());
         }
     }

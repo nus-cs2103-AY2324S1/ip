@@ -3,12 +3,15 @@ package duke.command;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAccessor;
+
+import java.util.Map;
 import java.util.stream.Stream;
 
 import duke.core.DukeException;
 import duke.core.Parser;
 import duke.core.Storage;
 import duke.core.Ui;
+
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -22,54 +25,70 @@ public class AddCommand extends Command {
         TODO, DEADLINE, EVENT
     }
 
-    public AddCommand(TaskType taskType) {
-        this.taskType = taskType;
+    /**
+     * Constructor for AddCommand.
+     * 
+     * @param parameterMap Map of parameters for the command.
+     */
+    public AddCommand(Map<String, String> parameterMap) {
+        super(parameterMap);
+
+        // Guard clause to prevent NullPointerException
+        if (parameterMap.equals(null)) {
+            return;
+        }
+
+        if (parameterMap.containsKey("event")) {
+            this.taskType = TaskType.EVENT;
+        } else if (parameterMap.containsKey("deadline")) {
+            this.taskType = TaskType.DEADLINE;
+        } else if (parameterMap.containsKey("todo")) {
+            this.taskType = TaskType.TODO;
+        }
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task taskToAdd = null;
 
-        if (super.parameterMap == null) {
-            throw new DukeException("Please enter additional arguments.");
-        }
-
         try {
             switch (taskType) {
             case TODO:
-                if (!super.parameterMap.containsKey("default")) {
+                if (!super.getParameterMap().containsKey("default")) {
                     throw new DukeException("No description specified. Please specify a description.");
                 }
 
-                String todoDescription = super.parameterMap.get("default");
+                String todoDescription = super.getParameterMap().get("default");
                 taskToAdd = new Todo(todoDescription);
                 break;
             case DEADLINE:
-                if (!super.parameterMap.containsKey("default")) {
+                if (!super.getParameterMap().containsKey("default")) {
                     throw new DukeException("No description specified. Please specify a description.");
                 }
-                if (!super.parameterMap.containsKey("by")) {
+                if (!super.getParameterMap().containsKey("by")) {
                     throw new DukeException("No due date/time specified. Please specify a due date/time.");
                 }
 
-                String deadlineDescription = super.parameterMap.get("default");
-                TemporalAccessor dueDate = Parser.parseDateTimeInput(super.parameterMap.get("by"));
+                String deadlineDescription = super.getParameterMap().get("default");
+                TemporalAccessor dueDate = Parser.parseDateTimeInput(super.getParameterMap().get("by"));
                 taskToAdd = new Deadline(deadlineDescription, dueDate);
                 break;
             case EVENT:
-                if (!super.parameterMap.containsKey("default")) {
+                if (!super.getParameterMap().containsKey("default")) {
                     throw new DukeException("No description specified. Please specify a description.");
                 }
-                if (!super.parameterMap.containsKey("from")) {
+                if (!super.getParameterMap().containsKey("from")) {
                     throw new DukeException("No start date/time specified. Please specify a start date/time.");
                 }
-                if (!super.parameterMap.containsKey("to")) {
+                if (!super.getParameterMap().containsKey("to")) {
                     throw new DukeException("No end date/time specified. Please specify an end date/time.");
                 }
-                String eventDescription = super.parameterMap.get("default");
-                TemporalAccessor eventStartDate = Parser.parseDateTimeInput(super.parameterMap.get("from"));
-                TemporalAccessor eventEndDate = Parser.parseDateTimeInput(super.parameterMap.get("to"));
 
+                String eventDescription = super.getParameterMap().get("default");
+                TemporalAccessor eventStartDate = Parser.parseDateTimeInput(super.getParameterMap().get("from"));
+                TemporalAccessor eventEndDate = Parser.parseDateTimeInput(super.getParameterMap().get("to"));
+
+                // If the start date is a LocalDate, the end date must also be a LocalDate
                 if (eventStartDate instanceof LocalDate) {
                     if (!(eventEndDate instanceof LocalDate)) {
                         throw new DukeException("Please ensure that both arguments have the same format.");
@@ -83,6 +102,7 @@ public class AddCommand extends Command {
                     }
                 }
 
+                // If the start date is a LocalDateTime, the end date must also be a LocalDateTime
                 if (eventStartDate instanceof LocalDateTime) {
                     if (!(eventEndDate instanceof LocalDateTime)) {
                         throw new DukeException("Please ensure that both arguments have the same format.");
@@ -100,25 +120,22 @@ public class AddCommand extends Command {
                 break;
             }
 
-            if (taskToAdd != null && super.parameterMap.containsKey("completed")) {
+            if (!taskToAdd.equals(null) && super.getParameterMap().containsKey("completed")) {
                 taskToAdd.markAsDone();
             }
 
             tasks.addTask(taskToAdd);
 
-            if (super.parameterMap.containsKey("silent")) {
+            // Exit early and do not print anything if the command is silent
+            if (super.getParameterMap().containsKey("silent")) {
                 return;
             }
 
             Ui.respond(Stream.of("Got it. I've added this task:",
-                       String.format("  %s", taskToAdd.toString()),
-                       String.format("Now you have %d tasks in the list.", tasks.size())));
+                    String.format("  %s", taskToAdd.toString()),
+                    String.format("Now you have %d tasks in the list.", tasks.size())));
             tasks.storeTasks();
-        } catch (DukeException e) {
-            if (super.parameterMap.containsKey("silent")) {
-                return;
-            }
-            
+        } catch (DukeException e) {            
             throw e;
         }
 

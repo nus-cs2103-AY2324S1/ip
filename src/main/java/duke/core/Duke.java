@@ -1,46 +1,49 @@
 package duke.core;
 
-import java.util.Scanner;
+import java.util.stream.Stream;
 
-import duke.command.GreetCommand;
+import duke.command.Command;
+
 import duke.task.TaskList;
 
 public class Duke {
-    private static Boolean programRunning = true;
+    private static boolean isExit = false;
 
     private static Storage storage;
     private static TaskList tasks;
     private static Ui ui;
 
-    public static void stop() {
-        Duke.programRunning = false;
-    }
-
     public static void main(String[] args) {
         try {
-            Duke.tasks = new TaskList(Storage.readFile("tasks.txt"));
+            Stream<String> taskDataStream = Storage.readFile("tasks.txt");
+            Duke.tasks = new TaskList(taskDataStream);
+
+            if (tasks.hasLoadingError()) {
+                Ui.showLoadingError();
+            }
+
         } catch (DukeException e) {
             Ui.respond(e);
         }
 
-        new GreetCommand().execute(tasks, ui, storage);
+        Ui.showGreetMessage();
 
-        Scanner scanner = new Scanner(System.in);
-
-        while (programRunning) {
-            String input = scanner.nextLine();
-            System.out.println();
-
-            if (input.trim().equals("")) {
-                continue;
-            }
+        while (!isExit) {
             try {
-                Parser.parseCommand(input).execute(tasks, ui, storage);
+                Command command = Ui.readCommand();
+
+                if (command == null) {
+                    Ui.showInputArrow();
+                    continue;
+                }
+
+                command.execute(tasks, ui, storage);
+                Duke.isExit = command.isExit();
             } catch (DukeException e) {
                 Ui.respond(e);
             }
         }
 
-        scanner.close();
+        Ui.showExitMessage();
     }
 }

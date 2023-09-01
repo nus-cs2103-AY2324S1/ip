@@ -5,6 +5,7 @@ import java.time.temporal.TemporalAccessor;
 
 public class Event extends Task {
     private static String SYMBOL = "E";
+    
     protected TemporalAccessor startDatetime;
     protected TemporalAccessor endDatetime;
 
@@ -18,17 +19,17 @@ public class Event extends Task {
     public String getDataString() {
         DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd-MM-yyyy[ HHmm]");
         return String.join(" | ",
-                           Event.SYMBOL, super.isDone ? "1" : "0",
-                           super.getDescription(),
-                           parser.format(startDatetime),
-                           parser.format(endDatetime));
+                Event.SYMBOL, super.isDone ? "1" : "0",
+                super.getDescription(),
+                parser.format(startDatetime),
+                parser.format(endDatetime));
     }
 
     @Override
     public String toString() {
         return String.format("[%s]%s (from: %s to: %s)",
-                             Event.SYMBOL, super.toString(),
-                             super.formatDateTime(this.startDatetime),
-                             super.formatDateTime(this.endDatetime));
+                Event.SYMBOL, super.toString(),
+                super.formatDateTime(this.startDatetime),
+                super.formatDateTime(this.endDatetime));
     }
 }

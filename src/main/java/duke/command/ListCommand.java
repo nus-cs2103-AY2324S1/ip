@@ -1,12 +1,23 @@
 package duke.command;
 
+import java.util.Map;
 import java.util.stream.Stream;
 
 import duke.core.Storage;
 import duke.core.Ui;
+
 import duke.task.TaskList;
 
 public class ListCommand extends Command {
+
+    /**
+     * Constructor for ListCommand.
+     * 
+     * @param parameterMap Map of parameters for the command.
+     */
+    public ListCommand(Map<String, String> parameterMap) {
+        super(parameterMap);
+    }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
