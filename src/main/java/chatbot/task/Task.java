@@ -13,7 +13,16 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
+    }
+
+    /**
+     * Get description of the task.
+     *
+     * @return description
+     */
+    public String getDescription() {
+        return description;
     }
 
     public void markAsDone() {

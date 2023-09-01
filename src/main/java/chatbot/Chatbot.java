@@ -12,7 +12,6 @@ public class Chatbot {
         this.ui = new Ui();
     }
 
-
     public void run() {
         ui.showGreeting();
         boolean isExit = false;
@@ -30,7 +29,6 @@ public class Chatbot {
                 }
             }
         }
-
 
     public static void main(String[] args) {
         Chatbot Sara = new Chatbot();

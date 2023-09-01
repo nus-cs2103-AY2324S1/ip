@@ -21,7 +21,11 @@ public class UnknownCommand extends Command{
         } else if (userInput.startsWith("task on")) {
             String date = userInput.split(" ")[2];  // Changed from 1 to 2
             taskManager.printTasksOnDate(date);
-        } else {
+        } else if (userInput.startsWith("find")) {
+           String keyword = userInput.split(" ")[1];
+           taskManager.findTaskByKeyboard(keyword);
+        }
+        else {
             throw new ChatbotException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
