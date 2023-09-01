@@ -17,4 +17,9 @@ public class ChatBuddyException extends Exception {
     public String toString() {
         return "☹ OOPS!!! " + description;
     }
+
+    @Override
+    public String getMessage() {
+        return toString();
+    }
 }
