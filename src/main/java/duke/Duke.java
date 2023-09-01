@@ -56,7 +56,7 @@ public class Duke {
                 ui.printMessageWithSeparator(e.getMessage());
             }
 
-            if (command instanceof Command.Exit) {
+            if (command instanceof Command.ExitCommand) {
                 break;
             }
 

@@ -36,7 +36,7 @@ public abstract class Command {
      * The Exit class represents the "bye" command in the Duke application, allowing the user to exit the application.
      * It saves the task data to storage before displaying the goodbye message.
      */
-    public static class Exit extends Command {
+    public static class ExitCommand extends Command {
 
         /**
          * Executes the "bye" command, saving the task data to storage and displaying the goodbye message.
@@ -66,7 +66,7 @@ public abstract class Command {
      * The List class represents the "list" command in the Duke application, allowing the user to list all tasks.
      * It displays the list of tasks in the user interface.
      */
-    public static class List extends Command {
+    public static class ListCommand extends Command {
 
         /**
          * Executes the "list" command, displaying the list of tasks in the user interface.
@@ -91,7 +91,7 @@ public abstract class Command {
      * The Mark class represents the "mark" command in the Duke application, allowing the user to mark a task as done.
      * It marks the specified task as done in the task list.
      */
-    public static class Mark extends Command {
+    public static class MarkCommand extends Command {
 
         /** The number of the task to be marked as done. */
         private int taskNumber;
@@ -101,7 +101,7 @@ public abstract class Command {
          *
          * @param taskNumber The number of the task to be marked as done.
          */
-        public Mark(int taskNumber) {
+        public MarkCommand(int taskNumber) {
             this.taskNumber = taskNumber;
         }
 
@@ -129,7 +129,7 @@ public abstract class Command {
      * The Unmark class represents the "unmark" command in the Duke application, allowing the user to unmark a task.
      * It unmarks the specified task in the task list.
      */
-    public static class Unmark extends Command {
+    public static class UnmarkCommand extends Command {
 
         /** The number of the task to be unmarked. */
         private int taskNumber;
@@ -139,7 +139,7 @@ public abstract class Command {
          *
          * @param taskNumber The number of the task to be unmarked.
          */
-        public Unmark(int taskNumber) {
+        public UnmarkCommand(int taskNumber) {
             this.taskNumber = taskNumber;
         }
 
@@ -167,7 +167,7 @@ public abstract class Command {
      * The Delete class represents the "delete" command in the Duke application, allowing the user to delete a task.
      * It deletes the specified task from the task list.
      */
-    public static class Delete extends Command {
+    public static class DeleteCommand extends Command {
 
         /** The number of the task to be deleted. */
         private int taskNumber;
@@ -177,7 +177,7 @@ public abstract class Command {
          *
          * @param taskNumber The number of the task to be deleted.
          */
-        public Delete(int taskNumber) {
+        public DeleteCommand(int taskNumber) {
             this.taskNumber = taskNumber;
         }
 
@@ -206,7 +206,7 @@ public abstract class Command {
      * This includes the "todo", "deadline" and "event" commands.
      * It adds the specified task to the task list.
      */
-    public static class Add extends Command {
+    public static class AddCommand extends Command {
 
         /** The task to be added. */
         private Task task;
@@ -220,7 +220,7 @@ public abstract class Command {
          * @param task        The task to be added.
          * @param commandType The type of the add command (e.g., ADD_TODO, ADD_DEADLINE, ADD_EVENT).
          */
-        public Add(Task task, CommandType commandType) {
+        public AddCommand(Task task, CommandType commandType) {
             this.task = task;
             this.commandType = commandType;
         }
@@ -249,7 +249,7 @@ public abstract class Command {
      * The Invalid class represents an invalid or unrecognized command in the Duke application.
      * It throws a DukeException with an error message.
      */
-    public static class Invalid extends Command {
+    public static class InvalidCommand extends Command {
 
         /** The error message describing the invalid command. */
         private String message;
@@ -259,7 +259,7 @@ public abstract class Command {
          *
          * @param message The error message describing the invalid command.
          */
-        public Invalid(String message) {
+        public InvalidCommand(String message) {
             this.message = message;
         }
 

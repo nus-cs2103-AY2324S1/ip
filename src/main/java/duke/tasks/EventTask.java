@@ -36,7 +36,7 @@ public class EventTask extends Task {
      */
     @Override
     public String getDescription() {
-        return "[E]" + super.getDescription() + " (from: " + from.format(Ui.DATE_OUTPUT_FORMAT) + " to: " + to.format(Ui.DATE_OUTPUT_FORMAT) + ")";
+        return "[E]" + super.getDescription() + " (from: " + from.format(Ui.DATE_FORMAT_OUTPUT) + " to: " + to.format(Ui.DATE_FORMAT_OUTPUT) + ")";
     }
 
     /**
@@ -46,7 +46,7 @@ public class EventTask extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + super.toFileString() + " | " + from.format(Ui.DATE_OUTPUT_FORMAT) + " | " + to.format(Ui.DATE_OUTPUT_FORMAT);
+        return "E | " + super.toFileString() + " | " + from.format(Ui.DATE_FORMAT_OUTPUT) + " | " + to.format(Ui.DATE_FORMAT_OUTPUT);
     }
 
     /**
@@ -56,6 +56,6 @@ public class EventTask extends Task {
      */
     @Override
     public String toString() {
-        return super.toString() + " | " + from.format(Ui.DATE_OUTPUT_FORMAT) + " | " + to.format(Ui.DATE_OUTPUT_FORMAT);
+        return super.toString() + " | " + from.format(Ui.DATE_FORMAT_OUTPUT) + " | " + to.format(Ui.DATE_FORMAT_OUTPUT);
     }
 }

@@ -110,11 +110,11 @@ public class Storage {
             if (taskType.equals("T")) {
                 task = new ToDoTask(taskDescription);
             } else if (taskType.equals("D")) {
-                LocalDateTime deadline = LocalDateTime.parse(parts[3], Ui.DATE_OUTPUT_FORMAT);
+                LocalDateTime deadline = LocalDateTime.parse(parts[3], Ui.DATE_FORMAT_OUTPUT);
                 task = new DeadlineTask(taskDescription, deadline);
             } else if (taskType.equals("E")) {
-                LocalDateTime from = LocalDateTime.parse(parts[3], Ui.DATE_OUTPUT_FORMAT);
-                LocalDateTime to = LocalDateTime.parse(parts[4], Ui.DATE_OUTPUT_FORMAT);
+                LocalDateTime from = LocalDateTime.parse(parts[3], Ui.DATE_FORMAT_OUTPUT);
+                LocalDateTime to = LocalDateTime.parse(parts[4], Ui.DATE_FORMAT_OUTPUT);
                 task = new EventTask(taskDescription, from, to);
             } else {
                 throw new IOException("Invalid task type found in file. Data file may be corrupted.");

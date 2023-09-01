@@ -30,7 +30,7 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String getDescription() {
-        return "[D]" + super.getDescription() + " (by: " + deadline.format(Ui.DATE_OUTPUT_FORMAT) + ")";
+        return "[D]" + super.getDescription() + " (by: " + deadline.format(Ui.DATE_FORMAT_OUTPUT) + ")";
     }
 
     /**
@@ -40,7 +40,7 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toFileString() {
-        return "D | " + super.toFileString() + " | " + deadline.format(Ui.DATE_OUTPUT_FORMAT);
+        return "D | " + super.toFileString() + " | " + deadline.format(Ui.DATE_FORMAT_OUTPUT);
     }
 
     /**
@@ -50,6 +50,6 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toString() {
-        return super.toString() + " | " + deadline.format(Ui.DATE_OUTPUT_FORMAT);
+        return super.toString() + " | " + deadline.format(Ui.DATE_FORMAT_OUTPUT);
     }
 }

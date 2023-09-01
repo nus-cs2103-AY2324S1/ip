@@ -13,10 +13,10 @@ public class Ui {
     public static final String LINE_SEPARATOR = "____________________________________________________________";
 
     /** The date and time input format used for parsing user input. */
-    public static final DateTimeFormatter DATE_INPUT_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    public static final DateTimeFormatter DATE_FORMAT_INPUT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
     /** The date and time output format used for displaying dates and times in messages. */
-    public static final DateTimeFormatter DATE_OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d MMM yyyy hh:mm a");
+    public static final DateTimeFormatter DATE_FORMAT_OUTPUT = DateTimeFormatter.ofPattern("d MMM yyyy hh:mm a");
 
     /** The scanner used for reading user input. */
     Scanner scanner;
