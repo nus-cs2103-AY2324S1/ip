@@ -108,6 +108,12 @@ public class Parser {
                     return new Command.Invalid("☹ OOPS!!! Please enter a valid date and time in the format: dd/MM/yyyy HHmm");
                 }
             }
+        case FIND:
+            if (commandDetails.equals("")) {
+                return new Command.Invalid("☹ OOPS!!! Please enter a keyword to search for.");
+            } else {
+                return new Command.Find(commandDetails);
+            }
         case INVALID:
             return new Command.Invalid("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

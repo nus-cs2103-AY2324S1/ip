@@ -121,6 +121,24 @@ public abstract class Command {
         }
     }
 
+    public static class Find extends Command {
+        private String keyword;
+
+        public Find(String keyword) {
+            this.keyword = keyword;
+        }
+
+        @Override
+        public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+            tasks.findTasks(keyword);
+        }
+
+        @Override
+        public CommandType getType() {
+            return CommandType.FIND;
+        }
+    }
+
     public static class Invalid extends Command {
         private String message;
 
