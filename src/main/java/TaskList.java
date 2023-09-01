@@ -62,6 +62,22 @@ public class TaskList {
         return this.list.size();
     }
 
+    /**
+     * Encodes the current Tasks in a string, each task separated by a newline.
+     * @return
+     */
+    public String serialize() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < this.list.size(); i++) {
+            stringBuilder.append(this.list.get(i).encodeTask());
+            stringBuilder.append("\n");
+        }
+
+
+        return stringBuilder.toString();
+    }
+
     @Override
     public String toString() {
         StringBuilder resultMsg = new StringBuilder();

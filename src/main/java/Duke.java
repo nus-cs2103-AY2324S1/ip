@@ -1,6 +1,8 @@
 import Tasks.*;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -41,6 +43,7 @@ public class Duke {
         try {
             // Load in existing file if it exists
             if (Files.exists(SAVE_FILE_LOCATION)) {
+                System.out.println("⏳ Save file already exists, loading previous data");
                 // it exists, so let's read it
                 try {
                     Scanner sc = new Scanner(SAVE_FILE_LOCATION);
@@ -52,16 +55,22 @@ public class Duke {
                         listContainer.addToList(task);
 
 
-
                     }
+                    System.out.println("✅ Loaded " + listContainer.getSize() + " previous tasks.");
                 } catch (FileNotFoundException e) {
                     throw new DukeException(FILE_PARSE_ERROR);
                 } catch (IOException e) {
                     throw new DukeException(FILE_PARSE_ERROR);
                 }
             } else {
-                System.out.println("No save file!");
-                System.out.println(SAVE_FILE_LOCATION);
+
+                File saveFile = new File(String.valueOf(SAVE_FILE_LOCATION));
+
+                if (saveFile.createNewFile()) {
+                    System.out.println("⏳ Created save file!");
+                } else {
+                    System.out.println("⚠\uFE0F Could not create save file!");
+                }
             }
 
 
@@ -134,14 +143,14 @@ public class Duke {
                     }
                     case DEADLINE: {
                         // format of entry: "deadline return book /by Sunday"
-                        String itemName = inputString.replace("deadline ", "").split("/by ")[0];
+                        String itemName = inputString.replace("deadline ", "").split(" /by ")[0];
 
                         if (itemName.isEmpty()) {
                             // no item name
                             throw new DukeException(NAME_EMPTY);
                         }
 
-                        String[] inputArgs = inputString.replace("deadline ", "").split("/by ");
+                        String[] inputArgs = inputString.replace("deadline ", "").split(" /by ");
                         if (inputArgs.length < 2) {
                             // missing deadline
                             throw new DukeException(DEADLINE_EMPTY);
@@ -204,6 +213,7 @@ public class Duke {
                         throw new DukeException(UNKNOWN_COMMAND);
                 }
                 System.out.println(SEPARATOR_LINE);
+                saveChanges();
 
 //            System.out.println(inputString);
 
@@ -215,8 +225,6 @@ public class Duke {
         } catch (Exception e) {
             System.out.println("some other exception " + e.getMessage());
         }
-
-
 
 
     }
@@ -251,7 +259,8 @@ public class Duke {
                 task = new EventTask(taskDescription, start, end);
                 break;
             }
-            default: throw new IOException();
+            default:
+                throw new IOException();
         }
 
         if (isDone) {
@@ -289,13 +298,42 @@ public class Duke {
             }
             case LIST: {
                 System.out.println(listContainer);
+                break;
             }
             case BYE: {
                 String exitMsg = "Bye! Hope to see you again soon.";
                 System.out.println(exitMsg);
                 System.out.println(SEPARATOR_LINE);
+                break;
             }
         }
     }
 
+    /**
+     * Saves changes in a file.
+     */
+    private static void saveChanges() {
+        String serialized = listContainer.serialize();
+
+        try {
+            // create file if not exists
+
+
+            // write to file
+            FileWriter fileWriter = new FileWriter(String.valueOf(SAVE_FILE_LOCATION));
+            fileWriter.write(serialized);
+            fileWriter.close();
+
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+
+
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
 }

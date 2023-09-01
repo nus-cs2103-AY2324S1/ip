@@ -1,6 +1,6 @@
 package Tasks;
 
-public class Task {
+public abstract class Task {
     private String itemName;
     private boolean isDone;
 
@@ -15,7 +15,7 @@ public class Task {
             return true;
         }
 
-        /* Check if o is an instance of Complex or not
+        /* Check if o is an instance of Task or not
           "null instanceof [type]" also returns false */
         if (!(o instanceof Task)) {
             return false;
@@ -35,7 +35,6 @@ public class Task {
     public boolean setDone() {
         this.isDone = true;
         return true;
-//        System.out.println("Nice! I've marked this task as done: \n    " + this.toString());
     }
 
     /**
@@ -44,7 +43,6 @@ public class Task {
     public boolean setUnDone() {
         this.isDone = false;
         return false;
-//        System.out.println("Nice! I've marked this task as undone: \n    " + this.toString());
     }
 
 
@@ -67,14 +65,23 @@ public class Task {
     }
 
 
-    public void printActionSuccess(Commands command) {
-        switch(command) {
-            case TODO: {
+    /**
+     * Gets the task type as a single character.
+     * T = Todo
+     * D = Deadline
+     * E = Event
+     *
+     * @return encoded character
+     */
+    public abstract String getTaskType();
 
-            }
-        }
+    /**
+     * Encodes the task into a formatted string to be stored in a database
+     *
+     */
+    public String encodeTask() {
+        return this.getTaskType() + " | " + (this.isDone ? "1" : "0") + " | " + this.itemName;
     }
-
 
     /**
      * Prints the task, formatted
