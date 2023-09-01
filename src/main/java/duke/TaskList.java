@@ -79,4 +79,15 @@ public class TaskList {
         return sb.toString();
     }
 
+    public String find(String description) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (this.tasks.get(i).containsDescription(description)) {
+                sb.append("    " + (i + 1) + ". " + this.tasks.get(i));
+                sb.append(System.lineSeparator());
+            }
+        }
+        return sb.toString();
+    }
+
 }
