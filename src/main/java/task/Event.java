@@ -1,21 +1,26 @@
 package task;
 
+import parsers.DatetimeParser;
+import parsers.Parser;
+
+import java.time.LocalDateTime;
+
 public class Event extends Task {
 
     private static final String TASK_HEADER = "[E] ";
-    private final String startTime;
-    private final String endTime;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
 
     public Event(String name, String startTime, String endTime) {
         super(name);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = DatetimeParser.parseTimeInput(startTime);
+        this.endTime = DatetimeParser.parseTimeInput(endTime);
     }
 
     public Event(String bool, String name, String startTime, String endTime) {
         super(name, Boolean.parseBoolean(bool));
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = DatetimeParser.convertToLocalDateTime(startTime);
+        this.endTime = DatetimeParser.convertToLocalDateTime(endTime);
     }
 
     @Override
@@ -28,6 +33,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return Event.TASK_HEADER + super.toString()+
-                " (from: " + this.startTime + " to: " + this.endTime + ")";
+                " (from: " + DatetimeParser.reformatTimeOutput(this.startTime) +
+                " to: " + DatetimeParser.reformatTimeOutput(this.endTime) + ")";
     }
 }
