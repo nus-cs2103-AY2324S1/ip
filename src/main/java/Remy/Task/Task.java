@@ -1,3 +1,6 @@
+/**
+ * Package name does not follow style guidelines due to Gradle issue.
+ */
 package Remy.Task;
 
 import java.io.Serializable;
