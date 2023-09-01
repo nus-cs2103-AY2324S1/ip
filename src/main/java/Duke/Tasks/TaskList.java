@@ -1,6 +1,8 @@
 package Duke.Tasks;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Stores the list of items that the user has.
@@ -81,6 +83,14 @@ public class TaskList {
         return stringBuilder.toString();
     }
 
+    public ArrayList<Task> findTasksByName(String searchString) {
+        List<Task> filtered = this.list.stream().filter((task ->
+            task.getName().contains(searchString)
+        )).collect(Collectors.toList());
+
+        return new ArrayList<>(filtered);
+
+    }
     @Override
     public String toString() {
         StringBuilder resultMsg = new StringBuilder();

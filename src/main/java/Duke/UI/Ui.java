@@ -63,13 +63,13 @@ public class Ui {
      *
      * @param command
      */
-    public static void printResult(Commands command, Task task, TaskList listContainer) {
+    public static void printResult(Commands command, Task task, TaskList taskList) {
         switch (command) {
             case TODO:
             case DEADLINE:
             case EVENT: {
                 System.out.println("\uD83D\uDE0A I've added a new task: " + task.toString());
-                System.out.println("Now you have " + listContainer.getSize() + " tasks!");
+                System.out.println("Now you have " + taskList.getSize() + " tasks!");
                 break;
             }
             case MARK: {
@@ -85,7 +85,16 @@ public class Ui {
                 break;
             }
             case LIST: {
-                System.out.println(listContainer);
+                System.out.println(taskList);
+                break;
+            }
+            case FIND: {
+                if (taskList.getSize() == 0) {
+                    System.out.println("Couldn't find any matching tasks!");
+                } else {
+                    System.out.println("I found " + taskList.getSize() + " matching tasks:");
+                    System.out.println(taskList.toString());
+                }
                 break;
             }
             case BYE: {

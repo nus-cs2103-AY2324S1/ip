@@ -7,6 +7,8 @@ import Duke.Tasks.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,9 +32,8 @@ public class Parser {
      * Parses the input string by the user.
      *
      * @param inputString The input string entered by the user.
-     * @param taskList The list of tasks
-     * @param storage The storage object that handles saving updates.
-     *
+     * @param taskList    The list of tasks
+     * @param storage     The storage object that handles saving updates.
      * @return true if the program can continue, false if the program has to halt.
      * @throws DukeException
      */
@@ -55,7 +56,7 @@ public class Parser {
             case LIST: {
                 printResult(inputCommand, null, taskList);
 
-                canContinue =  true;
+                canContinue = true;
                 break;
 
             }
@@ -65,7 +66,7 @@ public class Parser {
                 Task markedTask = taskList.markAsDone(index);
 
                 printResult(inputCommand, markedTask, taskList);
-                canContinue =  true;
+                canContinue = true;
                 break;
             }
             case UNMARK: {
@@ -73,7 +74,7 @@ public class Parser {
                 Task unmarkedTask = taskList.markAsUnDone(index);
 
                 printResult(inputCommand, unmarkedTask, taskList);
-                canContinue =  true;
+                canContinue = true;
                 break;
             }
             case DELETE: {
@@ -81,7 +82,7 @@ public class Parser {
                 Task removedTask = taskList.removeFromList(index);
 
                 printResult(inputCommand, removedTask, taskList);
-                canContinue =  true;
+                canContinue = true;
                 break;
             }
             case TODO: {
@@ -99,7 +100,7 @@ public class Parser {
                 taskList.addToList(todoTask);
 
                 printResult(inputCommand, todoTask, taskList);
-                canContinue =  true;
+                canContinue = true;
                 break;
             }
             case DEADLINE: {
@@ -138,7 +139,7 @@ public class Parser {
                 }
 
 
-                canContinue =  true;
+                canContinue = true;
                 break;
             }
             case EVENT: {
@@ -184,7 +185,16 @@ public class Parser {
                 taskList.addToList(eventTask);
 
                 printResult(inputCommand, eventTask, taskList);
-                canContinue =  true;
+                canContinue = true;
+                break;
+            }
+            case FIND: {
+                String searchString = inputString.replace("find ", "");
+
+                ArrayList<Task> filtered = taskList.findTasksByName(searchString);
+
+                printResult(inputCommand, null, new TaskList(filtered));
+                canContinue = true;
                 break;
             }
 

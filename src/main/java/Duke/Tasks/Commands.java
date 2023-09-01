@@ -8,7 +8,9 @@ public enum Commands {
     DELETE,
     TODO,
     DEADLINE,
-    EVENT;
+    EVENT,
+
+    FIND;
 
     public static boolean contains(String test) {
 
