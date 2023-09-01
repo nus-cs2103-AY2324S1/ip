@@ -1,4 +1,4 @@
-deadline skdjas /by 16:00
+todo skdjas
 mark 4
 unmark 2
 list

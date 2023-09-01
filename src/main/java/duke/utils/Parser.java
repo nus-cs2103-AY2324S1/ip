@@ -138,12 +138,12 @@ public class Parser {
      * @return a ToDoCommand that can be executed on behalf of the user.
      * @throws IncorrectFormatException if input string is empty.
      */
-    public static ToDoCommand parseTodo(String input, boolean isDone) throws IncorrectFormatException {
+    public static TodoCommand parseTodo(String input, boolean isDone) throws IncorrectFormatException {
         // Returns a new ToDoCommand object.
         if (input.equals("")) {
             throw new IncorrectFormatException();
         } else {
-            return new ToDoCommand(input, isDone);
+            return new TodoCommand(input, isDone);
         }
 
     }
@@ -207,8 +207,7 @@ public class Parser {
                 LocalTime toTime = toDateTime.time;
 
                 // Smart date guesser for incomplete date formats e.g.
-                // 1/1/2023 12:00 to 16:00 will be assumed to be 1/1/2023 12:00
-                // to 1/1/2023 16:00.
+                // 1/1/2023 12:00 to 16:00 will be assumed to be 1/1/2023 12:00 to 1/1/2023 16:00.
                 if (toDate == null && fromDate != null) {
                     toDate = fromDate;
                 }

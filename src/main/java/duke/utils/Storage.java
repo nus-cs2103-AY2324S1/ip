@@ -21,7 +21,7 @@ public class Storage {
 
     public Storage(String filepath) {
         String homedir = new File(System.getProperty("user.dir")).getParent();
-        String[] splitFilepath = Parser.filePathParser(filepath);
+        String[] splitFilepath = Parser.parseFilePath(filepath);
         this.path = Paths.get(homedir, splitFilepath[0], splitFilepath[1]);
     }
 
