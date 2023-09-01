@@ -1,8 +1,8 @@
 package simon;
 
+import java.util.ArrayList;
 import simon.task.Task;
 
-import java.util.ArrayList;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
