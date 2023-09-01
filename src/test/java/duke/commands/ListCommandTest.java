@@ -6,6 +6,7 @@ import duke.tasks.Event;
 import duke.tasks.Todo;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,8 +26,8 @@ public class ListCommandTest {
     public void run_nonEmptyTaskList_commandExceptionThrown() throws CommandException {
         TaskList tasks = new TaskList();
         Todo todo = new Todo("read book");
-        Deadline deadline = new Deadline("assignment", "tmr");
-        Event event = new Event("meeting", "tmr 12pm", "tmr 3pm");
+        Deadline deadline = new Deadline("assignment", LocalDateTime.parse("2023-09-10T12:00"));
+        Event event = new Event("meeting", LocalDateTime.parse("2023-09-10T12:00"), LocalDateTime.parse("2023-09-10T16:00"));
         tasks.add(todo);
         tasks.add(deadline);
         tasks.add(event);

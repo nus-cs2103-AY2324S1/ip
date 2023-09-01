@@ -1,20 +1,21 @@
 package duke.tasks;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public class Event extends Task implements Serializable {
     private static final long serialVersionUID = 4L;
-    protected String from;
-    protected String to;
+    protected LocalDateTime startDate;
+    protected LocalDateTime endDate;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime startDate, LocalDateTime endDate) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from %s to %s)", super.toString(), from, to);
+        return String.format("[E]%s (from %s to %s)", super.toString(), startDate, endDate);
     }
 }

@@ -3,6 +3,8 @@ package duke.commands;
 import duke.TaskList;
 import duke.tasks.Event;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
 public class EventCommand extends Command {
@@ -14,7 +16,7 @@ public class EventCommand extends Command {
 
     @Override
     protected String getInvalidFormatMessage() {
-        return String.join("\n", "Invalid format for command `event`!", "Usage: event <DESCRIPTION> [/from <START_TIME> | /to <END_TIME>] [/to <END_TIME> | /from <START_TIME>]");
+        return String.join("\n", "Invalid format for command `event`!", "Usage: event <DESCRIPTION> [/from <START_TIME> | /to <END_TIME>] [/to <END_TIME> | /from <START_TIME>]", "<START_TIME> and <END_TIME> should be of the format YYYY-MM-DDTHH:mm[:ss.sss]");
     }
 
     @Override
@@ -31,9 +33,17 @@ public class EventCommand extends Command {
 
         boolean isFromTo = startFore != null;
 
-        Event event = new Event(description, isFromTo ? startFore : startAft, isFromTo ? endAft : endFore);
-        tasks.add(event);
+        try {
+            LocalDateTime startTime = LocalDateTime.parse(isFromTo ? startFore : startAft);
+            LocalDateTime endTime = LocalDateTime.parse(isFromTo ? endAft : endFore);
 
-        return new CommandResult(true, "Got it. I've added this task:", event.toString(), String.format("Now you have %d %s in the list.", tasks.size(), tasks.size() == 1 ? "task" : "tasks"));
+            Event event = new Event(description, startTime, endTime);
+            tasks.add(event);
+
+            return new CommandResult(true, "Got it. I've added this task:", event.toString(), String.format("Now you have %d %s in the list.", tasks.size(), tasks.size() == 1 ? "task" : "tasks"));
+        } catch (DateTimeParseException e) {
+            throw new CommandException("Event start or end time is not a valid datetime!");
+        }
+
     }
 }
