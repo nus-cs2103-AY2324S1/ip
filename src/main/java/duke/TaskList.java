@@ -81,6 +81,12 @@ public class TaskList {
         return this.tasks;
     }
 
+    /**
+     * Searches for tasks that contain the specified keyword and prints them.
+     * If no tasks match the keyword, a message indicating no matches is printed.
+     *
+     * @param keyword The keyword to search for within the tasks.
+     */
     public void find(String keyword) {
         int count = 0;
         for (int i = 0; i < this.tasks.size(); i++) {
