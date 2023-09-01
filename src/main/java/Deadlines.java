@@ -28,9 +28,9 @@ public class Deadlines extends Task {
     @Override
     public String writeString() {
         if (this.getMarkStatus()) {
-            return "D,0" + this.getName() + " ," + this.ddl + "\n";
+            return "D,0" + this.getName() + "," + this.ddl + "\n";
         } else  {
-            return "D,1," + this.getName() + " ," + this.ddl + "\n";
+            return "D,1," + this.getName() + "," + this.ddl + "\n";
         }
     }
 

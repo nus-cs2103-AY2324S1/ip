@@ -35,7 +35,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        if (isDone) {
+        if (this.isDone) {
             return "[X] " + this.name;
         } else {
             return "[ ] " + this.name;
