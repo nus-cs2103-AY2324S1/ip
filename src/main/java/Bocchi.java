@@ -8,11 +8,17 @@ import ui.Ui;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * Class for running the task manager
+ */
 public class Bocchi {
     private static final String LINE_BREAK = "___________________________________________________";
     private final Ui ui;
     private final Parser parser;
 
+    /**
+     * Initializes the program
+     */
     public Bocchi() {
         this.ui = new Ui();
         this.parser = new Parser(this.ui);
@@ -25,6 +31,9 @@ public class Bocchi {
         new Bocchi().run();
     }
 
+    /**
+     * Runs the program
+     */
     public void run() {
         Scanner sc = new Scanner(System.in);
         TaskList taskList;

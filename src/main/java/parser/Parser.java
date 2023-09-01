@@ -11,6 +11,9 @@ import task.TaskList;
 import task.Todo;
 import ui.Ui;
 
+/**
+ * Class used to parse all inputs from the user
+ */
 public class Parser {
     private static final int EXPECTED_TOKENS_IN_EVENT = 3;
     private static final String LINE_BREAK = "___________________________________________________";
@@ -109,6 +112,14 @@ public class Parser {
         ui.displayTasks(taskList);
     }
 
+    /**
+     * Returns an updated task list based on user's input
+     *
+     * @param command User input
+     * @param taskList Current task list
+     * @return Task list
+     * @throws BocchiException
+     */
     public TaskList process(String command, TaskList taskList) throws BocchiException {
         // This splits the input string into two to isolate the first token as an action
         String[] tokens = command.split(" ", 2);

@@ -10,6 +10,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * Class to load in saved data
+ */
 public class BocchiLoader {
     private static final String DEFAULT_PATH = "./data/bocchi.txt";
     private static final int INDEX_TYPE = 0;

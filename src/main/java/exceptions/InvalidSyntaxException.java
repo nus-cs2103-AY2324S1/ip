@@ -1,5 +1,8 @@
 package exceptions;
 
+/**
+ * Exception class for invalid tasks syntax
+ */
 public class InvalidSyntaxException extends BocchiException {
     public InvalidSyntaxException(String taskType) {
         super(generateErrorMessage(taskType));

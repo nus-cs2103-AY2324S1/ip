@@ -2,9 +2,12 @@ package task;
 
 import java.time.LocalDateTime;
 
+/**
+ * Class to handle deadline tasks
+ */
 public class Deadline extends Task {
     private final LocalDateTime deadline;
-
+    
     public Deadline(String name, String deadline) {
         super(name);
         this.deadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);

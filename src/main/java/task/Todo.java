@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * Class to handle todo tasks
+ */
 public class Todo extends Task {
     public Todo(String name) {
         super(name);
