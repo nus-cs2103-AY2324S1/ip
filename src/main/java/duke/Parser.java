@@ -41,16 +41,21 @@ public class Parser {
                 } else if (splited[0].equals("list")) {
                     dukelist.printList();
                 } else if (splited[0].equals("find")) {
-                    String desc = splited[1];
-                    DukeList newList = new DukeList();
-                    System.out.println("Here are the matching tasks in the list:");
-                    for (int i = 0; i < dukelist.getList().size(); i++) {
-                        int count = 1;
-                        if (dukelist.getList().get(i).description.contains(desc)) {
-                            System.out.println(String.valueOf(count) + ". " + dukelist.getList().get(i).toString());
-                            count++;
+                    if (splited.length > 1) {
+                        String desc = splited[1];
+                        DukeList newList = new DukeList();
+                        System.out.println("Here are the matching tasks in the list:");
+                        for (int i = 0; i < dukelist.getList().size(); i++) {
+                            int count = 1;
+                            if (dukelist.getList().get(i).description.contains(desc)) {
+                                System.out.println(String.valueOf(count) + ". " + dukelist.getList().get(i).toString());
+                                count++;
+                            }
                         }
+                    } else {
+                        throw new DukeException("The description of find cannot be empty.");
                     }
+
                 } else if (splited[0].equals("mark")) {
                     int number = Integer.parseInt(splited[1]);
                     dukelist.setDone(number);
