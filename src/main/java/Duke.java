@@ -22,9 +22,13 @@ public class Duke {
     }
   }
 
+  /**
+   * Runs the program until the user enters a quit command.
+   */
   private void run() {
     ui.showWelcome();
     boolean isExit = false;
+
     while (!isExit) {
       try {
         String fullcommand = ui.readCommand();
@@ -45,6 +49,11 @@ public class Duke {
     }
   }
 
+  /**
+   * Entry point for Duke. This is the main method that will be called.
+   * 
+   * @param args Command line arguments not used in this program.
+   */
   public static void main(String[] args) {
     new Duke("data/duke.txt").run();
   }

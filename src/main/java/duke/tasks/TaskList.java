@@ -16,29 +16,66 @@ public class TaskList {
     this.list = new ArrayList<Task>();
   }
 
+  /**
+  * Adds a Todo to the list.
+  * 
+  * @param description the description of the todo.
+  * @param doneness true if todo is done, false otherwise.
+  * 
+  * @return the string format of the newly added Todo in the list to display to the user.
+  */
   public String add(String description, boolean doneness) {
     Todo todo = new Todo(description, doneness);
     list.add(todo);
     return todo.toString();
   }
 
+  /**
+  * Adds a Deadline to the list.
+  *
+  * @param description the description of the deadline. Cannot be empty.
+  * @param doneness true if the deadline is done, false otherwise.
+  * @param byDate the date to use for the deadline. Will not be displayed if null.
+  * @param byTime the time to use for the deadline. Will not be displayed if null.
+  * @return the string format of the newly added Deadline in the list to display to the user.
+  */
   public String add(String description, boolean doneness, LocalDate byDate, LocalTime byTime) {
     Deadline deadline = new Deadline(description, doneness, byDate, byTime);
     list.add(deadline);
     return deadline.toString();
   }
 
+  /**
+  * Adds an Event to the list.
+  * 
+  * @param description the description of the deadline. Cannot be empty.
+  * @param doneness true if the deadline is done, false otherwise.
+  * @param fromDate the date to use for the event start. Will not be displayed if null.
+  * @param fromTime the time to use for the event start. Will not be displayed if null.
+  * @param toDate the date to use for the event end. Will not be displayed if null.
+  * @param toTime the time to use for the event end. Will not be displayed if null.
+  * @return the string format of the newly added Event in the list to display to the user.
+  */
   public String add(String description, boolean doneness, LocalDate fromDate, LocalTime fromTime, LocalDate toDate, LocalTime toTime) {
     Event event = new Event(description, doneness, fromDate, fromTime, toDate, toTime);
     list.add(event);
     return event.toString();
   }
 
+  /**
+  * Sets or unsets task as done at the specified index.
+  * 
+  * @param doneness true to mark the task as done, false to unmark it.
+  * @param index the index of the task.
+  * @return a string describing the status of the operation to display to the user.
+  * @throws DukeException if the operation is not successful or the index is invalid.
+  */
   public String setDoneness(boolean doneness, int index) throws DukeException {
     try {
       if (index < 0 || index + 1 > list.size()) {
         throw new NoSuchEntryException();
       } else {
+        // Mark this task as done.
         if (doneness) {
           if (list.get(index).doneness) {
             return "This task is already marked as done!\n" + list.get(index).toString();
@@ -47,6 +84,7 @@ public class TaskList {
             return "This task is now marked as done!\n" + list.get(index).toString();
           }
         } else {
+          // Mark this task as not done.
           if (!list.get(index).doneness) {
             return "This task is already marked as not done!\n" + list.get(index).toString();
           } else {
@@ -60,6 +98,13 @@ public class TaskList {
     }
   }
 
+  /**
+  * Deletes the entry at the specified index. This method is called by Duke to delete an entry from the list.
+  * 
+  * @param index index of the entry to delete.
+  * @return a String with information about the operation that was performed.
+  * @throws DukeException if the operation was not successful or index was invalid.
+  */
   public String delete(int index) throws DukeException {
     try {
       if (index < 0 || index + 1 > list.size()) {
@@ -75,6 +120,11 @@ public class TaskList {
     }
   }
 
+  /**
+  * Returns a string representation of the list of all tasks to display to the user.
+  * 
+  * @return a string representation of the list in the form of a list of Task objects separated by new lines.
+  */
   public String toString() {
     String returnString = new String("");
     int i = 1;
@@ -90,6 +140,11 @@ public class TaskList {
     return list.size() == 0;
   }
 
+  /**
+  * Removes and retreives the first item in the list to save to file.
+  * 
+  * @return String containing the file
+  */
   public String clearList() {
     String tempString = list.get(0).toFileString();
     list.remove(0);
