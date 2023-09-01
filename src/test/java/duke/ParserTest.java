@@ -1,6 +1,6 @@
 package duke;
 
-import Command.InvalidCommandException;
+import command.InvalidCommandException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

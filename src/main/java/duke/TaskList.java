@@ -1,6 +1,6 @@
 package duke;
 
-import Command.InvalidCommandException;
+import command.InvalidCommandException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

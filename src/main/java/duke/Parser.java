@@ -1,15 +1,15 @@
 package duke;
 
-import Command.AddCommand;
-import Command.Command;
-import Command.DeleteCommand;
-import Command.ExitCommand;
-import Command.FindCommand;
-import Command.InvalidCommandException;
-import Command.ListCommand;
-import Command.MarkCommand;
-import Command.OnCommand;
-import Command.UnmarkCommand;
+import command.AddCommand;
+import command.Command;
+import command.DeleteCommand;
+import command.ExitCommand;
+import command.FindCommand;
+import command.InvalidCommandException;
+import command.ListCommand;
+import command.MarkCommand;
+import command.OnCommand;
+import command.UnmarkCommand;
 
 import java.util.ArrayList;
 import java.util.Arrays;

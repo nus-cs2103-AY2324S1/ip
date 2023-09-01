@@ -1,6 +1,6 @@
 package duke;
 
-import Command.Command;
+import command.Command;
 
 import java.io.FileNotFoundException;
 import java.time.format.DateTimeFormatter;
