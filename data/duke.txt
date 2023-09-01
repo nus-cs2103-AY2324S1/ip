@@ -7,4 +7,3 @@ E | 0 | project meeting | Mon 2pm | 4pm
 D | 0 | read | 2019-12-02 1800
 T | 0 | borrow book
 D | 0 | run | 2019-10-10 1000
-E | 0 | run | 2pm | 4pm
