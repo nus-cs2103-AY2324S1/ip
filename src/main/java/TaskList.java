@@ -13,6 +13,10 @@ public class TaskList {
     ArrayList<Task> taskList = new ArrayList<>();
     public TaskList() {}
 
+    public TaskList(ArrayList<Task> taskArrayList) {
+        this.taskList = taskArrayList;
+    }
+
     public void deleteTask(String input) {
         int taskIndex = Integer.parseInt(input.substring(7)) - 1;
         System.out.println("Noted. I've removed this task:");
@@ -64,6 +68,7 @@ public class TaskList {
         int timeFormat = this.computeDateTimeFormat(time);
 
         if (timeFormat == 0) {
+            System.out.println("Got it. I've added this task:");
             Deadline deadline = new Deadline(title, time);
             System.out.println(deadline.toString());
             taskList.add(deadline);
@@ -72,6 +77,7 @@ public class TaskList {
                 DateTimeFormatter inputFormatWithTime = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
                 LocalDateTime dateTime = LocalDateTime.parse(time, inputFormatWithTime);
                 Deadline deadline = new Deadline(title, dateTime);
+                System.out.println("Got it. I've added this task:");
                 System.out.println(deadline.toString());
                 taskList.add(deadline);
             } catch (DateTimeParseException e) {
@@ -148,8 +154,6 @@ public class TaskList {
         // returns 2 if correct date
         // returns 0 if random string input
 
-
-
        // Assume that the date input is dd/MM/yyyy 16-08-1977 1800
 
         String[] blankArray = input.split(" ");
@@ -169,22 +173,12 @@ public class TaskList {
                 return 1;
             }
 
-//        } else if (blankArray.length == 1) {
-//
-//            String[] slashArray = blankArray[0].split("/");
-//            boolean isAllNumeric = true;
-//            for (String s : slashArray) {
-//                if (!isNumeric(s)) {
-//                    isAllNumeric = false;
-//                }
-//            }
-//
-//            if (slashArray.length == 3 && isAllNumeric) {
-//                return 2;
-//            }
-
         }
 
         return 0;
+    }
+
+    public ArrayList<Task> getTaskArrayList() {
+        return taskList;
     }
 }

@@ -1,23 +1,14 @@
 import java.io.IOException;
-import java.io.FileReader;
-import java.io.BufferedReader;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
 
 import java.util.Scanner;
 import java.util.Arrays;
-import java.io.FileNotFoundException;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Duke {
 
     Scanner userInput = new Scanner(System.in);
     TaskList tasks = new TaskList();
+
+    Storage storage = new Storage("./data/data.txt", tasks);
 
 
     public static void main(String[] args) {
@@ -47,7 +38,7 @@ public class Duke {
         line();
 
         try {
-            this.loadList();
+            this.storage.loadList();
         } catch (DukeException | IOException e) {
             System.out.println(e.getMessage());
         }
@@ -110,7 +101,7 @@ public class Duke {
 
     private void exit() throws DukeException, IOException {
         System.out.println("Bye. Hope to see you again soon!");
-        this.saveList();
+        storage.saveList();
         line();
     }
 
@@ -176,67 +167,67 @@ public class Duke {
         }
     }
 
-    private void loadList() throws DukeException, IOException {
-        try {
-            File file = new File("./data/data.txt");
-            FileReader fileReader = new FileReader(file);
-            BufferedReader reader = new BufferedReader(fileReader); // BufferedReader wraps the fileReader
+//    private void loadList() throws DukeException, IOException {
+//        try {
+//            File file = new File("./data/data.txt");
+//            FileReader fileReader = new FileReader(file);
+//            BufferedReader reader = new BufferedReader(fileReader); // BufferedReader wraps the fileReader
+//
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                String[] inputArray = line.split(" \\| ");
+//
+//                switch(inputArray[0]) {
+//                    case "T":
+//                        ToDo toDo = new ToDo(inputArray[2]);
+//                        if (inputArray[1] == "1") {
+//                            toDo.taskDone(true);
+//                        }
+//                        tasks.addTask(toDo);
+//                        break;
+//
+//                    case "E":
+//                        Event event = new Event(inputArray[2], inputArray[3], inputArray[4]);
+//
+//                        if (inputArray[1] == "1") {
+//                            event.taskDone(true);
+//                        }
+//                        tasks.addTask(event);
+//                        break;
+//
+//                    case "D":
+//                        Deadline deadline = new Deadline(inputArray[2], inputArray[3]);
+//
+//                        if (inputArray[1] == "1") {
+//                            deadline.taskDone(true);
+//                        }
+//                        tasks.addTask(deadline);
+//                        break;
+//
+//                    default:
+//                        throw new DukeException("An unexpected error occurred while reading the text file. Error Code:" +
+//                                " 01");
+//                }
+//            }
+//
+//        } catch (FileNotFoundException e) {
+//            storage.saveList(tasks.getTaskArrayList());
+//        } catch (IOException e) {
+//            throw new DukeException("IO error occurred. Check the formatting of the text file - data.txt.");
+//        }
+//    }
 
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] inputArray = line.split(" \\| ");
-
-                switch(inputArray[0]) {
-                    case "T":
-                        ToDo toDo = new ToDo(inputArray[2]);
-                        if (inputArray[1] == "1") {
-                            toDo.taskDone(true);
-                        }
-                        tasks.addTask(toDo);
-                        break;
-
-                    case "E":
-                        Event event = new Event(inputArray[2], inputArray[3], inputArray[4]);
-
-                        if (inputArray[1] == "1") {
-                            event.taskDone(true);
-                        }
-                        tasks.addTask(event);
-                        break;
-
-                    case "D":
-                        Deadline deadline = new Deadline(inputArray[2], inputArray[3]);
-
-                        if (inputArray[1] == "1") {
-                            deadline.taskDone(true);
-                        }
-                        tasks.addTask(deadline);
-                        break;
-
-                    default:
-                        throw new DukeException("An unexpected error occurred while reading the text file. Error Code:" +
-                                " 01");
-                }
-            }
-
-        } catch (FileNotFoundException e) {
-            this.saveList();
-        } catch (IOException e) {
-            throw new DukeException("IO error occurred. Check the formatting of the text file - data.txt.");
-        }
-    }
-
-    private void saveList() throws DukeException, IOException {
-        try {
-            File file = new File("./data/data.txt");
-            file.getParentFile().mkdirs();
-
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            writer = tasks.printStoreFormat(writer);
-
-            writer.close();
-        } catch (IOException e) {
-            throw new DukeException("IO exception occurred.");
-        }
-    }
+//    private void saveList() throws DukeException, IOException {
+//        try {
+//            File file = new File("./data/data.txt");
+//            file.getParentFile().mkdirs();
+//
+//            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+//            writer = tasks.printStoreFormat(writer);
+//
+//            writer.close();
+//        } catch (IOException e) {
+//            throw new DukeException("IO exception occurred.");
+//        }
+//    }
 }
