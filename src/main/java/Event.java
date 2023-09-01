@@ -1,9 +1,12 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    protected String start;
-    protected String end;
+    protected LocalDate start;
+    protected LocalDate end;
 
-    public Event(String description, boolean isDone, String start, String end) {
+    public Event(String description, boolean isDone, LocalDate start, LocalDate end) {
         super(description, isDone);
         this.start = start;
         this.end = end;
@@ -14,8 +17,8 @@ public class Event extends Task {
         return String.format("[E][%s] %s (from: %s to: %s)",
                 this.getStatusIcon(),
                 this.description,
-                this.start,
-                this.end
+                this.start.format(DateTimeFormatter.ofPattern("d MMM yyyy")),
+                this.end.format(DateTimeFormatter.ofPattern("d MMM yyyy"))
         );
     }
 
