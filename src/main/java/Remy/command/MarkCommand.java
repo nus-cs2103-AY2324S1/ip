@@ -5,13 +5,24 @@ import Remy.Ui;
 import Remy.Storage;
 import Remy.ChatbotException;
 
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 public class MarkCommand extends Command {
     private int index;
     public static final String COMMAND_WORD = "mark";
 
     public MarkCommand(String input) throws ChatbotException {
-        if (input.length() < 6) throw new ChatbotException("missing info lah.");
-        int index = Integer.parseInt(input.substring(5)) - 1;
+
+        // Define and compile the regex pattern
+        // Modified from addressBook Level 2
+        Pattern pattern = Pattern.compile("^mark\\s+(\\d+)$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(input);
+
+        if (!matcher.matches()) {
+            throw new ChatbotException("missing info lah.");
+        }
+        int index = Integer.parseInt(matcher.group(1));
         if (index >= 0) {
             this.index = index;
         }

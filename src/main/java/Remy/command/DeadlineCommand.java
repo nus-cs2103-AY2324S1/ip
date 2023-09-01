@@ -6,6 +6,8 @@ import Remy.Storage;
 import Remy.ChatbotException;
 import Remy.Task.Deadline;
 import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DeadlineCommand extends Command {
     private String taskName;
@@ -13,6 +15,7 @@ public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
 
     public DeadlineCommand(String input) throws ChatbotException {
+        /*
         if (input.length() < 10) throw new ChatbotException("missing info lah.");
         String[] parts = input.substring(9).split(" /by ");
         if (parts.length == 2) {
@@ -21,6 +24,25 @@ public class DeadlineCommand extends Command {
         } else {
             throw new ChatbotException("missing info lah.");
         }
+        */
+
+        // Define the regex pattern for the "Deadline" command
+        String commandPattern = "^deadline\\s+(.+?)\\s+/by\\s+(\\d{4}-\\d{2}-\\d{2})$";
+
+        // Compile the regex pattern
+        Pattern pattern = Pattern.compile(commandPattern, Pattern.CASE_INSENSITIVE);
+
+        // Create a Matcher to check if the input matches the pattern
+        Matcher matcher = pattern.matcher(input);
+
+
+        if (!matcher.matches()) {
+            throw new ChatbotException("missing info or wrong format");
+        }
+
+        this.taskName = matcher.group(1);
+        this.dueDate = matcher.group(2);
+
     }
 
     @Override
