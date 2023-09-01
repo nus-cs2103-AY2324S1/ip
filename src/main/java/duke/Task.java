@@ -33,4 +33,18 @@ public abstract class Task {
         return String.format("[%s] %s", mark, this.task);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+
+        if (!(other instanceof Task)) {
+            return false;
+        }
+
+        Task o = (Task) other;
+        return this.done == o.done && this.task.equals(o.task);
+    }
+
 }

@@ -29,4 +29,18 @@ public class Deadline extends Task {
         return Deadline.TYPE + super.toString() + " (by: " + this.deadline.format(
                 DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!super.equals(other)) {
+            return false;
+        }
+
+        if (!(other instanceof Deadline)) {
+            return false;
+        }
+
+        Deadline o = (Deadline) other;
+        return this.deadline.equals(o.deadline);
+    }
 }
