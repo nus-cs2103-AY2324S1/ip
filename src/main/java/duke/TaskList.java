@@ -76,6 +76,22 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
+     * Finds tasks by keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return The list of tasks found.
+     */
+    public TaskList findTasksByKeyword(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : this.tasks) {
+            if (task.getDescription().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        return new TaskList(foundTasks);
+    }
+
+    /**
      * Gets the size of the task list.
      *
      * @return The number of tasks in the list.

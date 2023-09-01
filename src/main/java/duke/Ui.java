@@ -109,6 +109,20 @@ public class Ui {
     }
 
     /**
+     * Prints the list of tasks found by the keyword.
+     *
+     * @param tasks The list of tasks found by the keyword.
+     */
+    public void showFoundTasks(TaskList tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        int index = 1;
+        for (Task task : tasks) {
+            System.out.println(index + "." + task);
+            index++;
+        }
+    }
+
+    /**
      * Prints the current number of tasks in the list.
      *
      * @param taskList The current task list.
