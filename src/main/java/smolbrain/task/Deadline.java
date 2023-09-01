@@ -40,6 +40,6 @@ public class Deadline extends Task {
     @Override
     public String encode() {
         DateTimeFormatter stringformatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        return "D"+getStatusNumber()+super.description + " /by " + this.by.format(stringformatter);
+        return "D" + getStatusNumber() + super.description + " /by " + this.by.format(stringformatter);
     }
 }

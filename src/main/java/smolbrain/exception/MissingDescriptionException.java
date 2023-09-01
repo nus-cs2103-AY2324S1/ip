@@ -3,18 +3,18 @@ package smolbrain.exception;
 /**
  * Handles when task description is missing.
  */
-public class MissingDescriptionException extends Exception{
+public class MissingDescriptionException extends Exception {
 
-    String task_type;
+    private String taskType;
 
     /**
      * Creates the exception.
      *
-     * @param task_type Type of task involved.
+     * @param taskType Type of task involved.
      */
-    public MissingDescriptionException(String task_type) {
+    public MissingDescriptionException(String taskType) {
         super();
-        this.task_type = task_type;
+        this.taskType = taskType;
     }
 
     /**
@@ -24,7 +24,7 @@ public class MissingDescriptionException extends Exception{
      */
     @Override
     public String toString() {
-        return "The description of a " + task_type + " cannot be empty.";
+        return "The description of a " + taskType + " cannot be empty.";
     }
 
 }

@@ -1,25 +1,38 @@
 package smolbrain;
 
-import smolbrain.command.*;
-import smolbrain.exception.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import smolbrain.command.AddCommand;
+import smolbrain.command.Command;
+import smolbrain.command.DeleteCommand;
+import smolbrain.command.ExitCommand;
+import smolbrain.command.FindCommand;
+import smolbrain.command.InvalidCommand;
+import smolbrain.command.ListCommand;
+import smolbrain.command.MarkCommand;
+import smolbrain.command.UnmarkCommand;
+import smolbrain.exception.InvalidDateTimeException;
+import smolbrain.exception.InvalidNumberException;
+import smolbrain.exception.InvalidRangeException;
+import smolbrain.exception.MissingDescriptionException;
+import smolbrain.exception.MissingKeywordException;
+import smolbrain.exception.MissingTimeException;
 import smolbrain.task.Deadline;
 import smolbrain.task.Event;
 import smolbrain.task.Task;
 import smolbrain.task.Todo;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Parses any commands or string input.
  */
 public class Parser {
 
-    static String descr;
-    static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyy HHmm");
-    static LocalDateTime dateTime = LocalDateTime.now();
-    static LocalDateTime dateTime2 = LocalDateTime.now();
+    private static String descr;
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyy HHmm");
+    private static LocalDateTime dateTime = LocalDateTime.now();
+    private static LocalDateTime dateTime2 = LocalDateTime.now();
 
     /**
      * Parses a list command.
@@ -59,30 +72,31 @@ public class Parser {
      * @throws MissingTimeException If there was no time provided.
      * @throws InvalidDateTimeException If the provided date or time was invalid.
      */
-    public static Task parseDeadline(String[] words) throws MissingDescriptionException, MissingTimeException, InvalidDateTimeException {
+    public static Task parseDeadline(String[] words) throws MissingDescriptionException, MissingTimeException,
+            InvalidDateTimeException {
         boolean by = false;
         descr = "";
-        String by_text = "";
+        String byText = "";
         for (int i = 1; i < words.length; i++) {
             if (words[i].equals("/by")) {
                 by = true;
                 continue;
             }
             if (by) {
-                by_text = by_text + words[i] + " ";
+                byText = byText + words[i] + " ";
             } else {
                 descr = descr + words[i] + " ";
             }
         }
         if (descr.equals("")) {
             throw new MissingDescriptionException("deadline");
-        } else if (by_text.equals("")) {
-            throw new MissingTimeException("ending", "deadline");
+        } else if (byText.equals("")) {
+            throw new MissingTimeException("deadline", "ending");
         }
         descr = descr.substring(0, descr.length() - 1);
-        by_text = by_text.substring(0, by_text.length() - 1);
+        byText = byText.substring(0, byText.length() - 1);
         try {
-            dateTime = LocalDateTime.parse(by_text, formatter);
+            dateTime = LocalDateTime.parse(byText, formatter);
         } catch (DateTimeParseException e) {
             throw new InvalidDateTimeException();
         }
@@ -98,41 +112,42 @@ public class Parser {
      * @throws MissingTimeException If there was no time provided.
      * @throws InvalidDateTimeException If the provided date or time was invalid.
      */
-    public static Task parseEvent(String[] words) throws MissingDescriptionException, MissingTimeException, InvalidDateTimeException {
+    public static Task parseEvent(String[] words) throws MissingDescriptionException, MissingTimeException,
+            InvalidDateTimeException {
         boolean from = false;
         boolean to = false;
         descr = "";
-        String from_text = "";
-        String to_text = "";
+        String fromText = "";
+        String toText = "";
         for (int i = 1; i < words.length; i++) {
             if (words[i].equals("/from")) {
                 from = true;
                 continue;
-            } else if (words[i].equals("/to")){
+            } else if (words[i].equals("/to")) {
                 to = true;
                 continue;
             }
             if (to) {
-                to_text = to_text + words[i] + " ";
+                toText = toText + words[i] + " ";
             } else if (from) {
-                from_text = from_text + words[i] + " ";
+                fromText = fromText + words[i] + " ";
             } else {
                 descr = descr + words[i] + " ";
             }
         }
         if (descr.equals("")) {
             throw new MissingDescriptionException("event");
-        } else if (from_text.equals("")) {
-            throw new MissingTimeException("start", "event");
-        } else if (to_text.equals("")) {
-            throw new MissingTimeException("end", "event");
+        } else if (fromText.equals("")) {
+            throw new MissingTimeException("event", "start");
+        } else if (toText.equals("")) {
+            throw new MissingTimeException("event", "end");
         }
         descr = descr.substring(0, descr.length() - 1);
-        from_text = from_text.substring(0, from_text.length() - 1);
-        to_text = to_text.substring(0, to_text.length() - 1);
+        fromText = fromText.substring(0, fromText.length() - 1);
+        toText = toText.substring(0, toText.length() - 1);
         try {
-            dateTime = LocalDateTime.parse(from_text, formatter);
-            dateTime2 = LocalDateTime.parse(to_text, formatter);
+            dateTime = LocalDateTime.parse(fromText, formatter);
+            dateTime2 = LocalDateTime.parse(toText, formatter);
         } catch (DateTimeParseException e) {
             throw new InvalidDateTimeException();
         }
@@ -153,7 +168,7 @@ public class Parser {
             throw new InvalidNumberException("mark");
         }
         try {
-            return new MarkCommand(Integer.parseInt(words[1])-1);
+            return new MarkCommand(Integer.parseInt(words[1]) - 1);
         } catch (NumberFormatException e) {
             throw new InvalidNumberException("mark");
         } catch (IndexOutOfBoundsException e) {
@@ -174,7 +189,7 @@ public class Parser {
             throw new InvalidNumberException("mark");
         }
         try {
-            return new UnmarkCommand(Integer.parseInt(words[1])-1);
+            return new UnmarkCommand(Integer.parseInt(words[1]) - 1);
         } catch (NumberFormatException e) {
             throw new InvalidNumberException("mark");
         } catch (IndexOutOfBoundsException e) {
@@ -195,7 +210,7 @@ public class Parser {
             throw new InvalidNumberException("delete");
         }
         try {
-            return new DeleteCommand(Integer.parseInt(words[1])-1);
+            return new DeleteCommand(Integer.parseInt(words[1]) - 1);
         } catch (NumberFormatException ex) {
             throw new InvalidNumberException("delete");
         } catch (IndexOutOfBoundsException e) {
@@ -203,6 +218,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a find command.
+     *
+     * @param words Array of strings that was split by spaces.
+     * @return Find command.
+     * @throws MissingKeywordException If keyword was not given by user.
+     */
     public static Command parseFind(String[] words) throws MissingKeywordException {
         descr = "";
         if (words.length < 2) {
@@ -226,45 +248,47 @@ public class Parser {
      * @throws InvalidNumberException If the provided number cannot be parsed.
      * @throws InvalidRangeException If the provided number is out of range.
      */
-    public static Command parse(String input) throws MissingDescriptionException, MissingTimeException, InvalidDateTimeException, InvalidNumberException, InvalidRangeException, MissingKeywordException {
+    public static Command parse(String input) throws MissingDescriptionException, MissingTimeException,
+            InvalidDateTimeException, InvalidNumberException, InvalidRangeException, MissingKeywordException {
 
         String[] words = input.split(" ");
 
         switch (words[0]) {
-            case "list":
-                return parseList(words);
+        case "list":
+            return parseList(words);
 
-            case "todo":
-                return new AddCommand(parseTodo(words));
+        case "todo":
+            return new AddCommand(parseTodo(words));
 
-            case "deadline":
-                return new AddCommand(parseDeadline(words));
+        case "deadline":
+            return new AddCommand(parseDeadline(words));
 
-            case "event":
-                return new AddCommand(parseEvent(words));
+        case "event":
+            return new AddCommand(parseEvent(words));
 
-            case "mark":
-                return parseMark(words);
+        case "mark":
+            return parseMark(words);
 
-            case "unmark":
-                return parseUnmark(words);
+        case "unmark":
+            return parseUnmark(words);
 
-            case "delete":
-                return parseDelete(words);
+        case "delete":
+            return parseDelete(words);
 
-            case "bye":
-                return new ExitCommand();
+        case "bye":
+            return new ExitCommand();
 
-            case "find":
-                return parseFind(words);
+        case "find":
+            return parseFind(words);
 
-            default:
-                return new InvalidCommand();
+        default:
+            return new InvalidCommand();
         }
     }
 
     /**
-     * Used for save file parsing, it parses the given input by the user including passing it into its separate parse functions.
+     * Used for save file parsing, it parses the given input by the user including
+     * passing it into its separate parse functions.
      *
      * @param input String of command.
      * @return Task parsed.
@@ -274,23 +298,24 @@ public class Parser {
      * @throws InvalidNumberException If the provided number cannot be parsed.
      * @throws InvalidRangeException If the provided number is out of range.
      */
-    public static Task parseLoading(String input) throws MissingDescriptionException, MissingTimeException, InvalidDateTimeException, InvalidNumberException, InvalidRangeException {
+    public static Task parseLoading(String input) throws MissingDescriptionException, MissingTimeException,
+            InvalidDateTimeException, InvalidNumberException, InvalidRangeException {
 
         String[] words = input.split(" ");
 
         switch (words[0]) {
 
-            case "todo":
-                return parseTodo(words);
+        case "todo":
+            return parseTodo(words);
 
-            case "deadline":
-                return parseDeadline(words);
+        case "deadline":
+            return parseDeadline(words);
 
-            case "event":
-                return parseEvent(words);
+        case "event":
+            return parseEvent(words);
 
-            default:
-                return new Task("");
+        default:
+            return new Task("");
 
         }
     }

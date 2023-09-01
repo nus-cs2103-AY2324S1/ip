@@ -1,5 +1,8 @@
 package smolbrain;
 
+/**
+ * Stub for Ui class
+ */
 public class UiStub {
 
     public String showLine() {

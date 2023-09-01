@@ -3,7 +3,7 @@ package smolbrain.exception;
 /**
  * Handles an invalid or unknown command given by user.
  */
-public class InvalidCommandException extends Exception{
+public class InvalidCommandException extends Exception {
 
     /**
      * Creates the exception.

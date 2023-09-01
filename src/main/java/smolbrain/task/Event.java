@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Creates a event task with description, start and end time.
+ * Creates an event task with description, start and end time.
  */
 public class Event extends Task {
 
@@ -32,7 +32,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-        return "[E]" + super.toString() + " (from: " + this.from.format(formatter) + " to: " + this.to.format(formatter) + ")";
+        return "[E]" + super.toString() + " (from: " + this.from.format(formatter)
+                + " to: " + this.to.format(formatter) + ")";
     }
 
     /**
@@ -43,6 +44,7 @@ public class Event extends Task {
     @Override
     public String encode() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        return "E" + getStatusNumber() + super.description + " /from " + this.from.format(formatter) + " /to " + this.to.format(formatter);
+        return "E" + getStatusNumber() + super.description + " /from " + this.from.format(formatter)
+                + " /to " + this.to.format(formatter);
     }
 }

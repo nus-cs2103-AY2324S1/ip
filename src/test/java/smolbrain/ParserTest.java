@@ -1,11 +1,16 @@
 package smolbrain;
 
-import org.junit.jupiter.api.Test;
-import smolbrain.exception.*;
-import smolbrain.task.Task;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import smolbrain.exception.InvalidDateTimeException;
+import smolbrain.exception.InvalidNumberException;
+import smolbrain.exception.InvalidRangeException;
+import smolbrain.exception.MissingDescriptionException;
+import smolbrain.exception.MissingTimeException;
+import smolbrain.task.Task;
 
 public class ParserTest {
 
@@ -16,8 +21,8 @@ public class ParserTest {
         try {
             Task task = Parser.parseLoading(input);
             assertEquals(output, task.toString());
-        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException |
-                 MissingDescriptionException e) {
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException
+                 | MissingDescriptionException e) {
             fail();
         }
     }
@@ -29,8 +34,8 @@ public class ParserTest {
         try {
             Task task = Parser.parseLoading(input);
             assertEquals(output, task.toString());
-        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException |
-                 MissingDescriptionException e) {
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException
+                 | MissingDescriptionException e) {
             fail();
         }
     }
@@ -42,8 +47,8 @@ public class ParserTest {
         try {
             Task task = Parser.parseLoading(input);
             fail();
-        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException |
-                 MissingDescriptionException e) {
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException
+                 | MissingDescriptionException e) {
             assertEquals(output, new UiStub().showError(e));
         }
     }
@@ -55,8 +60,8 @@ public class ParserTest {
         try {
             Task task = Parser.parseLoading(input);
             assertEquals(output, task.toString());
-        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException |
-                 MissingDescriptionException e) {
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException
+                 | MissingDescriptionException e) {
             fail();
         }
     }
@@ -68,8 +73,8 @@ public class ParserTest {
         try {
             Task task = Parser.parseLoading(input);
             assertEquals(output, task.toString());
-        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException |
-                 MissingDescriptionException e) {
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException
+                 | MissingDescriptionException e) {
             fail();
         }
     }
@@ -81,8 +86,8 @@ public class ParserTest {
         try {
             Task task = Parser.parseLoading(input);
             fail();
-        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException |
-                 MissingDescriptionException e) {
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException
+                 | MissingDescriptionException e) {
             assertEquals(output, new UiStub().showError(e));
         }
     }
@@ -94,8 +99,8 @@ public class ParserTest {
         try {
             Task task = Parser.parseLoading(input);
             fail();
-        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException |
-                 MissingDescriptionException e) {
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException
+                 | MissingDescriptionException e) {
             assertEquals(output, new UiStub().showError(e));
         }
     }
@@ -107,8 +112,8 @@ public class ParserTest {
         try {
             Task task = Parser.parseLoading(input);
             fail();
-        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException |
-                 MissingDescriptionException e) {
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException
+                 | MissingDescriptionException e) {
             assertEquals(output, new UiStub().showError(e));
         }
     }
@@ -120,8 +125,8 @@ public class ParserTest {
         try {
             Task task = Parser.parseLoading(input);
             fail();
-        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException |
-                 MissingDescriptionException e) {
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException
+                 | MissingDescriptionException e) {
             assertEquals(output, new UiStub().showError(e));
         }
     }
@@ -133,8 +138,8 @@ public class ParserTest {
         try {
             Task task = Parser.parseLoading(input);
             fail();
-        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException |
-                 MissingDescriptionException e) {
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException
+                 | MissingDescriptionException e) {
             assertEquals(output, new UiStub().showError(e));
         }
     }
@@ -146,8 +151,8 @@ public class ParserTest {
         try {
             Task task = Parser.parseLoading(input);
             fail();
-        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException |
-                 MissingDescriptionException e) {
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException
+                 | MissingDescriptionException e) {
             assertEquals(output, new UiStub().showError(e));
         }
     }
@@ -159,8 +164,8 @@ public class ParserTest {
         try {
             Task task = Parser.parseLoading(input);
             assertEquals(output, task.toString());
-        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException |
-                 MissingDescriptionException e) {
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException
+                 | MissingDescriptionException e) {
             fail();
         }
     }
@@ -172,8 +177,8 @@ public class ParserTest {
         try {
             Task task = Parser.parseLoading(input);
             assertEquals(output, task.toString());
-        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException |
-                 MissingDescriptionException e) {
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException
+                 | MissingDescriptionException e) {
             fail();
         }
     }
@@ -185,8 +190,8 @@ public class ParserTest {
         try {
             Task task = Parser.parseLoading(input);
             fail();
-        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException |
-                 MissingDescriptionException e) {
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException
+                 | MissingDescriptionException e) {
             assertEquals(output, new UiStub().showError(e));
         }
     }
@@ -198,8 +203,8 @@ public class ParserTest {
         try {
             Task task = Parser.parseLoading(input);
             fail();
-        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException |
-                 MissingDescriptionException e) {
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException
+                 | MissingDescriptionException e) {
             assertEquals(output, new UiStub().showError(e));
         }
     }
@@ -211,8 +216,8 @@ public class ParserTest {
         try {
             Task task = Parser.parseLoading(input);
             fail();
-        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException |
-                 MissingDescriptionException e) {
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException
+                 | MissingDescriptionException e) {
             assertEquals(output, new UiStub().showError(e));
         }
     }
@@ -224,8 +229,8 @@ public class ParserTest {
         try {
             Task task = Parser.parseLoading(input);
             fail();
-        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException |
-                 MissingDescriptionException e) {
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException
+                 | MissingDescriptionException e) {
             assertEquals(output, new UiStub().showError(e));
         }
     }
@@ -237,8 +242,8 @@ public class ParserTest {
         try {
             Task task = Parser.parseLoading(input);
             fail();
-        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException |
-                 MissingDescriptionException e) {
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException
+                 | MissingDescriptionException e) {
             assertEquals(output, new UiStub().showError(e));
         }
     }
@@ -250,8 +255,8 @@ public class ParserTest {
         try {
             Task task = Parser.parseLoading(input);
             fail();
-        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException |
-                 MissingDescriptionException e) {
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException
+                 | MissingDescriptionException e) {
             assertEquals(output, new UiStub().showError(e));
         }
     }
@@ -263,8 +268,8 @@ public class ParserTest {
         try {
             Task task = Parser.parseLoading(input);
             fail();
-        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException |
-                 MissingDescriptionException e) {
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException | InvalidDateTimeException
+                 | MissingDescriptionException e) {
             assertEquals(output, new UiStub().showError(e));
         }
     }

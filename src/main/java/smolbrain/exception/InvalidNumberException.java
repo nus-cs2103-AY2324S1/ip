@@ -3,18 +3,18 @@ package smolbrain.exception;
 /**
  * Handles an invalid number given by user.
  */
-public class InvalidNumberException extends Exception{
+public class InvalidNumberException extends Exception {
 
-    String task_type;
+    private String taskType;
 
     /**
      * Creates the exception.
      *
-     * @param task_type Type of task involved.
+     * @param taskType Type of task involved.
      */
-    public InvalidNumberException(String task_type) {
+    public InvalidNumberException(String taskType) {
         super();
-        this.task_type = task_type;
+        this.taskType = taskType;
     }
 
     /**
@@ -24,7 +24,7 @@ public class InvalidNumberException extends Exception{
      */
     @Override
     public String toString() {
-        return "Please provide a valid number to " + task_type + ".";
+        return "Please provide a valid number to " + taskType + ".";
     }
 
 }

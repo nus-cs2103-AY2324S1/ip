@@ -3,7 +3,7 @@ package smolbrain.exception;
 /**
  * Handles out of bound array access id given by user.
  */
-public class InvalidRangeException extends Exception{
+public class InvalidRangeException extends Exception {
 
     /**
      * Creates the exception.

@@ -1,7 +1,7 @@
 package smolbrain.task;
 
 /**
- * Creates a todo task with desription.
+ * Creates a todo task with description.
  */
 public class Todo extends Task {
 

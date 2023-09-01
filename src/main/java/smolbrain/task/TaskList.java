@@ -1,10 +1,10 @@
 package smolbrain.task;
 
-import smolbrain.Storage;
-import smolbrain.Ui;
-
 import java.io.IOException;
 import java.util.ArrayList;
+
+import smolbrain.Storage;
+import smolbrain.Ui;
 
 /**
  * List of tasks for chatbot.
@@ -59,7 +59,7 @@ public class TaskList {
      *
      * @return Number of tasks in tasklist.
      */
-    public int getSize(){
+    public int getSize() {
         return tasklist.size();
     }
 
@@ -105,6 +105,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds and prints all the tasks in tasklist that contain the keyword.
+     *
+     * @param keyword Keyword to check.
+     * @param ui Ui manager of chatbot.
+     */
     public void findTasks(String keyword, Ui ui) {
         if (tasklist.size() > 0) {
             for (int i = 0; i < tasklist.size(); i++) {

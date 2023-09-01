@@ -3,7 +3,7 @@ package smolbrain.exception;
 /**
  * Handles an invalid date or time given by user.
  */
-public class InvalidDateTimeException extends Exception{
+public class InvalidDateTimeException extends Exception {
 
     /**
      * Creates the exception.

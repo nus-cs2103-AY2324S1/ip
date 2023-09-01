@@ -1,7 +1,12 @@
 package smolbrain;
 
 import smolbrain.command.Command;
-import smolbrain.exception.*;
+import smolbrain.exception.InvalidDateTimeException;
+import smolbrain.exception.InvalidNumberException;
+import smolbrain.exception.InvalidRangeException;
+import smolbrain.exception.MissingDescriptionException;
+import smolbrain.exception.MissingKeywordException;
+import smolbrain.exception.MissingTimeException;
 import smolbrain.task.TaskList;
 
 /**
@@ -9,7 +14,7 @@ import smolbrain.task.TaskList;
  */
 public class Smolbrain {
 
-    public static boolean loading = true;
+    private static boolean loading = true;
 
     private Storage storage;
     private TaskList tasks;
@@ -34,15 +39,15 @@ public class Smolbrain {
         ui.showWelcome();
         boolean isExit = false;
 
-        while(!isExit) {
+        while (!isExit) {
             try {
                 String input = ui.readCommand();
                 ui.showLine();
                 Command c = Parser.parse(input);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (InvalidRangeException | MissingDescriptionException | MissingTimeException |
-                     InvalidNumberException | InvalidDateTimeException | MissingKeywordException e) {
+            } catch (InvalidRangeException | MissingDescriptionException | MissingTimeException
+                     | InvalidNumberException | InvalidDateTimeException | MissingKeywordException e) {
                 ui.showError(e);
             }
             ui.showLine();

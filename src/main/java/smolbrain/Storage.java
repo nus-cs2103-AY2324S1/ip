@@ -1,8 +1,5 @@
 package smolbrain;
 
-import smolbrain.exception.*;
-import smolbrain.task.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,12 +7,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import smolbrain.exception.InvalidDateTimeException;
+import smolbrain.exception.InvalidNumberException;
+import smolbrain.exception.InvalidRangeException;
+import smolbrain.exception.MissingDescriptionException;
+import smolbrain.exception.MissingTimeException;
+import smolbrain.task.Task;
+
 /**
  * Manages the save file with creation, editing and loading functionalities.
  */
 public class Storage {
 
-    private String FILE_PATH;
+    private String filePath;
 
     /**
      * Creates a storage object.
@@ -23,7 +27,7 @@ public class Storage {
      * @param filePath Filepath of the save file.
      */
     public Storage(String filePath) {
-        FILE_PATH = filePath;
+        this.filePath = filePath;
     }
 
     /**
@@ -33,7 +37,7 @@ public class Storage {
      * @throws IOException If there is problems accessing the save file.
      */
     public void appendToFile(String text) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH, true);
+        FileWriter fw = new FileWriter(filePath, true);
         fw.write(text);
         fw.close();
     }
@@ -45,7 +49,7 @@ public class Storage {
      * @throws IOException If there is problems accessing the save file.
      */
     public void writeToFile(String text) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH);
+        FileWriter fw = new FileWriter(filePath);
         fw.write(text);
         fw.close();
     }
@@ -58,7 +62,7 @@ public class Storage {
      */
     public ArrayList<Task> load() {
 
-        File f = new File(FILE_PATH);
+        File f = new File(filePath);
         ArrayList<Task> tasklist = new ArrayList<>();
         ArrayList<String> strings = new ArrayList<>();
 
@@ -75,27 +79,30 @@ public class Storage {
                 String txt = "";
 
                 switch (type) {
-                    case "T":
-                        txt = "todo " + remain;
-                        break;
+                case "T":
+                    txt = "todo " + remain;
+                    break;
 
-                    case "D":
-                        txt = "deadline " + remain;
-                        break;
+                case "D":
+                    txt = "deadline " + remain;
+                    break;
 
-                    case "E":
-                        txt = "event " + remain;
-                        break;
+                case "E":
+                    txt = "event " + remain;
+                    break;
+
+                default:
+                    break;
                 }
 
                 try {
-                    Task task =  Parser.parseLoading(txt);
+                    Task task = Parser.parseLoading(txt);
                     tasklist.add(task);
                     if (marked.equals("1")) {
                         task.mark();
                     }
-                } catch (InvalidNumberException | InvalidRangeException | MissingTimeException |
-                         InvalidDateTimeException | MissingDescriptionException e) {
+                } catch (InvalidNumberException | InvalidRangeException | MissingTimeException
+                         | InvalidDateTimeException | MissingDescriptionException e) {
                     new Ui().showError(e);
                 }
             }

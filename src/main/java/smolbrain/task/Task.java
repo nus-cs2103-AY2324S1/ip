@@ -66,7 +66,9 @@ public class Task {
      *
      * @return Encoded string representation.
      */
-    public String encode() { return ""; }
+    public String encode() {
+        return "";
+    }
 
     /**
      * Returns the string representation of this task.
