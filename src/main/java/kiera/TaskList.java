@@ -1,13 +1,14 @@
 package kiera;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 import kiera.task.Deadline;
 import kiera.task.Event;
 import kiera.task.Task;
 import kiera.tasktype.TaskType;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -43,18 +44,20 @@ public class TaskList {
     }
     public ArrayList<Task> filterByDate(TaskType t, LocalDate d) {
         switch (t) {
-            case DEADLINE:
-                return this.tasks.stream()
-                        .filter(task -> task.getDeadline() != null)
-                        .filter(task -> task instanceof Deadline)
-                        .filter(task -> task.getDeadline().equals(d))
-                        .collect(Collectors.toCollection(ArrayList::new));
-            case EVENT:
-                return this.tasks.stream()
-                        .filter(task -> task.getStartDate() != null)
-                        .filter(task -> task instanceof Event)
-                        .filter(task -> task.getStartDate().equals(d))
-                        .collect(Collectors.toCollection(ArrayList::new));
+        case DEADLINE:
+            return this.tasks.stream()
+                    .filter(task -> task.getDeadline() != null)
+                    .filter(task -> task instanceof Deadline)
+                    .filter(task -> task.getDeadline().equals(d))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        case EVENT:
+            return this.tasks.stream()
+                    .filter(task -> task.getStartDate() != null)
+                    .filter(task -> task instanceof Event)
+                    .filter(task -> task.getStartDate().equals(d))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        default:
+            System.out.println("date does not exist on task type!");
         }
         return new ArrayList<>();
     }

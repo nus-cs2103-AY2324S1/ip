@@ -1,15 +1,24 @@
 package kiera;
 
-import kiera.command.*;
-import kiera.tasktype.TaskType;
 
 import java.time.LocalDate;
+
+import kiera.command.AddCommand;
+import kiera.command.Command;
+import kiera.command.DeleteCommand;
+import kiera.command.ExitCommand;
+import kiera.command.FilterCommand;
+import kiera.command.ListCommand;
+import kiera.command.MarkCommand;
+import kiera.exception.KieraException;
+import kiera.tasktype.TaskType;
+
 
 public class Parser {
     public Parser() {
     }
 
-    public static Command parse(String input) {
+    public static Command parse(String input) throws KieraException {
 
         if (input.equals("bye")) {
             return new ExitCommand();
@@ -59,7 +68,7 @@ public class Parser {
             return new AddCommand(TaskType.EVENT, desc);
         }
 
-        return null;
+        throw new KieraException("invalid input, i don't understand...");
     }
 
 }

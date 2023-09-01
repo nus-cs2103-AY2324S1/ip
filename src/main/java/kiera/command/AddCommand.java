@@ -16,25 +16,27 @@ public class AddCommand extends Command {
     }
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws KieraException {
-       TaskType t = this.getTaskType();
-       String desc = this.getDescription();
-       Task task;
+        TaskType t = this.getTaskType();
+        String desc = this.getDescription();
+        Task task;
         switch (t) {
-            case TODO:
-                task = new Todo(desc);
-                tasks.add(task);
-                ui.showAddNotice(task, t, tasks.getSize());
-                break;
-            case DEADLINE:
-                task = new Deadline(desc);
-                tasks.add(task);
-                ui.showAddNotice(task, t, tasks.getSize());
-                break;
-            case EVENT:
-                task = new Event(desc);
-                tasks.add(task);
-                ui.showAddNotice(task, t, tasks.getSize());
-                break;
+        case TODO:
+            task = new Todo(desc);
+            tasks.add(task);
+            ui.showAddNotice(task, t, tasks.getSize());
+            break;
+        case DEADLINE:
+            task = new Deadline(desc);
+            tasks.add(task);
+            ui.showAddNotice(task, t, tasks.getSize());
+            break;
+        case EVENT:
+            task = new Event(desc);
+            tasks.add(task);
+            ui.showAddNotice(task, t, tasks.getSize());
+            break;
+        default:
+            System.out.println("task type does not exist");
         }
         storage.save(tasks);
     }

@@ -3,6 +3,9 @@ package kiera.task;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import kiera.exception.KieraException;
+
+
 
 public class Task {
     private String description;
@@ -16,26 +19,30 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
-    public void setStartEnd(String input) {
-        String[] inputs = input.split("/");
-        String start = inputs[1].replace("from ", "");
+    public void setStartEnd(String input) throws KieraException {
+        try {
+            String[] inputs = input.split("/");
+            String start = inputs[1].replace("from ", "");
 
-        String[] times = start.split("-");
-        int y = Integer.parseInt(times[0]);
-        int m = Integer.parseInt(times[1]);
-        int d = Integer.parseInt(times[2].split(" ")[0]);
+            String[] times = start.split("-");
+            int y = Integer.parseInt(times[0]);
+            int m = Integer.parseInt(times[1]);
+            int d = Integer.parseInt(times[2].split(" ")[0]);
 
-        int time = Integer.parseInt(times[2].split(" ")[1]);
-        int startHour = (int) Math.floor(time / 100);
-        int startMin = time % 100;
+            int time = Integer.parseInt(times[2].split(" ")[1]);
+            int startHour = (int) Math.floor(time / 100);
+            int startMin = time % 100;
 
-        int end = Integer.parseInt(inputs[2].replace("to ", ""));
-        int endHour = (int) Math.floor(end / 100);
-        int endMin = end % 100;
+            int end = Integer.parseInt(inputs[2].replace("to ", ""));
+            int endHour = (int) Math.floor(end / 100);
+            int endMin = end % 100;
 
-        this.startDate = LocalDate.of(y, m, d);
-        this.startTime = LocalTime.of(startHour, startMin);
-        this.endTime = LocalTime.of(endHour, endMin);
+            this.startDate = LocalDate.of(y, m, d);
+            this.startTime = LocalTime.of(startHour, startMin);
+            this.endTime = LocalTime.of(endHour, endMin);
+        } catch (IndexOutOfBoundsException e) {
+            throw new KieraException(e.getMessage());
+        }
     }
     public void setDeadline(String input) {
         this.deadline = LocalDate.parse(input);
