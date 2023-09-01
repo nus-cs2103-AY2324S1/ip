@@ -145,4 +145,11 @@ public class Ui {
     public void closeScanner() {
         scanner.close();
     }
+    public void showFoundResults(TaskList foundList) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < foundList.size(); i++) {
+            int index = i + 1;
+            System.out.println(index + "." + foundList.get(i));
+        }
+    }
 }
