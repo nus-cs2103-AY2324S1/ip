@@ -1,9 +1,18 @@
 package minion.parser;
 
-import minion.commands.*;
+import minion.commands.Command;
+import minion.commands.DeadlineCommand;
+import minion.commands.DeleteCommand;
+import minion.commands.EventCommand;
+import minion.commands.ExitCommand;
+import minion.commands.FindCommand;
+import minion.commands.ListCommand;
+import minion.commands.MarkCommand;
+import minion.commands.ToDoCommand;
+import minion.commands.UnmarkCommand;
+import minion.common.Messages;
 import minion.data.exception.MinionException;
 import minion.data.exception.ParserException;
-import minion.common.Messages;
 import minion.data.task.Deadline;
 import minion.data.task.Event;
 import minion.data.task.ToDo;
@@ -76,7 +85,7 @@ public class CommandParser {
         if (!arr[1].trim().matches("[0-9]+")) {
             throw new ParserException(commandWord + " only accepts digits as its argument. Try again.");
         }
-       return Integer.parseInt(arr[1].trim()) - 1;
+        return Integer.parseInt(arr[1].trim()) - 1;
     }
 
     /**
@@ -123,7 +132,7 @@ public class CommandParser {
             throw new ParserException(Messages.MESSAGE_TODO_DESCRIPTION_ERROR);
         }
         return new ToDoCommand(new ToDo(arr[1].trim()));
-}
+    }
 
     /**
      * Parses arguments in the context of the Deadline command.
@@ -162,6 +171,9 @@ public class CommandParser {
             }
             String datetime = DatetimeParser.parseDatetime(by.split(" "));
             return new DeadlineCommand(new Deadline(description, datetime));
+
+        default:
+            break;
         }
         return null;
     }
@@ -198,6 +210,10 @@ public class CommandParser {
                 throw new ParserException(Messages.MESSAGE_EVENT_FROM_ERROR);
             }
             strs = strs[1].split("/to");
+            break;
+
+        default:
+            break;
         }
         String from;
         String to;
@@ -223,6 +239,9 @@ public class CommandParser {
             String fromDatetime = DatetimeParser.parseDatetime(from.split(" "));
             String toDatetime = DatetimeParser.parseDatetime(to.split(" "));
             return new EventCommand(new Event(description, fromDatetime, toDatetime));
+
+        default:
+            break;
         }
         return null;
     }

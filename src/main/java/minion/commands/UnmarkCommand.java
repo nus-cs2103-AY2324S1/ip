@@ -1,12 +1,12 @@
 package minion.commands;
 
-import minion.data.exception.IllegalValueException;
+import java.io.IOException;
+
 import minion.data.TaskList;
+import minion.data.exception.IllegalValueException;
 import minion.data.task.Task;
 import minion.storage.Storage;
 import minion.ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents an unmark command.

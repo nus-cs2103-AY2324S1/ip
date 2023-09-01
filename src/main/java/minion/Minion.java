@@ -1,13 +1,13 @@
 package minion;
 
+import java.io.IOException;
+
 import minion.commands.Command;
 import minion.data.TaskList;
 import minion.data.exception.MinionException;
 import minion.parser.CommandParser;
 import minion.storage.Storage;
 import minion.ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents the Minion chatbot.
@@ -39,7 +39,7 @@ public class Minion {
     /**
      * Runs the chatbot.
      */
-    private void run()  {
+    private void run() {
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {

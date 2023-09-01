@@ -1,11 +1,11 @@
 package minion.commands;
 
-import minion.storage.Storage;
+import java.io.IOException;
+
 import minion.data.TaskList;
 import minion.data.task.ToDo;
+import minion.storage.Storage;
 import minion.ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents a todo command.
@@ -35,7 +35,7 @@ public class ToDoCommand extends Command {
         ui.print(
             "Got it. I've added this task:",
             "\t" + toDo.toString(),
-            "Now you have " + tasks.size() +  " tasks in the list."
+            "Now you have " + tasks.size() + " tasks in the list."
         );
         storage.writeToFile(tasks);
     }

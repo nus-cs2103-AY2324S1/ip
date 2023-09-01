@@ -1,25 +1,29 @@
 package minion.storage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import minion.common.Messages;
 import minion.data.TaskList;
 import minion.data.task.Deadline;
 import minion.data.task.Event;
 import minion.data.task.ToDo;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+
 
 public class StorageTest {
-    private TaskList tasks;
-    private Storage storage;
     private static final String TEST_DATADIR_VALID = "test/data.txt";
     private static final String TEST_DATADIR_INVALID = "tmp/data.txt";
+    private TaskList tasks;
+    private Storage storage;
 
     @BeforeEach
     public void setUp() throws IOException {
@@ -57,7 +61,9 @@ public class StorageTest {
     public static void deleteDirAndFile(String... dirs) {
         for (String dir: dirs) {
             File dirFile = new File(dir);
-            if (!dirFile.exists()) continue;
+            if (!dirFile.exists()) {
+                continue;
+            }
             File[] files = dirFile.listFiles();
             for (File file : files) {
                 file.delete();

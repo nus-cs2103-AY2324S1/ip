@@ -21,20 +21,20 @@ public abstract class Task {
      * @return the status icon.
      */
     protected String getStatusIcon() {
-        return isDone ? "X": "";
+        return isDone ? "X" : "";
     }
 
     /**
      * Marks the task as done.
      */
-    public void markDone() {
+    public void setDone() {
         this.isDone = true;
     }
 
     /**
      * Marks the task as undone.
      */
-    public void markUndone() {
+    public void setUndone() {
         this.isDone = false;
     }
 

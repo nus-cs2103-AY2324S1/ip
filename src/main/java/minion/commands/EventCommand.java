@@ -1,11 +1,11 @@
 package minion.commands;
 
+import java.io.IOException;
+
+import minion.data.TaskList;
 import minion.data.task.Event;
 import minion.storage.Storage;
-import minion.data.TaskList;
 import minion.ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents an event command.
@@ -35,7 +35,7 @@ public class EventCommand extends Command {
         ui.print(
                 "Got it. I've added this task:",
                 "\t" + event.toString(),
-                "Now you have " + tasks.size() +  " tasks in the list."
+                "Now you have " + tasks.size() + " tasks in the list."
         );
         storage.writeToFile(tasks);
     }

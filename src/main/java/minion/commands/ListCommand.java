@@ -1,7 +1,7 @@
 package minion.commands;
 
-import minion.storage.Storage;
 import minion.data.TaskList;
+import minion.storage.Storage;
 import minion.ui.Ui;
 
 /**
