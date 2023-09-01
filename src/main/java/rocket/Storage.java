@@ -14,6 +14,10 @@ public class Storage {
     private File file;
     private String filePath;
 
+    /**
+     * Create new storage at the filePath specified
+     * @param filePath path to store the file.
+     */
     public Storage (String filePath){
         this.filePath = filePath;
         Path path = Paths.get(filePath);
@@ -38,6 +42,10 @@ public class Storage {
         this.file = file;
     }
 
+    /**
+     * Load from the storage
+     * @return a list of strings.
+     */
     public ArrayList<String> load() {
         ArrayList<String> stringList = new ArrayList<>();
         try {

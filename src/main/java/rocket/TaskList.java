@@ -7,6 +7,11 @@ public class TaskList {
 
     private ArrayList<Task> tasks;
 
+    /**
+     * Create new task list.
+     * @param stringList list of string representing tasks.
+     * @throws RocketIllegalArgumentException if strings can't be converted into tasks (invalid strings).
+     */
     public TaskList (ArrayList<String> stringList) throws RocketIllegalArgumentException {
         this.tasks = new ArrayList<>();
         for (String s : stringList) {
@@ -14,6 +19,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Create empty task list.
+     */
     public TaskList () {
         this.tasks = new ArrayList<>();
     }
