@@ -13,7 +13,7 @@ public class Aj {
     Ui ui;
 
 
-    public boolean askCommand(Scanner scanner) throws NoSuchCommandException, EmptyDescriptionException, IndexOutOfRangeException, IOException {
+    public boolean canAskCommand(Scanner scanner) throws NoSuchCommandException, EmptyDescriptionException, IndexOutOfRangeException, IOException {
 
         String command = scanner.next().toLowerCase();
 
@@ -116,7 +116,7 @@ public class Aj {
         this.ui.greet();
         while (true) {
             try {
-                if (askCommand(scanner)) {
+                if (canAskCommand(scanner)) {
                     break;
                 }
             } catch (AjException | IOException e) {
