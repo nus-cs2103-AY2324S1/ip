@@ -15,7 +15,7 @@ public class ExitCommand extends Command {
     /**
      * Executes the list of commands to exit the chatbot.
      *
-     * @param list The given TaskList associated with the chatbot.
+     * @param taskList The given TaskList associated with the chatbot.
      * @param ui The given Ui to show the status of the exit command.
      * @param storage The given Storage that saves the TaskList locally.
      */
