@@ -1,4 +1,4 @@
-package Remy.task;
+package Remy.Task;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,23 +14,23 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * Returns Remy.Remy.task.Remy.Remy.task at index i
+     * Returns Remy.Remy.Task.Remy.Remy.Task at index i
      * @param i
-     * @return Remy.Remy.task.Remy.Remy.task at index i
+     * @return Remy.Remy.Task.Remy.Remy.Task at index i
      */
     public Task get(int i) {
         return this.tasks.get(i);
     }
 
     /**
-     * @return length of Remy.Remy.task.Remy.Remy.task.TaskList
+     * @return length of Remy.Remy.Task.Remy.Remy.Task.TaskList
      */
     public int size() {
         return this.tasks.size();
     }
 
     /**
-     * Removes Remy.Remy.task.Remy.Remy.task at index i
+     * Removes Remy.Remy.Task.Remy.Remy.Task at index i
      * @param i
      */
     public void remove(int i) {
@@ -38,7 +38,7 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * Adds task to the end of Remy.Remy.task.Remy.Remy.task.TaskList.
+     * Adds Task to the end of Remy.Remy.Task.Remy.Remy.Task.TaskList.
      * @param task
      */
     public void add(Task task) {

@@ -1,9 +1,9 @@
 package Remy.command;
-import Remy.task.TaskList;
+import Remy.Task.TaskList;
 import Remy.Ui;
 import Remy.Storage;
 import Remy.ChatbotException;
-import Remy.task.Todo;
+import Remy.Task.Todo;
 
 public class TodoCommand extends Command {
     private String taskName;

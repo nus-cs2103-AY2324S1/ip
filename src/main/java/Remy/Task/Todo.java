@@ -1,4 +1,4 @@
-package Remy.task;
+package Remy.Task;
 
 public class Todo extends Task{
     public Todo(String description) {

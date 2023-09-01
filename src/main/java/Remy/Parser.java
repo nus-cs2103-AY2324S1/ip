@@ -7,7 +7,7 @@ import Remy.command.*;
  */
 public class Parser {
     /**
-     * Parses user input and carries out any follow-up action (e.g. Remy.Remy.task.Remy.Remy.task creation).
+     * Parses user input and carries out any follow-up action (e.g. Remy.Remy.Task.Remy.Remy.Task creation).
      * Solution below inspired by addressbook Level 2 implementation.
      *
      * @param input
