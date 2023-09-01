@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
 import java.util.Scanner;
+import java.time.LocalDate;
 
 public class CheeChat {
 
@@ -27,7 +28,6 @@ public class CheeChat {
             Scanner s = new Scanner(f);
             while (s.hasNextLine()) {
                 String task = s.nextLine();
-                System.out.println(task);
                 Task instance = Task.readFile(task);
                 tasks.add(instance);
             }
@@ -67,7 +67,7 @@ public class CheeChat {
                         fw = new FileWriter(f);
                         String toBeWritten = "";
                         for (int i = 0; i < tasks.size(); i++) {
-                            toBeWritten = toBeWritten.concat(tasks.get(i).toString());
+                            toBeWritten = toBeWritten.concat(tasks.get(i).toWrite());
                             toBeWritten += System.lineSeparator();
                         }
                         fw.write(toBeWritten);
@@ -87,7 +87,7 @@ public class CheeChat {
                         fw = new FileWriter(f);
                         String toBeWritten = "";
                         for (int i = 0; i < tasks.size(); i++) {
-                            toBeWritten = toBeWritten.concat(tasks.get(i).toString());
+                            toBeWritten = toBeWritten.concat(tasks.get(i).toWrite());
                             toBeWritten += System.lineSeparator();
                         }
                         fw.write(toBeWritten);
@@ -113,7 +113,7 @@ public class CheeChat {
                                 fw = new FileWriter(f);
                                 String toBeWritten = "";
                                 for (int i = 0; i < tasks.size(); i++) {
-                                    toBeWritten = toBeWritten.concat(tasks.get(i).toString());
+                                    toBeWritten = toBeWritten.concat(tasks.get(i).toWrite());
                                     toBeWritten += System.lineSeparator();
                                 }
                                 fw.write(toBeWritten);
@@ -128,9 +128,10 @@ public class CheeChat {
                     } else if (cmd.startsWith("deadline")) {
                         System.out.println("Got it. I've added this task:");
                         int index = cmd.indexOf(47);
-                        String description = cmd.substring(8, index - 1);
+                        String description = cmd.substring(9, index - 1);
                         String time = cmd.substring(index + 4);
-                        Task instance = new Deadline(description, time);
+                        LocalDate day = LocalDate.parse(time);
+                        Task instance = new Deadline(description, day);
                         tasks.add(instance);
                         System.out.println("  " + instance);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -139,7 +140,7 @@ public class CheeChat {
                             fw = new FileWriter(f);
                             String toBeWritten = "";
                             for (int i = 0; i < tasks.size(); i++) {
-                                toBeWritten = toBeWritten.concat(tasks.get(i).toString());
+                                toBeWritten = toBeWritten.concat(tasks.get(i).toWrite());
                                 toBeWritten += System.lineSeparator();
                             }
                             fw.write(toBeWritten);
@@ -150,12 +151,14 @@ public class CheeChat {
                     } else if (cmd.startsWith("event")){
                         System.out.println("Got it. I've added this task:");
                         int index1 = cmd.indexOf(47);
-                        String description = cmd.substring(5, index1 - 1);
-                        String duration = cmd.substring(index1 + 5);
+                        String description = cmd.substring(6, index1);
+                        String duration = cmd.substring(index1 + 6);
                         int index2 = duration.indexOf(47);
-                        String from = duration.substring(0, index2);
-                        String to = duration.substring(index2 + 3);
-                        Task instance = new Event(description, from, to);
+                        String from = duration.substring(0, index2 - 1);
+                        String to = duration.substring(index2 + 4);
+                        LocalDate d1 = LocalDate.parse(from);
+                        LocalDate d2 = LocalDate.parse(to);
+                        Task instance = new Event(description, d1, d2);
                         tasks.add(instance);
                         System.out.println("  " + instance);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -164,7 +167,7 @@ public class CheeChat {
                             fw = new FileWriter(f);
                             String toBeWritten = "";
                             for (int i = 0; i < tasks.size(); i++) {
-                                toBeWritten = toBeWritten.concat(tasks.get(i).toString());
+                                toBeWritten = toBeWritten.concat(tasks.get(i).toWrite());
                                 toBeWritten += System.lineSeparator();
                             }
                             fw.write(toBeWritten);
@@ -186,7 +189,7 @@ public class CheeChat {
                             fw = new FileWriter(f);
                             String toBeWritten = "";
                             for (int i = 0; i < tasks.size(); i++) {
-                                toBeWritten = toBeWritten.concat(tasks.get(i).toString());
+                                toBeWritten = toBeWritten.concat(tasks.get(i).toWrite());
                                 toBeWritten += System.lineSeparator();
                             }
                             fw.write(toBeWritten);
