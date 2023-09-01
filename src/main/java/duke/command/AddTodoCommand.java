@@ -1,9 +1,11 @@
 package duke.command;
+
 import duke.exception.DukeException;
+import duke.task.ToDo;
 import duke.ui.Ui;
 import duke.list.FunnyList;
 import duke.storage.Storage;
-import duke.task.ToDo;
+
 public class AddTodoCommand extends Command {
 	public static final String COMMAND_WORD = "todo";
 

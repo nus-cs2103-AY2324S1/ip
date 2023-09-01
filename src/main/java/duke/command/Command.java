@@ -1,4 +1,5 @@
 package duke.command;
+
 import duke.exception.DukeException;
 import duke.ui.Ui;
 import duke.list.FunnyList;
