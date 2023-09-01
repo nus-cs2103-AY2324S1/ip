@@ -2,11 +2,9 @@ package aichan.command;
 
 import aichan.AiChanException;
 import aichan.TaskList;
+import aichan.Storage;
 import aichan.Ui;
-import aichan.task.Deadline;
-import aichan.task.Event;
 import aichan.task.Task;
-import aichan.task.ToDo;
 
 public class DeleteCommand extends Command{
     private int taskId;
@@ -14,7 +12,7 @@ public class DeleteCommand extends Command{
         this.taskId = taskId;
     }
 
-    public void execute(TaskList tasks, Ui ui) throws AiChanException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws AiChanException {
         // control the main logic
         // add/delete task, show words
         int size = tasks.getSize();
@@ -22,6 +20,7 @@ public class DeleteCommand extends Command{
         Task task = tasks.deleteTask(taskId);
         ui.showMessage(String.format("Noted. I've removed this task:\n  %s\n" +
                 "Now you have %d tasks in the list", task, size - 1));
+        storage.save(tasks);
     }
     @Override
     public boolean isExit(){

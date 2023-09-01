@@ -1,12 +1,6 @@
 package aichan;
 
-import aichan.command.AddCommand;
 import aichan.command.Command;
-import aichan.command.DeleteCommand;
-import aichan.command.ExitCommand;
-import aichan.command.ListCommand;
-import aichan.command.MarkCommand;
-import aichan.command.UnmarkCommand;
 
 public class AiChan {
     private Storage storage;
@@ -16,15 +10,13 @@ public class AiChan {
     public AiChan(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        tasks = new TaskList();
-        /*
+
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
-            ui.showLoadingError();
+        } catch (AiChanException e) {
+            ui.showError(e.getMessage());
             tasks = new TaskList();
         }
-        */
     }
 
     public void run() {
@@ -35,8 +27,7 @@ public class AiChan {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
-                // c.execute(tasks, ui, storage);
-                c.execute(tasks, ui);
+                c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (AiChanException e) {
                 ui.showError(e.getMessage());

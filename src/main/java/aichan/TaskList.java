@@ -1,14 +1,16 @@
 package aichan;
 
 import java.util.ArrayList;
-import aichan.task.Deadline;
-import aichan.task.Event;
 import aichan.task.Task;
-import aichan.task.ToDo;
+
 public class TaskList {
     private ArrayList<Task> arrTask;
     public TaskList() {
         this.arrTask = new ArrayList<>();
+    }
+
+    public TaskList(ArrayList<Task> arrTask) {
+        this.arrTask = arrTask;
     }
 
     public void addTask(Task task) {
@@ -25,5 +27,9 @@ public class TaskList {
 
     public int getSize() {
         return arrTask.size();
+    }
+
+    public ArrayList<Task> getTasks() {
+        return this.arrTask;
     }
 }

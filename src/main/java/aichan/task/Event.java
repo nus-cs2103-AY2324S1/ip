@@ -11,7 +11,13 @@ public class Event extends Task {
         this.end = strs[2];
     }
 
+    @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(), this.start, this.end);
+    }
+
+    @Override
+    public String toFileLine() {
+        return String.format("E | %s | %s-%s", super.toFileLine(), this.start, this.end);
     }
 }
