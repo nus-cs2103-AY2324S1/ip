@@ -18,8 +18,11 @@ public class ExitCommand extends Command {
      *
      * @param params Parsed user input.
      */
-    public ExitCommand(ArrayList<String> params) {
+    public ExitCommand(ArrayList<String> params) throws InvalidCommandException {
         super(params);
+        if (params.size() != 1) {
+            throw new InvalidCommandException("Add todo command format is wrong");
+        }
     }
 
     /**

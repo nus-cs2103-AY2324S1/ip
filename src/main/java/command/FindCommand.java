@@ -15,8 +15,11 @@ public class FindCommand extends Command{
      *
      * @param params Parsed user input.
      */
-    public FindCommand(ArrayList<String> params) {
+    public FindCommand(ArrayList<String> params) throws InvalidCommandException {
         super(params);
+        if (params.size() != 2) {
+            throw new InvalidCommandException("Add todo command format is wrong");
+        }
     }
 
     /**

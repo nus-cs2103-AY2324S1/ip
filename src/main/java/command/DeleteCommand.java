@@ -15,8 +15,11 @@ public class DeleteCommand extends Command {
      *
      * @param params Parsed user input.
      */
-    public DeleteCommand(ArrayList<String> params) {
+    public DeleteCommand(ArrayList<String> params) throws InvalidCommandException {
         super(params);
+        if (params.size() != 2) {
+            throw new InvalidCommandException("Add todo command format is wrong");
+        }
     }
 
     /**

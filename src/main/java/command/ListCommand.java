@@ -18,8 +18,11 @@ public class ListCommand extends Command{
      *
      * @param params Parsed user input.
      */
-    public ListCommand(ArrayList<String> params) {
+    public ListCommand(ArrayList<String> params) throws InvalidCommandException {
         super(params);
+        if (params.size() != 1) {
+            throw new InvalidCommandException("Add todo command format is wrong");
+        }
     }
 
     /**

@@ -16,8 +16,11 @@ public class OnCommand extends Command{
      *
      * @param params Parsed user input.
      */
-    public OnCommand(ArrayList<String> params) {
+    public OnCommand(ArrayList<String> params) throws InvalidCommandException {
         super(params);
+        if (params.size() != 2) {
+            throw new InvalidCommandException("Add todo command format is wrong");
+        }
     }
 
     /**

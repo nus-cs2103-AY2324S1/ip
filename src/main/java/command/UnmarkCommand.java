@@ -15,8 +15,11 @@ public class UnmarkCommand extends Command{
      *
      * @param params Parsed user input.
      */
-    public UnmarkCommand(ArrayList<String> params) {
+    public UnmarkCommand(ArrayList<String> params) throws InvalidCommandException {
         super(params);
+        if (params.size() != 2) {
+            throw new InvalidCommandException("Add todo command format is wrong");
+        }
     }
 
     /**

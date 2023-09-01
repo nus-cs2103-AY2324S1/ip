@@ -34,8 +34,23 @@ public class AddCommand extends Command {
      *
      * @param params Parsed user input.
      */
-    public AddCommand(ArrayList<String> params) {
+    public AddCommand(ArrayList<String> params) throws InvalidCommandException {
         super(params);
+        if (params.get(0).equals(COMMAND_ADD_TODO)) {
+            if (params.size() != 2) {
+                throw new InvalidCommandException("Add todo command format is wrong");
+            }
+        }
+        if (params.get(0).equals(COMMAND_ADD_DEADLINE)) {
+            if (params.size() != 3) {
+                throw new InvalidCommandException("Add deadline command format is wrong");
+            }
+        }
+        if (params.get(0).equals(COMMAND_ADD_EVENT)) {
+            if (params.size() != 4) {
+                throw new InvalidCommandException("Add event command format is wrong");
+            }
+        }
     }
 
     /**
