@@ -68,13 +68,13 @@ public class Parser {
             int index;
             try {
                 index = Integer.parseInt(params.split(" ")[0]) - 1;
+                ui.printDeleteTask(taskList, index);
                 taskList.deleteTask(index);
                 storage.writeFile(taskList);
             } catch (Exception e) {
                 throw new SisyphusException("You must include a valid task number. "
                         + "Use list to see what is valid.");
             }
-            ui.printDeleteTask(taskList, index);
             break;
         }
         case ("todo"): {
