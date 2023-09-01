@@ -12,16 +12,25 @@ import ui.Ui;
  * The Duke class. Entry point for the Duke chatbot to start.
  */
 public class Duke {
-    // Handles all tasks created by the user.
+    /**
+     * Handles all tasks created by the user.
+     */
     private TaskList tasks;
 
-    // Loads task from a persistent file and updates it when new tasks are created.
+    /**
+     * Loads task from a persistent file and 
+     * updates it when new tasks are created.
+     */
     private Storage storage;
 
-    // Parses the user command.
+    /**
+     * Parses the user command.
+     */
     private Parser parser;
 
-    // Handles displaying messages and errors.
+    /**
+     * Handles displaying messages and errors.
+     */
     private Ui ui;
 
     /**
