@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import duke.ui.Ui;
+
 import java.time.LocalDateTime;
 
 public class DeadlineTask extends Task {
@@ -12,16 +14,16 @@ public class DeadlineTask extends Task {
 
     @Override
     public String getDescription() {
-        return "[D]" + super.getDescription() + " (by: " + deadline.format(super.getDateOutputFormat()) + ")";
+        return "[D]" + super.getDescription() + " (by: " + deadline.format(Ui.DATE_OUTPUT_FORMAT) + ")";
     }
 
     @Override
     public String toFileString() {
-        return "D | " + super.toFileString() + " | " + deadline.format(super.getDateOutputFormat());
+        return "D | " + super.toFileString() + " | " + deadline.format(Ui.DATE_OUTPUT_FORMAT);
     }
 
     @Override
     public String toString() {
-        return super.toString() + " | " + deadline.format(super.getDateOutputFormat());
+        return super.toString() + " | " + deadline.format(Ui.DATE_OUTPUT_FORMAT);
     }
 }

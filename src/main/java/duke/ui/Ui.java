@@ -1,9 +1,12 @@
 package duke.ui;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Ui {
     public static final String LINE_SEPARATOR = "____________________________________________________________";
+    public static final DateTimeFormatter DATE_INPUT_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    public static final DateTimeFormatter DATE_OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d MMM yyyy hh:mm a");
 
     Scanner scanner;
 
