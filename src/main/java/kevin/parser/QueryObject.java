@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * A class that contains the Command and arguments to be passed to the Evaluator.
  */
 public class QueryObject {
-    private final Commands commandType;
+    private final Command commandType;
     private final ArrayList<String> args;
 
     /**
@@ -14,7 +14,7 @@ public class QueryObject {
      * @param commandType This is the Command for the query object.
      * @param args This is the arguments needed to run the command.
      */
-    public QueryObject(Commands commandType, ArrayList<String> args) {
+    public QueryObject(Command commandType, ArrayList<String> args) {
         this.commandType = commandType;
         this.args = args;
     }
@@ -22,7 +22,7 @@ public class QueryObject {
     /**
      * Gets the command of the query object.
      */
-    public Commands getCommandType() {
+    public Command getCommandType() {
         return commandType;
     }
 
