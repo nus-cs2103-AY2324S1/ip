@@ -1,8 +1,10 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 public class Event extends Task{
-    public String begin;
-    public String end;
+    public LocalDate begin;
+    public LocalDate end;
 
-    public Event(String name, String begin, String end, String isDone) {
+    public Event(String name, LocalDate begin, LocalDate end, String isDone) {
         super(name, isDone);
         this.begin = begin;
         this.end = end;
@@ -10,13 +12,27 @@ public class Event extends Task{
 
     @Override
     public String toDataString() {
-        return super.toDataString() + " | " + begin + " | " + end;
+        return super.toDataString() + " | " + begin.format(DateTimeFormatter.ISO_LOCAL_DATE) +
+                " | " + end.format(DateTimeFormatter.ISO_LOCAL_DATE);
     }
 
     @Override
     public String toString() {
-        String str = "[E] " + super.getStatus() + " " + super.name
-                + " (from: " + this.begin + " to: " + this.end + ")";
+        String str = "[E] " + super.getStatus() + " " + super.name + " (from: " +
+                begin.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " to: " +
+                end.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
         return str;
     }
+
+//    @Override
+//    public String toDataString() {
+//        return super.toDataString() + " | " + begin + " | " + end;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        String str = "[E] " + super.getStatus() + " " + super.name
+//                + " (from: " + this.begin + " to: " + this.end + ")";
+//        return str;
+//    }
 }

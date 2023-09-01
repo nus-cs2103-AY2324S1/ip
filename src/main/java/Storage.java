@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDate;
 
 public class Storage {
 
@@ -63,10 +64,12 @@ public class Storage {
                                 tasks.add(new ToDo(description, isDone));
                                 break;
                             case "D":
-                                tasks.add(new Deadline(description, parts[3], isDone));
+                                tasks.add(parseDeadline(parts, isDone));
+//                                tasks.add(new Deadline(description, parts[3], isDone));
                                 break;
                             case "E":
-                                tasks.add(new Event(description, parts[3], parts[4], isDone));
+                                tasks.add(parseEvent(parts, isDone));
+//                                tasks.add(new Event(description, parts[3], parts[4], isDone));
                                 break;
                         }
                     } else {
@@ -80,6 +83,22 @@ public class Storage {
         }
 
         return tasks;
+    }
+
+    private Deadline parseDeadline(String[] parts, String isDone) {
+        String description = parts[2];
+        String dueBy = parts[3];
+        LocalDate dueDate = LocalDate.parse(dueBy);  // Parse the date
+        return new Deadline(description, dueDate, isDone);
+    }
+
+    private Event parseEvent(String[] parts, String isDone) {
+        String description = parts[2];
+        String startTiming = parts[3];
+        String endTiming = parts[4];
+        LocalDate startTime = LocalDate.parse(startTiming);  // Parse the datetime
+        LocalDate endTime = LocalDate.parse(endTiming);  // Parse the datetime
+        return new Event(description, startTime, endTime, isDone);
     }
 
     public void saveTasks(List<Task> tasks) {

@@ -1,4 +1,7 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.time.format.DateTimeFormatter;
 public class Parser {
     public static String parseCommand(String command, TaskList taskList) throws DukeException {
         String[] tokens = command.split(" ", 2);
@@ -138,7 +141,9 @@ public class Parser {
         }
 
         String taskDescription = parts[0].trim();
-        String dueBy = parts[1].trim();
+        String dueByString = parts[1].trim();
+        LocalDate dueBy = LocalDate.parse(dueByString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
         Task newTask = new Deadline(taskDescription, dueBy, "0");
         taskList.addTask(newTask);
 
@@ -161,13 +166,36 @@ public class Parser {
         }
 
         String taskDescription = parts[0].trim();
-        String startTiming = timingParts[0].trim();
-        String endTiming = timingParts[1].trim();
+        String startTimingString = timingParts[0].trim();
+        String endTimingString = timingParts[1].trim();
+
+        LocalDate startTiming = LocalDate.parse(startTimingString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        LocalDate endTiming = LocalDate.parse(endTimingString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+//        LocalDate startTiming = parseDate(startTimingString).atStartOfDay();
+//        LocalDate endTiming = parseDate(endTimingString).atStartOfDay();
 
         Task newTask = new Event(taskDescription, startTiming, endTiming, "0");
         taskList.addTask(newTask);
 
         return generateTaskAddedResponse(newTask, taskList);
+    }
+
+    private static LocalDate parseDate(String dateString) throws DukeException {
+        DateTimeFormatter[] formatters = {
+                DateTimeFormatter.ofPattern("yyyy-MM-dd"),
+                DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        };
+
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                return LocalDate.parse(dateString, formatter);
+            } catch (DateTimeParseException ignored) {
+                throw new DukeException("Invalid date format. Please have dates in dd/MM/yyyy format.");
+            }
+        }
+
+        return null; // Return null if date couldn't be parsed
     }
 
     private static String generateTaskAddedResponse(Task task, TaskList taskList) {
