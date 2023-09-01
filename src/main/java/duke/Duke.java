@@ -1,15 +1,16 @@
 package duke;
 
+import java.time.format.DateTimeParseException;
+import java.util.Scanner;
+
 import duke.exceptions.DukeException;
 import duke.exceptions.InvalidInputException;
+import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.utils.Commands;
-import duke.storage.Storage;
 import duke.utils.Parser;
 import duke.utils.Ui;
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 /**
  * Chatbot that takes in commands.
@@ -20,6 +21,10 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor for creating a Duke.
+     * @param path Location of the list of tasks.
+     */
     public Duke(String path) {
         this.ui = new Ui();
         this.storage = new Storage(path);
@@ -37,47 +42,48 @@ public class Duke {
 
         ui.greet();
 
-        while(!end) {
+        while (!end) {
             try {
                 String nextInput = scanner.nextLine().trim();
                 Commands command = Parser.determineCommand(nextInput);
 
                 switch (command) {
-                    case TODO:
-                    case DEADLINE:
-                    case EVENT:
-                        Task t = TaskList.createTask(nextInput, command, 0);
-                        tasks.addTask(t);
-                        ui.showTaskAdded(t.getTask());
-                        break;
+                case TODO:
+                case DEADLINE:
+                case EVENT:
+                    Task t = TaskList.createTask(nextInput, command, 0);
+                    tasks.addTask(t);
+                    ui.showTaskAdded(t.getTask());
+                    break;
 
-                    case LIST:
-                        if (tasks.isEmpty()) {
-                            ui.showNoTasks();
-                        } else {
-                            ui.showAllTasks(tasks.getTasksDes(1));
-                        }
-                        break;
+                case LIST:
+                    if (tasks.isEmpty()) {
+                        ui.showNoTasks();
+                    } else {
+                        ui.showAllTasks(tasks.getTasksDes(1));
+                    }
+                    break;
 
-                    case UNMARK:
-                    case MARK:
-                        String completionStatus = tasks.changeTaskCompletion(nextInput, command);
-                        ui.showStatusChanged(completionStatus);
-                        break;
+                case UNMARK:
+                case MARK:
+                    String completionStatus = tasks.changeTaskCompletion(nextInput, command);
+                    ui.showStatusChanged(completionStatus);
+                    break;
 
-                    case DELETE:
-                        String deleteStatus = tasks.deleteTask(nextInput);
-                        ui.showStatusChanged(deleteStatus);
-                        break;
+                case DELETE:
+                    String deleteStatus = tasks.deleteTask(nextInput);
+                    ui.showStatusChanged(deleteStatus);
+                    break;
 
-                    case BYE:
-                        end = true;
-                        String savedStatus = storage.saveToDisk(tasks.getTasksDes(0));
-                        ui.showStatusChanged(savedStatus);
-                        break;
+                case BYE:
+                    end = true;
+                    String savedStatus = storage.saveToDisk(tasks.getTasksDes(0));
+                    ui.showStatusChanged(savedStatus);
+                    break;
 
-                    case UNKNOWN:
-                        throw new InvalidInputException("Invalid input");
+                case UNKNOWN:
+                default:
+                    throw new InvalidInputException("Invalid input");
                 }
 
             } catch (DukeException e) {

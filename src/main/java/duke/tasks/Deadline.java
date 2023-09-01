@@ -1,10 +1,11 @@
 package duke.tasks;
 
-import duke.utils.DukeDateFormat;
-
 import java.time.LocalDate;
 
-public class Deadline extends Task{
+import duke.utils.DukeDateFormat;
+
+/** Encapsulates a task with a deadline. */
+public class Deadline extends Task {
 
     /** Date that task is to be completed by. */
     private LocalDate by;

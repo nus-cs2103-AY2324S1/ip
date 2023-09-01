@@ -1,22 +1,23 @@
 package duke.tasks;
 
-import duke.exceptions.DukeException;
-import duke.utils.Commands;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import duke.exceptions.DukeException;
+import duke.utils.Commands;
 
 
 public class TaskListTest {
 
-    TaskList tasks;
+    private TaskList tasks;
 
     @BeforeEach
     void setUp() {
