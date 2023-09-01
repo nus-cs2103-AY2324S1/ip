@@ -1,3 +1,5 @@
+package phi;
+
 public class Ui {
     public void greeting() {
         String logo = " ___ _  _ ___\n" +

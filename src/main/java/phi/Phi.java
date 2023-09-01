@@ -1,10 +1,11 @@
-import java.util.Scanner;
+package phi;
 
+import java.util.Scanner;
 public class Phi {
-    Ui phiUi;
-    Storage taskStorage;
-    TaskList tasks;
-    Parser phiParser;
+    private final Ui phiUi;
+    private final Storage taskStorage;
+    private final TaskList tasks;
+    private final Parser phiParser;
 
     public Phi(String filePath) {
         phiUi = new Ui();
@@ -17,13 +18,13 @@ public class Phi {
         new Phi("./data/tasklist.txt").run();
     }
 
-    public void run() {
+    private void run() {
         phiUi.greeting();
         takeInput();
         phiUi.goodbye();
     }
 
-    public void takeInput() {
+    private void takeInput() {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         while (!input.equals("bye")) {
@@ -34,7 +35,4 @@ public class Phi {
         }
         sc.close();
     }
-
-
-
 }

@@ -1,8 +1,10 @@
+package phi;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskList {
-    ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
 
     public TaskList() {
         this.taskList = new ArrayList<>();
@@ -119,6 +121,10 @@ public class TaskList {
             output.append(t.outputFormat()).append("\n");
         }
         return output.toString();
+    }
+
+    public int listSize() {
+        return this.taskList.size();
     }
 
 }

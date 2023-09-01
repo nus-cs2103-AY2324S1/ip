@@ -1,9 +1,11 @@
-public abstract class Task {
-    enum Type {T, D, E}
+package phi;
 
-    Type taskType;
-    boolean done;
-    String taskName;
+public abstract class Task {
+    protected enum Type {T, D, E}
+
+    protected Type taskType;
+    protected boolean done;
+    protected String taskName;
 
     public Task(Type taskType, boolean done, String taskName) {
         this.taskType = taskType;

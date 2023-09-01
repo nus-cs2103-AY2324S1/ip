@@ -1,11 +1,12 @@
+package phi;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
-    String start;
-    String end;
-
+    private String start;
+    private String end;
 
     public Event(String msg, boolean isDone, String start, String end) {
         super(Type.E, isDone, msg);

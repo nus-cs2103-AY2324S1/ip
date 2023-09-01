@@ -1,9 +1,11 @@
+package phi;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
-    String deadlineString;
+    private String deadlineString;
 
     public Deadline(String msg, boolean isDone, String deadline) {
         super(Type.D,isDone, msg);

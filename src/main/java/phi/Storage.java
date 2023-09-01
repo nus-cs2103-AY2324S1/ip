@@ -1,3 +1,5 @@
+package phi;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -20,7 +22,7 @@ public class Storage {
                 tasks.addFromSc(txtScanner.nextLine());
             }
             txtScanner.close();
-            System.out.println("Text file has been scanned!\n" + tasks.taskList.size() + " items in the list");
+            System.out.println("Text file has been scanned!\n" + tasks.listSize() + " items in the list");
         } catch (FileNotFoundException e) {
             System.out.println("I can't find it :( Creating new .txt file");
             return new TaskList();
