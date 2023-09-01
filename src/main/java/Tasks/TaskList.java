@@ -1,12 +1,19 @@
+package Tasks;
+
 import Tasks.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Stores the list of items that the user has.
  */
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<>();
+
+    public TaskList(ArrayList<Task> tasks) {
+        this.list = tasks;
+    }
 
     /**
      * Adds an item to the list.
@@ -15,7 +22,6 @@ public class TaskList {
      */
     public void addToList(Task task) {
         list.add(task);
-
 
     }
 
