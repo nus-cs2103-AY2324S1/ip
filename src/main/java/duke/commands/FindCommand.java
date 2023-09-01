@@ -1,11 +1,14 @@
 package duke.commands;
 
-import duke.TaskList;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import duke.TaskList;
+
+/**
+ * A command to find tasks using a keyword.
+ */
 public class FindCommand extends Command {
     private static final Pattern pattern = Pattern.compile("^find\\s+(?<keyword>.+)$");
 

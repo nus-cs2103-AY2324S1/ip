@@ -1,19 +1,21 @@
 package duke.commands;
 
-import duke.TaskList;
-import duke.tasks.Deadline;
-import duke.tasks.Todo;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import duke.TaskList;
+import duke.tasks.Deadline;
+import duke.tasks.Todo;
 
 public class FindCommandTest {
-    private static final String invalidFormatMessage = String.join("\n",
-                                                                   "Invalid format for command `find`!",
-                                                                   "Usage: find <KEYWORD>"
+    private static final String invalidFormatMessage = String.join(
+            "\n",
+            "Invalid format for command `find`!",
+            "Usage: find <KEYWORD>"
     );
 
     @Test
@@ -28,10 +30,11 @@ public class FindCommandTest {
 
         CommandResult result = command.run(tasks);
 
-        assertEquals(List.of("Here are the matching tasks in your list:",
-                             "1. [T][X] read book",
-                             "2. [D][ ] return book (by 2023-09-10T12:00)"
-        ), result.response);
+        assertEquals(List.of(
+                "Here are the matching tasks in your list:",
+                "1. [T][X] read book",
+                "2. [D][ ] return book (by 2023-09-10T12:00)"
+        ), result.getResponse());
     }
 
     @Test
@@ -46,7 +49,7 @@ public class FindCommandTest {
 
         CommandResult result = command.run(tasks);
 
-        assertEquals(List.of("Here are the matching tasks in your list:", "1. [T][X] read book"), result.response);
+        assertEquals(List.of("Here are the matching tasks in your list:", "1. [T][X] read book"), result.getResponse());
     }
 
     @Test
@@ -61,7 +64,7 @@ public class FindCommandTest {
 
         CommandResult result = command.run(tasks);
 
-        assertEquals(List.of("You have no matching tasks in your list."), result.response);
+        assertEquals(List.of("You have no matching tasks in your list."), result.getResponse());
     }
 
     @Test

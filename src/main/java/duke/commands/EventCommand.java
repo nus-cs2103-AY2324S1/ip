@@ -1,16 +1,19 @@
 package duke.commands;
 
-import duke.TaskList;
-import duke.tasks.Event;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
+import duke.TaskList;
+import duke.tasks.Event;
+
+/**
+ * A command to add a new event.
+ */
 public class EventCommand extends Command {
     private static final Pattern pattern = Pattern.compile(
-            "^event\\s+(?<description>.*?)\\s+(?:/from\\s+(?<startFore>.*?)\\s+/to\\s+(?<endAft>.*)|/to\\s+" +
-                    "(?<endFore>.*?)\\s+/from\\s+(?<startAft>.*))$");
+            "^event\\s+(?<description>.*?)\\s+(?:/from\\s+(?<startFore>.*?)\\s+/to\\s+(?<endAft>.*)|/to\\s+"
+                    + "(?<endFore>.*?)\\s+/from\\s+(?<startAft>.*))$");
 
     public EventCommand(String s) throws CommandException {
         super(s, pattern);
@@ -21,8 +24,8 @@ public class EventCommand extends Command {
         return String.join(
                 "\n",
                 "Invalid format for command `event`!",
-                "Usage: event <DESCRIPTION> [/from <START_TIME> | /to <END_TIME>] [/to <END_TIME> | /from " +
-                        "<START_TIME>]",
+                "Usage: event <DESCRIPTION> [/from <START_TIME> | /to <END_TIME>] [/to <END_TIME> | /from "
+                        + "<START_TIME>]",
                 "<START_TIME> and <END_TIME> should be of the format YYYY-MM-DDTHH:mm[:ss.sss]"
         );
     }

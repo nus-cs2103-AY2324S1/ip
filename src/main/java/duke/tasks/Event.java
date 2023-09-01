@@ -8,17 +8,24 @@ import java.time.LocalDateTime;
  */
 public class Event extends Task implements Serializable {
     private static final long serialVersionUID = 4L;
-    protected LocalDateTime startDate;
-    protected LocalDateTime endDate;
+    protected LocalDateTime startTime;
+    protected LocalDateTime endTime;
 
-    public Event(String description, LocalDateTime startDate, LocalDateTime endDate) {
+    /**
+     * Constructor for a task a start time and an end time.
+     *
+     * @param description A description for the event.
+     * @param startTime   The start time of the event.
+     * @param endTime     The end time of the event.
+     */
+    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description);
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from %s to %s)", super.toString(), startDate, endDate);
+        return String.format("[E]%s (from %s to %s)", super.toString(), startTime, endTime);
     }
 }

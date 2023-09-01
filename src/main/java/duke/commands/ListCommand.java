@@ -1,10 +1,13 @@
 package duke.commands;
 
-import duke.TaskList;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import duke.TaskList;
+
+/**
+ * A command to list all tasks in the task list.
+ */
 public class ListCommand extends Command {
     @Override
     public CommandResult run(TaskList tasks) {

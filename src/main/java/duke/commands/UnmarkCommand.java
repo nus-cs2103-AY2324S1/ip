@@ -1,10 +1,13 @@
 package duke.commands;
 
+import java.util.regex.Pattern;
+
 import duke.TaskList;
 import duke.tasks.Task;
 
-import java.util.regex.Pattern;
-
+/**
+ * A command to mark a completed task as undone.
+ */
 public class UnmarkCommand extends Command {
     private static final Pattern pattern = Pattern.compile("^unmark\\s+(?<taskNum>.+)$");
 

@@ -1,16 +1,29 @@
 package duke.commands;
 
-import duke.TaskList;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import duke.TaskList;
+
+/**
+ * Represents a command of the program.
+ */
 public abstract class Command {
     protected Matcher matcher;
 
+    /**
+     * Constructor for a command with no arguments.
+     */
     public Command() {
     }
 
+    /**
+     * Constructor for a command with arguments.
+     *
+     * @param s The entire command string, including the verb and arguments.
+     * @param p A regex pattern representing the command format.
+     * @throws CommandException If the command is of an invalid format.
+     */
     public Command(String s, Pattern p) throws CommandException {
         matcher = p.matcher(s);
         if (!matcher.matches()) {
@@ -49,11 +62,12 @@ public abstract class Command {
                 return new UnmarkCommand(s);
             case DELETE:
                 return new DeleteCommand(s);
+            default:
+                return null;
             }
         } catch (IllegalArgumentException e) {
             throw new CommandException("I'm sorry, but I don't know what that means...");
         }
-        return null;
     }
 
     /**
@@ -78,6 +92,9 @@ public abstract class Command {
      */
     public abstract CommandResult run(TaskList tasks) throws CommandException;
 
+    /**
+     * Represents a command verb.
+     */
     public enum Verb {
         BYE, LIST, FIND, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE
     }

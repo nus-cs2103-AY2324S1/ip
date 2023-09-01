@@ -1,7 +1,5 @@
 package duke.storage;
 
-import duke.TaskList;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,6 +8,11 @@ import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import duke.TaskList;
+
+/**
+ * Module for loading tasks from and saving tasks to a file cache.
+ */
 public class Storage {
     private final Path path;
 

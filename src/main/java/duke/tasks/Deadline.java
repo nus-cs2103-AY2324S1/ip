@@ -10,6 +10,12 @@ public class Deadline extends Task implements Serializable {
     private static final long serialVersionUID = 3L;
     protected LocalDateTime by;
 
+    /**
+     * Constructor for creating a task with a deadline.
+     *
+     * @param description A description of the deadline.
+     * @param by          The due date of the deadline.
+     */
     public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;

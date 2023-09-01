@@ -1,13 +1,14 @@
 package duke.commands;
 
-import duke.TaskList;
-import duke.tasks.Todo;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import duke.TaskList;
+import duke.tasks.Todo;
 
 public class MarkCommandTest {
     private static final String invalidFormatMessage = String.join(
@@ -26,7 +27,7 @@ public class MarkCommandTest {
         CommandResult result = command.run(tasks);
 
         assertTrue(todo.isDone());
-        assertEquals(List.of("Nice! I've marked this task as done:", "[T][X] read book"), result.response);
+        assertEquals(List.of("Nice! I've marked this task as done:", "[T][X] read book"), result.getResponse());
     }
 
     @Test

@@ -1,13 +1,14 @@
 package duke.commands;
 
-import duke.TaskList;
-import duke.tasks.Task;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import org.junit.jupiter.api.Test;
+
+import duke.TaskList;
+import duke.tasks.Task;
 
 public class DeadlineCommandTest {
     private static final String invalidFormatMessage = String.join(
@@ -29,7 +30,7 @@ public class DeadlineCommandTest {
                 "Got it. I've added this task:",
                 "[D][ ] assignment (by 2023-09-10T12:00)",
                 "Now you have 1 task in the list."
-        ), result.response);
+        ), result.getResponse());
 
         Task todo = tasks.get(0);
         assertFalse(todo.isDone());

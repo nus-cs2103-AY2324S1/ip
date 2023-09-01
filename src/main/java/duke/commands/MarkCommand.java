@@ -1,10 +1,13 @@
 package duke.commands;
 
+import java.util.regex.Pattern;
+
 import duke.TaskList;
 import duke.tasks.Task;
 
-import java.util.regex.Pattern;
-
+/**
+ * A command to mark an uncompleted task as done.
+ */
 public class MarkCommand extends Command {
     private static final Pattern pattern = Pattern.compile("^mark\\s+(?<taskNum>.+)$");
 

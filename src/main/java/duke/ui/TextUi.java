@@ -3,11 +3,17 @@ package duke.ui;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+/**
+ * Module for outputting to and reading input from the terminal.
+ */
 public class TextUi {
     private static final int INDENT_SIZE = 4;
     private final Scanner in;
     private final PrintStream out;
 
+    /**
+     * Constructor for a terminal UI reading input from stdin and outputting to stdout.
+     */
     public TextUi() {
         this.in = new Scanner(System.in);
         this.out = System.out;

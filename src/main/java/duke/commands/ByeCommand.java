@@ -2,6 +2,9 @@ package duke.commands;
 
 import duke.TaskList;
 
+/**
+ * A command to exit the program.
+ */
 public class ByeCommand extends Command {
     @Override
     public boolean shouldExit() {

@@ -1,12 +1,15 @@
 package duke.commands;
 
-import duke.TaskList;
-import duke.tasks.Deadline;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
+import duke.TaskList;
+import duke.tasks.Deadline;
+
+/**
+ * A command to add a new deadline.
+ */
 public class DeadlineCommand extends Command {
     private static final Pattern pattern = Pattern.compile("^deadline\\s+(?<description>.*?)\\s+/by\\s+(?<by>.*)$");
 
