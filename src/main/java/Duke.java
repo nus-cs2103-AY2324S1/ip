@@ -9,8 +9,8 @@ public class Duke {
 
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
-        List<Task> tasks = Task.loadTasks("src/data/Duke.txt");
-
+        List<Task> tasks = null;
+        tasks = Task.loadTasks("src/data/Duke.txt");
         try {
             while (!str.equals("bye")) {
                 if (!str.equals("list")) {

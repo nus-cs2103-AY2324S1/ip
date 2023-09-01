@@ -59,7 +59,7 @@ abstract class Task implements Serializable {
          }
      }
 
-    static List<Task> loadTasks(String filePath) {
+    static List<Task> loadTasks(String filePath){
         List<Task> tasks = new ArrayList<>();
         @SuppressWarnings("unchecked")
         //Unchecked warnings are yielded due to an unchecked type conversion
@@ -70,10 +70,9 @@ abstract class Task implements Serializable {
         try {
             file = new ObjectInputStream(new FileInputStream(filePath));
             tasks = (List<Task>) file.readObject();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
+        } catch (IOException e) {
         } finally {
             if (file!= null) {
                 try {
