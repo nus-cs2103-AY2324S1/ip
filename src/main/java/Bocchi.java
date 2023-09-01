@@ -9,7 +9,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Bocchi {
-    private static final String LINE_BREAK = "___________________________________________________";
     private final Ui ui;
     private final Parser parser;
 
