@@ -21,7 +21,7 @@ public class Duke {
             Executable executable = parser.parseCommand(input);
             return executable.execute();
         } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
-            return e.toString();
+            return e.getMessage();
         }
     }
 }
