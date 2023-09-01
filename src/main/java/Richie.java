@@ -14,6 +14,12 @@ public class Richie {
 
     private static void loadTasks() {
         try {
+            File textFile = new File(dataFilePathname);
+            if (textFile.createNewFile()) {
+                System.out.println("File created: " + textFile.getName());
+            } else {
+                System.out.println("Data file already exists");
+            }
             BufferedReader bufferedReader = new BufferedReader(new FileReader(dataFilePathname));
             String taskString;
             while ((taskString = bufferedReader.readLine()) != null) {

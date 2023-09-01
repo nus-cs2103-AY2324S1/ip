@@ -1,2 +1,1 @@
-T/1/go home
-T/0/go to school
+T/0/walk dog
