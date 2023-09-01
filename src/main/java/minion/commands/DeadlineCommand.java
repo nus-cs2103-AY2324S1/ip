@@ -1,11 +1,11 @@
 package minion.commands;
 
+import java.io.IOException;
+
+import minion.data.TaskList;
 import minion.data.task.Deadline;
 import minion.storage.Storage;
-import minion.data.TaskList;
 import minion.ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents a deadline command.
@@ -35,7 +35,7 @@ public class DeadlineCommand extends Command {
         ui.print(
                 "Got it. I've added this task:",
                 "\t" + deadline.toString(),
-                "Now you have " + tasks.size() +  " tasks in the list."
+                "Now you have " + tasks.size() + " tasks in the list."
         );
         storage.writeToFile(tasks);
     }

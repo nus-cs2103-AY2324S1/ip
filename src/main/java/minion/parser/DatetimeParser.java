@@ -1,12 +1,12 @@
 package minion.parser;
 
-import minion.common.Messages;
-import minion.data.exception.IllegalValueException;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import minion.common.Messages;
+import minion.data.exception.IllegalValueException;
 
 /**
  * Represents a datetime parser.
@@ -19,7 +19,8 @@ public class DatetimeParser {
      * @throws DateTimeParseException when unable to parse date.
      */
     private static String formatDate(String s) throws DateTimeParseException {
-        return LocalDate.parse(s, DateTimeFormatter.ofPattern("d/M/yyyy")).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return LocalDate.parse(s, DateTimeFormatter.ofPattern("d/M/yyyy"))
+                .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     /**

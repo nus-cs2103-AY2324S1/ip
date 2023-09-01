@@ -1,15 +1,15 @@
 package minion.storage;
 
-import minion.common.Messages;
-import minion.data.TaskList;
-import minion.data.task.Task;
-import minion.parser.FileParser;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+
+import minion.common.Messages;
+import minion.data.TaskList;
+import minion.data.task.Task;
+import minion.parser.FileParser;
 
 /**
  * Represents storage of the chatbot.

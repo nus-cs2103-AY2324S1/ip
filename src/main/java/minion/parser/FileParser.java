@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 import minion.data.task.Deadline;
 import minion.data.task.Event;
 import minion.data.task.Task;
@@ -44,6 +45,9 @@ public class FileParser {
                 String from = tmp[0];
                 String to = tmp[1];
                 tasks.add(new Event(description, isDone, from, to));
+                break;
+
+            default:
                 break;
             }
         }

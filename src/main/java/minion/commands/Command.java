@@ -1,11 +1,11 @@
 package minion.commands;
 
-import minion.data.exception.MinionException;
+import java.io.IOException;
+
 import minion.data.TaskList;
+import minion.data.exception.MinionException;
 import minion.storage.Storage;
 import minion.ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents a command.

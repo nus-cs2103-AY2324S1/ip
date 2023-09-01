@@ -1,11 +1,11 @@
 package minion.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import minion.common.Messages;
 import minion.data.exception.IllegalValueException;
 import minion.data.task.Task;
-import minion.common.Messages;
-
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * Represents the task list of the Minion chatbot.
@@ -42,7 +42,7 @@ public class TaskList {
      * @throws IllegalValueException if task index is out of bounds.
      */
     private void checkIndex(int taskIdx) throws IllegalValueException {
-        if(taskIdx < 0 || taskIdx >= tasks.size()) {
+        if (taskIdx < 0 || taskIdx >= tasks.size()) {
             throw new IllegalValueException(Messages.MESSAGE_INVALID_TASK_INDEX);
         }
     }
@@ -56,7 +56,7 @@ public class TaskList {
     public Task markTask(int taskIdx) throws IllegalValueException {
         checkIndex(taskIdx);
         Task currTask = tasks.get(taskIdx);
-        currTask.markDone();
+        currTask.setDone();
         return currTask;
     }
 
@@ -69,7 +69,7 @@ public class TaskList {
     public Task unmarkTask(int taskIdx) throws IllegalValueException {
         checkIndex(taskIdx);
         Task currTask = tasks.get(taskIdx);
-        currTask.markUndone();
+        currTask.setUndone();
         return currTask;
     }
 
