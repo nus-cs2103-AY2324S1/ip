@@ -5,7 +5,7 @@ public abstract class Task {
     private boolean isDone;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param description Description of the task.
      */
@@ -29,13 +29,17 @@ public abstract class Task {
     }
 
     /**
-     * Unmark this task, mark this task as undone.
+     * Unmarks this task, mark this task as undone.
      */
     public void unmark() {
         this.isDone = false;
 
     }
 
+    /**
+     * Returns the string with saving format of this task.
+     * @return String with savin format of this task.
+     */
     public String saveString() {
         return isDone ? "1/" + description : "0/" + description;
     }

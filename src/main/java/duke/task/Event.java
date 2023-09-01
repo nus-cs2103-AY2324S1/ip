@@ -12,9 +12,9 @@ public class Event extends Task{
     /**
      * This is a constructor.
      *
-     * @param description description of the task.
-     * @param startDate the start time of the in a LocalDate format.
-     * @param endDate the end time of the event in a LocalDate format.
+     * @param description Description of the task.
+     * @param startDate The start time of the in a LocalDate format.
+     * @param endDate The end time of the event in a LocalDate format.
      */
     public Event (String description, LocalDate startDate, LocalDate endDate) {
         super(description);
