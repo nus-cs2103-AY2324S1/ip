@@ -27,7 +27,6 @@ public class Parser {
         }
 
         switch (action) {
-
         case AddCommand.COMMAND_WORD_D:
         case AddCommand.COMMAND_WORD_E:
         case AddCommand.COMMAND_WORD_T:
@@ -76,39 +75,6 @@ public class Parser {
         return new AddCommand(task);
     }
 
-    private static Deadline parseDeadline(String text, boolean marked) throws InvalidDeadlineException {
-        String[] deadline = text.split(" /by ");
-        if (deadline.length != 2) {
-            throw new InvalidDeadlineException();
-        }
-
-        LocalDateTime parsedDateTime = parseDateTime(deadline[1]);
-        if (parsedDateTime == null) {
-            throw new InvalidDeadlineException();
-        }
-
-        return new Deadline(deadline[0], parsedDateTime, marked);
-    }
-
-    private static Event parseEvent(String text, boolean marked) throws InvalidEventException {
-        String[] first = text.split(" /from ");
-        if (first.length != 2) {
-            throw new InvalidEventException();
-        }
-        String[] second = first[1].split(" /to ");
-        if (second.length != 2) {
-            throw new InvalidEventException();
-        }
-        LocalDateTime fromDate = parseDateTime(second[0]);
-        LocalDateTime toDate = parseDateTime(second[1]);
-
-        if (fromDate == null || toDate == null) {
-            throw new InvalidEventException();
-        }
-
-        return new Event(first[0], fromDate, toDate, marked);
-    }
-
     protected static String[] parseText(String text) {
         String[] words = text.trim().split(" ");
         String[] remaining = Arrays.copyOfRange(words, 1, words.length);
@@ -141,5 +107,38 @@ public class Parser {
         }
 
         return parsedDateTime;
+    }
+
+    private static Deadline parseDeadline(String text, boolean marked) throws InvalidDeadlineException {
+        String[] deadline = text.split(" /by ");
+        if (deadline.length != 2) {
+            throw new InvalidDeadlineException();
+        }
+
+        LocalDateTime parsedDateTime = parseDateTime(deadline[1]);
+        if (parsedDateTime == null) {
+            throw new InvalidDeadlineException();
+        }
+
+        return new Deadline(deadline[0], parsedDateTime, marked);
+    }
+
+    private static Event parseEvent(String text, boolean marked) throws InvalidEventException {
+        String[] first = text.split(" /from ");
+        if (first.length != 2) {
+            throw new InvalidEventException();
+        }
+        String[] second = first[1].split(" /to ");
+        if (second.length != 2) {
+            throw new InvalidEventException();
+        }
+        LocalDateTime fromDate = parseDateTime(second[0]);
+        LocalDateTime toDate = parseDateTime(second[1]);
+
+        if (fromDate == null || toDate == null) {
+            throw new InvalidEventException();
+        }
+
+        return new Event(first[0], fromDate, toDate, marked);
     }
 }

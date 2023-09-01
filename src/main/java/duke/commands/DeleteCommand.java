@@ -15,7 +15,7 @@ public class DeleteCommand extends Command {
     }
 
     public void execute(Tasks tasks, Ui ui, Storage storage, boolean isRestoring) throws DukeException {
-        Task task = tasks.getTask(this.target);
+        Task task = tasks.getTaskByIndex(this.target);
         if (task == null) {
             throw new InvalidCommandException();
         }

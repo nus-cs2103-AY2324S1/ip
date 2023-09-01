@@ -3,9 +3,8 @@ package duke.tasks;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Tasks {
-    private List<Task> tasks = new ArrayList<>();
+    private final List<Task> tasks = new ArrayList<>();
 
     public int size() {
         return this.tasks.size();
@@ -23,7 +22,7 @@ public class Tasks {
         this.tasks.add(task);
     }
 
-    public Task getTask(int id) {
+    public Task getTaskByIndex(int id) {
         if (id > this.tasks.size() || id <= 0) {
             return null;
         }

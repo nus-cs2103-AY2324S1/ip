@@ -3,16 +3,16 @@ package duke.tasks;
 import java.time.LocalDateTime;
 
 public class Deadline extends Task {
-    private LocalDateTime by;
+    private final LocalDateTime by;
 
-    public Deadline(String description, LocalDateTime by, boolean marked) {
-        super(description, "deadline", marked);
+    public Deadline(String description, LocalDateTime by, boolean isMarked) {
+        super(description, "deadline", isMarked);
         this.by = by;
     }
 
     @Override
     public String getOriginalMessage() {
-        return "deadline " + this.getDescription() + " /by " + this.stringifyDate(this.by);
+        return String.format("%s %s /by %s", this.type, this.getDescription(), this.stringifyDate(this.by));
     }
 
     @Override

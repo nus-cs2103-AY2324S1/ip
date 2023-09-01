@@ -3,19 +3,25 @@ package duke.tasks;
 import java.time.LocalDateTime;
 
 public class Event extends Task {
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
 
-    public Event(String description, LocalDateTime from, LocalDateTime to, boolean marked) {
-        super(description, "event", marked);
+    public Event(String description, LocalDateTime from, LocalDateTime to, boolean isMarked) {
+        super(description, "event", isMarked);
         this.from = from;
         this.to = to;
     }
 
     @Override
     public String getOriginalMessage() {
-        return "event " + this.getDescription() + " /from " + this.stringifyDate(this.from) + " /to " + this.stringifyDate(this.to);
+        return String.format(
+                "%s %s /from %s /to %s",
+                this.type,
+                this.getDescription(),
+                this.stringifyDate(this.from),
+                this.stringifyDate(this.to)
+        );
     }
 
     @Override

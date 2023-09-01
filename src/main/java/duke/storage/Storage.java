@@ -1,5 +1,6 @@
 package duke.storage;
 
+import duke.tasks.Task;
 import duke.tasks.Tasks;
 import duke.ui.Ui;
 import duke.commands.Command;
@@ -10,12 +11,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.FileWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Storage {
-    private String filepath;
-    private Ui ui = new Ui();
+    private final String filepath;
+    private final Ui ui = new Ui();
 
     public Storage(String filepath) {
         this.filepath = filepath;
@@ -74,7 +76,18 @@ public class Storage {
 
         // Rewrite everything
         for (int i = 0; i < tasks.size(); i++) {
-            tasks.get(i).save(this.filepath);
+            this.saveTask(tasks.get(i));
+        }
+    }
+
+    private void saveTask(Task task) {
+        try {
+            FileWriter myWriter = new FileWriter(this.filepath, true);
+            myWriter.write(String.format("%s%s\n", task.getOriginalMessage(), task.getMarked() ? "1" : "0"));
+            myWriter.close();
+        } catch (IOException ex) {
+            System.out.println("    Error saving to file");
+            System.exit(1);
         }
     }
 }
