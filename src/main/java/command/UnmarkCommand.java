@@ -1,4 +1,6 @@
-package duke;
+package Command;
+
+import duke.*;
 
 import java.util.ArrayList;
 

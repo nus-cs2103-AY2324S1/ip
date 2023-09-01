@@ -1,4 +1,9 @@
-package duke;
+package Command;
+
+import duke.Storage;
+import duke.Task;
+import duke.TaskList;
+import duke.UI;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

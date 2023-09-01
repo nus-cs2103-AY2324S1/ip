@@ -1,4 +1,8 @@
-package duke;
+package Command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.UI;
 
 import java.util.ArrayList;
 
