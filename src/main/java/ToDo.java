@@ -1,6 +1,18 @@
 public class ToDo extends Task{
-    ToDo(String descr) {
+    private final String descr;
+    public ToDo(String descr) {
         super(descr);
+        this.descr = descr;
+    }
+
+    public void checkValidity() throws DukeException {
+        String[] descrArr = descr.split(" "); //you get 0: taskName, 1: start, 2: end
+        if (descrArr.length < 2) {
+            throw new DukeException("You are missing todo details");
+        }
+    }
+    public String writtenFormat() {
+        return "T | " + super.status() + "| " + this.descr;
     }
 
     @Override

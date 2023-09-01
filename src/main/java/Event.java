@@ -6,6 +6,13 @@ public class Event extends Task{
         this.descr = descr;
     }
 
+    public void checkValidity() throws DukeException {
+        String[] descrArr = descr.split("/"); //you get 0: taskName, 1: start, 2: end
+        if (descrArr.length < 3) {
+            throw new DukeException("You are missing event start and/or end details");
+        }
+    }
+
     public String breakdown(String descr) {
         String[] descrArr = descr.split("/"); //you get 0: taskName, 1: start, 2: end
 
@@ -19,7 +26,26 @@ public class Event extends Task{
         String to = parts2[0];
         String restOfTo = end.substring(to.length()).trim();
 
-        return "(from: " + restOfFrom + " to: " + restOfTo + ")";
+        return " (from: " + restOfFrom + " to: " + restOfTo + ")";
+    }
+
+    public String writtenFormat() {
+        String[] descrArr = descr.split("/"); //you get 0: taskName, 1: start, 2: end
+
+        String start = descrArr[1];
+        String[] parts = start.split(" ");
+        String from = parts[0];
+        String restOfFrom = start.substring(from.length()).trim();
+
+        String end = descrArr[2];
+        String[] parts2 = end.split(" ");
+        String to = parts2[0];
+        String restOfTo = end.substring(to.length()).trim();
+
+        String eventType = "event";
+        String eventDescription = descrArr[0].substring(eventType.length()).trim();
+
+        return "E | " + super.status() + "| " + eventDescription + " | " + restOfFrom + "to " + restOfTo;
     }
 
     @Override

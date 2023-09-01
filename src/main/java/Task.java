@@ -7,20 +7,33 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    /* The following are methods to change task status
-     */
-    public void markDone() {
-        isDone = true;
+
+    public void markDone() throws DukeException {
+        if (isDone) {
+            throw new DukeException("This task is already marked done!");
+        } else {
+            isDone = true;
+        }
     }
-    public void markUndone() {
-        isDone = false;
+
+    public void markUndone() throws DukeException {
+        if (!isDone) {
+            throw new DukeException("This task is already marked undone!");
+        } else {
+            isDone = false;
+        }
+    }
+    public String status() {
+        return (isDone ? "1" : "0");
     }
 
     public String marking() {
         return (isDone ? "X" : " ");
     }
     public String toString() {
-        return "[" + marking() + "] " + this.descr; //groups "[ ] task" tgt
+        String keyword = this.descr.split(" ")[0];
+        String taskDescription = this.descr.substring(keyword.length()).trim();
+        return "[" + marking() + "] " + taskDescription;
     }
 
 }
