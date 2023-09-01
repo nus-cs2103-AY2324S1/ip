@@ -11,7 +11,7 @@ public class Parser {
             } else if (input.equalsIgnoreCase("bye")) {
                 return new ExitCommand();
             } else {
-                throw new DukeException("I don't know what that means");
+                throw new DukeException("I'm sorry, I don't know what that means");
             }
         } else {
             String task = input.substring(0, input.indexOf(" "));
