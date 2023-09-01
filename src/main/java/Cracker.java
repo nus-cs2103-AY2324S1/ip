@@ -36,15 +36,17 @@ public class Cracker {
         try{
             File taskFile = Cracker.getfile();
             Scanner setup = new Scanner(taskFile);
-            setup.hasNext();//Why does this work
+            setup.hasNext();
             writer = new FileWriter(taskFile);
             list = new TodoList(writer);
             while(setup.hasNext()){
 
-                String task = setup.next();
+                String task = setup.nextLine();
                 list.load(task);
             }
             setup.close();
+
+
         } catch (Exception e){
             System.out.println("This should not be triggered");
         }

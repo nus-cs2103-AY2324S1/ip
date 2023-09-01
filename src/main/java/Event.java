@@ -1,9 +1,12 @@
 import Exceptions.EmptyDescriptionException;
 import Exceptions.IllegalFormatException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task{
-    private String from;
-    private String to;
+    private LocalDate from;
+    private LocalDate to;
 
     Event(String s) throws EmptyDescriptionException, IllegalFormatException {
 
@@ -20,8 +23,18 @@ public class Event extends Task{
         }
 
         //initialize variables
-        this.from =  s.split("/from")[1].split("/to")[0].trim();
-        this.to = s.split("/to")[1].trim();
+        try{
+            this.from =  LocalDate.parse(s.split("/from")[1].split("/to")[0].trim());
+            this.to = LocalDate.parse(s.split("/to")[1].trim());
+            if(from.isAfter(to)){
+                throw new IllegalFormatException("end time is earlier than start time");
+            }
+        } catch (IllegalFormatException e){
+            throw e;
+        } catch (Exception e){
+            throw new IllegalFormatException("please enter date in yyyy-mm-dd format");
+        }
+
 
         //check if they are empty strings
         if(this.from.equals("")){
@@ -31,13 +44,14 @@ public class Event extends Task{
 
     public Event(String desc, String from, String to) throws EmptyDescriptionException{
         super(desc);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDate.parse(from);
+        this.to = LocalDate.parse(to);
 
     }
-    public String getStart(){ return from;}
-    public String getEnd(){return to;}
+
+    public String getStart(){ return from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));}
+    public String getEnd(){return to.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));}
     public String toString(){
-        return "[E]" + super.toString() + " (from: " + from +" to: "+ to +")";
+        return "[E]" + super.toString() + " (from: " + getStart() +" to: "+ getEnd() +")";
     }
 }

@@ -1,5 +1,7 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class TodoList {
@@ -21,7 +23,6 @@ public class TodoList {
     public void load(String taskString){
         String[] arr = taskString.split("\\|");
 
-
         try{
             Task task = null;
             switch (taskString.charAt(0)){
@@ -42,6 +43,7 @@ public class TodoList {
             }
             store(task);
         } catch (Exception e){
+            System.out.println(e);
             System.out.println("something bad when loading");
         }
 
@@ -63,6 +65,7 @@ public class TodoList {
     public int size(){ return list.size();}
 
     public void saveToFile() throws IOException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         for(int i = 0 ; i < list.size();i++){
             StringBuilder taskString = new StringBuilder();
             Task task = list.get(i);
@@ -73,12 +76,12 @@ public class TodoList {
             taskString.append(task.getDesc());
             taskString.append('|');
             if(task instanceof Event){
-                taskString.append(((Event) task).getStart());
+                taskString.append(LocalDate.parse(((Event) task).getStart(), formatter));
                 taskString.append('|');
-                taskString.append(((Event) task).getEnd());
+                taskString.append(LocalDate.parse(((Event) task).getEnd(), formatter));
                 taskString.append('|');
             } else if (task instanceof Deadline){
-                taskString.append(((Deadline) task).getDeadline());
+                taskString.append(LocalDate.parse(((Deadline) task).getDeadline(), formatter));
                 taskString.append('|');
             }
             writer.write(taskString + System.lineSeparator());
