@@ -1,9 +1,12 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
 
+    static final String FILEPATH = "./data/duke.txt";
+    static Storage storage = new Storage(FILEPATH);
     static boolean allowNext = true;
-    static boolean addStr = true;
+    static boolean willAddStr = true;
     static ArrayList<Task> storedTasks = new ArrayList<>();
 
     public static void handleExit(String s) {
@@ -17,7 +20,7 @@ public class Duke {
 
     public static void handleList(String s) {
         if (s.equals("list")) {
-            addStr = false;
+            willAddStr = false;
             int len = storedTasks.size();
             if (len > 0) {
                 System.out.println("Your added tasks:");
@@ -44,8 +47,10 @@ public class Duke {
             }
 
             if (index > 0 && index < len + 1) {
-                addStr = false;
+                willAddStr = false;
                 storedTasks.get(index - 1).markAsDone();
+                System.out.println("The following task has been marked as done!");
+                System.out.println(storedTasks.get(index - 1));
             } else {
                 throw new InvalidTaskNumberException(indexStr);
             }
@@ -62,8 +67,10 @@ public class Duke {
             }
 
             if (index > 0 && index < len + 1) {
-                addStr = false;
+                willAddStr = false;
                 storedTasks.get(index - 1).markAsUndone();
+                System.out.println("The following task has been marked as undone!");
+                System.out.println(storedTasks.get(index - 1));
             } else {
                 throw new InvalidTaskNumberException(indexStr);
             }
@@ -154,7 +161,7 @@ public class Duke {
             }
 
             if (index > 0 && index < len + 1) {
-                addStr = false;
+                willAddStr = false;
                 System.out.println("Task successfully deleted: " + storedTasks.get(index - 1));
                 deleteTaskSuccess(index);
             } else {
@@ -171,9 +178,12 @@ public class Duke {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String greet = "Hi! I'm Uke\n" + "What can I do for you?\n";
         System.out.println(greet);
+
+        storage.createDataFile();
+        storedTasks = storage.loadTaskList();
 
         Scanner input = new Scanner(System.in);
 
@@ -184,11 +194,13 @@ public class Duke {
                 handleList(str);
                 handleMarking(str);
                 handleDelete(str);
+                storage.update(storedTasks);
 
-                if (allowNext && addStr) {
+                if (allowNext && willAddStr) {
                     handleTaskAdd(str);
-                } else if (!addStr) {
-                    addStr = true;
+                    storage.update(storedTasks);
+                } else if (!willAddStr) {
+                    willAddStr = true;
                 }
             } catch (Exception e) {
                 System.out.println(e);

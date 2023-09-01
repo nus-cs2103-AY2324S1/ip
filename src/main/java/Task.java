@@ -13,19 +13,18 @@ public class Task {
 
     public void markAsDone() {
         this.isDone = true;
-        System.out.println("The task has been marked as done!");
-        System.out.println(this);
     }
 
     public void markAsUndone() {
         this.isDone = false;
-        System.out.println("The task has been marked as undone!");
-        System.out.println(this);
+    }
+
+    public String toSavedString() {
+        return String.format("//%s//%s", this.getStatusIcon(), this.description);
     }
 
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
-
 }

@@ -1,0 +1,94 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Storage {
+
+    private String path;
+
+    public Storage(String path) {
+        this.path = path;
+    }
+
+    public void createDataFile() throws IOException {
+        File dataFile = new File(this.path);
+        File dataDir = new File(dataFile.getParent());
+        dataDir.mkdir();
+
+        try {
+            dataFile.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error: Data Storage");
+        }
+    }
+
+    public String generateTaskListString(ArrayList<Task> stored) {
+        int len = stored.size();
+        String tL = "";
+        if (len > 0) {
+            for (int i = 1; i < len + 1; i++) {
+                tL = tL + stored.get(i - 1).toSavedString() + "\n";
+            }
+        }
+        return tL;
+    }
+
+    public void update(ArrayList<Task> storedTasks) throws IOException {
+        File dataFile = new File(this.path);
+        FileWriter writer = new FileWriter(dataFile);
+
+        String updatedTaskList = generateTaskListString(storedTasks);
+
+        writer.write(updatedTaskList);
+
+        writer.close();
+    }
+
+    public ArrayList<Task> loadTaskList() throws FileNotFoundException {
+        ArrayList<Task> taskList = new ArrayList<>();
+
+        File dataFile = new File(this.path);
+
+        try {
+            Scanner sc = new Scanner(dataFile);
+            while (sc.hasNextLine()) {
+                String taskStr = sc.nextLine();
+                taskList.add(convertStrToTask(taskStr));
+            }
+        } catch (FileNotFoundException e) {
+            return taskList;
+        } catch (InvalidTaskStringException e) {
+            System.out.println(e);
+        }
+
+        return taskList;
+    }
+
+    public Task convertStrToTask(String str) throws InvalidTaskStringException {
+        String[] strArr = str.split("//");
+        Task t;
+        boolean isDone = strArr[1].equals("X");
+
+        switch (str.substring(0, 3)) {
+        case "[T]":
+            t = new Todo(strArr[2]);
+            break;
+        case "[D]":
+            t = new Deadline(strArr[2], strArr[3]);
+            break;
+        case "[E]":
+            t = new Event(strArr[2], strArr[3], strArr[4]);
+            break;
+        default:
+            throw new InvalidTaskStringException();
+        }
+
+        if (isDone) {
+            t.markAsDone();
+        }
+        return t;
+    }
+}
