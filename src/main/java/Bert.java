@@ -1,17 +1,17 @@
 import java.util.Scanner;
+import java.util.List;
 import java.util.ArrayList;
+import java.lang.StringBuilder;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * A chatbot named Bert that keeps track of a task list.
  */
 public class Bert {
-    /**
-     * botName stores the name of the chatbot.
-     */
-    private static final String botName = "Bert";
-    /**
-     * al stores the list of tasks.
-     */
+    private static final String BOT_NAME = "Bert";
+    private static final String FILE_PATH = "./data/bert.txt";
     private static ArrayList<Task> al = new ArrayList<>();
 
     /**
@@ -20,7 +20,7 @@ public class Bert {
     private static void introduce() {
         System.out.println(
                 "____________________________________________________________\n" +
-                "Hello! I'm " + Bert.botName + "\n" +
+                "Hello! I'm " + Bert.BOT_NAME + "\n" +
                 "What can I do for you?\n" +
                 "____________________________________________________________\n"
         );
@@ -168,6 +168,77 @@ public class Bert {
         );
     }
 
+    /**
+     * Saves the task list into ip/data/bert.txt.
+     */
+    private static void saveTasks() {
+        try {
+            ensureTaskFileExists();
+        } catch (IOException e) {
+            System.out.println(
+                    "____________________________________________________________\n" +
+                    "OOPS!!! An error occurred while creating the task file.\n" +
+                    "____________________________________________________________\n"
+            );
+            return;
+        }
+
+        try {
+            Bert.writeToFile(FILE_PATH, Bert.taskListToSaveFormat());
+        } catch (IOException e) {
+            System.out.println(
+                    "____________________________________________________________\n" +
+                    "OOPS!!! An error occurred while saving tasks.\n" +
+                    "____________________________________________________________\n"
+            );
+        }
+    }
+
+    /**
+     * Checks if ip/data/bert.txt exists.
+     * If the directory or the file does not exist,
+     * creates the directory and the file.
+     *
+     * @throws IOException This exception is thrown when an error occurs while creating
+     *          the file.
+     */
+    private static void ensureTaskFileExists() throws IOException {
+        File file = new File(FILE_PATH);
+        if (!file.getParentFile().isDirectory()) {
+            file.getParentFile().mkdir();
+        }
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+    }
+
+    /**
+     * Converts the task list into its save format.
+     *
+     * @return The String representation of the formatted task list
+     */
+    private static String taskListToSaveFormat() {
+        StringBuilder sb = new StringBuilder();
+        for (Task t : al) {
+            sb.append(t.toSaveFormat() + System.lineSeparator());
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Writes the textToAdd input into a file specified by filePath.
+     *
+     * @param filePath The path to the file to be written
+     * @param textToAdd The String of text to be written in the file
+     * @throws IOException This exception is thrown when an error occurs while opening
+     *          the file.
+     */
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
     public static void main(String[] args) {
         Bert.introduce();
 
@@ -248,6 +319,7 @@ public class Bert {
         }
 
         sc.close();
+        Bert.saveTasks();
         Bert.exit();
     }
 }

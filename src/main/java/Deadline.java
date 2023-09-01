@@ -16,6 +16,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String toSaveFormat() {
+        return "D | " + super.toSaveFormat() + " | " + this.deadline;
+    }
+
+    @Override
     public String toString() {
         return "[D][" + this.getStatusIcon() + "] " + this.description +
                 " (by: " + this.deadline + ")";
