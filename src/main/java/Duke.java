@@ -1,10 +1,13 @@
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.*;
 import java.nio.channels.FileChannel;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.io.IOException;
+import java.time.*;
+import java.time.format.*;
 
 public class Duke {
     private static StringBuilder tempData = new StringBuilder();
@@ -73,19 +76,14 @@ public class Duke {
         int index = 1;
         System.out.println("____________________________________________________________");
         for (Task thing: list) {
-
             System.out.println(index +". " + thing.toString());
-
             index++;
         }
         System.out.println("____________________________________________________________");
     }
 
     private static void loadFileStringContents(String filePath) throws FileNotFoundException{
-
-
             File f = new File(filePath);
-
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String line = s.nextLine();
@@ -93,38 +91,57 @@ public class Duke {
             }
             s.close();
 
-
-            System.out.println("File not found: " + filePath);
             // Handle the exception here, such as creating the file if needed
-
-
     }
 
     private static void StringToArray(String str) { // might need to add corrupted file exception
         String arr[] = str.split(" ", 2);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
         if (arr[0].equals("event")) {
-            String firstFrom = arr[1].substring(arr[1].indexOf("/from") + 6);
+            String firstFrom = arr[1].substring(arr[1].indexOf("/from") + 6); //
             String secondFrom = firstFrom.substring(0, firstFrom.indexOf("/to"));
             String firstTo = arr[1].substring(arr[1].indexOf("/to")+ 4);
-            String secondTo = firstTo.substring(0, firstTo.indexOf("/"));
+            String secondTo = firstTo.substring(0, firstTo.indexOf("|"));
             String content = arr[1].substring(0, arr[1].indexOf("/from "));
-            String done = firstTo.substring(firstTo.indexOf("/" ));
+            String done = firstTo.substring(firstTo.indexOf("|") + 1);
+            String fromDate = secondFrom.substring(0, secondFrom.indexOf("/"));
+            String firstFromMonth = secondFrom.substring(secondFrom.indexOf("/") + 1);
+            String fromMonth = firstFromMonth.substring(0, firstFromMonth.indexOf("/"));
+            String fromYear = firstFromMonth.substring(firstFromMonth.indexOf("/") + 1);
+
+            String toDate = secondTo.substring(0, secondTo.indexOf("/"));
+            String firstToMonth = secondTo.substring(secondTo.indexOf("/") + 1);
+            String toMonth = firstToMonth.substring(0, firstToMonth.indexOf("/"));
+            String toYear = firstToMonth.substring(firstToMonth.indexOf("/") + 1);
+            toYear = toYear.substring(0, toYear.indexOf(" "));
+            fromYear = fromYear.substring(0, fromYear.indexOf(" "));
+            LocalDate to = LocalDate.of(Integer.parseInt(toYear), Integer.parseInt(toMonth), Integer.parseInt(toDate));
+            LocalDate from = LocalDate.of(Integer.parseInt(fromYear), Integer.parseInt(fromMonth), Integer.parseInt(fromDate));
+            String formattedTo = to.format(formatter);
+            String formattedFrom = from.format(formatter);
 
             if (done == "1") {
-                Event event = new Event(content, secondFrom, secondTo);
+                Event event = new Event(content, formattedFrom, formattedTo);
                 event.finish();
                 list.add(event);
             } else if (done == "0"){
-                Event event = new Event(content, secondFrom, secondTo);
+                Event event = new Event(content, formattedFrom, formattedTo);
                 list.add(event);
             }
         }
         else if (arr[0].equals("deadline")) {
             String firstBy = arr[1].substring(arr[1].indexOf("/by") + 4);
-            String secondBy = firstBy.substring(0, firstBy.indexOf("/"));
+            String secondBy = firstBy.substring(0, firstBy.indexOf("|"));
+            String done = firstBy.substring(firstBy.indexOf("|") + 1);
+            String byDate = secondBy.substring(0, secondBy.indexOf("/"));
+            String firstByMonth = secondBy.substring(secondBy.indexOf("/") + 1);
+            String byMonth = firstByMonth.substring(0, firstByMonth.indexOf("/"));
+            String byYear = firstByMonth.substring(firstByMonth.indexOf("/") + 1);
+            byYear = byYear.substring(0, byYear.indexOf(" "));
+            LocalDate by = LocalDate.of(Integer.parseInt(byYear), Integer.parseInt(byMonth), Integer.parseInt(byDate));
+            String formattedTo = by.format(formatter);
 
-            String done = firstBy.substring(firstBy.indexOf("/"));
-            Deadline deadline = new Deadline(arr[1].substring(0, arr[1].indexOf("/by ")), secondBy);
+            Deadline deadline = new Deadline(arr[1].substring(0, arr[1].indexOf("/by ")), formattedTo);
 
 
             if (done == "1") {
@@ -137,9 +154,8 @@ public class Duke {
         else if (arr[0].equals("todo")){
             try {
                 String firstTodo = arr[1];
-                String secondToDo = firstTodo.substring(0, firstTodo.indexOf("/"));
-
-                String done = firstTodo.substring(firstTodo.indexOf("/") + 1);
+                String secondToDo = firstTodo.substring(0, firstTodo.indexOf("|"));
+                String done = firstTodo.substring(firstTodo.indexOf("|") + 1);
                 Todo todo = new Todo(secondToDo);
                 if (done == "1") {
                     todo.finish();
