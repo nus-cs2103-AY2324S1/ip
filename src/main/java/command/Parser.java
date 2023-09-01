@@ -5,8 +5,10 @@ import services.bizerrors.InvalidArgumentException;
 import services.bizerrors.InvalidCommandException;
 import services.bizerrors.JarvisException;
 import services.tasklist.ITaskList;
-import services.tasklist.TaskList;
 
+/**
+ * Represents a parser that parses the user input and executes the corresponding command.
+ */
 public class Parser {
 
     protected ITaskList taskList;
@@ -15,13 +17,28 @@ public class Parser {
         this.taskList = taskList;
     }
 
+    /**
+     * Parses the user input and executes the corresponding command.
+     *
+     * @param userInput the user input with the command and arguments.
+     * @throws JarvisException if the command is invalid or the arguments are invalid/empty or
+     *                         there are exceptions during execution.
+     */
     public void parseAndExecute(String userInput) throws JarvisException {
         String command = userInput.split(" ")[0];
         String arguments = userInput.replaceFirst(command, "").strip();
         execute(command, arguments);
     }
 
-    // a helper method for the above resolve method.
+    /**
+     * Executes the command with the given arguments.
+     * This is a helper method for parseAndExecute.
+     *
+     * @param command the command to be executed.
+     * @param args    the argument list for the command.
+     * @throws JarvisException if the command is invalid or the arguments are invalid/empty or
+     *                         there are exceptions during execution.
+     */
     protected void execute(String command, String args) throws JarvisException {
         try {
             CommandType commandType = CommandType.valueOf(command.toUpperCase());

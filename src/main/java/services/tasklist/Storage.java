@@ -1,5 +1,6 @@
 package services.tasklist;
 
+import services.bizerrors.CreateNewFileException;
 import services.bizerrors.InvalidArgumentException;
 import services.bizerrors.ReadFromFileException;
 import services.bizerrors.SaveToFileException;
@@ -16,19 +17,27 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Storage implements IStorage {
+    /** The file that stores the list of tasks. */
     private File dataFile;
 
-    public Storage(String dataFilePath) throws SaveToFileException {
+    /**
+     * Creates a new Storage object with the data file at the given path.
+     * If the file does not exist, a new file is created.
+     *
+     * @param dataFilePath the path of the file that stores the task list.
+     * @throws CreateNewFileException if there is an error creating a new file.
+     */
+    public Storage(String dataFilePath) throws CreateNewFileException {
         try {
             File file = new File(dataFilePath);
             File parentDir = file.getParentFile();
-            if (!parentDir.exists()) {
-                parentDir.mkdirs();
+            if (!parentDir.exists() && !parentDir.mkdirs()) {
+                throw new CreateNewFileException();
             }
             file.createNewFile();
             dataFile = file;
         } catch (IOException e) {
-            throw new SaveToFileException();
+            throw new CreateNewFileException();
         }
     }
 
