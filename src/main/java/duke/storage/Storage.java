@@ -29,7 +29,7 @@ public class Storage {
             File dataFile = new File("./data/data.txt");
 
             if (!dataFile.exists()) {
-                dataFolder.createNewFile();
+                dataFile.createNewFile();
             }
         } catch (IOException error) {
             Ui.printLines("Something went wrong when loading tasks :(");
