@@ -61,4 +61,13 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    public void printFoundTasks(TaskList findTasks) {
+        System.out.println(LINE);
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < findTasks.getTaskCount(); i++) {
+            System.out.println((i + 1) + ". " + findTasks.getTask(i));
+        }
+        System.out.println(LINE);
+    }
+
 }
