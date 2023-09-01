@@ -2,43 +2,90 @@ package duke;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList implements Iterable<Task> {
     private ArrayList<Task> tasks;
 
+    /**
+     * Initializes an empty task list.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
-    // Constructor to load existing tasks
+    /**
+     * Initializes the task list with the given tasks.
+     *
+     * @param tasks The initial list of tasks.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Adds a task to the list.
+     *
+     * @param task The task to be added.
+     */
     public void add(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Retrieves a task from the list.
+     *
+     * @param index The index of the task to be retrieved.
+     * @return The task at the specified index.
+     */
     public Task get(int index) {
         return tasks.get(index);
     }
 
+    /**
+     * Deletes a task from the list.
+     *
+     * @param index The index of the task to be deleted.
+     */
     public void delete(int index) {
         tasks.remove(index);
     }
 
+    /**
+     * Retrieves the number of tasks in the list.
+     *
+     * @return The number of tasks in the list.
+     */
     public int size() {
         return tasks.size();
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param index The index of the task to be marked as done.
+     */
     public void markAsDone(int index) {
         tasks.get(index).markAsDone();
     }
 
+    /**
+     * Unmarks a task as done.
+     *
+     * @param index The index of the task to be unmarked.
+     */
     public void unmarkAsDone(int index) {
         tasks.get(index).unmarkAsDone();
     }
 
-    // Additional methods for any other operations you want on your task list can be added here
+    /**
+     * Processes a task based on user input.
+     *
+     * @param userInput The user's input.
+     * @param tasks The list of tasks.
+     * @param mark Whether to mark the task as done.
+     */
     public static void processTask(String userInput, ArrayList<Task> tasks, boolean mark) {
         int taskNumber;
         try {
@@ -66,6 +113,11 @@ public class TaskList implements Iterable<Task> {
         }
     }
 
+    /**
+     * Returns an iterator over the elements in the task list.
+     *
+     * @return An iterator over the tasks.
+     */
     @Override
     public Iterator<Task> iterator() {
         return tasks.iterator();

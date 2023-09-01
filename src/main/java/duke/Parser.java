@@ -2,9 +2,20 @@ package duke;
 
 import duke.command.*;
 
+/**
+ * Provides utilities for parsing user inputs into commands for the Duke application.
+ */
 public class Parser {
 
     // Interpret the user command and return a duke.commands.Command object or equivalent representation
+    /**
+     * Parses the given user input string into a Command object.
+     * This method recognizes various command keywords and constructs the appropriate command object.
+     *
+     * @param userInput The raw input string from the user.
+     * @return The appropriate Command object based on the user input.
+     * @throws DukeException If the user input is not recognized or improperly formatted.
+     */
     public static Command parse(String userInput) throws DukeException {
         if ("bye".equalsIgnoreCase(userInput)) {
             return new ByeCommand();
