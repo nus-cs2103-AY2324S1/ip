@@ -9,7 +9,7 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
         // Task number does not exist.
         try {
-            if (this.index <= 0 || this.index >= taskList.size()) {
+            if (this.index < 0 || this.index >= taskList.size()) {
                 throw new WrongNumberException("!!! Wrong Task Number Error !!!\n");
             }
             Task taskToUnmark = taskList.getTask(index);

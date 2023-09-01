@@ -7,7 +7,7 @@ public class BlipParser {
         String[] components = input.split("\\s+", 2);
         // Missing Delete Index.
         if (components.length < 2 || components[1].equals("")) {
-            throw new EmptyTaskNumberException("!!! Missing Task Number error !!!");
+            throw new EmptyTaskNumberException("!!! Missing Task Number !!!");
         }
         int taskNum = Integer.parseInt(components[1]) - 1;
         return taskNum;
@@ -26,30 +26,35 @@ public class BlipParser {
             String[] test = input.split("\\s+", 2);
             // Missing Deadline Description.
             if (test.length < 2 || test[1].equals("")) {
-                throw new EmptyDescriptionException("!!! Missing DEADLINE Description !!!\n");
+                throw new EmptyDescriptionException("!!! Missing DEADLINE Description !!!");
             }
             String[] components = test[1].split("\\s*/by\\s*");
+            if (components.length < 2 || components[1].equals("")) {
+                throw new EmptyDescriptionException("!!! Missing DEADLINE Date Time !!!");
+            }
             String description = components[0];
             String deadlineDateTime = components[1];
             return new String[] {description, deadlineDateTime};
 
     }
 
-    public static String[] parseEventInfo (String input) throws EmptyDescriptionException, InvalidCommandException {
+    public static String[] parseEventInfo (String input) throws EmptyDescriptionException {
         String[] test = input.split("\\s+", 2);
         // Missing Deadline Description.
         if (test.length < 2 || test[1].equals("")) {
-            throw new EmptyDescriptionException("!!! Missing DEADLINE Description !!!\n");
+            throw new EmptyDescriptionException("!!! Missing EVENT Description !!!");
         }
         String[] components = test[1].split(" /from | /to ");
-        if (components.length < 3) {
-            throw new InvalidCommandException("!!! Your command is incomplete !!!");
+        if (components.length < 3 || components[1].equals("") || components[2].equals("")) {
+            throw new EmptyDescriptionException("!!! Missing EVENT Start/End Date Time !!!");
         }
         String description = components[0];
         String eventStart = components[1];
         String eventEnd = components[2];
         return new String[] {description, eventStart, eventEnd};
     }
+
+
 
     public Command parse(String input) {
         try {
@@ -81,11 +86,8 @@ public class BlipParser {
                     int indexToUnmark = parseToGetIndex(input);
                     return new UnmarkCommand(indexToUnmark);
                 default:
-                    throw new InvalidCommandException("!!!!   Your command is invalid   !!!!");
+                    return new InvalidCommand(input);
             }
-        } catch (InvalidCommandException e1) {
-            System.out.println(e1.getMessage());
-            ui.showInvalidCmdErr();
         } catch (EmptyTaskNumberException e2) {
             System.out.println(e2.getMessage());
             ui.showEmptyTaskNumErr();
@@ -96,5 +98,6 @@ public class BlipParser {
             System.out.println(e4.getMessage());
             ui.showDateTimeFormatErr();
         }
+        return new InvalidCommand(input);
     }
 }

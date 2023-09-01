@@ -30,13 +30,16 @@ public class BlipUI {
 
     public void showEmptyDescErr() {
         System.out.println("Oh no! The task description cannot be empty.");
-        System.out.println("Please key in the task description, with timings where applicable.");
+        System.out.println("Please key in the task description, with date time where applicable.");
+        System.out.println("1. deadline [task description] /by [yyyy-MM-dd HH:mm]");
+        System.out.println("2. event [task description] /from [yyyy-MM-dd HH:mm] /to [yyyy-MM-dd HH:mm]");
+        System.out.println("3. todo [task description].");
     }
 
     public void showInvalidCmdErr() {
         System.out.println("Oh no! I don't understand what you mean. Please key in either");
-        System.out.println("1. deadline [task description] /by [deadline datetime]");
-        System.out.println("2. event [task description] /from [start datetime] /to [end datetime]");
+        System.out.println("1. deadline [task description] /by [yyyy-MM-dd HH:mm]");
+        System.out.println("2. event [task description] /from [yyyy-MM-dd HH:mm] /to [yyyy-MM-dd HH:mm]");
         System.out.println("3. todo [task description].");
     }
 
@@ -49,7 +52,7 @@ public class BlipUI {
     }
 
     public void showDateTimeFormatErr() {
-        System.out.println("Please format your date time to be yyyy-mm-dd HH:mm HEREE");
+        System.out.println("Please format your date time to be yyyy-mm-dd HH:mm");
     }
 
     public static void listsTasksMsg(TaskList tasks) {
@@ -81,4 +84,7 @@ public class BlipUI {
         System.out.println(task.toString());
     }
 
+    public void showBlipErr() {
+        System.out.println("Some error occurred!");
+    }
 }

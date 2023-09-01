@@ -24,7 +24,7 @@ public class DateConverter {
                     Integer.parseInt(timeParts[1]));
             return localDateTime;
         }
-        throw new DateTimeFormatException("Please format your date time to be yyyy-mm-dd HH:mm");
+        throw new DateTimeFormatException("Error with date time format: ");
     }
 
 }
