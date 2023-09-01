@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -69,6 +71,8 @@ public class Storage {
 
     public Task convertStrToTask(String str) throws InvalidTaskStringException {
         String[] strArr = str.split("//");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
+
         Task t;
         boolean isDone = strArr[1].equals("X");
 
@@ -77,10 +81,11 @@ public class Storage {
             t = new Todo(strArr[2]);
             break;
         case "[D]":
-            t = new Deadline(strArr[2], strArr[3]);
+            t = new Deadline(strArr[2], LocalDateTime.parse(strArr[3], dateTimeFormatter));
             break;
         case "[E]":
-            t = new Event(strArr[2], strArr[3], strArr[4]);
+            t = new Event(strArr[2], LocalDateTime.parse(strArr[3], dateTimeFormatter),
+                    LocalDateTime.parse(strArr[4], dateTimeFormatter));
             break;
         default:
             throw new InvalidTaskStringException();
