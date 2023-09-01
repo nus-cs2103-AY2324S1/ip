@@ -1,7 +1,12 @@
+package duke;
+
+import duke.exception.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class Command {
     private final Storage storage;
@@ -37,7 +42,7 @@ public class Command {
         try {
             Deadline task = Parser.parseDeadline(input);
 
-            // Add new Deadline into task list
+            // Add new Duke.Deadline into task list
             this.taskList.addTask(task);
 
             // Save new task into backend
@@ -62,7 +67,7 @@ public class Command {
         try {
             Event task = Parser.parseEvent(input);
 
-            // Add new Event into task list
+            // Add new Duke.Event into task list
             this.taskList.addTask(task);
 
             // Save new task into backend

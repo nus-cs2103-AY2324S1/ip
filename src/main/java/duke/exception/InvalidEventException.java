@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class InvalidEventException extends DukeException {
     public InvalidEventException() {
         super("Oh no! It seems like you have indicated an invalid event :/ \n"

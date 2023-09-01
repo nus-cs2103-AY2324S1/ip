@@ -1,3 +1,13 @@
+package duke;
+
+import duke.exception.EmptyTaskException;
+import duke.exception.InvalidDeadlineException;
+import duke.exception.InvalidEventException;
+import duke.exception.MissingTimeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDo;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -43,7 +53,7 @@ public class Parser {
         LocalTime time = LocalTime.of(hour, minute);
         LocalDateTime deadline = LocalDateTime.of(date, time);
 
-        // create new Deadline task from variables
+        // create new Duke.Deadline task from variables
         return new Deadline(false, name, deadline);
     }
 
@@ -93,7 +103,7 @@ public class Parser {
         LocalTime endTime = LocalTime.of(endHour, endMinute);
         LocalDateTime end = LocalDateTime.of(endDate, endTime);
 
-        // create new Event task from variables
+        // create new Duke.Event task from variables
         return new Event(false, name, start, end);
     }
 

@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class InvalidDeadlineException extends DukeException {
     public InvalidDeadlineException() {
         super("Oh no! It seems like you have indicated an invalid deadline :/ \n"

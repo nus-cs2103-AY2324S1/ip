@@ -1,3 +1,8 @@
+package duke;
+
+import duke.exception.EmptyCommandException;
+import duke.exception.InvalidCommandException;
+
 public class Duke {
     private Storage storage;
     private TaskList list;
@@ -8,7 +13,7 @@ public class Duke {
         this.storage = new Storage();
         this.list = new TaskList();
 
-        // Load list of tasks stored in text file "task.txt" into the local TaskList
+        // Load list of tasks stored in text file "task.txt" into the local Duke.TaskList
         storage.handleLoad(list);
 
         // Start Scanner to read user inputs

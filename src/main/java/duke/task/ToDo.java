@@ -1,3 +1,5 @@
+package duke.task;
+
 public class ToDo extends Task {
     public ToDo(boolean isDone, String taskName) {
         super(isDone, taskName);
