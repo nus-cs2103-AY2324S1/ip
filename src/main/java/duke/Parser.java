@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ public class Parser {
     private final TaskList tasks;
 
     public enum Command {
-        TASK, TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, COMMANDS, BYE
+        TASK, TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, COMMANDS, BYE, FIND
     }
     Parser(Duke duke, duke.TaskList tasks, duke.Ui ui) { // Can only be instantiated with a Duke object
         this.duke = duke;
@@ -64,6 +65,9 @@ public class Parser {
                 break;
             case BYE:
                 duke.isRunning = false;
+                break;
+            case FIND:
+                duke.findTask();
                 break;
             default:
                 // Shouldn't reach here
@@ -150,6 +154,25 @@ public class Parser {
             return false;
         }
         return true;
+    }
+
+    public ArrayList<Task> getMatchingTasks() {
+        Scanner sc = new Scanner(System.in);
+        System.out.printf("Please input search keyword.%n");
+        String keyword = sc.nextLine();
+        if (keyword.isBlank()) {
+            return null;
+        } else {
+            ArrayList<Task> matchingTasks = new ArrayList<>();
+            for (int i = 0; i < tasks.getNumOfTasks(); i++) {
+                Task t = tasks.get(i);
+                String details = t.getDetails();
+                if (details.contains(keyword)) {
+                    matchingTasks.add(t);
+                }
+            }
+            return matchingTasks;
+        }
     }
 
     public Integer launchConfirmationScreen(String message) {

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -202,6 +203,31 @@ public class Duke {
                         "You now have %d tasks.%n", taskNumber, tasks.getNumOfTasks());
             }
             ui.printEndOfOperation();
+        }
+    }
+
+    public void findTask() {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks to find.");
+            System.out.println("Please create a task first.");
+            ui.incrementInvalidInputs();
+            ui.printHorizontalLine();
+        } else {
+            ArrayList<Task> matchingTasks = parser.getMatchingTasks();
+            if (matchingTasks == null) {
+                System.out.printf("Keyword cannot be empty. Please try again.%n");
+                ui.printHorizontalLine();
+            } else if (matchingTasks.isEmpty()) {
+                System.out.printf("No tasks with your keyword. Please try again.%n");
+                ui.printHorizontalLine();
+            } else {
+                System.out.printf("Here are the matching tasks in your list:%n");
+                for (int i = 0; i < matchingTasks.size(); i++) {
+                    System.out.printf("%d. " + matchingTasks.get(i).toString()
+                            + "%n", i + 1);
+                }
+                ui.printEndOfOperation();
+            }
         }
     }
 

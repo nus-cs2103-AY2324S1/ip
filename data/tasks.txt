@@ -1,0 +1,5 @@
+Task/eat breakfast/N
+Task/eat lunch/N
+Task/eat dinner/N
+Task/Eat supper/N
+Deadline/eat my words/N/2023-09-01T23:59
