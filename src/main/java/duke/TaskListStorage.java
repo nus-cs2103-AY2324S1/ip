@@ -1,28 +1,30 @@
+package duke;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import exceptions.InvalidParametersException;
-import exceptions.MissingDescriptionException;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import duke.exceptions.MissingDescriptionException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+import duke.exceptions.IncorrectCommandFormatException;
 
 /**
- * The TaskStorage class stores an arraylist of tasks.
+ * The TaskListStorage class stores an arraylist of tasks.
  * It contains functionality to manipulate this list (ie, marking, unmarking,
  * adding, deleting tasks)
  * It also handles saving/loading the list of tasks to/from a file.
- *
+ * 
+ * Notes: Combining Task and Storage is a solution adopted from the discussion here https://github.com/nus-cs2103-AY2324S1/forum/issues/30
  */
-public class TaskStorage {
+public class TaskListStorage {
     private final ArrayList<Task> taskList = new ArrayList<>();
     private static final String TASK_FILEPATH = "." + File.separator + "data" + File.separator + "tasks.txt";
     private final File file;
 
-    public TaskStorage() {
+    public TaskListStorage() {
         this.file = new File(TASK_FILEPATH);
         
         if (!this.file.exists()) {
@@ -38,12 +40,12 @@ public class TaskStorage {
 
         try {
             this.loadFromFile();
-        } catch (FileNotFoundException | InvalidParametersException | MissingDescriptionException e) {
+        } catch (FileNotFoundException | IncorrectCommandFormatException | MissingDescriptionException e) {
             Messages.printInLine(e.getMessage());
         }
     }
 
-    private void loadFromFile() throws FileNotFoundException, InvalidParametersException, MissingDescriptionException {
+    private void loadFromFile() throws FileNotFoundException, IncorrectCommandFormatException, MissingDescriptionException {
         Scanner sc = new Scanner(this.file);
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
@@ -124,33 +126,33 @@ public class TaskStorage {
         Messages.printInLine(outputString);
     }
 
-    public void addTodo(String input) throws MissingDescriptionException {
-        taskList.add(new Todo(Commands.extractTaskDescription(input)));
-        writeTaskListToFile(taskList, TASK_FILEPATH);
-        String outputString = "Got it. I've added this task:\n" + Messages.TAB + taskList.get(taskList.size() - 1)
-                + "\nNow you have " + taskList.size() + " tasks in the list.";
-        Messages.printInLine(outputString);
-    }
+    // public void addTodo(String input) throws MissingDescriptionException {
+    //     taskList.add(new Todo(Commands.extractTaskDescription(input)));
+    //     writeTaskListToFile(taskList, TASK_FILEPATH);
+    //     String outputString = "Got it. I've added this task:\n" + Messages.TAB + taskList.get(taskList.size() - 1)
+    //             + "\nNow you have " + taskList.size() + " tasks in the list.";
+    //     Messages.printInLine(outputString);
+    // }
 
-    public void addDeadline(String input) throws MissingDescriptionException, InvalidParametersException {
-        Deadline deadline = new Deadline(Commands.extractTaskDescription(input),
-                Commands.extractDeadline(input));
-        taskList.add(deadline);
-        writeTaskListToFile(taskList, TASK_FILEPATH);
-        String outputString = "Got it. I've added this task:\n" + Messages.TAB + taskList.get(taskList.size() - 1)
-                + "\nNow you have " + taskList.size() + " tasks in the list.";
-        Messages.printInLine(outputString);
-    }
+    // public void addDeadline(String input) throws MissingDescriptionException, IncorrectCommandFormatException {
+    //     Deadline deadline = new Deadline(Commands.extractTaskDescription(input),
+    //             Commands.extractDeadline(input));
+    //     taskList.add(deadline);
+    //     writeTaskListToFile(taskList, TASK_FILEPATH);
+    //     String outputString = "Got it. I've added this task:\n" + Messages.TAB + taskList.get(taskList.size() - 1)
+    //             + "\nNow you have " + taskList.size() + " tasks in the list.";
+    //     Messages.printInLine(outputString);
+    // }
 
-    public void addEvent(String input) throws MissingDescriptionException, InvalidParametersException {
-        Event event = new Event(Commands.extractTaskDescription(input),
-                Commands.extractEventFrom(input), Commands.extractEventTo(input));
-        taskList.add(event);
-        writeTaskListToFile(taskList, TASK_FILEPATH);
-        String outputString = "Got it. I've added this task:\n" + Messages.TAB + taskList.get(taskList.size() - 1)
-                + "\nNow you have " + taskList.size() + " tasks in the list.";
-        Messages.printInLine(outputString);
-    }
+    // public void addEvent(String input) throws MissingDescriptionException, IncorrectCommandFormatException {
+    //     Event event = new Event(Commands.extractTaskDescription(input),
+    //             Commands.extractEventFrom(input), Commands.extractEventTo(input));
+    //     taskList.add(event);
+    //     writeTaskListToFile(taskList, TASK_FILEPATH);
+    //     String outputString = "Got it. I've added this task:\n" + Messages.TAB + taskList.get(taskList.size() - 1)
+    //             + "\nNow you have " + taskList.size() + " tasks in the list.";
+    //     Messages.printInLine(outputString);
+    // }
 
     public void deleteTask(String input) {
         int index = Integer.parseInt(input.split(" ")[1]) - 1;

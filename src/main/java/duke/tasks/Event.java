@@ -1,4 +1,4 @@
-package tasks;
+package duke.tasks;
 
 /**
  * Adapted from Partial Solution given in https://nus-cs2103-ay2324s1.github.io/website/schedule/week2/project.html under Level-4

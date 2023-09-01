@@ -1,12 +1,15 @@
+
 import java.util.Scanner;
 
-import exceptions.InvalidParametersException;
-import exceptions.MissingDescriptionException;
-import exceptions.UnknownCommandException;
+import duke.Messages;
+import duke.TaskListStorage;
+import duke.exceptions.MissingDescriptionException;
+import duke.exceptions.UnknownCommandException;
+import duke.exceptions.IncorrectCommandFormatException;
 
 public class Duke {
     public static void main(String[] args) {
-        TaskStorage taskStorage = new TaskStorage();
+        TaskListStorage tasklistStorage = new TaskListStorage();
 
         Messages.opener();
         Scanner sc = new Scanner(System.in);
@@ -16,29 +19,29 @@ public class Duke {
                 Commands command = Commands.parseCommand(input);
                 switch (command) {
                 case LIST:
-                    taskStorage.printList();
+                    tasklistStorage.printList();
                     break;
                 case MARK:
-                    taskStorage.markAsDone(input);
+                    tasklistStorage.markAsDone(input);
                     break;
                 case UNMARK:
-                    taskStorage.markAsUndone(input);
+                    tasklistStorage.markAsUndone(input);
                     break;
                 case TODO:
-                    taskStorage.addTodo(input);
+                    tasklistStorage.addTodo(input);
                     break;
                 case DEADLINE:
-                    taskStorage.addDeadline(input);
+                    tasklistStorage.addDeadline(input);
                     break;
                 case EVENT:
-                    taskStorage.addEvent(input);
+                    tasklistStorage.addEvent(input);
                     break;
                 case DELETE:
-                    taskStorage.deleteTask(input);
+                    tasklistStorage.deleteTask(input);
                 default:
                     break;
                 }
-            } catch (UnknownCommandException | MissingDescriptionException | InvalidParametersException e) {
+            } catch (UnknownCommandException | MissingDescriptionException | IncorrectCommandFormatException e) {
                 Messages.printInLine(e.getMessage());
             }
             input = sc.nextLine();

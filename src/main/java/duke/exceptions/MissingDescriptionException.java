@@ -1,4 +1,4 @@
-package exceptions;
+package duke.exceptions;
 /**
  * Represents the exception thrown when the user inputs a task without any textual description.
  */
