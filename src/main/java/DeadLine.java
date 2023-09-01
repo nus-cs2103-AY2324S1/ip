@@ -1,14 +1,21 @@
-public class DeadLine extends Task {
-    protected String by;
+import java.time.LocalDateTime;
 
-    public DeadLine(String description, String by) {
+public class DeadLine extends Task {
+    protected LocalDateTime byDateTime;
+    protected String byDescription;
+
+    public DeadLine(String description, String byDescription) {
         super(description);
-        this.by = by;
+        this.byDescription = byDescription;
+        this.byDateTime = parseDateTime(byDescription);
     }
 
     @Override
     public String toString() {
-        // return "[D]" + (isDone ? "[X]" : "[ ]") + super.toString() + " (by: " + by + ")";
-        return getTask() + getStatusIcon() + " " + description + " (by: " + by + ")";
+        if (byDateTime != null) {
+            return getTask() + getStatusIcon() + " " + description + " (by: " + super.printDateTime(this.byDateTime) + ")";
+        } else {
+            return getTask() + getStatusIcon() + " " + description + " (by: " + byDescription + ")";
+        }
     }
 }
