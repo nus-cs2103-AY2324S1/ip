@@ -1,8 +1,6 @@
 import exception.TaskParseException;
 
 public class TaskFactory {
-    public TaskFactory() {
-    }
 
     public Task createTask(String taskType, String taskName, String[] args) throws TaskParseException {
         if (taskName.isEmpty()) {
@@ -11,32 +9,43 @@ public class TaskFactory {
                     "[/StartDate] [/EndDate]");
         }
 
-        // Safe to get the TaskType enum without checking for errors, because the only way for
-        // createTask to be called is when todo | deadline | event is parsed.
-        TaskType typeEnum = TaskType.valueOf(taskType.toUpperCase());
-        String startDate;
-        String endDate;
+        TaskType typeEnum;
+        try {
+            typeEnum = TaskType.valueOf(taskType.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new TaskParseException("Invalid task type: " + taskType);
+        }
+
         switch (typeEnum) {
             case TODO:
+                if (args.length != 0) {
+                    throw new TaskParseException("Error: Todo tasks should not have arguments");
+                }
                 return new TodoTask(taskName);
             case DEADLINE:
                 if (args.length != 1) {
-                    throw new TaskParseException(String.format(":< deadline Tasks must have an end date%n" +
-                            "usage: deadline taskName /10 May 2023"));
+                    throw new TaskParseException("Usage: deadline taskName /by 10 May 2023");
                 }
-                endDate = args[0].trim();
-                return new DeadlineTask(taskName, endDate);
+                if (!args[0].startsWith("by ")) {
+                    throw new TaskParseException("Error: Deadline tasks must have an end date prefixed with '/by'.\n");
+                }
+                String endDeadlineDate = args[0].substring(3).trim(); // remove "by "
+                return new DeadlineTask(taskName, endDeadlineDate);
+
             case EVENT:
                 if (args.length != 2) {
-                    throw new TaskParseException(String.format(":< event Tasks must have a start and end date%n" +
-                            "usage: event taskName /10 May 2023 /20 May 2023"));
+                    throw new TaskParseException("Usage: event taskName /from 10 May 2023 /to 20 May 2023");
                 }
-                startDate = args[0].trim();
-                endDate = args[1].trim();
-                return new EventTask(taskName, startDate, endDate);
+                if (!args[0].startsWith("from ") || !args[1].startsWith("to ")) {
+                    throw new TaskParseException("Error: Event tasks must have a start date prefixed with '/from' " +
+                            "and an end date prefixed with '/to'.\n");
+                }
+                String startEventDate = args[0].substring(5).trim(); // remove "from "
+                String endEventDate = args[1].substring(3).trim(); // remove "to "
+                return new EventTask(taskName, startEventDate, endEventDate);
+
             default:
-                // should never reach here as explained above.
-                throw new IllegalArgumentException("Invalid task type: " + taskType);
+                throw new TaskParseException("Unhandled task type: " + taskType);
         }
     }
 }

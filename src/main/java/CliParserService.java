@@ -49,11 +49,15 @@ public class CliParserService {
 
     private void parseTaskCommand(String line) {
         String[] parsedInput = line.split("/");
-        String[] temp = parsedInput[0].split(" ");
+        String[] temp = parsedInput[0].split(" ", 2);
         String taskType = temp[0];
-        String taskName = String.join(" ", Arrays.copyOfRange(temp, 1, temp.length));
+        String taskName = temp.length > 1 ? temp[1] : "";
 
-        String[] taskArgs = Arrays.copyOfRange(parsedInput,1, parsedInput.length);
+        String[] taskArgs = new String[parsedInput.length - 1];
+        for (int i = 1; i < parsedInput.length; i++) {
+            taskArgs[i-1] = parsedInput[i].trim();
+        }
+
         try {
             Task task = taskFactory.createTask(taskType, taskName, taskArgs);
             dukeBot.addTask(task);
@@ -70,6 +74,9 @@ public class CliParserService {
             outputService.echo("Failed to write task to storage! :<");
         }
     }
+
+
+
     private void handleMarkTask(String[] input) {
         if (!isValidTaskNumberArgument(input)) {
             return;
