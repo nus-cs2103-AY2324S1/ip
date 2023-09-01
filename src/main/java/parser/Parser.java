@@ -15,7 +15,24 @@ import common.DateParser;
 import data.exception.DukeException;
 import ui.Ui;
 
+/**
+ * The Parser class. Handles the parsing of user commands
+ * and returns the appropriate {@link Command} class.
+ * Throws a {@link DukeException} when the user gives an
+ * invalid command.
+ */
 public class Parser {
+
+    /**
+     * The method parses the user command, splitting it by
+     * space and extracting the first part of the command.
+     * It will match the first part to a set of allowable
+     * commands and return the respective {@link Command} instance.
+     * 
+     * @param input The user command.
+     * @return A {@link Command} instance created according to the user command.
+     * @throws DukeException
+     */
     public Command parse(String input) throws DukeException {
         // Ignore empty user input
         if (input.equals("")) return new EmptyCommand();
@@ -49,6 +66,15 @@ public class Parser {
         }
     }
 
+    /**
+     * A method to extract and join the elements from index 1 to the end.
+     * Used for situations where it is needed to extract 
+     * "read a book" from "todo read a book".
+     * 
+     * @param item The array containing the contents to be extracted.
+     * @return A string that contains the extracted contents 
+     *         joined by empty space.
+     */
     private static String extractTail(String[] item) {
         return String.join(" ",
             Arrays.copyOfRange(
@@ -57,6 +83,16 @@ public class Parser {
         );
     }
 
+    /**
+     * Parses the content of a "mark" or "unmark" command.
+     * Checks if a valid number is provided.
+     * 
+     * @param input The mark command.
+     * @param type Indicates whether it is parsing 
+     *             a mark or unmark command.
+     * @return A {@link MarkCommand} instance.
+     * @throws DukeException
+     */
     private Command parseMarkCommand(String input, String type) throws DukeException {
         String[] parseArr = input.split(" ");
         if (parseArr.length < 2) {
@@ -69,6 +105,14 @@ public class Parser {
         return new MarkCommand(parseArr[1], type == "mark");
     }
 
+    /**
+     * Parses the content of a "todo" command.
+     * Checks if a description was provided.
+     * 
+     * @param input The todo command.
+     * @return A {@link TodoCommand} instance.
+     * @throws DukeException
+     */
     private Command parseTodoCommand(String input) throws DukeException {
         String[] parseArr = input.split(" ");
         if (parseArr.length < 2) {
@@ -81,6 +125,15 @@ public class Parser {
         return new TodoCommand(extractTail(parseArr));
     }
 
+    /**
+     * Parses the content of a "deadline" command.
+     * Checks if a description was provided
+     * and if a valid date was supplied using /by.
+     * 
+     * @param input The deadline command.
+     * @return A {@link DeadlineCommand} instance.
+     * @throws DukeException
+     */
     private Command parseDeadlineCommand(String input) throws DukeException {
         // Split by the "/by" to separate the first and second part. 
         String[] parseArr = input.split("/by "); 
@@ -125,6 +178,15 @@ public class Parser {
         );
     }
 
+    /**
+     * Parses the "event" command.
+     * Checks if a description was provided
+     * and valid dates supplied with /from and /to.
+     * 
+     * @param input The event command.
+     * @return An {@link EventCommand} instance.
+     * @throws DukeException
+     */
     private Command parseEventCommand(String input) throws DukeException {
         // Split by "/from" to separate the first and (second + third) part. 
         String[] parseArr = input.split("/from ");
@@ -182,6 +244,14 @@ public class Parser {
         );
     }
 
+    /**
+     * Parses the delete command.
+     * Checks if a valid number was given.
+     * 
+     * @param input The delete command.
+     * @return A {@link DeleteCommand} instance.
+     * @throws DukeException
+     */
     private Command parseDeleteCommand(String input) throws DukeException {
         String[] parseArr = input.split(" ");
         if (parseArr.length < 2) {

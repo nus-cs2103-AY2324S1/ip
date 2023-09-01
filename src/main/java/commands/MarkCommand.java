@@ -6,10 +6,23 @@ import data.tasks.Task;
 import storage.Storage;
 import ui.Ui;
 
+/**
+ * The MarkCommand class.
+ * Handles marking/unmarking a {@link Task}.
+ */
 public class MarkCommand extends Command {
     private int taskCount;
     private boolean isDone;
 
+    /**
+     * The constructor method of the MarkCommand class.
+     * Takes in the index of the {@link Task} and a boolean
+     * indicating whether it is to be marked/unmarked.
+     * 
+     * @param taskCount The index of the task.
+     * @param isDone Indicates whether the task is to be marked/unmarked.
+     * @throws DukeException
+     */
     public MarkCommand(String taskCount, boolean isDone) throws DukeException {
         try {
             this.taskCount = Integer.parseInt(taskCount);

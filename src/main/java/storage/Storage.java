@@ -15,15 +15,35 @@ import data.tasks.Event;
 import data.tasks.Task;
 import data.tasks.Todo;
 
+/**
+ * The Storage class.
+ * Loads tasks created by the user from previous session
+ * via a text file. Updates the same text file for each
+ * modification to the {@link TaskList}.
+ */
 public class Storage {
     private final String fileDir;
     private final String filePath;
 
+    /**
+     * The constructor method for the Storage class.
+     * Takes in the directory and file path that the
+     * user wishes to store their tasks on memory.
+     * 
+     * @param filePath The file path of the file containing the tasks.
+     * @param fileDir The directory of the file.
+     */
     public Storage(String filePath, String fileDir) {
         this.filePath = filePath;
         this.fileDir = fileDir;
     }
 
+    /**
+     * This method loads in the tasks from the file specified by the user.
+     * If the file cannot be found, a new directory is created to store the file.
+     * 
+     * @return An ArrayList of {@link Tasks} loaded from the file.
+     */
     public ArrayList<Task> load() {
         try {
             ArrayList<Task> tasks = new ArrayList<>();
@@ -54,6 +74,13 @@ public class Storage {
         }
     }
 
+    /**
+     * This method handles the parsing of each line containing
+     * the data of a task from the file.
+     * 
+     * @param parse The line containing the task data.
+     * @return A {@link Task} instance.
+     */
     private Task createTask(String[] parse) {
         String taskType = parse[0];
         boolean isDone = parse[1].equals("1");
@@ -83,6 +110,14 @@ public class Storage {
         return null;
     }
 
+    /**
+     * This method updates the file by overwriting its old content
+     * with the contents of the new {@link TaskList} after a modification
+     * is made by the user.
+     * 
+     * @param tasks The {@link TaskList} containing the new list of tasks.
+     * @throws DukeException
+     */
     public void update(TaskList tasks) throws DukeException {
         try {
             FileWriter fw = new FileWriter(filePath);

@@ -6,12 +6,23 @@ import data.tasks.Task;
 import storage.Storage;
 import ui.Ui;
 
+/**
+ * The DeleteCommand class.
+ * Handles deleting a {@link Task} from {@link TaskList}.
+ */
 public class DeleteCommand extends Command {
-    private int taskCount;
+    private int taskIndex;
 
-    public DeleteCommand(String taskCount) throws DukeException {
+    /**
+     * The constructor method for a DeleteCommand class.
+     * Takes in the index of the task to be deleted from {@link TaskList}.
+     * 
+     * @param taskIndex The index of the task to be deleted.
+     * @throws DukeException
+     */
+    public DeleteCommand(String taskIndex) throws DukeException {
         try {
-            this.taskCount = Integer.parseInt(taskCount);
+            this.taskIndex = Integer.parseInt(taskIndex);
         } catch (NumberFormatException e) {
             throw new DukeException(new String[] {
                 Ui.cTxt("delete", Ui.COLOR.PURPLE)
@@ -22,9 +33,9 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DukeException {
-        Task removedTask = tasks.delete(taskCount - 1);
+        Task removedTask = tasks.delete(taskIndex - 1);
         ui.displayMsg(new String[] {
-            "Okie! I've deleted task " + taskCount + ":",
+            "Okie! I've deleted task " + taskIndex + ":",
             "  " + removedTask.toString(),
             "Total no. of tasks stored: " + tasks.getSize()
         });

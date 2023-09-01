@@ -5,9 +5,20 @@ import data.exception.DukeException;
 import data.tasks.Task;
 import ui.Ui;
 
+/**
+ * The TaskList class.
+ * Manages the list of tasks that the user has created.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * The constructor method of the TaskList class.
+     * 
+     * @param tasks An ArrayList if there are existing tasks
+     *              else null can be passed in to instantiate
+     *              an empty TaskList.
+     */
     public TaskList(ArrayList<Task> tasks) {
         if (tasks != null) {
             this.tasks = tasks;
@@ -16,22 +27,54 @@ public class TaskList {
         }
     }
 
+    /**
+     * Checks if the TaskList contains no tasks.
+     * 
+     * @return A boolean indicating whether the 
+     *         TaskList is empty.
+     */
     public boolean isEmpty() {
         return this.tasks.size() == 0;
     }
 
+    /**
+     * Retrieves the number of tasks stored in the TaskList.
+     * 
+     * @return An integer indicating the number of tasks stored.
+     */
     public int getSize() {
         return this.tasks.size();
     }
 
+    /**
+     * Retrieves the {@link Task} corresponding to the taskIndex.
+     * Starts from 0.
+     * 
+     * @param taskIndex The index of the task stored.
+     * @return The task stored at the given index.
+     */
     public Task getTask(int taskIndex) {
         return this.tasks.get(taskIndex);
     }
 
+    /**
+     * Appends the given {@link Task} to the list of stored tasks.
+     * 
+     * @param task The task to be stored in the list.
+     */
     public void add(Task task) {
         this.tasks.add(task);
     }
 
+    /**
+     * Marks/unmarks the {@link Task} at the given taskIndex
+     * depending on isDone.
+     * 
+     * @param taskIndex The index of the task stored.
+     * @param isDone Whether the task is being marked as done or not done.
+     * @return The task that was marked.
+     * @throws DukeException
+     */
     public Task mark(int taskIndex, boolean isDone) throws DukeException {
         // User tries to mark/unmark a task that is out of bounds.
         if (taskIndex < 0 || taskIndex >= getSize()) {
@@ -47,6 +90,13 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Deletes the {@link Task} at the given taskIndex.
+     * 
+     * @param taskIndex The index of the task stored.
+     * @return The task that was deleted.
+     * @throws DukeException
+     */
     public Task delete(int taskIndex) throws DukeException {
         if (taskIndex < 0 || taskIndex >= getSize()) {
             throw new DukeException(String.format(
@@ -61,6 +111,11 @@ public class TaskList {
         return removedTask;
     }
 
+    /**
+     * Returns the string representation of the TaskList.
+     * Contains string representations of all {@link Task} stored
+     * which is suitable for {@link Storage} to write to memory.
+     */
     @Override
     public String toString() {
         String taskListString = "";

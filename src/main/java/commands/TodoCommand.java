@@ -7,9 +7,19 @@ import data.tasks.Todo;
 import storage.Storage;
 import ui.Ui;
 
+/**
+ * The TodoCommand class.
+ * Handles creating a new {@link Todo}.
+ */
 public class TodoCommand extends Command {
     private String description;
 
+    /**
+     * The constructor method of the TodoCommand class.
+     * Takes in a description of a {@link Todo}.
+     * 
+     * @param description The description of a todo.
+     */
     public TodoCommand(String description) {
         this.description = description;
     }

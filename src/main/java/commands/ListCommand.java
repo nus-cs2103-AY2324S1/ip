@@ -4,6 +4,11 @@ import data.TaskList;
 import storage.Storage;
 import ui.Ui;
 
+/**
+ * The ListCommand class.
+ * Handles the display of the entire list of tasks
+ * stored in {@link TaskList}.
+ */
 public class ListCommand extends Command {
 
     @Override
