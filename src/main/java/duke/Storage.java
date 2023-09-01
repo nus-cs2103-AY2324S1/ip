@@ -5,12 +5,28 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The storage class handles saving and loading data.
+ *
+ */
 public class Storage {
     private String fileDir;
 
     public Storage(String fileDir) {
         this.fileDir = fileDir;
     }
+
+    /**
+     * Saves the task data to a file for future retrival.
+     * @param fileName name of file to save data.
+     * @param actions Array of actions.
+     * @param type Array of type of the action.
+     * @param isDone Array of boolean indicating whether an action is done.
+     * @param dueStrings Array of String indicating when action is due.
+     * @param startTimes Array indicating starting time of activity.
+     * @param endTimes Array indicating ending time of activity.
+     * @param counter The number of tasks in list.
+     */
 
     public static void save(String fileName, String[] actions, String[] type, boolean[] isDone, String[] dueStrings, LocalDateTime[] startTimes, LocalDateTime[] endTimes, int counter) {
         try (FileWriter writer = new FileWriter(fileName)) {
@@ -33,6 +49,15 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the data retrived from the saved file.
+     *
+     * @param fileName File's name to save the data.
+     * @param actions Array to show name of action.
+     * @param type Array of the type of action.
+     * @param isDone Array of boolean indicating whether action is done.
+     * @return number of tasks saved in tasklist.
+     */
     public static int load(String fileName, String[] actions, String[] type, boolean[] isDone) {
         int count = 0;
         try (FileReader fileReader = new FileReader(fileName)) {
@@ -54,6 +79,10 @@ public class Storage {
         return count;
     }
 
+    /**
+     * Loads an array whether the activity is done.
+     * @return Array of whether the task is done.
+     */
     public boolean[] loadIsDone() {
         boolean[] isDone = new boolean[100];
         try (FileReader fileReader = new FileReader(fileDir)) {
@@ -75,6 +104,10 @@ public class Storage {
         return isDone;
     }
 
+    /**
+     * An array of type of activity.
+     * @return Array of activity's type.
+     */
     public String[] loadTypes() {
         String[] type = new String[100];
         int count = 0;
@@ -96,6 +129,10 @@ public class Storage {
         return type;
     }
 
+    /**
+     * Loads the array of action.
+     * @return An array of actions.
+     */
     public String[] loadActions() {
         String[] actions = new String[100];
         int count = 0;

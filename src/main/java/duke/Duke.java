@@ -7,11 +7,20 @@ import java.util.Scanner;
 //import java.io.FileReader;
 //import java.time.LocalDateTime;
 //import java.time.format.DateTimeFormatter;
+
+/**
+ * The Duke class is a Personal Assistant Chatbot that
+ * helps a person to keep track of various things
+ */
 public class Duke {
     public Storage storage;
     public TaskList taskList;
     public Ui ui;
 
+    /**
+     * Initializes a new instance of the Duke class.
+     * This constructor sets up the initial state of Duke.
+     */
     public Duke(String fileDir) {
         ui = new Ui();
         storage = new Storage(fileDir);
@@ -32,6 +41,10 @@ public class Duke {
         }
     }
 
+    /**
+     * The run method starts Duke's interaction with user.
+     * run() serves as an entry point for duke's interaction.
+     */
     public void run() {
         ui.showWelcome();
         boolean exit = false;

@@ -3,8 +3,20 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Parser class parses user input and executes corresponding commands.
+ * Handles adding, list and marking tasks
+ */
 public class Parser {
-
+    /**
+     *
+     * Process user's input and performs the corresponding action.
+     *
+     * @param input User's input string.
+     * @param taskList task list to be updated
+     * @param storage stores the object for it to be saved.
+     * @return  true if program exits, false if still persist.
+     */
     public static boolean inputType(String input, TaskList taskList, Storage storage) {
         if (input.startsWith("bye")) {
             System.out.println("Bye. Hope to see you again soon!");
@@ -79,6 +91,11 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Parse date and time and convert into LocalDateTime for storing.
+     * @param dateTimeStr String to be formatted to LocalDateTime.
+     * @return LocalDateTime of the parsed date and time.
+     */
     private static LocalDateTime dateTask(String dateTimeStr) {
         DateTimeFormatter DMYhelper = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         // HHmm for the hour and minutes
