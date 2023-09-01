@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    private static final int TASK_DISPLAY_OFFSET = 1;
+    private static final int TASKLIST_DISPLAY_OFFSET = 1;
     private ArrayList<Task> tasks;
 
     public TaskList() {
@@ -35,7 +35,7 @@ public class TaskList {
         } else {
             output.append("Here are the tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i ++) {
-                output.append(String.format("%d.%s\n", i + TASK_DISPLAY_OFFSET, tasks.get(i)));
+                output.append(String.format("%d.%s\n", i + TASKLIST_DISPLAY_OFFSET, tasks.get(i)));
             }
         }
         return String.valueOf(output);
