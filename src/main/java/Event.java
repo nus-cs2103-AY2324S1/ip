@@ -1,11 +1,15 @@
 package main.java;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -13,7 +17,9 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.from, this.to);
+        return String.format("[E]%s (from: %s to: %s)", super.toString(),
+                this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm:ss")),
+                this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm:ss")));
     }
 
     @Override
