@@ -1,16 +1,17 @@
 package duke;
 
-import duke.exceptions.DukeException;
-import duke.exceptions.InvalidInputException;
-import duke.tasks.Task;
-import duke.tasks.TaskList;
-import duke.utils.Commands;
-import duke.storage.Storage;
-import duke.utils.Parser;
-import duke.utils.Ui;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
+
+import duke.exceptions.DukeException;
+import duke.exceptions.InvalidInputException;
+import duke.storage.Storage;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.utils.Commands;
+import duke.utils.Parser;
+import duke.utils.Ui;
 
 /**
  * Chatbot that takes in commands.
@@ -21,6 +22,10 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor for creating a Duke.
+     * @param path Location of the list of tasks.
+     */
     public Duke(String path) {
         this.ui = new Ui();
         this.storage = new Storage(path);
@@ -38,7 +43,7 @@ public class Duke {
 
         ui.greet();
 
-        while(!end) {
+        while (!end) {
             try {
                 String nextInput = scanner.nextLine().trim();
                 Commands command = Parser.determineCommand(nextInput);
@@ -56,7 +61,7 @@ public class Duke {
                         if (tasks.isEmpty()) {
                             ui.showNoTasks();
                         } else {
-                            ui.showTasks(tasks.getTasksDes(1), 0);
+                            ui.showTasks(tasks.getTasksDes(1), 1);
                         }
                         break;
 
@@ -83,6 +88,7 @@ public class Duke {
                         break;
 
                     case UNKNOWN:
+                    default:
                         throw new InvalidInputException("Invalid input");
                 }
 

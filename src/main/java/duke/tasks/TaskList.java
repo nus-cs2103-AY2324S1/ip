@@ -1,15 +1,16 @@
 package duke.tasks;
-import duke.Duke;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+
 import duke.exceptions.DukeException;
 import duke.exceptions.InvalidInputException;
 import duke.exceptions.MissingTaskException;
 import duke.utils.Commands;
 import duke.utils.DukeDateFormat;
 import duke.utils.Parser;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Class that contains the list of tasks when the chatbot is active.
@@ -52,7 +53,8 @@ public class TaskList {
      * @throws DukeException If title or date does not exist, or if input is invalid.
      * @throws DateTimeParseException If date exists but is in the wrong format.
      */
-    public static Task createTask(String input, Commands command, int isDone) throws DukeException, DateTimeParseException {
+    public static Task createTask(String input, Commands command, int isDone)
+            throws DukeException, DateTimeParseException {
         try {
             switch (command) {
                 case TODO:
@@ -92,7 +94,7 @@ public class TaskList {
      * Returns a list of task descriptions.
      * @param typeOfDes The type of description to be returned.
      * @return A list of description to be stored locally if typeOfDes = 0 else
-     * a list of description to be read by the user.
+     *     a list of description to be read by the user.
      */
     public List<String> getTasksDes(int typeOfDes) {
         List<String> output = new ArrayList<>();
@@ -112,8 +114,8 @@ public class TaskList {
      * @param command Type of command given by the user.
      * @return Dialogue for the bot to confirm status of the task.
      * @throws DukeException InvalidInputException thrown if input
-     * cannot be recognised. MissingTaskException thrown
-     * if task cannot be found in the task list.
+     *     cannot be recognised. MissingTaskException thrown
+     *     if task cannot be found in the task list.
      */
     public String changeTaskCompletion(String input, Commands command) throws DukeException {
         try {
@@ -140,9 +142,9 @@ public class TaskList {
      * Deletes a task from the task list and returns a String as the dialogue.
      * @param input The user input.
      * @return Dialogue to confirm the deletion of the task from the list.
-     * @throws DukeException InvalidInputException thrown if input
-     * cannot be recognised. MissingTaskException thrown
-     * if task cannot be found in the task list.
+     * @throws DukeException Exceptions.InvalidInputException thrown if input
+     *     cannot be recognised. Exceptions.MissingTaskException thrown
+     *     if task cannot be found in the task list.
      */
     public String deleteTask(String input) throws DukeException {
         try {

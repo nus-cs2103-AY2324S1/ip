@@ -40,7 +40,7 @@ public class Parser {
                 title = input.split("todo ")[1];
 
             } else if (command.equals(Commands.DEADLINE)) {
-                title =  input.split("deadline ")[1].split("/by ")[0];
+                title = input.split("deadline ")[1].split("/by ")[0];
 
             } else if (command.equals(Commands.EVENT)) {
                 title = input.split("event ")[1].split("/from ")[0];
@@ -72,9 +72,9 @@ public class Parser {
      * @return By date of deadlines or From and To date of events.
      * @throws DukeException InvalidInputException thrown if input cannot be recognised.
      * @throws MissingDateException if user did not give a by date for their
-     * deadline or either a from or to date for their event.
+     *     deadline or either a from or to date for their event.
      */
-    public static String obtainDate(String input, Commands command) throws DukeException, MissingDateException{
+    public static String obtainDate(String input, Commands command) throws DukeException, MissingDateException {
         try {
             if (command.equals(Commands.DEADLINE)) {
                 return input.split(" /by ")[1];
