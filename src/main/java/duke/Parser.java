@@ -30,63 +30,63 @@ public class Parser {
 
         int index;
         switch (matcher.group(1)) {
-            case "bye":
-                return new ExitCommand();
-            case "list":
-                return new ListCommand();
-            case "mark":
-                if (matcher.group(2) == null) {
-                    throw new DukeException(Ui.LINE + Messages.INVALID_MARK_MESSAGE + Ui.LINE);
-                }
-                index = Integer.parseInt(matcher.group(2));
-                return new MarkCommand(index);
-            case "unmark":
-                if (matcher.group(2) == null) {
-                    throw new DukeException(Ui.LINE + Messages.INVALID_UNMARK_MESSAGE + Ui.LINE);
-                }
-                index = Integer.parseInt(matcher.group(2));
-                return new UnmarkCommand(index);
-            case "todo":
-                if (matcher.group(2) == null) {
-                    throw new DukeException(Ui.LINE + Messages.INVALID_TODO_MESSAGE + Ui.LINE);
-                }
-                return new TaskCommand(new Todo(matcher.group(2)));
-            case "deadline":
-                if (matcher.group(2) == null
-                        || matcher.group(3) == null
-                        || !matcher.group(3).equals("/by")
-                        || matcher.group(4) == null) {
-                    throw new DukeException(Ui.LINE + Messages.INVALID_DEADLINE_MESSAGE + Ui.LINE);
-                }
+        case "bye":
+            return new ExitCommand();
+        case "list":
+            return new ListCommand();
+        case "mark":
+            if (matcher.group(2) == null) {
+                throw new DukeException(Ui.LINE + Messages.INVALID_MARK_MESSAGE + Ui.LINE);
+            }
+            index = Integer.parseInt(matcher.group(2));
+            return new MarkCommand(index);
+        case "unmark":
+            if (matcher.group(2) == null) {
+                throw new DukeException(Ui.LINE + Messages.INVALID_UNMARK_MESSAGE + Ui.LINE);
+            }
+            index = Integer.parseInt(matcher.group(2));
+            return new UnmarkCommand(index);
+        case "todo":
+            if (matcher.group(2) == null) {
+                throw new DukeException(Ui.LINE + Messages.INVALID_TODO_MESSAGE + Ui.LINE);
+            }
+            return new TaskCommand(new Todo(matcher.group(2)));
+        case "deadline":
+            if (matcher.group(2) == null
+                    || matcher.group(3) == null
+                    || !matcher.group(3).equals("/by")
+                    || matcher.group(4) == null) {
+                throw new DukeException(Ui.LINE + Messages.INVALID_DEADLINE_MESSAGE + Ui.LINE);
+            }
 
-                LocalDateTime parsedDate;
-                try {
-                    parsedDate = LocalDateTime.parse(matcher.group(4),
-                            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                } catch (DateTimeParseException e) {
-                    throw new DukeException(Ui.LINE + Messages.INVALID_DEADLINE_MESSAGE + Ui.LINE);
-                }
+            LocalDateTime parsedDate;
+            try {
+                parsedDate = LocalDateTime.parse(matcher.group(4),
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            } catch (DateTimeParseException e) {
+                throw new DukeException(Ui.LINE + Messages.INVALID_DEADLINE_MESSAGE + Ui.LINE);
+            }
 
-                return new TaskCommand(new Deadline(matcher.group(2), parsedDate));
-            case "event":
-                if (matcher.group(2) == null
-                        || matcher.group(3) == null
-                        || !matcher.group(3).equals("/from")
-                        || matcher.group(4) == null
-                        || matcher.group(5) == null
-                        || !matcher.group(5).equals("/to")
-                        || matcher.group(6) == null) {
-                    throw new DukeException(Ui.LINE + Messages.INVALID_EVENT_MESSAGE + Ui.LINE);
-                }
-                return new TaskCommand(new Event(matcher.group(2), matcher.group(4), matcher.group(6)));
-            case "delete":
-                if (matcher.group(2) == null) {
-                    throw new DukeException(Ui.LINE + Messages.INVALID_DELETE_MESSAGE + Ui.LINE);
-                }
-                index = Integer.parseInt(matcher.group(2));
-                return new DeleteCommand(index);
-            default:
-                throw new DukeException(Ui.LINE + Messages.INVALID_INPUT_MESSAGE + Ui.LINE);
+            return new TaskCommand(new Deadline(matcher.group(2), parsedDate));
+        case "event":
+            if (matcher.group(2) == null
+                    || matcher.group(3) == null
+                    || !matcher.group(3).equals("/from")
+                    || matcher.group(4) == null
+                    || matcher.group(5) == null
+                    || !matcher.group(5).equals("/to")
+                    || matcher.group(6) == null) {
+                throw new DukeException(Ui.LINE + Messages.INVALID_EVENT_MESSAGE + Ui.LINE);
+            }
+            return new TaskCommand(new Event(matcher.group(2), matcher.group(4), matcher.group(6)));
+        case "delete":
+            if (matcher.group(2) == null) {
+                throw new DukeException(Ui.LINE + Messages.INVALID_DELETE_MESSAGE + Ui.LINE);
+            }
+            index = Integer.parseInt(matcher.group(2));
+            return new DeleteCommand(index);
+        default:
+            throw new DukeException(Ui.LINE + Messages.INVALID_INPUT_MESSAGE + Ui.LINE);
         }
     }
 }

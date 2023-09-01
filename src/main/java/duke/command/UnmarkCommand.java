@@ -9,6 +9,7 @@ public class UnmarkCommand extends Command {
     public UnmarkCommand(int index) {
         this.index = index;
     }
+
     @Override
     public boolean isExit() {
         return false;

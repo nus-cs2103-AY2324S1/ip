@@ -11,8 +11,8 @@ public class Event extends Task {
      * Constructor for a duke.task.Event instance.
      *
      * @param description The description of the underlying task.
-     * @param from The date on which the event begins.
-     * @param to The date on which the event ends.
+     * @param from        The date on which the event begins.
+     * @param to          The date on which the event ends.
      */
     public Event(String description, String from, String to) {
         super(description);

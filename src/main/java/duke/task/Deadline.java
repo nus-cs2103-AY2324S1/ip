@@ -13,7 +13,7 @@ public class Deadline extends Task {
      * Constructor for a duke.task.Deadline instance.
      *
      * @param description The description of the underlying task.
-     * @param by The date by which the task is due.
+     * @param by          The date by which the task is due.
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);
