@@ -1,6 +1,5 @@
 package duke.commands;
 
-import duke.DukeException;
 import duke.TaskList;
 
 import java.util.regex.Matcher;
@@ -19,7 +18,13 @@ public abstract class Command {
         }
     }
 
-    public static Command parse(String s) throws DukeException {
+    /**
+     * Parses a string into a Command. The string should start with a supported verb.
+     *
+     * @param s a string representing a command
+     * @return a command parsed from the string
+     * @throws CommandException if the verb is unsupported
+     */
     public static Command parse(String s) throws CommandException {
         String[] tokens = s.split(" ", 2);
 
@@ -49,7 +54,11 @@ public abstract class Command {
         return null;
     }
 
-    public boolean isExit() {
+    /**
+     * Returns whether the program should exit after the command finishes executing.
+     *
+     * @return true if the program should exit after its execution
+     */
     public boolean shouldExit() {
         return false;
     }
@@ -58,6 +67,13 @@ public abstract class Command {
         return null;
     }
 
+    /**
+     * Executes the command on the given task list.
+     *
+     * @param tasks a list of tasks to execute the command on
+     * @return the result from executing the command
+     * @throws CommandException if an error occurs while executing the command
+     */
     public abstract CommandResult run(TaskList tasks) throws CommandException;
 
     public enum Verb {

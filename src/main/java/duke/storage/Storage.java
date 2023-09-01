@@ -17,7 +17,12 @@ public class Storage {
         this.path = Path.of(path);
     }
 
-    public TaskList load() throws DukeException {
+    /**
+     * Loads any existing tasks from the cache at the storage path.
+     *
+     * @return a list of existing tasks loaded from the cache
+     * @throws StorageException if there is no existing task cache or cache is of incorrect format
+     */
     public TaskList load() throws StorageException {
         if (Files.notExists(path)) {
             throw new StorageException("No existing tasks found");
@@ -41,6 +46,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves all tasks in the task list to the cache at the storage path. Any existing cache file will be overwritten.
+     *
+     * @param tasks a list of tasks to be saved to the cache
+     */
     public void save(TaskList tasks) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(path.toString());
