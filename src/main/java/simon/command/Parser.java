@@ -1,10 +1,11 @@
 package simon.command;
 
 import simon.SimonException;
-import simon.task.Task;
-import simon.task.ToDo;
 import simon.task.Deadline;
 import simon.task.Event;
+import simon.task.Task;
+import simon.task.ToDo;
+
 
 public class Parser {
 
