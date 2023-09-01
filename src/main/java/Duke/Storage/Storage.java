@@ -17,6 +17,7 @@ import java.util.Scanner;
  * Controls the storage and retrieving of saved data on the hard disk.
  */
 public class Storage {
+    private static final String PARSE_ERROR = "Invalid file format!";
     private String filePath;
 
     public Storage(String filePath) {
@@ -59,11 +60,11 @@ public class Storage {
             Path path = Path.of(filePath);
             if (Files.notExists(path)) {
                 // create the directory
-                System.out.println("⏳ Directory not present, creating...");
+                System.out.println("Directory not present, creating...");
                 Files.createDirectory(path.getParent());
             }
             if (Files.exists(path)) {
-                System.out.println("⏳ Save file already exists, loading previous data");
+                System.out.println("Save file already exists, loading previous data");
                 // it exists, so let's read it
 
                 Scanner sc = new Scanner(path);
@@ -109,8 +110,12 @@ public class Storage {
      * @return The task that was parsed successfully
      * @throws IOException
      */
-    private static Task parseTask(String inputLine) throws IOException {
+    public static Task parseTask(String inputLine) throws DukeException {
         String[] split = inputLine.split(" \\| ");
+
+        if (split.length < 2) {
+            throw new DukeException(PARSE_ERROR);
+        }
         String taskType = split[0];
         String isDoneStr = split[1];
         String taskDescription = split[2];
@@ -127,6 +132,9 @@ public class Storage {
             }
             case "D": {
                 // get the deadline, which is 4th element
+                if (split.length < 3) {
+                    throw new DukeException(PARSE_ERROR);
+                }
                 String deadlineStr = split[3];
 
 
@@ -138,6 +146,9 @@ public class Storage {
             case "E": {
                 // get the start date, which is 4th element
                 // get the end date, which is 5th element
+                if (split.length < 5) {
+                    throw new DukeException(PARSE_ERROR);
+                }
                 String from = split[3];
                 LocalDateTime dateTimeStart = LocalDateTime.parse(from);
                 String to = split[4];
@@ -146,7 +157,7 @@ public class Storage {
                 break;
             }
             default:
-                throw new IOException();
+                throw new DukeException(PARSE_ERROR);
         }
 
         if (isDone) {
