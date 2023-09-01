@@ -7,7 +7,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test class for the TaskList class, which manages a list of tasks in Duke.
+ */
 public class TaskListTest {
+
+    /**
+     * Test case for adding a task to the TaskList and checking the list size.
+     */
     @Test
     public void testAdd() {
         TaskList tasks = new TaskList();
@@ -15,6 +22,11 @@ public class TaskListTest {
         assertEquals(1, tasks.listSize());
     }
 
+    /**
+     * Test case for deleting a task from the TaskList and checking the list size.
+     *
+     * @throws DukeException If there is an issue with deleting the task.
+     */
     @Test
     public void testDelete() throws DukeException {
         TaskList tasks = new TaskList();

@@ -11,14 +11,28 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Handles the loading and saving of tasks from/to a specified file.
+ */
 public class Storage {
     private String filePath;
     TaskList tasks = new TaskList();
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The file path where task data is stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified in the constructor.
+     *
+     * @return A TaskList containing the loaded tasks.
+     * @throws DukeException If there are errors during loading.
+     */
     public TaskList load() throws DukeException {
         try {
             FileReader fileReader = new FileReader(filePath);
@@ -60,6 +74,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the tasks to the file specified in the constructor.
+     *
+     * @param tasks The TaskList containing tasks to be saved.
+     * @throws DukeException If there are errors during saving.
+     */
     public void saveTasks(TaskList tasks) throws DukeException {
         try {
             FileWriter fileWriter = new FileWriter("./data/tasks.txt");

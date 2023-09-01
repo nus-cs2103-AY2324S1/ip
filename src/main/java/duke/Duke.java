@@ -21,6 +21,11 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Duke instance with the specified file path.
+     *
+     * @param filePath The file path where task data is stored.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -32,6 +37,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the Duke chatbot, allowing user interaction.
+     * Displays a welcome message and processes user commands until the user exits.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -50,6 +59,11 @@ public class Duke {
         }
     }
 
+    /**
+     * The main method to start the Duke chatbot.
+     *
+     * @param args Command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }

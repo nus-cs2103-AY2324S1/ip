@@ -5,14 +5,26 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
+/**
+ * Parses user input to create the appropriate command for Duke.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the corresponding Duke command.
+     *
+     * @param input The user input to be parsed.
+     * @return A Command object representing the user's request.
+     * @throws DukeException If the input is invalid or contains errors.
+     */
     public static Command parse(String input) throws DukeException {
         String[] parts = input.split(" ", 2);
         String commandType = parts[0];
 
         switch (commandType) {
         case "bye":
+            return new ExitCommand();
+        case "list":
             return new ListCommand();
         case "mark":
             int taskIndex2 = Integer.parseInt(input.substring(5)) - 1;
@@ -25,7 +37,7 @@ public class Parser {
             throw new DukeException("\t ☹ OOPS!!! The description of a todo" +
              " cannot be empty.");
             }
-        return new AddCommand(new Todo(input.substring(5), false));
+            return new AddCommand(new Todo(input.substring(5), false));
         case "deadline":
         // Parse deadline command and create DeadlineTask object
             int byIndex = input.indexOf("/by");

@@ -6,7 +6,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
+/**
+ * Test class for the Parser class, which parses user input in Duke.
+ */
 public class ParserTest {
+
+    /**
+     * Test case for gibberish input that should result in an exception.
+     *
+     * @throws DukeException If there is an issue with parsing.
+     */
     @Test
     public void gibberishTest() throws DukeException {
         try {
@@ -16,6 +26,11 @@ public class ParserTest {
         }
     }
 
+    /**
+     * Test case for invalid 'todo' input without a description.
+     *
+     * @throws DukeException If there is an issue with parsing.
+     */
     @Test
     public void invalidTodo() throws DukeException {
         try {
