@@ -45,6 +45,9 @@ public class Parser {
             } else if (command.equals(Commands.EVENT)) {
                 title = input.split("event ")[1].split("/from ")[0];
 
+            } else if (command.equals(Commands.FIND)) {
+                title = input.split("find ")[1];
+
             } else {
                 throw new InvalidInputException("Invalid input");
             }

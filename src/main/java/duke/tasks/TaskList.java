@@ -115,6 +115,8 @@ public class TaskList {
      * @return Dialogue for the bot to confirm status of the task.
      * @throws DukeException Exceptions.InvalidInputException thrown if input
      *     cannot be recognised. Exceptions.MissingTaskException thrown
+     * @throws DukeException InvalidInputException thrown if input
+     *     cannot be recognised. MissingTaskException thrown
      *     if task cannot be found in the task list.
      */
     public String changeTaskCompletion(String input, Commands command) throws DukeException {
@@ -156,6 +158,30 @@ public class TaskList {
             throw new MissingTaskException("Missing Task");
         } catch (Exception e) {
             throw new InvalidInputException("Invalid input");
+        }
+    }
+
+    /**
+     * Returns tasks that matches the keyword provided by the user.
+     * @param input The user input.
+     * @return The tasks that matched the keyword.
+     * @throws DukeException If user did not provide a keyword or if the input was invalid.
+     */
+    public List<String> findTask(String input) throws DukeException {
+        try {
+            String keyword = Parser.obtainTitle(input, Commands.FIND);
+
+            List<String> results = new ArrayList<>();
+            for (int i = 0; i < tasks.size(); i++) {
+                Task t = tasks.get(i);
+                if (t.getTask().contains(keyword)) {
+                    results.add(t.getTask());
+                }
+            }
+
+            return results;
+        } catch (DukeException e) {
+            throw e;
         }
     }
 

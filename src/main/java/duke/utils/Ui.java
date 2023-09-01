@@ -69,12 +69,21 @@ public class Ui {
 
     /**
      * Lists out all the tasks in the list.
+     *     0 represents all tasks, other numbers represent matching tasks.
      * @param tasksDescriptions The list of descriptions of the tasks.
      */
-    public void showAllTasks(List<String> tasksDescriptions) {
-        System.out.println("Here's your list of tasks!\n");
-        for (int i = 0; i < tasksDescriptions.size(); i++) {
-            System.out.println((i + 1) + ": " + tasksDescriptions.get(i));
+    public void showTasks(List<String> tasksDescriptions, int type) {
+        if (tasksDescriptions.isEmpty()) {
+            showNoTasks();
+        } else {
+            if (type == 0) {
+                System.out.println("Here's your list of tasks!\n");
+            } else {
+                System.out.println("Here's the matching tasks!\n");
+            }
+            for (int i = 0; i < tasksDescriptions.size(); i++) {
+                System.out.println((i + 1) + ": " + tasksDescriptions.get(i));
+            }
         }
     }
 

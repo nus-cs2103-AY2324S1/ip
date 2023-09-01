@@ -1,6 +1,10 @@
 package duke;
 
 import java.time.format.DateTimeParseException;
+<<<<<<< HEAD
+=======
+import java.util.List;
+>>>>>>> branch-Level-9
 import java.util.Scanner;
 
 import duke.exceptions.DukeException;
@@ -60,14 +64,20 @@ public class Duke {
                     if (tasks.isEmpty()) {
                         ui.showNoTasks();
                     } else {
-                        ui.showAllTasks(tasks.getTasksDes(1));
+                        ui.showTasks(tasks.getTasksDes(1), 1);
                     }
                     break;
+
 
                 case UNMARK:
                 case MARK:
                     String completionStatus = tasks.changeTaskCompletion(nextInput, command);
                     ui.showStatusChanged(completionStatus);
+                    break;
+
+                case FIND:
+                    List<String> matchingTasks = tasks.findTask(nextInput);
+                    ui.showTasks(matchingTasks, 1);
                     break;
 
                 case DELETE:
