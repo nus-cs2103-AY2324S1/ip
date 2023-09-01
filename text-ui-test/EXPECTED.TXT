@@ -16,15 +16,15 @@ ____________________________________________________________
 ____________________________________________________________
 Got it. I've added the task:
 [D][ ] cs2103t assignment (by: Tuesday)
-Now you have 2 duke.tasks in your list, just like how I have 5 Ballon d'Ors.
+Now you have 2 tasks in your list, just like how I have 5 Ballon d'Ors.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added the task:
 [E][ ] watch oppenheimer (from: 7pm to: 10pm)
-Now you have 3 duke.tasks in your list, just like how I have 5 Ballon d'Ors.
+Now you have 3 tasks in your list, just like how I have 5 Ballon d'Ors.
 ____________________________________________________________
 ____________________________________________________________
-Here are the duke.tasks in your list:
+Here are the tasks in your list:
 1. [T][ ] send flowers to mom
 2. [D][ ] cs2103t assignment (by: Tuesday)
 3. [E][ ] watch oppenheimer (from: 7pm to: 10pm)
@@ -52,10 +52,10 @@ Removed task:
 [E][ ] watch oppenheimer (from: 7pm to: 10pm)
 ____________________________________________________________
 ____________________________________________________________
-☹ OOPS!!! I'm sorry but that task does not exist. There are only 2 duke.tasks.
+☹ OOPS!!! I'm sorry but that task does not exist. There are only 2 tasks.
 ____________________________________________________________
 ____________________________________________________________
-Here are the duke.tasks in your list:
+Here are the tasks in your list:
 1. [T][X] send flowers to mom
 2. [D][ ] cs2103t assignment (by: Tuesday)
 ____________________________________________________________

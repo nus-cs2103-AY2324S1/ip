@@ -1,12 +1,13 @@
-package duke;
+import exceptions.InvalidArgumentException;
+import exceptions.StorageException;
+import exceptions.UnknownCommandException;
+import exceptions.DukeException;
+import tasks.Task;
+import tasks.ToDo;
+import tasks.Event;
+import tasks.Deadline;
 
-import duke.exceptions.InvalidArgumentException;
-import duke.exceptions.UnknownCommandException;
-import duke.exceptions.DukeException;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
-import duke.tasks.Event;
-import duke.tasks.Deadline;
+import java.io.IOException;
 import java.util.Scanner;
 
     public class Duke {
@@ -51,7 +52,7 @@ import java.util.Scanner;
         /**
          * this is the function that runs while the user is using the application.
          * It takes in users input, calls getCommand to decide which function it should to call to handle the input.
-         * It also handles duke.exceptions and waits for user to say bye.
+         * It also handles exceptions and waits for user to say bye.
          */
         protected void run() {
             Scanner scanner = new Scanner(System.in);
@@ -108,7 +109,7 @@ import java.util.Scanner;
          * @param taskManager
          * @throws InvalidArgumentException
          */
-        private void handleMarking(String input, TaskManager taskManager) throws InvalidArgumentException {
+        private void handleMarking(String input, TaskManager taskManager) throws DukeException {
             String[] words = input.split(" ");
             try {
                 int index = Integer.parseInt(words[1]);
@@ -117,10 +118,16 @@ import java.util.Scanner;
                 } else if (words[0].equals("unmark")) {
                     taskManager.unmark(index);
                 }
+                updateStorage();
             } catch (NumberFormatException e) {
                 throw new InvalidArgumentException("Please enter a numerical index!");
+            } catch (StorageException e) {
+                throw new StorageException("Storage Error");
             }
+        }
 
+        private void updateStorage() throws StorageException {
+            this.storage.saveData(taskManager);
         }
 
         /**
@@ -129,7 +136,7 @@ import java.util.Scanner;
          * @param taskManager
          * @throws InvalidArgumentException
          */
-        private void handleTodo(String input, TaskManager taskManager) throws InvalidArgumentException {
+        private void handleTodo(String input, TaskManager taskManager) throws InvalidArgumentException, StorageException {
 
             int indexOfSpace = input.indexOf(" ");
             if (indexOfSpace == -1 || indexOfSpace == input.length() - 1) {
@@ -141,7 +148,7 @@ import java.util.Scanner;
             }
             Task task = new ToDo(taskName);
             taskManager.add(task);
-
+            updateStorage();
         }
 
         /**
@@ -150,7 +157,7 @@ import java.util.Scanner;
          * @param taskManager
          * @throws InvalidArgumentException
          */
-        private void handleDeadline(String input, TaskManager taskManager) throws InvalidArgumentException {
+        private void handleDeadline(String input, TaskManager taskManager) throws InvalidArgumentException, StorageException {
             String suffix = input.substring(input.indexOf(" ") + 1);
             String[] parts = suffix.split(" /due ");
             if (parts.length != 2) {
@@ -161,6 +168,7 @@ import java.util.Scanner;
             String dueDate = parts[1].trim();
             Task task = new Deadline(taskName, dueDate);
             taskManager.add(task);
+            updateStorage();
         }
 
         /**
@@ -169,7 +177,7 @@ import java.util.Scanner;
          * @param taskManager
          * @throws InvalidArgumentException
          */
-        private void handleEvent(String input, TaskManager taskManager) throws InvalidArgumentException {
+        private void handleEvent(String input, TaskManager taskManager) throws InvalidArgumentException, StorageException {
             String suffix = input.substring(input.indexOf(" ") + 1);
             String[] parts = suffix.split(" /from ");
             if (parts.length != 2) {
@@ -186,7 +194,7 @@ import java.util.Scanner;
             String to = timeParts[1].trim();
             Task task = new Event(taskName, from, to);
             taskManager.add(task);
-
+            updateStorage();
         }
 
         /**

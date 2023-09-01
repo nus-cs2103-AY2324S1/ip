@@ -1,11 +1,9 @@
-package duke;
+import tasks.Task;
+import tasks.ToDo;
+import tasks.Event;
+import tasks.Deadline;
 
-import duke.tasks.Task;
-import duke.tasks.ToDo;
-import duke.tasks.Event;
-import duke.tasks.Deadline;
-
-import duke.exceptions.StorageException;
+import exceptions.StorageException;
 
 import java.util.ArrayList;
 import java.io.*;
@@ -23,19 +21,19 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public void saveData(ArrayList<Task> tasks) throws IOException {
+    public void saveData(TaskManager taskManager) throws StorageException {
         try {
             FileWriter fw = new FileWriter(filePath);
             BufferedWriter bw = new BufferedWriter(fw);
 
-            for (Task task: tasks) {
+            for (Task task: taskManager.getList()) {
                 bw.append(task.toString());
                 bw.append("\n");
             }
             bw.close();
             fw.close();
         } catch (IOException e) {
-            System.out.println("An IO exception Occurred");
+            throw new StorageException("Couldn't save data");
         }
     }
 
