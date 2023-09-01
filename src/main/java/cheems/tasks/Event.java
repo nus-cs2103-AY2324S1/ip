@@ -9,23 +9,15 @@ import java.time.format.DateTimeParseException;
  * Represents a task that has a start time and an end time.
  */
 public class Event extends Task {
-    private String from;
-    private String to;
+    private LocalDate from;
+    private LocalDate to;
+    private final DateTimeFormatter DATE_PATTERN = DateTimeFormatter.ofPattern("MMM dd yyyy");
+
 
     public Event(String description, String from, String to) {
         super(description);
-        try {
-            LocalDate date = LocalDate.parse(from);
-            this.from = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        } catch (DateTimeParseException e) {
-            this.from = from;
-        }
-        try {
-            LocalDate date = LocalDate.parse(to);
-            this.to = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        } catch (DateTimeParseException e) {
-            this.to = to;
-        }
+        this.from = LocalDate.parse(from);
+        this.to = LocalDate.parse(to);
     }
 
     /**
@@ -41,6 +33,7 @@ public class Event extends Task {
 
     @Override
     public String toStorage() {
-        return String.format("%d|EVENT|%s|%s|%s", this.isDone ? 1 : 0, this.getDescription(), this.from, this.to);
+        return String.format("%d|EVENT|%s|%s|%s", this.isDone ? 1 : 0, this.getDescription(),
+                this.from.format(DATE_PATTERN), this.to.format(DATE_PATTERN));
     }
 }

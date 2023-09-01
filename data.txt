@@ -1,9 +1,1 @@
-1|TODO|singing lesson
-0|EVENT|conference|8th aug|9th aug
-1|TODO|borrow book
-0|DEADLINE|return book|Sunday
-1|EVENT|project meeting|Mon 2pm|4pm
-1|TODO|borrow book
-1|TODO|eat cottoncanday
-0|DEADLINE|do homework|tmr
-1|EVENT|agile website|thursday|friday
+

@@ -10,16 +10,12 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadline extends Task {
 
-    private String by;
+    private LocalDate by;
+    private final DateTimeFormatter DATE_PATTERN = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
-        try {
-            LocalDate date = LocalDate.parse(by);
-            this.by = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        } catch (DateTimeParseException e) {
-            this.by = by;
-        }
+        this.by = LocalDate.parse(by);
     }
 
     /**
@@ -33,7 +29,8 @@ public class Deadline extends Task {
 
     @Override
     public String toStorage() {
-        return String.format("%d|DEADLINE|%s|%s", this.isDone ? 1 : 0, this.getDescription(), this.by);
+        return String.format("%d|DEADLINE|%s|%s", this.isDone ? 1 : 0,
+                                    this.getDescription(), this.by.format(DATE_PATTERN));
     }
 }
 
