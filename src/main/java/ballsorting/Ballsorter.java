@@ -1,15 +1,16 @@
 package ballsorting;
+import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-import java.io.File;
 public class Ballsorter {
-    static String line = "____________________________________________________________";
+    static String LINE = "____________________________________________________________";
     static DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     static DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM, HH:mm");
-    TaskList taskList = new TaskList();
-    Storage storage;
-    Ui ui;    File tmpDir;
+    private TaskList taskList = new TaskList();
+    private Storage storage;
+    private Ui ui;
+    private File tmpDir;
     public Ballsorter() {
         tmpDir = new File("data/Ballsorter.txt");
         //check for storage
@@ -39,9 +40,9 @@ public class Ballsorter {
         }
     }
     public void run() {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Hello! I'm Ballsorter\nWhat can I do for you?");
-        System.out.println(line);
+        System.out.println(LINE);
 
         Scanner sc = new Scanner(System.in);
         ui = new Ui(sc);
@@ -51,7 +52,7 @@ public class Ballsorter {
         storage.storeList(taskList);
 
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(line);
+        System.out.println(LINE);
     }
     public static void main(String[] args) {
         new Ballsorter().run();

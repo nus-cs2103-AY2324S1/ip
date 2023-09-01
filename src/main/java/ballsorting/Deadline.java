@@ -2,7 +2,7 @@ package ballsorting;
 import java.time.LocalDateTime;
 
 public class Deadline extends Task {
-    LocalDateTime end;
+    private LocalDateTime end;
     public Deadline(String description, LocalDateTime end) {
         super(description);
         this.end = end;

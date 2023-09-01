@@ -2,7 +2,7 @@ package ballsorting;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 public class Parser {
-    Scanner sc;
+    private Scanner sc;
     public Parser(Scanner sc) {
         this.sc = sc;
     }
@@ -11,7 +11,7 @@ public class Parser {
 
             System.out.println("Here are the tasks in your list:");
             taskList.printList();
-            System.out.println(Ballsorter.line);
+            System.out.println(Ballsorter.LINE);
 
         } else if (input.startsWith("mark")) {
 
@@ -39,7 +39,7 @@ public class Parser {
                 String des = input.substring(4).trim();
                 if (des.equals("")) {
                     System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
-                    System.out.println(Ballsorter.line);
+                    System.out.println(Ballsorter.LINE);
                     curr = null;
                 } else {
                     curr = new Todo(des);
@@ -55,11 +55,11 @@ public class Parser {
                 i += 4;
                 if (description.toString().equals("")) {
                     System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
-                    System.out.println(Ballsorter.line);
+                    System.out.println(Ballsorter.LINE);
                     curr = null;
                 } else if (i >= input.length() || input.substring(i).equals("")) {
                     System.out.println("☹ OOPS!!! The deadline of a deadline cannot be empty.");
-                    System.out.println(Ballsorter.line);
+                    System.out.println(Ballsorter.LINE);
                     curr = null;
                 } else {
                     LocalDateTime endDateTime = LocalDateTime.parse(input.substring(i), Ballsorter.inputFormatter);
@@ -82,15 +82,15 @@ public class Parser {
                 i += 4;
                 if (description.toString().equals("")) {
                     System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
-                    System.out.println(Ballsorter.line);
+                    System.out.println(Ballsorter.LINE);
                     curr = null;
                 } else if (start.toString().equals("")) {
                     System.out.println("☹ OOPS!!! The start time of an event cannot be empty.");
-                    System.out.println(Ballsorter.line);
+                    System.out.println(Ballsorter.LINE);
                     curr = null;
                 } else if (i >= input.length() || input.substring(i).equals("")) {
                     System.out.println("☹ OOPS!!! The end time of an event cannot be empty.");
-                    System.out.println(Ballsorter.line);
+                    System.out.println(Ballsorter.LINE);
                     curr = null;
                 } else {
                     LocalDateTime startDateTime = LocalDateTime.parse(start.toString(), Ballsorter.inputFormatter);
@@ -100,7 +100,7 @@ public class Parser {
 
             } else {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                System.out.println(Ballsorter.line);
+                System.out.println(Ballsorter.LINE);
                 curr = null;
             }
 
