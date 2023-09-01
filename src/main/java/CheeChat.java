@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,10 +9,9 @@ public class CheeChat {
 
 
     public static void main(String[] args) {
+        ArrayList<Task> tasks = new ArrayList<>();
         File f = new File("./data/duke.txt");
-        Scanner s = new Scanner("./data/duke.txt");
 
-        s.nextLine();
         try {
             if (!f.getParentFile().isDirectory()) {
                 f.mkdirs();
@@ -21,6 +21,18 @@ public class CheeChat {
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+
+        try {
+            Scanner s = new Scanner(f);
+            while (s.hasNextLine()) {
+                String task = s.nextLine();
+                System.out.println(task);
+                Task instance = Task.readFile(task);
+                tasks.add(instance);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("error file not found");
         }
 
 
@@ -33,7 +45,6 @@ public class CheeChat {
         System.out.println("Hello! I'm CheeChat");
         System.out.println("What can I do for you?");
         Scanner input = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
         String cmd = input.nextLine();
 
 
