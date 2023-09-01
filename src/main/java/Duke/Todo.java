@@ -1,4 +1,4 @@
-package Duke.Task;
+package Duke;
 
 public class Todo extends Task {
     private String Input;

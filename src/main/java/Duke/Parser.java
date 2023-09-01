@@ -1,3 +1,5 @@
+package Duke;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -143,9 +145,9 @@ public class Parser {
     }
 }
 
-    // for deadline, event and todo, create a task and pass it in AddTask(Task task, isLoading) function
+    // for deadline, event and todo, create a task and pass it in AddTask(Duke.Task task, isLoading) function
     // which handles both isRestoring and adding task
     // hence a flag is necessary to indicate whether the msg gets printed out
     // for the loading of task, simply do handleInput(input, tasks, true)
-    // in the function for addtask, do get it from the TaskList class for add function (eg taskList.add(Task)
+    // in the function for addtask, do get it from the Duke.TaskList class for add function (eg taskList.add(Duke.Task)
     // for list, can just use ui to print it out
