@@ -11,11 +11,11 @@ public class Command {
     private static final HashMap<String, Cmd> COMMAND_MAP = new HashMap<>(
             Map.of("todo", Cmd.TODO, "event", Cmd.EVENT, "mark", Cmd.MARK,
                     "unmark", Cmd.UNMARK, "list", Cmd.LIST, "bye", Cmd.EXIT,
-                    "deadline", Cmd.DEADLINE, "delete", Cmd.DELETE)
+                    "deadline", Cmd.DEADLINE, "delete", Cmd.DELETE, "find", Cmd.FIND)
     );
 
     private enum Cmd {
-        MARK, UNMARK, LIST, EXIT, TODO, DEADLINE, EVENT, INVALID, DELETE
+        MARK, UNMARK, LIST, EXIT, TODO, DEADLINE, EVENT, INVALID, DELETE, FIND
     }
 
     private String date1;
@@ -63,6 +63,13 @@ public class Command {
             } else {
                 ui.display(tasks.toString());
             }
+            return false;
+        case FIND:
+            if (this.description == null) {
+                throw new DukeException("Description cannot be empty!");
+            }
+            ui.display("    Here are the matching tasks in your list::");
+            ui.display(tasks.find(this.description));
             return false;
         // tasks related commands below
         case MARK:

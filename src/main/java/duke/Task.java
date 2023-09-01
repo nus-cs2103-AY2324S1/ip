@@ -27,6 +27,10 @@ public abstract class Task {
         return (this.done ? 1 : 0) + " | " + this.task;
     }
 
+    public boolean containsDescription(String description) {
+        return this.task.contains(description);
+    }
+
     @Override
     public String toString() {
         String mark = done ? "X" : " ";
