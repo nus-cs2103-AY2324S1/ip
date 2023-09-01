@@ -34,9 +34,10 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "moss.Moss"
+    archiveBaseName = "moss"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName = 'moss.jar'
 }
 
 run{
