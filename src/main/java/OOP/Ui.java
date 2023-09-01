@@ -53,6 +53,9 @@ public class Ui {
     public void printTask(int id, Task task) {
         System.out.println(String.format("\t%d.%s", id + 1, task.toString()));
     }
+    public void printFindTaskMessage() {
+        System.out.println("\tHere are the matching tasks in your list:");
+    }
 
     public void bidFarewell() {
         System.out.println("\tBye. Hope to see you again soon!");

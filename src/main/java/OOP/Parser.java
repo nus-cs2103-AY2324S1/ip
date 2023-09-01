@@ -1,15 +1,6 @@
 package OOP;
 
-import Commands.Command;
-import Commands.AddToDoCommand;
-import Commands.AddDeadlineCommand;
-import Commands.AddEventCommand;
-import Commands.MarkTaskCommand;
-import Commands.UnmarkTaskCommand;
-import Commands.DeleteTaskCommand;
-import Commands.InvalidCommand;
-import Commands.ListTasksCommand;
-import Commands.ExitCommand;
+import Commands.*;
 import Duke.DukeException;
 
 public class Parser {
@@ -73,6 +64,10 @@ public class Parser {
                                 throw new DukeException("\tExpected usage: delete {id}");
                             }
                             return new DeleteTaskCommand(id);
+                        case "find":
+                            String searchText = extractSecondWordOnwards(userCommandText);
+                            return new FindTasksCommand(searchText);
+
                         default:
                             return new InvalidCommand();
                     }
