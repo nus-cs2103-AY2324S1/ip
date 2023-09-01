@@ -1,3 +1,7 @@
+package data.task;
+
+import data.exception.DukeException;
+import parser.Parser.Command;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.io.File;
@@ -43,7 +47,7 @@ public class TaskList {
         this.file = file;
     }
 
-    public void executeCommand(Parser.Command command, String input) throws DukeException {
+    public void executeCommand(Command command, String input) throws DukeException {
         switch (command) {
         case MARK:
             this.setTaskComplete(input);
@@ -69,7 +73,7 @@ public class TaskList {
         System.out.println("Now you have " + this.list.size() + " task(s) in the list.");
     }
 
-    public void addTask(Parser.Command command, String input) throws DukeException {
+    public void addTask(Command command, String input) throws DukeException {
         Task taskToAdd = null;
         String[] inputArr;
         switch (command) {

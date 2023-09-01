@@ -1,3 +1,7 @@
+package parser;
+
+import data.exception.DukeException;
+
 public class Parser {
     public enum Command {
         BYE,

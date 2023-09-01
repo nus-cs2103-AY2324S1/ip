@@ -1,9 +1,9 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.FileNotFoundException;
+import data.exception.DukeException;
+import data.task.TaskList;
+import parser.Parser;
+import parser.Parser.Command;
+import storage.Storage;
+import ui.Ui;
 
 public class Duke {
     public static void main(String[] args) {
@@ -17,7 +17,7 @@ public class Duke {
 
         while (true) {
             try {
-                Parser.Command command = parser.parse(input);
+                Command command = parser.parse(input);
                 if (command == Parser.Command.BYE) {
                     list.close();
                     ui.end();
