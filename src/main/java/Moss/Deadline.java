@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
-    public LocalDate date;
+    private LocalDate date;
 
     /**
      * Constructs a Moss.Deadline object with the given description and deadline.
@@ -18,6 +18,15 @@ public class Deadline extends Task {
         this.date = date;
     }
 
+    /**
+     * Returns the deadline for the task.
+     *
+     * @return The deadline for the task.
+     */
+    public LocalDate getDate() {
+        return date;
+    }
+
     @Override
     public String toString(String x) {
         return "D | " + super.toString() + " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "";
@@ -27,5 +36,4 @@ public class Deadline extends Task {
     public String toString() {
         return "D | " + super.toString() + " | " + date + "";
     }
-
 }

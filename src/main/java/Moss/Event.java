@@ -5,8 +5,8 @@ import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
 
-    public LocalDate fromDate;
-    public LocalDate toDate;
+    private LocalDate fromDate;
+    private LocalDate toDate;
 
     /**
      * Constructs an Moss.Event object with the given description, start time, and end time.
@@ -19,6 +19,24 @@ public class Event extends Task {
         super(description);
         this.fromDate = fromDate;
         this.toDate = toDate;
+    }
+
+    /**
+     * Returns the start time of the event.
+     *
+     * @return The start time of the event.
+     */
+    public LocalDate getFromDate() {
+        return fromDate;
+    }
+
+    /**
+     * Returns the end time of the event.
+     *
+     * @return The end time of the event.
+     */
+    public LocalDate getToDate() {
+        return toDate;
     }
     @Override
     public String toString(String x) {

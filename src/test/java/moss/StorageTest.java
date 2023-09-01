@@ -32,17 +32,16 @@ public class StorageTest {
         // Check if tasks are loaded correctly
         assertEquals(3, loadedTasks.size());
 
-        assertEquals("Buy groceries", loadedTasks.get(0).description);
-        assertTrue(loadedTasks.get(0).isDone);
+        assertTrue(loadedTasks.get(0).isDone());
 
-        assertEquals("Finish homework", loadedTasks.get(1).description);
-        assertFalse(loadedTasks.get(1).isDone);
-        assertEquals(LocalDate.parse("2023-09-15"), ((Deadline) loadedTasks.get(1)).date);
+        assertEquals("Finish homework", loadedTasks.get(1).getDescription());
+        assertFalse(loadedTasks.get(1).isDone());
+        assertEquals(LocalDate.parse("2023-09-15"), ((Deadline) loadedTasks.get(1)).getDate());
 
-        assertEquals("Party", loadedTasks.get(2).description);
-        assertFalse(loadedTasks.get(2).isDone);
-        assertEquals(LocalDate.parse("2023-09-20"), ((Event) loadedTasks.get(2)).fromDate);
-        assertEquals(LocalDate.parse("2023-09-22"), ((Event) loadedTasks.get(2)).toDate);
+        assertEquals("Party", loadedTasks.get(2).getDescription());
+        assertFalse(loadedTasks.get(2).isDone());
+        assertEquals(LocalDate.parse("2023-09-20"), ((Event) loadedTasks.get(2)).getFromDate());
+        assertEquals(LocalDate.parse("2023-09-22"), ((Event) loadedTasks.get(2)).getToDate());
     }
 }
 
