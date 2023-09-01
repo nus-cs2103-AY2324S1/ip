@@ -29,6 +29,8 @@ public class CommandParser {
                 return new UnmarkCommand(Integer.parseInt(args.trim()));
             case ListCommand.COMMAND_PHRASE:
                 return new ListCommand();
+            case FindCommand.COMMAND_PHRASE:
+                return new FindCommand(args.trim());
             case ByeCommand.COMMAND_PHRASE:
                 return new ByeCommand();
             case DeleteCommand.COMMAND_PHRASE:

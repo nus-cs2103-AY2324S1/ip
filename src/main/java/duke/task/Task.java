@@ -17,6 +17,10 @@ public abstract class Task {
         return this;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     @Override
     public String toString() {
         String statusMark = this.status ? "[✓]" : "[✕]";

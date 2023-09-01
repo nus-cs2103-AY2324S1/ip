@@ -5,6 +5,7 @@ import duke.storage.SaveData;
 import duke.task.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class ChatRecord {
     private ArrayList<Task> chatRecords;
@@ -36,6 +37,19 @@ public class ChatRecord {
             ret.append(String.format("\t%d. %s\n", i + 1, chatRecords.get(i).toString()));
         }
         return ret.toString().stripTrailing();
+    }
+
+    public Optional<String> findMessage(String findWord) {
+        StringBuilder ret = new StringBuilder();
+        for (Task task : chatRecords) {
+            if (task.getName().contains(findWord)) {
+                ret.append(String.format("\t%s\n", task));
+            }
+        }
+        if (ret.length() <= 0) {
+            return Optional.empty();
+        }
+        return Optional.of(ret.toString().stripTrailing());
     }
 
     public String toSave() {
