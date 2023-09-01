@@ -1,16 +1,24 @@
 package jarvis;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    private String dueDate;
+    private LocalDateTime fromDateTime;
+    private LocalDateTime toDateTime;
     
-    public Event(String title, String dueDate, boolean isCompleted) {
+    public Event(String title, LocalDateTime fromDateTime, LocalDateTime toDateTime, boolean isCompleted) {
         super(title, isCompleted);
-        this.dueDate = dueDate;
+        this.fromDateTime = fromDateTime;
+        this.toDateTime = toDateTime;
     }
     
     @Override
     public String toString() {
-        return "E | " + super.toString() + " | " + dueDate;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Ui.DATE_TIME_FORMAT);
+        String formattedFromDateTime = fromDateTime.format(formatter);
+        String formattedToDateTime = toDateTime.format(formatter);
+        return "E | " + super.toString() + " | " + formattedFromDateTime + " | " + formattedToDateTime;
     }
 }

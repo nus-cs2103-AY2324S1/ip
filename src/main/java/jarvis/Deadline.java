@@ -1,16 +1,21 @@
 package jarvis;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
 
-    protected String dueDate;
+    private LocalDateTime dueDate;
 
-    public Deadline(String title, String dueDate, boolean isCompleted) {
+    public Deadline(String title, LocalDateTime dueDate, boolean isCompleted) {
         super(title, isCompleted);
         this.dueDate = dueDate;
     }
     
     @Override
     public String toString() {
-        return "D | " + super.toString() + " | " + dueDate;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Ui.DATE_TIME_FORMAT);
+        String formattedDueDate = dueDate.format(formatter);
+        return "D | " + super.toString() + " | " + formattedDueDate;
     }
 }
