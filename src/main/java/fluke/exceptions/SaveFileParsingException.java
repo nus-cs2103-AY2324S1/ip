@@ -1,3 +1,5 @@
+package fluke.exceptions;
+
 public class SaveFileParsingException extends FlukeException {
     private static final String ERROR_MESSAGE = "I couldn't understand the save file...";
     public SaveFileParsingException() {

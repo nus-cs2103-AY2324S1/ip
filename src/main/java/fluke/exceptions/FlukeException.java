@@ -1,5 +1,7 @@
+package fluke.exceptions;
+
 public class FlukeException extends Exception {
-    protected FlukeException(String message) {
+    public FlukeException(String message) {
         super(message);
     }
 }

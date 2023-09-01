@@ -1,4 +1,9 @@
-abstract class Task {
+package fluke.tasks;
+
+import fluke.exceptions.EmptyDescriptionException;
+import fluke.exceptions.FlukeException;
+
+public abstract class Task {
     protected String description;
     protected boolean isDone = false;
 
