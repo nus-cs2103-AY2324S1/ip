@@ -1,5 +1,9 @@
 package ui;
-import tasks.*;
+import tasks.Deadlines;
+import tasks.TaskList;
+import tasks.Task;
+import tasks.Events;
+import tasks.ToDos;
 import parser.Parser;
 import java.io.IOException;
 import customexceptions.WrongCommandException;
@@ -10,8 +14,8 @@ import storage.Storage;
 
 public class Ui {
     // Setting of final parameters
-    final String name = "Corubi";
-    final String divider = "---------------------------------------------------";
+    final String NAME = "Corubi";
+    final String DIVIDER = "---------------------------------------------------";
 
     // Array of Tasks that user has entered
     String input;
@@ -21,9 +25,9 @@ public class Ui {
      */
     public void start() {
         // Initiate the bot greeting
-        System.out.println(divider);
-        System.out.println("Hello! I am " + name + ". \nWhat can I do for you?");
-        System.out.println(divider);
+        System.out.println(DIVIDER);
+        System.out.println("Hello! I am " + NAME + ". \nWhat can I do for you?");
+        System.out.println(DIVIDER);
     }
 
     /**
@@ -49,7 +53,7 @@ public class Ui {
 
             // If input is "list" command, show the list.
             if (input.equals("list") || input.equals("List")) {
-                System.out.println(divider);
+                System.out.println(DIVIDER);
                 tasks.printList();
                 input = sc.nextLine();
             } else if (input.contains("unmark") || input.contains("Unmark")) {
@@ -62,7 +66,7 @@ public class Ui {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println(number + " is too high! List size is only " + tasks.size());
                 } finally {
-                    System.out.println(divider);
+                    System.out.println(DIVIDER);
                     store.overwrite();
                     input = sc.nextLine();
                 }
@@ -77,7 +81,7 @@ public class Ui {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println(number + " is too high! List size is only " + tasks.size());
                 } finally {
-                    System.out.println(divider);
+                    System.out.println(DIVIDER);
                     store.overwrite();
                     input = sc.nextLine();
                 }
@@ -96,8 +100,13 @@ public class Ui {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println(number + " is too high! List size is only " + tasks.size());
                 }
-                System.out.println(divider);
+                System.out.println(DIVIDER);
                 store.overwrite();
+                input = sc.nextLine();
+            } else if (input.contains("find ")) {
+                System.out.println(DIVIDER);
+                System.out.println("Here are the matching items in your list:\n");
+                tasks.find(parser.find(input));
                 input = sc.nextLine();
             } else {
                 // Add the input to the list
@@ -127,7 +136,7 @@ public class Ui {
                         System.out.println(e.getMessage());
                     }
                 }
-                System.out.println(divider);
+                System.out.println(DIVIDER);
                 input = sc.nextLine();
             }
         }

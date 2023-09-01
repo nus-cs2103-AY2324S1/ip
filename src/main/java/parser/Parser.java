@@ -1,4 +1,5 @@
 package parser;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -34,6 +35,16 @@ public class Parser {
      */
     public String taskNameFromTextFile(String taskinfo, String prefix) {
         return taskinfo.split(prefix)[0].split("] ")[2].split(" \\(")[0] + " ";
+    }
+
+    /**
+     * Gets the word that the find command is trying to find
+     *
+     * @param input The corresponding word to search for
+     * @return The word to search for
+     */
+    public String find(String input) {
+        return input.split("find ")[1];
     }
 
     /**

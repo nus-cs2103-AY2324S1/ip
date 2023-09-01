@@ -49,4 +49,21 @@ public class TaskList {
     public Task retrieve(int index) {
         return enteredTexts.get(index);
     }
+
+    /**
+     * Finds matching tasks and prints them
+     *
+     * @param find The corresponding items in the list to find.
+     */
+    public void find(String find) {
+        int matchCounter = 0;
+        for (Task task : enteredTexts) {
+            if (task.getName().contains(find)) {
+                System.out.println(task);
+            }
+        }
+        if (matchCounter == 0) {
+            System.out.println("No matching tasks!");
+        }
+    }
 }
