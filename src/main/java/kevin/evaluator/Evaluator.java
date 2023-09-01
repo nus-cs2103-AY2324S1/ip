@@ -15,6 +15,9 @@ interface FiveParameterFunction<T, U, V, W, X, R> {
     R apply(T t, U u, V v, W w, X x) throws KevinException;
 }
 
+/**
+ * A class that handles which function to call based on a specific command.
+ */
 public class Evaluator {
     private TaskList taskList;
     private Logger logger;
@@ -34,12 +37,25 @@ public class Evaluator {
         MAPPER.put(Commands.DELETE, (t, a, l, f, i) -> new DeleteStrategy(t, a).evaluate(l, f, i));
     }
 
+    /**
+     * Constructor to initialize Evaluator.
+     * @param logger This is the Logger that handles System.out.println.
+     * @param fileStorage This is the FileStorage that handles the storage in the local computer.
+     * @param taskList This is the TaskList where the tasks are stored and operations are defined.
+     */
     public Evaluator(Logger logger, FileStorage fileStorage, TaskList taskList) {
         this.taskList = taskList;
         this.logger = logger;
         this.fileStorage = fileStorage;
     }
 
+    /**
+     *
+     * @param queryObject This is the QueryObject that contains the command and the arguments.
+     * @param isInFile This is the boolean to show whether the task is in the local computer's file.
+     * @return Returns a boolean that determines the continuation of the evaluation.
+     * @throws KevinException On the detection of errors.
+     */
     public boolean evaluate(QueryObject queryObject, boolean isInFile) throws KevinException {
         Commands command = queryObject.getCommandType();
         ArrayList<String> arguments = queryObject.getArgs();
