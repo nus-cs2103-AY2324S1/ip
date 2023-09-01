@@ -3,7 +3,7 @@ package duke;
 /*
  * Static class that handles printing of formatted messages to the user.
  */
-public class Messages {
+public class Ui {
     public static final String TAB = "    ";
     public static final String LINE = "____________________________________________________________";
     public static final String LOGO = 
