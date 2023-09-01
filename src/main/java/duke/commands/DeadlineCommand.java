@@ -16,7 +16,12 @@ public class DeadlineCommand extends Command {
 
     @Override
     protected String getInvalidFormatMessage() {
-        return String.join("\n", "Invalid format for command `deadline`!", "Usage: deadline <DESCRIPTION> /by <DUE_DATE>", "<DUE_DATE> should be of the format YYYY-MM-DDTHH:mm[:ss.sss]");
+        return String.join(
+                "\n",
+                "Invalid format for command `deadline`!",
+                "Usage: deadline <DESCRIPTION> /by <DUE_DATE>",
+                "<DUE_DATE> should be of the format YYYY-MM-DDTHH:mm[:ss.sss]"
+        );
     }
 
     @Override
@@ -34,7 +39,16 @@ public class DeadlineCommand extends Command {
             Deadline deadline = new Deadline(description, dueDate);
             tasks.add(deadline);
 
-            return new CommandResult(true, "Got it. I've added this task:", deadline.toString(), String.format("Now you have %d %s in the list.", tasks.size(), tasks.size() == 1 ? "task" : "tasks"));
+            return new CommandResult(
+                    true,
+                    "Got it. I've added this task:",
+                    deadline.toString(),
+                    String.format(
+                            "Now you have %d %s in the list.",
+                            tasks.size(),
+                            tasks.size() == 1 ? "task" : "tasks"
+                    )
+            );
         } catch (DateTimeParseException e) {
             throw new CommandException("Deadline due date is not a valid datetime!");
         }

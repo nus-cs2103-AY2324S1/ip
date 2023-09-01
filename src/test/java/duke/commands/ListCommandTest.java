@@ -27,7 +27,11 @@ public class ListCommandTest {
         TaskList tasks = new TaskList();
         Todo todo = new Todo("read book");
         Deadline deadline = new Deadline("assignment", LocalDateTime.parse("2023-09-10T12:00"));
-        Event event = new Event("meeting", LocalDateTime.parse("2023-09-10T12:00"), LocalDateTime.parse("2023-09-10T16:00"));
+        Event event = new Event(
+                "meeting",
+                LocalDateTime.parse("2023-09-10T12:00"),
+                LocalDateTime.parse("2023-09-10T16:00")
+        );
         tasks.add(todo);
         tasks.add(deadline);
         tasks.add(event);
@@ -35,7 +39,13 @@ public class ListCommandTest {
 
         CommandResult result = command.run(tasks);
 
-        assertEquals(List.of("Here are the tasks in your list:", "1. " + todo, "2. " + deadline, "3. " + event, "You have 3 tasks in your list."), result.response);
+        assertEquals(List.of(
+                "Here are the tasks in your list:",
+                "1. " + todo,
+                "2. " + deadline,
+                "3. " + event,
+                "You have 3 tasks in your list."
+        ), result.response);
     }
 
 }

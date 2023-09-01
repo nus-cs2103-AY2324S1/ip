@@ -10,7 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MarkCommandTest {
-    private static final String invalidFormatMessage = String.join("\n", "Invalid format for command `mark`!", "Usage: mark <TASK_NUMBER>");
+    private static final String invalidFormatMessage = String.join(
+            "\n",
+            "Invalid format for command `mark`!",
+            "Usage: mark <TASK_NUMBER>"
+    );
 
     @Test
     public void run_markUndoneEvent_success() throws CommandException {
