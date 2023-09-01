@@ -76,7 +76,7 @@ public class Parser {
                 String stringDeadline = taskDetailsArray[1].trim();
 
                 try {
-                    LocalDateTime deadline = LocalDateTime.parse(stringDeadline, Ui.DATE_INPUT_FORMAT);
+                    LocalDateTime deadline = LocalDateTime.parse(stringDeadline, Ui.DATE_FORMAT_INPUT);
                     return new Command.AddCommand(new DeadlineTask(taskName, deadline), CommandType.ADD_DEADLINE);
                 } catch (DateTimeParseException e) {
                     return new Command.InvalidCommand("☹ OOPS!!! Please enter a valid date and time in the format: dd/MM/yyyy HHmm");
@@ -101,8 +101,8 @@ public class Parser {
                 String stringStartTime = taskDetailsArray2[0].trim();
                 String stringEndTime = taskDetailsArray2[1].trim();
                 try {
-                    LocalDateTime startTime = LocalDateTime.parse(stringStartTime, Ui.DATE_INPUT_FORMAT);
-                    LocalDateTime endTime = LocalDateTime.parse(stringEndTime, Ui.DATE_INPUT_FORMAT);
+                    LocalDateTime startTime = LocalDateTime.parse(stringStartTime, Ui.DATE_FORMAT_INPUT);
+                    LocalDateTime endTime = LocalDateTime.parse(stringEndTime, Ui.DATE_FORMAT_INPUT);
                     return new Command.AddCommand(new EventTask(taskName, startTime, endTime), CommandType.ADD_EVENT);
                 } catch (DateTimeParseException e) {
                     return new Command.InvalidCommand("☹ OOPS!!! Please enter a valid date and time in the format: dd/MM/yyyy HHmm");
