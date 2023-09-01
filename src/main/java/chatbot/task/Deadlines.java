@@ -3,7 +3,7 @@ package chatbot.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadlines extends Task{
+public class Deadlines extends Task {
     private LocalDateTime date;
 
     public Deadlines(String description, LocalDateTime date) {

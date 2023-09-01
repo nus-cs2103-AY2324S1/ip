@@ -1,10 +1,10 @@
 package chatbot.command;
 
-import chatbot.Ui;
 import chatbot.ChatbotException;
+import chatbot.Ui;
 import chatbot.task.TaskManager;
 
-public class AddEventCommand extends Command{
+public class AddEventCommand extends Command {
     private String description;
     private String start;
     private String end;

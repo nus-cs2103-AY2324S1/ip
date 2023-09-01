@@ -1,10 +1,11 @@
 package chatbot;
 
 import chatbot.command.*;
+
 public class Parser {
 
     public enum TaskType {
-        TODO, DEADLINE, EVENT, MARK,UNMARK ,UNKNOWN, BYE;
+        TODO, DEADLINE, EVENT, MARK, UNMARK, UNKNOWN, BYE;
     }
 
     public static TaskType determineTaskType(String userInput) {

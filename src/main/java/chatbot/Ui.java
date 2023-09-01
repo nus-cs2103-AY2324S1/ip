@@ -1,7 +1,8 @@
 package chatbot;
 
+import chatbot.task.Task;
+
 import java.util.Scanner;
-import chatbot.task.*;
 
 public class Ui {
     private Scanner scanner;
