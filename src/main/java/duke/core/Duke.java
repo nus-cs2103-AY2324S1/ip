@@ -6,6 +6,9 @@ import duke.command.Command;
 
 import duke.task.TaskList;
 
+/**
+ * Main class for the program.
+ */
 public class Duke {
     private static boolean isExit = false;
 

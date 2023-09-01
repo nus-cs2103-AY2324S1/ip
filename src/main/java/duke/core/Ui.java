@@ -6,9 +6,17 @@ import java.util.stream.Stream;
 
 import duke.command.Command;
 
+/**
+ * Class to handle all user interaction.
+ */
 public class Ui {
     private static Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Responds to the user with a formatted message.
+     * 
+     * @param message Message to be sent to the user.
+     */
     public static <T> void respond(T message) {
         Ui.showSeparator();
         System.out.println(String.format("     %s",  message.toString()));
@@ -16,6 +24,11 @@ public class Ui {
         Ui.showInputArrow();
     }
 
+    /**
+     * Responds to the user with a formatted message.
+     * 
+     * @param messages Messages to be sent to the user.
+     */
     public static <T> void respond(List<T> messages) {
         Ui.showSeparator();
         for (T message: messages) {
@@ -25,6 +38,11 @@ public class Ui {
         Ui.showInputArrow();
     }
 
+    /**
+     * Responds to the user with a formatted message.
+     * 
+     * @param messages Messages to be sent to the user.
+     */
     public static <T> void respond(Stream<T> messages) {
         Ui.showSeparator();
         messages.forEach(message -> System.out.println(String.format("     %s",  message.toString())));

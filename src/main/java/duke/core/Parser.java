@@ -17,9 +17,23 @@ import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
 
+/**
+ * Class to parse user input.
+ */
 public class Parser {
+    
+    /* DateTimeFormatter for parsing date and time input */
     public static DateTimeFormatter dateTimeParser = DateTimeFormatter.ofPattern("dd-MM-yyyy[ HHmm]");
 
+    /**
+     * Parses a date and time input string into a TemporalAccessor object.
+     * The input string must be in the format "DD-MM-YYYY [HHMM]".
+     * The TemporalAccessor object returned is either a LocalDate or LocalDateTime object.
+     * 
+     * @param dateTimeString Date and time input string.
+     * @return TemporalAccessor object representing the date and time input.
+     * @throws DukeException If the input string is not in the correct format.
+     */
     public static TemporalAccessor parseDateTimeInput(String dateTimeString) throws DukeException{
         try {
             return dateTimeParser.parseBest(dateTimeString,
@@ -30,6 +44,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a user input string into a Command object.
+     * 
+     * @param fullCommand User input string.
+     * @return Command object representing the user input.
+     */
     public static Command parseCommand(String fullCommand) {
         String[] splitCommand = fullCommand.trim().split(" ", 2);
         String parameters = "";
@@ -92,6 +112,13 @@ public class Parser {
         return parameterMap;
     }
 
+    /**
+     * Parses a task data string into an AddCommand object.
+     * Primarily used for parsing task data from storage.
+     * 
+     * @param taskDataString Task data string.
+     * @return AddCommand object representing the task data.
+     */
     public static AddCommand parseTaskDataString(String taskDataString) {
         String[] parameterArray = taskDataString.trim().split(" \\| ");
 
