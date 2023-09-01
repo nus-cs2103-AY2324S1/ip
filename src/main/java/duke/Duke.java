@@ -10,7 +10,6 @@ import duke.data.task.Task;
 import duke.data.TaskList;
 import duke.data.exception.DukeException;
 public class Duke {
-    static final String FILE_NAME = "data/duke.txt";
     private final Storage storage;
     private TaskList tasklist;
     private final Ui ui;
