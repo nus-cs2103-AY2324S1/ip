@@ -9,10 +9,12 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner scanner;
+    private String message;
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
 
     public Ui () {
         this.scanner = new Scanner(System.in);
+        this.message = "";
     }
 
     /**
@@ -41,101 +43,95 @@ public class Ui {
     /**
      * Prints the exit message of the chatbot.
      */
-    public void printExitMessage() {
-        String exitMessage = HORIZONTAL_LINE
-                + "Bye. Hope to see you again soon!\n"
-                + HORIZONTAL_LINE;
-        System.out.println(exitMessage);
+    public void addExitMessage() {
+        this.message = "Bye. Hope to see you again soon!\n";
     }
 
     /**
-     * Prints all the String representation of Tasks in a given TaskList.
+     * Prints the current message in the Ui object and clears the message.
+     */
+    public void printMessage() {
+        System.out.print(HORIZONTAL_LINE);
+        System.out.print(this.message);
+        System.out.println(HORIZONTAL_LINE);
+        this.message = "";
+    }
+
+    /**
+     * Adds all the String representation of Tasks in a given TaskList.
      *
      * @param taskList The given TaskList.
      */
-    public void printList(TaskList taskList) {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println(taskList.toString());
-        System.out.println(HORIZONTAL_LINE);
+    public void addTaskList(TaskList taskList) {
+        this.message += taskList.toString();
     }
 
     /**
-     * Prints a message to indicate that a given task has been successfully added.
-     *
-     * @param task The given Task to be added to the target TaskList.
-     * @param size The size of the target TaskList.
+     * Adds a message to indicate that a given task has been successfully added.
      */
-    public void printAdd(Task task, int size) {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + size + " tasks in the list.");
-        System.out.println(HORIZONTAL_LINE);
+    public void addAddMessage() {
+        this.message += "Got it. I've added this task:\n";
     }
 
     /**
-     * Prints a message to indicate that a given task has been successfully deleted.
-     *
-     * @param task The given Task to be deleted from the target TaskList.
-     * @param size The size of the target TaskList.
+     * Adds a message to indicate that a given task has been successfully deleted.
      */
-    public void printDelete(Task task, int size) {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + size + " tasks in the list.");
-        System.out.println(HORIZONTAL_LINE);
+    public void addDeleteMessage() {
+        this.message += "Noted. I've removed this task:\n";
     }
 
     /**
-     * Prints a message to indicate that a given task has been successfully marked.
-     *
-     * @param task The given Task to be marked as completed.
+     * Adds a message to indicate that a given task has been successfully marked.
      */
-    public void printMark(Task task) {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
-        System.out.println(HORIZONTAL_LINE);
+    public void addMarkMessage() {
+        this.message += "Nice! I've marked this task as done:\n";
     }
 
     /**
-     * Prints a message to indicate that a given task has been successfully unmarked.
-     *
-     * @param task The given Task to be marked as uncompleted.
+     * Adds a message to indicate that a given task has been successfully unmarked.
      */
-    public void printUnmark(Task task) {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
-        System.out.println(HORIZONTAL_LINE);
+    public void addUnmarkMessage() {
+        this.message += "OK, I've marked this task as not done yet:\n";
     }
 
     /**
-     * Prints the error message from a checked exception thrown.
+     * Add the error message from a given Exeception.
      *
      * @param e The Exception thrown from the execution of a method.
      */
-    public void printError(Exception e) {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("Oops! we encountered an error");
-        System.out.println(e.getMessage());
-        System.out.println(HORIZONTAL_LINE);
+    public void addErrorMessage(Exception e) {
+        this.message += "Oops! we encountered an error\n" + e.getMessage() + "\n";
     }
 
     /**
-     * Prints the error message when the parser cannot find a matching command.
+     * Adds the error message when the parser cannot find a matching command.
      */
-    public void printCommandNotFound() {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("Oops! I'm sorry, but I don't know what that means :-(");
-        System.out.println(HORIZONTAL_LINE);
+    public void addCommandNotFound() {
+        this.message += "Oops! I'm sorry, but I don't know what that means :-(\n";
     }
 
-    public void printFind(TaskList taskList) {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("Here are the matching tasks in your list:");
-        System.out.print(taskList.toString());
-        System.out.println(HORIZONTAL_LINE);
+    /**
+     * Adds the message to indicate the find query is successful.
+     */
+    public void addFindMessage() {
+        this.message += "Here are the matching tasks in your list:\n";
+    }
+
+    /**
+     * Adds the String representation of the given Task into the message.
+     *
+     * @param task The given Task to be added into the message of the UI.
+     */
+    public void addTaskMessage(Task task) {
+        this.message += task.toString() + "\n";
+    }
+
+    /**
+     * Adds the message indicating the size of the TaskList.
+     *
+     * @param taskList The given TaskList.
+     */
+    public void addTaskListSizeMessage(TaskList taskList) {
+        this.message += "Now you have " + taskList.size() + " tasks in the list." + "\n";
     }
 }
