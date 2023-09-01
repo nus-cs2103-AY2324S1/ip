@@ -6,11 +6,41 @@ import trackerbot.exception.TrackerBotException;
 
 import java.util.Scanner;
 
+/**
+ * Abstracts the Commands obtained from user input.
+ * <p> Command nests its child classes inside its abstraction, as there is
+ * a small number of available commands that can be called through the UI. </p>
+ */
 public abstract class Command {
+    /**
+     * Runs the command specified by the specific command.
+     *
+     * @param tasks The Collection of Tasks stored by TrackerBot.
+     * @param ui The UI object of TrackerBot, to pass status messages into.
+     * @throws TrackerBotException The internal TrackerBotException, for expected and recoverable
+     *                             errors to display on the UI.
+     */
     public abstract void execute(TaskList tasks, Ui ui) throws TrackerBotException;
 
     public abstract boolean isExit();
 
+    /**
+     * Factory method for Command.
+     * <p>Depending on the keyword passed in, the method will generate an
+     * appropriate instance of a subtype of Command. Currently, this method can generate
+     * these subtypes:</p>
+     * <ul>
+     *     <li>AddCommand, to add Tasks into the Tracker.</li>
+     *     <li>DeleteCommand, to remove Tasks from the Tracker.</li>
+     *     <li>ToggleCommand, to mark/unmark Tasks.</li>
+     *     <li>ListCommand, to display Tasks in the Tracker.</li>
+     *     <li>ExitCommand, to tell the Tracker to exit.</li>
+     *     <li>UnknownCommand, which will throw an error on execute.</li>
+     * </ul>
+     * @param keyword The keyword passed in by the user input.
+     * @param rest The description of the user input.
+     * @return Some subtype of Command related to keyword.
+     */
     public static Command of(String keyword, String rest) {
         CommandType parsedType = CommandType.UNKNOWN;
         for (CommandType command: CommandType.values()) {
