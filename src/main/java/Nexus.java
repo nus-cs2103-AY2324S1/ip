@@ -1,171 +1,47 @@
-import Exceptions.MissingInputException;
 import Exceptions.InvalidInputException;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Nexus {
-    private static ArrayList<Task> list;
+    private TaskList list;
+    private Storage storage;
+    private Ui ui;
+    private String path;
 
-    public static void main(String[] args) throws IOException {
+    public Nexus() {
+        this.path = "src" + File.separator + "main" + File.separator + "data" + File.separator + "nexus.txt";
+        this.storage = new Storage(path);
+        this.ui = new Ui();
+    }
+
+    public void run() {
         System.out.println("Hello! I'm NEXUS");
         System.out.println("What can I do for you?");
-        Scanner scanner = new Scanner(System.in);
-        list = null;
-        // read from file and populate arraylist
-        try {
-            File f = new File("C:\\Users\\keeso\\Desktop\\ip\\src\\main\\data\\nexus.txt");
-            if (f.createNewFile()) {
-                System.out.println("File created");
-            } else {
-                Scanner s = new Scanner(f);
-                while (s.hasNext()) {
-                    Nexus.parseInput(s.nextLine());
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        this.list = new TaskList(storage.loadTasks());
+        // Show current tasks
+        ui.list(this.list);
 
-        FileWriter fw = new FileWriter("C:\\Users\\keeso\\Desktop\\ip\\src\\main\\data\\nexus.txt", true);
+        Scanner scanner = new Scanner(System.in);
         boolean exit = false;
         while (!exit) {
             try {
                 String input = scanner.nextLine();
-                exit = Nexus.parseInput(input);
-                fw.write(input);
-            } catch (InvalidInputException | MissingInputException e) {
-                System.out.println(e.getMessage());
-            } catch (Exception e) {
-                System.out.println("An unexpected error occurred: " + e.getMessage());
-            } finally {
+                exit = Parser.parseInput(storage, this.list, input);
                 scanner.reset();
+            } catch (InvalidInputException e) {
+                System.out.println(e.getMessage());
             }
         }
-        fw.close();
         System.out.println("Bye. Hope to see you again soon!");
+
     }
 
-    public static boolean parseInput(String input) throws Exception{
-        int index;
-        String desc;
-        String[] data = input.split(" ");
-        StringBuilder builder = new StringBuilder();
-        switch (data[0]) {
-        case "bye":
-            return true;
-        case "list":
-            System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < list.size(); i++) {
-                System.out.print(i + 1);
-                System.out.println("." + list.get(i));
-            }
-            break;
-        case "mark":
-            if (data.length == 1) {
-                throw new MissingInputException("Task index must be specified");
-            }
-            index = Integer.parseInt(data[1]) - 1;
-            list.get(index).setDone();
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(list.get(index));
-            break;
-        case "unmark":
-            if (data.length == 1) {
-                throw new MissingInputException("Task index must be specified");
-            }
-            index = Integer.parseInt(data[1]) - 1;
-            list.get(index).setUndone();
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(list.get(index));
-            break;
-        case "todo":
-            if (data.length == 1) {
-                throw new MissingInputException("Todo description cannot be empty");
-            }
-            for (int i = 1; i < data.length; i++) {
-                builder.append(data[i]);
-                if (i < data.length - 1) {
-                    builder.append(" ");
-                }
-            }
-            desc = builder.toString();
-            list.add(new Todo(desc));
-            System.out.println("Got it. I've added this task:");
-            System.out.println(list.get(list.size() - 1));
-            System.out.println("Now you have " + list.size() + " tasks in the list.");
-            break;
-        case "deadline":
-            if (data.length == 1) {
-                throw new MissingInputException("Deadline description cannot be empty");
-            }
-            index = 1;
-            while(!data[index].equals("/by")) {
-                builder.append(data[index]).append(" ");
-                index++;
-            }
-            desc = builder.toString().trim();
-            builder.setLength(0);
-            index++;
-            while(index < data.length) {
-                builder.append(data[index]).append(" ");
-                index++;
-            }
-            String by = builder.toString().trim();
-            list.add(new Deadline(desc, by));
-            System.out.println("Got it. I've added this task:");
-            System.out.println(list.get(list.size() - 1));
-            System.out.println("Now you have " + list.size() + " tasks in the list.");
-            break;
-        case "event":
-            if (data.length == 1) {
-                throw new MissingInputException("Event description cannot be empty");
-            }
-            index = 1;
-            while(!data[index].equals("/from")) {
-                builder.append(data[index]).append(" ");
-                index++;
-            }
-            desc = builder.toString().trim();
-            builder.setLength(0);
-            index++;
-            while(!data[index].equals("/to")) {
-                builder.append(data[index]).append(" ");
-                index++;
-            }
-            String start = builder.toString().trim();
-            builder.setLength(0);
-            index++;
-            while(index < data.length) {
-                builder.append(data[index]).append(" ");
-                index++;
-            }
-            String end = builder.toString().trim();
-            list.add(new Event(desc, start, end));
-            System.out.println("Got it. I've added this task:");
-            System.out.println(list.get(list.size() - 1));
-            System.out.println("Now you have " + list.size() + " tasks in the list.");
-            break;
-        case "delete":
-            if (data.length == 1) {
-                throw new MissingInputException("Task index must be specified");
-            }
-            index = Integer.parseInt(data[1]) - 1;
-            Task deleted = list.get(index);
-            list.remove(index);
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(deleted);
-            System.out.println("Now you have " + list.size() + " tasks in the list.");
-            break;
-        default:
-            throw new InvalidInputException("I don't understand. Please check your input again.");
-        }
-        return false;
+    public static void main(String[] args) {
+        Nexus nexus = new Nexus();
+        nexus.run();
     }
 }
+

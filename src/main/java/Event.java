@@ -12,4 +12,10 @@ public class Event extends Task{
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
     }
+
+    @Override
+    public String toStorageString() {
+        String done = this.isDone ? "1" : "0";
+        return String.join("|", "event", done, this.description, this.start, this.end);
+    }
 }
