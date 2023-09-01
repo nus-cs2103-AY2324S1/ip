@@ -3,7 +3,18 @@ package duke;
 import duke.exception.UnknownCommandException;
 import duke.exception.EmptyDescriptionException;
 
+/**
+ * Represents the parser of the chat bot.
+ * A <code>Parser</code> object corresponds to the parser of the chat bot.
+ */
 public class Parser {
+    /**
+     * Parses the user input into the command and the rest of the input.
+     * @param input The user input.
+     * @return The command and the rest of the input.
+     * @throws UnknownCommandException If the command is not recognised.
+     * @throws EmptyDescriptionException If the description of the command is empty.
+     */
     public static String[] parseCommand(String input) throws UnknownCommandException, EmptyDescriptionException {
         String[] words = input.split(" ", 2); // splits into the command and the rest
 
