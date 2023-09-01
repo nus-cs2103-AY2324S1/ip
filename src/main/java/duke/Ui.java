@@ -26,6 +26,7 @@ public class Ui {
         System.out.printf("\033[3munmark\033[0m - Mark a task as incomplete%n");
         System.out.printf("\033[3mdelete\033[0m - Delete a task%n");
         System.out.printf("\033[3mbye\033[0m - Exit the program%n");
+        System.out.printf("\033[3mfind\033[0m - Find all tasks containing a given keyword%n");
         printHorizontalLine();
     }
 

@@ -1,10 +1,10 @@
 package duke;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -15,12 +15,6 @@ public class Duke {
     private final Parser parser;
     boolean isRunning = true;
 
-    /**
-     * Initiates a new {@code Duke} object.
-     *
-     * @throws IOException When the {@code saveTasksToDisk()} method in the {@code Storage} class
-     * fails to function properly.
-     */
     public Duke() throws IOException {
         this.tasks = new TaskList();
         this.ui = new Ui();
@@ -29,13 +23,6 @@ public class Duke {
         this.run();
     }
 
-    /**
-     * Contains the tasks required for {@code Duke} to start.
-     * Also acts as a driver method for the {@code Parser} to read the user input.
-     *
-     * @throws IOException When the {@code saveTasksToDisk()} method in the {@code Storage} class
-     * fails to function properly.
-     */
     public void run() throws IOException {
         storage.launchOnStart();
         try {
@@ -59,9 +46,6 @@ public class Duke {
         this.exit(0);
     }
 
-    /**
-     * Creates a new {@code Task} object with details input by the user and adds it to the list.
-     */
     public void createTask() {
         String details = parser.checkTaskInput("task");
         if (details != null) {
@@ -71,9 +55,6 @@ public class Duke {
         }
     }
 
-    /**
-     * Creates a new {@code Todo} object with details input by the user and adds it to the list.
-     */
     public void createToDo() {
         String details = parser.checkTaskInput("todo");
         if (details != null) {
@@ -83,10 +64,6 @@ public class Duke {
         }
     }
 
-    /**
-     * Creates a new {@code Deadline} object with details input by the user and adds it to the list.
-     * If no time is input by the user, the time will be set to 23:59 by default.
-     */
     public void createDeadline() {
         String details = parser.checkTaskInput("deadline");
         if (details == null) {
@@ -100,20 +77,18 @@ public class Duke {
         if (dueTime == null) {
             // Shouldn't reach here as creation of deadline without time input is supported.
             // Invalid input is also handled in the Parser class.
+            // Default dueTime is 23:59.
             return;
         }
         LocalDateTime due = dueTime.atDate(dueDate);
         if (parser.checkStartDateTime("deadline", due)) {
             tasks.add(new Deadline(details, due));
-            System.out.printf("Just saying, better %s now.%n"
-                    + "Not like it's my problem if you don't.%n", details);
+            System.out.printf("Just saying, better %s now.%n" +
+                    "Not like it's my problem if you don't.%n", details);
             ui.printEndOfOperation();
         }
     }
 
-    /**
-     * Creates a new {@code Event} object with details input by the user and adds it to the list.
-     */
     public void createEvent() {
         String details = parser.checkTaskInput("event");
         if (details == null) {
@@ -137,26 +112,23 @@ public class Duke {
         }
         LocalDateTime start = startTime.atDate(startDate);
         LocalDateTime end = endTime.atDate(endDate);
-        if (parser.checkStartDateTime("event", end)
-                && parser.checkTimeInterval("event", start, end)) {
+        if (parser.checkStartDateTime("event", end) &&
+                parser.checkTimeInterval("event", start, end)) {
             tasks.add(new Event(details, start, end));
-            System.out.printf("Wow, you have a %s?%n Uhh, n-not like I wanna join you!%n", details);
+            System.out.printf("Wow, you have a %s?%n" +
+                    "Uhh, n-not like I wanna join you!%n", details);
             ui.printEndOfOperation();
         }
     }
 
-    /**
-     * Prints all stored Task objects and prints them in a list format.
-     * Also shows the completion status of each task marked with an "[X]", and the
-     * breakdown of completed/incomplete tasks.
-     */
     public void list() {
         int numOfTasks = tasks.getNumOfTasks();
         int numOfCompletedTasks = tasks.getNumOfCompletedTasks();
         System.out.printf("You have %d tasks. (%d complete, %d incomplete)%n",
                 numOfTasks, numOfCompletedTasks, numOfTasks - numOfCompletedTasks);
         for (int i = 0; i < numOfTasks; i++) {
-            System.out.printf("%d. " + tasks.get(i).toString() + "%n", i + 1);
+            System.out.printf("%d. " + tasks.get(i).toString()
+                    + "%n", i + 1);
         }
         if (numOfCompletedTasks == numOfTasks) {
             System.out.println("You've completed all your tasks. Good for you.");
@@ -166,9 +138,6 @@ public class Duke {
         ui.printEndOfOperation();
     }
 
-    /**
-     * Marks a selected task as complete, with the task number input by the user.
-     */
     public void markAsComplete() {
         if (tasks.isEmpty()) {
             System.out.println("No tasks to mark.");
@@ -184,16 +153,14 @@ public class Duke {
                     tasks.incrementCompletedTasks();
                     System.out.printf("Task %d set as complete.%n", taskNumber);
                 } else {
-                    System.out.printf("Task %d is already complete.%n Stop wasting my time!%n", taskNumber);
+                    System.out.printf("Task %d is already complete.%n" +
+                            "Stop wasting my time!%n", taskNumber);
                 }
             }
             ui.printEndOfOperation();
         }
     }
 
-    /**
-     * Marks a selected task as incomplete, with the task number input by the user.
-     */
     public void markAsIncomplete() {
         if (!tasks.hasCompletedTasks()) {
             System.out.println("No tasks to unmark.");
@@ -221,9 +188,6 @@ public class Duke {
         }
     }
 
-    /**
-     * Deletes a selected task from the list, with the task number input by the user.
-     */
     public void deleteTask() {
         if (tasks.isEmpty()) {
             System.out.println("No tasks to delete.");
@@ -235,27 +199,43 @@ public class Duke {
             if (taskNumber != null) {
                 Task task = tasks.get(taskNumber - 1);
                 tasks.remove(task);
-                System.out.printf("Task %d deleted successfully.%n You now have %d tasks.%n",
-                        taskNumber, tasks.getNumOfTasks());
+                System.out.printf("Task %d deleted successfully.%n" +
+                        "You now have %d tasks.%n", taskNumber, tasks.getNumOfTasks());
             }
             ui.printEndOfOperation();
         }
     }
 
-    /**
-     * Terminates the {@code Duke} object.
-     *
-     * @param status Indicates the cause of termination as follows:
-     *               0 - Normal operations.
-     *               1 - Excessive invalid inputs from user.
-     *               2 - When {@code FileNotFoundException} is thrown.
-     * @throws IOException When the {@code saveTasksToDisk()} method in the {@code Storage} class
-     * fails to function properly.
-     */
+    public void findTask() {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks to find.");
+            System.out.println("Please create a task first.");
+            ui.incrementInvalidInputs();
+            ui.printHorizontalLine();
+        } else {
+            ArrayList<Task> matchingTasks = parser.getMatchingTasks();
+            if (matchingTasks == null) {
+                System.out.printf("Keyword cannot be empty. Please try again.%n");
+                ui.printHorizontalLine();
+            } else if (matchingTasks.isEmpty()) {
+                System.out.printf("No tasks with your keyword. Please try again.%n");
+                ui.printHorizontalLine();
+            } else {
+                System.out.printf("Here are the matching tasks in your list:%n");
+                for (int i = 0; i < matchingTasks.size(); i++) {
+                    System.out.printf("%d. " + matchingTasks.get(i).toString()
+                            + "%n", i + 1);
+                }
+                ui.printEndOfOperation();
+            }
+        }
+    }
+
     public void exit(int status) throws IOException {
         storage.saveTasksToDisk("./data/tasks.txt", tasks);
         if (status == 1) {
-            System.out.printf("I've had enough of your nonsense!%n Don't let me see you again!%n");
+            System.out.printf("I've had enough of your nonsense!%n" +
+                    "Don't let me see you again!%n");
         } else if (status == 0) {
             System.out.println("Finally I can rest. Bye!");
         }
