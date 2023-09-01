@@ -1,13 +1,13 @@
 package duke.tasks;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public class Deadline extends Task implements Serializable {
     private static final long serialVersionUID = 3L;
+    protected LocalDateTime by;
 
-    protected String by;
-
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }

@@ -10,17 +10,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class DeadlineCommandTest {
-    private static final String invalidFormatMessage = String.join("\n", "Invalid format for command `deadline`!", "Usage: deadline <DESCRIPTION> /by <DEADLINE>");
+    private static final String invalidFormatMessage = String.join("\n", "Invalid format for command `deadline`!", "Usage: deadline <DESCRIPTION> /by <DUE_DATE>", "<DUE_DATE> should be of the format YYYY-MM-DDTHH:mm[:ss.sss]");
 
     @Test
     public void run_validDeadline_success() throws CommandException {
         TaskList tasks = new TaskList();
-        Command command = new DeadlineCommand("deadline assignment /by tmr");
+        Command command = new DeadlineCommand("deadline assignment /by 2023-09-10T12:00");
 
         CommandResult result = command.run(tasks);
 
         assertEquals(tasks.size(), 1);
-        assertEquals(List.of("Got it. I've added this task:", "[D][ ] assignment (by tmr)", "Now you have 1 task in the list."), result.response);
+        assertEquals(List.of("Got it. I've added this task:", "[D][ ] assignment (by 2023-09-10T12:00)", "Now you have 1 task in the list."), result.response);
 
         Task todo = tasks.get(0);
         assertFalse(todo.isDone());
