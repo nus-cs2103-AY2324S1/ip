@@ -63,43 +63,47 @@ public class Command {
     }
 
     public void handleDeadline(String userInput, String keyword) throws IncompleteMessageException, DetailsUnknownException {
-        if (userInput.length() == keyword.length()) {
-            throw new IncompleteMessageException("duke.Deadline");
-        }
 
-        int byIndex = userInput.indexOf("/by");
+        try {
+            String[] inputToArr = Parser.splitInput(userInput); //return [keyword, task /by time]
 
-        if (byIndex == -1 || byIndex == userInput.length() - 4) {
+            if (userInput.length() == keyword.length()) {
+                throw new IncompleteMessageException("D");
+            }
+
+            String[] taskArr = Parser.splitDeadlineDetails(inputToArr[1]); // return [task, /by time]
+            String taskDescription = taskArr[0];
+            String taskTime = taskArr[1];
+
+            Deadline deadline = new Deadline(taskDescription, taskTime);
+            this.taskList.addTask(deadline);
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new DetailsUnknownException();
+        } catch (IncompleteMessageException e) {
+            e.getMessage();
         }
-
-        String taskDescription = userInput.substring(keyword.length() + 1, byIndex);
-        String deadlineInfo = userInput.substring(byIndex + 4);
-        if (taskDescription.isEmpty() || deadlineInfo.isEmpty()) {
-            throw new DetailsUnknownException();
-        }
-
-        Deadline task = new Deadline(taskDescription, deadlineInfo);
-        this.taskList.addTask(task);
     }
 
     public void handleEvent(String userInput, String keyword) throws IncompleteMessageException, DetailsUnknownException {
-        int fromIndex = userInput.indexOf("/from");
-        int toIndex = userInput.indexOf("/to");
 
-        if (userInput.length() == keyword.length() || fromIndex == -1 || toIndex == -1) {
-            throw new IncompleteMessageException("duke.Event");
-        }
+        try {
+            String[] inputToArr = Parser.splitInput(userInput); // return [kw, task /from time /to time]
 
-        String taskDescription = userInput.substring(keyword.length() + 1, userInput.indexOf("/from") - 1);
-        String startDetails = userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") - 1);
-        String endDetails = userInput.substring(userInput.indexOf("/to") + 4);
-        if (taskDescription.isEmpty() || startDetails.isEmpty() || endDetails.isEmpty()) {
+            if (userInput.length() == keyword.length()) {
+                throw new IncompleteMessageException("E");
+            }
+
+            String[] taskArr = Parser.splitEventDetails(inputToArr[1]); // return [task, /from time /to time]
+            String taskDescription = taskArr[0];
+            String taskTime = taskArr[1];
+
+            Event event = new Event(taskDescription, taskTime);
+            this.taskList.addTask(event);
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new DetailsUnknownException();
+        } catch (IncompleteMessageException e) {
+            e.getMessage();
         }
-
-        Event task = new Event(taskDescription, startDetails, endDetails);
-        this.taskList.addTask(task);
     }
 
     public void handleTodo(String userInput, String keyword) throws IncompleteMessageException, DetailsUnknownException {

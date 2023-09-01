@@ -23,11 +23,23 @@ public class Task {
         this.isDone = false;
     }
 
-    public String toFileString() {
+    public String getStatus() {
         if (isDone) {
             return "1";
         } else {
             return "0";
+        }
+    }
+
+    public String getTaskType(Task task) {
+        if (task instanceof Event) {
+            return "E | " + this.task + "| " + ((Event) task).getStartDateTime() + " to " + ((Event) task).getEndDateTime();
+        } else if (task instanceof Deadline) {
+            return "D | " + this.task + "| " + ((Deadline) task).getTime();
+        } else if (task instanceof ToDo) {
+            return "T | " + this.task;
+        } else {
+            return "Unknown";
         }
     }
 
