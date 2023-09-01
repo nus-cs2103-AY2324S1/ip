@@ -12,7 +12,7 @@ public class ChadBod {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private static final int TASK_DISPLAY_OFFSET = 1;
+    private static final int TASKLIST_DISPLAY_OFFSET = 1;
 
     /**
      * Constructs a ChadBod instance.
@@ -113,11 +113,11 @@ public class ChadBod {
      */
     private int getTaskNumber(String details) throws NumberFormatException, TaskIndexOutOfBoundsException {
         int unmarkTaskNumber = Integer.parseInt(details);
-        if (unmarkTaskNumber < ChadBod.TASK_DISPLAY_OFFSET ||
-                unmarkTaskNumber > tasks.getTaskCount() - 1 + TASK_DISPLAY_OFFSET) {
+        if (unmarkTaskNumber < ChadBod.TASKLIST_DISPLAY_OFFSET ||
+                unmarkTaskNumber > tasks.getTaskCount() - 1 + TASKLIST_DISPLAY_OFFSET) {
             throw new TaskIndexOutOfBoundsException();
         }
-        return unmarkTaskNumber - TASK_DISPLAY_OFFSET;
+        return unmarkTaskNumber - TASKLIST_DISPLAY_OFFSET;
     }
 
     /**
