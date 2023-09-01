@@ -1,3 +1,5 @@
+package parser;
+
 import exceptions.BocchiException;
 import exceptions.EmptyTaskException;
 import exceptions.InvalidInputException;
@@ -7,13 +9,14 @@ import task.Event;
 import task.Task;
 import task.TaskList;
 import task.Todo;
+import ui.Ui;
 
 public class Parser {
     private static final int EXPECTED_TOKENS_IN_EVENT = 3;
     private static final String LINE_BREAK = "___________________________________________________";
     private final Ui ui;
 
-    Parser(Ui ui) {
+    public Parser(Ui ui) {
         this.ui = ui;
     }
 
