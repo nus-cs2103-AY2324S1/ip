@@ -9,6 +9,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a storage for tasks
+ */
 public class Storage {
     private final String filePath;
 
@@ -16,6 +19,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file path
+     *
+     * @return An ArrayList of tasks
+     */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         Task task = null;
@@ -31,6 +39,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to the file path
+     *
+     * @param tasks The task list to be saved
+     */
     public void saveTasks(TaskList tasks) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
             for (int i = 0; i < tasks.getTaskCount(); i++) {

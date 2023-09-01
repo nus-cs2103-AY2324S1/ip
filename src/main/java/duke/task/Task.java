@@ -53,6 +53,12 @@ public class Task {
         return this.isDone;
     }
 
+    /**
+     * Returns a string representation of the task.
+     * example: [T][X] return book
+     *
+     * @return String representation of the task.
+     */
     @Override
     public String toString() {
         return String.format("[" + this.getStatusIcon() + "] " + this.getDescription());

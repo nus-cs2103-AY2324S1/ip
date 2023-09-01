@@ -2,6 +2,9 @@ package duke.commands;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a command to be executed.
+ */
 public class Command {
     private final String commandType;
     private String description;

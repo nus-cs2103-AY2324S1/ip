@@ -9,7 +9,7 @@ import duke.commands.*;
 import java.time.LocalDate;
 
 /**
- * The main class that initiates the chatbot application
+ * The main class that initiates the chatbot application.
  */
 public class Duke {
 
@@ -19,7 +19,7 @@ public class Duke {
 
 
     /**
-     * Initializes the Chatbot with an empty task list
+     * Initializes the Chatbot with an empty task list.
      */
     public Duke() {
         this.taskList = new TaskList();
@@ -40,7 +40,7 @@ public class Duke {
     }
 
     /**
-     * Marks a task as not done and provides user feedback
+     * Marks a task as not done and provides user feedback.
      *
      * @param taskIndex Index of the task to be marked as not done, starts from '1'
      */
@@ -73,6 +73,13 @@ public class Duke {
         }
     }
 
+
+    /**
+     * Adds a todo task to the task list and provides user feedback
+     *
+     * @param description The description of the todo task
+     * @throws TodoException If the description is empty
+     */
     public void addTodo(String description) throws TodoException {
         Task newTask;
         if (description.isEmpty()) {
@@ -87,6 +94,13 @@ public class Duke {
         }
     }
 
+    /**
+     * Adds a deadline task to the task list and provides user feedback
+     *
+     * @param description The description of the deadline task
+     * @param deadlineDate The deadline date of the deadline task
+     * @throws DeadlineException If the description or deadline date is empty
+     */
     public void addDeadline(String description, LocalDate deadlineDate) throws DeadlineException {
         if (description.isEmpty() || deadlineDate == null) {
             System.out.println("Error in addDeadline");
@@ -101,6 +115,14 @@ public class Duke {
         }
     }
 
+    /**
+     * Adds an event task to the task list and provides user feedback
+     *
+     * @param description The description of the event task
+     * @param eventFromDate The start date of the event task
+     * @param eventToDate The end date of the event task
+     * @throws EventException If the description, start date or end date is empty
+     */
     public void addEvent(String description, LocalDate eventFromDate, LocalDate eventToDate) throws EventException {
         if (description.isEmpty() || eventFromDate == null || eventToDate == null) {
             throw new EventException();
@@ -114,6 +136,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Loads the tasks from the storage file
+     */
     private void loadTasksFromFile() {
         for (Task taskData : storage.loadTasks()) {
             this.taskList.addTask(taskData);
@@ -131,6 +156,13 @@ public class Duke {
         this.storage.saveTasks(taskList);
     }
 
+    /**
+     * Handles the command based on the command type
+     *
+     * @param command The command to be handled
+     * @return True if the command is not "bye", false otherwise
+     * @throws DukeException If the command type is not recognized
+     */
     public boolean handleCommand(Command command) throws DukeException {
         String commandType = command.getCommandType();
         String description = command.getDescription();
@@ -169,6 +201,9 @@ public class Duke {
         return true;
     }
 
+    /**
+     * Starts the chatbot application
+     */
     public void start() {
         Ui.showWelcomeMessage();
         String userInput;

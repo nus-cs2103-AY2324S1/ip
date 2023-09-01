@@ -115,6 +115,9 @@ public class TaskList {
 
     /**
      * Displays the tasks in the task list with their details.
+     * example: [T][X] return book
+     *
+     * @return String representation of the task list.
      */
     @Override
     public String toString() {
