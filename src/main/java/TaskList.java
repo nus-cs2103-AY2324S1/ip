@@ -1,0 +1,84 @@
+import java.util.ArrayList;
+
+public class TaskList {
+    private ArrayList<Task> listOfTasks;
+    public TaskList() {
+        this.listOfTasks = new ArrayList<>();
+    }
+    public TaskList(ArrayList<Task> initialTasks) {
+        this.listOfTasks = initialTasks;
+    }
+
+    public ArrayList<Task> getListOfTasks() {
+        return listOfTasks;
+    }
+
+    public int getSize() {
+        return listOfTasks.size();
+    }
+
+    private void addTask(Task task) {
+        listOfTasks.add(task);
+    }
+
+    public Task addTodo(String description) throws DukeException {
+        Todo newTodo = new Todo(description);
+        addTask(newTodo);
+        return newTodo;
+    }
+
+    public Task addDeadline(String description, String by) throws DukeException {
+        Task newDeadline = new Deadline(description, by);
+        addTask(newDeadline);
+        return newDeadline;
+    }
+
+    public Task addEvent(String description, String from, String to) throws DukeException {
+        Task newEvent = new Event(description, from, to);
+        addTask(newEvent);
+        return newEvent;
+    }
+
+    public Task deleteTask(int index) throws DukeException {
+        // check if task exists
+        if (index < listOfTasks.size()) {
+            Task taskToBeDeleted = listOfTasks.get(index);
+            listOfTasks.remove(index);
+            return taskToBeDeleted;
+        } else {
+            throw new TaskDoesNotExistException();
+        }
+    }
+
+    public Task markTaskAsDone(int index) throws DukeException {
+        // check if task exists
+        if (index < listOfTasks.size()) {
+            Task task = listOfTasks.get(index);
+            return task;
+        } else {
+            throw new TaskDoesNotExistException();
+        }
+    }
+
+    public Task markTaskAsUndone(int index) throws DukeException {
+        // check if task exists
+        if (index < listOfTasks.size()) {
+            Task task = listOfTasks.get(index);
+            task.markAsUndone();
+            return task;
+        } else {
+            throw new TaskDoesNotExistException();
+        }
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            Task task = listOfTasks.get(i);
+            int number = i + 1;
+            str += ("\n" + number + "." + task);
+        }
+        return str;
+    }
+}
