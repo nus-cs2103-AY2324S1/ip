@@ -5,6 +5,9 @@ import duke.Storage;
 import duke.task.TaskList;
 import duke.ui.UI;
 
+/**
+ * Command to set a Task to not done.
+ */
 public class UnmarkCommand extends NumberedChoiceCommand implements Command {
     private static final String commandString = "unmark";
     private final String arguments;

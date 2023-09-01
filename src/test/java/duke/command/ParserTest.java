@@ -1,16 +1,17 @@
 package duke.command;
 
-import duke.DukeException;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import duke.DukeException;
 
 public class ParserTest {
 
     @Test
     public void invalidCommand() {
-       assertThrows(DukeException.class, () -> {
+        assertThrows(DukeException.class, () -> {
             Parser.parseCommand("thisIsInvalid");
         });
     }
@@ -20,7 +21,7 @@ public class ParserTest {
         try {
             assertTrue(Parser.parseCommand("bye") instanceof ByeCommand);
         } catch (DukeException ignored) {
-
+            // Do Nothing
         }
 
     }
@@ -30,7 +31,7 @@ public class ParserTest {
         try {
             assertTrue(Parser.parseCommand("list") instanceof ListCommand);
         } catch (DukeException ignored) {
-
+            // Do Nothing
         }
     }
 
@@ -39,7 +40,7 @@ public class ParserTest {
         try {
             assertTrue(Parser.parseCommand("mark 1") instanceof MarkCommand);
         } catch (DukeException ignored) {
-
+            // Do Nothing
         }
     }
 
@@ -48,7 +49,7 @@ public class ParserTest {
         try {
             assertTrue(Parser.parseCommand("unmark 1") instanceof UnmarkCommand);
         } catch (DukeException ignored) {
-
+            // Do Nothing
         }
     }
 
@@ -57,7 +58,7 @@ public class ParserTest {
         try {
             assertTrue(Parser.parseCommand("delete 1") instanceof DeleteCommand);
         } catch (DukeException ignored) {
-
+            // Do Nothing
         }
     }
 
@@ -66,7 +67,7 @@ public class ParserTest {
         try {
             assertTrue(Parser.parseCommand("todo") instanceof TodoCommand);
         } catch (DukeException ignored) {
-
+            // Do Nothing
         }
     }
 
@@ -75,7 +76,7 @@ public class ParserTest {
         try {
             assertTrue(Parser.parseCommand("deadline") instanceof DeadlineCommand);
         } catch (DukeException ignored) {
-
+            // Do Nothing
         }
     }
 
@@ -84,7 +85,7 @@ public class ParserTest {
         try {
             assertTrue(Parser.parseCommand("event") instanceof EventCommand);
         } catch (DukeException ignored) {
-
+            // Do Nothing
         }
     }
 }

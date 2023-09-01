@@ -1,15 +1,18 @@
 package duke.command;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.Objects;
+
 import duke.DukeException;
 import duke.Storage;
 import duke.task.Deadline;
 import duke.task.TaskList;
 import duke.ui.UI;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.Objects;
-
+/**
+ * Command to create a Deadline Task.
+ */
 public class DeadlineCommand extends NonemptyArgumentCommand implements Command {
 
     private static final String commandString = "deadline";
@@ -47,15 +50,21 @@ public class DeadlineCommand extends NonemptyArgumentCommand implements Command 
         super.validate(arguments);
         String[] userArgs = arguments.split("/by ");
         if (userArgs.length != 2) {
-            throw new DukeException("Missing Argument for command: " + commandString + ", should include /by YYYY-MM-DD");
+            throw new DukeException("Missing Argument for command: "
+                    + commandString
+                    + ", should include /by YYYY-MM-DD");
         }
         if (Objects.equals(userArgs[1], "")) {
-            throw new DukeException("Missing Argument for command: " + commandString + ", should include /by YYYY-MM-DD");
+            throw new DukeException("Missing Argument for command: "
+                    + commandString
+                    + ", should include /by YYYY-MM-DD");
         }
         try {
             LocalDate date = LocalDate.parse(userArgs[1]);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid Date Format for command: " + commandString + ", should be /by YYYY-MM-DD");
+            throw new DukeException("Invalid Date Format for command: "
+                    + commandString
+                    + ", should be /by YYYY-MM-DD");
         }
 
     }
@@ -74,9 +83,9 @@ public class DeadlineCommand extends NonemptyArgumentCommand implements Command 
         String[] userArgs = arguments.split("/by ");
         LocalDate date = LocalDate.parse(userArgs[1]);
         taskList.add(new Deadline(userArgs[0], date));
-        UI.sendMessage("Got it. I've added this task:\n  " +
-                taskList.get(taskList.size() - 1) +
-                String.format("\nNow you have %d tasks in the list.", taskList.size()));
+        UI.sendMessage("Got it. I've added this task:\n  "
+                + taskList.get(taskList.size() - 1)
+                + String.format("\nNow you have %d tasks in the list.", taskList.size()));
         storage.updateFile(taskList);
     }
 

@@ -2,6 +2,9 @@ package duke.task;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a task.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;

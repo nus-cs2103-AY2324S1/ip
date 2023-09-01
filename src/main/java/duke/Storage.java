@@ -1,16 +1,19 @@
 package duke;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 import duke.command.Command;
 import duke.command.Parser;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.UI;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
-
+/**
+ * Storage handler for duke application.
+ */
 public class Storage {
 
     private final String savePath;

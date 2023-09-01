@@ -1,17 +1,20 @@
 package duke.command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.task.TaskList;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertLinesMatch;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.task.TaskList;
 
 public class TodoCommandTest {
 
@@ -22,11 +25,12 @@ public class TodoCommandTest {
             TaskList taskList = storage.load();
             Command c = new TodoCommand("task");
             c.execute(taskList, null, storage);
-            assertEquals("[T][ ] task",taskList.get(0).toString());
+            assertEquals("[T][ ] task", taskList.get(0).toString());
 
             List<String> lines = List.of("0 todo task");
             assertLinesMatch(lines, Files.readAllLines(savePath.resolve("duke.txt")));
         } catch (DukeException ignored) {
+            // Do Nothing
         }
     }
 

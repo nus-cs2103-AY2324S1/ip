@@ -2,12 +2,14 @@ package duke.ui;
 
 import java.util.Scanner;
 
+/**
+ * UI Handler for duke application.
+ */
 public class UI {
 
-    private final String name;
     private static final Scanner scanner = new Scanner(System.in);
-
-    public static boolean active = false;
+    private static boolean isActive = false;
+    private final String name;
 
     private enum Colors {
         RESET("\u001B[0m"),
@@ -17,8 +19,7 @@ public class UI {
         YELLOW("\u001B[33m"),
         BLUE("\u001B[34m"),
         PURPLE("\u001B[35m"),
-        CYAN("\u001B[36m"),
-        ;
+        CYAN("\u001B[36m");
 
         private final String code;
 
@@ -32,9 +33,13 @@ public class UI {
         }
     }
 
+    /**
+     * Constructor for a UI.
+     * @param name name of the application
+     */
     public UI(String name) {
         this.name = name;
-        UI.active = true;
+        UI.isActive = true;
         // Send Greeting Message
         sendMessage(String.format("Hello! I'm %s\nWhat can I do for you?", this.name));
     }
@@ -43,8 +48,12 @@ public class UI {
         sendMessage(" Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Prints a message to the set output.
+     * @param msgs the message to print
+     */
     public static void sendMessage(String msgs) {
-        if (active) {
+        if (isActive) {
             printLine();
             for (String msg : msgs.split("\n")) {
                 System.out.println("\t" + Colors.CYAN + msg + Colors.RESET);
@@ -53,6 +62,10 @@ public class UI {
         }
     }
 
+    /**
+     * Prints a error to the set output.
+     * @param msgs the error to print
+     */
     public static void sendError(String msgs) {
         printLine();
         for (String msg : msgs.split("\n")) {

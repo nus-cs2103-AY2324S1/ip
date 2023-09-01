@@ -2,6 +2,9 @@ package duke.command;
 
 import duke.DukeException;
 
+/**
+ * Raw text handler for duke application.
+ */
 public class Parser {
 
     /**
