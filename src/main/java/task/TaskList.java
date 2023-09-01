@@ -25,7 +25,7 @@ public class TaskList {
         if (index >= 0 && index < tasks.size()) {
             Task task = tasks.get(index);
             task.mark();
-            return "Nice! I've marked this task as done:\n" + task.toString();
+            return "Yessir! This task is marked as done:\n" + task.toString();
         }
         return "Invalid task index.";
     }
@@ -34,13 +34,13 @@ public class TaskList {
         if (index >= 0 && index < tasks.size()) {
             Task task = tasks.get(index);
             task.unMark();
-            return "OK, I've marked this task as not done yet:\n" + task.toString();
+            return "Aite, I've marked this task as not done yet:\n" + task.toString();
         }
         return "Invalid task index.";
     }
 
     public String displayTasks() {
-        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
+        StringBuilder sb = new StringBuilder("Here's your tasks m8:\n");
         for (int i = 0; i < tasks.size(); i++) {
             sb.append((i + 1) + "." + tasks.get(i).toString()).append("\n");
         }
