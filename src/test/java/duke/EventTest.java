@@ -18,7 +18,7 @@ public class EventTest {
                 new Event("Apply for internships", fromDateTime, toDateTime).toString());
 
         Task task = new Event("Make my resume", fromDateTime, toDateTime);
-        task.mark();
+        task.setMark(true);
 
         assertEquals("[E][X] Make my resume (from: Sep 23 2023 1800 to: Sep 23 2023 2000)", task.toString());
     }
@@ -32,7 +32,7 @@ public class EventTest {
                 new Event("Apply for internships", fromDateTime, toDateTime).writeToFile());
 
         Task task = new Event("Make my resume", fromDateTime, toDateTime);
-        task.mark();
+        task.setMark(true);
 
         assertEquals("E | 1 | Make my resume | Sep 23 2023 1800 -> Sep 23 2023 2000", task.writeToFile());
     }
