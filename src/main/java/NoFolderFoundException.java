@@ -3,7 +3,7 @@
  */
 public class NoFolderFoundException extends Exception {
     /**
-     * Constructs an NoFolderFoundException object.
+     * Constructs a NoFolderFoundException object.
      */
     public NoFolderFoundException() {
         super();
