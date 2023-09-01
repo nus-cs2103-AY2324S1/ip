@@ -13,7 +13,7 @@ public abstract class Task {
      *
      * @param name The name of the task.
      */
-    public Task(String name){
+    public Task(String name) {
         this.name = name;
         this.isDone = false;
     }
@@ -35,7 +35,7 @@ public abstract class Task {
     /**
      * Marks the task as done.
      */
-    public void markTask(){
+    public void markTask() {
         this.isDone = true;
     }
 

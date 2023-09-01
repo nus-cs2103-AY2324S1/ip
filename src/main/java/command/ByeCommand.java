@@ -1,8 +1,10 @@
 package command;
+
+import java.io.IOException;
+
+import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-import duke.Storage;
-import java.io.IOException;
 
 /**
  * Command to end the Chat Bot. Saves user input into file.
