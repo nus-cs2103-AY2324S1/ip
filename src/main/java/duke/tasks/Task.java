@@ -1,7 +1,10 @@
 package duke.tasks;
 
 /**
- * An abstract class encapsulating a task in the task list.
+ * Encapsulates a task to be stored in the task list of the Duke chatbot.
+ * This is an abstract class meant to be inherited by concrete subclasses,
+ * e.g. ToDoTask, DeadlineTask, and EventTask.
+ *
  * @author Wu Jingya
  */
 public abstract class Task {
@@ -9,31 +12,36 @@ public abstract class Task {
     private boolean done;
 
     /**
-     * Creates a duke.tasks.Task with the specified description
-     * @param description The task's description
+     * Constructs a Task object with the specified description.
+     *
+     * @param description The task's description.
      */
     public Task(String description) {
         this.description = description;
         this.done = false;
     }
 
+    /**
+     * Constructs a Task object with the specified description and completion status.
+     *
+     * @param description The task's description.
+     * @param done Whether the task is completed.
+     */
     public Task(String description, Boolean done) {
         this.description = description;
         this.done = done;
     }
 
     /**
-     * Marks or unmarks the task as done
-     * @param done Whether the task is done
+     * Marks or unmarks the task as done.
+     * Marks the task as done if the specified boolean is true, and unmarks the task as done if otherwise.
+     *
+     * @param done Whether the task has been completed.
      */
     public void markTaskCompleted(boolean done) {
         this.done = done;
     }
 
-    /**
-     * Returns the string representation of the task
-     * @return The string representation of the task
-     */
     @Override
     public String toString() {
         String checkbox = "";
@@ -45,6 +53,13 @@ public abstract class Task {
         return checkbox + " " + this.description;
     }
 
+    /**
+     * Returns the string representation of the task's data to be saved into a text file.
+     * This formatting is consistent and understood by the chatbot's Storage component in charge
+     * of reading and writing all the tasks' data to hard drive.
+     *
+     * @return The string representation of the task's data.
+     */
     public String toData() {
         if (done) {
             return "1|" + this.description;

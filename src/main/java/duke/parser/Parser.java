@@ -12,13 +12,32 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Encapsulates the parser that parses through the user input received by the chatbot.
+ * Handles the main logic of the chatbot, and communicates with the main class Duke and
+ * its UI component to respond to user commands.
+ *
+ * @author Wu Jingya
+ */
 public class Parser {
     private Ui ui;
 
+    /**
+     * Constructs a Parser object connected to the specified Ui object.
+     *
+     * @param ui The Ui object the Parser is connected to.
+     * @see Ui
+     */
     public Parser(Ui ui) {
         this.ui = ui;
     }
 
+    /**
+     * Parses through the given user input string.
+     * Calls other class methods to respond to the user input accordingly.
+     *
+     * @param userInput The user input string.
+     */
     public void parse(String userInput) {
         String[] words = userInput.split(" ");
         if (words == null || words.length < 1) {

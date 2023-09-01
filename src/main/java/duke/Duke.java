@@ -8,11 +8,14 @@ import duke.ui.Ui;
 import java.util.Scanner;
 
 /**
- * Personal assistant chatbot that can help you manage a to-do list.
+ * Personal assistant chatbot that can help you manage a task list.
+ * This is the main class of the program.
+ *
  * @author Wu Jingya
  */
 public class Duke {
     private static String NAME = "Moira";
+    /** Whether the chatbot is currently accepting user input */
     private static boolean IS_RECEIVING_INPUT = false;
     private static TaskList TASK_LIST;
     private static Scanner SCANNER;
@@ -21,6 +24,12 @@ public class Duke {
     private static Parser PARSER;
     private static String filePath = "./data/duke.txt";
 
+    /**
+     * The main method.
+     * Initializes chatbot components and runs the main program.
+     *
+     * @param args The command line arguments.
+     **/
     public static void main(String[] args) {
         SCANNER = new Scanner(System.in);
         TASK_LIST = new TaskList();
@@ -47,25 +56,39 @@ public class Duke {
         UI.playGoodbye();
     }
 
+    /**
+     * Stops the chatbot from receiving user input.
+     */
     public static void stopReceivingInput() {
         IS_RECEIVING_INPUT = false;
     }
 
+    /**
+     * Returns the TaskList stored by the chatbot.
+     *
+     * @return The TaskList stored by the chatbot.
+     * @see TaskList
+     */
     public static TaskList getTaskList() {
         return TASK_LIST;
     }
 
-    // for testing purposes
+    /**
+     * Changes the path of the file storing TaskList data to the specified path.
+     * This method should only be used for testing purposes.
+     *
+     * @param path The intended path of the data file as a string.
+     */
     public static void changeFilePath(String path) {
         filePath = path;
     }
 
-    // for testing purposes
+    // for testing purposes only
     public static boolean getIsReceivingInput() {
         return IS_RECEIVING_INPUT;
     }
 
-    // for testing purposes
+    // for testing purposes only
     public static void setIsReceivingInput(boolean isReceivingInput) {
         IS_RECEIVING_INPUT = isReceivingInput;
     }

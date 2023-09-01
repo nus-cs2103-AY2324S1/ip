@@ -4,6 +4,7 @@ import duke.tasks.TaskList;
 import duke.tasks.DeadlineTask;
 import duke.tasks.EventTask;
 import duke.tasks.ToDoTask;
+import duke.ui.Ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,16 +13,42 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+/**
+ * Encapsulates the storage system that handles the loading and saving of user data stored by the chatbot.
+ * Handles the reading of data files and writing of saved data to hard drive to save the user's task list
+ * across sessions.
+ *
+ * @author Wu Jingya
+ */
 public class Storage {
+    /** The TaskList to be saved and loaded into */
     private TaskList taskList;
+    /** The string specifying the path of the text file to store the TaskList data */
     private String path;
+
+    /**
+     * Constructs a Storage object using the specified TaskList object and data file path.
+     * Initializes loading of data during object creation; in other words, this constructor
+     * loads the TaskList data from the specified file during the construction of the object.
+     *
+     * @param taskList The TaskList to be saved and loaded.
+     * @param path The file path as a string.
+     * @see TaskList
+     */
     public Storage(TaskList taskList, String path) {
         this.taskList = taskList;
         this.path = path;
         initialize();
     }
 
-    // for testing purposes only
+    /**
+     * Constructs a Storage object using the specified TaskList object.
+     * This constructor does not initialize the loading of data from the file into the TaskList
+     * during object creation. This constructor is to be used for testing purposes only.
+     *
+     * @param taskList The TaskList to be saved and loaded.
+     * @see TaskList
+     */
     public Storage(TaskList taskList) {
         this.taskList = taskList;
         this.path = "";
@@ -34,6 +61,15 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the TaskList data recorded in the specified file into the target TaskList.
+     * Shows an error message if the file cannot be found.
+     *
+     * @param file The File storing TaskList data.
+     * @param taskList The TaskList object to be loaded into.
+     * @see File
+     * @see TaskList
+     */
     public void loadTasksFromFile(File file, TaskList taskList) {
         try {
             Scanner scanner = new Scanner(file);
@@ -100,10 +136,13 @@ public class Storage {
         }
     }
 
-    /* Tasks are saved in the following format:
-        {TaskType: T/D/E} | {Done: 0/1} | Description | from/by date | to date
+    /**
+     * Saves the TaskList stored by the Storage object into the text file specified by the path field.
+     * Shows an error message if an error occurs when saving, and data will, as a result, not be saved.
      */
     public void saveData() {
+        /* Tasks are saved in the following format:
+        {TaskType: T/D/E} | {Done: 0/1} | Description | from/by date | to date */
         File dataFolder = new File("./data");
         if (!dataFolder.exists()) {
             if (dataFolder.mkdir()) {
