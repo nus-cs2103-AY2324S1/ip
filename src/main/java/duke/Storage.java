@@ -1,5 +1,10 @@
 package duke;
-import java.io.*;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
@@ -22,8 +27,8 @@ public class Storage {
             File file = new File("./data/tasks.txt");
             file.createNewFile();
         } catch (IOException e) {
-            System.out.println("Due to technical issues, I'm only available in guest mode.%n" +
-                    "I sincerely apologise to the inconvenience caused.");
+            System.out.println("Due to technical issues, I'm only available in guest mode.%n"
+                    + "I sincerely apologise for the inconvenience caused.");
         }
     }
 
@@ -57,25 +62,25 @@ public class Storage {
                 return;
             }
             switch (type) {
-                case TASK:
-                    Task t = new Task(details, isCompleted);
-                    tasks.add(t);
-                    break;
-                case TODO:
-                    ToDo todo = new ToDo(details, isCompleted);
-                    tasks.add(todo);
-                    break;
-                case DEADLINE:
-                    Deadline d = new Deadline(details, isCompleted, due);
-                    tasks.add(d);
-                    break;
-                case EVENT:
-                    Event e = new Event(details, isCompleted, start, end);
-                    tasks.add(e);
-                    break;
-                default:
-                    // Shouldn't reach here
-                    break;
+            case TASK:
+                Task t = new Task(details, isCompleted);
+                tasks.add(t);
+                break;
+            case TODO:
+                ToDo todo = new ToDo(details, isCompleted);
+                tasks.add(todo);
+                break;
+            case DEADLINE:
+                Deadline d = new Deadline(details, isCompleted, due);
+                tasks.add(d);
+                break;
+            case EVENT:
+                Event e = new Event(details, isCompleted, start, end);
+                tasks.add(e);
+                break;
+            default:
+                // Shouldn't reach here
+                break;
             }
         }
     }
@@ -88,32 +93,32 @@ public class Storage {
                 duke.TaskList.TaskType type = tasks.getTaskType(i);
                 Task t = tasks.get(i);
                 switch (type) {
-                    case TODO:
-                        bw.write(String.format("ToDo/%s/%c",
-                                t.getDetails(),
-                                t.isCompleted ? 'Y' : 'N'));
-                        break;
-                    case DEADLINE:
-                        bw.write(String.format("Deadline/%s/%c/%s",
-                                t.getDetails(),
-                                t.isCompleted ? 'Y' : 'N',
-                                ((Deadline) t).due));
-                        break;
-                    case EVENT:
-                        bw.write(String.format("Event/%s/%c/%s/%s",
-                                t.getDetails(),
-                                t.isCompleted ? 'Y' : 'N',
-                                ((Event) t).start,
-                                ((Event) t).end));
-                        break;
-                    case TASK:
-                        bw.write(String.format("Task/%s/%c",
-                                t.getDetails(),
-                                t.isCompleted ? 'Y' : 'N'));
-                        break;
-                    default:
-                        // Shouldn't reach here
-                        break;
+                case TODO:
+                    bw.write(String.format("ToDo/%s/%c",
+                            t.getDetails(),
+                            t.isCompleted ? 'Y' : 'N'));
+                    break;
+                case DEADLINE:
+                    bw.write(String.format("Deadline/%s/%c/%s",
+                            t.getDetails(),
+                            t.isCompleted ? 'Y' : 'N',
+                            ((Deadline) t).due));
+                    break;
+                case EVENT:
+                    bw.write(String.format("Event/%s/%c/%s/%s",
+                            t.getDetails(),
+                            t.isCompleted ? 'Y' : 'N',
+                            ((Event) t).start,
+                            ((Event) t).end));
+                    break;
+                case TASK:
+                    bw.write(String.format("Task/%s/%c",
+                            t.getDetails(),
+                            t.isCompleted ? 'Y' : 'N'));
+                    break;
+                default:
+                    // Shouldn't reach here
+                    break;
                 }
                 bw.newLine();
             }

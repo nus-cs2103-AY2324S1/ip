@@ -15,6 +15,7 @@ public class Ui {
         }
         System.out.println();
     }
+
     public void printCommands() {
         System.out.printf("\033[3mtask\033[0m - Create a new task%n");
         System.out.printf("\033[3mtodo\033[0m - Create a new todo%n");
@@ -37,8 +38,7 @@ public class Ui {
     public void printEndOfOperation() {
         System.out.println();
         System.out.printf("Anything else you want me to do?%n");
-        System.out.printf("Just so you know, you can input \033[3mcommands\033[0m " +
-                "to view the commands again.%n");
+        System.out.printf("Just so you know, you can input \033[3mcommands\033[0m to view the commands again.%n");
         printHorizontalLine();
     }
 
