@@ -1,6 +1,5 @@
 package duke.components;
 
-import duke.exceptions.DukeException;
 import duke.tasks.Task;
 
 import java.io.File;
@@ -54,6 +53,10 @@ public class Storage {
         return loadedTasks;
     }
 
+    /**
+     * Returns relative file path of save file
+     * @return Relative file path of save file
+     */
     private String getFilePath() {
         return fileDir + fileName;
     }
@@ -61,9 +64,9 @@ public class Storage {
     /**
      * Writes task list to file
      * @param taskList TaskList object containing tasks to write to file
-     * @throws DukeException I/O problem encountered, unable to save file
+     * @throws IOException I/O problem encountered, unable to save file
      */
-    public void save(TaskList taskList) throws DukeException {
+    public void save(TaskList taskList) throws IOException {
         try {
             createFileIfNotExists();
             try (FileWriter taskListWriter = new FileWriter(getFilePath())) {
@@ -72,7 +75,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            throw new DukeException("Unable to create file: " + fileName + "\n"
+            throw new IOException("Unable to create file: " + fileName + "\n"
                     + "Reason: " + e.getMessage());
         }
     }

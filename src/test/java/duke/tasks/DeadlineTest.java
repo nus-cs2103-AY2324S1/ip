@@ -19,9 +19,9 @@ public class DeadlineTest {
     @Test
     public void toString_checkAndUncheck() {
         Deadline testDeadline = new Deadline("Test Deadline", testDateTime);
-        testDeadline.markAsDone();
+        testDeadline.markDone();
         assertEquals(testDeadline.toString(), "[D][X] Test Deadline (by: 25-08-2023 0000)");
-        testDeadline.markAsNotDone();
+        testDeadline.markNotDone();
         assertEquals(testDeadline.toString(), "[D][ ] Test Deadline (by: 25-08-2023 0000)");
     }
 
@@ -34,7 +34,7 @@ public class DeadlineTest {
     @Test
     public void generateSaveString_checked() {
         Deadline testDeadline = new Deadline("Test Deadline", testDateTime);
-        testDeadline.markAsDone();
+        testDeadline.markDone();
         assertEquals(testDeadline.generateSaveString(), "D | true | Test Deadline /by 25-08-2023 0000");
     }
 

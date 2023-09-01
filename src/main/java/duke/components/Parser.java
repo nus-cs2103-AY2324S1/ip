@@ -43,25 +43,25 @@ public class Parser {
         try {
             switch (command) {
                 case "todo":
-                    return parseArguments(Command.Types.TODO, splitInput[1]);
+                    return parseArguments(Command.Type.TODO, splitInput[1]);
                 case "deadline":
-                    return parseArguments(Command.Types.DEADLINE, splitInput[1]);
+                    return parseArguments(Command.Type.DEADLINE, splitInput[1]);
                 case "event":
-                    return parseArguments(Command.Types.EVENT, splitInput[1]);
+                    return parseArguments(Command.Type.EVENT, splitInput[1]);
                 case "list":
                     return new ListCommand();
                 case "bye":
                     return new ExitCommand();
                 case "mark":
-                    return parseArguments(Command.Types.MARK, splitInput[1]);
+                    return parseArguments(Command.Type.MARK, splitInput[1]);
                 case "unmark":
-                    return parseArguments(Command.Types.UNMARK, splitInput[1]);
+                    return parseArguments(Command.Type.UNMARK, splitInput[1]);
                 case "delete":
-                    return parseArguments(Command.Types.DELETE, splitInput[1]);
+                    return parseArguments(Command.Type.DELETE, splitInput[1]);
                 case "date":
-                    return parseArguments(Command.Types.DATE, splitInput[1]);
+                    return parseArguments(Command.Type.DATE, splitInput[1]);
                 case "find":
-                    return parseArguments(Command.Types.FIND, splitInput[1]);
+                    return parseArguments(Command.Type.FIND, splitInput[1]);
                 default:
                     return new UnknownCommand();
             }
@@ -76,7 +76,7 @@ public class Parser {
      * @param args String containing the arguments
      * @return Command of type commandType initialised with parsed arguments
      */
-    protected Command parseArguments(Command.Types commandType, String args) {
+    protected Command parseArguments(Command.Type commandType, String args) {
         try {
             switch (commandType) {
                 case TODO:
@@ -115,8 +115,9 @@ public class Parser {
      * @return Task initialised with arguments
      * @throws UnsupportedTaskType Thrown if task type specified in fileArgs do not match
      * any known task types
+     * @throws IllegalArgumentException Thrown if line does not have 2 delimiters " | "
      */
-    public static Task parseFileTasks(String fileArgs) throws UnsupportedTaskType {
+    public static Task parseFileTasks(String fileArgs) throws UnsupportedTaskType, IllegalArgumentException {
         String[] args = fileArgs.split(" \\| ");
         if (args.length != 3) {
             throw new IllegalArgumentException("Save file is corrupted, skipping line");
@@ -137,7 +138,7 @@ public class Parser {
                 throw new UnsupportedTaskType(args[0]);
         }
         if (isMarked) {
-            loadedTask.markAsDone();
+            loadedTask.markDone();
         }
         return loadedTask;
     }
@@ -147,9 +148,11 @@ public class Parser {
      * @param taskType Type of task
      * @param args Additional arguments required to create the task
      * @return Task of specified task type initialised with arguments
+     * @throws IllegalArgumentException Thrown if arguments could not be parsed correctly
      * @throws UnsupportedTaskType Thrown if task type is not covered (should not happen)
      */
-    private static Task parseTaskArgs(Task.Types taskType, String args) throws UnsupportedTaskType {
+    private static Task parseTaskArgs(Task.Types taskType, String args) throws IllegalArgumentException,
+            UnsupportedTaskType {
         String name;
         switch (taskType) {
             case TODO:

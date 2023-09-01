@@ -43,7 +43,7 @@ public abstract class Task {
     /**
      * Marks task as done
      */
-    public void markAsDone() {
+    public void markDone() {
 
         this.isDone = true;
     }
@@ -51,7 +51,7 @@ public abstract class Task {
     /**
      * Marks task as not done
      */
-    public void markAsNotDone() {
+    public void markNotDone() {
 
         this.isDone = false;
     }
@@ -73,7 +73,6 @@ public abstract class Task {
      * @param date Date specified
      */
     public boolean isOccurringOnDate(LocalDate date) {
-
         return false;
     }
 
