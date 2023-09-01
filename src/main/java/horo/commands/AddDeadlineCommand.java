@@ -8,6 +8,9 @@ import horo.Ui;
 import horo.data.Deadline;
 import horo.data.TaskList;
 
+/**
+ * AddDeadlineCommand
+ */
 public class AddDeadlineCommand extends Command {
   private static final String NAME = "deadline";
   private static final String REGEX = "^deadline ([\\w ]+) \\/by (\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2})";
