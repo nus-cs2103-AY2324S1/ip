@@ -1,3 +1,8 @@
+package smolbrain;
+
+import smolbrain.exception.*;
+import smolbrain.task.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

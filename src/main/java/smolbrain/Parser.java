@@ -1,3 +1,12 @@
+package smolbrain;
+
+import smolbrain.command.*;
+import smolbrain.exception.*;
+import smolbrain.task.Deadline;
+import smolbrain.task.Event;
+import smolbrain.task.Task;
+import smolbrain.task.Todo;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -115,7 +124,7 @@ public class Parser {
             throw new InvalidNumberException("mark");
         }
         try {
-            return new MarkCommand(Integer.parseInt(words[1])-1);
+            return new UnmarkCommand(Integer.parseInt(words[1])-1);
         } catch (NumberFormatException e) {
             throw new InvalidNumberException("mark");
         } catch (IndexOutOfBoundsException e) {

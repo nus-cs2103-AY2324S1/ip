@@ -1,3 +1,5 @@
+package smolbrain.task;
+
 public class Task {
 
     protected String description;

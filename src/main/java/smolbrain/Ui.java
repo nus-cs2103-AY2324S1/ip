@@ -1,3 +1,5 @@
+package smolbrain;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -23,7 +25,7 @@ public class Ui {
     }
 
     public void showError(Exception e) {
-        System.out.println("ERROR: " + e);
+        System.out.println("☹ OOPS!!! " + e);
     }
 
     public void showMessage(String s) {

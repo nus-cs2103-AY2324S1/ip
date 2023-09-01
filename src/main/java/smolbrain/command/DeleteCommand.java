@@ -1,3 +1,11 @@
+package smolbrain.command;
+
+import smolbrain.Storage;
+import smolbrain.Ui;
+import smolbrain.exception.InvalidRangeException;
+import smolbrain.task.Task;
+import smolbrain.task.TaskList;
+
 public class DeleteCommand implements Command {
 
     private int id;
@@ -8,7 +16,10 @@ public class DeleteCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidRangeException {
+        if (this.id < 0 || this.id >= tasks.getSize()) {
+            throw new InvalidRangeException();
+        }
         Task task = tasks.getTask(id);
         tasks.deleteTask(id);
         ui.showMessage("Noted. I've removed this task: \n" + task);

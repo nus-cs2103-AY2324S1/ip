@@ -1,3 +1,9 @@
+package smolbrain;
+
+import smolbrain.command.Command;
+import smolbrain.exception.*;
+import smolbrain.task.TaskList;
+
 public class Smolbrain {
 
     public static boolean loading = true;
@@ -24,8 +30,8 @@ public class Smolbrain {
                 Command c = Parser.parse(input);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (InvalidRangeException | MissingDescriptionException | MissingTimeException | InvalidNumberException |
-                     InvalidDateTimeException | IndexOutOfBoundsException e) {
+            } catch (InvalidRangeException | MissingDescriptionException | MissingTimeException |
+                     InvalidNumberException | InvalidDateTimeException e) {
                 ui.showError(e);
             }
             ui.showLine();

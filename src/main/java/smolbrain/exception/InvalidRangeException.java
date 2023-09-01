@@ -1,3 +1,5 @@
+package smolbrain.exception;
+
 public class InvalidRangeException extends Exception{
 
     public InvalidRangeException() {
@@ -6,7 +8,7 @@ public class InvalidRangeException extends Exception{
 
     @Override
     public String toString() {
-        return "☹ OOPS!!! Please provide a valid number within the range.";
+        return "Please provide a valid number within the range.";
     }
 
 }

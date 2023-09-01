@@ -1,3 +1,10 @@
+package smolbrain.command;
+
+import smolbrain.Storage;
+import smolbrain.Ui;
+import smolbrain.task.Task;
+import smolbrain.task.TaskList;
+
 public class AddCommand implements Command {
 
     private Task task;

@@ -1,10 +1,17 @@
-public class InvalidCommand implements Command {
+package smolbrain.command;
+
+import smolbrain.Storage;
+import smolbrain.Ui;
+import smolbrain.task.TaskList;
+
+public class ListCommand implements Command {
 
     private boolean loading;
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showMessage("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        ui.showMessage("Here are the tasks in your list: ");
+        tasks.displayTasks(ui);
     }
 
     @Override

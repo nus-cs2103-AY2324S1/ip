@@ -1,3 +1,5 @@
+package smolbrain.exception;
+
 public class MissingDescriptionException extends Exception{
 
     String task_type;
@@ -8,7 +10,7 @@ public class MissingDescriptionException extends Exception{
 
     @Override
     public String toString() {
-        return "☹ OOPS!!! The description of a " + task_type + " cannot be empty.";
+        return "The description of a " + task_type + " cannot be empty.";
     }
 
 }

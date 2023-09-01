@@ -1,3 +1,9 @@
+package smolbrain.command;
+
+import smolbrain.Storage;
+import smolbrain.Ui;
+import smolbrain.task.TaskList;
+
 public class ExitCommand implements Command {
 
     private boolean loading;

@@ -1,3 +1,10 @@
+package smolbrain.command;
+
+import smolbrain.Storage;
+import smolbrain.Ui;
+import smolbrain.exception.InvalidRangeException;
+import smolbrain.task.TaskList;
+
 public class MarkCommand implements Command {
 
     private int id;
@@ -8,7 +15,10 @@ public class MarkCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidRangeException {
+        if (this.id < 0 || this.id >= tasks.getSize()) {
+            throw new InvalidRangeException();
+        }
         tasks.markTask(id);
         ui.showMessage("Nice! I've marked this task as done: \n" + tasks.getTask(id));
         tasks.updateTasks(storage);
