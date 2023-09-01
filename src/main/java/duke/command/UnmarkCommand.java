@@ -19,7 +19,7 @@ public class UnmarkCommand extends Command {
     /**
      * Executes the list of commands to unmark a Task from a TaskList.
      *
-     * @param list The given TaskList with the Task to be unmarked.
+     * @param taskList The given TaskList with the Task to be unmarked.
      * @param ui The given Ui to show the status of the unmarking of the task.
      * @param storage The given Storage that saves the TaskList locally.
      */
