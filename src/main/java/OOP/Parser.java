@@ -13,6 +13,12 @@ import Commands.ExitCommand;
 import Duke.DukeException;
 
 public class Parser {
+    /**
+     * Parses the users command text and returns an appropriate command.
+     *
+     * @param userCommandText The user's input which is the desired command.
+     * @return A Command object which has a certain execution behaviour depending on the command.
+     */
     public static Command parseCommand(String userCommandText) {
             if (!userCommandText.equals("bye")) {
                 if (!userCommandText.equals("list")) {
@@ -84,6 +90,13 @@ public class Parser {
 
 
     }
+
+    /**
+     * Returns a string that contains everything after the first whitespace character.
+     *
+     * @param str The original string.
+     * @return secondWordOnwards The string containing only the string from the second word onwards of the original string.
+     */
 
     public static String extractSecondWordOnwards(String str) {
         String[] wordArray = str.split(" ");

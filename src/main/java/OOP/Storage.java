@@ -21,12 +21,23 @@ import java.util.regex.Pattern;
 import Duke.DukeException;
 
 public class Storage {
+    /** The file path of the storage file for loading and saving tasks */
     private String filePath;
 
+    /**
+     * Constructs a Storage instance.
+     *
+     * @param filePath The file path to the storage file to be used for saving and loading tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves tasks into the storage file with the encapsulated filePath in an appropriate format.
+     *
+     * @param tasks The TaskList instance that contains the tasks to be saved.
+     */
     public void save(TaskList tasks) {
         BufferedWriter writer = null;
         try {
@@ -48,6 +59,13 @@ public class Storage {
             }
         }
     }
+
+
+    /**
+     * Loads the tasks from the storage file and returns them as a list.
+     *
+     * @return tasks The list of tasks that were loaded from the storage file.
+     */
 
     public List<Task> load() {
         String directoryPath = filePath.split("/")[0];
@@ -88,6 +106,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a string from the storage file to return the appropriate task.
+     *
+     * @param line The string containing the current line, i.e., the current task in its storage string representation.
+     * @return The task of the appropriate class based on the string from the storage file.
+     */
+
     public static Task parseTaskFromString(String line) {
         String[] taskData = line.split("\\s*\\|\\s*");
         boolean isDone = taskData[1].equals("1");
@@ -103,6 +128,14 @@ public class Storage {
         }
         return null;
     }
+
+    /**
+     * Parses a name and a string containing a deadline to give a Deadline object.
+     *
+     * @param name The name of the deadline.
+     * @param deadlineString The string in yyyy-MM-dd HHmm format that represents the date/time of the deadline.
+     * @return The Deadline object based on the 2 parameters provided.
+     */
 
     public static Deadline parseDeadlineFromString(String name, String deadlineString) {
         DateTimeFormatter formatter = null;
@@ -123,13 +156,24 @@ public class Storage {
         return deadline;
     }
 
+    /**
+     * Determines if a string is of the format "yyyy-MM-dd" i.e., a valid LocalDate object.
+     *
+     * @param input The string to be examined.
+     * @return A boolean value which tells us if the string represents a LocalDate.
+     */
 
     private static boolean isValidDate(String input) {
         Pattern pattern = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
         Matcher matcher = pattern.matcher(input);
         return matcher.matches();
     }
-
+    /**
+     * Determines if a string is of the format "yyyy-MM-dd HHmm" i.e., a valid LocalDateTime object.
+     *
+     * @param input The string to be examined.
+     * @return A boolean value which tells us if the string represents a valid LocalDateTime.
+     */
     private static boolean isValidDateTime(String input) {
         Pattern pattern = Pattern.compile("^\\d{4}-\\d{2}-\\d{2} \\d{4}$");
         Matcher matcher = pattern.matcher(input);
