@@ -28,6 +28,9 @@ public class Parser {
         case "list": {
             return new ListCommand();
         }
+        case "find": {
+            return new FindCommand(arguments);
+        }
         case "mark": {
             return new MarkCommand(Integer.parseInt(arguments) - 1);
         }
