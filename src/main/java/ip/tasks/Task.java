@@ -1,4 +1,4 @@
-package Task;
+package ip.tasks;
 
 public class Task {
     private String description;
