@@ -7,10 +7,10 @@ import simon.task.Deadline;
 import simon.task.Event;
 
 public class Parser {
-
     public enum Command {
-        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE, UNKNOWN
+        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE, FIND, UNKNOWN
     }
+
 
     public static Command parseCommand(String input) {
         try {
