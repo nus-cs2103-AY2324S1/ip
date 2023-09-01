@@ -1,9 +1,13 @@
 package duke.components;
-import duke.command.ExitCommand;
-import duke.command.ModifyCommand;
+
 import duke.command.AddCommand;
 import duke.command.Command;
+import duke.command.ExitCommand;
+import duke.command.FilterCommand;
+import duke.command.ModifyCommand;
+
 import java.io.IOException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -41,6 +45,10 @@ public class Parser {
                 String type = "D";
                 int index = Integer.valueOf(commandInput[1]);
                 return new ModifyCommand(type, index);
+            } else if (command.equals("find")) {
+                String type = "F";
+                String keyword = commandInput[1];
+                return new FilterCommand(type, keyword);
             } else {
                 throw new DukeException("I'm afraid I do not quite understand. Could you kindly repeat it?");
             }

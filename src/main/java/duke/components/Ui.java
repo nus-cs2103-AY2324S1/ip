@@ -1,4 +1,5 @@
 package duke.components;
+import java.util.ArrayList;
 import java.util.Scanner;
 import duke.tasks.Task;
 
@@ -52,5 +53,13 @@ public class Ui {
 
     public void showList(TaskList taskList) throws DukeException {
         System.out.println(taskList.list());
+    }
+
+    /**
+     * Prints the String representation of a filtered list.
+     * @param list String representation of a filtered list.
+     */
+    public void showFilteredList(String list) {
+        System.out.println(list);
     }
 }

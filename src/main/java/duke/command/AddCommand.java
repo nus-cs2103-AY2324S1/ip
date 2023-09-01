@@ -59,4 +59,24 @@ public class AddCommand extends Command {
     public boolean isExit() {
         return isExit;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
+
+    public LocalDateTime getFrom() {
+        return from;
+    }
+
+    public LocalDateTime getTo() {
+        return to;
+    }
+
+    public String getTask() {
+        return task;
+    }
 }

@@ -16,22 +16,18 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public static String mark(int index) throws DukeException {
+    public static void mark(int index) throws DukeException {
         if (isValidIndex(index)) {
             tasks.get(index).setDone();
-            return "Congratulations on finishing the task. I will now mark it as complete:\n" +
-                    tasks.get(index).toString()+ "\n";
         } else { // Index error
             throw new DukeException("I'm afraid the task does not exist. " +
                     "Perhaps you might want to see your list again?");
         }
     }
 
-    public static String unmark(int index) throws DukeException{
+    public static void unmark(int index) throws DukeException{
         if (isValidIndex(index)) {
             tasks.get(index).setNotDone();
-            return "No worries. I will now mark it as incomplete:\n" +
-                    tasks.get(index).toString() + "\n";
         } else { // Index error
             throw new DukeException("I'm afraid the task does not exist. " +
                     "Perhaps you might want to see your list again?");
@@ -71,6 +67,29 @@ public class TaskList {
 
     private static boolean isValidIndex(int index) {
         return index >= 0 && index < tasks.size();
+    }
+
+    /**
+     * Filters the list of task based on a given keyword. A new list will be returned for task containing the keyword.
+     * @param keyword The task list will be filtered against this keyword.
+     * @return A list of tasks that contains the keyword.
+     */
+    public String filter(String keyword) {
+        String result = "Here are the tasks in your list containing " + keyword + ":\n";
+        int counter = 0;
+        for (Task task : tasks) { // Generates the String representation of the list
+            String description = task.getDescription();
+            if (description.contains(keyword)) {
+                counter += 1;
+                result += counter + ". " + task + "\n";
+            }
+        }
+        if (counter > 0) {
+            return result;
+        } else { // Empty list
+            return "There is nothing on your list currently that matches the keyword \"" + keyword + "\". " +
+                    "Perhaps you might want to add a new task or try a different keyword?";
+        }
     }
 
 }
