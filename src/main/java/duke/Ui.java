@@ -25,7 +25,7 @@ public class Ui {
             if (userInput.equals("bye")) {
                 break;
             } else if (userInput.equals("list")) {
-                display(taskList.toString());
+                display("Here are the tasks in your list:\n" + taskList.toString());
             } else if (userInput.startsWith("mark")) {
                 // get index by splitting user input and get task at that index from list
                 int index = Integer.parseInt(userInput.split(" ")[1]);
@@ -59,6 +59,9 @@ public class Ui {
                 taskList.deleteTaskAt(index - 1);
                 display("Noted. I've removed this task:\n" + toBeDeleted.toString()
                         + "\nNow you have " + taskList.getNumberOfTasks() + " tasks in the list.");
+            } else if (userInput.startsWith("find")) {
+                TaskList filtered = parser.getTaskList(userInput, taskList);
+                display("Here are the matching tasks in your list:\n" + filtered.toString());
             } else {
                 Task add = parser.getTask(userInput);
                 try {
