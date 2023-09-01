@@ -65,6 +65,10 @@ public class Simon {
                         storage.save(tasks.getAllTasks());
                         ui.showDeletedTask(deletedTask, tasks.getTaskCount());
                         break;
+                    case FIND:
+                        TaskList matchedTasks = tasks.findTasks(inData);
+                        ui.showMatchingTasks(matchedTasks);
+                        break;
                     case BYE:
                         ui.showGoodbye();
                         return;
