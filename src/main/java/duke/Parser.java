@@ -41,7 +41,7 @@ public class Parser {
             Integer delUserChoice = Integer.parseInt(userInputList[1]);
             TaskList.deleteTask(delUserChoice);
             return true;
-        } else {                                                                    //in case wrong inpute like Delete abc entered
+        } else {                                                                    //in case wrong input like Delete abc entered
             throw new DukeException("☹ OOPS!!! Sorry, but i do not know what that means :-(");
         }
     }
