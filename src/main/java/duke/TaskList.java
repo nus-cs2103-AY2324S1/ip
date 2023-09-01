@@ -16,18 +16,16 @@ public class TaskList {
     private int counter;
 
     private Storage storage;
-
     public TaskList(Storage storage) {
-        //Load if possible
         taskList = new ArrayList<>();
         counter = -1;
         this.storage = storage;
     }
-    public void loadFromDisk(Storage storage) throws IOException, CorruptedFileException {
+    public void loadFromDisk() throws IOException, CorruptedFileException {
         taskList = stringListToTaskList(storage.loadFromDisk());
         counter = taskList.size() - 1;
     }
-    public void writeToDisk(Storage storage) throws IOException {
+    public void writeToDisk() throws IOException {
         storage.writeToDisk(taskListToStringList(taskList));
     }
 
@@ -35,14 +33,14 @@ public class TaskList {
     public void addTask(Task task) throws IOException {
         taskList.add(task);
         counter += 1;
-        writeToDisk(storage);
+        writeToDisk();
     }
     public boolean removeTask(int index) throws IOException {
         if (index > counter) {
             return false;
         }
         taskList.remove(index);
-        writeToDisk(storage);
+        writeToDisk();
         return true;
     }
     public boolean setMark(int targetIndex, boolean isToBeMarked) throws IOException {
@@ -55,12 +53,15 @@ public class TaskList {
         if (!isToBeMarked) {
             taskList.get(targetIndex).markUndone();
         }
-        writeToDisk(storage);
+        writeToDisk();
         return true;
     }
     private ArrayList<Task> stringListToTaskList(ArrayList<String> stringArrayList) throws CorruptedFileException {
         ArrayList<Task> res = new ArrayList<>();
         for (String s : stringArrayList) {
+            if (s.length() >= 1) {
+                throw new CorruptedFileException();
+            }
             String[] temp = s.split(Task.DIVIDER);
             boolean completeStatus;
             if (temp[1].equals("TRUE")) {

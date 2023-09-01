@@ -12,8 +12,8 @@ public class Storage {
 
     public Storage() {
     }
-    public void init(String pathname) throws IOException {
-        storage = new File(pathname);
+    public void init(String pathName) throws IOException {
+        storage = new File(pathName);
         storage.createNewFile();
     }
     public void clear() throws IOException {
