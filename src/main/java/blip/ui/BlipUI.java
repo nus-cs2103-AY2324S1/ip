@@ -94,4 +94,8 @@ public class BlipUI {
     public void showBlipErr() {
         System.out.println("Some error occurred!");
     }
+
+    public void showNoMatchingTasksMsg() {
+        System.out.println("There are no matching tasks in the list!");
+    }
 }

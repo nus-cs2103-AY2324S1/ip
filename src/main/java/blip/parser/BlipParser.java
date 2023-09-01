@@ -10,7 +10,7 @@ public class BlipParser {
 
     public static int parseToGetIndex (String input) throws EmptyTaskNumberException {
         String[] components = input.split("\\s+", 2);
-        // Missing Delete Index.
+        // Missing Index.
         if (components.length < 2 || components[1].equals("")) {
             throw new EmptyTaskNumberException("!!! Missing Task Number !!!");
         }
@@ -20,7 +20,7 @@ public class BlipParser {
 
     public static String parseToDoInfo (String input) throws EmptyDescriptionException {
         String[] components = input.split("\\s+", 2);
-        // Missing Deadline Description.
+        // Missing To Do Description.
         if (components.length < 2 || components[1].equals("")) {
             throw new EmptyDescriptionException("!!! Missing TO DO Description !!!\n");
         }
@@ -45,7 +45,7 @@ public class BlipParser {
 
     public static String[] parseEventInfo (String input) throws EmptyDescriptionException {
         String[] test = input.split("\\s+", 2);
-        // Missing Deadline Description.
+        // Missing Event Description.
         if (test.length < 2 || test[1].equals("")) {
             throw new EmptyDescriptionException("!!! Missing EVENT Description !!!");
         }
@@ -59,6 +59,14 @@ public class BlipParser {
         return new String[] {description, eventStart, eventEnd};
     }
 
+    public static String parseFindInfo (String input) throws EmptyDescriptionException {
+        String[] components = input.split("\\s+", 2);
+        // Missing Find Description.
+        if (components.length < 2 || components[1].equals("")) {
+            throw new EmptyDescriptionException("!!! Missing FIND Description !!!\n");
+        }
+        return components[1];
+    }
 
 
     public Command parse(String input) {
@@ -90,6 +98,9 @@ public class BlipParser {
                 case "unmark":
                     int indexToUnmark = parseToGetIndex(input);
                     return new UnmarkCommand(indexToUnmark);
+                case "find":
+                    String findDescription = parseFindInfo(input);
+                    return new FindCommand(findDescription);
                 default:
                     return new InvalidCommand(input);
             }
