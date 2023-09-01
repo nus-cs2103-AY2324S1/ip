@@ -1,4 +1,5 @@
 package duck;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import duck.task.Task;
@@ -74,6 +75,15 @@ public class IoHandler {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + t);
         taskList.size();
+        divider();
+    }
+
+    public void displaySearchResults(ArrayList<Task> list) {
+        divider();
+        System.out.println("Here are the matching tasks in your list: ");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(i+1 + "." + list.get(i));
+        }
         divider();
     }
 

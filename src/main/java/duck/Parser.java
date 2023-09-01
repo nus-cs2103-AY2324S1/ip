@@ -1,6 +1,7 @@
 
 package duck;
 
+import java.util.ArrayList;
 import duck.exceptions.DuckException;
 import duck.exceptions.IllegalDateFormatException;
 import duck.task.Deadline;
@@ -83,6 +84,10 @@ public class Parser {
             case "bye":
                 io.exit();
                 return false;
+            case "find":
+                ArrayList<Task> temp = taskList.find(str.substring(5));
+                io.displaySearchResults(temp);
+                return true;
             default:
                 throw new DuckException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
