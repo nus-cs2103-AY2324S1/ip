@@ -2,7 +2,7 @@ package Tasks;
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> enteredText = new ArrayList();
+    private ArrayList<Task> enteredText = new ArrayList<>();
 
     /**
      * Adds a task to the task list.
