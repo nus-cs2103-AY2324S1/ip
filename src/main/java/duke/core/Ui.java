@@ -44,4 +44,14 @@ public class Ui {
 
         return Parser.parseCommand(input);
     }
+
+    /** Shows the greeting message when user starts the program. */
+    public static void showGreetMessage() {
+        Ui.respond(Stream.of("Hello! I'm A-CAT (Automated Chatbot Assistant for Tasks)", "What do you want to do today?"));
+    }
+
+    /** Shows the exit message when user exits the program. */
+    public static void showExitMessage() {
+        Ui.respond("Bye. Hope to see you again soon!");
+    }
 }
