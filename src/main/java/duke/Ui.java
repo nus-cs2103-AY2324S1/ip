@@ -60,6 +60,5 @@ public class Ui {
         Ui.showLine();
         System.out.println(e.getMessage());
         Ui.showLine();
-
     }
 }

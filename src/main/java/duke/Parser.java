@@ -17,7 +17,7 @@ public class Parser {
     public static Command parse(String fullCommand) {
         //read first word in command
         String[] words = fullCommand.split(" ", 2);
-        switch(words[0]) {
+        switch (words[0]) {
         case "bye":
             return new ExitCommand(fullCommand);
         case "delete":

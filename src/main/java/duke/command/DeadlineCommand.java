@@ -36,7 +36,7 @@ public class DeadlineCommand extends Command {
     @Override
     public void execute(TaskList tasks , Ui ui, Storage storage) throws InvalidArgumentException, InvalidDateException {
         String[] words = this.fullCommand.split(" ", 2);
-        if(words.length < 2) {
+        if (words.length < 2) {
                     throw new InvalidArgumentException("deadline");
                 } else {
                     String[] taskWithDeadline = words[1].split("/", 2);
@@ -45,14 +45,14 @@ public class DeadlineCommand extends Command {
                         throw new InvalidArgumentException("deadline");
                     }
                     String[] splitTask =  taskWithDeadline[1].split(" ", 2);
-                    if(splitTask.length < 2) {
+                    if (splitTask.length < 2) {
                         throw new InvalidArgumentException("deadline");
                     } else {
                         try {
                             LocalDateTime deadline = LocalDateTime.parse(splitTask[1], Storage.dateTimeInputFormatter);
                             Deadline t = new Deadline(c, deadline);
                             tasks.addTask(t);
-                        } catch(DateTimeParseException e) {
+                        } catch (DateTimeParseException e) {
                             throw new InvalidDateException();
                         }
                     }
