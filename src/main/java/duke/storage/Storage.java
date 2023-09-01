@@ -1,21 +1,28 @@
-package storage;
-import task.Deadline;
-import task.Event;
-import task.Todo;
-import taskList.TaskList;
+package duke.storage;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
+import duke.taskList.TaskList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
- * deals with loading tasks from the file and saving tasks in the file
+ * deals with loading tasks from the file and saving tasks in the file.
  */
 public class Storage {
 
+    /**
+     * The constructor of the Storage class.
+     */
     public Storage() {
 
     }
 
+    /**
+     * Load the data from duke.txt into the TaskList inside of the program.
+     * @param list the TaskList that the data is loaded to from duke.txt.
+     */
     public void load(TaskList list) {
         try {
             File theDir = new File("./src/main/data");

@@ -1,13 +1,20 @@
-package ui;
+package duke.ui;
 
 /**
- * Deals with interactions with user
+ * Deals with interactions with user.
  */
 public class Ui {
 
+    /**
+     * Constructor for Ui.
+     */
     public Ui() {
 
     }
+
+    /**
+     * Prints a horizontal line.
+     */
     public void printHorizontalLine() {
 
         for (int i = 0; i < 50; i++) {
@@ -17,6 +24,9 @@ public class Ui {
     }
 
 
+    /**
+     * Print the welcome message when the user launch the program.
+     */
     public void printStart() {
         String name = "BOB";
         printHorizontalLine();
@@ -25,17 +35,15 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Print the goodbye message when the user logs out.
+     */
     public void printEnd() {
         printHorizontalLine();
         System.out.println("Bye. Hope to see you soon again soon!");
         printHorizontalLine();
     }
 
-    public void printInvalidCommand() {
-        printHorizontalLine();
-        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-        printHorizontalLine();
-    }
 
 
 }
