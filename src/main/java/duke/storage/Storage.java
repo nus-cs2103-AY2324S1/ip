@@ -10,6 +10,9 @@ import java.nio.file.Path;
 
 import duke.TaskList;
 
+/**
+ * Module for loading tasks from and saving tasks to a file cache.
+ */
 public class Storage {
     private final Path path;
 

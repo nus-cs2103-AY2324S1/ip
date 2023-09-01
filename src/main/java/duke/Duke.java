@@ -7,6 +7,9 @@ import duke.storage.Storage;
 import duke.storage.StorageException;
 import duke.ui.TextUi;
 
+/**
+ * Duke is a task management tool.
+ */
 public class Duke {
     private static final String NAME = "Jimmy";
     private static final String TASKS_CACHE_PATH = ".duke-cache";
