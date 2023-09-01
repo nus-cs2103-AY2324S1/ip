@@ -2,10 +2,10 @@ package duke;
 
 import java.util.ArrayList;
 
-public class FinaCommand extends Command{
+public class FindCommand extends Command{
     public static final String COMMAND_FIND = "find";
 
-    public FinaCommand(ArrayList<String> params) {
+    public FindCommand(ArrayList<String> params) {
         super(params);
     }
 
