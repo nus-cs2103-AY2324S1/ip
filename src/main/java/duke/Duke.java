@@ -42,32 +42,27 @@ public class Duke {
      * Runs the Duke application, handling user interactions and task management.
      */
     public void run() {
-        // Send welcome message
         Ui.printWelcomeMessage();
 
         try {
             taskList = new TaskList(Storage.load());
-            if (taskList.listTasks() == "") {
+            String listMessage = taskList.listTasks();
+            if (listMessage.isEmpty()) {
                 System.out.println("There are no tasks in your list at the moment. Add some!");
             } else {
                 System.out.println("Here are the tasks in your list:");
-                System.out.println(taskList.listTasks());
+                System.out.println(listMessage);
             }
         } catch (FileNotFoundException e) {
             System.out.println("There are no tasks in your list at the moment. Add some!");
-        } catch (FileUnloadableException e) {
-            System.out.println("File cannot be loaded.");
-        } catch (IOException e) {
-            System.out.println("e.getMessage");
-        } catch (ParseTaskFromStringException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
 
-        // Implement function to read user input via keyboard
         Scanner scanner = new Scanner(System.in);
         String userInput;
 
-        while(true) {
+        while (true) {
             userInput = scanner.nextLine().trim();
             Parser.parseInput(userInput, tasks);
             if (userInput.equals("bye")) {
@@ -77,6 +72,7 @@ public class Duke {
 
         scanner.close();
     }
+
 
     /**
      * The main method to start the Duke application.
