@@ -17,7 +17,7 @@ public abstract class TextFileHandler {
 
     /**
      * Creates a .txt file along with the necessary directories.
-     * 
+     *
      * @param filePath Path of the file.
      * @throws IOException if the file path is not .txt
      */
@@ -40,7 +40,7 @@ public abstract class TextFileHandler {
 
     /**
      * Writes texts to .txt file.
-     * 
+     *
      * @param filePath Path of the file.
      * @param text     Text to be written in the file.
      * @throws IOException if file cannot be opened.
@@ -53,7 +53,7 @@ public abstract class TextFileHandler {
 
     /**
      * Returns the lines of the file, creates file if not present.
-     * 
+     *
      * @param filePath Path of the file.
      * @return A array of string which are lines in the .txt file.
      * @throws IOException if file cannot be opened.
@@ -66,7 +66,7 @@ public abstract class TextFileHandler {
 
     /**
      * Checks if the path given is a .txt file.
-     * 
+     *
      * @param filePath Path of the file.
      * @return true is file is .txt, false otherwise.
      */

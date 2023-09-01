@@ -9,24 +9,14 @@ import java.time.format.DateTimeParseException;
  * Utility class for parsing date and time input strings into LocalDateTime
  * objects.
  *
- *
  * @author Ho Khee Wei
  */
 public abstract class DateTimeParser {
     /** Supported date formats */
-    public final static String[] DATE_FORMATS = {
-            "yyyy-M-d",
-            "d-M-yyyy",
-            "yyyy/M/d",
-            "d/M/yyyy",
-    };
+    public static final String[] DATE_FORMATS = { "yyyy-M-d", "d-M-yyyy", "yyyy/M/d", "d/M/yyyy" };
 
     /** Supported time formats */
-    public final static String[] TIME_FORMATS = {
-            "HH:mm",
-            "HH-mm",
-            "HHmm"
-    };
+    public static final String[] TIME_FORMATS = { "HH:mm", "HH-mm", "HHmm" };
 
     /**
      * Parses a date and/or time string into a LocalDateTime object.

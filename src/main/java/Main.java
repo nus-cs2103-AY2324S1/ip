@@ -1,6 +1,6 @@
 /**
  * Main class for starting the Thorndike chatbot application.
- * 
+ *
  * @author Ho Khee Wei
  */
 public class Main {

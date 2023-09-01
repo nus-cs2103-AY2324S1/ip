@@ -88,14 +88,13 @@ public class TaskList {
 
     /**
      * Searches for tasks with description containing the keyword.
-     * 
+     *
      * @param keyword The keyword to search.
      * @return an array of task with description containing the keyword.
      */
     public Task[] search(String keyword) {
         Object[] tempRes = list.stream()
-                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
-                .toArray();
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase())).toArray();
         Task[] res = new Task[tempRes.length];
         for (int i = 0; i < tempRes.length; i++) {
             res[i] = (Task) tempRes[i];

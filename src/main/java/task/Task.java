@@ -2,7 +2,7 @@ package task;
 
 /**
  * Represents a generic task.
- * 
+ *
  * @author Ho Khee Wei
  */
 public abstract class Task {

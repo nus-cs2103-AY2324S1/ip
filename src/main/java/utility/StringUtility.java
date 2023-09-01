@@ -9,7 +9,7 @@ public abstract class StringUtility {
 
     /**
      * Removes the first word from a string.
-     * 
+     *
      * @param s The input string
      * @return New string without first word.
      */
@@ -23,7 +23,7 @@ public abstract class StringUtility {
 
     /**
      * Extracts the first word from a string.
-     * 
+     *
      * @param s The input string.
      * @return The first word.
      */
