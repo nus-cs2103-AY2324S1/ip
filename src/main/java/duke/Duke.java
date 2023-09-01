@@ -47,4 +47,8 @@ public class Duke {
             userInput = ui.readCommand();
         }
     }
+
+    public TaskList getTaskList() {
+        return taskList;
+    }
 }
