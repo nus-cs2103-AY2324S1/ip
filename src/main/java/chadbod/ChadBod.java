@@ -44,56 +44,60 @@ public class ChadBod {
                 ParsedCommand parsedCommand = Parser.parseCommand(input);
                 String details = parsedCommand.getDetails();
                 switch (parsedCommand.getCommand()) {
-                    case BYE:
-                        ui.showFarewell();
-                        shouldExit = true;
-                        break;
-                    case LIST:
-                        ui.printTasks(tasks);
-                        break;
-                    case MARK:
-                        int markTaskNumber = getTaskNumber(details);
-                        Task markedTask = tasks.getTask(markTaskNumber);
-                        markedTask.markDone();
-                        ui.printStatusUpdate(true, markedTask);
-                        storage.saveTasks(tasks);
-                        break;
-                    case UNMARK:
-                        int unmarkTaskNumber = getTaskNumber(details);
-                        Task unmarkedTask = tasks.getTask(unmarkTaskNumber);
-                        unmarkedTask.markUndone();
-                        ui.printStatusUpdate(false, unmarkedTask);
-                        storage.saveTasks(tasks);
-                        break;
-                    case TODO:
-                        if (details.isEmpty()) {
-                            throw new InvalidTaskException("Description of todo cannot be empty.");
-                        }
-                        Todo newTodo = new Todo(details);
-                        tasks.addTask(newTodo);
-                        ui.printTaskAddedMessage(newTodo, tasks.getTaskCount());
-                        storage.saveTasks(tasks);
-                        break;
-                    case DEADLINE:
-                        Deadline newDeadline = createDeadline(details);
-                        tasks.addTask(newDeadline);
-                        ui.printTaskAddedMessage(newDeadline, tasks.getTaskCount());
-                        storage.saveTasks(tasks);
-                        break;
-                    case EVENT:
-                        Event newEvent = createEvent(details);
-                        tasks.addTask(newEvent);
-                        ui.printTaskAddedMessage(newEvent, tasks.getTaskCount());
-                        storage.saveTasks(tasks);
-                        break;
-                    case DELETE:
-                        int taskNumber = getTaskNumber(details);
-                        Task removedTask = tasks.removeTask(taskNumber);
-                        ui.printTaskRemovedMessage(removedTask, tasks.getTaskCount());
-                        storage.saveTasks(tasks);
-                        break;
-                    default:
-                        throw new InvalidInputException();
+                case BYE:
+                    ui.showFarewell();
+                    shouldExit = true;
+                    break;
+                case LIST:
+                    ui.printTasks(tasks);
+                    break;
+                case MARK:
+                    int markTaskNumber = getTaskNumber(details);
+                    Task markedTask = tasks.getTask(markTaskNumber);
+                    markedTask.markDone();
+                    ui.printStatusUpdate(true, markedTask);
+                    storage.saveTasks(tasks);
+                    break;
+                case UNMARK:
+                    int unmarkTaskNumber = getTaskNumber(details);
+                    Task unmarkedTask = tasks.getTask(unmarkTaskNumber);
+                    unmarkedTask.markUndone();
+                    ui.printStatusUpdate(false, unmarkedTask);
+                    storage.saveTasks(tasks);
+                    break;
+                case TODO:
+                    if (details.isEmpty()) {
+                        throw new InvalidTaskException("Description of todo cannot be empty.");
+                    }
+                    Todo newTodo = new Todo(details);
+                    tasks.addTask(newTodo);
+                    ui.printTaskAddedMessage(newTodo, tasks.getTaskCount());
+                    storage.saveTasks(tasks);
+                    break;
+                case DEADLINE:
+                    Deadline newDeadline = createDeadline(details);
+                    tasks.addTask(newDeadline);
+                    ui.printTaskAddedMessage(newDeadline, tasks.getTaskCount());
+                    storage.saveTasks(tasks);
+                    break;
+                case EVENT:
+                    Event newEvent = createEvent(details);
+                    tasks.addTask(newEvent);
+                    ui.printTaskAddedMessage(newEvent, tasks.getTaskCount());
+                    storage.saveTasks(tasks);
+                    break;
+                case DELETE:
+                    int taskNumber = getTaskNumber(details);
+                    Task removedTask = tasks.removeTask(taskNumber);
+                    ui.printTaskRemovedMessage(removedTask, tasks.getTaskCount());
+                    storage.saveTasks(tasks);
+                    break;
+                case FIND:
+                    TaskList matchingTasks = tasks.findTasksByKeyword(details);
+                    ui.printTasks(matchingTasks);
+                    break;
+                default:
+                    throw new InvalidInputException();
                 }
             } catch (NumberFormatException e) {
                 ui.printErrorMessage("☹ OOPS!!! Invalid task index.");
