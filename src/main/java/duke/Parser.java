@@ -10,6 +10,12 @@ public class Parser {
     public Parser(TaskList taskList) {
         this.taskList = taskList;
     }
+
+    /**
+     * Writes task into Local Storage.
+     * @param promptText    Task from user's input.
+     * @throws DukeException    Exception to be thrown when the input cannot be read.
+     */
     public void createTask(String promptText) throws DukeException {
         if (promptText.startsWith("todo")) {
             try {
@@ -86,6 +92,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks task as done or undone.
+     * @param promptText    User's input to mark or unmark a task.
+     * @throws DukeException    Exception that is thrown when the task does not exist.
+     */
     public void markTask(String promptText) throws DukeException {
         try {
             int i = Integer.parseInt(promptText.substring(promptText.length() - 1));

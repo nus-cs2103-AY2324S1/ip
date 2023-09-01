@@ -5,6 +5,11 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Represents the ChatBot.
+     * @param filePath  The local storage path.
+     * @throws DukeException    The exception to be thrown.
+     */
     public Duke(String filePath) throws DukeException {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -16,6 +21,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the chatbot.
+     * @throws DukeException    The exception to be thrown.
+     */
     public void run() throws DukeException {
         ui.greet(tasks);
     }
