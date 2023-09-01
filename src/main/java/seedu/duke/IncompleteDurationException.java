@@ -7,6 +7,8 @@ package seedu.duke;
     public IncompleteDurationException() {
         super("____________________________________________________________\n" +
                 " ☹ OOPS!!! Duration is not specified correctly.\n" +
+                "Please input the duration in the following format:\n" +
+                "/from DD-MM-YYYY TTTT /to DD-MM-YYYY TTTT\n" +
                 "____________________________________________________________");
     }
 }

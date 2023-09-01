@@ -30,8 +30,8 @@ public class Ui {
 
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.println(i+1 + "." + task.getTaskType() + task.getStatusIcon() + " " + task.name +
-                    " " + task.getTimeInfo());
+            System.out.println(i+1 + "." + task.getTaskType() + task.getStatusIcon() + " " + task.name
+                                    + " " + task.getTimeInfo());
         }
     }
 

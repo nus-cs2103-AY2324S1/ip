@@ -34,10 +34,8 @@ public class Deadline extends Task {
         // Format month in words
         DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH);
         String monthInWords = this.dateAndTime.format(monthFormatter);
-
         // Format day of the month
         int dayOfMonth = this.dateAndTime.getDayOfMonth();
-
         // Format year
         int year = this.dateAndTime.getYear();
 

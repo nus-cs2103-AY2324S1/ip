@@ -67,19 +67,7 @@ public class Storage {
         } catch (StreamCorruptedException e) {
             throw new InvalidDataFormatException();
         } catch (IOException e) {
-            try {
-                // Read all lines from the file and store them in a List<String>
-                List<String> lines = Files.readAllLines(Paths.get(filePath));
-
-                // Print each line from the List
-                for (String line : lines) {
-                    System.out.println(line);
-                }
-                System.out.println("File path is: " + filePath);
-                throw new InvalidDataFormatException();
-            } catch (Exception f) {
-                System.out.println(f.getMessage());
-            }
+            throw new InvalidDataFormatException();
         } catch (ClassNotFoundException e) {
             throw new InvalidDataFormatException();
         }
