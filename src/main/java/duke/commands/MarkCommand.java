@@ -13,6 +13,11 @@ public class MarkCommand extends Command {
     }
 
     @Override
+    protected String getInvalidFormatMessage() {
+        return String.join("\n", "Invalid format for command `mark`!", "Usage: mark <TASK_NUMBER>");
+    }
+
+    @Override
     public CommandResult run(TaskList tasks) throws CommandException {
         String taskNum = matcher.group("taskNum");
 

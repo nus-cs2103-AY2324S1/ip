@@ -12,6 +12,10 @@ public class UnmarkCommand extends Command {
         super(s, pattern);
     }
 
+    @Override
+    protected String getInvalidFormatMessage() {
+        return String.join("\n", "Invalid format for command `unmark`!", "Usage: unmark <TASK_NUMBER>");
+    }
 
     @Override
     public CommandResult run(TaskList tasks) throws CommandException {
