@@ -6,6 +6,9 @@ public class Ui {
     private static final String LINE = "    ____________________________________________________________";
     private Scanner scanner;
 
+    /**
+     * Create Ui that interacts with user
+     */
     public Ui() {
         scanner = new Scanner(System.in);
     }

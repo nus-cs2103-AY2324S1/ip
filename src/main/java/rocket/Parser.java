@@ -4,6 +4,12 @@ import java.time.LocalDateTime;
 
 public class Parser {
 
+    /**
+     * Parses the line command that the user types into a Command
+     * @param fullCommand the String of user input.
+     * @return a Command that will be executed.
+     * @throws RocketException if user enters an invalid command.
+     */
     public static Command parse(String fullCommand) throws RocketException{
         String command;
         String arguments;

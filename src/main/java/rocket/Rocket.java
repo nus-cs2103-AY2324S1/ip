@@ -12,6 +12,10 @@ public class Rocket {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Create new chatbot
+     * @param filePath filePath where saved tasks should be stored.
+     */
     public Rocket(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -23,6 +27,9 @@ public class Rocket {
         }
     }
 
+    /**
+     * Run the chatbot
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -41,6 +48,10 @@ public class Rocket {
         }
     }
 
+    /**
+     * Run a new chatbot
+     * @param args idk.
+     */
     public static void main(String[] args) {
 
         new Rocket("data/tasks.txt").run();
