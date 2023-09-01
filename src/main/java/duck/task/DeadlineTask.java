@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import duck.DuckException;
+import duck.Parser;
 
 public class DeadlineTask extends Task {
     LocalDate deadline;
@@ -29,8 +30,17 @@ public class DeadlineTask extends Task {
         return "[D]" + super.toString() + " (by: " + formatDeadline()  + ")";
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof DeadlineTask) {
+            DeadlineTask other = (DeadlineTask) obj;
+            return super.equals(other) && deadline.equals(other.deadline);
+        }
+        return false;
+    }
+
     
-    public static DeadlineTask parse(String fileLine, DateTimeFormatter dateFormatter) throws DuckException {
+    public static DeadlineTask parse(String fileLine) throws DuckException {
 
         // Finding isDone
         boolean isDone = fileLine.charAt(1) == '1';
@@ -43,7 +53,7 @@ public class DeadlineTask extends Task {
         // Finding deadline
         int secondSlashIndex = fileLine.indexOf("/", slashIndex + 1); // The index of the next slash
         String deadlineString = fileLine.substring(secondSlashIndex + 1);
-        LocalDate deadline = LocalDate.parse(deadlineString, dateFormatter);
+        LocalDate deadline = LocalDate.parse(deadlineString, Parser.fileDateFormatter);
 
         return new DeadlineTask(name, isDone, deadline);
     }

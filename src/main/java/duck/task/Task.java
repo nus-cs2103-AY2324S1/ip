@@ -39,4 +39,13 @@ public abstract class Task {
         String str = "[" + done + "] " + name;
         return str;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Task) {
+            Task otherTask = (Task) other;
+            return this.name.equals(otherTask.name) && this.isDone == otherTask.isDone;
+        }
+        return false;
+    }
 }
