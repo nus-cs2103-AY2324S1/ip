@@ -59,7 +59,7 @@ public class Parser {
                 if (matcher.group(2) == null) {
                     throw new DukeException(Ui.LINE + Messages.INVALID_TODO_MESSAGE + Ui.LINE);
                 }
-                return new TaskCommand(new Todo(matcher.group(2)));
+                return new AddTaskCommand(new Todo(matcher.group(2)));
             case "deadline":
                 if (matcher.group(2) == null
                         || matcher.group(3) == null
@@ -76,7 +76,7 @@ public class Parser {
                     throw new DukeException(Ui.LINE + Messages.INVALID_DEADLINE_MESSAGE + Ui.LINE);
                 }
 
-                return new TaskCommand(new Deadline(matcher.group(2), parsedDate));
+                return new AddTaskCommand(new Deadline(matcher.group(2), parsedDate));
             case "event":
                 if (matcher.group(2) == null
                         || matcher.group(3) == null
@@ -87,7 +87,7 @@ public class Parser {
                         || matcher.group(6) == null) {
                     throw new DukeException(Ui.LINE + Messages.INVALID_EVENT_MESSAGE + Ui.LINE);
                 }
-                return new TaskCommand(new Event(matcher.group(2), matcher.group(4), matcher.group(6)));
+                return new AddTaskCommand(new Event(matcher.group(2), matcher.group(4), matcher.group(6)));
             case "delete":
                 if (matcher.group(2) == null) {
                     throw new DukeException(Ui.LINE + Messages.INVALID_DELETE_MESSAGE + Ui.LINE);

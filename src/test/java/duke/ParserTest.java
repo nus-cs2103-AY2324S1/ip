@@ -2,7 +2,7 @@ package duke;
 
 import duke.command.ExitCommand;
 import duke.command.MarkCommand;
-import duke.command.TaskCommand;
+import duke.command.AddTaskCommand;
 
 import org.junit.jupiter.api.Test;
 
@@ -55,7 +55,7 @@ public class ParserTest {
     @Test
     public void parseDeadlineCommand_success() {
         try {
-            assertInstanceOf(TaskCommand.class, Parser.parse("deadline assignment /by 2023-09-15 2359"));
+            assertInstanceOf(AddTaskCommand.class, Parser.parse("deadline assignment /by 2023-09-15 2359"));
         } catch (DukeException e) {
             // should not throw
             fail();

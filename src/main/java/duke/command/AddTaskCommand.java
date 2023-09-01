@@ -6,10 +6,13 @@ import duke.TaskList;
 import duke.Ui;
 import duke.task.Task;
 
-public class TaskCommand extends Command {
+/**
+ * Represents the command of adding a task to the list.
+ */
+public class AddTaskCommand extends Command {
     private final Task newTask;
 
-    public TaskCommand(Task newTask) {
+    public AddTaskCommand(Task newTask) {
         this.newTask = newTask;
     }
 
