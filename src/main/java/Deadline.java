@@ -11,9 +11,16 @@ public class Deadline extends Task{
             throw new DukeNoDateException("Deadline");
         }
         String content = Description.substring(9, index);
-        String time = Description.substring(index + 1, index + 3)
-                + ":"
-                + Description.substring(index + 3);
+        String subString = Description.substring(index + 4);
+        String time;
+        if (subString.contains(" ")) {
+            int indexOfSpace = subString.indexOf(" ");
+            time = TimeProcessor.StringToDate(subString.substring(0, indexOfSpace));
+            time = time + subString.substring(indexOfSpace);
+        } else {
+            time = TimeProcessor.StringToDate(Description.substring(index + 4));
+        }
+        time = Description.substring(index + 1, index + 3) + ": " + time;
         this.Description = content + "(" + time + ")";
         System.out.println("Got it. I've added this task:");
         System.out.println("    " + this);

@@ -27,13 +27,18 @@ public class Event extends Task{
         if (lastIndex == index || Description.length() - lastIndex <  7 || lastIndex == -1) {
             throw new DukeNoDateException("Event");
         }
-        String startTime = Description.substring(index + 1, index + 5)
-                + ":"
-                + Description.substring(index + 5, lastIndex);
-        String endTime = Description.substring(lastIndex + 1, lastIndex + 3)
-                + ":"
-                + Description.substring(lastIndex + 3);
-        time = startTime + endTime;
+
+        String startTime = Description.substring(index + 6, lastIndex - 1);
+        String endTime = Description.substring(lastIndex + 4);
+        if (startTime.contains(" ")) {
+            int spaceIndex = startTime.indexOf(" ");
+            String date = TimeProcessor.StringToDate(startTime.substring(0, spaceIndex));
+            startTime = "from: " + date + " " + startTime.substring(spaceIndex + 1);
+        } else {
+            startTime = "from: " + TimeProcessor.StringToDate(startTime);
+        }
+
+        time = startTime + " to: " + TimeProcessor.StringToDate(endTime);
         return content + "(" + time + ")";
     }
 
