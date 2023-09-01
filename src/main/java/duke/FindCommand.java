@@ -14,4 +14,9 @@ public class FindCommand extends Command{
         ArrayList<Task> tasksContainingKeyword = tasks.getTasksContainingKeyword(params.get(1));
         ui.printTasksMatching(tasksContainingKeyword);
     }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

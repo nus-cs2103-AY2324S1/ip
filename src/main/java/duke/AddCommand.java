@@ -42,4 +42,9 @@ public class AddCommand extends Command {
                 break;
         }
     }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

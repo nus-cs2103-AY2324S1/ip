@@ -13,4 +13,9 @@ public class ExitCommand extends Command {
         ui.printGoodbyeMessage();
         ui.closeUi();
     }
+
+    @Override
+    public boolean isExit() {
+        return true;
+    }
 }

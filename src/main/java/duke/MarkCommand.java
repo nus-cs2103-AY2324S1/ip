@@ -15,4 +15,9 @@ public class MarkCommand extends Command {
         ui.printTaskMarkedMessage(task);
         tasks.saveState(storage);
     }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

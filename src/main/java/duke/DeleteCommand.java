@@ -15,4 +15,9 @@ public class DeleteCommand extends Command {
         ui.printTaskDeletedMessage(task, tasks.getTaskCount());
         tasks.saveState(storage);
     }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

@@ -16,4 +16,9 @@ public class OnCommand extends Command{
         ArrayList<Task> tasksOnDate = tasks.getTasksOn(date);
         ui.printTasksOn(tasksOnDate);
     }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

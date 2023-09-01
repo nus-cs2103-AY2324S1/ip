@@ -15,4 +15,9 @@ public class UnmarkCommand extends Command{
         ui.printTaskUnmarkedMessage(task);
         tasks.saveState(storage);
     }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

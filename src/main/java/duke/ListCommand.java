@@ -13,4 +13,9 @@ public class ListCommand extends Command{
     public void execute(TaskList tasks, UI ui, Storage storage) {
         tasks.printContents();
     }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }
