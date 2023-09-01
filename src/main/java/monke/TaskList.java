@@ -91,4 +91,14 @@ public class TaskList {
     public int size() {
         return this.tasks.size();
     }
+
+    public TaskList filter(String substr) {
+        ArrayList<Task> filteredList = new ArrayList<>();
+        for (Task task : this.tasks) {
+            if (task.getDescription().contains(substr)) {
+                filteredList.add(task);
+            }
+        }
+        return new TaskList(filteredList);
+    }
 }
