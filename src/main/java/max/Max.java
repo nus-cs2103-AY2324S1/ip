@@ -1,16 +1,6 @@
 package max;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.time.format.DateTimeParseException;
-
-import static java.lang.Integer.parseInt;
 
 import max.commands.Command;
 import max.exception.MaxException;
@@ -20,10 +10,20 @@ import max.tasks.TaskList;
 import max.tasks.Task;
 import max.ui.Ui;
 
+/**
+ * Initialises the application.
+ */
 public class Max {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
+    /**
+     * Initialises Storage, TaskList and Ui.
+     * Loads storage from given file location.
+     *
+     * @param filePath file location of stored task list
+     */
     public Max(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -34,6 +34,10 @@ public class Max {
             tasks = new TaskList();
         }
     }
+
+    /**
+     * Reads user commands and executes until exited.
+     */
     public void run() {
         ui.showGreeting();
         boolean isExit = false;
@@ -53,6 +57,12 @@ public class Max {
             }
         }
     }
+
+    /**
+     * Runs chatbot until termination.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         new Max("./data/max.txt").run();
     }

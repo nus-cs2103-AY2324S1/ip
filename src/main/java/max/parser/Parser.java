@@ -13,15 +13,34 @@ import java.time.format.DateTimeParseException;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * Parses user input to given command.
+ */
 public class Parser {
     private String input;
+
+    /**
+     * Initialises parser with given user input.
+     *
+     * @param input user input
+     */
     public Parser(String input) {
         this.input = input;
     }
+
+    /**
+     * Initialises parser.
+     */
     public Parser() {
 
     }
 
+    /**
+     * Parses user input. If the command is invalid, throws exception.
+     * @param fullCommand User input read from scanner.
+     * @return Command Command given by user.
+     * @throws MaxException If command is invalid.
+     */
     public Command parse(String fullCommand) throws MaxException {
         String com = fullCommand.split(" ")[0];
 
@@ -51,30 +70,15 @@ public class Parser {
                 default:
                     throw new MaxException("Invalid command sir.");
             }
-
-//        max.commands.CommandEnum commandEnum;
-////        switch (command) {
-////            case
-////        }
-//        if (command.equals("bye")) {
-//            // User wants to exit the chatbot
-//            commandEnum = max.commands.CommandEnum.BYE;
-//        } else if (command.equals("list")) {
-//            commandEnum = max.commands.CommandEnum.LIST;
-//        } else if (command.contains("unmark")) {
-//            commandEnum = max.commands.CommandEnum.UNMARK;
-//        } else if (command.contains("mark")) {
-//            commandEnum = max.commands.CommandEnum.MARK;
-//        } else if (command.contains("event") || command.contains("todo") ||
-//                command.contains("deadline")) {
-//            commandEnum = max.commands.CommandEnum.ADD;
-//        } else if (command.contains("delete")) {
-//            commandEnum = max.commands.CommandEnum.DELETE;
-//        } else {
-//            commandEnum = max.commands.CommandEnum.UNKNOWN;
-//        }
-//        return commandEnum;
     }
+
+    /**
+     * Parses a todo command. If input is invalid, throws exception.
+     *
+     * @param fullCommand User input read from scanner.
+     * @return AddCommand Command
+     * @throws MaxException If description is empty.
+     */
     public Command handleTodo(String fullCommand) throws MaxException {
         // Error checking: empty fields
         if (fullCommand.length() < 6) {
@@ -84,6 +88,13 @@ public class Parser {
 
         return new AddCommand(new Todo(description));
     }
+    /**
+     * Parses an event command. If input is invalid, throws exception.
+     *
+     * @param fullCommand User input read from scanner.
+     * @return AddCommand Command
+     * @throws MaxException If command incomplete.
+     */
     public Command handleEvent(String fullCommand) throws MaxException {
         int fromIndex = fullCommand.indexOf("/from");
         int toIndex = fullCommand.indexOf("/to");
@@ -103,9 +114,15 @@ public class Parser {
         LocalDate fromDate = LocalDate.parse(from);
         LocalDate toDate = LocalDate.parse(to);
 
-
         return new AddCommand(new Event(item, fromDate, toDate));
     }
+    /**
+     * Parses a deadline command. If input is invalid, throws exception.
+     *
+     * @param fullCommand User input read from scanner.
+     * @return AddCommand Command
+     * @throws MaxException If description is empty.
+     */
     public Command handleDeadline(String fullCommand) throws MaxException {
         int byIndex = fullCommand.indexOf("/by");
         // Error checking: no /by tag
@@ -123,14 +140,34 @@ public class Parser {
 
         return new AddCommand(new Deadline(item, byDate));
     }
+    /**
+     * Parses a delete command.
+     *
+     * @param fullCommand User input read from scanner.
+     * @return DeleteCommand Command
+     */
     public Command handleDelete(String fullCommand) throws MaxException {
         int deleteNumber = parseInt(fullCommand.substring(7));
         return new DeleteCommand(deleteNumber);
     }
+    /**
+     * Parses a mark command. If input is invalid, throws exception.
+     *
+     * @param fullCommand User input read from scanner.
+     * @return MarkCommand Command
+     * @throws MaxException If mark number is invalid.
+     */
     public Command handleMark(String fullCommand) throws MaxException {
         int markNumber = parseInt(fullCommand.substring(5));
         return new MarkCommand(markNumber);
     }
+    /**
+     * Parses an unmark command. If input is invalid, throws exception.
+     *
+     * @param fullCommand User input read from scanner.
+     * @return UnmarkCommand Command
+     * @throws MaxException If unmark number is invalid.
+     */
     public Command handleUnmark(String fullCommand) throws MaxException {
         int markNumber = parseInt(fullCommand.substring(7));
         return new MarkCommand(markNumber);

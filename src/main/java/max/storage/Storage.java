@@ -12,11 +12,27 @@ import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Loads and saves task list to memory.
+ */
 public class Storage {
     private String filePath;
+
+    /**
+     * Initialises location of task list in memory.
+     *
+     * @param filePath
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
+    /**
+     * Loads task list from memory.
+     *
+     * @return List of tasks
+     * @throws MaxException If file input cannot be interpreted
+     */
     public ArrayList<Task> load() throws MaxException {
         ArrayList<Task> tasks = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -29,6 +45,14 @@ public class Storage {
         }
         return tasks;
     }
+
+    /**
+     * Reads file input and adds task to task list.
+     *
+     * @param task String representation of task stored in memory
+     * @param tasks Task list
+     * @throws MaxException If String representation of task is invalid
+     */
     public void loadTask(String task, ArrayList<Task> tasks) throws MaxException {
         String type = task.substring(0, 1).trim(); // T, D, E
         boolean done = task.substring(3, 5).trim().equals("1");
@@ -61,6 +85,12 @@ public class Storage {
             throw new MaxException("Hey! Your storage file is corrupted.");
         }
     }
+
+    /**
+     * Saves task list to memory. Creates file if one does not exist.
+     *
+     * @param tasks List of tasks
+     */
     public void writeToFile(TaskList tasks) {
         // Save the task list to the system upon change
         File file = new File("./data/max.txt");
