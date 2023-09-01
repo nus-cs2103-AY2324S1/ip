@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
+import java.util.ArrayList;
 
 /**
  * The TaskManager class manages tasks, including adding, marking, unmarking, printing, and deleting tasks.
@@ -193,4 +193,24 @@ public class TaskManager {
         }
     }
 
+    public void findTaskByKeyboard(String keyword) {
+        ArrayList<Task> list = new ArrayList<>();
+        for (Task task : tasks.getAllTasks()) {
+            if (task.getDescription().contains(keyword)) {
+                list.add(task);
+            }
+        }
+        if (list.isEmpty()) {
+            System.out.println("    ____________________________________________________________");
+            System.out.println("    Oops! There is no task with this keyword.");
+            System.out.println("    ____________________________________________________________");
+        } else {
+            System.out.println("    ____________________________________________________________");
+            System.out.println("    Here are the matching tasks in your list:");
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println("    " + (i + 1) + "." + list.get(i).toString());
+            }
+            System.out.println("    ____________________________________________________________");
+        }
+    }
 }
