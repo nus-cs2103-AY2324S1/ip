@@ -5,6 +5,9 @@ import java.util.regex.Pattern;
 import duke.TaskList;
 import duke.tasks.Todo;
 
+/**
+ * A command to add a new todo.
+ */
 public class TodoCommand extends Command {
     private static final Pattern pattern = Pattern.compile("^todo\\s+(?<description>.+)$");
 

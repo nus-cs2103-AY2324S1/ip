@@ -2,6 +2,9 @@ package duke.commands;
 
 import java.util.List;
 
+/**
+ * Represents the result from executing a command.
+ */
 public class CommandResult {
     private final boolean shouldSave;
     private final boolean isTaskListDirty;

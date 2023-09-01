@@ -5,6 +5,9 @@ import java.util.regex.Pattern;
 import duke.TaskList;
 import duke.tasks.Task;
 
+/**
+ * A command to delete a task from the task list.
+ */
 public class DeleteCommand extends Command {
     private static final Pattern pattern = Pattern.compile("^delete\\s+(?<taskNum>.+)$");
 

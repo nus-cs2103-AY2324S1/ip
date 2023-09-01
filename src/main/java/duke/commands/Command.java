@@ -5,6 +5,9 @@ import java.util.regex.Pattern;
 
 import duke.TaskList;
 
+/**
+ * Represents a command of the program.
+ */
 public abstract class Command {
     protected Matcher matcher;
 
@@ -79,6 +82,9 @@ public abstract class Command {
      */
     public abstract CommandResult run(TaskList tasks) throws CommandException;
 
+    /**
+     * Represents a command verb.
+     */
     public enum Verb {
         BYE, LIST, FIND, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE
     }

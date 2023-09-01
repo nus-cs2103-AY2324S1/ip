@@ -7,6 +7,9 @@ import java.util.regex.Pattern;
 import duke.TaskList;
 import duke.tasks.Event;
 
+/**
+ * A command to add a new event.
+ */
 public class EventCommand extends Command {
     private static final Pattern pattern = Pattern.compile(
             "^event\\s+(?<description>.*?)\\s+(?:/from\\s+(?<startFore>.*?)\\s+/to\\s+(?<endAft>.*)|/to\\s+"
