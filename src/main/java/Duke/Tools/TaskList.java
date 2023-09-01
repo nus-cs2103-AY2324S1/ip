@@ -1,3 +1,11 @@
+package Duke.Tools;
+
+import Duke.Tasks.Task;
+import Duke.Tasks.ToDo;
+import Duke.Tasks.Deadline;
+import Duke.Tasks.Event;
+import Duke.Exceptions.DukeException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

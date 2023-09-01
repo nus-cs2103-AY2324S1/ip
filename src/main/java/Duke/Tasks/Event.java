@@ -1,3 +1,7 @@
+package Duke.Tasks;
+
+import Duke.Exceptions.DukeException;
+
 public class Event extends Task{
     private final String descr;
 

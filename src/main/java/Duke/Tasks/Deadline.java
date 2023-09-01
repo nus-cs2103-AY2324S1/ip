@@ -1,11 +1,11 @@
+package Duke.Tasks;
+
+import Duke.Exceptions.DukeException;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
-import java.util.PriorityQueue;
 
 public class Deadline extends Task{
     private final String descr;

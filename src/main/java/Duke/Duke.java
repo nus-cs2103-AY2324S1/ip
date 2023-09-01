@@ -1,4 +1,11 @@
+package Duke;
+
+import Duke.Tools.Ui;
+import Duke.Tools.Storage;
+import Duke.Tools.TaskList;
+
 import java.io.IOException;
+import Duke.Exceptions.DukeException;
 
 public class Duke {
 
