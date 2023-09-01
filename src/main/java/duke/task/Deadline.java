@@ -24,19 +24,4 @@ public class Deadline extends Task {
     public String getTaskFileString() {
         return "D" + " , " + super.getTaskFileString() + " , " + this.duedate.format(formatter);
     }
-
-    @Override
-    public void printStart() {
-        System.out.println("    This deadline has no start time");
-    }
-
-    @Override
-    public void printEnd() {
-        System.out.println("    This deadline has no start time");
-    }
-
-    @Override
-    public void printDueDate() {
-        System.out.println("    This deadline is due: " + this.duedate.toString());
-    }
 }

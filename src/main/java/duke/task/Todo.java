@@ -14,19 +14,4 @@ public class Todo extends Task{
     public String getTaskFileString() {
         return "T" + " , " + super.getTaskFileString();
     }
-
-    @Override
-    public void printStart() {
-        System.out.println("    This todo has no start time");
-    }
-
-    @Override
-    public void printEnd() {
-        System.out.println("    This todo has no start time");
-    }
-
-    @Override
-    public void printDueDate() {
-        System.out.println("    This todo has no due date");
-    }
 }

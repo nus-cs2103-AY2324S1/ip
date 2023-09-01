@@ -19,26 +19,11 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + String.format(" (from: %s to: %s)", this.start.format(formatter), this.end.format(formatter));
+        return "[E]" + super.toString() + String.format(" (from: %s, to: %s)", this.start.format(formatter), this.end.format(formatter));
     }
 
     @Override
     public String getTaskFileString() {
         return "E" + " , " + super.getTaskFileString() + " , " + this.start.format(formatter) + " , " + this.end.format(formatter);
-    }
-
-    @Override
-    public void printStart() {
-        System.out.println("    The event starts at: " + this.start.toString());
-    }
-
-    @Override
-    public void printEnd() {
-        System.out.println("    The event is until: " + this.end.toString());
-    }
-
-    @Override
-    public void printDueDate() {
-        System.out.println("    This event has no due date");
     }
 }

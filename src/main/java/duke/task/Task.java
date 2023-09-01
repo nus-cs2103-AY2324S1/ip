@@ -2,7 +2,7 @@ package duke.task;
 
 public class Task {
     private String task;
-    private boolean done = false;
+    private boolean done;
 
     public Task(String task, boolean done) {
         this.task = task;
@@ -19,27 +19,17 @@ public class Task {
         return message;
     }
 
-    public void markTask() {
+    public boolean markTask() {
         this.done = true;
+        return this.done;
     }
 
-    public void unmarkTask() {
+    public boolean unmarkTask() {
         this.done = false;
+        return this.done;
     }
 
     public String getTaskFileString() {
         return (done ? "1" : "0") + " , " + this.task;
-    }
-
-    public void printStart() {
-        System.out.println("    This task has no start time");
-    }
-
-    public void printEnd() {
-        System.out.println("    This task has no end time");
-    }
-
-    public void printDueDate() {
-        System.out.println("    This task has no due date");
     }
 }
