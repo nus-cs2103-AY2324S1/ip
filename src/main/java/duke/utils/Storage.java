@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import duke.tasks.*;
 
+/**
+ * A utility class that provides functionality for reading and
+ * writing task data to the data file.
+ */
 public class Storage {
     private String filepath;
 
@@ -15,6 +19,13 @@ public class Storage {
         this.filepath = filepath;
     }
 
+    /**
+     * Returns a list containing the tasks read from the file indicated
+     * by filepath.
+     *
+     * @return An ArrayList of tasks
+     * @throws FileNotFoundException
+     */
     public ArrayList<Task> readFile() throws FileNotFoundException {
         File file = new File(this.filepath);
         Scanner fileScanner = new Scanner(file);
@@ -28,6 +39,13 @@ public class Storage {
     }
 
 
+    /**
+     * Writes each element of tasks to a line in the file indicated
+     * by filepath.
+     *
+     * @param tasks
+     * @throws IOException
+     */
     public void writeToFile(ArrayList<Task> tasks) throws IOException {
         // create data folder if it does not exist
         File file = new File(this.filepath);
@@ -45,6 +63,12 @@ public class Storage {
     }
 
 
+    /**
+     * Returns a Task object from parsing line.
+     *
+     * @param line
+     * @return A Task object containing the information from line
+     */
     public Task constructTaskFromFile(String line) {
         String type = line.substring(1, 2);
         String doneString = line.substring(4, 5);

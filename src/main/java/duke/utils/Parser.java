@@ -2,8 +2,17 @@ package duke.utils;
 
 import duke.commands.*;
 
+/**
+ * A utility class that parses the command inputted by the user.
+ */
 public class Parser {
 
+    /**
+     * Returns a Command object from parsing fullCommand.
+     *
+     * @param fullCommand
+     * @return A Command object containing the information from fullCommand
+     */
     public Command parse(String fullCommand) {
         String[] words = fullCommand.split(" ");
         String command = fullCommand;
