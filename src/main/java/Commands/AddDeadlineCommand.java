@@ -15,6 +15,10 @@ public class AddDeadlineCommand implements Command {
         return this.deadline;
     }
 
+    /**
+     * {@inheritDoc}
+     * The command to add a deadline to the TaskList.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(this.deadline);
