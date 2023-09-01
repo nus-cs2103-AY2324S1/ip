@@ -1,5 +1,6 @@
 package duke;
 
+import duke.exceptions.DukeFileNotFoundException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
@@ -13,13 +14,26 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Storage {
+
+    /** File path of data file */
     private String filePath;
 
+    /**
+     * Constructs a Storage object.
+     *
+     * @param filePath path of data file from root.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public TaskList readFromFile() {
+    /**
+     * Reads list of tasks from file.
+     *
+     * @return TaskList object.
+     * @throws DukeFileNotFoundException If file is not found at filePath.
+     */
+    public TaskList readFromFile() throws DukeFileNotFoundException {
         TaskList list = new TaskList();
         try {
             File f = new File(this.filePath);
@@ -55,14 +69,20 @@ public class Storage {
 
             s.close();
         } catch (FileNotFoundException e) {
-            System.out.println("\n" + "OOPS!!! Could not find the file " + this.filePath);
+            throw new DukeFileNotFoundException(filePath);
         }
         finally {
             return list;
         }
     }
 
-    public void writeToFile(TaskList list) {
+    /**
+     * Writes list of tasks to file.
+     *
+     * @param list TaskList object having a list of Tasks.
+     * @throws DukeFileNotFoundException If file is not found at filePath.
+     */
+    public void writeToFile(TaskList list) throws DukeFileNotFoundException {
         try {
             FileWriter fw = new FileWriter("data/duke.txt");
 
@@ -74,7 +94,7 @@ public class Storage {
 
             fw.close();
         } catch (FileNotFoundException e) {
-            System.out.println("\n" + "OOPS!!! Could not find the file " + this.filePath);
+            throw new DukeFileNotFoundException(filePath);
         } catch (IOException e) {
             System.out.println("\n" + "OOPS!!! " + e.getMessage());
         }

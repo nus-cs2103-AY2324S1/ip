@@ -7,14 +7,28 @@ import duke.tasks.Task;
 import java.util.Scanner;
 
 public class Ui {
+
+    /**
+     * Displays greeting message.
+     */
     public void greet() {
         display("Hello! I'm Max\n" + "What can I do for you?");
     }
 
+    /**
+     * Displays exit message.
+     */
     public void exit() {
         display("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Gets user input.
+     *
+     * @param taskList TaskList object with list of tasks.
+     * @param storage Storage object to interact with data file.
+     * @throws DukeException If any exception is encountered.
+     */
     public void getUserInput(TaskList taskList, Storage storage) throws DukeException {
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser();
@@ -74,12 +88,20 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays message to user.
+     *
+     * @param message Message to be displayed.
+     */
     public static void display(String message) {
         lines();
         System.out.println(message);
         lines();
     }
 
+    /**
+     * Draws horizontal lines.
+     */
     public static void lines() {
         System.out.println("");
         for (int i = 0; i < 50; i++) {

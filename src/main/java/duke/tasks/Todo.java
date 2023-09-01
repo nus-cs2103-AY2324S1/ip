@@ -2,14 +2,30 @@ package duke.tasks;
 
 public class Todo extends Task {
 
+    /**
+     * Constructs a Todo object.
+     *
+     * @param description Description of the Todo.
+     */
     public Todo(String description) {
         super(description);
     }
 
+    /**
+     * Constructs a Todo object.
+     *
+     * @param description Description of the Todo.
+     * @param isDone Status of the Todo.
+     */
     public Todo(String description, boolean isDone) {
         super(description, isDone);
     }
 
+    /**
+     * Returns text representation of todo for data file.
+     *
+     * @return Text representation of Todo.
+     */
     public String getTextRepresentation() {
         return "T | " + super.getTextRepresentation();
     }
