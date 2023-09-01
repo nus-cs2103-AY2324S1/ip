@@ -1,12 +1,12 @@
 package ballsorting;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.Scanner;
-import java.io.File;
 public class Storage {
-    File tmpDir;
+    private File tmpDir;
     public Storage(File file) {
         tmpDir = file;
     }

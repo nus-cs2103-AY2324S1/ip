@@ -2,7 +2,7 @@ package ballsorting;
 import java.util.ArrayList;
 
 public class TaskList {
-    ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
@@ -15,7 +15,7 @@ public class TaskList {
         System.out.println("Got it. I've added this task:");
         System.out.println(t.toString());
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println(Ballsorter.line);
+        System.out.println(Ballsorter.LINE);
     }
     public void addTaskSilent(Task t) {
         tasks.add(t);
@@ -23,33 +23,33 @@ public class TaskList {
     public void deleteTask(int target) {
         if (target >= tasks.size()) {
             System.out.println("☹ OOPS!!! This task does not exist");
-            System.out.println(Ballsorter.line);
+            System.out.println(Ballsorter.LINE);
         } else {
             System.out.println("Noted. I've removed this task:");
             System.out.println(tasks.get(target).toString());
             tasks.remove(target);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            System.out.println(Ballsorter.line);
+            System.out.println(Ballsorter.LINE);
         }
     }
     public void markTask(int target) {
         if (target >= tasks.size()) {
             System.out.println("☹ OOPS!!! This task does not exist");
-            System.out.println(Ballsorter.line);
+            System.out.println(Ballsorter.LINE);
         } else {
             System.out.println("Nice! I've marked this task as done:");
             System.out.println(tasks.get(target).markDone());
-            System.out.println(Ballsorter.line);
+            System.out.println(Ballsorter.LINE);
         }
     }
     public void unmarkTask(int target) {
         if (target >= tasks.size()) {
             System.out.println("☹ OOPS!!! This task does not exist");
-            System.out.println(Ballsorter.line);
+            System.out.println(Ballsorter.LINE);
         } else {
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(tasks.get(target).markNotDone());
-            System.out.println(Ballsorter.line);
+            System.out.println(Ballsorter.LINE);
         }
     }
     public int getNumOfTasks() {

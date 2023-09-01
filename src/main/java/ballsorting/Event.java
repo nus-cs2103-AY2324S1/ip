@@ -2,8 +2,8 @@ package ballsorting;
 import java.time.LocalDateTime;
 
 public class Event extends Task {
-    LocalDateTime start;
-    LocalDateTime end;
+    private LocalDateTime start;
+    private LocalDateTime end;
     public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
         this.start = start;
