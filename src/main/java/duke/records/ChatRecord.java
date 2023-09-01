@@ -60,9 +60,10 @@ public class ChatRecord {
     }
 
     /**
-     * Returns the string representation for the save file.
+     * Finds all tasks that contains the specified find word.
      *
-     * @return the string representation for the save file.
+     * @param findWord the word or phrase to find.
+     * @return an Optional of the string representation of all tasks with the specified find word.
      */
     public Optional<String> findMessage(String findWord) {
         StringBuilder ret = new StringBuilder();
@@ -77,6 +78,11 @@ public class ChatRecord {
         return Optional.of(ret.toString().stripTrailing());
     }
 
+    /**
+     * Returns the string representation for the save file.
+     *
+     * @return the string representation for the save file.
+     */
     public String toSave() {
         Task[] temp = new Task[chatRecords.size()];
         temp = chatRecords.toArray(temp);

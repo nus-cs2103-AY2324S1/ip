@@ -1,9 +1,13 @@
 package duke.commands;
 
-import duke.records.ChatRecord;
-
 import java.util.Optional;
 
+import duke.records.ChatRecord;
+
+/**
+ * The command to find tasks with the given keyword
+ * @author Toh Li Yuan (A0255811H)
+ */
 public class FindCommand extends Command {
     public static final String COMMAND_PHRASE = "find";
     public static final String COMMAND_DESC = "These are the tasks with the matching keyword:";

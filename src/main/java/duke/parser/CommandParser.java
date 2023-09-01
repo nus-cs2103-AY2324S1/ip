@@ -33,7 +33,7 @@ public class CommandParser {
      *
      * @param input the input string from the user
      * @return the correct command from user input.
-     * Returns an Invalid Command if a syntax error in the command is found.
+     *     Returns an Invalid Command if a syntax error in the command is found.
      */
     public Command parseCommand(String input) {
         Matcher matcher = COMMAND_PATTERN.matcher(input);

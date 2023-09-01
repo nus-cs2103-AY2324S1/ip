@@ -1,10 +1,11 @@
 package duke.parser;
 
-import duke.commands.Command;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
+
+import duke.commands.Command;
 
 public class CommandParserTest {
 
