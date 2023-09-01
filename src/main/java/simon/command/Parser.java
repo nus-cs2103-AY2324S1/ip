@@ -53,7 +53,7 @@ public class Parser {
                     throw new SimonException("☹ OOPS!!! The format for event is incorrect. Expected format: 'event [event description] /from [dd/mm/yyyy HHmm] /to [dd/mm/yyyy HHmm]'. The time(HHmm) is optional.");
                 }
 
-                String[] fromToParts = eventParts[1].split("/from ");
+                String[] fromToParts = eventParts[1].split(" /from ");
                 if (fromToParts.length < 2) {
                     throw new SimonException("☹ OOPS!!! The format for event is missing 'from' information.");
                 }
@@ -63,7 +63,7 @@ public class Parser {
                     throw new SimonException("☹ OOPS!!! The description of an event cannot be empty.");
                 }
 
-                String[] toParts = fromToParts[1].split("/to ");
+                String[] toParts = fromToParts[1].split(" /to ");
                 if (toParts.length < 2) {
                     throw new SimonException("☹ OOPS!!! The format for event is missing 'to' information.");
                 }
