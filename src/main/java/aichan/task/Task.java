@@ -28,7 +28,7 @@ public class Task {
             if (isMark) t.mark();
             return t;
         } else if (type == 'E') {
-            String[] arr = description.split(" \\| |-");
+            String[] arr = description.split(" \\| | - ");
             Task t = new Event(arr);
             if (isMark) t.mark();
             return t;
