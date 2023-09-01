@@ -22,7 +22,7 @@ public class TaskList {
      */
     private final ArrayList<Task> TASKS = new ArrayList<>();
 
-    public boolean markTask(int index) throws TrackerBotException {
+    public String markTask(int index) throws TrackerBotException {
         Task task = getTask(index);
         // happy path: the task does not exist.
         if (task == null) {
@@ -32,11 +32,11 @@ public class TaskList {
         if (!task.markTask()) {
             throw new TrackerBotException("The specified task is already completed.");
         }
-        System.out.println("This task has been marked as completed.\n  " + task);
-        return true;
+
+        return "This task has been marked as completed.\n  " + task;
     }
 
-    public boolean unmarkTask(int index) throws TrackerBotException {
+    public String unmarkTask(int index) throws TrackerBotException {
         Task task = getTask(index);
         // happy path: the task does not exist.
         if (task == null) {
@@ -47,8 +47,8 @@ public class TaskList {
         if (!task.unmarkTask()) {
             throw new TrackerBotException("This task is already in progress.");
         }
-        System.out.println("The task has been marked as incomplete.\n  " + task);
-        return true;
+
+        return "The task has been marked as incomplete.\n  " + task;
     }
 
     /**
@@ -57,7 +57,7 @@ public class TaskList {
      * prints an appropriate error message.
      * @param index The index of the list to unmark.
      */
-    public void delete(int index) throws TrackerBotException {
+    public String delete(int index) throws TrackerBotException {
         Task task = getTask(index);
         // happy path: the task does not exist.
         if (task == null) {
@@ -65,8 +65,8 @@ public class TaskList {
         }
 
         TASKS.remove(index - 1);
-        System.out.println("I have removed this task off of my list.\n  " + task);
-        System.out.println(TASKS.size() + " task(s) remain on my list.");
+        return "I have removed this task off of my list.\n  " + task + "\n"
+                + TASKS.size() + " task(s) remain on my list.";
     }
 
     /**
@@ -74,8 +74,8 @@ public class TaskList {
      * Adds a To-Do, Event or Deadline task to the task list.
      * @param input The Pair&lt;Command, String&gt; of the task to add to the list.
      */
-    public void add(Pair<CommandType, String> input) throws TrackerBotException {
-        TASKS.add(Parser.parseAdd(input));
+    public void add(CommandType type, String commandField) throws TrackerBotException {
+        TASKS.add(Parser.parseAdd(type, commandField));
     }
 
     public void read() {
@@ -115,15 +115,12 @@ public class TaskList {
         } // the try with resources statement auto-closes output.
     }
 
-    public void list() {
+    public String list() {
         // happy path: prints an appropriate message and exit the method.
         if (TASKS.size() == 0) {
-            System.out.println("No tasks have been added to the list yet.");
-            return;
+            return "No tasks have been added to the list yet.";
         }
-
-        System.out.println("I am tracking these tasks:");
-        System.out.println(getListOfTasks());
+        return "I am tracking these tasks:\n" + getListOfTasks();
     }
 
     /**

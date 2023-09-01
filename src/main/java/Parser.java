@@ -13,51 +13,42 @@ public class Parser {
      * @param input The unmodified console string that the user inputs.
      * @return A Pair&lt;Command, String&gt; object containing the enum and description.
      */
-    public static Pair<CommandType, String> parseCommand(String input) {
+    public static Command parseCommand(String input) {
         Scanner scanner = new Scanner(input);
+        String keyword, rest;
         // if the input is empty, return the unknown keyword with an empty description.
         if (!scanner.hasNext()) {
-            scanner.close();
-            return new Pair<>(CommandType.UNKNOWN, "");
+            keyword = "";
+        } else {
+            keyword = scanner.next();
         }
 
-        String keyword = scanner.next();
-        CommandType first = CommandType.UNKNOWN;
-
-        for (CommandType command: CommandType.values()) {
-            if (keyword.equals(command.getKeyword())) {
-                first = command;
-                break;
-            }
+        if (keyword.equals("") || !scanner.hasNextLine()) {
+            rest = "";
+        } else {
+            rest = scanner.nextLine().trim();
         }
 
-        if (first.equals(CommandType.UNKNOWN) || !scanner.hasNextLine()) {
-            scanner.close();
-            return new Pair<>(first, "");
-        }
-
-        String second = scanner.nextLine().trim();
-        scanner.close();
-        return new Pair<>(first, second);
+        return Command.of(keyword, rest);
     }
 
-    public static Task parseAdd(Pair<CommandType, String> input) throws TrackerBotException {
+    public static Task parseAdd(CommandType type, String commandField) throws TrackerBotException {
         Task newTask;
         String[] segments;
         try {
-            switch (input.getFirst()) {
+            switch (type) {
             case TODO:
-                if (input.getSecond().equals("")) {
+                if (commandField.equals("")) {
                     throw new TrackerBotException("Cannot track task without description.");
                 }
-                newTask = new Todo(input.getSecond());
+                newTask = new Todo(commandField.trim());
                 break;
             case DEADLINE:
-                if (!input.getSecond().matches("^.+ /by .+")) {
+                if (!commandField.matches("^.+ /by .+")) {
                     throw new TrackerBotException("Improper format: deadline [description] /by [end-date]");
                 }
 
-                segments = input.getSecond().split("/by");
+                segments = commandField.split("/by");
                 if (segments.length > 2) {
                     throw new TrackerBotException("Too many flags: deadline [description] /by [end-date]");
                 }
@@ -73,12 +64,12 @@ public class Parser {
                 break;
             case EVENT:
                 // this will check for the standard format, and will also guarantee that segment length is min 3.
-                if (!input.getSecond().matches("^.+ /from .+ /to .+")) {
+                if (!commandField.matches("^.+ /from .+ /to .+")) {
                     throw new TrackerBotException(
                             "Improper format: event [description] /from [start-date] /to [end-date]");
                 }
 
-                segments = input.getSecond().split("/from|/to");
+                segments = commandField.split("/from|/to");
                 if (segments.length > 3) {
                     throw new TrackerBotException("Too many flags: event [description] /from [start-date] /to [end-date]");
                 }
@@ -96,7 +87,7 @@ public class Parser {
                 newTask = new Event(segments[0].trim(), segments[1].trim(), segments[2].trim());
                 break;
             default:
-                throw new IllegalStateException("Uncaught CommandType: " + input.getFirst().getKeyword());
+                throw new IllegalStateException("Uncaught CommandType: " + type.getKeyword());
             }
             return newTask;
         } catch (DateTimeParseException e) {
