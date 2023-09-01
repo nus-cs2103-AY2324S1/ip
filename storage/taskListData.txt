@@ -1,4 +1,5 @@
-T | 0 | another thing
+T | 1 | another thing
 T | 0 | really another thing
-D | 0 | smt | 2022-12-01T18:00:00
 D | 0 | another thing | 2021-11-01T15:35:00
+T | 0 | whatsup
+D | 1 | a new thing | 2019-06-05T19:30:00
