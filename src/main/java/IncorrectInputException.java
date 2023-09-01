@@ -1,5 +1,5 @@
-public class NoDescriptionException extends IncorrectInputException {
-    public NoDescriptionException(String message) {
+public class IncorrectInputException extends RuntimeException {
+    public IncorrectInputException(String message) {
         super(message);
     }
 

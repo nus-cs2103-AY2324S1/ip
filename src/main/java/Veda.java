@@ -62,9 +62,10 @@ public class Veda {
                 break;
 
             case "event":
-                //TODO add more error handling of wrong arguments
                 if (description.toLowerCase() == type) {
                     throw new NoDescriptionException("");
+                } else if (description.split("/").length < 3) {
+                    throw new IncorrectInputException("");
                 }
 
                 description = taskArgs.replaceFirst("event ", "");
@@ -82,11 +83,10 @@ public class Veda {
 
         if (newTask != null && tasks.add(newTask)) {
             System.out.println("added in mission:\n" + newTask);
-            //TODO update file
+
             try {
                 storage.updateData(tasks, true);
             } catch(IOException e) {
-                e.printStackTrace();
                 System.out.println("Error writing to file.");
             }
 
@@ -104,10 +104,8 @@ public class Veda {
             System.out.println(task);
 
         } catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
             System.out.println("Invalid index! Please ensure you correctly key in your target index.");
         } catch (IOException e) {
-            e.printStackTrace();
             System.out.println("Unable to update file.");
         }
     }
@@ -129,10 +127,8 @@ public class Veda {
             System.out.println(task);
 
         } catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
             System.out.println("Invalid index! Please ensure you correctly key in your target index.");
         } catch (IOException e) {
-            e.printStackTrace();
             System.out.println("Unable to update file.");
         }
     }
@@ -172,7 +168,6 @@ public class Veda {
 
         loadData();
 
-        //TODO update data when there are changes to list (Ie. mark, unmark, delete and adding of new task)
         while (true) {
             String input = inScanner.nextLine();
 
@@ -206,7 +201,7 @@ public class Veda {
             //Add tasks
             try {
                 addTask(input);
-            } catch (NoDescriptionException e) {
+            } catch (IncorrectInputException e) {
                 System.out.println(e);
             }
         }

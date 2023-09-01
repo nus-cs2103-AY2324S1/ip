@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private final String dir = "/Dukedata";
-    private final String storagePath = "/Dukedata/Duke.txt";
+    private final String dir = "/VedaMissions";
+    private final String storagePath = "/VedaMissions/Missions.txt";
     private final File storageFile = new File(storagePath);
 
     /**
@@ -95,14 +95,17 @@ public class Storage {
     public boolean updateData(ArrayList<Task> tasks, boolean isAddingTask) throws IOException {
         //TODO overwrite information in storageFile
         FileWriter writer = null;
+        boolean isNotFirstTask = tasks.size() != 1;
         try {
             writer = new FileWriter(storageFile, isAddingTask);
             String newData;
 
-            if (isAddingTask) {
+            if (isNotFirstTask && isAddingTask) {
                 //Add a new line containing the latest task
                 newData = (System.lineSeparator() + tasks.get(tasks.size() - 1).convertToStorageForm());
 
+            } else if (!isNotFirstTask && isAddingTask) {
+                newData = tasks.get(tasks.size() - 1).convertToStorageForm();
             } else {
                 //Overwrite the file
                 newData = "";
