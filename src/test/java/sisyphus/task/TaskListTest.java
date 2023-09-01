@@ -17,12 +17,12 @@ public class TaskListTest {
 
     @Test
     public void testSize() {
-        assertEquals(0, taskList.size());
+        assertEquals(0, taskList.getSize());
 
         // Add some tasks and check the size
         taskList.addTask(new ToDo("Task 1"));
         taskList.addTask(new ToDo("Task 2"));
-        assertEquals(2, taskList.size());
+        assertEquals(2, taskList.getSize());
     }
 
     @Test
@@ -30,7 +30,7 @@ public class TaskListTest {
         ToDo task = new ToDo("Sample Task");
         taskList.addTask(task);
 
-        assertEquals(1, taskList.size());
+        assertEquals(1, taskList.getSize());
 
         // Retrieve the task and check if it's the same object
         Task retrievedTask = taskList.getTask(0);
@@ -66,11 +66,11 @@ public class TaskListTest {
         ToDo task = new ToDo("Task to be deleted");
         taskList.addTask(task);
 
-        assertEquals(1, taskList.size());
+        assertEquals(1, taskList.getSize());
 
         taskList.deleteTask(0);
 
-        assertEquals(0, taskList.size());
+        assertEquals(0, taskList.getSize());
     }
 
     @Test
