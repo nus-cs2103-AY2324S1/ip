@@ -72,4 +72,63 @@ public class TaskList {
     public ArrayList<Task> getAllTasks() {
         return new ArrayList<>(this.tasks);
     }
+
+    /**
+     * Parses the input to retrieve the keyword and finds tasks containing the keyword.
+     *
+     * @param inData The input command to be parsed.
+     * @return A TaskList containing the matched tasks.
+     * @throws SimonException If the input format is incorrect or no keyword is provided.
+     */
+    public TaskList findTasks(String inData) throws SimonException {
+        String keyword = parseKeyword(inData);
+        validateKeyword(keyword);
+        return find(keyword);
+    }
+
+    /**
+     * Parses the input to retrieve the keyword for the find command.
+     *
+     * @param inData The input command to be parsed.
+     * @return The keyword from the input command.
+     * @throws SimonException If no keyword is provided.
+     */
+    private String parseKeyword(String inData) throws SimonException {
+        String[] split = inData.split(" ");
+        try {
+            return split[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new SimonException("Please provide a keyword to search.");
+        }
+    }
+
+    /**
+     * Validates that the keyword is not empty or null.
+     *
+     * @param keyword The keyword to be validated.
+     * @throws SimonException If the keyword is empty or null.
+     */
+    private void validateKeyword(String keyword) throws SimonException {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            throw new SimonException("Keyword cannot be empty. Please provide a valid keyword.");
+        }
+    }
+
+    /**
+     * Finds tasks that contain the given keyword.
+     *
+     * @param keyword The keyword to be searched in tasks.
+     * @return A TaskList containing the matched tasks.
+     */
+    private TaskList find(String keyword) {
+        ArrayList<Task> matchedTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.toString().contains(keyword)) {
+                matchedTasks.add(task);
+            }
+        }
+        return new TaskList(matchedTasks);
+    }
+
+
 }
