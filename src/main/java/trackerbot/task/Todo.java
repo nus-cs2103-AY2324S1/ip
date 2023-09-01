@@ -1,3 +1,5 @@
+package trackerbot.task;
+
 /**
  * The To-do class for TrackerBot, inheriting from the Task class. <br>
  * This represents the most basic variant of the Task, and can be constructed

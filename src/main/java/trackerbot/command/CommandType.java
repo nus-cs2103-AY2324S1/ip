@@ -1,6 +1,4 @@
-import ip.utils.Pair;
-
-import java.util.Scanner;
+package trackerbot.command;
 
 public enum CommandType {
     /** Command to exit the program. **/

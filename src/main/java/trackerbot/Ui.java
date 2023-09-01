@@ -1,3 +1,5 @@
+package trackerbot;
+
 import java.util.Scanner;
 
 public class Ui {
