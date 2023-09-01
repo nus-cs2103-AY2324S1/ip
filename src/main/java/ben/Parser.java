@@ -15,6 +15,8 @@ public class Parser {
                 words[0].equalsIgnoreCase("unmark") ||
                 words[0].equalsIgnoreCase("mark")) {
             return referenceListCommandParser(command);
+        } else if (words[0].equalsIgnoreCase("find")) {
+            return new FindCommand(command);
         } else if (words[0].equalsIgnoreCase("bye")) {
             return new ByeCommand();
         } else if (words[0].equalsIgnoreCase("list")) {
