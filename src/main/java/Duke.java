@@ -6,6 +6,9 @@ import tasks.Task;
 import tasks.ToDo;
 import tasks.Event;
 import tasks.Deadline;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.LocalDateTime;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -166,7 +169,18 @@ import java.util.Scanner;
             }
             String taskName = parts[0].trim();
             String dueDate = parts[1].trim();
-            Task task = new Deadline(taskName, dueDate);
+            LocalDateTime time;
+
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                time = LocalDateTime.parse(dueDate, formatter);
+            } catch (DateTimeParseException e) {
+                throw new InvalidArgumentException("Please use the format dd/MM/yyyy HH:mm");
+            }
+
+
+
+            Task task = new Deadline(taskName, time);
             taskManager.add(task);
             updateStorage();
         }
@@ -192,7 +206,18 @@ import java.util.Scanner;
             }
             String from = timeParts[0].trim();
             String to = timeParts[1].trim();
-            Task task = new Event(taskName, from, to);
+            LocalDateTime fromTime;
+            LocalDateTime toTime;
+
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                fromTime = LocalDateTime.parse(from, formatter);
+                toTime = LocalDateTime.parse(to, formatter);
+            } catch (DateTimeParseException e) {
+                throw new InvalidArgumentException("Please use the format dd/MM/yyyy HH:mm");
+            }
+
+            Task task = new Event(taskName, fromTime, toTime);
             taskManager.add(task);
             updateStorage();
         }

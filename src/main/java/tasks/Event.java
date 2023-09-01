@@ -1,24 +1,31 @@
 package tasks;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
 
-    private String from;
-    private String to;
+    private LocalDateTime fromTime;
+    private LocalDateTime toTime;
 
-    public Event(String taskName, String from, String to) {
+    public Event(String taskName, LocalDateTime fromTime, LocalDateTime toTime) {
         super(taskName);
-        this.from = from;
-        this.to = to;
+        this.fromTime = fromTime;
+        this.toTime = toTime;
     }
 
-    public Event(String taskName, boolean done, String from, String to) {
+    public Event(String taskName, boolean done, LocalDateTime fromTime, LocalDateTime toTime) {
         super(taskName, done);
-        this.from = from;
-        this.to = to;
+        this.fromTime = fromTime;
+        this.toTime = toTime;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm");
+        String formattedFromTime = fromTime.format(formatter);
+        String formattedToTime = toTime.format(formatter);
+
+        return "[E]" + super.toString() + " (from: " + formattedFromTime + " to: " + formattedToTime + ")";
     }
+
 }
