@@ -10,9 +10,11 @@ import java.time.format.DateTimeParseException;
 public class AddCommand extends Command {
     private String command;
 
+
     public AddCommand(String command) {
         this.command = command;
     }
+
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (command.equalsIgnoreCase("todo")) {
             throw new DukeException("OOPS!!! The description of a todo cannot be empty.");

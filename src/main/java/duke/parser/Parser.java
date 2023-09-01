@@ -22,6 +22,8 @@ public class Parser {
                     return new UnmarkCommand(Integer.parseInt(input.split(" ")[1]) - 1);
                 } else if (task.equalsIgnoreCase("delete")) {
                     return new DeleteCommand(Integer.parseInt(input.split(" ")[1]) - 1);
+                } else if (task.equalsIgnoreCase("find")) {
+                    return new FindCommand(input.split(" ", 2)[1].trim());
                 } else {
                     return new AddCommand(input);
                 }

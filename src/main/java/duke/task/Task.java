@@ -25,5 +25,8 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
+    public boolean contains(String keyword) {
+        return this.description.contains(keyword);
+    }
 }
 

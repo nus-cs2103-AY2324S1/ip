@@ -9,6 +9,12 @@ import duke.ui.Ui;
 public class UnmarkCommand extends Command {
     private int index;
 
+    /**
+     * Constructs a UnmarkCommand with the specified index
+     * of the task to be unmarked
+     *
+     * @param index The index of the task to be unmarked.
+     */
     public UnmarkCommand(int index) {
         this.index = index;
     }
