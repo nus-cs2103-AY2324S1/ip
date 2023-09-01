@@ -31,8 +31,11 @@ application {
     mainClass.set("deterministicparrot.DeterministicParrot")
 }
 
+mainClassName = 'deterministicparrot.DeterministicParrot'
+
+
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "deterministicparrot"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
