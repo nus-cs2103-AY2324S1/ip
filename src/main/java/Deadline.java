@@ -3,7 +3,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime byDateTime;
     /**
      * Constructor for Deadline.
      * @param description
@@ -11,12 +11,18 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("'by 'yyyy-MM-dd HHmm");
+        byDateTime = LocalDateTime.parse(by, inputFormatter);
+
     }
 
     @Override
     public String formatFile() {
-        return "D" + " | " + (isDone ? "1" : "0") + " | " + description + " " + by;
+        return "D" + " | " + (isDone ? "1" : "0") + " | " + description + " "
+                + byDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+
+
+
     }
     /**
      * Overrides the toString() method in Task.
@@ -24,6 +30,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: "
+                + byDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy ha")) + ")";
     }
 }
