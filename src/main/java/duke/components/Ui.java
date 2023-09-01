@@ -1,8 +1,7 @@
 package duke.components;
 
-import duke.tasks.Task;
-
 import java.util.Scanner;
+import duke.tasks.Task;
 
 /**
  * Ui class which handles the inputs from the user and prints corresponding messages.
@@ -104,5 +103,13 @@ public class Ui {
      */
     public void showList(TaskList taskList) {
         System.out.println(taskList.list());
+    }
+
+    /**
+     * Prints the String representation of a filtered list.
+     * @param list String representation of a filtered list.
+     */
+    public void showFilteredList(String list) {
+        System.out.println(list);
     }
 }

@@ -116,4 +116,27 @@ public class TaskList {
         return index >= 0 && index < tasks.size();
     }
 
+    /**
+     * Filters the list of task based on a given keyword. A new list will be returned for task containing the keyword.
+     * @param keyword The task list will be filtered against this keyword.
+     * @return A list of tasks that contains the keyword.
+     */
+    public String filter(String keyword) {
+        String result = "Here are the tasks in your list containing " + keyword + ":\n";
+        int counter = 0;
+        for (Task task : tasks) { // Generates the String representation of the list
+            String description = task.getDescription();
+            if (description.contains(keyword)) {
+                counter += 1;
+                result += counter + ". " + task + "\n";
+            }
+        }
+        if (counter > 0) {
+            return result;
+        } else { // Empty list
+            return "There is nothing on your list currently that matches the keyword \"" + keyword + "\". " +
+                    "Perhaps you might want to add a new task or try a different keyword?";
+        }
+    }
+
 }
