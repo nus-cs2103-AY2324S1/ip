@@ -6,6 +6,13 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 public class Deadline extends Task {
     private String deadline;
+
+    /**
+     * Constructor to initialize Deadline.
+     *
+     * @param description Description of the deadline task.
+     * @param deadline Date of deadline.
+     */
     public Deadline(String description, String deadline) {
         super(description);
         this.deadline = deadline;

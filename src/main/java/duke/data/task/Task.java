@@ -13,10 +13,12 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /** Marks task as done by setting isDone to true */
     public void mark() {
         this.isDone = true;
     }
 
+    /** Marks task as undone by setting isDone to false */
     public void unmark() {
         this.isDone = false;
     }

@@ -7,6 +7,14 @@ import java.time.temporal.ChronoUnit;
 public class Event extends Task {
     private String start;
     private String end;
+
+    /**
+     * Constructor to initialize Event.
+     *
+     * @param description Description of the event.
+     * @param start Start date of event.
+     * @param end End date of event.
+     */
     public Event(String description, String start, String end) {
         super(description);
         this.start = start;
