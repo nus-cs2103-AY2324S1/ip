@@ -1,7 +1,18 @@
 package task;
 
+/**
+ * Represents a task
+ */
 public class Task {
+
+    /**
+     * Description of the task
+     */
     protected String description;
+
+    /**
+     * True if the task is done, false otherwise
+     */
     protected boolean isDone;
 
     public Task(String description) {
@@ -9,6 +20,11 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns an icon depending on whether the task is done
+     *
+     * @return "X" if the task is done, " " otherwise
+     */
     public String getStatusIcon() {
         return (this.isDone ? "X" : " "); // mark done task with X
     }
@@ -37,6 +53,11 @@ public class Task {
         return this.description;
     }
 
+    /**
+     * Returns a string representation of the task
+     *
+     * @return string representation of the task
+     */
     @Override
     public String toString() {
         return "[" + this.getType() + "]" + "[" + this.getStatusIcon() + "] " + this.description;

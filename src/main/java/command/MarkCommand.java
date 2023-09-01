@@ -6,7 +6,14 @@ import duke.Ui;
 import task.Task;
 import task.TaskList;
 
+/**
+ * Marks a task on the todo list
+ */
 public class MarkCommand extends Command {
+
+    /**
+     * The index of the task to be marked as done
+     */
     protected int index;
     public static final String COMMAND_WORD = "mark";
     public static final String MESSAGE_SUCCESS = " Nice! I've marked this task as done:\n";
@@ -14,6 +21,16 @@ public class MarkCommand extends Command {
     public MarkCommand(int index) {
         this.index = index;
     }
+
+    /**
+     * Marks the task with the specified index from the TaskList, and saves the current TaskList
+     * in the specified Storage file
+     *
+     * @param tasks TaskList which contains an ArrayList of tasks
+     * @param ui Text Ui that the user interacts with
+     * @param storage File path where the tasks are stored
+     * @throws DukeException if an invalid index is given
+     */
 
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (this.index >= 0 && this.index < tasks.getSize()) {

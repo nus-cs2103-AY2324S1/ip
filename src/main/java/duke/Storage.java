@@ -14,6 +14,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the file used to store the todo list
+ */
 public class Storage {
     private String filePath;
 
@@ -21,6 +24,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the TaskList data to the storage file.
+     *
+     * @param tasks the ArrayList of tasks to be saved
+     */
     public void writeToFile(ArrayList<Task> tasks) {
         try {
             File file = new File(this.filePath);
@@ -45,6 +53,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the todo list data from this storage file, and then returns it
+     * Returns an empty ArrayList of tasks if the file does not exist
+     *
+     * @throws DukeException when data of invalid format is read from Storage file
+     */
     public ArrayList<Task> readFile() {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         ArrayList<Task> tasks = new ArrayList<>();
