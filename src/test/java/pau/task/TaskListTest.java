@@ -1,9 +1,7 @@
-package Pau.task;
+package pau.task;
 
-import Pau.exception.NoSuchTaskException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.ByteArrayOutputStream;
@@ -11,12 +9,12 @@ import java.io.PrintStream;
 
 public class TaskListTest {
 
-    private TaskList list;
+    private pau.task.TaskList list;
     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     @BeforeEach
     public void checkPrint() {
-        list = new TaskList();
+        list = new pau.task.TaskList();
         list.addToDo("todo hang out with friends");
         list.addDeadline("deadline watch lecture /by 2023-09-23");
         list.addEvent("event soc bash /from friday 6pm /to 10pm");

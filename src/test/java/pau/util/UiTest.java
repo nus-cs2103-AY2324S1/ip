@@ -1,5 +1,4 @@
-package Pau.util;
-import Pau.task.TaskList;
+package pau.util;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
