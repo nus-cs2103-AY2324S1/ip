@@ -73,6 +73,28 @@ public class TaskList implements ITaskList {
     }
 
     @Override
+    public void find(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.toString().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        int count = matchingTasks.size();
+        if (count == 0) {
+            ui.print("Sir, there are no matching tasks on your calendar.");
+            return;
+        }
+        String result = "Sir, there are " + count + " matching tasks on your calendar:\n";
+        for (int i = 1; i < count; i++) {
+            result += i + ". " + matchingTasks.get(i - 1) + "\n";
+        }
+        result += count + ". " + matchingTasks.get(count - 1);
+        ui.print(result);
+    }
+
+    @Override
     public void markDone(int taskNumber) throws JarvisException {
         if (taskNumber <= 0 || taskNumber > taskCount) {
             throw new IndexOutOfRangeException(taskNumber, taskCount);
@@ -105,27 +127,6 @@ public class TaskList implements ITaskList {
             result += i + ". " + taskList.get(i - 1) + "\n";
         }
         result += taskCount + ". " + taskList.get(taskCount - 1);
-        ui.print(result);
-    }
-
-    public void find(String keyword) {
-        List<Task> matchingTasks = new ArrayList<>();
-        for (Task task : taskList) {
-            if (task.toString().contains(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
-
-        int count = matchingTasks.size();
-        if (count == 0) {
-            ui.print("Sir, there are no matching tasks on your calendar.");
-            return;
-        }
-        String result = "Sir, there are " + count + " matching tasks on your calendar:\n";
-        for (int i = 1; i < count; i++) {
-            result += i + ". " + matchingTasks.get(i - 1) + "\n";
-        }
-        result += count + ". " + matchingTasks.get(count - 1);
         ui.print(result);
     }
 }
