@@ -83,7 +83,7 @@ public class Duke {
      */
     public static void main(String[] args) {
 
-        String filePath = "./data/duke.Duke.txt";
+        String filePath = "./data/Duke.txt";
         Duke duke = new Duke(filePath);
         duke.run();
 
