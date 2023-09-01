@@ -5,10 +5,10 @@ package duke.tasks;
  */
 public abstract class Task {
 
-    // The name of the task.
+    /** The name of the task. */
     private String name;
 
-    // The status of the task.
+    /** The status of the task. */
     private boolean isDone;
 
     /**

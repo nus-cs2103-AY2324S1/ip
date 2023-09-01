@@ -11,8 +11,13 @@ import duke.ui.Ui;
  */
 public class Duke {
 
+    /** The storage object used to load and save task data. */
     private Storage storage;
+
+    /** The task list object used to store and manipulate tasks. */
     private TaskList taskList;
+
+    /** The UI object used to interact with the user. */
     private Ui ui;
 
     /**

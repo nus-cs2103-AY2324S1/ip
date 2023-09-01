@@ -8,7 +8,8 @@ import java.util.ArrayList;
  * Represents a list of tasks in the Duke application.
  */
 public class TaskList {
-    // The list of tasks.
+
+    /** The list of tasks. */
     private ArrayList<Task> tasks;
 
     /**
