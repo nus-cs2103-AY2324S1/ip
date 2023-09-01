@@ -1,9 +1,14 @@
+package UIComponents;
+
+import CrackerPackage.TodoList;
+import tasks.Task;
+
 import java.util.ArrayList;
 public class Reply {
     private String line = "____________________________________________________________";
     private ArrayList<String> lines;
 
-    Reply(){
+    public Reply(){
         this.lines = new ArrayList<>();
     }
 

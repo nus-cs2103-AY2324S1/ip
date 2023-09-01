@@ -1,3 +1,5 @@
+package tasks;
+
 import Exceptions.EmptyDescriptionException;
 
 abstract public class Task{

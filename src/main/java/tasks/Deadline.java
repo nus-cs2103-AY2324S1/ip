@@ -1,3 +1,5 @@
+package tasks;
+
 import Exceptions.EmptyDescriptionException;
 import Exceptions.IllegalFormatException;
 
@@ -6,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
     private LocalDate deadline;
-    Deadline(String s) throws EmptyDescriptionException, IllegalFormatException {
+    public Deadline(String s) throws EmptyDescriptionException, IllegalFormatException {
         super(s.split("/by",0)[0].trim());
         if(!s.contains("/by")){
             throw new IllegalFormatException("Missing \"/by\" after task description");
@@ -18,9 +20,9 @@ public class Deadline extends Task{
         }
 
     }
-    Deadline(String desc,String deadline) throws EmptyDescriptionException {
+    public Deadline(String desc, String deadline) throws EmptyDescriptionException {
         super(desc);
-            this.deadline = LocalDate.parse(deadline);
+        this.deadline = LocalDate.parse(deadline);
     }
 
     public String toString(){

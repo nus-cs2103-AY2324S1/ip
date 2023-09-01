@@ -1,5 +1,12 @@
+package UIComponents;
+
+import CrackerPackage.Cracker;
 import Exceptions.EmptyDescriptionException;
 import Exceptions.IllegalFormatException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 
 public class Parser {
 

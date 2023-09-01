@@ -1,4 +1,9 @@
+package CrackerPackage;
+
 import Exceptions.*;
+import UIComponents.Parser;
+import UIComponents.Reply;
+import tasks.Task;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,7 +15,7 @@ public class Cracker {
     private TodoList list = null;
     private Reply reply = new Reply();
     private Storage storage;
-    enum Type {
+    public enum Type {
         MARK,
         UNMARK,
         TASK,
