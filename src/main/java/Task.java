@@ -5,11 +5,14 @@ import java.time.format.DateTimeParseException;
 public class Task implements Completable, Describable {
     protected String taskName;
     protected boolean completed;
+    protected TaskType taskType;
 
-    public Task(String taskName) {
+    public Task(String taskType, String taskName) {
+        this.taskType = TaskType.valueOf(taskType);
         this.taskName = taskName;
         this.completed = false;
     }
+
 
     @Override
     public String getDescription() {
@@ -27,15 +30,20 @@ public class Task implements Completable, Describable {
         completed = false;
     }
 
+    public TaskType getTaskType() {
+        return taskType;
+    }
+
     public String toFileString() {
-        if (this instanceof Todo) {
-            return "T | " + (completed ? "1" : "0") + " | " + taskName;
-        } else if (this instanceof Deadline) {
+        String taskTypeString = taskType.toString();
+        if (taskType == TaskType.TODO) {
+            return taskTypeString + " | " + (completed ? "1" : "0") + " | " + taskName;
+        } else if (taskType == TaskType.DEADLINE) {
             Deadline deadline = (Deadline) this;
-            return "D | " + (completed ? "1" : "0") + " | " + taskName + " | " + deadline.getBy().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-        } else if (this instanceof Event) {
+            return taskTypeString + " | " + (completed ? "1" : "0") + " | " + taskName + " | " + deadline.getBy().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        } else if (taskType == TaskType.EVENT) {
             Event event = (Event) this;
-            return "E | " + (completed ? "1" : "0") + " | " + taskName + " | " + event.getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | " + event.getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            return taskTypeString + " | " + (completed ? "1" : "0") + " | " + taskName + " | " + event.getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | " + event.getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } else {
             return "";
         }
@@ -43,36 +51,29 @@ public class Task implements Completable, Describable {
 
     public static Task fromFileString(String fileString) {
         String[] parts = fileString.split("\\|");
-        String taskType = parts[0].trim();
+        TaskType taskType = TaskType.valueOf(parts[0].trim());
+
         String isCompleted = parts[1].trim();
         String taskName = parts[2].trim();
 
         Task task;
-        if (taskType.equals("T")) {
+        if (taskType == TaskType.TODO) {
             task = new Todo(taskName);
-        } else if (taskType.equals("D")) {
+        } else if (taskType == TaskType.DEADLINE) {
             String by = parts[3].trim();
-            try {
-                LocalDateTime deadlineDateTime = parseDateTime(by);
-                task = new Deadline(taskName, deadlineDateTime);
-            } catch (DateTimeParseException e) {
-                task = null;
-            }
-        } else if (taskType.equals("E")) {
+            LocalDateTime deadlineDateTime = parseDateTime(by);
+            task = new Deadline(taskName, deadlineDateTime);
+        } else if (taskType == TaskType.EVENT) {
             String from = parts[3].trim();
             String to = parts[4].trim();
-            try {
-                LocalDateTime fromDate = parseDateTime(from);
-                LocalDateTime toDate = parseDateTime(to);
-                task = new Event(taskName, fromDate, toDate);
-            } catch (DateTimeParseException e) {
-                task = null;
-            }
+            LocalDateTime fromDateTime = parseDateTime(from);
+            LocalDateTime toDateTime = parseDateTime(to);
+            task = new Event(taskName, fromDateTime, toDateTime);
         } else {
             task = null;
         }
 
-        if (task != null && isCompleted.equals("1")){
+        if (task != null && isCompleted.equals("1")) {
             task.setCompleted();
         }
 

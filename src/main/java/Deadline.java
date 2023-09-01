@@ -6,7 +6,7 @@ public class Deadline extends Task {
     protected LocalDateTime by;
 
     public Deadline(String description, LocalDateTime by) {
-        super(description);
+        super( "DEADLINE",description);
         this.by = by;
     }
 

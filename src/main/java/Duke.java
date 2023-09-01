@@ -100,6 +100,7 @@ public class Duke {
         if (currInput.length() <= 5 || currInput.substring(5).trim().isEmpty()) {
             throw new DukeException("The description of a To Do task cannot be empty.");
         }
+
         String description = currInput.substring(5).trim();
         currList.add(new Todo(description));
         System.out.println(">  Added To Do Task: " + currList.get(currList.size() - 1));
@@ -109,11 +110,13 @@ public class Duke {
         if (!currInput.contains("/by")) {
             throw new DukeException("A Deadline task should have a '/by' followed by the deadline time.");
         }
+
         String[] sections = currInput.split("/by");
-        if (sections.length < 2 || sections[0].trim().length() <= 9 || sections[1].trim().isEmpty()) {
+        if (sections.length < 2 || sections[0].trim().isEmpty() || sections[1].trim().isEmpty()) {
             throw new DukeException("Incorrect format for deadline.");
         }
-        String description = sections[0].substring(9).trim();
+
+        String description = sections[0].substring(9).trim();  // Extract the task description
         String by = sections[1].trim();
 
         try {
@@ -124,6 +127,7 @@ public class Duke {
             throw new DukeException("Incorrect date/time format for deadline. Please use 'yyyy-MM-dd HHmm'.");
         }
     }
+
     private static void addEvent(String currInput) throws DukeException {
         if (!currInput.contains("/from") || !currInput.contains("/to")) {
             throw new DukeException("An Event task should have a '/from' and '/to' with respective times.");
@@ -187,7 +191,7 @@ public class Duke {
 
     private static void saveTasksToFile() {
         try {
-            FileWriter fileWriter = new FileWriter(FILE_PATH);
+            FileWriter fileWriter = new FileWriter(FILE_PATH, false); // Set append mode to false
             for (Task task : currList) {
                 fileWriter.write(task.toFileString() + System.lineSeparator());
             }
@@ -196,7 +200,6 @@ public class Duke {
             System.out.println(">  An error occurred while saving the tasks to a file: " + e.getMessage());
         }
     }
-
     private static LocalDateTime parseDateTime(String dateTimeString) {
         return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }}
