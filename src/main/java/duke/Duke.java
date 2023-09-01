@@ -1,3 +1,9 @@
+package duke;
+
+import duke.command.Command;
+import duke.exception.InvalidIndexException;
+import duke.exception.NoSuchCommandException;
+import duke.task.TaskList;
 import java.nio.file.Paths;
 import java.time.DateTimeException;
 import java.nio.file.Path;

@@ -1,3 +1,7 @@
+package duke.exception;
+
+import duke.Ui;
+
 public class EmptyDescriptionException extends Exception {
 
     public EmptyDescriptionException(String message) {

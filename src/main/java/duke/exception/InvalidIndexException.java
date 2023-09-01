@@ -1,3 +1,7 @@
+package duke.exception;
+
+import duke.Ui;
+
 public class InvalidIndexException extends Exception {
 
     public InvalidIndexException() {
