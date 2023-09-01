@@ -22,7 +22,7 @@ public abstract class Task {
         }
 
         Task otherListItem = (Task) o;
-        return otherListItem.itemName.equals(this.itemName);
+        return otherListItem.itemName.equals(this.itemName) && otherListItem.isDone == this.isDone;
     }
 
     public String getItemName() {
