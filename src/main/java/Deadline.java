@@ -5,8 +5,8 @@ import java.time.temporal.ChronoUnit;
 public class Deadline extends Task {
 
     protected LocalDate by;
-    private static final DateTimeFormatter DATE_INPUT_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private static final DateTimeFormatter DATE_OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
+    private static final DateTimeFormatter FORMATTER_DATE_INPUT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final DateTimeFormatter FORMATTER_DATE_OUTPUT = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
 
     /**
@@ -15,9 +15,9 @@ public class Deadline extends Task {
      * @param description The task description.
      * @param by The deadline of the task in the format dd/MM/yyyy.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate by) {
         super(description);
-        this.by = LocalDate.parse(by, DATE_INPUT_FORMATTER);
+        this.by = by;
     }
 
     /**
@@ -27,7 +27,7 @@ public class Deadline extends Task {
      */
     @Override
     public boolean isWithinAWeek() {
-        return this.by.isBefore(LocalDate.now().plus(1, ChronoUnit.WEEKS));
+        return by.isBefore(LocalDate.now().plus(1, ChronoUnit.WEEKS));
     }
 
     /**
@@ -37,7 +37,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by.format(DATE_OUTPUT_FORMATTER) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(FORMATTER_DATE_OUTPUT) + ")";
     }
 
     /**
@@ -48,6 +48,6 @@ public class Deadline extends Task {
      */
     @Override
     public String getInformationForSaving() {
-        return "D | " + super.getInformationForSaving() + " | " + this.by.format(DATE_INPUT_FORMATTER);
+        return "D | " + super.getInformationForSaving() + " | " + by.format(FORMATTER_DATE_INPUT);
     }
 }
