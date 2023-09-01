@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -12,10 +15,6 @@ public class Duke {
             String input = scanner.nextLine();
             if (input.equals("bye")) {
                 break;
-            }
-            if (Objects.equals(input, "list")) {
-               Tasks.handleList(input, tasks);
-                continue;
             }
             if (input.startsWith("mark") || input.startsWith("unmark ")) {
                 Tasks.handleMark(input, tasks);
@@ -37,6 +36,10 @@ public class Duke {
                 Tasks.handleDelete(input, tasks);
                 continue;
             }
+            if (Objects.equals(input, "list")) {
+                Tasks.handleList(input, tasks);
+                continue;
+            }
             System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         System.out.println("Bye. Hope to see you again soon!");
@@ -46,3 +49,4 @@ public class Duke {
         System.out.println("Hello! I'm lippy the wombat\n" + "What can I do for you?");
     }
 }
+

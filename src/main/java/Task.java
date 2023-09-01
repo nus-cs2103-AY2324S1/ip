@@ -1,3 +1,6 @@
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Task {
     private String name;
     private Boolean done;
@@ -17,6 +20,21 @@ public class Task {
 
     public String getName() {
         return this.name;
+    }
+
+    public String getTaskDesc() {
+        return "";
+    };
+
+    public void save(String filepath) {
+        try {
+            FileWriter myWriter = new FileWriter(filepath, true);
+            myWriter.write(this.getTaskDesc() + "\n");
+            myWriter.close();
+        } catch (IOException ex) {
+            System.out.println("    Error saving to file");
+            System.exit(1);
+        }
     }
 
     @Override
