@@ -1,16 +1,25 @@
 package trackerbot.command;
 
-import trackerbot.task.TaskList;
-import trackerbot.utils.Ui;
-import trackerbot.exception.TrackerBotException;
-
 import java.util.Scanner;
 
+import trackerbot.exception.TrackerBotException;
+import trackerbot.task.TaskList;
+import trackerbot.utils.Ui;
+
+/**
+ * Fix missing Javadoc comment
+ */
 public abstract class Command {
     public abstract void execute(TaskList tasks, Ui ui) throws TrackerBotException;
 
     public abstract boolean isExit();
 
+    /**
+     * Fix
+     * @param keyword to
+     * @param rest this
+     * @return code
+     */
     public static Command of(String keyword, String rest) {
         CommandType parsedType = CommandType.UNKNOWN;
         for (CommandType command: CommandType.values()) {
