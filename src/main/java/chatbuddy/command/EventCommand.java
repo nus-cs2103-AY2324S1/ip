@@ -1,3 +1,11 @@
+package chatbuddy.command;
+
+import chatbuddy.ChatBuddyException;
+import chatbuddy.storage.Storage;
+import chatbuddy.TaskList;
+import chatbuddy.ui.Ui;
+import chatbuddy.task.Event;
+
 import java.time.LocalDateTime;
 
 public class EventCommand extends Command {

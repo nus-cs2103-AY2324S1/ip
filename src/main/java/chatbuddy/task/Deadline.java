@@ -1,3 +1,5 @@
+package chatbuddy.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -10,7 +12,7 @@ public class Deadline extends Task {
 
 
     /**
-     * Constructor to create a Deadline object.
+     * Constructor to create a chatbuddy.task.Deadline object.
      *
      * @param description The task description.
      * @param by The deadline of the task in the format dd/MM/yyyy.
@@ -44,7 +46,7 @@ public class Deadline extends Task {
      * Returns deadline task information in format for saving.
      * Format is D | [1 if completed, 0 if not completed] | [task description] | [by]
      *
-     * @return Deadline task information in format for saving
+     * @return chatbuddy.task.Deadline task information in format for saving
      */
     @Override
     public String getInformationForSaving() {

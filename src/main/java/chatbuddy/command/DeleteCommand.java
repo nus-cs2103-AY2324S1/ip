@@ -1,3 +1,11 @@
+package chatbuddy.command;
+
+import chatbuddy.ChatBuddyException;
+import chatbuddy.storage.Storage;
+import chatbuddy.TaskList;
+import chatbuddy.ui.Ui;
+import chatbuddy.task.Task;
+
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
     private int taskNum;

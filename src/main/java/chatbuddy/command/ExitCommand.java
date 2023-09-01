@@ -1,3 +1,10 @@
+package chatbuddy.command;
+
+import chatbuddy.ChatBuddyException;
+import chatbuddy.storage.Storage;
+import chatbuddy.TaskList;
+import chatbuddy.ui.Ui;
+
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "bye";

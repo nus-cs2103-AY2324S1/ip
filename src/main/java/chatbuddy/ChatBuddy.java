@@ -1,3 +1,10 @@
+package chatbuddy;
+
+import chatbuddy.command.Command;
+import chatbuddy.parser.Parser;
+import chatbuddy.storage.Storage;
+import chatbuddy.ui.Ui;
+
 public class ChatBuddy {
 
     private Storage storage;

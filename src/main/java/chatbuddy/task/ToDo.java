@@ -1,7 +1,9 @@
+package chatbuddy.task;
+
 public class ToDo extends Task {
 
     /**
-     * Constructor to create a ToDo object.
+     * Constructor to create a chatbuddy.task.ToDo object.
      *
      * @param description The task description.
      */
