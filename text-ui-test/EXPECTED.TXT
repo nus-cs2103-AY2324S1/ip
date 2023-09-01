@@ -5,7 +5,7 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
-Hello! I'm CheeChat
+Hello! I'm duke.CheeChat
 What can I do for you?
 
 Got it. I've added this task:

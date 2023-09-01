@@ -1,9 +1,13 @@
+package duke.util;
+
+import duke.task.Task;
+
 import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> arr;
 
     public TaskList(ArrayList<Task> arr) {
-        // arr is given from the Storage.load()
+        // arr is given from the duke.util.Storage.load()
         this.arr = arr;
     }
 
