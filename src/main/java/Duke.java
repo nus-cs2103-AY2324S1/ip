@@ -3,6 +3,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -12,7 +13,9 @@ import Exception.MissingTextException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class Duke {
 
@@ -21,6 +24,8 @@ public class Duke {
 
     final static String horizontalLine = "   ----------------------\n";
     public static void main(String[] args) {
+        MAPPER.registerModule(new JavaTimeModule());
+        MAPPER.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         try {
             tasks = MAPPER.readValue(new File("tasks.json"), new TypeReference<>() {});
         } catch (FileNotFoundException e) {
@@ -73,7 +78,7 @@ public class Duke {
                     try {
                         String by = getUsingCommand(splitText, "by");
                         String task = getTask(splitText);
-                        tasks.add(new Deadline(task, by));
+                        tasks.add(new Deadline(task, LocalDate.parse(by)));
                         printTasksLength();
                     } catch (MissingTaskException e) {
                         System.err.println("Missing task error");
@@ -90,7 +95,7 @@ public class Duke {
                         String from = getUsingCommand(splitText, "from");
                         String to = getUsingCommand(splitText, "to");
                         String task = getTask(splitText);
-                        tasks.add(new Event(task, from, to));
+                        tasks.add(new Event(task, LocalDate.parse(from), LocalDate.parse(to)));
                         printTasksLength();
                     } catch (MissingTaskException e) {
                         System.err.println("Missing task error, check that you have added a task.");
@@ -141,7 +146,7 @@ public class Duke {
     }
     private static void printList() {
         if (tasks.isEmpty()) {
-            System.out.println("     You have no tasks added yet");
+            System.out.println("     You hve no tasks added yet");
         } else {
             for (int i = 1; i <= tasks.size(); i++) {
                 System.out.println("     " + i + ". " + tasks.get(i - 1));
@@ -160,7 +165,8 @@ public class Duke {
             } else {
                 if (s.charAt(0) == '/')
                     break;
-                text.append(" ").append(s);
+                //text.append(" ").append(s);
+                return s;
             }
         }
 
