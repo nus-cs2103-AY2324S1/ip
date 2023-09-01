@@ -15,7 +15,13 @@ public class Event extends Task {
 
     @Override
     public String getOriginalMessage() {
-        return "event " + this.getDescription() + " /from " + this.stringifyDate(this.from) + " /to " + this.stringifyDate(this.to);
+        return String.format(
+                "%s %s /from %s /to %s",
+                this.type,
+                this.getDescription(),
+                this.stringifyDate(this.from),
+                this.stringifyDate(this.to)
+        );
     }
 
     @Override

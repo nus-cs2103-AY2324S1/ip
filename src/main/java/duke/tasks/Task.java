@@ -4,9 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public abstract class Task {
-    private final String type;
     private final String description;
     private boolean isMarked;
+    public final String type;
+
 
     public Task(String description, String type, boolean isMarked) {
         this.description = description;
@@ -39,7 +40,8 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s][%s] %s", this.type.substring(0,1).toUpperCase(), this.getStatusIcon(), this.description);
+        String typeLetter = this.type.substring(0,1).toUpperCase();
+        return String.format("[%s][%s] %s", typeLetter, this.getStatusIcon(), this.description);
     }
 
     @Override
@@ -55,6 +57,6 @@ public abstract class Task {
     }
 
     private String getStatusIcon() {
-        return (isMarked ? "X" : " "); //return tick or X symbols
+        return (isMarked ? "X" : " ");
     }
 }

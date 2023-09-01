@@ -12,7 +12,7 @@ public class Deadline extends Task {
 
     @Override
     public String getOriginalMessage() {
-        return "deadline " + this.getDescription() + " /by " + this.stringifyDate(this.by);
+        return String.format("%s %s /by %s", this.type, this.getDescription(), this.stringifyDate(this.by));
     }
 
     @Override
