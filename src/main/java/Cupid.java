@@ -6,29 +6,26 @@ public class Cupid {
 
     private static String saveFilePath = "cupid.txt";
 
-    public static void main(String[] args) throws FileNotFoundException {
-        System.out.println("____________________________________________________________");
-        System.out.println("Initializing...");
-
+    public static void main(String[] args) {
+        Ui ui = new Ui();
         TaskList taskList = null;
         Storage storage = null;
 
         try {
-            storage = new Storage("cupid.txt");
+            storage = new Storage(saveFilePath);
             taskList = storage.load();
         } catch (IOException e) {
-            System.out.println("File not found. Terminating operation...");
+            ui.fileNotFound();
             return;
         }
 
         if (taskList == null) {
-            System.out.println("File not found. Terminating operation...");
+            ui.fileNotFound();
             return;
         }
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Hello, I'm Cupid.");
-        System.out.println("What can I do for you?");
+        ui.hello();
 
         while (true) {
             String input = scanner.nextLine();
@@ -49,9 +46,7 @@ public class Cupid {
             System.out.println("Save unsuccessful");
         }
 
-        System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+        ui.goodbye();
     }
 
 }
