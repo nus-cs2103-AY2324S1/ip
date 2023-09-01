@@ -1,3 +1,8 @@
+package chatbot.commands;
+
+import chatbot.storage.Storage;
+import chatbot.tasks.TaskList;
+import chatbot.ui.Ui;
 public class DeleteCommand extends Command{
     private final int num;
 

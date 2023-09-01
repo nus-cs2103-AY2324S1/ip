@@ -1,3 +1,11 @@
+package chatbot.commands;
+
+import chatbot.storage.Storage;
+import chatbot.tasks.Event;
+import chatbot.tasks.Task;
+import chatbot.tasks.TaskList;
+import chatbot.ui.Ui;
+
 public class EventCommand extends Command{
     String description;
     String from;

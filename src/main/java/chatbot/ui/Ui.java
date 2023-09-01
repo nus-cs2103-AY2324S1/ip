@@ -1,3 +1,7 @@
+package chatbot.ui;
+
+import chatbot.tasks.TaskList;
+
 import java.util.Scanner;
 public class Ui {
     private final Scanner scanner;

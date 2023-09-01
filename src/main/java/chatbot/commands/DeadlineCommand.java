@@ -1,3 +1,10 @@
+package chatbot.commands;
+
+import chatbot.storage.Storage;
+import chatbot.tasks.Deadline;
+import chatbot.tasks.Task;
+import chatbot.tasks.TaskList;
+import chatbot.ui.Ui;
 public class DeadlineCommand extends Command{
     String description;
     String date;

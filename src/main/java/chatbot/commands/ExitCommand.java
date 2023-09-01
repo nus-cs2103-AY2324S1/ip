@@ -1,3 +1,8 @@
+package chatbot.commands;
+
+import chatbot.storage.Storage;
+import chatbot.tasks.TaskList;
+import chatbot.ui.Ui;
 public class ExitCommand extends Command {
     @Override
     public boolean isExit() {
