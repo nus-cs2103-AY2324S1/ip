@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -8,7 +11,7 @@ import java.nio.file.Path;
 
 public class Duke {
 
-    public static String dash = "\t-------------------------------------------------------------";
+    public static String dash = "\t---------------------------------------------------------------------------";
     public static ArrayList<Task> taskList = new ArrayList<>();
 
     public static void welcomeMessage() {
@@ -85,11 +88,12 @@ public class Duke {
 
     public static void addDeadline(String message) throws UnmatchedArgumentException {
 
-        String[] arr = message.split("/");
+        String[] arr = message.split(" /");
         if (arr.length < 2) {
             throw new UnmatchedArgumentException(arr.length, 2);
         }
-        Deadline dl = new Deadline(arr[0], false, arr[1].substring(3));
+        String dateAndTime = arr[1].substring(3).replace(" ", "/");
+        Deadline dl = new Deadline(arr[0], false, checkDateAndTime(dateAndTime));
         taskList.add(dl);
         System.out.println(dash);
         System.out.println("\tGot it. I've added this task: ");
@@ -102,11 +106,16 @@ public class Duke {
 
     public static void addEvent(String message) throws UnmatchedArgumentException {
 
-        String[] arr = message.split("/");
+        String[] arr = message.split(" /");
         if (arr.length < 3) {
             throw new UnmatchedArgumentException(arr.length, 3);
         }
-        Event e = new Event(arr[0], false, arr[1].substring(5), arr[2].substring(3)); //here
+        LocalDateTime start = checkDateAndTime(arr[1].substring(5).replace(" ", "/"));
+        LocalDateTime end = checkDateAndTime(arr[2].substring(3).replace(" ", "/"));
+        if (end.isBefore(start) || end.isEqual(start)) {
+            throw new DateTimeException("The end is date should not be earlier or the same as the start date.");
+        }
+        Event e = new Event(arr[0], false, start, end);
         taskList.add(e);
         System.out.println(dash);
         System.out.println("\tGot it. I've added this task: ");
@@ -172,18 +181,63 @@ public class Duke {
             case "T":
                 taskList.add(new Todo(taskArr[2], !taskArr[1].isBlank()));
                 break;
-
             case "D":
-                taskList.add(new Deadline(taskArr[2], !taskArr[1].isBlank(), taskArr[3]));
+                taskList.add(new Deadline(taskArr[2], !taskArr[1].isBlank(), processDateAndLine(taskArr[3])));
                 break;
-
             case "E":
-                taskList.add(new Event(taskArr[2], !taskArr[1].isBlank(), taskArr[3], taskArr[4]));
+                taskList.add(new Event(taskArr[2], !taskArr[1].isBlank(), processDateAndLine(taskArr[3]),
+                        processDateAndLine(taskArr[4])));
                 break;
-
             default:
                 throw new Exception("Some of the content is not in the correct format or it is corrupted");
         }
+    }
+
+    public static LocalDateTime checkDateAndTime(String dateAndTime) {
+
+            String[] dateSplit = dateAndTime.split("/");
+            if (dateSplit[dateSplit.length - 1].length() < 8) {
+                throw new DateTimeException("Please enter the time.");
+            }
+            int hr = Integer.parseInt(dateSplit[dateSplit.length - 1].substring(0, 2));
+            int min = Integer.parseInt(dateSplit[dateSplit.length - 1].substring(2));
+            return LocalDateTime.of(Integer.parseInt(dateSplit[2]), Integer.parseInt(dateSplit[1]),
+                    Integer.parseInt(dateSplit[0]), hr, min);
+    }
+
+    public static LocalDateTime processDateAndLine(String dateAndTime) {
+
+            dateAndTime = dateAndTime.replace("T", "-").replace(":", "");
+            String[] split = dateAndTime.split("-");
+            int hr = Integer.parseInt(split[split.length - 1].substring(0, 2));
+            int min = Integer.parseInt(split[split.length - 1].substring(2));
+            return LocalDateTime.of(Integer.parseInt(split[0]), Integer.parseInt(split[1]),
+                    Integer.parseInt(split[2]), hr, min);
+    }
+
+    public static void checkTaskDue(String dueDate) {
+
+        ArrayList<Task> dueDateList = new ArrayList<>();
+        LocalDateTime date = checkDateAndTime(dueDate.replace(" ", "/"));
+
+        for (Task t : taskList) {
+            if (t instanceof Deadline &&
+                    ((Deadline) t).dueDate.isEqual(date)){
+                dueDateList.add(t);
+            } else if (t instanceof Event &&
+                    (((Event) t).start.isEqual(date) ||
+                            ((Event) t).end.isEqual(date))) {
+                dueDateList.add(t);
+            }
+        }
+        System.out.println(dash);
+        System.out.println("\tHere are the " + (dueDateList.size() > 1 ? "tasks that contain" : "task that contains")
+                + " the date:");
+        for (Task t : dueDateList) {
+            System.out.println("\t\t" + t);
+        }
+        System.out.println(dash);
+        System.out.println();
     }
 
     public static void main(String[] args) {
@@ -253,7 +307,14 @@ public class Duke {
                     } else {
                         throw new EmptyDescriptionException("event");
                     }
-                } else {
+                }  else if (splitted[0].equals("due")) {
+
+                    if (splitted.length > 1) {
+                        checkTaskDue(splitted[1]);
+                    } else {
+                        throw new EmptyDescriptionException("due");
+                    }
+                }  else {
                     throw new NoSuchCommandException();
                 }
             } catch (NoSuchCommandException e) {
@@ -264,6 +325,13 @@ public class Duke {
                 System.out.println(e);
             } catch (InvalidIndexException e) {
                 System.out.println(e);
+            } catch (NumberFormatException | StringIndexOutOfBoundsException | DateTimeException e) {
+
+                System.out.println(dash);
+                System.out.println("\tPlease enter a proper date.");
+                System.out.println("\t" + e.getMessage());
+                System.out.println();
+                System.out.println(dash);
             }
             System.out.println();
             message = sc.nextLine();
