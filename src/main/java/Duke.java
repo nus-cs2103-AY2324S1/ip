@@ -1,9 +1,9 @@
-import ip.parser.Parser;
-import ip.storage.Storage;
-import ip.tasks.*;
-import ip.exception.UnknownCommandException;
-import ip.exception.EmptyDescriptionException;
-import ip.ui.Ui;
+import duke.Parser;
+import duke.Storage;
+import duke.tasks.*;
+import duke.exception.UnknownCommandException;
+import duke.exception.EmptyDescriptionException;
+import duke.Ui;
 
 import java.io.IOException;
 import java.time.LocalDate;
