@@ -4,3 +4,4 @@ T|0|laundry
 D|1|watch lecture |2023-09-01 09:00
 T|0|buy oats
 T|1|buy milk
+T|0|finish milk
