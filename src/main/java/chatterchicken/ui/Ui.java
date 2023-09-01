@@ -1,3 +1,6 @@
+package chatterchicken.ui;
+
+import chatterchicken.task.Task;
 import java.util.ArrayList;
 
 public class Ui {
@@ -8,15 +11,15 @@ public class Ui {
     private static final String INDENT_BIG = "        ";
 
     /**
-     * Displays a greeting message to the user to introduce ChatterChicken.
+     * Displays a greeting message to the user to introduce chatterchicken.ChatterChicken.
      */
     public void displayGreeting() {
-        printToScreen(INDENT + "Hello! I'm ChatterChicken!\n"
+        printToScreen(INDENT + "Hello! I'm chatterchicken.ChatterChicken!\n"
                 + INDENT + "What can I do for you?");
     }
 
     /**
-     * Displays a farewell message to the user as they exit the ChatterChicken application.
+     * Displays a farewell message to the user as they exit the chatterchicken.ChatterChicken application.
      */
     public void displayFarewell() {
         printToScreen(INDENT + "Bye. Hope to see you again soon!");

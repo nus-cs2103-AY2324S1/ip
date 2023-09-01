@@ -1,4 +1,16 @@
-import java.io.*;
+package chatterchicken.storage;
+
+import chatterchicken.CCException;
+import chatterchicken.ChatterChicken;
+import chatterchicken.parser.Parser;
+import chatterchicken.task.Task;
+import chatterchicken.tasklist.TaskList;
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
@@ -42,9 +54,9 @@ public class Storage {
     }
 
     /**
-     * Saves tasks from the provided TaskList to the data file.
+     * Saves tasks from the provided chatterchicken.tasklist.TaskList to the data file.
      *
-     * @param taskList The TaskList containing tasks to be saved.
+     * @param taskList The chatterchicken.tasklist.TaskList containing tasks to be saved.
      */
     public void saveTasksToFile(TaskList taskList) {
         try {

@@ -1,14 +1,22 @@
+package chatterchicken.parser;
+
+import chatterchicken.CCException;
+import chatterchicken.Command;
+import chatterchicken.task.Deadline;
+import chatterchicken.task.Event;
+import chatterchicken.task.Task;
+import chatterchicken.task.ToDo;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
 
     /**
-     * Parses the input command and creates a Command object.
-     * This method extracts the action and task description from the input and returns a Command object.
+     * Parses the input command and creates a chatterchicken.Command object.
+     * This method extracts the action and task description from the input and returns a chatterchicken.Command object.
      *
      * @param input The input command provided by the user.
-     * @return A Command object representing the parsed command.
+     * @return A chatterchicken.Command object representing the parsed command.
      * @throws CCException If an error occurs during parsing.
      */
     public Command parseInput(String input) throws CCException {
@@ -26,7 +34,7 @@ public class Parser {
 
     /**
      * Parses a task from a line of data file input and returns the corresponding Task object.
-     * This method extracts task details from the input, creates a Command object, and parses the Task type.
+     * This method extracts task details from the input, creates a chatterchicken.Command object, and parses the Task type.
      *
      * @param fileLine The input line from the data file containing task details.
      * @return A Task object representing the parsed task.
@@ -108,7 +116,7 @@ public class Parser {
      * @return A new Event task object created from the provided description.
      * @throws CCException If the input format is incorrect or if there are empty fields.
      */
-    private Event parseEvent(String taskDescription) throws CCException{
+    private Event parseEvent(String taskDescription) throws CCException {
         String[] fields = taskDescription.split("/from|/to");
         if (fields.length != 3) {
             throw new CCException("OOPS!!! Incorrect format for event.");

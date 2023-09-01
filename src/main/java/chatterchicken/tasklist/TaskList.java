@@ -1,9 +1,14 @@
+package chatterchicken.tasklist;
+
+import chatterchicken.CCException;
+import chatterchicken.task.Task;
+import chatterchicken.ui.Ui;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ForkJoinTask;
 
 /**
- * The TaskList class represents a collection of tasks managed by the ChatterChicken task manager.
+ * The chatterchicken.tasklist.TaskList class represents a collection of tasks managed by the chatterchicken.ChatterChicken task manager.
  * It allows for adding, marking, unmarking, and deleting tasks, as well as printing the list of tasks
  * along with their respective indexes. Tasks can be of different types: ToDo, Deadline, and Event.
  */
