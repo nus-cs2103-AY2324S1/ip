@@ -4,15 +4,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Moss.Moss is a simple task management application that allows users to add, list, mark, unmark, and delete tasks.
+ * Moss is a simple task management application that allows users to add, list, mark, unmark, and delete tasks.
  */
 public class Moss {
+    /**
+     * The list of tasks managed by the application.
+     */
     static ArrayList<Task> things = new ArrayList<>();
-    private UI ui;
+
     /**
      * The main method that initializes the application and handles user input.
      *
      * @param args Command-line arguments (not used in this application).
+     * @throws MossException If there's an issue with loading tasks.
      */
     public static void main(String[] args) throws MossException {
         Storage storage = new Storage();
@@ -31,7 +35,6 @@ public class Moss {
 
         // Process user input until "bye" is entered
         while (!message.equals("bye")) {
-            TaskList taskList= new TaskList();
             Parser parser = new Parser(message, things, storage);
             parser.execute(message, things, storage);
             message = sc.nextLine();
@@ -41,3 +44,4 @@ public class Moss {
     }
 
 }
+
