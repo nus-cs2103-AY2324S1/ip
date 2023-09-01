@@ -2,6 +2,7 @@ package main;
 import java.util.Scanner;
 import mypackage.CustomList;
 import mypackage.Deadline;
+import mypackage.Database;
 import mypackage.Event;
 import mypackage.DukeException;
 import mypackage.ToDo;
@@ -10,61 +11,70 @@ import mypackage.Global;
 
 public class Duke {
     private static final String chatBotName = "CHAD CCP";
-    private static final CustomList list = new CustomList();
+    private static CustomList list;
+    private static final Database database = new Database();
+    
     public static void main(String[] args) {
-
         Duke dukeInstance = new Duke();
         Scanner scanner = new Scanner(System.in);
         dukeInstance.greetUser();
+        try {
+            database.loadOrCreateFile();
+            list = database.readData();
+        } catch (DukeException e) {
+            System.out.println(Global.LINE);
+            System.out.println(e);
+            System.out.println(Global.LINE);
+        }
 
     while (true) {
         String command = scanner.nextLine();
         CommandType commandType = CommandType.getCommandType(command);
 
         switch (commandType) {
-            case BYE:
-                dukeInstance.goodBye();
-                scanner.close();
-                return; 
-            case LIST:
-                list.printList();
-                break;
-            case MARK:
-                try {
-                    list.markAsDone(command);
-                } catch (DukeException e) {
-                    System.out.println(Global.LINE);
-                    System.out.println(e);
-                    System.out.println(Global.LINE);
-                }
-                break;
-            case UNMARK:
-                int unmarkIndex = Integer.parseInt(command.substring(7));
-                list.markAsUndone(unmarkIndex);
-                break;
-            case TODO:
-                try {
-                    list.addTask(createToDoTask(command));
-                } catch (DukeException e) {
-                    System.out.println(Global.LINE);
-                    System.out.println(e);
-                    System.out.println(Global.LINE);
-                }
-                break;
-            case DEADLINE:
-                list.addTask(new Deadline(command.substring(9)));
-                break;
-            case EVENT:
-                list.addTask(new Event(command.substring(6)));
-                break;
-            case DELETE:
-                int deleteIndex = Integer.parseInt(command.substring(7));
-                list.deleteTask(deleteIndex);
-                break;
-            case UNKNOWN:
-                System.out.println(new DukeException("I'm sorry, but I don't know what that means :-("));
+        case BYE:
+            dukeInstance.goodBye();
+            scanner.close();
+            return; 
+        case LIST:
+            list.printList();
+            break;
+        case MARK:
+            try {
+                list.markAsDone(command, database);
+            } catch (DukeException e) {
                 System.out.println(Global.LINE);
-                break;
+                System.out.println(e);
+                System.out.println(Global.LINE);
+            }
+            break;
+        case UNMARK:
+            int unmarkIndex = Integer.parseInt(command.substring(7));
+            list.markAsUndone(unmarkIndex, database);
+            break;
+        case TODO:
+            try {
+                list.addTask(createToDoTask(command), database);
+            } catch (DukeException e) {
+                System.out.println(Global.LINE);
+                System.out.println(e);
+                System.out.println(Global.LINE);
+            }
+            break;
+        case DEADLINE:
+            list.addTask(new Deadline(command.substring(9)), database);
+            break;
+        case EVENT:
+            list.addTask(new Event(command.substring(6)), database);
+            break;
+        case DELETE:
+            int deleteIndex = Integer.parseInt(command.substring(7));
+            list.deleteTask(deleteIndex, database);
+            break;
+        case UNKNOWN:
+            System.out.println(new DukeException("I'm sorry, but I don't know what that means :-("));
+            System.out.println(Global.LINE);
+            break;
         }
     }
 }
