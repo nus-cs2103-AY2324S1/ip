@@ -29,7 +29,7 @@ public class Corubi {
      *
      * @throws IOException If an I/O operation is interrupted.
      */
-    private static void run() throws IOException {
+    static void run() throws IOException {
         userUi.takeCommands(store, tasks, parser);
     }
 
