@@ -19,7 +19,7 @@ public class Deadline extends Task {
 
     @Override
     public String toFileString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return "D" + super.toFileString() + " | " + this.deadline.format(formatter);
     }
 }

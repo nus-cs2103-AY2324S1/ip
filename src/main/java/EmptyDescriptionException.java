@@ -1,4 +1,4 @@
-public class EmptyDescriptionException extends DukeException{
+public class EmptyDescriptionException extends DukeException {
     public EmptyDescriptionException() {
         super("The description of a todo cannot be empty.");
     }

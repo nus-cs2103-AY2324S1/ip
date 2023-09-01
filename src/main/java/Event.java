@@ -21,7 +21,7 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        return "E | " + (isDone ? "1" : "0") + " | " + this.description + " | " + this.from.format(formatter) + "-" + this.to.format(formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return "E | " + (isDone ? "1" : "0") + " | " + this.description + " | " + this.from.format(formatter) + " to " + this.to.format(formatter);
     }
 }
