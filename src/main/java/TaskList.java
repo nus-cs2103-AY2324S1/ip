@@ -61,6 +61,7 @@ public class TaskList {
         // check if task exists
         if (index < listOfTasks.size()) {
             Task task = listOfTasks.get(index);
+            task.markAsDone();
             return task;
         } else {
             throw new TaskDoesNotExistException();
