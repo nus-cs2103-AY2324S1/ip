@@ -9,8 +9,8 @@ public class Duke {
     public static void main(String[] args) {
         Ui ui = new Ui();
         ui.printHello();
-        Scanner sc = new Scanner(System.in);
-        String str = sc.nextLine();
+        Parser parser = new Parser();
+        String str = parser.getInput();
         List<Task> tasks;
         tasks = Storage.loadTasks("src/data/Duke.txt");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -133,7 +133,8 @@ public class Duke {
                     Task.listTasks(tasks);
                     System.out.println();
                 }
-                str = sc.nextLine();
+                Parser newParser = new Parser();
+                str = newParser.getInput();
             }
             Storage.saveTasks("src/data/Duke.txt", tasks);
             ui.printBye();

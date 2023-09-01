@@ -1,9 +1,9 @@
 import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
-//The Storage class implements Serializable and is in charge of writing and reading from
-//Duke.txt file for tasklists
-public class Storage implements Serializable {
+//The Storage class is in charge of writing and reading the tasklists
+//from the Duke.txt file
+public class Storage {
     static void saveTasks(String filePath, List<Task> tasks) {
         ObjectOutputStream file = null;
         try {
@@ -27,7 +27,7 @@ public class Storage implements Serializable {
         try {
             @SuppressWarnings("unchecked")
             //Unchecked warnings are yielded due to an unchecked type conversion
-            //readObject() returns an Object, but am casting it to List<Task>
+            //readObject() returns an Object, but casting it to List<Task>
             //The compiler has no way to check if the object is of type List<Task>
             //in compile time, resulting in an unchecked warning being yielded
             File taskFile = new File(filePath);
