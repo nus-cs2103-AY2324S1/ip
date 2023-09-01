@@ -1,7 +1,5 @@
 import Exceptions.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,45 +9,18 @@ public class Cracker {
 
     private TodoList list = null;
     private Reply reply = new Reply();
+    private Storage storage;
     enum Type {
         MARK,
         TASK,
         DELETE
     }
 
-    private static File getfile(){
-        File file = new File("./data");
-        try{
-
-            file.mkdirs();
-            file = new File("./data/list.txt");
-            file.createNewFile();
-        } catch(Exception e){
-            System.out.println(e);
-        }
-        return file;
-    }
-
     public void startService(){
         boolean talking = true;
         FileWriter writer = null;
-        try{
-            File taskFile = Cracker.getfile();
-            Scanner setup = new Scanner(taskFile);
-            setup.hasNext();
-            writer = new FileWriter(taskFile);
-            list = new TodoList(writer);
-            while(setup.hasNext()){
-
-                String task = setup.nextLine();
-                list.load(task);
-            }
-            setup.close();
-
-
-        } catch (Exception e){
-            System.out.println("This should not be triggered");
-        }
+        storage = new Storage("./data/list.txt");
+        list = storage.load();
 
 
         Scanner sc = new Scanner(System.in);
@@ -69,29 +40,29 @@ public class Cracker {
                     t = Type.MARK;
                     int index = Integer.parseInt(input.replace("mark", "").trim()) - 1;
                     list.markDone(index);
-                    inLine.add(list.getTask(index));
+                    inLine.add(list.getTaskString(index));
                 } else if (input.startsWith("unmark")) {
                     t = Type.MARK;
                     int index = Integer.parseInt(input.replace("unmark", "").trim()) - 1;
                     list.markUndone(index);
-                    inLine.add(list.getTask(index));
+                    inLine.add(list.getTaskString(index));
                 } else if (input.startsWith("deadline")) {
                     t = Type.TASK;
                     list.store(new Deadline(input.replace("deadline", "").trim()));
-                    inLine.add(list.getTask(list.size() - 1));
+                    inLine.add(list.getTaskString(list.size() - 1));
 
                 } else if (input.startsWith("event")) {
                     t = Type.TASK;
                     list.store(new Event(input.replace("event", "").trim()));
-                    inLine.add(list.getTask(list.size() - 1));
+                    inLine.add(list.getTaskString(list.size() - 1));
                 } else if (input.startsWith("todo")) {
                     t = Type.TASK;
                     list.store(new Todo(input.replace("todo", "").trim()));
-                    inLine.add(list.getTask(list.size() - 1));
+                    inLine.add(list.getTaskString(list.size() - 1));
                 } else if (input.startsWith("delete")) {
                     t = Type.DELETE;
                     int index = Integer.parseInt(input.replace("delete", "").trim()) - 1;
-                    inLine.add(list.getTask(index));
+                    inLine.add(list.getTaskString(index));
                     list.deleteTask(index);
                 }else {
 
@@ -100,7 +71,7 @@ public class Cracker {
                             sc.close();
                             talking = false;
                             try{
-                                list.saveToFile();
+                                storage.save(list);
                             } catch (IOException e){
                                 System.out.println("Something wrong happened when saving your tasks");
                             }

@@ -31,7 +31,7 @@ public class Reply {
 
         this.add("Here are the tasks in your list:");
         for(int i = 0 ; i< list.size(); i++){
-            this.add((i+1) + ". " + list.getTask(i));
+            this.add((i+1) + ". " + list.getTaskString(i));
         }
         echo();
     }
