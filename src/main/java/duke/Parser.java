@@ -4,11 +4,19 @@ package duke;
  * Represents the parser of the chatbot.
  */
 public class Parser {
-    TaskList tasks;
+    private TaskList tasks;
+
     public Parser(TaskList tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Parses the user input and returns an executable command based on the input.
+     *
+     * @param input The user's input string to be parsed.
+     * @return An Executable representing the parsed command.
+     * @throws IllegalArgumentException If the input is not a valid command or is missing required parameters.
+     */
     public Executable parseCommand(String input) {
         // Split into command and rest
         String[] parts = input.split(" ", 2);

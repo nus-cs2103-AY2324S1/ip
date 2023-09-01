@@ -119,6 +119,13 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * Generates a string representation of the tasks in the TaskList
+     * that match the specified regular expression (regex).
+     *
+     * @param regex The regular expression used to filter tasks by their string representation.
+     * @return A formatted string containing tasks that match the given regex, along with their index in the list.
+     */
     public String filteredToString(String regex) {
         StringBuilder result = new StringBuilder();
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE); // Compiles the regex pattern

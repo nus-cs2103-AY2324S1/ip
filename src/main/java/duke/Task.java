@@ -60,9 +60,12 @@ public abstract class Task implements Serializable {
      */
     @Override
     public String toString() {
-        return "[" +
-            (isDone ? "X" : " ") +
-            "] " +
+        return "["
+            + (
+            isDone ? "X" : " ")
+            +
+            "] "
+            +
             this.name;
     }
 }
