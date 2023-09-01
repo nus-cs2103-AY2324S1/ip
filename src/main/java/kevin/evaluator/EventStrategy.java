@@ -8,12 +8,27 @@ import kevin.exception.KevinException;
 
 import java.util.ArrayList;
 
+/**
+ * A class responsible for the logic for EVENT command.
+ */
 public class EventStrategy extends BaseStrategy {
+    /**
+     * Constructor to initialize EventStrategy.
+     * @param taskList This is the TaskList where the tasks are stored and operations are defined.
+     * @param arguments This is an ArrayList where all the needed arguments are stored.
+     */
     EventStrategy(TaskList taskList, ArrayList<String> arguments) {
         super(taskList, arguments);
     }
 
-
+    /**
+     * Handles the logic of the EVENT command.
+     * @param logger This is the Logger that handles System.out.println.
+     * @param fileStorage This is the FileStorage that handles the storage in the local computer.
+     * @param isInFile This is the boolean to show whether the task is in the local computer's file.
+     * @return Returns a boolean that determines the continuation of the evaluation.
+     * @throws KevinException On the detection of errors.
+     */
     @Override
     public boolean evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
         Boolean isDone = Boolean.getBoolean(this.arguments.get(0));
