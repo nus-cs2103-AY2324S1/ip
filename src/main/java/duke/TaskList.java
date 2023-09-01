@@ -38,6 +38,25 @@ public class TaskList {
     }
 
     /**
+     * Gets the number of tasks in the TaskList.
+     *
+     * @return The number of tasks in the TaskList.
+     */
+    public int getSize() {
+        return this.tasks.size();
+    }
+
+    /**
+     * Gets a task from the TaskList at the specified index.
+     *
+     * @param index The index of the task to retrieve.
+     * @return The task at the specified index.
+     */
+    public Task getTask(int index) {
+        return this.tasks.get(index);
+    }
+
+    /**
      * Adds a task to the TaskList.
      *
      * @param task The task to be added to the TaskList.

@@ -70,12 +70,13 @@ public class Ui {
     /**
      * Displays a message after adding a task to the task list.
      *
-     * @param tasks The task list containing the added task.
+     * @param task The task that was added to the list.
+     * @param size The current size of the task list.
      */
-    public static void addTaskMessage(TaskList tasks) {
+    public static void addTaskMessage(Task task, int size) {
         System.out.println(" Got it. I've added this task:" + "\n" + "   "
-                + tasks.getAll().get(tasks.getAll().size() - 1).toString() + "\n" + " Now you have "
-                + tasks.getAll().size() + " tasks in the list.");
+                + task.toString() + "\n" + " Now you have "
+                + size + " tasks in the list.");
     }
 
     /**
@@ -97,6 +98,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays an error message when there is an issue loading data.
+     *
+     * @param e The DukeException containing the error message.
+     */
     public static void showLoadingError(DukeException e) {
         System.out.println(e);
     }
