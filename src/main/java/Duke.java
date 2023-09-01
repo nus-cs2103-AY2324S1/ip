@@ -1,3 +1,4 @@
+import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
@@ -7,6 +8,11 @@ import java.util.Scanner;
 public class Duke {
     private static final String line = "___________________________________________";
     private static ArrayList<Task> taskList = new ArrayList<>();
+    private final String filePath = "./data/duke.txt";
+
+//    public Duke(String filePath) {
+//        this.filePath = filePath;
+//    }
 
     /**
      * Method to print outro.
@@ -214,8 +220,20 @@ public class Duke {
      * Mehod to write tasks frm ArrayList data structure into .txt file.
      * @param taskList
      */
-    public void write(ArrayList<Task> taskList) {
-
+    public void write(ArrayList<Task> taskList) throws IOException{
+        FileWriter writer = new FileWriter(filePath);
+        for (Task task : taskList) {
+            String res = null;
+            if (task instanceof ToDo) {
+                res = ((ToDo) task).writtenFormat();
+            } else if (task instanceof Deadline) {
+                res = ((Deadline) task).writtenFormat();
+            } else if (task instanceof Event) {
+                res = ((Event) task).writtenFormat();
+            }
+            writer.write(res);
+        }
+        writer.close();
     }
 
     /**
