@@ -1,3 +1,8 @@
+package Remy;
+
+import Remy.task.Task;
+import Remy.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -6,7 +11,7 @@ public class Ui {
     private static String divider = "____________________________________________________________\n";
     private static String shortDivider = "_____________\n";
     private static String welcomeMessage =
-            "I'm Remy, and it is NOT nice to see you.\n" +
+            "I'm Remy.Remy, and it is NOT nice to see you.\n" +
                     "Faster tell me what you want and go away.";
 
     private static String exitMessage = "Hope to never see you again!\n" + divider;

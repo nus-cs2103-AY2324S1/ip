@@ -1,3 +1,11 @@
+package Remy.command;
+
+import Remy.task.TaskList;
+import Remy.Ui;
+import Remy.Storage;
+import Remy.ChatbotException;
+import Remy.task.Event;
+
 public class EventCommand extends Command {
     private String eventName;
     private String startDate;

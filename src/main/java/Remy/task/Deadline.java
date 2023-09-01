@@ -1,5 +1,6 @@
+package Remy.task;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -10,7 +11,7 @@ public class Deadline extends Task {
 
         super(description);
         // Accepts time String in yyyy-MM-dd format
-        // Stores as MM dd yyyy format
+        // Stores as dd MMM yyyy format
         LocalDate temp = LocalDate.parse(by);
         this.by = temp.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
     }
