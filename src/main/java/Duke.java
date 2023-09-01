@@ -1,15 +1,15 @@
-import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         String name = "Harry Potter";
-        String question = "What can I do for you?";
-        System.out.println("Hello! I'm " + name + "\n" + question);
+        String question = "Introducing the Wizarding World Organizer: Your Trusted Guide" +
+                "to Efficient & Effective Magical Planning";
+        System.out.println("Hello muggle! I'm " + name + "\n" + question);
 
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
-        List<Task> tasks = null;
+        List<Task> tasks;
         tasks = Task.loadTasks("src/data/Duke.txt");
         try {
             while (!str.equals("bye")) {
@@ -125,15 +125,14 @@ public class Duke {
                             throw new InvalidInputException(str);
                         }
                     }
+                } else {
+                    Task.listTasks(tasks);
+                    System.out.println();
                 }
-            else {
-                Task.listTasks(tasks);
-                System.out.println();
-            }
-            str = sc.nextLine();
+                str = sc.nextLine();
             }
             Task.saveTasks("src/data/Duke.txt", tasks);
-            System.out.println("\t" + "Bye. Hope to see you again soon!");
+            System.out.println("\t" + "Expelliarmus! Hope to see you again muggle!");
         } catch (InvalidInputException | EventCommandUseException|
                  DeadlineCommandUseException| ToDoCommandUseException e) {
             System.out.println(e.getMessage());
