@@ -6,25 +6,26 @@ import java.util.regex.Pattern;
 import duke.exception.EmptyDescriptionException;
 import duke.exception.MissingInformationException;
 
-/*
- * A class that is represents the Event class. It is 
+/**
+ * A class that represents the Event class. It is 
  * a subtype of the abstract Task class.
  */
 
 public class Todo extends Task {
 
+    /**
+     * Constructor of the Todo object
+     * @param description description of Todo object
+     */
     public Todo(String description) {
         super(description);
     }
 
-    /*
+    /**
      * A factory method of Todo class.
      * String input is guaranteed to start with "todo"
-     * 
      * @param input user input from terminal.
-     * 
      * @return a Todo object given the input string.
-     * 
      * @throws MissingInformationException due to possibly an empty
      * description of the todo task.
      */
@@ -43,9 +44,8 @@ public class Todo extends Task {
         }
     }
 
-    /*
+    /**
      * A method that returns the string representation of a Todo object.
-     * 
      * @return string representation of the Todo object.
      */
     @Override
@@ -53,6 +53,10 @@ public class Todo extends Task {
         return "[T]" + super.toString();
     }
 
+    /**
+     * A method that returns the string representation of a Deadline object
+     * @return string representation of the Deadline object to be stored in the database
+     */
     @Override
     public String toBeStored() {
         String marked = this.isDone() ? "1" : "0";

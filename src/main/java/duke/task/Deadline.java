@@ -1,34 +1,37 @@
 package duke.task;
 
-import java.util.regex.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import duke.exception.MissingDeadlineException;
 import duke.exception.MissingInformationException;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-/*
- * A class that is represents the Deadline class. It is 
+/**
+ * A class that represents the Deadline class. It is 
  * a subtype of the abstract Task class.
  */
 
 public class Deadline extends Task {
     protected LocalDate deadline;
 
+    /**
+     * A constructor of the Deadline object
+     * @param description Description of deadline object
+     * @param deadline deadline of Deadline object
+     */
     public Deadline(String description, LocalDate deadline) {
         super(description);
         this.deadline = deadline;
     }
 
-    /*
+    /**
      * Factory method of Deadline class.
      * String input is guaranteed to start with "deadline"
-     * 
      * @param input user input from terminal.
-     * 
      * @return a Deadline object given the input string.
-     * 
      * @throws MissingInformationException due to possibly an empty
      * description of the Deadline task or a missing /by deadline for
      * the task.
@@ -47,10 +50,9 @@ public class Deadline extends Task {
         return new Deadline(description, deadlineDate);
     }
 
-    /*
-     * A method that returns the string representation of a Deadline object.
-     * 
-     * @return string representation of the Deadline object.
+    /**
+     * A method that returns the string representation of a Deadline object
+     * @return string representation of the Deadline object
      */
     @Override
     public String toString() {
@@ -58,6 +60,10 @@ public class Deadline extends Task {
                 + ")";
     }
 
+    /**
+     * A method that returns the string representation of a Deadline object
+     * @return string representation of the Deadline object to be stored in the database
+     */
     @Override
     public String toBeStored() {
         String marked = this.isDone() ? "1" : "0";

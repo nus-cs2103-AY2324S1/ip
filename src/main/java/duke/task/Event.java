@@ -1,17 +1,18 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import duke.exception.DukeException;
 import duke.exception.MissingEndTimeException;
+import duke.exception.MissingInformationException;
 import duke.exception.MissingStartTimeException;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-/*
- * A class that is represents the Event class. It is 
+/**
+ * A class that represents the Event class. It is 
  * a subtype of the abstract Task class.
  */
 
@@ -19,23 +20,25 @@ public class Event extends Task {
     protected LocalDate start;
     protected LocalDate end;
 
+    /**
+     * A constructor of the Event object
+     * @param description Description of Event object
+     * @param start start date of Event object
+     * @param end end date of Event object
+     */
     public Event(String description, LocalDate start, LocalDate end) {
         super(description);
         this.start = start;
         this.end = end;
     }
 
-    /*
+    /**
      * Factory method of Event class.
      * String input is guaranteed to start with "event"
-     * 
      * @param input user input from terminal.
-     * 
      * @return a Event object given the input string.
-     * 
-     * @throws MissingInformationException due to possibly an empty
-     * description of the Event task or a missing /from start time or a
-     * missing /to end time for the task.
+     * @throws MissingInformationException due to possibly an empty description of the 
+     * Event task or a missing /from start time or a missing /to end time for the task.
      */
     public static Event of(String input) throws DukeException {
         Matcher matcher = Pattern.compile("event ").matcher(input);
@@ -60,9 +63,8 @@ public class Event extends Task {
 
     }
 
-    /*
+    /**
      * A method that returns the string representation of an Event object.
-     * 
      * @return string representation of the Event object.
      */
     @Override
@@ -70,7 +72,11 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                 + " to: " + this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
-
+    
+    /**
+     * A method that returns the string representation of a Deadline object
+     * @return string representation of the Deadline object to be stored in the database
+     */
     @Override
     public String toBeStored() {
         String marked = this.isDone() ? "1" : "0";

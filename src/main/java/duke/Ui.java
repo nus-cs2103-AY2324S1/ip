@@ -2,20 +2,19 @@ package duke;
 
 import java.util.Scanner;
 
-/*
+/**
  * A class that handles all the user interactions of the program
  */
 public class Ui {
-    String lnspace = "____________________________________________________________";
+    private String lnspace = "____________________________________________________________";
     private final Scanner sc;
 
     public Ui() {
         this.sc = new Scanner(System.in);
     }
 
-    /*
+    /**
      * A method that prints greeting when program starts
-     * 
      * @return string representing greeting
      */
     public String greeting() {
@@ -27,9 +26,8 @@ public class Ui {
         return greeting;
     }
 
-    /*
+    /**
      * A method that prints ending when program terminates
-     * 
      * @return string representing ending
      */
     public String ending() {
@@ -40,9 +38,8 @@ public class Ui {
         return ending;
     }
 
-    /*
+    /**
      * A method that prints a straight line
-     * 
      * @return string representing straight line
      */
     public String printLine() {
@@ -50,9 +47,8 @@ public class Ui {
         return lnspace;
     }
 
-    /*
+    /**
      * A method that prints error message when existing data file is not found
-     * 
      * @return string representing error message
      */
     public String showLoadingError() {
@@ -61,11 +57,9 @@ public class Ui {
         return out;
     }
 
-    /*
+    /**
      * A method that prints the error message specified
-     * 
-     * @params message error message that user wants to print
-     * 
+     * @param message error message that user wants to print
      * @return string that user inputted as argument
      */
     public String showError(String message) {
@@ -73,9 +67,8 @@ public class Ui {
         return message;
     }
 
-    /*
+    /**
      * A method that reads the next command that user inputted
-     * 
      * @returns string that user inputted
      */
 
@@ -83,10 +76,9 @@ public class Ui {
         return this.sc.nextLine().trim();
     }
 
-    /*
+    /**
      * A method that prints message during task addition
-     * 
-     * @params arr TaskList object that task object is added to
+     * @param arr TaskList object that task object is added to
      */
     public void addTask(TaskList arr) {
         System.out.println("Got it. I've added this task:");
@@ -94,38 +86,29 @@ public class Ui {
         System.out.println("Now you have " + (arr.length()) + arr.numTasksToString() + " in the list.");
     }
 
-    /*
+    /**
      * A method that prints message during task marking
-     * 
-     * @params index index of Task object that user marked in specified TaskList
-     * object
-     * 
-     * @params arr TaskList object that contains Task object that user marked
+     * @param index index of Task object that user marked in specified TaskList object
+     * @param arr TaskList object that contains Task object that user marked
      */
     public void markTask(int index, TaskList arr) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(arr.taskToString(index));
     }
 
-    /*
+    /**
      * A method that prints message during task unmarking
-     * 
-     * @params index index of Task object that user unmarked in specified TaskList
-     * object
-     * 
-     * @params arr TaskList object that contains Task object that user unmarked
+     * @param index index of Task object that user unmarked in specified TaskList object
+     * @param arr TaskList object that contains Task object that user unmarked
      */
     public void unmarkTask(int index, TaskList arr) {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(arr.taskToString(index));
     }
 
-    /*
-     * A method that prints message when user wants a list of tasks in TaskList
-     * object
-     * 
-     * @params arr TaskList object that contains existing Task objects
-     * 
+    /**
+     * A method that prints message when user wants a list of tasks in TaskList object
+     * @param arr TaskList object that contains existing Task objects
      * @return string that is printed representing list of tasks in specified
      * TaskList
      */
@@ -138,13 +121,10 @@ public class Ui {
         return out;
     }
 
-    /*
-     * A method that finds all existing tasks that contains specified substring and lists it
-     * 
-     * @params arr taskList object that contains existing Task objects
-     * 
-     * @params keyString string that user wants to search for
-     * 
+    /**
+     * A method that finds all existing tasks that contains specified substring and lists it 
+     * @param arr taskList object that contains existing Task objects
+     * @param keyString string that user wants to search for
      * @return string that lists all tasks with descriptions containing specified substring
      */
     public String find(TaskList arr, String keyString) {
@@ -162,12 +142,10 @@ public class Ui {
         return out;
     }
 
-    /*
+    /**
      * A method that prints message when user deletes a task in TaskList
-     * 
-     * @params arr TaskList where deleted Task is contained in
-     * 
-     * @params index index of Task object that was deleted
+     * @param arr TaskList where deleted Task is contained in
+     * @param index index of Task object that was deleted
      */
     public void deleteTask(TaskList arr, int index) {
         System.out.println("Noted. I've removed this task:");

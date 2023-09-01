@@ -2,12 +2,19 @@ package duke;
 
 import duke.command.Command;
 
+/**
+ * A class that represents the whole program
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * A constructor for the Duke program
+     * @param filePath
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -19,6 +26,9 @@ public class Duke {
         }
     }
 
+    /**
+     * A method to start the program
+     */
     public void run() {
         this.ui.greeting();
         boolean isExit = false;
