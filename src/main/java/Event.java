@@ -1,22 +1,50 @@
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
     protected String end;
     protected String start;
 
+    protected LocalDateTime formattedStart;
+    protected LocalDateTime formattedEnd;
+
     public Event(String description, String start, String end) {
-        super(description);
-        this.end = end;
+        super(description.trim());
         this.start = start;
+        this.end = end;
+
+        try{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
+                    "[yyyy-MM-dd][dd/MM/yyyy][MM/dd/yyyy HH:mm:ss]");
+            formattedStart = LocalDateTime.parse(this.start, formatter);
+            formattedEnd = LocalDateTime.parse(this.end, formatter);
+        } catch (DateTimeException e){
+            try{
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
+                        "[yyyy-MM-dd][dd/MM/yyyy][MM/dd/yyyy HH:mm:ss]");
+                formattedStart = LocalDate.parse(this.start, formatter).atStartOfDay();
+                formattedEnd = LocalDate.parse(this.end, formatter).atStartOfDay();
+            } catch (DateTimeParseException err){
+                System.out.println("Error: " + err.getMessage());
+            }
+        }
     }
 
     @Override
     public String store(){
-        return String.format("E | %s | %s | %s - %s", this.isDone, this.description, this.start, this.end);
+        return String.format("E | %s | %s | %s - %s", this.isDone, this.description,
+                formattedStart.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                formattedEnd.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
 
     @Override
     public String toString() {
-        return String.format("[E] %s (from: %s to: %s)", super.toString(), this.start, this.end);
-//        return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
+        return String.format("[E] %s (from: %s to: %s)", super.toString(),
+                formattedStart.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                formattedEnd.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
 }
 

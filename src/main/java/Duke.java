@@ -108,18 +108,18 @@ public class Duke {
                             curr + '\n' +
                             "Now you have " + count + " tasks in the list \n");
                 } else if (input.startsWith("event")) {
-                    String description = input.split("/")[0].split(" ", 2)[1].stripLeading();
-                    String date = input.split("/")[1].substring(5);
-                    String time = input.split("/to")[1];
-                    Task curr = new Event(description, date, time);
+                    String description = input.split("event")[1].split("/from")[0].stripLeading();
+                    String from = input.split("\\s*/from\\s*")[1].split("\\s*/to\\s*")[0].trim();
+                    String to = input.split("\\s*/to\\s*")[1].trim();
+                    Task curr = new Event(description, from, to);
                     count++;
                     inputs.add(curr);
                     System.out.println("Got it. I've added this task:\n" +
                             curr + '\n' +
                             "Now you have " + count + " tasks in the list\n");
                 } else if (input.startsWith("deadline")) {
-                    String description = input.split("/by")[0].split(" ", 2)[1].stripLeading();
-                    String date = input.split("/by")[1];
+                    String description = input.split("/by")[0].trim();
+                    String date = input.split("by")[1].trim();
                     Task curr = new Deadline(description, date);
                     count++;
                     inputs.add(curr);
