@@ -1,12 +1,8 @@
 package duke.task;
 
-import duke.task.Task;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     private String due;

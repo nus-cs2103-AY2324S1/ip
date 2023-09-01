@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
-import duke.ui.Ui;
+
 import duke.task.Task;
 import duke.task.ToDo;
 import duke.task.Deadline;

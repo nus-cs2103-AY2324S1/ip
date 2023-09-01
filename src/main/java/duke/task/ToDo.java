@@ -1,7 +1,5 @@
 package duke.task;
 
-import duke.task.Task;
-
 import java.io.FileWriter;
 import java.io.IOException;
 

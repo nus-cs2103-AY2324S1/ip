@@ -3,6 +3,7 @@ package duke.ui;
 import duke.exception.DukeException;
 import duke.task.Task;
 import duke.list.FunnyList;
+
 import java.util.Scanner;
 
 public class Ui {
