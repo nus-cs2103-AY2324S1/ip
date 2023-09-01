@@ -15,6 +15,9 @@ public class Deadline extends Task {
         this.time = dueDateTime;
     }
 
+    public LocalDateTime getTime() {
+        return this.time;
+    }
 
     @Override
     public String toString() {
@@ -22,3 +25,4 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + timeToString + ")";
     }
 }
+

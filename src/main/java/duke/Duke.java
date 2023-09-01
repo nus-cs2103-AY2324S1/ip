@@ -29,6 +29,8 @@ public class Duke {
         } catch (IOException e) {
             System.out.println(e.getMessage());
             tasklist = new TaskList();
+        } catch (DetailsUnknownException e) {
+            e.getMessage();
         }
     }
     public static void main(String[] args) {

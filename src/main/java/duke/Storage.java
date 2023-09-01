@@ -3,6 +3,7 @@ package duke;
 import duke.Task;
 import duke.TaskList;
 import duke.ToDo;
+import duke.exception.DetailsUnknownException;
 
 import java.io.*;
 import java.util.Scanner;
@@ -17,16 +18,19 @@ public class Storage {
     public void saveTaskToFile() {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath));
+            StringBuilder tasks = new StringBuilder();
             for (Task task: TaskList.getList()) {
-                writer.write(task.toFileString() + "\n");
+                tasks.append(task.getStatus()).append(" | ").append(task.getTaskType(task)).append("\n");
+
             }
+            writer.write(tasks.toString());
             writer.close();
         } catch (IOException e) {
             System.out.println("An error occur while trying to save tasks: " + e.getMessage());
         }
     }
 
-    public void loadTask() throws IOException {
+    public void loadTask() throws IOException, DetailsUnknownException {
         File file = new File(this.filePath);
         file.getParentFile().mkdirs();
 
@@ -37,42 +41,28 @@ public class Storage {
         Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {
             String taskData = scanner.nextLine();
-            String[] keywords = taskData.split(" / ");
+            String[] keywords = taskData.split(" \\|\\| ");
 
-            String taskType= keywords[0];
-            boolean isDone = "1".equals(keywords[1]);
-            String taskDescription = keywords[2];
-            String taskDetails = keywords[3];
-
-            Task task = null;
-            switch (taskType) {
+            Task currT = null;
+            switch (keywords[0]) {
                 case "T":
-                    task = new ToDo(taskDescription);
+                    currT = new ToDo(keywords[2]);
                     break;
                 case "D":
-                    task = new Deadline(taskDescription, taskDetails);
+                    currT = new Deadline(keywords[2], keywords[3]);
                     break;
                 case "E":
-                    String[] eventDetails = taskDetails.split(" /from ");
-                    if (eventDetails.length != 2) {
-                        System.out.println("Error: Incomplete event details.");
-                        continue;
-                    }
-                    String startTime = eventDetails[1].split(" /to ")[0];
-                    String endTime = eventDetails[1].split(" /to ")[1];
-                    task = new Event(taskDescription, startTime, endTime);
+                    currT = new Event(keywords[2], keywords[3]);
                     break;
                 default:
                     System.out.println("Error: Unknown task type. ");
                     break;
             }
 
-            if (task != null) {
-                if (isDone) {
-                    task.markDone();
-                }
-                TaskList.getList().add(task);
+            if (keywords[1].equals("1")) {
+                currT.markDone();
             }
+            TaskList.getList().add(currT);
         }
         scanner.close();
     }
