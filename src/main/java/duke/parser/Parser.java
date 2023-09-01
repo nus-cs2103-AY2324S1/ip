@@ -21,6 +21,8 @@ public class Parser {
             return Command.DELETE;
         } else if (command.equals("list")) {
             return Command.LIST;
+        } else if (command.equals("find")) {
+            return Command.FIND;
         } else if (command.equals("mark")) {
             return Command.MARK;
         } else if (command.equals("unmark")) {

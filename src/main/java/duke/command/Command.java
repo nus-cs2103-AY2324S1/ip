@@ -9,4 +9,6 @@ public enum Command {
     LIST,
     MARK,
     UNMARK,
+
+    FIND
 }

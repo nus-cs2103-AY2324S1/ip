@@ -71,6 +71,16 @@ public class Duke {
     }
 
     /**
+     * Executes find command.
+     * Find command lists all tasks which contains a certain keyword.
+     *
+     * @param keyword Keyword to find tasks
+     */
+    private static void executeFindCommand(String keyword) {
+        tasks.printTasksByKeyword(keyword);
+    }
+
+    /**
      * Executes single commands.
      * Single commands consists of: Listing all tasks, Printing goodbye message.
      * @param command
@@ -96,7 +106,7 @@ public class Duke {
             return false;
         } else if (command == Command.TODO || command == Command.DEADLINE || command == Command.EVENT) {
             if (inputs.length == 1 || inputs[1].equals("")) {
-                throw new DukeEmptyArgumentException("OOPS!!! Argument for this command is invalid.");
+                throw new DukeEmptyArgumentException("OOPS!!! Argument for this command cannot be empty.");
             }
             if (command == Command.TODO) {
                 addTask(Command.TODO, inputs[1]);
@@ -107,7 +117,7 @@ public class Duke {
             }
         } else if (command == Command.DELETE) {
             if (inputs.length == 1 || inputs[1].equals("")) {
-                throw new DukeEmptyArgumentException("OOPS!!! Argument for this command is invalid.");
+                throw new DukeEmptyArgumentException("OOPS!!! Argument for this command cannot be empty.");
             }
 
             try {
@@ -121,9 +131,15 @@ public class Duke {
             editTask(Command.DELETE, Integer.parseInt(inputs[1]));
         } else if (command == Command.LIST) {
             executeSingleCommand(Command.LIST);
+        } else if (command == Command.FIND) {
+            if (inputs.length == 1 || inputs[1].equals("")) {
+                throw new DukeEmptyArgumentException("OOPS!!! Argument for this command cannot be empty.");
+            }
+
+            executeFindCommand(inputs[1]);
         } else if (command == Command.MARK) {
             if (inputs.length == 1 || inputs[1].equals("")) {
-                throw new DukeEmptyArgumentException("OOPS!!! Argument for this command is invalid.");
+                throw new DukeEmptyArgumentException("OOPS!!! Argument for this command cannot be empty.");
             }
 
             try {
@@ -137,7 +153,7 @@ public class Duke {
             editTask(Command.MARK, Integer.parseInt(inputs[1]));
         } else if (command == Command.UNMARK) {
             if (inputs.length == 1 || inputs[1].equals("")) {
-                throw new DukeEmptyArgumentException("OOPS!!! Argument for this command is invalid.");
+                throw new DukeEmptyArgumentException("OOPS!!! Argument for this command cannot be empty.");
             }
 
             try {
