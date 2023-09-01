@@ -1,4 +1,11 @@
-public class DeleteCommand  extends Command{
+package noac.command;
+
+import noac.NoacException;
+import noac.Storage;
+import noac.TaskList;
+import noac.Ui;
+
+public class DeleteCommand  extends Command {
 
     private int taskIndex;
 
@@ -8,7 +15,7 @@ public class DeleteCommand  extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NoacException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws NoacException {
 
         if (taskIndex + 1 > tasks.size() ||  taskIndex < 0) {
             throw new NoacException("☹ OOPS!!! Please enter a task in your list!");

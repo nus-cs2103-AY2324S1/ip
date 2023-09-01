@@ -1,6 +1,13 @@
+package noac.command;
+
+import noac.Storage;
+import noac.TaskList;
+import noac.Ui;
+import noac.task.Event;
+
 import java.time.LocalDateTime;
 
-public class EventCommand extends Command{
+public class EventCommand extends Command {
 
     private String description;
     private LocalDateTime from;

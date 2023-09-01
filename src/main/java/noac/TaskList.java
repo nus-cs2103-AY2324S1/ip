@@ -1,3 +1,7 @@
+package noac;
+
+import noac.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {

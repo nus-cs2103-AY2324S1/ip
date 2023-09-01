@@ -1,6 +1,13 @@
+package noac.command;
+
+import noac.Storage;
+import noac.TaskList;
+import noac.Ui;
+import noac.task.Deadline;
+
 import java.time.LocalDateTime;
 
-public class DeadlineCommand extends Command{
+public class DeadlineCommand extends Command {
 
     private String description;
     private LocalDateTime by;

@@ -1,4 +1,12 @@
-public class ExitCommand extends Command{
+package noac.command;
+
+
+import noac.NoacException;
+import noac.Storage;
+import noac.TaskList;
+import noac.Ui;
+
+public class ExitCommand extends Command {
 
     private boolean isExit = true;
 

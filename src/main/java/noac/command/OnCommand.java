@@ -1,8 +1,17 @@
+package noac.command;
+
+import noac.Storage;
+import noac.TaskList;
+import noac.Ui;
+import noac.task.Deadline;
+import noac.task.Event;
+import noac.task.Task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class OnCommand extends Command{
+public class OnCommand extends Command {
 
     private LocalDate localDate;
 
