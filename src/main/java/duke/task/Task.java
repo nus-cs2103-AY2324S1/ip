@@ -59,4 +59,12 @@ public class Task {
         return this.done;
     }
 
+    /**
+     * Check if task description contains the keyword.
+     *
+     * @return true if the task description contains the keyword.
+     */
+    public boolean contains(String keyword) {
+        return this.task.contains(keyword);
+    }
 }

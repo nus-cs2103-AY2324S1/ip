@@ -4,6 +4,8 @@ import duke.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * TaskList class represents a collection of tasks and provides methods to manage them.
@@ -71,5 +73,15 @@ public class TaskList {
      */
     public int getSize() {
         return tasks.size();
+    }
+
+    /**
+     * Filters and returns a list of tasks meeting the given predicate.
+     *
+     * @param predicate The predicate specified by the user.
+     * @return A list of tasks meeting the given predicate.
+     */
+    public List<Task> filterTasks(Predicate<? super Task> predicate) {
+        return this.tasks.stream().filter(predicate).collect(Collectors.<Task>toList());
     }
 }
