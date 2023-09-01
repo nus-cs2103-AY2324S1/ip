@@ -1,78 +1,108 @@
-Hello I'm Genos
-What can I do for you?
+Hello I'm Genos.
 Please type your command below, I will store what you said
 Usage: "list" to see the list of text stored, "bye" to exit
 "mark [number]" to mark task no. [number] to be done, "unmark [number]" to mark it as undone
-"todo [description]" to add todo, "event [description] /from [date] /to [date]" to add event, "deadline [description] /by [date]" to add deadline
+"todo [description]" to add todo, "event [description] /from [date] /to [date]" to add event,
+"deadline [description] /by [date]" to add deadline
     Added Todo to the list of tasks:
     [T][ ] borrow book
     You currently have 1 tasks in the list.
-Wrong date format! Please use yyyy-mm-dd format
-Wrong date format! Please use yyyy-mm-dd format
+--------------------------------------------
+There was an error: Wrong date format! Please use yyyy-mm-dd format
+--------------------------------------------
+There was an error: Wrong date format! Please use yyyy-mm-dd format
+--------------------------------------------
     Added Deadline to the list of tasks:
-    [D][ ] return book  (by: Sep 1 2023)
+    [D][ ] return book (by: Sep 1 2023)
     You currently have 2 tasks in the list.
+--------------------------------------------
     Added Event to the list of tasks:
-    [E][ ] project meeting  (from: Sep 1 2023 to: Sep 1 2023)
+    [E][ ] project meeting (from: Sep 1 2023 to: Sep 1 2023)
     You currently have 3 tasks in the list.
+--------------------------------------------
     1. [T][ ] borrow book
-    2. [D][ ] return book  (by: Sep 1 2023)
-    3. [E][ ] project meeting  (from: Sep 1 2023 to: Sep 1 2023)
+    2. [D][ ] return book (by: Sep 1 2023)
+    3. [E][ ] project meeting (from: Sep 1 2023 to: Sep 1 2023)
+--------------------------------------------
     I've marked this task as done:
     [T][X] borrow book
-    You currently have 3 tasks in the list.
+--------------------------------------------
     I've marked this task as done:
-    [E][X] project meeting  (from: Sep 1 2023 to: Sep 1 2023)
-    You currently have 3 tasks in the list.
+    [E][X] project meeting (from: Sep 1 2023 to: Sep 1 2023)
+--------------------------------------------
     1. [T][X] borrow book
-    2. [D][ ] return book  (by: Sep 1 2023)
-    3. [E][X] project meeting  (from: Sep 1 2023 to: Sep 1 2023)
+    2. [D][ ] return book (by: Sep 1 2023)
+    3. [E][X] project meeting (from: Sep 1 2023 to: Sep 1 2023)
+--------------------------------------------
     I've marked this task as not done yet:
     [T][ ] borrow book
-    You currently have 3 tasks in the list.
+--------------------------------------------
     1. [T][ ] borrow book
-    2. [D][ ] return book  (by: Sep 1 2023)
-    3. [E][X] project meeting  (from: Sep 1 2023 to: Sep 1 2023)
-    Command given is invalid! You must start with a todo/event/deadline to add tasks, or list/mark/unmark/bye for other purposes
-    Description cannot be empty!
-    Invalid format for adding an event! Please enter in this format:
+    2. [D][ ] return book (by: Sep 1 2023)
+    3. [E][X] project meeting (from: Sep 1 2023 to: Sep 1 2023)
+--------------------------------------------
+There was an error: Command given is invalid! You must start with a todo/event/deadline to add tasks, or list/mark/unmark/bye for other purposes
+--------------------------------------------
+There was an error: Description of todo cannot be empty
+--------------------------------------------
+There was an error: Invalid format for adding an event! Please enter in this format:
 event [description] /from [date] /to [date]
-    Invalid format for adding an event! Please enter in this format:
+--------------------------------------------
+There was an error: Invalid format for adding an event! Please enter in this format:
 event [description] /from [date] /to [date]
-    Invalid format for adding an event! Please enter in this format:
+--------------------------------------------
+There was an error: Invalid format for adding an event! Please enter in this format:
 event [description] /from [date] /to [date]
-    Invalid format for adding an event! Please enter in this format:
+--------------------------------------------
+There was an error: Invalid format for adding an event! Please enter in this format:
 event [description] /from [date] /to [date]
-    Invalid format for adding an event! Please enter in this format:
+--------------------------------------------
+There was an error: Invalid format for adding an event! Please enter in this format:
 event [description] /from [date] /to [date]
-    Invalid format for adding an event! Please enter in this format:
+--------------------------------------------
+There was an error: Invalid format for adding an event! Please enter in this format:
 event [description] /from [date] /to [date]
+--------------------------------------------
     Added Event to the list of tasks:
-    [E][ ] abcd  (from: Sep 1 2023 to: Sep 1 2023)
+    [E][ ] abcd (from: Sep 1 2023 to: Sep 1 2023)
     You currently have 4 tasks in the list.
-    Description cannot be empty!
-    Invalid format for adding a deadline! Please enter in this format:
+--------------------------------------------
+There was an error: Invalid format for adding a deadline! Please enter in this format:
 deadline [description] /by [date]
-    Invalid format for adding a deadline! Please enter in this format:
+--------------------------------------------
+There was an error: Invalid format for adding a deadline! Please enter in this format:
 deadline [description] /by [date]
-    Invalid format for adding a deadline! Please enter in this format:
+--------------------------------------------
+There was an error: Invalid format for adding a deadline! Please enter in this format:
 deadline [description] /by [date]
+--------------------------------------------
+There was an error: Invalid format for adding a deadline! Please enter in this format:
+deadline [description] /by [date]
+--------------------------------------------
     Added Deadline to the list of tasks:
-    [D][ ] abcd  (by: Sep 1 2023)
+    [D][ ] abcd (by: Sep 1 2023)
     You currently have 5 tasks in the list.
+--------------------------------------------
     1. [T][ ] borrow book
-    2. [D][ ] return book  (by: Sep 1 2023)
-    3. [E][X] project meeting  (from: Sep 1 2023 to: Sep 1 2023)
-    4. [E][ ] abcd  (from: Sep 1 2023 to: Sep 1 2023)
-    5. [D][ ] abcd  (by: Sep 1 2023)
-    Description cannot be empty!
-    Invalid task number. Please enter a valid number to mark/unmark
-    The task number you are trying to mark/unmark/delete does not exist yet.
+    2. [D][ ] return book (by: Sep 1 2023)
+    3. [E][X] project meeting (from: Sep 1 2023 to: Sep 1 2023)
+    4. [E][ ] abcd (from: Sep 1 2023 to: Sep 1 2023)
+    5. [D][ ] abcd (by: Sep 1 2023)
+--------------------------------------------
+There was an error: You must enter a number to indicate the task to delete
+--------------------------------------------
+There was an error: Invalid task number. Please enter a valid number to mark/unmark
+--------------------------------------------
+There was an error: The task number you are trying to delete does not exist yet.
+--------------------------------------------
     Noted. I've removed this task:
-    [D][ ] abcd  (by: Sep 1 2023)
+    [E][ ] abcd (from: Sep 1 2023 to: Sep 1 2023)
     You currently have 4 tasks in the list.
+--------------------------------------------
     1. [T][ ] borrow book
-    2. [D][ ] return book  (by: Sep 1 2023)
-    3. [E][X] project meeting  (from: Sep 1 2023 to: Sep 1 2023)
-    4. [E][ ] abcd  (from: Sep 1 2023 to: Sep 1 2023)
+    2. [D][ ] return book (by: Sep 1 2023)
+    3. [E][X] project meeting (from: Sep 1 2023 to: Sep 1 2023)
+    4. [D][ ] abcd (by: Sep 1 2023)
+--------------------------------------------
+--------------------------------------------
     Goodbye, Hope to see you again soon.

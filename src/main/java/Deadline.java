@@ -4,7 +4,7 @@ import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
 
-    private static String TYPE = "[D]";
+    private static final String TYPE = "[D]";
     protected LocalDate deadline;
 
     public Deadline(String task, String deadline) throws DateTimeParseException {
@@ -18,8 +18,13 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String toSaveFormat() {
+        return "Deadline | " + super.toSaveFormat() + " | " + this.deadline;
+    }
+
+    @Override
     public String toString() {
-        return this.TYPE + super.toString() + " (by: " + this.deadline.format(
+        return Deadline.TYPE + super.toString() + " (by: " + this.deadline.format(
                 DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

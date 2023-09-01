@@ -4,7 +4,7 @@ import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
 
-    private static String TYPE = "[E]";
+    private static final String TYPE = "[E]";
     protected LocalDate fromTime;
     protected LocalDate toTime;
 
@@ -21,8 +21,13 @@ public class Event extends Task {
     }
 
     @Override
+    public String toSaveFormat() {
+        return "Event | " + super.toSaveFormat() + " | " + this.fromTime + " | " + this.toTime;
+    }
+
+    @Override
     public String toString() {
-        return this.TYPE + super.toString() + " (from: "
+        return Event.TYPE + super.toString() + " (from: "
                 + this.fromTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                 + " to: " + this.toTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
