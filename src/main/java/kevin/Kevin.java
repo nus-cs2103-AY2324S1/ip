@@ -12,6 +12,9 @@ import kevin.taskList.TaskList;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Kevin class, a task list chatbot.
+ */
 public class Kevin {
     public static void main(String[] args) {
         Logger logger = new Logger();
