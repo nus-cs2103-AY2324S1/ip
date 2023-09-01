@@ -1,10 +1,14 @@
 package corgi.commands;
 
+import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import corgi.storage.Storage;
+import corgi.tasks.Deadline;
+import corgi.tasks.Event;
 import corgi.tasks.Task;
 import corgi.tasks.TaskList;
+
 import corgi.ui.Ui;
 
 /**
@@ -20,18 +24,27 @@ public class FindTasksOnDateCommand extends Command{
     /**
      * The target date for finding tasks.
      */
-    private String targetDate;
+    private final LocalDate target;
 
     /**
-     * Initializes a new FindTasksOnDateCommand instance with the specified predicate and target date.
+     * Initializes a new FindTasksOnDateCommand instance with the target date.
      *
-     * @param predicate The predicate used to filter tasks by date.
-     * @param targetDate The target date for finding tasks.
+     * @param target The target date
      */
-    public FindTasksOnDateCommand(Predicate<Task> predicate, String targetDate) {
+    public FindTasksOnDateCommand(LocalDate target) {
         super(false, CommandType.DATE);
-        this.predicate = predicate;
-        this.targetDate = targetDate;
+        this.target = target;
+
+        this.predicate = t -> {
+            if (t instanceof Deadline) {
+                Deadline d = (Deadline) t;
+                return d.isHappeningOnDate(this.target);
+            } else if (t instanceof Event) {
+                Event e = (Event) t;
+                return e.isHappeningOnDate(this.target);
+            }
+            return false;
+        };
     }
 
     /**
@@ -46,10 +59,12 @@ public class FindTasksOnDateCommand extends Command{
     public void execute(TaskList list, Ui ui, Storage<Task> storage) {
         TaskList tasksOnDate = list.filter(predicate);
 
+        String outputDate = this.target.format(Task.DATE_OUTPUT_FORMATTER);
+
         if (tasksOnDate.isEmpty()) {
-            ui.showNoTaskOnDate(this.targetDate);;
+            ui.showNoTaskOnDate(outputDate);;
         } else {
-            ui.showTasksOnDate(this.targetDate, tasksOnDate.toString());
+            ui.showTasksOnDate(outputDate, tasksOnDate.toString());
         }
     }
 }

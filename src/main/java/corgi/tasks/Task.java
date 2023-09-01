@@ -53,6 +53,16 @@ public abstract class Task implements Storable<Task>{
     }
 
     /**
+     * Checks if the description of the task contains a specified keyword.
+     *
+     * @param keyword The keyword to search for within the task description.
+     * @return True if the keyword is found in the description, false otherwise.
+     */
+    public boolean contains(String keyword) {
+        return this.desc.contains(keyword);
+    }
+
+    /**
      * Returns a string representation of the task.
      *
      * @return Status icon and description of the task.

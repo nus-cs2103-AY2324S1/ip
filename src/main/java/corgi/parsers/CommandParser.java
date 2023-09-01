@@ -2,17 +2,18 @@ package corgi.parsers;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.function.Predicate;
 
 import corgi.commands.AddTaskCommand;
 import corgi.commands.Command;
 import corgi.commands.CommandType;
 import corgi.commands.DeleteTaskCommand;
 import corgi.commands.ExitCommand;
+import corgi.commands.FindTasksContainKeyword;
 import corgi.commands.FindTasksOnDateCommand;
 import corgi.commands.InvalidCommandException;
 import corgi.commands.ListTasksCommand;
 import corgi.commands.MarkTaskCommand;
+
 import corgi.tasks.Deadline;
 import corgi.tasks.Event;
 import corgi.tasks.Task;
@@ -73,6 +74,9 @@ public class CommandParser extends Parser<Command>{
             break;
         case DATE:
             command = newDateCommand(inputs);
+            break;
+        case FIND:
+            command = newFindCommand(inputs);
             break;
         }
 
@@ -142,20 +146,18 @@ public class CommandParser extends Parser<Command>{
             throw new InvalidCommandFormatException("Invalid date format!");
         }
 
-        final LocalDate FINAL_TARGET = target;
+        return new FindTasksOnDateCommand(target);
+    }
 
-        Predicate<Task> isOnDate = t -> {
-            if (t instanceof Deadline) {
-                Deadline d = (Deadline) t;
-                return d.isHappeningOnDate(FINAL_TARGET);
-            } else if (t instanceof Event) {
-                Event e = (Event) t;
-                return e.isHappeningOnDate(FINAL_TARGET);
-            }
-            return false;
-        };
+    private Command newFindCommand(String[] inputs) throws InvalidCommandFormatException {
+        if (inputs.length == 1) {
+            throw new InvalidCommandFormatException("No argument is provided!" + "\nFormat: " +
+                    CommandType.FIND.getCommandFormat());
+        }
 
-        return new FindTasksOnDateCommand(isOnDate, dateStr);
+        String keyword = inputs[1];
+
+        return new FindTasksContainKeyword(keyword);
     }
 
     private Command newAddCommand(String[] inputs, CommandType type) throws InvalidCommandFormatException {
