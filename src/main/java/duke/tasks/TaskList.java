@@ -5,38 +5,38 @@ import duke.tasks.Task;
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> taskList;
+    private ArrayList<Task> tasks;
 
     public TaskList() {
-        this.taskList = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     public String getTaskAsString(int index) {
-        return taskList.get(index).toString();
+        return tasks.get(index).toString();
     }
 
     public void printTasksAsList() {
         int index = 1;
-        for (Task task : taskList) {
+        for (Task task : tasks) {
             System.out.println(index + "." + task.toString());
             index++;
         }
     }
 
     public void addTask(Task newTask) {
-        taskList.add(newTask);
+        tasks.add(newTask);
     }
 
     public void removeTask(int index) {
-        taskList.remove(index);
+        tasks.remove(index);
     }
 
     public Task getTask(int index) {
-        return taskList.get(index);
+        return tasks.get(index);
     }
 
     public int getTaskCount() {
-        return taskList.size();
+        return tasks.size();
     }
 
     public void markTaskAsDone(int index, boolean done) {
@@ -45,7 +45,7 @@ public class TaskList {
 
     public String getTaskListData() {
         String data = "";
-        for (Task task : taskList) {
+        for (Task task : tasks) {
             data = data.concat(task.toData() + "\n");
         }
         return data;

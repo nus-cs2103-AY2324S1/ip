@@ -21,7 +21,7 @@ public class Storage {
         initialize();
     }
 
-    // for testing purposes only
+    //For testing purposes only
     public Storage(TaskList taskList) {
         this.taskList = taskList;
         this.path = "";
@@ -125,7 +125,7 @@ public class Storage {
         }
     }
 
-    // for testing purposes
+    //For testing purposes
     public TaskList getTaskList() {
         return taskList;
     }

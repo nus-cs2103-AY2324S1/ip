@@ -40,7 +40,7 @@ public class DeadlineTask extends Task {
         return "D|" + super.toData() + "|" + by;
     }
 
-    // for testing purposes only
+    //For testing purposes only
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

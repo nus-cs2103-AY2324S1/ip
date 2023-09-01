@@ -39,8 +39,7 @@ public class StorageTest {
         TaskList taskList = new TaskList();
         Storage storage = new Storage(taskList);
         storage.loadTasksFromFile(new File("./data/storage.txt"), taskList);
-        assertEquals("Error scanning file!", outputStreamCaptor.toString()
-                .trim());
+        assertEquals("Error scanning file!", outputStreamCaptor.toString().trim());
     }
 
     @Test

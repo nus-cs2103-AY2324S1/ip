@@ -4,7 +4,7 @@ import duke.tasks.TaskList;
 
 public class Ui {
     private String botName;
-    private static String SPACER = "--------------------------------------------------------------------------";
+    private final static String SPACER = "--------------------------------------------------------------------------";
 
     public Ui(String botName) {
         this.botName = botName;
@@ -67,14 +67,22 @@ public class Ui {
     }
 
     public enum ExceptionMessage {
-        MarkCommand_NumberFormatException("HOLD UP! Invalid input for mark/unmark command. Input must be a positive non-zero integer."),
-        DeleteCommand_NumberFormatException("HOLD UP! Invalid input for delete command. Input must be a positive non-zero integer."),
-        TaskList_IndexOutOfBoundsException("HOLD UP! There is no such task in your list!"),
-        AddTask_MissingDescription("HOLD UP! So... what is this task about??"),
-        AddTask_DateTimeParseException("HOLD UP! You are not formatting your dates right! Use \"yyyy-MM-dd HH:mm\" >:("),
-        AddTask_MissingDeadline("HOLD UP! C'mon, what's the deadline?"),
-        AddTask_MissingStartEndDate("HOLD UP! C'mon, when does it start and end?"),
-        InvalidInput("HOLD UP! What on earth do you mean??");
+        MarkCommand_NumberFormatException(
+                "HOLD UP! Invalid input for mark/unmark command. Input must be a positive non-zero integer."),
+        DeleteCommand_NumberFormatException(
+                "HOLD UP! Invalid input for delete command. Input must be a positive non-zero integer."),
+        TaskList_IndexOutOfBoundsException(
+                "HOLD UP! There is no such task in your list!"),
+        AddTask_MissingDescription(
+                "HOLD UP! So... what is this task about??"),
+        AddTask_DateTimeParseException(
+                "HOLD UP! You are not formatting your dates right! Use \"yyyy-MM-dd HH:mm\" >:("),
+        AddTask_MissingDeadline(
+                "HOLD UP! C'mon, what's the deadline?"),
+        AddTask_MissingStartEndDate(
+                "HOLD UP! C'mon, when does it start and end?"),
+        InvalidInput(
+                "HOLD UP! What on earth do you mean??");
 
         public String message;
 
