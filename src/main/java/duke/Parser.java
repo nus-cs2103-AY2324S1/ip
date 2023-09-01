@@ -1,4 +1,6 @@
 package duke;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -69,35 +71,65 @@ public class Parser {
         }
     }
 
-    public boolean checkValidTask(String details) {
-        return !details.isEmpty();
+    public String checkTaskInput(String taskType) {
+        Scanner sc = new Scanner(System.in);
+        System.out.printf("Input %s details.%n", taskType);
+        String message = sc.nextLine();
+        if (message.isBlank()) {
+            System.out.printf("The %s details cannot be empty.%n", taskType);
+            ui.printEndOfOperation();
+            return null;
+        } else if (tasks.checkDuplicates(message)) {
+            System.out.printf("Task %s already exists.%n", message);
+            ui.printEndOfOperation();
+            return null;
+        } else {
+            return message;
+        }
     }
 
-    public String checkUserInput(String taskType, String input) {
+    public LocalDate checkDateInput(String taskType, String input) {
         Scanner sc = new Scanner(System.in);
-        System.out.printf("Input %s %s.%n", taskType, input);
+        System.out.printf("Input %s %s date. (Required format: YYYY-MM-DD)%n",
+                taskType, input);
         String message = sc.nextLine();
         try {
-            if (!checkValidTask(message)) {
-                if (taskType.equals("deadline") &&
-                        input.equals("due time (Optional, Required format: HH:MM)")) {
-                    return "23:59";
+            if (message.isBlank()) {
+                System.out.printf("The %s %s cannot be empty.%n", taskType, input);
+                ui.printEndOfOperation();
+                return null;
+            } else {
+                return LocalDate.parse(message);
+            }
+        } catch (DateTimeParseException e) {
+            System.out.printf("Invalid date format. Please try again.%n");
+            ui.printEndOfOperation();
+            return null;
+        }
+    }
+
+    public LocalTime checkTimeInput(String taskType, String input) {
+        Scanner sc = new Scanner(System.in);
+        System.out.printf("Input %s %s time. (Required format: HH:MM)%n",
+                taskType, input);
+        String message = sc.nextLine();
+        try {
+            if (message.isBlank()) {
+                if (taskType.equals("deadline") && input.equals("due")) {
+                    return LocalTime.of(23, 59);
                 } else {
                     System.out.printf("The %s %s cannot be empty.%n", taskType, input);
                     ui.printEndOfOperation();
                     return null;
                 }
-            } else if (tasks.checkDuplicates(message)) {
-                System.out.printf("Task %s already exists.%n", message);
-                ui.printEndOfOperation();
-                return null;
+            } else {
+                return LocalTime.parse(message);
             }
         } catch (DateTimeParseException e) {
-            System.out.printf("Invalid date or time format. Please try again.%n");
+            System.out.printf("Invalid time format. Please try again.%n");
             ui.printEndOfOperation();
             return null;
         }
-        return message;
     }
 
     public Integer launchConfirmationScreen(String message) {

@@ -46,7 +46,7 @@ public class Duke {
     }
 
     public void createTask() {
-        String details = parser.checkUserInput("task", "details");
+        String details = parser.checkTaskInput("task");
         if (details != null) {
             tasks.add(new Task(details));
             System.out.printf("Don't expect me to %s for you!%n", details);
@@ -55,7 +55,7 @@ public class Duke {
     }
 
     public void createToDo() {
-        String details = parser.checkUserInput("todo", "details");
+        String details = parser.checkTaskInput("todo");
         if (details != null) {
             tasks.add(new ToDo(details));
             System.out.printf("Stop talking to me! Go and %s!%n", details);
@@ -64,14 +64,21 @@ public class Duke {
     }
 
     public void createDeadline() {
-        String details = parser.checkUserInput("deadline","details");
+        String details = parser.checkTaskInput("deadline");
         if (details == null) {
             return;
         }
-        LocalDate dueDate = LocalDate.parse(parser.checkUserInput("deadline",
-                "due date (Required format: YYYY-MM-DD)"));
-        LocalTime dueTime = LocalTime.parse(parser.checkUserInput("deadline",
-                "due time (Optional, Required format: HH:MM)"));
+        LocalDate dueDate = parser.checkDateInput("deadline", "due");
+        if (dueDate == null) {
+            return;
+        }
+        LocalTime dueTime = parser.checkTimeInput("deadline", "due");
+        if (dueTime == null) {
+            // Shouldn't reach here as creation of deadline without time input is supported.
+            // Invalid input is also handled in the Parser class.
+            // Default dueTime is 23:59.
+            return;
+        }
         LocalDateTime due = dueTime.atDate(dueDate);
         tasks.add(new Deadline(details, due));
         System.out.printf("Just saying, better %s now.%n" +
@@ -80,23 +87,31 @@ public class Duke {
     }
 
     public void createEvent() {
-        String details = parser.checkUserInput("event", "details");
+        String details = parser.checkTaskInput("event");
         if (details == null) {
             return;
         }
-        LocalDate startDate = LocalDate.parse(parser.checkUserInput("event",
-                "start date (Required format: YYYY-MM-DD)"));
-        LocalTime startTime = LocalTime.parse(parser.checkUserInput("event",
-                "start time (Required format: HH:MM)"));
-        LocalDate endDate = LocalDate.parse(parser.checkUserInput("event",
-                "end date (Required format: YYYY-MM-DD)"));
-        LocalTime endTime = LocalTime.parse(parser.checkUserInput("event",
-                "end time (Required format: HH:MM)"));
+        LocalDate startDate = parser.checkDateInput("event", "start");
+        if (startDate == null) {
+            return;
+        }
+        LocalTime startTime = parser.checkTimeInput("event", "start");
+        if (startTime == null) {
+            return;
+        }
+        LocalDate endDate = parser.checkDateInput("event", "end");
+        if (endDate == null) {
+            return;
+        }
+        LocalTime endTime = parser.checkTimeInput("event", "end");
+        if (endTime == null) {
+            return;
+        }
         LocalDateTime start = startTime.atDate(startDate);
         LocalDateTime end = endTime.atDate(endDate);
         tasks.add(new Event(details, start, end));
-        System.out.printf("Wow, you have a %s at %s?%n" +
-                "Uhh, n-not like I wanna join you!%n", details, start);
+        System.out.printf("Wow, you have a %s?%n" +
+                "Uhh, n-not like I wanna join you!%n", details);
         ui.printEndOfOperation();
     }
 
