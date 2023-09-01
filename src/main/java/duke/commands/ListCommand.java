@@ -1,9 +1,9 @@
 package duke.commands;
 
-import duke.TaskList;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import duke.TaskList;
 
 public class ListCommand extends Command {
     @Override

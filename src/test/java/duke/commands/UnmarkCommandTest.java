@@ -1,13 +1,14 @@
 package duke.commands;
 
-import duke.TaskList;
-import duke.tasks.Todo;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import org.junit.jupiter.api.Test;
+
+import duke.TaskList;
+import duke.tasks.Todo;
 
 public class UnmarkCommandTest {
     private static final String invalidFormatMessage = String.join(

@@ -1,9 +1,9 @@
 package duke.commands;
 
+import java.util.regex.Pattern;
+
 import duke.TaskList;
 import duke.tasks.Task;
-
-import java.util.regex.Pattern;
 
 public class UnmarkCommand extends Command {
     private static final Pattern pattern = Pattern.compile("^unmark\\s+(?<taskNum>.+)$");

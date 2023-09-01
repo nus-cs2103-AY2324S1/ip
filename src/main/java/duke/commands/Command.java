@@ -1,9 +1,9 @@
 package duke.commands;
 
-import duke.TaskList;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import duke.TaskList;
 
 public abstract class Command {
     protected Matcher matcher;

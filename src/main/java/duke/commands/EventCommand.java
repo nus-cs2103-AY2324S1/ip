@@ -1,11 +1,11 @@
 package duke.commands;
 
-import duke.TaskList;
-import duke.tasks.Event;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
+
+import duke.TaskList;
+import duke.tasks.Event;
 
 public class EventCommand extends Command {
     private static final Pattern pattern = Pattern.compile(

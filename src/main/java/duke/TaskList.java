@@ -1,12 +1,12 @@
 package duke;
 
-import duke.tasks.Task;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import duke.tasks.Task;
 
 /**
  * Represents a list of tasks.
