@@ -10,6 +10,12 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
 
+    /**
+     * Parses the input string into command which can be executed.
+     * @param input String read by ui and to be parsed.
+     * @return The corresponding command.
+     * @throws DukeException If the input string has a wrong format.
+     */
     public static Command parseCommand(String input) throws DukeException {
         String[] inputArr = input.split(" ", 2);
         String command = inputArr[0];
@@ -130,8 +136,11 @@ public class Parser {
         }
     }
 
-
-
+    /**
+     * Parses the string with saving format into task.
+     * @param input String with saving format.
+     * @return The corresponding task.
+     */
     public static Task parseSaveFile(String input) {
         String[] inputArr = input.split("/");
         Task temp;

@@ -17,7 +17,11 @@ public class Storage {
         this.path = path;
     }
 
-
+    /**
+     * Save the task list into a file located at the certain path.
+     * @param taskList Task list that going to be saved.
+     * @throws DukeException If catch any IOException.
+     */
     public void save(TaskList taskList) throws DukeException{
         try {
             FileWriter fw = new FileWriter(path);
@@ -30,6 +34,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Load the save file from the save file and convert it into array list.
+     * @return Array list that store the task located in the save file.
+     * @throws DukeException If the save file not found.
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> taskList = new ArrayList<>();
         File f = new File(path);

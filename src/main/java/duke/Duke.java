@@ -8,6 +8,10 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor of Duke class.
+     * @param filePath File path of the save file.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -19,6 +23,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the programme.
+     */
     public void run() {
         ui.showWelcomeMessage();
         boolean isExit = false;
