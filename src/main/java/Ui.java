@@ -55,12 +55,4 @@ public class Ui {
         System.out.println(line);
     }
 
-
-
-
-
-
-
-
-
 }

@@ -39,7 +39,6 @@ public class TaskList {
 
     public void chadMarkTask(int index) {
         taskArrayList.get(index - 1).isComplete = true;
-//        ui.chadMarkTaskOutput(taskArrayList.get(index - 1).name, taskArrayList.get(index - 1).getMark());
     }
 
     public void chadUnmarkTask(int index) {
