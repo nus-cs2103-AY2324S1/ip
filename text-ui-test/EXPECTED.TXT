@@ -15,7 +15,6 @@ Now you have 1 tasks in the list.
 _________________________
 
 _________________________
-
 Here are the tasks in your list:
 1.[T][ ] homework
 _________________________
