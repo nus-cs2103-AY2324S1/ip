@@ -7,7 +7,7 @@ package duke.exceptions;
  */
 public class IncorrectCommandFormatException extends Exception {
     public IncorrectCommandFormatException(String description) {
-        super(description == null ? "OOPS!!! Command format is incorrect!"
+        super(description == "" ? "OOPS!!! Command format is incorrect!"
                 : "OOPS!!! Command format is incorrect!\n    Usage: " + description);
     }
 }

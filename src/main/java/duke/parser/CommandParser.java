@@ -3,11 +3,12 @@ package duke.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import duke.Commands;
-import duke.TaskListStorage;
 import duke.exceptions.MissingDescriptionException;
 import duke.exceptions.UnknownCommandException;
+import duke.commands.Command;
 import duke.exceptions.IncorrectCommandFormatException;
+import duke.exceptions.InvalidIndexException;
+import duke.exceptions.InvalidTimeFormatException;
 
 public abstract class CommandParser {
     protected String commandName;
@@ -18,15 +19,16 @@ public abstract class CommandParser {
         this.regexPattern = Pattern.compile(regexPattern);
     }
 
-    public Commands parse(String input) throws UnknownCommandException, MissingDescriptionException, IncorrectCommandFormatException {
+    public Command parse(String input) throws UnknownCommandException, MissingDescriptionException, IncorrectCommandFormatException, InvalidIndexException, InvalidTimeFormatException {
         Matcher matcher = this.regexPattern.matcher(input);
         if (matcher.matches()) {
             validate(matcher);
         } else {
-            throw new IncorrectCommandFormatException("Command format is incorrect");
+            throw new IncorrectCommandFormatException("");
         }
-        return Commands.valueOf(this.commandName);
+        return createCommand(matcher);
     }
 
-    protected abstract void validate(Matcher matcher) throws UnknownCommandException, MissingDescriptionException, IncorrectCommandFormatException;
+    protected abstract void validate(Matcher matcher) throws UnknownCommandException, MissingDescriptionException, IncorrectCommandFormatException, InvalidIndexException;
+    protected abstract Command createCommand(Matcher matcher) throws MissingDescriptionException, IncorrectCommandFormatException, InvalidTimeFormatException; 
 }

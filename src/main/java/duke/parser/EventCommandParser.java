@@ -2,30 +2,40 @@ package duke.parser;
 
 import java.util.regex.Matcher;
 
-import duke.exceptions.MissingDescriptionException;
+import duke.commands.Command;
+import duke.commands.TaskCommands.EventCommand;
 import duke.exceptions.IncorrectCommandFormatException;
+import duke.exceptions.InvalidTimeFormatException;
+import duke.exceptions.MissingDescriptionException;
 
 public class EventCommandParser extends CommandParser {
     public EventCommandParser() {
-        super("event", "^(?P<command>event)(?: (?P<description>.*?) /from (?P<from_time>\\d{4}-\\d{2}-\\d{2}) /to (?P<to_time>\\d{4}-\\d{2}-\\d{2}))?$");
+        super("event",
+                "^(?<command>event)(?: (?<description>.*?)?(?<from> /from\\s*)?(?<fromTime>\\d{4}-\\d{2}-\\d{2})?(?<to> /to\\s*)?(?<toTime>\\d{4}-\\d{2}-\\d{2})?)?$");
     }
 
     @Override
     protected void validate(Matcher matcher) throws IncorrectCommandFormatException, MissingDescriptionException {
         String description = matcher.group("description");
-        String fromTime = matcher.group("from_time");
-        String toTime = matcher.group("to_time");
+        String from = matcher.group("from");
+        String to = matcher.group("to");
 
         if (description == null || description.trim().isEmpty()) {
-            throw new MissingDescriptionException("Description is missing");
+            throw new MissingDescriptionException("Event");
         }
 
-        if (fromTime == null && toTime == null) {
+        if (from == null && to == null) {
             throw new IncorrectCommandFormatException("Both /from and /to are missing");
-        } else if (fromTime == null) {
+        } else if (from == null) {
             throw new IncorrectCommandFormatException("Missing /from");
-        } else if (toTime == null) {
+        } else if (to == null) {
             throw new IncorrectCommandFormatException("Missing /to");
         }
+    }
+
+    @Override
+    protected Command createCommand(Matcher matcher)
+            throws MissingDescriptionException, IncorrectCommandFormatException, InvalidTimeFormatException {
+        return new EventCommand(matcher);
     }
 }
