@@ -1,17 +1,35 @@
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import Exception.MissingTaskException;
 import Exception.MissingCommandException;
 import Exception.MissingTextException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.jsontype.NamedType;
 
 public class Duke {
-    // obligatory enums here
-    enum Test {
-        HI, YOU, LOOK, AMAZING
-    }
-    final static ArrayList<Task> tasks = new ArrayList<>();
+
+    static ArrayList<Task> tasks = new ArrayList<>();
+    static final ObjectMapper MAPPER = new ObjectMapper();
+
     final static String horizontalLine = "   ------------------------\n";
     public static void main(String[] args) {
+        try {
+            tasks = MAPPER.readValue(new File("tasks.json"), new TypeReference<>() {});
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found, generating file...");
+        } catch (IOException e) {
+            System.out.println("Uh oh, file is corrupted, starting afresh...");
+        }
+
+
         printGreetings();
         Scanner scanner = new Scanner(System.in);
 
@@ -110,6 +128,8 @@ public class Duke {
                     break;
             }
             System.out.println("\n" + horizontalLine);
+
+            updateAndSaveFile();
         }
     }
 
@@ -184,6 +204,17 @@ public class Duke {
         } catch (NumberFormatException ne) {
             System.out.println("You need to enter a number");
             return -1;
+        }
+    }
+
+
+
+    private static void updateAndSaveFile() {
+        try {
+            String jsonString = MAPPER.writerFor(new TypeReference<ArrayList<Task>>() {}).writeValueAsString(tasks);
+            Files.writeString(Path.of("tasks.json"), jsonString, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

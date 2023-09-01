@@ -1,7 +1,11 @@
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+@JsonTypeName("Event")
 public class Event extends Task{
-    String from;
-    String to;
-    public Event(String task, String from, String to) {
+    public String from;
+    public String to;
+    public Event(@JsonProperty("task") String task, @JsonProperty("from") String from, @JsonProperty("to")String to) {
         super(task);
         this.from = from;
         this.to = to;
