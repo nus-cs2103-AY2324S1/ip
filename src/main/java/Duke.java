@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -150,15 +151,17 @@ public class Duke {
                 }
                 case ("deadline"): {
                     String description, deadline;
+                    LocalDate deadlineDate;
                     try {
                         description = params.split(" /by ")[0];
                         deadline = params.split(" /by ")[1];
+                        deadlineDate = LocalDate.parse(deadline);
                     } catch (Exception e) {
                         throw new SisyphusException("Include both description and deadline for a deadline. \nHere " +
-                                "is an example: deadline roll boulder /by eternity");
+                                "is an example: deadline roll boulder /by 2023-10-15");
                     }
 
-                    Deadline deadlineTask = new Deadline(description, deadline);
+                    Deadline deadlineTask = new Deadline(description, deadlineDate);
                     taskList.addTask(deadlineTask);
                     storage.writeFile(taskList);
 

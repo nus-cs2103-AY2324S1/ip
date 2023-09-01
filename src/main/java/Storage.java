@@ -1,6 +1,9 @@
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class Storage {
     String currentDirectory = System.getProperty("user.dir");
     String fileName = "sisyphusData.csv";
@@ -39,7 +42,13 @@ public class Storage {
                     }
                     case ("D"): {
                         if (params.length == 4) {
-                            Deadline deadline = new Deadline(params[1], params[2].equals("1"), params[3]);
+                            LocalDate deadlineDate;
+                            try {
+                                deadlineDate = LocalDate.parse(params[3]);
+                            } catch (DateTimeParseException e) {
+                                continue;
+                            }
+                            Deadline deadline = new Deadline(params[1], params[2].equals("1"), deadlineDate);
                             savedTaskList.addTask(deadline);
                         }
                         break;
