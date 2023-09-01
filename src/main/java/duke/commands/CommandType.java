@@ -13,6 +13,7 @@ public enum CommandType {
     ADD_TODO,
     ADD_DEADLINE,
     ADD_EVENT,
+    FIND,
     INVALID;
 
     /**
@@ -39,6 +40,8 @@ public enum CommandType {
             return CommandType.ADD_DEADLINE;
         case "event":
             return CommandType.ADD_EVENT;
+        case "find":
+            return CommandType.FIND;
         default:
             return CommandType.INVALID;
         }

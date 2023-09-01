@@ -226,7 +226,7 @@ public abstract class Command {
         }
 
         /**
-         * Executes the add command, adding the specified task to the task list.
+         * Executes the "add" command, adding the specified task to the task list.
          *
          * @param tasks   The TaskList containing tasks to be manipulated.
          * @param ui      The user interface for displaying messages.
@@ -242,6 +242,42 @@ public abstract class Command {
         public CommandType getType() {
             return this.commandType;
 
+        }
+    }
+
+    /**
+     * The Find class represents the "find" command in the Duke application, allowing the user to find tasks.
+     * It finds tasks in the task list that contain the specified keyword.
+     */
+    public static class Find extends Command {
+        /** The keyword to be searched for. */
+        private String keyword;
+
+        /**
+         * Constructs a Find command with the specified keyword.
+         *
+         * @param keyword The keyword to be searched for.
+         */
+        public Find(String keyword) {
+            this.keyword = keyword;
+        }
+
+        /**
+         * Executes the "find" command, finding tasks in the task list that contain the specified keyword.
+         *
+         * @param tasks   The TaskList containing tasks to be manipulated.
+         * @param ui      The user interface for displaying messages.
+         * @param storage The storage object (not used in this command).
+         * @throws DukeException If an error occurs during task finding.
+         */
+        @Override
+        public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+            tasks.findTasks(keyword);
+        }
+
+        @Override
+        public CommandType getType() {
+            return CommandType.FIND;
         }
     }
 

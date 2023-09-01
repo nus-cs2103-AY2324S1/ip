@@ -122,6 +122,12 @@ public class Parser {
                             + "dd/MM/yyyy HHmm");
                 }
             }
+        case FIND:
+            if (commandDetails.equals("")) {
+                return new Command.InvalidCommand("☹ OOPS!!! Please enter a keyword to search for.");
+            } else {
+                return new Command.Find(commandDetails);
+            }
         case INVALID:
             return new Command.InvalidCommand("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

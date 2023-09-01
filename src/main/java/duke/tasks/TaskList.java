@@ -29,7 +29,7 @@ public class TaskList {
     public void addTask(Task task) {
         tasks.add(task);
         Ui.printMessageWithSeparator("Got it. I've added this task:\n" + task.getDescription()
-                + "\nNow you have " + tasks.size() + " duke.tasks in the list.");
+                + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
@@ -44,7 +44,7 @@ public class TaskList {
             Task task = tasks.get(index);
             tasks.remove(index);
             Ui.printMessageWithSeparator("Noted. I've removed this task:\n" + task.getDescription()
-                    + "\nNow you have " + tasks.size() + " duke.tasks in the list.");
+                    + "\nNow you have " + tasks.size() + " tasks in the list.");
         }
     }
 
@@ -88,6 +88,31 @@ public class TaskList {
             System.out.println((i + 1) + ". " + task.getDescription());
         }
         System.out.println(Ui.LINE_SEPARATOR);
+    }
+
+    /**
+     * Finds tasks that contain a given keyword and prints them.
+     *
+     * @param keyword The keyword to be searched for.
+     */
+    public void findTasks(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        if (foundTasks.size() == 0) {
+            Ui.printMessageWithSeparator("No matching tasks found.");
+        } else {
+            System.out.println(Ui.LINE_SEPARATOR);
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < foundTasks.size(); i++) {
+                Task task = foundTasks.get(i);
+                System.out.println((i + 1) + ". " + task.getDescription());
+            }
+            System.out.println(Ui.LINE_SEPARATOR);
+        }
     }
 
     /**
