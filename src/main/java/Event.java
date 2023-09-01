@@ -45,7 +45,7 @@ public class Event extends Task{
         String eventType = "event";
         String eventDescription = descrArr[0].substring(eventType.length()).trim();
 
-        return "E | " + super.status() + "| " + eventDescription + " | " + restOfFrom + "to " + restOfTo;
+        return "E | " + super.status() + "| " + eventDescription + " | " + restOfFrom + " to " + restOfTo;
     }
 
     @Override
