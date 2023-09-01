@@ -1,3 +1,7 @@
+package duke;
+
+import Exceptions.DukeException;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -60,7 +64,7 @@ public class Duke {
 //    public static void todoTask(String i) {
 //        String[] taskDetails = i.split(" ", 2);
 //        try {
-//            taskArray.add(new Todo(taskDetails[1]));
+//            taskArray.add(new duke.Todo(taskDetails[1]));
 //            taskArray.get(numTask).printMessage(numTask);
 //        } catch (ArrayIndexOutOfBoundsException e) {
 //            System.out.println(horizontalLine + "\n"
@@ -74,7 +78,7 @@ public class Duke {
 //        String[] taskDetails = i.split(" ", 2);
 //        try {
 //            String[] deadlineDetails = taskDetails[1].split(" /by ", 2);
-//            taskArray.add(new Deadline(deadlineDetails[0], deadlineDetails[1]));
+//            taskArray.add(new duke.Deadline(deadlineDetails[0], deadlineDetails[1]));
 //            taskArray.get(numTask).printMessage(numTask);
 //        } catch (ArrayIndexOutOfBoundsException e) {
 //            System.out.println(horizontalLine + "\n"
@@ -88,7 +92,7 @@ public class Duke {
 //        String[] taskDetails = i.split(" ", 2);
 //        try {
 //            String[] eventDetails = taskDetails[1].split(" /", 3);
-//            taskArray.add(new Event(eventDetails[0], eventDetails[1].substring(5),
+//            taskArray.add(new duke.Event(eventDetails[0], eventDetails[1].substring(5),
 //                    eventDetails[2].substring(3)));
 //            taskArray.get(numTask).printMessage(numTask);
 //        } catch (ArrayIndexOutOfBoundsException e) {
@@ -189,7 +193,7 @@ public class Duke {
 //                String taskDescription = taskDetails[2];
 //                switch (taskType) {
 //                    case "T":
-//                        Todo addTodo = new Todo(taskDescription);
+//                        duke.Todo addTodo = new duke.Todo(taskDescription);
 //                        if (Objects.equals(taskStatus, "done")) {
 //                            addTodo.updateAsDone();
 //                        }
@@ -197,7 +201,7 @@ public class Duke {
 //                        numTask++;
 //                        break;
 //                    case "D":
-//                        Deadline addDeadline = new Deadline(taskDescription, taskDetails[3]);
+//                        duke.Deadline addDeadline = new duke.Deadline(taskDescription, taskDetails[3]);
 //                        if (Objects.equals(taskStatus, "Y")) {
 //                            addDeadline.markAsDone();
 //                        }
@@ -206,7 +210,7 @@ public class Duke {
 //                        break;
 //                    case "E":
 //                        String[] timeDetails = taskDetails[3].split(" - ", 2);
-//                        Event addEvent = new Event(taskDescription, timeDetails[0], timeDetails[1]);
+//                        duke.Event addEvent = new duke.Event(taskDescription, timeDetails[0], timeDetails[1]);
 //                        if (Objects.equals(taskStatus, "Y")) {
 //                            addEvent.markAsDone();
 //                        }

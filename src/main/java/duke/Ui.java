@@ -1,3 +1,5 @@
+package duke;
+
 public class Ui {
     protected static final String horizontalLine = "    ____________________________________________________________";
     public static void greet() {

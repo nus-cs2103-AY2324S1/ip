@@ -1,8 +1,10 @@
+package duke;
+import Exceptions.DukeException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
