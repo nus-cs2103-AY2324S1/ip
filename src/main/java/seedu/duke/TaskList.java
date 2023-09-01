@@ -41,9 +41,9 @@ public class TaskList {
      * Lists out all the tasks in task list.
      */
     public void listOutEverything() {
-        System.out.println(Ui.i5 + "Here are the tasks in your list:");
+        System.out.println(Ui.I5 + "Here are the tasks in your list:");
         for (int i = 0; i < this.list.size(); i++) {
-            System.out.println(Ui.i5 + (i + 1) + "." + this.list.get(i));
+            System.out.println(Ui.I5 + (i + 1) + "." + this.list.get(i));
         }
     }
 
@@ -87,33 +87,40 @@ public class TaskList {
      */
     public void add(Task task) {
         this.list.add(task);
-        System.out.println(Ui.i5 + "Got it. I've added this task:");
-        System.out.println(Ui.i7 + task);
-        System.out.println(Ui.i5 + "Now you have " + this.list.size() + " tasks in the list.");
+        System.out.println(Ui.I5 + "Got it. I've added this task:");
+        System.out.println(Ui.I7 + task);
+        System.out.println(Ui.I5 + "Now you have " + this.list.size() + " tasks in the list.");
         this.storage.updateHardDisk(this.list);
     }
 
     /**
-     * Removes the given task from the task list.
+     * Removes the given task from the task listI
      *
      * @param index Index of the task to be removed.
      */
     public void remove(int index) {
         Task t = this.list.remove(index);
-        System.out.println(Ui.i5 + "Noted. I've removed this task:");
-        System.out.println(Ui.i7 + t);
-        System.out.println(Ui.i5 + "Now you have " + this.list.size() + " tasks in the list.");
+        System.out.println(Ui.I5 + "Noted. I've removed this task:");
+        System.out.println(Ui.I7 + t);
+        System.out.println(Ui.I5 + "Now you have " + this.list.size() + " tasks in the list.");
         this.storage.updateHardDisk(this.list);
     }
 
+    /**
+     * Finds the task which the user
+     * intends to find.
+     *
+     * @param toFind String representation of what the users
+     *               intend to find.
+     */
     public void find(String toFind) {
-        System.out.println(Ui.i5 + "Here are the matching tasks in your list:");
+        System.out.println(Ui.I5 + "Here are the matching tasks in your list:");
         for (int i = 0, j = 0; j < this.list.size(); j++) {
             String currInput = this.list.get(j).toString();
             if (!currInput.contains(toFind)) {
                 continue;
             }
-            System.out.println(Ui.i5 + (++i) + "." + currInput);
+            System.out.println(Ui.I5 + (++i) + "." + currInput);
         }
     }
 }

@@ -59,21 +59,21 @@ public class Duke {
             case MARK:
                 int markIndex = this.ui.mark();
                 if (this.taskList.isOutOfRange(markIndex)) {
-                    throw new DukeException(Ui.i5 + "☹ OOPS!!! Please specify a valid task number to be marked.");
+                    throw new DukeException(Ui.I5 + "☹ OOPS!!! Please specify a valid task number to be marked.");
                 }
                 this.taskList.mark(markIndex);
                 break;
             case UNMARK:
                 int unmarkIndex = this.ui.unmark();
                 if (taskList.isOutOfRange(unmarkIndex)) {
-                    throw new DukeException(Ui.i5 + "☹ OOPS!!! Please specify a valid task number to be unmarked.");
+                    throw new DukeException(Ui.I5 + "☹ OOPS!!! Please specify a valid task number to be unmarked.");
                 }
                 this.taskList.unmark(unmarkIndex);
                 break;
             case DELETE:
                 int deleteIndex = this.ui.delete();
                 if (taskList.isOutOfRange(deleteIndex)) {
-                    throw new DukeException(Ui.i5 + "☹ OOPS!!! Please specify a valid task number to be deleted.");
+                    throw new DukeException(Ui.I5 + "☹ OOPS!!! Please specify a valid task number to be deleted.");
                 }
                 this.taskList.remove(deleteIndex);
                 break;
@@ -91,7 +91,7 @@ public class Duke {
                 this.taskList.find(toFind);
                 break;
             default:
-                throw new DukeException(Ui.i5 + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new DukeException(Ui.I5 + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (DukeException e) {
             exceptionOccurs = true;

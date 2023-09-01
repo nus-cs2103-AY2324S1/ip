@@ -11,10 +11,10 @@ import java.util.Scanner;
  * @since 2023-08-29
  */
 public class Ui {
-    public static final String i4 = "    ";
-    public static final String i5 = Ui.i4 + " ";
-    public static final String i7 = Ui.i5 + "  ";
-    public static final String line = Ui.i4 + "——————————————————————————————————————————————————————————————————";
+    public static final String I4 = "    ";
+    public static final String I5 = Ui.I4 + " ";
+    public static final String I7 = Ui.I5 + "  ";
+    public static final String LINE = Ui.I4 + "——————————————————————————————————————————————————————————————————";
 
     private String name;
     private Scanner scanner;
@@ -36,7 +36,7 @@ public class Ui {
      * Prints out a horizontal line.
      */
     public static void line() {
-        System.out.println(Ui.line);
+        System.out.println(Ui.LINE);
     }
 
     /**
@@ -44,17 +44,21 @@ public class Ui {
      */
     public void greet() {
         Ui.line();
-        System.out.println(Ui.i5 + "Hello! I'm " + this.name);
-        System.out.println(Ui.i5 + "What can I do for you?");
+        System.out.println(Ui.I5 + "Hello! I'm " + this.name);
+        System.out.println(Ui.I5 + "What can I do for you?");
         Ui.line();
+    }
+
+    /**
+     * Says bye to the user.
+     */
+    public void exit() {
+        System.out.println(Ui.I5 + "Bye. Hope to see you again soon!");
     }
 
     /**
      * Terminates this chatbot.
      */
-    public void exit() {
-        System.out.println(Ui.i5 + "Bye. Hope to see you again soon!");
-    }
     public void bye() {
         this.scanner.close();
         this.exit();
@@ -131,6 +135,16 @@ public class Ui {
         return this.parser.event(this.input);
     }
 
+    /**
+     * Returns the String representation
+     * of the task which the user intends
+     * to find.
+     *
+     * @return The String representation
+     *      of the task which the user intends
+     *      to find.
+     * @throws DukeException If there are user input errors.
+     */
     public String find() throws DukeException {
         return this.parser.find(this.input);
     }

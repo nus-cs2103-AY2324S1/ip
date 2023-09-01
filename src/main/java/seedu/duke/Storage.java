@@ -60,17 +60,17 @@ public class Storage {
 
 
                 switch (taskType) {
-                    case 'T':
-                        this.loadTodo(list, input);
-                        break;
-                    case 'D':
-                        this.loadDeadline(list, input);
-                        break;
-                    case 'E':
-                        this.loadEvent(list, input);
-                        break;
-                    default:
-                        throw new DukeException(this.filePath + " file is corrupted");
+                case 'T':
+                    this.loadTodo(list, input);
+                    break;
+                case 'D':
+                    this.loadDeadline(list, input);
+                    break;
+                case 'E':
+                    this.loadEvent(list, input);
+                    break;
+                default:
+                    throw new DukeException(this.filePath + " file is corrupted");
                 }
             }
 
