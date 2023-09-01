@@ -6,7 +6,7 @@ public class Addlist {
     private int counter = 0;
     private String[] storage = new String[100];
 
-    public void addnlist() {
+    public void addlist() {
         Scanner sn = new Scanner(System.in);
         String input = sn.nextLine();
         while (!input.equals("bye")) {
