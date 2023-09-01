@@ -139,6 +139,32 @@ public class TaskList {
     }
 
     /**
+     * Method to find relevant tasks.
+     *
+     * @param task the input that specifies what to find.
+     * @throws DukeException if the input is invalid.
+     */
+    public void find(String task) throws DukeException {
+        String[] parts = task.split("find ");
+        if (parts.length < 1) {
+            throw new DukeException("What do you want to find?");
+        }
+        String relevantWord = parts[1].trim();
+        ArrayList<Task> res = new ArrayList<>();
+        for (Task existingTask : taskList) {
+            if (existingTask.toString().contains(relevantWord)) {
+                res.add(existingTask);
+            }
+        }
+        try {
+            TaskList resultList = new TaskList(res);
+            resultList.printList();
+        } catch (DukeException e) {
+            System.out.println("There are no relevant tasks");
+        }
+    }
+
+    /**
      * Method to print taskList.
      *
      * @throws DukeException if the list is empty
@@ -147,10 +173,8 @@ public class TaskList {
         if (taskList.isEmpty()) {
             throw new DukeException("You have no tasks in your list! Yay!");
         } else {
-            int index = 1;
-            for (Task task : taskList) {
-                System.out.println(index + ". " + task);
-                index++;
+            for (int i = 1; i <= taskList.size(); i++) {
+                System.out.println(i + ". " + taskList.get(i - 1));
             }
         }
     }
@@ -201,6 +225,13 @@ public class TaskList {
                     try {
                         this.mark(task);
                     } catch (IndexOutOfBoundsException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case FIND:
+                    try {
+                        find(task);
+                    } catch (DukeException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
