@@ -2,15 +2,12 @@ package emiya;
 
 import emiya.emiyaexception.*;
 
-import emiya.logic.Logic;
 import emiya.parser.Parser;
 import emiya.storage.Storage;
 import emiya.task.*;
 import emiya.ui.Ui;
 
 import java.util.Scanner;
-
-import static emiya.logic.Logic.enumContainsKeyword;
 
 public class Emiya {
     // must remove static at the end
@@ -96,7 +93,7 @@ public class Emiya {
                             taskList.get(position[0]-1).setMarked();
                             System.out.println(ui.markedMessage(position[0], taskList));
                         } else {
-                            throw new UnknownCommandException();
+                            throw new EmptyMarkException();
                         }
                         storage.writeToFileFromTaskList(taskList, fileName, dirName);
                         break;
@@ -108,7 +105,7 @@ public class Emiya {
                             taskList.get(position[0]-1).setUnmarked();
                             System.out.println(ui.unmarkedMessage(position[0], taskList));
                         } else {
-                            throw new UnknownCommandException();
+                            throw new EmptyUnmarkException();
                         }
                         storage.writeToFileFromTaskList(taskList, fileName, dirName);
                         break;
@@ -118,16 +115,22 @@ public class Emiya {
                                 throw new OutOfListBoundsException();
                             }
                             Task task = taskList.get(position[0]-1);
-                            taskList.remove(task);                        // String deleteOutputMessage;
+                            taskList.remove(task);
                             if (taskList.size() == 1) {
                                 System.out.println(ui.deletedSingularMessage(task, taskList));
                             } else {
                                 System.out.println(ui.deletedPluralMessage(task, taskList));
                             }
                         } else {
-                            throw new UnknownCommandException();
+                            throw new EmptyDeleteException();
                         }
                         storage.writeToFileFromTaskList(taskList, fileName, dirName);
+                        break;
+                    case "find":
+                        if (taskDetails.equals("")) {
+                            throw new EmptyFindException();
+                        }
+                        taskList.find(taskDetails);
                         break;
                     case "todo":
                         // need to be able to go through the rest of the string and add it inside

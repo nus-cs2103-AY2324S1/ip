@@ -1,5 +1,6 @@
 package emiya.task;
 
+import emiya.emiyaexception.CannotFindWordException;
 import emiya.emiyaexception.ListEmptyException;
 
 import java.util.ArrayList;
@@ -36,14 +37,10 @@ public class TaskList {
         int listPointer = 1;
         StringBuilder listString = new StringBuilder("-----------------------------------------\n" +
                 "Lots of things to do! Get to it!:\n");
+        if (taskArrayList.size() == 0) {
+            throw new ListEmptyException();
+        }
         for (Task task : taskArrayList) {
-            if (task == null) {
-                if (listPointer == 1) {
-                    // throw new EmiyaException("List is empty! Please add items to list before trying to display list contents!");
-                    throw new ListEmptyException();
-                }
-                break;
-            }
             String listItem = listPointer + "." + task + "\n";
             listPointer++;
             listString.append(listItem);
@@ -52,4 +49,27 @@ public class TaskList {
         System.out.println(listString);
     }
 
+    public void find(String word) throws ListEmptyException, CannotFindWordException {
+        int listPointer = 1;
+        boolean isFound = false;
+        StringBuilder listString = new StringBuilder("-----------------------------------------\n" +
+                "Sure, here are all the tasks that have this word in them:\n");
+        if (taskArrayList.size() == 0) {
+            throw new ListEmptyException();
+        }
+        for (Task task : taskArrayList) {
+            String taskDescription = task.nameOfTask;
+            if (taskDescription.contains(word)) {
+                String listItem = listPointer + "." + task + "\n";
+                listPointer++;
+                listString.append(listItem);
+                isFound = true;
+            }
+        }
+        if (!isFound) {
+            throw new CannotFindWordException();
+        }
+        listString.append("-----------------------------------------\n");
+        System.out.println(listString);
+    }
 }
