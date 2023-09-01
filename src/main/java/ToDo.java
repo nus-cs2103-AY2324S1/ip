@@ -13,6 +13,6 @@ public class ToDo extends Task {
 
     @Override
     public String toSaveFormat() {
-        return String.format("D,%s,%s", description, isDone ? "1" : "0");
+        return String.format("T,%s,%s", description, isDone ? "1" : "0");
     }
 }

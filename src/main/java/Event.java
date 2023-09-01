@@ -19,6 +19,6 @@ public class Event extends Task {
 
     @Override
     public String toSaveFormat() {
-        return String.format("D,%s,%s,%s,%s", description, isDone ? "1" : "0", start, end);
+        return String.format("E,%s,%s,%s,%s", description, isDone ? "1" : "0", start, end);
     }
 }
