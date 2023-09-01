@@ -94,7 +94,7 @@ public class Storage {
         try {
             FileWriter fileWriter = new FileWriter(filePath.toString());
             StringBuilder stringBuilder = new StringBuilder();
-            for (int i = 0; i < taskList.size(); i++) {
+            for (int i = 0; i < taskList.getSize(); i++) {
                 stringBuilder.append(taskList.getTask(i).toSaveFormat());
                 stringBuilder.append('\n');
             }

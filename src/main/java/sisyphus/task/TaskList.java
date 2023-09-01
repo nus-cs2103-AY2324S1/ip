@@ -18,7 +18,7 @@ public class TaskList {
      *
      * @return number of items
      */
-    public int size() {
+    public int getSize() {
         return taskList.size();
     }
 
@@ -74,6 +74,6 @@ public class TaskList {
      * @return the last task added into the list.
      */
     public Task getLastTask() {
-        return getTask(size() - 1);
+        return getTask(getSize()- 1);
     }
 }

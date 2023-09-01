@@ -35,7 +35,7 @@ public class Deadline extends Task {
      * @param localDate
      * @return formatted date in MMM d yyyy format.
      */
-    public String dateFormatter(LocalDate localDate) {
+    public String formatDate(LocalDate localDate) {
         return localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
@@ -46,7 +46,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D][" + this.getStatusIcon() + "] " +  this.description + " (by: " + dateFormatter(this.deadline) + ")";
+        return "[D][" + this.getStatusIcon() + "] " +  this.description + " (by: " + formatDate(this.deadline) + ")";
     }
 
     /**
