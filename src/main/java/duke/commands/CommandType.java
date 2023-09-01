@@ -1,5 +1,9 @@
 package duke.commands;
 
+/**
+ * The CommandType enum represents different types of commands that can be issued by the user in the Duke application.
+ * Each enum value corresponds to a specific command type.
+ */
 public enum CommandType {
     BYE,
     LIST,
@@ -11,6 +15,12 @@ public enum CommandType {
     ADD_EVENT,
     INVALID;
 
+    /**
+     * Returns the CommandType corresponding to the given command string.
+     *
+     * @param command The command string to be mapped to a CommandType.
+     * @return The CommandType that matches the given command string.
+     */
     public static CommandType getCommandType(String command) {
         switch (command) {
         case "bye":
