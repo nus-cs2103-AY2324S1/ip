@@ -10,14 +10,13 @@ import duke.exceptions.MissingDescriptionException;
 
 public class DeadlineCommandParser extends CommandParser {
     public DeadlineCommandParser() {
-        super("deadline", "^(?<command>deadline)(?: (?<description>.*?)?(?<by> /by.*?)?(?<byTime>\\d{4}-\\d{2}-\\d{2})?)?$");
+        super("deadline", "^(?<command>deadline)(?: ((?!/by)(?<description>.*?))?(?<by> /by.*?)?(?<byTime>\\d{4}-\\d{2}-\\d{2})?)?$");
     }
 
     @Override
     protected void validate(Matcher matcher) throws MissingDescriptionException, IncorrectCommandFormatException {
         String description = matcher.group("description");
         String by = matcher.group("by");
-        System.out.println(by);
         String byTime = matcher.group("byTime");
 
         if (description == null || description.trim().isEmpty()) {

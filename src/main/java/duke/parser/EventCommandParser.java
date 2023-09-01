@@ -21,7 +21,6 @@ public class EventCommandParser extends CommandParser {
         String to = matcher.group("to");
         String fromTime = matcher.group("fromTime");
         String toTime = matcher.group("toTime");
-        System.out.println(description + "." + from + "." + to + "." + fromTime + "." + toTime);
 
         if (description == null || description.trim().isEmpty()) {
             throw new MissingDescriptionException("Event");

@@ -34,13 +34,12 @@ deadline /by fail
 deadline fail /by
 deadline this /from should /to fail
 deadline clumping/byshouldfail
-deadline should /by work
+deadline work /by 2023-12-12
 deadline   /by   using spaces for description should fail
 deadline using spaces after by should fail /by 
-deadline   extra spaces  should   /by   work
-deadline this /from should /to make a /by deadline
-deadline this /from should /by not be mixed
-deadline this /by should /to not be mixed
+deadline   extra spaces  should   /by   2023-12-12
+deadline this /from should /to make a /by 2023-31-31
+deadline this /from should /by not be 2023-12-12
 list
 mark 4
 list
@@ -59,9 +58,8 @@ event thisClumping/fromShould /by Fail
 event thisClumping/fromShould/byFail
 event this /from should /by fail
 event this /by should /at fail
-event this /from should /to work
-event this /from should /by not /to be mixed
-event this /by /from should /to not be mixed
+event this /from 2023-12-12 /to 2023-12-31
+event Event2 /from 2023-12-31 /to 2023-12-31
 list
 mark 9
 list

@@ -31,6 +31,22 @@ public class Parser {
         private final CommandParser commandParser;
 
         /**
+         * Returns the command with the specified string representation.
+         * Idea was taken from https://www.baeldung.com/java-enum-values#locating-values
+         *
+         * @param commandString the string representation of the command
+         * @return the command with the specified string representation
+         */
+        public static Commands valueOfLabel(String commandString) {
+            for (Commands commands : values()) {
+                if (commands.commandString.equals(commandString)) {
+                    return commands;
+                }
+            }
+            return null;
+        }
+
+        /**
          * Constructs a new command with the specified string representation and one
          * parameter.
          *
@@ -54,10 +70,10 @@ public class Parser {
         String commandName = input.trim().split(" ")[0];
 
         try {
-            Commands commandType = Commands.valueOf(commandName.toUpperCase());
+            Commands commandType = Commands.valueOfLabel(commandName);
             CommandParser parser = commandType.getParser();
             return parser.parse(input);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | NullPointerException e) {
             throw new UnknownCommandException("Unknown command: " + commandName);
         }
     }

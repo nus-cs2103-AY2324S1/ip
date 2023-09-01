@@ -6,13 +6,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.exceptions.IncorrectCommandFormatException;
+import duke.exceptions.InvalidIndexException;
 import duke.exceptions.MissingDescriptionException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
-import duke.exceptions.IncorrectCommandFormatException;
-import duke.exceptions.InvalidIndexException;
 
 /**
  * The TaskListStorage class stores an arraylist of tasks.
