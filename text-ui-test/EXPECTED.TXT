@@ -3,7 +3,7 @@
    What can I do for you?
    __________________________________________
 T | X | borrow book
-D | O | return book | Sunday
+D | O | return book | Sep 3 2023 5:00PM
 E | X | project meeting | Mon 2pm-4pm
    __________________________________________
    Got it. I've added this task:
@@ -12,7 +12,7 @@ E | X | project meeting | Mon 2pm-4pm
    __________________________________________
    __________________________________________
    Got it. I've added this task:
-     [D][ ] return book (by: Sunday)
+     [D][ ] return book (by: Sep 3 2023 5:00PM)
    Now you have 2 tasks in the list.
    __________________________________________
    __________________________________________
@@ -23,7 +23,7 @@ E | X | project meeting | Mon 2pm-4pm
    __________________________________________
    Here are the tasks in your list:
    1.[T][ ] borrow book
-   2.[D][ ] return book (by: Sunday)
+   2.[D][ ] return book (by: Sep 3 2023 5:00PM)
    3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
    __________________________________________
    __________________________________________
@@ -63,7 +63,7 @@ E | X | project meeting | Mon 2pm-4pm
    __________________________________________
    Here are the tasks in your list:
    1.[T][X] borrow book
-   2.[D][ ] return book (by: Sunday)
+   2.[D][ ] return book (by: Sep 3 2023 5:00PM)
    3.[E][X] project meeting (from: Mon 2pm to: 4pm)
    4.[T][ ] randomthing
    __________________________________________
@@ -78,7 +78,7 @@ E | X | project meeting | Mon 2pm-4pm
    __________________________________________
    Here are the tasks in your list:
    1.[T][X] borrow book
-   2.[D][ ] return book (by: Sunday)
+   2.[D][ ] return book (by: Sep 3 2023 5:00PM)
    3.[E][X] project meeting (from: Mon 2pm to: 4pm)
    __________________________________________
    __________________________________________

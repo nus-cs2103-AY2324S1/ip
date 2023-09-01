@@ -1,9 +1,13 @@
+import java.time.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.time.DayOfWeek;
+
 public class Duke {
     static String indent = "   ";
     static String megaIndent = "     ";
@@ -11,6 +15,11 @@ public class Duke {
     static ArrayList<Task> taskArray = new ArrayList<>();
     static String dataFile = "data/duke.txt";
 
+    /**
+     * Prints the input string with horizontal lines above and below it
+     *
+     * @param string the input string
+     */
     public static void printWithIndent(String string) {
         System.out.println(horizontalLines);
         System.out.println(indent + string);
@@ -73,7 +82,7 @@ public class Duke {
                 taskArray.add(new ToDo(string));
             }
             if (letter.equals("D")) {
-                taskArray.add(new Deadline(getDescription(string), getBy(string)));
+                taskArray.add(new Deadline(getDescription(string), convertToLocalDateTime(getBy(string))));
             }
             if (letter.equals("E")) {
                 taskArray.add(new Event(getDescription(string), getFrom(string), getTo(string)));
@@ -134,7 +143,7 @@ public class Duke {
      *
      * @param string the Task description
      * @return the from part of the event
-     * @throws DukeException
+     * @throws DukeException throws DukeException if invalid input
      */
     public static String getFrom(String string) throws DukeException {
         String slash = "/";
@@ -154,7 +163,7 @@ public class Duke {
      *
      * @param string the Task description
      * @return the to part of the event
-     * @throws DukeException
+     * @throws DukeException throws DukeException if invalid input
      */
     public static String getTo(String string) throws DukeException {
         String slash = "/";
@@ -220,7 +229,7 @@ public class Duke {
                 updateFile(dataFile);
             }
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -239,6 +248,134 @@ public class Duke {
             System.out.println(s.nextLine());
         }
     }
+
+    /**
+     * A function that helps convert a string to a LocalDateTime
+     *
+     * @param input the by part of the Deadline Task, eg. "2/12/2019 1800"
+     * @param c whether or not the Deadline is put in a '-' format or '/' format
+     * @return a LocalDateTime
+     * @throws DukeException if a specific time in 24hr format is not put
+     */
+    public static LocalDateTime parseDateTime(String input, char c) throws DukeException {
+        String[] parts = input.split(" ");
+        if (parts.length != 2) {
+            throw new DukeException("put in a time pls");
+        }
+
+        String datePart = parts[0];
+        String timePart = parts[1];
+
+        String[] dateComponents;
+        if (c == '/') {
+            dateComponents = datePart.split("/");
+        } else {
+            // c == '-'
+            dateComponents = datePart.split("-");
+        }
+
+        if (dateComponents.length != 3) {
+            throw new IllegalArgumentException("Invalid date format");
+        }
+
+        int date = Integer.parseInt(dateComponents[0]);
+        int month = Integer.parseInt(dateComponents[1]);
+        int year = Integer.parseInt(dateComponents[2]);
+        int hour = Integer.parseInt(timePart.substring(0, 2));
+        int minute = Integer.parseInt(timePart.substring(2, 4));
+
+        return LocalDateTime.of(year, month, date, hour, minute);
+    }
+
+    /**
+     * A function that takes in the by part of a Deadline Task, and converts it to a LocalDateTime
+     * For example, the input 'Sunday 1700' will return the corresponding LocalDateTime
+     *
+     * @param string the by part of the Deadline Task
+     * @return the LocalDateTime corresponding to the Deadline
+     * @throws DukeException if a specific time in 24hr format is not put
+     */
+    private static LocalDateTime convertToLocalDateTime(String string) throws DukeException {
+        if (string.indexOf('/') != -1) {
+            if (string.lastIndexOf('/') + 5 == string.length()) { // "2/12/2019 1800"
+                throw new DukeException("put in a time pls");
+            }
+            LocalDateTime dateTime = parseDateTime(string, '/');
+            return dateTime;
+        } else if (string.indexOf('-') != -1) { //
+            if (string.lastIndexOf('-') + 3 == string.length()) { // "2019-10-15 1800"
+                throw new DukeException("put in a time pls");
+            }
+            LocalDateTime dateTime = parseDateTime(string, '-');
+            return dateTime;
+        } else { // "Mon 1800"
+            // problem 1: date does not overflow to next month
+            // problem 2: it goes backwards in day
+            String[] parts = string.split(" ");
+            if (parts.length == 1) {
+                throw new DukeException("put in a time pls");
+            }
+            String dayPart = parts[0];
+            String timePart = parts[1];
+
+            int year = LocalDate.now().getYear();
+            int month = LocalDate.now().getMonth().getValue();
+            int daysToAdd = -LocalDateTime.now().getDayOfWeek().compareTo(getDayOfWeek(dayPart.toUpperCase()));
+            int date = LocalDate.now().getDayOfMonth() + daysToAdd;
+
+            int hour = Integer.parseInt(timePart.substring(0, 2));
+            int minute = Integer.parseInt(timePart.substring(2, 4));
+
+            LocalDate temp = LocalDate.of(year, month, 1);
+            // temp LocalDate to obtain the maximum no. of days in that month
+            int maxDaysOfMonth = temp.lengthOfMonth();
+
+            if (date > maxDaysOfMonth) {
+                // Date overflows, adjust LocalDateTime to the next month
+                return LocalDateTime.of(year, month + 1, date - maxDaysOfMonth, hour, minute);
+            } else {
+                return LocalDateTime.of(year, month, date, hour, minute);
+            }
+        }
+    }
+
+    /**
+     * A function that takes in a user input that is the day of the week and returns the corresponding DayOfWeek
+     *
+     * @param string the user input that is a day of the week, eg. "sun", "Tuesday", "Mon"
+     * @return the DayOfWeek as an enum
+     */
+    public static DayOfWeek getDayOfWeek(String string) {
+        DayOfWeek result;
+        String day = string.substring(0, 3);
+        switch(day) {
+            case "MON":
+                result = DayOfWeek.MONDAY;
+                break;
+            case "TUE":
+                result = DayOfWeek.TUESDAY;
+            break;
+            case "WED":
+                result = DayOfWeek.WEDNESDAY;
+            break;
+            case "THU":
+                result = DayOfWeek.THURSDAY;
+            break;
+            case "FRI":
+                result = DayOfWeek.FRIDAY;
+            break;
+            case "SAT":
+                result = DayOfWeek.SATURDAY;
+            break;
+            case "SUN":
+                result = DayOfWeek.SUNDAY;
+            break;
+            default:
+                result = DayOfWeek.MONDAY;
+        }
+        return result;
+    }
+
 
     public static void main(String[] args) {
         String name = "zac";
