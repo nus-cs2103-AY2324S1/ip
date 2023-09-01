@@ -13,7 +13,6 @@ public class Storage {
         this.filePath = filePath;
         try {
             this.file = new File(filePath);
-            Scanner scan = new Scanner(System.in);
             if (!this.file.exists()) {
                 this.file.createNewFile();
             }
@@ -29,7 +28,6 @@ public class Storage {
     public void rewrite(String newText) {
         try {
             FileWriter fw;
-            Scanner sc = new Scanner(this.file);
             fw = new FileWriter(filePath);
             fw.write(newText);
             fw.close();
