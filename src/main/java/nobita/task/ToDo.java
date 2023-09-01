@@ -2,6 +2,11 @@ package nobita.task;
 
 import java.util.StringJoiner;
 
+/**
+ * Class that encapsulates ToDo which extends from Task.
+ *
+ * @author Zheng Chenglong
+ */
 public class ToDo extends Task {
 
     /**

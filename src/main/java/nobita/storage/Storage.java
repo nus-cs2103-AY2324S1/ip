@@ -15,10 +15,10 @@ import nobita.task.Deadline;
 import nobita.task.Event;
 
 /**
- *  Class that encapsulates Storage.
- *  Storage that is used to interact with local data files.
+ * Class that encapsulates Storage.
+ * Storage that is used to interact with local data files.
  *
- *  @author Zheng Chenglong
+ * @author Zheng Chenglong
  */
 public class Storage {
 

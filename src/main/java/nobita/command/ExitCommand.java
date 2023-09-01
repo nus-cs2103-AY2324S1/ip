@@ -6,22 +6,23 @@ import nobita.task.TaskList;
 import nobita.ui.Ui;
 
 /**
- *  Class that encapsulates ExitCommand which extends from Command.
+ * Class that encapsulates ExitCommand which extends from Command.
  *
- *  @author Zheng Chenglong
+ * @author Zheng Chenglong
  *
  */
 public class ExitCommand extends Command {
 
     /**
-     *  Command that executes exit of program.
+     * Command that executes exit of program.
      *
-     *  @param tasks Contains all current tasks.
-     *  @param ui Ui for interacting with user.
-     *  @param storage Storage that the data file is stored in.
+     * @param tasks Contains all current tasks.
+     * @param ui Ui for interacting with user.
+     * @param storage Storage that the data file is stored in.
+     * @throws NobitaException If error occurs when writing to local files.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws NobitaException {
         storage.writeFile(tasks);
         ui.exitMessage();
     };

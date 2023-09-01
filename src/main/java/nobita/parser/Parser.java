@@ -6,10 +6,10 @@ import nobita.exception.NobitaException;
 import java.rmi.NotBoundException;
 
 /**
- *  Class that encapsulates Parser.
- *  Parser that is used to read in and understand user commands.
+ * Class that encapsulates Parser.
+ * Parser that is used to read in and understand user commands.
  *
- *  @author Zheng Chenglong
+ * @author Zheng Chenglong
  */
 public class Parser {
 
@@ -56,6 +56,8 @@ public class Parser {
             return new AddCommand(eventFields[0], fromAndTo[0], fromAndTo[1]);
         case "delete":
             return new DeleteCommand(Integer.parseInt(commands[1]) - 1);
+        case "find":
+            return new FindCommand(commands[1]);
         default:
             throw new NobitaException("I'm sorry, but I don't know what that means :-(");
         }

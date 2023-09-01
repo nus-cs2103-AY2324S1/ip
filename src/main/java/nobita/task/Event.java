@@ -2,6 +2,11 @@ package nobita.task;
 
 import java.util.StringJoiner;
 
+/**
+ * Class that encapsulates Event which extends from Task.
+ *
+ * @author Zheng Chenglong
+ */
 public class Event extends Task {
 
     /** The start time of the Event */

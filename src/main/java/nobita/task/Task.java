@@ -2,6 +2,11 @@ package nobita.task;
 
 import java.util.StringJoiner;
 
+/**
+ * Class that encapsulates Task.
+ *
+ * @author Zheng Chenglong
+ */
 public class Task {
 
     /** The name of the task */
@@ -40,6 +45,15 @@ public class Task {
      */
     private String getStatus() {
         return isComplete ? "[X] " : "[ ] ";
+    }
+
+    /**
+     * A getter of the task name.
+     *
+     * @return A String representing the task name.
+     */
+    public String getTaskName() {
+        return this.taskName;
     }
 
     /**

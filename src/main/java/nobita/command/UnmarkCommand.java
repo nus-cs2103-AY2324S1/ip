@@ -7,9 +7,9 @@ import nobita.task.TaskList;
 import nobita.ui.Ui;
 
 /**
- *  Class that encapsulates UnmarkCommand which extends from Command.
+ * Class that encapsulates UnmarkCommand which extends from Command.
  *
- *  @author Zheng Chenglong
+ * @author Zheng Chenglong
  *
  */
 public class UnmarkCommand extends Command{

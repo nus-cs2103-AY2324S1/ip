@@ -1,10 +1,10 @@
 package nobita.exception;
 
 /**
- *  Class that encapsulates NobitaException.
- *  Throws an exception when error occurs in Nobita.
+ * Class that encapsulates NobitaException.
+ * Throws an exception when error occurs in Nobita.
  *
- *  @author Zheng Chenglong
+ * @author Zheng Chenglong
  */
 public class NobitaException extends Exception {
 

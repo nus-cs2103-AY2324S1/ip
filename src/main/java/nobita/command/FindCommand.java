@@ -1,20 +1,24 @@
 package nobita.command;
 
-import nobita.exception.NobitaException;
 import nobita.storage.Storage;
 import nobita.task.TaskList;
 import nobita.ui.Ui;
 
-/**
- *  Class that encapsulates ListCommand which extends from Command.
- *
- *  @author Zheng Chenglong
- *
- */
-public class ListCommand extends Command {
+public class FindCommand extends Command {
+
+    /** The query string to search for */
+    private final String query;
 
     /**
-     * Command that executes listing of all tasks.
+     * Constructs FindCommand with a query String.
+     * @param query The item to search  for.
+     */
+    public FindCommand(String query) {
+        this.query = query;
+    }
+
+    /**
+     * Command that executes finding of a task.
      *
      * @param tasks Contains all current tasks.
      * @param ui Ui for interacting with user.
@@ -22,7 +26,7 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showList(tasks);
+        ui.showList(tasks.findTask(this.query));
     };
 
     /**

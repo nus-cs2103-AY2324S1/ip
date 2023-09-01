@@ -1,5 +1,8 @@
 package nobita.ui;
 
+import nobita.task.Task;
+import nobita.task.TaskList;
+
 import java.util.Scanner;
 
 /**
@@ -50,7 +53,25 @@ public class Ui {
         System.out.println(message);
     }
 
+    /**
+     * Prints a message.
+     *
+     * @param message The message to be display to user.
+     */
     public void showMessage(String message) {
         System.out.println(message);
+    }
+
+    public void showList(TaskList list) {
+        if (list.getTotalTask() < 1) {
+            System.out.println("There are no tasks to be shown.");
+        }
+        else {
+            int listNum = 1;
+            for (Task task: list) {
+                System.out.println(listNum + ". " + task);
+                ++listNum;
+            }
+        }
     }
 }

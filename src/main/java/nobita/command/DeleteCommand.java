@@ -7,9 +7,9 @@ import nobita.task.TaskList;
 import nobita.ui.Ui;
 
 /**
- *  Class that encapsulates DeleteCommand which extends from Command.
+ * Class that encapsulates DeleteCommand which extends from Command.
  *
- *  @author Zheng Chenglong
+ * @author Zheng Chenglong
  *
  */
 public class DeleteCommand extends Command{
@@ -27,12 +27,12 @@ public class DeleteCommand extends Command{
     }
 
     /**
-     *  Command that executes the task to be deleted.
+     * Command that executes the task to be deleted.
      *
-     *  @param tasks Contains all current tasks.
-     *  @param ui Ui for interacting with user.
-     *  @param storage Storage that the data file is stored in.
-     *  @throws NobitaException If the task is not inside tasklist.
+     * @param tasks Contains all current tasks.
+     * @param ui Ui for interacting with user.
+     * @param storage Storage that the data file is stored in.
+     * @throws NobitaException If the task is not inside tasklist.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NobitaException {

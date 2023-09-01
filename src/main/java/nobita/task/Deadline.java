@@ -5,6 +5,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.StringJoiner;
 
+/**
+ * Class that encapsulates Deadline which extends from Task.
+ *
+ * @author Zheng Chenglong
+ */
 public class Deadline extends Task {
 
     /** The data of the Deadline is due */
