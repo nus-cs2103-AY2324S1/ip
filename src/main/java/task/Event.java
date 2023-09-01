@@ -63,7 +63,6 @@ public class Event extends Task {
                 "[E]%s (from: %s to: %s)",
                 super.toString(),
                 this.start.format(OUTPUT_FORMATTER),
-                this.end.format(OUTPUT_FORMATTER)
-        );
+                this.end.format(OUTPUT_FORMATTER));
     }
 }

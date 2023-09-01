@@ -11,11 +11,11 @@ public abstract class Task {
     protected static final DateTimeFormatter OUTPUT_FORMATTER =
             DateTimeFormatter.ofPattern("yyyy-MMM-dd HH:mm:ss");
     protected final String name;
-    private final boolean marked;
+    private final boolean isMarked;
 
     public Task(String name, boolean marked) {
         this.name = name;
-        this.marked = marked;
+        this.isMarked = marked;
     }
 
     public Task(String name) {
@@ -42,7 +42,7 @@ public abstract class Task {
      * @return String to be saved
      */
     public String saveTask() {
-        return String.format("%s | %s", this.marked ? "1" : "0", this.name);
+        return String.format("%s | %s", this.isMarked ? "1" : "0", this.name);
     }
 
     /**
@@ -52,6 +52,6 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s] %s", this.marked ? "X" : " ", this.name);
+        return String.format("[%s] %s", this.isMarked ? "X" : " ", this.name);
     }
 }

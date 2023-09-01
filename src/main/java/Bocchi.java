@@ -12,7 +12,6 @@ import java.util.Scanner;
  * Class for running the task manager
  */
 public class Bocchi {
-    private static final String LINE_BREAK = "___________________________________________________";
     private final Ui ui;
     private final Parser parser;
 
