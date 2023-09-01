@@ -1,6 +1,11 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class Fishron {
     private String name;
@@ -78,9 +83,64 @@ public class Fishron {
         }
     }
 
+    public void saveTasksToFile() {
+        try {
+            PrintWriter printWriter = new PrintWriter("./data/fishron.txt");
+            for (Task task : storage) {
+                printWriter.println(task.toFileString());
+            }
+            printWriter.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Error saving tasks to file.");
+        }
+    }
+
+    public void loadTasksFromFile() {
+        try {
+            File file = new File("./data/fishron.txt");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(" \\| ");
+                if (parts.length >= 2) {
+                    String taskType = parts[0];
+                    boolean isDone = parts[1].equals("1");
+                    String description = parts[2];
+
+                    if (taskType.equals("T")) {
+                        ToDo todo = new ToDo(description);
+                        if (isDone) {
+                            todo.markAsDone();
+                        }
+                        storage.add(todo);
+                    } else if (taskType.equals("D")) {
+                        String by = parts[3];
+                        Deadline deadline = new Deadline(description, by);
+                        if (isDone) {
+                            deadline.markAsDone();
+                        }
+                        storage.add(deadline);
+                    } else if (taskType.equals("E")) {
+                        String from = parts[3];
+                        String to = parts[4];
+                        Event event = new Event(description, from, to);
+                        if (isDone) {
+                            event.markAsDone();
+                        }
+                        storage.add(event);
+                    }
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("No saved tasks found.");
+        }
+    }
+
     public static void main(String[] args) {
         String botName = "Fishron";
         Fishron chatBot = new Fishron(botName);
+        chatBot.loadTasksFromFile();
 
         chatBot.greet();
         System.out.println("____________________________________________________________");
@@ -128,8 +188,9 @@ public class Fishron {
                 System.out.println("____________________________________________________________");
             }
         } while (!input.equalsIgnoreCase("bye")) ;
-
+            chatBot.saveTasksToFile();
             chatBot.farewell();
             System.out.println("____________________________________________________________");
+
     }
 }
