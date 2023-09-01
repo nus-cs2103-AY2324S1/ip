@@ -68,9 +68,10 @@ public class Storage {
         ArrayList<String> history = new ArrayList<>();
         try {
             Scanner fileScanner = new Scanner(new File(filePath));
-            int lineCounter = 1;
+            int lineCounter = 0;
             while (fileScanner.hasNextLine()) {
                 if (lineCounter == index) {
+                    fileScanner.nextLine();
                     lineCounter++;
                     continue;
                 }
