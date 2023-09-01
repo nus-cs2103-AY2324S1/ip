@@ -209,7 +209,7 @@ public class Parser {
                 throw new InvalidDeadlineException(deadline);
             }
 
-            String[] dateParts = date.split("/");
+            String[] dateParts = date.split("-");
             // If the date does not have three components, return false
             if (dateParts.length != 3) {
                 throw new InvalidDeadlineException(deadline);
