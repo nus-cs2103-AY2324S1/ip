@@ -1,7 +1,12 @@
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Arrays;
+import java.time.format.DateTimeParseException;
+import java.util.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 //test
 public class ChatBot {
@@ -54,7 +59,40 @@ public class ChatBot {
 		}
 	}
 
-	public void createTask(ArrayList<Task> taskList, String action, String event) throws DukeException{
+	// just take in a /by/from/to 29june and reformat properly
+	public String formatDate(ArrayList<Task> taskList, String[] items, String[] timeDate) {
+		SimpleDateFormat inputTime = new SimpleDateFormat("ha");
+		SimpleDateFormat outputTime = new SimpleDateFormat("HH:mm:ss");
+		String year = Integer.toString(Calendar.getInstance().get(Calendar.YEAR));
+		String dateFormat = "";
+		try {
+			Date time = inputTime.parse(timeDate[0]);
+			String formatTime = outputTime.format(time);
+			// return the formatTime and formatDate as the stored value
+			// dateTtime
+			String dayMonth = timeDate[1];
+			String day;
+			String month;
+			try {
+				// 630pm 29june
+				// if can means is 10 june cannot means is 1 june
+				Integer.parseInt(dayMonth.substring(1, 2));
+				day = dayMonth.substring(0,2);
+				month = dayMonth.substring(2);
+			} catch (NumberFormatException e) {
+				day = dayMonth.substring(0,1);
+				month = dayMonth.substring(1);
+			}
+			StringBuilder br = new StringBuilder();
+			br.append(year).append("-").append(monthValue(month)).append("-").append(day).append("T").append(formatTime);
+			dateFormat = br.toString();
+		}   catch (ParseException e) {
+			System.out.println("format of time is not right, enter it as /by 630pm 18june");
+		}
+		return dateFormat;
+	}
+
+	public void createTask(ArrayList<Task> taskList, String action, String event) throws DukeException, DateTimeParseException {
 		String[] items = action.split("/");
 		String[] first = items[0].split(" ");
 		StringBuilder description = new StringBuilder();
@@ -78,18 +116,29 @@ public class ChatBot {
 			if (items.length != 2 || !byCheck[0].equals("by")) {
 				throw new DukeException("enter deadline like this, deadline description /by:");
 			}
-			String[] start = items[1].split(" ");
+			String[] start = items[0].split(" ");
 
 			for (String s : Arrays.copyOfRange(start, 1, start.length)) {
 				description.append(s).append(" ");
 			}
 			description.deleteCharAt(description.length() - 1);
-
-			for (String s : Arrays.copyOfRange(items[2].split(" "), 1, start.length)) {
-				startTime.append(s).append(" ");
+			// /by 06:30:00 2015-06-29
+			// /by 630am/pm 29 june
+			if (items[1].contains("am") || items[1].contains("pm")) {
+				// take away by and give timeDate 630am 29june
+				String[] timeDate = Arrays.copyOfRange(items[1].split(" "), 1, items[1].split(" ").length);
+				String dateFormat = formatDate(taskList, items, timeDate);
+				LocalDateTime begin = LocalDateTime.parse(dateFormat);
+				taskList.add(new Deadline(description.toString(), begin));
+			} else {
+				// /by 06:30:00 2015-06-29
+				String[] time = Arrays.copyOfRange(items[1].split(" "), 1, 3);
+				startTime.append(time[1]).append("T").append(time[0]);
+				LocalDateTime begin = LocalDateTime.parse(startTime.toString());
+				// store datetime object as a string
+				// taskList.add(new Deadline(description.toString(), startTime.toString()));
+				taskList.add(new Deadline(description.toString(), begin));
 			}
-			startTime.deleteCharAt(startTime.length() - 1);
-			taskList.add(new Deadline(description.toString(), startTime.toString()));
 		} else {
 			String[] startCheck = items[1].split(" ");
 			String[] endCheck = items[2].split(" ");
@@ -100,15 +149,38 @@ public class ChatBot {
 				description.append(s).append(" ");
 			}
 			description.deleteCharAt(description.length() - 1);
-			for (String s : Arrays.copyOfRange(startCheck, 1, startCheck.length)) {
-				startTime.append(s).append(" ");
+			// HEADD
+			// add from and to
+			if (items[1].contains("am") || items[1].contains("pm")) {
+				// take away by and give timeDate 630am 29june
+				String[] timeDateStart = Arrays.copyOfRange(items[1].split(" "), 1, items[1].split(" ").length);
+				String dateFormatStart = formatDate(taskList, items, timeDateStart);
+				LocalDateTime begin = LocalDateTime.parse(dateFormatStart);
+				String[] timeDateEnd = Arrays.copyOfRange(items[2].split(" "), 1, items[1].split(" ").length);
+				String dateFormatEnd = formatDate(taskList, items, timeDateEnd);
+				LocalDateTime end = LocalDateTime.parse(dateFormatEnd);
+				if (begin.isAfter(end)) {
+					throw new DukeException("Start is after end!");
+				}
+				taskList.add(new Event(description.toString(), begin, end));
+			} else {
+				// /by 06:30:00 2015-06-29
+				String[] timeStart = Arrays.copyOfRange(items[1].split(" "), 1, 3);
+				startTime.append(timeStart[1]).append("T").append(timeStart[0]);
+				System.out.println(startTime.toString());
+				LocalDateTime begin = LocalDateTime.parse(startTime.toString());
+
+				String[] timeEnd = Arrays.copyOfRange(items[2].split(" "), 1, 3);
+				endTime.append(timeEnd[1]).append("T").append(timeEnd[0]);
+				LocalDateTime end = LocalDateTime.parse(endTime.toString());
+				// store datetime object as a string
+				// taskList.add(new Deadline(description.toString(), startTime.toString()));
+				if (begin.isAfter(end)) {
+					throw new DukeException("Start is after end!");
+				}
+				taskList.add(new Event(description.toString(), begin, end));
 			}
-			startTime.deleteCharAt(startTime.length() - 1);
-			for (String s : Arrays.copyOfRange(endCheck, 1, endCheck.length)) {
-				endTime.append(s).append(" ");
-			}
-			endTime.deleteCharAt(endTime.length() - 1);
-			taskList.add(new Event(description.toString(), startTime.toString(), endTime.toString()));
+//			// ENDD
 		}
 		Task t = taskList.get(taskList.size() - 1);
 		String echo = String.format("____________________________________________________________\n" +
@@ -134,6 +206,37 @@ public class ChatBot {
 				"Now you have %s tasks in the list.\n" +
 				"____________________________________________________________", t.toString(), remaining);
 		System.out.println(echo);
+	}
+
+	public String monthValue(String month) throws IllegalArgumentException {
+		switch (month.toLowerCase()) {
+			case "january":
+				return "01";
+			case "february":
+				return "02";
+			case "march":
+				return "03";
+			case "april":
+				return "04";
+			case "may":
+				return "05";
+			case "june":
+				return "06";
+			case "july":
+				return "07";
+			case "august":
+				return "08";
+			case "september":
+				return "09";
+			case "october":
+				return "10";
+			case "november":
+				return "11";
+			case "december":
+				return "12";
+			default:
+				throw new IllegalArgumentException("Invalid month string");
+		}
 	}
 
 	public void bye(Records r) throws IOException {

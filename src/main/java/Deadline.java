@@ -1,7 +1,9 @@
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
 
-	private String endTime;
-	public Deadline(String description, String endTime) {
+	private LocalDateTime endTime;
+	public Deadline(String description, LocalDateTime endTime) {
 		super(description);
 		this.endTime = endTime;
 	}
@@ -16,12 +18,14 @@ public class Deadline extends Task {
 			b.append("0" + " | ");
 		}
 		b.append(this.description).append(" | ");
-		b.append(this.endTime);
+		b.append(this.endTime.toString());
 		return b.toString();
 	}
 	@Override
 	public String toString() {
-		return "[D]" + super.toString() + " (by: " + this.endTime + ")";
+		String[] time = this.endTime.toString().split("T");
+		String timeDate = time[1] + " " + time[0];
+		return "[D]" + super.toString() + " (by: " + timeDate + ")";
 	}
 	public String getIcon() {
 		return "[D]" + super.getTask();

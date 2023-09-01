@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Records {
@@ -55,10 +56,14 @@ public class Records {
 			t.add(new ToDos(str[2]));
 			break;
 		case "D":
-			t.add(new Deadline(str[2], str[3]));
+			LocalDateTime startTime = LocalDateTime.parse(str[3]);
+			t.add(new Deadline(str[2], startTime));
+			// t.add(new Deadline(str[2], str[3]));
 			break;
 		case "E":
-			t.add(new Event(str[2], str[3], str[4]));
+			LocalDateTime start = LocalDateTime.parse(str[3]);
+			LocalDateTime end = LocalDateTime.parse(str[4]);
+			t.add(new Event(str[2], start, end));
 			break;
 		default:
 			throw new IOException("read fail");

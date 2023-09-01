@@ -1,8 +1,11 @@
-public class Event extends Task {
-	private String startTime;
-	private String endTime;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-	public Event(String description, String startTime, String endTime) {
+public class Event extends Task {
+	private LocalDateTime startTime;
+	private LocalDateTime endTime;
+
+	public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
 		super(description);
 		this.startTime = startTime;
 		this.endTime = endTime;
@@ -24,7 +27,11 @@ public class Event extends Task {
 
 	@Override
 	public String toString() {
-		return "[E]" + super.toString() + " (from: " + this.startTime + " to: " + this.endTime + ")";
+		String[] start = this.startTime.toString().split("T");
+		String startDate = start[1] + " " + start[0];
+		String[] end = this.endTime.toString().split("T");
+		String endDate = end[1] + " " + end[0];
+		return "[E]" + super.toString() + " (from: " + startDate + " to: " + endDate + ")";
 	}
 
 	public String getIcon() {
