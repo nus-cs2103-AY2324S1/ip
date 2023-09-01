@@ -19,7 +19,7 @@ public class MarkCommand extends Command {
     /**
      * Executes the list of commands to mark a Task from a TaskList.
      *
-     * @param list The given TaskList with the Task to be marked.
+     * @param taskList The given TaskList with the Task to be marked.
      * @param ui The given Ui to show the status of the marking of the task.
      * @param storage The given Storage that saves the TaskList locally.
      */
