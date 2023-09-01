@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Dre {
-    private List<Task> list;
+    private final List<Task> list;
     private final String dataFilePath = "./data/dre.txt";
 
     public Dre() {
@@ -66,12 +66,6 @@ public class Dre {
                 task = new ToDo(todoInfo[2]);
                 break;
             case "D":
-//                description = description.substring(0, description.indexOf('(') - 1);
-//                String additionalInfo = line.substring(line.indexOf('(') + 1, line.indexOf(')'));
-//                String[] deadlineInfo = additionalInfo.split(": ");
-//                LocalDate byDate = parseDate(deadlineInfo[1]);
-//                task = new Deadline(description, byDate);
-//                break;
                 System.out.println(line);
                 String[] deadlineInfo = line.split("\\|");
                 System.out.println(Arrays.toString(deadlineInfo));
@@ -81,13 +75,6 @@ public class Dre {
                 break;
 
             case "E":
-//                description = description.substring(0, description.indexOf('(') - 1);
-//                String addInfo = line.substring(line.indexOf('(') + 1, line.indexOf(')'));
-//                String[] eventInfo = addInfo.split(":");
-//                LocalDate fromDate = parseDate(eventInfo[1].substring(0, eventInfo[1].length() - 2).trim());
-//                LocalDate toDate = parseDate(eventInfo[2].trim());
-//                task = new Event(description, fromDate, toDate);
-//                break;
                 String[] eventInfo = line.split("\\|");
                 description = eventInfo[2];
                 LocalDate fromDate = parseDate(eventInfo[3]);
