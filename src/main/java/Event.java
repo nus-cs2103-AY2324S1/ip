@@ -1,9 +1,12 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    protected String start;
-    protected String end;
+    protected LocalDateTime start;
+    protected LocalDateTime end;
 
-    public Event(String description, boolean isDone, String start, String end) {
+    public Event(String description, boolean isDone, LocalDateTime start, LocalDateTime end) {
 
         super(description, isDone);
         this.start = start;
@@ -12,13 +15,18 @@ public class Event extends Task {
 
     @Override
     public String contentLine() {
-        return "E" + super.contentLine() + "/" + this.start + "/" + this.end;
+        return "E" + super.contentLine() + "/" + this.start.toString() + "/" + this.end.toString();
     }
 
     @Override
     public String toString() {
 
-        String result = "[E]" + super.toString() + "(from: " + this.start + "to: " + this.end + ")";
+        String result = "[E]" + super.toString() + " (from: " + formatDate(this.start) + " to: " +
+                formatDate(this.end) + ")";
         return result;
+    }
+
+    public String formatDate(LocalDateTime l) {
+        return l.format(DateTimeFormatter.ofPattern("dd/MMM/yyyy HH:mm"));
     }
 }
