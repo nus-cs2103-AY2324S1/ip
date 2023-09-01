@@ -81,6 +81,10 @@ public class ChadBod {
                     ui.printTaskRemovedMessage(removedTask, tasks.getTaskCount());
                     storage.saveTasks(tasks);
                     break;
+                case FIND:
+                    TaskList matchingTasks = tasks.findTasksByKeyword(details);
+                    ui.printTasks(matchingTasks);
+                    break;
                 default:
                     throw new InvalidInputException();
                 }

@@ -40,4 +40,14 @@ public class TaskList {
         }
         return String.valueOf(output);
     }
+
+    public TaskList findTasksByKeyword(String keyword) {
+        TaskList matchingTasks = new TaskList();
+        for (Task task : tasks) {
+            if (task.containsKeyword(keyword)) {
+                matchingTasks.addTask(task);
+            }
+        }
+        return matchingTasks;
+    }
 }

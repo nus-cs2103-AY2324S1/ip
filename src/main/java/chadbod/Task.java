@@ -62,5 +62,9 @@ public abstract class Task {
         }
     }
 
+    public boolean containsKeyword(String keyword) {
+        return description.contains(keyword);
+    }
+
     public abstract String toFileString();
 }
