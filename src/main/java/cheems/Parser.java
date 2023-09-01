@@ -1,7 +1,24 @@
-import exceptions.*;
+package cheems;
 
+import cheems.exceptions.EmptyArgumentException;
+import cheems.exceptions.InvalidKeywordException;
+
+/**
+ * Parser parses the input from the user and execute corresponding actions.
+ * Exceptions are thrown should the input be invalid.
+ */
 public class Parser {
-    public static void parseAndExecute(String input) {
+
+    /**
+     * Parses the given input and tells Tasklist the action to take.
+     * Exceptions are thrown should the input be invalid.
+     * @param input User input.
+     * @throws InvalidKeywordException if the keyword is not recognised.
+     * @throws EmptyArgumentException if no argument is provided for commands requiring arguments.
+     * @throws NumberFormatException if non-digit argument is provided for commands requiring digits as arguments.
+     */
+    public static void parseAndExecute(String input)
+            throws InvalidKeywordException, EmptyArgumentException, NumberFormatException {
         if (!input.isEmpty()) {
             String[] words = input.split(" ", 2);
 
@@ -10,22 +27,29 @@ public class Parser {
                 throw new InvalidKeywordException();
             }
 
+            // extract command as the first word
             Keyword currentKey = Keyword.valueOf(words[0].toUpperCase());
             if (currentKey == Keyword.LIST) {
                 Tasklist.displayData();
             } else {
-
-                // if empty arguments
+                // if there is no argument provided for commands supposed to have arguments
                 if (words.length == 1) {
                     throw new EmptyArgumentException(currentKey.toString());
                 }
 
+                String args = words[1];
+                // if there are indeed arguments provided
                 switch (currentKey) {
+                    case FIND:
+                        Tasklist.find(args);
+                        break;
                     case MARK:
+                        // Fallthrough
                     case UNMARK:
+                        // Fallthrough
                     case DELETE:
-                        if (words[1].chars().allMatch(Character::isDigit)) {
-                            int index = Integer.parseInt(words[1]);
+                        if (args.chars().allMatch(Character::isDigit)) {
+                            int index = Integer.parseInt(args);
                             if (currentKey == Keyword.MARK) {
                                 Tasklist.markAsDone(index - 1);
                             } else if (currentKey == Keyword.UNMARK) {
@@ -39,23 +63,22 @@ public class Parser {
                             throw new NumberFormatException(errMsg);
                         }
 
-                        // input of tasks are assumed to be in correct format
                     case TODO:
-                        Tasklist.addSaveTask("TODO", words[1]);
+                        Tasklist.addTaskToDatabase("TODO", args);
                         break;
                     case EVENT:
-                        words = words[1].split(" /from ");
+                        words = args.split(" /from ");
                         String eventDescription = words[0];
-                        words = words[1].split(" /to ");
-                        String from = words[0];
-                        String to = words[1];
-                        Tasklist.addSaveTask("EVENT", eventDescription, from, to);
+                        String[] words1 = words[1].split(" /to ");
+                        String from = words1[0];
+                        String to = words1[1];
+                        Tasklist.addTaskToDatabase("EVENT", eventDescription, from, to);
                         break;
                     case DEADLINE:
-                        words = words[1].split(" /by ");
+                        words = args.split(" /by ");
                         String ddlDescription = words[0];
                         String by = words[1];
-                        Tasklist.addSaveTask("DEADLINE", ddlDescription, by);
+                        Tasklist.addTaskToDatabase("DEADLINE", ddlDescription, by);
                         break;
                 }
             }

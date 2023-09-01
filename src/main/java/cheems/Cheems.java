@@ -1,5 +1,10 @@
+package cheems;
+
 import java.util.Scanner;
 
+/**
+ * Represents the main class of the chatbot.
+ */
 public class Cheems {
     private final static Scanner scanner = new Scanner(System.in);
     private final Storage storage;
@@ -8,6 +13,9 @@ public class Cheems {
         this.storage = Storage.getInstance(filepath);
     }
 
+    /**
+     * Runs the chatbot.
+     */
     public void run() {
         UI.showWelcomeMsg();
         storage.loadData();
