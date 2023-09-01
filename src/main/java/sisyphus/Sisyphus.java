@@ -1,3 +1,7 @@
+package sisyphus;
+
+import sisyphus.task.TaskList;
+
 public class Sisyphus {
     private Storage storage;
     private TaskList tasks;

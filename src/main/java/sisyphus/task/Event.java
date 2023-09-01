@@ -1,3 +1,5 @@
+package sisyphus.task;
+
 public class Event extends Task {
     protected String start, end;
     public Event(String description, String start, String end) {

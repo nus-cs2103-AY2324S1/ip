@@ -1,8 +1,12 @@
+package sisyphus;
+
+import sisyphus.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
 
-    private static final String NAME = "Sisyphus";
+    private static final String NAME = "sisyphus.Sisyphus";
     private static final String HORIZONTAL_LINE = "_________________________________";
     private static final String LOGO = "\n" +
             "      ,-'\"\"\"`-.\n" +
@@ -79,7 +83,7 @@ public class Ui {
 
     public static void printAddTodo(TaskList taskList) {
         printHorizontalLine();
-        System.out.println("The following ToDo has been added.");
+        System.out.println("The following sisyphus.task.ToDo has been added.");
         System.out.println(taskList.getLastTask());
         System.out.println("You now have " + taskList.size() + " items in the list.");
         printHorizontalLine();

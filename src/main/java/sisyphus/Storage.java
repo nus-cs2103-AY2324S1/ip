@@ -1,3 +1,10 @@
+package sisyphus;
+
+import sisyphus.task.Deadline;
+import sisyphus.task.Event;
+import sisyphus.task.TaskList;
+import sisyphus.task.ToDo;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,9 +19,9 @@ public class Storage {
 
     /**
      * Attempts to read file in csv format and skip all "corrupted" / wrong lines of values.
-     * If file does not exist, an empty TaskList will be returned and a file will be created.
+     * If file does not exist, an empty sisyphus.task.TaskList will be returned and a file will be created.
      *
-     * @return TaskList from the saved file
+     * @return sisyphus.task.TaskList from the saved file
      */
     public TaskList loadData() {
         if (Files.exists(filePath)) {
@@ -79,7 +86,7 @@ public class Storage {
     }
 
     /**
-     * Takes in a TaskList and writes all tasks in the TaskList to the saved file based on a csv format.
+     * Takes in a sisyphus.task.TaskList and writes all tasks in the sisyphus.task.TaskList to the saved file based on a csv format.
      *
      * @param taskList
      */
@@ -100,7 +107,7 @@ public class Storage {
 
     /**
      *
-     * Testing for Storage class.
+     * Testing for sisyphus.Storage class.
      * @param args
      */
     public static void main(String[] args) {
