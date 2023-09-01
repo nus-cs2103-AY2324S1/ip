@@ -1,6 +1,6 @@
-package duke.exception;
+package exception;
 
-/** This class handles exceptions from duke.Duke.*/
+/** This class handles exceptions from Duke.*/
 public class DukeException extends Exception {
     public DukeException(String errorMsg) {
         super(errorMsg);

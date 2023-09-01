@@ -1,14 +1,7 @@
-package duke;
-
-import duke.exception.DukeException;
-import duke.exception.InvalidCommandException;
-import duke.exception.InvalidSyntaxException;
-import duke.task.Deadlines;
-import duke.task.Events;
-import duke.task.Task;
-import duke.task.Todos;
-import duke.task.TaskList;
-import duke.Storage;
+import exception.DukeException;
+import exception.InvalidCommandException;
+import exception.InvalidSyntaxException;
+import java.util.ArrayList;
 
 import java.util.Scanner;
 public class Duke {
@@ -16,21 +9,18 @@ public class Duke {
     public enum Command {
         BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, UNKNOWN
     };
-
     public static void main(String[] args) {
         boolean listen = true;
         /** Captures user input*/
         Scanner jonBird = new Scanner(System.in);
         /** Stores user input*/
-        TaskList inputList =  new TaskList();
+        ArrayList<Task> inputList =  new ArrayList<Task>();
         /** User input*/
         String input = "";
         Command currentCommand = Command.UNKNOWN;
         String title = "";
         String startDate = "";
         String endDate = "";
-        Storage storage = new Storage();
-        inputList = storage.loadData();
 
         System.out.println("Hello! I'm JonBird.\nWhat can I do for you?\n");
         while (listen) {
@@ -130,10 +120,7 @@ public class Duke {
                         excep = new InvalidSyntaxException("The task does not exist.");
                         System.out.println("JonBird:\n\t" + excep.toString());
                     } else {
-                        inputList.getTask(taskIndex-1).markAsUndone();
-                        System.out.println("\tOK, I've marked this task as not done yet:");
-                        System.out.println("\t\t" + inputList.getTask(taskIndex-1).printTask());
-                        storage.writeData(inputList.convertToFileContent());
+                        inputList.get(taskIndex-1).markAsUndone();
                     }
                     break;
                 case MARK:
@@ -141,10 +128,7 @@ public class Duke {
                         excep = new InvalidSyntaxException("The task does not exist.");
                         System.out.println("JonBird:\n\t" + excep.toString());
                     } else {
-                        inputList.getTask(taskIndex - 1).markAsDone();
-                        System.out.println("\tNice! I've marked this task as done:");
-                        System.out.println("\t\t" +inputList.getTask(taskIndex - 1).printTask());
-                        storage.writeData(inputList.convertToFileContent());
+                        inputList.get(taskIndex - 1).markAsDone();
                     }
                     break;
                 case DELETE:
@@ -152,9 +136,8 @@ public class Duke {
                         excep = new InvalidSyntaxException("The task does not exist.");
                         System.out.println("JonBird:\n\t" + excep.toString());
                     } else {
-                        Task temp = inputList.getTask(taskIndex - 1);
-                        inputList.removeTask(taskIndex - 1);
-                        storage.writeData(inputList.convertToFileContent());
+                        Task temp = inputList.get(taskIndex - 1);
+                        inputList.remove(taskIndex - 1);
                         System.out.println("JonBird:\n\tNoted. I've removed this task:");
                         System.out.println("\t\t" + temp.printTask());
                         System.out.println("\tNow you have " + inputList.size() + " tasks in the list.");
@@ -167,8 +150,7 @@ public class Duke {
                         break;
                     }
                     if (inp[0].equals("todo")) {
-                        inputList.addTask(new Todos(title));
-                        storage.writeData(inputList.convertToFileContent());
+                        inputList.add(new Todos(title));
                     }
                     if (inp[0].equals("deadline")) {
                         if (endDate.equals("")) {
@@ -176,8 +158,7 @@ public class Duke {
                             System.out.println("JonBird:\n\t" + excep.toString());
                             break;
                         }
-                        inputList.addTask(new Deadlines(title, endDate));
-                        storage.writeData(inputList.convertToFileContent());
+                        inputList.add(new Deadlines(title, endDate));
                     }
                     if (inp[0].equals("event")) {
                         if (startDate.equals("")) {
@@ -190,11 +171,10 @@ public class Duke {
                             System.out.println("JonBird:\n\t" + excep.toString());
                             break;
                         }
-                        inputList.addTask(new Events(title, startDate, endDate));
-                        storage.writeData(inputList.convertToFileContent());
+                        inputList.add(new Events(title, startDate, endDate));
                     }
                     System.out.println("JonBird:\n\tGot it. I've added this task:");
-                    System.out.println("\t\t" + inputList.getTask(inputList.size()-1).printTask());
+                    System.out.println("\t\t" + inputList.get(inputList.size()-1).printTask());
                     System.out.println("\tNow you have " + inputList.size() + " tasks in the list.");
             }
         }
@@ -202,10 +182,10 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static void printList(TaskList taskList) {
+    public static void printList(ArrayList<Task> list) {
         System.out.println("\tHere are the tasks in your list:");
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println("\t\t"+ (i+1) + ". " + taskList.getTask(i).printTask());
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println("\t\t"+ (i+1) + ". " + list.get(i).printTask());
         }
     }
 
