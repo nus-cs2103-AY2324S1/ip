@@ -3,8 +3,8 @@ package duke;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Command {
@@ -23,8 +23,12 @@ public class Command {
     private String description;
     private Cmd action;
 
-    public Command(ArrayList<String> parts) {
-        this.action = COMMAND_MAP.getOrDefault(parts.get(0), Cmd.INVALID);
+    public Command(List<String> parts) {
+        if (!COMMAND_MAP.containsKey(parts.get(0))) {
+            this.action = Cmd.INVALID;
+            return;
+        }
+        this.action = COMMAND_MAP.get(parts.get(0));
         if (parts.size() > 1) {
             description = parts.get(1);
         }
@@ -166,4 +170,35 @@ public class Command {
         return false;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+
+        if (!(other instanceof Command)) {
+            return false;
+        }
+
+        Command o = (Command) other;
+        boolean result = true;
+        if (this.date1 == null) {
+            result &= (o.date1 == null);
+        } else {
+            result &= (this.date1.equals(o.date1));
+        }
+        if (this.date2 == null) {
+            result &= (o.date2 == null);
+        } else {
+            result &= (this.date2.equals(o.date2));
+        }
+        if (this.description == null) {
+            result &= (o.description == null);
+        } else {
+            result &= (this.description.equals(o.description));
+        }
+        result &= (this.action == o.action);
+
+        return result;
+    }
 }
