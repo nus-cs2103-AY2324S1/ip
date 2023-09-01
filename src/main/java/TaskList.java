@@ -21,25 +21,25 @@ public class TaskList {
         listOfTasks.add(task);
     }
 
-    public Task addTodo(String description) throws DukeException {
+    public Task addTodo(String description) throws FlukeException {
         Todo newTodo = new Todo(description);
         addTask(newTodo);
         return newTodo;
     }
 
-    public Task addDeadline(String description, String by) throws DukeException {
+    public Task addDeadline(String description, String by) throws FlukeException {
         Task newDeadline = new Deadline(description, by);
         addTask(newDeadline);
         return newDeadline;
     }
 
-    public Task addEvent(String description, String from, String to) throws DukeException {
+    public Task addEvent(String description, String from, String to) throws FlukeException {
         Task newEvent = new Event(description, from, to);
         addTask(newEvent);
         return newEvent;
     }
 
-    public Task deleteTask(int index) throws DukeException {
+    public Task deleteTask(int index) throws FlukeException {
         // check if task exists
         if (index < listOfTasks.size()) {
             Task taskToBeDeleted = listOfTasks.get(index);
@@ -50,7 +50,7 @@ public class TaskList {
         }
     }
 
-    public Task markTaskAsDone(int index) throws DukeException {
+    public Task markTaskAsDone(int index) throws FlukeException {
         // check if task exists
         if (index < listOfTasks.size()) {
             Task task = listOfTasks.get(index);
@@ -60,7 +60,7 @@ public class TaskList {
         }
     }
 
-    public Task markTaskAsUndone(int index) throws DukeException {
+    public Task markTaskAsUndone(int index) throws FlukeException {
         // check if task exists
         if (index < listOfTasks.size()) {
             Task task = listOfTasks.get(index);

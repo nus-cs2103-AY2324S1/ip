@@ -15,7 +15,7 @@ public class Fluke {
         this.storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
+        } catch (FlukeException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
@@ -57,7 +57,7 @@ public class Fluke {
                 default:
                     throw new InvalidInputException();
                 }
-            } catch (DukeException d) {
+            } catch (FlukeException d) {
                 this.ui.showError(d.getMessage());
             }
         }
@@ -70,13 +70,13 @@ public class Fluke {
         this.tasks = new TaskList();
     };
 
-    public void addTodo(String command) throws DukeException {
+    public void addTodo(String command) throws FlukeException {
         String parsedDescription = Parser.parseTodoCommand(command);
         Task taskAdded = this.tasks.addTodo(parsedDescription);
         this.ui.showTaskAdded(taskAdded, tasks);
     }
 
-    private void addDeadline(String command) throws DukeException {
+    private void addDeadline(String command) throws FlukeException {
         String[] parsedCommand = Parser.parseDeadlineCommand(command);
         String description = parsedCommand[0];
         String by = parsedCommand[1];
@@ -84,7 +84,7 @@ public class Fluke {
         this.ui.showTaskAdded(taskAdded, tasks);
     }
 
-    private void addEvent(String command) throws DukeException {
+    private void addEvent(String command) throws FlukeException {
         String[] parsedCommand = Parser.parseEventCommand(command);
         String description = parsedCommand[0];
         String from = parsedCommand[1];
@@ -93,19 +93,19 @@ public class Fluke {
         this.ui.showTaskAdded(taskAdded, tasks);
     }
 
-    private void markTaskAsDone(String nextCommand) throws DukeException {
+    private void markTaskAsDone(String nextCommand) throws FlukeException {
         int index = Parser.parseMarkAsDoneCommand(nextCommand);
         Task taskMarked = tasks.markTaskAsDone(index);
         this.ui.showTaskMarkedAsDone(taskMarked);
     }
 
-    private void markTaskAsUndone(String nextCommand) throws DukeException {
+    private void markTaskAsUndone(String nextCommand) throws FlukeException {
         int index = Parser.parseMarkAsUndoneCommand(nextCommand);
         Task taskMarked = tasks.markTaskAsUndone(index);
         this.ui.showTaskMarkedAsUndone(taskMarked);
     }
 
-    private void deleteTask(String nextCommand) throws DukeException {
+    private void deleteTask(String nextCommand) throws FlukeException {
         int index = Parser.parseDeleteCommand(nextCommand);
         Task deleted = tasks.deleteTask(index);
         this.ui.showTaskDeleted(deleted, tasks);
@@ -115,10 +115,10 @@ public class Fluke {
      * Helper function for additional logic related to changing the list.
      * @param commandType type of command
      * @param nextCommand the content in the command
-     * @throws DukeException an exception related to operations with Fluke
+     * @throws FlukeException an exception related to operations with Fluke
      * @throws IOException an exception related to saving data
      */
-    private void changeTodoList(Command commandType, String nextCommand) throws DukeException {
+    private void changeTodoList(Command commandType, String nextCommand) throws FlukeException {
         // 1. make changes to the list
         switch (commandType) {
         case MARK:
@@ -141,13 +141,13 @@ public class Fluke {
             break;
         default:
             // should not occur
-            throw new DukeException("An unknown error has occurred.");
+            throw new FlukeException("An unknown error has occurred.");
         }
         // 2. save to file
         try {
             this.storage.save(tasks.getListOfTasks());
         } catch (IOException i) {
-            throw new DukeException(i.getMessage());
+            throw new FlukeException(i.getMessage());
         }
     }
 }

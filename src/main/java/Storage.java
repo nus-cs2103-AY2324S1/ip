@@ -17,7 +17,7 @@ public class Storage {
      * Attempts to load tasks from local storage.
      * @return An ArrayList containing tasks.
      */
-    public ArrayList<Task> load() throws DukeException {
+    public ArrayList<Task> load() throws FlukeException {
         File saveFile = new File(filePath);
         if (saveFile.exists()) {
             // parse the file and write to list
@@ -31,7 +31,7 @@ public class Storage {
                     }
                 }
             } catch (FileNotFoundException f) {
-                throw new DukeException(f.getMessage());
+                throw new FlukeException(f.getMessage());
             }
             return tasksReadFromStorage;
         } else {

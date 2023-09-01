@@ -28,7 +28,7 @@ public class Parser {
         }
     }
 
-    public static Task parseTask(String taskString) throws DukeException {
+    public static Task parseTask(String taskString) throws FlukeException {
         Fluke.Command taskType;
         boolean isMarked;
         // parse type
@@ -114,7 +114,7 @@ public class Parser {
         throw new SaveFileParsingException();
     }
 
-    public static String parseTodoCommand(String command) throws DukeException {
+    public static String parseTodoCommand(String command) throws FlukeException {
         if (command.length() <= 5) {
             // command is too short, description is invalid
             throw new EmptyDescriptionException();
@@ -122,7 +122,7 @@ public class Parser {
         return command.substring(5);
     }
 
-    public static String[] parseDeadlineCommand(String command) throws DukeException {
+    public static String[] parseDeadlineCommand(String command) throws FlukeException {
         if (command.length() <= 9) {
             // command is too short, description is invalid
             throw new EmptyDescriptionException();
@@ -137,7 +137,7 @@ public class Parser {
         return new String[]{description, by};
     }
 
-    public static String[] parseEventCommand(String command) throws DukeException {
+    public static String[] parseEventCommand(String command) throws FlukeException {
         if (command.length() <= 6) {
             // command is too short, description is invalid
             throw new EmptyDescriptionException();
@@ -154,7 +154,7 @@ public class Parser {
         return new String[]{description, from, to};
     }
 
-    public static int parseDeleteCommand(String nextCommand) throws DukeException {
+    public static int parseDeleteCommand(String nextCommand) throws FlukeException {
         if (nextCommand.length() <= 7) {
             throw new InvalidInputException();
         }
@@ -162,7 +162,7 @@ public class Parser {
         return taskNumber - 1;
     }
 
-    public static int parseMarkAsDoneCommand(String nextCommand) throws DukeException {
+    public static int parseMarkAsDoneCommand(String nextCommand) throws FlukeException {
         if (nextCommand.length() <= 5) {
             throw new InvalidInputException();
         }
@@ -170,7 +170,7 @@ public class Parser {
         return taskNumber - 1;
     }
 
-    public static int parseMarkAsUndoneCommand(String nextCommand) throws DukeException {
+    public static int parseMarkAsUndoneCommand(String nextCommand) throws FlukeException {
         if (nextCommand.length() <= 7) {
             throw new InvalidInputException();
         }

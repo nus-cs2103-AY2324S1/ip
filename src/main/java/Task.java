@@ -2,7 +2,7 @@ abstract class Task {
     protected String description;
     protected boolean isDone = false;
 
-    protected Task(String description) throws DukeException {
+    protected Task(String description) throws FlukeException {
         String trimmedDescription = description.trim();
         if (trimmedDescription.equals("")) {
             throw new EmptyDescriptionException();
@@ -10,7 +10,7 @@ abstract class Task {
         this.description = trimmedDescription;
     }
 
-    protected Task(String description, boolean isDone) throws DukeException {
+    protected Task(String description, boolean isDone) throws FlukeException {
         String trimmedDescription = description.trim();
         if (trimmedDescription.equals("")) {
             throw new EmptyDescriptionException();
