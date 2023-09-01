@@ -11,14 +11,29 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * For executing the on command.
+ */
 public class OnCommand extends Command {
 
     private LocalDate localDate;
 
+    /**
+     * Create the OnCommand class.
+     *
+     * @param localDate The date to display all the tasks on that date.
+     */
     public OnCommand(LocalDate localDate) {
         this.localDate = localDate;
     }
 
+    /**
+     * Find all the task on the date and display it.
+     *
+     * @param tasks List of all the task.
+     * @param ui UI for printing result to user.
+     * @param storage Storage class meant for saving to file.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
 
