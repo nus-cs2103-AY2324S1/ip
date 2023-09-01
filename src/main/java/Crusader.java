@@ -211,9 +211,9 @@ public class Crusader {
     private static void loadIntoTasks(String loadPath) throws IOException {
         File save = new File(loadPath);
         try {
-            Scanner sc = new Scanner(save);
-            while (sc.hasNext()) {
-                String line = sc.nextLine();
+            Scanner scanner = new Scanner(save);
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
                 // parse the line
                 Task t = parseSavedTask(line);
                 TASKS.add(t);
