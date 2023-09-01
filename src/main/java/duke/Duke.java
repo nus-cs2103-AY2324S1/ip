@@ -112,6 +112,16 @@ class TaskType {
     };
 
     /**
+     * Returns the task description.
+     *
+     * @returns task description as string
+     */
+
+    public String getTaskDesc() {
+        return task;
+    };
+
+    /**
      * Returns a string of all datetime-related information, suitable to be shown in lists.
      *
      * @returns String of datetime-related information
@@ -312,7 +322,7 @@ class Ui{
         String completedBox = "[" + (task.getIsCompleted() ? "X" : " ") + "] ";
         String taskTypeBox = "[" + task.toShortString() + "]";
         String formattedDatetime = task.getFormattedDatetime(fmt);
-        return taskTypeBox + completedBox + " " + task + " "  + formattedDatetime;
+        return taskTypeBox + completedBox + " " + task.getTaskDesc() + " "  + formattedDatetime;
     }
 
     /**
@@ -634,6 +644,21 @@ class Parser{
             if (userInput.equals("list")){
                 ui.print("Here are the tasks in your list:");
                 ui.printItems(tl.getItems());
+
+            } else if (splitStr[0].equals("find")) {
+                if(splitStr.length < 2) {
+                    throw new DukeException("Invalid format detected for 'find' command. Enter find [search_term]");
+                }
+                String searchTerm = Utils.splitStringBySpaces(splitStr, 1, splitStr.length);
+
+                ArrayList<TaskType> suitable = new ArrayList<>();
+                for(int i = 0; i < tl.getSize(); i++) {
+                    if(tl.getItem(i).getTaskDesc().contains(searchTerm)) {
+                        suitable.add(tl.getItem(i));
+                    }
+                }
+                ui.print("Here are the matching tasks in your list:");
+                ui.printItems(suitable);
 
             } else if (splitStr[0].equals("mark")) {
                 if(splitStr.length != 2) {
