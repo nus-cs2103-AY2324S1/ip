@@ -1,10 +1,10 @@
 package simon.task;
 
-import simon.SimonException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import simon.SimonException;
+
 
 public class Deadline extends Task {
     public final LocalDateTime endDateTime;
