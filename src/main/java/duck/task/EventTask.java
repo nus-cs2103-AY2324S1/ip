@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import duck.DuckException;
+import duck.Parser;
 
 public class EventTask extends Task {
     LocalDate start;
@@ -37,7 +38,16 @@ public class EventTask extends Task {
         return "[E]" + super.toString() + " (from: " + formatStart() + " to " + formatEnd() + ")";
     }
 
-    public static EventTask parse(String fileLine, DateTimeFormatter dateFormatter) throws DuckException {
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof EventTask) {
+            EventTask other = (EventTask) obj;
+            return super.equals(other) && start.equals(other.start) && end.equals(other.end);
+        }
+        return false;
+    }
+
+    public static EventTask parse(String fileLine) throws DuckException {
 
         // Finding isDone
         boolean isDone = fileLine.charAt(1) == '1';
@@ -50,12 +60,12 @@ public class EventTask extends Task {
         // Finding start
         int secondSlashIndex = fileLine.indexOf("/", slashIndex + 1); // The index of the next slash
         String startString = fileLine.substring(secondSlashIndex + 1, secondSlashIndex + 12);
-        LocalDate start = LocalDate.parse(startString, dateFormatter);
+        LocalDate start = LocalDate.parse(startString, Parser.fileDateFormatter);
 
         // Finding end
         int thirdSlashIndex = fileLine.indexOf("/", secondSlashIndex + 1); // The index of the next slash
         String endString = fileLine.substring(thirdSlashIndex + 1);
-        LocalDate end = LocalDate.parse(endString, dateFormatter);
+        LocalDate end = LocalDate.parse(endString, Parser.fileDateFormatter);
 
         return new EventTask(name, isDone, start, end);
     }

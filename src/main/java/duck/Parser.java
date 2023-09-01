@@ -19,7 +19,7 @@ import duck.task.TodoTask;
 
 public class Parser {
     private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private static DateTimeFormatter fileDateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    public static DateTimeFormatter fileDateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     public static Command parse(String input) throws DuckException {
         String[] splitInput = input.trim().split(" ", 2);
@@ -80,7 +80,7 @@ public class Parser {
         } catch (StringIndexOutOfBoundsException e) {
             throw new DuckException("Invalid todo task.");
         } catch (DateTimeParseException e) {
-            throw new DuckException("Please follow the dd/mm/yyyy format for dates.");
+            throw new DuckException("Please follow the dd/mm/yyyy format.");
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DuckException("Please follow the /by format.");
         }
@@ -110,9 +110,9 @@ public class Parser {
         case 'T':
             return TodoTask.parse(fileLine);
         case 'D':
-            return DeadlineTask.parse(fileLine, fileDateFormatter);
+            return DeadlineTask.parse(fileLine);
         case 'E':
-            return EventTask.parse(fileLine, fileDateFormatter);
+            return EventTask.parse(fileLine);
         default:
             throw new DuckException("Invalid file data.");
         }
