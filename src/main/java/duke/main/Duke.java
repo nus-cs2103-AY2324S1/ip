@@ -7,6 +7,7 @@ import duke.commands.*;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * The main class that initiates the chatbot application.
@@ -157,6 +158,27 @@ public class Duke {
     }
 
     /**
+     * Finds tasks containing the given keyword and displays them.
+     *
+     * @param keyword The keyword to search for.
+     */
+    public void findTasksByKeyword(String keyword) {
+        ArrayList<Task> matchingTasks = taskList.findTasksByKeyword(keyword);
+        if (matchingTasks.isEmpty()) {
+            Ui.showMessage("No matching tasks found.");
+        } else {
+            StringBuilder matchingTasksString = new StringBuilder();
+            matchingTasksString.append("Here are the matching tasks in your list:\n");
+            int count = 1;
+            for (Task task : matchingTasks) {
+                matchingTasksString.append(count).append(".").append(task).append("\n");
+                count++;
+            }
+            Ui.showMessage(matchingTasksString.toString());
+        }
+    }
+
+    /**
      * Handles the command based on the command type
      *
      * @param command The command to be handled
@@ -182,6 +204,9 @@ public class Duke {
             return false;
         case "list":
             Ui.showMessage(this.taskList.toString());
+            break;
+        case "find":
+            this.findTasksByKeyword(description);
             break;
         case "todo":
             this.addTodo(description);

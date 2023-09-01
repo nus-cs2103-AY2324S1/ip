@@ -2,3 +2,9 @@ D | 1 | return book | 2023-01-01
 E | 0 | supernova | 2023-12-01 | 2023-01-10
 T | 0 | borrow
 T | 0 | swimming
+T | 0 | borrow
+D | 0 | return | 2024-01-01
+T | 1 | borrow books
+T | 0 | borrow books
+D | 0 | return books | 2024-01-01
+E | 0 | super nova | 2023-01-01 | 2023-02-02
