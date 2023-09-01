@@ -40,7 +40,7 @@ public class Storage {
                 String[] parts = line.split("\\|");
 
                 String taskType = parts[0].trim();
-                boolean isDone = parts[1].trim().equals("1") ? true : false;
+                boolean isDone = parts[1].trim().equals("1");
                 String description = parts[2].trim();
 
                 if (taskType.equals("T")) {
