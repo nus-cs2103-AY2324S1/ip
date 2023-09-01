@@ -28,10 +28,12 @@ test {
 }
 
 application {
+//    mainClassName = 'simon.Simon.Main'
     mainClass.set("simon.Simon")
 }
 
 shadowJar {
+    archiveFileName = 'simon.jar'
     archiveBaseName = "simon"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
