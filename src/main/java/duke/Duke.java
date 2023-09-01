@@ -6,13 +6,22 @@ import duke.command.Command;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-
+/**
+ * The main Duke class that represents the chatbot.
+ * It initializes the application and interacts with the user.
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Duke object and initializes the UI, Storage, and TaskList.
+     *
+     * @param filePath The path to the file where tasks are saved and loaded.
+     * @throws FileNotFoundException If the file is not found.
+     */
     public Duke(String filePath) throws FileNotFoundException {
         ui = new Ui();
         ui.showWelcome();
@@ -20,6 +29,10 @@ public class Duke {
         tasks = new TaskList(storage.loadTasks());
     }
 
+    /**
+     * Runs the Duke chatbot. It reads user input and executes the appropriate commands.
+     * The method continues running until a ByeCommand is received.
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
 
@@ -41,6 +54,12 @@ public class Duke {
         }
     }
 
+    /**
+     * The main method for the Duke chatbot application.
+     *
+     * @param args Command line arguments.
+     * @throws FileNotFoundException If the file is not found.
+     */
     public static void main(String[] args) throws FileNotFoundException {
         new Duke("data/tasks.txt").run();
     }

@@ -11,11 +11,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
+/**
+ * Represents a storage system to handle reading and writing tasks to a file.
+ */
 public class Storage {
     private String directoryPath;
     private String fileName;
     private String filePath;
 
+    /**
+     * Initializes a new instance of the Storage class.
+     *
+     * @param filePath The path to the file used for storing tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         File file = new File(filePath);
@@ -23,6 +31,12 @@ public class Storage {
         this.fileName = file.getName();
     }
 
+    /**
+     * Saves the tasks into the file.
+     *
+     * @param tasks The list of tasks to be saved.
+     * @throws IOException If there's an issue writing to the file.
+     */
     public void saveTasks(TaskList tasks) throws IOException {
         // Ensure the directory exists
         File directory = new File(directoryPath);
@@ -43,6 +57,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws FileNotFoundException If the file doesn't exist.
+     */
     public ArrayList<Task> loadTasks() throws FileNotFoundException {
         File file = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
