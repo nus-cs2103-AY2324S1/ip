@@ -1,8 +1,13 @@
 import exception.TaskParseException;
+import exception.TimeUtilException;
+import util.TimeUtil;
+
+import java.time.LocalDateTime;
 
 public class TaskFactory {
 
-    public Task createTask(String taskType, String taskName, String[] args) throws TaskParseException {
+    public Task createTask(String taskType, String taskName, String[] args)
+            throws TaskParseException, TimeUtilException {
         if (taskName.isEmpty()) {
             throw new TaskParseException("usage: TaskType(todo | deadline | event) " +
                     "TaskName " +
@@ -29,7 +34,8 @@ public class TaskFactory {
                 if (!args[0].startsWith("by ")) {
                     throw new TaskParseException("Error: Deadline tasks must have an end date prefixed with '/by'.\n");
                 }
-                String endDeadlineDate = args[0].substring(3).trim(); // remove "by "
+                // remove "by "
+                LocalDateTime endDeadlineDate = TimeUtil.parseDateTimeString(args[0].substring(3).trim());
                 return new DeadlineTask(taskName, endDeadlineDate);
 
             case EVENT:
@@ -40,8 +46,10 @@ public class TaskFactory {
                     throw new TaskParseException("Error: Event tasks must have a start date prefixed with '/from' " +
                             "and an end date prefixed with '/to'.\n");
                 }
-                String startEventDate = args[0].substring(5).trim(); // remove "from "
-                String endEventDate = args[1].substring(3).trim(); // remove "to "
+                // remove "from "
+                LocalDateTime startEventDate = TimeUtil.parseDateTimeString(args[0].substring(5).trim());
+                // remove "to "
+                LocalDateTime endEventDate = TimeUtil.parseDateTimeString(args[1].substring(3).trim());
                 return new EventTask(taskName, startEventDate, endEventDate);
 
             default:

@@ -1,7 +1,9 @@
+import java.time.LocalDateTime;
+
 public class EventTask extends Task {
-    private String startDate;
-    private String endDate;
-    public EventTask(String taskName, String startDate, String endDate) {
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+    public EventTask(String taskName, LocalDateTime startDate, LocalDateTime endDate) {
         super(taskName, TaskType.EVENT);
         this.startDate = startDate;
         this.endDate = endDate;
