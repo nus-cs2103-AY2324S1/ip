@@ -38,6 +38,10 @@ public class Parser {
             }
             // go through commands with arguments.
             switch (commandType) {
+            case FIND: {
+                taskList.find(args);
+                return;
+            }
             case MARK: {
                 try {
                     int taskNumber = Integer.parseInt(args);

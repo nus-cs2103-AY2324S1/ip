@@ -41,18 +41,18 @@ public class TaskList implements ITaskList {
             throw new EmptyArgumentException(taskType.toString().toLowerCase());
         }
         switch (taskType) {
-            case TODO:
-                newTask = new Todo(description);
-                break;
-            case DEADLINE:
-                newTask = new Deadline(description, args[0]);
-                break;
-            case EVENT:
-                newTask = new Event(description, args[0], args[1]);
-                break;
-            default:
-                // the program should never reach this point.
-                throw new JarvisException("Default case reached.");
+        case TODO:
+            newTask = new Todo(description);
+            break;
+        case DEADLINE:
+            newTask = new Deadline(description, args[0]);
+            break;
+        case EVENT:
+            newTask = new Event(description, args[0], args[1]);
+            break;
+        default:
+            // the program should never reach this point.
+            throw new JarvisException("Default case reached.");
         }
         taskList.add(newTask);
         taskCount++;
@@ -105,6 +105,27 @@ public class TaskList implements ITaskList {
             result += i + ". " + taskList.get(i - 1) + "\n";
         }
         result += taskCount + ". " + taskList.get(taskCount - 1);
+        ui.print(result);
+    }
+
+    public void find(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.toString().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        int count = matchingTasks.size();
+        if (count == 0) {
+            ui.print("Sir, there are no matching tasks on your calendar.");
+            return;
+        }
+        String result = "Sir, there are " + count + " matching tasks on your calendar:\n";
+        for (int i = 1; i < count; i++) {
+            result += i + ". " + matchingTasks.get(i - 1) + "\n";
+        }
+        result += count + ". " + matchingTasks.get(count - 1);
         ui.print(result);
     }
 }
