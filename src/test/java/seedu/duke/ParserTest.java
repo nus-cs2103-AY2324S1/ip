@@ -1,23 +1,24 @@
 package seedu.duke;
 
-import duke.Parser;
-import exception.InvalidCommandException;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import duke.Parser;
+import exception.InvalidCommandException;
 
 public class ParserTest {
 
     @Test
-    public void parse_InvalidEditCommandIndex_exceptionThrown() {
+    public void parse_invalidEditCommandIndex_exceptionThrown() {
         InvalidCommandException test = assertThrows(InvalidCommandException.class, () -> Parser.parse("mark hi"));
 
         assertEquals("Please input an integer to identify task", test.getMessage());
     }
 
     @Test
-    public void parse_InvalidTaskCommand_exceptionThrown() {
+    public void parse_invalidTaskCommand_exceptionThrown() {
         assertThrows(InvalidCommandException.class, () ->
                 Parser.parse("deadline  "));
 
@@ -39,7 +40,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_InvalidEventDate_exceptionThrown() {
+    public void parse_invalidEventDate_exceptionThrown() {
         InvalidCommandException thrown = assertThrows(InvalidCommandException.class, () ->
                 Parser.parse("event party /from 2022-01-01 23:00 /to 2021-01-01 23:00"));
 

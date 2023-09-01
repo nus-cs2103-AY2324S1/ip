@@ -1,28 +1,31 @@
 package duke;
 
-import command.*;
-import exception.DukeException;
-import exception.InvalidCommandException;
-import exception.InvalidIndexException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import command.AddCommand;
+import command.ByeCommand;
+import command.Command;
+import command.EditCommand;
+import command.ListCommand;
+import exception.DukeException;
+import exception.InvalidCommandException;
+
 /**
  * Parses user input.
  */
 public class Parser {
     public static final Pattern BASIC_COMMAND = Pattern.compile("(?<command>\\S+)(?<arguments>.*)");
-    public static final String isoDatePattern = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}";
+    public static final String DATE_PATTERN = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}";
     public static final Pattern DEADLINE_FORMAT = Pattern.compile(
-            "(?<deadline>[^\"]+) /by (" + isoDatePattern + ")");
+            "(?<deadline>[^\"]+) /by (" + DATE_PATTERN + ")");
 
     public static final Pattern EVENT_FORMAT = Pattern.compile(
-            "(?<deadline>[^\"]+) /from (" + isoDatePattern + ")"
-                    + " /to (" + isoDatePattern + ")");
+            "(?<deadline>[^\"]+) /from (" + DATE_PATTERN + ")"
+                    + " /to (" + DATE_PATTERN + ")");
 
     /**
      * Parses user input and returns a command.Command. The command.Command can then be executed
@@ -35,7 +38,7 @@ public class Parser {
     public static Command parse(String input) throws DukeException {
         final Matcher matcher = BASIC_COMMAND.matcher(input.trim());
 
-        if(!matcher.matches()) {
+        if (!matcher.matches()) {
             throw new InvalidCommandException("Invalid command.Command");
         }
 
@@ -68,10 +71,8 @@ public class Parser {
         case "delete":
             if (validIndex) {
                 return new EditCommand("delete", Integer.parseInt(argument));
-
             } else {
                 throw new InvalidCommandException("Please input an integer to identify task");
-
             }
 
         case "todo":
@@ -91,10 +92,11 @@ public class Parser {
                 String desc = deadlineFormat.group(1);
                 LocalDateTime d = parseDateTime(deadlineFormat.group(2));
                 String byDate = reformatDateTime(d);
+
                 return new AddCommand("deadline", new String[]{desc, byDate});
             } else {
-                throw new InvalidCommandException("Invalid deadline command. " +
-                        "Please include /by date in this format: yyyy-mm-dd HH:mm");
+                throw new InvalidCommandException("Invalid deadline command. "
+                        + "Please include /by date in this format: yyyy-mm-dd HH:mm");
             }
 
         case "event":
@@ -118,8 +120,8 @@ public class Parser {
 
                 return new AddCommand("event", new String[]{desc, fromDate, toDate});
             } else {
-                throw new InvalidCommandException("Invalid event command. " +
-                        "Please include /from and /to dates in this format: yyyy-mm-dd HH:mm");
+                throw new InvalidCommandException("Invalid event command. "
+                        + "Please include /from and /to dates in this format: yyyy-mm-dd HH:mm");
             }
 
         default:
@@ -138,7 +140,6 @@ public class Parser {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy h.mma", Locale.ENGLISH);
         return input.format(formatter);
     }
-
 
     public static LocalDateTime parseDateTime(String input) {
         String[] dateTime = input.split(" ", 2);

@@ -1,7 +1,9 @@
 package command;
+
+import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-import duke.Storage;
+
 
 /**
  * command.Command that adds a task to the task.Task List.

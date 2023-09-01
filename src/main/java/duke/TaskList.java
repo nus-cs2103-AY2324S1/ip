@@ -1,9 +1,12 @@
 package duke;
 
-import exception.InvalidIndexException;
-import task.*;
-
 import java.util.ArrayList;
+
+import exception.InvalidIndexException;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
 
 /**
  * Contains the list of tasks. The tasks stored from the file loaded
@@ -84,9 +87,9 @@ public class TaskList {
 
         }
 
-        return "Got it. I've added this task:\n" +
-                taskList.get(taskList.size() - 1).toString() +
-                "\nNow you have " + (taskList.size()) + " tasks in the list.";
+        return "Got it. I've added this task:\n"
+                + taskList.get(taskList.size() - 1).toString()
+                + "\nNow you have " + (taskList.size()) + " tasks in the list.";
     }
 
     /**
@@ -125,6 +128,12 @@ public class TaskList {
         return editDesc;
     }
 
+    /**
+     * Checks if the index given is out of taskList range.
+     *
+     * @param ind The input index.
+     * @return If the index is within range.
+     */
     public boolean isValidIndex(int ind) {
         if (ind <= 0) {
             return false;

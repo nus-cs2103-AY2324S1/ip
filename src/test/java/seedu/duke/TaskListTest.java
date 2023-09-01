@@ -1,22 +1,23 @@
 package seedu.duke;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
 import duke.TaskList;
 import exception.InvalidIndexException;
-import org.junit.jupiter.api.Test;
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.ToDo;
 
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public class TaskListTest {
 
     @Test
-    public void editTask_InvalidIndex_exceptionThrown() {
+    public void editTask_invalidIndex_exceptionThrown() {
         ArrayList<Task> taskLists = new ArrayList<>();
         taskLists.add(new ToDo("return book"));
         TaskList tasks = new TaskList(taskLists);
