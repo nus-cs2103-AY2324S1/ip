@@ -18,12 +18,10 @@ public class Parser {
             return;
         }
         if (input.startsWith("todo")) {
-            System.out.println("firstload: " + isLoading);
             this.handleTodo(input, taskList, isLoading);
             return;
         }
         if (input.startsWith("deadline")) {
-            System.out.println("a");
             this.handleDeadline(input, taskList, isLoading);
             return;
         }
