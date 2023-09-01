@@ -1,5 +1,8 @@
 package aichan;
 
+/**
+ * Represents the type of command.
+ */
 public enum ActionType {
     MARK("mark"),
     UNMARK("unmark"),
@@ -11,10 +14,11 @@ public enum ActionType {
     BYE("bye");
 
     private final String action;
-    ActionType(String action) {
+    private ActionType(String action) {
         this.action = action;
     }
 
+    @Override
     public String toString(){
         return this.action;
     }

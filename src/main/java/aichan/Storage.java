@@ -7,13 +7,28 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+/**
+ * Represents a storage which deals with loading tasks and saving tasks.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a storage object.
+     *
+     * @param filePath File path for storing and loading tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the tasks to the file.
+     *
+     * @param tasks TaskList contains current tasks.
+     * @throws AiChanException If an error occurs when saving tasks.
+     */
     public void save(TaskList tasks) throws AiChanException {
         try {
             File file = new File(this.filePath);
@@ -36,6 +51,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks which are stored in the file.
+     *
+     * @return ArrayList which contains the tasks.
+     * @throws AiChanException If an error occurs when loading tasks.
+     */
     public ArrayList<Task> load() throws AiChanException{
         ArrayList<Task> arrTask = new ArrayList<>();
 
