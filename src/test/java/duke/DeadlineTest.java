@@ -20,7 +20,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void event_completed_toString_success() {
+    public void deadline_completed_toString_success() {
         Deadline d = new Deadline("test", true,
                 LocalDateTime.of(LocalDate.of(2023, Month.JANUARY, 1),
                         LocalTime.of(23, 59)));
