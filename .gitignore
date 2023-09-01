@@ -11,6 +11,9 @@
 /build/
 src/main/resources/docs/
 
+# Saved data files
+data/
+
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml

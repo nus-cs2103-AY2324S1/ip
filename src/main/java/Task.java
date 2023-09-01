@@ -1,9 +1,9 @@
 /**
  * A task to do in the chatbot.
  */
-public class Task {
+public abstract class Task {
     /** Name of the task */
-    private String name;
+    private final String name;
 
     /** The completion status of the task */
     private boolean doneness;
@@ -13,10 +13,16 @@ public class Task {
         doneness = false;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", isDone() ? "X" : " ", name);
     }
+
+    public abstract String toFormat();
 
     public boolean isDone() {
         return doneness;

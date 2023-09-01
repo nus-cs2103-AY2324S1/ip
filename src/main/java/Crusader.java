@@ -1,5 +1,10 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import java.io.File;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
 
 public class Crusader {
     /** Logo generated from https://patorjk.com/software/taag */
@@ -19,7 +24,7 @@ public class Crusader {
     /**
      * The filepath used to save data.
      */
-    private static final String SAVE_FILE = "../data/crusader.txt";
+    private static final String SAVE_FILE = "./data/crusader.txt";
 
     /**
      * Describes the list of tasks in the chatbot.
@@ -35,37 +40,37 @@ public class Crusader {
     /**
      * Marks a task as done.
      *
-     * @param i index of the task to be marked. 1-indexed.
+     * @param index index of the task to be marked. 1-indexed.
      */
-    private static void mark(int i) {
-        Task t = TASKS.get(i - 1);
+    private static void mark(int index) {
+        Task task = TASKS.get(index - 1);
         System.out.println("I have marked the task as done:");
-        t.mark();
-        System.out.println(t.toString());
+        task.mark();
+        System.out.println(task.toString());
     }
 
     /**
      * Unmarks a task.
      *
-     * @param i index of the task to be unmarked. 1-indexed.
+     * @param index index of the task to be unmarked. 1-indexed.
      */
-    private static void unmark(int i) {
-        Task t = TASKS.get(i - 1);
+    private static void unmark(int index) {
+        Task task = TASKS.get(index - 1);
         System.out.println("I have unmarked the task, it is no longer done:");
-        t.unmark();
-        System.out.println(t.toString());
+        task.unmark();
+        System.out.println(task.toString());
     }
 
     /**
      * Deletes a task.
      *
-     * @param i index of the task to be deleted. 1-indexed.
+     * @param index index of the task to be deleted. 1-indexed.
      */
-    private static void delete(int i) {
-        Task t = TASKS.get(i - 1);
+    private static void delete(int index) {
+        Task task = TASKS.get(index - 1);
         System.out.println("I have deleted the following task:");
-        System.out.println(t.toString());
-        TASKS.remove(t);
+        System.out.println(task.toString());
+        TASKS.remove(task);
         System.out.printf("Now there are %d tasks in the list.\n", TASKS.size());
     }
 
@@ -109,7 +114,7 @@ public class Crusader {
 
     /**
      * Parses the prompt to generate a new Todo Task.
-     * @param prompt
+     * @param prompt The prompt entered by the user
      */
     private static void addTodo(String prompt) {
         if (prompt.length() < 5) {
@@ -126,7 +131,7 @@ public class Crusader {
 
     /**
      * Parses the prompt to generate a new Event Task.
-     * @param prompt
+     * @param prompt The prompt entered by the user
      */
     private static void addEvent(String prompt) {
         int fromPosition = prompt.indexOf("/from");
@@ -162,7 +167,7 @@ public class Crusader {
 
     /**
      * Parses the prompt to generate a new Deadline Task.
-     * @param prompt
+     * @param prompt The prompt entered by the user
      */
     private static void addDeadline(String prompt) {
         int byPosition = prompt.indexOf("/by");
@@ -182,12 +187,67 @@ public class Crusader {
         addDivider();
     }
 
-    private static void loadIntoTasks(String loadPath) {
-        
+    /**
+     * Loads into TASKS saved tasks from a file.
+     * @param loadPath Path of the saved file.
+     * @throws IOException
+     */
+    private static void loadIntoTasks(String loadPath) throws IOException {
+        File save = new File(loadPath);
+        try {
+            Scanner sc = new Scanner(save);
+            while (sc.hasNext()) {
+                String line = sc.nextLine();
+                // parse the line
+                Task t = parseSavedTask(line);
+                TASKS.add(t);
+            }
+        } catch (FileNotFoundException e) {
+            // make the file
+            save.createNewFile();
+        }
     }
 
-    private static void saveTasks(String savePath) {
+    /**
+     * Parses a single task saved in the text file.
+     * @param taskString Line to be parsed.
+     * @return A new Task.
+     */
+    private static Task parseSavedTask(String taskString) {
+        String[] components = taskString.split("\\|");
+        Task task;
+        switch (components[0]) {
+        case "E":
+            task = new Event(components[1], components[3], components[4]);
+            break;
+        case "T":
+            task = new Todo(components[1]);
+            break;
+        case "D":
+            task = new Deadline(components[1], components[3]);
+            break;
+        default:
+            throw new IllegalArgumentException();
+        }
+        if (components[2].equals("X")) {
+            task.mark();
+        }
+        return task;
+    }
 
+    /**
+     * Saves the Tasks in TASKS to a given file.
+     * @param savePath Path to the file
+     */
+    private static void saveTasks(String savePath) {
+        File save = new File(savePath);
+        try (PrintWriter fileWriter = new PrintWriter(save)) {
+            for (Task task : TASKS) {
+                fileWriter.println(task.toFormat());
+            }
+        } catch (IOException e) {
+
+        }
     }
 
     public static void main(String[] args) {
@@ -196,7 +256,11 @@ public class Crusader {
         addDivider();
         showLogo();
         greet();
-        loadIntoTasks(SAVE_FILE);
+        try {
+            loadIntoTasks(SAVE_FILE);
+        } catch (IOException e) {
+            say("ERROR: Unable to load or create file!");
+        }
         while (notEnded) {
             String currentPrompt = sc.nextLine();
             addDivider();
@@ -204,66 +268,66 @@ public class Crusader {
             switch (currentPrompt.contains(" ")
                     ? currentPrompt.split(" ")[0]
                     : currentPrompt) {
-                case "bye":
-                    notEnded = false;
-                    break;
-                case "list":
-                    tasksToString();
-                    break;
-                case "mark":
-                    try {
-                        int i = Integer.parseInt(currentPrompt.split(" ")[1]);
-                        mark(i);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        say("Hmm, there's supposed to be something in front of \"mark\"!");
-                    } catch (NumberFormatException e) {
-                        say("Hmm, there should be a NUMBER in front of \"mark\"!");
-                    }
-                    break;
-                case "unmark":
-                    try {
-                        int j = Integer.parseInt(currentPrompt.split(" ")[1]);
-                        unmark(j);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        say("Hmm, there's supposed to be something in front of \"unmark\"!");
-                    } catch (NumberFormatException e) {
-                        say("Hmm, there should be a NUMBER in front of \"unmark\"!");
-                    }
-                    break;
-                case "todo":
-                    try {
-                        addTodo(currentPrompt);
-                    } catch (IllegalArgumentException e) {
-                        say(e.getMessage());
-                    }
-                    break;
-                case "event":
-                    try {
-                        addEvent(currentPrompt);
-                    } catch (IllegalArgumentException e) {
-                        say(e.getMessage());
-                    }
-                    break;
-                case "deadline":
-                    try {
-                        addDeadline(currentPrompt);
-                    } catch (IllegalArgumentException e) {
-                        say(e.getMessage());
-                    }
-                    break;
-                case "delete":
-                    try {
-                        int k = Integer.parseInt(currentPrompt.split(" ")[1]);
-                        delete(k);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        say("Hmm, there's supposed to be something in front of \"delete\"!");
-                    } catch (NumberFormatException e) {
-                        say("Hmm, there should be a NUMBER in front of \"delete\"!");
-                    }
-                    break;
-                default:
-                    say("Sorry, but I'm not sure what that is...");
-                    break;
+            case "bye":
+                notEnded = false;
+                break;
+            case "list":
+                tasksToString();
+                break;
+            case "mark":
+                try {
+                    int i = Integer.parseInt(currentPrompt.split(" ")[1]);
+                    mark(i);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    say("Hmm, there's supposed to be something in front of \"mark\"!");
+                } catch (NumberFormatException e) {
+                    say("Hmm, there should be a NUMBER in front of \"mark\"!");
+                }
+                break;
+            case "unmark":
+                try {
+                    int j = Integer.parseInt(currentPrompt.split(" ")[1]);
+                    unmark(j);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    say("Hmm, there's supposed to be something in front of \"unmark\"!");
+                } catch (NumberFormatException e) {
+                    say("Hmm, there should be a NUMBER in front of \"unmark\"!");
+                }
+                break;
+            case "todo":
+                try {
+                    addTodo(currentPrompt);
+                } catch (IllegalArgumentException e) {
+                    say(e.getMessage());
+                }
+                break;
+            case "event":
+                try {
+                    addEvent(currentPrompt);
+                } catch (IllegalArgumentException e) {
+                    say(e.getMessage());
+                }
+                break;
+            case "deadline":
+                try {
+                    addDeadline(currentPrompt);
+                } catch (IllegalArgumentException e) {
+                    say(e.getMessage());
+                }
+                break;
+            case "delete":
+                try {
+                    int k = Integer.parseInt(currentPrompt.split(" ")[1]);
+                    delete(k);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    say("Hmm, there's supposed to be something in front of \"delete\"!");
+                } catch (NumberFormatException e) {
+                    say("Hmm, there should be a NUMBER in front of \"delete\"!");
+                }
+                break;
+            default:
+                say("Sorry, but I'm not sure what that is...");
+                break;
             }
         }
         saveTasks(SAVE_FILE);
