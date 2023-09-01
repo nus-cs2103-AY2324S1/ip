@@ -48,7 +48,7 @@ public class EventTest {
             Event event = new Event("no start date", "", "31-08-2023 23:59");
             fail();
         } catch (RooException exception) {
-            assertEquals("Missing time !!!\n", exception.getMessage());
+            assertEquals("Missing time!!!\n", exception.getMessage());
         }
     }
 
@@ -58,7 +58,7 @@ public class EventTest {
             Event event = new Event("no end date", "30-08-2023 23:59", "");
             fail();
         } catch (RooException exception) {
-            assertEquals("Missing time !!!\n", exception.getMessage());
+            assertEquals("Missing time!!!\n", exception.getMessage());
         }
     }
 
