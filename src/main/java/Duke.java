@@ -141,7 +141,6 @@ public class Duke {
             Task.saveTasks("src/data/Duke.txt", tasks);
             System.out.println("\t" + "Expelliarmus! Hope to see you again muggle! :D");
         } catch (java.time.format.DateTimeParseException e) {
-            //detect inputs that don't follow the yyyy-MM-dd HHmm format
             System.out.println("I don't understand what that means D:" +
                     " Please input a valid date in the format yyyy-MM-dd HHmm " +
                     "(the time in the 24-hour format).");
