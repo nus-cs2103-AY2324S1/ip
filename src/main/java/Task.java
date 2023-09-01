@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 public abstract class Task {
@@ -32,7 +31,7 @@ public abstract class Task {
         return this.getStatusIcon() + " | " + this.name;
     }
 
-    public DateTimeFormatter getOutputFormat() {
+    public static DateTimeFormatter getDateOutputFormat() {
         return OUTPUT_FORMAT;
     }
 
