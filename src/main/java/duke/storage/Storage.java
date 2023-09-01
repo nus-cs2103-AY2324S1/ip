@@ -1,6 +1,5 @@
 package duke.storage;
 
-import duke.DukeException;
 import duke.TaskList;
 
 import java.io.FileInputStream;
@@ -19,8 +18,9 @@ public class Storage {
     }
 
     public TaskList load() throws DukeException {
+    public TaskList load() throws StorageException {
         if (Files.notExists(path)) {
-            throw new DukeException("No existing tasks found");
+            throw new StorageException("No existing tasks found");
         }
 
         try {
@@ -37,7 +37,7 @@ public class Storage {
                 Files.delete(path);
             } catch (IOException ignored) {
             }
-            throw new DukeException(String.format("Something went wrong loading existing tasks from %s", path));
+            throw new StorageException(String.format("Something went wrong loading existing tasks from %s", path));
         }
     }
 
