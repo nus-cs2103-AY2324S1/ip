@@ -3,7 +3,20 @@ package duke.parser;
 import duke.command.Command;
 import duke.exceptions.DukeUnknownCommandException;
 
+/**
+ * Represents a parser to parse
+ * the users' input.
+ *
+ * @author Andrew Daniel Janong
+ */
 public class Parser {
+    /**
+     * Parses the input of the user and returns the Command.
+     *
+     * @param input Input of the user.
+     * @return Command of the input.
+     * @throws DukeUnknownCommandException Error when the command input is unknwon.
+     */
     public Command parseInput(String input) throws DukeUnknownCommandException {
         String[] inputs = input.split(" ", 2);
 

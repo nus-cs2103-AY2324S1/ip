@@ -13,12 +13,19 @@ import duke.exceptions.DukeInvalidDateException;
 import duke.task.*;
 import duke.ui.Ui;
 
+/**
+ * Represents a storage to write and read data
+ * of the users' tasks.
+ *
+ * @author Andrew Daniel Janong
+ */
 public class Storage {
-    private List<Task> tasks;
 
+    /**
+     * Creates a Storage object.
+     * Folder and File of data will be created if have not before.
+     */
     public Storage() {
-        this.tasks = new ArrayList<>();
-
         try {
             File dataFolder = new File("./data");
 
@@ -36,6 +43,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Gets data from the data file and
+     * passes it to the task list.
+     *
+     * @param taskList Task list of the chatbot.
+     * @throws IOException Error when reading data.
+     */
     public void getTasksFromData(TaskList taskList) throws IOException {
         List<Task> tasks = new ArrayList<>();
         File dataFile = new File("./data/data.txt");
@@ -80,7 +94,11 @@ public class Storage {
         taskList.readTasksFromStorage(tasks);
     }
 
-
+    /**
+     * Writes to the data file the current users' tasks.
+     *
+     * @param taskList Task list of the chatbot.
+     */
     public void writeTasks(TaskList taskList) {
         try {
             FileWriter dataWriter = new FileWriter("./data/data.txt");

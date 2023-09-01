@@ -1,14 +1,16 @@
 package duke.task;
 
 /**
- * Represents a task without any date/time attached to it.
+ * A class which represents
+ * a task without any date/time attached to it.
  *
  * @author Andrew Daniel Janong
  */
 public class ToDo extends Task {
     /**
-     * A public constructor for the task.ToDo.
-     * @param description
+     * Creates a ToDo object.
+     *
+     * @param description Description of the task.
      */
     public ToDo(String description) {
         super(description);
@@ -20,9 +22,10 @@ public class ToDo extends Task {
     }
 
     /**
-     * A string representation of a task.ToDo.
-     * Uses an extra [T] to represent a task.ToDo.
-     * @return the string representation of the task.ToDo
+     * Returns the string representation of a ToDo.
+     * Uses an extra [T] to represent a ToDo.
+     *
+     * @return the string representation of the ToDo.
      */
     @Override
     public String toString() {
