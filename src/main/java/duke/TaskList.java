@@ -19,7 +19,11 @@ public class TaskList {
         this.tasks.add(task);
     }
 
-    public Task remove(int index) {
+    public Task remove(int index) throws DukeException {
+        if (index < 1 || index > tasks.size()) {
+            throw new DukeException(Ui.LINE + Messages.INVALID_INDEX_MESSAGE + Ui.LINE);
+        }
+
         return this.tasks.remove(index - 1);
     }
 
@@ -42,13 +46,21 @@ public class TaskList {
         }
     }
 
-    public Task markAsDone(int index) {
+    public Task markAsDone(int index) throws DukeException {
+        if (index < 1 || index > tasks.size()) {
+            throw new DukeException(Ui.LINE + Messages.INVALID_INDEX_MESSAGE + Ui.LINE);
+        }
+
         Task currentTask = this.tasks.get(index - 1);
         currentTask.markAsDone();
         return currentTask;
     }
 
-    public Task markAsUndone(int index) {
+    public Task markAsUndone(int index) throws DukeException {
+        if (index < 1 || index > tasks.size()) {
+            throw new DukeException(Ui.LINE + Messages.INVALID_INDEX_MESSAGE + Ui.LINE);
+        }
+
         Task currentTask = this.tasks.get(index - 1);
         currentTask.markAsUndone();
         return currentTask;

@@ -16,10 +16,6 @@ public class MarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (index < 1 || index > tasks.size()) {
-            throw new DukeException(Ui.LINE + Messages.INVALID_INDEX_MESSAGE + Ui.LINE);
-        }
-
         Task currentTask = tasks.markAsDone(index);
         ui.showTaskDone(currentTask);
         storage.saveTasks(tasks);
