@@ -15,7 +15,7 @@ public class DeadlineTask extends Task {
     public String toString() {
         return String.format("[D] | %s | %s | %s",
                 this.isDone() ? "[X]" : "[ ]",
-                str, deadline);
+                str, this.dateToString(deadline));
     }
 
 }

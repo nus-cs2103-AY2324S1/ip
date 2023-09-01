@@ -40,10 +40,8 @@ public class Tasks {
             file.getParentFile().mkdirs();
             PrintWriter writer = new PrintWriter(new FileWriter(file));
 
-            //System.out.println("What is saved");
             for (Task item : storagePile) {
                 String str = item.toString();
-                System.out.println(str);
                 writer.println(str);
             }
 

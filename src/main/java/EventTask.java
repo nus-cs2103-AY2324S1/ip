@@ -15,6 +15,6 @@ public class EventTask extends Task {
     public String toString() {
         return String.format("[E] | %s | %s | %s - %s",
                 this.isDone() ? "[X]" : "[ ]",
-                event, from, to);
+                event, this.dateToString(from.trim()), this.dateToString(to.trim()));
     }
 }

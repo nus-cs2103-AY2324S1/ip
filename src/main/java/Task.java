@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 public class Task {
     private Boolean done = false;
 
@@ -43,6 +46,26 @@ public class Task {
     public void markDone() {
         done = true;
     }
+
+    public String formatTime(String time) throws DateTimeParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        LocalDateTime dateTime = LocalDateTime.parse(time, formatter);
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HHmm");
+        String formattedStringOutput = dateTime.format(outputFormatter);
+        return formattedStringOutput;
+    }
+
+    public String dateToString(String time) {
+        try {
+            String formattedStringOutput = this.formatTime(time);
+            return formattedStringOutput;
+        } catch (DateTimeParseException e) {
+            return time;
+        }
+    }
+
+
+
 
     public void markUndone() {
         done = false;
