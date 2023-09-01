@@ -16,7 +16,7 @@ public class Parser {
      * @param input Input from user.
      * @throws InvalidCommandException If the input is not of the recognised form.
      */
-    public static ArrayList<String> parseUserInput(String input) throws InvalidCommandException {
+    public static Command parseUserInput(String input) throws InvalidCommandException {
         ArrayList<String> parsedInput= new ArrayList<>();
 
         String[] splitInputByDateDelimiter = input.split(DELIMITER_DATE);
@@ -44,7 +44,7 @@ public class Parser {
         Collections.addAll(parsedInput, Arrays.copyOfRange(splitInputByDateDelimiter, 1,
                 splitInputByDateDelimiter.length));
 
-        return parsedInput;
+        return parsedInputToCommand(parsedInput);
     }
 
     /**
@@ -58,5 +58,46 @@ public class Parser {
       String[] split = input.split(DELIMITER_INPUT);
       Collections.addAll(parsedInput, split);
       return parsedInput;
+    }
+
+    private static Command parsedInputToCommand(ArrayList<String> parsedInput) throws InvalidCommandException {
+        if (parsedInput.size() < 1) {
+            throw new InvalidCommandException("Command cannot be empty");
+        }
+
+        Command command;
+
+        switch(parsedInput.get(0)) {
+            case MarkCommand.COMMAND_MARK:
+                command = new MarkCommand(parsedInput);
+                break;
+            case UnmarkCommand.COMMAND_UNMARK:
+                command = new UnmarkCommand(parsedInput);
+                break;
+            case ListCommand.COMMAND_LIST:
+                command = new ListCommand(parsedInput);
+                break;
+            case ExitCommand.COMMAND_EXIT:
+                command = new ExitCommand(parsedInput);
+                break;
+            case DeleteCommand.COMMAND_DELETE:
+                command = new DeleteCommand(parsedInput);
+                break;
+            case OnCommand.COMMAND_ON:
+                command = new OnCommand(parsedInput);
+                break;
+            case FindCommand.COMMAND_FIND:
+                command = new FindCommand(parsedInput);
+                break;
+            case AddCommand.COMMAND_ADD_TODO:
+            case AddCommand.COMMAND_ADD_DEADLINE:
+            case AddCommand.COMMAND_ADD_EVENT:
+                command = new AddCommand(parsedInput);
+                break;
+            default:
+                throw new InvalidCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+
+        return command;
     }
 }
