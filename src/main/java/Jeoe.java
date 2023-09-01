@@ -3,6 +3,7 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -25,11 +26,6 @@ public class Jeoe {
 
     private static Task StringToTask(String taskInStringForm) {
         String[] taskData = taskInStringForm.split(" \\| "); // assuming the description and all that doesnt have |
-
-        for (String s : taskData) {
-            System.out.println(s);
-        }
-
         // splits into type, mark or not, description, from, to
         switch (taskData[0]) {
             case "T":
@@ -39,7 +35,7 @@ public class Jeoe {
                 }
                 return todo;
             case "D":
-                Task deadline = new Deadline(taskData[2], taskData[3]);
+                Task deadline = new Deadline(taskData[2], LocalDateTime.parse(taskData[3]));
                 if (taskData[1] == "1") {
                     deadline.mark();
                 }
@@ -85,7 +81,6 @@ public class Jeoe {
         // to overwrite the file
         try {
             // concatenate all the tasks in string form
-            System.out.println("saving...");
             String listOfTasksString = "";
             for(Task t : storage) {
                 String tString = taskToString(t);
@@ -96,12 +91,16 @@ public class Jeoe {
             FileWriter fw = new FileWriter(filePath);
             fw.write(listOfTasksString);
             fw.close();
-            System.out.println("successfully saved");
         } catch (IOException e) {
-            System.out.println("failed to save");
             throw new RuntimeException(e);
         }
 
+    }
+
+    private static String convertToISO8601(String dt) {
+        // dt are in the format 2022-12-01 18:00
+        String[] dtArr = dt.split(" ");
+        return dtArr[0] + "T" + dtArr[1];
     }
 
     private static void initialize() throws InitializationException { // create the initialization exception
@@ -110,11 +109,7 @@ public class Jeoe {
             storage = new ArrayList<>(); // everytime you initialize, you start with a new storage
             // add items into the storage when loading the app
             // find the file
-            System.out.println("finding the file...");
             File taskListData = new File(filePath);
-            new FileReader(filePath);
-            System.out.println("file found?");
-            System.out.println(taskListData);
             // if file doesnt exist, // taskListData.length() == 0; // is used to check length of file
             if (!taskListData.exists()) {
                 System.out.println("task list data doesnt exist");
@@ -182,8 +177,8 @@ public class Jeoe {
                 case "deadline":
                     String[] deadlineArr = input.replaceFirst("deadline ", "").split(" /by ");
                     String deadlineDescription = deadlineArr[0];
-                    String by = deadlineArr[1];
-                    Deadline deadline = new Deadline(deadlineDescription, by);
+                    String by = convertToISO8601(deadlineArr[1]); // need to add the T in
+                    Deadline deadline = new Deadline(deadlineDescription, LocalDateTime.parse(by));
                     // add to storage
                     storage.add(deadline);
                     Jeoe.save();
