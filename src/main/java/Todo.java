@@ -2,7 +2,7 @@ import java.time.LocalDate;
 
 public class Todo extends Task {
 
-    private static String TYPE = "[T]";
+    private static final String TYPE = "[T]";
 
     public Todo(String task) {
         super(task);
@@ -14,7 +14,12 @@ public class Todo extends Task {
     }
 
     @Override
+    public String toSaveFormat() {
+        return "Todo | " + super.toSaveFormat();
+    }
+
+    @Override
     public String toString() {
-        return this.TYPE + super.toString();
+        return Todo.TYPE + super.toString();
     }
 }

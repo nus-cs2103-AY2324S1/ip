@@ -20,6 +20,11 @@ public abstract class Task {
 
     public abstract boolean isOnDate(LocalDate date);
 
+    // returns "done | task description", can be added with task type for subtypes
+    public String toSaveFormat() {
+        return (this.done ? 1 : 0) + " | " + this.task;
+    }
+
     @Override
     public String toString() {
         String mark = done ? "X" : " ";
