@@ -6,7 +6,16 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests the Storage Class used in CheeChat
+ */
 public class StorageTest {
+
+
+    /**
+     * Tests whether an empty ArrayList will be returned by the load method in the Storage class
+     * when the file inserted is empty.
+     */
     @Test
     public void load_emptyFile_emptyArrayListReturned() {
         Storage storage = new Storage("./data/empty.txt");

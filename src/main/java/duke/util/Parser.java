@@ -11,6 +11,11 @@ import java.time.LocalDate;
 
 public class Parser {
 
+    /**
+     * Parse through the String command and return the correct type of Command.
+     * @param command String that has the String input from the user.
+     * @return A Command instance.
+     */
     public static Command parse(String command) {
         if (command.equals("list")) {
             return new ListCommand();

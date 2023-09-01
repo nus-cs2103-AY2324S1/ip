@@ -17,6 +17,10 @@ public class Storage {
 
     private File file;
 
+    /**
+     * Constructor for the Storage class
+     * @param filePath The filePath of the file that stores all the Task inputs from user.
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
 
@@ -32,6 +36,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Update the file that stores all the Task inputs from user.
+     * @param task The String representation of the Tasks in a TaskList that
+     *             should be stored in the file that stores all the Task inputs
+     *             from user.
+     */
     public void write(String task) {
         FileWriter fw;
         try {
@@ -43,6 +53,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Read and load the Tasks stored by previous inputs in the specified file.
+     * @return An ArrayList that stores all the previous Tasks stored in the file.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -60,7 +74,11 @@ public class Storage {
     }
 
 
-
+    /**
+     * Read the input command and create the corresponding type of Tasks.
+     * @param nextLine The command String.
+     * @return The Task according to the user input.
+     */
     public static Task readFile(String nextLine) {
         String next = nextLine.substring(3);
         Task task;
