@@ -43,6 +43,7 @@ public abstract class Task {
 
     /**
      * Provides the string representation of the duke.task.Task instance.
+     *
      * @return A string with the relevant information of the task.
      */
     @Override

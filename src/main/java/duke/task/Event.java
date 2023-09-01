@@ -8,7 +8,7 @@ public class Event extends Task {
     protected String to;
 
     /**
-     * Constructor for an duke.task.Event instance.
+     * Constructor for a duke.task.Event instance.
      *
      * @param description The description of the underlying task.
      * @param from The date on which the event begins.
@@ -22,6 +22,7 @@ public class Event extends Task {
 
     /**
      * Provides the string representation of the duke.task.Event instance.
+     *
      * @return A string with the relevant information of the duke.task.Event task.
      */
     @Override
