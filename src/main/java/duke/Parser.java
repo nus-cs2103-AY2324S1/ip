@@ -4,8 +4,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class represents a parser that takes inputs and produces an output.
+ */
 public class Parser {
 
+    /**
+     * Processes and responds to the inputs received.
+     *
+     * @param input Input typed by user.
+     * @param tasks List of tasks.
+     * @param storage Stores the file and handles file methods.
+     */
     public static void parseInput(String input, TaskList tasks, Storage storage) {
         try {
             if (input.equals("list")) {

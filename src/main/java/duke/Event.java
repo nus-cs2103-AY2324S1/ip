@@ -3,10 +3,22 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Event class represents a Task with a duration.
+ */
 public class Event extends Task {
+    /** Date and time the event starts **/
     private LocalDateTime from;
+    /** Date and time the event starts **/
     private LocalDateTime to;
 
+    /**
+     * Instantiates an instance of Event.
+     *
+     * @param description Description of the Event task.
+     * @param from Date and time the event starts.
+     * @param to Date and time the event ends.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
