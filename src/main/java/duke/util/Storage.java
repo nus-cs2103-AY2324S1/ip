@@ -66,43 +66,8 @@ public class Storage {
      * @param taskList The given TaskList to be saved locally.
      */
     public void save(TaskList taskList) {
-        String input = taskList.toString();
-        String newData = "";
+        String newData = Parser.parseTaskListToData(taskList);
 
-        for (int i = 0; i < taskList.size(); i++) {
-            int startIndex = input.indexOf((i + 1) + ".");
-            int endIndex = input.indexOf("\n", startIndex);
-
-            String subInput = input.substring(startIndex + 2, endIndex);
-            String taskType = String.valueOf(subInput.charAt(1));
-            String status = subInput.charAt(4) == 'X' ? "1" : "0";
-
-            newData += taskType + " | " + status + " | ";
-            if (taskType.equals("D")) {
-                int byIndex = subInput.indexOf("(by:");
-                int subEndIndex = subInput.indexOf(")");
-
-                String description = subInput.substring(7, byIndex - 1);
-                String by = subInput.substring(byIndex + 5, subEndIndex);
-
-                newData += description + " | " + by;
-            } else if (taskType.equals("E")) {
-                int fromIndex = subInput.indexOf("(from:");
-                int toIndex = subInput.indexOf("to:", fromIndex);
-                int subEndIndex = subInput.indexOf(")");
-
-                String description = subInput.substring(7, fromIndex - 1);
-                String from = subInput.substring(fromIndex + 7, toIndex - 1);
-                String to = subInput.substring(toIndex + 4, subEndIndex);
-
-                newData += description + " | " + from + " | " + to;
-            } else if (taskType.equals("T")) {
-                String description = subInput.substring(7);
-
-                newData += description;
-            }
-            newData += System.lineSeparator();
-        }
         try {
             FileWriter fw = new FileWriter(file);
             fw.write(newData);
