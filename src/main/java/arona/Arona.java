@@ -117,7 +117,7 @@ public class Arona {
      * @param args The command-line arguments (not used in this application).
      */
     public static void main(String[] args) {
-        new Arona("src/main/java/arona/data/arona.txt").run();
+        new Arona("./src/main/java/arona/data/arona.txt").run();
         // if jar file use "../../src/main/java/arona/data/arona.txt"
     }
 }
