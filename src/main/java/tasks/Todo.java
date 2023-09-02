@@ -1,17 +1,19 @@
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+package tasks;
 
-@JsonTypeName("Todo")
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import tasks.Task;
+
+@JsonTypeName("tasks.Todo")
 public class Todo extends Task {
 
 
   public static final String taskType = "T";
 
-  Todo() {
+  public Todo() {
     super("");
   }
 
-  Todo(String desc) {
+  public Todo(String desc) {
     super(desc);
   }
 

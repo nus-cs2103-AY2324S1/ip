@@ -1,3 +1,4 @@
+package storage;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -10,9 +11,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import tasks.Task;
+import tasks.TaskList;
 
 public class Storage {
 
@@ -26,7 +28,7 @@ public class Storage {
     PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
         .allowIfSubType("java.util.ArrayList")
         .allowIfSubType("ReceivedTasks")
-        .allowIfSubType("Task")
+        .allowIfSubType("tasks.Task")
         .build();
     this.taskMapper.activateDefaultTyping(ptv, DefaultTyping.NON_FINAL);
     this.taskMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);

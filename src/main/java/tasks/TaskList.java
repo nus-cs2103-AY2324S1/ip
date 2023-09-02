@@ -1,10 +1,13 @@
+package tasks;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
+import tasks.Task;
 
 
 public class TaskList {
 
-  TaskList() {
+  public TaskList() {
     tasks = new ArrayList<>();
   }
 
