@@ -10,6 +10,7 @@ public class Ui {
                 + horizontalLine;
 
         System.out.println(greeting);
+        UserInputStorage.loadUserDateFromFile();
         userInputScanner = new Scanner(System.in);
     }
 

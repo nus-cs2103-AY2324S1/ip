@@ -2,7 +2,6 @@ public class Alex {
 
     public void run() {
         Ui.greet();
-        UserInputStorage.loadUserDateFromFile();
 
         while (true) {
             String command = Ui.readUserInput();
