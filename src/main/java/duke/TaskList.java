@@ -101,4 +101,9 @@ public class TaskList {
             throw new IllegalArgumentException("Oops! Something went wrong!");
         }
     }
+
+    public void find(String filterWord) {
+        System.out.println("Here are the matching tasks in your list:");
+        this.list.stream().filter(task -> task.description.contains(filterWord)).forEach(System.out::println);
+    }
 }
