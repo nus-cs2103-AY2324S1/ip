@@ -1,10 +1,20 @@
 package duke.tasks;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class TaskList extends ArrayList<Task> {
     public TaskList() {
         super();
+    }
+
+    public TaskList(Scanner tasks) {
+        super();
+        while (tasks.hasNextLine()) {
+            String line = tasks.nextLine();
+            Task task = Task.createTaskFromFile(line);
+            this.add(task);
+        }
     }
 
     public void addTask(Task task) {

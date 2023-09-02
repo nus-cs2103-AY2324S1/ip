@@ -23,6 +23,10 @@ public class Task {
         System.out.println("Whoa... are you kidding me? You did that!?" + "\n" + task);
     }
 
+    public void setAsDoneFromFile() {
+        this.isDone = true;
+    }
+
     public void setAsUndone(Task task) {
         this.isDone = false;
         System.out.println("HAHHAA! I knew it! You won't be able to!" + "\n" + task);
@@ -66,13 +70,41 @@ public class Task {
             default:
                 throw new InvalidInputException("That is some garbage input you have there.");
             }
-
         }
     }
 
+    public static Task createTaskFromFile(String taskLine) {
+        char taskType = taskLine.charAt(1);
+        char taskStatus = taskLine.charAt(5);
+        String taskDescription = taskLine.substring(8);
+        Task task = null;
+        switch (taskType) {
+        case 'T':
+            task = new Todo(taskDescription);
+            break;
+        case 'D':
+            String deadlineDescription = taskDescription.split(" \\(by: ")[0];
+            String deadlineBy = taskDescription.split(" \\(by: ")[1].split("\\)")[0];
+            task = new Deadline(deadlineDescription, deadlineBy);
+            break;
+        case 'E':
+            String eventDescription = taskDescription.split(" \\(from: ")[0];
+            String eventFrom = taskDescription.split(" \\(from: ")[1].split(" to: ")[0];
+            String eventTo = taskDescription.split(" \\(from: ")[1].split(" to: ")[1].split("\\)")[0];
+            task = new Event(eventDescription, eventFrom, eventTo);
+            break;
+        default:
+            System.out.println("Unknown task type. Returning null...");
+            return null;
+        }
+        if (taskStatus == 'X') {
+            task.setAsDoneFromFile();
+        }
+        return task;
+    }
 
     @Override
     public String toString() {
-        return "| " + this.getStatusIcon() + " | " + this.getDescription();
+        return "|" + this.getStatusIcon() + "| " + this.getDescription();
     }
 }
