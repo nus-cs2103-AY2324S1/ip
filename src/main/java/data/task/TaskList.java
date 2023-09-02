@@ -68,11 +68,13 @@ public class TaskList {
         }
     }
 
-    public void addTask(Task task) {
+    public void addTask(Task task, boolean isMuted) {
         this.list.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + this.list.size() + " task(s) in the list.");
+        if (!isMuted) {
+            System.out.println("Got it. I've added this task:");
+            System.out.println(task);
+            System.out.println("Now you have " + this.list.size() + " task(s) in the list.");
+        }
     }
 
     public void addTask(Command command, String input) throws DukeException {
@@ -156,10 +158,17 @@ public class TaskList {
         System.out.println("Now you have " + this.list.size() + " task(s) in the list.");
     }
 
-    public void printList() {
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(i + 1 + "." + list.get(i));
+    @Override
+    public String toString() {
+        if (this.list.size() == 0) {
+            return "";
         }
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            stringBuilder.append(i + 1 + "." + list.get(i) + "\n");
+        }
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        return stringBuilder.toString();
     }
 
     public void close() {
