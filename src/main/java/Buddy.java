@@ -15,6 +15,7 @@ public class Buddy {
         Scanner scanner = new Scanner(System.in);
         String command;
         TaskList tasks = new TaskList();
+        tasks.loadTasks();
 
         System.out.println(greeting + inquiry);
 

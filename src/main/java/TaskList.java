@@ -1,5 +1,4 @@
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -70,7 +69,7 @@ public class TaskList {
                 if (parts.length < 2 || parts[1].isEmpty()) {
                     throw new BuddyException("OOPS!!! The description of a todo cannot be empty.");
                 } else {
-                    addTask(new Todo(parts[1]));
+                    addTask(new Todo(parts[1], false));
                     System.out.println("Got it. I've added this task:\n"
                             + getTask(this.getSize() - 1));
                     System.out.println("Now you have " + this.getSize() + " tasks in the list.");
@@ -86,7 +85,7 @@ public class TaskList {
                         throw new BuddyException("OOPS!!! Please include a description and deadline.");
                     }
                     String deadlineBy = deadlineParts[1].replaceFirst("by ", "").trim();
-                    addTask(new Deadline(deadlineParts[0], deadlineBy));
+                    addTask(new Deadline(deadlineParts[0].trim(), deadlineBy, false));
                     System.out.println("Got it. I've added this task:\n"
                             + getTask(this.getSize() - 1).toString());
                     System.out.println("Now you have " + this.getSize() + " tasks in the list.");
@@ -108,7 +107,7 @@ public class TaskList {
                     String eventStart = eventParts[1].replaceFirst("from ", "").trim();
                     String eventEnd = eventParts[2].replaceFirst("to ", "").trim();
 
-                    addTask(new Event(eventParts[0], eventStart, eventEnd));
+                    addTask(new Event(eventParts[0].trim(), eventStart, eventEnd, false));
                     System.out.println("Got it. I've added this task:\n"
                             + getTask(this.getSize() - 1));
                     System.out.println("Now you have " + this.getSize() + " tasks in the list.");
@@ -129,6 +128,46 @@ public class TaskList {
             fileWriter.close();
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    public void loadTasks() {
+        try {
+            File file = new File(filePath);
+            if (file.exists()) {
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    parseTask(line);
+                }
+                reader.close();
+            }
+        } catch (IOException | BuddyException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+    }
+
+    private void parseTask(String line) throws BuddyException {
+        String[] parts = line.split(" \\| ");
+        String taskType = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        switch (taskType) {
+            case "T":
+                addTask(new Todo(description, isDone));
+                break;
+
+            case "D":
+                String deadlineBy = parts[3];
+                addTask(new Deadline(description, deadlineBy, isDone));
+                break;
+
+            case "E":
+                String start = parts[3];
+                String end = parts[4];
+                addTask(new Event(description, start, end, isDone));
+                break;
         }
     }
 

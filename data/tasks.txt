@@ -1,2 +1,3 @@
-D | 0 | return book 
-E | 1 | meeting 
+T | 0 | read book
+D | 0 | return book | Tues
+E | 0 | date | 5pm | 7pm

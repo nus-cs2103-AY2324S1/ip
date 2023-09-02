@@ -2,9 +2,9 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public void markTaskAsDone() {
@@ -19,11 +19,6 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    @Override
-    public String toString() {
-        return "[" + this.getStatusIcon() + "] "+ this.description;
-    }
-
     public String getTaskType() {
         return "";
     }
@@ -33,5 +28,10 @@ public class Task {
                 getTaskType(),
                 isDone ? 1 : 0,
                 this.description);
+    }
+
+    @Override
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] "+ this.description;
     }
 }
