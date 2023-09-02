@@ -44,4 +44,8 @@ public abstract class Task {
      * @return String representation of the task in output format
      */
     public abstract String outputFormat();
+
+    public String getMsg() {
+        return this.taskName;
+    }
 }

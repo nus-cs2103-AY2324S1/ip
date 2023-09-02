@@ -95,6 +95,8 @@ public class Parser {
 
             } else if (input.equals("help")) {
                 return Ui.helpMsg();
+            } else if (input.startsWith("find")) {
+                return tasks.findTasks(input);
             }
         }
         catch (IllegalArgumentException e) {
