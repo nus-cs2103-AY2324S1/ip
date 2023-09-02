@@ -77,7 +77,7 @@ public class Parser {
             index++;
         }
         String by = builder.toString().trim();
-        LocalDateTime dateTime = Parser.parseDate(by);
+        LocalDateTime dateTime = Parser.parseDatetime(by);
         Deadline deadline = new Deadline(desc, dateTime);
         list.add(deadline);
         System.out.println("Got it. I've added this task:");
@@ -86,7 +86,7 @@ public class Parser {
         storage.saveTask(deadline);
     }
 
-    public static LocalDateTime parseDate(String by) {
+    public static LocalDateTime parseDatetime(String by) {
         return LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
     }
 
@@ -124,7 +124,7 @@ public class Parser {
             index++;
         }
         String end = builder.toString().trim();
-        Event event = new Event(desc, start, end);
+        Event event = new Event(desc, Parser.parseDatetime(start), Parser.parseDatetime(end));
         list.add(event);
         System.out.println("Got it. I've added this task:");
         System.out.println(event);

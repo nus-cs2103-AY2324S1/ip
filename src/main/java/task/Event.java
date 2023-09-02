@@ -1,23 +1,32 @@
 package task;
 
-public class Event extends Task{
-    protected String start;
-    protected String end;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String start, String end) {
+public class Event extends Task{
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
-        this.start = start;
-        this.end = end;
+        this.from = from;
+        this.to = to;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d MMM yyyy HHmm");
+        String formattedFrom = this.from.format(dateTimeFormatter);
+        String formattedTo = this.to.format(dateTimeFormatter);
+        return "[E]" + super.toString() + " (from: " + formattedFrom + " to: " + formattedTo + ")";
     }
 
     @Override
     public String toStorageString() {
         String done = this.isDone ? "1" : "0";
-        return String.join("|", "event", done, this.description, this.start, this.end);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        String formattedFrom = this.from.format(dateTimeFormatter);
+        String formattedTo = this.to.format(dateTimeFormatter);
+        return String.join("|", "event", done, this.description, formattedFrom, formattedTo);
     }
 }

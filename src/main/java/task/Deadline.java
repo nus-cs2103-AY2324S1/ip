@@ -14,15 +14,15 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        String formattedDatetime = this.by.format(DateTimeFormatter.ofPattern("d MMM yyyy HHmm"));
-        return "[D]" + super.toString() + " (by: " + formattedDatetime + ")";
+        String formattedBy = this.by.format(DateTimeFormatter.ofPattern("d MMM yyyy HHmm"));
+        return "[D]" + super.toString() + " (by: " + formattedBy + ")";
     }
 
     @Override
     public String toStorageString() {
         String done = this.isDone ? "1" : "0";
-        String datetime = this.by.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-        return String.join("|","deadline", done, this.description, datetime);
+        String formattedBy = this.by.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+        return String.join("|","deadline", done, this.description, formattedBy);
     }
 }
 

@@ -48,13 +48,13 @@ public class Storage {
             }
             return todo;
         case "deadline":
-            Task deadline = new Deadline(data[2], Parser.parseDate(data[3]));
+            Task deadline = new Deadline(data[2], Parser.parseDatetime(data[3]));
             if (Objects.equals(data[1], "1")) {
                 deadline.setDone();
             }
             return deadline;
         case "event":
-            Event event = new Event(data[2], data[3], data[4]);
+            Event event = new Event(data[2], Parser.parseDatetime(data[3]), Parser.parseDatetime(data[4]));
             if (Objects.equals(data[1], "1")) {
                 event.setDone();
             }
