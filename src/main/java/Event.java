@@ -1,12 +1,12 @@
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 
 class Event extends Task {
     final LocalDate from;
     final LocalDate to;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
 
     public Event(boolean done, String desc) throws DukeException {
         super(done, desc.substring(6, desc.indexOf("/from")));
@@ -28,6 +28,7 @@ class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + this.from.format(formatter) + " to: " + this.to.format(formatter) + ")";
+        return "[E]" + super.toString() + "(from: " + this.from.format(formatter)
+                + " to: " + this.to.format(formatter) + ")";
     }
 }

@@ -4,7 +4,7 @@ import java.time.format.DateTimeParseException;
 
 class Deadline extends Task {
     final LocalDate by;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
     public Deadline(boolean done, String desc) throws DukeException {
         super(done, desc.substring(9, desc.indexOf("/by")));
         String byString = desc.substring(desc.indexOf("/by") + 4).replace(" ", "");

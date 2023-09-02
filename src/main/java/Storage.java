@@ -1,23 +1,25 @@
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.List;
-import java.nio.file.*;
-import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-class TaskFile {
-    final static String fileName = "./data/duke.txt";
+class Storage {
+    static final String FILE_NAME = "./data/duke.txt";
 
     static void checkFileExists() {
-        Path path = Paths.get(fileName);
+        Path path = Paths.get(FILE_NAME);
         try {
             if (!Files.exists(path)) {
-                System.out.println("data file not found, creating a new one");
+                Ui.print("data file not found, creating a new one");
                 Path dirPath = Paths.get("./data");
                 Files.createDirectories(dirPath);
-                File file = new File(fileName);
-                file.createNewFile();
+                File file = new File(FILE_NAME);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -26,7 +28,7 @@ class TaskFile {
 
     public static void saveTask(List<Task> tasks) {
         checkFileExists();
-        try (FileWriter fileWriter = new FileWriter(fileName)) {
+        try (FileWriter fileWriter = new FileWriter(FILE_NAME)) {
             for (Task task : tasks) {
                 String text = "";
                 if (task instanceof Todo) {
@@ -59,17 +61,18 @@ class TaskFile {
     }
 
 
-    public static ArrayList<Task> loadTasks() throws DukeException{
+    public static ArrayList<Task> loadTasks() throws DukeException {
         checkFileExists();
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            Scanner sc = new Scanner(new File(fileName));
+            Scanner sc = new Scanner(new File(FILE_NAME));
             while (sc.hasNextLine()) {
-                tasks.add(Task.parse(sc.nextLine()));
+                String next = sc.nextLine();
+                Task nextTask = Task.parse(next);
+                tasks.add(nextTask);
             }
             return tasks;
         } catch (IOException e) {
-            System.out.println(e.getMessage());
             throw new DukeException("There are no tasks");
         }
     }

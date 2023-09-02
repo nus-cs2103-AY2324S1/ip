@@ -4,41 +4,31 @@ What can I do for you?
 
 data file not found, creating a new one
 Got it. I've added this task:
-[T][ ] borrow book
+[T][ ] read book
 now you have 1 tasks in the list
-I can't identify your command!
-1.[T][ ] borrow book
+You forgot to write the task
+1.[T][ ] read book
 Incorrect date format! Use eg.2019-12-02
 Got it. I've added this task:
-[D][ ] return book (by: 19 October 2020)
+[D][ ] return book (by: 02 December 2019)
 now you have 2 tasks in the list
 You forgot to specify when the deadline ends!
 Incorrect date format! Use eg.2019-12-02
 Got it. I've added this task:
 [E][ ] project meeting (from: 02 December 2019 to: 03 December 2019)
 now you have 3 tasks in the list
-You forgot to write the task
+1.[T][ ] read book
+2.[D][ ] return book   (by: 02 December 2019)
+3.[E][ ] project meeting  (from: 02 December 2019 to: 03 December 2019)
 Nice! I've marked this task as done:
-[D][X] return book   (by: 19 October 2020)
-Nice! I've marked this task as done:
-[D][X] return book    (by: 19 October 2020)
-1.[T][ ] borrow book
-2.[D][ ] return book     (by: 19 October 2020)
+[D][X] return book    (by: 02 December 2019)
+Task already done
+1.[T][ ] read book
+2.[D][X] return book     (by: 02 December 2019)
 3.[E][ ] project meeting    (from: 02 December 2019 to: 03 December 2019)
-Task still undone
-1.[T][ ] borrow book
-2.[D][ ] return book      (by: 19 October 2020)
-3.[E][ ] project meeting     (from: 02 December 2019 to: 03 December 2019)
 Noted. I've removed this task:
-[T][ ] borrow book
+[E][ ] project meeting     (from: 02 December 2019 to: 03 December 2019)
 Now you have 2 tasks in the list
-1.[D][ ] return book        (by: 19 October 2020)
-2.[E][ ] project meeting       (from: 02 December 2019 to: 03 December 2019)
-Noted. I've removed this task:
-[D][ ] return book         (by: 19 October 2020)
-Now you have 1 tasks in the list
-Noted. I've removed this task:
-[E][ ] project meeting         (from: 02 December 2019 to: 03 December 2019)
-Now you have 0 tasks in the list
-There are no tasks to delete
+1.[T][ ] read book
+2.[D][X] return book       (by: 02 December 2019)
 Bye. Hope to see you again soon!
