@@ -1,7 +1,6 @@
 package duke;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Class that deals with interactions with the user.
@@ -17,46 +16,56 @@ public class Ui {
     /**
      * Shows welcome message.
      */
-    public static void showWelcome() {
-        System.out.println("Hello I'm iP");
+    public static String showWelcome() {
+        return ("Hello I'm iP");
     }
 
     /**
      * Shows a list of tasks.
      * @param tasks Tasks to show.
      */
-    public static void listTasks(ArrayList<Task> tasks) {
-        System.out.println("List of tasks:");
+    public static String listTasks(ArrayList<Task> tasks) {
+        StringBuilder response = new StringBuilder();
+        response.append("List of tasks:").append("\n");
         for (Task task : tasks) {
-            System.out.println(task.toString());
+            response.append(task.toString()).append("\n");
         }
-        System.out.println("You have " + tasks.size() + " tasks in the list.");
+        response.append("You have ").append(tasks.size()).append(" tasks in the list.");
+        return response.toString();
     }
 
     /**
-     * Requests input from the user.
+     * Returns the message to be sent to the user after a successful delete task operation.
+     * @param taskDeleted The task that was deleted.
      */
-    public static String readCommand() {
-        Scanner input = new Scanner(System.in);
-        return input.nextLine();
+    public static String deleteTask(Task taskDeleted) {
+        return "Noted. I've removed this task:" + "\n"
+                + taskDeleted.toString() + "\n";
     }
 
     /**
-     * Prints a given message from another component.
-     * @param message Message to print.
+     * Returns the message to be sent to the user after a successful mark task operation.
+     * @param taskCompleted The task that was marked.
      */
-    public static void showMessage(String message) {
-        System.out.println(message);
+    public static String markTask(Task taskCompleted) {
+        return "Nice! I've marked this task as done:" + "\n"
+                + taskCompleted.toString() + "\n";
     }
 
     /**
      * Shows a list of given tasks to the user.
      * @param tasks Tasks to be shown to the user.
      */
-    public static void showFoundTasks(ArrayList<Task> tasks) {
-        System.out.println("Here are the matching tasks in your list:");
+    public static String foundTasks(ArrayList<Task> tasks) {
+        StringBuilder response = new StringBuilder();
+        response.append("Here are the matching tasks in your list:").append("\n");
         for (Task task : tasks) {
-            System.out.println(task.toString());
+            response.append(task.toString());
         }
+        return response.toString();
+    }
+
+    public static String invalidCommand() {
+        return "Invalid command, please try again.";
     }
 }

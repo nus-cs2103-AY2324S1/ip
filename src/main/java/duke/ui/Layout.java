@@ -12,19 +12,24 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class Duke extends Application {
+/**
+ * Provides the layout of the GUI, such as text box, screen and send button.
+ */
+public class Layout extends Application {
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
 
-    private Image user = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private Image duke = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
+    private final Image user = new Image(
+            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
+    private final Image duke = new Image(
+            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
 
-    public static void main(String[] args) {
-        // ...
-    }
+    /**
+     * Initialises the GUI.
+     */
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
@@ -76,13 +81,5 @@ public class Duke extends Application {
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-    }
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
     }
 }
