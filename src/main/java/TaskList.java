@@ -56,9 +56,9 @@ public class TaskList {
             if(this.tasks.get(i) instanceof Deadline) {
                 Deadline x = (Deadline) this.tasks.get(i);
                 if(this.tasks.get(i).getStatus()) {
-                    fw.write("D | 0 |" + this.printName(i) + "|" + x.getBy() + "\n");
+                    fw.write("D | 0 |" + this.printName(i) + "| " + x.getBy() + "\n");
                 } else {
-                    fw.write("D | 1 |" + this.printName(i) + "|" + x.getBy() + "\n");
+                    fw.write("D | 1 |" + this.printName(i) + "| " + x.getBy() + "\n");
                 }
             }
         }
@@ -79,7 +79,8 @@ public class TaskList {
                 }
             }
             if (parts[0].equals("D ")) {
-                Deadline temp = new Deadline(parts[2], parts[3]);
+                String[] x = parts[3].split(" ");
+                Deadline temp = new Deadline(parts[2], x[1]);
                 this.addToList(temp);
                 if(parts[1].equals(" 0 ")) {
                     temp.markDone();

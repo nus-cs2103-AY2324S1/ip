@@ -1,4 +1,7 @@
 import java.io.FileNotFoundException;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.util.Locale;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
@@ -62,12 +65,18 @@ public class Duke {
                             }
                             String removeBy = removeDdl.replace("by", "");
                             String[] ddl = removeBy.split("/");
-                            Deadline x = new Deadline(ddl[0], ddl[1]);
-                            System.out.println("____________________________________________________________");
-                            System.out.println("Okk... I've... I've added this task:");
-                            tasks.addToList(x);
-                            System.out.println(x.toString());
-                            tasks.numOfTask();
+                            String[] split = ddl[1].split(" ");
+                            try {
+                                LocalDate by = LocalDate.parse(split[1]);
+                                Deadline x = new Deadline(ddl[0], by);
+                                System.out.println("____________________________________________________________");
+                                System.out.println("Okk... I've... I've added this task:");
+                                tasks.addToList(x);
+                                System.out.println(x.toString());
+                                tasks.numOfTask();
+                            } catch (DateTimeException e) {
+                                throw new DukeException("Th...th...the ddate you have inputed is invalid!!");
+                            }
                             System.out.println("____________________________________________________________");
                         } else if (parts[0].equals("event")) {
                             String removeEvent = echo.replace("event", "");
