@@ -1,19 +1,27 @@
-package Tasks;
-
-import Exceptions.InvalidTimeFormatException;
-import Helpers.Ui;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+package tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import org.junit.jupiter.api.Test;
+
+import exceptions.InvalidTimeFormatException;
+import helpers.Ui;
+
+/**
+ * Test class for testing Event object and operations
+ */
 public class EventsTest {
-    public static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    /**
+     * Unit test to check if user is able to mark Event Task as done
+     */
     @Test
-    public void testEventMarkDone_Success(){
+    public void testEventMarkDoneSuccess() {
         Events event = new Events("internship talk", false,
                 LocalDateTime.parse("2023-09-01 14:00", dateTimeFormat),
                 LocalDateTime.parse("2023-09-01 16:00", dateTimeFormat));
@@ -21,8 +29,11 @@ public class EventsTest {
                 "[E][x] internship talk (from: 2023-09-01 14:00 to: 2023-09-01 16:00)");
     }
 
+    /**
+     * Unit test to check if user is able to mark Event Task as not done
+     */
     @Test
-    public void testEventUnmarkDone_Success(){
+    public void testEventUnmarkDoneSuccess() {
         Events event = new Events("internship talk", false,
                 LocalDateTime.parse("2023-09-01 14:00", dateTimeFormat),
                 LocalDateTime.parse("2023-09-01 16:00", dateTimeFormat));
@@ -31,8 +42,11 @@ public class EventsTest {
     }
 
 
+    /**
+     * Unit test to check if program is able to throw a proper error on invalid date input
+     */
     @Test
-    public void testInvalidEvent_Exception(){
+    public void testInvalidEventException() {
         Ui ui = new Ui();
         try {
             Events event = new Events("internship talk", false,
@@ -41,8 +55,8 @@ public class EventsTest {
             fail();
         } catch (Exception e) {
             assertEquals("Macho! The input time format of a " + "invalid date"
-                            + " is wrong, macho! Please enter in format " +
-                            "yyyy-MM-dd HH:mm, macho!\n"
+                            + " is wrong, macho! Please enter in format "
+                            + "yyyy-MM-dd HH:mm, macho!\n"
                             + "____________________________________________________________",
                     new InvalidTimeFormatException("invalid date", ui.getDivider()).getMessage());
         }

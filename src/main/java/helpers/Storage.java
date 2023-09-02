@@ -1,11 +1,4 @@
-package Helpers;
-
-import Exceptions.ErrorStorageException;
-import Tasks.Deadline;
-import Tasks.Events;
-import Tasks.Task;
-import Tasks.Todo;
-
+package helpers;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,18 +10,24 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import exceptions.ErrorStorageException;
+import tasks.Deadline;
+import tasks.Events;
+import tasks.Task;
+import tasks.Todo;
+
 /**
  * Represents Storage class that deals with processing read and write to data storage
  */
 public class Storage {
-    private final static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private final String path;
 
     /**
      * Public constructor for Storage which initialize read/write
      *
-     * @param path
-     * @throws ErrorStorageException
+     * @param path File path
+     * @throws ErrorStorageException exception to throw when there is storage loading error
      */
     public Storage(String path) throws ErrorStorageException {
 
@@ -70,20 +69,20 @@ public class Storage {
                 String type = lines[0];
                 try {
                     switch (type) {
-                        case "T":
-                            taskList.addTask(new Todo(lines[2], !lines[1].equals("0")));
-                            break;
-                        case "D":
-                            taskList.addTask(new Deadline(lines[2], !lines[1].equals("0"),
-                                    LocalDateTime.parse(lines[3], dateTimeFormat)));
-                            break;
-                        case "E":
-                            taskList.addTask(new Events(lines[2], !lines[1].equals("0"),
-                                    LocalDateTime.parse(lines[3], dateTimeFormat),
-                                    LocalDateTime.parse(lines[4], dateTimeFormat)));
-                            break;
-                        default:
-                            break;
+                    case "T":
+                        taskList.addTask(new Todo(lines[2], !lines[1].equals("0")));
+                        break;
+                    case "D":
+                        taskList.addTask(new Deadline(lines[2], !lines[1].equals("0"),
+                                LocalDateTime.parse(lines[3], dateTimeFormat)));
+                        break;
+                    case "E":
+                        taskList.addTask(new Events(lines[2], !lines[1].equals("0"),
+                                LocalDateTime.parse(lines[3], dateTimeFormat),
+                                LocalDateTime.parse(lines[4], dateTimeFormat)));
+                        break;
+                    default:
+                        break;
                     }
                 } catch (IndexOutOfBoundsException e) {
                     e.getMessage();
@@ -98,10 +97,9 @@ public class Storage {
     }
 
     /**
-     * A method for reading the text file and processing into a list of tasks
+     * A method for writing the text file and processing list of tasks into text data
      *
-     * @return An arraylist of tasks
-     * @throws IOException
+     * @throws IOException Exception if there is error writing to the file
      */
     public void write(ArrayList<Task> taskList) {
 

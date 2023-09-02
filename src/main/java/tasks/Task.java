@@ -1,5 +1,9 @@
-package Tasks;
+package tasks;
 
+/**
+ * Adapted from Partial Solution provided by https://nus-cs2103-ay2324s1.github.io/website/schedule/week2/project.html
+ * A Parent class of Tasks to create tasks.
+ */
 public class Task {
     protected String taskDesc;
     protected boolean isDone;

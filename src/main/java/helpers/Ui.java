@@ -1,16 +1,19 @@
-package Helpers;
-
-import Exceptions.EmptyTasksException;
-import Exceptions.ErrorStorageException;
-import Exceptions.InvalidArgumentException;
-import Exceptions.InvalidCommandException;
-import Exceptions.InvalidIndexException;
-import Exceptions.InvalidTimeFormatException;
-import Tasks.Task;
+package helpers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import exceptions.EmptyTasksException;
+import exceptions.ErrorStorageException;
+import exceptions.InvalidArgumentException;
+import exceptions.InvalidCommandException;
+import exceptions.InvalidIndexException;
+import exceptions.InvalidTimeFormatException;
+import tasks.Task;
+
+/**
+ * Represents Ui class that operations to print out messages for users
+ */
 public class Ui {
     final boolean isDebug = true;
     final String DIVIDER = "____________________________________________________________";
@@ -19,14 +22,14 @@ public class Ui {
      * Method to print out the starting logo
      */
     public void showStartLogo() {
-        String logo = isDebug ? "" :
-                "      ＼ﾌﾌ 　　      ム｀ヽ\n" +
-                        "    / ノ)　  A　 A 　  ）  ヽ\n" +
-                        "   / ｜　　( ´・ω・`)ノ⌒ ゝ_ノ\n" +
-                        "  /　ﾉ⌒ 7  ⌒ヽーく　 ＼　／\n" +
-                        "  丶＿ ノ ｡　　  ノ､　　|/\n" +
-                        "　　  `ヽ   `ー-'_人`ーﾉ\n" +
-                        "　　　   丶   ￣ _人'彡ﾉ\n";
+        String logo = isDebug ? ""
+                : "      ＼ﾌﾌ 　　      ム｀ヽ\n"
+                + "    / ノ)　  A　 A 　  ）  ヽ\n"
+                + "   / ｜　　( ´・ω・`)ノ⌒ ゝ_ノ\n"
+                + "  /　ﾉ⌒ 7  ⌒ヽーく　 ＼　／\n"
+                + "  丶＿ ノ ｡　　  ノ､　　|/\n"
+                + "　　  `ヽ   `ー-'_人`ーﾉ\n"
+                + "　　　   丶   ￣ _人'彡ﾉ\n";
         System.out.println(logo);
     }
 
@@ -42,18 +45,18 @@ public class Ui {
      * Method to print ending logo when user quits application
      */
     public void quit() {
-        String endLogo = isDebug ? "" :
-                "               ＿   ★★EVERYDAY★★\n" +
-                        "           ／     j     ★★ IS A  ★★\n" +
-                        "        ／     /ｰ'          ★★ MACHO  ★★\n" +
-                        "     〈       ヽ               ★★ DAY!!!  ★★\n" +
-                        "           ､       ヽ ﾍ⌒ ヽﾌ\n" +
-                        "             〉       ´ ･ω )        ,-､、\n" +
-                        "           / ノ         ￣⌒ヽ　「　   〉\n" +
-                        "          ﾉ       ' L          `ヽ.／   /\n" +
-                        "     ／    , '           .ノ＼    ´    /\n" +
-                        "    (                ∠_       ヽ､＿,.\n" +
-                        "     ＼   (            ヽ ";
+        String endLogo = isDebug ? ""
+                : "               ＿   ★★EVERYDAY★★\n"
+                + "           ／     j     ★★ IS A  ★★\n"
+                + "        ／     /ｰ'          ★★ MACHO  ★★\n"
+                + "     〈       ヽ               ★★ DAY!!!  ★★\n"
+                + "           ､       ヽ ﾍ⌒ ヽﾌ\n"
+                + "             〉       ´ ･ω )        ,-､、\n"
+                + "           / ノ         ￣⌒ヽ　「　   〉\n"
+                + "          ﾉ       ' L          `ヽ.／   /\n"
+                + "     ／    , '           .ノ＼    ´    /\n"
+                + "    (                ∠_       ヽ､＿,.\n"
+                + "     ＼   (            ヽ ";
         System.out.println(DIVIDER);
         System.out.println(endLogo);
     }
@@ -112,8 +115,8 @@ public class Ui {
      */
     public void showAddTaskMessage(TaskList taskList, Task task) {
         System.out.println(DIVIDER);
-        System.out.println("Got it macho! I've added this task:\n" + task + "\n" +
-                "You now have " + taskList.getListLength() + " tasks in the list, macho!");
+        System.out.println("Got it macho! I've added this task:\n" + task + "\n"
+                + "You now have " + taskList.getListLength() + " tasks in the list, macho!");
         System.out.println(DIVIDER);
     }
 

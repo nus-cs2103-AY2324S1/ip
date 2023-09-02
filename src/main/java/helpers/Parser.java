@@ -1,27 +1,27 @@
-package Helpers;
-
-
-import Exceptions.EmptyTasksException;
-import Exceptions.ErrorStorageException;
-import Exceptions.InvalidArgumentException;
-import Exceptions.InvalidCommandException;
-import Exceptions.InvalidIndexException;
-import Exceptions.InvalidTaskDescriptionException;
-import Exceptions.InvalidTimeFormatException;
-import Tasks.Deadline;
-import Tasks.Events;
-import Tasks.Task;
-import Tasks.Todo;
+package helpers;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import exceptions.EmptyTasksException;
+import exceptions.ErrorStorageException;
+import exceptions.InvalidArgumentException;
+import exceptions.InvalidCommandException;
+import exceptions.InvalidIndexException;
+import exceptions.InvalidTaskDescriptionException;
+import exceptions.InvalidTimeFormatException;
+import tasks.Deadline;
+import tasks.Events;
+import tasks.Task;
+import tasks.Todo;
+
 
 /**
  * Represents Parser class that deals with processing user commands
  */
 public class Parser {
 
-    private final static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     protected final String cmd;
     protected final TaskList taskList;
     protected final String input;
@@ -210,46 +210,46 @@ public class Parser {
             }
 
             switch (command) {
-                case LIST:
-                    ui.showTaskList(this.taskList);
-                    break;
+            case LIST:
+                ui.showTaskList(this.taskList);
+                break;
 
-                case TODO:
-                    createToDo(this.input);
-                    break;
+            case TODO:
+                createToDo(this.input);
+                break;
 
-                case DEADLINE:
-                    createDeadline(this.input);
-                    break;
+            case DEADLINE:
+                createDeadline(this.input);
+                break;
 
-                case EVENT:
-                    createEvent(this.input);
-                    break;
+            case EVENT:
+                createEvent(this.input);
+                break;
 
-                case UNMARK:
-                    unmark(this.input);
-                    break;
+            case UNMARK:
+                unmark(this.input);
+                break;
 
-                case MARK:
-                    mark(this.input);
-                    break;
+            case MARK:
+                mark(this.input);
+                break;
 
-                case DELETE:
-                    deleteTask(this.input);
-                    break;
+            case DELETE:
+                deleteTask(this.input);
+                break;
 
-                case BYE:
-                    ui.quit();
-                    System.out.println("\nBye! Hope to see you again soon, macho!");
-                    break;
+            case BYE:
+                ui.quit();
+                System.out.println("\nBye! Hope to see you again soon, macho!");
+                break;
 
-                default:
-                    System.out.println("Invalid command macho! Please try again!");
+            default:
+                System.out.println("Invalid command macho! Please try again!");
             }
 
-        } catch (InvalidArgumentException | EmptyTasksException | InvalidCommandException |
-                 InvalidTaskDescriptionException | InvalidIndexException | InvalidTimeFormatException |
-                 NullPointerException e) {
+        } catch (InvalidArgumentException | EmptyTasksException | InvalidCommandException
+                 | InvalidTaskDescriptionException | InvalidIndexException | InvalidTimeFormatException
+                 | NullPointerException e) {
             System.out.println(e.getMessage());
         }
 

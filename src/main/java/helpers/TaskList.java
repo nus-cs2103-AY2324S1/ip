@@ -1,8 +1,8 @@
-package Helpers;
-
-import Tasks.Task;
+package helpers;
 
 import java.util.ArrayList;
+
+import tasks.Task;
 
 /**
  * Represents TaskList class that contains the list of tasks as well as CRUD operations
