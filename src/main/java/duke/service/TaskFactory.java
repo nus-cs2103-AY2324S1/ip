@@ -12,7 +12,7 @@ public class TaskFactory {
     public Task createTask(String taskType, String taskName, String[] args)
             throws TaskParseException, TimeUtilException {
         if (taskName.isEmpty()) {
-            throw new TaskParseException("usage: duke.tasks.TaskType(todo | deadline | event) " +
+            throw new TaskParseException("usage: TaskType(todo | deadline | event) " +
                     "TaskName " +
                     "[/StartDate] [/EndDate]");
         }
@@ -27,7 +27,7 @@ public class TaskFactory {
         switch (typeEnum) {
             case TODO:
                 if (args.length != 0) {
-                    throw new TaskParseException("Error: Todo duke.tasks should not have arguments");
+                    throw new TaskParseException("Error: Todo tasks should not have arguments");
                 }
                 return new TodoTask(taskName);
             case DEADLINE:
@@ -35,7 +35,7 @@ public class TaskFactory {
                     throw new TaskParseException("Usage: deadline taskName /by 10 May 2023");
                 }
                 if (!args[0].startsWith("by ")) {
-                    throw new TaskParseException("Error: Deadline duke.tasks must have an end date prefixed with '/by'.\n");
+                    throw new TaskParseException("Error: Deadline tasks must have an end date prefixed with '/by'.\n");
                 }
                 // remove "by "
                 LocalDateTime endDeadlineDate = TimeUtil.parseDateTimeString(args[0].substring(3).trim());
@@ -46,7 +46,7 @@ public class TaskFactory {
                     throw new TaskParseException("Usage: event taskName /from 10 May 2023 /to 20 May 2023");
                 }
                 if (!args[0].startsWith("from ") || !args[1].startsWith("to ")) {
-                    throw new TaskParseException("Error: Event duke.tasks must have a start date prefixed with '/from' " +
+                    throw new TaskParseException("Error: Event tasks must have a start date prefixed with '/from' " +
                             "and an end date prefixed with '/to'.\n");
                 }
                 // remove "from "

@@ -25,7 +25,7 @@ public class UiService {
     }
 
     public void printStorageFileCorrupted() {
-        outputService.echo("Warning: The existing duke.tasks file was corrupted and has been reset.");
+        outputService.echo("Warning: The existing tasks file was corrupted and has been reset.");
     }
 
     public void printStorageInitializationFailure() {
@@ -93,10 +93,10 @@ public class UiService {
 
     public void printInvalidTaskIndexProvided(int taskId, int taskListSize) {
         if (taskListSize == 0) {
-            outputService.echo("There are no duke.tasks left!");
+            outputService.echo("There are no tasks left!");
             return;
         }
-        outputService.echo(String.format("Invalid duke.tasks.Task index: %s provided.%n" +
+        outputService.echo(String.format("Invalid Task index: %s provided.%n" +
                 "Specify a number between %s - %s", taskId, 1, taskListSize + 1));
     }
 }
