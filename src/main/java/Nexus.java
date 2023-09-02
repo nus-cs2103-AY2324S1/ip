@@ -8,39 +8,37 @@ public class Nexus {
     private TaskList list;
     private Storage storage;
     private Ui ui;
-    private String path;
 
-    public Nexus() {
-        this.path = "src" + File.separator + "main" + File.separator + "data" + File.separator + "nexus.txt";
+    public Nexus(String path) {
         this.storage = new Storage(path);
         this.ui = new Ui();
+        this.list = new TaskList(storage.loadTasks());
     }
 
     public void run() {
-        System.out.println("Hello! I'm NEXUS");
-        System.out.println("What can I do for you?");
-        this.list = new TaskList(storage.loadTasks());
+        ui.printWelcome();
         // Show current tasks
-        ui.list(this.list);
+        ui.printList(this.list);
 
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
         while (!exit) {
             try {
                 String input = scanner.nextLine();
-                exit = Parser.parseInput(storage, this.list, input);
+                exit = Parser.parseInput(ui, storage, this.list, input);
                 scanner.reset();
             } catch (InvalidInputException e) {
                 System.out.println(e.getMessage());
             }
         }
-        System.out.println("Bye. Hope to see you again soon!");
-
+        scanner.close();
+        ui.printBye();
     }
 
     public static void main(String[] args) {
-        Nexus nexus = new Nexus();
-        nexus.run();
+        // OS-Independent path
+        String path = "src" + File.separator + "main" + File.separator + "data" + File.separator + "nexus.txt";
+        new Nexus(path).run();
     }
 }
 

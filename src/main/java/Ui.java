@@ -2,15 +2,46 @@ import task.Task;
 import task.TaskList;
 
 public class Ui {
-    public void printTask(Task task) {
+    private void printTask(Task task) {
         System.out.println(task);
     }
 
-    public void list(TaskList list) {
+    public void printList(TaskList list) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
             System.out.print(i + 1);
             System.out.println("." + list.get(i));
         }
+    }
+
+    public void printMark(Task task) {
+        System.out.println("Nice! I've marked this task as done:");
+        this.printTask(task);
+    }
+
+    public void printUnmark(Task task) {
+        System.out.println("OK, I've marked this task as not done yet:");
+        this.printTask(task);
+    }
+
+    public void printDelete(Task task, TaskList list) {
+        System.out.println("Noted. I've removed this task:");
+        this.printTask(task);
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
+    }
+
+    public void printAdd(Task task, TaskList list) {
+        System.out.println("Got it. I've added this task:");
+        this.printTask(task);
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
+    }
+
+    public void printWelcome() {
+        System.out.println("Hello! I'm NEXUS");
+        System.out.println("What can I do for you?");
+    }
+
+    public void printBye() {
+        System.out.println("Bye. Hope to see you again soon!");
     }
 }

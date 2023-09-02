@@ -5,39 +5,37 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Parser {
-    private static void parseMark(TaskList list, String[] data, Storage storage) throws InvalidInputException {
+    private static void parseMark(TaskList list, String[] data, Storage storage, Ui ui) throws InvalidInputException {
         if (data.length == 1) {
             throw new InvalidInputException("Task index must be specified");
         }
         int index = Integer.parseInt(data[1]) - 1;
         list.get(index).setDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(list.get(index));
+        ui.printMark(list.get(index));
         storage.editTask("mark", index);
     }
-    private static void parseUnmark(TaskList list, String[] data, Storage storage) throws InvalidInputException {
+    private static void parseUnmark(TaskList list, String[] data, Storage storage, Ui ui) throws InvalidInputException {
         if (data.length == 1) {
             throw new InvalidInputException("Task index must be specified");
         }
         int index = Integer.parseInt(data[1]) - 1;
         list.get(index).setUndone();
-        System.out.println("OK, I've marked this task as not done yet:");
+
         System.out.println(list.get(index));
+        ui.printUnmark(list.get(index));
         storage.editTask("unmark", index);
     }
-    private static void parseDelete(TaskList list, String[] data, Storage storage) throws InvalidInputException {
+    private static void parseDelete(TaskList list, String[] data, Storage storage, Ui ui) throws InvalidInputException {
         if (data.length == 1) {
             throw new InvalidInputException("Task index must be specified");
         }
         int index = Integer.parseInt(data[1]) - 1;
         Task deleted = list.get(index);
         list.remove(index);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(deleted);
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        ui.printDelete(deleted, list);
         storage.editTask("delete", index);
     }
-    private static void parseTodo(TaskList list, String[] data, Storage storage) throws InvalidInputException {
+    private static void parseTodo(TaskList list, String[] data, Storage storage, Ui ui) throws InvalidInputException {
         StringBuilder builder = new StringBuilder();
         if (data.length == 1) {
             throw new InvalidInputException("Todo description cannot be empty");
@@ -48,12 +46,10 @@ public class Parser {
         String desc = builder.toString().trim();
         Todo todo = new Todo(desc);
         list.add(todo);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(todo);
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        ui.printAdd(todo, list);
         storage.saveTask(todo);
     }
-    private static void parseDeadline(TaskList list, String[] data, Storage storage) throws InvalidInputException {
+    private static void parseDeadline(TaskList list, String[] data, Storage storage, Ui ui) throws InvalidInputException {
         StringBuilder builder = new StringBuilder();
         if (data.length == 1) {
             throw new InvalidInputException("Deadline description cannot be empty");
@@ -80,9 +76,7 @@ public class Parser {
         LocalDateTime dateTime = Parser.parseDatetime(by);
         Deadline deadline = new Deadline(desc, dateTime);
         list.add(deadline);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(deadline);
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        ui.printAdd(deadline, list);
         storage.saveTask(deadline);
     }
 
@@ -90,7 +84,7 @@ public class Parser {
         return LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
     }
 
-    private static void parseEvent(TaskList list, String[] data, Storage storage) throws InvalidInputException {
+    private static void parseEvent(TaskList list, String[] data, Storage storage, Ui ui) throws InvalidInputException {
         StringBuilder builder = new StringBuilder();
         if (data.length == 1) {
             throw new InvalidInputException("Event description cannot be empty");
@@ -126,45 +120,36 @@ public class Parser {
         String end = builder.toString().trim();
         Event event = new Event(desc, Parser.parseDatetime(start), Parser.parseDatetime(end));
         list.add(event);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(event);
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        ui.printAdd(event, list);
         storage.saveTask(event);
     }
 
-    public static boolean parseInput(Storage storage, TaskList list, String input) throws InvalidInputException {
-        int index;
-        String desc;
+    public static boolean parseInput(Ui ui, Storage storage, TaskList list, String input) throws InvalidInputException {
         String[] data = input.split(" ");
-        StringBuilder builder = new StringBuilder();
 
         switch (data[0]) {
         case "bye":
             return true;
         case "list":
-            System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < list.size(); i++) {
-                System.out.print(i + 1);
-                System.out.println("." + list.get(i));
-            }
+            ui.printList(list);
             break;
         case "mark":
-            Parser.parseMark(list, data, storage);
+            Parser.parseMark(list, data, storage, ui);
             break;
         case "unmark":
-            Parser.parseUnmark(list, data, storage);
+            Parser.parseUnmark(list, data, storage, ui);
             break;
         case "todo":
-            Parser.parseTodo(list, data, storage);
+            Parser.parseTodo(list, data, storage, ui);
             break;
         case "deadline":
-            Parser.parseDeadline(list, data, storage);
+            Parser.parseDeadline(list, data, storage, ui);
             break;
         case "event":
-            Parser.parseEvent(list, data, storage);
+            Parser.parseEvent(list, data, storage, ui);
             break;
         case "delete":
-            Parser.parseDelete(list, data, storage);
+            Parser.parseDelete(list, data, storage, ui);
             break;
         default:
             throw new InvalidInputException("I don't understand. Please check your input again.");

@@ -65,7 +65,7 @@ public class Storage {
     }
 
     public void saveTask(Task task) {
-        FileWriter fileWriter = null;
+        FileWriter fileWriter;
         try {
             fileWriter = new FileWriter(path, true);
             fileWriter.write(task.toStorageString() + "\n");
