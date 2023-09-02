@@ -17,10 +17,8 @@ public class Duke {
     private static final String horizontalLine = "-------------------------------\n";
 
     /**
-     * An array to store inputs by the user
+     * Store tasks
      */
-    private static ArrayList<Task> taskArray = new ArrayList<>();
-    private static int numOfTasks = 0;
     private static Storage taskStorage = new Storage();
 
     /**
