@@ -2,7 +2,7 @@ package duke.task;
 
 public class Task {
     protected String description;
-    protected Boolean isDone;
+    protected boolean isDone;
 
     public Task (String description) {
         this.description = description;
@@ -18,11 +18,21 @@ public class Task {
     public void markNotDone() {
         this.isDone = false;
     }
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+    public String taskStatus() {
+        return isDone ? "X" : " ";
+    }
+
     public String toFileString() {
         char doneStatus = isDone ? '1' : '0';
         return doneStatus + " | " + description;
     }
-
+    @Override
+    public String toString() {
+        return getTaskType() + " [" + taskStatus() + "] " + description;
+    }
     public static Task createTaskFromData(String taskData) {
         String[] taskParts = taskData.split("\\s*\\|\\s*");
 
@@ -47,17 +57,8 @@ public class Task {
             if (doneStatus.equals("1")) {
                 task.markDone();
             }
-
             return task;
         }
-
         return null; // Incomplete data
-    }
-
-
-    @Override
-    public String toString() {
-        String status = isDone ? "X" : " ";
-        return getTaskType() + " [" + status + "] " + description;
     }
 }

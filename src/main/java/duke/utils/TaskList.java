@@ -21,7 +21,6 @@ public class TaskList {
     public List<Task> getTasks() {
         return this.toDoList;
     }
-
     public int getSize() {
         return this.toDoList.size();
     }
