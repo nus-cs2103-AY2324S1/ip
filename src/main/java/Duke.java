@@ -1,3 +1,4 @@
+import java.time.DateTimeException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -84,7 +85,7 @@ public class Duke {
             }
 
             //displaying list
-            else if (input.equals("list")) {
+            else if (input.strip().equals("list")) {
                 try {
                     printHorizontalLine();
                     System.out.println("\tHere are the tasks in your list:");
@@ -159,35 +160,60 @@ public class Duke {
         }
 
         else if (input.startsWith("deadline")) {
-            if (input.trim().length() <= 8) {
-                throw new DukeException("\t Sorry! The description of a deadline cannot be empty :(");
+            try {
+                if (input.trim().length() <= 8) {
+                    throw new DukeException("\t Sorry! The description of a deadline cannot be empty :(");
+                }
+                if (!input.contains("/by")) {
+                    throw new DukeException("\t Hey bud! Please include when the deadline is! " +
+                            "\n\t For example you can type: deadline read /by 2023-09-01 1700");
+                }
+                int index = input.lastIndexOf("/by");
+                Task task = new Deadline(input.substring(9, index - 1), input.substring(index + 4));
+                tasks.add(task);
+                printHorizontalLine();
+                System.out.println("\tNo problem! I have added this task:");
+                System.out.println("\t" + task.toString());
+                System.out.println("\tNow you have " + tasks.size() + " tasks in the list");
+                printHorizontalLine();
+                count++;
             }
-            int index = input.lastIndexOf("/by");
-            Task task = new Deadline(input.substring(9, index - 1), input.substring(index + 4));
-            tasks.add(task);
-            printHorizontalLine();
-            System.out.println("\tNo problem! I have added this task:");
-            System.out.println("\t" + task.toString());
-            System.out.println("\tNow you have " + tasks.size() + " tasks in the list");
-            printHorizontalLine();
-            count++;
+            catch(DateTimeException d) {
+                System.out.println("Please put a valid deadline in YYYY-MM-DD HHMM form." +
+                        "\n\tFor example, 2003-19-08 1855");
+            }
+
         }
 
         else if (input.startsWith("event")) {
-            if (input.trim().length() <= 5) {
-                throw new DukeException("\t Sorry! The description of an event cannot be empty :(");
+            try {
+                if (input.trim().length() <= 5) {
+                    throw new DukeException("\t Sorry! The description of an event cannot be empty :(");
+                }
+                if (!input.contains("/from")) {
+                    throw new DukeException("\t Hey bud! Please include when the event is!" +
+                            "\n\t For example you can type: event hangout /from 2023-09-01 1700 /to 2023-09-01 2000");
+                }
+                if (!input.contains("/to")) {
+                    throw new DukeException("\t Hey bud! Please include when the end date of the event is!" +
+                            "\n\t For example you can type: event hangout /from 2023-09-01 1700 /to 2023-09-01 2000");
+                }
+                int indexFrom = input.lastIndexOf("/from");
+                int indexTo = input.lastIndexOf("/to");
+                Task task = new Event(input.substring(6, indexFrom - 1),
+                        input.substring(indexFrom + 6, indexTo - 1), input.substring(indexTo + 4));
+                tasks.add(task);
+                printHorizontalLine();
+                System.out.println("\tNo problem! I have added this task:");
+                System.out.println("\t" + task.toString());
+                System.out.println("\tNow you have " + tasks.size() + " tasks in the list");
+                printHorizontalLine();
+                count++;
             }
-            int indexFrom = input.lastIndexOf("/from");
-            int indexTo = input.lastIndexOf("/to");
-            Task task = new Event(input.substring(6, indexFrom - 1),
-                    input.substring(indexFrom + 6, indexTo - 1), input.substring(indexTo + 4));
-            tasks.add(task);
-            printHorizontalLine();
-            System.out.println("\tNo problem! I have added this task:");
-            System.out.println("\t" + task.toString());
-            System.out.println("\tNow you have " + tasks.size() + " tasks in the list");
-            printHorizontalLine();
-            count++;
+            catch(DateTimeException d) {
+                System.out.println("Please put valid start and end dates in YYYY-MM-DD HHMM form." +
+                        "For example, 2003-19-08 1855");
+            }
         }
 
         else {
@@ -216,7 +242,7 @@ public class Duke {
                 case "E":
                     String from = split[3];
                     String to = split[4];
-                    tasks.add(new Event(description, from, to));
+                    tasks.add(new Event(description, split[3], split[4]));
                     break;
             }
         }
