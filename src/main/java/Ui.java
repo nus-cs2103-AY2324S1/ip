@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Ui {
     private String logo =  "                  .-\"-.\n"
             + "                 /|6 6|\\\n"
@@ -14,6 +16,16 @@ public class Ui {
 
     private String indent = "     ";
 
+    private Scanner sc = new Scanner(System.in);
+
+    public static String indentLineBy(String message, int indents) {
+        StringBuilder indentedLine = new StringBuilder();
+        for (int i = 0; i < indents; i++) {
+            indentedLine.append(" ");
+        }
+        return indentedLine.append(message).toString();
+    }
+
     public String indentMessage(String message) {
         String[] lines = message.split("\n");
         StringBuilder indentedMessage = new StringBuilder();
@@ -26,14 +38,6 @@ public class Ui {
         StringBuilder reply = new StringBuilder();
         return reply.append(hLine).append(indentMessage(message))
                 .append(hLine).toString();
-    }
-
-    public static String indentLineBy(String message, int indents) {
-        StringBuilder indentedLine = new StringBuilder();
-        for (int i = 0; i < indents; i++) {
-            indentedLine.append(" ");
-        }
-        return indentedLine.append(message).toString();
     }
 
     public void greet(TaskList tasks) {
@@ -52,5 +56,9 @@ public class Ui {
 
     public void say(String message) {
         System.out.println(botReply(message));
+    }
+
+    public String readCommand() {
+        return sc.nextLine();
     }
 }

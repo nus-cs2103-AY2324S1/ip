@@ -13,7 +13,6 @@ public class Duke {
     private Storage storage;
 
     private TaskList tasks;
-    private File savedList;
 
     public Duke(String filePath) {
         this.tasks = new TaskList();
@@ -21,56 +20,10 @@ public class Duke {
         this.storage = new Storage(filePath);
     }
 
-    public void processInput() {
-        Scanner sc = new Scanner(System.in);
-        while (true) {
-            String command = "";
-            String input = sc.nextLine();
-            Scanner tokeniser = new Scanner(input);
-            try {
-                command = tokeniser.next();
-            } catch (NoSuchElementException e) {
-                ui.say("uhhh wat?");
-                continue;
-            }
-
-            if (command.contains("bye")) {
-                break;
-            } else if (command.equals("list")) {
-                ui.say(tasks.list());
-                continue;
-            } else if (command.equals("mark") || command.equals("unmark")) {
-                try {
-                    ui.say(tasks.changeMark(command, tokeniser));
-                } catch (IllegalCommandException e) {
-                    ui.say(e.getMessage());
-                }
-                continue;
-            } else if (command.equals("delete")) {
-                try {
-                    ui.say(tasks.deleteTask(tokeniser));
-                } catch (IllegalCommandException e) {
-                    ui.say(e.getMessage());
-                }
-                continue;
-            }
-            try {
-                Task newTask = Task.generateTask(command, tokeniser);
-                tasks.add(newTask);
-                ui.say("Gotchu! noted down: \n" +
-                        Ui.indentLineBy(newTask.toString(), 2) +
-                        "Now you have " +
-                        tasks.getNumberOfTask() +
-                        " tasks in the list!");
-            } catch (IllegalCommandException e) {
-                ui.say(e.getMessage());
-            } catch (IllegalDateTimeException e) {
-                ui.say(e.getMessage());
-            }
-        }
-    }
-
     public void run() throws IllegalCommandException {
+        /*
+        This portion reads file that has been loaded
+         */
         try {
             storage.readFile(tasks); // reads loaded file
         } catch (FileNotFoundException | IllegalDateTimeException |
@@ -79,13 +32,31 @@ public class Duke {
             tasks.clearAll();
             ui.say("saved file is corrupt, creating new file...");
         }
-        ui.greet(tasks);            // pass tasks in to see if there saved task
-        this.processInput();        // function to run the chatbot
+        /*
+        This portion displays greet message after file read
+         */
+        ui.greet(tasks);            // passes tasks in to see if there saved task
+        /*
+        This portion handles the main logic of taking input and processing it
+         */
+        boolean isExit = false;
+        while (!isExit) {
+            String fullCommand = ui.readCommand();
+            Command c = Parser.parse(fullCommand);
+            c.execute(ui, tasks);
+            isExit = c.isExit();
+        }
+        /*
+        This portion writes tasks to file
+         */
         try {
             storage.writeFile(tasks);   // write file with all tasks
         } catch (IOException e) {
             ui.say(e.getMessage());
         }
+        /*
+        This portion displays exit message
+         */
         ui.sayBye();
     }
 
