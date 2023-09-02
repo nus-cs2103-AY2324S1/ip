@@ -1,0 +1,5 @@
+D | 0 | bday  | 12 Jun 2001 1:24AM
+D | 0 | hw  | 17 Aug 1900 6:00PM
+E | 1 | bday  | 18 Sep 2001 6:54PM | 18 Sep 2001 7:53PM
+E | 0 | bday  | 18 Sep 2001 6:54PM | 18 Sep 2001 7:54PM
+E | 0 | test  | 18 Sep 1987 6:43PM | 19 Oct 1999 6:43PM

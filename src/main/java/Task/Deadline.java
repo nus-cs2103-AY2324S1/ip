@@ -30,7 +30,13 @@ public class Deadline extends Task {
             isTaskDone = "0";
         }
 
-        return (taskType + " | " + isTaskDone + " | " + this.description + " | " + this.time);
+        if (this.dateTime == null) {
+            return (taskType + " | " + isTaskDone + " | " + this.description + " | " + this.time);
+        } else {
+            return (taskType + " | " + isTaskDone + " | " + this.description + " | " +
+                    this.dateTime.format(outputFormatWithTime));
+        }
+
     }
 
     @Override
