@@ -1,12 +1,21 @@
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 public class MattBot {
     private static final String NAME = "MattBot";
     private static Storage mattmory;
     private static TaskList tasks;
+    private static DateTimeFormatter dTFormat  = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
 
     public static void main(String[] args) {
         // Load save file
@@ -85,21 +94,32 @@ public class MattBot {
                 } else if (command.equals("deadline")) {
                     String name = arguments.split(" /by ",2)[0];
                     String dueDate = arguments.split(" /by ",2)[1];
-                    t = new Deadline(name, dueDate);
-                    tasks.addTask(t);
-                    mattmory.writeBack(tasks);
-                    System.out.println("I've added this to your tasks: ");
-                    System.out.println(t);
+                    try {
+                        LocalDateTime dtDueDate = LocalDateTime.parse(dueDate,dTFormat);
+                        t = new Deadline(name, dtDueDate);
+                        tasks.addTask(t);
+                        mattmory.writeBack(tasks);
+                        System.out.println("I've added this to your tasks: ");
+                        System.out.println(t);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Your date is invalid. It should be in the form YYYYMMDDTHHMM. An example is 20231231T2359.");
+                    }
                 } else if (command.equals("event")) {
                     String name = arguments.split(" /from ",2)[0];
                     String dates = arguments.split(" /from ",2)[1];
                     String startDate = dates.split(" /to ")[0];
                     String endDate = dates.split(" /to ",2)[1];
-                    t = new Event(name, startDate, endDate);
-                    tasks.addTask(t);
-                    mattmory.writeBack(tasks);
-                    System.out.println("I've added this to your tasks: ");
-                    System.out.println(t);
+                    try {
+                        LocalDateTime dtStartDate = LocalDateTime.parse(startDate,dTFormat);
+                        LocalDateTime dtEndDate = LocalDateTime.parse(endDate,dTFormat);
+                        t = new Event(name, dtStartDate, dtEndDate);
+                        tasks.addTask(t);
+                        mattmory.writeBack(tasks);
+                        System.out.println("I've added this to your tasks: ");
+                        System.out.println(t);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Your date is invalid. It should be in the form YYYYMMDDTHHMM. An example is 20231231T2359.");
+                    }
                 } else if (command.equals("delete")) {
                     if (tasks.size() == 0 || tasks.size() < Integer.parseInt(arguments)) {
                         System.out.println("Oops, you're deleting a task that doesn't exist.");

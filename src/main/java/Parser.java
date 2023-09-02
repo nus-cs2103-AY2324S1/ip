@@ -1,4 +1,10 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+
 public class Parser {
+    public final static DateTimeFormatter DTFORMAT  = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
     Parser() {}
 
     /*public static Task parseInput(String input) {
@@ -13,13 +19,15 @@ public class Parser {
         try {
             switch (details[0]) {
                 case "T":
-                    newTask = new Todo(details[2], Boolean.parseBoolean(details[1]));
+                    newTask = new Todo(details[2], getBoolean(details[1]));
                     break;
                 case "D":
-                    newTask = new Deadline(details[2], Boolean.parseBoolean(details[1]), details[3]);
+                    newTask = new Deadline(details[2], getBoolean(details[1]),
+                            LocalDateTime.parse(details[3], DTFORMAT));
                     break;
                 case "E":
-                    newTask = new Event(details[2], Boolean.parseBoolean(details[1]), details[3], details[4]);
+                    newTask = new Event(details[2], getBoolean(details[1]),
+                            LocalDateTime.parse(details[3],DTFORMAT) , LocalDateTime.parse(details[4],DTFORMAT));
                     break;
                 default:
                     // Should throw an error here, maybe a can't read error?
@@ -41,6 +49,6 @@ public class Parser {
      */
     public static boolean getBoolean(String value)
     {
-        return (value!="0");
+        return (value.equals("1"));
     }
 }

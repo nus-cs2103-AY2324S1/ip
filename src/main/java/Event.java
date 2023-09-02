@@ -1,25 +1,48 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+
 public class Event extends Task {
-    protected String startDate;
-    protected String endDate;
-    Event(String name, String startDate, String endDate) {
+    protected LocalDateTime startDate;
+    protected LocalDateTime endDate;
+    public static final DateTimeFormatter DTFORMAT  = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
+    Event(String name, LocalDateTime startDate, LocalDateTime endDate) {
         super(name, false);
         this.startDate = startDate;
         this.endDate = endDate;
     }
-    Event(String name, boolean isDone, String startDate, String endDate) {
+    Event(String name, boolean isDone, LocalDateTime startDate, LocalDateTime endDate) {
         super(name, isDone);
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public String getStartDate() {
+    public LocalDateTime getStartDate() {
         return this.startDate;
     }
-    public String getEndDate() {
+    public LocalDateTime getEndDate() {
         return this.endDate;
     }
     public String identifier() {
         return "E";
+    }
+
+    /*
+     * Returns a friendly version of the start date.
+     *
+     * @returns Start Date in form of May 12 2023 20:00
+     */
+    public String startDateToString() {
+        return this.startDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH':'mm"));
+    }
+    /*
+     * Returns a friendly version of the end date.
+     *
+     * @returns End Date in form of May 12 2023 20:00
+     */
+    public String endDateToString() {
+        return this.endDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH':'mm"));
     }
 
     /*
@@ -28,11 +51,12 @@ public class Event extends Task {
      * @returns String for storage format.
      */
     public String toFile() {
-        return identifier() + " | " + showStatusAsFile() + " | " + showName() + " | " + getStartDate()  + " | " + getEndDate();
+        return identifier() + " | " + showStatusAsFile() + " | " + showName() + " | " + getStartDate().format(DTFORMAT)
+                + " | " + getEndDate().format(DTFORMAT);
     }
     @Override
     public String toString() {
         return String.format("[%s] [%s] %s (from: %s to: %s)", this.identifier(), this.showStatus(), this.showName(),
-                this.getStartDate(), this.getEndDate());
+                this.startDateToString(), this.endDateToString());
     }
 }
