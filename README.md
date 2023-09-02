@@ -1,6 +1,35 @@
-# Duke project template
+# Duke Project Pro
+> “Your mind is for having ideas, not holding them.” – David Allen
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+DukePro frees your mind of having to remember things you need to do. It's,
+- Text-based
+- Best way to learn
+- Easy and Simple to use
+
+All you need to do is,
+
+1. Download from [link](https://nus-cs2103-ay2324s1.github.io/website/schedule/week4/project.html)
+2. Double click it
+3. Add your tasks
+4. Let it manage your task for you :blush:
+It is also *Emphasize* Free
+
+Features
+- [ ]  Managing tasks
+- [ ] Managing deadlines (coming soon)
+- [ ]  Reminders (coming soon)
+
+If you Java programmer, you can use it to practice Java too. Here's the `main` method:
+```
+public class Main {
+    public static void main(String[] args) {
+        Application.launch(MainApp.class, args);
+    }
+}
+
+```
+
+
 
 ## Setting up in Intellij
 
