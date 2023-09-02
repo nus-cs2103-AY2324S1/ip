@@ -12,7 +12,7 @@ public class Ui {
 
     public void showWelcome(){
         System.out.println("Hello! I'm ChatBot.\n" +
-                "What can I do for you?\n" );
+                "What can I do for you?\n");
     }
 
     public void showGoodbye(){
