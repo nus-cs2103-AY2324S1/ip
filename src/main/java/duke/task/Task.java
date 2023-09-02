@@ -53,6 +53,16 @@ public abstract class Task {
     }
 
     /**
+     * Check whether the name of the task containing the keyword
+     * 
+     * @param keyWord the keyword
+     * @return whether the name of the task containing the keyword
+     */
+    public boolean hasKeyword(String keyWord) {
+        return name.toLowerCase().contains(keyWord.toLowerCase());
+    }
+
+    /**
      * Method to return the string implementation of Task
      * 
      * @return the string implementation of Task

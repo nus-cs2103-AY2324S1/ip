@@ -141,4 +141,21 @@ public class Command {
             throw new InvalidCommandException();
         }
     }
+
+    public static void find(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
+        try {
+            String[] messageWords = message.split(" ");
+            int numOfWords = messageWords.length;
+            if (numOfWords == 2) {
+                String keyWord = messageWords[1];
+                ui.printFindTask(tasks.find(keyWord));
+            } else {
+                throw new InvalidCommandException();
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidCommandException();
+        } catch (NumberFormatException e) {
+            throw new InvalidCommandException();
+        }
+    }
 }

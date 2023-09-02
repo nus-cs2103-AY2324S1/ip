@@ -84,11 +84,35 @@ public class TaskList {
         }
         return ret;
     }
+
     /**
-     * Gets the string representation of the TaskList
+     * Finds list of task containing the keyword
      * 
-     * @return the string representation of the TaskList
+     * @param keyWord the keyword
+     * @return the list of task containing the keyword
      */
+    public TaskList find(String keyWord) {
+        ArrayList<Task> results = new ArrayList<>();
+
+        for (Task task: tasks) {
+            if (task.hasKeyword(keyWord)) {
+                results.add(task);
+            }
+        }
+
+        return new TaskList(results);
+    }
+
+    /**
+     * Checks whether the TaskList is empty
+     * 
+     * @return whether the TaskList is empty
+     */
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
+    @Override
     public String toString() {
         String ret = "";
         for(int i = 0; i < tasks.size(); i++) {

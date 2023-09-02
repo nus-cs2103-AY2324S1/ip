@@ -50,4 +50,10 @@ delete 1 1
 list
 delete 1
 list
+todo CS2103 Materials
+find
+find invalid invalid
+find nothing
+find Presentation
+find CS2103
 bye
