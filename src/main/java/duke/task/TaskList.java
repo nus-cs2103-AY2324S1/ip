@@ -35,7 +35,6 @@ public class TaskList {
 
     /**
      * Deletes a Task object from the specified list of tasks.
-     * 
      * @param taskNumber The index of the task to be deleted.
      * @throws DukeException If the task number is invalid.
      */
@@ -51,8 +50,6 @@ public class TaskList {
 
     /**
      * Returns the list of tasks.
-     * 
-     * @return The method is returning the list of tasks.
      */
     public String listAllTasks() {
         return Ui.listAllTasks(tasks);
@@ -91,7 +88,6 @@ public class TaskList {
 
     /**
      * Returns the list of tasks that contain the specified keyword.
-     * 
      * @param keyword The keyword to be searched.
      */
     public String findTasks(String keyword) {
