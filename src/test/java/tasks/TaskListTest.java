@@ -1,20 +1,20 @@
 package tasks;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.Test;
+
 public class TaskListTest {
     @Test
-    public void testTodoTask_validInput_expectedOutcome(){
+    public void testTodoTask_validInput_expectedOutcome() {
         TaskList taskList = new TaskList();
         Task todoTask = taskList.addTodo("some todo", 0);
         assertEquals("[T][ ] some todo", todoTask.toString());
     }
 
     @Test
-    public void testDeadlineTask_validInput_expectedOutcome(){
+    public void testDeadlineTask_validInput_expectedOutcome() {
         TaskList taskList = new TaskList();
         Task deadlineTask = taskList.addDeadline("some deadline",
                 "2023-01-01 1500",
@@ -24,10 +24,10 @@ public class TaskListTest {
     }
 
     @Test
-    public void testDeadlineTask_invalidDatetime_exceptionThrown(){
+    public void testDeadlineTask_invalidDatetime_exceptionThrown() {
         try {
             TaskList taskList = new TaskList();
-            Task deadlineTask = taskList.addDeadline("some deadline",
+            taskList.addDeadline("some deadline",
                     "2023-01-01 later",
                     0);
             fail();
@@ -38,7 +38,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testEventTask_validInput_expectedOutcome(){
+    public void testEventTask_validInput_expectedOutcome() {
         TaskList taskList = new TaskList();
         Task eventTask = taskList.addEvent("some event",
                 "2023-01-01 1530",
@@ -49,10 +49,10 @@ public class TaskListTest {
     }
 
     @Test
-    public void testEventTask_invalidDatetime_exceptionThrown(){
+    public void testEventTask_invalidDatetime_exceptionThrown() {
         try {
             TaskList taskList = new TaskList();
-            Task eventTask = taskList.addEvent("some deadline",
+            taskList.addEvent("some deadline",
                     "today",
                     "tomorrow",
                     0);

@@ -1,9 +1,9 @@
 package tasks;
 
 import java.lang.StringBuilder;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import exceptions.DukeException;
@@ -13,8 +13,8 @@ import exceptions.InvalidIndexException;
  * Represents a list of all user tasks.
  */
 public class TaskList {
-    protected static final DateTimeFormatter DATETIME_FORMAT
-            = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    protected static final DateTimeFormatter DATETIME_FORMAT =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     protected ArrayList<Task> tasks;
 
     /**
@@ -86,7 +86,7 @@ public class TaskList {
         if (i < 1 || i > this.tasks.size()) {
             throw new InvalidIndexException(this.tasks.size());
         }
-        Task task = this.tasks.get(i-1);
+        Task task = this.tasks.get(i - 1);
         task.markAsDone();
         return task;
     }
@@ -104,7 +104,7 @@ public class TaskList {
         if (i < 1 || i > this.tasks.size()) {
             throw new InvalidIndexException(this.tasks.size());
         }
-        Task task = this.tasks.get(i-1);
+        Task task = this.tasks.get(i - 1);
         task.unmark();
         return task;
     }
@@ -122,8 +122,7 @@ public class TaskList {
         if (i < 1 || i > this.tasks.size()) {
             throw new InvalidIndexException(this.tasks.size());
         }
-        Task task = this.tasks.remove(i-1);
-        return task;
+        return this.tasks.remove(i - 1);
     }
 
     /**
@@ -166,7 +165,7 @@ public class TaskList {
 
         StringBuilder str = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 1; i <= filteredTasks.size(); i++) {
-            str.append(i + ". " + filteredTasks.get(i-1).toString() + "\n");
+            str.append(i + ". " + filteredTasks.get(i - 1).toString() + "\n");
         }
         return str.toString();
     }
@@ -185,9 +184,9 @@ public class TaskList {
         }
         str.append("Here are the tasks in your list:\n");
         for (int i = 1; i < len; i++) {
-            str.append(i + ". " + this.tasks.get(i-1) + "\n");
+            str.append(i + ". " + this.tasks.get(i - 1) + "\n");
         }
-        str.append(len + ". " + this.tasks.get(len-1));
+        str.append(len + ". " + this.tasks.get(len - 1));
         return str.toString();
     }
 

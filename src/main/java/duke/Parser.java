@@ -1,5 +1,7 @@
 package duke;
 
+import java.time.format.DateTimeParseException;
+
 import exceptions.DukeException;
 import exceptions.InvalidDeadlineException;
 import exceptions.InvalidEventException;
@@ -7,7 +9,6 @@ import exceptions.InvalidIndexException;
 import exceptions.InvalidTodoException;
 import exceptions.UnknownCommandException;
 
-import java.time.format.DateTimeParseException;
 
 /**
  * Parses user input and instructs Duke to act on the relevant command.
@@ -26,7 +27,7 @@ public class Parser {
      * @throws InvalidDeadlineException If the user input is invalid (e.g. no deadline).
      * @throws InvalidEventException If the user input is invalid (e.g. no start).
      */
-    public static String processInput(String userInput, int taskListSize)
+    public static String parseUserInput(String userInput, int taskListSize)
             throws UnknownCommandException,
             InvalidIndexException,
             InvalidTodoException,

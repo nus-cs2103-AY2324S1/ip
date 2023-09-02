@@ -5,6 +5,12 @@ package tasks;
  */
 public class TodoTask extends Task {
 
+    /**
+     * Constructor, initializes task description and isMarked.
+     *
+     * @param desc Task description.
+     * @param isMarked 1 if is marked, 0 otherwise.
+     */
     public TodoTask(String desc, int isMarked) {
         super(desc);
         if (isMarked == 1) {
@@ -19,8 +25,7 @@ public class TodoTask extends Task {
 
     @Override
     public String toString() {
-        String output = String.format("[T]%s", super.toString());
-        return output;
+        return String.format("[T]%s", super.toString());
     }
 
 }

@@ -12,9 +12,6 @@ public abstract class Task {
     /** Boolean indicating completion status */
     protected boolean isDone;
 
-    /** Method signature for abstract method getTextFormattedString */
-    protected abstract String getTextFormattedString();
-
     /**
      * Constructor, initializes task description.
      *
@@ -24,6 +21,9 @@ public abstract class Task {
         this.desc = desc;
         this.isDone = false;
     }
+
+    /** Method signature for abstract method getTextFormattedString */
+    protected abstract String getTextFormattedString();
 
     /**
      * Returns string representation of completion status.
@@ -36,22 +36,16 @@ public abstract class Task {
 
     /**
      * Marks task as done.
-     *
-     * @return True.
      */
-    protected boolean markAsDone() {
+    protected void markAsDone() {
         this.isDone = true;
-        return true;
     }
 
     /**
      * Marks task as not done.
-     *
-     * @return True.
      */
-    protected boolean unmark() {
+    protected void unmark() {
         this.isDone = false;
-        return true;
     }
 
     /**
@@ -61,8 +55,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        String output = String.format("[%s] %s", getStatusIcon(), this.desc);
-        return output;
+        return String.format("[%s] %s", getStatusIcon(), this.desc);
     }
 
 }
