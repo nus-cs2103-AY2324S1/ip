@@ -1,3 +1,2 @@
-D | X | submit book report | 2020-03-20 1800
-E | 0 | read book | 2020-03-19 1800 | 2020-03-20 1800
-T | 0 | homework
+T | X | hi
+E | 0 | deadline | 2023-08-08 1800 | 2023-08-08 2000

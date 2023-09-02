@@ -11,25 +11,23 @@ import java.nio.file.Paths;
 
 
 public class Duke {
-    static List<Task> tasks;
-    static int count;
+    static ArrayList<Task> tasks;
+
+
     public static void main(String[] args) {
+        Storage storage;
+        boolean isRunning = true;
         tasks = new ArrayList<>();
+        storage = new Storage("data/duke.txt", tasks);
         Duke buddy = new Duke();
 
-        try {
-            if (!Files.isDirectory(Paths.get("data/"))) {
-                Files.createDirectories(Paths.get("data/"));
-            }
-
-            if (!Files.exists(Paths.get("data/duke.txt"))) {
-                Files.createFile(Paths.get("data/duke.txt"));
-                System.out.println("New file created");
-            }
-            buddy.saveTasks();
-        } catch (Exception e) {
+       try {
+           storage.saveTasks();
+       }
+       catch (Exception e) {
             e.printStackTrace();
         }
+
 
 
 
@@ -40,13 +38,14 @@ public class Duke {
         printHorizontalLine();
         int count = 0;
 
-        while (count <=100 ) {
+        while (isRunning) {
             String input = scanner.nextLine();
 
 
             if (input.equals("bye")) {
                 System.out.println("\t " + "Bye! Hope to see you again soon!");
                 printHorizontalLine();
+                isRunning = false;
                 break;
             }
 
@@ -59,7 +58,7 @@ public class Duke {
                     System.out.println("\tGreat! I've marked this task as done:");
                     System.out.println("\t" + taskIndex + "." + tasks.get(taskIndex - 1).toString());
                     printHorizontalLine();
-                    buddy.writeTasksToFile();
+                    storage.writeTasksToFile(tasks);
                 }
                 catch (IOException i) {
                     System.out.println(i);
@@ -76,7 +75,7 @@ public class Duke {
                     System.out.println("\tOk! I've marked this task as not done yet:");
                     System.out.println("\t" + taskIndex + "." + tasks.get(taskIndex - 1).toString());
                     printHorizontalLine();
-                    buddy.writeTasksToFile();
+                    storage.writeTasksToFile(tasks);
                 }
                 catch (IOException i) {
                     System.out.println(i);
@@ -117,7 +116,7 @@ public class Duke {
                     System.out.println("\tOkie I've removed this task:\n\t" + element.toString());
                     System.out.println("\tNow you have " + tasks.size() + " tasks in the list.");
                     printHorizontalLine();
-                    buddy.writeTasksToFile();
+                    storage.writeTasksToFile(tasks);
                 }
                 catch (DukeException e) {
                     e.printMessage();
@@ -131,7 +130,7 @@ public class Duke {
             else {
                 try {
                     addTaskToList(input);
-                    buddy.writeTasksToFile();
+                    storage.writeTasksToFile(tasks);
                 }
                 catch (DukeException e){
                     e.printMessage();
@@ -156,7 +155,6 @@ public class Duke {
             System.out.println("\t" + task.toString());
             System.out.println("\tNow you have " + tasks.size() + " tasks in the list");
             printHorizontalLine();
-            count++;
         }
 
         else if (input.startsWith("deadline")) {
@@ -176,7 +174,7 @@ public class Duke {
                 System.out.println("\t" + task.toString());
                 System.out.println("\tNow you have " + tasks.size() + " tasks in the list");
                 printHorizontalLine();
-                count++;
+
             }
             catch(DateTimeException d) {
                 System.out.println("Please put a valid deadline in YYYY-MM-DD HHMM form." +
@@ -208,7 +206,7 @@ public class Duke {
                 System.out.println("\t" + task.toString());
                 System.out.println("\tNow you have " + tasks.size() + " tasks in the list");
                 printHorizontalLine();
-                count++;
+
             }
             catch(DateTimeException d) {
                 System.out.println("Please put valid start and end dates in YYYY-MM-DD HHMM form." +
@@ -222,40 +220,40 @@ public class Duke {
 
     }
 
-    private void saveTasks() throws IOException {
-        Scanner scanner = new Scanner(new File("data/duke.txt"));
-        while (scanner.hasNext()) {
-            String[] split = scanner.nextLine().split("\\|");
-            for (int i = 0; i < split.length; i++) {
-                split[i] = split[i].strip();
-            }
-            String description = split[2];
-
-            switch (split[0]) {
-                case "T":
-                    tasks.add(new ToDo(description));
-                    break;
-                case "D":
-                    String by = split[3];
-                    tasks.add(new Deadline(description, by));
-                    break;
-                case "E":
-                    String from = split[3];
-                    String to = split[4];
-                    tasks.add(new Event(description, split[3], split[4]));
-                    break;
-            }
-        }
-    }
-
-    private void writeTasksToFile() throws IOException {
-        FileWriter fileWriter = new FileWriter("data/duke.txt");
-        for (Task t: tasks) {
-            fileWriter.write(t.toWriteString()+"\n");
-        }
-        fileWriter.close();
-    }
-
+//    private void saveTasks() throws IOException {
+//        Scanner scanner = new Scanner(new File("data/duke.txt"));
+//        while (scanner.hasNext()) {
+//            String[] split = scanner.nextLine().split("\\|");
+//            for (int i = 0; i < split.length; i++) {
+//                split[i] = split[i].strip();
+//            }
+//            String description = split[2];
+//
+//            switch (split[0]) {
+//                case "T":
+//                    tasks.add(new ToDo(description));
+//                    break;
+//                case "D":
+//                    String by = split[3];
+//                    tasks.add(new Deadline(description, by));
+//                    break;
+//                case "E":
+//                    String from = split[3];
+//                    String to = split[4];
+//                    tasks.add(new Event(description, split[3], split[4]));
+//                    break;
+//            }
+//        }
+//    }
+//
+//    private void writeTasksToFile() throws IOException {
+//        FileWriter fileWriter = new FileWriter("data/duke.txt");
+//        for (Task t: tasks) {
+//            fileWriter.write(t.toWriteString()+"\n");
+//        }
+//        fileWriter.close();
+//    }
+//
 
 
     public static void printHorizontalLine() {
