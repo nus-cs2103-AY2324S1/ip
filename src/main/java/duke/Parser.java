@@ -28,19 +28,18 @@ public class Parser {
 
     /**
      * Adds a Task object to the specified list of tasks.
-     * 
      * @param tsk The type of task to be added.
      * @param input The user input.
      * @throws DukeException If the user input is invalid.
      */
-    private static void addTask(TaskType tsk, String input) throws DukeException{
+    private static void addTask(TaskType tsk, String input) throws DukeException {
         switch (tsk) {
         case TODO:
             try {
                 String todoDescription = input.substring(5);
                 TodoTask todoTask = new TodoTask(todoDescription);
                 tasks.addTask(todoTask);
-            } catch(StringIndexOutOfBoundsException e) {
+            } catch (StringIndexOutOfBoundsException e) {
                 throw new DukeException("The description of a todo cannot be empty.");
             }
             break;
@@ -48,12 +47,12 @@ public class Parser {
             try {
                 String deadlineDescription = input.substring(9);
                 String[] deadlineSplit = deadlineDescription.split(" /by ");
-                DeadlineTask deadlineTask = 
+                DeadlineTask deadlineTask =
                         new DeadlineTask(deadlineSplit[0], LocalDate.parse(deadlineSplit[1]));
                 tasks.addTask(deadlineTask);
-            } catch(StringIndexOutOfBoundsException e) {
+            } catch (StringIndexOutOfBoundsException e) {
                 throw new DukeException("The description of a deadline cannot be empty.");
-            } catch(ArrayIndexOutOfBoundsException e) {
+            } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("The task of a deadline cannot be empty.");
             } catch (java.time.format.DateTimeParseException e) {
                 throw new DukeException("Please enter a valid date in the format yyyy-mm-dd.");
@@ -80,7 +79,6 @@ public class Parser {
 
     /**
      * Modifies a Task object in the specified list of tasks.
-     * 
      * @param mod The type of modification to be made.
      * @param input The user input.
      * @throws DukeException If the user input is invalid.
@@ -89,14 +87,14 @@ public class Parser {
         String[] inputSplit = input.split(" ");
         switch (mod) {
         case MARK:
-            try {    
+            try {
                 int taskNumber = Integer.parseInt(inputSplit[1]);
                 tasks.markTaskAsDone(taskNumber);
             } catch (NumberFormatException e) {
                 throw new DukeException("Please enter a valid task number.");
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("Please enter a task number.");
-            } 
+            }
             break;
         case UNMARK:
             try {
@@ -106,7 +104,7 @@ public class Parser {
                 throw new DukeException("Please enter a valid task number.");
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("Please enter a task number.");
-            } 
+            }
             break;
         case DELETE:
             try {
@@ -116,7 +114,7 @@ public class Parser {
                 throw new DukeException("Please enter a valid task number.");
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("Please enter a task number.");
-            } 
+            }
             break;
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
@@ -125,13 +123,12 @@ public class Parser {
 
     /**
      * Parses the user input and calls the appropriate method.
-     * 
      * @param input The user input.
      */
     public static void parseCommands(String input) {
         if (input.equals("list")) {
-            tasks.listAllTasks();  
-        }  else {
+            tasks.listAllTasks();
+        } else {
             String[] inputSplit = input.split(" ");
             try {
                 switch (inputSplit[0]) {
@@ -143,7 +140,7 @@ public class Parser {
                     break;
                 case ("event"):
                     addTask(TaskType.EVENT, input);
-                    break;      
+                    break;
                 case ("mark"):
                     modifyTask(ModifyTask.MARK, input);
                     break;
@@ -159,10 +156,9 @@ public class Parser {
                 default:
                     throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }
-            } 
-            catch (DukeException e) {
+            } catch (DukeException e) {
                 Ui.printError(e);
-            } 
+            }
         }
     }
 }

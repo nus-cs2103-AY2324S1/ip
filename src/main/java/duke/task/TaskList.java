@@ -24,8 +24,7 @@ public class TaskList {
 
     /**
      * Adds a Task object to the specified list of tasks.
-     * 
-     * @param tasks The list of tasks.
+     * @param task The list of tasks.
      */
     public void addTask(Task task) {
         this.tasks.add(task);
@@ -35,7 +34,6 @@ public class TaskList {
 
     /**
      * Deletes a Task object from the specified list of tasks.
-     * 
      * @param taskNumber The index of the task to be deleted.
      * @throws DukeException If the task number is invalid.
      */
@@ -51,19 +49,16 @@ public class TaskList {
 
     /**
      * Returns the list of tasks.
-     * 
-     * @return The method is returning the list of tasks.
      */
     public void listAllTasks() {
         Ui.lsitAllTasks(tasks);
     }
 
     /**
-     * Returns the list of tasks that contain the specified keyword.
-     * 
-     * @param keyword The keyword to be searched.
+     * Marks the task as done.
+     * @param taskNumber The task number to be marked as done.
      */
-    public void markTaskAsDone(int taskNumber) throws DukeException{
+    public void markTaskAsDone(int taskNumber) throws DukeException {
         if (taskNumber > this.tasks.size() || taskNumber < 1) {
             throw new DukeException("Please enter a valid task number.");
         }
@@ -75,11 +70,10 @@ public class TaskList {
     }
 
     /**
-     * Returns the list of tasks that contain the specified keyword.
-     * 
-     * @param keyword The keyword to be searched.
+     * Marks the task as not done.
+     * @param taskNumber The task number to be marked as not done.
      */
-    public void markTaskAsUndone(int taskNumber) throws DukeException{
+    public void markTaskAsUndone(int taskNumber) throws DukeException {
         if (taskNumber > this.tasks.size() || taskNumber < 1) {
             throw new DukeException("Please enter a valid task number.");
         }
@@ -91,7 +85,6 @@ public class TaskList {
 
     /**
      * Returns the list of tasks that contain the specified keyword.
-     * 
      * @param keyword The keyword to be searched.
      */
     public void findTasks(String keyword) {

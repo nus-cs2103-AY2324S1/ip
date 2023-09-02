@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Represents a task with a description and a status (done or
  * not done).
  */
-public abstract class Task implements Serializable{
+public abstract class Task implements Serializable {
 
     /** Represents the description of the task. */
     private String description;
@@ -24,18 +24,16 @@ public abstract class Task implements Serializable{
 
     /**
      * Returns "X" if the task is done, and " " (a space) if the task is not
-     * done.
-     * 
+     *         done.
      * @return The method is returning a string. If the variable "isDone" is true, it returns "X",
-     * otherwise it returns a space character.
+     *         otherwise it returns a space character.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); 
+        return (isDone ? "X" : " ");
     }
 
     /**
      * Returns the description of an object.
-     * 
      * @return The method is returning the value of the instance variable "description".
      */
     public String getDescription() {
@@ -58,10 +56,9 @@ public abstract class Task implements Serializable{
 
     /**
      * Returns a string representation of an object, including its status icon and
-     * description.
-     * 
+     *         description.
      * @return The method is returning a string representation of the object. The string consists of the
-     * status icon followed by the description of the object.
+     *         status icon followed by the description of the object.
      */
     @Override
     public String toString() {
