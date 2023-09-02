@@ -9,9 +9,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a storage which stores and retrieves the task list
+ */
 public class Storage {
+    /**
+     * The file used for storage
+     */
     private File file;
 
+    /**
+     * Constructor for Storage
+     * @param path File path of the file used for storage
+     */
     public Storage(String path){
         this.file = new File(path);
 
@@ -20,6 +30,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves a list of tasks to the storage file
+     * @param inputs List of tasks to be stored
+     */
     public static void saveToFile(ArrayList<Task> inputs) {
         try {
             File f = new File("./data/duke.txt");
@@ -35,6 +49,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads tasks from the storage file
+     * @return Task list that contains the tasks read from the storage file
+     */
     public static TaskList readFromFile(){
         ArrayList<Task> taskList = new ArrayList<>();
         try (Scanner scanner = new Scanner(new File("./data/duke.txt"))) {

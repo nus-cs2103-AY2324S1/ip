@@ -3,7 +3,16 @@ package chatbot.parser;
 import chatbot.commands.*;
 import chatbot.exceptions.DukeException;
 
+/**
+ * Represents the class that is responsible for parsing user inputs and generating the relevant commands
+ */
 public class Parser {
+    /**
+     * Checks if the user input is valid
+     * @param command User input to be validated
+     * @return Returns a boolean that indicates if the input is valid
+     * @throws DukeException If the user input is not valid
+     */
     public static boolean isValid (String command) throws DukeException {
         if(command.equals("list") || command.equals("bye")){
             return true;
@@ -23,6 +32,13 @@ public class Parser {
             return true;
         }
     }
+
+    /**
+     * Parses the user input and returns the corresponding command
+     * @param command The user input to be parsed.
+     * @return Command that corresponds to the parsed user input
+     * @throws DukeException If the user input is not valid
+     */
     public static Command parse(String command) throws DukeException{
 
         isValid(command);
