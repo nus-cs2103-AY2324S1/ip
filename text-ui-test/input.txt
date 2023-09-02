@@ -1,8 +1,7 @@
-todo brush teeth
-todo eat breakfast
-list
-deadline leave house /by 8am
-event school /from 10am /to 2pm
+todo read book
+deadline return book /by 03/09/2023 1400
+deadline leave library /by 03/09/2023 1500
+event dinner with friends /from 03/09/2023 1800 /to 03/09/2023 2100
 list
 mark 1
 mark 1
@@ -25,7 +24,7 @@ unmark
 todo
 deadline
 event
-deadline finish code /from 7
-event finish coding time /by 3pm
-event start coding /from 5pm
+deadline finish code /from 02/09/2023 2359
+event finish coding time /by 02/09/2023 2359
+event start coding /from 02/09/2023
 bye

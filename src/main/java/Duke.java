@@ -7,25 +7,19 @@ import java.io.File;
 import java.io.FileWriter;
 
 public class Duke {
-    static String logo = "                  .-\"-.\n"
-            + "                 /|6 6|\\\n"
-            + " _  ._ _   _    {/(_0_)\\}\n"
-            + "(_) | (/_ (_)    _/ ^ \\_\n"
-            + "                (/ /^\\ \\)-'\n"
-            + "                 \"\"' '\"\"\n";
+    private Ui ui;
 
-    static String greet = logo + "Woof! I'm Oreo! How may I help you?\n";
-    static String exit = "I will be sad to see you go! bye!\n";
     private ArrayList<Task> taskList;
     private File savedList;
 
     public Duke() {
         this.taskList = new ArrayList<>();
+        this.ui = new Ui();
     }
 
     private void list() {
         if (Task.numberOfTasks == 0) {
-            System.out.println(TextFormat.botReply("list looks empty to me!"));
+            ui.say("list looks empty to me!");
         } else {
             StringBuilder displayList = new StringBuilder();
             if (Task.numberOfTasks == Task.numberOfCompletedTasks) {
@@ -40,7 +34,7 @@ public class Duke {
             for (int i = 0; i < Task.numberOfTasks; i++) {
                 displayList.append(i + 1 + ".").append(taskList.get(i).toString());
             }
-            System.out.println(TextFormat.botReply(displayList.toString()));
+            ui.say(displayList.toString());
         }
     }
 
@@ -55,12 +49,13 @@ public class Duke {
                 throw new IllegalCommandException("do that... this task does not exist :(");
             } else {
                 if (command.equals("mark")) {
-                    taskList.get(id - 1).markDone();
+                    ui.say(taskList.get(id - 1).markDone());
                     if (Task.numberOfTasks == Task.numberOfCompletedTasks) {
                         this.list();
                     }
                 } else {
-                    taskList.get(id - 1).markNotDone();}
+                    ui.say(taskList.get(id - 1).markNotDone());
+                }
             }
         } else {
             throw new IllegalCommandException("do that... try a number instead");
@@ -78,6 +73,11 @@ public class Duke {
                 throw new IllegalCommandException("do that... this task does not exist :(");
             } else {
                 Task.deleteTask(taskList.get(id - 1));
+                ui.say("Happily scratched this off your list:\n" +
+                        ui.indentLineBy(taskList.get(id - 1).toString(), 2) +
+                        "Now you have " +
+                        Task.numberOfTasks +
+                        " tasks in the list!");
                 taskList.remove(id - 1);
                 if (Task.numberOfTasks == Task.numberOfCompletedTasks) {
                     this.list();
@@ -97,7 +97,7 @@ public class Duke {
             try {
                 command = tokeniser.next();
             } catch (NoSuchElementException e) {
-                System.out.println(TextFormat.botReply("uhhh wat?"));
+                ui.say("uhhh wat?");
                 continue;
             }
 
@@ -110,14 +110,14 @@ public class Duke {
                 try {
                     changeMark(command, tokeniser);
                 } catch (IllegalCommandException e) {
-                    System.out.println(e.getMessage());
+                    ui.say(e.getMessage());
                 }
                 continue;
             } else if (command.equals("delete")) {
                 try {
                     deleteTask(tokeniser);
                 } catch (IllegalCommandException e) {
-                    System.out.println(e.getMessage());
+                    ui.say(e.getMessage());
                 }
                 continue;
             }
@@ -125,10 +125,15 @@ public class Duke {
                 Task newTask = Task.addTask(command, tokeniser);
                 taskList.add(newTask);
                 Task.numberOfTasks++;
+                ui.say("Gotchu! noted down: \n" +
+                        ui.indentLineBy(newTask.toString(), 2) +
+                        "Now you have " +
+                        Task.numberOfTasks +
+                        " tasks in the list!");
             } catch (IllegalCommandException e) {
-                System.out.println(e.getMessage());
+                ui.say(e.getMessage());
             } catch (IllegalDateTimeException e) {
-                System.out.println(e.getMessage());
+                ui.say(e.getMessage());
             }
         }
     }
@@ -152,7 +157,7 @@ public class Duke {
             try {
                 newTask = Task.addSavedTask(id, mark == 1, description);
             } catch (IllegalDateTimeException e) {
-                System.out.println(e.getMessage());
+                ui.say(e.getMessage());
                 continue;
             }
             taskList.add(newTask);
@@ -176,23 +181,16 @@ public class Duke {
         try {
             readFile(); // reads loaded file
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            ui.say(e.getMessage());
         }
-        if (Task.numberOfTasks != 0) {
-            // if there are saved task
-            greet = greet + "Welcome back! You had these tasks last time!\n";
-            System.out.println(TextFormat.botReply(greet)); // print greet message
-            list();
-        } else {
-            System.out.println(TextFormat.botReply(greet)); // print greet message
-        }
+        ui.greet(Task.numberOfTasks);
         this.processInput();                            // function to run the chatbot
         try {
             this.writeFile();                           // write file with all tasks
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            ui.say(e.getMessage());
         }
-        System.out.println(TextFormat.botReply(exit));  // exit message
+        ui.sayBye();
     }
 
         public static boolean isInteger(String str) {

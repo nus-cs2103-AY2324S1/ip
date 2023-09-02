@@ -9,6 +9,6 @@ public class IllegalDateTimeException extends Exception {
 
     @Override
     public String getMessage() {
-        return TextFormat.botReply(msg);
+        return msg;
     }
 }

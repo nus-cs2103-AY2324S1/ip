@@ -62,47 +62,37 @@ public abstract class Task implements Comparable<Task> {
             newTask = new Event(message[0], fromDateTime[0], fromDateTime[1],
                     toDateTime[0], toDateTime[1]);
         }
-        System.out.println(TextFormat.botReply("Gotchu! noted down: \n" +
-                TextFormat.indentLineBy(newTask.toString(), 2) +
-                "Now you have " +
-                numberOfTasks +
-                " tasks in the list!"));
         return newTask;
     }
 
     public static void deleteTask(Task toDelete) {
         numberOfTasks--;
         if (toDelete.completed)  numberOfCompletedTasks--;
-        System.out.println(TextFormat.botReply("Happily scratched this off your list:\n" +
-                TextFormat.indentLineBy(toDelete.toString(), 2) +
-                "Now you have " +
-                numberOfTasks +
-                " tasks in the list!"));
     }
 
-    public void markDone() {
+    public String markDone() {
         if (this.completed) {
-            System.out.println(TextFormat.botReply("That was done already...\n" +
+            return "That was done already...\n" +
                     "are you sure you wanted to mark that?\n"
-                    + this.toString()));
+                    + this.toString();
         } else {
             this.completed = true;
             numberOfCompletedTasks++;
-            System.out.println(TextFormat.botReply("Yay! One step closer to playing with me!\n"
-                    + this.toString()));
+            return "Yay! One step closer to playing with me!\n"
+                    + this.toString();
         }
     }
 
-    public void markNotDone() {
+    public String markNotDone() {
         if (!this.completed) {
-            System.out.println(TextFormat.botReply("Don't worry it's still not done\n" +
+            return "Don't worry it's still not done\n" +
                     "What are you doing? Let's get it done now!\n"
-                    + this.toString()));
+                    + this.toString();
         } else {
             this.completed = false;
             numberOfCompletedTasks--;
-            System.out.println(TextFormat.botReply("Oh no... what happened :(\n"
-                    + this.toString()));
+            return "Oh no... what happened :(\n"
+                    + this.toString();
         }
     }
 
