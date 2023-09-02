@@ -6,6 +6,7 @@ import java.util.Scanner;
  * Deals with interactions with the user.
  */
 public class Ui {
+    
     private Scanner input = new Scanner(System.in);
 
     /**

@@ -1,6 +1,5 @@
 package duke;
 
-import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -11,7 +10,7 @@ import java.time.format.DateTimeParseException;
 public class Duke {
 
     private static final String FILEPATH = "./data/duke.txt";
-    static boolean allowNext = true;
+    private static boolean hasNext = true;
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -24,6 +23,7 @@ public class Duke {
     public Duke(String path) {
         this.ui = new Ui();
         this.storage = new Storage(path);
+
         try {
             tasks = new TaskList(storage.loadTaskList());
         } catch (DukeException e) {
@@ -43,11 +43,11 @@ public class Duke {
             ui.printError(e);
         }
 
-        while (allowNext) {
+        while (hasNext) {
             try {
                 String input = ui.getInput();
                 String command = Parser.parseCommand(input);
-                String info;
+                String info = "";
 
                 switch (command.toUpperCase()) {
                 case "BYE":
@@ -101,7 +101,7 @@ public class Duke {
      */
     public void handleExit() {
         ui.printExit();
-        allowNext = false;
+        hasNext = false;
     }
 
     /**
@@ -206,8 +206,8 @@ public class Duke {
 
             String dlName = strArr[0];
             LocalDateTime dlTime = LocalDateTime.parse(strArr[1], dateTimeFormatter);
-
             Deadline dl = new Deadline(dlName, dlTime);
+
             ui.printAdd(dl);
             tasks.addTask(dl);
             ui.printNumberOfTasks(tasks);
@@ -231,12 +231,11 @@ public class Duke {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
             String eName = strArr[0];
-
             String[] dueDateArr = strArr[1].split(" /to ");
             LocalDateTime eFrom = LocalDateTime.parse(dueDateArr[0], dateTimeFormatter);
             LocalDateTime eTo = LocalDateTime.parse(dueDateArr[1], dateTimeFormatter);
-
             Event e = new Event(eName, eFrom, eTo);
+
             ui.printAdd(e);
             tasks.addTask(e);
             ui.printNumberOfTasks(tasks);

@@ -30,10 +30,10 @@ public class Event extends Task {
      * @param dt The LocalDateTime to be formatted.
      * @return The formatted string representation of the LocalDateTime.
      */
-    public static String formatDateTime(LocalDateTime dt) {
+    public static String formatDateTime(LocalDateTime dateTime) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
-        return dt.format(dateTimeFormatter);
+        return dateTime.format(dateTimeFormatter);
     }
 
     /**
@@ -43,8 +43,8 @@ public class Event extends Task {
      */
     @Override
     public String convertToSavedString() {
-        return String.format("[E] %s//%s//%s//", super.convertToSavedString(), formatDateTime(this.start),
-                formatDateTime(this.end));
+        return String.format("[E] %s//%s//%s//", super.convertToSavedString(), 
+                formatDateTime(this.start), formatDateTime(this.end));
     }
 
     /**
