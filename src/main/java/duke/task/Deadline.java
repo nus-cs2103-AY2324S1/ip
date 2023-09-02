@@ -3,8 +3,8 @@ package duke.task;
 import java.time.LocalDateTime;
 
 /**
- * Represents a task with a description and a due date.
- * Deadline tasks are tasks that need to be done before a specified due date.
+ * Represents a task with a description and a due date. Deadline tasks are tasks that need to be done before a specified
+ * due date.
  */
 public class Deadline extends Task {
 

@@ -1,10 +1,10 @@
 package duke.parser;
 
-import duke.error.DukeException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import duke.error.DukeException;
 
 /**
  * Provides validation methods for date-time and number formats.

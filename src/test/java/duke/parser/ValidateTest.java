@@ -1,12 +1,15 @@
 package duke.parser;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import duke.error.DukeException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
+
+import duke.error.DukeException;
 
 public class ValidateTest {
 

@@ -1,11 +1,12 @@
 package duke.task;
 
-import duke.error.DukeException;
-import duke.parser.Validate;
-
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import duke.error.DukeException;
+import duke.parser.Validate;
+
 
 /**
  * Represents a list of tasks that can be managed, including adding, deleting, marking, and unmarking tasks.
@@ -37,18 +38,20 @@ public class TaskList {
 
             Task task = null;
             switch (taskType) {
-                case "T": {
-                    task = this.addTodo(description);
-                    break;
-                }
-                case "D": {
-                    task = this.addDeadline(description, tokens[3]);
-                    break;
-                }
-                case "E": {
-                    task = this.addEvent(description, tokens[3], tokens[4]);
-                    break;
-                }
+            case "T": {
+                task = this.addTodo(description);
+                break;
+            }
+            case "D": {
+                task = this.addDeadline(description, tokens[3]);
+                break;
+            }
+            case "E": {
+                task = this.addEvent(description, tokens[3], tokens[4]);
+                break;
+            }
+            default:
+                throw new DukeException("Unknown serialized task");
             }
             if (task != null && status) {
                 task.markDone();

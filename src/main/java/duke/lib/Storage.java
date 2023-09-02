@@ -1,15 +1,15 @@
 package duke.lib;
 
-import duke.error.DukeException;
-import duke.task.TaskList;
-
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.error.DukeException;
+import duke.task.TaskList;
 
 /**
  * Manages reading and writing tasks to a save file.
