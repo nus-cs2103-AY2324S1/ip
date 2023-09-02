@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
-import exceptions.InvalidTaskFormatException;
+import jarvis.exceptions.InvalidTaskFormatException;
 
 public class Storage {
     private static final String FILE_PATH = "./jarvis/data/jarvis.txt";
@@ -31,7 +31,7 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String nextLine;
             while ((nextLine = reader.readLine()) != null) {
-                tasks.add(Action.stringToTask(nextLine));
+                tasks.add(Parser.parseStringToTask(nextLine));
             }
         } catch (IOException e) {
             System.err.println("Unable to load tasks");

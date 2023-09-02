@@ -1,4 +1,4 @@
-package exceptions;
+package jarvis.exceptions;
 
 public class InvalidDateTimeFormatException extends JarvisException{
     public InvalidDateTimeFormatException(String message) {
