@@ -1,10 +1,10 @@
    __________________________________________
+   Hi! You do not have any tasks at the moment
+   __________________________________________
+   __________________________________________
    Hello! I'm zac
    What can I do for you?
    __________________________________________
-T | X | borrow book
-D | O | return book | Sep 3 2023 5:00PM
-E | X | project meeting | Mon 2pm-4pm
    __________________________________________
    Got it. I've added this task:
      [T][ ] borrow book
