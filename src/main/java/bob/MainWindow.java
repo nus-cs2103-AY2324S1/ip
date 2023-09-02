@@ -1,11 +1,13 @@
 package bob;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -20,6 +22,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
+    @FXML
+    private Stage stage;
+
     private Bob bob;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
@@ -30,8 +35,10 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setBob(Bob b) {
+    public void setValues(Bob b, Stage s, Scene scene) {
         bob = b;
+        stage = s;
+        stage.setScene(scene);
     }
 
     /**
