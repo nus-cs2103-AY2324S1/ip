@@ -40,9 +40,9 @@ public class Parser {
                 return;
             }
             userInterface.showCommandLine();
-            String[] full_desc = parts[1].split(" /by ");
-            String description = full_desc[0];
-            LocalDateTime by = LocalDateTime.parse(full_desc[1]);
+            String[] fullDesc = parts[1].split(" /by ");
+            String description = fullDesc[0];
+            LocalDateTime by = LocalDateTime.parse(fullDesc[1]);
             taskManager.deadline(description, by);
             userInterface.showTaskAddedMessage();
             userInterface.showCurrentStatus(taskManager.displayList());
@@ -55,10 +55,10 @@ public class Parser {
                 return;
             }
             userInterface.showCommandLine();
-            full_desc = parts[1].split(" /from | /to ");
-            description = full_desc[0];
-            LocalDateTime from = LocalDateTime.parse(full_desc[1]);
-            LocalTime to = LocalTime.parse(full_desc[2]);
+            fullDesc = parts[1].split(" /from | /to ");
+            description = fullDesc[0];
+            LocalDateTime from = LocalDateTime.parse(fullDesc[1]);
+            LocalTime to = LocalTime.parse(fullDesc[2]);
             taskManager.event(description, from, to);
             userInterface.showTaskAddedMessage();
             userInterface.showCurrentStatus(taskManager.displayList());
@@ -137,6 +137,7 @@ public class Parser {
             userInterface.showFindTasks(taskManager.find(parts[1]));
             userInterface.showCommandLine();
             break;
+
 
 //            case "bye":
 //                userInterface.showCommandLine();

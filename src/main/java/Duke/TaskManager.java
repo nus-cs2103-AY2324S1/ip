@@ -8,6 +8,7 @@ import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
+
 /**
  * TaskManager is the class deals with editing the taskList.
  */
@@ -18,11 +19,11 @@ public class TaskManager {
     /**
      * Constructor for TaskManager.
      *
-     * @param tasklist the taskList
+     * @param taskList the taskList
      */
-    public TaskManager(ArrayList<Task> tasklist) {
 
-        this.taskList = tasklist;
+    public TaskManager(ArrayList<Task> taskList) {
+        this.taskList = taskList;
     }
 
     /**

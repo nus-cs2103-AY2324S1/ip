@@ -1,11 +1,12 @@
 package command;
 
-import task.Task;
 import java.util.ArrayList;
+import task.Task;
 
 /**
  * The User interface class deals with common print statements that chatbot uses.
  */
+
 public class UserInterface {
 
     /**
