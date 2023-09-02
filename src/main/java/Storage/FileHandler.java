@@ -1,32 +1,47 @@
 package Storage;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.IOException;
+
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import TaskManager.Tasks;
 import TaskManager.Events;
 import TaskManager.ToDos;
 import TaskManager.Deadlines;
 
-public class FileHandler {
-    private static String filePath;
 
+/**
+ * The `FileHandler` class handles reading tasks from and writing tasks to a file.
+ */
+public class FileHandler {
+    private static String filePath; // The file path to the .txt file.
+
+    /**
+     * Constructs a `FileHandler` with the specified file path.
+     *
+     * @param filePath The path to the .txt file where tasks will be stored.
+     */
     public FileHandler(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Reads tasks from the .txt file and returns them as a list of tasks.
+     *
+     * @return An ArrayList containing the tasks read from the file.
+     */
     public static ArrayList<Tasks> readTasksFromFile() {
         ArrayList<Tasks> task = new ArrayList<>();
         String folderPath = "data";
 
-        // Use an absolute path for the data directory
         String absoluteFolderPath = Paths.get("").toAbsolutePath().toString() + "/" + folderPath;
 
         try {
@@ -35,7 +50,6 @@ public class FileHandler {
             System.out.println("Failed to create the directory: " + e.getMessage());
         }
 
-        // Use an absolute path for the file
         String absoluteFilePath = Paths.get("").toAbsolutePath().toString() + "/" + filePath;
         Path path = Paths.get(absoluteFilePath);
 
@@ -108,12 +122,17 @@ public class FileHandler {
         return task;
     }
 
-    public static void writeTasksToFile(TaskList task) {
+    /**
+     * Writes tasks to the specified file.
+     *
+     * @param tasks The TaskList containing the tasks to be written.
+     */
+    public static void writeTasksToFile(TaskList tasks) {
         String absoluteFilePath = Paths.get("").toAbsolutePath().toString() + "/" + filePath;
 
         try {
             FileWriter writer = new FileWriter(absoluteFilePath);
-            for (Tasks t : task.getTasks()) {
+            for (Tasks t : tasks.getTasks()) {
                 writer.write(t.toFileString() + "\n");
             }
             writer.close();

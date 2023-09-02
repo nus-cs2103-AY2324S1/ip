@@ -1,11 +1,27 @@
 package TaskManager;
+
+/**
+ * The tasks of type "To-Do."
+ */
 public class ToDos extends Tasks {
 
     private String taskDesc;
-    public ToDos(String userInput) {
-        this.taskDesc = userInput;
+
+    /**
+     * Constructs a new To-Do task with the specified user input.
+     *
+     * @param taskDesc The description of the to-do task.
+     */
+    public ToDos(String taskDesc) {
+        this.taskDesc = taskDesc;
     }
 
+    /**
+     * Constructs a new To-Do task with the specified description and completion status.
+     *
+     * @param taskDesc  The description of the to-do task.
+     * @param completion The completion status (1 for done, 0 for not done).
+     */
     public ToDos(String taskDesc, String completion) {
         try {
             if (completion.equals("1")){
@@ -20,10 +36,22 @@ public class ToDos extends Tasks {
         }
     }
 
+    /**
+     * Checks if the To-Do task is valid.
+     *
+     * @return True if the task is valid (not null); otherwise, false.
+     */
     public boolean isValid() {
 
         return taskDesc != null;
     }
+
+
+    /**
+     * Returns a string format of the To-Do task that can be written to the .txt file.
+     *
+     * @return A string format of the To-Do task to store it into the .txt file.
+     */
     @Override
     public String toFileString() {
         String x;
@@ -36,6 +64,11 @@ public class ToDos extends Tasks {
         return "T | " + str1 + " | " + this.taskDesc;
     }
 
+    /**
+     * Generates a string representation of the To-Do task.
+     *
+     * @return A formatted string representation for displaying to the user.
+     */
     @Override
     public String toString() {
         String x;
@@ -48,6 +81,12 @@ public class ToDos extends Tasks {
         return "[T]" + str1 + this.taskDesc;
     }
 
+    /**
+     * Compares this To-Do task to another object for equality.
+     *
+     * @param o The object for comparison.
+     * @return True if the objects are equal; otherwise, false.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -3,18 +3,32 @@ import Ui.Ui;
 import Storage.TaskList;
 import Storage.FileHandler;
 
+/**
+ * A command to mark a task as not done.
+ */
 public class UnmarkCommand extends Command{
 
-    private String userInput;
+    private int index;
 
-    public UnmarkCommand(String userInput) {
-        this.userInput = userInput;
+    /**
+     * Constructs a `UnmarkCommand` object with the specified task index.
+     *
+     * @param index The index of the task to mark as done.
+     */
+    public UnmarkCommand(int index) {
+        this.index = index;
     }
 
+    /**
+     * Mark the specified task as not done.
+     *
+     * @param t  The task list containing the tasks.
+     * @param ui The user interface to display the result.
+     * @param f  The file handler (not used in this command).
+     */
     @Override
     public void execute(TaskList t, Ui ui, FileHandler f) {
         try {
-            int index = Integer.parseInt(userInput.substring(7));
             t.get(index - 1).markNotDone();
             FileHandler.writeTasksToFile(t);
             ui.unmark(index);
@@ -23,6 +37,11 @@ public class UnmarkCommand extends Command{
         }
     }
 
+    /**
+     * Check whether the command is an exit command.
+     *
+     * @return `false` because this command does not exit the application.
+     */
     @Override
     public boolean isExit() {
         return false;

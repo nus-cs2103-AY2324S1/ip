@@ -14,8 +14,17 @@ import Comm.MarkCommand;
 import Comm.MiscCommand;
 import Comm.UnmarkCommand;
 
+/**
+ * The `Parser` class is responsible for parsing user input commands into executable commands.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input string and returns the corresponding command object.
+     *
+     * @param str The user input string to be parsed.
+     * @return A command object representing the parsed command.
+     */
     public static Command parse (String str) {
         if (str.isEmpty()) { //empty command
 
@@ -114,15 +123,18 @@ public class Parser {
 
         } else if (str.startsWith("delete")) {
 
-            return new DeleteCommand(str);
+            int index = Integer.parseInt(str.substring(7));
+            return new DeleteCommand(index);
 
         } else if (str.startsWith("mark")) {
 
-            return new MarkCommand(str);
+            int index = Integer.parseInt(str.substring(5));
+            return new MarkCommand(index);
 
         } else if (str.startsWith("unmark")) {
 
-            return new UnmarkCommand(str);
+            int index = Integer.parseInt(str.substring(7));
+            return new UnmarkCommand(index);
 
         } else if (str.equals("bye")) {
 
