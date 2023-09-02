@@ -44,6 +44,7 @@ public class MarkCommand extends Command {
             ui.printMark(tasks.getTask(taskIndex));
         } else {
             tasks.unmark(taskIndex);
+            ui.printUnmark(tasks.getTask(taskIndex));
         }
     }
 

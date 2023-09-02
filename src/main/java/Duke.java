@@ -35,7 +35,6 @@ public class Duke {
     private void run() {
         this.ui.showWelcome();
         boolean isExit = false;
-
         while(!isExit) {
             try {
                 String fullCommand = this.ui.readCommand();
