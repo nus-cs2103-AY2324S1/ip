@@ -36,10 +36,20 @@ public class Duke {
       System.out.println(index + " " + ui.displayTask(selectedTask));
 
     }
-
   }
 
-  public void markTaskAsDone(){
+  public void unmarkTask() {
+    try {
+      // set current task as un-done
+      Task selectedTask = taskList.get(parser.getIndex());
+      selectedTask.setUnDone();
+      ui.displayAction("Marked selected task as un-done desu", selectedTask);
+    } catch (IndexOutOfBoundsException ex) {
+      System.out.println("Please enter a valid index!");
+    }
+  }
+
+  public void markTaskAsDone() {
     try {
       // set current task as done
       Task selectedTask = taskList.get(parser.getIndex());
@@ -80,16 +90,7 @@ public class Duke {
           break;
         }
         case "unmark": {
-
-          try {
-            // set current task as un-done
-            Task selectedTask = taskList.get(parser.getIndex());
-            selectedTask.setUnDone();
-            ui.displayAction("Marked selected task as un-done desu", selectedTask);
-          } catch (IndexOutOfBoundsException ex) {
-            System.out.println("Please enter a valid index!");
-          }
-
+          unmarkTask();
           break;
         }
         case "todo": {
