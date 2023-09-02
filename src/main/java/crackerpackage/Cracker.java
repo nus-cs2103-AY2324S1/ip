@@ -27,21 +27,10 @@ public class Cracker {
 
     public void startService(){
         boolean talking = true;
-        FileWriter writer = null;
         storage = new Storage("./data/list.txt");
         list = storage.load();
-        try{
-            storage.save(list);
-        } catch (Exception e){
-            System.out.println(e);
-        }
-        return;
-
-
-/*
         Scanner sc = new Scanner(System.in);
         reply.echo("What can I do for you?");
-        ArrayList<Object> inLine = new ArrayList<>();
         while(talking){
             Type t = null;
 
@@ -57,9 +46,13 @@ public class Cracker {
                         list.markDone(Parser.parseIndex(input));
                         reply.modifyTaskReply(list.getTask(Parser.parseIndex(input)));
                         break;
-                    case DELETE:
+                    case UNMARK:
                         list.markUndone(Parser.parseIndex(input));
                         reply.modifyTaskReply(list.getTask(Parser.parseIndex(input)));
+                        break;
+                    case DELETE:
+                        list.deleteTask(Parser.parseIndex(input));
+                        reply.deleteTaskReply(list.getTask(Parser.parseIndex(input)),list.size());
                         break;
                     case TASK:
                         Task newTask = Parser.parseTask(input);
@@ -103,7 +96,7 @@ public class Cracker {
 
         }
         reply.echo("Bye. Hope to see you again soon!");
-        */
+
 
     }
 
