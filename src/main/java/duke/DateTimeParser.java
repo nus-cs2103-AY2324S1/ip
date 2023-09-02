@@ -11,7 +11,7 @@ public class DateTimeParser {
     // we store the date and time in this format in the storage file. Therefore, in order to convert it back
     // to DateTime, we need to take these formats as valid.
     public static final String[] VALID_DATE_TIME_FORMAT = {"dd/MM/yyyy HHmm", "d/MM/yyyy HHmm",
-            "MMM-dd-yyyy HHmm a", "MMM-d-yyyy HHmm a"};
+        "MMM-dd-yyyy HHmm a", "MMM-d-yyyy HHmm a"};
 
     public static final String[] VALID_DATE_TIME_FORMAT_OUTPUT = {"MMM-dd-yyyy HHmm a", "MMM-d-yyyy HHmm a"};
 

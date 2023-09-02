@@ -1,11 +1,14 @@
 package duke;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+/**
+ * Event Tester is used to test the Event class
+ */
 public class EventTester {
 
     /**
@@ -24,7 +27,7 @@ public class EventTester {
         assertDoesNotThrow(() -> Event.taskValidator(input1));
 
         // Test case 2
-        String input2  = "event event /from 13/01/2021 0000 /to 13/01/2021 0000";
+        String input2 = "event event /from 13/01/2021 0000 /to 13/01/2021 0000";
         assertDoesNotThrow(() -> Event.taskValidator(input2));
 
         // Test case 3
@@ -58,8 +61,8 @@ public class EventTester {
             Event.taskValidator(input1);
             Assertions.fail();
         } catch (WrongInputException e) {
-            assertEquals("Invalid Format: /to command is required\n" +
-            "Recommendation: Use the /to command in 'event <event_name> /from <start> /to <end>'",
+            assertEquals("Invalid Format: /to command is required\n"
+                + "Recommendation: Use the /to command in 'event <event_name> /from <start> /to <end>'",
                     e.getMessage());
         }
 
@@ -76,8 +79,8 @@ public class EventTester {
             Event.taskValidator(input2);
             Assertions.fail();
         } catch (WrongInputException e) {
-            assertEquals("Invalid Format: /from command is required\n" +
-                    "Recommendation: Use the /from command in 'event <event_name> /from <start> /to <end>'",
+            assertEquals("Invalid Format: /from command is required\n"
+                    + "Recommendation: Use the /from command in 'event <event_name> /from <start> /to <end>'",
                     e.getMessage());
         }
     }
@@ -93,8 +96,8 @@ public class EventTester {
             Event.taskValidator(input3);
             Assertions.fail();
         } catch (WrongInputException e) {
-            assertEquals("Invalid Format: Task name cannot be blank\n" +
-                    "Recommendation: Enter a non-blank name", e.getMessage());
+            assertEquals("Invalid Format: Task name cannot be blank\n"
+                    + "Recommendation: Enter a non-blank name", e.getMessage());
         }
     }
 
@@ -125,7 +128,7 @@ public class EventTester {
 
     /**
      * Testing out the convertToSaveFormat method by seeing if the output is of the format
-     * E | <isDone> | <task_name> | <start_time> | <end_time> where time is in the format
+     * E | isDone | task_name | start_time | end_time where time is in the format
      * MMM-dd-yyyy hhmm a
      */
     @Test

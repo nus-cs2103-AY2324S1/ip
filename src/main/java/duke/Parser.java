@@ -107,6 +107,9 @@ public class Parser {
                 TaskList searchResult = this.searchEngine.search(keyword);
                 this.ui.showSearchResult(searchResult);
                 break;
+            default:
+                System.out.println("Bot is broken, restart the entire programme");
+                break;
             }
         } catch (NullPointerException e) {
             // If we mark a task number outside the range
