@@ -38,7 +38,7 @@ public class EventCommand extends Command {
     public void execute(TaskList tasks, Ui ui) {
         Task task = new Event(description, from, to);
         tasks.addTask(task);
-        ui.eventMessage(task);
-        ui.taskListSizeMessage(tasks.getSize(), true);
+        ui.showEventMessage(task);
+        ui.showTaskListSizeMessage(tasks.getSize(), true);
     }
 }

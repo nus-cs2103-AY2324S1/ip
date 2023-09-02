@@ -83,28 +83,28 @@ public class Parser {
 
         try {
             switch (command) {
-                case "list":
-                    return new ListCommand();
-                case "mark":
-                    return new MarkCommand(Integer.parseInt(inputComponents[1]));
-                case "unmark":
-                    return new UnmarkCommand(Integer.parseInt(inputComponents[1]));
-                case "todo":
-                    return new ToDoCommand(input.substring(5));
-                case "deadline":
-                    String[] deadlineComponents = input.substring(9).split(" /by ");
-                    return new DeadlineCommand(deadlineComponents[0],
-                            LocalDateTime.parse(deadlineComponents[1], inputFormatter));
-                case "event":
-                    String[] eventComponents = input.substring(6).split(" /from ");
-                    String[] eventDates = eventComponents[1].split(" /to ");
-                    LocalDateTime eventStart = LocalDateTime.parse(eventDates[0], inputFormatter);
-                    LocalDateTime eventEnd = LocalDateTime.parse(eventDates[1], inputFormatter);
-                    return new EventCommand(eventComponents[0], eventStart, eventEnd);
-                case "delete":
-                    return new DeleteCommand(Integer.parseInt(inputComponents[1]));
-                case "bye":
-                    return new ByeCommand();
+            case "list":
+                return new ListCommand();
+            case "mark":
+                return new MarkCommand(Integer.parseInt(inputComponents[1]));
+            case "unmark":
+                return new UnmarkCommand(Integer.parseInt(inputComponents[1]));
+            case "todo":
+                return new ToDoCommand(input.substring(5));
+            case "deadline":
+                String[] deadlineComponents = input.substring(9).split(" /by ");
+                return new DeadlineCommand(deadlineComponents[0],
+                        LocalDateTime.parse(deadlineComponents[1], inputFormatter));
+            case "event":
+                String[] eventComponents = input.substring(6).split(" /from ");
+                String[] eventDates = eventComponents[1].split(" /to ");
+                LocalDateTime eventStart = LocalDateTime.parse(eventDates[0], inputFormatter);
+                LocalDateTime eventEnd = LocalDateTime.parse(eventDates[1], inputFormatter);
+                return new EventCommand(eventComponents[0], eventStart, eventEnd);
+            case "delete":
+                return new DeleteCommand(Integer.parseInt(inputComponents[1]));
+            case "bye":
+                return new ByeCommand();
             }
         } catch (Exception e) {
             ui.showError(e.getMessage());

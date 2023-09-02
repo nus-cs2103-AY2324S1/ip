@@ -39,7 +39,7 @@ public class Ui {
     /**
      * Prints message for invalid command.
      */
-    public void invalidCommandMessage() {
+    public void showInvalidCommandMessage() {
         printDivider();
         showError("Do not test my patience, mortal. Speak clearly.");
         printDivider();
@@ -48,7 +48,7 @@ public class Ui {
     /**
      * Prints the welcome message.
      */
-    public void startMessage() {
+    public void showStartMessage() {
         System.out.println("Greetings, puny mortal. This is \n" + logo
                 + "\nThe Lord of Time. \nWhat foolish errand do you seek to accomplish with my immense powers?");
         printDivider();
@@ -68,7 +68,7 @@ public class Ui {
      * 
      * @return The user input as a String.
      */
-    public String commandPrompt() {
+    public String readCommand() {
         return sc.nextLine();
     }
 
@@ -92,7 +92,7 @@ public class Ui {
      * 
      * @param task The task that was marked as done.
      */
-    public void markTaskMessage(Task task) {
+    public void showMarkTaskMessage(Task task) {
         printDivider();
         System.out.println(
                 "Astonishingly enough, you have managed to triumph over this mind-bogglingly simple task:\n");
@@ -105,7 +105,7 @@ public class Ui {
      * 
      * @param task The task that was unmarked.
      */
-    public void unmarkTaskMessage(Task task) {
+    public void showUnmarkTaskMessage(Task task) {
         printDivider();
         System.out.println(
                 "You have somehow managed to fail this mind-bogglingly simple task:\n");
@@ -118,7 +118,7 @@ public class Ui {
      * 
      * @param task The todo task that was added.
      */
-    public void todoMessage(Task task) {
+    public void showTodoMessage(Task task) {
         printDivider();
         System.out.println("This task has been reluctantly bestowed upon your ever-growing list:\n");
         System.out.println(task.toString());
@@ -129,7 +129,7 @@ public class Ui {
      * 
      * @param task The deadline task that was added.
      */
-    public void deadlineMessage(Task task) {
+    public void showDeadlineMessage(Task task) {
         printDivider();
         System.out.println(
                 "With your constant mediocrity, it is entirely unlikely that you will be able to meet this deadline I have just added: \n");
@@ -141,7 +141,7 @@ public class Ui {
      * 
      * @param task The event task that was added.
      */
-    public void eventMessage(Task task) {
+    public void showEventMessage(Task task) {
         printDivider();
         System.out.println(
                 "Looks like I will have to slow time down myself if you wish to make it to this event I just added:\n");
@@ -153,7 +153,7 @@ public class Ui {
      * 
      * @param task The task that was deleted.
      */
-    public void deleteMessage(Task task) {
+    public void showDeleteMessage(Task task) {
         printDivider();
         System.out.println(
                 "One less annoyance to plague your feeble list. This task has been banished:\n");
@@ -163,7 +163,7 @@ public class Ui {
     /**
      * Prints the end message.
      */
-    public void endMessage() {
+    public void showEndMessage() {
         printDivider();
         System.out.println("Is that all? I have better things to do than to listen to lesser beings. Farewell.");
         printDivider();
@@ -175,7 +175,7 @@ public class Ui {
      * @param size    The new size of the task list.
      * @param growing Whether a task was added or removed (true for added).
      */
-    public void taskListSizeMessage(int size, boolean growing) {
+    public void showTaskListSizeMessage(int size, boolean growing) {
         if (growing) {
             System.out.println("Congratulations, your pile of tasks has swelled to a whopping " + size + ".");
         } else {

@@ -22,6 +22,6 @@ public class ByeCommand extends Command {
      * @param ui    The user interface.
      */
     public void execute(TaskList tasks, Ui ui) {
-        ui.endMessage();
+        ui.showEndMessage();
     }
 }

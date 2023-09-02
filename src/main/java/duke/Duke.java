@@ -40,11 +40,11 @@ public class Duke {
      * Starts the interaction with the user.
      */
     public void run() {
-        ui.startMessage();
+        ui.showStartMessage();
 
         Command command = new InvalidCommand();
         while (command.type != Command.CommandType.BYE) {
-            command = parser.parseCommand(ui.commandPrompt());
+            command = parser.parseCommand(ui.readCommand());
             command.execute(list, ui);
         }
 
