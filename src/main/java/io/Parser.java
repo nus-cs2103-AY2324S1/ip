@@ -1,9 +1,11 @@
+package io;
+
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Parser {
 
-  Parser() {
+  public Parser() {
     inputTokens = null;
     inputString = null;
     scanner = new Scanner(System.in);
