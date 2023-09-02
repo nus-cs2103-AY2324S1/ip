@@ -7,6 +7,7 @@ import duke.commands.AddTaskCommand;
 import duke.commands.Command;
 import duke.commands.DeleteTaskCommand;
 import duke.commands.ExitCommand;
+import duke.commands.FindTaskCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkTaskCommand;
 import duke.commands.UnmarkTaskCommand;
@@ -66,6 +67,11 @@ public class CommandFactory {
             checkValidTaskNumberArgument(args);
             int deleteId = Integer.parseInt(args.get(0));
             return new DeleteTaskCommand(dukeBot, uiService, deleteId);
+        case "find":
+            if (args.isEmpty()) {
+                throw new InvalidCommandInputException("Provide a keyword for find command! :<");
+            }
+            return new FindTaskCommand(dukeBot, uiService, args.get(0));
         case "todo":
         case "deadline":
         case "event":

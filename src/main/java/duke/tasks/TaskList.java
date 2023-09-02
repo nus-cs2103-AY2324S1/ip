@@ -3,6 +3,7 @@ package duke.tasks;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import duke.exception.DukeStorageException;
 import duke.service.StorageService;
@@ -88,6 +89,12 @@ public class TaskList {
         return Optional.of(task);
     }
 
+    public List<Task> searchTasks(String keyword) {
+        return taskList.stream()
+            .filter(task -> task.getTaskName().contains(keyword))
+            .collect(Collectors.toList());
+    }
+
     /**
      * Retrieves the list of tasks currently managed.
      *
@@ -105,4 +112,5 @@ public class TaskList {
     public int getNumberOfTasks() {
         return taskList.size();
     }
+
 }

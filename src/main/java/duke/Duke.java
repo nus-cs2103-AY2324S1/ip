@@ -105,6 +105,10 @@ public class Duke {
         return taskList.unmarkTask(index);
     }
 
+    public List<Task> searchTasks(String keyword) {
+        return taskList.searchTasks(keyword);
+    }
+
     /**
      * Retrieves the list of tasks currently managed by Duke.
      *
@@ -122,4 +126,5 @@ public class Duke {
     public int getNumberOfTasks() {
         return taskList.getNumberOfTasks();
     }
+
 }
