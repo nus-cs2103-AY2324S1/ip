@@ -1,11 +1,11 @@
-import java.time.format.DateTimeFormatter;
+package Ally;
 
 public class Event extends Task {
     protected String from;
     protected String to;
 
     /**
-     * Constructor for Event.
+     * Constructor for Ally.Event.
      * @param description
      * @param from
      * @param to
@@ -24,7 +24,7 @@ public class Event extends Task {
 
 
     /**
-     * Overrides the toString() method in Task.
+     * Overrides the toString() method in Ally.Task.
      * @return the string
      */
     @Override

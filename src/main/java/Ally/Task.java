@@ -1,9 +1,11 @@
+package Ally;
+
 public class Task {
     protected String description;
     protected boolean isDone;
 
     /**
-     * Constructor for Task.
+     * Constructor for Ally.Task.
      * @param description
      */
     public Task(String description) {

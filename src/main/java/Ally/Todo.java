@@ -1,3 +1,5 @@
+package Ally;
+
 public class Todo extends Task {
 
     /**
@@ -13,7 +15,7 @@ public class Todo extends Task {
         return "T" + " | " + (isDone ? "1" : "0") + " | " + description;
     }
     /**
-     * Overrides the toString() method in Task.
+     * Overrides the toString() method in Ally.Task.
      * @return the string
      */
     @Override

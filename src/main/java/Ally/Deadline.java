@@ -1,11 +1,12 @@
-import java.time.LocalDate;
+package Ally;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     protected LocalDateTime byDateTime;
     /**
-     * Constructor for Deadline.
+     * Constructor for Ally.Deadline.
      * @param description
      * @param by
      */
@@ -25,7 +26,7 @@ public class Deadline extends Task {
 
     }
     /**
-     * Overrides the toString() method in Task.
+     * Overrides the toString() method in Ally.Task.
      * @return the string
      */
     @Override
