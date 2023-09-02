@@ -1,15 +1,15 @@
-public class Event extends Task { // inheritance
-    protected String start; // start date/time
-    protected String end; // end date/time
+public class Event extends Task {
+    private DateTimeHandler start;
+    private DateTimeHandler end;
 
-    public Event(String description, String start, String end) { // constructor
-        super(description);
-        this.start = start;
-        this.end = end;
+    public Event(String description, String start, String end, boolean isDone) {
+        super(description, isDone);
+        this.start = new DateTimeHandler(start);
+        this.end = new DateTimeHandler(end);
     }
 
     @Override
     public String toString() {
-        return "E | " + super.toString() + "|" + start + "-" + end;
+        return "E | " + super.toString() + " | " + start.toString() + " - " + end.toString();
     }
 }

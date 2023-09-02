@@ -1,10 +1,10 @@
-public class ToDos extends Task { // inheritance
-    public ToDos (String description) { // constructor
-        super(description);
+public class ToDos extends Task {
+    public ToDos (String description, boolean isDone) {
+        super(description, isDone);
     }
 
     @Override
-    public String toString() { // polymorphism
+    public String toString() {
         return "T | " + super.toString();
     }
 }
