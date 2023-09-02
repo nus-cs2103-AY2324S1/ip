@@ -46,7 +46,7 @@ public class TaskList {
             task.markAsDone();
             Ui.printMsg("The following task is marked done, sheeesh:\n"
                         + task.toString());
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new EkudIllegalArgException("Task index number is out of bounds :/");
         }
     }
@@ -70,7 +70,7 @@ public class TaskList {
             task.markAsNotDone();
             Ui.printMsg("The following task is marked as not done yet:\n"
                         + task.toString());
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new EkudIllegalArgException("Task index number is out of bounds :/");
         }
     }
@@ -157,7 +157,7 @@ public class TaskList {
                     "Alright, this task has been removed:\n%s\nNow you have %d task(s) in the list.",
                     task.toString(),
                     tasks.size()));
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new EkudIllegalArgException("Task index number is out of bounds :/");
         }
     }

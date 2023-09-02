@@ -24,12 +24,14 @@ public class Parser {
     }
 
     /**
-     * Core function for parsing user arguments based on the command before the command is even executed.
+     * Core function for parsing user arguments based on the command before the command is
+     * even executed.
      * @param userCommand Input command by the user.
      * @param userArgs Args for the command supplied by the user.
      * @throws EkudException Either invalid commands or illegal arguments for the commands.
      */
-    public void parseAndExecute(String userCommand, String userArgs, TaskList taskList) throws EkudException {
+    public void parseAndExecute(String userCommand, String userArgs, TaskList taskList)
+            throws EkudException {
         Command command = Command.getCommand(userCommand); // Command enum
         if (command == null) {
             throw new EkudInvalidCommandException("Command not found :(");
@@ -43,7 +45,7 @@ public class Parser {
                 int index = Integer.valueOf(userArgs) - 1;
                 taskList.markTaskAsDone(index);
                 break;
-            } catch(NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 throw new EkudIllegalArgException("Please input a valid index number :o");
             }
         case MARKTASKASNOTDONE:
@@ -51,7 +53,7 @@ public class Parser {
                 int index = Integer.valueOf(userArgs) - 1;
                 taskList.markTaskAsNotDone(index);
                 break;
-            } catch(NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 throw new EkudIllegalArgException("Please input a valid index number :o");
             }
         case ADDTODO:
@@ -64,9 +66,10 @@ public class Parser {
                 LocalDateTime dateTime = this.parseDateTime(deadlineArgs[1]);
                 taskList.addDeadline(description, dateTime);
                 break;
-            } catch(IndexOutOfBoundsException | DateTimeParseException e) {
+            } catch (IndexOutOfBoundsException | DateTimeParseException e) {
                 throw new EkudIllegalArgException("Deadline formatted wrongly\n" +
-                        "-> Ensure 'deadline <description> /by <dd-mm-yyyy> OR <dd-MM-yyyy hhmm>' is followed\n"
+                        "-> Ensure 'deadline <description> /by <dd-mm-yyyy> OR <dd-MM-yyyy hhmm>' " +
+                        "is followed\n"
                         + "-> For example: deadline finish quiz /by 03-10-2023 1830");
             }
         case ADDEVENT:
@@ -81,16 +84,19 @@ public class Parser {
                 LocalDateTime toDateTime = this.parseDateTime(timings[1]);
                 taskList.addEvent(description, fromDateTime, toDateTime);
                 break;
-            } catch(IndexOutOfBoundsException | DateTimeParseException e) {
+            } catch (IndexOutOfBoundsException | DateTimeParseException e) {
                 throw new EkudIllegalArgException("Event formatted wrongly\n" +
-                        "-> Ensure 'event <description> /from <dd-MM-yyyy hhmm> /to <dd-MM-yyyy hhmm>' is followed\n"
-                        + "-> For example: event company dinner /from 03-10-2023 1730 /to 03-10-2023 2215");
+                        "-> Ensure 'event <description> /from <dd-MM-yyyy hhmm> /to <dd-MM-yyyy hhmm>' " +
+                        "is followed\n"
+                        + "-> For example: event company dinner /from 03-10-2023 1730 /to " +
+                        "03-10-2023 2215");
             }
         case DELETETASK:
             try {
                 int index = Integer.valueOf(userArgs) - 1;
                 taskList.deleteTask(index);
-            } catch(NumberFormatException e) {
+                break;
+            } catch (NumberFormatException e) {
                 throw new EkudIllegalArgException("Please input a valid index number :o");
             }
         default:
