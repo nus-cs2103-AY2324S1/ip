@@ -3,6 +3,8 @@ package evo.exceptions;
 /**
  * The `EvoException` class is a custom exception that extends the standard `Exception` class.
  * It is used to indicate exceptions that are specific to the Evo application.
+ *
+ * @author NgChunMan
  */
 public class EvoException extends Exception {
     /**

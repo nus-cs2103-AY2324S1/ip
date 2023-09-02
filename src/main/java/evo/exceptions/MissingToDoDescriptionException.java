@@ -1,7 +1,9 @@
 package evo.exceptions;
 
 /**
- * This exception is thrown when the description of the ToDo Task added by user is missing.
+ * This exception is thrown when the description of the To Do Task added by user is missing.
+ *
+ * @author NgChunMan
  */
 public class MissingToDoDescriptionException extends Exception {
 
