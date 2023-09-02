@@ -2,15 +2,31 @@ package aichan.task;
 
 import aichan.AiChanException;
 
+/**
+ * Represents a task.
+ */
 public class Task {
     private String taskName;
     private boolean done;
 
+    /**
+     * Constructs a task object.
+     * Initializes description and set isDone to false.
+     *
+     * @param taskName Description of the task.
+     */
     public Task(String taskName) {
         this.taskName = taskName;
         this.done = false;
     }
 
+    /**
+     * Converts a line in the file to its task.
+     *
+     * @param str String of one line in a file.
+     * @return The corresponding task.
+     * @throws AiChanException If the line has incorrect format.
+     */
     public static Task stringToTask(String str) throws AiChanException {
         char type = str.charAt(0);
         boolean isMark = (str.charAt(4) == '1');
@@ -37,22 +53,38 @@ public class Task {
         }
     }
 
+    /**
+     * Marks this task as done.
+     */
     public void mark() {
         this.done = true;
     }
 
+    /**
+     * Marks this task as have not done yet.
+     */
     public void unmark() {
         this.done = false;
     }
 
+    /**
+     * Returns the string representation of the task.
+     *
+     * @return A string indicates whether the task is done followed by its description.
+     */
+    @Override
     public String toString() {
         String status = this.done? "[X]" : "[ ]";
         return status + " " + this.taskName;
     }
 
+    /**
+     * Returns the line of the task to be saved in the file.
+     *
+     * @return A string indicates whether the task is done followed by its description.
+     */
     public String toFileLine() {
         int zeroOrOne = this.done? 1: 0;
         return zeroOrOne + " | " + this.taskName;
     }
-
 }

@@ -11,7 +11,18 @@ import aichan.command.ListCommand;
 import aichan.command.MarkCommand;
 import aichan.command.UnmarkCommand;
 
+/**
+ * Represents a parser that makes sense of the user command.
+ */
 public class Parser {
+
+    /**
+     * Parses user's input and returns the respective Command object.
+     *
+     * @param input Input entered by the user.
+     * @return An instance of Command class or its subclass.
+     * @throws AiChanException If the input has incorrect format.
+     */
     public static Command parse(String input) throws AiChanException {
         // command is user's input
         // put the if-else logic to call different constructor (subclass)
@@ -40,7 +51,14 @@ public class Parser {
             throw new AiChanException("oops~ I'm so sorry, but I don't know what that means :'(");
         }
     }
-    
+
+    /**
+     * Checks whether the input contains description and returns the description.
+     *
+     * @param inputs String array which supposed to have command type as first element, description as second element.
+     * @return String contains the description.
+     * @throws AiChanException If the description is missing.
+     */
     public static String checkLen(String[] inputs) throws AiChanException {
         if (inputs.length == 1 || inputs[1].length() == 0) {
             throw new AiChanException("oops~ The description of a " + inputs[0] + " cannot be empty.");
@@ -48,6 +66,13 @@ public class Parser {
         return inputs[1];
     }
 
+    /**
+     * Converts a string to number.
+     *
+     * @param intStr String contains number.
+     * @return The corresponding number.
+     * @throws AiChanException If the string contains any numeric character.
+     */
     public static int strToNum(String intStr) throws AiChanException {
         try {
             return Integer.parseInt(intStr);

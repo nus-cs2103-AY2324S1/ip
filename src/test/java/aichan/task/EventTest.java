@@ -6,7 +6,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests the Event class.
+ */
 public class EventTest {
+
+    /**
+     * Checks whether the string representation for user is correct format.
+     */
     @Test
     public void testToString() {
         String[] arr = {"meeting", "13/12/2019 1200", "13/12/2019 1400"};
@@ -20,6 +27,9 @@ public class EventTest {
         assertEquals("[E][ ] meeting (from: Dec 13 2019 1200 to: Dec 13 2019 1400)", result);
     }
 
+    /**
+     * Checks whether the string representation for storing in line is correct format.
+     */
     @Test
     public void testToFileLine() {
         String[] arr = {"meeting", "13/12/2019 1200", "13/12/2019 1400"};

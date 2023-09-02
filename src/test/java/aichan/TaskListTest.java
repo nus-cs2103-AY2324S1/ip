@@ -5,7 +5,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests the TaskList class.
+ */
 public class TaskListTest {
+
+    /**
+     * Check the correctness of the method getSize().
+     */
     @Test
     public void testGetSize() {
         TaskList tasks = new TaskList();
@@ -16,6 +23,9 @@ public class TaskListTest {
         assertEquals(2, tasks.getSize());
     }
 
+    /**
+     * Check the correctness of the method getTask().
+     */
     @Test
     public void testGetTask() {
         TaskList tasks = new TaskList();
