@@ -63,16 +63,16 @@ public class OutputService {
     }
 
     /**
-     * Displays a list of tasks to the user with task numbers.
+     * Appends to the front of each task in a list of tasks to the user with task numbers.
      *
-     * @param taskList The list of tasks to be displayed.
+     * @param taskList The list of tasks to be formatted.
      */
-    public void printTasks(List<Task> taskList) {
+    public List<String> formatTaskList(List<Task> taskList) {
         List<String> tasksWithNumber = new ArrayList<>();
         for (int i = 0; i < taskList.size(); ++i) {
             String taskNumber = String.format("%s. ", i + 1);
             tasksWithNumber.add(taskNumber + taskList.get(i));
         }
-        echo(tasksWithNumber);
+        return tasksWithNumber;
     }
 }
