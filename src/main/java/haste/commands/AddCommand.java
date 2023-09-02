@@ -45,10 +45,7 @@ public class AddCommand extends Command{
                 newTask = new Event(this.description, this.start, this.end, false);
                 break;
         }
-
         tasks.addTask(newTask);
         ui.add(newTask.toString(), tasks);
     }
-
-
 }

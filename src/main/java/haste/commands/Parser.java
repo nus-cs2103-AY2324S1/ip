@@ -1,15 +1,8 @@
 package haste.commands;
 
-import haste.Haste;
 import haste.data.Storage;
 import haste.data.TaskList;
-import haste.exceptions.EmptyTaskException;
-import haste.exceptions.HasteException;
-import haste.tasks.Deadline;
-import haste.tasks.Event;
-import haste.tasks.ToDo;
 import haste.tasks.Task;
-import haste.ui.Ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,14 +10,13 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static java.lang.Integer.parseInt;
 
+// Solution inspired by CLEON TAN DE XUAN
 public class Parser {
     // used to handle type of tasks
-    public static Command handleCommand(String cmd, Ui ui, TaskList tasks, Storage store) {
+    public static Command handleCommand(String cmd, Storage store) {
         String[] words = cmd.split("\\s+");
         Command c;
-        int id;
         switch (words[0]) {
             case "bye":
                 c = new ExitCommand(store);
@@ -33,11 +25,9 @@ public class Parser {
                 c = new ListCommand();
                 break;
             case "mark":
-                //id = parseInt(words[1]) - 1;
                 c = verifyMark(words);
                 break;
             case "unmark":
-                //id = parseInt(words[1]) - 1;
                 c = verifyUnmark(words);
                 break;
             case "delete":
@@ -72,8 +62,7 @@ public class Parser {
         if (id >= TaskList.numOfTasks || id < 0) {
             return new InvalidCommand("task does not exist! input within the list of numbered tasks.");
         }
-        Command c = new DeleteCommand(id);
-        return c;
+        return new DeleteCommand(id);
     }
     public static Command verifyMark(String[] words) {
         int id ;
@@ -88,12 +77,11 @@ public class Parser {
         if (id >= TaskList.numOfTasks || id < 0) {
             return new InvalidCommand("task does not exist! input within the list of numbered tasks.");
         }
-        Command c = new MarkCommand(id);
-        return c;
+        return new MarkCommand(id);
     }
 
     public static Command verifyUnmark(String[] words) {
-        int id = 0;
+        int id;
         if (words.length != 2) {
             return new InvalidCommand("input (only) number after \"unmark\"!");
         }
@@ -105,8 +93,7 @@ public class Parser {
         if (id >= TaskList.numOfTasks || id < 0) {
             return new InvalidCommand("task does not exist! input within the list of numbered tasks.");
         }
-        Command c = new UnmarkCommand(id);
-        return c;
+        return new UnmarkCommand(id);
     }
 
     public static Command verifyTodo(String cmd) {
@@ -178,7 +165,6 @@ public class Parser {
         String month = input.getMonth().toString();
         String day = String.valueOf(input.getDayOfMonth());
         int hourAndTime = input.getHour() * 100 + input.getMinute();
-        int  min = input.getMinute();
         return hourAndTime < 1000
                 ? month + " " + day + " " + year + " 0" + (hourAndTime)
                 : month + " " + day + " " + year + " " + (hourAndTime);

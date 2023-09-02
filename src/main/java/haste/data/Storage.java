@@ -5,7 +5,6 @@ import haste.tasks.Deadline;
 import haste.tasks.Event;
 import haste.tasks.Task;
 import haste.tasks.ToDo;
-import haste.ui.Ui;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -36,7 +35,7 @@ public class Storage {
     }
 
     // read data file
-    public void read(Ui ui, TaskList tasks) {
+    public void read(TaskList tasks) {
         try {
             Scanner scanner = new Scanner(this.file);
             if (scanner.hasNextLine()) {
@@ -63,7 +62,7 @@ public class Storage {
         }
     }
 
-    // braydon
+    // Solution inspired by LAM JIN HENG BRAYDON
     public Task readTask(String line) {
         String[] words = line.split("[|]");
         String command = words[0];
@@ -81,9 +80,6 @@ public class Storage {
             case "e":
                 newTask = new Event(description, Parser.parseTime(words[3]), Parser.parseTime(words[4]), isComplete);
                 break;
-
-
-
         }
         return newTask;
 
@@ -99,8 +95,4 @@ public class Storage {
         file.delete();
     }
 
-    public static void main (String args[]) {
-        Storage store = new Storage("./Data.txt");
-
-    }
 }

@@ -34,18 +34,18 @@ public class Haste {
         while (ui.running) {
             String cmd = sc.nextLine();
             //System.out.println(cmd);
-            Command c = Parser.handleCommand(cmd, ui, tasks, storage);
+            Command c = Parser.handleCommand(cmd, storage);
             try {
                 c.execute(tasks, ui);
             } catch (HasteException e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         }
 
     }
     public void load() {
         this.ui.greet();
-        this.storage.read(this.ui, tasks);
+        this.storage.read(tasks);
     }
 
     public void end() {

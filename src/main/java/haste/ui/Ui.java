@@ -1,10 +1,6 @@
 package haste.ui;
 
-
-
 import haste.data.TaskList;
-import haste.exceptions.EmptyTaskException;
-import haste.exceptions.InvalidCommand;
 import haste.tasks.Task;
 
 import static java.lang.Integer.parseInt;
