@@ -44,16 +44,22 @@ public class DogeBot {
             while (reader.hasNextLine()) {
                 String s = reader.nextLine();
                 String[] sArray = s.split("\\|");
+                String description = sArray[2].trim();
+                boolean isDone = (sArray[1].trim().equals("1")) ? true : false;
+
                 switch (sArray[0]) {
                 case "T ":
-                    tasks.add(new ToDos(sArray[2].trim()));
+                    tasks.add(new ToDos(description, isDone));
                     break;
                 case "D ":
-                    tasks.add(new Deadline(sArray[2].trim(), sArray[3].trim()));
+                    String by = sArray[3].trim();
+                    tasks.add(new Deadline(description, by, isDone));
                     break;
                 case "E ":
-                    String[] temp = sArray[3].split("-");
-                    tasks.add(new Event(sArray[2].trim(), temp[0].trim(), temp[1].trim()));
+                    String[] duration = sArray[3].split("-");
+                    String start = duration[0].trim();
+                    String end = duration[1].trim();
+                    tasks.add(new Event(description, start, end, isDone));
                     break;
                 default:
                     break;
@@ -94,6 +100,7 @@ public class DogeBot {
                     break;
                 default:
                     System.out.println("Wuff, I'm not sure what that means :(");
+                    sc.nextLine(); // absorb remaining words so 'default' block doesn't act up
                 }
             } catch (InputMismatchException e) {
                 sc.nextLine(); // absorb remaining words so 'default' block doesn't act up
@@ -103,7 +110,6 @@ public class DogeBot {
             } catch (DogeBotException e) {
                 System.out.println(e.getMessage());
             }
-
         }
 
         System.out.println("Bye~ See you again");
@@ -170,7 +176,7 @@ public class DogeBot {
         }
 
         System.out.println("Mama mia ! I've just added this task:");
-        Task temp = new ToDos(words);
+        Task temp = new ToDos(words, false);
         tasks.add(temp);
         System.out.println("\t" + temp.toString());
         updateTasksCounter();
@@ -187,7 +193,7 @@ public class DogeBot {
         String taskDeadline = words.substring(split + 4, words.length());
 
         System.out.println("Mama mia ! I've just added this task:");
-        Task temp = new Deadline(taskDescription, taskDeadline);
+        Task temp = new Deadline(taskDescription, taskDeadline, false);
         tasks.add(temp);
         System.out.println("\t" + temp.toString());
         updateTasksCounter();
@@ -206,7 +212,7 @@ public class DogeBot {
         String end = words.substring(endSplit + 4, words.length());
 
         System.out.println("Mama mia ! I've just added this task:");
-        Task temp = new Event(taskDescription, start, end);
+        Task temp = new Event(taskDescription, start, end, false);
         tasks.add(temp);
         System.out.println("\t" + temp.toString());
         updateTasksCounter();
