@@ -31,7 +31,6 @@ public class DataReader {
      */
     public static ArrayList<Task> readTasksFromFile() {
         ArrayList<Task> tasksList = new ArrayList<>();
-
         try (BufferedReader reader = new BufferedReader(new FileReader(DataReader.path))) {
             String line;
             while ((line = reader.readLine()) != null) {
