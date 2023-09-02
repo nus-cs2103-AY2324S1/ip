@@ -1,13 +1,14 @@
 package duck.task;
 
+import static duck.Parser.OUTPUT_DATE_FORMAT;
+
 import java.time.LocalDate;
 
 import duck.DuckException;
-import static duck.Parser.OUTPUT_DATE_FORMAT;
 
 public class EventTask extends Task {
-    LocalDate start;
-    LocalDate end;
+    private LocalDate start;
+    private LocalDate end;
 
     public EventTask(String name, boolean isDone, LocalDate start, LocalDate end) {
         super(name, isDone);
@@ -34,7 +35,7 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() 
+        return "[E]" + super.toString()
                 + " (from: " + formatStart() + " to " + formatEnd() + ")";
     }
 

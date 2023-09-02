@@ -1,12 +1,13 @@
 package duck.task;
 
+import static duck.Parser.OUTPUT_DATE_FORMAT;
+
 import java.time.LocalDate;
 
 import duck.DuckException;
-import static duck.Parser.OUTPUT_DATE_FORMAT;
 
 public class DeadlineTask extends Task {
-    LocalDate deadline;
+    private LocalDate deadline;
 
     public DeadlineTask(String name, boolean isDone, LocalDate deadline) {
         super(name, isDone);
@@ -26,7 +27,7 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + formatDeadline()  + ")";
+        return "[D]" + super.toString() + " (by: " + formatDeadline() + ")";
     }
 
     @Override
@@ -37,7 +38,7 @@ public class DeadlineTask extends Task {
         }
         return false;
     }
-    
+
     public static DeadlineTask parse(String fileLine) throws DuckException {
         // Finding isDone
         boolean isDone = fileLine.charAt(1) == '1';

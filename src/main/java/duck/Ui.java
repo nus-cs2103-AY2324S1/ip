@@ -6,14 +6,21 @@ import duck.task.Task;
 import duck.task.TaskList;
 
 public class Ui {
-    Scanner scanner = new Scanner(System.in);
-    
+    private Scanner scanner;
+
+    /**
+     * Initializes a Ui object.
+     */
+    public Ui() {
+        scanner = new Scanner(System.in);
+    }
+
     public void showLine() {
         System.out.println("____________________________________________________________");
     }
 
     public void showWelcomeMessage() {
-        String greeting = "Quack! I'm Duck! \n" 
+        String greeting = "Quack! I'm Duck! \n"
                 + "What can I do for you?";
 
         showLine();

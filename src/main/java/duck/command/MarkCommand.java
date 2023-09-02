@@ -7,7 +7,7 @@ import duck.Ui;
 import duck.task.TaskList;
 
 public class MarkCommand extends Command {
-    int index;
+    private int index;
 
     public MarkCommand(int index) {
         this.index = index - 1;

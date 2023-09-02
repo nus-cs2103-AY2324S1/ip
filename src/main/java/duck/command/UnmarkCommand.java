@@ -7,7 +7,7 @@ import duck.Ui;
 import duck.task.TaskList;
 
 public class UnmarkCommand extends Command {
-    int index;
+    private int index;
 
     public UnmarkCommand(int index) {
         this.index = index - 1;

@@ -18,8 +18,8 @@ import duck.task.Task;
 import duck.task.TodoTask;
 
 public class Parser {
-    private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public static Command parse(String input) throws DuckException {
         String[] splitInput = input.split(" ", 2);
@@ -63,7 +63,7 @@ public class Parser {
 
     private static Task parseTodo(String dataString) throws DuckException {
         try {
-            String name = dataString.trim(); 
+            String name = dataString.trim();
             return new TodoTask(name, false);
         } catch (StringIndexOutOfBoundsException e) {
             throw new DuckException("The description of a todo cannot be empty.");
@@ -74,7 +74,7 @@ public class Parser {
         try {
             String[] splitData = dataString.split(" /by ", 2);
             String name = splitData[0].trim();
-            LocalDate deadline = LocalDate.parse(splitData[1].trim(), INPUT_DATE_FORMAT); // potential error if theres no "/by" ???
+            LocalDate deadline = LocalDate.parse(splitData[1].trim(), INPUT_DATE_FORMAT);
             return new DeadlineTask(name, false, deadline);
         } catch (StringIndexOutOfBoundsException e) {
             throw new DuckException("Invalid todo task.");

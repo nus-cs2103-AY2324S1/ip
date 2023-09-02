@@ -3,7 +3,6 @@ package duck.task;
 import duck.DuckException;
 
 public class TodoTask extends Task {
-
     public TodoTask(String name, boolean isDone) {
         super(name, isDone);
     }

@@ -27,7 +27,7 @@ public class Duck {
 
     public void run() {
         ui.showWelcomeMessage();
-        boolean isExit = false; 
+        boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
