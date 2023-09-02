@@ -1,8 +1,9 @@
 public class Task {
     String description;
-    boolean isDone = false;
+    boolean isDone;
 
-    public Task(String description) {
+    public Task(boolean isDone, String description) {
+        this.isDone = isDone;
         this.description = description;
     }
 
@@ -21,5 +22,9 @@ public class Task {
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
+    }
+
+    public String toSavedString() {
+        return this.description;
     }
 }
