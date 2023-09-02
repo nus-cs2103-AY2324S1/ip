@@ -169,16 +169,19 @@ public class Parser {
         String startTimingString = timingParts[0].trim();
         String endTimingString = timingParts[1].trim();
 
-        LocalDate startTiming = LocalDate.parse(startTimingString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        LocalDate endTiming = LocalDate.parse(endTimingString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        try {
+            LocalDate startTiming = LocalDate.parse(startTimingString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            LocalDate endTiming = LocalDate.parse(endTimingString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-//        LocalDate startTiming = parseDate(startTimingString).atStartOfDay();
-//        LocalDate endTiming = parseDate(endTimingString).atStartOfDay();
+            Task newTask = new Event(taskDescription, startTiming, endTiming, "0");
+            taskList.addTask(newTask);
 
-        Task newTask = new Event(taskDescription, startTiming, endTiming, "0");
-        taskList.addTask(newTask);
+            return generateTaskAddedResponse(newTask, taskList);
 
-        return generateTaskAddedResponse(newTask, taskList);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Please enter date in dd/MM/yyyy format.");
+        }
+
     }
 
     private static LocalDate parseDate(String dateString) throws DukeException {
