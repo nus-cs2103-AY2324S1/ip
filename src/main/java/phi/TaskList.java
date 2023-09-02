@@ -7,17 +7,17 @@ import java.util.Scanner;
  * Represents the task list of the chatbot
  */
 public class TaskList {
-    private final ArrayList<Task> taskList;
+    private final ArrayList<Task> tasks;
 
     public TaskList() {
-        this.taskList = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     private Task getTask(int i) {
-        if (i <= 0 || i > taskList.size()) {
+        if (i <= 0 || i > tasks.size()) {
             throw new IllegalArgumentException("this task does not exist, genius..");
         } else {
-            return taskList.get(i - 1);
+            return tasks.get(i - 1);
         }
     }
 
@@ -66,7 +66,7 @@ public class TaskList {
     }
 
     public String addTask(Task task) {
-        this.taskList.add(task);
+        this.tasks.add(task);
         return "Added:\n" + task;
     }
 
@@ -83,16 +83,15 @@ public class TaskList {
             Task t = getTask(number);
             System.out.printf("Alright say bye bye to task %d!%n", number);
             System.out.println(t);
-            this.taskList.remove(t);
-            return String.format("There's %d task(s) in the list now.%n", taskList.size());
+            this.tasks.remove(t);
+            return String.format("There's %d task(s) in the list now.%n", tasks.size());
         }
         catch (NumberFormatException n) {
             return "Ugh to delete stuff, you have to input \"delete\" and the number...";
         }
         catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
-        return "Something went wrong, please try again :/";
     }
 
     /**
@@ -101,12 +100,12 @@ public class TaskList {
      * @return String representation of task list
      */
     public String printList() {
-        if (taskList.isEmpty()) {
+        if (tasks.isEmpty()) {
             return "You do know that to SHOW a list there has to be stuff INSIDE the (currently empty) list right?";
         } else {
             StringBuilder output = new StringBuilder();
-            for (Task t : taskList) {
-                output.append(String.format("%d.%s%n", taskList.indexOf(t) + 1, t.toString()));
+            for (Task t : tasks) {
+                output.append(String.format("%d.%s%n", tasks.indexOf(t) + 1, t.toString()));
             }
             return output.toString();
         }
@@ -126,22 +125,23 @@ public class TaskList {
         String taskMsg = sc.next();
 
         switch (taskType) {
-            case "T":
-                this.taskList.add(new ToDo(taskMsg, isComplete));
-                break;
-            // deadline task
-            case "D":
-                String deadline = sc.next();
-                this.taskList.add(new Deadline(taskMsg, isComplete, deadline));
-                break;
-            // event task
-            case "E":
-                String start = sc.next();
-                String end = sc.next();
-                this.taskList.add(new Event(taskMsg, isComplete, start, end));
-                break;
-            default:
-                System.out.println("something went wrong...");
+        case "T":
+            this.tasks.add(new ToDo(taskMsg, isComplete));
+            break;
+        // deadline task
+        case "D":
+            String deadline = sc.next();
+            this.tasks.add(new Deadline(taskMsg, isComplete, deadline));
+            break;
+        // event task
+        case "E":
+            String start = sc.next();
+            String end = sc.next();
+            this.tasks.add(new Event(taskMsg, isComplete, start, end));
+            break;
+        default:
+            System.out.println("something went wrong...");
+            break;
         }
     }
 
@@ -152,14 +152,14 @@ public class TaskList {
      */
     public String outputList() {
         StringBuilder output = new StringBuilder();
-        for (Task t : this.taskList) {
+        for (Task t : this.tasks) {
             output.append(t.outputFormat()).append("\n");
         }
         return output.toString();
     }
 
     public int listSize() {
-        return this.taskList.size();
+        return this.tasks.size();
     }
 
 }

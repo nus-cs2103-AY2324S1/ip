@@ -13,8 +13,8 @@ import java.util.Scanner;
  * Represents all storage-related methods (reading from file, checking file paths etc.)
  */
 public class Storage {
-    File txtFile;
-    Path filePath;
+    private File txtFile;
+    private Path filePath;
 
     /**
      * Constructor for a new Storage instance.

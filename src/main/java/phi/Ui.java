@@ -20,13 +20,13 @@ public class Ui {
     }
 
     public static String helpMsg() {
-        return "Here's a list of commands:\n" +
-                "1. list [prints out a list of all tasks]\n" +
-                "2. mark X [marks task X in the list]\n" +
-                "3. unmark X [unmarks task X in the list]\n" +
-                "4. todo test [creates a to-do with body \"test\"]\n" +
-                "5. deadline test /by yyyy-MM-dd [creates a corresponding deadline with body \"test\"]\n" +
-                "6. event test /from yyyy-MM-dd /to yyyy-MM-dd [creates a corresponding event with body \"test\"]\n" +
-                "7. bye [exits the program]";
+        return "Here's a list of commands:\n"
+                + "1. list [prints out a list of all tasks]\n"
+                + "2. mark X [marks task X in the list]\n"
+                + "3. unmark X [unmarks task X in the list]\n"
+                + "4. todo test [creates a to-do with body \"test\"]\n"
+                + "5. deadline test /by yyyy-MM-dd [creates a corresponding deadline with body \"test\"]\n"
+                + "6. event test /from yyyy-MM-dd /to yyyy-MM-dd [creates a corresponding event with body \"test\"]\n"
+                + "7. bye [exits the program]";
     }
 }
