@@ -1,4 +1,5 @@
 package duke.utilities;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,13 +15,20 @@ import java.util.ArrayList;
 public class Storage {
     
     /** Variable to store relative file path */
-    File file;
-    boolean exists;
+    private File file;
 
+	/** Variable to check if File already exists */
+    private boolean isCreated;
+
+	/**
+	 * Creates new Storage objects to store filpath and file
+	 * 
+	 * @param filePath Path of the tasks.txt file
+	 */
     public Storage(String filePath) {
         this.file = new File(filePath);
         try {
-            this.exists = !file.createNewFile();
+            this.isCreated = !file.createNewFile();
         } catch (IOException e) {
             System.out.println("!ERROR! IOException" + e);
         }
@@ -68,6 +76,6 @@ public class Storage {
     }
 
     public boolean fileExists() {
-        return this.exists;
+        return this.isCreated;
     }
 }
