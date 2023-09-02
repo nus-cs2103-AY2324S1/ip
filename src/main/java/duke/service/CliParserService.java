@@ -1,9 +1,12 @@
 package duke.service;
 
 import duke.commands.Command;
-import duke.exception.*;
+import duke.exception.InvalidCommandInputException;
+import duke.exception.UnknownCommandException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class CliParserService {
     private final UiService uiService;
@@ -17,7 +20,7 @@ public class CliParserService {
     public void parse() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            String line = scanner.nextLine().trim();
+            String line = scanner.nextLine();
             ParseResult parseResult = parseCommandAndArguments(line);
             String commandType = parseResult.getCommandType();
             List<String> arguments = parseResult.getArguments();
@@ -34,6 +37,7 @@ public class CliParserService {
     }
 
     public ParseResult parseCommandAndArguments(String line) {
+        line = line.trim();
         List<String> arguments = new ArrayList<>();
 
         // Split the command and its primary argument
