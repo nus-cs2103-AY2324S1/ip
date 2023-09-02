@@ -1,7 +1,9 @@
 package seedu.duke.tasklist;
 
 import seedu.duke.Exceptions.InvalidTaskIndexException;
+import seedu.duke.Exceptions.LemonException;
 import seedu.duke.Tasks.Task;
+import seedu.duke.ui.Ui;
 
 import java.util.ArrayList;
 
@@ -63,4 +65,14 @@ public class TaskList {
         return this.tasks;
     }
 
+
+    public ArrayList<Task> findKeyword(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : this.getTaskList()){
+            if (task.getDescription().contains(keyword)){
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
 }

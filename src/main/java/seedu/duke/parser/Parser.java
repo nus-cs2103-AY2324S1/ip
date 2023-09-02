@@ -9,6 +9,8 @@ import seedu.duke.datafile.Storage;
 import seedu.duke.tasklist.TaskList;
 import seedu.duke.ui.Ui;
 
+import java.util.ArrayList;
+
 public class Parser {
 
 
@@ -20,10 +22,12 @@ public class Parser {
         LIST,
         TODO,
         DEADLINE,
-        EVENT
+        EVENT,
+        FIND
     }
 
     public static void parseTasks(String input, TaskList tasks, Storage tasksData, Ui ui) throws LemonException {
+        System.out.println("input is: " + input);
         if (!input.equals("bye")) {
                 String commandType = input.split(" ")[0].toUpperCase();
                 try {
@@ -106,6 +110,15 @@ public class Parser {
                             } catch (IndexOutOfBoundsException e) {
                                 throw new InvalidTaskIndexException("");
                             }
+                            break;
+                        case FIND:
+                            String[] commandSplit = input.split(" ", 2);
+                            if (commandSplit.length < 2) {
+                                throw new KeywordNotFoundException("");
+                            }
+                            String keyword = input.split(" ")[1];
+                            ArrayList<Task> matchingTasks = tasks.findKeyword(keyword);
+                            ui.listMatching(matchingTasks);
                             break;
                         default:
                             throw new InvalidTaskException(" " + input + " ");
