@@ -24,6 +24,7 @@ public class Storage {
     }
     public void create() {
         this.file = new File(this.filePath);
+
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -46,7 +47,6 @@ public class Storage {
                 Task currTask = readTask(line);
                 tasks.addTask(currTask);
             }
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -81,8 +81,8 @@ public class Storage {
                 newTask = new Event(description, Parser.parseTime(words[3]), Parser.parseTime(words[4]), isComplete);
                 break;
         }
-        return newTask;
 
+        return newTask;
     }
 
     public void save(TaskList tasks) {
