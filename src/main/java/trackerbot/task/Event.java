@@ -25,11 +25,12 @@ public class Event extends Task {
 
     /**
      * Constructor for the class.
-     * @see trackerbot.utils.TaskDateHandler#convertInputToDate
+     *
      * @param desc The description of the Event task.
      * @param from The String representation of the start date to parse into a LocalDateTime object.
      * @param to The String representation of the end date to parse into a LocalDateTime object.
      * @throws DateTimeParseException if the deadline cannot be parsed by TaskDateHandler.
+     * @see trackerbot.utils.TaskDateHandler#convertInputToDate
      */
     public Event(String desc, String from, String to) throws DateTimeParseException {
         super(desc);
@@ -39,11 +40,12 @@ public class Event extends Task {
 
     /**
      * Constructs a Event using a String array, for use in save parsing.
-     * @see trackerbot.utils.TaskDateHandler#convertSaveToDate
+     *
      * @param args The arguments for constructing Event, containing isDone status in index
      *             0, description in index 1 and an epoch Date string in index 2 and 3.
      * @throws DateTimeParseException if the event dates cannot be parsed by TaskDateHandler.
      * @throws NumberFormatException if the epoch save string is corrupted.
+     * @see trackerbot.utils.TaskDateHandler#convertSaveToDate
      */
     protected Event(String[] args) throws DateTimeParseException, NumberFormatException {
         super(args);

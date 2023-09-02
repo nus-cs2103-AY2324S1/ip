@@ -4,9 +4,9 @@ package trackerbot.command;
  * Enumerates the possible Command types that exist in the Command class.
  * <p>CommandType should directly mirror the number of nested implementations of the
  * Command subclass, which can be instantiated with Command.of().</p>
- * @see trackerbot.command.Command#of
  * @author WZWren
  * @version A-JavaDoc
+ * @see trackerbot.command.Command#of
  */
 public enum CommandType {
     /** Command to exit the program. **/
