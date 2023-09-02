@@ -10,6 +10,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A chatbot that manages tasks.
+ *
+ * @author Anton Tan Hong Zhi
+ */
 public class Cracker {
 
     private TodoList list = null;
@@ -25,6 +30,9 @@ public class Cracker {
         QUIT
     }
 
+    /**
+     * Starts up the bot.
+     */
     public void startService(){
         boolean talking = true;
         storage = new Storage("./data/list.txt");

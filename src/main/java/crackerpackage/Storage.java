@@ -13,14 +13,31 @@ import java.util.Scanner;
 
 import crackerpackage.tasks.*;
 
-
+/**
+ * A Storage that stores tasks for the bot.
+ *
+ * @author Anton Tan Hong Zhi
+ */
 public class Storage {
 
     private File file;
 
+    /**
+     * Creates a Storage object.
+     *
+     * @param fileString The path to the file
+     */
+
     public Storage(String fileString){
         this.file = new File(fileString);
     }
+
+    /**
+     * Saves the content in the list to a file.
+     *
+     * @param list List of tasks to store
+     * @throws IOException
+     */
     public void save(TodoList list) throws IOException{
         FileWriter writer = null;
 
@@ -55,6 +72,11 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Returns a TodoList based on the contents of the file stored.
+     *
+     * @return a TodoList based on the contents of the file stored
+     */
     public TodoList load(){
         TodoList list = new TodoList();
         Scanner sc = null;

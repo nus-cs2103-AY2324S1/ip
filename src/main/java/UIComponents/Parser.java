@@ -8,11 +8,22 @@ import crackerpackage.tasks.Event;
 import crackerpackage.tasks.Task;
 import crackerpackage.tasks.Todo;
 
+/**
+ * A parser that extracts keywords from input text.
+ *
+ * @author Anton Tan Hong Zhi
+ */
 public class Parser {
 
-    private String input ;
 
 
+
+    /**
+     * parses the command header involved in the command.
+     *
+     * @param input the command to be parsed
+     * @return type of header of the command
+     */
     public static Cracker.Type parseCommand(String input){
         switch(input.split(" ")[0]) {
             case "mark":
@@ -34,6 +45,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a task based on the header of the command.
+     *
+     * @param input the command to be parsed
+     * @return a task extracted from the command
+     * @throws EmptyDescriptionException
+     * @throws IllegalFormatException
+     */
     public static Task parseTask(String input) throws EmptyDescriptionException, IllegalFormatException {
         String command = input.split(" ")[0];
         switch (command.toLowerCase()){
@@ -49,6 +68,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the number involved in the command.
+     *
+     * @param input the command to be parsed
+     * @return
+     */
     public static int parseIndex(String input){
         return Integer.parseInt(input.replace(input.split(" ")[0], "").trim()) - 1;
     }
