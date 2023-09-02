@@ -1,7 +1,27 @@
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.File;
+
 public class Qi {
     public static void main(String[] args) {
-        Bot qi = new Bot("Qi");
+        // Get the data for the list
+        File file = new File("data//list.txt");
+        File directory = file.getParentFile();
+
+        // Create directory to the file if it does not exist
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("Cannot create file!");
+        }
+
+        Bot qi = new Bot("Qi", file);
         qi.greeting();
 
         Scanner sc = new Scanner(System.in);

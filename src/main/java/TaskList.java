@@ -11,8 +11,8 @@ public class TaskList {
         this.taskList.add(t);
     }
 
-    public void mark(int id, boolean status) {
-        this.taskList.get(id - 1).mark(status);
+    public void mark(int id, boolean isDone) {
+        this.taskList.get(id - 1).mark(isDone);
     }
 
     public String showTask(int id) {
@@ -23,7 +23,12 @@ public class TaskList {
         return this.taskList.remove(taskId - 1);
     }
 
-    public String showList() {
+    public int size() {
+        return this.taskList.size();
+    }
+
+    @Override
+    public String toString() {
         StringBuilder ans = new StringBuilder();
         for (int i = 0; i < this.taskList.size(); i++) {
             int id = i + 1;
@@ -34,9 +39,5 @@ public class TaskList {
             }
         }
         return ans.toString();
-    }
-
-    public int size() {
-        return this.taskList.size();
     }
 }
