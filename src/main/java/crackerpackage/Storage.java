@@ -11,20 +11,23 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-import crackerpackage.tasks.*;
+import crackerpackage.tasks.Deadline;
+import crackerpackage.tasks.Event;
+import crackerpackage.tasks.Task;
+import crackerpackage.tasks.Todo;
 
 
 public class Storage {
 
     private File file;
 
-    public Storage(String fileString){
+    public Storage(String fileString) {
         this.file = new File(fileString);
     }
-    public void save(TodoList list) throws IOException{
+    public void save(TodoList list) throws IOException {
         FileWriter writer = null;
 
-        if(!this.file.exists()){
+        if (!this.file.exists()) {
             Path path = FileSystems.getDefault().getPath("data");
             Files.createDirectory(path);
             this.file.createNewFile();
@@ -32,7 +35,7 @@ public class Storage {
         writer = new FileWriter(file);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        for(int i = 0 ; i < list.size();i++){
+        for (int i = 0; i < list.size(); i++) {
             StringBuilder taskString = new StringBuilder();
             Task task = list.getTask(i);
             taskString.append(list.getTaskString(i).charAt(1));
@@ -41,12 +44,12 @@ public class Storage {
             taskString.append('|');
             taskString.append(task.getDesc());
             taskString.append('|');
-            if(task instanceof Event){
+            if (task instanceof Event) {
                 taskString.append(LocalDate.parse(((Event) task).getStart(), formatter));
                 taskString.append('|');
                 taskString.append(LocalDate.parse(((Event) task).getEnd(), formatter));
                 taskString.append('|');
-            } else if (task instanceof Deadline){
+            } else if (task instanceof Deadline) {
                 taskString.append(LocalDate.parse(((Deadline) task).getDeadline(), formatter));
                 taskString.append('|');
             }
@@ -55,38 +58,38 @@ public class Storage {
         writer.close();
     }
 
-    public TodoList load(){
+    public TodoList load() {
         TodoList list = new TodoList();
         Scanner sc = null;
-        try{
+        try {
             sc = new Scanner(file);
-        } catch( FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             return list;
         }
-        while(sc.hasNext()){
+        while (sc.hasNext()) {
             String taskString = sc.nextLine();
             String[] arr = taskString.split("\\|");
 
-            try{
+            try {
                 Task task = null;
-                switch (taskString.charAt(0)){
-                    case 'T' :
-                        task = new Todo(arr[2]);
-                        break;
-                    case 'E':
-                        task = new Event(arr[2], arr[3], arr[4]);
-                        break;
-                    case 'D':
-                        task =new Deadline(arr[2], arr[3]) ;
-                        break;
-                    default :
-                        System.out.println("Corrupt file detected");
+                switch (taskString.charAt(0)) {
+                case 'T':
+                    task = new Todo(arr[2]);
+                    break;
+                case 'E':
+                    task = new Event(arr[2], arr[3], arr[4]);
+                    break;
+                case 'D':
+                    task = new Deadline(arr[2], arr[3]);
+                    break;
+                default:
+                    System.out.println("Corrupt file detected");
                 }
-                if(Boolean.parseBoolean(arr[1])){
+                if (Boolean.parseBoolean(arr[1])) {
                     task.markDone();
                 }
                 list.store(task);
-            } catch (Exception e){
+            } catch (Exception e) {
                 System.out.println(e);
                 System.out.println("something bad when loading");
             }

@@ -1,10 +1,8 @@
-package Exceptions;
+package exceptions;
 
 public class UnknownCommandException extends Exception {
-    public UnknownCommandException(){
 
-    }
-    public String toString(){
+    public String toString() {
         return "I have no idea what that means";
     }
 }
