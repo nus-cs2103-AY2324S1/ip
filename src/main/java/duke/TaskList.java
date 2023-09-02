@@ -58,4 +58,26 @@ public class TaskList {
     public void deleteTask(int index) {
         storedTasks.remove(index);
     }
+
+    /**
+     * Filters the task list for tasks containing the given keyword.
+     *
+     * @param index Index of the task to be deleted.
+     */
+    public TaskList getTaskListWithKeyword(String keyword) {
+        TaskList list = new TaskList();
+        int len = this.getLength();
+
+        for (int i = 0; i < len; i++) {
+            Task t = this.getTask(i);
+            String desc = t.getDescription();
+            int index = desc.indexOf(keyword);
+
+            if (index != -1) {
+                list.addTask(t);
+            }
+        }
+
+        return list;
+    }
 }

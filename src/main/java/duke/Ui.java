@@ -27,18 +27,32 @@ public class Ui {
     }
 
     /**
-     * Prints the list of tasks in the TaskList.
+     * Prints the list of tasks in the TaskList given.
+     * 
+     * @param storedTasks TaskList to be printed.
+     * @param isListCommand Whether the method is called from a list command.
      */
-    public void printList(TaskList storedTasks) {
+    public void printList(TaskList storedTasks, boolean isListCommand) {
         int len = storedTasks.getLength();
-        if (len > 0) {
-            System.out.println("Your added tasks:");
 
-            for (int i = 1; i < len + 1; i++) {
-                System.out.println(i + ". " + storedTasks.getTask(i - 1));
+        if (isListCommand) {
+            if (len > 0) {
+                System.out.println("Okay! Here's the full list of your added tasks:");
+                for (int i = 1; i < len + 1; i++) {
+                    System.out.println(i + ". " + storedTasks.getTask(i - 1));
+                }
+            } else {
+                System.out.println("No tasks found!");
             }
         } else {
-            System.out.println("No tasks found!");
+            if (len > 0) {
+                System.out.println("Here's the list of matching tasks I found:");
+                for (int i = 1; i < len + 1; i++) {
+                    System.out.println(i + ". " + storedTasks.getTask(i - 1));
+                }
+            } else {
+                System.out.println("No matching tasks found :(");
+            }
         }
     }
 
