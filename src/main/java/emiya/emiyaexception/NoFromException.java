@@ -1,5 +1,8 @@
 package emiya.emiyaexception;
 
+/**
+ * An exception that is thrown when the user does not use /from in their event command.
+ */
 public class NoFromException extends EmiyaException{
     public NoFromException() {
         super("-----------------------------------------\n" +

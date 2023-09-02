@@ -2,6 +2,9 @@ package emiya.logic;
 
 import emiya.Keywords;
 
+/**
+ * A class that contains methods to check whether given inputs are valid as well as what type of input it is
+ */
 public class Logic {
 
     // Used to check whether a given string contains purely numeric values.
@@ -29,7 +32,11 @@ public class Logic {
         return (min >= 0 && min <= 59);
     }
 
-    // Checks if a given test String is part of the reserved keywords for the different tasks.
+    /**
+     * A method that helps to check whether a given String input is a part of the reserved keyword enum.
+     * @param test The input that is to be checked against the keyword enum.
+     * @return A boolean that indicates whether the given input is part of the keyword enum.
+     */
     public static boolean enumContainsKeyword(String test) {
         for (Keywords k : Keywords.values()) {
             if (k.name().equals(test)) {
