@@ -42,6 +42,14 @@ public class Task {
         }
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
     /**
      * Returns a string representation of the Task object.
      *

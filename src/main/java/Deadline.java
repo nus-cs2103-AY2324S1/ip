@@ -35,6 +35,10 @@ public class Deadline extends Task {
         return dateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a"));
     }
 
+    public LocalDateTime getBy() {
+        return this.by;
+    }
+
     /**
      * Returns a string representation of the Deadline object.
      *

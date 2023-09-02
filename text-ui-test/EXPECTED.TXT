@@ -1,3 +1,4 @@
+Creating a new file.
 Hello friend :> My name is John, nice to meet you! What do you have to do today?
 Reply John: Got it. I've added this task:
   [T][ ] borrow book
