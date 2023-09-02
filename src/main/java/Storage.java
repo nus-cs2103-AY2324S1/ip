@@ -63,7 +63,6 @@ public class Storage {
         FileWriter fileWriter = null;
         try {
             fileWriter = new FileWriter(path, true);
-            System.out.println(task.toStorageString());
             fileWriter.write(task.toStorageString() + "\n");
             fileWriter.close();
         } catch (IOException e) {
