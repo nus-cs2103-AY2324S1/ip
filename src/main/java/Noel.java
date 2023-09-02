@@ -1,11 +1,16 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.IOException;
 
 public class Noel {
 
-    static String helloMsg = " Hello! I'm Noel!\nWhat can I do for you?";
-    static String byeMsg = " Bye. Hope to see you again soon!";
+    static String FILEPATH = "./data/noel.txt";
+    static String HELLO_MSG = " Hello! I'm Noel!\nWhat can I do for you?";
+    static String BYE_MSG = " Bye. Hope to see you again soon!";
 
+    static boolean fileInserted = false;
     static int maxSize = 100;
     static ArrayList<Task> taskList = new ArrayList<>();
 
@@ -38,7 +43,7 @@ public class Noel {
         String addedMessageEnd = "Now you have " + taskList.size() + " tasks in the list.";
         String updateAdd = addedMessageStart + "\n" +  taskToAdd + "\n" + addedMessageEnd;
         printFunction(updateAdd);
-
+        updateFile();
     }
 
     public static void addDeadline(String task, String endDate) {
@@ -54,7 +59,7 @@ public class Noel {
         String addedMessageEnd = "Now you have " + taskList.size() + " tasks in the list.";
         String updateAdd = addedMessageStart + "\n" +  taskToAdd + "\n" + addedMessageEnd;
         printFunction(updateAdd);
-
+        updateFile();
     }
 
     public static void addEvent(String task, String startDate, String endDate) {
@@ -70,7 +75,7 @@ public class Noel {
         String addedMessageEnd = "Now you have " + taskList.size() + " tasks in the list.";
         String updateAdd = addedMessageStart + "\n" +  taskToAdd + "\n" + addedMessageEnd;
         printFunction(updateAdd);
-
+        updateFile();
     }
 
     public static void printTaskList(){
@@ -87,9 +92,92 @@ public class Noel {
         }
     }
 
+    public static void checkFile() {
+        Path filePath = Paths.get(FILEPATH);
+        if (Files.exists(filePath)) {
+            try {
+                String content = new String(Files.readAllBytes(filePath));
+                updateTaskList(content);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("File does not exist");
+            System.out.println("Creating file now!");
+            try {
+                Files.createDirectories(filePath.getParent());
+                Files.createFile(filePath);
+                System.out.println("File and Directories created!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void updateTaskList(String content) {
+        String[] listOfStrings = content.split("\n");
+        System.out.println(Arrays.toString(listOfStrings));
+        for (String line : listOfStrings) {
+            String[] values = line.split(" \\| ");
+
+            if (Objects.equals(values[0], "E")) {
+                if (values.length == 4) {
+                    String[] dates = values[3].split("-");
+                    if (dates.length == 2) {
+                        addEvent(values[2], dates[0], dates[1]);
+                    } else {
+                        System.out.println("Invalid line! Skipping line...");
+                    }
+                } else {
+                    System.out.println("Invalid line! Skipping line...");
+                }
+
+            } else if (Objects.equals(values[0], "T")) {
+                if (values.length == 3) {
+                    addToDo(values[2]);
+                } else {
+                    System.out.println("Invalid line! Skipping line...");
+                }
+            } else if (Objects.equals(values[0], "D")) {
+                if (values.length == 4) {
+                    addDeadline(values[2], values[3]);
+                } else {
+                    System.out.println("Invalid line! Skipping line...");
+                }
+            } else {
+                System.out.println("Invalid line! Skipping line...");
+            }
+
+            if (Objects.equals(values[1], "1")) {
+                taskList.get(taskList.size()-1).markAsDone();
+            }
+        }
+    }
+
+    public static List<String> getTaskAsList() {
+        List<String> linesToAppend = new ArrayList<>();
+        for (Task t:taskList) {
+            linesToAppend.add(t.toFileString());
+        }
+        return linesToAppend.subList(0, linesToAppend.size());
+    }
+
+    public static void updateFile() {
+        if (fileInserted) {
+            try {
+                List<String> linesToAppend = getTaskAsList();
+                Files.write(Paths.get(FILEPATH), linesToAppend);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static void main(String[] args) {
 
-        printFunction(helloMsg);
+        checkFile();
+        printFunction(HELLO_MSG);
+        fileInserted = true;
 
         Scanner in = new Scanner(System.in);
         String nextLine = in.nextLine();
@@ -114,11 +202,13 @@ public class Noel {
                         int taskNum = Integer.parseInt(result[1]);
                         taskNum = taskNum - 1;
                         taskList.get(taskNum).markAsDone();
+                        updateFile();
                         break;
                     }
                     case "unmark": {
                         int taskNum = Integer.parseInt(result[1]);
                         taskList.get(taskNum).unMark();
+                        updateFile();
                         break;
                     }
                     case "todo":
@@ -176,6 +266,7 @@ public class Noel {
                             String delStart = "Noted. I've removed this task:\n";
                             String delEnd = "Now you have " + taskList.size() + " tasks in the list.";
                             printFunction(delStart + taskToDel + "\n" + delEnd);
+                            updateFile();
                             break;
                         }
 
@@ -188,7 +279,7 @@ public class Noel {
             nextLine = in.nextLine();
         }
 
-        printFunction(byeMsg);
+        printFunction(BYE_MSG);
     }
 }
 

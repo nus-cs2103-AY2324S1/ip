@@ -9,6 +9,12 @@ public class Deadlines extends Task {
     }
 
     @Override
+    public String toFileString() {
+        String taskDetails = super.getTaskName() + " | " + this.dueDate;
+        return "D | " + super.getStatusNumber() + " | " + taskDetails;
+    }
+
+    @Override
     public String toString() {
         return taskChar  + super.toString() + " (by: " + dueDate + ")";
     }

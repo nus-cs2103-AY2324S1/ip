@@ -11,4 +11,9 @@ public class ToDos extends Task{
         return taskChar + super.toString();
     }
 
+    @Override
+    public String toFileString() {
+        return "T | " + super.getStatusNumber() + " | " + super.getTaskName();
+    }
+
 }

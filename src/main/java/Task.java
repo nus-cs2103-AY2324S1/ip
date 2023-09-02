@@ -12,9 +12,21 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public String getStatusNumber() {
+        return (isDone ? "1" : "0"); // mark done task with 1
+    }
+
+    public String getTaskName() {
+        return this.taskName;
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.taskName;
+    }
+
+    public String toFileString() {
+        return "";
     }
 
     private void markPrintHelper(String message) {

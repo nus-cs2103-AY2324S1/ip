@@ -17,6 +17,12 @@ public class Events extends Task{
     }
 
     @Override
+    public String toFileString() {
+        String taskDetails = super.getTaskName() + " | " + this.startDate + "-" + this.endDate;
+        return "E | " + super.getStatusNumber() + " | " + taskDetails;
+    }
+
+    @Override
     public String toString() {
         return taskChar + super.toString() + this.dateString;
     }
