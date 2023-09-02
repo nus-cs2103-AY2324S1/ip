@@ -70,6 +70,7 @@ public class StorageManager {
                 String tString = taskToString(t);
                 listOfTasksString += (tString + "\n");
             }
+            System.out.println(listOfTasksString);
 
             // write to the file
             FileWriter fw = new FileWriter(this.filePath);
@@ -78,6 +79,11 @@ public class StorageManager {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    public void deleteAllInFile() {
+        ArrayList<Task> arr = new ArrayList<Task>();
+        this.save(arr);
+        System.out.println("deleted all in file");
     }
 }

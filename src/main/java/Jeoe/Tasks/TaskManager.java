@@ -79,4 +79,15 @@ public class TaskManager {
     public void unmark(int idxMark) {
         storage.get(idxMark).unmark();
     }
+
+    @Override
+    public String toString() {
+        String reply = "";
+        for (int i = 0; i < this.storage.size(); i++) {
+            String num = String.valueOf(i + 1) + ". ";
+            Task task = this.storage.get(i);
+            reply += num + task.toString() + "\n";
+        }
+        return reply;
+    }
 }
