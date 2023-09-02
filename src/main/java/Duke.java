@@ -17,23 +17,21 @@ public class Duke {
 
     public static void main(String[] args) {
         OutputService outputService = new OutputService();
+        UiService uiService = new UiService(outputService);
         try {
             StorageService storageService = new StorageService();
             if (storageService.wasFileCorrupted()) {
-                outputService.echo("Warning: The existing tasks file was corrupted and has been reset.");
+                uiService.printStorageFileCorrupted();
             }
             Duke changooseBot = new Duke("Changoose", storageService);
             TaskFactory taskFactory = new TaskFactory();
-            CliParserService cliParserService = new CliParserService(changooseBot, outputService, taskFactory);
-            String startMessage = String.format("Hello! I'm %s%nWhat can I do for you?", changooseBot.getBotName());
-            String endMessage = "Bye! Hope to see you again soon!";
+            CliParserService cliParserService = new CliParserService(changooseBot, uiService, taskFactory);
 
-            outputService.echo(startMessage);
+            uiService.printGreet(changooseBot.getBotName());
             cliParserService.parse();
-            outputService.echo(endMessage);
+            uiService.printBye();
         } catch (DukeStorageException e) {
-            outputService.echo("Warning: Error initializing storage. " +
-                    "Any changes made during this session will not be saved!");
+            uiService.printStorageInitializationFailure();
         }
     }
 
