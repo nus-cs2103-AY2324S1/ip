@@ -88,4 +88,16 @@ public class TaskList {
     public ArrayList<Task> retrieveList() {
         return this.inputs;
     }
+
+    public ArrayList<Task> getFilteredTasks(String input){
+        ArrayList<Task> output = new ArrayList<>();
+
+        for(int i = 0; i < inputs.size(); i++){
+            if(inputs.get(i).description.contains(input)){
+                output.add(inputs.get(i));
+            }
+        }
+
+        return output;
+    }
 }

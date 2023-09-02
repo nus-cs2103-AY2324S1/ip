@@ -1,7 +1,9 @@
 package chatbot.ui;
 
+import chatbot.tasks.Task;
 import chatbot.tasks.TaskList;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -43,4 +45,18 @@ public class Ui {
         int total = taskList.len() - 1;
         System.out.println("Now you have " + total + " tasks in the list");
     }
+
+    public void showFindResults(TaskList taskList , String input) {
+        ArrayList<Task> list = taskList.getFilteredTasks(input);
+
+        if(list.size() == 0) {
+            System.out.println("There are no tasks with that keyword.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 1; i <= list.size(); i++) {
+                System.out.println(i + list.get(i - 1).toString());
+            }
+        }
+    }
+
 }
