@@ -24,7 +24,8 @@ public class Parser {
     }
 
     /**
-     * Core function for parsing user arguments based on the command before the command is even executed.
+     * Core function for parsing user arguments based on the command and handling any invalid commands
+     * or arguments, before the command is even executed.
      * @param userCommand Input command by the user.
      * @param userArgs Args for the command supplied by the user.
      * @throws EkudException Either invalid commands or illegal arguments for the commands.
@@ -93,6 +94,17 @@ public class Parser {
             } catch(NumberFormatException e) {
                 throw new EkudIllegalArgException("Please input a valid index number :o");
             }
+        case FIND:
+            String[] keyword = userArgs.split(" ");
+            if (keyword.length == 0 || keyword[0].isBlank()) {
+                throw new EkudIllegalArgException("Keyword shouldn't be empty :(");
+            }
+            if (keyword.length > 1) {
+                throw new EkudIllegalArgException("Please input a valid keyword (multiple words " +
+                        "are not accepted) :(");
+            }
+            taskList.findTasks(keyword[0]);
+            break;
         default:
             throw new EkudInvalidCommandException("Command not found :(");
         }
@@ -109,7 +121,6 @@ public class Parser {
         String date = splitDateTime[0];
         return LocalDateTime.parse(
                 date + " " + time, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
-
     }
 
     /**

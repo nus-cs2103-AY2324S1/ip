@@ -150,6 +150,31 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints a list of tasks matching the user's keyword search.
+     */
+    public void findTasks(String keyword) {
+        List<String> matchingTasks = new ArrayList<>();
+        for (Task task: this.tasks) {
+            if (task.description.contains(keyword)) {
+                matchingTasks.add(task.toString());
+            }
+        }
+        if (matchingTasks.isEmpty()) {
+            Ui.printMsg(String.format(
+                    "No tasks matching the keyword '%s' were found :(",
+                    keyword
+            ));
+            return;
+        }
+        Ui.printDivider();
+        System.out.println("Here are the matching tasks in your list: :>");
+        for (String task: matchingTasks) {
+            System.out.println(task);
+        }
+        Ui.printDivider();
+    }
+
     public int getSize() {
         return this.tasks.size();
     }
