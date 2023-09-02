@@ -1,12 +1,19 @@
 package aj;
 
+/**
+ * Ui class responsible for User Interface of the programme.
+ */
 public class Ui {
+
     TaskList taskList;
 
     public void horiLine() {
         System.out.println("---------------------");
     }
 
+    /**
+     * Greets user.
+     */
     public void greet() {
         horiLine();
         System.out.println("Hello! I'm Aj\n");
@@ -16,7 +23,15 @@ public class Ui {
         horiLine();
     }
 
-    public void checkMessage(String cmd, String msg) throws EmptyDescriptionException { // if no arguments, give help message
+    /**
+     * Checks that user input is correct, prints help message and throws error otherwise.
+     *
+     * @param cmd First part of user input which indicates type of command.
+     * @param msg Second part of user input which indicates content and parameters.
+     * @throws EmptyDescriptionException If second part of user input does not exist.
+     */
+    public void checkMessage(String cmd, String msg) throws
+            EmptyDescriptionException { // if no arguments, give help message
         String helpMessage;
         if (msg.length() == 0 || msg.equals(" ")) {
             if (cmd.equals("todo")) {
@@ -36,22 +51,36 @@ public class Ui {
             } else {
                 helpMessage = "";
             }
-            throw new EmptyDescriptionException(cmd, helpMessage);
+            throw new EmptyDescriptionException(cmd,
+                    helpMessage);
         }
     }
 
-    public void checkIndex(int val) throws IndexOutOfRangeException { // throws error if index invalid
-        if (val <= this.taskList.getSize() - 1 && val >= 0) {
+    /**
+     * Takes in an index 'idx' and checks if it is within range of taskList size.
+     *
+     * @param idx Index given by user input.
+     * @throws IndexOutOfRangeException If user gives an index 'idx' > taskList size.
+     */
+    public void checkIndex(int idx) throws IndexOutOfRangeException { // throws error if index invalid
+        if (idx <= this.taskList.getSize() - 1 && idx >= 0) {
             return;
         } else {
             throw new IndexOutOfRangeException(this.taskList.getSize());
         }
     }
 
-    public void printNoTask() {
-        System.out.printf("Now you have %d tasks in the list.\n", this.taskList.getSize());
+    /**
+     * Prints number of Tasks in taskList.
+     */
+    public void printNumTask() {
+        System.out.printf("Now you have %d tasks in the list.\n",
+                this.taskList.getSize());
     }
 
+    /**
+     * Prints the Tasks in taskList.
+     */
     public void printList() {
         if (this.taskList.getSize() == 0) {
             System.out.println("No items yet, add something!!!");
@@ -75,6 +104,9 @@ public class Ui {
         horiLine();
     }
 
+    /**
+     * Prints exit message.
+     */
     public void exit() {
         System.out.println("Bye. Hope to see you again soon!");
         horiLine();

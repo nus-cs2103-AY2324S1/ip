@@ -3,6 +3,9 @@ package aj;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Deadline class for Deadline Task.
+ */
 public class Deadline extends Task {
     private final LocalDate by;
 
@@ -14,7 +17,8 @@ public class Deadline extends Task {
     }
 
     Deadline(String taskName, boolean isMarked, LocalDate by) {
-        super(taskName, isMarked);
+        super(taskName,
+                isMarked);
         this.by = by;
     }
 }

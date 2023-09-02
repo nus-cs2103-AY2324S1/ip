@@ -3,7 +3,9 @@ package aj;
 import java.util.Scanner;
 import java.io.IOException;
 
-
+/**
+ * Aj chat-bot class.
+ */
 public class Aj {
     Parser parser;
     Storage storage;
@@ -13,7 +15,18 @@ public class Aj {
     Ui ui;
 
 
-    public boolean canAskCommand(Scanner scanner) throws NoSuchCommandException, EmptyDescriptionException, IndexOutOfRangeException, IOException {
+    /**
+     * Request input from user and does the respective actions.
+     *
+     * @param scanner Use same scanner object for repeated function calls.
+     * @return true to exit program, else function will be continuously called.
+     * @throws NoSuchCommandException    If command from user input does not exist.
+     * @throws EmptyDescriptionException If second part of user input does not exist.
+     * @throws IndexOutOfRangeException  If user gives an index > taskList size.
+     * @throws IOException               Arose if there is issue updating database.
+     */
+    public boolean canAskCommand(Scanner scanner) throws NoSuchCommandException, EmptyDescriptionException,
+            IndexOutOfRangeException, IOException {
 
         String command = scanner.next().toLowerCase();
 
@@ -26,7 +39,8 @@ public class Aj {
         } else {
             String remaining = scanner.nextLine();
             if (command.equals("mark")) {
-                this.ui.checkMessage(command, remaining);
+                this.ui.checkMessage(command,
+                        remaining);
 //            String back = scanner.next();
                 int idx = Integer.parseInt(remaining.substring(1)) - 1; // this idx is idx of tasklst
                 this.ui.checkIndex(idx);
@@ -36,12 +50,14 @@ public class Aj {
                     System.out.println("You have already marked it!!!");
                 } else {
                     task.toggleComplete();
-                    this.storage.updateData(idx, true);
+                    this.storage.updateData(idx,
+                            true);
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(task);
                 }
             } else if (command.equals("unmark")) {
-                this.ui.checkMessage(command, remaining);
+                this.ui.checkMessage(command,
+                        remaining);
 //            String back = scanner.next();
                 int idx = Integer.parseInt(remaining.substring(1)) - 1;
                 this.ui.checkIndex(idx);
@@ -52,13 +68,15 @@ public class Aj {
                     System.out.println("aj.Task is already unmarked!!!");
                 } else {
                     task.toggleComplete();
-                    this.storage.updateData(idx, false);
+                    this.storage.updateData(idx,
+                            false);
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(task);
                 }
             } else if (command.equals("delete")) {
 //            String back = scanner.next();
-                this.ui.checkMessage(command, remaining);
+                this.ui.checkMessage(command,
+                        remaining);
                 int idx = Integer.parseInt(remaining.substring(1)) - 1;
                 this.ui.checkIndex(idx);
                 this.ui.horiLine();
@@ -67,10 +85,12 @@ public class Aj {
                 this.taskList.removeTask(idx);
                 this.storage.deleteData(idx);
                 System.out.println(removedTask);
-                this.ui.printNoTask();
+                this.ui.printNumTask();
             } else if (command.equals("find")) {
-                this.ui.checkMessage(command, remaining);
+                this.ui.checkMessage(command,
+                        remaining);
                 this.ui.printKeywordTask(remaining.substring(1));
+                this.ui.printNumTask();
             } else { // if its none of the main commands, then its a task. do logic for parsing here or thr
 
 //            String remaining = scanner.nextLine();
@@ -78,14 +98,20 @@ public class Aj {
 
                 Task task = null;
                 if (command.equals("todo")) {
-                    this.ui.checkMessage(command, remaining);
-                    task = this.parser.getTodoTask(remaining, false);
+                    this.ui.checkMessage(command,
+                            remaining);
+                    task = this.parser.getTodoTask(remaining,
+                            false);
                 } else if (command.equals("deadline")) {
-                    this.ui.checkMessage(command, remaining);
-                    task = this.parser.getDeadlineTask(remaining, false);
+                    this.ui.checkMessage(command,
+                            remaining);
+                    task = this.parser.getDeadlineTask(remaining,
+                            false);
                 } else if (command.equals("event")) {
-                    this.ui.checkMessage(command, remaining);
-                    task = this.parser.getEventTask(remaining, false);
+                    this.ui.checkMessage(command,
+                            remaining);
+                    task = this.parser.getEventTask(remaining,
+                            false);
                 } else {
 //        System.out.println("No such command!!! Try again!");
                     throw new NoSuchCommandException();
@@ -95,7 +121,7 @@ public class Aj {
                     this.taskList.addTask(task);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(task);
-                    this.ui.printNoTask();
+                    this.ui.printNumTask();
                 }
             }
         }
@@ -103,14 +129,22 @@ public class Aj {
         return false;
     }
 
-
+    /**
+     * Initialises the necessary components of the AJ chat-bot
+     *
+     * @param filePath Filepath of database
+     */
     public void setUpBot(String filePath) {
         this.parser = new Parser();
-        this.storage = new Storage(this.parser, filePath);
+        this.storage = new Storage(this.parser,
+                filePath);
         this.taskList = new TaskList(this.storage.initialiseData());
         this.ui = new Ui(taskList);
     }
 
+    /**
+     * Runs the chat-bot
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
         this.ui.greet();

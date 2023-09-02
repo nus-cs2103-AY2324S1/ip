@@ -1,5 +1,8 @@
 package aj;
 
+/**
+ * Event class for Event Task.
+ */
 public class Event extends Task {
     private final String fromDt, toDt;
 
@@ -17,7 +20,8 @@ public class Event extends Task {
     }
 
     Event(String taskName, boolean isMarked, String fromDt, String toDt) {
-        super(taskName, isMarked);
+        super(taskName,
+                isMarked);
         this.fromDt = fromDt;
         this.toDt = toDt;
     }

@@ -2,6 +2,9 @@ package aj;
 
 import java.util.List;
 
+/**
+ * TaskList wrapper class to integrate with Storage class.
+ */
 public class TaskList {
     List<Task> taskList;
 
