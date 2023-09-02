@@ -1,11 +1,12 @@
 package duke.parser;
 
-import duke.command.Command;
-import duke.command.ExitCommand;
-import duke.command.ListCommand;
 import duke.command.AddCommand;
-import duke.command.MarkCommand;
+import duke.command.Command;
 import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
 
 /**
  * Parses inputs from the user.
@@ -35,6 +36,8 @@ public class Parser {
             return new DeleteCommand(Integer.parseInt(splittedCommand[1]) - 1);
         } else if (input.equalsIgnoreCase("bye")) {
             return new ExitCommand();
+        } else if (splittedCommand[0].equalsIgnoreCase("find")) {
+            return new FindCommand(input.substring(5));
         } else {
             return new AddCommand(input);
         }
