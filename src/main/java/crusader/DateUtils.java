@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat;
 
 import java.util.Date;
 
+/**
+ * A set of tools to make date formatting in the bot standardised
+ */
 public class DateUtils {
     /**
      * The date and time format used for all input in this program.
@@ -23,12 +26,21 @@ public class DateUtils {
         return DATE_FORMAT.parse(dateTimeString);
     }
 
+    /**
+     * Formats a date so that it can be saved.
+     * @param date A date
+     * @return A string formatted for saving
+     */
     public static String saveFormat(Date date) {
         return DATE_FORMAT.format(date);
     }
 
+    /**
+     * Formats a date to display it
+     * @param date A date
+     * @return A string formatted for the display
+     */
     public static String presentFormat(Date date) {
         return PRESENT_FORMAT.format(date);
     }
-
 }

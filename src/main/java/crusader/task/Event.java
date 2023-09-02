@@ -4,8 +4,18 @@ import crusader.DateUtils;
 
 import java.util.Date;
 
+/**
+ * An event task, with a duration of time the event occurs.
+ */
 public class Event extends Task {
+    /**
+     * When the event starts
+     */
     private final Date from;
+
+    /**
+     * When the event ends
+     */
     private final Date to;
 
     public Event(String name, Date from, Date to) {

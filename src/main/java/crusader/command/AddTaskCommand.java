@@ -4,6 +4,9 @@ import crusader.task.Task;
 import crusader.TaskList;
 import crusader.Ui;
 
+/**
+ * Command used to add a task of any type to the bot.
+ */
 public class AddTaskCommand extends Command {
     private final Task task;
 

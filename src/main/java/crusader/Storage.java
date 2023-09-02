@@ -18,9 +18,19 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The component of the bot responsible for loading and saving data to disk
+ */
 public class Storage {
+    /**
+     * The file used to load and save data
+     */
     private final File file;
 
+    /**
+     * Initializes storage
+     * @param filePath The path to the file
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
     }

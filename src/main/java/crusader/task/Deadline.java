@@ -4,7 +4,13 @@ import crusader.DateUtils;
 
 import java.util.Date;
 
+/**
+ * A deadline task, with a time the task is due by
+ */
 public class Deadline extends Task {
+    /**
+     * Time the deadline is due by
+     */
     private final Date by;
 
     public Deadline(String name, Date by) {

@@ -4,6 +4,9 @@ import crusader.command.Command;
 import crusader.exception.CrusaderException;
 import crusader.exception.CrusaderMissingSaveFileException;
 
+/**
+ * The main instance of the bot.
+ */
 public class Crusader {
     /** Logo generated from https://patorjk.com/software/taag */
     private static final String LOGO =
@@ -19,10 +22,26 @@ public class Crusader {
      */
     private static final String SAVE_FILE = "./data/crusader.txt";
 
+    /**
+     * The system used to manage data storage.
+     */
     private final Storage storage;
+
+    /**
+     * The set of tasks in the bot.
+     */
     private final TaskList taskList;
+
+    /**
+     * The interface of the bot.
+     */
     private final Ui ui;
 
+    /**
+     * Constructs a Crusader bot instance.
+     * @param filePath
+     * @param logo
+     */
     public Crusader(String filePath, String logo) {
         TaskList taskList1;
         this.ui = new Ui(logo);
@@ -39,6 +58,9 @@ public class Crusader {
         this.taskList = taskList1;
     }
 
+    /**
+     * Activates the bot.
+     */
     public void run() {
         this.ui.showLogo();
         this.ui.greet();

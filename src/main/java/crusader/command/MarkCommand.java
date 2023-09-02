@@ -5,6 +5,9 @@ import crusader.task.Task;
 import crusader.TaskList;
 import crusader.Ui;
 
+/**
+ * Command used to mark or unmark tasks as done or not in the bot
+ */
 public class MarkCommand extends Command {
     private final int index;
     private final boolean isMark;

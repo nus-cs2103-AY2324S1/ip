@@ -6,13 +6,26 @@ import crusader.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * A set of tasks to do
+ */
 public class TaskList {
+    /**
+     * The list of task
+     */
     private final ArrayList<Task> tasks;
 
+    /**
+     * Creates an empty tasklist
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Initializes a tasklist with a pre-existing list of tasks
+     * @param tasks
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }

@@ -3,6 +3,9 @@ package crusader.command;
 import crusader.TaskList;
 import crusader.Ui;
 
+/**
+ * Command used to exit the bot.
+ */
 public class ByeCommand extends Command {
     public ByeCommand() {
         // empty
