@@ -28,6 +28,10 @@ public class Task {
         isDone = false;
     }
 
+    public boolean contains(String keyword) {
+        return description.contains(keyword);
+    }
+
     /**
      * Convert the task to its file format representation.
      * @return String representation of task for file storage.

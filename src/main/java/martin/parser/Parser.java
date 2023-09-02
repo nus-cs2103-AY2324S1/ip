@@ -17,6 +17,7 @@ import martin.commands.DateCommand;
 import martin.commands.DeadlineCommand;
 import martin.commands.DeleteCommand;
 import martin.commands.EventCommand;
+import martin.commands.FindCommand;
 
 
 public class Parser {
@@ -61,6 +62,8 @@ public class Parser {
                 return new EventCommand(input, tasks);
             case "date":
                 return new DateCommand(input, tasks);
+            case "find":
+                return new FindCommand(input, tasks);
             default:
                 throw new InvalidCommandException("Unknown command: " + input);
         }
