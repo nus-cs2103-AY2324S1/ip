@@ -1,4 +1,8 @@
-public class Todo extends Task{
+package duke;
+
+import duke.Task;
+
+public class Todo extends Task {
     protected String by;
 
     public Todo(String description) {
