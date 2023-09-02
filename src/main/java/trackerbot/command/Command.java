@@ -46,6 +46,9 @@ public abstract class Command {
         case UNMARK:
             result = new ToggleCommand(parsedType, commandField);
             break;
+        case FIND:
+            result = new FindCommand(commandField);
+            break;
         case LIST:
             result = new ListCommand();
             break;
@@ -110,6 +113,22 @@ public abstract class Command {
             default:
                 throw new IllegalStateException("Created ToggleCommand with invalid field.");
             }
+        }
+
+        public boolean isExit() {
+            return false;
+        }
+    }
+
+    private static class FindCommand extends Command {
+        private final String commandFields;
+
+        private FindCommand(String commandFields) {
+            this.commandFields = commandFields;
+        }
+
+        public void execute(TaskList tasks, Ui ui) {
+            ui.showMessage(tasks.findAll(commandFields));
         }
 
         public boolean isExit() {
