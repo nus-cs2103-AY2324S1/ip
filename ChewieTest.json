@@ -1,0 +1,1 @@
+{"type":["Task.ToDo","Task.Deadline","Task.Events"],"toDos":[{"name":"run","done":false},null,null],"deadlines":[null,{"date":"2020-10-10","name":"jump","done":true},null],"events":[null,null,{"startDate":"2020-10-10","endDate":"2020-12-26","name":"kill","done":false}]}

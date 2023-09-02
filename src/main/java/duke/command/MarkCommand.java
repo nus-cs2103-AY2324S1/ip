@@ -18,4 +18,17 @@ public class MarkCommand extends Command {
         Ui.ui.markPrompt(list.list().get(index));
         Duke.run();
     }
+
+    public int index() {
+        return index;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof MarkCommand) {
+            MarkCommand temp = (MarkCommand) o;
+            return this.index == temp.index();
+        }
+        return false;
+    }
 }

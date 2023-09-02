@@ -21,4 +21,17 @@ public class CreateDeadlineCommand extends Command {
         Duke.run();
     }
 
+    public Deadline task(){
+        return task;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof CreateDeadlineCommand) {
+            CreateDeadlineCommand temp = (CreateDeadlineCommand) o;
+            return this.task.equals(temp.task());
+        }
+        return false;
+    }
+
 }

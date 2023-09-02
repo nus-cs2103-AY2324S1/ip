@@ -4,11 +4,15 @@ import duke.task.Task;
 import duke.task.TaskList;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Ui {
 
     //singleton
     public static Ui ui = new Ui();
+
+    Scanner scanner = new Scanner(System.in);
+
     public String drawLine() {
         char horizontal_line = '\u2500';
         String line = "";
@@ -70,6 +74,19 @@ public class Ui {
         System.out.println("\n" + drawLine());
     }
 
+    public String listString(TaskList taskList) {
+        List<Task> list = taskList.list();
+        String result = "";
+        for (int i = 0; i < list.size(); i++) {
+            int index = i + 1;
+            Task task = list.get(i);
+
+            result += index + "." + task.status() + task.taskName() + "\n";
+        }
+
+        return result;
+    }
+
     public void startPrompt() {
         logo();
         System.out.println(drawLine());
@@ -96,4 +113,7 @@ public class Ui {
         System.out.println("\n" + drawLine());
     }
 
+    public String readInput() {
+        return scanner.nextLine();
+    }
 }

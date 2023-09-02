@@ -18,20 +18,22 @@ public class Duke {
 
 
     public static void main(String[] args) {
-
-        storage = new Storage();
-        list = new TaskList();
-        storage.load(list);
-
-        parser = new Parser();
-
+        initialize();
         Ui.ui.startPrompt();
         run();
     }
 
+    public static void initialize() {
+        storage = new Storage();
+        list = new TaskList();
+        storage.load(list);
+        parser = new Parser();
+    }
+
     public static void run() {
         try {
-            Command cmd = parser.readInput();
+            String input = Ui.ui.readInput();
+            Command cmd = parser.readInput(input);
             cmd.execute(list);
         } catch (DukeException e) {
             Ui.ui.errorPrompt(e);
@@ -44,6 +46,10 @@ public class Duke {
 
     public static int listSize() {
         return list.list().size();
+    }
+
+    public static TaskList list() {
+        return list;
     }
 
 }

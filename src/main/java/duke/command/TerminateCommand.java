@@ -13,4 +13,9 @@ public class TerminateCommand extends Command {
         Ui.ui.endPrompt();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof TerminateCommand;
+    }
+
 }

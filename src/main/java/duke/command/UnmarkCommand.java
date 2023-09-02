@@ -17,4 +17,17 @@ public class UnmarkCommand extends Command{
         Ui.ui.unmarkPrompt(list.list().get(index));
         Duke.run();
     }
+
+    public int index() {
+        return index;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof UnmarkCommand) {
+            UnmarkCommand temp = (UnmarkCommand) o;
+            return this.index == temp.index();
+        }
+        return false;
+    }
 }

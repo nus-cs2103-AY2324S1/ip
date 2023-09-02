@@ -15,12 +15,16 @@ public class Parser {
 
     private int listSize;
 
-    public Parser() {
-        scanner = new Scanner(System.in);
-    }
 
 
-    public Command readInput() throws DukeException, DateTimeParseException {
+    public Command readInput(String input) throws DukeException, DateTimeParseException {
+
+        if (input.isEmpty()) {
+            throw new DukeException("Chewie don't see any command");
+        }
+
+        scanner = new Scanner(input);
+
         String command = scanner.next();
         listSize = Duke.listSize();
 
@@ -28,12 +32,10 @@ public class Parser {
         case "bye":
             return new TerminateCommand();
         case "list":
-            scanner.nextLine();
             return new ListCommand();
 
         case "mark":
             if (!scanner.hasNextInt()) {
-                scanner.nextLine();
                 throw new DukeException("Chewie doesn't see the index of task list.");
             }
 
@@ -41,12 +43,10 @@ public class Parser {
             if (i < 1 || i > listSize)
                 throw new DukeException("The list doesn't have this index.");
 
-            scanner.nextLine();
             return new MarkCommand(i - 1);
 
         case "unmark":
             if (!scanner.hasNextInt()) {
-                scanner.nextLine();
                 throw new DukeException("Chewie doesn't see the index of task list.");
             }
 
@@ -54,12 +54,10 @@ public class Parser {
             if (k < 1 || k > listSize)
                 throw new DukeException("The list doesn't have this index.");
 
-            scanner.nextLine();
             return new UnmarkCommand(k - 1);
 
         case "delete":
             if (!scanner.hasNextInt()) {
-                scanner.nextLine();
                 throw new DukeException("Chewie doesn't see the index of task list.");
             }
 
@@ -69,21 +67,22 @@ public class Parser {
 
 
             listSize--;
-            scanner.nextLine();
 
             return new DeleteCommand(j - 1);
 
         case "deadline":
             String deadlinePrompt = scanner.nextLine();
+
             if (deadlinePrompt.isBlank())
                 throw new DukeException("Chewie says deadline's description cannot be empty.");
 
             String[] deadlineRemain = deadlinePrompt.split(" /by ");
+
             if (deadlineRemain.length != 2 || deadlineRemain[0].isBlank() || deadlineRemain[1].isBlank())
                 throw new DukeException("Chewie says deadline's description is wrong.");
 
-            String task = deadlineRemain[0];
-            String dateString = deadlineRemain[1];
+            String task = deadlineRemain[0].trim();
+            String dateString = deadlineRemain[1].trim();
 
             LocalDate date = LocalDate.parse(dateString,format);
 
@@ -92,7 +91,7 @@ public class Parser {
             return new CreateDeadlineCommand(task,date);
 
         case "todo":
-            String ToDoRemain = scanner.nextLine();
+            String ToDoRemain = scanner.nextLine().trim();
             if (ToDoRemain.isBlank()) {
                 throw new DukeException("Chewie says todo's description cannot be empty.");
             }
@@ -102,7 +101,7 @@ public class Parser {
             return new CreateToDoCommand(ToDoRemain);
 
         case "event":
-            String eventPrompt = scanner.nextLine();
+            String eventPrompt = scanner.nextLine().trim();
 
             if (eventPrompt.isBlank())
                 throw new DukeException("Chewie says event's description cannot be empty.");

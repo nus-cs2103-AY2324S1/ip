@@ -22,4 +22,17 @@ public class CreateEventCommand extends Command {
         Duke.run();
     }
 
+    public Events task(){
+        return task;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof CreateEventCommand) {
+            CreateEventCommand temp = (CreateEventCommand) o;
+            return this.task.equals(temp.task());
+        }
+        return false;
+    }
+
 }

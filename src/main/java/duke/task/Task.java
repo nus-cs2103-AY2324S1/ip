@@ -6,7 +6,6 @@ public class Task {
 
     private boolean done;
 
-    private int index;
 
     public Task(String task) {
         name = task;
@@ -35,5 +34,14 @@ public class Task {
 
     public String status() {
         return done ? "[X]" : "[ ]";
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (o instanceof Task) {
+            Task temp = (Task)o;
+            return this.name.equals(temp.taskName()) && this.done == temp.isDone();
+        }
+        return false;
     }
 }

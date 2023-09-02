@@ -11,4 +11,9 @@ public class ListCommand extends Command{
         Ui.ui.listPrompt(list);
         Duke.run();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof ListCommand;
+    }
 }

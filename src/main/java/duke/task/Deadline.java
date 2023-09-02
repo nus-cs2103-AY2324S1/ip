@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
@@ -25,5 +26,17 @@ public class Deadline extends Task {
     @Override
     public String type() {
         return "Task.Deadline";
+    }
+
+    public LocalDate date() {
+        return LocalDate.parse(date, DateTimeFormatter.ISO_DATE);
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Deadline) {
+            Deadline temp = (Deadline) o;
+            return this.date().equals(temp.date()) && taskName().equals(temp.taskName()) && isDone() == temp.isDone();
+        }
+        return false;
     }
 }

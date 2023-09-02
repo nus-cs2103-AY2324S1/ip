@@ -30,4 +30,25 @@ public class TaskList {
     public List<Task> list() {
         return list;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof TaskList) {
+            TaskList temp = (TaskList) o;
+            List<Task> check = temp.list();
+
+            if (list.size() != check.size()) {
+                return false;
+            }
+
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).equals(check.get(i))) {
+                    continue;
+                }
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
 }

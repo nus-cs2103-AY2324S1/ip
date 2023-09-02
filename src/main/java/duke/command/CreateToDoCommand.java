@@ -19,4 +19,18 @@ public class CreateToDoCommand extends Command{
         Duke.run();
     }
 
+    public ToDo task(){
+        return task;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof CreateToDoCommand) {
+            CreateToDoCommand temp = (CreateToDoCommand) o;
+            return this.task.equals(temp.task());
+        }
+        return false;
+    }
+
+
 }

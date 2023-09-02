@@ -16,4 +16,13 @@ public class ToDo extends Task {
     public String type() {
         return "Task.ToDo";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof ToDo) {
+            ToDo temp = (ToDo) o;
+            return super.equals(temp);
+        }
+        return false;
+    }
 }

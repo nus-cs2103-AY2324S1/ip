@@ -5,6 +5,8 @@ import duke.task.Events;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.rmi.server.ServerNotActiveException;
+
 public class SaveData {
     
     public String[] type;
@@ -37,6 +39,44 @@ public class SaveData {
 
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof SaveData) {
+            SaveData temp = (SaveData) o;
+
+            if (type.length != temp.type.length) {
+                return false;
+            }
+
+            for (int i = 0; i < type.length; i++) {
+                if (!type[i].equals(temp.type[i])) {
+                    return false;
+                }
+
+                switch (type[i]) {
+                case "Task.ToDo":
+                    if (!toDos[i].equals(temp.toDos[i])) {
+                        return false;
+                    }
+                    break;
+                case "Task.Deadline":
+                    if (!deadlines[i].equals(temp.deadlines[i])) {
+                        return false;
+                    }
+                    break;
+                case "Task.Events":
+                    if (!events[i].equals(temp.events[i])) {
+                        return false;
+                    }
+                    break;
+                }
+
+            }
+            return true;
+        }
+        return false;
     }
 
 }
