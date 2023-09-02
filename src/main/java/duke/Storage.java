@@ -5,14 +5,20 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.function.Consumer;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
+import task.Deadline;
+import task.Event;
 import task.Task;
 import task.Todo;
-import task.Event;
-import task.Deadline;
 
+/**
+ * Encapsulates the Persistent data storage of the application.
+ * Data is stored in a text file for convenience
+ *
+ * @author Donovan Chan Jia Jun
+ */
 public class Storage {
 
     private String outputPath;
@@ -27,9 +33,7 @@ public class Storage {
      */
     public File createOutputFile() {
         File filePointer = new File(this.outputPath);
-        System.out.println(filePointer.getAbsolutePath());
         if (!filePointer.exists()) {
-//            File directory = new File(System.getProperty("user.dir") + duke.Duke.DIR);
             File directory = new File(new File(this.outputPath).getParent());
             // create directory if it doesn't exist
             if (!directory.exists()) {
@@ -53,7 +57,7 @@ public class Storage {
      * @return ArrayList Contains the list of Task objects loaded from memory
      * @throws FileNotFoundException If no file is found at the filepath specified
      */
-    public ArrayList<Task> LoadOutputFile() throws FileNotFoundException{
+    public ArrayList<Task> loadOutputFile() throws FileNotFoundException {
         File filePointer = this.createOutputFile();
         Scanner storageScanner = new Scanner(filePointer);
         ArrayList<Task> arrList = new ArrayList<>();

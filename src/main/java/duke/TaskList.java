@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import task.Task;
+
+/**
+ * Represents the temporary storage used when running the application.
+ *
+ * @author Donovan Chan Jia Jun
+ */
 public class TaskList {
     private ArrayList<Task> arrList;
 
@@ -11,6 +17,11 @@ public class TaskList {
         this.arrList = new ArrayList<>();
     }
 
+    /**
+     * Constructs TaskList instance to store list of Task.
+     *
+     * @param arrList ArrayList containing Tasks of the user
+     */
     public TaskList(ArrayList<Task> arrList) {
         this.arrList = arrList;
     }

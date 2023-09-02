@@ -7,7 +7,7 @@ import java.io.IOException;
  * Emcapsulates a Todo task
  * @author Donovan Chan Jia Jun
  */
-public class Todo extends Task{
+public class Todo extends Task {
     public Todo(String name) {
         super(name);
     }

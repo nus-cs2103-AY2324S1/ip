@@ -2,10 +2,9 @@ package task;
 
 import java.io.FileWriter;
 import java.io.IOException;
-
-import java.time.format.DateTimeParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Encapsulates the Deadline Task.
@@ -14,9 +13,12 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     private String deadline;
 
-    private String getDeadline() {
-        return this.deadline;
-    }
+    /**
+     * Constructs a Deadline object.
+     *
+     * @param name String representation for the name of the Deadline Object
+     * @param deadline String representaiton for the deadline of the Deadline Object
+     */
     public Deadline(String name, String deadline) {
         super(name);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -25,11 +27,18 @@ public class Deadline extends Task {
             DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyy");
             deadline = dateTime.format(outputFormatter);
         } catch (DateTimeParseException e) {
-
+            this.deadline = deadline;
         }
         this.deadline = deadline;
     }
 
+    /**
+     * Constructs a Deadline Object.
+     *
+     * @param name String representation for the name of the Deadline Object
+     * @param deadline String representaiton for the deadline of the Deadline Object
+     * @param isComplete Boolean value for when the Deadline task is completed
+     */
     public Deadline(String name, String deadline, boolean isComplete) {
         super(name, isComplete);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -38,7 +47,7 @@ public class Deadline extends Task {
             DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyy");
             deadline = dateTime.format(outputFormatter);
         } catch (DateTimeParseException e) {
-
+            this.deadline = deadline;
         }
         this.deadline = deadline;
     }

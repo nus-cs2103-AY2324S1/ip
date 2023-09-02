@@ -1,14 +1,15 @@
 package duke;
 
 import org.junit.jupiter.api.Test;
-import task.Todo;
-import task.Event;
+
 import task.Deadline;
+import task.Event;
+import task.Todo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ParserTest {
     @Test
-    public void createTaskTest_todo_Exception() {
+    public void createTaskTestTodoException() {
         String input = "todo";
         try {
             Parser.createTask(input);
@@ -18,7 +19,7 @@ public class ParserTest {
     }
 
     @Test
-    public void createTaskTest_todo_valid() {
+    public void createTaskTestTodoValid() {
         String input = "todo read book";
         try {
             assertEquals(new Todo("read book"), Parser.createTask(input));
@@ -28,7 +29,7 @@ public class ParserTest {
     }
 
     @Test
-    public void createTaskTest_deadline_valid() {
+    public void createTaskTestDeadlineValid() {
         String input = "deadline return book /by Sunday";
         try {
             assertEquals(new Deadline("return book", "Sunday"), Parser.createTask(input));
@@ -38,7 +39,7 @@ public class ParserTest {
     }
 
     @Test
-    public void createTaskTest_deadline_invalid_exception() {
+    public void createTaskTestDeadlineInvalidException() {
         String input = "deadline return book Sunday";
         try {
             assertEquals(new Deadline("return book Sunday", "Sunday"), Parser.createTask(input));
@@ -48,7 +49,7 @@ public class ParserTest {
     }
 
     @Test
-    public void createTaskTest_deadline_DateTime() {
+    public void createTaskTestDeadlineDateTime() {
         String input = "deadline return book /by 2/12/2019 1800";
         try {
             assertEquals(new Deadline("return book", "2 Dec 2019"), Parser.createTask(input));
@@ -58,7 +59,7 @@ public class ParserTest {
     }
 
     @Test
-    public void createTaskTest_event_valid() {
+    public void createTaskTestEventValid() {
         String input = "event project meeting /from Mon 2pm /to 4pm";
         try {
             assertEquals(new Event("project meeting", "Mon 2pm", "4pm"), Parser.createTask(input));

@@ -1,12 +1,18 @@
 package duke;
 
+import java.util.ArrayList;
+
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
 
-import java.util.ArrayList;
-
+/**
+ * Encapsulates the logic of analysing the user's String input.
+ * Decides on what should be done next based on it
+ *
+ * @author Donovan Chan Jia Jun
+ */
 public class Parser {
 
     /**
@@ -34,7 +40,7 @@ public class Parser {
         if (command.equals("deadline")) {
             String deadline = "";
             boolean completedName = false;
-            for (int i = 1; i < arrStrings.length; i ++) {
+            for (int i = 1; i < arrStrings.length; i++) {
                 if (arrStrings[i].equals("/by")) {
                     completedName = true;
                     continue;
@@ -53,7 +59,7 @@ public class Parser {
             if (arrStrings.length == 1) {
                 throw new Exception("OOPS!!! The description of a todo cannot be empty.");
             }
-            for (int i = 1; i < arrStrings.length; i ++) {
+            for (int i = 1; i < arrStrings.length; i++) {
                 name += arrStrings[i] + " ";
             }
             return new Todo(name.substring(0, name.length() - 1));
@@ -62,7 +68,7 @@ public class Parser {
             String to = "";
             boolean completedName = false;
             boolean completedFrom = false;
-            for (int i = 1; i < arrStrings.length; i ++) {
+            for (int i = 1; i < arrStrings.length; i++) {
                 if (arrStrings[i].equals("/from")) {
                     completedName = true;
                 } else if (arrStrings[i].equals("/to")) {
@@ -75,8 +81,8 @@ public class Parser {
                     name += arrStrings[i] + " ";
                 }
             }
-            return new Event(name.substring(0, name.length() - 1), from.substring(0, from.length() - 1)
-                    , to.substring(0, to.length() - 1));
+            return new Event(name.substring(0, name.length() - 1), from.substring(0, from.length() - 1),
+                    to.substring(0, to.length() - 1));
         } else {
             throw new Exception("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

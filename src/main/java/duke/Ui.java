@@ -1,26 +1,33 @@
 package duke;
 
-import task.Task;
 import java.util.ArrayList;
 
+import task.Task;
+
+/**
+ * Encapsulates the response and User Interface of the application.
+ *
+ * @author Donovan Chan Jia Jun
+ */
 public class Ui {
-    private final String CHATBOTNAME = "notDuke";
-    private final String INTRO = "Hello! I'm " + this.CHATBOTNAME + "\n"
+    public static final String LINE = "-------------------------------------------------------------------------------";
+    private final String chatbotName = "notDuke";
+    private final String intro = "Hello! I'm " + this.chatbotName + "\n"
             + "What can I do for you?";
-    private final String EXITMESSAGE = "Bye. Hope to see you again soon!";
+    private final String exitMessage = "Bye. Hope to see you again soon!";
 
     /**
      * UI constructor.
      * Prints the introduction message as well
      */
-    public static final String LINE = "-------------------------------------------------------------------------------";
     public Ui() {
-        System.out.printf("%s\n%s\n%s\n", Ui.LINE, INTRO, Ui.LINE);
+        System.out.printf("%s\n%s\n%s\n", Ui.LINE, this.intro, Ui.LINE);
     }
 
     /**
      * Prints the error message in an exception.
-     * @param e
+     *
+     * @param e Exception which message should be printed out
      */
     public void showExceptionError(Exception e) {
         System.out.println(e.getMessage());
@@ -28,7 +35,7 @@ public class Ui {
 
     /**
      * Print that the file path is empty.
-     */
+     * */
     public void emptyFilePath() {
         System.out.println("File path is empty!");
     }
@@ -44,7 +51,7 @@ public class Ui {
      * Prints out the exit message when user exits the program.
      */
     public void exit() {
-        System.out.printf("%s\n%s\n", EXITMESSAGE, Ui.LINE);
+        System.out.printf("%s\n%s\n", this.exitMessage, Ui.LINE);
     }
 
     /**
@@ -57,7 +64,7 @@ public class Ui {
         int counter = 0;
         System.out.println("Here are the tasks in your list:");
         for (Task task : arrList) {
-            counter ++;
+            counter++;
             System.out.printf("%d.%s\n", counter, task.toString());
         }
     }
@@ -69,8 +76,8 @@ public class Ui {
      * @param choice int representing the user's choice of task to mark
      */
     public void displayMarkTask(TaskList tasks, int choice) {
-        System.out.printf("Nice! I've marked this task as done:\n" +
-                "  %s\n", tasks.taskToString(choice));
+        System.out.printf("Nice! I've marked this task as done:\n"
+                + "  %s\n", tasks.taskToString(choice));
     }
 
     /**
@@ -80,8 +87,8 @@ public class Ui {
      * @param choice int representing the user's choice of task to mark
      */
     public void displayUnmarkTask(TaskList tasks, int choice) {
-        System.out.printf("OK, I've marked this task as not done yet:\n" +
-                "  %s\n", tasks.taskToString(choice));
+        System.out.printf("OK, I've marked this task as not done yet:\n"
+                + "  %s\n", tasks.taskToString(choice));
     }
 
     /**
@@ -91,10 +98,10 @@ public class Ui {
      * @param tasks The list of tasks that the task was removed from
      */
     public void displayDeleteTask(Task removedTask, TaskList tasks) {
-        System.out.printf("Noted. I've removed this task:\n" +
-                        "  %s\n" +
-                        "Now you have %d tasks in the list.\n"
-                , removedTask.toString(), tasks.size());
+        System.out.printf("Noted. I've removed this task:\n"
+                        + "  %s\n"
+                        + "Now you have %d tasks in the list.\n",
+                removedTask.toString(), tasks.size());
     }
 
     /**
@@ -104,15 +111,20 @@ public class Ui {
      * @param tasks The list of tasks that the task was removed from
      */
     public void displayAddTask(Task addedTask, TaskList tasks) {
-        System.out.printf("Got it. I've added this task:\n" +
-                "  %s\n" +
-                "Now you have %d tasks in the list.\n", addedTask.toString(), tasks.size());
+        System.out.printf("Got it. I've added this task:\n"
+                + "  %s\n"
+                + "Now you have %d tasks in the list.\n", addedTask.toString(), tasks.size());
     }
 
+    /**
+     * Prints the Task that is found using the Find function.
+     *
+     * @param arrList List of tasks to display
+     */
     public void displayMatchingTask(ArrayList<Task> arrList) {
         int size = arrList.size();
         if (size > 0) {
-            System.out.println("Here are the matchign tasks in your list:");
+            System.out.println("Here are the matching tasks in your list:");
             for (int i = 1; i <= size; i++) {
                 System.out.printf("%d.%s\n", i, arrList.get(i - 1).toString());
             }

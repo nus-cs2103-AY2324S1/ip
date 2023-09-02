@@ -10,12 +10,28 @@ import java.io.IOException;
 public class Event extends Task {
     private String from;
     private String to;
+
+    /**
+     * Constructs Event Object.
+     *
+     * @param name String representation for the name of the event
+     * @param from String representation for when the event starts
+     * @param to String representation for when the event ends
+     */
     public Event(String name, String from, String to) {
         super(name);
         this.to = to;
         this.from = from;
     }
 
+    /**
+     * Constructs Event Object.
+     *
+     * @param name name String representation for the name of the event
+     * @param from String representation for when the event starts
+     * @param to String representation for when the event ends
+     * @param isComplete Boolean value to show if Event has been marked as complete
+     */
     public Event(String name, String from, String to, boolean isComplete) {
         super(name, isComplete);
         this.to = to;

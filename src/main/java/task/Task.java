@@ -9,11 +9,23 @@ import java.io.FileWriter;
 public abstract class Task {
     protected boolean isComplete;
     protected String name;
-    public Task(String name) {
+
+    /**
+     * Constructs the Task object.
+     *
+     * @param name String representation for the name of the Task
+     */
+    protected Task(String name) {
         this.isComplete = false;
         this.name = name;
     }
 
+    /**
+     * Constructs the Task object.
+     *
+     * @param name String represetnationf or the name of the Task
+     * @param isComplete Boolean value representing if the Task has been marked as complete
+     */
     public Task(String name, boolean isComplete) {
         this.isComplete = isComplete;
         this.name = name;
