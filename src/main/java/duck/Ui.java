@@ -1,5 +1,6 @@
 package duck;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import duck.task.Task;
@@ -72,6 +73,19 @@ public class Ui {
                 "Now you have " + taskCount + " task(s) in the list.";
 
         System.out.println(deleteTask);
+    }
+
+    public void showMatchingTasksMessage(ArrayList<Task> tasks) {
+        if (tasks.size() == 0) {
+            System.out.println("There are no matching tasks in your list.");
+            return;
+        }
+        String matchingTasks = "Here are the matching tasks in your list: ";
+        for (int i = 0; i < tasks.size(); i++) {
+            matchingTasks += "\n" + (i + 1) + ". " + tasks.get(i);
+        }
+
+        System.out.println(matchingTasks);
     }
 
     public void showErrorMessage(DuckException e) {

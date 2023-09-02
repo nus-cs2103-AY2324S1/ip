@@ -27,6 +27,10 @@ public abstract class Task {
         }
     }
 
+    public boolean containsKeyword(String keyword) {
+        return this.name.contains(keyword);
+    }
+
     public String stringify() {
         String done = String.valueOf(this.isDone ? '1' : '0');
         String nameLength = String.valueOf(this.name.length()) + "/";

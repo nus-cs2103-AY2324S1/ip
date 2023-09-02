@@ -70,6 +70,16 @@ public class TaskList {
         taskCount--;
     }
 
+    public ArrayList<Task> find(String keyword) throws DuckException {
+        ArrayList<Task> matchingTasks = new ArrayList<Task>();
+        for (int i = 0; i < taskCount; i++) {
+            if (tasks.get(i).containsKeyword(keyword)) {
+                matchingTasks.add(tasks.get(i));
+            }
+        }
+        return matchingTasks;
+    }
+
     @Override
     public String toString() {
         String allTasks = "";
