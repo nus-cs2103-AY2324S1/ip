@@ -98,7 +98,7 @@ public class UiService {
      * @param taskList the taskList containing the tasks to be printed.
      */
     public void printTaskList(List<Task> taskList) {
-        outputService.printTasks(taskList);
+        outputService.echo(outputService.formatTaskList(taskList));
     }
 
     /**
@@ -179,5 +179,19 @@ public class UiService {
         }
         outputService.echo(String.format("Invalid Task index: %s provided.%n"
                 + "Specify a number between %s - %s", taskId, 1, taskListSize + 1));
+    }
+
+    public void printFoundTasks(List<Task> matchedTasks, String keyword) {
+        if (matchedTasks.isEmpty()) {
+            outputService.echo(String.format("No tasks contains the keyword: %s! :<", keyword));
+            return;
+        }
+        List<String> displayText = new ArrayList<>();
+        String taskWord = matchedTasks.size() == 1
+            ? "task"
+            : "tasks";
+        displayText.add(String.format("Found %s matching %s in your list!", matchedTasks.size(), taskWord));
+        displayText.addAll(outputService.formatTaskList(matchedTasks));
+        outputService.echo(displayText);
     }
 }
