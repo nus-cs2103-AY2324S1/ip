@@ -35,9 +35,27 @@ public class TaskList {
      *
      * @param index The index of the task to retrieve.
      * @return The Task object at the specified index.
+     * @throws IndexOutOfBoundsException If the provided index is out of the valid range of task indices.
      */
     public Task get(int index) {
+        if (index < 0 || index >= this.tasksList.size()) {
+            throw new IndexOutOfBoundsException("Please input a valid task's index number.");
+        }
         return this.tasksList.get(index);
+    }
+
+    /**
+     * Retrieves the description of a task at the specified index in the task list.
+     *
+     * @param index The index of the task in the task list.
+     * @return The description of the task at the specified index.
+     * @throws IndexOutOfBoundsException If the provided index is out of the valid range of task indices.
+     */
+    public String getDescription(int index) {
+        if (index < 0 || index >= this.tasksList.size()) {
+            throw new IndexOutOfBoundsException("Please input a valid task's index number.");
+        }
+        return this.tasksList.get(index).description;
     }
 
     /**

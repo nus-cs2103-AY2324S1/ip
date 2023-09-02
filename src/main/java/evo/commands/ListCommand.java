@@ -29,7 +29,7 @@ public class ListCommand extends Command {
             ui.showText("Here are the tasks in your list:");
             ui.showNewLine();
         } else {
-            ui.showText("Here are the tasks in your list:");
+            ui.showText("Here are the tasks in your list:\n");
             for (int i = 0; i < tasksList.tasksListLength(); i++) {
                 if (i == tasksList.tasksListLength() - 1) {
                     ui.showText(i + 1 + "." + tasksList.get(i).toString());
