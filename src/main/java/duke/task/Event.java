@@ -1,11 +1,13 @@
+package duke.task;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-@JsonTypeName("Event")
-public class Event extends Task{
+@JsonTypeName("Model.Event")
+public class Event extends Task {
     public LocalDate from;
     public LocalDate to;
     public Event(@JsonProperty("task") String task, @JsonProperty("from") LocalDate from, @JsonProperty("to")LocalDate to) {
