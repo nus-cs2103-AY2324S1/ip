@@ -14,6 +14,7 @@ public class Parser {
      * List of valid user commands.
      */
     public static enum Command {
+        INVALID(""),
         BYE("bye"),
         LIST("list"),
         MARK("mark"),
@@ -46,7 +47,14 @@ public class Parser {
      */
     public static Command processInput(String userInput, Duke dukeBot) throws DukeException {
         String[] inputArray = userInput.split(" ", 2);
-        Command userCommand = Command.valueOf(inputArray[0].toUpperCase());
+        Command userCommand = Command.INVALID;
+
+        for (Command command : Command.values()) {
+            if (command.toString().equals(inputArray[0])) {
+                userCommand = command;
+            }
+        }
+
         String inputInfo = "";
         if (inputArray.length == 2) {
             inputInfo = inputArray[1];
@@ -77,7 +85,7 @@ public class Parser {
                 String[] taskInfo = inputInfo.split(" /by ");
 
                 if (taskInfo.length != 2) {
-                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
 
                 String taskName = taskInfo[0];
@@ -90,7 +98,7 @@ public class Parser {
                 String[] taskInfo = inputInfo.split(" /from ");
 
                 if (taskInfo.length != 2 || taskInfo[1].split("/to").length != 2) {
-                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
 
                 String taskName = taskInfo[0];
@@ -104,7 +112,7 @@ public class Parser {
                 dukeBot.tasks.findTasks(inputInfo);
                 break;
             default:
-                throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         return userCommand;
     }

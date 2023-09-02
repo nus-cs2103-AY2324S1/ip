@@ -5,7 +5,7 @@ import duke.exception.DukeException;
 import java.util.Scanner;
 
 /**
- * Ui is responsible for prompting the user for input.
+ * Ui is responsible for prompting the user for input for a text-based UI.
  * It also contains general methods to output information to the user.
  */
 public class Ui {
