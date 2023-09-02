@@ -3,6 +3,9 @@ package arona.ui;
 import arona.task.Task;
 import arona.task.TaskList;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Ui {
 
     public static void showWelcomeMessage() {
@@ -58,5 +61,23 @@ public class Ui {
 
     public static void showInvalidArgumentMessage() {
         System.out.println("Oops! I'm not quite sure what that means...\n");
+    }
+
+    /**
+     * Displays the search results to the user.
+     *
+     * @param result The TaskList containing the matching tasks.
+     */
+    public static void showSearchResult(TaskList result) {
+        if (result.getTasks().isEmpty()) {
+            System.out.println("No matching tasks found.\n");
+        } else {
+            System.out.println("Hello! Here are your matching tasks:");
+            ArrayList<Task> tasks = result.getTasks();
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
+            }
+            System.out.println();
+        }
     }
 }

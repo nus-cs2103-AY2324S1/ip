@@ -12,6 +12,13 @@ public class TaskList {
         storage.loadTasks(this.tasks);
     }
 
+    /**
+     * Constructs an empty TaskList.
+     */
+    public TaskList() {
+        this.tasks = new ArrayList<>();
+    }
+
     public ArrayList<Task> getTasks() {
         return tasks;
     }

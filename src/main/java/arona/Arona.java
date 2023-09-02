@@ -69,6 +69,10 @@ public class Arona {
                     DeleteCommand deleteCommand = new DeleteCommand(tasks, ui, storage, Parser.getTaskIndex(inputTokens));
                     deleteCommand.execute();
                     break;
+                case "find":
+                    FindCommand findCommand = new FindCommand(tasks, ui, Parser.getKeyWord(inputTokens));
+                    findCommand.execute();
+                    break;
                 default:
                     ui.showInvalidArgumentMessage();
                     break;
