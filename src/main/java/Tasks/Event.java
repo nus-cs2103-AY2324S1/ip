@@ -20,14 +20,14 @@ public class Event extends Task {
 
         if (fromParts.length >= 2) {
             this.description = fromParts[0].split("/to")[0].trim();
-            String[] aftFrom = fromParts[1].split("/to");
-            String startTimeString = aftFrom[0].trim(); // it should be in (d/M/yyyy h:m a) eg (15/3/2023 6:40 PM)
+            String[] partAfterFrom = fromParts[1].split("/to");
+            String startTimeString = partAfterFrom[0].trim(); // it should be in (d/M/yyyy h:m a) eg (15/3/2023 6:40 PM)
 
             // Format the string and parse it into startTime
             this.startTime = super.parseDateTime(startTimeString);
-            if (aftFrom.length >= 2) {
+            if (partAfterFrom.length >= 2) {
                 // '/to' is after '/from'
-                String endTimeString = aftFrom[1].trim();
+                String endTimeString = partAfterFrom[1].trim();
                 // Format the string and parse it into endTime
                 this.endTime = super.parseDateTime(endTimeString);
             } else {

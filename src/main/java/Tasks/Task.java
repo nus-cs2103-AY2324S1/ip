@@ -9,13 +9,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+
 /**
  * Represents a task the user has created.
  */
-public class Task {
+public abstract class Task {
     // TODO: Make this class abstract?
     protected String description;
     protected boolean isDone = false;
+    public static final String DATE_FORMAT ="d/M/yyyy";
+    public static final String DATETIME_FORMAT = "d/M/yyyy h:m a";
 
     public Task(String description) {
         this.description = description;
@@ -69,7 +72,7 @@ public class Task {
     }
 
     public LocalDateTime parseDateTime(String dateTimeString) throws DukeException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy h:m a");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATETIME_FORMAT);
         try {
             return LocalDateTime.parse(dateTimeString, formatter);
         } catch (DateTimeParseException e) {
@@ -78,7 +81,7 @@ public class Task {
     }
 
     public LocalDate parseDate(String dateString) throws DukeException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
         try {
             return LocalDate.parse(dateString, formatter);
         } catch (DateTimeParseException e) {
