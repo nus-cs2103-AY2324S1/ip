@@ -1,13 +1,11 @@
 package trackerbot;
 
-import trackerbot.task.TaskList;
-import trackerbot.utils.Ui;
 import trackerbot.command.Command;
 import trackerbot.exception.TrackerBotException;
+import trackerbot.task.TaskList;
 import trackerbot.utils.Parser;
 import trackerbot.utils.Storage;
-
-import java.util.Scanner;
+import trackerbot.utils.Ui;
 
 /**
  * Main Program for the application. <br>
@@ -64,8 +62,6 @@ public class TrackerBot {
             ui.showError(e.getMessage());
         }
 
-        Scanner scanner = new Scanner(System.in);
-        String input;
         boolean isBye;
         do {
             isBye = handleInput();

@@ -43,7 +43,8 @@ public class TaskDateHandler {
      * @throws DateTimeParseException if the input is not in valid epoch format
      * @throws NumberFormatException if the input is not parsable as a Long
      */
-    public static LocalDateTime convertSaveToDate(String input) throws DateTimeParseException, NumberFormatException {
+    public static LocalDateTime convertSaveToDate(String input)
+            throws DateTimeParseException, NumberFormatException {
         long epoch = Long.parseLong(input);
         return LocalDateTime.ofEpochSecond(epoch, 0, ZoneOffset.UTC);
     }

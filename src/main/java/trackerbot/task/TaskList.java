@@ -1,11 +1,10 @@
 package trackerbot.task;
 
+import java.util.ArrayList;
+
 import trackerbot.command.CommandType;
 import trackerbot.exception.TrackerBotException;
-import trackerbot.task.Task;
 import trackerbot.utils.Parser;
-
-import java.util.ArrayList;
 
 /**
  * Collection of Tasks for use in TrackerBot.
@@ -14,11 +13,30 @@ import java.util.ArrayList;
  */
 public class TaskList {
     /**
-     * Task Array - as TrackerBot is not instantiated, this must be static.
+     * Task Array.
      * The Task List array itself should be immutable, in case we override it
      * during runtime.
      */
-    private final ArrayList<Task> TASKS = new ArrayList<>();
+    private final ArrayList<Task> tasks;
+
+    public TaskList() {
+        tasks = new ArrayList<>();
+    }
+
+    /**
+     * Attempts to add a new Task into the list.
+     *
+     * @see trackerbot.utils.Parser#parseAdd
+     * @param type The enumerated type of Command to add into the Task.
+     * @param commandField The description of the Command.
+     * @return The reply String to be passed into Ui.
+     * @throws TrackerBotException if the addition of the task encounters an error during parse.
+     */
+    public String add(CommandType type, String commandField) throws TrackerBotException {
+        Task newTask = Parser.parseAdd(type, commandField);
+        tasks.add(newTask);
+        return "I am tracking this task now:\n  " + newTask.toString();
+    }
 
     /**
      * Attempts to toggle the item at index as complete.
@@ -76,9 +94,16 @@ public class TaskList {
             throw new TrackerBotException("The specified task does not exist.");
         }
 
-        TASKS.remove(index - 1);
+        tasks.remove(index - 1);
         return "I have removed this task off of my list.\n  " + task + "\n"
-                + TASKS.size() + " task(s) remain on my list.";
+                + tasks.size() + " task(s) remain on my list.";
+    }
+
+    /**
+     * Deletes all items in the TaskList.
+     */
+    public void clear() {
+        tasks.clear();
     }
 
     /**
@@ -91,11 +116,11 @@ public class TaskList {
     public String findAll(String searchStr) {
         StringBuilder result = new StringBuilder();
 
-        for (int i = 1; i < TASKS.size() + 1; i++) {
-            if (TASKS.get(i - 1).contains(searchStr)) {
+        for (int i = 1; i < tasks.size() + 1; i++) {
+            if (tasks.get(i - 1).doesContain(searchStr)) {
                 result.append(i);
                 result.append(". ");
-                result.append(TASKS.get(i - 1).toString());
+                result.append(tasks.get(i - 1).toString());
                 result.append("\n");
             }
         }
@@ -114,27 +139,12 @@ public class TaskList {
     }
 
     /**
-     * Attempts to add a new Task into the list.
-     *
-     * @see trackerbot.utils.Parser#parseAdd
-     * @param type The enumerated type of Command to add into the Task.
-     * @param commandField The description of the Command.
-     * @return The reply String to be passed into Ui.
-     * @throws TrackerBotException if the addition of the task encounters an error during parse.
-     */
-    public String add(CommandType type, String commandField) throws TrackerBotException {
-        Task newTask = Parser.parseAdd(type, commandField);
-        TASKS.add(newTask);
-        return "I am tracking this task now:\n  " + newTask.toString();
-    }
-
-    /**
      * Returns a UI-friendly String representation of the Task List.
      * @return A String representation of the Task List, to pass directly into Ui.
      */
     public String list() {
         // happy path: prints an appropriate message and exit the method.
-        if (TASKS.size() == 0) {
+        if (tasks.size() == 0) {
             return "No tasks have been added to the list yet.";
         }
         return "I am tracking these tasks:\n" + getListOfTasks();
@@ -146,14 +156,7 @@ public class TaskList {
      * @param task The Task to add into TaskList.
      */
     public void importSave(Task task) {
-        TASKS.add(task);
-    }
-
-    /**
-     * Deletes all items in the TaskList.
-     */
-    public void clear() {
-        TASKS.clear();
+        tasks.add(task);
     }
 
     /**
@@ -163,8 +166,8 @@ public class TaskList {
      */
     public String exportSave() {
         StringBuilder result = new StringBuilder();
-        for (int i = 1; i < TASKS.size() + 1; i++) {
-            result.append(TASKS.get(i - 1).toSaveString());
+        for (int i = 1; i < tasks.size() + 1; i++) {
+            result.append(tasks.get(i - 1).toSaveString());
             result.append("\n");
         }
         return result.toString();
@@ -177,10 +180,10 @@ public class TaskList {
      */
     private Task getTask(int index) {
         // happy path: return null if out of bounds.
-        if (index <= 0 || index > TASKS.size()) {
+        if (index <= 0 || index > tasks.size()) {
             return null;
         }
-        return TASKS.get(index - 1);
+        return tasks.get(index - 1);
     }
 
     /**
@@ -190,11 +193,11 @@ public class TaskList {
     private String getListOfTasks() {
         StringBuilder result = new StringBuilder();
 
-        for (int i = 1; i < TASKS.size() + 1; i++) {
+        for (int i = 1; i < tasks.size() + 1; i++) {
             result.append(i);
             result.append(". ");
-            result.append(TASKS.get(i - 1).toString());
-            if (i != TASKS.size()) {
+            result.append(tasks.get(i - 1).toString());
+            if (i != tasks.size()) {
                 result.append("\n");
             }
         }
