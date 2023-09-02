@@ -4,16 +4,31 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Stores the list of tasks in ArrayList and carries out the functions.
+ */
 public class TaskList {
     private ArrayList<Task> list;
 
+    /**
+     * Default constructor.
+     */
     public TaskList(){
         list = new ArrayList<Task>();
     }
+
+    /**
+     * Constructor to load arraylist from another source.
+     * @param list
+     */
     public TaskList(ArrayList<Task> list){
         this.list = list;
     }
 
+    /**
+     * prints the tasks stored in list.
+     * @param ui
+     */
     public void list(Ui ui){
         ui.showLine();
         for (int i = 0; i < list.size(); i++) {
@@ -23,6 +38,13 @@ public class TaskList {
         ui.showLine();
     }
 
+    /**
+     * Marks a particular task as done or undone.
+     * @param mark
+     * @param str
+     * @param ui
+     * @param storage
+     */
     public void mark(boolean mark,String str, Ui ui, Storage storage){
         ui.showLine();
         String val = str.replaceAll("[^0-9]", "");
@@ -40,7 +62,13 @@ public class TaskList {
         ui.print("\t" + list.get(index-1) + "\n");
         ui.showLine();
     }
-    
+
+    /**
+     * Creates a todo instance.
+     * @param str
+     * @param ui
+     * @param storage
+     */
     public void todo(String str, Ui ui, Storage storage){
         str = str.substring(5);
         if (str.isEmpty())
@@ -55,6 +83,13 @@ public class TaskList {
         ui.print("Now you have " + list.size() + " tasks in your list");
         ui.showLine();
     }
+
+    /**
+     * Converts date from string to LocalDate object.
+     * @param input
+     * @param ui
+     * @return
+     */
     public LocalDate changeDateFormat(String input,Ui ui){
         LocalDate date=null;
         try {
@@ -67,6 +102,13 @@ public class TaskList {
         }
         return date;
     }
+
+    /**
+     * Creates new deadline instance.
+     * @param str
+     * @param ui
+     * @param storage
+     */
     public void deadline(String str, Ui ui, Storage storage){
         str = str.substring(9);
         if (str.isEmpty())
@@ -89,6 +131,12 @@ public class TaskList {
         ui.showLine();
     }
 
+    /**
+     * Creates new event instance.
+     * @param str
+     * @param ui
+     * @param storage
+     */
     public void event(String str, Ui ui, Storage storage){
         str = str.substring(6);
         if (str.isEmpty())
@@ -117,7 +165,13 @@ public class TaskList {
         ui.print("Now you have " + list.size() + " tasks in your list");
         ui.showLine();
     }
-    
+
+    /**
+     * Deletes a particular task.
+     * @param str
+     * @param ui
+     * @param storage
+     */
     public void delete(String str, Ui ui, Storage storage){
         str = str.substring(7);
         String val = str.replaceAll("[^0-9]", "");
