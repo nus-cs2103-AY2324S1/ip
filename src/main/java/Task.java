@@ -23,4 +23,15 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] "+ this.description;
     }
+
+    public String getTaskType() {
+        return "";
+    }
+
+    public String toSaveFileFormat() {
+        return String.format("%s | %d | %s",
+                getTaskType(),
+                isDone ? 1 : 0,
+                this.description);
+    }
 }

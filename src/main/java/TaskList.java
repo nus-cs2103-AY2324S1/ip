@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -115,6 +117,18 @@ public class TaskList {
             }
         } catch (IllegalArgumentException e) {
             throw new BuddyException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+    }
+
+    public void saveTasks() {
+        try {
+            FileWriter fileWriter = new FileWriter(filePath);
+            for (Task task : tasks) {
+                fileWriter.write(task.toSaveFileFormat() + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
         }
     }
 
