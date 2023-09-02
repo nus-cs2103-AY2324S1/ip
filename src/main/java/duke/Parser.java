@@ -42,14 +42,10 @@ public class Parser {
 
     public void handleList(TaskList taskList) {
         if (taskList.size() == 0) {
-            System.out.println("There is currently no items in the list");
+            Ui.printEmptyList();
             return;
         }
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 1; i <= taskList.size(); i++) {
-            String task = String.valueOf(taskList.getTask(i));
-            System.out.println(i + ". " + task);
-        }
+        Ui.printList(taskList);
     }
 
     public void handleMark(String input, TaskList taskList, Boolean isLoading) {
@@ -61,14 +57,14 @@ public class Parser {
                 taskList.getTask(index).toggleDone();
                 Storage.save(taskList); // save in file
                 if (thisTask.getDone()) {
-                    System.out.println("Nice! I've marked this task as done:" + "\n" + thisTask);
+                    Ui.printDone(thisTask);
                 } else {
-                    System.out.println("OK, I've marked this task as not done yet:" + "\n" + thisTask);
+                    Ui.printNotDone(thisTask);
                 }
             } catch (IndexOutOfBoundsException ex) {
-                System.out.println("IndexOutOfBounds");
+                Ui.OutofBounds();
             } catch (NumberFormatException e) {
-                System.out.println("NumberFormatException");
+                Ui.NumberFormat();
             }
         }
     }
@@ -79,14 +75,13 @@ public class Parser {
         String deleted = String.valueOf(taskList.getTask(index - 1));
         taskList.remove(index - 1);
         Storage.save(taskList); // save in file
-        System.out.println("Noted. I've removed this task:\n" + deleted + "\n"
-                + "Now you have " + taskList.size() + " tasks in the list.");
+        Ui.removeTask(deleted, taskList);
     }
 
     public void handleTodo(String input, TaskList taskList, Boolean isLoading) {
         String[] arr0 = input.split("todo ");
         if (arr0.length == 1) {
-            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+            Ui.ToDoExcept();
         } else {
             Task todo = new Todo(arr0[1], input);
             AddTask(todo, taskList, isLoading);
@@ -94,30 +89,33 @@ public class Parser {
     }
 
     public void handleEvent(String input, TaskList taskList, Boolean isLoading) {
-        String[] arr1 = input.split("/from "); // [0]: event + name, [1]: timeframe
-        String[] arr2 = arr1[1].split("/to "); // [0] from:..., [1] to:...
-        String[] arr3 = arr1[0].split("event ");
-        Task event = new Event(arr3[1], arr2[0], arr2[1], input);
-        AddTask(event, taskList, isLoading);
+        try {
+            String[] arr1 = input.split("/from "); // [0]: event + name, [1]: timeframe
+            String[] arr2 = arr1[1].split("/to "); // [0] from:..., [1] to:...
+            String[] arr3 = arr1[0].split("event ");
+            Task event = new Event(arr3[1], arr2[0], arr2[1], input);
+            AddTask(event, taskList, isLoading);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            Ui.eventExcept();
+        }
     }
 
     public void handleDeadline(String input, TaskList taskList, Boolean isLoading) {
-        String[] arr1 = input.split("/by "); // 0: deadline + name , 1: date
-        String[] arr2 = arr1[0].split("deadline ");
-        String date = arr1[1];
-        LocalDateTime formattedDate = dateFormatter(date);
-        if (formattedDate == null) {
-            System.out.println("incorrect date format");
-            return;
+        try {
+            String[] arr1 = input.split("/by "); // 0: deadline + name , 1: date
+            String[] arr2 = arr1[0].split("deadline ");
+            String date = arr1[1];
+            LocalDateTime formattedDate = dateFormatter(date);
+            Task deadline = new Deadline(arr2[1], formattedDate, input);
+            AddTask(deadline, taskList, isLoading);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            Ui.deadlineExcept();
+        } catch (DateTimeParseException ex) {
+            Ui.DateFormatExcept();
         }
-        Task deadline = new Deadline(arr2[1], formattedDate, input);
-        AddTask(deadline, taskList, isLoading);
     }
 
-    ;
-
-    public static LocalDateTime dateFormatter(String dateTime) {
-        try {
+    public static LocalDateTime dateFormatter(String dateTime) throws DateTimeParseException {
             String[] inputs = dateTime.split(" ");
             DateTimeFormatter formatter;
             if (inputs.length == 2) {
@@ -126,26 +124,13 @@ public class Parser {
             } else {
                 return null;
             }
-        } catch (DateTimeParseException ex) {
-            System.out.println("Invalid Date Format");
-            return null;
         }
-    }
 
     public void AddTask(Task task, TaskList taskList, Boolean isLoading) {
         taskList.add(task);
         Storage.save(taskList);
-        System.out.println("isloading: " + isLoading);
         if (!isLoading) {
-            System.out.println("a");
             Ui.printAddTask(task, taskList);
         }
     }
 }
-
-    // for deadline, event and todo, create a task and pass it in AddTask(Duke.Task task, isLoading) function
-    // which handles both isRestoring and adding task
-    // hence a flag is necessary to indicate whether the msg gets printed out
-    // for the loading of task, simply do handleInput(input, tasks, true)
-    // in the function for addtask, do get it from the Duke.TaskList class for add function (eg taskList.add(Duke.Task)
-    // for list, can just use ui to print it out
