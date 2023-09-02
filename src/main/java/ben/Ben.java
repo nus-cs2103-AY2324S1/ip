@@ -1,24 +1,21 @@
 package ben;
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 public class Ben {
     private boolean isActive = true;
-    private final TaskList tasks = new TaskList();
-    private final Storage storage;
-    private final Ui ui;
+    private TaskList tasks = new TaskList();
+    private Storage storage;
+    private Ui ui;
 
     public Ben(String filePath) {
         ui = new Ui();
         File f = new File(filePath);
         storage = new Storage(f);
-    }
-
-    public void deactivate() {
-        isActive = false;
     }
 
     public void run() {

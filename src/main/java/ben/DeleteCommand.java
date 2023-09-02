@@ -1,7 +1,8 @@
 package ben;
 
-public class DeleteCommand extends Command{
-    private final Task task;
+public class DeleteCommand extends Command {
+    private Task task;
+
     public DeleteCommand(Task task) {
         this.task = task;
     }

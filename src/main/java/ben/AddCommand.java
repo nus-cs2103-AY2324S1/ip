@@ -1,12 +1,14 @@
 package ben;
 
 import java.time.LocalDateTime;
+
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import java.util.Arrays;
 
-public class AddCommand extends Command{
-    private final String command;
+public class AddCommand extends Command {
+    private String command;
     private Task task;
 
     public AddCommand(String command) {
@@ -16,11 +18,13 @@ public class AddCommand extends Command{
     public void interpretTask() throws InvalidCommandException, EmptyDescriptionException, DateTimeParseException {
         String[] words = command.split("\\s+");
 
-        if(words[0].equalsIgnoreCase("todo")) {
+        if (words[0].equalsIgnoreCase("todo")) {
             String description = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
+
             if (description.isEmpty()) {
                 throw new EmptyDescriptionException("Description cannot be empty");
             }
+
             task = new ToDos(description, false);
             return;
         } else if (words[0].equalsIgnoreCase("deadline")) {
@@ -38,10 +42,13 @@ public class AddCommand extends Command{
             }
 
             String description = String.join(" ", Arrays.copyOfRange(words, 1, positionBy));
+
             if (description.isEmpty()) {
                 throw new EmptyDescriptionException("Description cannot be empty");
             }
+
             String by = String.join(" ", Arrays.copyOfRange(words, positionBy + 1, words.length));
+
             if (by.isEmpty()) {
                 throw new EmptyDescriptionException("/by cannot be empty");
             }
@@ -67,16 +74,19 @@ public class AddCommand extends Command{
             }
 
             String description = String.join(" ", Arrays.copyOfRange(words, 1, positionFrom));
+
             if (description.isEmpty()) {
                 throw new EmptyDescriptionException("Description cannot be empty");
             }
 
             String from = String.join(" ", Arrays.copyOfRange(words, positionFrom + 1, positionTo));
+
             if (from.isEmpty()) {
                 throw new EmptyDescriptionException("/from cannot be empty");
             }
 
             String to = String.join(" ", Arrays.copyOfRange(words, positionTo + 1, words.length));
+
             if (to.isEmpty()) {
                 throw new EmptyDescriptionException("/to cannot be empty");
             }
@@ -88,19 +98,24 @@ public class AddCommand extends Command{
     }
 
     public LocalDateTime dateTimeParser(String dateTime) throws DateTimeParseException {
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
         if (dateTime.length() <= 10) {
             return LocalDateTime.parse(dateTime + " 2359", formatter);
         }
+
         return LocalDateTime.parse(dateTime, formatter);
     }
+
     @Override
     public boolean isExit() {
         return false;
     }
+
     @Override
-    public void execute(TaskList tasks, Ui ui) throws InvalidCommandException, EmptyDescriptionException, DateTimeParseException{
+    public void execute(TaskList tasks, Ui ui) throws InvalidCommandException,
+            EmptyDescriptionException, DateTimeParseException {
         interpretTask();
         tasks.add(task, true);
     }

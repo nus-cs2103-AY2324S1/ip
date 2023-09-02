@@ -1,6 +1,6 @@
 package ben;
 
-public class ByeCommand extends Command{
+public class ByeCommand extends Command {
     @Override
     public boolean isExit() {
         return true;

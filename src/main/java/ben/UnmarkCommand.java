@@ -1,7 +1,7 @@
 package ben;
 
-public class UnmarkCommand extends Command{
-    Task task;
+public class UnmarkCommand extends Command {
+    private Task task;
 
     public UnmarkCommand(Task task) {
         this.task = task;

@@ -1,6 +1,6 @@
 package ben;
 
-public class ListCommand extends Command{
+public class ListCommand extends Command {
     @Override
     public boolean isExit() {
         return false;

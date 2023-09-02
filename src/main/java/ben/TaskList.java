@@ -11,6 +11,7 @@ public class TaskList {
             addSuccessMessage(task);
         }
     }
+
     public void addSuccessMessage(Task task) {
         Ui.displayMessage("\nGot It! This task has been added:\n" + task +
                 "\nNow you have " + tasks.size() + " items in the list\n");

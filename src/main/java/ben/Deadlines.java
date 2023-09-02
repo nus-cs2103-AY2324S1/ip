@@ -3,7 +3,7 @@ package ben;
 import java.time.LocalDateTime;
 
 public class Deadlines extends Task {
-    private final LocalDateTime by;
+    private LocalDateTime by;
 
     public Deadlines(String description, boolean isCompleted, LocalDateTime by) {
         super(description, isCompleted);

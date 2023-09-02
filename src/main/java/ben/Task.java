@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Task {
-    private final String description;
+    private String description;
     private Boolean isCompleted;
 
     public Task(String description, boolean isCompleted) {

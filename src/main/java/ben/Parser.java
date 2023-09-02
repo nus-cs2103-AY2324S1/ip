@@ -1,20 +1,23 @@
 package ben;
 
 import java.util.Objects;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
-    private final TaskList tasks;
+    private TaskList tasks;
+
     public Parser(TaskList tasks) {
         this.tasks = tasks;
     }
-    public Command parse(String command) throws InvalidCommandException{
+
+    public Command parse(String command) throws InvalidCommandException {
         String[] words = command.split("\\s+");
         if (words[0].equalsIgnoreCase("delete") ||
                 words[0].equalsIgnoreCase("unmark") ||
                 words[0].equalsIgnoreCase("mark")) {
-            return referenceListCommandParser(command);
+            return referenceListCommandParse(command);
         } else if (words[0].equalsIgnoreCase("bye")) {
             return new ByeCommand();
         } else if (words[0].equalsIgnoreCase("list")) {
@@ -23,7 +26,7 @@ public class Parser {
         return new AddCommand(command);
     }
 
-    public Command referenceListCommandParser(String message) throws InvalidCommandException{
+    public Command referenceListCommandParse(String message) throws InvalidCommandException {
         Pattern pattern = Pattern.compile("(unmark|mark|delete)\\s*(-?\\d+)");
         Matcher matcher = pattern.matcher(message.toLowerCase());
 

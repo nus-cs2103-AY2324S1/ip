@@ -1,6 +1,6 @@
 package ben;
 
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
     Task task;
 
     public MarkCommand(Task task) {

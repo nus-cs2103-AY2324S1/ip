@@ -1,4 +1,5 @@
 package ben;
+
 public class ToDos extends Task {
 
     public ToDos(String description, boolean isCompleted) {
@@ -9,6 +10,7 @@ public class ToDos extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
     @Override
     public String saveString() {
         return "T|" + super.saveString();
