@@ -192,9 +192,9 @@ public class Parser {
      */
     public static String getKeyWord(String[] tokens) throws IllegalArgumentAronaException {
         if (tokens.length < 2) {
-            throw new IllegalArgumentAronaException("Please specify a keyword I can search for you");
+            throw new IllegalArgumentAronaException("Sorry... Please specify a keyword so I can help you.");
         } else if (tokens.length > 2) {
-            throw new IllegalArgumentAronaException("Sorry... I can only handle one keyword");
+            throw new IllegalArgumentAronaException("Sorry... I can only handle one keyword.");
         } else {
             return tokens[1];
         }

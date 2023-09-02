@@ -118,9 +118,9 @@ public class Ui {
      */
     public static void showSearchResult(TaskList result) {
         if (result.getTasks().isEmpty()) {
-            System.out.println("No matching tasks found.\n");
+            System.out.println("Ehhh... There are no matching tasks.\n");
         } else {
-            System.out.println("Hello! Here are your matching tasks:");
+            System.out.println("Yay! Here are your matching tasks:");
             ArrayList<Task> tasks = result.getTasks();
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.println((i + 1) + ". " + tasks.get(i));
