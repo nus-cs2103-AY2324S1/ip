@@ -11,7 +11,8 @@ public enum ActionType {
     DEADLINE("deadline"),
     EVENT("event"),
     LIST("list"),
-    BYE("bye");
+    BYE("bye"),
+    FIND("find");
 
     private final String action;
     private ActionType(String action) {

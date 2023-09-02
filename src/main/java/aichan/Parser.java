@@ -1,12 +1,12 @@
 package aichan;
 
-import aichan.ActionType;
 import aichan.command.AddDeadlineCommand;
 import aichan.command.AddEventCommand;
 import aichan.command.AddToDoCommand;
 import aichan.command.Command;
 import aichan.command.DeleteCommand;
 import aichan.command.ExitCommand;
+import aichan.command.FindCommand;
 import aichan.command.ListCommand;
 import aichan.command.MarkCommand;
 import aichan.command.UnmarkCommand;
@@ -31,22 +31,25 @@ public class Parser {
         }
         String inputs[] = input.split(" ", 2);
 
-        if (inputs[0].equals(ActionType.BYE.toString())) {
+        String commandType = inputs[0];
+        if (commandType.equals(ActionType.BYE.toString())) {
             return new ExitCommand();
-        } else if (inputs[0].equals(ActionType.LIST.toString())) {
+        } else if (commandType.equals(ActionType.LIST.toString())) {
             return new ListCommand();
-        } else if (inputs[0].equals(ActionType.MARK.toString())) {
+        } else if (commandType.equals(ActionType.MARK.toString())) {
             return new MarkCommand(strToNum(checkLen(inputs)));
-        } else if (inputs[0].equals(ActionType.UNMARK.toString())) {
+        } else if (commandType.equals(ActionType.UNMARK.toString())) {
             return new UnmarkCommand(strToNum(checkLen(inputs)));
-        } else if (inputs[0].equals(ActionType.TODO.toString())) {
+        } else if (commandType.equals(ActionType.TODO.toString())) {
             return new AddToDoCommand(checkLen(inputs));
-        } else if (inputs[0].equals(ActionType.DEADLINE.toString())) {
+        } else if (commandType.equals(ActionType.DEADLINE.toString())) {
             return new AddDeadlineCommand(checkLen(inputs));
-        } else if (inputs[0].equals(ActionType.EVENT.toString())) {
+        } else if (commandType.equals(ActionType.EVENT.toString())) {
             return new AddEventCommand(checkLen(inputs));
-        } else if (inputs[0].equals(ActionType.DELETE.toString())) {
+        } else if (commandType.equals(ActionType.DELETE.toString())) {
             return new DeleteCommand(strToNum(checkLen(inputs)));
+        } else if (commandType.equals(ActionType.FIND.toString())) {
+            return new FindCommand(checkLen(inputs));
         } else {
             throw new AiChanException("oops~ I'm so sorry, but I don't know what that means :'(");
         }
