@@ -49,7 +49,4 @@ public abstract class Task implements Serializable {
         return (taskstatus ? "X" : " "); // mark done task with X
     }
 
-    public String getTask() { return this.taskname; }
-
-
 }
