@@ -10,7 +10,17 @@ import crusader.task.Todo;
 
 import java.text.ParseException;
 
+/**
+ * A set of tools used to parse user input
+ */
 public class Parser {
+    /**
+     * Takes a command given by the user and converts it into a usable command.
+     *
+     * @param prompt A string representing a user command.
+     * @return A Command instance
+     * @throws CrusaderException Error is generated when input command is malformed.
+     */
     public static Command parse(String prompt) throws CrusaderException {
         Command returnCommand;
         switch (prompt.contains(" ")
@@ -46,6 +56,13 @@ public class Parser {
         return returnCommand;
     }
 
+    /**
+     * Creates a mark or unmark command.
+     * @param currentPrompt User input.
+     * @param isMarkCommand Whether this is a mark or unmark command.
+     * @return Mark/Unmark command.
+     * @throws CrusaderException When input is malformed, for example, when no index is given.
+     */
     private static Command parseMarking(String currentPrompt, boolean isMarkCommand) throws CrusaderException {
         String[] components = currentPrompt.split(" ");
         if (components.length != 2) {
@@ -59,6 +76,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates an add task command, adding a todo
+     * @param prompt User input
+     * @return Todo command
+     * @throws CrusaderException When input is malformed, in this case with no name given
+     */
     private static Command parseTodo(String prompt) throws CrusaderException {
         if (prompt.trim().length() < 5) {
             throw new CrusaderParseException("todo expects 1 parameter!");
@@ -68,6 +91,12 @@ public class Parser {
         return new AddTaskCommand(t);
     }
 
+    /**
+     * Creates an add task command, adding an event
+     * @param prompt User input
+     * @return Event command
+     * @throws CrusaderParseException
+     */
     private static Command parseEvent(String prompt) throws CrusaderParseException {
         int fromPosition = prompt.indexOf("/from");
         if (fromPosition < 0) {
@@ -100,6 +129,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates an add task command, adding a deadline
+     * @param prompt User input
+     * @return Deadline command
+     * @throws CrusaderParseException
+     */
     private static Command parseDeadline(String prompt) throws CrusaderParseException {
         int byPosition = prompt.indexOf("/by");
         if (byPosition < 0) {
@@ -118,6 +153,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates a delete command
+     * @param prompt User input
+     * @return Delete command
+     * @throws CrusaderParseException
+     */
     private static Command parseDelete(String prompt) throws CrusaderParseException {
         String[] components = prompt.split(" ");
         if (components.length != 2) {

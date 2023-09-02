@@ -5,6 +5,9 @@ import crusader.task.Task;
 import crusader.TaskList;
 import crusader.Ui;
 
+/**
+ * Command used to delete tasks from the bot.
+ */
 public class DeleteCommand extends Command {
     private final int index;
     public DeleteCommand(int index) {

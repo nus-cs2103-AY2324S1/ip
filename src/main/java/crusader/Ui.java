@@ -2,10 +2,21 @@ package crusader;
 
 import java.util.Scanner;
 
+/**
+ * The main interface of the bot
+ */
 public class Ui {
+    /**
+     * The logo for the bot
+     */
     private final String logo;
+
     private final Scanner inputScanner;
 
+    /**
+     * Initializes the UI of the bot
+     * @param logo
+     */
     public Ui(String logo) {
         this.logo = logo;
         this.inputScanner = new Scanner(System.in);
