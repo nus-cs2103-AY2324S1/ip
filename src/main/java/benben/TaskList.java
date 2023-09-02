@@ -1,11 +1,11 @@
-package BenBen;
+package benben;
 import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> tasks;
 
     public TaskList() {
-        new ArrayList<Task>();
+        tasks = new ArrayList<Task>();
     }
 
     public TaskList(ArrayList<Task> list) {
@@ -28,5 +28,18 @@ public class TaskList {
         return tasks.get(i);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof TaskList)) {
+            return false;
+        }
+
+        TaskList list = (TaskList) o;
+         return this.tasks.equals(list.tasks);
+    }
 
 }

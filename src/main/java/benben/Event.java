@@ -1,4 +1,4 @@
-package BenBen;
+package benben;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -55,5 +55,20 @@ public class Event extends Task {
                 + " | " + this.description
                 + " | " + getFormattedStart()
                 + " | " + getFormattedEnd() + System.lineSeparator();
+    }
+
+    @Override
+    public boolean equals(Object task) {
+        if (task == this) {
+            return true;
+        }
+
+        if (!(task instanceof Event)) {
+            return false;
+        }
+
+        Event t = (Event) task;
+
+        return t.getLog().equals(this.getLog());
     }
 }

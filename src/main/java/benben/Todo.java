@@ -1,4 +1,4 @@
-package BenBen;
+package benben;
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
@@ -13,5 +13,20 @@ public class Todo extends Task {
     public String getLog() {
         return "T | " + (isDone? "1" : "0")
                 + " | " + this.description + System.lineSeparator();
+    }
+
+    @Override
+    public boolean equals(Object task) {
+        if (task == this) {
+            return true;
+        }
+
+        if (!(task instanceof Todo)) {
+            return false;
+        }
+
+        Todo t = (Todo) task;
+
+        return t.getLog() == (this.getLog());
     }
 }

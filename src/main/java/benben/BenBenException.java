@@ -1,4 +1,4 @@
-package BenBen;
+package benben;
 class BenBenException extends RuntimeException {
     BenBenException(String message) {
         super(message);
@@ -8,4 +8,5 @@ class BenBenException extends RuntimeException {
     public String toString() {
         return "WOOF! " + getMessage();
     }
+
 }

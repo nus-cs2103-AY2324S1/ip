@@ -1,14 +1,20 @@
-package BenBen;
+package benben;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     protected LocalDate ddl;
 
     protected final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    public Deadline(String description, String ddl) {
+    public Deadline(String description, String ddl) throws BenBenException{
         super(description);
-        this.ddl = LocalDate.parse(ddl);
+        try {
+            this.ddl = LocalDate.parse(ddl);
+        } catch (DateTimeParseException e) {
+            throw new BenBenException("The date and time is of the wrong format! Please use yyyy-MM-dd");
+        }
+
     }
     @Override
     public String toString() {
@@ -28,6 +34,21 @@ public class Deadline extends Task {
         return "D | " + (isDone? "1" : "0")
                 + " | " + this.description
                 + " | " + this.getFormattedDdl() + System.lineSeparator();
+    }
+
+    @Override
+    public boolean equals(Object task) {
+        if (task == this) {
+            return true;
+        }
+
+        if (!(task instanceof Deadline)) {
+            return false;
+        }
+
+        Deadline t = (Deadline) task;
+
+        return t.getLog().equals(this.getLog());
     }
 }
 
