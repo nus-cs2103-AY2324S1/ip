@@ -24,19 +24,19 @@ public class Crusader {
     private final Ui ui;
 
     public Crusader(String filePath, String logo) {
-        TaskList taskList1;
+        TaskList taskList;
         this.ui = new Ui(logo);
         this.storage = new Storage(filePath);
         try {
-            taskList1 = new TaskList(storage.loadTasks());
+            taskList = new TaskList(storage.loadTasks());
         } catch (CrusaderMissingSaveFileException e) {
             ui.say("Creating a new file, file does not exist!");
-            taskList1 = new TaskList();
+            taskList = new TaskList();
         } catch (CrusaderException e) {
             ui.say("Saved file is formatted wrongly!");
-            taskList1 = new TaskList();
+            taskList = new TaskList();
         }
-        this.taskList = taskList1;
+        this.taskList = taskList;
     }
 
     public void run() {
