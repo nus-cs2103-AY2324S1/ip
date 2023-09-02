@@ -43,6 +43,16 @@ public abstract class Task {
         return isMarked;
     }
 
+    /**
+     * Check whether the name of the task containing the keyword
+     * 
+     * @param keyWord the keyword
+     * @return whether the name of the task containing the keyword
+     */
+    public boolean hasKeyword(String keyWord) {
+        return name.toLowerCase().contains(keyWord.toLowerCase());
+    }
+
     @Override
     public String toString() {
         return "[" + (isMarked ? "X" : " ") +"] " + name;

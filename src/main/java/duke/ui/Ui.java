@@ -112,4 +112,14 @@ public class Ui {
         System.out.println("    Now you have " + size + " tasks in the list.");
         System.out.println(SPACE + DASH);
     }
+
+    public void printFindTask(TaskList tasks) {
+        System.out.println(SPACE + DASH);
+        if (tasks.isEmpty()) {
+            System.out.println("Cannot find any tasks with this keyword");
+        } else {
+            System.out.println(tasks);
+        }
+        System.out.println(SPACE + DASH);
+    }
 }

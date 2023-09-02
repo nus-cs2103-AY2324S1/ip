@@ -38,6 +38,8 @@ public class Parser {
                 Command.addEvent(message, ui, tasks, storage);
             } else if (messageType.equals("delete")) {
                 Command.delete(message, ui, tasks, storage);
+            } else if (messageType.equals("find")) {
+                Command.find(message, ui, tasks, storage);
             } else {
                 throw new InvalidCommandException();
             }
