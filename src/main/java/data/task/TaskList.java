@@ -14,6 +14,10 @@ public class TaskList {
     private ArrayList<Task> tasks;
     private File file;
 
+    public TaskList() {
+        this.list = new ArrayList<Task>();
+    }
+
     public TaskList(File file) {
         this.tasks = new ArrayList<Task>();
         this.file = file;
@@ -68,11 +72,13 @@ public class TaskList {
         }
     }
 
-    public void addTask(Task task) {
-        this.tasks.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + this.tasks.size() + " task(s) in the list.");
+    public void addTask(Task task, boolean isMuted) {
+        this.list.add(task);
+        if (!isMuted) {
+            System.out.println("Got it. I've added this task:");
+            System.out.println(task);
+            System.out.println("Now you have " + this.list.size() + " task(s) in the list.");
+        }
     }
 
     public void addTask(Command command, String input) throws DukeException {
@@ -159,10 +165,17 @@ public class TaskList {
         System.out.println("Now you have " + this.tasks.size() + " task(s) in the list.");
     }
 
-    public void printList() {
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(i + 1 + "." + tasks.get(i));
+    @Override
+    public String toString() {
+        if (this.list.size() == 0) {
+            return "";
         }
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            stringBuilder.append(i + 1 + "." + list.get(i) + "\n");
+        }
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        return stringBuilder.toString();
     }
 
     public void close() {
@@ -176,5 +189,23 @@ public class TaskList {
             System.out.println("An error occurred while saving your tasks.");
             e.printStackTrace();
         }
+    }
+
+    public int getSize() {
+        return this.list.size();
+    }
+
+    public String find(String input) {
+        String toFind = input.substring(5);
+        TaskList tasksFound = new TaskList();
+        for (Task task : this.list) {
+            if (task.toString().contains(toFind)) {
+                tasksFound.addTask(task, true);
+            }
+        }
+        if (tasksFound.getSize() == 0) {
+            return "No tasks found matching that description.";
+        }
+        return tasksFound.toString();
     }
 }

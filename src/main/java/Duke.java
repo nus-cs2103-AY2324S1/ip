@@ -23,7 +23,9 @@ public class Duke {
                     ui.end();
                     break;
                 } else if (command == Parser.Command.LIST) {
-                    list.printList();
+                    ui.print(list.toString());
+                } else if (command == Parser.Command.FIND) {
+                    ui.print(list.find(input));
                 } else {
                     list.executeCommand(command, input);
                 }
