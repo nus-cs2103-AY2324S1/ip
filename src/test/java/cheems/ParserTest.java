@@ -8,8 +8,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 class ParserTest {
-    Printable uiMock = mock(UI.class);
-    ListManageable tasklistMock = mock(Tasklist.class);
+    UI uiMock = mock(UI.class);
+    Tasklist tasklistMock = mock(Tasklist.class);
     private Parser parser = new Parser(tasklistMock, uiMock);
     @Test
     void parseAndExecute_emptyInput_success() throws Exception {

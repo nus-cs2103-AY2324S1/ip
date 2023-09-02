@@ -8,10 +8,10 @@ import cheems.exceptions.InvalidKeywordException;
  * Exceptions are thrown should the input be invalid.
  */
 public class Parser {
-    private ListManageable tasklist;
-    private Printable ui;
+    private Tasklist tasklist;
+    private UI ui;
 
-    public Parser(ListManageable listManager, Printable thisUi) {
+    public Parser(Tasklist listManager, UI thisUi) {
         tasklist = listManager;
         ui = thisUi;
     }

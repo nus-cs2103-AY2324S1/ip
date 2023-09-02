@@ -15,8 +15,8 @@ import static org.mockito.Mockito.verify;
 
 
 class TasklistTest {
-    Printable uiMock = mock(UI.class);
-    Storable storageMock = mock(Storage.class);
+    UI uiMock = mock(UI.class);
+    Storage storageMock = mock(Storage.class);
     @Test
     void addTodoTaskToDatabaseTest() {
         Tasklist tasklist = new Tasklist(storageMock, uiMock);

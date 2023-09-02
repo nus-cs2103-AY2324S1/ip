@@ -11,13 +11,13 @@ import java.util.ArrayList;
  * Represents a task list directly interacts with the user.
  * Interacts with Storage class as well to retrieve and update information to the text database.
  */
-public class Tasklist implements ListManageable {
+public class Tasklist {
     private final ArrayList<Task> list = new ArrayList<>();
     private int total = 0;  // total also indicates the first free slot
-    private final Storable storage;
-    private final Printable ui;
+    private final Storage storage;
+    private final UI ui;
 
-    public Tasklist(Storable storage, Printable ui) {
+    public Tasklist(Storage storage, UI ui) {
         this.storage = storage;
         this.ui = ui;
     }
@@ -70,7 +70,6 @@ public class Tasklist implements ListManageable {
     /**
      * Loads the task from the database to the task list.
      */
-    @Override
     public void loadTaskFromDatabase() {
         ArrayList<String[]> dataList = storage.loadData();
         for (String[] params : dataList) {
@@ -85,7 +84,6 @@ public class Tasklist implements ListManageable {
      * Updates the database to include this task.
      * @param params An array of strings used to create a new task.
      */
-    @Override
     public void addTaskToDatabase(String... params) {
         Task newTask = identifyCreateTask(false, params);
         list.add(newTask);
@@ -108,7 +106,6 @@ public class Tasklist implements ListManageable {
     /**
      * Prints all tasks in the current task list.
      */
-    @Override
     public void displayData() {
         String resp = "";
         if (total == 0) {
@@ -126,7 +123,6 @@ public class Tasklist implements ListManageable {
      * @param index The index of task to be marked done.
      * @throws IndexOutOfBoundsException when the index entered is out of range.
      */
-    @Override
     public void markAsDone(int index) throws IndexOutOfBoundsException {
         checkIndexOutOfBoundsHelper(index);
 
@@ -142,7 +138,6 @@ public class Tasklist implements ListManageable {
      * @param index The index of task to be marked undone.
      * @throws IndexOutOfBoundsException when the index entered is out of range.
      */
-    @Override
     public void markAsNotDone(int index) throws IndexOutOfBoundsException {
         checkIndexOutOfBoundsHelper(index);
 
@@ -158,7 +153,6 @@ public class Tasklist implements ListManageable {
      * @param index The index of task to be deleted.
      * @throws IndexOutOfBoundsException when the index entered is out of range.
      */
-    @Override
     public void delete(int index) throws IndexOutOfBoundsException {
         checkIndexOutOfBoundsHelper(index);
 
@@ -177,7 +171,6 @@ public class Tasklist implements ListManageable {
      * Finds and Print the tasks with corresponding keyword in their description.
      * @param search The array of strings that represents the keyword we need to search for.
      */
-    @Override
     public void find(String search) {
         ArrayList<Task> tempList = new ArrayList<>();
         int a = 1;
@@ -199,7 +192,6 @@ public class Tasklist implements ListManageable {
     /**
      * Converts the tasks in list to Storage compatible string format.
      */
-    @Override
     public void taskListToStorage() {
         String resp = "";
         for (int i = 0; i < total; i++) {

@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Represents the user interface for the application.
  * Handles display and interaction with the user.
  */
-public class UI implements Printable {
+public class UI {
 
     /**
      * Prints welcome message with logo and greetings.
@@ -49,7 +49,6 @@ public class UI implements Printable {
      * Formats the given feedback to user to comply with chatbot convention.
      * @param msg Feedback to user.
      */
-    @Override
     public void printWithFormat(String msg) {
         System.out.println("> Cheems: ");
         System.out.println(msg);
