@@ -41,6 +41,6 @@ public class URChatBot {
     }
 
     public static void main(String[] args) {
-        new URChatBot("data/urchatbot.tasks.txt").run();
+        new URChatBot("data/tasks.txt").run();
     }
 }

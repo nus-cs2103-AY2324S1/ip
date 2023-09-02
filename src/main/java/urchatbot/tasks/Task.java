@@ -43,7 +43,13 @@ public class Task {
         } else {
             return null;
         }
+    }
+    public boolean getIsDone() {
+        return this.isDone;
+    }
 
+    public String getDescription() {
+        return this.description;
     }
 }
 
