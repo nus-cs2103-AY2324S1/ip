@@ -1,7 +1,13 @@
 package Helpers;
 
 
-import Exceptions.*;
+import Exceptions.EmptyTasksException;
+import Exceptions.ErrorStorageException;
+import Exceptions.InvalidArgumentException;
+import Exceptions.InvalidCommandException;
+import Exceptions.InvalidIndexException;
+import Exceptions.InvalidTaskDescriptionException;
+import Exceptions.InvalidTimeFormatException;
 import Tasks.Deadline;
 import Tasks.Events;
 import Tasks.Task;
@@ -15,11 +21,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class Parser {
 
+    private final static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     protected final String cmd;
     protected final TaskList taskList;
     protected final String input;
-    private final static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
     protected Storage storage;
     protected Ui ui;
 
@@ -95,13 +100,13 @@ public class Parser {
             ui.showArgumentErrorMessage(input.substring(6), "/from and /to");
         } else {
             try {
-            String taskDesc = parts[0].split(" ", 2)[1];
-            LocalDateTime afterFrom = LocalDateTime.parse(parts[1], dateTimeFormat);
-            LocalDateTime afterTo = LocalDateTime.parse(parts[2], dateTimeFormat);
-            Events ev = new Events(taskDesc, false, afterFrom, afterTo);
-            this.taskList.addTask(ev);
-            this.storage.write(this.taskList.getTaskList());
-            ui.showAddTaskMessage(this.taskList, ev);
+                String taskDesc = parts[0].split(" ", 2)[1];
+                LocalDateTime afterFrom = LocalDateTime.parse(parts[1], dateTimeFormat);
+                LocalDateTime afterTo = LocalDateTime.parse(parts[2], dateTimeFormat);
+                Events ev = new Events(taskDesc, false, afterFrom, afterTo);
+                this.taskList.addTask(ev);
+                this.storage.write(this.taskList.getTaskList());
+                ui.showAddTaskMessage(this.taskList, ev);
 
             } catch (Exception e) {
                 ui.showInvalidTimeFormatErrorMessage(parts[1] + " " + parts[2]);
@@ -244,7 +249,7 @@ public class Parser {
 
         } catch (InvalidArgumentException | EmptyTasksException | InvalidCommandException |
                  InvalidTaskDescriptionException | InvalidIndexException | InvalidTimeFormatException |
-                NullPointerException e) {
+                 NullPointerException e) {
             System.out.println(e.getMessage());
         }
 
