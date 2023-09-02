@@ -1,3 +1,9 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -14,8 +20,10 @@ public class Duke {
      */
     public static void main(String[] args) {
         // substring: begIndex (inclusive) up to the endIndex (exclusive)
-        int itemsAdded = 0;
-        ArrayList<Task> taskList = new ArrayList<>();
+        createFile();
+        ArrayList<Task> taskList = retrieveData();
+        int itemsAdded = taskList.size();
+
         System.out.println("Hello friend :> My name is John, nice to meet you! " +
                 "What do you have to do today?");
 
@@ -27,6 +35,7 @@ public class Duke {
 
             if (command.equals("bye")) {
                 System.out.println("Bye for now, hope to see you soon.");
+                save(taskList);
                 break;
             } else {
                 try {
@@ -66,6 +75,101 @@ public class Duke {
         }
 
         sc.close();
+    }
+
+    public static void createFile() {
+        try {
+            // Create if it doesn't exist
+            Files.createDirectories(Paths.get("./data/"));
+            File dataFile = new File("./data/duke.txt");
+            if (!dataFile.exists()) {
+                dataFile.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("Error creating data folder or file.");
+        }
+    }
+
+    public static ArrayList<Task> retrieveData() {
+        ArrayList<Task> taskList = new ArrayList<>();
+
+        try {
+            File file = new File("./data/duke.txt");
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine()) {
+                String dataLine = scanner.nextLine();
+                Task task = dataToTask(dataLine);
+                taskList.add(task);
+            }
+
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Data file not found. Creating a new one.");
+        }
+
+        return taskList;
+    }
+
+    public static void save(ArrayList<Task> taskList) {
+        try {
+            FileWriter writer = new FileWriter("./data/duke.txt");
+
+            for (Task task : taskList) {
+                // Write each task with specified format
+                writer.write(taskData(task) + "\n");
+            }
+
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving data.");
+        }
+    }
+
+    public static String taskData(Task task) {
+        String taskType = task instanceof ToDo ? "T" : task instanceof Deadline ? "D" : "E";
+        String status = task.isDone ? "1" : "0";
+        String description = task.description;
+
+        StringBuilder data = new StringBuilder();
+        data.append(taskType).append(" | ").append(status).append(" | ").append(description);
+
+        // Add additional information for Deadline and Event tasks
+        if (task instanceof Deadline) {
+            data.append(" | ").append(((Deadline) task).by);
+        } else if (task instanceof Event) {
+            data.append(" | ").append(((Event) task).from).append(" | ").append(((Event) task).to);
+        }
+
+        return data.toString();
+    }
+
+    public static Task dataToTask(String data) {
+        String[] info = data.split(" \\| ");
+        String taskType = info[0];
+        String status = info[1];
+        String description = info[2];
+
+        Task task;
+        switch (taskType) {
+            case "T":
+                task = new ToDo(description);
+                break;
+            case "D":
+                task = new Deadline(description, info[3]);
+                break;
+            case "E":
+                task = new Event(description, info[3], info[4]);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid task in data");
+        }
+
+        if (status.equals("1")) {
+            task.markAsDone();
+        }
+
+        return task;
     }
 
     public static void printList(ArrayList<Task> taskList, int itemsAdded) {
