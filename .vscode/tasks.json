@@ -1,0 +1,26 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "gradle",
+			"id": "/Users/evanyan13/Projects/CS2103:T/ipbuildip",
+			"script": "build",
+			"description": "Assembles and tests this project.",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"project": "ip",
+			"buildFile": "/Users/evanyan13/Projects/CS2103:T/ip/build.gradle",
+			"rootProject": "ip",
+			"projectFolder": "/Users/evanyan13/Projects/CS2103:T/ip",
+			"workspaceFolder": "/Users/evanyan13/Projects/CS2103:T/ip",
+			"args": "",
+			"javaDebug": false,
+			"problemMatcher": [
+				"$gradle"
+			],
+			"label": "gradle: build"
+		}
+	]
+}
