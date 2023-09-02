@@ -1,7 +1,10 @@
-import exception.DukeStorageException;
-import exception.TaskParseException;
-import exception.TimeUtilException;
-import tasks.Task;
+package duke.service;
+
+import duke.Duke;
+import duke.exception.DukeStorageException;
+import duke.exception.TaskParseException;
+import duke.exception.TimeUtilException;
+import duke.tasks.Task;
 
 import java.util.*;
 

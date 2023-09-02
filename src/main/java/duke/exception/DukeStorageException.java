@@ -1,4 +1,4 @@
-package exception;
+package duke.exception;
 
 public class DukeStorageException extends DukeException {
     public DukeStorageException(String message) {
