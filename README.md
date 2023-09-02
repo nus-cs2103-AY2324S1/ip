@@ -47,6 +47,9 @@ This is a project log for my individual project
 - Deadline/Event dates can now be understood in yyyy-MM-dd format, and are displayed back as MMM dd yyyy
   - Non-recognised formats will continue to be saved as a String
 
+### Level 9. Find
+- Users can now find tasks by searching for a keyword
+
 ## Other Increments
 
 ### Automated Text UI Testing
@@ -75,6 +78,9 @@ This is a project log for my individual project
   - 
 ### JavaDoc
 - JavaDoc header comments added to all classes and all non-trivial methods
+
+### Coding Standard
+- Code should now comply with the given coding standard for this project
 
 
 

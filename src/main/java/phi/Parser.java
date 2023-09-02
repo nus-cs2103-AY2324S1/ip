@@ -28,6 +28,7 @@ public class Parser {
 
             } else if (input.startsWith("mark")) {
                 return tasks.doTask(input);
+
             } else if (input.startsWith("unmark")) {
                 return tasks.undoTask(input);
 
@@ -60,6 +61,7 @@ public class Parser {
                 String deadlineString = input.substring(byFlag + 4);
                 return tasks.addTask(new Deadline(taskMsg, false, deadlineString));
 
+            // Handling of Event
             } else if (input.startsWith("event")) {
                 if (input.equals("event")) {
                     return "You gotta put an actual message in...";
@@ -95,8 +97,14 @@ public class Parser {
 
             } else if (input.equals("help")) {
                 return Ui.helpMsg();
+
+            // Handling of Find
             } else if (input.startsWith("find")) {
-                return tasks.findTasks(input);
+                if (input.equals("find")) {
+                    return "You gotta put something for me to find...";
+                }
+                String keyword = input.substring(5);
+                return tasks.findTasks(keyword);
             }
         }
         catch (IllegalArgumentException e) {
