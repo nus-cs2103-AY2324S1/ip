@@ -10,10 +10,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A Class to handle file reading and writing.
+ *
+ * @author marioalvaro
+ */
 public class Storage {
     private String pathFile = "./data/TaskStorage.txt";
-
     private File file = new File(pathFile);
+
+    /**
+     * A method to read the txt file
+     * @return an ArrayList of Task
+     * @throws Exception of the scanner and DukeNotTaskException
+     */
     public ArrayList<Task> readFile() throws Exception {
         Scanner sc = new Scanner(file);
         ArrayList<Task> readFile = new ArrayList<>();
@@ -49,7 +59,12 @@ public class Storage {
         return readFile;
     }
 
-    public void writeFile(TaskList taskList) throws Exception {
+    /**
+     * A method to write the file with the existing TaskList.
+     *
+     * @param taskList the taskList that want to be written
+     */
+    public void writeFile(TaskList taskList) {
         String newData = arrayToDataString(taskList);
 
         try {
@@ -66,7 +81,10 @@ public class Storage {
 
     }
 
-    public void checkFile() throws Exception {
+    /**
+     * A method to check if the file exist. If not, create a new .txt file.
+     */
+    public void checkFile() {
         try {
             File directory = new File("./data");
             if (!directory.exists()) {
@@ -82,6 +100,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Convert TaskList into String that compatible with the format of storing.
+     * @param taskList The taskList that want to be written
+     * @return a String with storing format
+     */
     public static String arrayToDataString(TaskList taskList) {
         String dataString = "";
 

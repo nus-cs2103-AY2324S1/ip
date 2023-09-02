@@ -5,9 +5,14 @@ import duke.exception.DukeIndexOutOfBoundException;
 import duke.exception.DukeNoTimeException;
 import duke.exception.DukeNotTaskException;
 
+/**
+ * A Class that handle task
+ *
+ * @author marioalvaro
+ */
 public class Task {
     /**
-     * the duke.task description
+     * the task description
      */
     protected String description;
     /**

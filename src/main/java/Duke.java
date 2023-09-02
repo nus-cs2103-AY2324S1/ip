@@ -9,13 +9,14 @@ import duke.ui.Ui;
 import java.util.Scanner;
 
 public class Duke {
-    /**
-     * array of duke task
-     */
+
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
 
+    /**
+     * A Constructor to create Duke Chat bot.
+     */
     public Duke() {
         storage = new Storage();
         this.ui = new Ui();
@@ -30,10 +31,8 @@ public class Duke {
 
     /**
      * method to run the code.
-     * @return boolean to check bye or not
-     * @throws DukeException throws duke.exception.DukeException
      */
-    public void run() throws Exception{
+    public void run() {
         ui.printGreet();
 
         while (true) {
@@ -59,7 +58,7 @@ public class Duke {
 
 
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         new Duke().run();
     }
 }
