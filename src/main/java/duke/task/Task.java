@@ -4,8 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a task with a description and completion status.
- * Tasks can be marked as done or undone.
+ * Represents a task with a description and completion status. Tasks can be marked as done or undone.
  */
 public abstract class Task {
 

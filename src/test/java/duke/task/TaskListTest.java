@@ -1,11 +1,12 @@
+package duke.task;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import duke.error.DukeException;
-import duke.task.TaskList;
-import duke.task.Todo;
-import duke.task.Task;
 
 public class TaskListTest {
 
@@ -29,7 +30,7 @@ public class TaskListTest {
     public void testMarkTaskInvalidIndex() {
         assertThrows(DukeException.class, () -> {
             TaskList taskList = new TaskList();
-            taskList.markTask(1);  // Attempting to mark a task when the list is empty
+            taskList.markTask(1); // Attempting to mark a task when the list is empty
         });
     }
 }

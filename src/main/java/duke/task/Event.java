@@ -3,8 +3,8 @@ package duke.task;
 import java.time.LocalDateTime;
 
 /**
- * Represents an event task with a description, start time, and end time.
- * Event tasks are tasks that occur within a specified time frame.
+ * Represents an event task with a description, start time, and end time. Event tasks are tasks that occur within a
+ * specified time frame.
  */
 public class Event extends Task {
 
@@ -34,12 +34,12 @@ public class Event extends Task {
     /**
      * Returns a string representation of the event task.
      *
-     * @return Formatted string showing the event's type, completion status, description,
-     * and start and end times.
+     * @return Formatted string showing the event's type, completion status, description, and start and end times.
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + formatLocalDateTime(from) + " to: " + formatLocalDateTime(to) + ")";
+        return "[E]" + super.toString() + " (from: " + formatLocalDateTime(from) + " to: " + formatLocalDateTime(to)
+                + ")";
     }
 
     /**
@@ -49,6 +49,7 @@ public class Event extends Task {
      */
     @Override
     public String serialize() {
-        return String.format("E | %d | %s | %s | %s", isDone ? 1 : 0, description, serializeLocalDateTime(from), serializeLocalDateTime(to));
+        return String.format("E | %d | %s | %s | %s", isDone ? 1 : 0, description, serializeLocalDateTime(from),
+                serializeLocalDateTime(to));
     }
 }
