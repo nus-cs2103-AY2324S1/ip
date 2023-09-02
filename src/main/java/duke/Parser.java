@@ -85,6 +85,15 @@ public class Parser {
                 ui.showInvalidIndex();
             }
             break;
+        case "find":
+            ui.separatorLines();
+            try {
+                String keyword = splittedCommands[1];
+                tasks.findTasks(keyword);
+            } catch (IndexOutOfBoundsException | NullPointerException e) {
+                throw new IncompleteInputException("find what eh! ");
+            }
+            break;
         case "bye":
             try {
                 storage.save(tasks);
