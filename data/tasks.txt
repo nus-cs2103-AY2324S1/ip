@@ -1,2 +1,8 @@
 [T][ ] hi
-[E][ ] nragwighl (from: 12 Dec 1212 00:00 to: 12 Dec 1212 00:00)
+[E][X] nragwighl (from: 12 Dec 1212 00:00 to: 12 Dec 1212 00:00)
+[T][ ] hey
+[T][X] hello
+[D][ ] toilet (by: 12 Dec 1212 12:12)
+[E][ ] sleep (from: 12 Dec 1212 00:00 to: 13 Dec 1212 00:00)
+[T][ ] heyyyy
+[T][ ] heyyyyyyyyyyyyyy

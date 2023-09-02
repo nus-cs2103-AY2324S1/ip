@@ -9,6 +9,7 @@ import command.DeadLineCommand;
 import command.DeleteCommand;
 import command.EchoCommand;
 import command.EventCommand;
+import command.FindCommand;
 import command.HelpCommand;
 import command.ListCommand;
 import command.MarkCommand;
@@ -153,6 +154,12 @@ public class Parser {
             return new DeleteCommand(taskNumToDel);
         case "help":
             return new HelpCommand();
+        case "find":
+            if (words.length < 2) {
+                throw new DukeException("Please provide a keyword for the find command.");
+            }
+            String keyword = input.substring(5).trim();
+            return new FindCommand(keyword);
         default:
             throw new DukeException("I'm sorry, but I don't understand that command.");
         }

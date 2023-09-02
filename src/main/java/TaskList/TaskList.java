@@ -1,4 +1,5 @@
 package taskList;
+
 import java.util.ArrayList;
 
 import task.Task;
@@ -6,7 +7,6 @@ import task.Task;
 /**
  * The `TaskList` class represents a collection of tasks in the BloopBot application.
  * It provides methods to manipulate the task list, such as adding, deleting, marking, and displaying tasks.
- * This class also allows for loading tasks from another `taskList` object.
  *
  * @author raydenlim
  * @version 0.0.0
@@ -132,5 +132,21 @@ public class TaskList {
     public void loadTasks(TaskList loadedTasks) {
         taskList.clear();
         taskList.addAll(loadedTasks.getTasks());
+    }
+
+    /**
+     * Finds and returns a list of tasks that contain the specified keyword in their descriptions.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return An ArrayList of tasks that match the keyword.
+     */
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
     }
 }
