@@ -1,3 +1,5 @@
+package duke.tasks;
+
 /**
  * Represents a task with a description and completion status.
  * This class provides basic functionality for managing tasks.
@@ -13,7 +15,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructs a Task object with the given description.
+     * Constructs a duke.tasks.Task object with the given description.
      *
      * @param description The description of the task.
      */
@@ -46,7 +48,7 @@ public class Task {
     }
 
     /**
-     * Returns a string representation of the Task object.
+     * Returns a string representation of the duke.tasks.Task object.
      *
      * @return A formatted string including the completion status icon and description.
      */

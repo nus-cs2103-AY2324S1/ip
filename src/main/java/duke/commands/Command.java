@@ -1,3 +1,5 @@
+package duke.commands;
+
 public enum Command {
     TODO,
     DEADLINE,

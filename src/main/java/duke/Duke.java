@@ -1,3 +1,15 @@
+package duke;
+
+import duke.commands.Command;
+import duke.exceptions.InvalidDateTimeException;
+import duke.exceptions.InvalidDescriptionException;
+import duke.exceptions.InvalidTaskIndexException;
+import duke.exceptions.MissingTaskIndexException;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
+
 import java.util.Scanner;
 
 /**
@@ -9,7 +21,7 @@ public class Duke {
     private Storage storage;
 
     /**
-     * Constructs a new instance of the Duke class.
+     * Constructs a new instance of the duke.Duke class.
      * Initialises the storage and task list.
      */
     public Duke() {

@@ -1,5 +1,11 @@
+package duke.ui;
+
+import duke.commands.Command;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+
 /**
- * The Ui class is responsible for managing user interactions and displaying messages.
+ * The duke.ui.Ui class is responsible for managing user interactions and displaying messages.
  */
 public class Ui {
 

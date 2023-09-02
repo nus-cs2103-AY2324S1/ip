@@ -1,9 +1,11 @@
+package duke.tasks;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
  * Represents a task with a specific deadline.
- * This class extends the Task class and adds a deadline to it.
+ * This class extends the duke.tasks.Task class and adds a deadline to it.
  */
 public class Deadline extends Task {
     /**
@@ -13,7 +15,7 @@ public class Deadline extends Task {
     protected LocalDate byDate;
     protected LocalTime byTime;
     /**
-     * Constructs a Deadline object with the given description and deadline.
+     * Constructs a duke.tasks.Deadline object with the given description and deadline.
      *
      * @param description The description of the task.
      * @param byDate The date deadline for the task.
@@ -27,7 +29,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline object.
+     * Returns a string representation of the duke.tasks.Deadline object.
      *
      * @return A formatted string including the task type, description, and deadline.
      */
