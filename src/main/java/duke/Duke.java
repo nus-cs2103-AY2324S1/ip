@@ -7,6 +7,9 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Initialises Duke and starts the interaction with the user.
+ */
 public class Duke {
 
     private Storage storage;
@@ -17,6 +20,9 @@ public class Duke {
 
     private Parser parser;
 
+    /**
+     * Initialises the application with the necessary components.
+     */
     public Duke() {
         ui = new Ui();
         storage = new Storage(ui);
@@ -29,6 +35,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the application.
+     * Starts the interaction with the user.
+     */
     public void run() {
         ui.startMessage();
 
@@ -46,6 +56,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Starts the application by calling the run method.
+     * 
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         new Duke().run();
     }

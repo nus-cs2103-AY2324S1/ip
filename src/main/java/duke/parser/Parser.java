@@ -18,13 +18,27 @@ import duke.command.ByeCommand;
 import duke.command.InvalidCommand;
 import duke.ui.Ui;
 
+/**
+ * Handles parsing of user input and file input.
+ */
 public class Parser {
     Ui ui;
 
+    /**
+     * Initialises the parser object with a Ui object.
+     * 
+     * @param ui The Ui object to handle user interaction.
+     */
     public Parser(Ui ui) {
         this.ui = ui;
     }
 
+    /**
+     * Parses the task from the file and returns a Task object.
+     * 
+     * @param fileTask The task in the file.
+     * @return A Task object.
+     */
     public Task parseFileTask(String fileTask) {
         String[] taskComponents = fileTask.split(" \\| ");
         String taskType = taskComponents[0];
@@ -56,6 +70,12 @@ public class Parser {
         return task;
     }
 
+    /**
+     * Parses the user input and returns a Command object.
+     * 
+     * @param input The user input.
+     * @return A Command object.
+     */
     public Command parseCommand(String input) {
         String[] inputComponents = input.split(" ");
         String command = inputComponents[0];
