@@ -47,9 +47,15 @@ public class Duke {
                     taskList.listAllTasks();
                     break;
                 case MARK_COMMAND:
+                    if (!taskList.validateTaskIndex(args.get(1))) {
+                        break;
+                    }
                     taskList.markTaskDone(args.get(1));
                     break;
                 case UNMARK_COMMAND:
+                    if (!taskList.validateTaskIndex(args.get(1))) {
+                        break;
+                    }
                     taskList.markTaskUndone(args.get(1));
                     break;
                 case TODO_NEW_TASK_COMMAND:
@@ -62,7 +68,7 @@ public class Duke {
                     taskList.addTask(new EventTask(args.get(1), args.get(2), args.get(3)));
                     break;
                 default:
-                    System.out.println(message);
+                    System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
             print_divider_line();
         }

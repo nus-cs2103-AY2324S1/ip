@@ -28,6 +28,25 @@ public class TaskList {
         System.out.printf("     %s\n", task);
     }
 
+    public boolean validateTaskIndex(String text) {
+        int index;
+        try {
+            Integer.parseInt(text);
+        } catch (NumberFormatException e) {
+            System.out.printf("Task index: '%s' is invalid, task index has to be an integer.\n", text);
+            return false;
+        }
+
+        index = Integer.parseInt(text);
+
+        if (index < 1 || index > this.tasks.size()) {
+            System.out.printf("Task index: '%s' is invalid, task index has to be in list.\n", text);
+            return false;
+        }
+
+        return true;
+    }
+    
     public void listAllTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 1; i <= this.tasks.size(); ++i) {
