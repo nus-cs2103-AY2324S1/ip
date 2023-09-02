@@ -13,11 +13,12 @@ public class TaskList {
     private ArrayList<Task> list;
     private File file;
 
-    public TaskList() {
+    public TaskList(File file) {
         this.list = new ArrayList<Task>();
+        this.file = file;
     }
 
-    public TaskList(File file) {
+    public void open() {
         this.list = new ArrayList<Task>();
         try {
             Scanner scanner = new Scanner(file);
@@ -39,7 +40,8 @@ public class TaskList {
             }
             scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
+            System.out.println("An error occurred when trying to find the file.");
+            e.getMessage();
             e.printStackTrace();
         } catch (DukeException e) {
             System.out.println(e);
