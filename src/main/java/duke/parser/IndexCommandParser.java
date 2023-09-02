@@ -42,7 +42,7 @@ public class IndexCommandParser extends CommandParser {
         case "unmark":
             return new UnmarkCommand(matcher);
         default:
-            throw new UnsupportedOperationException("Unimplemented method 'createCommand'");
+            throw new UnsupportedOperationException("Unimplemented method " + commandName);
         }
     }
 

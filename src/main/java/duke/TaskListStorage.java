@@ -177,4 +177,22 @@ public class TaskListStorage {
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
         Ui.printInLine(outpuString);
     }
+
+    /**
+     * Finds and printstasks that contain the keyword in their description
+     * @param keyword
+     */
+    public void findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        String outputString = "Here are the matching tasks in your list:\n";
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            outputString += (i + 1) + ". " + matchingTasks.get(i) + "\n";
+        }
+        Ui.printInLine(outputString);
+    } 
 }

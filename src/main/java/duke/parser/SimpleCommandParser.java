@@ -25,7 +25,7 @@ public class SimpleCommandParser extends CommandParser {
         case "list":
             return new duke.commands.ListCommand();
         default:
-            throw new UnsupportedOperationException("Unimplemented method 'createCommand'");
+            throw new UnsupportedOperationException("Unimplemented method " + commandName);
         }
     }
 }
