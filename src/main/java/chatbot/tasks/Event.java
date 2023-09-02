@@ -52,7 +52,7 @@ public class Event extends Task {
      * @return Formatted string representation of the event
      */
     @Override
-    public String store(){
+    public String store() {
         return String.format("E | %s | %s | %s - %s", this.isDone, this.description,
                 formattedStart.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")),
                 formattedEnd.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));

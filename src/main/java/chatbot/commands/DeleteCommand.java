@@ -7,7 +7,7 @@ import chatbot.ui.Ui;
 /**
  * Represents a command to delete a task in the task list
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     /**
      * Index of the task to be deleted in the task list
      */
@@ -17,7 +17,7 @@ public class DeleteCommand extends Command{
      * Constructor for DeleteCommand
      * @param num Index of the task to be deleted in the task list
      */
-    public DeleteCommand(int num){
+    public DeleteCommand(int num) {
         this.num = num;
     }
 

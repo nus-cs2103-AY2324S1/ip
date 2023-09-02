@@ -9,7 +9,7 @@ import chatbot.ui.Ui;
 /**
  * Represents a command to add an event task to the task list
  */
-public class EventCommand extends Command{
+public class EventCommand extends Command {
     /**
      * Description of the event task to be added
      */
@@ -31,7 +31,7 @@ public class EventCommand extends Command{
      * @param from Start date of the event
      * @param to End date of the event
      */
-    public EventCommand(String description, String from, String to){
+    public EventCommand(String description, String from, String to) {
         this.description = description;
         this.from = from;
         this.to = to;
@@ -54,7 +54,7 @@ public class EventCommand extends Command{
      */
     @Override
     public void execute(TaskList tasksList, Ui ui, Storage storage) {
-        Task event = new Event(description,from, to);
+        Task event = new Event(description, from, to);
         tasksList.addTask(event);
         ui.showAddedTask(tasksList);
     }

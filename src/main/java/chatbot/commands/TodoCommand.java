@@ -9,7 +9,7 @@ import chatbot.ui.Ui;
 /**
  * Represents a command to add a todo task to the task list
  */
-public class TodoCommand extends Command{
+public class TodoCommand extends Command {
     /**
      * Description of the todo task to be added
      */
@@ -19,7 +19,7 @@ public class TodoCommand extends Command{
      * Constructor for TodoCommand
      * @param description Description of the todo task to be added
      */
-    public TodoCommand(String description){
+    public TodoCommand(String description) {
 
         this.description = description;
     }

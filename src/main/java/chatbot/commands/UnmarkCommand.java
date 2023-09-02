@@ -7,7 +7,7 @@ import chatbot.ui.Ui;
 /**
  * Represents a command to unmark a previous marked task in the task list
  */
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
     /**
      * Index of task to be unmarked
      */
@@ -17,7 +17,7 @@ public class UnmarkCommand extends Command{
      * Constructor for UnmarkCommand class
      * @param num Index of the task to be unmarked.
      */
-    public UnmarkCommand(int num){
+    public UnmarkCommand(int num) {
         this.num = num;
     }
 

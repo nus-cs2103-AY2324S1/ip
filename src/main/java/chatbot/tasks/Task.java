@@ -33,14 +33,14 @@ public class Task {
     /**
      * Marks the task as undone
      */
-    public void markAsUndone(){
+    public void markAsUndone() {
         this.isDone = false;
     }
 
     /**
      * Marks the task as done
      */
-    public void markAsDone(){
+    public void markAsDone() {
         this.isDone = true;
     }
 
@@ -48,7 +48,7 @@ public class Task {
      * Returns the formatted string representation of the task
      * @return Formatted string representation of the task
      */
-    public String store(){
+    public String store() {
         return " ";
     }
 
@@ -57,7 +57,7 @@ public class Task {
      * @return Formatted string representation of the task
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description ;
     }
 }

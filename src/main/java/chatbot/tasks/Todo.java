@@ -8,7 +8,7 @@ public class Todo extends Task {
      * Constructor for todo
      * @param description Description of todo
      */
-    public Todo (String description){
+    public Todo (String description) {
         super(description);
     }
 
@@ -17,7 +17,7 @@ public class Todo extends Task {
      * @return Formatted string representation of the todo
      */
     @Override
-    public String store(){
+    public String store() {
         return String.format("T | %s | %s", this.isDone, this.description);
     }
 
@@ -26,7 +26,7 @@ public class Todo extends Task {
      * @return Formatted string representation of the todo
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "[T]" + super.toString();
     }
 }

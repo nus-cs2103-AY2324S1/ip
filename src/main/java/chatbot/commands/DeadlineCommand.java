@@ -9,7 +9,7 @@ import chatbot.ui.Ui;
 /**
  * Represents a command to add a deadline to the task list
  */
-public class DeadlineCommand extends Command{
+public class DeadlineCommand extends Command {
     /**
      * Description of the deadline to be added
      */
@@ -25,7 +25,7 @@ public class DeadlineCommand extends Command{
      * @param description Description of the deadline to be added
      * @param date Due date for the task
      */
-    public DeadlineCommand(String description, String date){
+    public DeadlineCommand(String description, String date) {
         this.description = description;
         this.date = date;
     }

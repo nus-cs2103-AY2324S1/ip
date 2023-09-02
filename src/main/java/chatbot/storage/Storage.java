@@ -22,7 +22,7 @@ public class Storage {
      * Constructor for Storage
      * @param path File path of the file used for storage
      */
-    public Storage(String path){
+    public Storage(String path) {
         this.file = new File(path);
 
         if(!file.exists()){
@@ -53,7 +53,7 @@ public class Storage {
      * Reads tasks from the storage file
      * @return Task list that contains the tasks read from the storage file
      */
-    public static TaskList readFromFile(){
+    public static TaskList readFromFile() {
         ArrayList<Task> taskList = new ArrayList<>();
         try (Scanner scanner = new Scanner(new File("./data/duke.txt"))) {
             while (scanner.hasNext()) {

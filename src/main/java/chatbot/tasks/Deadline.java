@@ -22,7 +22,7 @@ public class Deadline extends Task {
      * @param description Description of the deadline to be added
      * @param date Due date for the task
      */
-    public Deadline(String description, String date){
+    public Deadline(String description, String date) {
         super(description);
         this.date = date;
 
@@ -40,7 +40,7 @@ public class Deadline extends Task {
      * @return Formatted string representation of the deadline
      */
     @Override
-    public String store(){
+    public String store() {
         return String.format("D | %s | %s | %s", this.isDone, this.description,
                 formattedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
     }
@@ -50,7 +50,7 @@ public class Deadline extends Task {
      * @return Formatted string representation of the deadline
      */
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("[D] %s (by: %s)", super.toString(),
                 formattedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
     }

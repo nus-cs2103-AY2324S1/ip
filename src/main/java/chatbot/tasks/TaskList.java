@@ -15,7 +15,7 @@ public class TaskList {
      * Constructor of TaskList
      * @param inputs The initial list of tasks in the task list
      */
-    public TaskList(ArrayList<Task> inputs){
+    public TaskList(ArrayList<Task> inputs) {
         this.inputs = inputs;
     }
 
@@ -23,7 +23,7 @@ public class TaskList {
      * Adds the task to the task list
      * @param task Task to be added to the task list
      */
-    public void addTask(Task task){
+    public void addTask(Task task) {
         this.inputs.add(task);
     }
 
@@ -31,7 +31,7 @@ public class TaskList {
      * Removes the task at a particular index as done
      * @param num Index of the particular task in the task list
      */
-    public void removeTask(int num){
+    public void removeTask(int num) {
         if(num < 0){
             System.out.println("The value cannot be negative. Please try again.");
         } else if (num >= this.inputs.size()){
@@ -45,7 +45,7 @@ public class TaskList {
      * Marks the task at a particular index as done
      * @param num Index of the particular task in the task list
      */
-    public void markTask(int num){
+    public void markTask(int num) {
         if(num < 0){
             System.out.println("The value cannot be negative. Please try again.");
         } else if (num >= this.inputs.size()){
@@ -61,7 +61,7 @@ public class TaskList {
      * Unmarks the task at a particular index as done
      * @param num Index of the particular task in the task list
      */
-    public void unMarkTask(int num){
+    public void unMarkTask(int num) {
         if(num < 0){
             System.out.println("The value cannot be negative. Please try again.");
         } else if (num >= this.inputs.size()){
@@ -77,7 +77,7 @@ public class TaskList {
      * Returns the number of tasks in the task list
      * @return Number of tasks in the task list
      */
-    public int len(){
+    public int len() {
         return this.inputs.size();
     }
 
@@ -85,7 +85,7 @@ public class TaskList {
      * Retrieves the list of tasks stored in the task list
      * @return ArrayList that contains the tasks stored in the task list
      */
-    public ArrayList<Task> retrieveList(){
+    public ArrayList<Task> retrieveList() {
         return this.inputs;
     }
 }

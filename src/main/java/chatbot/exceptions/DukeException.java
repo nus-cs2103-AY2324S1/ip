@@ -3,12 +3,12 @@ package chatbot.exceptions;
 /**
  * Represents an exception that occurs in the program
  */
-public class DukeException extends Exception{
+public class DukeException extends Exception {
     /**
      * Constructor for DukeException
      * @param message Exception message that is thrown to the user
      */
-    public DukeException(String message){
+    public DukeException(String message) {
         super(message);
     }
 
@@ -17,7 +17,7 @@ public class DukeException extends Exception{
      * @return A string containing the message
      */
     @Override
-    public String toString(){
+    public String toString() {
         return super.getMessage();
     }
 }
