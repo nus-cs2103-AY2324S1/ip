@@ -8,6 +8,7 @@ import trackerbot.utils.Parser;
 
 /**
  * Collection of Tasks for use in TrackerBot.
+ *
  * @author WZWren
  * @version A-JavaDoc
  */
@@ -26,11 +27,11 @@ public class TaskList {
     /**
      * Attempts to add a new Task into the list.
      *
-     * @see trackerbot.utils.Parser#parseAdd
      * @param type The enumerated type of Command to add into the Task.
      * @param commandField The description of the Command.
      * @return The reply String to be passed into Ui.
      * @throws TrackerBotException if the addition of the task encounters an error during parse.
+     * @see trackerbot.utils.Parser#parseAdd
      */
     public String add(CommandType type, String commandField) throws TrackerBotException {
         Task newTask = Parser.parseAdd(type, commandField);

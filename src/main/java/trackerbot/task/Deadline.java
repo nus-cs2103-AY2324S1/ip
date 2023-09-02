@@ -19,10 +19,11 @@ public class Deadline extends Task {
 
     /**
      * Constructor for the class.
-     * @see trackerbot.utils.TaskDateHandler#convertInputToDate
+     *
      * @param desc The description of the Deadline task.
      * @param by The String representation of the deadline to parse into a LocalDateTime object.
      * @throws DateTimeParseException if the deadline cannot be parsed by TaskDateHandler.
+     * @see trackerbot.utils.TaskDateHandler#convertInputToDate
      */
     public Deadline(String desc, String by) throws DateTimeParseException {
         super(desc);
@@ -31,11 +32,12 @@ public class Deadline extends Task {
 
     /**
      * Constructs a Deadline using a String array, for use in save parsing.
-     * @see trackerbot.utils.TaskDateHandler#convertSaveToDate
+     *
      * @param args The arguments for constructing Deadline, containing isDone status in index
      *             0, description in index 1 and an epoch Date string in index 2
      * @throws DateTimeParseException if the deadline cannot be parsed by TaskDateHandler.
      * @throws NumberFormatException if the epoch save string is corrupted.
+     * @see trackerbot.utils.TaskDateHandler#convertSaveToDate
      */
     protected Deadline(String[] args) throws DateTimeParseException, NumberFormatException {
         super(args);
