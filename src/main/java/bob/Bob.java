@@ -5,21 +5,26 @@ import java.util.Scanner;
 
 import bob.command.Command;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 /**
  * Main class for Bob
  */
-public class Bob {
+public class Bob extends Application {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+
     /**
      * Bob constructor, initialise storage, tasks and ui
-     * @param dataPath is path to bob.txt
      */
-    public Bob(String dataPath) {
-        storage = new Storage(dataPath);
+    public Bob() {
+        storage = new Storage("./bob.txt");
         ui = new Ui();
 
         try {
@@ -51,8 +56,18 @@ public class Bob {
             }
         }
     }
+//
+//    public static void main(String[] args) {
+//        new Bob("./bob.txt").run();
+//    }
 
-    public static void main(String[] args) {
-        new Bob("./bob.txt").run();
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 }
+
