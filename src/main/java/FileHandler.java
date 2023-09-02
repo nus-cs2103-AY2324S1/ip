@@ -9,14 +9,13 @@ import java.util.Scanner;
 public class FileHandler {
     private final String path = "./data/duke.txt";
 
-    public void fileCreate(ArrayList<Task> arrayList) {
+    public void fileCreate() {
         try {
             File file = new File(path);
             if (file.createNewFile()) {
                 System.out.println("A new schedule is created!");
             } else {
-                System.out.println("There is an existing file!");
-                readFile(arrayList);
+                System.out.println("There is an existing schedule!");
             }
         } catch (IOException e) {
             System.out.println("Cannot create the file");
@@ -81,14 +80,15 @@ public class FileHandler {
                     task = new Event(content, isDone);
                     break;
                 default:
-                    throw new DukeContentWrongFormat();
+                    System.out.println(
+                            "The content of this task is in the wrong format: "
+                                    + content);
+                    continue;
                 }
                 arrayList.add(task);
             }
         } catch (FileNotFoundException e) {
             System.out.println("Cannot find the file");
-        } catch (DukeContentWrongFormat e) {
-            System.err.println(e.getMessage());
         }
     }
 
