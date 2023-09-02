@@ -1,8 +1,7 @@
-package Command;
+package command;
 
-import Task.Task;
 import java.util.ArrayList;
-
+import task.Task;
 public class UserInterface {
 
     public void showWelcomeMessage() {

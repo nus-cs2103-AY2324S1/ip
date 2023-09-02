@@ -1,4 +1,4 @@
-package Task;
+package task;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -55,6 +55,7 @@ public class Task {
             throw new IllegalArgumentException("Invalid task type: " + type);
         }
     }
+
     @Override
     public String toString() {
         return String.format("Task | %d | %s", isDone ? 1 : 0, description);

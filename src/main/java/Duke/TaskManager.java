@@ -1,45 +1,44 @@
-package Duke;
-
-import Task.Deadline;
-import Task.Event;
-import Task.Task;
-import Task.Todo;
+package duke;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
 public class TaskManager {
 
-    private ArrayList<Task> tasklist;
-    public TaskManager(ArrayList<Task> tasklist) {
+    private ArrayList<Task> taskList;
+    public TaskManager(ArrayList<Task> taskList) {
 
-        this.tasklist = tasklist;
+        this.taskList = taskList;
     }
     public ArrayList<Task> displayList() {
-        return tasklist;
+        return taskList;
     }
     public void mark(int index) {
-        tasklist.get(index).markAsDone();
+        taskList.get(index).markAsDone();
     }
 
     public void unmark(int index) {
-        tasklist.get(index).unmark();
+        taskList.get(index).unmark();
     }
 
     public void delete(int index) {
-        tasklist.remove(index);
+        taskList.remove(index);
     }
 
     public void todo(String description) {
-        tasklist.add(new Todo(description));
+        taskList.add(new Todo(description));
     }
 
     public void deadline(String description, LocalDateTime by) {
-        tasklist.add(new Deadline(description, by));
+        taskList.add(new Deadline(description, by));
     }
 
     public void event(String description, LocalDateTime from, LocalTime to) {
-        tasklist.add(new Event(description, from, to));
+        taskList.add(new Event(description, from, to));
     }
 }
