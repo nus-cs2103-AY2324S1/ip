@@ -1,5 +1,6 @@
 package storage;
 
+import exception.DateTimeParseBotException;
 import task.Task;
 import exception.FileErrorBotException;
 import task.TaskList;
@@ -38,7 +39,7 @@ public class Storage {
         }
     }
 
-    public static TaskList read() throws FileErrorBotException {
+    public static TaskList read() throws FileErrorBotException, DateTimeParseBotException {
         File file = new File(Storage.ABSOLUTE_FILE_PATH +
                 File.separator + Storage.FILE_NAME);
         file.getParentFile().mkdirs();

@@ -1,5 +1,6 @@
 package task;
 
+import exception.DateTimeParseBotException;
 import parsers.DatetimeParser;
 
 import java.time.LocalDateTime;
@@ -8,12 +9,12 @@ public class Deadline extends Task {
     private static final String TASK_HEADER = "[D] ";
     private final LocalDateTime time;
 
-    public Deadline(String name, String time) {
+    public Deadline(String name, String time) throws DateTimeParseBotException {
         super(name);
         this.time = DatetimeParser.parseTimeInput(time);
     }
 
-    public Deadline(String bool, String name, String time) {
+    public Deadline(String bool, String name, String time) throws DateTimeParseBotException {
         super(name, Boolean.parseBoolean(bool));
         this.time = DatetimeParser.convertToLocalDateTime(time);
     }

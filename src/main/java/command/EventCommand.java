@@ -1,5 +1,6 @@
 package command;
 
+import exception.DateTimeParseBotException;
 import exception.FileErrorBotException;
 import task.TaskList;
 import task.Event;
@@ -10,7 +11,8 @@ public class EventCommand extends Command {
     private final TaskList taskList;
     private final Event event;
 
-    public EventCommand(TaskList taskList, String taskDetail, String timeFrom, String timeTo) {
+    public EventCommand(TaskList taskList, String taskDetail, String timeFrom,
+                        String timeTo) throws DateTimeParseBotException {
         this.taskList = taskList;
         this.event = new Event(taskDetail, timeFrom, timeTo);
     }

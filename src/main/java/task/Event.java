@@ -1,5 +1,6 @@
 package task;
 
+import exception.DateTimeParseBotException;
 import parsers.DatetimeParser;
 import parsers.Parser;
 
@@ -11,13 +12,13 @@ public class Event extends Task {
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;
 
-    public Event(String name, String startTime, String endTime) {
+    public Event(String name, String startTime, String endTime) throws DateTimeParseBotException {
         super(name);
         this.startTime = DatetimeParser.parseTimeInput(startTime);
         this.endTime = DatetimeParser.parseTimeInput(endTime);
     }
 
-    public Event(String bool, String name, String startTime, String endTime) {
+    public Event(String bool, String name, String startTime, String endTime) throws DateTimeParseBotException {
         super(name, Boolean.parseBoolean(bool));
         this.startTime = DatetimeParser.convertToLocalDateTime(startTime);
         this.endTime = DatetimeParser.convertToLocalDateTime(endTime);

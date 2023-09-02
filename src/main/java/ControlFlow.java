@@ -9,6 +9,7 @@ import command.TerminateCommand;
 import command.TodoCommand;
 import command.UnmarkCommand;
 
+import exception.DateTimeParseBotException;
 import exception.FileErrorBotException;
 import exception.IllegalExpressionBotException;
 import exception.IncompleteBotException;
@@ -36,7 +37,7 @@ public class ControlFlow {
 
 
     public Command execute(String str) throws IllegalExpressionBotException,
-            IncompleteBotException, FileErrorBotException {
+            IncompleteBotException, FileErrorBotException, DateTimeParseBotException {
         if (str.isBlank()) {
             throw new IncompleteBotException("OOPS!!! There is no task specified.");
         }
@@ -53,66 +54,66 @@ public class ControlFlow {
         String timeFrom;
         String timeTo;
         switch(taskName) {
-            case ControlFlow.TERMINATE:
-                return new TerminateCommand();
-            case ControlFlow.TODO:
-                if (remainder.isBlank()) {
-                    throw new IncompleteBotException("OOPS!!! The description of a todo cannot be empty.");
-                } else {
-                    return new TodoCommand(this.taskList, remainder);
+        case ControlFlow.TERMINATE:
+            return new TerminateCommand();
+        case ControlFlow.TODO:
+            if (remainder.isBlank()) {
+                throw new IncompleteBotException("OOPS!!! The description of a todo cannot be empty.");
+            } else {
+                return new TodoCommand(this.taskList, remainder);
+            }
+        case ControlFlow.DEADLINE:
+            if (remainder.isBlank()) {
+                throw new IncompleteBotException("OOPS!!! The description of a deadline cannot be empty.");
+            } else {
+                taskSplit = Parser.getSplitAtBy(remainder);
+                if (taskSplit.length == 1) {
+                    throw new IncompleteBotException("OOPS!!! The timing of a deadline cannot be empty.");
                 }
-            case ControlFlow.DEADLINE:
-                if (remainder.isBlank()) {
-                    throw new IncompleteBotException("OOPS!!! The description of a deadline cannot be empty.");
-                } else {
-                    taskSplit = Parser.getSplitAtBy(remainder);
-                    if (taskSplit.length == 1) {
-                        throw new IncompleteBotException("OOPS!!! The timing of a deadline cannot be empty.");
-                    }
-                    taskDetail = Parser.getLeftOfSplit(taskSplit);
-                    timeline = Parser.getRightOfSplit(taskSplit);
-                    return new DeadlineCommand(this.taskList, taskDetail, timeline);
+                taskDetail = Parser.getLeftOfSplit(taskSplit);
+                timeline = Parser.getRightOfSplit(taskSplit);
+                return new DeadlineCommand(this.taskList, taskDetail, timeline);
+            }
+        case ControlFlow.EVENT:
+            if (remainder.isBlank()) {
+                throw new IncompleteBotException("OOPS!!! The description of an event cannot be empty.");
+            } else {
+                taskSplit = Parser.getSplitAtFrom(remainder);
+                if (taskSplit.length == 1) {
+                    throw new IncompleteBotException("OOPS!!! The starting timing of an event cannot be empty.");
                 }
-            case ControlFlow.EVENT:
-                if (remainder.isBlank()) {
-                    throw new IncompleteBotException("OOPS!!! The description of an event cannot be empty.");
-                } else {
-                    taskSplit = Parser.getSplitAtFrom(remainder);
-                    if (taskSplit.length == 1) {
-                        throw new IncompleteBotException("OOPS!!! The starting timing of an event cannot be empty.");
-                    }
-                    taskDetail = Parser.getLeftOfSplit(taskSplit);
-                    timeline = Parser.getRightOfSplit(taskSplit);
-                    timelineArr = Parser.getSplitAtTo(timeline);
-                    if (timelineArr.length == 1) {
-                        throw new IncompleteBotException("OOPS!!! The ending timing of an event cannot be empty.");
-                    }
-                    timeFrom = Parser.getLeftOfSplit(timelineArr);
-                    timeTo = Parser.getRightOfSplit(timelineArr);
-                    return new EventCommand(this.taskList, taskDetail, timeFrom, timeTo);
+                taskDetail = Parser.getLeftOfSplit(taskSplit);
+                timeline = Parser.getRightOfSplit(taskSplit);
+                timelineArr = Parser.getSplitAtTo(timeline);
+                if (timelineArr.length == 1) {
+                    throw new IncompleteBotException("OOPS!!! The ending timing of an event cannot be empty.");
                 }
-            case ControlFlow.MARK:
-                if (remainder.isBlank()) {
-                    throw new IncompleteBotException("OOPS!!! The task number to mark cannot be empty.");
-                } else {
-                    return new MarkCommand(this.taskList, remainder);
-                }
-            case ControlFlow.UNMARK:
-                if (remainder.isBlank()) {
-                    throw new IncompleteBotException("OOPS!!! The task number to unmark cannot be empty.");
-                } else {
-                    return new UnmarkCommand(this.taskList, remainder);
-                }
-            case ControlFlow.LIST:
-                return new ListCommand(this.taskList);
-            case ControlFlow.DELETE:
-                if (remainder.isBlank()) {
-                    throw new IncompleteBotException("OOPS!!! The task number to unmark cannot be empty.");
-                } else {
-                    return new DeleteCommand(this.taskList, remainder);
-                }
-            default:
-                return new ErrorCommand();
+                timeFrom = Parser.getLeftOfSplit(timelineArr);
+                timeTo = Parser.getRightOfSplit(timelineArr);
+                return new EventCommand(this.taskList, taskDetail, timeFrom, timeTo);
+            }
+        case ControlFlow.MARK:
+            if (remainder.isBlank()) {
+                throw new IncompleteBotException("OOPS!!! The task number to mark cannot be empty.");
+            } else {
+                return new MarkCommand(this.taskList, remainder);
+            }
+        case ControlFlow.UNMARK:
+            if (remainder.isBlank()) {
+                throw new IncompleteBotException("OOPS!!! The task number to unmark cannot be empty.");
+            } else {
+                return new UnmarkCommand(this.taskList, remainder);
+            }
+        case ControlFlow.LIST:
+            return new ListCommand(this.taskList);
+        case ControlFlow.DELETE:
+            if (remainder.isBlank()) {
+                throw new IncompleteBotException("OOPS!!! The task number to unmark cannot be empty.");
+            } else {
+                return new DeleteCommand(this.taskList, remainder);
+            }
+        default:
+            throw new IllegalExpressionBotException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }

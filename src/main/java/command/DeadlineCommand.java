@@ -1,5 +1,6 @@
 package command;
 
+import exception.DateTimeParseBotException;
 import exception.FileErrorBotException;
 import task.TaskList;
 import task.Deadline;
@@ -10,7 +11,8 @@ public class DeadlineCommand extends Command {
     private final TaskList taskList;
     private final Deadline deadline;
 
-    public DeadlineCommand(TaskList taskList, String taskDetail, String dueDate) {
+    public DeadlineCommand(TaskList taskList, String taskDetail,
+                           String dueDate) throws DateTimeParseBotException {
         this.taskList = taskList;
         this.deadline = new Deadline(taskDetail, dueDate);
     }

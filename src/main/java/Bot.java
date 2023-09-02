@@ -1,3 +1,4 @@
+import exception.DateTimeParseBotException;
 import exception.FileErrorBotException;
 import exception.IllegalExpressionBotException;
 import exception.IncompleteBotException;
@@ -14,14 +15,12 @@ public class Bot {
         this.ui = new Ui(new Scanner(System.in), taskList);
     }
 
-    public static void main(String[] args) throws IllegalExpressionBotException,
-            IncompleteBotException, FileErrorBotException {
+    public static void main(String[] args) throws FileErrorBotException, DateTimeParseBotException {
         Bot bot = new Bot(Storage.read());
         bot.start();
     }
 
-    public void start() throws IllegalExpressionBotException,
-            IncompleteBotException, FileErrorBotException {
+    public void start() {
         this.ui.start();
     }
 }
