@@ -8,6 +8,14 @@ import tasks.Todo;
 public class Ui {
 
 
+  public void displayGreetings() {
+    String greeting = "Hello! I'm KimochiUsagi (きもち　うさぎ)!\n";
+    String info = "Ask the bunny a question!\n";
+    System.out.println(greeting);
+    System.out.println(info);
+  }
+
+
   public String displayTask(Task task) {
     String answer = "";
 

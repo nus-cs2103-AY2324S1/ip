@@ -23,13 +23,9 @@ public class Duke {
 
   public void run() {
 
-    String greeting = "Hello! I'm KimochiUsagi (きもち　うさぎ)!\n";
-    String info = "Ask the bunny a question!\n";
     String goodbye = "Bye. See you again! (またね)";
-
+    ui.displayGreetings();
     storage.loadTasks();
-    System.out.println(greeting);
-    System.out.println(info);
 
     label:
     while (true) {
