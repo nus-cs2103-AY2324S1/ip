@@ -3,6 +3,7 @@ package duke.util;
 import duke.CheeException;
 import duke.task.Task;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -44,6 +45,14 @@ public class Ui {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task.toString());
         System.out.println("Now you have " + size + " tasks in the list.");
+    }
+
+    public void printFind (ArrayList<Task> tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            String toPrint = i + ". " + tasks.get(i).toString();
+            System.out.println(toPrint);
+        }
     }
 
     public void printExitMessage() {
