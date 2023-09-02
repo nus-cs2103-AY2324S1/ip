@@ -12,15 +12,15 @@ public class DeadlineTask extends Task {
         // add exceptions for time
     }
 
-    public static DeadlineTask makeDeadline(String allDetails) throws IllegalArgumentException {
+    public static DeadlineTask makeDeadline(String allDetails) throws BareumException {
         if (allDetails.length() == 0) {
-            throw new IllegalArgumentException("Deadline description cannot be empty.");
+            throw new BareumException("Deadline description cannot be empty.");
 
         }
 
         String[] descriptionDueTime = allDetails.split("/by ");
         if (descriptionDueTime.length <= 1) {
-            throw new IllegalArgumentException("Deadline due date cannot be empty.");
+            throw new BareumException("Deadline due date cannot be empty.");
         }
 
         String description = descriptionDueTime[0];
@@ -30,30 +30,16 @@ public class DeadlineTask extends Task {
             dueDate = LocalDate.parse(dueDateStr);
         } catch (DateTimeParseException e) {
             System.out.println(e.getMessage());
-            throw new IllegalArgumentException("Wrong date format.");
+            throw new BareumException("Wrong date format.");
         }
         return new DeadlineTask(false, description, dueDate);
     }
 
-    public static DeadlineTask makeDeadline(String[] taskInputs) throws IllegalArgumentException {
-        if (taskInputs.length != 4) {
-            throw new IllegalArgumentException("Wrong number of arguments." +
-                    "Current number of arguments: " + taskInputs.length);
-        }
-
-        if (taskInputs[2].length() == 0) {
-            throw new IllegalArgumentException("Deadline description cannot be empty.");
-        }
-
+    public static DeadlineTask makeDeadline(String[] taskInputs) {
         String description = taskInputs[2];
         String dueDateStr = taskInputs[3];
         LocalDate dueDate = null;
-        try {
-            dueDate = LocalDate.parse(dueDateStr);
-        } catch (DateTimeParseException e) {
-            System.out.println(e.getMessage());
-            throw new IllegalArgumentException("Wrong date format.");
-        }
+        dueDate = LocalDate.parse(dueDateStr);
         boolean isDone = taskInputs[1].equals("1");
         return new DeadlineTask(isDone, description, dueDate);
     }
@@ -61,13 +47,13 @@ public class DeadlineTask extends Task {
     @Override
     public String toString() {
         String dueDate = this.dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        return "[D][" + this.getStatusIcon() + "]" + this.description
+        return "[D][" + this.getStatusIcon() + "] " + this.description
                 + "(by: " + dueDate + ")";
     }
 
     @Override
     public String toSavedString() {
         String done = isDone ? "1" : "0";
-        return "E|" + done + "|" + this.description + "|" + dueDate +"\n";
+        return "D|" + done + "|" + this.description + "|" + dueDate +"\n";
     }
 }

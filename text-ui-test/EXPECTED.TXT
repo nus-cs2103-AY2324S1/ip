@@ -52,10 +52,12 @@ ________________________
 Bareum: Oops! The description of a todo cannot be empty.
 Correct format: todo <description>
 ________________________
-Bareum: Oops! The description of a deadline cannot be empty.
+Bareum: You are missing some arguments :(
+Current number of arguments: 1
 Correct format: deadline <description> /by <due date in YYYY-MM-DD>
 ________________________
-Bareum: Oops! The description of an event cannot be empty.
+Bareum: You are missing some arguments :(
+Current number of arguments: 1
 Correct format: event <description> /from <start time> /to <end time>
 ________________________
 Bareum: Oops! I'm sorry but I don't know what that means :(
