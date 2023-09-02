@@ -11,15 +11,29 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * The `Storage` class is responsible for loading, saving, and updating tasks in a file.
+ */
 public class Storage {
     private Path path;
     private File inFile;
 
+    /**
+     * Initializes a new instance of the `Storage` class with the specified file path.
+     *
+     * @param filePath The path to the storage file.
+     */
     public Storage(String filePath) {
         this.path = Paths.get(filePath);
         this.inFile = path.toFile();
     }
 
+
+    /**
+     * Loads tasks from the storage file and populates the given tasks list.
+     *
+     * @param tasks The list of tasks to populate with data from the storage file.
+     */
     public void loadTasks(ArrayList<Task> tasks) {
         try {
             if (!inFile.exists()) {
@@ -52,6 +66,12 @@ public class Storage {
         }
     }
 
+
+    /**
+     * Updates the status of a task as marked (completed) in the storage file.
+     *
+     * @param taskIndex The index of the task to be marked.
+     */
     public void updateTaskStatusAsMarked(int taskIndex) {
         try {
             File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
@@ -87,6 +107,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates the status of a task as unmarked in the storage file.
+     *
+     * @param taskIndex The index of the task to be unmarked.
+     */
     public void updateTaskStatusAsUnmarked(int taskIndex) {
         try {
             File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
@@ -122,6 +147,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves a to-do task to the storage file.
+     *
+     * @param todoTask The to-do task to be saved.
+     */
     public void saveTask(ToDoTask todoTask) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(inFile, true));
@@ -136,6 +166,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves a deadline task to the storage file.
+     *
+     * @param deadlineTask The deadline task to be saved.
+     */
     public void saveTask(DeadlineTask deadlineTask) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(inFile, true));
@@ -150,6 +185,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves an event task to the storage file.
+     *
+     * @param eventTask The event task to be saved.
+     */
     public void saveTask(EventTask eventTask) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(inFile, true));
@@ -164,6 +204,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes a task from the storage file based on its index.
+     *
+     * @param taskIndex The index of the task to be deleted.
+     */
     public void deleteTask(int taskIndex) {
         try {
             File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
