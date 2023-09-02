@@ -12,8 +12,7 @@ public class Duke {
     }
 
     public static void hello_world() {
-        System.out.println("Hello! I'm");
-        printName();
+        System.out.println("Hello! I'm Jing Sheng");
         System.out.println("What can I do for you?");
         print_divider_line();
     }
@@ -98,33 +97,10 @@ public class Duke {
 
     public static void goodbye_world() {
         System.out.println("Bye. Hope to see you again soon!");
-        print_thank_you();
         print_divider_line();
     }
 
     public static void print_divider_line() {
         System.out.println("═".repeat(CHAT_WIDTH));
-    }
-
-    public static void printName() {
-        String name = "\n" +
-                "     ██╗██╗███╗   ██╗ ██████╗     ███████╗██╗  ██╗███████╗███╗   ██╗ ██████╗ \n" +
-                "     ██║██║████╗  ██║██╔════╝     ██╔════╝██║  ██║██╔════╝████╗  ██║██╔════╝ \n" +
-                "     ██║██║██╔██╗ ██║██║  ███╗    ███████╗███████║█████╗  ██╔██╗ ██║██║  ███╗\n" +
-                "██   ██║██║██║╚██╗██║██║   ██║    ╚════██║██╔══██║██╔══╝  ██║╚██╗██║██║   ██║\n" +
-                "╚█████╔╝██║██║ ╚████║╚██████╔╝    ███████║██║  ██║███████╗██║ ╚████║╚██████╔╝\n" +
-                " ╚════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝     ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝ \n";
-        System.out.print(name);
-    }
-
-    public static void print_thank_you() {
-        String thankYou = "\n" +
-                "████████╗██╗  ██╗ █████╗ ███╗   ██╗██╗  ██╗    ██╗   ██╗ ██████╗ ██╗   ██╗\n" +
-                "╚══██╔══╝██║  ██║██╔══██╗████╗  ██║██║ ██╔╝    ╚██╗ ██╔╝██╔═══██╗██║   ██║\n" +
-                "   ██║   ███████║███████║██╔██╗ ██║█████╔╝      ╚████╔╝ ██║   ██║██║   ██║\n" +
-                "   ██║   ██╔══██║██╔══██║██║╚██╗██║██╔═██╗       ╚██╔╝  ██║   ██║██║   ██║\n" +
-                "   ██║   ██║  ██║██║  ██║██║ ╚████║██║  ██╗       ██║   ╚██████╔╝╚██████╔╝\n" +
-                "   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝       ╚═╝    ╚═════╝  ╚═════╝\n";
-        System.out.print(thankYou);
     }
 }

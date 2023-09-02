@@ -11,7 +11,7 @@ public class TaskList {
         this.tasks.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.printf("     %s\n", task);
-        System.out.printf("Now you have %d tasks in the task list. \n", this.tasks.size());
+        System.out.printf("Now you have %d tasks in the task list.\n", this.tasks.size());
     }
 
     public void markTaskDone(String text) {
@@ -46,7 +46,7 @@ public class TaskList {
 
         return true;
     }
-    
+
     public void listAllTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 1; i <= this.tasks.size(); ++i) {
