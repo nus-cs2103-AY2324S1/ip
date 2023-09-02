@@ -23,6 +23,8 @@ public class Storage {
     private final String filepath;
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
+    private boolean isLoaded = false;
+
     // Setting Mapper to serialize LocalDate to JSON
     static {
         MAPPER.registerModule(new JavaTimeModule());
@@ -47,6 +49,7 @@ public class Storage {
     public ArrayList<Task> load() throws InvalidFileException {
         try {
             tasks = MAPPER.readValue(new File(filepath), new TypeReference<>() {});
+            isLoaded = true;
             return tasks;
         } catch (FileNotFoundException e) {
             throw new InvalidFileException("File not found, will generate file on the next save...");
@@ -71,13 +74,18 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks based on loaded.
+     */
     public void save() {
-        try {
-            String jsonString = MAPPER.writerFor(new TypeReference<ArrayList<Task>>() {})
-                    .writeValueAsString(tasks);
-            Files.writeString(Path.of(filepath), jsonString, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (isLoaded) {
+            try {
+                String jsonString = MAPPER.writerFor(new TypeReference<ArrayList<Task>>() {})
+                        .writeValueAsString(tasks);
+                Files.writeString(Path.of(filepath), jsonString, StandardCharsets.UTF_8);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
