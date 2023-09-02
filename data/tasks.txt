@@ -1,0 +1,4 @@
+T | 0 | read book
+T | 0 | read assignment
+T | 0 | check class time
+D | 0 | read notes | 2023-08-12 16:00

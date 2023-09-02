@@ -1,6 +1,8 @@
 package helpers;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import tasks.Task;
 
@@ -105,6 +107,29 @@ public class TaskList {
             sb.append(index).append(".").append(task.toString()).append("\n");
         }
         return sb.toString().trim();
+    }
+
+    /**
+     * Method to filter the task list given user's string input
+     * @param regex Pattern to match in the task list
+     * @return Filtered task list
+     */
+    public String filterTaskList(String regex) {
+        StringBuilder sb = new StringBuilder();
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        for (Task t : this.tasks) {
+            int index = this.tasks.indexOf(t) + 1;
+            Matcher matcher = pattern.matcher(t.toString());
+
+            if (matcher.find()) {
+                sb.append(index).append(". ").append(t);
+
+                if (index < this.tasks.size()) {
+                    sb.append("\n");
+                }
+            }
+        }
+        return sb.toString();
     }
 
 }
