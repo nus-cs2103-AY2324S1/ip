@@ -1,3 +1,9 @@
+package crusader;
+
+import crusader.command.Command;
+import crusader.exception.CrusaderException;
+import crusader.exception.CrusaderMissingSaveFileException;
+
 public class Crusader {
     /** Logo generated from https://patorjk.com/software/taag */
     private static final String LOGO =
@@ -23,7 +29,7 @@ public class Crusader {
         this.storage = new Storage(filePath);
         try {
             taskList1 = new TaskList(storage.loadTasks());
-        } catch (MissingSaveFileException e) {
+        } catch (CrusaderMissingSaveFileException e) {
             ui.say("Creating a new file, file does not exist!");
             taskList1 = new TaskList();
         } catch (CrusaderException e) {

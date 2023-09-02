@@ -1,3 +1,9 @@
+package crusader.command;
+
+import crusader.exception.CrusaderException;
+import crusader.TaskList;
+import crusader.Ui;
+
 public abstract class Command {
     public Command() {
         // empty

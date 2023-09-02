@@ -1,3 +1,10 @@
+package crusader.command;
+
+import crusader.exception.CrusaderException;
+import crusader.task.Task;
+import crusader.TaskList;
+import crusader.Ui;
+
 public class MarkCommand extends Command {
     private final int index;
     private final boolean isMark;

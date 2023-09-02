@@ -1,16 +1,18 @@
+package crusader.task;
+
 /**
- * A task to do in the chatbot.
+ * A task to do in the bot.
  */
 public abstract class Task {
     /** Name of the task */
     private final String name;
 
     /** The completion status of the task */
-    private boolean doneness;
+    private boolean isDone;
 
     public Task(String name) {
         this.name = name;
-        doneness = false;
+        isDone = false;
     }
 
     public String getName() {
@@ -25,14 +27,14 @@ public abstract class Task {
     public abstract String toFormat();
 
     public boolean isDone() {
-        return doneness;
+        return isDone;
     }
 
     public void mark() {
-        doneness = true;
+        isDone = true;
     }
 
     public void unmark() {
-        doneness = false;
+        isDone = false;
     }
 }

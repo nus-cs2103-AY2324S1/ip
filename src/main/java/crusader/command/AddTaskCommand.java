@@ -1,3 +1,9 @@
+package crusader.command;
+
+import crusader.task.Task;
+import crusader.TaskList;
+import crusader.Ui;
+
 public class AddTaskCommand extends Command {
     private final Task task;
 
