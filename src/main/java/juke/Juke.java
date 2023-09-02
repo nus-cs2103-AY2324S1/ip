@@ -1,39 +1,19 @@
 package juke;
 
-import java.util.Scanner;
-
+import javafx.application.Application;
 import juke.commands.JukeExceptionCommand;
 import juke.exceptions.JukeInitialisationException;
 import juke.exceptions.parsers.JukeParseException;
 import juke.exceptions.storage.JukeStorageException;
-import juke.storage.Storage;
-import juke.tasks.TaskList;
+import juke.responses.Response;
 import juke.ui.Ui;
 
 /**
  * Juke Virtual Assistant
  */
 public class Juke {
-    /** UI for Juke. */
-    private final Ui ui;
-
-    /** Storage for Juke. */
-    private final Storage storage;
-
-    /** Task List for Juke. */
-    private final TaskList taskList;
-
-    /**
-     * Creates an instance of {@code Juke}.
-     *
-     * @throws JukeInitialisationException if there are issues with initialising Juke (storage, etc.)
-     * @throws JukeStorageException if there are issues with retrieving data from the datafile
-     */
-    public Juke() throws JukeInitialisationException, JukeStorageException {
-        this.storage = Storage.of();
-        this.taskList = TaskList.of(this.storage);
-        this.ui = new Ui(new Scanner(System.in), this.taskList);
-    }
+    /** Represents the longest string that can be printed. */
+    public static final int MAX_STRING_LENGTH = 35;
 
     /**
      * Runs when this Java file is compiled and executed. This method is used to start {@code Juke}
@@ -49,7 +29,7 @@ public class Juke {
                  | JukeParseException ex) {
             // program should not continue if it cannot initialise properly
             // or if there are issues with retrieving data from the datafile
-            new JukeExceptionCommand(ex).execute();
+            new JukeExceptionCommand(ex).execute(Response.of());
         }
     }
 
@@ -57,6 +37,6 @@ public class Juke {
      * Starts the UI for Juke.
      */
     public void start() {
-        this.ui.start();
+        Application.launch(Ui.class);
     }
 }

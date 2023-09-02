@@ -10,6 +10,7 @@ import juke.exceptions.arguments.JukeIllegalArgumentException;
 import juke.exceptions.arguments.JukeIllegalCommandArgumentException;
 import juke.parsers.DateTimeParser;
 import juke.parsers.Parser;
+import juke.responses.Response;
 import juke.tasks.JukeDeadline;
 import juke.tasks.JukeEvent;
 import juke.tasks.JukeTask;
@@ -253,6 +254,9 @@ public abstract class JukeCommand extends JukeObject {
 
     /**
      * Carries out an action when the command is executed.
+     *
+     * @param response {@code Response} object that contains response from Juke and the user
+     * @return {@code Response} object that contains response from Juke and the user
      */
-    public abstract void execute() throws JukeException;
+    public abstract Response execute(Response response) throws JukeException;
 }

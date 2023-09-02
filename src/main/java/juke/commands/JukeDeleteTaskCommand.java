@@ -1,8 +1,11 @@
 package juke.commands;
 
+import juke.Juke;
 import juke.exceptions.storage.JukeStorageException;
+import juke.responses.Response;
 import juke.tasks.JukeTask;
 import juke.tasks.TaskList;
+import juke.utils.StringUtils;
 
 /**
  * Action that deletes a Task from the {@code TaskList}.
@@ -28,11 +31,14 @@ public class JukeDeleteTaskCommand extends JukeCommand {
     /**
      * Carries out an action when the command is executed.
      *
+     * @param response {@code Response} object that contains response from Juke and the user
      * @throws JukeStorageException if there is an issue with storing changes
+     * @return {@code Response} object that contains response from Juke and the user
      */
     @Override
-    public void execute() {
+    public Response execute(Response response) {
         JukeTask jt = this.taskList.deleteTask(this.task);
-        System.out.print("Task deleted: " + jt);
+        return response.withJuke(
+                StringUtils.wrap("Task deleted: " + jt, Juke.MAX_STRING_LENGTH));
     }
 }

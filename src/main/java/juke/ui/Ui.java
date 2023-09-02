@@ -1,110 +1,51 @@
 package juke.ui;
 
-import java.util.Scanner;
+import java.io.IOException;
 
-import juke.commands.JukeCommand;
-import juke.commands.JukeExceptionCommand;
-import juke.commands.JukeExitCommand;
-import juke.core.JukeObject;
-import juke.exceptions.JukeException;
-import juke.tasks.TaskList;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import juke.exceptions.JukeInitialisationException;
+import juke.ui.components.MainWindow;
 
 /**
- * Orchestrates the operation of Juke by accepting commands and dispatching
- * them to the correct target methods.
+ * User interface of Juke. Extends {@link Application} to allow
+ * JavaFX to run this class like a GUI application.
  */
-public class Ui extends JukeObject {
-    /** Separator used by the virtual assistant to demarcate the start or end of a conversation */
-    private static final String JUKE_SEPARATOR = "\n-----------------------------------------------------------"
-            + "-------------------------------\n";
+public class Ui extends Application {
+    /** Height of the window. */
+    public static final double WINDOW_HEIGHT = 700.0d;
+
+    /** Width of the window. */
+    public static final double WINDOW_WIDTH = 450.0d;
 
     /**
-     * Juke Logo made from ASCII Art. Credits go to:
-     * <a href="https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20">...</a>
-     */
-    private static final String JUKE_LOGO =
-            "       __      __\n"
-                    + "      / /_  __/ /_____\n"
-                    + " __  / / / / / //_/ _ \\\n"
-                    + "/ /_/ / /_/ / ,< /  __/\n"
-                    + "\\____/\\__,_/_/|_|\\___/";
-
-    /** Introductory statement used by the assistant when first starting the assistant. */
-    private static final String INTRODUCTION_STRING = "What's up! My name is Juke (J|ava D|uke) and I will be "
-            + "your personal assistant for today!\nHow may I assist you?";
-
-    /** The Virtual Assistant's output CLI prompt. */
-    private static final String JUKE_OUTPUT = ">>> ";
-
-    /** The user's input CLI prompt. */
-    private static final String JUKE_INPUT = "juke> ";
-
-    /** Scanner instance used to capture user input. */
-    private final Scanner jukeScanner;
-
-    /** Instance of TaskList that handles all JukeTasks. */
-    private final TaskList taskList;
-
-    /**
-     * Creates an instance of Ui.
+     * Starts the JavaFX application.
      *
-     * @param jukeScanner {@code Scanner} object to read in user input
-     * @param taskList {@code TaskList} object that handles all {@code JukeTasks}
+     * @param stage the primary stage for this application, onto which
+     *     the application scene can be set. Applications may create
+     *     other stages, if needed, but they will not be primary stages.
      */
-    public Ui(Scanner jukeScanner, TaskList taskList) {
-        this.jukeScanner = jukeScanner;
-        this.taskList = taskList;
-    }
+    @Override
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Ui.class.getResource("/view/MainWindowController.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
 
-    /**
-     * Begins the operation of the Assistant.
-     */
-    public void start() {
-        this.printIntroduction();
-        this.run();
-    }
-
-    /**
-     * Dispatches the command and acts on it.
-     */
-    private void run() {
-        JukeCommand action = null;
-
-        do {
-            try {
-                // obtain user input
-                System.out.print(Ui.JUKE_INPUT);
-                String inputCommand = this.jukeScanner.nextLine();
-
-                // parse the action into a JukeAction object
-                // storage object is not passed into actions as storage is under the control of
-                // tasklist; external access to storage is not authorised
-                action = JukeCommand.of(inputCommand, this.taskList);
-                System.out.print(Ui.JUKE_OUTPUT);
-
-                // act on it, or any other future generated actions
-                action.execute();
-
-                System.out.print(Ui.JUKE_SEPARATOR);
-            } catch (JukeException ex) {
-                // a bit of Pokémon exception handling over here, but it is necessary
-                // to ensure that the UI obtains all possible exceptions to be thrown by the
-                // program over the course of its runtime
-                new JukeExceptionCommand(ex).execute();
-                System.out.print(Ui.JUKE_SEPARATOR);
-            }
-        } while (!(action instanceof JukeExitCommand));
-    }
-
-    /**
-     * Prints out the Introduction statements.
-     */
-    private void printIntroduction() {
-        String builder = Ui.JUKE_LOGO
-                + Ui.JUKE_SEPARATOR
-                + Ui.INTRODUCTION_STRING
-                + Ui.JUKE_SEPARATOR;
-
-        System.out.print(builder);
+            // specify the overall look of the window
+            // window is non-resizable with a height of 700px and a width of 450px
+            stage.setTitle(MainWindow.APPLICATION_NAME);
+            stage.setResizable(false);
+            stage.setMinHeight(Ui.WINDOW_HEIGHT);
+            stage.setMinWidth(Ui.WINDOW_WIDTH);
+            stage.show();
+        } catch (IOException e) {
+            throw new JukeInitialisationException("I cannot initialise! There was an issue loading the necessary "
+                                                          + "FXML files to load up the GUI!");
+        }
     }
 }

@@ -1,7 +1,10 @@
 package juke.commands;
 
+import juke.Juke;
 import juke.exceptions.storage.JukeStorageException;
+import juke.responses.Response;
 import juke.tasks.TaskList;
+import juke.utils.StringUtils;
 
 /**
  * Action that marks a {@code JukeTask} as undone.
@@ -27,11 +30,15 @@ public class JukeMarkTaskUndoneCommand extends JukeCommand {
     /**
      * Carries out an action when the command is executed.
      *
+     * @param response {@code Response} object that contains response from Juke and the user
      * @throws JukeStorageException if there is an issue with storing changes
+     * @return {@code Response} object that contains response from Juke and the user
      */
     @Override
-    public void execute() {
+    public Response execute(Response response) {
         this.taskList.setAsIncomplete(this.index);
-        System.out.print("Task Marked as Undone!\n" + this.taskList.getTaskInformation(this.index));
+        return response.withJuke(
+                StringUtils.wrap("Task marked as undone: " + this.taskList.getTaskInformation(this.index),
+                                 Juke.MAX_STRING_LENGTH));
     }
 }
