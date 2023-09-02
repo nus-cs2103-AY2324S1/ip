@@ -11,7 +11,8 @@ public enum Command {
     ADDTODO("todo"),
     ADDDEADLINE("deadline"),
     ADDEVENT("event"),
-    DELETETASK("delete");
+    DELETETASK("delete"),
+    FIND("find");
     private String command;
     private Command(String command) {
         this.command = command;
