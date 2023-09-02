@@ -16,8 +16,7 @@ public class DateTimeStub {
             return DateTime.createDateTime("25/08/2023 1800");
         } else if (input == "25/08/2023 1900") {
             return DateTime.createDateTime("25/08/2023 1900");
-        }
-        else if (DateTimeParser.isValidDateTime(input)) {
+        } else if (DateTimeParser.isValidDateTime(input)) {
             return DateTime.createDateTime(input);
         } else {
             throw new WrongInputException("Invalid date and time format",

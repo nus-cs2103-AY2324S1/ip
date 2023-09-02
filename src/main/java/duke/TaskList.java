@@ -56,7 +56,7 @@ public class TaskList {
 
         switch (taskType) {
         case "T":
-            return new ToDos(taskName,taskStatus);
+            return new ToDos(taskName, taskStatus);
         case "D":
             String deadline = splitString[3];
             DateTime deadlineDateTime = DateTime.createDateTimeFromStorage(deadline);
@@ -103,7 +103,6 @@ public class TaskList {
      * Deletes a task in a taskList given the index
      * @param index the index of the task to be deleted
      * @param totalItemCount the total number of the tasks
-     * @return the taskList
      */
     public void deleteTask(int index, int totalItemCount, Storage storage) {
         Task task = this.taskList.get(index);

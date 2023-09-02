@@ -2,9 +2,10 @@ package duke;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import java.io.FileWriter;
+
 
 /**
  * This class is used to represent the storage of the chat bot
@@ -74,7 +75,7 @@ public class Storage {
      * @return File object
      * @throws IOException if the file could not be created
      */
-    public static File createFile(String filePath)  {
+    public static File createFile(String filePath) {
         File file = new File(filePath);
         try {
             file.createNewFile();

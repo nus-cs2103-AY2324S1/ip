@@ -46,7 +46,7 @@ public class Ui {
     public void list(TaskList taskList) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskList.length(); i++) {
-            System.out.println(i + 1 + ". " +taskList.getTask(i));
+            System.out.println(i + 1 + ". " + taskList.getTask(i));
         }
     }
 
@@ -59,8 +59,8 @@ public class Ui {
         System.out.println("You have entered a invalid command, "
                 + commandWord + " is not a valid command");
         String message = "valid commands: ";
-        for (int i = 0; i < Command.validCommands.length; i++) {
-            message += ("\n" + Command.validCommands[i]);
+        for (int i = 0; i < Command.VALID_COMMANDS.length; i++) {
+            message += ("\n" + Command.VALID_COMMANDS[i]);
         }
         System.out.println(message);
     }
@@ -77,7 +77,7 @@ public class Ui {
         }
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < taskList.length(); i++) {
-            System.out.println(i + 1 + ". " +taskList.getTask(i));
+            System.out.println(i + 1 + ". " + taskList.getTask(i));
         }
     }
 
