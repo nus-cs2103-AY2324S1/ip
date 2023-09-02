@@ -163,7 +163,7 @@ public class Penguin {
                     taskList.addTask(newToDo);
                     memory.save(taskList);
                     return TODO + newToDo.getDisplay();
-                case "deadline":
+                case "deadline": 
                     spl = command.split("deadline | /by ");
                     Deadline newDeadline = new Deadline(spl[1], spl[2]);
                     taskList.addTask(newDeadline);
