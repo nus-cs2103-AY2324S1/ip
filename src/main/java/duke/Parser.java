@@ -10,6 +10,12 @@ public class Parser {
     enum ParserOutput {DELETE, MARK, UNMARK, APPEND, LIST, ECHO, EXIT}
     enum TaskType {TODO, EVENT, DEADLINE, GENERIC}
 
+    /**
+     * Parse the initial input by the user to determine future action
+     *
+     * @param input the text typed by the user
+     * @return An enum which indicates what the UI should do next
+     */
     public static ParserOutput parseInput(String input) {
         if (input.startsWith("mark")) {
             return ParserOutput.MARK;
@@ -32,6 +38,12 @@ public class Parser {
         return ParserOutput.APPEND;
     }
 
+    /**
+     * Determine the type of the task that is to be created
+     *
+     * @param task the text typed by the user
+     * @return An enum which indicates the type of the task to create
+     */
     public static TaskType parseTask(String task) {
         if (task.startsWith("todo")) {
             return TaskType.TODO;
