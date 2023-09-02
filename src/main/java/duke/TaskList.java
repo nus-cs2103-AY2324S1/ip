@@ -1,9 +1,9 @@
+package duke;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.io.Serializable;
-
 public class TaskList implements Serializable {
     static String indent = "   ";
     static String megaIndent = "     ";
@@ -16,7 +16,7 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * Gets the number of tasks in ArrayList<Task>
+     * Gets the number of tasks in ArrayList<duke.Task>
      *
      * @return The number of tasks in the collection
      */
@@ -24,16 +24,16 @@ public class TaskList implements Serializable {
         return tasks.size();
     }
     /**
-     * Gets the Task at the specific position of the ArrayList<Task>
+     * Gets the duke.Task at the specific position of the ArrayList<duke.Task>
      *
-     * @param i The position of the Task
-     * @return The Task
+     * @param i The position of the duke.Task
+     * @return The duke.Task
      */
     public Task getTask(int i) {
         return tasks.get(i);
     }
     /**
-     * Gets the ArrayList<Task>
+     * Gets the ArrayList<duke.Task>
      *
      * @return The collection
      */
@@ -53,7 +53,7 @@ public class TaskList implements Serializable {
     }
     /**
      * This method encapsulates the functionality of marking a task as completed or not
-     * For example, the input 'mark 1' will mark the Task at position 0 at the TaskArray as 'marked'
+     * For example, the input 'mark 1' will mark the duke.Task at position 0 at the TaskArray as 'marked'
      *
      * @param string the input string
      */
@@ -61,7 +61,7 @@ public class TaskList implements Serializable {
             String clean = string.replaceAll("\\D+", ""); //remove non-digits
             int pos = Integer.parseInt(clean) - 1;
             if (pos >= tasks.size() ) {
-                throw new DukeException("You are trying to access a Task that does not exist!");
+                throw new DukeException("You are trying to access a duke.Task that does not exist!");
             }
             Task curr = tasks.get(pos);
 
@@ -75,11 +75,11 @@ public class TaskList implements Serializable {
             System.out.println(megaIndent + curr.getStatusIconWithBracket() + " " + curr.description);
     }
     /**
-     * For deadline and event Tasks, obtains the description of the Task (before the first slash)
+     * For deadline and event Tasks, obtains the description of the duke.Task (before the first slash)
      * For example, the input 'event project meeting /from Mon 2pm /to 4pm' will return 'project meeting'
      *
-     * @param string of the Task
-     * @return the description of the Task
+     * @param string of the duke.Task
+     * @return the description of the duke.Task
      */
     public static String getDescription(String string) {
         int len = string.length();
@@ -93,10 +93,10 @@ public class TaskList implements Serializable {
         return string.substring(0, count);
     }
     /**
-     * A method for the Deadline class to obtain the by part of the Task description
+     * A method for the duke.Deadline class to obtain the by part of the duke.Task description
      * For example, the input 'deadline return book /by Sunday' will return 'Sunday'
      *
-     * @param string the Task description
+     * @param string the duke.Task description
      * @return the deadline
      * @throws DukeException if the input string is formatted wrongly
      */
@@ -111,12 +111,12 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * A method for the Event class to obtain the from part of the Event description
+     * A method for the duke.Event class to obtain the from part of the duke.Event description
      * For example, the input 'event project meeting /from Mon 2pm /to 4pm' will return 'Mon 2pm'
      *
-     * @param string the Task description
+     * @param string the duke.Task description
      * @return the from part of the event
-     * @throws DukeException throws DukeException if invalid input
+     * @throws DukeException throws duke.DukeException if invalid input
      */
     public static String getFrom(String string) throws DukeException {
         String slash = "/";
@@ -131,12 +131,12 @@ public class TaskList implements Serializable {
         return string.substring(firstSlash + 6, secondSlash - 1);
     }
     /**
-     * A method for the Event class to obtain the to part of the Event description
+     * A method for the duke.Event class to obtain the to part of the duke.Event description
      * For example, the input 'event project meeting /from Mon 2pm /to 4pm' will return '4pm'
      *
-     * @param string the Task description
+     * @param string the duke.Task description
      * @return the to part of the event
-     * @throws DukeException throws DukeException if invalid input
+     * @throws DukeException throws duke.DukeException if invalid input
      */
     public static String getTo(String string) throws DukeException {
         String slash = "/";
@@ -151,7 +151,7 @@ public class TaskList implements Serializable {
     /**
      * For an input such as 'todo borrow book', letter is 'T' and string is 'borrow book'
      *
-     * @param letter the letter corresponding to the first letter of the Task
+     * @param letter the letter corresponding to the first letter of the duke.Task
      * @param string the string corresponding to the chunk of text after the word todo, deadline, or event
      */
     public static void addTask(String letter, String string) throws DukeException {
@@ -173,7 +173,7 @@ public class TaskList implements Serializable {
     }
     /**
      * This method encapsulates deleting of a task from TaskArray
-     * For example, the input 'delete 3' will delete the Task at position 2 of TaskArray
+     * For example, the input 'delete 3' will delete the duke.Task at position 2 of TaskArray
      *
      * @param string the input string
      */
@@ -181,7 +181,7 @@ public class TaskList implements Serializable {
         String clean = string.replaceAll("\\D+", ""); //remove non-digits
         int pos = Integer.parseInt(clean) - 1;
         if (pos >= tasks.size()) {
-            throw new DukeException("You are trying to delete a Task that does not exist");
+            throw new DukeException("You are trying to delete a duke.Task that does not exist");
         } else {
             System.out.println(indent + "Noted. I've removed this task:");
             System.out.println(megaIndent + tasks.get(pos).toString());
@@ -190,11 +190,11 @@ public class TaskList implements Serializable {
         }
     }
     /**
-     * A function that takes in the by part of a Deadline Task, and converts it to a LocalDateTime
+     * A function that takes in the by part of a duke.Deadline duke.Task, and converts it to a LocalDateTime
      * For example, the input 'Sunday 1700' will return the corresponding LocalDateTime
      *
-     * @param string the by part of the Deadline Task
-     * @return the LocalDateTime corresponding to the Deadline
+     * @param string the by part of the duke.Deadline duke.Task
+     * @return the LocalDateTime corresponding to the duke.Deadline
      * @throws DukeException if a specific time in 24hr format is not put
      */
     private static LocalDateTime convertToLocalDateTime(String string) throws DukeException {
@@ -243,8 +243,8 @@ public class TaskList implements Serializable {
     /**
      * A function that helps convert a string to a LocalDateTime
      *
-     * @param input the by part of the Deadline Task, eg. "2/12/2019 1800"
-     * @param c whether or not the Deadline is put in a '-' format or '/' format
+     * @param input the by part of the duke.Deadline duke.Task, eg. "2/12/2019 1800"
+     * @param c whether or not the duke.Deadline is put in a '-' format or '/' format
      * @return a LocalDateTime
      * @throws DukeException if a specific time in 24hr format is not put
      */

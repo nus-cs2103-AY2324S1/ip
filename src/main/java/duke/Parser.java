@@ -1,3 +1,7 @@
+package duke;
+
+import duke.DukeException;
+
 /**
  * This class deals with making sense of the user command
  */
@@ -10,9 +14,9 @@ public class Parser {
      * This function takes in the user input and carries out the next steps accordingly
      *
      * @param userInput what the user types in to the console
-     * @param tasks the TaskList
-     * @param storage the Storage
-     * @throws DukeException from all the methods in TaskList
+     * @param tasks the duke.TaskList
+     * @param storage the duke.Storage
+     * @throws DukeException from all the methods in duke.TaskList
      */
     public static void parse(String userInput, TaskList tasks, Storage storage) throws DukeException {
         if (userInput.equals("list")) {

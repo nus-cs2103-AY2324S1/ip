@@ -1,3 +1,4 @@
+package duke;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -43,7 +44,7 @@ public class Ui {
     }
 
     /**
-     * Show the welcome message, and prints the existing content in the TaskList (if it exists)
+     * Show the welcome message, and prints the existing content in the duke.TaskList (if it exists)
      */
     public void showWelcome() {
         System.out.println(horizontalLines);

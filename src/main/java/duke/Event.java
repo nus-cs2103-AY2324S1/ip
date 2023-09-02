@@ -1,4 +1,4 @@
-import java.time.temporal.Temporal;
+package duke;
 public class Event extends Task {
     protected String from;
     protected String to;
