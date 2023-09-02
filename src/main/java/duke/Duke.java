@@ -17,12 +17,12 @@ public class Duke {
     private TaskList tasks;
     private final UI ui;
 
+    private boolean hasExited;
+
     /**
      * Constructs a Duke instance with the specified file path for data storage.
-     *
-     * @param filePath The file path where Duke's data is stored.
      */
-    public Duke(String filePath) {
+    public Duke() {
         this.ui = new UI();
         this.storage = new Storage("data", "duke.txt");
         try {
@@ -34,33 +34,39 @@ public class Duke {
     }
 
     /**
-     * The main entry point of the Duke application.
-     *
-     * @param args The command-line arguments (not used in this application).
+     * Shows the welcome message for Duke.
      */
-    public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+    public String init() {
+        ui.showWelcome();
+        return ui.getStatus();
+    }
+
+    public boolean getExitStatus() {
+        return hasExited;
     }
 
     /**
      * Runs the Duke application, displaying a welcome message and processing user commands until the user exits.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e);
-            } finally {
-                ui.showLine();
-            }
+    public void run(String input) {
+        try {
+            ui.showLine();
+            Command c = Parser.parse(input);
+            hasExited = c.isExit();
+            c.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            ui.showError(e);
+        } finally {
+            ui.showLine();
         }
     }
 
+    /**
+     * You should have your own function to generate a response to user input. Replace this stub with your completed
+     * method.
+     */
+    public String getResponse(String input) {
+        run(input);
+        return ui.getStatus();
+    }
 }

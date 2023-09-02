@@ -1,7 +1,5 @@
 package duke.lib;
 
-import java.util.Scanner;
-
 import duke.error.DukeException;
 
 
@@ -9,13 +7,10 @@ import duke.error.DukeException;
  * Represents the user interface of the Duke application.
  */
 public class UI {
-    private Scanner scanner;
+    private String currentStatus = "";
 
-    /**
-     * Constructs a UI object and initializes the scanner for user input.
-     */
-    public UI() {
-        this.scanner = new Scanner(System.in);
+    private void appendStatus(String status) {
+        currentStatus += status + "\n";
     }
 
     /**
@@ -23,63 +18,40 @@ public class UI {
      */
     public void showWelcome() {
         String logo =
-                "    ,o888888o.    8 8888        8          .8.    8888888 8888888888 8888888 8888888888 `8.`8888.   "
-                        + "   ,8'\n"
-                        + "   8888     `88.  8 8888        8         .888.         8 8888             8 8888        `8"
-                        + ".`8888.    ,8'\n"
-                        + ",8 8888       `8. 8 8888        8        :88888.        8 8888             8 8888         `8"
-                        + ".`8888.  ,8'\n"
-                        + "88 8888           8 8888        8       . `88888.       8 8888             8 8888          "
-                        + "`8.`8888.,8'\n"
-                        + "88 8888           8 8888        8      .8. `88888.      8 8888             8 8888           "
-                        + "`8.`88888'\n"
-                        +
-                        "88 8888           8 8888        8     .8`8. `88888.     8 8888             8 8888           "
-                        + " `8. 8888\n"
-                        + "88 8888           8 8888888888888    .8' `8. `88888.    8 8888             8 8888           "
-                        + "  `8 8888\n"
-                        + "`8 8888       .8' 8 8888        8   .8'   `8. `88888.   8 8888             8 8888           "
-                        + "   8 8888\n"
-                        + "   8888     ,88'  8 8888        8  .888888888. `88888.  8 8888             8 8888           "
-                        + "   8 8888\n"
-                        + "    `8888888P'    8 8888        8 .8'       `8. `88888. 8 8888             8 8888           "
-                        + "   8 8888\n";
+                "  ______  __    __       ___       _______  \n"
+                        + " /      ||  |  |  |     /   \\     |       \\ \n"
+                        + "|  ,----'|  |__|  |    /  ^  \\    |  .--.  |\n"
+                        + "|  |     |   __   |   /  /_\\  \\   |  |  |  |\n"
+                        + "|  `----.|  |  |  |  /  _____  \\  |  '--'  |\n"
+                        + " \\______||__|  |__| /__/     \\__\\ |_______/\n";
 
 
-        System.out.println("------------------------------------------");
-        System.out.println("Hi!! I am\n" + logo);
-        System.out.println("What brings you here today?");
-        System.out.println("------------------------------------------");
+        showLine();
+        appendStatus("Hi!! I am");
+        appendStatus(logo);
+        appendStatus("What brings you here today?");
+        showLine();
     }
 
     /**
      * Displays a goodbye message to the user.
      */
     public void showGoodbye() {
-        System.out.println("Oh.. bye");
+        appendStatus("Oh.. bye");
     }
 
     /**
      * Displays an error message for loading data from the save file.
      */
     public void showLoadingError() {
-        System.out.println("Error reading from save file.");
-    }
-
-    /**
-     * Reads and returns a user command input.
-     *
-     * @return The user's input command.
-     */
-    public String readCommand() {
-        return this.scanner.nextLine();
+        appendStatus("Error reading from save file.");
     }
 
     /**
      * Displays a separator line.
      */
     public void showLine() {
-        System.out.println("------------------------------------------");
+        appendStatus("");
     }
 
     /**
@@ -88,7 +60,7 @@ public class UI {
      * @param error The DukeException containing the error message.
      */
     public void showError(DukeException error) {
-        System.out.println(error.getMessage());
+        appendStatus(error.getMessage());
     }
 
     /**
@@ -97,6 +69,12 @@ public class UI {
      * @param message The message to be displayed.
      */
     public void showMessage(String message) {
-        System.out.println(message);
+        appendStatus(message);
+    }
+
+    public String getStatus() {
+        String tmp = currentStatus;
+        this.currentStatus = "";
+        return tmp;
     }
 }
