@@ -10,9 +10,24 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class Parser {
+    /**
+     * Constructor for Parser.
+     */
     public Parser() {
     }
 
+    /**
+     * Checks the command type and executes the command.
+     *
+     * @param commandGiven Command given by the user.
+     * @param tasks        TaskList object.
+     * @param ui           Ui object.
+     * @param storage      Storage object.
+     * @return Boolean value to determine if the program should terminate.
+     * @throws IncompleteInputException If the input is incomplete.
+     * @throws WrongMarkException       If the input is wrong.
+     * @throws InvalidInputException    If the input is invalid.
+     */
     public static boolean checkCommandType(String commandGiven,
            TaskList tasks,
            Ui ui,

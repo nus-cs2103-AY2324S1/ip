@@ -13,6 +13,12 @@ public class Storage {
     private File file;
     private Scanner sc;
 
+    /**
+     * Constructor for Storage.
+     *
+     * @param filePath Path to the file where the tasks are stored.
+     * @throws IOException If an input or output exception occurred.
+     */
     public Storage(String filePath) throws IOException {
         this.filePath = filePath;
         this.file = new File(filePath);
@@ -24,6 +30,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the tasks to the file.
+     *
+     * @param tasks TaskList object.
+     * @throws IOException If an input or output exception occurred.
+     */
     public void save(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
         for(Task task : tasks) {
@@ -32,6 +44,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Loads the tasks from the file.
+     *
+     * @return Scanner object containing tasks.
+     * @throws IOException If an input or output exception occurred.
+     */
     public Scanner load() throws IOException {
         if (sc != null) {
             return sc;
