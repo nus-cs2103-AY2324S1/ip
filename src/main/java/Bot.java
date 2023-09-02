@@ -1,7 +1,9 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import java.time.LocalDate;
 
 public class Bot {
     private final String botName;
@@ -81,7 +83,7 @@ public class Bot {
         }
     }
 
-    public void addTask(String str, String deadline) {
+    public void addTask(String str, LocalDate deadline) {
         Task task = new Deadline(str, deadline);
         this.list.addTask(task);
         notifyTaskAdded(task);
@@ -165,7 +167,8 @@ public class Bot {
                     idx++;
                 }
                 this.list.addTask(new Deadline(task.substring(7, idx - 4),
-                        task.substring(idx + 2, task.length() - 1)));
+                        LocalDate.parse(task.substring(idx + 2, task.length() - 1),
+                                DateTimeFormatter.ofPattern("MMM dd yyyy"))));
                 if (task.charAt(4) == 'X') {
                     this.list.mark(this.list.size(), true);
                 }
