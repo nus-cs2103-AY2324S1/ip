@@ -1,8 +1,8 @@
 package taskstuff;
 
+import duke.Parser;
 import java.time.LocalDateTime;
 
-import duke.Parser;
 
 /**
  * A class which inherits from task.Task class.
@@ -38,7 +38,7 @@ public class Event extends Task {
     @Override
     public String toString() {
 
-        return "[E]" + super.toString() + " (from: " + startTime.format(Parser.outputFormat) +
-                " to: " + endTime.format(Parser.outputFormat) + ")";
+        return "[E]" + super.toString() + " (from: " + startTime.format(Parser.OUTPUT_FORMAT)
+                + " to: " + endTime.format(Parser.OUTPUT_FORMAT) + ")";
     }
 }

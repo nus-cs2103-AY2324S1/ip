@@ -2,17 +2,18 @@ package storagestuff;
 
 import duke.DukeException;
 import duke.Parser;
-
-import taskstuff.Task;
-
-import java.util.ArrayList;
-
-import java.io.File;
-import java.io.IOException;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.BufferedWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import taskstuff.Task;
+
+
+
+
 
 /**
  * A class which handles reading and writing from storage file.
@@ -22,7 +23,7 @@ public class Storage {
     /**
      * String representing the filepath of storage file.
      */
-    private final String filePath;
+    private final String FILEPATH;
 
     /**
      * Initialises the filePath and makes the file and directory if they don't exist.
@@ -31,7 +32,7 @@ public class Storage {
      * @Throws duke.DukeException Throws duke.DukeException if error occurred during accessing or making file.
      */
     public Storage(String filePath) throws DukeException {
-        this.filePath = filePath;
+        this.FILEPATH = filePath;
         try {
 
             File file = new File(filePath);
@@ -50,11 +51,11 @@ public class Storage {
      * @return returns an array consisting of tasks loaded from the data file.
      * @throws DukeException Throws dukeException if error occurred during loading.
      */
-    public ArrayList<Task>  load() throws DukeException{
+    public ArrayList<Task> load() throws DukeException{
         ArrayList<Task> tasks = new ArrayList<>();
         BufferedReader bufferedReader = null;
         try {
-            FileReader fileReader = new FileReader(this.filePath);
+            FileReader fileReader = new FileReader(this.FILEPATH);
             bufferedReader = new BufferedReader(fileReader);
             String dataInput;
 
@@ -68,8 +69,6 @@ public class Storage {
 
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
             throw new DukeException("An error occurred when loading data. Try again.");
         } finally {
             if (bufferedReader != null) {
@@ -89,9 +88,9 @@ public class Storage {
      * @throws DukeException throws dukeException if error occurred during storing.
      */
     public void store(String[] s) throws DukeException {
-        File file = new File(this.filePath);
+        File file = new File(this.FILEPATH);
         file.delete();
-        file = new File(this.filePath);
+        file = new File(this.FILEPATH);
         try {
             file.createNewFile();
         } catch (IOException e) {
@@ -99,7 +98,7 @@ public class Storage {
         }
         BufferedWriter bufferedWriter  = null;
         try {
-            FileWriter fileWriter = new FileWriter(this.filePath);
+            FileWriter fileWriter = new FileWriter(this.FILEPATH);
             bufferedWriter = new BufferedWriter(fileWriter);
             for (int i = 0; i < s.length; i++) {
                 bufferedWriter.write(s[i]);

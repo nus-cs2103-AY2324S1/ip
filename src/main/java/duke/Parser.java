@@ -2,18 +2,17 @@ package duke;
 
 import instructionstuff.Instruction;
 import instructionstuff.InstructionEnum;
-
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.LocalDateTime;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import taskstuff.Event;
 import taskstuff.Task;
 import taskstuff.Todo;
 import taskstuff.Deadline;
 
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-import java.time.LocalDateTime;
 
 
 /**
@@ -23,8 +22,8 @@ import java.time.LocalDateTime;
  */
 public class Parser {
 
-    public static DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-    public static DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("d MMM yyyy hh:mm a");
+    public static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+    public static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d MMM yyyy hh:mm a");
 
 
     /**
@@ -117,7 +116,7 @@ public class Parser {
                 } else {
                     LocalDateTime dateTime;
                     try {
-                        dateTime = LocalDateTime.parse(matcher.group(9).trim(), Parser.inputFormat);
+                        dateTime = LocalDateTime.parse(matcher.group(9).trim(), Parser.INPUT_FORMAT);
                     } catch (DateTimeParseException e) {
                         throw new DukeException("Invalid date format. Try again.");
                     }
@@ -137,8 +136,8 @@ public class Parser {
                 } else {
                     LocalDateTime startDateTime, endDateTime;
                     try {
-                        startDateTime = LocalDateTime.parse(matcher.group(5).trim(), Parser.inputFormat);
-                        endDateTime = LocalDateTime.parse(matcher.group(6).trim(), Parser.inputFormat);
+                        startDateTime = LocalDateTime.parse(matcher.group(5).trim(), Parser.INPUT_FORMAT);
+                        endDateTime = LocalDateTime.parse(matcher.group(6).trim(), Parser.INPUT_FORMAT);
                     } catch (DateTimeParseException e) {
                         throw new DukeException("Invalid date format. Try again. ");
                     }
@@ -180,13 +179,13 @@ public class Parser {
             }
             break;
         case DEADLINE:
-            if (matcher.group(10) == null || matcher.group(10).isBlank() ||
-                    matcher.group(9) == null || matcher.group(9).isBlank()) {
+            if (matcher.group(10) == null || matcher.group(10).isBlank()
+                    || matcher.group(9) == null || matcher.group(9).isBlank()) {
                 throw new DukeException("");
             } else {
                 LocalDateTime dateTime;
                 try {
-                    dateTime = LocalDateTime.parse(matcher.group(10), Parser.outputFormat);
+                    dateTime = LocalDateTime.parse(matcher.group(10), Parser.OUTPUT_FORMAT);
                 } catch (DateTimeParseException e) {
                     throw new DukeException("");
                 }
@@ -194,15 +193,15 @@ public class Parser {
             }
             break;
         case EVENT:
-            if (matcher.group(5) == null || matcher.group(5).isBlank() || matcher.group(6) == null ||
-                    matcher.group(7) == null || matcher.group(6).isBlank() || matcher.group(7).isBlank()) {
+            if (matcher.group(5) == null || matcher.group(5).isBlank() || matcher.group(6) == null
+                    || matcher.group(7) == null || matcher.group(6).isBlank() || matcher.group(7).isBlank()) {
                 throw new DukeException("");
             } else {
                 LocalDateTime startDateTime;
                 LocalDateTime endDateTime;
                 try {
-                    startDateTime = LocalDateTime.parse(matcher.group(6), Parser.outputFormat);
-                    endDateTime = LocalDateTime.parse(matcher.group(7), Parser.outputFormat);
+                    startDateTime = LocalDateTime.parse(matcher.group(6), Parser.OUTPUT_FORMAT);
+                    endDateTime = LocalDateTime.parse(matcher.group(7), Parser.OUTPUT_FORMAT);
                 } catch (DateTimeParseException e) {
                     throw new DukeException("");
                 }

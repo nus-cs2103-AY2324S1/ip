@@ -1,12 +1,9 @@
 package duke;
 
-import taskstuff.TaskList;
-
-import storagestuff.Storage;
-
-import userstuff.Ui;
-
 import instructionstuff.Instruction;
+import storagestuff.Storage;
+import taskstuff.TaskList;
+import userstuff.Ui;
 
 /**
  * Main class of duke.Duke bot.

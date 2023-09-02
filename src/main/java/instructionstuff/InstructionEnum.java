@@ -16,14 +16,14 @@ public enum InstructionEnum {
     /**
      * An array storing possible string values of the instruction.
      */
-    private String[] values;
+    private final String[] VALUES;
 
     /**
      * Initialises the enums to their respective string values.
      * @param values The array of string value to assign to this enums values array.
      */
     private InstructionEnum(String... values) {
-        this.values = values;
+        this.VALUES = values;
     }
 
 
@@ -32,7 +32,7 @@ public enum InstructionEnum {
      * @return Returns the instruction of this enum.
      */
     private String[] getValues() {
-        return this.values;
+        return this.VALUES;
     }
 
     /**

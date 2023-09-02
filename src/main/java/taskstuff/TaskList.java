@@ -1,8 +1,8 @@
 package taskstuff;
 
+import duke.DukeException;
 import java.util.ArrayList;
 
-import duke.DukeException;
 /**
  * A class to hold a list of tasks and perform operations on
  * this list.

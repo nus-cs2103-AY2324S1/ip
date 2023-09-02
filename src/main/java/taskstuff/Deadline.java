@@ -1,8 +1,8 @@
 package taskstuff;
 
+import duke.Parser;
 import java.time.LocalDateTime;
 
-import duke.Parser;
 
 /**
  * A class which inherits from task.Task class.
@@ -30,7 +30,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + endTime.format(Parser.outputFormat) + ")";
+        return "[D]" + super.toString() + " (by: " + endTime.format(Parser.OUTPUT_FORMAT) + ")";
     }
 }
 
