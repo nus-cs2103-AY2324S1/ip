@@ -1,14 +1,22 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.io.IOException;
 import exceptions.*;
 
 public class Martin {
     private static ArrayList<Task> tasks = new ArrayList<>();
     public static void main(String[] args) throws InvalidCommandException, EmptyTaskDescriptionException {
+        loadFromFile();
+
         Scanner scanner = new Scanner(System.in);
 
         printMessage("Hello! I'm Martin\n     What can I do for you?");
-        
+
         while (true) {
             String input = scanner.nextLine();
             try {
@@ -19,16 +27,22 @@ public class Martin {
                     printTasks();
                 } else if (input.startsWith("delete")) {
                     deleteTask(input);
+                    saveToFile();
                 } else if (input.startsWith("mark")) {
                     markTask(input);
+                    saveToFile();
                 } else if (input.startsWith("unmark")) {
                     unmarkTask(input);
+                    saveToFile();
                 } else if (input.startsWith("todo")) {
                     addTodo(input);
+                    saveToFile();
                 } else if (input.startsWith("deadline")) {
                     addDeadline(input);
+                    saveToFile();
                 } else if (input.startsWith("event")) {
                     addEvent(input);
+                    saveToFile();
                 } else {
                     throw new InvalidCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
@@ -139,4 +153,40 @@ public class Martin {
         tasks.add(new Event(parts[0], timeParts[0], timeParts[1]));
         printMessage("Got it. I've added this task:\n       " + tasks.get(tasks.size() - 1) + "\n     Now you have " + tasks.size() + " tasks in the list.");
     }
+
+    public static void saveToFile() {
+        List<String> lines = new ArrayList<>();
+        for (Task task : tasks) {
+            lines.add(task.toFileFormat()); 
+        }
+        
+        Path path = Paths.get("./data/martin.txt");
+        try {
+            if (!Files.exists(path)) {
+                Files.createDirectories(path.getParent());
+                Files.createFile(path);
+            }
+            Files.write(path, lines, StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            printMessage("Error saving tasks to file.");
+        }
+    }
+    
+    public static void loadFromFile() {
+        Path path = Paths.get("./data/martin.txt");
+        if (Files.exists(path)) {
+            try {
+                List<String> lines = Files.readAllLines(path);
+                for (String line : lines) {
+                    try {
+                        tasks.add(Task.fromFileFormat(line));
+                    } catch (IllegalArgumentException e) {
+                        printMessage("Data file might be corrupted. (i.e., content not in expected format.)");
+                    }
+                }
+            } catch (IOException e) {
+                printMessage("Error reading tasks from file.");
+            }
+        }
+    }    
 }
