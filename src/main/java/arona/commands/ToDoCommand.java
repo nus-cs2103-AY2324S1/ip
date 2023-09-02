@@ -3,17 +3,17 @@ package arona.commands;
 import arona.storage.Storage;
 
 import arona.task.TaskList;
-import arona.task.TodoTask;
+import arona.task.ToDoTask;
 import arona.ui.Ui;
 
 public class ToDoCommand extends Command {
     private Storage storage;
-    private TodoTask todoTask;
+    private ToDoTask todoTask;
 
     public ToDoCommand(TaskList taskList, Ui ui, Storage storage, String description) {
         super(taskList, ui);
         this.storage = storage;
-        this.todoTask = new TodoTask(description);
+        this.todoTask = new ToDoTask(description);
     }
 
     @Override

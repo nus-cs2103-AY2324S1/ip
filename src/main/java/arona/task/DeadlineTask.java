@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 
 public class DeadlineTask extends Task {
     protected LocalDate date;
-
     public DeadlineTask(String description, LocalDate date) {
         super(description);
         this.date = date;
@@ -24,5 +23,4 @@ public class DeadlineTask extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (" + this.date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
-
 }

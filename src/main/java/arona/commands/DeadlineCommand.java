@@ -16,6 +16,7 @@ public class DeadlineCommand extends Command {
         this.storage = storage;
         this.deadlineTask = new DeadlineTask(descriptions[0], Parser.parseDate(descriptions[1]));
     }
+
     @Override
     public void execute() {
         taskList.getTasks().add(deadlineTask);

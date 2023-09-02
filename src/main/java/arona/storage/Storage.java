@@ -3,7 +3,7 @@ package arona.storage;
 import arona.task.DeadlineTask;
 import arona.task.EventTask;
 import arona.task.Task;
-import arona.task.TodoTask;
+import arona.task.ToDoTask;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -30,10 +30,10 @@ public class Storage {
 
             String line;
             while ((line = br.readLine()) != null) {
-                String[] strings = line.split("\\|"); //useparser
+                String[] strings = line.split("\\|");
                 switch (strings[0]) {
                 case "T":
-                    TodoTask todoTask = new TodoTask(strings[2], Integer.parseInt(strings[1]));
+                    ToDoTask todoTask = new ToDoTask(strings[2], Integer.parseInt(strings[1]));
                     tasks.add(todoTask);
                     break;
                 case "D":
@@ -51,6 +51,7 @@ public class Storage {
             System.out.println("Error reading from file: " + e.getMessage());
         }
     }
+
     public void updateTaskStatusAsMarked(int taskIndex) {
         try {
             File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
@@ -120,7 +121,8 @@ public class Storage {
             System.out.println(e.getMessage());
         }
     }
-    public void saveTask(TodoTask todoTask) {
+
+    public void saveTask(ToDoTask todoTask) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(inFile, true));
 

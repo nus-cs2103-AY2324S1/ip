@@ -3,7 +3,6 @@ package arona.commands;
 import arona.task.TaskList;
 import arona.ui.Ui;
 
-
 public abstract class Command {
     protected TaskList taskList;
     protected Ui ui;

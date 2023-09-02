@@ -18,16 +18,17 @@ public class Parser {
         }
         return "";
     }
+
     public static String getToDoDescription(String[] tokens) throws IllegalArgumentAronaException {
         if (tokens.length < 2) {
-            throw new IllegalArgumentAronaException("Oh no! You forgot to specify the arona.task!");
+            throw new IllegalArgumentAronaException("Oh no! You forgot to specify the task!");
         }
         return String.join(" ", Arrays.copyOfRange(tokens, 1, tokens.length));
     }
 
     public static String[] getDeadlineDescription(String[] tokens) throws IllegalArgumentAronaException {
         if (tokens.length < 2) {
-            throw new IllegalArgumentAronaException("Oh no! You forgot to specify the arona.task!");
+            throw new IllegalArgumentAronaException("Oh no! You forgot to specify the task!");
         }
 
         boolean byFound = false;

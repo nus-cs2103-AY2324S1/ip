@@ -22,6 +22,7 @@ public class EventTask extends Task{
     public String getTo() {
         return this.to;
     }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (" + from + " " + to + ")";
