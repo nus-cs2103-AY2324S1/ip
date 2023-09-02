@@ -1,6 +1,5 @@
 package duke.util;
 
-
 import duke.exception.TimeUtilException;
 
 import java.time.LocalDate;
@@ -9,54 +8,78 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
+/**
+ * Provides utility functions to handle and format time-related inputs.
+ * <p>
+ * This utility class provides multiple date and time formats for parsing,
+ * which can be helpful in accommodating various user inputs.
+ * </p>
+ */
 public class TimeUtil {
     private static final DateTimeFormatter[] DATE_TIME_FORMATTERS = {
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"), // 2023-05-28 1800
-            DateTimeFormatter.ofPattern("yyyyMMdd HHmm")  // 20230528 1800
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
+            DateTimeFormatter.ofPattern("yyyyMMdd HHmm")
     };
 
     private static final DateTimeFormatter[] DATE_ONLY_FORMATTERS = {
-            DateTimeFormatter.ISO_LOCAL_DATE, // yyyy-mm-dd
-            DateTimeFormatter.BASIC_ISO_DATE, // yyyymmdd
-            DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH), // 1 Jan 2023
-            DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH), // 1 January 2023
+            DateTimeFormatter.ISO_LOCAL_DATE,
+            DateTimeFormatter.BASIC_ISO_DATE,
+            DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH),
+            DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH)
     };
 
     private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
+    // Private constructor to prevent instantiation
     private TimeUtil() {}
 
+    /**
+     * Parses the provided date-time string to a LocalDateTime object.
+     * <p>
+     * The function tries various date-time patterns to find a match.
+     * If none of the patterns match, it throws a TimeUtilException.
+     * </p>
+     *
+     * @param input The date-time string to parse.
+     * @return A LocalDateTime object.
+     * @throws TimeUtilException If the input string cannot be parsed.
+     */
     public static LocalDateTime parseDateTimeString(String input) throws TimeUtilException {
         LocalDateTime dateTime = handleSpecialStrings(input);
         if (dateTime != null) {
             return dateTime;
         }
-        // Attempt to parse with date-time formatters first
         for (DateTimeFormatter formatter : DATE_TIME_FORMATTERS) {
             try {
                 return LocalDateTime.parse(input, formatter);
             } catch (DateTimeParseException ignored) {
-                // Try next formatter.
             }
         }
-
-        // If not parsed yet, try date-only formatters and combine with current time.
         for (DateTimeFormatter formatter : DATE_ONLY_FORMATTERS) {
             try {
                 LocalDate parsedDate = LocalDate.parse(input, formatter);
                 return LocalDateTime.of(parsedDate, LocalDateTime.now().toLocalTime());
             } catch (DateTimeParseException ignored) {
-                // Try next formatter.
             }
         }
-        // If input is not in a recognised format.
         throw new TimeUtilException(getHelpMessage());
     }
 
+    /**
+     * Formats a LocalDateTime object to a human-readable string.
+     *
+     * @param localDate The LocalDateTime object to format.
+     * @return A string representation of the LocalDateTime object.
+     */
     public static String formatLocalDateTime(LocalDateTime localDate) {
         return localDate.format(DISPLAY_FORMATTER);
     }
 
+    /**
+     * Returns a help message explaining valid date formats.
+     *
+     * @return A string containing a list of valid date formats.
+     */
     public static String getHelpMessage() {
         return "Invalid date format! Please use one of the following formats:" +
                 "\n- yyyy-MM-dd HHmm (e.g. 2023-05-28 1800)" +
@@ -70,6 +93,15 @@ public class TimeUtil {
                 "\n- tomorrow";
     }
 
+    /**
+     * Handles special string inputs, converting them to LocalDateTime.
+     * <p>
+     * The function currently supports 'today' and 'tomorrow' as special strings.
+     * </p>
+     *
+     * @param input The special string input.
+     * @return A LocalDateTime representation of the input, or null if the input is not special.
+     */
     private static LocalDateTime handleSpecialStrings(String input) {
         switch (input.toLowerCase()) {
             case "today":
