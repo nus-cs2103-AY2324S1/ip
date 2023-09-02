@@ -1,3 +1,8 @@
-deadline return book /by 2/12/2019 |0
-event return book /from 2/12/2019  /to 10/11/2011 |0
-todo return book |0
+
+deadline eat /by 03/04/2003 |1
+event nus boxing /from 03/04/2003/to 04/05/2004 |0
+event nus boxing /from 03/04/2003/to 04/05/2004 |0
+event nus boxing /from 03/04/2003/to 04/05/2004 |0
+deadline eat /by 03/04/2003 |0
+todo study  |0
+event nus boxing /from 03/04/2003/to 04/05/2004 |0
