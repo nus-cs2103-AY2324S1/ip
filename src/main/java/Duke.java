@@ -21,6 +21,24 @@ public class Duke {
     this.storage = new Storage(this.taskList);
   }
 
+
+  public void listTasks() {
+
+    if (taskList.isEmpty()) {
+      System.out.println("list is empty!");
+      return;
+    }
+
+    for (int i = 0; i < taskList.size(); i++) {
+
+      String index = Integer.toString(i + 1);
+      Task selectedTask = taskList.get(i);
+      System.out.println(index + " " + ui.displayTask(selectedTask));
+
+    }
+
+  }
+
   public void run() {
 
     ui.displayGreetings();
@@ -44,19 +62,7 @@ public class Duke {
         case "bye":
           break label;
         case "list":
-
-          if (taskList.isEmpty()) {
-            System.out.println("list is empty!");
-            break;
-          }
-
-          for (int i = 0; i < taskList.size(); i++) {
-
-            String index = Integer.toString(i + 1);
-            Task selectedTask = taskList.get(i);
-            System.out.println(index + " " + ui.displayTask(selectedTask));
-
-          }
+          listTasks();
           break;
         case "mark": {
           try {
@@ -138,7 +144,6 @@ public class Duke {
           System.out.println("Please enter a suitable task!");
       }
     }
-
 
     ui.displayGoodbye();
     storage.saveTasks();
