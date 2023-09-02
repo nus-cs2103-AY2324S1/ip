@@ -1,3 +1,5 @@
+package chatbot;
+
 import chatbot.exceptions.ChatBotException;
 import chatbot.parser.Parser;
 import chatbot.storage.Storage;

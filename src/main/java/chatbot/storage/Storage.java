@@ -14,6 +14,7 @@ import chatbot.task.TaskList;
 import chatbot.task.Event;
 import chatbot.task.Task;
 import chatbot.task.Deadline;
+import chatbot.task.TaskType;
 
 /**
  * Storage class that handles storing and loading saved lists.
@@ -63,15 +64,16 @@ public class Storage {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     String[] parts = line.split("\\|");
-                    switch (parts[0].trim()) {
-                        case("T"): 
+                    TaskType taskType = TaskType.parseInput(parts[0].trim());
+                    switch (taskType) {
+                        case TODO: 
                             loadedList.add(new ToDo(parts[2].trim()));
                             if (Integer.parseInt(parts[1].trim()) == 1) {
                                 loadedList.get(loadedList.size() - 1).done();
                             }
                             break;
 
-                        case("D"):
+                        case DEADLINE:
                             loadedList.add(new Deadline(parts[2].trim(), parts[3].trim()));
                             if (Integer.parseInt(parts[1].trim()) == 1) {
                                 Task task = loadedList.get(loadedList.size() - 1);
@@ -79,7 +81,7 @@ public class Storage {
                             }
                             break;
                         
-                        case("E"):
+                        case EVENT:
                             loadedList.add(new Event(parts[2].trim(), parts[3].trim(), parts[4].trim()));
                             if (Integer.parseInt(parts[1].trim()) == 1) {
                                 loadedList.get(loadedList.size() - 1).done();

@@ -27,10 +27,10 @@ public class Parser {
      * the chatbot to execute.
      * 
      * @param input String input from user
-     * @return Command depending on input.
-     * @throws InvalidDescriptionException
-     * @throws InvalidCommandException 
-     * @throws InvalidIndexException
+     * @return Command command depending on input.
+     * @throws InvalidDescriptionException Exception thrown when an invalid command description is passed.
+     * @throws InvalidCommandException Exception thrown when an invalid command is passed
+     * @throws InvalidIndexException Exception thrown when an invalid index is passed.
      */
     public static Command parse(String input) throws 
         InvalidDescriptionException, InvalidCommandException, InvalidIndexException {

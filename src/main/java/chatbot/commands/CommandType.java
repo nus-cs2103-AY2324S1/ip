@@ -33,7 +33,6 @@ public enum CommandType {
                 return command;
             }
         }
-
         return null;
     }
 }
