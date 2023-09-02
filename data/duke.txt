@@ -1,7 +1,4 @@
-[T][X] borrow book
-[D][ ] return book (by: Sep 3 2023)
-[E][X] project meeting (from: Sep 4 2023 2pm to: 4pm)
-[E][X] project meeting (from: Sep 6 2023 2pm to: 4pm)
-[E][ ] Career Fair (from: Sep 4 2023 to: Sep 2 2023)
-[E][ ] go library study (from: Sep 3 2023 2pm to: 4pm)
+[T][ ] borrow book
+[D][X] return book (by: Dec 2 2019 1800)
+[E][ ] project meeting (from: Sep 4 2023 2pm to: 4pm)
 [D][ ] finish CS2103T ip (by: Sep 3 2023 2359)

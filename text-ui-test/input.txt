@@ -7,5 +7,6 @@ mark 4
 todo borrow book
 list
 deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+event project meeting /from Monday 2pm /to 4pm
+deadline finish slides /by Sunday 2359
 bye

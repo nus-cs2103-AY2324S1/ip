@@ -1,5 +1,9 @@
-public class ToDo extends Task{
+package duke.task;
 
+
+import duke.exception.DukeNoDescriptionException;
+
+public class ToDo extends Task{
     public ToDo(String Description) throws DukeNoDescriptionException{
         super(Description);
         if (Description.split("\\s+").length == 1) {
@@ -16,6 +20,7 @@ public class ToDo extends Task{
     }
     @Override
     public String toString() {
+
         return "[T]" + super.toString();
     }
 }

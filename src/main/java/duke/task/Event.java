@@ -1,3 +1,8 @@
+package duke.task;
+
+import duke.exception.DukeNoDateException;
+import duke.exception.DukeNoDescriptionException;
+import duke.processors.TimeProcessor;
 public class Event extends Task{
     public Event(String Description) throws DukeNoDescriptionException, DukeNoDateException {
         super(Description);
