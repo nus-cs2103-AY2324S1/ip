@@ -15,8 +15,18 @@ import java.time.format.FormatStyle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Handles parsing for Fluke.
+ */
 public class Parser {
     private final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
+
+    /**
+     * Parses a command (input as a string by the user) into an Enum value
+     * @param nextCommand Command to be parsed
+     * @return a Command corresponding to the command given.
+     * @throws InvalidInputException if the command given is invalid.
+     */
     public static Fluke.Command parseCommand(String nextCommand) throws InvalidInputException {
         if (nextCommand.equals("bye")) {
             return Fluke.Command.BYE;
@@ -39,6 +49,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the task from a line in the save file corresponding to a task.
+     * @param taskString Line in the save file
+     * @return a Task corresponding to the line.
+     * @throws FlukeException if the line is invalid, for instance if the save file is tampered with or corrupted.
+     */
     public static Task parseTask(String taskString) throws FlukeException {
         Fluke.Command taskType;
         boolean isMarked;
@@ -125,6 +141,12 @@ public class Parser {
         throw new SaveFileParsingException();
     }
 
+    /**
+     * Parses a Todo command.
+     * @param command Command given by the user
+     * @return the description of the todo task.
+     * @throws FlukeException if the description given is empty.
+     */
     public static String parseTodoCommand(String command) throws FlukeException {
         if (command.length() <= 5) {
             // command is too short, description is invalid
@@ -133,6 +155,12 @@ public class Parser {
         return command.substring(5);
     }
 
+    /**
+     * Parses and validates a Deadline command
+     * @param command Command given by the user.
+     * @return a String array containing at 0: description, 1: (String) by date
+     * @throws FlukeException if the description given is invalid, or if the by date given is invalid.
+     */
     public static String[] parseDeadlineCommand(String command) throws FlukeException {
         if (command.length() <= 9) {
             // command is too short, description is invalid
@@ -148,6 +176,12 @@ public class Parser {
         return new String[]{description, by};
     }
 
+    /**
+     * Parses and validates an Event command.
+     * @param command Command given by the user.
+     * @return a String array containing at 0: description, 1: (String) from date 2: to date.
+     * @throws FlukeException if any of the inputs are invalid.
+     */
     public static String[] parseEventCommand(String command) throws FlukeException {
         if (command.length() <= 6) {
             // command is too short, description is invalid
@@ -165,6 +199,12 @@ public class Parser {
         return new String[]{description, from, to};
     }
 
+    /**
+     * Parses a Delete command.
+     * @param nextCommand Command given by the user.
+     * @return index of the task in the task list.
+     * @throws FlukeException if the input is invalid.
+     */
     public static int parseDeleteCommand(String nextCommand) throws FlukeException {
         if (nextCommand.length() <= 7) {
             throw new InvalidInputException();
@@ -173,6 +213,12 @@ public class Parser {
         return taskNumber - 1;
     }
 
+    /**
+     * Parses a Mark as Done Command.
+     * @param nextCommand Command given by the user.
+     * @return index of the task in the task list to be marked.
+     * @throws FlukeException if the input is invalid.
+     */
     public static int parseMarkAsDoneCommand(String nextCommand) throws FlukeException {
         if (nextCommand.length() <= 5) {
             throw new InvalidInputException();
@@ -181,6 +227,12 @@ public class Parser {
         return taskNumber - 1;
     }
 
+    /**
+     * Parses a Mark as Undone Command.
+     * @param nextCommand Command given by the user.
+     * @return index of the task in the task list to be marked.
+     * @throws FlukeException if the input is invalid.
+     */
     public static int parseMarkAsUndoneCommand(String nextCommand) throws FlukeException {
         if (nextCommand.length() <= 7) {
             throw new InvalidInputException();
@@ -189,6 +241,12 @@ public class Parser {
         return taskNumber - 1;
     }
 
+    /**
+     * Helper function to obtain a number from a string.
+     * @param taskNumberString String to obtain a number from.
+     * @return An integer
+     * @throws InvalidInputException if the string is not a valid number.
+     */
     private static int obtainTaskNumber(String taskNumberString) throws InvalidInputException {
         try {
             return Integer.parseInt(taskNumberString);

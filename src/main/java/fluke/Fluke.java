@@ -7,8 +7,15 @@ import fluke.tasks.Task;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Fluke is a chatbot which gets your commands right by fluke. Fluke's main goal is to help manage tasks.
+ */
 public class Fluke {
     private final static String SAVE_FILE_NAME = "fluke.txt";
+
+    /**
+     * Enumerates all possible commands.
+     */
     public enum Command {
         BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT
     }
@@ -16,6 +23,10 @@ public class Fluke {
     private TaskList tasks;
     private Storage storage;
 
+    /**
+     * Constructs a Fluke chatbot.
+     * @param filePath file path in which Fluke stores its tasks.
+     */
     public Fluke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -27,12 +38,19 @@ public class Fluke {
         }
     }
 
+    /**
+     * Main entry point into Fluke's program.
+     * @param args Arguments given for Fluke's program.
+     */
     public static void main(String[] args) {
-        // initialise fluke.Fluke
+        // initialise Fluke
         Fluke fluke = new Fluke(SAVE_FILE_NAME);
         fluke.run();
     }
 
+    /**
+     * Runs Fluke's program, accepting input from the user and outputting appropriately.
+     */
     public void run() {
         // greet the user
         this.ui.greet();
@@ -69,12 +87,22 @@ public class Fluke {
         }
     }
 
+    /**
+     * Tells Fluke to add a Todo to its tasks.
+     * @param command Command given to Fluke.
+     * @throws FlukeException if an error occurs while adding the task, for instance, with invalid inputs.
+     */
     public void addTodo(String command) throws FlukeException {
         String parsedDescription = Parser.parseTodoCommand(command);
         Task taskAdded = this.tasks.addTodo(parsedDescription);
         this.ui.showTaskAdded(taskAdded, tasks);
     }
 
+    /**
+     * Tells Fluke to add a Deadline to its tasks.
+     * @param command Command given to Fluke.
+     * @throws FlukeException if an error occurs while adding the task, for instance, with invalid inputs.
+     */
     private void addDeadline(String command) throws FlukeException {
         String[] parsedCommand = Parser.parseDeadlineCommand(command);
         String description = parsedCommand[0];
@@ -83,6 +111,11 @@ public class Fluke {
         this.ui.showTaskAdded(taskAdded, tasks);
     }
 
+    /**
+     * Tells Fluke to add an Event to its tasks.
+     * @param command Command given to Fluke.
+     * @throws FlukeException if an error occurs while adding the task, for instance, with invalid inputs.
+     */
     private void addEvent(String command) throws FlukeException {
         String[] parsedCommand = Parser.parseEventCommand(command);
         String description = parsedCommand[0];
@@ -92,20 +125,35 @@ public class Fluke {
         this.ui.showTaskAdded(taskAdded, tasks);
     }
 
-    private void markTaskAsDone(String nextCommand) throws FlukeException {
-        int index = Parser.parseMarkAsDoneCommand(nextCommand);
+    /**
+     * Tells Fluke to mark a task as done.
+     * @param nextCommand Command given to Fluke.
+     * @throws FlukeException if an error occurs while marking a task as done, for instance, with invalid inputs.
+     */
+    private void markTaskAsDone(String command) throws FlukeException {
+        int index = Parser.parseMarkAsDoneCommand(command);
         Task taskMarked = tasks.markTaskAsDone(index);
         this.ui.showTaskMarkedAsDone(taskMarked);
     }
 
-    private void markTaskAsUndone(String nextCommand) throws FlukeException {
-        int index = Parser.parseMarkAsUndoneCommand(nextCommand);
+    /**
+     * Tells Fluke to mark a task as not done.
+     * @param nextCommand Command given to Fluke.
+     * @throws FlukeException if an error occurs while marking a task as not done, for instance, with invalid inputs.
+     */
+    private void markTaskAsUndone(String command) throws FlukeException {
+        int index = Parser.parseMarkAsUndoneCommand(command);
         Task taskMarked = tasks.markTaskAsUndone(index);
         this.ui.showTaskMarkedAsUndone(taskMarked);
     }
 
-    private void deleteTask(String nextCommand) throws FlukeException {
-        int index = Parser.parseDeleteCommand(nextCommand);
+    /**
+     * Tells Fluke to delete a task.
+     * @param nextCommand Command given to Fluke.
+     * @throws FlukeException if an error occurs while deleting a task, for instance, with invalid inputs.
+     */
+    private void deleteTask(String command) throws FlukeException {
+        int index = Parser.parseDeleteCommand(command);
         Task deleted = tasks.deleteTask(index);
         this.ui.showTaskDeleted(deleted, tasks);
     }
@@ -114,8 +162,7 @@ public class Fluke {
      * Helper function for additional logic related to changing the list.
      * @param commandType type of command
      * @param nextCommand the content in the command
-     * @throws FlukeException an exception related to operations with fluke.Fluke
-     * @throws IOException an exception related to saving data
+     * @throws FlukeException if there is an error relating to Fluke's operations, or if there is an error saving.
      */
     private void changeTodoList(Command commandType, String nextCommand) throws FlukeException {
         // 1. make changes to the list

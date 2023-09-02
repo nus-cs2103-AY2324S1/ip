@@ -11,44 +11,92 @@ import java.util.ArrayList;
 
 public class TaskList {
     private final ArrayList<Task> listOfTasks;
+
+    /**
+     * Constructs a TaskList with an empty list of tasks.
+     */
     public TaskList() {
         this.listOfTasks = new ArrayList<>();
     }
+
+    /**
+     * Constructs a TaskList with an initial list of tasks.
+     * @param initialTasks the initial list of tasks
+     */
     public TaskList(ArrayList<Task> initialTasks) {
         this.listOfTasks = initialTasks;
     }
 
+    /**
+     * Getter for the list of tasks.
+     * @return the list of tasks.
+     */
     public ArrayList<Task> getListOfTasks() {
         return listOfTasks;
     }
 
+    /**
+     * Gets the size of the list of tasks.
+     * @return size of the list of tasks.
+     */
     public int getSize() {
         return listOfTasks.size();
     }
 
+    /**
+     * Adds a task to the task list.
+     * @param task task to be added.
+     */
     private void addTask(Task task) {
         listOfTasks.add(task);
     }
 
+    /**
+     * Adds a Todo to the list of tasks
+     * @param description description of the task
+     * @return the task added.
+     * @throws FlukeException if there is an error while adding the task, for instance an invalid description.
+     */
     public Task addTodo(String description) throws FlukeException {
         Todo newTodo = new Todo(description);
         addTask(newTodo);
         return newTodo;
     }
 
+    /**
+     * Adds a Deadline to the list of tasks.
+     * @param description description of the task
+     * @param by the date which the task is due
+     * @return the task added.
+     * @throws FlukeException if there is an error while adding the task, for instance an invalid description.
+     */
     public Task addDeadline(String description, String by) throws FlukeException {
         Task newDeadline = new Deadline(description, by);
         addTask(newDeadline);
         return newDeadline;
     }
 
+    /**
+     * Adds an Event to the list of tasks.
+     * @param description description of the task
+     * @param from the date which the event starts
+     * @param to the date which the event ends
+     * @return the task added.
+     * @throws FlukeException if there is an error while adding the task, for instance an invalid description.
+     */
     public Task addEvent(String description, String from, String to) throws FlukeException {
         Task newEvent = new Event(description, from, to);
         addTask(newEvent);
         return newEvent;
     }
 
-    public Task deleteTask(int index) throws FlukeException {
+    /**
+     * Deletes a task from the task list.
+     * @param index index of the task in the list
+     * @return the deleted task.
+     * @throws TaskDoesNotExistException if the index given is invalid.
+     */
+    public Task deleteTask(int index) throws TaskDoesNotExistException {
         // check if task exists
         if (index < listOfTasks.size()) {
             Task taskToBeDeleted = listOfTasks.get(index);
@@ -59,7 +107,13 @@ public class TaskList {
         }
     }
 
-    public Task markTaskAsDone(int index) throws FlukeException {
+    /**
+     * Marks a task in the task list as done.
+     * @param index index of the task in the list
+     * @return the marked task.
+     * @throws TaskDoesNotExistException if the index given is invalid.
+     */
+    public Task markTaskAsDone(int index) throws TaskDoesNotExistException {
         // check if task exists
         if (index < listOfTasks.size()) {
             Task task = listOfTasks.get(index);
@@ -70,7 +124,13 @@ public class TaskList {
         }
     }
 
-    public Task markTaskAsUndone(int index) throws FlukeException {
+    /**
+     * Marks a task in the task list as not done.
+     * @param index index of the task in the list
+     * @return the marked task.
+     * @throws TaskDoesNotExistException if the index given is invalid.
+     */
+    public Task markTaskAsUndone(int index) throws TaskDoesNotExistException {
         // check if task exists
         if (index < listOfTasks.size()) {
             Task task = listOfTasks.get(index);
@@ -81,6 +141,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns a string representation of the list of tasks.
+     * @return a string representation of the list of tasks.
+     */
     @Override
     public String toString() {
         String str = "";

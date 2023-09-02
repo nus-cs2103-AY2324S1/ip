@@ -8,10 +8,23 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 
-
+/**
+ * A deadline task refers to a task which has a deadline.
+ */
 public class Deadline extends Task {
     private final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
+
+    /**
+     * The deadline of the task.
+     */
     protected LocalDate by;
+
+    /**
+     * Constructs a Deadline. Takes in a description and a by date.
+     * @param description Description of the task.
+     * @param by Date which the task is due, in YYYY-MM-DD format.
+     * @throws FlukeException when the description or by date is invalid.
+     */
     public Deadline(String description, String by) throws FlukeException {
         super(description);
         try {
@@ -21,11 +34,23 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     *
+     * Constructs a Deadline. Takes in a description and a by date.
+     * @param description Description of the task.
+     * @param isDone Whether the deadline is marked as done.
+     * @param by Date which the task is due, in YYYY-MM-DD format.
+     * @throws FlukeException when the description or by date is invalid.
+     */
     public Deadline(String description, boolean isDone, String by) throws FlukeException {
         super(description, isDone);
         this.by = LocalDate.parse(by);
     }
 
+    /**
+     * String representation of a Deadline.
+     * @return a String representation of a Deadline, containing description and date which it is due.
+     */
     @Override
     public String toString() {
         String byString = by.format(DATE_TIME_FORMATTER);

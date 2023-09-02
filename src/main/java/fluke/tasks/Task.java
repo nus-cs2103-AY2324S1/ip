@@ -3,10 +3,26 @@ package fluke.tasks;
 import fluke.exceptions.EmptyDescriptionException;
 import fluke.exceptions.FlukeException;
 
+/**
+ * A task is something which is to be done. It contains a description and whether it is done.
+ */
 public abstract class Task {
+
+    /**
+     * Description of the task.
+     */
     protected String description;
+
+    /**
+     * Whether the task is done.
+     */
     protected boolean isDone = false;
 
+    /**
+     * Constructs a task with a description.
+     * @param description Description of the task.
+     * @throws FlukeException when the description given is empty.
+     */
     protected Task(String description) throws FlukeException {
         String trimmedDescription = description.trim();
         if (trimmedDescription.equals("")) {
@@ -15,6 +31,12 @@ public abstract class Task {
         this.description = trimmedDescription;
     }
 
+    /**
+     * Constructs a task with a description and whether it is done.
+     * @param description Description of the task.
+     * @param isDone Whether the task is done.
+     * @throws FlukeException when the description given is empty.
+     */
     protected Task(String description, boolean isDone) throws FlukeException {
         String trimmedDescription = description.trim();
         if (trimmedDescription.equals("")) {
