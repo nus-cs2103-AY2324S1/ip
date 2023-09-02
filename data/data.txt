@@ -1,4 +1,4 @@
 T | 1 | read book
-D | 0 | return book | June 6th
-E | 0 | project meeting | Aug 6th 2pm | Aug 6th 4pm
+D | 0 | return book | 2023-06-06
+E | 0 | project meeting | 2023-08-06 14:00 | 2023-08-06 16:00
 T | 1 | join sports club
