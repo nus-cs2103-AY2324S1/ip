@@ -1,55 +1,46 @@
 package duke.task;
+
 /**
  * Task class
  */
 public abstract class Task {
-    // Attribute
     private String name;
-    private boolean mark = false;
+    private boolean isMarked = false;
 
-    // Constructor
-    
-    /**
-     * The constructor of Task class
-     * 
-     * @param name the name of the task
-     */
     public Task(String name) {
         this.name = name;
     }
 
-    // Methods
-
     /**
-     * Method to mark the task
+     * Marks the task
      */
     public void mark() {
-        this.mark = true;
+        isMarked = true;
     }
 
     /**
-     * Method to unmark the task
+     * Unmarks the task
      */
     public void unmark() {
-        this.mark = false;
+        isMarked = false;
     }
 
     /**
-     * Method to get the name of the task
+     * Gets the name of the task
      * 
      * @return the name of the to do
      */
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
-     * Method to get whether the task is marked
+     * Gets whether the task is marked
      * 
      * @return whether the task is marked
      */
     public boolean getMark() {
-        return mark;
+        return isMarked;
     }
 
     /**
@@ -62,18 +53,13 @@ public abstract class Task {
         return name.toLowerCase().contains(keyWord.toLowerCase());
     }
 
-    /**
-     * Method to return the string implementation of Task
-     * 
-     * @return the string implementation of Task
-     */
     @Override
     public String toString() {
-        return "[" + (this.mark ? "X" : " ") +"] " + this.name;
+        return "[" + (isMarked ? "X" : " ") +"] " + name;
     }
 
     /**
-     * Method to return the string format of the task in the storage
+     * Gets string format of the task in the storage
      * 
      * @return the string format of the task in the storage
      */

@@ -2,20 +2,15 @@ package duke.task;
 
 import java.util.ArrayList;
 
+/**
+ * The TaskList class for the list of tasks
+ */
 public class TaskList {
-    // Attribute
     private ArrayList<Task> tasks;
 
-    // Constructor
-    
-    /**
-     * The constructor for TaskList
-     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
-
-    // Method
 
     /**
      * Gets the task with a certain index
@@ -68,7 +63,7 @@ public class TaskList {
      * 
      * @return the number of tasks
      */
-    public int size() {
+    public int getSize() {
         return tasks.size();
     }
     
@@ -79,7 +74,7 @@ public class TaskList {
      */
     public String storeInString() {
         String ret = "";
-        for(Task task: tasks) {
+        for (Task task: tasks) {
             ret += task.storeInString() + "\n";
         }
         return ret;
@@ -115,7 +110,7 @@ public class TaskList {
     @Override
     public String toString() {
         String ret = "";
-        for(int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             ret += "    " + (i + 1) + ". " + tasks.get(i) + "\n";
         }
         return ret;

@@ -5,16 +5,14 @@ import java.util.Scanner;
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * The Ui class for the user interaction of the program
+ */
 public class Ui {
-    // Attribute
     private static String SPACE = "    ";
     private static String DASH = "____________________________________________________________";
     Scanner sc;
-    
-    // Constructor
-    /**
-     * The constructor of the Ui
-     */
+
     public Ui() {
         this.sc = new Scanner(System.in);
     }
@@ -23,10 +21,10 @@ public class Ui {
      * Prints the intro to user
      */
     public void printIntro() {
-        String intro = SPACE + DASH + "\n" +
-            SPACE + "Hello! I'm Not A ChatBot\n" + 
-            SPACE + "What can I do for you?\n" +
-            SPACE + DASH;
+        String intro = SPACE + DASH + "\n"
+                        + SPACE + "Hello! I'm Not A ChatBot\n"
+                        + SPACE + "What can I do for you?\n"
+                        + SPACE + DASH;
         System.out.println(intro);
     }
 
@@ -34,9 +32,9 @@ public class Ui {
      * Prints the good bye message to user
      */
     public void printEnd() {
-        String end = SPACE + DASH + "\n" +
-            SPACE + "Bye. Hope to see you again soon!\n" +
-            SPACE + DASH;
+        String end = SPACE + DASH + "\n"
+                    + SPACE + "Bye. Hope to see you again soon!\n"
+                    + SPACE + DASH;
         System.out.println(end);
     }
 
