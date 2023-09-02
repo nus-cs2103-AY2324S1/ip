@@ -1,6 +1,9 @@
 package Ally.Commands;
 
 import Ally.*;
+import Ally.Exceptions.AllyException;
+import Ally.Tasks.AllyList;
+import Ally.Tasks.Deadline;
 
 public class AddDeadlineCommand extends Commands {
     private String description;

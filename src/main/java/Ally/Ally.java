@@ -1,8 +1,8 @@
 package Ally;
 
 import Ally.Commands.Commands;
-
-import java.util.Scanner;
+import Ally.Exceptions.AllyException;
+import Ally.Tasks.AllyList;
 
 public class Ally {
 

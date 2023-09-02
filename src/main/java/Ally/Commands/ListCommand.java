@@ -1,7 +1,7 @@
 package Ally.Commands;
 
-import Ally.AllyException;
-import Ally.AllyList;
+import Ally.Exceptions.AllyException;
+import Ally.Tasks.AllyList;
 import Ally.Storage;
 import Ally.Ui;
 

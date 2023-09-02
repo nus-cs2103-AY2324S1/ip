@@ -1,7 +1,9 @@
-package Ally;
+package Ally.Tasks;
 
 import java.util.ArrayList;
-import Ally.Storage;
+
+import Ally.Exceptions.AllyException;
+
 public class AllyList {
     ArrayList<Task> arr;
     public AllyList(ArrayList<Task> tasks) throws AllyException {

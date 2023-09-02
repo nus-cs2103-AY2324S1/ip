@@ -1,11 +1,11 @@
-package Ally;
+package Ally.Tasks;
 
 public class Event extends Task {
     protected String from;
     protected String to;
 
     /**
-     * Constructor for Ally.Event.
+     * Constructor for Ally.Tasks.Event.
      * @param description
      * @param from
      * @param to
@@ -24,7 +24,7 @@ public class Event extends Task {
 
 
     /**
-     * Overrides the toString() method in Ally.Task.
+     * Overrides the toString() method in Ally.Tasks.Task.
      * @return the string
      */
     @Override

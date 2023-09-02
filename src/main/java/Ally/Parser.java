@@ -1,8 +1,7 @@
 package Ally;
 
 import Ally.Commands.*;
-
-import java.util.WeakHashMap;
+import Ally.Exceptions.AllyException;
 
 public class Parser {
     public static Commands parse(String ipt) throws AllyException {

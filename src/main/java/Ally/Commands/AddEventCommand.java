@@ -1,6 +1,9 @@
 package Ally.Commands;
 
 import Ally.*;
+import Ally.Exceptions.AllyException;
+import Ally.Tasks.AllyList;
+import Ally.Tasks.Event;
 
 public class AddEventCommand extends Commands {
     private String description;

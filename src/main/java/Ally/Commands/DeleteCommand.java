@@ -1,6 +1,8 @@
 package Ally.Commands;
 
 import Ally.*;
+import Ally.Exceptions.AllyException;
+import Ally.Tasks.AllyList;
 
 public class DeleteCommand extends Commands {
 
