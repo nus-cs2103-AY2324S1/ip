@@ -50,6 +50,14 @@ public class Parser {
         return -1;
     }
 
+    /**
+     * Returns the index of the task given in the command line argument args.
+     *
+     * @param args
+     * @return
+     * @throws NumberFormatException
+     * @throws NoDescriptionException when the user did not input any additional arguments.
+     */
     public static int getTargetIndex(String args) throws NumberFormatException, NoDescriptionException {
         if (args.toLowerCase().split(" ").length < 2) {
             throw new NoDescriptionException("There is no given task index.");
@@ -60,7 +68,14 @@ public class Parser {
         return  targetIndex;
     }
 
-    public static Task getTask(String args) {
+    /**
+     * Returns a new task based on the command line argument args.
+     *
+     * @param args
+     * @return
+     * @throws NoDescriptionException
+     */
+    public static Task getTask(String args) throws NoDescriptionException {
         String type = args.split(" ")[0].toLowerCase();
         Task newTask = null;
         String description = "";

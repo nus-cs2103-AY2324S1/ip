@@ -1,9 +1,13 @@
 import VedaExceptions.IncorrectInputException;
 import VedaExceptions.NoDescriptionException;
-
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * Veda is the main class for the chatbot application "Veda".
+ *
+ * @author Sebastian Tay
+ */
 public class Veda {
 
     private final static Storage storage = new Storage();
@@ -80,8 +84,6 @@ public class Veda {
                         System.out.println("Ensure your deadline is of the format {dd/MM/yyyy HHmm}");
                     }
             }
-
-
         }
     }
 
