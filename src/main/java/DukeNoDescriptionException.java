@@ -1,7 +1,6 @@
-public class DukeNoDescriptionException extends Exception{
+public class DukeNoDescriptionException extends DukeException{
     public DukeNoDescriptionException(String msg){
         super("☹ OOPS!!! The description of a " + msg + " cannot be empty."
-            +"\n"
-            + "____________________________________________");
+            +"\n");
     }
 }
