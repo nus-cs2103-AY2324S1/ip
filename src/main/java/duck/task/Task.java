@@ -46,6 +46,10 @@ public abstract class Task {
         }
     }
 
+    public boolean containsKeyword(String keyword) {
+        return this.name.contains(keyword);
+    }
+
     /**
      * Converts the task into its string representation for saving to file.
      * Should be overidden by subclasses to include type and additional fields.

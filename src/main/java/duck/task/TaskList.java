@@ -108,6 +108,16 @@ public class TaskList {
         taskCount--;
     }
 
+    public ArrayList<Task> find(String keyword) throws DuckException {
+        ArrayList<Task> matchingTasks = new ArrayList<Task>();
+        for (int i = 0; i < taskCount; i++) {
+            if (tasks.get(i).containsKeyword(keyword)) {
+                matchingTasks.add(tasks.get(i));
+            }
+        }
+        return matchingTasks;
+    }
+
     /**
      * Converts the TaskList into a readable string represenation to be printed.
      * 
