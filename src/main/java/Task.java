@@ -4,11 +4,7 @@ public abstract class Task implements Comparable<Task> {
     protected int id;
     protected String description;
     protected boolean completed;
-
-    public static int numberOfTasks = 0;
     private static int idTracker = 0;
-    public static int numberOfCompletedTasks = 0;
-
 
     public Task(String d) {
         this.id = idTracker;
@@ -17,7 +13,7 @@ public abstract class Task implements Comparable<Task> {
         this.completed = false;
     }
 
-    public static Task addTask(String command, Scanner tokeniser) throws IllegalCommandException,
+    public static Task generateTask(String command, Scanner tokeniser) throws IllegalCommandException,
             IllegalDateTimeException {
         Task newTask;
         if (!command.equals("todo") && !command.equals("deadline")
@@ -65,38 +61,15 @@ public abstract class Task implements Comparable<Task> {
         return newTask;
     }
 
-    public static void deleteTask(Task toDelete) {
-        numberOfTasks--;
-        if (toDelete.completed)  numberOfCompletedTasks--;
+    public boolean isComplete() {
+        return this.completed;
     }
 
-    public String markDone() {
-        if (this.completed) {
-            return "That was done already...\n" +
-                    "are you sure you wanted to mark that?\n"
-                    + this.toString();
-        } else {
-            this.completed = true;
-            numberOfCompletedTasks++;
-            return "Yay! One step closer to playing with me!\n"
-                    + this.toString();
-        }
+    public void switchMark() {
+        completed = !completed;
     }
 
-    public String markNotDone() {
-        if (!this.completed) {
-            return "Don't worry it's still not done\n" +
-                    "What are you doing? Let's get it done now!\n"
-                    + this.toString();
-        } else {
-            this.completed = false;
-            numberOfCompletedTasks--;
-            return "Oh no... what happened :(\n"
-                    + this.toString();
-        }
-    }
-
-    public static Task addSavedTask(int id, boolean mark, String description) throws IllegalDateTimeException {
+    public static Task generateSavedTask(int id, boolean mark, String description) throws IllegalDateTimeException {
         switch (id) {
         case (1):
             return new ToDo(description, mark);

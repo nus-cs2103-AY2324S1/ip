@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.io.File;
@@ -9,34 +10,17 @@ import java.io.FileWriter;
 public class Duke {
     private Ui ui;
 
-    private ArrayList<Task> taskList;
+    private Storage storage;
+
+    private TaskList tasks;
     private File savedList;
 
-    public Duke() {
-        this.taskList = new ArrayList<>();
+    public Duke(String filePath) {
+        this.tasks = new TaskList();
         this.ui = new Ui();
+        this.storage = new Storage(filePath);
     }
 
-    private void list() {
-        if (Task.numberOfTasks == 0) {
-            ui.say("list looks empty to me!");
-        } else {
-            StringBuilder displayList = new StringBuilder();
-            if (Task.numberOfTasks == Task.numberOfCompletedTasks) {
-                displayList.append("Wow! You are ALL COMPLETE!!!!\n")
-                        .append("TIME TO PLAY WITH MEEEEE :DDDD\n");
-            } else if (Task.numberOfTasks > 10) {
-                displayList.append("Seems like you have a lot of things to do...\n")
-                        .append("Remember to play with me after :D\n");
-            } else {
-                displayList.append("Here are the things you told me to keep track of:\n");
-            }
-            for (int i = 0; i < Task.numberOfTasks; i++) {
-                displayList.append(i + 1 + ".").append(taskList.get(i).toString());
-            }
-            ui.say(displayList.toString());
-        }
-    }
 
     private void changeMark(String command, Scanner tokeniser) throws IllegalCommandException {
         if (!tokeniser.hasNext()) {
@@ -45,16 +29,16 @@ public class Duke {
         String content = tokeniser.next();
         if (isInteger(content)) {
             int id = Integer.parseInt(content);
-            if (id > Task.numberOfTasks) {
+            if (id > tasks.getNumberOfTask()) {
                 throw new IllegalCommandException("do that... this task does not exist :(");
             } else {
                 if (command.equals("mark")) {
-                    ui.say(taskList.get(id - 1).markDone());
-                    if (Task.numberOfTasks == Task.numberOfCompletedTasks) {
-                        this.list();
+                    ui.say(tasks.markDone(id - 1));
+                    if (tasks.isAllComplete()) {
+                        ui.say(tasks.list());
                     }
                 } else {
-                    ui.say(taskList.get(id - 1).markNotDone());
+                    ui.say(tasks.markNotDone(id - 1));
                 }
             }
         } else {
@@ -69,18 +53,17 @@ public class Duke {
         String content = tokeniser.next();
         if (isInteger(content)) {
             int id = Integer.parseInt(content);
-            if (id > Task.numberOfTasks) {
+            if (id > tasks.getNumberOfTask()) {
                 throw new IllegalCommandException("do that... this task does not exist :(");
             } else {
-                Task.deleteTask(taskList.get(id - 1));
                 ui.say("Happily scratched this off your list:\n" +
-                        ui.indentLineBy(taskList.get(id - 1).toString(), 2) +
+                        ui.indentLineBy(tasks.get(id - 1).toString(), 2) +
                         "Now you have " +
-                        Task.numberOfTasks +
+                        tasks.getNumberOfTask() +
                         " tasks in the list!");
-                taskList.remove(id - 1);
-                if (Task.numberOfTasks == Task.numberOfCompletedTasks) {
-                    this.list();
+                tasks.remove(id - 1);
+                if (tasks.isAllComplete()) {
+                    tasks.list();
                 }
             }
         } else {
@@ -104,7 +87,7 @@ public class Duke {
             if (command.contains("bye")) {
                 break;
             } else if (command.equals("list")) {
-                this.list();
+                tasks.list();
                 continue;
             } else if (command.equals("mark") || command.equals("unmark")) {
                 try {
@@ -122,13 +105,12 @@ public class Duke {
                 continue;
             }
             try {
-                Task newTask = Task.addTask(command, tokeniser);
-                taskList.add(newTask);
-                Task.numberOfTasks++;
+                Task newTask = Task.generateTask(command, tokeniser);
+                tasks.add(newTask);
                 ui.say("Gotchu! noted down: \n" +
                         ui.indentLineBy(newTask.toString(), 2) +
                         "Now you have " +
-                        Task.numberOfTasks +
+                        tasks.getNumberOfTask() +
                         " tasks in the list!");
             } catch (IllegalCommandException e) {
                 ui.say(e.getMessage());
@@ -138,55 +120,19 @@ public class Duke {
         }
     }
 
-    public void loadFile(){
-        savedList = new File("/Users/daniel/Desktop/CS2103T/iP/src/main/java/data/duke.txt");
-        try {
-            savedList.createNewFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void readFile() throws FileNotFoundException {
-        Scanner sc = new Scanner(this.savedList);
-        while (sc.hasNext()) {
-            int id = sc.nextInt();
-            int mark = sc.nextInt();
-            String description = sc.nextLine();
-            Task newTask;
-            try {
-                newTask = Task.addSavedTask(id, mark == 1, description);
-            } catch (IllegalDateTimeException e) {
-                ui.say(e.getMessage());
-                continue;
-            }
-            taskList.add(newTask);
-        }
-    }
-
-    public void writeFile() throws IOException {
-        new FileWriter("/Users/daniel/Desktop/CS2103T/iP/src/main/java/data/duke.txt", false)
-                .close();
-        FileWriter fw = new FileWriter("/Users/daniel/Desktop/CS2103T/iP/src/main/java/data/duke.txt",
-                true);
-        for (int i = 0; i < Task.numberOfTasks; i++) {
-            String data = taskList.get(i).writeToFile();
-            fw.write(data);
-        }
-        fw.close();
-    }
-
     public void run() throws IllegalCommandException {
-        loadFile();     // loads file
         try {
-            readFile(); // reads loaded file
-        } catch (FileNotFoundException e) {
-            ui.say(e.getMessage());
+            storage.readFile(tasks); // reads loaded file
+        } catch (FileNotFoundException | IllegalDateTimeException |
+                 InputMismatchException e) {
+            storage.clearFile();    // file is corrupt
+            tasks.clearAll();
+            ui.say("saved file is corrupt, creating new file...");
         }
-        ui.greet(Task.numberOfTasks);
-        this.processInput();                            // function to run the chatbot
+        ui.greet(tasks);            // pass tasks in to see if there saved task
+        this.processInput();        // function to run the chatbot
         try {
-            this.writeFile();                           // write file with all tasks
+            storage.writeFile(tasks);   // write file with all tasks
         } catch (IOException e) {
             ui.say(e.getMessage());
         }
@@ -218,7 +164,7 @@ public class Duke {
         }
 
         public static void main(String[] args) {
-            Duke duke = new Duke();
+            Duke duke = new Duke("/Users/daniel/Desktop/CS2103T/iP/src/main/java/data/duke.txt");
             duke.run();
         }
     }

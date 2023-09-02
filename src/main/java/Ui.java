@@ -36,10 +36,11 @@ public class Ui {
         return indentedLine.append(message).toString();
     }
 
-    public void greet(int numberOfTask) {
-        if (numberOfTask != 0) {
+    public void greet(TaskList tasks) {
+        if (tasks.getNumberOfTask() != 0) {
             System.out.println(botReply(greet +
-                    "Welcome back! You had these tasks last time!\n"));
+                    "Welcome back! " +
+                    tasks.list()));
         } else {
             System.out.println(botReply(greet));
         }
