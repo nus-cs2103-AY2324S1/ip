@@ -1,10 +1,13 @@
-package Ui;
+package ui;
+
 import java.util.Scanner;
-import Storage.TaskList;
-import TaskManager.Tasks;
-import TaskManager.Events;
-import TaskManager.ToDos;
-import TaskManager.Deadlines;
+
+import storage.TaskList;
+
+import taskmanager.Tasks;
+import taskmanager.Events;
+import taskmanager.ToDos;
+import taskmanager.Deadlines;
 
 /**
  * The Ui class handles user interaction and displays messages to the user.
@@ -20,7 +23,7 @@ public class Ui {
      *
      * @param taskList The task list used for displaying tasks' information.
      */
-    public Ui(TaskList taskList) {
+    public Ui (TaskList taskList) {
         this.taskList = taskList;
         if (taskList.size() < 1) {
                 this.word = "task";
@@ -34,16 +37,14 @@ public class Ui {
      */
     public void showWelcome() {
         String logo  =   "____    ____  ________   ___    ___   __________    _____\n"
-                + "\\   \\  /   / |  ____  |  |  |   |  |  |  _____  |  / ____|\n"
-                + " \\   \\/   /  | |    | |  |  |   |  |  |  |___|  |  | (___\n"
-                + "  \\      /   | |    | |  |  |   |  |  |   ______|  \\ ___ \\\n"
-                + "   |    |    | |    | |  |  |   |  |  |  \\  \\           | |\n"
-                + "   |    |    | |____| |  |  |   |  |  |  | \\  \\     ____) |\n"
-                + "   |____|    |________|  \\_________/  |__|   \\__\\  |_____/\n";
+                        + "\\   \\  /   / |  ____  |  |  |   |  |  |  _____  |  / ____|\n"
+                        + " \\   \\/   /  | |    | |  |  |   |  |  |  |___|  |  | (___\n"
+                        + "  \\      /   | |    | |  |  |   |  |  |   ______|  \\ ___ \\\n"
+                        + "   |    |    | |    | |  |  |   |  |  |  \\  \\           | |\n"
+                        + "   |    |    | |____| |  |  |   |  |  |  | \\  \\     ____) |\n"
+                        + "   |____|    |________|  \\_________/  |__|   \\__\\  |_____/\n";
 
-        String name = "Yours";
-
-        System.out.println("Hello! I'm " + name);
+        System.out.printf("Hello! I'm %s%n", NAME);
         System.out.println(logo);
         System.out.println("____________________________________________________________________________________");
         System.out.println("What can I do for you?");
@@ -175,7 +176,7 @@ public class Ui {
     /**
      * Displays a message for handling an IndexOutOfBoundsException.
      */
-    public void IOOBExceptionMessage() {
+    public void IoobExceptionMessage() {
         System.out.println("Please enter the correct task's index number.");
     }
 }

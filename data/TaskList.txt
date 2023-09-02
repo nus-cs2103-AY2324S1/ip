@@ -1,5 +1,2 @@
-T | 0 | TestTodo
-D | 0 | TestDeadline | 23 Aug 2023 6:00pm
-E | 0 | TestEvent | 23 Aug 2023 6:00pm | 23 Aug 2023 6:00pm
-T | 1 | sleep
-D | 1 | wake up | 23 Sep 2023 12:53AM
+T | 0 | add
+D | 0 | sleep | 23 Aug 2023 7:00PM

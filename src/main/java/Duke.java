@@ -1,8 +1,11 @@
-import Parser.Parser;
-import Storage.FileHandler;
-import Storage.TaskList;
-import Ui.Ui;
-import Comm.Command;
+import parser.Parser;
+
+import storage.FileHandler;
+import storage.TaskList;
+
+import ui.Ui;
+
+import command.Command;
 
 /**
  * Duke class is a simple chatbot that allows users
@@ -13,6 +16,7 @@ public class Duke {
     private FileHandler fileHandler; //FileHandler to read or write file.
     private TaskList task; // The list of task.
     private Ui ui; //The user interface.
+    private static final String DATA_FILE_PATH = "data/TaskList.txt"; //The file path of the .txt file
 
     /**
      * Construct a Duke instance with the specified file path.
@@ -40,6 +44,7 @@ public class Duke {
                 c.execute(task, ui, fileHandler);
                 isExit = c.isExit();
             } catch (Exception e) {
+                // Handle the specific exception here
                 System.out.println(e.getMessage());
             }
         }
@@ -52,7 +57,7 @@ public class Duke {
      * @param args (not used in this application).
      */
     public static void main(String[] args) {
-        new Duke("data/TaskList.txt").run();
+        new Duke(DATA_FILE_PATH).run();
     }
 }
 

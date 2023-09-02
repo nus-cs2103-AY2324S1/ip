@@ -1,10 +1,10 @@
-package Storage;
+package storage;
 
-import Parser.DateTime;
-import TaskManager.Deadlines;
-import TaskManager.Events;
-import TaskManager.Tasks;
-import TaskManager.ToDos;
+import parser.DateTime;
+import taskmanager.Deadlines;
+import taskmanager.Events;
+import taskmanager.Tasks;
+import taskmanager.ToDos;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 

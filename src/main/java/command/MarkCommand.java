@@ -1,26 +1,28 @@
-package Comm;
-import Ui.Ui;
-import Storage.TaskList;
-import Storage.FileHandler;
+package command;
+
+import ui.Ui;
+
+import storage.TaskList;
+import storage.FileHandler;
 
 /**
- * A command to mark a task as not done.
+ * A command to mark a task as done.
  */
-public class UnmarkCommand extends Command{
+public class MarkCommand extends Command{
 
     private int index;
 
     /**
-     * Constructs a `UnmarkCommand` object with the specified task index.
+     * Constructs a `MarkCommand` object with the specified task index.
      *
      * @param index The index of the task to mark as done.
      */
-    public UnmarkCommand(int index) {
+    public MarkCommand(int index) {
         this.index = index;
     }
 
     /**
-     * Mark the specified task as not done.
+     * Mark the specified task as done.
      *
      * @param t  The task list containing the tasks.
      * @param ui The user interface to display the result.
@@ -29,11 +31,11 @@ public class UnmarkCommand extends Command{
     @Override
     public void execute(TaskList t, Ui ui, FileHandler f) {
         try {
-            t.get(index - 1).markNotDone();
+            t.get(index - 1).markDone();
             FileHandler.writeTasksToFile(t);
-            ui.unmark(index);
+            ui.mark(index);
         } catch (IndexOutOfBoundsException e) {
-            ui.IOOBExceptionMessage();
+            ui.IoobExceptionMessage();
         }
     }
 

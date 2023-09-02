@@ -1,8 +1,11 @@
-package Comm;
-import Ui.Ui;
-import Storage.TaskList;
-import Storage.FileHandler;
-import TaskManager.Tasks;
+package command;
+
+import ui.Ui;
+
+import storage.TaskList;
+import storage.FileHandler;
+
+import taskmanager.Tasks;
 
 /**
  * A command to delete a task from the task list.
@@ -35,7 +38,7 @@ public class DeleteCommand extends Command{
             FileHandler.writeTasksToFile(t);
             ui.delete(deleted);
         } catch (IndexOutOfBoundsException e) {
-            ui.IOOBExceptionMessage();
+            ui.IoobExceptionMessage();
         }
     }
 

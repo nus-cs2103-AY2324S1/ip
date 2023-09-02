@@ -1,8 +1,11 @@
-package Comm;
-import TaskManager.Deadlines;
-import Ui.Ui;
-import Storage.TaskList;
-import Storage.FileHandler;
+package command;
+
+import taskmanager.Deadlines;
+
+import ui.Ui;
+
+import storage.TaskList;
+import storage.FileHandler;
 
 /**
  * Command to add a Deadlines task.

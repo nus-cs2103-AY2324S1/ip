@@ -1,17 +1,21 @@
-package Storage;
+package storage;
 
-import Parser.DateTime;
-import TaskManager.Deadlines;
-import TaskManager.Events;
-import org.junit.jupiter.api.Test;
+import parser.DateTime;
+
+import taskmanager.Deadlines;
+import taskmanager.Events;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.io.IOException;
-import java.util.ArrayList;
-import TaskManager.Tasks;
-import TaskManager.ToDos;
-import Ui.Ui;
 
+import java.io.IOException;
+
+import java.util.ArrayList;
+
+import taskmanager.Tasks;
+import taskmanager.ToDos;
+
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FileHandlerTest {
@@ -26,7 +30,7 @@ class FileHandlerTest {
         TaskList tasks = new TaskList(tasksToWrite);
 
         DateTime dateTime = new DateTime();
-        String formattedDate = dateTime.formatDateTime("23/08/2023 1800");
+        String formattedDate = dateTime.formatDateTime("23/08/2023 1000");
 
         ToDos newtodo = new ToDos("TestTodo");
         Deadlines newdeadline = new Deadlines("TestDeadline", formattedDate);

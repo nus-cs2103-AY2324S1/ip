@@ -1,25 +1,31 @@
-package TaskManager;
+package taskmanager;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 public class Events extends Tasks {
 
     private String taskDesc; //task description
-    private String from; //start date and time in String
-    private String to; //end date and time in String
+    private String fromDateStr; //start date and time in String
+    private String toDateStr; //end date and time in String
     private LocalDateTime fromDate; //start date and time in LocalDateTime
     private LocalDateTime toDate; // end date and time in LocalDateTime
+    private static final DateTimeFormatter DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern("dd MMM yyyy h:mma");
 
     /**
      * Constructs a new Event task with the specified user input.
      *
      * @param taskDesc The task description.
-     * @param from      The starting date and time of the event.
-     * @param to        The ending date and time of the event.
+     * @param fromDateStr      The starting date and time of the event.
+     * @param toDateStr        The ending date and time of the event.
      */
-    public Events(String taskDesc, String from, String to) {
+    public Events(String taskDesc, String fromDateStr, String toDateStr) {
         this.taskDesc = taskDesc;
-        this.from = from;
-        this.to = to;
+        this.fromDateStr = fromDateStr;
+        this.toDateStr = toDateStr;
+        this.fromDate = LocalDateTime.parse(fromDateStr, DATE_TIME_FORMATTER);
+        this.toDate = LocalDateTime.parse(toDateStr, DATE_TIME_FORMATTER);
     }
 
     /**
@@ -27,20 +33,24 @@ public class Events extends Tasks {
      *
      * @param completion The completion status (1 for done, 0 for not done).
      * @param taskDesc   The task description.
-     * @param from       The starting date and time of the event.
-     * @param to         The ending date and time of the event.
+     * @param fromDateStr       The starting date and time of the event.
+     * @param toDateStr         The ending date and time of the event.
      */
-    public Events(String completion, String taskDesc, String from, String to) {
+    public Events(String completion, String taskDesc, String fromDateStr, String toDateStr) {
         try {
             if (completion.equals("1")){
                 this.taskDesc = taskDesc.trim();
-                this.from = from.trim();
-                this.to = to.trim();
+                this.fromDateStr = fromDateStr.trim();
+                this.toDateStr = toDateStr.trim();
+                this.fromDate = LocalDateTime.parse(fromDateStr, DATE_TIME_FORMATTER);
+                this.toDate = LocalDateTime.parse(toDateStr, DATE_TIME_FORMATTER);
                 this.markDone();
             } else {
                 this.taskDesc = taskDesc.trim();
-                this.from = from.trim();
-                this.to = to.trim();
+                this.fromDateStr = fromDateStr.trim();
+                this.toDateStr = toDateStr.trim();
+                this.fromDate = LocalDateTime.parse(fromDateStr, DATE_TIME_FORMATTER);
+                this.toDate = LocalDateTime.parse(toDateStr, DATE_TIME_FORMATTER);
             }
         } catch (IllegalArgumentException e) {
             System.out.println("Hey! There is an invalid todo task in the task list!");
@@ -65,14 +75,16 @@ public class Events extends Tasks {
     @Override
     public String toFileString() {
         String x;
-        if (this.status) {
+
+        if (this.isDone) {
             x = "1";
         } else {
             x = "0";
         }
 
         String str1 = String.format("%s", x);
-        return "E | " + str1 + " | " + this.taskDesc + " | " + this.from + " | " + this.to;
+
+        return "E | " + str1 + " | " + this.taskDesc + " | " + this.fromDateStr + " | " + this.toDateStr;
     }
 
     /**
@@ -83,13 +95,16 @@ public class Events extends Tasks {
     @Override
     public String toString() {
         String x;
-        if (this.status) {
+
+        if (this.isDone) {
             x = "X";
         } else {
             x = " ";
         }
+
         String str1 = String.format("[%s] ", x);
-        String str2 = String.format(" (from: %s to: %s)", this.from, this.to);
+        String str2 = String.format(" (from: %s to: %s)", this.fromDateStr, this.toDateStr);
+
         return "[E]" + str1 + this.taskDesc + str2;
     }
 
@@ -101,14 +116,19 @@ public class Events extends Tasks {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
         Events events = (Events) o;
 
-        if (!taskDesc.equals(events.taskDesc)) return false;
-        if (!from.equals(events.from)) return false;
-        return to.equals(events.to);
+        if (this == o) {
+            return true;
+        } else if (o == null || getClass() != o.getClass()) {
+            return false;
+        } else if (!taskDesc.equals(events.taskDesc)) {
+            return false;
+        } else if (!fromDateStr.equals(events.fromDateStr)) {
+            return false;
+        } else{
+            return toDateStr.equals(events.toDateStr);
+        }
     }
 
 

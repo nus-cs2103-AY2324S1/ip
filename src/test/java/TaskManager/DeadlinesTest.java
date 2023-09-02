@@ -1,6 +1,6 @@
-package TaskManager;
+package taskmanager;
 
-import Parser.DateTime;
+import parser.DateTime;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

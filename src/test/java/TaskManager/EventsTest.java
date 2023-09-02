@@ -1,7 +1,7 @@
-package TaskManager;
+package taskmanager;
 
 import org.junit.jupiter.api.Test;
-import Parser.DateTime;
+import parser.DateTime;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EventsTest {
