@@ -1,6 +1,10 @@
 package duke;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
+
 import duke.command.Command;
+import javafx.application.Platform;
 
 /**
  * The main class of the Duke application, responsible for handling user interactions
@@ -27,33 +31,31 @@ public class Duke {
     }
 
     /**
-     * The entry point of the Duke application.
+     * Returns the welcome string.
      *
-     * @param args Command-line arguments (not used in this application).
+     * @return The string to welcome users.
      */
-    public static void main(String[] args) {
-        new Duke().run();
+    public String init() {
+        ui.showWelcome();
+        return (ui.getCurrentMessage());
     }
 
     /**
-     * Initiates the main loop of the Duke application, where user commands are processed.
+     * Returns the response given the user input.
+     *
+     * @param input The user input entered.
+     * @return The string Bot replies.
      */
-
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showErrMessage(e);
-            } finally {
-                ui.showLine();
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+            if (c.isExit()) {
+                CompletableFuture.delayedExecutor(2, TimeUnit.SECONDS).execute(() -> Platform.exit());
             }
+        } catch (DukeException e) {
+            ui.showErrMessage(e);
         }
+        return ui.getCurrentMessage();
     }
 }
