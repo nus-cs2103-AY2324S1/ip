@@ -3,6 +3,7 @@ package duke;
 /** Ui prints statements that the user will interact with */
 public class Ui {
 
+    /** Creates a new Ui object. */
     public Ui() {}
 
     /** Greets the user. */

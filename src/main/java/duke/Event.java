@@ -3,6 +3,7 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/** Abstraction for task that have start and end dates. */
 public class Event extends Task {
 
     /** Start time of event. */
@@ -10,8 +11,14 @@ public class Event extends Task {
     /** End time of event. */
     protected LocalDate end;
 
-    public Event(String description, boolean isDone,
-                 LocalDate start, LocalDate end) {
+    /** Creates a new Event object.
+     *
+     * @param description What the event is about.
+     * @param isDone Whether the event is done or not.
+     * @param start Start date of the event.
+     * @param end End date of the event.
+     */
+    public Event(String description, boolean isDone, LocalDate start, LocalDate end) {
         super(description, isDone);
         this.start = start;
         this.end = end;

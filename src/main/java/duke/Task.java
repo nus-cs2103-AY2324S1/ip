@@ -1,5 +1,6 @@
 package duke;
 
+/** Abstraction of a Task. */
 public abstract class Task {
 
     /** Description of the task. */
@@ -9,6 +10,11 @@ public abstract class Task {
 
     private Ui ui = new Ui();
 
+    /** Creates a new Task object.
+     *
+     * @param description What the task is about.
+     * @param isDone Whether the task is done.
+     */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
@@ -22,26 +28,26 @@ public abstract class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    /** Change the state of task to completed. */
+    /** Changes the state of task to completed. */
     public void markAsDone() {
         this.isDone = true;
         this.ui.showTaskMarked(this);
     }
 
-    /** Change the state of task to not completed. */
+    /** Changes the state of task to not completed. */
     public void markAsUndone() {
         this.isDone = false;
         this.ui.showTaskUnmarked(this);
     }
 
-    /** Get the string representation of the task for storage in hard drive.
+    /** Gets the string representation of the task for storage in hard drive.
      *
      * @return The string representation for storage purposes.
      */
     public abstract String getStorageDescription();
 
     /**
-     * Display string representation of task.
+     * Displays string representation of task.
      *
      * @return String representation.
      */

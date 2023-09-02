@@ -6,13 +6,16 @@ import java.util.Scanner;
  */
 public class Duke {
 
-    /** Storage for tasks */
     private Storage storage;
     private TaskList list;
     private Ui ui;
     private boolean isActive = true;
     private final String FILE_PATH;
 
+    /** Creates a new Duke chat bot
+     *
+     * @param filePath Path to file to read stored tasklist.
+     */
     public Duke(String filePath) {
         this.ui = new Ui();
         this.FILE_PATH = filePath;
@@ -36,6 +39,7 @@ public class Duke {
         this.exit();
     }
 
+    /** Stops the Duke chat bot */
     public void exit() {
         this.isActive = false;
         this.list.updateStorage(FILE_PATH);
