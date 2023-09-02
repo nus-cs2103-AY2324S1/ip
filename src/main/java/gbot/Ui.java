@@ -42,28 +42,16 @@ public class Ui {
         Ui.print(message);
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     /**
      * Prints out the empty command error message.
      */
-=======
->>>>>>> branch-A-CodingStandard
-=======
->>>>>>> branch-Level-9
     public static void showEmptyCommandError() {
         print("Please enter a command.");
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     /**
      * Prints out the task number error message.
      */
-=======
->>>>>>> branch-A-CodingStandard
-=======
->>>>>>> branch-Level-9
     public static void showTaskNumberError() {
         print("Please enter a task number.");
     }

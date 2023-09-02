@@ -13,14 +13,12 @@ public class GBotException extends RuntimeException {
         super("Sorry. I don't understand the command");
     }
 
-<<<<<<< HEAD
     /**
      * Initalises a general chatbot exception.
      *
      * @param message The error message to be printed.
      */
-=======
->>>>>>> branch-A-CodingStandard
+
     public GBotException(String message) {
         super(message);
     }

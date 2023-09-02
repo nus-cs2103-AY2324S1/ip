@@ -9,14 +9,11 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-<<<<<<< HEAD
     /**
      * Initialises a Task object with a task description.
      *
      * @param description
      */
-=======
->>>>>>> branch-A-CodingStandard
     public Task(String description) {
         this.description = description;
     }
@@ -30,16 +27,18 @@ public class Task {
         return isDone ? "[X]" : "[ ]";
     }
 
-<<<<<<< HEAD
     /**
-     * Updates the status of the Task as done.
+     * Returns the description of the Task.
+     *
+     * @return The task description.
      */
-=======
     public String getDescription() {
         return this.description;
     }
 
->>>>>>> branch-Level-9
+    /**
+     * Updates the status of the Task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
@@ -60,14 +59,11 @@ public class Task {
         return this.getStatusIcon() + " " + this.description;
     }
 
-<<<<<<< HEAD
     /**
      * Returns a string representation of the Task to be added to a file.
      *
      * @return The Task in string format, specific for file operations.
      */
-=======
->>>>>>> branch-A-CodingStandard
     public String toStringForFile() {
         String status = isDone ? "1" : "0";
         return status + " | " + description;
