@@ -29,4 +29,8 @@ public abstract class Task {
     }
 
     public abstract String outputFormat();
+
+    public String getMsg() {
+        return this.taskName;
+    }
 }

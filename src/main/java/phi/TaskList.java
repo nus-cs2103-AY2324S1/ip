@@ -128,4 +128,17 @@ public class TaskList {
         return this.taskList.size();
     }
 
+    public String findTasks(String input) {
+        if (input.equals("find")) {
+            throw new IllegalArgumentException("You gotta put something for me to find...");
+        }
+        String findText = input.substring(5);
+        StringBuilder output = new StringBuilder("Here's all the tasks that match your keyword!\n");
+        for (Task t : this.taskList) {
+            if (t.getMsg().contains(findText)) {
+                output.append(t).append("\n");
+            }
+        }
+        return output.toString();
+    }
 }
