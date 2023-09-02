@@ -42,7 +42,7 @@ public class CliParserService {
 
         // Split the command and its primary argument
         String[] splitBySpace = line.split(" ", 2);
-        String commandType = splitBySpace[0];
+        String commandType = splitBySpace[0].toLowerCase();
 
         // If there's more than just the command, handle the arguments
         if (splitBySpace.length > 1) {
