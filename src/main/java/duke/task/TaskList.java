@@ -217,7 +217,7 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        StringBuilder str = new StringBuilder(this.status());
+        StringBuilder str = new StringBuilder(this.status() + "\n");
         for (int i = 0; i < this.tasks.size(); i++) {
             str.append(i + 1).append(".").append(this.tasks.get(i)).append(
                     i < this.tasks.size() - 1 ? "\n" : "");
