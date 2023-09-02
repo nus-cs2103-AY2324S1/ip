@@ -1,4 +1,4 @@
-package jarvis;
+package jarvis.tasks;
 
 public class Todo extends Task {
     public Todo(String title, boolean isCompleted) {

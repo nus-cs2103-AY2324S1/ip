@@ -3,9 +3,9 @@ package jarvis.commands;
 import java.util.ArrayList;
 
 import jarvis.Storage;
-import jarvis.Task;
-import jarvis.TaskList;
 import jarvis.Ui;
+import jarvis.tasks.Task;
+import jarvis.tasks.TaskList;
 
 public class ListCommand implements Command {
 

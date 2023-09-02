@@ -1,10 +1,10 @@
 package jarvis.commands;
 
 import jarvis.Storage;
-import jarvis.Task;
-import jarvis.TaskList;
 import jarvis.Ui;
 import jarvis.exceptions.InvalidIndexException;
+import jarvis.tasks.Task;
+import jarvis.tasks.TaskList;
 
 public class UnmarkCommand implements Command{
       private String userInput;

@@ -1,8 +1,8 @@
 package jarvis.commands;
 
 import jarvis.Storage;
-import jarvis.TaskList;
 import jarvis.Ui;
+import jarvis.tasks.TaskList;
 
 public class ByeCommand implements Command {
 
