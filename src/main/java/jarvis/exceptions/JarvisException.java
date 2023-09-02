@@ -1,4 +1,4 @@
-package exceptions;
+package jarvis.exceptions;
 
 public class JarvisException extends Exception {
     public JarvisException(String message) {

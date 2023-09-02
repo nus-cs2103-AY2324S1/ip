@@ -18,11 +18,25 @@ public class TaskList {
         taskList.addAll(tasks);
     }
 
-    public ArrayList<Task> getTask() {
+    public ArrayList<Task> getTaskList() {
         return taskList;
+    }
+    
+    public Task getTask(int index) {
+        return taskList.get(index);
     }
 
     public int getTaskCount() {
         return taskList.size();
+    }
+
+    public boolean isEmpty() {
+        return taskList.isEmpty();
+    }
+
+    public Task deleteTask(int i) {
+        Task removedTask = taskList.get(i);
+        taskList.remove(i);
+        return removedTask;
     }
 }

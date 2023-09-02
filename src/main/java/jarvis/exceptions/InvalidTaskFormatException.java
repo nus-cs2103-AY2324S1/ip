@@ -1,4 +1,4 @@
-package exceptions;
+package jarvis.exceptions;
 
 public class InvalidTaskFormatException extends JarvisException{
     public InvalidTaskFormatException(String message) {
