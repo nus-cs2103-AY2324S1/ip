@@ -47,6 +47,10 @@ public class Task {
      *
      * @return String representation of task.
      */
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         String marking;
