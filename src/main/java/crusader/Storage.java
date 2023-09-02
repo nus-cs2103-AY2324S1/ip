@@ -91,7 +91,7 @@ public class Storage {
                 fileWriter.println(task.toFormat());
             }
         } catch (IOException e) {
-            // handle error
+            e.printStackTrace();
         }
     }
 }
