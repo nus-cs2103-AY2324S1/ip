@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import duke.Parser;
 
 /**
- * A class which inherits from task.Task class.
+ * A class which inherits from Task class.
  * Represents a task with deadline and start time.
  */
 public class Event extends Task {
@@ -21,7 +21,7 @@ public class Event extends Task {
      *
      * @param description The name of this event.
      * @param startTime The start time of this event.
-     * @param endTime The endt time of this event.
+     * @param endTime The end time of this event.
      */
     public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description);
@@ -33,12 +33,12 @@ public class Event extends Task {
     /**
      * Returns a string representation of this event.
      *
-     * @return Returns a string describing this event.
+     * @return A string describing this event.
      */
     @Override
     public String toString() {
 
-        return "[E]" + super.toString() + " (from: " + startTime.format(Parser.outputFormat) +
-                " to: " + endTime.format(Parser.outputFormat) + ")";
+        return "[E]" + super.toString() + " (from: " + startTime.format(Parser.OUTPUT_FORMAT) +
+                " to: " + endTime.format(Parser.OUTPUT_FORMAT) + ")";
     }
 }

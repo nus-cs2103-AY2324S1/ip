@@ -28,7 +28,7 @@ public abstract class Task {
     }
 
     /**
-     * Returns X if task is complete.
+     * Returns X if task is completed.
      *
      * @return Returns X or empty space.
      */
@@ -54,7 +54,7 @@ public abstract class Task {
     /**
      * Returns a description of the task containing the status of the task.
      *
-     * @return Returns a string with the name and the status of the task.
+     * @return A string with the name and the status of the task.
      */
     @Override
     public String toString() {

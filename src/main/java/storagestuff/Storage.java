@@ -28,7 +28,7 @@ public class Storage {
      * Initialises the filePath and makes the file and directory if they don't exist.
      *
      * @param filePath String representing filePath of storage file.
-     * @Throws duke.DukeException Throws duke.DukeException if error occurred during accessing or making file.
+     * @throws DukeException If error occurred during accessing or making file.
      */
     public Storage(String filePath) throws DukeException {
         this.filePath = filePath;
@@ -47,8 +47,8 @@ public class Storage {
     /**
      * Returns an array of tasks that are loaded from the data file.
      *
-     * @return returns an array consisting of tasks loaded from the data file.
-     * @throws DukeException Throws dukeException if error occurred during loading.
+     * @return An array consisting of tasks loaded from the data file.
+     * @throws DukeException If error occurred during loading.
      */
     public ArrayList<Task>  load() throws DukeException{
         ArrayList<Task> tasks = new ArrayList<>();
@@ -85,8 +85,9 @@ public class Storage {
 
     /**
      * Stores the given strings in datafile.
+     *
      * @param s An array of strings representing the tasks to stores in data file.
-     * @throws DukeException throws dukeException if error occurred during storing.
+     * @throws DukeException If error occurred during storing.
      */
     public void store(String[] s) throws DukeException {
         File file = new File(this.filePath);
