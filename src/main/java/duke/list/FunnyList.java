@@ -85,4 +85,15 @@ public class FunnyList {
         this.taskList.add(task);
     }
 
+    public ArrayList<Task> findTasks(String search) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task curr = this.taskList.get(i);
+            if (curr.match(search)) {
+                result.add(curr);
+            }
+        }
+        return result;
+    }
+
 }

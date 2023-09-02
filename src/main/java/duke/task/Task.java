@@ -71,6 +71,10 @@ public abstract class Task {
         return this.task;
     }
 
+    public boolean match(String search) {
+        return this.task.contains(search);
+    }
+
     /**
      * Writes the task data to a FileWriter.
      *
