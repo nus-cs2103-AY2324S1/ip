@@ -5,7 +5,7 @@ Bareum: I have added this task:
 You now have 1 task(s) in your list.
 ________________________
 Bareum: I have added this task:
-[D][ ] return book (by: Sunday)
+[D][ ] return book (by: Sep 2 2023)
 You now have 2 task(s) in your list.
 ________________________
 Bareum: I have added this task:
@@ -14,7 +14,7 @@ You now have 3 task(s) in your list.
 ________________________
 Bareum: Here are your current tasks!
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
+2. [D][ ] return book (by: Sep 2 2023)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ________________________
 Bareum: Well done! I've marked this task as done:
@@ -22,7 +22,7 @@ Bareum: Well done! I've marked this task as done:
 ________________________
 Bareum: Here are your current tasks!
 1. [T][X] borrow book
-2. [D][ ] return book (by: Sunday)
+2. [D][ ] return book (by: Sep 2 2023)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ________________________
 Bareum: Well done! I've marked this task as done:
@@ -30,7 +30,7 @@ Bareum: Well done! I've marked this task as done:
 ________________________
 Bareum: Here are your current tasks!
 1. [T][X] borrow book
-2. [D][ ] return book (by: Sunday)
+2. [D][ ] return book (by: Sep 2 2023)
 3. [E][X] project meeting (from: Mon 2pm to: 4pm)
 ________________________
 Bareum: Okay, I've marked this task as not done yet:
@@ -38,11 +38,11 @@ Bareum: Okay, I've marked this task as not done yet:
 ________________________
 Bareum: Here are your current tasks!
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
+2. [D][ ] return book (by: Sep 2 2023)
 3. [E][X] project meeting (from: Mon 2pm to: 4pm)
 ________________________
 Bareum: Okay, I've deleted this task from the list:
-[D][ ] return book (by: Sunday)
+[D][ ] return book (by: Sep 2 2023)
 You now have 2 tasks in your list.
 ________________________
 Bareum: Here are your current tasks!
@@ -53,7 +53,7 @@ Bareum: Oops! The description of a todo cannot be empty.
 Correct format: todo <description>
 ________________________
 Bareum: Oops! The description of a deadline cannot be empty.
-Correct format: deadline <description> /by <due date>
+Correct format: deadline <description> /by <due date in YYYY-MM-DD>
 ________________________
 Bareum: Oops! The description of an event cannot be empty.
 Correct format: event <description> /from <start time> /to <end time>

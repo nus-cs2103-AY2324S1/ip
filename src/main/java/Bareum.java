@@ -127,7 +127,7 @@ public class Bareum {
                     reply(added);
                 } catch (IllegalArgumentException e) {
                     reply("Oops! The description of a deadline cannot be empty.\n" +
-                            "Correct format: deadline <description> /by <due date>");
+                            "Correct format: deadline <description> /by <due date in YYYY-MM-DD>");
                 }
             } else if (input.equals("event")) {
                 String allDetails = sc.nextLine();

@@ -1,9 +1,13 @@
-public class DeadlineTask extends Task {
-    String dueDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    private DeadlineTask(boolean isDone, String description, String dueDateTime) {
+public class DeadlineTask extends Task {
+    LocalDate dueDate;
+
+    private DeadlineTask(boolean isDone, String description, LocalDate dueDate) {
         super(isDone, description);
-        this.dueDateTime = dueDateTime;
+        this.dueDate = dueDate;
         this.isDone = false;
         // add exceptions for time
     }
@@ -14,14 +18,21 @@ public class DeadlineTask extends Task {
 
         }
 
-        String[] descriptionDueTime = allDetails.split("/by");
+        String[] descriptionDueTime = allDetails.split("/by ");
         if (descriptionDueTime.length <= 1) {
             throw new IllegalArgumentException("Deadline due date cannot be empty.");
         }
 
         String description = descriptionDueTime[0];
-        String dueDateTime = descriptionDueTime[1];
-        return new DeadlineTask(false, description, dueDateTime);
+        String dueDateStr = descriptionDueTime[1];
+        LocalDate dueDate = null;
+        try {
+            dueDate = LocalDate.parse(dueDateStr);
+        } catch (DateTimeParseException e) {
+            System.out.println(e.getMessage());
+            throw new IllegalArgumentException("Wrong date format.");
+        }
+        return new DeadlineTask(false, description, dueDate);
     }
 
     public static DeadlineTask makeDeadline(String[] taskInputs) throws IllegalArgumentException {
@@ -35,20 +46,28 @@ public class DeadlineTask extends Task {
         }
 
         String description = taskInputs[2];
-        String dueDateTime = taskInputs[3];
+        String dueDateStr = taskInputs[3];
+        LocalDate dueDate = null;
+        try {
+            dueDate = LocalDate.parse(dueDateStr);
+        } catch (DateTimeParseException e) {
+            System.out.println(e.getMessage());
+            throw new IllegalArgumentException("Wrong date format.");
+        }
         boolean isDone = taskInputs[1].equals("1");
-        return new DeadlineTask(isDone, description, dueDateTime);
+        return new DeadlineTask(isDone, description, dueDate);
     }
 
     @Override
     public String toString() {
+        String dueDate = this.dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         return "[D][" + this.getStatusIcon() + "]" + this.description
-                + "(by:" + dueDateTime + ")";
+                + "(by: " + dueDate + ")";
     }
 
     @Override
     public String toSavedString() {
         String done = isDone ? "1" : "0";
-        return "E|" + done + "|" + this.description + "|" + this.dueDateTime +"\n";
+        return "E|" + done + "|" + this.description + "|" + dueDate +"\n";
     }
 }
