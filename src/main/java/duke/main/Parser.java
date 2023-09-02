@@ -11,7 +11,7 @@ import java.time.DateTimeException;
 public class Parser {
 
     public enum ValidCommand {
-        BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, UNKNOWN
+        BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, UNKNOWN, FIND
     };
     private ValidCommand currentCommand;
 
@@ -37,7 +37,8 @@ public class Parser {
                 } else {
                     currentCommand = ValidCommand.UNKNOWN;
                 }
-            } else if (currentCommand == ValidCommand.TODO || currentCommand == ValidCommand.DEADLINE) {
+            } else if (currentCommand == ValidCommand.TODO || currentCommand == ValidCommand.DEADLINE ||
+                    currentCommand == ValidCommand.FIND) {
                 int i = 1;
                 title = "";
                 endDate = "";
@@ -107,6 +108,8 @@ public class Parser {
                 return new ByeCommand();
             case LIST:
                 return new ListCommand();
+            case FIND:
+                return new FindCommand(title);
             case UNMARK:
                 if (taskIndex > taskList.size() || taskIndex < 1) {
                     throw new InvalidSyntaxException("The task does not exist.");

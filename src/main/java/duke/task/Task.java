@@ -7,7 +7,7 @@ public class Task {
     /** Track whether the task is done or not*/
     protected boolean isDone;
 
-    /** Cosntructor for the class*/
+    /** Constructor for the class*/
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -35,6 +35,10 @@ public class Task {
 
     public String getTypeIcon() {
         return ("Tk");
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
 }
