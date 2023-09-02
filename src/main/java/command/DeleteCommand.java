@@ -38,7 +38,7 @@ public class DeleteCommand extends Command{
             FileHandler.writeTasksToFile(t);
             ui.delete(deleted);
         } catch (IndexOutOfBoundsException e) {
-            ui.IoobExceptionMessage();
+            ui.ioobExceptionMessage();
         }
     }
 

@@ -1,5 +1,7 @@
 package taskmanager;
 
+import storage.TaskList;
+
 /**
  * The tasks of type "To-Do."
  */
@@ -42,10 +44,8 @@ public class ToDos extends Tasks {
      * @return True if the task is valid (not null); otherwise, false.
      */
     public boolean isValid() {
-
         return taskDesc != null;
     }
-
 
     /**
      * Returns a string format of the To-Do task that can be written to the .txt file.
@@ -97,6 +97,22 @@ public class ToDos extends Tasks {
         } else {
             return taskDesc.equals(toDos.taskDesc);
         }
+    }
+
+    /**
+     * Match the taskDesc with keyword for query.
+     *
+     * @param keyword The keyword for matching.
+     * @return True if there is matching keyword; otherwise, false.
+     */
+    public boolean isMatch(String keyword) {
+        String[] split = taskDesc.split(" ");
+        for(int i = 0; i < split.length; i ++) {
+            if (keyword.equals(split[i])) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

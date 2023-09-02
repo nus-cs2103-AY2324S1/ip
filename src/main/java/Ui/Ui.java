@@ -100,14 +100,30 @@ public class Ui {
     /**
      * Display all the task in the tasklist.
      */
-    public void List() {
+    public void list() {
         System.out.println("   ____________________________________________________________________________________");
         System.out.println("   " + NAME + ": Here are the tasks in your list.");
-        for (int i = 0 ; i < taskList.size(); i ++) {
-            int j = i + 1;
-            System.out.println("     " + j + ". " +  taskList.get(i).toString());
-        }
+        taskList.display();
         System.out.println("   ____________________________________________________________________________________");
+    }
+
+    /**
+     * Display all the task that match the keyword.
+     *
+     * @param matchedList The list of task that matched the keyword
+     */
+    public void find(TaskList matchedList) {
+
+        if (matchedList.isEmpty()) {
+            System.out.println("   ____________________________________________________________________________________");
+            System.out.println("   " + NAME + ": There is no task matched with the given keyword!");
+            System.out.println("   ____________________________________________________________________________________");
+        } else {
+            System.out.println("   ____________________________________________________________________________________");
+            System.out.println("   " + NAME + ": Here are the tasks that matches your keyword.");
+            matchedList.display();
+            System.out.println("   ____________________________________________________________________________________");
+        }
     }
 
     /**
@@ -176,7 +192,7 @@ public class Ui {
     /**
      * Displays a message for handling an IndexOutOfBoundsException.
      */
-    public void IoobExceptionMessage() {
+    public void ioobExceptionMessage() {
         System.out.println("Please enter the correct task's index number.");
     }
 }
