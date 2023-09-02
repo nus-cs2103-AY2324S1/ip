@@ -1,3 +1,5 @@
+package oreo.exception;
+
 import java.util.NoSuchElementException;
 
 public class IllegalCommandException extends NoSuchElementException {
