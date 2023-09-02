@@ -19,7 +19,7 @@ public class Event extends Task {
         this.endDate = endDate;
         this.endTime = endTime;
         this.start = startDate.toString() + " " + startTime.toString();
-        this.end = endDate.toString() + " " + endDate.toString();
+        this.end = endDate.toString() + " " + endTime.toString();
     }
 
     @Override

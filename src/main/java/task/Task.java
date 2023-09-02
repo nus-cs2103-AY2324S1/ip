@@ -9,10 +9,6 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
-    }
-
     public void markDone() {
         if (isDone) {
             System.out.println("Task is already done! (≧∇≦)/");
