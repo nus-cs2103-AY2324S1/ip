@@ -1,3 +1,4 @@
+package duke.task;
 /**
  * Task encapsulate a task with a String description and boolean isDone. It supports
  * marking the completion of tasks

@@ -1,3 +1,4 @@
+package duke.exception;
 /**
  * Exceptions that will be thrown whilst executing duke program.
  */

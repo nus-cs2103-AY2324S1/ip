@@ -1,3 +1,10 @@
+package duke.command;
+
+import duke.exception.DukeException;
+
+import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.Ui;
 /**
  * Deletes a task from the list.
  */

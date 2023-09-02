@@ -1,3 +1,4 @@
+package duke.task;
 /**
  * Todo instance of a task
  */
