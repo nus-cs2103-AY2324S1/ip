@@ -1,0 +1,5 @@
+[T][ ] eat
+[T][ ] eat potato
+[D][ ] run and eat  DATETIME Oct 10 2019 6PM
+[E][ ] eat with mum  DATETIME Oct 10 2020 7PM DATETIME_SPLIT Nov 11 2020 2AM
+[T][ ] potato

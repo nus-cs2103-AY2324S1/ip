@@ -11,6 +11,12 @@ import ui.Ui;
 
 public class Hong {
     private static ArrayList<Task> tasks;
+
+    /*
+     * Entry point of the Hong app.
+     *
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         boolean isLoopContinuing = true;
         Ui.sayHello();
@@ -47,6 +53,9 @@ public class Hong {
             case "delete":
                 taskList.deleteTask(userInput);
                 taskList.storeTasks();
+                break;
+            case "find":
+                taskList.findTask(userInput);
                 break;
             default:
                 Ui.printLine();

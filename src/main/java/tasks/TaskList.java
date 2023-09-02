@@ -27,6 +27,21 @@ public class TaskList {
         Ui.printLine();
     }
 
+    public void findTask(String userInput) {
+        Ui.printLine();
+        String taskContent = userInput.substring(5);
+        Ui.print("Here are the matching tasks in your list:");
+        int count = 1;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task currentTask = tasks.get(i);
+            if (currentTask.toString().contains(taskContent)) {
+                Ui.print(count + "." + currentTask.toString());
+                count += 1;
+            }
+        }
+        Ui.printLine();
+    }
+
     public void handleMark(String userInput) {
         String[] arrInput = userInput.split(" ");
         try {

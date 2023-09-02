@@ -17,6 +17,12 @@ import java.util.Scanner;
 
 
 public class Storage {
+
+    /*
+     * Returns an ArrayList<Task> by reading from the storage text file.
+     *
+     * @return An ArrayList<Task>.
+     */
     public static ArrayList<Task> readTasks() {
         ArrayList<Task> tasks = new ArrayList<Task>();
         try {
@@ -65,6 +71,13 @@ public class Storage {
         return tasks;
     }
 
+
+
+    /*
+     * Stores the current tasks in a text file.
+     *
+     * @params The ArrayList<Task> containing all the tasks.
+     */
     public static void storeTasks(ArrayList<Task> tasks) {
         try {
             File myObj = new File("./src/main/storage/writtenStorage.txt");
