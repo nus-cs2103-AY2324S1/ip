@@ -10,9 +10,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles storing of task list data.
+ */
 public class Storage {
     private final String filePath;
     private final ArrayList<Task> tasksReadFromStorage;
+
+    /**
+     * Constructs a Storage with an appropriate filePath.
+     * @param filePath file path of the text file to store task data.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.tasksReadFromStorage = new ArrayList<>();
