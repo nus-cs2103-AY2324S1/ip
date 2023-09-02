@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Storage {
-    private static final String DEFAULT_STORAGE_PATH = ".duke-storage.txt";
+    public static final String DEFAULT_STORAGE_PATH = ".duke-storage.txt";
     private final Path path;
 
     public Storage() {

@@ -2,6 +2,7 @@ package duke;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class TaskList {
     private final List<Task> tasks;
@@ -23,7 +24,12 @@ public class TaskList {
      */
     public static TaskList decode(List<String> encodedTaskList) {
         List<Task> tasks = new ArrayList<>();
-        encodedTaskList.forEach(encodedTask -> tasks.add(Task.decode(encodedTask)));
+        encodedTaskList.forEach(encodedTask -> {
+            Task task = Task.decode(encodedTask);
+            if (!Objects.isNull(task)) {
+                tasks.add(Task.decode(encodedTask));
+            }
+        });
         return new TaskList(tasks);
     }
 
@@ -34,7 +40,7 @@ public class TaskList {
      * @param taskNum the task number to get
      * @return the task with the corresponding task number
      */
-    public Task get(int taskNum) {
+    public Task get(int taskNum) throws IndexOutOfBoundsException {
         return tasks.get(taskNum - 1);
     }
 
@@ -61,7 +67,7 @@ public class TaskList {
      *
      * @param taskNum the task number to delete
      */
-    public void delete(int taskNum) {
+    public void delete(int taskNum) throws IndexOutOfBoundsException {
         tasks.remove(taskNum - 1);
     }
 

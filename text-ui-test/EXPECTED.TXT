@@ -4,6 +4,11 @@
     __________________________________________________
 
     __________________________________________________
+    No stored tasks found from .duke-storage.txt
+    Starting from an empty task list.
+    __________________________________________________
+
+    __________________________________________________
     Got it. I've added this task:
         [T][ ] borrow book
     Now you have 1 task in the list.
@@ -38,11 +43,14 @@
     __________________________________________________
 
     __________________________________________________
-    Unmark can only take an integer task number.
+    unmark can only take an integer task number
+    unmark <task number>
     __________________________________________________
 
     __________________________________________________
-    Deadline is missing the /by keyword.
+    Sorry, but I don't know what that means :(
+    Deadline cannot be parsed
+    deadline <description> /by <date>
     __________________________________________________
 
     __________________________________________________

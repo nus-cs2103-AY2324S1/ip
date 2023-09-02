@@ -12,6 +12,12 @@ then
     rm ACTUAL.TXT
 fi
 
+# delete storage data from previous run
+if [ -e "./.duke-storage.txt" ]
+then
+    rm .duke-storage.txt
+fi
+
 # compile the code into the bin folder, terminates if error occurred
 if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/duke/*.java
 then
