@@ -1,11 +1,12 @@
 package trackerbot.utils;
 
-import org.junit.jupiter.api.Test;
-import trackerbot.command.CommandType;
-import trackerbot.exception.TrackerBotException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import trackerbot.command.CommandType;
+import trackerbot.exception.TrackerBotException;
 
 public class ParserTest {
     @Test

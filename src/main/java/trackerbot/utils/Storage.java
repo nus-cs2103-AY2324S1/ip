@@ -1,9 +1,5 @@
 package trackerbot.utils;
 
-import trackerbot.task.TaskList;
-import trackerbot.exception.TrackerBotException;
-import trackerbot.task.Task;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -14,6 +10,10 @@ import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Scanner;
+
+import trackerbot.exception.TrackerBotException;
+import trackerbot.task.Task;
+import trackerbot.task.TaskList;
 
 /**
  * Contains static methods to read/write save data of TrackerBot.

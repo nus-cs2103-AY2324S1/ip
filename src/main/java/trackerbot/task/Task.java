@@ -19,33 +19,6 @@ public abstract class Task {
     private boolean isDone;
 
     /**
-     * Returns the save string for the child class. <br>
-     * The save string should have the following format: <br>
-     * {Task Flag} | {Mark Status} | {Description} | {Fields...}
-     * <ul>
-     *  <li>Task Flag represents the type of Task to create.</li>
-     *  <li>Mark Status is a 0/1 representation of the Checkmark status.</li>
-     *  <li>Description is the main body of the Task item to display.</li>
-     *  <li>Fields are the additional fields required by the Task, delimited by '|'.</li>
-     * </ul>
-     *
-     * @return The '|' delimited String to store in save file.
-     */
-    public abstract String toSaveString();
-
-    /**
-     * Helper method for toSaveString. <br>
-     * Gets a formatted description and mark status of the Task, and
-     * passes it to the child classes.
-     * @return {Mark Status} | {Description} String, to append to toSaveString
-     *         implementation in child classes.
-     */
-    protected String getSaveInfo() {
-        String checkStatus = isDone ? "1" : "0";
-        return checkStatus + "|" + description;
-    }
-
-    /**
      * Constructor for the Task class, to be called with super.
      * @param desc The description of the task to create.
      */
@@ -64,6 +37,21 @@ public abstract class Task {
         this.description = args[1];
         this.isDone = args[0].equals("1");
     }
+
+    /**
+     * Returns the save string for the child class. <br>
+     * The save string should have the following format: <br>
+     * {Task Flag} | {Mark Status} | {Description} | {Fields...}
+     * <ul>
+     *  <li>Task Flag represents the type of Task to create.</li>
+     *  <li>Mark Status is a 0/1 representation of the Checkmark status.</li>
+     *  <li>Description is the main body of the Task item to display.</li>
+     *  <li>Fields are the additional fields required by the Task, delimited by '|'.</li>
+     * </ul>
+     *
+     * @return The '|' delimited String to store in save file.
+     */
+    public abstract String toSaveString();
 
     /**
      * Factory method to generate Tasks from the save file.
@@ -96,6 +84,18 @@ public abstract class Task {
         default:
             throw new IllegalArgumentException("Unknown Task type.");
         }
+    }
+
+    /**
+     * Helper method for toSaveString. <br>
+     * Gets a formatted description and mark status of the Task, and
+     * passes it to the child classes.
+     * @return {Mark Status} | {Description} String, to append to toSaveString
+     *         implementation in child classes.
+     */
+    protected String getSaveInfo() {
+        String checkStatus = isDone ? "1" : "0";
+        return checkStatus + "|" + description;
     }
 
     /**
@@ -138,7 +138,7 @@ public abstract class Task {
      * @return true, if the description contains the searchStr, and false
      *         otherwise.
      */
-    public boolean contains(String searchStr) {
+    public boolean doesContain(String searchStr) {
         return description.contains(searchStr);
     }
 

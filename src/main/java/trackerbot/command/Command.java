@@ -1,10 +1,10 @@
 package trackerbot.command;
 
+import java.util.Scanner;
+
+import trackerbot.exception.TrackerBotException;
 import trackerbot.task.TaskList;
 import trackerbot.utils.Ui;
-import trackerbot.exception.TrackerBotException;
-
-import java.util.Scanner;
 
 /**
  * Abstracts the Commands obtained from user input.
@@ -42,10 +42,10 @@ public abstract class Command {
      *     <li>UnknownCommand, which will throw an error on execute.</li>
      * </ul>
      * @param keyword The keyword passed in by the user input.
-     * @param rest The description of the user input.
+     * @param commandField The description of the user input.
      * @return Some subtype of Command related to keyword.
      */
-    public static Command of(String keyword, String rest) {
+    public static Command of(String keyword, String commandField) {
         CommandType parsedType = CommandType.UNKNOWN;
         for (CommandType command: CommandType.values()) {
             if (keyword.equals(command.getKeyword())) {
@@ -61,18 +61,18 @@ public abstract class Command {
         case DEADLINE:
             // Fallthrough
         case EVENT:
-            result = new AddCommand(parsedType, rest);
+            result = new AddCommand(parsedType, commandField);
             break;
         case DELETE:
-            result = new DeleteCommand(rest);
+            result = new DeleteCommand(commandField);
             break;
         case MARK:
             // Fallthrough
         case UNMARK:
-            result = new ToggleCommand(parsedType, rest);
+            result = new ToggleCommand(parsedType, commandField);
             break;
         case FIND:
-            result = new FindCommand(rest);
+            result = new FindCommand(commandField);
             break;
         case LIST:
             result = new ListCommand();
