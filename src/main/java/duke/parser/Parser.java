@@ -1,10 +1,10 @@
 package duke.parser;
 
-import duke.Command;
-import duke.exception.DukeDatabaseInvalidEntryException;
-import duke.exception.DukeInvalidArgumentException;
-import duke.exception.DukeNoSuchCommandException;
+import duke.command.*;
+import duke.exception.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -44,31 +44,16 @@ public class Parser {
     }
 
     /**
-     * Parses a Command from the given input String.
+     * Parses user input and generates the appropriate command for Duke.
      *
-     * @param input The user input String.
-     * @return The Command enum value corresponding to the parsed command.
-     * @throws DukeNoSuchCommandException If the input does not correspond to a known Command.
+     * @param input The user's input command.
+     * @return The corresponding Command object based on the user input.
+     * @throws DukeInvalidArgumentException If the input does not match any valid command format.
+     * @throws DukeInvalidDateFormatException If the input contains an invalid date format.
+     * @throws DukeEndDateBeforeStartDateException If an event's end date is before its start date.
      */
-    public static Command parseCommand(String input) throws DukeNoSuchCommandException {
-        String[] inputArr = input.split(" ");
-        try {
-            return Command.valueOf(inputArr[0].toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new DukeNoSuchCommandException();
-        }
-    }
-
-    /**
-     * Parses user input and extracts relevant information.
-     *
-     * @param input The user input String to be parsed.
-     * @return An ArrayList containing the elements extracted from the user input String.
-     * @throws DukeInvalidArgumentException If the input does not correspond to a known Command.
-     */
-    public static ArrayList<String> parseUserInput(String input) throws DukeInvalidArgumentException {
-        ArrayList<String> result = new ArrayList<>();
-
+    public static Command parseUserInput(String input) throws DukeInvalidArgumentException,
+            DukeInvalidDateFormatException, DukeEndDateBeforeStartDateException {
         String byePattern = "bye";
         String listPattern = "list";
         String helpPattern = "help";
@@ -81,62 +66,87 @@ public class Parser {
         String findPattern = "find ([a-zA-Z0-9]+)";
 
         if (input.matches(byePattern)) {
-            result.add("bye");
+            return new ExitCommand();
         } else if (input.matches(listPattern)) {
-            result.add("list");
+            return new ListCommand();
         } else if (input.matches(helpPattern)) {
-            result.add("help");
+            return new HelpCommand();
         } else {
             Matcher matcher;
 
             matcher = Pattern.compile(todoPattern).matcher(input);
             if (matcher.matches()) {
-                result.add("todo");
-                result.add(matcher.group(1));
+                String description = matcher.group(1);
+                return new TodoCommand(description);
             }
 
             matcher = Pattern.compile(deadlinePattern).matcher(input);
             if (matcher.matches()) {
-                result.add("deadline");
-                result.add(matcher.group(1));
-                result.add(matcher.group(2));
+                String description = matcher.group(1);
+                LocalDate by;
+                try {
+                    by = LocalDate.parse(matcher.group(2));
+                } catch (DateTimeParseException e) {
+                    throw new DukeInvalidDateFormatException();
+                }
+                return new DeadlineCommand(description, by);
             }
 
             matcher = Pattern.compile(eventPattern).matcher(input);
             if (matcher.matches()) {
-                result.add("event");
-                result.add(matcher.group(1));
-                result.add(matcher.group(2));
-                result.add(matcher.group(3));
+                String description = matcher.group(1);
+                LocalDate from;
+                LocalDate to;
+                try {
+                    from = LocalDate.parse(matcher.group(2));
+                    to = LocalDate.parse(matcher.group(3));
+                    if (to.isBefore(from)) {
+                        throw new DukeEndDateBeforeStartDateException();
+                    }
+                } catch (DateTimeParseException e) {
+                    throw new DukeInvalidDateFormatException();
+                }
+                return new EventCommand(description, from, to);
             }
 
             matcher = Pattern.compile(markPattern).matcher(input);
             if (matcher.matches()) {
-                result.add("mark");
-                result.add(matcher.group(1));
+                int index;
+                try {
+                    index = Integer.parseInt(matcher.group(1));
+                } catch (NumberFormatException e) {
+                    throw new DukeInvalidArgumentException();
+                }
+                return new MarkCommand(index);
             }
 
             matcher = Pattern.compile(unmarkPattern).matcher(input);
             if (matcher.matches()) {
-                result.add("unmark");
-                result.add(matcher.group(1));
+                int index;
+                try {
+                    index = Integer.parseInt(matcher.group(1));
+                } catch (NumberFormatException e) {
+                    throw new DukeInvalidArgumentException();
+                }
+                return new UnmarkCommand(index);
             }
 
             matcher = Pattern.compile(deletePattern).matcher(input);
             if (matcher.matches()) {
-                result.add("delete");
-                result.add(matcher.group(1));
+                int index;
+                try {
+                    index = Integer.parseInt(matcher.group(1));
+                } catch (NumberFormatException e) {
+                    throw new DukeInvalidArgumentException();
+                }
+                return new DeleteCommand(index);
             }
 
             matcher = Pattern.compile(findPattern).matcher(input);
             if (matcher.matches()) {
-                result.add("find");
-                result.add(matcher.group(1));
+                return new FindCommand(matcher.group(1));
             }
         }
-        if (result.isEmpty()) {
-            throw new DukeInvalidArgumentException();
-        }
-        return result;
+        throw new DukeInvalidArgumentException();
     }
 }

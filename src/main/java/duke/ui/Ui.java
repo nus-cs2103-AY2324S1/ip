@@ -17,7 +17,7 @@ public class Ui {
      *
      * @param messages The messages to be displayed.
      */
-    public static void showToUser(String... messages) {
+    public void showToUser(String... messages) {
         System.out.println("+" + "-".repeat(BOX_WIDTH - 2) + "+");
 
         for (String message : messages) {
@@ -40,7 +40,7 @@ public class Ui {
     /**
      * Displays a greeting message to the user.
      */
-    public static void showGreetMessage() {
+    public void showGreetMessage() {
         showToUser(
                 "Hello! I'm Atlas",
                 "What can I do for you?",
@@ -51,7 +51,7 @@ public class Ui {
     /**
      * Displays an exit message to the user.
      */
-    public static void showExitMessage() {
+    public void showExitMessage() {
         showToUser(
                 "Bye. Hope to see you again soon!"
         );
@@ -60,7 +60,7 @@ public class Ui {
     /**
      * Displays a help message to the user, listing available commands.
      */
-    public static void showHelpMessage() {
+    public void showHelpMessage() {
         showToUser(
                 "Here are the available commands:",
                 "1. bye - Exit the program",
@@ -82,7 +82,7 @@ public class Ui {
      * @param task The Todo task added.
      * @param size The updated size of the TaskList.
      */
-    public static void showTodoMessage(Task task, int size) {
+    public void showTodoMessage(Task task, int size) {
         showToUser(
                 "Got it. I've added this task:",
                  task.toString(),
@@ -96,7 +96,7 @@ public class Ui {
      * @param task The Deadline task added.
      * @param size The updated size of the TaskList.
      */
-    public static void showDeadlineMessage(Task task, int size) {
+    public void showDeadlineMessage(Task task, int size) {
         showToUser(
                 "Got it. I've added this deadline task:",
                 task.toString(),
@@ -110,7 +110,7 @@ public class Ui {
      * @param task The Event task added.
      * @param size The updated size of the TaskList.
      */
-    public static void showEventMessage(Task task, int size) {
+    public void showEventMessage(Task task, int size) {
         showToUser(
                 "Got it. I've added this event task:",
                 task.toString(),
@@ -123,7 +123,7 @@ public class Ui {
      *
      * @param task The task that was marked done.
      */
-    public static void showMarkMessage(Task task) {
+    public void showMarkMessage(Task task) {
         showToUser(
                 "Nice! I've marked this task as done:",
                 task.toString()
@@ -135,7 +135,7 @@ public class Ui {
      *
      * @param task The task that was marked undone.
      */
-    public static void showUnmarkMessage(Task task) {
+    public void showUnmarkMessage(Task task) {
         showToUser(
                 "OK, I've marked this task as not done yet:",
                 task.toString()
@@ -148,7 +148,7 @@ public class Ui {
      * @param task The task that was deleted.
      * @param size The updated size of the TaskList.
      */
-    public static void showDeleteMessage(Task task, int size) {
+    public void showDeleteMessage(Task task, int size) {
         showToUser(
                 "Noted. I've removed this task:",
                 task.toString(),
@@ -161,7 +161,7 @@ public class Ui {
      *
      * @param taskList The TaskList to display.
      */
-    public static void showListMessage(ArrayList<Task> taskList) {
+    public void showListMessage(ArrayList<Task> taskList) {
         ArrayList<String> msg = new ArrayList<>();
         int num = 1;
         for (Task task : taskList) {
@@ -181,18 +181,23 @@ public class Ui {
      *
      * @param e The DukeException representing the error.
      */
-    public static void showError(DukeException e) {
+    public void showError(DukeException e) {
         showToUser(
                 e.toString()
         );
     }
 
-    public static void showFilteredTasks(ArrayList<Task> filteredTasks) {
+    /**
+     * Displays a message of the filtered taskList indexed starting from 1.
+     *
+     * @param filteredTasks The filtered TaskList to display.
+     */
+    public void showFilteredTasks(ArrayList<Task> filteredTasks) {
         ArrayList<String> msg = new ArrayList<>();
         int num = 1;
         for (Task task : filteredTasks) {
             msg.add(num + ": " + task);
-            num ++;
+            num++;
         }
         if (filteredTasks.size() == 0) {
             msg.add("You have no matching task.");

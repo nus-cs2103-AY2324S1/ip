@@ -1,14 +1,7 @@
 package duke.task;
 
-import duke.Duke;
-import duke.exception.*;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-import duke.ui.Ui;
+import duke.exception.DukeNoTaskFoundException;
 
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.time.LocalDate;
 
@@ -35,170 +28,125 @@ public class TaskList {
     }
 
     /**
-     * Adds a new Todo task to the TaskList.
+     * Adds a new todo task to the task list.
      *
-     * @param parsedInput An ArrayList containing the parsed user input.
-     * @throws DukeMissingArgumentException If the user input is missing task description.
+     * @param description The description of the todo task.
+     * @return The added todo task.
      */
-    public void newTodo(ArrayList<String> parsedInput) throws DukeMissingArgumentException {
-        try {
-            Task newTask = new Todo(parsedInput.get(1));
-            this.taskList.add(newTask);
-            Ui.showTodoMessage(newTask, this.taskList.size());
-        } catch (IndexOutOfBoundsException e) {
-            throw new DukeMissingArgumentException();
-        }
+    public Task addTodo(String description) {
+        Task todo = new Todo(description);
+        this.taskList.add(todo);
+        return todo;
     }
 
     /**
-     * Adds a new Deadline task to the TaskList.
+     * Adds a new deadline task to the task list.
      *
-     * @param parsedInput An ArrayList containing the parsed user input.
-     * @throws DukeMissingArgumentException If the user input is missing task description or /by date.
-     * @throws DukeInvalidDateFormatException If the date format in the user input is invalid.
+     * @param description The description of the deadline task.
+     * @param by          The due date of the deadline task.
+     * @return The added deadline task.
      */
-    public void newDeadline(ArrayList<String> parsedInput) throws DukeMissingArgumentException,
-            DukeInvalidDateFormatException {
-        try {
-            Task newTask = new Deadline(parsedInput.get(1), LocalDate.parse(parsedInput.get(2)));
-            this.taskList.add(newTask);
-            Ui.showDeadlineMessage(newTask, this.taskList.size());
-        } catch (IndexOutOfBoundsException e) {
-            throw new DukeMissingArgumentException();
-        } catch (DateTimeParseException e) {
-            throw new DukeInvalidDateFormatException();
-        }
+    public Task addDeadline(String description, LocalDate by) {
+        Task deadline = new Deadline(description, by);
+        this.taskList.add(deadline);
+        return deadline;
     }
 
     /**
-     * Adds a new Event task to the TaskList.
+     * Adds a new event task to the task list.
      *
-     * @param parsedInput An ArrayList containing the parsed user input.
-     * @throws DukeMissingArgumentException If the user input is missing task description or /from date or /to date.
-     * @throws DukeInvalidDateFormatException If the date format in the user input is invalid.
-     * @throws DukeEndDateBeforeStartDateException If the end date is before the start date.
+     * @param description The description of the event task.
+     * @param from        The start date of the event.
+     * @param to          The end date of the event.
+     * @return The added event task.
      */
-    public void newEvent(ArrayList<String> parsedInput) throws DukeMissingArgumentException,
-            DukeInvalidDateFormatException, DukeEndDateBeforeStartDateException {
-        try {
-            Task newTask = new Event(parsedInput.get(1), LocalDate.parse(parsedInput.get(2)),
-                    LocalDate.parse(parsedInput.get(3)));
-            this.taskList.add(newTask);
-            Ui.showEventMessage(newTask, this.taskList.size());
-        } catch (IndexOutOfBoundsException e) {
-            throw new DukeMissingArgumentException();
-        } catch (DateTimeParseException e) {
-            throw new DukeInvalidDateFormatException();
-        }
+    public Task addEvent(String description, LocalDate from, LocalDate to) {
+        Task event = new Event(description, from, to);
+        this.taskList.add(event);
+        return event;
     }
 
     /**
-     * Lists all the tasks in the TaskList.
-     */
-    public void list() {
-        Ui.showListMessage(this.taskList);
-    }
-
-    /**
-     * Marks a task done.
+     * Marks a task at the specified index as done.
      *
-     * @param parsedInput An ArrayList containing the parsed user input.
-     * @throws DukeNoTaskFoundException If the specified task index is out of range.
-     * @throws DukeInvalidArgumentException If the input for task index is not an integer.
-     * @throws DukeMissingArgumentException If the input is missing the task index.
+     * @param index The index of the task to mark as done.
+     * @return The marked task.
+     * @throws DukeNoTaskFoundException If the task is not found at the specified index.
      */
-    public void markAsDone(ArrayList<String> parsedInput) throws DukeNoTaskFoundException,
-            DukeInvalidArgumentException, DukeMissingArgumentException {
+    public Task markAsDone(int index) throws DukeNoTaskFoundException {
         try {
-            int i = Integer.parseInt(parsedInput.get(1));
-            if (i - 1 >= this.taskList.size()) {
-                throw new DukeNoTaskFoundException();
-            }
-            Task task = this.taskList.get(i - 1);
+            Task task = this.taskList.get(index - 1);
             task.markAsDone();
-            Ui.showMarkMessage(task);
-        } catch (NumberFormatException e) {
-            throw new DukeInvalidArgumentException();
+            return task;
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeMissingArgumentException();
+            throw new DukeNoTaskFoundException();
         }
     }
 
     /**
-     * Marks a task undone.
+     * Marks a task at the specified index as undone.
      *
-     * @param parsedInput An ArrayList containing the parsed user input.
-     * @throws DukeNoTaskFoundException If the specified task index is out of range.
-     * @throws DukeInvalidArgumentException If the input for task index is not an integer.
-     * @throws DukeMissingArgumentException If the input is missing the task index.
+     * @param index The index of the task to mark as undone.
+     * @return The marked task.
+     * @throws DukeNoTaskFoundException If the task is not found at the specified index.
      */
-    public void markAsUndone(ArrayList<String> parsedInput) throws DukeNoTaskFoundException,
-            DukeInvalidArgumentException, DukeMissingArgumentException {
+    public Task markAsUndone(int index) throws DukeNoTaskFoundException {
         try {
-            int i = Integer.parseInt(parsedInput.get(1));
-            if (i - 1 >= this.taskList.size()) {
-                throw new DukeNoTaskFoundException();
-            }
-            Task task = this.taskList.get(i - 1);
+            Task task = this.taskList.get(index - 1);
             task.markAsUndone();
-            Ui.showUnmarkMessage(task);
-        } catch (NumberFormatException e) {
-            throw new DukeInvalidArgumentException();
+            return task;
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeMissingArgumentException();
+            throw new DukeNoTaskFoundException();
         }
     }
 
     /**
-     * Deletes a task.
+     * Deletes a task at the specified index.
      *
-     * @param parsedInput An ArrayList containing the parsed user input.
-     * @throws DukeNoTaskFoundException If the specified task index is out of range.
-     * @throws DukeInvalidArgumentException If the input for task index is not an integer.
-     * @throws DukeMissingArgumentException If the input is missing the task index.
+     * @param index The index of the task to delete.
+     * @return The deleted task.
+     * @throws DukeNoTaskFoundException If the task is not found at the specified index.
      */
-    public void delete(ArrayList<String> parsedInput) throws DukeNoTaskFoundException,
-            DukeInvalidArgumentException, DukeMissingArgumentException {
+
+    public Task delete(int index) throws DukeNoTaskFoundException {
         try {
-            int i = Integer.parseInt(parsedInput.get(1));
-            if (i - 1 >= this.taskList.size()) {
-                throw new DukeNoTaskFoundException();
-            }
-            Task removedTask = this.taskList.get(i - 1);
-            this.taskList.remove(i - 1);
-            Ui.showDeleteMessage(removedTask, this.taskList.size());
-        } catch (NumberFormatException e) {
-            throw new DukeInvalidArgumentException();
+            Task task = this.taskList.get(index - 1);
+            this.taskList.remove(index - 1);
+            return task;
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeMissingArgumentException();
+            throw new DukeNoTaskFoundException();
         }
     }
 
     /**
-     * Finds all the task that matches a target String.
+     * Finds and returns a list of tasks that contain the specified target keyword in their descriptions.
      *
-     * @param parsedInput An ArrayList containing the parsed user input.
-     * @throws DukeMissingArgumentException If the input is missing the target String.
+     * @param target The target keyword to search for in task descriptions.
+     * @return An ArrayList of tasks that match the search criteria.
      */
-    public void find(ArrayList<String> parsedInput) throws DukeMissingArgumentException {
-        try {
-            String target = parsedInput.get(1);
-            ArrayList<Task> filteredTasks = new ArrayList<>();
-            for (Task task : this.taskList) {
-                if (task.getDescription().contains(target)) {
-                    filteredTasks.add(task);
-                }
+    public ArrayList<Task> find(String target) {
+        ArrayList<Task> filteredTask = new ArrayList<>();
+        for (Task task : this.taskList) {
+            if (task.getDescription().contains(target)) {
+                filteredTask.add(task);
             }
-            Ui.showFilteredTasks(filteredTasks);
-        } catch (IndexOutOfBoundsException e) {
-            throw new DukeMissingArgumentException();
         }
+        return  filteredTask;
     }
 
     /**
-     * Converts the TaskList into an ArrayList of Strings for storage.
+     * Retrieves the number of tasks in the task list.
      *
-     * @return An ArrayList of Strings representing the tasks in the TaskList.
+     * @return The number of tasks in the task list.
+     */
+    public int getSize() {
+        return this.taskList.size();
+    }
+
+    /**
+     * Converts the task list to an ArrayList of string representations of tasks.
+     *
+     * @return An ArrayList of strings representing the tasks in the task list.
      */
     public ArrayList<String> stringify() {
         ArrayList<String> stringList = new ArrayList<>();

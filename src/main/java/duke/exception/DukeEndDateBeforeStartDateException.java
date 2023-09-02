@@ -1,5 +1,8 @@
 package duke.exception;
 
+/**
+ * Represents an error when Duke encounters invalid start and end date for Event task.
+ */
 public class DukeEndDateBeforeStartDateException extends DukeException {
     @Override
     public String toString() {

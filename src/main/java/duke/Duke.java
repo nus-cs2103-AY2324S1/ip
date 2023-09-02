@@ -1,5 +1,6 @@
 package duke;
 
+import duke.command.Command;
 import duke.exception.DukeDatabaseNotFoundException;
 import duke.exception.DukeException;
 import duke.parser.Parser;
@@ -7,7 +8,6 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -16,13 +16,15 @@ import java.util.Scanner;
 public class Duke {
     private Storage storage;
     private TaskList taskList;
+    private Ui ui;
 
     /**
-     * Constructor for Duke, which instantiates the storage and taskList.
+     * Constructor for Duke, which instantiates the ui, storage and taskList.
      *
      * @param filePath The specified filePath of the database.
      */
     public Duke(String filePath) {
+        this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
             this.taskList = new TaskList(storage.loadData());
@@ -31,74 +33,23 @@ public class Duke {
         }
     }
 
-    private void greet() {
-        Ui.showGreetMessage();
-    }
-
-    private void exit() {
-        this.storage.saveData(this.taskList);
-        Ui.showExitMessage();
-    }
-
-    private void list() {
-        this.taskList.list();
-    }
-
-    private void help() {
-        Ui.showHelpMessage();
-    }
-
     /**
-     * Listens for user input and processes commands until the user exits.
+     * Runs the Duke chat application.
      */
-    private void listen() {
-        Scanner sc = new Scanner(System.in);
-        while (true) {
+    public void run() {
+        this.ui.showGreetMessage();
+        boolean isExit = false;
+        Scanner scanner = new Scanner(System.in);
+        while (!isExit) {
             try {
-                String input = sc.nextLine();
-                ArrayList<String> parsedInput = Parser.parseUserInput(input);
-                Command command = Parser.parseCommand(input);
-                switch (command) {
-                    case BYE:
-                        this.exit();
-                        return;
-                    case LIST:
-                        this.list();
-                        break;
-                    case HELP:
-                        this.help();
-                        break;
-                    case MARK:
-                        this.taskList.markAsDone(parsedInput);
-                        break;
-                    case UNMARK:
-                        this.taskList.markAsUndone(parsedInput);
-                        break;
-                    case DELETE:
-                        this.taskList.delete(parsedInput);
-                        break;
-                    case TODO:
-                        this.taskList.newTodo(parsedInput);
-                        break;
-                    case DEADLINE:
-                        this.taskList.newDeadline(parsedInput);
-                        break;
-                    case EVENT:
-                        this.taskList.newEvent(parsedInput);
-                        break;
-                    case FIND:
-                        this.taskList.find(parsedInput);
-                        break;
-                }
+                String userInput = scanner.nextLine();
+                Command c = Parser.parseUserInput(userInput);
+                c.execute(taskList, ui, storage);
+                isExit = c.isExit();
             } catch (DukeException e) {
-                Ui.showError(e);
+                this.ui.showError(e);
             }
         }
-    }
-
-    private void run() {
-        this.greet();
-        this.listen();
     }
 
     public static void main(String[] args) {

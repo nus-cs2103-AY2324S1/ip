@@ -1,7 +1,5 @@
 package duke.task;
 
-import duke.exception.DukeEndDateBeforeStartDateException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -19,13 +17,9 @@ public class Event extends Task {
      * @param description String describing the Event.
      * @param start Start date in MMM DD YYYY format.
      * @param end End date in MMM DD YYYY format.
-     * @throws DukeEndDateBeforeStartDateException If the end date is before the start date.
      */
-    public Event(String description, LocalDate start,LocalDate end) throws DukeEndDateBeforeStartDateException {
+    public Event(String description, LocalDate start,LocalDate end) {
         super(description);
-        if (end.isBefore(start)) {
-            throw new DukeEndDateBeforeStartDateException();
-        }
         this.start = start;
         this.end = end;
     }
