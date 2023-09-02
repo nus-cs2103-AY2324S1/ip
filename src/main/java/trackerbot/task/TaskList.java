@@ -7,6 +7,11 @@ import trackerbot.utils.Parser;
 
 import java.util.ArrayList;
 
+/**
+ * Collection of Tasks for use in TrackerBot.
+ * @author WZWren
+ * @version A-JavaDoc
+ */
 public class TaskList {
     /**
      * Task Array - as TrackerBot is not instantiated, this must be static.
@@ -15,6 +20,13 @@ public class TaskList {
      */
     private final ArrayList<Task> TASKS = new ArrayList<>();
 
+    /**
+     * Attempts to toggle the item at index as complete.
+     * @param index The index of the Task in the TaskList, starting from 1.
+     * @return The reply String to be passed into Ui.
+     * @throws TrackerBotException if the Task specified does not exist, or is
+     *                             already completed.
+     */
     public String markTask(int index) throws TrackerBotException {
         Task task = getTask(index);
         // happy path: the task does not exist.
@@ -29,6 +41,13 @@ public class TaskList {
         return "This task has been marked as completed.\n  " + task;
     }
 
+    /**
+     * Attempts to toggle the item at index as incomplete.
+     * @param index The index of the Task in the TaskList, starting from 1.
+     * @return The reply String to be passed into Ui.
+     * @throws TrackerBotException if the Task specified does not exist, or is
+     *                             still incompleted.
+     */
     public String unmarkTask(int index) throws TrackerBotException {
         Task task = getTask(index);
         // happy path: the task does not exist.
@@ -45,10 +64,10 @@ public class TaskList {
     }
 
     /**
-     * Delete function for the app. <br>
-     * Attempts to delete the item in the task list. If the Task does not exist,
-     * prints an appropriate error message.
-     * @param index The index of the list to unmark.
+     * Attempts to delete the item at index.
+     * @param index The index of the Task in the TaskList, starting from 1.
+     * @return The reply String to be passed into Ui.
+     * @throws TrackerBotException if the Task specified does not exist.
      */
     public String delete(int index) throws TrackerBotException {
         Task task = getTask(index);
@@ -95,9 +114,13 @@ public class TaskList {
     }
 
     /**
-     * Function that adds a task to the app. <br>
-     * Adds a To-Do, Event or Deadline task to the task list.
-     * @param input The Pair&lt;Command, String&gt; of the task to add to the list.
+     * Attempts to add a new Task into the list.
+     *
+     * @see trackerbot.utils.Parser#parseAdd
+     * @param type The enumerated type of Command to add into the Task.
+     * @param commandField The description of the Command.
+     * @return The reply String to be passed into Ui.
+     * @throws TrackerBotException if the addition of the task encounters an error during parse.
      */
     public String add(CommandType type, String commandField) throws TrackerBotException {
         Task newTask = Parser.parseAdd(type, commandField);
@@ -105,6 +128,10 @@ public class TaskList {
         return "I am tracking this task now:\n  " + newTask.toString();
     }
 
+    /**
+     * Returns a UI-friendly String representation of the Task List.
+     * @return A String representation of the Task List, to pass directly into Ui.
+     */
     public String list() {
         // happy path: prints an appropriate message and exit the method.
         if (TASKS.size() == 0) {
@@ -113,14 +140,27 @@ public class TaskList {
         return "I am tracking these tasks:\n" + getListOfTasks();
     }
 
+    /**
+     * Adds the Task directly into TaskList.
+     * <p>This is a method used by Storage.</p>
+     * @param task The Task to add into TaskList.
+     */
     public void importSave(Task task) {
         TASKS.add(task);
     }
 
+    /**
+     * Deletes all items in the TaskList.
+     */
     public void clear() {
         TASKS.clear();
     }
 
+    /**
+     * Exports all items in the TaskList into a save-compatible String form.
+     * @return The String representation of all the Tasks in the TaskList, in
+     *         a save-compatible form.
+     */
     public String exportSave() {
         StringBuilder result = new StringBuilder();
         for (int i = 1; i < TASKS.size() + 1; i++) {
@@ -143,6 +183,10 @@ public class TaskList {
         return TASKS.get(index - 1);
     }
 
+    /**
+     * Gets the String representation of the TaskList.
+     * @return the String representation of the TaskList
+     */
     private String getListOfTasks() {
         StringBuilder result = new StringBuilder();
 

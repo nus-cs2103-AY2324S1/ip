@@ -3,13 +3,13 @@ package trackerbot.task;
 import java.time.format.DateTimeParseException;
 
 /**
- * The Task class for TrackerBot. <br>
- * The Task class abstracts each checklist item inside a Reminder-Type app. <br>
- * As of Level 4, Task should no longer be instantiated as a base task, as To-do
- * exists as a basic Task. Therefore, Task has been converted to an Abstract class.
+ * The Task class for TrackerBot.
+ * <p>The Task class abstracts each checklist item inside a Reminder-Type app.</p>
+ * <p>Task should not be instantiated as a basic task. To instantiate a basic Task
+ * with no DateTime fields, use the To-do subtype instead.</p>
  *
  * @author WZWren
- * @version Level-4
+ * @version A-JavaDoc
  */
 public abstract class Task {
     /** The description of the task instance. **/
@@ -46,19 +46,35 @@ public abstract class Task {
     }
 
     /**
-     * Constructor for the Task class.
+     * Constructor for the Task class, to be called with super.
      * @param desc The description of the task to create.
      */
-    public Task(String desc) {
+    protected Task(String desc) {
         this.description = desc;
         this.isDone = false;
     }
 
+    /**
+     * Constructs a Task using a String array, for use in save parsing.
+     * <p>This should only be called by child classes in their array constructors.</p>
+     * @param args The arguments for constructing a Task, containing isDone status in index
+     *             0 and description in index 1.
+     */
     protected Task(String[] args) {
         this.description = args[1];
         this.isDone = args[0].equals("1");
     }
 
+    /**
+     * Factory method to generate Tasks from the save file.
+     * <p>ofSaveString expects the save string to be split before passing into Task.</p>
+     *
+     * @param type The String representation of the Task in the save file.
+     * @param args The Arguments for each task in the save file.
+     * @return A Task corresponding to the type and args of the save string.
+     * @throws IllegalArgumentException if the save file is corrupted.
+     * @throws DateTimeParseException if the DateTime field is invalid.
+     */
     public static Task ofSaveString(String type, String... args)
             throws IllegalArgumentException, DateTimeParseException {
         switch (type) {
