@@ -1,11 +1,22 @@
 package benben;
+
+/**
+ * A type of  tasks that only has a description
+ */
 public class Todo extends Task {
+    /**
+     * Instantiates a new Todo.
+     *
+     * @param description the description
+     */
     public Todo(String description) {
+
         super(description);
     }
 
     @Override
     public String toString() {
+
         return "[T] " + super.toString();
     }
 
