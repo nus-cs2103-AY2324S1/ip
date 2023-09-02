@@ -44,6 +44,8 @@ public class Duke {
                 } else if (userInput.startsWith("delete")) {
                     _taskList.deleteTask(userInput);
                     _taskList.saveTask(_storage.filepath);
+                } else if (userInput.startsWith("find")) {
+                    _taskList.findTasks(userInput);
                 } else {
                     _taskList.addTask(userInput);
                     _taskList.saveTask(_storage.filepath);

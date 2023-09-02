@@ -89,7 +89,9 @@ public class Parser {
 
         // Check if a valid addTask command is entered
         if (inputParts.length < 2) throw new NoDescriptionException();
-        return inputParts[1];
+        // Check if description is empty
+        if (inputParts[1].trim().equals("")) throw new NoDescriptionException();
+        return inputParts[1].trim();
     }
 
     /**
