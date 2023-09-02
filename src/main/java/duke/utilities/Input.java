@@ -8,7 +8,7 @@ public class Input {
 	private String fullInput;
 	private int wordLength;
 
-	public Input(String command, String fullInput ,int wordLength) {
+	public Input(String command, String fullInput, int wordLength) {
 		this.command = command;
 		this.fullInput = fullInput;
 		this.wordLength = wordLength;

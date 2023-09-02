@@ -1,6 +1,15 @@
 package duke.utilities;
+
 import java.util.Scanner;
-import duke.exceptions.*;
+
+import duke.exceptions.DukeException;
+import duke.exceptions.EmptyListException;
+import duke.exceptions.InvalidCommandException;
+import duke.exceptions.InvalidCommandSyntaxException;
+import duke.exceptions.InvalidTaskTimeException;
+import duke.exceptions.MissingTaskDescriptionException;
+import duke.exceptions.MissingTaskNameException;
+import duke.exceptions.MissingTaskNumberException;
 
 /**
  * Handles user interaction
@@ -8,20 +17,20 @@ import duke.exceptions.*;
 public class Ui {
 
     /** Variable to detect user input */
-    Scanner sc = new Scanner(System.in);
+    private Scanner sc = new Scanner(System.in);
 
     /** Variable to show horizontal lines */
     public static final String LINE_BREAK = ("--------------------------------------------------"
             + "---------------------------------");
 
-    public void greetings() {
+    public void greet() {
         System.out.println("\n");
         System.out.println(LINE_BREAK);
         System.out.println("Welcome. My name is Duke");
         System.out.println("What will you do today?");
     }
 
-    public String inputSession() {
+    public String startInputSession() {
         System.out.println(LINE_BREAK);
         System.out.println("\n");
         String input = sc.nextLine().trim();
@@ -56,15 +65,15 @@ public class Ui {
                     throw new EmptyListException("List is currently empty");
                 }
                 switch (command) {
-                    case "mark":
-                        tasks.manipulateTasks(fullInput, "mark", 5);
-                        break;
-                    case "unmark":
-                        tasks.manipulateTasks(fullInput, "unmark", 7);
-                        break;
-                    case "delete":
-                        tasks.manipulateTasks(fullInput, "delete", 7);
-                        break;
+				case "mark":
+					tasks.manipulateTasks(fullInput, "mark", 5);
+					break;
+				case "unmark":
+					tasks.manipulateTasks(fullInput, "unmark", 7);
+					break;
+				case "delete":
+					tasks.manipulateTasks(fullInput, "delete", 7);
+					break;
                 }
             } else if (command.equals("todo")) {
                 if (inputLength <= 1) {
