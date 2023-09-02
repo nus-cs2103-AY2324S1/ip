@@ -1,8 +1,11 @@
-// package main.java;
+package functional;
 
 public class DukeException extends Exception {
-    DukeException() {
-        // super(message);
+    public DukeException() {
+    }
+
+    public DukeException(String message) {
+        super(message);
     }
 
     public String toString() {

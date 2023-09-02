@@ -1,23 +1,23 @@
-// package main.java;
+package tasks;
 
 public class ToDo extends Task {
-    ToDo(String content) {
-        super(content);
+    public ToDo(String content) {
+        super(content, false);
     }
 
-    ToDo(String content, boolean status) {
+    public ToDo(String content, boolean status) {
         super(content, status);
     }
 
-    ToDo mark() {
-        return new ToDo(content, true);
+    public ToDo mark() {
+        return new ToDo(super.getContent(), true);
     }
 
-    ToDo unmark() {
-        return new ToDo(content);
+    public ToDo unmark() {
+        return new ToDo(super.getContent());
     }
 
-    String addTask(int listSize) {
+    public String addTask(int listSize) {
         return "____________________________________________________________\n" +
                 "Got it. I've added this task:\n" +
                 toString() + "\n" +
@@ -26,10 +26,10 @@ public class ToDo extends Task {
     }
 
     public String toString() {
-        if (!this.marked) {
-            return String.format("[T][ ] %s", content);
+        if (!super.isMarked()) {
+            return String.format("[T][ ] %s", super.getContent());
         } else {
-            return String.format("[T][X] %s", content);
+            return String.format("[T][X] %s", super.getContent());
         }
     }
 }

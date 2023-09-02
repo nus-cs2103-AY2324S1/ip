@@ -1,31 +1,39 @@
-// package main.java;
+package tasks;
 
 public class Task {
-    String content;
-    boolean marked;
+    private String content;
+    private boolean marked;
 
-    Task(String content) {
+    public Task(String content) {
         this.content = content;
         this.marked = false;
     }
 
-    Task(String content, boolean status) {
+    public Task(String content, boolean status) {
         this.content = content;
         this.marked = status;
     }
 
-    Task mark() {
+    public Task mark() {
         return new Task(content, true);
     }
 
-    Task unmark() {
+    public Task unmark() {
         return new Task(content);
     }
 
-    String addTask(int listSize) {
+    public String addTask(int listSize) {
         return "____________________________________________________________\n" +
                 "added: " + this.content + "\n" +
                 "____________________________________________________________";
+    }
+
+    public String getContent() {
+        return this.content;
+    }
+
+    public boolean isMarked() {
+        return this.marked;
     }
 
     public String toString() {
