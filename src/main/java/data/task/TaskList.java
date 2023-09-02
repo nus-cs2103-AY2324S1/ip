@@ -40,7 +40,8 @@ public class TaskList {
             }
             scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
+            System.out.println("An error occurred when trying to find the file.");
+            e.getMessage();
             e.printStackTrace();
         } catch (DukeException e) {
             System.out.println(e);
