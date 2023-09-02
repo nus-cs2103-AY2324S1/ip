@@ -1,12 +1,12 @@
 package duke.service;
 
-import duke.commands.Command;
-import duke.exception.InvalidCommandInputException;
-import duke.exception.UnknownCommandException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import duke.commands.Command;
+import duke.exception.InvalidCommandInputException;
+import duke.exception.UnknownCommandException;
 
 /**
  * Provides functionality to parse and execute commands from the command line interface.

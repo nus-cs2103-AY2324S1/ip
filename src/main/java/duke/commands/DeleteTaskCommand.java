@@ -1,11 +1,11 @@
 package duke.commands;
 
+import java.util.Optional;
+
 import duke.Duke;
 import duke.exception.DukeStorageException;
 import duke.service.UiService;
 import duke.tasks.Task;
-
-import java.util.Optional;
 
 /**
  * Represents a command to delete a task from the Duke application.
@@ -33,8 +33,8 @@ public class DeleteTaskCommand extends Command {
         try {
             Optional<Task> optionalTask = dukeBot.deleteTask(taskId - 1);
             optionalTask.ifPresentOrElse(
-                    task -> uiService.printDeleteTask(task, dukeBot.getNumberOfTasks()),
-                    () -> uiService.printInvalidTaskIndexProvided(taskId, dukeBot.getNumberOfTasks())
+                    task -> uiService.printDeleteTask(task, dukeBot.getNumberOfTasks()), () ->
+                    uiService.printInvalidTaskIndexProvided(taskId, dukeBot.getNumberOfTasks())
             );
         } catch (DukeStorageException e) {
             uiService.printStorageDeleteFailure();

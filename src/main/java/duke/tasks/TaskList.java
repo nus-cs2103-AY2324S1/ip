@@ -1,11 +1,11 @@
 package duke.tasks;
 
-import duke.exception.DukeStorageException;
-import duke.service.StorageService;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import duke.exception.DukeStorageException;
+import duke.service.StorageService;
 
 /**
  * Represents a list of tasks that supports various task management operations.

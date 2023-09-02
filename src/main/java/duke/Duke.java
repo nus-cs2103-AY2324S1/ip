@@ -1,12 +1,17 @@
 package duke;
 
-import duke.exception.DukeStorageException;
-import duke.service.*;
-import duke.tasks.Task;
-import duke.tasks.TaskList;
-
 import java.util.List;
 import java.util.Optional;
+
+import duke.exception.DukeStorageException;
+import duke.service.CliParserService;
+import duke.service.CommandFactory;
+import duke.service.OutputService;
+import duke.service.StorageService;
+import duke.service.TaskFactory;
+import duke.service.UiService;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
 
 /**
  * Duke is responsible for task management, and exposes various methods to manipulate the Task List.

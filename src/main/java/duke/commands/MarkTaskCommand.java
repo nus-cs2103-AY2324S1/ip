@@ -1,11 +1,11 @@
 package duke.commands;
 
+import java.util.Optional;
+
 import duke.Duke;
 import duke.exception.DukeStorageException;
 import duke.service.UiService;
 import duke.tasks.Task;
-
-import java.util.Optional;
 
 /**
  * Represents a command to mark a task as completed in the Duke application.
@@ -33,8 +33,8 @@ public class MarkTaskCommand extends Command {
         try {
             Optional<Task> optionalTask = dukeBot.markTask(taskId - 1);
             optionalTask.ifPresentOrElse(
-                    uiService::printMarkTask,
-                    () -> uiService.printInvalidTaskIndexProvided(taskId, dukeBot.getNumberOfTasks())
+                    uiService::printMarkTask, () ->
+                    uiService.printInvalidTaskIndexProvided(taskId, dukeBot.getNumberOfTasks())
             );
         } catch (DukeStorageException e) {
             uiService.printStorageMarkFailure();

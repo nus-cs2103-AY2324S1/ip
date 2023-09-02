@@ -1,11 +1,12 @@
 package duke.service;
 
-import duke.service.CliParserService.ParseResult;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import duke.service.CliParserService.ParseResult;
 
 public class CliParserServiceTest {
     @Test

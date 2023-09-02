@@ -1,9 +1,9 @@
 package duke.service;
 
-import duke.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import duke.tasks.Task;
 
 /**
  * Provides a set of methods for displaying user interface messages and task information.
@@ -60,8 +60,8 @@ public class UiService {
      * Warns the user about a failure in initializing the storage.
      */
     public void printStorageInitializationFailure() {
-        outputService.echo("Warning: Error initializing storage. " +
-                "Any changes made during this session will not be saved!");
+        outputService.echo("Warning: Error initializing storage. "
+                + "Any changes made during this session will not be saved!");
     }
 
     /**
@@ -177,7 +177,7 @@ public class UiService {
             outputService.echo("There are no tasks left!");
             return;
         }
-        outputService.echo(String.format("Invalid Task index: %s provided.%n" +
-                "Specify a number between %s - %s", taskId, 1, taskListSize + 1));
+        outputService.echo(String.format("Invalid Task index: %s provided.%n"
+                + "Specify a number between %s - %s", taskId, 1, taskListSize + 1));
     }
 }
