@@ -1,3 +1,11 @@
+package Command;
+
+import Task.TaskList;
+import Main.UI;
+import Main.Storage;
+
+import Exception.DukeException;
+
 public class DeleteCommand extends Command {
     String fullCommand;
 
