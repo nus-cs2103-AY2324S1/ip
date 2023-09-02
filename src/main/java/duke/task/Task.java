@@ -61,6 +61,11 @@ public class Task {
      * Converts the task to a string representation for saving to a file.
      * @return A formatted string representing the task's data.
      */
+
+    public String getDescription() {
+        return this.description;
+    }
+
     public String toFileString() {
         char doneStatus = isDone ? '1' : '0';
         return doneStatus + " | " + description;
