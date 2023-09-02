@@ -1,9 +1,8 @@
 package duke.service;
 
 import duke.Duke;
-import duke.exception.DukeStorageException;
-import duke.exception.TaskParseException;
-import duke.exception.TimeUtilException;
+import duke.commands.Command;
+import duke.exception.*;
 import duke.tasks.Task;
 
 import java.util.*;
@@ -11,70 +10,47 @@ import java.util.*;
 public class CliParserService {
     private final Duke dukeBot;
     private final UiService uiService;
-    private final TaskFactory taskFactory;
+    private final CommandFactory commandFactory;
 
-    public CliParserService(Duke dukeBot, UiService uiService, TaskFactory taskFactory) {
+    public CliParserService(Duke dukeBot, UiService uiService, CommandFactory commandFactory) {
         this.dukeBot = dukeBot;
         this.uiService = uiService;
-        this.taskFactory = taskFactory;
+        this.commandFactory = commandFactory;
     }
 
     public void parse() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            String line = scanner.nextLine();
-            String[] input = line.split(" ");
-            String command = input[0].toLowerCase();
+            String line = scanner.nextLine().trim();
+            List<String> arguments = new ArrayList<>();
 
-            switch (command) {
-                case "bye":
+            // Split the command and its primary argument
+            String[] splitBySpace = line.split(" ", 2);
+            String commandType = splitBySpace[0];
+
+            // If there's more than just the command, handle the arguments
+            if (splitBySpace.length > 1) {
+                // primaryArg refers to either task name, or the task index.
+                String primaryArg = splitBySpace[1].split("/")[0].trim();
+                arguments.add(primaryArg);
+
+                // Split the rest by slashes
+                String[] splitBySlash = splitBySpace[1].split("/");
+                for (int i = 1; i < splitBySlash.length; ++i) { // Start at 1 to skip the task name
+                    arguments.add(splitBySlash[i].trim());
+                }
+            }
+            try {
+                Command command = commandFactory.createCommand(commandType, arguments);
+                if (command.isExit()) {
                     return;
-                case "list":
-                    uiService.printTaskList(dukeBot.getTaskList());
-                    break;
-                case "mark":
-                    handleMarkTask(input);
-                    break;
-                case "unmark":
-                    handleUnmarkTask(input);
-                    break;
-                case "delete":
-                    handleDelete(input);
-                    break;
-                case "todo":
-                case "deadline":
-                case "event":
-                    parseTaskCommand(line);
-                    break;
-                default:
-                    uiService.printUnknownCommand(input[0]);
+                }
+                command.execute();
+            } catch (UnknownCommandException | InvalidCommandInputException e) {
+                uiService.printGenericMessage(e.getMessage());
             }
         }
     }
-
-    private void parseTaskCommand(String line) {
-        String[] parsedInput = line.split("/");
-        String[] temp = parsedInput[0].split(" ", 2);
-        String taskType = temp[0];
-        String taskName = temp.length > 1 ? temp[1] : "";
-
-        String[] taskArgs = new String[parsedInput.length - 1];
-        for (int i = 1; i < parsedInput.length; i++) {
-            taskArgs[i-1] = parsedInput[i].trim();
-        }
-
-        try {
-            Task task = taskFactory.createTask(taskType, taskName, taskArgs);
-            dukeBot.addTask(task);
-            uiService.printAddTask(task, dukeBot.getNumberOfTasks());
-        } catch (TaskParseException | TimeUtilException e) {
-            uiService.printGenericMessage(e.getMessage());
-        } catch (DukeStorageException e) {
-            uiService.printStorageAddFailure();
-        }
-    }
-
-
 
     private void handleMarkTask(String[] input) {
         if (!isValidTaskNumberArgument(input)) {
