@@ -95,6 +95,25 @@ public class Storage {
     }
 
     /**
+     * Return a list of tasks that contain a keyphrase
+     *
+     * @param search The keyphrase to search against
+     * @return A long string containing a list of tasks that have the keyphrase
+     */
+    public String find(String search) {
+        int count = 1;
+        String out = "";
+        for (Task task : taskArray) {
+            if (task == null)
+                break;
+            if (!task.description.contains(search))
+                continue;
+            out += count++ + ". " + task.toString() + "\n";
+        }
+        return out;
+    }
+
+    /**
      * Gets the specified task
      *
      * @param index array index of task
