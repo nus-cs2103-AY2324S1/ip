@@ -17,15 +17,15 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        String dateFromString = this.dateFrom.format(DateTimeFormatter.ofPattern("dd.MMM.yyyy"));
-        String dateToString = this.dateFrom.format(DateTimeFormatter.ofPattern("dd.MMM.yyyy"));
-        return "[E]" + super.toString() + " (from: " + dateFromString + " to: " + dateToString + " )";
+        String dateFromString = this.dateFrom.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        String dateToString = this.dateTo.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        return "[E]" + super.toString() + " (from: " + dateFromString + " to: " + dateToString + ")";
     }
 
     @Override
     public String taskToStringStore(Task task) {
         String dateFromString = this.dateFrom.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
-        String dateToString = this.dateFrom.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+        String dateToString = this.dateTo.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
         return "E-" + super.taskToStringStore(task) + dateFromString + "-" + dateToString ;
     }
 }
