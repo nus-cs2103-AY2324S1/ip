@@ -12,20 +12,30 @@ import java.util.regex.Pattern;
 import joe.exceptions.JoeException;
 import joe.tasks.TodoTask;
 
+/**
+ * Handles the storage of tasks to a file.
+ */
 public class Storage {
   private final Path taskFilePath;
 
+  /**
+   * Constructs a Storage object with the specified file name.
+   *
+   * @param fileName The name of the file to store tasks.
+   */
   public Storage(String fileName) {
     this.taskFilePath = Paths.get(fileName);
   }
 
+  // Patterns for parsing task file entries
   private static final Pattern taskPattern = Pattern.compile("^\\[([TDE])\\]\\[[X\\s]\\]\\s(.+)");
   private static final Pattern todoPattern = Pattern.compile("^\\[T\\]\\[[X\\s]\\]\\s+(.+)$");
   private static final Pattern deadlinePattern =
-      Pattern.compile("^\\[D\\]\\[[X\\s]\\]\\s+(.+)\\s+\\(by:\\s+(.+)\\)$");
+          Pattern.compile("^\\[D\\]\\[[X\\s]\\]\\s+(.+)\\s+\\(by:\\s+(.+)\\)$");
   private static final Pattern eventPattern =
-      Pattern.compile("^\\[E\\]\\[[X\\s]\\]\\s+(.+)\\s+\\(from:\\s+(.+)\\s+to:\\s+(.+)\\)$");
+          Pattern.compile("^\\[E\\]\\[[X\\s]\\]\\s+(.+)\\s+\\(from:\\s+(.+)\\s+to:\\s+(.+)\\)$");
 
+  // Handle different task types
   private void handleTodo(String input, TaskList tasks) throws JoeException {
     Matcher m = todoPattern.matcher(input);
     if (m.find()) {
@@ -56,6 +66,13 @@ public class Storage {
     }
   }
 
+  /**
+   * Reads tasks from the file and returns them as a TaskList.
+   *
+   * @return A TaskList containing the tasks read from the file.
+   * @throws JoeException If there is a problem parsing the task file.
+   * @throws IOException  If there is an I/O error while reading the file.
+   */
   public TaskList readTasks() throws JoeException, IOException {
     TaskList tasks = new TaskList();
     if (!Files.exists(taskFilePath)) {
@@ -69,30 +86,35 @@ public class Storage {
       }
       String type = m.group(1);
       switch (type) {
-        case "T":
-          handleTodo(line, tasks);
-          break;
-        case "D":
-          handleDeadline(line, tasks);
-          break;
-        case "E":
-          handleEvent(line, tasks);
-          break;
-        default:
-          throw new JoeException("Task file is corrupt");
+      case "T":
+        handleTodo(line, tasks);
+        break;
+      case "D":
+        handleDeadline(line, tasks);
+        break;
+      case "E":
+        handleEvent(line, tasks);
+        break;
+      default:
+        throw new JoeException("Task file is corrupt");
       }
     }
     return tasks;
   }
 
+  /**
+   * Saves tasks from a TaskList to the file.
+   *
+   * @param tasks The TaskList containing tasks to be saved to the file.
+   */
   public void saveToFile(TaskList tasks) {
     try {
       List<String> taskStrings = tasks.getStringList();
       Files.write(
-          taskFilePath,
-          taskStrings,
-          StandardOpenOption.CREATE,
-          StandardOpenOption.TRUNCATE_EXISTING);
+              taskFilePath,
+              taskStrings,
+              StandardOpenOption.CREATE,
+              StandardOpenOption.TRUNCATE_EXISTING);
     } catch (IOException e) {
       System.out.println("Failed to save to file: " + e);
     }

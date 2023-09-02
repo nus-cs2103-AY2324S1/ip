@@ -5,11 +5,19 @@ import java.io.IOException;
 import joe.commands.Command;
 import joe.exceptions.JoeException;
 
+/**
+ * Represents the Joe chatbot.
+ */
 public class Joe {
   private TaskList tasks;
   private final Storage storage;
   private final Ui ui;
 
+  /**
+   * Constructs a Joe object with the specified file path for task storage.
+   *
+   * @param filePath The file path for storing tasks.
+   */
   public Joe(String filePath) {
     ui = new Ui();
     storage = new Storage(filePath);
@@ -24,6 +32,7 @@ public class Joe {
     }
   }
 
+  /** Starts the Joe application. */
   public void run() {
     ui.newLine();
     ui.greet();
@@ -43,6 +52,11 @@ public class Joe {
     }
   }
 
+  /**
+   * The main entry point of the Joe application.
+   *
+   * @param args The command-line arguments.
+   */
   public static void main(String[] args) {
     new Joe("joe.txt").run();
   }

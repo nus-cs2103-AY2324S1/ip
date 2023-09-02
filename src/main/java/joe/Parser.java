@@ -169,7 +169,7 @@ public class Parser {
     return new InvalidCommand(msg);
   }
 
-  static int parseIndexArgs(String args) throws JoeException {
+  private static int parseIndexArgs(String args) throws JoeException {
     Pattern indexPattern = Pattern.compile("^(\\d+)$");
     Matcher m = indexPattern.matcher(args.trim());
     if (!m.matches()) {
