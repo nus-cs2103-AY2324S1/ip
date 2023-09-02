@@ -34,7 +34,7 @@ public class Duke {
                     tasks.add(todo);
                 } else if ("D".equals(type)) {
                     String by = taskInfo[3];
-                    Deadline deadline = new Deadline(description, by);
+                    Deadline deadline = new Deadline(description, by.trim());
                     if ("X".equals(status)) {
                         deadline.markAsDone();
                     }
@@ -111,8 +111,8 @@ public class Duke {
                     try {
                         int index = userInput.indexOf("/");
                         String description = userInput.substring(9, index - 1);
-                        String date = userInput.substring(index + 3);
-                        Deadline deadline = new Deadline(description, date);
+                        String by = userInput.substring(index + 3);
+                        Deadline deadline = new Deadline(description, by.trim());
                         tasks.add(deadline);
                         System.out.println("Got it. I've added this task:");
                         writer.write(deadline.getDescription().concat("\n"));
@@ -153,6 +153,10 @@ public class Duke {
                     System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             }
+            reader.close();
+            writer.close();
+            scanner.close();
+
             StringBuffer inputString = new StringBuffer();
             for (Task task: tasks) {
                 String line = task.getDescription();
@@ -162,9 +166,6 @@ public class Duke {
             FileOutputStream fileOut = new FileOutputStream(gideon);
             fileOut.write(inputString.toString().getBytes());
             fileOut.close();
-            reader.close();
-            writer.close();
-            scanner.close();
         } catch (IOException e) {
             System.out.println("An error has occurred.");
         }
