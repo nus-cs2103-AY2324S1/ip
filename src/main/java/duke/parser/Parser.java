@@ -12,7 +12,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
 /**
- * The duke.parser.Parser class is responsible for parsing user input and converting it into meaningful commands and tasks.
+ * The duke.parser.Parser class is responsible for parsing user input and
+ * converting it into meaningful commands and tasks.
  */
 public class Parser {
 
@@ -37,7 +38,8 @@ public class Parser {
      * @throws InvalidTaskIndexException   If the task index is invalid.
      * @throws MissingTaskIndexException  If the task index is missing.
      */
-    public static int taskToMark(String str, TaskList tasks) throws InvalidTaskIndexException, MissingTaskIndexException {
+    public static int taskToMark(String str, TaskList tasks)
+            throws InvalidTaskIndexException, MissingTaskIndexException {
         if (str.split(" ").length == 2) {
             int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
             if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
@@ -67,7 +69,8 @@ public class Parser {
      * @throws InvalidTaskIndexException   If the task index is invalid.
      * @throws MissingTaskIndexException  If the task index is missing.
      */
-    public static Task taskToDelete(String str, TaskList tasks) throws InvalidTaskIndexException, MissingTaskIndexException{
+    public static Task taskToDelete(String str, TaskList tasks)
+            throws InvalidTaskIndexException, MissingTaskIndexException{
         if (str.split(" ").length == 2) {
             int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
             if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
@@ -91,7 +94,8 @@ public class Parser {
      * @throws InvalidDescriptionException If the task description is invalid.
      * @throws InvalidDateTimeException    If the task date and time are invalid.
      */
-    public static Task parseStringToTask(String str) throws InvalidDescriptionException, InvalidDateTimeException {
+    public static Task parseStringToTask(String str)
+            throws InvalidDescriptionException, InvalidDateTimeException {
         Command command = getCommand(str);
         switch(command) {
         case TODO:

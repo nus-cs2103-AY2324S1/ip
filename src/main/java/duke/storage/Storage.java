@@ -20,7 +20,7 @@ public class Storage {
     protected String directoryPath;
 
     /**
-     * Initialises a new instance of the duke.storage.Storage class.
+     * Initializes a new instance of the duke.storage.Storage class.
      *
      * @param directoryPath The directory where the storage file is located or should be created.
      * @param filePath The file path of the storage file.
@@ -53,7 +53,8 @@ public class Storage {
     /**
      * Sets up the tasks by reading from the storage file or creating a new one if it doesn't exist.
      *
-     * @return A duke.tasks.TaskList containing the tasks read from the storage file, or an empty duke.tasks.TaskList if the file is new.
+     * @return A duke.tasks.TaskList containing the tasks read from the storage file, or an empty
+     * duke.tasks.TaskList if the file is new.
      */
     private TaskList setupTasks() {
         TaskList tasks = new TaskList();
