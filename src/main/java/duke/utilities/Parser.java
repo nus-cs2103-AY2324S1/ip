@@ -8,6 +8,13 @@ import java.time.format.DateTimeParseException;
  * Deals with making sense of user commands
  */
 public class Parser {
+
+	/**
+	 * Parses the user input to identify its important parts
+	 *
+	 * @param input
+	 * @return
+	 */
     public Input parse(String input) {
         String[] split = input.split(" ");
         String command = split[0].toLowerCase();

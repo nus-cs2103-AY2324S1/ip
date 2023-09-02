@@ -1,9 +1,10 @@
 package duke;
-import duke.utilities.Parser;
-import duke.utilities.TaskList;
-import duke.utilities.Storage;
-import duke.utilities.Ui;
+
 import duke.utilities.Input;
+import duke.utilities.Parser;
+import duke.utilities.Storage;
+import duke.utilities.TaskList;
+import duke.utilities.Ui;
 
 /**
  * The main class for Duke Chatbot
@@ -21,7 +22,12 @@ public class Duke {
 
     /** Variable to handle user inputs */
     private Parser parser;
-    
+
+    /**
+     * Creates a new instance of Duke chatbot
+     *
+     * @param filePath
+     */
     public Duke(String filePath) {
         ui = new Ui();
         parser = new Parser();
@@ -33,10 +39,13 @@ public class Duke {
         }
     }
 
+    /**
+     * Starts the execution of the chatbot
+     */
     public void run() {
         ui.greetings();
         boolean endSession = true;
-        while(endSession) {
+        while (endSession) {
             String userInput = ui.inputSession();
             Input parsedInput = parser.parse(userInput);
             endSession = ui.handleInput(tasks, parsedInput, parser);

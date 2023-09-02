@@ -1,10 +1,12 @@
 package duke.utilities;
+
 import java.io.Serializable;
 
 /**
  * Class for tasks
  */
 public class Task implements Serializable {
+	
     /** Name of task */
     private String name;
     
