@@ -1,7 +1,6 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Scanner;
 public class Parser {
 
     public Parser() {
@@ -10,6 +9,7 @@ public class Parser {
 
     public void chat(String str, List<Task> tasks) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        Ui ui = new Ui();
         try {
                 if (!str.equals("list")) {
                     if (str.startsWith("mark ")) {
@@ -21,9 +21,7 @@ public class Parser {
                         int index = number - 1; //index for task list
                         Task done = tasks.get(index);
                         done.markAsDone();
-                        System.out.println("\t" + "Nice! I've marked this task " +
-                                "as done:" + "\n" +
-                                "\t " + done.taskString());
+                        ui.printDone(done);
                     } else if (str.startsWith("unmark ")) {
                         String num = str.substring(7);
                         int number = Integer.valueOf(num);
@@ -33,9 +31,7 @@ public class Parser {
                         int index = number - 1; //index for task list
                         Task notDone = tasks.get(index);
                         notDone.markAsNotDone();
-                        System.out.println("\t" + "OK, I've marked this task " +
-                                "as not done yet:" + "\n" + "\t" + " " +
-                                notDone.taskString());
+                        ui.printNotDone(notDone);
                     } else if (str.startsWith("delete ")) {
                         String num = str.substring(7);
                         int number = Integer.valueOf(num);
@@ -44,8 +40,7 @@ public class Parser {
                         }
                         int index = number - 1;
                         Task toBeDeleted = tasks.remove(index);
-                        System.out.println("\tNoted. I've removed this task:\n\t " + toBeDeleted.taskString()
-                                + "\n\tNow you have " + tasks.size() + " tasks in the list.");
+                        ui.printDelete(toBeDeleted, tasks);
                     } else {
                         if (str.startsWith("todo")) {
                             String todo = str.substring(4);
@@ -58,13 +53,7 @@ public class Parser {
                             String string = str.substring(5);
                             Task task = new ToDo(string);
                             tasks.add(task);
-                            int len = tasks.size();
-                            String output = "\tGot it. I've added this task:\n\t\t"
-                                    + task.taskString();
-                            String listLength = len == 1 ? "Now you have " + len + " task in the list." :
-                                    "Now you have " + len + " tasks in the list.";
-                            System.out.println(output
-                                    + "\n\t" + listLength);
+                            ui.printAddTask(task, tasks);
                         } else if (str.startsWith("deadline")) {
                             if (!str.contains("/by ")) {
                                 throw new DeadlineCommandUseException(str); //needs to check for /by
@@ -78,13 +67,7 @@ public class Parser {
                                 String workToDo = str.substring(9, index);
                                 Task task = new Deadline(workToDo, LocalDateTime.parse(deadline, formatter));
                                 tasks.add(task);
-                                int len = tasks.size();
-                                String output = "\tGot it. I've added this task:\n\t\t"
-                                        + task.taskString();
-                                String listLength = len == 1 ? "Now you have " + len + " task in the list." :
-                                        "Now you have " + len + " tasks in the list.";
-                                System.out.println(output
-                                        + "\n" + "\t" + listLength);
+                                ui.printAddTask(task, tasks);
                             }
                         } else if (str.startsWith("event")) {
                             if (!str.contains("from")) {
@@ -111,13 +94,7 @@ public class Parser {
                                     Task task = new Event(workToDo, LocalDateTime.parse(fromWhen, formatter),
                                             LocalDateTime.parse(toWhen, formatter));
                                     tasks.add(task);
-                                    int len = tasks.size();
-                                    String output = "\tGot it. I've added this task:\n\t\t"
-                                            + task.taskString();
-                                    String listLength = len == 1 ? "Now you have " + len + " task in the list." :
-                                            "Now you have " + len + " tasks in the list.";
-                                    System.out.println(output
-                                            + "\n\t" + listLength);
+                                    ui.printAddTask(task, tasks);
                                 }
                             }
                         } else {
@@ -130,12 +107,10 @@ public class Parser {
                 }
         } catch (java.time.format.DateTimeParseException e) {
             //detect inputs that don't follow the yyyy-MM-dd HHmm format
-            System.out.println("I don't understand what that means D:" +
-                    " Please input a valid date in the format yyyy-MM-dd HHmm " +
-                    "(the time in the 24-hour format).");
+            ui.printException();
         } catch (InvalidInputException | EventCommandUseException |
                  DeadlineCommandUseException | ToDoCommandUseException e) {
-            System.out.println(e.getMessage());
+            ui.printException(e.getMessage());
         }
     }
 }
