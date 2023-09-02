@@ -10,16 +10,16 @@ public class EventTask extends Task {
     LocalDate end;
 
     public EventTask(String name, boolean isDone, LocalDate start, LocalDate end) {
-        super(name,  isDone);
+        super(name, isDone);
         this.start = start;
         this.end = end;
     }
 
-    public String formatStart() {
+    private String formatStart() {
         return start.format(OUTPUT_DATE_FORMAT);
     }
 
-    public String formatEnd() {
+    private String formatEnd() {
         return end.format(OUTPUT_DATE_FORMAT);
     }
 
@@ -27,14 +27,15 @@ public class EventTask extends Task {
     public String stringify() {
         String startString = formatStart();
         String endString = formatEnd();
-        return "E" + super.stringify() + 
-                startString.length() + "/" + startString + 
-                endString.length() + "/" + endString;
+        return "E" + super.stringify()
+                + startString.length() + "/" + startString
+                + endString.length() + "/" + endString;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + formatStart() + " to " + formatEnd() + ")";
+        return "[E]" + super.toString() 
+                + " (from: " + formatStart() + " to " + formatEnd() + ")";
     }
 
     @Override
@@ -47,7 +48,6 @@ public class EventTask extends Task {
     }
 
     public static EventTask parse(String fileLine) throws DuckException {
-
         // Finding isDone
         boolean isDone = fileLine.charAt(1) == '1';
 
@@ -57,12 +57,12 @@ public class EventTask extends Task {
         String name = fileLine.substring(slashIndex + 1, slashIndex + 1 + nameLength);
 
         // Finding start
-        int secondSlashIndex = fileLine.indexOf("/", slashIndex + 1); // The index of the next slash
+        int secondSlashIndex = fileLine.indexOf("/", slashIndex + 1);
         String startString = fileLine.substring(secondSlashIndex + 1, secondSlashIndex + 12);
         LocalDate start = LocalDate.parse(startString, OUTPUT_DATE_FORMAT);
 
         // Finding end
-        int thirdSlashIndex = fileLine.indexOf("/", secondSlashIndex + 1); // The index of the next slash
+        int thirdSlashIndex = fileLine.indexOf("/", secondSlashIndex + 1);
         String endString = fileLine.substring(thirdSlashIndex + 1);
         LocalDate end = LocalDate.parse(endString, OUTPUT_DATE_FORMAT);
 

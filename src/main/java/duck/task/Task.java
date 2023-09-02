@@ -36,15 +36,14 @@ public abstract class Task {
     @Override
     public String toString() {
         char done = this.isDone ? 'X' : ' ';
-        String str = "[" + done + "] " + name;
-        return str;
+        return "[" + done + "] " + name;
     }
 
     @Override
     public boolean equals(Object other) {
         if (other instanceof Task) {
             Task otherTask = (Task) other;
-            return this.name.equals(otherTask.name) && this.isDone == otherTask.isDone;
+            return this.name.equals(otherTask.name) && (this.isDone == otherTask.isDone);
         }
         return false;
     }

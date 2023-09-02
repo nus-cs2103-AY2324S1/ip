@@ -20,8 +20,8 @@ public class DeadlineTask extends Task {
     @Override
     public String stringify() {
         String deadlineString = formatDeadline();
-        return "D" + super.stringify() + 
-                deadlineString.length() + "/" + deadlineString;
+        return "D" + super.stringify()
+                + deadlineString.length() + "/" + deadlineString;
     }
 
     @Override
@@ -37,10 +37,8 @@ public class DeadlineTask extends Task {
         }
         return false;
     }
-
     
     public static DeadlineTask parse(String fileLine) throws DuckException {
-
         // Finding isDone
         boolean isDone = fileLine.charAt(1) == '1';
 
@@ -50,7 +48,7 @@ public class DeadlineTask extends Task {
         String name = fileLine.substring(slashIndex + 1, slashIndex + 1 + nameLength);
 
         // Finding deadline
-        int secondSlashIndex = fileLine.indexOf("/", slashIndex + 1); // The index of the next slash
+        int secondSlashIndex = fileLine.indexOf("/", slashIndex + 1);
         String deadlineString = fileLine.substring(secondSlashIndex + 1);
         LocalDate deadline = LocalDate.parse(deadlineString, OUTPUT_DATE_FORMAT);
 

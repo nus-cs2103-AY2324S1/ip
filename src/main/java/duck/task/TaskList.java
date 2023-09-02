@@ -61,7 +61,7 @@ public class TaskList {
         currTask.unmark();
     }
 
-    public void delete(int index) throws DuckException{
+    public void delete(int index) throws DuckException {
         try {
             tasks.remove(index);
         } catch (IndexOutOfBoundsException e) {
