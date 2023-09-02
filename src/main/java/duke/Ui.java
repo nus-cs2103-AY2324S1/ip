@@ -11,6 +11,8 @@ import duke.task.Task;
 public class Ui {
     private Scanner scanner;
 
+    private String currentMessage = "";
+
     /**
      * Constructs a Ui object with a new Scanner to read user input from the console.
      */
@@ -30,24 +32,21 @@ public class Ui {
                         + "|  |_)  | |  `--'  |     |  |     \n"
                         + "|______/   \\______/      |__|     \n";
 
-        showLine();
-        System.out.println("Hello I'm\n" + logo);
-        System.out.println("What can I do for you?");
-        showLine();
+        currentMessage += "Hello I'm\n" + logo + "What can I do for you?";
     }
 
     /**
      * Displays a farewell message when the user exits the application.
      */
     public void showBye() {
-        System.out.println("Bye. Hope to see you again soon!");
+        currentMessage = "Bye. Hope to see you again soon!";
     }
 
     /**
      * Displays a message indicating the start of the task list display.
      */
     public void showList() {
-        System.out.println("Here are the tasks in your list:");
+        currentMessage += "Here are the tasks in your list: \n";
     }
 
     /**
@@ -56,14 +55,7 @@ public class Ui {
      * @param message The message to be displayed.
      */
     public void showMessage(String message) {
-        System.out.println(message);
-    }
-
-    /**
-     * Displays a line separator to visually separate different sections of output.
-     */
-    public void showLine() {
-        System.out.println("_________________________________________");
+        currentMessage += message;
     }
 
     /**
@@ -72,7 +64,7 @@ public class Ui {
      * @param exception The DukeException containing the error message.
      */
     public void showErrMessage(DukeException exception) {
-        System.out.println(exception.getMessage());
+        currentMessage += exception.getMessage();
     }
 
     /**
@@ -81,8 +73,7 @@ public class Ui {
      * @param task The task that was marked as done.
      */
     public void markMessage(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
+        currentMessage += "Nice! I've marked this task as done: \n" + task;
     }
 
     /**
@@ -91,8 +82,7 @@ public class Ui {
      * @param task The task that was marked as not done.
      */
     public void unmarkMessage(Task task) {
-        System.out.println("Ok, I've marked this task as not done yet:");
-        System.out.println(task);
+        currentMessage += "Ok, I've marked this task as not done yet: \n" + task;
     }
 
     /**
@@ -102,9 +92,8 @@ public class Ui {
      * @param total The total number of tasks after deletion.
      */
     public void deleteMessage(Task task, int total) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + total + " tasks in the list.");
+        currentMessage += "Noted. I've removed this task: \n" + task + "\n"
+                + "Now you have " + total + " tasks in the list.";
     }
 
     /**
@@ -114,34 +103,27 @@ public class Ui {
      * @param total The total number of tasks after addition.
      */
     public void addMessage(Task task, int total) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + total + " tasks in the list.");
+        currentMessage += "Got it. I've added this task: \n" + task + "\n"
+                + "Now you have " + total + " tasks in the list.";
     }
 
     /**
      * Displays a message indicating that a keyword is being searched.
      */
     public void findMessage() {
-        System.out.println("Here are the matching tasks in your list:");
-
+        currentMessage += "Here are the matching tasks in your list: \n";
     }
 
     /**
      * Displays a message indicating that there is no results found.
      */
     public void findNoMessage() {
-        System.out.println("There are no results matching your keyword.");
-
+        currentMessage += "There are no results matching your keyword.";
     }
 
-    /**
-     * Reads and returns a command entered by the user.
-     *
-     * @return The user's input command.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
+    public String getCurrentMessage() {
+        String temp = currentMessage;
+        currentMessage = "";
+        return temp;
     }
-
 }
