@@ -38,6 +38,7 @@ public class MainWindow extends AnchorPane {
     public void setJarvis(Jarvis j) {
         jarvis = j;
     }
+
     public void setGreetingMessage(String message) {
         dialogContainer.getChildren().addAll(DialogBox.getJarvisDialog(message, jarvisImage));
     }
