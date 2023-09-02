@@ -5,11 +5,26 @@ import emiya.logic.Logic;
 
 import static emiya.logic.Logic.enumContainsKeyword;
 
+/**
+ * A class that takes in a String input from the user and parses it to determine what command
+ * the user has given.
+ */
 public class Parser {
     public Parser() {
 
     }
 
+    /**
+     * A method that takes in the initial input from the user to determine the type of command
+     * the user wishes to run. The method breaks down the input into smaller, separate strings to
+     * achieve this.
+     * @param position An Integer object that is passed in to determine what position needs to be changed
+     *                 for certain commands, such as mark and unmark.
+     * @param input A String input that is taken in from the user. Will be parsed to determine what command
+     *              to execute.
+     * @return A String array that contains the commands, as well as details needed for the command.
+     * @throws UnknownCommandException When a user gives a command that is unknown.
+     */
     public String[] parseToRemoveUnknownCommands(Integer[] position, String input) throws UnknownCommandException {
         // this part splits the input into 2 parts, depending on whitespace (if possible)
         String[] partsOfInput = input.split("\\s+", 2);
@@ -36,6 +51,16 @@ public class Parser {
         }
     }
 
+    /**
+     * A method that parses the details of the deadline task in order to determine
+     * important details of the deadline task, such as when the task has to be done
+     * by.
+     * @param taskDetails A String that contains details about the deadline task, such as when the
+     *                    task has to be finished by.
+     * @return A String array that contains the input from the user parsed into sections
+     * that can be understood by the rest of the program.
+     * @throws NoByException When the user does not use the keyword /by in his input.
+     */
     public String[] parseForDeadline(String taskDetails) throws NoByException {
         String[] deadlineDetails = taskDetails.split(" /by ", 2);
         if (deadlineDetails.length <= 1) {
@@ -44,6 +69,17 @@ public class Parser {
         return deadlineDetails;
     }
 
+    /**
+     * A method that parses the details of the deadline task in order to determine
+     * important details of the deadline task, such as when the task has to be done
+     * by.
+     * @param taskDetails A String that contains details about the deadline task, such as when the
+     *                    event starts and when it ends.
+     * @return A String array that contains the input from the user parsed into sections
+     * that can be understood by the rest of the program.
+     * @throws NoToException When the user does not use the keyword /to in his input.
+     * @throws NoFromException When the user does not use the keyword /from in his input.
+     */
     public String[] parseForEvent(String taskDetails) throws NoToException, NoFromException {
         String[] eventDetails = taskDetails.split(" /from ", 2);
         if (eventDetails.length <= 1) {
@@ -56,6 +92,14 @@ public class Parser {
         return new String[] {eventDetails[0], eventDurationDetails[0], eventDurationDetails[1]};
     }
 
+    /**
+     * A static method that takes in a String that contains the date information about the task, and
+     * parses it into sections that can be understood by the rest of the program.
+     * @param input A String input that represents a certain date and time.
+     * @return A String array that contains sections that can be understood by the rest of the program.
+     * @throws InvalidDateException When the date given is invalid.
+     * @throws WrongDateFormatException When the date given is in the wrong format.
+     */
     public static String[] parseForDate(String input) throws InvalidDateException, WrongDateFormatException{
         String[] partsOfDateTime = input.split("\\s+", 2);
 

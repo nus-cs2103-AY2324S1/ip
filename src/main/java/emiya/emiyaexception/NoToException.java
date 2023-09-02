@@ -1,5 +1,8 @@
 package emiya.emiyaexception;
 
+/**
+ * An exception that is thrown when the user does not use /to in their event command.
+ */
 public class NoToException extends EmiyaException{
     public NoToException() {
         super("-----------------------------------------\n" +
