@@ -9,11 +9,19 @@ import haste.ui.Ui;
 
 import java.util.Scanner;
 
+/**
+ * Represents a chatbot that keeps track of tasks.
+ */
 public class Haste {
     private Storage storage;
     private Ui ui;
     private TaskList tasks;
 
+    /**
+     * Creates an instance of the chatbot.
+     *
+     * @param filePath Location of the file storing Tasks data.
+     */
     public Haste(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -29,6 +37,9 @@ public class Haste {
         haste.end();
     }
 
+    /**
+     * Starts the chatbot.
+     */
     public void run() {
         Scanner sc = new Scanner(System.in);
         while (ui.running) {
@@ -43,11 +54,18 @@ public class Haste {
         }
 
     }
+
+    /**
+     * Welcomes user and loads any saved tasks.
+     */
     public void load() {
         this.ui.greet();
         this.storage.read(tasks);
     }
 
+    /**
+     * Close the chatbot and saves tasks in list.
+     */
     public void end() {
         this.storage.delete();
         this.storage.save(tasks);

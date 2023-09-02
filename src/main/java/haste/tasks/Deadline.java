@@ -4,9 +4,20 @@ import haste.commands.Parser;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents a Deadline.
+ */
 public class Deadline extends Task {
 
     protected LocalDateTime by;
+
+    /**
+     * Creates a Deadline.
+     *
+     * @param description Task description.
+     * @param by End time of the Task.
+     * @param isComplete Completion status of Task.
+     */
     public Deadline(String description, LocalDateTime by, boolean isComplete) {
         super(description,isComplete);
         this.by = by;

@@ -12,8 +12,20 @@ import java.util.regex.Pattern;
 
 
 // Solution inspired by CLEON TAN DE XUAN
+
+/**
+ * Represents a parser which handles input from user.
+ */
 public class Parser {
     // used to handle type of tasks
+
+    /**
+     * Returns a command which executes intended action from user input.
+     *
+     * @param cmd Input from the user.
+     * @param store Storage to read and write data.
+     * @return A Command object containing the set of actions required.
+     */
     public static Command handleCommand(String cmd, Storage store) {
         String[] words = cmd.split("\\s+");
         Command c;
@@ -49,6 +61,14 @@ public class Parser {
 
         return c;
     }
+
+    /**
+     * Returns a command that deletes task.
+     * Verifies user intends to delete task.
+     *
+     * @param words The array of words user inputted.
+     * @return DeleteCommand object containing index of task.
+     */
     public static Command verifyDelete(String[] words) {
         int id;
 
@@ -66,6 +86,14 @@ public class Parser {
 
         return new DeleteCommand(id);
     }
+
+    /**
+     * Returns a command that marks task.
+     * Verifies user intends to mark task.
+     *
+     * @param words The array of words user inputted.
+     * @return MarkCommand object containing index of task.
+     */
     public static Command verifyMark(String[] words) {
         int id ;
 
@@ -84,6 +112,13 @@ public class Parser {
         return new MarkCommand(id);
     }
 
+    /**
+     * Returns a command that unmarks task.
+     * Verifies user intends to unmark task.
+     *
+     * @param words The array of words user inputted.
+     * @return MarkCommand object containing index of task.
+     */
     public static Command verifyUnmark(String[] words) {
         int id;
 
@@ -102,6 +137,13 @@ public class Parser {
         return new UnmarkCommand(id);
     }
 
+    /**
+     * Returns a command to add ToDo.
+     * Verifies user intends to add ToDo.
+     *
+     * @param cmd User input.
+     * @return AddCommand object containing description of task.
+     */
     public static Command verifyTodo(String cmd) {
         Pattern pt = Pattern.compile("todo( (.+))?"); // ( ...)? is optional group
         Matcher mt = pt.matcher(cmd);
@@ -116,6 +158,13 @@ public class Parser {
         return new AddCommand(desc);
     }
 
+    /**
+     * Returns a command to add Deadline.
+     * Verifies user intends to add Deadline.
+     *
+     * @param cmd User input.
+     * @return AddCommand object containing description and deadline of task.
+     */
     public static Command verifyDeadline(String cmd) {
         Pattern pt = Pattern.compile("deadline(( (.*) )?/by( (.*))?)?");
         Matcher mt = pt.matcher(cmd);
@@ -136,6 +185,13 @@ public class Parser {
         return new AddCommand(desc, end);
     }
 
+    /**
+     * Returns a command to add Event.
+     * Verifies user intends to add Event.
+     *
+     * @param cmd User input.
+     * @return AddCommand object containing description, start time and deadline of task.
+     */
     public static Command verifyEvent(String cmd) {
         Pattern pt = Pattern.compile("event(( (.*) )?/from( (.*) )?/to( (.*))?)?");
         Matcher mt = pt.matcher(cmd);
@@ -159,8 +215,13 @@ public class Parser {
         return new AddCommand(desc, end, start);
     }
 
-    // time related
-    // convert cmd into local date time
+    /**
+     * Returns a LocalDateTime object representing time from user input.
+     *
+     * @param input User input.
+     * @return LocalDateTime object.
+     * @throws DateTimeParseException if user input does not fit accepted time format.
+     */
     public static LocalDateTime parseTime(String input) throws DateTimeParseException {
         // formatting command input into LocalDateTime args
         String formatPattern = "yyyy-MM-dd HHmm";
@@ -169,7 +230,13 @@ public class Parser {
 
         return parsedTime;
     }
-    // convert local date time into printable string
+
+    /**
+     * Returns String representation of time from LocalDateTime object.
+     *
+     * @param input LocalDateTime object stored in task.
+     * @return String representation of time.
+     */
     public static String formatTime(LocalDateTime input) {
         // format time into a string object components
         String year = String.valueOf(input.getYear());
@@ -181,7 +248,13 @@ public class Parser {
                 ? month + " " + day + " " + year + " 0" + (hourAndTime)
                 : month + " " + day + " " + year + " " + (hourAndTime);
     }
-    //converts local date time back to command format
+
+    /**
+     * Returns String representation of LocalDateTime object in user input format.
+     *
+     * @param savedTime LocalDateTime object stored in task.
+     * @return String representation of time.
+     */
     public static String getCmd(LocalDateTime savedTime) {
         // format LocalDateTime back into command format
         int year = savedTime.getYear();
