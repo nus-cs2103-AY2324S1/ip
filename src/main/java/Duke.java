@@ -1,5 +1,8 @@
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
+
+import enums.Command;
 
 public class Duke {
 
@@ -18,15 +21,6 @@ public class Duke {
     }
 
     public static void converse() {
-        final String END_COMMAND = "bye";
-        final String LIST_COMMAND = "list";
-        final String MARK_COMMAND = "mark";
-        final String UNMARK_COMMAND = "unmark";
-        final String TODO_NEW_TASK_COMMAND = "todo";
-        final String DEADLINE_NEW_TASK_COMMAND = "deadline";
-        final String EVENT_NEW_TASK_COMMAND = "event";
-        final String DELETE_TASK_COMMAND = "delete";
-
         TaskList taskList = new TaskList(100);
 
         Scanner scanner = new Scanner(System.in);
@@ -39,38 +33,40 @@ public class Duke {
             ArrayList<String> args = getArgs(message);
             print_divider_line();
             System.out.println("Bot:");
-            switch (args.get(0)) {
-                case END_COMMAND:
+
+            Command command = Command.commandToValueMap(args.get(0));
+            switch (Objects.requireNonNull(command)) {
+                case BYE:
                     talk = false;
                     break;
-                case LIST_COMMAND:
+                case LIST:
                     taskList.listAllTasks();
                     break;
-                case MARK_COMMAND:
+                case MARK:
                     if (!taskList.validateTaskIndex(args.get(1))) {
                         break;
                     }
                     taskList.markTaskDone(args.get(1));
                     break;
-                case UNMARK_COMMAND:
+                case UNMARK:
                     if (!taskList.validateTaskIndex(args.get(1))) {
                         break;
                     }
                     taskList.markTaskUndone(args.get(1));
                     break;
-                case DELETE_TASK_COMMAND:
+                case DELETE:
                     if (!taskList.validateTaskIndex(args.get(1))) {
                         break;
                     }
                     taskList.deleteTask(args.get(1));
                     break;
-                case TODO_NEW_TASK_COMMAND:
+                case TODO:
                     taskList.addTask(new TodoTask(args.get(1)));
                     break;
-                case DEADLINE_NEW_TASK_COMMAND:
+                case DEADLINE:
                     taskList.addTask(new DeadlineTask(args.get(1), args.get(2)));
                     break;
-                case EVENT_NEW_TASK_COMMAND:
+                case EVENT:
                     taskList.addTask(new EventTask(args.get(1), args.get(2), args.get(3)));
                     break;
                 default:
