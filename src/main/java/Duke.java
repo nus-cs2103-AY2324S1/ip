@@ -1,8 +1,12 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Duke {
     public static void main(String[] args) throws FileNotFoundException {
@@ -73,7 +77,8 @@ public class Duke {
                     }
                     String[] split = inData.substring(9).split(" /by ");
                     String des = split[0];
-                    String by = split[1];
+                    LocalDate date = LocalDate.parse(split[1]);
+                    String by = date.format(DateTimeFormatter.ofPattern("MMM d yyy"));
                     list.add(new Deadline(des, by));
                     System.out.println("Got it. I've added this task:");
                     System.out.println(list.get(count));
@@ -120,6 +125,8 @@ public class Duke {
 
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+            } catch  (DateTimeParseException e) {
+                System.out.println("OOps invalid time input");
             }
 
         }
