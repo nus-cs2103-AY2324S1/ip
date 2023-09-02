@@ -1,3 +1,9 @@
+package tasks;
+
+import tasks.Deadline;
+import tasks.Event;
+import tasks.ToDo;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -22,7 +28,7 @@ public class Task {
         return "";
     };
 
-    // Define this static method in your Task class
+    // Define this static method in your tasks.Task class
     public static Task fromString(String input) {
         String[] parts = input.split("\\|");
         String taskType = parts[0].trim();

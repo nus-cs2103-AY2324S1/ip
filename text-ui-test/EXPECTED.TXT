@@ -30,7 +30,7 @@ Nice! I've marked this task as done:
 Noted. I've removed this task:
   [T][X] play badminton
 Now you have 4 tasks in the list.
- OOPS!!! No Task to delete!
+ OOPS!!! No tasks.Task to delete!
  OOPS!!! The deadline cannot be empty.
  OOPS!!! The deadline cannot be empty.
  OOPS!!! The from or/and to cannot be empty.
