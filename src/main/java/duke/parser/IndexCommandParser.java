@@ -19,7 +19,8 @@ public class IndexCommandParser extends CommandParser {
 
     @Override
     protected void validate(Matcher matcher)
-            throws UnknownCommandException, MissingDescriptionException, IncorrectCommandFormatException, InvalidIndexException {
+            throws UnknownCommandException, MissingDescriptionException, IncorrectCommandFormatException,
+            InvalidIndexException {
         int index = 0;
         try {
             index = Integer.parseInt(matcher.group("index")) - 1;

@@ -22,7 +22,8 @@ public class EventCommand extends TaskCommand {
     }
 
     @Override
-    public void execute(TaskListStorage taskListStorage) throws MissingDescriptionException, IncorrectCommandFormatException {
+    public void execute(TaskListStorage taskListStorage)
+            throws MissingDescriptionException, IncorrectCommandFormatException {
         taskListStorage.addEvent(new Event(this.description, this.from, this.to));
     }
 
@@ -36,13 +37,14 @@ public class EventCommand extends TaskCommand {
                 return LocalDate.parse(fromTime.trim());
             } catch (java.time.format.DateTimeParseException e) {
                 throw new InvalidTimeFormatException("deadline <description> /by <date>");
-            }        }
+            }
+        }
         return null;
     }
 
     private LocalDate extractTo() throws IncorrectCommandFormatException, InvalidTimeFormatException {
         if (matcher.matches()) {
-            String toTime = matcher.group("toTime");            
+            String toTime = matcher.group("toTime");
             if (toTime == null || toTime.trim().isEmpty()) {
                 throw new IncorrectCommandFormatException("event <description> /from <from_date> /to <to_date>");
             }
@@ -50,7 +52,8 @@ public class EventCommand extends TaskCommand {
                 return LocalDate.parse(toTime.trim());
             } catch (java.time.format.DateTimeParseException e) {
                 throw new InvalidTimeFormatException("deadline <description> /by <date>");
-            }        }
+            }
+        }
         return null;
     }
 }

@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import duke.TaskListStorage;
 import duke.exceptions.InvalidIndexException;
 
-public class DeleteCommand implements Command{
+public class DeleteCommand implements Command {
 
     private int index;
 

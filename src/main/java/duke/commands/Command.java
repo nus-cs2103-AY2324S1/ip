@@ -6,5 +6,6 @@ import duke.exceptions.InvalidIndexException;
 import duke.exceptions.MissingDescriptionException;
 
 public interface Command {
-    void execute(TaskListStorage taskListStorage) throws InvalidIndexException, MissingDescriptionException, IncorrectCommandFormatException;
+    void execute(TaskListStorage taskListStorage)
+            throws InvalidIndexException, MissingDescriptionException, IncorrectCommandFormatException;
 }

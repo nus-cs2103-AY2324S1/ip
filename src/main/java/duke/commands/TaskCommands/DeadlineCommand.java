@@ -14,13 +14,15 @@ public class DeadlineCommand extends TaskCommand {
 
     LocalDate deadline;
 
-    public DeadlineCommand(Matcher matcher) throws MissingDescriptionException, IncorrectCommandFormatException, InvalidTimeFormatException {
+    public DeadlineCommand(Matcher matcher)
+            throws MissingDescriptionException, IncorrectCommandFormatException, InvalidTimeFormatException {
         super(matcher);
         this.deadline = extractDeadline();
     }
 
     @Override
-    public void execute(TaskListStorage taskListStorage) throws MissingDescriptionException, IncorrectCommandFormatException {
+    public void execute(TaskListStorage taskListStorage)
+            throws MissingDescriptionException, IncorrectCommandFormatException {
         // Actual logic for handling the "deadline" command
         taskListStorage.addDeadline(new Deadline(this.description, deadline));
     }

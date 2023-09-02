@@ -19,7 +19,8 @@ public abstract class CommandParser {
         this.regexPattern = Pattern.compile(regexPattern);
     }
 
-    public Command parse(String input) throws UnknownCommandException, MissingDescriptionException, IncorrectCommandFormatException, InvalidIndexException, InvalidTimeFormatException {
+    public Command parse(String input) throws UnknownCommandException, MissingDescriptionException,
+            IncorrectCommandFormatException, InvalidIndexException, InvalidTimeFormatException {
         Matcher matcher = this.regexPattern.matcher(input);
         if (matcher.matches()) {
             validate(matcher);
@@ -29,6 +30,9 @@ public abstract class CommandParser {
         return createCommand(matcher);
     }
 
-    protected abstract void validate(Matcher matcher) throws UnknownCommandException, MissingDescriptionException, IncorrectCommandFormatException, InvalidIndexException, InvalidTimeFormatException;
-    protected abstract Command createCommand(Matcher matcher) throws MissingDescriptionException, IncorrectCommandFormatException, InvalidTimeFormatException; 
+    protected abstract void validate(Matcher matcher) throws UnknownCommandException, MissingDescriptionException,
+            IncorrectCommandFormatException, InvalidIndexException, InvalidTimeFormatException;
+
+    protected abstract Command createCommand(Matcher matcher)
+            throws MissingDescriptionException, IncorrectCommandFormatException, InvalidTimeFormatException;
 }

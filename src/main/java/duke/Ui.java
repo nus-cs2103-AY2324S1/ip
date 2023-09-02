@@ -4,6 +4,7 @@ package duke;
  * Static class that handles printing of formatted messages to the user.
  */
 public class Ui {
+    //@formatter:off
     public static final String TAB = "    ";
     public static final String LINE = "____________________________________________________________";
     public static final String LOGO = 
@@ -15,6 +16,7 @@ public class Ui {
             | | | (_) | |  | | | | |  __/
             |_|  \\___/|_|  |_|_| |_|\\___|
                           """;
+    //@formatter:on
 
     public static void printWithTab(String s) {
         System.out.println(TAB + s);
