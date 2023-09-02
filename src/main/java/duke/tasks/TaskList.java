@@ -72,6 +72,22 @@ public class TaskList {
     }
 
     /**
+     * Creates a TaskList that contains the specified keyword.
+     * @param keyword The keyword that is searched for in the TaskList.
+     * @return A TaskList that contains the specified keyword.
+     */
+    public TaskList findTask(String keyword) {
+        TaskList tempTaskList = new TaskList();
+        for (int i = 0; i < this.tasks.size(); i++) {
+            Task task = this.tasks.get(i);
+            if (task.getDescription().contains(keyword)) {
+                tempTaskList.addTask(task);
+            }
+        }
+        return tempTaskList;
+    }
+
+    /**
      * Returns a string representation of the task list.
      *
      * @return A string representation of the task list.

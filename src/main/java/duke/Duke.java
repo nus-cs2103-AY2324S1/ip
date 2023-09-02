@@ -1,10 +1,7 @@
 package duke;
 
 import duke.commands.Command;
-import duke.exceptions.InvalidDateTimeException;
-import duke.exceptions.InvalidDescriptionException;
-import duke.exceptions.InvalidTaskIndexException;
-import duke.exceptions.MissingTaskIndexException;
+import duke.exceptions.*;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
@@ -58,6 +55,9 @@ public class Duke {
                 case DELETE:
                     Ui.deleteTaskReply(Parser.taskToDelete(str, tasks), tasks);
                     break;
+                case FIND:
+                    Ui.findTaskReply(str, Parser.findKeyword(str, tasks));
+                    break;
                 case BYE:
                     isRunning = false;
                     Ui.exitReply();
@@ -73,6 +73,8 @@ public class Duke {
                 Ui.invalidDescriptionExceptionReply();
             } catch (InvalidDateTimeException e) {
                 Ui.invalidDateTimeExceptionReply();
+            } catch (InvalidKeywordException e) {
+                Ui.invalidKeywordExceptionReply();
             } finally {
                 Ui.horizontalLineReply();
                 storage.updateStorage(tasks);
