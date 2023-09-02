@@ -1,18 +1,15 @@
 import exception.DukeStorageException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class Duke {
     private final String botName;
-    private final List<Task> taskList;
-    private final StorageService storageService;
+    private final TaskList taskList;
 
     public Duke(String botName, StorageService storageService) {
         this.botName = botName;
-        this.storageService = storageService;
-        this.taskList = new ArrayList<>(storageService.loadTasks());
+        this.taskList = new TaskList(storageService);
     }
 
     public static void main(String[] args) {
@@ -40,44 +37,26 @@ public class Duke {
     }
 
     public boolean addTask(Task task) throws DukeStorageException {
-        storageService.saveTask(task);
-        return this.taskList.add(task);
+        return taskList.addTask(task);
     }
 
     public Optional<Task> deleteTask(int index) throws DukeStorageException {
-        if (index < 0 || index >= taskList.size()) {
-            return Optional.empty();
-        }
-        storageService.deleteTask(index);
-        Task removedTask = taskList.remove(index);
-        return Optional.of(removedTask);
+        return taskList.deleteTask(index);
     }
 
     public Optional<Task> markTask(int index) throws DukeStorageException {
-        if (index < 0 || index >= taskList.size()) {
-            return Optional.empty();
-        }
-        Task task = taskList.get(index);
-        task.markAsDone();
-        storageService.saveTasks(taskList);
-        return Optional.of(task);
+        return taskList.markTask(index);
     }
 
     public Optional<Task> unmarkTask(int index) throws DukeStorageException {
-        if (index < 0 || index >= taskList.size()) {
-            return Optional.empty();
-        }
-        Task task = taskList.get(index);
-        task.markAsNotDone();
-        storageService.saveTasks(taskList);
-        return Optional.of(task);
+        return taskList.unmarkTask(index);
     }
 
     public List<Task> getTaskList() {
-        return taskList;
+        return taskList.getTaskList();
     }
 
     public int getNumberOfTasks() {
-        return taskList.size();
+        return taskList.getNumberOfTasks();
     }
 }
