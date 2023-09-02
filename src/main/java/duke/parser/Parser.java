@@ -1,16 +1,26 @@
 package duke.parser;
 
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.Todo;
-import duke.commands.*;
-import duke.exceptions.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
+
+import duke.commands.AddCommand;
+import duke.commands.Command;
+import duke.commands.DeleteCommand;
+import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkCommand;
+import duke.exceptions.DukeException;
+import duke.exceptions.InvalidArgumentException;
+import duke.exceptions.InvalidCommandException;
+import duke.exceptions.InvalidDeadlineException;
+import duke.exceptions.InvalidEventException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 /**
  * Parses user input.
@@ -25,7 +35,9 @@ public class Parser {
      * @throws DukeException when the user passes in invalid input
      */
     public static Command parse(String input, boolean isRestoring) throws DukeException {
-        if (input.trim().equals("")) return null;
+        if (input.trim().equals("")) {
+            return null;
+        }
 
         String[] parsedText = parseText(input);
         String action = parsedText[0];
@@ -43,7 +55,9 @@ public class Parser {
         case AddCommand.COMMAND_WORD_T:
             return handleAdd(action, arguments, marked);
         case DeleteCommand.COMMAND_WORD:
-            if (arguments.equals("")) throw new InvalidArgumentException();
+            if (arguments.equals("")) {
+                throw new InvalidArgumentException();
+            }
             return new DeleteCommand(parseArgs(arguments));
         case ListCommand.COMMAND_WORD:
             if (!arguments.equals("")) {
@@ -53,13 +67,19 @@ public class Parser {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         case MarkCommand.COMMAND_WORD_UNMARK:
-            if (arguments.equals("")) throw new InvalidArgumentException();
+            if (arguments.equals("")) {
+                throw new InvalidArgumentException();
+            }
             return new MarkCommand(false, parseArgs(arguments));
         case MarkCommand.COMMAND_WORD_MARK:
-            if (arguments.equals("")) throw new InvalidArgumentException();
+            if (arguments.equals("")) {
+                throw new InvalidArgumentException();
+            }
             return new MarkCommand(true, parseArgs(arguments));
         case FindCommand.COMMAND_WORD:
-            if (arguments.equals("")) throw new InvalidArgumentException();
+            if (arguments.equals("")) {
+                throw new InvalidArgumentException();
+            }
             return new FindCommand(arguments);
         default:
             throw new InvalidCommandException();
@@ -76,7 +96,9 @@ public class Parser {
      * @throws DukeException if there is invalid user input
      */
     protected static AddCommand handleAdd(String taskInput, String args, boolean isMarked) throws DukeException {
-        if (args.equals("")) throw new InvalidArgumentException();
+        if (args.equals("")) {
+            throw new InvalidArgumentException();
+        }
         Task task;
         switch (taskInput) {
         case AddCommand.COMMAND_WORD_D:
