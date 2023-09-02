@@ -41,100 +41,109 @@ public class MattBot {
 
         Scanner sc = new Scanner(System.in);
         String userInput;
+        label:
         while (true) {
             // Take user input in, and process user input
             userInput = sc.nextLine();
             String command = userInput.split(" ",2)[0];
-            if (command.equals("bye")) {
-                printTop();
-                System.out.println("Bye, Hope to see you soon!");
-                printBottom();
-                break;
-            } else if (command.equals("list")) {
-                printTop();
-                for (int i = 0; i < tasks.size(); i++) {
-                    Task t = tasks.getTask(i + 1);
-                    System.out.println(String.format("%d. %s", i+1, t));
-                }
-                printBottom();
-            } else if (command.equals("mark")) {
-                printTop();
-                int taskId = Integer.parseInt(userInput.split(" ",2)[1]);
-                tasks.markTask(taskId);
-                mattmory.writeBack(tasks);
-                Task t = tasks.getTask(taskId);
-                System.out.println("Great job! You have completed the task " + t.showName());
-                printBottom();
-            } else if (command.equals("unmark")) {
-                printTop();
-                int taskId = Integer.parseInt(userInput.split(" ",2)[1]);
-                tasks.unmarkTask(taskId);
-                mattmory.writeBack(tasks);
-                Task t = tasks.getTask(taskId);
-                System.out.println("Oh no, you have uncompleted " + t.showName());
-                printBottom();
-            } else {
-                int len = userInput.split(" ",2).length;
-                if (len <= 1) {
+            switch (command) {
+                case "bye":
                     printTop();
-                    System.out.println("Oh no, your input is bad.");
-                    System.out.println(command + " requires an argument.");
+                    System.out.println("Bye, Hope to see you soon!");
                     printBottom();
-                    continue;
-                }
-                printTop();
-                String arguments = userInput.split(" ",2)[1];
-                Task t;
-                if (command.equals("todo")) {
-                    t = new Todo(arguments);
-                    tasks.addTask(t);
+                    break label;
+                case "list":
+                    printTop();
+                    for (int i = 0; i < tasks.size(); i++) {
+                        Task t = tasks.getTask(i + 1);
+                        System.out.println(String.format("%d. %s", i + 1, t));
+                    }
+                    printBottom();
+                    break;
+                case "mark": {
+                    printTop();
+                    int taskId = Integer.parseInt(userInput.split(" ", 2)[1]);
+                    tasks.markTask(taskId);
                     mattmory.writeBack(tasks);
-                    System.out.println("I've added this to your tasks: ");
-                    System.out.println(t);
-                } else if (command.equals("deadline")) {
-                    String name = arguments.split(" /by ",2)[0];
-                    String dueDate = arguments.split(" /by ",2)[1];
-                    try {
-                        LocalDateTime dtDueDate = LocalDateTime.parse(dueDate,dTFormat);
-                        t = new Deadline(name, dtDueDate);
-                        tasks.addTask(t);
-                        mattmory.writeBack(tasks);
-                        System.out.println("I've added this to your tasks: ");
-                        System.out.println(t);
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Your date is invalid. It should be in the form YYYYMMDDTHHMM. An example is 20231231T2359.");
-                    }
-                } else if (command.equals("event")) {
-                    String name = arguments.split(" /from ",2)[0];
-                    String dates = arguments.split(" /from ",2)[1];
-                    String startDate = dates.split(" /to ")[0];
-                    String endDate = dates.split(" /to ",2)[1];
-                    try {
-                        LocalDateTime dtStartDate = LocalDateTime.parse(startDate,dTFormat);
-                        LocalDateTime dtEndDate = LocalDateTime.parse(endDate,dTFormat);
-                        t = new Event(name, dtStartDate, dtEndDate);
-                        tasks.addTask(t);
-                        mattmory.writeBack(tasks);
-                        System.out.println("I've added this to your tasks: ");
-                        System.out.println(t);
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Your date is invalid. It should be in the form YYYYMMDDTHHMM. An example is 20231231T2359.");
-                    }
-                } else if (command.equals("delete")) {
-                    if (tasks.size() == 0 || tasks.size() < Integer.parseInt(arguments)) {
-                        System.out.println("Oops, you're deleting a task that doesn't exist.");
+                    Task t = tasks.getTask(taskId);
+                    System.out.println("Great job! You have completed the task " + t.showName());
+                    printBottom();
+                    break;
+                }
+                case "unmark": {
+                    printTop();
+                    int taskId = Integer.parseInt(userInput.split(" ", 2)[1]);
+                    tasks.unmarkTask(taskId);
+                    mattmory.writeBack(tasks);
+                    Task t = tasks.getTask(taskId);
+                    System.out.println("Oh no, you have uncompleted " + t.showName());
+                    printBottom();
+                    break;
+                }
+                default: {
+                    int len = userInput.split(" ", 2).length;
+                    if (len <= 1) {
+                        printTop();
+                        System.out.println("Oh no, your input is bad.");
+                        System.out.println(command + " requires an argument.");
+                        printBottom();
                         continue;
                     }
-                    t = tasks.getTask(Integer.parseInt(arguments));
-                    System.out.println("I have removed this task:");
-                    System.out.println(t);
-                    tasks.removeTask(Integer.parseInt(arguments));
-                    mattmory.writeBack(tasks);
-                } else {
-                    System.out.println("I didn't quite understand your input.");
-                    continue;
+                    printTop();
+                    String arguments = userInput.split(" ", 2)[1];
+                    Task t;
+                    if (command.equals("todo")) {
+                        t = new Todo(arguments);
+                        tasks.addTask(t);
+                        mattmory.writeBack(tasks);
+                        System.out.println("I've added this to your tasks: ");
+                        System.out.println(t);
+                    } else if (command.equals("deadline")) {
+                        String name = arguments.split(" /by ", 2)[0];
+                        String dueDate = arguments.split(" /by ", 2)[1];
+                        try {
+                            LocalDateTime dtDueDate = LocalDateTime.parse(dueDate, dTFormat);
+                            t = new Deadline(name, dtDueDate);
+                            tasks.addTask(t);
+                            mattmory.writeBack(tasks);
+                            System.out.println("I've added this to your tasks: ");
+                            System.out.println(t);
+                        } catch (DateTimeParseException e) {
+                            System.out.println("Your date is invalid. It should be in the form YYYYMMDDTHHMM. An example is 20231231T2359.");
+                        }
+                    } else if (command.equals("event")) {
+                        String name = arguments.split(" /from ", 2)[0];
+                        String dates = arguments.split(" /from ", 2)[1];
+                        String startDate = dates.split(" /to ")[0];
+                        String endDate = dates.split(" /to ", 2)[1];
+                        try {
+                            LocalDateTime dtStartDate = LocalDateTime.parse(startDate, dTFormat);
+                            LocalDateTime dtEndDate = LocalDateTime.parse(endDate, dTFormat);
+                            t = new Event(name, dtStartDate, dtEndDate);
+                            tasks.addTask(t);
+                            mattmory.writeBack(tasks);
+                            System.out.println("I've added this to your tasks: ");
+                            System.out.println(t);
+                        } catch (DateTimeParseException e) {
+                            System.out.println("Your date is invalid. It should be in the form YYYYMMDDTHHMM. An example is 20231231T2359.");
+                        }
+                    } else if (command.equals("delete")) {
+                        if (tasks.size() == 0 || tasks.size() < Integer.parseInt(arguments)) {
+                            System.out.println("Oops, you're deleting a task that doesn't exist.");
+                            continue;
+                        }
+                        t = tasks.getTask(Integer.parseInt(arguments));
+                        System.out.println("I have removed this task:");
+                        System.out.println(t);
+                        tasks.removeTask(Integer.parseInt(arguments));
+                        mattmory.writeBack(tasks);
+                    } else {
+                        System.out.println("I didn't quite understand your input.");
+                        continue;
+                    }
+                    printBottom();
+                    break;
                 }
-                printBottom();
             }
         }
     }
