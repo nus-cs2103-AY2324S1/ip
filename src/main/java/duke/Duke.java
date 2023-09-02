@@ -12,7 +12,7 @@ import java.util.Scanner;
  * Creates a Duke object.
  */
 public class Duke {
-    private Scanner scan = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
     private Ui ui = new Ui();
     private Storage storage = new Storage();
     private TaskList tasks = new TaskList();
@@ -21,16 +21,16 @@ public class Duke {
      * Runs the Duke chatbot.
      */
     public void run () {
-        //load tasks from file
+        //Load tasks from file
         this.storage.loadTasksFromFile(tasks.getTasks());
-        //greeting
+        //Greeting
         this.ui.printGreeting();
-        //processing user commands
+        //Processing user commands
         while (true) {
-            //read user input
-            String userInput = scan.nextLine();
+            //Read user input
+            String userInput = scanner.nextLine();
             Parser parser = new Parser(userInput);
-            //check for exit command first
+            //Check for exit command first
             if (userInput.equalsIgnoreCase("bye")) {
                 break;
             }

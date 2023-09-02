@@ -61,7 +61,6 @@ public class Deadline extends Task {
             }
             return deadline;
         }
-
         return null; // incomplete data.txt
     }
 }

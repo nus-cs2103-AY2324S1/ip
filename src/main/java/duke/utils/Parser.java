@@ -18,6 +18,7 @@ public class Parser {
     /**
      * Constructs a new `Parser` with an empty input array.
      */
+
     public Parser() {
 
     }
@@ -49,7 +50,7 @@ public class Parser {
         } catch (NullPointerException e) {
             throw new DukeException(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("invalid task number");
+            throw new DukeException("Invalid task number");
         }
     }
 

@@ -21,7 +21,7 @@ public class TaskListTest {
             task.addTodoTask("test");
             task.markTaskDone(4);
         } catch (DukeException e) {
-            assertEquals(e.getMessage(), "invalid task number");
+            assertEquals(e.getMessage(), "Invalid task number");
         }
     }
 }

@@ -35,6 +35,7 @@ public class Task {
     /**
      * Marks the task as undone.
      */
+
     public void markNotDone() {
         this.isDone = false;
     }
@@ -43,6 +44,7 @@ public class Task {
      * Checks if the task is marked as done.
      * @return `true` if the task is done, otherwise `false`.
      */
+
     public boolean getIsDone() {
         return this.isDone;
     }

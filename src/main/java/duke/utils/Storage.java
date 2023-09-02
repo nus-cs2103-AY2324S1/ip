@@ -14,7 +14,7 @@ import java.util.Scanner;
  * The `Storage` class handles reading and writing tasks to a data file.
  */
 public class Storage {
-    private final String DATA_FILE_PATH = "data.txt";
+    private static final String DATA_FILE_PATH = "data.txt";
 
     /**
      * Saves a list of tasks to a data file.

@@ -36,7 +36,7 @@ public class TaskList {
      * @return The list of tasks.
      */
     public List<Task> getTasks() {
-        return this.toDoList;
+        return toDoList;
     }
 
     /**
@@ -44,7 +44,7 @@ public class TaskList {
      * @return The number of tasks in the list.
      */
     public int getSize() {
-        return this.toDoList.size();
+        return toDoList.size();
     }
 
     /**
@@ -59,9 +59,9 @@ public class TaskList {
             task.markDone();
             return task;
         } catch (NullPointerException e) {
-            throw new DukeException("invalid task number");
+            throw new DukeException("Invalid task number");
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("invalid task number");
+            throw new DukeException("Invalid task number");
         }
     }
 
@@ -77,9 +77,9 @@ public class TaskList {
             task.markNotDone();
             return task;
         } catch (NullPointerException e) {
-            throw new DukeException("invalid task number");
+            throw new DukeException("Invalid task number");
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("invalid task number");
+            throw new DukeException("Invalid task number");
         }
     }
 
@@ -134,9 +134,9 @@ public class TaskList {
             toDoList.remove(taskNumber);
             return task;
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("invalid task number");
+            throw new DukeException("Invalid task number");
         } catch (NullPointerException e) {
-            throw new DukeException("invalid task number");
+            throw new DukeException("Invalid task number");
         }
 
     }
