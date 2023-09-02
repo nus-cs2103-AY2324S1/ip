@@ -1,9 +1,10 @@
 package data.task;
 
 import data.exception.DukeException;
+
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.LocalDateTime;
 
 public class EventTask extends Task {
     private LocalDateTime startDate;
