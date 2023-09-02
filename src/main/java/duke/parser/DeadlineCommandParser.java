@@ -14,7 +14,7 @@ public class DeadlineCommandParser extends CommandParser {
     }
 
     @Override
-    protected void validate(Matcher matcher) throws MissingDescriptionException, IncorrectCommandFormatException {
+    protected void validate(Matcher matcher) throws MissingDescriptionException, IncorrectCommandFormatException, InvalidTimeFormatException {
         String description = matcher.group("description");
         String by = matcher.group("by");
         String byTime = matcher.group("byTime");
@@ -34,7 +34,7 @@ public class DeadlineCommandParser extends CommandParser {
         try {
             java.time.LocalDate.parse(byTime);
         } catch (java.time.DateTimeException e) {
-            throw new IncorrectCommandFormatException("Time formatting for deadline incorrect");
+            throw new InvalidTimeFormatException("Time formatting for deadline incorrect");
         }
     }
 

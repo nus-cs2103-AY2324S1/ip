@@ -29,6 +29,6 @@ public abstract class CommandParser {
         return createCommand(matcher);
     }
 
-    protected abstract void validate(Matcher matcher) throws UnknownCommandException, MissingDescriptionException, IncorrectCommandFormatException, InvalidIndexException;
+    protected abstract void validate(Matcher matcher) throws UnknownCommandException, MissingDescriptionException, IncorrectCommandFormatException, InvalidIndexException, InvalidTimeFormatException;
     protected abstract Command createCommand(Matcher matcher) throws MissingDescriptionException, IncorrectCommandFormatException, InvalidTimeFormatException; 
 }
