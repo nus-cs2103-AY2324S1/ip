@@ -196,6 +196,19 @@ public class Parser {
     }
 
     /**
+     * Method to filter tasks based on user input
+     * @param input Regex input by user
+     */
+    public void findTasks(String input) throws InvalidArgumentException {
+        String regex = input.split(" ", 2)[1];
+        if (input.split(" ").length < 2) {
+            ui.showInvalidArgumentErrorMessage("find", regex);
+        } else {
+            ui.showFilteredTaskList(this.taskList, regex);
+        }
+    }
+
+    /**
      * Execute the Duke's functions to process user's input.
      *
      * @throws InvalidCommandException if user enters an invalid command
@@ -238,6 +251,10 @@ public class Parser {
                 deleteTask(this.input);
                 break;
 
+            case FIND:
+                findTasks(this.input);
+                break;
+
             case BYE:
                 ui.quit();
                 System.out.println("\nBye! Hope to see you again soon, macho!");
@@ -263,6 +280,7 @@ public class Parser {
         DEADLINE,
         EVENT,
         DELETE,
+        FIND,
         BYE
     }
 

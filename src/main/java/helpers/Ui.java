@@ -132,6 +132,17 @@ public class Ui {
     }
 
     /**
+     * Method to show message on the filtered list of tasks
+     *
+     * @param taskList List of tasks
+     */
+    public void showFilteredTaskList(TaskList taskList, String input) {
+        System.out.println(DIVIDER);
+        System.out.println(taskList.filterTaskList(input));
+        System.out.println(DIVIDER);
+    }
+
+    /**
      * Method to show error message if loading of storage fails
      *
      * @throws ErrorStorageException Exception for storage loading error
@@ -187,6 +198,17 @@ public class Ui {
     public void showInvalidCommandErrorMessage(String message) throws InvalidCommandException {
         System.out.println(DIVIDER);
         throw new InvalidCommandException(DIVIDER);
+    }
+
+    /**
+     * Method to show error message if there is invalid command entered
+     *
+     * @param message String containing the invalid command
+     * @throws InvalidArgumentException Exception for invalid command given
+     */
+    public void showInvalidArgumentErrorMessage(String command, String message) throws InvalidArgumentException {
+        System.out.println(DIVIDER);
+        throw new InvalidArgumentException(message, command, DIVIDER);
     }
 
     /**
