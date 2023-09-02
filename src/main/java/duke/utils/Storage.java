@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Storage {
-    private final String DATA_FILE_PATH = "data.txt";
+    private static final String DATA_FILE_PATH = "data.txt";
 
     public void saveTasksToFile(List<Task> toDoList) throws DukeException {
         try {

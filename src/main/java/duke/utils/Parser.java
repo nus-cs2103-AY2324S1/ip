@@ -10,6 +10,7 @@ import java.util.List;
 
 public class Parser {
     private List<String> inputArray;
+
     public Parser() {
 
     }
@@ -28,7 +29,7 @@ public class Parser {
         } catch (NullPointerException e) {
             throw new DukeException(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("invalid task number");
+            throw new DukeException("Invalid task number");
         }
     }
 

@@ -18,13 +18,11 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
     }
 
-
     @Override
     public String toFileString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return "E" + " | " + super.toFileString() + " | " + from.format(formatter) + " | " + to.format(formatter);
     }
-
 
     public static Event createEventFromData(String taskData) {
         String[] taskParts = taskData.split("\\s*\\|\\s*");
@@ -45,5 +43,4 @@ public class Event extends Task {
         }
         return null; // incomplete data.txt
     }
-
 }

@@ -15,9 +15,11 @@ public class Task {
     public void markDone() {
         this.isDone = true;
     }
+
     public void markNotDone() {
         this.isDone = false;
     }
+
     public boolean getIsDone() {
         return this.isDone;
     }
