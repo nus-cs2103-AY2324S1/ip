@@ -108,7 +108,8 @@ public class Parser {
                     throw new MissingDurationException();
                 }
                 if (count != 2) {
-                    throw new InvalidDateAndTimeInputException();
+                    throw new InvalidDateAndTimeInputException("Please type in a valid date/time input. Eg: event" +
+                            " project meeting /from 2019-12-15 1800 /to 2000\n");
                 }
                 return new EventCommand(actionAndDesc, typeAndDates);
             } else {

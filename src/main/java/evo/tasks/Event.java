@@ -56,7 +56,8 @@ public class Event extends Task {
                 formatDateAndTime = dateInput[0] + " " + formatDate + " " + formatStartTime + " " + dateInput[3]
                         + " " + formatEndTime;
             } else {
-                throw new InvalidDateAndTimeInputException();
+                throw new InvalidDateAndTimeInputException("Please type in a valid date/time input. Eg: event project " +
+                        "meeting /from 2019-12-15 1800 /to 2000\n");
             }
         } catch (InvalidDateAndTimeInputException invalidDateAndTimeInputException) {
             System.out.println("Please type in a valid date/time input. Eg: event project meeting /from " +
@@ -74,12 +75,13 @@ public class Event extends Task {
      */
     @Override
     public String outputMsg() throws InvalidDateAndTimeInputException {
+        if (!this.duration.contains("from") || !this.duration.contains("to")) {
+            throw new InvalidDateAndTimeInputException("Please type in a valid date/time input. Eg: event project " +
+                    "meeting /from 2019-12-15 1800 /to 2000\n");
+        }
         if (!this.duration.contains("-")) {
-            if (!this.duration.contains("to")) {
-                throw new InvalidDateAndTimeInputException();
-            } else {
-                return "E | " + (isDone ? 1 : 0) + " | " + description + " | " + this.duration;
-            }
+            // read from text file
+            return "E | " + (isDone ? 1 : 0) + " | " + description + " | " + this.duration;
         } else {
             setFormatDateAndTime();
             return "E | " + (isDone ? 1 : 0) + " | " + description + " | " + formatDateAndTime;

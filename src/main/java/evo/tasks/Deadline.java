@@ -45,7 +45,8 @@ public class Deadline extends Task {
         String[] dateInput = this.by.split(" ");
         try {
             if (dateInput[0].contains("/")) {
-                throw new InvalidDateAndTimeInputException();
+                throw new InvalidDateAndTimeInputException("Please type in a valid date/time input. Eg: deadline return" +
+                        " book /by 2019-10-15 1800\n");
             }
             if (dateInput.length == 1) {
                 if (dateInput[0].contains("-")) {
@@ -72,11 +73,13 @@ public class Deadline extends Task {
      * The output message includes task details such as task type, completion status, description, and date/time.
      *
      * @return A formatted string representing the Deadline task details.
-     * @throws InvalidDateAndTimeInputException If the input "by" string is not in the expected format or if the
-     * date/time values are invalid.
      */
     @Override
     public String outputMsg() throws InvalidDateAndTimeInputException {
+        if (this.by.contains("/")) {
+            throw new InvalidDateAndTimeInputException("Please type in a valid date/time input. Eg: deadline return " +
+                    "book /by 2019-10-15 1800\n");
+        }
         if (this.by.contains("-")) {
             setFormatDateAndTime();
             return "D | " + (isDone ? 1 : 0) + " | " + description + " | " + formatDateAndTime;

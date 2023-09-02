@@ -6,9 +6,9 @@ package evo.exceptions;
 public class InvalidDateAndTimeInputException extends Exception {
 
     /**
-     * Constructs an InvalidDateAndTimeInputException object.
+     * Constructs an InvalidDateAndTimeInputException object with the given error message.
      */
-    public InvalidDateAndTimeInputException() {
-        super();
+    public InvalidDateAndTimeInputException(String errorMsg) {
+        super(errorMsg);
     }
 }
