@@ -74,7 +74,7 @@ public class TaskList {
     public TaskList find(String searchString) {
         TaskList res = new TaskList();
         for (Task task : tasks) {
-            if (task.getDescription().toLowerCase().contains(searchString)) {
+            if (task.getDescription().toLowerCase().contains(searchString.toLowerCase())) {
                 res.add(task);
             }
         }
