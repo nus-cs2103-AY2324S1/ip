@@ -20,6 +20,10 @@ public class Ui {
         return this.getInput();
     }
 
+    public void print(String input) {
+        System.out.println(input);
+    }
+
     public void end() {
         System.out.println("Bye. Hope to see you again soon!");
     }
