@@ -42,14 +42,14 @@ public class TaskListStorage {
             } catch (java.io.IOException e) {
                 String errorString = "Error creating file! Make sure you have the correct permissions.\nOtherwise tasks will not be saved.\n"
                         + e.getMessage();
-                Messages.printInLine(errorString);
+                Ui.printInLine(errorString);
             }
         }
 
         try {
             this.loadFromFile();
         } catch (FileNotFoundException | IncorrectCommandFormatException | MissingDescriptionException e) {
-            Messages.printInLine(e.getMessage());
+            Ui.printInLine(e.getMessage());
         }
     }
 
@@ -94,7 +94,7 @@ public class TaskListStorage {
             } catch (java.io.IOException e) {
                 String errorString = "Error creating file! Make sure you have the correct permissions.\nOtherwise tasks will not be saved.\n"
                         + e.getMessage();
-                Messages.printInLine(errorString);
+                Ui.printInLine(errorString);
             }
         }
 
@@ -105,7 +105,7 @@ public class TaskListStorage {
             }
             fw.close();
         } catch (java.io.IOException e) {
-            Messages.printInLine(e.getMessage());
+            Ui.printInLine(e.getMessage());
         }
     }
 
@@ -114,7 +114,7 @@ public class TaskListStorage {
         for (int i = 0; i < taskList.size(); i++) {
             s += (i + 1) + ". " + taskList.get(i) + "\n";
         }
-        Messages.printInLine(s);
+        Ui.printInLine(s);
     }
 
     public void markAsDone(int index) throws InvalidIndexException {
@@ -124,9 +124,9 @@ public class TaskListStorage {
         }
         taskList.get(index).markAsDone();
         writeTaskListToFile(taskList, filepath);
-        String outputString = "Nice! I've marked this task as done:\n" + Messages.TAB
+        String outputString = "Nice! I've marked this task as done:\n" + Ui.TAB
                 + taskList.get(index).toString();
-        Messages.printInLine(outputString);
+        Ui.printInLine(outputString);
     }
 
     public void markAsUndone(int index) throws InvalidIndexException {
@@ -136,33 +136,33 @@ public class TaskListStorage {
         }
         taskList.get(index).markAsUndone();
         writeTaskListToFile(taskList, filepath);
-        String outputString = "Ok! I've marked this task as not done yet:\n" + Messages.TAB
+        String outputString = "Ok! I've marked this task as not done yet:\n" + Ui.TAB
                 + taskList.get(index).toString();
-        Messages.printInLine(outputString);
+        Ui.printInLine(outputString);
     }
 
     public void addTodo(Todo todo) throws MissingDescriptionException {
         taskList.add(todo);
         writeTaskListToFile(taskList, filepath);
-        String outputString = "Got it. I've added this task:\n" + Messages.TAB + taskList.get(taskList.size() - 1)
+        String outputString = "Got it. I've added this task:\n" + Ui.TAB + taskList.get(taskList.size() - 1)
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
-        Messages.printInLine(outputString);
+        Ui.printInLine(outputString);
     }
 
     public void addDeadline(Deadline deadline) throws MissingDescriptionException, IncorrectCommandFormatException {
         taskList.add(deadline);
         writeTaskListToFile(taskList, filepath);
-        String outputString = "Got it. I've added this task:\n" + Messages.TAB + taskList.get(taskList.size() - 1)
+        String outputString = "Got it. I've added this task:\n" + Ui.TAB + taskList.get(taskList.size() - 1)
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
-        Messages.printInLine(outputString);
+        Ui.printInLine(outputString);
     }
 
     public void addEvent(Event event) throws MissingDescriptionException, IncorrectCommandFormatException {
         taskList.add(event);
         writeTaskListToFile(taskList, filepath);
-        String outputString = "Got it. I've added this task:\n" + Messages.TAB + taskList.get(taskList.size() - 1)
+        String outputString = "Got it. I've added this task:\n" + Ui.TAB + taskList.get(taskList.size() - 1)
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
-        Messages.printInLine(outputString);
+        Ui.printInLine(outputString);
     }
 
     public void deleteTask(int index) throws InvalidIndexException {
@@ -175,6 +175,6 @@ public class TaskListStorage {
         writeTaskListToFile(taskList, filepath);
         String outpuString = "Noted. I've removed this task:\n" + task.toString()
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
-        Messages.printInLine(outpuString);
+        Ui.printInLine(outpuString);
     }
 }

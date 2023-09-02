@@ -2,7 +2,7 @@
 import java.io.File;
 import java.util.Scanner;
 
-import duke.Messages;
+import duke.Ui;
 import duke.Parser;
 import duke.TaskListStorage;
 import duke.exceptions.IncorrectCommandFormatException;
@@ -18,7 +18,7 @@ public class Duke {
         TaskListStorage tasklistStorage = new TaskListStorage(TASK_FILEPATH);
         Parser parser = new Parser();
 
-        Messages.opener();
+        Ui.opener();
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         while (!input.equals("bye")) {
@@ -26,11 +26,11 @@ public class Duke {
                 parser.dispatch(input).execute(tasklistStorage);
             } catch (UnknownCommandException | MissingDescriptionException | IncorrectCommandFormatException
                     | InvalidIndexException | InvalidTimeFormatException e) {
-                Messages.printInLine(e.getMessage());
+                Ui.printInLine(e.getMessage());
             }
             input = sc.nextLine();
         }
         sc.close();
-        Messages.printWithTab("Bye. Hope to see you again soon!");
+        Ui.printWithTab("Bye. Hope to see you again soon!");
     }
 }
