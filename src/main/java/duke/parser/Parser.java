@@ -14,6 +14,8 @@ import duke.command.MarkCommand;
 import duke.command.TodoCommand;
 import duke.command.UnmarkCommand;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,7 +46,12 @@ public class Parser {
         }
         String desc = matcher.group("desc").trim();
         String by = matcher.group("by").trim();
-        return new Deadline(desc, by);
+        try {
+            LocalDate byDate = LocalDate.parse(by);
+            return new Deadline(desc, byDate);
+        } catch (DateTimeParseException e) {
+            throw new DukeParseException("Deadline cannot be parsed");
+        }
     }
 
     /**

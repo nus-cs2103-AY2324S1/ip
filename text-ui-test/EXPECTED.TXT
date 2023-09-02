@@ -16,7 +16,7 @@
 
     __________________________________________________
     Got it. I've added this task:
-        [D][ ] return book (by: Sunday)
+        [D][ ] return book (by: 2023-09-03)
     Now you have 2 tasks in the list.
     __________________________________________________
 
@@ -34,7 +34,7 @@
     __________________________________________________
     Here are the tasks in your list:
     1. [T][X] borrow book
-    2. [D][ ] return book (by: Sunday)
+    2. [D][ ] return book (by: 2023-09-03)
     3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
     __________________________________________________
 
@@ -50,7 +50,7 @@
     __________________________________________________
     Sorry, but I don't know what that means :(
     Deadline cannot be parsed
-    deadline <description> /by <date>
+    deadline <description> /by <date YYYY-MM-DD>
     __________________________________________________
 
     __________________________________________________
@@ -61,7 +61,7 @@
 
     __________________________________________________
     Here are the tasks in your list:
-    1. [D][ ] return book (by: Sunday)
+    1. [D][ ] return book (by: 2023-09-03)
     2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
     __________________________________________________
 

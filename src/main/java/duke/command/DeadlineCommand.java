@@ -8,7 +8,7 @@ import duke.ui.TextUi;
  */
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
-    public static final String MESSAGE_USAGE = "deadline <description> /by <date>";
+    public static final String MESSAGE_USAGE = "deadline <description> /by <date YYYY-MM-DD>";
     private final Deadline taskToAdd;
 
     public DeadlineCommand(Deadline task) {

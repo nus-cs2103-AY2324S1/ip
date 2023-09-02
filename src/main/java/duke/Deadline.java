@@ -1,12 +1,14 @@
 package duke;
 
+import java.time.LocalDate;
+
 /**
  * Represents a task with a deadline.
  */
 public class Deadline extends Task {
-    String by;
+    LocalDate by;
 
-    public Deadline(String desc, String by) {
+    public Deadline(String desc, LocalDate by) {
         super(desc);
         this.by = by;
     }
