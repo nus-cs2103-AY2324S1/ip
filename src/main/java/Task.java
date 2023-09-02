@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -38,20 +41,43 @@ public class Task {
      */
     public static Task fromFileFormat(String fileFormatString) {
         String[] parts = fileFormatString.split("\\s*\\|\\s*");
-        
-        if (parts.length != 2) {
-            throw new IllegalArgumentException("Invalid task format in file.");
-        }
+    
+        String type = parts[0];
+    
+        switch (type) {
 
-        boolean isDone = "1".equals(parts[0]);
-        String description = parts[1];
-        Task task = new Task(description);
-        if (isDone) {
-            task.markAsDone();
-        }
+            case "D": // Deadline tasks
+                if (parts.length != 4) {
+                    throw new IllegalArgumentException("Invalid Deadline format in file.");
+                }
+            
+                boolean isDoneDeadline = "1".equals(parts[1]);
+                String descriptionDeadline = parts[2];
+                LocalDateTime by = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+            
+                Deadline deadline = new Deadline(descriptionDeadline, by);
+                if (isDoneDeadline) {
+                    deadline.markAsDone();
+                }
 
-        return task;
+                return deadline;
+
+            default:
+                if (parts.length != 2) {
+                    throw new IllegalArgumentException("Invalid task format in file.");
+                }
+    
+                boolean isDone = "1".equals(parts[0]);
+                String description = parts[1];
+                Task task = new Task(description);
+                if (isDone) {
+                    task.markAsDone();
+                }
+    
+                return task;
+        }
     }
+
 
     @Override
     public String toString() {

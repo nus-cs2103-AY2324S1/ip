@@ -5,12 +5,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.io.IOException;
 import exceptions.EmptyTaskDescriptionException;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidTaskNumberException;
 import exceptions.TaskAlreadyDoneException;
 import exceptions.TaskNotDoneException;
+import exceptions.InvalidDateFormatException;
 
 public class Martin {
     private static ArrayList<Task> tasks = new ArrayList<>();
@@ -47,6 +51,8 @@ public class Martin {
                 } else if (input.startsWith("event")) {
                     addEvent(input);
                     saveToFile();
+                } else if (input.startsWith("date")) {
+                    date(input.substring(4).trim());
                 } else {
                     throw new InvalidCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
@@ -165,6 +171,10 @@ public class Martin {
      * @param command The user input containing the task description and its deadline.
      */
     private static void addDeadline(String command) throws EmptyTaskDescriptionException {
+        if (command.length() <= 8) {
+            throw new EmptyTaskDescriptionException("☹ OOPS!!! The description of a deadline cannot be empty.");
+        }
+
         String[] parts = command.substring(9).split(" /by ");
         if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
             throw new EmptyTaskDescriptionException("☹ OOPS!!! The description of a deadline or its date cannot be empty.");
@@ -179,6 +189,10 @@ public class Martin {
     * @param command The user input containing the event details.
     */
     private static void addEvent(String command) throws EmptyTaskDescriptionException {
+        if (command.length() <= 5) {
+            throw new EmptyTaskDescriptionException("☹ OOPS!!! The description of an event cannot be empty.");
+        }
+
         String[] parts = command.substring(6).split(" /from ");
         String[] timeParts = parts[1].split(" /to ");
         if (parts.length < 2 || parts[0].trim().isEmpty() || timeParts.length < 2 || timeParts[0].trim().isEmpty() || timeParts[1].trim().isEmpty()) {
@@ -188,6 +202,44 @@ public class Martin {
         tasks.add(new Event(parts[0], timeParts[0], timeParts[1]));
         printMessage("Got it. I've added this task:\n       " + tasks.get(tasks.size() - 1) + "\n     Now you have " + tasks.size() + " tasks in the list.");
     }
+
+    /**
+    * Prints the tasks that are scheduled on a specific date.
+    *
+    * @param date The specific date in which to filter tasks.
+    */
+    private static void date(String dateStr) throws InvalidDateFormatException {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+    LocalDate date;
+    
+    try {
+        date = LocalDate.parse(dateStr, formatter);
+    } catch (DateTimeParseException e) {
+        throw new InvalidDateFormatException("     Invalid date format. Please use the format 'd/M/yyyy'.");
+    }
+    
+    System.out.println("    ____________________________________________________________");
+    System.out.println("     Tasks on " + date.format(DateTimeFormatter.ofPattern("M d yyyy")) + ":");
+    int count = 0;
+    boolean hasTasks = false;
+
+    for (Task task : tasks) {
+        if (task instanceof Deadline) {
+            Deadline d = (Deadline) task;
+            if (d.getBy().toLocalDate().equals(date)) {
+                System.out.println("     " + (count + 1) + ". " + task);
+                hasTasks = true;
+            }
+       }
+        count++;
+    }
+
+    if (!hasTasks) {
+        System.out.println("     No tasks on this date.");
+    }
+
+    System.out.println("    ____________________________________________________________");
+}
 
     /**
     * Saves all tasks in the list to an external file for persistence.
@@ -219,6 +271,8 @@ public class Martin {
             try {
                 List<String> lines = Files.readAllLines(path);
                 for (String line : lines) {
+                    if (line.trim().isEmpty()) 
+                        continue;
                     try {
                         tasks.add(Task.fromFileFormat(line));
                     } catch (IllegalArgumentException e) {
