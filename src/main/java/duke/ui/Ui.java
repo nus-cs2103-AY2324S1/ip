@@ -50,7 +50,7 @@ public class Ui {
     /**
      * Print the successful add message.
      *
-     * @param task the specific task that will be added
+     * @param task the specific task that will be added.
      * @param tasks the list of tasks.
      */
     public void printAdd(Task task, TaskList tasks) {
@@ -62,7 +62,7 @@ public class Ui {
     /**
      * Print the successful delete message.
      *
-     * @param task the specific task that will be added
+     * @param task the specific task that will be deleted.
      * @param tasks the list of tasks.
      */
     public void printDelete(Task task, TaskList tasks) {
