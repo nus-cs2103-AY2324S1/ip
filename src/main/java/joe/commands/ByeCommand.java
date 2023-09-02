@@ -5,14 +5,16 @@ import joe.TaskList;
 import joe.Ui;
 
 public class ByeCommand extends Command {
-  public ByeCommand() {
-    this.isExit = true;
-  }
+    private static final String BYE_MESSAGE = "Bye. Hope to see you again soon!";
 
-  @Override
-  public void execute(TaskList tasks, Ui ui, Storage storage) {
-    ui.print("Bye. Hope to see you again soon!");
-    ui.exit();
-    storage.saveToFile(tasks);
-  }
+    public ByeCommand() {
+        this.isExit = true;
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        ui.print(BYE_MESSAGE);
+        ui.exit();
+        storage.saveToFile(tasks);
+    }
 }
