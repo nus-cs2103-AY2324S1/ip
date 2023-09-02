@@ -1,0 +1,133 @@
+package Database;
+
+import Exceptions.DukeCorruptedDataException;
+import Models.*;
+
+import java.io.*;
+import java.util.Objects;
+
+import static Printers.BasicOutputPrinter.printBasicOutput;
+import static Printers.ErrorOutputPrinter.printErrorOutput;
+import static java.lang.System.exit;
+
+/**
+ * Dbops (Database Operations) Class:
+ * Handles all writing and retrieval from the database, memory.txt.
+ */
+public class Dbops {
+
+    /**
+     * A constant that holds the path to the memory file.
+     */
+    private static final String FILEPATH = "src/data/";
+
+    /**
+     * A constant that holds the name of the memory file.
+     */
+    private static final String FILENAME = "memory.txt";
+
+    /**
+     * Creates the memory file, based on the filepath and filename.
+     */
+    private static void createMemoryFile() {
+        File newFile = new File(Dbops.FILEPATH + Dbops.FILENAME);
+
+        try {
+            if (newFile.createNewFile()) {
+                System.out.println("Memory file created successfully.");
+            } else {
+                System.err.println("Memory file already exists.");
+            }
+        } catch (IOException e) {
+            printErrorOutput("An error occurred while creating memory file: " + e.getMessage());
+            exit(1);
+        }
+    }
+
+    /**
+     * Deletes the memory file, based on the filepath and filename.
+     */
+    private static void deleteMemoryFile() {
+        File fileToDelete = new File(Dbops.FILEPATH + Dbops.FILENAME);
+
+        if (fileToDelete.delete()) {
+            System.out.println("Old memory file deleted successfully.");
+        } else {
+            System.err.println("Failed to delete the old memory file.");
+        }
+    }
+
+    /**
+     * Loads tasks from the memory file.
+     *
+     * @param taskArray The TaskArray to load the tasks into.
+     */
+    public static void loadTasksFromFile(TaskArray taskArray) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(Dbops.FILEPATH + Dbops.FILENAME))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Create Task from each line and add them to the list
+                String[] parts = line.split(",");
+                boolean isMarked = Objects.equals(parts[2], "true");
+
+                if (Objects.equals(parts[0], "Todo")) {
+                    taskArray.add(new ToDo(parts[1], isMarked));
+                } else if (Objects.equals(parts[0], "Deadline")) {
+                    taskArray.add(new Deadline(parts[1], isMarked, parts[3]));
+                } else if (Objects.equals(parts[0], "Event")) {
+                    taskArray.add(new Event(parts[1], isMarked, parts[3], parts[4]));
+                } else {
+                    throw new DukeCorruptedDataException("Error: file is corrupted. Failed to load data from file.");
+                }
+            }
+        } catch (IOException e) {
+            String output = "File not found: " + Dbops.FILENAME + "\n" +
+                    "If this is your first day, welcome!\n" +
+                    "A new memory file, " + Dbops.FILENAME + " has been created.";
+
+            printBasicOutput(output);
+            Dbops.createMemoryFile();
+
+        } catch (DukeCorruptedDataException e) {
+            printErrorOutput(e + "\n");
+            Dbops.deleteMemoryFile();
+            Dbops.createMemoryFile();
+            printBasicOutput("A new memory file, " + Dbops.FILENAME + " has been created.");
+
+        }
+    }
+
+    /**
+     * Adds only the new task to the memory file.
+     *
+     * @param taskArray The TaskArray to load the task from.
+     */
+    public static void saveNewTaskToFile(TaskArray taskArray) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Dbops.FILEPATH + Dbops.FILENAME))) {
+            Task task = taskArray.get(taskArray.size() - 1);
+
+            // Format and write each task to the file
+            writer.write(task.getTaskDetails());
+            writer.newLine();
+        } catch (IOException e) {
+            printErrorOutput("Error saving most recent task to memory file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Saves all tasks to the memory file.
+     *
+     * @param taskArray The TaskArray to load the tasks from.
+     */
+    public static void saveTasksToFile(TaskArray taskArray) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Dbops.FILEPATH + Dbops.FILENAME))) {
+            for (Task task : taskArray) {
+                // Format and write each task to the file
+                writer.write(task.getTaskDetails());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            printErrorOutput("Error saving tasks to memory file: " + e.getMessage());
+        }
+    }
+}

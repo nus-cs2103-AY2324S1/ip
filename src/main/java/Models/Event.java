@@ -1,3 +1,5 @@
+package Models;
+
 public class Event extends Task {
     String startTime;
     String endTime;
@@ -5,11 +7,6 @@ public class Event extends Task {
         super(name, marked);
         this.startTime = startTime;
         this.endTime = endTime;
-    }
-
-    @Override
-    public String getType() {
-        return "Event";
     }
 
     @Override

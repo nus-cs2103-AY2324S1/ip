@@ -1,3 +1,5 @@
+package Models;
+
 public class Task {
     Boolean isMarked;
     String name;
@@ -5,9 +7,6 @@ public class Task {
     public Task(String name, Boolean marked) {
         this.name = name;
         this.isMarked = marked;
-    }
-    public Boolean isDone() {
-        return this.isMarked;
     }
 
     public void markAsDone() {
@@ -18,14 +17,8 @@ public class Task {
         this.isMarked = false;
     }
 
-    public String getName() { return this.name; }
-
-    public String getType() { return "Task"; }
-
-    public Boolean getIsMarked() { return this.isMarked; }
-
     public String getTaskDetails() {
-        return "Task," + this.name + "," + this.isMarked;
+        return "Model.Task," + this.name + "," + this.isMarked;
     }
 
     public String toString() {

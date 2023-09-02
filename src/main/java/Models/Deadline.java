@@ -1,13 +1,10 @@
+package Models;
+
 public class Deadline extends Task {
     String endTime;
     public Deadline(String name, Boolean marked, String endTime) {
         super(name, marked);
         this.endTime = endTime;
-    }
-
-    @Override
-    public String getType() {
-        return "Deadline";
     }
 
     @Override
