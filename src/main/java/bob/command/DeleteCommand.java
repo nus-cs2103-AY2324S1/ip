@@ -1,7 +1,10 @@
 package bob.command;
 import java.io.IOException;
-import bob.*;
-import bob.exception.*;
+
+import bob.Storage;
+import bob.TaskList;
+import bob.Ui;
+import bob.exception.MissingIndexException;
 
 public class DeleteCommand extends Command {
 

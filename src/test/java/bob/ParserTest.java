@@ -2,9 +2,10 @@ package bob;
 
 import bob.command.AddCommand;
 import bob.command.Command;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ParserTest {
 
@@ -14,3 +15,4 @@ class ParserTest {
         assertEquals(c.getClass(), Parser.parse("todo read").getClass());
     }
 }
+

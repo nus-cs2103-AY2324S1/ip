@@ -1,7 +1,9 @@
 package bob;
-import java.util.*;
 import java.io.IOException;
-import bob.command.*;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
+import bob.command.Command;
 
 /**
  * Main class for Bob
@@ -42,7 +44,7 @@ public class Bob {
 
                 Command c = Parser.parse(nextLine);
                 c.execute(tasks, ui, storage);
-                isExit = c.isExit;
+                isExit = c.isExit();
 
             } catch (NoSuchElementException e) {
                 ui.stringFormat(new String[]{"Write something!"});

@@ -1,8 +1,15 @@
 package bob;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import bob.task.*;
-import bob.exception.*;
+
+import bob.exception.MissingDatesException;
+import bob.exception.MissingTaskException;
+import bob.exception.WrongInputException;
+import bob.task.Deadline;
+import bob.task.Event;
+import bob.task.Task;
+import bob.task.TaskType;
+import bob.task.Todo;
 
 /**
  * Contains list of tasks, and operations that alter it.
@@ -67,8 +74,7 @@ public class TaskList {
             Task taskObj = generateTask(description);
             lst.add(taskObj);
             return new String[]{"New task added: ", "\t" + taskObj.toString(),
-                    "You now have " + lst.size()
-                            + (lst.size() == 1 ? " task!" : " tasks!")};
+                "You now have " + lst.size() + (lst.size() == 1 ? " task!" : " tasks!")};
         } catch (WrongInputException e) {
             return new String[]{e.message};
         } catch (MissingTaskException e) {
@@ -122,7 +128,7 @@ public class TaskList {
         String taskStr = lst.get(index - 1).toString();
         lst.remove(index - 1);
         return new String[]{"I've removed this task from list: ", "\t" + taskStr,
-                    "You now have " + lst.size() + (lst.size() == 1 ? " task!" : " tasks!")};
+            "You now have " + lst.size() + (lst.size() == 1 ? " task!" : " tasks!")};
     }
 
     public String[] findTasks(String keyword) {
