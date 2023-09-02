@@ -9,13 +9,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Duke {
+    private Storage storage;
     public static void main(String[] args) throws FileNotFoundException {
         String inData = "";
         Scanner scan = new Scanner(System.in);
         System.out.println("Hello! I'm Nicole");
         System.out.println("What can I do for you?");
 
-        ArrayList<Task> list = loadTasks(); //load tasks from file when chatbot starts
+        ArrayList<Task> list = Storage.loadTasks(); //load tasks from file when chatbot starts
         int count = list.size();
 
         while (!inData.equals("bye")) {
@@ -132,39 +133,11 @@ public class Duke {
         }
         if(inData.equals("bye")) {
             System.out.println("bye");
-            saveTasks(list);
+            Storage.saveTasks(list);
         }
     }
 
-    //load tasks from the file into the chatbot
-    private static ArrayList<Task> loadTasks() throws FileNotFoundException {
-        ArrayList<Task> dukeList = new ArrayList<>();
-        File file = new File("duke.txt");
-        if (file.exists()) {
-            try (Scanner fileScanner = new Scanner(file)) {
-                while (fileScanner.hasNextLine()) {
-                    String task = fileScanner.nextLine();
-                    Task dtask = Taskparser.parseTask(task); //convert format of tasks in file to list
-                    dukeList.add(dtask);
-                }
-            }
-        }
 
-        return dukeList;
-    }
-
-            // Save tasks to a data file
-            private static void saveTasks(ArrayList<Task> list) {
-                File file = new File("duke.txt");
-                try (PrintWriter out = new PrintWriter("duke.txt")) {
-                    for (Task task : list) {
-                        String taskString = Taskparser.taskToString(task); //convert task to string
-                        out.println(taskString);
-                    }
-                } catch (FileNotFoundException e) {
-                    System.out.println("Error saving tasks to file: " + e.getMessage());
-                }
-        }
     }
 
 
