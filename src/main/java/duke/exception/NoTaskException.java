@@ -1,3 +1,4 @@
+package duke.exception;
 /**
  * Exception when there is no task given.
  */

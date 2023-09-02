@@ -1,3 +1,4 @@
+package duke.exception;
 /**
  * Error when given task number is outside tasklist range.
  */

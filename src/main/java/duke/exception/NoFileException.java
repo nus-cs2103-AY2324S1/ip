@@ -1,3 +1,4 @@
+package duke.exception;
 /**
  * Error when there is no file found.
  */

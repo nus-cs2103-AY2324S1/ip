@@ -1,15 +1,25 @@
+package duke.command;
+
+import duke.exception.NoFileException;
+
+import duke.task.Task;
+
+import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.Ui;
+
 /**
  * Adds a task to the list.
  */
 public class AddCommand extends Command{
-    Task task;
 
+    private final Task TASK;
     /**
      * Constructor for an AddCommand.
      * @param task the task to be added to the list
      */
     public AddCommand(Task task) {
-        this.task = task;
+        this.TASK = task;
     }
 
     /**
@@ -20,7 +30,7 @@ public class AddCommand extends Command{
      * @throws NoFileException Exception thrown if there is no file found when rewriting
      */
     public void execute(TaskList tasklst, Ui ui, Storage storage) throws NoFileException {
-        tasklst.addTask(this.task, ui);
+        tasklst.addTask(this.TASK, ui);
         storage.rewriteFile(tasklst);
     }
 

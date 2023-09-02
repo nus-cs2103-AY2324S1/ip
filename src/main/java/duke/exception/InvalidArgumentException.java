@@ -1,3 +1,4 @@
+package duke.exception;
 /**
  * Exception when encountering invalid arguments.
  */

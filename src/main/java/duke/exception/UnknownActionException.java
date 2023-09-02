@@ -1,3 +1,4 @@
+package duke.exception;
 /**
  * Exception thrown when action entered is not a valid action.
  */
