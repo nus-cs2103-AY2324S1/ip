@@ -7,24 +7,29 @@ import java.util.Date;
 
 public class Event extends Task{
     protected String from;
+    //transformed only for printing
+    protected String transfromedFrom;
     protected String to;
+    protected String transformedTo;
     public Event (String description, String from, String to) {
         //no extra information for todolist
         super(description);
+        this.from = from;
+        this.to = to;
         String parsed_from[] = from.split("\\s+");
         String parsed_to[] = to.split("\\s+");
         //assume that date is always entered first
         //only consider with or without time
         String fromDate = LocalDate.parse(parsed_from[0]).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         String toDate = LocalDate.parse(parsed_to[0]).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        this.from = parsed_from.length > 1 ? fromDate + " " + parsed_from[1] : fromDate;
-        this.to = parsed_to.length > 1 ? toDate+ " " + parsed_to[1] : toDate;
+        this.transfromedFrom= parsed_from.length > 1 ? fromDate + " " + parsed_from[1] : fromDate;
+        this.transformedTo = parsed_to.length > 1 ? toDate+ " " + parsed_to[1] : toDate;
     }
 
     @Override
     public String toString() {
         String first = "[E]" + "[" + this.getStatusIcon() + "] " + this.description + " ";
-        String second = "(from: " + this.from + " to: " + this.to + ")";
+        String second = "(from: " + this.transfromedFrom + " to: " + this.transformedTo + ")";
         return first + second;
     }
 

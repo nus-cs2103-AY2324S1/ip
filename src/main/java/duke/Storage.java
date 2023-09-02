@@ -29,7 +29,7 @@ public class Storage {
         //print error message if cannot load
         //assume that all file path are ../data/duke.txt for now, change it later
         //if anything happen to the path or to the file, just return a new ArrayList and continue, no exception printed
-        Path path = Paths.get("..", "data", "duke.txt");
+        Path path = Paths.get("./data/duke.txt");
         ArrayList<Task> loadList = new ArrayList<>();
         if (Files.exists(path)) {
             try {
@@ -80,7 +80,7 @@ public class Storage {
         return loadList;
     }
     public void store(TaskList tasks) {
-        Path path = Paths.get("..", "data");
+        Path path = Paths.get("./data");
         if (Files.notExists(path)) {
             //if the directory not exist, create one instantly
             //duke.txt will be created automatically by default
