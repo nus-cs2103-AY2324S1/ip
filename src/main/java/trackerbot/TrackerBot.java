@@ -13,38 +13,34 @@ import java.util.Scanner;
  * Main Program for the application. <br>
  * As of Level-0, this has been renamed from Duke to TrackerBot
  * as part of the requirements for the iP.
- * Level-5 was skipped as TrackerBot had been handling error messages throughout its lifespan.
  *
  * @author WZWren
- * @version Level-6
+ * @version A-JavaDoc
  */
 public class TrackerBot {
     /** Name of the app. **/
     private static final String APP_NAME = "TrackerBot";
 
+    /** Collection of tasks stored by TrackerBot */
     private TaskList tasks;
 
+    /** Displays user IO. */
     private Ui ui;
 
+    /**
+     * Constructor for the TrackerBot instance.
+     *
+     * @param appName The name of the app to instantiate.
+     */
     public TrackerBot(String appName) {
         tasks = new TaskList();
         ui = Ui.instantiate(appName);
     }
 
     /**
-     * Input handler function of the app. <br>
-     * Takes in a user input, and acts upon the input based on what input it gets. <br>
-     * <ul>
-     *   <li>If the input is "bye", exits the program by returning true.</li>
-     *   <li>If the input is "list", prints the list.</li>
-     *   <li>If the input is "mark X", marks the item at index X.</li>
-     *   <li>If the input is "unmark X", unmarks the item at index X.</li>
-     *   <li>If the input is "delete X", deletes the item at index X.</li>
-     *   <li>If the input is one of the add task inputs, adds the item to the list.</li>
-     * </ul>
-     * @param str The input string that is given to the method.
-     * @return true if the handler detects the bye keyword,
-     *         false otherwise.
+     * Calls the Ui to read commands, create Commands and execute the command.
+     *
+     * @return If the program has requested to exit.
      */
     private boolean handleInput() {
         Command command = Parser.parseCommand(ui.readCommand());
@@ -60,6 +56,7 @@ public class TrackerBot {
         return command.isExit();
     }
 
+    /** Starts the app. */
     public void run() {
         try {
             Storage.read(tasks);
@@ -81,6 +78,7 @@ public class TrackerBot {
         }
     }
 
+    /** Entry point. **/
     public static void main(String[] args) {
         new TrackerBot(APP_NAME).run();
     }

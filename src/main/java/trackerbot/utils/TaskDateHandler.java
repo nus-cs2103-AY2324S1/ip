@@ -10,16 +10,16 @@ import java.time.temporal.ChronoField;
 /**
  * Handles Date-related methods for Task.
  * @author WZWren
- * @version Level-8
+ * @version A-JavaDocs
  */
 public class TaskDateHandler {
-    /** Suppress the constructor, as no instance should be created. **/
+    /** Prevent the instantiation of TaskDateHandler object. **/
     private TaskDateHandler() {}
 
     /**
-     * Converts the String into a LocalDateTime object.
+     * Converts the Input String into a LocalDateTime object.
      * @param input The input String to parse into a Date object.
-     *              The String should be in the format: d/M/yyyy HHmm <br>
+     *              The String should be in the format: [d/M/yyyy HHmm]<br>
      *              The year and time are optional. If not given, the year is assumed
      *              to be the current year, and the time is assumed to be 0000.
      * @return The LocalDateTime object from the parsed String
@@ -35,11 +35,24 @@ public class TaskDateHandler {
         return LocalDateTime.parse(input, format);
     }
 
+    /**
+     * Converts the Save String into a LocalDateTime object.
+     * @param input The input String to parse into a Date object.
+     *              The String should be in epoch timestamp format.
+     * @return The LocalDateTime object from the parsed String
+     * @throws DateTimeParseException if the input is not in valid epoch format
+     * @throws NumberFormatException if the input is not parsable as a Long
+     */
     public static LocalDateTime convertSaveToDate(String input) throws DateTimeParseException, NumberFormatException {
         long epoch = Long.parseLong(input);
         return LocalDateTime.ofEpochSecond(epoch, 0, ZoneOffset.UTC);
     }
 
+    /**
+     * Converts the LocalDateTime object into a UI-friendly String format.
+     * @param date The LocalDateTime to parse as a String.
+     * @return The parsed String, in [dd MMM yyyy, EEE @ hh:mma] format.
+     */
     public static String convertDateToUi(LocalDateTime date) {
         DateTimeFormatter format = new DateTimeFormatterBuilder()
                 .append(DateTimeFormatter.ofPattern("dd MMM yyyy, EEE @ hh:mma"))
