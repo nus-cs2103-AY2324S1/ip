@@ -9,10 +9,20 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import tasks.Task;
 
+/**
+ * The storage class of the chatbot that deals with file operations.
+ *
+ * @author Gallen Ong
+ */
 public class Storage {
     private File fList;
     private String path;
 
+    /**
+     * Creates a Storage object that refers to the filepath provided.
+     *
+     * @param path The filepath provided by user.
+     */
     public Storage(String path) {
         this.path = path;
 
@@ -35,10 +45,18 @@ public class Storage {
         }
     }
 
+    /**
+     * Empty constructor for the testing purposes.
+     */
     public Storage() {
-
+        // no effect
     }
 
+    /**
+     * Returns an ArrayList object with the tasks present in the existing file.
+     *
+     * @return An ArrayList object with existing tasks in file.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> list = new ArrayList<>();
         Scanner fScanner = null;
@@ -56,6 +74,11 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Adds new tasks to the file.
+     *
+     * @param message The task to be added in string format.
+     */
     public void appendFile(String message) {
         try {
             FileWriter fWriter = new FileWriter(this.fList, true);
@@ -66,6 +89,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates (with overwriting) tasks in the file.
+     *
+     * @param list The list of tasks to update the file.
+     */
     public void updateFile(ArrayList<Task> list) {
         try {
             FileWriter fWriter = new FileWriter(this.fList);

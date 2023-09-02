@@ -10,6 +10,11 @@ import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
+/**
+ * The chatbot parser for the command inputs of users.
+ *
+ * @author Gallen Ong
+ */
 public class Parser {
     enum Keyword {
         MARK,
@@ -20,7 +25,14 @@ public class Parser {
         DELETE
     }
 
-    public static void parse(String message, TaskList tasks) {
+    /**
+     * Returns corresponding methods after parsing user inputs.
+     *
+     * @param message The user input.
+     * @param tasks The TaskList object that stores tasks.
+     * @throws GBotException If user input is invalid.
+     */
+    public static void parse(String message, TaskList tasks) throws GBotException {
         if (message.isBlank()) {
             Ui.showEmptyCommandError();
             return;
@@ -85,6 +97,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Loads tasks line by line from file provided and adds to task list provided.
+     *
+     * @param taskInFile The current task line in the file.
+     * @param tasks The task list provided and to be updated.
+     */
     public static void loadTaskFromFile(String taskInFile, ArrayList<Task> tasks) {
         String[] taskArr = taskInFile.split(" \\| ");
         switch (taskArr[0]) {
