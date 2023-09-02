@@ -3,7 +3,7 @@ import java.io.Serializable;
 /**
  * Tasks are the tasks sent by the user to the Duke class
  */
-public class Task implements Serializable {
+public abstract class Task implements Serializable {
     /**The name of the task.*/
     private String taskname;
     /**Status on whether the task is done or not.*/
