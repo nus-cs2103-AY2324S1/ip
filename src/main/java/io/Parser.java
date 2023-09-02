@@ -1,7 +1,12 @@
 package io;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import tasks.Deadline;
+import tasks.Task;
 
 public class Parser {
 
@@ -30,6 +35,37 @@ public class Parser {
     index--;
     return index;
   }
+
+
+  public Deadline parseDeadline() {
+    Deadline result = null;
+
+    try {
+      String taskName = this.getTaskName();
+      String[] parts = taskName.split("/by", 2);
+
+      String name = parts[0];
+      String endDate = parts[1];
+      endDate = endDate.replace(" ", "");
+
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+      LocalDate date = LocalDate.parse(endDate, formatter);
+
+      result = new Deadline(name, date);
+
+    } catch (ArrayIndexOutOfBoundsException ex) {
+      System.out.println("Please include a (/by) command, followed by a date");
+    } catch (StringIndexOutOfBoundsException ex) {
+      System.out.println(
+          "Please enter a name, followed by a (/by) command, followed by a date");
+    } catch (DateTimeParseException ex) {
+      System.out.println("Please enter a time format as dd/MM/yyyy");
+    }
+
+    return result;
+
+  }
+
 
   public String getCommandString() {
     if (inputTokens.length == 0) {
