@@ -7,17 +7,20 @@ public class TaskManager {
     private ArrayList<Task> list;
     private int index;
     private int numOfTasks;
+    private UI ui;
 
     public TaskManager() {
         this.list = new ArrayList<>();
         this.index = 0;
         this.numOfTasks = 0;
+        this.ui = new UI();
     }
 
     public TaskManager(ArrayList<Task> tasks) {
         this.list = tasks;
         this.numOfTasks = this.list.size();
         this.index = this.numOfTasks - 1;
+        this.ui = new UI();
     }
 
 
@@ -25,16 +28,11 @@ public class TaskManager {
         this.list.add(task);
         this.numOfTasks += 1;
         String taskName = task.getTaskName();
-        UI.addTask(taskName, numOfTasks);
+        ui.addTask(taskName, numOfTasks);
     }
 
     public void list() {
-        UI.printLine();
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < numOfTasks; i++) {
-            System.out.println((i + 1) + ". " + list.get(i));
-        }
-        UI.printLine();
+        ui.displayList(list, numOfTasks);
     }
 
     public void mark(int index) throws InvalidArgumentException {
@@ -44,7 +42,7 @@ public class TaskManager {
         index -= 1; // since 0 indexed
         Task task = list.get(index);
         task.mark();
-        UI.markTask(task.getTaskName());
+        ui.markTask(task.getTaskName());
     }
 
     public void unmark(int index) throws InvalidArgumentException {
@@ -54,7 +52,7 @@ public class TaskManager {
         index -= 1; // since 0 indexed
         Task task = list.get(index);
         task.unmark();
-        UI.unMarkTask(task.getTaskName());
+        ui.unMarkTask(task.getTaskName());
     }
 
     public void delete(int index) throws InvalidArgumentException {
@@ -64,7 +62,7 @@ public class TaskManager {
         numOfTasks -= 1;
         Task removedTask = list.get(index);
         list.remove(index);
-        UI.deleteTask(removedTask.getTaskName(), numOfTasks);
+        ui.deleteTask(removedTask.getTaskName(), numOfTasks);
     }
 
     public ArrayList<Task> getList() {

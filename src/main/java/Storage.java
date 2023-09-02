@@ -62,7 +62,7 @@ public class Storage {
     // [D][ ] submit assignment (by: Friday)
     // [E][ ] attend lecture (from: Wednesday to: Thursday)
     private Task readLine(String line) throws StorageException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm");
         line = line.trim();
         Pattern todoPattern = Pattern.compile("\\[T\\]\\[(.)\\] (.*)");
         Pattern deadlinePattern = Pattern.compile("\\[D\\]\\[(.)\\] (.*) \\(by: (.*)\\)");
