@@ -21,14 +21,4 @@ public class Deadline extends Task {
                 dueBy.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
         return str;
     }
-//    @Override
-//    public String toDataString() {
-//        return super.toDataString() + " | " + dueBy;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        String str = "[D] " + super.getStatus() + " " + super.name + " (by: " + this.dueBy + ")";
-//        return str;
-//    }
 }

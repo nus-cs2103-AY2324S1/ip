@@ -118,7 +118,6 @@ public class Storage {
                     String taskType = task instanceof ToDo ? "T" : task instanceof Deadline ? "D" : "E";
 
                     String taskData = taskType + " | " + task.toDataString() + "\n";
-//                    String taskData = taskType + " | " + task.getDataStatus() + " | " + task.toDataString() + "\n";
                     writer.write(taskData);
                 }
             }
