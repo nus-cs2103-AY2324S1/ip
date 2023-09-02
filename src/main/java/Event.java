@@ -20,6 +20,8 @@ public class Event extends Task{
         super(description);
         this.from = from;
         this.to = to;
+        LocalDate.parse(from);
+        LocalDate.parse(to);
     }
 
     /**

@@ -126,11 +126,17 @@ public class Duke {
                     "deadline {task} /by {time}\n" +
                     horizontalLine);
         } catch (DateTimeParseException e) {
-            System.out.print(horizontalLine + "Date format should be yyyy-mm-dd"
+            System.out.print(horizontalLine + "Date format should be yyyy-mm-dd\n"
                     + horizontalLine);
         }
     }
 
+    /**
+     * Converts the string into an Event object
+     * then appends it to the task array
+     *
+     * @param task description of task with 'from' time and 'to' time
+     */
     private static void appendEvent(String task) {
         try {
             String event = task.substring(6);
@@ -145,7 +151,8 @@ public class Duke {
                     "event {task} /from {time} /to {time}\n" +
                     horizontalLine);
         } catch (DateTimeParseException e) {
-            System.out.print(horizontalLine + "Date format should be yyyy-mm-dd");
+            System.out.print(horizontalLine + "Date format should be yyyy-mm-dd\n"
+                    + horizontalLine);
         }
     }
     /**
