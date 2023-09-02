@@ -18,14 +18,14 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public void setAsDone() {
+    public void setAsDone(Task task) {
         this.isDone = true;
-        System.out.println("Whoa... are you kidding me? You did that!?");
+        System.out.println("Whoa... are you kidding me? You did that!?" + "\n" + task);
     }
 
-    public void setAsUndone() {
+    public void setAsUndone(Task task) {
         this.isDone = false;
-        System.out.println("HAHHAA! I knew it! You won't be able to!");
+        System.out.println("HAHHAA! I knew it! You won't be able to!" + "\n" + task);
     }
 
     public String getDescription() {
@@ -36,7 +36,11 @@ public class Task {
         String[] splittedCommand = command.split(" ", 2);
         String taskType = splittedCommand[0];
         if(splittedCommand.length == 1) {
-            throw new IncompleteInputException("The description of a " + taskType + " cannot be empty.");
+            if(taskType.equals("todo") || taskType.equals("deadline") || taskType.equals("event")) {
+                throw new IncompleteInputException("The description of a " + taskType + " cannot be empty.");
+            } else {
+                throw new InvalidInputException("That is some garbage input you have there.");
+            }
         } else {
             String taskDescription = splittedCommand[1];
             switch (taskType) {

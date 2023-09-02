@@ -22,7 +22,6 @@ public class Ui {
         System.out.println(LOGO);
         System.out.println("Call me sillyBOT\n" +
                 "Tell me what silly things you are gonna do, if you are haha?");
-        separatorLines();
     }
 
     public void showExit() {
@@ -31,12 +30,13 @@ public class Ui {
         separatorLines();
     }
 
-    private void separatorLines() {
+    public void separatorLines() {
         System.out.println("_".repeat(50));
     }
 
     public String getUserInput() {
         Scanner sc = new Scanner(System.in);
+        separatorLines();
         System.out.println("What do you want to do, eh?");
         return sc.nextLine();
     }
@@ -48,8 +48,7 @@ public class Ui {
 
     public void showInvalidIndex() {
         separatorLines();
-        System.out.println("You silly ah! You need to tell which one!");
-        separatorLines();
+        System.out.println("You silly ah! That does not even exist! Wake up!!");
     }
 
     public void showAlreadyUndone() throws WrongMarkException {
@@ -57,17 +56,15 @@ public class Ui {
         throw new WrongMarkException("Yea I know you didn't do it! Why tell me again? Start working now!");
     }
 
-    public void deleteTaskMessage() {
+    public void deleteTaskMessage(Task task) {
         separatorLines();
-        System.out.println("Hard to believe you actually did that!\n" +
+        System.out.println("HAhahah! You couldn't do it. Could ya?\n" + task + "\n" +
                 "Now you have " + Task.taskCount + " tasks in the list.");
-        separatorLines();
     }
 
     public void addTaskMessage(Task task) {
         separatorLines();
         System.out.println("For some reason I believe you are gonna do that!\n" + task + "\n" +
                 "Now you have " + Task.taskCount + " tasks in the list.");
-        separatorLines();
     }
 }

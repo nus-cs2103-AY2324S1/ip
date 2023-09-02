@@ -11,9 +11,9 @@ public class TaskList extends ArrayList<Task> {
         this.add(task);
     }
 
-    public void deleteTask(int index) {
-        this.remove(index - 1);
+    public Task deleteTask(int index) {
         Task.taskCount--;
+        return this.remove(index - 1);
     }
 
     public void printTasks() {

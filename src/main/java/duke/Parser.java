@@ -18,6 +18,7 @@ public class Parser {
         String commandType = splittedCommand[0];
         switch (commandType) {
         case "list":
+            ui.separatorLines();
             tasks.printTasks();
             break;
         case "mark":
@@ -26,7 +27,8 @@ public class Parser {
                 if (Objects.equals(task.getStatusIcon(), "X")) {
                     ui.showAlreadyDone();
                 } else {
-                    task.setAsDone();
+                    ui.separatorLines();
+                    task.setAsDone(task);
                 }
             } catch (IndexOutOfBoundsException | NullPointerException e) {
                 ui.showInvalidIndex();
@@ -38,27 +40,35 @@ public class Parser {
                 if (Objects.equals(task.getStatusIcon(), " ")) {
                     ui.showAlreadyUndone();
                 } else {
-                    task.setAsUndone();
+                    ui.separatorLines();
+                    task.setAsUndone(task);
                 }
             } catch (IndexOutOfBoundsException | NullPointerException e) {
                 ui.showInvalidIndex();
             }
             break;
         case "delete":
-            tasks.deleteTask(Integer.parseInt(splittedCommand[1]));
-            ui.deleteTaskMessage();
+            try {
+                Task task = tasks.get(Integer.parseInt(splittedCommand[1]) - 1);
+                tasks.deleteTask(Integer.parseInt(splittedCommand[1]));
+                ui.deleteTaskMessage(task);
+            } catch (IndexOutOfBoundsException | NullPointerException e) {
+                ui.showInvalidIndex();
+            }
             break;
         case "bye":
             return true;
         default:
             try {
                 Task task = Task.createTask(commandGiven);
-                tasks.add(task);
+                tasks.addTask(task);
                 ui.addTaskMessage(task);
-            } catch (IncompleteInputException e) {
-                throw new IncompleteInputException("Wrong input eh " + e);
             } catch (InvalidInputException e) {
-                throw new InvalidInputException("I dont understand eh " + e);
+                ui.separatorLines();
+                throw new InvalidInputException("I dont understand! " + e);
+            } catch (IncompleteInputException e) {
+                ui.separatorLines();
+                throw new IncompleteInputException("Incomplete input eh! " + e);
             }
         }
         return false;
