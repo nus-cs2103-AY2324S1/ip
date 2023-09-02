@@ -2,14 +2,14 @@ package jarvis.commands;
 
 import java.time.LocalDateTime;
 
-import jarvis.Deadline;
 import jarvis.Parser;
 import jarvis.Storage;
-import jarvis.TaskList;
 import jarvis.Ui;
 import jarvis.exceptions.InvalidDateTimeFormatException;
 import jarvis.exceptions.InvalidIndexException;
 import jarvis.exceptions.InvalidTaskFormatException;
+import jarvis.tasks.Deadline;
+import jarvis.tasks.TaskList;
 
 public class DeadlineCommand implements Command {
 

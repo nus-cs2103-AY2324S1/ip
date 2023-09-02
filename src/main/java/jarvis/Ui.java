@@ -2,6 +2,8 @@ package jarvis;
 
 import java.util.ArrayList;
 
+import jarvis.tasks.Task;
+
 public class Ui {
     /**
      * ASCII Art Generated from http://patorjk.com/software/taag/
