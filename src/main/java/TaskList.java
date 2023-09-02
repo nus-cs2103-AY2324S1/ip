@@ -29,10 +29,14 @@ public class TaskList {
      * @param index index of the task to be marked. 1-indexed.
      * @return the updated task.
      */
-    public Task markTask(int index) {
-        Task task = tasks.get(index - 1);
-        task.mark();
-        return task;
+    public Task markTask(int index) throws CrusaderException {
+        try {
+            Task task = tasks.get(index - 1);
+            task.mark();
+            return task;
+        } catch (IndexOutOfBoundsException e) {
+            throw new CrusaderNoSuchTaskException("There is no task at that index!");
+        }
     }
 
     /**
@@ -41,10 +45,14 @@ public class TaskList {
      * @param index index of the task to be unmarked. 1-indexed.
      * @return the updated task.
      */
-    public Task unmarkTask(int index) {
-        Task task = tasks.get(index - 1);
-        task.unmark();
-        return task;
+    public Task unmarkTask(int index) throws CrusaderException {
+        try {
+            Task task = tasks.get(index - 1);
+            task.unmark();
+            return task;
+        } catch (IndexOutOfBoundsException e) {
+            throw new CrusaderNoSuchTaskException("There is no task at that index!");
+        }
     }
 
     /**
@@ -53,10 +61,14 @@ public class TaskList {
      * @param index index of the task to be deleted. 1-indexed.
      * @return the deleted task.
      */
-    public Task deleteTask(int index) {
-        Task task = tasks.get(index - 1);
-        tasks.remove(task);
-        return task;
+    public Task deleteTask(int index) throws CrusaderException {
+        try {
+            Task task = tasks.get(index - 1);
+            tasks.remove(task);
+            return task;
+        } catch (IndexOutOfBoundsException e) {
+            throw new CrusaderNoSuchTaskException("There is no task at that index!");
+        }
     }
 
     /**

@@ -7,7 +7,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, TaskList taskList) {
+    public void execute(Ui ui, TaskList taskList) throws CrusaderException {
         Task changedTask = this.isMark ? taskList.markTask(index) : taskList.unmarkTask(index);
         ui.say(String.format(
                 "%s:\n%s\n",
