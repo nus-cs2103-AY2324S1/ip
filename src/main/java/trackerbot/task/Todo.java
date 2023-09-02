@@ -6,18 +6,25 @@ package trackerbot.task;
  * with the basic parameters for Task.
  *
  * @author WZWren
- * @version Level-4
+ * @version A-JavaDoc
  */
 public class Todo extends Task {
     /**
-     * The constructor for the class.
+     * Constructor for the class.
      * @param desc The description of the To-do task.
      */
     public Todo(String desc) {
         super(desc);
     }
 
-    public Todo(String[] args) {
+    /**
+     * Constructs a To-do using a String array, for use in save parsing.
+     * <p>As To-do serves as a basic abstraction of the Task, the constructor directly calls
+     * super to generate the object.</p>
+     * @param args The arguments for constructing a To-do, containing isDone status in index
+     *             0 and description in index 1.
+     */
+    protected Todo(String[] args) {
         super(args);
     }
 
@@ -29,7 +36,7 @@ public class Todo extends Task {
     /**
      * toString method of To-do. <br>
      * The String representation of To-do appends the [T] tag in front of the Task toString.
-     * @return "[T]" appended to task.toString().
+     * @return "[T]" appended to Task.toString().
      */
     @Override
     public String toString() {

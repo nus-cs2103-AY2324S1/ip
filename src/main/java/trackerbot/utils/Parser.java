@@ -11,15 +11,21 @@ import trackerbot.exception.TrackerBotException;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * Contains static methods to parse user input.
+ *
+ * @author WZWren
+ * @version A-JavaDoc
+ */
 public class Parser {
     /**
-     * Helper function. Splits the console input string into the invoking keyword
-     * and its description after the invoking keyword. <br>
-     * If no description exists after the keyword, an empty string is returned in the
-     * second half of the Pair structure.
+     * Splits the user input into its keyword and commandField components.
+     * <p>Parser does not directly handle the Command logic of the input. After
+     * splitting the user input, it passes it into Command.of method to identify
+     * the Command and return it.</p>
      *
      * @param input The unmodified console string that the user inputs.
-     * @return A Pair&lt;Command, String&gt; object containing the enum and description.
+     * @return An appropriate command corresponding to the user input.
      */
     public static Command parseCommand(String input) {
         Scanner scanner = new Scanner(input);
@@ -40,6 +46,15 @@ public class Parser {
         return Command.of(keyword, rest);
     }
 
+    /**
+     * Parses the user input arising from the add keyword.
+     * <p>This method further parses the user input during the add command,
+     * to differentiate between the Task types.</p>
+     * @param type The enumerated type of Command to add into the Task.
+     * @param commandField The description of the Command.
+     * @return A corresponding subclass of Task.
+     * @throws TrackerBotException if the user input is in an invalid format.
+     */
     public static Task parseAdd(CommandType type, String commandField) throws TrackerBotException {
         Task newTask;
         String[] segments;
