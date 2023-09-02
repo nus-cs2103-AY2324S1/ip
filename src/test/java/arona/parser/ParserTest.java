@@ -1,15 +1,20 @@
 package arona.parser;
 
 import arona.exception.IllegalArgumentAronaException;
-import arona.parser.Parser;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for the Parser class.
+ */
 public class ParserTest {
 
+    /**
+     * Tests parsing user input into an array of tokens.
+     */
     @Test
     public void parseUserInput_ValidInput_ReturnsArray() {
         String input = "todo description";
@@ -18,6 +23,9 @@ public class ParserTest {
         assertArrayEquals(expected, result);
     }
 
+    /**
+     * Tests extracting the command from an array of tokens.
+     */
     @Test
     public void getCommand_ValidInput_ReturnsCommand() {
         String[] tokens = {"deadline", "description", "/by", "2023-09-15"};
@@ -25,6 +33,9 @@ public class ParserTest {
         assertEquals("deadline", result);
     }
 
+    /**
+     * Tests extracting the description from a "todo" command.
+     */
     @Test
     public void getToDoDescription_ValidInput_ReturnsDescription() throws IllegalArgumentAronaException {
         String[] tokens = {"todo", "description"};
@@ -32,6 +43,9 @@ public class ParserTest {
         assertEquals("description", result);
     }
 
+    /**
+     * Tests extracting description and date from a "deadline" command.
+     */
     @Test
     public void getDeadlineDescription_ValidInput_ReturnsDescriptionsArray() throws IllegalArgumentAronaException {
         String[] tokens = {"deadline", "description", "/by", "2023-09-15"};
@@ -40,6 +54,9 @@ public class ParserTest {
         assertArrayEquals(expected, result);
     }
 
+    /**
+     * Tests extracting description, start date, and end date from an "event" command.
+     */
     @Test
     public void getEventDescription_ValidInput_ReturnsDescriptionsArray() throws IllegalArgumentAronaException {
         String[] tokens = {"event", "description", "/from", "2023-09-15", "/to", "2023-09-16"};
@@ -48,6 +65,9 @@ public class ParserTest {
         assertArrayEquals(expected, result);
     }
 
+    /**
+     * Tests parsing a date string into a LocalDate object.
+     */
     @Test
     public void parseDate_ValidDate_ReturnsLocalDate() throws IllegalArgumentAronaException {
         String dateStr = "2023-09-15";
@@ -56,6 +76,9 @@ public class ParserTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * Tests extracting a task index from an array of tokens.
+     */
     @Test
     public void getTaskIndex_ValidInput_ReturnsIndex() {
         String[] tokens = {"done", "2"};

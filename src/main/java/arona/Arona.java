@@ -7,17 +7,30 @@ import arona.task.TaskList;
 import arona.ui.Ui;
 
 import java.util.Scanner;
+
+/**
+ * Arona is a simple command-line task management application that allows users to manage their tasks.
+ * Users can add tasks, mark tasks as done, delete tasks, and list all tasks.
+ */
 public class Arona {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Initializes a new instance of the Arona application with the specified file path for data storage.
+     *
+     * @param filePath The file path where task data is stored.
+     */
     public Arona(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList(storage);
     }
 
+    /**
+     * Runs the Arona application, allowing users to interact with the task management system via the command-line interface.
+     */
     public void run() {
         ui.showWelcomeMessage();
 
@@ -84,6 +97,11 @@ public class Arona {
         ui.showGoodbyeMessage();
     }
 
+    /**
+     * The main entry point for the Arona application.
+     *
+     * @param args The command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         new Arona("src/main/java/arona/data/arona.txt").run(); // if jar file use "../../src/main/java/arona/data/arona.txt"
     }

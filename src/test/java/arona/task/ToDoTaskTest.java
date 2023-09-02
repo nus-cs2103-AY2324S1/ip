@@ -4,10 +4,16 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for the ToDoTask class.
+ */
 public class ToDoTaskTest {
 
+    /**
+     * Tests creating a ToDoTask with a description.
+     */
     @Test
-    public void createToDoTaskWithDescription() {
+    public void createToDoTask_WithDescription_True() {
         String description = "Buy groceries";
         ToDoTask task = new ToDoTask(description);
 
@@ -15,8 +21,11 @@ public class ToDoTaskTest {
         assertEquals("[ ] ", task.getStatusIcon()); // By default, it should not be marked as done
     }
 
+    /**
+     * Tests creating a ToDoTask with a description and marking it as done.
+     */
     @Test
-    public void createToDoTaskWithDescriptionAndMarked() {
+    public void createToDoTask_WithDescriptionAndMarked_True() {
         String description1 = "Complete homework";
         ToDoTask task1 = new ToDoTask(description1, 1);
 
@@ -30,6 +39,10 @@ public class ToDoTaskTest {
         assertEquals(description2, task2.getDescription());
         assertEquals("[X] ", task2.getStatusIcon());
     }
+
+    /**
+     * Tests the toString method of ToDoTask.
+     */
     @Test
     public void toStringTest() {
         String description = "Read a book";
