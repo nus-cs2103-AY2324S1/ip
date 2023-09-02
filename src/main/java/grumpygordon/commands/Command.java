@@ -1,8 +1,8 @@
 package grumpygordon.commands;
 
 import grumpygordon.storage.Storage;
-import grumpygordon.ui.Ui;
 import grumpygordon.tasks.TaskList;
+import grumpygordon.ui.Ui;
 
 /**
  * Represents a generic command for GrumpyGordon.

@@ -1,10 +1,10 @@
 package grumpygordon;
 
+import grumpygordon.exceptions.GrumpyGordonException;
+import grumpygordon.exceptions.GrumpyGordonInitialisationException;
 import grumpygordon.storage.Storage;
 import grumpygordon.tasks.TaskList;
 import grumpygordon.ui.Ui;
-import grumpygordon.exceptions.GrumpyGordonInitialisationException;
-import grumpygordon.exceptions.GrumpyGordonException;
 
 /**
  * GrumpyGordon Chatbot

@@ -1,16 +1,16 @@
 package grumpygordon.storage;
 
-import grumpygordon.tasks.TaskList;
-import grumpygordon.tasks.Task;
-import grumpygordon.exceptions.GrumpyGordonException;
-import grumpygordon.exceptions.GrumpyGordonInitialisationException;
-
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.BufferedReader;
 import java.io.IOException;
+
+import grumpygordon.exceptions.GrumpyGordonException;
+import grumpygordon.exceptions.GrumpyGordonInitialisationException;
+import grumpygordon.tasks.Task;
+import grumpygordon.tasks.TaskList;
 
 /**
  * Represents a storage for tasks.
@@ -74,11 +74,11 @@ public class Storage {
         TaskList tasks = new TaskList();
         try (FileReader fr = new FileReader(FILE_PATH);
              BufferedReader br = new BufferedReader(fr)) {
-                String taskString;
-                while ((taskString = br.readLine()) != null) {
-                    Task task = Task.fromSaveFormat(taskString);
-                    tasks.addTask(task);
-                }
+            String taskString;
+            while ((taskString = br.readLine()) != null) {
+                Task task = Task.fromSaveFormat(taskString);
+                tasks.addTask(task);
+            }
         } catch (IOException e) {
             System.out.println("Error reading tasks from file: " + e.getMessage());
         }
