@@ -9,8 +9,6 @@ import java.util.Scanner;
 public class Storage {
     private final String filePath;
 
-    //private static String filePath = "./src/main/java/tasks.txt";
-
     private File file;
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -35,29 +33,22 @@ public class Storage {
         ArrayList<Task> list = new ArrayList<>();
         try {
             this.file = new File(filePath);
-            //System.out.println(file.exists());
             if (!file.exists()) {
                 boolean isCreated = file.createNewFile();
                 return list;
-                //System.out.println(isCreated + "new file created");
             }
             Scanner sc = new Scanner(file);
-            //System.out.println("next line? : " + sc.hasNext());
             while (sc.hasNext()) {
                 boolean canRead = false;
                 String task = sc.nextLine();
-                System.out.println(task);
+                //System.out.println(task);
                 String[] strSplit = task.split("\\|");
 
                 for (int i = 0; i < strSplit.length; i++) {
                     strSplit[i] = strSplit[i].trim();
-                    //System.out.println(strSplit[i]);
                 }
-                //System.out.println("length: " + strSplit.length);
                 if (strSplit[0].startsWith("T") && strSplit.length == 3) {
                     Task nextTask = new Todo(strSplit[2]);
-//                    System.out.println(strSplit[1]);
-//                    System.out.println(strSplit[1].equals("1"));
                     if (strSplit[1].startsWith("1")) {
                         nextTask.mark();
                         list.add(nextTask);
@@ -95,7 +86,7 @@ public class Storage {
                     throw new BenBenException("The file content is corrupted, please report this to admin");
                 }
             }
-            //System.out.println(list.size());
+            sc.close();
             return list;
         } catch (FileNotFoundException e) {
             throw new BenBenException("The local file is not found in the directory");

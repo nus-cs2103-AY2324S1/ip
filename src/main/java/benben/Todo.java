@@ -1,11 +1,17 @@
 package benben;
+
+
+import java.util.Objects;
+
 public class Todo extends Task {
     public Todo(String description) {
+
         super(description);
     }
 
     @Override
     public String toString() {
+
         return "[T] " + super.toString();
     }
 
@@ -27,6 +33,6 @@ public class Todo extends Task {
 
         Todo t = (Todo) task;
 
-        return t.getLog() == (this.getLog());
+        return Objects.equals(t.getLog(), this.getLog());
     }
 }

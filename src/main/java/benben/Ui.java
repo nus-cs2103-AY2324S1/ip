@@ -1,4 +1,7 @@
 package benben;
+
+import java.util.ArrayList;
+
 public class Ui {
     private static final String line ="_______________________________________\n";
 
@@ -67,6 +70,21 @@ public class Ui {
         } else {
             System.out.println(line);
             System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i).toString());
+            }
+            System.out.println(line);
+        }
+    }
+
+    public void showMatching(ArrayList<Task> tasks) {
+        if (tasks.size() == 0) {
+            System.out.println(line);
+            System.out.println("There is no matching tasks! Try another keyword?");
+            System.out.println(line);
+        } else {
+            System.out.println(line);
+            System.out.println("Here are the matching tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.println((i + 1) + "." + tasks.get(i).toString());
             }

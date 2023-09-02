@@ -22,7 +22,8 @@ public class Deadline extends Task {
     }
 
     public String getDdl() {
-        return this.ddl.getMonth().toString() + " " + this.ddl.getDayOfMonth() + " " + this.ddl.getYear();
+        return this.ddl.getMonth().toString() + " "
+                + this.ddl.getDayOfMonth() + " " + this.ddl.getYear();
     }
 
     public String getFormattedDdl() {

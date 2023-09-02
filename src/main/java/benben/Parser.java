@@ -2,61 +2,61 @@
 package benben;
 public class Parser {
 
-//    private static Storage storage;
-//    private static Ui ui;
-//
-//    public static void setStorage(Storage s) {
-//        storage = s;
-//    }
-//
-//    public static void setUi(Ui ui) {
-//        ui = ui;
-//    }
 
     public static void parse(BenBen bb, String next) throws BenBenException{
-        boolean bool = false;
+        boolean isParsed = false;
 
-        if (!bool && next.equals("bye")) {
+        if (!isParsed && next.equals("bye")) {
             bb.exit();
-            bool = true;
+            isParsed = true;
         }
 
-        if (!bool && next.equals("list")) {
+        if (!isParsed && next.equals("list")) {
             bb.iterList();
-            bool = true;
+            isParsed = true;
         }
 
-        if (!bool && next.startsWith("mark")) {
+        if (!isParsed && next.startsWith("mark")) {
             bb.mark(next);
-            bool = true;
+            isParsed = true;
         }
 
-        if (!bool && next.startsWith("unmark")) {
+        if (!isParsed && next.startsWith("unmark")) {
             bb.unmark(next);
-            bool = true;
+            isParsed = true;
         }
 
-        if (!bool && next.startsWith("todo")) {
+        if (!isParsed && next.startsWith("todo")) {
             bb.todo(next);
-            bool = true;
+            isParsed = true;
         }
 
-        if (!bool && next.startsWith("deadline")) {
+        if (!isParsed && next.startsWith("deadline")) {
             bb.deadline(next);
-            bool = true;
+            isParsed = true;
         }
 
-        if (!bool && next.startsWith("event")) {
+        if (!isParsed && next.startsWith("event")) {
             bb.event(next);
-            bool = true;
+            isParsed = true;
         }
 
-        if (!bool && next.startsWith("delete")) {
+        if (!isParsed && next.startsWith("delete")) {
             bb.remove(next);
-            bool = true;
+            isParsed = true;
         }
 
-        if (!bool) {
+        if (!isParsed && next.startsWith("find")) {
+            bb.find(next);
+            isParsed = true;
+        }
+
+        if (!isParsed && next.startsWith("exit")) {
+            bb.exit();
+            isParsed = true;
+        }
+
+        if (!isParsed) {
             throw new BenBenException("bb does not understand your instruction:(");
         }
 
