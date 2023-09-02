@@ -28,12 +28,15 @@ public class Duke {
     public void run() {
         ui.welcomeMessage();
         Scanner scanner = new Scanner(System.in);
-        String input;
-        while (true) {
-            input = scanner.nextLine();
-            if (input.equals("bye")) {
-                break;
+        boolean isRunning = true;
+        while (isRunning) {
+            //System.out.println("in while loop");
+            String input = scanner.nextLine();
+            //System.out.println("Received input: " + input); // Provide feedback to the user
+            if (input.equalsIgnoreCase("bye")) {
+                isRunning = false;
             } else {
+                //System.out.println("parsing soon");
                 try {
                     Parser.parseTasks(input, tasks, storage, ui);
                 } catch (LemonException e) {
@@ -43,6 +46,7 @@ public class Duke {
         }
         ui.bye();
     }
+
 
 
     public static void main(String[] args) {
