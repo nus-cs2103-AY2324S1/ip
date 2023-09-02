@@ -1,6 +1,7 @@
 package duke;
 
-import duke.gui.DialogBox;
+import java.io.IOException;
+
 import duke.gui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,10 +12,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 /**
- * Main class.
+ * Main class starts up the GUI chatbot.
  */
 public class Main extends Application {
 
@@ -23,6 +22,9 @@ public class Main extends Application {
     private TextField userInput = new TextField();
     private VBox dialogContainer = new VBox();
     private Duke duke = new Duke();
+
+
+
     /**
      * The main entry point for all JavaFX applications.
      * The start method is called after the init method has returned,
@@ -38,6 +40,7 @@ public class Main extends Application {
      *                     primary stages.
      * @throws Exception if something goes wrong
      */
+
     @Override
     public void start(Stage stage) throws Exception {
         try {

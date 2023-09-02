@@ -31,8 +31,19 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Greets by chatbot.
+     */
+    private String greet() {
+        return "  Hello! I'm Jokey :) \n  What can I do for you?";
+    }
+
     public void setDuke(Duke d) {
         duke = d;
+        duke.loadByDuke();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(greet(), dukeImage)
+        );
     }
 
     /**
@@ -41,6 +52,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+
         String input = userInput.getText();
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(

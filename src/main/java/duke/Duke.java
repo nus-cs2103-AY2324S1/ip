@@ -7,7 +7,6 @@ import duke.main.Storage;
 import duke.main.TaskList;
 import duke.main.Ui;
 
-
 /**
  * A chatbot that helps to record tasks and store tasks.
  */
@@ -31,28 +30,19 @@ public class Duke {
     }
 
     /**
-     * Greets by chatbot.
+     * Runs the load function in Storage, called in MainWindow.
      */
-    private void greet() {
-        System.out.println("------------------------------------------");
-        System.out.println("  Hello! I'm Jokey :) \n  What can I do for you?");
-        System.out.println("------------------------------------------");
+    public void loadByDuke() {
+        storage.load();
     }
 
     /**
-     * Runs Duke chatbot.
+     * Bridges GUI and Program. Takes in user command scanned by MainWindow and parses it.
+     * @param reply
+     * @return chatbot's reply
      */
-    public void run() {
-        storage.load();
-        greet();
-        // parser.interact();
+    public String getResponse(String reply) {
+        return parser.interact(reply);
     }
 
-    public String getResponse(String reply) {
-        return "from MainWindow";
-    }
-    public static void main(String[] args) {
-        Duke duke = new Duke();
-        duke.run();
-    }
 }
