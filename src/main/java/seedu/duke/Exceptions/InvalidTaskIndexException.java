@@ -1,4 +1,4 @@
-package duke.Exceptions;
+package seedu.duke.Exceptions;
 
 public class InvalidTaskIndexException extends LemonException {
     public InvalidTaskIndexException(String message) {

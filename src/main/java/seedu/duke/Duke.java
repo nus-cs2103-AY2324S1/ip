@@ -1,10 +1,10 @@
-package duke;
+package seedu.duke;
 
-import duke.Exceptions.LemonException;
-import duke.datafile.Storage;
-import duke.parser.Parser;
-import duke.tasklist.TaskList;
-import duke.ui.Ui;
+import seedu.duke.Exceptions.LemonException;
+import seedu.duke.datafile.Storage;
+import seedu.duke.parser.Parser;
+import seedu.duke.tasklist.TaskList;
+import seedu.duke.ui.Ui;
 
 import java.util.Scanner;
 
@@ -30,7 +30,9 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-        while (!input.equalsIgnoreCase("bye")) {
+        System.out.println(input + "!");
+
+        while (!input.equals("bye")) {
             try {
                 Parser.parseTasks(input, tasks, storage, ui);
             } catch (LemonException e) {

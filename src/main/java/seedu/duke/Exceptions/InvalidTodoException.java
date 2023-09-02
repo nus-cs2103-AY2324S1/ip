@@ -1,4 +1,4 @@
-package duke.Exceptions;
+package seedu.duke.Exceptions;
 
 public class InvalidTodoException extends LemonException {
     public InvalidTodoException(String message) {
