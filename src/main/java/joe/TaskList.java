@@ -31,6 +31,21 @@ public class TaskList {
   public List<String> getStringList() {
     return tasks.stream().map(Task::toString).collect(Collectors.toList());
   }
+  /**
+   * Returns a TaskList of tasks containing the search word.
+   *
+   * @param searchString The search word.
+   * @return A TaskList of tasks.
+   */
+  public TaskList find(String searchString) {
+    TaskList res = new TaskList();
+    for (Task task : tasks) {
+      if (task.getDescription().toLowerCase().contains(searchString)) {
+        res.add(task);
+      }
+    }
+    return res;
+  }
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();

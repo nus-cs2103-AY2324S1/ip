@@ -10,6 +10,7 @@ import joe.commands.Command;
 import joe.commands.DeadlineCommand;
 import joe.commands.DeleteCommand;
 import joe.commands.EventCommand;
+import joe.commands.FindCommand;
 import joe.commands.InvalidCommand;
 import joe.commands.ListCommand;
 import joe.commands.MarkCommand;
@@ -27,6 +28,7 @@ public class Parser {
     unmark,
     delete,
     bye,
+      find,
     INVALID
   }
 
@@ -66,6 +68,8 @@ public class Parser {
         return handleEvent(args);
       case delete:
         return handleDelete(args);
+      case find:
+          return handleFind(args);
       default:
         return handleInvalidKeyword();
     }
@@ -152,6 +156,13 @@ public class Parser {
     } catch (JoeException e) {
       return new InvalidCommand("Invalid arguments for delete\nPlease follow: delete <task_num>");
     }
+  }
+
+  private static Command handleFind(String args) {
+      if (args.trim().isEmpty()) {
+          return new InvalidCommand("Invalid arguments for find\nPlease follow: find <search_word>");
+      }
+      return new FindCommand(args.trim());
   }
 
   private static Command handleInvalidKeyword() {
