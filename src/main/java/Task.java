@@ -29,12 +29,12 @@ public class Task {
 
     public void mark() {
         this.isDone = true;
-        String tobePrinted = "_____________________________________________________________\n"
+        String tobePrinted = Ui.horizontalLine
                     + "Nice! I've marked this task as done:\n"
                     + "   "
                     + this
                     + "\n"
-                    + "_____________________________________________________________\n";
+                    + Ui.horizontalLine;
         System.out.println(tobePrinted);
     }
 
@@ -48,12 +48,12 @@ public class Task {
 
     public void unmark() {
         this.isDone = false;
-        String tobePrinted = "_____________________________________________________________\n"
+        String tobePrinted = Ui.horizontalLine
                     + "OK, I've marked this task as not done yet:\n"
                     + "   "
                     + this
                     + "\n"
-                    + "_____________________________________________________________\n";
+                    + Ui.horizontalLine;
 
         System.out.println(tobePrinted);
     }
