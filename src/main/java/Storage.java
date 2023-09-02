@@ -1,11 +1,23 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 public class Storage {
-    private static final String SAVE_FILE = "data/saved_tasks.csv";
+
+    private String saveFile;
+
+    public Storage(String saveFile) {
+        this.saveFile = saveFile;
+        this.createFileIfNotExists();
+    }
 
     public void createFileIfNotExists() {
-        File saveFile = new File(SAVE_FILE);
+        File saveFile = new File(this.saveFile);
         if (!saveFile.exists()) {
             if (!saveFile.getParentFile().exists()) {
                 saveFile.getParentFile().mkdirs();
@@ -21,7 +33,7 @@ public class Storage {
     public TaskList readTasksFromFile() throws TaskFormatException, DateTimeParseException {
         TaskList taskList = new TaskList();
         try {
-            FileReader fr = new FileReader(SAVE_FILE);
+            FileReader fr = new FileReader(this.saveFile);
             BufferedReader br = new BufferedReader(fr);
             String line;
             while ((line = br.readLine()) != null) {
@@ -38,7 +50,7 @@ public class Storage {
 
     public void writeTasksToFile(TaskList taskList) {
         try {
-            FileWriter fw = new FileWriter(SAVE_FILE);
+            FileWriter fw = new FileWriter(this.saveFile);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(taskList.toString());
             bw.close();

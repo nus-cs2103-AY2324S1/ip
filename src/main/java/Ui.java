@@ -1,3 +1,4 @@
+import java.util.Map;
 import java.util.Scanner;
 
 public class Ui {
@@ -31,7 +32,7 @@ public class Ui {
         this.currentCommand = scanner.nextLine().strip();
     }
 
-    public String[] processCommand() {
+    public Pair<String, Map<String, String>> processCommand() {
         return Parser.parseCommand(this.currentCommand);
     }
 

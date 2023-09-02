@@ -1,6 +1,7 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class TaskList {
     private List<Task> tasks;
@@ -55,22 +56,44 @@ public class TaskList {
         return new Pair<>(tasks.get(index), wasNotUnmarked);
     }
 
-    public ToDo addToDoWithArgs(String commandArgs) {
-        ToDo toDo = new ToDo(commandArgs);
+    public ToDo addToDoWithArgs(Map<String, String> commandArgs) {
+        ToDo toDo = new ToDo(commandArgs.get(""));
         tasks.add(toDo);
         return toDo;
     }
 
-    public Deadline addDeadlineWithArgs(String commandArgs) throws CommandArgumentException {
-        String[] parsedArgs = Parser.parseDeadline(commandArgs);
-        Deadline deadline = new Deadline(parsedArgs[0], parsedArgs[1]);
+    public Deadline addDeadlineWithArgs(Map<String, String> commandArgs) throws CommandArgumentException {
+        if (commandArgs.get("").isEmpty()) {
+            throw new CommandArgumentException("Task description cannot be empty!");
+        }
+        if (commandArgs.get("by") == null) {
+            throw new CommandArgumentException("Deadline missing a /by argument!");
+        }
+        if (commandArgs.get("by").isEmpty()) {
+            throw new CommandArgumentException("/by argument cannot be empty!");
+        }
+        Deadline deadline = new Deadline(commandArgs.get(""), commandArgs.get("by"));
         tasks.add(deadline);
         return deadline;
     }
 
-    public Event addEventWithArgs(String commandArgs) throws CommandArgumentException {
-        String[] parsedArgs = Parser.parseEvent(commandArgs);
-        Event event = new Event(parsedArgs[0], parsedArgs[1], parsedArgs[2]);
+    public Event addEventWithArgs(Map<String, String> commandArgs) throws CommandArgumentException {
+        if (commandArgs.get("").isEmpty()) {
+            throw new CommandArgumentException("Task description cannot be empty!");
+        }
+        if (commandArgs.get("from") == null) {
+            throw new CommandArgumentException("Event missing a /from argument!");
+        }
+        if (commandArgs.get("from").isEmpty()) {
+            throw new CommandArgumentException("/from argument cannot be empty!");
+        }
+        if (commandArgs.get("to") == null) {
+            throw new CommandArgumentException("Event missing a /to argument!");
+        }
+        if (commandArgs.get("to").isEmpty()) {
+            throw new CommandArgumentException("/to argument cannot be empty!");
+        }
+        Event event = new Event(commandArgs.get(""), commandArgs.get("from"), commandArgs.get("to"));
         tasks.add(event);
         return event;
     }

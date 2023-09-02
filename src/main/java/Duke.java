@@ -1,21 +1,26 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Map;
 
 public class Duke {
     public static final DateTimeFormatter QUERY_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("uuuu-MM-dd HHmm");
+    private static final String SAVE_FILE = "data/saved_tasks.csv";
 
-    public static void main(String[] args) {
-        Storage storage = new Storage();
-        storage.createFileIfNotExists();
+    private Storage storage;
+    private Ui ui;
+    private TaskList taskList;
 
-        Ui ui = new Ui();
-        ui.printWelcome();
+    public Duke() {
+        this.storage = new Storage(SAVE_FILE);
+        this.ui = new Ui();
+    }
 
-        TaskList taskList;
+    public void run() {
+        this.ui.printWelcome();
 
         try {
-            taskList = storage.readTasksFromFile();
+            this.taskList = this.storage.readTasksFromFile();
         } catch (TaskFormatException e) {
             System.out.println(e.getMessage());
             return;
@@ -30,12 +35,12 @@ public class Duke {
         while(true) {
             ui.readCommand();
             ui.printDivider();
-            String[] commandResult = ui.processCommand();
+            Pair<String, Map<String, String>> commandResult = ui.processCommand();
             try {
-                if (commandResult.length == 0) {
+                if (commandResult.getFirst().length() == 0) {
                     System.out.println("Nothing happened!");
                 } else {
-                    String command = commandResult[0];
+                    String command = commandResult.getFirst();
                     Command commandName = Command.commandEnum(command);
                     if(commandName == null){
                         System.out.println("Error: " + command + " is not a valid command!");
@@ -45,12 +50,12 @@ public class Duke {
                             ui.printExit();
                             break;
                         }
-                        String commandArgs = commandResult[1];
+                        Map<String, String> commandArgs = commandResult.getSecond();
                         switch (commandName) {
                             case LIST:
-                                if (!commandArgs.isEmpty()) {
+                                if (!commandArgs.get("").isEmpty()) {
                                     LocalDateTime queryDate = LocalDateTime.parse(
-                                            commandArgs + " 0000", QUERY_DATE_TIME_FORMATTER);
+                                            commandArgs.get("") + " 0000", QUERY_DATE_TIME_FORMATTER);
                                     taskList.listTasks(ui, queryDate);
                                 }
                                 else{
@@ -58,7 +63,7 @@ public class Duke {
                                 }
                                 break;
                             case MARK:
-                                int markIndex = Parser.checkIndexArg(commandArgs, taskList.getTasksSize());
+                                int markIndex = Parser.checkIndexArg(commandArgs.get(""), taskList.getTasksSize());
                                 if (markIndex == -1) {
                                     throw new CommandArgumentException("Invalid task to mark: " + commandArgs);
                                 }
@@ -70,7 +75,7 @@ public class Duke {
                                 }
                                 break;
                             case UNMARK:
-                                int unmarkIndex = Parser.checkIndexArg(commandArgs, taskList.getTasksSize());
+                                int unmarkIndex = Parser.checkIndexArg(commandArgs.get(""), taskList.getTasksSize());
                                 if (unmarkIndex == -1) {
                                     throw new CommandArgumentException("Invalid task to unmark: " + commandArgs);
                                 }
@@ -97,7 +102,7 @@ public class Duke {
                                 ui.printAddedItem(event, "event");
                                 break;
                             case DELETE:
-                                int deleteIndex = Parser.checkIndexArg(commandArgs, taskList.getTasksSize());
+                                int deleteIndex = Parser.checkIndexArg(commandArgs.get(""), taskList.getTasksSize());
                                 if (deleteIndex == -1) {
                                     throw new CommandArgumentException("Invalid task to delete: " + commandArgs);
                                 }
@@ -118,7 +123,12 @@ public class Duke {
                 System.out.println(e.getMessage());
             }
             ui.printDivider();
-            storage.writeTasksToFile(taskList);
+            this.storage.writeTasksToFile(taskList);
         }
+    }
+
+    public static void main(String[] args) {
+        Duke duke = new Duke();
+        duke.run();
     }
 }
