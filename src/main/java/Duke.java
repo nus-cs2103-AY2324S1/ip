@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -136,12 +138,15 @@ public class Duke {
 
         // Add additional information for Deadline and Event tasks
         if (task instanceof Deadline) {
-            data.append(" | ").append(((Deadline) task).by);
+            LocalDateTime deadlineDateTime = ((Deadline) task).by;
+            String formattedDateTime = deadlineDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+            data.append(" | ").append(formattedDateTime);
         } else if (task instanceof Event) {
             data.append(" | ").append(((Event) task).from).append(" | ").append(((Event) task).to);
         }
 
         return data.toString();
+
     }
 
     public static Task dataToTask(String data) {
@@ -162,7 +167,7 @@ public class Duke {
                 task = new Event(description, info[3], info[4]);
                 break;
             default:
-                throw new IllegalArgumentException("Invalid task in data");
+                throw new IllegalArgumentException("☹ OOPS!!! Invalid task in data");
         }
 
         if (status.equals("1")) {
