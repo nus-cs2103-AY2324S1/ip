@@ -103,6 +103,11 @@ public class TaskList {
         Ui.print("Noted. I've removed this task:\n" + toDelete + count);
     }
 
+    /**
+     * Finds and prints matching tasks in the task list with the given keyword.
+     *
+     * @param str The keyword given by user.
+     */
     public void find(String str) {
         ArrayList<Task> matchList = new ArrayList<>();
         for (int i = 0; i < taskCount; i++) {

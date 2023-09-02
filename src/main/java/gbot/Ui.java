@@ -28,6 +28,9 @@ public class Ui {
         print("Please enter a task number.");
     }
 
+    /**
+     * Prints the empty keyword error.
+     */
     public static void showEmptyKeywordError() {
         print("Please enter a keyword.");
     }
