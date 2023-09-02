@@ -15,16 +15,34 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
+        /**
+         * The Storage class is responsible for handling the storage and retrieval of tasks
+         * in a text file. It provides methods to save tasks to a file and load tasks from a file.
+         */
         private final String FILE_PATH;
 
+        /**
+         * Constructs a new Storage object with a default file path.
+         * The default file path is "./datafile/tasks.txt".
+         */
         public Storage() {
             this.FILE_PATH = "./datafile/tasks.txt";
         }
 
+        /**
+         * Constructs a new Storage object with a custom file path.
+         *
+         * @param filePath The path of the file where tasks will be stored.
+         */
         public Storage(String filePath) {
             this.FILE_PATH = filePath;
         }
 
+        /**
+         * Saves a list of tasks to the specified file.
+         *
+         * @param tasks An ArrayList of Task objects to be saved.
+         */
         public void saveTasks(ArrayList<Task> tasks) {
             try {
                 File file = new File(FILE_PATH);
@@ -54,12 +72,21 @@ public class Storage {
             fw.write(textToAdd);
             fw.close();
         }
+
+
         private static void addToFile(String filePath, String textToAdd) throws IOException {
             FileWriter fw = new FileWriter(filePath, true);
             fw.write(textToAdd + System.lineSeparator());
             fw.close();
         }
 
+        /**
+         * Loads tasks from the data file and returns them as an ArrayList of Tasks.
+         *
+         * @return An ArrayList of Task objects loaded from the file.
+         * @throws LemonException If the file cannot be found or there is an issue
+         *                       loading tasks from the file.
+         */
         public ArrayList<Task> loadFile() throws LemonException {
             ArrayList<Task> tasks = new ArrayList<>();
             File dataFile = new File(FILE_PATH);

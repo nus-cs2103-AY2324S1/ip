@@ -9,6 +9,11 @@ import seedu.duke.datafile.Storage;
 import seedu.duke.tasklist.TaskList;
 import seedu.duke.ui.Ui;
 
+/**
+ * The Parser class is responsible for parsing user input and executing corresponding
+ * commands for task management.
+ */
+
 public class Parser {
 
 
@@ -23,6 +28,16 @@ public class Parser {
         EVENT
     }
 
+    /**
+     * Parses the user input and executes the corresponding task command.
+     *
+     * @param input     The user's input command.
+     * @param tasks     The TaskList object containing the task list.
+     * @param tasksData The Storage object for saving, deleting and loading tasks.
+     * @param ui        The Ui object for user interface interaction.
+     * @throws LemonException If there is an error during command execution, a custom
+     *                        LemonException is thrown to handle the error.
+     */
     public static void parseTasks(String input, TaskList tasks, Storage tasksData, Ui ui) throws LemonException {
         if (!input.equals("bye")) {
                 String commandType = input.split(" ")[0].toUpperCase();
