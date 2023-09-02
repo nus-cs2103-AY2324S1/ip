@@ -9,8 +9,7 @@ public class Duke {
     public static void main(String[] args) {
         Ui ui = new Ui();
         Storage storage = new Storage();
-        TaskList list = null;
-        list = new TaskList(storage.getFile());
+        TaskList list = new TaskList(storage.getFile());
         list.open();
         Parser parser = new Parser();
 
