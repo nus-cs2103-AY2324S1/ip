@@ -10,23 +10,6 @@ import java.util.Arrays;
 
 public class Tong {
     public static void main(String[] args) {
-
-        private static void printFileContents(String filePath) throws FileNotFoundException {
-            File f = new File(filePath); // create a File for the given file path
-            Scanner s = new Scanner(f); // create a Scanner using the File as the source
-            while (s.hasNext()) {
-                System.out.println(s.nextLine());
-            }
-        }
-
-        public static void main(String[] args) {
-            try {
-                printFileContents("data/fruits.txt");
-            } catch (FileNotFoundException e) {
-                System.out.println("File not found");
-            }
-        }
-
         try {
             File directory = new File("./data");
             if (! directory.exists()){
@@ -79,7 +62,10 @@ public class Tong {
                         String[] dSplit = trimCommand(currentLine).split(" /by ");
                         String deadlineName = dSplit[0];
                         String by = dSplit[1];
-                        Deadline deadline = new Deadline(deadlineName, by);
+                        String[] bySplit = by.split(" ");
+                        String date = bySplit[0];
+                        String time = bySplit[1];
+                        Deadline deadline = new Deadline(deadlineName, date, time);
                         list.addTask(deadline);
                         writeToFile(fileName, list.toString());
                         break;
@@ -88,8 +74,14 @@ public class Tong {
                         String eventName = eSplit[0];
                         String[] fromAndTo = eSplit[1].split(" /to ");
                         String from = fromAndTo[0];
+                        String[] fromSplit = from.split(" ");
+                        String fromDate = fromSplit[0];
+                        String fromTime = fromSplit[1];
                         String to = fromAndTo[1];
-                        Event event = new Event(eventName, from, to);
+                        String[] toSplit = to.split(" ");
+                        String toDate = toSplit[0];
+                        String toTime = toSplit[1];
+                        Event event = new Event(eventName, fromDate, fromTime, toDate, toTime);
                         list.addTask(event);
                         writeToFile(fileName, list.toString());
                         break;
