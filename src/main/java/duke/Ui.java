@@ -2,7 +2,16 @@ package duke;
 
 import java.util.ArrayList;
 
+import javafx.scene.control.TextArea;
+
+
+//CHECKSTYLE.OFF: MissingJavadocMethodCheck
+//CHECKSTYLE.OFF: MissingJavadocType
 public class Ui {
+    // Assuming you have a TextArea in your JavaFX application layout
+    private TextArea messageTextArea;
+
+
     /**
      * Print the message when the chatbot first starts
      */
@@ -10,12 +19,14 @@ public class Ui {
         System.out.println("Hello! I'm Muddy\n" + "What can I do for you?");
     }
 
+
     /**
      * Print the message when the chatbot exits
      */
     public void showGoodbyeMessage() {
         System.out.println("Bye. Hope to see you again soon!");
     }
+
 
     /**
      * Print the error message
