@@ -15,7 +15,7 @@ public class TaskList {
     /**
      * Creates a TaskList with a predefined list
      * 
-     * @param list List to be stored inside the local list variable
+     * @param tasks List to be stored inside the local list variable
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -89,11 +89,11 @@ public class TaskList {
      * @param start Start date of task
      * @param end End date of task
      */
-    public void addEvent(String taskName, String start, String end) {
-        Event task = new Event(taskName, start, end);
+    public void addEvent(String taskName, String startDate, String endDate) {
+        Event task = new Event(taskName, startDate, endDate);
         this.tasks.add(task);
         System.out.println("You have added a task:");
-        System.out.println("\t[E][ ] " + taskName + " (from: " + start + " to: " + end + ")");
+        System.out.println("\t[E][ ] " + taskName + " (from: " + startDate + " to: " + endDate + ")");
         System.out.println("There are now " + tasks.size() + " tasks in the list");
     }
 
@@ -108,6 +108,18 @@ public class TaskList {
         this.tasks.remove(task);
         System.out.println("There are now " + this.getSize() + " tasks in the list");
     }
+
+	/**
+	 * Copies and filters the task list to only display tasks with the keyword mentioned
+	 *
+	 * @param keyword The keyword that will be compared to the task names
+	 * @return The filtered list
+	 */
+	public ArrayList<Task> filterTaskName(String keyword) {
+		ArrayList<Task> tasksCopied = new ArrayList<>(tasks);
+		tasksCopied.removeIf(task -> !task.getName().toLowerCase().contains(keyword.toLowerCase()));
+		return tasksCopied;
+	}
 
     /**
      * Overwrites the current list with the list stored in hard drive

@@ -1,5 +1,6 @@
 package duke.utilities;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.exceptions.DukeException;
@@ -97,7 +98,6 @@ public class Ui {
                 if (inputLength <= 1) {
                     throw new MissingTaskDescriptionException("Todo task description cannot be empty");
                 }
-
                 String taskName = fullInput.substring(5);
                 tasks.addToDo(taskName);
             } else if (command.equals("deadline")) {
@@ -147,6 +147,21 @@ public class Ui {
                     return endSession;
                 }
                 tasks.addEvent(taskName, start, end);
+            } else if (command.equals("find")) {
+                if (inputLength <= 1) {
+                    throw new MissingTaskDescriptionException("Todo task description cannot be empty");
+                }
+                String taskToBeFound = fullInput.substring(5);
+                ArrayList<Task> tasksFiltered = tasks.filterTaskName(taskToBeFound);
+                int size = tasksFiltered.size();
+                if (size > 0) {  
+				    System.out.println("Here are the matching tasks in your list:");
+                    for (int i = 0; i < size; i++) {
+                        System.out.println((i + 1) + ". " + tasksFiltered.get(i).convertToString());
+                    }
+                } else {
+                    System.out.println("There are no matching tasks in your list");
+                }
             } else if (command.equals("bye")) {
                 if (inputLength > 1) {
                     throw new InvalidCommandSyntaxException("'bye' command must not be followed by anything");
