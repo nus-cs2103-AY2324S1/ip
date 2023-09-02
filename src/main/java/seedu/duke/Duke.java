@@ -27,22 +27,23 @@ public class Duke {
 
     public void run() {
         ui.welcomeMessage();
-
         Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        System.out.println(input + "!");
-
-        while (!input.equals("bye")) {
-            try {
-                Parser.parseTasks(input, tasks, storage, ui);
-            } catch (LemonException e) {
-                System.out.println(e.getMessage());
-            } finally {
-                input = scanner.nextLine();
+        String input;
+        while (true) {
+            input = scanner.nextLine();
+            if (input.equals("bye")) {
+                break;
+            } else {
+                try {
+                    Parser.parseTasks(input, tasks, storage, ui);
+                } catch (LemonException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
         ui.bye();
     }
+
 
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();

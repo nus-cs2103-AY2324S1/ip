@@ -1,10 +1,17 @@
 package seedu.duke.ui;
 
 import seedu.duke.Exceptions.InvalidTaskIndexException;
+import seedu.duke.Exceptions.KeywordNotFoundException;
+import seedu.duke.Tasks.Task;
 import seedu.duke.tasklist.TaskList;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Ui {
+
     public Ui() {
+
     }
 
     public void welcomeMessage() {
@@ -36,7 +43,6 @@ public class Ui {
     }
 
     public void listAll(TaskList tasks) throws InvalidTaskIndexException {
-        //
         try {
             for (int i = 0; i < tasks.getTasksSize(); i++) {
                 System.out.println(i + 1 + ". " + tasks.getTask(i).toString());
@@ -45,8 +51,15 @@ public class Ui {
         } catch (InvalidTaskIndexException e) {
             throw new InvalidTaskIndexException("Invalid task index");
         }
-
     }
+
+    public void listMatching(ArrayList<Task> tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println(i + 1 + ". " + tasks.get(i).toString());
+        }
+        System.out.println("\n");
+    }
+
 
     public void bye() {
         System.out.println("Bye. Hope to see you again soon!");
