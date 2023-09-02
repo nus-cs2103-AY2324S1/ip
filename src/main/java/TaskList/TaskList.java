@@ -133,4 +133,20 @@ public class TaskList {
         taskList.clear();
         taskList.addAll(loadedTasks.getTasks());
     }
+
+    /**
+     * Finds and returns a list of tasks that contain the specified keyword in their descriptions.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return An ArrayList of tasks that match the keyword.
+     */
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
 }

@@ -1,4 +1,5 @@
 package ui;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.DukeException;
@@ -51,7 +52,7 @@ public class Ui {
      * Displays a list of available commands to the user.
      */
     public void showCommands() {
-        System.out.println("List of Commands: Add, Deadline, Event, Todo, Echo, Mark, Unmark, Delete, Bye");
+        System.out.println("List of Commands: Add, Deadline, Event, Todo, Echo, Mark, Unmark, Delete, Find, Bye");
         System.out.println("1. Add - Add a task to the list");
         System.out.println("2. Deadline - Add a task with a deadline");
         System.out.println("3. Event - Add an event task");
@@ -60,7 +61,8 @@ public class Ui {
         System.out.println("6. Mark - Mark a task as done");
         System.out.println("7. Unmark - Unmark a task as done");
         System.out.println("8. Delete - Delete a task");
-        System.out.println("9. Bye - Exit the program");
+        System.out.println("9. Find - Find tasks by keyword");
+        System.out.println("10. Bye - Exit the program");
     }
 
     /**
@@ -132,5 +134,16 @@ public class Ui {
      */
     public void showTaskMarked(Task taskToUnmark) {
         System.out.println("Task marked: " + taskToUnmark.getDescription());
+    }
+
+    public void showMatchingTasks(ArrayList<Task> matchingTasks) {
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + "." + matchingTasks.get(i).toString());
+            }
+        }
     }
 }
