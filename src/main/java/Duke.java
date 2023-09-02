@@ -1,18 +1,22 @@
-import Exceptions.ErrorStorageException;
-import Exceptions.InvalidCommandException;
-import Helpers.Parser;
-import Helpers.Storage;
-import Helpers.TaskList;
-import Helpers.Ui;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import exceptions.ErrorStorageException;
+import exceptions.InvalidCommandException;
+import helpers.Parser;
+import helpers.Storage;
+import helpers.TaskList;
+import helpers.Ui;
 
+
+/**
+ * Main Class of Duke
+ */
 public class Duke {
 
     private static TaskList taskList;
+
     private final String DIRECTORY = "data";
     private Storage storage;
     private Ui ui;

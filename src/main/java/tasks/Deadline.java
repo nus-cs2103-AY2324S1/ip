@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    private final static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     protected LocalDateTime by;
 
     /**
