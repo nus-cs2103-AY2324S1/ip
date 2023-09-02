@@ -1,10 +1,7 @@
 package duke.parser;
 
 import duke.commands.Command;
-import duke.exceptions.InvalidDateTimeException;
-import duke.exceptions.InvalidDescriptionException;
-import duke.exceptions.InvalidTaskIndexException;
-import duke.exceptions.MissingTaskIndexException;
+import duke.exceptions.*;
 import duke.tasks.*;
 
 import java.time.LocalDate;
@@ -57,6 +54,23 @@ public class Parser {
             return taskIndex;
         } else {
             throw new MissingTaskIndexException("Task Index Missing.");
+        }
+    }
+
+    /**
+     * Extracts the keyword from user input and finds tasks with the specified keyword.
+     *
+     * @param str The user input string.
+     * @param tasks The list of tasks to operate on.
+     * @return A TaskList of tasks containing the keyword.
+     * @throws InvalidKeywordException If the keyword is missing, or if there is more than 1 keyword.
+     */
+    public static TaskList findKeyword(String str, TaskList tasks) throws InvalidKeywordException {
+        if (str.split(" ").length == 2) {
+            String keyword = str.split(" ")[1];
+            return tasks.findTask(keyword);
+        } else {
+            throw new InvalidKeywordException("Keyword given is not a single word.");
         }
     }
 

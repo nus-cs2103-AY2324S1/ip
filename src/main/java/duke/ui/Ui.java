@@ -90,6 +90,16 @@ public class Ui {
     }
 
     /**
+     * Displays a reply for finding of Tasks.
+     * @param str The user input containing the keyword.
+     * @param tasks The list of tasks to display.
+     */
+    public static void findTaskReply(String str, TaskList tasks) {
+        System.out.println(String.format("I will help you %s\n", str));
+        printListReply(tasks);
+    }
+
+    /**
      * Displays a reply for an illegal argument exception.
      */
     public static void illegalArgumentExceptionReply() {
@@ -139,5 +149,12 @@ public class Ui {
     public static void invalidDateTimeExceptionReply() {
         System.out.println("Ding: I already told you... " +
                 "please enter the timestamps in this format 'YYYY-MM-DD HH:mm'");
+    }
+
+    /**
+     * Displays a reply for an invalid keyword exception.
+     */
+    public static void invalidKeywordExceptionReply() {
+        System.out.println("Ding: Please use the format 'find (keyword)' so I that can help you look around");
     }
 }
