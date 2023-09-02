@@ -117,6 +117,16 @@ public abstract class Task {
     }
 
     /**
+     * Check if the description of the Task contains the query String.
+     * @param searchStr The query to match any point in the description.
+     * @return true, if the description contains the searchStr, and false
+     *         otherwise.
+     */
+    public boolean contains(String searchStr) {
+        return description.contains(searchStr);
+    }
+
+    /**
      * toString method of Task. <br>
      * A Task is formatted as "[X] description of task", where the X may or
      * may not be present depending on the completion status of the task.

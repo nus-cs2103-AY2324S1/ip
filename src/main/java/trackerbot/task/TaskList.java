@@ -63,6 +63,38 @@ public class TaskList {
     }
 
     /**
+     * Finds all Tasks matching the query, along with the associated index in the list.
+     *
+     * @param searchStr The query to match at any point in the description of the Task.
+     * @return A String representation of all the Tasks matching the query, in list form.
+     *         If no Tasks match the query, returns a String indicating no matches.
+     */
+    public String findAll(String searchStr) {
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 1; i < TASKS.size() + 1; i++) {
+            if (TASKS.get(i - 1).contains(searchStr)) {
+                result.append(i);
+                result.append(". ");
+                result.append(TASKS.get(i - 1).toString());
+                result.append("\n");
+            }
+        }
+
+        if (result.length() == 0) {
+            // we do not throw an error here - having no matches is a valid result from find.
+            return "No results match your search.";
+        }
+
+        // delete the overflow \n from the last append operation
+        if (result.charAt(result.length() - 1) == '\n') {
+            result.deleteCharAt(result.length() - 1);
+        }
+
+        return result.toString();
+    }
+
+    /**
      * Function that adds a task to the app. <br>
      * Adds a To-Do, Event or Deadline task to the task list.
      * @param input The Pair&lt;Command, String&gt; of the task to add to the list.
