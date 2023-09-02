@@ -1,33 +1,42 @@
 package command;
 
 import org.junit.jupiter.api.Test;
-import services.tasklist.TaskListStub;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import services.tasklist.TaskList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class ParserTest {
 
-    protected TaskListStub taskListStub;
+    @Mock
+    protected TaskList taskListMock;
+    @InjectMocks
     protected Parser parser;
+
     public ParserTest() {
-        taskListStub = new TaskListStub();
-        parser = new Parser(taskListStub);
+        taskListMock = mock(TaskList.class);
+        parser = new Parser(taskListMock);
     }
 
     @Test
     public void execute_validInput_success() {
         try {
-            parser.execute("todo", "test");
-            assertEquals("add method called with description: test and taskType: TODO and args: [].",
-                    taskListStub.getStatus());
-            parser.execute("delete", "1");
-            assertEquals("delete method called with taskNumber: 1.", taskListStub.getStatus());
-            parser.execute("deadline", "test   /by      2020-08-25 00:00");
-            assertEquals("add method called with description: test and taskType: DEADLINE "
-                            + "and args: [2020-08-25 00:00].",
-                    taskListStub.getStatus());
-            parser.execute("list", "");
-            assertEquals("show method called", taskListStub.getStatus());
+            when(taskListMock.add("test", CommandType.TODO))
+                    .thenReturn("add method called with todo task");
+            when(taskListMock.add("test", CommandType.DEADLINE, "2020-08-25 00:00"))
+                    .thenReturn("add method called with deadline task");
+            when(taskListMock.delete(1)).thenReturn("delete method called");
+
+            assertEquals("add method called with todo task", parser.execute("todo", "test"));
+            assertEquals("add method called with deadline task",
+                    parser.execute("deadline", "test      /by   2020-08-25 00:00"));
+            assertEquals("delete method called", parser.execute("delete", "1"));
         } catch (Exception e) {
             e.printStackTrace();
         }
