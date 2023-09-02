@@ -24,7 +24,7 @@ public class TimeUtil {
             DateTimeFormatter.ofPattern("yyyyMM")  // 202305
     };
 
-    private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH");
+    private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     private TimeUtil() {}
 
@@ -77,9 +77,9 @@ public class TimeUtil {
     private static LocalDateTime handleSpecialStrings(String input) {
         switch (input.toLowerCase()) {
             case "today":
-                return LocalDateTime.now();
+                return LocalDateTime.now().withHour(23).withMinute(59);
             case "tomorrow":
-                return LocalDateTime.now().plusDays(1);
+                return LocalDateTime.now().plusDays(1).withHour(23).withMinute(59);
             default:
                 return null;
         }
