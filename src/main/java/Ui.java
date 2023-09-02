@@ -1,8 +1,12 @@
+import java.util.Scanner;
+
 public class Ui {
     private final String logo;
+    private final Scanner inputScanner;
 
     public Ui(String logo) {
         this.logo = logo;
+        this.inputScanner = new Scanner(System.in);
     }
 
     /**
@@ -40,5 +44,15 @@ public class Ui {
      */
     public void farewell() {
         say("Bye!\nHave a great day!");
+    }
+
+    /**
+     * Prompts the user for input.
+     */
+    public String promptInput() {
+        System.out.printf("Input: ");
+        String prompt = inputScanner.nextLine();
+        addDivider();
+        return prompt.trim();
     }
 }
