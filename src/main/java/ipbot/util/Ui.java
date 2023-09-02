@@ -1,3 +1,8 @@
+package ipbot.util;
+
+import ipbot.model.Pair;
+import ipbot.model.Task;
+
 import java.util.Map;
 import java.util.Scanner;
 

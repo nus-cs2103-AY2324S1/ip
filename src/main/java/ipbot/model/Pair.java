@@ -1,3 +1,5 @@
+package ipbot.model;
+
 public class Pair <S, T> {
     private S first;
     private T second;

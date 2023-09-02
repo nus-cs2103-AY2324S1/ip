@@ -1,3 +1,8 @@
+package ipbot.util;
+
+import ipbot.model.Task;
+import ipbot.model.TaskFormatException;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
