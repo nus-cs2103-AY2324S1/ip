@@ -19,12 +19,9 @@ public class MarkCommand extends Command {
         }
         if (isMarked) {
             tasks.mark(taskIndex);
-            System.out.println(" Nice! I've marked this task as done:");
-            System.out.println("   " + tasks.getTask(taskIndex));
+            ui.printMark(tasks.getTask(taskIndex));
         } else {
             tasks.unmark(taskIndex);
-            System.out.println(" OK, I've marked this task as not done yet:");
-            System.out.println("   " + tasks.getTask(taskIndex));
         }
     }
     @Override

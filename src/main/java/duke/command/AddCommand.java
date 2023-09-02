@@ -63,11 +63,7 @@ public class AddCommand extends Command {
         } else {
             throw new InvalidInputException("I'm sorry, but I don't know what that means :-(");
         }
-        System.out.println("____________________________________________________________");
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + tasks.getTask(tasks.length() - 1));
-        System.out.println(" Now you have " + tasks.length() + " tasks in the list.");
-        System.out.println("____________________________________________________________");
+        ui.printAdd(tasks.getTask(tasks.length() - 1), tasks);
     }
     @Override
     public boolean isExit() {

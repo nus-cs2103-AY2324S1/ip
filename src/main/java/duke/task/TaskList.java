@@ -1,5 +1,6 @@
 package duke.task;
 
+import duke.task.Task;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -16,8 +17,8 @@ public class TaskList {
     public void unmark(Integer index) {
         tasks.get(index).unmark();
     }
-    public String getTask(Integer index) {
-        return tasks.get(index).toString();
+    public Task getTask(Integer index) {
+        return tasks.get(index);
     }
     public String getTaskInput(Integer index) {
         return tasks.get(index).getInput();
