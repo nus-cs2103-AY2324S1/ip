@@ -59,7 +59,7 @@ public class Ui {
     }
 
     /**
-     * Prints message if task is already done
+     * Prints message if task is already done.
      *
      * @throws WrongMarkException If the task is already done.
      */
@@ -69,7 +69,7 @@ public class Ui {
     }
 
     /**
-     * Prints message if index is invalid
+     * Prints message if index is invalid.
      */
     public void showInvalidIndex() {
         separatorLines();
@@ -77,7 +77,7 @@ public class Ui {
     }
 
     /**
-     * Prints message if task is already undone
+     * Prints message if task is already undone.
      *
      * @throws WrongMarkException If the task is already undone.
      */
@@ -87,7 +87,7 @@ public class Ui {
     }
 
     /**
-     * Prints message for deleting task
+     * Prints message for deleting task.
      */
     public void deleteTaskMessage(Task task) {
         separatorLines();
@@ -96,7 +96,7 @@ public class Ui {
     }
 
     /**
-     * Prints message for adding task
+     * Prints message for adding task.
      *
      * @param task The task to be added.
      */
@@ -107,7 +107,7 @@ public class Ui {
     }
 
     /**
-     * Prints error message for saving task
+     * Prints error message for saving task.
      */
     public void showSaveError() {
         separatorLines();
@@ -115,7 +115,7 @@ public class Ui {
     }
 
     /**
-     * Prints error message for loading task
+     * Prints error message for loading task.
      */
     public void showLoadingError() {
         separatorLines();

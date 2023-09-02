@@ -31,7 +31,7 @@ public class Duke {
 
     /**
      * Main method for Duke.
-     * Runs the duke program with the file path
+     * Runs the duke program with the file path.
      *
      * @param args The arguments passed in.
      */
@@ -41,8 +41,8 @@ public class Duke {
 
     /**
      * Runs the duke program.
-     * Shows the welcome, exit message
-     * Deals with User input
+     * Shows the welcome, exit message.
+     * Deals with User input.
      */
     public void run() {
         ui.showWelcome();
