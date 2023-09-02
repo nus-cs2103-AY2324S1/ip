@@ -1,10 +1,4 @@
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -71,7 +65,6 @@ public class Duke {
      * Lists all tasks in the task array
      */
     private static void list() {
-        int count = 1;
         System.out.print(horizontalLine);
         System.out.print(taskStorage.list());
         System.out.print(horizontalLine);
@@ -95,8 +88,7 @@ public class Duke {
      */
     private static void appendToDo(String task) {
         try {
-            String todo = task.substring(5);
-            append(new ToDo(todo));
+            append(new ToDo(Parser.parseToDo(task)));
         } catch (StringIndexOutOfBoundsException e) {
             System.out.print(horizontalLine +
                     "WRONG FORMAT FOOL!!! IT'S:\n" +
@@ -113,10 +105,8 @@ public class Duke {
      */
     private static void appendDeadline(String task) {
         try {
-            String deadline = task.substring(9);
-            int splitPoint = deadline.indexOf(" /by ");
-            append(new Deadline(deadline.substring(0, splitPoint),
-                    deadline.substring(splitPoint + 5)));
+            String[] parsedDeadline = Parser.parseDeadline(task);
+            append(new Deadline(parsedDeadline[0], parsedDeadline[1]));
         } catch (StringIndexOutOfBoundsException e) {
             System.out.print(horizontalLine +
                     "WRONG FORMAT FOOL!!! IT'S:\n" +
@@ -136,12 +126,8 @@ public class Duke {
      */
     private static void appendEvent(String task) {
         try {
-            String event = task.substring(6);
-            int startPoint = event.indexOf(" /from ");
-            int endPoint = event.indexOf(" /to ");
-            append(new Event(event.substring(0, startPoint),
-                    event.substring(startPoint + 7, endPoint),
-                    event.substring(endPoint + 5)));
+            String[] parsedEvent = Parser.parseEvent(task);
+            append(new Event(parsedEvent[0], parsedEvent[1], parsedEvent[2]));
         } catch (StringIndexOutOfBoundsException e) {
             System.out.print(horizontalLine +
                     "WRONG FORMAT FOOL!!! IT'S:\n" +
@@ -160,7 +146,7 @@ public class Duke {
     private static void mark(String toMark) {
         System.out.print(horizontalLine);
         try {
-            Task task = taskArray.get(Integer.parseInt(toMark.substring(5)) - 1);
+            Task task = taskStorage.get(Parser.parseMark(toMark));
             if (task == null) throw new NullPointerException();
             if (task.isDone) throw new IllegalArgumentException();
             task.markAsDone();
@@ -186,8 +172,7 @@ public class Duke {
     private static void unmark(String toUnmark) {
         System.out.print(horizontalLine);
         try {
-            int index = Integer.parseInt(toUnmark.substring(7)) - 1;
-            Task task = taskArray.get(index);
+            Task task = taskStorage.get(Parser.parseUnmark(toUnmark));
             if (task == null) throw new NullPointerException();
             if (!task.isDone) throw new IllegalArgumentException();
             task.markAsUndone();
@@ -212,7 +197,7 @@ public class Duke {
     private static void delete(String toDelete) {
         System.out.print(horizontalLine);
         try {
-            int index = Integer.parseInt(toDelete.substring(7)) - 1;
+            int index = Parser.parseDelete(toDelete);
             System.out.print("YOU SEE THIS?\n" +
                     taskStorage.get(index) +
                     "\nNOW YOU DON'T\n");
@@ -234,39 +219,38 @@ public class Duke {
 
         while (botStatus == Status.RUNNING) {
             String nextLine = textInput.nextLine();
-            if (nextLine.startsWith("mark")) {
+            Parser.ParserOutput signal = Parser.parseInput(nextLine);
+            switch (signal) {
+            case MARK:
                 mark(nextLine);
                 continue;
-            }
-            if (nextLine.startsWith("unmark")) {
+            case UNMARK:
                 unmark(nextLine);
                 continue;
-            }
-            if (nextLine.startsWith("todo")) {
-                appendToDo(nextLine);
-                continue;
-            }
-            if (nextLine.startsWith("deadline")) {
-                appendDeadline(nextLine);
-                continue;
-            }
-            if (nextLine.startsWith("event")) {
-                appendEvent(nextLine);
-                continue;
-            }
-            if (nextLine.startsWith("delete")) {
+            case DELETE:
                 delete(nextLine);
                 continue;
-            }
-            switch(nextLine) {
-                case "bye":
-                    botStatus = Status.STOPPING;
-                    break;
-                case "list":
-                    list();
-                    break;
-                default:
+            case LIST:
+                list();
+                continue;
+            case ECHO:
+                echo(nextLine);
+                continue;
+            case EXIT:
+                botStatus = Status.STOPPING;
+                continue;
+            case APPEND:
+                Parser.TaskType type = Parser.parseTask(nextLine);
+                switch (type) {
+                case TODO:
+                    appendToDo(nextLine);
+                case EVENT:
+                    appendEvent(nextLine);
+                case DEADLINE:
+                    appendEvent(nextLine);
+                case GENERIC:
                     append(new Task(nextLine));
+                }
             }
         }
 
