@@ -11,6 +11,14 @@ public class Duke {
     private Ui ui;
 
     /**
+     * Constructs a default constructor.
+     */
+    public Duke() {
+
+    }
+
+
+    /**
      * Constructs Duke with the directory path and file name that specifies the filepath
      * of data Duke should run on.
      *
@@ -27,6 +35,17 @@ public class Duke {
             this.taskManager = new TaskManager();
         }
     }
+
+//    public String execute(String input) {
+//        try {
+//            Command c = Parser.parseCommand(input);
+//            c.execute(taskManager, diskManager, ui);
+//
+//        } catch (DukeException e) {
+//
+//        }
+//
+//    }
 
     private void run() {
         ui.showWlcmMsg();
