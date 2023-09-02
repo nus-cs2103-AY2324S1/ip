@@ -7,14 +7,27 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns either a blank or "X" depending on the isDone of a Task.
+     *
+     * @return A string "X" or an empty string " ".
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Sets the boolean isDone of a Task to true.
+     *
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Sets the boolean isDone of a Task to false.
+     *
+     */
     public void markAsUnDone() {
         this.isDone = false;
     }

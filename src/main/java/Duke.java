@@ -1,12 +1,8 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.IOException;
+
 public class Duke {
 
     private enum Commands {
@@ -32,34 +28,33 @@ public class Duke {
                 String description = taskInfo[2].trim();
                 if ("T".equals(type)) {
                     Todo todo = new Todo(description);
+                    if ("X".equals(status)) {
+                        todo.markAsDone();
+                    }
                     tasks.add(todo);
                 } else if ("D".equals(type)) {
                     String by = taskInfo[3];
                     Deadline deadline = new Deadline(description, by);
+                    if ("X".equals(status)) {
+                        deadline.markAsDone();
+                    }
                     tasks.add(deadline);
                 } else if ("E".equals(type)) {
                     String[] duration = taskInfo[3].split("-");
                     String from = duration[0];
                     String to = duration[1];
                     Event event = new Event(description, from, to);
+                    if ("X".equals(status)) {
+                        event.markAsDone();
+                    }
                     tasks.add(event);
                 } else {
-                    System.out.println("Invalid task type");
+                    System.out.println("There are no tasks.");
                 }
-//                switch (taskInfo[0]) {
-//                    case "T":
-//                        tasks.add(new Todo(taskInfo[2]));
-//                        break;
-//                    default:
-//                        System.out.println("Invalid task type");
-//                        break;
-//                }
             }
-            reader.close();
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(gideon, true));
             Scanner scanner = new Scanner(System.in);
-
 
             System.out.println("Hello! I'm Gideon");
             System.out.println("What can I do for you?");
@@ -158,6 +153,16 @@ public class Duke {
                     System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             }
+            StringBuffer inputString = new StringBuffer();
+            for (Task task: tasks) {
+                String line = task.getDescription();
+                inputString.append(line);
+                inputString.append("\n");
+            }
+            FileOutputStream fileOut = new FileOutputStream(gideon);
+            fileOut.write(inputString.toString().getBytes());
+            fileOut.close();
+            reader.close();
             writer.close();
             scanner.close();
         } catch (IOException e) {
