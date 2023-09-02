@@ -212,7 +212,7 @@ public class Duke {
                     LocalDate endDateObj = LocalDate.parse(String.format("%s-%s-%s", year, month, day));
                     if (dates.length > 1) {
                         Integer.parseInt(dates[1]);
-                        LocalTime timeObj = LocalTime.parse(dates[1]);
+                        LocalTime timeObj = LocalTime.parse(dates[1].substring(0, 2) + ":" + dates[1].substring(2));
                     }
                 } catch (NumberFormatException numberExcept) {
                     System.out.println("ChadGPT: Please ensure the time of your deadline is in numerical format.");
@@ -254,7 +254,8 @@ public class Duke {
                             startDateMonth, startDateDay));
                     if (startDateArr.length > 1) {
                         Integer.parseInt(startDateArr[1]);
-                        LocalTime startTimeObj = LocalTime.parse(startDateArr[1]);
+                        LocalTime startTimeObj = LocalTime.parse(startDateArr[1].substring(0, 2) + ":" +
+                                startDateArr[1].substring(2));
                     }
                     String[] endDateArr = dates.split(" /to ")[1].split(" ");
                     String endDate = endDateArr[0];
@@ -265,7 +266,8 @@ public class Duke {
                             endDateMonth, endDateDay));
                     if (endDateArr.length > 1) {
                         Integer.parseInt(endDateArr[1]);
-                        LocalTime endDateTime = LocalTime.parse(endDateArr[1]);
+                        LocalTime endDateTime = LocalTime.parse(endDateArr[1].substring(0, 2) + ":" +
+                                endDateArr[1].substring(2));
                     }
                 } catch (NumberFormatException numberExcept) {
                     System.out.println("ChadGPT: Please ensure the time of your deadline is in numerical format.");
@@ -310,6 +312,7 @@ public class Duke {
             String taskType = delimited[0].toLowerCase();
             try {
                 DataTaskTypes.valueOf(taskType);
+                TaskAbstract newTask = createTaskStartup(nextLine);
                 return true;
             } catch (IndexOutOfBoundsException indexExcept) {
             } catch (IllegalArgumentException illegalArgExcept) {

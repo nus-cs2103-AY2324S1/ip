@@ -1,8 +1,10 @@
 package tasks;
 
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends TaskAbstract {
     protected LocalDate startDate;
@@ -26,34 +28,49 @@ public class Event extends TaskAbstract {
         this.endDate = LocalDate.parse(String.format("%s-%s-%s", endYear, endMonth, endDay));
 
         if (startDateArr.length > 1) {
-            this.startTime = Optional.<LocalTime>of(LocalTime.parse(startDateArr[1]));
+            this.startTime = Optional.<LocalTime>of(LocalTime.parse(startDateArr[1].substring(0, 2) + ":"
+                    + startDateArr[1].substring(2)));
         } else {
             this.startTime = Optional.<LocalTime>empty();
         }
 
         if (endDateArr.length > 1) {
-            this.endTime = Optional.<LocalTime>of(LocalTime.parse(endDateArr[1]));
+            this.endTime = Optional.<LocalTime>of(LocalTime.parse(endDateArr[1].substring(0, 2) + ":"
+                    + endDateArr[1].substring(2) + ":00"));
         } else {
             this.endTime = Optional.<LocalTime>empty();
         }
     }
 
-    private String getStartDateTime() {
-        return this.startDate.toString() + (this.startTime.isEmpty() ? "" : " " + this.startTime.get().toString());
+    private String getStartDateTimeForPrinting() {
+        return this.startDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + (this.startTime.map(localTime ->
+                " " + localTime.truncatedTo(ChronoUnit.MINUTES)).orElse(""));
     }
 
-    private String getEndDateTime() {
-        return this.endDate.toString() + (this.endTime.isEmpty() ? "" : " " + this.endTime.get().toString());
+    private String getEndDateTimeForPrinting() {
+        return this.endDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + (this.endTime.map(localTime ->
+                " " + localTime.truncatedTo(ChronoUnit.MINUTES)).orElse(""));
+    }
+
+    private String getStartDateTimeForSaving() {
+        return this.startDate + (this.startTime.map(localTime -> " " + localTime.truncatedTo(
+                ChronoUnit.MINUTES).toString().replace(":", "")).orElse(""));
+    }
+
+
+    private String getEndDateTimeForSaving() {
+        return this.endDate + (this.endTime.map(localTime -> " " + localTime.truncatedTo(
+                ChronoUnit.MINUTES).toString().replace(":", "")).orElse(""));
     }
 
     public String saveToTextFormat() {
         return String.format("E | %s | %s | %s - %s", this.isDone ? "1" : "0", this.description, this.
-                getStartDateTime(), this.getEndDateTime());
+                getStartDateTimeForSaving(), this.getEndDateTimeForSaving());
     }
 
     @Override
     public void printStatus() {
         System.out.printf("[E][%s] %s (from: %s to: %s)\n", this.isDone ? "X" : " ", this.description, this.
-                getStartDateTime(), this.getEndDateTime());
+                getStartDateTimeForPrinting(), this.getEndDateTimeForPrinting());
     }
 }
