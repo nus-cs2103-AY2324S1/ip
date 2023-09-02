@@ -7,8 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.util.Scanner;
 
 import duke.task.Deadlines;
 import duke.task.Task;
