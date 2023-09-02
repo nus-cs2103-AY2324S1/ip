@@ -1,15 +1,17 @@
 package duke.task;
 
-import duke.task.Task;
+import java.time.LocalDateTime;
+import duke.DateFormatter;
 
 public class Events extends Task {
-    protected String startDate;
+    protected LocalDateTime startDate;
 
-    protected String endDate;
+    private static final DateFormatter DF = new DateFormatter();
+    protected LocalDateTime endDate;
     public Events (String description, String startDate, String endDate) {
         super(description);
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startDate = DF.stringToDate(startDate);
+        this.endDate = DF.stringToDate(endDate);
     }
 
     @Override
@@ -19,8 +21,12 @@ public class Events extends Task {
 
     @Override
     public String printTask() {
+        if (this.startDate.toLocalDate().equals(this.endDate.toLocalDate())) {
+            return "[" + this.getTypeIcon() + "]" + this.getStatusIcon() + this.description + " (from: " + DF.dateTimeToDate(this.startDate) +
+                    " " + DF.dateTimeToTime(this.startDate) + " to: " + DF.dateTimeToTime(this.endDate) + ")";
+        }
         return "[" + this.getTypeIcon() + "]" + this.getStatusIcon() + this.description +
-                " (from: " + this.startDate + " to: " + this.endDate + ")";
+                " (from: " + DF.dateToString(this.startDate) + " to: " + DF.dateToString(this.endDate) + ")";
     }
 
 

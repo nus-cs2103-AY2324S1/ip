@@ -8,7 +8,9 @@ import duke.task.Events;
 import duke.task.Task;
 import duke.task.Todos;
 import duke.task.TaskList;
-import duke.Storage;
+
+import java.time.DateTimeException;
+import java.time.LocalDate;
 
 import java.util.Scanner;
 public class Duke {
@@ -37,6 +39,7 @@ public class Duke {
             input = jonBird.nextLine().trim();
             String[] inp = input.split("\\s+");
             int taskIndex = 0;
+            boolean isValid = false;
             if (!isValidCommand(inp[0])) {
                 currentCommand = Command.UNKNOWN;
             } else {
@@ -59,6 +62,9 @@ public class Duke {
                     endDate = "";
                     for (; i < inp.length; i++) {
                         if (inp[i].equals("/by")) break;
+                        if (i == 1) {
+                            isValid = true;
+                        }
                         if (title.equals("")) {
                             title = inp[i];
                         } else {
@@ -80,6 +86,9 @@ public class Duke {
                     endDate = "";
                     for (; start < inp.length; start++) {
                         if (inp[start].equals("/from")) break;
+                        if (start == 1) {
+                            isValid = true;
+                        }
                         if (title.equals("")) {
                             title = inp[start];
                         } else {
@@ -161,7 +170,7 @@ public class Duke {
                     }
                     break;
                 default:
-                    if (inp.length < 2) {
+                    if (inp.length < 2 || !isValid) {
                         excep = new InvalidSyntaxException("The description of a " + inp[0] + " cannot be empty.");
                         System.out.println("JonBird:\n\t" + excep.toString());
                         break;
@@ -169,6 +178,9 @@ public class Duke {
                     if (inp[0].equals("todo")) {
                         inputList.addTask(new Todos(title));
                         storage.writeData(inputList.convertToFileContent());
+                        System.out.println("JonBird:\n\tGot it. I've added this task:");
+                        System.out.println("\t\t" + inputList.getTask(inputList.size()-1).printTask());
+                        System.out.println("\tNow you have " + inputList.size() + " tasks in the list.");
                     }
                     if (inp[0].equals("deadline")) {
                         if (endDate.equals("")) {
@@ -176,8 +188,16 @@ public class Duke {
                             System.out.println("JonBird:\n\t" + excep.toString());
                             break;
                         }
-                        inputList.addTask(new Deadlines(title, endDate));
-                        storage.writeData(inputList.convertToFileContent());
+                        try {
+                            inputList.addTask(new Deadlines(title, endDate));
+                            storage.writeData(inputList.convertToFileContent());
+                            System.out.println("JonBird:\n\tGot it. I've added this task:");
+                            System.out.println("\t\t" + inputList.getTask(inputList.size()-1).printTask());
+                            System.out.println("\tNow you have " + inputList.size() + " tasks in the list.");
+                        } catch (DateTimeException e) {
+                            System.out.println("JonBird:\n\t" + "Please ensure that your date is in \"yyyy-MM-dd HH:mm\"" +
+                                    " format. Put 00:00 if time does not matter.");
+                        }
                     }
                     if (inp[0].equals("event")) {
                         if (startDate.equals("")) {
@@ -190,12 +210,17 @@ public class Duke {
                             System.out.println("JonBird:\n\t" + excep.toString());
                             break;
                         }
-                        inputList.addTask(new Events(title, startDate, endDate));
-                        storage.writeData(inputList.convertToFileContent());
+                        try {
+                            inputList.addTask(new Events(title, startDate, endDate));
+                            storage.writeData(inputList.convertToFileContent());
+                            System.out.println("JonBird:\n\tGot it. I've added this task:");
+                            System.out.println("\t\t" + inputList.getTask(inputList.size()-1).printTask());
+                            System.out.println("\tNow you have " + inputList.size() + " tasks in the list.");
+                        } catch (DateTimeException e) {
+                            System.out.println("JonBird:\n\t" + "Please ensure that your date is in \"yyyy-MM-dd HH:mm\"" +
+                                    " format. Put 00:00 if time does not matter.");
+                        }
                     }
-                    System.out.println("JonBird:\n\tGot it. I've added this task:");
-                    System.out.println("\t\t" + inputList.getTask(inputList.size()-1).printTask());
-                    System.out.println("\tNow you have " + inputList.size() + " tasks in the list.");
             }
         }
         jonBird.close();

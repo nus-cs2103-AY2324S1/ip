@@ -1,12 +1,11 @@
 package duke.task;
 
 import java.util.ArrayList;
-import duke.task.Task;
-import duke.task.Todos;
-import duke.task.Deadlines;
-import duke.task.Events;
+import duke.DateFormatter;
 public class TaskList {
     private ArrayList<Task> taskList;
+
+    private static final DateFormatter DF = new DateFormatter();
     public TaskList() {
         taskList = new ArrayList<Task>();
     }
@@ -29,7 +28,6 @@ public class TaskList {
 
     public void removeTask(int index) {
         this.getTaskList().remove(index);
-        return;
     }
 
     public String convertToFileContent() {
@@ -43,11 +41,12 @@ public class TaskList {
             } else if (currentTask instanceof Deadlines) {
                 String mark = currentTask.isDone ? "1" : "0";
                 line = currentTask.getTypeIcon() + " | " + mark + " | " + currentTask.description + " | " +
-                        ((Deadlines) currentTask).endDate;
+                        DF.saveDateToFile(((Deadlines) currentTask).endDate);
             } else if (currentTask instanceof Events) {
                 String mark = currentTask.isDone ? "1" : "0";
                 line = currentTask.getTypeIcon() + " | " + mark + " | " + currentTask.description + " | " +
-                        ((Events) currentTask).startDate + " | " + ((Events) currentTask).endDate;
+                        DF.saveDateToFile(((Events) currentTask).startDate) + " | " +
+                        DF.saveDateToFile(((Events) currentTask).endDate);
             }
             result += line + "\n";
         }
