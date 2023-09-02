@@ -7,15 +7,25 @@ public class Duke {
     private static TaskList taskList;
     private static Parser parser;
 
+    /**
+     * Constructs a Duke instance.
+     * Initializes the task list and parser.
+     */
     public Duke() {
-        final String DATA_DIRECTORY = "data";
+        final String dataDirectory = "data";
         String projectRoot = System.getProperty("user.dir");
-        String dataFilePath = projectRoot + "/" + DATA_DIRECTORY + "/tasks.ser";
+        String dataFilePath = projectRoot + "/" + dataDirectory + "/tasks.ser";
         taskList = new TaskList(dataFilePath);
 
         parser = new Parser(taskList);
     }
-    
+
+    /**
+     * Gets a response based on the user input.
+     *
+     * @param input The user input to process.
+     * @return A response message based on the input.
+     */
     public String getResponse(String input) {
         try {
             Executable executable = parser.parseCommand(input);

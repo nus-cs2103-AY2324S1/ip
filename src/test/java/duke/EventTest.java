@@ -1,15 +1,15 @@
 package duke;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Test cases for the {@link Event} class.
  */
 public class EventTest {
-    
     /**
      * Test the {@link Event#toString()} method.
      */
