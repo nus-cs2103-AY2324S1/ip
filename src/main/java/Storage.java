@@ -73,12 +73,15 @@ public class Storage {
                         e.markDone();
                     }
                     tasks.add(e);
+                    // System.out.println("event added");
+                } else {
+                    System.out.println("An error has occurred: Unknown task type");
                 }
             }
             sc.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println(e);
+        } catch (FileNotFoundException exception) {
+            exception.printStackTrace();
+            System.out.println(exception);
         } finally {
             return tasks;
         }

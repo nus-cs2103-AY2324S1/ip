@@ -2,5 +2,6 @@
 [T][ ] add another todo
 [T][X] add thistodo
 [D][ ] do this (by: 2023-09-08 04:06)
-[D][ ] another one (by: 2023-09-08 04:06)
-[E][ ] new new new (from: 2023-09-08 04:06 to: 2023-09-08 2023-09-08)
+[D][X] another one (by: 2023-09-08 04:06)
+[D][X] add new (by: 2023-09-08 04:06)
+[E][ ] new event (from: 2023-09-08 04:06 to: 2023-09-08 2023-09-08)
