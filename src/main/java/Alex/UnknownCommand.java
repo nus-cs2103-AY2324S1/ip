@@ -1,4 +1,4 @@
-// For handling unknown user command
+package Alex;
 public class UnknownCommand extends Command{
     private String command;
 
