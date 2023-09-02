@@ -25,9 +25,18 @@ correct status icon, by creating a new task array of tasks instead of a string a
 // Solution below inspired by https://stackoverflow.com/questions/32733084/pass-a-simple-enum-into-a-constructor-in-java
 // Solution below inspired from ChatGPT, seeked clarification if the enums have to be passed into the child classes of parent class Task's constructor
 
+/**
+ * The main class for the Duke application.
+ * Duke is a task management application that allows users to manage their tasks, including todos, deadlines, and events.
+ */
 public class Duke {
     private static String filePath = "./data/duke.txt";
 
+    /**
+     * The main entry point of the Duke application.
+     *
+     * @param args Command-line arguments (not used in this application).
+     */
     public static void main(String[] args) throws DukeException.NoSuchItemException, DukeException.ToDoException, IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         Ui ui = new Ui();

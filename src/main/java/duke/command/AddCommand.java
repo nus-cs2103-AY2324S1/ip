@@ -11,8 +11,14 @@ import duke.task.Deadline;
 import duke.task.Event;
 
 // Solution below adapted and inspired by https://chat.openai.com/share/7f037351-3be6-4105-b138-77f68d428c84
+/**
+ * Represents a command to add tasks to the task list.
+ * This command can handle adding different types of tasks such as Todo, Deadline, and Event.
+ */
 public class AddCommand extends Command {
-
+    /**
+     * Enumerates the types of tasks that can be added.
+     */
     public enum TaskType {
         TODO, DEADLINE, EVENT
     }
@@ -25,20 +31,38 @@ public class AddCommand extends Command {
 
     // Use Method Overloading for different Commands to be added
 
-    // To do constructor
+    /**
+     * Constructs an AddCommand for a Todo task.
+     *
+     * @param taskType       The type of the task to be added.
+     * @param taskDescription The description of the task.
+     */
     public AddCommand(TaskType taskType, String taskDescription) {
         this.taskType = taskType;
         this.taskDescription = taskDescription;
     }
 
-    // Deadline constructor
+    /**
+     * Constructs an AddCommand for a Deadline task.
+     *
+     * @param taskType       The type of the task to be added.
+     * @param taskDescription The description of the task.
+     * @param parsedDateTime  The parsed date and time for the deadline.
+     */
     public AddCommand(TaskType taskType, String taskDescription, LocalDateTime parsedDateTime) {
         this.taskType = taskType;
         this.taskDescription = taskDescription;
         this.parsedDateTime = parsedDateTime;
     }
 
-    // Event constructor
+    /**
+     * Constructs an AddCommand for an Event task.
+     *
+     * @param taskType       The type of the task to be added.
+     * @param taskDescription The description of the task.
+     * @param parsedFromDate The parsed start date and time for the event.
+     * @param parsedToDate   The parsed end date and time for the event.
+     */
     public AddCommand(TaskType taskType, String taskDescription, LocalDateTime parsedFromDate, LocalDateTime parsedToDate) {
         this.taskType = taskType;
         this.taskDescription = taskDescription;
@@ -46,6 +70,13 @@ public class AddCommand extends Command {
         this.parsedToDate = parsedToDate;
     }
 
+    /**
+     * Executes the AddCommand to add a task to the task list.
+     *
+     * @param taskList The TaskList containing the list of tasks.
+     * @param ui       The user interface for displaying messages.
+     * @param storage  The storage handler for saving tasks to a file.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {

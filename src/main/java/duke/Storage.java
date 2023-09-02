@@ -1,23 +1,39 @@
 package duke;
 
+import duke.task.*;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.BufferedReader;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.io.BufferedReader;
-import duke.task.*;
 
+import java.util.ArrayList;
+
+/**
+ * Handles saving and loading tasks to and from a file.
+ */
 public class Storage {
     static String filePath = "./data/duke.txt";
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The file path for storing tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
     // Solution below adapted and inspired by https://chat.openai.com/share/7f037351-3be6-4105-b138-77f68d428c84
+    /**
+     * Saves a list of tasks to the file specified by the file path.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public static void saveTasks(ArrayList<Task> tasks) {
 
         try (FileWriter writer = new FileWriter(filePath)) {
@@ -61,6 +77,12 @@ public class Storage {
     // Solution adapted and inspired by https://stackoverflow.com/questions/3090761/how-to-create-a-new-file-together-with-missing-parent-directories
     // Solution below adapted and inspired by https://www.guru99.com/buffered-reader-in-java.html
     // Solution below adapted and inspired by https://chat.openai.com/share/4f6c03e6-99d5-47c0-8887-1762a36b15fb
+    /**
+     * Loads tasks from the file specified by the file path.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws IOException If there is an issue reading from the file.
+     */
     static ArrayList<Task> loadTasks() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
 

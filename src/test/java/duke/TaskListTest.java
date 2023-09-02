@@ -1,10 +1,18 @@
 package duke;
 
-import org.junit.jupiter.api.Test;
 import static duke.Task.Type.TODO;
+
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test cases for the TaskList class.
+ */
 public class TaskListTest {
+
+    /**
+     * Tests adding a task to the TaskList.
+     */
     @Test
     public void testAddTask() {
         TaskList taskList = new TaskList();
@@ -14,6 +22,9 @@ public class TaskListTest {
         assertEquals(task, taskList.getTask(0));
     }
 
+    /**
+     * Tests marking a task as done.
+     */
     @Test
     public void testMarkAsDone() {
         Task task = new Task("Sample Task", Task.Type.TODO);
