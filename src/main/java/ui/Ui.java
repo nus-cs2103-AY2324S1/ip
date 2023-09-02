@@ -10,6 +10,7 @@ public class Ui {
     private static final String INTRO = "Hello there! I'm Ekud. :)\n" +
             "What can I do for you? :O";
     private static final String OUTRO = "Goodbye, have a nice day! :p";
+
     /**
      * Prints a message formatted in between 2 horizontal lines for the user.
      * @param message Text to be printed.
@@ -20,12 +21,24 @@ public class Ui {
                 message,
                 HORIZONTAL_LINE));
     }
+
+    /**
+     * Prints the horizontal line divider.
+     */
     public static void printDivider() {
         System.out.println(HORIZONTAL_LINE);
     }
+
+    /**
+     * Prints the chatbot's intro message.
+     */
     public static void intro() {
         printMsg(INTRO);
     }
+
+    /**
+     * Prints the chatbot's outro message.
+     */
     public static void outro() {
         printMsg(OUTRO);
     }
