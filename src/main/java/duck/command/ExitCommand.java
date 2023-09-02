@@ -5,7 +5,12 @@ import duck.Storage;
 import duck.Ui;
 import duck.task.TaskList;
 
+/**
+ * Represents an executable command which exits the program.
+ */
 public class ExitCommand extends Command {
+
+    @Override
     public void execute(TaskList tasks, Ui ui,Storage storage) throws DuckException{
         ui.showExitMessage();
     }

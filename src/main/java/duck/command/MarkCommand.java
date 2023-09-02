@@ -5,9 +5,17 @@ import duck.Storage;
 import duck.Ui;
 import duck.task.TaskList;
 
+/**
+ * Represents an executable command which marks a task as done.
+ */
 public class MarkCommand extends Command {
     int index;
 
+    /**
+     * Creates a new mark command.
+     * 
+     * @param index Index of task to be marked.
+     */
     public MarkCommand(int index) {
         this.index = index - 1;
     }

@@ -6,12 +6,19 @@ import duck.command.Command;
 import duck.task.Task;
 import duck.task.TaskList;
 
+/**
+ *  Represents the Duck chatbot.
+ */
 public class Duck {
-
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Initialises the Duck chatbot and attempts to load tasks from storage.
+     * 
+     * @param filePath The path to the file where the tasks are stored.
+     */
     public Duck(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -24,6 +31,9 @@ public class Duck {
         }
     }
 
+    /**
+     * Runs the Duck chatbot.
+     */
     public void run() {
         ui.showWelcomeMessage();
         boolean isExit = false; 
