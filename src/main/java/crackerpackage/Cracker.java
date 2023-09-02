@@ -22,7 +22,8 @@ public class Cracker {
         DELETE,
         UNKNOWN,
         LIST,
-        QUIT
+        QUIT,
+        FIND
     }
 
     public void startService(){
@@ -59,8 +60,9 @@ public class Cracker {
                         reply.modifyTaskReply(list.getTask(Parser.parseIndex(input)));
                         break;
                     case DELETE:
-                        list.deleteTask(Parser.parseIndex(input));
                         reply.deleteTaskReply(list.getTask(Parser.parseIndex(input)), list.size());
+                        list.deleteTask(Parser.parseIndex(input));
+                        break;
                     case TASK:
                         Task newTask = Parser.parseTask(input);
                         list.store(newTask);
@@ -75,6 +77,9 @@ public class Cracker {
                         break;
                     case LIST:
                         reply.iterate(list);
+                        break;
+                    case FIND:
+                        reply.findTaskReply(list.filter(Parser.parseKeyword(input)));
                         break;
                     case QUIT:
                         sc.close();

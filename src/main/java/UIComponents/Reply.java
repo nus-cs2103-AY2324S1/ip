@@ -66,4 +66,12 @@ public class Reply {
 
         echo();
     }
+
+    public void findTaskReply(TodoList list) {
+        this.add("Here are the matching tasks in your list:");
+        for(int i = 0 ; i< list.size(); i++){
+            this.add((i+1) + ". " + list.getTaskString(i));
+        }
+        echo();
+    }
 }
