@@ -2,18 +2,17 @@ package duke;
 
 import instructionstuff.Instruction;
 import instructionstuff.InstructionEnum;
-
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.LocalDateTime;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import taskstuff.Event;
 import taskstuff.Task;
 import taskstuff.Todo;
 import taskstuff.Deadline;
 
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-import java.time.LocalDateTime;
 
 
 /**
@@ -192,8 +191,8 @@ public class Parser {
             }
             break;
         case DEADLINE:
-            if (matcher.group(10) == null || matcher.group(10).isBlank() ||
-                    matcher.group(9) == null || matcher.group(9).isBlank()) {
+            if (matcher.group(10) == null || matcher.group(10).isBlank()
+                    || matcher.group(9) == null || matcher.group(9).isBlank()) {
                 throw new DukeException("");
             } else {
                 LocalDateTime dateTime;
@@ -206,8 +205,8 @@ public class Parser {
             }
             break;
         case EVENT:
-            if (matcher.group(5) == null || matcher.group(5).isBlank() || matcher.group(6) == null ||
-                    matcher.group(7) == null || matcher.group(6).isBlank() || matcher.group(7).isBlank()) {
+            if (matcher.group(5) == null || matcher.group(5).isBlank() || matcher.group(6) == null
+                    || matcher.group(7) == null || matcher.group(6).isBlank() || matcher.group(7).isBlank()) {
                 throw new DukeException("");
             } else {
                 LocalDateTime startDateTime;

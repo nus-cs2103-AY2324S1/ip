@@ -1,8 +1,8 @@
 package taskstuff;
 
+import duke.Parser;
 import java.time.LocalDateTime;
 
-import duke.Parser;
 
 /**
  * A class which inherits from Task class.

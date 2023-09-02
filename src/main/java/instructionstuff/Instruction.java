@@ -1,12 +1,9 @@
 package instructionstuff;
 
 import duke.DukeException;
-
+import storagestuff.Storage;
 import taskstuff.Task;
 import taskstuff.TaskList;
-
-import storagestuff.Storage;
-
 import userstuff.Ui;
 
 import java.util.ArrayList;
