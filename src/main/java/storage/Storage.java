@@ -1,4 +1,11 @@
-package extensions;
+package storage;
+
+import exceptions.*;
+import parser.Parser;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.TaskList;
+import tasks.ToDo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -14,14 +21,20 @@ import java.util.Scanner;
 public class Storage {
     private final String path;
     private final File savedTasks;
+
+    /**
+     * Constructor for Storage, which initialises the directory and file to save tasks in.
+     * @param path Filepath for the saved tasks file.
+     * @throws EkudIOException Exception involving the creation of the saved tasks file.
+     */
     public Storage(String path) throws EkudIOException {
         this.path = path;
         File file = new File(path);
         try {
-            if (!file.getParentFile().exists()) {
+            if (!file.getParentFile().exists()) { // Create directory if it doesn't exist
                 file.getParentFile().mkdirs();
             }
-            if (!file.exists()) {
+            if (!file.exists()) { // Create file if it doesn't exist
                 System.out.println("Creating task file...");
                 file.createNewFile();
                 System.out.println("Task file created successfully");
@@ -31,11 +44,14 @@ public class Storage {
             throw new EkudIOException("Error with creating task file: " + e);
         }
     }
+
     /**
      * Loads saved tasks from the file into the chatbot's TaskList.
+     * @param taskList The chatbot's TaskList to load tasks into.
+     * @throws EkudIOException Exception involving improper loading of saved tasks into TaskList.
      */
     public void loadData(TaskList taskList) throws EkudIOException {
-        Parser parser = new Parser();
+        Parser parser = new Parser(); // For parsing dateTime
         System.out.println("Loading up saved tasks...");
         try {
             Scanner scanner = new Scanner(this.savedTasks);
@@ -73,6 +89,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates the saved task file with the latest tasks when the program ends.
+     * @param taskList The chatbot's TaskList to save tasks from.
+     * @throws EkudIOException Exception involving improper saving of tasks.
+     */
     public void saveData(TaskList taskList) throws EkudIOException {
         try {
             FileWriter fw = new FileWriter(this.path);
@@ -82,7 +103,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new EkudIOException("Error with saving tasks");
+            throw new EkudIOException("Error with saving tasks: " + e);
         }
     }
 

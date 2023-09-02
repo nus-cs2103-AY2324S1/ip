@@ -3,10 +3,10 @@ Hello there! I'm Ekud. :)
 What can I do for you? :O
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
-extensions.EkudInvalidCommandException: Command not found :(
+exceptions.EkudInvalidCommandException: Command not found :(
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
-extensions.EkudIllegalArgException: Todo task shouldn't be empty :(
+exceptions.EkudIllegalArgException: Todo task shouldn't be empty :(
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 Got it! I've added this task:
@@ -24,7 +24,7 @@ Got it! I've added this task:
 Now you have 3 task(s) in the list.
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
-extensions.EkudIllegalArgException: Deadline formatted wrongly, ensure 'deadline <description> /by <day>' is followed
+exceptions.EkudIllegalArgException: Deadline formatted wrongly, ensure 'deadline <description> /by <day>' is followed
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 Got it! I've added this task:
@@ -32,10 +32,10 @@ Got it! I've added this task:
 Now you have 4 task(s) in the list.
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
-extensions.EkudIllegalArgException: Event formatted wrongly, ensure 'event <description> /from <start> /to <end>' is followed
+exceptions.EkudIllegalArgException: Event formatted wrongly, ensure 'event <description> /from <start> /to <end>' is followed
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
-extensions.EkudIllegalArgException: Event formatted wrongly, ensure 'event <description> /from <start> /to <end>' is followed
+exceptions.EkudIllegalArgException: Event formatted wrongly, ensure 'event <description> /from <start> /to <end>' is followed
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 Got it! I've added this task:
@@ -59,10 +59,10 @@ The following task is marked done, sheeesh:
 [E][X] dinner (from: Fri 6pm, to: 8pm)
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
-extensions.EkudIllegalArgException: Task index number is out of bounds :/
+exceptions.EkudIllegalArgException: Task index number is out of bounds :/
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
-extensions.EkudIllegalArgException: Task index number is out of bounds :/
+exceptions.EkudIllegalArgException: Task index number is out of bounds :/
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 Here is your to-do list:
@@ -77,7 +77,7 @@ The following task is marked as not done yet:
 [T][ ] get groceries
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
-extensions.EkudIllegalArgException: Task index number is out of bounds :/
+exceptions.EkudIllegalArgException: Task index number is out of bounds :/
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 Here is your to-do list:
@@ -88,7 +88,7 @@ Here is your to-do list:
 5. [E][X] dinner (from: Fri 6pm, to: 8pm)
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
-extensions.EkudIllegalArgException: Task index number is out of bounds :/
+exceptions.EkudIllegalArgException: Task index number is out of bounds :/
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 Alright, this task has been removed:
@@ -96,7 +96,7 @@ Alright, this task has been removed:
 Now you have 4 task(s) in the list.
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
-extensions.EkudIllegalArgException: Task index number is out of bounds :/
+exceptions.EkudIllegalArgException: Task index number is out of bounds :/
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 Alright, this task has been removed:
@@ -110,10 +110,10 @@ Here is your to-do list:
 3. [E][X] dinner (from: Fri 6pm, to: 8pm)
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
-extensions.EkudInvalidCommandException: Command not found :(
+exceptions.EkudInvalidCommandException: Command not found :(
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
-extensions.EkudIllegalArgException: Please input a valid index number :o
+exceptions.EkudIllegalArgException: Please input a valid index number :o
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 Goodbye, have a nice day! :p

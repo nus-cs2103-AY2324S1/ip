@@ -1,4 +1,4 @@
-package extensions;
+package ui;
 
 /**
  * The Ui class deals with user interactions by converting the output of the chatbot

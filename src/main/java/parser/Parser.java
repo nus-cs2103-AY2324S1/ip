@@ -1,4 +1,7 @@
-package extensions;
+package parser;
+
+import exceptions.*;
+import tasks.TaskList;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -7,7 +10,7 @@ import java.time.format.DateTimeParseException;
 /**
  * The Parser class serves as an interface between the user and the chatbot by
  * converting user inputs into commands and arguments that the chatbot understands,
- * before finally calling the chatbot to execute these commands.
+ * before finally calling the chatbot's TaskList to execute these commands.
  */
 public class Parser {
     /**
@@ -21,13 +24,13 @@ public class Parser {
     }
 
     /**
-     * Core function for parsing user arguments based on the command before the function is even called.
+     * Core function for parsing user arguments based on the command before the command is even executed.
      * @param userCommand Input command by the user.
      * @param userArgs Args for the command supplied by the user.
      * @throws EkudException Either invalid commands or illegal arguments for the commands.
      */
     public void parseAndExecute(String userCommand, String userArgs, TaskList taskList) throws EkudException {
-        Command command = Command.getCommand(userCommand);
+        Command command = Command.getCommand(userCommand); // Command enum
         if (command == null) {
             throw new EkudInvalidCommandException("Command not found :(");
         }
@@ -95,11 +98,10 @@ public class Parser {
         }
     }
 
-
     /**
      * Parses the user's input date and time into a LocalDateTime object.
-     * @param inputDateTime
-     * @return
+     * @param inputDateTime User's input dateTime in the format dd-MM-yyyy HHmm.
+     * @return LocalDateTime
      */
     public LocalDateTime parseDateTime(String inputDateTime) {
         String[] splitDateTime = inputDateTime.split(" ");
@@ -109,10 +111,11 @@ public class Parser {
                 date + " " + time, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
 
     }
+
     /**
      * Parses a date and time from the saved tasks file into a LocalDateTime object.
-     * @param savedDateTime
-     * @return
+     * @param savedDateTime Saved dateTime in the format dd MMM yyyy h:mm a.
+     * @return LocalDateTime
      */
     public LocalDateTime parseSavedDateTime(String savedDateTime) {
         return LocalDateTime.parse(savedDateTime, DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a"));
