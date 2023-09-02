@@ -38,7 +38,7 @@ public class TaskList {
             Ui.print(currentItem);
             Ui.printLine();
         } catch (IndexOutOfBoundsException err){
-            throw new exceptions.DukeException("This tasks.Task index does not exist!", err);
+            throw new exceptions.DukeException("This Task index does not exist!", err);
         }
 
     }
@@ -95,7 +95,7 @@ public class TaskList {
             Ui.print("Now you have " + tasks.size() + " tasks in the list.");
             Ui.printLine();
         } catch (IndexOutOfBoundsException err){
-            throw new DukeException("This tasks.Task index does not exist!", err);
+            throw new DukeException("This Task index does not exist!", err);
         }
     }
 

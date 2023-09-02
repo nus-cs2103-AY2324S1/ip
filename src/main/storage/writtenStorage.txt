@@ -1,4 +1,0 @@
-[T][X] borrow book
-[E][ ] makan  DATETIME Oct 20 2019 6PM DATETIME_SPLIT Nov 21 2019 3PM
-[T][X] eat break
-[D][ ] makan  DATETIME Oct 10 2019 6PM
