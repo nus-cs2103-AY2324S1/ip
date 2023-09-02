@@ -71,6 +71,19 @@ public class Duke {
     }
   }
 
+  public void addDeadline() {
+
+    try {
+      Task curentTask = parser.parseDeadline();
+      taskList.add(curentTask);
+      System.out.println("added:\t" + ui.displayTask(curentTask));
+    } catch (ParserException ex) {
+      System.out.println(ex.getMessage());
+    }
+
+
+  }
+
   public void run() {
 
     ui.displayGreetings();
@@ -109,15 +122,7 @@ public class Duke {
           break;
         }
         case "deadline": {
-
-          try {
-            Task curentTask = parser.parseDeadline();
-            taskList.add(curentTask);
-            System.out.println("added:\t" + ui.displayTask(curentTask));
-          } catch (ParserException ex) {
-            System.out.println(ex.getMessage());
-          }
-
+          addDeadline();
           break;
         }
         case "event": {
