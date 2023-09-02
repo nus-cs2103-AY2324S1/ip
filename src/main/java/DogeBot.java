@@ -53,7 +53,7 @@ public class DogeBot {
                     break;
                 case "E ":
                     String[] temp = sArray[3].split("-");
-                    tasks.add(new Event(sArray[2], temp[0], temp[1]));
+                    tasks.add(new Event(sArray[2].trim(), temp[0].trim(), temp[1].trim()));
                     break;
                 default:
                     break;
@@ -181,7 +181,7 @@ public class DogeBot {
             throw new DogeBotException("Oops ! The description of a deadline cannot be empty :(");
         }
 
-        int split = words.indexOf("/");
+        int split = words.indexOf("/by");
         // substring w/o the spaces
         String taskDescription = words.substring(0, split - 1);
         String taskDeadline = words.substring(split + 4, words.length());
@@ -199,14 +199,14 @@ public class DogeBot {
         }
 
         // substring w/o the spaces
-        int startSplit = words.indexOf("/");
+        int startSplit = words.indexOf("/from");
         String taskDescription = words.substring(0, startSplit - 1);
-        int endSplit = words.indexOf("/", startSplit + 1); // find "/" after startSplit index
+        int endSplit = words.indexOf("/to", startSplit + 1); // find "/" after startSplit index
         String start = words.substring(startSplit + 6, endSplit - 1);
         String end = words.substring(endSplit + 4, words.length());
 
         System.out.println("Mama mia ! I've just added this task:");
-        Task temp = new Event(taskDescription + " ", " " + start, end);
+        Task temp = new Event(taskDescription, start, end);
         tasks.add(temp);
         System.out.println("\t" + temp.toString());
         updateTasksCounter();
