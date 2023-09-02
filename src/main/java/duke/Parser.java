@@ -82,6 +82,12 @@ public class Parser {
             } catch (IndexOutOfBoundsException error) {
                 throw new IllegalArgumentException("OOPS!!! I could not find any task in that position.");
             }
+        case "find":
+            if (specifications.isEmpty()) {
+                throw new IllegalArgumentException("Please indicate word to find");
+            }
+            this.list.find(specifications);
+            break;
         default:
             throw new IllegalArgumentException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
