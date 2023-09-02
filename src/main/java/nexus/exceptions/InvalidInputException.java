@@ -1,4 +1,4 @@
-package exceptions;
+package nexus.exceptions;
 
 public class InvalidInputException extends Exception {
     public InvalidInputException(String msg) {

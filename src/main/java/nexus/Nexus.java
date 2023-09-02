@@ -1,5 +1,10 @@
-import exceptions.InvalidInputException;
-import task.TaskList;
+package nexus;
+
+import nexus.components.Parser;
+import nexus.components.Storage;
+import nexus.components.Ui;
+import nexus.exceptions.InvalidInputException;
+import nexus.task.TaskList;
 
 import java.io.File;
 import java.util.Scanner;

@@ -1,5 +1,7 @@
-import task.Task;
-import task.TaskList;
+package nexus.components;
+
+import nexus.task.Task;
+import nexus.task.TaskList;
 
 public class Ui {
     private void printTask(Task task) {
@@ -15,23 +17,23 @@ public class Ui {
     }
 
     public void printMark(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("Nice! I've marked this Nexus.task as done:");
         this.printTask(task);
     }
 
     public void printUnmark(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("OK, I've marked this Nexus.task as not done yet:");
         this.printTask(task);
     }
 
     public void printDelete(Task task, TaskList list) {
-        System.out.println("Noted. I've removed this task:");
+        System.out.println("Noted. I've removed this Nexus.task:");
         this.printTask(task);
         System.out.println("Now you have " + list.size() + " tasks in the list.");
     }
 
     public void printAdd(Task task, TaskList list) {
-        System.out.println("Got it. I've added this task:");
+        System.out.println("Got it. I've added this Nexus.task:");
         this.printTask(task);
         System.out.println("Now you have " + list.size() + " tasks in the list.");
     }

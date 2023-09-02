@@ -1,5 +1,7 @@
-import exceptions.InvalidInputException;
-import task.*;
+package nexus.components;
+
+import nexus.exceptions.InvalidInputException;
+import nexus.task.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

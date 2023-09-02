@@ -1,4 +1,4 @@
-package task;
+package nexus.task;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package task;
+package nexus.task;
 
 /**
  * Parent class Task.Task for the different tasks to be stored.
@@ -13,7 +13,7 @@ public abstract class Task {
     }
     
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark done Nexus.task with X
     }
 
     public void setDone() {

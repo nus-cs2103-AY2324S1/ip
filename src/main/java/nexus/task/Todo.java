@@ -1,4 +1,4 @@
-package task;
+package nexus.task;
 
 public class Todo extends Task {
 

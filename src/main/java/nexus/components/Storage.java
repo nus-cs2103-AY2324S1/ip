@@ -1,7 +1,9 @@
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
+package nexus.components;
+
+import nexus.task.Deadline;
+import nexus.task.Event;
+import nexus.task.Task;
+import nexus.task.Todo;
 
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
