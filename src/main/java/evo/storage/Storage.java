@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import evo.tasks.*;
 import evo.exceptions.*;
 
@@ -15,6 +16,7 @@ import evo.exceptions.*;
  * It provides methods for saving tasks to a file and loading tasks from a file.
  */
 public class Storage {
+
     /**
      * The file path where tasks data is stored.
      */
@@ -108,6 +110,7 @@ public class Storage {
                     break;
                 default:
                     throw new UnexpectedTaskTypeException();
+                    // Fallthrough
                 }
             }
         } catch (NoFolderFoundException noFolderFoundException) {

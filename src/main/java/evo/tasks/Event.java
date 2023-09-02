@@ -3,6 +3,7 @@ package evo.tasks;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+
 import evo.exceptions.InvalidDateAndTimeInputException;
 
 /**
@@ -56,12 +57,12 @@ public class Event extends Task {
                 formatDateAndTime = dateInput[0] + " " + formatDate + " " + formatStartTime + " " + dateInput[3]
                         + " " + formatEndTime;
             } else {
-                throw new InvalidDateAndTimeInputException("Please type in a valid date/time input. Eg: event project " +
-                        "meeting /from 2019-12-15 1800 /to 2000\n");
+                throw new InvalidDateAndTimeInputException("Please type in a valid date/time input. Eg: event project "
+                        + "meeting /from 2019-12-15 1800 /to 2000\n");
             }
         } catch (InvalidDateAndTimeInputException invalidDateAndTimeInputException) {
-            System.out.println("Please type in a valid date/time input. Eg: event project meeting /from " +
-                    "2019-12-15 1800 /to 2000\n");
+            System.out.println("Please type in a valid date/time input. Eg: event project meeting /from "
+                    + "2019-12-15 1800 /to 2000\n");
         }
     }
 
@@ -76,15 +77,17 @@ public class Event extends Task {
     @Override
     public String outputMsg() throws InvalidDateAndTimeInputException {
         if (!this.duration.contains("from") || !this.duration.contains("to")) {
-            throw new InvalidDateAndTimeInputException("Please type in a valid date/time input. Eg: event project " +
-                    "meeting /from 2019-12-15 1800 /to 2000\n");
+            throw new InvalidDateAndTimeInputException("Please type in a valid date/time input. Eg: event project "
+                    + "meeting /from 2019-12-15 1800 /to 2000\n");
         }
         if (!this.duration.contains("-")) {
-            // read from text file
-            return "E | " + (isDone ? 1 : 0) + " | " + description + " | " + this.duration;
+            // Read from text file
+            int result = (isDone) ? 1 : 0;
+            return "E | " + result + " | " + description + " | " + this.duration;
         } else {
+            int result = (isDone) ? 1 : 0;
             setFormatDateAndTime();
-            return "E | " + (isDone ? 1 : 0) + " | " + description + " | " + formatDateAndTime;
+            return "E | " + result + " | " + description + " | " + formatDateAndTime;
         }
     }
 
@@ -97,7 +100,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         if (!this.duration.contains("-")) {
-            // reads from txt file
+            // Read from txt file
             return "[E]" + super.toString() + " (" + this.duration + ")";
         } else {
             setFormatDateAndTime();

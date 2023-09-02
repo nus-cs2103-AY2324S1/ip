@@ -7,8 +7,11 @@ import evo.exceptions.InvalidDateAndTimeInputException;
  * Task can be marked as done or not done.
  */
 public class Task {
-    protected String description; // description of the task
-    protected boolean isDone; // isDone keep track the status of task whether it is done or not
+
+    // Description of the task
+    protected String description;
+    // isDone keep track the status of task whether it is done or not
+    protected boolean isDone;
 
     /**
      * Constructs a new task with the given description. The task is initialised as not done.
@@ -26,7 +29,7 @@ public class Task {
      * @return An "X" if the task is done, otherwise a space.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return (isDone) ? "X" : " ";
     }
 
     /**
@@ -49,7 +52,8 @@ public class Task {
      * @return The output string representation of the Task object.
      */
     public String outputMsg() throws InvalidDateAndTimeInputException {
-        return "Task | " + (this.isDone ? 1 : 0) + " | " + this.description;
+        int result = (isDone) ? 1 : 0;
+        return "Task | " + result + " | " + this.description;
     }
 
     /**

@@ -16,6 +16,7 @@ public class Deadline extends Task {
      * The deadline for the task.
      */
     protected String by;
+
     /**
      * The formatted deadline for the task.
      */
@@ -45,8 +46,8 @@ public class Deadline extends Task {
         String[] dateInput = this.by.split(" ");
         try {
             if (dateInput[0].contains("/")) {
-                throw new InvalidDateAndTimeInputException("Please type in a valid date/time input. Eg: deadline return" +
-                        " book /by 2019-10-15 1800\n");
+                throw new InvalidDateAndTimeInputException("Please type in a valid date/time input. Eg: deadline return"
+                        + " book /by 2019-10-15 1800\n");
             }
             if (dateInput.length == 1) {
                 if (dateInput[0].contains("-")) {
@@ -77,15 +78,17 @@ public class Deadline extends Task {
     @Override
     public String outputMsg() throws InvalidDateAndTimeInputException {
         if (this.by.contains("/")) {
-            throw new InvalidDateAndTimeInputException("Please type in a valid date/time input. Eg: deadline return " +
-                    "book /by 2019-10-15 1800\n");
+            throw new InvalidDateAndTimeInputException("Please type in a valid date/time input. Eg: deadline return "
+                    + "book /by 2019-10-15 1800\n");
         }
         if (this.by.contains("-")) {
+            int result = (isDone) ? 1 : 0;
             setFormatDateAndTime();
-            return "D | " + (isDone ? 1 : 0) + " | " + description + " | " + formatDateAndTime;
+            return "D | " + result + " | " + description + " | " + formatDateAndTime;
         } else {
-            // reads form the text file while retrieve the data from it
-            return "D | " + (isDone ? 1 : 0) + " | " + description + " | " + this.by;
+            int result = (isDone) ? 1 : 0;
+            // Read form the text file while retrieve the data from it
+            return "D | " + result + " | " + description + " | " + this.by;
         }
     }
 

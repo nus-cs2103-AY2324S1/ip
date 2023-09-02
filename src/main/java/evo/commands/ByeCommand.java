@@ -13,7 +13,6 @@ public class ByeCommand extends Command {
     /**
      * Constructs a ByeCommand to handle the user's request to exit the application.
      */
-
     public ByeCommand() {
     }
 

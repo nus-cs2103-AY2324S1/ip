@@ -13,7 +13,7 @@ public class DeleteCommand extends Command {
     /**
      * The task number (in string format) to be deleted.
      */
-    String taskNumberToDelete;
+    protected String taskNumberToDelete;
 
     /**
      * Constructs a DeleteCommand with the specified task number to delete.

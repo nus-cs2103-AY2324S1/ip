@@ -22,7 +22,8 @@ public class ToDo extends Task {
      */
     @Override
     public String outputMsg() {
-        return "T | " + (isDone ? 1 : 0) + " | " + description;
+        int result = (isDone) ? 1 : 0;
+        return "T | " + result + " | " + description;
     }
 
     /**

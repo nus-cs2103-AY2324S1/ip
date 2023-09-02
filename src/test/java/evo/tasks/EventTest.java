@@ -1,9 +1,11 @@
 package evo.tasks;
 
-import evo.exceptions.InvalidDateAndTimeInputException;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import evo.exceptions.InvalidDateAndTimeInputException;
 
 /**
  * This class contains JUnit test cases to verify the functionality of the Event class.
