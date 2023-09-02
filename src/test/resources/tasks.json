@@ -1,1 +1,1 @@
-{"tas":[{"@type":"Todo","description":"play","isDone":false},{"@type":"Deadline","deadline":[2023,8,20],"description":"submit work","isDone":false}]}
+{"tasks":[{"@type":"Todo","description":"play","isDone":false},{"@type":"Deadline","deadline":[2023,8,20],"description":"submit work","isDone":false}]}
