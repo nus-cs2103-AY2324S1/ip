@@ -5,6 +5,8 @@ import emiya.emiyaexception.ListEmptyException;
 
 import java.util.ArrayList;
 
+import emiya.emiyaexception.ListEmptyException;
+
 public class TaskList {
 
     private ArrayList<Task> taskArrayList;
@@ -33,7 +35,7 @@ public class TaskList {
         this.taskArrayList.add(task);
     }
 
-    public void list() throws ListEmptyException{
+    public void list() throws ListEmptyException {
         int listPointer = 1;
         StringBuilder listString = new StringBuilder("-----------------------------------------\n" +
                 "Lots of things to do! Get to it!:\n");
@@ -58,7 +60,7 @@ public class TaskList {
             throw new ListEmptyException();
         }
         for (Task task : taskArrayList) {
-            String taskDescription = task.nameOfTask;
+            String taskDescription = task.taskDescription;
             if (taskDescription.contains(word)) {
                 String listItem = listPointer + "." + task + "\n";
                 listPointer++;

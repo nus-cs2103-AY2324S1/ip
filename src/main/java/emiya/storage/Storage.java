@@ -1,16 +1,20 @@
 package emiya.storage;
 
-import emiya.emiyaexception.CreateDirectoryFailException;
-import emiya.emiyaexception.InvalidDateException;
-import emiya.emiyaexception.WrongDateFormatException;
-import emiya.task.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+
+import emiya.emiyaexception.CreateDirectoryFailException;
+import emiya.emiyaexception.InvalidDateException;
+import emiya.emiyaexception.WrongDateFormatException;
+import emiya.task.Deadline;
+import emiya.task.Event;
+import emiya.task.Task;
+import emiya.task.TaskList;
+import emiya.task.ToDo;
 
 /**
  * A class that contains methods that handle reading from a file and writing to a file.
@@ -83,6 +87,7 @@ public class Storage {
         }
     }
 
+
     /**
      * A method that writes the contents of a TaskList object into a specified file within a specified
      * directory.
@@ -101,9 +106,9 @@ public class Storage {
         for (Task task : taskList.getTaskArrayList()) {
             str.append(task.typeOfString());
             str.append("| ");
-            str.append(task.statusString());
+            str.append(task.printStatusString());
             str.append("| ");
-            str.append(task.taskDetailsString());
+            str.append(task.printTaskDetailsString());
             str.append("\n");
         }
 
@@ -113,6 +118,7 @@ public class Storage {
             throw new RuntimeException(e);
         }
     }
+
 
     /**
      * A method that is able to populate a given TaskList instance with the contents of a file,
@@ -125,7 +131,8 @@ public class Storage {
      * @throws InvalidDateException When the date received from the fileContent
      * is invalid.
      */
-    public void fillListWithFileContent(TaskList taskList, String fileContent) throws WrongDateFormatException, InvalidDateException {
+    public void fillListWithFileContent(TaskList taskList, String fileContent)
+            throws WrongDateFormatException, InvalidDateException {
         String[] tasksStrArr = fileContent.split("\n");
 
         for (String tasksStr : tasksStrArr) {

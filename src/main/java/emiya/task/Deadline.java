@@ -1,6 +1,7 @@
 package emiya.task;
 
 import java.time.LocalDateTime;
+
 import emiya.datehandler.DateHandler;
 import emiya.emiyaexception.InvalidDateException;
 import emiya.emiyaexception.WrongDateFormatException;
@@ -10,7 +11,8 @@ public class Deadline extends Task {
     private final String dateOfDeadline;
     private LocalDateTime localDateTime = null;
 
-    public Deadline(boolean isCompleted, String nameOfTask, String dateOfDeadline) throws WrongDateFormatException, InvalidDateException {
+    public Deadline(boolean isCompleted, String nameOfTask, String dateOfDeadline)
+            throws WrongDateFormatException, InvalidDateException {
         super(isCompleted, nameOfTask);
         this.localDateTime = DateHandler.determineDateTime(dateOfDeadline);
         this.dateOfDeadline = dateOfDeadline;
@@ -19,9 +21,9 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         if (isCompleted) {
-            return "[D][X] " + nameOfTask + " (by: " + DateHandler.correctDateTimeFormat(localDateTime) + ")";
+            return "[D][X] " + taskDescription + " (by: " + DateHandler.correctDateTimeFormat(localDateTime) + ")";
         } else {
-            return "[D][ ] " + nameOfTask + " (by: " + DateHandler.correctDateTimeFormat(localDateTime) + ")";
+            return "[D][ ] " + taskDescription + " (by: " + DateHandler.correctDateTimeFormat(localDateTime) + ")";
         }
     }
 
@@ -31,7 +33,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String taskDetailsString() {
-        return super.nameOfTask + " |" + " " + dateOfDeadline;
+    public String printTaskDetailsString() {
+        return super.taskDescription + " |" + " " + dateOfDeadline;
     }
 }

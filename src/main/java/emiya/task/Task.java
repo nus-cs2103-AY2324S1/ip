@@ -1,25 +1,25 @@
 package emiya.task;
 
-abstract public class Task {
+public abstract class Task {
     protected boolean isCompleted;
-    protected String nameOfTask;
+    protected String taskDescription;
 
-    public Task(boolean isCompleted, String nameOfTask) {
+    public Task(boolean isCompleted, String taskDescription) {
         this.isCompleted = isCompleted;
-        this.nameOfTask = nameOfTask;
+        this.taskDescription = taskDescription;
     }
 
     @Override
     public String toString() {
         if (isCompleted) {
-            return "[X] " + nameOfTask;
+            return "[X] " + taskDescription;
         } else {
-            return "[ ] " + nameOfTask;
+            return "[ ] " + taskDescription;
         }
     }
 
-    abstract public String typeOfString();
-    public String statusString() {
+    public abstract String typeOfString();
+    public String printStatusString() {
         if (isCompleted) {
             return "1 ";
         } else {
@@ -27,7 +27,7 @@ abstract public class Task {
         }
     }
 
-    abstract public String taskDetailsString();
+    public abstract String printTaskDetailsString();
 
     public void setUnmarked() {
         this.isCompleted = false;

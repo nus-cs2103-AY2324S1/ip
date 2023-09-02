@@ -1,13 +1,21 @@
 package emiya;
 
-import emiya.emiyaexception.*;
+import java.util.Scanner;
 
+import emiya.emiyaexception.EmiyaException;
+import emiya.emiyaexception.EmptyDeadlineException;
+import emiya.emiyaexception.EmptyEventException;
+import emiya.emiyaexception.EmptyTodoException;
+import emiya.emiyaexception.OutOfListBoundsException;
+import emiya.emiyaexception.UnknownCommandException;
 import emiya.parser.Parser;
 import emiya.storage.Storage;
-import emiya.task.*;
+import emiya.task.Deadline;
+import emiya.task.Event;
+import emiya.task.Task;
+import emiya.task.TaskList;
+import emiya.task.ToDo;
 import emiya.ui.Ui;
-
-import java.util.Scanner;
 
 public class Emiya {
     // must remove static at the end
@@ -54,17 +62,13 @@ public class Emiya {
 
                 // kiv shift where
                 if (input.equals("I am the bone of my sword")) {
-                    System.out.println("-----------------------------------------\n"
-                            + "Unknown to death nor known to life" + "\n"
-                            + "-----------------------------------------\n");
+                    System.out.println(Ui.UBW);
                     continue;
                 }
 
                 // kiv shift where
                 if (input.equals("dead")) {
-                    System.out.println("-----------------------------------------\n"
-                            + "People die if they are killed!" + "\n"
-                            + "-----------------------------------------\n");
+                    System.out.println(Ui.DEAD);
                     continue;
                 }
 
@@ -85,97 +89,91 @@ public class Emiya {
                 }
 
                 switch (typeOfTask) {
-                    case "mark":
-                        if (position[0] != null) {
-                            if (position[0] <= 0 || position[0] > taskList.size()) {
-                                throw new OutOfListBoundsException();
-                            }
-                            taskList.get(position[0]-1).setMarked();
-                            System.out.println(ui.markedMessage(position[0], taskList));
-                        } else {
-                            throw new EmptyMarkException();
+                case "mark":
+                    if (position[0] != null) {
+                        if (position[0] <= 0 || position[0] > taskList.size()) {
+                            throw new OutOfListBoundsException();
                         }
-                        storage.writeToFileFromTaskList(taskList, fileName, dirName);
-                        break;
-                    case "unmark":
-                        if (position[0] != null) {
-                            if (position[0] <= 0 || position[0] > taskList.size()) {
-                                throw new OutOfListBoundsException();
-                            }
-                            taskList.get(position[0]-1).setUnmarked();
-                            System.out.println(ui.unmarkedMessage(position[0], taskList));
-                        } else {
-                            throw new EmptyUnmarkException();
-                        }
-                        storage.writeToFileFromTaskList(taskList, fileName, dirName);
-                        break;
-                    case "delete":
-                        if (position[0] != null) {
-                            if (position[0] <= 0 || position[0] > taskList.size()) {
-                                throw new OutOfListBoundsException();
-                            }
-                            Task task = taskList.get(position[0]-1);
-                            taskList.remove(task);
-                            if (taskList.size() == 1) {
-                                System.out.println(ui.deletedSingularMessage(task, taskList));
-                            } else {
-                                System.out.println(ui.deletedPluralMessage(task, taskList));
-                            }
-                        } else {
-                            throw new EmptyDeleteException();
-                        }
-                        storage.writeToFileFromTaskList(taskList, fileName, dirName);
-                        break;
-                    case "find":
-                        if (taskDetails.equals("")) {
-                            throw new EmptyFindException();
-                        }
-                        taskList.find(taskDetails);
-                        break;
-                    case "todo":
-                        // need to be able to go through the rest of the string and add it inside
-                        if (taskDetails.equals("")) {
-                            throw new EmptyTodoException();
-                        }
-                        ToDo todo = new ToDo(false, taskDetails);
-                        taskList.add(todo);
-                        if (taskList.size() == 1) {
-                            System.out.println(ui.addedSingularMessage(todo, taskList));
-                        } else {
-                            System.out.println(ui.addedPluralMessage(todo, taskList));
-                        }
-                        storage.writeToFileFromTaskList(taskList, fileName, dirName);
-                        break;
-                    case "deadline": // go through taskDetails and find /by
-                        if (taskDetails.equals("")) {
-                            throw new EmptyDeadlineException();
-                        }
-                        String[] deadlineDetails = parser.parseForDeadline(taskDetails);
-                        Deadline deadline = new Deadline(false, deadlineDetails[0], deadlineDetails[1]);
-                        taskList.add(deadline);
-                        if (taskList.size() == 1) {
-                            System.out.println(ui.addedSingularMessage(deadline, taskList));
-                        } else {
-                            System.out.println(ui.addedPluralMessage(deadline, taskList));
-                        }
-                        storage.writeToFileFromTaskList(taskList, fileName, dirName);
-                        break;
-                    case "event": // need to go through taskDetails and find /from and /to
-                        if (taskDetails.equals("")) {
-                            throw new EmptyEventException();
-                        }
-                        String[] parsedEventDetails = parser.parseForEvent(taskDetails);
-                        Event event = new Event(false, parsedEventDetails[0], parsedEventDetails[1], parsedEventDetails[2]);
-                        taskList.add(event);
-                        if (taskList.size() == 1) {
-                            System.out.println(ui.addedSingularMessage(event, taskList));
-                        } else {
-                            System.out.println(ui.addedPluralMessage(event, taskList));
-                        }
-                        storage.writeToFileFromTaskList(taskList, fileName, dirName);
-                        break;
-                    default:
+                        taskList.get(position[0] - 1).setMarked();
+                        System.out.println(ui.markedMessage(position[0], taskList));
+                    } else {
                         throw new UnknownCommandException();
+                    }
+                    storage.writeToFileFromTaskList(taskList, fileName, dirName);
+                    break;
+                case "unmark":
+                    if (position[0] != null) {
+                        if (position[0] <= 0 || position[0] > taskList.size()) {
+                            throw new OutOfListBoundsException();
+                        }
+                        taskList.get(position[0] - 1).setUnmarked();
+                        System.out.println(ui.unmarkedMessage(position[0], taskList));
+                    } else {
+                        throw new UnknownCommandException();
+                    }
+                    storage.writeToFileFromTaskList(taskList, fileName, dirName);
+                    break;
+                case "delete":
+                    if (position[0] != null) {
+                        if (position[0] <= 0 || position[0] > taskList.size()) {
+                            throw new OutOfListBoundsException();
+                        }
+                        Task task = taskList.get(position[0] - 1);
+                        taskList.remove(task);
+                        if (taskList.size() == 1) {
+                            System.out.println(ui.deletedSingularMessage(task, taskList));
+                        } else {
+                            System.out.println(ui.deletedPluralMessage(task, taskList));
+                        }
+                    } else {
+                        throw new UnknownCommandException();
+                    }
+                    storage.writeToFileFromTaskList(taskList, fileName, dirName);
+                    break;
+                case "todo":
+                    // need to be able to go through the rest of the string and add it inside
+                    if (taskDetails.equals("")) {
+                        throw new EmptyTodoException();
+                    }
+                    ToDo todo = new ToDo(false, taskDetails);
+                    taskList.add(todo);
+                    if (taskList.size() == 1) {
+                        System.out.println(ui.addedSingularMessage(todo, taskList));
+                    } else {
+                        System.out.println(ui.addedPluralMessage(todo, taskList));
+                    }
+                    storage.writeToFileFromTaskList(taskList, fileName, dirName);
+                    break;
+                case "deadline": // go through taskDetails and find /by
+                    if (taskDetails.equals("")) {
+                        throw new EmptyDeadlineException();
+                    }
+                    String[] deadlineDetails = parser.parseForDeadline(taskDetails);
+                    Deadline deadline = new Deadline(false, deadlineDetails[0], deadlineDetails[1]);
+                    taskList.add(deadline);
+                    if (taskList.size() == 1) {
+                        System.out.println(ui.addedSingularMessage(deadline, taskList));
+                    } else {
+                        System.out.println(ui.addedPluralMessage(deadline, taskList));
+                    }
+                    storage.writeToFileFromTaskList(taskList, fileName, dirName);
+                    break;
+                case "event": // need to go through taskDetails and find /from and /to
+                    if (taskDetails.equals("")) {
+                        throw new EmptyEventException();
+                    }
+                    String[] parsedEventDetails = parser.parseForEvent(taskDetails);
+                    Event event = new Event(false, parsedEventDetails[0], parsedEventDetails[1], parsedEventDetails[2]);
+                    taskList.add(event);
+                    if (taskList.size() == 1) {
+                        System.out.println(ui.addedSingularMessage(event, taskList));
+                    } else {
+                        System.out.println(ui.addedPluralMessage(event, taskList));
+                    }
+                    storage.writeToFileFromTaskList(taskList, fileName, dirName);
+                    break;
+                default:
+                    throw new UnknownCommandException();
                 }
             } catch (EmiyaException e) {
                 System.out.println(e.getMessage());
