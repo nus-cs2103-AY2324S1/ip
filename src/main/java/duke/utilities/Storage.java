@@ -2,11 +2,12 @@ package duke.utilities;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
 import java.util.ArrayList;
 
 /**
@@ -37,13 +38,13 @@ public class Storage {
     /**
      * Overwrites existing data in tasks.txt
      * 
-     * @param list List of tasks that will overwrite the data in the file
+     * @param tasks List of tasks that will overwrite the data in the file
      */
-    public void overwriteTasksData(ArrayList<Task> list) {
+    public void overwriteTasksData(ArrayList<Task> tasks) {
         try {
             FileOutputStream fos = new FileOutputStream(file);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(list);
+            oos.writeObject(tasks);
             oos.flush();
             oos.close();
         } catch (FileNotFoundException e) {
@@ -59,11 +60,11 @@ public class Storage {
      * @return A list of tasks
      */
     public ArrayList<Task> loadTasksData() {
-        ArrayList<Task> list = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
         try {
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            list = (ArrayList<Task>) ois.readObject();
+            tasks = (ArrayList<Task>) ois.readObject();
             ois.close();
         } catch (FileNotFoundException e) {
             System.out.println("!ERROR! File is not found");
@@ -72,7 +73,7 @@ public class Storage {
         } catch (ClassNotFoundException e) {
             System.out.println("!ERROR! Class is not found");
         }
-        return list;
+        return tasks;
     }
 
     public boolean fileExists() {

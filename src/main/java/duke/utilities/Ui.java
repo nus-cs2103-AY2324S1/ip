@@ -1,7 +1,15 @@
 package duke.utilities;
 
 import java.util.Scanner;
-import duke.exceptions.*;
+
+import duke.exceptions.DukeException;
+import duke.exceptions.EmptyListException;
+import duke.exceptions.InvalidCommandException;
+import duke.exceptions.InvalidCommandSyntaxException;
+import duke.exceptions.InvalidTaskTimeException;
+import duke.exceptions.MissingTaskDescriptionException;
+import duke.exceptions.MissingTaskNameException;
+import duke.exceptions.MissingTaskNumberException;
 
 /**
  * Handles user interaction
@@ -9,7 +17,7 @@ import duke.exceptions.*;
 public class Ui {
 
     /** Variable to detect user input */
-    Scanner sc = new Scanner(System.in);
+    private Scanner sc = new Scanner(System.in);
 
     /** Variable to show horizontal lines */
     public static final String LINE_BREAK = ("--------------------------------------------------"
@@ -18,7 +26,7 @@ public class Ui {
     /**
      * Prints greetings to the user interface
      */
-    public void greetings() {
+    public void greet() {
         System.out.println("\n");
         System.out.println(LINE_BREAK);
         System.out.println("Welcome. My name is Duke");
@@ -30,7 +38,7 @@ public class Ui {
      * 
      * @return Input as String
      */
-    public String inputSession() {
+    public String startInputSession() {
         System.out.println(LINE_BREAK);
         System.out.println("\n");
         String input = sc.nextLine().trim();

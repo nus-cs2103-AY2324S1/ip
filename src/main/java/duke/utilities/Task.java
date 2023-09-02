@@ -11,7 +11,7 @@ public class Task implements Serializable {
     private String name;
     
     /** Task description, including time */
-    private String desc;
+    private String description;
 
     /** Variable to reflect whether a task is finished */
     private boolean isDone;
@@ -24,13 +24,13 @@ public class Task implements Serializable {
      * 
      * @param name Name of task
      * @param type Type of task
-     * @param desc Task description, which includes by, to, and from
+     * @param description Task description, which includes by, to, and from
      */
-    public Task(String name, Type type, String desc) {
+    public Task(String name, Type type, String description) {
         this.name = name;
         this.isDone = false;
         this.type = type;
-        this.desc = desc;
+        this.description = description;
     }
 
     /**
@@ -57,7 +57,9 @@ public class Task implements Serializable {
      * @return the String representation of the task
      */
     public String convertToString() {
-        return "[" + this.getType().charAt(0) + "][" + (this.isDone() ? "X" : " ") + "] " + this.getName() + this.desc;
+        return "[" + this.getType().charAt(0) + "]" 
+				+ "[" + (this.isDone() ? "X" : " ") + "] "
+				+ this.getName() + this.description;
     }
 
     public String getName() {

@@ -43,10 +43,10 @@ public class Duke {
      * Starts the execution of the chatbot
      */
     public void run() {
-        ui.greetings();
+        ui.greet();
         boolean endSession = true;
         while (endSession) {
-            String userInput = ui.inputSession();
+            String userInput = ui.startInputSession();
             Input parsedInput = parser.parse(userInput);
             endSession = ui.handleInput(tasks, parsedInput, parser);
             tasks.overwriteTasksData(storage);

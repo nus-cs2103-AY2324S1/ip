@@ -10,22 +10,22 @@ import duke.exceptions.InvalidTaskNumberException;
 public class TaskList {
 
     /** Variable to store the tasks */
-    private ArrayList<Task> list = new ArrayList<>();
+    private ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Creates a TaskList with a predefined list
      * 
      * @param list List to be stored inside the local list variable
      */
-    public TaskList(ArrayList<Task> list) {
-        this.list = list;
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /**
      * Creates a TaskList with an empty list
      */
     public TaskList() {
-        this.list = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -62,10 +62,10 @@ public class TaskList {
      */
     public void addToDo(String taskName) {
         ToDo task = new ToDo(taskName);
-        this.list.add(task);
+        this.tasks.add(task);
         System.out.println("You have added a task:");
         System.out.println("\t[T][ ] " + taskName);
-        System.out.println("There are now " + list.size() + " tasks in the list");
+        System.out.println("There are now " + tasks.size() + " tasks in the list");
     }
     
     /**
@@ -76,7 +76,7 @@ public class TaskList {
      */
     public void addDeadline(String taskName, String deadline) {
         Deadline task = new Deadline(taskName, deadline);
-        this.list.add(task);
+        this.tasks.add(task);
         System.out.println("You have added a task:");
         System.out.println("\t[D][ ] " + taskName + " (by: " + deadline + ")");
         System.out.println("There are now " + this.getSize() + " tasks in the list");
@@ -91,10 +91,10 @@ public class TaskList {
      */
     public void addEvent(String taskName, String start, String end) {
         Event task = new Event(taskName, start, end);
-        this.list.add(task);
+        this.tasks.add(task);
         System.out.println("You have added a task:");
         System.out.println("\t[E][ ] " + taskName + " (from: " + start + " to: " + end + ")");
-        System.out.println("There are now " + list.size() + " tasks in the list");
+        System.out.println("There are now " + tasks.size() + " tasks in the list");
     }
 
     /**
@@ -105,7 +105,7 @@ public class TaskList {
     public void deleteTask(Task task) {
         System.out.println("You have deleted a task:");
         System.out.println("\t" + task.convertToString());
-        this.list.remove(task);
+        this.tasks.remove(task);
         System.out.println("There are now " + this.getSize() + " tasks in the list");
     }
 
@@ -115,14 +115,14 @@ public class TaskList {
      * @param storage Storage object that points to the stored file
      */
     public void overwriteTasksData(Storage storage) {
-        storage.overwriteTasksData(this.list);
+        storage.overwriteTasksData(this.tasks);
     }
 
     public Task getTask(int index) {
-        return this.list.get(index);
+        return this.tasks.get(index);
     }
 
     public int getSize() {
-        return this.list.size();
+        return this.tasks.size();
     }
 }
