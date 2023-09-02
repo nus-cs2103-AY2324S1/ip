@@ -1,3 +1,10 @@
+package oreo.command;
+
+import oreo.exception.IllegalCommandException;
+import oreo.exception.IllegalDateTimeException;
+import oreo.task.Task;
+import oreo.task.TaskList;
+import oreo.ui.Ui;
 import java.util.Scanner;
 
 public class AddCommand extends Command {

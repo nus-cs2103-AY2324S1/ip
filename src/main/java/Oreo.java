@@ -1,3 +1,11 @@
+import oreo.exception.IllegalCommandException;
+import oreo.exception.IllegalDateTimeException;
+import oreo.command.Command;
+import oreo.parser.Parser;
+import oreo.storage.Storage;
+import oreo.task.TaskList;
+import oreo.ui.Ui;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.InputMismatchException;
@@ -55,30 +63,6 @@ public class Oreo {
          */
         ui.sayBye();
     }
-
-        public static boolean isInteger(String str) {
-            if (str == null) {
-                return false;
-            }
-            int length = str.length();
-            if (length == 0) {
-                return false;
-            }
-            int i = 0;
-            if (str.charAt(0) == '-') {
-                if (length == 1) {
-                    return false;
-                }
-                i = 1;
-            }
-            for (; i < length; i++) {
-                char c = str.charAt(i);
-                if (c < '0' || c > '9') {
-                    return false;
-                }
-            }
-            return true;
-        }
 
         public static void main(String[] args) {
             Oreo oreo = new Oreo("/Users/daniel/Desktop/CS2103T/iP/src/main/java/data/duke.txt");

@@ -1,3 +1,7 @@
+package oreo.task;
+
+import oreo.exception.IllegalCommandException;
+import oreo.ui.Ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -62,7 +66,7 @@ public class TaskList {
             throw new IllegalCommandException("do that without specifying a task number");
         }
         String content = tokeniser.next();
-        if (Oreo.isInteger(content)) {
+        if (isInteger(content)) {
             int id = Integer.parseInt(content);
             if (id > getNumberOfTask()) {
                 throw new IllegalCommandException("do that... this task does not exist :(");
@@ -87,7 +91,7 @@ public class TaskList {
             throw new IllegalCommandException("do that without specifying a task number");
         }
         String content = tokeniser.next();
-        if (Oreo.isInteger(content)) {
+        if (isInteger(content)) {
             int id = Integer.parseInt(content);
             if (id > getNumberOfTask()) {
                 throw new IllegalCommandException("do that... this task does not exist :(");
@@ -134,5 +138,29 @@ public class TaskList {
             return "Oh no... what happened :(\n"
                     + task.toString();
         }
+    }
+
+    public static boolean isInteger(String str) {
+        if (str == null) {
+            return false;
+        }
+        int length = str.length();
+        if (length == 0) {
+            return false;
+        }
+        int i = 0;
+        if (str.charAt(0) == '-') {
+            if (length == 1) {
+                return false;
+            }
+            i = 1;
+        }
+        for (; i < length; i++) {
+            char c = str.charAt(i);
+            if (c < '0' || c > '9') {
+                return false;
+            }
+        }
+        return true;
     }
 }
