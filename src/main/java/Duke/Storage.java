@@ -7,13 +7,24 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class to read and write to text file.
+ */
 public class Storage {
     private String file;
 
+    /**
+     * Constructor taking in file name.
+     * @param file
+     */
     public Storage(String file){
         this.file=file;
     }
 
+    /**
+     * Method to read from text file to load to ArrayList.
+     * @return
+     */
     public ArrayList<Task> load(){
         ArrayList<Task> list =new ArrayList<Task>();
         try {
@@ -49,6 +60,11 @@ public class Storage {
         }
         return list;
     }
+
+    /**
+     * Adds text to file.
+     * @param text
+     */
     public void addToFile(String text){
         try {
             File f = new File(file);
@@ -60,6 +76,13 @@ public class Storage {
             System.out.println("Error:" + e.getMessage());
         }
     }
+
+    /**
+     * Updates a particular line in the text file to store if that entry
+     * should be marked.
+     * @param num line number
+     * @param val whether the entry should be marked
+     */
     public void updateFile(int num,boolean val){
         File file = new File(this.file);
         try {
@@ -89,6 +112,11 @@ public class Storage {
             System.out.println("Error:"+e.getMessage());
         }
     }
+
+    /**
+     * Delete a particular line from the file.
+     * @param num
+     */
     public void deleteFromFile(int num) {
         File f = new File(file);
         try {
