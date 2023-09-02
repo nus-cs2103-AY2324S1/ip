@@ -1,10 +1,10 @@
 package trackerbot.task;
 
-import trackerbot.utils.TaskDateHandler;
-
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeParseException;
+
+import trackerbot.utils.TaskDateHandler;
 
 /**
  * The Deadline class for TrackerBot, inheriting from the Task class. <br>
@@ -15,7 +15,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadline extends Task {
     /** The Deadline of the task. **/
-    LocalDateTime by;
+    private LocalDateTime by;
 
     /**
      * The constructor for the class.

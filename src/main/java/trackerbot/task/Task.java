@@ -19,6 +19,20 @@ public abstract class Task {
     private boolean isDone;
 
     /**
+     * Constructor for the Task class.
+     * @param desc The description of the task to create.
+     */
+    public Task(String desc) {
+        this.description = desc;
+        this.isDone = false;
+    }
+
+    protected Task(String[] args) {
+        this.description = args[1];
+        this.isDone = args[0].equals("1");
+    }
+
+    /**
      * Returns the save string for the child class. <br>
      * The save string should have the following format: <br>
      * {Task Flag} | {Mark Status} | {Description} | {Fields...}
@@ -32,32 +46,6 @@ public abstract class Task {
      * @return The '|' delimited String to store in save file.
      */
     public abstract String toSaveString();
-
-    /**
-     * Helper method for toSaveString. <br>
-     * Gets a formatted description and mark status of the Task, and
-     * passes it to the child classes.
-     * @return {Mark Status} | {Description} String, to append to toSaveString
-     *         implementation in child classes.
-     */
-    protected String getSaveInfo() {
-        String checkStatus = isDone ? "1" : "0";
-        return checkStatus + "|" + description;
-    }
-
-    /**
-     * Constructor for the Task class.
-     * @param desc The description of the task to create.
-     */
-    public Task(String desc) {
-        this.description = desc;
-        this.isDone = false;
-    }
-
-    protected Task(String[] args) {
-        this.description = args[1];
-        this.isDone = args[0].equals("1");
-    }
 
     public static Task ofSaveString(String type, String... args)
             throws IllegalArgumentException, DateTimeParseException {
@@ -80,6 +68,18 @@ public abstract class Task {
         default:
             throw new IllegalArgumentException("Unknown Task type.");
         }
+    }
+
+    /**
+     * Helper method for toSaveString. <br>
+     * Gets a formatted description and mark status of the Task, and
+     * passes it to the child classes.
+     * @return {Mark Status} | {Description} String, to append to toSaveString
+     *         implementation in child classes.
+     */
+    protected String getSaveInfo() {
+        String checkStatus = isDone ? "1" : "0";
+        return checkStatus + "|" + description;
     }
 
     /**

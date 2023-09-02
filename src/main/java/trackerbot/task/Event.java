@@ -1,10 +1,10 @@
 package trackerbot.task;
 
-import trackerbot.utils.TaskDateHandler;
-
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeParseException;
+
+import trackerbot.utils.TaskDateHandler;
 
 /**
  * The Event class for TrackerBot, inheriting from the Task class. <br>
@@ -15,10 +15,10 @@ import java.time.format.DateTimeParseException;
  */
 public class Event extends Task {
     /** The start date of the event. **/
-    LocalDateTime from;
+    private LocalDateTime from;
 
     /** The end date of the event. **/
-    LocalDateTime to;
+    private LocalDateTime to;
 
     /**
      * The constructor for the class.
