@@ -34,6 +34,7 @@ public class Event extends Task {
      *
      * @return A string representation of the event task in the file format.
      */
+    @Override
     public String toFileString() {
         return "E | " + super.toFileString() + " | " + from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")) + " | " +
                 to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));

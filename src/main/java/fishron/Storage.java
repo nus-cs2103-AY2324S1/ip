@@ -29,7 +29,6 @@ public class Storage {
     public TaskList loadTasksFromFile() {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
-            File file = new File("./data/fishron.txt");
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();

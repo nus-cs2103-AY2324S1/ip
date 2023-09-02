@@ -31,6 +31,7 @@ public class Deadline extends Task {
      *
      * @return The string representation of the deadline task for storage.
      */
+    @Override
     public String toFileString() {
         return "D | " + super.toFileString() + " | " + by.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
     }
