@@ -14,9 +14,10 @@ public class TaskList {
         taskList.add(task);
     }
 
-    public void remove(int index) {
+    public Task remove(int index) {
         Task removedTask = taskList.remove(index);
         if (removedTask.isComplete()) numberOfCompletedTasks--;
+        return removedTask;
     }
 
     public void clearAll() {
@@ -53,6 +54,57 @@ public class TaskList {
                 displayList.append(i + 1 + ".").append(taskList.get(i).toString());
             }
             return displayList.toString();
+        }
+    }
+
+    public String changeMark(String command, Scanner tokeniser) throws IllegalCommandException {
+        if (!tokeniser.hasNext()) {
+            throw new IllegalCommandException("do that without specifying a task number");
+        }
+        String content = tokeniser.next();
+        if (Duke.isInteger(content)) {
+            int id = Integer.parseInt(content);
+            if (id > getNumberOfTask()) {
+                throw new IllegalCommandException("do that... this task does not exist :(");
+            } else {
+                if (command.equals("mark")) {
+                    String message = markDone(id - 1);
+                    if (isAllComplete()) {
+                        message += list();
+                    }
+                    return message;
+                } else {
+                    return markNotDone(id - 1);
+                }
+            }
+        } else {
+            throw new IllegalCommandException("do that... try a number instead");
+        }
+    }
+
+    public String deleteTask(Scanner tokeniser) throws IllegalCommandException {
+        if (!tokeniser.hasNext()) {
+            throw new IllegalCommandException("do that without specifying a task number");
+        }
+        String content = tokeniser.next();
+        if (Duke.isInteger(content)) {
+            int id = Integer.parseInt(content);
+            if (id > getNumberOfTask()) {
+                throw new IllegalCommandException("do that... this task does not exist :(");
+            } else {
+                Task removedTask = remove(id - 1);
+                String message = "Happily scratched this off your list:\n" +
+                        Ui.indentLineBy(removedTask.toString(), 2) +
+                        "Now you have " +
+                        getNumberOfTask() +
+                        " tasks in the list!";
+                if (isAllComplete()) {
+                    message += list();
+                }
+                return message;
+            }
+        } else {
+            throw new IllegalCommandException("do that... try a number instead");
         }
     }
 

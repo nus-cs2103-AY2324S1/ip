@@ -21,56 +21,6 @@ public class Duke {
         this.storage = new Storage(filePath);
     }
 
-
-    private void changeMark(String command, Scanner tokeniser) throws IllegalCommandException {
-        if (!tokeniser.hasNext()) {
-            throw new IllegalCommandException("do that without specifying a task number");
-        }
-        String content = tokeniser.next();
-        if (isInteger(content)) {
-            int id = Integer.parseInt(content);
-            if (id > tasks.getNumberOfTask()) {
-                throw new IllegalCommandException("do that... this task does not exist :(");
-            } else {
-                if (command.equals("mark")) {
-                    ui.say(tasks.markDone(id - 1));
-                    if (tasks.isAllComplete()) {
-                        ui.say(tasks.list());
-                    }
-                } else {
-                    ui.say(tasks.markNotDone(id - 1));
-                }
-            }
-        } else {
-            throw new IllegalCommandException("do that... try a number instead");
-        }
-    }
-
-    private void deleteTask(Scanner tokeniser) throws IllegalCommandException {
-        if (!tokeniser.hasNext()) {
-            throw new IllegalCommandException("do that without specifying a task number");
-        }
-        String content = tokeniser.next();
-        if (isInteger(content)) {
-            int id = Integer.parseInt(content);
-            if (id > tasks.getNumberOfTask()) {
-                throw new IllegalCommandException("do that... this task does not exist :(");
-            } else {
-                ui.say("Happily scratched this off your list:\n" +
-                        ui.indentLineBy(tasks.get(id - 1).toString(), 2) +
-                        "Now you have " +
-                        tasks.getNumberOfTask() +
-                        " tasks in the list!");
-                tasks.remove(id - 1);
-                if (tasks.isAllComplete()) {
-                    tasks.list();
-                }
-            }
-        } else {
-            throw new IllegalCommandException("do that... try a number instead");
-        }
-    }
-
     public void processInput() {
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -87,18 +37,18 @@ public class Duke {
             if (command.contains("bye")) {
                 break;
             } else if (command.equals("list")) {
-                tasks.list();
+                ui.say(tasks.list());
                 continue;
             } else if (command.equals("mark") || command.equals("unmark")) {
                 try {
-                    changeMark(command, tokeniser);
+                    ui.say(tasks.changeMark(command, tokeniser));
                 } catch (IllegalCommandException e) {
                     ui.say(e.getMessage());
                 }
                 continue;
             } else if (command.equals("delete")) {
                 try {
-                    deleteTask(tokeniser);
+                    ui.say(tasks.deleteTask(tokeniser));
                 } catch (IllegalCommandException e) {
                     ui.say(e.getMessage());
                 }
@@ -108,7 +58,7 @@ public class Duke {
                 Task newTask = Task.generateTask(command, tokeniser);
                 tasks.add(newTask);
                 ui.say("Gotchu! noted down: \n" +
-                        ui.indentLineBy(newTask.toString(), 2) +
+                        Ui.indentLineBy(newTask.toString(), 2) +
                         "Now you have " +
                         tasks.getNumberOfTask() +
                         " tasks in the list!");

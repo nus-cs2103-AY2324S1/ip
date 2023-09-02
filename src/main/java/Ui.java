@@ -28,7 +28,7 @@ public class Ui {
                 .append(hLine).toString();
     }
 
-    public String indentLineBy(String message, int indents) {
+    public static String indentLineBy(String message, int indents) {
         StringBuilder indentedLine = new StringBuilder();
         for (int i = 0; i < indents; i++) {
             indentedLine.append(" ");
