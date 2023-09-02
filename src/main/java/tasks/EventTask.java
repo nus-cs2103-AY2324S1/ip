@@ -1,3 +1,6 @@
+package tasks;
+
+import tasks.Task;
 import util.TimeUtil;
 
 import java.time.LocalDateTime;

@@ -1,5 +1,6 @@
 import exception.TaskParseException;
 import exception.TimeUtilException;
+import tasks.*;
 import util.TimeUtil;
 
 import java.time.LocalDateTime;
@@ -9,7 +10,7 @@ public class TaskFactory {
     public Task createTask(String taskType, String taskName, String[] args)
             throws TaskParseException, TimeUtilException {
         if (taskName.isEmpty()) {
-            throw new TaskParseException("usage: TaskType(todo | deadline | event) " +
+            throw new TaskParseException("usage: tasks.TaskType(todo | deadline | event) " +
                     "TaskName " +
                     "[/StartDate] [/EndDate]");
         }

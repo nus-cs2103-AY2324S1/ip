@@ -1,17 +1,18 @@
 import exception.DukeStorageException;
 import exception.TaskParseException;
 import exception.TimeUtilException;
+import tasks.Task;
 
 import java.util.*;
 
 public class CliParserService {
     private final Duke dukeBot;
-    private final OutputService outputService;
+    private final UiService uiService;
     private final TaskFactory taskFactory;
 
-    public CliParserService(Duke dukeBot, OutputService outputService, TaskFactory taskFactory) {
+    public CliParserService(Duke dukeBot, UiService uiService, TaskFactory taskFactory) {
         this.dukeBot = dukeBot;
-        this.outputService = outputService;
+        this.uiService = uiService;
         this.taskFactory = taskFactory;
     }
 
@@ -26,7 +27,7 @@ public class CliParserService {
                 case "bye":
                     return;
                 case "list":
-                    outputService.printTasks(dukeBot.getTaskList());
+                    uiService.printTaskList(dukeBot.getTaskList());
                     break;
                 case "mark":
                     handleMarkTask(input);
@@ -43,7 +44,7 @@ public class CliParserService {
                     parseTaskCommand(line);
                     break;
                 default:
-                    outputService.echo(String.format(":< Command: %s not recognised!", input[0]));
+                    uiService.printUnknownCommand(input[0]);
             }
         }
     }
@@ -62,17 +63,11 @@ public class CliParserService {
         try {
             Task task = taskFactory.createTask(taskType, taskName, taskArgs);
             dukeBot.addTask(task);
-            List<String> displayText = new ArrayList<>();
-            displayText.add("Got it. I've added this task:");
-            displayText.add(outputService.indentLeft(task.toString()));
-            displayText.add(String.format("Now you have %s %s in the list.",
-                    dukeBot.getNumberOfTasks(),
-                    dukeBot.getNumberOfTasks() == 1 ? "task" : "tasks"));
-            outputService.echo(displayText);
+            uiService.printAddTask(task, dukeBot.getNumberOfTasks());
         } catch (TaskParseException | TimeUtilException e) {
-            outputService.echo(e.getMessage());
+            uiService.printGenericMessage(e.getMessage());
         } catch (DukeStorageException e) {
-            outputService.echo("Failed to write task to storage! :<");
+            uiService.printStorageAddFailure();
         }
     }
 
@@ -85,20 +80,12 @@ public class CliParserService {
         int taskNumber = Integer.parseInt(input[1]);
         try {
             Optional<Task> optionalTask = dukeBot.markTask(taskNumber - 1);
-            optionalTask.ifPresentOrElse(task -> {
-                List<String> displayText = new ArrayList<>();
-                displayText.add("Nice! I've marked this task as done:");
-                displayText.add(outputService.indentLeft(task.toString()));
-                outputService.echo(displayText);
-            }, () -> {
-                if (dukeBot.getNumberOfTasks() == 0) {
-                    outputService.echo("There are no tasks left!");
-                }
-                outputService.echo(String.format("Invalid Task index: %s provided.%n" +
-                        "Specify a number between %s - %s", taskNumber, 1, dukeBot.getNumberOfTasks() + 1));
-            });
+            optionalTask.ifPresentOrElse(
+                    uiService::printMarkTask,
+                    () -> uiService.printInvalidTaskIndexProvided(taskNumber, dukeBot.getNumberOfTasks())
+            );
         } catch (DukeStorageException e) {
-            outputService.echo("Failed to save marked task to storage :>");
+            uiService.printStorageMarkFailure();
         }
     }
 
@@ -109,21 +96,12 @@ public class CliParserService {
         int taskNumber = Integer.parseInt(input[1]);
         try {
             Optional<Task> optionalTask = dukeBot.unmarkTask(taskNumber - 1);
-            optionalTask.ifPresentOrElse(task -> {
-                List<String> displayText = new ArrayList<>();
-                displayText.add("OK, I've unmarked this task:");
-                displayText.add(outputService.indentLeft(task.toString()));
-                outputService.echo(displayText);
-            }, () -> {
-                if (dukeBot.getNumberOfTasks() == 0) {
-                    outputService.echo("There are no tasks left!");
-                }
-                outputService.echo(String.format("Invalid Task index: %s provided.%n" +
-                        "Specify a number between %s - %s", taskNumber, 1, dukeBot.getNumberOfTasks() + 1));
-
-            });
+            optionalTask.ifPresentOrElse(
+                    uiService::printUnmarkTask,
+                    () -> uiService.printInvalidTaskIndexProvided(taskNumber, dukeBot.getNumberOfTasks())
+            );
         } catch (DukeStorageException e) {
-            outputService.echo("Failed to save unmarked task to storage! :<");
+            uiService.printStorageUnmarkFailure();
         }
     }
 
@@ -136,21 +114,12 @@ public class CliParserService {
         try {
             Optional<Task> optionalTask = dukeBot.deleteTask(taskNumber - 1);
 
-            optionalTask.ifPresentOrElse(task -> {
-                        List<String> displayText = new ArrayList<>();
-                        displayText.add("Noted. I have removed this task:");
-                        displayText.add(outputService.indentLeft(task.toString()));
-                        displayText.add(String.format("Now you have %s %s in the list.",
-                                dukeBot.getNumberOfTasks(),
-                                dukeBot.getNumberOfTasks() == 1 ? "task" : "tasks"
-                        ));
-                        outputService.echo(displayText);
-                    }, () ->
-                            outputService.echo(String.format("Invalid Task index: %s provided.%n" +
-                                    "Specify a number between %s - %s", taskNumber, 1, dukeBot.getNumberOfTasks() + 1))
+            optionalTask.ifPresentOrElse(
+                    task -> uiService.printDeleteTask(task, dukeBot.getNumberOfTasks()),
+                    () -> uiService.printInvalidTaskIndexProvided(taskNumber, dukeBot.getNumberOfTasks())
             );
         } catch (DukeStorageException e) {
-            outputService.echo("Failed to delete task from local storage :<");
+            uiService.printStorageDeleteFailure();
         }
     }
 
@@ -166,11 +135,11 @@ public class CliParserService {
 
     private boolean isValidTaskNumberArgument(String[] input) {
         if (input.length <= 1) {
-            outputService.echo("An argument is required.");
+            uiService.printGenericMessage("An argument is required.");
             return false;
         }
         if (!isNumeric(input[1])) {
-            outputService.echo("A numeric argument should be provided.");
+            uiService.printGenericMessage("A numeric argument should be provided.");
             return false;
         }
         return true;
