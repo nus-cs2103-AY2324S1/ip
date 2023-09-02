@@ -1,5 +1,6 @@
 import exception.DukeStorageException;
 import exception.FileCorruptedException;
+import tasks.Task;
 
 import java.io.*;
 import java.nio.file.Files;

@@ -1,3 +1,5 @@
+import tasks.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,7 +94,7 @@ public class UiService {
             outputService.echo("There are no tasks left!");
             return;
         }
-        outputService.echo(String.format("Invalid Task index: %s provided.%n" +
+        outputService.echo(String.format("Invalid tasks.Task index: %s provided.%n" +
                 "Specify a number between %s - %s", taskId, 1, taskListSize + 1));
     }
 }

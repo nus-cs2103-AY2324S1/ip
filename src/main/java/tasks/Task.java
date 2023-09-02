@@ -1,3 +1,5 @@
+package tasks;
+
 import java.io.Serializable;
 
 public abstract class Task implements Serializable {
