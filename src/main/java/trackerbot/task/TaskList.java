@@ -91,7 +91,7 @@ public class TaskList {
         StringBuilder result = new StringBuilder();
 
         for (int i = 1; i < tasks.size() + 1; i++) {
-            if (tasks.get(i - 1).contains(searchStr)) {
+            if (tasks.get(i - 1).doesContain(searchStr)) {
                 result.append(i);
                 result.append(". ");
                 result.append(tasks.get(i - 1).toString());

@@ -122,7 +122,7 @@ public abstract class Task {
      * @return true, if the description contains the searchStr, and false
      *         otherwise.
      */
-    public boolean contains(String searchStr) {
+    public boolean doesContain(String searchStr) {
         return description.contains(searchStr);
     }
 
