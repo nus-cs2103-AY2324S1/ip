@@ -31,35 +31,21 @@ public class Ui {
     }
     public void bye() {
         formatPrint("Bye. Hope to see you again!");
-        // end prog
         this.running = false;
     }
 
-    public void mark(String cmd, TaskList tasks) {
-        int id = parseInt(cmd.split(" ")[1]) - 1;
-        Task currTask = tasks.getTask(id);
-        currTask.markDone();
-        formatPrint("Nice! I've marked this task as done:\n" + currTask);
+    public void mark(String taskDesc, TaskList tasks) {
+        formatPrint("Nice! I've marked this task as done:\n" + taskDesc);
     }
 
-    public void unmark(String cmd, TaskList tasks) {
-        int id = parseInt(cmd.split(" ")[1]) - 1;
-        Task currTask = tasks.getTask(id);
-        currTask.markUndone();
-        formatPrint("Okay, I've marked this task as not done:\n" + currTask);
+    public void unmark(String taskDesc, TaskList tasks) {
+        formatPrint("Okay, I've marked this task as not done:\n" + taskDesc);
     }
-    public void delete(String cmd, TaskList tasks) {
-        int id = parseInt(cmd.split(" ")[1]) - 1;
-
-        // to do : fix order (delete task to be in front?)
-        String taskDesc = tasks.getTask(id).toString();
-        tasks.deleteTask(id);
+    public void delete(String taskDesc, TaskList tasks) {
         formatPrint("Noted. I've removed this task\n" + taskDesc + "\nNow you have " + tasks.getNumOfTasks() + " tasks in the list");
 
     }
-    public void add(Task newTask, TaskList tasks) throws InvalidCommand, EmptyTaskException {
-        tasks.addTask(newTask);
-        String taskDesc = tasks.getTask(tasks.getNumOfTasks() - 1).toString();
+    public void add(String taskDesc, TaskList tasks) {
         Ui.formatPrint("Got it. I've added this task:\n" + taskDesc + "\nNow you have " + tasks.getNumOfTasks() + " tasks in the list.");
     }
 
