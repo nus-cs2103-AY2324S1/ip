@@ -1,7 +1,8 @@
 package jarvis;
 
 import command.Parser;
-import services.Ui;
+
+import services.TextUi;
 import services.bizerrors.JarvisException;
 import services.tasklist.Storage;
 import services.tasklist.TaskList;
@@ -39,10 +40,9 @@ public class Jarvis {
             "     .YYYYJ: :5Y.   :5? ^P~  .YY:    ?PY.   .5?  7YYYYYJ:        \n" +
             "                                                                 ";
 
-    private final Ui ui;
+    private final TextUi textUi;
     private TaskList taskList;
     private Parser parser;
-
 
     public static void main(String[] args) {
         String dataFilePath = "data/jarvislist.txt";
@@ -50,18 +50,26 @@ public class Jarvis {
     }
 
     public Jarvis(String dataFilePath) {
-        ui = new Ui();
+        textUi = new TextUi();
         try {
-            taskList = new TaskList(new Storage(dataFilePath), ui);
+            taskList = new TaskList(new Storage(dataFilePath), textUi);
             parser = new Parser(taskList);
         } catch (JarvisException e) {
-            ui.print(e.toString());
+            textUi.print(e.toString());
+        }
+    }
+
+    public String respond(String userInput) {
+        try {
+            return parser.parseAndExecute(userInput);
+        } catch (JarvisException e) {
+            return e.toString();
         }
     }
 
     public void run() {
         System.out.println(JARVIS_LOGO);
-        ui.greet();
+        textUi.greet();
 
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
@@ -70,13 +78,13 @@ public class Jarvis {
             try {
                 parser.parseAndExecute(userInput);
             } catch (JarvisException e) {
-                ui.print(e.toString());
+                textUi.print(e.toString());
             }
             userInput = scanner.nextLine();
         }
 
         scanner.close();
-        ui.exit();
+        textUi.exit();
     }
 
 }
