@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import duke.task.EventTask;
 
 public class EventTaskTest {
-    
     @Test
     public void testToString() {
         EventTask eventTask = new EventTask("project meeting", "2020-08-25 14:00", "2020-08-25 16:00");

@@ -3,10 +3,9 @@ package duke.task;
 /**
  * Represents a task that has no specific date attached to it.
  */
-public class TodoTask extends Task{
+public class TodoTask extends Task {
     /**
      * Constructs a TodoTask object with the specified description.
-     * 
      * @param description The description of the todo task.
      */
     public TodoTask(String description) {

@@ -5,13 +5,11 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task with a deadline.
  */
-public class DeadlineTask extends Task{
+public class DeadlineTask extends Task {
     /** Represents the deadline of the task. */
-    LocalDate date;
-    
+    private LocalDate date;
     /**
      * Constructs a DeadlineTask object with the specified description and deadline.
-     * 
      * @param description The description of the deadline task.
      * @param date The deadline of the task.
      */
@@ -19,14 +17,13 @@ public class DeadlineTask extends Task{
         super(description);
         this.date = date;
     }
-
-    /** 
-     * Returns a string representation of deadline task. 
+    /**
+     * Returns a string representation of deadline task.
      * @return The method is returning a string representation of a deadline task.
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + 
-                date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

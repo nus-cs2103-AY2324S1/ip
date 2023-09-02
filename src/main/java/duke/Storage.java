@@ -21,7 +21,6 @@ public class Storage {
 
     /**
      * Constructs a Storage object with the specified file path.
-     * 
      * @param filePath The path of the file that stores the list of tasks.
      */
     public Storage(String filePath) {
@@ -40,7 +39,6 @@ public class Storage {
 
     /**
      * Saves the list of tasks to the file.
-     * 
      * @param tasks The list of tasks.
      */
     public void saveTask(ArrayList<Task> tasks) {
@@ -57,7 +55,6 @@ public class Storage {
 
     /**
      * Loads the list of tasks from the file.
-     * 
      * @return The method is returning the list of tasks.
      */
     public ArrayList<Task> loadTask() {
@@ -69,10 +66,9 @@ public class Storage {
             ArrayList<Task> tasks = (ArrayList<Task>) ois.readObject();
             ois.close();
             fis.close();
-            
             return tasks;
         } catch (IOException | ClassNotFoundException e) {
             return new ArrayList<Task>();
         }
-    } 
+    }
 }
