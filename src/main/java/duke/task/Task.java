@@ -1,14 +1,14 @@
 package duke.task;
 
 /** Class to represent the task set by user*/
-public class Task {
+public abstract class Task {
     /** Description of the task*/
     protected String description;
     /** Track whether the task is done or not*/
     protected boolean isDone;
 
     /**
-     * Cosntructor for the Task
+     * Constructor for the Task
      * @param description The description of the task based on the user input
      */
     public Task(String description) {
@@ -32,13 +32,9 @@ public class Task {
     }
 
     /** Method to print the task*/
-    public String printTask() {
-        return this.getStatusIcon() + this.description;
-    }
+    public abstract String printTask();
 
     /** Method to get the typeIcon the task*/
-    public String getTypeIcon() {
-        return ("Tk");
-    }
+    public abstract String getTypeIcon();
 
 }
