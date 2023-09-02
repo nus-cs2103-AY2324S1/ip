@@ -22,6 +22,12 @@ public class Ui {
 
   }
 
+  public void displayGoodbye() {
+    String goodbye = "Bye. See you again! (またね)";
+    System.out.println(goodbye);
+
+  }
+
 
   public String displayTask(Task task) {
     String answer = "";

@@ -23,7 +23,6 @@ public class Duke {
 
   public void run() {
 
-    String goodbye = "Bye. See you again! (またね)";
     ui.displayGreetings();
     storage.loadTasks();
 
@@ -140,7 +139,8 @@ public class Duke {
       }
     }
 
-    System.out.println(goodbye);
+
+    ui.displayGoodbye();
     storage.saveTasks();
 
 
