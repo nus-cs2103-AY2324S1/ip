@@ -1,5 +1,12 @@
+package duke;
+
+import duke.Deadline;
+import duke.Event;
+import duke.Task;
+import duke.Todo;
+
 public class Taskparser {
-    // Parse a string representation of a task and return the corresponding Task object
+    // Parse a string representation of a task and return the corresponding duke.Task object
     public static Task parseTask(String taskString) {
         String[] parts = taskString.split(" \\| ");
         String type = parts[0];
@@ -21,7 +28,7 @@ public class Taskparser {
         }
     }
 
-    // Convert a Task object to a string representation
+    // Convert a duke.Task object to a string representation
     public static String taskToString(Task task) {
         StringBuilder sb = new StringBuilder();
 

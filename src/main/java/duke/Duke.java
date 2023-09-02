@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.FileNotFoundException;
 
 public class Duke {
@@ -14,9 +16,9 @@ public class Duke {
 
 //        try {
             list = new TaskList(storage.load());
-//        } catch (DukeException e) {
+//        } catch (Exceptions.DukeException e) {
 //            ui.showLoadingError();
-//            tasks = new TaskList();
+//            tasks = new duke.TaskList();
 //        }
     }
     public void run() {
