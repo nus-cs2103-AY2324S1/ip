@@ -8,6 +8,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+/**
+ * Handles saving and loading of tasks from and to a data text file.
+ */
 public class Storage {
     public static final String DEFAULT_STORAGE_PATH = ".duke-storage.txt";
     private final Path path;

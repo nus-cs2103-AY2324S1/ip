@@ -6,7 +6,7 @@ import duke.parser.Parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Task {
+public abstract class Task {
     private final String desc;
     private boolean marked;
 

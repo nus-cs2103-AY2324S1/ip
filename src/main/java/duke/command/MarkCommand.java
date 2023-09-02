@@ -3,6 +3,9 @@ package duke.command;
 import duke.Task;
 import duke.ui.TextUi;
 
+/**
+ * Marks a task as done.
+ */
 public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";
     public static final String MESSAGE_USAGE = "mark <task number>";

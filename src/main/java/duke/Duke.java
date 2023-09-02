@@ -7,6 +7,9 @@ import duke.ui.TextUi;
 
 import java.io.IOException;
 
+/**
+ * The main class for the Duke chatbot.
+ */
 public class Duke {
     public static void main(String[] args) {
         TaskList tasks;

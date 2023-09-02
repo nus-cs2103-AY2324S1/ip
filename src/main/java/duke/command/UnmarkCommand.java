@@ -3,6 +3,9 @@ package duke.command;
 import duke.Task;
 import duke.ui.TextUi;
 
+/**
+ * Unmarks a task as undone.
+ */
 public class UnmarkCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
     public static final String MESSAGE_USAGE = "unmark <task number>";

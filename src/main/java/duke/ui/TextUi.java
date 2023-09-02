@@ -9,6 +9,9 @@ import static duke.common.Messages.MESSAGE_GOODBYE;
 import static duke.common.Messages.MESSAGE_INVALID_COMMAND;
 import static duke.common.Messages.MESSAGE_WELCOME;
 
+/**
+ * Responsible for showing and retrieving messages to and from the user.
+ */
 public class TextUi {
     public static final String DIVIDER = "__________________________________________________";
     public static final String INDENT = "    ";

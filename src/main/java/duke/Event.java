@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Represents an event with a start and end.
+ */
 public class Event extends Task {
     String from;
     String to;

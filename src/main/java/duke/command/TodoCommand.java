@@ -3,6 +3,9 @@ package duke.command;
 import duke.Todo;
 import duke.ui.TextUi;
 
+/**
+ * Represents a task that has to be done.
+ */
 public class TodoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
     public static final String MESSAGE_USAGE = "todo <description>";

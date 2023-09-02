@@ -3,6 +3,9 @@ package duke.command;
 import duke.Deadline;
 import duke.ui.TextUi;
 
+/**
+ * Adds a Deadline task to the task list.
+ */
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
     public static final String MESSAGE_USAGE = "deadline <description> /by <date>";

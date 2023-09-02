@@ -2,6 +2,9 @@ package duke.command;
 
 import duke.TaskList;
 
+/**
+ * Represents an executable command.
+ */
 public abstract class Command {
     protected TaskList tasks;
 

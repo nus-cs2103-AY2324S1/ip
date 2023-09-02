@@ -19,6 +19,9 @@ import java.util.regex.Pattern;
 
 import static duke.common.Messages.MESSAGE_INVALID_COMMAND;
 
+/**
+ * Parses user input into commands.
+ */
 public class Parser {
     private static final Pattern COMMAND_FORMAT = Pattern.compile("^(?<command>\\S+)(?<arguments>.*)$");
 
@@ -26,6 +29,13 @@ public class Parser {
         return new Todo(args);
     }
 
+    /**
+     * Parses a deadline input string into a Deadline object.
+     *
+     * @param args the input string for the deadline
+     * @return the parsed Deadline object
+     * @throws DukeParseException if unable to parse correctly
+     */
     public static Deadline parseDeadline(String args) throws DukeParseException {
         Pattern pattern = Pattern.compile("^(?<desc>.+) /by (?<by>.+)$");
         Matcher matcher = pattern.matcher(args);
@@ -37,6 +47,13 @@ public class Parser {
         return new Deadline(desc, by);
     }
 
+    /**
+     * Parses an event input string into an Event object.
+     *
+     * @param args the input string for the event
+     * @return the parsed Event object
+     * @throws DukeParseException if unable to parse correctly
+     */
     public static Event parseEvent(String args) throws DukeParseException {
         Pattern pattern = Pattern.compile("^(?<desc>.+) /from (?<from>.+) /to (?<to>.+)$");
         Matcher matcher = pattern.matcher(args);
@@ -49,6 +66,13 @@ public class Parser {
         return new Event(desc, from, to);
     }
 
+    /**
+     * Takes a given user input and parses it into the corresponding command.
+     * If the user supplies invalid input, an InvalidCommand will be returned.
+     *
+     * @param input the user input
+     * @return the corresponding command from the input
+     */
     public Command parseCommand(String input) {
         Matcher matcher = COMMAND_FORMAT.matcher(input);
         if (!matcher.matches()) {
@@ -79,6 +103,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a given argument string for the Todo command.
+     *
+     * @param args argument string for the Todo command
+     * @return the parsed TodoCommand object
+     */
     private Command parseTodoCommand(String args) {
         if (args.isEmpty()) {
             return new InvalidCommand(TodoCommand.MESSAGE_EMPTY_DESCRIPTION, TodoCommand.MESSAGE_USAGE);
@@ -86,6 +116,12 @@ public class Parser {
         return new TodoCommand(parseTodo(args));
     }
 
+    /**
+     * Parses a given argument string for the Deadline command.
+     *
+     * @param args argument string for the Deadline command
+     * @return the parsed DeadlineCommand object
+     */
     private Command parseDeadlineCommand(String args) {
         try {
             Deadline deadline = parseDeadline(args);
@@ -95,6 +131,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a given argument string for the Event command.
+     *
+     * @param args argument string for the Event command
+     * @return the parsed EventCommand object
+     */
     private Command parseEventCommand(String args) {
         try {
             Event event = parseEvent(args);
@@ -104,6 +146,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a given argument string for the Mark command.
+     *
+     * @param args argument string for the Mark command
+     * @return the parsed MarkCommand object
+     */
     private Command parseMarkCommand(String args) {
         try {
             int taskNum = Integer.parseInt(args);
@@ -113,6 +161,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a given argument string for the Unmark command.
+     *
+     * @param args argument string for the Unmark command
+     * @return the parsed UnmarkCommand object
+     */
     private Command parseUnmarkCommand(String args) {
         try {
             int taskNum = Integer.parseInt(args);
@@ -122,10 +176,23 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a given argument string for the List command.
+     * A List command has no arguments to parse, but we have this function for uniformity.
+     *
+     * @param args argument string for the List command
+     * @return the parsed ListCommand object
+     */
     private Command parseListCommand(String args) {
         return new ListCommand();
     }
 
+    /**
+     * Parses a given argument string for the Delete command.
+     *
+     * @param args argument string for the Delete command
+     * @return the parsed DeleteCommand object
+     */
     private Command parseDeleteCommand(String args) {
         try {
             int taskNum = Integer.parseInt(args);
@@ -135,6 +202,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a given argument string for the Bye command.
+     * A Bye command has no arguments to parse, but we have this function for uniformity.
+     *
+     * @param args argument string for the Bye command
+     * @return the parsed ByeCommand object
+     */
     private Command parseByeCommand(String args) {
         return new ByeCommand();
     }

@@ -3,6 +3,9 @@ package duke.command;
 import duke.Event;
 import duke.ui.TextUi;
 
+/**
+ * Adds an event task to the task list.
+ */
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
     public static final String MESSAGE_USAGE = "event <description> /from <date> /to <date>";
