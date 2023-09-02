@@ -1,5 +1,5 @@
 [T][ ] ip
-[D][X] assignment (by: 2019-10-15)
-[D][ ] vote (by: 2023-09-01)
+[D][X] assignment  (by: 2019-10-15)
+[D][ ] vote  (by: 2023-09-01)
 [E][ ] repair (from: 2023-09-01 to: 2023-09-02)
-[D][ ] 2101 script (by: 2023-09-04)
+[D][ ] 2101 script  (by: 2023-09-04)
