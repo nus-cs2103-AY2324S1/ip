@@ -16,6 +16,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 /**
  * Main class for Bob
  */
@@ -26,6 +29,8 @@ public class Bob extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
+    private final Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private final Image bob = new Image(this.getClass().getResourceAsStream("/images/bob.png"));
 
     // Bob variables
     private Storage storage;
@@ -127,13 +132,11 @@ public class Bob extends Application {
         // Step 3: Adding functionality to buttons
 
         sendButton.setOnMouseClicked((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
+            handleUserInput();
         });
 
         userInput.setOnAction((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
+            handleUserInput();
         });
 
         //Scroll down to the end every time dialogContainer's height changes.
@@ -142,7 +145,6 @@ public class Bob extends Application {
     }
 
     /**
-     * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
@@ -153,5 +155,28 @@ public class Bob extends Application {
 
         return textToAdd;
     }
+
+    /**
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    private void handleUserInput() {
+        Label userText = new Label(userInput.getText());
+        Label dukeText = new Label(getResponse(userInput.getText()));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(bob))
+        );
+        userInput.clear();
+    }
+
+    /**
+     * Formats Bob's reply
+     */
+    private String getResponse(String input) {
+        return "Bob: " + input;
+    }
+
+
 }
 
