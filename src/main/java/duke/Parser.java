@@ -37,7 +37,8 @@ public class Parser {
             break;
         case "todo":
             if (specifications.isEmpty()) {
-                throw new IllegalArgumentException("OOPS!!! The description of a todo cannot be empty.");
+                throw new IllegalArgumentException(
+                        "OOPS!!! The description of a todo cannot be empty.");
             }
             Task toDoTask = new ToDo(specifications, false);
             this.list.store(toDoTask);
@@ -53,7 +54,8 @@ public class Parser {
                 this.ui.showTaskAdded(deadlineTask, this.list.length());
                 break;
             } catch (ArrayIndexOutOfBoundsException error) {
-                throw new IllegalArgumentException("OOPS!!! The description of a deadline must have <task> /by <time>.");
+                throw new IllegalArgumentException(
+                        "OOPS!!! The description of a deadline must have <task> /by <time>.");
             }
         case "event":
             try {
@@ -67,7 +69,8 @@ public class Parser {
                 this.ui.showTaskAdded(eventTask, this.list.length());
                 break;
             } catch (ArrayIndexOutOfBoundsException error) {
-                throw new IllegalArgumentException("OOPS!!! The description of an event must have <task> /from <start> /to <end>.");
+                throw new IllegalArgumentException(
+                        "OOPS!!! The description of an event must have <task> /from <start> /to <end>.");
             }
         case "delete":
             if (specifications.isEmpty()) {
@@ -80,10 +83,12 @@ public class Parser {
                 this.ui.showTaskDeleted(taskToRemove, this.list.length());
                 break;
             } catch (IndexOutOfBoundsException error) {
-                throw new IllegalArgumentException("OOPS!!! I could not find any task in that position.");
+                throw new IllegalArgumentException(
+                        "OOPS!!! I could not find any task in that position.");
             }
         default:
-            throw new IllegalArgumentException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new IllegalArgumentException(
+                    "OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         return true;
     }

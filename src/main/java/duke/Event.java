@@ -10,7 +10,8 @@ public class Event extends Task {
     /** End time of event. */
     protected LocalDate end;
 
-    public Event(String description, boolean isDone, LocalDate start, LocalDate end) {
+    public Event(String description, boolean isDone,
+                 LocalDate start, LocalDate end) {
         super(description, isDone);
         this.start = start;
         this.end = end;
@@ -19,7 +20,8 @@ public class Event extends Task {
     @Override
     public String getStorageDescription() {
         String isCompleted = this.isDone ? "1" : "0";
-        return "E " + isCompleted + " " + this.description + "/from" + this.start + "/to" + this.end;
+        return "E " + isCompleted + " " + this.description +
+                "/from" + this.start + "/to" + this.end;
     }
 
     /**
