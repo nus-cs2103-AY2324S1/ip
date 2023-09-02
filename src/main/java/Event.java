@@ -11,10 +11,10 @@ public class Event extends Task {
 
     /**
      * Used to evaluate String form of a Event
-     * @return String form of an Event
+     * @return String form of an Eventgit
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + "to: " + to.trim() + ")";
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to.trim() + ")";
     }
 }
