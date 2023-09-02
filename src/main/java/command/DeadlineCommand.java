@@ -1,3 +1,8 @@
+package command;
+
+import duke.Ui;
+import duke.TaskList;
+
 import exception.EmptyDateTimeException;
 import exception.EmptyInputException;
 import exception.InvalidDateTimeException;
@@ -6,6 +11,8 @@ import exception.InvalidFormatException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+
+import task.Deadline;
 
 public class DeadlineCommand extends Command {
     private TaskList taskList;

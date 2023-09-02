@@ -1,3 +1,5 @@
+package duke;
+
 public enum Keyword {
     MARK,
     UNMARK,

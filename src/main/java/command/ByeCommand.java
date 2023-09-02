@@ -1,3 +1,8 @@
+package command;
+
+import duke.Ui;
+import duke.TaskList;
+
 public class ByeCommand extends Command {
     private TaskList taskList;
     private Ui ui;
