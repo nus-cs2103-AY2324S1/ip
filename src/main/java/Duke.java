@@ -1,13 +1,8 @@
 import exceptions.ParserException;
 import io.Parser;
 import io.Ui;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.NoSuchElementException;
 import storage.Storage;
-import tasks.Deadline;
-import tasks.Event;
 import tasks.Task;
 import tasks.TaskList;
 import tasks.Todo;
