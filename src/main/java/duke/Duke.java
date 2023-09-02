@@ -25,7 +25,7 @@ public class Duke {
             throws DukeException {
         Task task = Duke.taskList.markTaskAsDone(index);
         storage.saveChanges(Duke.taskList);
-        Ui.mark(task);
+        Ui.printMarkingOfTask(task);
     }
 
     /**
@@ -38,7 +38,7 @@ public class Duke {
             throws DukeException {
         Task task = Duke.taskList.unmarkTask(index);
         storage.saveChanges(Duke.taskList);
-        Ui.unmark(task);
+        Ui.printUnmarkingOfTask(task);
     }
 
     /**
@@ -51,7 +51,7 @@ public class Duke {
             throws DukeException {
         Task task = Duke.taskList.deleteTask(index);
         storage.saveChanges(Duke.taskList);
-        Ui.deleteTask(task, Duke.taskList.getSize());
+        Ui.printDeletingOfTask(task, Duke.taskList.getSize());
     }
 
     /**
@@ -62,7 +62,7 @@ public class Duke {
     public static void createTodo(String desc) {
         Task task = Duke.taskList.addTodo(desc, 0);
         storage.saveChanges(Duke.taskList);
-        Ui.addTask(task, Duke.taskList.getSize());
+        Ui.printAddingOfTask(task, Duke.taskList.getSize());
     }
 
     /**
@@ -76,7 +76,7 @@ public class Duke {
             throws DateTimeParseException {
         Task task = Duke.taskList.addDeadline(desc, deadline, 0);
         storage.saveChanges(Duke.taskList);
-        Ui.addTask(task, Duke.taskList.getSize());
+        Ui.printAddingOfTask(task, Duke.taskList.getSize());
     }
 
     /**
@@ -91,14 +91,14 @@ public class Duke {
             throws DateTimeParseException {
         Task task = Duke.taskList.addEvent(desc, start, end, 0);
         storage.saveChanges(Duke.taskList);
-        Ui.addTask(task, Duke.taskList.getSize());
+        Ui.printAddingOfTask(task, Duke.taskList.getSize());
     }
 
     /**
      * Prints out current tasks.
      */
     public static void listTasks() {
-        Ui.list(Duke.taskList);
+        Ui.printTaskList(Duke.taskList);
     }
 
     /**
@@ -120,14 +120,14 @@ public class Duke {
         Duke.storage = storage;
         Duke.taskList = storage.retrieveSavedData();
 
-        Ui.intro();
+        Ui.printIntro();
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
         String bye = "bye";
 
         while (!userInput.toLowerCase().equals(bye)) {
             try {
-                Parser.processInput(userInput, Duke.taskList.getSize());
+                Parser.parseUserInput(userInput, Duke.taskList.getSize());
             } catch (RuntimeException e) {
                 Ui.printMessage(e.getMessage());
             } finally {
@@ -137,7 +137,7 @@ public class Duke {
 
         storage.saveChanges(Duke.taskList);
         scanner.close();
-        Ui.outro();
+        Ui.printOutro();
     }
 
     /**

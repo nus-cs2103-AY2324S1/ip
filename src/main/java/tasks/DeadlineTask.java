@@ -1,19 +1,26 @@
 package tasks;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * A deadline task.
  */
 public class DeadlineTask extends Task {
 
-    protected final DateTimeFormatter INPUT_FORMAT
-            = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    protected final DateTimeFormatter DISPLAY_FORMAT
-            = DateTimeFormatter.ofPattern("dd-MMM-yyyy HHmm");
+    protected static final DateTimeFormatter INPUT_FORMAT =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    protected static final DateTimeFormatter DISPLAY_FORMAT =
+            DateTimeFormatter.ofPattern("dd-MMM-yyyy HHmm");
     protected LocalDateTime deadline;
 
+    /**
+     * Constructor, initializes task description, deadline and isMarked.
+     *
+     * @param desc Task description.
+     * @param deadline Deadline date/time of task.
+     * @param isMarked 1 if is marked, 0 otherwise.
+     */
     public DeadlineTask(String desc, LocalDateTime deadline, int isMarked) {
         super(desc);
         this.deadline = deadline;
@@ -25,15 +32,14 @@ public class DeadlineTask extends Task {
     @Override
     protected String getTextFormattedString() {
         return String.format("D|%d|%s|%s", this.isDone ? 1 : 0,
-                this.desc, this.deadline.format(INPUT_FORMAT).toString());
+                this.desc, this.deadline.format(INPUT_FORMAT));
     }
 
     @Override
     public String toString() {
-        String output = String.format("[D]%s (by: %s)",
+        return String.format("[D]%s (by: %s)",
                 super.toString(),
-                this.deadline.format(DISPLAY_FORMAT).toString());
-        return output;
+                this.deadline.format(DISPLAY_FORMAT));
     }
 
 }

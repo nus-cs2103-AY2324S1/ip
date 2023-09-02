@@ -71,18 +71,20 @@ public class Storage {
             String start;
 
             switch (taskType) {
-                case "T":
-                    taskList.addTodo(desc, isMarked);
-                    break;
-                case "D":
-                    end = segmented[3];
-                    taskList.addDeadline(desc, end, isMarked);
-                    break;
-                case "E":
-                    end = segmented[3];
-                    start = segmented[4];
-                    taskList.addEvent(desc, start, end, isMarked);
-                    break;
+            case "T":
+                taskList.addTodo(desc, isMarked);
+                break;
+            case "D":
+                end = segmented[3];
+                taskList.addDeadline(desc, end, isMarked);
+                break;
+            case "E":
+                end = segmented[3];
+                start = segmented[4];
+                taskList.addEvent(desc, start, end, isMarked);
+                break;
+            default:
+                break;
             }
         }
 
@@ -91,7 +93,7 @@ public class Storage {
 
     /**
      * Creates a new data file or opens the existing one to update it with the latest tasks.
-     * The format of the task string is "<tasktype>|<isMarked>|<desc>|<end>|<start>".
+     * The format of the task string is "~tasktype~|~isMarked~|~desc~|~end~|~start~".
      * Task type is T/D/E and isMarked is 0 for false and 1 for true.
      *
      * @param taskList The TaskList containing the latest tasks.
