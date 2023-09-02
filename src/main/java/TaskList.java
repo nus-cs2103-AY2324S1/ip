@@ -28,6 +28,14 @@ public class TaskList {
         System.out.printf("     %s\n", task);
     }
 
+    public void deleteTask(String text) {
+        int taskIndex = Integer.parseInt(text) - 1;
+        Task task = this.tasks.get(taskIndex);
+        this.tasks.remove(taskIndex);
+        System.out.println("Ok! I've deleted this task:");
+        System.out.printf("     %s\n", task);
+    }
+
     public boolean validateTaskIndex(String text) {
         int index;
         try {

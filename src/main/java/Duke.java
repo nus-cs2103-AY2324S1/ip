@@ -25,6 +25,7 @@ public class Duke {
         final String TODO_NEW_TASK_COMMAND = "todo";
         final String DEADLINE_NEW_TASK_COMMAND = "deadline";
         final String EVENT_NEW_TASK_COMMAND = "event";
+        final String DELETE_TASK_COMMAND = "delete";
 
         TaskList taskList = new TaskList(100);
 
@@ -56,6 +57,12 @@ public class Duke {
                         break;
                     }
                     taskList.markTaskUndone(args.get(1));
+                    break;
+                case DELETE_TASK_COMMAND:
+                    if (!taskList.validateTaskIndex(args.get(1))) {
+                        break;
+                    }
+                    taskList.deleteTask(args.get(1));
                     break;
                 case TODO_NEW_TASK_COMMAND:
                     taskList.addTask(new TodoTask(args.get(1)));
