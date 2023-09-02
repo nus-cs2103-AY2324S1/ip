@@ -10,7 +10,7 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
-    public String formatDateTime(LocalDateTime dt) {
+    public static String formatDateTime(LocalDateTime dt) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
         return dt.format(dateTimeFormatter);

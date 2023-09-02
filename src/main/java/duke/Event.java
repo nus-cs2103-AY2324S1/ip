@@ -14,7 +14,7 @@ public class Event extends Task {
         this.end = end;
     }
 
-    public String formatDateTime(LocalDateTime dt) {
+    public static String formatDateTime(LocalDateTime dt) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
         return dt.format(dateTimeFormatter);
