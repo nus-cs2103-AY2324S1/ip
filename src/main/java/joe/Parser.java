@@ -5,6 +5,7 @@ import joe.commands.Command;
 import joe.commands.DeadlineCommand;
 import joe.commands.DeleteCommand;
 import joe.commands.EventCommand;
+import joe.commands.FindCommand;
 import joe.commands.InvalidCommand;
 import joe.commands.ListCommand;
 import joe.commands.MarkCommand;
@@ -19,6 +20,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
+    private enum CommandType {
+        list, todo, deadline, event, mark, unmark, delete, bye, find, INVALID
+    }
+
     private static final Pattern COMMAND_PATTERN = Pattern.compile("^(\\S+)\\s?(.*)$");
     private static final String DATETIME_FORMAT = "d/M/yyyy HHmm";
     private static final String FAILED_TO_PARSE_DATE_MESSAGE = "Failed to parse the date.\nPlease ensure it is a valid datetime following the format <d/M/yyyy HHmm>";
@@ -57,6 +62,8 @@ public class Parser {
             return handleEvent(args);
         case delete:
             return handleDelete(args);
+        case find:
+            return handleFind(args);
         default:
             return handleInvalidKeyword();
         }
@@ -140,6 +147,13 @@ public class Parser {
         }
     }
 
+    private static Command handleFind(String args) {
+        if (args.trim().isEmpty()) {
+            return new InvalidCommand("Invalid arguments for find\nPlease follow: find <search_word>");
+        }
+        return new FindCommand(args.trim());
+    }
+
     private static Command handleInvalidKeyword() {
         StringBuilder sb = new StringBuilder();
         for (CommandType cmd : CommandType.values()) {
@@ -166,9 +180,5 @@ public class Parser {
 
         String idx = m.group(1);
         return Integer.parseInt(idx);
-    }
-
-    private enum CommandType {
-        list, todo, deadline, event, mark, unmark, delete, bye, INVALID
     }
 }

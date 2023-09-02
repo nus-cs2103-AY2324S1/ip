@@ -66,11 +66,26 @@ public class TaskList {
     }
 
     /**
+     * Returns a TaskList of tasks containing the search word.
+     *
+     * @param searchString The search word.
+     * @return A TaskList of tasks.
+     */
+    public TaskList find(String searchString) {
+        TaskList res = new TaskList();
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(searchString)) {
+                res.add(task);
+            }
+        }
+        return res;
+    }
+
+    /**
      * Returns a formatted string representation of the task list.
      *
      * @return A string representation of the task list.
      */
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
