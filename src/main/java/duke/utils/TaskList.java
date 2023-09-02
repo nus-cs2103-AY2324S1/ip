@@ -1,15 +1,14 @@
 package duke.utils;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 import duke.DukeException;
-import duke.DukeMissingArgumentException;
 import duke.DukeMissingTaskException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 /**
  * Represents a list of tasks.
@@ -131,6 +130,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns the list of tasks that contains the keyword.
+     * @param searchTerm The keyword to be searched.
+     * @return The list of tasks that contains the keyword.
+     */
     public TaskList filterTasks(String searchTerm) {
         ArrayList<Task> filteredTasks = new ArrayList<>();
         for (Task task : tasks) {

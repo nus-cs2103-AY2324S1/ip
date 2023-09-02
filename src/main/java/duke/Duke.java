@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.Scanner;
+
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -8,8 +10,6 @@ import duke.utils.Parser;
 import duke.utils.Storage;
 import duke.utils.TaskList;
 import duke.utils.Ui;
-
-import java.util.Scanner;
 
 /**
  * Duke is a simple task management chatbot that allows users to manager their tasks.
@@ -67,29 +67,29 @@ public class Duke {
                 }
                 case TODO: {
                     Todo todo = this.tasks.addTodo(parser.getContentForTodo());
-                    this.ui.printBotMessage("Got it. I've added this task:\n\t" + todo +
-                            "\nNow you have " + this.tasks.getSize() + " tasks in the list.");
+                    this.ui.printBotMessage("Got it. I've added this task:\n\t" + todo
+                            + "\nNow you have " + this.tasks.getSize() + " tasks in the list.");
                     break;
                 }
                 case DEADLINE: {
                     String[] inputList = parser.getContentForDeadline();
                     Deadline deadline = this.tasks.addDeadline(inputList[0], parser.parseDateTime(inputList[1]));
-                    this.ui.printBotMessage("Got it. I've added this task:\n\t" + deadline +
-                            "\nNow you have " + this.tasks.getSize() + " tasks in the list.");
+                    this.ui.printBotMessage("Got it. I've added this task:\n\t" + deadline
+                            + "\nNow you have " + this.tasks.getSize() + " tasks in the list.");
                     break;
                 }
                 case EVENT: {
                     String[] inputList = parser.getContentForEvent();
                     Event event = this.tasks.addEvent(inputList[0], parser.parseDateTime(inputList[1]),
                             parser.parseDateTime(inputList[2]));
-                    this.ui.printBotMessage("Got it. I've added this task:\n\t" + event +
-                            "\nNow you have " + this.tasks.getSize() + " tasks in the list.");
+                    this.ui.printBotMessage("Got it. I've added this task:\n\t" + event
+                            + "\nNow you have " + this.tasks.getSize() + " tasks in the list.");
                     break;
                 }
                 case DELETE: {
                     Task task = this.tasks.deleteTask(parser.getTaskNumber());
-                    this.ui.printBotMessage("Noted. I've removed this task:\n\t" + task +
-                            "\nNow you have " + this.tasks.getSize() + " tasks in the list.");
+                    this.ui.printBotMessage("Noted. I've removed this task:\n\t" + task
+                            + "\nNow you have " + this.tasks.getSize() + " tasks in the list.");
                     break;
                 }
                 case FIND: {
@@ -108,7 +108,7 @@ public class Duke {
     }
 
     /**
-     * The main method of the Duke chatbot.
+     * Runs the Duke chatbot.
      * @param args The command line arguments.
      */
     public static void main(String[] args) {

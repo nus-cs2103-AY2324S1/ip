@@ -1,5 +1,8 @@
 package duke.utils;
 
+/**
+ * Represents the user interface of the bot.
+ */
 public class Ui {
     /**
      * Prints a horizontal line for formatting purposes.

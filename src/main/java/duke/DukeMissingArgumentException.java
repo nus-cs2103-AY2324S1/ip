@@ -8,7 +8,7 @@ public class DukeMissingArgumentException extends DukeException {
     public DukeMissingArgumentException(String message) {
         this.message = message;
     }
-    public DukeMissingArgumentException () {
+    public DukeMissingArgumentException() {
         this.message = "There is a missing argument.";
     }
     @Override
