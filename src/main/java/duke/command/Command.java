@@ -6,7 +6,7 @@ import duke.ui.Ui;
 public abstract class Command {
 
     public enum CommandType {
-        LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, BYE, INVALID
+        LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, BYE, FIND, INVALID
     }
 
     public CommandType type;

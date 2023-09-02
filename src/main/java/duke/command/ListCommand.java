@@ -9,6 +9,6 @@ public class ListCommand extends Command {
     }
 
     public void execute(TaskList tasks, Ui ui) {
-        ui.listTasks(tasks);
+        ui.listTasks(tasks, false);
     }
 }

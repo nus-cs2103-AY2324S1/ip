@@ -47,10 +47,13 @@ public class Ui {
         return sc.nextLine();
     }
 
-    public void listTasks(TaskList taskList) {
+    public void listTasks(TaskList taskList, boolean searching) {
         printDivider();
-        System.out.println(
-                "You have somehow found the audacity to conjure up this laughable list of inconsequential endeavours:\n");
+        if (searching) {
+            System.out.println("The following tasks match what you seek:\n");
+        } else {
+            System.out.println("You have somehow found the audacity to conjure up this laughable list of inconsequential endeavours:\n");
+        }
         for (int i = 1; i <= taskList.getSize(); i++) {
             System.out.println(i + ". " + taskList.getTask(i - 1));
         }

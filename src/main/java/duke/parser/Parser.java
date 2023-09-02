@@ -13,6 +13,7 @@ import duke.command.UnmarkCommand;
 import duke.command.ToDoCommand;
 import duke.command.DeadlineCommand;
 import duke.command.EventCommand;
+import duke.command.FindCommand;
 import duke.command.DeleteCommand;
 import duke.command.ByeCommand;
 import duke.command.InvalidCommand;
@@ -83,6 +84,8 @@ public class Parser {
                     return new EventCommand(eventComponents[0], eventStart, eventEnd);
                 case "delete":
                     return new DeleteCommand(Integer.parseInt(inputComponents[1]));
+                case "find":
+                    return new FindCommand(input.substring(5));
                 case "bye":
                     return new ByeCommand();
             }
