@@ -132,13 +132,25 @@ public class Parser {
     }
 
     public void deadlineCommandHandler(TaskList taskList, String secondHalfInput) {
-        String[] deadlineInputArray = secondHalfInput.split("/");
-        String deadlineDescription = deadlineInputArray[0].substring(0,deadlineInputArray[0].length()-1);
-        String deadlineDate = deadlineInputArray[1].substring(3);
 
-        Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate);
-        taskList.add(newDeadline);
-        System.out.println("Added: " + newDeadline.getTaskAsString());
+        try {
+            String[] deadlineInputArray = secondHalfInput.split("/");
+            String deadlineDescription = deadlineInputArray[0].substring(0,deadlineInputArray[0].length()-1);
+            String deadlineDateString = deadlineInputArray[1].substring(3);
+
+            LocalDateTime deadlineDate = parseDateTime(deadlineDateString);
+            if (deadlineDate == null) {
+                return;
+            }
+
+            Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate);
+            taskList.add(newDeadline);
+            System.out.println("Added: " + newDeadline.getTaskAsString());
+        } catch (Exception e ) {
+            System.out.println("Sorry, I did not understand that. Please enter in the following format: \n" +
+                    "deadline {description} /by {deadline}.");
+        }
+
     }
 
     public void eventCommandHandler(TaskList taskList, String input, String secondHalfInput) {

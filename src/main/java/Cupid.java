@@ -35,16 +35,15 @@ public class Cupid {
             Parser parser = new Parser(input, taskList);
             parser.parse();
 
-        }
+            try {
+                storage.save(taskList);
+            } catch (IOException e) {
+                System.out.println(e);
+                System.out.println("Save unsuccessful");
+            }
 
-        try {
-            storage.save(taskList);
-            System.out.println("Save successful");
-        } catch (IOException e) {
-            System.out.println(e);
-            System.out.println("Save unsuccessful");
         }
-
+        
         ui.goodbye();
     }
 

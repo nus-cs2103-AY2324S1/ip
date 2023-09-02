@@ -49,8 +49,16 @@ public class Load {
                     descriptionEndIndex = currentTaskAsString.indexOf("(by:")-1;
                     int deadlineStartIndex = currentTaskAsString.indexOf("(by:") + 5;
                     description = currentTaskAsString.substring(descriptionBeginIndex, descriptionEndIndex);
-                    String deadlineDeadline = currentTaskAsString.substring(deadlineStartIndex, currentTaskAsString.length()-1);
-                    Deadline deadline = new Deadline(description, deadlineDeadline, isDone);
+                    String deadlineTimeString = currentTaskAsString.substring(deadlineStartIndex, currentTaskAsString.length()-1);
+                    LocalDateTime deadlineTime = null;
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+                        deadlineTime = LocalDateTime.parse(deadlineTimeString, formatter);
+                    } catch (Exception e) {
+                        System.out.println("Deadline " + description + " cannot be loaded.");
+                        break;
+                    }
+                    Deadline deadline = new Deadline(description, deadlineTime, isDone);
                     taskList.add(deadline);
                     break;
 
