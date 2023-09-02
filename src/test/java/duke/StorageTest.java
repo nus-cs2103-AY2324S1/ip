@@ -2,19 +2,18 @@ package duke;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StorageTest {
     private TaskList taskList;
     @Test
-    public void test_Save() {
+    public void test_Save() throws IOException {
         this.taskList = new TaskList();
         String filepath = "./data/duke.txt";
-
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filepath));
+        writer.write("");
         for (int i = 0; i < 5; i++) {
             taskList.add(new Todo("read book", "todo read book"));
         }
