@@ -5,7 +5,8 @@ import duke.task.TaskList;
 import duke.userio.InvalidUserInputException;
 import duke.userio.Parser;
 import duke.userio.Ui;
-import java.util.*;
+
+import java.util.Scanner;
 
 /**
  * Chatbot of the program.
