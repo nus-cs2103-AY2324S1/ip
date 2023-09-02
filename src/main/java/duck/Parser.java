@@ -17,10 +17,20 @@ import duck.task.EventTask;
 import duck.task.Task;
 import duck.task.TodoTask;
 
+/**
+ * Handles parsing of user input and file data.
+ */
 public class Parser {
     private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public static DateTimeFormatter fileDateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
+    /**
+     * Parses the user input and returns the corresponding command.
+     * 
+     * @param input The user input.
+     * @return The corresponding command.
+     * @throws DuckException If the user input is invalid.
+     */
     public static Command parse(String input) throws DuckException {
         String[] splitInput = input.trim().split(" ", 2);
         String command = splitInput[0].toUpperCase();
@@ -103,6 +113,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a line from the file and returns the corresponding task.
+     * 
+     * @param fileLine The line from the file.
+     * @return The corresponding task.
+     * @throws DuckException If the line is invalid.
+     */
     public static Task parseFromFile(String fileLine) throws DuckException{
         char typeChar = fileLine.charAt(0);
 

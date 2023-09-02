@@ -9,13 +9,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles changes to the task history.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Initialises a new Storage object.
+     * 
+     * @param filePath The path to the file where the tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Rewrites the entire task history.
+     * 
+     * @param tasks The list of tasks.
+     * @throws DuckException If there are problems accessing or writing to the file.
+     */
     public void updateTasks(TaskList tasks) throws DuckException {
         try {
             FileWriter writer = new FileWriter(filePath);
@@ -28,6 +42,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the task history from the file.
+     * 
+     * @return The list of tasks.
+     * @throws DuckException If there are problems accessing, reading or parsing from the file.
+     */
     public ArrayList<Task> loadTasks() throws DuckException {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -48,11 +68,16 @@ public class Storage {
         } catch (IOException e) {
             throw new DuckException("Error - unable to access task file.");
         }
-
         return tasks;
     }
 
-    // Appends instead of rewriting the file
+    
+    /**
+     * Appends instead of rewriting the file.
+     * 
+     * @param newTask The new task to be added.
+     * @throws DuckException If there are problems accessing or writing to the file.
+     */
     public void addTask(Task newTask) throws DuckException {
         try {
             FileWriter writer = new FileWriter(filePath, true);
@@ -63,7 +88,12 @@ public class Storage {
         }
     }
 
-    // Rewrites the file, except for the line at the specified index
+    /**
+     * Deletes a task (one line) from the file.
+     * 
+     * @param index The index of the task to be deleted.
+     * @throws DuckException If there are problems accessing, reading or writing to the file.
+     */
     public void deleteTask(int index) throws DuckException {
         ArrayList<String> history = new ArrayList<>();
         try {

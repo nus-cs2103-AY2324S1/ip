@@ -5,6 +5,9 @@ import java.util.Scanner;
 import duck.task.Task;
 import duck.task.TaskList;
 
+/**
+ * Handles user interaction.
+ */
 public class Ui {
     Scanner scanner = new Scanner(System.in);
     
