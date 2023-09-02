@@ -18,38 +18,24 @@ import java.util.Scanner;
         private static final String chatBotName = "Cristiano";
         private Storage storage;
         private TaskManager taskManager;
+        private UI ui;
+        private Parser parser;
 
         public Duke() {
             try {
+                this.parser = new Parser();
                 storage = new Storage(FILE_PATH);
+                this.ui = new UI();
+                ui.greetUser(chatBotName);
                 taskManager = storage.loadData();
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
+                ui.displayError(e);
             }
         }
 
         public static void main(String[] args) {
-            String logo = " ____        _\n"
-                    + "|  _ \\ _   _| | _____\n"
-                    + "| | | | | | | |/ / _ \\\n"
-                    + "| |_| | |_| |   <  __/\n"
-                    + "|____/ \\__,_|_|\\_\\___|\n";
-            System.out.println("Hello from\n" + logo);
             Duke duke = new Duke();
-            duke.greetUser();
             duke.run();
-        }
-
-        protected void greetUser() {
-            UI.printLine();
-            System.out.println("Hello! I'm " + chatBotName + "! SUIIII!!!");
-            System.out.println("What can I do for you?");
-        }
-
-        protected static void exit() {
-            UI.printLine();
-            System.out.println("Bye. Hope to see you again soon!");
-            UI.printLine();
         }
 
         /**
@@ -58,12 +44,13 @@ import java.util.Scanner;
          * It also handles exceptions and waits for user to say bye.
          */
         protected void run() {
+
             Scanner scanner = new Scanner(System.in);
             String input = "";
             while (!input.equals("bye")) {
                 try {
                     input = scanner.nextLine();
-                    String command = getCommand(input);
+                    String command = this.parser.getCommand(input);
                     switch (command) {
                         case "list":
                             taskManager.list();
@@ -88,12 +75,10 @@ import java.util.Scanner;
                             throw new UnknownCommandException("I may be the GOAT but I don't know what that means.");
                     }
                 } catch (DukeException e) {
-                    UI.printLine();
-                    System.out.println(e.getMessage());
-                    UI.printLine();
+                    ui.displayError(e);
                 }
             }
-            exit();
+            ui.exit();
         }
 
 
@@ -102,9 +87,6 @@ import java.util.Scanner;
          * @param input
          * @return command string
          */
-        private String getCommand(String input) {
-            return input.split(" ")[0];
-        }
 
         /**
          * This function handles the logic for when a user wants to mark a task as done or undone.
@@ -140,15 +122,7 @@ import java.util.Scanner;
          * @throws InvalidArgumentException
          */
         private void handleTodo(String input, TaskManager taskManager) throws InvalidArgumentException, StorageException {
-
-            int indexOfSpace = input.indexOf(" ");
-            if (indexOfSpace == -1 || indexOfSpace == input.length() - 1) {
-                throw new InvalidArgumentException("Please enter a task description.");
-            }
-            String taskName = input.substring(input.indexOf(" ") + 1).trim();
-            if(taskName.isEmpty()) {
-                throw new InvalidArgumentException("Please enter a task description.");
-            }
+            String taskName = this.parser.parseToDo(input);
             Task task = new ToDo(taskName);
             taskManager.add(task);
             updateStorage();
@@ -161,24 +135,17 @@ import java.util.Scanner;
          * @throws InvalidArgumentException
          */
         private void handleDeadline(String input, TaskManager taskManager) throws InvalidArgumentException, StorageException {
-            String suffix = input.substring(input.indexOf(" ") + 1);
-            String[] parts = suffix.split(" /due ");
-            if (parts.length != 2) {
-                throw new InvalidArgumentException("Invalid format for deadline. " +
-                        "Please use: deadline task name /due due Date");
-            }
-            String taskName = parts[0].trim();
-            String dueDate = parts[1].trim();
-            LocalDateTime time;
+            String[] parsedInput = this.parser.parseDeadline(input);
+            String taskName = parsedInput[0];
+            String dueDate = parsedInput[1];
 
+            LocalDateTime time;
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
                 time = LocalDateTime.parse(dueDate, formatter);
             } catch (DateTimeParseException e) {
                 throw new InvalidArgumentException("Please use the format dd/MM/yyyy HH:mm");
             }
-
-
 
             Task task = new Deadline(taskName, time);
             taskManager.add(task);
@@ -192,20 +159,11 @@ import java.util.Scanner;
          * @throws InvalidArgumentException
          */
         private void handleEvent(String input, TaskManager taskManager) throws InvalidArgumentException, StorageException {
-            String suffix = input.substring(input.indexOf(" ") + 1);
-            String[] parts = suffix.split(" /from ");
-            if (parts.length != 2) {
-                throw new InvalidArgumentException("Invalid format for event. " +
-                        "Please use: event task_name /from start /to end");
-            }
-            String taskName = parts[0].trim();
-            String[] timeParts = parts[1].split(" /to ");
-            if (timeParts.length != 2) {
-                throw new InvalidArgumentException("Invalid format for event. " +
-                        "Please use: event task_name /from start /to end");
-            }
-            String from = timeParts[0].trim();
-            String to = timeParts[1].trim();
+            String[] parsedInput = this.parser.parseEvent(input);
+            String taskName = parsedInput[0];
+            String from = parsedInput[1];
+            String to = parsedInput[2];
+
             LocalDateTime fromTime;
             LocalDateTime toTime;
 
