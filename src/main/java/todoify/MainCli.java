@@ -1,19 +1,19 @@
 package todoify;
 
+import java.util.Scanner;
+
 import todoify.chatbot.ChatMessage;
 import todoify.chatbot.Chatbot;
-
-import java.util.Scanner;
 
 /**
  * The chatbot CLI entry-point, which provides an interactive input prompt via the CLI.
  *
  * <p>
  * The default name for the chatbot is specified at {@link todoify.chatbot.Chatbot#DEFAULT_NAME}. Custom names can be
- * set by modifying the {@link MainCLI#main} implementation here.
+ * set by modifying the {@link MainCli#main} implementation here.
  * </p>
  */
-public class MainCLI {
+public class MainCli {
 
     private static final String CHATBOT_PADDING = "  ";
     private static final String USER_PADDING = " > ";
@@ -28,8 +28,8 @@ public class MainCLI {
             if (message.getSenderType() == ChatMessage.SenderType.CHATBOT) {
                 System.out.printf("[%s]:\n", chatbot.getName());
                 System.out.println(
-                        CHATBOT_PADDING +
-                                message.getMessage().replaceAll("\n", "\n" + CHATBOT_PADDING)
+                        CHATBOT_PADDING
+                                + message.getMessage().replaceAll("\n", "\n" + CHATBOT_PADDING)
                 );
                 System.out.println();
             }

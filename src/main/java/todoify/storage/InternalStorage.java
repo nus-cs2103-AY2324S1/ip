@@ -15,6 +15,16 @@ import java.nio.file.Path;
 public class InternalStorage {
 
     private static InternalStorage sharedInstance = null;
+    private final Path baseNioPath;
+
+    /**
+     * Constructs a new instance of an internal storage manager.
+     *
+     * @param baseNioPath The Java NIO path to the base directory. May be null to use default.
+     */
+    public InternalStorage(Path baseNioPath) {
+        this.baseNioPath = baseNioPath;
+    }
 
     /**
      * Returns the global singleton for the storage manager with the default path.
@@ -26,17 +36,6 @@ public class InternalStorage {
             sharedInstance = new InternalStorage(null);
         }
         return sharedInstance;
-    }
-
-    private final Path baseNioPath;
-
-    /**
-     * Constructs a new instance of an internal storage manager.
-     *
-     * @param baseNioPath The Java NIO path to the base directory. May be null to use default.
-     */
-    public InternalStorage(Path baseNioPath) {
-        this.baseNioPath = baseNioPath;
     }
 
     /**

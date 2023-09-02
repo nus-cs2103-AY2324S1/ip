@@ -1,9 +1,9 @@
 package todoify.taskmanager.task;
 
+import java.lang.reflect.Field;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-
-import java.lang.reflect.Field;
 
 /**
  * A task that the task manager can keep in its task list.

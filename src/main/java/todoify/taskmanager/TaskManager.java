@@ -1,22 +1,23 @@
 package todoify.taskmanager;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
+
 import todoify.storage.InternalPath;
 import todoify.storage.InternalStorage;
 import todoify.taskmanager.task.Deadline;
 import todoify.taskmanager.task.Event;
 import todoify.taskmanager.task.Task;
 import todoify.taskmanager.task.Todo;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * A class that manages a list of items aka "tasks".

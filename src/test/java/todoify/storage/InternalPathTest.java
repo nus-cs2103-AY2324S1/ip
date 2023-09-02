@@ -1,17 +1,18 @@
 package todoify.storage;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class InternalPathTest {
 
     @Test
     public void excludingLastComponent_nonEmptyPath_correctEquivalentPath() {
-        InternalPath path1, path2;
+        InternalPath path1;
+        InternalPath path2;
         path1 = InternalPath.of("aaa", "bbb", "ccc");
         path2 = InternalPath.of("aaa", "bbb");
 

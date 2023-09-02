@@ -34,7 +34,7 @@ test {
 }
 
 application {
-    mainClass.set("todoify.MainCLI")
+    mainClass.set("todoify.MainCli")
 }
 
 shadowJar {

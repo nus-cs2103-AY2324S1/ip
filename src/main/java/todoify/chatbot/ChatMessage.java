@@ -10,8 +10,7 @@ public class ChatMessage {
      * The message sender type for a message in a conversation.
      */
     public enum SenderType {
-        CHATBOT,
-        USER
+        CHATBOT, USER
     }
 
     private final long timestamp;

@@ -198,6 +198,9 @@ public class ChatCommand {
         case "bye":
         case "exit":
             return this.type = Operation.EXIT;
+
+        default:
+            break;
         }
 
         return this.type = Operation.UNKNOWN;

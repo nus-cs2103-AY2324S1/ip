@@ -20,7 +20,7 @@ then
 fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -Duser.language=en -Duser.country=US -classpath ../bin MainCLI < input.txt > ACTUAL.TXT
+java -Duser.language=en -Duser.country=US -classpath ../bin MainCli < input.txt > ACTUAL.TXT
 
 # convert to UNIX format
 cp EXPECTED.TXT EXPECTED-UNIX.TXT

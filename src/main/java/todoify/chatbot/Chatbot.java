@@ -1,5 +1,10 @@
 package todoify.chatbot;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+
 import todoify.chatbot.exception.ChatbotException;
 import todoify.chatbot.exception.ChatbotRuntimeException;
 import todoify.taskmanager.TaskManager;
@@ -10,10 +15,6 @@ import todoify.taskmanager.task.Todo;
 import todoify.util.EpochConverter;
 import todoify.util.events.EventEmitter;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
 /**
  * A chatbot to interact with.
@@ -28,7 +29,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
     /**
      * The default name of the chatbot.
      */
-    public final static String DEFAULT_NAME = "Todoify";
+    public static final String DEFAULT_NAME = "Todoify";
 
 
     private final String name;
@@ -93,30 +94,21 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                         String.format("You've %d tasks in your list right now! :)", this.taskManager.getTaskCount())
                 );
             } else {
-                this.sendMessage(
-                        ChatMessage.SenderType.CHATBOT,
-                        "You have no tasks right now! :)"
-                );
+                this.sendMessage(ChatMessage.SenderType.CHATBOT, "You have no tasks right now! :)");
             }
 
         } catch (FileNotFoundException e) {
             // Do nothing.
-            this.sendMessage(
-                    ChatMessage.SenderType.CHATBOT,
-                    "You have no tasks right now! :)"
-            );
+            this.sendMessage(ChatMessage.SenderType.CHATBOT, "You have no tasks right now! :)");
 
         } catch (IOException e) {
             // Warn about the error.
-            this.sendMessage(
-                    ChatMessage.SenderType.CHATBOT,
-                    String.format(
-                            "Sorry, I couldn't load your tasks.\nThe error was: [%s] %s\n" +
-                                    "I'll be starting from a blank slate instead.",
-                            e.getClass().getSimpleName(),
-                            e.getLocalizedMessage()
-                    )
-            );
+            this.sendMessage(ChatMessage.SenderType.CHATBOT, String.format(
+                    "Sorry, I couldn't load your tasks.\nThe error was: [%s] %s\n"
+                            + "I'll be starting from a blank slate instead.",
+                    e.getClass().getSimpleName(),
+                    e.getLocalizedMessage()
+            ));
         }
 
         this.sendMessage(ChatMessage.SenderType.CHATBOT, "What can I do for you?");
@@ -206,8 +198,6 @@ public class Chatbot extends EventEmitter<ChatMessage> {
      * @param chatCommand The command to process.
      */
     private void processCommand(ChatCommand chatCommand) {
-        final String FAILURE_MESSAGE_REPLY = "Sorry, idgi :(";
-
         try {
             boolean dataProcessed = false;
             switch (chatCommand.getOperation()) {
@@ -234,20 +224,17 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                 break;
             }
             if (!dataProcessed) {
-                throw new ChatbotException(FAILURE_MESSAGE_REPLY);
+                throw new ChatbotException("Sorry, idgi :(");
             }
         } catch (ChatbotException e) {
             this.sendMessage(ChatMessage.SenderType.CHATBOT, "Oops! " + e.getLocalizedMessage());
         } catch (Exception e) {
             e.printStackTrace();
-            this.sendMessage(
-                    ChatMessage.SenderType.CHATBOT,
-                    String.format(
-                            "Oh no, something's wrong! [%s] %s",
-                            e.getClass().getSimpleName(),
-                            e.getLocalizedMessage()
-                    )
-            );
+            this.sendMessage(ChatMessage.SenderType.CHATBOT, String.format(
+                    "Oh no, something's wrong! [%s] %s",
+                    e.getClass().getSimpleName(),
+                    e.getLocalizedMessage()
+            ));
         }
 
         try {
@@ -255,12 +242,12 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         } catch (IOException e) {
             this.sendMessage(
                     ChatMessage.SenderType.CHATBOT,
-                    "Oops! I'm having problems saving your data to storage. Your data may not be preserved." +
-                            String.format(
-                                    "The error was: [%s] %s",
-                                    e.getClass().getSimpleName(),
-                                    e.getLocalizedMessage()
-                            )
+                    "Oops! I'm having problems saving your data to storage. Your data may not be preserved."
+                            + String.format(
+                            "The error was: [%s] %s",
+                            e.getClass().getSimpleName(),
+                            e.getLocalizedMessage()
+                    )
             );
         }
     }
@@ -298,10 +285,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         try {
             task = this.taskManager.getTask(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new ChatbotException(String.format(
-                    "There is no task in the list numbered %d!",
-                    index + 1
-            ));
+            throw new ChatbotException(String.format("There is no task in the list numbered %d!", index + 1));
         }
 
         // Let's see what we should do!
@@ -311,23 +295,18 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             this.taskManager.removeTask(index);
 
             // Send an appropriate reply.
-            this.sendMessage(
-                    ChatMessage.SenderType.CHATBOT,
-                    String.format(
-                            "Alright, I've deleted this task:\n   %s\nYou're left with %d tasks now! :)",
-                            task,
-                            this.taskManager.getTaskCount()
-                    )
-            );
+            this.sendMessage(ChatMessage.SenderType.CHATBOT, String.format(
+                    "Alright, I've deleted this task:\n   %s\nYou're left with %d tasks now! :)",
+                    task,
+                    this.taskManager.getTaskCount()
+            ));
 
         } else {
 
             // Mark the task as done or not accordingly
             boolean completed = chatCommand.getOperation() == ChatCommand.Operation.MARK_COMPLETE;
             if (task.isCompleted() == completed) {
-                throw new ChatbotException(
-                        completed ? "The task was already done!" : "The task was already not done!"
-                );
+                throw new ChatbotException(completed ? "The task was already done!" : "The task was already not done!");
             }
             task.setCompleted(completed);
 
@@ -397,6 +376,9 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         case EXIT:
             this.closeConversation();
             break;
+
+        default:
+            break;
         }
 
         return true;
@@ -445,24 +427,18 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
             long byTimestamp;
             try {
-                byTimestamp = EpochConverter.getEpochFromISODateString(chatCommand.getParam("by"));
+                byTimestamp = EpochConverter.getEpochFromIsoDateString(chatCommand.getParam("by"));
             } catch (DateTimeParseException e) {
-                throw new ChatbotException(
-                        "The deadline supplied is invalid! It must be a correct date and follow the " +
-                                "ISO8601 date format (yyyy-MM-dd or yyyy-MM-ddThh:mm).\n" +
-                                "For example, 2023-01-31T12:34 is one such valid date."
-                );
+                throw new ChatbotException("The deadline supplied is invalid! It must be a correct date and follow the "
+                        + "ISO8601 date format (yyyy-MM-dd or yyyy-MM-ddThh:mm).\n"
+                        + "For example, 2023-01-31T12:34 is one such valid date.");
             }
 
-            newTask = new Deadline(
-                    chatCommand.getData(),
-                    byTimestamp
-            );
+            newTask = new Deadline(chatCommand.getData(), byTimestamp);
             break;
 
         case ADD_EVENT:
-            if (!chatCommand.hasParamWithUsefulValue("from") ||
-                    !chatCommand.hasParamWithUsefulValue("to")) {
+            if (!chatCommand.hasParamWithUsefulValue("from") || !chatCommand.hasParamWithUsefulValue("to")) {
 
                 throw new ChatbotException(String.format(
                         "The 'event' command requires supplying both '%sfrom <date>' and '%sto <date>'!",
@@ -474,21 +450,16 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             long startTimestamp;
             long endTimestamp;
             try {
-                startTimestamp = EpochConverter.getEpochFromISODateString(chatCommand.getParam("from"));
-                endTimestamp = EpochConverter.getEpochFromISODateString(chatCommand.getParam("to"));
+                startTimestamp = EpochConverter.getEpochFromIsoDateString(chatCommand.getParam("from"));
+                endTimestamp = EpochConverter.getEpochFromIsoDateString(chatCommand.getParam("to"));
             } catch (DateTimeParseException e) {
                 throw new ChatbotException(
-                        "The date range supplied is invalid! They must be correct dates and follow the " +
-                                "ISO8601 date format (yyyy-MM-dd or yyyy-MM-ddThh:mm:ss).\n" +
-                                "For example, 2023-01-31T12:34 is one such valid date."
-                );
+                        "The date range supplied is invalid! They must be correct dates and follow the "
+                                + "ISO8601 date format (yyyy-MM-dd or yyyy-MM-ddThh:mm:ss).\n"
+                                + "For example, 2023-01-31T12:34 is one such valid date.");
             }
 
-            newTask = new Event(
-                    chatCommand.getData(),
-                    startTimestamp,
-                    endTimestamp
-            );
+            newTask = new Event(chatCommand.getData(), startTimestamp, endTimestamp);
             break;
 
         case SEARCH:
@@ -519,14 +490,11 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         // Add the task created
         if (newTask != null) {
             this.taskManager.addTask(newTask);
-            this.sendMessage(
-                    ChatMessage.SenderType.CHATBOT,
-                    String.format(
-                            "Got it. I've added this task:\n  %s\nYou have %d tasks in your list now! :)",
-                            newTask,
-                            this.taskManager.getTaskCount()
-                    )
-            );
+            this.sendMessage(ChatMessage.SenderType.CHATBOT, String.format(
+                    "Got it. I've added this task:\n  %s\nYou have %d tasks in your list now! :)",
+                    newTask,
+                    this.taskManager.getTaskCount()
+            ));
         }
 
         return true;

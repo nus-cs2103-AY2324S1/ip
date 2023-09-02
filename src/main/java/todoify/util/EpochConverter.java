@@ -20,7 +20,7 @@ public class EpochConverter {
      * @return The number of seconds since the Unix epoch of 1970-01-01 00:00:00 UTC.
      * @throws DateTimeParseException if the date-time cannot be parsed.
      */
-    public static long getEpochFromISODateString(String dateTimeString) throws DateTimeParseException {
+    public static long getEpochFromIsoDateString(String dateTimeString) throws DateTimeParseException {
         DateTimeParseException cachedException;
 
         // Try with date and time.
@@ -52,7 +52,7 @@ public class EpochConverter {
      * @param epochSeconds The number of seconds since the Unix epoch of 1970-01-01 00:00:00 UTC.
      * @return The resulting date time string in ISO format of "yyyy-MM-ddThh:mm:ss".
      */
-    public static String getISODateStringFromEpoch(long epochSeconds) {
+    public static String getIsoDateStringFromEpoch(long epochSeconds) {
         return LocalDateTime
                 .ofInstant(Instant.ofEpochSecond(epochSeconds), ZoneId.systemDefault())
                 .format(DateTimeFormatter.ISO_DATE_TIME);
