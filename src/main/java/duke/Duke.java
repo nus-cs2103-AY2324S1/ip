@@ -1,13 +1,13 @@
 package duke;
 
-import java.io.File;
-import java.io.IOException;
-
 import duke.commands.Command;
 import duke.tools.Parser;
 import duke.tools.Storage;
 import duke.tools.TaskList;
 import duke.tools.Ui;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Represents the main class for the chat bot.
@@ -32,6 +32,19 @@ public class Duke {
         TaskList tasks1;
         ui = new Ui();
         storage = new Storage(filePath);
+        try {
+            tasks1 = new TaskList(storage.loadTasksFromStorage());
+        } catch (IOException e) {
+            ui.showLoadingError();
+            tasks1 = new TaskList();
+        }
+        tasks = tasks1;
+    }
+
+    public Duke() {
+        TaskList tasks1;
+        ui = new Ui();
+        storage = new Storage(DIR_NAME + File.separator + FILE_NAME);
         try {
             tasks1 = new TaskList(storage.loadTasksFromStorage());
         } catch (IOException e) {
@@ -68,5 +81,13 @@ public class Duke {
      */
     public static void main(String[] args) {
         new Duke(DIR_NAME + File.separator + FILE_NAME).run();
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
     }
 }
