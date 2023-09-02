@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import duke.exceptions.DukeIOException;
-import duke.ui.Ui;
 
 /**
  * Stores data into specified files. Data is stored at ./data/ directory.
@@ -27,7 +26,6 @@ public class Storage {
         saveFilePath = Path.of(System.getProperty("user.dir"), "data", saveFileName);
         try {
             if (!Files.exists(saveFilePath)) {
-                Ui.printMessage("Creating save file...");
                 Files.createDirectories(saveFilePath.getParent());
                 Files.createFile(saveFilePath);
             }
@@ -62,7 +60,7 @@ public class Storage {
     }
 
     /**
-     * Writes to the file.
+     * Writes to the file. Overwrites the existing data in the file.
      *
      * @param data The data to be written to the file.
      * @throws DukeIOException If there is an error writing to the file.
