@@ -4,7 +4,7 @@ package duke.templates;
  * Represents the MessageTemplates.
  */
 public class MessageTemplates {
-    public static final String MESSAGE_LINE = "__________________________________________________________________";
+    public static final String MESSAGE_LINE = "_____________________________________________________";
 
     // menu
     public static final String[] MESSAGE_MENU = new String[] {

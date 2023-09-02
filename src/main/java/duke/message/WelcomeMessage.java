@@ -7,16 +7,14 @@ import duke.templates.MessageTemplates;
  */
 public class WelcomeMessage extends Message {
     /**
-     * Prints WelcomeMessage.
+     * Returns String representation of WelcomeMessage.
      */
     @Override
-    public void send() {
-        System.out.println(
-                createMessage(
-                        MessageTemplates.MESSAGE_LINE,
-                        MessageTemplates.MESSAGE_HI,
-                        MessageTemplates.MESSAGE_LINE
-                )
+    public String send() {
+        return createMessage(
+                MessageTemplates.MESSAGE_LINE,
+                MessageTemplates.MESSAGE_HI,
+                MessageTemplates.MESSAGE_LINE
         );
     }
 }

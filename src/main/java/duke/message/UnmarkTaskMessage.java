@@ -18,16 +18,14 @@ public class UnmarkTaskMessage extends Message {
     }
 
     /**
-     * Prints UnmarkTaskMessage.
+     * Returns String representation of UnmarkTaskMessage and unmarks task as done.
      */
     @Override
-    public void send() {
+    public String send() {
         task.unmarkTask();
-        System.out.println(
-                createMessage(
-                        MessageTemplates.MESSAGE_MARK_NOT_DONE,
-                        this.task.toString()
-                )
+        return createMessage(
+                MessageTemplates.MESSAGE_MARK_NOT_DONE,
+                this.task.toString()
         );
     }
 }

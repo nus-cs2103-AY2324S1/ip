@@ -15,10 +15,10 @@ public class ErrorMessage extends Message {
     }
 
     /**
-     * Prints ErrorMessage.
+     * Returns String representation of ErrorMessage.
      */
     @Override
-    public void send() {
-        System.out.println(createMessage(message));
+    public String send() {
+        return createMessage(message);
     }
 }
