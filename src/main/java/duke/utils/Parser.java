@@ -1,22 +1,26 @@
 package duke.utils;
 
-import duke.*;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import duke.Command;
+import duke.DukeException;
+import duke.DukeInvalidCommandException;
+import duke.DukeMissingArgumentException;
+import duke.DukeMissingTaskException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 /**
  * Represents a parser that parses user input.
  */
 public class Parser {
-    List<String> inputArray;
+    private final List<String> inputArray;
     public Parser(String input) {
         this.inputArray = Arrays.asList(input.split(" "));
     }
@@ -139,28 +143,34 @@ public class Parser {
         Task task = null;
 
         switch (type) {
-            case "T": {
-                task = new Todo(description);
-                if (isDone) task.markAsDone();
-                break;
+        case "T": {
+            task = new Todo(description);
+            if (isDone) {
+                task.markAsDone();
             }
-            case "D": {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                LocalDateTime by = LocalDateTime.parse(split[3], formatter);
-                task = new Deadline(description, by);
-                if (isDone) task.markAsDone();
-                break;
+            break;
+        }
+        case "D": {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime by = LocalDateTime.parse(split[3], formatter);
+            task = new Deadline(description, by);
+            if (isDone) {
+                task.markAsDone();
             }
-            case "E": {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                LocalDateTime start = LocalDateTime.parse(split[3], formatter);
-                LocalDateTime end = LocalDateTime.parse(split[4], formatter);
-                task = new Event(description, start, end);
-                if (isDone) task.markAsDone();
-                break;
+            break;
+        }
+        case "E": {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime start = LocalDateTime.parse(split[3], formatter);
+            LocalDateTime end = LocalDateTime.parse(split[4], formatter);
+            task = new Event(description, start, end);
+            if (isDone) {
+                task.markAsDone();
             }
-            default:
-                throw new DukeInvalidCommandException();
+            break;
+        }
+        default:
+            throw new DukeInvalidCommandException();
         }
         return task;
     }
