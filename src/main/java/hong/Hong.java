@@ -11,8 +11,6 @@ import ui.Ui;
 
 public class Hong {
     private static ArrayList<Task> tasks;
-
-    //private static final String LINE = "---------------------------------------------------------";
     public static void main(String[] args) {
         boolean isLoopContinuing = true;
         Ui.sayHello();
