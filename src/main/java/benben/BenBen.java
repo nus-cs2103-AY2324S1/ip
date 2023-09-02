@@ -1,12 +1,22 @@
 package benben;
 import java.util.Scanner;
 
+/**
+ * The type BenBen is a chatbot that interacts with the user by taking input from the system
+ * and prints its response as system output.
+ * It can create and edit a task list for a user.
+ */
 public class BenBen {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Instantiates a new BenBen with the given task list
+     *
+     * @param filePath the file path of the task list
+     */
     public BenBen(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -18,6 +28,12 @@ public class BenBen {
         }
     }
 
+    /**
+     * Creates a Todo task in the list with the specific description
+     *
+     * @param str the string command from the user
+     * @throws BenBenException when  the command from the user is of the wrong format
+     */
     public void todo(String str) throws BenBenException{
         String[] strSplit = str.split("\\s+");
         String des = "";
@@ -36,6 +52,12 @@ public class BenBen {
         ui.showAdd(t.toString(), tasks.size());
     }
 
+    /**
+     * Creates a Deadline task in the list with the specific description and deadline
+     *
+     * @param str the string command from the user
+     * @throws BenBenException when  the command from the user is of the wrong format
+     */
     public void deadline(String str) throws BenBenException{
         String[] strSplit = str.split("\\s+");
         String des = "";
@@ -67,6 +89,12 @@ public class BenBen {
         ui.showAdd(t.toString(), tasks.size());
     }
 
+    /**
+     + Creates a Event task in the list with the specific description, start time and end time
+     *
+     * @param str the string command from the user
+     * @throws BenBenException when  the command from the user is of the wrong format
+     */
     public void event (String str) throws BenBenException{
         String[] strSplit = str.split("\\s+");
         String des = "";
@@ -109,10 +137,19 @@ public class BenBen {
         storage.write(tasks);
     }
 
+    /**
+     * Iterates the list and prints out the tasks currently in the task list and their status
+     */
     public void iterList() {
         ui.showList(tasks);
     }
 
+    /**
+     * Marks a given task as done
+     *
+     * @param str the string command from the suer
+     * @throws BenBenException if the command is not of the required format or if the target task does not exist
+     */
     public void mark(String str) throws BenBenException{
         String[] strSplit = str.split("\\s+");
         if (strSplit.length < 2) {
@@ -137,6 +174,12 @@ public class BenBen {
         }
     }
 
+    /**
+     * Marks a given task as not done
+     *
+     * @param str the string command from the suer
+     * @throws BenBenException if the command is not of the required format or if the target task does not exist
+     */
     public void unmark(String str) throws BenBenException{
 
         String[] strSplit = str.split("\\s+");
@@ -162,6 +205,12 @@ public class BenBen {
         }
     }
 
+    /**
+     * Removes a task from the list
+     *
+     * @param str the string command from the user
+     * @throws BenBenException if the command is not of the required format or if the target task does not exist
+     */
     public void remove(String str) throws BenBenException {
         String[] strSplit = str.split("\\s+");
 
@@ -190,11 +239,17 @@ public class BenBen {
         }
     }
 
+    /**
+     * Exits the program
+     */
     public void exit() {
         ui.showExit();
         System.exit(0);
     }
 
+    /**
+     * Starts the chatbot
+     */
     public void run() {
         ui.showWelcome();
         Scanner sc = new Scanner(System.in);
@@ -208,6 +263,12 @@ public class BenBen {
         }
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws BenBenException if there is any error and prints teh error message
+     */
     public static void main(String[] args) throws BenBenException {
         new BenBen("./src/main/java/tasks.txt").run();
     }

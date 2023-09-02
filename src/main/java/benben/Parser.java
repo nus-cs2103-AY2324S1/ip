@@ -1,18 +1,18 @@
 
 package benben;
+
+/**
+ * The type Parser parses the comment to the action that need to be taken
+ */
 public class Parser {
 
-//    private static Storage storage;
-//    private static Ui ui;
-//
-//    public static void setStorage(Storage s) {
-//        storage = s;
-//    }
-//
-//    public static void setUi(Ui ui) {
-//        ui = ui;
-//    }
-
+    /**
+     * Parses the command and tells benben what to do next
+     *
+     * @param bb   the BenBen Object
+     * @param next the command
+     * @throws BenBenException if the command cannot be recognised
+     */
     public static void parse(BenBen bb, String next) throws BenBenException{
         boolean bool = false;
 

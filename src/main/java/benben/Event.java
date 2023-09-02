@@ -4,12 +4,32 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A type of task that ahs a start and end time
+ */
 public class Event extends Task {
+    /**
+     * The Start time.
+     */
     protected LocalDateTime startTime;
+    /**
+     * The End time.
+     */
     protected LocalDateTime endTime;
 
+    /**
+     * The Formatter that parses the string intO A LocalDateTime object
+     */
     protected final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").withZone(ZoneId.systemDefault());
 
+    /**
+     * Instantiates a new Event.
+     *
+     * @param description the description
+     * @param startTime   the start time
+     * @param endTime     the end time
+     * @throws BenBenException if the string is of the wrong format
+     */
     public Event(String description,String startTime, String endTime) throws BenBenException {
         super(description);
         try {
@@ -27,6 +47,11 @@ public class Event extends Task {
         return "[E] " + super.toString() + " (from: " + getStartTime() + " to: " + getEndTime() + ")";
     }
 
+    /**
+     * Gets start time.
+     *
+     * @return the start time
+     */
     public String getStartTime() {
         return startTime.getMonth().toString()
                 + " " + startTime.getDayOfMonth()
@@ -34,6 +59,11 @@ public class Event extends Task {
                 + " " + startTime.getHour() + ":" + startTime.getMinute();
     }
 
+    /**
+     * Gets end time.
+     *
+     * @return the end time
+     */
     public String getEndTime() {
         return endTime.getMonth().toString()
                 + " " + endTime.getDayOfMonth()
@@ -41,10 +71,20 @@ public class Event extends Task {
                 + " " + endTime.getHour() + ":" + endTime.getMinute();
     }
 
+    /**
+     * Gets formatted start time
+     *
+     * @return the formatted start time
+     */
     public String getFormattedStart() {
         return startTime.format(formatter);
     }
 
+    /**
+     * Gets formatted end time
+     *
+     * @return the formatted end time
+     */
     public String getFormattedEnd() {
         return endTime.format(formatter);
     }
