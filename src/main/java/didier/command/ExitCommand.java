@@ -2,7 +2,6 @@ package didier.command;
 
 import didier.Storage;
 import didier.TaskList;
-import didier.UI;
 
 /**
  * The ExitCommand encapsulates the logic of what occurs when the user tries to exit the interaction
@@ -10,5 +9,11 @@ import didier.UI;
  */
 public class ExitCommand extends Command {
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) { }
+    public void execute(TaskList taskList, Storage storage) {
+    }
+
+    @Override
+    public String getBotOutput(TaskList taskList, Storage storage) {
+        return "Goodbye! If you need more help in the future don't hesitate to ask me.";
+    }
 }

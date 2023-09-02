@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import didier.Storage;
 import didier.TaskList;
-import didier.UI;
 import didier.exception.DidierException;
 import didier.task.Deadline;
 import didier.task.Event;
@@ -21,6 +20,7 @@ public class AddCommand extends Command {
     private LocalDate by;
     private LocalDate from;
     private LocalDate to;
+    private Task task;
 
     /**
      * Constructor for the AddCommand object.
@@ -35,10 +35,10 @@ public class AddCommand extends Command {
         this.by = by;
         this.from = from;
         this.to = to;
+        this.task = null;
     }
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws DidierException {
-        Task task;
+    public void execute(TaskList taskList, Storage storage) throws DidierException {
         if (this.from != null && this.to != null) {
             task = new Event(this.description, this.from, this.to);
         } else if (this.by != null) {
@@ -48,6 +48,17 @@ public class AddCommand extends Command {
         }
         taskList.addTask(task);
         storage.saveTasks(taskList);
-        ui.botPrintTaskAdded(task, taskList.getSize());
     }
+
+    @Override
+    public String getBotOutput(TaskList taskList, Storage storage) {
+        String outputText = "";
+        if (task != null) {
+            outputText += "Okay! I've added your task:";
+            outputText += String.format("\n%s", task.toString());
+            outputText += String.format("\nThere are now %d tasks in your list", taskList.getSize());
+        }
+        return outputText;
+    }
+
 }

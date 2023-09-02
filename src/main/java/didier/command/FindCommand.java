@@ -2,7 +2,6 @@ package didier.command;
 
 import didier.Storage;
 import didier.TaskList;
-import didier.UI;
 import didier.exception.DidierException;
 import didier.task.Task;
 
@@ -12,6 +11,7 @@ import didier.task.Task;
  */
 public class FindCommand extends Command {
     private String keyword;
+    private TaskList taskListFind;
 
     /**
      * Constructor for the FindCommand object.
@@ -20,16 +20,25 @@ public class FindCommand extends Command {
      */
     public FindCommand(String keyword) {
         this.keyword = keyword;
+        this.taskListFind = new TaskList();
     }
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws DidierException {
-        TaskList taskListFind = new TaskList();
+    public void execute(TaskList taskList, Storage storage) throws DidierException {
         for (int i = 1; i <= taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
             if (task.descriptionHasKeyword(this.keyword)) {
                 taskListFind.addTask(task);
             }
         }
-        ui.botPrintTaskKeywordList(taskListFind);
+    }
+
+    @Override
+    public String getBotOutput(TaskList taskList, Storage storage) throws DidierException {
+        String outputText = "";
+        outputText += "The tasks that match the keyword in your lists are as follows:";
+        for (int i = 1; i <= taskListFind.getSize(); i++) {
+            outputText += String.format("\n%d.%s", i, taskListFind.getTask(i));
+        }
+        return outputText;
     }
 }

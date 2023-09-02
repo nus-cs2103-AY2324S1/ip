@@ -2,7 +2,6 @@ package didier.command;
 
 import didier.Storage;
 import didier.TaskList;
-import didier.UI;
 import didier.exception.DidierException;
 import didier.task.Task;
 
@@ -13,6 +12,7 @@ import didier.task.Task;
 public class DeleteCommand extends Command {
 
     private final int taskNumber;
+    private Task task;
 
     /**
      * Constructor for the DeleteCommand object.
@@ -21,12 +21,23 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand(int taskNumber) {
         this.taskNumber = taskNumber;
+        this.task = null;
     }
 
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws DidierException {
-        Task task = taskList.removeTask(taskNumber);
-        ui.botPrintTaskRemoved(task, taskList.getSize());
+    public void execute(TaskList taskList, Storage storage) throws DidierException {
+        task = taskList.removeTask(taskNumber);
         storage.saveTasks(taskList);
+    }
+
+    @Override
+    public String getBotOutput(TaskList taskList, Storage storage) {
+        String outputText = "";
+        if (task != null) {
+            outputText += "Okay! I've removed this task:";
+            outputText += String.format("\n%s", task.toString());
+            outputText += String.format("\nThere are now %d tasks in your list", taskList.getSize());
+        }
+        return outputText;
     }
 }

@@ -2,26 +2,16 @@ package didier;
 
 import didier.command.Command;
 import didier.exception.DidierException;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * Represents a Didier bot that is able to interact with a user, keep track of the list of tasks
  * of the user and save the data in local storage.
  */
-public class Didier extends Application {
+public class Didier {
 
     private Storage storage;
     private TaskList taskList;
-    private UI ui;
+    private boolean isActive;
 
     /**
      * The constructor for the Didier bot.
@@ -30,92 +20,43 @@ public class Didier extends Application {
      * @param fileName The name of the file where Didier should store the task list.
      */
     public Didier(String directoryPath, String fileName) {
-        ui = new UI();
         storage = new Storage(directoryPath, fileName);
         taskList = storage.getTasks();
+        isActive = true;
     }
 
     /**
-     * Alternative constructor for Didier bot with default values for directoryPath and filename.
+     * Returns the response of the didier bot based on the commandString inputted by the user.
+     *
+     * @param commandString The user input.
+     * @return The response of the didier bot.
      */
-    public Didier() {
-        ui = new UI();
-        storage = new Storage("data/", "didier.txt");
-        taskList = storage.getTasks();
-    }
-
-    /**
-     * The main entry point for the user interaction with Didier to begin.
-     */
-    public void run() {
-        this.ui.botGreet();
-        boolean isExit = false;
-        while (!isExit) {
-            // Carry out the action determined by the didier.command
-            try {
-                String commandString = this.ui.readCommand();
-                Command command = Parser.parse(commandString);
-                command.execute(this.taskList, this.ui, this.storage);
-                isExit = command.isExit();
-            } catch (DidierException exception) {
-                this.ui.botPrintError(exception);
-            } finally {
-                if (!isExit) {
-                    this.ui.botEndCommand();
-                }
+    public String getResponse(String commandString) {
+        try {
+            Command command = Parser.parse(commandString);
+            if (command.isExit()) {
+                isActive = false;
             }
+            command.execute(this.taskList, this.storage);
+            return command.getBotOutput(this.taskList, this.storage);
+        } catch (DidierException exception) {
+            return exception.getMessage() + "Please try again.";
         }
-        this.ui.botGoodBye();
     }
 
-    public static void main(String[] args) {
-        Didier didier = new Didier("data/", "didier.txt");
-        didier.run();
+    /**
+     * Returns the bot uses to greet the user at the start of the user-bot interaction.
+     * @return The greeting message.
+     */
+    public static String getBotGreeting() {
+        return "Greetings user, I'm didier. How can I help you?";
     }
 
-    @Override
-    public void start(Stage primaryStage) {
-
-        ScrollPane scrollPane = new ScrollPane();
-        VBox dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
-        TextField userInput = new TextField();
-        Button sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane(scrollPane, sendButton, userInput);
-
-        primaryStage.setTitle("Didier");
-        primaryStage.setResizable(false);
-        primaryStage.setMinHeight(600.0);
-        primaryStage.setMinWidth(400.0);
-
-        mainLayout.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToHeight(true);
-
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
-        Double offset = 1.0;
-        AnchorPane.setTopAnchor(scrollPane, offset);
-
-        AnchorPane.setBottomAnchor(sendButton, offset);
-        AnchorPane.setRightAnchor(sendButton, offset);
-
-        AnchorPane.setLeftAnchor(userInput, offset);
-        AnchorPane.setBottomAnchor(userInput, offset);
-
-        Scene scene = new Scene(mainLayout);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    /**
+     * Returns whether the bot is currently active or not.
+     * @return The status of the bot.
+     */
+    public boolean getIsActive() {
+        return this.isActive;
     }
 }

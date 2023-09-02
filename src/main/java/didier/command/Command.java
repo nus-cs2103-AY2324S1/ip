@@ -2,7 +2,6 @@ package didier.command;
 
 import didier.Storage;
 import didier.TaskList;
-import didier.UI;
 import didier.exception.DidierException;
 
 /**
@@ -12,16 +11,23 @@ import didier.exception.DidierException;
  */
 public abstract class Command {
     /**
-     * Executes the command, resulting in reading and writing to the storage and output to the user
-     * interface, depending on what the type of command is.
+     * Executes the command, resulting in reading and writing to the storage
+     * depending on what the type of command is.
      *
      * @param taskList The list of the users tasks.
-     * @param ui       The user interface object.
      * @param storage  The storage object where the tasks are written to and stored.
      * @throws DidierException If the command was inappropriate resulting in some error.
      */
-    public abstract void execute(TaskList taskList, UI ui, Storage storage) throws DidierException;
+    public abstract void execute(TaskList taskList, Storage storage) throws DidierException;
 
+    /**
+     * Returns the response of the bot to the reception of the command.
+     *
+     * @param taskList The list of the users tasks.
+     * @param storage  The storage object where the tasks are written to and stored.
+     * @return the bot response.
+     */
+    public abstract String getBotOutput(TaskList taskList, Storage storage) throws DidierException;
     /**
      * Returns whether this Command is an ExitCommand.
      *
