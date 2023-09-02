@@ -26,12 +26,12 @@ public class Phi {
 
     private void takeInput() {
         Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
+        String input = sc.nextLine().trim();
         while (!input.equals("bye")) {
             System.out.println(phiParser.handle(input));
             taskStorage.writeToFile(tasks);
             System.out.println();
-            input = sc.nextLine();
+            input = sc.nextLine().trim();
         }
         sc.close();
     }

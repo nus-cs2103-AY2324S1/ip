@@ -18,7 +18,7 @@ public class Deadline extends Task {
             deadlineDate = LocalDate.parse(deadlineString, inputFormat);
             this.deadlineString = deadlineDate.format(outputFormat);
         } catch (DateTimeParseException e) {
-            System.out.println("Can't find a proper date format, using deadline as a String");
+            //System.out.println("Can't find a proper date format, using deadline as a String");
         }
     }
 
@@ -28,7 +28,9 @@ public class Deadline extends Task {
     }
 
     public static Deadline newDeadline(String input) {
-        if (!input.startsWith("deadline ")) {
+        if (input.equals("deadline")) {
+            throw new IllegalArgumentException("You gotta put an actual message in...");
+        } else if (!input.startsWith("deadline ")) {
             throw new IllegalArgumentException(
                     String.format("Hey genius, did you mean \"deadline %s\"...", input.substring(8)));
         } else if (!input.contains("/by")) {

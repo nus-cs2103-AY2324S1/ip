@@ -6,9 +6,11 @@ public class ToDo extends Task {
     }
 
     public static ToDo newToDo(String input) {
-        if (!input.startsWith("todo ")) {
+        if (input.equals("todo")) {
+            throw new IllegalArgumentException("You gotta put an actual message in...");
+        } else if (!input.startsWith("todo ")) {
             throw new IllegalArgumentException(
-                    String.format("Hey genius, did you mean \"todo %s\"...", input.substring(4)));
+                    String.format("Hey nice job, did you mean \"todo %s\"...", input.substring(4)));
         }
         return new ToDo(input.substring(5), false);
     }

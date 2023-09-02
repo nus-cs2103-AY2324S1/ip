@@ -23,19 +23,12 @@ public class Parser {
             } else if (input.startsWith("delete")) {
                 return tasks.deleteTask(input);
             } else if (input.equals("help")) {
-                return "Here's a list of commands:\n" +
-                        "list [prints out a list of all tasks]\n" +
-                        "mark X [marks task X in the list]\n" +
-                        "unmark X [unmarks task X in the list]\n" +
-                        "todo test [creates a to-do with body \"test\"]\n" +
-                        "deadline test \\by yyyy-MM-dd [creates a corresponding deadline with body \"test\"]\n" +
-                        "event test \\from yyyy-MM-dd \\to yyyy-MM-dd [creates a corresponding event with body \"test\"]\n" +
-                        "bye [exits the program]";
+                return Ui.helpMsg();
             }
         }
         catch (IllegalArgumentException e) {
             return e.getMessage();
         }
-        return("SIKE I can't process that! Try again or say \"bye\" to exit");
+        return("SIKE I can't process that! Try again or say \"help\" to see a list of all available commands");
     }
 }

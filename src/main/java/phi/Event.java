@@ -21,14 +21,14 @@ public class Event extends Task {
             startDate = LocalDate.parse(start, inputFormat);
             this.start = startDate.format(outputFormat);
         } catch (DateTimeParseException e) {
-            System.out.println("Can't find a proper date format, using /from input as a String");
+            //System.out.println("Can't find a proper date format, using /from input as a String");
         }
 
         try {
             endDate = LocalDate.parse(end, inputFormat);
             this.end = endDate.format(outputFormat);
         } catch (DateTimeParseException e) {
-            System.out.println("Can't find a proper date format, using /to input as a String");
+            //System.out.println("Can't find a proper date format, using /to input as a String");
         }
     }
 
@@ -38,7 +38,9 @@ public class Event extends Task {
     }
 
     public static Event newEvent(String input) {
-        if (!input.startsWith("event ")) {
+        if (input.equals("event")) {
+            throw new IllegalArgumentException("You gotta put an actual message in...");
+        } else if (!input.startsWith("event ")) {
             throw new IllegalArgumentException(
                     String.format("Hey genius, did you mean \"event %s\"...", input.substring(5)));
         } else if (!input.contains("/from") && !input.contains("/to")) {
