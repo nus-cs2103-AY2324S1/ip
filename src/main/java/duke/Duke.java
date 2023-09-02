@@ -8,12 +8,18 @@ import duke.utils.Ui;
 
 import java.util.Scanner;
 
+/**
+ * Creates a Duke object.
+ */
 public class Duke {
     private Scanner scan = new Scanner(System.in);
     private Ui ui = new Ui();
     private Storage storage = new Storage();
     private TaskList tasks = new TaskList();
 
+    /**
+     * Runs the Duke chatbot.
+     */
     public void run () {
         //load tasks from file
         this.storage.loadTasksFromFile(tasks.getTasks());

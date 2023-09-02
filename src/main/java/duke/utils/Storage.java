@@ -10,9 +10,17 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The `Storage` class handles reading and writing tasks to a data file.
+ */
 public class Storage {
     private final String DATA_FILE_PATH = "data.txt";
 
+    /**
+     * Saves a list of tasks to a data file.
+     * @param toDoList The list of tasks to be saved.
+     * @throws DukeException If an error occurs during file writing.
+     */
     public void saveTasksToFile(List<Task> toDoList) throws DukeException {
         try {
             FileWriter writer = new FileWriter(DATA_FILE_PATH);
@@ -27,6 +35,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from a data file into a list.
+     * @param toDoList The list where loaded tasks will be added.
+     */
     public void loadTasksFromFile(List<Task> toDoList) {
         try {
             File file = new File(DATA_FILE_PATH);
