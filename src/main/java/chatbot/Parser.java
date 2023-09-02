@@ -55,7 +55,7 @@ public class Parser {
                 String description = nextInput.substring(9, by - 1);
                 String deadline = nextInput.substring(by + 4);
 
-                if (description.isBlank()) {
+                if (description.isBlank() || deadline.isBlank()) {
                     throw new InvalidDeadlineException();
                 } else {
                     arr.add(0,"deadline");
@@ -73,7 +73,7 @@ public class Parser {
                 String start = nextInput.substring(from + 6, to - 1);
                 String end = nextInput.substring(to + 4);
 
-                if (description.isBlank()) {
+                if (description.isBlank() || start.isBlank() || end.isBlank()) {
                     throw new InvalidEventException();
                 } else {
                     arr.add(0, "event");
