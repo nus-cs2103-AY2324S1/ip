@@ -1,3 +1,7 @@
+package ipbot.util;
+
+import ipbot.model.Pair;
+
 import java.util.HashMap;
 import java.util.Map;
 

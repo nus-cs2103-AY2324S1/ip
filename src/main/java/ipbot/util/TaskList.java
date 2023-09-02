@@ -1,3 +1,11 @@
+package ipbot.util;
+
+import ipbot.model.Deadline;
+import ipbot.model.Event;
+import ipbot.model.Pair;
+import ipbot.model.Task;
+import ipbot.model.ToDo;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

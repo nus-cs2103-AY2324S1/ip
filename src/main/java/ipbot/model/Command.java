@@ -1,3 +1,5 @@
+package ipbot.model;
+
 public enum Command {
     BYE ("bye"),
     LIST ("list"),
