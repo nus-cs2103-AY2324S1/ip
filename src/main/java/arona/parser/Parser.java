@@ -6,12 +6,27 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
+/**
+ * The `Parser` class is responsible for parsing user input and extracting relevant information.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input into an array of tokens, splitting by spaces.
+     *
+     * @param userInput The user's input as a single string.
+     * @return An array of tokens.
+     */
     public static String[] parseUserInput(String userInput) {
         return userInput.split("\\s+");
     }
 
+    /**
+     * Extracts the command keyword from the tokens.
+     *
+     * @param tokens The array of tokens.
+     * @return The command keyword as a lowercase string.
+     */
     public static String getCommand(String[] tokens) {
         if (tokens.length > 0) {
             return tokens[0].toLowerCase();
@@ -19,6 +34,13 @@ public class Parser {
         return "";
     }
 
+    /**
+     * Gets the description of a to-do task from the tokens.
+     *
+     * @param tokens The array of tokens.
+     * @return The description of the to-do task.
+     * @throws IllegalArgumentAronaException If the description is missing.
+     */
     public static String getToDoDescription(String[] tokens) throws IllegalArgumentAronaException {
         if (tokens.length < 2) {
             throw new IllegalArgumentAronaException("Oh no! You forgot to specify the task!");
@@ -26,6 +48,13 @@ public class Parser {
         return String.join(" ", Arrays.copyOfRange(tokens, 1, tokens.length));
     }
 
+    /**
+     * Gets the description and deadline date from the tokens for a deadline task.
+     *
+     * @param tokens The array of tokens.
+     * @return An array containing the description and deadline date.
+     * @throws IllegalArgumentAronaException If the description or '/by' is missing.
+     */
     public static String[] getDeadlineDescription(String[] tokens) throws IllegalArgumentAronaException {
         if (tokens.length < 2) {
             throw new IllegalArgumentAronaException("Oh no! You forgot to specify the task!");
@@ -58,6 +87,13 @@ public class Parser {
         return descriptions;
     }
 
+    /**
+     * Gets the description, start date, and end date from the tokens for an event task.
+     *
+     * @param tokens The array of tokens.
+     * @return An array containing the description, start date, and end date.
+     * @throws IllegalArgumentAronaException If the description, '/from', or '/to' is missing.
+     */
     public static String[] getEventDescription(String[] tokens) throws IllegalArgumentAronaException {
         if (tokens.length < 2) {
             throw new IllegalArgumentAronaException("Oh no! You forgot to specify the event!");
@@ -110,6 +146,13 @@ public class Parser {
     }
 
 
+    /**
+     * Parses a date string into a LocalDate object.
+     *
+     * @param dateStr The date string in 'YYYY-MM-DD' format.
+     * @return The parsed LocalDate.
+     * @throws IllegalArgumentAronaException If the date format is invalid.
+     */
     public static LocalDate parseDate(String dateStr) throws IllegalArgumentAronaException {
         try {
             return LocalDate.parse(dateStr);
@@ -118,6 +161,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Gets the task index from the tokens, used for marking or deleting tasks.
+     *
+     * @param tokens The array of tokens.
+     * @return The task index.
+     */
     public static int getTaskIndex(String[] tokens) {
         if (tokens.length > 1) {
             try {
