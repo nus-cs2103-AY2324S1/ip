@@ -48,17 +48,17 @@ public class Storage {
                 String[] taskDetails = task.split("/");
                 Task savedTask;
                 switch(taskDetails[0]) {
-                    case "T":
-                        savedTask = new ToDo(taskDetails[2]);
-                        break;
-                    case "D":
-                        savedTask = new Deadline(taskDetails[2], taskDetails[3]);
-                        break;
-                    case "E":
-                        savedTask = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
-                        break;
-                    default:
-                        savedTask = new Task(taskDetails[0]);
+                case "T":
+                    savedTask = new ToDo(taskDetails[2]);
+                    break;
+                case "D":
+                    savedTask = new Deadline(taskDetails[2], taskDetails[3]);
+                    break;
+                case "E":
+                    savedTask = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
+                    break;
+                default:
+                    savedTask = new Task(taskDetails[0]);
                 }
                 if (Integer.parseInt(taskDetails[1]) == 1) {
                     savedTask.markAsDone();
