@@ -1,14 +1,14 @@
 package duke.task;
 
+import java.util.ArrayList;
+
 import duke.exception.InvalidIndexException;
 import duke.message.AddTaskMessage;
+import duke.message.DeleteTaskMessage;
 import duke.message.FindTaskMessage;
 import duke.message.MarkTaskMessage;
-import duke.message.DeleteTaskMessage;
 import duke.message.TaskListMessage;
 import duke.message.UnmarkTaskMessage;
-
-import java.util.ArrayList;
 
 /**
  * Represents a list of Tasks.

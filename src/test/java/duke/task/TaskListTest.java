@@ -1,11 +1,12 @@
 package duke.task;
 
-import duke.exception.InvalidIndexException;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import duke.exception.InvalidIndexException;
 
 public class TaskListTest {
     @Test
@@ -29,7 +30,7 @@ public class TaskListTest {
             taskList.delete(10);
             fail("Expected InvalidIndexException");
         } catch (InvalidIndexException ignored) {
-
+            return;
         }
     }
 
@@ -55,7 +56,7 @@ public class TaskListTest {
             taskList.markTask(10);
             fail("Expected InvalidIndexException");
         } catch (InvalidIndexException ignored) {
-
+            return;
         }
     }
 
@@ -74,7 +75,7 @@ public class TaskListTest {
             taskList.unmarkTask(10);
             fail("Expected InvalidIndexException");
         } catch (InvalidIndexException ignored) {
-
+            return;
         }
     }
 

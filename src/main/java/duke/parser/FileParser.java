@@ -1,14 +1,14 @@
 package duke.parser;
 
-import duke.task.DeadlinesTask;
-import duke.task.EventsTask;
-import duke.task.Task;
-import duke.task.TodoTask;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.task.DeadlinesTask;
+import duke.task.EventsTask;
+import duke.task.Task;
+import duke.task.TodoTask;
 
 /**
  * Represents the FileParser.
@@ -31,7 +31,9 @@ public class FileParser {
             String type = data[0];
             String mark = data[1];
             String name = data[2];
-            String by, from, to;
+            String by;
+            String from;
+            String to;
             boolean isDone = !mark.equals("0");
             switch (type) {
             case "T":
@@ -45,6 +47,8 @@ public class FileParser {
                 from = data[3];
                 to = data[4];
                 tasks.add(new EventsTask(name, isDone, from, to));
+                break;
+            default:
                 break;
             }
         }
