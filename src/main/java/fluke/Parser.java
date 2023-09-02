@@ -44,6 +44,8 @@ public class Parser {
             return Fluke.Command.DEADLINE;
         } else if (command.startsWith("event")) {
             return Fluke.Command.EVENT;
+        } else if (nextCommand.startsWith("find")) {
+            return Fluke.Command.FIND;
         } else {
             throw new InvalidInputException();
         }
@@ -253,5 +255,18 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new InvalidInputException();
         }
+    }
+
+    /**
+     * Parses a find command to obtain the keyword
+     * @param command the command given.
+     * @return the keyword
+     * @throws InvalidInputException if there is no keyword given.
+     */
+    public static String parseFindCommand(String command) throws InvalidInputException {
+        if (command.length() < 6) {
+            throw new InvalidInputException();
+        }
+        return command.substring(5);
     }
 }

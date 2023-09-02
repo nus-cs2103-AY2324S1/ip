@@ -61,6 +61,15 @@ public abstract class Task {
     }
 
     /**
+     * Checks whether this task has a keyword
+     * @param keyword the keyword to check
+     * @return whether the keyword is present in the task description.
+     */
+    public boolean hasKeyword(String keyword) {
+        return this.description.toLowerCase().contains(keyword.toLowerCase());
+    }
+
+    /**
      * Returns a string representation of a task.
      * @return a string representation containing whether the task is completed and what it is.
      */
