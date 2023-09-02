@@ -1,9 +1,16 @@
 package Duke;
 
+/**
+ * Class to encapsulate the features of a task.
+ */
 public class Task{
     private String task;
     private boolean isDone;
 
+    /**
+     * public constructor for Task.
+     * @param task
+     */
     public Task(String task){
         this.task = task;
         isDone=false;

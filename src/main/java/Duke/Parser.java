@@ -1,10 +1,25 @@
 package Duke;
 
+/**
+ * Class to parse the input from user.
+ */
 public class Parser {
     private boolean isExit;
+
+    /**
+     * Default constructor.
+     */
     public Parser(){
         isExit=false;
     }
+
+    /**
+     * static method which takes in instances of other essential classes.
+     * @param str
+     * @param list
+     * @param storage
+     * @param ui
+     */
     public void parse(String str, TaskList list, Storage storage,Ui ui){
             if(str.equals("bye")){
                 isExit=true;
@@ -32,6 +47,11 @@ public class Parser {
                         "____________________________________________________________"));
             }
     }
+
+    /**
+     * Checks if program should still run.
+     * @return
+     */
     public boolean isExit(){
         return isExit;
     }
