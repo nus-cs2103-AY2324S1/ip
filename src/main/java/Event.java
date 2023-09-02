@@ -11,18 +11,10 @@ public class Event extends Task {
 
     /**
      * Used to evaluate String form of a Event
-<<<<<<< HEAD
-     * @return String form of an Event
-     */
-    @Override
-    public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + "to: " + to.trim() + ")";
-=======
      * @return String form of an Eventgit
      */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to.trim() + ")";
->>>>>>> branch-Level-7
     }
 }

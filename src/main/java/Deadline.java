@@ -1,11 +1,3 @@
-public class Deadline extends Task {
-
-    protected String by;
-
-    public Deadline(String description, String by) {
-        super(description);
-        this.by = by;
-=======
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
@@ -32,7 +24,6 @@ public class Deadline extends Task {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
->>>>>>> branch-Level-7
     }
 
     /**
@@ -41,15 +32,11 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-<<<<<<< HEAD
-        return "[D]" + super.toString() + " (by: " + by + ")";
-=======
         String s = "";
         by = by.trim();
         s = "[D]" + super.toString() + " (by: " + d1 + " " + by.substring(i) + ")";
 
 
         return s;
->>>>>>> branch-Level-7
     }
 }
