@@ -49,17 +49,6 @@ public class Storage {
         }
     }
 
-    // Handle different task types
-    private void handleTodo(String input, TaskList tasks) throws JoeException {
-        Matcher m = todoPattern.matcher(input);
-        if (m.find()) {
-            TodoTask newTask = new TodoTask(m.group(1));
-            tasks.add(newTask);
-        } else {
-            throw new JoeException("Todo in task file is corrupt");
-        }
-    }
-
     private void handleDeadline(String input, TaskList tasks) throws JoeException {
         Matcher m = DEADLINE_PATTERN.matcher(input);
 
