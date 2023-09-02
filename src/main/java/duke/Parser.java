@@ -14,12 +14,12 @@ public class Parser {
     }
 
     public static boolean checkCommandType(String commandGiven,
-           TaskList tasks,
-           Ui ui,
-           Storage storage)
-           throws IncompleteInputException,
-           WrongMarkException,
-           InvalidInputException {
+                                           TaskList tasks,
+                                           Ui ui,
+                                           Storage storage)
+            throws IncompleteInputException,
+            WrongMarkException,
+            InvalidInputException {
         commandGiven = commandGiven.trim();
         String[] splittedCommand = commandGiven.split(" ");
         String commandType = splittedCommand[0];
@@ -67,6 +67,15 @@ public class Parser {
                 ui.deleteTaskMessage(task);
             } catch (IndexOutOfBoundsException | NullPointerException e) {
                 ui.showInvalidIndex();
+            }
+            break;
+        case "find":
+            ui.separatorLines();
+            try {
+                String keyword = splittedCommand[1];
+                tasks.findTasks(keyword);
+            } catch (IndexOutOfBoundsException | NullPointerException e) {
+                throw new IncompleteInputException("find what eh! ");
             }
             break;
         case "bye":
