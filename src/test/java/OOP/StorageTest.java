@@ -57,9 +57,9 @@ public class StorageTest {
         new Storage(TEST_STORAGE_FILE_PATH).save(new TaskList(tasks));
         try {
             List<String> lines = Files.readAllLines(Paths.get(TEST_STORAGE_FILE_PATH));
-            assertEquals("T | 0 | CS2103T Homework",lines.get(0));
-            assertEquals("D | 0 | CS2101 Presentation | 2023-10-10 1000",lines.get(1));
-            assertEquals("E | 0 | Polling day | 1 Sep 2023 8am | 8pm",lines.get(2));
+            assertEquals("T | 0 | CS2103T Homework", lines.get(0));
+            assertEquals("D | 0 | CS2101 Presentation | 2023-10-10 1000", lines.get(1));
+            assertEquals("E | 0 | Polling day | 1 Sep 2023 8am | 8pm", lines.get(2));
         } catch (IOException e) {
             e.printStackTrace();
         }

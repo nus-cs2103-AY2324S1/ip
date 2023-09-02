@@ -15,7 +15,9 @@ public class DeleteTaskCommand implements Command {
             Task removedTask = tasks.deleteTask(id);
             ui.printTaskDeletedMessage(removedTask);
         } catch (RuntimeException e) {
-            throw new DukeException("\tIndex out of bounds. There are " + tasks.getSize() + " tasks currently.");
+            throw new DukeException("\tIndex out of bounds. There are "
+                                        + tasks.getSize()
+                                            + " tasks currently.");
         }
     }
 }

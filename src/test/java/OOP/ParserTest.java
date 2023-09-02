@@ -24,13 +24,15 @@ public class ParserTest {
         // this casting is safe since we are expecting the command to give us a grocery shopping ToDo
         AddToDoCommand command = (AddToDoCommand) Parser.parseCommand("todo grocery shopping");
         ToDo toDo = command.getTodo();
-        assertEquals("grocery shopping",toDo.getName());
+        assertEquals("grocery shopping", toDo.getName());
         assertEquals(false, toDo.isDone());
     }
     @Test
     public void parseCommand_addDeadlineCommand_success() {
         // this casting is safe since we are expecting the command to give us a AddDeadlineCommand
-        AddDeadlineCommand command = (AddDeadlineCommand) Parser.parseCommand("deadline return book /by 2024-01-01 0000");
+        AddDeadlineCommand command = (AddDeadlineCommand)
+                                        Parser.parseCommand("deadline return book"
+                                                                + " /by 2024-01-01 0000");
         Deadline deadline = command.getDeadline();
         assertEquals("return book", deadline.getName());
         assertEquals(false, deadline.isDone());
@@ -39,7 +41,9 @@ public class ParserTest {
     @Test
     public void parseCommand_addEventCommand_success() {
         // this casting is safe since we are expecting the command to give us a AddEventCommand
-        AddEventCommand command = (AddEventCommand) Parser.parseCommand("event project meeting /from Mon 2pm /to 4pm");
+        AddEventCommand command = (AddEventCommand)
+                                    Parser.parseCommand("event project meeting "
+                                                            + "/from Mon 2pm /to 4pm");
         Event event = command.getEvent();
         assertEquals("project meeting", event.getName());
         assertEquals(false, event.isDone());
@@ -87,7 +91,7 @@ public class ParserTest {
             assertEquals("\tEmpty Description", e.getMessage());
         }
         try {
-            assertEquals( new InvalidCommand(), Parser.parseCommand("deadline"));
+            assertEquals(new InvalidCommand(), Parser.parseCommand("deadline"));
         } catch (Exception e) {
             assertEquals("\tEmpty Description", e.getMessage());
         }

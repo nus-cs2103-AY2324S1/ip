@@ -92,14 +92,14 @@ public class Storage {
         String[] taskData = line.split("\\s*\\|\\s*");
         boolean isDone = taskData[1].equals("1");
         switch (taskData[0]) {
-            case "T":
-                ToDo todo = new ToDo(taskData[2], isDone);
-                return todo;
-            case "D":
-                return parseDeadlineFromString(taskData[2], taskData[3]);
-            case "E":
-                Event event = new Event(taskData[2], isDone, taskData[3], taskData[4]);
-                return event;
+        case "T":
+            ToDo todo = new ToDo(taskData[2], isDone);
+            return todo;
+        case "D":
+            return parseDeadlineFromString(taskData[2], taskData[3]);
+        case "E":
+            Event event = new Event(taskData[2], isDone, taskData[3], taskData[4]);
+            return event;
         }
         return null;
     }
@@ -116,9 +116,9 @@ public class Storage {
             LocalDateTime parsedDeadlineDateTime = LocalDateTime.parse(deadlineString, formatter);
             deadline = new Deadline(name, false, parsedDeadlineDateTime);
         } else {
-            throw new DukeException("\t Invalid deadline format. " +
-                                    "\n\tExpected format for deadline (time is optional):" +
-                                    "\n\t deadline {deadlineName} /by yyyy-MM-dd HHmm");
+            throw new DukeException("\t Invalid deadline format. "
+                                        + "\n\tExpected format for deadline (time is optional):"
+                                            + "\n\t deadline {deadlineName} /by yyyy-MM-dd HHmm");
         }
         return deadline;
     }

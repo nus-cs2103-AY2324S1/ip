@@ -13,7 +13,9 @@ public class MarkTaskCommand implements Command {
             tasks.markTask(id);
             ui.printTaskMarkedMessage(tasks.getTask(id));
         } catch (RuntimeException e) {
-            throw new DukeException("\tIndex out of bounds. There are " + tasks.getSize() + " tasks currently.");
+            throw new DukeException("\tIndex out of bounds. There are "
+                                        + tasks.getSize()
+                                            + " tasks currently.");
         }
     }
 }
