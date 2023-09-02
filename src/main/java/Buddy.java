@@ -26,7 +26,8 @@ public class Buddy {
             }
             if (command.equalsIgnoreCase("list")) {
                 System.out.print(tasks);
-            } else if (command.startsWith("mark") || command.startsWith("unmark")) {
+            } else if (command.startsWith("mark") || command.startsWith("unmark")
+                    || command.startsWith("delete")) {
                 String[] arrOfCmd = command.split(" ");
                 Integer taskIndex = Integer.valueOf(arrOfCmd[1]) - 1;
 
@@ -39,6 +40,9 @@ public class Buddy {
                     if (command.startsWith("unmark")) {
                         tasks.markAsNotDone(taskIndex);
                         // System.out.println("OK, I've marked this task as not done yet:");
+                    }
+                    if (command.startsWith("delete")) {
+                        tasks.deleteTask(taskIndex);
                     }
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Invalid task number.");
