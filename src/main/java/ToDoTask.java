@@ -3,7 +3,6 @@ public class ToDoTask extends Task {
         super(name);
     }
 
-
     @Override
     public String toString() {
         return "[T] " + "| " + super.toString();
