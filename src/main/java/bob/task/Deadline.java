@@ -1,10 +1,8 @@
 package bob.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.regex.PatternSyntaxException;
 
-import bob.exception.*;
+import bob.exception.MissingDatesException;
 
 public class Deadline extends Task {
 

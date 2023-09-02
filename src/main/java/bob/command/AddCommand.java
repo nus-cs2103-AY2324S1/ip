@@ -1,6 +1,9 @@
 package bob.command;
 import java.io.IOException;
-import bob.*;
+
+import bob.Storage;
+import bob.TaskList;
+import bob.Ui;
 
 public class AddCommand extends Command {
 

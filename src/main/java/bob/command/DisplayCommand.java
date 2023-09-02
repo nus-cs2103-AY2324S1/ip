@@ -1,5 +1,7 @@
 package bob.command;
-import bob.*;
+import bob.Storage;
+import bob.TaskList;
+import bob.Ui;
 
 public class DisplayCommand extends Command {
 

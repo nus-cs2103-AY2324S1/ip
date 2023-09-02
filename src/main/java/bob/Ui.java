@@ -8,7 +8,6 @@ public class Ui {
     /**
      * Formats string into nice display
      * @param strArray contains strings to be displayed on different lines
-     * @return formatted string
      */
     public void stringFormat(String[] strArray) {
         String content = "";
@@ -23,7 +22,7 @@ public class Ui {
 
     public void greet() {
         stringFormat(new String[]{
-                "Hi there! I'm Bob", "How can I help?"
+            "Hi there! I'm Bob", "How can I help?"
         });
     }
 
@@ -37,7 +36,7 @@ public class Ui {
 
     public void showLoadingError() {
         stringFormat(new String[]{
-                "Unable to load tasks. New list created!"
+            "Unable to load tasks. New list created!"
         });
     }
 }

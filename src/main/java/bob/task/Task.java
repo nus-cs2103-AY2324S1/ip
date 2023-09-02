@@ -1,5 +1,8 @@
 package bob.task;
 
+/**
+ * Parent class for 3 different types of Tasks: Todo, Events, and Deadlines
+ */
 public class Task {
 
     protected String name;
