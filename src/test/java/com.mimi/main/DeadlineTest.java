@@ -1,11 +1,13 @@
 package com.mimi.main;
 
-import com.mimi.tasks.Deadline;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.Test;
+
+import com.mimi.tasks.Deadline;
+
 
 public class DeadlineTest {
     @Test

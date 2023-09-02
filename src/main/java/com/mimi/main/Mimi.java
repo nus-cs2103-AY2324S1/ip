@@ -1,16 +1,26 @@
 package com.mimi.main;
 
-import com.mimi.commands.Command;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+
+import com.mimi.commands.Command;
+
+/**
+ * The main class of the Mimi program.
+ * @author Yuheng
+ */
 public class Mimi {
 
     private Storage storage;
     private Ui ui;
     private ReadWriteData readWriteData;
 
+    /**
+     * Creates an instance of the Mimi bot.
+     * @param directory the directory for the data to be stored in
+     * @param dataPath the path for the data to be stored in
+     */
     public Mimi(String directory, String dataPath) {
         this.ui = new Ui();
         this.storage = new Storage(this.ui);
@@ -20,17 +30,21 @@ public class Mimi {
 
         try {
             //checks if the directory and the file are created. If not, create it.
-            if (directoryFile.mkdir()) {}
-            if (dataFile.createNewFile()){}
+            if (directoryFile.mkdir()) { }
+
+            if (dataFile.createNewFile()) { }
+
             this.readWriteData = new ReadWriteData(dataFile, this.storage, this.ui);
         } catch (IOException e) {
             this.ui.showLoadingError();
         }
     }
 
-
+    /**
+     * Runs the program.
+     */
     public void run() {
-        this.readWriteData.onInitialise();
+        this.readWriteData.initialise();
 
         this.ui.welcomeMessage();
 
@@ -52,8 +66,6 @@ public class Mimi {
             if (c.isExit()) {
                 break;
             }
-
-
         }
     }
 

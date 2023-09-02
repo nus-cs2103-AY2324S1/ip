@@ -1,13 +1,20 @@
 package com.mimi.tasks;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Representation of the Deadline Task.
+ * @author Yuheng
+ */
 public class Deadline extends Task {
-    LocalDateTime deadlineTime;
+    private LocalDateTime deadlineTime;
 
-
+    /**
+     * Creates an instance of the deadline Task.
+     * @param taskName the string representation of the task name.
+     * @param deadlineTime the deadline time of the task.
+     */
     public Deadline(String taskName, LocalDateTime deadlineTime) {
         super(taskName);
 

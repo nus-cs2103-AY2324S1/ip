@@ -2,12 +2,16 @@ package com.mimi.commands;
 
 import com.mimi.main.Ui;
 
+/**
+ * Representation of the Exit Command.
+ */
 public class ExitCommand extends Command {
     /**
      * Executes the given command.
      */
     @Override
-    public void execute(){}
+    public void execute() { }
+
     /**
      * Calls the ui to give the appropriate response based on the type of command.
      * @param ui Ui class instance

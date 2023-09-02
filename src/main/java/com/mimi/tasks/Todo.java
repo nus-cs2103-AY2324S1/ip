@@ -1,7 +1,15 @@
 package com.mimi.tasks;
 
+/**
+ * Representation of the Todo Task.
+ * @author Yuheng
+ */
 public class Todo extends Task {
 
+    /**
+     * Creates an instance of the Todo Task.
+     * @param taskName the string representation of the task name.
+     */
     public Todo(String taskName) {
         super(taskName);
     }

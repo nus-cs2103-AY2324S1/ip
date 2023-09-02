@@ -1,36 +1,43 @@
 package com.mimi.main;
 
-import com.mimi.commands.Command;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.Scanner;
+
 import com.mimi.tasks.Deadline;
 import com.mimi.tasks.Event;
 import com.mimi.tasks.Task;
 import com.mimi.tasks.Todo;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
-
+/**
+ * A class that reads from and writes data to the hard drive.
+ * @author Yuheng
+ */
 public class ReadWriteData {
-    File dataFile;
-    Storage previousCommands;
+    private File dataFile;
+    private Storage previousCommands;
+    private Ui ui;
 
-    Ui ui;
-
-
+    /**
+     * creates a new instance of ReadWriteData
+     * @param datafile The file to be read/written into
+     * @param previousCommands an instance of Storage that keeps track of what tasks have been recorded
+     * @param ui the Ui responsible for displaying messages
+     */
     public ReadWriteData(File datafile, Storage previousCommands, Ui ui) {
         this.dataFile = datafile;
         this.previousCommands = previousCommands;
         this.ui = ui;
     }
 
-
-
-    public void onInitialise() {
+    /**
+     * Initialises the storage by reading data previously stored in the hard drive.
+     */
+    public void initialise() {
         try {
             Scanner fileReader = new Scanner(dataFile);
 
@@ -43,24 +50,26 @@ public class ReadWriteData {
                 int i = task.indexOf('|');
 
                 String taskCode = task.substring(0, i);
-                String taskWithoutCode = task.substring(i+1);
+                String taskWithoutCode = task.substring(i + 1);
                 int j = taskWithoutCode.indexOf('|');
                 String isCompletedTask = taskWithoutCode.substring(0, j);
 
-                String taskDescription = taskWithoutCode.substring(j+1);
+                String taskDescription = taskWithoutCode.substring(j + 1);
 
                 switch(taskCode) {
-                    case "T":
-                        initialiseTodo(isCompletedTask.equals("X"), taskDescription);
-                        break;
+                case "T":
+                    initialiseTodo(isCompletedTask.equals("X"), taskDescription);
+                    break;
 
-                    case "D":
-                        initialiseDeadline(isCompletedTask.equals("X"), taskDescription);
-                        break;
+                case "D":
+                    initialiseDeadline(isCompletedTask.equals("X"), taskDescription);
+                    break;
 
-                    case "E":
-                        initialiseEvent(isCompletedTask.equals("X"), taskDescription);
-                        break;
+                case "E":
+                    initialiseEvent(isCompletedTask.equals("X"), taskDescription);
+                    break;
+
+                default:
                 }
 
             }
@@ -72,7 +81,7 @@ public class ReadWriteData {
     }
 
 
-    public void initialiseTodo(boolean isCompletedTask, String taskDescription) {
+    private void initialiseTodo(boolean isCompletedTask, String taskDescription) {
 
         Task newTask = new Todo(taskDescription);
         previousCommands.addWithoutPrinting(newTask);
@@ -82,12 +91,12 @@ public class ReadWriteData {
         }
     }
 
-    public void initialiseDeadline(boolean isCompletedTask, String taskDescription) {
+    private void initialiseDeadline(boolean isCompletedTask, String taskDescription) {
         int i = taskDescription.indexOf('(');
         int j = taskDescription.indexOf(')');
 
-        String taskName = taskDescription.substring(0, i-1);
-        String deadline = taskDescription.substring(i+5, j);
+        String taskName = taskDescription.substring(0, i - 1);
+        String deadline = taskDescription.substring(i + 5, j);
 
         try {
             Task newTask = new Deadline(taskName, LocalDateTime.parse(deadline, Parser.FORMATTER));
@@ -102,14 +111,14 @@ public class ReadWriteData {
         }
     }
 
-    public void initialiseEvent(boolean isCompletedTask, String taskDescription) {
+    private void initialiseEvent(boolean isCompletedTask, String taskDescription) {
         int i = taskDescription.indexOf('(');
         int j = taskDescription.indexOf(')');
         int k = taskDescription.indexOf("to:");
 
-        String taskName = taskDescription.substring(0, i-1);
-        String startTime = taskDescription.substring(i+7, k-1);
-        String endTime = taskDescription.substring(k+4, j);
+        String taskName = taskDescription.substring(0, i - 1);
+        String startTime = taskDescription.substring(i + 7, k - 1);
+        String endTime = taskDescription.substring(k + 4, j);
 
         try {
             Task newTask = new Event(taskName,
@@ -129,9 +138,13 @@ public class ReadWriteData {
 
     }
 
+    /**
+     * Writes a given task into the hard drive.
+     * @param task a Task instance that to be written into the hard drive
+     */
     public void write(Task task) {
         try {
-            FileWriter fileWriter= new FileWriter(this.dataFile, true);
+            FileWriter fileWriter = new FileWriter(this.dataFile, true);
             String message = String.format("%s|%s|%s",
                     task.eventCode(), task.getStatusIcon(), task.writeFormat());
 
@@ -144,6 +157,9 @@ public class ReadWriteData {
         }
     }
 
+    /**
+     * Updates the File to reflect any changes in the status of the tasks.
+     */
     public void updateFile() {
         this.dataFile.delete();
 

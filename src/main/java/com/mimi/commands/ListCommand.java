@@ -3,9 +3,17 @@ package com.mimi.commands;
 import com.mimi.main.Storage;
 import com.mimi.main.Ui;
 
+/**
+ * Representation of the List Command.
+ * @author Yuheng
+ */
 public class ListCommand extends Command {
-    Storage storage;
+    private Storage storage;
 
+    /**
+     * Creates an instance of the List Command.
+     * @param storage an instance of Storage.
+     */
     public ListCommand(Storage storage) {
         this.storage = storage;
     }
@@ -14,7 +22,7 @@ public class ListCommand extends Command {
      * Executes the given command.
      */
     @Override
-    public void execute(){
+    public void execute() {
         this.storage.listItems();
     }
 

@@ -1,6 +1,10 @@
 package com.mimi.commands;
 import com.mimi.main.Ui;
 
+/**
+ * A representation of the abstract idea of Commands.
+ * @author Yuheng
+ */
 public abstract class Command {
     /**
      * Executes the given command.

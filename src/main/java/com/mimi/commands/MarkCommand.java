@@ -4,15 +4,26 @@ import com.mimi.main.ReadWriteData;
 import com.mimi.main.Storage;
 import com.mimi.main.Ui;
 
+/**
+ * Representation of the Mark Command.
+ * @author Yuheng
+ */
 public class MarkCommand extends Command {
 
     private boolean isCompleteCommand;
     private int taskNumber;
 
-    Storage storage;
+    private Storage storage;
 
-    ReadWriteData readWriteData;
+    private ReadWriteData readWriteData;
 
+    /**
+     * Creates an instance of the mark Command.
+     * @param isCompleteCommand true if the input has all the necessary components.
+     * @param taskNumber the index of the task that is stored in Storage.
+     * @param storage an instance of Storage.
+     * @param readWriteData an instance of ReadWriteData.
+     */
     public MarkCommand(boolean isCompleteCommand, int taskNumber, Storage storage, ReadWriteData readWriteData) {
         this.isCompleteCommand = isCompleteCommand;
         this.taskNumber = taskNumber;
@@ -23,7 +34,7 @@ public class MarkCommand extends Command {
      * Executes the given command.
      */
     @Override
-    public void execute(){
+    public void execute() {
         if (this.isCompleteCommand) {
             this.storage.mark(taskNumber);
             readWriteData.updateFile();

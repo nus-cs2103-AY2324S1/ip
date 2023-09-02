@@ -1,13 +1,18 @@
 package com.mimi.tasks;
-import com.mimi.main.InvalidTask;
 
-import java.time.format.DateTimeFormatter;
-
+/**
+ * The parent class of all Tasks. Represents some basic information common to all Tasks.
+ * @author Yuheng
+ */
 public class Task {
 
     private String taskName;
     private boolean isDone = false;
 
+    /**
+     * Creates an instance of a Task.
+     * @param taskName the string representation of the task name.
+     */
     Task(String taskName) {
         this.taskName = taskName;
     }

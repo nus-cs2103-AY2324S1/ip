@@ -2,13 +2,16 @@ package com.mimi.commands;
 
 import com.mimi.main.Ui;
 
+/**
+ * Representation of Invalid Commands.
+ * @author Yuheng
+ */
 public class InvalidCommand extends Command {
     /**
      * Executes the given command.
      */
     @Override
-    public void execute() {
-    }
+    public void execute() { }
 
     /**
      * Calls the ui to give the appropriate response based on the type of command.

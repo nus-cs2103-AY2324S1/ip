@@ -5,10 +5,20 @@ import com.mimi.main.Storage;
 import com.mimi.main.Ui;
 import com.mimi.tasks.Todo;
 
+/**
+ * Representation of the todo Command.
+ */
 public class TodoCommand extends Command {
-    String taskTodo;
-    Storage storage;
-    ReadWriteData readWriteData;
+    private String taskTodo;
+    private Storage storage;
+    private ReadWriteData readWriteData;
+
+    /**
+     * Creates an instance of the Todo Command.
+     * @param taskTodo String representation of the task to be done.
+     * @param storage an instance of Storage.
+     * @param readWriteData an instance of ReadWriteData.
+     */
     public TodoCommand(String taskTodo, Storage storage, ReadWriteData readWriteData) {
         this.taskTodo = taskTodo;
         this.storage = storage;

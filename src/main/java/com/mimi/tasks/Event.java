@@ -3,10 +3,20 @@ package com.mimi.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Representation of the Event task.
+ * @author Yuheng
+ */
 public class Event extends Task {
-    LocalDateTime startTime;
-    LocalDateTime endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
+    /**
+     * Creates an instance of the event task.
+     * @param taskName the string representation of the event name.
+     * @param startTime the start time of the event.
+     * @param endTime the end time of the event.
+     */
     public Event(String taskName, LocalDateTime startTime, LocalDateTime endTime) {
         super(taskName);
 

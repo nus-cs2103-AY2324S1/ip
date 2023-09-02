@@ -1,14 +1,18 @@
 package com.mimi.main;
 
-import com.mimi.tasks.Todo;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import com.mimi.tasks.Todo;
+
+
 public class TodoTest {
     @Test
     public void eventCodeTest() {
         Todo todo = new Todo("taskName");
 
-        assertEquals( "T", todo.eventCode());
+        assertEquals("T", todo.eventCode());
     }
 
     @Test

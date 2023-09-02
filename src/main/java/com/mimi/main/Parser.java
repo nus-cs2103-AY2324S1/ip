@@ -1,30 +1,53 @@
 package com.mimi.main;
 
-import com.mimi.commands.*;
-import com.mimi.tasks.Event;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import com.mimi.commands.Command;
+import com.mimi.commands.DeadlineCommand;
+import com.mimi.commands.DeleteCommand;
+import com.mimi.commands.EventCommand;
+import com.mimi.commands.ExitCommand;
+import com.mimi.commands.FindCommand;
+import com.mimi.commands.InvalidCommand;
+import com.mimi.commands.ListCommand;
+import com.mimi.commands.MarkCommand;
+import com.mimi.commands.TodoCommand;
+import com.mimi.commands.UnmarkCommand;
+
+/**
+ * A class that takes given inputs from the user and interprets it for a Command.
+ * @author Yuheng
+ */
 public class Parser {
-    String input;
-    Storage storage;
-
-    ReadWriteData readWriteData;
-
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private String input;
+    private Storage storage;
+
+    private ReadWriteData readWriteData;
+
 
     private enum ValidCommands {
         bye, list, mark, unmark, delete, todo, deadline, event, find
     }
 
+    /**
+     * Creates an instance of Parser
+     * @param input the string input to be interpreted
+     * @param storage an instance of the Storage class
+     * @param readWriteData an instance of the ReadWriteData class
+     */
     public Parser(String input, Storage storage, ReadWriteData readWriteData) {
         this.input = input;
         this.storage = storage;
         this.readWriteData = readWriteData;
     }
 
+    /**
+     * Parses the given string input and returns the appropriate command
+     * @return a Command instance represented by the given input
+     */
     public Command parse() {
         boolean isValidCommand = false;
         String cmd = input;
@@ -74,13 +97,13 @@ public class Parser {
             case "find":
                 return findCommand();
 
+            default:
+                return new InvalidCommand();
+
             }
         }
 
-
-
         return new InvalidCommand();
-
     }
 
     private Command findCommand() {
@@ -91,7 +114,7 @@ public class Parser {
             return new FindCommand();
         }
         int i = taskDescription.indexOf(' ');
-        taskDescription = taskDescription.substring(i+1);
+        taskDescription = taskDescription.substring(i + 1);
 
         return new FindCommand(taskDescription, this.storage);
 
@@ -103,7 +126,7 @@ public class Parser {
 
         //first remove the event keyword
         int i = temp.indexOf(' ');
-        temp = temp.substring(i+1);
+        temp = temp.substring(i + 1);
 
         //check if the task has specified a start and end time
         if (!temp.contains("/from") || !temp.contains("/to")) {
@@ -113,18 +136,18 @@ public class Parser {
 
         //next isolate the task name
         int j = temp.indexOf("/from");
-        String taskName = temp.substring(0, j-1);
+        String taskName = temp.substring(0, j - 1);
 
         //next isolate the start date
         int k = temp.indexOf("/to");
-        String startDate = temp.substring(j+6, k -1);
+        String startDate = temp.substring(j + 6, k - 1);
 
         //next isolate the end date
-        String endDate = temp.substring(k+4);
+        String endDate = temp.substring(k + 4);
 
         try {
-            LocalDateTime startTime = LocalDateTime.parse(startDate, this.FORMATTER);
-            LocalDateTime endTime = LocalDateTime.parse(endDate, this.FORMATTER);
+            LocalDateTime startTime = LocalDateTime.parse(startDate, Parser.FORMATTER);
+            LocalDateTime endTime = LocalDateTime.parse(endDate, Parser.FORMATTER);
             return new EventCommand(true, taskName,
                     startTime, endTime, this.storage, this.readWriteData);
         } catch (DateTimeParseException e) {
@@ -142,7 +165,7 @@ public class Parser {
 
         //first remove the deadline keyword
         int i = temp.indexOf(' ');
-        temp = temp.substring(i+1);
+        temp = temp.substring(i + 1);
 
         //check if the task has specified a deadline time
         if (!temp.contains("/by")) {
@@ -152,13 +175,13 @@ public class Parser {
 
         //next isolate the deadline
         int j = temp.indexOf("/by");
-        String deadline = temp.substring(j+4);
+        String deadline = temp.substring(j + 4);
 
         //next isolate the taskName
-        String taskName = temp.substring(0, j-1);
+        String taskName = temp.substring(0, j - 1);
 
         try {
-            LocalDateTime localDateTime = LocalDateTime.parse(deadline, this.FORMATTER);
+            LocalDateTime localDateTime = LocalDateTime.parse(deadline, Parser.FORMATTER);
             return new DeadlineCommand(true, taskName,
                     localDateTime, this.storage, this.readWriteData);
         } catch (DateTimeParseException e) {
@@ -173,8 +196,8 @@ public class Parser {
         String temp = input;
 
         try {
-            int task_Number = Integer.parseInt(temp.replaceAll("[^0-9]", ""));
-            return new DeleteCommand(true, task_Number, this.storage, this.readWriteData);
+            int taskNumber = Integer.parseInt(temp.replaceAll("[^0-9]", ""));
+            return new DeleteCommand(true, taskNumber, this.storage, this.readWriteData);
         } catch (NumberFormatException e) {
             return new DeleteCommand(false, -1, this.storage, this.readWriteData);
         }
@@ -185,8 +208,8 @@ public class Parser {
         String temp = input;
 
         try {
-            int task_Number = Integer.parseInt(temp.replaceAll("[^0-9]", ""));
-            return new UnmarkCommand(true, task_Number, this.storage, this.readWriteData);
+            int taskNumber = Integer.parseInt(temp.replaceAll("[^0-9]", ""));
+            return new UnmarkCommand(true, taskNumber, this.storage, this.readWriteData);
         } catch (NumberFormatException e) {
             return new UnmarkCommand(false, -1, this.storage, this.readWriteData);
         }
@@ -196,8 +219,8 @@ public class Parser {
         String temp = input;
 
         try {
-            int task_Number = Integer.parseInt(temp.replaceAll("[^0-9]", ""));
-            return new MarkCommand(true, task_Number, this.storage, this.readWriteData);
+            int taskNumber = Integer.parseInt(temp.replaceAll("[^0-9]", ""));
+            return new MarkCommand(true, taskNumber, this.storage, this.readWriteData);
         } catch (NumberFormatException e) {
             return new MarkCommand(false, -1, this.storage, this.readWriteData);
         }
@@ -208,7 +231,7 @@ public class Parser {
         String temp = input;
         int i = temp.indexOf(' ');
 
-        temp = temp.substring(i+1);
+        temp = temp.substring(i + 1);
 
         return new TodoCommand(temp, storage, readWriteData);
     }
