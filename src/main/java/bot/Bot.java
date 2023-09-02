@@ -15,11 +15,11 @@ public class Bot {
     /**
      * Bot.Storage object for storing data.
      */
-    private final Storage storage;
+    private Storage storage;
     /**
      * User interface for interacting with the user.
      */
-    private final Ui ui;
+    private Ui ui;
     /**
      * Bot.Task list for storing tasks.
      */

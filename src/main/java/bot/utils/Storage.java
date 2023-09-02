@@ -16,7 +16,7 @@ public class Storage {
     /**
      * File path for loading and saving data.
      */
-    private final String filePath;
+    private String filePath;
 
     /**
      * Creates a Storage object that stores and loads data at that file path.

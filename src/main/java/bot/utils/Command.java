@@ -199,11 +199,11 @@ public abstract class Command {
         /**
          * Index to mark the task at.
          */
-        private final int index;
+        private int index;
         /**
          * Mark the task as done or not done.
          */
-        private final DoneStatus done;
+        private DoneStatus done;
 
         /**
          * Creates a MarkCommand with the command to mark or unmark the task
@@ -252,7 +252,7 @@ public abstract class Command {
         /**
          * Full command string
          */
-        private final String input;
+        private String input;
 
         /**
          * Creates an AddCommand with the full command string.
@@ -295,7 +295,7 @@ public abstract class Command {
         /**
          * Index to delete task at.
          */
-        private final int index;
+        private int index;
 
         /**
          * Creates a DeleteCommand with the given index.
@@ -337,7 +337,7 @@ public abstract class Command {
         /**
          * Full command string.
          */
-        private final String input;
+        private String input;
 
         /**
          * Creates an FindCommand with the full command string.

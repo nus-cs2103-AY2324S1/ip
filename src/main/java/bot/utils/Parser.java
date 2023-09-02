@@ -27,15 +27,15 @@ public class Parser {
             return Command.exit();
         } else if (str.equalsIgnoreCase("list")) {
             return Command.list();
-        } else if (str.startsWith("mark ")) {
+        } else if (str.startsWith("mark ") || str.equals("mark")) {
             return Command.mark(str);
-        } else if (str.startsWith("unmark ")) {
+        } else if (str.startsWith("unmark ") || str.equals("unmark")) {
             return Command.unmark(str);
         } else if (Task.isTaskCommand(str)) {
             return Command.add(str);
-        } else if (str.startsWith("delete ")) {
+        } else if (str.startsWith("delete ") || str.equals("delete")) {
             return Command.delete(str);
-        } else if (str.startsWith("find ")) {
+        } else if (str.startsWith("find ") || str.equals("find")) {
             return Command.find(str);
         } else {
             throw new InvalidCommandException();

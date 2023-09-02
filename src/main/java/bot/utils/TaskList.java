@@ -15,7 +15,7 @@ public class TaskList {
     /**
      * Data structure to hold list.
      */
-    private final List<Task> list = new ArrayList<>();
+    private List<Task> list = new ArrayList<>();
 
     /**
      * Default constructor. To be used when an empty list is needed.

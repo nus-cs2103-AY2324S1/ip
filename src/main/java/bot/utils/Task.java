@@ -14,7 +14,7 @@ public abstract class Task {
     /**
      * Name of the task.
      */
-    private final String name;
+    private String name;
     /**
      * Indicates if the task is completed.
      */
@@ -233,7 +233,7 @@ public abstract class Task {
         /**
          * The time the deadline is due.
          */
-        private final LocalDate by;
+        private LocalDate by;
 
         /**
          * Default constructor.
@@ -362,11 +362,11 @@ public abstract class Task {
         /**
          * Event start time.
          */
-        private final LocalDate from;
+        private LocalDate from;
         /**
          * Event end time.
          */
-        private final LocalDate to;
+        private LocalDate to;
 
         /**
          * Default constructor.

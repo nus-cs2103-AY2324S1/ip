@@ -10,7 +10,7 @@ public class Ui {
     /**
      * Scanner to read user input.
      */
-    private final Scanner sc = new Scanner(System.in);
+    private Scanner sc = new Scanner(System.in);
 
     /**
      * Default constructor. Creates a Ui object.
