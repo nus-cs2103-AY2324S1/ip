@@ -1,3 +1,11 @@
+package duke.storage;
+
+import duke.exception.ChatException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -12,7 +20,7 @@ public class Storage {
     public Storage(String pathName) {
         this.pathName = pathName;
     }
-    public TaskList loadFile() throws ChatException{
+    public TaskList loadFile() throws ChatException {
         try {
             File f = new File(this.pathName);
             if (!f.exists()) {

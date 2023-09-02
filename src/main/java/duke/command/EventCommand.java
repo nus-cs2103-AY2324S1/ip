@@ -1,3 +1,12 @@
+package duke.command;
+
+import duke.exception.ChatException;
+import duke.storage.Storage;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.ui.Ui;
+
 public class EventCommand extends Command {
     private String description;
     private String from;

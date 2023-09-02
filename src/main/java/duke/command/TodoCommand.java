@@ -1,3 +1,11 @@
+package duke.command;
+
+import duke.exception.ChatException;
+import duke.storage.Storage;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.ui.Ui;
+
 public class TodoCommand extends Command {
     private String description;
     public TodoCommand(String description) {

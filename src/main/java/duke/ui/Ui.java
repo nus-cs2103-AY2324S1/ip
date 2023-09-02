@@ -1,3 +1,9 @@
+package duke.ui;
+
+import duke.exception.ChatException;
+import duke.task.Task;
+import duke.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {

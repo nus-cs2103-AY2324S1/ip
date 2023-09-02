@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.exception.ChatException;
+
 import java.util.ArrayList;
 
 public class TaskList {

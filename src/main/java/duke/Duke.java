@@ -1,3 +1,12 @@
+package duke;
+
+import duke.command.Command;
+import duke.exception.ChatException;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
+
 import java.time.LocalDate;
 import java.util.Scanner;
 

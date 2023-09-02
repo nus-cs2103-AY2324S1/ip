@@ -1,3 +1,8 @@
+package duke.parser;
+
+import duke.command.*;
+import duke.exception.ChatException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
