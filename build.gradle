@@ -39,7 +39,7 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "bobi"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
