@@ -1,8 +1,5 @@
 package Duke;
 
-/**
- * Main class from which Duke program is run.
- */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
