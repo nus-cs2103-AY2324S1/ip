@@ -1,13 +1,18 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.ArrayList;
+
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         String inData = "";
         Scanner scan = new Scanner(System.in);
         System.out.println("Hello! I'm Nicole");
         System.out.println("What can I do for you?");
-        ArrayList<Task> list = new ArrayList<>();
-        int count = 0;
+
+        ArrayList<Task> list = loadTasks(); //load tasks from file when chatbot starts
+        int count = list.size();
 
         while (!inData.equals("bye")) {
             inData = scan.nextLine();
@@ -88,6 +93,7 @@ public class Duke {
                     String to = fromto[1];
 
                     list.add(new Event(des, from, to));
+                    list.get(count).cat = "E";
                     System.out.println("Got it. I've added this task:");
                     System.out.println(list.get(count));
                     count++;
@@ -95,7 +101,7 @@ public class Duke {
                     continue;
                 }
 
-                if(inData.startsWith("delete ")) {
+                if (inData.startsWith("delete ")) {
                     int num = Integer.parseInt(inData.substring(7)) - 1;
                     if (num >= 0 && num < list.size()) {
                         list.remove(num);
@@ -111,10 +117,47 @@ public class Duke {
                 }
                 throw new UnknownCommandException();
 
+
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
+
+        }
+        if(inData.equals("bye")) {
+            System.out.println("bye");
+            saveTasks(list);
         }
     }
-}
+
+    //load tasks from the file into the chatbot
+    private static ArrayList<Task> loadTasks() throws FileNotFoundException {
+        ArrayList<Task> dukeList = new ArrayList<>();
+        File file = new File("duke.txt");
+        if (file.exists()) {
+            try (Scanner fileScanner = new Scanner(file)) {
+                while (fileScanner.hasNextLine()) {
+                    String task = fileScanner.nextLine();
+                    Task dtask = Taskparser.parseTask(task); //convert format of tasks in file to list
+                    dukeList.add(dtask);
+                }
+            }
+        }
+
+        return dukeList;
+    }
+
+            // Save tasks to a data file
+            private static void saveTasks(ArrayList<Task> list) {
+                File file = new File("duke.txt");
+                try (PrintWriter out = new PrintWriter("duke.txt")) {
+                    for (Task task : list) {
+                        String taskString = Taskparser.taskToString(task); //convert task to string
+                        out.println(taskString);
+                    }
+                } catch (FileNotFoundException e) {
+                    System.out.println("Error saving tasks to file: " + e.getMessage());
+                }
+        }
+    }
+
 
