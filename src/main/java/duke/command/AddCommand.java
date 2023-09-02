@@ -3,18 +3,38 @@ package duke.command;
 import java.time.format.DateTimeParseException;
 import duke.exception.DukeException;
 import duke.exception.InvalidInputException;
-import duke.task.TaskList;
-import duke.ui.Ui;
 import duke.storage.Storage;
-import duke.exception.InvalidTimeException;
 import duke.task.Deadline;
 import duke.task.Event;
+import duke.task.TaskList;
 import duke.task.Todo;
+import duke.ui.Ui;
+
+/**
+ * Represents the Command Add that add a task to the list
+ *
+ * @author Angky Akdi Frandy Putrakelana
+ */
 public class AddCommand extends Command {
     private String description;
+
+    /**
+     * Constructs an AddCommand with a specified description of a task.
+     *
+     * @param description A string describing the task.
+     */
     public AddCommand(String description) {
         this.description = description;
     }
+
+    /**
+     * Executes the AddCommand.
+     *
+     * @param tasks The list of tasks.
+     * @param ui The Ui that used as user interface.
+     * @param storage The Storage that used to store, read and write data.
+     * @throws DukeException If there are an invalid Input.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         int index = description.indexOf(" ");
@@ -55,6 +75,12 @@ public class AddCommand extends Command {
         }
         ui.printAdd(tasks.getTask(tasks.length() - 1), tasks);
     }
+
+    /**
+     * Check if it is an ExitCommand
+     *
+     * @return a boolean that represent whether this is an ExitCommand or not.
+     */
     @Override
     public boolean isExit() {
         return false;
