@@ -36,7 +36,6 @@ public class Fishron {
                 isExit = command.isExit();
             } catch (FishronException e) {
                 ui.showErrorMessage(e.getMessage());
-                ui.showLine();
             } finally {
                 ui.showLine();
             }
@@ -49,6 +48,6 @@ public class Fishron {
      * @param args The command line arguments (not used in this application).
      */
     public static void main(String[] args) {
-        new Fishron("data/tasks.txt").run();
+        new Fishron("./data/fishron.txt").run();
     }
 }

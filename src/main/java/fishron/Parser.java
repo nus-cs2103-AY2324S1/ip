@@ -24,6 +24,11 @@ public class Parser {
         if (input.equalsIgnoreCase("list")) {
             return new ListCommand();
 
+        } else if (input.toLowerCase().startsWith("find")) {
+            String[] parts = input.split("find");
+            String keyword = parts[1].trim();
+            return new FindCommand(keyword);
+
         } else if (input.toLowerCase().startsWith("mark")) {
             int taskIndex = Integer.parseInt(input.split(" ")[1]);
             return new MarkDoneCommand(taskIndex);
@@ -47,6 +52,7 @@ public class Parser {
         } else if (input.toLowerCase().startsWith("event")) {
             String[] parts = input.split("/from|/to");
             return new AddCommand(parseEvent(parts[0].split("event")[1].trim(), parts[1].trim(), parts[2].trim()));
+
         } else {
             System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -62,9 +68,14 @@ public class Parser {
      * @return True if the command is valid, otherwise throws an exception.
      * @throws FishronException If the command is invalid or in an incorrect format.
      */
-    public static boolean isValidCommands(String command, TaskList taskList) throws FishronException{
+    public static boolean isValidCommands(String command, TaskList taskList) throws FishronException {
+
         if (command.equals("list")) {
             return true;
+        }
+
+        if (command.toLowerCase().startsWith("find") && command.split("find").length <= 1) {
+            throw new FishronException("☹ OOPS!!! Please provide a task to find.");
         }
 
         if (command.toLowerCase().startsWith("mark") && command.split("mark").length <= 1) {
