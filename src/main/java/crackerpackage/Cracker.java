@@ -35,10 +35,7 @@ public class Cracker {
         } catch (Exception e){
             System.out.println(e);
         }
-        return;
 
-
-/*
         Scanner sc = new Scanner(System.in);
         reply.echo("What can I do for you?");
         ArrayList<Object> inLine = new ArrayList<>();
@@ -57,10 +54,13 @@ public class Cracker {
                         list.markDone(Parser.parseIndex(input));
                         reply.modifyTaskReply(list.getTask(Parser.parseIndex(input)));
                         break;
-                    case DELETE:
+                    case UNMARK:
                         list.markUndone(Parser.parseIndex(input));
                         reply.modifyTaskReply(list.getTask(Parser.parseIndex(input)));
                         break;
+                    case DELETE:
+                        list.deleteTask(Parser.parseIndex(input));
+                        reply.deleteTaskReply(list.getTask(Parser.parseIndex(input)), list.size());
                     case TASK:
                         Task newTask = Parser.parseTask(input);
                         list.store(newTask);
@@ -103,7 +103,7 @@ public class Cracker {
 
         }
         reply.echo("Bye. Hope to see you again soon!");
-        */
+
 
     }
 
