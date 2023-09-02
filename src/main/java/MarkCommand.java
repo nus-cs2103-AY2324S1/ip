@@ -9,7 +9,14 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException, IOException {
-        taskList.mark(this.index);
+    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
+        try {
+            taskList.mark(this.index);
+            storage.saveList(taskList);
+        } catch (RuntimeException e) {
+            throw new DukeException(String.format("Given index is out of range. Index range should be between" +
+                            " 1 and %d.",
+                    taskList.size()));
+        }
     }
 }

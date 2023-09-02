@@ -7,5 +7,6 @@ public class ToDoCommand extends Command {
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
         taskList.addToDo(description);
+        storage.saveList(taskList);
     }
 }

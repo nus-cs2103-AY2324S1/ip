@@ -6,4 +6,5 @@ public class ListCommand extends Command {
     public void execute(TaskList taskList, UI ui, Storage storage) {
         ui.list(taskList.getTaskArrayList());
     }
+
 }

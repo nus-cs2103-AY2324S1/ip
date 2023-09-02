@@ -32,9 +32,9 @@ public class Duke {
 
     private void start() {
 
-        try {
-            boolean isContinue = true;
-            while (isContinue) {
+        boolean isContinue = true;
+        while (isContinue) {
+            try {
                 String input = userInput.nextLine();
                 Command command = Parser.parse(input);
                 command.execute(this.tasks, this.ui, this.storage);
@@ -43,12 +43,11 @@ public class Duke {
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     this.ui.divider();
                 }
+            } catch (DukeException exception) {
+                System.out.println(exception.getMessage());
             }
-        } catch (DukeException exception) {
-            System.out.println(exception.getMessage());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
+
 
     }
 }

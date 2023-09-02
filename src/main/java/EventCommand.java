@@ -1,5 +1,3 @@
-import java.io.IOException;
-
 public class EventCommand extends Command {
     String fullCommand;
 
@@ -8,7 +6,8 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException, IOException {
+    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
         taskList.addEvent(fullCommand);
+        storage.saveList(taskList);
     }
 }

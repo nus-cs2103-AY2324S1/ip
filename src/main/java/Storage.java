@@ -1,24 +1,31 @@
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+
+import java.io.BufferedReader;
 import java.io.FileReader;
+
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 public class Storage {
 
     String filePath;
     TaskList taskList;
-
     public Storage(String filePath, TaskList taskList) {
         this.filePath = filePath;
         this.taskList = taskList;
     }
 
-    void saveList() throws DukeException, IOException {
+    void saveList(TaskList taskList) throws DukeException {
+        this.taskList = taskList;
         try {
             File file = new File(filePath);
             file.getParentFile().mkdirs();
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 
-            for (Task task : this.taskList.getTaskArrayList()) {
+            for (Task task : taskList.getTaskArrayList()) {
                 writer.append(task.storeFormat()).append("\n");
             }
 
@@ -73,7 +80,7 @@ public class Storage {
             }
 
         } catch (FileNotFoundException e) {
-            this.saveList();
+            this.saveList(this.taskList);
         } catch (IOException e) {
             throw new DukeException("IO error occurred. Check the formatting of the text file - data.txt.");
         }

@@ -1,5 +1,3 @@
-import java.io.IOException;
-
 public class DeadlineCommand extends Command {
 
     String fullCommand;
@@ -9,7 +7,8 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException, IOException {
+    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
         taskList.addDeadline(fullCommand);
+        storage.saveList(taskList);
     }
 }

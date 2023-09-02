@@ -1,5 +1,3 @@
-import java.io.IOException;
-
 public class DeleteCommand extends Command {
     String fullCommand;
 
@@ -8,8 +6,9 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException, IOException {
+    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
         taskList.deleteTask(fullCommand);
+        storage.saveList(taskList);
     }
 
 }

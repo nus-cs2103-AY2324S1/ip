@@ -92,16 +92,6 @@ public class Parser {
             throw new DukeException("Following \"mark\" or \"unmark\" or \"delete\", an integer value is expected. Blanks or" +
                     " non-integer values are invalid.");
         }
-
-        int intIndex = Integer.parseInt(index);
-
-        // Passing the first case means the index is an integer
-        if (intIndex < 1) {
-            throw new DukeException("The index following \"mark\" or \"unmark\" should start from 1.");
-        } else if (intIndex > tasks.size()) {
-            throw new DukeException("The index following \"mark\" or \"unmark\" should not exceed the total number of "
-                    + "tasks in the list");
-        }
     }
 
     private static void testEvent(String description) throws DukeException {
