@@ -6,7 +6,8 @@ todo join sports club
 mark 4
 todo borrow book
 list
-deadline return book /by Sunday
+deadline return book /by 04/12/2023 1920
+deadline return book /by 04/12/2023 1989
 event project meeting /from Mon 2pm /to 4pm
 list
 unmark 9
