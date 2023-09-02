@@ -2,14 +2,14 @@ package jarvis.commands;
 
 import java.time.LocalDateTime;
 
-import jarvis.Event;
 import jarvis.Parser;
 import jarvis.Storage;
-import jarvis.TaskList;
 import jarvis.Ui;
 import jarvis.exceptions.InvalidDateTimeFormatException;
 import jarvis.exceptions.InvalidIndexException;
 import jarvis.exceptions.InvalidTaskFormatException;
+import jarvis.tasks.Event;
+import jarvis.tasks.TaskList;
 
 public class EventCommand implements Command {
 

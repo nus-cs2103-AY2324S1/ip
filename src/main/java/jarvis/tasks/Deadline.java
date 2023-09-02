@@ -1,7 +1,9 @@
-package jarvis;
+package jarvis.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import jarvis.Ui;
 
 public class Deadline extends Task {
 

@@ -3,6 +3,7 @@ package jarvis;
 import jarvis.commands.Command;
 
 import jarvis.exceptions.JarvisException;
+import jarvis.tasks.TaskList;
 
 public class Jarvis {
 

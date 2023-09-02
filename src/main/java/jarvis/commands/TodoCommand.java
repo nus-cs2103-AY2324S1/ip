@@ -1,11 +1,11 @@
 package jarvis.commands;
 
 import jarvis.Storage;
-import jarvis.TaskList;
-import jarvis.Todo;
 import jarvis.Ui;
 import jarvis.exceptions.InvalidIndexException;
 import jarvis.exceptions.InvalidTaskFormatException;
+import jarvis.tasks.TaskList;
+import jarvis.tasks.Todo;
 
 public class TodoCommand implements Command{
 

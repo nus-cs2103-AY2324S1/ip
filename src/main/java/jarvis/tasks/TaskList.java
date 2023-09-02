@@ -1,4 +1,4 @@
-package jarvis;
+package jarvis.tasks;
 
 import java.util.ArrayList;
 
