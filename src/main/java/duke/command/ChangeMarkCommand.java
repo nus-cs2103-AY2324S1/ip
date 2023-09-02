@@ -22,11 +22,11 @@ public class ChangeMarkCommand implements Command {
 
             if (isMark) {
                 taskList.mark(index);
-                storage.save();
+                storage.save(taskList.getList());
                 ui.showMessage("Task at index " + (index + 1) + "has been successfully marked");
             } else {
                 taskList.unmark(index);
-                storage.save();
+                storage.save(taskList.getList());
                 ui.showMessage("Task at index " + (index + 1) + "has been successfully unmarked");
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {

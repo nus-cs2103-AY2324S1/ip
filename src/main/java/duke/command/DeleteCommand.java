@@ -23,7 +23,7 @@ public class DeleteCommand implements Command {
             int index = Integer.parseInt(indexString) - 1;
 
             taskList.remove(index);
-            storage.save();
+            storage.save(taskList.getList());
             ui.showMessage("Task at index " + (index + 1) + "removed successfully.");
             taskList.printSize();
         } catch (NumberFormatException | IndexOutOfBoundsException e) {

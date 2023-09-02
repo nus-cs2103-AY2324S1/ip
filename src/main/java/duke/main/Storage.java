@@ -19,11 +19,8 @@ import java.util.ArrayList;
  * duke.main.Storage to store tasks to a specified filepath.
  */
 public class Storage {
-    private ArrayList<Task> tasks;
     private final String filepath;
     private static final ObjectMapper MAPPER = new ObjectMapper();
-
-    private boolean isLoaded = false;
 
     // Setting Mapper to serialize LocalDate to JSON
     static {
@@ -48,9 +45,7 @@ public class Storage {
      */
     public ArrayList<Task> load() throws InvalidFileException {
         try {
-            tasks = MAPPER.readValue(new File(filepath), new TypeReference<>() {});
-            isLoaded = true;
-            return tasks;
+            return MAPPER.readValue(new File(filepath), new TypeReference<>() {});
         } catch (FileNotFoundException e) {
             throw new InvalidFileException("File not found, will generate file on the next save...");
         } catch (IOException e) {
@@ -71,21 +66,6 @@ public class Storage {
             Files.writeString(Path.of(filepath), jsonString, StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * Saves tasks based on loaded.
-     */
-    public void save() {
-        if (isLoaded) {
-            try {
-                String jsonString = MAPPER.writerFor(new TypeReference<ArrayList<Task>>() {})
-                        .writeValueAsString(tasks);
-                Files.writeString(Path.of(filepath), jsonString, StandardCharsets.UTF_8);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
         }
     }
 }

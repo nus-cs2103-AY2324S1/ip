@@ -69,4 +69,7 @@ public class TaskList {
         tasks.get(i).unmark();
     }
 
+    public ArrayList<Task> getList() {
+        return tasks;
+    }
 }
