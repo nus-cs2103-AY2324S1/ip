@@ -31,7 +31,6 @@ public class Duke {
 
             try {
                 String userCommand = parser.inputCommand();
-
                 if (userCommand.equals("LIST")) {
                     this.ui.printList(tasks.getTasks());
                 } else if (userCommand.equals("MARK")) {
