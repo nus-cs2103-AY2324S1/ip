@@ -1,12 +1,12 @@
 package duke;
 
+import duke.storage.Storage;
 import duke.ui.TextUi;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
 public class Duke {
-    private static final List<Task> tasks = new ArrayList<>();
+    private static TaskList tasks = new TaskList();
 
     /**
      * Utility function to return the command type of the given command string.
@@ -109,8 +109,8 @@ public class Duke {
         } else {
             response = new String[numTasks + 1];
             response[0] = "Here are the tasks in your list:";
-            for (int i = 0; i < numTasks; i++) {
-                response[i + 1] = (i + 1 + ". " + tasks.get(i));
+            for (int i = 1; i <= numTasks; i++) {
+                response[i] = (i + ". " + tasks.get(i));
             }
         }
         return response;
@@ -136,7 +136,7 @@ public class Duke {
             throw new DukeException("Task number does not exist");
         }
 
-        Task task = tasks.get(taskNum - 1);
+        Task task = tasks.get(taskNum);
         task.mark();
 
         response[0] = "Nice! I've marked this task as done:";
@@ -165,7 +165,7 @@ public class Duke {
             throw new DukeException("Task number does not exist");
         }
 
-        Task task = tasks.get(taskNum - 1);
+        Task task = tasks.get(taskNum);
         task.unmark();
 
         response[0] = "Ok, I've marked this task as not done yet:";
@@ -193,8 +193,8 @@ public class Duke {
             throw new DukeException("Task number does not exist");
         }
 
-        Task task = tasks.get(taskNum - 1);
-        tasks.remove(taskNum - 1);
+        Task task = tasks.get(taskNum);
+        tasks.delete(taskNum);
 
         response[0] = "Noted. I've removed this task:";
         response[1] = TextUi.INDENT + task;
@@ -206,17 +206,24 @@ public class Duke {
 
     public static void main(String[] args) {
         TextUi ui = new TextUi();
+        Storage storage = new Storage();
+
         ui.showWelcomeMessage();
 
         boolean stopped = false;
 
+        try {
+            tasks = storage.load();
+        } catch (IOException e) {
+            ui.showMessage("Error loading tasks");
+            stopped = true;
+        }
         while (!stopped) {
             String input = ui.getUserCommand();
             String[] params = input.split(" ", 2);
             Command command = getCommandType(params[0]);
 
             switch (command) {
-
                 case TODO: {
                     if (params.length == 1) {
                         ui.showMessage("Sorry, but the description of a todo cannot be empty.");
@@ -292,6 +299,11 @@ public class Duke {
                 default:
                     ui.showInvalidCommandMessage();
                     break;
+            }
+            try {
+                storage.save(tasks);
+            } catch (IOException e) {
+                ui.showMessage("Error saving tasks");
             }
         }
     }
