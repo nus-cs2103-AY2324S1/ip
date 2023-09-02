@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.Scanner;
+
 import duke.command.Command;
 import duke.exception.DukeDatabaseNotFoundException;
 import duke.exception.DukeException;
@@ -7,8 +9,6 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
-
-import java.util.Scanner;
 
 /**
  * The main class for the Duke task management application.

@@ -18,7 +18,7 @@ public class Event extends Task {
      * @param start Start date in MMM DD YYYY format.
      * @param end End date in MMM DD YYYY format.
      */
-    public Event(String description, LocalDate start,LocalDate end) {
+    public Event(String description, LocalDate start, LocalDate end) {
         super(description);
         this.start = start;
         this.end = end;

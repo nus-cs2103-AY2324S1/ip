@@ -1,13 +1,26 @@
 package duke.parser;
 
-import duke.command.*;
-import duke.exception.*;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import duke.command.Command;
+import duke.command.DeadlineCommand;
+import duke.command.DeleteCommand;
+import duke.command.EventCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.HelpCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.TodoCommand;
+import duke.command.UnmarkCommand;
+import duke.exception.DukeDatabaseInvalidEntryException;
+import duke.exception.DukeEndDateBeforeStartDateException;
+import duke.exception.DukeInvalidArgumentException;
+import duke.exception.DukeInvalidDateFormatException;
 
 /**
  * Parses user input and database entries.
@@ -23,7 +36,8 @@ public class Parser {
      */
     public static ArrayList<String> parseDatabaseEntry(String entry) throws DukeDatabaseInvalidEntryException {
         ArrayList<String> elements = new ArrayList<>();
-        Pattern pattern = Pattern.compile("\\[([A-Z])\\]\\[(.)\\] (.+?)(?: \\(by: (.+?)\\)| \\(from: (.+?) to: (.+?)\\))?");
+        Pattern pattern = Pattern.compile(
+                "\\[([A-Z])\\]\\[(.)\\] (.+?)(?: \\(by: (.+?)\\)| \\(from: (.+?) to: (.+?)\\))?");
         Matcher matcher = pattern.matcher(entry);
 
         if (matcher.matches()) {
