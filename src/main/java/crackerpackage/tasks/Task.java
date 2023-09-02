@@ -1,31 +1,31 @@
 package crackerpackage.tasks;
 
-import Exceptions.EmptyDescriptionException;
+import exceptions.EmptyDescriptionException;
 
-abstract public class Task{
+public abstract class Task {
     private boolean isDone;
     private String description;
 
     Task(String s) throws EmptyDescriptionException {
-        if(s.isBlank()){
+        if (s.isBlank()) {
             throw new EmptyDescriptionException();
         }
         this.description = s;
         this.isDone = false;
     }
-    public void markDone(){
+    public void markDone() {
         this.isDone = true;
     }
-    public void markUndone(){
+    public void markUndone() {
         this.isDone = false;
     }
-    public String getDesc(){
+    public String getDesc() {
         return description;
     }
-    public boolean getStatus(){
+    public boolean getStatus() {
         return isDone;
     }
-    public String toString(){
-        return "[" + (isDone?"X":" ") + "] " + description;
+    public String toString() {
+        return "[" + (isDone ? "X" : " ") + "] " + description;
     }
 }

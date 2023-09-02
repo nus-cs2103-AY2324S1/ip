@@ -1,14 +1,13 @@
 package crackerpackage;
 
-import Exceptions.*;
-import UIComponents.Parser;
-import UIComponents.Reply;
-import crackerpackage.tasks.Task;
-
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
+import crackerpackage.tasks.Task;
+import exceptions.EmptyDescriptionException;
+import exceptions.IllegalFormatException;
+import exceptions.UnknownCommandException;
+import uicomponents.Parser;
+import uicomponents.Reply;
 
 public class Cracker {
 
@@ -25,21 +24,19 @@ public class Cracker {
         QUIT
     }
 
-    public void startService(){
+    public void startService() {
         boolean talking = true;
-        FileWriter writer = null;
         storage = new Storage("./data/list.txt");
         list = storage.load();
-        try{
+        try {
             storage.save(list);
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
 
         Scanner sc = new Scanner(System.in);
         reply.echo("What can I do for you?");
-        ArrayList<Object> inLine = new ArrayList<>();
-        while(talking){
+        while (talking) {
             Type t = null;
 
             String input = sc.nextLine();
@@ -49,52 +46,53 @@ public class Cracker {
             try {
                 Type command = Parser.parseCommand(input);
 
-                switch(command){
-                    case MARK:
-                        list.markDone(Parser.parseIndex(input));
-                        reply.modifyTaskReply(list.getTask(Parser.parseIndex(input)));
-                        break;
-                    case UNMARK:
-                        list.markUndone(Parser.parseIndex(input));
-                        reply.modifyTaskReply(list.getTask(Parser.parseIndex(input)));
-                        break;
-                    case DELETE:
-                        list.deleteTask(Parser.parseIndex(input));
-                        reply.deleteTaskReply(list.getTask(Parser.parseIndex(input)), list.size());
-                    case TASK:
-                        Task newTask = Parser.parseTask(input);
-                        list.store(newTask);
-                        reply.storeTaskReply(newTask, list.size());
-                        break;
-                    case UNKNOWN:
-                        try {
-                            throw new UnknownCommandException();
-                        } catch (UnknownCommandException e) {
-                            reply.echo(e.toString());
-                        }
-                        break;
-                    case LIST:
-                        reply.iterate(list);
-                        break;
-                    case QUIT:
-                        sc.close();
-                        talking = false;
-                        try{
-                            storage.save(list);
-                        } catch (IOException e){
-                            System.out.println("Something wrong happened when saving your tasks");
-                        }
-                        break;
-                    default:
-                        break;
+                switch(command) {
+                case MARK:
+                    list.markDone(Parser.parseIndex(input));
+                    reply.modifyTaskReply(list.getTask(Parser.parseIndex(input)));
+                    break;
+                case UNMARK:
+                    list.markUndone(Parser.parseIndex(input));
+                    reply.modifyTaskReply(list.getTask(Parser.parseIndex(input)));
+                    break;
+                case DELETE:
+                    list.deleteTask(Parser.parseIndex(input));
+                    reply.deleteTaskReply(list.getTask(Parser.parseIndex(input)), list.size());
+                    break;
+                case TASK:
+                    Task newTask = Parser.parseTask(input);
+                    list.store(newTask);
+                    reply.storeTaskReply(newTask, list.size());
+                    break;
+                case UNKNOWN:
+                    try {
+                        throw new UnknownCommandException();
+                    } catch (UnknownCommandException e) {
+                        reply.echo(e.toString());
+                    }
+                    break;
+                case LIST:
+                    reply.iterate(list);
+                    break;
+                case QUIT:
+                    sc.close();
+                    talking = false;
+                    try {
+                        storage.save(list);
+                    } catch (IOException e) {
+                        System.out.println("Something wrong happened when saving your tasks");
+                    }
+                    break;
+                default:
+                    break;
 
                 }
 
-            } catch (EmptyDescriptionException e){
+            } catch (EmptyDescriptionException e) {
                 reply.echo(e.toString());
-            } catch (IndexOutOfBoundsException e){
+            } catch (IndexOutOfBoundsException e) {
                 reply.echo("The index you provided does not exist");
-            } catch (IllegalFormatException e){
+            } catch (IllegalFormatException e) {
                 reply.echo(e.toString());
             }
 
