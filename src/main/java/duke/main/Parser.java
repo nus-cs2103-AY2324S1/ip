@@ -5,10 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import duke.command.FirstWord;
-import duke.exception.DukeEmptyToDoException;
-import duke.exception.DukeException;
-import duke.exception.DukeInvalidDateFormatException;
-import duke.exception.DukeUnknownCommandException;
+import duke.exception.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -58,22 +55,30 @@ public class Parser {
      * Marks task as done.
      * @param index
      */
-    private String mark(int index) {
-        Task task = tasks.get(index);
-        task.mark();
-        String guiTalk = String.format("  Nice! I've marked this task as done:\n  %s", task.toString());
-        return guiTalk;
+    private String mark(int index) throws DukeInvalidMarkUnmarkArgument {
+        try {
+            Task task = tasks.get(index);
+            task.mark();
+            String guiTalk = String.format("  Nice! I've marked this task as done:\n  %s", task.toString());
+            return guiTalk;
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeInvalidMarkUnmarkArgument();
+        }
     }
 
     /**
      * Marks task as not done.
      * @param index
      */
-    private String unmark(int index) {
-        Task task = tasks.get(index);
-        task.unmark();
-        String guiTalk = String.format("  Ok, I've marked this task as not done yet:\n  %s", task.toString());
-        return guiTalk;
+    private String unmark(int index) throws DukeInvalidMarkUnmarkArgument {
+        try {
+            Task task = tasks.get(index);
+            task.unmark();
+            String guiTalk = String.format("  Ok, I've marked this task as not done yet:\n  %s", task.toString());
+            return guiTalk;
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeInvalidMarkUnmarkArgument();
+        }
     }
 
     /**
@@ -187,31 +192,22 @@ public class Parser {
                 switch (firstWord) {
                 case BYE:
                     return exit();
-                    // break;
                 case LIST:
                     return listOutTasks();
-                    // break;
                 case MARK:
                     return mark(Character.getNumericValue(reply.charAt(5) - 1));
-                    // break;
                 case UNMARK:
                     return unmark(Character.getNumericValue(reply.charAt(7) - 1));
-                    // break;
                 case TODO:
                     return addToDo(reply);
-                    // break;
                 case DEADLINE:
                     return addDeadline(reply);
-                    // break;
                 case EVENT:
                     return addEvent(reply);
-                    // break;
                 case DELETE:
                     return delete(Character.getNumericValue(reply.charAt(7) - 1));
-                    // break;
                 case FIND:
                     return find(reply);
-                    // break;
                 default:
                     throw new DukeUnknownCommandException();
                 }
