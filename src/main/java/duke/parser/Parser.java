@@ -1,14 +1,23 @@
+package duke.parser;
+
+import duke.commands.Command;
+import duke.exceptions.InvalidDateTimeException;
+import duke.exceptions.InvalidDescriptionException;
+import duke.exceptions.InvalidTaskIndexException;
+import duke.exceptions.MissingTaskIndexException;
+import duke.tasks.*;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
 /**
- * The Parser class is responsible for parsing user input and converting it into meaningful commands and tasks.
+ * The duke.parser.Parser class is responsible for parsing user input and converting it into meaningful commands and tasks.
  */
 public class Parser {
 
     /**
-     * Parses an input from user to get Command.
+     * Parses an input from user to get duke.commands.Command.
      *
      * @param str The user input string.
      * @return The parsed command.
@@ -32,7 +41,7 @@ public class Parser {
         if (str.split(" ").length == 2) {
             int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
             if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
-                throw new InvalidTaskIndexException("Invalid Task Index.");
+                throw new InvalidTaskIndexException("Invalid duke.tasks.Task Index.");
             }
             Command command = getCommand(str);
             switch (command) {
@@ -45,7 +54,7 @@ public class Parser {
             }
             return taskIndex;
         } else {
-            throw new MissingTaskIndexException("Task Index Missing.");
+            throw new MissingTaskIndexException("duke.tasks.Task Index Missing.");
         }
     }
 
@@ -62,14 +71,14 @@ public class Parser {
         if (str.split(" ").length == 2) {
             int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
             if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
-                throw new InvalidTaskIndexException("Invalid Task Index.");
+                throw new InvalidTaskIndexException("Invalid duke.tasks.Task Index.");
             }
             Task toRemove = tasks.getTask(taskIndex);
             tasks.deleteTask(taskIndex);
             return toRemove;
 
         } else {
-            throw new MissingTaskIndexException("Task Index Missing.");
+            throw new MissingTaskIndexException("duke.tasks.Task Index Missing.");
         }
 
     }

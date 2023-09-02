@@ -1,3 +1,5 @@
+package duke.tasks;
+
 import java.util.ArrayList;
 
 /**
@@ -8,7 +10,7 @@ public class TaskList {
     private ArrayList<Task> tasks;
 
     /**
-     * Initialises a new instance of the TaskList class.
+     * Initialises a new instance of the duke.tasks.TaskList class.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();

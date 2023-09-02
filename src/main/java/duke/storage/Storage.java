@@ -1,3 +1,9 @@
+package duke.storage;
+
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.TaskList;
+import duke.tasks.ToDo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,7 +20,7 @@ public class Storage {
     protected String directoryPath;
 
     /**
-     * Initialises a new instance of the Storage class.
+     * Initialises a new instance of the duke.storage.Storage class.
      *
      * @param directoryPath The directory where the storage file is located or should be created.
      * @param filePath The file path of the storage file.
@@ -27,9 +33,9 @@ public class Storage {
 
 
     /**
-     * Updates the storage file with the tasks from the provided TaskList.
+     * Updates the storage file with the tasks from the provided duke.tasks.TaskList.
      *
-     * @param tasks The TaskList containing tasks to be saved to the storage file.
+     * @param tasks The duke.tasks.TaskList containing tasks to be saved to the storage file.
      */
     public void updateStorage(TaskList tasks) {
         try {
@@ -47,7 +53,7 @@ public class Storage {
     /**
      * Sets up the tasks by reading from the storage file or creating a new one if it doesn't exist.
      *
-     * @return A TaskList containing the tasks read from the storage file, or an empty TaskList if the file is new.
+     * @return A duke.tasks.TaskList containing the tasks read from the storage file, or an empty duke.tasks.TaskList if the file is new.
      */
     private TaskList setupTasks() {
         TaskList tasks = new TaskList();
@@ -72,9 +78,9 @@ public class Storage {
     }
 
     /**
-     * Retrieves tasks from the storage file and returns them in a TaskList.
+     * Retrieves tasks from the storage file and returns them in a duke.tasks.TaskList.
      *
-     * @return A TaskList containing tasks read from the storage file.
+     * @return A duke.tasks.TaskList containing tasks read from the storage file.
      */
     public TaskList getTasks() {
         TaskList taskList = new TaskList();

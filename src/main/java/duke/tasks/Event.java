@@ -1,9 +1,11 @@
+package duke.tasks;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
  * Represents an event task that occurs within a specified time range.
- * This class extends the Task class and adds the event's start and end times.
+ * This class extends the duke.tasks.Task class and adds the event's start and end times.
  */
 public class Event extends Task {
     /**
@@ -20,7 +22,7 @@ public class Event extends Task {
     protected String to;
 
     /**
-     * Constructs an Event object with the given description, start date and time, and end date and time.
+     * Constructs an duke.tasks.Event object with the given description, start date and time, and end date and time.
      *
      * @param description The description of the event.
      * @param fromDate The start date of the event.
@@ -39,7 +41,7 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the Event object.
+     * Returns a string representation of the duke.tasks.Event object.
      *
      * @return A formatted string including the task type, description, start time, and end time.
      */
