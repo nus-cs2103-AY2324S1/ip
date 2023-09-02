@@ -65,6 +65,9 @@ public class Parser {
             return new DeleteCommand(number);
         } else if (command.equals("bye")) {
             return new ExitCommand();
+        } else if (command.startsWith("find")) {
+            String keyword = command.substring(5);
+            return new FindCommand(keyword);
         }
         return new InvalidCommand();
     }

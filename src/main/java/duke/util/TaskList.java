@@ -17,9 +17,25 @@ public class TaskList {
     }
 
     /**
+     * To find tasks containing the String keyword.
+     * @param keyword The input keyword.
+     * @return An ArrayList containing the tasks containing the keyword.
+     */
+    public ArrayList<Task> find(String keyword) {
+        ArrayList<Task> containsKey = new ArrayList<>();
+        for (int i = 0; i < this.arr.size(); i++) {
+            if (this.arr.get(i).toString().contains(keyword)) {
+                containsKey.add(this.arr.get(i));
+            }
+        }
+        return containsKey;
+    }
+
+    /**
      * To add a Task into the TaskList.
      * @param instance The task added into the TaskList.
      */
+
     public void add(Task instance) {
         this.arr.add(instance);
     }
