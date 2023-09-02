@@ -6,26 +6,29 @@ import storage.TaskList;
 import storage.FileHandler;
 
 /**
- * A command to list the tasks.
+ * A find command to query task with a keyword.
  */
-public class ListCommand extends Command{
+public class FindCommand extends Command{
+
+    String keyword;
 
     /**
-     * Constructs a `ListCommand` object.
+     * Constructs an `FindCommand` object.
      */
-    public ListCommand() {
+    public FindCommand(String keyword){
+        this.keyword = keyword;
     }
 
     /**
-     * Executes the list command, which displays all the tasks in the task list.
+     * Executes the find command.
      *
-     * @param t  The task list to retrieve tasks from.
-     * @param ui The user interface to display the list of tasks.
+     * @param t  The list of the task to match.
+     * @param ui The user interface.
      * @param f  The file handler (not used in this command).
      */
     @Override
     public void execute(TaskList t, Ui ui, FileHandler f) {
-        ui.list();
+        ui.find(t.findKeyword(keyword));
     }
 
     /**

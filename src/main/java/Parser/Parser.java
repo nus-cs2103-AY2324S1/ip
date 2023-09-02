@@ -12,6 +12,7 @@ import command.ErrorCommand;
 import command.MarkCommand;
 import command.MiscCommand;
 import command.UnmarkCommand;
+import command.FindCommand;
 
 /**
  * The `Parser` class is responsible for parsing user input commands into executable commands.
@@ -112,7 +113,15 @@ public class Parser {
             return new UnmarkCommand(index);
         } else if (str.equals("bye")) {
             return new ByeCommand();
-        } else {
+        } else if (str.startsWith("find")) {
+            String[] split = str.split(" ");
+
+            if (split.length < 2)  {
+                throw new IllegalArgumentException("Hey! Please provide a keyword");
+            }
+
+            return new FindCommand(split[1].trim());
+        }else {
             return new MiscCommand();
         }
     }

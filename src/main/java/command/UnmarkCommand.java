@@ -35,7 +35,7 @@ public class UnmarkCommand extends Command{
             FileHandler.writeTasksToFile(t);
             ui.unmark(index);
         } catch (IndexOutOfBoundsException e) {
-            ui.IoobExceptionMessage();
+            ui.ioobExceptionMessage();
         }
     }
 

@@ -20,6 +20,10 @@ public class TaskList {
         this.task = task;
     }
 
+    public TaskList() {
+        this.task = new ArrayList<>();
+    }
+
     /**
      * Adds task to task list.
      *
@@ -35,7 +39,7 @@ public class TaskList {
      * @return The number of tasks in the list.
      */
     public int size() {
-        return task.size();
+        return this.task.size();
     }
 
     /**
@@ -44,7 +48,7 @@ public class TaskList {
      * @return True if the task list is empty; otherwise, false.
      */
     public boolean isEmpty() {
-        return task.isEmpty();
+        return this.task.isEmpty();
     }
 
     /**
@@ -52,7 +56,7 @@ public class TaskList {
      *
      * @param i The index of the task to be removed.
      */
-    public void remove(int i) {task.remove(i);}
+    public void remove(int i) {this.task.remove(i);}
 
     /**
      * Returns the ArrayList of tasks in the task list.
@@ -60,7 +64,7 @@ public class TaskList {
      * @return The ArrayList of tasks.
      */
     public ArrayList<Tasks> getAllTasks() {
-        return task;
+        return this.task;
     }
 
     /**
@@ -70,7 +74,7 @@ public class TaskList {
      * @return The task at the index.
      */
     public Tasks get(int index) {
-        return task.get(index);
+        return this.task.get(index);
     }
 
     /**
@@ -91,6 +95,33 @@ public class TaskList {
         }
 
         return true;
+    }
+
+    public void display() {
+        for (int i = 0 ; i < task.size(); i ++) {
+            int j = i + 1;
+            System.out.println("     " + j + ". " +  task.get(i).toString());
+        }
+    }
+
+    /**
+     * Match the taskDesc with keyword for query.
+     *
+     * @param str The keyword for matching.
+     * @return A tasklist containing all the task that passed the matching.
+     */
+    public TaskList findKeyword(String str) {
+        TaskList matchedList = new TaskList();
+        System.out.println("here");
+
+        for (int i = 0; i < task.size(); i ++) {
+            if (this.task.get(i).isMatch(str)) {
+                matchedList.add(this.task.get(i));
+            }
+        }
+
+        return matchedList;
+
     }
 
 }

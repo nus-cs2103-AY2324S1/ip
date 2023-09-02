@@ -35,7 +35,7 @@ public class MarkCommand extends Command{
             FileHandler.writeTasksToFile(t);
             ui.mark(index);
         } catch (IndexOutOfBoundsException e) {
-            ui.IoobExceptionMessage();
+            ui.ioobExceptionMessage();
         }
     }
 

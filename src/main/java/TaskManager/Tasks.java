@@ -37,4 +37,9 @@ public abstract class Tasks {
         this.isDone = false;
     }
 
+    /**
+     * Match the keyword to task description for query.
+     */
+    public abstract boolean isMatch(String keyword);
+
 }

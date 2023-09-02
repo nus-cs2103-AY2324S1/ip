@@ -120,4 +120,20 @@ public class Deadlines extends Tasks {
         }
     }
 
+    /**
+     * Match the taskDesc with keyword for query.
+     *
+     * @param keyword The keyword for matching.
+     * @return True if there is matching keyword; otherwise, false.
+     */
+    public boolean isMatch(String keyword) {
+        String[] split = taskDesc.split(" ");
+        for(int i = 0; i < split.length; i ++) {
+            if (keyword.equals(split[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
