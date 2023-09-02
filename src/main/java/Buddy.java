@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class Buddy {
     private static String name = "Task Buddy";
+    private List<Task> taskList;
+    private final String filePath = "./data/tasks.txt";
 
     public static void main(String[] args) throws BuddyException {
         String greeting = String.format("Hello! I'm %s\n", name);
@@ -12,35 +14,32 @@ public class Buddy {
 
         Scanner scanner = new Scanner(System.in);
         String command;
-        Task t;
-        List<Task> taskList = new ArrayList<>();
+        TaskList tasks = new TaskList();
 
         System.out.println(greeting + inquiry);
 
         while (true) {
             command = scanner.nextLine();
-            if (command.equals("bye")) {
+            if (command.equalsIgnoreCase("bye")) {
                 System.out.println(exit);
                 break;
             }
-            if (command.equals("list")) {
-                printList(taskList);
-
+            if (command.equalsIgnoreCase("list")) {
+                System.out.print(tasks);
             } else if (command.startsWith("mark") || command.startsWith("unmark")) {
                 String[] arrOfCmd = command.split(" ");
-                Integer taskNumber = Integer.valueOf(arrOfCmd[1]) - 1;
+                Integer taskIndex = Integer.valueOf(arrOfCmd[1]) - 1;
 
                 try {
-                    Task thisTask = taskList.get(taskNumber);
+                    // Task thisTask = tasks.getTask(taskIndex);
                     if (command.startsWith("mark")) {
-                        thisTask.markTaskAsDone();
-                        System.out.println("Nice! I've marked this task as done:");
+                        tasks.markAsDone(taskIndex);
+                        // System.out.println("Nice! I've marked this task as done:");
                     }
                     if (command.startsWith("unmark")) {
-                        thisTask.markTaskAsUndone();
-                        System.out.println("OK, I've marked this task as not done yet:");
+                        tasks.markAsNotDone(taskIndex);
+                        // System.out.println("OK, I've marked this task as not done yet:");
                     }
-                    System.out.println(thisTask.toString());
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Invalid task number.");
                 }
@@ -48,8 +47,8 @@ public class Buddy {
             } else if (command.startsWith("delete")) {
                 String[] arrOfCmd = command.split(" ");
                 try {
-                    Integer taskNumber = Integer.valueOf(arrOfCmd[1]) - 1;
-                    deleteTask(taskNumber, taskList);
+                    Integer taskIndex = Integer.valueOf(arrOfCmd[1]) - 1;
+                    tasks.deleteTask(taskIndex);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Invalid task number.");
                 }
@@ -63,13 +62,13 @@ public class Buddy {
                 } else {
                     Todo todo = new Todo(description);
                     // t = new Task(description);
-                    taskList.add(todo);
+                    tasks.addTask(todo);
                     System.out.println("Got it. I've added this task:\n" + todo.toString());
-                    if (taskList.size() == 1) {
-                        System.out.println("Now you have 1 task in the list.");
-                    } else {
-                        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-                    }
+//                    if (tasks == 1) {
+//                        System.out.println("Now you have 1 task in the list.");
+//                    } else {
+                        System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
+                    // }
                 }
 
             } else if (command.startsWith("deadline")) {
@@ -81,13 +80,13 @@ public class Buddy {
                     String deadlineBy = deadlineArr[1].replaceFirst("by ", "").trim();
                     Deadline deadline = new Deadline(description, deadlineBy);
                     // t = new Task(description);
-                    taskList.add(deadline);
+                    tasks.addTask(deadline);
                     System.out.println("Got it. I've added this task:\n"
                             + deadline.toString());
-                    if (taskList.size() == 1) {
+                    if (tasks.getSize() == 1) {
                         System.out.println("Now you have 1 task in the list.");
                     } else {
-                        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                        System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Please include a description and deadline.");
@@ -104,12 +103,12 @@ public class Buddy {
                     String eventEnd = eventArr[2].replaceFirst("to ", "").trim();
                     Event event = new Event(description, eventStart, eventEnd);
                     // t = new Task(description);
-                    taskList.add(event);
+                    tasks.addTask(event);
                     System.out.println("Got it. I've added this task:\n" + event.toString());
-                    if (taskList.size() == 1) {
+                    if (tasks.getSize() == 1) {
                         System.out.println("Now you have 1 task in the list.");
                     } else {
-                        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                        System.out.println("Now you have " + tasks.getSize()  + " tasks in the list.");
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Please include event description, start and end date or time.");
