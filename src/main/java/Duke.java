@@ -39,6 +39,17 @@ public class Duke {
 
   }
 
+  public void markTaskAsDone(){
+    try {
+      // set current task as done
+      Task selectedTask = taskList.get(parser.getIndex());
+      selectedTask.setDone();
+      ui.displayAction("Marked selected task as done", selectedTask);
+    } catch (IndexOutOfBoundsException ex) {
+      System.out.println("Please enter a valid index!");
+    }
+  }
+
   public void run() {
 
     ui.displayGreetings();
@@ -65,15 +76,7 @@ public class Duke {
           listTasks();
           break;
         case "mark": {
-          try {
-            // set current task as done
-            Task selectedTask = taskList.get(parser.getIndex());
-            selectedTask.setDone();
-            ui.displayAction("Marked selected task as done", selectedTask);
-          } catch (IndexOutOfBoundsException ex) {
-            System.out.println("Please enter a valid index!");
-          }
-
+          markTaskAsDone();
           break;
         }
         case "unmark": {
