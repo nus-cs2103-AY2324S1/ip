@@ -21,6 +21,7 @@ public abstract class Task {
         return (isComplete ? "X" : " "); // mark done task with X
     }
 
+    @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }

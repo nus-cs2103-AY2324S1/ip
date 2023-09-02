@@ -22,19 +22,19 @@ public class Haste {
 
     public static void main(String[] args) {
         Haste haste = new Haste("./Data.txt");
+
         // greet and check for storage files
         haste.load();
         haste.run();
         haste.end();
-
     }
 
     public void run() {
         Scanner sc = new Scanner(System.in);
         while (ui.running) {
             String cmd = sc.nextLine();
-            //System.out.println(cmd);
             Command c = Parser.handleCommand(cmd, storage);
+
             try {
                 c.execute(tasks, ui);
             } catch (HasteException e) {
