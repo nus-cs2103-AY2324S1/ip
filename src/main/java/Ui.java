@@ -1,3 +1,6 @@
+import task.Task;
+import task.TaskList;
+
 public class Ui {
     public void printTask(Task task) {
         System.out.println(task);

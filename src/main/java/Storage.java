@@ -1,3 +1,8 @@
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
 import java.io.File;
@@ -43,7 +48,7 @@ public class Storage {
             }
             return todo;
         case "deadline":
-            Task deadline = new Deadline(data[2], data[3]);
+            Task deadline = new Deadline(data[2], Parser.parseDate(data[3]));
             if (Objects.equals(data[1], "1")) {
                 deadline.setDone();
             }
@@ -71,10 +76,8 @@ public class Storage {
     }
 
     public void editTask(String action, int index) {
-        // File to be edited
         File fileToEdit = new File(this.path);
 
-        // Read the file, edit the line, and write it back
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileToEdit));
             String line;

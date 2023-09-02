@@ -1,5 +1,7 @@
+package task;
+
 /**
- * Parent class Task for the different tasks to be stored.
+ * Parent class Task.Task for the different tasks to be stored.
  */
 public abstract class Task {
     protected String description;
