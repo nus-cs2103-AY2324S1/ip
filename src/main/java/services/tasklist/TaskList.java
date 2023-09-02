@@ -1,7 +1,7 @@
 package services.tasklist;
 
 import command.CommandType;
-import services.Ui;
+import services.TextUi;
 import services.bizerrors.EmptyArgumentException;
 import services.bizerrors.IndexOutOfRangeException;
 import services.bizerrors.JarvisException;
@@ -20,30 +20,30 @@ public class TaskList implements ITaskList {
     protected IStorage repo;
     /** The number of tasks in the list. */
     protected int taskCount;
-    protected Ui ui;
+    protected TextUi textUi;
 
     /**
      * Creates a new TaskList object with the given Storage object and Ui object.
      *
-     * @param repo the Storage object that stores the list of tasks in a data file.
-     * @param ui   the Ui object that prints the formatted task list to the user.
+     * @param repo   the Storage object that stores the list of tasks in a data file.
+     * @param textUi the Ui object that prints the formatted task list to the user.
      */
-    public TaskList(IStorage repo, Ui ui) {
-        this.ui = ui;
+    public TaskList(IStorage repo, TextUi textUi) {
+        this.textUi = textUi;
         this.repo = repo;
         try {
             taskList = repo.load();
             taskCount = taskList.size();
         } catch (JarvisException e) {
             // Fix the problem here in the future.
-            ui.print(e.toString() + "\nA temporary session is opened for you.");
+            textUi.print(e.toString() + "\nA temporary session is opened for you.");
             taskList = new ArrayList<>();
             taskCount = 0;
         }
     }
 
     @Override
-    public void add(String description, CommandType taskType, String... args) throws JarvisException {
+    public String add(String description, CommandType taskType, String... args) throws JarvisException {
         Task newTask;
         // this if block is unnecessary currently (is never reached), but it may be useful in the future.
         if (description.isEmpty()) {
@@ -66,18 +66,19 @@ public class TaskList implements ITaskList {
         taskList.add(newTask);
         taskCount++;
         repo.save(taskList);
-        ui.print("added: " + newTask + "\n" + taskCount + " more tasks to do, Sir.");
+        return "added: " + newTask + "\n" + taskCount + " more tasks to do, Sir.";
     }
 
     /**
      * {@inheritDoc}
      *
      * @param taskNumber {@inheritDoc}
+     * @return {@inheritDoc}
      * @throws SaveToFileException      if the task deletion operation cannot be saved to the data file.
      * @throws IndexOutOfRangeException if the task number is out of range.
      */
     @Override
-    public void delete(int taskNumber) throws SaveToFileException, IndexOutOfRangeException {
+    public String delete(int taskNumber) throws SaveToFileException, IndexOutOfRangeException {
         if (taskNumber <= 0 || taskNumber > taskCount) {
             throw new IndexOutOfRangeException(taskNumber, taskCount);
         }
@@ -85,11 +86,11 @@ public class TaskList implements ITaskList {
         taskList.remove(taskNumber - 1);
         taskCount--;
         repo.save(taskList);
-        ui.print("removed: " + deletedTask + "\n" + taskCount + " tasks left, Sir.");
+        return "removed: " + deletedTask + "\n" + taskCount + " tasks left, Sir.";
     }
 
     @Override
-    public void find(String keyword) {
+    public String find(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : taskList) {
             if (task.toString().contains(keyword)) {
@@ -99,64 +100,64 @@ public class TaskList implements ITaskList {
 
         int count = matchingTasks.size();
         if (count == 0) {
-            ui.print("Sir, there are no matching tasks on your calendar.");
-            return;
+            return "Sir, there are no matching tasks on your calendar.";
         }
         String result = "Sir, there are " + count + " matching tasks on your calendar:\n";
         for (int i = 1; i < count; i++) {
             result += i + ". " + matchingTasks.get(i - 1) + "\n";
         }
         result += count + ". " + matchingTasks.get(count - 1);
-        ui.print(result);
+        return result;
     }
 
     /**
      * {@inheritDoc}
      *
      * @param taskNumber {@inheritDoc}
+     * @return {@inheritDoc}
      * @throws SaveToFileException      if the task marking operation cannot be saved to the data file.
      * @throws IndexOutOfRangeException if the task number is out of range.
      */
     @Override
-    public void markDone(int taskNumber) throws SaveToFileException, IndexOutOfRangeException {
+    public String markDone(int taskNumber) throws SaveToFileException, IndexOutOfRangeException {
         if (taskNumber <= 0 || taskNumber > taskCount) {
             throw new IndexOutOfRangeException(taskNumber, taskCount);
         }
         Task task = taskList.get(taskNumber - 1);
         task.setDone();
         repo.save(taskList);
-        ui.print("Check.\n\t" + task + "\n" + "Way to go, sir.");
+        return "Check.\n\t" + task + "\n" + "Way to go, sir.";
     }
 
     /**
      * {@inheritDoc}
      *
      * @param taskNumber {@inheritDoc}
+     * @return {@inheritDoc}
      * @throws SaveToFileException      if the task unmarking operation cannot be saved to the data file.
      * @throws IndexOutOfRangeException if the task number is out of range.
      */
     @Override
-    public void markUndone(int taskNumber) throws SaveToFileException, IndexOutOfRangeException {
+    public String markUndone(int taskNumber) throws SaveToFileException, IndexOutOfRangeException {
         if (taskNumber <= 0 || taskNumber > taskCount) {
             throw new IndexOutOfRangeException(taskNumber, taskCount);
         }
         Task task = taskList.get(taskNumber - 1);
         task.setUndone();
         repo.save(taskList);
-        ui.print("As you wish, sir.\n\t" + task);
+        return "As you wish, sir.\n\t" + task;
     }
 
     @Override
-    public void show() {
+    public String show() {
         if (taskCount == 0) {
-            ui.print("Sir, there are no tasks on your calendar.");
-            return;
+            return "Sir, there are no tasks on your calendar.";
         }
         String result = "Sir, there are " + taskCount + " tasks on your calendar:\n";
         for (int i = 1; i < taskCount; i++) {
             result += i + ". " + taskList.get(i - 1) + "\n";
         }
         result += taskCount + ". " + taskList.get(taskCount - 1);
-        ui.print(result);
+        return result;
     }
 }

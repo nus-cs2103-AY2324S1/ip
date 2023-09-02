@@ -3,7 +3,7 @@ package services;
 /**
  * Represents the user interface of Jarvis.
  */
-public class Ui {
+public class TextUi {
     /**
      * The horizontal line for formatting messages.
      */
@@ -12,7 +12,7 @@ public class Ui {
 
     public void exit() {
         String exitMessage = "Goodbye, sir.\n" + "Shutting down...";
-        new Ui().print(exitMessage);
+        new TextUi().print(exitMessage);
     }
 
     public void print(String message) {
