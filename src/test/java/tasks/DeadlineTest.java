@@ -34,7 +34,6 @@ public class DeadlineTest {
         assertEquals(expected, d.taskToStringStore(d));
     }
 
-
     @Test
     public void deadlineGetMark_unmarked(){
         Deadline d = new Deadline("submit project", "12 Oct 2023");
