@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -95,11 +94,15 @@ public class TaskList {
     public void mark(int taskIndex) {
         Task currTask = taskList.get(taskIndex);
         currTask.taskDone(true);
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(currTask);
     }
 
     public void unmark(int taskIndex) {
         Task currTask = taskList.get(taskIndex);
         currTask.taskDone(false);
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(currTask);
     }
 
     public int size() {
@@ -144,7 +147,6 @@ public class TaskList {
             }
 
         }
-
         return 0;
     }
 

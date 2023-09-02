@@ -44,8 +44,4 @@ public class UI {
         System.out.println("Bye. Hope to see you again soon!");
         this.divider();
     }
-
-    public void deleteMessage() {
-
-    }
 }

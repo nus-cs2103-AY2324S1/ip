@@ -49,7 +49,8 @@ public class Storage {
                 switch(inputArray[0]) {
                     case "T":
                         ToDo toDo = new ToDo(inputArray[2]);
-                        if (inputArray[1] == "1") {
+                        int status = Integer.parseInt(inputArray[1]);
+                        if (status == 1) {
                             toDo.taskDone(true);
                         }
                         this.taskList.addTask(toDo);

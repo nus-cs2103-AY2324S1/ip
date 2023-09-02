@@ -1,14 +1,12 @@
 import java.io.IOException;
 
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Duke {
     Scanner userInput = new Scanner(System.in);
     TaskList tasks = new TaskList();
     Storage storage;
     UI ui;
-
 
     public static void main(String[] args) {
 
