@@ -74,9 +74,9 @@ public class Duke {
             } catch (InvalidDateTimeException e) {
                 Ui.invalidDateTimeExceptionReply();
             } finally {
-                Ui.horizontalLineReply();
                 storage.updateStorage(tasks);
                 if (isRunning) {
+                    Ui.horizontalLineReply();
                     str = sc.nextLine();
                 }
             }
