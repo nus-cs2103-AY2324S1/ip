@@ -6,7 +6,7 @@ public abstract class Task {
     protected String description;
     /** Track whether the task is done or not*/
     protected boolean isDone;
-
+    
     /**
      * Constructor for the Task
      * @param description The description of the task based on the user input
@@ -36,5 +36,9 @@ public abstract class Task {
 
     /** Method to get the typeIcon the task*/
     public abstract String getTypeIcon();
+
+    public String getDescription() {
+        return this.description;
+    }
 
 }
