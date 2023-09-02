@@ -1,3 +1,8 @@
+package duke.command;
+
+import duke.task.TaskList;
+import duke.ui.Ui;
+
 public abstract class Command {
 
     public enum CommandType {
