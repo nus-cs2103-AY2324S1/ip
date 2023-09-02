@@ -32,21 +32,22 @@ public class AddCommand extends Command{
         this.end = end;
     }
 
-    public void excecute(TaskList tasks, Ui ui) {
+    public void execute(TaskList tasks, Ui ui) {
         Task newTask = null;
         switch (this.type) {
-            case "todo":
-                newTask = new ToDo(this.description);
+            case "t":
+                newTask = new ToDo(this.description, false);
                 break;
-            case "deadline":
-                newTask = new Deadline(this.description, this.start);
+            case "d":
+                newTask = new Deadline(this.description, this.end, false);
                 break;
-            case "event":
-                newTask = new Event(this.description, this.start, this.end);
+            case "e":
+                newTask = new Event(this.description, this.start, this.end, false);
                 break;
         }
 
-        TaskList.addTask(newTask);
+        tasks.addTask(newTask);
+        ui.add(newTask.toString(), tasks);
     }
 
 

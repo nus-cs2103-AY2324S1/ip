@@ -1,8 +1,10 @@
 package haste;
 
+import haste.commands.Command;
 import haste.commands.Parser;
 import haste.data.Storage;
 import haste.data.TaskList;
+import haste.exceptions.HasteException;
 import haste.ui.Ui;
 
 import java.util.Scanner;
@@ -32,7 +34,12 @@ public class Haste {
         while (ui.running) {
             String cmd = sc.nextLine();
             //System.out.println(cmd);
-            Parser.handleCommand(cmd, ui, tasks);
+            Command c = Parser.handleCommand(cmd, ui, tasks, storage);
+            try {
+                c.execute(tasks, ui);
+            } catch (HasteException e) {
+                e.printStackTrace();
+            }
         }
 
     }

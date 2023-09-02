@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class TaskList {
     public ArrayList<Task> taskList;
     // number tracker
-    private int numOfTasks;
+    public static int numOfTasks;
 
     public TaskList() {
         taskList = new ArrayList<Task>();
