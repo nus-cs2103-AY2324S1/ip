@@ -1,11 +1,9 @@
-import commands.Command;
-import exception.URChatBotException;
-import parser.Parser;
-import storage.Storage;
-import taskList.TaskList;
-import ui.Ui;
-
-import java.io.IOException;
+import urchatbot.commands.Command;
+import urchatbot.exception.URChatBotException;
+import urchatbot.parser.Parser;
+import urchatbot.storage.Storage;
+import urchatbot.taskList.TaskList;
+import urchatbot.ui.Ui;
 
 public class URChatBot {
 
@@ -43,6 +41,6 @@ public class URChatBot {
     }
 
     public static void main(String[] args) {
-        new URChatBot("data/tasks.txt").run();
+        new URChatBot("data/urchatbot.tasks.txt").run();
     }
 }

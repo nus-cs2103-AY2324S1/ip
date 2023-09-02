@@ -1,8 +1,8 @@
-package commands;
+package urchatbot.commands;
 
-import storage.Storage;
-import taskList.TaskList;
-import ui.Ui;
+import urchatbot.storage.Storage;
+import urchatbot.taskList.TaskList;
+import urchatbot.ui.Ui;
 
 public class ListCommand extends Command{
     public ListCommand(String taskDescription) {

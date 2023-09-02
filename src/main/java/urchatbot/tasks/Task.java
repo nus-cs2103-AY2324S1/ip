@@ -1,8 +1,4 @@
-package tasks;
-
-import tasks.Deadline;
-import tasks.Event;
-import tasks.ToDo;
+package urchatbot.tasks;
 
 public class Task {
     protected String description;
@@ -28,7 +24,7 @@ public class Task {
         return "";
     };
 
-    // Define this static method in your tasks.Task class
+    // Define this static method in your urchatbot.tasks.Task class
     public static Task fromString(String input) {
         String[] parts = input.split("\\|");
         String taskType = parts[0].trim();

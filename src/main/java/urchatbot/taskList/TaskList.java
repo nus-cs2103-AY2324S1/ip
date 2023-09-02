@@ -1,6 +1,6 @@
-package taskList;
+package urchatbot.taskList;
 
-import tasks.Task;
+import urchatbot.tasks.Task;
 
 import java.util.ArrayList;
 public class TaskList {

@@ -1,8 +1,8 @@
-package commands;
-import exception.URChatBotException;
-import storage.Storage;
-import taskList.TaskList;
-import ui.Ui;
+package urchatbot.commands;
+import urchatbot.exception.URChatBotException;
+import urchatbot.storage.Storage;
+import urchatbot.taskList.TaskList;
+import urchatbot.ui.Ui;
 
 public class Command {
     public String taskDescription;

@@ -1,8 +1,8 @@
-package storage;
+package urchatbot.storage;
 
-import exception.URChatBotException;
-import taskList.TaskList;
-import tasks.Task;
+import urchatbot.exception.URChatBotException;
+import urchatbot.taskList.TaskList;
+import urchatbot.tasks.Task;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -28,7 +28,7 @@ public class Storage {
                 line = reader.readLine();
             }
         } catch (IOException e) {
-            throw new URChatBotException( "Error loading tasks from file: " + e.getMessage());
+            throw new URChatBotException( "Error loading urchatbot.tasks from file: " + e.getMessage());
         }
         return tasks;
     }
@@ -40,7 +40,7 @@ public class Storage {
                 writer.write(task.toFileString() + "\n");
             }
         } catch (IOException e) {
-            System.out.println("Error saving tasks to file: " + e.getMessage());
+            System.out.println("Error saving urchatbot.tasks to file: " + e.getMessage());
         }
     }
 
@@ -51,13 +51,13 @@ public class Storage {
                 Files.createDirectories(directoryPath); // Create the data directory if it doesn't exist
             }
 
-            Path path = directoryPath.resolve("tasks.txt"); // Path to the tasks.txt file within the data directory
+            Path path = directoryPath.resolve("urchatbot.tasks.txt"); // Path to the urchatbot.tasks.txt file within the data directory
             if (!Files.exists(path)) {
-                Files.createFile(path); // Create the tasks.txt file if it doesn't exist
+                Files.createFile(path); // Create the urchatbot.tasks.txt file if it doesn't exist
             }
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Error loading tasks from file: " + e.getMessage());
+            System.out.println("Error loading urchatbot.tasks from file: " + e.getMessage());
         }
     }
 

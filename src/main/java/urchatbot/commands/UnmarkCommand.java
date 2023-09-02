@@ -1,10 +1,10 @@
-package commands;
+package urchatbot.commands;
 
-import exception.URChatBotException;
-import storage.Storage;
-import taskList.TaskList;
-import tasks.Task;
-import ui.Ui;
+import urchatbot.exception.URChatBotException;
+import urchatbot.storage.Storage;
+import urchatbot.taskList.TaskList;
+import urchatbot.tasks.Task;
+import urchatbot.ui.Ui;
 
 public class UnmarkCommand extends Command{
     private int taskNumber;

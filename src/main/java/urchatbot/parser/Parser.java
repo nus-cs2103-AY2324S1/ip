@@ -1,8 +1,8 @@
-package parser;
+package urchatbot.parser;
 
-import commands.*;
-import exception.URChatBotException;
-import ui.Ui;
+import urchatbot.commands.*;
+import urchatbot.exception.URChatBotException;
+import urchatbot.ui.Ui;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -1,10 +1,10 @@
-package commands;
+package urchatbot.commands;
 
-import storage.Storage;
-import taskList.TaskList;
-import tasks.Event;
-import tasks.Task;
-import ui.Ui;
+import urchatbot.storage.Storage;
+import urchatbot.taskList.TaskList;
+import urchatbot.tasks.Event;
+import urchatbot.tasks.Task;
+import urchatbot.ui.Ui;
 
 public class EventCommand extends Command{
     public String from;

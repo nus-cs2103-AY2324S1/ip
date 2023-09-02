@@ -1,19 +1,12 @@
-package ui;
+package urchatbot.ui;
 
-import exception.URChatBotException;
-import taskList.TaskList;
-import tasks.Task;
+import urchatbot.exception.URChatBotException;
 
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-import static common.Messages.*;
+import static urchatbot.common.Messages.*;
 
 public class Ui {
     private final Scanner in;

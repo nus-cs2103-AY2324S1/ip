@@ -1,11 +1,10 @@
-package commands;
+package urchatbot.commands;
 
-import exception.URChatBotException;
-import storage.Storage;
-import taskList.TaskList;
-import tasks.Task;
-import tasks.ToDo;
-import ui.Ui;
+import urchatbot.storage.Storage;
+import urchatbot.taskList.TaskList;
+import urchatbot.tasks.Task;
+import urchatbot.tasks.ToDo;
+import urchatbot.ui.Ui;
 
 public class TodoCommand extends Command{
     public TodoCommand(String taskDescription) {

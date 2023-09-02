@@ -1,4 +1,4 @@
-package tasks;
+package urchatbot.tasks;
 
 public class Deadline extends Task {
 

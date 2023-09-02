@@ -1,11 +1,10 @@
-package commands;
+package urchatbot.commands;
 
-import storage.Storage;
-import taskList.TaskList;
-import tasks.Deadline;
-import tasks.Task;
-import tasks.ToDo;
-import ui.Ui;
+import urchatbot.storage.Storage;
+import urchatbot.taskList.TaskList;
+import urchatbot.tasks.Deadline;
+import urchatbot.tasks.Task;
+import urchatbot.ui.Ui;
 
 public class DeadlineCommand extends Command{
     public String by;
