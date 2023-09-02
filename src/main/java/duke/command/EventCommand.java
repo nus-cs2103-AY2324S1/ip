@@ -12,6 +12,7 @@ import duke.task.Task;
 import java.time.LocalDateTime;
 
 public class EventCommand extends Command {
+
     private String description;
     private LocalDateTime fromDateTime;
     private LocalDateTime toDateTime;
