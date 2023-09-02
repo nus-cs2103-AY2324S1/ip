@@ -3,6 +3,9 @@ package duke.command;
 import duke.main.Storage;
 import duke.task.TaskList;
 
+/**
+ * A class for the command for listing all the tasks in the list.
+ */
 public class ListCommand extends Command {
     @Override
     public void execute(TaskList taskList, Storage storage) {

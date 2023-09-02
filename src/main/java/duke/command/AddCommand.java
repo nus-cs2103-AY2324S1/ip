@@ -9,15 +9,38 @@ import duke.task.Events;
 
 import java.time.DateTimeException;
 
+/**
+ * A class for the command for adding new task to list based on user input.
+ */
 public class AddCommand extends Command {
+
+    /**
+     * The type of task being added; todo, deadline or event.
+     */
     private String commandType;
 
+    /**
+     * The description of task being added.
+     */
     private String description;
 
+    /**
+     * The starting date for the task being added.
+     */
     private String startDate;
 
+    /**
+     * The ending date for the task being added.
+     */
     private String endDate;
 
+    /**
+     * The constructor for AddCommand
+     * @param commandType The type of task being added; todo, deadline or event
+     * @param description The description of task being added
+     * @param startDate The starting date for the task being added
+     * @param endDate The ending date for the task being added
+     */
     public AddCommand(String commandType, String description, String startDate, String endDate) {
             this.commandType = commandType;
             this.description = description;

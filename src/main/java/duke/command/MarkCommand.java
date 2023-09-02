@@ -3,9 +3,21 @@ package duke.command;
 import duke.main.Storage;
 import duke.task.TaskList;
 
+/**
+ * A class for the command for marking a task in list as done
+ * based on user input.
+ */
 public class MarkCommand extends Command {
+
+    /**
+     * The index of the task in the taskList to be marked.
+     */
     private int index;
 
+    /**
+     * The constructor for MarkCommand
+     * @param index The index of the task in the taskList to be marked
+     */
     public MarkCommand(int index) {
         this.index = index;
     }

@@ -2,6 +2,7 @@ package duke.main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.DateTimeException;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,9 +15,20 @@ import duke.task.TaskList;
 import duke.task.Todos;
 import duke.task.Events;
 
+/**
+ * A class handling the saving and load the taskList
+ * into a file.
+ */
 public class Storage {
+
+    /**
+     * The path of the file where the taskList is saved
+     */
     protected String filePath;
 
+    /**
+     * The constructor for the Storage
+     */
     public Storage() {
         String home = System.getProperty("user.home");
         Path path = Paths.get(home, "data", "duke.txt");
@@ -32,6 +44,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the data into the file.
+     * @param data The content to be written into the file
+     */
     public void writeData(String data) {
         try {
             FileWriter file = new FileWriter(this.filePath, false);
@@ -43,6 +59,10 @@ public class Storage {
 
     }
 
+    /**
+     * Reads the content of the file
+     * @return TaskList
+     */
     public TaskList loadData() {
         TaskList tempList = new TaskList();
         File file = new File(this.filePath);
@@ -60,6 +80,11 @@ public class Storage {
 
     }
 
+    /**
+     * Reads the line and convert them into Task objects
+     * @param line The line read from the file
+     * @return Task
+     */
     public Task parseLine(String line) {
         String[] input = line.split(" \\| ");
         if (input[0].equals("T")) {

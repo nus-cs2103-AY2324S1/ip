@@ -3,11 +3,32 @@ package duke.task;
 import java.time.LocalDateTime;
 import duke.main.DateFormatter;
 
+/**
+ * A Task with starting date and deadline
+ */
 public class Events extends Task {
+
+    /**
+     * The starting date of a task
+     */
     protected LocalDateTime startDate;
 
+    /**
+     * A formatter for the date
+     */
     private static final DateFormatter DF = new DateFormatter();
+
+    /**
+     * The deadline of a task
+     */
     protected LocalDateTime endDate;
+
+    /**
+     * The constructor for Deadlines
+     * @param description The description of the task with starting date and deadline
+     * @param startDate The starting date of a task
+     * @param endDate The deadline of a task
+     */
     public Events (String description, String startDate, String endDate) {
         super(description);
         this.startDate = DF.stringToDate(startDate);

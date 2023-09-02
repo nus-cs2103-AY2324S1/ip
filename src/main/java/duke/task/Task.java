@@ -7,7 +7,10 @@ public class Task {
     /** Track whether the task is done or not*/
     protected boolean isDone;
 
-    /** Cosntructor for the class*/
+    /**
+     * Cosntructor for the Task
+     * @param description The description of the task based on the user input
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -33,6 +36,7 @@ public class Task {
         return this.getStatusIcon() + this.description;
     }
 
+    /** Method to get the typeIcon the task*/
     public String getTypeIcon() {
         return ("Tk");
     }

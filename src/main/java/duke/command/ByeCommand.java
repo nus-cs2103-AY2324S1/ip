@@ -3,6 +3,9 @@ package duke.command;
 import duke.main.Storage;
 import duke.task.TaskList;
 
+/**
+ * A class for the command for terminating the Duke bot.
+ */
 public class ByeCommand extends Command {
     @Override
     public void execute(TaskList taskList, Storage storage) {

@@ -4,9 +4,20 @@ import duke.main.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * A class for the command for deleting task from list based on user input.
+ */
 public class DeleteCommand extends Command {
+
+    /**
+     * The index of the task in the taskList to be deleted.
+     */
     private int index;
 
+    /**
+     * The constructor for DeleteCommand
+     * @param index The index of the task in the taskList to be deleted
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }

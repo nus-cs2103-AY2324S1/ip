@@ -7,9 +7,21 @@ import duke.command.Command;
 import java.time.DateTimeException;
 
 import java.util.Scanner;
+
+/**
+ * A class for the Duke bot.
+ */
 public class Duke {
+
+    /**
+     * The ui for Duke bot
+     */
     private static Ui ui = new Ui();
 
+    /**
+     * The main function for running Duke bot
+     * @param args The string array for input
+     */
     public static void main(String[] args) {
         boolean listen = true;
         /** Captures user input*/
