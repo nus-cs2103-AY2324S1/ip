@@ -98,6 +98,14 @@ public class Parser {
                     throw new DukeException("The index is not a valid index. Try again.");
                 }
             }
+        case FIND:
+            if (matcher.group(10) == null) {
+                throw new DukeException("Invalid format for find. Try again.");
+            } else if (matcher.group(10).isBlank()) {
+                throw new DukeException("Description of find cannot be empty. Try again.");
+            } else {
+                return new Instruction.Find(matcher.group(10).trim());
+            }
         case TODO:
             if (matcher.group(10) == null) {
                 throw new DukeException("Invalid format for todo. Try again.");

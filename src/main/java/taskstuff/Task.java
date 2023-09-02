@@ -60,5 +60,11 @@ public abstract class Task {
     public String toString() {
         return ("[" + this.getStatusIcon() + "] " + this.description);
     }
+
+
+
+    public boolean hasKeyWord(String s) {
+        return this.description.contains(s);
+    }
 }
 

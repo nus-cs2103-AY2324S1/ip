@@ -109,4 +109,20 @@ public class TaskList {
         }
         return this.tasks.get(index - 1).toString();
     }
+
+    /**
+     * Returns an arrayList containing name of tasks which contain keyword.
+     *
+     * @param s The keyword to match in task's name;
+     * @return Returns an array List containing tasks whose names contain the keyword.
+     */
+    public ArrayList<String> findTasks(String s) {
+        ArrayList<String> foundTasks = new ArrayList<String>();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).hasKeyWord(s)) {
+                foundTasks.add(tasks.get(i).toString());
+            }
+        }
+        return foundTasks;
+    }
 }

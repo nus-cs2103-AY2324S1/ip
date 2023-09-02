@@ -9,6 +9,8 @@ import storagestuff.Storage;
 
 import userstuff.Ui;
 
+import java.util.ArrayList;
+
 /**
  * An abstract class for all instructions.
  * Serves as parent class for all instructions.
@@ -174,6 +176,40 @@ public abstract class Instruction {
             String[] s = taskList.getTasks();
             for (int i = 0; i < s.length; i++) {
                 String t = (i + 1) + ". " + s[i];
+                ui.showMessage(t);
+            }
+        }
+    }
+
+    /**
+     * A class which represents the find instruction.
+     */
+    public static class Find extends Instruction {
+
+        /** The keyword to find. */
+        private String keyWord;
+
+        /**
+         * Initialises the keyword in this class.
+         *
+         * @param keyWord The keyword to find in tasks.
+         */
+        public Find(String keyWord) {
+            this.keyWord = keyWord;
+        }
+
+
+        /**
+         * Finds the tasks in the given taskList.
+         * @param storage Unused here.
+         * @param taskList The taskList containing tasks to find.
+         */
+        @Override
+        public void execute(Storage storage, TaskList taskList, Ui ui) throws DukeException {
+            ui.showMessage("Here are the matching tasks in your list:");
+            ArrayList<String> foundTasks = taskList.findTasks(this.keyWord);
+            for (int i = 0; i < foundTasks.size(); i++) {
+                String t = (i + 1) + ". " + foundTasks.get(i);
                 ui.showMessage(t);
             }
         }
