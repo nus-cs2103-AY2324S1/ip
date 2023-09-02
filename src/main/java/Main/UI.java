@@ -1,3 +1,7 @@
+package Main;
+
+import Task.Task;
+
 import java.util.ArrayList;
 
 public class UI {

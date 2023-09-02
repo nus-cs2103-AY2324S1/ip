@@ -1,12 +1,9 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
+package Main;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import Exception.DukeException;
+import Task.*;
 
-import java.io.IOException;
-import java.io.FileNotFoundException;
+import java.io.*;
 
 public class Storage {
 
@@ -17,7 +14,7 @@ public class Storage {
         this.taskList = taskList;
     }
 
-    void saveList(TaskList taskList) throws DukeException {
+    public void saveList(TaskList taskList) throws DukeException {
         this.taskList = taskList;
         try {
             File file = new File(filePath);
