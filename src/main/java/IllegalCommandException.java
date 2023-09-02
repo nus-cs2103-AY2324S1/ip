@@ -12,6 +12,6 @@ public class IllegalCommandException extends NoSuchElementException {
         String message = "I dont think I can " +
                 cmsg + "\n" +
                 "do you want to try again?";
-        return TextFormat.botReply(message);
+        return message;
     }
 }

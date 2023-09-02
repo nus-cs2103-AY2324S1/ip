@@ -4,11 +4,7 @@ public abstract class Task implements Comparable<Task> {
     protected int id;
     protected String description;
     protected boolean completed;
-
-    public static int numberOfTasks = 0;
     private static int idTracker = 0;
-    public static int numberOfCompletedTasks = 0;
-
 
     public Task(String d) {
         this.id = idTracker;
@@ -17,7 +13,7 @@ public abstract class Task implements Comparable<Task> {
         this.completed = false;
     }
 
-    public static Task addTask(String command, Scanner tokeniser) throws IllegalCommandException,
+    public static Task generateTask(String command, Scanner tokeniser) throws IllegalCommandException,
             IllegalDateTimeException {
         Task newTask;
         if (!command.equals("todo") && !command.equals("deadline")
@@ -62,51 +58,18 @@ public abstract class Task implements Comparable<Task> {
             newTask = new Event(message[0], fromDateTime[0], fromDateTime[1],
                     toDateTime[0], toDateTime[1]);
         }
-        System.out.println(TextFormat.botReply("Gotchu! noted down: \n" +
-                TextFormat.indentLineBy(newTask.toString(), 2) +
-                "Now you have " +
-                numberOfTasks +
-                " tasks in the list!"));
         return newTask;
     }
 
-    public static void deleteTask(Task toDelete) {
-        numberOfTasks--;
-        if (toDelete.completed)  numberOfCompletedTasks--;
-        System.out.println(TextFormat.botReply("Happily scratched this off your list:\n" +
-                TextFormat.indentLineBy(toDelete.toString(), 2) +
-                "Now you have " +
-                numberOfTasks +
-                " tasks in the list!"));
+    public boolean isComplete() {
+        return this.completed;
     }
 
-    public void markDone() {
-        if (this.completed) {
-            System.out.println(TextFormat.botReply("That was done already...\n" +
-                    "are you sure you wanted to mark that?\n"
-                    + this.toString()));
-        } else {
-            this.completed = true;
-            numberOfCompletedTasks++;
-            System.out.println(TextFormat.botReply("Yay! One step closer to playing with me!\n"
-                    + this.toString()));
-        }
+    public void switchMark() {
+        completed = !completed;
     }
 
-    public void markNotDone() {
-        if (!this.completed) {
-            System.out.println(TextFormat.botReply("Don't worry it's still not done\n" +
-                    "What are you doing? Let's get it done now!\n"
-                    + this.toString()));
-        } else {
-            this.completed = false;
-            numberOfCompletedTasks--;
-            System.out.println(TextFormat.botReply("Oh no... what happened :(\n"
-                    + this.toString()));
-        }
-    }
-
-    public static Task addSavedTask(int id, boolean mark, String description) throws IllegalDateTimeException {
+    public static Task generateSavedTask(int id, boolean mark, String description) throws IllegalDateTimeException {
         switch (id) {
         case (1):
             return new ToDo(description, mark);
