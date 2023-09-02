@@ -25,6 +25,13 @@ public class Save {
             fw.close();
         }
 
+        if (taskList.size() == 0) {
+            FileWriter fw = new FileWriter(tempFilePath, true);
+            fw.write("");
+            fw.close();
+        }
+
+
         for (int i=0; i<taskList.size(); i++) {
             String message = String.format("%s", taskList.get(i).getTaskAsString());
             try {
@@ -34,6 +41,7 @@ public class Save {
                 System.out.println("Something went wrong");
             }
         };
+
 
         Files.copy( Paths.get(tempFilePath), Paths.get(saveFilePath), StandardCopyOption.REPLACE_EXISTING);
         Files.delete(Paths.get(tempFilePath));

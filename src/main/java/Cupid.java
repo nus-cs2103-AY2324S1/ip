@@ -6,7 +6,7 @@ public class Cupid {
 
     private static String saveFilePath = "cupid.txt";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Ui ui = new Ui();
         TaskList taskList = null;
         Storage storage = null;
@@ -16,12 +16,11 @@ public class Cupid {
             taskList = storage.load();
         } catch (IOException e) {
             ui.fileNotFound();
-            return;
         }
 
         if (taskList == null) {
-            ui.fileNotFound();
-            return;
+            taskList = new TaskList();
+            storage.save(taskList);
         }
 
         Scanner scanner = new Scanner(System.in);

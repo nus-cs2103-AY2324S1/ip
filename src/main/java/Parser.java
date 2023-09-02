@@ -1,5 +1,9 @@
 //import java.util.ArrayList;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
 
     private String input;
@@ -138,16 +142,44 @@ public class Parser {
     }
 
     public void eventCommandHandler(TaskList taskList, String input, String secondHalfInput) {
-        int firstEventSlashIndex = input.indexOf("/");
-        String[] inputSplitBySlash = secondHalfInput.split("/");
-        String eventDescription = inputSplitBySlash[0].substring(0, inputSplitBySlash[0].length()-1);
-        String eventDatesFull = secondHalfInput.substring(firstEventSlashIndex);
-        String[] eventDatesArray = eventDatesFull.split("/");
-        String eventStartDate = eventDatesArray[0].substring(0, eventDatesArray[0].length()-1);
-        String eventEndDate = eventDatesArray[1].substring(3, eventDatesArray[1].length());
-        Event newEvent = new Event(eventDescription, eventStartDate, eventEndDate);
-        taskList.add(newEvent);
-        System.out.println("Added: " + newEvent.getTaskAsString());
+
+        try {
+            int fromDateStartIdx = secondHalfInput.indexOf("/from") + 6;
+            int toDateStartIdx = secondHalfInput.indexOf("/to") + 4;
+            int fromDateEndIdx = secondHalfInput.indexOf("/to") - 1;
+            int descriptionStartIdx = 0;
+            int descriptionEndIdx = secondHalfInput.indexOf("/from") - 1;
+            String eventDescription = secondHalfInput.substring(descriptionStartIdx, descriptionEndIdx);
+            String fromDateString = secondHalfInput.substring(fromDateStartIdx, fromDateEndIdx);
+            String toDateString = secondHalfInput.substring(toDateStartIdx);
+            LocalDateTime fromDate = parseDateTime(fromDateString);
+            LocalDateTime toDate = parseDateTime(toDateString);
+            if (fromDate == null || toDate == null) {
+                return;
+            }
+            Event newEvent = new Event(eventDescription, fromDate, toDate);
+            taskList.add(newEvent);
+            System.out.println("Added: " + newEvent.getTaskAsString());
+        } catch (Exception e) {
+            System.out.println("Sorry, I did not understand that. Please enter in the following format: \n" +
+                    "event {description} /from {start datetime} /to {end datetime}.");
+        }
     }
 
+    public LocalDateTime parseDateTime(String dateTimeString) {
+        String[] possibleFormats = {"yyyy-MM-dd HHmm", "yyyy/MM/dd HHmm","dd-MM-yyyy HHmm","dd/MM/yyyy HHmm",
+                "yyyy-MM-dd HH:mm", "yyyy/MM/dd HH:mm","dd-MM-yyyy HH:mm","dd/MM/yyyy HH:mm"};
+        LocalDateTime dateTime = null;
+        for (String format : possibleFormats) {
+            try {
+                dateTime = LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern(format));
+                return dateTime;
+            } catch (DateTimeParseException e) {
+                // do nothing, try the next format
+            }
+        }
+        System.out.println("DateTime in an invalid format. Please enter datetime in the following format: \n" +
+                "YYYY/MM/DD HH:MM");
+        return null;
+    }
 }

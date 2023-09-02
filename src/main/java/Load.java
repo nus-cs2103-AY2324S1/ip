@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.io.FileReader;
 
@@ -54,14 +56,25 @@ public class Load {
 
                 case "E":
                     descriptionEndIndex = currentTaskAsString.indexOf("(from:")-1;
-                    int fromTimingStartIndex = descriptionEndIndex + 8;
+                    int fromTimingStartIndex = currentTaskAsString.indexOf("(from:") + 7;
                     int fromTimingEndIndex = currentTaskAsString.indexOf("to:")-1;
                     int toTimingStartIndex = fromTimingEndIndex + 5;
                     int toTimingEndIndex = currentTaskAsString.length() - 1;
                     description = currentTaskAsString.substring(descriptionBeginIndex, descriptionEndIndex);
-                    String from = currentTaskAsString.substring(fromTimingStartIndex, fromTimingEndIndex);
-                    String to = currentTaskAsString.substring(toTimingStartIndex, toTimingEndIndex);
-                    Event event = new Event(description, from, to, isDone);
+                    String fromString = currentTaskAsString.substring(fromTimingStartIndex, fromTimingEndIndex);
+                    String toString = currentTaskAsString.substring(toTimingStartIndex, toTimingEndIndex);
+                    LocalDateTime fromDateTime = null;
+                    LocalDateTime toDateTime = null;
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+                        fromDateTime = LocalDateTime.parse(fromString, formatter);
+                        toDateTime = LocalDateTime.parse(toString, formatter);
+                    } catch (Exception e) {
+                        System.out.println("Event " + description + " cannot be loaded.");
+                        break;
+                    }
+
+                    Event event = new Event(description, fromDateTime, toDateTime, isDone);
                     taskList.add(event);
                     break;
             }

@@ -5,7 +5,7 @@ public class Ui {
         System.out.println("Initializing...");
     }
     public void fileNotFound() {
-        System.out.println("File not found. Terminating operation...");
+        System.out.println("File not found. Creating new .txt save file");
     }
 
     public void hello() {
