@@ -168,9 +168,9 @@ public class Parser {
     /**
      * Triggers respective actions.
      */
-    public void interact() {
+    public void interact(String reply) {
         while (true) {
-            String reply = sc.nextLine();
+            // String reply = sc.nextLine();
             FirstWord firstWord;
             try {
                 firstWord = FirstWord.valueOf(reply.split(" ")[0].toUpperCase());
