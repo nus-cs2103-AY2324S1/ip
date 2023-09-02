@@ -14,6 +14,10 @@ public class Remy {
     private Ui ui;
 
 
+    /**
+     * Sets up a Remy chatbot for use.
+     * @param filePath location to store tasklist after ending each session.
+     */
     public Remy(Path filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -25,6 +29,10 @@ public class Remy {
         }
     }
 
+    /**
+     * Parses user input and executes tasks based on input.
+     * Will end session if user types "exit".
+     */
     public void run() {
         Ui.printWelcomeMessage();
         boolean isExit = false;
@@ -40,7 +48,10 @@ public class Remy {
         }
     }
 
-
+    /**
+     * Starts the Remy Chatbot and provides it with the location to store data.
+     * @param args
+     */
     public static void main(String[] args) {
         Path filePath = Paths.get(".", "data", "remy.ser");
         new Remy(filePath).run();
