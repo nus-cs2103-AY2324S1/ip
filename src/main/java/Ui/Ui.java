@@ -136,6 +136,11 @@ public class Ui {
         System.out.println("Task marked: " + taskToUnmark.getDescription());
     }
 
+    /**
+     * Displays a list of tasks that match a specified keyword in their descriptions.
+     *
+     * @param matchingTasks An ArrayList of tasks that match the specified keyword.
+     */
     public void showMatchingTasks(ArrayList<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
             System.out.println("No matching tasks found.");
