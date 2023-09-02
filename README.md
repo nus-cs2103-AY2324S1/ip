@@ -1,24 +1,89 @@
-# Duke project template
+# CS2103T Individual Project (iP)
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
-
-## Setting up in Intellij
-
-Prerequisites: JDK 11, update Intellij to the most recent version.
-
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+This is a project log for my individual project
    ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+   Welcome to
+    ___ _  _ ___
+   | _ \ || |_ _|
+   |  _/ __ || | 
+   |_| |_||_|___|
+   PHI (Programmable Human Interface)
    ```
+---
+## Main Increments
+
+### Level 0. Rename, Greet, Exit
+- Chatbot was created and given the name Phi
+- Greets the user and exits the program
+
+### Level 1. Echo
+- PHI now echoes commands entered by the user
+- Exits when the user types the command _bye_
+
+### Level 2. Add, List
+- Text entered by the user will be saved as a task
+- Tasks are displayed in a list upon command _list_
+
+### Level 3. Mark as Done
+- Tasks can now be marked as done (and undone)
+
+### Level 4. ToDos, Events, Deadlines
+- Tasks are now classified under one of three types:
+  - ToDos: Tasks without any date/time
+  - Deadlines: Tasks to be done before a specified deadline
+  - Events: Tasks that start and end at a specified time
+  
+### Level 5. Handle Errors
+- PHI can deal with basic-level errors (incorrect inputs) entered by the user
+
+### Level 6. Delete
+- Tasks can now be deleted from the list
+
+### Level 7. Save
+- Tasks are saved in storage whenever any changes are made to the task list
+- Data from the tasklist is loaded from the storage when PHI starts (_./data/tasklist.txt_)
+
+### Level 8. Dates and Times
+- Deadline/Event dates can now be understood in yyyy-MM-dd format, and are displayed back as MMM dd yyyy
+  - Non-recognised formats will continue to be saved as a String
+
+## Other Increments
+
+### Automated Text UI Testing
+- Testing of PHI is semi-automated through I/O redirection (text-ui-test)
+
+### Enumerations
+- Enumerations used for the Tasks data-type
+
+### More OOP
+- Extraction of code as classes for more Object-Oriented-Programming (OOP)
+  - Creating/Refining the following classes (Ui, Storage, Parser, TaskList)
+
+### Packages
+- Classes in PHI are organised into suitable java packages
+  - Currently, all classes are in one package (_phi_)
+  
+### Gradle
+- Support for Gradle added to PHI, allowing automation of some build/run tasks
+
+### JUnit Tests
+- JUnit tests created to test code behaviour
+
+### JAR File
+- **phi.jar v1.0.0** released
+  - PHI packaged into an executable JAR file (built using Gradle) for easier distribution
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
