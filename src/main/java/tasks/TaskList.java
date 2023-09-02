@@ -17,6 +17,7 @@ public class TaskList {
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
+
     /**
      * Prints this TaskList to the console.
      */
@@ -33,6 +34,7 @@ public class TaskList {
         }
         Ui.printDivider();
     }
+
     /**
      * Marks a specific task as done.
      * @param index Index number of task supplied by user.
@@ -56,6 +58,7 @@ public class TaskList {
     public void markDoneOnStart(int index) {
         tasks.get(index).markAsDone();
     }
+
     /**
      * Marks a specific task as not done.
      * @param index Index number of task supplied by user.
@@ -71,6 +74,7 @@ public class TaskList {
             throw new EkudIllegalArgException("Task index number is out of bounds :/");
         }
     }
+
     /**
      * Prints a confirmation message for the user after adding a task.
      * @param task
@@ -81,12 +85,19 @@ public class TaskList {
                 task.toString(),
                 tasks.size()));
     }
+
+    /**
+     * Adds an already initialised task to this TaskList, used for loading
+     * saved tasks onto this TaskList on startup.
+     * @param task
+     */
     public void addTask(Task task) {
         this.tasks.add(task);
     }
+
     /**
      * Adds a to-do task to this TaskList.
-     * @param description Description of to-do task by user.
+     * @param description Description of the to-do task.
      * @throws EkudIllegalArgException Illegal arg for to-do task.
      */
     public void addToDo(String description) throws EkudIllegalArgException {
@@ -100,9 +111,9 @@ public class TaskList {
 
     /**
      * Adds a deadline task to this TaskList.
-     * @param description
-     * @param dateTime
-     * @throws EkudIllegalArgException
+     * @param description Description of the deadline task.
+     * @param dateTime Date and time to complete this task by.
+     * @throws EkudIllegalArgException Illegal arg(s) for deadline task.
      */
     public void addDeadline(String description, LocalDateTime dateTime) throws EkudIllegalArgException {
         if (description.isBlank()) {
@@ -115,9 +126,9 @@ public class TaskList {
 
     /**
      * Adds an event task to this TaskList.
-     * @param description
-     * @param fromDateTime
-     * @param toDateTime
+     * @param description Description of the event task.
+     * @param fromDateTime Date and time this event starts.
+     * @param toDateTime Date and time this event ends.
      * @throws EkudIllegalArgException Illegal arg(s) for event task.
      */
     public void addEvent(String description, LocalDateTime fromDateTime, LocalDateTime toDateTime)
@@ -129,6 +140,7 @@ public class TaskList {
         this.tasks.add(newEvent);
         this.printAddedTask(newEvent);
     }
+
     /**
      * Deletes a task from this TaskList and prints a confirmation message.
      * @param index Index number of task to be deleted as supplied by user.
@@ -150,9 +162,19 @@ public class TaskList {
         }
     }
 
+    /**
+     * Used by the storage object to save all tasks into the hard disk.
+     * @return Number of tasks to be saved.
+     */
     public int getSize() {
         return this.tasks.size();
     }
+
+    /**
+     * Used by the storage object to format all tasks to be saved.
+     * @param i Index number of task to be formatted.
+     * @return Task formatted for saving.
+     */
     public String getSaveTaskFormat(int i) {
         return this.tasks.get(i).getSaveFormat();
     }

@@ -15,7 +15,11 @@ public class Ekud {
     private final TaskList taskList;
     // Storage object to handle loading and saving of tasks onto the hard disk.
     private final Storage storage;
-    // Constructor for the Ekud chatbot to intitialise its taskList and storage objects.
+
+    /**
+     * Constructor for the Ekud chatbot to intitialise its taskList and storage objects.
+     * @param storage Storage object initialised with a filepath to the saved tasks file.
+     */
     public Ekud(Storage storage) {
         this.taskList = new TaskList();
         this.storage = storage;
