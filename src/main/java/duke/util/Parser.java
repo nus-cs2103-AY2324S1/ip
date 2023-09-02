@@ -1,3 +1,15 @@
+package duke.util;
+
+import duke.Duke;
+
+import duke.exceptions.InvalidCommandException;
+import duke.exceptions.MissingInputException;
+
+import duke.tasks.Task;
+import duke.tasks.ToDo;
+import duke.tasks.Event;
+import duke.tasks.Deadline;
+
 import java.io.IOException;
 
 public class Parser {
@@ -65,13 +77,13 @@ public class Parser {
     private void markTask(String userInput, TaskList taskList, Ui ui) throws MissingInputException {
         String[] individualWords = userInput.split(" ");
         if (individualWords.length <= 1) {
-            throw new MissingInputException("Task to mark cannot be empty!");
+            throw new MissingInputException("duke.tasks.Task to mark cannot be empty!");
         }
 
         try {
             int taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
             Task task = taskList.getTask(taskNumber);
-            task.updateTaskStatus(true, "Task " + (taskNumber + 1) + " is already done!", "Great job! Task " + (taskNumber + 1) + " is done!");
+            task.updateTaskStatus(true, "duke.tasks.Task " + (taskNumber + 1) + " is already done!", "Great job! duke.tasks.Task " + (taskNumber + 1) + " is done!");
         } catch (NumberFormatException e) {
             ui.showError("Invalid task number.");
         }
@@ -80,13 +92,13 @@ public class Parser {
     private void unmarkTask(String userInput, TaskList taskList, Ui ui) throws MissingInputException {
         String[] individualWords = userInput.split(" ");
         if (individualWords.length <= 1) {
-            throw new MissingInputException("Task to unmark cannot be empty!");
+            throw new MissingInputException("duke.tasks.Task to unmark cannot be empty!");
         }
 
         try {
             int taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
             Task task = taskList.getTask(taskNumber);
-            task.updateTaskStatus(false, "Task " + (taskNumber + 1) + " is still incomplete.", "Okay, I've updated Task " + (taskNumber + 1) + " to be incomplete.");
+            task.updateTaskStatus(false, "duke.tasks.Task " + (taskNumber + 1) + " is still incomplete.", "Okay, I've updated duke.tasks.Task " + (taskNumber + 1) + " to be incomplete.");
         } catch (NumberFormatException e) {
             ui.showError("Invalid task number.");
         }
@@ -95,7 +107,7 @@ public class Parser {
     private void deleteTask(String userInput, TaskList taskList, Ui ui) throws MissingInputException {
         String[] individualWords = userInput.split(" ");
         if (individualWords.length <= 1) {
-            throw new MissingInputException("Task to be deleted cannot be empty!");
+            throw new MissingInputException("duke.tasks.Task to be deleted cannot be empty!");
         }
 
         if (taskList.isEmpty()) {
