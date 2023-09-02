@@ -13,7 +13,7 @@ public class Aj {
     Ui ui;
 
 
-    public boolean askCommand(Scanner scanner) throws NoSuchCommandException, EmptyDescriptionException, IndexOutOfRangeException, IOException {
+    public boolean canAskCommand(Scanner scanner) throws NoSuchCommandException, EmptyDescriptionException, IndexOutOfRangeException, IOException {
 
         String command = scanner.next().toLowerCase();
 
@@ -68,6 +68,9 @@ public class Aj {
                 this.storage.deleteData(idx);
                 System.out.println(removedTask);
                 this.ui.printNoTask();
+            } else if (command.equals("find")) {
+                this.ui.checkMessage(command, remaining);
+                this.ui.printKeywordTask(remaining.substring(1));
             } else { // if its none of the main commands, then its a task. do logic for parsing here or thr
 
 //            String remaining = scanner.nextLine();
@@ -113,7 +116,7 @@ public class Aj {
         this.ui.greet();
         while (true) {
             try {
-                if (askCommand(scanner)) {
+                if (canAskCommand(scanner)) {
                     break;
                 }
             } catch (AjException | IOException e) {

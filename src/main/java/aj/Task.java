@@ -13,6 +13,10 @@ public abstract class Task {
         return this.isMarked;
     }
 
+    public String getTaskName() {
+        return this.taskName;
+    }
+
 
     @Override
     public String toString() {

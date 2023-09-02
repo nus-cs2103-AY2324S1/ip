@@ -31,6 +31,8 @@ public class Ui {
                 helpMessage = "unmark <idx>";
             } else if (cmd.equals("delete")) {
                 helpMessage = "delete <idx>";
+            } else if (cmd.equals("find")) {
+                helpMessage = "find <any keyword for task name>";
             } else {
                 helpMessage = "";
             }
@@ -58,6 +60,19 @@ public class Ui {
 //        System.out.println(i + "." + this.lst[i - 1]);
             System.out.println(i + "." + this.taskList.getTask(i - 1));
         }
+    }
+
+    public void printKeywordTask(String k) {
+        System.out.println("Finding tasks with names matching : \"" + k + "\"");
+        System.out.println("Here they are!!:");
+        int no = 1;
+        for (int i = 0; i < this.taskList.getSize(); i++) {
+            Task task = this.taskList.getTask(i);
+            if (task.getTaskName().contains(k)) {
+                System.out.println(Integer.toString(no) + "." + task);
+            }
+        }
+        horiLine();
     }
 
     public void exit() {
