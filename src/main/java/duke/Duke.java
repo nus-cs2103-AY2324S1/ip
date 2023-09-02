@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
@@ -26,8 +28,8 @@ public class Duke implements Serializable {
     }
 
     /**
-     * The exception caught above is likely the IOException thrown at Storage.java line 11. Catching
-     * this exception means that TaskList is empty (I think), which means that the duke.txt file might
+     * The exception caught above is likely the IOException thrown at duke.Storage.java line 11. Catching
+     * this exception means that duke.TaskList is empty (I think), which means that the duke.txt file might
      * not exist yet, so it is created in this function
      */
     public static void createTxtFile() {

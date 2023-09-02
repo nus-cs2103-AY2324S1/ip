@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
@@ -14,9 +16,9 @@ public class Storage {
     }
 
     /**
-     * This function reads an ArrayList<Task> object that is stored in memory and returns it
+     * This function reads an ArrayList<duke.Task> object that is stored in memory and returns it
      *
-     * @return an ArrayList<Task>
+     * @return an ArrayList<duke.Task>
      * @throws DukeException this part might not be needed
      * @throws ClassNotFoundException if inputStream.readObject() does not find anything
      * @throws IOException if "data/temp.txt" does not exist/it is empty (not sure which one or both?)
@@ -24,9 +26,9 @@ public class Storage {
     public ArrayList<Task> load() throws DukeException, ClassNotFoundException, IOException {
         ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(filePath));
         /*
-            The only object that is written to OutputStream is the ArrayList<Task>, as shown in the
-            updateFile method in Duke.java. Thus, only an object of run type ArrayList<Task> can be
-            read from the InputStream, so it is safe to cast it to (ArrayList<Task>)
+            The only object that is written to OutputStream is the ArrayList<duke.Task>, as shown in the
+            updateFile method in duke.Duke.java. Thus, only an object of run type ArrayList<duke.Task> can be
+            read from the InputStream, so it is safe to cast it to (ArrayList<duke.Task>)
          */
         @SuppressWarnings("unchecked")
         ArrayList<Task> loadedTasks = (ArrayList<Task>) inputStream.readObject();
@@ -41,11 +43,11 @@ public class Storage {
     /**
      * Everytime there is a change in tasks, 2 things happen
      * 1. The duke.txt file is cleared, tasks is scanned and the entire duke.txt file is rewritten
-     * 2. ObjectOutputStream scans tasks, serializes each Task into binary format, and writes them
-     * to "data/temp.txt". This allows us to save the TaskList to a file and retrieve it when the program
+     * 2. ObjectOutputStream scans tasks, serializes each duke.Task into binary format, and writes them
+     * to "data/temp.txt". This allows us to save the duke.TaskList to a file and retrieve it when the program
      * is run again
      *
-     * Initially, I did a writeToFile method where everytime a Task is added to taskArray, write
+     * Initially, I did a writeToFile method where everytime a duke.Task is added to taskArray, write
      * the new task to duke.txt. However, this may cause some problems when it comes to updating
      * or deleting tasks from the file, so I changed the implementation to rewriting the entire txt
      * file everytime there is a change to the list. This causes a longer run time but since this mod
@@ -54,7 +56,7 @@ public class Storage {
     public void updateFile(TaskList tasks) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(filePath))) {
             outputStream.writeObject(tasks.getTasks());
-            // writes the ArrayList<Task> object to the OutputStream
+            // writes the ArrayList<duke.Task> object to the OutputStream
 
             FileWriter fw = new FileWriter(dukeFilePath);
             // ^ the above line is ABSOLUTELY NECESSARY!!! do not delete

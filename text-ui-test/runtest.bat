@@ -21,7 +21,7 @@ REM because now that the working directory is set to ip, ACTUAL.TXT and EXPECTED
 REM can only be accessed with the appropriate cd
 
 REM Run the program, feed commands from input.txt file, and redirect the output to ACTUAL.TXT
-java -classpath bin Duke < .\text-ui-test\input.txt > .\text-ui-test\ACTUAL.TXT
+java -classpath bin duke.Duke < .\text-ui-test\input.txt > .\text-ui-test\ACTUAL.TXT
 
 REM Compare the output to the expected output
 FC .\text-ui-test\ACTUAL.TXT .\text-ui-test\EXPECTED.TXT
