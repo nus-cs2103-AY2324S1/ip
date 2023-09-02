@@ -1,19 +1,36 @@
-package Storage;
-import TaskList.TaskList;
-import Parser.Parser;
-import Task.*;
-import Duke.DukeException;
+package storage;
+
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.IOException;
 
-public class Storage { // Previously named TaskListManger, serves same purpose
+import duke.DukeException;
+import parser.Parser;
+import task.Task;
+import taskList.TaskList;
+
+/**
+ * The `Storage` class is responsible for managing the storage and retrieval of tasks in the BloopBot application.
+ * It handles saving tasks to a file and loading tasks from a file.
+ * This class ensures that tasks are persisted between program runs.
+ *
+ * @author raydenlim
+ * @version 0.0.0
+ */
+public class Storage { // Previously named TaskListManager, serves the same purpose
     private File file;
     private String taskDataPath;
     private TaskList taskList;
 
+    /**
+     * Constructs a new `Storage` object with the specified directory path, file name, and `TaskList`.
+     *
+     * @param directoryPath The directory path where the task data file will be stored.
+     * @param fileName      The name of the task data file.
+     * @param taskList      The `TaskList` containing tasks to be managed by the storage.
+     */
     public Storage(String directoryPath, String fileName, TaskList taskList) {
         this.taskList = taskList;
         this.taskDataPath = directoryPath + "/" + fileName;
@@ -37,6 +54,11 @@ public class Storage { // Previously named TaskListManger, serves same purpose
         }
     }
 
+    /**
+     * Saves the provided list of tasks to the task data file.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public void saveTask(ArrayList<Task> tasks) {
         try {
             FileWriter w = new FileWriter(taskDataPath);
@@ -45,10 +67,13 @@ public class Storage { // Previously named TaskListManger, serves same purpose
             }
             w.close();
         } catch (IOException e) {
-            System.out.println("Error occurred when saving tasks to file.");
+            System.out.println("Error occurred when saving tasks to the file.");
         }
     }
 
+    /**
+     * Loads tasks from the task data file and adds them to the `TaskList`.
+     */
     public void loadTasks() {
         try {
             File file = new File(taskDataPath);
@@ -66,10 +91,9 @@ public class Storage { // Previously named TaskListManger, serves same purpose
             }
             fileScanner.close();
         } catch (IOException e) {
-            System.out.println("Error occurred when loading tasks from file.");
+            System.out.println("Error occurred when loading tasks from the file.");
         } catch (DukeException e) {
             System.out.println("File is corrupted :(");
         }
     }
-
 }
