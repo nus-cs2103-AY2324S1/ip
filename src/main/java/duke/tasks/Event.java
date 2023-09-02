@@ -10,15 +10,37 @@ import java.time.LocalDate;
  */
 public class Event extends Task {
 
+    /**
+     * The start date/time of the event.
+     */
     protected LocalDate from;
+    
+    /**
+     * The end date/time of the event.
+     */
     protected LocalDate to;
 
+    /**
+     * Creates an Event object.
+     *
+     * @param description The description of the event.
+     * @param from The start date/time of the event.
+     * @param to The end date/time of the event.
+     */
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Creates an Event object.
+     *
+     * @param description The description of the event.
+     * @param from The start date/time of the event.
+     * @param to The end date/time of the event.
+     * @param isDone Whether the event is done.
+     */
     public Event(String description, LocalDate from, LocalDate to, boolean isDone) {
         super(description, isDone);
         this.from = from;

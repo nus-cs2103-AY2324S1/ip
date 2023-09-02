@@ -10,13 +10,29 @@ import java.time.LocalDate;
 
 public class Deadline extends Task {
 
+    /**
+     * The date/time of the deadline.
+     */
     protected LocalDate by;
 
+    /**
+     * Creates a Deadline object.
+     *
+     * @param description The description of the deadline.
+     * @param by The date/time of the deadline.
+     */
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
 
+    /**
+     * Creates a Deadline object.
+     *
+     * @param description The description of the deadline.
+     * @param by The date/time of the deadline.
+     * @param isDone Whether the deadline is done.
+     */
     public Deadline(String description, LocalDate by, boolean isDone) {
         super(description, isDone);
         this.by = by;

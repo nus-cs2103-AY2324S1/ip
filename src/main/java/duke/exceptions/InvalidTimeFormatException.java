@@ -5,6 +5,11 @@ package duke.exceptions;
  * The proper format is yyyy-mm-dd
  */
 public class InvalidTimeFormatException extends Exception {
+    /**
+     * Creates an InvalidTimeFormatException object.
+     * 
+     * @param message The description of the exception.
+     */
     public InvalidTimeFormatException(String message) {
         super(message + "\n    Proper Format: yyyy-mm-dd");
     }

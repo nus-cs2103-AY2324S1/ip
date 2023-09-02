@@ -9,8 +9,14 @@ import duke.exceptions.InvalidIndexException;
 import duke.exceptions.MissingDescriptionException;
 import duke.exceptions.UnknownCommandException;
 
+/**
+ * Represents a parser that parses user input into a Command object.
+ */
 public class TodoCommandParser extends CommandParser {
 
+    /**
+     * Creates a CommandParser object.
+     */
     public TodoCommandParser() {
         super("todo", "^(?<command>todo)(?<description>.*)?$");
     }

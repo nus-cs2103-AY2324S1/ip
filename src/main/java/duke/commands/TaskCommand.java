@@ -4,11 +4,27 @@ import java.util.regex.Matcher;
 
 import duke.exceptions.MissingDescriptionException;
 
+/**
+ * Represents a command that adds a task to the task list.
+ */
 public abstract class TaskCommand implements Command {
 
+    /**
+     * The matcher object used to extract the description.
+     */
     protected Matcher matcher;
+
+    /**
+     * The description of the task.
+     */
     protected String description;
 
+    /**
+     * Creates a TaskCommand object.
+     *
+     * @param matcher The matcher object used to extract the description.
+     * @throws MissingDescriptionException If the description is missing.
+     */
     public TaskCommand(Matcher matcher) throws MissingDescriptionException {
         this.matcher = matcher;
         this.description = extractTaskDescription();

@@ -24,10 +24,27 @@ import duke.tasks.Todo;
  * here https://github.com/nus-cs2103-AY2324S1/forum/issues/30
  */
 public class TaskListStorage {
+    /**
+     * The list of tasks.
+     */
     private final ArrayList<Task> taskList = new ArrayList<>();
+    
+    /**
+     * The file object to save/read the list of tasks to/from.
+     */
     private final File file;
+
+    /**
+     * The filepath of the file to save the list of tasks to.
+     */
     private String filepath;
 
+    /**
+     * Creates a TaskListStorage object.
+     * This also loads the list of tasks from the file.
+     * 
+     * @param filepath The filepath of the file to save the list of tasks to.
+     */
     public TaskListStorage(String filepath) {
         this.filepath = filepath;
         this.file = new File(filepath);
@@ -109,6 +126,9 @@ public class TaskListStorage {
         }
     }
 
+    /**
+     * Prints the list of tasks.
+     */
     public void printList() {
         String s = "";
         for (int i = 0; i < taskList.size(); i++) {
@@ -117,6 +137,12 @@ public class TaskListStorage {
         Ui.printInLine(s);
     }
 
+    /**
+     * Marks a task as done.
+     * 
+     * @param index The index of the task to mark as done.
+     * @throws InvalidIndexException If the index is invalid.
+     */
     public void markAsDone(int index) throws InvalidIndexException {
         if (index >= taskList.size() || index < 0) {
             throw new InvalidIndexException("Cannot mark task, task list of size " + taskList.size()
@@ -129,6 +155,12 @@ public class TaskListStorage {
         Ui.printInLine(outputString);
     }
 
+    /**
+     * Marks a task as undone.
+     * 
+     * @param index The index of the task to mark as undone.
+     * @throws InvalidIndexException If the index is invalid.
+     */
     public void markAsUndone(int index) throws InvalidIndexException {
         if (index >= taskList.size() || index < 0) {
             throw new InvalidIndexException("Cannot mark task, task list of size " + taskList.size()
@@ -141,6 +173,12 @@ public class TaskListStorage {
         Ui.printInLine(outputString);
     }
 
+    /** 
+     * Adds a todo task to the list of tasks.
+     * 
+     * @param todo The todo task to add.
+     * @throws MissingDescriptionException If the description is missing.
+     */
     public void addTodo(Todo todo) throws MissingDescriptionException {
         taskList.add(todo);
         writeTaskListToFile(taskList, filepath);
@@ -149,6 +187,13 @@ public class TaskListStorage {
         Ui.printInLine(outputString);
     }
 
+    /**
+     * Adds a deadline task to the list of tasks.
+     * 
+     * @param deadline The deadline task to add.
+     * @throws MissingDescriptionException If the description is missing.
+     * @throws IncorrectCommandFormatException If the command is in the wrong format.
+     */
     public void addDeadline(Deadline deadline) throws MissingDescriptionException, IncorrectCommandFormatException {
         taskList.add(deadline);
         writeTaskListToFile(taskList, filepath);
@@ -157,6 +202,13 @@ public class TaskListStorage {
         Ui.printInLine(outputString);
     }
 
+    /**
+     * Adds an event task to the list of tasks.
+     * 
+     * @param event The event task to add.
+     * @throws MissingDescriptionException If the description is missing.
+     * @throws IncorrectCommandFormatException If the command is in the wrong format.
+     */
     public void addEvent(Event event) throws MissingDescriptionException, IncorrectCommandFormatException {
         taskList.add(event);
         writeTaskListToFile(taskList, filepath);
@@ -165,6 +217,12 @@ public class TaskListStorage {
         Ui.printInLine(outputString);
     }
 
+    /**
+     * Deletes a task from the list of tasks.
+     * 
+     * @param index The index of the task to delete.
+     * @throws InvalidIndexException If the index is invalid.
+     */
     public void deleteTask(int index) throws InvalidIndexException {
         if (index >= taskList.size() || index < 0) {
             throw new InvalidIndexException("Cannot delete task, task list of size " + taskList.size()
