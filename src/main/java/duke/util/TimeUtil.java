@@ -20,8 +20,6 @@ public class TimeUtil {
             DateTimeFormatter.BASIC_ISO_DATE, // yyyymmdd
             DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH), // 1 Jan 2023
             DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH), // 1 January 2023
-            DateTimeFormatter.ofPattern("yyyy-MM"), // 2023-05
-            DateTimeFormatter.ofPattern("yyyyMM")  // 202305
     };
 
     private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -67,8 +65,6 @@ public class TimeUtil {
                 "\n- yyyymmdd (e.g. 20230528)" +
                 "\n- d MMM yyyy (e.g. 1 Jan 2023)" +
                 "\n- d MMMM yyyy (e.g. 1 January 2023)" +
-                "\n- yyyy-MM (e.g. 2023-05)" +
-                "\n- yyyyMM (e.g. 202305)" +
                 "\nOr use special terms like:" +
                 "\n- today" +
                 "\n- tomorrow";
