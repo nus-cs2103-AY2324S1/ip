@@ -30,9 +30,16 @@ public class Task {
         return isDone ? "[X]" : "[ ]";
     }
 
+<<<<<<< HEAD
     /**
      * Updates the status of the Task as done.
      */
+=======
+    public String getDescription() {
+        return this.description;
+    }
+
+>>>>>>> branch-Level-9
     public void markAsDone() {
         this.isDone = true;
     }
