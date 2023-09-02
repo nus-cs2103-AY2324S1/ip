@@ -1,7 +1,6 @@
 import command.Command;
 import command.DeadlineCommand;
 import command.DeleteCommand;
-import command.ErrorCommand;
 import command.EventCommand;
 import command.ListCommand;
 import command.MarkCommand;
@@ -14,7 +13,7 @@ import exception.FileErrorBotException;
 import exception.IllegalExpressionBotException;
 import exception.IncompleteBotException;
 
-import parsers.Parser;
+import parsers.InputParser;
 import task.TaskList;
 
 
@@ -41,11 +40,11 @@ public class ControlFlow {
         if (str.isBlank()) {
             throw new IncompleteBotException("OOPS!!! There is no task specified.");
         }
-        String[] strSplit = Parser.getSplitAtSpace(str);
-        String taskName = Parser.getLeftOfSplit(strSplit);
+        String[] strSplit = InputParser.getSplitAtSpace(str);
+        String taskName = InputParser.getLeftOfSplit(strSplit);
         String remainder = "";
         if (strSplit.length > 1) {
-            remainder = Parser.getRightOfSplit(strSplit);
+            remainder = InputParser.getRightOfSplit(strSplit);
         }
         String[] taskSplit;
         String taskDetail;
@@ -66,30 +65,30 @@ public class ControlFlow {
             if (remainder.isBlank()) {
                 throw new IncompleteBotException("OOPS!!! The description of a deadline cannot be empty.");
             } else {
-                taskSplit = Parser.getSplitAtBy(remainder);
+                taskSplit = InputParser.getSplitAtBy(remainder);
                 if (taskSplit.length == 1) {
                     throw new IncompleteBotException("OOPS!!! The timing of a deadline cannot be empty.");
                 }
-                taskDetail = Parser.getLeftOfSplit(taskSplit);
-                timeline = Parser.getRightOfSplit(taskSplit);
+                taskDetail = InputParser.getLeftOfSplit(taskSplit);
+                timeline = InputParser.getRightOfSplit(taskSplit);
                 return new DeadlineCommand(this.taskList, taskDetail, timeline);
             }
         case ControlFlow.EVENT:
             if (remainder.isBlank()) {
                 throw new IncompleteBotException("OOPS!!! The description of an event cannot be empty.");
             } else {
-                taskSplit = Parser.getSplitAtFrom(remainder);
+                taskSplit = InputParser.getSplitAtFrom(remainder);
                 if (taskSplit.length == 1) {
                     throw new IncompleteBotException("OOPS!!! The starting timing of an event cannot be empty.");
                 }
-                taskDetail = Parser.getLeftOfSplit(taskSplit);
-                timeline = Parser.getRightOfSplit(taskSplit);
-                timelineArr = Parser.getSplitAtTo(timeline);
+                taskDetail = InputParser.getLeftOfSplit(taskSplit);
+                timeline = InputParser.getRightOfSplit(taskSplit);
+                timelineArr = InputParser.getSplitAtTo(timeline);
                 if (timelineArr.length == 1) {
                     throw new IncompleteBotException("OOPS!!! The ending timing of an event cannot be empty.");
                 }
-                timeFrom = Parser.getLeftOfSplit(timelineArr);
-                timeTo = Parser.getRightOfSplit(timelineArr);
+                timeFrom = InputParser.getLeftOfSplit(timelineArr);
+                timeTo = InputParser.getRightOfSplit(timelineArr);
                 return new EventCommand(this.taskList, taskDetail, timeFrom, timeTo);
             }
         case ControlFlow.MARK:
