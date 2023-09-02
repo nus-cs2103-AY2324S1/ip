@@ -1,3 +1,13 @@
+package crusader;
+
+import crusader.exception.CrusaderException;
+import crusader.exception.CrusaderMissingSaveFileException;
+import crusader.exception.CrusaderParseException;
+import crusader.task.Deadline;
+import crusader.task.Event;
+import crusader.task.Task;
+import crusader.task.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -33,7 +43,7 @@ public class Storage {
         } catch (ParseException | IndexOutOfBoundsException | IllegalArgumentException e) {
             throw new CrusaderParseException("The save file is malformed!");
         } catch (FileNotFoundException e) {
-            throw new MissingSaveFileException(this.file.getPath());
+            throw new CrusaderMissingSaveFileException(this.file.getPath());
         }
         return tasks;
     }
@@ -41,7 +51,7 @@ public class Storage {
     /**
      * Parses a single task saved in the text file.
      * @param taskString Line to be parsed.
-     * @return A new Task.
+     * @return A new Crusader.Task.Task.
      */
     private Task parseSavedTask(String taskString) throws ParseException {
         String[] components = taskString.split("\\|");

@@ -1,3 +1,10 @@
+package crusader.command;
+
+import crusader.exception.CrusaderException;
+import crusader.task.Task;
+import crusader.TaskList;
+import crusader.Ui;
+
 public class DeleteCommand extends Command {
     private final int index;
     public DeleteCommand(int index) {

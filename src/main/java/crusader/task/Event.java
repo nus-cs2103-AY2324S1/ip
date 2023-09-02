@@ -1,3 +1,7 @@
+package crusader.task;
+
+import crusader.DateUtils;
+
 import java.util.Date;
 
 public class Event extends Task {
