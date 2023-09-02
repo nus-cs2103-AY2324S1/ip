@@ -17,22 +17,22 @@ import java.util.regex.Pattern;
 
 public class Parser {
     private final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
-    public static Fluke.Command parseCommand(String nextCommand) throws InvalidInputException {
-        if (nextCommand.equals("bye")) {
+    public static Fluke.Command parseCommand(String command) throws InvalidInputException {
+        if (command.equals("bye")) {
             return Fluke.Command.BYE;
-        } else if (nextCommand.equals("list")) {
+        } else if (command.equals("list")) {
             return Fluke.Command.LIST;
-        } else if (nextCommand.startsWith("mark")) {
+        } else if (command.startsWith("mark")) {
             return Fluke.Command.MARK;
-        } else if (nextCommand.startsWith("unmark")) {
+        } else if (command.startsWith("unmark")) {
             return Fluke.Command.UNMARK;
-        } else if (nextCommand.startsWith("delete")) {
+        } else if (command.startsWith("delete")) {
             return Fluke.Command.DELETE;
-        } else if (nextCommand.startsWith("todo")) {
+        } else if (command.startsWith("todo")) {
             return Fluke.Command.TODO;
-        } else if (nextCommand.startsWith("deadline")) {
+        } else if (command.startsWith("deadline")) {
             return Fluke.Command.DEADLINE;
-        } else if (nextCommand.startsWith("event")) {
+        } else if (command.startsWith("event")) {
             return Fluke.Command.EVENT;
         } else {
             throw new InvalidInputException();
@@ -45,8 +45,8 @@ public class Parser {
         // parse type
         Pattern typePattern = Pattern.compile("\\[[TDE]]");
         Matcher typeMatcher = typePattern.matcher(taskString);
-        boolean typeFound = typeMatcher.find();
-        if (!typeFound) {
+        boolean typeIsFound = typeMatcher.find();
+        if (!typeIsFound) {
             throw new SaveFileParsingException();
         }
         switch (typeMatcher.group()) {
@@ -66,8 +66,8 @@ public class Parser {
         // parse mark
         Pattern markPattern = Pattern.compile("\\[[X ]]");
         Matcher markMatcher = markPattern.matcher(taskString);
-        boolean markFound = markMatcher.find();
-        if (!markFound) {
+        boolean markIsFound = markMatcher.find();
+        if (!markIsFound) {
             throw new SaveFileParsingException();
         }
         String mark = markMatcher.group();
@@ -105,8 +105,8 @@ public class Parser {
             // parse from date
             Pattern fromPattern = Pattern.compile("from:.+to:");
             Matcher fromMatcher = fromPattern.matcher(taskDesc);
-            boolean fromFound = fromMatcher.find();
-            if (!fromFound) {
+            boolean fromDateIsFound = fromMatcher.find();
+            if (!fromDateIsFound) {
                 throw new SaveFileParsingException();
             }
             String from = fromMatcher.group().substring(5).replaceFirst("to:", "").trim();
@@ -114,8 +114,8 @@ public class Parser {
             // parse to date
             Pattern toPattern = Pattern.compile("to:.+\\)");
             Matcher toMatcher = toPattern.matcher(taskDesc);
-            boolean toFound = toMatcher.find();
-            if (!toFound) {
+            boolean toDateIsFound = toMatcher.find();
+            if (!toDateIsFound) {
                 throw new SaveFileParsingException();
             }
             String to = toMatcher.group().substring(3).replaceFirst("\\)", "").trim();
@@ -165,27 +165,27 @@ public class Parser {
         return new String[]{description, from, to};
     }
 
-    public static int parseDeleteCommand(String nextCommand) throws FlukeException {
-        if (nextCommand.length() <= 7) {
+    public static int parseDeleteCommand(String command) throws FlukeException {
+        if (command.length() <= 7) {
             throw new InvalidInputException();
         }
-        int taskNumber = obtainTaskNumber(nextCommand.substring(7));
+        int taskNumber = obtainTaskNumber(command.substring(7));
         return taskNumber - 1;
     }
 
-    public static int parseMarkAsDoneCommand(String nextCommand) throws FlukeException {
-        if (nextCommand.length() <= 5) {
+    public static int parseMarkAsDoneCommand(String command) throws FlukeException {
+        if (command.length() <= 5) {
             throw new InvalidInputException();
         }
-        int taskNumber = obtainTaskNumber(nextCommand.substring(5));
+        int taskNumber = obtainTaskNumber(command.substring(5));
         return taskNumber - 1;
     }
 
-    public static int parseMarkAsUndoneCommand(String nextCommand) throws FlukeException {
-        if (nextCommand.length() <= 7) {
+    public static int parseMarkAsUndoneCommand(String command) throws FlukeException {
+        if (command.length() <= 7) {
             throw new InvalidInputException();
         }
-        int taskNumber = obtainTaskNumber(nextCommand.substring(7));
+        int taskNumber = obtainTaskNumber(command.substring(7));
         return taskNumber - 1;
     }
 

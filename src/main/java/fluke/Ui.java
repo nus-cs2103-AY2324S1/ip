@@ -41,29 +41,29 @@ public class Ui {
         addHorizontalLine();
     }
 
-    public void showTaskAdded(Task task, TaskList tasks) {
+    public void showTaskAdded(Task addedTask, TaskList tasks) {
         System.out.println("(Scribbles randomly). Hope I got it right!");
-        System.out.println("  " + task);
+        System.out.println("  " + addedTask);
         System.out.println("I think there are now " + tasks.getSize() + " tasks in the list.");
         addHorizontalLine();
     }
 
-    public void showTaskDeleted(Task task, TaskList tasks) {
+    public void showTaskDeleted(Task deletedTask, TaskList tasks) {
         System.out.println("fluke.tasks.Task deleted! I hope it's the right one:");
-        System.out.println("  " + task);
+        System.out.println("  " + deletedTask);
         System.out.println("I think there are now " + tasks.getSize() + " tasks in the list.");
         addHorizontalLine();
     }
 
-    public void showTaskMarkedAsDone(Task task) {
+    public void showTaskMarkedAsDone(Task markedTask) {
         System.out.println("I have marked this task as done, I hope it's the right one:");
-        System.out.println("  " + task);
+        System.out.println("  " + markedTask);
         addHorizontalLine();
     }
 
-    public void showTaskMarkedAsUndone(Task task) {
+    public void showTaskMarkedAsUndone(Task markedTask) {
         System.out.println("I have marked this task as not done yet, I hope it's the right one:");
-        System.out.println("  " + task);
+        System.out.println("  " + markedTask);
         addHorizontalLine();
     }
 

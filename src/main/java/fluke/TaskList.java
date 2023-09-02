@@ -36,14 +36,14 @@ public class TaskList {
         return newTodo;
     }
 
-    public Task addDeadline(String description, String by) throws FlukeException {
-        Task newDeadline = new Deadline(description, by);
+    public Task addDeadline(String description, String byDate) throws FlukeException {
+        Task newDeadline = new Deadline(description, byDate);
         addTask(newDeadline);
         return newDeadline;
     }
 
-    public Task addEvent(String description, String from, String to) throws FlukeException {
-        Task newEvent = new Event(description, from, to);
+    public Task addEvent(String description, String fromDate, String toDate) throws FlukeException {
+        Task newEvent = new Event(description, fromDate, toDate);
         addTask(newEvent);
         return newEvent;
     }

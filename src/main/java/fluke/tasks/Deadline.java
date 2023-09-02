@@ -11,24 +11,24 @@ import java.time.format.FormatStyle;
 
 public class Deadline extends Task {
     private final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
-    protected LocalDate by;
-    public Deadline(String description, String by) throws FlukeException {
+    protected LocalDate byDate;
+    public Deadline(String description, String byDate) throws FlukeException {
         super(description);
         try {
-            this.by = LocalDate.parse(by);
+            this.byDate = LocalDate.parse(byDate);
         } catch (DateTimeParseException d) {
             throw new InvalidInputException();
         }
     }
 
-    public Deadline(String description, boolean isDone, String by) throws FlukeException {
+    public Deadline(String description, boolean isDone, String byDate) throws FlukeException {
         super(description, isDone);
-        this.by = LocalDate.parse(by);
+        this.byDate = LocalDate.parse(byDate);
     }
 
     @Override
     public String toString() {
-        String byString = by.format(DATE_TIME_FORMATTER);
+        String byString = byDate.format(DATE_TIME_FORMATTER);
         return "[D]" + super.toString() + " (by: " + byString + ")";
     }
 }

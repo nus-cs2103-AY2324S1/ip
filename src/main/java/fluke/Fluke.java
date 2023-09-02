@@ -38,15 +38,15 @@ public class Fluke {
         this.ui.greet();
         // initialise scanner to check for user input
         Scanner scanner = new Scanner(System.in);
-        boolean waitingForInput = true;
-        while (waitingForInput) {
+        boolean isWaitingForInput = true;
+        while (isWaitingForInput) {
             // check for user commands
             try {
                 String nextCommand = scanner.nextLine();
                 Command commandType = Parser.parseCommand(nextCommand);
                 switch (commandType) {
                 case BYE:
-                    waitingForInput = false;
+                    isWaitingForInput = false;
                     this.ui.sayBye();
                     break;
                 case LIST:
@@ -78,34 +78,34 @@ public class Fluke {
     private void addDeadline(String command) throws FlukeException {
         String[] parsedCommand = Parser.parseDeadlineCommand(command);
         String description = parsedCommand[0];
-        String by = parsedCommand[1];
-        Task taskAdded = this.tasks.addDeadline(description, by);
+        String byDate = parsedCommand[1];
+        Task taskAdded = this.tasks.addDeadline(description, byDate);
         this.ui.showTaskAdded(taskAdded, tasks);
     }
 
     private void addEvent(String command) throws FlukeException {
         String[] parsedCommand = Parser.parseEventCommand(command);
         String description = parsedCommand[0];
-        String from = parsedCommand[1];
-        String to = parsedCommand[2];
-        Task taskAdded = this.tasks.addEvent(description, from, to);
+        String fromDate = parsedCommand[1];
+        String toDate = parsedCommand[2];
+        Task taskAdded = this.tasks.addEvent(description, fromDate, toDate);
         this.ui.showTaskAdded(taskAdded, tasks);
     }
 
-    private void markTaskAsDone(String nextCommand) throws FlukeException {
-        int index = Parser.parseMarkAsDoneCommand(nextCommand);
+    private void markTaskAsDone(String command) throws FlukeException {
+        int index = Parser.parseMarkAsDoneCommand(command);
         Task taskMarked = tasks.markTaskAsDone(index);
         this.ui.showTaskMarkedAsDone(taskMarked);
     }
 
-    private void markTaskAsUndone(String nextCommand) throws FlukeException {
-        int index = Parser.parseMarkAsUndoneCommand(nextCommand);
+    private void markTaskAsUndone(String command) throws FlukeException {
+        int index = Parser.parseMarkAsUndoneCommand(command);
         Task taskMarked = tasks.markTaskAsUndone(index);
         this.ui.showTaskMarkedAsUndone(taskMarked);
     }
 
-    private void deleteTask(String nextCommand) throws FlukeException {
-        int index = Parser.parseDeleteCommand(nextCommand);
+    private void deleteTask(String command) throws FlukeException {
+        int index = Parser.parseDeleteCommand(command);
         Task deleted = tasks.deleteTask(index);
         this.ui.showTaskDeleted(deleted, tasks);
     }
@@ -113,30 +113,29 @@ public class Fluke {
     /**
      * Helper function for additional logic related to changing the list.
      * @param commandType type of command
-     * @param nextCommand the content in the command
+     * @param command the content in the command
      * @throws FlukeException an exception related to operations with fluke.Fluke
-     * @throws IOException an exception related to saving data
      */
-    private void changeTodoList(Command commandType, String nextCommand) throws FlukeException {
+    private void changeTodoList(Command commandType, String command) throws FlukeException {
         // 1. make changes to the list
         switch (commandType) {
         case MARK:
-            markTaskAsDone(nextCommand);
+            markTaskAsDone(command);
             break;
         case UNMARK:
-            markTaskAsUndone(nextCommand);
+            markTaskAsUndone(command);
             break;
         case DELETE:
-            deleteTask(nextCommand);
+            deleteTask(command);
             break;
         case TODO:
-            addTodo(nextCommand);
+            addTodo(command);
             break;
         case DEADLINE:
-            addDeadline(nextCommand);
+            addDeadline(command);
             break;
         case EVENT:
-            addEvent(nextCommand);
+            addEvent(command);
             break;
         default:
             // should not occur
