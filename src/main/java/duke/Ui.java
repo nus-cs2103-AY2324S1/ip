@@ -10,45 +10,40 @@ import duke.templates.MessageTemplates;
  */
 public class Ui {
     /**
-     * Constructor for Ui.
+     * Returns line.
      */
-    public Ui() {
-        new WelcomeMessage().send();
+    public String getLine() {
+        return MessageTemplates.MESSAGE_LINE;
     }
-
     /**
-     * Prints a line.
+     * Returns welcome message.
      */
-    public void showLine() {
-        System.out.println(MessageTemplates.MESSAGE_LINE);
+    public String getWelcomeMessage() {
+        return new WelcomeMessage().send();
     }
-
     /**
-     * Prints the menu.
+     * Returns the menu.
      */
-    public void showMenu() {
-        new MenuMessage().send();
+    public String showMenu() {
+        return new MenuMessage().send();
     }
-
     /**
-     * Prints an invalid index error.
+     * Returns an invalid index error.
      */
-    public void showInvalidIndexError() {
-        new ErrorMessage(MessageTemplates.MESSAGE_INVALID_INDEX).send();
+    public String showInvalidIndexError() {
+        return new ErrorMessage(MessageTemplates.MESSAGE_INVALID_INDEX).send();
     }
-
     /**
-     * Prints a save data error.
+     * Returns a save data error.
      */
-    public void showSaveDataError() {
-        new ErrorMessage(MessageTemplates.MESSAGE_SAVE_DATA_ERROR).send();
+    public String showSaveDataError() {
+        return new ErrorMessage(MessageTemplates.MESSAGE_SAVE_DATA_ERROR).send();
     }
-
     /**
-     * Prints an error message.
+     * Returns an error message.
      * @param message Error message.
      */
-    public void showError(String message) {
-        new ErrorMessage(message).send();
+    public String showError(String message) {
+        return new ErrorMessage(message).send();
     }
 }

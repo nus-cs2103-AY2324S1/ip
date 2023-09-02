@@ -16,7 +16,6 @@ import duke.templates.MessageTemplates;
  */
 public class Storage {
     private final String filePath;
-
     /**
      * Constructor for Storage.
      * @param filePath Path to file.
@@ -24,7 +23,6 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
     }
-
     /**
      * Creates a file.
      * @param f File to be created.
@@ -34,7 +32,6 @@ public class Storage {
         f.getParentFile().mkdirs();
         f.createNewFile();
     }
-
     /**
      * Loads file.
      * @return ArrayList of Tasks.
@@ -48,7 +45,6 @@ public class Storage {
         }
         return FileParser.parse(f);
     }
-
     /**
      * Writes to file.
      * @param tl TaskList to be written.

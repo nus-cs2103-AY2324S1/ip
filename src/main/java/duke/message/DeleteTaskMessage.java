@@ -21,16 +21,14 @@ public class DeleteTaskMessage extends Message {
     }
 
     /**
-     * Prints DeleteTaskMessage.
+     * Returns String representation of DeleteTaskMessage.
      */
     @Override
-    public void send() {
-        System.out.println(
-                createMessage(
-                        MessageTemplates.MESSAGE_REMOVED_TASK,
-                        this.task.toString(),
-                        String.format(MessageTemplates.MESSAGE_NUMBER_OF_TASKS, this.totalTasks)
-                )
+    public String send() {
+        return createMessage(
+                MessageTemplates.MESSAGE_REMOVED_TASK,
+                this.task.toString(),
+                String.format(MessageTemplates.MESSAGE_NUMBER_OF_TASKS, this.totalTasks)
         );
     }
 }

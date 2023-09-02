@@ -19,7 +19,7 @@ public abstract class Message {
     }
 
     /**
-     * Print message to be overridden.
+     * Returns String representation of Message.
      */
-    public abstract void send();
+    public abstract String send();
 }

@@ -16,13 +16,15 @@ public class MarkTaskMessage extends Message {
     public MarkTaskMessage(Task task) {
         this.task = task;
     }
-
     /**
-     * Prints MarkTaskMessage.
+     * Returns String representation of MarkTaskMessage and marks task as done.
      */
     @Override
-    public void send() {
+    public String send() {
         task.markTask();
-        System.out.println(createMessage(MessageTemplates.MESSAGE_MARK_DONE, this.task.toString()));
+        return createMessage(
+                MessageTemplates.MESSAGE_MARK_DONE,
+                this.task.toString()
+        );
     }
 }

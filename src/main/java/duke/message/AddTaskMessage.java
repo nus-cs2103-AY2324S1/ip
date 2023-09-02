@@ -21,16 +21,14 @@ public class AddTaskMessage extends Message {
     }
 
     /**
-     * Prints AddTaskMessage.
+     * Returns String representation of AddTaskMessage.
      */
     @Override
-    public void send() {
-        System.out.println(
-                createMessage(
-                    MessageTemplates.MESSAGE_ADDED_TASK,
-                    this.task.toString(),
-                    String.format(MessageTemplates.MESSAGE_NUMBER_OF_TASKS, this.totalTasks)
-                )
+    public String send() {
+        return createMessage(
+                MessageTemplates.MESSAGE_ADDED_TASK,
+                this.task.toString(),
+                String.format(MessageTemplates.MESSAGE_NUMBER_OF_TASKS, this.totalTasks)
         );
     }
 }

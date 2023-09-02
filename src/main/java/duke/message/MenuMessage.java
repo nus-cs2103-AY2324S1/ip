@@ -7,10 +7,10 @@ import duke.templates.MessageTemplates;
  */
 public class MenuMessage extends Message {
     /**
-     * Prints MenuMessage.
+     * Returns String representation of MenuMessage.
      */
     @Override
-    public void send() {
-        System.out.println(createMessage(MessageTemplates.MESSAGE_MENU));
+    public String send() {
+        return createMessage(MessageTemplates.MESSAGE_MENU);
     }
 }

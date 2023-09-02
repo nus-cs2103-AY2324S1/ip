@@ -37,7 +37,7 @@ public class TaskListMessage extends Message {
      * Prints TaskListMessage.
      */
     @Override
-    public void send() {
-        System.out.println(createMessage(list));
+    public String send() {
+        return createMessage(list);
     }
 }

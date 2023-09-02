@@ -7,10 +7,10 @@ import duke.templates.MessageTemplates;
  */
 public class ByeMessage extends Message {
     /**
-     * Prints ByeMessage.
+     * Returns String representation of ByeMessage.
      */
     @Override
-    public void send() {
-        System.out.println(createMessage(MessageTemplates.MESSAGE_BYE));
+    public String send() {
+        return createMessage(MessageTemplates.MESSAGE_BYE);
     }
 }
