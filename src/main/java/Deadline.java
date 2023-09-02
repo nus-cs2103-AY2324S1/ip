@@ -18,7 +18,7 @@ public class Deadline extends Task {
 
     @Override
     public String toWriteString() {
-        return "D | " + (isDone ? "X" : "0") + " | " + description + " | " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy ha"));
+        return "D | " + (isDone ? "X" : "0") + " | " + description + " | " +  by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
 }
