@@ -16,7 +16,8 @@ public class Parser {
         TODO,
         DEADLINE,
         EVENT,
-        DELETE
+        DELETE,
+        FIND
     }
 
     public Parser(String input, TaskList taskList) {
@@ -60,6 +61,9 @@ public class Parser {
                 case EVENT:
                     eventCommandHandler(taskList, input, secondHalfInput);
                     break;
+
+                case FIND:
+                    findCommandHandler(taskList, secondHalfInput);
 
                 default:
                     break;
@@ -193,5 +197,20 @@ public class Parser {
         System.out.println("DateTime in an invalid format. Please enter datetime in the following format: \n" +
                 "YYYY/MM/DD HH:MM");
         return null;
+    }
+
+    public void findCommandHandler(TaskList taskList, String secondHalfInput) {
+        TaskList matchingTasks = new TaskList();
+
+        for (Task task: taskList.getTaskList()) {
+            if (task.description.contains(secondHalfInput)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        System.out.println("____________________________________________________________");
+        System.out.println("Here are the matching tasks in your list:");
+        listCommandHandler(matchingTasks);
+        System.out.println("____________________________________________________________");
     }
 }
