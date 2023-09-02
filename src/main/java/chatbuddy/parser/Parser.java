@@ -6,6 +6,7 @@ import chatbuddy.command.DeadlineCommand;
 import chatbuddy.command.DeleteCommand;
 import chatbuddy.command.EventCommand;
 import chatbuddy.command.ExitCommand;
+import chatbuddy.command.FindCommand;
 import chatbuddy.command.ListCommand;
 import chatbuddy.command.MarkCommand;
 import chatbuddy.command.TodoCommand;
@@ -55,6 +56,9 @@ public class Parser {
 
         case UnmarkCommand.COMMAND_WORD:
             return prepareUnmark(args);
+
+        case FindCommand.COMMAND_WORD:
+            return new FindCommand(args);
 
         default:
             throw new ChatBuddyException("I'm sorry, but I don't know what that means :-(");

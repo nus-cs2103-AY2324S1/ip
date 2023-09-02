@@ -63,4 +63,14 @@ public class Task {
     public String getInformationForSaving() {
         return String.format("%1s | %2s", isDone ? "1" : "0", description);
     }
+
+    /**
+     * Checks if the description of the task contains the given keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return True if the description contains the keyword, false otherwise.
+     */
+    public boolean containKeyword(String keyword) {
+        return description.contains(keyword);
+    }
 }

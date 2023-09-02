@@ -3,6 +3,7 @@ package chatbuddy;
 import chatbuddy.task.Task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -76,5 +77,17 @@ public class TaskList {
             taskStrings.add(task.toString());
         }
         return taskStrings;
+    }
+
+    /**
+     * Finds a list of tasks containing the given keyword in their description.
+     *
+     * @param keyword The keyword to search for.
+     * @return A TaskList containing a list of tasks that contains the given keyword.
+     */
+    public TaskList getMatchingTasks(String keyword) {
+        return new TaskList(tasks.stream()
+                .filter(task -> task.containKeyword(keyword))
+                .collect(Collectors.toCollection(ArrayList::new)));
     }
 }
