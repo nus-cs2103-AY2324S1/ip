@@ -1,25 +1,26 @@
 package duke;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
 
 public class TaskListTest {
     @Test
-    public void TaskListConstructorTest() {
+    public void taskListConstructorTest() {
         TaskList tasks = new TaskList();
         assertEquals(0, tasks.size(), "Test initialisation of empty TaskList");
     }
 
     @Test
-    public void TaskListOverloadedConstructorTest() {
+    public void taskListOverloadedConstructorTest() {
         ArrayList<Task> tasks = new ArrayList<>();
         ToDo todo = new ToDo("read book");
         tasks.add(todo);
@@ -28,7 +29,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void TaskListMethodsTest() {
+    public void taskListMethodsTest() {
         TaskList tasks = new TaskList();
 
         ToDo todo = new ToDo("read book");

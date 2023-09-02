@@ -32,14 +32,12 @@ public class Duke {
 
     /**
      * This method is used to run the Duke program.
-     *
-     * @return Nothing.
      */
     public void run() {
         ui.printGreetingMessage();
 
         boolean isExit = false;
-        while(!isExit) {
+        while (!isExit) {
             try {
                 String input = ui.readCommand();
                 Command c = Parser.parse(input, tasks.size());
@@ -55,7 +53,6 @@ public class Duke {
      * This is the main method which makes use of the run method.
      *
      * @param args Unused.
-     * @return Nothing.
      */
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();

@@ -1,10 +1,22 @@
 package duke;
 
-import duke.command.*;
-import duke.exception.DukeException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import duke.command.AddDeadlineCommand;
+import duke.command.AddEventCommand;
+import duke.command.AddToDoCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkDoneCommand;
+import duke.command.UnmarkDoneCommand;
+import duke.exception.DukeException;
 
 public class ParserTest {
     @Test
@@ -18,6 +30,7 @@ public class ParserTest {
         assertTrue(Parser.parse("deadline return book /by 2023-06-06", 4) instanceof AddDeadlineCommand);
         assertTrue(Parser.parse("event orientation week /from 2023-07-31 /to 2023-08-04", 4)
                 instanceof AddEventCommand);
+        assertTrue(Parser.parse("find book", 4) instanceof FindCommand);
     }
 
     @Test
@@ -78,16 +91,16 @@ public class ParserTest {
             assertTrue(Parser.parse("deadline", 1) instanceof AddDeadlineCommand);
             fail();
         } catch (DukeException e) {
-            assertEquals("Boop Beep OOPS! Please make sure that the description" +
-                    " and date of the deadline is not empty.", e.getMessage());
+            assertEquals("Boop Beep OOPS! Please make sure that the description"
+                    + " and date of the deadline is not empty.", e.getMessage());
         }
 
         try {
             assertTrue(Parser.parse("event", 1) instanceof AddEventCommand);
             fail();
         } catch (DukeException e) {
-            assertEquals("Boop Beep OOPS! Please make sure that the description" +
-                    " and dates of the event is not empty.", e.getMessage());
+            assertEquals("Boop Beep OOPS! Please make sure that the description"
+                    + " and dates of the event is not empty.", e.getMessage());
         }
     }
 }

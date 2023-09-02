@@ -1,12 +1,12 @@
 package duke.command;
 
-import duke.exception.DukeException;
+import java.time.LocalDate;
+
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+import duke.exception.DukeException;
 import duke.task.Deadline;
-
-import java.time.LocalDate;
 
 /**
  * The AddDeadlineCommand class is the command for adding a Deadline into the task list.

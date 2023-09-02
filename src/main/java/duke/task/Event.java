@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
     private static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy");
-    LocalDate start;
-    LocalDate end;
+    private LocalDate start;
+    private LocalDate end;
 
     /**
      * The constructor for an Event.

@@ -1,19 +1,19 @@
 package duke;
 
-import duke.command.Command;
-import duke.command.FindCommand;
-import duke.command.DeleteCommand;
-import duke.command.AddToDoCommand;
-import duke.command.AddDeadlineCommand;
-import duke.command.AddEventCommand;
-import duke.command.UnmarkDoneCommand;
-import duke.command.MarkDoneCommand;
-import duke.command.ListCommand;
-import duke.command.ExitCommand;
-import duke.exception.DukeException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import duke.command.AddDeadlineCommand;
+import duke.command.AddEventCommand;
+import duke.command.AddToDoCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkDoneCommand;
+import duke.command.UnmarkDoneCommand;
+import duke.exception.DukeException;
 
 /**
  * The Parser class deals with making sense of the user command.
@@ -148,8 +148,8 @@ public class Parser {
      * @throws DukeException On input error.
      */
     private static void validateEvent(String[] eventString) throws DukeException {
-        if (eventString.length != 3 || eventString[0].isBlank() || eventString[1].isBlank() ||
-                eventString[2].isBlank()) {
+        if (eventString.length != 3 || eventString[0].isBlank() || eventString[1].isBlank()
+                || eventString[2].isBlank()) {
             throw new DukeException("Boop Beep OOPS! Please make sure that"
                     + " the description and dates of the event is not empty.");
         }

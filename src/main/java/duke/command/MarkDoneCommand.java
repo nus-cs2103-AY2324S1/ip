@@ -1,9 +1,9 @@
 package duke.command;
 
-import duke.exception.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+import duke.exception.DukeException;
 
 /**
  * The MarkDoneCommand is for the "mark" command.
@@ -31,8 +31,7 @@ public class MarkDoneCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         tasks.markTask(index);
-        ui.printMessage("Beep Boop NICE! I've marked this task as done:\n\t\t" +
-                tasks.get(index));
+        ui.printMessage("Beep Boop NICE! I've marked this task as done:\n\t\t" + tasks.get(index));
         storage.save(tasks.getAllTasks());
     }
 
