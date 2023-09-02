@@ -1,4 +1,4 @@
-package duke.Exceptions;
+package seedu.duke.Exceptions;
 
 public class InvalidEventException extends LemonException {
     public InvalidEventException(String message) {

@@ -1,13 +1,13 @@
-package duke.parser;
+package seedu.duke.parser;
 
-import duke.Exceptions.*;
-import duke.Tasks.Deadline;
-import duke.Tasks.Event;
-import duke.Tasks.Task;
-import duke.Tasks.Todo;
-import duke.datafile.Storage;
-import duke.tasklist.TaskList;
-import duke.ui.Ui;
+import seedu.duke.Exceptions.*;
+import seedu.duke.Tasks.Deadline;
+import seedu.duke.Tasks.Event;
+import seedu.duke.Tasks.Task;
+import seedu.duke.Tasks.Todo;
+import seedu.duke.datafile.Storage;
+import seedu.duke.tasklist.TaskList;
+import seedu.duke.ui.Ui;
 
 public class Parser {
 

@@ -1,11 +1,11 @@
-package duke.datafile;
-import duke.Exceptions.InvalidDeadlineException;
-import duke.Exceptions.InvalidEventException;
-import duke.Exceptions.LemonException;
-import duke.Tasks.Deadline;
-import duke.Tasks.Event;
-import duke.Tasks.Task;
-import duke.Tasks.Todo;
+package seedu.duke.datafile;
+import seedu.duke.Exceptions.InvalidDeadlineException;
+import seedu.duke.Exceptions.InvalidEventException;
+import seedu.duke.Exceptions.LemonException;
+import seedu.duke.Tasks.Deadline;
+import seedu.duke.Tasks.Event;
+import seedu.duke.Tasks.Task;
+import seedu.duke.Tasks.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;

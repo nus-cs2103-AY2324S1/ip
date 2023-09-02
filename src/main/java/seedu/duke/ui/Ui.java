@@ -1,7 +1,7 @@
-package duke.ui;
+package seedu.duke.ui;
 
-import duke.Exceptions.InvalidTaskIndexException;
-import duke.tasklist.TaskList;
+import seedu.duke.Exceptions.InvalidTaskIndexException;
+import seedu.duke.tasklist.TaskList;
 
 public class Ui {
     public Ui() {

@@ -1,6 +1,6 @@
-package duke.Tasks;
+package seedu.duke.Tasks;
 
-import duke.Exceptions.InvalidDeadlineException;
+import seedu.duke.Exceptions.InvalidDeadlineException;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
