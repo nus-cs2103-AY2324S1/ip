@@ -1,6 +1,18 @@
 package duke.storage;
 
-import duke.task.TaskList;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Scanner;
+
 import duke.exception.DukeDatabaseInvalidEntryException;
 import duke.exception.DukeDatabaseNotFoundException;
 import duke.exception.DukeEndDateBeforeStartDateException;
@@ -8,20 +20,8 @@ import duke.parser.Parser;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
+import duke.task.TaskList;
 import duke.task.Todo;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Locale;
-import java.util.Scanner;
-import java.time.LocalDate;
-import java.io.*;
-import java.nio.file.*;
 
 /**
  * Handles the loading and storing of tasks from and to the data file.
@@ -86,27 +86,27 @@ public class Storage {
             DukeEndDateBeforeStartDateException {
         Task newTask;
         switch (parsedEntry.get(0)) {
-            case "T":
-                newTask = new Todo(parsedEntry.get(2));
-                if (parsedEntry.get(1).equals("X")) {
-                    newTask.markAsDone();
-                }
-                break;
-            case "D":
-                newTask = new Deadline(parsedEntry.get(2), formatDate(parsedEntry.get(3)));
-                if (parsedEntry.get(1).equals("X")) {
-                    newTask.markAsDone();
-                }
-                break;
-            case "E":
-                newTask = new Event(parsedEntry.get(2), formatDate(parsedEntry.get(3)),
-                        formatDate(parsedEntry.get(4)));
-                if (parsedEntry.get(1).equals("X")) {
-                    newTask.markAsDone();
-                }
-                break;
-            default:
-                throw new DukeDatabaseInvalidEntryException();
+        case "T":
+            newTask = new Todo(parsedEntry.get(2));
+            if (parsedEntry.get(1).equals("X")) {
+                newTask.markAsDone();
+            }
+            break;
+        case "D":
+            newTask = new Deadline(parsedEntry.get(2), formatDate(parsedEntry.get(3)));
+            if (parsedEntry.get(1).equals("X")) {
+                newTask.markAsDone();
+            }
+            break;
+        case "E":
+            newTask = new Event(parsedEntry.get(2), formatDate(parsedEntry.get(3)),
+                    formatDate(parsedEntry.get(4)));
+            if (parsedEntry.get(1).equals("X")) {
+                newTask.markAsDone();
+            }
+            break;
+        default:
+            throw new DukeDatabaseInvalidEntryException();
         }
         return newTask;
     }

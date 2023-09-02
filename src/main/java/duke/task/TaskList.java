@@ -1,9 +1,9 @@
 package duke.task;
 
-import duke.exception.DukeNoTaskFoundException;
-
-import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.ArrayList;
+
+import duke.exception.DukeNoTaskFoundException;
 
 /**
  * Represents a list of tasks.
@@ -131,7 +131,7 @@ public class TaskList {
                 filteredTask.add(task);
             }
         }
-        return  filteredTask;
+        return filteredTask;
     }
 
     /**

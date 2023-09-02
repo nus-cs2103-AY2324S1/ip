@@ -1,9 +1,9 @@
 package duke.ui;
 
+import java.util.ArrayList;
+
 import duke.exception.DukeException;
 import duke.task.Task;
-
-import java.util.ArrayList;
 
 /**
  * Handles user interface interactions and displays messages to the user.
@@ -166,7 +166,7 @@ public class Ui {
         int num = 1;
         for (Task task : taskList) {
             msg.add(num + ": " + task);
-            num ++;
+            num++;
         }
         if (taskList.size() == 0) {
             msg.add("You have no task currently.");
