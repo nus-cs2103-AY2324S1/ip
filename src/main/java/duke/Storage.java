@@ -27,7 +27,7 @@ public class Storage {
      */
     public ArrayList<Task> load() throws DukeException {
         //print error message if cannot load
-        //assume that all file path are ../data/duke.txt for now, change it later
+        //assume that all file path are ./data/duke.txt for now, change it later
         //if anything happen to the path or to the file, just return a new ArrayList and continue, no exception printed
         Path path = Paths.get("./data/duke.txt");
         ArrayList<Task> loadList = new ArrayList<>();

@@ -78,6 +78,7 @@ public class Parser {
     }
 
     public Task parseToTask() {
+        //rely on last method, last method must be called before this
         if (this.command.equals("todo")) {
             int size = this.parsedStr.length;
             String description = "";

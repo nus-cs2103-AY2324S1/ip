@@ -2,13 +2,22 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import duke.Ui;
+import duke.Parser;
+import duke.Storage;
+import duke.TaskList;
+import duke.DukeException;
+import duke.Task;
+
+
+
 public class Duke {
     private Parser parser;
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     public static void main(String[] args) throws IOException {
-        new Duke("../data/duke.txt").run();
+        new Duke("./data/duke.txt").run();
     }
 
     public Duke(String filePath) {
@@ -47,7 +56,7 @@ public class Duke {
                 ui.printUnmark(curr, index);
             } else if (command.equals("bye")) {
                 ui.goodbyeMessage();
-                break;
+                isExit = true;
             } else if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
                 Task curr = parser.parseToTask();
                 if (curr == null) {
@@ -65,11 +74,8 @@ public class Duke {
             } else {
                 //nothing found
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
-                isExit = true;
             }
         }
 
     }
 }
-
-//todo: debug error when loading event or deadline
