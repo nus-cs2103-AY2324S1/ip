@@ -3,7 +3,6 @@ package duke.command;
 import duke.TaskList;
 
 public abstract class Command {
-
     protected TaskList tasks;
 
     public void setData(TaskList tasks) {

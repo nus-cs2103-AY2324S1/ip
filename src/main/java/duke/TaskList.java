@@ -2,6 +2,7 @@ package duke;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class TaskList {
     private final List<Task> tasks;
@@ -23,7 +24,12 @@ public class TaskList {
      */
     public static TaskList decode(List<String> encodedTaskList) {
         List<Task> tasks = new ArrayList<>();
-        encodedTaskList.forEach(encodedTask -> tasks.add(Task.decode(encodedTask)));
+        encodedTaskList.forEach(encodedTask -> {
+            Task task = Task.decode(encodedTask);
+            if (!Objects.isNull(task)) {
+                tasks.add(Task.decode(encodedTask));
+            }
+        });
         return new TaskList(tasks);
     }
 

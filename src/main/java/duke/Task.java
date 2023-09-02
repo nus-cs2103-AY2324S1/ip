@@ -1,5 +1,11 @@
 package duke;
 
+import duke.parser.DukeParseException;
+import duke.parser.Parser;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Task {
     private final String desc;
     private boolean marked;
@@ -10,29 +16,32 @@ public class Task {
     }
 
     public static Task decode(String encodedTask) {
-        String[] tokens = encodedTask.split("\\|", 3);
-        String type = tokens[0];
-        String mark = tokens[1];
-        String input = tokens[2];
+        Pattern pattern = Pattern.compile("^(?<type>.)\\|(?<mark>.)\\|(?<taskString>.+)$");
+        Matcher matcher = pattern.matcher(encodedTask);
+        String type = matcher.group("type");
+        String mark = matcher.group("mark");
+        String input = matcher.group("taskString");
         Task task;
         switch (type) {
             case "T":
-                task = new Todo(input);
-                if (mark.equals("1")) {
-                    task.mark();
-                }
+                task = Parser.parseTodo(input);
                 break;
             case "D":
-                String[] deadlineTokens = input.split("/by", 2);
-                task = new Deadline(deadlineTokens[0], deadlineTokens[1]);
+                try {
+                    task = Parser.parseDeadline(input);
+                } catch (DukeParseException e) {
+                    return null;
+                }
                 break;
             case "E":
-                String[] eventTokens = input.split("/from", 2);
-                String[] eventTokens2 = eventTokens[1].split("/to", 2);
-                task = new Event(eventTokens[0], eventTokens2[0], eventTokens2[1]);
+                try {
+                    task = Parser.parseEvent(input);
+                } catch (DukeParseException e) {
+                    return null;
+                }
                 break;
             default:
-                task = new Task("");
+                return null;
         }
         if (mark.equals("1")) {
             task.mark();

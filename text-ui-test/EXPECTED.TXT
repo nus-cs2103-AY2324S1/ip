@@ -49,6 +49,7 @@
 
     __________________________________________________
     Sorry, but I don't know what that means :(
+    Deadline cannot be parsed
     deadline <description> /by <date>
     __________________________________________________
 

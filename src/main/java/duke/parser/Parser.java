@@ -22,6 +22,33 @@ import static duke.common.Messages.MESSAGE_INVALID_COMMAND;
 public class Parser {
     private static final Pattern COMMAND_FORMAT = Pattern.compile("^(?<command>\\S+)(?<arguments>.*)$");
 
+    public static Todo parseTodo(String args) {
+        return new Todo(args);
+    }
+
+    public static Deadline parseDeadline(String args) throws DukeParseException {
+        Pattern pattern = Pattern.compile("^(?<desc>.+) /by (?<by>.+)$");
+        Matcher matcher = pattern.matcher(args);
+        if (!matcher.matches()) {
+            throw new DukeParseException("Deadline cannot be parsed");
+        }
+        String desc = matcher.group("desc").trim();
+        String by = matcher.group("by").trim();
+        return new Deadline(desc, by);
+    }
+
+    public static Event parseEvent(String args) throws DukeParseException {
+        Pattern pattern = Pattern.compile("^(?<desc>.+) /from (?<from>.+) /to (?<to>.+)$");
+        Matcher matcher = pattern.matcher(args);
+        if (!matcher.matches()) {
+            throw new DukeParseException("Event cannot be parsed");
+        }
+        String desc = matcher.group("desc").trim();
+        String from = matcher.group("from").trim();
+        String to = matcher.group("to").trim();
+        return new Event(desc, from, to);
+    }
+
     public Command parseCommand(String input) {
         Matcher matcher = COMMAND_FORMAT.matcher(input);
         if (!matcher.matches()) {
@@ -32,57 +59,52 @@ public class Parser {
 
         switch (command) {
             case TodoCommand.COMMAND_WORD:
-                return parseTodo(args);
+                return parseTodoCommand(args);
             case DeadlineCommand.COMMAND_WORD:
-                return parseDeadline(args);
+                return parseDeadlineCommand(args);
             case EventCommand.COMMAND_WORD:
-                return parseEvent(args);
+                return parseEventCommand(args);
             case MarkCommand.COMMAND_WORD:
-                return parseMark(args);
+                return parseMarkCommand(args);
             case UnmarkCommand.COMMAND_WORD:
-                return parseUnmark(args);
+                return parseUnmarkCommand(args);
             case ListCommand.COMMAND_WORD:
-                return parseList(args);
+                return parseListCommand(args);
             case DeleteCommand.COMMAND_WORD:
-                return parseDelete(args);
+                return parseDeleteCommand(args);
             case ByeCommand.COMMAND_WORD:
-                return parseBye(args);
+                return parseByeCommand(args);
             default:
                 return new InvalidCommand(MESSAGE_INVALID_COMMAND);
         }
     }
 
-    private Command parseTodo(String args) {
+    private Command parseTodoCommand(String args) {
         if (args.isEmpty()) {
             return new InvalidCommand(TodoCommand.MESSAGE_EMPTY_DESCRIPTION, TodoCommand.MESSAGE_USAGE);
         }
-        return new TodoCommand(new Todo(args));
+        return new TodoCommand(parseTodo(args));
     }
 
-    private Command parseDeadline(String args) {
-        Pattern pattern = Pattern.compile("^(?<desc>.+) /by (?<by>.+)$");
-        Matcher matcher = pattern.matcher(args);
-        if (!matcher.matches()) {
-            return new InvalidCommand(MESSAGE_INVALID_COMMAND, DeadlineCommand.MESSAGE_USAGE);
+    private Command parseDeadlineCommand(String args) {
+        try {
+            Deadline deadline = parseDeadline(args);
+            return new DeadlineCommand(deadline);
+        } catch (DukeParseException e) {
+            return new InvalidCommand(MESSAGE_INVALID_COMMAND, e.getMessage(), DeadlineCommand.MESSAGE_USAGE);
         }
-        String desc = matcher.group("desc").trim();
-        String by = matcher.group("by").trim();
-        return new DeadlineCommand(new Deadline(desc, by));
     }
 
-    private Command parseEvent(String args) {
-        Pattern pattern = Pattern.compile("^(?<desc>.+) /from (?<from>.+) /to (?<to>.+)$");
-        Matcher matcher = pattern.matcher(args);
-        if (!matcher.matches()) {
+    private Command parseEventCommand(String args) {
+        try {
+            Event event = parseEvent(args);
+            return new EventCommand(event);
+        } catch (DukeParseException e) {
             return new InvalidCommand(MESSAGE_INVALID_COMMAND, EventCommand.MESSAGE_USAGE);
         }
-        String desc = matcher.group("desc").trim();
-        String from = matcher.group("from").trim();
-        String to = matcher.group("to").trim();
-        return new EventCommand(new Event(desc, from, to));
     }
 
-    private Command parseMark(String args) {
+    private Command parseMarkCommand(String args) {
         try {
             int taskNum = Integer.parseInt(args);
             return new MarkCommand(taskNum);
@@ -91,7 +113,7 @@ public class Parser {
         }
     }
 
-    private Command parseUnmark(String args) {
+    private Command parseUnmarkCommand(String args) {
         try {
             int taskNum = Integer.parseInt(args);
             return new UnmarkCommand(taskNum);
@@ -100,11 +122,11 @@ public class Parser {
         }
     }
 
-    private Command parseList(String args) {
+    private Command parseListCommand(String args) {
         return new ListCommand();
     }
 
-    private Command parseDelete(String args) {
+    private Command parseDeleteCommand(String args) {
         try {
             int taskNum = Integer.parseInt(args);
             return new DeleteCommand(taskNum);
@@ -113,7 +135,7 @@ public class Parser {
         }
     }
 
-    private Command parseBye(String args) {
+    private Command parseByeCommand(String args) {
         return new ByeCommand();
     }
 }

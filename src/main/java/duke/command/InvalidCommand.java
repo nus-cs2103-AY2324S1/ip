@@ -1,7 +1,6 @@
 package duke.command;
 
 public class InvalidCommand extends Command {
-
     public final String[] message;
 
     public InvalidCommand(String... message) {
