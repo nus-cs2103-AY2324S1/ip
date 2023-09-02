@@ -41,6 +41,13 @@ public class Task {
                 : "0 | " + description;
     }
 
+    /**
+     * Checks if the description contains the keyword.
+     * The check is non-case-sensitive.
+     *
+     * @param keyword The keyword that the user has entered.
+     * @return Returns true if the description contains the keyword.
+     */
     public boolean containsKeyword(String keyword) {
         return this.description.toLowerCase().contains(keyword.toLowerCase());
     }

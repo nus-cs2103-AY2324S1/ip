@@ -96,6 +96,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Displays all the tasks that matches the keyword.
+     *
+     * @param userInput the input String that the user has entered.
+     * @throws DukeException If an invalid keyword or no keyword is entered.
+     */
     public void findTasks(String userInput) throws DukeException {
         String keyword = Parser.getTaskDesc(userInput);
         int count = 0;
