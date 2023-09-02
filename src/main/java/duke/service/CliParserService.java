@@ -8,15 +8,36 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Provides functionality to parse and execute commands from the command line interface.
+ * <p>
+ * This service is responsible for continuously reading commands from the CLI, parsing them into
+ * their respective components, and then executing the associated commands using a {@link CommandFactory}.
+ * </p>
+ */
 public class CliParserService {
     private final UiService uiService;
     private final CommandFactory commandFactory;
 
+    /**
+     * Constructs a new instance of the CLI parser service.
+     *
+     * @param uiService       The UI service to use for interactions with the user.
+     * @param commandFactory  The command factory to use for creating command objects.
+     */
     public CliParserService(UiService uiService, CommandFactory commandFactory) {
         this.uiService = uiService;
         this.commandFactory = commandFactory;
     }
 
+    /**
+     * Reads and executes commands from the command line interface continuously.
+     * <p>
+     * This method will repeatedly read lines of input from the CLI, parse the lines into command
+     * components, create the associated {@link Command} objects using the {@link CommandFactory},
+     * and then execute the commands. If an "exit" command is encountered, this method will return.
+     * </p>
+     */
     public void parse() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -36,6 +57,12 @@ public class CliParserService {
         }
     }
 
+    /**
+     * Parses a command line into its main command and associated arguments.
+     *
+     * @param line The command line to parse.
+     * @return A {@link ParseResult} object containing the parsed command and its arguments.
+     */
     public ParseResult parseCommandAndArguments(String line) {
         line = line.trim();
         List<String> arguments = new ArrayList<>();
@@ -59,19 +86,38 @@ public class CliParserService {
         return new ParseResult(commandType, arguments);
     }
 
+    /**
+     * Represents the result of parsing a command line into its main command and arguments.
+     */
     static final class ParseResult {
         private String commandType;
         private List<String> arguments;
 
+        /**
+         * Constructs a new parse result.
+         *
+         * @param commandType The parsed command type.
+         * @param arguments   The list of parsed arguments.
+         */
         ParseResult(String commandType, List<String> arguments) {
             this.commandType = commandType;
             this.arguments = arguments;
         }
 
+        /**
+         * Retrieves the parsed command type.
+         *
+         * @return The command type as a string.
+         */
         public String getCommandType() {
             return commandType;
         }
 
+        /**
+         * Retrieves the list of parsed arguments.
+         *
+         * @return A list of arguments.
+         */
         public List<String> getArguments() {
             return arguments;
         }

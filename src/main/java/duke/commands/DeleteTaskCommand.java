@@ -5,17 +5,29 @@ import duke.exception.DukeStorageException;
 import duke.service.UiService;
 import duke.tasks.Task;
 
-import java.util.List;
 import java.util.Optional;
 
+/**
+ * Represents a command to delete a task from the Duke application.
+ */
 public class DeleteTaskCommand extends Command {
     private final int taskId;
 
+    /**
+     * Constructs a DeleteTaskCommand.
+     *
+     * @param dukeBot   The main Duke instance.
+     * @param uiService The UI service for interactions.
+     * @param taskId    The ID of the task to be deleted.
+     */
     public DeleteTaskCommand(Duke dukeBot, UiService uiService, int taskId) {
         super(dukeBot, uiService);
         this.taskId = taskId;
     }
 
+    /**
+     * Executes the command to delete a task.
+     */
     @Override
     public void execute() {
         try {

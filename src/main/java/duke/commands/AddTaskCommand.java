@@ -10,11 +10,23 @@ import duke.tasks.Task;
 
 import java.util.List;
 
+/**
+ * Represents a command to add a task in the Duke application.
+ */
 public class AddTaskCommand extends Command {
     private final String taskType;
     private final List<String> argsList;
     private final TaskFactory taskFactory;
 
+    /**
+     * Constructs an AddTaskCommand.
+     *
+     * @param dukeBot    The main Duke instance.
+     * @param uiService  The UI service for interactions.
+     * @param taskType   The type of the task to be added.
+     * @param argsList   The arguments required to create the task.
+     * @param taskFactory The factory to create tasks.
+     */
     public AddTaskCommand(Duke dukeBot, UiService uiService,
                           String taskType, List<String> argsList, TaskFactory taskFactory) {
         super(dukeBot, uiService);
@@ -23,6 +35,9 @@ public class AddTaskCommand extends Command {
         this.taskFactory = taskFactory;
     }
 
+    /**
+     * Executes the command to add a task.
+     */
     @Override
     public void execute() {
         try {
