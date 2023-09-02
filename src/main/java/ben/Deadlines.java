@@ -9,7 +9,7 @@ public class Deadlines extends Task {
     /**
      * The deadline.
      */
-    private final LocalDateTime by;
+    private LocalDateTime by;
 
     /**
      * Constructor that takes in a description and whether the deadline is completed and the date of the deadline.

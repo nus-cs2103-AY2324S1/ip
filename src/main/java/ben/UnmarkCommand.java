@@ -7,7 +7,7 @@ public class UnmarkCommand extends Command{
     /**
      * The task to be unmarked
      */
-    private final Task task;
+    private Task task;
 
     /**
      * Constructor taking in a task.

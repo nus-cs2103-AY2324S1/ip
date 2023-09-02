@@ -10,7 +10,7 @@ public class Task {
     /**
      * Description of the task.
      */
-    private final String description;
+    private String description;
 
     /**
      * Whether the task has been completed.

@@ -9,12 +9,12 @@ public class Events extends Task{
     /**
      * The date of when the event starts.
      */
-    private final LocalDateTime from;
+    private LocalDateTime from;
 
     /**
      * The date of when the event ends.
      */
-    private final LocalDateTime to;
+    private LocalDateTime to;
 
     /**
      * Constructor that takes in description of the event, whether it is completed, the from and to date of the event.

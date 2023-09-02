@@ -7,7 +7,7 @@ public class DeleteCommand extends Command{
     /**
      * The task to be deleted.
      */
-    private final Task task;
+    private Task task;
 
     /**
      * Constructor that takes in a task to be deleted.

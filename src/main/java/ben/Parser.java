@@ -1,6 +1,7 @@
 package ben;
 
 import java.util.Objects;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,7 +12,7 @@ public class Parser {
     /**
      * The task list.
      */
-    private final TaskList tasks;
+    private TaskList tasks;
 
     /**
      * The constructor taking in a task list.
@@ -29,12 +30,12 @@ public class Parser {
      * @return a Task.
      * @throws InvalidCommandException Error for invalid commands.
      */
-    public Command parse(String command) throws InvalidCommandException{
+    public Command parse(String command) throws InvalidCommandException {
         String[] words = command.split("\\s+");
         if (words[0].equalsIgnoreCase("delete") ||
                 words[0].equalsIgnoreCase("unmark") ||
                 words[0].equalsIgnoreCase("mark")) {
-            return referenceListCommandParser(command);
+            return referenceListCommandParse(command);
         } else if (words[0].equalsIgnoreCase("bye")) {
             return new ByeCommand();
         } else if (words[0].equalsIgnoreCase("list")) {
@@ -51,7 +52,7 @@ public class Parser {
      * @return The task.
      * @throws InvalidCommandException Thrown when the command is invalid.
      */
-    public Command referenceListCommandParser(String message) throws InvalidCommandException{
+    public Command referenceListCommandParse(String message) throws InvalidCommandException{
         Pattern pattern = Pattern.compile("(unmark|mark|delete)\\s*(-?\\d+)");
         Matcher matcher = pattern.matcher(message.toLowerCase());
 

@@ -1,12 +1,14 @@
 package ben;
 
 import java.util.Scanner;
+
 public class Ui {
-    private final Scanner user;
+    private Scanner user;
 
     public Ui() {
         this.user = new Scanner(System.in);
     }
+
     private final static String HORIZONTAL_LINE = "------------------------------------------";
 
     public String nextLine() {
@@ -16,6 +18,7 @@ public class Ui {
     public static void displayMessage(String message) {
         System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
     }
+
     public void greeting() {
         displayMessage("\nWhat's up! I'm Ben\nWhat can I do for you?\n");
     }
