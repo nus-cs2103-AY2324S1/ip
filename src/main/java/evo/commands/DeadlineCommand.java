@@ -61,7 +61,7 @@ public class DeadlineCommand extends Command {
                 taskBy += dates[i] + " ";
             }
         }
-        // Creates the deadline object with the taskDescription and taskBy
+        // Create the deadline object with the taskDescription and taskBy
         Deadline deadline = new Deadline(taskDescription, taskBy);
         tasksList.addTask(deadline);
         ui.showText("Got it. I've added this task:");
