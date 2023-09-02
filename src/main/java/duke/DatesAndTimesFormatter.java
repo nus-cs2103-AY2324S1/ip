@@ -3,7 +3,7 @@ package duke;
 import java.time.format.DateTimeFormatter;
 
 public enum DatesAndTimesFormatter {
-    INPUT_FORMAT(DateTimeFormatter.ISO_LOCAL_DATE),
+    INPUT_FORMAT("yyyy-MM-dd"),
     OUTPUT_FORMAT("MMM dd yyyy"),
     SLASH_FORMAT("dd/MM/yyyy");
 
