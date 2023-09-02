@@ -1,35 +1,19 @@
 import java.io.File;
-import java.io.FileNotFoundException;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
-import java.io.FileWriter;
-import java.io.BufferedWriter;
 
 public class DogeBot {
-    private static ArrayList<Task> tasks = new ArrayList<>();
-
     private static final String HOME = System.getProperty("user.home"); // get relative path
     private static final java.nio.file.Path PATH = java.nio.file.Paths.get(HOME, "OneDrive", "Desktop", "iP",
         "src", "main");
     private static File file;
-    public static void main(String[] args) {
-        final String LOGO = "    ___\n"
-            + " __/_  `.  .-\"\"\"-."         + "           |                      |             |   \n"
-            + " \\_,` | \\-'  /   )`-')"      + "    _` |   _ \\    _` |   _ \\  __ \\    _ \\   __| \n"
-            + "  \"\") `\"`    \\  ((`\"`"    + "    (   |  (   |  (   |   __/  |   |  (   |  |   \n"
-            + " ___Y  ,    .'7 /|"            + "      \\__,_| \\___/  \\__, | \\___| _.__/  \\___/  \\__| \n"
-            + "(_,___/...-` (_/_/"            + "                    |___/";
 
-        System.out.println(LOGO + "\nHi ! I'm DogeBot \nHow may I help you today ?\n");
-        Scanner sc = new Scanner(System.in);
-        boolean isLoop = true;
+    private Ui ui;
+    private Parser userInput;
+    private Storage storage;
+    protected static TaskList tasks;
 
-        // create 'tasklist.txt' for saving tasks onto hard disk
-        file = new File(PATH.toString(), "tasklist.txt");
+    public DogeBot(String filename) {
+        file = new File(PATH.toString(), filename);
         try {
             if (!file.exists()) {
                 file.createNewFile();
@@ -38,195 +22,22 @@ public class DogeBot {
             System.out.println(e.getMessage());
         }
 
-        // load 'tasklist.txt' into 'tasks' arraylist
-        try {
-            Scanner reader = new Scanner(file);
-            while (reader.hasNextLine()) {
-                String s = reader.nextLine();
-                String[] sArray = s.split("\\|");
-                String description = sArray[2].trim();
-                boolean isDone = (sArray[1].trim().equals("1")) ? true : false;
+        ui = new Ui();
+        userInput = new Parser();
+        storage = new Storage(file);
+        tasks = new TaskList(storage.readFromTxtFile());
+    }
 
-                switch (sArray[0]) {
-                case "T ":
-                    tasks.add(new ToDos(description, isDone));
-                    break;
-                case "D ":
-                    String by = sArray[3].trim();
-                    tasks.add(new Deadline(description, by, isDone));
-                    break;
-                case "E ":
-                    String[] duration = sArray[3].split("-");
-                    String start = duration[0].trim();
-                    String end = duration[1].trim();
-                    tasks.add(new Event(description, start, end, isDone));
-                    break;
-                default:
-                    break;
-                }
-            }
-            reader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-
+    public void run() {
+        ui.intro();
+        boolean isLoop = true;
         while (isLoop) {
-            try {
-                switch (sc.next().toLowerCase()) {
-                case "bye":
-                    isLoop = false;
-                    bye();
-                    break;
-                case "list":
-                    list();
-                    break;
-                case "mark":
-                    mark(sc.nextInt() - 1);
-                    break;
-                case "unmark":
-                    unmark(sc.nextInt() - 1);
-                    break;
-                case "todo":
-                    todo(sc.nextLine().trim()); // sc.nextLine() to get the remaining words
-                    break;
-                case "deadline":
-                    deadline(sc.nextLine().trim());
-                    break;
-                case "event":
-                    event(sc.nextLine().trim());
-                    break;
-                case "delete":
-                    delete(sc.nextInt() - 1);
-                    break;
-                default:
-                    System.out.println("Wuff, I'm not sure what that means :(");
-                    sc.nextLine(); // absorb remaining words so 'default' block doesn't act up
-                }
-            } catch (InputMismatchException e) {
-                sc.nextLine(); // absorb remaining words so 'default' block doesn't act up
-                System.out.println("Oops ! Integers only please :c");
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Oh no :( I think that number is too big~");
-            } catch (DogeBotException e) {
-                System.out.println(e.getMessage());
-            }
+            isLoop = userInput.scan();
         }
-
-        System.out.println("Bye~ See you again");
-        sc.close();
+        storage.save(tasks);
     }
 
-    public static void bye() {
-        // overwrite 'tasklist.txt' with 'tasks' arraylist
-        try {
-            FileWriter fw = new FileWriter(file);
-            BufferedWriter bw = new BufferedWriter(fw);
-            for (Task task : tasks) {
-                bw.write(task.toString() + "\n");
-            }
-            bw.close();
-            fw.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public static void list() throws DogeBotException {
-        if (tasks.size() == 0) {
-            throw new DogeBotException("Oops ! Your list is empty ! Try adding some tasks first c:");
-        }
-
-        System.out.println("Stuff to do:");
-        int i = 1;
-        for (Task task : tasks) {
-            if (task == null) {
-                break;
-            }
-            System.out.println(i++ + ". " + task.toString());
-        }
-    }
-
-    public static void mark(int index) throws DogeBotException {
-        if (tasks.size() == 0) {
-            throw new DogeBotException("Oops ! Try adding some tasks first c:");
-        }
-
-        tasks.get(index).markTask(true);
-        System.out.println("Good job on completing a task ! You deserve a cookie C:");
-        System.out.println("\t" + tasks.get(index).toString());
-    }
-
-    public static void unmark (int index) throws DogeBotException {
-        if (tasks.size() == 0) {
-            throw new DogeBotException("Oops ! Try adding some tasks first c:");
-        }
-
-        tasks.get(index).markTask(false);
-        System.out.println("Oh nyo, did someone make a mistake ?");
-        System.out.println("\t" + tasks.get(index).toString());
-    }
-
-    public static void updateTasksCounter() {
-        System.out.println("You now have " + tasks.size() + " task(s) in your list");
-    }
-
-    public static void todo(String words) throws DogeBotException {
-        if (words.isBlank()) {
-            throw new DogeBotException("Oops ! The description of a todo cannot be empty :(");
-        }
-
-        System.out.println("Mama mia ! I've just added this task:");
-        Task temp = new ToDos(words, false);
-        tasks.add(temp);
-        System.out.println("\t" + temp.toString());
-        updateTasksCounter();
-    }
-
-    public static void deadline(String words) throws DogeBotException {
-        if (words.isBlank()) {
-            throw new DogeBotException("Oops ! The description of a deadline cannot be empty :(");
-        }
-
-        int split = words.indexOf("/by");
-        // substring w/o the spaces
-        String taskDescription = words.substring(0, split - 1);
-        String taskDeadline = words.substring(split + 4, words.length());
-
-        System.out.println("Mama mia ! I've just added this task:");
-        Task temp = new Deadline(taskDescription, taskDeadline, false);
-        tasks.add(temp);
-        System.out.println("\t" + temp.toString());
-        updateTasksCounter();
-    }
-
-    public static void event(String words) throws DogeBotException {
-        if (words.isBlank()) {
-            throw new DogeBotException("Oops ! The description of an event cannot be empty :(");
-        }
-
-        // substring w/o the spaces
-        int startSplit = words.indexOf("/from");
-        String taskDescription = words.substring(0, startSplit - 1);
-        int endSplit = words.indexOf("/to", startSplit + 1); // find "/" after startSplit index
-        String start = words.substring(startSplit + 6, endSplit - 1);
-        String end = words.substring(endSplit + 4, words.length());
-
-        System.out.println("Mama mia ! I've just added this task:");
-        Task temp = new Event(taskDescription, start, end, false);
-        tasks.add(temp);
-        System.out.println("\t" + temp.toString());
-        updateTasksCounter();
-    }
-
-    public static void delete(int index) throws DogeBotException {
-        if (tasks.size() == 0) {
-            throw new DogeBotException("Oops ! There's no tasks in your list to delete :O");
-        }
-
-        Task curr = tasks.get(index);
-        System.out.println("Got it~ This task has been removed:");
-        System.out.println("\t" + curr.toString());
-        tasks.remove(index);
-        updateTasksCounter();
+    public static void main(String[] args) {
+        new DogeBot("tasklist.txt").run();
     }
 }
