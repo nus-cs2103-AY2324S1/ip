@@ -1,3 +1,12 @@
+package duke.command;
+
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.ToDo;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.DukeException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -182,23 +191,6 @@ public class Parser {
             throw new DukeException("Please enter date in dd/MM/yyyy format.");
         }
 
-    }
-
-    private static LocalDate parseDate(String dateString) throws DukeException {
-        DateTimeFormatter[] formatters = {
-                DateTimeFormatter.ofPattern("yyyy-MM-dd"),
-                DateTimeFormatter.ofPattern("dd/MM/yyyy")
-        };
-
-        for (DateTimeFormatter formatter : formatters) {
-            try {
-                return LocalDate.parse(dateString, formatter);
-            } catch (DateTimeParseException ignored) {
-                throw new DukeException("Invalid date format. Please have dates in dd/MM/yyyy format.");
-            }
-        }
-
-        return null; // Return null if date couldn't be parsed
     }
 
     private static String generateTaskAddedResponse(Task task, TaskList taskList) {

@@ -1,6 +1,8 @@
+package duke.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-public class Event extends Task{
+public class Event extends Task {
     public LocalDate begin;
     public LocalDate end;
 
@@ -23,16 +25,4 @@ public class Event extends Task{
                 end.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
         return str;
     }
-
-//    @Override
-//    public String toDataString() {
-//        return super.toDataString() + " | " + begin + " | " + end;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        String str = "[E] " + super.getStatus() + " " + super.name
-//                + " (from: " + this.begin + " to: " + this.end + ")";
-//        return str;
-//    }
 }
