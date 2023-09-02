@@ -8,7 +8,7 @@ import duke.ui.TextUi;
  */
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
-    public static final String MESSAGE_USAGE = "event <description> /from <date> /to <date>";
+    public static final String MESSAGE_USAGE = "event <description> /from <date YYYY-MM-DD> /to <date YYYY-MM-DD>";
     private final Event taskToAdd;
 
     public EventCommand(Event task) {

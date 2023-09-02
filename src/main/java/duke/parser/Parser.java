@@ -70,7 +70,13 @@ public class Parser {
         String desc = matcher.group("desc").trim();
         String from = matcher.group("from").trim();
         String to = matcher.group("to").trim();
-        return new Event(desc, from, to);
+        try {
+            LocalDate fromDate = LocalDate.parse(from);
+            LocalDate toDate = LocalDate.parse(to);
+            return new Event(desc, fromDate, toDate);
+        } catch (DateTimeParseException e) {
+            throw new DukeParseException("Event cannot be parsed");
+        }
     }
 
     /**
