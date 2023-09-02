@@ -11,7 +11,7 @@ public class ByeCommand extends Command {
 
     @Override
     public void printCommand(TaskList taskList) {
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("JonBird:\n\tBye. Hope to see you again soon!");
     }
 
     @Override

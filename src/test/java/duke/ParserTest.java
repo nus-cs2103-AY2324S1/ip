@@ -32,6 +32,6 @@ public class ParserTest {
         } catch (DukeException e) {
             System.out.println("Please check your test cases.");
         }
-
+        storage.writeData("");
     }
 }
