@@ -16,8 +16,8 @@ public class DeleteCommand extends Command {
         try {
             Task task = tasks.getTask(taskNum - 1);
             tasks.deleteTask(taskNum - 1);
-            ui.deleteMessage(task);
-            ui.taskListSizeMessage(tasks.getSize(), false);
+            ui.showDeleteMessage(task);
+            ui.showTaskListSizeMessage(tasks.getSize(), false);
         } catch (IndexOutOfBoundsException e) {
             ui.showError("You have no such task, mortal.");
             return;

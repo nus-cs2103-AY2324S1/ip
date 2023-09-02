@@ -10,6 +10,6 @@ public class ByeCommand extends Command {
     }
 
     public void execute(TaskList tasks, Ui ui) {
-        ui.endMessage();
+        ui.showEndMessage();
     }
 }

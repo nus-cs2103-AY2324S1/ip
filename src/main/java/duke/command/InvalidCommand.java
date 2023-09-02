@@ -9,6 +9,6 @@ public class InvalidCommand extends Command {
     }
 
     public void execute(TaskList tasks, Ui ui) {
-        ui.invalidCommandMessage();
+        ui.showInvalidCommandMessage();
     }
 }

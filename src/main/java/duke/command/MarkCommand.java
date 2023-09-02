@@ -17,7 +17,7 @@ public class MarkCommand extends Command {
         try {
             Task task = tasks.getTask(taskNum - 1);
             task.changeStatus(true);
-            ui.markTaskMessage(task);
+            ui.showMarkTaskMessage(task);
         } catch (IndexOutOfBoundsException e) {
             ui.showError("You have no such task, mortal.");
         }

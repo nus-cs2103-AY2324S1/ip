@@ -17,7 +17,7 @@ public class ToDoCommand extends Command {
     public void execute(TaskList tasks, Ui ui) {
         Task task = new ToDo(description);
         tasks.addTask(task);
-        ui.todoMessage(task);
-        ui.taskListSizeMessage(tasks.getSize(), true);
+        ui.showTodoMessage(task);
+        ui.showTaskListSizeMessage(tasks.getSize(), true);
     }
 }
