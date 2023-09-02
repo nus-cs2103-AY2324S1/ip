@@ -27,6 +27,7 @@ public class Duke {
      */
     private static ArrayList<Task> taskArray = new ArrayList<>();
     private static int numOfTasks = 0;
+    private static Storage taskStorage = new Storage();
 
     /**
      * An enum to track the status of the chatbot
@@ -72,10 +73,7 @@ public class Duke {
     private static void list() {
         int count = 1;
         System.out.print(horizontalLine);
-        for (Task task : taskArray) {
-            if (task == null) break;
-            System.out.println(count++ + ". " + task.toString());
-        }
+        System.out.print(taskStorage.list());
         System.out.print(horizontalLine);
     }
 
@@ -85,8 +83,7 @@ public class Duke {
      * @param task The task inputted by the user
      */
     private static void append(Task task) {
-        taskArray.add(task);
-        numOfTasks++;
+        taskStorage.appendTask(task);
         System.out.print(horizontalLine + "YOU WANT TO " + task + "?\nSURE, WHATEVER.\n" + horizontalLine);
     }
 
@@ -172,6 +169,8 @@ public class Duke {
             System.out.print("NOT A NUMBER IDIOT!!!\n");
         } catch (NullPointerException e) {
             System.out.print("NOTHING THERE IDIOT!!!\n");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.print("NOTHING THERE IDIOT!!!\n");
         } catch (IllegalArgumentException e) {
             System.out.print("ALREADY DONE BRO!\n");
         } finally {
@@ -197,6 +196,8 @@ public class Duke {
             System.out.print("NOT A NUMBER IDIOT!!!\n");
         } catch (NullPointerException e) {
             System.out.print("NOTHING THERE IDIOT!!!\n");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.print("NOTHING THERE IDIOT!!!\n");
         } catch (IllegalArgumentException e) {
             System.out.print("ALREADY UNDONE BRO!\n");
         } finally {
@@ -213,9 +214,9 @@ public class Duke {
         try {
             int index = Integer.parseInt(toDelete.substring(7)) - 1;
             System.out.print("YOU SEE THIS?\n" +
-                    taskArray.get(index) +
+                    taskStorage.get(index) +
                     "\nNOW YOU DON'T\n");
-            taskArray.remove(index);
+            taskStorage.delete(index);
         } catch (NumberFormatException e) {
             System.out.print("NOT A NUMBER IDIOT!!!\n");
         } catch (IndexOutOfBoundsException e) {
@@ -230,54 +231,6 @@ public class Duke {
         Scanner textInput = new Scanner(System.in);
         Status botStatus = Status.RUNNING;
 
-        try {
-            // Get directory of data
-            Path path = Paths.get("./data");
-
-            // Make new directory if it doesn't exist
-            if (!Files.exists(path)) {
-                Files.createDirectories(path);
-                System.out.println("Directory is created!");
-            }
-
-        } catch (IOException e) {
-            System.err.println("Failed to create directory!" + e.getMessage());
-        }
-
-        // Accesses the text file or creates one if it doesn't exist
-        try {
-            FileReader fr = new FileReader("./data/duke.txt");
-            int c;
-            String savedTasks = "";
-            while ((c=fr.read()) != -1) {
-                savedTasks += (char) c;
-            }
-
-            String[] taskList = new String[100];
-            for (String task : savedTasks.split(";")) {
-                String[] taskDetails = task.split("/");
-                Task savedTask;
-                switch(taskDetails[0]) {
-                case "T":
-                    savedTask = new ToDo(taskDetails[2]);
-                    break;
-                case "D":
-                    savedTask = new Deadline(taskDetails[2], taskDetails[3]);
-                    break;
-                case "E":
-                    savedTask = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
-                    break;
-                default:
-                    savedTask = new Task(taskDetails[0]);
-                }
-                if (Integer.parseInt(taskDetails[1]) == 1) {
-                    savedTask.markAsDone();
-                }
-                taskArray.add(savedTask);
-            }
-        } catch (FileNotFoundException fe) {
-            System.out.println("File not found, creating new text file...");
-        }
 
         while (botStatus == Status.RUNNING) {
             String nextLine = textInput.nextLine();
@@ -317,30 +270,7 @@ public class Duke {
             }
         }
 
-        FileWriter fw = new FileWriter("./data/duke.txt");
-        String out = "";
-
-        for (Task taskToSave : taskArray) {
-            String taskType;
-            String taskAppendices = "";
-            if (taskToSave instanceof ToDo) {
-                taskType = "T/";
-                taskAppendices = "/" + taskToSave.description;
-            } else if (taskToSave instanceof Deadline) {
-                taskType = "D/";
-                taskAppendices = "/"  + taskToSave.description + "/" + ((Deadline) taskToSave).by;
-            } else if (taskToSave instanceof  Event) {
-                taskType = "E/";
-                taskAppendices = "/" + taskToSave.description + "/" +
-                        ((Event) taskToSave).from + "/" + ((Event) taskToSave).to;
-            } else {
-                taskType = taskToSave.description + "/";
-            }
-            out += taskType + (taskToSave.isDone ? 1 : 0) + taskAppendices + ";";
-        }
-
-        fw.write(out);
-        fw.close();
+        taskStorage.write();
         exit();
     }
 }
