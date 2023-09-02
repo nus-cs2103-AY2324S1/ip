@@ -1,12 +1,11 @@
 package duke.command;
 
-import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * Represents the Command List that display all of the task on the list
+ * Represents the Command List that display all the task on the list
  *
  * @author Angky Akdi Frandy Putrakelana
  */
