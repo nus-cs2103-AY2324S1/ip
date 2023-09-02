@@ -6,7 +6,7 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * An interactive chatbot that helps it user to maintain their tasks
+ * An interactive chatBot that helps it user to maintain their tasks
  *
  * @author Angky Akdi Frandy Putrakelana
  */
@@ -16,7 +16,7 @@ public class Duke {
     private Ui ui = new Ui();
 
     /**
-     * Constructs an instance of Duke chatbot.
+     * Constructs an instance of Duke chatBot.
      *
      */
     public Duke() {
@@ -29,7 +29,7 @@ public class Duke {
     }
 
     /**
-     * Runs the duke chatbot.
+     * Runs the duke chatBot.
      *
      */
     private void run() {
@@ -54,7 +54,7 @@ public class Duke {
     }
 
     /**
-     * Starts the duke chatbot.
+     * Starts the duke chatBot.
      *
      */
     public static void main(String[] args) {
