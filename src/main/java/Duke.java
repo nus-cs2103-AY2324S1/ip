@@ -60,6 +60,17 @@ public class Duke {
     }
   }
 
+  public void addTodo() {
+    try {
+      Task curentTask = new Todo(parser.getTaskName());
+      taskList.add(curentTask);
+      System.out.println("added:\t" + ui.displayTask(curentTask));
+    } catch (StringIndexOutOfBoundsException ex) {
+
+      System.out.println("Please enter a name after the todo command!");
+    }
+  }
+
   public void run() {
 
     ui.displayGreetings();
@@ -94,15 +105,7 @@ public class Duke {
           break;
         }
         case "todo": {
-          try {
-            Task curentTask = new Todo(parser.getTaskName());
-            taskList.add(curentTask);
-            System.out.println("added:\t" + ui.displayTask(curentTask));
-          } catch (StringIndexOutOfBoundsException ex) {
-
-            System.out.println("Please enter a name after the todo command!");
-          }
-
+          addTodo();
           break;
         }
         case "deadline": {
