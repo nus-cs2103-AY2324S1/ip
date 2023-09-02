@@ -3,9 +3,15 @@ package arona.ui;
 import arona.task.Task;
 import arona.task.TaskList;
 
+<<<<<<< HEAD
 /**
  * The UI class handles user interface-related functionality.
  */
+=======
+import java.util.ArrayList;
+import java.util.List;
+
+>>>>>>> Level-9
 public class Ui {
 
     /**
@@ -107,5 +113,23 @@ public class Ui {
      */
     public static void showInvalidArgumentMessage() {
         System.out.println("Oops! I'm not quite sure what that means...\n");
+    }
+
+    /**
+     * Displays the search results to the user.
+     *
+     * @param result The TaskList containing the matching tasks.
+     */
+    public static void showSearchResult(TaskList result) {
+        if (result.getTasks().isEmpty()) {
+            System.out.println("No matching tasks found.\n");
+        } else {
+            System.out.println("Hello! Here are your matching tasks:");
+            ArrayList<Task> tasks = result.getTasks();
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
+            }
+            System.out.println();
+        }
     }
 }

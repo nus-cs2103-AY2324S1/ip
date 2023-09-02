@@ -177,5 +177,24 @@ public class Parser {
         }
         return -1;
     }
+
+    /**
+     * Extracts and returns a keyword from an array of tokens.
+     *
+     * @param tokens An array of tokens containing user input.
+     * @return The keyword to be used for searching.
+     * @throws IllegalArgumentAronaException If the input format is incorrect:
+     *                                      - If no keyword is specified, an exception is thrown.
+     *                                      - If more than one keyword is provided, an exception is thrown.
+     */
+    public static String getKeyWord(String[] tokens) throws IllegalArgumentAronaException {
+        if (tokens.length < 2) {
+            throw new IllegalArgumentAronaException("Please specify a keyword I can search for you");
+        } else if (tokens.length > 2) {
+            throw new IllegalArgumentAronaException("Sorry... I can only handle one keyword");
+        } else {
+            return tokens[1];
+        }
+    }
 }
 
