@@ -9,14 +9,42 @@ import java.util.Locale;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 /**
  * Represents the main class for the Alain chatbot.
  */
-public class ChatbotAlain {
+public class ChatbotAlain extends Application {
+
+    private Image user = new Image(this.getClass().getResourceAsStream("/image/User.jpg"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/image/Ai.jpg"));
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+
     private Ui ui;
+    private GUI_Ui guiUi;
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Default Constructor for ChatbotAlain
+     */
+    public ChatbotAlain() {
+    }
     /**
      * Constructs a ChatbotAlain object.
      *
@@ -198,5 +226,201 @@ public class ChatbotAlain {
     public static void main(String[] args) throws AlainException, IOException {
         //System.out.println("hi");
         new ChatbotAlain("tasks.txt").run();
+    }
+
+    /**
+     * Initializes the primary stage for the application.
+     *
+     * <p>This method sets up the main layout comprising a scroll pane for dialogs,
+     * a text field for user input, and a send button to trigger actions.
+     * The layout is then added to the primary stage and displayed.</p>
+     *
+     * @param stage The primary stage of the application where all UI components are placed.
+     */
+    @Override
+    public void start(Stage stage) {
+        // Step 1 code here
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+
+        userInput = new TextField();
+        sendButton = new Button("Send");
+
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+
+        scene = new Scene(mainLayout);
+
+        stage.setScene(scene);
+        stage.show();
+        //Step 2 code here
+        stage.setTitle("Alain");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
+
+        mainLayout.setPrefSize(400.0, 600.0);
+
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+
+        // You will need to import `javafx.scene.layout.Region` for this.
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        userInput.setPrefWidth(325.0);
+
+        sendButton.setPrefWidth(55.0);
+
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0);
+
+        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
+        //Step 3. Add functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+
+        userInput.setOnAction((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+        //Part 3. Add functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+    }
+
+    /**
+     * Iteration 1:
+     * Creates a label with the specified text and adds it to the dialog container.
+     * @param text String containing text to add
+     * @return a label with the specified text that has word wrap enabled.
+     */
+    private Label getDialogLabel(String text) {
+        // You will need to import `javafx.scene.control.Label`.
+        Label textToAdd = new Label(text);
+        textToAdd.setWrapText(true);
+
+        return textToAdd;
+    }
+
+    /**
+     * Iteration 2:
+     * Creates two dialog boxes, one echoing user input and the other containing Alain's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    private void handleUserInput() {
+        Label userText = new Label(userInput.getText());
+        Label dukeText = new Label(getResponse(userInput.getText()));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+        );
+        userInput.clear();
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    private TaskList listGui = new TaskList();
+    private String getResponse(String input) {
+        guiUi = new GUI_Ui();
+        String ai = "Ai: \n";
+        try {
+            String text = new String();
+            text = input;
+            boolean isMatchMark = Pattern.matches("mark \\d+", text);
+            boolean isMatchUnmark = Pattern.matches("unmark \\d+", text);
+            boolean isDeadline = Pattern.matches("deadline .+", text);
+            boolean isToDo = Pattern.matches("todo .+", text);
+            boolean isEvent = Pattern.matches("event .+", text);
+            boolean isDelete = Pattern.matches("delete .+", text);
+            boolean isFind = Pattern.matches("find .+", text);
+            if (isFind) {
+                String keyWord = text.substring(4);
+                TaskList tmpList = new TaskList();
+                for (int i = 0; i < listGui.size(); i++) {
+                    if (listGui.getTask(i).descriptionContain(keyWord)) {
+                        tmpList.addTask(listGui.getTask(i));
+                    }
+                }
+                return ai + guiUi.showListContainingKeyword(tmpList);
+            }
+            if (isDelete) {
+                String numericPart = text.substring(7);
+                int pos = Integer.parseInt(numericPart) - 1;
+                if (pos >= 0 && pos < listGui.size()) {
+                    Task removedTask = listGui.removeTask(pos);
+                    return ai + guiUi.showRemoveTask(removedTask, listGui);
+                } else {
+                    throw new AlainException("Invalid task index.");
+                }
+            }
+            if (isToDo) {
+                String mission = text.substring(4);
+                if (mission.length() == 0) {
+                    throw new AlainException("The description of a Todo cannot be empty.");
+                }
+                listGui.addTask(new ToDos(mission));
+                return ai + guiUi.showAddTask(listGui.getTask(listGui.size() - 1), listGui);
+            }
+            if (isDeadline) {
+                String mission = text.substring(8);
+                if (mission.length() == 0) {
+                    throw new AlainException("The description of a Deadline cannot be empty.");
+                }
+                String[] parts = mission.split("/by ");
+                if (parts.length != 2) {
+                    throw new AlainException("The description of a Deadline is invalid");
+                }
+                listGui.addTask(new Deadlines(parts[0], stringToTimeString(parts[1])));
+                return ai + guiUi.showAddTask(listGui.getTask(listGui.size() - 1), listGui);
+            }
+            if (isEvent) {
+                String mission = text.substring(5);
+                if (mission.length() == 0) {
+                    throw new AlainException("The description of a Event cannot be empty.");
+                }
+                String[] parts = mission.split("/");
+                if (parts.length != 3) {
+                    throw new AlainException("The description of a Event is invalid");
+                }
+                listGui.addTask(new Events(parts[0],
+                        stringToTimeString(parts[1].substring(5)), stringToTimeString(parts[2].substring(3))));
+                return ai + guiUi.showAddTask(listGui.getTask(listGui.size() - 1), listGui);
+            }
+            if (text.equals("bye")) {
+                return ai + guiUi.showGoodbye();
+            } else if (isMatchMark) {
+                String numericPart = text.substring(5);
+                listGui.getTask(Integer.parseInt(numericPart) - 1).markAsDone();
+                return ai + guiUi.showMarkTask(numericPart, listGui);
+            } else if (isMatchUnmark) {
+                String numericPart = text.substring(7);
+                listGui.getTask(Integer.parseInt(numericPart) - 1).markAsUndone();
+                return ai + guiUi.showUnmarkTask(numericPart, listGui);
+            } else if (text.equals("list")) {
+                return ai + guiUi.showList(listGui);
+            }
+            throw new AlainException("I'm sorry, but I don't know what that means :-(");
+        } catch (AlainException e) {
+            return ai + guiUi.showError(e.getMessage());
+            //storage.saveTasksToFile(null, "list.txt", true, e.getMessage());
+        }
     }
 }
