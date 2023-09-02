@@ -1,6 +1,6 @@
 package duke.parser;
 
-import duke.Duke;
+import duke.CommandType;
 
 /*
  * Encapsulates a parser that parses user input.
@@ -13,24 +13,25 @@ public class Parser {
      * @param command The command to be parsed.
      * @return The command type of the given command.
      */
-    public Duke.CommandType parseCommandType(String command) {
+    public CommandType parseCommandType(String command) {
         if (command.startsWith("list")) {
-            return Duke.CommandType.LIST;
+            return CommandType.LIST;
         } else if (command.startsWith("mark")) {
-            return Duke.CommandType.MARK;
+            return CommandType.MARK;
         } else if (command.startsWith("delete")) {
-            return Duke.CommandType.DELETE;
+            return CommandType.DELETE;
         } else if (command.startsWith("todo")) {
-            return Duke.CommandType.TODO;
+            return CommandType.TODO;
         } else if (command.startsWith("deadline")) {
-            return Duke.CommandType.DEADLINE;
+            return CommandType.DEADLINE;
         } else if (command.startsWith("event")) {
-            return Duke.CommandType.EVENT;
+            return CommandType.EVENT;
         } else if (command.startsWith("find")) {
-            return Duke.CommandType.FIND;
-        }
-        else {
-            return Duke.CommandType.UNKNOWN;
+            return CommandType.FIND;
+        } else if (command.startsWith("bye")) {
+            return CommandType.EXIT;
+        } else {
+            return CommandType.UNKNOWN;
         }
     }
 

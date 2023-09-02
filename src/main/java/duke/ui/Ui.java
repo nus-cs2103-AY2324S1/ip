@@ -31,12 +31,20 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    public String displayWelcomeMessage() {
+        return "Hello! I'm \n" + LOGO + "What can I do for you?";
+    }
+
     /*
      * Prints the farewell message to the user.
      */
     public void printFarewellMessage() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE);
+    }
+
+    public String displayFarewellMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /*
@@ -54,6 +62,11 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    public String displayAddedTaskConfirmation(Task task, TaskList tasks) {
+        return "Got it. I've added this task: \n" + "  " + task + "\n" + "Now you have " + tasks.size()
+                + " tasks in the list.";
+    }
+
     /*
      * Prints confirmation when user successfully deletes task from the list of tasks.
      * 
@@ -68,6 +81,11 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    public String displayDeletedTaskConfirmation(Task task, TaskList tasks) {
+        return "Noted. I've removed this task: \n" + "  " + task + "\n" + "Now you have " + tasks.size()
+                + " tasks in the list.";
+    }
+
     /*
      * Prints confirmation when user successfully marks task as done.
      * 
@@ -80,6 +98,10 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    public String displayMarkedTaskConfirmation(Task task) {
+        return "Nice! I've marked this task as done: \n" + "  " + task;
+    }
+
     /*
      * Prints the error message to the user.
      * 
@@ -89,6 +111,10 @@ public class Ui {
         System.out.println(LINE);
         System.out.println("OOPS!!! " + e.getMessage());
         System.out.println(LINE);
+    }
+
+    public String displayErrorMessage(DukeException e) {
+        return "OOPS!!! " + e.getMessage();
     }
 
     /*
@@ -104,9 +130,21 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    public String displayList(List<Task> tasks) {
+        String result = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            result += (i + 1) + ". " + tasks.get(i) + "\n";
+        }
+        return result;
+    }
+
     public void printFindMessage() {
         System.out.println(LINE);
         System.out.println("Here are the matching tasks in your list:");
+    }
+
+    public String displayFindMessage() {
+        return "Here are the matching tasks in your list:";
     }
     
 }

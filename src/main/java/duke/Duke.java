@@ -3,57 +3,26 @@ package duke;
 import java.util.Scanner;
 
 import duke.parser.Parser;
-
 import duke.storage.Storage;
-
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
-
 import duke.ui.Ui;
-
 import duke.util.TaskList;
-import duke.components.DialogBox;
 import duke.exceptions.DukeException;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.scene.layout.Region;
-
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /*
  * Duke is a personal assistant chatbot that helps a person to keep track of various things.
  */
 
-public class Duke extends Application {
+public class Duke {
     
-    public enum CommandType {
-        LIST, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN, FIND
-    }
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
-
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
     public Duke() {
         try {
             this.ui = new Ui();
@@ -66,113 +35,22 @@ public class Duke extends Application {
         }
     }
 
-    @Override
-    public void start(Stage stage) {
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        scene = new Scene(mainLayout);
-
-        stage.setScene(scene);
-        stage.show();
-
-        stage.setTitle("Duke");
-        stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
-
-        mainLayout.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        // You will need to import `javafx.scene.layout.Region` for this.
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput , 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
-
-        //Step 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        userInput.setOnAction((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
-        //Part 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
-    }
-
-    
-
-
-    /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-    private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
-    }
-
-    /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
-    private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userInput.getText(), user),
-                DialogBox.getDukeDialog(getResponse(userInput.getText()), duke)
-        );
-        userInput.clear();
-    }
-
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
+        try {
+            CommandType commandType = parser.parseCommandType(input);
+            return handleCommand(commandType, input);
+            
+
+        } catch (DukeException e) {
+            ui.printErrorMessage(e);
+        }
         return "Duke heard: " + input;
+        
+        // return "Duke heard: " + input;
     }
 
     private void run() {
@@ -206,39 +84,78 @@ public class Duke extends Application {
 
     
 
-    private void handleCommand(CommandType commandType, String command) throws DukeException {
+    // private void handleCommand(CommandType commandType, String command) throws DukeException {
+    //     switch (commandType) {
+    //     case LIST:
+    //         ui.printList(tasks.getTasks());
+    //         break;
+    //     case MARK:
+    //         markTask(command);
+    //         break;
+    //     case DELETE:
+    //         deleteTask(command);
+    //         break;
+    //     case TODO:
+    //     case DEADLINE:
+    //     case EVENT:
+    //         addTask(command);
+    //         break;
+    //     case FIND:
+    //         handleFind(command);
+    //         break;
+    //     case UNKNOWN:
+    //         ui.printErrorMessage(new DukeException("I'm sorry, but I don't know what that means :-("));
+    //         break;
+    //     }
+    // }
+
+    private String handleCommand(CommandType commandType, String command) throws DukeException {
+        Task task;
         switch (commandType) {
         case LIST:
             ui.printList(tasks.getTasks());
-            break;
+            return ui.displayList(tasks.getTasks());
+
         case MARK:
-            markTask(command);
-            break;
+            task = markTask(command);
+            return ui.displayMarkedTaskConfirmation(task);
+
         case DELETE:
-            deleteTask(command);
-            break;
+            task = deleteTask(command);
+            return ui.displayDeletedTaskConfirmation(task, tasks);
+
         case TODO:
         case DEADLINE:
         case EVENT:
-            addTask(command);
-            break;
+            task = addTask(command);
+            return ui.displayAddedTaskConfirmation(task, tasks);
+
         case FIND:
-            handleFind(command);
-            break;
+            TaskList filteredList = handleFind(command);
+            return ui.displayList(filteredList.getTasks());
+
         case UNKNOWN:
             ui.printErrorMessage(new DukeException("I'm sorry, but I don't know what that means :-("));
-            break;
+            return ui.displayErrorMessage(new DukeException("I'm sorry, but I don't know what that means :-("));
+
+        case EXIT:
+            ui.printFarewellMessage();
+            return ui.displayFarewellMessage();
         }
+        
+
+        return "";
     }
 
-    private void handleFind(String command) {
+    private TaskList handleFind(String command) {
         ui.printFindMessage();
         String keyword = command.split(" ")[1];
         TaskList filtered = tasks.filter(keyword);
         ui.printList(filtered.getTasks());
+        return filtered;
     }
 
-    private void addTask(String task) {
+    private Task addTask(String task) {
         try {
             Task newTask = null;
             if (task.startsWith("todo")) {
@@ -254,37 +171,43 @@ public class Duke extends Application {
                 storage.write(newTask);
                 ui.printAddedTaskConfirmation(newTask, tasks);
             } 
+            return newTask;
         } catch (DukeException e) {
             ui.printErrorMessage(e);
         }
+        return null;
     }
 
 
-    private void markTask(String command) {
+    private Task markTask(String command) {
         try {
             int index = Integer.parseInt(command.split(" ")[1]) - 1;
             Task task = tasks.get(index);
             task.markAsDone();
             storage.write(tasks.getTasks());
-            ui.printMarkedTaskConfirmation(task);            
+            ui.printMarkedTaskConfirmation(task);
+            return task;            
         } catch (NumberFormatException e) {
             ui.printErrorMessage(new DukeException("Invalid command format"));
         } catch (DukeException e) {
             ui.printErrorMessage(e);
         }
+        return null;
     }
 
-    private void deleteTask(String command) {
+    private Task deleteTask(String command) {
         try {
             int index = Integer.parseInt(command.split(" ")[1]) - 1;
             Task task = tasks.remove(index);
             storage.write(tasks.getTasks());
-            ui.printDeletedTaskConfirmation(task, tasks);    
+            ui.printDeletedTaskConfirmation(task, tasks);  
+            return task;  
         } catch (NumberFormatException e) {
             ui.printErrorMessage(new DukeException("Invalid command format"));
         } catch (DukeException e) {
             ui.printErrorMessage(e);
         } 
+        return null;
     }
 
 
