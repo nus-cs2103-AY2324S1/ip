@@ -1,208 +1,108 @@
-import java.io.*;
-import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class Duke {
-
-    public static final String HORIZONTAL_LINE = "____________________________________________________________";
-    public static final String SAVE_FILE = "data/saved_tasks.csv";
     public static final DateTimeFormatter QUERY_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("uuuu-MM-dd HHmm");
 
-    private static int checkIndexArg(String indexArg, int lstSize){
-        if (!indexArg.matches("^\\d+$")) {
-            return -1;
-        }
-        int index = Integer.parseInt(indexArg) - 1;
-        if (0 > index || index >= lstSize){
-            return -1;
-        }
-        return index;
-    }
-
     public static void main(String[] args) {
-        File saveFile = new File(SAVE_FILE);
-        if (!saveFile.exists()) {
-            if (!saveFile.getParentFile().exists()) {
-                saveFile.getParentFile().mkdirs();
-            }
-            try {
-                saveFile.createNewFile();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        Storage storage = new Storage();
+        storage.createFileIfNotExists();
 
-        String name = "Ip Bot";
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Hello I'm " + name + "!");
-        System.out.println("While I may not be able to fight like Ip Man, I can assist you in other areas!");
-        System.out.println("What can I do for you?");
-        System.out.println(HORIZONTAL_LINE);
+        Ui ui = new Ui();
+        ui.printWelcome();
 
-        Scanner scanner = new Scanner(System.in);
-
-        List<Task> list = new ArrayList<>();
+        TaskList taskList;
 
         try {
-            FileReader fr = new FileReader(SAVE_FILE);
-            BufferedReader br = new BufferedReader(fr);
-            String line;
-            while ((line = br.readLine()) != null) {
-                list.add(Task.fromString(line));
-            }
-            br.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            taskList = storage.readTasksFromFile();
         } catch (TaskFormatException e) {
             System.out.println(e.getMessage());
             return;
         } catch (DateTimeParseException e) {
             System.out.println(e.getMessage());
             return;
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
         }
 
         while(true) {
-            String command = scanner.nextLine().strip();
-            System.out.println(HORIZONTAL_LINE);
+            ui.readCommand();
+            ui.printDivider();
+            String[] commandResult = ui.processCommand();
             try {
-                if (command.isEmpty()) {
+                if (commandResult.length == 0) {
                     System.out.println("Nothing happened!");
                 } else {
-                    int commandEndIndex = 0;
-                    while (commandEndIndex < command.length() && command.charAt(commandEndIndex) != ' ') {
-                        commandEndIndex++;
-                    }
-                    String commandNameStr = command.substring(0, commandEndIndex).toLowerCase();
-                    Command commandName = Command.commandEnum(commandNameStr);
+                    String command = commandResult[0];
+                    Command commandName = Command.commandEnum(command);
                     if(commandName == null){
-                        System.out.println("Error: " + commandNameStr + " is not a valid command!");
+                        System.out.println("Error: " + command + " is not a valid command!");
                     }
                     else {
-                        String commandArgs = command.substring(commandEndIndex).strip();
                         if (command.equalsIgnoreCase("bye")) {
-                            System.out.println("Bye. Hope to see you again soon!");
-                            System.out.println(HORIZONTAL_LINE);
+                            ui.printExit();
                             break;
                         }
-                        String desc;
+                        String commandArgs = commandResult[1];
                         switch (commandName) {
                             case LIST:
-                                LocalDateTime queryDate = null;
                                 if (!commandArgs.isEmpty()) {
-                                    queryDate = LocalDateTime.parse(commandArgs + " 0000", QUERY_DATE_TIME_FORMATTER);
+                                    LocalDateTime queryDate = LocalDateTime.parse(
+                                            commandArgs + " 0000", QUERY_DATE_TIME_FORMATTER);
+                                    taskList.listTasks(ui, queryDate);
                                 }
-                                for (int index = 0; index < list.size(); index++) {
-                                    if (queryDate != null) {
-                                        Task currTask = list.get(index);
-                                        if (currTask instanceof Event) {
-                                            Event event = (Event) currTask;
-                                            if (!event.isOngoing(queryDate)) {
-                                                continue;
-                                            }
-                                        } else if (currTask instanceof Deadline) {
-                                            Deadline deadline = (Deadline) currTask;
-                                            if (!deadline.isDue(queryDate)) {
-                                                continue;
-                                            }
-                                        } else {
-                                            continue;
-                                        }
-                                    }
-                                    System.out.printf("%d. %s\n", index + 1, list.get(index).toString());
+                                else{
+                                    taskList.listTasks(ui);
                                 }
                                 break;
                             case MARK:
-                                int markIndex = checkIndexArg(commandArgs, list.size());
+                                int markIndex = Parser.checkIndexArg(commandArgs, taskList.getTasksSize());
                                 if (markIndex == -1) {
                                     throw new CommandArgumentException("Invalid task to mark: " + commandArgs);
                                 }
-                                boolean wasNotMarked = list.get(markIndex).markDone();
-                                if (wasNotMarked) {
-                                    System.out.println("Marking task as done: " + list.get(markIndex).toString());
+                                Pair<Task, Boolean> taskMark = taskList.markTask(markIndex);
+                                if (taskMark.getSecond()) {
+                                    ui.printMarkTask(taskMark.getFirst(), true);
                                 } else {
-                                    System.out.println("Task was already marked as done: " + list.get(markIndex).toString());
+                                    ui.printAlreadyMarkedTask(taskMark.getFirst(), true);
                                 }
                                 break;
                             case UNMARK:
-                                int unmarkIndex = checkIndexArg(commandArgs, list.size());
+                                int unmarkIndex = Parser.checkIndexArg(commandArgs, taskList.getTasksSize());
                                 if (unmarkIndex == -1) {
                                     throw new CommandArgumentException("Invalid task to unmark: " + commandArgs);
                                 }
-                                boolean wasNotUnmarked = list.get(unmarkIndex).unmarkDone();
-                                if (wasNotUnmarked) {
-                                    System.out.println("Marking task as undone: " + list.get(unmarkIndex).toString());
+                                Pair<Task, Boolean> taskUnmark = taskList.unmarkTask(unmarkIndex);
+                                if (taskUnmark.getSecond()) {
+                                    ui.printMarkTask(taskUnmark.getFirst(), false);
                                 } else {
-                                    System.out.println("Task was already marked as undone: " + list.get(unmarkIndex).toString());
+                                    ui.printAlreadyMarkedTask(taskUnmark.getFirst(), false);
                                 }
                                 break;
                             case TODO:
                                 if (commandArgs.isEmpty()) {
                                     throw new CommandArgumentException("Task description cannot be empty!");
                                 }
-                                list.add(new ToDo(commandArgs));
-                                System.out.println("Added todo item: " + list.get(list.size() - 1));
+                                ToDo toDo = taskList.addToDoWithArgs(commandArgs);
+                                ui.printAddedItem(toDo, "todo");
                                 break;
                             case DEADLINE:
-                                int byIndex = commandArgs.indexOf("/by");
-                                if (byIndex == -1) {
-                                    throw new CommandArgumentException("Deadline missing a /by argument!");
-                                }
-                                desc = commandArgs.substring(0, byIndex).strip();
-                                String by = commandArgs.substring(byIndex + "/by".length()).strip();
-                                if (desc.isEmpty()) {
-                                    throw new CommandArgumentException("Task description cannot be empty!");
-                                }
-                                if (by.isEmpty()) {
-                                    throw new CommandArgumentException("/by argument cannot be empty!");
-                                }
-                                list.add(new Deadline(desc, by));
-                                System.out.println("Added deadline item: " + list.get(list.size() - 1));
+                                Deadline deadline = taskList.addDeadlineWithArgs(commandArgs);
+                                ui.printAddedItem(deadline, "deadline");
                                 break;
                             case EVENT:
-                                int fromIndex = commandArgs.indexOf("/from");
-                                int toIndex = commandArgs.indexOf("/to");
-                                if (fromIndex == -1) {
-                                    throw new CommandArgumentException("Deadline missing a /from argument!");
-                                }
-                                if (toIndex == -1) {
-                                    throw new CommandArgumentException("Deadline missing a /to argument!");
-                                }
-                                String from, to;
-                                if (fromIndex < toIndex) {
-                                    desc = commandArgs.substring(0, fromIndex).strip();
-                                    from = commandArgs.substring(fromIndex + "/from".length(), toIndex).strip();
-                                    to = commandArgs.substring(toIndex + "/to".length()).strip();
-                                } else {
-                                    desc = commandArgs.substring(0, toIndex).strip();
-                                    from = commandArgs.substring(fromIndex + "/from".length()).strip();
-                                    to = commandArgs.substring(toIndex + "/to".length(), fromIndex).strip();
-                                }
-                                if (desc.isEmpty()) {
-                                    throw new CommandArgumentException("Task description cannot be empty!");
-                                }
-                                if (from.isEmpty()) {
-                                    throw new CommandArgumentException("/from argument cannot be empty!");
-                                }
-                                if (to.isEmpty()) {
-                                    throw new CommandArgumentException("/to argument cannot be empty!");
-                                }
-                                list.add(new Event(desc, from, to));
-                                System.out.println("Added event item: " + list.get(list.size() - 1));
+                                Event event = taskList.addEventWithArgs(commandArgs);
+                                ui.printAddedItem(event, "event");
                                 break;
                             case DELETE:
-                                int deleteIndex = checkIndexArg(commandArgs, list.size());
+                                int deleteIndex = Parser.checkIndexArg(commandArgs, taskList.getTasksSize());
                                 if (deleteIndex == -1) {
                                     throw new CommandArgumentException("Invalid task to delete: " + commandArgs);
                                 }
-                                Task task = list.remove(deleteIndex);
-                                System.out.println("Deleted item: " + task.toString());
+                                Task task = taskList.deleteTask(deleteIndex);
+                                ui.printDeletedItem(task);
                                 break;
                         }
                     }
@@ -214,19 +114,11 @@ public class Duke {
             catch (DateTimeParseException e) {
                 System.out.println(e.getMessage());
             }
-            System.out.println(HORIZONTAL_LINE);
-            String writeString = "";
-            for (int i=0; i<list.size(); i++) {
-                writeString += list.get(i).toCommaString() + "\n";
+            catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
-            try {
-                FileWriter fw = new FileWriter(SAVE_FILE);
-                BufferedWriter bw = new BufferedWriter(fw);
-                bw.write(writeString);
-                bw.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            ui.printDivider();
+            storage.writeTasksToFile(taskList);
         }
     }
 }

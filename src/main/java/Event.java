@@ -1,7 +1,6 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 
 public class Event extends Task {
 
@@ -15,8 +14,11 @@ public class Event extends Task {
                 LocalDateTime.parse(endTimeStr, Task.INPUT_DATE_TIME_FORMATTER));
     }
 
-    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
+    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) throws IllegalArgumentException {
         super(description);
+        if (startTime.isAfter(endTime)) {
+            throw new IllegalArgumentException("Start time of event cannot be after end time!");
+        }
         this.startTime = startTime;
         this.endTime = endTime;
     }
