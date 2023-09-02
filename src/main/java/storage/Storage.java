@@ -40,7 +40,7 @@ public class Storage {
                 System.out.println("Task file created successfully");
             }
             this.savedTasks = file;
-        } catch(IOException e) {
+        } catch (IOException e) {
             throw new EkudIOException("Error with creating task file: " + e);
         }
     }

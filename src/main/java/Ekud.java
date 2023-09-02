@@ -23,8 +23,8 @@ public class Ekud {
 
     /**
      * Main function to start running the Ekud chatbot.
-     * @throws EkudIOException Exception involving improper reading or writing to the saved tasks file,
-     *      which stops the program.
+     * @throws EkudIOException Exception involving improper reading or writing to the
+     *      saved tasks file, which stops the program.
      */
     public void start() throws EkudIOException {
         // Load up saved data
@@ -40,8 +40,9 @@ public class Ekud {
         // Main chatbot functionality
         while (!userCommand.equals("end")) {
             try {
-                parser.parseAndExecute(userCommand, userArgs, this.taskList); // throws EkudException for invalid inputs
-            } catch(EkudException e) {
+                // throws EkudException for invalid inputs
+                parser.parseAndExecute(userCommand, userArgs, this.taskList);
+            } catch (EkudException e) {
                 Ui.printMsg(e.toString()); // catch and print out EkudException message
             }
             // Process next line of user input
@@ -62,7 +63,7 @@ public class Ekud {
         try {
             Storage storage = new Storage("data/savedTasks.txt");
             new Ekud(storage).start();
-        } catch(EkudIOException e) {
+        } catch (EkudIOException e) {
             System.out.println(e);
         }
     }
