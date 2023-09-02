@@ -1,7 +1,8 @@
+clear
 todo
 todo read book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+deadline return book /by 2023-09-02
+event project meeting /from 2023-01-01 14:00 /to 17:00
 blah
 todo borrow book
 todo play badminton

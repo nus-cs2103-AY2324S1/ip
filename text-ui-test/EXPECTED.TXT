@@ -1,45 +1,99 @@
-Hello! I'm urchatbot.
+Hello! I'm URChatBot.
 What can I do for you?
          _____   _____
 | | | | /  ___| |   ) |
 | | | | | |     | ___ /
 | |_| | | |___  |   ) \
 \___,_| \_____| |_____|
-
- OOPS!!! The description of a todo cannot be empty.
-Got it. I've added this task:
-  [T][ ] read book
+Enter command:
+_______________________________
+All tasks are cleared
+_______________________________
+Enter command:
+_______________________________
+Error: OOPS!!! The description of a todo cannot be empty.
+_______________________________
+Enter command:
+_______________________________
+Noted. I've added this task: [T][ ] todo read book
 Now you have 1 task in the list.
-Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
-Now you have 2 urchatbot.tasks in the list.
-Got it. I've added this task:
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 urchatbot.tasks in the list.
- OOPS!!! I'm sorry, but I don't know what that means :-(
-Got it. I've added this task:
-  [T][ ] borrow book
-Now you have 4 urchatbot.tasks in the list.
-Got it. I've added this task:
-  [T][ ] play badminton
-Now you have 5 urchatbot.tasks in the list.
+_______________________________
+Enter command:
+_______________________________
+Noted. I've added this task: return book
+Now you have 2 tasks in the list.
+_______________________________
+Enter command:
+_______________________________
+Noted. I've added this task: [E][ ] project meeting (from: Jan 1 2023 14:00 to: 17:00)
+Now you have 3 tasks in the list.
+_______________________________
+Enter command:
+_______________________________
+Error: OOPS!!! I'm sorry, but I don't know what that means :-(
+_______________________________
+Enter command:
+_______________________________
+Noted. I've added this task: [T][ ] todo borrow book
+Now you have 4 tasks in the list.
+_______________________________
+Enter command:
+_______________________________
+Noted. I've added this task: [T][ ] todo play badminton
+Now you have 5 tasks in the list.
+_______________________________
+Enter command:
+_______________________________
 Nice! I've marked this task as done:
-[T][X] play badminton
+[T][X] todo play badminton
+_______________________________
+Enter command:
+_______________________________
 Nice! I've marked this task as done:
-[T][X] borrow book
-Noted. I've removed this task:
-  [T][X] play badminton
-Now you have 4 urchatbot.tasks in the list.
- OOPS!!! No urchatbot.tasks.Task to delete!
- OOPS!!! The deadline cannot be empty.
- OOPS!!! The deadline cannot be empty.
- OOPS!!! The from or/and to cannot be empty.
- OOPS!!! The from or/and to cannot be empty.
- OOPS!!! The from or/and to cannot be empty.
- OOPS!!! The from or/and to cannot be empty.
-Here are the urchatbot.tasks in your list:
-1.[T][ ] read book
-2.[D][ ] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-4.[T][X] borrow book
+[T][X] todo borrow book
+_______________________________
+Enter command:
+_______________________________
+Noted. I've added this task: [T][X] todo play badminton
+Now you have 4 tasks in the list.
+_______________________________
+Enter command:
+_______________________________
+Error: OOPS!!! No task to delete!
+_______________________________
+Enter command:
+_______________________________
+Error: OOPS!!! The deadline cannot be empty.
+_______________________________
+Enter command:
+_______________________________
+Error: OOPS!!! The deadline cannot be empty.
+_______________________________
+Enter command:
+_______________________________
+Error: OOPS!!! The task name or/and from or/and to cannot be empty.
+_______________________________
+Enter command:
+_______________________________
+Error: OOPS!!! The task name or/and from or/and to cannot be empty.
+_______________________________
+Enter command:
+_______________________________
+Error: OOPS!!! The task name or/and from or/and to cannot be empty.
+_______________________________
+Enter command:
+_______________________________
+Error: OOPS!!! The task name or/and from or/and to cannot be empty.
+_______________________________
+Enter command:
+_______________________________
+Here are the tasks in your list:
+1.[T][ ] todo read book
+2.[D][ ] return book (by: Sep 2 2023)
+3.[E][ ] project meeting (from: Jan 1 2023 14:00 to: 17:00)
+4.[T][X] todo borrow book
+_______________________________
+Enter command:
+_______________________________
 Bye. Hope to see you again soon!
+_______________________________
