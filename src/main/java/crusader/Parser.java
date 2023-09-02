@@ -1,9 +1,16 @@
 package crusader;
 
-import crusader.command.*;
+import crusader.command.AddTaskCommand;
+import crusader.command.ByeCommand;
+import crusader.command.Command;
+import crusader.command.DeleteCommand;
+import crusader.command.ListCommand;
+import crusader.command.MarkCommand;
+
 import crusader.exception.CrusaderDateFormatException;
 import crusader.exception.CrusaderException;
 import crusader.exception.CrusaderParseException;
+
 import crusader.task.Deadline;
 import crusader.task.Event;
 import crusader.task.Todo;
@@ -26,32 +33,32 @@ public class Parser {
         switch (prompt.contains(" ")
                 ? prompt.split(" ")[0]
                 : prompt) {
-            case "bye":
-                returnCommand = new ByeCommand();
-                break;
-            case "list":
-                returnCommand = new ListCommand();
-                break;
-            case "mark":
-                returnCommand = parseMarking(prompt, true);
-                break;
-            case "unmark":
-                returnCommand = parseMarking(prompt, false);
-                break;
-            case "todo":
-                returnCommand = parseTodo(prompt);
-                break;
-            case "event":
-                returnCommand = parseEvent(prompt);
-                break;
-            case "deadline":
-                returnCommand = parseDeadline(prompt);
-                break;
-            case "delete":
-                returnCommand = parseDelete(prompt);
-                break;
-            default:
-                throw new CrusaderParseException("Unknown command!");
+        case "bye":
+            returnCommand = new ByeCommand();
+            break;
+        case "list":
+            returnCommand = new ListCommand();
+            break;
+        case "mark":
+            returnCommand = parseMarking(prompt, true);
+            break;
+        case "unmark":
+            returnCommand = parseMarking(prompt, false);
+            break;
+        case "todo":
+            returnCommand = parseTodo(prompt);
+            break;
+        case "event":
+            returnCommand = parseEvent(prompt);
+            break;
+        case "deadline":
+            returnCommand = parseDeadline(prompt);
+            break;
+        case "delete":
+            returnCommand = parseDelete(prompt);
+            break;
+        default:
+            throw new CrusaderParseException("Unknown command!");
         }
         return returnCommand;
     }
