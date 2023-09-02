@@ -3,7 +3,6 @@ package command;
 import duke.DiskManager;
 import duke.DukeException;
 import duke.TaskManager;
-import duke.Ui;
 
 /**
  * Represents a mark command where when executed, marks the specified task as done.
@@ -26,9 +25,10 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskManager taskManager, DiskManager diskManager, Ui ui) throws DukeException {
-        ui.printOutput(taskManager.markTask(index, true));
+    public String execute(TaskManager taskManager, DiskManager diskManager) throws DukeException {
+        String res = taskManager.markTask(index, true);
         diskManager.saveToDisk(taskManager);
+        return res;
     }
 
     @Override

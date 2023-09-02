@@ -3,8 +3,6 @@ package command;
 import duke.DiskManager;
 import duke.DukeException;
 import duke.TaskManager;
-import duke.Ui;
-import task.Event;
 
 /**
  * Represents a find command where when executed,
@@ -28,8 +26,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskManager taskManager, DiskManager diskManager, Ui ui) throws DukeException {
-        ui.printOutput(taskManager.find(pattern));
+    public String execute(TaskManager taskManager, DiskManager diskManager) throws DukeException {
+        return taskManager.find(pattern);
     }
 
     @Override
