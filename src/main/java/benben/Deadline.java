@@ -44,7 +44,8 @@ public class Deadline extends Task {
      * @return the string representation of the deadline
      */
     public String getDdl() {
-        return this.ddl.getMonth().toString() + " " + this.ddl.getDayOfMonth() + " " + this.ddl.getYear();
+        return this.ddl.getMonth().toString() + " "
+                + this.ddl.getDayOfMonth() + " " + this.ddl.getYear();
     }
 
     /**

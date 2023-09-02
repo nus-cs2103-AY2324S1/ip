@@ -1,4 +1,5 @@
 package benben;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -235,6 +236,26 @@ public class BenBen {
     /**
      * Exits the program
      */
+    public void find(String str) throws BenBenException{
+        String[] strSplit = str.split("\\s+");
+
+        if (strSplit.length < 2) {
+            throw new BenBenException("Please enter a keyword for your search!");
+        }
+        if (strSplit.length > 2) {
+            throw new BenBenException("Please only enter one keyword to search!");
+        }
+
+        ArrayList<Task> relevantTasks = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task t = tasks.get(i);
+            if (t.getDescription().contains(strSplit[1])) {
+                relevantTasks.add(t);
+            }
+        }
+        ui.showMatching(relevantTasks);
+    }
+
     public void exit() {
         ui.showExit();
         System.exit(0);
