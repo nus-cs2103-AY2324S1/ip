@@ -2,6 +2,7 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+//CHECKSTYLE.OFF: MissingJavadocMethodCheck
 /**
  * Represents an event task
  */
@@ -9,7 +10,7 @@ public class Events extends Task {
     protected LocalDate start;
     protected LocalDate end;
 
-    public Events (String description, LocalDate start, LocalDate end) {
+    public Events(String description, LocalDate start, LocalDate end) {
         super(description);
         this.start = start;
         this.end = end;
@@ -22,8 +23,8 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
-                " to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[E]" + super.toString() + "(from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     /**

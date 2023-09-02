@@ -2,6 +2,8 @@ package duke;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+//CHECKSTYLE.OFF: MissingJavadocMethodCheck
+//CHECKSTYLE.OFF: MissingJavadocType
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -75,7 +77,7 @@ public abstract class Task {
         case "T":
             Task task = new ToDo(description);
             if (isDone) {
-              task.markAsDone();
+                task.markAsDone();
             }
             return task;
         case "D":
