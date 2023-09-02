@@ -41,10 +41,18 @@ public class Ui {
         return input.nextLine();
     }
 
+    /**
+     * Prints a given message from another component.
+     * @param message Message to print.
+     */
     public static void showMessage(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Shows a list of given tasks to the user.
+     * @param tasks Tasks to be shown to the user.
+     */
     public static void showFoundTasks(ArrayList<Task> tasks) {
         System.out.println("Here are the matching tasks in your list:");
         for (Task task : tasks) {

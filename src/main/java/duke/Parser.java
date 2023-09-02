@@ -1,11 +1,11 @@
 package duke;
 
+import static java.lang.Integer.parseInt;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
-
-import static java.lang.Integer.parseInt;
 
 /**
  * Processes the string the user put in.
@@ -98,9 +98,10 @@ public class Parser {
                 try {
                     LocalDate fromDate = LocalDate.parse(deadline);
                     deadline = new StringBuilder(fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
-                } catch (DateTimeException ignored) {
+                    return new Deadline(title.toString(), deadline.toString());
+                } catch (DateTimeException e) {
+                    return new Deadline(title.toString(), deadline.toString());
                 }
-                return new Deadline(title.toString(), deadline.toString());
             } else {
                 throw new DukeException("☹ OOPS!!! The title cannot be empty.");
             }
@@ -141,11 +142,13 @@ public class Parser {
                     LocalDate fromDate = LocalDate.parse(from);
                     from = new StringBuilder(fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
                 } catch (DateTimeException ignored) {
+                    from = from;
                 }
                 try {
                     LocalDate fromDate = LocalDate.parse(to);
                     to = new StringBuilder(fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
-                } catch (DateTimeException ignored) {
+                } catch (DateTimeException e) {
+                    to = to;
                 }
                 return new Event(title.toString(), from.toString(), to.toString());
             } else {

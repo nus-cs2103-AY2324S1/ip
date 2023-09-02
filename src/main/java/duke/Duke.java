@@ -10,6 +10,10 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Constructor to create the other components.
+     * @param filePath File to read from when beginning program.
+     */
     public Duke(String filePath) {
         storage = new Storage(filePath);
         try {

@@ -7,6 +7,11 @@ public class Deadline extends Task {
 
     protected String by;
 
+    /**
+     * Deadline constructor.
+     * @param description Deadline name shown to user.
+     * @param by Deadline. A string, no type checking done.
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
