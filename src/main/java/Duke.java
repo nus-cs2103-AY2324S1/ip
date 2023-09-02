@@ -1,3 +1,4 @@
+import exceptions.ParserException;
 import io.Parser;
 import io.Ui;
 import java.time.LocalDate;
@@ -108,28 +109,13 @@ public class Duke {
           break;
         }
         case "deadline": {
+
           try {
-            String taskName = parser.getTaskName();
-            String[] parts = taskName.split("/by", 2);
-
-            String name = parts[0];
-            String endDate = parts[1];
-            endDate = endDate.replace(" ", "");
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate date = LocalDate.parse(endDate, formatter);
-
-            Task curentTask = new Deadline(name, date);
+            Task curentTask = parser.parseDeadline();
             taskList.add(curentTask);
-
             System.out.println("added:\t" + ui.displayTask(curentTask));
-          } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("Please include a (/by) command, followed by a date");
-          } catch (StringIndexOutOfBoundsException ex) {
-            System.out.println(
-                "Please enter a name, followed by a (/by) command, followed by a date");
-          } catch (DateTimeParseException ex) {
-            System.out.println("Please enter a time format as dd/MM/yyyy");
+          } catch (ParserException ex) {
+            System.out.println(ex.getMessage());
           }
 
           break;

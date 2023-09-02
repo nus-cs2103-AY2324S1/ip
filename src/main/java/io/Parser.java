@@ -1,5 +1,6 @@
 package io;
 
+import exceptions.ParserException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -37,7 +38,7 @@ public class Parser {
   }
 
 
-  public Deadline parseDeadline() {
+  public Deadline parseDeadline() throws ParserException {
     Deadline result = null;
 
     try {
@@ -54,12 +55,12 @@ public class Parser {
       result = new Deadline(name, date);
 
     } catch (ArrayIndexOutOfBoundsException ex) {
-      System.out.println("Please include a (/by) command, followed by a date");
+      throw new ParserException("Please include a (/by) command, followed by a date");
     } catch (StringIndexOutOfBoundsException ex) {
-      System.out.println(
+      throw new ParserException(
           "Please enter a name, followed by a (/by) command, followed by a date");
     } catch (DateTimeParseException ex) {
-      System.out.println("Please enter a time format as dd/MM/yyyy");
+      throw new ParserException("Please enter a time format as dd/MM/yyyy");
     }
 
     return result;
