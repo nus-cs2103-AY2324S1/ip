@@ -1,9 +1,9 @@
-package duke;
+package seedu.duke;
 
-import duke.util.TaskList;
-import duke.util.Ui;
-import duke.util.Parser;
-import duke.util.Storage;
+import seedu.duke.util.TaskList;
+import seedu.duke.util.Ui;
+import seedu.duke.util.Parser;
+import seedu.duke.util.Storage;
 
 import java.io.IOException;
 
@@ -34,6 +34,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("./data/duke.txt").run();
+        new Duke("./data/seedu.duke.txt").run();
     }
 }

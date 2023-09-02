@@ -1,4 +1,4 @@
-package duke.exceptions;
+package seedu.duke.exceptions;
 
 public class MissingInputException extends Exception {
 

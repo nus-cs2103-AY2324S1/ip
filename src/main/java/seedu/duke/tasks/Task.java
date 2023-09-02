@@ -1,4 +1,4 @@
-package duke.tasks;
+package seedu.duke.tasks;
 
 public abstract class Task {
     public String description;
