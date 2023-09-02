@@ -1,8 +1,15 @@
+package MattBot;
+
+import MattBot.task.Task;
+import MattBot.task.Todo;
+import MattBot.task.Deadline;
+import MattBot.task.Event;
+
 import java.util.ArrayList;
 public class TaskList {
     protected ArrayList<Task> tasks;
 
-    TaskList() {
+    public TaskList() {
         tasks = new ArrayList<Task>();
     }
     /*

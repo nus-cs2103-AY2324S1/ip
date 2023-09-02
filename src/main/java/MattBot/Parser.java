@@ -1,3 +1,11 @@
+package MattBot;
+
+import MattBot.task.Task;
+import MattBot.task.Todo;
+import MattBot.task.Deadline;
+import MattBot.task.Event;
+import MattBot.Storage;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -5,7 +13,7 @@ import java.time.temporal.ChronoUnit;
 
 public class Parser {
     public final static DateTimeFormatter DTFORMAT  = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
-    Parser() {}
+    public Parser() {}
 
     /*public static void parseInput(String input) {
         String[] details = input.split(" ");

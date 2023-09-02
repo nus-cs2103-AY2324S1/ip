@@ -1,3 +1,4 @@
+package MattBot;
 public enum commands {
     TODO,
     DEADLINE,

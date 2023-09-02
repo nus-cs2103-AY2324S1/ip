@@ -1,3 +1,11 @@
+package MattBot;
+
+import MattBot.task.Task;
+import MattBot.task.Todo;
+import MattBot.task.Deadline;
+import MattBot.task.Event;
+import MattBot.Parser;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;

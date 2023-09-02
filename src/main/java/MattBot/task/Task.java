@@ -1,8 +1,10 @@
+package MattBot.task;
+
 public abstract class Task {
     protected String name;
     protected boolean isDone;
 
-    Task(String name, boolean isDone) {
+    public Task(String name, boolean isDone) {
         this.name = name;
         this.isDone = isDone;
     }

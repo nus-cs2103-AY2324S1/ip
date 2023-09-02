@@ -1,3 +1,5 @@
+package MattBot.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -7,12 +9,12 @@ public class Event extends Task {
     protected LocalDateTime startDate;
     protected LocalDateTime endDate;
     public static final DateTimeFormatter DTFORMAT  = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
-    Event(String name, LocalDateTime startDate, LocalDateTime endDate) {
+    public Event(String name, LocalDateTime startDate, LocalDateTime endDate) {
         super(name, false);
         this.startDate = startDate;
         this.endDate = endDate;
     }
-    Event(String name, boolean isDone, LocalDateTime startDate, LocalDateTime endDate) {
+    public Event(String name, boolean isDone, LocalDateTime startDate, LocalDateTime endDate) {
         super(name, isDone);
         this.startDate = startDate;
         this.endDate = endDate;

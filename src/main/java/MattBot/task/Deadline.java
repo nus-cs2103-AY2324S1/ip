@@ -1,3 +1,7 @@
+package MattBot.task;
+
+import MattBot.task.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -6,11 +10,11 @@ public class Deadline extends Task {
     protected LocalDateTime date;
     public static final DateTimeFormatter DTFORMAT  = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
 
-    Deadline(String name, LocalDateTime date) {
+    public Deadline(String name, LocalDateTime date) {
         super(name, false);
         this.date = date;
     }
-    Deadline(String name, boolean isDone, LocalDateTime date ) {
+    public Deadline(String name, boolean isDone, LocalDateTime date ) {
         super(name, isDone);
         this.date = date;
     }
