@@ -9,9 +9,9 @@ import java.util.Scanner;
 public class Storage {
 
     private String filepath;
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private TaskList tasks;
 
-    public Storage(String filepath, ArrayList tasks) {
+    public Storage(String filepath, TaskList tasks) {
         this.filepath = filepath;
         this.tasks = tasks;
     }
@@ -42,25 +42,25 @@ public class Storage {
 
             switch (split[0]) {
                 case "T":
-                    tasks.add(new ToDo(description));
+                    tasks.addTask(new ToDo(description));
                     break;
                 case "D":
                     String by = split[3];
-                    tasks.add(new Deadline(description, by));
+                    tasks.addTask(new Deadline(description, by));
                     break;
                 case "E":
                     String from = split[3];
                     String to = split[4];
-                    tasks.add(new Event(description, split[3], split[4]));
+                    tasks.addTask(new Event(description, split[3], split[4]));
                     break;
             }
         }
     }
 
-    public void writeTasksToFile(ArrayList Task) throws IOException {
+    public void writeTasksToFile(TaskList tasks) throws IOException {
         FileWriter fileWriter = new FileWriter(filepath);
-        for (Task t: tasks) {
-            fileWriter.write(t.toWriteString()+"\n");
+        for (int i = 0; i < tasks.getSize(); i ++) {
+            fileWriter.write(tasks.getTask(i).toWriteString()+"\n");
         }
         fileWriter.close();
     }
