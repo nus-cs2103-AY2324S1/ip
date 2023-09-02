@@ -9,22 +9,50 @@ import duke.task.Todo;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * The `TaskList` class represents a list of tasks and provides methods for managing tasks within the list.
+ */
 public class TaskList {
     private List<Task> toDoList;
 
+    /**
+     * Constructs a `TaskList` with an existing list of tasks.
+     * @param toDoList The list of tasks to initialize the `TaskList`.
+     */
     public TaskList(List<Task> toDoList) {
         this.toDoList = toDoList;
     }
+
+    /**
+     * Constructs an empty `TaskList`.
+     */
     public TaskList() {
         this.toDoList = new ArrayList<>();
     }
+
+    /**
+     * Retrieves the list of tasks contained in the `TaskList`.
+     * @return The list of tasks.
+     */
     public List<Task> getTasks() {
         return this.toDoList;
     }
+
+    /**
+     * Retrieves the number of tasks in the `TaskList`.
+     * @return The number of tasks in the list.
+     */
     public int getSize() {
         return this.toDoList.size();
     }
 
+    /**
+     * Marks a task as done based on its index in the list.
+     * @param taskIndex The index of the task to mark as done.
+     * @return The task that was marked as done.
+     * @throws DukeException If the task index is invalid.
+     */
     public Task markTaskDone(int taskIndex) throws DukeException {
         try {
             Task task = toDoList.get(taskIndex);
@@ -36,6 +64,13 @@ public class TaskList {
             throw new DukeException("invalid task number");
         }
     }
+
+    /**
+     * Unmarks a task as done based on its index in the list.
+     * @param taskIndex The index of the task to unmark as done.
+     * @return The task that was unmarked as done.
+     * @throws DukeException If the task index is invalid.
+     */
     public Task unmarkTask(int taskIndex) throws DukeException {
         try {
             Task task = toDoList.get(taskIndex);
@@ -48,21 +83,51 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a new todo task to the list.
+     * @param todoDescription The description of the todo task.
+     * @return The newly added todo task.
+     * @throws DukeException If there is an issue adding the task.
+     */
     public Task addTodoTask(String todoDescription) throws DukeException {
         Task newTask = new Todo(todoDescription);
         toDoList.add(newTask);
         return newTask;
     }
+
+    /**
+     * Adds a new deadline task to the list.
+     * @param description The description of the deadline task.
+     * @param dateTime The deadline date and time of the task.
+     * @return The newly added deadline task.
+     * @throws DukeException If there is an issue adding the task.
+     */
     public Task addDeadlineTask(String description, LocalDateTime dateTime) throws DukeException {
         Task newTask = new Deadline(description, dateTime);
         toDoList.add(newTask);
         return newTask;
     }
+
+    /**
+     * Adds a new event task to the list.
+     * @param description The description of the event task.
+     * @param fromDatetime The starting date and time of the event.
+     * @param toDateTime The ending date and time of the event.
+     * @return The newly added event task.
+     * @throws DukeException If there is an issue adding the task.
+     */
     public Task addEventTask(String description, LocalDateTime fromDatetime, LocalDateTime toDateTime) throws DukeException {
         Task newTask = new Event(description, fromDatetime, toDateTime);
         toDoList.add(newTask);
         return newTask;
     }
+
+    /**
+     * Deletes a task from the list based on its index.
+     * @param taskNumber The index of the task to be deleted.
+     * @return The task that was deleted.
+     * @throws DukeException If the task index is invalid.
+     */
     public Task deleteTask(int taskNumber) throws DukeException {
         try {
             Task task = toDoList.get(taskNumber);
