@@ -1,9 +1,9 @@
-package Duke;
+package duke;
 
-import Task.Deadline;
-import Task.Event;
-import Task.Task;
-import Task.Todo;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -41,5 +41,16 @@ public class TaskManager {
 
     public void event(String description, LocalDateTime from, LocalTime to) {
         tasklist.add(new Event(description, from, to));
+    }
+
+    public ArrayList<Task> find(String description) {
+        ArrayList<Task> tasksFound = new ArrayList<Task>();
+
+        for (Task task: tasklist) {
+            if (task.getStatusIcon().contains(description)) {
+                tasksFound.add(task);
+            }
+        }
+        return tasksFound;
     }
 }

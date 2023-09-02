@@ -1,6 +1,6 @@
-package Duke;
+package duke;
 
-import Command.UserInterface;
+import command.UserInterface;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -117,6 +117,12 @@ public class Parser {
             case "list":
                 userInterface.showCommandLine();
                 userInterface.showTaskList(taskManager.displayList());
+                userInterface.showCommandLine();
+                break;
+
+            case "find":
+                userInterface.showCommandLine();
+                userInterface.showFindTasks(taskManager.find(parts[1]));
                 userInterface.showCommandLine();
                 break;
 

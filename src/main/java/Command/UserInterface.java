@@ -1,6 +1,6 @@
-package Command;
+package command;
 
-import Task.Task;
+import task.Task;
 import java.util.ArrayList;
 
 public class UserInterface {
@@ -29,6 +29,13 @@ public class UserInterface {
     // Method to display the list of tasks
     public void showTaskList(ArrayList<Task> taskList) {
         System.out.println("Here are your tasks:");
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i + 1) + ". " + taskList.get(i));
+        }
+    }
+
+    public void showFindTasks(ArrayList<Task> taskList) {
+        System.out.println("Here are the matching tasks:");
         for (int i = 0; i < taskList.size(); i++) {
             System.out.println((i + 1) + ". " + taskList.get(i));
         }
