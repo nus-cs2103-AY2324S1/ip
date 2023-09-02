@@ -1,7 +1,11 @@
 public class Deadline extends Task {
     protected String date;
     Deadline(String name, String date) {
-        super(name);
+        super(name, false);
+        this.date = date;
+    }
+    Deadline(String name, boolean isDone, String date ) {
+        super(name, isDone);
         this.date = date;
     }
     public String getDate() {
@@ -9,6 +13,15 @@ public class Deadline extends Task {
     }
     public String identifier() {
         return "D";
+    }
+
+    /*
+     * Returns String form for storage.
+     *
+     * @returns String for storage format.
+     */
+    public String toFile() {
+        return identifier() + " | " + showStatusAsFile() + " | " + showName() + " | " + getDate();
     }
     @Override
     public String toString() {

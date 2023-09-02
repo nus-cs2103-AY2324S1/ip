@@ -1,9 +1,24 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+
 public class MattBot {
     private static final String NAME = "MattBot";
+    private static Storage mattmory;
+    private static TaskList tasks;
+
     public static void main(String[] args) {
+        // Load save file
+        // List<Task> taskList = new ArrayList<Task>();
+        try {
+            mattmory = new Storage();
+            tasks = mattmory.load();
+        } catch (IOException e) {
+            System.out.println(e);
+            tasks = new TaskList();
+        }
+
         /*String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -16,7 +31,6 @@ public class MattBot {
         System.out.println("____________________________________________________________");
 
         Scanner sc = new Scanner(System.in);
-        List<Task> taskList = new ArrayList<Task>();
         String userInput;
         while (true) {
             // Take user input in, and process user input
@@ -29,25 +43,25 @@ public class MattBot {
                 break;
             } else if (command.equals("list")) {
                 printTop();
-                for (int i = 0; i < taskList.size(); i++) {
-                    Task t = taskList.get(i);
+                for (int i = 0; i < tasks.size(); i++) {
+                    Task t = tasks.getTask(i + 1);
                     System.out.println(String.format("%d. %s", i+1, t));
                 }
                 printBottom();
             } else if (command.equals("mark")) {
                 printTop();
-                int taskId = Integer.parseInt(userInput.split(" ",2)[1]) - 1;
-                Task t = taskList.get(taskId);
-                t.markAsDone();
-                taskList.set(taskId, t);
+                int taskId = Integer.parseInt(userInput.split(" ",2)[1]);
+                tasks.markTask(taskId);
+                mattmory.writeBack(tasks);
+                Task t = tasks.getTask(taskId);
                 System.out.println("Great job! You have completed the task " + t.showName());
                 printBottom();
             } else if (command.equals("unmark")) {
                 printTop();
-                int taskId = Integer.parseInt(userInput.split(" ",2)[1]) - 1;
-                Task t = taskList.get(taskId);
-                t.markAsNotDone();
-                taskList.set(taskId, t);
+                int taskId = Integer.parseInt(userInput.split(" ",2)[1]);
+                tasks.unmarkTask(taskId);
+                mattmory.writeBack(tasks);
+                Task t = tasks.getTask(taskId);
                 System.out.println("Oh no, you have uncompleted " + t.showName());
                 printBottom();
             } else {
@@ -64,14 +78,16 @@ public class MattBot {
                 Task t;
                 if (command.equals("todo")) {
                     t = new Todo(arguments);
-                    taskList.add(t);
+                    tasks.addTask(t);
+                    mattmory.writeBack(tasks);
                     System.out.println("I've added this to your tasks: ");
                     System.out.println(t);
                 } else if (command.equals("deadline")) {
                     String name = arguments.split(" /by ",2)[0];
                     String dueDate = arguments.split(" /by ",2)[1];
                     t = new Deadline(name, dueDate);
-                    taskList.add(t);
+                    tasks.addTask(t);
+                    mattmory.writeBack(tasks);
                     System.out.println("I've added this to your tasks: ");
                     System.out.println(t);
                 } else if (command.equals("event")) {
@@ -80,18 +96,20 @@ public class MattBot {
                     String startDate = dates.split(" /to ")[0];
                     String endDate = dates.split(" /to ",2)[1];
                     t = new Event(name, startDate, endDate);
-                    taskList.add(t);
+                    tasks.addTask(t);
+                    mattmory.writeBack(tasks);
                     System.out.println("I've added this to your tasks: ");
                     System.out.println(t);
                 } else if (command.equals("delete")) {
-                    if (taskList.size() == 0 || taskList.size() < Integer.parseInt(arguments)) {
+                    if (tasks.size() == 0 || tasks.size() < Integer.parseInt(arguments)) {
                         System.out.println("Oops, you're deleting a task that doesn't exist.");
                         continue;
                     }
-                    t = taskList.get(Integer.parseInt(arguments)-1);
+                    t = tasks.getTask(Integer.parseInt(arguments));
                     System.out.println("I have removed this task:");
                     System.out.println(t);
-                    taskList.remove(Integer.parseInt(arguments)-1);
+                    tasks.removeTask(Integer.parseInt(arguments));
+                    mattmory.writeBack(tasks);
                 } else {
                     System.out.println("I didn't quite understand your input.");
                     continue;

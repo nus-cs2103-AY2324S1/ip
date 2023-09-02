@@ -2,9 +2,9 @@ public abstract class Task {
     protected String name;
     protected boolean isDone;
 
-    Task(String name) {
+    Task(String name, boolean isDone) {
         this.name = name;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public void markAsDone() {
@@ -23,6 +23,10 @@ public abstract class Task {
         return this.name;
     }
     public abstract String identifier();
+
+    public abstract String toFile();
+
+    public String showStatusAsFile() { return (isDone ? "1" : "0"); }
     public String toString() {
         return String.format("[%s] [%s] %s", this.identifier(), this.showStatus(), this.showName());
     }
