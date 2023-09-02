@@ -2,6 +2,8 @@ package duke;
 
 import java.time.format.DateTimeFormatter;
 
+//@@author {zhanyang01}-reused
+//Inspired by the smart implementation of enums for dates and times by {zhanyang01}
 public enum DatesAndTimesFormatter {
     INPUT_FORMAT("yyyy-MM-dd"),
     OUTPUT_FORMAT("MMM dd yyyy"),
@@ -9,11 +11,22 @@ public enum DatesAndTimesFormatter {
 
     public final DateTimeFormatter formatter;
 
+    /**
+     * Creates a DatesAndTimesFormatter object.
+     *
+     * @param formatter The DateTimeFormatter to be used.
+     */
     DatesAndTimesFormatter(DateTimeFormatter formatter) {
         this.formatter = formatter;
     }
 
+    /**
+     * Creates a DatesAndTimesFormatter object.
+     *
+     * @param format The format of the DateTimeFormatter to be used.
+     */
     DatesAndTimesFormatter(String format) {
         this.formatter = DateTimeFormatter.ofPattern(format);
     }
 }
+//@@ author

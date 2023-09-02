@@ -10,6 +10,14 @@ public class Duke {
     private Ui ui;
     private Storage storage;
 
+    /**
+     * Constructor for Duke.
+     * Creates a new Duke object with the given file path.
+     * Loads the tasks from the file path.
+     * If the file path does not exist, creates a new file.
+     *
+     * @param filePath The path to the file where the tasks are stored.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         try {
@@ -20,14 +28,26 @@ public class Duke {
             tasks = new TaskList();
         }
     }
+
+    /**
+     * Main method for Duke.
+     * Runs the duke program with the file path
+     *
+     * @param args The arguments passed in.
+     */
     public static void main(String[] args) {
         new Duke("./data/stored_tasks").run();
     }
 
+    /**
+     * Runs the duke program.
+     * Shows the welcome, exit message
+     * Deals with User input
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
-        while (!isExit) {
+        while (! isExit) {
             try {
                 String fullCommand = ui.getUserInput();
                 isExit = Parser.checkCommandType(fullCommand, tasks, ui, storage);
@@ -37,6 +57,4 @@ public class Duke {
         }
         ui.showExit();
     }
-
 }
-
