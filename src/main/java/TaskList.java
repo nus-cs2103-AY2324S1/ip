@@ -26,20 +26,29 @@ public class TaskList {
             Task tempT;
             switch (fields[0].trim()) {
             case "T":
-                if(fields[1].isEmpty()){
+                if(fields[2].isEmpty()){
                     throw new NoTaskException("Error! Cannot add an empty todo!");
                 }
-                tempT = new ToDo(fields[1]);
+                tempT = new ToDo(fields[2].trim());
+                if(fields[1].equals("1")) {
+                    tempT.markAsDone();
+                }
                 TASKLST.add(tempT);
                 break;
             case "D":
-                tempT = new Deadline(fields[2], fields[3]);
+                tempT = new Deadline(fields[2].trim(), fields[3]);
+                if(fields[1].equals("1")) {
+                    tempT.markAsDone();
+                }
                 TASKLST.add(tempT);
                 break;
             case "E":
                 String[] time;
                 time = fields[3].split("->");
-                tempT = new Event(fields[2], time[0], time[1]);
+                tempT = new Event(fields[2].trim(), time[0], time[1]);
+                if(fields[1].equals("1")) {
+                    tempT.markAsDone();
+                }
                 TASKLST.add(tempT);
                 break;
             }

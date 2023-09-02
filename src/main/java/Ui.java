@@ -27,9 +27,7 @@ public class Ui {
      * @param message complete message to be displayed
      */
     public void showComplete(String message) {
-        showLine();
         System.out.println(message);
-        showLine();
     }
 
     /**

@@ -52,6 +52,7 @@ public class Storage {
         FileWriter fw = new FileWriter(this.FILEPATH);
         for(String task : tasks) {
             fw.append(task);
+            fw.append(System.lineSeparator());
         }
         fw.close();
         } catch (IOException e){
