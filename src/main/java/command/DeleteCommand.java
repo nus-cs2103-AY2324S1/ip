@@ -3,7 +3,6 @@ package command;
 import duke.DiskManager;
 import duke.DukeException;
 import duke.TaskManager;
-import duke.Ui;
 
 /**
  * Represents a delete command where when executed, deletes the specific task.
@@ -26,9 +25,10 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskManager taskManager, DiskManager diskManager, Ui ui) throws DukeException {
-        ui.printOutput(taskManager.deleteTask(index));
+    public String execute(TaskManager taskManager, DiskManager diskManager) throws DukeException {
+        String res = taskManager.deleteTask(index);
         diskManager.saveToDisk(taskManager);
+        return res;
     }
 
     @Override

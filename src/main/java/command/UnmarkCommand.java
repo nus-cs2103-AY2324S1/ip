@@ -3,7 +3,6 @@ package command;
 import duke.DiskManager;
 import duke.DukeException;
 import duke.TaskManager;
-import duke.Ui;
 
 /**
  * Represents an unmark command where when executed, marks the specific task as undone.
@@ -26,9 +25,10 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskManager taskManager, DiskManager diskManager, Ui ui) throws DukeException {
-        ui.printOutput(taskManager.markTask(index, false));
+    public String execute(TaskManager taskManager, DiskManager diskManager) throws DukeException {
+        String res = taskManager.markTask(index, false);
         diskManager.saveToDisk(taskManager);
+        return res;
     }
 
     @Override

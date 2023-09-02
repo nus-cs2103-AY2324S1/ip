@@ -3,7 +3,6 @@ package command;
 import duke.DiskManager;
 import duke.DukeException;
 import duke.TaskManager;
-import duke.Ui;
 import task.Deadline;
 
 import java.time.LocalDate;
@@ -32,9 +31,10 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskManager taskManager, DiskManager diskManager, Ui ui) throws DukeException {
-        ui.printOutput(taskManager.addTask(new Deadline(description, deadline)));
+    public String execute(TaskManager taskManager, DiskManager diskManager) throws DukeException {
+        String res = taskManager.addTask(new Deadline(description, deadline));
         diskManager.saveToDisk(taskManager);
+        return res;
     }
 
     @Override

@@ -1,6 +1,8 @@
 package duke;
 
 import command.Command;
+import command.ExitCommand;
+import javafx.stage.Stage;
 
 /**
  * Represents the command line application Duke.
@@ -8,14 +10,7 @@ import command.Command;
 public class Duke {
     private DiskManager diskManager;
     private TaskManager taskManager;
-    private Ui ui;
-
-    /**
-     * Constructs a default constructor.
-     */
-    public Duke() {
-
-    }
+    private Stage stage;
 
 
     /**
@@ -25,8 +20,8 @@ public class Duke {
      * @param directoryPath The directory path.
      * @param fileName The file name.
      */
-    public Duke(String directoryPath, String fileName) {
-        this.ui = new Ui();
+    public Duke(String directoryPath, String fileName, Stage stage) {
+        this.stage = stage;
         this.diskManager = new DiskManager(directoryPath, fileName);
         try {
             this.taskManager = this.diskManager.loadFromDisk();
@@ -36,33 +31,17 @@ public class Duke {
         }
     }
 
-//    public String execute(String input) {
-//        try {
-//            Command c = Parser.parseCommand(input);
-//            c.execute(taskManager, diskManager, ui);
-//
-//        } catch (DukeException e) {
-//
-//        }
-//
-//    }
-
-    private void run() {
-        ui.showWlcmMsg();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String input = ui.readCommand();
-                Command c = Parser.parseCommand(input);
-                c.execute(taskManager, diskManager, ui);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.printOutput(e.getMessage());
+    public String execute(String input) {
+        try {
+            Command c = Parser.parseCommand(input);
+            if (c.isExit()) {
+                stage.close();
             }
+            String res = c.execute(taskManager, diskManager);
+            return res;
+        } catch (DukeException e) {
+            return e.getMessage();
         }
-    }
 
-    public static void main(String[] args) {
-        new Duke("data", "tasks.json").run();
     }
 }
