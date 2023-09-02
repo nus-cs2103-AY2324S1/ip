@@ -8,9 +8,9 @@ import java.util.Scanner;
  */
 public class BenBen {
 
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     /**
      * Instantiates a new BenBen with the given task list
@@ -23,7 +23,6 @@ public class BenBen {
         try {
             tasks = new TaskList(storage.load());
         } catch (BenBenException e) {
-            //ui.showLoadingError();
             tasks = new TaskList();
         }
     }
@@ -83,7 +82,6 @@ public class BenBen {
         }
 
         Task t = new Deadline(des, ddl);
-        //arr[counter] = t;
         tasks.add(t);
         storage.write(tasks);
         ui.showAdd(t.toString(), tasks.size());
@@ -131,7 +129,6 @@ public class BenBen {
         }
 
         Task t = new Event(des, start, end);
-        //arr[counter] = t;
         tasks.add(t);
         ui.showAdd(t.toString(), tasks.size());
         storage.write(tasks);
@@ -159,11 +156,10 @@ public class BenBen {
         if (strSplit.length > 2) {
             throw new BenBenException("Please only enter one task to mark!");
         }
-        Integer x = null;
+        int x;
 
         try {
             x = Integer.parseInt(strSplit[1]);
-            //arr[x - 1].mark();
             tasks.get(x - 1).mark();
             ui.showMark(tasks.get(x - 1).toString());
             storage.write(tasks);
@@ -190,11 +186,10 @@ public class BenBen {
         if (strSplit.length > 2) {
             throw new BenBenException("Please only enter one task to unmark!");
         }
-        Integer x = null;
+        int x;
 
         try {
             x = Integer.parseInt(strSplit[1]);
-            //[x - 1].unmark();
             tasks.get(x - 1).unmark();
             ui.showUnmark(tasks.get(x - 1).toString());
             storage.write(tasks);
@@ -220,21 +215,19 @@ public class BenBen {
         if (strSplit.length > 2) {
             throw new BenBenException("Please only enter one task to remove!");
         }
-        Integer x = null;
+        int x;
 
         try {
             x = Integer.parseInt(strSplit[1]);
-            //[x - 1].unmark();
+
             Task temp = tasks.get(x - 1);
             tasks.remove(x - 1);
-            //counter = counter - 1;
+
             ui.showRemove(temp.toString(), tasks.size());
             storage.write(tasks);
         } catch (NumberFormatException e) {
             throw new BenBenException("Please use an integer value to indicate your task!");
-        } catch (NullPointerException e) {
-            throw new BenBenException("The task you are trying to remove does not exist!");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             throw new BenBenException("The task you are trying to remove does not exist!");
         }
     }
