@@ -5,9 +5,17 @@ import duck.Storage;
 import duck.Ui;
 import duck.task.TaskList;
 
+/**
+ * Represents an executable command which unmarks a task as done.
+ */
 public class UnmarkCommand extends Command {
     int index;
 
+    /**
+     * Creates a new unmark command.
+     * 
+     * @param index Index of task to be unmarked.
+     */
     public UnmarkCommand(int index) {
         this.index = index - 1;
     }
