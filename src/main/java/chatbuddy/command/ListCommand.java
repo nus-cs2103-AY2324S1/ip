@@ -6,6 +6,7 @@ import chatbuddy.ui.Ui;
 
 import java.util.ArrayList;
 
+/** ListCommand represents a command to show the list of tasks. */
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";

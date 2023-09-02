@@ -5,12 +5,18 @@ import chatbuddy.parser.Parser;
 import chatbuddy.storage.Storage;
 import chatbuddy.ui.Ui;
 
+/** ChatBuddy is a chatbot that helps a user keep track of tasks. */
 public class ChatBuddy {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates an instance of ChatBuddy with a specified filepath.
+     *
+     * @param filePath The filepath of the file to save task data in.
+     */
     public ChatBuddy(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -22,6 +28,7 @@ public class ChatBuddy {
         }
     }
 
+    /** Runs the chatbot. */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

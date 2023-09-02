@@ -21,10 +21,23 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parser represents a class to handle the parsing of user commands.
+ * Parser can also parse task data from storage.
+ */
 public class Parser {
+    /** The formatter for deadline inputs. */
     private static final DateTimeFormatter FORMATTER_INPUT_DEADLINE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    /** The formatter for event datetime inputs. */
     private static final DateTimeFormatter FORMATTER_INPUT_EVENT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
+    /**
+     * Parses the user command and returns a Command.
+     *
+     * @param commandString The command inputted by the user.
+     * @return The command to execute.
+     * @throws ChatBuddyException If the command is invalid.
+     */
     public static Command parse(String commandString) throws ChatBuddyException {
         String[] commandArray = commandString.split(" ", 2);
         String command = commandArray[0];
@@ -61,6 +74,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a TodoCommand based on the arguments provided by the user.
+     *
+     * @param args The arguments provided by the user. This should be the description of the task.
+     * @return The TodoCommand to execute.
+     * @throws ChatBuddyException If the description of the task is empty or consists only of whitespace.
+     */
     private static TodoCommand prepareAddTodo(String args) throws ChatBuddyException {
         if (args.trim().equals("")) {
             throw new ChatBuddyException("The description of a todo cannot be empty.");
@@ -68,6 +88,13 @@ public class Parser {
         return new TodoCommand(args);
     }
 
+    /**
+     * Returns a DeadlineCommand based on the arguments provided by the user.
+     *
+     * @param args The arguments provided by the user. This should be the description and deadline of the task.
+     * @return The DeadlineCommand to execute.
+     * @throws ChatBuddyException If the description or deadline of the task is empty or consists only of whitespace.
+     */
     private static DeadlineCommand prepareAddDeadline(String args) throws ChatBuddyException {
         String[] arr = args.split(" /by ");
         String taskDescription = arr[0].trim();
@@ -83,6 +110,14 @@ public class Parser {
         return new DeadlineCommand(taskDescription, date);
     }
 
+    /**
+     * Returns an EventCommand based on the arguments provided by the user.
+     *
+     * @param args The arguments provided by the user. This should be the description,
+     *             the 'from' datetime and the 'to' datetime task.
+     * @return The EventCommand to execute.
+     * @throws ChatBuddyException If the description, 'from' or 'to' datetime is empty of consists only of whitespaces.
+     */
     private static EventCommand prepareAddEvent(String args) throws ChatBuddyException {
         // check validity of arguments
         String[] arr = args.split(" /from ");
@@ -106,6 +141,13 @@ public class Parser {
         return new EventCommand(taskDescription, from, to);
     }
 
+    /**
+     * Returns a DeleteCommand based on the arguments provided by the user.
+     *
+     * @param args The arguments provided by the user. This should be the task number of the task to delete.
+     * @return The DeleteCommand to execute.
+     * @throws ChatBuddyException If the task number is not a numerical number.
+     */
     private static DeleteCommand prepareDelete(String args) throws ChatBuddyException {
         try {
             int taskNum = Integer.parseInt(args.trim());
@@ -115,6 +157,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a MarkCommand based on the arguments provided by the user.
+     *
+     * @param args The arguments provided by the user. This should be the task number of the task to mark as done.
+     * @return The MarkCommand to execute.
+     * @throws ChatBuddyException If the task number is not a numerical number.
+     */
     private static MarkCommand prepareMark(String args) throws ChatBuddyException {
         try {
             int taskNum = Integer.parseInt(args.trim());
@@ -124,6 +173,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns an UnmarkCommand based on the arguments provided by the user.
+     *
+     * @param args The arguments provided by the user. This should be the task number of the task to mark as not done.
+     * @return The UnmarkCommand to execute.
+     * @throws ChatBuddyException If the task number is not a numerical number.
+     */
     private static UnmarkCommand prepareUnmark(String args) throws ChatBuddyException {
         try {
             int taskNum = Integer.parseInt(args.trim());
@@ -133,6 +189,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a LocalDate object parsed from the input string.
+     *
+     * @param dateString The string representing the date in the format dd/MM/yyyy.
+     * @return The LocalDate object parsed from the input string.
+     * @throws ChatBuddyException If the input string is in the wrong format.
+     */
     private static LocalDate parseDate(String dateString) throws ChatBuddyException {
         try {
             LocalDate date = LocalDate.parse(dateString, FORMATTER_INPUT_DEADLINE);
@@ -142,6 +205,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a LocalDateTime object parsed from the input string.
+     *
+     * @param dateTimeString The string representing the datetime in the format dd/MM/yyyy HHmm.
+     * @return The LocalDateTime object parsed from the input string.
+     * @throws ChatBuddyException If the input string is in the wrong format.
+     */
     private static LocalDateTime parseDateTime(String dateTimeString) throws ChatBuddyException {
         try {
             LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, FORMATTER_INPUT_EVENT);
@@ -151,6 +221,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a Task object parsed from the input string.
+     *
+     * @param taskString The string representing the task in saved format.
+     * @return The Task object parsed from the input string.
+     * @throws ChatBuddyException If the input string is in the wrong format.
+     */
     public static Task parseToTask(String taskString) throws ChatBuddyException {
         String[] taskData = taskString.split(" \\| ");
         String taskType = taskData[0];

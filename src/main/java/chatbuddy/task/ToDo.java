@@ -1,21 +1,20 @@
 package chatbuddy.task;
 
+/**
+ * ToDo represents a ToDo object in ChatBuddy.
+ * A todo object is a task and has a description and a boolean representing whether the task is done.
+ */
 public class ToDo extends Task {
 
     /**
-     * Constructor to create a chatbuddy.task.ToDo object.
+     * Creates an instance of a ToDo object with the given description.
      *
-     * @param description The task description.
+     * @param description The description of the task.
      */
     public ToDo(String description) {
         super(description);
     }
 
-    /**
-     * Method to get the string representation of the todo task.
-     *
-     * @return The string representation of the todo task.
-     */
     @Override
     public String toString() {
         return "[T]" + super.toString();
@@ -23,9 +22,9 @@ public class ToDo extends Task {
 
     /**
      * Returns todo task information in format for saving.
-     * Format is T | [1 if completed, 0 if not completed] | [task description]
+     * The format is T | [1 if completed, 0 if not completed] | [task description].
      *
-     * @return Todo task information in format for saving
+     * @return The todo task information in format for saving.
      */
     @Override
     public String getInformationForSaving() {
