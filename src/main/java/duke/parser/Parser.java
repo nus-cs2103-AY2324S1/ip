@@ -41,7 +41,7 @@ public class Parser {
         if (str.split(" ").length == 2) {
             int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
             if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
-                throw new InvalidTaskIndexException("Invalid duke.tasks.Task Index.");
+                throw new InvalidTaskIndexException("Invalid Task Index.");
             }
             Command command = getCommand(str);
             switch (command) {
@@ -54,7 +54,7 @@ public class Parser {
             }
             return taskIndex;
         } else {
-            throw new MissingTaskIndexException("duke.tasks.Task Index Missing.");
+            throw new MissingTaskIndexException("Task Index Missing.");
         }
     }
 
@@ -71,14 +71,14 @@ public class Parser {
         if (str.split(" ").length == 2) {
             int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
             if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
-                throw new InvalidTaskIndexException("Invalid duke.tasks.Task Index.");
+                throw new InvalidTaskIndexException("Invalid Task Index.");
             }
             Task toRemove = tasks.getTask(taskIndex);
             tasks.deleteTask(taskIndex);
             return toRemove;
 
         } else {
-            throw new MissingTaskIndexException("duke.tasks.Task Index Missing.");
+            throw new MissingTaskIndexException("Task Index Missing.");
         }
 
     }
