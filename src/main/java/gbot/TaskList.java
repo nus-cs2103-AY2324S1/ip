@@ -102,4 +102,25 @@ public class TaskList {
         String count = "\nNow you have " + taskCount + " tasks to do.";
         Ui.print("Noted. I've removed this task:\n" + toDelete + count);
     }
+
+    public void find(String str) {
+        ArrayList<Task> matchList = new ArrayList<>();
+        for (int i = 0; i < taskCount; i++) {
+            Task curr = list.get(i);
+            if (curr.getDescription().toLowerCase().contains(str)) {
+                matchList.add(curr);
+            }
+        }
+
+        if (matchList.isEmpty()) {
+            System.out.println("Sorry. There are no matching tasks.");
+        } else {
+            System.out.println(LINE);
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchList.size(); i++) {
+                System.out.println((i + 1) + ". " + matchList.get(i).toString());
+            }
+            System.out.println(LINE);
+        }
+    }
 }

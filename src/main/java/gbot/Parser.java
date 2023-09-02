@@ -1,9 +1,7 @@
 package gbot;
 
-import exceptions.DeadlineException;
-import exceptions.EventException;
-import exceptions.GBotException;
-import exceptions.TodoException;
+import exceptions.*;
+
 import java.util.ArrayList;
 import tasks.Deadline;
 import tasks.Event;
@@ -17,7 +15,8 @@ public class Parser {
         TODO,
         DEADLINE,
         EVENT,
-        DELETE
+        DELETE,
+        FIND
     }
 
     public static void parse(String message, TaskList tasks) {
@@ -80,6 +79,11 @@ public class Parser {
                 Ui.showTaskNumberError();
             }
             break;
+        case FIND:
+            if (str.isBlank()) {
+                Ui.showEmptyKeywordError();
+            }
+            tasks.find(str);
         default:
             throw new GBotException();
         }
