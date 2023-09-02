@@ -9,20 +9,21 @@ public class Task{
         isDone=false;
     }
 
-    public void setDone(){
+    public void setDone() {
         isDone=true;
     }
     public void setUndone(){
         isDone=false;
     }
-    public boolean getDone(){
+    public boolean getDone() {
         return isDone;
     }
 
-    public String toString(){
-        if(isDone)
-            return "[X] "+ task;
-        return "[ ] "+ task;
+    public String toString() {
+        if (isDone) {
+            return "[X] " + task;
+        }
+        return "[ ] " + task;
 
     }
 }
