@@ -118,8 +118,8 @@ public abstract class Command {
             this.commandFields = commandFields;
         }
 
-        public void execute(TaskList tasks, Ui ui) throws TrackerBotException {
-            // TODO Implement Command for Find
+        public void execute(TaskList tasks, Ui ui) {
+            ui.showMessage(tasks.findAll(commandFields));
         }
 
         public boolean isExit() {

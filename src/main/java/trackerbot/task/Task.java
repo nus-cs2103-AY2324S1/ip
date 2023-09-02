@@ -116,6 +116,12 @@ public abstract class Task {
         return true;
     }
 
+    /**
+     * Check if the description of the Task contains the query String.
+     * @param searchStr The query to match any point in the description.
+     * @return true, if the description contains the searchStr, and false
+     *         otherwise.
+     */
     public boolean contains(String searchStr) {
         return description.contains(searchStr);
     }

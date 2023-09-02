@@ -62,7 +62,14 @@ public class TaskList {
                 + TASKS.size() + " task(s) remain on my list.";
     }
 
-    public String find(String searchStr) {
+    /**
+     * Finds all Tasks matching the query, along with the associated index in the list.
+     *
+     * @param searchStr The query to match at any point in the description of the Task.
+     * @return A String representation of all the Tasks matching the query, in list form.
+     *         If no Tasks match the query, returns a String indicating no matches.
+     */
+    public String findAll(String searchStr) {
         StringBuilder result = new StringBuilder();
 
         for (int i = 1; i < TASKS.size() + 1; i++) {
