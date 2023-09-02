@@ -68,9 +68,8 @@ public class Ui {
      * @param taskList The task list containing the added task.
      */
     public void showTaskAdded(TaskList taskList) {
-        showLine();
         System.out.println("Got it. I've added this task:");
-        System.out.println(taskList.getList().get(taskList.getSize() - 1).toString());
+        System.out.println("  " + taskList.getList().get(taskList.getSize() - 1).toString());
         System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
     }
 
@@ -96,7 +95,6 @@ public class Ui {
      * @param deleted  The deleted task.
      */
     public void showTaskDeleted(TaskList tasklist, Task deleted) {
-        showLine();
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + deleted);
         System.out.println("Now you have " + tasklist.getSize() + " tasks in the list.");
@@ -108,7 +106,6 @@ public class Ui {
      * @param task The task that has been marked as done.
      */
     public void showDoneTask(Task task) {
-        showLine();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + task.toString());
     }
@@ -119,8 +116,23 @@ public class Ui {
      * @param task The task that has been marked as undone.
      */
     public void showUnmarkTask(Task task) {
-        showLine();
         System.out.println("I've marked this task as undone:");
         System.out.println("  " + task.toString());
+    }
+
+    /**
+     * Displays tasks that contains the keyWord.
+     *
+     * @param matchingTasks The task list to search on.
+     * @param keyWord Keyword to be searched.
+     */
+    public void showMatchingTasks(TaskList matchingTasks, String keyWord) {
+        ArrayList<Task> taskList = matchingTasks.findTasksByKeyword(keyWord);
+        System.out.println("Here are the matching tasks in your list:");
+        int taskNum = 1;
+        for (Task task : taskList) {
+            System.out.println(taskNum + "." + task.toString());
+            taskNum++;
+        }
     }
 }
