@@ -1,4 +1,4 @@
-package exception;
+package duke.exception;
 
 public class TimeUtilException extends DukeException {
     public TimeUtilException(String message) {

@@ -1,7 +1,7 @@
-package util;
+package duke.util;
 
 
-import exception.TimeUtilException;
+import duke.exception.TimeUtilException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -1,6 +1,8 @@
-import exception.DukeStorageException;
-import exception.FileCorruptedException;
-import tasks.Task;
+package duke.service;
+
+import duke.exception.DukeStorageException;
+import duke.exception.FileCorruptedException;
+import duke.tasks.Task;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -65,7 +67,7 @@ public class StorageService {
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(tasks);
         } catch (IOException e) {
-            throw new DukeStorageException(String.format("Failed to write tasks to file!%nError: %s", e.getMessage()));
+            throw new DukeStorageException(String.format("Failed to write duke.tasks to file!%nError: %s", e.getMessage()));
         }
     }
 
@@ -80,7 +82,7 @@ public class StorageService {
             List<Task> storedTaskList = (List<Task>) ois.readObject();
             return storedTaskList;
         } catch (IOException | ClassNotFoundException e) {
-            throw new FileCorruptedException(String.format("Failed to load tasks!%nError: %s", e.getMessage()));
+            throw new FileCorruptedException(String.format("Failed to load duke.tasks!%nError: %s", e.getMessage()));
         }
     }
 
