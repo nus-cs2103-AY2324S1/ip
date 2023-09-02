@@ -25,8 +25,8 @@ public class ParserTest {
     public void testStringToTask() {
         try {
             Task deadline = Parser.parseStringToTask("deadline Assignment 0 /by 2023-09-04 23:59");
-            assertEquals(new Deadline("Assignment 0", LocalDate.parse("2023-09-04"), LocalTime.parse("23:59")).toString(),
-                    deadline.toString());
+            assertEquals(new Deadline("Assignment 0", LocalDate.parse("2023-09-04"),
+                            LocalTime.parse("23:59")).toString(), deadline.toString());
         } catch (InvalidDescriptionException e) {
         } catch (InvalidDateTimeException e) {
         }

@@ -22,7 +22,7 @@ public class Duke {
 
     /**
      * Constructs a new instance of the duke.Duke class.
-     * Initialises the storage and task list.
+     * Initializes the storage and task list.
      */
     public Duke() {
         storage = new Storage("./data", "./data/ding.txt");
