@@ -1,7 +1,9 @@
+package tasks;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import tasks.Task;
 
-@JsonTypeName("Event")
+@JsonTypeName("tasks.Event")
 public class Event extends Task {
 
   public static final String taskType = "E";
@@ -9,14 +11,14 @@ public class Event extends Task {
   private String startDate;
   private String endDate;
 
-  Event(String desc, String startDate, String endDate) {
+  public Event(String desc, String startDate, String endDate) {
     super(desc);
     this.startDate = startDate;
     this.endDate = endDate;
 
   }
 
-  Event() {
+  public Event() {
     super("");
   }
 
