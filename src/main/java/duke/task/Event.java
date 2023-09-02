@@ -1,6 +1,8 @@
 package duke.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import duke.exception.DukeException;
 import duke.exception.InvalidTimeException;
 public class Event extends Task {
@@ -12,10 +14,15 @@ public class Event extends Task {
         int fromIndex = description.indexOf("/from");
         String tempStarting = description.substring(fromIndex + 6, fromIndex + 16);
         int toIndex = fromIndex + 21;
-        this.starting = LocalDate.parse(tempStarting);
-        this.ending = LocalDate.parse(description.substring(toIndex));
-        if (this.starting.isAfter(this.ending)) {
-            throw new InvalidTimeException("The starting time could not pass the ending time");
+        try{
+            this.starting = LocalDate.parse(tempStarting);
+            this.ending = LocalDate.parse(description.substring(toIndex));
+            if (this.starting.isAfter(this.ending)) {
+                throw new InvalidTimeException("The starting time could not pass the ending time");
+            }
+        }
+        catch (DateTimeParseException e) {
+            throw new InvalidTimeException("Invalid input of Date");
         }
     }
 @Override

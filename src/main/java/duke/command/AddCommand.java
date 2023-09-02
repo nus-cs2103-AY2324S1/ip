@@ -38,12 +38,7 @@ public class AddCommand extends Command {
             if (byIndex == -1) {
                 throw new InvalidInputException("Deadline must contain /by");
             }
-            try {
-                tasks.add(new Deadline(taskDescription));
-            }
-            catch (DateTimeParseException e) {
-                throw new InvalidTimeException("Invalid input of Date");
-            }
+            tasks.add(new Deadline(taskDescription));
         } else if (type.equalsIgnoreCase("event")) {
             int fromIndex = taskDescription.indexOf("/from");
             if (fromIndex == -1) {
@@ -53,12 +48,7 @@ public class AddCommand extends Command {
             if (toIndex == -1) {
                 throw new InvalidInputException("Event must contain /to");
             }
-            try{
-                tasks.add(new Event(taskDescription));
-            }
-            catch (DateTimeParseException e) {
-                throw new InvalidTimeException("Invalid input of Date");
-            }
+            tasks.add(new Event(taskDescription));
 
         } else {
             throw new InvalidInputException("I'm sorry, but I don't know what that means :-(");
