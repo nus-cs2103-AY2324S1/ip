@@ -10,13 +10,11 @@ public class Deadline extends Task {
     public Deadline(String description, String time) {
         super(description);
         this.time = time;
-        System.out.println("Got it. I've added this task:");
     }
 
     public Deadline(String description, LocalDateTime dateTime) {
         super(description);
         this.dateTime = dateTime;
-        System.out.println("Got it. I've added this task:");
     }
 
     @Override
