@@ -6,7 +6,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.io.IOException;
-import exceptions.*;
+import exceptions.EmptyTaskDescriptionException;
+import exceptions.InvalidCommandException;
+import exceptions.InvalidTaskNumberException;
+import exceptions.TaskAlreadyDoneException;
+import exceptions.TaskNotDoneException;
 
 public class Martin {
     private static ArrayList<Task> tasks = new ArrayList<>();
@@ -52,12 +56,19 @@ public class Martin {
         }
     }
 
+    /**
+    * Displays the given message within a framed UI box.
+     * @param message The message to be displayed.
+    */
     private static void printMessage(String message) {
             System.out.println("    ____________________________________________________________");
             System.out.println("     " + message);
             System.out.println("    ____________________________________________________________");
     }
 
+    /**
+    * Prints all tasks currently in the list.
+    */
     private static void printTasks() {
         System.out.println("    ____________________________________________________________");
         for (int i = 0; i < tasks.size(); i++) {
@@ -66,6 +77,10 @@ public class Martin {
         System.out.println("    ____________________________________________________________");
     }
 
+    /**
+    * Deletes the task at the specified index provided by the command.
+    * @param command The user input containing the task index to delete.
+    */
     private static void deleteTask(String command) throws InvalidTaskNumberException {
         try {
             int taskNo = Integer.parseInt(command.split(" ")[1]);
@@ -81,6 +96,10 @@ public class Martin {
         }
     }
 
+    /**
+    * Marks the task at the specified index as done.
+    * @param command The user input containing the task index to mark.
+    */
     private static void markTask(String command) throws InvalidTaskNumberException, TaskAlreadyDoneException {
         try {
             int taskNo = Integer.parseInt(command.split(" ")[1]);
@@ -100,6 +119,10 @@ public class Martin {
         }
     }
 
+    /**
+    * Unmarks the task at the specified index, marking it as not done.
+    * @param command The user input containing the task index to unmark.
+    */
     private static void unmarkTask(String command) throws InvalidTaskNumberException, TaskNotDoneException{
         try {
             int taskNo = Integer.parseInt(command.split(" ")[1]);
@@ -119,6 +142,10 @@ public class Martin {
         }
     }
     
+    /**
+    * Adds a new ToDo task to the task list.
+    * @param command The user input containing the task description.
+    */
     private static void addTodo(String command) throws EmptyTaskDescriptionException {
         if (command.length() <= 4) {
             throw new EmptyTaskDescriptionException("☹ OOPS!!! The description of a todo cannot be empty.");
@@ -133,6 +160,10 @@ public class Martin {
         printMessage("Got it. I've added this task:\n       " + tasks.get(tasks.size() - 1) + "\n     Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    /**
+    * Adds a new Deadline task to the task list.
+     * @param command The user input containing the task description and its deadline.
+     */
     private static void addDeadline(String command) throws EmptyTaskDescriptionException {
         String[] parts = command.substring(9).split(" /by ");
         if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
@@ -143,6 +174,10 @@ public class Martin {
         printMessage("Got it. I've added this task:\n       " + tasks.get(tasks.size() - 1) + "\n     Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    /**
+    * Adds a new Event task to the task list.
+    * @param command The user input containing the event details.
+    */
     private static void addEvent(String command) throws EmptyTaskDescriptionException {
         String[] parts = command.substring(6).split(" /from ");
         String[] timeParts = parts[1].split(" /to ");
@@ -154,6 +189,9 @@ public class Martin {
         printMessage("Got it. I've added this task:\n       " + tasks.get(tasks.size() - 1) + "\n     Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    /**
+    * Saves all tasks in the list to an external file for persistence.
+    */
     public static void saveToFile() {
         List<String> lines = new ArrayList<>();
         for (Task task : tasks) {
@@ -172,6 +210,9 @@ public class Martin {
         }
     }
     
+    /**
+    * Loads tasks from an external file into the program on startup.
+    */
     public static void loadFromFile() {
         Path path = Paths.get("./data/martin.txt");
         if (Files.exists(path)) {
