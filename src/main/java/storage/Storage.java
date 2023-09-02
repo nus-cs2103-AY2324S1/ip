@@ -20,7 +20,7 @@ public class Storage {
     public static ArrayList<Task> readTasks() {
         ArrayList<Task> tasks = new ArrayList<Task>();
         try {
-            File myObj = new File("./src/main/storage/writtenStorage.txt");
+            File myObj = new File("./src/storage/writtenStorage.txt");
             Scanner myReader = new Scanner(myObj);
             int taskIndex = 0;
             while (myReader.hasNextLine()) {
@@ -66,7 +66,7 @@ public class Storage {
 
     public static void storeTasks(ArrayList<Task> tasks) {
         try {
-            File myObj = new File("./src/main/storage/writtenStorage.txt");
+            File myObj = new File("./src/storage/writtenStorage.txt");
             myObj.createNewFile();
         } catch (IOException e) {
             Ui.print("Error creating file");
@@ -79,7 +79,7 @@ public class Storage {
                 String currentItem = currentTask.toStringWithDateTime();
                 toWrite += currentItem +"\n";
             }
-            FileWriter myWriter = new FileWriter("./src/main/storage/writtenStorage.txt");
+            FileWriter myWriter = new FileWriter("./src/storage/writtenStorage.txt");
             myWriter.write(toWrite);
             myWriter.close();
         } catch (IOException e) {
