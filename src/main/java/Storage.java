@@ -6,11 +6,16 @@ import java.util.Scanner;
 
 //deals with loading tasks from the file and saving tasks in the file
 public class Storage {
+    private String filepath;
+    private TaskList list;
+    public Storage(String filepath) {
+        this.filepath = filepath;
+    }
 
     //load tasks from the file into the chatbot
-    public static ArrayList<Task> loadTasks() throws FileNotFoundException {
+    public ArrayList<Task> load() throws FileNotFoundException {
         ArrayList<Task> dukeList = new ArrayList<>();
-        File file = new File("duke.txt");
+        File file = new File(filepath);
         if (file.exists()) {
             try (Scanner fileScanner = new Scanner(file)) {
                 while (fileScanner.hasNextLine()) {
@@ -24,11 +29,10 @@ public class Storage {
     }
 
     // Save tasks to a data file
-    public static void saveTasks(ArrayList<Task> list) {
-        File file = new File("duke.txt");
-        try (PrintWriter out = new PrintWriter("duke.txt")) {
-            for (Task task : list) {
-                String taskString = Taskparser.taskToString(task); //convert task to string
+    public void save(TaskList list) {
+        try (PrintWriter out = new PrintWriter(filepath)) {
+            for (int i = 0; i < list.count; i++) {
+                String taskString = Taskparser.taskToString(list.getTask(i)); //convert task to string
                 out.println(taskString);
             }
         } catch (FileNotFoundException e) {
