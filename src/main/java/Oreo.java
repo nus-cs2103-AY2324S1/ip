@@ -1,20 +1,16 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileWriter;
 
-public class Duke {
+
+public class Oreo {
     private Ui ui;
 
     private Storage storage;
 
     private TaskList tasks;
 
-    public Duke(String filePath) {
+    public Oreo(String filePath) {
         this.tasks = new TaskList();
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -85,7 +81,7 @@ public class Duke {
         }
 
         public static void main(String[] args) {
-            Duke duke = new Duke("/Users/daniel/Desktop/CS2103T/iP/src/main/java/data/duke.txt");
-            duke.run();
+            Oreo oreo = new Oreo("/Users/daniel/Desktop/CS2103T/iP/src/main/java/data/duke.txt");
+            oreo.run();
         }
     }

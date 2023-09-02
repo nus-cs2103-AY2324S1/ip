@@ -62,7 +62,7 @@ public class TaskList {
             throw new IllegalCommandException("do that without specifying a task number");
         }
         String content = tokeniser.next();
-        if (Duke.isInteger(content)) {
+        if (Oreo.isInteger(content)) {
             int id = Integer.parseInt(content);
             if (id > getNumberOfTask()) {
                 throw new IllegalCommandException("do that... this task does not exist :(");
@@ -87,7 +87,7 @@ public class TaskList {
             throw new IllegalCommandException("do that without specifying a task number");
         }
         String content = tokeniser.next();
-        if (Duke.isInteger(content)) {
+        if (Oreo.isInteger(content)) {
             int id = Integer.parseInt(content);
             if (id > getNumberOfTask()) {
                 throw new IllegalCommandException("do that... this task does not exist :(");
