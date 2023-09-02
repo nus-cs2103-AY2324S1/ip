@@ -3,6 +3,9 @@ package parser;
 import data.exception.DukeException;
 
 public class Parser {
+    /**
+     * Commands to be run based on the user's input.
+     */
     public enum Command {
         BYE,
         LIST,
@@ -14,6 +17,13 @@ public class Parser {
         EVENT
     }
 
+    /**
+     * Returns a command to be executed given a specified input provided by the user.
+     *
+     * @param input The input of the user.
+     * @return A command to be exectued which is based on the user input.
+     * @throws DukeException If the first word of the input is not a valid command.
+     */
     public Command parse(String input) throws DukeException {
         String[] inputSplit = input.split(" ");
         Command command = this.getCommand(input);
