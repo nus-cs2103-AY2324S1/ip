@@ -57,6 +57,67 @@ public class TaskList {
         }
     }
 
+    public void processCommand(String command) throws BuddyException {
+        String[] parts = command.split(" ", 2);
+
+        try {
+            TaskType taskType = TaskType.valueOf(parts[0].toUpperCase());
+
+            switch (taskType) {
+            case TODO:
+                if (parts.length < 2 || parts[1].isEmpty()) {
+                    throw new BuddyException("OOPS!!! The description of a todo cannot be empty.");
+                } else {
+                    addTask(new Todo(parts[1]));
+                    System.out.println("Got it. I've added this task:\n"
+                            + getTask(this.getSize() - 1));
+                    System.out.println("Now you have " + this.getSize() + " tasks in the list.");
+                }
+                break;
+
+            case DEADLINE:
+                if (parts.length < 2 || parts[1].isEmpty()) {
+                    throw new BuddyException("OOPS!!! Please include a description and deadline.");
+                } else {
+                    String[] deadlineParts = parts[1].split("/", 2);
+                    if (deadlineParts.length < 2 || deadlineParts[1].isEmpty()) {
+                        throw new BuddyException("OOPS!!! Please include a description and deadline.");
+                    }
+                    String deadlineBy = deadlineParts[1].replaceFirst("by ", "").trim();
+                    addTask(new Deadline(deadlineParts[0], deadlineBy));
+                    System.out.println("Got it. I've added this task:\n"
+                            + getTask(this.getSize() - 1).toString());
+                    System.out.println("Now you have " + this.getSize() + " tasks in the list.");
+                }
+                break;
+
+            case EVENT:
+                if (parts.length < 2 || parts[1].isEmpty()) {
+                    throw new BuddyException(
+                            "OOPS!!! Please include event description, start and end date or time."
+                    );
+                } else {
+                    String[] eventParts = parts[1].split("/", 3);
+                    if (eventParts.length < 3 || eventParts[1].isEmpty() || eventParts[2].isEmpty()) {
+                        throw new BuddyException(
+                                "OOPS!!! Please include event description, start and end date or time."
+                        );
+                    }
+                    String eventStart = eventParts[1].replaceFirst("from ", "").trim();
+                    String eventEnd = eventParts[2].replaceFirst("to ", "").trim();
+
+                    addTask(new Event(eventParts[0], eventStart, eventEnd));
+                    System.out.println("Got it. I've added this task:\n"
+                            + getTask(this.getSize() - 1));
+                    System.out.println("Now you have " + this.getSize() + " tasks in the list.");
+                }
+                break;
+            }
+        } catch (IllegalArgumentException e) {
+            throw new BuddyException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

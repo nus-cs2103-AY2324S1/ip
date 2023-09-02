@@ -44,108 +44,80 @@ public class Buddy {
                     System.out.println("Invalid task number.");
                 }
 
-            } else if (command.startsWith("delete")) {
-                String[] arrOfCmd = command.split(" ");
-                try {
-                    Integer taskIndex = Integer.valueOf(arrOfCmd[1]) - 1;
-                    tasks.deleteTask(taskIndex);
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Invalid task number.");
-                }
-
-            } else if (command.startsWith("todo")) {
-                String description = command
-                        .replaceFirst("todo", "");
-                if (description.equals("")) {
-                    System.out.println("OOPS!!! The description of a todo cannot be empty.");
-                    //throw new BuddyException("OOPS!!! The description of a todo cannot be empty.");
-                } else {
-                    Todo todo = new Todo(description);
-                    // t = new Task(description);
-                    tasks.addTask(todo);
-                    System.out.println("Got it. I've added this task:\n" + todo.toString());
-//                    if (tasks == 1) {
+//            } else if (command.startsWith("delete")) {
+//                String[] arrOfCmd = command.split(" ");
+//                try {
+//                    Integer taskIndex = Integer.valueOf(arrOfCmd[1]) - 1;
+//                    tasks.deleteTask(taskIndex);
+//                } catch (IndexOutOfBoundsException e) {
+//                    System.out.println("Invalid task number.");
+//                }
+//
+//            } else if (command.startsWith("todo")) {
+//                String description = command
+//                        .replaceFirst("todo", "");
+//                if (description.equals("")) {
+//                    System.out.println("OOPS!!! The description of a todo cannot be empty.");
+//                    //throw new BuddyException("OOPS!!! The description of a todo cannot be empty.");
+//                } else {
+//                    Todo todo = new Todo(description);
+//                    // t = new Task(description);
+//                    tasks.addTask(todo);
+//                    System.out.println("Got it. I've added this task:\n" + todo.toString());
+////                    if (tasks == 1) {
+////                        System.out.println("Now you have 1 task in the list.");
+////                    } else {
+//                        System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
+//                    // }
+//                }
+//
+//            } else if (command.startsWith("deadline")) {
+//                String[] deadlineArr = command
+//                        .replaceFirst("deadline", "")
+//                        .split("/", 2);
+//                try {
+//                    String description = deadlineArr[0];
+//                    String deadlineBy = deadlineArr[1].replaceFirst("by ", "").trim();
+//                    Deadline deadline = new Deadline(description, deadlineBy);
+//                    // t = new Task(description);
+//                    tasks.addTask(deadline);
+//                    System.out.println("Got it. I've added this task:\n"
+//                            + deadline.toString());
+//                    if (tasks.getSize() == 1) {
 //                        System.out.println("Now you have 1 task in the list.");
 //                    } else {
-                        System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
-                    // }
-                }
+//                        System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
+//                    }
+//                } catch (ArrayIndexOutOfBoundsException e) {
+//                    System.out.println("Please include a description and deadline.");
+//                }
+//
+//
+//            } else if (command.startsWith("event")) {
+//                try {
+//                    String[] eventArr = command
+//                            .replaceFirst("event", "")
+//                            .split("/", 3);
+//                    String description = eventArr[0];
+//                    String eventStart = eventArr[1].replaceFirst("from ", "").trim();
+//                    String eventEnd = eventArr[2].replaceFirst("to ", "").trim();
+//                    Event event = new Event(description, eventStart, eventEnd);
+//                    // t = new Task(description);
+//                    tasks.addTask(event);
+//                    System.out.println("Got it. I've added this task:\n" + event.toString());
+//                    if (tasks.getSize() == 1) {
+//                        System.out.println("Now you have 1 task in the list.");
+//                    } else {
+//                        System.out.println("Now you have " + tasks.getSize()  + " tasks in the list.");
+//                    }
+//                } catch (ArrayIndexOutOfBoundsException e) {
+//                    System.out.println("Please include event description, start and end date or time.");
+//                }
+//
+//            }
 
-            } else if (command.startsWith("deadline")) {
-                String[] deadlineArr = command
-                        .replaceFirst("deadline", "")
-                        .split("/", 2);
-                try {
-                    String description = deadlineArr[0];
-                    String deadlineBy = deadlineArr[1].replaceFirst("by ", "").trim();
-                    Deadline deadline = new Deadline(description, deadlineBy);
-                    // t = new Task(description);
-                    tasks.addTask(deadline);
-                    System.out.println("Got it. I've added this task:\n"
-                            + deadline.toString());
-                    if (tasks.getSize() == 1) {
-                        System.out.println("Now you have 1 task in the list.");
-                    } else {
-                        System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Please include a description and deadline.");
-                }
-
-
-            } else if (command.startsWith("event")) {
-                try {
-                    String[] eventArr = command
-                            .replaceFirst("event", "")
-                            .split("/", 3);
-                    String description = eventArr[0];
-                    String eventStart = eventArr[1].replaceFirst("from ", "").trim();
-                    String eventEnd = eventArr[2].replaceFirst("to ", "").trim();
-                    Event event = new Event(description, eventStart, eventEnd);
-                    // t = new Task(description);
-                    tasks.addTask(event);
-                    System.out.println("Got it. I've added this task:\n" + event.toString());
-                    if (tasks.getSize() == 1) {
-                        System.out.println("Now you have 1 task in the list.");
-                    } else {
-                        System.out.println("Now you have " + tasks.getSize()  + " tasks in the list.");
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Please include event description, start and end date or time.");
-                }
-
-            }
-
-            else {
-                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
-            }
-        }
-    }
-    private static void printList(List<Task> list) {
-        if (list.size() == 0) {
-            System.out.println("There are no tasks in your list:");
-        } else {
-            System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < list.size(); i++) {
-                Task task = list.get(i);
-                System.out.println((i + 1) + "." + task.toString());
-            }
-        }
-    }
-
-    private static void deleteTask(int index, List<Task> list) {
-        if (list.size() == 0) {
-            System.out.println("There are no tasks in your list:");
-        } else {
-            List<Task> newList = new ArrayList<>();
-            Task deleted = list.remove(index);
-            newList = list;
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(deleted.toString());
-            if (newList.size() == 1) {
-                System.out.println("Now you have 1 task in the list.");
             } else {
-                System.out.println("Now you have " + newList.size() + " tasks in the list.");
+                tasks.processCommand(command);
             }
         }
     }
