@@ -10,6 +10,9 @@ import java.util.Scanner;
  * Abstracts the Commands obtained from user input.
  * <p> Command nests its child classes inside its abstraction, as there is
  * a small number of available commands that can be called through the UI. </p>
+ * <p>Every nested Command should be assigned a corresponding CommandType enum.</p>
+ * @author WZWren
+ * @version A-JavaDoc
  */
 public abstract class Command {
     /**

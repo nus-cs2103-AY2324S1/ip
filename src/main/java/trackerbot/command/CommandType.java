@@ -1,5 +1,12 @@
 package trackerbot.command;
 
+/**
+ * Enumerates the possible Command types that exist in the Command class.
+ * <p>CommandType should directly mirror the number of nested implementations of the
+ * Command subclass.</p>
+ * @author WZWren
+ * @version A-JavaDoc
+ */
 public enum CommandType {
     /** Command to exit the program. **/
     BYE ("bye"),
@@ -24,14 +31,18 @@ public enum CommandType {
     private final String keyword;
 
     /**
-     * Constructor for the enum Command. <br>
-     * Enum constructors are implicitly private, so the tag is not included.
+     * Constructor for the enum Command.
+     * <p>Enum constructors are implicitly private, so the tag is not included.</p>
      * @param keyword The keyword of the task.
      */
     CommandType(String keyword) {
         this.keyword = keyword;
     }
 
+    /**
+     * Gets the keyword of the enum CommandType.
+     * @return The associated String keyword with the Command.
+     */
     public String getKeyword() {
         return keyword;
     }
