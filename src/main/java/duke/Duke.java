@@ -6,6 +6,7 @@ import duke.utils.Storage;
 import duke.utils.TaskList;
 import duke.utils.Ui;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
@@ -58,6 +59,9 @@ public class Duke {
                     Task task = this.tasks.deleteTask(parser.getTaskNumber());
                     System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
                     this.ui.printList(tasks.getTasks());
+                } else if (userCommand.equals("FIND")){
+                    List<Task> matchingTasks = this.tasks.findTasksByKeyword(parser.getStringKeyword());
+                    this.ui.printList(matchingTasks);
                 } else {
                     throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }

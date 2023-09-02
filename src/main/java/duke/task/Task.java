@@ -25,6 +25,10 @@ public class Task {
         return isDone ? "X" : " ";
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     public String toFileString() {
         char doneStatus = isDone ? '1' : '0';
         return doneStatus + " | " + description;

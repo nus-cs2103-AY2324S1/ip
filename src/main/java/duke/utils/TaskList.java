@@ -73,6 +73,19 @@ public class TaskList {
         } catch (NullPointerException e) {
             throw new DukeException("invalid task number");
         }
+    }
 
+    public List<Task> findTasksByKeyword(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < toDoList.size(); i++) {
+            Task task = toDoList.get(i);
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        if (matchingTasks.size() < 1) {
+            System.out.println("OOPS! No matching tasks found");
+        }
+        return matchingTasks;
     }
 }

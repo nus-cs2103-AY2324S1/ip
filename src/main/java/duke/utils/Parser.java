@@ -74,4 +74,12 @@ public class Parser {
             throw new DukeException("Sorry! Incorrect format for time and date :(");
         }
     }
+
+    public String getStringKeyword() throws DukeException {
+        try {
+            return String.join(" ", this.inputArray.subList(1, this.inputArray.size()));
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException(e.getMessage());
+        }
+    }
 }
