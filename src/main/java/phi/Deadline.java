@@ -4,9 +4,19 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents the Deadline task type, and contains a String with a user-specified date as the deadline of a task
+ */
 public class Deadline extends Task {
     private String deadlineString;
 
+    /**
+     * Constructor for a new Deadline instance
+     *
+     * @param msg       Task message to be displayed
+     * @param isDone    Boolean determining if task is completed
+     * @param deadline  User-specified deadline of task
+     */
     public Deadline(String msg, boolean isDone, String deadline) {
         super(Type.D,isDone, msg);
         this.deadlineString = deadline;
@@ -27,28 +37,9 @@ public class Deadline extends Task {
         return super.toString() + String.format(" (by: %s)", deadlineString);
     }
 
-    public static Deadline newDeadline(String input) {
-        if (input.equals("deadline")) {
-            throw new IllegalArgumentException("You gotta put an actual message in...");
-        } else if (!input.startsWith("deadline ")) {
-            throw new IllegalArgumentException(
-                    String.format("Hey genius, did you mean \"deadline %s\"...", input.substring(8)));
-        } else if (!input.contains("/by")) {
-            throw new IllegalArgumentException("Look at which moron didn't add a deadline with the \"/by\" flag");
-        }
-        int byFlag = input.indexOf("/by");
-        if (byFlag == 9) {
-            throw new IllegalArgumentException("Come on you have to fill in something...");
-        } else if (input.endsWith("/by") || input.endsWith("/by ")) {
-            throw new IllegalArgumentException("Hey you have to give me a deadline!");
-        }
-
-        String taskMsg = input.substring(9, byFlag - 1);
-        String deadlineString = input.substring(byFlag + 4);
-
-        return new Deadline(taskMsg, false, deadlineString);
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String outputFormat() {
         return String.format("%s|%b|%s|%s", taskType.toString(), done, taskName, deadlineString);

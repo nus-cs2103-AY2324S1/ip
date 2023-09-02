@@ -3,6 +3,9 @@ package phi;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the task list of the chatbot
+ */
 public class TaskList {
     private final ArrayList<Task> taskList;
 
@@ -18,6 +21,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as done and returns the corresponding response message
+     * Contains error handling for incorrect user inputs
+     *
+     * @param input User-inputted string to be parsed
+     * @return      String response
+     */
     public String doTask(String input) {
         try {
             int number = Integer.parseInt(input.substring(5));
@@ -33,6 +43,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as undone and returns the corresponding response message
+     * Contains error handling for incorrect user inputs
+     *
+     * @param input User-inputted string to be parsed
+     * @return      String response
+     */
     public String undoTask(String input) {
         try {
             int number = Integer.parseInt(input.substring(7));
@@ -53,6 +70,13 @@ public class TaskList {
         return "Added:\n" + task;
     }
 
+    /**
+     * Deletes a task from the list and returns the corresponding response message
+     * Contains error handling for incorrect user inputs
+     *
+     * @param input User-inputted string to be parsed
+     * @return      String response
+     */
     public String deleteTask(String input) {
         try {
             int number = Integer.parseInt(input.substring(7));
@@ -71,23 +95,29 @@ public class TaskList {
         return "Something went wrong, please try again :/";
     }
 
-    public String printList(String input) {
-        if (!input.equals("list")) {
-            throw new IllegalArgumentException("Nice job did you mean \"list\" coz what you gave wasn't an accepted input");
+    /**
+     * Prints the current task list. If list is empty, returns a corresponding response message
+     *
+     * @return String representation of task list
+     */
+    public String printList() {
+        if (taskList.isEmpty()) {
+            return "You do know that to SHOW a list there has to be stuff INSIDE the (currently empty) list right?";
         } else {
-            if (taskList.isEmpty()) {
-                return "You do know that to SHOW a list there has to be stuff INSIDE the (currently empty) list right?";
-            } else {
-                StringBuilder output = new StringBuilder();
-                for (Task t : taskList) {
-                    output.append(String.format("%d.%s%n", taskList.indexOf(t) + 1, t.toString()));
-                }
-                return output.toString();
+            StringBuilder output = new StringBuilder();
+            for (Task t : taskList) {
+                output.append(String.format("%d.%s%n", taskList.indexOf(t) + 1, t.toString()));
             }
+            return output.toString();
         }
     }
 
-    public void addFromSc(String input) {
+    /**
+     * Adds a task into the list from input given by the stored tasklist.txt file
+     *
+     * @param input each individual line of input in the .txt file
+     */
+    public void addFromTxt(String input) {
         Scanner sc = new Scanner(input);
         sc.useDelimiter("\\|");
         // parameter handling
@@ -96,7 +126,6 @@ public class TaskList {
         String taskMsg = sc.next();
 
         switch (taskType) {
-            // todo task
             case "T":
                 this.taskList.add(new ToDo(taskMsg, isComplete));
                 break;
@@ -116,6 +145,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns the entire tasklist in output format, to be written by a Storage object.
+     *
+     * @return A String containing the entire task list, formatted in output style.
+     */
     public String outputList() {
         StringBuilder output = new StringBuilder();
         for (Task t : this.taskList) {

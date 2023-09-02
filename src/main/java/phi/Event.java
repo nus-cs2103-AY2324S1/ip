@@ -4,10 +4,21 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents the Event task type, and contains two Strings with user-specified dates as the start and end of a task
+ */
 public class Event extends Task {
     private String start;
     private String end;
 
+    /**
+     * Constructor for a new Event instance
+     *
+     * @param msg       message to be displayed
+     * @param isDone    Boolean determining if task is completed
+     * @param start     User-specified start time of task
+     * @param end       User-specified end time of task
+     */
     public Event(String msg, boolean isDone, String start, String end) {
         super(Type.E, isDone, msg);
         this.start = start;
@@ -37,6 +48,12 @@ public class Event extends Task {
         return super.toString() + String.format(" (from: %s to: %s)", start, end);
     }
 
+    /**
+     * Static method that creates a new Event instance from the user-provided input
+     *
+     * @param input User-inputted text that will be parsed into instructions
+     * @return      New Event instance that is marked incomplete
+     */
     public static Event newEvent(String input) {
         if (input.equals("event")) {
             throw new IllegalArgumentException("You gotta put an actual message in...");
@@ -74,6 +91,9 @@ public class Event extends Task {
         return new Event(taskMsg, false, fromStr, toStr);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String outputFormat() {
         return String.format("%s|%b|%s|%s|%s", taskType.toString(), done, taskName, start, end);
