@@ -6,16 +6,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The type Storage that stores, reads and rite the local file
+ */
 public class Storage {
     private final String filePath;
 
     //private static String filePath = "./src/main/java/tasks.txt";
 
     private File file;
+
+    /**
+     * Instantiates a new Storage.
+     *
+     * @param filePath the file path of the local file
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Writes the data from the task list to the local file
+     *
+     * @param tasks the task list
+     */
     public void write(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(this.filePath);
@@ -31,6 +45,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Load array list of tasks from the local file
+     *
+     * @return the array list of the tasks
+     * @throws BenBenException the ben ben exception
+     */
     public ArrayList<Task> load() throws BenBenException {
         ArrayList<Task> list = new ArrayList<>();
         try {
@@ -46,7 +66,7 @@ public class Storage {
             while (sc.hasNext()) {
                 boolean canRead = false;
                 String task = sc.nextLine();
-                System.out.println(task);
+                //System.out.println(task);
                 String[] strSplit = task.split("\\|");
 
                 for (int i = 0; i < strSplit.length; i++) {
