@@ -10,18 +10,18 @@ import java.time.temporal.ChronoUnit;
  */
 public class Event extends Task {
 
-    /** The 'from' datetime of the task. */
-    protected LocalDateTime from;
-    /** The 'to' datetime of the task. */
-    protected LocalDateTime to;
-
     /** The formatter used for datetime inputs. */
     private static final DateTimeFormatter FORMATTER_DATETIME_INPUT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     /** The formatter used for datetime outputs. */
     private static final DateTimeFormatter FORMATTER_DATETIME_OUTPUT = DateTimeFormatter.ofPattern("dd MMM yyyy HHmm");
 
+    /** The 'from' datetime of the task. */
+    protected LocalDateTime from;
+    /** The 'to' datetime of the task. */
+    protected LocalDateTime to;
+
     /**
-     * Constructor to create an chatbuddy.task.Event object.
+     * Constructor to create an Event object.
      *
      * @param description The task description.
      * @param from The task's start date/time in the format dd/MM/yyyy HHmm.

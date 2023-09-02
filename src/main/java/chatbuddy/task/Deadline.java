@@ -10,13 +10,13 @@ import java.time.temporal.ChronoUnit;
  */
 public class Deadline extends Task {
 
-    /** The deadline of the task. */
-    protected LocalDate by;
-
     /** The formatter used for date inputs. */
     private static final DateTimeFormatter FORMATTER_DATE_INPUT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     /** The formatter used for date outputs. */
     private static final DateTimeFormatter FORMATTER_DATE_OUTPUT = DateTimeFormatter.ofPattern("dd MMM yyyy");
+
+    /** The deadline of the task. */
+    protected LocalDate by;
 
     /**
      * Creates an instance of a Deadline object with the given description and deadline.

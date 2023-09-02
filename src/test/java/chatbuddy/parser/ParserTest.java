@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
     @Test
-    public void parse_listCommandWord() {
+    public void parse_listCommandWord_listCommandReturned() {
         try {
             Command command = Parser.parse("list");
             assertEquals(ListCommand.class, command.getClass());
@@ -28,7 +28,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_invalidCommandWord() {
+    public void parse_invalidCommandWord_chatBuddyExceptionThrown() {
         try {
             Parser.parse("hi");
             fail();
@@ -45,7 +45,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_missingTodoDescription() {
+    public void parse_missingTodoDescription_chatBuddyExceptionThrown() {
         try {
             Parser.parse("todo");
             fail();
@@ -62,7 +62,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_invalidDeadlineInput() {
+    public void parse_invalidDeadlineInput_chatBuddyExceptionThrown() {
         String errorMessage = "☹ OOPS!!! Please input deadlines in the format " +
                     "'deadline [task description] /by [deadline in dd/MM/yyyy]'.\n" +
                     "The task description and deadline cannot be empty.";
