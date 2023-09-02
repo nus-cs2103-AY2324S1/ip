@@ -18,6 +18,13 @@ public class Event extends Task {
         this.end = end;
     }
 
+    /**
+     * Sets the description, start and end date.
+     *
+     * @param description the description of the task.
+     * @param start the start time of the event.
+     * @param end the end time of the event.
+     */
     public Event(String description, String start, String end) {
         super(description);
         this.start = start;
@@ -31,6 +38,7 @@ public class Event extends Task {
 
     @Override
     public String fileRepresentation() {
-        return ("E" + " | " + (this.isDone ? "1" : "0") + " | " + this.description + " | " + start + " | " + end + "\n");
+        return ("E" + " | " + (this.isDone ? "1" : "0")
+                + " | " + this.description + " | " + start + " | " + end + "\n");
     }
 }

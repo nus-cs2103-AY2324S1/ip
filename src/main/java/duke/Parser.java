@@ -1,6 +1,18 @@
 package duke;
 
-import duke.command.*;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnknownCommand;
+import duke.command.UnmarkCommand;
 import duke.exception.DukeException;
 import duke.exception.EmptyDescriptionException;
 import duke.exception.MissingIndexException;
@@ -9,9 +21,6 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Arrays;
 
 /**
  * The duke.Parser class takes an input and returns
@@ -42,7 +51,7 @@ public class Parser {
             String command = temp[0];
             if (commands.contains(command)) {
                 if (temp.length == 1 || temp[1].length() == 0) {
-                    if (command.equals("mark") || command.equals("unmark") || command.equals("delete")){
+                    if (command.equals("mark") || command.equals("unmark") || command.equals("delete")) {
                         throw new MissingIndexException();
                     } else {
                         throw new EmptyDescriptionException();
@@ -61,7 +70,7 @@ public class Parser {
                         String[] items = temp[1].split(" /");
                         if (items.length == 1) {
                             throw new EmptyDescriptionException();
-                        } else if (!items[1].startsWith("by ")){
+                        } else if (!items[1].startsWith("by ")) {
                             throw new UnknownCommandException();
                         } else {
                             if (items[1].length() == 3) {
@@ -73,9 +82,10 @@ public class Parser {
                         }
                     } else if (command.equals("event")) {
                         String[] items = temp[1].split(" /");
-                        if (items.length == 3){
+                        if (items.length == 3) {
                             if (items[1].startsWith("from ") && items[2].startsWith("to ")) {
-                                return new AddCommand(new Event(items[0], items[1].substring(5), items[2].substring(3)));
+                                return new AddCommand(new Event(items[0], items[1].substring(5),
+                                        items[2].substring(3)));
                             } else {
                                 throw new UnknownCommandException();
                             }

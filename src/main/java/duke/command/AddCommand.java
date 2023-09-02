@@ -1,11 +1,11 @@
 package duke.command;
 
+import java.io.IOException;
+
 import duke.Storage;
 import duke.TaskList;
 import duke.UI;
 import duke.task.Task;
-
-import java.io.IOException;
 
 /**
  * The AddCommand represents a command
@@ -15,6 +15,11 @@ import java.io.IOException;
 public class AddCommand extends Command {
     private Task task;
 
+    /**
+     * Sets the isExit to false and adds the task.
+     *
+     * @param task the task to be added.
+     */
     public AddCommand(Task task) {
         super(false);
         this.task = task;

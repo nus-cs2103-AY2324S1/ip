@@ -1,8 +1,8 @@
 package duke;
 
-import duke.task.Task;
-
 import java.util.ArrayList;
+
+import duke.task.Task;
 
 /**
  * The Storage class stores the tasks and performs
@@ -73,6 +73,12 @@ public class TaskList {
         return this.storage.size();
     }
 
+    /**
+     * Finds the tasks that contain the text.
+     *
+     * @param text the word to find.
+     * @return an ArrayList of tasks.
+     */
     public ArrayList<Task> find(String text) {
         ArrayList<Task> found = new ArrayList<>();
         for (int i = 0; i < this.getSize(); i++) {

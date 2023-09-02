@@ -1,26 +1,25 @@
 package duke;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-import java.io.FileNotFoundException;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import java.time.LocalDate;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * The storage class reads and writes from
  * the hard drive.
  */
 public class Storage {
-    String filePath;
+    private String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;

@@ -19,6 +19,12 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Sets the description and by date.
+     *
+     * @param description the description of the task.
+     * @param by date to finish the task by.
+     */
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;

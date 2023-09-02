@@ -1,9 +1,9 @@
 package duke;
 
-import duke.task.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.task.Task;
 
 /**
  * The UI class contains methods that generate UI elements
@@ -14,13 +14,13 @@ import java.util.Scanner;
  */
 public class UI {
     /** Generates a line spacer */
-    Scanner s;
+    private Scanner s;
 
     public UI() {
         this.s = new Scanner(System.in);
     }
 
-    public void line(){
+    public void line() {
         System.out.println("\n----------------------------------------");
     }
 
@@ -119,6 +119,11 @@ public class UI {
         System.out.println("Cannot access out of bounds index");
     }
 
+    /**
+     * Displays the tasks that are found.
+     *
+     * @param tasks the tasks to be displayed.
+     */
     public void showFoundTask(ArrayList<Task> tasks) {
         System.out.println("Here are the matching task in your list:");
         for (int i = 0; i < tasks.size(); i++) {
