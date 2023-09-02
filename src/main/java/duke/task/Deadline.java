@@ -11,7 +11,7 @@ public class Deadline extends Task {
     }
 
     public String getDeadlineString(LocalDateTime deadline) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy 'at' HH:mm a");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy 'at' HH:mm");
         return deadline.format(formatter);
     }
 

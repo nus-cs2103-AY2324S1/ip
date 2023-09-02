@@ -1,4 +1,4 @@
-package duke;
+package duke.utility;
 
 import duke.task.Deadline;
 import duke.task.Event;
@@ -13,7 +13,7 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
-// stores the task list in a text file
+// stores the duke.task list in a text file
 public class Storage {
     // create text file
     private final String pathString;
@@ -22,7 +22,7 @@ public class Storage {
         this.pathString = "C:\\Users\\Admin\\ip\\text-ui-test\\data\\task.txt";
     }
 
-    // Update task list in text file
+    // Update duke.task list in text file
     public void saveTask(Task newTask) {
         try {
             Path path = Paths.get("C:\\Users\\Admin\\ip\\text-ui-test", "data", "task.txt");
@@ -74,7 +74,7 @@ public class Storage {
         }
     }
 
-    // Delete task from task list
+    // Delete duke.task from duke.task list
     public void deleteTask(Task task) {
         String oldTask = task.toStoreString();
 
@@ -114,7 +114,7 @@ public class Storage {
         }
     }
 
-    // Retrieve task list from text file and convert to readable codes
+    // Retrieve duke.task list from text file and convert to readable codes
     public void handleLoad(TaskList list) {
         Scanner sc = null;
         try {

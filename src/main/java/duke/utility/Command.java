@@ -1,12 +1,14 @@
-package duke;
+package duke.utility;
 
-import duke.exception.*;
+import duke.exception.EmptyTaskException;
+import duke.exception.InvalidDeadlineException;
+import duke.exception.InvalidEventException;
+import duke.exception.InvalidTaskException;
+import duke.exception.MissingTimeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
-
-import java.time.DateTimeException;
 
 public class Command {
     private final Storage storage;
@@ -33,7 +35,7 @@ public class Command {
             // Return system message to inform action
             return this.ui.printAddTask(task);
         } catch (EmptyTaskException e) {
-            return ui.printError(e);
+            return Ui.printError(e);
         }
     }
 
@@ -42,7 +44,7 @@ public class Command {
         try {
             Deadline task = Parser.parseDeadline(input);
 
-            // Add new Duke.Deadline into task list
+            // Add new Deadline into task list
             this.taskList.addTask(task);
 
             // Save new task into backend
@@ -51,14 +53,7 @@ public class Command {
             // Return system message to inform action
             return this.ui.printAddTask(task);
         } catch (MissingTimeException | EmptyTaskException | InvalidDeadlineException e) {
-            return ui.printError(e);
-        } catch (NumberFormatException | DateTimeException e) {
-            // when time input is incorrect
-            try {
-                throw new InvalidDeadlineException();
-            } catch (InvalidDeadlineException i) {
-                return ui.printError(i);
-            }
+            return Ui.printError(e);
         }
     }
 
@@ -67,7 +62,7 @@ public class Command {
         try {
             Event task = Parser.parseEvent(input);
 
-            // Add new Duke.Event into task list
+            // Add new Event into task list
             this.taskList.addTask(task);
 
             // Save new task into backend
@@ -75,15 +70,8 @@ public class Command {
 
             // Return system message to inform action
             return this.ui.printAddTask(task);
-        } catch (MissingTimeException | EmptyTaskException e) {
-            return ui.printError(e);
-        } catch (NumberFormatException | DateTimeException | InvalidEventException e) {
-            // when time input is incorrect
-            try {
-                throw new InvalidEventException();
-            } catch (InvalidEventException i) {
-                return ui.printError(i);
-            }
+        } catch (MissingTimeException | EmptyTaskException | InvalidEventException e) {
+            return Ui.printError(e);
         }
     }
 
@@ -100,9 +88,9 @@ public class Command {
             task.mark();
 
             // Return system message to inform action
-            return this.ui.printUpdateTask(task);
+            return Ui.printUpdateTask(task);
         } catch (EmptyTaskException | InvalidTaskException e) {
-            return ui.printError(e);
+            return Ui.printError(e);
         }
     }
 
@@ -119,9 +107,9 @@ public class Command {
             task.unMark();
 
             // Return system message to inform action
-            return this.ui.printUpdateTask(task);
+            return Ui.printUpdateTask(task);
         } catch (EmptyTaskException | InvalidTaskException e) {
-            return ui.printError(e);
+            return Ui.printError(e);
         }
     }
 
@@ -140,7 +128,7 @@ public class Command {
             // Return system message to inform action
             return this.ui.printDeleteTask(task);
         } catch (EmptyTaskException | InvalidTaskException e) {
-            return ui.printError(e);
+            return Ui.printError(e);
         }
     }
 }

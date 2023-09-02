@@ -13,7 +13,7 @@ public class Event extends Task {
     }
 
     public String getDateTimeString(LocalDateTime dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy 'at' HH:mm a");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy 'at' HH:mm");
         return dateTime.format(formatter);
     }
 

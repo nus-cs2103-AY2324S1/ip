@@ -7,44 +7,44 @@ Things you need to do:
 ____________________________________________________________
 
 ____________________________________________________________
-New task added to your list:
+New duke.task added to your list:
 [T][ ] running
 You currently have 1 tasks to do.
 ____________________________________________________________
 
 ____________________________________________________________
-New task added to your list:
+New duke.task added to your list:
 [D][ ] school work (by: this friday)
 You currently have 2 tasks to do.
 ____________________________________________________________
 
 ____________________________________________________________
-New task added to your list:
+New duke.task added to your list:
 [E][ ] hackathon (from: 2pm to: 5pm)
 You currently have 3 tasks to do.
 ____________________________________________________________
 
 ____________________________________________________________
-Seems like Bobi cannot find the task you want!
+Seems like Bobi cannot find the duke.task you want!
 ____________________________________________________________
 
 ____________________________________________________________
-OK! Your task has now been updated to:
+OK! Your duke.task has now been updated to:
 [T][X] running
 ____________________________________________________________
 
 ____________________________________________________________
-OK! Your task has now been updated to:
+OK! Your duke.task has now been updated to:
 [D][X] school work (by: this friday)
 ____________________________________________________________
 
 ____________________________________________________________
-OK! Your task has now been updated to:
+OK! Your duke.task has now been updated to:
 [E][X] hackathon (from: 2pm to: 5pm)
 ____________________________________________________________
 
 ____________________________________________________________
-Seems like Bobi cannot find the task you want!
+Seems like Bobi cannot find the duke.task you want!
 ____________________________________________________________
 
 ____________________________________________________________
@@ -55,26 +55,26 @@ Things you need to do:
 ____________________________________________________________
 
 ____________________________________________________________
-Seems like Bobi cannot find the task you want!
+Seems like Bobi cannot find the duke.task you want!
 ____________________________________________________________
 
 ____________________________________________________________
-OK! Your task has now been updated to:
+OK! Your duke.task has now been updated to:
 [T][ ] running
 ____________________________________________________________
 
 ____________________________________________________________
-OK! Your task has now been updated to:
+OK! Your duke.task has now been updated to:
 [D][ ] school work (by: this friday)
 ____________________________________________________________
 
 ____________________________________________________________
-OK! Your task has now been updated to:
+OK! Your duke.task has now been updated to:
 [E][ ] hackathon (from: 2pm to: 5pm)
 ____________________________________________________________
 
 ____________________________________________________________
-Seems like Bobi cannot find the task you want!
+Seems like Bobi cannot find the duke.task you want!
 ____________________________________________________________
 
 ____________________________________________________________
@@ -89,47 +89,47 @@ Oh no! Bobi cannot receive empty commands. :/
 ____________________________________________________________
 
 ____________________________________________________________
-Oh no! Bobi cannot add an empty task. :/
+Oh no! Bobi cannot add an empty duke.task. :/
 ____________________________________________________________
 
 ____________________________________________________________
-Please input a date or time for this task.
+Please input a date or time for this duke.task.
 ____________________________________________________________
 
 ____________________________________________________________
-Please input a date or time for this task.
+Please input a date or time for this duke.task.
 ____________________________________________________________
 
 ____________________________________________________________
-Please input a date or time for this task.
+Please input a date or time for this duke.task.
 ____________________________________________________________
 
 ____________________________________________________________
-Please input a date or time for this task.
+Please input a date or time for this duke.task.
 ____________________________________________________________
 
 ____________________________________________________________
-Please input a date or time for this task.
+Please input a date or time for this duke.task.
 ____________________________________________________________
 
 ____________________________________________________________
-Seems like Bobi cannot find the task you want!
+Seems like Bobi cannot find the duke.task you want!
 ____________________________________________________________
 
 ____________________________________________________________
-Alright! I have deleted this task from the list:
+Alright! I have deleted this duke.task from the list:
 [T][ ] running
 You currently have 2 tasks to do.
 ____________________________________________________________
 
 ____________________________________________________________
-Alright! I have deleted this task from the list:
+Alright! I have deleted this duke.task from the list:
 [D][ ] school work (by: this friday)
 You currently have 1 tasks to do.
 ____________________________________________________________
 
 ____________________________________________________________
-Alright! I have deleted this task from the list:
+Alright! I have deleted this duke.task from the list:
 [E][ ] hackathon (from: 2pm to: 5pm)
 You currently have 0 tasks to do.
 ____________________________________________________________

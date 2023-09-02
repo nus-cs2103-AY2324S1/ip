@@ -2,6 +2,10 @@ package duke;
 
 import duke.exception.EmptyCommandException;
 import duke.exception.InvalidCommandException;
+import duke.utility.Command;
+import duke.utility.Storage;
+import duke.utility.TaskList;
+import duke.utility.Ui;
 
 public class Duke {
     private Storage storage;
@@ -13,7 +17,7 @@ public class Duke {
         this.storage = new Storage();
         this.list = new TaskList();
 
-        // Load list of tasks stored in text file "task.txt" into the local Duke.TaskList
+        // Load list of tasks stored in text file "duke.task.txt" into the local duke.Duke.duke.utility.TaskList
         storage.handleLoad(list);
 
         // Start Scanner to read user inputs
@@ -52,10 +56,10 @@ public class Duke {
                 System.out.println(command.handleDelete(answer));
                 answer = ui.getInput();
             } else if (answer.length() == 0) {
-                System.out.println(ui.printError(new EmptyCommandException()));
+                System.out.println(Ui.printError(new EmptyCommandException()));
                 answer = ui.getInput();
             } else {
-                System.out.println(ui.printError(new InvalidCommandException()));
+                System.out.println(Ui.printError(new InvalidCommandException()));
                 answer = ui.getInput();
             }
         }

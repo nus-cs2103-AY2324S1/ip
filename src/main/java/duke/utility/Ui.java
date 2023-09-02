@@ -1,4 +1,4 @@
-package duke;
+package duke.utility;
 
 import duke.exception.DukeException;
 import duke.task.Task;
@@ -36,7 +36,7 @@ public class Ui {
         return SEPARATOR + GREETING + SEPARATOR;
     }
 
-    // add a task
+    // add a duke.task
     public String printAddTask(Task task) {
         COUNT_TASK = "You currently have " + this.taskList.getLength() + " tasks to do.\n";
         return SEPARATOR + ADD_TASK + task.toString() + "\n" + COUNT_TASK + SEPARATOR;
@@ -47,12 +47,12 @@ public class Ui {
         return SEPARATOR + LIST_TASKS + this.taskList.toString() + SEPARATOR;
     }
 
-    // Update task
-    public String printUpdateTask(Task task) {
+    // Update duke.task
+    public static String printUpdateTask(Task task) {
         return SEPARATOR + UPDATE_TASK + task.toString() + "\n" + SEPARATOR;
     }
 
-    public String printError(DukeException e) {
+    public static String printError(DukeException e) {
         return SEPARATOR + e.getMessage() + "\n" + SEPARATOR;
     }
 
