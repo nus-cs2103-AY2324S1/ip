@@ -1,11 +1,12 @@
 package duke.command;
 
+import java.io.IOException;
+
 import duke.Storage;
 import duke.TaskList;
 import duke.UI;
 import duke.task.Task;
 
-import java.io.IOException;
 
 /**
  * The DeleteCommand represents a command
@@ -14,6 +15,10 @@ import java.io.IOException;
 public class DeleteCommand extends Command {
     private int index;
 
+    /**
+     * Sets the isExit to false and adds the index to be deleted
+     * @param index the index to be deleted.
+     */
     public DeleteCommand(int index) {
         super(false);
         this.index = index;

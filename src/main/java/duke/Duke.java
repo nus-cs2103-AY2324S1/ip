@@ -1,12 +1,12 @@
 package duke;
 
-import duke.command.Command;
-import duke.exception.DukeException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+
+import duke.command.Command;
+import duke.exception.DukeException;
 
 /**
  * The Duke Program is a chatbot that takes in
@@ -50,7 +50,7 @@ public class Duke {
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
-            } catch (IOException e){
+            } catch (IOException e) {
                 ui.showIoError();
             } catch (IndexOutOfBoundsException e) {
                 ui.showOutOfBounds();

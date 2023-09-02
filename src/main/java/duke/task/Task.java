@@ -12,36 +12,41 @@ public abstract class Task {
     protected boolean isDone;
 
     /**
-     * Constructor for Task
-     * @param description the task description
+     * Constructor for Task.
+     * @param description the task description.
      */
     public Task(String description, String done) {
         this.description = description;
         this.isDone = done.equals("1");
     }
 
+    /**
+     * Constructor for Task where isDone is default false.
+     *
+     * @param description the description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
     /**
-     * Checks isDone status
-     * @return Boolean value of whether the task is completed
+     * Checks isDone status.
+     * @return Boolean value of whether the task is completed.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
     /**
-     * Marks task as done
+     * Marks task as done.
      */
     public void mark() {
         this.isDone = true;
     }
 
     /**
-     * Marks task as undone
+     * Marks task as undone.
      */
     public void unmark() {
         this.isDone = false;
