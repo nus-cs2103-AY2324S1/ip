@@ -1,6 +1,18 @@
 package fishron;
 
+/**
+ * The Parser class is responsible for parsing user input and converting it into executable commands.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     *
+     * @param input    The user input string.
+     * @param taskList The TaskList to operate on.
+     * @return A Command object representing the parsed command.
+     * @throws FishronException If there is an issue with parsing or an invalid command.
+     */
     public static Command parse(String input, TaskList taskList) throws FishronException {
 
         if (input.equalsIgnoreCase("bye")) {
@@ -42,6 +54,14 @@ public class Parser {
         return new ListCommand();
     }
 
+    /**
+     * Validates whether the given command is valid and follows the required format.
+     *
+     * @param command  The command to validate.
+     * @param taskList The TaskList to validate against.
+     * @return True if the command is valid, otherwise throws an exception.
+     * @throws FishronException If the command is invalid or in an incorrect format.
+     */
     public static boolean isValidCommands(String command, TaskList taskList) throws FishronException{
         if (command.equals("list")) {
             return true;
@@ -112,14 +132,37 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Parses a description string and creates a ToDo object.
+     *
+     * @param description The description of the ToDo task.
+     * @return A ToDo object.
+     */
     public static ToDo parseTodo(String description) {
         return new ToDo(description);
     }
 
+    /**
+     * Parses a description and a deadline string and creates a Deadline object.
+     *
+     * @param description The description of the deadline task.
+     * @param by          The deadline in the format "dd-MM-yyyy HHmm".
+     * @return A Deadline object.
+     * @throws FishronException If the deadline format is invalid.
+     */
     public static Deadline parseDeadline(String description, String by) throws FishronException {
         return new Deadline(description, by);
     }
 
+    /**
+     * Parses a description, a "from" string, and a "to" string and creates an Event object.
+     *
+     * @param description The description of the event task.
+     * @param from        The starting date and time in the format "dd-MM-yyyy HHmm".
+     * @param to          The ending date and time in the format "dd-MM-yyyy HHmm".
+     * @return An Event object.
+     * @throws FishronException If the date/time format is invalid.
+     */
     public static Event parseEvent(String description, String from, String to) throws FishronException {
         return new Event(description, from, to);
     }

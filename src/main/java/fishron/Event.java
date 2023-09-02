@@ -4,15 +4,23 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents an event task.
+ */
 public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
+    /**
+     * Initializes a new Event instance.
+     *
+     * @param description The description of the event.
+     * @param from        The starting date and time of the event in the format "dd-MM-yyyy HHmm".
+     * @param to          The ending date and time of the event in the format "dd-MM-yyyy HHmm".
+     * @throws FishronException If the date/time format is invalid.
+     */
     public Event(String description, String from, String to) throws FishronException {
         super(description);
-        System.out.println(description);
-        System.out.println(from);
-        System.out.println(to);
         try {
             this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
             this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
@@ -21,11 +29,21 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Converts the event task to a string in the file format.
+     *
+     * @return A string representation of the event task in the file format.
+     */
     public String toFileString() {
         return "E | " + super.toFileString() + " | " + from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")) + " | " +
                 to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
     }
 
+    /**
+     * Converts the event task to a string representation.
+     *
+     * @return A string representation of the event task.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma")) + " to: " +
