@@ -6,9 +6,9 @@ import Ally.Tasks.AllyList;
 import Ally.Tasks.Event;
 
 public class AddEventCommand extends Commands {
-    private String description;
-    private String from;
-    private String to;
+    private final String description;
+    private final String from;
+    private final String to;
 
     public AddEventCommand(String description, String from, String to) {
         this.description = description;

@@ -26,7 +26,7 @@ public class AllyList {
         Task task = arr.get(index);
         task.setMarked();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("\t" + task.toString());
+        System.out.println("\t" + task);
     }
 
     /**
@@ -37,7 +37,7 @@ public class AllyList {
         Task task = arr.get(index);
         task.notDone();
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("\t" + task.toString());
+        System.out.println("\t" + task);
     }
 
     public int getSize() {

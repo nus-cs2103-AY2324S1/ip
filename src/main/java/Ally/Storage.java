@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private String filePath;
+    private final String filePath;
     public Storage(String filePath) throws AllyException {
         this.filePath = filePath;
         try {

@@ -6,7 +6,7 @@ import Ally.Tasks.AllyList;
 
 public class DeleteCommand extends Commands {
 
-    private int index;
+    private final int index;
 
     public DeleteCommand(int index) {
         this.index = index;

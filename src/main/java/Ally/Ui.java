@@ -58,13 +58,13 @@ public class Ui {
     public void showMarked(Task task) {
         task.setMarked();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("\t" + task.toString());
+        System.out.println("\t" + task);
     }
 
     public void showNotMarked(Task task) {
         task.notDone();
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("\t" + task.toString());
+        System.out.println("\t" + task);
     }
 
     public void showLoadingError() throws AllyException {

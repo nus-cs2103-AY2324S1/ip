@@ -6,8 +6,8 @@ import Ally.Tasks.AllyList;
 import Ally.Tasks.Deadline;
 
 public class AddDeadlineCommand extends Commands {
-    private String description;
-    private String by;
+    private final String description;
+    private final String by;
     public AddDeadlineCommand(String description, String by) {
         this.description = description;
         this.by = by;

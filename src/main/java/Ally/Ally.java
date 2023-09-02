@@ -6,9 +6,9 @@ import Ally.Tasks.AllyList;
 
 public class Ally {
 
-    private Storage storage;
+    private final Storage storage;
     private AllyList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     public Ally(String filePath) throws AllyException {
         ui = new Ui();
@@ -26,14 +26,14 @@ public class Ally {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
+                Ui.showLine(); // show the divider line ("_______")
                 Commands c = Parser.parse(fullCommand);
                 c.run(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (AllyException e) {
                 ui.showError(e.getMessage());
             } finally {
-                ui.showLine();
+                Ui.showLine();
             }
         }
     }

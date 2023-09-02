@@ -6,7 +6,7 @@ import Ally.Tasks.AllyList;
 import Ally.Tasks.Task;
 
 public class UnmarkCommand extends Commands {
-    private int index;
+    private final int index;
 
     public UnmarkCommand(int index) {
         this.index = index;

@@ -7,7 +7,7 @@ import Ally.Tasks.Task;
 
 public class MarkCommand extends Commands {
 
-    private int index;
+    private final int index;
     public MarkCommand(int index) {
         this.index = index;
     }
