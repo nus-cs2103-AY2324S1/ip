@@ -1,9 +1,9 @@
-package CrackerPackage;
+package crackerpackage;
 
 import Exceptions.*;
 import UIComponents.Parser;
 import UIComponents.Reply;
-import tasks.Task;
+import crackerpackage.tasks.Task;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -30,8 +30,15 @@ public class Cracker {
         FileWriter writer = null;
         storage = new Storage("./data/list.txt");
         list = storage.load();
+        try{
+            storage.save(list);
+        } catch (Exception e){
+            System.out.println(e);
+        }
+        return;
 
 
+/*
         Scanner sc = new Scanner(System.in);
         reply.echo("What can I do for you?");
         ArrayList<Object> inLine = new ArrayList<>();
@@ -96,6 +103,8 @@ public class Cracker {
 
         }
         reply.echo("Bye. Hope to see you again soon!");
+        */
+
     }
 
     public static void main(String[] args) {

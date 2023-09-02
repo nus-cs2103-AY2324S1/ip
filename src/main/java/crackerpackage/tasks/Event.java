@@ -1,4 +1,4 @@
-package tasks;
+package crackerpackage.tasks;
 
 import Exceptions.EmptyDescriptionException;
 import Exceptions.IllegalFormatException;
@@ -15,11 +15,11 @@ public class Event extends Task{
         super(s.split("/from")[0]);
         //Checking if format is correct
         if(!s.contains("/from")){
-            throw new IllegalFormatException("Missing \"/from\" after tasks.Event Description");
+            throw new IllegalFormatException("Missing \"/from\" after CrackerPackage.tasks.Event Description");
         } else if(!s.contains("/to")){
-            throw new IllegalFormatException("Missing \"/to\" after tasks.Event Description");
+            throw new IllegalFormatException("Missing \"/to\" after CrackerPackage.tasks.Event Description");
         } else if(s.indexOf("/from") > s.indexOf("/to")){
-            throw new IllegalFormatException("Format of Adding tasks.Event is: \nevent eventDescription /from start /to end ");
+            throw new IllegalFormatException("Format of Adding CrackerPackage.tasks.Event is: \nevent eventDescription /from start /to end ");
         } else if(s.split("/to").length <= 1){
             throw new IllegalFormatException("end time is empty");
         }

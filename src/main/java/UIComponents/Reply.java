@@ -1,7 +1,7 @@
 package UIComponents;
 
-import CrackerPackage.TodoList;
-import tasks.Task;
+import crackerpackage.TodoList;
+import crackerpackage.tasks.Task;
 
 import java.util.ArrayList;
 public class Reply {

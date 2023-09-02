@@ -32,7 +32,7 @@ test {
 }
 
 application {
-    mainClass.set("CrackerPackage.Cracker")
+    mainClass.set("crackerpackage.Cracker")
 }
 
 shadowJar {

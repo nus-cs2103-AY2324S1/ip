@@ -1,4 +1,4 @@
-package CrackerPackage;
+package crackerpackage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,7 +10,9 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-import tasks.*;
+
+import crackerpackage.tasks.*;
+
 
 public class Storage {
 

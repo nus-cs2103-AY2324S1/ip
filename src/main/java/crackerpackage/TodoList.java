@@ -1,11 +1,10 @@
-package CrackerPackage;
+package crackerpackage;
 
 import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import tasks.*;
+
+import crackerpackage.tasks.*;
+
 
 public class TodoList {
 
