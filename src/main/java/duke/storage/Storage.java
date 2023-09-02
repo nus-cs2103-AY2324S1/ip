@@ -1,19 +1,19 @@
 package duke.storage;
 
-import duke.tasks.Task;
-import duke.tasks.Tasks;
-import duke.ui.Ui;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.Scanner;
+
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.parser.Parser;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.FileWriter;
-import java.util.Arrays;
-import java.util.Scanner;
+import duke.tasks.Task;
+import duke.tasks.Tasks;
+import duke.ui.Ui;
 
 /**
  * Represents a Storage function for the specified filepath.

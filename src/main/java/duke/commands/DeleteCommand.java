@@ -1,18 +1,18 @@
 package duke.commands;
 
+import duke.exceptions.DukeException;
+import duke.exceptions.InvalidCommandException;
 import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.tasks.Tasks;
 import duke.ui.Ui;
-import duke.exceptions.DukeException;
-import duke.exceptions.InvalidCommandException;
 
 /**
  * Represents a DeleteCommand where this command should delete a Task.
  */
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
-    public int target;
+    private int target;
 
     /**
      * Public constructor for DeleteCommand

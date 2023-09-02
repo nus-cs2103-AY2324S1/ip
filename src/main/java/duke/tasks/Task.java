@@ -7,9 +7,9 @@ import java.time.format.DateTimeFormatter;
  * Represents a task entered by a user.
  */
 public abstract class Task {
+    public final String type;
     private final String description;
     private boolean isMarked;
-    public final String type;
 
     /**
      * Public constructor to be called by child classes.
@@ -29,7 +29,7 @@ public abstract class Task {
      *
      * @return text string of the original user entered message
      */
-    abstract public String getOriginalMessage();
+    public abstract String getOriginalMessage();
 
     /**
      * Getter method for the description field.
@@ -87,7 +87,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        String typeLetter = this.type.substring(0,1).toUpperCase();
+        String typeLetter = this.type.substring(0, 1).toUpperCase();
         return String.format("[%s][%s] %s", typeLetter, this.getStatusIcon(), this.description);
     }
 
@@ -99,7 +99,9 @@ public abstract class Task {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+        if (this == o) {
+            return true;
+        }
 
         if (o instanceof Task) {
             Task t = (Task) o;

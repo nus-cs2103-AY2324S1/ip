@@ -1,9 +1,9 @@
 package duke.ui;
 
-import duke.tasks.Task;
-
 import java.util.List;
 import java.util.Scanner;
+
+import duke.tasks.Task;
 
 /**
  * UI of the application
@@ -67,7 +67,9 @@ public class Ui {
      */
     public void showTasks(List<Task> tasks, boolean isFiltered) {
         this.formatLines(() -> {
-            String header = isFiltered ? "Here are the matching tasks in your list:" : "Here are the tasks in your list:";
+            String header = isFiltered
+                    ? "Here are the matching tasks in your list:"
+                    : "Here are the tasks in your list:";
             System.out.println("    " + header);
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.get(i);

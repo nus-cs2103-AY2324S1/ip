@@ -1,19 +1,19 @@
 package duke.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.tasks.Tasks;
 import duke.ui.Ui;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents an FindCommand where the user is finding tasks based on a target string.
  */
 public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
-    public String target;
+    private String target;
 
     /**
      * Public constructor for FindCommand

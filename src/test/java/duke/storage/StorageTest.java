@@ -1,17 +1,16 @@
 package duke.storage;
 
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Tasks;
-import duke.tasks.Todo;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Tasks;
+import duke.tasks.Todo;
 
 public class StorageTest {
 
