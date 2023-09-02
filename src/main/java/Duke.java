@@ -1,13 +1,29 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
 
 public class Duke {
+
+
     public static void main(String[] args) {
         String name = "Johnnythesnake";
         System.out.println("Hello I'm " + name + "\n" + "What can I do for you?");
         Scanner scanner = new Scanner(System.in);
+        String filename = "tasks.txt";
+        // Create a File object with the filename
+        File file = new File(filename);
 
         ArrayList<Tasks> tasksList = new ArrayList<>();
+        if (file.exists()) {
+            tasksList = TaskReader.readTasksFromFile(filename);
+            System.out.println(tasksList);
+        }
         while (true) {
             System.out.print("Enter a command: ");
             String command = scanner.nextLine();
@@ -136,6 +152,9 @@ public class Duke {
                     System.out.println(e.getMessage());
                 }
             }
+
         }
+        TaskWriter.writeTasksToFile(tasksList, "tasks.txt");
     }
 }
+
