@@ -2,6 +2,7 @@ package phi;
 
 public class Parser {
     private final TaskList tasks;
+
     public Parser(TaskList tasks) {
         this.tasks = tasks;
     }

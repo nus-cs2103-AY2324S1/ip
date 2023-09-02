@@ -10,8 +10,9 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Storage {
-    File txtFile;
-    Path filePath;
+    private File txtFile;
+    private Path filePath;
+
     public Storage(String pathString) {
         this.txtFile = new File(pathString);
         this.filePath = Paths.get(pathString);
