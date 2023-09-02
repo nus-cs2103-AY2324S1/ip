@@ -5,9 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import exceptions.InvalidDateTimeFormatException;
-import exceptions.InvalidIndexException;
-import exceptions.InvalidTaskFormatException;
+import jarvis.exceptions.InvalidDateTimeFormatException;
+import jarvis.exceptions.InvalidIndexException;
+import jarvis.exceptions.InvalidTaskFormatException;
 
 public class Action {
 
@@ -20,7 +20,7 @@ public class Action {
     }
 
     public void listTasks() {
-        ArrayList<Task> tasks = taskList.getTask();
+        ArrayList<Task> tasks = taskList.getTaskList();
         if (tasks.isEmpty()) {
             ui.printResponse("Congratulations Master! There is no task at the moment!");
         } else {
@@ -29,7 +29,7 @@ public class Action {
     }
 
     public void updateTask(int index, boolean isCompleted) throws InvalidIndexException {
-        ArrayList<Task> tasks = taskList.getTask();
+        ArrayList<Task> tasks = taskList.getTaskList();
         if (index >= 1 && index <= tasks.size()) {
             Task task = tasks.get(index - 1);
 
@@ -94,7 +94,7 @@ public class Action {
     }
 
     public void deleteTask(int index) throws InvalidIndexException {
-        ArrayList<Task> tasks = taskList.getTask();
+        ArrayList<Task> tasks = taskList.getTaskList();
         if (index >= 1 && index <= tasks.size()) {
             Task removedTask = tasks.remove(index - 1);
 

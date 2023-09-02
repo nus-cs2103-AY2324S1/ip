@@ -50,7 +50,7 @@ public class Ui {
 
     public void printTaskStatus(Task task) {
         breakLine();
-        System.out.println("    Understood Master. I've marked this task as" + 
+        System.out.println("    Understood Master. I've marked this task as " + 
                                 (task.isCompleted() ? "completed" : "uncompleted") + "\n" +
                                 "\t" + task.toString());
         breakLine();
@@ -58,7 +58,7 @@ public class Ui {
 
     public void printError(String error) {
         breakLine();
-        System.out.println(error + "\n");
+        System.err.println(error + "\n");
         breakLine();
     }
 

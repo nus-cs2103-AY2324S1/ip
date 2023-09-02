@@ -1,4 +1,4 @@
-package exceptions;
+package jarvis.exceptions;
 
 public class InvalidCommandException extends JarvisException {
     public InvalidCommandException(String message) {

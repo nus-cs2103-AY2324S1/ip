@@ -1,21 +1,20 @@
 package jarvis;
 
-import exceptions.InvalidCommandException;
-import exceptions.JarvisException;
+import jarvis.commands.Command;
+
+import jarvis.exceptions.JarvisException;
 
 public class Jarvis {
 
     private TaskList taskList;
     private Ui ui;
     private Storage storage;
-    private Action action;
 
     public Jarvis() {
         taskList = new TaskList();
         ui = new Ui();
         storage = new Storage();
-        action = new Action(taskList, ui);
-        taskList.setTasks(storage.loadTasks());;
+        taskList.setTasks(storage.loadTasks());
     }
 
     public void start() {
@@ -24,30 +23,8 @@ public class Jarvis {
 
     public void respond(String userInput){
         try {
-            String[] userInputSpilt = userInput.split(" ");
-
-            if (userInput.equalsIgnoreCase("bye")) {
-                ui.printBye();
-                storage.saveTasks(taskList.getTask());
-                System.exit(0);
-            } else if (userInput.equalsIgnoreCase("list")) {
-                action.listTasks();
-            } else if (userInputSpilt[0].startsWith("mark")) {
-                int index = Integer.parseInt(userInputSpilt[1]);
-                action.updateTask(index, true);
-            } else if (userInputSpilt[0].equalsIgnoreCase("unmark")) {
-                int index = Integer.parseInt(userInputSpilt[1]);
-                action.updateTask(index, false);
-            } else if (userInputSpilt[0].equalsIgnoreCase("delete")) {
-                int index = Integer.parseInt(userInputSpilt[1]);
-                action.deleteTask(index);
-            } else if (userInputSpilt[0].equalsIgnoreCase("todo") ||
-                        userInputSpilt[0].equalsIgnoreCase("deadline") || 
-                        userInputSpilt[0].equalsIgnoreCase("event")) {
-                action.addTask(userInput, userInputSpilt[0]);
-            } else {
-                throw new InvalidCommandException(null);
-            }
+            Command command = Parser.parseCommand(userInput);
+            command.execute(taskList, ui, storage);
         } catch (JarvisException e) {
             ui.printError(e.getMessage());
         }
