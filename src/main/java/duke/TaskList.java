@@ -102,6 +102,10 @@ public class TaskList {
         }
     }
 
+    /** Finds all task with word that similar to user input and prints it out to them.
+     *
+     * @param filterWord Word to be matched with task description.
+     */
     public void find(String filterWord) {
         System.out.println("Here are the matching tasks in your list:");
         this.list.stream().filter(task -> task.description.contains(filterWord)).forEach(System.out::println);
