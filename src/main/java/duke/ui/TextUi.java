@@ -4,13 +4,15 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+import static duke.common.Messages.MESSAGE_FIRST_PROMPT;
+import static duke.common.Messages.MESSAGE_GOODBYE;
+import static duke.common.Messages.MESSAGE_INVALID_COMMAND;
+import static duke.common.Messages.MESSAGE_WELCOME;
+
 public class TextUi {
     public static final String DIVIDER = "__________________________________________________";
     public static final String INDENT = "    ";
     public static final String NAME = "Buzu";
-    private static final String[] WELCOME_MESSAGE = {"Hello! I'm " + NAME + ".", "What can I do for you?"};
-    private static final String[] GOODBYE_MESSAGE = {"Bye! Hope to see you again soon!"};
-    private static final String[] INVALID_COMMAND_MESSAGE = {"Sorry, but I don't know what that means :("};
     private final Scanner in;
     private final PrintStream out;
 
@@ -41,21 +43,21 @@ public class TextUi {
      * Shows a welcome message to the user, typically during the start of program.
      */
     public void showWelcomeMessage() {
-        showMessage(WELCOME_MESSAGE);
+        showMessage(MESSAGE_WELCOME, MESSAGE_FIRST_PROMPT);
     }
 
     /**
      * Shows a goodbye message to the user, typically during termination of the program.
      */
     public void showGoodbyeMessage() {
-        showMessage(GOODBYE_MESSAGE);
+        showMessage(MESSAGE_GOODBYE);
     }
 
     /**
      * Shows an invalid command message to the user.
      */
     public void showInvalidCommandMessage() {
-        showMessage(INVALID_COMMAND_MESSAGE);
+        showMessage(MESSAGE_INVALID_COMMAND);
     }
 
     /**
@@ -69,6 +71,6 @@ public class TextUi {
         do {
             input = in.nextLine();
         } while (input.trim().isEmpty());
-        return input;
+        return input.trim();
     }
 }

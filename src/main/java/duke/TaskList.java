@@ -34,7 +34,7 @@ public class TaskList {
      * @param taskNum the task number to get
      * @return the task with the corresponding task number
      */
-    public Task get(int taskNum) {
+    public Task get(int taskNum) throws IndexOutOfBoundsException {
         return tasks.get(taskNum - 1);
     }
 
@@ -61,7 +61,7 @@ public class TaskList {
      *
      * @param taskNum the task number to delete
      */
-    public void delete(int taskNum) {
+    public void delete(int taskNum) throws IndexOutOfBoundsException {
         tasks.remove(taskNum - 1);
     }
 
