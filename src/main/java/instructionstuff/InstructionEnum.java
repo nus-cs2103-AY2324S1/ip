@@ -11,7 +11,8 @@ public enum InstructionEnum {
     DELETE("delete"),
     TODO("todo", "T"),
     DEADLINE("deadline", "D"),
-    EVENT("event", "E");
+    EVENT("event", "E"),
+    FIND("find");
 
     /**
      * An array storing possible string values of the instruction.
