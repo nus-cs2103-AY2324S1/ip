@@ -1,38 +1,15 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+package duke;
+
+import duke.storage.Storage;
+import duke.ui.TextUi;
+
+import java.io.IOException;
 
 public class Duke {
-    public static final String NAME = "Buzu";
-    private static final String DIVIDER = "__________________________________________________";
-    private static final String INDENT = "    ";
-    private static final List<Task> tasks = new ArrayList<>();
+    private static TaskList tasks = new TaskList();
 
     /**
-     * Utility function to add indentation when printing line.
-     *
-     * @param line The line to be indented
-     */
-    private static void printLine(String line) {
-        System.out.println(INDENT + line);
-    }
-
-    /**
-     * Utility function for chatbot to send a formatted response to the user.
-     *
-     * @param text The text to respond with
-     */
-    private static void say(String... text) {
-        printLine(DIVIDER);
-        for (String line : text) {
-            printLine(line);
-        }
-        printLine(DIVIDER);
-        System.out.println();
-    }
-
-    /**
-     * Utility function to return the command type of a given command string.
+     * Utility function to return the command type of the given command string.
      *
      * @param command The command string to parse
      * @return The Command type of the parsed string
@@ -57,7 +34,7 @@ public class Duke {
         tasks.add(task);
 
         response[0] = "Got it. I've added this task:";
-        response[1] = INDENT + task;
+        response[1] = TextUi.INDENT + task;
         response[2] = String.format("Now you have %d task%s in the list.",
                 tasks.size(),
                 tasks.size() == 1 ? "" : "s");
@@ -82,7 +59,7 @@ public class Duke {
         tasks.add(task);
 
         response[0] = "Got it. I've added this task:";
-        response[1] = INDENT + task;
+        response[1] = TextUi.INDENT + task;
         response[2] = String.format("Now you have %d task%s in the list.",
                 tasks.size(),
                 tasks.size() == 1 ? "" : "s");
@@ -111,7 +88,7 @@ public class Duke {
         tasks.add(task);
 
         response[0] = "Got it. I've added this task:";
-        response[1] = INDENT + task;
+        response[1] = TextUi.INDENT + task;
         response[2] = String.format("Now you have %d task%s in the list.",
                 tasks.size(),
                 tasks.size() == 1 ? "" : "s");
@@ -132,8 +109,8 @@ public class Duke {
         } else {
             response = new String[numTasks + 1];
             response[0] = "Here are the tasks in your list:";
-            for (int i = 0; i < numTasks; i++) {
-                response[i + 1] = (i + 1 + ". " + tasks.get(i));
+            for (int i = 1; i <= numTasks; i++) {
+                response[i] = (i + ". " + tasks.get(i));
             }
         }
         return response;
@@ -159,11 +136,11 @@ public class Duke {
             throw new DukeException("Task number does not exist");
         }
 
-        Task task = tasks.get(taskNum - 1);
+        Task task = tasks.get(taskNum);
         task.mark();
 
         response[0] = "Nice! I've marked this task as done:";
-        response[1] = INDENT + task;
+        response[1] = TextUi.INDENT + task;
         return response;
     }
 
@@ -188,11 +165,11 @@ public class Duke {
             throw new DukeException("Task number does not exist");
         }
 
-        Task task = tasks.get(taskNum - 1);
+        Task task = tasks.get(taskNum);
         task.unmark();
 
         response[0] = "Ok, I've marked this task as not done yet:";
-        response[1] = INDENT + task;
+        response[1] = TextUi.INDENT + task;
         return response;
     }
 
@@ -216,11 +193,11 @@ public class Duke {
             throw new DukeException("Task number does not exist");
         }
 
-        Task task = tasks.get(taskNum - 1);
-        tasks.remove(taskNum - 1);
+        Task task = tasks.get(taskNum);
+        tasks.delete(taskNum);
 
         response[0] = "Noted. I've removed this task:";
-        response[1] = INDENT + task;
+        response[1] = TextUi.INDENT + task;
         response[2] = String.format("Now you have %d task%s in the list.",
                 tasks.size(),
                 tasks.size() == 1 ? "" : "s");
@@ -228,91 +205,105 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        say("Hello! I'm " + NAME + ".", "What can I do for you?");
-        Scanner scanner = new Scanner(System.in);
+        TextUi ui = new TextUi();
+        Storage storage = new Storage();
+
+        ui.showWelcomeMessage();
+
         boolean stopped = false;
 
-        while (!stopped && scanner.hasNextLine()) {
-            String input = scanner.nextLine();
+        try {
+            tasks = storage.load();
+        } catch (IOException e) {
+            ui.showMessage("Error loading tasks");
+            stopped = true;
+        }
+        while (!stopped) {
+            String input = ui.getUserCommand();
             String[] params = input.split(" ", 2);
             Command command = getCommandType(params[0]);
 
             switch (command) {
                 case TODO: {
                     if (params.length == 1) {
-                        say("Sorry, but the description of a todo cannot be empty.");
+                        ui.showMessage("Sorry, but the description of a todo cannot be empty.");
                     } else {
                         String[] response = handleTodo(params[1]);
-                        say(response);
+                        ui.showMessage(response);
                     }
                     break;
                 }
                 case DEADLINE: {
                     if (params.length == 1) {
-                        say("Sorry, but the description of a deadline cannot be empty.");
+                        ui.showMessage("Sorry, but the description of a deadline cannot be empty.");
                     } else {
                         try {
                             String[] response = handleDeadline(params[1]);
-                            say(response);
+                            ui.showMessage(response);
                         } catch (DukeException err) {
-                            say(err.getMessage() + ".");
+                            ui.showMessage(err.getMessage() + ".");
                         }
                     }
                     break;
                 }
                 case EVENT: {
                     if (params.length == 1) {
-                        say("Sorry, but the description of a event cannot be empty.");
+                        ui.showMessage("Sorry, but the description of a event cannot be empty.");
                     } else {
                         try {
                             String[] response = handleEvent(params[1]);
-                            say(response);
+                            ui.showMessage(response);
                         } catch (DukeException err) {
-                            say(err.getMessage() + ".");
+                            ui.showMessage(err.getMessage() + ".");
                         }
                     }
                     break;
                 }
                 case LIST: {
                     String[] response = handleList();
-                    say(response);
+                    ui.showMessage(response);
                     break;
                 }
                 case MARK: {
                     try {
                         String[] response = handleMark(params[1]);
-                        say(response);
+                        ui.showMessage(response);
                     } catch (DukeException err) {
-                        say(err.getMessage() + ".");
+                        ui.showMessage(err.getMessage() + ".");
                     }
                     break;
                 }
                 case UNMARK: {
                     try {
                         String[] response = handleUnmark(params[1]);
-                        say(response);
+                        ui.showMessage(response);
                     } catch (DukeException err) {
-                        say(err.getMessage() + ".");
+                        ui.showMessage(err.getMessage() + ".");
                     }
                     break;
                 }
                 case DELETE: {
                     try {
                         String[] response = handleDelete(params[1]);
-                        say(response);
+                        ui.showMessage(response);
                     } catch (DukeException err) {
-                        say(err.getMessage() + ".");
+                        ui.showMessage(err.getMessage() + ".");
                     }
                 }
                 break;
                 case BYE: {
                     stopped = true;
-                    say("Bye! Hope to see you again soon!");
+                    ui.showGoodbyeMessage();
                     break;
                 }
                 default:
-                    say("Sorry, but I don't know what that means :(");
+                    ui.showInvalidCommandMessage();
                     break;
+            }
+            try {
+                storage.save(tasks);
+            } catch (IOException e) {
+                ui.showMessage("Error saving tasks");
             }
         }
     }

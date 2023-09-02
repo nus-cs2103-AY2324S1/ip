@@ -1,3 +1,5 @@
+package duke;
+
 public class Event extends Task {
     String from;
     String to;
@@ -6,6 +8,11 @@ public class Event extends Task {
         super(desc);
         this.from = from;
         this.to = to;
+    }
+
+    @Override
+    public String encode() {
+        return String.format("E|%s /from %s /to %s", super.encode(), from, to);
     }
 
     @Override
