@@ -1,4 +1,4 @@
-package seedu.duke.tasks;
+package seedu.duke.task;
 
 public abstract class Task {
     public String description;
@@ -20,6 +20,10 @@ public abstract class Task {
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     public void updateTaskStatus(boolean expectedStatus, String doneMessage, String undoneMessage) {

@@ -1,4 +1,4 @@
-package seedu.duke.tasks;
+package seedu.duke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -37,12 +37,12 @@ public class Event extends Task {
     }
 
     @Override
-    public String toString() {
-        return type() + super.toString() + " (from: " + fromDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mma")) + " to " + toDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mma")) + ")";
+    public String toFileString() {
+        return type() + " | " + (isDone ? "1" : "0") + " | " + description + " | " + fromDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | " + toDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     @Override
-    public String toFileString() {
-        return type() + " | " + (isDone ? "1" : "0") + " | " + description + " | " + fromDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | " + toDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+    public String toString() {
+        return type() + super.toString() + " (from: " + fromDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mma")) + " to " + toDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mma")) + ")";
     }
 }

@@ -1,4 +1,4 @@
-package seedu.duke.tasks;
+package seedu.duke.task;
 
 public class ToDo extends Task {
 
@@ -12,12 +12,12 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String toString() {
-        return type() + super.toString();
+    public String toFileString() {
+        return type() + " | " + (isDone ? "1" : "0") + " | " + description;
     }
 
     @Override
-    public String toFileString() {
-        return type() + " | " + (isDone ? "1" : "0") + " | " + description;
+    public String toString() {
+        return type() + super.toString();
     }
 }
