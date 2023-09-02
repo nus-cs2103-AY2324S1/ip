@@ -1,10 +1,10 @@
 import Exceptions.DukeException;
-
 import java.util.Scanner;
 public class Duke {
     private final Ui _ui;
     private TaskList _taskList;
     private final Storage _storage;
+    public static final String DATA_FILE_PATH = "data/duke.txt";
 
     public Duke(String filepath) {
         _ui = new Ui();
@@ -57,6 +57,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
+        new Duke(DATA_FILE_PATH).run();
     }
 }
