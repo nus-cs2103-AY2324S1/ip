@@ -38,10 +38,9 @@ public class Task {
      * @return A Task object created from the data line.
      */
     public static Task createTaskFromData(String dataLine) {
-
         String[] parts = dataLine.split(" \\| ");
         String type = parts[0].trim();
-        boolean isDone = parts[1].equals("1");
+        boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM d yyyy");
         if (type.equals("T")) {
@@ -82,7 +81,7 @@ public class Task {
      * @return A formatted string representing the task for storage.
      */
     public String formatToFile() {
-        int status = isDone ? 1 : 0;
+        String status = isDone ? "1" : "0";
         return status + " | " + description;
     }
     @Override

@@ -1,6 +1,5 @@
 package milbot;
 
-import java.util.Scanner;
 
 /**
  * Mil class represents a chatbot application for managing tasks.
@@ -19,30 +18,21 @@ public class Mil {
         ui = new Ui();
         storage = new Storage();
         taskList = storage.loadTasksFromFile();
-        parser = new Parser(taskList, ui);
+        parser = new Parser(taskList, ui, storage);
     }
-    /**
-     * The main method that starts the Mil chatbot application.
-     * Reads user input and processes it until the user types "bye".
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        Mil mil = new Mil();
-        Scanner scanner = new Scanner(System.in);
-        String input;
-        ui.printWelcomeMessage();
 
-
-        while (scanner.hasNext()) {
-            input = scanner.nextLine();
-            if (input.equals("bye")) {
-                storage.saveTasksToFile(taskList);
-                ui.printGoodbyeMessage();
-                break;
-            } else {
-                parser.parseInput(input);
-            }
-        }
-
+//    public static void main(String[] args) {
+//        Scanner scanner = new Scanner(System.in);
+//        String input;
+//        //ui.printWelcomeMessage();
+//
+//        while (scanner.hasNext()) {
+//            input = scanner.nextLine();
+//            parser.parseInput(input);
+//        }
+//
+//    }
+    public String getResponse(String input) {
+        return parser.parseInput(input);
     }
 }

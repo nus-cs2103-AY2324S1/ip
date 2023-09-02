@@ -9,20 +9,26 @@ import java.time.format.DateTimeParseException;
 public class Parser {
     private TaskList taskList;
     private Ui ui;
+    private Storage storage;
 
 
-    public Parser(TaskList taskList, Ui ui) {
+    public Parser(TaskList taskList, Ui ui, Storage storage) {
         this.taskList = taskList;
         this.ui = ui;
+        this.storage = storage;
     }
     /**
      * Parses the user input and performs corresponding actions based on the input.
      *
      * @param input The input provided by the user.
+     * @return response from the chatbot.
      */
-    public void parseInput(String input) {
-        if (input.equals("list")) {
-            ui.printTaskList(taskList);
+    public String parseInput(String input) {
+        if (input.equals("bye")) {
+            storage.saveTasksToFile(taskList);
+            return ui.printGoodbyeMessage();
+        } else if (input.equals("list")) {
+            return ui.printTaskList(taskList);
         } else if (input.startsWith("mark") || input.startsWith("unmark")) {
             int index = -1;
             try {
@@ -34,20 +40,18 @@ public class Parser {
                     throw new InvalidTaskIndexException();
                 }
             } catch (NoTaskIndexException e) {
-                ui.printErrorMessage(e.getMessage());
-                return;
+                return ui.printErrorMessage(e.getMessage());
             } catch (InvalidTaskIndexException e) {
-                ui.printErrorMessage(e.getMessage());
-                return;
+                return ui.printErrorMessage(e.getMessage());
             }
             if(index != -1) {
                 Task task = taskList.getTask(index);
                 if (input.startsWith("mark")) {
                     task.markAsDone();
-                    ui.printMarkTask(task);
+                    return ui.printMarkTask(task);
                 } else {
                     task.markAsUndone();
-                    ui.printUnmarkTask(task);
+                    return ui.printUnmarkTask(task);
                 }
             }
         } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
@@ -57,30 +61,28 @@ public class Parser {
                     throw new EmptyTaskException();
                 }
             } catch (EmptyTaskException e) {
-                ui.printErrorMessage(e.getMessage());
-                return;
+                return ui.printErrorMessage(e.getMessage());
             }
             if (input.startsWith("todo")) {
                 task = new Todo(input.substring(5));
                 taskList.addTask(task);
-                ui.printNewTask(taskList, task);
+                return ui.printNewTask(taskList, task);
             } else if (input.startsWith("deadline")) {
                 try {
                     if (!input.contains("/by") || input.trim().split("/by").length == 1) {
                         throw new InvalidDeadlineException();
                     }
                 } catch (InvalidDeadlineException e) {
-                    ui.printErrorMessage(e.getMessage());
-                    return;
+                    return ui.printErrorMessage(e.getMessage());
                 }
                 try {
                     LocalDate deadlineDate = LocalDate.parse(input.split("/")[1].substring(3).trim());
                     task = new Deadline(input.split("/")[0].substring(9),
                             deadlineDate);
                     taskList.addTask(task);
-                    ui.printNewTask(taskList, task);
+                    return ui.printNewTask(taskList, task);
                 } catch (DateTimeParseException e) {
-                    ui.printErrorMessage(e.getMessage());
+                    return ui.printErrorMessage(e.getMessage());
                 }
 
             } else {
@@ -89,15 +91,14 @@ public class Parser {
                         throw new InvalidEventException();
                     }
                 } catch (InvalidEventException e) {
-                    ui.printErrorMessage(e.getMessage());
-                    return;
+                    return ui.printErrorMessage(e.getMessage());
                 }
                 LocalDate fromDate = LocalDate.parse(input.split("/")[1].substring(5).trim());
                 LocalDate toDate = LocalDate.parse(input.split("/")[2].substring(3).trim());
                 task = new Event(input.split("/")[0].substring(6),
                         fromDate, toDate);
                 taskList.addTask(task);
-                ui.printNewTask(taskList, task);
+                return ui.printNewTask(taskList, task);
             }
 
         } else if (input.startsWith("delete")) {
@@ -106,8 +107,7 @@ public class Parser {
                     throw new NoTaskIndexException();
                 }
             } catch (NoTaskIndexException e) {
-                ui.printErrorMessage(e.getMessage());
-                return;
+                return ui.printErrorMessage(e.getMessage());
             }
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
             try {
@@ -115,20 +115,18 @@ public class Parser {
                     throw new InvalidTaskIndexException();
                 }
             } catch (InvalidTaskIndexException e) {
-                ui.printErrorMessage(e.getMessage());
-                return;
+                return ui.printErrorMessage(e.getMessage());
             }
             Task task = taskList.getTask(index);
             taskList.removeTask(index);
-            ui.printRemoveTask(task, taskList);
+            return ui.printRemoveTask(task, taskList);
         } else if(input.startsWith("find")) {
             try {
                 if (input.trim().equals("find")) {
                     throw new EmptyFindQueryException();
                 }
             } catch (EmptyFindQueryException e) {
-                ui.printErrorMessage(e.getMessage());
-                return;
+                return ui.printErrorMessage(e.getMessage());
             }
             String taskQuery = input.split(" ")[1];
             TaskList tasksResult = new TaskList();
@@ -137,9 +135,9 @@ public class Parser {
                     tasksResult.addTask(task);
                 }
             }
-            ui.printSearchResult(tasksResult);
-        } else {
-            ui.printUnknownMessage();
+            return ui.printSearchResult(tasksResult);
         }
+        return ui.printUnknownMessage();
+
     }
 }
