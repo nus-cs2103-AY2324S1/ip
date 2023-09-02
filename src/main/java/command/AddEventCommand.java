@@ -1,8 +1,11 @@
-package Comm;
-import Ui.Ui;
-import Storage.TaskList;
-import Storage.FileHandler;
-import TaskManager.Events;
+package command;
+
+import ui.Ui;
+
+import storage.TaskList;
+import storage.FileHandler;
+
+import taskmanager.Events;
 
 /**
  * Command to add an Events task.

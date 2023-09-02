@@ -1,7 +1,9 @@
-package Comm;
-import Ui.Ui;
-import Storage.TaskList;
-import Storage.FileHandler;
+package command;
+
+import ui.Ui;
+
+import storage.TaskList;
+import storage.FileHandler;
 
 /**
  * Represents a miscellaneous command.

@@ -1,29 +1,31 @@
-package Comm;
-import Ui.Ui;
-import Storage.TaskList;
-import Storage.FileHandler;
+package command;
+
+import ui.Ui;
+
+import storage.TaskList;
+import storage.FileHandler;
 
 /**
- * An empty command.
+ * An error command.
  */
-public class EmptyCommand extends Command{
+public class ErrorCommand extends Command{
 
     /**
-     * Constructs an `EmptyCommand` object.
+     * Constructs an `ErrorCommand` object.
      */
-    public EmptyCommand(){
+    public ErrorCommand(){
     }
 
     /**
-     * Executes the empty command and displays a message to ask user for input.
+     * Executes the error command
      *
      * @param t  The task list (not used in this command).
-     * @param ui The user interface.
+     * @param ui The user interface. (not used in this command).
      * @param f  The file handler (not used in this command).
      */
     @Override
     public void execute(TaskList t, Ui ui, FileHandler f) {
-        ui.empty();
+
     }
 
     /**

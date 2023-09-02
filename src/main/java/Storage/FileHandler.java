@@ -1,4 +1,4 @@
-package Storage;
+package storage;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -12,10 +12,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import TaskManager.Tasks;
-import TaskManager.Events;
-import TaskManager.ToDos;
-import TaskManager.Deadlines;
+import taskmanager.Tasks;
+import taskmanager.Events;
+import taskmanager.ToDos;
+import taskmanager.Deadlines;
 
 
 /**
@@ -42,16 +42,13 @@ public class FileHandler {
         ArrayList<Tasks> task = new ArrayList<>();
         String folderPath = "data";
 
-        String absoluteFolderPath = Paths.get("").toAbsolutePath().toString() + "/" + folderPath;
-
         try {
-            Files.createDirectories(Paths.get(absoluteFolderPath));
+            Files.createDirectories(Paths.get(folderPath));
         } catch (IOException e) {
             System.out.println("Failed to create the directory: " + e.getMessage());
         }
 
-        String absoluteFilePath = Paths.get("").toAbsolutePath().toString() + "/" + filePath;
-        Path path = Paths.get(absoluteFilePath);
+        Path path = Paths.get(filePath);
 
         if (!Files.exists(path)) {
             try {
@@ -62,7 +59,7 @@ public class FileHandler {
         }
 
         try {
-            FileReader reader = new FileReader(absoluteFilePath);
+            FileReader reader = new FileReader(filePath);
             Scanner scanner = new Scanner(reader);
             boolean contentCheck = true;
 
@@ -110,7 +107,6 @@ public class FileHandler {
                         task.add(newevent);
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println(e.getMessage());
-
                     }
                 }
                 reader.close();
@@ -128,16 +124,14 @@ public class FileHandler {
      * @param tasks The TaskList containing the tasks to be written.
      */
     public static void writeTasksToFile(TaskList tasks) {
-        String absoluteFilePath = Paths.get("").toAbsolutePath().toString() + "/" + filePath;
-
         try {
-            FileWriter writer = new FileWriter(absoluteFilePath);
-            for (Tasks t : tasks.getTasks()) {
+            FileWriter writer = new FileWriter(filePath);
+            for (Tasks t : tasks.getAllTasks()) {
                 writer.write(t.toFileString() + "\n");
             }
             writer.close();
         } catch (IOException e) {
-
+            System.out.println("File don't exist!!!");
         }
     }
 }

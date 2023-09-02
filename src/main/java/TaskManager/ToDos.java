@@ -1,4 +1,4 @@
-package TaskManager;
+package taskmanager;
 
 /**
  * The tasks of type "To-Do."
@@ -55,7 +55,7 @@ public class ToDos extends Tasks {
     @Override
     public String toFileString() {
         String x;
-        if (this.status) {
+        if (this.isDone) {
             x = "1";
         } else {
             x = "0";
@@ -72,7 +72,7 @@ public class ToDos extends Tasks {
     @Override
     public String toString() {
         String x;
-        if (this.status) {
+        if (this.isDone) {
             x = "X";
         } else {
             x = " ";
@@ -89,12 +89,14 @@ public class ToDos extends Tasks {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
         ToDos toDos = (ToDos) o;
-
-        return taskDesc.equals(toDos.taskDesc);
+        if (this == o) {
+            return true;
+        } else if (o == null || getClass() != o.getClass()) {
+            return false;
+        } else {
+            return taskDesc.equals(toDos.taskDesc);
+        }
     }
 
 }

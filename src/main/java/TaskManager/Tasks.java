@@ -1,14 +1,13 @@
-package TaskManager;
-
+package taskmanager;
 
 /**
  * Abstract class for few types of tasks.
  */
 public abstract class Tasks {
 
-    protected boolean status; //completion status of the task
+    protected boolean isDone; //completion status of the task
 
-    private static int count = 0;
+    private static int count = 0; //keep track of the number of tasks
 
     /**
      * Returns a string format of the task that can be written to the .txt file.
@@ -21,21 +20,21 @@ public abstract class Tasks {
      * Constructs a task with an initial status of not done.
      */
     public Tasks() {
-        this.status = false;
+        this.isDone = false;
     }
 
     /**
      * Marks the task as done.
      */
     public void markDone() {
-        this.status = true;
+        this.isDone = true;
     }
 
     /**
      * Marks the task as not done.
      */
     public void markNotDone() {
-        this.status = false;
+        this.isDone = false;
     }
 
 }

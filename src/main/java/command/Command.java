@@ -1,8 +1,9 @@
-package Comm;
-import java.io.File;
-import Ui.Ui;
-import Storage.TaskList;
-import Storage.FileHandler;
+package command;
+
+import ui.Ui;
+
+import storage.TaskList;
+import storage.FileHandler;
 
 /**
  * Abstract class for few types of command that

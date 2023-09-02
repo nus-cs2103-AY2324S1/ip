@@ -1,5 +1,7 @@
-package Storage;
-import TaskManager.Tasks;
+package storage;
+
+import taskmanager.Tasks;
+
 import java.util.ArrayList;
 
 /**
@@ -57,7 +59,7 @@ public class TaskList {
      *
      * @return The ArrayList of tasks.
      */
-    public ArrayList<Tasks> getTasks() {
+    public ArrayList<Tasks> getAllTasks() {
         return task;
     }
 
