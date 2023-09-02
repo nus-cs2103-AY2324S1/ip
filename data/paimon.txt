@@ -1,5 +1,6 @@
 [T][X] add this todo
-[T][ ] do this
-[D][ ] finish this     (by: 2023-08-31 11:30)
-[D][X] do this task   (by: 2023-11-03 14:00)
-[E][ ] do this (from: 2023-09-01 15:00 to: 2023-09-09 2023-09-09)
+[T][ ] add another todo
+[T][X] add thistodo
+[D][ ] do this (by: 2023-09-08 04:06)
+[D][ ] another one (by: 2023-09-08 04:06)
+[E][ ] new new new (from: 2023-09-08 04:06 to: 2023-09-08 2023-09-08)

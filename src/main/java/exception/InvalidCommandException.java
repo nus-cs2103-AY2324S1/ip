@@ -9,6 +9,7 @@ public class InvalidCommandException extends DukeException {
 
     @Override
     public String getMessage() {
-        return this.message;
+        return this.message + "☹ OOPS!!! Something went wrong D:"
+                + "\n-----------------------------------------------------------------";
     }
 }
