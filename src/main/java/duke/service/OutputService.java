@@ -1,9 +1,9 @@
 package duke.service;
 
-import duke.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import duke.tasks.Task;
 
 /**
  * Handles the display of information to the user with standardized formatting.
@@ -69,7 +69,7 @@ public class OutputService {
      */
     public void printTasks(List<Task> taskList) {
         List<String> tasksWithNumber = new ArrayList<>();
-        for (int i = 0; i < taskList.size(); i ++) {
+        for (int i = 0; i < taskList.size(); ++i) {
             String taskNumber = String.format("%s. ", i + 1);
             tasksWithNumber.add(taskNumber + taskList.get(i));
         }

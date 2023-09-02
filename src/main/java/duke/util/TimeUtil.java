@@ -1,12 +1,12 @@
 package duke.util;
 
-import duke.exception.TimeUtilException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
+
+import duke.exception.TimeUtilException;
 
 /**
  * Provides utility functions to handle and format time-related inputs.
@@ -17,15 +17,15 @@ import java.util.Locale;
  */
 public class TimeUtil {
     private static final DateTimeFormatter[] DATE_TIME_FORMATTERS = {
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
-            DateTimeFormatter.ofPattern("yyyyMMdd HHmm")
+        DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
+        DateTimeFormatter.ofPattern("yyyyMMdd HHmm")
     };
 
     private static final DateTimeFormatter[] DATE_ONLY_FORMATTERS = {
-            DateTimeFormatter.ISO_LOCAL_DATE,
-            DateTimeFormatter.BASIC_ISO_DATE,
-            DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH),
-            DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH)
+        DateTimeFormatter.ISO_LOCAL_DATE,
+        DateTimeFormatter.BASIC_ISO_DATE,
+        DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH),
+        DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH)
     };
 
     private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -53,6 +53,7 @@ public class TimeUtil {
             try {
                 return LocalDateTime.parse(input, formatter);
             } catch (DateTimeParseException ignored) {
+                // try next formatter
             }
         }
         for (DateTimeFormatter formatter : DATE_ONLY_FORMATTERS) {
@@ -60,6 +61,7 @@ public class TimeUtil {
                 LocalDate parsedDate = LocalDate.parse(input, formatter);
                 return LocalDateTime.of(parsedDate, LocalDateTime.now().toLocalTime());
             } catch (DateTimeParseException ignored) {
+                // try next formatter
             }
         }
         throw new TimeUtilException(getHelpMessage());
@@ -81,16 +83,16 @@ public class TimeUtil {
      * @return A string containing a list of valid date formats.
      */
     public static String getHelpMessage() {
-        return "Invalid date format! Please use one of the following formats:" +
-                "\n- yyyy-MM-dd HHmm (e.g. 2023-05-28 1800)" +
-                "\n- yyyyMMdd HHmm (e.g. 2023-05-28 1800)" +
-                "\n- yyyy-MM-dd (e.g. 2023-05-28)" +
-                "\n- yyyymmdd (e.g. 20230528)" +
-                "\n- d MMM yyyy (e.g. 1 Jan 2023)" +
-                "\n- d MMMM yyyy (e.g. 1 January 2023)" +
-                "\nOr use special terms like:" +
-                "\n- today" +
-                "\n- tomorrow";
+        return "Invalid date format! Please use one of the following formats:"
+                + "\n- yyyy-MM-dd HHmm (e.g. 2023-05-28 1800)"
+                + "\n- yyyyMMdd HHmm (e.g. 2023-05-28 1800)"
+                + "\n- yyyy-MM-dd (e.g. 2023-05-28)"
+                + "\n- yyyymmdd (e.g. 20230528)"
+                + "\n- d MMM yyyy (e.g. 1 Jan 2023)"
+                + "\n- d MMMM yyyy (e.g. 1 January 2023)"
+                + "\nOr use special terms like:"
+                + "\n- today"
+                + "\n- tomorrow";
     }
 
     /**
@@ -104,12 +106,12 @@ public class TimeUtil {
      */
     private static LocalDateTime handleSpecialStrings(String input) {
         switch (input.toLowerCase()) {
-            case "today":
-                return LocalDateTime.now().withHour(23).withMinute(59);
-            case "tomorrow":
-                return LocalDateTime.now().plusDays(1).withHour(23).withMinute(59);
-            default:
-                return null;
+        case "today":
+            return LocalDateTime.now().withHour(23).withMinute(59);
+        case "tomorrow":
+            return LocalDateTime.now().plusDays(1).withHour(23).withMinute(59);
+        default:
+            return null;
         }
     }
 }

@@ -1,8 +1,8 @@
 package duke.tasks;
 
-import duke.util.TimeUtil;
-
 import java.time.LocalDateTime;
+
+import duke.util.TimeUtil;
 
 /**
  * Represents an event task in the Duke application.

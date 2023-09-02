@@ -1,5 +1,7 @@
 package duke.commands;
 
+import java.util.List;
+
 import duke.Duke;
 import duke.exception.DukeStorageException;
 import duke.exception.TaskParseException;
@@ -7,8 +9,6 @@ import duke.exception.TimeUtilException;
 import duke.service.TaskFactory;
 import duke.service.UiService;
 import duke.tasks.Task;
-
-import java.util.List;
 
 /**
  * Represents a command to add a task in the Duke application.

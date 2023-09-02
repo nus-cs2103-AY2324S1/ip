@@ -1,11 +1,11 @@
 package duke.commands;
 
+import java.util.Optional;
+
 import duke.Duke;
 import duke.exception.DukeStorageException;
 import duke.service.UiService;
 import duke.tasks.Task;
-
-import java.util.Optional;
 
 /**
  * Represents a command to unmark a task as completed in the Duke application.
@@ -33,8 +33,8 @@ public class UnmarkTaskCommand extends Command {
         try {
             Optional<Task> optionalTask = dukeBot.unmarkTask(taskId - 1);
             optionalTask.ifPresentOrElse(
-                    uiService::printUnmarkTask,
-                    () -> uiService.printInvalidTaskIndexProvided(taskId, dukeBot.getNumberOfTasks())
+                    uiService::printUnmarkTask, () ->
+                    uiService.printInvalidTaskIndexProvided(taskId, dukeBot.getNumberOfTasks())
             );
         } catch (DukeStorageException e) {
             uiService.printStorageUnmarkFailure();

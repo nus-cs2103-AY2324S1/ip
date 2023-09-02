@@ -1,8 +1,8 @@
 package duke.tasks;
 
-import duke.util.TimeUtil;
-
 import java.time.LocalDateTime;
+
+import duke.util.TimeUtil;
 
 /**
  * Represents a task with a deadline in the Duke application.

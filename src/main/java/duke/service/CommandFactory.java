@@ -1,11 +1,17 @@
 package duke.service;
 
+import java.util.List;
+
 import duke.Duke;
-import duke.commands.*;
+import duke.commands.AddTaskCommand;
+import duke.commands.Command;
+import duke.commands.DeleteTaskCommand;
+import duke.commands.ExitCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkTaskCommand;
+import duke.commands.UnmarkTaskCommand;
 import duke.exception.InvalidCommandInputException;
 import duke.exception.UnknownCommandException;
-
-import java.util.List;
 
 /**
  * A factory class responsible for producing commands based on user inputs.
@@ -44,28 +50,28 @@ public class CommandFactory {
     public Command createCommand(String command, List<String> args)
             throws UnknownCommandException, InvalidCommandInputException {
         switch (command) {
-            case "bye":
-                return new ExitCommand(dukeBot, uiService);
-            case "list":
-                return new ListCommand(dukeBot, uiService);
-            case "mark":
-                checkValidTaskNumberArgument(args);
-                int markId = Integer.parseInt(args.get(0));
-                return new MarkTaskCommand(dukeBot, uiService, markId);
-            case "unmark":
-                checkValidTaskNumberArgument(args);
-                int unmarkId = Integer.parseInt(args.get(0));
-                return new UnmarkTaskCommand(dukeBot, uiService, unmarkId);
-            case "delete":
-                checkValidTaskNumberArgument(args);
-                int deleteId = Integer.parseInt(args.get(0));
-                return new DeleteTaskCommand(dukeBot, uiService, deleteId);
-            case "todo":
-            case "deadline":
-            case "event":
-                return new AddTaskCommand(dukeBot, uiService, command, args, taskFactory);
-            default:
-                throw new UnknownCommandException(String.format("Command: %s not recognized! :<", command));
+        case "bye":
+            return new ExitCommand(dukeBot, uiService);
+        case "list":
+            return new ListCommand(dukeBot, uiService);
+        case "mark":
+            checkValidTaskNumberArgument(args);
+            int markId = Integer.parseInt(args.get(0));
+            return new MarkTaskCommand(dukeBot, uiService, markId);
+        case "unmark":
+            checkValidTaskNumberArgument(args);
+            int unmarkId = Integer.parseInt(args.get(0));
+            return new UnmarkTaskCommand(dukeBot, uiService, unmarkId);
+        case "delete":
+            checkValidTaskNumberArgument(args);
+            int deleteId = Integer.parseInt(args.get(0));
+            return new DeleteTaskCommand(dukeBot, uiService, deleteId);
+        case "todo":
+        case "deadline":
+        case "event":
+            return new AddTaskCommand(dukeBot, uiService, command, args, taskFactory);
+        default:
+            throw new UnknownCommandException(String.format("Command: %s not recognized! :<", command));
         }
     }
 
