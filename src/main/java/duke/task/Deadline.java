@@ -3,6 +3,11 @@ package duke.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Task with deadline
+ *
+ * @author Lian Zhi Xuan
+ */
 public class Deadline extends Task {
 
     private String date;
@@ -28,6 +33,11 @@ public class Deadline extends Task {
         return "Task.Deadline";
     }
 
+    /**
+     * Show date of task
+     *
+     * @return date of task in LocalDate
+     */
     public LocalDate date() {
         return LocalDate.parse(date, DateTimeFormatter.ISO_DATE);
     }

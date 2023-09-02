@@ -7,6 +7,11 @@ import duke.task.ToDo;
 
 import java.rmi.server.ServerNotActiveException;
 
+/**
+ * Object to keep track of all data from user's task list
+ *
+ * @author Lian Zhi Xuan
+ */
 public class SaveData {
     
     public String[] type;
@@ -19,6 +24,7 @@ public class SaveData {
 
     public SaveData(Task[] list) {
         int n = list.length;
+
         type = new String[n];
         toDos = new ToDo[n];
         deadlines = new Deadline[n];
@@ -26,13 +32,16 @@ public class SaveData {
 
         for (int i = 0; i < n; i++) {
             type[i] = list[i].type();
+
             switch (type[i]) {
                 case "Task.ToDo":
                     toDos[i] = (ToDo) list[i];
                     break;
+
                 case "Task.Deadline":
                     deadlines[i] = (Deadline) list[i];
                     break;
+
                 case "Task.Events":
                     events[i] = (Events) list[i];
                     break;
@@ -51,6 +60,7 @@ public class SaveData {
             }
 
             for (int i = 0; i < type.length; i++) {
+
                 if (!type[i].equals(temp.type[i])) {
                     return false;
                 }
@@ -61,11 +71,13 @@ public class SaveData {
                         return false;
                     }
                     break;
+
                 case "Task.Deadline":
                     if (!deadlines[i].equals(temp.deadlines[i])) {
                         return false;
                     }
                     break;
+
                 case "Task.Events":
                     if (!events[i].equals(temp.events[i])) {
                         return false;

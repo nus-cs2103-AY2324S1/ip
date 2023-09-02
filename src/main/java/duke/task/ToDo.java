@@ -1,5 +1,10 @@
 package duke.task;
 
+/**
+ * Task needed to be done
+ *
+ * @author Lian Zhi Xuan
+ */
 public class ToDo extends Task {
 
     public ToDo(String task) {

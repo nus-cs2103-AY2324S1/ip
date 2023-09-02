@@ -4,10 +4,15 @@ import duke.Ui;
 import duke.task.TaskList;
 import duke.Duke;
 
+/**
+ * Command to mark task from list as not done
+ *
+ * @author Lian Zhi Xuan
+ */
 public class UnmarkCommand extends Command{
 
     private int index;
-    public UnmarkCommand (int i) {
+    public UnmarkCommand(int i) {
         index = i;
     }
 

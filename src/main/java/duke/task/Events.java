@@ -3,6 +3,11 @@ package duke.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Task with defined start and end date
+ *
+ * @author Lian Zhi Xuan
+ */
 public class Events extends Task {
 
     private String startDate;
@@ -30,10 +35,20 @@ public class Events extends Task {
         return "Task.Events";
     }
 
+    /**
+     * Returns starting date of event
+     *
+     * @return start date
+     */
     public LocalDate startDate() {
         return LocalDate.parse(startDate, DateTimeFormatter.ISO_DATE);
     }
 
+    /**
+     * Returns ending date of event
+     *
+     * @return end date
+     */
     public LocalDate endDate() {
         return LocalDate.parse(endDate, DateTimeFormatter.ISO_DATE);
     }

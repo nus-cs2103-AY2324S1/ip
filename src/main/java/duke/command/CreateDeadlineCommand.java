@@ -7,6 +7,11 @@ import duke.task.TaskList;
 
 import java.time.LocalDate;
 
+/**
+ * Command to create a deadline task
+ *
+ * @author Lian Zhi Xuan
+ */
 public class CreateDeadlineCommand extends Command {
 
     private Deadline task;
@@ -20,6 +25,7 @@ public class CreateDeadlineCommand extends Command {
         Ui.ui.createTaskPrompt(task);
         Duke.run();
     }
+
 
     public Deadline task(){
         return task;

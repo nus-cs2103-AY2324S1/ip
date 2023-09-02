@@ -7,6 +7,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * Interpret input of user and gives out corresponding commands
+ *
+ * @author Lian Zhi Xuan
+ */
 public class Parser {
 
     private Scanner scanner;
@@ -16,9 +21,15 @@ public class Parser {
     private int listSize;
 
 
-
+    /**
+     *  Interpret input from user to give out commands
+     *
+     * @param input user input
+     * @return corresponding commands to be executed by program
+     * @throws DukeException for any error within the program
+     * @throws DateTimeParseException for wrong date format input by user
+     */
     public Command readInput(String input) throws DukeException, DateTimeParseException {
-
         if (input.isEmpty()) {
             throw new DukeException("Chewie don't see any command");
         }
@@ -31,6 +42,7 @@ public class Parser {
         switch (command) {
         case "bye":
             return new TerminateCommand();
+
         case "list":
             return new ListCommand();
 
@@ -65,7 +77,6 @@ public class Parser {
             if (j < 1 || j > listSize)
                 throw new DukeException("The list doesn't have this index.");
 
-
             listSize--;
 
             return new DeleteCommand(j - 1);
@@ -73,13 +84,15 @@ public class Parser {
         case "deadline":
             String deadlinePrompt = scanner.nextLine();
 
-            if (deadlinePrompt.isBlank())
+            if (deadlinePrompt.isBlank()) {
                 throw new DukeException("Chewie says deadline's description cannot be empty.");
+            }
 
             String[] deadlineRemain = deadlinePrompt.split(" /by ");
 
-            if (deadlineRemain.length != 2 || deadlineRemain[0].isBlank() || deadlineRemain[1].isBlank())
+            if (deadlineRemain.length != 2 || deadlineRemain[0].isBlank() || deadlineRemain[1].isBlank()) {
                 throw new DukeException("Chewie says deadline's description is wrong.");
+            }
 
             String task = deadlineRemain[0].trim();
             String dateString = deadlineRemain[1].trim();
@@ -103,25 +116,29 @@ public class Parser {
         case "event":
             String eventPrompt = scanner.nextLine().trim();
 
-            if (eventPrompt.isBlank())
+            if (eventPrompt.isBlank()) {
                 throw new DukeException("Chewie says event's description cannot be empty.");
+            }
 
             String[] eventRemain = eventPrompt.split(" /from ");
 
-            if (eventRemain.length != 2 || eventRemain[0].isBlank())
+            if (eventRemain.length != 2 || eventRemain[0].isBlank()) {
                 throw new DukeException("Chewie says event's description is wrong.");
+            }
 
             String eventTask = eventRemain[0];
             String[] eventDate = eventRemain[1].split(" /to ");
 
-            if (eventDate.length !=2)
+            if (eventDate.length !=2) {
                 throw new DukeException("Chewie says event's time is wrong.");
+            }
 
             String startDate = eventDate[0];
             String endDate = eventDate[1];
 
-            if (startDate.isBlank() || endDate.isBlank())
+            if (startDate.isBlank() || endDate.isBlank()) {
                 throw new DukeException("Chewie says event's time is wrong.");
+            }
 
             LocalDate start = LocalDate.parse(startDate,format);
             LocalDate end = LocalDate.parse(endDate,format);

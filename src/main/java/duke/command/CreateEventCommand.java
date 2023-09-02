@@ -7,6 +7,11 @@ import duke.task.TaskList;
 
 import java.time.LocalDate;
 
+/**
+ * Command to create event task
+ *
+ * @author Lian Zhi Xuan
+ */
 public class CreateEventCommand extends Command {
 
     private Events task;

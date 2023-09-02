@@ -4,6 +4,11 @@ import duke.Duke;
 import duke.Ui;
 import duke.task.TaskList;
 
+/**
+ * Command to show list
+ *
+ * @author Lian Zhi Xuan
+ */
 public class ListCommand extends Command{
 
     @Override

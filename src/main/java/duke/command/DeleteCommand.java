@@ -3,6 +3,11 @@ package duke.command;
 import duke.task.TaskList;
 import duke.*;
 
+/**
+ * Command to delete task from list
+ *
+ * @author Lian Zhi Xuan
+ */
 public class DeleteCommand extends Command {
 
     private int index;

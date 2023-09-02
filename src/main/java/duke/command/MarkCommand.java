@@ -4,6 +4,11 @@ import duke.Duke;
 import duke.Ui;
 import duke.task.TaskList;
 
+/**
+ * Command to mark task from list as done
+ *
+ * @author Lian Zhi Xuan
+ */
 public class MarkCommand extends Command {
 
     private int index;

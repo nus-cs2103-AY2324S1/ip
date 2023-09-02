@@ -5,6 +5,11 @@ import duke.Ui;
 import duke.task.TaskList;
 import duke.task.ToDo;
 
+/**
+ * Command to create ToDo task
+ *
+ * @author Lian Zhi Xuan
+ */
 public class CreateToDoCommand extends Command{
 
     private ToDo task;
