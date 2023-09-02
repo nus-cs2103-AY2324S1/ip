@@ -50,7 +50,7 @@ public class Ui {
      * Prompts the user for input.
      */
     public String promptInput() {
-        System.out.printf("Input: ");
+        System.out.print("Input: ");
         String prompt = inputScanner.nextLine();
         addDivider();
         return prompt.trim();

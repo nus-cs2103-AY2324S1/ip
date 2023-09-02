@@ -1,5 +1,3 @@
-import jdk.jshell.spi.SPIResolutionException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,9 +17,10 @@ public class Storage {
 
     /**
      * Loads into TASKS saved tasks from a file.
-     * @throws IOException, ParseException
+     *
+     * @throws CrusaderException thrown on erroneous input
      */
-    public ArrayList<Task> loadIntoTasks() throws IOException, ParseException {
+    public ArrayList<Task> loadTasks() throws CrusaderException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             Scanner scanner = new Scanner(this.file);
@@ -31,10 +30,10 @@ public class Storage {
                 Task task = parseSavedTask(line);
                 tasks.add(task);
             }
+        } catch (ParseException | IndexOutOfBoundsException | IllegalArgumentException e) {
+            throw new CrusaderParseException("The save file is malformed!");
         } catch (FileNotFoundException e) {
-            // make the file
-            this.file.createNewFile();
-            return new ArrayList<>();
+            throw new MissingSaveFileException(this.file.getPath());
         }
         return tasks;
     }
@@ -48,22 +47,22 @@ public class Storage {
         String[] components = taskString.split("\\|");
         Task task;
         switch (components[0]) {
-            case "E":
-                task = new Event(
-                        components[1],
-                        DateUtils.parseDateTime(components[3]),
-                        DateUtils.parseDateTime(components[4]));
-                break;
-            case "T":
-                task = new Todo(components[1]);
-                break;
-            case "D":
-                task = new Deadline(
-                        components[1],
-                        DateUtils.parseDateTime(components[3]));
-                break;
-            default:
-                throw new IllegalArgumentException();
+        case "E":
+            task = new Event(
+                    components[1],
+                    DateUtils.parseDateTime(components[3]),
+                    DateUtils.parseDateTime(components[4]));
+            break;
+        case "T":
+            task = new Todo(components[1]);
+            break;
+        case "D":
+            task = new Deadline(
+                    components[1],
+                    DateUtils.parseDateTime(components[3]));
+            break;
+        default:
+            throw new IllegalArgumentException();
         }
         if (components[2].equals("X")) {
             task.mark();
