@@ -16,7 +16,18 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Parser class is responsible for parsing data from standard input for the Duke Program.
+ */
 public class Parser {
+
+	/**
+	 * Parses the input given by the user from standard input and packages them into a Command instance.
+	 *
+	 * @param input A string representing a full command from the standard input
+	 * @return A Command Object which holds the necessary data required for further execution of tasks
+	 * @throws DukeException If any full command is incomplete or cannot be understood
+	 */
 	public static Command parse(String input) throws DukeException {
 		input = input.trim();
 		String commandWord = input.split(" ", 2)[0];
