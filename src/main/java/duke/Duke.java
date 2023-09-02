@@ -9,6 +9,7 @@ import java.util.Objects;
 public class Duke {
     private Storage storage;
     private TaskList tasks;
+    private duke.ui.Duke Duke;
 
     /**
      * Constructor to create the other components.
