@@ -81,7 +81,7 @@ public class Arona {
     }
 
     public static void main(String[] args) {
-        new Arona("src/main/java/arona/data/arona.txt").run();
+        new Arona("src/main/java/arona/data/arona.txt").run(); // if jar file use "../../src/main/java/arona/data/arona.txt"
     }
 }
 
