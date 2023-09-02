@@ -16,5 +16,6 @@ public interface Command {
      * @throws MissingDescriptionException If the description is missing.
      * @throws IncorrectCommandFormatException If the command is in the wrong format.
      */
-    void execute(TaskListStorage taskListStorage) throws InvalidIndexException, MissingDescriptionException, IncorrectCommandFormatException;
+    void execute(TaskListStorage taskListStorage)
+            throws InvalidIndexException, MissingDescriptionException, IncorrectCommandFormatException;
 }

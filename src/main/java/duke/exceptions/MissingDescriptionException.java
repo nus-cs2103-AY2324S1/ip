@@ -1,8 +1,10 @@
 package duke.exceptions;
+
 /**
- * Represents the exception thrown when the user inputs a task without any textual description.
+ * Represents the exception thrown when the user inputs a task without any
+ * textual description.
  */
-public class MissingDescriptionException extends Exception{
+public class MissingDescriptionException extends Exception {
     /**
      * Creates a MissingDescriptionException object.
      * 

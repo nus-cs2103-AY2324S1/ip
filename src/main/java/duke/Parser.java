@@ -63,7 +63,7 @@ public class Parser {
          * parameter.
          *
          * @param commandString the string representation of the command
-         * @param pattern the pattern that the command takes
+         * @param pattern       the pattern that the command takes
          */
         private Commands(String commandString, CommandParser commandParser) {
             this.commandString = commandString;

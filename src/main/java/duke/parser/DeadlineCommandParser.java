@@ -17,11 +17,13 @@ public class DeadlineCommandParser extends CommandParser {
      * Creates a DeadlineCommandParser object.
      */
     public DeadlineCommandParser() {
-        super("deadline", "^(?<command>deadline)(?: ((?!/by)(?<description>.*?))?(?<by> /by.*?)?(?<byTime>\\d{4}-\\d{2}-\\d{2})?)?$");
+        super("deadline",
+                "^(?<command>deadline)(?: ((?!/by)(?<description>.*?))?(?<by> /by.*?)?(?<byTime>\\d{4}-\\d{2}-\\d{2})?)?$");
     }
 
     @Override
-    protected void validate(Matcher matcher) throws MissingDescriptionException, IncorrectCommandFormatException, InvalidTimeFormatException {
+    protected void validate(Matcher matcher)
+            throws MissingDescriptionException, IncorrectCommandFormatException, InvalidTimeFormatException {
         String description = matcher.group("description");
         String by = matcher.group("by");
         String byTime = matcher.group("byTime");
@@ -46,7 +48,8 @@ public class DeadlineCommandParser extends CommandParser {
     }
 
     @Override
-    protected Command createCommand(Matcher matcher) throws MissingDescriptionException, IncorrectCommandFormatException, InvalidTimeFormatException {
+    protected Command createCommand(Matcher matcher)
+            throws MissingDescriptionException, IncorrectCommandFormatException, InvalidTimeFormatException {
         return new DeadlineCommand(matcher);
     }
 }

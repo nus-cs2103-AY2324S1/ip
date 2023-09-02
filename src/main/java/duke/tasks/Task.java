@@ -3,9 +3,12 @@ package duke.tasks;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Adapted from Partial Solution given in https://nus-cs2103-ay2324s1.github.io/website/schedule/week2/project.html under Level-3
+ * Adapted from Partial Solution given in Level-3 of
+ * https://nus-cs2103-ay2324s1.github.io/website/schedule/week2/project.html
+ * 
  * Parent tasks class to create tasks objects
- * Tasks have a desciption of what the task is and a boolean to indicate if it is done
+ * Tasks have a desciption of what the task is and 
+ * a boolean to indicate if it is done
  */
 public abstract class Task {
 
@@ -28,7 +31,6 @@ public abstract class Task {
      * The date/time format of the output of the task to the user.
      */
     protected DateTimeFormatter DATE_TIME_OUTPUT = DateTimeFormatter.ofPattern("MMM dd yyyy");
-
     /**
      * Creates a Task object.
      *
@@ -60,7 +62,7 @@ public abstract class Task {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
 

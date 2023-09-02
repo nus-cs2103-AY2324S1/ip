@@ -8,7 +8,7 @@ import duke.exceptions.InvalidIndexException;
 /**
  * Represents a command that deletes a task from the task list.
  */
-public class DeleteCommand implements Command{
+public class DeleteCommand implements Command {
 
     private int index;
 

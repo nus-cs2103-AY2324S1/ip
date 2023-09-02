@@ -3,9 +3,12 @@ package duke.tasks;
 import java.time.LocalDate;
 
 /**
- * Adapted from Partial Solution given in https://nus-cs2103-ay2324s1.github.io/website/schedule/week2/project.html under Level-4
+ * Adapted from Partial Solution given in level-4 of
+ * https://nus-cs2103-ay2324s1.github.io/website/schedule/week2/project.html
+ * 
  * Deadline class extends from the parent class Task
- * Deadlines are tasks that need to be done before a specific date/time e.g., submit report by 11/10/2019 5pm
+ * Deadlines are tasks that need to be done before a specific date/time
+ * e.g., submit report by 11/10/2019 5pm
  */
 
 public class Deadline extends Task {

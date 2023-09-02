@@ -1,9 +1,12 @@
 package duke.tasks;
 
 /**
- * Adapted from Partial Solution given in https://nus-cs2103-ay2324s1.github.io/website/schedule/week2/project.html under Level-4
+ * Adapted from Partial Solution given in Level-4 of
+ * https://nus-cs2103-ay2324s1.github.io/website/schedule/week2/project.html
+ * 
  * Todo class extends from the parent class Task
- * ToDos are tasks without any date/time attached to it e.g., visit new theme park
+ * ToDos are tasks without any date/time attached to it
+ * e.g., visit new theme park
  */
 public class Todo extends Task {
 

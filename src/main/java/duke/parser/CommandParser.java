@@ -45,7 +45,8 @@ public abstract class CommandParser {
      * @throws InvalidIndexException If the index provided is invalid.
      * @throws InvalidTimeFormatException If the time provided is invalid.
      */
-    public Command parse(String input) throws UnknownCommandException, MissingDescriptionException, IncorrectCommandFormatException, InvalidIndexException, InvalidTimeFormatException {
+    public Command parse(String input) throws UnknownCommandException, MissingDescriptionException,
+            IncorrectCommandFormatException, InvalidIndexException, InvalidTimeFormatException {
         Matcher matcher = this.regexPattern.matcher(input);
         if (matcher.matches()) {
             validate(matcher);
@@ -65,7 +66,8 @@ public abstract class CommandParser {
      * @throws InvalidIndexException If the index provided is invalid.
      * @throws InvalidTimeFormatException If the time provided is invalid.
      */
-    protected abstract void validate(Matcher matcher) throws UnknownCommandException, MissingDescriptionException, IncorrectCommandFormatException, InvalidIndexException, InvalidTimeFormatException;
+    protected abstract void validate(Matcher matcher) throws UnknownCommandException, MissingDescriptionException,
+            IncorrectCommandFormatException, InvalidIndexException, InvalidTimeFormatException;
     
     /**
      * Creates a Command object from the user input matched to its regex.
@@ -76,5 +78,7 @@ public abstract class CommandParser {
      * @throws IncorrectCommandFormatException If the command is in the wrong format.
      * @throws InvalidTimeFormatException If the time provided is invalid.
      */
-    protected abstract Command createCommand(Matcher matcher) throws MissingDescriptionException, IncorrectCommandFormatException, InvalidTimeFormatException; 
+
+    protected abstract Command createCommand(Matcher matcher)
+            throws MissingDescriptionException, IncorrectCommandFormatException, InvalidTimeFormatException;
 }
