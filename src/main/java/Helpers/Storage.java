@@ -6,7 +6,13 @@ import Tasks.Events;
 import Tasks.Task;
 import Tasks.Todo;
 
-import java.io.*;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -15,9 +21,15 @@ import java.util.ArrayList;
  * Represents Storage class that deals with processing read and write to data storage
  */
 public class Storage {
-    private final String path;
     private final static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private final String path;
 
+    /**
+     * Public constructor for Storage which initialize read/write
+     *
+     * @param path
+     * @throws ErrorStorageException
+     */
     public Storage(String path) throws ErrorStorageException {
 
         this.path = path;
@@ -37,6 +49,12 @@ public class Storage {
 
     }
 
+    /**
+     * A method for reading the text file and processing into a list of tasks
+     *
+     * @return An arraylist of tasks
+     * @throws ErrorStorageException
+     */
     public ArrayList<Task> read() throws ErrorStorageException {
         TaskList taskList = new TaskList();
         try {
@@ -79,6 +97,12 @@ public class Storage {
         return taskList.getTaskList();
     }
 
+    /**
+     * A method for reading the text file and processing into a list of tasks
+     *
+     * @return An arraylist of tasks
+     * @throws IOException
+     */
     public void write(ArrayList<Task> taskList) {
 
         try {

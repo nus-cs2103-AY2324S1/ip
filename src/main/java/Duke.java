@@ -4,6 +4,7 @@ import Helpers.Parser;
 import Helpers.Storage;
 import Helpers.TaskList;
 import Helpers.Ui;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,12 +12,18 @@ import java.io.InputStreamReader;
 
 public class Duke {
 
-    private Storage storage;
-    private final String DIRECTORY = "data";
     private static TaskList taskList;
+    private final String DIRECTORY = "data";
+    private Storage storage;
     private Ui ui;
 
-    public Duke (String filePath) throws ErrorStorageException {
+    /**
+     * Public constructor to load Duke
+     *
+     * @param filePath File path to get text file data from
+     * @throws ErrorStorageException Exception for storage loading error
+     */
+    public Duke(String filePath) throws ErrorStorageException {
         ui = new Ui();
         String projRoot = System.getProperty("user.dir");
         String path = projRoot + "/" + DIRECTORY + filePath;
@@ -30,6 +37,18 @@ public class Duke {
 
     }
 
+    /**
+     * Main method to execute Duke
+     *
+     * @throws ErrorStorageException Exception for storage loading error
+     */
+    public static void main(String[] args) throws ErrorStorageException {
+        new Duke("/tasks.txt").run();
+    }
+
+    /**
+     * Running method for executing other core processes
+     */
     public void run() {
         //Create buffered reader for user input
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -50,11 +69,5 @@ public class Duke {
         } catch (IOException | InvalidCommandException | ErrorStorageException e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    public static void main(String[] args) throws ErrorStorageException {
-
-        new Duke("/tasks.txt").run();
-
     }
 }

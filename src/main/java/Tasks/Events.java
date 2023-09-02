@@ -10,10 +10,18 @@ import java.time.format.DateTimeFormatter;
  */
 public class Events extends Task {
 
+    private final static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     protected final LocalDateTime from;
     protected final LocalDateTime to;
-    private final static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * Public constructor to create a Event task
+     *
+     * @param description Task description
+     * @param isDone      Boolean if task is done/marked
+     * @param from        Datetime from of the event
+     * @param to          Datetime to of the event
+     */
     public Events(String description, Boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(description, isDone);
         this.from = from;
