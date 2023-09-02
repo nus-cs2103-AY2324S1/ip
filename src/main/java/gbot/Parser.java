@@ -106,17 +106,17 @@ public class Parser {
     public static void loadTaskFromFile(String taskInFile, ArrayList<Task> tasks) {
         String[] taskArr = taskInFile.split(" \\| ");
         switch (taskArr[0]) {
-            case "T":
-                tasks.add(new Todo(taskArr[1], taskArr[2]));
-                break;
-            case "D":
-                tasks.add(new Deadline(taskArr[1], taskArr[2], taskArr[3]));
-                break;
-            case "E":
-                tasks.add(new Event(taskArr[1], taskArr[2], taskArr[3], taskArr[4]));
-                break;
-            default:
-                break;
+        case "T":
+            tasks.add(new Todo(taskArr[1], taskArr[2]));
+            break;
+        case "D":
+            tasks.add(new Deadline(taskArr[1], taskArr[2], taskArr[3]));
+            break;
+        case "E":
+            tasks.add(new Event(taskArr[1], taskArr[2], taskArr[3], taskArr[4]));
+            break;
+        default:
+            break;
         }
     }
 }
