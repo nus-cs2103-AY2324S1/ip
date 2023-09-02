@@ -1,7 +1,10 @@
 package duke.tasks;
 
+import duke.DatesAndTimesFormatter;
 import duke.exceptions.IncompleteInputException;
 import duke.exceptions.InvalidInputException;
+
+import java.time.LocalDate;
 
 public class Task {
     protected String description;
@@ -103,6 +106,17 @@ public class Task {
         return task;
     }
 
+    public static LocalDate parseDate(String date) {
+        for (DatesAndTimesFormatter formatter : DatesAndTimesFormatter.values()) {
+            try {
+                return LocalDate.parse(date, formatter.formatter);
+            } catch (Exception e) {
+                continue;
+            }
+        }
+        System.out.println("Unknown date format. Returning null...");
+        return null;
+    }
     @Override
     public String toString() {
         return "|" + this.getStatusIcon() + "| " + this.getDescription();
