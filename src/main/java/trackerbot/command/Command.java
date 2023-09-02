@@ -17,10 +17,10 @@ public abstract class Command {
     /**
      * Fix
      * @param keyword to
-     * @param rest this
+     * @param commandField this
      * @return code
      */
-    public static Command of(String keyword, String rest) {
+    public static Command of(String keyword, String commandField) {
         CommandType parsedType = CommandType.UNKNOWN;
         for (CommandType command: CommandType.values()) {
             if (keyword.equals(command.getKeyword())) {
@@ -36,15 +36,15 @@ public abstract class Command {
         case DEADLINE:
             // Fallthrough
         case EVENT:
-            result = new AddCommand(parsedType, rest);
+            result = new AddCommand(parsedType, commandField);
             break;
         case DELETE:
-            result = new DeleteCommand(rest);
+            result = new DeleteCommand(commandField);
             break;
         case MARK:
             // Fallthrough
         case UNMARK:
-            result = new ToggleCommand(parsedType, rest);
+            result = new ToggleCommand(parsedType, commandField);
             break;
         case LIST:
             result = new ListCommand();

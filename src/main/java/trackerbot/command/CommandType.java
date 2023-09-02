@@ -1,24 +1,27 @@
 package trackerbot.command;
 
+/**
+ * Header comment here
+ */
 public enum CommandType {
     /** Command to exit the program. **/
-    BYE ("bye"),
+    BYE("bye"),
     /** Command to list all tasks in the task list. **/
-    LIST ("list"),
+    LIST("list"),
     /** Command to add a new to-do task to the task list. **/
-    TODO ("todo"),
+    TODO("todo"),
     /** Command to add a new deadline task to the task list. **/
-    DEADLINE ("deadline"),
+    DEADLINE("deadline"),
     /** Command to add a new event task to the task list. **/
-    EVENT ("event"),
+    EVENT("event"),
     /** Command to mark a task to be complete. **/
-    MARK ("mark"),
+    MARK("mark"),
     /** Command to mark a task as incomplete. **/
-    UNMARK ("unmark"),
+    UNMARK("unmark"),
     /** Command to delete a task. **/
-    DELETE ("delete"),
+    DELETE("delete"),
     /** Command to denote an unknown keyword call. **/
-    UNKNOWN ("");
+    UNKNOWN("");
 
     /** The String representation of the enum. Used to parse the command into enum. **/
     private final String keyword;
