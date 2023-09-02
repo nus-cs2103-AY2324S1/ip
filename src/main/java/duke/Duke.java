@@ -29,8 +29,6 @@ public class Duke {
         } catch (DukeException e) {
             ui.printError(e);
             tasks = new TaskList();
-        } catch (FileNotFoundException e) {
-            tasks = new TaskList();
         }
     }
 

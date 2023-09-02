@@ -45,7 +45,7 @@ public class Task {
      *
      * @return The specific string representation of the Task object to be stored.
      */
-    public String toSavedString() {
+    public String convertToSavedString() {
         return String.format("//%s//%s", this.getStatusIcon(), this.description);
     }
 

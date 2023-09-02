@@ -20,8 +20,8 @@ public class Todo extends Task {
      * @return The specific string representation of the Todo object to be stored.
      */
     @Override
-    public String toSavedString() {
-        return String.format("[T] %s//", super.toSavedString());
+    public String convertToSavedString() {
+        return String.format("[T] %s//", super.convertToSavedString());
     }
 
     /**

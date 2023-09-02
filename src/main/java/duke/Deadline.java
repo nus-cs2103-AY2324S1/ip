@@ -23,13 +23,13 @@ public class Deadline extends Task {
     /**
      * Converts the given LocalDateTime into a string of the MMM d yyyy HH:mm format.
      *
-     * @param dt The LocalDateTime to be formatted.
+     * @param dateTime The LocalDateTime to be formatted.
      * @return The formatted string representation of the LocalDateTime.
      */
-    public static String formatDateTime(LocalDateTime dt) {
+    public static String formatDateTime(LocalDateTime dateTime) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
-        return dt.format(dateTimeFormatter);
+        return dateTime.format(dateTimeFormatter);
     }
 
     /**
@@ -38,8 +38,8 @@ public class Deadline extends Task {
      * @return The specific string representation of the Deadline object to be stored.
      */
     @Override
-    public String toSavedString() {
-        return String.format("[D] %s//%s//", super.toSavedString(), formatDateTime(this.dueDate));
+    public String convertToSavedString() {
+        return String.format("[D] %s//%s//", super.convertToSavedString(), formatDateTime(this.dueDate));
     }
 
     /**

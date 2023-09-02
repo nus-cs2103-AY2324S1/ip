@@ -42,8 +42,8 @@ public class Event extends Task {
      * @return The specific string representation of the Event object to be stored.
      */
     @Override
-    public String toSavedString() {
-        return String.format("[E] %s//%s//%s//", super.toSavedString(), formatDateTime(this.start),
+    public String convertToSavedString() {
+        return String.format("[E] %s//%s//%s//", super.convertToSavedString(), formatDateTime(this.start),
                 formatDateTime(this.end));
     }
 

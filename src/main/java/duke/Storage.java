@@ -53,7 +53,7 @@ public class Storage {
         String tL = "";
         if (len > 0) {
             for (int i = 1; i < len + 1; i++) {
-                tL = tL + stored.getTask(i - 1).toSavedString() + "\n";
+                tL = tL + stored.getTask(i - 1).convertToSavedString() + "\n";
             }
         }
         return tL;

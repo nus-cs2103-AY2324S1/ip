@@ -19,12 +19,12 @@ public class TodoTest {
     @Test
     public void testTodoSavedStringConversion() {
         Todo test = new Todo("Todo Test Saved");
-        assertEquals("[T] // //Todo Test Saved//", test.toSavedString());
+        assertEquals("[T] // //Todo Test Saved//", test.convertToSavedString());
 
         test.markAsDone();
-        assertEquals("[T] //X//Todo Test Saved//", test.toSavedString());
+        assertEquals("[T] //X//Todo Test Saved//", test.convertToSavedString());
 
         test.markAsUndone();
-        assertEquals("[T] // //Todo Test Saved//", test.toSavedString());
+        assertEquals("[T] // //Todo Test Saved//", test.convertToSavedString());
     }
 }

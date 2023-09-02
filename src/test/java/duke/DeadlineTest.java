@@ -41,12 +41,12 @@ public class DeadlineTest {
         LocalDateTime dueDate = LocalDateTime.parse("11/11/2023 11:11", dateTimeFormatter);
 
         Deadline test = new Deadline("Deadline Test Saved", dueDate);
-        assertEquals("[D] // //Deadline Test Saved//Nov 11 2023 11:11//", test.toSavedString());
+        assertEquals("[D] // //Deadline Test Saved//Nov 11 2023 11:11//", test.convertToSavedString());
 
         test.markAsDone();
-        assertEquals("[D] //X//Deadline Test Saved//Nov 11 2023 11:11//", test.toSavedString());
+        assertEquals("[D] //X//Deadline Test Saved//Nov 11 2023 11:11//", test.convertToSavedString());
 
         test.markAsUndone();
-        assertEquals("[D] // //Deadline Test Saved//Nov 11 2023 11:11//", test.toSavedString());
+        assertEquals("[D] // //Deadline Test Saved//Nov 11 2023 11:11//", test.convertToSavedString());
     }
 }
