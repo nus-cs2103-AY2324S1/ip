@@ -17,6 +17,13 @@ public class TaskList {
     private File file;
 
     /**
+     * Constructs a new TaskList.
+     */
+    public TaskList() {
+        this.tasks = new ArrayList<Task>();
+    }
+
+    /**
      * Constructs a new TaskList based on the specified file.
      *
      * @param file The file to write to or read from.
@@ -91,11 +98,11 @@ public class TaskList {
      * @param task The task to be added to the ArrayList.
      */
     public void addTask(Task task, boolean isMuted) {
-        this.list.add(task);
+        this.tasks.add(task);
         if (!isMuted) {
             System.out.println("Got it. I've added this task:");
             System.out.println(task);
-            System.out.println("Now you have " + this.list.size() + " task(s) in the list.");
+            System.out.println("Now you have " + this.tasks.size() + " task(s) in the list.");
         }
     }
 
@@ -231,12 +238,12 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        if (this.list.size() == 0) {
+        if (this.tasks.size() == 0) {
             return "";
         }
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            stringBuilder.append(i + 1 + "." + list.get(i) + "\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            stringBuilder.append(i + 1 + "." + tasks.get(i) + "\n");
         }
         stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         return stringBuilder.toString();
@@ -264,7 +271,7 @@ public class TaskList {
      * @return An integer representing the size of the ArrayList.
      */
     public int getSize() {
-        return this.list.size();
+        return this.tasks.size();
     }
 
     /**
@@ -276,7 +283,7 @@ public class TaskList {
     public String find(String input) {
         String toFind = input.substring(5);
         TaskList tasksFound = new TaskList();
-        for (Task task : this.list) {
+        for (Task task : this.tasks) {
             if (task.toString().contains(toFind)) {
                 tasksFound.addTask(task, true);
             }
