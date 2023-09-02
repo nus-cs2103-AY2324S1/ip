@@ -1,4 +1,4 @@
-package ui;
+package gui;
 
 import java.io.IOException;
 
@@ -25,6 +25,8 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setJarvis(jarvis);
             stage.show();
+
+            fxmlLoader.<MainWindow>getController().setGreetingMessage(jarvis.greet());
         } catch (IOException e) {
             e.printStackTrace();
         }

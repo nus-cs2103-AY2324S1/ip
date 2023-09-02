@@ -67,6 +67,11 @@ public class Jarvis {
         }
     }
 
+    public String greet() {
+        return "At your service, sir.";
+    }
+
+    // Only used for text-ui.
     public void run() {
         System.out.println(JARVIS_LOGO);
         textUi.greet();
@@ -76,7 +81,7 @@ public class Jarvis {
 
         while (!userInput.equals("exit")) {
             try {
-                parser.parseAndExecute(userInput);
+                textUi.print(parser.parseAndExecute(userInput));
             } catch (JarvisException e) {
                 textUi.print(e.toString());
             }

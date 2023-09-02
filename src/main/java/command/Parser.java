@@ -44,9 +44,10 @@ public class Parser {
             CommandType commandType = CommandType.valueOf(command.toUpperCase());
             // go through commands without any arguments.
             switch (commandType) {
-            case LIST: {
+            case LIST:
                 return taskList.show();
-            }
+            case EXIT:
+                return "Goodbye, sir.\n" + "Shutting down...";
             }
 
             if (args.isEmpty()) {
