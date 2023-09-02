@@ -5,20 +5,33 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * An interactive chatbot that helps it user to maintain their tasks
+ *
+ * @author Angky Akdi Frandy Putrakelana
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui = new Ui();
 
+    /**
+     * Constructs an instance of Duke chatbot.
+     *
+     */
     public Duke() {
         try {
             this.storage = new Storage();
-            this.tasks = new TaskList(this.storage.getTaskList());
+            this.tasks = this.storage.load();
         } catch (DukeException var2) {
             this.tasks = new TaskList();
         }
     }
 
+    /**
+     * Runs the duke chatbot.
+     *
+     */
     private void run() {
         this.ui.showWelcome();
         boolean isExit = false;
@@ -40,6 +53,10 @@ public class Duke {
 
     }
 
+    /**
+     * Starts the duke chatbot.
+     *
+     */
     public static void main(String[] args) {
         Duke duke = new Duke();
         String logo = " ____        _        \n|  _ \\ _   _| | _____ \n| | | | | | | |/ / _ \\\n| |_| | |_| |   <  __/\n|____/ \\__,_|_|\\_\\___|\n";

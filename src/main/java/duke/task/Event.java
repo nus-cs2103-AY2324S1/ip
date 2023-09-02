@@ -5,10 +5,21 @@ import java.time.format.DateTimeParseException;
 
 import duke.exception.DukeException;
 import duke.exception.InvalidTimeException;
+/**
+ * Represents the Event of a task.
+ *
+ * @author Angky Akdi Frandy Putrakelana
+ */
 public class Event extends Task {
     protected LocalDate starting;
     protected LocalDate ending;
 
+    /**
+     * Constructs an Event with a specified description and date.
+     *
+     * @param description A string describing the Event task.
+     * @throws DukeException If the deadline date is not a valid date.
+     */
     public Event(String description) throws DukeException {
         super(description.substring(0, description.indexOf("/from") - 1));
         int fromIndex = description.indexOf("/from");
@@ -25,10 +36,22 @@ public class Event extends Task {
             throw new InvalidTimeException("Invalid input of Date");
         }
     }
-@Override
+
+    /**
+     * Returns a String representing the Event that will be stored.
+     *
+     * @return the string representing the Event that will be stored.
+     */
+    @Override
     public String getInput() {
         return "E | " + this.getStatusIcon() + " | " + this.description + " | " + this.starting + " | " + this.ending;
     }
+
+    /**
+     * Returns the String representation of an Event.
+     *
+     * @return the String representation of an Event.
+     */
     @Override
     public String toString() {
         return "[E] [" + this.getStatusIcon() + "] " + this.description +

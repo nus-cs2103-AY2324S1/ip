@@ -11,8 +11,19 @@ import duke.task.Task;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
+/**
+ * Stores the list of tasks.
+ *
+ * @author Angky Akdi Frandy Putrakelana
+ */
 public class Storage {
-    private File CURRENT_FILE;
+    private final File CURRENT_FILE;
+
+    /**
+     * Construct a storage and make a new file if no file exists yet.
+     *
+     * @throws DukeException If the file cannot be made.
+     */
     public Storage() throws DukeException {
         try {
             File directory = new File("./data");
@@ -28,8 +39,15 @@ public class Storage {
             throw new DukeException("Cannot Make File :'(");
         }
     }
-    public ArrayList<Task> getTaskList() throws DukeException {
-        ArrayList<Task> taskList = new ArrayList<Task>();
+
+    /**
+     * Reads and loads the file.
+     *
+     * @return an Array
+     * @throws DukeException If the file cannot be read.
+     */
+    public TaskList load() throws DukeException {
+        TaskList taskList = new TaskList();
         try {
             Scanner sc = new Scanner(CURRENT_FILE);
             while (sc.hasNextLine()) {
@@ -45,7 +63,7 @@ public class Storage {
                     taskList.add(new Event(description.replaceFirst("\\|", "/from").replaceFirst("\\|", "/to")));
                 }
                 if (done.equalsIgnoreCase("X")) {
-                    taskList.get(taskList.size() - 1).mark();
+                    taskList.getTask(taskList.length() - 1).mark();
                 }
 
             }
@@ -55,6 +73,13 @@ public class Storage {
             throw new DukeException("Cannot Read File :'(");
         }
     }
+
+    /**
+     * Rewrite the file after a tasks being added or edited.
+     *
+     * @param tasks the TaskList that will be stored.
+     * @throws DukeException If the file cannot be written.
+     */
     public void writeFile(TaskList tasks) throws DukeException {
         try {
             FileWriter fileWriter = new FileWriter(this.CURRENT_FILE);

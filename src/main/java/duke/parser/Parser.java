@@ -6,10 +6,23 @@ import duke.command.ListCommand;
 import duke.command.AddCommand;
 import duke.command.MarkCommand;
 import duke.command.DeleteCommand;
+
+/**
+ * Parses inputs from the user.
+ *
+ * @author Angky Akdi Frandy Putrakelana
+ */
 public class Parser {
-    public static Command parse(String fullCommand) {
-        String[] splittedCommand = fullCommand.split(" ");
-        if (fullCommand.equals("list")) {
+
+    /**
+     * Parses the input into a command.
+     *
+     * @param input the input that will be parsed.
+     * @return A command representing the user input.
+     */
+    public static Command parse(String input) {
+        String[] splittedCommand = input.split(" ");
+        if (input.equals("list")) {
             return new ListCommand();
         } else if (splittedCommand[0].equalsIgnoreCase("mark") && splittedCommand.length == 2 &&
                 isInteger((splittedCommand[1]))) {
@@ -20,12 +33,13 @@ public class Parser {
         } else if (splittedCommand[0].equalsIgnoreCase("delete") && splittedCommand.length == 2 &&
                 isInteger((splittedCommand[1]))) {
             return new DeleteCommand(Integer.parseInt(splittedCommand[1]) - 1);
-        } else if (fullCommand.equalsIgnoreCase("bye")) {
+        } else if (input.equalsIgnoreCase("bye")) {
             return new ExitCommand();
         } else {
-            return new AddCommand(fullCommand);
+            return new AddCommand(input);
         }
     }
+
     private static boolean isInteger(String str) {
         try {
             Integer check = Integer.parseInt(str);
