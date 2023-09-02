@@ -1,15 +1,14 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import Task;
-import Deadline;
-import Event;
-import Todo;
 
 public class Glen {
     static final String HORLINE = "_____________________________________________________\n";
     static ArrayList<Task> tasks = new ArrayList<Task>();
+    private static Storage storage = new Storage("./data/tasks.txt");
     
     public static void main(String[] args) {
+        tasks = storage.read();
+
         System.out.println(intro());
         Scanner scan = new Scanner(System.in);
         String input = scan.nextLine();
@@ -23,7 +22,8 @@ public class Glen {
                 String end = "";
                 try {
                     end = input.substring(++index);
-                } finally {
+                } catch (StringIndexOutOfBoundsException e) {}
+                finally {
                     if (firstWord.equals("mark") || firstWord.equals("unmark")) {
                         int taskIndex = -1;
                         try {
@@ -86,7 +86,7 @@ public class Glen {
         System.out.println(exit());
         scan.close();
     }
-
+    
     static String intro() {
         String logo = "  _____ _            \n" +
                       " / ____| |           \n" +
@@ -106,20 +106,26 @@ public class Glen {
     }
 
     static String addDeadline(String inp, String by) {
-        Task newTask = new Deadline(inp, by);
+        Deadline newTask = new Deadline(inp, false, by);
+        String newTaskString = newTask.toFileString();
         tasks.add(newTask);
+        storage.addTask(newTaskString);
         return HORLINE + "Got it. I've added this task:\n  " + newTask.toString() + "\nNow you have " + tasks.size() + " tasks in the list.\n" + HORLINE;
     }
 
     static String addEvent(String inp, String from, String to) {
-        Task newTask = new Event(inp, from, to);
+        Event newTask = new Event(inp, false, from, to);
+        String newTaskString = newTask.toFileString();
         tasks.add(newTask);
+        storage.addTask(newTaskString);
         return HORLINE + "Got it. I've added this task:\n  " + newTask.toString() + "\nNow you have " + tasks.size() + " tasks in the list.\n" + HORLINE;
     }
 
     static String addTodo(String inp) {
-        Task newTask = new Todo(inp);
+        Todo newTask = new Todo(inp, false);
+        String newTaskString = newTask.toFileString();
         tasks.add(newTask);
+        storage.addTask(newTaskString);
         return HORLINE + "Got it. I've added this task:\n  " + newTask.toString() + "\nNow you have " + tasks.size() + " tasks in the list.\n" + HORLINE;
     }
 
@@ -134,6 +140,17 @@ public class Glen {
                 System.out.println(HORLINE + "Task is currently unmarked. Did you mean to mark the task?\n" + HORLINE);
             } else {
                 task.toggle();
+                String updatedTaskString = "";
+                try {
+                    updatedTaskString = ((Deadline) task).toFileString();
+                } catch (ClassCastException e) {
+                    try {
+                        updatedTaskString = ((Todo) task).toFileString();
+                    } catch (ClassCastException f) {
+                        updatedTaskString = ((Event) task).toFileString();
+                    }
+                }
+                storage.updateTask(taskIndex, updatedTaskString);
                 if (task.getStatusIcon().equals("[X] ")) {
                     System.out.println(HORLINE + "Nice! I've marked this task as done:");
                     System.out.println("  [X] " + task.getDescription() + "\n" + HORLINE);
