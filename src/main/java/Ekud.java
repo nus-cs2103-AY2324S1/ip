@@ -1,16 +1,31 @@
-import extensions.*;
+import exceptions.*;
+import parser.Parser;
+import storage.Storage;
+import tasks.TaskList;
+import ui.Ui;
 
 import java.util.Scanner;
 
+/**
+ * The Ekud chatbot where the main functionality of this program runs in.
+ */
 public class Ekud {
     // TaskList object to store and manipulate all of user's tasks, as well as
     // handle invalid inputs
     private final TaskList taskList;
+    // Storage object to handle loading and saving of tasks onto the hard disk.
     private final Storage storage;
+    // Constructor for the Ekud chatbot to intitialise its taskList and storage objects.
     public Ekud(Storage storage) {
         this.taskList = new TaskList();
         this.storage = storage;
     }
+
+    /**
+     * Main function to start running the Ekud chatbot.
+     * @throws EkudIOException Exception involving improper reading or writing to the saved tasks file,
+     *      which stops the program.
+     */
     public void start() throws EkudIOException {
         // Load up saved data
         this.storage.loadData(this.taskList);

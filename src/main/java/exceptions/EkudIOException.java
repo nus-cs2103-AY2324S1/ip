@@ -1,4 +1,4 @@
-package extensions;
+package exceptions;
 
 /**
  * Represents an error reading or writing to the saved tasks file.

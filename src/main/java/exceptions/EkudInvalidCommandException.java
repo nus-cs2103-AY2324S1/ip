@@ -1,4 +1,5 @@
-package extensions;
+package exceptions;
+
 /**
  * Represents invalid commands by the user to the chatbot.
  */

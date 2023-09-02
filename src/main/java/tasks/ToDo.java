@@ -1,4 +1,4 @@
-package extensions;
+package tasks;
 /**
  * Represents a task with no additional attributes.
  */

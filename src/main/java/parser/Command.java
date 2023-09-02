@@ -1,4 +1,4 @@
-package extensions;
+package parser;
 
 /**
  * Represents a fixed set of input command strings which can be assigned to the
