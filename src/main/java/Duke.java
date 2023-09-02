@@ -11,6 +11,7 @@ public class Duke {
         Storage storage = new Storage();
         TaskList list = null;
         list = new TaskList(storage.getFile());
+        list.open();
         Parser parser = new Parser();
 
         String input = ui.getFirstInput();

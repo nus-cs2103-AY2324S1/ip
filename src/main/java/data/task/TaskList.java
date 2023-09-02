@@ -13,11 +13,12 @@ public class TaskList {
     private ArrayList<Task> list;
     private File file;
 
-    public TaskList() {
+    public TaskList(File file) {
         this.list = new ArrayList<Task>();
+        this.file = file;
     }
 
-    public TaskList(File file) {
+    public void open() {
         this.list = new ArrayList<Task>();
         try {
             Scanner scanner = new Scanner(file);
