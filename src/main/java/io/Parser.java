@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import tasks.Deadline;
+import tasks.Event;
 import tasks.Task;
 
 public class Parser {
@@ -65,6 +66,27 @@ public class Parser {
 
     return result;
 
+  }
+
+  public Event parseEvent() throws ParserException {
+    Event result = null;
+    try {
+      String taskName = this.getTaskName();
+      String[] parts = taskName.split("/from", 2);
+      String name = parts[0];
+      String dates = parts[1];
+      String[] datesplit = dates.split("/to", 2);
+      String startDate = datesplit[0];
+      String endDate = datesplit[1];
+
+      result = new Event(name, startDate, endDate);
+    } catch (StringIndexOutOfBoundsException ex) {
+      throw new ParserException("The event command cannot be empty!");
+    } catch (ArrayIndexOutOfBoundsException ex) {
+      throw new ParserException(
+          "Please enter a name, followed by a (/from) command, followed by a date, followed by a (/to) command and a date");
+    }
+    return result;
   }
 
 

@@ -122,24 +122,11 @@ public class Duke {
         }
         case "event": {
           try {
-            String taskName = parser.getTaskName();
-            String[] parts = taskName.split("/from", 2);
-            String name = parts[0];
-            String dates = parts[1];
-            String[] datesplit = dates.split("/to", 2);
-            String startDate = datesplit[0];
-            String endDate = datesplit[1];
-
-            Task curentTask = new Event(name, startDate, endDate);
+            Task curentTask = parser.parseEvent();
             taskList.add(curentTask);
-
             System.out.println("added:\t" + ui.displayTask(curentTask));
-          } catch (StringIndexOutOfBoundsException ex) {
-            System.out.println("The event command cannot be empty!");
-          } catch (ArrayIndexOutOfBoundsException ex) {
-
-            System.out.println(
-                "Please enter a name, followed by a (/from) command, followed by a date, followed by a (/to) command and a date");
+          } catch (ParserException ex) {
+            System.out.println(ex.getMessage());
           }
           break;
         }
