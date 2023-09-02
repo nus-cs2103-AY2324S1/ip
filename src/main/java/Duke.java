@@ -4,38 +4,27 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 public class Duke {
-
     Scanner userInput = new Scanner(System.in);
     TaskList tasks = new TaskList();
-
-    Storage storage = new Storage("./data/data.txt", tasks);
+    Storage storage;
+    UI ui;
 
 
     public static void main(String[] args) {
 
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-
-        System.out.println("Hello from\n" + logo);
-
-        Duke duke = new Duke();
+        Duke duke = new Duke("./data/data.txt");
         duke.start();
 
     }
 
-    static void line() {
-        String line = "____________________________________________________________";
-        System.out.println(line);
+    private Duke(String filePath) {
+        this.storage = new Storage( filePath, tasks);
+        this.ui = new UI();
     }
 
     private void start() {
-        line();
-        System.out.println(" Hello! I'm JARVIS");
-        System.out.println("What can I do for you?");
-        line();
+
+        this.ui.welcomeMessage();
 
         try {
             this.storage.loadList();
@@ -51,7 +40,7 @@ public class Duke {
                     exit();
                     break;
                 } else if (input.equals("list")) {
-                    tasks.list();
+                    this.ui.list(tasks.getTaskArrayList());
                 } else if (input.startsWith("mark")) {
                     testMarkAndDelete(input);
                     int taskIndex = Integer.parseInt(input.substring(5)) - 1;
@@ -89,7 +78,7 @@ public class Duke {
                     }
 
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    line();
+                    this.ui.divider();
                 }
             } catch (DukeException exception) {
                 System.out.println(exception.getMessage());
@@ -100,9 +89,8 @@ public class Duke {
     }
 
     private void exit() throws DukeException, IOException {
-        System.out.println("Bye. Hope to see you again soon!");
+        this.ui.byeMessage();
         storage.saveList();
-        line();
     }
 
     private void testToDo(String description) throws DukeException {
@@ -166,68 +154,4 @@ public class Duke {
             throw new DukeException("Invalid input. Field Empty.");
         }
     }
-
-//    private void loadList() throws DukeException, IOException {
-//        try {
-//            File file = new File("./data/data.txt");
-//            FileReader fileReader = new FileReader(file);
-//            BufferedReader reader = new BufferedReader(fileReader); // BufferedReader wraps the fileReader
-//
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                String[] inputArray = line.split(" \\| ");
-//
-//                switch(inputArray[0]) {
-//                    case "T":
-//                        ToDo toDo = new ToDo(inputArray[2]);
-//                        if (inputArray[1] == "1") {
-//                            toDo.taskDone(true);
-//                        }
-//                        tasks.addTask(toDo);
-//                        break;
-//
-//                    case "E":
-//                        Event event = new Event(inputArray[2], inputArray[3], inputArray[4]);
-//
-//                        if (inputArray[1] == "1") {
-//                            event.taskDone(true);
-//                        }
-//                        tasks.addTask(event);
-//                        break;
-//
-//                    case "D":
-//                        Deadline deadline = new Deadline(inputArray[2], inputArray[3]);
-//
-//                        if (inputArray[1] == "1") {
-//                            deadline.taskDone(true);
-//                        }
-//                        tasks.addTask(deadline);
-//                        break;
-//
-//                    default:
-//                        throw new DukeException("An unexpected error occurred while reading the text file. Error Code:" +
-//                                " 01");
-//                }
-//            }
-//
-//        } catch (FileNotFoundException e) {
-//            storage.saveList(tasks.getTaskArrayList());
-//        } catch (IOException e) {
-//            throw new DukeException("IO error occurred. Check the formatting of the text file - data.txt.");
-//        }
-//    }
-
-//    private void saveList() throws DukeException, IOException {
-//        try {
-//            File file = new File("./data/data.txt");
-//            file.getParentFile().mkdirs();
-//
-//            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-//            writer = tasks.printStoreFormat(writer);
-//
-//            writer.close();
-//        } catch (IOException e) {
-//            throw new DukeException("IO exception occurred.");
-//        }
-//    }
 }

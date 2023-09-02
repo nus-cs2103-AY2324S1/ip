@@ -1,21 +1,13 @@
-import java.io.BufferedWriter;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.text.ParseException;
 
 public class TaskList {
 
     ArrayList<Task> taskList = new ArrayList<>();
     public TaskList() {}
-
-    public TaskList(ArrayList<Task> taskArrayList) {
-        this.taskList = taskArrayList;
-    }
 
     public void deleteTask(String input) {
         int taskIndex = Integer.parseInt(input.substring(7)) - 1;
@@ -99,21 +91,6 @@ public class TaskList {
         taskList.add(task);
     }
 
-    public void list() {
-        Duke.line();
-        if (taskList.size() == 0) {
-            System.out.println("There are no tasks in your list.");
-        } else {
-            System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < taskList.size(); i++) {
-                int index = i + 1;
-                Task t = taskList.get(i);
-                System.out.println(index + "." + t.toString());
-            }
-        }
-        Duke.line();
-    }
-
     public void mark(int taskIndex) {
         Task currTask = taskList.get(taskIndex);
         currTask.taskDone(true);
@@ -122,14 +99,6 @@ public class TaskList {
     public void unmark(int taskIndex) {
         Task currTask = taskList.get(taskIndex);
         currTask.taskDone(false);
-    }
-
-    public BufferedWriter printStoreFormat(BufferedWriter writer) throws IOException {
-        for (Task t : taskList) {
-            writer.append(t.storeFormat()).append("\n");
-
-        }
-        return writer;
     }
 
     public int size() {
