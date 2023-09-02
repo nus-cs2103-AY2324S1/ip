@@ -11,15 +11,24 @@ import duke.exceptions.InvalidIndexException;
 import duke.exceptions.MissingDescriptionException;
 import duke.exceptions.UnknownCommandException;
 
+/**
+ * Represents a parser that parses user input into a Command object.
+ */
 public class IndexCommandParser extends CommandParser {
 
+    /**
+     * Creates a CommandParser object.
+     * 
+     * @param commandName The name of the command.
+     */
     public IndexCommandParser(String commandName) {
         super(commandName, "^(delete|mark|unmark) (?<index>-?\\d+)$");
     }
 
     @Override
     protected void validate(Matcher matcher)
-            throws UnknownCommandException, MissingDescriptionException, IncorrectCommandFormatException, InvalidIndexException {
+            throws UnknownCommandException, MissingDescriptionException, IncorrectCommandFormatException,
+            InvalidIndexException {
         int index = 0;
         try {
             index = Integer.parseInt(matcher.group("index")) - 1;
@@ -35,14 +44,14 @@ public class IndexCommandParser extends CommandParser {
     protected Command createCommand(Matcher matcher)
             throws MissingDescriptionException, IncorrectCommandFormatException {
         switch (commandName) {
-        case "delete":
-            return new DeleteCommand(matcher);
-        case "mark":
-            return new MarkCommand(matcher);
-        case "unmark":
-            return new UnmarkCommand(matcher);
-        default:
-            throw new UnsupportedOperationException("Unimplemented method 'createCommand'");
+            case "delete":
+                return new DeleteCommand(matcher);
+            case "mark":
+                return new MarkCommand(matcher);
+            case "unmark":
+                return new UnmarkCommand(matcher);
+            default:
+                throw new UnsupportedOperationException("Unimplemented method 'createCommand'");
         }
     }
 

@@ -8,14 +8,22 @@ import duke.exceptions.IncorrectCommandFormatException;
 import duke.exceptions.InvalidTimeFormatException;
 import duke.exceptions.MissingDescriptionException;
 
+/**
+ * Represents a parser that parses user input into a EventCommand object.
+ */
 public class EventCommandParser extends CommandParser {
+
+    /**
+     * Creates a EventCommandParser object.
+     */
     public EventCommandParser() {
         super("event",
                 "^(?<command>event)(?: (?<description>.*?)?(?<from> /from.*?)?(?<fromTime>\\d{4}-\\d{2}-\\d{2})?(?<to> /to.*?)?(?<toTime>\\d{4}-\\d{2}-\\d{2})?)?$");
     }
 
     @Override
-    protected void validate(Matcher matcher) throws IncorrectCommandFormatException, MissingDescriptionException, InvalidTimeFormatException {
+    protected void validate(Matcher matcher)
+            throws IncorrectCommandFormatException, MissingDescriptionException, InvalidTimeFormatException {
         String description = matcher.group("description");
         String from = matcher.group("from");
         String to = matcher.group("to");
@@ -36,11 +44,11 @@ public class EventCommandParser extends CommandParser {
 
         if (fromTime == null || fromTime.trim().isEmpty()) {
             throw new IncorrectCommandFormatException("Missing from time");
-        } 
+        }
 
         if (toTime == null || toTime.trim().isEmpty()) {
             throw new IncorrectCommandFormatException("Missing to time");
-        } 
+        }
 
         try {
             java.time.LocalDate.parse(fromTime);

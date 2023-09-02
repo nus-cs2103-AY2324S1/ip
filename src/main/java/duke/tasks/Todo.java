@@ -5,13 +5,23 @@ package duke.tasks;
  * Todo class extends from the parent class Task
  * ToDos are tasks without any date/time attached to it e.g., visit new theme park
  */
-
 public class Todo extends Task {
 
+    /**
+     * Creates a Todo object.
+     *
+     * @param description The description of the todo.
+     */
     public Todo(String description) {
         super(description);
     }
 
+    /**
+     * Creates a Todo object.
+     *
+     * @param description The description of the todo.
+     * @param isDone Whether the todo is done.
+     */
     public Todo(String description, boolean isDone) {
         super(description, isDone);
     }

@@ -10,10 +10,29 @@ import duke.exceptions.InvalidTimeFormatException;
 import duke.exceptions.MissingDescriptionException;
 import duke.tasks.Event;
 
+/**
+ * Represents a command that adds a event task to the task list.
+ */
 public class EventCommand extends TaskCommand {
 
-    LocalDate from, to;
+    /**
+     * The start date of the event.
+     */
+    private LocalDate from;
 
+    /**
+     * The end date of the event.
+     */
+    private LocalDate to;
+
+    /**
+     * Creates a EventCommand object.
+     * 
+     * @param matcher The matcher object used to extract the description and event.
+     * @throws MissingDescriptionException If the description is missing.
+     * @throws IncorrectCommandFormatException If the command is in the wrong format.
+     * @throws InvalidTimeFormatException If the time provided is invalid.
+     */
     public EventCommand(Matcher matcher)
             throws MissingDescriptionException, IncorrectCommandFormatException, InvalidTimeFormatException {
         super(matcher);

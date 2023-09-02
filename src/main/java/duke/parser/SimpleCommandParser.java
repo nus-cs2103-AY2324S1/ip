@@ -7,8 +7,15 @@ import duke.exceptions.IncorrectCommandFormatException;
 import duke.exceptions.MissingDescriptionException;
 import duke.exceptions.UnknownCommandException;
 
+/**
+ * Represents a parser that parses user input into a Command object.
+ */
 public class SimpleCommandParser extends CommandParser {
 
+    /**
+     * Creates a CommandParser object.
+     * @param commandName The name of the command.
+     */
     public SimpleCommandParser(String commandName) {
         super(commandName, "^" + commandName + "$");
     }
