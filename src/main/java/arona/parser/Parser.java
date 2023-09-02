@@ -1,10 +1,10 @@
 package arona.parser;
 
-import arona.exception.IllegalArgumentAronaException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
+
+import arona.exception.IllegalArgumentAronaException;
 
 /**
  * The `Parser` class is responsible for parsing user input and extracting relevant information.
@@ -69,7 +69,8 @@ public class Parser {
         }
 
         if (!byFound) {
-            throw new IllegalArgumentAronaException("Whoopsie! The deadline seems a bit confused. Please use '/by' to set it.");
+            throw new IllegalArgumentAronaException(
+                    "Whoopsie! The deadline seems a bit confused. Please use '/by' to set it.");
         }
 
         int index = -1;
@@ -112,7 +113,8 @@ public class Parser {
         }
 
         if (!(foundFrom && foundTo)) {
-            throw new IllegalArgumentAronaException("Whoopsie! The deadline seems a bit confused. Please use '/from' and '/to' to set it.");
+            throw new IllegalArgumentAronaException(
+                    "Whoopsie! The deadline seems a bit confused. Please use '/from' and '/to' to set it.");
         }
 
         int indexStart = -1;
@@ -157,7 +159,8 @@ public class Parser {
         try {
             return LocalDate.parse(dateStr);
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentAronaException("Whoopsie! The deadline seems a bit confused. Please use a 'YYYY-MM-DD' format to set it.");
+            throw new IllegalArgumentAronaException(
+                    "Whoopsie! The deadline seems a bit confused. Please use a 'YYYY-MM-DD' format to set it.");
         }
     }
 

@@ -1,11 +1,13 @@
 package arona.parser;
 
-import arona.exception.IllegalArgumentAronaException;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import arona.exception.IllegalArgumentAronaException;
 
 /**
  * Unit tests for the Parser class.
@@ -16,7 +18,7 @@ public class ParserTest {
      * Tests parsing user input into an array of tokens.
      */
     @Test
-    public void parseUserInput_ValidInput_ReturnsArray() {
+    public void parseUserInputTest() {
         String input = "todo description";
         String[] result = Parser.parseUserInput(input);
         String[] expected = {"todo", "description"};
@@ -27,7 +29,7 @@ public class ParserTest {
      * Tests extracting the command from an array of tokens.
      */
     @Test
-    public void getCommand_ValidInput_ReturnsCommand() {
+    public void getCommandTest() {
         String[] tokens = {"deadline", "description", "/by", "2023-09-15"};
         String result = Parser.getCommand(tokens);
         assertEquals("deadline", result);
@@ -37,7 +39,7 @@ public class ParserTest {
      * Tests extracting the description from a "todo" command.
      */
     @Test
-    public void getToDoDescription_ValidInput_ReturnsDescription() throws IllegalArgumentAronaException {
+    public void getToDoDescriptionTest() throws IllegalArgumentAronaException {
         String[] tokens = {"todo", "description"};
         String result = Parser.getToDoDescription(tokens);
         assertEquals("description", result);
@@ -47,7 +49,7 @@ public class ParserTest {
      * Tests extracting description and date from a "deadline" command.
      */
     @Test
-    public void getDeadlineDescription_ValidInput_ReturnsDescriptionsArray() throws IllegalArgumentAronaException {
+    public void getDeadlineDescriptionTest() throws IllegalArgumentAronaException {
         String[] tokens = {"deadline", "description", "/by", "2023-09-15"};
         String[] result = Parser.getDeadlineDescription(tokens);
         String[] expected = {"description", "2023-09-15"};
@@ -58,7 +60,7 @@ public class ParserTest {
      * Tests extracting description, start date, and end date from an "event" command.
      */
     @Test
-    public void getEventDescription_ValidInput_ReturnsDescriptionsArray() throws IllegalArgumentAronaException {
+    public void getEventDescriptionTest() throws IllegalArgumentAronaException {
         String[] tokens = {"event", "description", "/from", "2023-09-15", "/to", "2023-09-16"};
         String[] result = Parser.getEventDescription(tokens);
         String[] expected = {"description", "from: 2023-09-15", "to: 2023-09-16"};
@@ -69,7 +71,7 @@ public class ParserTest {
      * Tests parsing a date string into a LocalDate object.
      */
     @Test
-    public void parseDate_ValidDate_ReturnsLocalDate() throws IllegalArgumentAronaException {
+    public void parseDateTest() throws IllegalArgumentAronaException {
         String dateStr = "2023-09-15";
         LocalDate result = Parser.parseDate(dateStr);
         LocalDate expected = LocalDate.of(2023, 9, 15);
@@ -80,7 +82,7 @@ public class ParserTest {
      * Tests extracting a task index from an array of tokens.
      */
     @Test
-    public void getTaskIndex_ValidInput_ReturnsIndex() {
+    public void getTaskIndexTest() {
         String[] tokens = {"done", "2"};
         int result = Parser.getTaskIndex(tokens);
         assertEquals(1, result);

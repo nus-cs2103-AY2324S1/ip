@@ -1,17 +1,13 @@
 package arona.ui;
 
+import java.util.ArrayList;
+
 import arona.task.Task;
 import arona.task.TaskList;
 
-<<<<<<< HEAD
 /**
  * The UI class handles user interface-related functionality.
  */
-=======
-import java.util.ArrayList;
-import java.util.List;
-
->>>>>>> Level-9
 public class Ui {
 
     /**

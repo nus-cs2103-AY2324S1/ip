@@ -24,9 +24,11 @@ public class DeadlineCommand extends Command {
      * @param ui            The user interface for displaying messages.
      * @param storage       The storage for saving the task.
      * @param descriptions  An array containing the description and due date of the deadline task.
-     * @throws IllegalArgumentAronaException If the descriptions array is invalid or the due date is in an incorrect format.
+     * @throws IllegalArgumentAronaException If the descriptions array is invalid
+     *                                       or the due date is in an incorrect format.
      */
-    public DeadlineCommand(TaskList taskList, Ui ui, Storage storage, String[] descriptions) throws IllegalArgumentAronaException {
+    public DeadlineCommand(TaskList taskList, Ui ui, Storage storage, String[] descriptions)
+            throws IllegalArgumentAronaException {
         super(taskList, ui);
         this.storage = storage;
         this.deadlineTask = new DeadlineTask(descriptions[0], Parser.parseDate(descriptions[1]));

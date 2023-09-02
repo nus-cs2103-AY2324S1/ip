@@ -1,8 +1,8 @@
 package arona.task;
 
-import arona.storage.Storage;
-
 import java.util.ArrayList;
+
+import arona.storage.Storage;
 
 /**
  * Represents a list of tasks in Arona. The task list stores tasks in an ArrayList and
@@ -22,19 +22,14 @@ public class TaskList {
     }
 
     /**
-<<<<<<< HEAD
      * Retrieves the ArrayList of tasks stored in the task list.
      *
      * @return An ArrayList of tasks.
-     */
-=======
-     * Constructs an empty TaskList.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
->>>>>>> Level-9
     public ArrayList<Task> getTasks() {
         return tasks;
     }

@@ -1,15 +1,23 @@
 package arona.storage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import arona.task.DeadlineTask;
 import arona.task.EventTask;
 import arona.task.Task;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
+
+
 
 /**
  * Unit tests for the Storage class.
@@ -37,7 +45,7 @@ public class StorageTest {
      * Tests loading tasks from a valid input file.
      */
     @Test
-    public void loadTasks_ValidInput_LoadsTasks() {
+    public void loadTasksTest() {
         Storage storage = new Storage(TEST_FILE_PATH);
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -68,7 +76,7 @@ public class StorageTest {
      * Tests updating the status of a task to marked.
      */
     @Test
-    public void updateTaskStatusAsMarked_ValidIndex_TaskStatusUpdated() {
+    public void updateTaskStatusAsMarkedTest() {
         Storage storage = new Storage(TEST_FILE_PATH);
 
         // Add some test data to the file
@@ -95,7 +103,7 @@ public class StorageTest {
      * Tests updating the status of a task to unmarked.
      */
     @Test
-    public void updateTaskStatusAsUnmarked_ValidIndex_TaskStatusUpdated() {
+    public void updateTaskStatusAsUnmarkedTest() {
         Storage storage = new Storage(TEST_FILE_PATH);
 
         // Add some test data to the file
@@ -122,7 +130,7 @@ public class StorageTest {
      * Tests deleting a task from the storage.
      */
     @Test
-    public void deleteTask_ValidIndex_TaskDeleted() {
+    public void deleteTaskTest() {
         Storage storage = new Storage(TEST_FILE_PATH);
 
         // Add some test data to the file

@@ -1,8 +1,9 @@
 package arona.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for the ToDoTask class.
@@ -13,7 +14,7 @@ public class ToDoTaskTest {
      * Tests creating a ToDoTask with a description.
      */
     @Test
-    public void createToDoTask_WithDescription_True() {
+    public void createToDoTaskWithDescriptionTest() {
         String description = "Buy groceries";
         ToDoTask task = new ToDoTask(description);
 
@@ -25,7 +26,7 @@ public class ToDoTaskTest {
      * Tests creating a ToDoTask with a description and marking it as done.
      */
     @Test
-    public void createToDoTask_WithDescriptionAndMarked_True() {
+    public void createToDoTaskWithDescriptionAndMarkedTest() {
         String description1 = "Complete homework";
         ToDoTask task1 = new ToDoTask(description1, 1);
 

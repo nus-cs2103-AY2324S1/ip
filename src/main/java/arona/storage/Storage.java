@@ -1,15 +1,20 @@
 package arona.storage;
 
-import arona.task.DeadlineTask;
-import arona.task.EventTask;
-import arona.task.Task;
-import arona.task.ToDoTask;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import arona.task.DeadlineTask;
+import arona.task.EventTask;
+import arona.task.Task;
+import arona.task.ToDoTask;
 
 /**
  * The `Storage` class is responsible for loading, saving, and updating tasks in a file.
@@ -51,12 +56,16 @@ public class Storage {
                     tasks.add(todoTask);
                     break;
                 case "D":
-                    DeadlineTask deadlineTask = new DeadlineTask(strings[2], LocalDate.parse(strings[3]), Integer.parseInt(strings[1]));
+                    DeadlineTask deadlineTask =
+                            new DeadlineTask(strings[2], LocalDate.parse(strings[3]), Integer.parseInt(strings[1]));
                     tasks.add(deadlineTask);
                     break;
                 case "E":
-                    EventTask eventTask = new EventTask(strings[2], strings[3], strings[4], Integer.parseInt(strings[1]));
+                    EventTask eventTask =
+                            new EventTask(strings[2], strings[3], strings[4], Integer.parseInt(strings[1]));
                     tasks.add(eventTask);
+                    break;
+                default:
                     break;
                 }
             }
@@ -194,7 +203,8 @@ public class Storage {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(inFile, true));
 
-            String data = "E|0|" + eventTask.getDescription() + "|" + eventTask.getFrom() + "|" + eventTask.getTo() + "\n";
+            String data = "E|0|" + eventTask.getDescription() + "|"
+                    + eventTask.getFrom() + "|" + eventTask.getTo() + "\n";
 
             bw.write(data);
             bw.close();
