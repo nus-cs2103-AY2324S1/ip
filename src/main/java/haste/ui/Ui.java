@@ -3,8 +3,14 @@ package haste.ui;
 import haste.data.TaskList;
 import haste.tasks.Task;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import static java.lang.Integer.parseInt;
 
+/**
+ * Represents a user interface that prints information ot user.
+ */
 public class Ui {
     public static final String LINE = "＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿";
     public static final String INDENT = "    ";
@@ -12,7 +18,6 @@ public class Ui {
     public boolean running = true;
 
 
-    // print a string (including multiple lines) with indent and lines top and bottom
     public static void formatPrint(String input) {
         System.out.println(INDENT + LINE);
         String[] lines = input.split("\n");
@@ -23,7 +28,6 @@ public class Ui {
     }
     public void greet() {
         formatPrint("Hello! I'm HASTE\nWhat can I do for you?");
-        // read file and update task list
     }
     public void bye() {
         formatPrint("Bye. Hope to see you again!");

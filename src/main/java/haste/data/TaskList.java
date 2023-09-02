@@ -57,4 +57,22 @@ public class TaskList {
     public Task getTask(int id) {
         return taskList.get(id);
     }
+
+    /**
+     * Returns a new TaskList containing Tasks containing keyword.
+     *
+     * @param keyword Keyword to search for in Task Descriptions.
+     * @return TaskList of filtered Tasks.
+     */
+    public TaskList filterTasks(String keyword) {
+        TaskList filteredTasks = new TaskList();
+        for (Task task : this.taskList) {
+            if (task.getDescription().contains(keyword)) {
+                filteredTasks.addTask(task);
+            }
+        }
+        // change num of tasks back to original task size
+        TaskList.numOfTasks = this.taskList.size();
+        return filteredTasks;
+    }
 }

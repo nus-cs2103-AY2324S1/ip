@@ -25,6 +25,7 @@ public class MarkCommand extends Command {
      * @param tasks TaskList containing the tasks.
      * @param ui Ui that handles interactions.
      */
+    @Override
     public void execute(TaskList tasks, Ui ui) {
         Task markedTask = tasks.getTask(index);
         markedTask.markDone();

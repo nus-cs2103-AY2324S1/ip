@@ -37,6 +37,9 @@ public class Parser {
         case "list":
             c = new ListCommand();
             break;
+        case "find":
+            c = verifyFind(words);
+            break;
         case "mark":
             c = verifyMark(words);
             break;
@@ -60,6 +63,14 @@ public class Parser {
         }
 
         return c;
+    }
+
+    public static Command verifyFind(String[] words) {
+        if (words.length != 2) {
+            return new InvalidCommand("input (only) 1 word after \"find\"!");
+        }
+        String keyword = words[1];
+        return new FindCommand(keyword);
     }
 
     /**

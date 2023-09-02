@@ -48,4 +48,8 @@ public abstract class Task {
        return this.isComplete + "|" + this.description;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
 }
