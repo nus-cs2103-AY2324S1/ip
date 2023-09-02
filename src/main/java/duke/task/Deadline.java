@@ -1,11 +1,12 @@
+package duke.task;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@JsonTypeName("Deadline")
+@JsonTypeName("Model.Deadline")
 public class Deadline extends Task {
     public LocalDate dateTime;
     public Deadline(@JsonProperty("task") String task, @JsonProperty("dateTime") LocalDate dateTime) {
