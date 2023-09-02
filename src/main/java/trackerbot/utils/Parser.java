@@ -1,15 +1,15 @@
 package trackerbot.utils;
 
+import java.time.format.DateTimeParseException;
+import java.util.Scanner;
+
+import trackerbot.command.Command;
+import trackerbot.command.CommandType;
+import trackerbot.exception.TrackerBotException;
 import trackerbot.task.Deadline;
 import trackerbot.task.Event;
 import trackerbot.task.Task;
 import trackerbot.task.Todo;
-import trackerbot.command.Command;
-import trackerbot.command.CommandType;
-import trackerbot.exception.TrackerBotException;
-
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 public class Parser {
     /**
@@ -23,7 +23,8 @@ public class Parser {
      */
     public static Command parseCommand(String input) {
         Scanner scanner = new Scanner(input);
-        String keyword, rest;
+        String keyword;
+        String rest;
         // if the input is empty, return the unknown keyword with an empty description.
         if (!scanner.hasNext()) {
             keyword = "";
@@ -79,7 +80,8 @@ public class Parser {
 
                 segments = commandField.split("/from|/to");
                 if (segments.length > 3) {
-                    throw new TrackerBotException("Too many flags: event [description] /from [start-date] /to [end-date]");
+                    throw new TrackerBotException(
+                            "Too many flags: event [description] /from [start-date] /to [end-date]");
                 }
 
                 if (segments[0].trim().equals("")) {

@@ -19,9 +19,9 @@ public enum CommandType {
     /** Command to mark a task as incomplete. **/
     UNMARK("unmark"),
     /** Command to delete a task. **/
-    DELETE ("delete"),
+    DELETE("delete"),
     /** Command to search for a task. **/
-    FIND ("find"),
+    FIND("find"),
     /** Command to denote an unknown keyword call. **/
     UNKNOWN("");
 

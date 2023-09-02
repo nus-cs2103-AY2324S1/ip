@@ -3,14 +3,14 @@ package trackerbot.utils;
 import java.util.Scanner;
 
 public class Ui {
-    /** Name of the app. **/
-    private final String appName;
-
     /** Line separators for the console between paragraphs. **/
     private static final String FORMAT_LINE =
             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 
     private static final Scanner USER_INPUT = new Scanner(System.in);
+
+    /** Name of the app. **/
+    private final String appName;
 
     private Ui(String appName) {
         this.appName = appName;
