@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import duke.exceptions.DukeIOException;
 import duke.exceptions.DukeIllegalArgumentException;
 import duke.storage.Storage;
-import duke.ui.Ui;
 
 /**
  * A list of tasks.
@@ -15,7 +14,13 @@ public class TaskList {
     private static final String ERROR_MESSAGE_INDEX_OUT_OF_BOUNDS =
             "The task number is out of range. Use \"list\" to see your tasks.";
 
-    // Stores the list of tasks
+    // Message Templates
+    private static final String ADD_TASK_TEMPLATE =
+            "Got it. I've added this task:%n%s%nNow you have %d %s in the list.";
+    private static final String DELETE_TASK_TEMPLATE =
+            "Noted. I've removed this task:%n%s%nNow you have %d %s in the list.";
+
+    // An ArrayList that stores the list of tasks.
     protected final ArrayList<Task> list;
 
     /**
@@ -28,9 +33,7 @@ public class TaskList {
         EVENT
     }
 
-    /**
-     * Storage to save and load tasks.
-     */
+    // Storage to save and load tasks from disk.
     private final Storage taskStorage;
 
     /**
@@ -44,84 +47,81 @@ public class TaskList {
         this.importData();
     }
 
-    /**
-     * Prints an OK message when a task is added.
-     */
-    private void printAddTaskMessage() {
-        Ui.printMessage("Got it. I've added this task:");
+    // Returns "task" if there is only 1 task in the list, else returns "tasks".
+    private String taskOrTasks() {
+        return this.list.size() == 1 ? "task" : "tasks";
     }
 
     /**
-     * Prints the number of tasks in the list after adding/removing a task.
-     */
-    private void printNumberOfTasks() {
-        String taskOrTasks = this.list.size() == 1 ? "task" : "tasks";
-        Ui.printMessage(String.format("Now you have %d %s in the list.", this.list.size(), taskOrTasks));
-    }
-
-    /**
-     * Add a task to the TaskList. This method is private.
+     * Adds a task to the TaskList. This method is private.
      *
      * @param taskType The type of task to add.
      * @param description The description of the task to add.
      * @param by The deadline of the task to add.
      * @param start The start date/time of the task to add.
      * @param end The end date/time of the task to add.
+     * @return String message
      */
-    private void add(TaskType taskType, String description, String by, String start, String end)
+    private String add(TaskType taskType, String description, String by, String start, String end)
             throws DukeIllegalArgumentException {
+
+        // Avoids early return statements in switch statement.
+        String output = "";
+
         switch (taskType) {
         case TODO:
             Task toDoTask = new ToDo(description);
             this.list.add(toDoTask);
-            printAddTaskMessage();
-            Ui.printMessage(toDoTask.toString());
-            printNumberOfTasks();
+            this.exportData();
+            output = String.format(ADD_TASK_TEMPLATE,
+                    toDoTask, this.list.size(), taskOrTasks());
             break;
         case DEADLINE:
             Task deadlineTask = new Deadline(description, by);
             this.list.add(deadlineTask);
-            printAddTaskMessage();
-            Ui.printMessage(deadlineTask.toString());
-            printNumberOfTasks();
+            this.exportData();
+            output = String.format(ADD_TASK_TEMPLATE,
+                    deadlineTask, this.list.size(), taskOrTasks());
             break;
         case EVENT:
             Task eventTask = new Event(description, start, end);
             this.list.add(eventTask);
-            printAddTaskMessage();
-            Ui.printMessage(eventTask.toString());
-            printNumberOfTasks();
+            this.exportData();
+            output = String.format(ADD_TASK_TEMPLATE,
+                    eventTask, this.list.size(), taskOrTasks());
             break;
         default:
             break;
         }
-        this.exportData();
+        return output;
     }
 
     /**
-     * Add a task with description to the TaskList. Used for ToDo tasks.
+     * Adds a task with description to the TaskList. Used for ToDo tasks.
      *
      * @param taskType The type of task to add.
      * @param description The description of the task to add.
+     * @return String message
      */
-    public void add(TaskType taskType, String description) throws DukeIllegalArgumentException {
+    public String add(TaskType taskType, String description) throws DukeIllegalArgumentException {
         if (description.isBlank()) {
             throw new DukeIllegalArgumentException("The description of a ToDo task cannot be blank.");
         }
         if (taskType != TaskType.TODO) {
             throw new DukeIllegalArgumentException("Only ToDo tasks can be added with just a description.");
         }
-        this.add(taskType, description, "", "", "");
+        return this.add(taskType, description, "", "", "");
     }
 
     /**
-     * Add a task with description and deadline to the TaskList. Used for Deadline tasks.
+     * Adds a task with description and deadline to the TaskList. Used for Deadline tasks.
      *
      * @param taskType The type of task to add.
      * @param description The description of the task to add.
      * @param by The deadline of the task to add.
+     * @return String message
      */
-    public void add(TaskType taskType, String description, String by) throws DukeIllegalArgumentException {
+    public String add(TaskType taskType, String description, String by) throws DukeIllegalArgumentException {
         if (description.isBlank()) {
             throw new DukeIllegalArgumentException("The description of a Deadline task cannot be blank.");
         }
@@ -132,18 +132,19 @@ public class TaskList {
             throw new DukeIllegalArgumentException(
                     "Only Deadline tasks can be added with a description and deadline.");
         }
-        this.add(taskType, description, by, "", "");
+        return this.add(taskType, description, by, "", "");
     }
 
     /**
-     * Add a task with description, start and end date/time to the TaskList. Used for Event tasks.
+     * Adds a task with description, start and end date/time to the TaskList. Used for Event tasks.
      *
      * @param taskType The type of task to add.
      * @param description The description of the task to add.
      * @param start The start date/time of the task to add.
      * @param end The end date/time of the task to add.
+     * @return String message
      */
-    public void add(TaskType taskType, String description, String start, String end)
+    public String add(TaskType taskType, String description, String start, String end)
             throws DukeIllegalArgumentException {
         if (description.isBlank()) {
             throw new DukeIllegalArgumentException("The description of an Event task cannot be blank.");
@@ -158,58 +159,57 @@ public class TaskList {
             throw new DukeIllegalArgumentException(
                     "Only Event tasks can be added with a description, start and end date/time.");
         }
-        this.add(taskType, description, "", start, end);
+        return this.add(taskType, description, "", start, end);
     }
 
     /**
      * Marks a task as done.
      *
      * @param num The number of the task to be marked as done.
+     * @return String message
      * @throws DukeIllegalArgumentException If the task number is out of range of the list.
      */
-    public void mark(int num) throws DukeIllegalArgumentException {
+    public String mark(int num) throws DukeIllegalArgumentException {
         int index = num - 1;
         if (index < 0 || index >= this.list.size()) {
             throw new DukeIllegalArgumentException(ERROR_MESSAGE_INDEX_OUT_OF_BOUNDS);
         }
         this.list.get(index).markAsDone();
-        Ui.printMessage("Nice! I've marked this task as done:");
-        Ui.printMessage(this.list.get(index).toString());
         this.exportData();
+        return String.format("Nice! I've marked this task as done:%n%s", this.list.get(index).toString());
     }
 
     /**
      * Marks a task as undone.
      *
      * @param num The number of the task to be marked as undone.
+     * @return String message
      * @throws DukeIllegalArgumentException If the task number is out of range of the list.
      */
-    public void unmark(int num) throws DukeIllegalArgumentException {
+    public String unmark(int num) throws DukeIllegalArgumentException {
         int index = num - 1;
         if (index < 0 || index >= this.list.size()) {
             throw new DukeIllegalArgumentException(ERROR_MESSAGE_INDEX_OUT_OF_BOUNDS);
         }
         this.list.get(index).unmarkAsDone();
-        Ui.printMessage("OK, I've marked this task as not done yet:");
-        Ui.printMessage(this.list.get(index).toString());
         this.exportData();
+        return String.format("OK, I've marked this task as not done yet:%n%s", this.list.get(index).toString());
     }
 
     /**
      * Deletes a task from the TaskList.
      *
      * @param num The number of the task to be deleted.
+     * @return String message
      */
-    public void delete(int num) throws DukeIllegalArgumentException {
+    public String delete(int num) throws DukeIllegalArgumentException {
         int index = num - 1;
         if (index < 0 || index >= list.size()) {
             throw new DukeIllegalArgumentException(ERROR_MESSAGE_INDEX_OUT_OF_BOUNDS);
         }
         Task task = list.remove(index);
-        Ui.printMessage("Noted. I've removed this task:");
-        Ui.printMessage(task.toString());
-        printNumberOfTasks();
         this.exportData();
+        return String.format(DELETE_TASK_TEMPLATE, task, this.list.size(), taskOrTasks());
     }
 
     /**
@@ -281,7 +281,6 @@ public class TaskList {
         if (exportedData.isBlank()) {
             return;
         }
-        Ui.printMessage("[RESTORE] Please wait, restoring task list from save file...");
         String[] tasks = exportedData.split("\n");
         for (String t : tasks) {
             String[] args = t.split(" \\|\\| ");
@@ -303,6 +302,5 @@ public class TaskList {
                 this.mark(this.list.size());
             }
         }
-        Ui.printMessage(String.format("[RESTORE] Restored %d tasks successfully!%n", this.list.size()));
     }
 }
