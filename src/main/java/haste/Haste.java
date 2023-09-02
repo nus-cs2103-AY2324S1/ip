@@ -13,7 +13,7 @@ public class Haste {
     private Storage storage;
     private Ui ui;
     private TaskList tasks;
-
+    private int test = 3;
     public Haste(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
