@@ -18,7 +18,7 @@ public class Duke {
     private static final String horizontalLine = "-------------------------------\n";
 
     /**
-     * Store tasks
+     * Store tasks in a separate class
      */
     private static Storage taskStorage = new Storage();
 

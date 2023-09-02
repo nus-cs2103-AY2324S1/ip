@@ -106,6 +106,8 @@ public class Storage {
 
     /**
      * Delete the specified task
+     *
+     * @param index array index of task
      */
     public void delete(int index) throws NumberFormatException, IndexOutOfBoundsException {
         taskArray.remove(index);
