@@ -5,14 +5,30 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
+/**
+ * Represents a command to add task to a taskList.
+ */
 public class AddCommand extends Command{
     private final String command;
     private Task task;
 
+    /**
+     * Constructor takes in a command
+     *
+     * @param command The input command by the user
+     */
     public AddCommand(String command) {
         this.command = command;
     }
 
+    /**
+     * Interprets the command and initialises the task field if the command is valid. Throws InvalidCommandException,
+     * DateTimeParseException or EmptyDescriptionException if the command is not valid.
+     *
+     * @throws InvalidCommandException Error for invalid commands.
+     * @throws EmptyDescriptionException Error for empty description commands.
+     * @throws DateTimeParseException Error for when DateTime cannot be parsed.
+     */
     public void interpretTask() throws InvalidCommandException, EmptyDescriptionException, DateTimeParseException {
         String[] words = command.split("\\s+");
 
@@ -87,6 +103,14 @@ public class AddCommand extends Command{
         throw new InvalidCommandException("Oops this Command: " + command + " is not found");
     }
 
+    /**
+     * Converts a String to a LocalDateTime object if is in the valid format. If HHmm is not included in the String,
+     * the time 2359 will be appended. Throws DateTImeParseException if the format is invalid.
+     *
+     * @param dateTime String representation of a LocalDateTime.
+     * @return LocalDateTime object.
+     * @throws DateTimeParseException Error for when DateTime cannot be parsed.
+     */
     public LocalDateTime dateTimeParser(String dateTime) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
@@ -95,10 +119,26 @@ public class AddCommand extends Command{
         }
         return LocalDateTime.parse(dateTime, formatter);
     }
+
+    /**
+     * Checks whether command causes the chatbot to exit.
+     *
+     * @return false
+     */
     @Override
     public boolean isExit() {
         return false;
     }
+
+    /**
+     * Executes adding the task to the taskList.
+     *
+     * @param tasks The taskList
+     * @param ui The UI handling user interaction
+     * @throws InvalidCommandException Error for invalid commands.
+     * @throws EmptyDescriptionException Error for empty description commands.
+     * @throws DateTimeParseException Error for when DateTime cannot be parsed.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws InvalidCommandException, EmptyDescriptionException, DateTimeParseException{
         interpretTask();
