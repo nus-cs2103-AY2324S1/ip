@@ -15,7 +15,7 @@ public class EventCommandParser extends CommandParser {
     }
 
     @Override
-    protected void validate(Matcher matcher) throws IncorrectCommandFormatException, MissingDescriptionException {
+    protected void validate(Matcher matcher) throws IncorrectCommandFormatException, MissingDescriptionException, InvalidTimeFormatException {
         String description = matcher.group("description");
         String from = matcher.group("from");
         String to = matcher.group("to");
@@ -45,13 +45,13 @@ public class EventCommandParser extends CommandParser {
         try {
             java.time.LocalDate.parse(fromTime);
         } catch (java.time.DateTimeException e) {
-            throw new IncorrectCommandFormatException("Time formatting for from time incorrect");
+            throw new InvalidTimeFormatException("Time formatting for from time incorrect");
         }
 
         try {
             java.time.LocalDate.parse(toTime);
         } catch (java.time.DateTimeException e) {
-            throw new IncorrectCommandFormatException("Time formatting for to time incorrect");
+            throw new InvalidTimeFormatException("Time formatting for to time incorrect");
         }
     }
 

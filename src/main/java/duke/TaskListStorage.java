@@ -25,15 +25,19 @@ import duke.tasks.Todo;
  */
 public class TaskListStorage {
     private final ArrayList<Task> taskList = new ArrayList<>();
-    private static final String TASK_FILEPATH = "." + File.separator + "data" + File.separator + "tasks.txt";
     private final File file;
+    private String filepath;
 
-    public TaskListStorage() {
-        this.file = new File(TASK_FILEPATH);
+    public TaskListStorage(String filepath) {
+        this.filepath = filepath;
+        this.file = new File(filepath);
+        File parentDir = file.getParentFile();
+        if (!parentDir.exists()) {
+            parentDir.mkdirs();
+        }
 
         if (!this.file.exists()) {
             try {
-                this.file.getParentFile().mkdirs();
                 this.file.createNewFile();
             } catch (java.io.IOException e) {
                 String errorString = "Error creating file! Make sure you have the correct permissions.\nOtherwise tasks will not be saved.\n"
@@ -119,7 +123,7 @@ public class TaskListStorage {
                     + " does not contain a task at index " + index);
         }
         taskList.get(index).markAsDone();
-        writeTaskListToFile(taskList, TASK_FILEPATH);
+        writeTaskListToFile(taskList, filepath);
         String outputString = "Nice! I've marked this task as done:\n" + Messages.TAB
                 + taskList.get(index).toString();
         Messages.printInLine(outputString);
@@ -131,7 +135,7 @@ public class TaskListStorage {
                     + " does not contain a task at index " + index);
         }
         taskList.get(index).markAsUndone();
-        writeTaskListToFile(taskList, TASK_FILEPATH);
+        writeTaskListToFile(taskList, filepath);
         String outputString = "Ok! I've marked this task as not done yet:\n" + Messages.TAB
                 + taskList.get(index).toString();
         Messages.printInLine(outputString);
@@ -139,7 +143,7 @@ public class TaskListStorage {
 
     public void addTodo(Todo todo) throws MissingDescriptionException {
         taskList.add(todo);
-        writeTaskListToFile(taskList, TASK_FILEPATH);
+        writeTaskListToFile(taskList, filepath);
         String outputString = "Got it. I've added this task:\n" + Messages.TAB + taskList.get(taskList.size() - 1)
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
         Messages.printInLine(outputString);
@@ -147,7 +151,7 @@ public class TaskListStorage {
 
     public void addDeadline(Deadline deadline) throws MissingDescriptionException, IncorrectCommandFormatException {
         taskList.add(deadline);
-        writeTaskListToFile(taskList, TASK_FILEPATH);
+        writeTaskListToFile(taskList, filepath);
         String outputString = "Got it. I've added this task:\n" + Messages.TAB + taskList.get(taskList.size() - 1)
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
         Messages.printInLine(outputString);
@@ -155,7 +159,7 @@ public class TaskListStorage {
 
     public void addEvent(Event event) throws MissingDescriptionException, IncorrectCommandFormatException {
         taskList.add(event);
-        writeTaskListToFile(taskList, TASK_FILEPATH);
+        writeTaskListToFile(taskList, filepath);
         String outputString = "Got it. I've added this task:\n" + Messages.TAB + taskList.get(taskList.size() - 1)
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
         Messages.printInLine(outputString);
@@ -168,7 +172,7 @@ public class TaskListStorage {
         }
         Task task = taskList.get(index);
         taskList.remove(index);
-        writeTaskListToFile(taskList, TASK_FILEPATH);
+        writeTaskListToFile(taskList, filepath);
         String outpuString = "Noted. I've removed this task:\n" + task.toString()
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
         Messages.printInLine(outpuString);

@@ -12,7 +12,7 @@ import duke.exceptions.UnknownCommandException;
 public class TodoCommandParser extends CommandParser {
 
     public TodoCommandParser() {
-        super("todo", "^(?<command>todo) (?<description>.+)?$");
+        super("todo", "^(?<command>todo)(?<description>.*)?$");
     }
 
     @Override

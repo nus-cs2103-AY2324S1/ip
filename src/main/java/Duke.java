@@ -1,4 +1,5 @@
 
+import java.io.File;
 import java.util.Scanner;
 
 import duke.Messages;
@@ -11,8 +12,10 @@ import duke.exceptions.MissingDescriptionException;
 import duke.exceptions.UnknownCommandException;
 
 public class Duke {
+    private static final String TASK_FILEPATH = "." + File.separator + "data" + File.separator + "tasks.txt";
+
     public static void main(String[] args) {
-        TaskListStorage tasklistStorage = new TaskListStorage();
+        TaskListStorage tasklistStorage = new TaskListStorage(TASK_FILEPATH);
         Parser parser = new Parser();
 
         Messages.opener();
@@ -21,7 +24,8 @@ public class Duke {
         while (!input.equals("bye")) {
             try {
                 parser.dispatch(input).execute(tasklistStorage);
-            } catch (UnknownCommandException | MissingDescriptionException | IncorrectCommandFormatException | InvalidIndexException | InvalidTimeFormatException e) {
+            } catch (UnknownCommandException | MissingDescriptionException | IncorrectCommandFormatException
+                    | InvalidIndexException | InvalidTimeFormatException e) {
                 Messages.printInLine(e.getMessage());
             }
             input = sc.nextLine();
