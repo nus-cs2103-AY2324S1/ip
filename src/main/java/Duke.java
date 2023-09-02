@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.parser.Parser;
@@ -22,7 +17,6 @@ public class Duke {
         } catch (DukeException var2) {
             this.tasks = new TaskList();
         }
-
     }
 
     private void run() {
