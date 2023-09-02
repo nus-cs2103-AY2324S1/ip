@@ -21,6 +21,7 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<Task>();
         try {
             File myObj = new File("./src/main/storage/writtenStorage.txt");
+            myObj.getParentFile().mkdirs();
             Scanner myReader = new Scanner(myObj);
             int taskIndex = 0;
             while (myReader.hasNextLine()) {
@@ -67,8 +68,11 @@ public class Storage {
     public static void storeTasks(ArrayList<Task> tasks) {
         try {
             File myObj = new File("./src/main/storage/writtenStorage.txt");
+            myObj.getParentFile().mkdirs();
             myObj.createNewFile();
+
         } catch (IOException e) {
+
             Ui.print("Error creating file");
         }
 
