@@ -1,4 +1,4 @@
-package duke;
+package duke.main;
 
 public class Ui {
     public void greetUser() {

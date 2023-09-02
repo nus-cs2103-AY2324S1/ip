@@ -1,7 +1,7 @@
 package duke.task;
 
 import java.util.ArrayList;
-import duke.DateFormatter;
+import duke.main.DateFormatter;
 public class TaskList {
     private ArrayList<Task> taskList;
 
