@@ -210,6 +210,18 @@ public class Duke {
         }
     }
 
+    /**
+     * List all tasks that have a specific keyphrase
+     *
+     * @param search a keyphrase used to check with the database of tasks
+     */
+    public static void find(String search) {
+        System.out.print(horizontalLine);
+        System.out.print("THIS WHAT YOU'RE LOOKING FOR?\n");
+        System.out.print(taskStorage.find(Parser.parseFind(search)));
+        System.out.print(horizontalLine);
+    }
+
     public static void main(String[] args) throws IOException {
         greet();
         Scanner textInput = new Scanner(System.in);
@@ -238,15 +250,21 @@ public class Duke {
             case EXIT:
                 botStatus = Status.STOPPING;
                 continue;
+            case FIND:
+                find(nextLine);
+                continue;
             case APPEND:
                 Parser.TaskType type = Parser.parseTask(nextLine);
                 switch (type) {
                 case TODO:
                     appendToDo(nextLine);
+                    continue;
                 case EVENT:
                     appendEvent(nextLine);
+                    continue;
                 case DEADLINE:
-                    appendEvent(nextLine);
+                    appendDeadline(nextLine);
+                    continue;
                 case GENERIC:
                     append(new Task(nextLine));
                 }
