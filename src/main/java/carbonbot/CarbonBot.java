@@ -14,6 +14,11 @@ public class CarbonBot {
     private final Storage storage;
     private TaskList tasks;
 
+
+    public CarbonBot() {
+        this("./data/tasks.txt");
+    }
+
     /**
      * Constructs a CarbonBot object that will read and write its data to the specified file path.
      *
@@ -62,12 +67,10 @@ public class CarbonBot {
     }
 
     /**
-     * Starting point of the program.
-     *
-     * @param args Arguments (unused at the moment)
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public static void main(String[] args) {
-        String saveFilePath = "./data/tasks.txt";
-        new CarbonBot(saveFilePath).run();
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
     }
 }
