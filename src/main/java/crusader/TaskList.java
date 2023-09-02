@@ -5,6 +5,7 @@ import crusader.exception.CrusaderNoSuchTaskException;
 import crusader.task.Task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
@@ -100,5 +101,20 @@ public class TaskList {
      */
     public ArrayList<Task> getTasks() {
         return this.tasks;
+    }
+
+    /**
+     * Returns a smaller task list, comprising only of tasks matching a certain query
+     *
+     * @param query Query used to filter the task list
+     */
+    public TaskList filter(String query) {
+        return new TaskList(
+                new ArrayList<>(
+                this.tasks
+                        .stream()
+                        .filter(
+                                task -> task.getName().contains(query))
+                        .collect(Collectors.toList())));
     }
 }

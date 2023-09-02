@@ -40,6 +40,9 @@ public class Parser {
             case "delete":
                 returnCommand = parseDelete(prompt);
                 break;
+            case "find":
+                returnCommand = parseFind(prompt);
+                break;
             default:
                 throw new CrusaderParseException("Unknown command!");
         }
@@ -129,5 +132,14 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new CrusaderParseException("delete expects its 1 parameter to be a number!");
         }
+    }
+
+    private static Command parseFind(String prompt) throws CrusaderParseException {
+        String[] components = prompt.split(" ");
+        if (components.length < 2) {
+            throw new CrusaderParseException("find expects at least 1 parameter!");
+        }
+        String query = prompt.substring(5).trim();
+        return new FindCommand(query);
     }
 }
