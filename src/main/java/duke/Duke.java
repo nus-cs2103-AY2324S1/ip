@@ -1,5 +1,7 @@
 package duke;
 
+import duke.ui.Ui;
+
 import java.util.Scanner;
 
 /**
@@ -15,10 +17,14 @@ public class Duke {
         String input = sc.nextLine();
 
         while (!input.equals("bye")) {
-            Parser.parseCommands(input);
+            System.out.println(Parser.parseCommands(input));
             input = sc.nextLine();
         }
         sc.close();
+    }
+
+    public String getResponse(String input) {
+        return Parser.parseCommands(input);
     }
 
     /**
@@ -27,8 +33,8 @@ public class Duke {
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
-        Ui.greet();
+        System.out.println(Ui.greet());
         runProgram();
-        Ui.exit();
+        System.out.println(Ui.exit());
     }
 }

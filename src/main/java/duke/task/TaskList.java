@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import duke.DukeException;
 import duke.Storage;
-import duke.Ui;
+import duke.ui.Ui;
 /**
  * Represents a list of tasks.
  */
@@ -25,12 +25,12 @@ public class TaskList {
     /**
      * Adds a Task object to the specified list of tasks.
      * 
-     * @param tasks The list of tasks.
+     * @param task The list of tasks.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         this.tasks.add(task);
         db.saveTask(tasks);
-        Ui.addTask(task, this.tasks.size());
+        return Ui.addTask(task, this.tasks.size());
     }
 
     /**
@@ -39,14 +39,14 @@ public class TaskList {
      * @param taskNumber The index of the task to be deleted.
      * @throws DukeException If the task number is invalid.
      */
-    public void deleteTask(int taskNumber) throws DukeException {
+    public String deleteTask(int taskNumber) {
         if (taskNumber > tasks.size() || taskNumber < 1) {
-            throw new DukeException("Please enter a valid task number.");
+            return Ui.returnErrorString(new DukeException("Please enter a valid task number."));
         }
-
-        Ui.deleteTask(this.tasks.get(taskNumber - 1), this.tasks.size());
+        Task cur = this.tasks.get(taskNumber - 1);
         this.tasks.remove(taskNumber - 1);
         db.saveTask(tasks);
+        return Ui.deleteTask(cur, this.tasks.size());
     }
 
     /**
@@ -54,39 +54,39 @@ public class TaskList {
      * 
      * @return The method is returning the list of tasks.
      */
-    public void listAllTasks() {
-        Ui.lsitAllTasks(tasks);
+    public String listAllTasks() {
+        return Ui.listAllTasks(tasks);
     }
 
     /**
      * Returns the list of tasks that contain the specified keyword.
      * 
-     * @param keyword The keyword to be searched.
+     * @param taskNumber The keyword to be searched.
      */
-    public void markTaskAsDone(int taskNumber) throws DukeException{
+    public String markTaskAsDone(int taskNumber) {
         if (taskNumber > this.tasks.size() || taskNumber < 1) {
-            throw new DukeException("Please enter a valid task number.");
+            return Ui.returnErrorString(new DukeException("Please enter a valid task number."));
         }
 
         Task tsk = this.tasks.get(taskNumber - 1);
         tsk.markAsDone();
         db.saveTask(tasks);
-        Ui.markAsDone(tsk);
+        return Ui.markAsDone(tsk);
     }
 
     /**
      * Returns the list of tasks that contain the specified keyword.
      * 
-     * @param keyword The keyword to be searched.
+     * @param taskNumber The keyword to be searched.
      */
-    public void markTaskAsUndone(int taskNumber) throws DukeException{
+    public String markTaskAsUndone(int taskNumber){
         if (taskNumber > this.tasks.size() || taskNumber < 1) {
-            throw new DukeException("Please enter a valid task number.");
+            return Ui.returnErrorString( new DukeException("Please enter a valid task number."));
         }
         Task tsk = this.tasks.get(taskNumber - 1);
         tsk.markAsUndone();
         db.saveTask(tasks);
-        Ui.markAsUndone(tsk);
+        return Ui.markAsUndone(tsk);
     }
 
     /**
@@ -94,13 +94,13 @@ public class TaskList {
      * 
      * @param keyword The keyword to be searched.
      */
-    public void findTasks(String keyword) {
+    public String findTasks(String keyword) {
         ArrayList<Task> foundTasks = new ArrayList<Task>();
         for (Task tsk : this.tasks) {
             if (tsk.getDescription().contains(keyword)) {
                 foundTasks.add(tsk);
             }
         }
-        Ui.findTasks(foundTasks);
+        return Ui.findTasks(foundTasks);
     }
 }

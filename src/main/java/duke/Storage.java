@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import duke.task.Task;
+import duke.ui.Ui;
 
 /**
  * Represents a storage that stores the list of tasks.
@@ -32,7 +33,7 @@ public class Storage {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             } catch (IOException e) {
-                Ui.printError(new DukeException(e.getMessage()));
+                System.out.print(Ui.returnErrorString(new DukeException(e.getMessage())));
             }
         }
     }
@@ -50,7 +51,7 @@ public class Storage {
             oos.close();
             fos.close();
         } catch (IOException e) {
-            Ui.printError(new DukeException(e.getMessage()));
+            System.out.print(Ui.returnErrorString(new DukeException(e.getMessage())));
         }
     }
 
