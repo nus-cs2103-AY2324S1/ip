@@ -28,7 +28,7 @@ public class Duke {
             Duke changooseBot = new Duke("Changoose", storageService);
             TaskFactory taskFactory = new TaskFactory();
             CommandFactory commandFactory = new CommandFactory(taskFactory, changooseBot, uiService);
-            CliParserService cliParserService = new CliParserService(changooseBot, uiService, commandFactory);
+            CliParserService cliParserService = new CliParserService(uiService, commandFactory);
 
             uiService.printGreet(changooseBot.getBotName());
             cliParserService.parse();
