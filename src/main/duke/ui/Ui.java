@@ -1,3 +1,8 @@
+package ui;
+
+import task.Task;
+import task.TaskList;
+
 public class Ui {
 
     public static void showWelcomeMessage() {

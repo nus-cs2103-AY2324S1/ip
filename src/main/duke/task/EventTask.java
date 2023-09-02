@@ -1,13 +1,15 @@
-public class Event extends Task{
+package task;
+
+public class EventTask extends Task{
     protected String from;
     protected String to;
-    public Event(String description, String from, String to) {
+    public EventTask(String description, String from, String to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
-    public Event(String description, String from, String to, int isMarked) {
+    public EventTask(String description, String from, String to, int isMarked) {
         super(description, isMarked);
         this.from = from;
         this.to = to;

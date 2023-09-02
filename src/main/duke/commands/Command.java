@@ -1,3 +1,9 @@
+package commands;
+
+import task.TaskList;
+import ui.Ui;
+
+
 public abstract class Command {
     protected TaskList taskList;
     protected Ui ui;

@@ -1,15 +1,17 @@
+package task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task {
+public class DeadlineTask extends Task {
     protected LocalDate date;
 
-    public Deadline(String description, LocalDate date) {
+    public DeadlineTask(String description, LocalDate date) {
         super(description);
         this.date = date;
     }
 
-    public Deadline(String description, LocalDate date, int isMarked) {
+    public DeadlineTask(String description, LocalDate date, int isMarked) {
         super(description, isMarked);
         this.date = date;
     }

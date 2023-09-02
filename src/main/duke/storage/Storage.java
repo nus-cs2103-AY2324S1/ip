@@ -1,3 +1,10 @@
+package storage;
+
+import task.DeadlineTask;
+import task.EventTask;
+import task.Task;
+import task.TodoTask;
+
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,16 +33,16 @@ public class Storage {
                 String[] strings = line.split("\\|"); //useparser
                 switch (strings[0]) {
                 case "T":
-                    Todo todo = new Todo(strings[2], Integer.parseInt(strings[1]));
-                    tasks.add(todo);
+                    TodoTask todoTask = new TodoTask(strings[2], Integer.parseInt(strings[1]));
+                    tasks.add(todoTask);
                     break;
                 case "D":
-                    Deadline deadline = new Deadline(strings[2], LocalDate.parse(strings[3]), Integer.parseInt(strings[1]));
-                    tasks.add(deadline);
+                    DeadlineTask deadlineTask = new DeadlineTask(strings[2], LocalDate.parse(strings[3]), Integer.parseInt(strings[1]));
+                    tasks.add(deadlineTask);
                     break;
                 case "E":
-                    Event event = new Event(strings[2], strings[3], strings[4], Integer.parseInt(strings[1]));
-                    tasks.add(event);
+                    EventTask eventTask = new EventTask(strings[2], strings[3], strings[4], Integer.parseInt(strings[1]));
+                    tasks.add(eventTask);
                     break;
                 }
             }
@@ -113,11 +120,11 @@ public class Storage {
             System.out.println(e.getMessage());
         }
     }
-    public void saveTask(Todo todo) {
+    public void saveTask(TodoTask todoTask) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(inFile, true));
 
-            String data = "T|0|" + todo.getDescription() + "\n";
+            String data = "T|0|" + todoTask.getDescription() + "\n";
 
             bw.write(data);
             bw.close();
@@ -127,11 +134,11 @@ public class Storage {
         }
     }
 
-    public void saveTask(Deadline deadline) {
+    public void saveTask(DeadlineTask deadlineTask) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(inFile, true));
 
-            String data = "D|0|" + deadline.getDescription() + "|" + deadline.getDate() + "\n";
+            String data = "D|0|" + deadlineTask.getDescription() + "|" + deadlineTask.getDate() + "\n";
 
             bw.write(data);
             bw.close();
@@ -141,11 +148,11 @@ public class Storage {
         }
     }
 
-    public void saveTask(Event event) {
+    public void saveTask(EventTask eventTask) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(inFile, true));
 
-            String data = "E|0|" + event.getDescription() + "|" + event.getFrom() + "|" + event.getTo() + "\n";
+            String data = "E|0|" + eventTask.getDescription() + "|" + eventTask.getFrom() + "|" + eventTask.getTo() + "\n";
 
             bw.write(data);
             bw.close();

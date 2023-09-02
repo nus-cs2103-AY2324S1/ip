@@ -1,9 +1,11 @@
-public class Todo extends Task {
-    public Todo(String description) {
+package task;
+
+public class TodoTask extends Task {
+    public TodoTask(String description) {
         super(description);
     }
 
-    public Todo(String description, int isMarked) {
+    public TodoTask(String description, int isMarked) {
         super(description, isMarked);
     }
     @Override

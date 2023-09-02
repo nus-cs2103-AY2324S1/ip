@@ -1,3 +1,9 @@
+import commands.*;
+import parser.Parser;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
+
 import java.util.Scanner;
 public class Duke {
     private Storage storage;
@@ -73,7 +79,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("src/main/java/data/duke.txt").run();
+        new Duke("src/main/duke/data/duke.txt").run();
     }
 }
 

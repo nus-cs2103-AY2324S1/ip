@@ -1,7 +1,7 @@
 list
-todo borrow book
-deadline return book /by June 6th
-event project meeting /from Mon 2pm /to 4pm
+todoTask borrow book
+deadlineTask return book /by June 6th
+eventTask project meeting /from Mon 2pm /to 4pm
 mark 2
 list
 unmark 2
