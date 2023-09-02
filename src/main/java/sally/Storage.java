@@ -1,10 +1,10 @@
-package sally;// deals with loading tasks from the file and saving tasks in the file
+package sally;
 
-import java.io.FileWriter;
-import java.io.File;
-import java.io.IOException;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * Handles loading tasks from the file and saving tasks in the file.
@@ -54,7 +54,7 @@ public class Storage {
         TaskList tasks = new TaskList();
         try {
             File file = new File(this.filePath);
-            if(!file.exists()) {
+            if (!file.exists()) {
                 return tasks;
             }
             FileReader fileReader = new FileReader(file);

@@ -1,7 +1,5 @@
 package sally;
 
-import java.util.Scanner;
-
 /**
  * Deals with interactions with the user.
  */
@@ -96,7 +94,7 @@ public class Ui {
             System.out.println((i + 1) + "." + matchingTasks.getTask(i));
         }
     }
-  
+
     /**
      * Displays an error message.
      *

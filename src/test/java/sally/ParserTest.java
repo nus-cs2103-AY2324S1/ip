@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 public class ParserTest {
     @Test
     public void invalidInput() {
-        Exception exception = assertThrows(SallyException.class,
-                () -> Parser.parse("sleep"));
+        Exception exception = assertThrows(SallyException.class, () -> Parser.parse("sleep"));
         assertEquals("Sorry, I do not understand the command :-(",
                 exception.getMessage());
     }
@@ -56,5 +55,4 @@ public class ParserTest {
         Command command = Parser.parse("event Team meeting /from 2023-09-25 1200 /to 2023-09-25 1400");
         assertEquals(AddEventCommand.class, command.getClass());
     }
-
 }

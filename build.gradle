@@ -2,6 +2,13 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
+}
+
+checkstyle {
+    toolVersion = '10.2'
+    configFile = file("./config/checkstyle/checkstyle.xml")
+    configProperties = [ "suppressionFile" : "./config/checkstyle/suppressions.xml" ]
 }
 
 repositories {
@@ -39,5 +46,5 @@ shadowJar {
 
 run {
     standardInput = System.in
-    enableAssertions = true;
+    enableAssertions = true
 }

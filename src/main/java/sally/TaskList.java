@@ -77,7 +77,7 @@ public class TaskList {
         }
         return new TaskList(matchingTasks);
     }
-  
+
     /**
      * Retrieves the number of tasks in the task list.
      *
