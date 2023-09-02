@@ -1,3 +1,6 @@
+package duke.processors;
+
+import duke.exception.DukeEmptyCommandException;
 import java.util.Scanner;
 public class Ui {
     private String separation = "_______________________________________________";
@@ -38,10 +41,12 @@ public class Ui {
                 + " in the list.");
     }
     public void showLine() {
+
         System.out.println(separation);
     }
 
     public void showError(String err) {
+
         System.out.println(err);
     }
 }

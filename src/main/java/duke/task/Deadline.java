@@ -1,5 +1,10 @@
-public class Deadline extends Task{
+package duke.task;
 
+import duke.exception.DukeNoDateException;
+import duke.exception.DukeNoDescriptionException;
+import duke.processors.TimeProcessor;
+
+public class Deadline extends Task{
     public Deadline(String Description) throws DukeNoDescriptionException,
             DukeNoDateException{
         super(Description);
@@ -32,6 +37,7 @@ public class Deadline extends Task{
     }
 
     public String toString() {
+
         return "[D]" + super.toString();
     }
 }

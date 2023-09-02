@@ -1,3 +1,5 @@
+package duke.processors;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,8 +30,10 @@ public class TimeProcessor {
                    date = current;
                } else {
                    if (!Character.isDigit(info.charAt(0))) {
-                       System.out.println("Cannot specify abbreviations " +
-                               "or simplified dates!");
+                       System.out.println("Can only supports day of weeks "
+                               + "or date in format dd/MM/yyyy "
+                               + "Cannot support abbreviations "
+                               +"months " + "or simplified dates!");
                    }
                }
            }

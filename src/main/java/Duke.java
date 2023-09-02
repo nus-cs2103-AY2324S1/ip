@@ -1,4 +1,7 @@
- public class Duke {
+import duke.exception.DukeException;
+import duke.processors.*;
+
+public class Duke {
      private final Ui ui;
     private final Parser parser;
 

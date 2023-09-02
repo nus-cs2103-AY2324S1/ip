@@ -1,3 +1,10 @@
+package duke.processors;
+
+import duke.exception.DukeNoDateException;
+import duke.exception.DukeNoDescriptionException;
+import duke.exception.DukeUnknownInstruction;
+import duke.task.*;
+
 public class Parser {
     private final TaskList tasks;
     private final FileHandler duke = new FileHandler();
