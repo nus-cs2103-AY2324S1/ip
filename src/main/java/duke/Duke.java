@@ -87,6 +87,10 @@ public class Duke {
                     addDeadline(info);
                     storage.update(tasks);
                     break;
+                case "FIND":
+                    info = Parser.parseInfo(input);
+                    handleFind(info);
+                    break;
                 default:
                     throw new DukeInvalidCommandException(command);
                 }
@@ -108,7 +112,7 @@ public class Duke {
      * Generates list of added tasks.
      */
     public void handleList() {
-        ui.printList(tasks);
+        ui.printList(tasks, true);
     }
 
     /**
@@ -244,6 +248,21 @@ public class Duke {
         } catch (DateTimeParseException e) {
             throw new DukeInvalidDateTimeException();
         }
+    }
+
+    /**
+     * Generates list of tasks containing the given keyword.
+     *
+     * @param info Keyword entered by user.
+     * @throws DukeMissingArgumentException If keyword is empty.
+     */
+    public void handleFind(String info) throws DukeMissingArgumentException {
+        if (info.length() < 1) {
+            throw new DukeMissingArgumentException();
+        }
+        
+        TaskList list = tasks.getTaskListWithKeyword(info);
+        ui.printList(list, false);
     }
 
     public static void main(String[] args) {
