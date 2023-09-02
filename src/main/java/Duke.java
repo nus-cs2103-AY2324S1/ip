@@ -64,8 +64,7 @@ public class Duke {
             // set current task as done
             Task selectedTask = taskList.get(parser.getIndex());
             selectedTask.setDone();
-            System.out.println("Marked selected task as done");
-            System.out.println(ui.displayTask(selectedTask));
+            ui.displayAction("Marked selected task as done", selectedTask);
           } catch (IndexOutOfBoundsException ex) {
             System.out.println("Please enter a valid index!");
           }
@@ -77,9 +76,8 @@ public class Duke {
           try {
             // set current task as un-done
             Task selectedTask = taskList.get(parser.getIndex());
-            System.out.println("Marked selected task as un-done desu");
             selectedTask.setUnDone();
-            System.out.println(ui.displayTask(selectedTask));
+            ui.displayAction("Marked selected task as un-done desu", selectedTask);
           } catch (IndexOutOfBoundsException ex) {
             System.out.println("Please enter a valid index!");
           }
@@ -90,7 +88,6 @@ public class Duke {
           try {
             Task curentTask = new Todo(parser.getTaskName());
             taskList.add(curentTask);
-
             System.out.println("added:\t" + ui.displayTask(curentTask));
           } catch (StringIndexOutOfBoundsException ex) {
 
@@ -130,8 +127,7 @@ public class Duke {
             // remove the current task
             Task selectedTask = taskList.get(parser.getIndex());
             taskList.remove(parser.getIndex());
-            System.out.println("Deleting selected task!");
-            System.out.println(ui.displayTask(selectedTask));
+            ui.displayAction("Deleting selected task!", selectedTask);
           } catch (IndexOutOfBoundsException ex) {
             System.out.println("Please enter a valid index!");
           }
