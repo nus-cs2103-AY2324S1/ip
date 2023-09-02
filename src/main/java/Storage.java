@@ -1,3 +1,5 @@
+import jdk.jshell.spi.SPIResolutionException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,16 +11,20 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
+    private final File file;
+
+    public Storage(String filePath) {
+        this.file = new File(filePath);
+    }
+
     /**
      * Loads into TASKS saved tasks from a file.
-     * @param loadPath Path of the saved file.
      * @throws IOException, ParseException
      */
-    public ArrayList<Task> loadIntoTasks(String loadPath) throws IOException, ParseException {
-        File save = new File(loadPath);
+    public ArrayList<Task> loadIntoTasks() throws IOException, ParseException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            Scanner scanner = new Scanner(save);
+            Scanner scanner = new Scanner(this.file);
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
                 // parse the line
@@ -27,7 +33,7 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             // make the file
-            save.createNewFile();
+            this.file.createNewFile();
             return new ArrayList<>();
         }
         return tasks;
@@ -68,12 +74,10 @@ public class Storage {
     /**
      * Saves the Tasks in TASKS to a given file.
      *
-     * @param savePath Path to the file
      * @param tasks The required tasks to parse
      */
-    public void saveTasks(String savePath, ArrayList<Task> tasks) {
-        File save = new File(savePath);
-        try (PrintWriter fileWriter = new PrintWriter(save)) {
+    public void saveTasks(ArrayList<Task> tasks) {
+        try (PrintWriter fileWriter = new PrintWriter(this.file)) {
             for (Task task : tasks) {
                 fileWriter.println(task.toFormat());
             }
