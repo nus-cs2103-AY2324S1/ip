@@ -17,18 +17,18 @@ public class Deadline extends Task {
     /**
      * The deadline of the task.
      */
-    protected LocalDate by;
+    protected LocalDate byDate;
 
     /**
      * Constructs a Deadline. Takes in a description and a by date.
      * @param description Description of the task.
-     * @param by Date which the task is due, in YYYY-MM-DD format.
+     * @param byDate Date which the task is due, in YYYY-MM-DD format.
      * @throws FlukeException when the description or by date is invalid.
      */
-    public Deadline(String description, String by) throws FlukeException {
+    public Deadline(String description, String byDate) throws FlukeException {
         super(description);
         try {
-            this.by = LocalDate.parse(by);
+            this.byDate = LocalDate.parse(byDate);
         } catch (DateTimeParseException d) {
             throw new InvalidInputException();
         }
@@ -39,12 +39,12 @@ public class Deadline extends Task {
      * Constructs a Deadline. Takes in a description and a by date.
      * @param description Description of the task.
      * @param isDone Whether the deadline is marked as done.
-     * @param by Date which the task is due, in YYYY-MM-DD format.
+     * @param byDate Date which the task is due, in YYYY-MM-DD format.
      * @throws FlukeException when the description or by date is invalid.
      */
-    public Deadline(String description, boolean isDone, String by) throws FlukeException {
+    public Deadline(String description, boolean isDone, String byDate) throws FlukeException {
         super(description, isDone);
-        this.by = LocalDate.parse(by);
+        this.byDate = LocalDate.parse(byDate);
     }
 
     /**
@@ -53,7 +53,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        String byString = by.format(DATE_TIME_FORMATTER);
+        String byString = byDate.format(DATE_TIME_FORMATTER);
         return "[D]" + super.toString() + " (by: " + byString + ")";
     }
 }

@@ -64,45 +64,45 @@ public class Ui {
 
     /**
      * shows the addition of a task to the user.
-     * @param task the task added.
+     * @param addedTask the task added.
      * @param tasks the list of tasks.
      */
-    public void showTaskAdded(Task task, TaskList tasks) {
+    public void showTaskAdded(Task addedTask, TaskList tasks) {
         System.out.println("(Scribbles randomly). Hope I got it right!");
-        System.out.println("  " + task);
+        System.out.println("  " + addedTask);
         System.out.println("I think there are now " + tasks.getSize() + " tasks in the list.");
         addHorizontalLine();
     }
 
     /**
      * shows the deletion of a task to the user.
-     * @param task the task deleted.
+     * @param deletedTask the task deleted.
      * @param tasks the list of tasks.
      */
-    public void showTaskDeleted(Task task, TaskList tasks) {
+    public void showTaskDeleted(Task deletedTask, TaskList tasks) {
         System.out.println("fluke.tasks.Task deleted! I hope it's the right one:");
-        System.out.println("  " + task);
+        System.out.println("  " + deletedTask);
         System.out.println("I think there are now " + tasks.getSize() + " tasks in the list.");
         addHorizontalLine();
     }
 
     /**
      * Shows a task being marked as done to the user.
-     * @param task the task marked as done.
+     * @param markedTask the task marked as done.
      */
-    public void showTaskMarkedAsDone(Task task) {
+    public void showTaskMarkedAsDone(Task markedTask) {
         System.out.println("I have marked this task as done, I hope it's the right one:");
-        System.out.println("  " + task);
+        System.out.println("  " + markedTask);
         addHorizontalLine();
     }
 
     /**
      * Shows a task being marked as not done to the user.
-     * @param task the task marked as not done.
+     * @param markedTask the task marked as not done.
      */
-    public void showTaskMarkedAsUndone(Task task) {
+    public void showTaskMarkedAsUndone(Task markedTask) {
         System.out.println("I have marked this task as not done yet, I hope it's the right one:");
-        System.out.println("  " + task);
+        System.out.println("  " + markedTask);
         addHorizontalLine();
     }
 

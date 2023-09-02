@@ -66,12 +66,12 @@ public class TaskList {
     /**
      * Adds a Deadline to the list of tasks.
      * @param description description of the task
-     * @param by the date which the task is due
+     * @param byDate the date which the task is due
      * @return the task added.
      * @throws FlukeException if there is an error while adding the task, for instance an invalid description.
      */
-    public Task addDeadline(String description, String by) throws FlukeException {
-        Task newDeadline = new Deadline(description, by);
+    public Task addDeadline(String description, String byDate) throws FlukeException {
+        Task newDeadline = new Deadline(description, byDate);
         addTask(newDeadline);
         return newDeadline;
     }
@@ -79,13 +79,13 @@ public class TaskList {
     /**
      * Adds an Event to the list of tasks.
      * @param description description of the task
-     * @param from the date which the event starts
-     * @param to the date which the event ends
+     * @param fromDate the date which the event starts
+     * @param toDate the date which the event ends
      * @return the task added.
      * @throws FlukeException if there is an error while adding the task, for instance an invalid description.
      */
-    public Task addEvent(String description, String from, String to) throws FlukeException {
-        Task newEvent = new Event(description, from, to);
+    public Task addEvent(String description, String fromDate, String toDate) throws FlukeException {
+        Task newEvent = new Event(description, fromDate, toDate);
         addTask(newEvent);
         return newEvent;
     }

@@ -17,26 +17,26 @@ public class Event extends Task {
     /**
      * Date which this event begins.
      */
-    protected LocalDate from;
+    protected LocalDate fromDate;
 
     /**
      * Date which this event ends.
      */
-    protected LocalDate to;
+    protected LocalDate toDate;
 
     /**
      * Constructs an Event with a description, from date and to date.
      * @param description Description of the event.
-     * @param from Beginning date of the event, in format YYYY-MM-DD.
-     * @param to Ending date of the event, in format YYYY-MM-DD
+     * @param fromDate Beginning date of the event, in format YYYY-MM-DD.
+     * @param toDate Ending date of the event, in format YYYY-MM-DD
      * @throws FlukeException when the description or the dates given are invalid.
      */
-    public Event(String description, String from, String to) throws FlukeException {
+    public Event(String description, String fromDate, String toDate) throws FlukeException {
         super(description);
         try {
-            this.from = LocalDate.parse(from);
-            this.to = LocalDate.parse(to);
-            if (this.from.isAfter(this.to)) {
+            this.fromDate = LocalDate.parse(fromDate);
+            this.toDate = LocalDate.parse(toDate);
+            if (this.fromDate.isAfter(this.toDate)) {
                 throw new InvalidInputException();
             }
         } catch (DateTimeParseException d) {
@@ -49,14 +49,14 @@ public class Event extends Task {
      * Constructs an Event with a description, from date and to date.
      * @param description Description of the event.
      * @param isDone Whether the event is over.
-     * @param from Beginning date of the event, in format YYYY-MM-DD.
-     * @param to Ending date of the event, in format YYYY-MM-DD
+     * @param fromDate Beginning date of the event, in format YYYY-MM-DD.
+     * @param toDate Ending date of the event, in format YYYY-MM-DD
      * @throws FlukeException when the description or the dates given are invalid.
      */
-    public Event(String description, boolean isDone, String from, String to) throws FlukeException {
+    public Event(String description, boolean isDone, String fromDate, String toDate) throws FlukeException {
         super(description, isDone);
-        this.from = LocalDate.parse(from);
-        this.to = LocalDate.parse(to);
+        this.fromDate = LocalDate.parse(fromDate);
+        this.toDate = LocalDate.parse(toDate);
     }
 
     /**
@@ -65,8 +65,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String fromString = from.format(DATE_TIME_FORMATTER);
-        String toString = to.format(DATE_TIME_FORMATTER);
+        String fromString = fromDate.format(DATE_TIME_FORMATTER);
+        String toString = toDate.format(DATE_TIME_FORMATTER);
         return "[E]" + super.toString() + " (from: " + fromString + " to: " + toString + ")";
     }
 }
