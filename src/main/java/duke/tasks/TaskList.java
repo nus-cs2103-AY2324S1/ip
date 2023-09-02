@@ -37,6 +37,11 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
+    /**
+     * Find tasks that contain the keyword.
+     *
+     * @param keyword keyword to be searched.
+     */
     public void findTasks(String keyword) {
         int count = 0;
         for (int i = 0; i < this.size(); i++) {
