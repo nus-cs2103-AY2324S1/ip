@@ -1,19 +1,10 @@
-package duke;
+package duke.main;
 
 import duke.exception.DukeException;
-import duke.exception.InvalidCommandException;
-import duke.exception.InvalidSyntaxException;
-import duke.task.Deadlines;
-import duke.task.Events;
-import duke.task.Task;
-import duke.task.Todos;
 import duke.task.TaskList;
 import duke.command.Command;
-import duke.Parser;
-import duke.Ui;
 
 import java.time.DateTimeException;
-import java.time.LocalDate;
 
 import java.util.Scanner;
 public class Duke {
