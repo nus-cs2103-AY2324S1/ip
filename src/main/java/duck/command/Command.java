@@ -6,7 +6,7 @@ import duck.Ui;
 import duck.task.TaskList;
 
 /**
- * Represents an executable command.
+ * Represents an executable command. Abstract class that cannot be instantiated.
  */
 public abstract class Command {
 
