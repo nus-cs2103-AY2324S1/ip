@@ -1,7 +1,6 @@
 package duke.task;
 
 import duke.Duke;
-import duke.Main;
 import duke.Ui;
 
 import java.util.ArrayList;
@@ -29,10 +28,11 @@ public class TaskList {
      */
     public void addTask(Task task) {
         taskList.add(task);
-
-        Main.outputDialog("Got it. I've added this task:");
-        Main.outputDialog(task.toString());
-        Main.outputDialog(String.format("Now you have %s tasks in the list.", taskList.size()));
+        Ui.printLine();
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task.toString());
+        System.out.printf("Now you have %s tasks in the list.%n", taskList.size());
+        Ui.printLine();
 
         dukeBot.storage.writeToDatabase(taskList);
     }
@@ -44,9 +44,9 @@ public class TaskList {
      */
     public void markTask(int i) {
         taskList.get(i - 1).markAsDone();
-
-        Main.outputDialog("Nice! I've marked this task as done:");
-        Main.outputDialog(taskList.get(i - 1).toString());
+        Ui.printLine();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(taskList.get(i - 1).toString());
 
         dukeBot.storage.writeToDatabase(taskList);
     }
@@ -58,8 +58,8 @@ public class TaskList {
      */
     public void unmarkTask(int i) {
         taskList.get(i - 1).markAsUndone();
-        Main.outputDialog("OK, I've marked this task as not done yet:");
-        Main.outputDialog(taskList.get(i - 1).toString());
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(taskList.get(i - 1).toString());
 
         dukeBot.storage.writeToDatabase(taskList);
     }
@@ -71,10 +71,10 @@ public class TaskList {
      */
     public void deleteTask(int i) {
         Task removedTask = taskList.remove(i - 1);
-
-        Main.outputDialog("Noted. I've removed this task:");
-        Main.outputDialog(removedTask.toString());
-        Main.outputDialog(String.format("Now you have %s tasks in the list.", taskList.size()));
+        Ui.printLine();
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(removedTask.toString());
+        System.out.printf("Now you have %s tasks in the list.%n", taskList.size());
 
         dukeBot.storage.writeToDatabase(taskList);
     }
@@ -83,12 +83,12 @@ public class TaskList {
      * Lists out all the tasks that are in the list.
      */
     public void listTasks() {
-        Main.outputDialog("Here are the tasks in your list:");
-        String res = "";
+        Ui.printLine();
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
-            res += String.format("%s.%s%n", i + 1, taskList.get(i).toString());
+            System.out.printf("%s.%s%n", i + 1, taskList.get(i).toString());
         }
-        Main.outputDialog(res);
+        Ui.printLine();
     }
 
     /**
@@ -97,16 +97,13 @@ public class TaskList {
      */
     public void findTasks(String key) {
         int count = 1;
-        String res = "";
-
-        Main.outputDialog("Here are the matching tasks in your list:");
-
+        Ui.printLine();
+        System.out.println("Here are the matching tasks in your list:");
         for (Task task : taskList) {
             if (task.getTaskName().contains(key)) {
-                res += String.format("%s. %s%n", count++, task);
+                System.out.printf("%s. %s%n", count++, task);
             }
         }
-
-        Main.outputDialog(res);
+        Ui.printLine();
     }
 }

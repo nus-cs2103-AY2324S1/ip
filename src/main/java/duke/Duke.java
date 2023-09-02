@@ -27,7 +27,7 @@ public class Duke {
     }
 
     /**
-     * Driver function to start the bot on a text-based UI.
+     * Driver function to start the bot.
      */
     public void run() {
         ui.printIntro();
