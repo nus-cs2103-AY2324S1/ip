@@ -1,4 +1,4 @@
-event birthday party /from 173 /to 183
+event birthday party  /from 173  /to 183
 todo watch movies
-todo eat cake yay
-deadline this stuff /by 2019-12-01
+deadline this stuff /by Dec 1 2019
+todo submit this
