@@ -84,6 +84,16 @@ public class Duke {
 
   }
 
+  public void addEvent() {
+    try {
+      Task curentTask = parser.parseEvent();
+      taskList.add(curentTask);
+      System.out.println("added:\t" + ui.displayTask(curentTask));
+    } catch (ParserException ex) {
+      System.out.println(ex.getMessage());
+    }
+  }
+
   public void run() {
 
     ui.displayGreetings();
@@ -126,13 +136,7 @@ public class Duke {
           break;
         }
         case "event": {
-          try {
-            Task curentTask = parser.parseEvent();
-            taskList.add(curentTask);
-            System.out.println("added:\t" + ui.displayTask(curentTask));
-          } catch (ParserException ex) {
-            System.out.println(ex.getMessage());
-          }
+          addEvent();
           break;
         }
         case "delete": {
