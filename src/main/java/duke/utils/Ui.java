@@ -1,5 +1,8 @@
-import java.util.List;
+package duke.utils;
 
+import duke.task.Task;
+
+import java.util.List;
 public class Ui {
     public void printGreeting() {
         System.out.println("\n" +

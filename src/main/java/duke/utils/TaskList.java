@@ -1,3 +1,11 @@
+package duke.utils;
+
+import duke.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,8 +66,8 @@ public class TaskList {
     }
     public Task deleteTask(int taskNumber) throws DukeException {
         try {
-            Task task = toDoList.get(taskNumber - 1);
-            toDoList.remove(taskNumber - 1);
+            Task task = toDoList.get(taskNumber);
+            toDoList.remove(taskNumber);
             return task;
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("invalid task number");

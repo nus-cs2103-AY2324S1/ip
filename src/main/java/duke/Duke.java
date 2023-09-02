@@ -1,8 +1,12 @@
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+package duke;
 
+import duke.task.Task;
+import duke.utils.Parser;
+import duke.utils.Storage;
+import duke.utils.TaskList;
+import duke.utils.Ui;
+
+import java.util.Scanner;
 
 public class Duke {
     private Scanner scan = new Scanner(System.in);

@@ -1,9 +1,12 @@
+package duke.utils;
+
+import duke.DukeException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 public class Parser {
     private List<String> inputArray;
@@ -24,6 +27,8 @@ public class Parser {
             return taskIndex;
         } catch (NullPointerException e) {
             throw new DukeException(e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("invalid task number");
         }
     }
 

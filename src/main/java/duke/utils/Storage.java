@@ -1,3 +1,8 @@
+package duke.utils;
+
+import duke.DukeException;
+import duke.task.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -8,7 +13,7 @@ import java.util.Scanner;
 public class Storage {
     private final String DATA_FILE_PATH = "data.txt";
 
-    public void saveTasksToFile(List<Task> toDoList) throws DukeException{
+    public void saveTasksToFile(List<Task> toDoList) throws DukeException {
         try {
             FileWriter writer = new FileWriter(DATA_FILE_PATH);
             for (Task task : toDoList) {
