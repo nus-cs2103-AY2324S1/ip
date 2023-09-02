@@ -1,12 +1,16 @@
 package duke.parser;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.exceptions.InvalidCommandException;
-import org.junit.jupiter.api.Test;
-
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
     @Test
@@ -27,9 +31,9 @@ public class ParserTest {
     @Test
     public void parse_addCommandWithArgs_noExceptionThrown() {
         String[] testCases = {
-                "todo run",
-                "deadline project /by 18/08/2001 18:00",
-                "event project meeting /from 18/08/2001 18:00 /to 31/08/2001 22:00"
+            "todo run",
+            "deadline project /by 18/08/2001 18:00",
+            "event project meeting /from 18/08/2001 18:00 /to 31/08/2001 22:00"
         };
 
         for (String str: testCases) {
@@ -51,9 +55,9 @@ public class ParserTest {
     public void parseText_validString_success() {
         String[] testCases = {"todo deadline", "event project meeting", "  hello, i am a friend  "};
         String[][] answers = {
-                new String[] {"todo", "deadline"},
-                new String[] {"event", "project meeting"},
-                new String[] {"hello,", "i am a friend"},
+            new String[] {"todo", "deadline"},
+            new String[] {"event", "project meeting"},
+            new String[] {"hello,", "i am a friend"},
         };
         for (int i = 0; i < testCases.length; i++) {
             String[] result = Parser.parseText(testCases[i]);
@@ -69,13 +73,13 @@ public class ParserTest {
 
     @Test
     public void parseArgs_decimalString_throwException() {
-        assertThrows(InvalidCommandException.class,() -> Parser.parseArgs("3.01"));
+        assertThrows(InvalidCommandException.class, () -> Parser.parseArgs("3.01"));
     }
 
     @Test
     public void parseArgs_emptyString_throwException() {
-        assertThrows(InvalidCommandException.class,() -> Parser.parseArgs(" "));
-        assertThrows(InvalidCommandException.class,() -> Parser.parseArgs(""));
+        assertThrows(InvalidCommandException.class, () -> Parser.parseArgs(" "));
+        assertThrows(InvalidCommandException.class, () -> Parser.parseArgs(""));
     }
 
     @Test
@@ -105,6 +109,6 @@ public class ParserTest {
 
     @Test
     public void parseDateTime_wrongTimeFormat_throwException() {
-        assertNull( Parser.parseDateTime("18/12/2001 1800"));
+        assertNull(Parser.parseDateTime("18/12/2001 1800"));
     }
 }
