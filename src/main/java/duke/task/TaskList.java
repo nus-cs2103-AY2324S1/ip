@@ -80,4 +80,23 @@ public class TaskList {
         }
         return false;
     }
+
+    /**
+     * Find tasks with matching keyword
+     *
+     * @param keyword
+     * @return
+     */
+    public Task[] findTask(String keyword) {
+        ArrayList<Task> result = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            String name = list.get(i).taskName();
+
+            if (name.contains(keyword)) {
+                result.add(list.get(i));
+            }
+        }
+        return result.toArray(new Task[0]);
+    }
 }

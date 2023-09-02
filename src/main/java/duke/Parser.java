@@ -81,6 +81,16 @@ public class Parser {
 
             return new DeleteCommand(j - 1);
 
+        case "find":
+            String findPrompt = scanner.nextLine();
+            findPrompt = findPrompt.trim();
+
+            if (findPrompt.isBlank()) {
+                throw new DukeException("There is no keyword");
+            }
+
+            return new FindCommand(findPrompt);
+
         case "deadline":
             String deadlinePrompt = scanner.nextLine();
 

@@ -118,13 +118,27 @@ public class Ui {
         System.out.println("\n" + drawLine());
     }
 
+    public void findPrompt(Task[] list) {
+        System.out.println(drawLine());
+        System.out.println("Chewie found these task:");
+
+        for(int i = 0; i < list.length; i++) {
+            int index = i + 1;
+            Task task = list[i];
+
+            System.out.println(index + "." + task.status() + task.taskName());
+        }
+
+        System.out.println("\n" + drawLine());
+    }
+
     /**
      * Display the starting message of the program
      *
      */
     public void startPrompt() {
         logo();
-        
+
         System.out.println(drawLine());
         System.out.println("Rrrruuuurrr, I am Chewbacca, son of Attichitcuk");
         System.out.println("How can Chewie help?\n");

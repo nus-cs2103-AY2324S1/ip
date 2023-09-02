@@ -287,4 +287,32 @@ public class ParserTest {
             assertEquals("The list doesn't have this index.", e.getMessage());
         }
     }
+
+    @Test
+    public void readInput_findKeyword_success() {
+        Duke.list().add(new ToDo("run"));
+        String command = "find run";
+
+        try {
+            FindCommand result = (FindCommand) parser.readInput(command);
+            FindCommand expected = new FindCommand("run");
+
+            assertEquals(result,expected);
+        } catch (DukeException ignored) {
+
+        }
+    }
+
+    @Test
+    public void readInput_findEmpty_exceptionThrown() {
+        Duke.list().add(new ToDo("run"));
+        String command = "find ";
+
+        try {
+            FindCommand result = (FindCommand) parser.readInput(command);
+            fail();
+        } catch (DukeException e) {
+            assertEquals("There is no keyword", e.getMessage());
+        }
+    }
 }
