@@ -1,3 +1,4 @@
+// For handling unknown user command
 public class UnknownCommand extends Command{
     private String command;
 
@@ -7,6 +8,7 @@ public class UnknownCommand extends Command{
 
     @Override
     public void execute() {
+
         Ui.printAlertForUnknown();
     }
 }
