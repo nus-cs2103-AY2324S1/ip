@@ -1,6 +1,7 @@
 package duke.tasks;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * Adapted from Partial Solution given in Level-3 of
@@ -59,6 +60,10 @@ public abstract class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     @Override

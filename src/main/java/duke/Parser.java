@@ -12,6 +12,7 @@ import duke.parser.EventCommandParser;
 import duke.parser.IndexCommandParser;
 import duke.parser.SimpleCommandParser;
 import duke.parser.TodoCommandParser;
+import duke.parser.WordCommandParser;
 
 /**
  * Represents a parser that parses user input into a Command object.
@@ -31,6 +32,7 @@ public class Parser {
         MARK("mark", new IndexCommandParser("mark")),
         UNMARK("unmark", new IndexCommandParser("unmark")),
         DELETE("delete", new IndexCommandParser("delete")),
+        FIND("find", new WordCommandParser("find")),
         TODO("todo", new TodoCommandParser()),
         DEADLINE("deadline", new DeadlineCommandParser()),
         EVENT("event", new EventCommandParser()); 

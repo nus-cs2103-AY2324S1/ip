@@ -44,14 +44,14 @@ public class IndexCommandParser extends CommandParser {
     protected Command createCommand(Matcher matcher)
             throws MissingDescriptionException, IncorrectCommandFormatException {
         switch (commandName) {
-            case "delete":
-                return new DeleteCommand(matcher);
-            case "mark":
-                return new MarkCommand(matcher);
-            case "unmark":
-                return new UnmarkCommand(matcher);
-            default:
-                throw new UnsupportedOperationException("Unimplemented method 'createCommand'");
+        case "delete":
+            return new DeleteCommand(matcher);
+        case "mark":
+            return new MarkCommand(matcher);
+        case "unmark":
+            return new UnmarkCommand(matcher);
+        default:
+            throw new UnsupportedOperationException("Unimplemented method " + commandName);
         }
     }
 
