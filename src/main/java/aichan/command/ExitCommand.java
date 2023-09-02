@@ -8,7 +8,7 @@ import aichan.Ui;
  * Represents a command to exit the program.
  * Inherits from the Command class.
  */
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
 
     /**
      * Says bye to user and exists the program.
@@ -24,7 +24,7 @@ public class ExitCommand extends Command{
     }
 
     @Override
-    public boolean isExit(){
+    public boolean isExit() {
         return true;
     }
 }

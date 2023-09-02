@@ -10,7 +10,7 @@ import aichan.task.Task;
  * Represents a command to mark a task as undone.
  * Inherits from the Command class.
  */
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
     private int taskId;
 
     /**

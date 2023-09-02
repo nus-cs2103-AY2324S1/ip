@@ -27,7 +27,7 @@ public class Command {
      *
      * @return False as it is not an ExitCommand.
      */
-    public boolean isExit(){
+    public boolean isExit() {
         return false;
     }
 }

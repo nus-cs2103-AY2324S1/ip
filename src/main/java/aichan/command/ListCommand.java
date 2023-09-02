@@ -3,13 +3,12 @@ package aichan.command;
 import aichan.Storage;
 import aichan.TaskList;
 import aichan.Ui;
-import aichan.task.Task;
 
 /**
  * Represents a command to display the list of tasks.
  * Inherits from the Command class.
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
 
     /**
      * Displays the tasks in the list.

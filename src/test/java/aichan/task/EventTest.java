@@ -1,9 +1,8 @@
 package aichan.task;
 
 import aichan.AiChanException;
-import aichan.TaskList;
-import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**

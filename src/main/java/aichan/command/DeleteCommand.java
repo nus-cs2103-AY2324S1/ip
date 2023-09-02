@@ -1,8 +1,8 @@
 package aichan.command;
 
 import aichan.AiChanException;
-import aichan.TaskList;
 import aichan.Storage;
+import aichan.TaskList;
 import aichan.Ui;
 import aichan.task.Task;
 
@@ -10,7 +10,7 @@ import aichan.task.Task;
  * Represents a command to delete a task.
  * Inherits from the Command class.
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     private int taskId;
 
     /**
@@ -42,7 +42,7 @@ public class DeleteCommand extends Command{
     }
 
     @Override
-    public boolean isExit(){
+    public boolean isExit() {
         return false;
     }
 }

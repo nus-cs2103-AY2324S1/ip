@@ -2,10 +2,10 @@ package aichan;
 
 import aichan.task.Task;
 
-import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -57,7 +57,7 @@ public class Storage {
      * @return ArrayList which contains the tasks.
      * @throws AiChanException If an error occurs when loading tasks.
      */
-    public ArrayList<Task> load() throws AiChanException{
+    public ArrayList<Task> load() throws AiChanException {
         ArrayList<Task> arrTask = new ArrayList<>();
 
         try {

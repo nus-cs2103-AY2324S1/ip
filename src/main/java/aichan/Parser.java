@@ -33,19 +33,19 @@ public class Parser {
 
         if (inputs[0].equals(ActionType.BYE.toString())) {
             return new ExitCommand();
-        } else if (inputs[0].equals(ActionType.LIST.toString())){
+        } else if (inputs[0].equals(ActionType.LIST.toString())) {
             return new ListCommand();
-        } else if (inputs[0].equals(ActionType.MARK.toString())){
+        } else if (inputs[0].equals(ActionType.MARK.toString())) {
             return new MarkCommand(strToNum(checkLen(inputs)));
-        } else if (inputs[0].equals(ActionType.UNMARK.toString())){
+        } else if (inputs[0].equals(ActionType.UNMARK.toString())) {
             return new UnmarkCommand(strToNum(checkLen(inputs)));
-        } else if (inputs[0].equals(ActionType.TODO.toString())){
+        } else if (inputs[0].equals(ActionType.TODO.toString())) {
             return new AddToDoCommand(checkLen(inputs));
-        } else if (inputs[0].equals(ActionType.DEADLINE.toString())){
+        } else if (inputs[0].equals(ActionType.DEADLINE.toString())) {
             return new AddDeadlineCommand(checkLen(inputs));
-        } else if (inputs[0].equals(ActionType.EVENT.toString())){
+        } else if (inputs[0].equals(ActionType.EVENT.toString())) {
             return new AddEventCommand(checkLen(inputs));
-        } else if (inputs[0].equals(ActionType.DELETE.toString())){
+        } else if (inputs[0].equals(ActionType.DELETE.toString())) {
             return new DeleteCommand(strToNum(checkLen(inputs)));
         } else {
             throw new AiChanException("oops~ I'm so sorry, but I don't know what that means :'(");

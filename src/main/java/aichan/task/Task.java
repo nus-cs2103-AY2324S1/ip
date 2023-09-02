@@ -7,7 +7,7 @@ import aichan.AiChanException;
  */
 public class Task {
     private String taskName;
-    private boolean done;
+    private boolean isDone;
 
     /**
      * Constructs a task object.
@@ -17,7 +17,7 @@ public class Task {
      */
     public Task(String taskName) {
         this.taskName = taskName;
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -57,14 +57,14 @@ public class Task {
      * Marks this task as done.
      */
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Marks this task as have not done yet.
      */
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -74,7 +74,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        String status = this.done? "[X]" : "[ ]";
+        String status = this.isDone? "[X]" : "[ ]";
         return status + " " + this.taskName;
     }
 
@@ -84,7 +84,7 @@ public class Task {
      * @return A string indicates whether the task is done followed by its description.
      */
     public String toFileLine() {
-        int zeroOrOne = this.done? 1: 0;
+        int zeroOrOne = this.isDone? 1: 0;
         return zeroOrOne + " | " + this.taskName;
     }
 }

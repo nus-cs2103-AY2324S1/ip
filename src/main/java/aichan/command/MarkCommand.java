@@ -1,8 +1,8 @@
 package aichan.command;
 
 import aichan.AiChanException;
-import aichan.TaskList;
 import aichan.Storage;
+import aichan.TaskList;
 import aichan.Ui;
 import aichan.task.Task;
 
@@ -10,7 +10,7 @@ import aichan.task.Task;
  * Represents a command to mark a task as done.
  * Inherits from the Command class.
  */
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
     private int taskId;
 
     /**
