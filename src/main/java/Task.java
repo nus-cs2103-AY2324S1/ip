@@ -28,12 +28,11 @@ public class Task {
     }
 
     public void mark() {
-        String tobePrinted = "";
         this.isDone = true;
-        tobePrinted = "_____________________________________________________________\n"
+        String tobePrinted = "_____________________________________________________________\n"
                     + "Nice! I've marked this task as done:\n"
                     + "   "
-                    + this.toString()
+                    + this
                     + "\n"
                     + "_____________________________________________________________\n";
         System.out.println(tobePrinted);
@@ -43,18 +42,16 @@ public class Task {
         if (printToUser) {
             this.mark();
         } else {
-            String tobePrinted = "";
             this.isDone = true;
         }
     }
 
     public void unmark() {
-        String tobePrinted = "";
         this.isDone = false;
-        tobePrinted = "_____________________________________________________________\n"
+        String tobePrinted = "_____________________________________________________________\n"
                     + "OK, I've marked this task as not done yet:\n"
                     + "   "
-                    + this.toString()
+                    + this
                     + "\n"
                     + "_____________________________________________________________\n";
 

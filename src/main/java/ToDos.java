@@ -1,5 +1,5 @@
 public class ToDos extends Task{
-    public ToDos(String description) throws AlexException{
+    public ToDos(String description) throws AlexException {
         super(description);
     }
 

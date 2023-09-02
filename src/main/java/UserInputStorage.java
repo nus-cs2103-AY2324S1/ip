@@ -1,12 +1,17 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 public class UserInputStorage {
     private static ArrayList<Task> userinputs = new ArrayList<>(100);
     private static int numberOfElements = 0;
 
     private static String horizontalLine = "_____________________________________________________________\n";
+
+    public static final DateTimeFormatter TIMEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     public static void store(Task task) {
         userinputs.add(task);
@@ -70,6 +75,38 @@ public class UserInputStorage {
                          + "  " + tobeRemoved.toString() + "\n"
                          + "Now you have 4 tasks in the list.\n"
                          + horizontalLine
+        );
+    }
+
+    public static void printTaskForDate(String date) throws DateTimeParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedDate = LocalDate.parse(date, formatter);
+        String tobePrinted = "";
+        int count = 1;
+
+        for (int i = 0; i < numberOfElements; i++) {
+            Task task = userinputs.get(i);
+            if (task instanceof ToDos) {
+                continue;
+            } else if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.getDueDate().equals(parsedDate)) {
+                    tobePrinted = tobePrinted + count + ". " + deadline + "\n";
+                    count++;
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                if (event.getFromDate().equals(parsedDate) || event.getToDate().equals(parsedDate)) {
+                    tobePrinted = tobePrinted + count + ". " + event + "\n";
+                    count++;
+                }
+            }
+        }
+        System.out.println(
+                horizontalLine
+                + "There is/are a total of " + (count - 1) + " task(s) on the give date " + date + "\n"
+                + tobePrinted
+                + horizontalLine
         );
     }
 

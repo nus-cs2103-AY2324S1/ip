@@ -1,4 +1,5 @@
 import java.sql.SQLOutput;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -65,15 +66,15 @@ public class Alex {
                         String by = userData.substring(endIndex, dataLength - 2);
                         taskToBeStored = new Deadline(description, by);
                         UserInputStorage.store(taskToBeStored, false);
-                    } catch (AlexException | IndexOutOfBoundsException e) {
+                    } catch (AlexException | IndexOutOfBoundsException | DateTimeParseException e) {
                         String message = "OOPS!!! The program terminates because the data format at line "
                                 + (UserInputStorage.getNumOfElement() + 1)
                                 + " is wrong" + "\n"
                                 + "The correct data format for a deadline task should be: \n"
                                 + "   "
-                                + "D (description) /by yyyy-mm-dd (1/0) where 1 indicates done and 0 indicates undone";
+                                + "D (description) /by yyyy-MM-dd HHmm (1/0) where 1 indicates done and 0 indicates undone";
                         System.out.println(message);
-                        System.exit(0);
+                        //System.exit(0);
                     }
                 } else if (taskType.equals("E")) {
                     try {
@@ -102,16 +103,16 @@ public class Alex {
 
                         taskToBeStored = new Event(description, fromTime, toTime);
                         UserInputStorage.store(taskToBeStored, false);
-                    } catch (AlexException | IndexOutOfBoundsException e) {
+                    } catch (AlexException | IndexOutOfBoundsException | DateTimeParseException e) {
                         String message = "OOPS!!! The program terminates because the data format at line "
                                 + (UserInputStorage.getNumOfElement() + 1)
                                 + "is wrong" + "\n"
                                 + "The correct data format for an event task should be: \n"
                                 + "   "
-                                + "E (description) /from yyyy-mm-dd /to yyyy-mm-dd (1/0) " +
+                                + "E (description) /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm (1/0) " +
                                 "where 1 indicates done and 0 indicates undone";
                         System.out.println(message);
-                        System.exit(0);
+                        //System.exit(0);
                     }
                 } else {
                     throw new AlexException("");
@@ -140,10 +141,10 @@ public class Alex {
                     + "T (description) (1/0) where 1 indicates done and 0 indicates undone\n"
                     + "The correct data format for a deadline task should be: \n"
                     + "   "
-                    + "D (description) /by yyyy-mm-dd (1/0) where 1 indicates done and 0 indicates undone\n"
+                    + "D (description) /by yyyy-MM-dd HHmm (1/0) where 1 indicates done and 0 indicates undone\n"
                     + "The correct data format for a event task should be: \n"
                     + "   "
-                    + "E (description) /from yyyy-mm-dd /to yyyy-mm-dd (1/0)" +
+                    + "E (description) /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm (1/0)" +
                     "where 1 indicates done and 0 indicates undone";
             System.out.println(message);
             System.exit(0);
@@ -154,7 +155,7 @@ public class Alex {
         while (true) {
             String userInput = userInputScanner.nextLine();
             String userInputStripped = userInput.stripTrailing();
-            int inputLength = userInput.length();
+            int inputLength = userInputStripped.length();
             if (userInput.equals("bye") || userInputStripped.equals("bye")) {
                 String bye = horizontalLine
                         + "Bye bye. Hope to see you again soon!\n"
@@ -245,7 +246,8 @@ public class Alex {
                     Pattern pattern = Pattern.compile(regex);
                     Matcher matcher = pattern.matcher(userInput);
                     if (!matcher.find()) {
-                        String message = "Please enter a deadline task in the format: deadline (description) /by (time)";
+                        String message = "Please enter a deadline task in the format: " +
+                                "deadline (description) /by yyyy-MM-dd HHmm";
                         throw new AlexException(message);
                     }
                     int startIndex = matcher.start();
@@ -259,6 +261,13 @@ public class Alex {
                                      + e.getMessage() + "\n"
                                      + horizontalLine
                     );
+                } catch (DateTimeParseException e) {
+                    String message = "Please enter a deadline task in the format: " +
+                            "deadline (description) /by yyyy-MM-dd HHmm\n";
+                    System.out.println(horizontalLine
+                                     + message
+                                     + horizontalLine
+                    );
                 }
             } else if (inputLength >= 5 && userInput.substring(0, 5).equals("event")) {
                 try {
@@ -267,7 +276,7 @@ public class Alex {
                     Matcher matcher1 = pattern1.matcher(userInput);
                     if (!matcher1.find()) {
                         String message = "Please enter an event task in the format: "
-                                        + "event (description) /from (from_time) /to (to_time)";
+                                        + "event (description) /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm";
                         throw new AlexException(message);
                     }
                     int firstStart = matcher1.start();
@@ -278,7 +287,7 @@ public class Alex {
                     Matcher matcher2 = pattern2.matcher(userInput);
                     if (!matcher2.find()) {
                         String message = "Please enter an event task in the format: "
-                                + "event (description) /from (from_time) /to (to_time)";
+                                + "event (description) /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm";
                         throw new AlexException(message);
                     }
                     int secondStart = matcher2.start();
@@ -294,6 +303,28 @@ public class Alex {
                     System.out.println(horizontalLine
                                      + e.getMessage() + "\n"
                                      + horizontalLine
+                    );
+                } catch (DateTimeParseException e) {
+                    String message = "Please enter an event task in the format: "
+                            + "event (description) /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm\n";
+                    System.out.println(
+                            horizontalLine
+                            + message
+                            + horizontalLine
+                    );
+                }
+            } else if(inputLength == 10 && userInputStripped.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                try {
+                    UserInputStorage.printTaskForDate(userInputStripped);
+                } catch (DateTimeParseException e) {
+                    String message = "OOPS!! To view the task(s) on a specific date,please key in the date " +
+                            "in the format yyyy-MM-dd only.\n"
+                            + "Please also ensure that your key in date is a valid date\n"
+                            + "Note that it is case sensitive\n";
+                    System.out.println(
+                            horizontalLine
+                            + message
+                            + horizontalLine
                     );
                 }
             } else {
