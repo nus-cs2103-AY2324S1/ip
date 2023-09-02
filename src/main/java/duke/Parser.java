@@ -30,7 +30,7 @@ public class Parser {
         } else if (response.startsWith("find")) {
             return "find";
         } else {
-            throw new DukeException("Invalid command");
+            return "invalid";
         }
     }
     /**
