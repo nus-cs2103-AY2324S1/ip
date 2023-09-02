@@ -4,7 +4,6 @@ import duke.exceptions.WrongMarkException;
 import duke.tasks.Task;
 
 import java.util.Scanner;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class Ui {
     private final String LOGO = "" +

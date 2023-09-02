@@ -57,22 +57,4 @@ public class TaskList extends ArrayList<Task> {
             }
         }
     }
-
-    /**
-     * Finds tasks in the TaskList that contains the given string.
-     *
-     * @param s the string to be found in the TaskList.
-     */
-    public void findTasks(String s) {
-        int count = 0;
-        for (int i = 0; i < this.size(); i++) {
-            if (this.get(i).getDescription().contains(s)) {
-                System.out.println((i + 1) + ". " + this.get(i));
-                count++;
-            }
-        }
-        if (count == 0) {
-            System.out.println("No tasks found!");
-        }
-    }
 }

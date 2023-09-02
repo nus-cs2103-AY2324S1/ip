@@ -33,7 +33,7 @@ public class Duke {
      * Main method for Duke.
      * Runs the duke program with the file path.
      *
-     * @param args The arguments passed in.
+     * @param args Command line arguments.
      */
     public static void main(String[] args) {
         new Duke("./data/stored_tasks").run();

@@ -77,6 +77,8 @@ public class Task {
      *
      * @param command The command input by the user.
      * @return The number of Tasks created.
+     * @throws IncompleteInputException If the command is incomplete.
+     * @throws InvalidInputException    If the command is invalid.
      */
     public static Task createTask(String command) throws IncompleteInputException, InvalidInputException {
         String[] splittedCommand = command.split(" ", 2);
@@ -116,11 +118,10 @@ public class Task {
     }
 
     /**
-     * Returns the Task created from the file.
-     * Checks the file line and creates the appropriate Task.
+     * Creates a task based on the line in the file.
      *
-     * @param taskLine The line read from the file.
-     * @return The Task created from the file.
+     * @param taskLine Line in the file.
+     * @return Task created.
      */
     public static Task createTaskFromFile(String taskLine) {
         char taskType = taskLine.charAt(1);
@@ -157,7 +158,6 @@ public class Task {
      * Checks the date format and returns the date in LocalDate format.
      *
      * @param date The date to be parsed.
-     * @return The date in LocalDate format.
      */
     public static LocalDate parseDate(String date) {
         for (DatesAndTimesFormatter formatter : DatesAndTimesFormatter.values()) {
