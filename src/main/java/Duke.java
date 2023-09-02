@@ -94,6 +94,21 @@ public class Duke {
     }
   }
 
+  public void deleteTask() {
+    if (taskList.isEmpty()) {
+      System.out.println("The list is empty!");
+      return;
+    }
+    try {
+      // remove the current task
+      Task selectedTask = taskList.get(parser.getIndex());
+      taskList.remove(parser.getIndex());
+      ui.displayAction("Deleting selected task!", selectedTask);
+    } catch (IndexOutOfBoundsException ex) {
+      System.out.println("Please enter a valid index!");
+    }
+  }
+
   public void run() {
 
     ui.displayGreetings();
@@ -140,21 +155,8 @@ public class Duke {
           break;
         }
         case "delete": {
-          if (taskList.isEmpty()) {
-            System.out.println("The list is empty!");
-            break;
-          }
-          try {
-            // remove the current task
-            Task selectedTask = taskList.get(parser.getIndex());
-            taskList.remove(parser.getIndex());
-            ui.displayAction("Deleting selected task!", selectedTask);
-          } catch (IndexOutOfBoundsException ex) {
-            System.out.println("Please enter a valid index!");
-          }
+          deleteTask();
           break;
-
-
         }
         default:
           System.out.println("Please enter a suitable task!");
