@@ -6,9 +6,9 @@ import java.time.temporal.ChronoUnit;
 
 public class Deadline extends Task {
 
-    protected LocalDate by;
     private static final DateTimeFormatter FORMATTER_DATE_INPUT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter FORMATTER_DATE_OUTPUT = DateTimeFormatter.ofPattern("dd MMM yyyy");
+    protected LocalDate by;
 
 
     /**

@@ -6,11 +6,11 @@ import java.time.temporal.ChronoUnit;
 
 public class Event extends Task {
 
+    private static final DateTimeFormatter FORMATTER_DATETIME_INPUT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private static final DateTimeFormatter FORMATTER_DATETIME_OUTPUT = DateTimeFormatter.ofPattern("dd MMM yyyy HHmm");
     protected LocalDateTime from;
     protected LocalDateTime to;
 
-    private static final DateTimeFormatter FORMATTER_DATETIME_INPUT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    private static final DateTimeFormatter FORMATTER_DATETIME_OUTPUT = DateTimeFormatter.ofPattern("dd MMM yyyy HHmm");
 
     /**
      * Constructor to create an chatbuddy.task.Event object.
