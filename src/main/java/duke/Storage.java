@@ -51,6 +51,7 @@ public class Storage {
     public String generateTaskListString(TaskList stored) {
         int len = stored.getLength();
         String tL = "";
+
         if (len > 0) {
             for (int i = 1; i < len + 1; i++) {
                 tL = tL + stored.getTask(i - 1).convertToSavedString() + "\n";
@@ -85,7 +86,6 @@ public class Storage {
      */
     public ArrayList<Task> loadTaskList() throws DukeInvalidTaskStringException {
         ArrayList<Task> taskList = new ArrayList<>();
-
         File dataFile = new File(this.path);
 
         try {
@@ -94,6 +94,7 @@ public class Storage {
                 String taskStr = sc.nextLine();
                 taskList.add(convertStrToTask(taskStr));
             }
+            sc.close();
         } catch (FileNotFoundException e) {
             return taskList;
         }
@@ -109,7 +110,6 @@ public class Storage {
     public Task convertStrToTask(String str) throws DukeInvalidTaskStringException {
         String[] strArr = str.split("//");
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
-
         Task t;
         boolean isDone = strArr[1].equals("X");
 
@@ -121,7 +121,7 @@ public class Storage {
             t = new Deadline(strArr[2], LocalDateTime.parse(strArr[3], dateTimeFormatter));
             break;
         case "[E]":
-            t = new Event(strArr[2], LocalDateTime.parse(strArr[3], dateTimeFormatter),
+            t = new Event(strArr[2], LocalDateTime.parse(strArr[3], dateTimeFormatter), 
                     LocalDateTime.parse(strArr[4], dateTimeFormatter));
             break;
         default:

@@ -4,7 +4,8 @@ package duke;
  * Represents a Duke exception when an invalid task number is entered.
  */
 public class DukeInvalidTaskNumberException extends DukeException {
-    String taskNum;
+    
+    private String taskNum;
 
     /**
      * Constructor for the exception.
