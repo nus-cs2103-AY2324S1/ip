@@ -5,3 +5,32 @@ event project meeting /from Mon 2pm /to 4pm
 mark 2
 list
 bye
+
+todo
+todo read book
+deadline  /by
+deadline  /by Sunday
+deadline return book /by
+deadline return book /by Sunday
+event  /from  /to
+event project meeting /from  /to
+event project meeting /from  /to 4pm
+event project meeting /from Mon 2pm /to
+event  /from  /to 4pm
+event  /from Mon 2pm /to
+event project meeting /from Mon 2pm /to 4pm
+mark 0
+mark 10
+mark abc
+mark 1
+mark 3
+list
+unmark 0
+unmark 10
+unmark abc
+unmark 3
+list
+delete
+delete 3
+list
+bye
