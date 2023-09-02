@@ -114,10 +114,13 @@ public class Parser {
                     case FIND:
                         String[] commandSplit = input.split(" ", 2);
                         if (commandSplit.length < 2) {
-                            throw new KeywordNotFoundException("");
+                            throw new KeywordNotFoundException("No Keywords to find!");
                         }
                         String keyword = input.split(" ")[1];
                         ArrayList<Task> matchingTasks = tasks.findKeyword(keyword);
+                        if (matchingTasks.size() == 0) {
+                            throw new KeywordNotFoundException("No Tasks found!");
+                        }
                         ui.listMatching(matchingTasks);
                         break;
                     default:
