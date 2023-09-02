@@ -7,6 +7,10 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     /**
      * Describes the list of tasks in the task list.
      */
@@ -69,5 +73,14 @@ public class TaskList {
      */
     public void addTask(Task task) {
         tasks.add(task);
+    }
+
+    /**
+     * Gets the task list.
+     *
+     * @return the task list.
+     */
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
     }
 }
