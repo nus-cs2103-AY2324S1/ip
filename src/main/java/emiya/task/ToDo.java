@@ -8,9 +8,9 @@ public class ToDo extends Task {
     @Override
     public String toString() {
         if (isCompleted) {
-            return "[T][X] " + nameOfTask;
+            return "[T][X] " + taskDescription;
         } else {
-            return "[T][ ] " + nameOfTask;
+            return "[T][ ] " + taskDescription;
         }
     }
 
@@ -20,8 +20,8 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String taskDetailsString() {
-        return super.nameOfTask;
+    public String printTaskDetailsString() {
+        return super.taskDescription;
     }
 
 }

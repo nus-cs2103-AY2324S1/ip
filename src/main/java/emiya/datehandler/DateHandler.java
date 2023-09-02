@@ -1,21 +1,20 @@
 package emiya.datehandler;
 
-import emiya.emiyaexception.InvalidDateException;
-import emiya.emiyaexception.WrongDateFormatException;
-import emiya.logic.Logic;
+import static emiya.parser.Parser.parseForDate;
 
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
-import static emiya.parser.Parser.parseForDate;
+import emiya.emiyaexception.InvalidDateException;
+import emiya.emiyaexception.WrongDateFormatException;
+
 
 public class DateHandler {
 
-
-    // strFormat is: YYYY-MM-DD TTTT
-    public static LocalDateTime determineDateTime(String strFormat) throws WrongDateFormatException, InvalidDateException {
+    public static LocalDateTime determineDateTime(String strFormat)
+            throws WrongDateFormatException, InvalidDateException {
         String[] parsedDate = parseForDate(strFormat);
 
         StringBuilder finalDateTimeStr = new StringBuilder(parsedDate[0]);

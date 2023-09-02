@@ -1,8 +1,8 @@
 package emiya.task;
 
-import emiya.emiyaexception.ListEmptyException;
-
 import java.util.ArrayList;
+
+import emiya.emiyaexception.ListEmptyException;
 
 public class TaskList {
 
@@ -32,14 +32,13 @@ public class TaskList {
         this.taskArrayList.add(task);
     }
 
-    public void list() throws ListEmptyException{
+    public void list() throws ListEmptyException {
         int listPointer = 1;
-        StringBuilder listString = new StringBuilder("-----------------------------------------\n" +
-                "Lots of things to do! Get to it!:\n");
+        StringBuilder listString = new StringBuilder("-----------------------------------------\n"
+                + "Lots of things to do! Get to it!:\n");
         for (Task task : taskArrayList) {
             if (task == null) {
                 if (listPointer == 1) {
-                    // throw new EmiyaException("List is empty! Please add items to list before trying to display list contents!");
                     throw new ListEmptyException();
                 }
                 break;

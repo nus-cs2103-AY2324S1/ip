@@ -1,9 +1,9 @@
 package emiya.emiyaexception;
 
-public class CreateDirectoryFailException extends EmiyaException{
+public class CreateDirectoryFailException extends EmiyaException {
     public CreateDirectoryFailException() {
-        super("-----------------------------------------\n" +
-                "Failed to create directory\n"
+        super("-----------------------------------------\n"
+                + "Failed to create directory\n"
                 + "-----------------------------------------\n");
     }
 }

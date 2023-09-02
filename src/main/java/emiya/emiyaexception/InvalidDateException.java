@@ -1,9 +1,9 @@
 package emiya.emiyaexception;
 
-public class InvalidDateException extends EmiyaException{
+public class InvalidDateException extends EmiyaException {
     public InvalidDateException() {
-        super("-----------------------------------------\n" +
-                "Please enter a valid date!\n"
+        super("-----------------------------------------\n"
+                + "Please enter a valid date!\n"
                 + "-----------------------------------------\n");
     }
 }

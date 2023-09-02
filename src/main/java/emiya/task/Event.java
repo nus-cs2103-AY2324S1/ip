@@ -1,10 +1,10 @@
 package emiya.task;
 
+import java.time.LocalDateTime;
+
 import emiya.datehandler.DateHandler;
 import emiya.emiyaexception.InvalidDateException;
 import emiya.emiyaexception.WrongDateFormatException;
-
-import java.time.LocalDateTime;
 
 public class Event extends Task {
 
@@ -13,7 +13,8 @@ public class Event extends Task {
     private LocalDateTime localDateTimeStart = null;
     private LocalDateTime localDateTimeEnd = null;
 
-    public Event(boolean isCompleted, String nameOfTask, String start, String end) throws WrongDateFormatException, InvalidDateException {
+    public Event(boolean isCompleted, String nameOfTask, String start, String end)
+            throws WrongDateFormatException, InvalidDateException {
         super(isCompleted, nameOfTask);
         this.start = start;
         this.end = end;
@@ -24,9 +25,11 @@ public class Event extends Task {
     @Override
     public String toString() {
         if (isCompleted) {
-            return "[E][X] " + nameOfTask + " (from: " + DateHandler.correctDateTimeFormat(localDateTimeStart) + " to: " + DateHandler.correctDateTimeFormat(localDateTimeEnd) + ")";
+            return "[E][X] " + taskDescription + " (from: " + DateHandler.correctDateTimeFormat(localDateTimeStart)
+                    + " to: " + DateHandler.correctDateTimeFormat(localDateTimeEnd) + ")";
         } else {
-            return "[E][ ] " + nameOfTask + " (from: " + DateHandler.correctDateTimeFormat(localDateTimeStart) + " to: " + DateHandler.correctDateTimeFormat(localDateTimeEnd) + ")";
+            return "[E][ ] " + taskDescription + " (from: " + DateHandler.correctDateTimeFormat(localDateTimeStart)
+                    + " to: " + DateHandler.correctDateTimeFormat(localDateTimeEnd) + ")";
         }
     }
 
@@ -36,7 +39,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String taskDetailsString() {
-        return super.nameOfTask + " |" + " " + start + " |" + " " + end;
+    public String printTaskDetailsString() {
+        return super.taskDescription + " |" + " " + start + " |" + " " + end;
     }
 }

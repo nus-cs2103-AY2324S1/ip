@@ -1,16 +1,20 @@
 package emiya.storage;
 
-import emiya.emiyaexception.CreateDirectoryFailException;
-import emiya.emiyaexception.InvalidDateException;
-import emiya.emiyaexception.WrongDateFormatException;
-import emiya.task.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+
+import emiya.emiyaexception.CreateDirectoryFailException;
+import emiya.emiyaexception.InvalidDateException;
+import emiya.emiyaexception.WrongDateFormatException;
+import emiya.task.Deadline;
+import emiya.task.Event;
+import emiya.task.Task;
+import emiya.task.TaskList;
+import emiya.task.ToDo;
 
 public class Storage {
     public Storage() {
@@ -72,9 +76,9 @@ public class Storage {
         for (Task task : taskArrayList) {
             str.append(task.typeOfString());
             str.append("| ");
-            str.append(task.statusString());
+            str.append(task.printStatusString());
             str.append("| ");
-            str.append(task.taskDetailsString());
+            str.append(task.printTaskDetailsString());
             str.append("\n");
         }
 
@@ -94,9 +98,9 @@ public class Storage {
         for (Task task : taskList.getTaskArrayList()) {
             str.append(task.typeOfString());
             str.append("| ");
-            str.append(task.statusString());
+            str.append(task.printStatusString());
             str.append("| ");
-            str.append(task.taskDetailsString());
+            str.append(task.printTaskDetailsString());
             str.append("\n");
         }
 
@@ -108,7 +112,8 @@ public class Storage {
     }
 
 
-    public void fillListWithFileContent(TaskList taskList, String fileContent) throws WrongDateFormatException, InvalidDateException {
+    public void fillListWithFileContent(TaskList taskList, String fileContent)
+            throws WrongDateFormatException, InvalidDateException {
         String[] tasksStrArr = fileContent.split("\n");
 
         for (String tasksStr : tasksStrArr) {

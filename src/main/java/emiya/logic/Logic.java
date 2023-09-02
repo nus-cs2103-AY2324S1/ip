@@ -22,7 +22,7 @@ public class Logic {
     }
 
     public static boolean isValidHour(int hour) {
-        return (hour >= 0 && hour <= 23 );
+        return (hour >= 0 && hour <= 23);
     }
 
     public static boolean isValidMinute(int min) {

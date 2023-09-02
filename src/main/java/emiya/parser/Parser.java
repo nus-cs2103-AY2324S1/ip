@@ -1,9 +1,14 @@
 package emiya.parser;
 
-import emiya.emiyaexception.*;
-import emiya.logic.Logic;
-
 import static emiya.logic.Logic.enumContainsKeyword;
+
+import emiya.emiyaexception.InvalidDateException;
+import emiya.emiyaexception.NoByException;
+import emiya.emiyaexception.NoFromException;
+import emiya.emiyaexception.NoToException;
+import emiya.emiyaexception.UnknownCommandException;
+import emiya.emiyaexception.WrongDateFormatException;
+import emiya.logic.Logic;
 
 public class Parser {
     public Parser() {
@@ -56,7 +61,7 @@ public class Parser {
         return new String[] {eventDetails[0], eventDurationDetails[0], eventDurationDetails[1]};
     }
 
-    public static String[] parseForDate(String input) throws InvalidDateException, WrongDateFormatException{
+    public static String[] parseForDate(String input) throws InvalidDateException, WrongDateFormatException {
         String[] partsOfDateTime = input.split("\\s+", 2);
 
         // word/no whitespace used
@@ -69,8 +74,9 @@ public class Parser {
         String[] partsOfDate = datePart.split("-", 3);
 
         // if second part is not the time in 24h format/date not given in correct format
-        if (timePart.length() != 4 || !Logic.isNumeric(timePart.substring(0, 2)) || !Logic.isNumeric(timePart.substring(2, 4)) ||
-                partsOfDate.length < 3 || !Logic.isNumeric(partsOfDate[0]) || !Logic.isNumeric(partsOfDate[1])
+        if (timePart.length() != 4 || !Logic.isNumeric(timePart.substring(0, 2))
+                || !Logic.isNumeric(timePart.substring(2, 4)) || partsOfDate.length < 3
+                || !Logic.isNumeric(partsOfDate[0]) || !Logic.isNumeric(partsOfDate[1])
                 || !Logic.isNumeric(partsOfDate[2])) {
             throw new WrongDateFormatException();
         }
@@ -82,7 +88,9 @@ public class Parser {
         int min = Integer.parseInt(timePart.substring(2, 4));
 
         // if given date is invalid
-        if (!Logic.isValidYear(year) || !Logic.isValidMonth(month) || !Logic.isValidDay(day) || !Logic.isValidHour(hour) || !Logic.isValidMinute(min)) {
+        if (!Logic.isValidYear(year) || !Logic.isValidMonth(month)
+                || !Logic.isValidDay(day) || !Logic.isValidHour(hour)
+                || !Logic.isValidMinute(min)) {
             throw new InvalidDateException();
         }
 
