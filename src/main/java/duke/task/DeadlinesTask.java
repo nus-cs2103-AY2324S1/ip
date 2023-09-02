@@ -4,7 +4,7 @@ package duke.task;
  * Represents a DeadlinesTask.
  */
 public class DeadlinesTask extends Task {
-    private final String TYPE = "D";
+    private final String type = "D";
     private final String deadline;
 
     /**
@@ -23,7 +23,7 @@ public class DeadlinesTask extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s]%s (by: %s)", TYPE, super.toString(), this.deadline);
+        return String.format("[%s]%s (by: %s)", type, super.toString(), this.deadline);
     }
 
     /**
@@ -32,7 +32,7 @@ public class DeadlinesTask extends Task {
      */
     @Override
     public String toStringStore() {
-        String mark = this.isDone ? "1": "0";
-        return String.format("%s,%s,%s,%s", TYPE, mark, this.name, this.deadline);
+        String mark = this.isDone ? "1" : "0";
+        return String.format("%s,%s,%s,%s", type, mark, this.name, this.deadline);
     }
 }

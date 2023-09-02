@@ -4,7 +4,7 @@ package duke.task;
  * Represents a TodoTask.
  */
 public class TodoTask extends Task {
-    private final String TYPE = "T";
+    private final String type = "T";
 
     /**
      * Constructor for TodoTask.
@@ -20,7 +20,7 @@ public class TodoTask extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s]%s", TYPE, super.toString());
+        return String.format("[%s]%s", type, super.toString());
     }
 
     /**
@@ -29,7 +29,7 @@ public class TodoTask extends Task {
      */
     @Override
     public String toStringStore() {
-        String mark = this.isDone ? "1": "0";
-        return String.format("%s,%s,%s", TYPE, mark, this.name);
+        String mark = this.isDone ? "1" : "0";
+        return String.format("%s,%s,%s", type, mark, this.name);
     }
 }

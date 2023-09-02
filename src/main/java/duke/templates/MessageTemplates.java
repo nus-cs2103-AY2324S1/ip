@@ -1,21 +1,24 @@
 package duke.templates;
 
+/**
+ * Represents the MessageTemplates.
+ */
 public class MessageTemplates {
     public static final String MESSAGE_LINE = "__________________________________________________________________";
 
     // menu
     public static final String[] MESSAGE_MENU = new String[] {
-            MessageTemplates.MESSAGE_INVALID_COMMAND,
-            "Here are the list of commands:",
-            "list: shows list of tasks",
-            "mark {task number}: mark task as done",
-            "unmark {task number}: unmark task as not done",
-            "todo {task name}: create a task",
-            "deadline {task name} /by {deadline}: create task with deadline",
-            "event {event name} /from {start date} /to {end date}: create event",
-            "delete {task number}: delete a task",
-            "find {keyword}: find tasks with keyword",
-            "bye: close application"
+        MessageTemplates.MESSAGE_INVALID_COMMAND,
+        "Here are the list of commands:",
+        "list: shows list of tasks",
+        "mark {task number}: mark task as done",
+        "unmark {task number}: unmark task as not done",
+        "todo {task name}: create a task",
+        "deadline {task name} /by {deadline}: create task with deadline",
+        "event {event name} /from {start date} /to {end date}: create event",
+        "delete {task number}: delete a task",
+        "find {keyword}: find tasks with keyword",
+        "bye: close application"
     };
 
     // errors

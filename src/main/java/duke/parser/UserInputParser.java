@@ -1,5 +1,7 @@
 package duke.parser;
 
+import java.util.regex.Pattern;
+
 import duke.Action;
 import duke.exception.InvalidCommandException;
 import duke.exception.InvalidIndexException;
@@ -12,13 +14,11 @@ import duke.task.TaskList;
 import duke.task.TodoTask;
 import duke.templates.MessageTemplates;
 
-import java.util.regex.Pattern;
-
 /**
  * Represents the UserInputParser.
  */
 public class UserInputParser {
-    public static boolean isActive = true;
+    private static boolean isActive = true;
 
     /**
      * Returns the Action of the user input.
@@ -74,8 +74,12 @@ public class UserInputParser {
             throws InvalidInputException, InvalidCommandException, InvalidIndexException {
         Action action = UserInputParser.getAction(userInput);
         int num;
-        String name, deadline, from, to;
-        String[] a1, a2;
+        String name;
+        String deadline;
+        String from;
+        String to;
+        String[] a1;
+        String[] a2;
         switch (action) {
         case BYE:
             isActive = false;
@@ -121,5 +125,20 @@ public class UserInputParser {
         default:
             throw new InvalidCommandException();
         }
+    }
+    /**
+     * Returns the isActive.
+     * @return isActive.
+     */
+    public static boolean getIsActive() {
+        return UserInputParser.isActive;
+    }
+    /**
+     * Sets the isActive.
+     * @param isActive isActive.
+     * @return isActive.
+     */
+    public static boolean setIsActive(boolean isActive) {
+        return UserInputParser.isActive = isActive;
     }
 }

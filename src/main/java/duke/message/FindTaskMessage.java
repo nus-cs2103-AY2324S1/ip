@@ -1,9 +1,9 @@
 package duke.message;
 
+import java.util.ArrayList;
+
 import duke.task.Task;
 import duke.templates.MessageTemplates;
-
-import java.util.ArrayList;
 
 /**
  * Represents the FindTaskMessage.

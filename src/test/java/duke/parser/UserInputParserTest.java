@@ -1,5 +1,13 @@
 package duke.parser;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
 import duke.exception.InvalidCommandException;
 import duke.exception.InvalidIndexException;
 import duke.exception.InvalidInputException;
@@ -12,20 +20,14 @@ import duke.message.UnmarkTaskMessage;
 import duke.task.TaskList;
 import duke.task.TodoTask;
 import duke.templates.MessageTemplates;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UserInputParserTest {
     @Test
     public void parse_byeCommand_setsIsActiveToFalse() {
-        UserInputParser.isActive = true;
+        UserInputParser.setIsActive(true);
         assertDoesNotThrow(() -> UserInputParser.parse("bye", new TaskList()));
-        assertFalse(UserInputParser.isActive);
+        assertFalse(UserInputParser.getIsActive());
     }
 
     @Test
@@ -114,7 +116,7 @@ public class UserInputParserTest {
             UserInputParser.parse("event 1 /from /to ", new TaskList());
             fail("Expected InvalidCommandException");
         } catch (InvalidCommandException ignored) {
-
+            return;
         }
     }
 
@@ -124,7 +126,7 @@ public class UserInputParserTest {
             UserInputParser.parse("mark 1", new TaskList());
             fail("Expected InvalidIndexException");
         } catch (InvalidIndexException ignored) {
-
+            return;
         }
     }
 }

@@ -3,7 +3,7 @@ package duke.task;
 /**
  * Represents a Task.
  */
-abstract public class Task {
+public abstract class Task {
     protected boolean isDone;
     protected final String name;
 
@@ -35,7 +35,7 @@ abstract public class Task {
      * @return String representation of checkbox icon.
      */
     public String getCheckBox() {
-        return this.isDone ? "[X]": "[ ]";
+        return this.isDone ? "[X]" : "[ ]";
     }
 
     /**

@@ -1,14 +1,14 @@
 package duke;
 
+import java.io.IOException;
+import java.util.Scanner;
+
 import duke.exception.InvalidCommandException;
 import duke.exception.InvalidIndexException;
 import duke.exception.InvalidInputException;
 import duke.message.Message;
 import duke.parser.UserInputParser;
 import duke.task.TaskList;
-
-import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * Represents the Duke program.
@@ -48,7 +48,7 @@ public class Duke {
      */
     private void run() {
         Scanner sc = new Scanner(System.in);
-        while (UserInputParser.isActive) {
+        while (UserInputParser.getIsActive()) {
             String userInput = sc.nextLine();
             try {
                 Message message = UserInputParser.parse(userInput, this.tasks);
