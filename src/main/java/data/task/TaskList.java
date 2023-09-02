@@ -13,6 +13,10 @@ public class TaskList {
     private ArrayList<Task> list;
     private File file;
 
+    public TaskList() {
+        this.list = new ArrayList<Task>();
+    }
+
     public TaskList(File file) {
         this.list = new ArrayList<Task>();
         this.file = file;
@@ -182,5 +186,23 @@ public class TaskList {
             System.out.println("An error occurred while saving your tasks.");
             e.printStackTrace();
         }
+    }
+
+    public int getSize() {
+        return this.list.size();
+    }
+
+    public String find(String input) {
+        String toFind = input.substring(5);
+        TaskList tasksFound = new TaskList();
+        for (Task task : this.list) {
+            if (task.toString().contains(toFind)) {
+                tasksFound.addTask(task, true);
+            }
+        }
+        if (tasksFound.getSize() == 0) {
+            return "No tasks found matching that description.";
+        }
+        return tasksFound.toString();
     }
 }

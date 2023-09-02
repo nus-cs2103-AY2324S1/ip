@@ -9,6 +9,7 @@ public class Parser {
         MARK,
         UNMARK,
         DELETE,
+        FIND,
         TODO,
         DEADLINE,
         EVENT
@@ -46,6 +47,11 @@ public class Parser {
             } else {
                 return Command.DELETE;
             }
+        case FIND:
+            if (input.length() == 4) {
+                throw new DukeException("Input something to search for.");
+            }
+            return Command.FIND;
         case TODO:
             if (input.length() == 4 || inputSplit.length == 1) {
                 throw new DukeException("Description of a todo cannot be empty");
@@ -80,6 +86,9 @@ public class Parser {
         }
         if (input.startsWith("delete")) {
             return Command.DELETE;
+        }
+        if (input.startsWith("find")) {
+            return Command.FIND;
         }
         if (input.startsWith("todo")) {
             return Command.TODO;
