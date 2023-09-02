@@ -16,6 +16,13 @@ public class Ui {
   }
 
 
+  public void displayAction(String message, Task task) {
+    System.out.println(message);
+    System.out.println(this.displayTask(task));
+
+  }
+
+
   public String displayTask(Task task) {
     String answer = "";
 
