@@ -45,6 +45,20 @@ public class TaskList implements Serializable {
         this.tasks.add(task);
     }
 
+    /**
+     * Returns String representation of all TaskList Tasks that match the given searchString.
+     * @param searchString To compare against Tasks in TaskList.
+     */
+    public String findMatchingTasks(String searchString) {
+        String matchingTasksString = "";
+        for (Task task : this.tasks) {
+            if (task.getDescription().toLowerCase().contains(searchString)) {
+                matchingTasksString += task.toString() + "\n";
+            }
+        }
+        return matchingTasksString;
+    }
+
     @Override
     public String toString() {
         String taskString = "";

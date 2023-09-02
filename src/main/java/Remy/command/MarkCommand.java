@@ -33,15 +33,16 @@ public class MarkCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws ChatbotException {
-            if (this.index >= taskList.size()) {
-                throw new ChatbotException("Your Task list don't have this number lah.");
-            }
-            taskList.get(index).markAsDone();
-            String content = "Done. You happy?\n" + taskList.get(index).toString();
-            storage.save(taskList);
-            Ui.printShortSandwich(content);
+        if (this.index >= taskList.size()) {
+            throw new ChatbotException("Your Task list don't have this number lah.");
+        }
+        taskList.get(index).markAsDone();
+        String content = "Done. You happy?\n" + taskList.get(index).toString();
+        storage.save(taskList);
+        Ui.printShortSandwich(content);
     }
 
 }
