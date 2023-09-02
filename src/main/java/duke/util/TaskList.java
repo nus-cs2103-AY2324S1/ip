@@ -11,6 +11,16 @@ public class TaskList {
         this.arr = arr;
     }
 
+    public ArrayList<Task> find(String find) {
+        ArrayList<Task> containsKey = new ArrayList<>();
+        for (int i = 0; i < this.arr.size(); i++) {
+            if (this.arr.get(i).toString().contains(find)) {
+                containsKey.add(this.arr.get(i));
+            }
+        }
+        return containsKey;
+    }
+
     public void add(Task instance) {
         this.arr.add(instance);
     }
