@@ -1,8 +1,8 @@
 package duke;
 
-import duke.task.Task;
-
 import java.util.Scanner;
+
+import duke.task.Task;
 
 /**
  * Provides user interface functionalities for the Duke application.
@@ -23,12 +23,12 @@ public class Ui {
      */
     public void showWelcome() {
         String logo =
-                ".______     ______   .___________.\n" +
-                        "|   _  \\   /  __  \\  |           |\n" +
-                        "|  |_)  | |  |  |  | `---|  |----`\n" +
-                        "|   _  <  |  |  |  |     |  |     \n" +
-                        "|  |_)  | |  `--'  |     |  |     \n" +
-                        "|______/   \\______/      |__|     \n";
+                ".______     ______   .___________.\n"
+                        + "|   _  \\   /  __  \\  |           |\n"
+                        + "|  |_)  | |  |  |  | `---|  |----`\n"
+                        + "|   _  <  |  |  |  |     |  |     \n"
+                        + "|  |_)  | |  `--'  |     |  |     \n"
+                        + "|______/   \\______/      |__|     \n";
 
         showLine();
         System.out.println("Hello I'm\n" + logo);

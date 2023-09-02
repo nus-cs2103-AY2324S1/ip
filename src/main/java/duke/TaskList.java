@@ -1,15 +1,15 @@
 package duke;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
-
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
 
 /**
  * Represents a list of tasks in the Duke application.
@@ -70,7 +70,7 @@ public class TaskList {
      * Adds a task to the task list and displays a corresponding message using the provided UI.
      *
      * @param task The task to be added.
-     * @param ui The user interface to interact with the user or display messages.
+     * @param ui   The user interface to interact with the user or display messages.
      */
     public void addTask(Task task, Ui ui) {
         this.tasks.add(task);
@@ -81,7 +81,7 @@ public class TaskList {
      * Deletes a task from the task list by index and displays a corresponding message using the provided UI.
      *
      * @param index The index of the task to be deleted.
-     * @param ui The user interface to interact with the user or display messages.
+     * @param ui    The user interface to interact with the user or display messages.
      * @throws DukeException If the provided index is out of range.
      */
     public void deleteTask(int index, Ui ui) throws DukeException {
@@ -117,7 +117,7 @@ public class TaskList {
      * Marks a task from the task list by index and displays a corresponding message using the provided UI.
      *
      * @param index The index of the task to be deleted.
-     * @param ui The user interface to interact with the user or display messages.
+     * @param ui    The user interface to interact with the user or display messages.
      * @throws DukeException If the provided index is out of range.
      */
     public void markTask(int index, Ui ui) throws DukeException {
@@ -131,7 +131,7 @@ public class TaskList {
      * Unmarks a task from the task list by index and displays a corresponding message using the provided UI.
      *
      * @param index The index of the task to be deleted.
-     * @param ui The user interface to interact with the user or display messages.
+     * @param ui    The user interface to interact with the user or display messages.
      * @throws DukeException If the provided index is out of range.
      */
     public void unmarkTask(int index, Ui ui) throws DukeException {
@@ -159,8 +159,8 @@ public class TaskList {
      * adds it to the task list, and returns the created task.
      *
      * @param description The description of the Event task.
-     * @param from The start date and time of the event (in "yyyy-MM-dd HH:mm" format).
-     * @param to The end date and time of the event (in "yyyy-MM-dd HH:mm" format).
+     * @param from        The start date and time of the event (in "yyyy-MM-dd HH:mm" format).
+     * @param to          The end date and time of the event (in "yyyy-MM-dd HH:mm" format).
      * @return The created Event task.
      */
     public Event addEvent(String description, String from, String to) {
@@ -176,7 +176,7 @@ public class TaskList {
      * adds it to the task list, and returns the created task.
      *
      * @param description The description of the Deadline task.
-     * @param by The deadline date and time (in "yyyy-MM-dd HH:mm" format).
+     * @param by          The deadline date and time (in "yyyy-MM-dd HH:mm" format).
      * @return The created Deadline task.
      */
     public Deadline addDeadline(String description, String by) {
