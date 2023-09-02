@@ -1,21 +1,20 @@
 package duck.task;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import duck.DuckException;
-import duck.Parser;
+import static duck.Parser.OUTPUT_DATE_FORMAT;
 
 public class DeadlineTask extends Task {
     LocalDate deadline;
 
     public DeadlineTask(String name, boolean isDone, LocalDate deadline) {
-        super(name,  isDone);
+        super(name, isDone);
         this.deadline = deadline;
     }
 
     private String formatDeadline() {
-        return deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return deadline.format(OUTPUT_DATE_FORMAT);
     }
 
     @Override
@@ -53,7 +52,7 @@ public class DeadlineTask extends Task {
         // Finding deadline
         int secondSlashIndex = fileLine.indexOf("/", slashIndex + 1); // The index of the next slash
         String deadlineString = fileLine.substring(secondSlashIndex + 1);
-        LocalDate deadline = LocalDate.parse(deadlineString, Parser.fileDateFormatter);
+        LocalDate deadline = LocalDate.parse(deadlineString, OUTPUT_DATE_FORMAT);
 
         return new DeadlineTask(name, isDone, deadline);
     }

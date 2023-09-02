@@ -1,10 +1,9 @@
 package duck.task;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import duck.DuckException;
-import duck.Parser;
+import static duck.Parser.OUTPUT_DATE_FORMAT;
 
 public class EventTask extends Task {
     LocalDate start;
@@ -17,11 +16,11 @@ public class EventTask extends Task {
     }
 
     public String formatStart() {
-        return start.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return start.format(OUTPUT_DATE_FORMAT);
     }
 
     public String formatEnd() {
-        return end.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return end.format(OUTPUT_DATE_FORMAT);
     }
 
     @Override
@@ -60,12 +59,12 @@ public class EventTask extends Task {
         // Finding start
         int secondSlashIndex = fileLine.indexOf("/", slashIndex + 1); // The index of the next slash
         String startString = fileLine.substring(secondSlashIndex + 1, secondSlashIndex + 12);
-        LocalDate start = LocalDate.parse(startString, Parser.fileDateFormatter);
+        LocalDate start = LocalDate.parse(startString, OUTPUT_DATE_FORMAT);
 
         // Finding end
         int thirdSlashIndex = fileLine.indexOf("/", secondSlashIndex + 1); // The index of the next slash
         String endString = fileLine.substring(thirdSlashIndex + 1);
-        LocalDate end = LocalDate.parse(endString, Parser.fileDateFormatter);
+        LocalDate end = LocalDate.parse(endString, OUTPUT_DATE_FORMAT);
 
         return new EventTask(name, isDone, start, end);
     }
