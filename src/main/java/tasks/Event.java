@@ -7,7 +7,6 @@ public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;
 
-
     public Event(String description, String from, String to) {
         super(description);
         this.from = LocalDate.parse(from);

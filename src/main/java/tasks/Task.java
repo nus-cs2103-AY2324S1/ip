@@ -3,6 +3,7 @@ package tasks;
 public class Task {
     protected String description;
     protected boolean isDone;
+
     public Task(String description) {
         this.description = description;
     }
@@ -22,6 +23,7 @@ public class Task {
     public String toString() {
         return this.getStatusIcon() + " " + this.description;
     }
+
     public String toStringForFile() {
         String status = isDone ? "1" : "0";
         return status + " | " + description;

@@ -19,9 +19,11 @@ public class Ui {
     public static void showError(String message) {
         Ui.print(message);
     }
+
     public static void showEmptyCommandError() {
         print("Please enter a command.");
     }
+
     public static void showTaskNumberError() {
         print("Please enter a task number.");
     }
