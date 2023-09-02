@@ -1,12 +1,7 @@
-package Duke;
+package duke;
 
-import Task.Deadline;
-import Task.Event;
-import Task.Task;
-import Task.Todo;
+import task.Task;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;

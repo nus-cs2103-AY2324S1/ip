@@ -1,6 +1,7 @@
-package Duke;
+package duke;
 
-import Command.UserInterface;
+import command.UserInterface;
+
 import java.util.Scanner;
 
 /**

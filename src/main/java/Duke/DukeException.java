@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 /**
  * DukeException is the class which deals with some exceptions.

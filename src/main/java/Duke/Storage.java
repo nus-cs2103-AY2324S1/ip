@@ -1,11 +1,12 @@
-package Duke;
+package duke;
 
-import Task.Task;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
+import task.Task;
 
 /**
  * Storage class will load and save the tasks to the given file.

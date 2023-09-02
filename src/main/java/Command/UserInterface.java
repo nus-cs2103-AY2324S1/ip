@@ -1,6 +1,6 @@
-package Command;
+package command;
 
-import Task.Task;
+import task.Task;
 import java.util.ArrayList;
 
 /**
@@ -60,8 +60,16 @@ public class UserInterface {
     }
 
     /**
-     * Show task added message.
+     * To show matching results.
      */
+
+
+    public void showFindTasks(ArrayList<Task> taskList) {
+        System.out.println("Here are the matching tasks:");
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i + 1) + ". " + taskList.get(i));
+        }
+    }
 
     public void showTaskAddedMessage() {
         System.out.println("Got it! I've added the task to your list.");

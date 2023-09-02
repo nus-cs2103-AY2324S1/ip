@@ -1,6 +1,5 @@
 T | 1 | borrow book
 D | 0 | finish article | 2023-09-04T16:00
-E | 0 | project meeting | 2023-09-04T16:00 | 18:00
-T | 0 | write reflectioo
-T | 0 | read book
+E | 1 | project meeting | 2023-09-04T16:00 | 18:00
+T | 0 | write reflection
 T | 0 | read book
