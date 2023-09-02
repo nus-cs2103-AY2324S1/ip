@@ -36,6 +36,7 @@ public abstract class Command {
      *     <li>AddCommand, to add Tasks into the Tracker.</li>
      *     <li>DeleteCommand, to remove Tasks from the Tracker.</li>
      *     <li>ToggleCommand, to mark/unmark Tasks.</li>
+     *     <li>FindCommand, to find all Tasks matching a substring.</li>
      *     <li>ListCommand, to display Tasks in the Tracker.</li>
      *     <li>ExitCommand, to tell the Tracker to exit.</li>
      *     <li>UnknownCommand, which will throw an error on execute.</li>
