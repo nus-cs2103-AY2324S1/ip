@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
 import java.io.File;
+import java.time.LocalDateTime;
 
 public class Thea {
 
@@ -67,6 +68,11 @@ public class Thea {
                     if (commandWordsArray.size() != 1) {
                         String relevantData = commandWords[1];
                         String[] nameAndTime = relevantData.split(" /by ");
+/*                        String[] date = nameAndTime[1].split(" ")[0].split("-");
+                        String[] time = nameAndTime[1].split(" ")[1].split("(?<=\\G.{" + 2 + "}) ");
+                        LocalDateTime dateTime = LocalDateTime.of(Integer.parseInt(date[0]),
+                                Integer.parseInt(date[1]), Integer.parseInt(date[2]),
+                                Integer.parseInt(time[0]), Integer.parseInt(time[1]));*/
                         Deadline deadline = new Deadline(nameAndTime[0], nameAndTime[1]);
                         add(deadline, tasks);
                     } else {
