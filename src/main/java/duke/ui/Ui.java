@@ -106,7 +106,7 @@ public class Ui {
         System.out.println("Ding: I seriously have no idea what I need to do here");
         System.out.println("Ding: No way you forgot to even input a proper command...");
         System.out.println("Ding: Available commands are 'todo', 'deadline', 'event', " +
-                "'list', 'mark', 'unmark', 'delete', 'bye'");
+                "'list', 'mark', 'unmark', 'delete', 'find', 'bye'");
     }
 
     /**
