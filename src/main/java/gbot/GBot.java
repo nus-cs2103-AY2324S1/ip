@@ -1,3 +1,5 @@
+package gbot;
+
 import exceptions.GBotException;
 import java.util.Scanner;
 

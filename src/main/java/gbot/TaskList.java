@@ -1,3 +1,5 @@
+package gbot;
+
 import exceptions.TaskException;
 import java.util.ArrayList;
 import tasks.Deadline;
@@ -30,9 +32,8 @@ public class TaskList {
         }
     }
 
-    public void markTask(String message) {
-        int taskNum = Integer.parseInt(message.split(" ")[1]);
-        if (taskNum > list.size()) {
+    public void markTask(int taskNum) {
+        if (taskNum > list.size() || taskNum <= 0) {
             throw new TaskException();
         }
 
@@ -42,9 +43,8 @@ public class TaskList {
         Ui.print("Nice, I've marked this task as done:\n" + curr);
     }
 
-    public void unmarkTask(String message) {
-        int taskNum = Integer.parseInt(message.split(" ")[1]);
-        if (taskNum > list.size()) {
+    public void unmarkTask(int taskNum) {
+        if (taskNum > list.size() || taskNum <= 0) {
             throw new TaskException();
         }
 
@@ -89,9 +89,8 @@ public class TaskList {
         Ui.print("Got it. I've added this task:\n" + newEvent + count);
     }
 
-    public void deleteTask(String str) {
-        int taskNum = Integer.parseInt(str.split(" ")[1]);
-        if (taskNum > list.size()) {
+    public void deleteTask(int taskNum) {
+        if (taskNum > list.size() || taskNum <= 0) {
             throw new TaskException();
         }
 

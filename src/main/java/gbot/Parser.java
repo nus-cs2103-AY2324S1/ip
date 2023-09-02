@@ -1,3 +1,5 @@
+package gbot;
+
 import exceptions.DeadlineException;
 import exceptions.EventException;
 import exceptions.GBotException;
@@ -20,6 +22,7 @@ public class Parser {
 
     public static void parse(String message, TaskList tasks) {
         if (message.isBlank()) {
+            Ui.showEmptyCommandError();
             return;
         } else if (message.equals("list")) {
             tasks.listTasks();
@@ -33,13 +36,21 @@ public class Parser {
             if (str.isBlank()) {
                 Ui.showTaskNumberError();
             }
-            tasks.markTask(str);
+            try {
+                tasks.markTask(Integer.parseInt(str.split(" ")[1]));
+            } catch (NumberFormatException e) {
+                Ui.showTaskNumberError();
+            }
             break;
         case UNMARK:
             if (str.isBlank()) {
                 Ui.showTaskNumberError();
             }
-            tasks.unmarkTask(str);
+            try {
+                tasks.unmarkTask(Integer.parseInt(str.split(" ")[1]));
+            } catch (NumberFormatException e) {
+                Ui.showTaskNumberError();
+            }
             break;
         case TODO:
             if (str.isBlank()) {
@@ -63,7 +74,11 @@ public class Parser {
             if (str.isBlank()) {
                 Ui.showTaskNumberError();
             }
-            tasks.deleteTask(str);
+            try {
+                tasks.deleteTask(Integer.parseInt(str.split(" ")[1]));
+            } catch (NumberFormatException e) {
+                Ui.showTaskNumberError();
+            }
             break;
         default:
             throw new GBotException();

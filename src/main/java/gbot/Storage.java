@@ -1,3 +1,5 @@
+package gbot;
+
 import exceptions.GBotException;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,6 +33,10 @@ public class Storage {
                 Ui.showError("File cannot be created.");
             }
         }
+    }
+
+    public Storage() {
+
     }
 
     public ArrayList<Task> load() {
