@@ -1,8 +1,8 @@
-public class Event extends Task { // inheritance
-    protected String start; // start date/time
-    protected String end; // end date/time
+public class Event extends Task {
+    private String start;
+    private String end;
 
-    public Event(String description, String start, String end) { // constructor
+    public Event(String description, String start, String end) {
         super(description);
         this.start = start;
         this.end = end;

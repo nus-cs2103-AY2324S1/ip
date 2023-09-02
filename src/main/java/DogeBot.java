@@ -44,14 +44,12 @@ public class DogeBot {
             while (reader.hasNextLine()) {
                 String s = reader.nextLine();
                 String[] sArray = s.split("\\|");
-//                System.out.println("$"+sArray[0]+"$");
-//                break;
                 switch (sArray[0]) {
                 case "T ":
-                    tasks.add(new ToDos(sArray[2]));
+                    tasks.add(new ToDos(sArray[2].trim()));
                     break;
                 case "D ":
-                    tasks.add(new Deadline(sArray[2], sArray[3]));
+                    tasks.add(new Deadline(sArray[2].trim(), sArray[3].trim()));
                     break;
                 case "E ":
                     String[] temp = sArray[3].split("-");
@@ -83,13 +81,13 @@ public class DogeBot {
                     unmark(sc.nextInt() - 1);
                     break;
                 case "todo":
-                    todo(sc.nextLine()); // sc.nextLine() to get the remaining words
+                    todo(sc.nextLine().trim()); // sc.nextLine() to get the remaining words
                     break;
                 case "deadline":
-                    deadline(sc.nextLine());
+                    deadline(sc.nextLine().trim());
                     break;
                 case "event":
-                    event(sc.nextLine());
+                    event(sc.nextLine().trim());
                     break;
                 case "delete":
                     delete(sc.nextInt() - 1);
@@ -189,7 +187,7 @@ public class DogeBot {
         String taskDeadline = words.substring(split + 4, words.length());
 
         System.out.println("Mama mia ! I've just added this task:");
-        Task temp = new Deadline(taskDescription + " ", " " + taskDeadline);
+        Task temp = new Deadline(taskDescription, taskDeadline);
         tasks.add(temp);
         System.out.println("\t" + temp.toString());
         updateTasksCounter();
