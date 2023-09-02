@@ -1,3 +1,5 @@
+package chatbot.task;
+
 public class Task {
     /** The description of the task. */
     protected String description;

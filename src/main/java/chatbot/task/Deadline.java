@@ -1,7 +1,9 @@
+package chatbot.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     /** LocalDate deadline for Deadline. */
     protected LocalDate by;
 
@@ -17,7 +19,7 @@ public class Deadline extends Task{
     }
 
     /**
-     * Constructor for Deadline loaded from Storage.
+     * Constructor for Deadline loaded from chatbot.Storage.
      *
      * @param description Description of task.
      * @param by Deadline for Deadline as LocalDate.

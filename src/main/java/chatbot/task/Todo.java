@@ -1,5 +1,9 @@
+package chatbot.task;
+
+import chatbot.task.Task;
+
 public class Todo extends Task {
-    /** Constructor for Todo.
+    /** Constructor for chatbot.task.Todo.
      *
      * @param description Description of task.
      */
@@ -7,9 +11,9 @@ public class Todo extends Task {
         super(description);
     }
 
-    /** toString method for Todo.
+    /** toString method for chatbot.task.Todo.
      *
-     * @return String representation of Todo.
+     * @return String representation of chatbot.task.Todo.
      */
     @Override
     public String toString() {

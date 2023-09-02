@@ -1,11 +1,12 @@
-import java.util.List;
+package chatbot;
+
 import java.util.Scanner;
 
 public class Ui {
-    /** Name of the Chatbot associated with the Ui instance. */
+    /** Name of the Chatbot associated with the chatbot.Ui instance. */
     private String name;
 
-    /** Scanner for the Ui. */
+    /** Scanner for the chatbot.Ui. */
     private Scanner scanner;
 
     /**
@@ -34,7 +35,7 @@ public class Ui {
     /**
      * Prints confirmation after adding task.
      *
-     * @param taskList The TaskList containing the task.
+     * @param taskList The chatbot.TaskList containing the task.
      */
     public void printAddConfirmation(TaskList taskList) {
         System.out.println("Got it. I've added this task:\n" + taskList.taskRep(taskList.size() - 1));
@@ -45,7 +46,7 @@ public class Ui {
      * Prints confirmation after marking task done status as true.
      *
      * @param i The index of the task that is marked as done.
-     * @param taskList The TaskList containing the task.
+     * @param taskList The chatbot.TaskList containing the task.
      */
     public void printMarkDoneConfirmation(int i, TaskList taskList) {
         System.out.println("Nice! I've marked this task as done:\n" + taskList.taskRep(i) + "\n");
@@ -55,7 +56,7 @@ public class Ui {
      * Prints confirmation after marking task done status as false.
      *
      * @param i The index of the task that is marked as undone.
-     * @param taskList The TaskList containing the task.
+     * @param taskList The chatbot.TaskList containing the task.
      */
     public void printMarkUndoneConfirmation(int i, TaskList taskList) {
         System.out.println("OK, I've marked this task as not done yet:\n" + taskList.taskRep(i) + "\n");
@@ -65,7 +66,7 @@ public class Ui {
      * Prints confirmation after deleting task.
      *
      * @param i The index of the task that is deleted.
-     * @param taskList The TaskList containing the task.
+     * @param taskList The chatbot.TaskList containing the task.
      */
     public void printDeleteConfirmation(int i, TaskList taskList) {
         System.out.println("Noted. I've removed this task:\n" + taskList.taskRep(i) + "\n");

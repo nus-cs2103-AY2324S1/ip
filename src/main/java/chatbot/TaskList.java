@@ -1,19 +1,24 @@
+package chatbot;
+
+import chatbot.exception.InvalidTaskNumberException;
+import chatbot.task.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-    /** TaskList for the Chatbot. */
+    /** chatbot.TaskList for the Chatbot. */
     private List<Task> taskList;
 
     /**
-     * Constructor for the TaskList.
+     * Constructor for the chatbot.TaskList.
      */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
     /**
-     * Adds given task to the TaskList.
+     * Adds given task to the chatbot.TaskList.
      *
      * @param newTask The task to be added.
      */
@@ -22,7 +27,7 @@ public class TaskList {
     }
 
     /**
-     * Returns the current size of the TaskList.
+     * Returns the current size of the chatbot.TaskList.
      */
     public int size() {
         return this.taskList.size();

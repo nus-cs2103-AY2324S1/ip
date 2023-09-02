@@ -7,7 +7,7 @@ What can I do for you?
 
 > OOPS!!! Please type a valid command!
 
-> OOPS!!! Please specify the description for this Todo!
+> OOPS!!! Please specify the description for this chatbot.task.Todo!
 
 > Got it. I've added this task:
 [T][ ] study
@@ -25,13 +25,13 @@ Now you have 1 tasks in the list.
 [D][ ] read (by: Oct 4 2023)
 Now you have 2 tasks in the list.
 
-> OOPS!!! Please specify the description, start, and end time for this Event!
+> OOPS!!! Please specify the description, start, and end time for this chatbot.task.Event!
 
-> OOPS!!! Please specify the description, start, and end time for this Event!
+> OOPS!!! Please specify the description, start, and end time for this chatbot.task.Event!
 
-> OOPS!!! Please specify the description, start, and end time for this Event!
+> OOPS!!! Please specify the description, start, and end time for this chatbot.task.Event!
 
-> OOPS!!! Please specify the description, start, and end time for this Event!
+> OOPS!!! Please specify the description, start, and end time for this chatbot.task.Event!
 
 > Got it. I've added this task:
 [E][ ] shop (from: Sep 5 2023 to: Sep 10 2023)

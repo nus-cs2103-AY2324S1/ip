@@ -1,5 +1,11 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
+package chatbot;
+
+import chatbot.exception.InvalidTodoException;
+import chatbot.exception.InvalidEventException;
+import chatbot.exception.InvalidDeadlineException;
+import chatbot.exception.InvalidCommandException;
+import chatbot.exception.InvalidTaskNumberException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,9 +16,9 @@ public class Parser {
      *
      * @param input The command inputted by the user.
      * @returns An array containing the type and details of the task.
-     * @throws InvalidTodoException If format of Todo entered is invalid.
+     * @throws InvalidTodoException If format of chatbot.task.Todo entered is invalid.
      * @throws InvalidDeadlineException If format of Deadline entered is invalid.
-     * @throws InvalidEventException If format of Event entered is invalid.
+     * @throws InvalidEventException If format of chatbot.task.Event entered is invalid.
      * @throws InvalidCommandException If format of command entered is invalid.
      */
     public List<String> parseAdd(String input) throws InvalidTodoException,
