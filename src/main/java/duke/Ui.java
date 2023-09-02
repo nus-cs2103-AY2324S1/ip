@@ -67,4 +67,14 @@ public class Ui {
         System.out.println("For some reason I believe you are gonna do that!\n" + task + "\n" +
                 "Now you have " + Task.taskCount + " tasks in the list.");
     }
+
+    public void showSaveError() {
+        separatorLines();
+        System.out.println("Something went wrong while saving your tasks. Remember I am silly! :(.");
+    }
+
+    public void showLoadingError() {
+        separatorLines();
+        System.out.println("Something went wrong while loading your tasks. :(.");
+    }
 }
