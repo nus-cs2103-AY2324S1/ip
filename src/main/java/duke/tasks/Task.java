@@ -11,6 +11,12 @@ public class Task {
     protected boolean isDone;
     public static int taskCount = 0;
 
+    /**
+     * Constructor for Task.
+     * Keeps track of the number of tasks.
+     *
+     * @param description Description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -39,6 +45,14 @@ public class Task {
         return this.description;
     }
 
+    /**
+     * Creates a task based on the command given.
+     *
+     * @param command Command given by the user.
+     * @return Task created.
+     * @throws IncompleteInputException If the command is incomplete.
+     * @throws InvalidInputException    If the command is invalid.
+     */
     public static Task createTask(String command) throws IncompleteInputException, InvalidInputException {
         String[] splittedCommand = command.split(" ", 2);
         String taskType = splittedCommand[0];
@@ -76,6 +90,12 @@ public class Task {
         }
     }
 
+    /**
+     * Creates a task based on the line in the file.
+     *
+     * @param taskLine Line in the file.
+     * @return Task created.
+     */
     public static Task createTaskFromFile(String taskLine) {
         char taskType = taskLine.charAt(1);
         char taskStatus = taskLine.charAt(5);
@@ -106,6 +126,12 @@ public class Task {
         return task;
     }
 
+    /**
+     * Parses the date given.
+     *
+     * @param date Date given.
+     * @return LocalDate object.
+     */
     public static LocalDate parseDate(String date) {
         for (DatesAndTimesFormatter formatter : DatesAndTimesFormatter.values()) {
             try {
