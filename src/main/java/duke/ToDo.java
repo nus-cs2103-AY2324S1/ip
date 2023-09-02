@@ -1,5 +1,7 @@
+package duke;
+
 /**
- * A Task object with the "T" label
+ * A duke.Task object with the "T" label
  */
 public class ToDo extends Task{
     public ToDo(String description) {

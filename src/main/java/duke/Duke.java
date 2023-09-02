@@ -1,6 +1,7 @@
+package duke;
+
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -79,7 +80,7 @@ public class Duke {
     }
 
     /**
-     * Converts the string into a ToDo object
+     * Converts the string into a duke.ToDo object
      * then appends it to the task array
      *
      * @param task description of task
@@ -96,7 +97,7 @@ public class Duke {
     }
 
     /**
-     * Converts the string into a Deadline object
+     * Converts the string into a duke.Deadline object
      * then appends it to the task array
      *
      * @param task description of task with 'by' time
@@ -117,7 +118,7 @@ public class Duke {
     }
 
     /**
-     * Converts the string into an Event object
+     * Converts the string into an duke.Event object
      * then appends it to the task array
      *
      * @param task description of task with 'from' time and 'to' time

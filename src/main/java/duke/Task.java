@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * A class containing information about each task
  * They have a name, and a boolean to check

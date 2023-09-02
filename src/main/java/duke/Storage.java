@@ -1,4 +1,5 @@
-import java.io.FileNotFoundException;
+package duke;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -111,7 +112,7 @@ public class Storage {
     }
 
     /**
-     * Write the contents of Storage into file
+     * Write the contents of duke.Storage into file
      */
     public void write() throws IOException {
         FileWriter fw = new FileWriter("./data/duke.txt");

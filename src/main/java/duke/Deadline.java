@@ -1,8 +1,10 @@
+package duke;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * A Task object with a deadline
+ * A duke.Task object with a deadline
  */
 public class Deadline extends Task{
     protected String by;
@@ -11,7 +13,7 @@ public class Deadline extends Task{
      * Create task based on description and deadline
      *
      * @param description The description of the task
-     * @param by Deadline of task
+     * @param by duke.Deadline of task
      */
     public Deadline(String description, String by) {
         super(description);

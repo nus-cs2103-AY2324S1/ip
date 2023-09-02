@@ -1,15 +1,17 @@
+package duke;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * A Task object that contains a start and end time
+ * A duke.Task object that contains a start and end time
  */
 public class Event extends Task{
     protected String from;
     protected String to;
 
     /**
-     * Create an Event Task based on description, start time and
+     * Create an duke.Event duke.Task based on description, start time and
      * end time
      *
      * @param description
