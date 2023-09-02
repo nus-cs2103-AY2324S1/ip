@@ -22,6 +22,6 @@ public class ListCommand extends Command {
      * @param ui    The user interface.
      */
     public void execute(TaskList tasks, Ui ui) {
-        ui.listTasks(tasks);
+        ui.listTasks(tasks, false);
     }
 }

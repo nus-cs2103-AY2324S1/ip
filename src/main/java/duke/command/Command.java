@@ -12,7 +12,7 @@ public abstract class Command {
      * Represents the type of command.
      */
     public enum CommandType {
-        LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, BYE, INVALID
+        LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, BYE, FIND, INVALID
     }
 
     public CommandType type;
