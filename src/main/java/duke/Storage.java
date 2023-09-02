@@ -72,11 +72,9 @@ public class Storage {
                                 break;
                             case "D":
                                 tasks.add(parseDeadline(parts, isDone));
-//                                tasks.add(new Deadline(description, parts[3], isDone));
                                 break;
                             case "E":
                                 tasks.add(parseEvent(parts, isDone));
-//                                tasks.add(new Event(description, parts[3], parts[4], isDone));
                                 break;
                         }
                     } else {
