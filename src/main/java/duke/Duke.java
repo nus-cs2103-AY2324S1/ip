@@ -1,8 +1,10 @@
-import tasks.TaskAbstract;
-import tasks.Todo;
-import tasks.Deadline;
-import tasks.Event;
-import dukeexceptions.CorruptDataException;
+package duke;
+
+import duke.assets.tasks.TaskAbstract;
+import duke.assets.tasks.Todo;
+import duke.assets.tasks.Deadline;
+import duke.assets.tasks.Event;
+import duke.dukeexceptions.CorruptDataException;
 
 import java.io.File;
 import java.io.IOException;
@@ -87,7 +89,7 @@ public class Duke {
         String[] strArray = nextLine.split(" ");
         String command = strArray[0];
         if (command.equals("list")) {
-            System.out.println("ChadGPT: Here are your tasks: ");
+            System.out.println("ChadGPT: Here are your duke.assets.tasks: ");
             int counter = 0;
             for (TaskAbstract t : taskList) {
                 System.out.print("    " + ++counter + ". ");
@@ -119,7 +121,7 @@ public class Duke {
         } else {
             TaskAbstract newTask = createTask(nextLine, strArray);
             System.out.println("ChadGPT: added task '" + newTask.toString() + "'");
-            System.out.println("You now have " + taskCounter + " tasks in the list.");
+            System.out.println("You now have " + taskCounter + " duke.assets.tasks in the list.");
             taskList.add(newTask);
         }
     }
@@ -323,7 +325,7 @@ public class Duke {
 
     private static void readFile() throws IOException {
         try {
-            File myFile = new File("./src/main/java/data/duke.txt");
+            File myFile = new File("./src/main/java/duke/data/duke.txt");
             myFile.createNewFile();
             Scanner sc = new Scanner(myFile);
             while (sc.hasNextLine()) {
@@ -347,7 +349,7 @@ public class Duke {
 
     private static void writeToFile() throws IOException {
         try {
-            File myFile = new File("./src/main/java/data/duke.txt");
+            File myFile = new File("./src/main/java/duke/data/duke.txt");
             FileWriter fw = new FileWriter(myFile);
             PrintWriter pw = new PrintWriter(fw);
             for (TaskAbstract t : taskList) {

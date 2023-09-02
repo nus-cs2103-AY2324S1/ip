@@ -1,2 +1,6 @@
-package duke.assets.ui;public class Ui {
+package duke.assets.ui;
+
+public class Ui {
+    public Ui() {
+    }
 }

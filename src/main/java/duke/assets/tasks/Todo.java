@@ -1,4 +1,4 @@
-package tasks;
+package duke.assets.tasks;
 
 public class Todo extends TaskAbstract {
     public Todo(String description) {
