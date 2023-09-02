@@ -1,28 +1,28 @@
 package grumpygordon.parser;
 
-import grumpygordon.tasks.TaskList;
-import grumpygordon.tasks.Task;
-import grumpygordon.tasks.Todo;
-import grumpygordon.tasks.Deadline;
-import grumpygordon.tasks.Event;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.util.regex.Pattern;
+
+import grumpygordon.commands.ByeCommand;
+import grumpygordon.commands.Command;
+import grumpygordon.commands.DeadlineCommand;
+import grumpygordon.commands.DeleteCommand;
+import grumpygordon.commands.EventCommand;
+import grumpygordon.commands.FindCommand;
+import grumpygordon.commands.ListCommand;
+import grumpygordon.commands.MarkCommand;
+import grumpygordon.commands.TodoCommand;
+import grumpygordon.commands.UnmarkCommand;
 import grumpygordon.exceptions.GrumpyGordonDateTimeFormatException;
 import grumpygordon.exceptions.GrumpyGordonException;
 import grumpygordon.exceptions.GrumpyGordonInitialisationException;
 import grumpygordon.exceptions.GrumpyGordonInvalidCommandException;
-import grumpygordon.commands.Command;
-import grumpygordon.commands.ByeCommand;
-import grumpygordon.commands.ListCommand;
-import grumpygordon.commands.MarkCommand;
-import grumpygordon.commands.UnmarkCommand;
-import grumpygordon.commands.DeleteCommand;
-import grumpygordon.commands.FindCommand;
-import grumpygordon.commands.TodoCommand;
-import grumpygordon.commands.DeadlineCommand;
-import grumpygordon.commands.EventCommand;
-
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.util.regex.Pattern;
+import grumpygordon.tasks.Deadline;
+import grumpygordon.tasks.Event;
+import grumpygordon.tasks.Task;
+import grumpygordon.tasks.TaskList;
+import grumpygordon.tasks.Todo;
 
 /**
  * Represents a parser that parses user input.
@@ -118,23 +118,23 @@ public class Parser {
 
         try {
             switch (type) {
-                case "T":
-                    // Parse the saved format for Deadline
-                    // Example: "T | 0 | Sleep"
-                    return new Todo(description, isDone);
-                case "D":
-                    // Parse the saved format for Deadline
-                    // Example: "D | 1 | Buy groceries | 2023-08-31 12:00"
-                    String deadlineBy = parts[3];
-                    return new Deadline(description, parseDateTime(deadlineBy), isDone);
-                case "E":
-                    // Parse the saved format for Event
-                    // Example: "E | 0 | Team meeting | 2023-09-01 12:00 | 2023-09-02 14:00"
-                    String eventFrom = parts[3];
-                    String eventTo = parts[4];
-                    return new Event(description, parseDateTime(eventFrom), parseDateTime(eventTo), isDone);
-                default:
-                    throw new GrumpyGordonInitialisationException("Saved data cannot be parsed.\n");
+            case "T":
+                // Parse the saved format for Deadline
+                // Example: "T | 0 | Sleep"
+                return new Todo(description, isDone);
+            case "D":
+                // Parse the saved format for Deadline
+                // Example: "D | 1 | Buy groceries | 2023-08-31 12:00"
+                String deadlineBy = parts[3];
+                return new Deadline(description, parseDateTime(deadlineBy), isDone);
+            case "E":
+                // Parse the saved format for Event
+                // Example: "E | 0 | Team meeting | 2023-09-01 12:00 | 2023-09-02 14:00"
+                String eventFrom = parts[3];
+                String eventTo = parts[4];
+                return new Event(description, parseDateTime(eventFrom), parseDateTime(eventTo), isDone);
+            default:
+                throw new GrumpyGordonInitialisationException("Saved data cannot be parsed.\n");
             }
         } catch (GrumpyGordonInitialisationException e) {
             System.out.println(e.getMessage());
@@ -170,7 +170,7 @@ public class Parser {
      * @return TaskList object
      * @throws GrumpyGordonException If the command is invalid
      */
-    public static Command parseCommand(String userInput, TaskList tasks) throws GrumpyGordonException{
+    public static Command parseCommand(String userInput, TaskList tasks) throws GrumpyGordonException {
         userInput = userInput.strip();
         String[] parts = userInput.split(SPACE_REGEX, 2);
 

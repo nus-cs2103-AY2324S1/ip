@@ -1,13 +1,15 @@
 package grumpygordon.ui;
 
+import java.util.Scanner;
+
+import grumpygordon.commands.Command;
+import grumpygordon.commands.ListCommand;
+import grumpygordon.exceptions.GrumpyGordonException;
+import grumpygordon.parser.Parser;
 import grumpygordon.storage.Storage;
 import grumpygordon.tasks.TaskList;
-import grumpygordon.exceptions.GrumpyGordonException;
-import grumpygordon.commands.ListCommand;
-import grumpygordon.commands.Command;
-import grumpygordon.parser.Parser;
 
-import java.util.Scanner;
+
 
 /**
  * Represents the user interface of the chatbot.
@@ -27,7 +29,8 @@ public class Ui {
     /**
      * Intro string when chatbot starts.
      */
-    private static final String INTRO = INDENTATION + "Oi! I'm Grumpy Gordon.\n" + INDENTATION + "Why are you bothering me?\n";
+    private static final String INTRO = INDENTATION + "Oi! I'm Grumpy Gordon.\n"
+            + INDENTATION + "Why are you bothering me?\n";
 
     /**
      * Outro string when chatbot ends.
