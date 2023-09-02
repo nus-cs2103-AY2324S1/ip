@@ -185,7 +185,7 @@ public class TaskListStorage {
     public void findTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : taskList) {
-            if (task.getDescription().contains(keyword)) {
+            if (task.getDescription().matches(".*\\b" + keyword + "\\b.*")) {
                 matchingTasks.add(task);
             }
         }
