@@ -1,5 +1,8 @@
 package aj;
 
+/**
+ * Todo class for Todo Task.
+ */
 public class Todo extends Task {
     @Override
     public String toString() {
