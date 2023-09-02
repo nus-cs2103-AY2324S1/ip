@@ -1,7 +1,8 @@
-import Events.Deadline;
-import Events.Event;
-import Events.Task;
-import Events.ToDo;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.ToDo;
+import VedaExceptions.ExcessiveArgumentException;
 import VedaExceptions.IncorrectInputException;
 import VedaExceptions.NoDescriptionException;
 
@@ -57,15 +58,23 @@ public class Parser {
      * @return
      * @throws NumberFormatException
      * @throws NoDescriptionException when the user did not input any additional arguments.
+     * @throws ExcessiveArgumentException when the user input more arguments than required.
      */
-    public static int getTargetIndex(String args) throws NumberFormatException, NoDescriptionException {
-        if (args.toLowerCase().split(" ").length < 2) {
+    public static int getTargetIndex(String args)
+            throws NumberFormatException, NoDescriptionException, ExcessiveArgumentException, IncorrectInputException {
+        if (args.split(" ").length < 2) {
             throw new NoDescriptionException("There is no given task index.");
+        } else if (args.split(" ").length > 2) {
+            throw new ExcessiveArgumentException("There are too many arguments.");
         }
 
         int targetIndex = Integer.parseInt(args.toLowerCase().split(" ")[1]) - 1;
 
-        return  targetIndex;
+        if (targetIndex < 0) {
+            throw new IncorrectInputException("Index of task must be greater than 0.");
+        }
+
+        return targetIndex;
     }
 
     /**
@@ -100,7 +109,7 @@ public class Parser {
                 }
 
                 description = args.replaceFirst("deadline ", "");
-                descriptions = description.split("/by ");
+                descriptions = description.split(" /by ");
 
                 if (descriptions.length < 2) {
                     throw new IncorrectInputException("Please input the right order: deadline <Description> /by <due date>");
@@ -117,7 +126,7 @@ public class Parser {
 
                 description = args.replaceFirst("event ", ""); //Remove type
 
-                descriptions = description.split("/from "); //Split remaining args into description + (from and to)
+                descriptions = description.split(" /from "); //Split remaining args into description + (from and to)
                 String from = descriptions[1].split(" /to ")[0]; //Split (from and to) into from and to
                 String to = descriptions[1].split(" /to ")[1];
 

@@ -1,7 +1,7 @@
-import Events.Deadline;
-import Events.Event;
-import Events.Task;
-import Events.ToDo;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -103,7 +103,6 @@ public class Storage {
      * @throws IOException When writer is called upon to write after being closed.
      */
     public boolean updateData(ArrayList<Task> tasks, boolean isAddingTask) throws IOException {
-        //TODO overwrite information in storageFile
         FileWriter writer = null;
         boolean isNotFirstTask = tasks.size() != 1;
         try {

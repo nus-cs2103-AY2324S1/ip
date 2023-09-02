@@ -1,4 +1,4 @@
-package Events;
+package Tasks;
 
 public abstract class Task {
     private boolean isDone;

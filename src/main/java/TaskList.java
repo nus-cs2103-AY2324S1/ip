@@ -1,4 +1,4 @@
-import Events.Task;
+import Tasks.Task;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -94,27 +94,30 @@ public class TaskList {
      *
      * @param taskIndex
      */
-    public void markAsDone(int taskIndex) {
+    public boolean markAsDone(int taskIndex) {
         try {
             Task task = tasks.get(taskIndex);
 
             if (task.isDone()) {
                 //Events.Task already marked as done
                 System.out.println("Mission has been completed previously.");
-                return;
+                return true;
             }
 
             task.updateCompletionStatus();
-            storage.updateData(tasks, false);
 
             System.out.println("Mission status updated! Mission completed successfully.");
             System.out.println(task);
+
+            return storage.updateData(tasks, false);
 
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Invalid index! Please ensure you correctly key in your target index.");
         } catch (IOException e) {
             System.out.println("Unable to update file.");
         }
+
+        return false;
     }
 
     /**
@@ -122,21 +125,22 @@ public class TaskList {
      *
      * @param taskIndex
      */
-    public void markUndone(int taskIndex) {
+    public boolean markUndone(int taskIndex) {
         try {
             Task task = tasks.get(taskIndex);
 
             if (!(task.isDone())) {
                 //task already marked as undone
                 System.out.println("Mission is already marked as undone!");
-                return;
+                return true;
             }
 
             task.updateCompletionStatus();
-            storage.updateData(tasks, false);
 
             System.out.println("Mission status updated! Mission completion status reverted.");
             System.out.println(task);
+
+            return storage.updateData(tasks, false);
 
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Invalid index! Please ensure you correctly key in your target index.");
@@ -144,6 +148,8 @@ public class TaskList {
             e.printStackTrace();
             System.out.println("Unable to update file.");
         }
+
+        return false;
     }
 
     public void printList() {
