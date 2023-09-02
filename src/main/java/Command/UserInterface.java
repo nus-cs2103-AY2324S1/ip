@@ -3,8 +3,14 @@ package Command;
 import Task.Task;
 import java.util.ArrayList;
 
+/**
+ * The User interface class deals with common print statements that chatbot uses.
+ */
 public class UserInterface {
 
+    /**
+     * Show welcome message.
+     */
     public void showWelcomeMessage() {
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
         System.out.println("Hello! I am Nila");
@@ -12,21 +18,40 @@ public class UserInterface {
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
     }
 
-    //Method to display command line
+    /**
+     * Show command line.
+     */
+
     public void showCommandLine(){
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
     }
-    // Method to display a message
+
+    /**
+     * Show message.
+     *
+     * @param message the message
+     */
+
     public void showMessage(String message) {
         System.out.println(message);
     }
 
-    // Method to display an error message
+    /**
+     * Show error.
+     *
+     * @param errorMessage the error message
+     */
+
     public void showError(String errorMessage) {
         System.out.println("Error: " + errorMessage);
     }
 
-    // Method to display the list of tasks
+    /**
+     * Show task list.
+     *
+     * @param taskList the task list
+     */
+
     public void showTaskList(ArrayList<Task> taskList) {
         System.out.println("Here are your tasks:");
         for (int i = 0; i < taskList.size(); i++) {
@@ -34,40 +59,66 @@ public class UserInterface {
         }
     }
 
-    // Method to display a task added message
+    /**
+     * Show task added message.
+     */
+
     public void showTaskAddedMessage() {
         System.out.println("Got it! I've added the task to your list.");
     }
 
+    /**
+     * Show current status.
+     *
+     * @param taskList the task list
+     */
     public void showCurrentStatus(ArrayList<Task> taskList){
         System.out.println(taskList.get(taskList.size() - 1).getStatusIcon());
         System.out.println(" Now you have " + taskList.size() +" tasks in the list.");
     }
 
-    // Method to display a task deleted message
+    /**
+     * Show task deleted message.
+     */
+
     public void showTaskDeletedMessage() {
         System.out.println("Noted! I've removed the task from your list.");
     }
 
+    /**
+     * Show task marked message.
+     */
     public void showTaskMarkedMessage() {
         System.out.println("Nice! I've marked this task as done.");
     }
 
+    /**
+     * Show task unmarked message.
+     */
     public void showTaskUnmarkedMessage() {
         System.out.println(" OK, I've marked this task as not done yet.");
     }
 
-    // Method to display an unknown command message
+    /**
+     * Show unknown command message.
+     */
+
     public void showUnknownCommandMessage() {
         System.out.println("Sorry, I don't understand that command.");
     }
 
-    // Method to show loading error message
+    /**
+     * Show loading error.
+     */
+
     public void showLoadingError() {
         System.out.println("Error loading tasks. Starting with an empty list.");
     }
 
-    // Method to display a goodbye message
+    /**
+     * Show goodbye message.
+     */
+
     public void showGoodbyeMessage() {
         System.out.println("\nBye. Hope to see you again soon!");
     }

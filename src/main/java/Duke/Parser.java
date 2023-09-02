@@ -4,7 +4,18 @@ import Command.UserInterface;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+/**
+ * Parser class will parse the input data and generate a taskList from the input the file.
+ */
 public class Parser {
+    /**
+     * parseCommand method reads the tasks in the input file and generates a taskList so that the chatbot
+     * can load the tasks from input file.
+     *
+     * @param command       the command
+     * @param taskManager   the task manager
+     * @param userInterface the user interface
+     */
     public static void parseCommand(String command, TaskManager taskManager, UserInterface userInterface) {
         String[] parts = command.split(" ", 2);
         String action = parts[0];
