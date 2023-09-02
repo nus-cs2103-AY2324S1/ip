@@ -2,7 +2,7 @@ package didier.command;
 
 import didier.Storage;
 import didier.TaskList;
-import didier.UI;
+import didier.exception.DidierException;
 import didier.exception.FileCorruptedException;
 import didier.exception.TaskNumberException;
 import didier.task.Task;
@@ -15,6 +15,7 @@ public class MarkCommand extends Command {
 
     private final boolean isMark;
     private final int taskNumber;
+    private Task task;
 
     /**
      * The constructor for the MarkCommand object.
@@ -25,18 +26,32 @@ public class MarkCommand extends Command {
     public MarkCommand(boolean isMark, int taskNumber) {
         this.isMark = isMark;
         this.taskNumber = taskNumber;
+        this.task = null;
     }
 
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws TaskNumberException, FileCorruptedException {
-        Task task = taskList.getTask(taskNumber);
+    public void execute(TaskList taskList, Storage storage) throws TaskNumberException, FileCorruptedException {
+        task = taskList.getTask(taskNumber);
         if (isMark) {
             task.markAsDone();
-            ui.botPrintTaskMarkedDone(task, true);
+            storage.saveTasks(taskList);
         } else {
             task.markAsNotDone();
-            ui.botPrintTaskMarkedDone(task, false);
+            storage.saveTasks(taskList);
         }
-        storage.saveTasks(taskList);
+    }
+
+    @Override
+    public String getBotOutput(TaskList taskList, Storage storage) throws DidierException {
+        String outputText = "";
+        if (task != null) {
+            if (isMark) {
+                outputText += "Okay! I've marked the following task as done:";
+            } else {
+                outputText += "Okay! I've marked the following task as undone:";
+            }
+            outputText += String.format("\n%s", task.toString());
+        }
+        return outputText;
     }
 }

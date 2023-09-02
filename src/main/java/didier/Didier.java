@@ -11,7 +11,7 @@ public class Didier {
 
     private Storage storage;
     private TaskList taskList;
-    private UI ui;
+    private boolean isActive;
 
     /**
      * The constructor for the Didier bot.
@@ -20,41 +20,43 @@ public class Didier {
      * @param fileName The name of the file where Didier should store the task list.
      */
     public Didier(String directoryPath, String fileName) {
-        ui = new UI();
         storage = new Storage(directoryPath, fileName);
         taskList = storage.getTasks();
+        isActive = true;
     }
 
     /**
-     * The main entry point for the user interaction with Didier to begin.
+     * Returns the response of the didier bot based on the commandString inputted by the user.
+     *
+     * @param commandString The user input.
+     * @return The response of the didier bot.
      */
-    public void run() {
-        this.ui.botGreet();
-        boolean isExit = false;
-        while (!isExit) {
-            // Carry out the action determined by the didier.command
-            try {
-                String commandString = this.ui.readCommand();
-                Command command = Parser.parse(commandString);
-                command.execute(this.taskList, this.ui, this.storage);
-                isExit = command.isExit();
-            } catch (DidierException exception) {
-                this.ui.botPrintError(exception);
-            } finally {
-                if (!isExit) {
-                    this.ui.botEndCommand();
-                }
+    public String getResponse(String commandString) {
+        try {
+            Command command = Parser.parse(commandString);
+            if (command.isExit()) {
+                isActive = false;
             }
+            command.execute(this.taskList, this.storage);
+            return command.getBotOutput(this.taskList, this.storage);
+        } catch (DidierException exception) {
+            return exception.getMessage() + "Please try again.";
         }
-        this.ui.botGoodBye();
     }
 
-
-    public static void main(String[] args) {
-        Didier didier = new Didier("data/", "didier.txt");
-        didier.run();
+    /**
+     * Returns the bot uses to greet the user at the start of the user-bot interaction.
+     * @return The greeting message.
+     */
+    public static String getBotGreeting() {
+        return "Greetings user, I'm didier. How can I help you?";
     }
 
-
-
+    /**
+     * Returns whether the bot is currently active or not.
+     * @return The status of the bot.
+     */
+    public boolean getIsActive() {
+        return this.isActive;
+    }
 }
