@@ -1,6 +1,6 @@
-package task;
+package arona.task;
 
-import storage.Storage;
+import arona.storage.Storage;
 
 import java.util.ArrayList;
 

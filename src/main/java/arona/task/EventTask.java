@@ -1,4 +1,4 @@
-package task;
+package arona.task;
 
 public class EventTask extends Task{
     protected String from;

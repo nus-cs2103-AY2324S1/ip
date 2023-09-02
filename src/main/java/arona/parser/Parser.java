@@ -1,6 +1,6 @@
-package parser;
+package arona.parser;
 
-import exception.IllegalArgumentDukeException;
+import arona.exception.IllegalArgumentAronaException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -18,16 +18,16 @@ public class Parser {
         }
         return "";
     }
-    public static String getToDoDescription(String[] tokens) throws IllegalArgumentDukeException {
+    public static String getToDoDescription(String[] tokens) throws IllegalArgumentAronaException {
         if (tokens.length < 2) {
-            throw new IllegalArgumentDukeException("Oh no! You forgot to specify the task!");
+            throw new IllegalArgumentAronaException("Oh no! You forgot to specify the arona.task!");
         }
         return String.join(" ", Arrays.copyOfRange(tokens, 1, tokens.length));
     }
 
-    public static String[] getDeadlineDescription(String[] tokens) throws IllegalArgumentDukeException {
+    public static String[] getDeadlineDescription(String[] tokens) throws IllegalArgumentAronaException {
         if (tokens.length < 2) {
-            throw new IllegalArgumentDukeException("Oh no! You forgot to specify the task!");
+            throw new IllegalArgumentAronaException("Oh no! You forgot to specify the arona.task!");
         }
 
         boolean byFound = false;
@@ -39,7 +39,7 @@ public class Parser {
         }
 
         if (!byFound) {
-            throw new IllegalArgumentDukeException("Whoopsie! The deadline seems a bit confused. Please use '/by' to set it.");
+            throw new IllegalArgumentAronaException("Whoopsie! The deadline seems a bit confused. Please use '/by' to set it.");
         }
 
         int index = -1;
@@ -57,9 +57,9 @@ public class Parser {
         return descriptions;
     }
 
-    public static String[] getEventDescription(String[] tokens) throws IllegalArgumentDukeException {
+    public static String[] getEventDescription(String[] tokens) throws IllegalArgumentAronaException {
         if (tokens.length < 2) {
-            throw new IllegalArgumentDukeException("Oh no! You forgot to specify the event!");
+            throw new IllegalArgumentAronaException("Oh no! You forgot to specify the event!");
         }
 
         boolean foundFrom = false;
@@ -75,7 +75,7 @@ public class Parser {
         }
 
         if (!(foundFrom && foundTo)) {
-            throw new IllegalArgumentDukeException("Whoopsie! The deadline seems a bit confused. Please use '/from' and '/to' to set it.");
+            throw new IllegalArgumentAronaException("Whoopsie! The deadline seems a bit confused. Please use '/from' and '/to' to set it.");
         }
 
         int indexStart = -1;
@@ -101,7 +101,7 @@ public class Parser {
         String to = String.join(" ", Arrays.copyOfRange(tokens, indexEnd, tokens.length));
 
         if (from.substring(5).trim().isEmpty() || to.substring(3).trim().isEmpty()) {
-            throw new IllegalArgumentDukeException("Oh no! The start and/or end time cannot be empty.");
+            throw new IllegalArgumentAronaException("Oh no! The start and/or end time cannot be empty.");
         }
 
         String[] descriptions = {description, from, to};
@@ -109,11 +109,11 @@ public class Parser {
     }
 
 
-    public static LocalDate parseDate(String dateStr) throws IllegalArgumentDukeException {
+    public static LocalDate parseDate(String dateStr) throws IllegalArgumentAronaException {
         try {
             return LocalDate.parse(dateStr);
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentDukeException("Whoopsie! The deadline seems a bit confused. Please use a 'YYYY-MM-DD' format to set it.");
+            throw new IllegalArgumentAronaException("Whoopsie! The deadline seems a bit confused. Please use a 'YYYY-MM-DD' format to set it.");
         }
     }
 

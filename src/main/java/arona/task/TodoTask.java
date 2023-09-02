@@ -1,4 +1,4 @@
-package task;
+package arona.task;
 
 public class TodoTask extends Task {
     public TodoTask(String description) {

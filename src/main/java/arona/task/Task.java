@@ -1,4 +1,4 @@
-package task;
+package arona.task;
 
 public class Task {
     protected String description;

@@ -1,9 +1,9 @@
-package commands;
+package arona.commands;
 
-import storage.Storage;
-import task.EventTask;
-import task.TaskList;
-import ui.Ui;
+import arona.storage.Storage;
+import arona.task.EventTask;
+import arona.task.TaskList;
+import arona.ui.Ui;
 
 public class EventCommand extends Command {
     private Storage storage;

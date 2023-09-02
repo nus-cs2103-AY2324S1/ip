@@ -1,16 +1,18 @@
-import commands.*;
-import parser.Parser;
-import storage.Storage;
-import task.TaskList;
-import ui.Ui;
+package arona;
+
+import arona.commands.*;
+import arona.parser.Parser;
+import arona.storage.Storage;
+import arona.task.TaskList;
+import arona.ui.Ui;
 
 import java.util.Scanner;
-public class Duke {
+public class Arona {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    public Duke(String filePath) {
+    public Arona(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList(storage);
@@ -79,7 +81,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("src/main/duke/data/duke.txt").run();
+        new Arona("src/main/java/arona/data/arona.txt").run();
     }
 }
 

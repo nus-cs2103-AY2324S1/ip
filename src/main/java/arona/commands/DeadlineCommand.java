@@ -1,17 +1,17 @@
-package commands;
+package arona.commands;
 
-import exception.IllegalArgumentDukeException;
-import parser.Parser;
-import storage.Storage;
-import task.DeadlineTask;
-import task.TaskList;
-import ui.Ui;
+import arona.exception.IllegalArgumentAronaException;
+import arona.parser.Parser;
+import arona.storage.Storage;
+import arona.task.DeadlineTask;
+import arona.task.TaskList;
+import arona.ui.Ui;
 
 public class DeadlineCommand extends Command {
     private Storage storage;
     private DeadlineTask deadlineTask;
 
-    public DeadlineCommand(TaskList taskList, Ui ui, Storage storage, String[] descriptions) throws IllegalArgumentDukeException {
+    public DeadlineCommand(TaskList taskList, Ui ui, Storage storage, String[] descriptions) throws IllegalArgumentAronaException {
         super(taskList, ui);
         this.storage = storage;
         this.deadlineTask = new DeadlineTask(descriptions[0], Parser.parseDate(descriptions[1]));

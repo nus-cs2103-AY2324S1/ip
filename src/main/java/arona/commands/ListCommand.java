@@ -1,7 +1,7 @@
-package commands;
+package arona.commands;
 
-import task.TaskList;
-import ui.Ui;
+import arona.task.TaskList;
+import arona.ui.Ui;
 
 public class ListCommand extends Command {
 

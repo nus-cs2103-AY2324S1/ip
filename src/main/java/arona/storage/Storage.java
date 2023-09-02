@@ -1,9 +1,9 @@
-package storage;
+package arona.storage;
 
-import task.DeadlineTask;
-import task.EventTask;
-import task.Task;
-import task.TodoTask;
+import arona.task.DeadlineTask;
+import arona.task.EventTask;
+import arona.task.Task;
+import arona.task.TodoTask;
 
 import java.io.*;
 import java.nio.file.Path;

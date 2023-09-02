@@ -1,8 +1,8 @@
-package commands;
+package arona.commands;
 
-import storage.Storage;
-import task.TaskList;
-import ui.Ui;
+import arona.storage.Storage;
+import arona.task.TaskList;
+import arona.ui.Ui;
 
 public class MarkCommand extends Command {
     private Storage storage;
