@@ -11,6 +11,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String encode() {
+        return String.format("E|%s /from %s /to %s", super.encode(), from, to);
+    }
+
+    @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(), from, to);
     }
