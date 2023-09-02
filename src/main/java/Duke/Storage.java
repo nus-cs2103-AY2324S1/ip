@@ -53,7 +53,7 @@ public class Storage {
         try {
             File f = new File(file);
             FileWriter fw = new FileWriter(f, true);
-            fw.append(text);
+            fw.append(text + "\n");
             fw.close();
         }
         catch (Exception e){

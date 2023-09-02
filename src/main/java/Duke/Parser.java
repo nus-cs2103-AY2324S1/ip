@@ -26,7 +26,9 @@ public class Parser {
 
                 list.delete(str,ui,storage);
 
-            } else {
+            } else if (str.startsWith("find ")) {
+                list.find(str,ui);
+            }else {
                 ui.handleError(new DukeException("\n____________________________________________________________\n" +
                         "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
                         "____________________________________________________________"));

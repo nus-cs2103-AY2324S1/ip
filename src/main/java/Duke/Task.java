@@ -19,6 +19,10 @@ public class Task{
         return isDone;
     }
 
+    public boolean contains (String val) {
+        return task.contains(val);
+    }
+
     public String toString(){
         if(isDone)
             return "[X] "+ task;

@@ -134,4 +134,19 @@ public class TaskList {
         ui.print("Now you have " + list.size() + " tasks in your list");
         ui.showLine();
     }
+
+    public void find (String str, Ui ui) {
+        str = str.substring(5);
+        ui.showLine();
+        ui.print("Here are the matching tasks in your list:");
+        int j = 1;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).contains(str)) {
+                ui.print(j + "." + list.get(i) + "");
+                j += 1;
+            }
+        }
+        ui.showLine();
+
+    }
 }
