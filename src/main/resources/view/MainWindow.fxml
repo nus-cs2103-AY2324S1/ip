@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="600.0" xmlns="http://javafx.com/javafx/20.0.1"
+            fx:controller="duke.ui.MainWindow">
+    <children>
+        <VBox alignment="BOTTOM_LEFT" prefHeight="600.0" prefWidth="600.0">
+            <ScrollPane fx:id="scrollPane" prefHeight="540.0" hbarPolicy="NEVER" vbarPolicy="ALWAYS">
+                <content>
+                    <VBox fx:id="dialogContainer" fillWidth="true" prefWidth="550.0"/>
+                </content>
+                <padding>
+                    <Insets left="10.0" right="10.0"/>
+                </padding>
+            </ScrollPane>
+
+            <HBox alignment="CENTER" spacing="5.0">
+                <TextField fx:id="userInput" prefHeight="60.0" prefWidth="600.0" HBox.hgrow="ALWAYS"/>
+                <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="60.0"
+                        prefWidth="100.0" text="Send"/>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>
