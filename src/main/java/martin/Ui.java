@@ -1,3 +1,4 @@
+package martin;
 import java.util.Scanner;
 
 public class Ui {
@@ -17,7 +18,7 @@ public class Ui {
     }
 
     public void showLine() {
-        System.out.println("_______________________________");
+        System.out.println("    ____________________________________________________________");
     }
 
     public void showError(String message) {

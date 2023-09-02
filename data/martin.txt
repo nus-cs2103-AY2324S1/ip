@@ -1,1 +1,2 @@
-0 | test
+1 | test
+D | 0 | return book | 02/12/2019 1800

@@ -1,3 +1,9 @@
+package martin;
+
+import martin.commands.Command;
+import martin.parser.Parser;
+import martin.task.TaskList;
+
 public class Martin {
     private Storage storage;
     private TaskList tasks;
@@ -22,7 +28,8 @@ public class Martin {
         while (!isExit) {
             try {
                 String command = ui.readCommand();
-                parser.parse(command); 
+                Command cmd = parser.parse(command);
+                cmd.execute();
 
                 if ("bye".equalsIgnoreCase(command.trim())) {
                     isExit = true;
