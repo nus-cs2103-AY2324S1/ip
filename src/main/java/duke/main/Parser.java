@@ -8,13 +8,30 @@ import duke.task.*;
 
 import java.time.DateTimeException;
 
+/**
+ * A class handling commands from user input
+ */
 public class Parser {
 
+    /**
+     * A list of valid commands
+     */
     public enum ValidCommand {
         BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, UNKNOWN
     };
+
+    /**
+     * The current command from user input
+     */
     private ValidCommand currentCommand;
 
+    /**
+     * Returns Command object based on user input.
+     * @param inp The String array containing the user input
+     * @param taskList The list of tasks under the user
+     * @return Command
+     * @throws DukeException if the format of Command is wrong
+     */
     public Command parse(String[] inp, TaskList taskList) throws DukeException {
         String title = "";
         String startDate = "";
@@ -151,6 +168,11 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Returns true if user input is valid command, false otherwise
+     * @param value The String containing command from user input
+     * @return true or false
+     */
     public static boolean isValidCommand(String value) {
         try {
             ValidCommand val = ValidCommand.valueOf(value.toUpperCase());

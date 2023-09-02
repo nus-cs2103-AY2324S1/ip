@@ -2,7 +2,13 @@ package duke.task;
 
 import duke.task.Task;
 
+/** Class to represent the task set by user*/
 public class Todos extends Task {
+
+    /**
+     * The constructor for Deadlines
+     * @param description The description of the task
+     */
     public Todos(String description) {
         super(description);
     }
