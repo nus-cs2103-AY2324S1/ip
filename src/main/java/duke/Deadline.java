@@ -1,6 +1,7 @@
 package duke;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task with a deadline.
@@ -20,6 +21,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), by);
+        return String.format("[D]%s (by: %s)",
+                super.toString(),
+                by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
     }
 }
