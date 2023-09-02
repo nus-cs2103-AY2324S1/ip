@@ -14,19 +14,17 @@ public class Event extends Task {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
-        System.out.println("Got it. I've added this task:");
     }
 
     public Event(String description, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         super(description);
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
-        System.out.println("Got it. I've added this task:");
     }
 
     @Override
     public String storeFormat() {
-        String taskType = "D";
+        String taskType = "E";
         String isTaskDone;
 
         if (this.isDone) {
@@ -35,8 +33,15 @@ public class Event extends Task {
             isTaskDone = "0";
         }
 
-        return (taskType + " | " + isTaskDone + " | " + this.description + " | " + this.startTime + " | " +
-                this.endTime);
+        if (startDateTime == null) {
+            return (taskType + " | " + isTaskDone + " | " + this.description + " | " + this.startTime + " | " +
+                    this.endTime);
+        } else {
+            return (taskType + " | " + isTaskDone + " | " + this.description + " | "
+                    + this.startDateTime.format(outputFormatWithTime) + " | " +
+                    this.endDateTime.format(outputFormatWithTime));
+        }
+
     }
 
     @Override
