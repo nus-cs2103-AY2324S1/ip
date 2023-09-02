@@ -1,0 +1,3 @@
+true todo read book
+false deadline return book /by June 6th
+true todo join sports club
