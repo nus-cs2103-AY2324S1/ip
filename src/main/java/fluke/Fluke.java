@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Fluke {
     private final static String SAVE_FILE_NAME = "fluke.txt";
     public enum Command {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND
     }
     private final Ui ui;
     private TaskList tasks;
@@ -51,6 +51,9 @@ public class Fluke {
                     break;
                 case LIST:
                     this.ui.showListOfTasks(tasks);
+                    break;
+                case FIND:
+                    findTask(nextCommand);
                     break;
                 case MARK:
                 case UNMARK:
@@ -108,6 +111,16 @@ public class Fluke {
         int index = Parser.parseDeleteCommand(nextCommand);
         Task deleted = tasks.deleteTask(index);
         this.ui.showTaskDeleted(deleted, tasks);
+    }
+
+    /**
+     * Fluke attempts to find tasks with the corresponding keyword.
+     * @param command the command given
+     * @throws InvalidInputException if there is no keyword given.
+     */
+    private void findTask(String command) throws InvalidInputException {
+        String keyword = Parser.parseFindCommand(command);
+        this.ui.showTasksWithKeyword(this.tasks.findTask(keyword));
     }
 
     /**

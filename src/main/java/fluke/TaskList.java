@@ -81,6 +81,22 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds all tasks containing a specific keyword.
+     * @param keyword the keyword
+     * @return a TaskList containing all tasks containing the keyword.
+     */
+    public TaskList findTask(String keyword) {
+        ArrayList<Task> newListOfTasks = new ArrayList<>();
+        for (int i = 0; i < this.getSize(); i++) {
+            Task task = this.listOfTasks.get(i);
+            if (task.hasKeyword(keyword)) {
+                newListOfTasks.add(task);
+            }
+        }
+        return new TaskList(newListOfTasks);
+    }
+
     @Override
     public String toString() {
         String str = "";

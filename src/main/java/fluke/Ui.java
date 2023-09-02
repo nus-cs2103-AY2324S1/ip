@@ -67,6 +67,16 @@ public class Ui {
         addHorizontalLine();
     }
 
+    /**
+     * Shows the user tasks with a certain keyword
+     * @param tasksWithKeyword list of tasks to show
+     */
+    public void showTasksWithKeyword(TaskList tasksWithKeyword) {
+        System.out.println("I have randomly picked out a few tasks. Looks like they have what you want!");
+        System.out.println(tasksWithKeyword);
+        addHorizontalLine();
+    }
+
     public void showLoadingError() {
         showError("Failed to load!");
     }
