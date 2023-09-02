@@ -3,10 +3,12 @@ package aj;
 import java.util.Scanner;
 import java.io.IOException;
 
+
 /**
  * Aj chat-bot class.
  */
 public class Aj {
+
     Parser parser;
     Storage storage;
 
@@ -28,8 +30,8 @@ public class Aj {
     public boolean canAskCommand(Scanner scanner) throws NoSuchCommandException, EmptyDescriptionException,
             IndexOutOfRangeException, IOException {
 
-        String command = scanner.next().toLowerCase();
 
+        String command = scanner.next().toLowerCase();
 
         if (command.equals("list")) {
             this.ui.printList();

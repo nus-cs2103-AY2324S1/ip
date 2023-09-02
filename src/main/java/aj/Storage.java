@@ -16,6 +16,7 @@ import java.util.Scanner;
  * Storage class responsible for CRUD operations with database.
  */
 public class Storage {
+
     Parser parser;
     final String FILEPATH;
 

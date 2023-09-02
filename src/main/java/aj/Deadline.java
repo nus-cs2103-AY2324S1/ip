@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Deadline class for Deadline Task.
  */
 public class Deadline extends Task {
+
     private final LocalDate by;
 
     @Override

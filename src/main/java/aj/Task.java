@@ -1,9 +1,11 @@
 package aj;
 
+
 /**
  * Task abstract class for user tasks.
  */
 public abstract class Task {
+
     protected boolean isMarked;
     protected String taskName;
 

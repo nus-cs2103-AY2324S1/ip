@@ -1,5 +1,6 @@
 package aj;
 
+
 /**
  * AjException class for exceptions related to Aj chat-bot.
  */

@@ -1,9 +1,11 @@
 package aj;
 
+
 /**
  * Event class for Event Task.
  */
 public class Event extends Task {
+
     private final String fromDt, toDt;
 
     public String getFromDt() {

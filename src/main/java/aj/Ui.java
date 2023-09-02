@@ -4,7 +4,6 @@ package aj;
  * Ui class responsible for User Interface of the programme.
  */
 public class Ui {
-
     TaskList taskList;
 
     public void horiLine() {
@@ -22,6 +21,7 @@ public class Ui {
         System.out.println("\nWhat can i do for you?");
         horiLine();
     }
+
 
     /**
      * Checks that user input is correct, prints help message and throws error otherwise.
