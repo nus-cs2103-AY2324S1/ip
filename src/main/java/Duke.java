@@ -1,10 +1,4 @@
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -23,10 +17,9 @@ public class Duke {
     private static final String horizontalLine = "-------------------------------\n";
 
     /**
-     * An array to store inputs by the user
+     * Store tasks
      */
-    private static ArrayList<Task> taskArray = new ArrayList<>();
-    private static int numOfTasks = 0;
+    private static Storage taskStorage = new Storage();
 
     /**
      * An enum to track the status of the chatbot
@@ -70,12 +63,8 @@ public class Duke {
      * Lists all tasks in the task array
      */
     private static void list() {
-        int count = 1;
         System.out.print(horizontalLine);
-        for (Task task : taskArray) {
-            if (task == null) break;
-            System.out.println(count++ + ". " + task.toString());
-        }
+        System.out.print(taskStorage.list());
         System.out.print(horizontalLine);
     }
 
@@ -85,8 +74,7 @@ public class Duke {
      * @param task The task inputted by the user
      */
     private static void append(Task task) {
-        taskArray.add(task);
-        numOfTasks++;
+        taskStorage.appendTask(task);
         System.out.print(horizontalLine + "YOU WANT TO " + task + "?\nSURE, WHATEVER.\n" + horizontalLine);
     }
 
@@ -98,8 +86,7 @@ public class Duke {
      */
     private static void appendToDo(String task) {
         try {
-            String todo = task.substring(5);
-            append(new ToDo(todo));
+            append(new ToDo(Parser.parseToDo(task)));
         } catch (StringIndexOutOfBoundsException e) {
             System.out.print(horizontalLine +
                     "WRONG FORMAT FOOL!!! IT'S:\n" +
@@ -116,10 +103,8 @@ public class Duke {
      */
     private static void appendDeadline(String task) {
         try {
-            String deadline = task.substring(9);
-            int splitPoint = deadline.indexOf(" /by ");
-            append(new Deadline(deadline.substring(0, splitPoint),
-                    deadline.substring(splitPoint + 5)));
+            String[] parsedDeadline = Parser.parseDeadline(task);
+            append(new Deadline(parsedDeadline[0], parsedDeadline[1]));
         } catch (StringIndexOutOfBoundsException e) {
             System.out.print(horizontalLine +
                     "WRONG FORMAT FOOL!!! IT'S:\n" +
@@ -139,12 +124,8 @@ public class Duke {
      */
     private static void appendEvent(String task) {
         try {
-            String event = task.substring(6);
-            int startPoint = event.indexOf(" /from ");
-            int endPoint = event.indexOf(" /to ");
-            append(new Event(event.substring(0, startPoint),
-                    event.substring(startPoint + 7, endPoint),
-                    event.substring(endPoint + 5)));
+            String[] parsedEvent = Parser.parseEvent(task);
+            append(new Event(parsedEvent[0], parsedEvent[1], parsedEvent[2]));
         } catch (StringIndexOutOfBoundsException e) {
             System.out.print(horizontalLine +
                     "WRONG FORMAT FOOL!!! IT'S:\n" +
@@ -163,7 +144,7 @@ public class Duke {
     private static void mark(String toMark) {
         System.out.print(horizontalLine);
         try {
-            Task task = taskArray.get(Integer.parseInt(toMark.substring(5)) - 1);
+            Task task = taskStorage.get(Parser.parseMark(toMark));
             if (task == null) throw new NullPointerException();
             if (task.isDone) throw new IllegalArgumentException();
             task.markAsDone();
@@ -171,6 +152,8 @@ public class Duke {
         } catch (NumberFormatException e) {
             System.out.print("NOT A NUMBER IDIOT!!!\n");
         } catch (NullPointerException e) {
+            System.out.print("NOTHING THERE IDIOT!!!\n");
+        } catch (IndexOutOfBoundsException e) {
             System.out.print("NOTHING THERE IDIOT!!!\n");
         } catch (IllegalArgumentException e) {
             System.out.print("ALREADY DONE BRO!\n");
@@ -187,8 +170,7 @@ public class Duke {
     private static void unmark(String toUnmark) {
         System.out.print(horizontalLine);
         try {
-            int index = Integer.parseInt(toUnmark.substring(7)) - 1;
-            Task task = taskArray.get(index);
+            Task task = taskStorage.get(Parser.parseUnmark(toUnmark));
             if (task == null) throw new NullPointerException();
             if (!task.isDone) throw new IllegalArgumentException();
             task.markAsUndone();
@@ -196,6 +178,8 @@ public class Duke {
         } catch (NumberFormatException e) {
             System.out.print("NOT A NUMBER IDIOT!!!\n");
         } catch (NullPointerException e) {
+            System.out.print("NOTHING THERE IDIOT!!!\n");
+        } catch (IndexOutOfBoundsException e) {
             System.out.print("NOTHING THERE IDIOT!!!\n");
         } catch (IllegalArgumentException e) {
             System.out.print("ALREADY UNDONE BRO!\n");
@@ -211,11 +195,11 @@ public class Duke {
     private static void delete(String toDelete) {
         System.out.print(horizontalLine);
         try {
-            int index = Integer.parseInt(toDelete.substring(7)) - 1;
+            int index = Parser.parseDelete(toDelete);
             System.out.print("YOU SEE THIS?\n" +
-                    taskArray.get(index) +
+                    taskStorage.get(index) +
                     "\nNOW YOU DON'T\n");
-            taskArray.remove(index);
+            taskStorage.delete(index);
         } catch (NumberFormatException e) {
             System.out.print("NOT A NUMBER IDIOT!!!\n");
         } catch (IndexOutOfBoundsException e) {
@@ -230,117 +214,45 @@ public class Duke {
         Scanner textInput = new Scanner(System.in);
         Status botStatus = Status.RUNNING;
 
-        try {
-            // Get directory of data
-            Path path = Paths.get("./data");
-
-            // Make new directory if it doesn't exist
-            if (!Files.exists(path)) {
-                Files.createDirectories(path);
-                System.out.println("Directory is created!");
-            }
-
-        } catch (IOException e) {
-            System.err.println("Failed to create directory!" + e.getMessage());
-        }
-
-        // Accesses the text file or creates one if it doesn't exist
-        try {
-            FileReader fr = new FileReader("./data/duke.txt");
-            int c;
-            String savedTasks = "";
-            while ((c=fr.read()) != -1) {
-                savedTasks += (char) c;
-            }
-
-            String[] taskList = new String[100];
-            for (String task : savedTasks.split(";")) {
-                String[] taskDetails = task.split("/");
-                Task savedTask;
-                switch(taskDetails[0]) {
-                case "T":
-                    savedTask = new ToDo(taskDetails[2]);
-                    break;
-                case "D":
-                    savedTask = new Deadline(taskDetails[2], taskDetails[3]);
-                    break;
-                case "E":
-                    savedTask = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
-                    break;
-                default:
-                    savedTask = new Task(taskDetails[0]);
-                }
-                if (Integer.parseInt(taskDetails[1]) == 1) {
-                    savedTask.markAsDone();
-                }
-                taskArray.add(savedTask);
-            }
-        } catch (FileNotFoundException fe) {
-            System.out.println("File not found, creating new text file...");
-        }
 
         while (botStatus == Status.RUNNING) {
             String nextLine = textInput.nextLine();
-            if (nextLine.startsWith("mark")) {
+            Parser.ParserOutput signal = Parser.parseInput(nextLine);
+            switch (signal) {
+            case MARK:
                 mark(nextLine);
                 continue;
-            }
-            if (nextLine.startsWith("unmark")) {
+            case UNMARK:
                 unmark(nextLine);
                 continue;
-            }
-            if (nextLine.startsWith("todo")) {
-                appendToDo(nextLine);
-                continue;
-            }
-            if (nextLine.startsWith("deadline")) {
-                appendDeadline(nextLine);
-                continue;
-            }
-            if (nextLine.startsWith("event")) {
-                appendEvent(nextLine);
-                continue;
-            }
-            if (nextLine.startsWith("delete")) {
+            case DELETE:
                 delete(nextLine);
                 continue;
-            }
-            switch(nextLine) {
-                case "bye":
-                    botStatus = Status.STOPPING;
-                    break;
-                case "list":
-                    list();
-                    break;
-                default:
+            case LIST:
+                list();
+                continue;
+            case ECHO:
+                echo(nextLine);
+                continue;
+            case EXIT:
+                botStatus = Status.STOPPING;
+                continue;
+            case APPEND:
+                Parser.TaskType type = Parser.parseTask(nextLine);
+                switch (type) {
+                case TODO:
+                    appendToDo(nextLine);
+                case EVENT:
+                    appendEvent(nextLine);
+                case DEADLINE:
+                    appendEvent(nextLine);
+                case GENERIC:
                     append(new Task(nextLine));
+                }
             }
         }
 
-        FileWriter fw = new FileWriter("./data/duke.txt");
-        String out = "";
-
-        for (Task taskToSave : taskArray) {
-            String taskType;
-            String taskAppendices = "";
-            if (taskToSave instanceof ToDo) {
-                taskType = "T/";
-                taskAppendices = "/" + taskToSave.description;
-            } else if (taskToSave instanceof Deadline) {
-                taskType = "D/";
-                taskAppendices = "/"  + taskToSave.description + "/" + ((Deadline) taskToSave).by;
-            } else if (taskToSave instanceof  Event) {
-                taskType = "E/";
-                taskAppendices = "/" + taskToSave.description + "/" +
-                        ((Event) taskToSave).from + "/" + ((Event) taskToSave).to;
-            } else {
-                taskType = taskToSave.description + "/";
-            }
-            out += taskType + (taskToSave.isDone ? 1 : 0) + taskAppendices + ";";
-        }
-
-        fw.write(out);
-        fw.close();
+        taskStorage.write();
         exit();
     }
 }
