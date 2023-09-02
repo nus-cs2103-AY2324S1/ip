@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import duke.Parser;
 
 /**
- * A class which inherits from task.Task class.
+ * A class which inherits from Task class.
  * Represents a task with deadline but no start time.
  */
 public class Deadline extends Task {
@@ -15,6 +15,7 @@ public class Deadline extends Task {
 
     /**
      * Initialises using the given description and end time.
+     *
      * @param description The name of this deadline task.
      * @param endTime The deadline of task.
      */
@@ -26,11 +27,11 @@ public class Deadline extends Task {
     /**
      * Returns a string representation of the deadline task.
      *
-     * @return Returns a string describing this deadline task.
+     * @return A string describing this deadline task.
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + endTime.format(Parser.outputFormat) + ")";
+        return "[D]" + super.toString() + " (by: " + endTime.format(Parser.OUTPUT_FORMAT) + ")";
     }
 }
 

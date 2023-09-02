@@ -19,6 +19,11 @@ public abstract class Instruction {
 
     /**
      * Executes the instruction it represents.
+     *
+     * @param storage The Storage instance to store data in if needed.
+     * @param taskList The taskList instance to execute instructions on.
+     * @param ui The Ui instance to use to display messages.
+     * @throws DukeException If an error occurred during execution.
      */
     public abstract void execute(Storage storage, TaskList taskList, Ui ui) throws DukeException;
 
@@ -36,7 +41,6 @@ public abstract class Instruction {
         /**
          * Initialises the class fields.
          *
-         * @storage Unused here.
          * @param task The task to add.
          */
         public Add(Task task) {
@@ -46,7 +50,10 @@ public abstract class Instruction {
         /**
          * Adds the given task to the given list.
          *
-         * @param taskList The taskList to add in.
+         * @param storage The Storage instance to store data in if needed.
+         * @param taskList The taskList instance to add the task in.
+         * @param ui The Ui instance to use to display messages.
+         * @throws DukeException If an error occurred during execution.
          */
         @Override
         public void execute(Storage storage, TaskList taskList, Ui ui) throws DukeException {
@@ -79,8 +86,10 @@ public abstract class Instruction {
         /**
          * Marks the task at given index in given taskList.
          *
-         * @param storage Unused here.
-         * @param taskList The taskList to mark in.
+         * @param storage The Storage instance to store data in if needed.
+         * @param taskList The taskList instance to mark the task in.
+         * @param ui The Ui instance to use to display messages.
+         * @throws DukeException If an error occurred during execution.
          */
         @Override
         public void execute(Storage storage, TaskList taskList, Ui ui) throws DukeException {
@@ -105,7 +114,7 @@ public abstract class Instruction {
         /**
          * Initialises the class fields.
          *
-         * @param index    The index of task.
+         * @param index The index of task to unmark.
          */
         public Unmark(int index) {
             this.index = index;
@@ -114,8 +123,10 @@ public abstract class Instruction {
         /**
          * Unmarks the task at given index in given taskList.
          *
-         * @param storage Unused here.
-         * @param taskList The taskList to unmark in.
+         * @param storage The Storage instance to store data in if needed.
+         * @param taskList The taskList instance to unmark task in.
+         * @param ui The Ui instance to use to display messages.
+         * @throws DukeException If an error occurred during execution.
          */
         @Override
         public void execute(Storage storage, TaskList taskList, Ui ui) throws DukeException {
@@ -124,6 +135,8 @@ public abstract class Instruction {
             ui.showMessage(" " + taskList.getTask(index));
         }
     }
+
+
     /**
      * A class to represent the deleting of task action.
      *
@@ -138,7 +151,7 @@ public abstract class Instruction {
         /**
          * Initialises the class fields.
          *
-         * @param index    The index of task.
+         * @param index The index of task to delete.
          */
         public Delete(int index) {
             this.index = index;
@@ -147,8 +160,10 @@ public abstract class Instruction {
         /**
          * Deletes the task at given index in given taskList.
          *
-         * @param storage Unused here.
-         * @param taskList The taskList to delete from.
+         * @param storage The Storage instance to store data in if needed.
+         * @param taskList The taskList instance to delete task from.
+         * @param ui The Ui instance to use to display messages.
+         * @throws DukeException If an error occurred during execution.
          */
         @Override
         public void execute(Storage storage, TaskList taskList, Ui ui) throws DukeException {
@@ -167,8 +182,11 @@ public abstract class Instruction {
 
         /**
          * Lists the tasks in the given taskList.
-         * @param storage Unused here.
-         * @param taskList The taskList containing tasks to list.
+         *
+         * @param storage The Storage instance to store data in if needed.
+         * @param taskList The taskList instance list tasks from.
+         * @param ui The Ui instance to use to display messages.
+         * @throws DukeException If an error occurred during execution.
          */
         @Override
         public void execute(Storage storage, TaskList taskList, Ui ui) throws DukeException {
@@ -223,8 +241,10 @@ public abstract class Instruction {
         /**
          * Stores the tasks in taskList in storage.
          *
-         * @param storage The storage to use to store.
-         * @param taskList The taskList containing tasks to store.
+         * @param storage The Storage instance to store data in.
+         * @param taskList The taskList instance which holds the data to store in storage.
+         * @param ui The Ui instance to use to display messages.
+         * @throws DukeException If an error occurred during storing data.
          */
         @Override
         public void execute(Storage storage, TaskList taskList, Ui ui) throws DukeException {

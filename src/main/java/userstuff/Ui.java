@@ -3,9 +3,10 @@ package userstuff;
 import java.util.Scanner;
 
 /**
- * A class to handle the ui.Ui of chatbot.
+ * A class to handle the Ui of chatbot.
  */
 public class Ui {
+
     /** The Scanner object used by this ui to read input. */
     Scanner scanner;
 
@@ -44,13 +45,18 @@ public class Ui {
 
     /**
      * Shows the given message to the user.
-     * @param s The string to show to the uesr.
+     *
+     * @param s The string to show to the user.
      */
     public void showMessage(String s) {
         System.out.println("\t" + s);
     }
 
-
+    /**
+     * Reads one line of input from the user.
+     *
+     * @return The string read from user.
+     */
     public String readCommand() {
         return this.scanner.nextLine();
     }

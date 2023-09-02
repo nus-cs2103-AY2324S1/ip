@@ -23,8 +23,11 @@ import java.time.LocalDateTime;
  */
 public class Parser {
 
-    public static DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-    public static DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("d MMM yyyy hh:mm a");
+    /** A public final datetime formatter which specifies the user input format for date and time. */
+    public static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+
+    /** A public final datetime formatter which specifies the output format for date and time. */
+    public static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d MMM yyyy hh:mm a");
 
 
     /**
@@ -32,7 +35,8 @@ public class Parser {
      * returns an instruction corresponding to it.
      *
      * @param userInput The string from user to parse.
-     * @return Returns an instance of instruction.Instruction if parse was successful and null if not.
+     * @return An instance of Instruction if parse was successful and null if not.
+     * @throws DukeException If parse was unsuccessful.
      */
     public static Instruction parse(String userInput) throws DukeException {
 
@@ -125,7 +129,7 @@ public class Parser {
                 } else {
                     LocalDateTime dateTime;
                     try {
-                        dateTime = LocalDateTime.parse(matcher.group(9).trim(), Parser.inputFormat);
+                        dateTime = LocalDateTime.parse(matcher.group(9).trim(), Parser.INPUT_FORMAT);
                     } catch (DateTimeParseException e) {
                         throw new DukeException("Invalid date format. Try again.");
                     }
@@ -145,8 +149,8 @@ public class Parser {
                 } else {
                     LocalDateTime startDateTime, endDateTime;
                     try {
-                        startDateTime = LocalDateTime.parse(matcher.group(5).trim(), Parser.inputFormat);
-                        endDateTime = LocalDateTime.parse(matcher.group(6).trim(), Parser.inputFormat);
+                        startDateTime = LocalDateTime.parse(matcher.group(5).trim(), Parser.INPUT_FORMAT);
+                        endDateTime = LocalDateTime.parse(matcher.group(6).trim(), Parser.INPUT_FORMAT);
                     } catch (DateTimeParseException e) {
                         throw new DukeException("Invalid date format. Try again. ");
                     }
@@ -164,8 +168,8 @@ public class Parser {
      * Parses a string from the data file and returns the task represented by it.
      *
      * @param data String to parse from data file.
-     * @return returns the task if parse was successful.
-     * @throws DukeException Throws duke.DukeException if parse failed.
+     * @return The task if parse was successful.
+     * @throws DukeException DukeException if parse failed.
      */
     public static Task parseData(String data) throws DukeException {
         String regex = "\\[(.)]\\[(.)](((.*)\\(from: (.*) to: (.*)\\))|((.*)\\(by: (.*)\\))|(.*))";
@@ -194,7 +198,7 @@ public class Parser {
             } else {
                 LocalDateTime dateTime;
                 try {
-                    dateTime = LocalDateTime.parse(matcher.group(10), Parser.outputFormat);
+                    dateTime = LocalDateTime.parse(matcher.group(10), Parser.OUTPUT_FORMAT);
                 } catch (DateTimeParseException e) {
                     throw new DukeException("");
                 }
@@ -209,8 +213,8 @@ public class Parser {
                 LocalDateTime startDateTime;
                 LocalDateTime endDateTime;
                 try {
-                    startDateTime = LocalDateTime.parse(matcher.group(6), Parser.outputFormat);
-                    endDateTime = LocalDateTime.parse(matcher.group(7), Parser.outputFormat);
+                    startDateTime = LocalDateTime.parse(matcher.group(6), Parser.OUTPUT_FORMAT);
+                    endDateTime = LocalDateTime.parse(matcher.group(7), Parser.OUTPUT_FORMAT);
                 } catch (DateTimeParseException e) {
                     throw new DukeException("");
                 }

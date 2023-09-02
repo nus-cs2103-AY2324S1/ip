@@ -9,7 +9,7 @@ import userstuff.Ui;
 import instructionstuff.Instruction;
 
 /**
- * Main class of duke.Duke bot.
+ * Main class of Duke bot.
  * This class performs simple input and output handling and calls
  * appropriate functions from other classes.
  */
@@ -24,12 +24,15 @@ public class Duke {
     /** String representing filepath of data file. */
     private String filePath;
 
-    /** The ui.Ui object which handles the ui of this chatbot. */
+    /** The Ui object which handles the ui of this chatbot. */
     private Ui ui;
 
 
     /**
-     * Initialises filepath field to given parameter.
+     * Initialises all the field variables in this class.
+     * Initialises filepath and constructs Ui instance.
+     * Tries to initialise storage.
+     * If an error occurs, it returns.
      *
      * @param filePath String representing filepath of datafile.
      */
