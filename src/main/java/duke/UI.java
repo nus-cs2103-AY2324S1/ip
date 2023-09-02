@@ -6,8 +6,8 @@ import java.util.Scanner;
  * The UI class to handle user interactions
  */
 public class UI {
-    String stuff;
-    Scanner scanner;
+    private String stuff;
+    private Scanner scanner;
 
     /**
      * Constructor to init the class

@@ -1,11 +1,13 @@
 package duke;
 
 
-/** This class represents the to-do task
+/**
+ * This class represents the to-do task
  *
  */
 public class ToDo extends Task {
-    /** Same as its parent constructor
+    /**
+     * Same as its parent constructor
      *
      * @param name the name of the task
      */
@@ -13,7 +15,8 @@ public class ToDo extends Task {
         super(name);
     }
 
-    /** Default display for to-do objects
+    /**
+     * Default display for to-do objects
      *
      * @return the default display
      */

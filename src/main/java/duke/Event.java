@@ -3,14 +3,16 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-/**This class represents an event
+/**
+ * This class represents an event
  *
  */
 public class Event extends Task {
-    LocalDate start;
-    LocalDate end;
+    private LocalDate start;
+    private LocalDate end;
 
-    /** Default constructor to store start and end
+    /**
+     * Default constructor to store start and end
      *
      * @param name of the task
      * @param start start date
@@ -27,15 +29,18 @@ public class Event extends Task {
         }
     }
 
-    /** Default display to represent the event object
+    /**
+     * Default display to represent the event object
      *
      * @return gives the default display
      */
     public String display() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         if (done) {
-            return "[E][X] " + this.name + " (From: " + start.format(outputFormatter) + " To: " + end.format(outputFormatter) + ")";
+            return "[E][X] " + this.name + " (From: " +
+                    start.format(outputFormatter) + " To: " + end.format(outputFormatter) + ")";
         }
-        return "[E][] " + this.name + " (From: " + start.format(outputFormatter) + " To: " + end.format(outputFormatter) + ")";
+        return "[E][] " + this.name + " (From: " +
+                start.format(outputFormatter) + " To: " + end.format(outputFormatter) + ")";
     }
 }

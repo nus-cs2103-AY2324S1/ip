@@ -1,4 +1,5 @@
 package duke;
+
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -7,22 +8,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
-
-import duke.Parser;
-import duke.Storage;
-import duke.TaskList;
-import duke.UI;
-import javafx.application.Application;
 import javafx.util.Duration;
 
-/**The main class to run
+/**
+ * The main class to run
  *
  */
 public class Duke extends Application {
@@ -34,7 +29,8 @@ public class Duke extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    /**Main method to start the program
+    /**
+     * Main method to start the program
      *
      * @param args main func
      */
@@ -147,7 +143,7 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        if (input.equalsIgnoreCase("bye")){
+        if (input.equalsIgnoreCase("bye")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(10));
             delay.setOnFinished(event -> {
                 Platform.exit();

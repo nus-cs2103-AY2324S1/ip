@@ -8,12 +8,19 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-
+/**
+ * Class for the dialogbox formatting in the javafx
+ */
 public class DialogBox extends HBox {
 
     private Label text;
     private ImageView displayPicture;
 
+    /**
+     * Constructor for dialog box
+     * @param l the label
+     * @param iv the imageview to take in
+     */
     public DialogBox(Label l, ImageView iv) {
         text = l;
         displayPicture = iv;

@@ -2,25 +2,29 @@ package duke;
 
 
 
-/** This is the class to parse stuff
+/**
+ * This is the class to parse stuff
  *
  */
 public class Parser {
-  
-    MarkPattern check = new MarkPattern();
+    private MarkPattern check = new MarkPattern();
+    private String reply = "";
 
-    /** The constructor to init
+    /**
+     * The constructor to init
      *
      */
     public Parser() {
     }
 
-    private String reply = "";
-
     public String get() {
         return reply;
     }
 
+    /**
+     * method to update the text to return
+     * @param text the text to add to the reply
+     */
     public void update(String text) {
         System.out.println(text);
         reply += text + "\n";
@@ -48,16 +52,15 @@ public class Parser {
             update("Yay, done with " + items.get(check.mark(stuff)).display());
         } else if (check.del(stuff) != -1) {
             update("Deleted: " + items.remove(check.del(stuff)).display());
-        }
-        else if (check.find1(stuff) != null) {
+        } else if (check.find1(stuff) != null) {
             for (int i = 0; i < items.size(); i++) {
                 if (items.get(i).display().contains(check.find1(stuff))) {
-                    update((i+1) + ". " + items.get(i).display());
+                    update((i + 1) + ". " + items.get(i).display());
                 }
             }
         }
 
-        else{
+        else {
             if (stuff.trim().toLowerCase().startsWith("todo")) {
                 if (stuff.trim().substring(4).trim().length() == 0) {
                     update("Why empty???");
@@ -84,7 +87,8 @@ public class Parser {
                     String[] parts = stuff.trim().substring(5).split("/from");
                     String part1 = parts[0].trim();
                     String[] part23 = parts[1].trim().split("/to");
-                    if (part23[0].trim().matches("\\d{4}-\\d{2}-\\d{2}") && part23[1].trim().matches("\\d{4}-\\d{2}-\\d{2}")) {
+                    if (part23[0].trim().matches("\\d{4}-\\d{2}-\\d{2}")
+                            && part23[1].trim().matches("\\d{4}-\\d{2}-\\d{2}")) {
                         items.add(new Event(part1, part23[0].trim(), part23[1].trim()));
                         update("added: " + part1 + " (From: " + part23[0].trim() + " To: " + part23[1].trim() + ")");
                     } else {

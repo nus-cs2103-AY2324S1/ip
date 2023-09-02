@@ -11,7 +11,8 @@ public class Task implements Serializable {
     protected String name;
 
 
-    /** constructor to init this class
+    /**
+     * Constructor to init this class
      *
      * @param name the name of the task
      */
@@ -21,7 +22,8 @@ public class Task implements Serializable {
     }
 
 
-    /** default display for a task
+    /**
+     * Default display for a task
      *
      * @return returns the display
      */
