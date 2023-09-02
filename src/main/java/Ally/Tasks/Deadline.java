@@ -17,6 +17,10 @@ public class Deadline extends Task {
 
     }
 
+    /**
+     * Formats the tasks for the saved.txt
+     * @return String
+     */
     @Override
     public String formatFile() {
         return "D" + " | " + (isDone ? "1" : "0") + " | " + description + " "
