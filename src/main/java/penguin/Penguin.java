@@ -1,11 +1,15 @@
 package penguin;
 
 import java.time.format.DateTimeParseException;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 /**
  * Penguin is the main logic of Penguin chatbot; its main responsibility is to parse commands and handle errors.
  */
-public class Penguin {
+public class Penguin extends Application {
     private static final String GREETING = "Honk! I'm Penguin! What can I do for you?";
     private static final String GOODBYE = "Honk! Hope to see you again soon!";
     private static final String MARK = "Honk honk! You did task ";
@@ -28,6 +32,15 @@ public class Penguin {
         this.taskList = new TaskList();
         this.memory = new Storage("data/memory.txt");
         this.parser = new Parser();
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 
     /**
