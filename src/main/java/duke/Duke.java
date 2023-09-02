@@ -2,7 +2,7 @@ package duke;
 
 import duke.command.Parser;
 import duke.task.TaskList;
-import duke.DukeException;
+
 public class Duke {
     public static void main(String[] args) {
         Ui ui = new Ui(); // Create Ui instance
