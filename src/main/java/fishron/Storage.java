@@ -6,13 +6,26 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles loading and saving tasks to/from a file.
+ */
 public class Storage {
     private File file;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks will be stored.
+     */
     public Storage(String filePath) {
-        this.file = new File("./data/fishron.txt");
+        this.file = new File(filePath);
     }
 
+    /**
+     * Loads tasks from the file and returns a TaskList containing them.
+     *
+     * @return A TaskList containing tasks loaded from the file.
+     */
     public TaskList loadTasksFromFile() {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
@@ -61,6 +74,11 @@ public class Storage {
         return new TaskList(taskList);
     }
 
+    /**
+     * Saves the provided task list to the file.
+     *
+     * @param taskList The list of tasks to be saved.
+     */
     public void saveTasksToFile(ArrayList<Task> taskList) {
         try {
             PrintWriter printWriter = new PrintWriter("./data/fishron.txt");
