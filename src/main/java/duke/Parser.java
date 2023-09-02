@@ -7,10 +7,19 @@ public class Parser {
     private Ui ui = new Ui();
     private TaskList list;
 
+    /** Creates a parser to parse commands inputed by user.
+     *
+     * @param list List to be updated by each command.
+     */
     public Parser(TaskList list) {
         this.list = list;
     }
 
+    /** Parses the input of the user.
+     *
+     * @param msg Inputed string by user.
+     * @return Whether the bot should wait for next command or stop.
+     */
     public boolean parse(String msg) {
         String[] input = msg.split(" ", 2);
         String command = input[0];

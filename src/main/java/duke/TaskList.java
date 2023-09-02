@@ -4,10 +4,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+/** Abstraction of a list that can store Tasks */
 public class TaskList {
 
+    /** List to store tasks */
     private List<Task> list;
 
+    /** Creates a new TaskList.
+     *
+     * @param taskList List containing the task to store.
+     */
     public TaskList (List<Task> taskList) {
         this.list = taskList;
     }
