@@ -37,6 +37,23 @@ public class TodoList {
         return list.get(i);
     }
 
+    /**
+     * Filters all the tasks that contain a keyword.
+     * @param keyword the word that must be in the task description
+     * @return a TodoList that contains all the tasks that contain the keyword
+     */
+    public TodoList filter(String keyword){
+        TodoList filteredList = new TodoList();
+
+        for (int i = 0; i < list.size(); i++){
+            Task task = list.get(i);
+            if (task.getDesc().contains(keyword)) {
+                filteredList.store(task);
+            }
+        }
+        return filteredList;
+    }
+
 
 
 }

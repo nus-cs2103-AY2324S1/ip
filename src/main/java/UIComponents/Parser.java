@@ -28,6 +28,8 @@ public class Parser {
                 return Cracker.Type.LIST;
             case "bye":
                 return Cracker.Type.QUIT;
+            case "find":
+                return Cracker.Type.FIND;
 
             default:
                 return Cracker.Type.UNKNOWN;
@@ -53,5 +55,9 @@ public class Parser {
         return Integer.parseInt(input.replace(input.split(" ")[0], "").trim()) - 1;
     }
 
+    public static String parseKeyword(String input) {
+        String command = input.split(" ")[0];
+        return input.replaceFirst(command, "").trim();
+    }
 
 }
