@@ -41,6 +41,10 @@ public class Task {
                 : "0 | " + description;
     }
 
+    public boolean containsKeyword(String keyword) {
+        return this.description.toLowerCase().contains(keyword.toLowerCase());
+    }
+
     public LocalDateTime parseDateTime(String dateTimeString) throws DukeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy h:m a");
         try {

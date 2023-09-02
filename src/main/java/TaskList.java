@@ -95,4 +95,20 @@ public class TaskList {
             }
         }
     }
+
+    public void findTasks(String userInput) throws DukeException {
+        String keyword = Parser.getTaskDesc(userInput);
+        int count = 0;
+        for (Task task: taskList) {
+            if (!task.containsKeyword(keyword)) continue;
+            if (task.containsKeyword(keyword) && count == 0) {
+                System.out.println("Here are the matching tasks in your list:");
+            }
+            count++;
+            System.out.println(count + "." + task);
+        }
+        if (count == 0) {
+            System.out.println("No matching tasks found!");
+        }
+    }
 }
