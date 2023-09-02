@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 import java.io.File;
 
@@ -66,10 +67,11 @@ public class Qi {
                 while (idx < str.length() && str.charAt(idx) != '/') {
                     idx++;
                 }
+
                 try {
                     String task = str.substring(9, idx - 1);
                     String deadline = str.substring(idx + 4);
-                    qi.addTask(task, deadline);
+                    qi.addTask(task, LocalDate.parse(deadline));
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("    ____________________________________________________________");
                     System.out.println("     ☹ OOPS!!! The description of a deadline cannot be empty.");
