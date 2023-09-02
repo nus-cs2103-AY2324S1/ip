@@ -55,4 +55,13 @@ public class Task {
         return zeroOrOne + " | " + this.taskName;
     }
 
+    /**
+     * Checks whether a task description contains the keyword (ignoring case).
+     *
+     * @param keyword Word to find in the task.
+     * @return True if the task description contains keyword.
+     */
+    public boolean hasKeyword(String keyword) {
+        return this.taskName.toLowerCase().contains(keyword.toLowerCase());
+    }
 }
