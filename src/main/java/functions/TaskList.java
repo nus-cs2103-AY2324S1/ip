@@ -57,40 +57,6 @@ public class TaskList {
             }
         }
     }
-    enum DateTimeFormat {
-        FORMAT1("yyyy-MM-dd HH:mm"),
-        FORMAT2("dd.MM.yyyy HH:mm"),
-        FORMAT3("MM/dd/yyyy HH:mm"),
-        FORMAT4("yyyy-MM-dd hh:mm a"),
-        FORMAT5("dd.MM.yyyy hh:mm a"),
-        FORMAT6("MM/dd/yyyy hh:mm a"),
-        FORMAT7("yyyy-MM-dd HHmm"),
-        FORMAT8("dd.MM.yyyy HHmm"),
-        FORMAT9("MM/dd/yyyy HHmm");
-
-        private final DateTimeFormatter formatter;
-
-        DateTimeFormat(String pattern) {
-            this.formatter = DateTimeFormatter.ofPattern(pattern);
-        }
-
-        public DateTimeFormatter getFormatter() {
-            return formatter;
-        }
-    }
-
-    public LocalDateTime parseDate(String dateString) {
-        for (DateTimeFormat format : DateTimeFormat.values()) {
-            try {
-                LocalDateTime d = LocalDateTime.parse(dateString, format.getFormatter());
-                return d;
-            } catch (DateTimeParseException e) {
-                // Try the next format
-            }
-        }
-        // None of the formats matched
-        return null;
-    }
 
     public Task createTask(String desc, LocalDateTime first, LocalDateTime second) {
         Task t = null;
@@ -127,5 +93,15 @@ public class TaskList {
 
     public ArrayList<Task> showList() {
         return this.tasks;
+    }
+
+    public ArrayList<Task> searchTask(String description) {
+        ArrayList<Task> results = new ArrayList<>();
+        for (Task match : this.tasks) {
+            if (match.getDescription().contains(description)) {
+                results.add(match);
+            }
+        }
+        return results;
     }
 }

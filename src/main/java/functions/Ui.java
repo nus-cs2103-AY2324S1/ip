@@ -45,6 +45,20 @@ public class Ui {
         System.out.println();
     }
 
+    public void showMatchesMsg(ArrayList<Task> tasks) {
+        if (tasks.size() == 0) {
+            System.out.println("There are no tasks matching your description. " +
+                    "Please try another search keyword.\n");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 1; i < tasks.size() + 1; i++) {
+                Task x = tasks.get(i - 1);
+                System.out.println(i + "." + x.toString());
+            }
+            System.out.println();
+        }
+    }
+
     public void showDeleteMsg(Task k, int numOfTasks) {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + k.toString());

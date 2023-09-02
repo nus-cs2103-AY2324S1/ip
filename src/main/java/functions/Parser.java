@@ -63,6 +63,9 @@ public class Parser {
             } else if (first.equals("unmark")) {
                 int s = Integer.valueOf(words[1]);
                 return new UnmarkCommand(s);
+            } else if (first.equals("find")) {
+                String search = words[1];
+                return new SearchCommand(search);
             } else if (first.equals("todo")) {
                 if (input.length() <= 5) {
                     return new ErrorCommand("The description of a task cannot be empty.\n");
