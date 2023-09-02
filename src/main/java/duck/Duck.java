@@ -3,6 +3,7 @@ package duck;
 import java.util.ArrayList;
 
 import duck.command.Command;
+
 import duck.task.Task;
 import duck.task.TaskList;
 
@@ -25,8 +26,8 @@ public class Duck {
         try {
             ArrayList<Task> list = storage.loadTasks();
             this.tasks = new TaskList(list);
-        } catch (DuckException error) {
-            ui.showErrorMessage(error);
+        } catch (DuckException e) {
+            ui.showErrorMessage(e);
             this.tasks = new TaskList();
         }
     }
@@ -36,7 +37,7 @@ public class Duck {
      */
     public void run() {
         ui.showWelcomeMessage();
-        boolean isExit = false; 
+        boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
@@ -44,8 +45,8 @@ public class Duck {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (DuckException error) {
-                ui.showErrorMessage(error);
+            } catch (DuckException e) {
+                ui.showErrorMessage(e);
             } finally {
                 ui.showLine();
             }

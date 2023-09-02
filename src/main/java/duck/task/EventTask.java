@@ -1,17 +1,17 @@
 package duck.task;
 
+import static duck.Parser.OUTPUT_DATE_FORMAT;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import duck.DuckException;
-import duck.Parser;
 
 /**
  * Represents a event task.
  */
 public class EventTask extends Task {
-    LocalDate start;
-    LocalDate end;
+    private LocalDate start;
+    private LocalDate end;
 
     /**
      * Creates a new EventTask.
@@ -22,31 +22,32 @@ public class EventTask extends Task {
      * @param end End of the task.
      */
     public EventTask(String name, boolean isDone, LocalDate start, LocalDate end) {
-        super(name,  isDone);
+        super(name, isDone);
         this.start = start;
         this.end = end;
     }
 
     private String formatStart() {
-        return start.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return start.format(OUTPUT_DATE_FORMAT);
     }
 
     private String formatEnd() {
-        return end.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return end.format(OUTPUT_DATE_FORMAT);
     }
 
     @Override
     public String stringify() {
         String startString = formatStart();
         String endString = formatEnd();
-        return "E" + super.stringify() + 
-                startString.length() + "/" + startString + 
-                endString.length() + "/" + endString;
+        return "E" + super.stringify()
+                + startString.length() + "/" + startString
+                + endString.length() + "/" + endString;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + formatStart() + " to " + formatEnd() + ")";
+        return "[E]" + super.toString()
+                + " (from: " + formatStart() + " to " + formatEnd() + ")";
     }
 
     @Override
@@ -67,7 +68,6 @@ public class EventTask extends Task {
      * @throws DuckException If the string representation is invalid.
      */
     public static EventTask parse(String fileLine) throws DuckException {
-
         // Finding isDone
         boolean isDone = fileLine.charAt(1) == '1';
 
@@ -79,12 +79,12 @@ public class EventTask extends Task {
         // Finding start
         int secondSlashIndex = fileLine.indexOf("/", slashIndex + 1);
         String startString = fileLine.substring(secondSlashIndex + 1, secondSlashIndex + 12);
-        LocalDate start = LocalDate.parse(startString, Parser.fileDateFormatter);
+        LocalDate start = LocalDate.parse(startString, OUTPUT_DATE_FORMAT);
 
         // Finding end
         int thirdSlashIndex = fileLine.indexOf("/", secondSlashIndex + 1);
         String endString = fileLine.substring(thirdSlashIndex + 1);
-        LocalDate end = LocalDate.parse(endString, Parser.fileDateFormatter);
+        LocalDate end = LocalDate.parse(endString, OUTPUT_DATE_FORMAT);
 
         return new EventTask(name, isDone, start, end);
     }

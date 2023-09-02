@@ -23,7 +23,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui,Storage storage) throws DuckException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
         tasks.add(newTask);
         ui.showAddTaskMessage(newTask, tasks.getTaskCount());
         storage.addTask(newTask);

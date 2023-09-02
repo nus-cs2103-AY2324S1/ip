@@ -99,7 +99,7 @@ public class TaskList {
      * @param index Index of the task to be deleted.
      * @throws DuckException If the index is invalid.
      */
-    public void delete(int index) throws DuckException{
+    public void delete(int index) throws DuckException {
         try {
             tasks.remove(index);
         } catch (IndexOutOfBoundsException e) {

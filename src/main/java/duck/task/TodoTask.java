@@ -6,7 +6,6 @@ import duck.DuckException;
  * Represents a todo task.
  */
 public class TodoTask extends Task {
-
     /**
      * Creates a new TodoTask.
      * 

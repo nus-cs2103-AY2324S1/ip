@@ -3,13 +3,13 @@ package duck.command;
 import duck.DuckException;
 import duck.Storage;
 import duck.Ui;
+
 import duck.task.TaskList;
 
 /**
  * Represents an executable command. Abstract class that cannot be instantiated.
  */
 public abstract class Command {
-
     /**
      * Executes the command.
      * 
@@ -18,7 +18,7 @@ public abstract class Command {
      * @param storage Storage.
      * @throws DuckException If an error occurs during execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui,Storage storage) throws DuckException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException;
 
     /**
      * Returns true only if the command is an exit command.

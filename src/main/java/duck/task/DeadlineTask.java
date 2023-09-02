@@ -1,16 +1,16 @@
 package duck.task;
 
+import static duck.Parser.OUTPUT_DATE_FORMAT;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import duck.DuckException;
-import duck.Parser;
 
 /**
  * Represents a deadline task.
  */
 public class DeadlineTask extends Task {
-    LocalDate deadline;
+    private LocalDate deadline;
 
     /**
      * Creates a new DeadlineTask.
@@ -20,24 +20,24 @@ public class DeadlineTask extends Task {
      * @param deadline Deadline of the task.
      */
     public DeadlineTask(String name, boolean isDone, LocalDate deadline) {
-        super(name,  isDone);
+        super(name, isDone);
         this.deadline = deadline;
     }
 
     private String formatDeadline() {
-        return deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return deadline.format(OUTPUT_DATE_FORMAT);
     }
 
     @Override
     public String stringify() {
         String deadlineString = formatDeadline();
-        return "D" + super.stringify() + 
-                deadlineString.length() + "/" + deadlineString;
+        return "D" + super.stringify()
+                + deadlineString.length() + "/" + deadlineString;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + formatDeadline()  + ")";
+        return "[D]" + super.toString() + " (by: " + formatDeadline() + ")";
     }
 
     @Override
@@ -58,7 +58,6 @@ public class DeadlineTask extends Task {
      * @throws DuckException If the string representation is invalid.
      */
     public static DeadlineTask parse(String fileLine) throws DuckException {
-
         // Finding isDone
         boolean isDone = fileLine.charAt(1) == '1';
 
@@ -70,7 +69,7 @@ public class DeadlineTask extends Task {
         // Finding deadline
         int secondSlashIndex = fileLine.indexOf("/", slashIndex + 1);
         String deadlineString = fileLine.substring(secondSlashIndex + 1);
-        LocalDate deadline = LocalDate.parse(deadlineString, Parser.fileDateFormatter);
+        LocalDate deadline = LocalDate.parse(deadlineString, OUTPUT_DATE_FORMAT);
 
         return new DeadlineTask(name, isDone, deadline);
     }

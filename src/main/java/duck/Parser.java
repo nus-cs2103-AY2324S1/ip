@@ -21,8 +21,8 @@ import duck.task.TodoTask;
  * Handles parsing of user input and file data.
  */
 public class Parser {
-    private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    public static DateTimeFormatter fileDateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    public static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     /**
      * Parses the user input and returns the corresponding command.
@@ -32,7 +32,7 @@ public class Parser {
      * @throws DuckException If the user input is invalid.
      */
     public static Command parse(String input) throws DuckException {
-        String[] splitInput = input.trim().split(" ", 2);
+        String[] splitInput = input.split(" ", 2);
         String command = splitInput[0].toUpperCase();
         switch (command) {
         case "LIST":
@@ -65,8 +65,7 @@ public class Parser {
 
     private static int parseIndex(String dataString) throws DuckException {
         try {
-            int index = Integer.parseInt(dataString);
-            return index;
+            return Integer.parseInt(dataString);
         } catch (NumberFormatException e) {
             throw new DuckException("Please enter a valid task number.");
         }
@@ -74,7 +73,7 @@ public class Parser {
 
     private static Task parseTodo(String dataString) throws DuckException {
         try {
-            String name = dataString.trim(); 
+            String name = dataString.trim();
             return new TodoTask(name, false);
         } catch (StringIndexOutOfBoundsException e) {
             throw new DuckException("The description of a todo cannot be empty.");
@@ -83,9 +82,9 @@ public class Parser {
 
     private static DeadlineTask parseDeadline(String dataString) throws DuckException {
         try {
-            String[] splitData = dataString.trim().split(" /by ", 2);
+            String[] splitData = dataString.split(" /by ", 2);
             String name = splitData[0].trim();
-            LocalDate deadline = LocalDate.parse(splitData[1].trim(), dateFormatter); // potential error if theres no "/by" ???
+            LocalDate deadline = LocalDate.parse(splitData[1].trim(), INPUT_DATE_FORMAT);
             return new DeadlineTask(name, false, deadline);
         } catch (StringIndexOutOfBoundsException e) {
             throw new DuckException("Invalid todo task.");
@@ -98,11 +97,11 @@ public class Parser {
 
     private static EventTask parseEvent(String dataString) throws DuckException {
         try {
-            String[] splitData = dataString.trim().split(" /from ", 2);
+            String[] splitData = dataString.split(" /from ", 2);
             String name = splitData[0].trim();
-            splitData = splitData[1].trim().split(" /to ", 2);
-            LocalDate start = LocalDate.parse(splitData[0].trim(), dateFormatter);
-            LocalDate end = LocalDate.parse(splitData[1].trim(), dateFormatter);
+            splitData = splitData[1].split(" /to ", 2);
+            LocalDate start = LocalDate.parse(splitData[0].trim(), INPUT_DATE_FORMAT);
+            LocalDate end = LocalDate.parse(splitData[1].trim(), INPUT_DATE_FORMAT);
             return new EventTask(name, false, start, end);
         } catch (StringIndexOutOfBoundsException e) {
             throw new DuckException("Invalid todo task.");
@@ -120,7 +119,7 @@ public class Parser {
      * @return The corresponding task.
      * @throws DuckException If the line is invalid.
      */
-    public static Task parseFromFile(String fileLine) throws DuckException{
+    public static Task parseFromFile(String fileLine) throws DuckException {
         char typeChar = fileLine.charAt(0);
 
         switch (typeChar) {

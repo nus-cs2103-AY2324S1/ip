@@ -3,13 +3,14 @@ package duck.command;
 import duck.DuckException;
 import duck.Storage;
 import duck.Ui;
+
 import duck.task.TaskList;
 
 /**
  * Represents an executable command which marks a task as done.
  */
 public class MarkCommand extends Command {
-    int index;
+    private int index;
 
     /**
      * Creates a new mark command.
@@ -20,7 +21,8 @@ public class MarkCommand extends Command {
         this.index = index - 1;
     }
 
-    public void execute(TaskList tasks, Ui ui,Storage storage) throws DuckException{
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
         tasks.mark(index);
         ui.showMarkTaskMessage(tasks.getTask(index));
         storage.updateTasks(tasks);

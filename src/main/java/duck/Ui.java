@@ -9,15 +9,22 @@ import duck.task.TaskList;
  * Handles user interaction.
  */
 public class Ui {
-    Scanner scanner = new Scanner(System.in);
-    
+    private Scanner scanner;
+
+    /**
+     * Initializes a Ui object.
+     */
+    public Ui() {
+        scanner = new Scanner(System.in);
+    }
+
     public void showLine() {
         System.out.println("____________________________________________________________");
     }
 
     public void showWelcomeMessage() {
-        String greeting = "Quack! I'm Duck!\n" +
-                "What can I do for you?";
+        String greeting = "Quack! I'm Duck! \n"
+                + "What can I do for you?";
 
         showLine();
         System.out.println(greeting);
@@ -32,14 +39,14 @@ public class Ui {
     }
 
     public String readCommand() {
-        String input = scanner.nextLine();
+        String input = scanner.nextLine().trim();
         return input;
     }
 
     public void showAddTaskMessage(Task task, int taskCount) {
-        String addTask = "Got it. I've added this task:\n" + 
-                task + "\n" + 
-                "Now you have " + taskCount + " task(s) in the list.";
+        String addTask = "Got it. I've added this task: \n"
+                + task + "\n"
+                + "Now you have " + taskCount + " task(s) in the list.";
 
         System.out.println(addTask);
     }
@@ -49,30 +56,30 @@ public class Ui {
             System.out.println("You have no tasks yet.");
             return;
         }
-        String allTasks = "Here are the tasks in your list:\n" + 
-                tasks;
+        String allTasks = "Here are the tasks in your list: \n"
+                + tasks;
 
         System.out.println(allTasks);
     }
 
     public void showMarkTaskMessage(Task task) {
-        String markTask = "Nice! I've marked this task as done:\n" + 
-                task;
+        String markTask = "Nice! I've marked this task as done: \n"
+                + task;
 
         System.out.println(markTask);
     }
 
     public void showUnmarkTaskMessage(Task task) {
-        String unmarkTask = "OK, I've unmarked this task:\n" + 
-                task;
+        String unmarkTask = "OK, I've unmarked this task: \n"
+                + task;
 
         System.out.println(unmarkTask);
     }
 
     public void showDeleteTaskMessage(Task task, int taskCount) {
-        String deleteTask = "Noted. I've removed this task:\n" + 
-                task + "\n" + 
-                "Now you have " + taskCount + " task(s) in the list.";
+        String deleteTask = "Noted. I've removed this task: \n"
+                + task + "\n"
+                + "Now you have " + taskCount + " task(s) in the list.";
 
         System.out.println(deleteTask);
     }
