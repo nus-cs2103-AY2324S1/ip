@@ -1,8 +1,9 @@
 package duke;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
     @Test
@@ -11,7 +12,8 @@ public class TaskListTest {
             TaskList test = new TaskList(new ArrayList<>());
             test.deleteTask(1);
         } catch (Exception e) {
-            assertEquals("☹ OOPS!!! The delete command needs to be followed by an existing task number.", e.getMessage());
+            assertEquals("☹ OOPS!!! The delete command needs to be followed "
+                    + "by an existing task number.", e.getMessage());
         }
     }
 

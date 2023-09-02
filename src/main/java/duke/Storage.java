@@ -13,6 +13,11 @@ import java.util.Scanner;
  */
 public class Storage {
     private final File file;
+
+    /**
+     * Constructor for storage. Makes the prerequisite folder and file if necessary.
+     * @param filePath Path to the folder.
+     */
     public Storage(String filePath) {
         File diskValues = new File(filePath + "/duke.txt");
         this.file = diskValues;
@@ -42,16 +47,16 @@ public class Storage {
     private Task parseOneLine(String oneTask) throws DukeException {
         Task theTask;
         String taskName;
-        char TaskType = oneTask.charAt(1);
+        char taskType = oneTask.charAt(1);
         String[] splitTask = oneTask.split(" ");
         if (oneTask.charAt(4) == 'X') {
             taskName = splitTask[1];
         } else {
             taskName = splitTask[2];
         }
-        if (TaskType == 'T') {
+        if (taskType == 'T') {
             theTask = new Todo(taskName);
-        } else if (TaskType == 'D') {
+        } else if (taskType == 'D') {
             StringBuilder deadline = new StringBuilder();
             String mode = "none";
             for (String command : splitTask) {
@@ -70,7 +75,7 @@ public class Storage {
                 deadline.deleteCharAt(deadline.length() - 1); // Remove last ).
             }
             theTask = new Deadline(taskName, deadline.toString());
-        } else if (TaskType == 'E') {
+        } else if (taskType == 'E') {
             StringBuilder from = new StringBuilder();
             StringBuilder to = new StringBuilder();
             String mode = "none";

@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  * Class that contains all the tasks.
  */
 public class TaskList {
-    ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
@@ -57,6 +57,11 @@ public class TaskList {
         this.tasks.add(newTask);
     }
 
+    /**
+     * Returns the tasks that match the keyword in the find task command using regex.
+     * @param keyword The keyword used in the find command
+     * @return The tasks that match the keyword.
+     */
     public ArrayList<Task> findTasks(String keyword) {
         Pattern pattern = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE);
         ArrayList<Task> foundTasks = new ArrayList<>();
