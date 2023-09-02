@@ -1,4 +1,4 @@
-package parsers;
+package bot.parsers;
 
 public class InputParser {
     private static final String SPLIT_AT_SPACE = " ";

@@ -1,6 +1,6 @@
-package parsers;
+package bot.parsers;
 
-import exception.DateTimeParseBotException;
+import bot.exception.DateTimeParseBotException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +27,7 @@ public class DatetimeParser {
             return LocalDateTime.parse(str);
         } catch (DateTimeParseException e) {
             throw new DateTimeParseBotException("The dateTime format is corrupted " +
-                    "in the ./data/task.txt.");
+                    "in the ./data/bot.task.txt.");
         }
     }
 }

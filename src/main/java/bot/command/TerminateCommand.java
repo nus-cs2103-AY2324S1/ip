@@ -1,4 +1,4 @@
-package command;
+package bot.command;
 
 public class TerminateCommand extends Command {
     private static final String MESSAGE = "____________________________________________________________\n" +

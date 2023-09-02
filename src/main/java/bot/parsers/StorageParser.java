@@ -1,10 +1,10 @@
-package parsers;
+package bot.parsers;
 
-import exception.DateTimeParseBotException;
-import task.Task;
-import task.Todo;
-import task.Event;
-import task.Deadline;
+import bot.exception.DateTimeParseBotException;
+import bot.task.Task;
+import bot.task.Todo;
+import bot.task.Event;
+import bot.task.Deadline;
 
 public class StorageParser {
     private static final String UNIQUE_FILE_SEPARATOR = " &##& ";

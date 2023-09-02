@@ -1,20 +1,22 @@
-import command.Command;
-import command.DeadlineCommand;
-import command.DeleteCommand;
-import command.EventCommand;
-import command.ListCommand;
-import command.MarkCommand;
-import command.TerminateCommand;
-import command.TodoCommand;
-import command.UnmarkCommand;
+package bot;
 
-import exception.DateTimeParseBotException;
-import exception.FileErrorBotException;
-import exception.IllegalExpressionBotException;
-import exception.IncompleteBotException;
+import bot.command.Command;
+import bot.command.DeadlineCommand;
+import bot.command.DeleteCommand;
+import bot.command.EventCommand;
+import bot.command.ListCommand;
+import bot.command.MarkCommand;
+import bot.command.TerminateCommand;
+import bot.command.TodoCommand;
+import bot.command.UnmarkCommand;
 
-import parsers.InputParser;
-import task.TaskList;
+import bot.exception.DateTimeParseBotException;
+import bot.exception.FileErrorBotException;
+import bot.exception.IllegalExpressionBotException;
+import bot.exception.IncompleteBotException;
+
+import bot.parsers.InputParser;
+import bot.task.TaskList;
 
 
 public class ControlFlow {
@@ -38,7 +40,7 @@ public class ControlFlow {
     public Command execute(String str) throws IllegalExpressionBotException,
             IncompleteBotException, FileErrorBotException, DateTimeParseBotException {
         if (str.isBlank()) {
-            throw new IncompleteBotException("OOPS!!! There is no task specified.");
+            throw new IncompleteBotException("OOPS!!! There is no bot.task specified.");
         }
         String[] strSplit = InputParser.getSplitAtSpace(str);
         String taskName = InputParser.getLeftOfSplit(strSplit);

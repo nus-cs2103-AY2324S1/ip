@@ -1,10 +1,12 @@
-package command;
+package bot.command;
 
-import exception.DateTimeParseBotException;
-import exception.FileErrorBotException;
-import task.TaskList;
-import task.Event;
-import storage.Storage;
+import bot.exception.DateTimeParseBotException;
+import bot.exception.FileErrorBotException;
+import bot.task.TaskList;
+import bot.task.Event;
+import bot.storage.Storage;
+
+import java.io.IOException;
 
 public class EventCommand extends Command {
 
@@ -17,7 +19,8 @@ public class EventCommand extends Command {
         this.event = new Event(taskDetail, timeFrom, timeTo);
     }
 
-    public void execute() throws FileErrorBotException {
+    @Override
+    public void execute() throws FileErrorBotException, IOException {
         this.taskList.add(this.event);
         Storage.save(this.taskList);
         System.out.println(this);
@@ -27,13 +30,13 @@ public class EventCommand extends Command {
     public String toString() {
         if (this.taskList.length() <= 1) {
             return Command.SPACER + "\n" +
-                    "Got it. I've added this task:\n" +
+                    "Got it. I've added this bot.task:\n" +
                     this.event + "\n" +
-                    "Now you have " + this.taskList.length() + " task in the list.\n" +
+                    "Now you have " + this.taskList.length() + " bot.task in the list.\n" +
                     Command.SPACER;
         } else {
             return Command.SPACER + "\n" +
-                    "Got it. I've added this task:\n" +
+                    "Got it. I've added this bot.task:\n" +
                     this.event + "\n" +
                     "Now you have " + this.taskList.length() + " tasks in the list.\n" +
                     Command.SPACER;

@@ -1,4 +1,4 @@
-package exception;
+package bot.exception;
 import java.lang.Exception;
 
 public class BotException extends Exception {

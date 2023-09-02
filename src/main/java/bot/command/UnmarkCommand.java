@@ -1,9 +1,11 @@
-package command;
+package bot.command;
 
-import exception.FileErrorBotException;
-import task.TaskList;
-import task.Task;
-import storage.Storage;
+import bot.exception.FileErrorBotException;
+import bot.task.TaskList;
+import bot.task.Task;
+import bot.storage.Storage;
+
+import java.io.IOException;
 
 public class UnmarkCommand extends Command {
     private final Task task;
@@ -16,7 +18,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute() throws FileErrorBotException {
+    public void execute() throws FileErrorBotException, IOException {
         this.task.setIncomplete();
         Storage.save(this.taskList);
         System.out.println(this);
@@ -25,7 +27,7 @@ public class UnmarkCommand extends Command {
     @Override
     public String toString() {
         return Command.SPACER + "\n" +
-                "OK, I've marked this task as not done yet:\n" +
+                "OK, I've marked this bot.task as not done yet:\n" +
                 this.task + "\n" +
                 Command.SPACER;
     }

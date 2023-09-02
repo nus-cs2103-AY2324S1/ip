@@ -1,9 +1,11 @@
-package command;
+package bot.command;
 
-import exception.FileErrorBotException;
-import task.TaskList;
-import task.Task;
-import storage.Storage;
+import bot.exception.FileErrorBotException;
+import bot.task.TaskList;
+import bot.task.Task;
+import bot.storage.Storage;
+
+import java.io.IOException;
 
 
 public class MarkCommand extends Command {
@@ -16,7 +18,7 @@ public class MarkCommand extends Command {
         this.taskList = taskList;
     }
 
-    public void execute() throws FileErrorBotException {
+    public void execute() throws FileErrorBotException, IOException {
         this.task.setComplete();
         Storage.save(this.taskList);
         System.out.println(this);
@@ -25,7 +27,7 @@ public class MarkCommand extends Command {
     @Override
     public String toString() {
         return Command.SPACER + "\n" +
-                "Nice! I've marked this task as done:\n" +
+                "Nice! I've marked this bot.task as done:\n" +
                 this.task + "\n" +
                 Command.SPACER;
     }

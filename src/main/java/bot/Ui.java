@@ -1,10 +1,13 @@
-import command.*;
-import exception.DateTimeParseBotException;
-import exception.FileErrorBotException;
-import exception.IllegalExpressionBotException;
-import exception.IncompleteBotException;
-import task.TaskList;
+package bot;
 
+import bot.command.*;
+import bot.exception.DateTimeParseBotException;
+import bot.exception.FileErrorBotException;
+import bot.exception.IllegalExpressionBotException;
+import bot.exception.IncompleteBotException;
+import bot.task.TaskList;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Ui {
@@ -37,7 +40,7 @@ public class Ui {
                 command = control.execute(str);
                 command.execute();
             } catch (IncompleteBotException | IllegalExpressionBotException |
-                     FileErrorBotException | DateTimeParseBotException e) {
+                     FileErrorBotException | DateTimeParseBotException | IOException e) {
                 System.out.println(e);
             }
         } while (!(command instanceof TerminateCommand));

@@ -1,7 +1,7 @@
-package task;
+package bot.task;
 
-import exception.DateTimeParseBotException;
-import parsers.DatetimeParser;
+import bot.exception.DateTimeParseBotException;
+import bot.parsers.DatetimeParser;
 
 import java.time.LocalDateTime;
 

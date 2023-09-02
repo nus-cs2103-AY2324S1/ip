@@ -1,6 +1,6 @@
-package command;
+package bot.command;
 
-import task.TaskList;
+import bot.task.TaskList;
 
 public class ListCommand extends Command {
     private final TaskList taskList;

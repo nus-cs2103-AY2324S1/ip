@@ -1,4 +1,4 @@
-package task;
+package bot.task;
 
 import java.util.ArrayList;
 import java.util.Iterator;

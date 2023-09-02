@@ -1,10 +1,12 @@
-package command;
+package bot.command;
 
-import exception.DateTimeParseBotException;
-import exception.FileErrorBotException;
-import task.TaskList;
-import task.Deadline;
-import storage.Storage;
+import bot.exception.DateTimeParseBotException;
+import bot.exception.FileErrorBotException;
+import bot.task.TaskList;
+import bot.task.Deadline;
+import bot.storage.Storage;
+
+import java.io.IOException;
 
 public class DeadlineCommand extends Command {
 
@@ -17,7 +19,7 @@ public class DeadlineCommand extends Command {
         this.deadline = new Deadline(taskDetail, dueDate);
     }
 
-    public void execute() throws FileErrorBotException {
+    public void execute() throws FileErrorBotException, IOException {
         this.taskList.add(this.deadline);
         Storage.save(this.taskList);
         System.out.println(this);
@@ -27,13 +29,13 @@ public class DeadlineCommand extends Command {
     public String toString() {
         if (this.taskList.length() <= 1) {
             return Command.SPACER + "\n" +
-                    "Got it. I've added this task:\n" +
+                    "Got it. I've added this bot.task:\n" +
                     this.deadline + "\n" +
-                    "Now you have " + this.taskList.length() + " task in the list.\n" +
+                    "Now you have " + this.taskList.length() + " bot.task in the list.\n" +
                     Command.SPACER;
         } else {
             return Command.SPACER + "\n" +
-                    "Got it. I've added this task:\n" +
+                    "Got it. I've added this bot.task:\n" +
                     this.deadline + "\n" +
                     "Now you have " + this.taskList.length() + " tasks in the list.\n" +
                     Command.SPACER;

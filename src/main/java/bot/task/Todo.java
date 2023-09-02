@@ -1,4 +1,4 @@
-package task;
+package bot.task;
 
 public class Todo extends Task {
     private static final String TASK_HEADER = "[T] ";
