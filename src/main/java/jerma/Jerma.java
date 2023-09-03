@@ -17,14 +17,21 @@ public class Jerma {
     public Jerma() {
         this.ui = new Ui();
         this.running = new Boolean[] { true };
+    }
 
+    public String load() {
         try {
             this.tasks = Storage.load();
+            return "Task list has been loaded";
         } catch (IOException e) {
-            ui.error("Save file not found");
+            return this.ui.error("Save file not found");
         } catch (UnsupportedOperationException e) {
-            ui.error("Corrupted save file");
+            return this.ui.error("Corrupted save file");
         }
+    }
+
+    public String hello() {
+        return this.ui.hello();
     }
 
     /**

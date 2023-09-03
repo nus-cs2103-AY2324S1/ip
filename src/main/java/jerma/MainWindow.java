@@ -37,6 +37,13 @@ public class MainWindow extends AnchorPane {
         this.jerma = jerma;
     }
 
+    public void onStart() {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getJermaDialog(this.jerma.hello(), jermaImage));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getJermaDialog(this.jerma.load(), jermaImage));
+    }
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing
      * Duke's reply and then appends them to the dialog container. Clears the

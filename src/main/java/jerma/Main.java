@@ -23,7 +23,9 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setJerma(jerma);
+            MainWindow mw = fxmlLoader.<MainWindow>getController();
+            mw.setJerma(jerma);
+            mw.onStart();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

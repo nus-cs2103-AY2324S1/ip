@@ -45,7 +45,6 @@ public class Storage {
 
             tasks.add(task);
         }
-        System.out.println("List loaded");
 
         return tasks;
     }
