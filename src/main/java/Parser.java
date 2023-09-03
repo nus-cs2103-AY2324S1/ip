@@ -1,13 +1,13 @@
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-public class Parser {
+public class Parser implements Serializable {
 
     public Parser() {
         //empty constructor to initialize class objects
     }
 
-    public void chat(String str, List<Task> tasks) {
+    public void chat(String str, TaskList tasks) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         Ui ui = new Ui();
         try {
@@ -15,31 +15,31 @@ public class Parser {
                     if (str.startsWith("mark ")) {
                         String num = str.substring(5);
                         int number = Integer.valueOf(num);
-                        if (number <= 0 || number > tasks.size()) {
+                        if (number <= 0 || number > tasks.getSize()) {
                             throw new InvalidInputException(str);
                         }
                         int index = number - 1; //index for task list
-                        Task done = tasks.get(index);
-                        done.markAsDone();
+                        tasks.markDone(index);
+                        Task done = tasks.getTask(index);
                         ui.printDone(done);
                     } else if (str.startsWith("unmark ")) {
                         String num = str.substring(7);
                         int number = Integer.valueOf(num);
-                        if (number <= 0 || number > tasks.size()) {
+                        if (number <= 0 || number > tasks.getSize()) {
                             throw new InvalidInputException(str);
                         }
                         int index = number - 1; //index for task list
-                        Task notDone = tasks.get(index);
-                        notDone.markAsNotDone();
+                        tasks.markNotDone(index);
+                        Task notDone = tasks.getTask(index);
                         ui.printNotDone(notDone);
                     } else if (str.startsWith("delete ")) {
                         String num = str.substring(7);
                         int number = Integer.valueOf(num);
-                        if (number <= 0 || number > tasks.size()) {
+                        if (number <= 0 || number > tasks.getSize()) {
                             throw new InvalidInputException(str);
                         }
                         int index = number - 1;
-                        Task toBeDeleted = tasks.remove(index);
+                        Task toBeDeleted = tasks.removeTask(index);
                         ui.printDelete(toBeDeleted, tasks);
                     } else {
                         if (str.startsWith("todo")) {
@@ -52,7 +52,7 @@ public class Parser {
                             }
                             String string = str.substring(5);
                             Task task = new ToDo(string);
-                            tasks.add(task);
+                            tasks.addTask(task);
                             ui.printAddTask(task, tasks);
                         } else if (str.startsWith("deadline")) {
                             if (!str.contains("/by ")) {
@@ -66,7 +66,7 @@ public class Parser {
                                 }
                                 String workToDo = str.substring(9, index);
                                 Task task = new Deadline(workToDo, LocalDateTime.parse(deadline, formatter));
-                                tasks.add(task);
+                                tasks.addTask(task);
                                 ui.printAddTask(task, tasks);
                             }
                         } else if (str.startsWith("event")) {
@@ -93,7 +93,7 @@ public class Parser {
                                     }
                                     Task task = new Event(workToDo, LocalDateTime.parse(fromWhen, formatter),
                                             LocalDateTime.parse(toWhen, formatter));
-                                    tasks.add(task);
+                                    tasks.addTask(task);
                                     ui.printAddTask(task, tasks);
                                 }
                             }
@@ -102,8 +102,7 @@ public class Parser {
                         }
                     }
                 } else {
-                    Task.listTasks(tasks);
-                    System.out.println();
+                    ui.listTasks(tasks);
                 }
         } catch (java.time.format.DateTimeParseException e) {
             //detect inputs that don't follow the yyyy-MM-dd HHmm format
