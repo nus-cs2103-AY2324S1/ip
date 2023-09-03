@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class ParserTest {
 
   @Test
-  public void parseEvent_noByStatement_exceptionThrown() {
+  public void parseDeadline_noByStatement_exceptionThrown() {
 
     String input = "deadline hello test\n";
     InputStream in = new ByteArrayInputStream(input.getBytes());
@@ -25,7 +25,52 @@ public class ParserTest {
     }
 
     try {
-      parser.parseEvent();
+      parser.parseDeadline();
+      fail();
+    } catch (ParserException ex) {
+      System.out.println(ex.getMessage());
+    }
+    System.setIn(System.in);
+  }
+
+  @Test
+  public void parseDeadline_invalidDate_exceptionThrown() {
+
+    String input = "deadline /by somedate\n";
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    System.setIn(in);
+    Parser parser = new Parser();
+    try {
+      parser.update();
+    } catch (NoSuchElementException ex) {
+      System.out.println("Should not reach here");
+    }
+
+    try {
+      parser.parseDeadline();
+      fail();
+    } catch (ParserException ex) {
+      System.out.println(ex.getMessage());
+    }
+    System.setIn(System.in);
+  }
+
+
+  @Test
+  public void parseDeadline_noName_exceptionThrown() {
+
+    String input = "deadline\n";
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    System.setIn(in);
+    Parser parser = new Parser();
+    try {
+      parser.update();
+    } catch (NoSuchElementException ex) {
+      System.out.println("Should not reach here");
+    }
+
+    try {
+      parser.parseDeadline();
       fail();
     } catch (ParserException ex) {
       System.out.println(ex.getMessage());
