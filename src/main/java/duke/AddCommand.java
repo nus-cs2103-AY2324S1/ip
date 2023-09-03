@@ -4,24 +4,24 @@ import java.time.LocalDate;
 
 public class AddCommand extends Command{
 
-    private final String toAdd;
+    private final String TASK_TO_ADD;
 
     public AddCommand(String str) {
-        toAdd = str;
+        TASK_TO_ADD = str;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            if (toAdd.startsWith("todo ")) {
-                if (toAdd.length() < 6) throw new IncompleteInputException("todo");
-                String des = toAdd.substring(5);
+            if (TASK_TO_ADD.startsWith("todo ")) {
+                if (TASK_TO_ADD.length() < 6) throw new IncompleteInputException("todo");
+                String des = TASK_TO_ADD.substring(5);
                 Todo todo = new Todo(des);
                 tasks.add(todo);
                 ui.showTaskAdded(todo, tasks.total());
 
-            } else if (toAdd.startsWith("deadline ")) {
-                String[] words = toAdd.split("/");
+            } else if (TASK_TO_ADD.startsWith("deadline ")) {
+                String[] words = TASK_TO_ADD.split("/");
                 if (words.length != 2 || words[0].length() < 10 || words[1].length() < 4) {
                     throw new IncompleteInputException("deadline");
                 }
@@ -33,8 +33,8 @@ public class AddCommand extends Command{
                 ui.showTaskAdded(dl, tasks.total());
 
 
-            } else if (toAdd.startsWith("event ")) {
-                String[] words = toAdd.split("/");
+            } else if (TASK_TO_ADD.startsWith("event ")) {
+                String[] words = TASK_TO_ADD.split("/");
                 if (words.length != 3 || words[0].length() < 7 || words[1].length() < 6 || words[2].length() < 4) {
                     throw new IncompleteInputException("deadline");
                 }
