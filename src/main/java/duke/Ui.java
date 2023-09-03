@@ -10,7 +10,8 @@ public class Ui {
      * Displays a default start message when the program starts.
      */
     public void startMessage() {
-        System.out.println("Hello friend :> My name is John, nice to meet you! What do you have to do today?");
+        System.out.println("Hello friend :> My name is John, nice to meet you! " +
+                "What do you have to do today?");
     }
 
     /**
@@ -55,7 +56,8 @@ public class Ui {
      * @param task The task that is marked as done.
      */
     public void showTaskMarked(Task task) {
-        System.out.println("Nice! I've marked this task as done:\n" + "[X] " + task.getDescription());
+        System.out.println("Nice! I've marked this task as done:\n" + "[X] "
+                + task.getDescription());
     }
 
     /**
@@ -64,7 +66,8 @@ public class Ui {
      * @param task The task that is unmarked.
      */
     public void showTaskUnmarked(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:\n" + "[ ] " + task.getDescription());
+        System.out.println("OK, I've marked this task as not done yet:\n" + "[ ] "
+                + task.getDescription());
     }
 
 }
