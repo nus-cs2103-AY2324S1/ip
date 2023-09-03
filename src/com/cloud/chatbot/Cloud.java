@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.cloud.chatbot.exceptions.MissingInputException;
 import com.cloud.chatbot.todo.Deadline;
 import com.cloud.chatbot.todo.Event;
 import com.cloud.chatbot.todo.Todo;
@@ -21,7 +22,15 @@ public final class Cloud {
 
     private static void handle(String input) {
         TokenManager manager = new TokenManager(input);
-        switch (manager.getCommand()) {
+        String command;
+        try {
+            command = manager.getCommand();
+        } catch (MissingInputException e) {
+            // Ignore empty inputs
+            return;
+        }
+
+        switch (command) {
         case "todo":
         case "t":
         case "deadline":
@@ -29,12 +38,11 @@ public final class Cloud {
         case "event":
         case "e":
         case "add": {
-            if (manager.getDescription().length() <= 0) {
-                Cloud.say("Please enter a description for your TODO.");
+            Todo todo = Cloud.createTodo(manager);
+            if (todo == null) {
                 break;
             }
 
-            Todo todo = Cloud.createTodo(manager);
             Cloud.TODOS.add(todo);
             Cloud.say(todo.toString(Cloud.TODOS.size()));
             break;
@@ -86,14 +94,10 @@ public final class Cloud {
             break;
         }
         default: {
-            if (manager.getCommand().length() <= 0) {
-                break;
-            }
-
             Cloud.say(
                 String.format(
                     "\"%s\" is not a valid command.",
-                    manager.getCommand()
+                    command
                 )
             );
             break;
@@ -102,17 +106,25 @@ public final class Cloud {
     }
 
     private static Todo createTodo(TokenManager manager) {
+        String description;
+        try {
+            description = manager.getDescription();
+        } catch (MissingInputException e) {
+            Cloud.say(e.getMessage());
+            return null;
+        }
+
         TokenManager inputBy = manager.findFlag("by");
         TokenManager inputFrom = manager.findFlag("from");
         TokenManager inputTo = manager.findFlag("to");
 
         if (inputBy != null) {
-            return new Deadline(manager.getDescription(), inputBy.toString());
+            return new Deadline(description, inputBy.toString());
         }
         if (inputFrom != null && inputTo != null) {
-            return new Event(manager.getDescription(), inputFrom.toString(), inputTo.toString());
+            return new Event(description, inputFrom.toString(), inputTo.toString());
         }
-        return new Todo(manager.getDescription());
+        return new Todo(description);
     }
 
     private static Integer verifyNumber(TokenManager manager) {

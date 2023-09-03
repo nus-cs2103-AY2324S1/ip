@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.cloud.chatbot.exceptions.MissingInputException;
+
 
 
 /**
@@ -19,12 +21,24 @@ public class TokenManager {
     private HashMap<String, TokenManager> flagSets = new HashMap<>();
 
     public TokenManager(String input) {
+        // Corner case: Passing "" returns [""] instead of []
+        // https://stackoverflow.com/q/4964484/11536796
         String[] words = input.split(" ");
 
+        boolean encounteredContent = false;
         for (int i = 0; i < words.length; i++) {
             String word = words[i];
-            Token token = new Token(word);
-            this.tokens.add(token);
+
+            // Deal with corner case by ignoring any leading ""
+            if (!word.equals("")) {
+                encounteredContent = true;
+            }
+
+            if (encounteredContent) {
+                Token token = new Token(word);
+                this.tokens.add(token);
+            }
+
         }
 
         // Go through tokens to extract flag sets
@@ -106,11 +120,11 @@ public class TokenManager {
     /**
      * Returns the first token, understood to be the command.
      *
-     * @return Defaults to "" if the user input is too short.
+     * @throws MissingInputException If the user input is too short.
      */
-    public String getCommand() {
+    public String getCommand() throws MissingInputException {
         if (this.tokens.size() <= 0) {
-            return "";
+            throw new MissingInputException();
         }
 
         return this.tokens.get(0).get().toLowerCase();
@@ -119,11 +133,11 @@ public class TokenManager {
     /**
      * Returns all rejoined tokens except the command.
      *
-     * @return Defaults to "" if the user input is too short.
+     * @throws MissingInputException If the user input is too short.
      */
-    public String getDescription() {
+    public String getDescription() throws MissingInputException {
         if (this.tokens.size() <= 1) {
-            return "";
+            throw new MissingInputException("Please enter a description for your TODO.");
         }
 
         List<Token> descriptionTokens = new ArrayList<>(this.tokens);
