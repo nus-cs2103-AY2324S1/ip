@@ -21,3 +21,8 @@ jobs:
         run: |
           chmod +x ./gradlew
           ./gradlew test
+
+      - name: Run Checkstyle
+        run: |
+          chmod +x ./gradlew
+          ./gradlew checkstyleMain checkstyleTest

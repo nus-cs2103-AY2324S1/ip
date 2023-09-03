@@ -82,7 +82,8 @@ public class Event extends Task {
     @Override
     public String formatForFile() {
         String taskType = "E";
-        return taskType + ", " + super.formatForFile() + ", " + this.startTime.toString() + ", " + this.endTime.toString();
+        return taskType + ", " + super.formatForFile() + ", "
+                + this.startTime.toString() + ", " + this.endTime.toString();
     }
 
 }

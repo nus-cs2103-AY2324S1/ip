@@ -10,7 +10,7 @@ public class ToDo extends Task {
      * Constructor for a ToDo task.
      * @param name The name of the task.
      */
-    protected ToDo (String name) {
+    protected ToDo(String name) {
         super(name);
     }
 

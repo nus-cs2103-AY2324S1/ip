@@ -1,11 +1,17 @@
 package rat.io;
 
-import static rat.io.RatPrinter.*;
+import static rat.io.RatPrinter.printWithLines;
 
 import java.util.Scanner;
 
-import rat.tasks.*;
-import rat.command.*;
+import rat.command.AddCommand;
+import rat.command.CommandType;
+import rat.command.DeleteCommand;
+import rat.command.ExitCommand;
+import rat.command.FindCommand;
+import rat.command.MarkCommand;
+import rat.command.UnmarkCommand;
+import rat.tasks.RatTaskManager;
 
 /**
  * This class encapsulates the input handling of Rat.
@@ -49,6 +55,7 @@ public class RatInput {
             switch (command) {
             case "bye":
                 new ExitCommand(this.ratTaskManager).execute();
+                break;
             case "list":
                 this.ratTaskManager.listItems();
                 break;

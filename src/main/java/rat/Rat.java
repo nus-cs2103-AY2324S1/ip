@@ -1,12 +1,12 @@
 package rat;
 
-import static rat.io.RatPrinter.*;
+import static rat.io.RatPrinter.printWelcome;
 
 import java.util.Scanner;
 
-import rat.tasks.*;
 import rat.io.RatInput;
 import rat.storage.RatStorage;
+import rat.tasks.RatTaskManager;
 
 /**
  * This class encapsulates my version of Duke, called Rat.
