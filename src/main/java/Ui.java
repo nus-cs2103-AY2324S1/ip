@@ -60,6 +60,13 @@ public class Ui {
         this.linePrinter();
     }
 
+    public void unmarkPrinter(TaskList tl, int a) {
+        this.linePrinter();
+        this.tabPrinter("OK, I've marked this task as not done yet:");
+        this.tabPrinter(tl.taskString(a));
+        this.linePrinter();
+    }
+
     public void addedTaskScreen(Task task, int a) {
         this.linePrinter();
         this.tabPrinter("Got it. I've added this task:");
@@ -68,10 +75,44 @@ public class Ui {
         this.linePrinter();
     }
 
+    public void removedTaskScreen(Task task, int a) {
+        this.linePrinter();
+        this.tabPrinter("Noted. I've removed this task:");
+        this.tabPrinter(task.toString());
+        this.linePrinter();
+    }
+
     private void sizePrinter(int a) {
         this.tabPrinter(
                 String.format("Now you have %d tasks in the list.",
                         a));
+    }
+
+    public void todoErrorPrinter() {
+        this.slicePrinter(this.todoErrorString());
+    }
+
+    public String todoErrorString() {
+        return "The description of a todo cannot be empty!";
+    }
+
+
+    public String deadlineErrorString() {
+        return "The due date of a deadline cannot be empty!";
+    }
+    public void deadlineErrorPrinter() {
+        this.slicePrinter(this.deadlineErrorString());
+    }
+
+    public String eventErrorString() {
+        return "An event must have both start and end date";
+    }
+    public void eventErrorPrinter() {
+        this.slicePrinter(this.eventErrorString());
+    }
+
+    public String unknownError() {
+        return "I'm sorry I don't know what that means.";
     }
 
 

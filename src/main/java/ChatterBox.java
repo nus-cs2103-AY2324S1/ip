@@ -18,8 +18,11 @@ public class ChatterBox {
     }
 
     public static void main(String[] args) throws DukeException, IOException {
-        ChatterBox cb = new ChatterBox(new Ui(),
-                new TaskList(), new Storage());
+        ChatterBox cb = new ChatterBox(
+                new Ui(),
+                new TaskList(),
+                new Storage());
+
         cb.run();
     }
 
@@ -33,58 +36,46 @@ public class ChatterBox {
         Scanner sc = new Scanner(System.in);
 
         while (sc.hasNextLine()) {
-            String fullLine = sc.nextLine();
+            /*String fullLine = sc.nextLine();
             String[] inputLine = fullLine.split(" ");
             String input = inputLine[0];
+            */
 
-            if (input.equals("bye")) {
+            Parser p = new Parser(sc.nextLine());
+            String command = p.command();
+            String fullLine = p.fullLine;
+
+            if (command.equals("bye")) {
                 ui.byeScreen();
                 break;
 
-            } else if (input.equals("list")) {
+            } else if (command.equals("list")) {
                 ui.taskListPrinter(tl);
 
-            } else if (input.equals("mark")) {
-                int index = Integer.parseInt(inputLine[1]);
-                tl.get(index - 1).mark();
+            } else if (command.equals("mark")) {
+                tl.mark(p.num());
                 this.store.taskListToFile(tl);
+                ui.markPrinter(tl, p.num());
 
-                /*ui.linePrinter();
-                ui.tabPrinter("Nice! I've marked this task as done:");
-                ui.tabPrinter(taskList.get(index - 1).toString());
-                ui.linePrinter();
-                */
-                ui.markPrinter(tl, index);
-
-            } else if (input.equals("unmark")) {
-                int index = Integer.parseInt(inputLine[1]);
-                tl.get(index - 1).unmark();
+            } else if (command.equals("unmark")) {
+                tl.unmark(p.num());
                 this.store.taskListToFile(tl);
-                ui.linePrinter();
-                ui.tabPrinter("OK, I've marked this task as not done yet:");
-                ui.tabPrinter(taskList.get(index - 1).toString());
-                ui.linePrinter();
+                ui.unmarkPrinter(tl, p.num());
 
-            } else if (input.equals("delete")) {
-                int index = Integer.parseInt(inputLine[1]);
-                Task tempDelete = taskList.get(index - 1);
-                tl.remove(index - 1);
+            } else if (command.equals("delete")) {
+                Task tempDelete = taskList.get(p.num());
+                tl.remove(p.num());
                 this.store.taskListToFile(tl);
-                ui.linePrinter();
-                ui.tabPrinter("Noted. I've removed this task:");
-                ui.tabPrinter(tempDelete.toString());
-                ui.linePrinter();
+                ui.removedTaskScreen(tempDelete, tl.size());
 
             } else {
 
-                if (input.equals("todo")) {
+                if (command.equals("todo")) {
                     if (fullLine.split("todo ").length < 1) {
-                        ui.linePrinter();
-                        ui.tabPrinter("The description of a todo cannot be empty!");
-                        ui.linePrinter();
-                        throw new DukeException(
-                                "The description of a todo cannot be empty!");
+                        ui.todoErrorPrinter();
+                        throw new DukeException(ui.todoErrorString());
                     }
+
                     String taskName = fullLine.split("todo ")[1];
                     ToDo tempToDo = new ToDo(taskName);
                     tl.add(tempToDo);
@@ -93,31 +84,17 @@ public class ChatterBox {
                     ui.addedTaskScreen(tempToDo, tl.size());
 
 
-                } else if (input.equals("deadline")) {
-                    if (fullLine.split("/by ").length < 1) {
-                        ui.slicePrinter("The due date of a deadline cannot be empty!");
-                        throw new DukeException(
-                                "The due date of a deadline cannot be empty!");
-                    }
-                    String longName = fullLine.split("/by ")[0];
-                    String date = fullLine.split("/by ")[1];
-                    String taskName = longName.split("deadline ")[1];
-                    String deadlineName = taskName +
-                            String.format("(by: %s)", date);
-                    Deadline tempDeadline = new Deadline(deadlineName);
+                } else if (command.equals("deadline")) {
+
+                    Deadline tempDeadline = p.parseDeadline();
                     tl.add(tempDeadline);
                     this.store.taskListToFile(tl);
-
-
                     ui.addedTaskScreen(tempDeadline, taskList.size());
 
-                } else if (input.equals("event")) {
+                } else if (command.equals("event")) {
                     if (fullLine.split("/").length < 3) {
-                        ui.linePrinter();
-                        ui.tabPrinter("An event must have both start and end date");
-                        ui.linePrinter();
-                        throw new DukeException(
-                                "An event must have both start and end date");
+                        ui.eventErrorPrinter();
+                        throw new DukeException(ui.eventErrorString());
                     }
                     String[] longNameArray = fullLine.split("/");
                     String longName = longNameArray[0];
@@ -130,15 +107,12 @@ public class ChatterBox {
                     Event tempEvent = new Event(eventName);
                     tl.add(tempEvent);
                     this.store.taskListToFile(tl);
-
-
                     ui.addedTaskScreen(tempEvent, tl.size());
 
                 } else {
 
                     ui.linePrinter();
-                    throw new
-                            DukeException("I'm sorry I don't know what that means.");
+                    throw new DukeException(ui.unknownError());
                 }
             }
         }

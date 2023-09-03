@@ -15,7 +15,7 @@ public class TaskList {
     }
 
     public String taskString(int a) {
-        return this.taskList.get(a - 1).toString();
+        return this.taskList.get(a).toString();
     }
 
     public void add(Task task) {
@@ -34,12 +34,14 @@ public class TaskList {
         return this.taskList.size();
     }
 
-    /*public void deleteTask(int index) {
-        Task tempDelete = taskList.get(index - 1);
-        taskList.remove(index - 1);
-        Storage.taskListToFile(f, taskList);
+    public void mark(int index) {
+        this.taskList.get(index).mark();
+    }
 
-    }*/
+    public void unmark(int index) {
+        this.taskList.get(index).unmark();
+    }
+
 
     public int getSize() {
         return this.taskList.size();
