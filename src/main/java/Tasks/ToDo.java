@@ -2,6 +2,8 @@ package Tasks;
 
 /**
  * ToDos are tasks that have no date/time attached to them.
+ *
+ * @author Sebastian Tay
  */
 public class ToDo extends Task {
     static final String SYMBOL = "T";

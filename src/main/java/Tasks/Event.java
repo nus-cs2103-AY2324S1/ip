@@ -9,7 +9,6 @@ import java.time.format.DateTimeFormatter;
  * @author Sebastian Tay
  */
 public class Event extends Task {
-    //TODO
     static final String SYMBOL = "E";
 
     protected String from;

@@ -17,7 +17,7 @@ public class Parser {
      * Returns an int value denoting which action to be performed.
      *
      * @param args is the input taken from the user.
-     * @return non-negative int if args is valid input, else -1/.
+     * @return non-negative int if args is valid input, else -1.
      */
     public static int parse(String args) {
         args = args.toLowerCase();
