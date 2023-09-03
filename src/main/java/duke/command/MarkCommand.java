@@ -5,6 +5,7 @@ import java.io.IOException;
 import duke.Storage;
 import duke.TaskList;
 import duke.UI;
+import duke.task.Task;
 
 /**
  * The MarkCommand is a Command that
@@ -25,9 +26,9 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws IOException {
-        tasks.mark(index);
+    public String execute(TaskList tasks, UI ui, Storage storage) throws IOException {
+        Task task = tasks.mark(index);
         storage.rewrite(tasks);
-        ui.showMarkMessage();
+        return (ui.showMarkMessage(task));
     }
 }

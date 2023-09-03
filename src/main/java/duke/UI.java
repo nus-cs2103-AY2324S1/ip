@@ -27,30 +27,22 @@ public class UI {
     /**
      * Displays the loading error
      */
-    public void showLoadingError() {
-        this.line();
-        System.out.println("File was not found on hard drive");
-        System.out.println("Attempting to create file...");
-        this.line();
+    public String showLoadingError() {
+        return ("File was not found on hard drive\nAttempting to create file...v");
     }
 
     /**
      * Displays welcome message
      */
-    public void showWelcome() {
-        this.line();
-        System.out.println("Hello, I'm Prawn");
-        System.out.println("What would you like me to do sire?");
-        this.line();
+    public String showWelcome() {
+        return ("Hello, I'm Prawn\nWhat would you like me to do sire? ");
     }
 
     /**
      * Displays IO error
      */
-    public void showIoError() {
-        this.line();
-        System.out.println("Error in creating file");
-        this.line();
+    public String showIoError() {
+        return ("Error in creating file");
     }
 
     /**
@@ -64,16 +56,16 @@ public class UI {
     /**
      * Displays unknown command
      */
-    public void showUnknownCommand() {
-        System.out.println("I do not understand this command");
+    public String showUnknownCommand() {
+        return ("I do not understand this command");
     }
 
     /**
      * Displays the Duke exception
      * @param msg The specific duke exception's message
      */
-    public void showError(String msg) {
-        System.out.println(msg);
+    public String showError(String msg) {
+        return (msg);
     }
 
     /**
@@ -81,24 +73,22 @@ public class UI {
      * @param t Task being added
      * @param size Size of the current TaskList
      */
-    public void showAddMessage(Task t, int size) {
-        System.out.println("Got it, will add task...");
-        System.out.println(t);
-        System.out.println("Now, you have " + size + " task(s)");
+    public String showAddMessage(Task t, int size) {
+        return ("Got it, will add task...\n" + t + "\n" + "Now, you have " + size + " task(s)");
     }
 
     /**
      * Displays the mark message
      */
-    public void showMarkMessage() {
-        System.out.println("Alright, it has been marked");
+    public String showMarkMessage(Task t) {
+        return ("Alright, it has been marked\n" + t);
     }
 
     /**
      * Displays the unmark message
      */
-    public void showUnmarkMessage() {
-        System.out.println("Alright, it has been unmarked");
+    public String showUnmarkMessage(Task t) {
+        return ("Alright, it has been unmarked\n" + t);
     }
 
     /**
@@ -106,17 +96,15 @@ public class UI {
      * @param t The task deleted
      * @param size The current size of the TaskList
      */
-    public void showDeleteMessage(Task t, int size) {
-        System.out.println("Sigh... fine, removing...");
-        System.out.println(t);
-        System.out.println("Now, you have " + size + " task(s)");
+    public String showDeleteMessage(Task t, int size) {
+        return ("Sigh... fine, removing...\n" + t + "\n" + "Now, you have " + size + " task(s)");
     }
 
     /**
      * Displays the out of bound message
      */
-    public void showOutOfBounds() {
-        System.out.println("Cannot access out of bounds index");
+    public String showOutOfBounds() {
+        return ("Cannot access out of bounds index");
     }
 
     /**
@@ -124,18 +112,20 @@ public class UI {
      *
      * @param tasks the tasks to be displayed.
      */
-    public void showFoundTask(ArrayList<Task> tasks) {
-        System.out.println("Here are the matching task in your list:");
+    public String showFoundTask(ArrayList<Task> tasks) {
+        String temp = "";
+        temp += "Here are the matching task in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            temp += ((i + 1) + ". " + tasks.get(i) + "\n");
         }
+        return temp;
     }
 
     /**
      * Displays the time format error message
      */
-    public void showTimeFormatError() {
-        System.out.println("The time format is wrong");
+    public String showTimeFormatError() {
+        return ("The time format is wrong");
 
     }
 

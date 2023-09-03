@@ -29,5 +29,5 @@ public abstract class Command {
      * @param storage A storage object to handle file IO.
      * @throws IOException If file is corrupted.
      */
-    public abstract void execute(TaskList tasks, UI ui, Storage storage) throws IOException;
+    public abstract String execute(TaskList tasks, UI ui, Storage storage) throws IOException;
 }
