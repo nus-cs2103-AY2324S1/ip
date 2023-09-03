@@ -4,11 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-//deals with making sense of the user command (converts command to string)
 public class Parser {
     private Storage storage;
     private TaskList list;
-
 
     public void parse(String input, TaskList list) {
         try {

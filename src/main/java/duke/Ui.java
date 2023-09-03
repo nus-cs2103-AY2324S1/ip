@@ -2,7 +2,6 @@ package duke;
 
 import java.util.Scanner;
 
-//deals with interactions with the user (user input and chat output)
 public class Ui {
 
     public void showWelcome() {
@@ -13,7 +12,6 @@ public class Ui {
 //        return input.trim().isEmpty();
 //    }
 
-    //gets the input as a string
     public String getUserCommand() {
         Scanner scan = new Scanner(System.in);
         String inData = scan.nextLine();
@@ -22,7 +20,7 @@ public class Ui {
 //        }
         return inData;
     }
-    //checks if input is bye
+
     public boolean isExit(String input) {
         return input.equals("bye");
     }
