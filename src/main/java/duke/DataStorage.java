@@ -15,13 +15,13 @@ import java.io.*;
  */
 public class DataStorage {
 
-    public ArrayList<Task> taskData;
+    public ArrayList<Task> taskDataList;
 
     /**
      * Initialises a new DataStorage object.
      */
     public DataStorage() {
-        taskData = new ArrayList<>();
+        taskDataList = new ArrayList<>();
     }
 
     /**
@@ -54,9 +54,10 @@ public class DataStorage {
 
     /**
      * Saves data from taskList onto txt file (duke.txt).
-     * @param taskList List of tasks.
+     * @param tasks TaskList of tasks.
      */
-    public void saveTasks(ArrayList<Task> taskList) {
+    public void saveTasks(TaskList tasks) {
+        ArrayList<Task> taskList = tasks.taskList;
         File dataFileDirectory = new File("./data");
         if (!dataFileDirectory.exists()) {
             dataFileDirectory.mkdirs();
@@ -66,7 +67,7 @@ public class DataStorage {
 
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(storageFile))) {
             for (Task task : taskList) {
-                bufferedWriter.write(task.storageFormat());
+                bufferedWriter.write(task.toStorageFormat());
                 bufferedWriter.newLine();
             }
 
@@ -104,7 +105,7 @@ public class DataStorage {
             task.markAsUndone();
         }
 
-        taskData.add(task);
+        taskDataList.add(task);
     }
 
 }

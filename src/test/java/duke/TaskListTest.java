@@ -1,12 +1,7 @@
 package duke;
 
-import duke.tasks.Deadline;
 import duke.tasks.ToDo;
 import org.junit.jupiter.api.Test;
-import duke.tasks.Task;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,7 +11,7 @@ public class TaskListTest {
     public void testMark() throws DukeException {
         ToDo sampleToDo = new ToDo("do econs");
         DataStorage storage = new DataStorage();
-        storage.taskData.add(sampleToDo);
+        storage.taskDataList.add(sampleToDo);
         TaskList tasks = new TaskList(storage);
 
         tasks.mark(0);
@@ -27,7 +22,7 @@ public class TaskListTest {
     public void testUnmark() throws DukeException {
         ToDo sampleToDo = new ToDo("do econs");
         DataStorage storage = new DataStorage();
-        storage.taskData.add(sampleToDo);
+        storage.taskDataList.add(sampleToDo);
         TaskList tasks = new TaskList(storage);
 
         tasks.mark(0);
@@ -39,7 +34,7 @@ public class TaskListTest {
     public void testAdd() throws DukeException {
         ToDo sampleToDo = new ToDo("do econs");
         DataStorage storage = new DataStorage();
-        storage.taskData.add(sampleToDo);
+        storage.taskDataList.add(sampleToDo);
         ToDo todo = new ToDo("do physics");
         TaskList tasks = new TaskList(storage);
 
@@ -51,7 +46,7 @@ public class TaskListTest {
     public void testDelete() throws DukeException {
         ToDo sampleToDo = new ToDo("do econs");
         DataStorage storage = new DataStorage();
-        storage.taskData.add(sampleToDo);
+        storage.taskDataList.add(sampleToDo);
         TaskList tasks = new TaskList(storage);
 
         tasks.delete(0);
@@ -62,7 +57,7 @@ public class TaskListTest {
     public void testMarkException() throws DukeException {
         ToDo sampleToDo = new ToDo("do econs");
         DataStorage storage = new DataStorage();
-        storage.taskData.add(sampleToDo);
+        storage.taskDataList.add(sampleToDo);
         TaskList tasks = new TaskList(storage);
 
         try {
@@ -76,7 +71,7 @@ public class TaskListTest {
     public void testUnmarkException() throws DukeException {
         ToDo sampleToDo = new ToDo("do econs");
         DataStorage storage = new DataStorage();
-        storage.taskData.add(sampleToDo);
+        storage.taskDataList.add(sampleToDo);
         TaskList tasks = new TaskList(storage);
 
         try {
@@ -90,7 +85,7 @@ public class TaskListTest {
     public void testDeleteException() throws DukeException {
         ToDo sampleToDo = new ToDo("do econs");
         DataStorage storage = new DataStorage();
-        storage.taskData.add(sampleToDo);
+        storage.taskDataList.add(sampleToDo);
         TaskList tasks = new TaskList(storage);
 
         try {

@@ -134,7 +134,7 @@ public class Parser {
      * @param userInput LocalDateTime with original formatting.
      * @return LocalDateTime with "MMM d yyyy HH:mm" formatting.
      */
-    public static String dateTimeFormatter(LocalDateTime userInput) {
+    public static String formatDateTime(LocalDateTime userInput) {
         return userInput.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
     }
 }

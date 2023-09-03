@@ -28,8 +28,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + Parser.dateTimeFormatter(from) + " to: "
-                + Parser.dateTimeFormatter(to) + ")";
+        return "[E]" + super.toString() + " (from: " + Parser.formatDateTime(from) + " to: "
+                + Parser.formatDateTime(to) + ")";
     }
 
     /**
@@ -38,7 +38,7 @@ public class Event extends Task {
      * @return String representation of Event task.
      */
     @Override
-    public String storageFormat() {
-        return ("E" + super.storageFormat() + " | " + from + " | " + to);
+    public String toStorageFormat() {
+        return ("E" + super.toStorageFormat() + " | " + from + " | " + to);
     }
 }

@@ -14,7 +14,6 @@ public class ExitCommand extends Command {
      * Creates ExitCommand object.
      */
     public ExitCommand() {
-
     }
 
     /**
@@ -27,7 +26,7 @@ public class ExitCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, DataStorage store) throws DukeException {
-        store.saveTasks(tasks.taskList);
+        store.saveTasks(tasks);
         ui.showExit();
     }
 
