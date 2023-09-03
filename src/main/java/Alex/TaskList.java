@@ -15,6 +15,10 @@ public class TaskList {
     }
 
 
+    public static void clearAll() {
+        userinputs = new ArrayList<>(100);
+        numberOfElements = 0;
+    }
     public static void store(Task task) {
         userinputs.add(task);
         numberOfElements++;
