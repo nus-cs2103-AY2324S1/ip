@@ -8,14 +8,14 @@ import java.util.Scanner;
 public abstract class Task implements Comparable<Task> {
     protected int id;
     protected String description;
-    protected boolean completed;
+    protected boolean isComplete;
     private static int idTracker = 0;
 
     public Task(String d) {
         this.id = idTracker;
         idTracker++;
         this.description = d;
-        this.completed = false;
+        this.isComplete = false;
     }
 
     public static Task generateTask(String command, Scanner tokeniser) throws IllegalCommandException,
@@ -67,11 +67,11 @@ public abstract class Task implements Comparable<Task> {
     }
 
     public boolean isComplete() {
-        return this.completed;
+        return this.isComplete;
     }
 
     public void switchMark() {
-        completed = !completed;
+        isComplete = !isComplete;
     }
 
     public static Task generateSavedTask(int id, boolean mark, String description) throws IllegalDateTimeException {
