@@ -1,13 +1,18 @@
+package chatterbot;
+
+import chatterbot.data.Task;
+import chatterbot.data.TaskList;
+import chatterbot.parser.Parser;
+import chatterbot.storage.Storage;
+import chatterbot.ui.Ui;
+
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ChatterBot {
     public static ArrayList<Task> list = new ArrayList<>();
-    public static String file = "../data/ChatterBot.txt";
+    public static String file = "data/ChatterBot.txt";
     public static void main(String[] args) {
 
         Ui ui = new Ui(list);

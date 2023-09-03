@@ -1,4 +1,0 @@
-event birthday party  /from 173  /to 183
-todo watch movies
-deadline this stuff /by Dec 1 2019
-todo submit this

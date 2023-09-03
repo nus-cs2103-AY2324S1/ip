@@ -1,5 +1,7 @@
+package chatterbot.data;
+
 public class Task {
-    protected String description;
+    public String description;
     protected boolean isDone;
 
     public Task(String description) {

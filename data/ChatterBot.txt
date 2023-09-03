@@ -1,0 +1,6 @@
+event birthday party  /from 173  /to 183
+todo watch movies
+deadline this stuff /by 2019-10-01
+todo submit this
+todo homework
+deadline rvss photoessay /by 2023-09-03

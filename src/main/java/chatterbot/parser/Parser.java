@@ -1,5 +1,10 @@
+package chatterbot.parser;
+
+import chatterbot.storage.Storage;
+import chatterbot.ui.Ui;
+import chatterbot.data.*;
+
 import java.io.IOException;
-import java.io.File;
 import java.util.ArrayList;
 
 public class Parser {

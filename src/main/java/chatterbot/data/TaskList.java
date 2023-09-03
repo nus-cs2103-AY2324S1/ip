@@ -1,3 +1,7 @@
+package chatterbot.data;
+
+import chatterbot.storage.Storage;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -11,7 +15,7 @@ import java.util.ArrayList;
 
     public static void initiateTaskList(Storage storage) {
         try {
-            storage.copyFileContents("../data/ChatterBot.txt");
+            storage.copyFileContents("data/ChatterBot.txt");
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }

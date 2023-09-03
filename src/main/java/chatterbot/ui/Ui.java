@@ -1,3 +1,10 @@
+package chatterbot.ui;
+
+import chatterbot.data.Deadline;
+import chatterbot.data.Event;
+import chatterbot.data.Task;
+import chatterbot.data.Todo;
+
 import java.util.ArrayList;
 
 public class Ui {

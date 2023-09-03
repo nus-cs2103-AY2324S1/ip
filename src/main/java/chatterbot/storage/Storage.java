@@ -1,3 +1,10 @@
+package chatterbot.storage;
+
+import chatterbot.data.Deadline;
+import chatterbot.data.Event;
+import chatterbot.data.Task;
+import chatterbot.data.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
