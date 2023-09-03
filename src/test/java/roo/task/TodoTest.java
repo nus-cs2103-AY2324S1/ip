@@ -1,6 +1,6 @@
-package duke.task;
+package roo.task;
 
-import duke.DukeException;
+import roo.RooException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -15,7 +15,7 @@ public class TodoTest {
         try {
             Todo todo = new Todo("borrow book");
             assertEquals("[T][ ] borrow book", todo.toString());
-        } catch (DukeException exception) {
+        } catch (RooException exception) {
             fail();
         }
     }
@@ -25,7 +25,7 @@ public class TodoTest {
         try {
             Todo todo = new Todo("");
             fail();
-        } catch (DukeException exception) {
+        } catch (RooException exception) {
             assertEquals("Description is EMPTY!!!\n", exception.getMessage());
         }
     }
@@ -35,7 +35,7 @@ public class TodoTest {
         try {
             Todo todo = new Todo("borrow book");
             assertNull(todo.getDate());
-        } catch (DukeException exception) {
+        } catch (RooException exception) {
             fail();
         }
     }

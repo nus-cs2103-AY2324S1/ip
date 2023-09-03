@@ -1,6 +1,6 @@
-package duke.task;
+package roo.task;
 
-import duke.DukeException;
+import roo.RooException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,12 +10,12 @@ public class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
 
-    public Event(String task, String start, String end) throws DukeException {
+    public Event(String task, String start, String end) throws RooException {
         super(task);
         if (start.isEmpty() || start.equals(" ")) {
-            throw new DukeException("Missing time!!!\n");
+            throw new RooException("Missing time!!!\n");
         } else if (end.isEmpty() || end.equals(" ")) {
-            throw new DukeException("Missing time!!!\n");
+            throw new RooException("Missing time!!!\n");
         }
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
@@ -40,12 +40,12 @@ public class Event extends Task {
         }
     }
 
-    public Event(String task, String start, String end, boolean finish) throws DukeException{
+    public Event(String task, String start, String end, boolean finish) throws RooException{
         super(task, finish);
         if (start.isEmpty() || start.equals(" ")) {
-            throw new DukeException("Missing time !!!\n");
+            throw new RooException("Missing time !!!\n");
         } else if (end.isEmpty() || end.equals(" ")) {
-            throw new DukeException("Missing time!!!\n");
+            throw new RooException("Missing time!!!\n");
         }
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
