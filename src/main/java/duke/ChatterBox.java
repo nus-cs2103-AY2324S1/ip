@@ -6,23 +6,47 @@ import java.util.Scanner;
 import java.io.IOException;
 
 
+/**
+ * An interactive digital task manager called ChatterBox.
+ * This minimal chatbot can take in simple commands, remember
+ * tasks even after termination, and manipulate them as per the 
+ * user's requests. 
+ */
 public class ChatterBox {
 
     private Ui ui;
     private TaskList tl;
     private Storage store;
 
+    /**
+     * Constructs a ChatterBox object with all parameters specified.
+     * @param ui The supplied Ui object.
+     * @param tl The supplied TaskList object.
+     * @param store The supplied Storage object.
+     */
     ChatterBox(Ui ui, TaskList tl, Storage store) {
         this.ui = ui;
         this.tl = tl;
         this.store = store;
     }
 
+    /**
+     * Initializes a new ChatterBox object and calls the run() method.
+     *
+     * @throws DukeException For various Chat-specific errors.
+     * @throws IOException If FileIO presents any issues during runtime.
+     */
     public static void main(String[] args) throws DukeException, IOException {
         ChatterBox cb = new ChatterBox( new Ui(), new TaskList(), new Storage());
         cb.run();
     }
 
+    /**
+     * Runs the actual program.
+     *
+     * @throws DukeException For various Chat-specific errors.
+     * @throws IOException If FileIO presents any issues during runtime.
+     */
     public void run() throws DukeException, IOException {
 
         ArrayList<Task> taskList = this.tl.getTaskList();
