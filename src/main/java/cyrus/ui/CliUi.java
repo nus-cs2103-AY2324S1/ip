@@ -10,7 +10,7 @@ import cyrus.tasks.Task;
 /**
  * Utility to handle CLI text printing to ensure uniform output.
  */
-public class Ui {
+public class CliUi {
     private static final String DELIMITER = "-".repeat(80);
     private static final int INDENTATION = 4;
 

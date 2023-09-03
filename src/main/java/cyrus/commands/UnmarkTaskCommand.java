@@ -2,7 +2,7 @@ package cyrus.commands;
 
 import cyrus.parser.ParseInfo;
 import cyrus.tasks.TaskList;
-import cyrus.ui.Ui;
+import cyrus.ui.CliUi;
 
 /**
  * Command to unmark a {@code Task} in the given {@code TaskList}.
@@ -27,7 +27,7 @@ public class UnmarkTaskCommand extends Command {
         try {
             int i = Integer.parseInt(this.parseInfo.getArgument());
             this.taskList.setTaskStatus(i - 1, false);
-            Ui.printText("OK, I've marked this task as not done yet:",
+            CliUi.printText("OK, I've marked this task as not done yet:",
                     this.taskList.getTask(i - 1).toString());
         } catch (NumberFormatException e) {
             throw new CommandError("Invalid task index: must be integer");

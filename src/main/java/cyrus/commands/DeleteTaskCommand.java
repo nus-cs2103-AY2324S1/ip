@@ -3,7 +3,7 @@ package cyrus.commands;
 import cyrus.parser.ParseInfo;
 import cyrus.tasks.Task;
 import cyrus.tasks.TaskList;
-import cyrus.ui.Ui;
+import cyrus.ui.CliUi;
 
 /**
  * Command to delete a {@code Task} from the given {@code TaskList}.
@@ -28,7 +28,7 @@ public class DeleteTaskCommand extends Command {
             int i = Integer.parseInt(this.parseInfo.getArgument());
             Task task = this.taskList.getTask(i - 1);
             this.taskList.removeTask(i - 1);
-            Ui.printText(
+            CliUi.printText(
                     "Noted. I've removed this task:",
                     task.toString(),
                     String.format("Now you have %d cyrus.tasks in the list.", this.taskList.size())

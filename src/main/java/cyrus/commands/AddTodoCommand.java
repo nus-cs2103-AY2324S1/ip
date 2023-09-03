@@ -3,7 +3,7 @@ package cyrus.commands;
 import cyrus.parser.ParseInfo;
 import cyrus.tasks.TaskList;
 import cyrus.tasks.ToDo;
-import cyrus.ui.Ui;
+import cyrus.ui.CliUi;
 
 /**
  * Command to add a {@code ToDo} to the given {@code TaskList}.
@@ -27,6 +27,6 @@ public class AddTodoCommand extends Command {
         String content = String.join(" ", this.parseInfo.getArgument());
         ToDo todo = new ToDo(content);
         this.taskList.addTask(todo);
-        Ui.printAddTask(todo, this.taskList.size());
+        CliUi.printAddTask(todo, this.taskList.size());
     }
 }

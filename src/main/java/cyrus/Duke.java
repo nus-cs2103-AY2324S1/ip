@@ -9,7 +9,7 @@ import cyrus.parser.Parser;
 import cyrus.storage.FileStorage;
 import cyrus.storage.IStorage;
 import cyrus.tasks.TaskList;
-import cyrus.ui.Ui;
+import cyrus.ui.CliUi;
 
 
 /**
@@ -21,7 +21,7 @@ public class Duke {
     private static final Parser PARSER = new Parser();
 
     public static void main(String[] args) {
-        Ui.printText("Hello! I'm Cyrus", "What can I do for you?");
+        CliUi.printText("Hello! I'm Cyrus", "What can I do for you?");
         String input;
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -30,7 +30,7 @@ public class Duke {
 
             // Handle empty inputs
             if (parseInfo.equals(ParseInfo.EMPTY)) {
-                Ui.printText("Enter a command please!");
+                CliUi.printText("Enter a command please!");
                 continue;
             }
 
@@ -42,6 +42,6 @@ public class Duke {
             commandToRun.run();
         }
 
-        Ui.printText("Bye. Hope to see you again soon!");
+        CliUi.printText("Bye. Hope to see you again soon!");
     }
 }

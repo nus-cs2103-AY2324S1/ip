@@ -2,7 +2,7 @@ package cyrus.commands;
 
 import cyrus.parser.ParseInfo;
 import cyrus.tasks.TaskList;
-import cyrus.ui.Ui;
+import cyrus.ui.CliUi;
 
 /**
  * Command to list out the {@code Task} within the {@code TaskList}.
@@ -17,6 +17,6 @@ public class ListTasksCommand extends Command {
      */
     @Override
     public void execute() {
-        Ui.printText(this.taskList.toString());
+        CliUi.printText(this.taskList.toString());
     }
 }

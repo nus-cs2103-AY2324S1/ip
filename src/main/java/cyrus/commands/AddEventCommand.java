@@ -7,7 +7,7 @@ import cyrus.parser.ParseInfo;
 import cyrus.tasks.Event;
 import cyrus.tasks.Task;
 import cyrus.tasks.TaskList;
-import cyrus.ui.Ui;
+import cyrus.ui.CliUi;
 import cyrus.utility.DateUtility;
 
 /**
@@ -57,6 +57,6 @@ public class AddEventCommand extends Command {
 
         Task event = new Event(eventName, eventFromDate, eventToDate);
         this.taskList.addTask(event);
-        Ui.printAddTask(event, this.taskList.size());
+        CliUi.printAddTask(event, this.taskList.size());
     }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 import cyrus.parser.ParseInfo;
 import cyrus.tasks.TaskList;
-import cyrus.ui.Ui;
+import cyrus.ui.CliUi;
 
 /**
  * Command to find {@code Task} given keyword.
@@ -22,7 +22,7 @@ public class FindTaskCommand extends Command {
     public void execute() {
         var tasks = this.taskList.findTask(this.parseInfo.getArgument());
         if (tasks.size() == 0) {
-            Ui.printText("No tasks found");
+            CliUi.printText("No tasks found");
             return;
         }
         List<String> lines = new ArrayList<>();
@@ -30,6 +30,6 @@ public class FindTaskCommand extends Command {
         for (var task : tasks) {
             lines.add(task.toString());
         }
-        Ui.printText(lines.toArray(String[]::new));
+        CliUi.printText(lines.toArray(String[]::new));
     }
 }

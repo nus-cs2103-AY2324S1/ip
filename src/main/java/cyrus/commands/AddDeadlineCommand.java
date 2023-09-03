@@ -7,7 +7,7 @@ import cyrus.parser.ParseInfo;
 import cyrus.tasks.Deadline;
 import cyrus.tasks.Task;
 import cyrus.tasks.TaskList;
-import cyrus.ui.Ui;
+import cyrus.ui.CliUi;
 import cyrus.utility.DateUtility;
 
 /**
@@ -46,6 +46,6 @@ public class AddDeadlineCommand extends Command {
 
         Task deadline = new Deadline(deadlineName, deadlineDate);
         this.taskList.addTask(deadline);
-        Ui.printAddTask(deadline, this.taskList.size());
+        CliUi.printAddTask(deadline, this.taskList.size());
     }
 }

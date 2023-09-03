@@ -2,7 +2,7 @@ package cyrus.commands;
 
 import cyrus.parser.ParseInfo;
 import cyrus.tasks.TaskList;
-import cyrus.ui.Ui;
+import cyrus.ui.CliUi;
 
 /**
  * Represents a general command to operate on a {@code TaskList} and a given {@code ParseInfo}
@@ -42,7 +42,7 @@ public abstract class Command {
         try {
             this.execute();
         } catch (CommandError e) {
-            Ui.printText(e.getMessage());
+            CliUi.printText(e.getMessage());
         }
     }
 }
