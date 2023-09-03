@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass.set("kiera.Kiera")
+}
+
+shadowJar {
+    archiveBaseName = "kiera"
+    archiveClassifier = null
+    dependsOn("distZip", "distTar")
+}
+
+checkstyle {
+    toolVersion = '10.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+run {
+    standardInput = System.in
+    enableAssertions = true
+}
