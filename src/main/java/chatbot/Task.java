@@ -1,17 +1,23 @@
 package chatbot;
 
+/**
+  * Stores the task details.
+  */
 public class Task {
     /** Basic task description */
     protected String description;
     /** Determine whether the task is completed */
     protected boolean isDone;
 
+    /**
+     * Constructor for Task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
-   /**
+    /**
      * Returns [ ] for not marked, [X] for marked.
      *
      * @return String representation of whether it is marked.

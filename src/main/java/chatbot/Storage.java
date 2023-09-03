@@ -1,17 +1,23 @@
 package chatbot;
 
-import java.util.List;
-import java.util.Scanner;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.util.List;
+import java.util.Scanner;
+
+/**
+ * Handles the loading and writing of text files.
+ */
 public class Storage {
     /** The string representation of the directory */
     private String filePath;
 
+    /**
+     * Constructor for Storage. Initialises the filepath.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }

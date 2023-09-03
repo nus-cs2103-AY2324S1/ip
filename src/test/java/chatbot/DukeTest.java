@@ -10,15 +10,15 @@ public class DukeTest {
     public void addDeleteTasksTest() {
         TaskList taskManager = new TaskList();
         
-        assertEquals(0, taskManager.taskForce.size());
+        assertEquals(0, taskManager.getSize());
 
         Task todo = new Todo("read book");
         taskManager.add(todo);
 
-        assertEquals(1, taskManager.taskForce.size());
+        assertEquals(1, taskManager.getSize());
         taskManager.delete(0);
         
-        assertEquals(0, taskManager.taskForce.size());
+        assertEquals(0, taskManager.getSize());
     }
 
     @Test

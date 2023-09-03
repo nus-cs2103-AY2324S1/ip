@@ -2,6 +2,9 @@ package chatbot;
 
 import java.util.List;
 
+/**
+ * Handles the printing of statements to the user.
+ */
 public class UI {
     private static final String MESSAGE_GOODBYE = "Bye. Hope to see you again soon!";
     private static final String MESSAGE_WELCOME = "Hello! I'm Afro\n" + "What can I do for you?\n";
@@ -14,6 +17,9 @@ public class UI {
     /** Storage to load and write files. */
     private Storage storage;
 
+    /**
+     * Constructor for UI. Initialises the storage.
+     */
     public UI(Storage storage) {
         this.storage = storage;
     }
@@ -70,7 +76,7 @@ public class UI {
      * Prints the delete message, the String representation of the task
      * and the size of the list.
      * 
-     *  @param task The task to be printed
+     *  @param task The task to be printed.
      *  @param size The size of the modified list.
      */
     public void deleteTask(Task task, int size) {
@@ -79,6 +85,11 @@ public class UI {
         System.out.println("Now you have " + size + " tasks in the list.");
     }
 
+    /**
+     * Prints every task to the user.
+     * 
+     * @param tasks The list of tasks.
+     */
     public void printStorageList(List<Task> tasks) {
         for (Task task : tasks) {
             int index = tasks.indexOf(task) + 1;
