@@ -1,8 +1,6 @@
 todo read book
-deadline sign consent form /Tonight
-party girls' night /Tonight/Forever
-mark 1
-mark 2
-unmark 2
+todo help do chores
+del 1
+del 2
 list
 bye

@@ -1,2 +1,9 @@
-,T,1,buy milk
-,T,1,buy bread
+T,1,buy milk
+T,1,buy bread
+T,0,do, work,
+T,0,do, work,
+T,0,do, work,
+T,0,do, work,
+T,0,do, work,
+T,0,do, work,
+T,0,do, work,
