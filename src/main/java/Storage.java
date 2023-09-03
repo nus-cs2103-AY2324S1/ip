@@ -25,7 +25,6 @@ public class Storage {
 
     }
 
-
     /**
      * This method modifies a given ArrayList based on the contents
      * of the given File. This method is used at the start of the program to
