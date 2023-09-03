@@ -21,8 +21,15 @@ public class Main extends Application {
             fxmlLoader.setRoot(new AnchorPane());
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
-            fxmlLoader.<MainWindow>getController().setValues(bob, stage, scene);
+            stage.setScene(scene);
+            stage.setTitle("Bob");
+            stage.setResizable(false);
+            stage.setMinHeight(600.0);
+            stage.setMinWidth(400.0);
+
+            fxmlLoader.<MainWindow>getController().setBob(bob);
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
