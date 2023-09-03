@@ -28,14 +28,13 @@ public class UnmarkCommand extends ShibaCommand {
 
         ShibaTask task = tasks.get(taskNumber - 1);
         boolean res = task.markNotDone();
-        Replier.printHorizontalLine();
         if (res) {
             Replier.printWithLevel2Indent("Woof! I've marked this task as not done yet:");
         } else {
             Replier.printWithLevel2Indent("Woof! You have not done this task yet!");
         }
         Replier.printWithLevel3Indent(task.toString());
-        Replier.printHorizontalLine();
+        Replier.reply();
         tasks.save();
     }
 }

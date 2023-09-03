@@ -1,39 +1,37 @@
 package shiba.ui;
 
+import javafx.application.Platform;
 import shiba.exceptions.ShibaException;
 
 /**
  * Represents a class that prints messages to the user.
  */
 public class Replier {
-    private static final String HORZ_LINE = "____________________________________________________________";
+    private static final StringBuilder stringBuilder = new StringBuilder();
 
     /**
      * Prints the greeting message.
      */
     public static void printGreeting(String botName) {
-        printHorizontalLine();
         printWithLevel2Indent("Woof! I'm " + botName);
         printWithLevel2Indent("What can I bark at you?");
-        printHorizontalLine();
+        reply();
     }
 
     /**
      * Prints the bye message
      */
     public static void printBye() {
-        printHorizontalLine();
         printWithLevel2Indent("Woof! Hope to bark at you again soon!");
-        printHorizontalLine();
+        reply();
     }
 
     /**
      * Prints the unknown command message.
      */
     public static void printUnknownCommand() {
-        printHorizontalLine();
         printWithLevel2Indent("Woof! I don't know what that command is!");
-        printHorizontalLine();
+        reply();
     }
 
     /**
@@ -42,25 +40,8 @@ public class Replier {
      * @param e The ShibaException whose message is to be printed.
      */
     public static void printException(ShibaException e) {
-        printHorizontalLine();
         printWithLevel2Indent("Woof! " + e.getMessage());
-        printHorizontalLine();
-    }
-
-    /**
-     * Prints a horizontal line.
-     */
-    public static void printHorizontalLine() {
-        printWithLevel1Indent(HORZ_LINE);
-    }
-
-    /**
-     * Prints the given message with a single tab indent (4 spaces).
-     *
-     * @param message The message to be printed.
-     */
-    public static void printWithLevel1Indent(String message) {
-        printWithIndents(message, 1, 0);
+        reply();
     }
 
     /**
@@ -89,6 +70,31 @@ public class Replier {
      * @param spaces The number of spaces indents (in addition to tabs).
      */
     public static void printWithIndents(String message, int tabs, int spaces) {
-        System.out.println(" ".repeat(tabs * 4 + spaces) + message);
+        addToReply(" ".repeat(tabs * 4 + spaces) + message);
+    }
+
+    /**
+     * Adds a new line to the reply message.
+     *
+     * @param message The message to be added to the string builder.
+     */
+    public static void addToReply(String message) {
+        if (!stringBuilder.isEmpty()) {
+            stringBuilder.append("\n");
+        }
+        stringBuilder.append(message);
+    }
+
+    /**
+     * Sends the reply message stored in stringBuilder to the UI window to be displayed.
+     */
+    public static void reply() {
+        if (MainWindow.SINGLETON == null) {
+            return;
+        }
+
+        String toPrint = stringBuilder.toString();
+        stringBuilder.setLength(0);
+        Platform.runLater(() -> MainWindow.SINGLETON.addBotDialogNode(toPrint));
     }
 }

@@ -26,7 +26,7 @@ public abstract class ShibaCommand {
         FIND
     }
 
-    protected PersistentTaskList tasks;
+    protected final PersistentTaskList tasks;
 
     protected ShibaCommand(PersistentTaskList tasks) {
         this.tasks = tasks;
@@ -75,13 +75,12 @@ public abstract class ShibaCommand {
     protected void addTask(ShibaTask task) throws ShibaException {
         tasks.addTask(task);
 
-        Replier.printHorizontalLine();
         Replier.printWithLevel2Indent("Woof! I've added this task:");
         Replier.printWithLevel3Indent(task.toString());
         String taskWord = tasks.size() == 1 ? " task" : " tasks";
         Replier.printWithLevel2Indent("You now have " + tasks.size() + taskWord
                 + " in the list. Now gimme some treats.");
-        Replier.printHorizontalLine();
+        Replier.reply();
         tasks.save();
     }
 }

@@ -1,5 +1,6 @@
 package shiba.ui.components;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,8 +38,10 @@ public class DialogNode extends HBox {
         label.setFont(DIALOG_FONT);
 
         if (isUser) {
+            label.setPadding(new Insets(0, 0, 0, SPACING));
             getChildren().addAll(label, imageView);
         } else {
+            label.setPadding(new Insets(0, SPACING, 0, 0));
             getChildren().addAll(imageView, label);
         }
     }

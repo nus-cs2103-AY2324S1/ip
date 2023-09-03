@@ -33,7 +33,6 @@ public class FindCommand extends ShibaCommand {
         }
 
         String keyword = params[1];
-        Replier.printHorizontalLine();
         List<ShibaTask> matchingTasks = tasks.findTasksWithKeyword(keyword);
         if (matchingTasks.isEmpty()) {
             Replier.printWithLevel2Indent("Woof! No tasks containing keyword found!");
@@ -43,6 +42,6 @@ public class FindCommand extends ShibaCommand {
                 Replier.printWithLevel2Indent((i + 1) + "." + matchingTasks.get(i));
             }
         }
-        Replier.printHorizontalLine();
+        Replier.reply();
     }
 }
