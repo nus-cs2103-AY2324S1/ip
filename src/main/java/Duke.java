@@ -1,10 +1,37 @@
+import Storage.Dbops;
+import LogicHandlers.CentralCommandHandler;
+import Models.TaskArray;
+
+import java.util.Scanner;
+
+import static Ui.BasicOutputPrinter.printBasicOutput;
+
 public class Duke {
+    private static TaskArray tasks;
+    private static CentralCommandHandler commandHandler;
+
+    /**
+     * Initializes the bot.
+     */
+    private static void initializeBot() {
+        Duke.tasks = Dbops.initializeDatabase();
+        Duke.commandHandler = CentralCommandHandler.initializeCommandHandler(tasks);
+    }
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        Duke.initializeBot();
+
+        String introduction = " Hello! I'm EGGBOT!\n" +
+                " Type 'help' to show available commands!";
+
+        printBasicOutput(introduction);
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("Please type a command, or type 'help' to show available commands:");
+
+            String input = scanner.nextLine().strip();  // Read input
+            Duke.commandHandler.parseInput(input);
+        }
+
     }
 }

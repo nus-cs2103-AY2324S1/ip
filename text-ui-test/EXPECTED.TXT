@@ -1,7 +1,74 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+____________________________________________________________
+ Hello! I'm eggbot
+ Please add a task!
 
+ To add a Models.ToDo task, type 'todo [Models.Task]'
+ To add a Models.Deadline task, type 'deadline [Models.Task /Models.Deadline]'
+ To add an Models.Event task, type 'event [Models.Task /Start Date/End Date]'
+ To view tasks, type 'list'
+ To mark a task as 'done', type 'mark [index]'
+ To mark a task as 'undone', type 'unmark [index]'
+ To exit, type 'bye'
+____________________________________________________________
+
+Please add a task, or type list to show tasks.
+____________________________________________________________
+Got it, I've added this task:
+[T][ ] hello
+You now have 1 tasks in the list.
+____________________________________________________________
+
+Please add a task, or type list to show tasks.
+____________________________________________________________
+Got it, I've added this task:
+[E][ ] Graduation (from: Monday 2pm to: Tuesday 3pm)
+You now have 2 tasks in the list.
+____________________________________________________________
+
+Please add a task, or type list to show tasks.
+____________________________________________________________
+Got it, I've added this task:
+[D][ ] Finish EGGBOT (by: tmr 3pm)
+You now have 3 tasks in the list.
+____________________________________________________________
+
+Please add a task, or type list to show tasks.
+____________________________________________________________
+Your tasks:
+
+1. [T][ ] hello
+2. [E][ ] Graduation (from: Monday 2pm to: Tuesday 3pm)
+3. [D][ ] Finish EGGBOT (by: tmr 3pm)
+____________________________________________________________
+
+Please add a task, or type list to show tasks.
+____________________________________________________________
+
+Nice! I've marked this task as done:
+[D][X] Finish EGGBOT (by: tmr 3pm)
+____________________________________________________________
+
+Please add a task, or type list to show tasks.
+____________________________________________________________
+
+OK, I've marked this task as not done yet:
+[D][ ] Finish EGGBOT (by: tmr 3pm)
+____________________________________________________________
+
+Please add a task, or type list to show tasks.
+____________________________________________________________
+Something went wrong! Please format the task properly and add it again.
+
+Error: Exceptions.DukeInvalidFormatException:
+Format for Models.Event task incorrect!
+Expected 3 parts (Models.Task name, start & end time) in input, got 2
+____________________________________________________________
+
+Please add a task, or type list to show tasks.
+____________________________________________________________
+Noted, I've removed this task:
+[E][ ] Graduation (from: Monday 2pm to: Tuesday 3pm)
+You now have 2 tasks in the list.
+____________________________________________________________
+
+Please add a task, or type list to show tasks.
