@@ -1,10 +1,11 @@
 package duke.command;
+import java.io.IOException;
+
+import duke.DukeException;
+import duke.TaskList;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.ui.Ui;
-import duke.DukeException;
-import duke.TaskList;
-import java.io.IOException;
 
 /**
  * Represents a command to delete a task from the task list in the Duke program.

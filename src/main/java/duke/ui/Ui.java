@@ -1,7 +1,8 @@
 package duke.ui;
-import duke.task.Task;
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import duke.task.Task;
 /**
  * Deals with interactions with the user
  * Return messages to user from Duke.

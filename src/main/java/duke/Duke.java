@@ -1,8 +1,11 @@
 package duke;
+import java.io.IOException;
+
 import duke.command.Command;
 import duke.storage.Storage;
 import duke.ui.Ui;
-import java.io.IOException;
+
+
 
 /**
  * The main class for the Duke program.
@@ -10,18 +13,15 @@ import java.io.IOException;
  */
 public class Duke {
 
+    /** File path for task storage. */
+    private static final String FILE_PATH = "./data/duke.txt";
     /** Handles reading and storing tasks. */
     private Storage storage;
-
     /** List of tasks managed by Duke. */
     private TaskList tasks;
 
     /** User interface for interactions. */
     private final Ui ui;
-
-    /** File path for task storage. */
-    private static final String FILE_PATH = "./data/duke.txt";
-
     /**
      * Constructs a new Duke instance with the specified file path for storage.
      *

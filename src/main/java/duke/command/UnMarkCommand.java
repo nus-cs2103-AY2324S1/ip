@@ -1,9 +1,12 @@
 package duke.command;
-import duke.storage.Storage;
-import duke.ui.Ui;
+import java.io.IOException;
+
 import duke.DukeException;
 import duke.TaskList;
-import java.io.IOException;
+import duke.storage.Storage;
+import duke.ui.Ui;
+
+
 
 /**
  * Represents a command to unmark a task as done.
@@ -49,8 +52,8 @@ public class UnMarkCommand extends Command {
             throw new DukeException("Invalid input number. :( Please provide a valid task number.");
         }
 
-        tasks.unmark(taskIndex);  // assuming the method to unmark the task exists
-        ui.showUnmarkedTask(tasks.getTask(taskIndex));  // assuming a method to show the unmarked task exists in Ui
-        storage.save(tasks);  // assuming a method to save tasks exists
+        tasks.unmark(taskIndex);
+        ui.showUnmarkedTask(tasks.getTask(taskIndex));
+        storage.save(tasks);
     }
 }

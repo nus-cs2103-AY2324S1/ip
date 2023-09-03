@@ -1,8 +1,10 @@
 package duke.command;
-import duke.storage.Storage;
-import duke.ui.Ui;
 import duke.DukeException;
 import duke.TaskList;
+import duke.storage.Storage;
+import duke.ui.Ui;
+
+
 /**
  * Represents a command to list out all the tasks.
  */

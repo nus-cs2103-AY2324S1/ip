@@ -1,9 +1,12 @@
 package duke.command;
-import duke.storage.Storage;
-import duke.ui.Ui;
+import java.io.IOException;
+
 import duke.DukeException;
 import duke.TaskList;
-import java.io.IOException;
+import duke.storage.Storage;
+import duke.ui.Ui;
+
+
 /**
  * Represents a command to mark a task as completed.
  */
