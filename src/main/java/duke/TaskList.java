@@ -64,8 +64,23 @@ public class TaskList {
     /**
      * getSize of the task list
      * @return the getSize
-     */
+     ]*/
     public int getSize() {
         return this.tasklist.size();
+    }
+
+    /**
+     * Search task according to the query given
+     * @param query search query string
+     * @return a TaskList with all the search result inside
+     */
+    public TaskList searchTask(String query) {
+        TaskList results = new TaskList();
+        for (Task task : tasklist) {
+            if (task.description.toUpperCase().contains(query.toUpperCase())) {
+                results.addTask(task);
+            }
+        }
+        return results;
     }
 }
