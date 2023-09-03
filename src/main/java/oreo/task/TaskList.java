@@ -213,6 +213,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds task in tasklist with keyword specified in tokeniser
+     *
+     * @param tokeniser input by user after command
+     * @return list of results
+     * @throws IllegalCommandException if input by user is invalid
+     */
     public String findTasksWith(Scanner tokeniser) throws IllegalCommandException {
         if (!tokeniser.hasNext()) {
             throw new IllegalCommandException("do that without specifying a keyword");

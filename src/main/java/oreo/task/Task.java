@@ -146,6 +146,11 @@ public abstract class Task implements Comparable<Task> {
      */
     public abstract String writeToFile();
 
+    /**
+     * Checks if description contains keyword
+     * @param keyword String of interest
+     * @return true if description contains String
+     */
     public boolean contains(String keyword) {
         return description.contains(keyword);
     }
