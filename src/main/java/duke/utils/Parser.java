@@ -18,7 +18,6 @@ public class Parser {
     /**
      * Constructs a new `Parser` with an empty input array.
      */
-
     public Parser() {
 
     }
@@ -118,6 +117,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Retrieves a concatenated string representation of keywords from an input array.
+     * @return The concatenated string containing keywords.
+     * @throws DukeException If an IndexOutOfBoundsException occurs while accessing the input array.
+     */
     public String getStringKeyword() throws DukeException {
         try {
             return String.join(" ", this.inputArray.subList(1, this.inputArray.size()));

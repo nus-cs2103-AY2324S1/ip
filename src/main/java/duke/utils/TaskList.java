@@ -140,6 +140,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches for tasks in a to-do list based on a specified keyword in their descriptions.
+     * @param keyword The keyword to search for within task descriptions.
+     * @return A list of tasks that contain the specified keyword in their descriptions.
+     */
     public List<Task> findTasksByKeyword(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         for (int i = 0; i < toDoList.size(); i++) {
