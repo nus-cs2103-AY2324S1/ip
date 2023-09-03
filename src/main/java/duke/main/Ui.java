@@ -62,7 +62,7 @@ public class Ui {
      */
     public void showCommands() {
         showMessage("Commands: ");
-        showMessage("bye, list, mark, unmark, todo, deadline, event");
+        showMessage("bye, list, find, mark, unmark, todo, deadline, event");
     }
 
     /**

@@ -7,7 +7,7 @@ import duke.main.Ui;
 
 /** Command to find tasks based on search string */
 public class FindCommand implements Command {
-    private String searchString;
+    private final String searchString;
 
     public FindCommand(String searchString) {
         this.searchString = searchString;
@@ -22,7 +22,7 @@ public class FindCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-
+        taskList.print(searchString);
     }
 
     @Override
