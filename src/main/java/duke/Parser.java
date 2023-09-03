@@ -24,6 +24,10 @@ public class Parser {
         return this.number() - 1;
     }
 
+    public String word() {
+        return this.input[1];
+    }
+
     public ToDo parseTodo() throws DukeException {
         if (fullLine.split("todo ").length < 1) {
             new Ui().todoErrorPrinter();

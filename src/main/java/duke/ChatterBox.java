@@ -62,7 +62,7 @@ public class ChatterBox {
                 ui.removedTaskScreen(tempDelete, tl.size());
 
             } else if (command.equals("find")) {
-
+                ui.findListPrinter(tl, p.word());
 
             } else {
 

@@ -52,6 +52,13 @@ public class Ui {
         this.linePrinter();
     }
 
+    public void findListPrinter(TaskList tl, String s) {
+        this.linePrinter();
+        this.tabPrinter("Here are the matching tasks in your list:");
+        tl.findTask(s);
+        this.linePrinter();
+    }
+
     public void markPrinter(TaskList tl, int a) {
         this.linePrinter();
         this.tabPrinter("Nice! I've marked this task as done:");

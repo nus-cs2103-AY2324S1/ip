@@ -57,6 +57,13 @@ public class TaskList {
     }
 
     public void findTask(String s) {
-
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).name.contains(s)) {
+                Ui.staticTabPrinter(String.format("%d. %s", i + 1,
+                        taskList.get(i).toString()));
+            } else {
+                continue;
+            }
+        }
     }
 }
