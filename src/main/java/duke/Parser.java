@@ -11,8 +11,19 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Handles interpretation and execution of user commands.
+ */
 public class Parser {
 
+    /**
+     * Interprets and executes user commands.
+     *
+     * @param fullCommand Command to be parsed.
+     * @param tasks Existing TaskList of tasks.
+     * @return Command to execute relevant actions.
+     * @throws DukeException If error arises during execution.
+     */
     public static Command parse(String fullCommand, TaskList tasks) throws DukeException {
 
         ArrayList<Task> taskList = tasks.taskList;
@@ -106,12 +117,23 @@ public class Parser {
         }
     }
 
-
-
+    /**
+     * Parses string input of date into LocalDateTime.
+     *
+     * @param userInput String representation of date and time.
+     * @return LocalDateTime representation of given date and time.
+     * @throws DateTimeParseException If error arises during execution.
+     */
     public static LocalDateTime parseDateTime(String userInput) throws DateTimeParseException {
             return LocalDateTime.parse(userInput, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
     }
 
+    /**
+     * Formats LocalDateTime into a specified version.
+     *
+     * @param userInput LocalDateTime with original formatting.
+     * @return LocalDateTime with "MMM d yyyy HH:mm" formatting.
+     */
     public static String dateTimeFormatter(LocalDateTime userInput) {
         return userInput.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
     }

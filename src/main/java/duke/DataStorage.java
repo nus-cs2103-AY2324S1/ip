@@ -10,14 +10,23 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
 
+/**
+ * Handles saving and loading of data.
+ */
 public class DataStorage {
 
     public ArrayList<Task> taskData;
 
+    /**
+     * Initialises a new DataStorage object.
+     */
     public DataStorage() {
         taskData = new ArrayList<>();
     }
 
+    /**
+     * Loads data from a txt file (duke.txt) into taskList..
+     */
     public void loadTasks() {
         try {
             File dataFileDirectory = new File("./data");
@@ -43,6 +52,10 @@ public class DataStorage {
         }
     }
 
+    /**
+     * Saves data from taskList onto txt file (duke.txt).
+     * @param taskList List of tasks.
+     */
     public void saveTasks(ArrayList<Task> taskList) {
         File dataFileDirectory = new File("./data");
         if (!dataFileDirectory.exists()) {
@@ -62,6 +75,12 @@ public class DataStorage {
         }
     }
 
+    /**
+     * Interprets text as Tasks.
+     *
+     * @param line String representing a task.
+     * @throws IOException If error occurs during execution.
+     */
     public void readTasks(String line) throws IOException {
         String[] split = line.split(" \\| ");
         String taskType = split[0];

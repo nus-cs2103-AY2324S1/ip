@@ -5,12 +5,18 @@ import duke.*;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Main class of the application.
+ */
 public class Duke {
 
     private static TaskList tasks;
     private Ui ui;
     private DataStorage store;
 
+    /**
+     * Initialises the Duke application.
+     */
     public Duke() {
         ui = new Ui();
         store = new DataStorage();
@@ -19,6 +25,9 @@ public class Duke {
 
     }
 
+    /**
+     * Reads and executes commands.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -39,6 +48,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs application.
+     *
+     * @param args (not used)
+     */
     public static void main(String[] args) {
         new Duke().run();
     }
