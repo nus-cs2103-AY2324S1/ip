@@ -77,7 +77,7 @@ public class Storage {
      * @throws IOException If unable to create file.
      */
     public static void createMissingFile(String filePath) throws IOException {
-        System.out.println("File not found!\nFile has been created!");
+        // System.out.println("File not found!\nFile has been created!");
         File dir = new File(DATA_DIRECTORY_PATH);
         if (!dir.exists()) {
             dir.mkdir();
