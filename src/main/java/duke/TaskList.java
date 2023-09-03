@@ -91,4 +91,18 @@ public class TaskList {
     public int size() {
         return tasks.size();
     }
+
+    /**
+     * This method is used to find tasks in the task list containing the keyword.
+     *
+     */
+    public TaskList find(String keyword) {
+        TaskList filteredTasks = new TaskList();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).toString().contains(keyword)) {
+                filteredTasks.add(tasks.get(i));
+            }
+        }
+        return filteredTasks;
+    }
 }

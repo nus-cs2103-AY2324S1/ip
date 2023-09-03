@@ -28,15 +28,7 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        int newIndex = 0;
-        System.out.println("\tHere are the matching tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).toString().contains(keyword)) {
-                System.out.printf("\t\t%d. %s\n", newIndex + 1, tasks.get(i));
-                newIndex++;
-            }
-        }
-        ui.printLine();
+        ui.printList(tasks.find(this.keyword).getAllTasks(), "Here are the matching tasks in your list:");
     }
 
     /**

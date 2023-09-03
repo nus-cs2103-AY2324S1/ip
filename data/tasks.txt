@@ -1,4 +1,4 @@
 [T] [X] read book
 [D] [ ] return book (by: Jun 06 2023)
 [E] [X] orientation week (from: Jul 31 2023 to: Aug 04 2023)
-[T] [ ] create new study playlist
+[T] [ ] create new spotify playlist
