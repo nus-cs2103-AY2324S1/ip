@@ -22,7 +22,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * This method is used to return the string representation of a Deadline.
+     * Returns the string representation of a Deadline.
      *
      * @return Returns the string representation of a Deadline.
      */

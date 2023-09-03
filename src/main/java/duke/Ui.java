@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import duke.task.Task;
 
 /**
- * The Ui class deals wuthe interactions with the user.
+ * The Ui class deals with the interactions with the user.
  *
  * @author Inez Kok
  */
@@ -37,15 +37,15 @@ public class Ui {
     }
 
     /**
-     * This method is used to print the greeting message.
+     * Prints the greeting message.
      */
-    public String getGreetingMessage() {
+    public static String getGreetingMessage() {
         String greetingMessage = String.format("Hello! I'm %s!\nHow can I help you?\n", NAME);
         return greetingMessage;
     }
 
     /**
-     * This method is used to print the exit message.
+     * Prints the exit message.
      */
     public void printExitMessage() {
         String exitMessage = "Bye Bye! Hope to see you again soon! Beep Boop!";
@@ -53,7 +53,7 @@ public class Ui {
     }
 
     /**
-     * This method is used to print the list of tasks.
+     * Prints the list of tasks.
      *
      * @param list The array list of tasks.
      */
@@ -66,7 +66,7 @@ public class Ui {
     }
 
     /**
-     * This method is used to print the message that should appear when a task is successfully added.
+     * Prints the message that should appear when a task is successfully added.
      *
      * @param task The task that was successfully added.
      * @param list The updated list of tasks.
@@ -80,7 +80,7 @@ public class Ui {
     }
 
     /**
-     * This method is used to print the message that should appear when a task is successfully deleted.
+     * Prints the message that should appear when a task is successfully deleted.
      *
      * @param index The zero-based index of the task that was successfully deleted.
      * @param list The list of tasks before being updated.

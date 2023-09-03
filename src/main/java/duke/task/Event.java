@@ -25,7 +25,7 @@ public class Event extends Task {
     }
 
     /**
-     * This method is used to return the string representation of an Event.
+     * Returns the string representation of an Event.
      *
      * @return Returns the string representation of an Event.
      */

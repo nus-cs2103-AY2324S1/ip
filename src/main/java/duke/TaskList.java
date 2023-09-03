@@ -29,7 +29,7 @@ public class TaskList {
     }
 
     /**
-     * This method is used to get the list of tasks.
+     * Returns the list of tasks.
      *
      * @return Returns the array list of tasks.
      */
@@ -38,7 +38,7 @@ public class TaskList {
     }
 
     /**
-     * This method is used to get the specific task in the task list.
+     * Returns the specific task in the task list.
      *
      * @param index The zero-based index of the task.
      * @return Returns the task with that index.
@@ -48,7 +48,7 @@ public class TaskList {
     }
 
     /**
-     * This method is used to mark the specific task in the task list as done.
+     * Marks the specific task in the task list as done.
      *
      * @param index The zero-based index of the task.
      */
@@ -57,7 +57,7 @@ public class TaskList {
     }
 
     /**
-     * This method is used to mark the specific task in the task list as not done.
+     * Marks the specific task in the task list as not done.
      *
      * @param index The zero-based index of the task.
      */
@@ -66,7 +66,7 @@ public class TaskList {
     }
 
     /**
-     * This method is used to add a task into the task list.
+     * Adds a task into the task list.
      *
      * @param task The task being added.
      */
@@ -75,7 +75,7 @@ public class TaskList {
     }
 
     /**
-     * This method is used to delete a task from the task list.
+     * Removes a task from the task list.
      *
      * @param index The zero-based index of the task.
      */
@@ -84,7 +84,7 @@ public class TaskList {
     }
 
     /**
-     * This method is used to retrieve the number of tasks in the task list.
+     * Retrieves the number of tasks in the task list.
      *
      * @return The number of tasks in the task lists.
      */
@@ -93,7 +93,7 @@ public class TaskList {
     }
 
     /**
-     * This method is used to find tasks in the task list containing the keyword.
+     * Finds tasks in the task list containing the keyword.
      *
      */
     public TaskList find(String keyword) {

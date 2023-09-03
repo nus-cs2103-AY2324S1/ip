@@ -22,7 +22,7 @@ import duke.exception.DukeException;
  */
 public class Parser {
     /**
-     * This method is used to parse through user command and make sense of it.
+     * Parses through user command and make sense of it.
      *
      * @param input This is the user input.
      * @param size This is the size of the current task list.
@@ -93,8 +93,7 @@ public class Parser {
     }
 
     /**
-     * This method is used to check whether the user input for mark,
-     * unmark or delete commands is valid.
+     * Checks whether the user input for mark,unmark or delete commands is valid.
      *
      * @param number The string representation of the one-based index of task.
      * @param size The size of the current task list.
@@ -117,7 +116,7 @@ public class Parser {
     }
 
     /**
-     * This method is used to check whether the user input for creating a todo is valid.
+     * Check whethers the user input for creating a todo is valid.
      *
      * @param description The string representation of the todo description.
      * @throws DukeException On input error.
@@ -129,7 +128,7 @@ public class Parser {
     }
 
     /**
-     * This method is used to check whether the user input for creating a deadline is valid.
+     * Checks whether the user input for creating a deadline is valid.
      *
      * @param deadlineString The array of string representations of the parameters of a Deadline.
      * @throws DukeException On input error.
@@ -142,7 +141,7 @@ public class Parser {
     }
 
     /**
-     * This method is used to check whether the user input for creating a event is valid.
+     * Checks whether the user input for creating a event is valid.
      *
      * @param eventString The array of string representations of the parameters of an Event.
      * @throws DukeException On input error.
@@ -156,7 +155,7 @@ public class Parser {
     }
 
     /**
-     * This method is used to check whether the user input for a Date is valid.
+     * Checks whether the user input for a Date is valid.
      *
      * @param date The string representation of the date.
      * @throws DukeException On format error of String date.
@@ -170,7 +169,7 @@ public class Parser {
     }
 
     /**
-     * This method is used to check whether the keyword for the find command is valid.
+     * Checks whether the keyword for the find command is valid.
      *
      * @param keyword The keyword to be searched for.
      * @throws DukeException When keyword is blank.

@@ -9,7 +9,7 @@ import duke.Ui;
  */
 public class ExitCommand extends Command {
     /**
-     * This method is used to execute the exit command.
+     * Executes the exit command.
      *
      * @param tasks The TaskList to be worked on.
      * @param ui The Ui to be worked on.
@@ -21,7 +21,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * This method is used to check whether it is an exit command.
+     * Checks whether it is an exit command.
      *
      * @return Returns true.
      */

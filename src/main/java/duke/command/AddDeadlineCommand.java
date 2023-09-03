@@ -27,7 +27,7 @@ public class AddDeadlineCommand extends Command {
     }
 
     /**
-     * This method is used to execute the AddDeadlineCommand.
+     * Executes the AddDeadlineCommand.
      *
      * @param tasks The TaskList to be worked on.
      * @param ui The Ui to be worked on.
@@ -43,7 +43,7 @@ public class AddDeadlineCommand extends Command {
     }
 
     /**
-     * This method is used to check whether this is an Exit command.
+     * Checks whether this is an Exit command.
      *
      * @return Returns false.
      */

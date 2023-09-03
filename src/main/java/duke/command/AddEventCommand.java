@@ -30,7 +30,7 @@ public class AddEventCommand extends Command {
     }
 
     /**
-     * This method is used to execute the AddEventCommand.
+     * Executes the AddEventCommand.
      *
      * @param tasks The TaskList to be worked on.
      * @param ui The Ui to be worked on.
@@ -46,7 +46,7 @@ public class AddEventCommand extends Command {
     }
 
     /**
-     * This method is used to check whether the command is an Exit command.
+     * Checks whether the command is an Exit command.
      *
      * @return Returns false.
      */

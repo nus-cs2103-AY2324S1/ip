@@ -14,7 +14,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * This method is used to return the string representation of the ToDo.
+     * Returns the string representation of the ToDo.
      *
      * @return Returns the string representation of the ToDo.
      */

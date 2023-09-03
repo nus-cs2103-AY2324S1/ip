@@ -10,7 +10,7 @@ import duke.exception.DukeException;
  */
 public abstract class Command {
     /**
-     * This method is used to execute the command.
+     * Executes the command.
      *
      * @param tasks The TaskList to be worked on.
      * @param ui The Ui to be worked on.
@@ -20,7 +20,7 @@ public abstract class Command {
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 
     /**
-     * This method is used to check whether it is an Exit command.
+     * Checks whether it is an Exit command.
      *
      * @return Returns whether it is an Exit command.
      */

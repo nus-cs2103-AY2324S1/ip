@@ -17,23 +17,23 @@ public class Task {
     }
 
     /**
-     * This method is used to mark the task as done.
+     * Marks the task as done.
      */
     public void markDone() {
         this.isDone = true;
     }
 
     /**
-     * This method is used to mark the task as not done.
+     * Marks the task as not done.
      */
     public void markNotDone() {
         this.isDone = false;
     }
 
     /**
-     * This method is used to return the string representation of a Task.
+     * Returns the string representation of a Task.
      *
-     * @return Returns the string represenation of a Task.
+     * @return Returns the string representation of a Task.
      */
     @Override
     public String toString() {

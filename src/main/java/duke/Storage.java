@@ -33,7 +33,7 @@ public class Storage {
     }
 
     /**
-     * This method is used to check whether the string representation of a date is valid.
+     * Checks whether the string representation of a date is valid.
      *
      * @param date The string representation of the date.
      * @throws DukeException On format error.
@@ -47,7 +47,7 @@ public class Storage {
     }
 
     /**
-     * This method is used to format the string representation of a date YYYY-MM-DD.
+     * Formats the string representation of a date YYYY-MM-DD.
      *
      * @param date The string representation of the date MMM DD YYYY.
      * @return Returns the string representation of a date YYYY-MM-DD.
@@ -88,7 +88,7 @@ public class Storage {
     }
 
     /**
-     * This method is used to load the list of tasks in the file.
+     * Loads the list of tasks in the file.
      *
      * @return Returns an array list of tasks.
      * @throws DukeException On corrupted values in file.
@@ -167,7 +167,7 @@ public class Storage {
     }
 
     /**
-     * This method is used to save changes made to the task list in the file.
+     * Saves changes made to the task list in the file.
      *
      * @param list The array list of tasks.
      * @throws DukeException On IO exceptions.

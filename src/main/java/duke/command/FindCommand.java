@@ -20,7 +20,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * This method is used to execute the find command.
+     * Executes the find command.
      *
      * @param tasks The TaskList to be worked on.
      * @param ui The Ui to be worked on.
@@ -32,7 +32,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * This method is used to check whether it is an exit command.
+     * Checks whether it is an exit command.
      *
      * @return Returns false.
      */

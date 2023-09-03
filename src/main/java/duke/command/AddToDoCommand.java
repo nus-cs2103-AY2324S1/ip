@@ -22,7 +22,7 @@ public class AddToDoCommand extends Command {
     }
 
     /**
-     * This method is used to execute the AddToDoCommand.
+     * Executes the AddToDoCommand.
      *
      * @param tasks The TaskList to be worked on.
      * @param ui The Ui to be worked on.
@@ -38,7 +38,7 @@ public class AddToDoCommand extends Command {
     }
 
     /**
-     * This method is used to check whether it is an Exit command.
+     * Checks whether it is an Exit command.
      *
      * @return Returns false.
      */
