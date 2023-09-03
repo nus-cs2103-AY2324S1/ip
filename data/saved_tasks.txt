@@ -1,3 +1,0 @@
-[T][ ] This is a todo task
-[D][X] This is a COMPLETED deadline task (by: 2023-01-01)
-[E][ ] This is an event task (from: 2024-12-02 to: 1987-01-02)

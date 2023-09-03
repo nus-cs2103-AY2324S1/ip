@@ -62,15 +62,21 @@ public class Parser {
             int indexToDelete = Integer.parseInt(userInput.substring(TaskMate.COMMAND_TYPES.delete.toString().length()).trim());
             indexToDelete -= 1; // subtract 1 as the arraylist is zero-indexed
             return new DeleteCommand(indexToDelete);
+        } else if (commandType.equals(TaskMate.COMMAND_TYPES.find.toString())) {
+            checkValidFindCommand(userInput);
+            String query = userInput.substring(TaskMate.COMMAND_TYPES.find.toString().length()).trim();
+            return new FindCommand(query);
         // Invalid input
         } else {
             throw new InvalidCommandTypeException();
         }
     }
 
+
+
     static String getCommandType(String userInput) throws InvalidCommandTypeException {
         // Returns the type of command input by the user
-        // Possible values: "to\-do", "deadline", "event", "bye", "list", "mark", "unmark"
+        // Possible values: "to\-do", "deadline", "event", "bye", "list", "mark", "unmark", "find"
         for (TaskMate.COMMAND_TYPES type : TaskMate.COMMAND_TYPES.values()) {
             String typeString = type.toString();
             if (userInput.startsWith(typeString)) {
@@ -202,6 +208,17 @@ public class Parser {
             return false;
         }
         return true;
+    }
+
+    static void checkValidFindCommand(String userInput) throws EmptyDescriptionException, InvalidCommandTypeException {
+        boolean isStartingWithFind = userInput.startsWith(TaskMate.COMMAND_TYPES.find + " ");
+        boolean hasEmptyQuery = userInput.substring(TaskMate.COMMAND_TYPES.find.toString().length()).trim().isEmpty();
+
+        if (!isStartingWithFind) {
+            throw new InvalidCommandTypeException();
+        } else if (hasEmptyQuery) {
+            throw new EmptyDescriptionException();
+        }
     }
 
 }

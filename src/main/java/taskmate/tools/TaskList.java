@@ -115,7 +115,7 @@ public class TaskList {
         }
     }
 
-    ArrayList<Task> getAllTasks() {
+    public ArrayList<Task> getAllTasks() {
         return this.tasks;
     }
 
