@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -7,7 +9,7 @@ public class Ui {
         this.sc = new Scanner(System.in);
     }
     public void showWelcomeMessage() {
-        String name = "Tired";
+        String name = "duke.Tired";
         System.out.println(horizontalLine);
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you?");
