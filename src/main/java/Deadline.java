@@ -1,20 +1,26 @@
-public class Deadline extends Task {
-    private String endTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    public Deadline (String name, String endTime) {
+public class Deadline extends Task {
+    private String deadlineString;
+    private LocalDate deadlineDate;
+
+    public Deadline (String name, String deadlineString) {
         super(name);
-        this.endTime = endTime;
+        this.deadlineString = deadlineString;
+        this.deadlineDate = parseDateTime(deadlineString);
     }
 
-    public String getEndTime() {
-        return this.endTime;
+    public String getDeadlineString() {
+        return this.deadlineString;
     }
 
     public String writeTaskToFile() {
         return String.format("%s | %s | %s | %s", "D",
                 this.isDone() ? 1 : 0,
                 this.getName(),
-                this.getEndTime());
+                this.getDeadlineString());
     }
 
     public static Deadline readTaskFromFile(String[] args) {
@@ -25,8 +31,24 @@ public class Deadline extends Task {
         return newDeadlineTask;
     }
 
+    private LocalDate parseDateTime(String deadlineString) {
+        try {
+            return LocalDate.parse(deadlineString);
+        } catch (DateTimeParseException e) {
+            return null;
+        }
+    }
+
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.endTime);
+        String deadline;
+        if (deadlineDate != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+            deadline = deadlineDate.format(formatter);
+        }
+        else {
+            deadline = deadlineString;
+        }
+        return String.format("[D]%s (by: %s)", super.toString(), deadline);
     }
 }

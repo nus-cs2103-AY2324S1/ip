@@ -115,8 +115,8 @@ public class Iris {
                 try {
                     String[] deadlineSections = rest.split(" /by ", 2);
                     String name = deadlineSections[0];
-                    String endTime = deadlineSections[1];
-                    Iris.add(new Deadline(name, endTime));
+                    String deadlineString = deadlineSections[1];
+                    Iris.add(new Deadline(name, deadlineString));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new IllegalArgumentException("Invalid format.");
                 }
