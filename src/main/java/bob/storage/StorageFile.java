@@ -64,6 +64,10 @@ public class StorageFile {
             Scanner fileScanner = new Scanner(taskFile);
             ArrayList<Task> loadedTasks = new ArrayList<>();
             while (fileScanner.hasNextLine()) {
+                String currentLine = fileScanner.nextLine();
+                if (currentLine.isBlank()) {
+                    continue;
+                }
                 Task task = Parser.parseStoredTask(fileScanner.nextLine());
                 loadedTasks.add(task);
             }
