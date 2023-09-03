@@ -1,8 +1,8 @@
-package duke.Exceptions;
+package duke.exceptions;
 
 import duke.Ui;
 
-public class UnknownCommandException extends Exception{
+public class UnknownCommandException extends Exception {
     @Override
     public String toString() {
         return Ui.divider + "\n"

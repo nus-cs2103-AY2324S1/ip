@@ -1,6 +1,6 @@
 package duke.commands;
 
-import duke.Exceptions.InvalidTaskIndexException;
+import duke.exceptions.InvalidTaskIndexException;
 import duke.Storage;
 import duke.TaskList;
 

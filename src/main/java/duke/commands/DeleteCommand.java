@@ -3,10 +3,8 @@ package duke.commands;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+import duke.exceptions.InvalidTaskIndexException;
 import duke.tasks.Task;
-
-
-import duke.Exceptions.InvalidTaskIndexException;
 
 /**
  * Command to delete a task from the task list.

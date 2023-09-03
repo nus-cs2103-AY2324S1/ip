@@ -1,7 +1,7 @@
 package duke;
 
-import duke.Exceptions.IncompleteDescriptionException;
-import duke.Exceptions.InvalidTaskIndexException;
+import duke.exceptions.IncompleteDescriptionException;
+import duke.exceptions.InvalidTaskIndexException;
 import duke.tasks.ToDo;
 import org.junit.jupiter.api.Test;
 
