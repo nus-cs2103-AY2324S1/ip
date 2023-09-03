@@ -37,6 +37,8 @@ public class Parser {
             return new MarkUnmarkCommand(command, tokeniser);
         case("delete") :
             return new DeleteCommand(tokeniser);
+        case("find") :
+            return new FindCommand(tokeniser);
         default:
             return new AddCommand(command, tokeniser);
         }

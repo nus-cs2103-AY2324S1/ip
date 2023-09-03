@@ -4,6 +4,7 @@ import oreo.exception.IllegalCommandException;
 import oreo.ui.Ui;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -136,6 +137,23 @@ public class TaskList {
         }
     }
 
+    public String listResults(String keyword) {
+        if (getNumberOfTask() == 0) {
+            return "Unfortunately, I couldn't find any task matching \"" +
+                    keyword +
+                    "\" :(";
+        } else {
+            StringBuilder displayList = new StringBuilder();
+            displayList.append("Here are task(s) matching \"" +
+                    keyword +
+                    "\" in your list: \n");
+            for (int i = 0; i < taskList.size(); i++) {
+                displayList.append(i + 1 + ".").append(taskList.get(i).toString());
+            }
+            return displayList.toString();
+        }
+    }
+
     /**
      * Handles the main logic of delete task command input by user
      *
@@ -193,6 +211,21 @@ public class TaskList {
             return "Oh no... what happened :(\n"
                     + task.toString();
         }
+    }
+
+    public String findTasksWith(Scanner tokeniser) throws IllegalCommandException {
+        if (!tokeniser.hasNext()) {
+            throw new IllegalCommandException("do that without specifying a keyword");
+        }
+        String keyword = tokeniser.next();
+        TaskList toPrint = new TaskList();
+        for (int i = 0; i < getNumberOfTask(); i++) {
+            Task ref = taskList.get(i);
+            if (ref.contains(keyword)) {
+                toPrint.add(ref);
+            }
+        }
+        return toPrint.listResults(keyword);
     }
 
     /**
