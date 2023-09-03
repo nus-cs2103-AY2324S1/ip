@@ -1,7 +1,8 @@
-package duke;// Solution below adapted and inspired by https://chat.openai.com/share/7f037351-3be6-4105-b138-77f68d428c84
+package duke;
 
 import java.util.ArrayList;
 
+// Solution below adapted and inspired by https://chat.openai.com/share/7f037351-3be6-4105-b138-77f68d428c84
 public class TaskList {
     private ArrayList<Task> tasks;
 
