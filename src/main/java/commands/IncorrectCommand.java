@@ -1,8 +1,10 @@
 package commands;
+
 import exceptions.JamesBondException;
 import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
+
 /**
  * The `IncorrectCommand` class represents a command used to handle incorrect or invalid user inputs.
  * When executed, it displays an error message to the user.

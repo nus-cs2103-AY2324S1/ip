@@ -129,7 +129,11 @@ public class Parser {
         if (split.length == 1) {
             return new IncorrectCommand("You didn't tell me ur task and the deadline it's due by. BUCK UP!");
         }
+
         String[] deadline = split[1].split(" /by ", 2);
+        if (deadline[1].isBlank() || deadline[0].isBlank()) {
+            return new IncorrectCommand("Please enter a valid deadline.");
+        }
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             return new AddCommand(deadline[0], LocalDateTime.parse(deadline[1], formatter));
@@ -145,7 +149,7 @@ public class Parser {
      * @return An "EventCommand" if the input is a valid event command, otherwise an "IncorrectCommand."
      */
     public static Command checkEvent(String[] split) {
-        if (split.length == 1) {
+        if (split.length == 1 || !split[1].contains(" /from ")) {
             return new IncorrectCommand("You didn't tell me ur task and the time period it's due by. BUCK UP!");
         }
         try {
@@ -194,7 +198,6 @@ public class Parser {
         if (!Character.isDigit(split[1].charAt(split[1].charAt(0)))) {
             return new IncorrectCommand("Enter task number u wish to DELETE");
         }
-
         int taskNumber = Integer.parseInt(split[1]);
         if (taskNumber <= 0) {
             return new IncorrectCommand("Enter valid task number FOR DELETE.");
@@ -227,7 +230,6 @@ public class Parser {
             return task;
         }
         if (type.equals("E")) {
-
             String[] timeline = date.split("-", 2);
             String from = timeline[0];
             String to = timeline[1];
