@@ -78,7 +78,24 @@ ____________________________________________________________
 
 ____________________________________________________________
 
-Goodbye! Bob signing out!
+Foosh! Let it be gone! I've helped delete the task:
+[T][ ] borrow book
+
+Now you have 1 task in your list!
 
 ____________________________________________________________
 
+Foosh! Let it be gone! I've helped delete the task:
+[E][X] project meeting (from: Mon 2pm, to: 4pm)
+
+Now you have 0 tasks in your list!
+
+____________________________________________________________
+
+You don't have any tasks. Good job!
+
+____________________________________________________________
+
+Goodbye! Bob signing out!
+
+____________________________________________________________
