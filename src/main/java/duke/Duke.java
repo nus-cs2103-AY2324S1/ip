@@ -10,7 +10,7 @@ import duke.ui.Ui;
  * The main class for the Duke program.
  * It manages the initialization, execution, and termination of the program.
  */
-public class Duke{
+public class Duke {
 
     /** Handles reading and storing tasks. */
     private Storage storage;
