@@ -18,8 +18,8 @@ public class Deadline extends Todo {
     public String toString(int number) {
         return String.format(
             "%s | BY %s",
-            super.toString(number),
-            this.timestampEnd
+            this.getBasicString(number),
+            this.getEnd()
         );
     }
 

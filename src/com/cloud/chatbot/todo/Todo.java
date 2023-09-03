@@ -14,7 +14,7 @@ public class Todo {
         this.description = _description;
     }
 
-    public String toString(int number) {
+    protected String getBasicString(int number) {
         return String.format(
             "%s | %s#%d: %s",
             this.getCompletionString(),
@@ -22,6 +22,10 @@ public class Todo {
             number,
             this.getDescription()
         );
+    }
+
+    public String toString(int number) {
+        return this.getBasicString(number);
     }
 
     public String getDescription() {

@@ -17,11 +17,8 @@ public class Event extends Deadline {
     @Override
     public String toString(int number) {
         return String.format(
-            "%s | %s#%d: %s | FROM %s | TO %s",
-            this.getCompletionString(),
-            this.getTypeString(),
-            number,
-            this.getDescription(),
+            "%s | FROM %s | TO %s",
+            this.getBasicString(number),
             this.getStart(),
             this.getEnd()
         );
