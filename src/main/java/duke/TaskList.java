@@ -1,15 +1,15 @@
-import java.io.BufferedReader;
+package duke;
+
+import duke.*;
+
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.channels.FileChannel;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class TaskList {
@@ -184,9 +184,21 @@ public class TaskList {
                 ui.indexOut();
                 Answer();
             }
+        }
 
+        else if (parser.getArr()[0].equals("find")) {
+            String subString = parser.getArr()[1];
+            List<Task> matchingList = new ArrayList<>();
+            for (Task task: list) {
+                if (task.getDescription().contains(subString)) {
+                    matchingList.add(task);
+                }
+            }
+            ui.matchingList(matchingList);
+            Answer();
 
-        } else if (parser.getArr()[0].equals("event")) {
+        }
+        else if (parser.getArr()[0].equals("event")) {
             arr = parser.getArr();
             String firstFrom = arr[1].substring(arr[1].indexOf("/from") + 6);
             String secondFrom = firstFrom.substring(0, firstFrom.indexOf("/to"));

@@ -1,14 +1,6 @@
+package duke;
 
-
-import java.io.*;
-import java.util.Scanner;
-import java.util.*;
-import java.nio.channels.FileChannel;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.io.IOException;
-import java.time.*;
-import java.time.format.*;
 
 public class Duke {
     private static StringBuilder tempData = new StringBuilder();
@@ -31,7 +23,8 @@ public class Duke {
 
     public static void main(String[] args) throws Exception {
         String logo = "Zenith";
-        String zenithData = "src/main/java/data/zenith.txt";
+
+        String zenithData = "/Users/william/Desktop/ip/src/main/java/data/zenith.txt";
         Duke duke = new Duke(zenithData);
 
 
