@@ -3,9 +3,7 @@ package duke;
 import java.util.Arrays;
 import java.util.Scanner;
 
-/**
- * Chatbot to assist individuals in keeping track of pending tasks
- */
+/** Chatbot to assist individuals in keeping track of pending tasks */
 public class Duke {
 
     private enum SpecialTaskKeyword {
@@ -19,6 +17,7 @@ public class Duke {
     private Ui ui;
     private Parser parser;
 
+    /** Constructor to initialise the chatbot */
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
