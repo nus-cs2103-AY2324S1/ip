@@ -33,7 +33,7 @@ public class Duke {
         fw.close();
     }
 
-    private static ArrayList<Task> loadData(File file, ArrayList<Task> list) {
+    private static ArrayList<Task> loadData(File file, ArrayList<Task> list) throws DukeException{
         try {
             Scanner s = new Scanner(file);
             while (s.hasNextLine()) {
@@ -69,7 +69,7 @@ public class Duke {
             System.out.println(e.getMessage());
         }
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         String line = "──────────────────────────────────────────────────────────────────────────";
         String logo = " _____   __                 _____ _           _   _           _  ___\n"
                 + "|  _\\ \\ / /                /  __ \\ |         | | | |         | ||_  |\n"
@@ -94,7 +94,11 @@ public class Duke {
         makeDataDir();
         File f = new File(filepath);
         if (!createFile(f)) {
-            loadData(f, list);
+            try {
+                loadData(f, list);
+            } catch (DukeException e) {
+                throw e;
+            }
         }
 
         boolean end = false;
@@ -105,26 +109,26 @@ public class Duke {
                 int spaceIndex = userInput.indexOf(" ");
                 if (spaceIndex == -1) {
                     switch (userInput) {
-                        case "list":
-                            System.out.println(line);
-                            for (int i = 0; i < list.size(); i++) {
-                                System.out.println(Integer.toString(i + 1)
-                                        + ". "
-                                        + list.get(i));
-                            }
-                            System.out.println(line + "\n");
-                            break;
-                        case "bye":
-                            end = true;
-                            break;
-                        case "todo":
-                            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
-                        case "event":
-                            throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
-                        case "deadline":
-                            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
-                        default:
-                            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    case "list":
+                        System.out.println(line);
+                        for (int i = 0; i < list.size(); i++) {
+                            System.out.println(Integer.toString(i + 1)
+                                    + ". "
+                                    + list.get(i));
+                        }
+                        System.out.println(line + "\n");
+                        break;
+                    case "bye":
+                        end = true;
+                        break;
+                    case "todo":
+                        throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                    case "event":
+                        throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+                    case "deadline":
+                        throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                    default:
+                        throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     }
                 } else {
                     switch (userInput.substring(0, spaceIndex)) {
@@ -158,7 +162,7 @@ public class Duke {
                             }
                             String from = userInput.substring(fromIndex + 6, toIndex - 1);
                             String to = userInput.substring(toIndex + 4);
-                            Task newEvent = new Event(eventDesc, to, from);
+                            Task newEvent = new Event(eventDesc, from, to);
                             list.add(newEvent);
                             try {
                                 appendToFile(filepath, newEvent);
@@ -221,8 +225,12 @@ public class Duke {
                             break;
                         case "delete":
                             int k = Integer.parseInt(userInput.split(" ", 2)[1]);
+                            if (k > list.size() || k < 0) {
+                                throw new DukeException("Integer out of list range");
+                            }
                             Task deletedTask = list.get(k - 1);
                             list.remove(k - 1);
+                            writeAllToFile(list, f);
                             System.out.println(line + "\n"
                                     + "Noted. I've removed this task:\n"
                                     + deletedTask

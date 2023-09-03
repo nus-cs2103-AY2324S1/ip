@@ -1,10 +1,17 @@
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
+
 public class Deadline extends Task {
 
-    protected String by;
+    protected LocalDate by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DukeException {
         super(description);
-        this.by = by;
+        try {
+            this.by = parseDate(by);
+        } catch (DukeException e) {
+            throw e;
+        }
     }
 
     @Override
@@ -13,7 +20,7 @@ public class Deadline extends Task {
         return "D | " + done + " | " + this.description + " | " + this.by;
     }
 
-    public static Task dataToTask(String taskData) {
+    public static Task dataToTask(String taskData) throws DukeException {
         int firstSplitIndex = taskData.indexOf("|");
         int secondSplitIndex = taskData.indexOf("|", firstSplitIndex + 1);
         boolean isDone = taskData.substring(0, firstSplitIndex - 1).equals("1");
@@ -26,6 +33,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -41,6 +44,16 @@ public abstract class Task {
      * Returns the data representation of the task.
      */
     public abstract String toData();
+
+    protected LocalDate parseDate(String date) throws DukeException{
+        LocalDate localDate = null;
+        try {
+            localDate = LocalDate.parse(date);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Incorrect date format. Please enter date in yyyy-mm-dd format");
+        }
+        return localDate;
+    }
 
     /**
      * Returns string representation of task

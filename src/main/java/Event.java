@@ -1,12 +1,19 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    protected LocalDate from;
+    protected LocalDate to;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws DukeException {
         super(description);
-        this.from = from;
-        this.to = to;
+        try {
+            this.from = parseDate(from);
+            this.to = parseDate(to);
+        } catch (DukeException e) {
+            throw e;
+        }
     }
 
     @Override
@@ -15,7 +22,7 @@ public class Event extends Task {
         return "E | " + done + " | " + this.description + " | " + this.from + " | " + this.to;
     }
 
-    public static Task dataToTask(String taskData) {
+    public static Task dataToTask(String taskData) throws DukeException {
         int firstSplitIndex = taskData.indexOf("|");
         int secondSplitIndex = taskData.indexOf("|", firstSplitIndex + 1);
         int thirdSplitIndex = taskData.indexOf("|", secondSplitIndex + 1);
@@ -31,7 +38,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + " (from: " + this.from
-                + " to: " + this.to + ")";
+                + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
