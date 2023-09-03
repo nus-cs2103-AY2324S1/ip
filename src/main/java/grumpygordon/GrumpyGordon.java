@@ -17,13 +17,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 
 /**
  * GrumpyGordon Chatbot
  */
 public class GrumpyGordon extends Application {
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/userImage.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/gordonImage.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/userImage.png"));
+    private Image gordonImage = new Image(this.getClass().getResourceAsStream("/images/gordonImage.png"));
+
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -150,10 +152,10 @@ public class GrumpyGordon extends Application {
 
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        Label gordonText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(userText, new ImageView(userImage)),
+                DialogBox.getGordonDialog(gordonText, new ImageView(gordonImage))
         );
         userInput.clear();
     }
