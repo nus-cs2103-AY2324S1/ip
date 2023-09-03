@@ -2,6 +2,10 @@ package functions;
 
 public class Ui {
 
+    /**
+     * A public constructor to initialize a new Ui instance
+     *
+     */
     public Ui() {
         System.out.println("____________________________________________________________");
         System.out.println("Initializing...");

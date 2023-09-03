@@ -5,6 +5,11 @@ import java.io.IOException;
 public class Storage {
     private String filePath;
 
+    /**
+     * A public constructor to initialize a new storage instance
+     *
+     * @param filePath file path to load
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }

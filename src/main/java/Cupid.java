@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Cupid {
 
-    private static String saveFilePath;
+    private String saveFilePath;
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
@@ -20,7 +20,7 @@ public class Cupid {
         this.storage = null;
 
         try {
-            this.storage = new Storage(saveFilePath);
+            this.storage = new Storage(this.saveFilePath);
             this.taskList = this.storage.load();
         } catch (IOException e) {
             this.ui.fileNotFound();
@@ -49,7 +49,7 @@ public class Cupid {
                 this.storage.save(this.taskList);
             } catch (IOException e) {
                 System.out.println(e);
-                System.out.println("functions.Save unsuccessful");
+                System.out.println("Save unsuccessful");
             }
         }
         ui.goodbye();

@@ -1,6 +1,5 @@
 package functions;
 
-import functions.TaskList;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.ToDo;
@@ -16,6 +15,11 @@ public class Load {
     TaskList taskList;
     private String loadFilePath;
 
+    /**
+     * A public constructor to initialize a new Load instance
+     *
+     * @param loadFilePath file path to load
+     */
     public Load(String loadFilePath) {
         this.loadFilePath = loadFilePath;
         this.taskList = new TaskList();

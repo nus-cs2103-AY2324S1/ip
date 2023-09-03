@@ -7,11 +7,25 @@ public class Deadline extends Task {
 
     private String TaskIcon = "[D]";
     private LocalDateTime deadline;
+
+    /**
+     * A public constructor to initialize a Deadline task
+     *
+     * @param description  a description of the task
+     * @param deadline a datetime instance of the deadline of task
+     */
     public Deadline(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
     }
 
+    /**
+     * A public constructor to initialize a Deadline task
+     *
+     * @param description  a description of the task
+     * @param deadline a datetime instance of the deadline of task
+     * @param isDone task completion status
+     */
     public Deadline(String description, LocalDateTime deadline, boolean isDone) {
         super(description, isDone);
         this.deadline = deadline;

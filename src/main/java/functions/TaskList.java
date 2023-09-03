@@ -8,10 +8,10 @@ public class TaskList {
 
     private ArrayList<Task> taskList;
 
-    public TaskList(ArrayList<Task> taskList) {
-        this.taskList = taskList;
-    }
-
+    /**
+     * A public constructor to initialize a new TaskList instance
+     *
+     */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }

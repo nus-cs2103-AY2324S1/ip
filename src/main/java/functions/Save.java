@@ -17,8 +17,8 @@ public class Save {
     /**
      * A public constructor to initialize functions.Save
      *
-     * @param  taskList  a task list to store tasks
-     * @param  saveFilePath file path of saved file
+     * @param taskList  a task list to store tasks
+     * @param saveFilePath file path of saved file
      */
     public Save(TaskList taskList, String saveFilePath) throws IOException {
         this.taskList = taskList;

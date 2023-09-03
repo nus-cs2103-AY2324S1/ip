@@ -9,12 +9,27 @@ public class Event extends Task {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
+    /**
+     * A public constructor to initialize a Deadline task
+     *
+     * @param description  a description of the task
+     * @param startDate a datetime instance of the expected start of task
+     * @param endDate a datetime instance of the expected end of task
+     */
     public Event(String description, LocalDateTime startDate, LocalDateTime endDate) {
         super(description);
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
+    /**
+     * A public constructor to initialize a Deadline task
+     *
+     * @param description  a description of the task
+     * @param startDate a datetime instance of the expected start of task
+     * @param endDate a datetime instance of the expected end of task
+     * @param isDone task completion status
+     */
     public Event(String description, LocalDateTime startDate, LocalDateTime endDate, boolean isDone) {
         // For functions.Load
         super(description, isDone);

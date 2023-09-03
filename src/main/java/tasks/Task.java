@@ -4,11 +4,22 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * A public constructor to initialize a task
+     *
+     * @param description  a description of the task
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * A public constructor to initialize a task
+     *
+     * @param description  a description of the task
+     * @param isDone task completion status
+     */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;

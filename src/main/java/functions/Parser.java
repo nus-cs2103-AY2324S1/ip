@@ -21,6 +21,12 @@ public class Parser {
         FIND
     }
 
+    /**
+     * A public constructor to initialize a new Parser instance
+     *
+     * @param input file path to load
+     * @param taskList a task list containing all the tasks stored
+     */
     public Parser(String input, TaskList taskList) {
         this.input = input;
         this.taskList = taskList;
