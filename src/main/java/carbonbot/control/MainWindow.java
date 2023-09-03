@@ -29,6 +29,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String greetingMessage = "Hello! I am CarbonBot.\nWhat can I do for you?";
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(greetingMessage, dukeImage)
+        );
     }
 
     public void setBot(CarbonBot carbonbot) {
