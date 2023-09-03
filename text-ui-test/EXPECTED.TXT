@@ -4,6 +4,16 @@ How can I help you today?
 --------------------------------------------------------------------
 (o´ω`o)ﾉ You have no upcoming tasks!
 --------------------------------------------------------------------
+Sorry, I don't understand what you mean ><
+--------------------------------------------------------------------
+Sorry, I don't understand what you mean ><
+--------------------------------------------------------------------
+(・´з`・) Uh oh... please add a description
+--------------------------------------------------------------------
+(・´з`・) Uh oh... please add a description
+--------------------------------------------------------------------
+(・´з`・) Uh oh... please add a description
+--------------------------------------------------------------------
 (｀･ω･´)ﾉ New task added:
 [T] [ ] watch lecture
 Now you have 1 task in the list!
@@ -12,136 +22,98 @@ Now you have 1 task in the list!
 [T] [ ] eat lunch
 Now you have 2 tasks in the list!
 --------------------------------------------------------------------
-(⇀‸↼‶)⊃━☆ﾟ.*･｡ﾟ Here are your tasks for the day:
-1. [T] [ ] watch lecture
-2. [T] [ ] eat lunch
---------------------------------------------------------------------
-(・´з`・) Uh oh...Text 'tmr 2359' could not be parsed at index 0
---------------------------------------------------------------------
-(⇀‸↼‶)⊃━☆ﾟ.*･｡ﾟ Here are your tasks for the day:
-1. [T] [ ] watch lecture
-2. [T] [ ] eat lunch
+(・´з`・) Uh oh...dates must be of YYYY-MM-DD HH:mm format
 --------------------------------------------------------------------
 (｀･ω･´)ﾉ New task added:
-[E] [ ] bizcotheque (from: fri 6:30 to: 11:30)
+[D] [ ] bake cookies (by: 2023-09-03 18:00)
 Now you have 3 tasks in the list!
 --------------------------------------------------------------------
-(｀･ω･´)ﾉ New task added:
-[E] [ ] cca camp (from: 4/12 8:00m to: 6/12 10:00pm)
-Now you have 4 tasks in the list!
+(・´з`・) Uh oh... make sure your deadline has a description and date
+--------------------------------------------------------------------
+(・´з`・) Uh oh...dates must be of YYYY-MM-DD HH:mm format
+--------------------------------------------------------------------
+(・´з`・) Uh oh...dates must be of YYYY-MM-DD HH:mm format
+--------------------------------------------------------------------
+(・´з`・) Uh oh...dates must be of YYYY-MM-DD HH:mm format
 --------------------------------------------------------------------
 (⇀‸↼‶)⊃━☆ﾟ.*･｡ﾟ Here are your tasks for the day:
 1. [T] [ ] watch lecture
 2. [T] [ ] eat lunch
-3. [E] [ ] bizcotheque (from: fri 6:30 to: 11:30)
-4. [E] [ ] cca camp (from: 4/12 8:00m to: 6/12 10:00pm)
+3. [D] [ ] bake cookies (by: 2023-09-03 18:00)
+--------------------------------------------------------------------
+(・´з`・) Uh oh...dates must be of YYYY-MM-DD HH:mm format
+--------------------------------------------------------------------
+(・´з`・) Uh oh...dates must be of YYYY-MM-DD HH:mm format
+--------------------------------------------------------------------
+(｀･ω･´)ﾉ New task added:
+[E] [ ] math meeting! (from: 2023-08-25 07:00 to: 2023-08-25 23:00)
+Now you have 4 tasks in the list!
+--------------------------------------------------------------------
+(・´з`・) Uh oh...improper event format!
+--------------------------------------------------------------------
+(・´з`・) Uh oh... please add an end date
+--------------------------------------------------------------------
+(・´з`・) Uh oh...improper event format!
+--------------------------------------------------------------------
+(・´з`・) Uh oh...improper event format!
+--------------------------------------------------------------------
+(⇀‸↼‶)⊃━☆ﾟ.*･｡ﾟ Here are your tasks for the day:
+1. [T] [ ] watch lecture
+2. [T] [ ] eat lunch
+3. [D] [ ] bake cookies (by: 2023-09-03 18:00)
+4. [E] [ ] math meeting! (from: 2023-08-25 07:00 to: 2023-08-25 23:00)
+--------------------------------------------------------------------
+(・´з`・) Uh oh...start must be after end!
+--------------------------------------------------------------------
+(｀･ω･´)ﾉ New task added:
+[E] [ ] dinner w choir gals! (from: 2023-09-25 17:00 to: 2023-09-25 23:00)
+Now you have 5 tasks in the list!
+--------------------------------------------------------------------
+(⇀‸↼‶)⊃━☆ﾟ.*･｡ﾟ Here are your tasks for the day:
+1. [T] [ ] watch lecture
+2. [T] [ ] eat lunch
+3. [D] [ ] bake cookies (by: 2023-09-03 18:00)
+4. [E] [ ] math meeting! (from: 2023-08-25 07:00 to: 2023-08-25 23:00)
+5. [E] [ ] dinner w choir gals! (from: 2023-09-25 17:00 to: 2023-09-25 23:00)
 --------------------------------------------------------------------
 ଘ(੭ˊᵕˋ)੭ Yay! This task is completed:
 [T] [X] watch lecture
 --------------------------------------------------------------------
 ଘ(੭ˊᵕˋ)੭ Yay! This task is completed:
-[E] [X] bizcotheque (from: fri 6:30 to: 11:30)
---------------------------------------------------------------------
-(・´з`・) Uh oh... invalid taskID
+[D] [X] bake cookies (by: 2023-09-03 18:00)
 --------------------------------------------------------------------
 (⇀‸↼‶)⊃━☆ﾟ.*･｡ﾟ Here are your tasks for the day:
 1. [T] [X] watch lecture
 2. [T] [ ] eat lunch
-3. [E] [X] bizcotheque (from: fri 6:30 to: 11:30)
-4. [E] [ ] cca camp (from: 4/12 8:00m to: 6/12 10:00pm)
+3. [D] [X] bake cookies (by: 2023-09-03 18:00)
+4. [E] [ ] math meeting! (from: 2023-08-25 07:00 to: 2023-08-25 23:00)
+5. [E] [ ] dinner w choir gals! (from: 2023-09-25 17:00 to: 2023-09-25 23:00)
+--------------------------------------------------------------------
+┐(´～｀)┌ This task is already marked as completed!
 --------------------------------------------------------------------
 ໒( ̿･ ᴥ ̿･ )ʋ All righty, I've marked this task as uncompleted:
 [T] [ ] watch lecture
 --------------------------------------------------------------------
-(⇀‸↼‶)⊃━☆ﾟ.*･｡ﾟ Here are your tasks for the day:
-1. [T] [ ] watch lecture
-2. [T] [ ] eat lunch
-3. [E] [X] bizcotheque (from: fri 6:30 to: 11:30)
-4. [E] [ ] cca camp (from: 4/12 8:00m to: 6/12 10:00pm)
---------------------------------------------------------------------
 ┐(´～｀)┌ This task is already marked as uncompleted!
 --------------------------------------------------------------------
-(・´з`・) Uh oh... invalid taskID
---------------------------------------------------------------------
-ଘ(੭ˊᵕˋ)੭ Yay! This task is completed:
-[E] [X] cca camp (from: 4/12 8:00m to: 6/12 10:00pm)
---------------------------------------------------------------------
 (⇀‸↼‶)⊃━☆ﾟ.*･｡ﾟ Here are your tasks for the day:
 1. [T] [ ] watch lecture
 2. [T] [ ] eat lunch
-3. [E] [X] bizcotheque (from: fri 6:30 to: 11:30)
-4. [E] [X] cca camp (from: 4/12 8:00m to: 6/12 10:00pm)
---------------------------------------------------------------------
-(・´з`・) Uh oh... please add a description
---------------------------------------------------------------------
-(・´з`・) Uh oh... please add a description
---------------------------------------------------------------------
-(・´з`・) Uh oh... please add a description
---------------------------------------------------------------------
-(・´з`・) Uh oh... make sure your deadline has a description and date
---------------------------------------------------------------------
-(・´з`・) Uh oh... make sure your deadline has a description and date
---------------------------------------------------------------------
-(・´з`・) Uh oh... make sure your deadline has a description and date
---------------------------------------------------------------------
-(・´з`・) Uh oh... make sure your deadline has a description and date
---------------------------------------------------------------------
-(・´з`・) Uh oh...Text '6pm' could not be parsed at index 0
---------------------------------------------------------------------
-(・´з`・) Uh oh... please add a description
---------------------------------------------------------------------
-(・´з`・) Uh oh... please add a description
---------------------------------------------------------------------
-(・´з`・) Uh oh... please add a start date
---------------------------------------------------------------------
-(・´з`・) Uh oh... please add a start date
---------------------------------------------------------------------
-(・´з`・) Uh oh... please add an end date
---------------------------------------------------------------------
-(・´з`・) Uh oh... please add an end date
---------------------------------------------------------------------
-(｀･ω･´)ﾉ New task added:
-[E] [ ] food fest (from: 6pm to: 11pm)
-Now you have 5 tasks in the list!
---------------------------------------------------------------------
-Sorry, I don't understand what you mean ><
---------------------------------------------------------------------
-Sorry, I don't understand what you mean ><
---------------------------------------------------------------------
-Sorry, I don't understand what you mean ><
---------------------------------------------------------------------
-Sorry, I don't understand what you mean ><
---------------------------------------------------------------------
-(⇀‸↼‶)⊃━☆ﾟ.*･｡ﾟ Here are your tasks for the day:
-1. [T] [ ] watch lecture
-2. [T] [ ] eat lunch
-3. [E] [X] bizcotheque (from: fri 6:30 to: 11:30)
-4. [E] [X] cca camp (from: 4/12 8:00m to: 6/12 10:00pm)
-5. [E] [ ] food fest (from: 6pm to: 11pm)
---------------------------------------------------------------------
-(・´з`・) Uh oh... invalid taskID
---------------------------------------------------------------------
-(・´з`・) Uh oh... invalid taskID
+3. [D] [X] bake cookies (by: 2023-09-03 18:00)
+4. [E] [ ] math meeting! (from: 2023-08-25 07:00 to: 2023-08-25 23:00)
+5. [E] [ ] dinner w choir gals! (from: 2023-09-25 17:00 to: 2023-09-25 23:00)
 --------------------------------------------------------------------
 ଘ(੭ˊᵕˋ)੭ Ok! I've removed this task:
-[T] [ ] eat lunch
+[T] [ ] watch lecture
 Now you have 4 tasks in the list!
 --------------------------------------------------------------------
 (・´з`・) Uh oh... invalid taskID
 --------------------------------------------------------------------
-(・´з`・) Uh oh... make sure your deadline has a description and date
---------------------------------------------------------------------
-(・´з`・) Uh oh... make sure your deadline has a description and date
---------------------------------------------------------------------
-(｀･ω･´)ﾉ New task added:
-[D] [ ] do ip (by: 2023-09-02 18:00)
-Now you have 5 tasks in the list!
---------------------------------------------------------------------
-(・´з`・) Uh oh...Text '2020' could not be parsed at index 4
---------------------------------------------------------------------
-(・´з`・) Uh oh...Text '2020-21-01 22:00' could not be parsed: Invalid value for MonthOfYear (valid values 1 - 12): 21
---------------------------------------------------------------------
-(・´з`・) Uh oh...Text '2024-02-01 29:00' could not be parsed: Invalid value for HourOfDay (valid values 0 - 23): 29
+(⇀‸↼‶)⊃━☆ﾟ.*･｡ﾟ Here are your tasks for the day:
+1. [T] [ ] eat lunch
+2. [D] [X] bake cookies (by: 2023-09-03 18:00)
+3. [E] [ ] math meeting! (from: 2023-08-25 07:00 to: 2023-08-25 23:00)
+4. [E] [ ] dinner w choir gals! (from: 2023-09-25 17:00 to: 2023-09-25 23:00)
 --------------------------------------------------------------------
 彡໒(⊙ᴗ⊙)७彡 Signing off, see you later!
 --------------------------------------------------------------------

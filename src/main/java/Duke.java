@@ -90,8 +90,8 @@ public class Duke {
                     data.add(deadline);
                     break;
                 case "E":
-                    String start = taskDetails[3];
-                    String end = taskDetails[4];
+                    LocalDateTime start = stringToDateTime(taskDetails[3]);
+                    LocalDateTime end = stringToDateTime(taskDetails[4]);
                     Event event = new Event(status, desc, start, end);
                     data.add(event);
                     break;
@@ -287,7 +287,7 @@ public class Duke {
                         newTaskAdded(deadline);
                         getNumberOfTasks(list);
                     } catch (DateTimeParseException e) {
-                        System.out.println("(・´з`・) Uh oh..." + e.getMessage());
+                        System.out.println("(・´з`・) Uh oh...dates must be of YYYY-MM-DD HH:mm format");
                         System.out.println(line);
                     }
                 }
@@ -308,8 +308,8 @@ public class Duke {
             String[] arr = afterCommand.split(" /from ", 2);
             if (arr[0].isBlank()) {
                 throw new NoDescException();
-            } else if (arr.length == 1) { //no start date added
-                throw new NoStartException();
+            } else if (arr.length == 1) {
+                System.out.println("(・´з`・) Uh oh...improper event format!\n" + line);
             } else {
                 String task = arr[0];
                 String start = arr[1].split(" /to ", 2)[0];
@@ -324,11 +324,22 @@ public class Duke {
                         if (end.isBlank()) {
                             throw new NoEndException();
                         } else {
-                            Event event = new Event(0, task, start, end);
-                            list.add(event);
-                            updateFile();
-                            newTaskAdded(event);
-                            getNumberOfTasks(list);
+                            try {
+                                LocalDateTime startDateTime = stringToDateTime(start);
+                                LocalDateTime endDateTime = stringToDateTime(end);
+                                if (startDateTime.isAfter(endDateTime)) {
+                                    System.out.println("(・´з`・) Uh oh...start must be after end!\n" + line);
+                                } else {
+                                    Event event = new Event(0, task, startDateTime, endDateTime);
+                                    list.add(event);
+                                    updateFile();
+                                    newTaskAdded(event);
+                                    getNumberOfTasks(list);
+                                }
+                            } catch (DateTimeParseException e) {
+                                System.out.println("(・´з`・) Uh oh...dates must be of YYYY-MM-DD HH:mm format");
+                                System.out.println(line);
+                            }
                         }
                     }
                 }

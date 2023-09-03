@@ -1,50 +1,45 @@
 list
+hahahhah
+wow so cool
+todo
+deadline
+event
 todo watch lecture
 todo eat lunch
+deadline bake cookies /by tmr
+deadline bake cookies /by 2023-09-03 18:00
+deadline /by 2023-09-03 18:00
+deadline bake cookies /by 2023-20-03 18:00
+deadline bake cookies /by 2023-09-03 29:00
+deadline go fishing /by 2024-02-05
 list
-deadline project report /by tmr 2359
+event math meeting! /from now /to tmr
+event math meeting! /from 2023-08-25 7:00 /to 2023-08-25 23:00
+event math meeting! /from 2023-08-25 07:00 /to 2023-08-25 23:00
+event /from 2023-08-25 7:00 /to 2023-08-25 23:00
+event math meeting! /from 2023-08-25 07:00
+event math meeting! /to 2023-08-25 23:00
+event math meeting! 2023-08-25 7:00 2023-08-25 23:00
 list
-event bizcotheque /from fri 6:30 /to 11:30
-event cca camp /from 4/12 8:00m /to 6/12 10:00pm
+event dinner w choir gals! /from 2023-09-25 23:00 /to 2023-09-25 17:00
+event dinner w choir gals! /from 2023-09-25 17:00 /to 2023-09-25 23:00
 list
 mark 1
 mark 3
-mark 5
 list
+mark 3
 unmark 1
+unmark 4
 list
-unmark 1
-mark 5
-mark 4
+delete 1
+delete 7
 list
-todo
-todo
-deadline
-deadline bake cookies
-deadline bake cookies 6pm
-deadline bake cookies /by
-deadline bake cookies /by
-deadline bake cookies /by 6pm
-event
-event
-event food fest
-event food fest /from
-event food fest /from 6pm
-event food fest /from 6pm /to
-event food fest /from 6pm /to 11pm
-byebye
-byeeeee
-todooo
-dateline bake cookies /by 12pm
-list
-mark 0
-mark 9
-delete 2
-delete 0
-deadline /by
-deadline /by bndehbwhe
-deadline do ip /by 2023-09-02 18:00
-deadline do ip /by 2020
-deadline do ip /by 2020-21-01 22:00
-deadline do ip /by 2024-02-01 29:00
 bye
+
+
+
+
+
+
+
+

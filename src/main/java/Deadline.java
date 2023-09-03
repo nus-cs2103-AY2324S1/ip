@@ -5,7 +5,6 @@ public class Deadline extends Task {
     private LocalDateTime date;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-
     public Deadline(int status, String task, LocalDateTime date) {
         super(status, task);
         this.date = date;
