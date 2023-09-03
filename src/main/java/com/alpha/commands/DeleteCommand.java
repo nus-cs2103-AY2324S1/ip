@@ -27,12 +27,12 @@ public class DeleteCommand extends Command {
      * @param ui      Ui of the application.
      * @param storage Storage functionality of the application.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             Task task = taskList.deleteTask(Integer.parseInt(getArgs()));
-            ui.deleteTask(task, taskList);
+            return ui.deleteTask(task, taskList);
         } catch (NumberFormatException | InvalidTaskException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 }

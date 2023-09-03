@@ -29,13 +29,13 @@ public class ToDoCommand extends Command {
      * @param ui      Ui of the application.
      * @param storage Storage functionality of the application.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             Task task = new ToDo(Parser.getToDoName(getArgs()));
             taskList.addTask(task);
-            ui.addTask(task, taskList);
+            return ui.addTask(task, taskList);
         } catch (InvalidToDoException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 }

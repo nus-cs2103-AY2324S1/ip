@@ -27,12 +27,12 @@ public class UnmarkCommand extends Command {
      * @param ui      Ui of the application.
      * @param storage Storage functionality of the application.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             Task task = taskList.unmarkTask(Integer.parseInt(getArgs()));
-            ui.unmarkTask(task);
+            return ui.unmarkTask(task);
         } catch (NumberFormatException | InvalidTaskException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 }

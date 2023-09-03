@@ -42,7 +42,7 @@ public abstract class Command {
      * @param ui      Ui of the application.
      * @param storage Storage functionality of the application.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage);
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage);
 
     /**
      * Returns whether the Command is an Exit Command. False by default.

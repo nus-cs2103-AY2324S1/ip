@@ -3,11 +3,9 @@ package com.alpha.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.alpha.exceptions.InvalidTaskException;
 import com.alpha.storage.Storage;
 import com.alpha.tasks.Task;
 import com.alpha.tasks.TaskList;
-import com.alpha.tasks.ToDo;
 import com.alpha.ui.Ui;
 import com.alpha.utils.Parser;
 
@@ -31,7 +29,7 @@ public class FindCommand extends Command {
      * @param ui      Ui of the application.
      * @param storage Storage functionality of the application.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         List<Task> result = new ArrayList<>();
         String searchString = Parser.getFindSearchString(getArgs());
         for (Task task : taskList.getTasks()) {
@@ -39,6 +37,6 @@ public class FindCommand extends Command {
                 result.add(task);
             }
         }
-        ui.displayTasks(result);
+        return ui.displayTasks(result);
     }
 }
