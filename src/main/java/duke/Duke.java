@@ -8,8 +8,7 @@ import duke.tasks.Tasks;
 import duke.ui.Ui;
 
 /**
- * Entry point of the Duke application for text-ui based application.
- * Initializes the application and starts the interaction with the user.
+ * Runs the Duke Application
  */
 public class Duke {
     private final Storage storage;
