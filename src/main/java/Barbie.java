@@ -4,17 +4,18 @@ import types.Task;
 import types.Todo;
 import exceptions.*;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
-
+/**
+ * Implements the main Barbie chatbot logic.
+ */
 public class Barbie {
 
-    enum Command {
+    private enum Command {
         MARK,
         UNMARK,
         DEL,
@@ -25,7 +26,10 @@ public class Barbie {
         BYE,
     }
 
-
+    /**
+     * Main wrapper method for the command logic of Barbie chatbot.
+     * @param args to leave empty
+     */
     public static void main(String[] args) {
         // CONSTANTS
         Scanner scanner = new Scanner(System.in);
@@ -110,7 +114,7 @@ public class Barbie {
                                     desc = parts2[0];
                                     LocalDate by = LocalDate.parse(parts2[1]);
                                     list.add(indexNumber, new Deadlines(desc, by));
-                                    Storage.addToList(path, "D", desc, by);
+                                    Storage.addToList(path, desc, by);
 
                                     break;
 
@@ -124,12 +128,12 @@ public class Barbie {
                                     LocalDate to = LocalDate.parse(parts2[2].strip());
 
                                     list.add(indexNumber, new Party(desc, from, to));
-                                    Storage.addToList(path, "P", desc, from, to);
+                                    Storage.addToList(path, desc, from, to);
                                     break;
 
                                 default:
                                     list.add(indexNumber, new Todo(desc));
-                                    Storage.addToList(path, "T", desc);
+                                    Storage.addToList(path, desc);
                                     break;
 
                             }
@@ -165,8 +169,7 @@ public class Barbie {
                     System.out.println(e.getMessage());
 
                 } catch (Exception ex) {
-                    System.out.println(ex.toString());
-
+                    System.out.println(ex.getMessage());
                 }
 
                 System.out.println("[you]:");

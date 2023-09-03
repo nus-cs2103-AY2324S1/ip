@@ -40,3 +40,11 @@ shadowJar {
 run{
     standardInput = System.in
 }
+
+ext {
+    mainClassName = 'seedu.Barbie'
+}
+
+shadowJar {
+    archiveFileName = 'barbie.jar'
+}

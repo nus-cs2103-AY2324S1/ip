@@ -1,6 +1,5 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import types.Task;
 
 
 import java.io.ByteArrayOutputStream;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestUi {
-    private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     @BeforeEach
@@ -18,7 +16,9 @@ public class TestUi {
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
-
+    /**
+     * Tests if the intro to the chatbot is able to successfully print nothing for an empty list.
+     */
     @Test
     public void testIntroEmptyList() {
         String line = "______________________________\n";
@@ -41,6 +41,9 @@ public class TestUi {
         assertEquals(expected, outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * Tests if an empty file list will print the prompt to add Tasks.
+     */
     @Test
     public void testEmptyFileList() {
         Ui.listTasks(new ArrayList<>(), 0);
