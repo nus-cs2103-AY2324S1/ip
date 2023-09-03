@@ -31,6 +31,9 @@ public class Duke {
 
     }
 
+    /**
+     * Allows the user to interact with the chatbot
+     */
     public void run() {
         this.ui.greetMessage();
         Scanner scanner = new Scanner(System.in);
@@ -42,26 +45,21 @@ public class Duke {
                 if (actionWord.equals("bye")) {
                     this.taskList.save(this.storage);
                     break;
-                }
-                else if (actionWord.equals("list")) {
+                } else if (actionWord.equals("list")) {
                     this.taskList.listTasks();
-                }
-                else if (actionWord.equals("mark")) {
+                } else if (actionWord.equals("mark")) {
                     int taskNumber = this.parser.parseTaskNumber(userInput);
                     this.taskList.markTaskAsDone(taskNumber);
-                }
-                else if (actionWord.equals("unmark")) {
+                } else if (actionWord.equals("unmark")) {
                     int taskNumber = this.parser.parseTaskNumber(userInput);
                     this.taskList.unmarkTask(taskNumber);
-                }
-                else if (actionWord.equals("delete")) {
+                } else if (actionWord.equals("delete")) {
                     int taskNumber = this.parser.parseTaskNumber(userInput);
                     this.taskList.deleteTask(taskNumber);
                 } else if (actionWord.equals("find")) {
                     String description = this.parser.parseFindDescription(userInput);
                     this.taskList.filterTasks(description);
-                }
-                else if (Arrays.stream(specialTasksKeywords).anyMatch(
+                } else if (Arrays.stream(specialTasksKeywords).anyMatch(
                         keyword -> keyword.toString().toLowerCase().equals(actionWord))) {
                     try {
                         Task task = this.parser.parseAddTaskInput(userInput, actionWord);
@@ -69,8 +67,7 @@ public class Duke {
                     } catch (InvalidTaskException e) {
                         System.out.println(e.getMessage());
                     }
-                }
-                else {
+                } else {
                     throw new InvalidInputException("ERROR: Invalid input");
                 }
             } catch (InvalidInputException e) {
