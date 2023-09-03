@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class TaskList {
     private ArrayList<Task> taskList;
 
-    public int numberOfCompletedTasks = 0;
+    private int numberOfCompletedTasks = 0;
 
     public TaskList() {
         this.taskList = new ArrayList<>();
@@ -97,11 +97,9 @@ public class TaskList {
                 throw new IllegalCommandException("do that... this task does not exist :(");
             } else {
                 Task removedTask = remove(id - 1);
-                String message = "Happily scratched this off your list:\n" +
-                        Ui.indentLineBy(removedTask.toString(), 2) +
-                        "Now you have " +
-                        getNumberOfTask() +
-                        " tasks in the list!";
+                String message = "Happily scratched this off your list:\n"
+                        + Ui.indentLineBy(removedTask.toString(), 2) + "Now you have "
+                        + getNumberOfTask() + " tasks in the list!";
                 if (isAllComplete()) {
                     message += list();
                 }
@@ -129,8 +127,8 @@ public class TaskList {
     public String markNotDone(int index) {
         Task task = get(index);
         if (!task.isComplete()) {
-            return "Don't worry it's still not done\n" +
-                    "What are you doing? Let's get it done now!\n"
+            return "Don't worry it's still not done\n"
+                    + "What are you doing? Let's get it done now!\n"
                     + task.toString();
         } else {
             task.switchMark();

@@ -3,9 +3,9 @@ package oreo.task;
 import oreo.datetime.TimeParser;
 
 public class Deadline extends Task {
-    String date;
+    private String date;
 
-    String time;
+    private String time;
 
     public Deadline(String d, String date, String time) {
         super(d);
@@ -17,7 +17,7 @@ public class Deadline extends Task {
         super(d);
         this.date = date;
         this.time = time;
-        this.completed = completed;
+        this.isComplete = completed;
     }
 
     @Override
@@ -25,17 +25,16 @@ public class Deadline extends Task {
         String marker = "[ ]";
         String timeString;
         timeString = (this.time == null) ? "" : (" " + this.time);
-        if (this.completed) marker = "[X]";
-        return  "[D]" + marker + " " +
-                this.description +
-                " (by: " + this.date + timeString + ")\n";
+        if (this.isComplete) marker = "[X]";
+        return  "[D]" + marker + " " + this.description
+                + " (by: " + this.date + timeString + ")\n";
     }
 
     @Override
     public String writeToFile() {
-        int mark = completed ? 1 : 0;
-        String data = 2 + " " + mark + description + "/" + TimeParser.parseDateForFile(this.date) +
-                TimeParser.parseTimeForFile(this.time) + System.lineSeparator();
+        int mark = isComplete ? 1 : 0;
+        String data = 2 + " " + mark + description + "/" + TimeParser.parseDateForFile(this.date)
+                + TimeParser.parseTimeForFile(this.time) + System.lineSeparator();
         return data;
     }
 }

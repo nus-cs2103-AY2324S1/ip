@@ -28,7 +28,7 @@ public class Event extends Task {
         this.fromTime = fromTime;
         this.toDate = toDate;
         this.toTime = toTime;
-        this.completed = completed;
+        this.isComplete = completed;
     }
 
     @Override
@@ -38,22 +38,20 @@ public class Event extends Task {
         String toTimeString;
         fromTimeString = (this.fromTime == null) ? "" : (" " + this.fromTime);
         toTimeString = (this.toTime == null) ? "" : (" " + this.toTime);
-        if (this.completed) marker = "[X]";
-        return  "[E]" + marker + " " +
-                this.description +
-                " (from: " + this.fromDate + fromTimeString +
-                " to: " + this.toDate + toTimeString + ")\n";
+        if (this.isComplete) {
+            marker = "[X]";
+        }
+        return  "[E]" + marker + " " + this.description
+                + " (from: " + this.fromDate + fromTimeString
+                + " to: " + this.toDate + toTimeString + ")\n";
     }
 
     @Override
     public String writeToFile() {
-        int mark = completed ? 1 : 0;
-        String data = 3 + " " + mark + description + "/" +
-                TimeParser.parseDateForFile(this.fromDate) +
-                TimeParser.parseTimeForFile(this.fromTime) +
-                "/" + TimeParser.parseDateForFile(this.toDate) +
-                TimeParser.parseTimeForFile(this.toTime) +
-                System.lineSeparator();
+        int mark = isComplete ? 1 : 0;
+        String data = 3 + " " + mark + description + "/" + TimeParser.parseDateForFile(this.fromDate)
+                + TimeParser.parseTimeForFile(this.fromTime) + "/" + TimeParser.parseDateForFile(this.toDate)
+                + TimeParser.parseTimeForFile(this.toTime) + System.lineSeparator();
         return data;
     }
 }

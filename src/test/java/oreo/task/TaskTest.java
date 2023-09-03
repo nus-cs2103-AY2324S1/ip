@@ -54,8 +54,8 @@ public class TaskTest {
                     new Scanner("return book /by 2023-09-03")));
             fail();
         } catch (IllegalDateTimeException e){
-            assertEquals("Date or date format is invalid\n" +
-                    "try dd/mm/yyyy format instead", e.getMessage());
+            assertEquals("Date or date format is invalid\n"
+                    + "try dd/mm/yyyy format instead", e.getMessage());
         }
     }
 
@@ -66,8 +66,8 @@ public class TaskTest {
                     new Scanner("return book /by 03/09/2023 6pm")));
             fail();
         } catch (IllegalDateTimeException e){
-            assertEquals("Time or time format is invalid\n" +
-                    "try HHmm format instead", e.getMessage());
+            assertEquals("Time or time format is invalid\n"
+                    + "try HHmm format instead", e.getMessage());
         }
     }
 

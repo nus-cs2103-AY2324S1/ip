@@ -15,8 +15,8 @@ public class TimeParser {
         try {
             date = LocalDate.parse(modifiedInput, format);
         } catch (DateTimeException e) {
-            throw new IllegalDateTimeException("Date or date format is invalid\n" +
-                    "try dd/mm/yyyy format instead");
+            throw new IllegalDateTimeException("Date or date format is invalid\n"
+                    + "try dd/mm/yyyy format instead");
         }
         return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
@@ -33,8 +33,8 @@ public class TimeParser {
             time = LocalTime.parse(input,
                     DateTimeFormatter.ofPattern("HHmm"));
         } catch (DateTimeException e) {
-            throw new IllegalDateTimeException(("Time or time format is invalid\n" +
-                    "try HHmm format instead"));
+            throw new IllegalDateTimeException(("Time or time format is invalid\n"
+                    + "try HHmm format instead"));
         }
         return time.format(DateTimeFormatter.ofPattern("h:mm a"));
     }
