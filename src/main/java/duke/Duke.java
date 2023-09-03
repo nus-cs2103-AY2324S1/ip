@@ -7,12 +7,21 @@ import tasks.TaskList;
 import ui.Ui;
 import commands.*;
 
+/**
+ * The `Duke` class is the main class for the Duke task management application.
+ * It handles the initialization of various components and the execution of the application.
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    
+
+    /**
+     * Constructs a `Duke` object with the specified file path for data storage.
+     *
+     * @param filePath The file path where task data is stored.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -26,6 +35,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the Duke application.
+     * It displays a welcome message and continuously reads user input, parsing and executing commands
+     * until there is no more input.
+     */
     public void run() {
         ui.showWelcomeMessage();
         while (ui.isThereNext()) {
@@ -35,9 +49,13 @@ public class Duke {
         }
     }
 
+    /**
+     * The main method to start the Duke application.
+     * It creates an instance of `Duke` and runs the application.
+     *
+     * @param args Command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         new Duke("/Users/jamesbond/ip/src/main/data/jamesbond.txt").run();
     }
-
-
 }
