@@ -16,7 +16,7 @@ public class FindCommand extends Command {
     }
     @Override
     public void execute(Ui ui, Storage storage, TaskList taskList) throws RichieException {
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks;
         tasks = taskList.filterTaskByKeyword(this.keyword);
         ui.showFilteredTasksList(tasks);
     }

@@ -57,6 +57,10 @@ public class Ui {
         System.out.println("Nice! I've marked this task as done:\n " + task);
     }
 
+    /**
+     * Prints the tasks that have been filtered down by the keyword
+     * @param tasks ArrayList of tasks that have been filtered down by the keyword
+     */
     public void showFilteredTasksList(ArrayList<Task> tasks) {
         System.out.println("Here are the matching tasks in your list: ");
         int count = 1;

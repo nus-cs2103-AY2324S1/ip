@@ -112,6 +112,11 @@ public class TaskList {
         this.taskList.add(task);
     }
 
+    /**
+     * Filters the tasks in the tasklist based on the keyword
+     * @param keyword String representing the keyword to use to filter down the tasks
+     * @return ArrayList of tasks that have been filtered down by the keyword
+     */
     public ArrayList<Task> filterTaskByKeyword(String keyword) {
         ArrayList<Task> result = new ArrayList<>();
         for (Task task : taskList) {
