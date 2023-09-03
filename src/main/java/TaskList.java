@@ -81,6 +81,9 @@ public class TaskList {
         System.out.println(this.printTask(taskNum));
         this.tasks.remove(taskNum);
     }
+    public int totalTaskNum() {
+        return this.tasks.size();
+    }
 
     /**
      * Prints the entire list of tasks with numbering for reference.
