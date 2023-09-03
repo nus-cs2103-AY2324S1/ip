@@ -65,6 +65,7 @@ public class TaskList {
         } else {
             for (int i = 0; i < tasks.size(); i++) {
                 if (tasks.get(i).task.contains(findString)) {
+                    found = true;
                     System.out.println("     " + (i + 1) + ". " + tasks.get(i));
                 }
             }
