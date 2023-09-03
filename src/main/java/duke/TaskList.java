@@ -2,6 +2,7 @@ package duke;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Helper class encapsulating list of tasks
@@ -89,6 +90,16 @@ public class TaskList {
      */
     public List<Task> getTasks() {
         return this.tasks;
+    }
+
+    /**
+     * Find tasks with names that match search term.
+     * @return List of tasks that match search.
+     */
+    public List<Task> findTasks(String search) {
+        return this.tasks.stream()
+                .filter(t -> t.getTaskName().contains(search))
+                .collect(Collectors.toList());
     }
 
     private void storeTasks() throws DukeException {

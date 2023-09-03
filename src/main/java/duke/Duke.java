@@ -1,6 +1,7 @@
 package duke;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Duke {
     public static void main(String[] args) {
@@ -95,6 +96,11 @@ public class Duke {
             task = new Event(eventName, from, to);
             taskList.addTask(task);
             ui.addTask(task);
+            break;
+        case "find":
+            String search = parser.getArg();
+            List<Task> tasks = taskList.findTasks(search);
+            ui.listTasks(tasks);
             break;
         default:
             ui.invalidCommand(parser.getCommand());
