@@ -1,4 +1,4 @@
-package seedu.duke.exception;
+package duke.exception;
 
 /**
  * Represents an MissingInputException that is thrown when the user enters a valid command with missing inputs.

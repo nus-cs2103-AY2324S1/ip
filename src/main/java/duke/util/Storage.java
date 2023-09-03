@@ -1,9 +1,9 @@
-package seedu.duke.util;
+package duke.util;
 
-import seedu.duke.task.Task;
-import seedu.duke.task.ToDo;
-import seedu.duke.task.Deadline;
-import seedu.duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+import duke.task.Deadline;
+import duke.task.Event;
 
 import java.io.IOException;
 import java.io.File;

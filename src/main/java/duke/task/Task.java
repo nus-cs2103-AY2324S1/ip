@@ -1,4 +1,4 @@
-package seedu.duke.task;
+package duke.task;
 
 /**
  * The abstract base class representing a task.

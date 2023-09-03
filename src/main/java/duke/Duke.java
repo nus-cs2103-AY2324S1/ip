@@ -1,10 +1,9 @@
-package seedu.duke;
+package duke;
 
-import seedu.duke.exception.InvalidCommandException;
-import seedu.duke.util.TaskList;
-import seedu.duke.util.Ui;
-import seedu.duke.util.Parser;
-import seedu.duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.Ui;
+import duke.util.Parser;
+import duke.util.Storage;
 
 import java.io.IOException;
 

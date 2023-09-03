@@ -1,4 +1,4 @@
-package seedu.duke.task;
+package duke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,8 +18,8 @@ public class Deadline extends Task {
     /**
      * Constructs a new Deadline task with the specified description and deadline.
      *
-     * @param description
-     * @param by
+     * @param description The description of the task.
+     * @param by The deadline of the task.
      */
     public Deadline(String description, String by) {
         super(description);

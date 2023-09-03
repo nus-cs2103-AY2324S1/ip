@@ -1,14 +1,14 @@
-package seedu.duke.util;
+package duke.util;
 
-import seedu.duke.Duke;
+import duke.Duke;
 
-import seedu.duke.exception.InvalidCommandException;
-import seedu.duke.exception.MissingInputException;
+import duke.exception.InvalidCommandException;
+import duke.exception.MissingInputException;
 
-import seedu.duke.task.Task;
-import seedu.duke.task.ToDo;
-import seedu.duke.task.Event;
-import seedu.duke.task.Deadline;
+import duke.task.Task;
+import duke.task.ToDo;
+import duke.task.Event;
+import duke.task.Deadline;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -131,6 +131,7 @@ public class Parser {
             int taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
             Task task = taskList.getTask(taskNumber);
             task.updateTaskStatus(true, "Task " + (taskNumber + 1) + " is already done!", "Great job! Task " + (taskNumber + 1) + " is done!");
+            ui.printLine();
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             ui.showMessage("Invalid task number.");
         }
@@ -158,6 +159,7 @@ public class Parser {
             int taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
             Task task = taskList.getTask(taskNumber);
             task.updateTaskStatus(false, "Task " + (taskNumber + 1) + " is still incomplete.", "Okay, I've updated Task " + (taskNumber + 1) + " to be incomplete.");
+            ui.printLine();
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             ui.showMessage("Invalid task number.");
         }
@@ -278,6 +280,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Finds all tasks matching a specified keyword and displays the list of matching tasks.
+     *
+     * @param userInput The user's input.
+     * @param taskList The list of tasks.
+     * @param ui The Ui for displaying messages.
+     * @throws MissingInputException If the user input is missing required information.
+     */
     private void findByKeyword (String userInput, TaskList taskList, Ui ui) throws MissingInputException {
         String[] individualWords = userInput.split(" ");
         if (individualWords.length <= 1) {

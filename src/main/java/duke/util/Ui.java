@@ -1,4 +1,4 @@
-package seedu.duke.util;
+package duke.util;
 
 import java.util.Scanner;
 
@@ -36,6 +36,11 @@ public class Ui {
         scanner.close();
     }
 
+    /**
+     * Displays a message and then prints a line.
+     *
+     * @param message The message to be displayed.
+     */
     public void showMessage(String message) {
         System.out.println(message);
         printLine();

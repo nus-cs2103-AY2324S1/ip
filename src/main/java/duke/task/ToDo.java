@@ -1,4 +1,4 @@
-package seedu.duke.task;
+package duke.task;
 
 /**
  * Represents a ToDo task.
@@ -9,9 +9,9 @@ package seedu.duke.task;
 public class ToDo extends Task {
 
     /**
-     * Constructs a new Deadline task with the specified description.
+     * Constructs a new ToDo task with the specified description.
      *
-     * @param description
+     * @param description The description of the task.
      */
     public ToDo(String description) {
         super(description);

@@ -1,4 +1,4 @@
-package seedu.duke.exception;
+package duke.exception;
 
 /**
  * Represents an InvalidCommandException that is thrown when an invalid command is entered by the user.
