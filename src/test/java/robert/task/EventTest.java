@@ -1,13 +1,13 @@
 package robert.task;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-
-import java.time.LocalDate;
 
 public class EventTest {
     private final LocalDate sampleDateOne = LocalDate.parse("2022-05-17");

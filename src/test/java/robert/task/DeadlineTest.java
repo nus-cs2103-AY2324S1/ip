@@ -1,12 +1,12 @@
 package robert.task;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-
-import java.time.LocalDate;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DeadlineTest {
     private final LocalDate sampleDateOne = LocalDate.parse("2023-05-17");

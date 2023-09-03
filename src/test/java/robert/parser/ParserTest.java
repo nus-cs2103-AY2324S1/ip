@@ -2,17 +2,17 @@ package robert.parser;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
-import robert.command.ListCommand;
+import robert.command.AddCommand;
+import robert.command.ClearCommand;
+import robert.command.DeleteCommand;
 import robert.command.ExitCommand;
+import robert.command.FilterCommand;
+import robert.command.ListCommand;
 import robert.command.MarkCommand;
 import robert.command.UnmarkCommand;
-import robert.command.AddCommand;
-import robert.command.DeleteCommand;
-import robert.command.ClearCommand;
-import robert.command.FilterCommand;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
     @Test

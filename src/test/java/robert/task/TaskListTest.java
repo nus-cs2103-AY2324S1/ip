@@ -27,7 +27,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testDeletion_indexInBound_success(){
+    public void testDeletion_indexInBound_success() {
         try {
             assertEquals("[X] TASKSTUB",
                     new TaskList(this.sampleTaskArrayList).deleteTask(1).toString());
@@ -37,7 +37,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testDeletion_indexOutOfBound_exceptionThrown(){
+    public void testDeletion_indexOutOfBound_exceptionThrown() {
         try {
             assertEquals("[X] TASKSTUB",
                     new TaskList(this.sampleTaskArrayList).deleteTask(10).toString());
