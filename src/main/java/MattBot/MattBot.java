@@ -1,3 +1,4 @@
+package MattBot;
 
 import MattBot.task.Task;
 import MattBot.task.Todo;
@@ -24,7 +25,7 @@ public class MattBot {
     private static final String NAME = "MattBot";
     private static Storage mattmory;
     private static TaskList tasks;
-    private static DateTimeFormatter dTFormat  = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
+    private static final DateTimeFormatter PRINT_DTF  = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
 
     public static void main(String[] args) {
         // Load save file
@@ -111,7 +112,7 @@ public class MattBot {
                         String name = arguments.split(" /by ", 2)[0];
                         String dueDate = arguments.split(" /by ", 2)[1];
                         try {
-                            LocalDateTime dtDueDate = LocalDateTime.parse(dueDate, dTFormat);
+                            LocalDateTime dtDueDate = LocalDateTime.parse(dueDate, PRINT_DTF);
                             t = new Deadline(name, dtDueDate);
                             tasks.addTask(t);
                             mattmory.writeBack(tasks);
@@ -126,8 +127,8 @@ public class MattBot {
                         String startDate = dates.split(" /to ")[0];
                         String endDate = dates.split(" /to ", 2)[1];
                         try {
-                            LocalDateTime dtStartDate = LocalDateTime.parse(startDate, dTFormat);
-                            LocalDateTime dtEndDate = LocalDateTime.parse(endDate, dTFormat);
+                            LocalDateTime dtStartDate = LocalDateTime.parse(startDate, PRINT_DTF);
+                            LocalDateTime dtEndDate = LocalDateTime.parse(endDate, PRINT_DTF);
                             t = new Event(name, dtStartDate, dtEndDate);
                             tasks.addTask(t);
                             mattmory.writeBack(tasks);
