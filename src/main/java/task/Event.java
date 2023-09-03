@@ -1,3 +1,5 @@
+package task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -18,9 +20,9 @@ public class Event extends Task {
     }
 
     /**
-     * Parse from string to a Event task
+     * Parse from string to a task.Event task
      *
-     * @param line The String that is needed to parse into a Event Task
+     * @param line The String that is needed to parse into a task.Event Task
      */
     public static Event parseFromString(String line) {
         int firstBracketIndex = line.indexOf(']');

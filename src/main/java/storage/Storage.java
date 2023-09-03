@@ -1,17 +1,27 @@
+package storage;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
+import tasklist.TaskList;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import java.util.ArrayList;
 
 public class Storage {
     private String filepath;
     private Path path;
-    Storage(String filepath) {
+    public Storage(String filepath) {
         this.filepath = filepath;
         this.path = Paths.get(this.filepath);
     }

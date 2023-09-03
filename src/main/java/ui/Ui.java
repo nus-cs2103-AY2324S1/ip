@@ -1,10 +1,16 @@
+package ui;
+
 import java.util.Scanner;
+
+import tasklist.TaskList;
+import task.Task;
+
 public class Ui {
     private Scanner scanner;
     final String SPACE = "------------------------------------"; // for spacing purposes
     String name = "Adam's Bot"; // name of bot
 
-    Ui() {
+    public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
