@@ -14,12 +14,12 @@ public class Bob {
     private TaskList tasks;
     private Ui ui;
 
+
     /**
      * Bob constructor, initialise storage, tasks and ui
-     * @param dataPath is path to bob.txt
      */
-    public Bob(String dataPath) {
-        storage = new Storage(dataPath);
+    public Bob() {
+        storage = new Storage("./bob.txt");
         ui = new Ui();
 
         try {
@@ -31,7 +31,6 @@ public class Bob {
     }
 
     public void run() {
-        ui.greet();
         Scanner sc = new Scanner(System.in);
         boolean isExit = false;
 
@@ -52,7 +51,18 @@ public class Bob {
         }
     }
 
-    public static void main(String[] args) {
-        new Bob("./bob.txt").run();
+    public String greet() {
+        return ui.greet();
     }
+
+    public String getResponse(String input) {
+        if (input.equals("")) {
+            return ui.stringFormat(new String[]{"Write something!"});
+        }
+        Command c = Parser.parse(input);
+        return c.execute(tasks, ui, storage);
+    }
+
+
 }
+

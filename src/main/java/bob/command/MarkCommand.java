@@ -20,7 +20,7 @@ public class MarkCommand extends Command {
      * @param ui from Bob class
      * @param storage from Bob class
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             String[] markIndex = input.split(" ");
             if (markIndex.length == 1) {
@@ -40,15 +40,16 @@ public class MarkCommand extends Command {
                 doneOrNot = false;
             }
 
-            ui.stringFormat(tasks.markDoneOrNot(index, doneOrNot));
+            String display = ui.stringFormat(tasks.markDoneOrNot(index, doneOrNot));
             storage.write(tasks.lst);
+            return display;
 
         } catch (IOException e) {
-            ui.showLoadingError();
+            return ui.showLoadingError();
         } catch (MissingIndexException e) {
-            ui.stringFormat(new String[]{e.message});
+            return ui.stringFormat(new String[]{e.message});
         } catch (IndexOutOfBoundsException e) {
-            ui.stringFormat(new String[]{"Index provided is wrong!"});
+            return ui.stringFormat(new String[]{"Index provided is wrong!"});
         }
     }
 }
