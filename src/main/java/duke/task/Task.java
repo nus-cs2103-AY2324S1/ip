@@ -3,6 +3,7 @@ package duke.task;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+/** Task class that contains a task string */
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME
 )
@@ -14,16 +15,28 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 public class Task {
     public boolean done = false;
     public String task;
+
+    /**
+     * Initialize Task.
+     *
+     * @param task Task.
+     */
     public Task(String task) {
         this.task = task;
     }
 
+    /**
+     * Sets boolean done to true.
+     */
     public void mark() {
-        this.done = true;
+        done = true;
     }
 
+    /**
+     * Sets boolean done to false;
+     */
     public void unmark() {
-        this.done = false;
+        done = false;
     }
 
     @Override

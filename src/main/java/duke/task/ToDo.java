@@ -1,10 +1,14 @@
 package duke.task;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("Model.ToDo")
+/** Classic to-do task that only contains the task string */
 public class ToDo extends Task {
+
+    /**
+     * Initialize To-Do class.
+     * @param task Task.
+     */
     public ToDo(@JsonProperty("task") String task) {
         super(task);
     }

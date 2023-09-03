@@ -55,6 +55,27 @@ public class TaskList {
     }
 
     /**
+     * Prints out the list of tasks
+     * @param findString filter
+     */
+    public void print(String findString) {
+        boolean found = false;
+        if (tasks.isEmpty()) {
+            System.out.println("     You have no tasks added yet :(");
+        } else {
+            for (int i = 0; i < tasks.size(); i++) {
+                if (tasks.get(i).task.contains(findString)) {
+                    System.out.println("     " + (i + 1) + ". " + tasks.get(i));
+                }
+            }
+        }
+
+        if (!found) {
+            System.out.println("No tasks found with string '" + findString + "'");
+        }
+    }
+
+    /**
      * Prints number of tasks.
      */
     public void printSize(){

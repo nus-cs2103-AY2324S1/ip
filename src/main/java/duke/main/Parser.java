@@ -48,6 +48,9 @@ public class Parser {
         case "unmark":
             checkLength();
             return new ChangeMarkCommand(splitText[1], false);
+        case "find":
+            checkLength();
+
         default:
             throw new InvalidCommandException("I don't understand.");
         }
