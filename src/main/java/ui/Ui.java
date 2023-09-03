@@ -140,6 +140,10 @@ public class Ui {
         System.out.println("Tasks loaded from file.");
     }
 
+    /**
+     * Shows the tasklist.
+     * @param output The list of matching tasks.
+     */
     public void showFind(String output) {
         System.out.println("Here are the matching tasks in your list:");
         System.out.println(output);
