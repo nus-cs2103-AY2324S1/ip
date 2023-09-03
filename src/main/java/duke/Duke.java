@@ -11,19 +11,18 @@ import duke.ui.Ui;
  * The main class of the bot.
  */
 public class Duke {
-    /** Represents the storage, task list and UI of the bot. */
+    /** Represents the filepath, storage, task list and UI of the bot. */
+    private static final String FILEPATH = "./data/duke.txt";
     private final Storage storage;
     private TaskList taskList;
     private final Ui ui;
 
     /**
      * Constructor method.
-     *
-     * @param filePath Filepath to an external file.
      */
-    public Duke(String filePath) {
+    public Duke() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILEPATH);
         try {
             taskList = new TaskList(storage.createList());
         } catch (DukeException e) {
@@ -50,7 +49,18 @@ public class Duke {
         }
     }
 
+    /**
+     * Gets a String response to be displayed on the GUI.
+     * @param input User input.
+     * @return String response.
+     * @throws DukeException if any error occurs.
+     */
+    public String getResponseToGui(String input) throws DukeException {
+        Command c = Parser.parse(input);
+        return c.executeGui(taskList, ui, storage);
+    }
+
     public static void main(String[] args) {
-        new Duke("./data/duke.txt").run();
+        new Duke().run();
     }
 }
