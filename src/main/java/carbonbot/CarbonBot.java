@@ -12,7 +12,13 @@ public class CarbonBot {
     private final String saveFilePath;
     private final Ui ui;
     private final Storage storage;
+    private boolean shouldExit = false;
     private TaskList tasks;
+
+
+    public CarbonBot() {
+        this("./data/tasks.txt");
+    }
 
     /**
      * Constructs a CarbonBot object that will read and write its data to the specified file path.
@@ -62,12 +68,30 @@ public class CarbonBot {
     }
 
     /**
-     * Starting point of the program.
-     *
-     * @param args Arguments (unused at the moment)
+     * Returns whether the bot is ready to be terminated.
+     * @return Boolean indicating if the bot received an ExitCommand
      */
-    public static void main(String[] args) {
-        String saveFilePath = "./data/tasks.txt";
-        new CarbonBot(saveFilePath).run();
+    public boolean shouldExit() {
+        return this.shouldExit;
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+            if (c.isExit()) {
+                this.shouldExit = true;
+            }
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        } finally {
+            //ui.printDivider();
+        }
+
+        return ui.flushBuffer();
     }
 }

@@ -125,18 +125,21 @@ public class TaskList {
     }
 
     /**
-     * Prints the tasks in the list
+     * Obtains the tasks in the task list as a single string.
+     * @return The tasks in the list labelled with an index
      */
-    public void printList() {
+    public String getTasks() {
+        StringBuilder sb = new StringBuilder();
         int idx = 1;
         for (Task t : tasks) {
-            System.out.printf("%d.%s%n", idx, t);
+            sb.append(String.format("%d.%s%n", idx, t));
             idx++;
         }
+        return sb.toString();
     }
 
     /**
-     * Returns the number of tasks in the list
+     * Returns the number of tasks in the list.
      *
      * @return Size of the list
      */
