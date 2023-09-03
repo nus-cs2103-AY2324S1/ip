@@ -1,22 +1,21 @@
 package duke.command;
 
 import duke.exception.DukeException;
-
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
 /**
  * Command that marks the given task as done.
  */
-public class MarkCommand extends Command{
-    private final int TASK_NUMBER;
+public class MarkCommand extends Command {
+    private final int taskNumber;
     /**
      * Constructs a command containing the tasknumber in list to be deleted.
      * @param taskNumber The position of task in the list to be deleted.
      */
-    public MarkCommand(int taskNumber){
+    public MarkCommand(int taskNumber) {
         super();
-        this.TASK_NUMBER = taskNumber;
+        this.taskNumber = taskNumber;
     }
 
     /**
@@ -26,8 +25,8 @@ public class MarkCommand extends Command{
      * @param storage storage componenet of the program
      * @throws DukeException Error if the task number is outside the task list
      */
-    public void execute(TaskList tasklst, Ui ui, Storage storage) throws DukeException{
-        tasklst.markTask(TASK_NUMBER, ui);
+    public void execute(TaskList tasklst, Ui ui, Storage storage) throws DukeException {
+        tasklst.markTask(taskNumber, ui);
         storage.rewriteFile(tasklst);
     }
 

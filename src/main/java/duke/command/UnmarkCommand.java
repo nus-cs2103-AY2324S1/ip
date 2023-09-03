@@ -1,23 +1,22 @@
 package duke.command;
 
 import duke.exception.DukeException;
-
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
 /**
  * Command that marks the given task as incomplete.
  */
-public class UnmarkCommand extends Command{
-    private final int TASK_NUMBER;
+public class UnmarkCommand extends Command {
+    private final int taskNumber;
 
     /**
      * Constructor for an unmark command.
      * @param taskToMark The position of task in the list to be deleted.
      */
-    public UnmarkCommand(int taskToMark){
+    public UnmarkCommand(int taskToMark) {
         super();
-        this.TASK_NUMBER = taskToMark;
+        this.taskNumber = taskToMark;
     }
 
     /**
@@ -29,7 +28,7 @@ public class UnmarkCommand extends Command{
      */
     @Override
     public void execute(TaskList tasklst, Ui ui, Storage storage) throws DukeException {
-        tasklst.unmarkTask(TASK_NUMBER, ui);
+        tasklst.unmarkTask(taskNumber, ui);
         storage.rewriteFile(tasklst);
     }
 

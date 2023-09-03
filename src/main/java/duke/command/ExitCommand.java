@@ -6,7 +6,7 @@ import duke.util.Ui;
 /**
  * Command that causes the chatbot to terminate.
  */
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
     /**
      * Constructor of a new ExitCommand.
      */

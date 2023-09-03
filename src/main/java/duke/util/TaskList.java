@@ -1,27 +1,28 @@
 package duke.util;
 
-import duke.exception.DukeException;
-import duke.exception.NoTaskException;
-import duke.exception.InvalidTaskNumberException;
+import java.util.ArrayList;
 
+import duke.exception.DukeException;
+import duke.exception.InvalidTaskNumberException;
+import duke.exception.NoTaskException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
-import java.util.ArrayList;
+
 
 /**
  * Tasklist containing the tasks added by the user.
  */
 public class TaskList {
-    private final ArrayList<Task> TASKLST;
+    private final ArrayList<Task> tasklst;
 
     /**
      * Constructor for an instance of an empty tasklist.
      */
     public TaskList() {
-        this.TASKLST = new ArrayList<>();
+        this.tasklst = new ArrayList<>();
     }
 
     /**
@@ -31,37 +32,38 @@ public class TaskList {
      */
     public TaskList(ArrayList<String> fileData) throws DukeException {
         String[] fields;
-        this.TASKLST = new ArrayList<>();
+        this.tasklst = new ArrayList<>();
         for (String info : fileData) {
             fields = info.split(" \\| ");
             Task tempT;
             switch (fields[0].trim()) {
             case "T":
-                if(fields[2].isEmpty()){
+                if (fields[2].isEmpty()) {
                     throw new NoTaskException("Error! Cannot add an empty todo!");
                 }
                 tempT = new ToDo(fields[2].trim());
-                if(fields[1].equals("1")) {
+                if (fields[1].equals("1")) {
                     tempT.markAsDone();
                 }
-                TASKLST.add(tempT);
+                tasklst.add(tempT);
                 break;
             case "D":
                 tempT = new Deadline(fields[2].trim(), fields[3]);
-                if(fields[1].equals("1")) {
+                if (fields[1].equals("1")) {
                     tempT.markAsDone();
                 }
-                TASKLST.add(tempT);
+                tasklst.add(tempT);
                 break;
             case "E":
                 String[] time;
                 time = fields[3].split("->");
                 tempT = new Event(fields[2].trim(), time[0], time[1]);
-                if(fields[1].equals("1")) {
+                if (fields[1].equals("1")) {
                     tempT.markAsDone();
                 }
-                TASKLST.add(tempT);
+                tasklst.add(tempT);
                 break;
+            default:
             }
         }
     }
@@ -73,19 +75,19 @@ public class TaskList {
      * @throws InvalidTaskNumberException Error when given task number exceeds the number of tasks in the list
      */
     public void markTask(int taskNumber, Ui ui) throws InvalidTaskNumberException {
-        if (taskNumber > TASKLST.size()) {
+        if (taskNumber > tasklst.size()) {
             throw new InvalidTaskNumberException("Error! Task Number given is outside range of current list size of "
-                    + TASKLST.size());
+                    + tasklst.size());
         }
-        TASKLST.get(taskNumber - 1).markAsDone();
-        ui.showMarked(TASKLST.get(taskNumber - 1));
+        tasklst.get(taskNumber - 1).markAsDone();
+        ui.showMarked(tasklst.get(taskNumber - 1));
     }
 
     /**
      * Displays the list of tasks stored in the tasklist.
      */
     public void displayTasks() {
-        for (Task task : TASKLST) {
+        for (Task task : tasklst) {
             System.out.println(task.toString());
         }
     }
@@ -97,12 +99,12 @@ public class TaskList {
      * @throws InvalidTaskNumberException exception when the task number given is outside the count of tasklist
      */
     public void unmarkTask(int taskNumber, Ui ui) throws InvalidTaskNumberException {
-        if (taskNumber > TASKLST.size()) {
+        if (taskNumber > tasklst.size()) {
             throw new InvalidTaskNumberException("Error! Task Number given is outside range of current list size of "
-                    + TASKLST.size());
+                    + tasklst.size());
         } else {
-            TASKLST.get(taskNumber - 1).unmarkAsDone();
-            ui.showUnmarked(TASKLST.get(taskNumber - 1));
+            tasklst.get(taskNumber - 1).unmarkAsDone();
+            ui.showUnmarked(tasklst.get(taskNumber - 1));
         }
     }
 
@@ -112,8 +114,8 @@ public class TaskList {
      * @param ui instance of user interface
      */
     public void addTask(Task task, Ui ui) {
-        TASKLST.add(task);
-        ui.showTaskAdded(task, TASKLST.size());
+        tasklst.add(task);
+        ui.showTaskAdded(task, tasklst.size());
     }
 
     /**
@@ -123,14 +125,14 @@ public class TaskList {
      * @throws InvalidTaskNumberException Exception when given task number is outside range of tasks in the list
      */
     public void deleteTask(int taskNumber, Ui ui) throws InvalidTaskNumberException {
-        if (taskNumber > TASKLST.size()) {
+        if (taskNumber > tasklst.size()) {
             throw new InvalidTaskNumberException("Error! Task Number given is outside range of current list size of "
-                    + TASKLST.size());
+                    + tasklst.size());
         } else {
-            Task temp = TASKLST.remove(taskNumber - 1);
+            Task temp = tasklst.remove(taskNumber - 1);
             ui.showComplete("Noted. I've removed this task:"
                     + temp
-                    + "Now you have " + this.TASKLST.size() + " task(s) in the list");
+                    + "Now you have " + this.tasklst.size() + " task(s) in the list");
         }
     }
 
@@ -140,7 +142,7 @@ public class TaskList {
      */
     public ArrayList<String> toWriteFormat() {
         ArrayList<String> tasks = new ArrayList<>();
-        for(Task task : TASKLST) {
+        for (Task task : tasklst) {
             tasks.add(task.toSaveFormat());
         }
         return tasks;

@@ -2,7 +2,7 @@ package duke.task;
 /**
  * Todo instance of a task
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
     /**
      * Construct a task with a given description. Completion of the task
      * is false by default.

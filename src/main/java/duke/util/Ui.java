@@ -8,7 +8,7 @@ import duke.task.Task;
  * UI class that handles interaction with the user.
  */
 public class Ui {
-    static String line = "---------------------"; //Line to be drawn on the screen
+    private static final String LINE = "---------------------"; //Line to be drawn on the screen
 
     /**
      * Scans the next input given by the user.
@@ -23,7 +23,7 @@ public class Ui {
      * Prints line onto the console
      */
     public void showLine() {
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     /**
@@ -78,8 +78,8 @@ public class Ui {
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
         System.out.println("Hello from\n" + logo);
-        System.out.println(" Hello! I'm Somebodyhaha\n" +
-                " What can I do for you?");
+        System.out.println(" Hello! I'm Somebodyhaha\n"
+                + " What can I do for you?");
     }
 
     /**
