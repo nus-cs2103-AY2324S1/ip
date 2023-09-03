@@ -20,7 +20,6 @@ public class Deadline extends Task {
 
     public void setDateTime(String input) {
         String[] parts = input.split(" ", 2);
-        System.out.println(parts[1]);
         this.end = DateTimeDetection.detectDateTime(parts[1]);
     }
 
