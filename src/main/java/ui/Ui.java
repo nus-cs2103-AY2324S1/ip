@@ -77,6 +77,11 @@ public class Ui {
         out.println("ADDED deadline FOR YOU!!!!\n" + task.toString());
     }
 
+    public void showSearchResults(TaskList tasks) {
+        out.println("HERE ARE YOUR MATCHES:\n");
+        listout(tasks);
+    }
+
     public void todoMessage(Task task) {
         out.println("ADDED todo FOR YOU!!!!\n" + task.toString());
     }

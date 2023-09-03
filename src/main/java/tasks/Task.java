@@ -18,6 +18,10 @@ public class Task {
         return (isDone ? "X" : "");
     }
 
+    public String getTaskDescription() {
+        return this.text;
+    }
+
     public void setStatus(boolean status) {
         this.isDone = status;
     }

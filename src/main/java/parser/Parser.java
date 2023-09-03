@@ -36,14 +36,27 @@ public class Parser {
             case "delete":
                 c = checkDelete(split);
                 break;
+            case "find":
+                c = checkFind(split);
+                break;
             case "listout":
                 c = checkListout(split);
                 break;
             default:
-                c = new IncorrectCommand("idk what u saying.");
+                c = new IncorrectCommand("idk what u saying BRO.");
 
         }
         return c;
+    }
+
+    private static Command checkFind(String[] split) {
+        if(split.length == 1 || split[1].isEmpty()){
+            return new IncorrectCommand("enter a reasonable search word please");
+        } else {
+
+            String keyword = split[1];
+            return new FindCommand(keyword);
+        }
     }
 
     private static Command checkListout(String[] split) {
