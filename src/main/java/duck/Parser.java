@@ -11,6 +11,7 @@ import duck.command.ExitCommand;
 import duck.command.ListCommand;
 import duck.command.MarkCommand;
 import duck.command.UnmarkCommand;
+import duck.command.FindCommand;
 
 import duck.task.DeadlineTask;
 import duck.task.EventTask;
@@ -58,6 +59,8 @@ public class Parser {
             return new AddCommand(parseDeadline(data));
         case "EVENT":
             return new AddCommand(parseEvent(data));
+        case "FIND":
+            return new FindCommand(data);
         default:
             throw new DuckException("Im sorry, I don't know what that means.");
         }
