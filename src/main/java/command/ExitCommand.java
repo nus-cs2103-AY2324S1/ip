@@ -1,17 +1,19 @@
 package command;
 
-import duke.DukeException;
+import java.util.ArrayList;
+
 import duke.Storage;
 import duke.TaskList;
 import duke.UI;
 
-import java.util.ArrayList;
-
+/**
+ * A command to exit the chatbot.
+ */
 public class ExitCommand extends Command {
     /**
      * Command to exit the application.
      */
-    public static final String  COMMAND_EXIT = "bye";
+    public static final String COMMAND_EXIT = "bye";
 
     /**
      * Constructor for the ExitCommand class.

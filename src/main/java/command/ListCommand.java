@@ -1,13 +1,15 @@
 package command;
 
-import duke.DukeException;
+import java.util.ArrayList;
+
 import duke.Storage;
 import duke.TaskList;
 import duke.UI;
 
-import java.util.ArrayList;
-
-public class ListCommand extends Command{
+/**
+ * A command to list all tasks that are currently saved in the chatbot.
+ */
+public class ListCommand extends Command {
     /**
      * Command to list all tasks.
      */

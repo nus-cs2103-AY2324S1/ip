@@ -1,10 +1,16 @@
 package command;
 
-import duke.*;
-
 import java.util.ArrayList;
 
-public class FindCommand extends Command{
+import duke.Storage;
+import duke.Task;
+import duke.TaskList;
+import duke.UI;
+
+/**
+ * A command to find tasks with a keyword.
+ */
+public class FindCommand extends Command {
     /**
      * Command to fina tasks by keywords.
      */

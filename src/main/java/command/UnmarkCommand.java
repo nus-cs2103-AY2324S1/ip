@@ -1,10 +1,17 @@
 package command;
 
-import duke.*;
-
 import java.util.ArrayList;
 
-public class UnmarkCommand extends Command{
+import duke.DukeException;
+import duke.Storage;
+import duke.Task;
+import duke.TaskList;
+import duke.UI;
+
+/**
+ * A command to unmark a task.
+ */
+public class UnmarkCommand extends Command {
     /**
      * Command to unmark a task.
      */

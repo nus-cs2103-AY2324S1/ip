@@ -1,9 +1,16 @@
 package command;
 
-import duke.*;
-
 import java.util.ArrayList;
 
+import duke.DukeException;
+import duke.Storage;
+import duke.Task;
+import duke.TaskList;
+import duke.UI;
+
+/**
+ * A command to delete a task from a list of tasks.
+ */
 public class DeleteCommand extends Command {
     /**
      * Command to delete a task.

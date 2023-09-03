@@ -2,18 +2,20 @@ package duke;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 
-public class Event extends Task{
+/**
+ * A Event type task that can be handled by the chatbot.
+ */
+public class Event extends Task {
     /**
      * Date and time that the event starts.
      */
-    LocalDateTime from;
+    private LocalDateTime from;
 
     /**
      * Date and time that the event ends.
      */
-    LocalDateTime to;
+    private LocalDateTime to;
 
     /**
      * Constructor for the Deadline class.
@@ -35,8 +37,8 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from.format(dateTimeOutputFormatter)
-                + " to: " + this.to.format(dateTimeOutputFormatter) + ")";
+        return "[E]" + super.toString() + " (from: " + this.from.format(DATE_TIME_OUTPUT_FORMATTER)
+                + " to: " + this.to.format(DATE_TIME_OUTPUT_FORMATTER) + ")";
     }
 
     /**
@@ -47,13 +49,13 @@ public class Event extends Task{
     @Override
     public String toSaveStateString() {
         String[] state = new String[]{ "event", this.getDone() ? "1" : "0", this.getTaskName(),
-                this.from.format(Duke.dateTimeInputFormatter), this.to.format(Duke.dateTimeInputFormatter) };
+                this.from.format(Duke.DATE_TIME_INPUT_FORMATTER), this.to.format(Duke.DATE_TIME_INPUT_FORMATTER) };
         return String.join(" / ", state);
     }
 
     @Override
     public boolean isOnDate(LocalDate date) {
-        return date.isEqual(this.from.toLocalDate()) || date.isEqual(this.to.toLocalDate()) ||
-                (date.isAfter(this.from.toLocalDate()) && date.isBefore(this.to.toLocalDate()));
+        return date.isEqual(this.from.toLocalDate()) || date.isEqual(this.to.toLocalDate())
+                || (date.isAfter(this.from.toLocalDate()) && date.isBefore(this.to.toLocalDate()));
     }
 }

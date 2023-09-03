@@ -2,13 +2,15 @@ package duke;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 
-public class Deadline extends Task{
+/**
+ * A Deadline type task that can be handled by the chatbot.
+ */
+public class Deadline extends Task {
     /**
      * Date and time that the deadline must be done by
      */
-    LocalDateTime by;
+    private LocalDateTime by;
 
     /**
      * Constructor for the Deadline class.
@@ -28,7 +30,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by.format(dateTimeOutputFormatter) + ")";
+        return "[D]" + super.toString() + " (by: " + this.by.format(DATE_TIME_OUTPUT_FORMATTER) + ")";
     }
 
     /**
@@ -39,7 +41,7 @@ public class Deadline extends Task{
     @Override
     public String toSaveStateString() {
         String[] state = new String[]{ "deadline", this.getDone() ? "1" : "0", this.getTaskName(),
-                this.by.format(Duke.dateTimeInputFormatter) };
+                this.by.format(Duke.DATE_TIME_INPUT_FORMATTER) };
         return String.join(" / ", state);
     }
 

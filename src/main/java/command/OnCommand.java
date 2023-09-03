@@ -1,11 +1,17 @@
 package command;
 
-import duke.*;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class OnCommand extends Command{
+import duke.Storage;
+import duke.Task;
+import duke.TaskList;
+import duke.UI;
+
+/**
+ * A command to get tasks on a given date.
+ */
+public class OnCommand extends Command {
     /**
      * Command to search for tasks on a date.
      */
