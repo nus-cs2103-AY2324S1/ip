@@ -11,7 +11,11 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        String output = String.format("[E][%s] %s (from: %s to: %s)", super.getStatusIcon(), description, start, end);
-        return output;
+        return String.format("[E][%s] %s (from: %s to: %s)", super.getStatusIcon(), description, start, end);
+    }
+
+    @Override
+    public String toFileFormat() {
+        return String.format("E | %s | %s | %s | %s", super.isDoneString(), description, start, end);
     }
 }

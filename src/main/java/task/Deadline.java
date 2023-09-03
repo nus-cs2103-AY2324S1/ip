@@ -9,7 +9,11 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        String output = String.format("[D][%s] %s (by: %s)", super.getStatusIcon(), description, dueDate);
-        return output;
+        return String.format("[D][%s] %s (by: %s)", super.getStatusIcon(), description, dueDate);
+    }
+
+    @Override
+    public String toFileFormat() {
+        return String.format("D | %s | %s | %s", super.isDoneString(), description, dueDate);
     }
 }

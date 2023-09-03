@@ -1,0 +1,3 @@
+T | 0 | sleep
+E | 0 | rehearsal | tues | wed
+D | 0 | exam | friday

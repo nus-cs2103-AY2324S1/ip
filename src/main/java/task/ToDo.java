@@ -8,7 +8,11 @@ public class ToDo extends Task{
 
     @Override
     public String toString() {
-        String output = String.format("[T][%s] %s", super.getStatusIcon(), description);
-        return output;
+        return String.format("[T][%s] %s", super.getStatusIcon(), description);
+    }
+
+    @Override
+    public String toFileFormat() {
+        return String.format("T | %s | %s", super.isDoneString(), description);
     }
 }

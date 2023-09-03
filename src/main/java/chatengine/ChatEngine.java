@@ -4,17 +4,27 @@ import io.IOHandler;
 import io.ConsoleIO;
 import task.TaskList;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.NoSuchFileException;
+
 public class ChatEngine {
     private final IOHandler ioHandler;
-    private final TaskList taskList; // stores list of tasks
+    private TaskList taskList; // stores list of tasks
+    private final Storage storage   ;
 
     public enum CommandType {
         BYE, MARK, UNMARK, LIST, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
     }
 
-    public ChatEngine() {
+    public ChatEngine(String filePath) {
         this.ioHandler = new ConsoleIO();
-        this.taskList = new TaskList();
+        this.storage = new Storage(filePath);
+        try {
+            this.taskList = new TaskList(storage.loadTasks()); // load tasks from storage
+        } catch (IOException e) {
+            this.taskList = new TaskList();
+        }
     }
 
     public void start() {
@@ -87,6 +97,7 @@ public class ChatEngine {
         int index = Integer.parseInt(parts[1]) - 1;
         String response = (command == CommandType.MARK) ? taskList.markTaskAsDone(index) : taskList.markTaskAsNotDone(index);
         ioHandler.writeOutput(response);
+        saveTasks();
     }
 
     private void handleTodo(String[] parts) throws ChadException {
@@ -95,6 +106,7 @@ public class ChatEngine {
         }
         taskList.addTodo(parts[1]);
         ioHandler.writeOutput("Added new ToDo: " + parts[1]);
+        saveTasks();
     }
 
     private void handleDeadline(String[] parts) throws ChadException {
@@ -104,6 +116,7 @@ public class ChatEngine {
         String[] deadlineParts = parts[1].split(" /by ", 2);
         taskList.addDeadline(deadlineParts[0], deadlineParts[1]);
         ioHandler.writeOutput("Added new Deadline: " + deadlineParts[0] + " by " + deadlineParts[1]);
+        saveTasks();
     }
 
     private void handleEvent(String[] parts) throws ChadException {
@@ -113,6 +126,7 @@ public class ChatEngine {
         String[] eventParts = parts[1].split(" /from | /to ", 3);
         taskList.addEvent(eventParts[0], eventParts[1], eventParts[2]);
         ioHandler.writeOutput("Added new Event: " + eventParts[0] + " from " + eventParts[1] + " to " + eventParts[2]);
+        saveTasks();
     }
 
     private void handleDelete(String[] parts) throws ChadException {
@@ -122,7 +136,18 @@ public class ChatEngine {
         int index = Integer.parseInt(parts[1]) - 1;
         String response = taskList.deleteTask(index);
         ioHandler.writeOutput(response);
+        saveTasks();
     }
-
+    private void saveTasks() {
+        try {
+            storage.saveTasks(taskList);
+        } catch (FileNotFoundException e) {
+            ioHandler.writeOutput("Error: File not found. " + e.getMessage());
+        } catch (NoSuchFileException e) {
+            ioHandler.writeOutput("Error: Directory not found. " + e.getMessage());
+        } catch (IOException e) {
+            ioHandler.writeOutput("Error saving tasks: " + e.getMessage());
+        }
+    }
 
 }

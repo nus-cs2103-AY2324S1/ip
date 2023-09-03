@@ -10,7 +10,11 @@ public abstract class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : ""); // mark done task with X
+    }
+
+    public String isDoneString() {
+        return isDone ? "1" : "0";
     }
 
     public void mark() {
@@ -22,5 +26,34 @@ public abstract class Task {
     }
 
     public abstract String toString();
+
+    public abstract String toFileFormat();
+
+    public static Task fromFileFormat(String line) {
+        String[] parts = line.split(" \\| ");
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        Task task = null;
+        switch (type) {
+            case "T":
+                task = new ToDo(description);
+                break;
+            case "D":
+                task = new Deadline(description, parts[3]);
+                break;
+            case "E":
+                task = new Event(description, parts[3], parts[4]);
+                break;
+        }
+
+        if (task != null && isDone) {
+            task.mark();
+        }
+
+        return task;
+    }
+
 
 }

@@ -9,6 +9,10 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     public void addTodo(String description) {
         tasks.add(new ToDo(description));
     }
@@ -55,5 +59,13 @@ public class TaskList {
             return "Aite, this task is gone bro: " + task.toString();
         }
         return "Invalid task index.";
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 }
