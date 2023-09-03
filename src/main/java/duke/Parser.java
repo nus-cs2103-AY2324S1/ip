@@ -32,7 +32,7 @@ import duke.task.Todo;
 public class Parser {
     // Initialisation of objects and variables
     private static List<String> commands = Arrays.asList(
-            new String[]{"todo", "deadline", "event", "mark", "unmark", "delete"});
+            new String[]{"todo", "deadline", "event", "mark", "unmark", "delete", "find"});
 
     /**
      * Returns a corresponding Command from input.

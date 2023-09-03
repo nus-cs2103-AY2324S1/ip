@@ -32,29 +32,31 @@ public class TaskList {
     }
 
     /** Displays Items in TaskList */
-    public void display() {
-        System.out.println("Here are the tasks in your list:");
+    public String display() {
+        String temp = "";
+        temp += ("Here are the tasks in your list:\n");
         for (int i = 0; i < this.storage.size(); i++) {
-            System.out.println((i + 1) + ". " + this.storage.get(i));
+            temp += ((i + 1) + ". " + this.storage.get(i) + "\n");
         }
+        return temp;
     }
 
     /**
      * Marks a specific task as done
      * @param index the index of the task to be marked
      */
-    public void mark(int index) {
+    public Task mark(int index) {
         this.storage.get(index - 1).mark();
-        System.out.println(this.storage.get(index - 1));
+        return this.storage.get(index - 1);
     }
 
     /**
      * Marks a specific task as undone
      * @param index the index of the task to be unmarked
      */
-    public void unmark(int index) {
+    public Task unmark(int index) {
         this.storage.get(index - 1).unmark();
-        System.out.println(this.storage.get(index - 1));
+        return this.storage.get(index - 1);
     }
 
     /**

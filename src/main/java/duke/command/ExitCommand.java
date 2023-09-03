@@ -3,6 +3,7 @@ package duke.command;
 import duke.Storage;
 import duke.TaskList;
 import duke.UI;
+import javafx.application.Platform;
 
 /**
  * The ExitCommand represents a command to
@@ -15,7 +16,8 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
-        // Stud
+    public String execute(TaskList tasks, UI ui, Storage storage) {
+        Platform.exit();
+        return "";
     }
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import duke.Storage;
 import duke.TaskList;
 import duke.UI;
+import duke.task.Task;
 
 /**
  * The UnmarkCommand represents a Command that
@@ -25,9 +26,9 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws IOException {
-        tasks.unmark(index);
+    public String execute(TaskList tasks, UI ui, Storage storage) throws IOException {
+        Task task = tasks.unmark(index);
         storage.rewrite(tasks);
-        ui.showUnmarkMessage();
+        return (ui.showUnmarkMessage(task));
     }
 }

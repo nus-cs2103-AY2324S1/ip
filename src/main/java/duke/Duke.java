@@ -16,7 +16,13 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private UI ui;
+    private String uiOutput;
+    private boolean justCreatedFile = false;
 
+    /**
+     * Constructor for the Duke object.
+     * @param filePath the location of the storage file.
+     */
     public Duke(String filePath) {
         ui = new UI();
         storage = new Storage(filePath);
@@ -24,6 +30,7 @@ public class Duke {
             tasks = new TaskList(storage.load());
         } catch (FileNotFoundException e) {
             ui.showLoadingError();
+            this.justCreatedFile = true;
             try {
                 File f = new File(filePath);
                 if (f.createNewFile()) {
@@ -35,33 +42,24 @@ public class Duke {
         }
     }
 
-    /**
-     * Runs the main logic of the chatbot.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.line();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } catch (IOException e) {
-                ui.showIoError();
-            } catch (IndexOutOfBoundsException e) {
-                ui.showOutOfBounds();
-            } catch (DateTimeParseException e) {
-                ui.showTimeFormatError();
-            } finally {
-                ui.line();
-            }
+    public String getResponse(String text) {
+        try {
+            Command c = Parser.parse(text);
+            uiOutput = c.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            uiOutput = ui.showError(e.getMessage());
+        } catch (IOException e) {
+            uiOutput = ui.showIoError();
+        } catch (IndexOutOfBoundsException e) {
+            uiOutput = ui.showOutOfBounds();
+        } catch (DateTimeParseException e) {
+            uiOutput = ui.showTimeFormatError();
         }
+        return uiOutput;
     }
-    public static void main(String[] args) {
-        new Duke("storage.txt").run();
+
+    public boolean getJustCreatedFile() {
+        return this.justCreatedFile;
     }
+
 }
