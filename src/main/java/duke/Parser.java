@@ -73,6 +73,7 @@ public class Parser {
         String taskName = longName.split("deadline ")[1];
         String deadlineName = taskName +
                 String.format("(by: %s)", date);
+
         return new Deadline(deadlineName);
     }
 

@@ -2,6 +2,7 @@ package duke;
 
 import java.io.File;
 import java.io.FileWriter;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -55,21 +56,23 @@ public class Storage {
             String typeOfTask = sArray[0];
 
             switch (typeOfTask) {
-                case "T":
-                    boolean isTodoDone = sArray[1].equals("1") ? true : false;
-                    String todoName = sArray[2];
-                    tl.add(new ToDo(isTodoDone, todoName));
-                    break;
-                case "E":
-                    boolean isEventDone = sArray[1].equals("1") ? true : false;
-                    String eventName = sArray[2];
-                    tl.add(new Event(isEventDone, eventName));
-                    break;
-                case "D":
-                    boolean isDeadlineDone = sArray[1].equals("1") ? true : false;
-                    String deadlineName = sArray[2];
-                    tl.add(new Deadline(isDeadlineDone, deadlineName));
-                    break;
+            case "T":
+                boolean isTodoDone = sArray[1].equals("1") ? true : false;
+                String todoName = sArray[2];
+                tl.add(new ToDo(isTodoDone, todoName));
+                break;
+
+            case "E":
+                boolean isEventDone = sArray[1].equals("1") ? true : false;
+                String eventName = sArray[2];
+                tl.add(new Event(isEventDone, eventName));
+                break;
+
+            case "D":
+                boolean isDeadlineDone = sArray[1].equals("1") ? true : false;
+                String deadlineName = sArray[2];
+                tl.add(new Deadline(isDeadlineDone, deadlineName));
+                break;
 
             }
 
