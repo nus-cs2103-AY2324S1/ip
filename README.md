@@ -1,24 +1,32 @@
-# Duke project template
+# Oscar
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+> "I understand that, without my agreement, Alpine F1 have put out a press release late this afternoon that I am driving for them next year. This is wrong and I have not signed a contract with Alpine for 2023. I will not be driving for Alpine next year." _ Oscar Piastri ([source](https://twitter.com/OscarPiastri/status/1554527452231262210))
 
-## Setting up in Intellij
+Oscar is a chatbot named after F1 Driver Oscar Piastri. Oscar is, 
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+- text-based 📄 
+- user friendly 😃 
+- SUPER DUPER FAST to use 🚀 
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+To use Oscar, all you need to do is ,
+1. download the "oscar-1.0.0.jar" jar file from [here](https://github.com/Cikguseven/ip/releases/tag/Week-3).
+2. save it to any folder.
+3. navigate to that folder.
+4. open the terminal in that folder.
+5. run the command `java -jar oscar-1.0.0.jar`.
+6. enjoy!
+
+And it is 100% **FREE**!
+
+### Features:
+
+- [X]  Managing tasks
+- [X] Managing deadlines
+- [ ] Reminders (coming soon)
+
+If you Java programmer, you can use it to practice Java too. Here's the `main` method:
+```java
+public static void main(String[] args) {
+    new Oscar(FILE_PATH).run();
+}
+``` 
