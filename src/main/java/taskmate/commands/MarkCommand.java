@@ -48,7 +48,6 @@ public class MarkCommand extends Command {
             ui.printSuccessfulMarkResponse(taskToMark);
         } catch (TaskNotFoundException e) {
             ui.printTaskNotFoundExceptionResponse();
-            return;
         }
 
     }

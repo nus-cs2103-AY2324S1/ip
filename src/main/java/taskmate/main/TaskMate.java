@@ -11,10 +11,10 @@ import java.io.IOException;
 
 public class TaskMate {
 
-    static String chatbotName = "TaskMate";
-    static String defaultSaveTaskFilePath = "./data/saved_tasks.txt";
+    static String CHATBOT_NAME = "TaskMate";
+    static String DEFAULT_SAVE_TASK_FILE_PATH = "./data/saved_tasks.txt";
 
-    public enum CommandTypes {
+    public enum COMMAND_TYPES {
         list, bye, todo, deadline, event, mark, unmark, delete, help
     }
 
@@ -24,7 +24,7 @@ public class TaskMate {
     private Parser parser;
 
     TaskMate(String filePath) {
-        this.ui = new Ui(chatbotName);
+        this.ui = new Ui(CHATBOT_NAME);
         this.storage = new Storage(filePath);
         this.tasks = new TaskList();
 
@@ -40,8 +40,8 @@ public class TaskMate {
     }
 
     TaskMate() {
-        this.ui = new Ui(chatbotName);
-        this.storage = new Storage(defaultSaveTaskFilePath);
+        this.ui = new Ui(CHATBOT_NAME);
+        this.storage = new Storage(DEFAULT_SAVE_TASK_FILE_PATH);
         this.tasks = new TaskList();
 
         // Load existing tasks from disk
@@ -75,45 +75,36 @@ public class TaskMate {
             try {
                 command = Parser.parse(userInput);
                 command.execute(tasks, ui, storage);
-                if (command.isExit()) {
+                if (command.getIsExit()) {
                     break;
                 }
             } catch (InvalidCommandTypeException e) {
                 ui.printInvalidCommandTypeExceptionResponse();
                 System.out.println(e); // todo: Remove for production code
-                continue;
             } catch (InvalidDescriptionException e) {
                 ui.printInvalidCommandTypeExceptionResponse(); // todo: Add new message for chatbot
                 System.out.println(e); // todo: Remove for production code
-                continue;
             } catch (EmptyByException e) {
                 ui.printEmptyByExceptionResponse();
                 System.out.println(e); // todo: Remove for production code
-                continue;
             } catch (InvalidByException e) {
                 ui.printInvalidByExceptionResponse();
                 System.out.println(e);
-                continue;
             } catch (InvalidToException e) {
                 ui.printInvalidToExceptionResponse();
                 System.out.println(e);
-                continue;
             } catch (EmptyToException e) {
                 ui.printEmptyToExceptionResponse();
                 System.out.println(e);
-                continue;
             } catch (InvalidFromException e) {
                 ui.printInvalidFromExceptionResponse();
                 System.out.println(e);
-                continue;
             } catch (EmptyFromException e) {
                 ui.printEmptyFromExceptionResponse();
                 System.out.println(e);
-                continue;
             } catch (NotAnIntegerException e) {
                 ui.printNotAnIntegerExceptionResponse();
                 System.out.println(e);
-                continue;
             }
         }
     }

@@ -5,7 +5,7 @@ import taskmate.tools.tasks.Task;
 import java.util.Scanner;
 
 public class Ui {
-    static String horizontalLine = "--------------------";
+    static String HORIZONTAL_LINE = "--------------------";
     String chatbotName;
     Scanner sc;
 
@@ -32,9 +32,9 @@ public class Ui {
 
     void printMessage(String text) {
         // prints text with horizontal lines above and below it
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
         System.out.println(text);
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
         System.out.println();
     }
 

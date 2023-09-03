@@ -14,7 +14,7 @@ public abstract class Command {
 
     String getType() {
         return this.commandType;
-    };
+    }
 
     /**
      * Returns the boolean instance attribute `isExit` which denotes whether the Command object is a `bye` command.
@@ -22,9 +22,9 @@ public abstract class Command {
      *
      * @return boolean isExit.
      */
-    public boolean isExit() {
+    public boolean getIsExit() {
         return this.isExit;
-    };
+    }
 
     /**
      * Carries out the command represented by each of the Command child classes

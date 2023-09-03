@@ -44,6 +44,7 @@ public class ExitCommand extends Command {
             ui.printSaveFailResponse(System.getProperty("user.dir") +
                     storage.getSaveFilePath().substring(1).replace("/", "\\"));
         }
+
         // 2. Print exit message
         ui.farewellUser();
     }

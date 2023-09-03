@@ -63,8 +63,10 @@ public class EventCommand extends AddCommand {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         // 1. Create new deadline task
         Task newEventTask = new Event(name, from, to);
+
         // 2. Add to newTodoTask to tasks
         tasks.addTask(newEventTask);
+
         // 3. Print successful task added message
         ui.printSuccessfulAddTaskResponse(newEventTask, tasks.getNumTotalTasks());
     }
