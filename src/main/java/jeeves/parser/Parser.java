@@ -19,6 +19,7 @@ public class Parser {
     private static final int FINDCOMMAND_MARK_OFFSET = 5;
     private static final int FINDCOMMAND_UNMARK_OFFSET = 7;
     private static final int FINDCOMMAND_DELETE_OFFSET = 7;
+    private static final int FINDCOMMAND_FIND_OFFSET = 5;
     private static final int FINDFIELD_TO_OFFSET = 4;
     private static final int FINDFIELD_FROM_OFFSET = 6;
     private static final int FINDFIELD_BY_OFFSET = 4;
@@ -95,6 +96,12 @@ public class Parser {
             } catch (MissingDescriptionException | MissingFromException | MissingToException e) {
                 System.out.println(e.getMessage());
             }
+        } else if (input.startsWith("find ")) {
+            // Gets the search term the user wishes to find
+            // and returns args <command, findTerm>
+            args.add("find");
+            String findTerm = input.substring(FINDCOMMAND_FIND_OFFSET);
+            args.add(findTerm);
         } else if (input.equals("bye")) {
             args.add(input);
         }

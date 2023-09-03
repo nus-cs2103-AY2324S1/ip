@@ -88,4 +88,26 @@ public class TaskList {
         }
         return sb.toString(); 
     }
+    
+    public void searchFor(String searchTerm) {
+        StringBuilder sb = new StringBuilder();
+        boolean hasMatch = false;
+        for (Task currTask: taskList) {
+            if (currTask != null) {
+                String currDesc = currTask.getDesc();
+                if (currDesc.contains(searchTerm)) {
+                    if (!hasMatch) {
+                        sb.append("Here are the matching tasks Master: \n");
+                        hasMatch = true;
+                    }
+                    sb.append(currTask.toString());
+                    sb.append("\n");
+                }
+            }
+        }
+        if (!hasMatch) {
+            sb.append("I could not find anything matching '").append(searchTerm).append("' Master");
+        }
+        System.out.println(sb.toString());
+    }
 }
