@@ -4,11 +4,21 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import jo.command.*;
+import jo.command.AddCommand;
+import jo.command.CheckCommand;
+import jo.command.Command;
+import jo.command.DeleteCommand;
+import jo.command.ExitCommand;
+import jo.command.ListCommand;
+import jo.command.MarkCommand;
 import jo.task.Deadline;
 import jo.task.Event;
 import jo.task.Task;
 
+/**
+ * responsible for parsing user input and generating corresponding `Command` objects.
+ *  * It interprets user commands and creates the appropriate commands to perform tasks in the `Jo` application.
+ */
 public class Parser {
 
     protected enum STRINGCOMMAND {
@@ -64,6 +74,12 @@ public class Parser {
             }
         };
 
+        /**
+         * Performs the parsing of the command based on the provided input.
+         * @param s The input string representing the command.
+         * @return The corresponding `Command` object.
+         * @throws JoException If there is an error parsing the command.
+         */
         public abstract Command perform(String s) throws JoException;
     }
 
@@ -87,9 +103,21 @@ public class Parser {
             }
         };
 
+        /**
+         * Performs the parsing of the command based on the provided task index.
+         * @param taskIndex The index of the task associated with the command.
+         * @return The corresponding `Command` object.
+         */
         public abstract Command perform(int taskIndex);
     }
 
+    /**
+     * Checks if a given input string is present in a specified enum class.
+     * @param input The input string to check.
+     * @param enumClass The enum class to check against.
+     * @param <E> The enum type.
+     * @return `true` if the input string is found in the enum class, otherwise `false`.
+     */
     public static <E extends Enum<E>> boolean isInEnum(String input, Class<E> enumClass) {
         for (E enumValue : enumClass.getEnumConstants()) {
             if (enumValue.name().equals(input)) {
@@ -99,6 +127,12 @@ public class Parser {
         return false;
     }
 
+    /**
+     * Parses the user input and generates the corresponding `Command` object.
+     * @param input The user input command.
+     * @return The `Command` object representing the parsed command.
+     * @throws JoException If there is an error parsing the command.
+     */
     public static Command parse(String input) throws JoException {
         if (input.equalsIgnoreCase("bye")) {
             return new ExitCommand();
