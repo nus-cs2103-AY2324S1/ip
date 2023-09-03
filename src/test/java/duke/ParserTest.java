@@ -1,14 +1,19 @@
 package duke;
 
-import command.*;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+
+import command.AddCommand;
+import command.DeleteCommand;
+import command.InvalidCommandException;
+import command.MarkCommand;
+import command.OnCommand;
+import command.UnmarkCommand;
 
 public class ParserTest {
     @Test
