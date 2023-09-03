@@ -34,7 +34,8 @@ public class Parser {
      * @throws DukeException If input does not match expected format.
      */
     public static Parser from(String line) throws DukeException {
-        String taskName, taskType;
+        String taskName;
+        String taskType;
         HashMap<String, String> optionalArgs;
 
         int firstSpace = line.indexOf(' ');

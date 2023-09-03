@@ -33,7 +33,7 @@ public class Event extends Task {
                 getTaskName(),
                 this.from.format(formatter),
                 this.to.format(formatter),
-                (this.isDone() ? " /done" : "")
+                this.isDone() ? " /done" : ""
         );
     }
 }

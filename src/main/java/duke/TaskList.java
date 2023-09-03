@@ -3,6 +3,7 @@ package duke;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class TaskList {
     private final ArrayList<Task> tasks;
 
@@ -40,7 +41,7 @@ public class TaskList {
             throw new DukeException("Index out of bounds");
         }
 
-        Task task = this.tasks.remove(index );
+        Task task = this.tasks.remove(index);
         storeTasks();
         return task;
     }

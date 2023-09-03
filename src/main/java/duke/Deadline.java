@@ -23,7 +23,7 @@ public class Deadline extends Task {
                 "deadline %s /by %s%s",
                 getTaskName(),
                 this.deadline.format(formatter),
-                (this.isDone() ? " /done" : "")
+                this.isDone() ? " /done" : ""
         );
     }
 }
