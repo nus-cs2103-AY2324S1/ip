@@ -1,0 +1,50 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+}
+
+dependencies {
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    implementation group: 'com.joestelmach', name: 'natty', version: '0.13'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass.set("seedu.duke.Main")
+}
+
+shadowJar {
+    archiveBaseName = "duke"
+    archiveClassifier = null
+    dependsOn("distZip", "distTar")
+}
+
+checkstyle {
+    toolVersion = '10.2'
+}
+
+run{
+    enableAssertions = true
+    standardInput = System.in
+}
