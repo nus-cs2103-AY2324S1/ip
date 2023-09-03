@@ -9,7 +9,9 @@ import duke.TaskList;
 import duke.DukeException;
 import duke.Task;
 
-
+/**
+ * Main class for the duke application.
+ */
 
 public class Duke {
     private Parser parser;
@@ -31,8 +33,9 @@ public class Duke {
             tasks = new TaskList();
         }
     }
-
-    public void run() throws IOException{
+    /** Main driver code for duke class.
+     */
+    public void run() throws IOException {
         ui.welcomeMessage();
         boolean isExit = false;
         while (!isExit) {

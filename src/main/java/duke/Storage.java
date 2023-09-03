@@ -13,15 +13,24 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Storage class to store the task result and load it
+ */
 public class Storage {
 
     private String filePath;
+
+    /**
+     * Constructor for storage
+     * @param filePath the relative filepath from the project root
+     */
     public Storage(String filePath) {
         //fix hard coded part later
        this.filePath = filePath;
     }
 
-    /**read from file and return an array list of task
+    /**
+     * read from file and return an array list of task.
      *
      * @return array list of task
      */
@@ -79,6 +88,11 @@ public class Storage {
         }
         return loadList;
     }
+
+    /**
+     * Store the task in a file.
+     * @param tasks An array list of tasks.
+     */
     public void store(TaskList tasks) {
         Path path = Paths.get("./data");
         if (Files.notExists(path)) {
