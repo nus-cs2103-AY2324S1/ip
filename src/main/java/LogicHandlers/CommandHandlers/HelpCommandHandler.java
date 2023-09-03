@@ -28,9 +28,11 @@ public class HelpCommandHandler implements Command{
     @Override
     public void parseCommandContent(String commandContent) {
         String help = " Hello! I'm EGGBOT!\n\n" +
-                " To add a ToDo task, type 'todo [Task]'\n" +
-                " To add a Deadline task, type 'deadline [Task /Deadline]'\n" +
-                " To add an Event task, type 'event [Task /Start Date/End Date]'\n" +
+                " Adding of tasks:\n" +
+                " ToDo task: 'todo [Task]'\n" +
+                " Deadline task: 'deadline [Task /Deadline (dd-mm-yyyy hhmm)]'\n" +
+                " Event task: 'event [Task /Start Date (dd-mm-yyyy hhmm)/End Date (dd-mm-yyyy hhmm)]'\n\n" +
+                " Other commands:\n" +
                 " To view tasks, type 'list' \n" +
                 " To mark a task as 'done', type 'mark [index]' \n" +
                 " To mark a task as 'undone', type 'unmark [index]' \n" +
