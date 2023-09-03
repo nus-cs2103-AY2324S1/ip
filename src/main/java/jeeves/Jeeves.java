@@ -27,7 +27,12 @@ public class Jeeves {
     private final TaskList tasks;
     private final Parser parser;
     private final Ui ui;
-    
+
+    /**
+     * Default constructor for a Jeeves object.
+     * Currently, requires no arguments to initialize.
+     * Creates a new Storage, TaskList, Parser and Ui object for usage during runtime.
+     */
     public Jeeves() {
         storage = new Storage(RELATIVEPATH_DATA_DIRECTORY, RELATIVEPATH_DATA_FILE);
         tasks = new TaskList(storage.readTasklistFromFile());
@@ -43,7 +48,12 @@ public class Jeeves {
     public static void main(String[] args) {
         new Jeeves().run();
     }
-    
+
+    /**
+     * Contains the primary logic for Jeeves.
+     * Constantly loops and waits for a new line of user input.
+     * Processes the input depending on what was entered.
+     */
     public void run() {
         ui.printGreeting();
         

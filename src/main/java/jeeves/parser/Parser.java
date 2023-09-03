@@ -11,6 +11,9 @@ import jeeves.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Parser processes user input and returns an arraylist of string tokens for other classes to use.
+ */
 public class Parser {
 
     private static final int FINDCOMMAND_TODO_OFFSET = 5;
@@ -23,11 +26,22 @@ public class Parser {
     private static final int FINDFIELD_TO_OFFSET = 4;
     private static final int FINDFIELD_FROM_OFFSET = 6;
     private static final int FINDFIELD_BY_OFFSET = 4;
-    
+
+    /**
+     * Constructor for a Parser object.
+     * Currently, requires no arguments to initialize.
+     */
     public Parser() {
         
     }
-    
+
+    /**
+     * Takes the user's input line and returns an array list of relevant string tokens for usage.
+     * Used by the live implementation of Jeeves.
+     * 
+     * @param input A line of user input.
+     * @return String ArrayList containing relevant useful string tokens
+     */
     public ArrayList<String> parseUserInput(String input) {
         ArrayList<String> args = new ArrayList<>();
         if (input.equals("list")) {
@@ -118,7 +132,14 @@ public class Parser {
     static boolean isNotNumber(String input) {
         return !input.matches("[0-9]+");
     }
-    
+
+    /**
+     * Checks if the string provided can be parsed into a valid id Integer.
+     * Throws a custom exception with an appropriate error message upon encountering an error.
+     * Currently, checks if the idString is: Present, is a Number, is within the usable range.
+     *
+     * @param idString The string to be checked.
+     */
     static void checkIfValidId(String idString) {
         try {
             if (idString.isEmpty()) {
@@ -135,7 +156,14 @@ public class Parser {
             System.out.println(e.getMessage());
         }
     }
-    
+
+    /**
+     * Checks if the string provided is not empty
+     * Throws a custom exception with an appropriate error message if it is.
+     * Else does nothing.
+     *
+     * @param desc The string to be checked.
+     */
     static void checkIfDescMissing(String desc) {
         try {
             if (desc.isEmpty()) {

@@ -14,10 +14,22 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Storage is responsible for all read/write/other interactions with the .txt datafile containing Jeeves's data.
+ */
 public class Storage {
     
     private final Path dataDirPath;
     private final Path dataFilePath;
+    
+    /**
+     * Constructor for a Storage object.
+     * Takes 2 different Strings and checks if the relative directory and datafile exists.
+     * Creates them if they do not exist.
+     * 
+     * @param dirPathString Relative path for the directory in String format
+     * @param filePathString Relative path for the data file in String format
+     */
     public Storage(String dirPathString, String filePathString) {
         // Checks if the directory exists
         dataDirPath = Paths.get(dirPathString);
@@ -41,7 +53,12 @@ public class Storage {
             }
         }
     }
-    
+
+    /**
+     * Writes the provided data to the datafile using BufferedWriter.
+     *
+     * @param data The data to be written to the file in String format
+     */
     public void writeTasklistToFile(String data) {
         // Writes the text to the output file
         try {
@@ -53,7 +70,13 @@ public class Storage {
             System.out.println(e.getMessage());
         }
     }
-    
+
+    /**
+     * Reads the data from the datafile using BufferedReader.
+     * Creates a new corresponding Task object for each line of valid data.
+     *
+     * @return Task ArrayList containing the tasks re-created from the datafile.
+     */
     public ArrayList<Task> readTasklistFromFile() {
         // Initialization step for task list, adds an empty object so the arraylist is 1-indexed
         ArrayList<Task> taskList = new ArrayList<>();
