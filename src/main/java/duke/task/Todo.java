@@ -1,4 +1,4 @@
-package task;
+package duke.task;
 
 import java.io.FileWriter;
 import java.io.IOException;

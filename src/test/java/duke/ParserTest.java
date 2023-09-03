@@ -2,9 +2,9 @@ package duke;
 
 import org.junit.jupiter.api.Test;
 
-import task.Deadline;
-import task.Event;
-import task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ParserTest {

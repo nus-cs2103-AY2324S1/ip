@@ -3,7 +3,7 @@ package duke;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
-import task.Task;
+import duke.task.Task;
 
 /**
  * Represents the temporary storage used when running the application.

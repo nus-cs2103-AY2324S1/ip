@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import task.Deadline;
+import duke.task.Deadline;
 
 public class DeadlinesTest {
     @Test

@@ -2,7 +2,7 @@ package duke;
 
 import java.util.ArrayList;
 
-import task.Task;
+import duke.task.Task;
 
 /**
  * Encapsulates the response and User Interface of the application.

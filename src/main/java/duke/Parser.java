@@ -2,10 +2,10 @@ package duke;
 
 import java.util.ArrayList;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 /**
  * Encapsulates the logic of analysing the user's String input.

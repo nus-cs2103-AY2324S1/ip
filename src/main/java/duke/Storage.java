@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 /**
  * Encapsulates the Persistent data storage of the application.
