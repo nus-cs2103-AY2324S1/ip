@@ -1,13 +1,11 @@
 package duke.command;
 
-import com.sun.jdi.request.EventRequestManager;
 import duke.RichieException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-import duke.task.Deadline;
 import duke.task.Event;
-import duke.task.Task;
+
 
 import java.time.LocalDateTime;
 

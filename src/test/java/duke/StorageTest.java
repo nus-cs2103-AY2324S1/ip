@@ -3,13 +3,11 @@ package duke;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import duke.Storage;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import duke.task.Task;
 import duke.task.*;
@@ -60,7 +58,8 @@ class StorageTest {
             testArrayList.add("E/0/Project Meeting/2012-02-15T12:30/2012-02-15T12:30");
             assertIterableEquals(testArrayList, newlySavedData);
         } catch (IOException e) {
-            fail("Exception should not be thrown for saving correct set of tasks, this is the error message : " + e.getMessage());
+            fail("Exception should not be thrown for saving correct set of tasks, this is the error message : "
+                    + e.getMessage());
         }
     }
 }

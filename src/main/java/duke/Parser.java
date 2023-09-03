@@ -1,15 +1,6 @@
 package duke;
 
 import duke.command.MarkCommand;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-
-import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Scanner;
 import duke.command.Command;
 import duke.command.ExitCommand;
 import duke.command.ListCommand;
@@ -19,6 +10,9 @@ import duke.command.TodoCommand;
 import duke.command.EventCommand;
 import duke.command.FindCommand;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.LocalDateTime;
 
 /**
@@ -33,9 +27,11 @@ public class Parser {
             String stringDate = dateTimeArray[0];
             String stringTime = dateTimeArray[1];
             String[] dayMonthYearArray = stringDate.split("/", 3);
-            LocalDate date = LocalDate.of(Integer.parseInt(dayMonthYearArray[2]), Integer.parseInt(dayMonthYearArray[1]),
+            LocalDate date = LocalDate.of(Integer.parseInt(dayMonthYearArray[2]),
+                    Integer.parseInt(dayMonthYearArray[1]),
                     Integer.parseInt(dayMonthYearArray[0]));
-            LocalTime time = LocalTime.of(Integer.parseInt(stringTime.substring(0, 2)), Integer.parseInt(stringTime.substring(2, 4)));
+            LocalTime time = LocalTime.of(Integer.parseInt(stringTime.substring(0, 2)),
+                    Integer.parseInt(stringTime.substring(2, 4)));
             LocalDateTime dateTime = LocalDateTime.of(date, time);
             return dateTime;
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -107,15 +103,17 @@ public class Parser {
             } else if (stringArray[0].equals("event")) {
                 try {
                     if (!stringArray[1].contains("/from")) {
-                        throw new RichieException("OOPS!! please enter '/from' followed by a date and " +
-                                "time that the task should start from");
+                        throw new RichieException("OOPS!! please enter '/from' followed by a date and "
+                                + "time that the task should start from");
                     } else if (!stringArray[1].contains("/to")) {
-                        throw new RichieException("OOPS!! please enter '/to' followed by a date and " +
-                                "time that the task should end");
+                        throw new RichieException("OOPS!! please enter '/to' followed by a date and "
+                                + "time that the task should end");
                     } else if (stringArray[1].split("/from", 2)[0].equals("")) {
-                        throw new RichieException("OOPS!! The description of a event or the duration of the event is incomplete");
+                        throw new RichieException("OOPS!! The description of a event or the duration of the event "
+                                + "is incomplete");
                     } else if (!stringArray[1].contains(" /from ") || !stringArray[1].contains(" /to ")) {
-                        throw new RichieException("OOPS!! please ensure that there are spaces before and after '/from' and '/to'");
+                        throw new RichieException("OOPS!! please ensure that there are spaces before and after "
+                                + "'/from' and '/to'");
                     }
                     String[] stringArray2 = stringArray[1].split(" /from ", 2);
                     String[] stringArray3 = stringArray2[1].split(" /to ", 2);
