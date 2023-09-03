@@ -6,8 +6,8 @@ import Models.TaskArray;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static Printers.BasicOutputPrinter.printBasicOutput;
-import static Printers.ErrorOutputPrinter.printErrorOutput;
+import static Ui.BasicOutputPrinter.printBasicOutput;
+import static Ui.ErrorOutputPrinter.printErrorOutput;
 
 /**
  * UnmarkCommandHandler handles all mark commands.

@@ -1,4 +1,4 @@
-package Printers;
+package Ui;
 
 public class ErrorOutputPrinter {
     public static void printErrorOutput(String output) {

@@ -1,4 +1,4 @@
-package Printers;
+package Ui;
 
 public class BasicOutputPrinter {
     public static void printBasicOutput(String output) {

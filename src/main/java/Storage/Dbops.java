@@ -1,4 +1,4 @@
-package Database;
+package Storage;
 
 import Exceptions.DukeCorruptedDataException;
 import Exceptions.DukeInvalidDateTimeException;
@@ -8,8 +8,8 @@ import java.io.*;
 import java.util.Objects;
 
 import static LogicHandlers.Parsers.DateTimeParser.parseDateTimeFromString;
-import static Printers.BasicOutputPrinter.printBasicOutput;
-import static Printers.ErrorOutputPrinter.printErrorOutput;
+import static Ui.BasicOutputPrinter.printBasicOutput;
+import static Ui.ErrorOutputPrinter.printErrorOutput;
 import static java.lang.System.exit;
 
 /**
