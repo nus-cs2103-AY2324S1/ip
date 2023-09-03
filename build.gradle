@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'application'
 }
 
 group 'org.example'
@@ -16,4 +18,24 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "duke.Richie"
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+application {
+    mainClassName = 'duke.Richie'
+}
+
+shadowJar {
+    archiveFileName = 'duke.jar'
+    archiveBaseName = 'Richie'
+    archiveVersion = 'v.0.1'
 }

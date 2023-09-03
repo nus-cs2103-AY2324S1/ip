@@ -20,9 +20,10 @@ class StorageTest {
     @Test
     void load_testDataTextFile_correctArrayOfStrings() {
         try {
-            Storage s = new Storage("src/TestData.txt");
-            ArrayList<String> array = s.load();
-            assertEquals("T/0/homework",array.get(0));
+            Storage s = new Storage("src/testData1.txt");
+            ArrayList<String> array;
+            array = s.load();
+            assertEquals("T/0/homework",s.load().get(0));
             assertEquals("D/1/speech script/2023-09-02T04:00",array.get(1));
             assertEquals("E/0/project meeting/2023-12-02T04:00/2023-12-02T06:00",array.get(2));
         } catch (RichieException e) {
