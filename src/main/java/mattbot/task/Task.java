@@ -1,4 +1,4 @@
-package MattBot.task;
+package mattbot.task;
 
 public abstract class Task {
     protected String name;

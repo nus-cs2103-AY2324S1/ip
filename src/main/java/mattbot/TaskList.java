@@ -1,9 +1,9 @@
-package MattBot;
+package mattbot;
 
-import MattBot.task.Task;
-import MattBot.task.Todo;
-import MattBot.task.Deadline;
-import MattBot.task.Event;
+import mattbot.task.Task;
+import mattbot.task.Todo;
+import mattbot.task.Deadline;
+import mattbot.task.Event;
 
 import java.util.ArrayList;
 public class TaskList {

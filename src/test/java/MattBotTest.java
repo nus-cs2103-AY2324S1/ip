@@ -1,4 +1,4 @@
-package MattBot; //same package as the class being tested
+package mattbot; //same package as the class being tested
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

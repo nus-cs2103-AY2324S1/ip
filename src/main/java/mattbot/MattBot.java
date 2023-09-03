@@ -1,12 +1,12 @@
-package MattBot;
+package mattbot;
 
-import MattBot.task.Task;
-import MattBot.task.Todo;
-import MattBot.task.Deadline;
-import MattBot.task.Event;
-import MattBot.Parser;
-import MattBot.Storage;
-import MattBot.TaskList;
+import mattbot.task.Task;
+import mattbot.task.Todo;
+import mattbot.task.Deadline;
+import mattbot.task.Event;
+import mattbot.Parser;
+import mattbot.Storage;
+import mattbot.TaskList;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;

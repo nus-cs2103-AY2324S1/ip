@@ -1,6 +1,6 @@
-package MattBot.task;
+package mattbot.task;
 
-import MattBot.task.Task;
+import mattbot.task.Task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -1,4 +1,4 @@
-package MattBot.task;
+package mattbot.task;
 public class Todo extends Task {
     public Todo(String name) {
         super(name, false);

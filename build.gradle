@@ -33,11 +33,11 @@ test {
 }
 
 application {
-    mainClass.set("MattBot.MattBot")
+    mainClass.set("mattbot.MattBot")
 }
 
 shadowJar {
-    archiveBaseName = "MattBot"
+    archiveBaseName = "mattbot"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
