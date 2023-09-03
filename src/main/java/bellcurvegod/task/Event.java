@@ -27,8 +27,9 @@ public class Event extends Task {
 
     /**
      * Generates an Event with description given in the input.
-     * @param input input entered by user.
-     * @return an Event.
+     * @param input Input entered by user.
+     * @return An Event.
+     * @throws EmptyEventDescriptionException If description is missing.
      */
     public static Event generateEventFromInput(String input) throws EmptyEventDescriptionException {
         if (input.split(" ").length == 1) {

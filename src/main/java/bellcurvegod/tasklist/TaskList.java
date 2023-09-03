@@ -2,9 +2,11 @@ package bellcurvegod.tasklist;
 
 import bellcurvegod.exception.EmptyDescriptionException;
 import bellcurvegod.exception.InvalidCommandException;
-import bellcurvegod.task.*;
+import bellcurvegod.task.Deadline;
+import bellcurvegod.task.Event;
+import bellcurvegod.task.Task;
+import bellcurvegod.task.Todo;
 import bellcurvegod.ui.Ui;
-import bellcurvegod.storage.Storage;
 
 import java.util.ArrayList;
 
@@ -16,17 +18,15 @@ public class TaskList {
         return tasks;
     }
 
-    public static int getNumOfTasks() {
-        return numOfTasks;
-    }
-
     public static void incrementNumOfTasks() {
         numOfTasks++;
     }
 
     /**
      * Adds a task to the storage.
-     * @param input description of the task to be added
+     * @param input Description of the task to be added.
+     * @throws InvalidCommandException If the input does not start with any of the Task type.
+     * @throws EmptyDescriptionException If description is missing.
      */
     public static void addTask(String input) throws InvalidCommandException, EmptyDescriptionException {
         String cmd = input.split(" ")[0];
@@ -59,7 +59,7 @@ public class TaskList {
 
     /**
      * Deletes the task from the list.
-     * @param task task to be deleted.
+     * @param task Task to be deleted.
      */
     public static void delete(Task task) {
         tasks.remove(task);

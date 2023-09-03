@@ -13,6 +13,14 @@ public class Task {
     }
 
     /**
+     * Returns the description.
+     * @return Description.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
      * Returns the status icon depending on whether the task is done.
      * @return "X" if the task is done; " " otherwise.
      */
@@ -36,7 +44,7 @@ public class Task {
 
     /**
      * Returns a string representing the task for storage.
-     * @return a string representing the task for storage
+     * @return A string representing the task for storage.
      */
     public String getDataRepresentation() {
         String binaryStatus = this.isDone ? "1" : "0";
@@ -45,7 +53,7 @@ public class Task {
 
     /**
      * Returns the string representation of a task.
-     * @return string representation of a task.
+     * @return String representation of a task.
      */
     @Override
     public String toString() {

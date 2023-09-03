@@ -24,8 +24,9 @@ public class Deadline extends Task {
 
     /**
      * Generates a Deadline with description given in the input.
-     * @param input input entered by user.
-     * @return a Deadline.
+     * @param input Input entered by user.
+     * @return A Deadline.
+     * @throws EmptyDeadlineDescriptionException If deadline is missing.
      */
     public static Deadline generateDeadlineFromInput(String input) throws EmptyDeadlineDescriptionException {
         if (input.split(" ").length == 1) {

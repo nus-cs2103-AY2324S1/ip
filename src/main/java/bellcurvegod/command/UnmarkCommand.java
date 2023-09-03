@@ -5,7 +5,7 @@ import bellcurvegod.ui.Ui;
 
 public class UnmarkCommand implements Runnable {
     /**
-     * Mark the given task as not done.
+     * Marks the given task as not done.
      * @param task task to be marked as not done.
      */
     public static void run(Task task) {

@@ -10,6 +10,9 @@ public class Ui {
             " | |_) |  __/ | | | |___| |_| | |   \\ V /  __/ | |__| | (_) | (_| |\n" +
             " |____/ \\___|_|_|  \\_____\\__,_|_|    \\_/ \\___|  \\_____|\\___/ \\__,_|";
 
+    /**
+     * Greets the user.
+     */
     public static void greet() {
         System.out.println(LOGO);
         showLine();

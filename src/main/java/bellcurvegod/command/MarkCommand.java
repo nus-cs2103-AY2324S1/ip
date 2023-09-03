@@ -5,7 +5,7 @@ import bellcurvegod.ui.Ui;
 
 public class MarkCommand implements Runnable {
     /**
-     * Mark the given task as done.
+     * Marks the given task as done.
      * @param task task to be marked as done.
      */
     public static void run(Task task) {

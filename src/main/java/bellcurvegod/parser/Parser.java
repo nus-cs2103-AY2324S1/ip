@@ -1,22 +1,18 @@
 package bellcurvegod.parser;
 
-import bellcurvegod.command.ExitCommand;
-import bellcurvegod.command.ListTasksCommand;
-import bellcurvegod.command.MarkCommand;
-import bellcurvegod.command.UnmarkCommand;
+import bellcurvegod.command.*;
 import bellcurvegod.exception.EmptyDescriptionException;
 import bellcurvegod.exception.InvalidCommandException;
 import bellcurvegod.task.Task;
 import bellcurvegod.tasklist.TaskList;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Parser {
     /**
-     * Respond to commands entered by the user,
-     * and exits when the user types the bellcurvegod.command bye.
+     * Parses commands entered by the user,
+     * and exits when the user types the command bye.
      */
     public static void parse() {
         ArrayList<Task> tasks = TaskList.getTaskList();
@@ -30,6 +26,8 @@ public class Parser {
                 break;
             } else if (input.equals("list")) {
                 ListTasksCommand.run();
+            } else if (words[0].equals("find")) {
+                FindCommand.run(words[1]);
             } else if (words[0].equals("mark")) {
                 MarkCommand.run(tasks.get(Integer.parseInt(words[1]) - 1));
             } else if (words[0].equals("unmark")) {

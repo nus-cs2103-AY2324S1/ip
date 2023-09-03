@@ -31,6 +31,11 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Loads the tasks data stored on the disk.
+     * @param filePath Path of the data file.
+     * @throws IOException If unable to create missing file.
+     */
     public static void loadTasks(String filePath) throws IOException {
         try {
             readFile(filePath);
@@ -39,6 +44,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads data from the file.
+     * @param filePath Path of the data file.
+     * @throws FileNotFoundException If file not found.
+     */
     public static void readFile(String filePath) throws FileNotFoundException {
         File file = new File(filePath);
         Scanner sc = new Scanner(file);
@@ -52,6 +62,11 @@ public class Storage {
         sc.close();
     }
 
+    /**
+     * Creates missing file (and directory if not found).
+     * @param filePath Path to create missing file at.
+     * @throws IOException If unable to create file.
+     */
     public static void createMissingFile(String filePath) throws IOException {
         System.out.println("File not found!\nFile has been created!");
         File dir = new File(DATA_DIRECTORY_PATH);
@@ -62,6 +77,11 @@ public class Storage {
         f.createNewFile();
     }
 
+    /**
+     * Adds new tasks to the taskList from parsing the data file.
+     * @param taskData Data in the data file.
+     * @throws WrongDataFormatException If data is in the wrong format.
+     */
     public static void handleTaskData(String taskData) throws WrongDataFormatException {
         String[] words = taskData.split("\\|");
         String taskType = words[0];
@@ -92,6 +112,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Rewrites the data file with current content in the taskList.
+     * @throws IOException If unable to write to the file.
+     */
     public static void updateData() throws IOException {
         String data = "";
         for (Task t: tasks) {

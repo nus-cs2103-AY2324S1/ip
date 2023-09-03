@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class ListTasksCommand implements Runnable {
     /**
-     * List all tasks stored.
+     * Lists all tasks stored.
      */
     public static void run() {
         Ui.showLine();

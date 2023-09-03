@@ -18,8 +18,9 @@ public class Todo extends Task {
 
     /**
      * Generates a Todo with description given in the input.
-     * @param input input entered by user.
-     * @return a Todo.
+     * @param input Input entered by user.
+     * @return A Todo.
+     * @throws EmptyTodoDescriptionException If the description is missing.
      */
     public static Todo generateTodoFromInput(String input) throws EmptyTodoDescriptionException {
         String[] words = input.split(" ");
