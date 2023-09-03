@@ -34,7 +34,13 @@ public class TaskList {
      * @return duke.Task deleted.
      */
     public Task deleteTask(int index) throws DukeException {
-        Task task = this.tasks.remove(index - 1);
+        index -= 1;
+
+        if (index < 0 || index >= this.tasks.size()) {
+            throw new DukeException("Index out of bounds");
+        }
+
+        Task task = this.tasks.remove(index );
         storeTasks();
         return task;
     }
