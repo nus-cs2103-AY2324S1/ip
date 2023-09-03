@@ -1,17 +1,8 @@
 package Handlers;
 
-import Exceptions.DukeInvalidFormatException;
-import Models.Deadline;
-import Models.Event;
 import Models.TaskArray;
-import Models.ToDo;
 
 import java.util.HashMap;
-import java.util.Objects;
-
-import static Printers.BasicOutputPrinter.printBasicOutput;
-import static Printers.ErrorOutputPrinter.printErrorOutput;
-import static java.lang.System.exit;
 
 /**
  * Handles and parses all user input, and assigns each command to a valid handler.
@@ -31,6 +22,7 @@ public class CentralCommandHandler {
         COMMAND_MAP.put("mark", new MarkCommandHandler(this.tasks));
         COMMAND_MAP.put("unmark", new UnmarkCommandHandler(this.tasks));
         COMMAND_MAP.put("delete", new DeleteHandler(this.tasks));
+        COMMAND_MAP.put("help", new HelpCommandHandler(this.tasks));
     }
 
     public static CentralCommandHandler initializeCommandHandler(TaskArray tasks) {
