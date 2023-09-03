@@ -1,5 +1,7 @@
 package cyrus;
 
+
+import cyrus.ui.Cyrus;
 import javafx.application.Application;
 
 /**

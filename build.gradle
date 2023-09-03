@@ -52,3 +52,11 @@ javafx {
     version = '17.0.7'
     modules = ['javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics']
 }
+
+sourceSets {
+    main {
+        resources {
+            srcDirs "src/main/resources"
+        }
+    }
+}
