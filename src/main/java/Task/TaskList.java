@@ -124,7 +124,7 @@ public class TaskList {
         return true;
     }
 
-    private int computeDateTimeFormat(String input) {
+    int computeDateTimeFormat(String input) {
 
         // returns 1 if correct datetime
         // returns 2 if correct date

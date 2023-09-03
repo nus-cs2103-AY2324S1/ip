@@ -17,7 +17,7 @@ public class ToDo extends Task {
             isTaskDone = "0";
         }
 
-        return (taskType + " | " + isTaskDone + " | " + this.description);
+        return (taskType + " | " + isTaskDone + " | " + this.description.trim());
     }
     @Override
     public String toString() {

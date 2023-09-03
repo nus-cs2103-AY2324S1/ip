@@ -31,9 +31,9 @@ public class Deadline extends Task {
         }
 
         if (this.dateTime == null) {
-            return (taskType + " | " + isTaskDone + " | " + this.description + " | " + this.time);
+            return (taskType + " | " + isTaskDone + " | " + this.description.trim() + " | " + this.time);
         } else {
-            return (taskType + " | " + isTaskDone + " | " + this.description + " | " +
+            return (taskType + " | " + isTaskDone + " | " + this.description.trim() + " | " +
                     this.dateTime.format(outputFormatWithTime));
         }
 
