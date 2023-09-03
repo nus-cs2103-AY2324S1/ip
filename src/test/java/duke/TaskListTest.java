@@ -4,10 +4,13 @@ import duke.exception.TaskNotFoundException;
 import duke.task.Todo;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskListTest {
-    TaskList tasks = new TaskList();
+    private final TaskList tasks = new TaskList();
 
     @Test
     public void testAddTask() {

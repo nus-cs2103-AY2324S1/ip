@@ -1,5 +1,6 @@
 package duke;
 
+import duke.exception.UnknownCommandException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -61,7 +62,8 @@ public class Storage {
      * @return Loaded list of tasks.
      * @throws FileNotFoundException If file containing list of tasks is not found.
      */
-    public ArrayList<Task> load() throws FileNotFoundException {
+
+    public ArrayList<Task> load() throws FileNotFoundException, UnknownCommandException {
         ArrayList<Task> taskData = new ArrayList<>();
 
         Scanner myReader = new Scanner(file);
@@ -77,15 +79,17 @@ public class Storage {
             String taskInfo = taskInfoSplit[taskInfoSplit.length - 1].trim();
 
             switch (taskType) {
-                case "D":
-                    newTask = Deadline.initializeFromStorage(taskInfo);
-                    break;
-                case "T":
-                    newTask = Todo.initializeFromStorage(taskInfo);
-                    break;
-                case "E":
-                    newTask = Event.initializeFromStorage(taskInfo);
-                    break;
+            case "D":
+                newTask = Deadline.initializeFromStorage(taskInfo);
+                break;
+            case "T":
+                newTask = Todo.initializeFromStorage(taskInfo);
+                break;
+            case "E":
+                newTask = Event.initializeFromStorage(taskInfo);
+                break;
+            default:
+                throw new UnknownCommandException();
             }
             if (Objects.equals(taskComplete, "X")) {
                 assert newTask != null;
