@@ -1,12 +1,10 @@
-<<<<<<< HEAD:src/main/java/Event.java
+
 import java.util.*;
 import java.time.*;
 import java.time.format.*;
 public class Event extends Task{
     protected LocalDate by;
     protected LocalDate from;
-=======
->>>>>>> master:src/main/java/duke/Event.java
 
     public Event(String description, LocalDate from, LocalDate by) {
         super(description);
