@@ -8,7 +8,7 @@ import duke.ui.Ui;
 /**
  * Determines the task index to be deleted.
  */
-public class DeleteCommand implements Command{
+public class DeleteCommand implements Command {
     private final String details;
 
     /**

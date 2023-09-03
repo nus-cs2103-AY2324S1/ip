@@ -9,7 +9,7 @@ import duke.ui.Ui;
 /**
  * Determines the task index to be unmarked.
  */
-public class UnmarkCommand implements Command{
+public class UnmarkCommand implements Command {
     private final String details;
 
     /**

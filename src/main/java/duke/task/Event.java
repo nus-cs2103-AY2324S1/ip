@@ -1,7 +1,7 @@
 package duke.task;
 
-import java.time.LocalDateTime;
 import java.time.DateTimeException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -18,7 +18,7 @@ public class Event extends Task {
      * @param start The start time of the event as a string.
      * @param end   The end time of the event as a string.
      */
-    public Event (String name, String start, String end) {
+    public Event(String name, String start, String end) {
         super(name);
         this.start = timeConverterStart(start);
         this.end = timeConverterEnd(end);

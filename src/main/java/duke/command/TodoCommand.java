@@ -10,7 +10,7 @@ import duke.ui.Ui;
 /**
  * Adds a new Todo task to the task list.
  */
-public class TodoCommand implements Command{
+public class TodoCommand implements Command {
     private final String details;
 
     /**

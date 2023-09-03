@@ -7,7 +7,7 @@ import duke.ui.Ui;
 /**
  * Searches through the task list and displays tasks matching the keyword.
  */
-public class FindCommand implements Command{
+public class FindCommand implements Command {
     private final String details;
 
     /**

@@ -9,7 +9,7 @@ import duke.ui.Ui;
 /**
  * Determines the task index to be marked.
  */
-public class MarkCommand implements Command{
+public class MarkCommand implements Command {
     private final String details;
 
     /**

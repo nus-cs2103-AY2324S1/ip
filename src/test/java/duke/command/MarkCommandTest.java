@@ -1,14 +1,14 @@
 package duke.command;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import duke.DukeException;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
-
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MarkCommandTest {
     @Test
@@ -22,7 +22,7 @@ public class MarkCommandTest {
     }
 
     @Test
-    public void markTaskTest() throws DukeException{
+    public void markTaskTest() throws DukeException {
         TaskList tasks = new TaskList();
         TodoCommand testCommand = new TodoCommand("buy book");
         testCommand.loadTask(tasks);

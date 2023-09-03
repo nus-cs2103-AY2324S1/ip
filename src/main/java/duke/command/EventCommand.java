@@ -11,7 +11,7 @@ import duke.ui.Ui;
  * Adds a new Event task to the task list.
  */
 
-public class EventCommand implements Command{
+public class EventCommand implements Command {
     private final String details;
 
     /**

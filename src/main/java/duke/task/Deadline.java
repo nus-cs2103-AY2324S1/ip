@@ -1,7 +1,7 @@
 package duke.task;
 
-import java.time.LocalDateTime;
 import java.time.DateTimeException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -43,8 +43,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toSave() {
-        String timeToSave = time.toString().replace("T", " ").replace(":","");
-        return (super.isComplete ? "1 " : "0 ")  + "deadline " + super.name + "/by " + timeToSave;
+        String timeToSave = time.toString().replace("T", " ").replace(":", "");
+        return (super.isComplete ? "1 " : "0 ") + "deadline " + super.name + "/by " + timeToSave;
     }
 
     /**

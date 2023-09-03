@@ -21,7 +21,7 @@ public class Todo extends Task {
      */
     @Override
     public String toSave() {
-        return (super.isComplete ? "1 " : "0 ")  + "todo " + super.name;
+        return (super.isComplete ? "1 " : "0 ") + "todo " + super.name;
     }
 
     /**

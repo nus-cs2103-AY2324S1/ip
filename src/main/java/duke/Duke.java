@@ -1,12 +1,12 @@
 package duke;
 
+import java.time.DateTimeException;
+
 import duke.command.Command;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
-
-import java.time.DateTimeException;
 
 /**
  * The main class for the chatbot application.
