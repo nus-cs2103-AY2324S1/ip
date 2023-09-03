@@ -18,11 +18,16 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = parseDateTime(by);
+        this.by = convertDateTime(by);
     }
 
-    // Convert string by into LocalDateTime by
-    private LocalDateTime parseDateTime(String dateTimeString) {
+    /**
+     * Converts the string by to type LocalDateTime.
+     *
+     * @param dateTimeString String by to be converted.
+     * @return LocalDateTime by.
+     */
+    private LocalDateTime convertDateTime(String dateTimeString) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
             return LocalDateTime.parse(dateTimeString, formatter);
@@ -31,12 +36,22 @@ public class Deadline extends Task {
         }
     }
 
-    // Format LocalDateTime by as a string
-    private String formatDateTime(LocalDateTime dateTime) {
+    /**
+     * Formats the LocalDateTime by to desired string.
+     *
+     * @param by LocalDateTime by to be formatted.
+     * @return Formatted string to show due date/time.
+     */
+    private String formatDateTime(LocalDateTime by) {
         //  "a" represents the AM/PM marker
-        return dateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a"));
+        return by.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a"));
     }
 
+    /**
+     * Returns the due date/time of the deadline.
+     *
+     * @return The due date/time.
+     */
     public LocalDateTime getBy() {
         return this.by;
     }

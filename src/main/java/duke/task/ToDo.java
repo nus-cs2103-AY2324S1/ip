@@ -1,15 +1,13 @@
 package duke.task;
 
-import duke.task.Task;
-
 /**
- * Represents a todo task that has a description.
+ * Represents a to-do task that has a description.
  */
 public class ToDo extends Task {
     /**
      * Constructor with description.
      *
-     * @param description The description of the todo task.
+     * @param description The description of the to-do task.
      */
     public ToDo(String description) {
         super(description);

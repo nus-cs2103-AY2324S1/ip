@@ -20,10 +20,20 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Returns the start date/time of the event.
+     *
+     * @return The start date/time.
+     */
     public String getFrom() {
         return this.from;
     }
 
+    /**
+     * Returns the end date/time of the event.
+     *
+     * @return The end date/time.
+     */
     public String getTo() {
         return this.to;
     }
