@@ -4,14 +4,20 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import jo.command.*;
+import jo.command.AddCommand;
+import jo.command.CheckCommand;
+import jo.command.Command;
+import jo.command.DeleteCommand;
+import jo.command.ExitCommand;
+import jo.command.ListCommand;
+import jo.command.MarkCommand;
 import jo.task.Deadline;
 import jo.task.Event;
 import jo.task.Task;
 
 public class Parser {
 
-    protected enum STRINGCOMMAND {
+    protected enum STRING_COMMAND {
         todo {
             public Command perform(String input) {
                 return new AddCommand(new Task(input, false));
@@ -67,7 +73,7 @@ public class Parser {
         public abstract Command perform(String s) throws JoException;
     }
 
-    protected enum INTCOMMAND {
+    protected enum INT_COMMAND {
         mark {
             @Override
             public Command perform(int taskIndex) {

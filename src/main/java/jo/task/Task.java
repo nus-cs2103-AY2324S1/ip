@@ -28,5 +28,7 @@ public class Task {
         return String.format("T | %s | %s", this.isDone ? "1" : "0", this.description);
     }
 
-    public String getDescription() { return this.description; }
+    public String getDescription() {
+        return this.description;
+    }
 }
