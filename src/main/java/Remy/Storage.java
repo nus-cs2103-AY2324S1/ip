@@ -11,10 +11,20 @@ public class Storage {
 
     private Path filePath;
 
+    /**
+     * Constructs a Storage object
+     * @param filePath
+     */
     public Storage(Path filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads existing TaskList from hard disk.
+     * If none exists, creates and returns a new TaskList.
+     * @return TaskList (either newly-created or loaded)
+     * @throws ChatbotException
+     */
     // Solution below adapted from https://stackoverflow.com/questions/10404698/saving-arrays-to-the-hard-disk
     public TaskList load() throws ChatbotException {
         TaskList tasks;
@@ -35,6 +45,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves current TaskList to the hard disk.
+     * @param tasks TaskList to be saved.
+     * @throws ChatbotException
+     */
     // Solution below adapted from https://stackoverflow.com/questions/10404698/saving-arrays-to-the-hard-disk
     public void save(TaskList tasks) throws ChatbotException {
         try {

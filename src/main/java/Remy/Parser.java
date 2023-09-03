@@ -14,6 +14,7 @@ import Remy.command.UnmarkCommand;
  * A class that makes sense of user inputs.
  */
 public class Parser {
+
     /**
      * Parses user input and carries out any follow-up action (e.g. Remy.Remy.Task.Remy.Remy.Task creation).
      * Solution below inspired by addressbook Level 2 implementation.

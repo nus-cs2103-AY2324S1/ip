@@ -8,10 +8,19 @@ import Remy.ChatbotException;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+/**
+ * A Command that deletes the given Task from the TaskList upon executing.
+ */
 public class DeleteCommand extends Command {
     private int index;
     public static final String COMMAND_WORD = "delete";
 
+    /**
+     * Creates new Delete command that parses user input and check that the format is correct.
+     *
+     * @param input The String submitted by the user to the Chatbot.
+     * @throws ChatbotException if input is missing information.
+     */
     public DeleteCommand(String input) throws ChatbotException {
         if (input.length() < 8) throw new ChatbotException("missing info lah.");
         int index = Integer.parseInt(input.substring(7)) - 1;
