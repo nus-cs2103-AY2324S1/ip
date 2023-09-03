@@ -2,6 +2,7 @@ package dot.parser;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import dot.commands.Command;
 import dot.errors.DotException;
 import dot.storage.Storage;
