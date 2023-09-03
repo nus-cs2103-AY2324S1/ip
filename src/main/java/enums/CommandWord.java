@@ -1,18 +1,22 @@
 package enums;
 
-public enum Command {
+public enum CommandWord {
     BYE("bye"),
     LIST("list"),
     MARK("mark"),
     UNMARK("unmark"),
     DELETE("delete"),
+    EXIT("exit"),
     TODO("todo"),
     DEADLINE("deadline"),
     EVENT("event"),
-    NULLCOMMAND("");
+    NULLCOMMAND(""),
+    BY("/by"),
+    FROM("/from"),
+    TO("/to");
     private final String value;
 
-    Command(String value) {
+    CommandWord(String value) {
         this.value = value;
     }
 
@@ -20,8 +24,8 @@ public enum Command {
         return value;
     }
 
-    public static Command commandToValueMap(String value) {
-        for (Command e : values()) {
+    public static CommandWord commandWordToValueMap(String value) {
+        for (CommandWord e : values()) {
             if (e.getValue().equals(value)) {
                 return e;
             }

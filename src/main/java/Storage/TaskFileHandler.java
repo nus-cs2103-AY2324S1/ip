@@ -1,4 +1,4 @@
-package storage;
+package Storage;
 
 import Exceptions.DukeStorageException;
 import Tasks.TaskList;
@@ -10,13 +10,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class TaskFileHandler {
     private static final String FILE_PATH = "data/tasks.json";
 
-    public static ArrayList<Task> readFromFile() {
+    public static TaskList readFromFile() {
         createFileIfNotExists(); // Create the file if it doesn't exist
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Task.class, new TaskAdapter())
@@ -27,12 +25,8 @@ public class TaskFileHandler {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        
-        if (tasks == null) {
-            return new ArrayList<>(1);
-        } else {
-            return new ArrayList<>(Arrays.asList(tasks));
-        }
+
+        return new TaskList(tasks);
     }
 
     public static void saveToFile(TaskList taskList) {
