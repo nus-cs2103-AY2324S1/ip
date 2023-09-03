@@ -21,13 +21,15 @@ public class Duke {
 
     public void run() {
         ui.identity();
-        Scanner userInput = new Scanner(System.in);  // Create a Scanner object
-        String userOutput = userInput.nextLine();  // Read user input
+        Scanner userInput = new Scanner(System.in); // Create a Scanner object
+        String userOutput = userInput.nextLine(); // Read user input
         while (!userOutput.equals("bye")) {
             Boolean isBye = Parser.command(userOutput, inputList);
-            if (isBye) break;
+            if (isBye) {
+                break;
+            }
             storage.createFile(inputList);
-            userOutput = userInput.nextLine();  // Read user input
+            userOutput = userInput.nextLine(); // Read user input
         }
         ui.printBye();
     }

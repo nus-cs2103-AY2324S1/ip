@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Various commands to modify the tasks inside the list.
  */
 public class TaskList {
-    ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
