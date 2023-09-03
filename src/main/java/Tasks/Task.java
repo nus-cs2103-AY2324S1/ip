@@ -1,5 +1,10 @@
 package Tasks;
 
+/**
+ * Task is the abstract class that encapsulates the common methods related to other Task classes.
+ *
+ * @author Sebastian Tay
+ */
 public abstract class Task {
     private boolean isDone;
     private String description;
@@ -19,8 +24,7 @@ public abstract class Task {
     }
 
     /**
-     * updateCompletionStatus will change the current completion status of the task
-     * to true or false if it is currently false or true respectively.
+     * Changes the current completion status of the task to true or false if it is currently false or true respectively.
      */
     public void updateCompletionStatus() {
         //If done, change to not done or false
@@ -46,5 +50,10 @@ public abstract class Task {
 
     public abstract String getType();
 
+    /**
+     * Converts the task into a String containing all its information that will be stored in the saved file.
+     *
+     * @return a String that represents the task instance in the saved file.
+     */
     public abstract String convertToStorageForm();
 }

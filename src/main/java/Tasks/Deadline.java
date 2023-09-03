@@ -5,10 +5,10 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Tasks that need to be done before a specific date/time.
+ *
+ * @author Sebastian Tay
  */
 public class Deadline extends Task{
-    //TODO
-
     final static String SYMBOL = "D";
     protected String by;
 
