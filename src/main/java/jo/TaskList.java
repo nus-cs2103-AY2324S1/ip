@@ -1,11 +1,11 @@
 package jo;
 
-import jo.task.Task;
-import jo.task.Deadline;
-import jo.task.Event;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import jo.task.Deadline;
+import jo.task.Event;
+import jo.task.Task;
 
 public class TaskList {
 

@@ -1,9 +1,5 @@
 package jo;
 
-import jo.task.Deadline;
-import jo.task.Event;
-import jo.task.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -12,8 +8,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import jo.task.Deadline;
+import jo.task.Event;
+import jo.task.Task;
+
 public class Storage {
-    
     private File f;
     private String filePath;
 
@@ -21,7 +20,6 @@ public class Storage {
         this.filePath = filePath;
         this.f = new File(filePath);
     }
-    
     public ArrayList<Task> load() throws JoException {
         ArrayList<Task> taskList = new ArrayList<>();
         try {

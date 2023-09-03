@@ -1,11 +1,11 @@
 package jo;
 
-import jo.task.Task;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import jo.task.Task;
 
 public class Ui {
     private final Scanner scanner;

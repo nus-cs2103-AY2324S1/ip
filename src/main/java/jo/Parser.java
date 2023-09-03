@@ -1,13 +1,13 @@
 package jo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import jo.command.*;
 import jo.task.Deadline;
 import jo.task.Event;
 import jo.task.Task;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class Parser {
 
