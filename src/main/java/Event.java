@@ -13,7 +13,7 @@ public class Event extends Task {
 
     @Override
     public String writeFile() {
-        return "E | " + super.writeFile() + " | from: " + this.from + " | to: " + this.to;
+        return "E | " + super.writeFile() + " | " + this.from + " | " + this.to;
     }
 
     @Override
