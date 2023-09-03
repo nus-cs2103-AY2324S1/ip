@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.time.LocalDate;
 import tasks.Task;
 
+/**
+ * The deadline class represents a deadline. It has a name and a deadline
+ */
 @JsonTypeName("tasks.Deadline")
 public class Deadline extends Task {
 

@@ -11,6 +11,9 @@ import tasks.Task;
 import tasks.TaskList;
 import tasks.Todo;
 
+/**
+ * The Duke class is the main entrypoint for the chatbot. It contains the main logic.
+ */
 public class Duke {
 
     private TaskList taskList;
