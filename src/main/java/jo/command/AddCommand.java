@@ -26,6 +26,9 @@ public class AddCommand extends Command {
     public boolean isExit() {
         return false;
     }
+    public Task getTask() {
+        return this.task;
+    }
 
 
 }
