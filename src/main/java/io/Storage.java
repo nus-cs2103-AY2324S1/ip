@@ -30,7 +30,7 @@ public class Storage {
 
     /**
      * Loads the tasks from the file.
-     * @return ArrayList<Task> The list of tasks
+     * @return The list of tasks
      * @throws DukeException
      */
     public ArrayList<Task> load() throws DukeException {

@@ -14,10 +14,8 @@ public class Duke {
 
     /** Storage to save and load from local. */
     private Storage storage;
-    
     /** List of tasks. */
     private TaskList tasks;
-
     /** User interface */
     private Ui ui;
 
@@ -56,7 +54,6 @@ public class Duke {
             }
         }
     }
-    
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }

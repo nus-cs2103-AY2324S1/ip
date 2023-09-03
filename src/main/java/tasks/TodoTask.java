@@ -1,8 +1,9 @@
 package tasks;
 
+/**
+ * Represents a todo task.
+ */
 public class TodoTask extends Task {
-
-
     /**
      * Constructor for TodoTask.
      * @param description

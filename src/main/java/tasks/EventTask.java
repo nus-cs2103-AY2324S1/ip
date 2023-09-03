@@ -64,7 +64,6 @@ public class EventTask extends Task {
     public LocalDateTime getEndDate() {
         return this.endDate;
     }
-    
     /**
      * Convert the event task to a string to be saved in a file.
      * @return String
