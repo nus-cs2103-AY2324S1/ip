@@ -3,12 +3,12 @@
 	 What can I do for you?
     ________________________________________________
     ________________________________________________
-	Ok you have added this task:
+	Ok you have added this duke.task:
 	[D][ ] return book (by: Monday)
 	Now you have 1 tasks in the list
     ________________________________________________
     ________________________________________________
-	Ok I have added this task:
+	Ok I have added this duke.task:
 	[E][ ] for rc (from: Saturday 9am to: 1pm)
 	Now you have 2 tasks in the list
     ________________________________________________

@@ -1,4 +1,4 @@
-
+package duke.task;
 
 public abstract class Task {
 
@@ -10,9 +10,13 @@ public abstract class Task {
         this.description = description;
         this.isDone = false;
     }
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark done duke.task with X
     }
 
     public String getDescription() {
@@ -32,12 +36,6 @@ public abstract class Task {
         return "[" + getStatusIcon() + "] " + this.description;
     }
 
-    public String toWriteString() {
-        int mark = (this.isDone ? 1 : 0);
-        return mark + " | " + this.description;
-    };
-
-
-
+    public abstract String toWriteString();
 
 }

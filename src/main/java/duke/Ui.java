@@ -1,3 +1,8 @@
+package duke;
+
+import duke.Exception.DukeException;
+import duke.task.Task;
+
 public class Ui {
 
     public void printWelcomeMessage() {
@@ -18,7 +23,7 @@ public class Ui {
         System.out.println("\tGreat! I've marked this task as done:");
         System.out.println("\t" + index + "." + tasks.getTask(index - 1).toString());
         printHorizontalLine();
-        tasks.markTaskAsDone(index - 1);
+
     }
 
 
@@ -27,7 +32,7 @@ public class Ui {
         System.out.println("\tOk! I've marked this task as not done yet:");
         System.out.println("\t" + index + "." + tasks.getTask(index - 1).toString());
         printHorizontalLine();
-        tasks.markTaskAsDone(index - 1);
+
     }
 
     public void printListMessage(TaskList tasks) throws DukeException {
