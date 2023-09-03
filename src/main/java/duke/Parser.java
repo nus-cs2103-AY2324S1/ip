@@ -4,10 +4,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A class that deals with making sense of the input.
+ */
 public class Parser {
 
     public boolean isExit = false;
 
+    /**
+     * Handles the different inputs by checking their first word.
+     *
+     * @param input the input that user entered
+     * @param taskList an arraylist of tasks
+     * @param isLoading a flag to check if the application is restoring
+     */
     public void handleInput(String input, TaskList taskList, Boolean isLoading) {
         if (input.equals("bye")) {
             isExit = true;
@@ -37,9 +47,16 @@ public class Parser {
             this.handleList(taskList);
             return;
         }
-        Ui.printError();
+        if (!isLoading) {
+            Ui.printError();
+        }
     }
 
+    /**
+     * Handles the List input.
+     *
+     * @param taskList an array of tasks
+     */
     public void handleList(TaskList taskList) {
         if (taskList.size() == 0) {
             Ui.printEmptyList();
@@ -47,6 +64,14 @@ public class Parser {
         }
         Ui.printList(taskList);
     }
+
+    /**
+     * Handles inputs that start with mark and unmark.
+     *
+     * @param input the input that user entered
+     * @param taskList an array of tasks
+     * @param isLoading a flag to check if the application is restoring
+     */
 
     public void handleMark(String input, TaskList taskList, Boolean isLoading) {
         String[] parts = input.split(" ");
@@ -69,6 +94,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles inputs that start with delete.
+     *
+     * @param input the input that user entered
+     * @param taskList an array of tasks
+     */
+
     public void handleDelete(String input, TaskList taskList) {
         String[] parts1 = input.split(" ");
         int index = Integer.parseInt(parts1[1]);
@@ -78,6 +110,13 @@ public class Parser {
         Ui.removeTask(deleted, taskList);
     }
 
+    /**
+     * Handles inputs that start with todo.
+     *
+     * @param input the input that user entered
+     * @param taskList an array of tasks
+     * @param isLoading a flag to check if the application is restoring
+     */
     public void handleTodo(String input, TaskList taskList, Boolean isLoading) {
         String[] arr0 = input.split("todo ");
         if (arr0.length == 1) {
@@ -87,6 +126,14 @@ public class Parser {
             AddTask(todo, taskList, isLoading);
         }
     }
+
+    /**
+     * Handles inputs that start with event.
+     *
+     * @param input the input that user entered
+     * @param taskList an array of tasks
+     * @param isLoading a flag to check if the application is restoring
+     */
 
     public void handleEvent(String input, TaskList taskList, Boolean isLoading) {
         try {
@@ -99,6 +146,14 @@ public class Parser {
             Ui.eventExcept();
         }
     }
+
+    /**
+     * Handles inputs that start with deadline.
+     *
+     * @param input the input that user entered
+     * @param taskList an array of tasks
+     * @param isLoading a flag to check if the application is restoring
+     */
 
     public void handleDeadline(String input, TaskList taskList, Boolean isLoading) {
         try {
@@ -115,6 +170,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Converts the string date and time to a LocalDateTime object.
+     *
+     * @param dateTime a String extracted from the deadline input
+     * @return LocalDateTime that allows the reformatting of date and time
+     * @throws DateTimeParseException an exception when the format of date is invalid
+     */
+
     public static LocalDateTime dateFormatter(String dateTime) throws DateTimeParseException {
             String[] inputs = dateTime.split(" ");
             DateTimeFormatter formatter;
@@ -125,6 +188,14 @@ public class Parser {
                 return null;
             }
         }
+
+    /**
+     * Add the individual task into the taskList and saves them into a file.
+     *
+     * @param task includes event, todo and deadline
+     * @param taskList an array of tasks
+     * @param isLoading a flag to check if the application is restoring
+     */
 
     public void AddTask(Task task, TaskList taskList, Boolean isLoading) {
         taskList.add(task);
