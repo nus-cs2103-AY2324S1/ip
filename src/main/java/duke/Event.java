@@ -5,12 +5,22 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+/**
+ * Event class for events that has start and end date or time.
+ */
 public class Event extends Task{
     protected String from;
     //transformed only for printing
     protected String transfromedFrom;
     protected String to;
     protected String transformedTo;
+
+    /**
+     * Constructor for event class
+     * @param description name of the event
+     * @param from start date or time
+     * @param to end date or time
+     */
     public Event (String description, String from, String to) {
         //no extra information for todolist
         super(description);
@@ -26,6 +36,10 @@ public class Event extends Task{
         this.transformedTo = parsed_to.length > 1 ? toDate+ " " + parsed_to[1] : toDate;
     }
 
+    /**
+     * The formatted string to be printed in terminal
+     * @return the formated string that included names and date or time
+     */
     @Override
     public String toString() {
         String first = "[E]" + "[" + this.getStatusIcon() + "] " + this.description + " ";
@@ -33,6 +47,10 @@ public class Event extends Task{
         return first + second;
     }
 
+    /**
+     * The formatted string to be printed in file
+     * @return a formatted string
+     */
     @Override
     public String stringInFile() {
         int status = super.isDone ? 1 : 0;

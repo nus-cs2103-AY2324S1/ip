@@ -6,10 +6,19 @@ import duke.Event;
 import duke.Deadline;
 import duke.Todo;
 
+/**
+ * Parser class for the command
+ */
 public class Parser {
     //return "" to continue without action, any other command to fit
     private String command;
     private String[] parsedStr;
+
+    /**
+     * Parse the fullCommand and get the type of the command
+     * @param fullCommmand everything the user entered in a line
+     * @return type of the command
+     */
     public String parseCommand(String fullCommmand) {
         String parsed_str[] = fullCommmand.split("\\s+");
         this.parsedStr = parsed_str;
@@ -68,6 +77,11 @@ public class Parser {
         return "";
     }
 
+    /**
+     * Parse the index that used by "mark", "unmark" or delete
+     * run after parseCommand
+     * @return the index, in 0-indexed form
+     */
     public int parseToIndex() {
         if (command.equals("mark") || command.equals("unmark") || command.equals("delete")) {
             int index = Integer.parseInt(parsedStr[1]) - 1;
@@ -77,6 +91,11 @@ public class Parser {
         return -1;
     }
 
+    /**
+     * parse the command into task for todo, deadline and event
+     * run after parseCommand
+     * @return a Task
+     */
     public Task parseToTask() {
         //rely on last method, last method must be called before this
         if (this.command.equals("todo")) {
