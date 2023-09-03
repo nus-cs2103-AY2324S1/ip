@@ -15,7 +15,7 @@ public class TaskMate {
     static String defaultSaveTaskFilePath = "./data/saved_tasks.txt";
 
     public enum CommandTypes {
-        list, bye, todo, deadline, event, mark, unmark, delete, help
+        list, bye, todo, deadline, event, mark, unmark, delete, help, find
     }
 
     private Ui ui;

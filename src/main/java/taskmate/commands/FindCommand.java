@@ -13,6 +13,8 @@ public class FindCommand extends Command {
 
     public FindCommand(String query) {
         this.query = query.toLowerCase();
+        this.commandType = "Find";
+        this.isExit = false;
     }
 
     @Override
