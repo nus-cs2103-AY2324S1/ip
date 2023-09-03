@@ -5,8 +5,9 @@ import java.time.LocalTime;
 
 import kiera.exception.KieraException;
 
-
-
+/**
+ * Task to be created. Contains a description, deadline, start date, start time and end time.
+ */
 public class Task {
     private String description;
     private boolean isDone;
@@ -19,6 +20,12 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+
+    /**
+     * Sets the start and end date/time based on the user input.
+     * @param input The input string containing start and end date/time
+     * @throws KieraException If there is an error when parsing the input.
+     */
     public void setStartEnd(String input) throws KieraException {
         try {
             String[] inputs = input.split("/");
@@ -68,20 +75,40 @@ public class Task {
         return this.endTime;
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Marks the task at undone.
+     */
     public void markAsUndone() {
         this.isDone = false;
     }
+
+    /**
+     * Returns a string representation of the date associated with the task.
+     * @return A string representation of the date.
+     */
     public String getDateString() {
         return "";
     }
+
+    /**
+     * Returns a string representation of the task for storage.
+     * @return A string representation of the task for storage.
+     */
     public String toStorageString() {
         return "  // " + this.getStatusIcon() + " // " + this.description;
     }
 
+    /**
+     * Returns a string representation of the task.
+     * @return A string representation of the task.
+     */
     @Override
     public String toString() {
         return "[ ]" + "[" + this.getStatusIcon() + "] " + this.description;

@@ -9,7 +9,9 @@ import kiera.task.Event;
 import kiera.task.Task;
 import kiera.tasktype.TaskType;
 
-
+/**
+ * List of tasks added.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
     public TaskList(ArrayList<Task> tasks) {
@@ -23,14 +25,30 @@ public class TaskList {
         return this.tasks.size();
     }
 
+    /**
+     * Add a task to the list of tasks.
+     *
+     * @param t Task to be added.
+     */
     public void add(Task t) {
         this.tasks.add(t);
     }
 
+    /**
+     * Removes a task from the list of tasks.
+     *
+     * @param t Task to be removed.
+     */
     public void remove(Task t) {
         this.tasks.remove(t);
     }
 
+    /**
+     * Retrieves a task from list by its index.
+     *
+     * @param i Index of the task to be retrieved.
+     * @return Task at the specified index.
+     */
     public Task getTaskByIndex(int i) {
         return this.tasks.get(i - 1);
     }
@@ -39,9 +57,23 @@ public class TaskList {
         return this.tasks;
     }
 
+    /**
+     * Gets index of a task in the list of tasks.
+     *
+     * @param task Task to find the index of.
+     * @return Index of task, if indexes in list started at 1.
+     */
     public int indexOf(Task task) {
         return this.tasks.indexOf(task) + 1;
     }
+
+    /**
+     * Filters tasks in the list of tasks by their type and date.
+     *
+     * @param t Type of tasks to filter.
+     * @param d Date to filter by.
+     * @return A list of tasks of the specified type that match the specified date.
+     */
     public ArrayList<Task> filterByDate(TaskType t, LocalDate d) {
         switch (t) {
         case DEADLINE:
@@ -62,6 +94,11 @@ public class TaskList {
         return new ArrayList<>();
     }
 
+    /**
+     * Checks if the list of tasks is empty.
+     *
+     * @return True if the list of tasks is empty, otherwise return false.
+     */
     public boolean isEmpty() {
         return this.tasks.isEmpty();
     }

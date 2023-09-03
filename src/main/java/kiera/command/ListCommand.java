@@ -1,14 +1,21 @@
 package kiera.command;
 
+import java.util.stream.Collectors;
+
 import kiera.Storage;
 import kiera.TaskList;
 import kiera.Ui;
 
-import java.util.stream.Collectors;
-
+/**
+ * Command to display all tasks in list.
+ */
 public class ListCommand extends Command {
     public ListCommand() {
     }
+
+    /**
+     * @inheritDoc
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.isEmpty()) {
@@ -20,6 +27,9 @@ public class ListCommand extends Command {
         ui.showList(result);
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public boolean isExit() {
         return false;
