@@ -15,6 +15,7 @@ public class Jo {
 
     /**
      * Constructs a new Jo object with the specified file path.
+     *
      * @param filePath The file path for storing task data.
      */
     public Jo(String filePath) {

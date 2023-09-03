@@ -12,6 +12,7 @@ public class ListCommand extends Command {
 
     /**
      * Executes the command, displaying the list of tasks to the user.
+     *
      * @param tasks   The `TaskList` containing tasks to be listed.
      * @param ui      The user interface for displaying the list.
      * @param storage The storage object for loading and saving tasks to a file (unused in this command).
@@ -24,6 +25,7 @@ public class ListCommand extends Command {
 
     /**
      * Checks whether the command results in exiting the application.
+     *
      * @return `false` since listing tasks does not exit the application.
      */
     @Override

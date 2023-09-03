@@ -12,6 +12,7 @@ public class ExitCommand extends Command {
 
     /**
      * Executes the command, triggering the application to exit and displaying a farewell message.
+     *
      * @param tasks   The `TaskList` containing tasks to operate on (unused in this command).
      * @param ui      The user interface for displaying messages and handling the exit.
      * @param storage The storage object for loading and saving tasks to a file (unused in this command).
@@ -24,6 +25,7 @@ public class ExitCommand extends Command {
 
     /**
      * Checks whether the command results in exiting the application.
+     *
      * @return `true` since this command exits the application.
      */
     @Override

@@ -23,6 +23,7 @@ public class Ui {
 
     /**
      * Reads a command entered by the user.
+     *
      * @return The user's input command as a string.
      */
     public String readCommand() {
@@ -47,6 +48,7 @@ public class Ui {
 
     /**
      * Displays an error message to the user.
+     *
      * @param message The error message to display.
      */
     public void showError(String message) {
@@ -55,6 +57,7 @@ public class Ui {
 
     /**
      * Displays a message indicating the result of marking a task as done or undone.
+     *
      * @param task   The task that was marked.
      * @param isDone `true` if the task was marked as done, `false` if marked as undone.
      */
@@ -70,6 +73,7 @@ public class Ui {
 
     /**
      * Displays a message indicating the result of adding or removing a task from the list.
+     *
      * @param task      The task that was added or removed.
      * @param taskList  The updated task list.
      * @param isAdd     `true` if a task was added, `false` if a task was removed.
@@ -86,6 +90,7 @@ public class Ui {
 
     /**
      * Displays a list of tasks that match a specified deadline date.
+     *
      * @param deadline     The deadline date for which tasks are displayed.
      * @param resultList   The list of tasks that match the deadline.
      */
@@ -103,6 +108,7 @@ public class Ui {
 
     /**
      * Displays the list of tasks in the task list.
+     *
      * @param taskList The task list to display.
      */
     public void printList(TaskList taskList) {

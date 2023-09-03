@@ -27,6 +27,7 @@ public class Event extends Task {
 
     /**
      * Returns a formatted string representation of the event task.
+     *
      * @return A string in the format: "[E][Status] Description (from: StartDate to: EndDate)".
      */
     @Override
@@ -41,6 +42,7 @@ public class Event extends Task {
 
     /**
      * Converts the event task to a string format suitable for storing in a file.
+     *
      * @return A string in the format: "E | Status | Description | StartDate | EndDate".
      */
     @Override
@@ -51,6 +53,7 @@ public class Event extends Task {
 
     /**
      * Retrieves the end date of the event task.
+     *
      * @return The end date of the event.
      */
     public LocalDate getDeadline() {

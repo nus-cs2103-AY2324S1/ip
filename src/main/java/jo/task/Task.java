@@ -10,6 +10,7 @@ public class Task {
 
     /**
      * Constructs a new `Task` object with the specified description and completion status.
+     *
      * @param description The description of the task.
      * @param isDone      `true` if the task is marked as done, `false` if it is undone.
      */
@@ -20,6 +21,7 @@ public class Task {
 
     /**
      * Returns the status icon of the task.
+     *
      * @return The status icon ("X" if the task is done, " " if it is undone).
      */
     public String getStatusIcon() {
@@ -28,6 +30,7 @@ public class Task {
 
     /**
      * Returns a formatted string representation of the task.
+     *
      * @return A string in the format: "[T][Status] Description".
      */
     public String toString() {
@@ -36,6 +39,7 @@ public class Task {
 
     /**
      * Marks the task as done or undone.
+     *
      * @param isDone `true` to mark the task as done, `false` to mark it as undone.
      */
     public void mark(boolean isDone) {
@@ -44,6 +48,7 @@ public class Task {
 
     /**
      * Retrieves the completion status of the task.
+     *
      * @return `true` if the task is marked as done, `false` if it is undone.
      */
     public boolean getIsDone() {
@@ -52,6 +57,7 @@ public class Task {
 
     /**
      * Converts the task to a string format suitable for storing in a file.
+     *
      * @return A string in the format: "T | Status | Description".
      */
     public String toFile() {
@@ -60,6 +66,7 @@ public class Task {
 
     /**
      * Retrieves the description of the task.
+     *
      * @return The description of the task.
      */
     public String getDescription() { return this.description; }

@@ -16,6 +16,7 @@ public class CheckCommand extends Command {
 
     /**
      * Constructs a `CheckCommand` object with the specified deadline date to be checked.
+     *
      * @param deadline The deadline date for which tasks will be checked.
      */
     public CheckCommand(LocalDate deadline) {
@@ -24,6 +25,7 @@ public class CheckCommand extends Command {
 
     /**
      * Executes the command, searching for tasks with the specified deadline and displaying the result.
+     *
      * @param tasks   The `TaskList` containing tasks to operate on.
      * @param ui      The user interface for displaying messages.
      * @param storage The storage object for loading and saving tasks to a file.
@@ -36,6 +38,7 @@ public class CheckCommand extends Command {
 
     /**
      * Checks whether the command results in exiting the application.
+     *
      * @return `false` since checking tasks by deadline does not exit the application.
      */
     @Override

@@ -15,6 +15,7 @@ public class MarkCommand extends Command {
 
     /**
      * Constructs a `MarkCommand` object with the specified index of the task and its completion status.
+     *
      * @param index  The index of the task to be marked or unmarked.
      * @param isDone `true` if the task should be marked as done, `false` if it should be marked as undone.
      */
@@ -25,6 +26,7 @@ public class MarkCommand extends Command {
 
     /**
      * Executes the command, marking or unmarking the specified task, updating storage, and displaying the result.
+     *
      * @param tasks   The `TaskList` containing tasks to operate on.
      * @param ui      The user interface for displaying messages.
      * @param storage The storage object for loading and saving tasks to a file.
@@ -43,6 +45,7 @@ public class MarkCommand extends Command {
 
     /**
      * Checks whether the command results in exiting the application.
+     *
      * @return `false` since marking or unmarking a task does not exit the application.
      */
     @Override

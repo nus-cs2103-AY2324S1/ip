@@ -16,8 +16,8 @@ import jo.task.Event;
 import jo.task.Task;
 
 /**
- * responsible for parsing user input and generating corresponding `Command` objects.
- *  * It interprets user commands and creates the appropriate commands to perform tasks in the `Jo` application.
+ * Responsible for parsing user input and generating corresponding `Command` objects.
+ * It interprets user commands and creates the appropriate commands to perform tasks in the `Jo` application.
  */
 public class Parser {
 
@@ -76,6 +76,7 @@ public class Parser {
 
         /**
          * Performs the parsing of the command based on the provided input.
+         *
          * @param s The input string representing the command.
          * @return The corresponding `Command` object.
          * @throws JoException If there is an error parsing the command.
@@ -105,6 +106,7 @@ public class Parser {
 
         /**
          * Performs the parsing of the command based on the provided task index.
+         *
          * @param taskIndex The index of the task associated with the command.
          * @return The corresponding `Command` object.
          */
@@ -113,6 +115,7 @@ public class Parser {
 
     /**
      * Checks if a given input string is present in a specified enum class.
+     *
      * @param input The input string to check.
      * @param enumClass The enum class to check against.
      * @param <E> The enum type.
@@ -129,6 +132,7 @@ public class Parser {
 
     /**
      * Parses the user input and generates the corresponding `Command` object.
+     *
      * @param input The user input command.
      * @return The `Command` object representing the parsed command.
      * @throws JoException If there is an error parsing the command.

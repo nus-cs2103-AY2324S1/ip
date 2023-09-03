@@ -13,6 +13,7 @@ public class Deadline extends Task {
 
     /**
      * Constructs a new `Deadline` object with the specified description, completion status, and deadline date.
+     *
      * @param description The description of the deadline task.
      * @param isDone      `true` if the deadline task is marked as done, `false` if it is undone.
      * @param deadline    The deadline date of the task.
@@ -24,6 +25,7 @@ public class Deadline extends Task {
 
     /**
      * Returns a formatted string representation of the deadline task.
+     *
      * @return A string in the format: "[D][Status] Description (by: DeadlineDate)".
      */
     @Override
@@ -37,6 +39,7 @@ public class Deadline extends Task {
 
     /**
      * Converts the deadline task to a string format suitable for storing in a file.
+     *
      * @return A string in the format: "D | Status | Description | DeadlineDate".
      */
     @Override
@@ -47,6 +50,7 @@ public class Deadline extends Task {
 
     /**
      * Retrieves the deadline date of the deadline task.
+     *
      * @return The deadline date of the task.
      */
     public LocalDate getDeadline() {

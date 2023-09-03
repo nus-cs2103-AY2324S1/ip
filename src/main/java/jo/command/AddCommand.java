@@ -15,6 +15,7 @@ public class AddCommand extends Command {
 
     /**
      * Constructs an `AddCommand` object with the specified task to be added.
+     *
      * @param task The task to be added to the task list.
      */
     public AddCommand(Task task) {
@@ -24,6 +25,7 @@ public class AddCommand extends Command {
 
     /**
      * Executes the command, adding the task to the task list, updating storage, and displaying the result.
+     *
      * @param tasks   The `TaskList` containing tasks to operate on.
      * @param ui      The user interface for displaying messages.
      * @param storage The storage object for loading and saving tasks to a file.
@@ -38,6 +40,7 @@ public class AddCommand extends Command {
 
     /**
      * Checks whether the command results in exiting the application.
+     *
      * @return `false` since adding a task does not exit the application.
      */
     @Override
@@ -47,6 +50,7 @@ public class AddCommand extends Command {
 
     /**
      * Retrieves the task associated with this `AddCommand`.
+     *
      * @return The task to be added to the task list.
      */
     public Task getTask() {
