@@ -10,6 +10,11 @@ public class Task {
     @SerializedName("status")
     private boolean done;
 
+    /**
+     * Base constructor to set Task name.
+     *
+     * @param name name of Task.
+     */
     public Task(String name) {
         this.name = name;
     }

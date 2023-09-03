@@ -1,18 +1,18 @@
 package cyrus.ui;
 
-import cyrus.tasks.Task;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import cyrus.tasks.Task;
+
 /**
  * Utility to handle CLI text printing to ensure uniform output.
  */
 public class Ui {
-    private final static String DELIMITER = "-".repeat(80);
-    private final static int INDENTATION = 4;
+    private static final String DELIMITER = "-".repeat(80);
+    private static final int INDENTATION = 4;
 
     /**
      * Print multiple lines of text with delimiters above and below.
@@ -46,7 +46,7 @@ public class Ui {
         printText(
                 "Got it. I've added this task:",
                 task.toString(),
-                String.format("Now you have %d tasks in the list.", taskListSize)
+                java.lang.String.format("Now you have %d tasks in the list.", taskListSize)
         );
     }
 }

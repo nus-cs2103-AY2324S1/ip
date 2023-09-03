@@ -9,8 +9,7 @@ import java.time.format.DateTimeParseException;
  */
 public class DateUtility {
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMMM " +
-            "yyyy");
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMMM yyyy");
 
     /**
      * Parse a string into a {@code LocalDate} of format {@code dd/MM/yyyy}.

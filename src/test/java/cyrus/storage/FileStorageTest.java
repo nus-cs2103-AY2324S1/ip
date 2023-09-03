@@ -1,12 +1,7 @@
 package cyrus.storage;
 
-import com.google.gson.GsonBuilder;
-import cyrus.adapters.LocalDateAdapter;
-import cyrus.tasks.Deadline;
-import cyrus.tasks.Event;
-import cyrus.tasks.Task;
-import cyrus.tasks.ToDo;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,8 +13,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import com.google.gson.GsonBuilder;
+
+import cyrus.adapters.LocalDateAdapter;
+import cyrus.tasks.Deadline;
+import cyrus.tasks.Event;
+import cyrus.tasks.Task;
+import cyrus.tasks.ToDo;
 
 public class FileStorageTest {
     @Test
@@ -57,14 +59,18 @@ public class FileStorageTest {
         var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         tasks.add(new ToDo("todo task"));
         tasks.add(new Deadline("deadline task", LocalDate.parse("16/08/2023", formatter)));
-        tasks.add(new Event("event task", LocalDate.parse("16/08/2023", formatter), LocalDate.parse(
-                "19/09/2023", formatter)));
+        tasks.add(
+                new Event(
+                        "event task",
+                        LocalDate.parse("16/08/2023", formatter),
+                        LocalDate.parse("19/09/2023", formatter)
+                )
+        );
 
-        var gson =
-                new GsonBuilder()
-                        .excludeFieldsWithModifiers(Modifier.TRANSIENT)
-                        .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-                        .create();
+        var gson = new GsonBuilder()
+                .excludeFieldsWithModifiers(Modifier.TRANSIENT)
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                .create();
 
         File testFile = new File("test_data/test.json");
         testFile.getParentFile().mkdirs();

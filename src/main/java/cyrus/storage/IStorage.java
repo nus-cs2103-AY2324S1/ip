@@ -1,8 +1,8 @@
 package cyrus.storage;
 
-import cyrus.tasks.Task;
-
 import java.util.List;
+
+import cyrus.tasks.Task;
 
 /**
  * Interface to allow different types of storage to be used.

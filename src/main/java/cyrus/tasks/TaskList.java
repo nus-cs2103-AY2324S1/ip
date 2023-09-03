@@ -1,10 +1,10 @@
 package cyrus.tasks;
 
-import cyrus.storage.IStorage;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import cyrus.storage.IStorage;
 
 /**
  * Wrapper around the list of {@code Task}.
@@ -13,6 +13,11 @@ public class TaskList {
     private final List<Task> tasks;
     private final IStorage storage;
 
+    /**
+     * Create TaskList with given {@code Storage} mechanism.
+     *
+     * @param storage {@code IStorage} mechanism to store task list after every action.
+     */
     public TaskList(IStorage storage) {
         this.storage = storage;
         this.tasks = storage.load();

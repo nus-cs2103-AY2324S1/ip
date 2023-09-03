@@ -1,14 +1,14 @@
 package cyrus.commands;
 
+import java.time.LocalDate;
+import java.util.HashMap;
+
 import cyrus.parser.ParseInfo;
 import cyrus.tasks.Event;
 import cyrus.tasks.Task;
 import cyrus.tasks.TaskList;
 import cyrus.ui.Ui;
 import cyrus.utility.DateUtility;
-
-import java.time.LocalDate;
-import java.util.HashMap;
 
 /**
  * Command to add an {@code Event} to the given {@code TaskList}.
@@ -48,13 +48,11 @@ public class AddEventCommand extends Command {
         LocalDate eventToDate = DateUtility.parse(eventTo);
 
         if (eventFromDate == null) {
-            throw new CommandError("Invalid event format: invalid from string, must be format" +
-                    " dd/MM/yyyy");
+            throw new CommandError("Invalid event format: invalid from string, must be format dd/MM/yyyy");
         }
 
         if (eventToDate == null) {
-            throw new CommandError("Invalid event format: invalid to string, must be format" +
-                    " dd/MM/yyyy");
+            throw new CommandError("Invalid event format: invalid to string, must be format dd/MM/yyyy");
         }
 
         Task event = new Event(eventName, eventFromDate, eventToDate);
