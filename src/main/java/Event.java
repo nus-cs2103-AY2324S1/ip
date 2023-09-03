@@ -1,7 +1,16 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Event extends Task {
 
     protected String from;
     protected String to;
+
+    protected LocalDate fromDate;
+    protected LocalDate toDate;
+
+    protected LocalDateTime fromDateTime;
+    protected LocalDateTime toDateTime;
 
     public Event(String description, String from, String to) {
         super(description);
