@@ -67,6 +67,9 @@ public class Parser {
                 }
             } else if (input.equals("bye")) {
                 System.out.println("BYE");
+            } else if (input.startsWith("find ")) {
+                String description = input.substring(5);
+                list.findTask(description, list);
             } else {
                 throw new UnknownCommandException();
             }
