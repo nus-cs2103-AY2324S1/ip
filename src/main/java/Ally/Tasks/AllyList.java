@@ -24,7 +24,7 @@ public class AllyList {
      */
     public void markAsDone(int index) {
         Task task = arr.get(index);
-        task.setMarked();
+        task.setMarkDone();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("\t" + task);
     }
@@ -35,7 +35,7 @@ public class AllyList {
      */
     public void unMarkDone(int index) {
         Task task = arr.get(index);
-        task.notDone();
+        task.setMarkNotDone();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("\t" + task);
     }

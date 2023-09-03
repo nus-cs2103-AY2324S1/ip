@@ -8,28 +8,28 @@ public class TodoTest {
     @Test
     public void getStatusIcon_markAsDone_success(){
         Todo todo = new Todo("Test");
-        todo.setMarked();
+        todo.setMarkDone();
         assertEquals("X", todo.getStatusIcon());
     }
 
     @Test
     public void getStatusIcon_markAsNotDone_success(){
         Todo todo = new Todo("Test");
-        todo.notDone();
+        todo.setMarkNotDone();
         assertEquals(" ", todo.getStatusIcon());
     }
 
     @Test
     public void markAsDone_success(){
         Todo todo = new Todo("Test");
-        todo.setMarked();
+        todo.setMarkDone();
         assertTrue(todo.isDone);
     }
 
     @Test
     public void markAsNotDone_success(){
         Todo todo = new Todo("Test");
-        todo.notDone();
+        todo.setMarkNotDone();
         assertFalse(todo.isDone);
     }
 

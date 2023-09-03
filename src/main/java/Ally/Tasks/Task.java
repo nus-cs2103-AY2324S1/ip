@@ -21,11 +21,11 @@ public class Task {
         return "[" + getStatusIcon() + "] " + this.description;
     }
 
-    public void setMarked() {
+    public void setMarkDone() {
         this.isDone = true;
     }
 
-    public void notDone() {
+    public void setMarkNotDone() {
         this.isDone = false;
     }
 

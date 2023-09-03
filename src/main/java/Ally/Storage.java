@@ -75,7 +75,7 @@ public class Storage {
         }
 
         if (splits[1].equals("1")) {
-            savedTasks.setMarked();
+            savedTasks.setMarkDone();
         }
         return savedTasks;
     }

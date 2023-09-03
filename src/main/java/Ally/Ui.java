@@ -7,9 +7,9 @@ import Ally.Tasks.Task;
 import java.util.Scanner;
 
 public class Ui {
-    private static final String line = "____________________________________________________________";
-    private static final String greeting = "Hello! I'm ALLY\nWhat can I do for you?\n";
-    private static final String bye = "Bye. Hope to see you again soon!";
+    private static final String LINE = "____________________________________________________________";
+    private static final String GREETING = "Hello! I'm ALLY\nWhat can I do for you?\n";
+    private static final String BYE = "Bye. Hope to see you again soon!";
 
     Scanner ipt = new Scanner(System.in);
 
@@ -26,7 +26,7 @@ public class Ui {
      * Prints LINE.
      */
     public static void showLine() {
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     /**
@@ -34,7 +34,7 @@ public class Ui {
      */
     public void start() {
         showLine();
-        System.out.println(greeting);
+        System.out.println(GREETING);
         showLine();
     }
 
@@ -43,9 +43,9 @@ public class Ui {
      * ends the chatbot.
      */
     public void bye() throws AllyException {
-        System.out.println(line);
-        System.out.println(bye);
-        System.out.println(line);
+        System.out.println(LINE);
+        System.out.println(BYE);
+        System.out.println(LINE);
     }
 
     /**
@@ -82,7 +82,7 @@ public class Ui {
      * @param task
      */
     public void showMarked(Task task) {
-        task.setMarked();
+        task.setMarkDone();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("\t" + task);
     }
@@ -93,7 +93,7 @@ public class Ui {
      * @param task
      */
     public void showNotMarked(Task task) {
-        task.notDone();
+        task.setMarkNotDone();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("\t" + task);
     }
