@@ -1,10 +1,11 @@
 package anya.ui;
 
+import static anya.messages.Messages.*;
+
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-import static anya.messages.Messages.*;
 
 /**
  * UI of the application.
@@ -12,10 +13,10 @@ import static anya.messages.Messages.*;
  */
 public class Ui {
 
-    private final static String DIVIDER = "____________________________________________________________";
+    private static final String DIVIDER = "____________________________________________________________";
 
     /** A platform independent line separator. */
-    private final static String LS = System.lineSeparator();
+    private static final String LS = System.lineSeparator();
 
     private final Scanner in;
     private final PrintStream out;

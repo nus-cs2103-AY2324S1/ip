@@ -1,13 +1,17 @@
 package anya.parser;
 
+import java.time.LocalDateTime;
+import java.util.Scanner;
+
 import anya.command.Command;
 import anya.exception.AnyaException;
 import anya.exception.InvalidArgumentException;
 import anya.storage.Storage;
-import anya.task.*;
-
-import java.time.LocalDateTime;
-import java.util.Scanner;
+import anya.task.Deadline;
+import anya.task.Event;
+import anya.task.Task;
+import anya.task.TaskList;
+import anya.task.Todo;
 
 public class Parser {
     private Storage storage;
@@ -18,14 +22,30 @@ public class Parser {
     }
 
     public Command parseCommand(String input) {
-        if (input.equals("bye")) return Command.BYE;
-        if (input.equals("list")) return Command.LIST;
-        if (input.equals("mark")) return Command.MARK;
-        if (input.equals("unmark")) return Command.UNMARK;
-        if (input.equals("todo")) return Command.TODO;
-        if (input.equals("deadline")) return Command.DEADLINE;
-        if (input.equals("event")) return Command.EVENT;
-        if (input.equals("delete")) return Command.DELETE;
+        if (input.equals("bye")) {
+            return Command.BYE;
+        }
+        if (input.equals("list")) {
+            return Command.LIST;
+        }
+        if (input.equals("mark")) {
+            return Command.MARK;
+        }
+        if (input.equals("unmark")) {
+            return Command.UNMARK;
+        }
+        if (input.equals("todo")) {
+            return Command.TODO;
+        }
+        if (input.equals("deadline")) {
+            return Command.DEADLINE;
+        }
+        if (input.equals("event")) {
+            return Command.EVENT;
+        }
+        if (input.equals("delete")) {
+            return Command.DELETE;
+        }
         return Command.UNKNOWN;
     }
 
@@ -54,18 +74,21 @@ public class Parser {
                     case MARK: {
                         // Error: No argument or Multiple arguments provided
                         if (details.isEmpty() || details.split(" ").length != 1) {
-                            throw new InvalidArgumentException("☹ Waku waku! Please only input ONE integer after the word mark!");
+                            throw new InvalidArgumentException("☹ Waku waku! "
+                                    + "Please only input ONE integer after the word mark!");
                         }
                         // Error: Argument provided is not a number
                         try {
                             Integer.parseInt(details);
                         } catch (NumberFormatException e) {
-                            throw new InvalidArgumentException("☹ Waku waku! Please only input INTEGERs after the word mark!");
+                            throw new InvalidArgumentException("☹ Waku waku! "
+                                    + "Please only input INTEGERs after the word mark!");
                         }
                         // Error: Argument provided is not within anya.task numbers
                         int taskNumber = Integer.parseInt(details);
                         if (taskNumber < 1 || taskNumber > tasks.size()) {
-                            throw new InvalidArgumentException("☹ Waku waku! I don't see a task with the number:" + taskNumber);
+                            throw new InvalidArgumentException("☹ Waku waku! "
+                                    + "I don't see a task with the number:" + taskNumber);
                         }
                         // Error: Argument provided is already Done (Future implementation)
 
@@ -78,18 +101,21 @@ public class Parser {
                     case UNMARK: {
                         // Error: No argument or Multiple arguments provided
                         if (details.isEmpty() || details.split(" ").length != 1) {
-                            throw new InvalidArgumentException("☹ Waku waku! Please only input ONE integer after the word unmark!");
+                            throw new InvalidArgumentException("☹ Waku waku! "
+                                    + "Please only input ONE integer after the word unmark!");
                         }
                         // Error: Argument provided is not a number
                         try {
                             Integer.parseInt(details);
                         } catch (NumberFormatException e) {
-                            throw new InvalidArgumentException("☹ Waku waku! Please only input INTEGERs after the word unmark!");
+                            throw new InvalidArgumentException("☹ Waku waku! "
+                                    + "Please only input INTEGERs after the word unmark!");
                         }
                         // Error: Argument provided is not within anya.task numbers
                         int taskNumber = Integer.parseInt(details);
                         if (taskNumber < 1 || taskNumber > tasks.size()) {
-                            throw new InvalidArgumentException("☹ Waku waku! I don't see a task with the number:" + taskNumber);
+                            throw new InvalidArgumentException("☹ Waku waku! "
+                                    + "I don't see a task with the number:" + taskNumber);
                         }
 
                         Task t = tasks.get(taskNumber - 1);
@@ -101,7 +127,8 @@ public class Parser {
                     case TODO: {
                         // Error: No argument provided
                         if (details.isEmpty()) {
-                            throw new InvalidArgumentException("☹ Waku waku! Please input a description after the word todo!");
+                            throw new InvalidArgumentException("☹ Waku waku! "
+                                    + "Please input a description after the word todo!");
                         }
 
                         Task t = new Todo(details);
@@ -161,12 +188,14 @@ public class Parser {
                         try {
                             Integer.parseInt(details);
                         } catch (NumberFormatException e) {
-                            throw new InvalidArgumentException("☹ Waku waku! Please only input INTEGERs after the word unmark!");
+                            throw new InvalidArgumentException("☹ Waku waku! "
+                                    + "Please only input INTEGERs after the word unmark!");
                         }
                         // Error: Argument provided is not within anya.task numbers
                         int taskNumber = Integer.parseInt(details);
                         if (taskNumber < 1 || taskNumber > tasks.size()) {
-                            throw new InvalidArgumentException("☹ Waku waku! I don't see a anya.task with the number:" + taskNumber);
+                            throw new InvalidArgumentException("☹ Waku waku! "
+                                    + "I don't see a anya.task with the number:" + taskNumber);
                         }
 
                         Task t = tasks.get(taskNumber - 1);
@@ -175,6 +204,7 @@ public class Parser {
                         String result = "    Waku waku! I've removed this task:\n" + t;
                         result += "    Now you have " + tasks.size() + " tasks in the list!";
                         System.out.println(result);
+                        break;
                     }
                     default:
                         String result = "☹ Waku waku!!! I'm sorry, but I don't know what that means (yet) :( ";
