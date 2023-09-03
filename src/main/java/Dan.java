@@ -1,6 +1,11 @@
 import java.util.Scanner;
 
 public class Dan {
+    private final static String greets = "\nDan: \n";
+    private static MyList tasks = new MyList(100);
+    private static int n = tasks.size();
+
+
     public static void main(String[] args) {
         hello();
         chat();
@@ -8,9 +13,7 @@ public class Dan {
     }
 
 
-    private final static String greets = "\nDan: \n";
 
-    private static MyList tasks = new MyList(100);
     private static void chat() {
         String text;
         Task currTask;
@@ -30,7 +33,7 @@ public class Dan {
                 }
                 System.out.println(
                         greets + " 哟 做完啦？帮你标记好了！\n " +
-                        currTask.toStringAll() + "\n"
+                        currTask.toString() + "\n"
                 );
             } else if (text.matches("unmark [0-9]+")) {
                 currTask = markTask(text, 1);
@@ -39,14 +42,42 @@ public class Dan {
                 }
                 System.out.println(
                         greets + " 啊？没做完啊 是不小心手滑了么？\n " +
-                        currTask.toStringAll() + "\n"
+                        currTask.toString() + "\n"
                 );
             } else {
-                Task newTask = new Task(text);
-                tasks.add(newTask);
-                System.out.println(greets + " 新任务：" + newTask + "!\n");
+                addTask(text);
             }
         }
+    }
+
+    public static void addTask(String text) {
+        String[] texts = text.split("/");
+        for (int i = 0; i < texts.length; i++) {
+            texts[i] = texts[i].trim();
+        }
+        Task newTask = null;
+        String description;
+        switch (texts.length) {
+            case 1 :
+                description = texts[0].substring(5);
+                newTask = new ToDo(description);
+                break;
+            case 2 :
+                description = texts[0].substring(9);
+                String deadline = texts[1].substring(3);
+                newTask = new Deadline(description, deadline);
+                break;
+            case 3 :
+                description = texts[0].substring(5);
+                String start = texts[1].substring(5);
+                String end = texts[2].substring(3);
+                newTask = new Event(description, start, end);
+                break;
+        }
+        tasks.add(newTask);
+        System.out.println(
+                greets + " 新任务：\n " + newTask +
+                "!\n 现在有" + n + "项任务哦！\n");
     }
 
     private static Task markTask(String text, int id) {
