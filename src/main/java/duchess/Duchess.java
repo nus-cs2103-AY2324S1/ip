@@ -2,6 +2,9 @@ package duchess;
 
 import java.util.Scanner;
 
+/**
+ * The main class used to execute Duchess actions.
+ */
 public class Duchess {
     /**
      * Name for the Duchess AI.
@@ -191,8 +194,7 @@ public class Duchess {
                 try {
                     String searchQuery = Parser.parseSearchTaskCommand(userInput);
                     Duchess.searchTasks(searchQuery);
-                }
-                catch (DuchessException e) {
+                } catch (DuchessException e) {
                     Ui.duchessPrint(e.getMessage());
                     Ui.duchessPrint("(／°▽°)／Try something like this!!");
                     Ui.duchessPrint("search [query]");

@@ -2,6 +2,9 @@ package duchess;
 
 import java.util.regex.Matcher;
 
+/**
+ * A class used to parse user input from the command line.
+ */
 public class Parser {
     /**
      * Returns true if the command would cause Duchess to exit operations.
@@ -211,7 +214,9 @@ public class Parser {
      * @throws DuchessException   if any essential arguments to this command are missing.
      */
     public static Event parseEventCommand(String s) throws DuchessException {
-        Matcher m = Utility.parseRegex(s, "^event( [A-Za-z0-9_ ]+)?( /from( [A-Za-z0-9_ ]+)?)?( /to( [A-Za-z0-9_ ]+)?)?$");
+        Matcher m = Utility.parseRegex(
+                s, "^event( [A-Za-z0-9_ ]+)?( /from( [A-Za-z0-9_ ]+)?)?( /to( [A-Za-z0-9_ ]+)?)?$"
+            );
 
         if (m.group(1) == null) {
             throw new DuchessException("(´；ω；`) Sorry, event names cannot be empty... ;-;");

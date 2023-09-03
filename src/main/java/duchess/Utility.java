@@ -5,6 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * A class to manage Utility functions.
+ */
 public class Utility {
     /**
      * Checks whether the given string matches the given regex pattern.

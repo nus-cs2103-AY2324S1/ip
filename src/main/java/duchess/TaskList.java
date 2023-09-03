@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
+/**
+ * Represents a list of tasks. This is a wrapper around a ArrayList&lt;Task&gt;.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
@@ -17,7 +19,8 @@ public class TaskList {
     }
 
     /**
-     * Constructor taking in a predefined ArrayList of tasks. Initializes a Task List with the same elements as the provided ArrayList.
+     * Constructor taking in a predefined ArrayList of tasks. Initializes a Task List with the same elements
+     * as the provided ArrayList.
      *
      * @param tasksArrayList - an ArrayList of Tasks.
      */
@@ -30,8 +33,8 @@ public class TaskList {
     }
 
     /**
-     * Copy constructor taking in a TaskList. Initializes a new Task List with the same elements as the provided TaskList. Tasks
-     * are not deepcopied, so both TaskLists will now reference the same Tasks.
+     * Copy constructor taking in a TaskList. Initializes a new Task List with the same elements as the provided
+     * TaskList. Tasks are not deepcopied, so both TaskLists will now reference the same Tasks.
      *
      * @param tasksList - a TaskList.
      */
@@ -106,7 +109,7 @@ public class TaskList {
             Task t = this.getTask(i);
 
             // Fails the predicate, should be removed.
-            if(!predicate.test(t)){
+            if (!predicate.test(t)) {
                 newTaskList.removeTask(i);
             }
         }
@@ -115,8 +118,8 @@ public class TaskList {
     }
 
     /**
-     * Filters this TaskList, returning a new TaskList where elements that do not satisfy the predicate are replaced with a null
-     * value instead.
+     * Filters this TaskList, returning a new TaskList where elements that do not satisfy the predicate
+     * are replaced with a null value instead.
      *
      * @param predicate - the predicate to test for.
      * @return            the TaskList with the filter applied.
@@ -129,7 +132,7 @@ public class TaskList {
             Task t = this.getTask(i);
 
             // Fails the predicate, should be removed.
-            if(!predicate.test(t)){
+            if (!predicate.test(t)) {
                 newTaskList.tasks.set(i, null);
             }
         }
@@ -152,7 +155,7 @@ public class TaskList {
      * @param consumer - the BiConsumer to be executed.
      */
     public void forEach(BiConsumer<? super Task, ? super Integer> consumer) {
-        for(int i = 0; i < this.size(); i++) {
+        for (int i = 0; i < this.size(); i++) {
             Task t = this.getTask(i);
 
             consumer.accept(t, i);

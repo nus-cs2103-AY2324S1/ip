@@ -20,7 +20,7 @@ class Event extends Task {
     }
 
     /**
-     * Creates a new Event instance with the provided name, start time, end time and status. The status 
+     * Creates a new Event instance with the provided name, start time, end time and status. The status
      * will be the default status in Task.
      *
      * @param name      - the name of the Event.
@@ -61,7 +61,8 @@ class Event extends Task {
      */
     public static Event fromSaveString(String s) {
         String[] splitString = s.split(Task.SAVE_STRING_DELIMITER);
-        // Not enough arguments; minmally, it needs the Type, the Marked status, the Name, the Start Time, and the End Time.
+        // Not enough arguments; minmally, it needs the Type, the Marked status, the Name, the Start Time,
+        // and the End Time.
         if (splitString.length < 5) {
             return null;
         }
@@ -71,7 +72,7 @@ class Event extends Task {
         String startTime = "";
         String endTime = "";
 
-        if(Integer.parseInt(splitString[1]) == 1) {
+        if (Integer.parseInt(splitString[1]) == 1) {
             taskStatus = TaskStatus.MARKED;
         }
 

@@ -1,5 +1,8 @@
 package duchess;
 
+/**
+ * A class to deal with the UI. This generally involves printing things to the console.
+ */
 public class Ui {
     /**
      * Prints text, but with a consistent formatting in Duchess style.
