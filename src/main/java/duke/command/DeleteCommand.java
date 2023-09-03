@@ -10,7 +10,7 @@ public class DeleteCommand implements Command {
     private final String indexString;
 
     /**
-     * Initialize delete command with specified index.
+     * Initialize delete command with specified index of task list.
      *
      * @param indexString Index to be deleted.
      */
