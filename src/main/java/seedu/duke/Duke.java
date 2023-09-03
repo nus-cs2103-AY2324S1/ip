@@ -7,6 +7,13 @@ import seedu.duke.util.Storage;
 
 import java.io.IOException;
 
+/**
+ * The Duke class represents the TaskMate bot that allows users to
+ * manage tasks by adding, deleting, marking and un-marking tasks.
+ *
+ * @author Win Sheng
+ * @since 3 September 2023
+ */
 public class Duke {
 
     private Storage storage;
@@ -15,6 +22,11 @@ public class Duke {
     private Ui ui;
     public static boolean isDone = false;
 
+    /**
+     * Constructs a new instance of the task bot with the specified file path.
+     *
+     * @param filePath The file path that stores the task data in text format.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -26,6 +38,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the task bot, displaying a welcome message and processing user input.
+     */
     public void run() {
         ui.showWelcome();
         while (!isDone) {
@@ -33,6 +48,11 @@ public class Duke {
         }
     }
 
+    /**
+     * The main entry point for the task bot.
+     *
+     * @param args Not used.
+     */
     public static void main(String[] args) {
         new Duke("./data/seedu.duke.txt").run();
     }

@@ -1,10 +1,19 @@
 package seedu.duke.exception;
 
+/**
+ * Represents an InvalidCommandException that is thrown when an invalid command is entered by the user.
+ *
+ * @author Win Sheng
+ * @since 3 September 2023
+ */
 public class InvalidCommandException extends Exception {
 
+    /**
+     * Constructs a new InvalidCommandException with a default error message and the list of available commands.
+     */
     public InvalidCommandException() {
         super("Invalid Command.\n"
-                + "Below are the list of commands:\n"
+                + "Below are the list of available commands:\n"
                 + "list - displays the list of tasks\n"
                 + "mark x - marks task x as done\n"
                 + "unmark x - marks task x as undone\n"
