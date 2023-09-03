@@ -14,7 +14,6 @@ public class Parser {
     private static String[] splitText;
     public static Command parse(String commandString) throws InvalidCommandException, MissingParametersException,
             InvalidParametersException, InvalidDateFormatException, MissingCommandException {
-
         commandString = commandString.toLowerCase();
         splitText = commandString.split(" ", 2);
         String command = splitText[0];
