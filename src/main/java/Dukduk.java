@@ -1,14 +1,15 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Dukduk {
     public static void main(String[] args) {
+        ArrayList<Task> tasks = loadTasksFromFile("ip-master/src/main/java/data/duke.txt");
         printLine();
         System.out.println(" Hello! I'm Dukduk");
         System.out.println(" What can I do for you?");
         printLine();
 
-        ArrayList<Task> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -36,6 +37,7 @@ public class Dukduk {
                         throw new DukdukException("OOPS!!! The description of a todo cannot be empty.");
                     }
                     tasks.add(new ToDo(input.substring(5)));
+                    saveTasksToFile("ip-master/src/main/java/data/duke.txt", tasks);
                     System.out.println(" Got it. I've added this task:\n   " + tasks.get(tasks.size() - 1).toString());
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                 } else if (input.startsWith("deadline")) {
@@ -46,6 +48,7 @@ public class Dukduk {
                     String description = input.substring(9, byIndex).trim();
                     String by = input.substring(byIndex + 3).trim();
                     tasks.add(new Deadline(description, by));
+                    saveTasksToFile("ip-master/src/main/java/data/duke.txt", tasks);
                     System.out.println(" Got it. I've added this task:\n   " + tasks.get(tasks.size() - 1).toString());
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                 } else if (input.startsWith("event")) {
@@ -58,12 +61,14 @@ public class Dukduk {
                     String from = input.substring(fromIndex + 5, toIndex).trim();
                     String to = input.substring(toIndex + 3).trim();
                     tasks.add(new Event(description, from, to));
+                    saveTasksToFile("ip-master/src/main/java/data/duke.txt", tasks);
                     System.out.println(" Got it. I've added this task:\n   " + tasks.get(tasks.size() - 1).toString());
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                 } else if (input.startsWith("mark")) {
                     int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
                     if (taskIndex >= 0 && taskIndex < tasks.size()) {
                         tasks.get(taskIndex).markAsDone();
+                        saveTasksToFile("ip-master/src/main/java/data/duke.txt", tasks);
                         System.out.println(" Nice! I've marked this task as done:\n ["
                                 + tasks.get(taskIndex).getStatusIcon() + "] "
                                 + tasks.get(taskIndex).getDescription());
@@ -72,6 +77,7 @@ public class Dukduk {
                     int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
                     if (taskIndex >= 0 && taskIndex < tasks.size()) {
                         tasks.get(taskIndex).unmark();
+                        saveTasksToFile("ip-master/src/main/java/data/duke.txt", tasks);
                         System.out.println(" OK, I've marked this task as not done yet:\n ["
                                 + tasks.get(taskIndex).getStatusIcon() + "] "
                                 + tasks.get(taskIndex).getDescription());
@@ -86,6 +92,7 @@ public class Dukduk {
                         int taskIndex = Integer.parseInt(parts[1]) - 1;
                         if (taskIndex >= 0 && taskIndex < tasks.size()) {
                             Task removedTask = tasks.remove(taskIndex);
+                            saveTasksToFile("ip-master/src/main/java/data/duke.txt", tasks);
                             System.out.println(" Noted. I've removed this task:\n   " + removedTask);
                             System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                         } else {
@@ -102,6 +109,51 @@ public class Dukduk {
                 System.out.println(" ☹ " + e.getMessage());
                 printLine();
             }
+        }
+    }
+
+    public static ArrayList<Task> loadTasksFromFile(String filePath) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            File file = new File(filePath);
+
+            if (!file.exists()) {
+                System.out.println("No existing tasks file found. Starting with an empty task list.");
+                return tasks;
+            }
+
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                try {
+                    Task task = Task.createTaskFromDataString(line);
+                    tasks.add(task);
+                    String[] parts = line.split(" \\| ");
+                    if (parts.length >= 2 && parts[1].equals("1")) {
+                        task.markAsDone();
+                    }
+                } catch (DukdukException e) {
+                    System.out.println("Error parsing task data: " + e.getMessage());
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+        return tasks;
+    }
+
+
+    public static void saveTasksToFile(String filePath, ArrayList<Task> tasks) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (Task task : tasks) {
+                writer.write(task.toDataString());
+                writer.newLine();
+            }
+            writer.flush();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
         }
     }
 
