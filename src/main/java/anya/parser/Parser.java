@@ -1,22 +1,43 @@
 package anya.parser;
 
+import java.time.LocalDateTime;
+import java.util.Scanner;
+
 import anya.command.Command;
 import anya.exception.AnyaException;
 import anya.exception.InvalidArgumentException;
 import anya.storage.Storage;
-import anya.task.*;
+import anya.task.Deadline;
+import anya.task.Event;
+import anya.task.Task;
+import anya.task.TaskList;
+import anya.task.Todo;
 
-import java.time.LocalDateTime;
-import java.util.Scanner;
-
+/**
+ * The `Parser` class is responsible for interpreting user input and executing corresponding actions in the Anya application.
+ * It handles parsing commands, validating arguments, and performing the appropriate operations on tasks and data storage.
+ */
 public class Parser {
     private Storage storage;
     private TaskList tasks;
+
+    /**
+     * Constructs a new `Parser` instance with the specified storage and task list.
+     *
+     * @param storage The storage component responsible for saving and loading task data.
+     * @param tasks   The task list containing the user's tasks.
+     */
     public Parser(Storage storage, TaskList tasks) {
         this.storage = storage;
         this.tasks = tasks;
     }
 
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param input The user input to be parsed.
+     * @return The command represented by the user input, or {@code Command.UNKNOWN} if the input is not recognized.
+     */
     public Command parseCommand(String input) {
         if (input.equals("bye")) return Command.BYE;
         if (input.equals("list")) return Command.LIST;
@@ -29,6 +50,12 @@ public class Parser {
         return Command.UNKNOWN;
     }
 
+    /**
+     * Executes the core functionality of parsing user input and performing relevant actions.
+     * This method reads user input, parses it, and executes the appropriate command based on the parsed input.
+     * It handles various command types and associated error checks, displaying appropriate messages and performing
+     * actions like marking tasks as done, adding tasks, deleting tasks, and more.
+     */
     public void parse() {
         Scanner sc = new Scanner(System.in);
 
@@ -54,7 +81,8 @@ public class Parser {
                     case MARK: {
                         // Error: No argument or Multiple arguments provided
                         if (details.isEmpty() || details.split(" ").length != 1) {
-                            throw new InvalidArgumentException("☹ Waku waku! Please only input ONE integer after the word mark!");
+                            throw new InvalidArgumentException("☹ Waku waku! "
+                                    + "Please only input ONE integer after the word mark!");
                         }
                         // Error: Argument provided is not a number
                         try {
@@ -175,6 +203,7 @@ public class Parser {
                         String result = "    Waku waku! I've removed this task:\n" + t;
                         result += "    Now you have " + tasks.size() + " tasks in the list!";
                         System.out.println(result);
+                        break;
                     }
                     default:
                         String result = "☹ Waku waku!!! I'm sorry, but I don't know what that means (yet) :( ";
