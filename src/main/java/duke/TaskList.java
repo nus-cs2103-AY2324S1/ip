@@ -81,4 +81,14 @@ public class TaskList {
     public void addTask(Task task) {
         this.taskList.add(task);
     }
+
+    public ArrayList<Task> filterTaskByKeyword(String keyword) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.getDescription().contains(keyword)) {
+                result.add(task);
+            }
+        }
+        return result;
+    }
 }

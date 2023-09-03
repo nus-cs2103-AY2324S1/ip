@@ -2,6 +2,7 @@ package duke;
 
 import java.util.Scanner;
 import duke.task.Task;
+import java.util.ArrayList;
 
 /**
  * This class handles the texts that are printed for the users to view
@@ -31,5 +32,14 @@ public class Ui {
 
     public void showTaskMarked(Task task) {
         System.out.println("Nice! I've marked this task as done:\n " + task);
+    }
+
+    public void showFilteredTasksList(ArrayList<Task> tasks) {
+        System.out.println("Here are the matching tasks in your list: ");
+        int count = 1;
+        for (Task task : tasks) {
+            System.out.println(count + ". " + task.toString());
+            count++;
+        }
     }
 }
