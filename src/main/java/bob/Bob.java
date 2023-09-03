@@ -62,7 +62,5 @@ public class Bob {
         Command c = Parser.parse(input);
         return c.execute(tasks, ui, storage);
     }
-
-
 }
 
