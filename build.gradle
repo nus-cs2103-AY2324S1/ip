@@ -31,6 +31,8 @@ application {
     mainClass.set("duke.ChatterBox")
 }
 
+mainClassName = 'duke.ChatterBox'
+
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
