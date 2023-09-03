@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 class TaskList {
     private ArrayList<Task> tasks;
-    private String filePath = "./src/main/java/duke.txt";
+    private String filePath = "src/main/java/duke.txt";
 
     public TaskList() {
         tasks = new ArrayList<>();
@@ -97,9 +97,9 @@ class TaskList {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-
+        sb.append(" Here are the tasks in your list:\n");
         if (!tasks.isEmpty()) {
-            sb.append(" Here are the tasks in your list:\n");
+
             for (int i = 0; i < tasks.size(); i++) {
                 sb.append(" ").append(i + 1).append(".").append(tasks.get(i));
                 sb.append("\n");

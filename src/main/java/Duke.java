@@ -22,7 +22,6 @@ public class Duke {
                     System.out.println("____________________________________________________________");
                     break;
                 } else if (command.equalsIgnoreCase("list")) {
-                    System.out.println(" Here are the tasks in your list:");
                     tasks.saveTasksToFile();
                     System.out.print(tasks);
                 } else if (command.startsWith("mark")) {
