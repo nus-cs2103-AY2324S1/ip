@@ -1,2 +1,3 @@
-Todo,five,true
-Todo,hello,false
+Todo,swim,true
+Event,Swimming Competition,false,2pm,4pm
+Todo,Fishing,true

@@ -2,8 +2,7 @@ package Models;
 
 import java.util.ArrayList;
 
-import static Database.Dbops.loadTasksFromFile;
-import static Database.Dbops.saveTasksToFile;
+import static Database.Dbops.*;
 import static Printers.BasicOutputPrinter.printBasicOutput;
 
 /**
@@ -14,10 +13,7 @@ public class TaskArray extends ArrayList<Task> {
     /**
      * Constructor for a new TaskArray.
      */
-    public TaskArray() {
-        // Load tasks from file in the constructor
-        loadTasksFromFile(this);
-    }
+    public TaskArray() {}
 
     /**
      * Checks if TaskArray is empty.
@@ -37,7 +33,7 @@ public class TaskArray extends ArrayList<Task> {
     public void addTask(Task task) {
         this.add(task);
         // Save tasks to file whenever the list changes
-        saveTasksToFile(this);
+        saveNewTaskToFile(this);
     }
 
     /**
@@ -72,9 +68,7 @@ public class TaskArray extends ArrayList<Task> {
     }
 
     public void modifyTask(int index, Task modifiedTask) {
-        set(index, modifiedTask);
-        // Save tasks to file whenever the list changes
-        saveTasksToFile(this);
+
     }
 
     /**

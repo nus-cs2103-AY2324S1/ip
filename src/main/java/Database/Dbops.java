@@ -27,6 +27,17 @@ public class Dbops {
     private static final String FILENAME = "memory.txt";
 
     /**
+     * Initializes the Task Array and loads data from memory file, or initializes a memory file if not found.
+     *
+     * @return
+     */
+    public static TaskArray initializeDatabase() {
+        TaskArray tasks  = new TaskArray();
+        loadTasksFromFile(tasks);
+        return tasks;
+    }
+
+    /**
      * Creates the memory file, based on the filepath and filename.
      */
     private static void createMemoryFile() {
@@ -70,11 +81,11 @@ public class Dbops {
                 String[] parts = line.split(",");
                 boolean isMarked = Objects.equals(parts[2], "true");
 
-                if (Objects.equals(parts[0], "Todo")) {
+                if (Objects.equals(parts[0], "Todo") && parts.length == 3) {
                     taskArray.add(new ToDo(parts[1], isMarked));
-                } else if (Objects.equals(parts[0], "Deadline")) {
+                } else if (Objects.equals(parts[0], "Deadline") && parts.length == 4) {
                     taskArray.add(new Deadline(parts[1], isMarked, parts[3]));
-                } else if (Objects.equals(parts[0], "Event")) {
+                } else if (Objects.equals(parts[0], "Event") && parts.length == 5) {
                     taskArray.add(new Event(parts[1], isMarked, parts[3], parts[4]));
                 } else {
                     throw new DukeCorruptedDataException("Error: file is corrupted. Failed to load data from file.");
