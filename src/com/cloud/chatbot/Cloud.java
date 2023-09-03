@@ -15,20 +15,35 @@ import com.cloud.chatbot.token.TokenManager;
 /**
  * The chatbot's main class.
  */
-public class Cloud {
+public final class Cloud {
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final List<Todo> TODOS = new ArrayList<>();
 
     private static void handle(String input) {
         TokenManager manager = new TokenManager(input);
         switch (manager.getCommand()) {
-        case "":
-            Cloud.say("Please enter a valid command.");
+        case "todo":
+        case "t":
+        case "deadline":
+        case "d":
+        case "event":
+        case "e":
+        case "add": {
+            if (manager.getDescription().length() <= 0) {
+                Cloud.say("Please enter a description for your TODO.");
+                break;
+            }
+
+            Todo todo = Cloud.createTodo(manager);
+            Cloud.TODOS.add(todo);
+            Cloud.say(todo.toString(Cloud.TODOS.size()));
             break;
+        }
         case "list":
+        case "l":{
             if (Cloud.TODOS.size() <= 0) {
                 Cloud.say("Your TODO list is empty.");
-                return;
+                break;
             }
 
             for (int i = 0; i < Cloud.TODOS.size(); i++) {
@@ -36,10 +51,12 @@ public class Cloud {
                 Cloud.say(todo.toString(i + 1));
             }
             break;
-        case "mark": {
+        }
+        case "mark":
+        case "m": {
             Integer number = Cloud.verifyNumber(manager);
             if (number == null) {
-                return;
+                break;
             }
 
             Todo todo = Cloud.TODOS.get(number - 1);
@@ -47,10 +64,11 @@ public class Cloud {
             Cloud.say(todo.toString(number));
             break;
         }
-        case "unmark": {
+        case "unmark":
+        case "un": {
             Integer number = Cloud.verifyNumber(manager);
             if (number == null) {
-                return;
+                break;
             }
 
             Todo todo = Cloud.TODOS.get(number - 1);
@@ -59,15 +77,27 @@ public class Cloud {
             break;
         }
         case "bye":
+        case "exit":
+        case "quit":
+        case "q":
+        case "done": {
             Cloud.say("\\o");
             System.exit(0);
             break;
-        default:
-            // Stores new TODO
-            Todo todo = Cloud.createTodo(manager);
-            Cloud.TODOS.add(todo);
-            Cloud.say(todo.toString(Cloud.TODOS.size()));
+        }
+        default: {
+            if (manager.getCommand().length() <= 0) {
+                break;
+            }
+
+            Cloud.say(
+                String.format(
+                    "\"%s\" is not a valid command.",
+                    manager.getCommand()
+                )
+            );
             break;
+        }
         }
     }
 
@@ -77,12 +107,12 @@ public class Cloud {
         TokenManager inputTo = manager.findFlag("to");
 
         if (inputBy != null) {
-            return new Deadline(manager.toString(), inputBy.toString());
+            return new Deadline(manager.getDescription(), inputBy.toString());
         }
         if (inputFrom != null && inputTo != null) {
-            return new Event(manager.toString(), inputFrom.toString(), inputTo.toString());
+            return new Event(manager.getDescription(), inputFrom.toString(), inputTo.toString());
         }
-        return new Todo(manager.toString());
+        return new Todo(manager.getDescription());
     }
 
     private static Integer verifyNumber(TokenManager manager) {
@@ -106,13 +136,13 @@ public class Cloud {
             Cloud.say(
                 String.format(
                     "TODO #%d does not exist.",
-                    numberToken.asInt()
+                    numberToken.toInt()
                 )
             );
             return null;
         }
 
-        return numberToken.asInt();
+        return numberToken.toInt();
     }
 
     private static void say(String text) {

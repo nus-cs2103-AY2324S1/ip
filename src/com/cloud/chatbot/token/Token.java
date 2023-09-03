@@ -19,7 +19,7 @@ public class Token {
         this.token = _token;
     }
 
-    private Integer toInt() {
+    private Integer toInteger() {
         try {
             return Integer.parseInt(token);
         } catch (NumberFormatException e) {
@@ -35,19 +35,21 @@ public class Token {
      * Whether the token can be converted to a valid integer.
      */
     public boolean isInt() {
-        Integer integer = this.toInt();
+        Integer integer = this.toInteger();
         return integer != null;
     }
 
     /**
      * Returns the token as an integer.
      *
+     * Use isInt() to check if this is possible.
+     *
      * @return Defaults to -1 if the token cannot be converted to a valid integer.
      */
-    public int asInt() {
+    public int toInt() {
         if (!this.isInt()) return -1;
 
-        return this.toInt();
+        return this.toInteger();
     }
 
     /**
@@ -58,7 +60,7 @@ public class Token {
     public boolean isValidNumber(List<Todo> todos) {
         if (!this.isInt()) return false;
 
-        int number = this.asInt();
+        int number = this.toInt();
 
         if (number < 0 || number > todos.size()) {
             return false;
@@ -76,11 +78,13 @@ public class Token {
     /**
      * Returns the text portion of the flag.
      *
+     * Use isFlag() to check if this makes sense.
+     *
      * @return Defaults to "" if the token is not actually a flag.
      */
     public String getFlag() {
         if (!this.isFlag()) return "";
 
-        return this.token.substring(1);
+        return this.token.substring(Token.PREFIX_FLAG.length()).toLowerCase();
     }
 }

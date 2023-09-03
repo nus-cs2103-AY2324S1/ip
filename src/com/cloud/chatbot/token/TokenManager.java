@@ -50,7 +50,15 @@ public class TokenManager {
     }
 
     public TokenManager(List<Token> _tokens) {
+        // Assumption: The passed list will not be mutated externally
         this.tokens = _tokens;
+    }
+
+    private static String tokensToString(List<Token> tokens) {
+        return tokens
+            .stream()
+            .map(Token::get)
+            .collect(Collectors.joining(" "));
     }
 
     private int findFlagSetEnd(int startIndex) {
@@ -88,10 +96,7 @@ public class TokenManager {
 
     @Override
     public String toString() {
-        return this.tokens
-                .stream()
-                .map(Token::get)
-                .collect(Collectors.joining(" "));
+        return TokenManager.tokensToString(this.tokens);
     }
 
     public List<Token> getTokens() {
@@ -108,13 +113,28 @@ public class TokenManager {
             return "";
         }
 
-        return this.tokens.get(0).get();
+        return this.tokens.get(0).get().toLowerCase();
+    }
+
+    /**
+     * Returns all rejoined tokens except the command.
+     *
+     * @return Defaults to "" if the user input is too short.
+     */
+    public String getDescription() {
+        if (this.tokens.size() <= 1) {
+            return "";
+        }
+
+        List<Token> descriptionTokens = new ArrayList<>(this.tokens);
+        descriptionTokens.remove(0);
+        return TokenManager.tokensToString(descriptionTokens);
     }
 
     /**
      * Returns the TokenManager for the specified flag, if it exists.
      *
-     * @return Defaults to null if no such flag exists.
+     * @return null if no such flag exists.
      */
     public TokenManager findFlag(String flag) {
         return this.flagSets.get(flag);
