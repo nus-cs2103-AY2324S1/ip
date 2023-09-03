@@ -14,29 +14,29 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 public class Task {
 
-  private String description;
-  private Boolean done;
+    private String description;
+    private Boolean done;
 
-  public Task(String desc) {
-    this.description = desc;
-    this.done = false;
+    public Task(String desc) {
+        this.description = desc;
+        this.done = false;
 
-  }
+    }
 
-  public void setDone() {
-    this.done = true;
-  }
+    public void setDone() {
+        this.done = true;
+    }
 
-  public void setUnDone() {
-    this.done = false;
-  }
+    public void setUnDone() {
+        this.done = false;
+    }
 
-  public String getDoneIcon() {
-    return this.done ? "X" : " ";
-  }
+    public String getDoneIcon() {
+        return this.done ? "X" : " ";
+    }
 
-  public String getDescription() {
-    return this.description;
-  }
+    public String getDescription() {
+        return this.description;
+    }
 
 }

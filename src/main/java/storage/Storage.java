@@ -18,55 +18,55 @@ import tasks.TaskList;
 
 public class Storage {
 
-  private TaskList taskList;
-  private ObjectMapper taskMapper;
+    private TaskList taskList;
+    private ObjectMapper taskMapper;
 
-  public Storage(TaskList tasks) {
-    this.taskList = tasks;
-    this.taskMapper = new ObjectMapper();
-    this.taskMapper.registerModule(new JavaTimeModule());
-    PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
-        .allowIfSubType("java.util.ArrayList")
-        .allowIfSubType("ReceivedTasks")
-        .allowIfSubType("tasks.Task")
-        .build();
-    this.taskMapper.activateDefaultTyping(ptv, DefaultTyping.NON_FINAL);
-    this.taskMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
-  }
-
-  public void loadTasks() {
-
-    try {
-      Path filePath = Paths.get("tasks.json");
-      String content = new String(Files.readAllBytes(filePath));
-      TaskList plist = this.taskMapper.readValue(content, TaskList.class);
-      for (int i = 0; i < plist.size(); i++) {
-        Task wow = plist.get(i);
-        taskList.add(wow);
-      }
-
-    } catch (IOException ex) {
-      System.out.println(ex.getMessage() + " not found! No list loaded!");
+    public Storage(TaskList tasks) {
+        this.taskList = tasks;
+        this.taskMapper = new ObjectMapper();
+        this.taskMapper.registerModule(new JavaTimeModule());
+        PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
+            .allowIfSubType("java.util.ArrayList")
+            .allowIfSubType("ReceivedTasks")
+            .allowIfSubType("tasks.Task")
+            .build();
+        this.taskMapper.activateDefaultTyping(ptv, DefaultTyping.NON_FINAL);
+        this.taskMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
     }
 
-  }
+    public void loadTasks() {
 
+        try {
+            Path filePath = Paths.get("tasks.json");
+            String content = new String(Files.readAllBytes(filePath));
+            TaskList plist = this.taskMapper.readValue(content, TaskList.class);
+            for (int i = 0; i < plist.size(); i++) {
+                Task wow = plist.get(i);
+                taskList.add(wow);
+            }
 
-  // given the original tasklist, save the tasks into a json file
-  public void saveTasks() {
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage() + " not found! No list loaded!");
+        }
 
-    try {
-
-      Path filePath = Paths.get("tasks.json");
-      String output =
-          this.taskMapper.writeValueAsString(taskList);
-      Files.write(filePath, output.getBytes());
-
-    } catch (JsonProcessingException ex) {
-      System.out.println("something went wrong");
-    } catch (IOException ex) {
-      System.out.println("Unable to save to file!");
     }
 
-  }
+
+    // given the original tasklist, save the tasks into a json file
+    public void saveTasks() {
+
+        try {
+
+            Path filePath = Paths.get("tasks.json");
+            String output =
+                this.taskMapper.writeValueAsString(taskList);
+            Files.write(filePath, output.getBytes());
+
+        } catch (JsonProcessingException ex) {
+            System.out.println("something went wrong");
+        } catch (IOException ex) {
+            System.out.println("Unable to save to file!");
+        }
+
+    }
 }

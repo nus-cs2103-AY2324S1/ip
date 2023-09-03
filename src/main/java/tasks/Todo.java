@@ -7,14 +7,14 @@ import tasks.Task;
 public class Todo extends Task {
 
 
-  public static final String taskType = "T";
+    public static final String taskType = "T";
 
-  public Todo() {
-    super("");
-  }
+    public Todo() {
+        super("");
+    }
 
-  public Todo(String desc) {
-    super(desc);
-  }
+    public Todo(String desc) {
+        super(desc);
+    }
 
 }
