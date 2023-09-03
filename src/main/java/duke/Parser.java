@@ -41,86 +41,78 @@ public class Parser {
         String command = inputArr[0];
         switch(command) {
         case "list":
-            Duke.listTasks();
-            return "list";
+            return Duke.listTasks();
         case "find":
-            parseFilter(userInput);
-            return "find";
+            return parseFilter(userInput);
         case "mark":
-            parseMark(userInput, taskListSize);
-            return "mark";
+            return parseMark(userInput, taskListSize);
         case "unmark":
-            parseUnmark(userInput, taskListSize);
-            return "unmark";
+            return parseUnmark(userInput, taskListSize);
         case "delete":
-            parseDelete(userInput, taskListSize);
-            return "delete";
+            return parseDelete(userInput, taskListSize);
         case "todo":
-            parseTodo(userInput);
-            return "todo";
+            return parseTodo(userInput);
         case "deadline":
-            parseDeadline(userInput);
-            return "deadline";
+            return parseDeadline(userInput);
         case "event":
-            parseEvent(userInput);
-            return "event";
+            return parseEvent(userInput);
         default:
             throw new UnknownCommandException();
         }
     }
 
-    private static void parseFilter(String userInput)
+    private static String parseFilter(String userInput)
             throws DukeException {
         String restOfInput = userInput.trim().substring(4).trim();
         if (restOfInput.equals("")) {
             throw new DukeException("No keyword was provided, please enter again.");
         }
-        Duke.listFilteredTasks(restOfInput);
+        return Duke.listFilteredTasks(restOfInput);
     }
 
-    private static void parseMark(String userInput, int taskListSize)
+    private static String parseMark(String userInput, int taskListSize)
             throws InvalidIndexException {
         String restOfInput = userInput.trim().substring(4).trim();
         try {
             int taskNum = Integer.parseInt(restOfInput);
-            Duke.mark(taskNum);
+            return Duke.mark(taskNum);
         } catch (NumberFormatException | DukeException e) {
             throw new InvalidIndexException(taskListSize);
         }
     }
 
-    private static void parseUnmark(String userInput, int taskListSize)
+    private static String parseUnmark(String userInput, int taskListSize)
             throws InvalidIndexException {
         String restOfInput = userInput.trim().substring(6).trim();
         try {
             int taskNum = Integer.parseInt(restOfInput);
-            Duke.unmark(taskNum);
+            return Duke.unmark(taskNum);
         } catch (NumberFormatException | DukeException e) {
             throw new InvalidIndexException(taskListSize);
         }
     }
 
-    private static void parseDelete(String userInput, int taskListSize)
+    private static String parseDelete(String userInput, int taskListSize)
             throws InvalidIndexException {
         String restOfInput = userInput.trim().substring(6).trim();
         try {
             int taskNum = Integer.parseInt(restOfInput);
-            Duke.deleteTask(taskNum);
+            return Duke.deleteTask(taskNum);
         } catch (NumberFormatException | DukeException e) {
             throw new InvalidIndexException(taskListSize);
         }
     }
 
-    private static void parseTodo(String userInput)
+    private static String parseTodo(String userInput)
             throws InvalidTodoException {
         String restOfInput = userInput.trim().substring(4).trim();
         if (restOfInput.equals("")) {
             throw new InvalidTodoException();
         }
-        Duke.createTodo(restOfInput);
+        return Duke.createTodo(restOfInput);
     }
 
-    private static void parseDeadline(String userInput)
+    private static String parseDeadline(String userInput)
             throws InvalidDeadlineException {
         String restOfInput = userInput.trim().substring(8).trim();
         try {
@@ -139,13 +131,13 @@ public class Parser {
             if (desc.equals("") || deadline.equals("")) {
                 throw new InvalidDeadlineException();
             }
-            Duke.createDeadline(desc, deadline);
+            return Duke.createDeadline(desc, deadline);
         } catch (DateTimeParseException e) {
             throw new InvalidDeadlineException();
         }
     }
 
-    private static void parseEvent(String userInput)
+    private static String parseEvent(String userInput)
             throws InvalidEventException {
         String restOfInput = userInput.trim().substring(5).trim();
         try {
@@ -165,7 +157,7 @@ public class Parser {
             if (desc.equals("") || start.equals("") || end.equals("")) {
                 throw new InvalidEventException();
             }
-            Duke.createEvent(desc, start, end);
+            return Duke.createEvent(desc, start, end);
         } catch (DateTimeParseException e) {
             throw new InvalidEventException();
         }

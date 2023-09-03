@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import exceptions.DukeException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -33,95 +34,104 @@ public class Duke extends Application {
      * Marks task as done.
      *
      * @param index Index of task.
+     * @return
      * @throws DukeException If index is out of range.
      */
-    public static void mark(int index)
+    public static String mark(int index)
             throws DukeException {
         Task task = Duke.taskList.markTaskAsDone(index);
         storage.saveChanges(Duke.taskList);
-        Ui.printMarkingOfTask(task);
+        return Ui.printMarkingOfTask(task);
     }
 
     /**
      * Marks task as not done.
      *
      * @param index Index of task.
+     * @return
      * @throws DukeException If index is out of range.
      */
-    public static void unmark(int index)
+    public static String unmark(int index)
             throws DukeException {
         Task task = Duke.taskList.unmarkTask(index);
         storage.saveChanges(Duke.taskList);
-        Ui.printUnmarkingOfTask(task);
+        return Ui.printUnmarkingOfTask(task);
     }
 
     /**
      * Deletes task.
      *
      * @param index Index of task.
+     * @return
      * @throws DukeException If index is out of range.
      */
-    public static void deleteTask(int index)
+    public static String deleteTask(int index)
             throws DukeException {
         Task task = Duke.taskList.deleteTask(index);
         storage.saveChanges(Duke.taskList);
-        Ui.printDeletingOfTask(task, Duke.taskList.getSize());
+        return Ui.printDeletingOfTask(task, Duke.taskList.getSize());
     }
 
     /**
      * Creates todo task.
      *
      * @param desc Description of task.
+     * @return
      */
-    public static void createTodo(String desc) {
+    public static String createTodo(String desc) {
         Task task = Duke.taskList.addTodo(desc, 0);
         storage.saveChanges(Duke.taskList);
-        Ui.printAddingOfTask(task, Duke.taskList.getSize());
+        return Ui.printAddingOfTask(task, Duke.taskList.getSize());
     }
 
     /**
      * Creates deadline task.
      *
-     * @param desc Description of task.
+     * @param desc     Description of task.
      * @param deadline Deadline date/time.
+     * @return
      * @throws DateTimeParseException If deadline doesn't match format "yyyy-MM-dd HHmm".
      */
-    public static void createDeadline(String desc, String deadline)
+    public static String createDeadline(String desc, String deadline)
             throws DateTimeParseException {
         Task task = Duke.taskList.addDeadline(desc, deadline, 0);
         storage.saveChanges(Duke.taskList);
-        Ui.printAddingOfTask(task, Duke.taskList.getSize());
+        return Ui.printAddingOfTask(task, Duke.taskList.getSize());
     }
 
     /**
      * Creates event task.
      *
-     * @param desc Description of task.
+     * @param desc  Description of task.
      * @param start Start date/time.
-     * @param end End date/time.
+     * @param end   End date/time.
+     * @return
      * @throws DateTimeParseException If start/end don't match format "yyyy-MM-dd HHmm".
      */
-    public static void createEvent(String desc, String start, String end)
+    public static String createEvent(String desc, String start, String end)
             throws DateTimeParseException {
         Task task = Duke.taskList.addEvent(desc, start, end, 0);
         storage.saveChanges(Duke.taskList);
-        Ui.printAddingOfTask(task, Duke.taskList.getSize());
+        return Ui.printAddingOfTask(task, Duke.taskList.getSize());
     }
 
     /**
      * Prints out current tasks.
+     *
+     * @return
      */
-    public static void listTasks() {
-        Ui.printTaskList(Duke.taskList);
+    public static String listTasks() {
+        return Ui.printTaskList(Duke.taskList);
     }
 
     /**
      * Prints list of filtered tasks.
      *
      * @param keyword String of list of filtered tasks.
+     * @return
      */
-    public static void listFilteredTasks(String keyword) {
-        Ui.printMessage(Duke.taskList.getMatchingTasks(keyword));
+    public static String listFilteredTasks(String keyword) {
+        return Duke.taskList.getMatchingTasks(keyword);
     }
 
     /**
@@ -138,6 +148,7 @@ public class Duke extends Application {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
         String bye = "bye";
+        String output = "";
 
         while (!userInput.toLowerCase().equals(bye)) {
             try {
@@ -162,6 +173,9 @@ public class Duke extends Application {
     private void handleUserInput(VBox dialogContainer, TextField userInput) {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
+        if (userInput.getText().trim().toLowerCase().equals("bye")) {
+            Platform.exit();
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke))
@@ -173,8 +187,21 @@ public class Duke extends Application {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
-        return "Duke heard: " + input;
+    private String getResponse(String userInput) {
+//        return "Duke heard: " + userInput;
+
+        if (userInput.trim().toLowerCase().equals("bye")) {
+            return Ui.printOutro();
+        }
+
+        String output = "";
+        try {
+            output = Parser.parseUserInput(userInput, Duke.taskList.getSize());
+        } catch (RuntimeException e) {
+            output = e.getMessage();
+        } finally {
+            return output;
+        }
     }
 
     /**
@@ -192,9 +219,17 @@ public class Duke extends Application {
 
     @Override
     public void start(Stage stage) {
+        // MY SETUP
+        Storage storage = new Storage("duke.txt");
+        Duke.storage = storage;
+        Duke.taskList = storage.retrieveSavedData();
+        Label introLabel = getDialogLabel(Ui.printIntro());
+
+
         //The container for the content of the chat to scroll.
         ScrollPane scrollPane = new ScrollPane();
         VBox dialogContainer = new VBox();
+        dialogContainer.getChildren().add(0, introLabel);
         scrollPane.setContent(dialogContainer);
 
         TextField userInput = new TextField();

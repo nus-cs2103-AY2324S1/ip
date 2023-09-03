@@ -21,92 +21,118 @@ public class Ui {
             + "Bye. Hope to see you again soon!\n"
             + HORIZONTAL_LINE;
 
-    public static void printIntro() {
-        System.out.print(INTRO_MESSAGE);
+    public static String printIntro() {
+//        System.out.print(INTRO_MESSAGE);
+        return INTRO_MESSAGE;
     }
 
-    public static void printOutro() {
-        System.out.print(OUTRO_MESSAGE);
+    public static String printOutro() {
+//        System.out.print(OUTRO_MESSAGE);
+        return OUTRO_MESSAGE;
     }
 
     /**
      * Prints the formatted output for when a task is added.
      *
-     * @param task The task that was added.
+     * @param task         The task that was added.
      * @param taskListSize The task list size after the task was added.
+     * @return
      */
-    public static void printAddingOfTask(Task task, int taskListSize) {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("Got it. I've added this task:\n"
+    public static String printAddingOfTask(Task task, int taskListSize) {
+//        System.out.print(HORIZONTAL_LINE);
+//        System.out.println("Got it. I've added this task:\n"
+//                + "  "
+//                + task
+//                + "\nNow you have "
+//                + taskListSize
+//                + " tasks in the list.");
+//        System.out.print(HORIZONTAL_LINE);
+        return "Got it. I've added this task:\n"
                 + "  "
                 + task
                 + "\nNow you have "
                 + taskListSize
-                + " tasks in the list.");
-        System.out.print(HORIZONTAL_LINE);
+                + " tasks in the list.";
     }
 
     /**
      * Prints the formatted output for when a task is deleted.
      *
-     * @param task The task that was deleted.
+     * @param task         The task that was deleted.
      * @param taskListSize The task list size after the task was deleted.
+     * @return
      */
-    public static void printDeletingOfTask(Task task, int taskListSize) {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println(String.format("Noted. I've removed this task:\n"
+    public static String printDeletingOfTask(Task task, int taskListSize) {
+//        System.out.print(HORIZONTAL_LINE);
+//        System.out.println(String.format("Noted. I've removed this task:\n"
+//                + "  "
+//                + task
+//                + "\nNow you have %d tasks in the list.", taskListSize));
+//        System.out.print(HORIZONTAL_LINE);
+        return String.format("Noted. I've removed this task:\n"
                 + "  "
                 + task
-                + "\nNow you have %d tasks in the list.", taskListSize));
-        System.out.print(HORIZONTAL_LINE);
+                + "\nNow you have %d tasks in the list.", taskListSize);
     }
 
     /**
      * Prints the formatted output for when a task is marked complete.
      *
      * @param task Task that was marked complete.
+     * @return
      */
-    public static void printMarkingOfTask(Task task) {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("Nice! I've marked this task as done:\n"
+    public static String printMarkingOfTask(Task task) {
+//        System.out.print(HORIZONTAL_LINE);
+//        System.out.println("Nice! I've marked this task as done:\n"
+//                + "  "
+//                + task);
+//        System.out.print(HORIZONTAL_LINE);
+        return "Nice! I've marked this task as done:\n"
                 + "  "
-                + task);
-        System.out.print(HORIZONTAL_LINE);
+                + task;
     }
 
     /**
      * Prints the formatted output for when a task is marked incomplete.
      *
      * @param task Task that was marked incomplete.
+     * @return
      */
-    public static void printUnmarkingOfTask(Task task) {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("OK, I've marked this task as not done yet:\n"
+    public static String printUnmarkingOfTask(Task task) {
+//        System.out.print(HORIZONTAL_LINE);
+//        System.out.println("OK, I've marked this task as not done yet:\n"
+//                + "  "
+//                + task);
+//        System.out.print(HORIZONTAL_LINE);
+        return "OK, I've marked this task as not done yet:\n"
                 + "  "
-                + task);
-        System.out.print(HORIZONTAL_LINE);
+                + task;
     }
 
     /**
      * Prints the current task list.
      *
      * @param taskList The task list to be printed.
+     * @return
      */
-    public static void printTaskList(TaskList taskList) {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println(taskList);
-        System.out.print(HORIZONTAL_LINE);
+    public static String printTaskList(TaskList taskList) {
+//        System.out.print(HORIZONTAL_LINE);
+//        System.out.println(taskList);
+//        System.out.print(HORIZONTAL_LINE);
+        return taskList.toString();
     }
 
     /**
      * Prints any arbitrary message.
      *
      * @param message The message to be printed.
+     * @return
      */
-    public static void printMessage(String message) {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println(message);
-        System.out.print(HORIZONTAL_LINE);
+    public static String printMessage(String message) {
+//        System.out.print(HORIZONTAL_LINE);
+//        System.out.println(message);
+//        System.out.print(HORIZONTAL_LINE);
+        return message;
     }
 
 }
