@@ -87,9 +87,9 @@ public class Parser {
                     Ui.printNotDone(thisTask);
                 }
             } catch (IndexOutOfBoundsException ex) {
-                Ui.OutofBounds();
+                Ui.outOfBounds();
             } catch (NumberFormatException e) {
-                Ui.NumberFormat();
+                Ui.numberFormat();
             }
         }
     }
@@ -120,7 +120,7 @@ public class Parser {
     public void handleTodo(String input, TaskList taskList, Boolean isLoading) {
         String[] arr0 = input.split("todo ");
         if (arr0.length == 1) {
-            Ui.ToDoExcept();
+            Ui.toDoExcept();
         } else {
             Task todo = new Todo(arr0[1], input);
             AddTask(todo, taskList, isLoading);
@@ -166,7 +166,7 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException ex) {
             Ui.deadlineExcept();
         } catch (DateTimeParseException ex) {
-            Ui.DateFormatExcept();
+            Ui.dateFormatExcept();
         }
     }
 

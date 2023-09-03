@@ -91,7 +91,7 @@ public class Ui {
     /**
      * Prints when an IndexOutOfBounds exception is thrown.
      */
-    public static void OutofBounds() {
+    public static void outOfBounds() {
         System.out.println("IndexOutOfBounds");
     }
 
@@ -99,7 +99,7 @@ public class Ui {
      * Prints when a NumberFormatException is thrown.
      */
 
-    public static void NumberFormat() {
+    public static void numberFormat() {
         System.out.println("NumberFormatException");
     }
 
@@ -117,14 +117,14 @@ public class Ui {
     /**
      * Prins when todo description is empty.
      */
-    public static void ToDoExcept() {
+    public static void toDoExcept() {
         System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
     }
 
     /**
      * Prints when the date format for deadline is invalid.
      */
-    public static void DateFormatExcept() {
+    public static void dateFormatExcept() {
         System.out.println("invalid date format");
     }
 
