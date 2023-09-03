@@ -1,4 +1,4 @@
-package cheems;
+package cheems.functionalities;
 
 import cheems.exceptions.EmptyArgumentException;
 import cheems.exceptions.InvalidKeywordException;
@@ -9,11 +9,9 @@ import cheems.exceptions.InvalidKeywordException;
  */
 public class Parser {
     private Tasklist tasklist;
-    private UI ui;
 
-    public Parser(Tasklist listManager, UI thisUi) {
+    public Parser(Tasklist listManager) {
         tasklist = listManager;
-        ui = thisUi;
     }
     /**
      * Parses the given input and tells Tasklist the action to take.
@@ -23,7 +21,7 @@ public class Parser {
      * @throws EmptyArgumentException if no argument is provided for commands requiring arguments.
      * @throws NumberFormatException if non-digit argument is provided for commands requiring digits as arguments.
      */
-    public void parseAndExecute(String input)
+    public String parseAndExecute(String input)
             throws InvalidKeywordException, EmptyArgumentException, NumberFormatException {
         if (!input.isEmpty()) {
             String[] words = input.split(" ", 2);
@@ -36,7 +34,7 @@ public class Parser {
             // extract command as the first word
             Keyword currentKey = Keyword.valueOf(words[0].toUpperCase());
             if (currentKey == Keyword.LIST) {
-                tasklist.displayData();
+                return tasklist.getTaskList();
             } else {
                 // if there is no argument provided for commands supposed to have arguments
                 if (words.length == 1) {
@@ -47,8 +45,7 @@ public class Parser {
                 // if there are indeed arguments provided
                 switch (currentKey) {
                     case FIND:
-                        tasklist.find(args);
-                        break;
+                        return tasklist.findTasks(args);
                     case MARK:
                         // Fallthrough
                     case UNMARK:
@@ -57,41 +54,36 @@ public class Parser {
                         if (args.chars().allMatch(Character::isDigit)) {
                             int index = Integer.parseInt(args);
                             if (currentKey == Keyword.MARK) {
-                                tasklist.markAsDone(index - 1);
+                                return tasklist.markAsDone(index - 1);
                             } else if (currentKey == Keyword.UNMARK) {
-                                tasklist.markAsNotDone(index - 1);
+                                return tasklist.markAsNotDone(index - 1);
                             } else {
-                                tasklist.delete(index - 1);
+                                return tasklist.delete(index - 1);
                             }
-                            break;
                         } else {
                             String errMsg = "Sorry you must provide the task number to mark/unmark it!";
                             throw new NumberFormatException(errMsg);
                         }
 
                     case TODO:
-                        tasklist.addTaskToDatabase("TODO", args);
-                        break;
+                        return tasklist.addTaskToDatabase("TODO", args);
                     case EVENT:
                         words = args.split(" /from ");
                         String eventDescription = words[0];
                         String[] words1 = words[1].split(" /to ");
                         String from = words1[0];
                         String to = words1[1];
-                        tasklist.addTaskToDatabase("EVENT", eventDescription, from, to);
-                        break;
+                        return tasklist.addTaskToDatabase("EVENT", eventDescription, from, to);
                     case DEADLINE:
                         words = args.split(" /by ");
                         String ddlDescription = words[0];
                         String by = words[1];
-                        tasklist.addTaskToDatabase("DEADLINE", ddlDescription, by);
-                        break;
+                        return tasklist.addTaskToDatabase("DEADLINE", ddlDescription, by);
                 }
             }
-        } else {
-            String resp = "Please give me instructions, if not, I'll serve you some fries.";
-            ui.printWithFormat(resp);
         }
+        String resp = "Please give me instructions, if not, I'll serve you some fries.";
+        return resp;
     }
 
     private boolean inKeywords(String word) {

@@ -1,4 +1,4 @@
-package cheems;
+package cheems.functionalities;
 
 import cheems.exceptions.InputOutputException;
 

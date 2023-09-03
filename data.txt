@@ -1,1 +1,7 @@
-
+0|TODO|get soya ice-cream
+0|DEADLINE|cs2100|2023-03-09
+0|EVENT|have fh|2023-12-15|2023-12-13
+1|TODO|have fun
+0|DEADLINE|housework|2023-09-12
+0|EVENT|project meeting|2023-03-24|2023-05-19
+0|TODO|have  fun

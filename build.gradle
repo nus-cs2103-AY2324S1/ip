@@ -2,15 +2,19 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
 repositories {
     mavenCentral()
 }
 
+javafx {
+    version = "17"
+    modules = [ 'javafx.controls', 'javafx.fxml']
+}
+
 dependencies {
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
     testImplementation "org.mockito:mockito-core:3.+"
@@ -32,7 +36,7 @@ test {
 }
 
 application {
-    mainClass.set("cheems.Cheems")
+    mainClass.set("cheems.Launcher")
 }
 
 shadowJar {

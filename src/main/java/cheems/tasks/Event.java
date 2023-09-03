@@ -27,13 +27,12 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() +
-                " (from: " + this.from +
-                " to: " + this.to + ")";
+                " (from: " + this.from.format(DATE_PATTERN) +
+                " to: " + this.to.format(DATE_PATTERN) + ")";
     }
 
     @Override
     public String toStorage() {
-        return String.format("%d|EVENT|%s|%s|%s", this.isDone ? 1 : 0, this.getDescription(),
-                this.from.format(DATE_PATTERN), this.to.format(DATE_PATTERN));
+        return String.format("%d|EVENT|%s|%s|%s", isDone ? 1 : 0, getDescription(), from, to);
     }
 }

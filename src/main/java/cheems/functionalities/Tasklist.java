@@ -1,4 +1,4 @@
-package cheems;
+package cheems.functionalities;
 
 import cheems.tasks.Task;
 import cheems.tasks.Event;
@@ -15,15 +15,13 @@ public class Tasklist {
     private final ArrayList<Task> list = new ArrayList<>();
     private int total = 0;  // total also indicates the first free slot
     private final Storage storage;
-    private final UI ui;
 
-    public Tasklist(Storage storage, UI ui) {
+    public Tasklist(Storage storage) {
         this.storage = storage;
-        this.ui = ui;
     }
 
     private void checkIndexOutOfBoundsHelper(int index) throws IndexOutOfBoundsException {
-        if (index >= total) {
+        if (index >= total || index < 0) {
             String errMsg = String.format("Sorry you do not have task #%d, " +
                     "try \"list\" to check your current list of tasks!", index + 1);
             throw new IndexOutOfBoundsException(errMsg);
@@ -84,7 +82,7 @@ public class Tasklist {
      * Updates the database to include this task.
      * @param params An array of strings used to create a new task.
      */
-    public void addTaskToDatabase(String... params) {
+    public String addTaskToDatabase(String... params) {
         Task newTask = identifyCreateTask(false, params);
         list.add(newTask);
         total++;
@@ -92,7 +90,7 @@ public class Tasklist {
 
         String resp = "I have added this task for you!\n" + newTask;
         resp += String.format("\nNow you have %d task(s) in your list!", total);
-        ui.printWithFormat(resp);
+        return resp;
     }
 
 
@@ -106,7 +104,7 @@ public class Tasklist {
     /**
      * Prints all tasks in the current task list.
      */
-    public void displayData() {
+    public String getTaskList() {
         String resp = "";
         if (total == 0) {
             resp = "You have no task right now:) Happy happy!";
@@ -115,7 +113,7 @@ public class Tasklist {
                 resp += String.format("%d.%s\n", i + 1, list.get(i));
             }
         }
-        ui.printWithFormat(resp);
+        return resp;
     }
 
     /**
@@ -123,14 +121,14 @@ public class Tasklist {
      * @param index The index of task to be marked done.
      * @throws IndexOutOfBoundsException when the index entered is out of range.
      */
-    public void markAsDone(int index) throws IndexOutOfBoundsException {
+    public String markAsDone(int index) throws IndexOutOfBoundsException {
         checkIndexOutOfBoundsHelper(index);
 
         list.get(index).markAsDone();
         taskListToStorage();
 
         String resp = "Good job! I've marked this task as done:\n" + list.get(index);
-        ui.printWithFormat(resp);
+        return resp;
     }
 
     /**
@@ -138,14 +136,14 @@ public class Tasklist {
      * @param index The index of task to be marked undone.
      * @throws IndexOutOfBoundsException when the index entered is out of range.
      */
-    public void markAsNotDone(int index) throws IndexOutOfBoundsException {
+    public String markAsNotDone(int index) throws IndexOutOfBoundsException {
         checkIndexOutOfBoundsHelper(index);
 
         list.get(index).markAsNotDone();
         taskListToStorage();
 
         String resp = "Okie dokie! I've unmarked it for you:\n" + list.get(index);
-        ui.printWithFormat(resp);
+        return resp;
     }
 
     /**
@@ -153,7 +151,7 @@ public class Tasklist {
      * @param index The index of task to be deleted.
      * @throws IndexOutOfBoundsException when the index entered is out of range.
      */
-    public void delete(int index) throws IndexOutOfBoundsException {
+    public String delete(int index) throws IndexOutOfBoundsException {
         checkIndexOutOfBoundsHelper(index);
 
         Task t = list.get(index);
@@ -164,14 +162,14 @@ public class Tasklist {
         String resp = "Noted. I've removed this task:\n" +
                         t +
                         String.format("\nNow you have %d tasks in your list!", total);
-        ui.printWithFormat(resp);
+        return resp;
     }
 
     /**
      * Finds and Print the tasks with corresponding keyword in their description.
      * @param search The array of strings that represents the keyword we need to search for.
      */
-    public void find(String search) {
+    public String findTasks(String search) {
         ArrayList<Task> tempList = new ArrayList<>();
         int a = 1;
         String resp = "";
@@ -186,7 +184,7 @@ public class Tasklist {
         if (resp == "") {
             resp = "There is no corresponding task in your list!";
         }
-        ui.printWithFormat(resp);
+        return resp;
     }
 
     /**

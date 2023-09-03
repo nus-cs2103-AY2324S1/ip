@@ -24,13 +24,12 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DATE_PATTERN) + ")";
     }
 
     @Override
     public String toStorage() {
-        return String.format("%d|DEADLINE|%s|%s", this.isDone ? 1 : 0,
-                                    this.getDescription(), this.by.format(DATE_PATTERN));
+        return String.format("%d|DEADLINE|%s|%s", isDone ? 1 : 0, getDescription(), by);
     }
 }
 

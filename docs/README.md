@@ -12,7 +12,7 @@ Description of the feature.
 
 ## Usage
 
-### `cheems.Keyword` - Describe action
+### 
 
 Describe the action and its outcome.
 
