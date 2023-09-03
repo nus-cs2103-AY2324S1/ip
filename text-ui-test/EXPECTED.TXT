@@ -8,57 +8,46 @@ Got it. I've added this task:
 [T][ ] eat
 Now you have 1 task(s) in the list.
 ____________________________________________________________
-
-____________________________________________________________
 Got it. I've added this task:
 [T][ ] shit
 Now you have 2 task(s) in the list.
-____________________________________________________________
-
 ____________________________________________________________
 Got it. I've added this task:
 [D][ ] run (by: Feb 3 2019 1000)
 Now you have 3 task(s) in the list.
 ____________________________________________________________
-
-____________________________________________________________
 Got it. I've added this task:
 [D][ ] submit this (by: Jan 9 2023 1800)
 Now you have 4 task(s) in the list.
-____________________________________________________________
-
 ____________________________________________________________
 Got it. I've added this task:
 [E][ ] help (from: Feb 2 2022 1900 to: Sep 8 2023 1000)
 Now you have 5 task(s) in the list.
 ____________________________________________________________
-
-____________________________________________________________
 OK, I've marked this task as not done yet:
 [T][ ] shit
 Now you have 5 task(s) in the list.
-____________________________________________________________
-
 ____________________________________________________________
 Nice! I've marked this task as done:
 [T][X] eat
 Now you have 5 task(s) in the list.
 ____________________________________________________________
-
-____________________________________________________________
 OK, I've marked this task as not done yet:
 [T][ ] eat
 Now you have 5 task(s) in the list.
 ____________________________________________________________
-
+:( OOPS!!! I'm sorry, but I don't know what that means :-(
 ____________________________________________________________
 :( OOPS!!! I'm sorry, but I don't know what that means :-(
 ____________________________________________________________
-
+Noted. I've removed this task:
+[D][ ] run (by: Feb 3 2019 1000)
+Now you have 4 task(s) in the list.
 ____________________________________________________________
-:( OOPS!!! I'm sorry, but I don't know what that means :-(
+:( OOPS!!! Invalid input for a task with deadline. Please input 'deadline <task name> /by <end>'
 ____________________________________________________________
-
+:( OOPS!!! The description of a todo cannot be empty.
+____________________________________________________________
+:( OOPS!!! Invalid input for an event. Please input 'event <event name> /from <start> /to <end>'
 ____________________________________________________________
 Bye. Hope to see you again soon!
-____________________________________________________________

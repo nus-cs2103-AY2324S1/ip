@@ -8,3 +8,8 @@ mark 1
 unmark 1
 blah
 whysohard
+delete 3
+deadline
+todo
+event
+bye
