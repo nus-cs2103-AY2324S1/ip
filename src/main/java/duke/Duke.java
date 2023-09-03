@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Duke {
     public static void main(String[] args) {
-        boolean running = true;
+        boolean isRunning = true;
         TaskStorage taskStorage = new TaskStorage();
         TaskList taskList;
 
@@ -19,10 +19,10 @@ public class Duke {
         Ui ui = new Ui("Pong");
         ui.init();
 
-        while (running) {
+        while (isRunning) {
             try {
                 Parser parser = ui.getParsedInput();
-                running = Duke.handleInput(parser, taskList, ui);
+                isRunning = Duke.handleInput(parser, taskList, ui);
             } catch (DukeException e) {
                 ui.printException(e);
             }
@@ -83,7 +83,8 @@ public class Duke {
                 throw new DukeException("duke.Deadline name cannot be empty");
             }
 
-            LocalDateTime from, to;
+            LocalDateTime from;
+            LocalDateTime to;
             from = parser.getOptArgAsDateTime("from");
             to = parser.getOptArgAsDateTime("to");
 
@@ -97,6 +98,7 @@ public class Duke {
             break;
         default:
             ui.invalidCommand(parser.getCommand());
+            break;
         }
 
         return true;

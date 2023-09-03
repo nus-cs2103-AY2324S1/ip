@@ -44,7 +44,7 @@ public class TaskList {
             throw new DukeException("Index out of bounds");
         }
 
-        Task task = this.tasks.remove(index );
+        Task task = this.tasks.remove(index);
         storeTasks();
         return task;
     }

@@ -22,7 +22,7 @@ public class Todo extends Task {
         return String.format(
                 "todo %s%s",
                 getTaskName(),
-                (this.isDone() ? " /done" : "")
+                this.isDone() ? " /done" : ""
         );
     }
 }
