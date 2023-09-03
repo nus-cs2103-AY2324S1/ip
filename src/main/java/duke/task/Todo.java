@@ -7,6 +7,9 @@ public class Todo extends Task {
         super(description);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String writeToFile() {
         int completed = this.isDone ? 1 : 0;

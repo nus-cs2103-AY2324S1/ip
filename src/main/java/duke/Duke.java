@@ -18,6 +18,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Contains the logic flow of the Duke program.
+     */
     public void run() {
         try {
             Parser parser = new Parser();

@@ -20,6 +20,9 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String writeToFile() {
         int completed = this.isDone ? 1 : 0;
