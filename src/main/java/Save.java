@@ -11,7 +11,7 @@ public class Save {
     private static final String tempFilePath = "temp.txt";
 
     /**
-     * Constructor for Save File
+     * A public constructor to initialize Save
      *
      * @param  taskList  a task list to store tasks
      * @param  saveFilePath file path of saved file
