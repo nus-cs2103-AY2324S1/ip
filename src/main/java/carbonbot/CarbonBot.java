@@ -12,6 +12,7 @@ public class CarbonBot {
     private final String saveFilePath;
     private final Ui ui;
     private final Storage storage;
+    private boolean shouldExit = false;
     private TaskList tasks;
 
 
@@ -67,6 +68,14 @@ public class CarbonBot {
     }
 
     /**
+     * Returns whether the bot is ready to be terminated.
+     * @return Boolean indicating if the bot received an ExitCommand
+     */
+    public boolean shouldExit() {
+        return this.shouldExit;
+    }
+
+    /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
@@ -74,6 +83,9 @@ public class CarbonBot {
         try {
             Command c = Parser.parse(input);
             c.execute(tasks, ui, storage);
+            if (c.isExit()) {
+                this.shouldExit = true;
+            }
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());
         } finally {
