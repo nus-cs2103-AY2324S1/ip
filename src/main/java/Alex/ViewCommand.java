@@ -26,7 +26,21 @@ public class ViewCommand extends Command{
             } finally {
                 break;
             }
+
+        case FIND:
+            try {
+                if (command.length() == 4 || !command.substring(4, 5).equals(" ")) {
+                    throw new AlexException("");
+                }
+                String toMatch = command.substring(5).stripTrailing();
+                TaskList.printTaskForMatchWord(toMatch);
+            } catch (AlexException e) {
+                Ui.printAlertForFind();
+            } finally {
+                break;
+            }
         }
+
     }
 
 }
