@@ -1,4 +1,4 @@
-
+package jo.task;
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -18,6 +18,10 @@ public class Task {
 
     public void mark(boolean isDone) {
         this.isDone = isDone;
+    }
+
+    public boolean getIsDone() {
+        return this.isDone;
     }
 
     public String toFile() {

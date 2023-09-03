@@ -1,13 +1,13 @@
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+package jo;
 
+import jo.command.Command;
 
 public class Jo {
     protected static String filePath = "data/jo.txt";
 
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     public Jo(String filePath) {
         ui = new Ui();

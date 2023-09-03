@@ -1,10 +1,14 @@
+package jo;
+
+import jo.task.Task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
-    private Scanner scanner;
+    private final Scanner scanner;
 
     public Ui() {
         this.scanner = new Scanner(System.in);
@@ -15,7 +19,7 @@ public class Ui {
         return this.scanner.nextLine();
     }
 
-    public static void showWelcome() {
+    public void showWelcome() {
         System.out.println("> Hello! I'm Jo.\n> What can I do for you?");
     }
 
@@ -24,11 +28,11 @@ public class Ui {
         this.scanner.close();
     }
 
-    public static void showError(String message) {
+    public void showError(String message) {
         System.out.println("> OOPS!!! " + message);
     }
 
-    public static void markResult(Task task, boolean isDone) {
+    public void markResult(Task task, boolean isDone) {
         if (isDone) {
             System.out.println("> Nice! I've marked this task as done:");
             System.out.println("\t" + task);
@@ -38,17 +42,17 @@ public class Ui {
         }
     }
 
-    public static void modifyListResult(Task task, TaskList taskList, boolean isAdd) {
+    public void modifyListResult(Task task, TaskList taskList, boolean isAdd) {
         if (isAdd) {
             System.out.println("> Got it. I've added this task:");
         } else {
             System.out.println("> Noted. I've removed this task:");
         }
         System.out.println("\t" + task.toString());
-        System.out.println(String.format("> Now you have %d tasks in the list.", taskList.getSize()));
+        System.out.printf("> Now you have %d tasks in the list.%n", taskList.getSize());
     }
 
-    public static void searchResult(LocalDate deadline, ArrayList<Task> resultList) {
+    public void searchResult(LocalDate deadline, ArrayList<Task> resultList) {
         System.out.println("> Here are the tasks that are due on "
                 + deadline.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ": ");
         if (!resultList.isEmpty()) {
@@ -60,7 +64,7 @@ public class Ui {
         }
     }
 
-    public static void printList(TaskList taskList) {
+    public void printList(TaskList taskList) {
         System.out.println("> Here are the tasks in your list:");
 
         for (int i = 0; i < taskList.getSize(); i++) {

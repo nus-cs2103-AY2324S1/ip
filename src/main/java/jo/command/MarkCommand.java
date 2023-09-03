@@ -1,3 +1,10 @@
+package jo.command;
+
+import jo.JoException;
+import jo.Storage;
+import jo.TaskList;
+import jo.Ui;
+
 public class MarkCommand extends Command {
 
     private int index;

@@ -1,3 +1,5 @@
+package jo.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -23,6 +25,10 @@ public class Deadline extends Task {
     public String toFile() {
         return String.format("D | %s | %s | %s",
                     this.isDone ? "1" : "0", this.description, this.deadline);
+    }
+
+    public LocalDate getDeadline() {
+        return this.deadline;
     }
 
 }

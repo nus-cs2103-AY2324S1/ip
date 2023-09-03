@@ -1,3 +1,11 @@
+package jo.command;
+
+import jo.JoException;
+import jo.Storage;
+import jo.TaskList;
+import jo.Ui;
+import jo.task.Task;
+
 public class AddCommand extends Command {
 
     private Task task;

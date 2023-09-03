@@ -1,3 +1,9 @@
+package jo;
+
+import jo.task.Deadline;
+import jo.task.Event;
+import jo.task.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
