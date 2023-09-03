@@ -28,8 +28,8 @@ public abstract class Task implements Comparable<Task> {
     /**
      * whether task is complete.
      */
-    protected boolean completed;
-
+    protected boolean isComplete;
+    
     private static int idTracker = 0;
 
     /**
@@ -41,7 +41,7 @@ public abstract class Task implements Comparable<Task> {
         this.id = idTracker;
         idTracker++;
         this.description = d;
-        this.completed = false;
+        this.isComplete = false;
     }
 
     /**
@@ -65,11 +65,11 @@ public abstract class Task implements Comparable<Task> {
         if (command.equals("todo")) {
             String contents = tokeniser.nextLine();
             if (contents.contains("/by")) {
-                throw new IllegalCommandException("do that for a todo," +
-                        "are you thinking of a deadline?");
+                throw new IllegalCommandException("do that for a todo,"
+                        + "are you thinking of a deadline?");
             } else if (contents.contains("/from") || contents.contains("/to")) {
-                throw new IllegalCommandException("do that for a todo," +
-                        "are you thinking of an event?");
+                throw new IllegalCommandException("do that for a todo,"
+                        + "are you thinking of an event?");
             }
             newTask = new ToDo(contents);
         } else if (command.equals("deadline")){
@@ -77,8 +77,8 @@ public abstract class Task implements Comparable<Task> {
             if (!contents.contains("/by")) {
                 throw new IllegalCommandException("set a deadline wihtout a \"/by\"");
             } else if (contents.contains("/from") || contents.contains("/to")) {
-                throw new IllegalCommandException("do that for a deadline," +
-                        "are you thinking of an event?");
+                throw new IllegalCommandException("do that for a deadline,"
+                        + "are you thinking of an event?");
             }
             String[] parts = contents.split(" /by ", 2);
             String[] dateTime = TimeParser.parseInputOut(parts[1]);
@@ -88,8 +88,8 @@ public abstract class Task implements Comparable<Task> {
             if (!contents.contains("/from") || !contents.contains("/to")) {
                 throw new IllegalCommandException("set an event wihtout a \"/from\" and/or \"/to\"");
             } else if (contents.contains("/by")) {
-                throw new IllegalCommandException("do that for an event," +
-                        "are you thinking of a deadline?");
+                throw new IllegalCommandException("do that for an event,"
+                        + "are you thinking of a deadline?");
             }
             String[] message = contents.split(" /from ", 2);
             String[] fromto = message[1].split(" /to ", 2);
@@ -102,14 +102,14 @@ public abstract class Task implements Comparable<Task> {
     }
 
     public boolean isComplete() {
-        return this.completed;
+        return this.isComplete;
     }
 
     /**
      * Change mark to opposite of the current status.
      */
     public void switchMark() {
-        completed = !completed;
+        isComplete = !isComplete;
     }
 
     /**

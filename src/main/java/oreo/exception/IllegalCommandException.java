@@ -11,9 +11,8 @@ public class IllegalCommandException extends NoSuchElementException {
 
     @Override
     public String getMessage() {
-        String message = "I dont think I can " +
-                cmsg + "\n" +
-                "do you want to try again?";
+        String message = "I dont think I can " + cmsg + "\n"
+                + "do you want to try again?";
         return message;
     }
 }

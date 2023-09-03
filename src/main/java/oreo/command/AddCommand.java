@@ -22,11 +22,10 @@ public class AddCommand extends Command {
         try {
             Task newTask = Task.generateTask(command, tokeniser);
             tasks.add(newTask);
-            ui.say("Gotchu! noted down: \n" +
-                    Ui.indentLineBy(newTask.toString(), 2) +
-                    "Now you have " +
-                    tasks.getNumberOfTask() +
-                    " tasks in the list!");
+            ui.say("Gotchu! noted down: \n"
+                    + Ui.indentLineBy(newTask.toString(), 2)
+                    + "Now you have " + tasks.getNumberOfTask()
+                    + " tasks in the list!");
         } catch (IllegalCommandException e) {
             ui.say(e.getMessage());
         } catch (IllegalDateTimeException e) {

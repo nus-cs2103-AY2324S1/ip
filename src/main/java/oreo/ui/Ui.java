@@ -78,9 +78,9 @@ public class Ui {
      */
     public void greet(TaskList tasks) {
         if (tasks.getNumberOfTask() != 0) {
-            System.out.println(botReply(greet +
-                    "Welcome back! " +
-                    tasks.list()));
+            System.out.println(botReply(greet
+                    + "Welcome back! "
+                    + tasks.list()));
         } else {
             System.out.println(botReply(greet));
         }
