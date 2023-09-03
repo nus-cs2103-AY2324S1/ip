@@ -6,7 +6,7 @@ import duke.task.Task;
 import duke.task.Todo;
 
 public class Parser {
-    final static String line = "____________________________________________________________";
+    final static String LINE = "────────────────────────────────────────────────────";
 
     public Parser() {
 
@@ -17,21 +17,21 @@ public class Parser {
             switch (commandArr[0]) {
                 case "list":
                     tasks.print();
-                    System.out.print(line + "\n");
+                    System.out.print(LINE + "\n");
                     break;
                 case "mark":
                     int mIndex = command.charAt(5) - 49;
                     Task t = tasks.getTask(mIndex);
                     t.markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(t.toString() + "\n" + line);
+                    System.out.println(t.toString() + "\n" + LINE);
                     break;
                 case "unmark":
                     int umIndex = command.charAt(7) - 49;
                     Task umTask = tasks.getTask(umIndex);
                     umTask.markAsUndone();
                     System.out.println("Nice! I've marked this task as not done yet:");
-                    System.out.println(umTask.toString() + "\n" + line);
+                    System.out.println(umTask.toString() + "\n" + LINE);
                     break;
                 case "deadline":
                     if (commandArr[1].isEmpty()) {
@@ -41,7 +41,7 @@ public class Parser {
                     Task deadline = new Deadline(deadlineArr[0], deadlineArr[1]);
                     tasks.addTask(deadline);
                     System.out.println("added " + deadline.toString() + "\n");
-                    System.out.println("Now you have " + tasks.getSize() + " tasks in the list. \n" + line);
+                    System.out.println("Now you have " + tasks.getSize() + " tasks in the list. \n" + LINE);
                     break;
                 case "event":
                     if (commandArr[1].isEmpty()) {
@@ -52,7 +52,7 @@ public class Parser {
                     Task event = new Event(eventArr1[0], eventArr2[0], eventArr2[1]);
                     tasks.addTask(event);
                     System.out.println("added " + event.toString() + "\n");
-                    System.out.println("Now you have " + tasks.getSize() + " tasks in the list. \n" + line);
+                    System.out.println("Now you have " + tasks.getSize() + " tasks in the list. \n" + LINE);
                     break;
                 case "todo":
                     if (commandArr[1].isEmpty()) {
@@ -61,14 +61,14 @@ public class Parser {
                     Task todo = new Todo(commandArr[1]);
                     tasks.addTask(todo);
                     System.out.println("added " + todo.toString() + "\n");
-                    System.out.println("Now you have " + tasks.getSize() + " tasks in the list. \n" + line);
+                    System.out.println("Now you have " + tasks.getSize() + " tasks in the list. \n" + LINE);
                     break;
                 case "delete":
                     int deleteIndex = command.charAt(7) - 49;
                     Task deleted = tasks.deleteTask(deleteIndex);
                     System.out.println("Noted. I've removed the task: \n");
                     System.out.println(deleted.toString() + "\n");
-                    System.out.println("Now you have " + tasks.getSize() + " tasks in the list. \n" + line);
+                    System.out.println("Now you have " + tasks.getSize() + " tasks in the list. \n" + LINE);
                     break;
                 case "bye":
                     Ui.bye();
@@ -77,7 +77,7 @@ public class Parser {
                     throw new DukeException(DukeException.UNKNOWN);
             }
         } catch (DukeException e) {
-            System.out.println(e.getMessage() + "\n" + line);
+            System.out.println(e.getMessage() + "\n" + LINE);
         }
     }
 }
