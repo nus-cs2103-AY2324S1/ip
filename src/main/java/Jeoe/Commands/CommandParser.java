@@ -38,6 +38,8 @@ public class CommandParser {
             return new UnmarkCommand(input);
         case "delete":
             return new DeleteCommand(input);
+        case "find":
+            return new FindCommand(input);
         case "":
             throw new NoCommandException(command);
         default:
