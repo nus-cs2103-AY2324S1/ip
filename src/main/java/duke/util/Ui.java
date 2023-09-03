@@ -61,7 +61,7 @@ public class Ui {
     }
 
     /**
-     * Prints an error loading file data onto the screen.
+     * Prints an error when fail to load file data onto the screen.
      */
     public void showLoadingError() {
         System.out.println("Error loading data! There is no file found with the given filepath!");

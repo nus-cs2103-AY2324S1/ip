@@ -10,8 +10,6 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
-
-
 /**
  * Tasklist containing the tasks added by the user.
  */
