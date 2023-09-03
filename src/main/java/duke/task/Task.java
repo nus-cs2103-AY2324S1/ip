@@ -9,10 +9,6 @@ public class Task {
         this.isDone = status;
     }
 
-    public String getName() {
-        return this.taskName;
-    }
-
     public void mark() {
         this.isDone = true;
     }

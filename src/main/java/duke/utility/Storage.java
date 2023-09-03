@@ -22,7 +22,7 @@ public class Storage {
         this.pathString = "C:\\Users\\Admin\\ip\\text-ui-test\\data\\task.txt";
     }
 
-    // Update duke.task list in text file
+    // Update list in text file
     public void saveTask(Task newTask) {
         try {
             Path path = Paths.get("C:\\Users\\Admin\\ip\\text-ui-test", "data", "task.txt");
@@ -74,7 +74,7 @@ public class Storage {
         }
     }
 
-    // Delete duke.task from duke.task list
+    // Delete from duke.task list
     public void deleteTask(Task task) {
         String oldTask = task.toStoreString();
 
@@ -114,7 +114,7 @@ public class Storage {
         }
     }
 
-    // Retrieve duke.task list from text file and convert to readable codes
+    // Retrieve list from text file and convert to readable codes
     public void handleLoad(TaskList list) {
         Scanner sc = null;
         try {

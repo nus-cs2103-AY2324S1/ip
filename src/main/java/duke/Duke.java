@@ -17,7 +17,7 @@ public class Duke {
         this.storage = new Storage();
         this.list = new TaskList();
 
-        // Load list of tasks stored in text file "duke.task.txt" into the local duke.Duke.duke.utility.TaskList
+        // Load list of tasks stored in text file "task.txt" into the local task List
         storage.handleLoad(list);
 
         // Start Scanner to read user inputs

@@ -16,11 +16,12 @@ import java.time.LocalTime;
 public class Parser {
     public static ToDo parseTodo(String input) throws EmptyTaskException {
         String[] keyword = input.split(" ", 2);
-        // checks if user has input a duke.task name
+
+        // checks if user has input a task name
         if (keyword.length == 1 || keyword[1].equals("")) {
             throw new EmptyTaskException();
         }
-        // create new To Do duke.task from input
+        // create new To Do task from input
         return new ToDo(false, keyword[1]);
     }
 
@@ -33,7 +34,7 @@ public class Parser {
             if (firstSplit.length == 1 || firstSplit[1].equals(" ")) {
                 throw new MissingTimeException();
             }
-            // checks if user has input a duke.task name
+            // checks if user has input a task name
             String[] secondSplit = firstSplit[0].split(" ", 2);
             if (secondSplit.length == 1 || secondSplit[1].equals("")) {
                 throw new EmptyTaskException();
@@ -55,7 +56,7 @@ public class Parser {
             LocalTime time = LocalTime.of(hour, minute);
             LocalDateTime deadline = LocalDateTime.of(date, time);
 
-            // create new duke.Duke.Deadline duke.task from variables
+            // create new Deadline task from variables
             return new Deadline(false, name, deadline);
         } catch (NumberFormatException | DateTimeException e) {
             throw new InvalidDeadlineException();
@@ -72,7 +73,7 @@ public class Parser {
             }
 
             String[] secondSplit = firstSplit[0].split(" ", 2);
-            // checks if user has input a duke.task name
+            // checks if user has input a task name
             if (secondSplit.length == 1 || secondSplit[1].equals("")) {
                 throw new EmptyTaskException();
             }
@@ -109,7 +110,7 @@ public class Parser {
             LocalTime endTime = LocalTime.of(endHour, endMinute);
             LocalDateTime end = LocalDateTime.of(endDate, endTime);
 
-            // create new duke.Duke.Event duke.task from variables
+            // create new Event task from variables
             return new Event(false, name, start, end);
         } catch (NumberFormatException | DateTimeException e) {
             throw new InvalidEventException();
