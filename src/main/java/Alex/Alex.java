@@ -10,6 +10,7 @@ public class Alex {
             c.execute();
         }
     }
+
     public static void main(String[] args) {
         new Alex().run();
     }
