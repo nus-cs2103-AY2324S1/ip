@@ -1,10 +1,10 @@
 package geraldbot.util;
 
-import geraldbot.task.Task;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import geraldbot.task.Task;
 
 /**
  * Represents a list of tasks.

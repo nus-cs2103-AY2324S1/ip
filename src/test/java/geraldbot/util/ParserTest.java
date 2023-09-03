@@ -1,13 +1,19 @@
 package geraldbot.util;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
 import geraldbot.exception.DukeInvalidCommandException;
 import geraldbot.task.Deadline;
 import geraldbot.task.Event;
 import geraldbot.task.Task;
 import geraldbot.task.Todo;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import java.util.ArrayList;
 
 public class ParserTest {
 

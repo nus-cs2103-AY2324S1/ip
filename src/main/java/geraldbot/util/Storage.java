@@ -1,10 +1,5 @@
 package geraldbot.util;
 
-import geraldbot.task.Deadline;
-import geraldbot.task.Event;
-import geraldbot.task.Task;
-import geraldbot.task.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -12,6 +7,11 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import geraldbot.task.Deadline;
+import geraldbot.task.Event;
+import geraldbot.task.Task;
+import geraldbot.task.Todo;
 
 /**
  * Handles reading and writing tasks to the storage file.

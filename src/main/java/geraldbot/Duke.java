@@ -1,12 +1,12 @@
 package geraldbot;
 
+import java.util.ArrayList;
+
 import geraldbot.exception.DukeException;
 import geraldbot.task.Task;
 import geraldbot.util.Parser;
 import geraldbot.util.Storage;
 import geraldbot.util.Ui;
-
-import java.util.ArrayList;
 
 /**
  * The main class that represents the Duke chatbot application.
@@ -17,16 +17,6 @@ public class Duke {
     private final Ui ui;
 
     /**
-     * Main method to start the Duke chatbot application.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        Duke bot = new Duke();
-        bot.run();
-    }
-
-    /**
      * Constructs a Duke object and initializes the user interface and parser.
      * Reads task data from storage and initializes the task list.
      */
@@ -35,6 +25,16 @@ public class Duke {
         ArrayList<Task> taskList = storage.read();
         this.ui = new Ui();
         this.parser = new Parser(storage, taskList);
+    }
+
+    /**
+     * Main method to start the Duke chatbot application.
+     *
+     * @param args Command-line arguments (not used).
+     */
+    public static void main(String[] args) {
+        Duke bot = new Duke();
+        bot.run();
     }
 
     /**
