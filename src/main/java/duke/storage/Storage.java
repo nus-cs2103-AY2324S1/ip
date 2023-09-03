@@ -1,7 +1,7 @@
 package duke.storage;
 import duke.task.Task;
 import duke.task.ToDos;
-import duke.task.Deadline;
+import duke.task.DeadLine;
 import duke.task.Event;
 
 import java.io.BufferedReader;
@@ -67,7 +67,7 @@ public class Storage {
 				break;
 			case "D":
 				LocalDateTime startTime = LocalDateTime.parse(str[3]);
-				taskList.add(new Deadline(str[2], startTime));
+				taskList.add(new DeadLine(str[2], startTime));
 				// t.add(new Deadline(str[2], str[3]));
 				break;
 			case "E":

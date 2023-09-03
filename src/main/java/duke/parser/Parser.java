@@ -7,7 +7,7 @@ import duke.command.DeleteCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.task.ToDos;
-import duke.task.Deadline;
+import duke.task.DeadLine;
 import duke.task.Event;
 
 import java.text.ParseException;
@@ -167,7 +167,7 @@ public class Parser {
 						String dateFormat = formatDate(timeDate);
 						LocalDateTime begin = LocalDateTime.parse(dateFormat);
 //						taskList.add(new Deadline(description.toString(), begin));
-						return new AddCommand(new Deadline(description.toString(), begin));
+						return new AddCommand(new DeadLine(description.toString(), begin));
 					} else {
 						// /by 06:30:00 2015-06-29
 						String[] time = Arrays.copyOfRange(items[1].split(" "), 1, 3);
@@ -176,7 +176,7 @@ public class Parser {
 						// store datetime object as a string
 						// taskList.add(new Deadline(description.toString(), startTime.toString()));
 //						taskList.add(new Deadline(description.toString(), begin));
-						return new AddCommand(new Deadline(description.toString(), begin));
+						return new AddCommand(new DeadLine(description.toString(), begin));
 					}
 				} catch (DukeException e) {
 					System.out.println(e.getMessage());
@@ -234,94 +234,3 @@ public class Parser {
 	}
 }
 
-//	public void createTask(ArrayList<Task> taskList, String action, String event) throws DukeException, DateTimeParseException {
-//		String[] items = action.split("/");
-//		String[] first = items[0].split(" ");
-//		StringBuilder description = new StringBuilder();
-//		StringBuilder startTime = new StringBuilder();
-//		StringBuilder endTime = new StringBuilder();
-//
-//
-//		if (event.equals("todo")) {
-//			if (first.length == 1) {
-//				throw new DukeException("enter todo like this, todo description");
-//			} else {
-//				for (String s : Arrays.copyOfRange(first, 1, first.length)) {
-//					description.append(s);
-//					description.append(" ");
-//				}
-//				description.deleteCharAt(description.length() - 1);
-//				taskList.add(new ToDos(description.toString()));
-//			}
-//		} else if (event.equals("deadline")) {
-//			String[] byCheck = items[1].split(" ");
-//			if (items.length != 2 || !byCheck[0].equals("by")) {
-//				throw new DukeException("enter deadline like this, deadline description /by:");
-//			}
-//			String[] start = items[0].split(" ");
-//
-//			for (String s : Arrays.copyOfRange(start, 1, start.length)) {
-//				description.append(s).append(" ");
-//			}
-//			description.deleteCharAt(description.length() - 1);
-//			// /by 06:30:00 2015-06-29
-//			// /by 630am/pm 29 june
-//			if (items[1].contains("am") || items[1].contains("pm")) {
-//				// take away by and give timeDate 630am 29june
-//				String[] timeDate = Arrays.copyOfRange(items[1].split(" "), 1, items[1].split(" ").length);
-//				String dateFormat = formatDate(taskList, items, timeDate);
-//				LocalDateTime begin = LocalDateTime.parse(dateFormat);
-//				taskList.add(new Deadline(description.toString(), begin));
-//			} else {
-//				// /by 06:30:00 2015-06-29
-//				String[] time = Arrays.copyOfRange(items[1].split(" "), 1, 3);
-//				startTime.append(time[1]).append("T").append(time[0]);
-//				LocalDateTime begin = LocalDateTime.parse(startTime.toString());
-//				// store datetime object as a string
-//				// taskList.add(new Deadline(description.toString(), startTime.toString()));
-//				taskList.add(new Deadline(description.toString(), begin));
-//			}
-//		} else {
-//			String[] startCheck = items[1].split(" ");
-//			String[] endCheck = items[2].split(" ");
-//			if (items.length != 3 || !endCheck[0].equals("to") || !startCheck[0].equals("from")) {
-//				throw new DukeException("enter event properly, event description /from /to");
-//			}
-//			for (String s : Arrays.copyOfRange(first, 1, first.length)) {
-//				description.append(s).append(" ");
-//			}
-//			description.deleteCharAt(description.length() - 1);
-//			// HEADD
-//			// add from and to
-//			if (items[1].contains("am") || items[1].contains("pm")) {
-//				// take away by and give timeDate 630am 29june
-//				String[] timeDateStart = Arrays.copyOfRange(items[1].split(" "), 1, items[1].split(" ").length);
-//				String dateFormatStart = formatDate(taskList, items, timeDateStart);
-//				LocalDateTime begin = LocalDateTime.parse(dateFormatStart);
-//				String[] timeDateEnd = Arrays.copyOfRange(items[2].split(" "), 1, items[1].split(" ").length);
-//				String dateFormatEnd = formatDate(taskList, items, timeDateEnd);
-//				LocalDateTime end = LocalDateTime.parse(dateFormatEnd);
-//				if (begin.isAfter(end)) {
-//					throw new DukeException("Start is after end!");
-//				}
-//				taskList.add(new Event(description.toString(), begin, end));
-//			} else {
-//				// /by 06:30:00 2015-06-29
-//				String[] timeStart = Arrays.copyOfRange(items[1].split(" "), 1, 3);
-//				startTime.append(timeStart[1]).append("T").append(timeStart[0]);
-//				System.out.println(startTime.toString());
-//				LocalDateTime begin = LocalDateTime.parse(startTime.toString());
-//
-//				String[] timeEnd = Arrays.copyOfRange(items[2].split(" "), 1, 3);
-//				endTime.append(timeEnd[1]).append("T").append(timeEnd[0]);
-//				LocalDateTime end = LocalDateTime.parse(endTime.toString());
-//				// store datetime object as a string
-//				// taskList.add(new Deadline(description.toString(), startTime.toString()));
-//				if (begin.isAfter(end)) {
-//					throw new DukeException("Start is after end!");
-//				}
-//				taskList.add(new Event(description.toString(), begin, end));
-//			}
-////			// ENDD
-//		}
-//	}
