@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * Represents an event task that has a description, a start date/time, and an end date/time.
  */
@@ -27,9 +29,9 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the Event object.
+     * Returns a string representation of the duke.task.Event object.
      *
-     * @return A string representation of the Event object.
+     * @return A string representation of the duke.task.Event object.
      */
     @Override
     public String toString() {

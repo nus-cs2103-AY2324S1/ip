@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -40,9 +42,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline object.
+     * Returns a string representation of the duke.task.Deadline object.
      *
-     * @return A string representation of the Deadline object.
+     * @return A string representation of the duke.task.Deadline object.
      */
     @Override
     public String toString() {

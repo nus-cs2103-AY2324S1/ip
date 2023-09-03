@@ -1,3 +1,14 @@
+package duke;
+import duke.exception.InvalidCommandException;
+import duke.exception.InvalidDeadlineException;
+import duke.exception.InvalidDescriptionException;
+import duke.exception.InvalidEventException;
+import duke.exception.InvalidNumberException;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.ToDo;
+import duke.task.Deadline;
+import duke.task.Event;
 import java.util.Scanner;
 
 /**
@@ -82,7 +93,7 @@ public class Duke {
 
         for (int i = 1; i <= taskList.getSize(); i++) {
             System.out.println(i + ". " + taskList.getTask(i - 1).toString());
-            // adding toString() to use the overridden one in Task, etc.
+            // adding toString() to use the overridden one in duke.task.Task, etc.
         }
     }
 

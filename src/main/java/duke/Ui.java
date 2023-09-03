@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.Task;
+
 public class Ui {
     public void greetUser() {
         System.out.println("Hello friend :> My name is John, nice to meet you! What do you have to do today?");

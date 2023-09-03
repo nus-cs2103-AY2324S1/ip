@@ -1,3 +1,9 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -14,7 +20,7 @@ public class Parser {
         StringBuilder data = new StringBuilder();
         data.append(taskType).append(" | ").append(status).append(" | ").append(description);
 
-        // Add additional information for Deadline and Event tasks
+        // Add additional information for duke.task.Deadline and duke.task.Event tasks
         if (task instanceof Deadline) {
             LocalDateTime deadlineDateTime = ((Deadline) task).getBy();
             String formattedDateTime = deadlineDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));

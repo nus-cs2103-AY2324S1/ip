@@ -1,3 +1,5 @@
+package duke.exception;
+
 /**
  * This exception is thrown when there is an invalid command.
  * An invalid command is one that is not recognized by the program.

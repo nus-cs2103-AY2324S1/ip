@@ -1,3 +1,5 @@
+package duke.exception;
+
 /**
  * This exception is thrown when there is an invalid task description.
  * An invalid task description is one that is empty.

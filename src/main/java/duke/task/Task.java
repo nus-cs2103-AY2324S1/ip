@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * Represents a basic task that has a description.
  */
@@ -51,9 +53,9 @@ public class Task {
     }
 
     /**
-     * Returns a string representation of the Task object.
+     * Returns a string representation of the duke.task.Task object.
      *
-     * @return A string representation of the Task object.
+     * @return A string representation of the duke.task.Task object.
      */
     @Override
     public String toString() {
