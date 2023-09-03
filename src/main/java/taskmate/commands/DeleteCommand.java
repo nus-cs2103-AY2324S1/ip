@@ -26,7 +26,6 @@ public class DeleteCommand extends Command {
             ui.printSuccessfulDeleteResponse(taskToMark, tasks.getNumTotalTasks());
         } catch (TaskNotFoundException e) {
             ui.printTaskNotFoundExceptionResponse();
-            return;
         }
 
     }

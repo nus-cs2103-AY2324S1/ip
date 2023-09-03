@@ -11,10 +11,10 @@ public abstract class Command {
 
     String getType() {
         return this.commandType;
-    };
-    public boolean isExit() {
+    }
+    public boolean getIsExit() {
         return this.isExit;
-    };
+    }
     public abstract void execute(TaskList tasks, Ui ui, Storage storage);
 
     public String getCommandType() {

@@ -27,7 +27,6 @@ public class UnmarkCommand extends Command {
             ui.printSuccessfulUnmarkResponse(taskToUnmark);
         } catch (TaskNotFoundException e) {
             ui.printTaskNotFoundExceptionResponse();
-            return;
         }
     }
 }
