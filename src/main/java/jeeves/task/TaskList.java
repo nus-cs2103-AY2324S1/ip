@@ -11,6 +11,10 @@ public class TaskList {
      * taskList is effectively 1-indexed
      */
     private final ArrayList<Task> taskList;
+    
+    public TaskList() {
+        taskList = new ArrayList<>();
+    }
 
     public TaskList(ArrayList<Task> tasks) {
         taskList = tasks;

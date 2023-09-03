@@ -108,11 +108,11 @@ public class Parser {
      * @param input The string to be checked
      * @return Whether the string is fully comprised of integers
      */
-    private static boolean isNotNumber(String input) {
+    static boolean isNotNumber(String input) {
         return !input.matches("[0-9]+");
     }
     
-    private static void checkIfValidId(String idString) {
+    static void checkIfValidId(String idString) {
         try {
             if (idString.isEmpty()) {
                 // id field is empty
@@ -131,7 +131,7 @@ public class Parser {
         }
     }
     
-    private static void checkIfDescMissing(String desc) {
+    static void checkIfDescMissing(String desc) {
         try {
             if (desc.isEmpty()) {
                 throw new MissingDescriptionException("The description of a todo cannot be empty\n");
@@ -141,7 +141,7 @@ public class Parser {
         }
     }
 
-    private static int getByDateIndex(String cmd) throws MissingByException, MissingDescriptionException {
+    static int getByDateIndex(String cmd) throws MissingByException, MissingDescriptionException {
         int byDateIndex = cmd.indexOf("/by ");
         if (byDateIndex == -1 || cmd.length() == byDateIndex + FINDFIELD_BY_OFFSET) {
             // If the "/by " block is missing, throws the MissingByException
@@ -154,7 +154,7 @@ public class Parser {
         return byDateIndex;
     }
 
-    private static int getFromDateIndex(String input) throws MissingFromException, MissingToException, MissingDescriptionException {
+    static int getFromDateIndex(String input) throws MissingFromException, MissingToException, MissingDescriptionException {
         int fromDateIndex = input.indexOf("/from ");
         if (fromDateIndex == -1) {
             // If the "/from " block is missing, throws the MissingFromException
@@ -164,7 +164,7 @@ public class Parser {
         return fromDateIndex;
     }
 
-    private static int getToDateIndex(String input, int fromDateIndex) throws MissingToException,
+    static int getToDateIndex(String input, int fromDateIndex) throws MissingToException,
             MissingDescriptionException, MissingFromException {
         int toDateIndex = input.indexOf("/to ");
         if (toDateIndex == -1) {
