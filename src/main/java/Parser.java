@@ -4,7 +4,7 @@ import java.time.DateTimeException;
 public class Parser {
     public static Ui ui = new Ui();
 
-    public static void userCommand(String input, Storage storage, TaskList tasks) throws DukeException {
+    public static void userCommand(String input, Storage storage, TaskList tasks) throws DukeException, NumberFormatException {
         try {
             if (input.startsWith("mark")) {
                 int taskIndex = Integer.parseInt(input.substring(5));
@@ -48,21 +48,24 @@ public class Parser {
                 ui.printAddTaskToList(tasks, task);
                 storage.writeTasksToFile(tasks);
             } else if (input.startsWith("deadline")) {
-                if (input.trim().length() <= 8) {
+                int index = input.lastIndexOf("/by");
+                if (input.trim().length() <= 8 || (input.substring(9, index).isEmpty())) {
                     throw new DukeException("\t Sorry! The description of a deadline cannot be empty :(");
                 }
-                if (!input.contains("/by")) {
+
+                if (!input.contains("/by"))  {
                     throw new DukeException("\t Hey bud! Please include when the deadline is! " +
                             "\n\t For example you can type: deadline read /by 2023-09-01 1700");
                 }
-                int index = input.lastIndexOf("/by");
                 Task task = new Deadline(input.substring(9, index - 1), input.substring(index + 4));
                 tasks.addTask(task);
                 ui.printAddTaskToList(tasks, task);
                 storage.writeTasksToFile(tasks);
 
             } else if (input.startsWith("event")) {
-                if (input.trim().length() <= 5) {
+                int indexFrom = input.lastIndexOf("/from");
+                int indexTo = input.lastIndexOf("/to");
+                if ((input.trim().length() <= 5) || (input.substring(6, indexFrom).isEmpty())) {
                     throw new DukeException("\t Sorry! The description of an event cannot be empty :(");
                 }
                 if (!input.contains("/from")) {
@@ -73,8 +76,6 @@ public class Parser {
                     throw new DukeException("\t Hey bud! Please include when the end date of the event is!" +
                             "\n\t For example you can type: event hangout /from 2023-09-01 1700 /to 2023-09-01 2000");
                 }
-                int indexFrom = input.lastIndexOf("/from");
-                int indexTo = input.lastIndexOf("/to");
                 Task task = new Event(input.substring(6, indexFrom - 1),
                         input.substring(indexFrom + 6, indexTo - 1), input.substring(indexTo + 4));
                 tasks.addTask(task);
@@ -83,7 +84,7 @@ public class Parser {
             } else {
                 userCommand(input, storage, tasks);
             }
-        } catch (DukeException | DateTimeException | IOException e) {
+        } catch (DukeException | DateTimeException | IOException | NumberFormatException e) {
             handleException(e);
         }
     }
@@ -96,6 +97,8 @@ public class Parser {
                     "\n\tFor example: 2023-08-08 1800");
         } else if (e instanceof IOException) {
             System.out.println("\tAn error occurred while performing a file operation: " + e.getMessage());
+        } else if (e instanceof NumberFormatException ) {
+            System.out.println("\tYou can only perform this action on an integer!");
         } else {
             System.out.println("\tAn unexpected error occurred: " + e.getMessage());
         }

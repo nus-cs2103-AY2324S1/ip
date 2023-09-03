@@ -1,8 +1,4 @@
-import java.time.DateTimeException;
 import java.util.Scanner;
-import java.io.IOException;
-
-
 public class Duke {
 
     public static void main(String[] args) {
