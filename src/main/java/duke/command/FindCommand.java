@@ -33,7 +33,7 @@ public class FindCommand extends Command {
      * @throws IOException If there's an issue with input or output operations.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        tasks.findTasks(keyword, ui);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+        return tasks.findTasks(keyword, ui);
     }
 }

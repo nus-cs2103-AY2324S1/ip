@@ -5,3 +5,4 @@ T # 0 # borrow book
 T # 0 # haha book
 T # 0 # makabaka book
 T # 0 # book hahaweafefa
+D # 0 # return book # 2012-10-12

@@ -107,13 +107,13 @@ public class TaskList {
      * @param keyword The search keyword.
      * @param ui The UI object to display results.
      */
-    public void findTasks(String keyword, Ui ui) {
+    public String findTasks(String keyword, Ui ui) {
         ArrayList<Task> matchedTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
                 matchedTasks.add(task);
             }
         }
-        ui.showFoundTasks(matchedTasks);
+        return ui.showFoundTasks(matchedTasks);
     }
 }

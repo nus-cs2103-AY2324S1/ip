@@ -50,9 +50,9 @@ public class AddCommand extends Command {
      * @throws IOException If there's an error saving the tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         tasks.addTask(task);
         storage.save(tasks);
-        ui.showAddedTask(task);
+        return ui.showAddedTask(task);
     }
 }

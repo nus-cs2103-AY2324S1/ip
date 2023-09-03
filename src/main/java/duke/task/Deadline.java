@@ -52,6 +52,7 @@ public class Deadline extends Task {
     }
 
     public LocalDate getTime() {
+
         return this.deadlineTime;
     }
     /**

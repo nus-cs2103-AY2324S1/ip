@@ -46,7 +46,7 @@ public class DeleteCommand extends Command {
      * @throws IOException If there's an error saving the tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         try {
             if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
                 throw new DukeException("Invalid task number!");
@@ -54,10 +54,10 @@ public class DeleteCommand extends Command {
 
             Task removedTask = tasks.deleteTask(taskIndex);
             storage.save(tasks);
-            ui.showDeletedTask(removedTask);
+            return ui.showDeletedTask(removedTask);
 
         } catch (DukeException e) {
-            ui.showError(e.getMessage());
+            return ui.showError(e.getMessage());
         }
     }
 }

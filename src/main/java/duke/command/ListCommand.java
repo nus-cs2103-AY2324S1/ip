@@ -19,12 +19,12 @@ public class ListCommand extends Command {
      * @throws DukeException If there's an issue executing the list command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        System.out.println("Here are the tasks in your list:");
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        StringBuilder result = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.getSize(); i++) {
-            int tem_order = i + 1;
-            System.out.println(tem_order + "." + tasks.getTask(i));
-        }
+           result.append((i + 1)).append(".").append(tasks.getTask(i).toString()).append("\n");
+       }
+        return result.toString();
     }
 
     /**

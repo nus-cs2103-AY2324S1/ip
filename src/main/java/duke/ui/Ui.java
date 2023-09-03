@@ -1,8 +1,10 @@
 package duke.ui;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.task.Task;
+
 /**
  * Deals with interactions with the user
  * Return messages to user from Duke.
@@ -20,18 +22,18 @@ public class Ui {
     /**
      * Returns the welcome greetings.
      */
-    public void showWelcome() {
+    public static String showWelcome() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
-        System.out.println("Hello from\n" + logo);
-        System.out.println("_____________________________________\n");
-        System.out.println("Hello! I 'm Jarvis.\n");
-        System.out.println("What can I do for you?\n");
-        System.out.println("_____________________________________\n");
+        return "Hello from\n" + logo
+                + "_____________________________________\n"
+                + "Hello! I 'm Jarvis.\n"
+                + "What can I do for you?\n"
+                + "_____________________________________\n";
     }
 
     /**
@@ -44,77 +46,73 @@ public class Ui {
     }
 
     /**
-     * Displays a line to format the UI.
+     * Returns a line to format the UI.
      */
-    public void showLine() {
-        System.out.println("______________________________");
+    public String showLine() {
+        return "______________________________";
     }
 
     /**
-     * Displays an error message when there's an issue loading tasks.
+     * Returns an error message when there's an issue loading tasks.
      */
-    public void showLoadingError() {
-        System.out.println("Error loading tasks. Starting with an empty task list.");
+    public String showLoadingError() {
+        return "Error loading tasks. Starting with an empty task list.";
     }
 
     /**
-     * Displays an error message.
+     * Returns an error message.
      *
-     * @param message The error message to display.
+     * @param message The error message.
      */
-    public void showError(String message) {
-        System.out.println("Error: " + message);
+    public String showError(String message) {
+        return "Error: " + message;
     }
 
     /**
      * Returns the Goodbye message.
      */
-    public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!\n");
+    public String showGoodbye() {
+        return "Bye. Hope to see you again soon!";
     }
 
-
     /**
-     * Displays the message for a deleted task.
+     * Returns the message for a deleted task.
      */
-    public void showDeletedTask(Task task) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task);
+    public String showDeletedTask(Task task) {
+        return "Noted. I've removed this task:\n  " + task;
     }
 
     /**
-     * Displays the message for an added task.
+     * Returns the message for an added task.
      */
-    public void showAddedTask(Task task) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
+    public String showAddedTask(Task task) {
+        return "Got it. I've added this task:\n  " + task;
     }
 
     /**
-     * Displays the message for a marked task.
+     * Returns the message for a marked task.
      */
-    public void showMarkedTask(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + task);
+    public String showMarkedTask(Task task) {
+        return "Nice! I've marked this task as done:\n  " + task;
     }
 
     /**
-     * Displays the message for an unmarked task.
+     * Returns the message for an unmarked task.
      */
-    public void showUnmarkedTask(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + task);
+    public String showUnmarkedTask(Task task) {
+        return "OK, I've marked this task as not done yet:\n  " + task;
     }
 
     /**
-     * Displays tasks that match the search keyword.
+     * Returns tasks that match the search keyword.
      *
      * @param tasks List of matched tasks.
      */
-    public void showFoundTasks(ArrayList<Task> tasks) {
-        System.out.println("Here are the matching tasks in your list:");
+    public String showFoundTasks(ArrayList<Task> tasks) {
+        StringBuilder result = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i).toString());
+            result.append((i + 1)).append(".").append(tasks.get(i).toString()).append("\n");
         }
+        return result.toString();
     }
 }

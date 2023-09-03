@@ -44,13 +44,13 @@ public class MarkCommand extends Command {
      * @throws DukeException  If there's an issue executing the mark command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, DukeException {
         if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
             throw new DukeException("Invalid input number. :( Please provide a valid task number.");
         }
 
         tasks.mark(taskIndex);
-        ui.showMarkedTask(tasks.getTask(taskIndex));
         storage.save(tasks);
+        return ui.showMarkedTask(tasks.getTask(taskIndex));
     }
 }
