@@ -9,4 +9,9 @@ public class Deadlines extends Task {
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), this.by);
     }
+
+    @Override
+    public String toSave() {
+        return String.format("D|%s|%s|%s", this.getStatusIcon(), this.getDescription(), this.by);
+    }
 }
