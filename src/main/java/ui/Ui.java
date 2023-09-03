@@ -152,9 +152,12 @@ public class Ui {
         responses.add(output);
     }
 
-    public String getOutput() {
+    public String getOutput(String... preStrings) {
         //convert output to string
         String output = "";
+        for (String preString : preStrings) {
+            output += preString + "\n";
+        }
         for (String response : responses) {
             output += response + "\n";
         }
