@@ -28,7 +28,7 @@ mv data/data.json data/backup.json
 # run the program, feed cyrus.commands from input.txt file and redirect the output to the ACTUAL.TXT
 # Execute the jar instead
 # Must run the jar from root directory
-java -jar build/libs/duke.jar < text-ui-test/input.txt > text-ui-test/ACTUAL.txt
+java -jar build/libs/cyrus.jar < text-ui-test/input.txt > text-ui-test/ACTUAL.txt
 
 cd text-ui-test/
 
