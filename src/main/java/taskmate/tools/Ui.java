@@ -2,6 +2,7 @@ package taskmate.tools;
 
 import taskmate.tools.tasks.Task;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -146,5 +147,14 @@ public class Ui {
 
     public void printSaveFailResponse(String savePath) {
         System.out.println("Failed to write to " + savePath);
+    }
+
+    public void printMatchingTasks(ArrayList<Task> matchingTasks) {
+        String message = "Here are the matching tasks in your list:\n";
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            Task newTask = matchingTasks.get(i);
+            message += (i + 1) + "." + newTask.toString() + "\n";
+        }
+        printMessage(message);
     }
 }
