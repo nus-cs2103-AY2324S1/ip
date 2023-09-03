@@ -1,12 +1,19 @@
 package duke;
 
-import duke.commands.*;
+import duke.commands.Command;
+import duke.commands.ExitCommand;
+import duke.commands.MarkCommand;
+import duke.commands.UnmarkCommand;
+import duke.commands.FindCommand;
+import duke.commands.ListCommand;
+import duke.commands.TaskCommand;
+import duke.commands.DeleteCommand;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
-import duke.Exceptions.IncompleteDescriptionException;
-import duke.Exceptions.UnknownCommandException;
+import duke.exceptions.IncompleteDescriptionException;
+import duke.exceptions.UnknownCommandException;
 
 /**
  * Parses string input from the user.

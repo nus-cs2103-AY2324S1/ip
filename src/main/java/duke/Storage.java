@@ -1,7 +1,7 @@
 package duke;
 
-import duke.Exceptions.IncompleteDescriptionException;
-import duke.Exceptions.InvalidTaskIndexException;
+import duke.exceptions.IncompleteDescriptionException;
+import duke.exceptions.InvalidTaskIndexException;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,8 +1,8 @@
 package duke.commands;
 
-import duke.Ui;
 import duke.Storage;
 import duke.TaskList;
+import duke.Ui;
 
 /**
  * Command to exit the program and write data to the task file.

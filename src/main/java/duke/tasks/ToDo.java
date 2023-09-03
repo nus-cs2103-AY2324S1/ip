@@ -1,6 +1,6 @@
 package duke.tasks;
 
-import duke.Exceptions.IncompleteDescriptionException;
+import duke.exceptions.IncompleteDescriptionException;
 
 /**
  * A class encapsulating information of a task of ToDo type.

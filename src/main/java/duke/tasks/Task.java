@@ -1,6 +1,6 @@
 package duke.tasks;
 
-import duke.Exceptions.IncompleteDescriptionException;
+import duke.exceptions.IncompleteDescriptionException;
 
 /**
  * Abstract class encapsulating information about a task.
@@ -35,6 +35,10 @@ abstract public class Task {
      */
     public void unMarkDone() {
         this.isDone = false;
+    }
+
+    public String getTaskName() {
+        return this.taskName;
     }
 
     /**

@@ -1,12 +1,14 @@
 package duke;
 
-import duke.commands.Command;
-import duke.Exceptions.IncompleteDescriptionException;
-import duke.Exceptions.UnknownCommandException;
-
 import java.util.Scanner;
 
+import duke.exceptions.IncompleteDescriptionException;
+import duke.exceptions.UnknownCommandException;
+import duke.commands.Command;
 
+/**
+ * Main entry point for the textbot.
+ */
 public class Duke {
     public static void main(String[] args) {
 

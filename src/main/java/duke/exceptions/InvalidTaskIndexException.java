@@ -1,4 +1,4 @@
-package duke.Exceptions;
+package duke.exceptions;
 
 import duke.Ui;
 

@@ -4,7 +4,7 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.ToDo;
 import org.junit.jupiter.api.Test;
-import duke.Exceptions.IncompleteDescriptionException;
+import duke.exceptions.IncompleteDescriptionException;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
