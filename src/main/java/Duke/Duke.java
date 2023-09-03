@@ -1,4 +1,9 @@
+package Duke;
+
 import java.util.Scanner;
+import Duke.Tasks.*;
+import Duke.Exceptions.*;
+
 public class Duke {
     public static void main(String[] args) {
         Ui.printWelcome();
@@ -13,5 +18,3 @@ public class Duke {
         }
     }
 }
-
-

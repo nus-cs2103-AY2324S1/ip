@@ -1,7 +1,11 @@
+package Duke.Tasks;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import Duke.*;
+import Duke.Exceptions.*;
 
 public class TaskList {
 

@@ -1,3 +1,7 @@
+package Duke.Tasks;
+
+import Duke.Parser;
+
 public class DeadlineTask extends Task {
 
     private String by;
@@ -19,3 +23,4 @@ public class DeadlineTask extends Task {
     }
 
 }
+

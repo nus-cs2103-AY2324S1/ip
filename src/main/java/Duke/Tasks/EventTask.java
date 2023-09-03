@@ -1,3 +1,7 @@
+package Duke.Tasks;
+
+import Duke.*;
+
 public class EventTask extends Task {
     private String event;
     private String from;

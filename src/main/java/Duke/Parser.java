@@ -1,6 +1,11 @@
+package Duke;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import Duke.Tasks.*;
+import Duke.Exceptions.*;
+
 
 public class Parser {
 
@@ -89,3 +94,5 @@ public class Parser {
     }
 
 }
+
+
