@@ -5,51 +5,52 @@ import java.util.List;
 
 public class Ui {
 
-    public void listFoundTasks(List<Task> filteredTasks) {
-        System.out.println("Here are the matching tasks in your list:");
+    public String listFoundTasks(List<Task> filteredTasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < filteredTasks.size(); i++) {
-            System.out.printf("%d.%s\n", i + 1, filteredTasks.get(i).toString());
+            sb.append(String.format("%d.%s\n", i + 1, filteredTasks.get(i).toString()));
         }
-    }
-    public void showLoadingError() {
-        System.out.println("~~No stored tasks detected~~\n");
+        return sb.toString();
     }
 
-    public void greetMessage() {
-        System.out.println("Hello! I'm HAPPY\nWhat can I do for you?\n");
-    }
-
-    public void exitMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
-    }
-
-    public void listMessage(ArrayList<Task> tasks) {
-        System.out.println("Here are the tasks in your list:");
+    public String listMessage(ArrayList<Task> tasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.printf("  %d.%s%n", i + 1, task);
+            sb.append(String.format("%d.%s%n", i + 1, task));
         }
+        return sb.toString();
     }
 
-    public void markTaskAsDoneMessage(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.printf("  %s%n", task);
+    public String markTaskAsDoneMessage(Task task) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nice! I've marked this task as done:\n");
+        sb.append(String.format("%s%n", task));
+        return sb.toString();
     }
 
-    public void unmarkTaskMessage(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.printf("  %s%n", task);
+    public String unmarkTaskMessage(Task task) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("OK, I've marked this task as not done yet:\n");
+        sb.append(String.format("%s%n", task));
+        return sb.toString();
     }
 
-    public void deleteTaskMessage(Task task, int numOfTasks) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task);
-        System.out.printf("Now you have %d tasks in the list.%n", numOfTasks);
+    public String deleteTaskMessage(Task task, int numOfTasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Noted. I've removed this task:\n");
+        sb.append(String.format("%s\n", task));
+        sb.append(String.format("Now you have %d tasks in the list.%n", numOfTasks));
+        return sb.toString();
     }
 
-    public void addTaskMessage(Task task, int numOfTasks) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.printf("Now you have %d tasks in the list.%n", numOfTasks);
+    public String addTaskMessage(Task task, int numOfTasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Got it. I've added this task:\n");
+        sb.append(String.format("%s\n", task));
+        sb.append(String.format("Now you have %d tasks in the list.%n", numOfTasks));
+        return sb.toString();
     }
 }

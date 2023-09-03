@@ -1,7 +1,9 @@
 package duke;
 
 import java.util.Arrays;
-import java.util.Scanner;
+
+import javafx.application.Platform;
+
 
 /** Chatbot to assist individuals in keeping track of pending tasks */
 public class Duke {
@@ -11,7 +13,7 @@ public class Duke {
         DEADLINE,
         EVENT
     }
-
+    private SpecialTaskKeyword[] specialTasksKeywords = SpecialTaskKeyword.values();
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
@@ -24,69 +26,49 @@ public class Duke {
         try {
             this.taskList = new TaskList(this.storage.load(), this.ui);
         } catch (NoTasksStoredException e) {
-            this.ui.showLoadingError();
             this.taskList = new TaskList(this.ui);
         }
         this.parser = new Parser();
-
     }
 
     /**
-     * Allows the user to interact with the chatbot
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public void run() {
-        this.ui.greetMessage();
-        Scanner scanner = new Scanner(System.in);
-        SpecialTaskKeyword[] specialTasksKeywords = SpecialTaskKeyword.values();
-        while (true) {
-            String userInput = scanner.nextLine();
-            try {
-                String actionWord = this.parser.parseActionWord(userInput);
-                if (actionWord.equals("bye")) {
-                    this.taskList.save(this.storage);
-                    break;
-                } else if (actionWord.equals("list")) {
-                    this.taskList.listTasks();
-                } else if (actionWord.equals("mark")) {
-                    int taskNumber = this.parser.parseTaskNumber(userInput);
-                    this.taskList.markTaskAsDone(taskNumber);
-                } else if (actionWord.equals("unmark")) {
-                    int taskNumber = this.parser.parseTaskNumber(userInput);
-                    this.taskList.unmarkTask(taskNumber);
-                } else if (actionWord.equals("delete")) {
-                    int taskNumber = this.parser.parseTaskNumber(userInput);
-                    this.taskList.deleteTask(taskNumber);
-                } else if (actionWord.equals("find")) {
-                    String description = this.parser.parseFindDescription(userInput);
-                    this.taskList.filterTasks(description);
-                } else if (Arrays.stream(specialTasksKeywords).anyMatch(
-                        keyword -> keyword.toString().toLowerCase().equals(actionWord))) {
-                    try {
-                        Task task = this.parser.parseAddTaskInput(userInput, actionWord);
-                        this.taskList.addTask(task);
-                    } catch (InvalidTaskException e) {
-                        System.out.println(e.getMessage());
-                    }
-                } else {
-                    throw new InvalidInputException("ERROR: Invalid input");
+    public String getResponse(String input) {
+        try {
+            String actionWord = this.parser.parseActionWord(input);
+            if (actionWord.equals("bye")) {
+                this.taskList.save(this.storage);
+                Platform.exit();
+            } else if (actionWord.equals("list")) {
+                return this.taskList.listTasks();
+            } else if (actionWord.equals("mark")) {
+                int taskNumber = this.parser.parseTaskNumber(input);
+                return this.taskList.markTaskAsDone(taskNumber);
+            } else if (actionWord.equals("unmark")) {
+                int taskNumber = this.parser.parseTaskNumber(input);
+                return this.taskList.unmarkTask(taskNumber);
+            } else if (actionWord.equals("delete")) {
+                int taskNumber = this.parser.parseTaskNumber(input);
+                return this.taskList.deleteTask(taskNumber);
+            } else if (actionWord.equals("find")) {
+                String description = this.parser.parseFindDescription(input);
+                return this.taskList.filterTasks(description);
+            } else if (Arrays.stream(this.specialTasksKeywords).anyMatch(
+                    keyword -> keyword.toString().toLowerCase().equals(actionWord))) {
+                try {
+                    Task task = this.parser.parseAddTaskInput(input, actionWord);
+                    return this.taskList.addTask(task);
+                } catch (InvalidTaskException e) {
+                    System.out.println(e.getMessage());
                 }
-            } catch (InvalidInputException e) {
-                System.out.println(e.getMessage());
+            } else {
+                throw new InvalidInputException("ERROR: Invalid input");
             }
+        } catch (InvalidInputException e) {
+            return "INVALID INPUT";
         }
-        scanner.close();
+        return "ERROR";
     }
-
-    /**
-     * Runs the chatbot and allows users to keep track of pending tasks
-     *
-     * @param args user inputs to interact with the chatbot
-     */
-    public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
-    }
-
-
-
-
 }
