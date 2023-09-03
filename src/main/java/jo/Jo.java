@@ -2,6 +2,10 @@ package jo;
 
 import jo.command.Command;
 
+/**
+ * Represents a simple task management application.
+ * It allows users to interact with tasks through a command-line interface.
+ */
 public class Jo {
     protected static String filePath = "data/jo.txt";
 
@@ -9,6 +13,11 @@ public class Jo {
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Constructs a new Jo object with the specified file path.
+     *
+     * @param filePath The file path for storing task data.
+     */
     public Jo(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -20,6 +29,9 @@ public class Jo {
         }
     }
 
+    /**
+     * Runs the Jo application, displaying the welcome message and processing user commands.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

@@ -12,14 +12,30 @@ import jo.task.Deadline;
 import jo.task.Event;
 import jo.task.Task;
 
+/**
+ * Responsible for loading tasks from and updating tasks to a file.
+ * It provides methods to read tasks from a file and write tasks to a file.
+ */
 public class Storage {
     private File f;
     private String filePath;
 
+    /**
+     * Constructs a new `Storage` object with the specified file path.
+     *
+     * @param filePath The file path where task data is stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.f = new File(filePath);
     }
+
+    /**
+     * Loads tasks from the specified file and returns them as an ArrayList.
+     *
+     *@return An ArrayList of tasks loaded from the file.
+     * @throws JoException If an error occurs while reading the file or parsing tasks.
+     */
     public ArrayList<Task> load() throws JoException {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
@@ -49,6 +65,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Updates the specified `TaskList` by writing its tasks to the file.
+     *
+     * @param taskList The `TaskList` to update in the file.
+     * @throws JoException If an error occurs while writing to the file.
+     */
     public void update(TaskList taskList) throws JoException {
         try {
             FileWriter fw = new FileWriter(this.filePath);
