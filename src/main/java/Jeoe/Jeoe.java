@@ -13,6 +13,7 @@ import Jeoe.Tasks.TaskManager;
 /**
  * This class encapsulates my version of Duke, called Jeoe.
  * Jeoe is a chatbot that helps the user keep track of their tasks.
+ * Java coding standard was adhered to in this program.
  *
  * @author Joe Chua
  * @version Week-3
