@@ -79,4 +79,13 @@ public class Ui {
     public void showLoadingError(String message) {
         System.out.println(message);
     }
+
+    /**
+     * Print search query result
+     * @param results a TaskList of search result
+     */
+    public void printQueryResult (TaskList results) {
+        System.out.println("Here are the matching tasks in your list:");
+        printTaskList(results);
+    }
 }

@@ -74,6 +74,9 @@ public class Duke {
                 tasks.deleteTask(index);
                 storage.store(tasks);
                 ui.printDelete(curr, tasks.getSize());
+            } else if (command.equals("find")) {
+                String query = parser.parseQuery();
+                ui.printQueryResult(tasks.searchTask(query));
             } else {
                 //nothing found
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");

@@ -22,7 +22,10 @@ public class Parser {
     public String parseCommand(String fullCommmand) {
         String parsed_str[] = fullCommmand.split("\\s+");
         this.parsedStr = parsed_str;
-        if (parsed_str[0].equals("list")) {
+        if (parsed_str[0].equals("find")) {
+            this.command = "find";
+            return "find";
+        } else if (parsed_str[0].equals("list")) {
             if (parsed_str.length > 1) {
                 //error handling
                 System.out.println("Do not input another argument beside list");
@@ -77,6 +80,17 @@ public class Parser {
         return "";
     }
 
+    /**
+     * Parse query for the find command
+     * @return the search query
+     */
+    public String parseQuery() {
+        if (command.equals("find")) {
+            //assume only one word query, no error handling yet
+            return parsedStr[1];
+        }
+        return "";
+    }
     /**
      * Parse the index that used by "mark", "unmark" or delete
      * run after parseCommand
