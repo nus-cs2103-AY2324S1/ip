@@ -18,14 +18,28 @@ import java.io.BufferedWriter;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.time.format.DateTimeFormatter;
-
+/**
+ * The Storage class is responsible for reading and writing data to and from the storage file.
+ * It provides methods to save tasks to the storage file and load tasks from the file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the storage file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves task data from the TaskManager to the storage file.
+     *
+     * @param taskManager The TaskManager containing the list of tasks.
+     * @throws StorageException If there is an error while saving data.
+     */
     public void saveData(TaskManager taskManager) throws StorageException {
         try {
             FileWriter fw = new FileWriter(filePath);
@@ -42,6 +56,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads task data from the storage file and returns a TaskManager.
+     *
+     * @return A TaskManager containing the loaded tasks.
+     * @throws StorageException If there is an error while loading data.
+     */
     public TaskManager loadData() throws StorageException {
         File savedFile = new File(this.filePath);
         ArrayList<Task> tasks = new ArrayList<>();
@@ -59,10 +79,6 @@ public class Storage {
         }
     }
 
-    // basically the format will be something like this:
-    // [T][X] do homework
-    // [D][ ] submit assignment (by: Friday)
-    // [E][ ] attend lecture (from: Wednesday to: Thursday)
     private Task readLine(String line) throws StorageException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm");
         line = line.trim();
@@ -103,6 +119,11 @@ public class Storage {
         throw new StorageException("There was an issue reading your duke.data");
     }
 
+    /**
+     * Creates the storage file and its parent directory.
+     *
+     * @throws StorageException If there is an error while creating the file.
+     */
     public void createFile() throws StorageException {
         File file = new File(this.filePath);
         File rootDirectory = new File(file.getParent());

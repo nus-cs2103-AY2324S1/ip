@@ -2,13 +2,29 @@ package duke.main;
 
 import duke.exceptions.InvalidArgumentException;
 
-
+/**
+ * The Parser class is responsible for parsing user input and extracting relevant information.
+ * It provides methods to parse different types of tasks and commands.
+ */
 public class Parser {
 
+    /**
+     * Extracts the command keyword from the user input.
+     *
+     * @param input The user input string.
+     * @return The command keyword extracted from the input.
+     */
     protected String getCommand(String input) {
         return input.split(" ")[0];
     }
 
+    /**
+     * Parses the task description for a ToDo task from the user input.
+     *
+     * @param input The user input string.
+     * @return The task description for the ToDo task.
+     * @throws InvalidArgumentException If the task description is missing or empty.
+     */
     protected String parseToDo(String input) throws InvalidArgumentException {
         int indexOfSpace = input.indexOf(" ");
         if (indexOfSpace == -1 || indexOfSpace == input.length() - 1) {
@@ -22,6 +38,13 @@ public class Parser {
         return taskName;
     }
 
+    /**
+     * Parses the task name and due date for a Deadline task from the user input.
+     *
+     * @param input The user input string.
+     * @return An array containing the task name and due date.
+     * @throws InvalidArgumentException If the input format is incorrect.
+     */
     protected String[] parseDeadline(String input) throws InvalidArgumentException {
         String suffix = input.substring(input.indexOf(" ") + 1);
         String[] parts = suffix.split(" /due ");
@@ -34,6 +57,13 @@ public class Parser {
         return new String[]{taskName, dueDate};
     }
 
+    /**
+     * Parses the task name, start time, and end time for an Event task from the user input.
+     *
+     * @param input The user input string.
+     * @return An array containing the task name, start time, and end time.
+     * @throws InvalidArgumentException If the input format is incorrect.
+     */
     protected String[] parseEvent(String input) throws InvalidArgumentException {
         String suffix = input.substring(input.indexOf(" ") + 1);
         String[] parts = suffix.split(" /from ");
@@ -51,5 +81,4 @@ public class Parser {
         String to = timeParts[1].trim();
         return new String[]{taskName, from, to};
     }
-
 }
