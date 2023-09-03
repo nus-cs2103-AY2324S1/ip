@@ -6,12 +6,31 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * A Command Class to execute delete task.
+ *
+ * @author marioalvaro
+ */
 public class DeleteCommand extends Command{
     private String[] splitTask;
 
+    /**
+     * Constructor that create DeleteCommand.
+     *
+     * @param splitTask Array of String that contains the index for the mark
+     */
     public DeleteCommand(String[] splitTask) {
         this.splitTask = splitTask;
     }
+
+    /**
+     * Method to execute delete mechanism
+     *
+     * @param taskList The used TaskList
+     * @param ui The ui object
+     * @param storage The storage used
+     * @throws Exception Throw Exception if index is incorrect
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws Exception {
         int index;

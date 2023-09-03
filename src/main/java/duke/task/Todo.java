@@ -1,5 +1,10 @@
 package duke.task;
 
+/**
+ * A Class that handle a todo task.
+ *
+ * @author marioalvaro
+ */
 public class Todo extends Task{
     /**
      * the type Icon
@@ -23,6 +28,10 @@ public class Todo extends Task{
         return "[" + this.TYPE + "]" + super.toString();
     }
 
+    /**
+     * Method to create string that in match with the storing format.
+     * @return string that in match with the storing format.
+     */
     @Override
     public String toDataString() {
         return this.TYPE + " / " + super.toDataString();

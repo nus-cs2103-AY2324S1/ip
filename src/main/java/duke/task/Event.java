@@ -4,6 +4,11 @@ import duke.time.Time;
 
 import java.time.LocalDateTime;
 
+/**
+ * A Class that handle Event.
+ *
+ * @author marioalvaro
+ */
 public class Event extends Task {
     /**
      * the type Icon
@@ -19,8 +24,10 @@ public class Event extends Task {
     private LocalDateTime to;
 
     /**
-     * constructor for duke.task.Event duke.task
-     * @param description the text stored
+     * A Constructor to create an Event
+     * @param description the text description of the task
+     * @param from The time the event starts
+     * @param to The time the event ends
      */
     public Event(String description, String from, String to) {
         super(description);
@@ -30,6 +37,7 @@ public class Event extends Task {
 
     /**
      * override the toString method
+     *
      * @return a string
      */
     @Override
@@ -38,6 +46,11 @@ public class Event extends Task {
                 " (from: " + Time.toString(this.from) + " to: " + Time.toString(this.to) + ")";
     }
 
+    /**
+     * Method to create string that in match with the storing format.
+     *
+     * @return string that in match with the storing format.
+     */
     @Override
     public String toDataString() {
         return this.TYPE + " / " + super.toDataString() + " / " +

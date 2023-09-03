@@ -4,6 +4,11 @@ import duke.time.Time;
 
 import java.time.LocalDateTime;
 
+/**
+ * A Class that handle deadline
+ *
+ * @author marioalvaro
+ */
 public class Deadline extends Task{
     /**
      * the type Icon
@@ -15,8 +20,10 @@ public class Deadline extends Task{
     private LocalDateTime time;
 
     /**
-     * constructor for duke.task.Event duke.task
+     * constructor for crating Deadline
+     *
      * @param description the text stored
+     * @param by the time the deadline must be finished
      */
     public Deadline(String description, String by) {
         super(description);
@@ -24,7 +31,8 @@ public class Deadline extends Task{
     }
 
     /**
-     * override the toString method
+     * override the toString method.
+     *
      * @return a string
      */
     @Override
@@ -33,6 +41,11 @@ public class Deadline extends Task{
                 " (by: " + Time.toString(this.time) + ")";
     }
 
+    /**
+     * Method to create string that in match with the storing format.
+     *
+     * @return string that in match with the storing format.
+     */
     @Override
     public String toDataString() {
         return this.TYPE + " / " + super.toDataString() + " / " + Time.toDataString(this.time);
