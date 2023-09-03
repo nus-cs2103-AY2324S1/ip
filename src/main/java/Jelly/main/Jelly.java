@@ -1,26 +1,30 @@
+package Jelly.main;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import exceptions.JellyException;
-import exceptions.JellyBlankMessageException;
-import exceptions.JellyUnknownCommandException;
+
+import Jelly.task.Deadline;
+import Jelly.task.Event;
+import Jelly.task.Todo;
+import Jelly.task.Task;
+import Jelly.exceptions.JellyException;
+import Jelly.exceptions.JellyBlankMessageException;
+import Jelly.exceptions.JellyUnknownCommandException;
 import java.io.File;
 import java.io.FileWriter;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 
 public class Jelly {
     private static final String FILE_PATH = "./taskData/jelly.txt";
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
     private ArrayList<Task> storage = new ArrayList<>();
 
     int index = 0;
 
     public static void main(String[] args) throws JellyException{
 
-        System.out.println("Hello! I'm Jelly");
+        System.out.println("Hello! I'm Jelly.main.Jelly");
         System.out.println("What can I do for you?");
 
         Jelly jelly = new Jelly();
@@ -78,7 +82,7 @@ public class Jelly {
                     if (num <= 0 || num > 100) {
                         System.out.println("Invalid input");
                     } else if (storage.get(num - 1) != null) {
-                        if (storage.get(num - 1).isDone) {
+                        if (storage.get(num - 1).getTaskStatus() == "X") {
                             System.out.println("Uh, it appears that you've finished this task o.o");
                         } else {
                             storage.get(num - 1).markAsDone();
@@ -95,7 +99,7 @@ public class Jelly {
                     if (num <= 0 || num > 100) {
                         System.out.println("Invalid input");
                     } else if (storage.get(num - 1) != null) {
-                        if (!storage.get(num - 1).isDone) {
+                        if (storage.get(num - 1).getTaskStatus() == " ") {
                             System.out.println("Yo,you can't unmark something you haven't done yet o.o");
                         } else {
                             storage.get(num - 1).markAsUndone();
