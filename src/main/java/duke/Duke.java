@@ -6,7 +6,7 @@ import java.io.IOException;
 public class Duke {
     private TaskList tasks;
     private Storage storage;
-    final static String line = "____________________________________________________________";
+    final static String LINE = "────────────────────────────────────────────────────";
 
     public Duke(String filepath) {
         this.storage = new Storage(filepath);
@@ -38,7 +38,7 @@ public class Duke {
                 throw new DukeException("Cannot write tasks into file!");
             }
         } catch (DukeException e) {
-            System.out.println(e.getMessage() + "\n" + line);
+            System.out.println(e.getMessage() + "\n" + LINE);
         }
     }
 
