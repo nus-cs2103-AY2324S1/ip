@@ -24,4 +24,9 @@ public class ListCommand extends Command {
     public void execute(TaskList tasks, Ui ui) {
         ui.listTasks(tasks, false);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof ListCommand;
+    }
 }

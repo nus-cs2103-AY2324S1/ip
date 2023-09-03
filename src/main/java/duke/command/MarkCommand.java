@@ -38,4 +38,13 @@ public class MarkCommand extends Command {
             ui.showError("You have no such task, mortal.");
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof MarkCommand) {
+            MarkCommand markCommand = (MarkCommand) obj;
+            return markCommand.taskNum == this.taskNum;
+        }
+        return false;
+    }
 }

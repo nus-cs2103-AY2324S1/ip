@@ -38,4 +38,13 @@ public class UnmarkCommand extends Command {
             return;
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof UnmarkCommand) {
+            UnmarkCommand unmarkCommand = (UnmarkCommand) obj;
+            return unmarkCommand.taskNum == this.taskNum;
+        }
+        return false;
+    }
 }

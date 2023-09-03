@@ -38,4 +38,14 @@ public class DeadlineCommand extends Command {
         ui.showDeadlineMessage(task);
         ui.showTaskListSizeMessage(tasks.getSize(), true);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof DeadlineCommand) {
+            DeadlineCommand deadlineCommand = (DeadlineCommand) obj;
+            return deadlineCommand.description.equals(this.description)
+                    && deadlineCommand.by.equals(this.by);
+        }
+        return false;
+    }
 }

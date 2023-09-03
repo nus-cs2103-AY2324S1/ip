@@ -41,4 +41,15 @@ public class EventCommand extends Command {
         ui.showEventMessage(task);
         ui.showTaskListSizeMessage(tasks.getSize(), true);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof EventCommand) {
+            EventCommand eventCommand = (EventCommand) obj;
+            return eventCommand.description.equals(this.description)
+                    && eventCommand.from.equals(this.from)
+                    && eventCommand.to.equals(this.to);
+        }
+        return false;
+    }
 }

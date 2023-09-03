@@ -35,4 +35,13 @@ public class ToDoCommand extends Command {
         ui.showTodoMessage(task);
         ui.showTaskListSizeMessage(tasks.getSize(), true);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof ToDoCommand) {
+            ToDoCommand todoCommand = (ToDoCommand) obj;
+            return todoCommand.description.equals(this.description);
+        }
+        return false;
+    }
 }

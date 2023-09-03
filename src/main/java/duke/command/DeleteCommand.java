@@ -38,4 +38,13 @@ public class DeleteCommand extends Command {
             return;
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof DeleteCommand) {
+            DeleteCommand deleteCommand = (DeleteCommand) obj;
+            return deleteCommand.taskNum == this.taskNum;
+        }
+        return false;
+    }
 }

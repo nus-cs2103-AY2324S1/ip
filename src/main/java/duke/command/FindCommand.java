@@ -29,4 +29,13 @@ public class FindCommand extends Command {
         TaskList matchingTasks = tasks.findTasks(searchTerm);
         ui.listTasks(matchingTasks, true);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof FindCommand) {
+            FindCommand findCommand = (FindCommand) obj;
+            return findCommand.searchTerm.equals(this.searchTerm);
+        }
+        return false;
+    }
 }
