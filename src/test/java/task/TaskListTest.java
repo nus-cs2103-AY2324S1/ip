@@ -1,10 +1,10 @@
 package task;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
 
@@ -31,7 +31,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void getTask_indexOOB_exception() {
+    public void getTask_indexOob_exception() {
         TaskList list = new TaskList();
         Task t1 = new Todo("test1");
         list.addTask(t1);

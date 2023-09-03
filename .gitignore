@@ -22,3 +22,6 @@ text-ui-test/EXPECTED-UNIX.TXT
 # Data
 data
 lib
+
+# Misc
+DESCRIPTION.md

@@ -1,12 +1,11 @@
 package utility;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
 
 public class DateTimeParserTest {
 
