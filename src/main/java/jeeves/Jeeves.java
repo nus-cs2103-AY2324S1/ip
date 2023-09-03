@@ -22,8 +22,6 @@ public class Jeeves {
 
     private static final String RELATIVEPATH_DATA_DIRECTORY = "data";
     private static final String RELATIVEPATH_DATA_FILE = "data/JeevesData.txt";
-    private static final String DELETED_ID_EXCEPTION_MESSAGE = "I cannot do that as that is not a valid Task ID "
-            + "(ID provided belongs to a deleted task)\n";
     
     private final Storage storage;
     private final TaskList tasks;
@@ -82,7 +80,7 @@ public class Jeeves {
                 try {
                     if (tasks.getTask(id) == null) {
                         // If the id to be marked belongs to a deleted task (null), throws the DeletedIdException
-                        throw new DeletedIdException(DELETED_ID_EXCEPTION_MESSAGE);
+                        throw new DeletedIdException();
                     }
                     
                     tasks.markTask(id);
@@ -99,7 +97,7 @@ public class Jeeves {
                 try {
                     if (tasks.getTask(id) == null) {
                         // If the id to be marked belongs to a deleted task (null), throws the DeletedIdException
-                        throw new DeletedIdException(DELETED_ID_EXCEPTION_MESSAGE);
+                        throw new DeletedIdException();
                     }
                     
                     tasks.unmarkTask(id);
@@ -114,7 +112,7 @@ public class Jeeves {
                 try {
                     if (tasks.getTask(id) == null) {
                         // If the id to be marked belongs to a deleted task (null), throws the DeletedIdException
-                        throw new DeletedIdException(DELETED_ID_EXCEPTION_MESSAGE);
+                        throw new DeletedIdException();
                     }
                     
                     System.out.println("Understood, I have deleted the following task:");
