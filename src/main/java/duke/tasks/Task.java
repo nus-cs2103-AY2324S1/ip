@@ -26,10 +26,7 @@ public class Task {
     }
 
     public void unmark() {
-
         this.done = false;
-
-
     }
 
     @Override
@@ -40,6 +37,10 @@ public class Task {
 
     public String getTaskName() {
         return this.taskName;
+    }
+
+    public boolean isDone() {
+        return this.done;
     }
 
 }
