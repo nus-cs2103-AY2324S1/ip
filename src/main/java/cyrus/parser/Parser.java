@@ -1,11 +1,21 @@
 package cyrus.parser;
 
-import cyrus.commands.*;
-import cyrus.tasks.TaskList;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import cyrus.commands.AddDeadlineCommand;
+import cyrus.commands.AddEventCommand;
+import cyrus.commands.AddTodoCommand;
+import cyrus.commands.Command;
+import cyrus.commands.CommandType;
+import cyrus.commands.DeleteTaskCommand;
+import cyrus.commands.FindTaskCommand;
+import cyrus.commands.ListTasksCommand;
+import cyrus.commands.MarkTaskCommand;
+import cyrus.commands.UnknownCommand;
+import cyrus.commands.UnmarkTaskCommand;
+import cyrus.tasks.TaskList;
 
 /**
  * Parses user input into a command format. See {@code ParseInfo} for more information about the
@@ -38,10 +48,9 @@ public class Parser {
             return new MarkTaskCommand(taskList, parseInfo);
         case UNMARK_TASK:
             return new UnmarkTaskCommand(taskList, parseInfo);
-        case UNKNOWN:
+        default:
             return new UnknownCommand(taskList, parseInfo);
         }
-        return new UnknownCommand(taskList, parseInfo);
     }
 
     /**
@@ -52,7 +61,9 @@ public class Parser {
      */
     public ParseInfo parse(String line) {
         String input = line.trim();
-        if (input.equals("")) return ParseInfo.EMPTY;
+        if (input.equals("")) {
+            return ParseInfo.EMPTY;
+        }
 
         String[] parts = input.split("\\s+");
         List<String> argumentParts = new ArrayList<>();

@@ -1,12 +1,13 @@
 package cyrus.adapters;
 
+import java.io.IOException;
+import java.time.LocalDate;
+
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import cyrus.utility.DateUtility;
 
-import java.io.IOException;
-import java.time.LocalDate;
+import cyrus.utility.DateUtility;
 
 /**
  * GSON adapter to properly handle {@code LocalDate} values in the various {@code Task}.

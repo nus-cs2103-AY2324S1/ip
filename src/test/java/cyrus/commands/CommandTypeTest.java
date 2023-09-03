@@ -1,18 +1,16 @@
 package cyrus.commands;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class CommandTypeTest {
     @Test
     public void testFromString() {
         var expected = new HashMap<String, CommandType>();
-        String[] testStrings = {
-                "bye", "todo", "deadline", "event", "delete", "list", "mark", "unmark", "nonsense"
-        };
+        String[] testStrings = {"bye", "todo", "deadline", "event", "delete", "list", "mark", "unmark", "nonsense"};
         expected.put("bye", CommandType.BYE);
         expected.put("todo", CommandType.ADD_TODO);
         expected.put("deadline", CommandType.ADD_DEADLINE);

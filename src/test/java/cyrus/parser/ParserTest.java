@@ -1,12 +1,13 @@
 package cyrus.parser;
 
-import cyrus.commands.CommandType;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import cyrus.commands.CommandType;
 
 public class ParserTest {
     private static final Parser PARSER = new Parser();

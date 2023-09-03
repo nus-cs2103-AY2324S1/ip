@@ -1,16 +1,14 @@
 package cyrus.storage;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import cyrus.adapters.LocalDateAdapter;
-import cyrus.tasks.Deadline;
-import cyrus.tasks.Event;
-import cyrus.tasks.Task;
-import cyrus.tasks.ToDo;
-import cyrus.utility.DateUtility;
+import static java.lang.Boolean.parseBoolean;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
@@ -19,7 +17,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static java.lang.Boolean.parseBoolean;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import cyrus.adapters.LocalDateAdapter;
+import cyrus.tasks.Deadline;
+import cyrus.tasks.Event;
+import cyrus.tasks.Task;
+import cyrus.tasks.ToDo;
+import cyrus.utility.DateUtility;
 
 /**
  * Storage of task list using JSON files.
@@ -146,6 +153,8 @@ public class FileStorage implements IStorage {
             break;
         case "event":
             checkKeys.accept(new String[]{"from", "to"});
+            break;
+        default:
             break;
         }
 

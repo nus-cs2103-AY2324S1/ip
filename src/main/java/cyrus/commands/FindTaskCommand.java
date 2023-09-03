@@ -1,11 +1,11 @@
 package cyrus.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cyrus.parser.ParseInfo;
 import cyrus.tasks.TaskList;
 import cyrus.ui.Ui;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Command to find {@code Task} given keyword.

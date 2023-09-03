@@ -17,6 +17,12 @@ public abstract class Command {
      */
     protected final ParseInfo parseInfo;
 
+    /**
+     * Base constructor for a type of command.
+     *
+     * @param taskList  {@code TaskList} with available tasks to operate on.
+     * @param parseInfo parsed information from {@code Parser}.
+     */
     public Command(TaskList taskList, ParseInfo parseInfo) {
         this.taskList = taskList;
         this.parseInfo = parseInfo;

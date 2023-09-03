@@ -1,5 +1,7 @@
 package cyrus;
 
+import java.util.Scanner;
+
 import cyrus.commands.Command;
 import cyrus.commands.CommandType;
 import cyrus.parser.ParseInfo;
@@ -9,15 +11,14 @@ import cyrus.storage.IStorage;
 import cyrus.tasks.TaskList;
 import cyrus.ui.Ui;
 
-import java.util.Scanner;
 
 /**
  * Entry point of Cyrus interface.
  */
 public class Duke {
-    private final static IStorage STORAGE = new FileStorage("data/data.json");
-    private final static TaskList TASK_LIST = new TaskList(STORAGE);
-    private final static Parser PARSER = new Parser();
+    private static final IStorage STORAGE = new FileStorage("data/data.json");
+    private static final TaskList TASK_LIST = new TaskList(STORAGE);
+    private static final Parser PARSER = new Parser();
 
     public static void main(String[] args) {
         Ui.printText("Hello! I'm Cyrus", "What can I do for you?");

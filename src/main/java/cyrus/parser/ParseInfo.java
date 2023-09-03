@@ -1,8 +1,8 @@
 package cyrus.parser;
 
-import cyrus.commands.CommandType;
-
 import java.util.HashMap;
+
+import cyrus.commands.CommandType;
 
 /**
  * Packet of information about the parsing response.
@@ -14,7 +14,7 @@ public class ParseInfo {
     /**
      * Default {@code ParseInfo} for an empty command.
      */
-    public final static ParseInfo EMPTY = new ParseInfo(
+    public static final ParseInfo EMPTY = new ParseInfo(
             CommandType.UNKNOWN,
             "",
             new HashMap<>()
@@ -24,6 +24,13 @@ public class ParseInfo {
     private final String argument;
     private final HashMap<String, String> options;
 
+    /**
+     * Constructor for {@code Parser} parsed data.
+     *
+     * @param commandType type of command parsed.
+     * @param argument    value of command outside of options.
+     * @param options     key-value pairs associated with command.
+     */
     public ParseInfo(CommandType commandType, String argument, HashMap<String, String> options) {
         this.commandType = commandType;
         this.argument = argument;
