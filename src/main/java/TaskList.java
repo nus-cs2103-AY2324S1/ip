@@ -1,8 +1,8 @@
-import Tasks.Task;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import Tasks.Task;
 
 /**
  * TaskList encapsulates the task lists and operations related to the task lists.
@@ -77,7 +77,7 @@ public class TaskList {
 
             try {
                 storage.updateData(tasks, true);
-            } catch(IOException e) {
+            } catch (IOException e) {
                 System.out.println("Error writing to file.");
             }
 
@@ -152,11 +152,12 @@ public class TaskList {
         return false;
     }
 
+    /**
+     * Print out the missions in tasks.
+     */
     public void printList() {
         System.out.println("Missions:");
 
-        tasks.forEach( task -> System.out.println(
-                (tasks.indexOf(task) + 1) + "." + task
-        ));
+        tasks.forEach(task -> System.out.println((tasks.indexOf(task) + 1) + "." + task));
     }
 }
