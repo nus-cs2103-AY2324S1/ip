@@ -9,8 +9,8 @@ public class Ui {
      * Displays the standard welcome message.
      */
     public void showWelcomeMessage() {
-        System.out.println("Hello! I'm Victor\n" +
-                "What can I do for you?\n----------\n");
+        System.out.println("Hello! I'm Victor\n"
+                + "What can I do for you?\n----------\n");
     }
 
     /**

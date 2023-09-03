@@ -21,25 +21,25 @@ public class Task {
      * @return The status icon.
      */
     public String getStatusIcon() {
-        return (isDone ? "X": " ");
+        return (isDone ? "X" : " ");
     }
-    public String setDone() {
     /**
      * Marks the task to be done.
      * @return Response of task being marked done.
      */
+    public String setDone() {
         this.isDone = true;
-        return String.format("Nice! I've marked this task as done:\n" +
-                "%s\n" + "----------\n", this);
+        return String.format("Nice! I've marked this task as done:\n"
+                + "%s\n" + "----------\n", this);
     }
-    public String unsetDone() {
     /**
      * Marks the task to be undone.
      * @return Response of task being marked undone.
      */
+    public String unsetDone() {
         this.isDone = false;
-        return String.format("OK, I've marked this task as not done yet:\n" +
-                "%s\n" + "----------\n", this);
+        return String.format("OK, I've marked this task as not done yet:\n"
+                + "%s\n" + "----------\n", this);
     }
     public boolean match(String keyword) {
         return description.contains(keyword);

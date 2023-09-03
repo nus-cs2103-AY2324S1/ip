@@ -56,8 +56,8 @@ public class Parser {
         String[] deadlineInfo = inputDetails.split(" /by ");
         if (deadlineInfo.length < 2) {
             throw new DukeException(
-                    "☹ OOPS!!! Missing description or deadline of deadline task. " +
-                            "Valid Input Syntax: deadline desc /by date"
+                    "☹ OOPS!!! Missing description or deadline of deadline task. "
+                            + "Valid Input Syntax: deadline desc /by date"
             );
         }
         return deadlineInfo;
@@ -72,7 +72,8 @@ public class Parser {
         String[] eventInfo = inputDetails.split(" /from | /to ");
         if (eventInfo.length < 3) {
             throw new DukeException(
-                    "☹ OOPS!!! Missing description, start time or end time of deadline task. " +
+                    "☹ OOPS!!! Missing description, start time or end time of deadline task. "
+                            +
                             "Valid Input Syntax: event desc /from date /to date"
             );
         }
