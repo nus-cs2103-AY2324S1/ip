@@ -28,10 +28,15 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        // dialogContainer.getChildren().add(DialogBox.getBobDialog(bob.greet(), bobImage));
     }
 
     public void setBob(Bob b) {
         bob = b;
+    }
+
+    public void greetUser() {
+        dialogContainer.getChildren().add(DialogBox.getBobDialog(bob.greet(), bobImage));
     }
 
     /**
@@ -41,10 +46,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = "User: " + userInput.getText();
-        String response = bob.getResponse(input);
+        String response = bob.getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, bobImage)
+                DialogBox.getBobDialog(response, bobImage)
         );
         userInput.clear();
     }

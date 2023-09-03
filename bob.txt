@@ -1,2 +1,1 @@
 todo | 0 | read
-event | 0 | read boook | 2022-01-01 | 2023-01-01

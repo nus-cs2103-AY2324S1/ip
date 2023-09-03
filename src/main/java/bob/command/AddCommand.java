@@ -19,12 +19,13 @@ public class AddCommand extends Command {
      * @param ui from Bob class
      * @param storage from Bob class
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            ui.stringFormat(tasks.addToList(input));
+            String display = ui.stringFormat(tasks.addToList(input));
             storage.write(tasks.lst);
+            return display;
         } catch (IOException e) {
-            ui.showLoadingError();
+            return ui.showLoadingError();
         }
     }
 }

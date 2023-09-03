@@ -29,6 +29,7 @@ public class Main extends Application {
 
             fxmlLoader.<MainWindow>getController().setBob(bob);
             stage.show();
+            fxmlLoader.<MainWindow>getController().greetUser();
 
         } catch (IOException e) {
             e.printStackTrace();

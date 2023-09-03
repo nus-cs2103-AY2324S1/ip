@@ -31,7 +31,6 @@ public class Bob {
     }
 
     public void run() {
-        ui.greet();
         Scanner sc = new Scanner(System.in);
         boolean isExit = false;
 
@@ -52,11 +51,16 @@ public class Bob {
         }
     }
 
-    /**
-     * Formats Bob's reply
-     */
+    public String greet() {
+        return ui.greet();
+    }
+
     public String getResponse(String input) {
-        return "Bob: " + input;
+        if (input.equals("")) {
+            return ui.stringFormat(new String[]{"Write something!"});
+        }
+        Command c = Parser.parse(input);
+        return c.execute(tasks, ui, storage);
     }
 
 

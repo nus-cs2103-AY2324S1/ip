@@ -15,7 +15,7 @@ public class DisplayCommand extends Command {
      * @param ui from Bob class
      * @param storage from Bob class
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.stringFormat(tasks.displayList());
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.stringFormat(tasks.displayList());
     }
 }
