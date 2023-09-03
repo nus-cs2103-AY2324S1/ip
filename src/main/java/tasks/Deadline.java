@@ -15,11 +15,10 @@ public class Deadline extends Task {
         split1 = content.split("/", 2);
         split2 = split1[1].split(" ", 2);
     } */
-
     public Deadline(String content, boolean status) {
         super(content, status);
         split1 = content.split("/", 2);
-        split2 = split1[1].split(" ", 3);
+        split2 = split1[1].split(" ", 2);
         try {
             this.dueDate = LocalDate.parse(split2[1].replace("/", "-"));
         } catch (DateTimeParseException e) {
@@ -30,6 +29,7 @@ public class Deadline extends Task {
                 throw new IllegalArgumentException("Wrong inputs"); // unable to throw DukeException
             }
         }
+
     }
 
     public Deadline mark() {
@@ -48,15 +48,13 @@ public class Deadline extends Task {
                 "____________________________________________________________";
     }
 
-    @Override
     public String toString() {
         String[] result = split1[0].split(" ", 2);
         if (!super.isMarked()) {
-            return String.format("[D][ ] %s(by: %s %s)", result[1],
-                    dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")), split2[2]);
+            return String.format("[D][ ] %s(by: %s)", result[1], split2[1]);
         } else {
-            return String.format("[D][X] %s(by: %s %s)", result[1],
-                    dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")), split2[2]);
+            return String.format("[D][X] %s(by: %s)", result[1], split2[1]);
+
         }
     }
 }
