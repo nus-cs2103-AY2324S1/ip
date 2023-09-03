@@ -12,10 +12,10 @@ import java.io.*;
 
 public class DataStorage {
 
-    public ArrayList<Task> taskData;
+    protected ArrayList<Task> tasks;
 
     public DataStorage() {
-        taskData = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     public void loadTasks() {
@@ -43,7 +43,8 @@ public class DataStorage {
         }
     }
 
-    public void saveTasks(ArrayList<Task> taskList) {
+    public void saveTasks(TaskList tasks) {
+        ArrayList<Task> taskList = tasks.taskList;
         File dataFileDirectory = new File("./data");
         if (!dataFileDirectory.exists()) {
             dataFileDirectory.mkdirs();
@@ -53,7 +54,7 @@ public class DataStorage {
 
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(storageFile))) {
             for (Task task : taskList) {
-                bufferedWriter.write(task.storageFormat());
+                bufferedWriter.write(task.toStorageFormat());
                 bufferedWriter.newLine();
             }
 
@@ -85,7 +86,7 @@ public class DataStorage {
             task.markAsUndone();
         }
 
-        taskData.add(task);
+        tasks.add(task);
     }
 
 }

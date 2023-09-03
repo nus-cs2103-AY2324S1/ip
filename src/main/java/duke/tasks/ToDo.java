@@ -12,7 +12,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String storageFormat() {
-        return ("T" + super.storageFormat());
+    public String toStorageFormat() {
+        return ("T" + super.toStorageFormat());
     }
 }

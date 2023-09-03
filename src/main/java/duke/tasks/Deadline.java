@@ -15,11 +15,11 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + Parser.dateTimeFormatter(by) + ")";
+        return "[D]" + super.toString() + " (by: " + Parser.formatDateTime(by) + ")";
     }
 
     @Override
-    public String storageFormat() {
-        return ("D" + super.storageFormat() + " | " + by);
+    public String toStorageFormat() {
+        return ("D" + super.toStorageFormat() + " | " + by);
     }
 }

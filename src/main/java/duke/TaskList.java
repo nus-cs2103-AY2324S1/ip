@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    public ArrayList<Task> taskList;
+    protected ArrayList<Task> taskList;
 
     public TaskList(DataStorage store) {
-        taskList = store.taskData;
+        taskList = store.tasks;
     }
 
     public void add(Task task) {
@@ -38,6 +38,34 @@ public class TaskList {
         } else {
             taskList.get(taskIndex).markAsUndone();
         }
+    }
+
+    /**
+     * Returns the task corresponding to the given task index.
+     *
+     * @param taskIndex the index of the task that is to be retrieved.
+     * @return The task corresponding to the given task index.
+     */
+    public Task getTask(int taskIndex) {
+        return taskList.get(taskIndex);
+    }
+
+    /**
+     * Returns the number of tasks in the taskList..
+     *
+     * @return The length of the taskList.
+     */
+    public int getLength() {
+        return taskList.size();
+    }
+
+    /**
+     * Returns the ArrayList of tasks.
+     *
+     * @return The ArrayList of tasks..
+     */
+    public ArrayList<Task> getTaskList() {
+        return this.taskList;
     }
 
 }

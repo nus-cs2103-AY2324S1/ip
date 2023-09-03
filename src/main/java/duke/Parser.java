@@ -76,7 +76,8 @@ public class Parser {
             String taskInfo = fullCommand.substring(8);
             if (taskInfo.isBlank() || !fullCommand.contains("/by")
                     || !fullCommand.contains("deadline ")
-                    || fullCommand.substring(fullCommand.indexOf("/by") + 3).isBlank()) {
+                    || fullCommand.substring(fullCommand.indexOf("/by") + 3).isBlank()
+                    || taskInfo.split("/by")[0].isBlank()) {
                 throw new DukeException("The description of deadline needs more information");
             } else {
                 String[] splitCommands = fullCommand.split(" /by ");
@@ -90,7 +91,8 @@ public class Parser {
             if (taskInfo.isBlank() || !fullCommand.contains("/from")
                     || !fullCommand.contains("/to") || !fullCommand.contains("event ")
                     || fullCommand.substring(fullCommand.indexOf("/from") + 5).isBlank()
-                    || fullCommand.substring(fullCommand.indexOf("/to") + 3).isBlank()) {
+                    || fullCommand.substring(fullCommand.indexOf("/to") + 3).isBlank()
+                    || taskInfo.split("/from")[0].isBlank()) {
                 throw new DukeException("The description of event needs more information");
             } else {
                 String[] splitCommands = fullCommand.split(" /from ");
@@ -109,10 +111,10 @@ public class Parser {
 
 
     public static LocalDateTime parseDateTime(String userInput) throws DateTimeParseException {
-            return LocalDateTime.parse(userInput, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        return LocalDateTime.parse(userInput, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
     }
 
-    public static String dateTimeFormatter(LocalDateTime userInput) {
+    public static String formatDateTime(LocalDateTime userInput) {
         return userInput.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
     }
 }

@@ -8,12 +8,11 @@ import duke.Ui;
 public class ExitCommand extends Command {
 
     public ExitCommand() {
-
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, DataStorage store) throws DukeException {
-        store.saveTasks(tasks.taskList);
+        store.saveTasks(tasks);
         ui.showExit();
     }
 

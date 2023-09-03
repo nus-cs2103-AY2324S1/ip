@@ -16,7 +16,7 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, DataStorage store) throws DukeException {
         tasks.mark(this.taskIndex);
-        ui.showMark(tasks.taskList.get(this.taskIndex));
+        ui.showMark(tasks.getTask(this.taskIndex));
     }
 
     @Override

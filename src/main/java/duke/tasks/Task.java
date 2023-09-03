@@ -26,7 +26,7 @@ public abstract class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
-    public String storageFormat() {
+    public String toStorageFormat() {
         return (" | " + (isDone ? "1" : "0") + " | " + this.description);
     }
 

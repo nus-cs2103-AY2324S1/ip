@@ -37,7 +37,7 @@ public class DeadlineTest {
     public void testStorageFormat() {
         Deadline deadline = new Deadline("do math", LocalDateTime.parse("20-05-2013 00:00",
                 DateTimeFormatter.ofPattern("dd-MM-yyy HH:mm")));
-        assertEquals("D | 0 | do math | 2013-05-20T00:00", deadline.storageFormat());
+        assertEquals("D | 0 | do math | 2013-05-20T00:00", deadline.toStorageFormat());
     }
 
 }
