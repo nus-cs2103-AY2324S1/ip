@@ -24,16 +24,11 @@ public class ChatterBox {
     }
 
     public void run() throws DukeException, IOException {
+
         ArrayList<Task> taskList = this.tl.getTaskList();
-
-        /*File f = new File("data.txt");
-
-        if (!f.exists()) {
-            f.createNewFile();
-        }*/
-
-        this.store.fileToTaskList(taskList);
+        this.store.fileToTaskList(this.tl);
         ui.startScreen();
+
 
         Scanner sc = new Scanner(System.in);
 
@@ -51,8 +46,8 @@ public class ChatterBox {
 
             } else if (input.equals("mark")) {
                 int index = Integer.parseInt(inputLine[1]);
-                taskList.get(index - 1).mark();
-                this.store.taskListToFile(taskList);
+                tl.get(index - 1).mark();
+                this.store.taskListToFile(tl);
 
                 /*ui.linePrinter();
                 ui.tabPrinter("Nice! I've marked this task as done:");
@@ -63,18 +58,18 @@ public class ChatterBox {
 
             } else if (input.equals("unmark")) {
                 int index = Integer.parseInt(inputLine[1]);
-                taskList.get(index - 1).unmark();
-                this.store.taskListToFile(taskList);
+                tl.get(index - 1).unmark();
+                this.store.taskListToFile(tl);
                 ui.linePrinter();
                 ui.tabPrinter("OK, I've marked this task as not done yet:");
                 ui.tabPrinter(taskList.get(index - 1).toString());
                 ui.linePrinter();
-            
+
             } else if (input.equals("delete")) {
                 int index = Integer.parseInt(inputLine[1]);
                 Task tempDelete = taskList.get(index - 1);
-                taskList.remove(index - 1);
-                this.store.taskListToFile(taskList);
+                tl.remove(index - 1);
+                this.store.taskListToFile(tl);
                 ui.linePrinter();
                 ui.tabPrinter("Noted. I've removed this task:");
                 ui.tabPrinter(tempDelete.toString());
@@ -92,10 +87,10 @@ public class ChatterBox {
                     }
                     String taskName = fullLine.split("todo ")[1];
                     ToDo tempToDo = new ToDo(taskName);
-                    taskList.add(tempToDo);
-                    this.store.taskListToFile(taskList);
+                    tl.add(tempToDo);
+                    this.store.taskListToFile(tl);
 
-                    ui.addedTaskScreen(tempToDo, taskList.size());
+                    ui.addedTaskScreen(tempToDo, tl.size());
 
 
                 } else if (input.equals("deadline")) {
@@ -107,12 +102,11 @@ public class ChatterBox {
                     String longName = fullLine.split("/by ")[0];
                     String date = fullLine.split("/by ")[1];
                     String taskName = longName.split("deadline ")[1];
-                    String deadlineName = taskName + 
-                        String.format("(by: %s)", date);
+                    String deadlineName = taskName +
+                            String.format("(by: %s)", date);
                     Deadline tempDeadline = new Deadline(deadlineName);
-                    taskList.add(tempDeadline);
-                    this.store.taskListToFile(taskList);
-
+                    tl.add(tempDeadline);
+                    this.store.taskListToFile(tl);
 
 
                     ui.addedTaskScreen(tempDeadline, taskList.size());
@@ -130,33 +124,24 @@ public class ChatterBox {
                     String fromTime = longNameArray[1];
                     String endTime = longNameArray[2];
                     String taskName = longName.split("event ")[1];
-                    String eventName = taskName + 
-                        String.format("(from: %s to: %s)",
-                                fromTime, endTime);
+                    String eventName = taskName +
+                            String.format("(from: %s to: %s)",
+                                    fromTime, endTime);
                     Event tempEvent = new Event(eventName);
-                    taskList.add(tempEvent);
-                    this.store.taskListToFile(taskList);
+                    tl.add(tempEvent);
+                    this.store.taskListToFile(tl);
 
 
-                    ui.addedTaskScreen(tempEvent, taskList.size());
+                    ui.addedTaskScreen(tempEvent, tl.size());
 
                 } else {
-                    //ui.linePrinter();
-                    //ui.tabPrinter("added: " + fullLine);
-                    //ui.linePrinter();
-                    //taskList.add(new Task(fullLine));  
+
                     ui.linePrinter();
-                    throw new 
-                        DukeException("I'm sorry I don't know what that means.");
+                    throw new
+                            DukeException("I'm sorry I don't know what that means.");
                 }
             }
         }
     }
 
-
-        private static void sizePrinter(ArrayList<Task> tasks) {
-            Ui.staticTabPrinter(
-                    String.format("Now you have %d tasks in the list.", 
-                        tasks.size()));
-        }
-    }
+}

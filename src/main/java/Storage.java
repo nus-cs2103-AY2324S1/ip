@@ -23,7 +23,7 @@ public class Storage {
      * of the given File. This method is used at the start of the program to
      * read the content of a File into an ArrayList.
      */
-    public void fileToTaskList(ArrayList<Task> taskList)
+    public void fileToTaskList(TaskList tl)
             throws IOException {
 
         Scanner scf = new Scanner(this.file);
@@ -36,17 +36,17 @@ public class Storage {
                 case "T":
                     boolean isTodoDone = sArray[1].equals("1") ? true : false;
                     String todoName = sArray[2];
-                    taskList.add(new ToDo(isTodoDone, todoName));
+                    tl.add(new ToDo(isTodoDone, todoName));
                     break;
                 case "E":
                     boolean isEventDone = sArray[1].equals("1") ? true : false;
                     String eventName = sArray[2];
-                    taskList.add(new Event(isEventDone, eventName));
+                    tl.add(new Event(isEventDone, eventName));
                     break;
                 case "D":
                     boolean isDeadlineDone = sArray[1].equals("1") ? true : false;
                     String deadlineName = sArray[2];
-                    taskList.add(new Deadline(isDeadlineDone, deadlineName));
+                    tl.add(new Deadline(isDeadlineDone, deadlineName));
                     break;
 
             }
@@ -61,11 +61,11 @@ public class Storage {
      * given ArrayList. This method is used at any time that the ArrayList
      * is modified, to update the File accordingly.
      */
-    public void taskListToFile(ArrayList<Task> taskList)
+    public void taskListToFile(TaskList tl)
             throws IOException {
 
         FileWriter fw = new FileWriter(this.file, false);
-        for (Task t : taskList) {
+        for (Task t : tl.taskList) {
             String fileString = t.fileToString();
             fw.write(fileString);
             fw.write("\n");

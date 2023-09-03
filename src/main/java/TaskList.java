@@ -18,8 +18,20 @@ public class TaskList {
         return this.taskList.get(a - 1).toString();
     }
 
-    public void addTask(Task task) {
+    public void add(Task task) {
         this.taskList.add(task);
+    }
+
+    public Task get(int a) {
+        return this.taskList.get(a);
+    }
+
+    public void remove(int a) {
+        this.taskList.remove(a);
+    }
+
+    public int size() {
+        return this.taskList.size();
     }
 
     /*public void deleteTask(int index) {
