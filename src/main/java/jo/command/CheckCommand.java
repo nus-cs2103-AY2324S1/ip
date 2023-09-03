@@ -8,7 +8,7 @@ import jo.TaskList;
 import jo.Ui;
 
 /**
- * The `CheckCommand` class represents a command for checking tasks with a specified deadline date in the `Jo` application.
+ * The `CheckCommand` class represents a command for checking tasks with a specified deadline date.
  */
 public class CheckCommand extends Command {
 

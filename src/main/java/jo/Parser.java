@@ -11,6 +11,7 @@ import jo.command.DeleteCommand;
 import jo.command.ExitCommand;
 import jo.command.ListCommand;
 import jo.command.MarkCommand;
+import jo.command.SearchCommand;
 import jo.task.Deadline;
 import jo.task.Event;
 import jo.task.Task;
@@ -74,7 +75,7 @@ public class Parser {
             }
         },
         find {
-            public Command perform(String input) throws JoException {
+            public Command perform(String input) {
                 return new SearchCommand(input);
             }
         };
@@ -149,20 +150,20 @@ public class Parser {
             throw new JoException("The command cannot be empty.");
         } else if (input.equals("list")) {
             return new ListCommand();
-        } else if (isInEnum(input.trim(), STRINGCOMMAND.class)) {
+        } else if (isInEnum(input.trim(), STRING_COMMAND.class)) {
             throw new JoException(String.format("The description of a %s cannot be empty.", input));
-        } else if (isInEnum(input, INTCOMMAND.class)) {
+        } else if (isInEnum(input, INT_COMMAND.class)) {
             throw new JoException(String.format("Please specify a valid task number to %s.", input));
         } else {
             String instruction = input.split(" ", 2)[0].trim();
-            if (isInEnum(instruction, STRINGCOMMAND.class)) {
-                for (STRINGCOMMAND t : STRINGCOMMAND.values()) {
+            if (isInEnum(instruction, STRING_COMMAND.class)) {
+                for (STRING_COMMAND t : STRING_COMMAND.values()) {
                     if (t.name().equals(instruction)) {
                         return t.perform(input.split(" ", 2)[1].trim());
                     }
                 }
-            } else if (isInEnum(instruction, INTCOMMAND.class)) {
-                for (INTCOMMAND c : INTCOMMAND.values()) {
+            } else if (isInEnum(instruction, INT_COMMAND.class)) {
+                for (INT_COMMAND c : INT_COMMAND.values()) {
                     if (c.name().equals(instruction)) {
                         int taskIndex = Character.getNumericValue(input.charAt(input.length() - 1)) - 1;
                         return c.perform(taskIndex);

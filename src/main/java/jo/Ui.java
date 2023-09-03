@@ -106,6 +106,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays the results of a task search to the user.
+     *
+     * @param resultList An ArrayList of tasks that match the search criteria.
+     */
     public void findResult(ArrayList<Task> resultList) {
         if (!resultList.isEmpty()) {
             System.out.println("> Here are the matching tasks in your list: ");

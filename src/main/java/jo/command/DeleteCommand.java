@@ -23,7 +23,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Executes the command, deleting the specified task from the task list, updating storage, and displaying the result.
+     * Executes the command, deleting the specified task from the task list and updating storage.
      *
      * @param tasks   The `TaskList` containing tasks to operate on.
      * @param ui      The user interface for displaying messages.

@@ -33,7 +33,7 @@ public class Storage {
     /**
      * Loads tasks from the specified file and returns them as an ArrayList.
      *
-     *@return An ArrayList of tasks loaded from the file.
+     * @return An ArrayList of tasks loaded from the file.
      * @throws JoException If an error occurs while reading the file or parsing tasks.
      */
     public ArrayList<Task> load() throws JoException {
