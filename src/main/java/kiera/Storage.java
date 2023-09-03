@@ -1,11 +1,5 @@
 package kiera;
 
-import kiera.exception.KieraException;
-import kiera.task.Deadline;
-import kiera.task.Event;
-import kiera.task.Task;
-import kiera.task.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,13 +8,28 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import kiera.exception.KieraException;
+import kiera.task.Deadline;
+import kiera.task.Event;
+import kiera.task.Task;
+import kiera.task.Todo;
+
+/**
+ * Loads and saves tasks to a file.
+ */
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the storage file and returns them as an ArrayList.
+     *
+     * @return An ArrayList of tasks loaded from the storage file.
+     * @throws KieraException If there is an error with loading tasks or finding the storage file.
+     */
     public ArrayList<Task> load() throws KieraException {
         File f = new File(filePath);
         ArrayList<Task> result = new ArrayList<>();
@@ -55,8 +64,15 @@ public class Storage {
         return result;
     }
 
+    /**
+     * Saves current task list to the storage file.
+     *
+     * @param tasks List of tasks containing tasks to be saved.
+     */
     public void save(TaskList tasks) {
-        String text =  tasks.getTasks().stream().map(task -> task.toStorageString() + "\n").collect(Collectors.joining());
+        String text = tasks.getTasks().stream()
+                .map(task -> task.toStorageString() + "\n")
+                .collect(Collectors.joining());
         try {
             FileWriter fw = new FileWriter(filePath);
             fw.write(text);

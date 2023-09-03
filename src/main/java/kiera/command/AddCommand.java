@@ -1,6 +1,8 @@
 package kiera.command;
 
-import kiera.*;
+import kiera.Storage;
+import kiera.TaskList;
+import kiera.Ui;
 import kiera.exception.KieraException;
 import kiera.task.Deadline;
 import kiera.task.Event;
@@ -8,12 +10,26 @@ import kiera.task.Task;
 import kiera.task.Todo;
 import kiera.tasktype.TaskType;
 
+/**
+ * Command to add a task to the taskList and storage.
+ */
 public class AddCommand extends Command {
 
+    /**
+     * Constructor for AddCommand.
+     * @param t Type of task added.
+     * @param desc Description of task added.
+     */
     public AddCommand(TaskType t, String desc) {
         setDescription(desc);
         setTaskType(t);
     }
+
+    /**
+     * @inheritDoc
+     *
+     * @throws KieraException If there is an error with the task type or storage operation.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws KieraException {
         TaskType t = this.getTaskType();
@@ -41,6 +57,9 @@ public class AddCommand extends Command {
         storage.save(tasks);
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public boolean isExit() {
         return false;
