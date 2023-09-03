@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -114,7 +113,7 @@ public class Storage {
             String fromTime = words[4];
             String toTime = words[5];
 
-            tasks.add(new Event(description, LocalDateTime.parse(fromTime), LocalDateTime.parse(toTime), isDone));
+            tasks.add(new Event(description, LocalDate.parse(fromTime), LocalDate.parse(toTime), isDone));
             TaskList.incrementNumOfTasks();
             break;
         default:

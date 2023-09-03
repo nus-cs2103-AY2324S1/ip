@@ -1,6 +1,6 @@
 package bellcurvegod.task;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,8 +12,8 @@ import bellcurvegod.ui.Ui;
  * Encapsulates a task with a duration.
  */
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+    protected LocalDate from;
+    protected LocalDate to;
 
     /**
      * Creates an event.
@@ -22,7 +22,7 @@ public class Event extends Task {
      * @param from        From time of event.
      * @param to          To time of event.
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to) {
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -36,7 +36,7 @@ public class Event extends Task {
      * @param to          To time of event.
      * @param isDone      Whether the event is marked as done.
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to, boolean isDone) {
+    public Event(String description, LocalDate from, LocalDate to, boolean isDone) {
         super(description);
         this.from = from;
         this.to = to;
@@ -75,16 +75,18 @@ public class Event extends Task {
         ArrayList<String> endWords = new ArrayList<>(Arrays.asList(backWords).subList(1, backWords.length));
         String end = String.join(" ", endWords);
 
-        LocalDateTime from = null;
-        LocalDateTime to = null;
+        LocalDate from = null;
+        LocalDate to = null;
         try {
-            from = LocalDateTime.parse(start);
-            to = LocalDateTime.parse(end);
+            from = LocalDate.parse(start);
+            to = LocalDate.parse(end);
         } catch (DateTimeParseException e) {
-            System.out.println(e);
+            Ui.showLine();
             System.out.println("Please enter your times in the following format:");
-            System.out.println("yyyy-mm-dd hhmm");
-            System.out.println("E.g. 2019-10-15 1800");
+            System.out.println("yyyy-mm-dd");
+            System.out.println("E.g. 2019-10-15");
+            Ui.showLine();
+            return new Event("__Faulty", from, to);
         }
 
         return new Event(des, from, to);

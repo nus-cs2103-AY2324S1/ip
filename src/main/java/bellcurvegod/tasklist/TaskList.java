@@ -52,13 +52,15 @@ public class TaskList {
             newTask = Todo.generateTodoFromInput(input);
         }
 
-        tasks.add(newTask);
-        numOfTasks++;
-        Ui.showLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(newTask);
-        System.out.println("Now you have " + numOfTasks + " tasks in the list.");
-        Ui.showLine();
+        if (!newTask.getDescription().equals("__Faulty")) {
+            tasks.add(newTask);
+            numOfTasks++;
+            Ui.showLine();
+            System.out.println("Got it. I've added this task:");
+            System.out.println(newTask);
+            System.out.println("Now you have " + numOfTasks + " tasks in the list.");
+            Ui.showLine();
+        }
     }
 
     /**
