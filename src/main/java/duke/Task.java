@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.*;
 
 public class Task {
@@ -10,7 +12,7 @@ public class Task {
     }
 
     /*
-     * Create a Task object with default false
+     * Create a duke.Task object with default false
      * done status
      */
     Task(String name) {

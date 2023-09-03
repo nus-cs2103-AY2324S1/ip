@@ -1,4 +1,4 @@
-import java.util.*;
+package duke;
 
 public class Event extends Task {
 

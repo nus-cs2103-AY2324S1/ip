@@ -1,5 +1,4 @@
-import java.io.File;
-import java.util.ArrayList;
+package duke;
 
 /**
  * The this Class deals with the App's User Interface, inclusive of but not limited to
@@ -32,7 +31,7 @@ public class Ui {
 
     public void startScreen() {
         this.linePrinter();
-        this.tabPrinter("Hello! I'm ChatterBox");
+        this.tabPrinter("Hello! I'm duke.ChatterBox");
         this.tabPrinter("What can I do for you?");
         System.out.println("");
         this.tabPrinter("Available commands:");
