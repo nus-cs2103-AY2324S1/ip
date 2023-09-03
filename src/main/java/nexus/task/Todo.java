@@ -1,7 +1,14 @@
 package nexus.task;
 
+/**
+ * Todo class that has description.
+ */
 public class Todo extends Task {
-
+    /**
+     * Creates task.
+     *
+     * @param description String
+     */
     public Todo(String description) {
         super(description);
     }

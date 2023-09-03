@@ -9,17 +9,28 @@ import nexus.task.TaskList;
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * The main class for Nexus ChatBot.
+ */
 public class Nexus {
     private TaskList list;
     private Storage storage;
     private Ui ui;
 
+    /**
+     * Create ChatBot from data path.
+     *
+     * @param path String
+     */
     public Nexus(String path) {
         this.storage = new Storage(path);
         this.ui = new Ui();
         this.list = new TaskList(storage.loadTasks());
     }
 
+    /**
+     * Start the bot.
+     */
     public void run() {
         ui.printWelcome();
         // Show current tasks
