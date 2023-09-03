@@ -1,14 +1,14 @@
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.ToDo;
 
 /**
  * Storage deals with loading tasks from the file and saving tasks in the file.
@@ -64,22 +64,22 @@ public class Storage {
                 String[] descriptions = task.split("::"); //:: demarcates a different field
 
                 switch (type) {
-                    case 'T':
-                        tasks.add(new ToDo(descriptions[2], descriptions[1].matches("1")));
-                        break;
+                case 'T':
+                    tasks.add(new ToDo(descriptions[2], descriptions[1].matches("1")));
+                    break;
 
-                    case 'D':
-                        //Events.Deadline
-                        tasks.add(new Deadline(descriptions[2], descriptions[3], descriptions[1].matches("1")));
-                        break;
+                case 'D':
+                    //Events.Deadline
+                    tasks.add(new Deadline(descriptions[2], descriptions[3], descriptions[1].matches("1")));
+                    break;
 
-                    case 'E':
-                        //Events.Event
-                        tasks.add(new Event(descriptions[2], descriptions[3], descriptions[1].matches("1")));
-                        break;
+                case 'E':
+                    //Events.Event
+                    tasks.add(new Event(descriptions[2], descriptions[3], descriptions[1].matches("1")));
+                    break;
 
-                    default:
-                        System.out.println("Wrong file format");
+                default:
+                    System.out.println("Wrong file format");
                 }
 
             } catch (StringIndexOutOfBoundsException e) {
