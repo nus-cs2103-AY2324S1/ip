@@ -1,13 +1,17 @@
+package buddy;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task {
-    protected LocalDate by;
+public class Event extends Task {
+    protected LocalDate start;
+    protected LocalDate end;
 
-    public Deadline(String description, String by, boolean isDone) {
+    public Event(String description, String start, String end, boolean isDone) {
         super(description, isDone);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        this.by = LocalDate.parse(by, formatter);
+        this.start = LocalDate.parse(start, formatter);
+        this.end = LocalDate.parse(end, formatter);
     }
 
     private String getDateString(LocalDate date) {
@@ -17,20 +21,22 @@ public class Deadline extends Task {
 
     @Override
     public String getTaskType() {
-        return "D";
+        return "E";
     }
 
     @Override
     public String toSaveFileFormat() {
-        return String.format("%s | %d | %s | %s",
+        return String.format("%s | %d | %s | %s | %s",
                 getTaskType(),
                 isDone ? 1 : 0,
                 this.description,
-                this.getDateString(by));
+                this.getDateString(start),
+                this.getDateString(end));
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + getDateString(by) + ")";
+        return "[E]" + super.toString() + " (from: " + getDateString(start)
+                + " to: " + getDateString(end) + ")";
     }
 }
