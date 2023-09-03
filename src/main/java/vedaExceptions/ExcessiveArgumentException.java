@@ -1,4 +1,4 @@
-package VedaExceptions;
+package vedaExceptions;
 
 public class ExcessiveArgumentException extends IncorrectInputException {
     public ExcessiveArgumentException(String message) {

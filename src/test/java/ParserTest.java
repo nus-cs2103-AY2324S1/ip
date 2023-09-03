@@ -1,10 +1,10 @@
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.ToDo;
-import VedaExceptions.ExcessiveArgumentException;
-import VedaExceptions.IncorrectInputException;
-import VedaExceptions.NoDescriptionException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
+import vedaExceptions.ExcessiveArgumentException;
+import vedaExceptions.IncorrectInputException;
+import vedaExceptions.NoDescriptionException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

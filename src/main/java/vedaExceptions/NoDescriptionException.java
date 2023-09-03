@@ -1,4 +1,4 @@
-package VedaExceptions;
+package vedaExceptions;
 
 public class NoDescriptionException extends IncorrectInputException {
     public NoDescriptionException(String message) {
