@@ -1,4 +1,4 @@
-package rua;
+package rua.common;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
