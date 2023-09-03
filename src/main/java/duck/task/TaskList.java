@@ -108,6 +108,13 @@ public class TaskList {
         taskCount--;
     }
 
+    /**
+     * Searches for tasks containing a given keyword.
+     * 
+     * @param keyword Keyword to be searched for.
+     * @return ArrayList of tasks containing the keyword.
+     * @throws DuckException If no tasks are found.
+     */
     public ArrayList<Task> find(String keyword) throws DuckException {
         ArrayList<Task> matchingTasks = new ArrayList<Task>();
         for (int i = 0; i < taskCount; i++) {

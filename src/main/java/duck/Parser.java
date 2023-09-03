@@ -8,10 +8,10 @@ import duck.command.AddCommand;
 import duck.command.Command;
 import duck.command.DeleteCommand;
 import duck.command.ExitCommand;
+import duck.command.FindCommand;
 import duck.command.ListCommand;
 import duck.command.MarkCommand;
 import duck.command.UnmarkCommand;
-import duck.command.FindCommand;
 
 import duck.task.DeadlineTask;
 import duck.task.EventTask;
