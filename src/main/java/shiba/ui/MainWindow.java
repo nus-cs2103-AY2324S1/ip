@@ -1,5 +1,8 @@
 package shiba.ui;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -12,17 +15,14 @@ import shiba.ui.components.DialogBox;
 import shiba.ui.components.DialogNode;
 import shiba.ui.components.SendButton;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 /**
  * Main JavaFX window for displaying the application UI.
  */
 public class MainWindow extends Application {
-    public static MainWindow SINGLETON;
     public static final int WINDOW_WIDTH = 600;
     public static final int WINDOW_HEIGHT = 800;
     private static final int WINDOW_HEIGHT_CORRECTION = 40;
+    private static MainWindow singleton;
 
     private DialogBox dialogBox;
     private Timer timer;
@@ -48,6 +48,9 @@ public class MainWindow extends Application {
         // Send button
         Button sendButton = new SendButton((event -> {
             String input = userInput.getText();
+            if (input.isEmpty()) {
+                return;
+            }
             userInput.clear();
             dialogBox.addDialogNode(new DialogNode(input, true));
 
@@ -55,21 +58,21 @@ public class MainWindow extends Application {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    Shiba.SINGLETON.processUserInput(input);
+                    Shiba.getInstance().processUserInput(input);
                 }
             }, 1500);
         }));
         root.getChildren().add(sendButton);
 
-        primaryStage.setTitle(Shiba.SINGLETON.getName());
+        primaryStage.setTitle(Shiba.getInstance().getName());
         primaryStage.setResizable(false);
         primaryStage.setMinHeight(WINDOW_HEIGHT + WINDOW_HEIGHT_CORRECTION);
         primaryStage.setMinWidth(WINDOW_WIDTH);
 
         primaryStage.show();
 
-        if (SINGLETON == null) {
-            SINGLETON = this;
+        if (singleton == null) {
+            singleton = this;
         } else {
             System.out.println("Warning: Multiple instances of MainWindow detected!");
         }
@@ -99,5 +102,14 @@ public class MainWindow extends Application {
 
     public Timer getTimer() {
         return timer;
+    }
+
+    /**
+     * Returns the singleton instance of MainWindow.
+     *
+     * @return The singleton instance of MainWindow.
+     */
+    public static MainWindow getInstance() {
+        return singleton;
     }
 }

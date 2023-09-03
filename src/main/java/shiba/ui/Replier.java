@@ -89,12 +89,13 @@ public class Replier {
      * Sends the reply message stored in stringBuilder to the UI window to be displayed.
      */
     public static void reply() {
-        if (MainWindow.SINGLETON == null) {
+        MainWindow mainWindow = MainWindow.getInstance();
+        if (mainWindow == null) {
             return;
         }
 
         String toPrint = stringBuilder.toString();
         stringBuilder.setLength(0);
-        Platform.runLater(() -> MainWindow.SINGLETON.addBotDialogNode(toPrint));
+        Platform.runLater(() -> mainWindow.addBotDialogNode(toPrint));
     }
 }

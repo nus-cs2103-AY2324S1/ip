@@ -9,8 +9,8 @@ import javafx.scene.layout.AnchorPane;
  * Button for sending user input to SHIBA-BOT.
  */
 public class SendButton extends Button {
-    private static final String BUTTON_TEXT = "Send";
     public static final int SEND_BUTTON_WIDTH = 100;
+    private static final String BUTTON_TEXT = "Send";
 
     /**
      * Constructor for SendButton
