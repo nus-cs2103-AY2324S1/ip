@@ -1,20 +1,26 @@
-package duke;
-
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.image.Image;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import java.util.Collections;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.Pane;
+package duke.ui;
 
 import java.io.IOException;
+import java.util.Collections;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+
+/**
+ * The DialogBox Class.
+ * Responsible for formatting the messages.
+ *
+ * @author Shishir
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
@@ -23,7 +29,13 @@ public class DialogBox extends HBox {
     @FXML
     private Pane messageOutline;
 
-    public DialogBox(String text, Image img, boolean isUser) {
+    /**
+     * Constructs the DialogBox.
+     * @param text User's message.
+     * @param img User's profile picture.
+     * @param isUser User's type.
+     */
+    private DialogBox(String text, Image img, boolean isUser) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);

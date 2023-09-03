@@ -5,6 +5,7 @@ import duke.exceptions.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
+import duke.ui.Main;
 import duke.ui.Ui;
 import javafx.application.Application;
 

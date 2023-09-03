@@ -86,9 +86,6 @@ public class AddCommand extends Command {
             throw new DukeException("Invalid task type!");
         }
         tasks.add(task);
-//        ui.showLine();
-//        ui.showAdd(tasks.size(), task);
-//        ui.showLine();
         storage.writeData(tasks.getAllTasks());
         return ui.showAdd(tasks.size(), task);
     }
