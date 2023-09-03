@@ -226,7 +226,7 @@ public class Parser {
      *
      * @param args AddEventCommand arguments
      * @return AddEventCommand
-     * @throws DukeException
+     * @throws DukeException When the event description is empty or when the argument format is wrong.
      */
     private Command prepareAddEventCommand(String args) throws DukeException {
         Event event = parseArgsAsEvent(args);
