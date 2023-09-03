@@ -18,11 +18,7 @@ public class ChatterBox {
     }
 
     public static void main(String[] args) throws DukeException, IOException {
-        ChatterBox cb = new ChatterBox(
-                new Ui(),
-                new TaskList(),
-                new Storage());
-
+        ChatterBox cb = new ChatterBox( new Ui(), new TaskList(), new Storage());
         cb.run();
     }
 
@@ -36,10 +32,6 @@ public class ChatterBox {
         Scanner sc = new Scanner(System.in);
 
         while (sc.hasNextLine()) {
-            /*String fullLine = sc.nextLine();
-            String[] inputLine = fullLine.split(" ");
-            String input = inputLine[0];
-            */
 
             Parser p = new Parser(sc.nextLine());
             String command = p.command();
@@ -71,18 +63,11 @@ public class ChatterBox {
             } else {
 
                 if (command.equals("todo")) {
-                    if (fullLine.split("todo ").length < 1) {
-                        ui.todoErrorPrinter();
-                        throw new DukeException(ui.todoErrorString());
-                    }
 
-                    String taskName = fullLine.split("todo ")[1];
-                    ToDo tempToDo = new ToDo(taskName);
+                    ToDo tempToDo = p.parseTodo();
                     tl.add(tempToDo);
                     this.store.taskListToFile(tl);
-
                     ui.addedTaskScreen(tempToDo, tl.size());
-
 
                 } else if (command.equals("deadline")) {
 
@@ -92,19 +77,8 @@ public class ChatterBox {
                     ui.addedTaskScreen(tempDeadline, taskList.size());
 
                 } else if (command.equals("event")) {
-                    if (fullLine.split("/").length < 3) {
-                        ui.eventErrorPrinter();
-                        throw new DukeException(ui.eventErrorString());
-                    }
-                    String[] longNameArray = fullLine.split("/");
-                    String longName = longNameArray[0];
-                    String fromTime = longNameArray[1];
-                    String endTime = longNameArray[2];
-                    String taskName = longName.split("event ")[1];
-                    String eventName = taskName +
-                            String.format("(from: %s to: %s)",
-                                    fromTime, endTime);
-                    Event tempEvent = new Event(eventName);
+
+                    Event tempEvent = p.parseEvent();
                     tl.add(tempEvent);
                     this.store.taskListToFile(tl);
                     ui.addedTaskScreen(tempEvent, tl.size());

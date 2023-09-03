@@ -24,6 +24,16 @@ public class Parser {
         return this.number() - 1;
     }
 
+    public ToDo parseTodo() throws DukeException {
+        if (fullLine.split("todo ").length < 1) {
+            new Ui().todoErrorPrinter();
+            throw new DukeException(new Ui().todoErrorString());
+        }
+
+        String taskName = fullLine.split("todo ")[1];
+        return new ToDo(taskName);
+    }
+
     public Deadline parseDeadline() throws DukeException {
         if (fullLine.split("/by ").length < 1) {
             new Ui().deadlineErrorPrinter();
@@ -34,9 +44,25 @@ public class Parser {
         String taskName = longName.split("deadline ")[1];
         String deadlineName = taskName +
                 String.format("(by: %s)", date);
-        Deadline tempDeadline = new Deadline(deadlineName);
-        return tempDeadline;
+        return new Deadline(deadlineName);
     }
+
+    public Event parseEvent() throws DukeException {
+        if (fullLine.split("/").length < 3) {
+            new Ui().eventErrorPrinter();
+            throw new DukeException(new Ui().eventErrorString());
+        }
+        String[] longNameArray = fullLine.split("/");
+        String longName = longNameArray[0];
+        String fromTime = longNameArray[1];
+        String endTime = longNameArray[2];
+        String taskName = longName.split("event ")[1];
+        String eventName = taskName +
+                String.format("(from: %s to: %s)",
+                        fromTime, endTime);
+        return new Event(eventName);
+    }
+
 
 
 
