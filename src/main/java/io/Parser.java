@@ -18,20 +18,41 @@ public class Parser {
     scanner = new Scanner(System.in);
   }
 
+  /**
+   * Waits for new input from the command line and updates internal variables.
+   *
+   * @throws NoSuchElementException If no further input is available.
+   */
   public void update() throws NoSuchElementException {
     inputString = scanner.nextLine();
     inputTokens = inputString.split(" ");
   }
 
 
+  /**
+   * Returns the currently stored input string.
+   *
+   * @return The stored input string.
+   */
   public String getInputString() {
     return this.inputString;
   }
 
+  /**
+   * Returns the current input tokens stored in the parser.
+   *
+   * @return An array of input tokens.
+   */
   public String[] getInputTokens() {
     return this.inputTokens;
   }
 
+  /**
+   * Returns an integer that the user has input after a command.
+   *
+   * @return The integer input by the user.
+   * @throws IndexOutOfBoundsException If the index is not within bounds.
+   */
   public int getIndex() throws IndexOutOfBoundsException {
     int index = Integer.parseInt(inputTokens[1]);
     index--;
@@ -39,6 +60,12 @@ public class Parser {
   }
 
 
+  /**
+   * Parses the user's input and returns a Deadline task if the input is valid.
+   *
+   * @return A Deadline task parsed from the user's input.
+   * @throws ParserException If the input is not valid for parsing.
+   */
   public Deadline parseDeadline() throws ParserException {
     Deadline result = null;
 
@@ -68,6 +95,12 @@ public class Parser {
 
   }
 
+  /**
+   * Parses the user's input and returns an Event object if the input is valid.
+   *
+   * @return An Event object parsed from the user's input.
+   * @throws ParserException If the input is not valid for parsing.
+   */
   public Event parseEvent() throws ParserException {
     Event result = null;
     try {
@@ -89,7 +122,11 @@ public class Parser {
     return result;
   }
 
-
+  /**
+   * Returns the user's input command.
+   *
+   * @return The input command as a string.
+   */
   public String getCommandString() {
     if (inputTokens.length == 0) {
       return "";
@@ -98,6 +135,11 @@ public class Parser {
     }
   }
 
+  /**
+   * Returns the task name that the user has input.
+   *
+   * @return The task name as a string.
+   */
   public String getTaskName() {
     String commandString = this.getCommandString();
     int commandLength = commandString.length() + 1;
@@ -105,6 +147,11 @@ public class Parser {
 
   }
 
+  /**
+   * Checks if the user has entered any input.
+   *
+   * @return true if there is input, false otherwise.
+   */
   public boolean isInputThere() {
     return inputTokens.length == 0;
   }
