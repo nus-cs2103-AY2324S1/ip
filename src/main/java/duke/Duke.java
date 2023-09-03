@@ -26,7 +26,7 @@ public class Duke {
 
     /**
      * The factory method to run the chatbot after it has been instantiated. It is responsible for scanning inputs and
-     * passing the inputs to the parsers to parse and instantiate the respective commands.
+     * passing the inputs to the parsers to parse and instantiate the respective commands
      */
     public void run() throws DukeException, IOException {
         String logo = " ____        _        \n"
