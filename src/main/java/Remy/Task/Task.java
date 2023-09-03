@@ -18,6 +18,10 @@ public class Task implements Serializable {
         return (isDone ? "X" : " ");
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }

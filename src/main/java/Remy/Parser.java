@@ -39,6 +39,8 @@ public class Parser {
             return new EventCommand(input);
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommand(input);
+        case FindCommand.COMMAND_WORD:
+            return new FindCommand(input);
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         default:

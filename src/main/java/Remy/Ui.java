@@ -62,6 +62,11 @@ public class Ui {
         Ui.printShortSandwich(content);
     }
 
+    public static void printSearchResults(String results) {
+        String content = "Here are the matching tasks in your list: \n" + results;
+        printShortSandwich(content);
+    }
+
     //@@author samuelim01-reused
     // Reused Samuel's inplementation of this method
     public String readCommand() {
