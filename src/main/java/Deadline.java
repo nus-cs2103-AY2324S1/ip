@@ -26,22 +26,16 @@ public class Deadline extends Task {
             String outputDate = deadlineDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
             return "[D]" + super.toString() + "(by: " + outputDate + ")";
         } else if (deadLineDateAndTime != null) {
-            String outputDate = deadLineDateAndTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
-            return "[D]" + super.toString() + "(by: " + outputDate + ")";
+            String outputDateTime = deadLineDateAndTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+            return "[D]" + super.toString() + "(by: " + outputDateTime + ")";
         } else {
             return "[D]" + super.toString() + "(by: " + by + ")";
         }
     }
     @Override
     public String writeToFile() {
-        String printedStuff = "D | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | ";
-        if (deadlineDate != null) {
-            return printedStuff + this.deadlineDate;
-        } else if (deadLineDateAndTime != null) {
-            return printedStuff + this.deadLineDateAndTime;
-        } else {
+        String printedStuff = "D | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + "| ";
             return printedStuff + this.by;
-        }
     }
 
     protected LocalDate parseDate(String date) {
@@ -65,6 +59,7 @@ public class Deadline extends Task {
         formats.add(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         formats.add(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
         formats.add(DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"));
+        formats.add(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
 
             for (int i = 0; i < formats.size(); i++) {
                 try {
