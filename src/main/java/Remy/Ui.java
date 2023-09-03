@@ -99,6 +99,14 @@ public class Ui {
     }
 
     /**
+     * Prints search results with the corresponding message and formatting.
+     */
+    public static void printSearchResults(String results) {
+        String content = "Here are the matching tasks in your list: \n" + results;
+        printShortSandwich(content);
+    }
+
+    /**
      * Reads and returns the input submitted by the user.
      * If the given command is entirely made of whitespace, continuously prompt user for new input.
      * @return input The input submitted by the user.

@@ -5,6 +5,7 @@ import Remy.Ui;
 import Remy.Storage;
 import Remy.ChatbotException;
 import Remy.Task.Deadline;
+
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,14 +36,12 @@ public class DeadlineCommand extends Command {
         // Create a Matcher to check if the input matches the pattern
         Matcher matcher = pattern.matcher(input);
 
-
-        if (!matcher.matches()) {
+        if (matcher.matches()) {
+            this.taskName = matcher.group(1);
+            this.dueDate = matcher.group(2);
+        } else {
             throw new ChatbotException("missing info or wrong format");
         }
-
-        this.taskName = matcher.group(1);
-        this.dueDate = matcher.group(2);
-
     }
 
     @Override
