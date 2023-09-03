@@ -3,10 +3,46 @@ public class Duke {
     private static final int MAX_TASKS = 100;
     private static Task[] tasks = new Task[MAX_TASKS];
     private static int taskCount= 0;
-    private static void addTask(String taskDescription) {
+    private static void addTask(String userCommand) {
         if (taskCount < MAX_TASKS) {
-            tasks[taskCount++]  = new Task(taskDescription);
-            System.out.println("added: " + taskDescription);
+            String[] parts = userCommand.split(" ", 2);
+            if (parts.length == 2) {
+                String taskType = parts[0].toLowerCase();
+                String taskDescription = parts[1];
+
+                switch (taskType) {
+                    case "todo":
+                        tasks[taskCount++] = new Todo(taskDescription);
+                        break;
+                    case "deadline":
+                        String[] deadlineParts = taskDescription.split(" /by ");
+                        if (deadlineParts.length == 2) {
+                            tasks[taskCount++] = new Deadline(deadlineParts[0], deadlineParts[1]);
+                        } else {
+                            System.out.println("Invalid deadline format.");
+                        }
+                        break;
+                    case "event":
+                        String[] eventParts = taskDescription.split(" /from | /to ");
+                        if (eventParts.length == 3) {
+                            tasks[taskCount++] = new Event(eventParts[0], eventParts[1], eventParts[2]);
+                        } else {
+                            System.out.println("Invalid event format.");
+                        }
+                        break;
+                    default:
+                        System.out.println("Invalid task type.");
+                        break;
+                }
+
+                if (taskCount > 0) {
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(" " + tasks[taskCount - 1]);
+                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                }
+            } else {
+                System.out.println("Invalid command format.");
+            }
         } else {
             System.out.println("Sorry, the task list is full.");
         }
