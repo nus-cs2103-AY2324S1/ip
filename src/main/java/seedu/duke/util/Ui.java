@@ -20,13 +20,9 @@ public class Ui {
         printLine();
     }
 
-    public void showError(String errorMessage) {
-        System.out.println("Error: " + errorMessage);
-        printLine();
-    }
-
     public void showMessage(String message) {
         System.out.println(message);
+        printLine();
     }
 
     public String getUserInput() {
