@@ -19,6 +19,9 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Parses user input and generates corresponding Command objects.
+ */
 public class Parser {
     private enum CommandType {
         list, todo, deadline, event, mark, unmark, delete, bye, find, INVALID
@@ -29,6 +32,12 @@ public class Parser {
     private static final String FAILED_TO_PARSE_DATE_MESSAGE = "Failed to parse the date.\nPlease ensure it is a valid datetime following the format <d/M/yyyy HHmm>";
     private static final String FAILED_TO_PARSE_INDEX_MESSAGE = "Failed to parse index";
 
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     *
+     * @param input The user input string.
+     * @return The corresponding Command object.
+     */
     public static Command parse(String input) {
         Matcher m = COMMAND_PATTERN.matcher(input.trim());
 
