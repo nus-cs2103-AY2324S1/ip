@@ -16,11 +16,40 @@ public abstract class TokenManager {
 
     public TokenManager() {}
 
+    protected static List<Token> stringToTokens(String s) {
+        String trimmed = s.trim();
+
+        String word = "";
+        List<Token> tokens = new ArrayList<>();
+        for (int i = 0; i < trimmed.length(); i++) {
+            char c = trimmed.charAt(i);
+            if (c == ' ') {
+                if (word.length() > 0) {
+                    tokens.add(new Token(word));
+                    word = "";
+                }
+
+                tokens.get(tokens.size() - 1).incrementNextSpaces();
+            } else {
+                word += c;
+            }
+        }
+
+        if (word.length() > 0) {
+            tokens.add(new Token(word));
+        }
+
+        return tokens;
+    }
+
     protected static String tokensToString(List<Token> tokens) {
-        return tokens
-            .stream()
-            .map(Token::toString)
-            .collect(Collectors.joining(" "));
+        String joined = "";
+        for (int i = 0; i < tokens.size(); i++) {
+            Token token = tokens.get(i);
+            joined += token.toString();
+            joined += token.getSpacesString();
+        }
+        return joined.trim();
     }
 
     /**

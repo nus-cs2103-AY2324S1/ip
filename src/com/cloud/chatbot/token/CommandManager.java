@@ -22,25 +22,7 @@ public class CommandManager extends TokenManager {
     private HashMap<String, FlagManager> flagSets = new HashMap<>();
 
     public CommandManager(String input) {
-        // Corner case: Passing "" returns [""] instead of []
-        // https://stackoverflow.com/q/4964484/11536796
-        String[] words = input.split(" ");
-
-        boolean encounteredContent = false;
-        for (int i = 0; i < words.length; i++) {
-            String word = words[i];
-
-            // Deal with corner case by ignoring any leading ""
-            if (!word.equals("")) {
-                encounteredContent = true;
-            }
-
-            if (encounteredContent) {
-                Token token = new Token(word);
-                this.tokens.add(token);
-            }
-
-        }
+        this.tokens = TokenManager.stringToTokens(input);
 
         // Go through tokens to extract flag sets
         int i = 0;

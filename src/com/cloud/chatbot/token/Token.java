@@ -16,6 +16,8 @@ public final class Token {
 
     private String token;
 
+    private int nextSpaces = 0;
+
     public Token(String _token) {
         this.token = _token;
     }
@@ -88,5 +90,24 @@ public final class Token {
         if (!this.isFlag()) return "";
 
         return this.token.substring(Token.PREFIX_FLAG.length()).toLowerCase();
+    }
+
+    public int getNextSpaces() {
+        return nextSpaces;
+    }
+
+    public String getSpacesString() {
+        return " ".repeat(this.nextSpaces);
+    }
+
+    public void setNextSpaces(int count) {
+        this.nextSpaces = count;
+    }
+
+    /**
+     * Increments nextSpaces.
+     */
+    public void incrementNextSpaces() {
+        this.nextSpaces++;
     }
 }

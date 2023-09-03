@@ -6,9 +6,9 @@ Cloud online.
 >>> 
 >>> Please enter a description for your TODO.
 
->>>   | T#1:   Download wk 3 files
+>>>   | T#1: Download  wk  3  files
 
->>>   | D#2: Watch L3 recording | BY Friday
+>>>   | D#2: Watch   L3   recording | BY Friday   2359
 
 >>>   | E#3: Project meeting | FROM Monday 3pm | TO Monday 4:30pm
 
@@ -16,34 +16,43 @@ Cloud online.
 
 >>> Please enter a description for your TODO.
 
->>>   | D#4:  | BY The deadline has no description 2
+>>> Please enter a description for your TODO.
 
->>>   | D#5:   | BY The deadline hasn't proper content!
+>>> Please enter a description for your TODO.
 
->>>   | T#6: I tried to make an event by didn't specify flags.
+>>>   | T#4: I tried to make an event by didn't specify flags.
 
->>>   | E#7: This event has no proper from flag set | FROM   | TO Far future.
+>>> Please enter a description for the "from" flag.
 
->>>   | T#1:   Download wk 3 files
-  | D#2: Watch L3 recording | BY Friday
+>>>   | T#1: Download  wk  3  files
+  | D#2: Watch   L3   recording | BY Friday   2359
   | E#3: Project meeting | FROM Monday 3pm | TO Monday 4:30pm
-  | D#4:  | BY The deadline has no description 2
-  | D#5:   | BY The deadline hasn't proper content!
-  | T#6: I tried to make an event by didn't specify flags.
-  | E#7: This event has no proper from flag set | FROM   | TO Far future.
+  | T#4: I tried to make an event by didn't specify flags.
 
 >>> "a" is not a valid number.
 
 >>> TODO #-7050 does not exist.
 
->>> X | D#2: Watch L3 recording | BY Friday
+>>> X | D#2: Watch   L3   recording | BY Friday   2359
 
->>> X | D#2: Watch L3 recording | BY Friday
+>>> X | D#2: Watch   L3   recording | BY Friday   2359
 
 >>> X | E#3: Project meeting | FROM Monday 3pm | TO Monday 4:30pm
 
 >>>   | E#3: Project meeting | FROM Monday 3pm | TO Monday 4:30pm
 
 >>>   | E#3: Project meeting | FROM Monday 3pm | TO Monday 4:30pm
+
+>>> TODO #5 does not exist.
+
+>>> X | T#4: I tried to make an event by didn't specify flags.
+
+>>>   | D#5: another | BY x
+
+>>>   | T#1: Download  wk  3  files
+X | D#2: Watch   L3   recording | BY Friday   2359
+  | E#3: Project meeting | FROM Monday 3pm | TO Monday 4:30pm
+X | T#4: I tried to make an event by didn't specify flags.
+  | D#5: another | BY x
 
 >>> 
