@@ -1,7 +1,6 @@
 package com.alpha.ui;
 
 import java.util.List;
-import java.util.Scanner;
 
 import com.alpha.tasks.Task;
 import com.alpha.tasks.TaskList;
@@ -11,8 +10,6 @@ import com.alpha.tasks.TaskList;
  */
 public class Ui {
 
-    private final Scanner sc = new Scanner(System.in);
-
     /**
      * Instantiates a new Ui.
      */
@@ -20,112 +17,90 @@ public class Ui {
     }
 
     /**
-     * Prints the welcome message.
-     */
-    public void welcome() {
-        lineBreak();
-        System.out.println("Hello! I'm Alpha.");
-        System.out.println("What can I do for you?");
-        lineBreak();
-    }
-
-    /**
-     * Prints the goodbye message.
-     */
-    public void goodbye() {
-        lineBreak();
-        System.out.println("Bye. Hope to see you again soon!");
-        lineBreak();
-    }
-
-    /**
-     * Proccess the next input from the user.
+     * Returns the welcome string.
      *
-     * @return Input string from user.
+     * @return the welcome string
      */
-    public String proccessInput() {
-        return sc.nextLine();
+    public String welcome() {
+        return "Hello! I'm Alpha.\n" + "What can I do for you?\n";
     }
 
     /**
-     * Display all tasks given a list of tasks.
+     * Returns the goodbye string.
      *
-     * @param tasks List of tasks.
+     * @return the goodbye string
      */
-    public void displayTasks(List<Task> tasks) {
-        lineBreak();
-        System.out.println("Here are the tasks in your list:");
+    public String goodbye() {
+        return "Bye. Hope to see you again soon!\n";
+    }
+
+    /**
+     * Returns the list of tasks string.
+     *
+     * @param tasks the list of tasks
+     * @return the list of tasks string
+     */
+    public String displayTasks(List<Task> tasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks in your list:\n");
         int count = 1;
         for (Task task : tasks) {
-            String row = count++ + "." + task.toString();
-            System.out.println(row);
+            String row = count++ + "." + task.toString() + "\n";
+            sb.append(row);
         }
-        lineBreak();
+        return sb.toString();
     }
 
     /**
-     * Display message when adding a task.
+     * Returns the add task string.
      *
-     * @param task     Task to be added.
-     * @param taskList Task list of the application.
+     * @param task     the task
+     * @param taskList the task list
+     * @return the add task string
      */
-    public void addTask(Task task, TaskList taskList) {
-        lineBreak();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
-        lineBreak();
+    public String addTask(Task task, TaskList taskList) {
+        return "Got it. I've added this task:\n" + task.toString() + "\n"
+                + "Now you have " + taskList.getSize() + " tasks in the list.\n";
     }
 
     /**
-     * Display message when marking task as done.
+     * Returns the mark task string.
      *
-     * @param task Task to be marked.
+     * @param task the task
+     * @return the mark task string
      */
-    public void markTask(Task task) {
-        lineBreak();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
-        lineBreak();
+    public String markTask(Task task) {
+        return "Nice! I've marked this task as done:\n " + task.toString();
     }
 
     /**
-     * Display message when marking task as not done.
+     * Returns the unmark task string.
      *
-     * @param task Task to be unmarked.
+     * @param task the task
+     * @return the unmark task string
      */
-    public void unmarkTask(Task task) {
-        lineBreak();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
-        lineBreak();
+    public String unmarkTask(Task task) {
+        return "OK, I've marked this task as not done yet:\n" + task.toString();
     }
 
     /**
-     * Display message deleting task.
+     * Returns the delete task string.
      *
-     * @param task     Task to be deleted.
-     * @param taskList Task list of the application.
+     * @param task     the task
+     * @param taskList the task list
+     * @return the delete task string
      */
-    public void deleteTask(Task task, TaskList taskList) {
-        lineBreak();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
-        lineBreak();
+    public String deleteTask(Task task, TaskList taskList) {
+        return "Noted. I've removed this task:\n" + task.toString() + "\n"
+                + "Now you have " + taskList.getSize() + " tasks in the list.\n";
     }
 
     /**
-     * Display loading error.
+     * Returns the loading error string.
+     *
+     * @return the loading error string
      */
-    public void loadingError() {
-        System.out.println("Error loading. Please try again.");
-    }
-
-    /**
-     * Display line break.
-     */
-    public void lineBreak() {
-        System.out.println("______________________________");
+    public String loadingError() {
+        return "Error loading. Please try again.\n";
     }
 }

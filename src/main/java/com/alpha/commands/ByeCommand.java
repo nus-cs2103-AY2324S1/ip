@@ -25,12 +25,12 @@ public class ByeCommand extends Command {
      * @param ui      Ui of the application.
      * @param storage Storage functionality of the application.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             storage.save(taskList);
-            ui.goodbye();
+            return ui.goodbye();
         } catch (IOException e) {
-            ui.loadingError();
+            return ui.loadingError();
         }
     }
 

@@ -13,7 +13,6 @@ import com.alpha.tasks.Deadline;
 import com.alpha.tasks.Event;
 import com.alpha.tasks.Task;
 import com.alpha.tasks.TaskList;
-import com.alpha.ui.SilentUi;
 import com.alpha.ui.Ui;
 import com.alpha.utils.Parser;
 
@@ -50,7 +49,7 @@ public class Storage {
     public TaskList load() throws FileNotFoundException, InvalidTaskException {
         Scanner sc = new Scanner(file);
         TaskList taskList = new TaskList();
-        Ui ui = new SilentUi();
+        Ui ui = new Ui();
         int count = 1;
         while (sc.hasNextLine()) {
             String input = sc.nextLine();

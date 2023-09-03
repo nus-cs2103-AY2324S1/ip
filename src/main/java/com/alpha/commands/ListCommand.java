@@ -23,7 +23,7 @@ public class ListCommand extends Command {
      * @param ui      Ui of the application.
      * @param storage Storage functionality of the application.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.displayTasks(taskList.getTasks());
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.displayTasks(taskList.getTasks());
     }
 }
