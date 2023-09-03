@@ -13,8 +13,8 @@ public class Event extends Task {
      * Constructor for Event.
      *
      * @param description Description of task.
-     * @param start Start time of Event.
-     * @param end End time of Event.
+     * @param start Start time of event.
+     * @param end End time of event.
      */
     public Event(String description, String start, String end) {
         super(description);
@@ -26,9 +26,9 @@ public class Event extends Task {
      * Constructor for Event loaded from Storage.
      *
      * @param description Description of task.
-     * @param start Start time of Event as LocalDate.
-     * @param end End time of Event as LocalDate.
-     * */
+     * @param start Start time of event as LocalDate.
+     * @param end End time of event as LocalDate.
+     */
     public Event(String description, LocalDate start, LocalDate end) {
         super(description);
         this.start = start;
@@ -38,7 +38,7 @@ public class Event extends Task {
     /**
      * toString method for Event.
      *
-     * @return String representation of Event.
+     * @return String representation of event.
      */
     @Override
     public String toString() {

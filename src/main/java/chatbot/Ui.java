@@ -1,5 +1,7 @@
 package chatbot;
 
+import chatbot.task.Task;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -74,12 +76,33 @@ public class Ui {
 
     /**
      * Lists out all the tasks in taskList.
+     *
+     * @param taskList The TaskList to list tasks from.
      */
     public void listTasks(TaskList taskList) {
         System.out.println("Here are the tasks in your list:\n");
         for (int i = 0; i < taskList.size(); i++) {
             int num = i + 1;
-            System.out.println(num +". " + taskList.taskRep(i));
+            System.out.println(num + ". " + taskList.taskRep(i));
+        }
+        System.out.print("\n");
+    }
+
+    /**
+     * Lists out the matching tasks in the taskList.
+     *
+     * @param keyword The keyword to match with.
+     * @param taskList The TaskList to print.
+     */
+    public void listMatchingTasks(String keyword, TaskList taskList) {
+        if (taskList.size() > 0) {
+            System.out.println("Here are the matching tasks in your list:\n");
+            for (int i = 0; i < taskList.size(); i++) {
+                int num = i + 1;
+                System.out.println(num + ". " + taskList.taskRep(i));
+            }
+        } else {
+            System.out.println("There are no matching tasks in your list!");
         }
         System.out.print("\n");
     }

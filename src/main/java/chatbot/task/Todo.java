@@ -11,9 +11,9 @@ public class Todo extends Task {
         super(description);
     }
 
-    /** toString method for chatbot.task.Todo.
+    /** toString method for todo.
      *
-     * @return String representation of chatbot.task.Todo.
+     * @return String representation of todo.
      */
     @Override
     public String toString() {

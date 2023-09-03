@@ -18,7 +18,7 @@ public class TaskList {
     }
 
     /**
-     * Adds given task to the TaskList.
+     * Adds given task to the taskList.
      *
      * @param newTask The task to be added.
      */
@@ -27,7 +27,11 @@ public class TaskList {
     }
 
     /**
+<<<<<<< HEAD
      * Returns the current size of the TaskList.
+=======
+     * Returns the current size of the taskList.
+>>>>>>> branch-Level-9
      */
     public int size() {
         return this.taskList.size();
@@ -73,5 +77,21 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskNumberException(i + 1);
         }
+    }
+
+    /**
+     * Returns a new TaskList containing all the tasks in this taskList with the matching keyword.
+     *
+     * @param keyword The keyword to match with.
+     * @returns A TaskList with the matching tasks.
+     */
+    public TaskList find(String keyword) {
+        TaskList res = new TaskList();
+        for (Task task : this.taskList) {
+            if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
+                res.add(task);
+            }
+        }
+        return res;
     }
 }
