@@ -1,6 +1,6 @@
 package duke.utility;
 
-import duke.exception.DukeException;
+import duke.exception.BobiException;
 import duke.exception.EmptyTaskException;
 import duke.exception.InvalidEventException;
 import duke.exception.MissingTimeException;
@@ -28,7 +28,7 @@ public class ParserTest {
         try {
             assertEquals(new Object(), Parser.parseEvent("event /from 2023-10-10 0800 /to 2023-10-11 1800"));
             fail();
-        } catch (DukeException e) {
+        } catch (BobiException e) {
             assertEquals("Oh no! Bobi cannot add an empty task. :/", e.getMessage());
         }
     }
@@ -38,7 +38,7 @@ public class ParserTest {
         try {
             assertEquals(new Object(), Parser.parseEvent("event Bobi birthday party"));
             fail();
-        } catch (DukeException e) {
+        } catch (BobiException e) {
             assertEquals("Please input a date and time for this task.", e.getMessage());
         }
     }
@@ -48,7 +48,7 @@ public class ParserTest {
         try {
             assertEquals(new Object(), Parser.parseEvent("event Bobi birthday party /from date time /to 2111-50-2131 21394"));
             fail();
-        } catch (DukeException e) {
+        } catch (BobiException e) {
             assertEquals(
                     "Oh no! It seems like you have indicated an invalid event :/ \n"
                     + "Please follow this format:\n"
@@ -70,7 +70,7 @@ public class ParserTest {
         try {
             assertEquals(0, Parser.parseActions("mark "));
             fail();
-        } catch (DukeException e) {
+        } catch (BobiException e) {
             assertEquals("Oh no! Bobi cannot add an empty task. :/", e.getMessage());
         }
     }

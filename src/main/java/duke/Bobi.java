@@ -7,17 +7,26 @@ import duke.utility.Storage;
 import duke.utility.TaskList;
 import duke.utility.Ui;
 
-public class Duke {
+/**
+ * Bobi class encapsulates all components of the Bobi tracker bot.
+ *
+ * @author ruo-x
+ */
+public class Bobi {
     private Storage storage;
     private TaskList list;
     private Ui ui;
     private Command command;
 
-    public Duke() {
+    /**
+     * Constructor of a Bobi object.
+     * Load tasks saved from the backend into the active Bobi.
+     */
+    public Bobi() {
         this.storage = new Storage();
         this.list = new TaskList();
 
-        // Load list of tasks stored in text file "duke.task.txt" into the local duke.Duke.duke.utility.TaskList
+        // Load list of tasks stored in text file "duke.task.txt" into the local duke.Bobi.duke.utility.TaskList
         storage.handleLoad(list);
 
         // Start Scanner to read user inputs
@@ -25,6 +34,10 @@ public class Duke {
         this.command = new Command(storage, ui, list);
     }
 
+    /**
+     * Runs Bobi.
+     * Directs Bobi to perform certain actions based on the user's input.
+     */
     public void run() {
         System.out.println(Ui.greeting());
 
@@ -68,6 +81,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke().run();
+        new Bobi().run();
     }
 }
