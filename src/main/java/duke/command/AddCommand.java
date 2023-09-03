@@ -28,7 +28,7 @@ public class AddCommand implements Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.add(task);
-        storage.save(taskList.getList());
+        storage.save(taskList.getTasks());
         ui.showMessage("Task " + task.task + " successfully added");
         taskList.printSize();
     }

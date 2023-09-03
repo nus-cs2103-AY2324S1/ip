@@ -9,14 +9,30 @@ import duke.task.ToDo;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/** Deals with making sense of user command, manages error handling based on user input */
 public class Parser {
-
     private static String[] splitText;
-    public static Command parse(String commandString) throws InvalidCommandException, MissingParametersException,
-            InvalidParametersException, InvalidDateFormatException, MissingCommandException {
 
-        commandString = commandString.toLowerCase();
-        splitText = commandString.split(" ", 2);
+    /**
+     * Interprets user input, returns Command class if found.
+     * The format for this parser is "[main command] [task] /[sub command] [parameters for sub command]".
+     * Order of multiple sub commands are ignored, and not case-sensitive.
+     *
+     * @param inputString Input String to be interpreted.
+     * @return Command class to run.
+     * @throws InvalidCommandException When command is invalid.
+     * @throws MissingParametersException When there are missing parameters for either main or sub commands.
+     * @throws InvalidParametersException When there are invalid parameters for sub commands.
+     * @throws InvalidDateFormatException When there are invalid date formats for sub commands.
+     * @throws MissingCommandException When sub command for main command is missing.
+     */
+    public static Command parse(String inputString) throws InvalidCommandException, MissingParametersException,
+            InvalidParametersException, InvalidDateFormatException, MissingCommandException {
+        // Split text into two.
+        // With index 0 be the first word of user input, and index 1 containing the rest of the string.
+        inputString = inputString.toLowerCase();
+        splitText = inputString.split(" ", 2);
+
         String command = splitText[0];
         String task;
 
@@ -50,12 +66,21 @@ public class Parser {
             return new ChangeMarkCommand(splitText[1], false);
         case "find":
             checkLength();
-
         default:
             throw new InvalidCommandException("I don't understand.");
         }
     }
 
+    /**
+     * Gets LocalDate parameter based on String sub commands.
+     *
+     * @param str String to search in.
+     * @param command  Sub Command to search for.
+     * @return LocalDate parameter based on Sub Command.
+     * @throws MissingCommandException When Sub Command cannot be found.
+     * @throws MissingParametersException When there are no parameters for Sub Command.
+     * @throws InvalidDateFormatException When the parameter does not have a proper LocalDate format.
+     */
     private static LocalDate getDateWithCommand(String str, String command) throws MissingCommandException,
             MissingParametersException, InvalidDateFormatException {
         boolean found = false;
@@ -87,6 +112,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Gets task based on string, under the assumption that the task will be after the main command,
+     * and before the first slash command.
+     *
+     * @param str String to interpret.
+     * @return Task name.
+     * @throws MissingParametersException In the event where there are no task found.
+     */
     private static String getTask(String str) throws MissingParametersException {
         StringBuilder task = new StringBuilder();
 
@@ -106,6 +139,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks length of user input. User input with length less than 2 implies
+     * there are no parameters.
+     *
+     * @throws MissingParametersException Throws if there are no parameters found after the command.
+     */
     private static void checkLength() throws MissingParametersException {
         if (splitText.length < 2) {
             throw new MissingParametersException("You need to add something after the command LOL");

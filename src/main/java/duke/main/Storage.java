@@ -17,13 +17,15 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 /**
- * duke.main.Storage to store tasks to a specified filepath.
+ * Storage to store tasks to a specified filepath.
  */
 public class Storage {
     private final String filepath;
+
+    // Mapper to map from Object to JSON format.
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    // Setting Mapper to serialize LocalDate to JSON
+    // Setting Mapper to serialize LocalDate to JSON.
     static {
         MAPPER.registerModule(new JavaTimeModule());
         MAPPER.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);

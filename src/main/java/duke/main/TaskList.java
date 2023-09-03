@@ -4,18 +4,19 @@ import duke.task.Task;
 
 import java.util.ArrayList;
 
-/**
- * Contains a list of tasks, used for manipulating or displaying the list of tasks.
- */
+/** Contains a list of tasks, used for manipulating or displaying the list of tasks */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
+    /**
+     * Initializes tasks list.
+     */
     public TaskList() {
-        this.tasks = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     /**
-     * Initialize duke.main.TaskList with an array of tasks.
+     * Initialize TaskList with an array of tasks.
      *
      * @param tasks Tasks to be initialized with.
      */
@@ -55,42 +56,53 @@ public class TaskList {
     }
 
     /**
-     * Prints out the list of tasks
-     * @param findString filter
+     * Prints out the list of tasks.
+     *
+     * @param searchString String to search with.
      */
-    public void print(String findString) {
+    public void print(String searchString) {
         boolean found = false;
         if (tasks.isEmpty()) {
             System.out.println("     You have no tasks added yet :(");
         } else {
             for (int i = 0; i < tasks.size(); i++) {
-                if (tasks.get(i).task.contains(findString)) {
+                if (tasks.get(i).task.contains(searchString)) {
                     System.out.println("     " + (i + 1) + ". " + tasks.get(i));
                 }
             }
         }
 
         if (!found) {
-            System.out.println("No tasks found with string '" + findString + "'");
+            System.out.println("No tasks found with string '" + searchString + "'");
         }
     }
 
     /**
      * Prints number of tasks.
      */
-    public void printSize(){
+    public void printSize() {
         System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    /**
+     * Marks task at index i.
+     *
+     * @param i Index of tasks to be marked.
+     */
     public void mark(int i) {
         tasks.get(i).mark();
     }
 
+    /**
+     * Unmarks task at index i.
+     *
+     * @param i Index of tasks to be unmarked.
+     */
     public void unmark(int i) {
         tasks.get(i).unmark();
     }
 
-    public ArrayList<Task> getList() {
+    public ArrayList<Task> getTasks() {
         return tasks;
     }
 }
