@@ -2,6 +2,7 @@ package com.cloud.chatbot.token;
 
 import java.util.List;
 
+import com.cloud.chatbot.annotations.Nullable;
 import com.cloud.chatbot.todo.Todo;
 
 
@@ -19,7 +20,7 @@ public class Token {
         this.token = _token;
     }
 
-    private Integer toInteger() {
+    private @Nullable Integer toInteger() {
         try {
             return Integer.parseInt(token);
         } catch (NumberFormatException e) {
@@ -35,7 +36,7 @@ public class Token {
      * Whether the token can be converted to a valid integer.
      */
     public boolean isInt() {
-        Integer integer = this.toInteger();
+        @Nullable Integer integer = this.toInteger();
         return integer != null;
     }
 

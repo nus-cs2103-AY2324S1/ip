@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.cloud.chatbot.annotations.Nullable;
 import com.cloud.chatbot.exceptions.MissingInputException;
 
 
@@ -150,7 +151,7 @@ public class TokenManager {
      *
      * @return null if no such flag exists.
      */
-    public TokenManager findFlag(String flag) {
+    public @Nullable TokenManager findFlag(String flag) {
         return this.flagSets.get(flag);
     }
 }

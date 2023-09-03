@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.cloud.chatbot.annotations.Nullable;
 import com.cloud.chatbot.exceptions.MissingInputException;
 import com.cloud.chatbot.todo.Deadline;
 import com.cloud.chatbot.todo.Event;
@@ -38,7 +39,7 @@ public final class Cloud {
         case "event":
         case "e":
         case "add": {
-            Todo todo = Cloud.createTodo(manager);
+            @Nullable Todo todo = Cloud.createTodo(manager);
             if (todo == null) {
                 break;
             }
@@ -62,7 +63,7 @@ public final class Cloud {
         }
         case "mark":
         case "m": {
-            Integer number = Cloud.verifyNumber(manager);
+            @Nullable Integer number = Cloud.verifyNumber(manager);
             if (number == null) {
                 break;
             }
@@ -74,7 +75,7 @@ public final class Cloud {
         }
         case "unmark":
         case "un": {
-            Integer number = Cloud.verifyNumber(manager);
+            @Nullable Integer number = Cloud.verifyNumber(manager);
             if (number == null) {
                 break;
             }
@@ -105,7 +106,7 @@ public final class Cloud {
         }
     }
 
-    private static Todo createTodo(TokenManager manager) {
+    private static @Nullable Todo createTodo(TokenManager manager) {
         String description;
         try {
             description = manager.getDescription();
@@ -114,9 +115,9 @@ public final class Cloud {
             return null;
         }
 
-        TokenManager inputBy = manager.findFlag("by");
-        TokenManager inputFrom = manager.findFlag("from");
-        TokenManager inputTo = manager.findFlag("to");
+        @Nullable TokenManager inputBy = manager.findFlag("by");
+        @Nullable TokenManager inputFrom = manager.findFlag("from");
+        @Nullable TokenManager inputTo = manager.findFlag("to");
 
         if (inputBy != null) {
             return new Deadline(description, inputBy.toString());
@@ -127,7 +128,7 @@ public final class Cloud {
         return new Todo(description);
     }
 
-    private static Integer verifyNumber(TokenManager manager) {
+    private static @Nullable Integer verifyNumber(TokenManager manager) {
         List<Token> tokens = manager.getTokens();
         if (tokens.size() <= 1) {
             return null;
