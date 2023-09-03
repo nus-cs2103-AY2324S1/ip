@@ -17,7 +17,7 @@ public class EmptyInputException extends DukeException {
 
     @Override
     public String getMessage() {
-        return "☹ OOPS!!! The description of a " + this.message + " cannot be empty."
+        return "☹ OOPS!!! The description of " + this.message + " cannot be empty."
                 + "\n-----------------------------------------------------------------";
     }
 }

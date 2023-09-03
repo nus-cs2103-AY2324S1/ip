@@ -32,7 +32,7 @@ public class TodoCommand extends Command {
             Todo t = new Todo(description);
             taskList.addTask(t);
         } else {
-            throw new EmptyInputException("todo");
+            throw new EmptyInputException("a todo");
         }
     }
 

@@ -43,6 +43,8 @@ public class Parser {
             return new DeadlineCommand(taskList, ui);
         case EVENT:
             return new EventCommand(taskList, ui);
+        case FIND:
+            return new FindCommand(taskList, ui);
         case DELETE:
             return new DeleteCommand(taskList, ui);
         case BYE:

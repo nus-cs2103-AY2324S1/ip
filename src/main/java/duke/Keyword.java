@@ -11,5 +11,6 @@ public enum Keyword {
     TODO,
     DEADLINE,
     EVENT,
+    FIND,
     DELETE;
 }

@@ -72,7 +72,8 @@ public class TaskList {
         this.taskList.add(task);
         System.out.println("Got it. Task successfully added: \n"
                 + task.toString()
-                + "\nNow you have " + taskList.size() + " tasks in the list");
+                + "\nNow you have " + taskList.size() + " tasks in the list."
+                + Ui.SEPARATOR);
     }
 
     /**
@@ -84,7 +85,25 @@ public class TaskList {
         Task deletedTask = taskList.remove(num - 1);
         System.out.println("Noted. I've removed this task: \n"
                 + deletedTask.toString()
-                + "\nNow you have " + taskList.size() + " tasks in the list");
+                + "\nNow you have " + taskList.size() + " tasks in the list."
+                + Ui.SEPARATOR);
+    }
+
+    public void findTask(String keyword) {
+        if (taskList.isEmpty()) {
+            System.out.println("You have no tasks in your list yet :O");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            int i = 1;
+            for (Task t : this.taskList) {
+                String taskString = t.toString();
+                if (taskString.contains(keyword)) {
+                    System.out.println(i + ". " + taskString);
+                    i++;
+                }
+            }
+            System.out.println(Ui.SEPARATOR);
+        }
     }
 
     /**

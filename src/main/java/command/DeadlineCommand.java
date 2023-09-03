@@ -35,7 +35,7 @@ public class DeadlineCommand extends Command {
             InvalidFormatException, EmptyDateTimeException, InvalidDateTimeException {
         String input = ui.getInput();
         if (input.split(" ").length < 2) {
-            throw new EmptyInputException("deadline");
+            throw new EmptyInputException("a deadline");
         } else if (!input.contains("/by")) {
             throw new InvalidFormatException("deadline", "/by");
         } else if (input.length() <= input.indexOf("/by") + 4) {

@@ -36,7 +36,7 @@ public class EventCommand extends Command {
             InvalidFormatException, EmptyDateTimeException, InvalidDateTimeException {
         String input = ui.getInput();
         if (input.split(" ").length < 2) {
-            throw new EmptyInputException("event");
+            throw new EmptyInputException("a event");
         } else if (!input.contains("/from")) {
             throw new InvalidFormatException("event", "/from");
         } else if (!input.contains("/to")) {
