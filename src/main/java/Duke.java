@@ -1,5 +1,12 @@
+import java.io.File;
+import java.io.FileWriter;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.BufferedWriter;
 
 //emoticons taken from: https://kaomojikuma.com/ and https://www.emoticonstext.com/
 
@@ -22,6 +29,87 @@ public class Duke {
         return s != null && s.matches("[0-9.]+");
     }
 
+    public static File createDataFile() throws IOException {
+        File dataFile = new File("./data/duke.txt");
+        try {
+            Path dirPath = Paths.get("./data/");
+            if (!Files.exists(dirPath)) {
+                Files.createDirectory(dirPath);
+            }
+            if (!dataFile.exists()) {
+                dataFile.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("Unable to create file!!");
+        }
+        return dataFile;
+    }
+
+    //called at the beginning of the program
+    //creates a new File if file not found
+    public static void loadTasks() throws IOException {
+        File dataFile = new File("./data/duke.txt");
+        if (!dataFile.exists()) {
+            dataFile = createDataFile();
+        }
+        Scanner sc = new Scanner(dataFile);
+        ArrayList<Task> data = new ArrayList<>();
+        while (sc.hasNextLine()) {
+            String task = sc.nextLine();
+            if (!task.isBlank()) {
+                // | is a special symbol
+                String[] taskDetails = task.split(" " + "\\|" + " ");
+                String type = taskDetails[0];
+                int status = Integer.parseInt(taskDetails[1]);
+                String desc = taskDetails[2];
+                switch (type) {
+                case "T":
+                    ToDo toDo = new ToDo(status, desc);
+                    data.add(toDo);
+                    break;
+                case "D":
+                    String date = taskDetails[3];
+                    Deadline deadline = new Deadline(status, desc, date);
+                    data.add(deadline);
+                    break;
+                case "E":
+                    String start = taskDetails[3];
+                    String end = taskDetails[4];
+                    Event event = new Event(status, desc, start, end);
+                    data.add(event);
+                    break;
+                }
+            }
+        }
+        list = data;
+        sc.close();
+    }
+
+    //update the changes in list to the text file
+    public static void updateFile() throws IOException {
+        try {
+            //check if file exists, else create
+            File dataFile = new File("./data/duke.txt");
+            if (!dataFile.exists()) {
+                dataFile = createDataFile();
+            }
+
+            //create a FileWriter object to write to file. Note that this overwrites the existing data!
+            FileWriter file = new FileWriter("./data/duke.txt");
+            BufferedWriter writer = new BufferedWriter(file);
+            for (int i = 0; i < list.size(); i++) {
+                Task task = list.get(i);
+                String taskStr = task.convertTask();
+                writer.write(taskStr);
+                writer.newLine();
+                writer.flush();
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void listTasks() {
         if (list.size() == 0) {
             System.out.println("(o´ω`o)ﾉ You have no upcoming tasks!\n" + line);
@@ -37,6 +125,20 @@ public class Duke {
         }
     }
 
+    public static boolean deleteTask(int taskID) throws IOException {
+        if (!isValidTaskID(taskID)) {
+            return false;
+        } else {
+            Task toRemove = list.get(taskID);
+            list.remove(taskID);
+            updateFile();
+            System.out.println("ଘ(੭ˊᵕˋ)੭ Ok! I've removed this task:");
+            System.out.println(toRemove);
+            getNumberOfTasks(list);
+            return true;
+        }
+    }
+
     public static boolean isValidTaskID(int taskID) {
         if (taskID > list.size() - 1 || taskID < 0) {
             System.out.println("(・´з`・) Uh oh... invalid taskID\n" + line);
@@ -45,34 +147,23 @@ public class Duke {
         return true;
     }
 
-    public static boolean deleteTask(int taskID) {
-        if (!isValidTaskID(taskID)) {
-            return false;
-        } else {
-            Task toRemove = list.get(taskID);
-            list.remove(taskID);
-            System.out.println("ଘ(੭ˊᵕˋ)੭ Ok! I've removed this task:");
-            System.out.println(toRemove);
-            getNumberOfTasks(list);
-            return true;
-        }
-    }
-
-    public static void markTask(int taskID) {
+    public static void markTask(int taskID) throws IOException {
         list.get(taskID).mark();
+        updateFile();
     }
 
-    public static void unmarkTask(int taskID) {
+    public static void unmarkTask(int taskID) throws IOException {
         list.get(taskID).unmark();
+        updateFile();
     }
 
     public static boolean isValidCommand(String input) throws InvalidCommandException,
-            NoDescException,
-            NoDateException, NoStartException, NoEndException {
+            NoDescException, NoDateException, NoStartException, NoEndException,
+            IOException {
         boolean isValid = true;
         String[] inputArr = input.split(" ");
         String command = inputArr[0];
-        if (input.equals("list")) {
+        if (command.equals("list")) {
             listTasks();
         } else if (command.equals("delete")) {
             if (inputArr.length == 1) {
@@ -136,7 +227,7 @@ public class Duke {
         return isValid;
     }
 
-    public static boolean isValidToDo(String input) throws NoDescException {
+    public static boolean isValidToDo(String input) throws NoDescException, IOException {
         String[] inputArr = input.split(" ", 2);
         if (inputArr.length == 1) {
             throw new NoDescException();
@@ -147,6 +238,7 @@ public class Duke {
                 //0 for unmarked, any other number for marked
                 ToDo toDo = new ToDo(0, inputArr[1]);
                 list.add(toDo);
+                updateFile();
                 newTaskAdded(toDo);
                 getNumberOfTasks(list);
             }
@@ -154,14 +246,15 @@ public class Duke {
         return true;
     }
 
-    public static boolean isValidDeadline(String input) throws NoDescException, NoDateException {
+    public static boolean isValidDeadline(String input) throws NoDescException,
+            NoDateException, IOException {
         String[] inputArr = input.split(" ", 2);
         if (inputArr.length == 1) {
             throw new NoDescException();
         } else {
             String afterCommand = inputArr[1];
             //now we check whether there is a deadline
-            String[] arr = afterCommand.split("/by ", 2);
+            String[] arr = afterCommand.split(" /by ", 2);
             if (arr[0].isBlank()) {
                 throw new NoDescException();
             } else if (arr.length == 1) {
@@ -174,6 +267,7 @@ public class Duke {
                 } else {
                     Deadline deadline = new Deadline(0, task, date);
                     list.add(deadline);
+                    updateFile();
                     newTaskAdded(deadline);
                     getNumberOfTasks(list);
                 }
@@ -183,7 +277,7 @@ public class Duke {
     }
 
     public static boolean isValidEvent(String input) throws
-            NoDescException, NoStartException, NoEndException {
+            NoDescException, NoStartException, NoEndException, IOException {
         String[] inputArr = input.split(" ", 2);
         if (inputArr.length == 1) {
             throw new NoDescException();
@@ -191,18 +285,18 @@ public class Duke {
             throw new NoDescException();
         } else {
             String afterCommand = inputArr[1];
-            String[] arr = afterCommand.split("/from ", 2);
+            String[] arr = afterCommand.split(" /from ", 2);
             if (arr[0].isBlank()) {
                 throw new NoDescException();
             } else if (arr.length == 1) { //no start date added
                 throw new NoStartException();
             } else {
                 String task = arr[0];
-                String start = arr[1].split("/to ", 2)[0];
+                String start = arr[1].split(" /to ", 2)[0];
                 if (start.isBlank()) {
                     throw new NoStartException();
                 } else {
-                    String[] arrWithEnd = afterCommand.split("/to ", 2);
+                    String[] arrWithEnd = afterCommand.split(" /to ", 2);
                     if (arrWithEnd.length == 1) { //no end date added
                         throw new NoEndException();
                     } else {
@@ -212,6 +306,7 @@ public class Duke {
                         } else {
                             Event event = new Event(0, task, start, end);
                             list.add(event);
+                            updateFile();
                             newTaskAdded(event);
                             getNumberOfTasks(list);
                         }
@@ -222,7 +317,8 @@ public class Duke {
         return true;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        loadTasks();
         String intro = "(｡･o･｡)ﾉ Hey there! I'm BUTTER.\n" +
                 "How can I help you today?\n";
         String bye = "彡໒(⊙ᴗ⊙)७彡 Signing off, see you later!\n";
