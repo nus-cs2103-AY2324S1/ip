@@ -1,7 +1,6 @@
 package spot;
 
 import java.time.LocalDate;
-import java.util.Scanner;
 
 import spot.task.Task;
 
@@ -10,50 +9,47 @@ import spot.task.Task;
  */
 public class Ui {
 
-    private static final String HELLO_MESSAGE = "Hello, it's Spot!";
     private static final String GOODBYE_MESSAGE = "Spot's going to take a nap now. Goodnight!";
     private static final String NEW_TASK_MESSAGE = "Spot will add this new task to your list: \n";
-    private Scanner inputScanner;
+    private StringBuilder output;
 
     /**
      * Constructs a new Ui object.
      */
     public Ui() {
-        this.inputScanner = new Scanner(System.in);
+        this.output = new StringBuilder();
     }
 
     /**
-     * Displays hello message to the user.
+     * Resets the ouptut of the Ui object.
      */
-    public void sayHello() {
-        System.out.println(HELLO_MESSAGE);
+    public void resetOutput() {
+        output.setLength(0);
     }
 
     /**
-     * Displays goodbye message to the user.
+     * Returns String representation of the ouptut of the Ui object.
      */
-    public void sayGoodbye() {
-        System.out.println(GOODBYE_MESSAGE);
+    public String getOutput() {
+        return output.toString();
     }
 
     /**
-     * Displays task added message to the user.
+     * Sets output to goodbye message.
+     */
+    public void setGoodbye() {
+        output.append(GOODBYE_MESSAGE);
+    }
+
+    /**
+     * Sets output to task added message.
      *
      * @param tasks Current TaskList.
      * @param newTask Task to be added.
      */
-    public void sayAdd(TaskList tasks, Task newTask) {
-        System.out.println(NEW_TASK_MESSAGE + "  " + newTask);
-        System.out.println("Tasks in list: " + tasks.getSize());
-    }
-
-    /**
-     * Reads the next command from the user.
-     *
-     * @return String representation of the user's next command.
-     */
-    public String readCommand() {
-        return inputScanner.nextLine();
+    public void setAdd(TaskList tasks, Task newTask) {
+        output.append(NEW_TASK_MESSAGE + "  " + newTask + "\n");
+        output.append("Tasks in list: " + tasks.getSize());
     }
 
     /**
@@ -78,20 +74,21 @@ public class Ui {
     }
 
     /**
-     * Displays error message to the user.
+     * Sets output to error message.
      *
      * @param error Error message.
      */
-    public void showError(String error) {
-        System.out.println(error);
+    public void setError(String error) {
+        output.append(error);
     }
 
     /**
-     * Displays message to the user.
+     * Sets output to message.
      *
      * @param message Regular message.
      */
-    public void showMessage(String message) {
-        System.out.println(message);
+    public void setMessage(String message) {
+        output.append(message + "\n");
     }
+
 }

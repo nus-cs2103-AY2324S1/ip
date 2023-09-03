@@ -2,19 +2,14 @@ package spot.task;
 
 import java.time.LocalDate;
 
+import spot.Ui;
+
 /**
  * Represents a task.
  */
 public abstract class Task {
     private String description;
     private boolean isDone;
-
-    /**
-     * Constructs a new Task object.
-     */
-    public Task() {
-
-    }
 
     /**
      * Constructs a new Task object.
@@ -40,19 +35,19 @@ public abstract class Task {
     /**
      * Marks the Task object as done.
      */
-    public void markAsDone() {
+    public void markAsDone(Ui ui) {
         this.isDone = true;
-        System.out.println("Wow! Spot has marked this task as done!");
-        System.out.println("  " + this);
+        ui.setMessage("Wow! Spot has marked this task as done!");
+        ui.setMessage("  " + this);
     }
 
     /**
      * Marks the Task object as not done.
      */
-    public void markAsNotDone() {
+    public void markAsNotDone(Ui ui) {
         this.isDone = false;
-        System.out.println("Spot will mark this task as not done yet then!");
-        System.out.println("  " + this);
+        ui.setMessage("Spot will mark this task as not done yet then!");
+        ui.setMessage("  " + this);
     }
 
     /**

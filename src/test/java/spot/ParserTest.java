@@ -1,11 +1,11 @@
 package spot;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
 
 import spot.command.ExitCommand;
 import spot.command.ListTasksOnCommand;
@@ -28,8 +28,8 @@ public class ParserTest {
                     Parser.parseCommand("list tasks on 32-12-2000"));
             fail();
         } catch (SpotException e) {
-            assertEquals("This doesn't seem like a valid date to Spot!" +
-                    "Please make sure your date is given in this format: dd-mm-yyyy", e.getMessage());
+            assertEquals("This doesn't seem like a valid date to Spot!"
+                    + "Please make sure your date is given in this format: dd-mm-yyyy", e.getMessage());
         }
     }
 
@@ -60,8 +60,8 @@ public class ParserTest {
                     Parser.parseDate("31-02-2000"));
             fail();
         } catch (Exception e) {
-            assertEquals("This doesn't seem like a valid date to Spot!" +
-                    "Please make sure your date is given in this format: dd-mm-yyyy", e.getMessage());
+            assertEquals("This doesn't seem like a valid date to Spot!"
+                    + "Please make sure your date is given in this format: dd-mm-yyyy", e.getMessage());
         }
     }
 
@@ -72,8 +72,8 @@ public class ParserTest {
                     Parser.parseDate("01-13-2000"));
             fail();
         } catch (Exception e) {
-            assertEquals("This doesn't seem like a valid date to Spot!" +
-                    "Please make sure your date is given in this format: dd-mm-yyyy", e.getMessage());
+            assertEquals("This doesn't seem like a valid date to Spot!"
+                    + "Please make sure your date is given in this format: dd-mm-yyyy", e.getMessage());
         }
     }
 }

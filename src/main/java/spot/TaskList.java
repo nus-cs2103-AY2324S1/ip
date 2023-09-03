@@ -95,11 +95,11 @@ public class TaskList {
      * @param position Specified position.
      * @throws SpotException  If the task at the specified position does not exist.
      */
-    public void markTask(int position) throws SpotException {
+    public void markTask(Ui ui, int position) throws SpotException {
         if (position < 0 || position > tasks.size()) {
             throw new SpotException("Spot thinks that task doesn't exist!");
         }
-        tasks.get(position - 1).markAsDone();
+        tasks.get(position - 1).markAsDone(ui);
     }
 
     /**
@@ -108,11 +108,11 @@ public class TaskList {
      * @param position Specified position.
      * @throws SpotException  If the task at the specified position does not exist.
      */
-    public void unmarkTask(int position) throws SpotException {
+    public void unmarkTask(Ui ui, int position) throws SpotException {
         if (position < 0 || position > tasks.size()) {
             throw new SpotException("Spot thinks that task doesn't exist!");
         }
-        tasks.get(position - 1).markAsNotDone();
+        tasks.get(position - 1).markAsNotDone(ui);
     }
 
     /**
@@ -121,13 +121,13 @@ public class TaskList {
      * @param position Specified position.
      * @throws SpotException  If the task at the specified position does not exist.
      */
-    public void deleteTask(int position) throws SpotException {
+    public void deleteTask(Ui ui, int position) throws SpotException {
         if (position < 0 || position > tasks.size()) {
             throw new SpotException("Spot thinks that task doesn't exist!");
         }
         Task toRemove = tasks.remove(position - 1);
-        System.out.println("Spot has removed this task: " + "\n" + toRemove.toString());
-        System.out.println("Tasks in list: " + tasks.size());
+        ui.setMessage("Spot has removed this task: " + "\n" + toRemove.toString());
+        ui.setMessage("Tasks in list: " + tasks.size());
     }
 
     /**
@@ -137,12 +137,12 @@ public class TaskList {
      */
     public void listTasks(Ui ui) {
         if (tasks.size() == 0) {
-            ui.showMessage("You don't have any tasks for now! Want Spot to help find some?");
+            ui.setMessage("You don't have any tasks for now! Want Spot to help find some?");
         } else {
-            ui.showMessage("Spot's got a list of your tasks, here!");
+            ui.setMessage("Spot's got a list of your tasks, here!");
             for (int i = 0; i < tasks.size(); i++) {
                 int position = i + 1;
-                ui.showMessage(position + ". " + tasks.get(i).toString());
+                ui.setMessage(position + ". " + tasks.get(i).toString());
             }
         }
     }
@@ -155,18 +155,18 @@ public class TaskList {
      */
     public void listTasks(Ui ui, LocalDate date) {
         if (tasks.size() == 0) {
-            ui.showMessage("You don't have any tasks for now! Want Spot to help find some?");
+            ui.setMessage("You don't have any tasks for now! Want Spot to help find some?");
         } else {
             int position = 1;
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.get(i);
                 if (task.fallsOn(date)) {
-                    ui.showMessage(position + ". " + task);
+                    ui.setMessage(position + ". " + task);
                     position += 1;
                 }
             }
             if (position <= 1) {
-                ui.showMessage("Spot says you don't have any tasks on " + date + "!\n");
+                ui.setMessage("Spot says you don't have any tasks on " + date + "!\n");
             }
         }
     }
@@ -179,18 +179,18 @@ public class TaskList {
      */
     public void findTasks(Ui ui, String keyword) {
         if (tasks.size() == 0) {
-            ui.showMessage("You don't have any tasks for now! Want Spot to help find some?");
+            ui.setMessage("You don't have any tasks for now! Want Spot to help find some?");
         } else {
             int position = 1;
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.get(i);
                 if (task.descriptionContains(keyword)) {
-                    ui.showMessage(position + ". " + task);
+                    ui.setMessage(position + ". " + task);
                     position += 1;
                 }
             }
             if (position <= 1) {
-                ui.showMessage("Spot can't find any tasks matching the keyword: " + keyword + "\n");
+                ui.setMessage("Spot can't find any tasks matching the keyword: " + keyword + "\n");
             }
         }
     }

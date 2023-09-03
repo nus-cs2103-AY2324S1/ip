@@ -32,7 +32,7 @@ public class AddToDoCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SpotException {
         ToDo t = tasks.addTodo(description);
-        ui.sayAdd(tasks, t);
+        ui.setAdd(tasks, t);
     }
 
     /**
