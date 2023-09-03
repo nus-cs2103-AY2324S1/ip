@@ -1,9 +1,9 @@
 package duke.time;
 
-import duke.exceptions.TimeParsingException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import duke.exceptions.TimeParsingException;
 
 /**
  * Provides utility methods for parsing and formatting date-time representations in the Duke application.

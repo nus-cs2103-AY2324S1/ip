@@ -1,12 +1,11 @@
 package duke.commands;
 
-import duke.exceptions.CommandDetailException;
+import java.util.ArrayList;
+
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
-
-import java.util.ArrayList;
 
 
 public class FindCommand extends Command {

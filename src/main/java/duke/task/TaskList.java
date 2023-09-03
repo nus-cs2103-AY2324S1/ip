@@ -1,8 +1,8 @@
 package duke.task;
 
-import duke.exceptions.CommandDetailException;
-
 import java.util.ArrayList;
+
+import duke.exceptions.CommandDetailException;
 
 
 public class TaskList {

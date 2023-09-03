@@ -1,11 +1,11 @@
 package duke.ui;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import duke.exceptions.CommandDetailException;
 import duke.task.Task;
 import duke.task.TaskList;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class Ui {

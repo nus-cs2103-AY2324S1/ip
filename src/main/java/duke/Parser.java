@@ -35,7 +35,8 @@ public class Parser {
      * @throws CommandNotRecognizedException If the entered command is not recognized.
      * @throws CommandDetailException        If there's an error in the command details.
      */
-    public Command parse(String input) throws TimeParsingException, CommandNotRecognizedException, CommandDetailException {
+    public Command parse(String input)
+            throws TimeParsingException, CommandNotRecognizedException, CommandDetailException {
         String trimedInput = input.trim();
         String[] splitInput = trimedInput.split(" ", 2);
         String command = splitInput[0].toLowerCase();

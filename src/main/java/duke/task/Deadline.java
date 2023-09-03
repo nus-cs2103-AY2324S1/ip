@@ -1,9 +1,9 @@
 package duke.task;
 
+import java.time.LocalDate;
+
 import duke.exceptions.TimeParsingException;
 import duke.time.Time;
-
-import java.time.LocalDate;
 
 public class Deadline extends Task {
     private final LocalDate deadline;
@@ -30,6 +30,8 @@ public class Deadline extends Task {
 
     @Override
     public String toSaveFormat() {
-        return "D | " + (super.isDone() ? "1" : "0") + " | " + this.getTaskName() + " | " + Time.formatTimeStoring(deadline);
+        return "D | " + (super.isDone() ? "1" : "0") + " | "
+            + this.getTaskName() + " | "
+            + Time.formatTimeStoring(deadline);
     }
 }
