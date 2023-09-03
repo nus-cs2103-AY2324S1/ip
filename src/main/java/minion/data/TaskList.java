@@ -116,10 +116,7 @@ public class TaskList {
     public String enumerateTasks() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            sb.append("\n\t");
-            sb.append(i + 1);
-            sb.append(".");
-            sb.append(tasks.get(i).toString());
+            sb.append("\n").append(i + 1).append(". ").append(tasks.get(i).toString());
         }
         return sb.toString();
     }
@@ -148,8 +145,7 @@ public class TaskList {
     public String toStringStorage() {
         StringBuilder sb = new StringBuilder();
         for (Task task : tasks) {
-            sb.append(task.toStringStorage());
-            sb.append("\n");
+            sb.append(task.toStringStorage()).append("\n");
         }
         return sb.toString();
     }

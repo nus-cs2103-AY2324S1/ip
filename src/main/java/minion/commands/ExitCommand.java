@@ -1,8 +1,8 @@
 package minion.commands;
 
+import minion.common.Messages;
 import minion.data.TaskList;
 import minion.storage.Storage;
-import minion.ui.Ui;
 
 /**
  * Represents an exit command.
@@ -13,11 +13,10 @@ public class ExitCommand extends Command {
     /**
      * Executes the exit command.
      * @param tasks Task list.
-     * @param ui Ui of chatbot.
      * @param storage Storage of chatbot.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.tearDown();
+    public CommandResult execute(TaskList tasks, Storage storage) {
+        return new CommandResult(Messages.MESSAGE_GOODBYE, true);
     }
 }

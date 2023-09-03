@@ -5,7 +5,7 @@ import java.io.IOException;
 import minion.data.TaskList;
 import minion.data.task.ToDo;
 import minion.storage.Storage;
-import minion.ui.Ui;
+import minion.utils.StringFormatter;
 
 /**
  * Represents a todo command.
@@ -25,19 +25,20 @@ public class ToDoCommand extends Command {
     /**
      * Executes the todo command.
      * @param tasks Task list.
-     * @param ui Ui of chatbot.
      * @param storage Storage of chatbot.
      * @throws IOException if there is IO error.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public CommandResult execute(TaskList tasks, Storage storage) throws IOException {
         tasks.add(toDo);
-        ui.print(
-            "Got it. I've added this task:",
-            "\t" + toDo.toString(),
-            "Now you have " + tasks.size() + " tasks in the list."
-        );
         storage.writeToFile(tasks);
+        return new CommandResult(
+            StringFormatter.format(
+                "Got it. I've added this task:",
+                "\t" + toDo.toString(),
+                "Now you have " + tasks.size() + " tasks in the list."
+            )
+        );
     }
 
     /**

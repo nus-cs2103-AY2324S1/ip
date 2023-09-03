@@ -6,7 +6,7 @@ import minion.data.TaskList;
 import minion.data.exception.IllegalValueException;
 import minion.data.task.Task;
 import minion.storage.Storage;
-import minion.ui.Ui;
+import minion.utils.StringFormatter;
 
 /**
  * Represents a delete command.
@@ -26,18 +26,20 @@ public class DeleteCommand extends Command {
     /**
      * Executes the delete command.
      * @param tasks Task list.
-     * @param ui Ui of chatbot.
      * @param storage Storage of chatbot.
      * @throws IllegalValueException if argument(s) are invalid.
      * @throws IOException if there is IO error.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IllegalValueException, IOException {
+    public CommandResult execute(TaskList tasks, Storage storage) throws IllegalValueException, IOException {
         Task task = tasks.deleteTask(taskIdx);
-        ui.print("OK, I've removed this task",
-                "\t" + task.toString()
-        );
         storage.writeToFile(tasks);
+        return new CommandResult(
+            StringFormatter.format(
+                "OK, I've removed this task",
+                "\t" + task.toString()
+            )
+        );
     }
 
     /**
