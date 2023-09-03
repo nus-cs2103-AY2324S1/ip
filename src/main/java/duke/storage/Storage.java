@@ -22,37 +22,24 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    private static final List<String> storagePath = List.of("data");
-    private static final String storageFileName = "data.txt";
-
-    private List<String> dirPath;
     private File dataFile;
 
     /**
      * Constructor for storage object.
-     * 
-     * @param projectName The name of the root directory.
-     * @param mainFile A file in the root directory.
      */
-    public Storage(String projectName, File mainFile) {
-        this.dirPath = new ArrayList<>(Arrays.asList(mainFile.getPath().split(Pattern.quote(File.separator))));
-        while (!this.dirPath.get(this.dirPath.size() - 1).equals(projectName)) {
-            this.dirPath.remove(this.dirPath.size() - 1);
-        }
-        this.dataFile = makeFile(this.dirPath, storagePath, storageFileName);
+    public Storage() {
+        this.dataFile = new File(String.join(File.separator, ".", "duke_data", "data.txt"));
+        makeFile(this.dataFile);
     }
 
-    private File makeFile(List<String> projectDir, List<String> filePath, String fileName) {
-        String path = String.join(File.separator, projectDir) + File.separator + String.join(File.separator, filePath);
-        File dir = new File(path);
+    private void makeFile(File file) {
+        File dir = file.getParentFile();
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        File opFile = new File(path + File.separator + fileName);
         try {
-            opFile.createNewFile();
+            file.createNewFile();
         } catch (IOException e) {}
-        return opFile;
     }
 
     /**

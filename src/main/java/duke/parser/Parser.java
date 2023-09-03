@@ -28,7 +28,7 @@ import java.util.regex.Matcher;
  */
 public class Parser {
 
-    private static final Map<String, Function<Map<String, Object>, Command>> commands = Map.ofEntries(
+    private static final Map<String, Function<Map<String, Object>, Command>> COMMANDS = Map.ofEntries(
             new SimpleEntry<>("list", x -> new ListCommand(x)),
             new SimpleEntry<>("find", x -> new FindCommand(x)),
             new SimpleEntry<>("queue", x -> new QueueCommand(x)),
@@ -53,10 +53,10 @@ public class Parser {
         String commandName = commandParts[0];
         String commandArgs = commandParts.length > 1 ? commandParts[1] : "";
         Map<String, Object> args = new HashMap<>();
-        if (!commands.containsKey(commandName)) {
+        if (!COMMANDS.containsKey(commandName)) {
             throw new InvalidCommandException(commandName);
         }
-        Command cmd = commands.get(commandName).apply(args);
+        Command cmd = COMMANDS.get(commandName).apply(args);
         Matcher groups = cmd.getPattern().matcher(commandArgs);
         if (!groups.matches()) {
             throw new CommandFormatException(commandName, cmd.getStructure());

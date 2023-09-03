@@ -7,8 +7,6 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.ui.Ui;
 import duke.ui.VerboseUi;
-import java.io.File;
-import java.util.List;
 
 /**
  * The main chatbot.
@@ -19,15 +17,18 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+    public static void main(String[] args) {
+        Duke bot = new Duke("chatBot");
+        bot.run();
+    }
+
     /**
      * Constructor for Duke.
      * 
      * @param name Name of the bot.
-     * @param projectName Directory name of the project folder.
-     * @param mainFile The file that runs the main function.
      */
-    public Duke(String name, String projectName, File mainFile) {
-        this.storage = new Storage(projectName, mainFile);
+    public Duke(String name) {
+        this.storage = new Storage();
         this.tasks = this.storage.loadTasks();
         this.ui = new VerboseUi(name);
     }
