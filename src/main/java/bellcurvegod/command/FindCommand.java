@@ -1,11 +1,14 @@
 package bellcurvegod.command;
 
+import java.util.ArrayList;
+
 import bellcurvegod.task.Task;
 import bellcurvegod.tasklist.TaskList;
 import bellcurvegod.ui.Ui;
 
-import java.util.ArrayList;
-
+/**
+ * Encapsulates the findCommand.
+ */
 public class FindCommand implements Runnable {
     /**
      * Lists all tasks in the taskList that
@@ -16,7 +19,7 @@ public class FindCommand implements Runnable {
         ArrayList<Task> tasks = TaskList.getTaskList();
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
-        for (Task t: tasks) {
+        for (Task t : tasks) {
             if (t.getDescription().contains(keyword)) {
                 matchingTasks.add(t);
             }

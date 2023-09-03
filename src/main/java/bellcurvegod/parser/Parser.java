@@ -1,14 +1,21 @@
 package bellcurvegod.parser;
 
-import bellcurvegod.command.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import bellcurvegod.command.ExitCommand;
+import bellcurvegod.command.FindCommand;
+import bellcurvegod.command.ListTasksCommand;
+import bellcurvegod.command.MarkCommand;
+import bellcurvegod.command.UnmarkCommand;
 import bellcurvegod.exception.EmptyDescriptionException;
 import bellcurvegod.exception.InvalidCommandException;
 import bellcurvegod.task.Task;
 import bellcurvegod.tasklist.TaskList;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
+/**
+ * Encapsulates the parser to parse user input.
+ */
 public class Parser {
     /**
      * Parses commands entered by the user,

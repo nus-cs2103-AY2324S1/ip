@@ -1,11 +1,14 @@
 package bellcurvegod.command;
 
-import bellcurvegod.ui.Ui;
+import static bellcurvegod.storage.Storage.updateData;
 
 import java.io.IOException;
 
-import static bellcurvegod.storage.Storage.updateData;
+import bellcurvegod.ui.Ui;
 
+/**
+ * Encapsulates the exitCommand.
+ */
 public class ExitCommand implements Runnable {
     /**
      * Says goodbye to the user and exits.

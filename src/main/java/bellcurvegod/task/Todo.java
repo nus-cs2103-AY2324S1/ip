@@ -1,16 +1,25 @@
 package bellcurvegod.task;
 
-import bellcurvegod.exception.EmptyTodoDescriptionException;
-import bellcurvegod.ui.Ui;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import bellcurvegod.exception.EmptyTodoDescriptionException;
+import bellcurvegod.ui.Ui;
+
+/**
+ * Encapsulates a task with description only.
+ */
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
     }
 
+    /**
+     * Creates a Todo.
+     *
+     * @param description Description of the Todo.
+     * @param isDone      Whether the Todo is marked as done.
+     */
     public Todo(String description, boolean isDone) {
         super(description);
         this.isDone = isDone;
@@ -18,6 +27,7 @@ public class Todo extends Task {
 
     /**
      * Generates a Todo with description given in the input.
+     *
      * @param input Input entered by user.
      * @return A Todo.
      * @throws EmptyTodoDescriptionException If the description is missing.
@@ -26,10 +36,10 @@ public class Todo extends Task {
         String[] words = input.split(" ");
         if (words.length == 1) {
             throw new EmptyTodoDescriptionException(
-                    Ui.getLine() + "\n" +
-                    "You did not provide any description to this Todo.\n" +
-                    "To add a Todo, enter \"todo <description>\".\n" +
-                            Ui.getLine());
+                Ui.getLine() + "\n"
+                    + "You did not provide any description to this Todo.\n"
+                    + "To add a Todo, enter \"todo <description>\".\n"
+                    + Ui.getLine());
         }
         ArrayList<String> desWords = new ArrayList<>(Arrays.asList(words).subList(1, words.length));
         String des = String.join(" ", desWords);

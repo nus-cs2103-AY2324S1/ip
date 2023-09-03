@@ -1,23 +1,41 @@
 package bellcurvegod.task;
 
-import bellcurvegod.exception.EmptyEventDescriptionException;
-import bellcurvegod.ui.Ui;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import bellcurvegod.exception.EmptyEventDescriptionException;
+import bellcurvegod.ui.Ui;
+
+/**
+ * Encapsulates a task with a duration.
+ */
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
+    /**
+     * Creates an event.
+     *
+     * @param description Description of event.
+     * @param from        From time of event.
+     * @param to          To time of event.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Creates an event.
+     *
+     * @param description Description of event.
+     * @param from        From time of event.
+     * @param to          To time of event.
+     * @param isDone      Whether the event is marked as done.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to, boolean isDone) {
         super(description);
         this.from = from;
@@ -27,6 +45,7 @@ public class Event extends Task {
 
     /**
      * Generates an Event with description given in the input.
+     *
      * @param input Input entered by user.
      * @return An Event.
      * @throws EmptyEventDescriptionException If description is missing.
@@ -34,10 +53,10 @@ public class Event extends Task {
     public static Event generateEventFromInput(String input) throws EmptyEventDescriptionException {
         if (input.split(" ").length == 1) {
             throw new EmptyEventDescriptionException(
-                    Ui.getLine() + "\n" +
-                    "You did not provide any description to this Event.\n" +
-                    "To add an Event, enter \"event <description> /from <startTime> /to <endTime>\".\n" +
-                            Ui.getLine());
+                Ui.getLine() + "\n"
+                    + "You did not provide any description to this Event.\n"
+                    + "To add an Event, enter \"event <description> /from <startTime> /to <endTime>\".\n"
+                    + Ui.getLine());
         }
 
         String[] wordsSplitBySlash = input.split("/");

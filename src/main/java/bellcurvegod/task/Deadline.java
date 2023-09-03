@@ -1,21 +1,37 @@
 package bellcurvegod.task;
 
-import bellcurvegod.exception.EmptyDeadlineDescriptionException;
-import bellcurvegod.ui.Ui;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import bellcurvegod.exception.EmptyDeadlineDescriptionException;
+import bellcurvegod.ui.Ui;
+
+/**
+ * Encapsulates a task with deadline.
+ */
 public class Deadline extends Task {
     protected LocalDate by;
 
+    /**
+     * Creates a Deadline.
+     *
+     * @param description Description of the Deadline.
+     * @param by          Deadline.
+     */
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
 
+    /**
+     * Creates a Deadline.
+     *
+     * @param description Description of the Deadline.
+     * @param by          Deadline.
+     * @param isDone      Whether the Deadline is marked as done.
+     */
     public Deadline(String description, LocalDate by, boolean isDone) {
         super(description);
         this.by = by;
@@ -24,6 +40,7 @@ public class Deadline extends Task {
 
     /**
      * Generates a Deadline with description given in the input.
+     *
      * @param input Input entered by user.
      * @return A Deadline.
      * @throws EmptyDeadlineDescriptionException If deadline is missing.
@@ -31,10 +48,10 @@ public class Deadline extends Task {
     public static Deadline generateDeadlineFromInput(String input) throws EmptyDeadlineDescriptionException {
         if (input.split(" ").length == 1) {
             throw new EmptyDeadlineDescriptionException(
-                    Ui.getLine() + "\n" +
-                            "You did not provide any description to this Deadline.\n" +
-                            "To add a Deadline, enter \"deadline <description> /by <yyyy-mm-dd>\".\n" +
-                            Ui.getLine());
+                Ui.getLine() + "\n"
+                    + "You did not provide any description to this Deadline.\n"
+                    + "To add a Deadline, enter \"deadline <description> /by <yyyy-mm-dd>\".\n"
+                    + Ui.getLine());
         }
 
         String front = input.split("/")[0];

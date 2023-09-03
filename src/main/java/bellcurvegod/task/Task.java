@@ -1,12 +1,17 @@
 package bellcurvegod.task;
 
 /**
- * A class encapsulating tasks.
+ * Encapsulates tasks.
  */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Creates a Task.
+     *
+     * @param description Description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -14,6 +19,7 @@ public class Task {
 
     /**
      * Returns the description.
+     *
      * @return Description.
      */
     public String getDescription() {
@@ -22,6 +28,7 @@ public class Task {
 
     /**
      * Returns the status icon depending on whether the task is done.
+     *
      * @return "X" if the task is done; " " otherwise.
      */
     public String getStatusIcon() {
@@ -44,6 +51,7 @@ public class Task {
 
     /**
      * Returns a string representing the task for storage.
+     *
      * @return A string representing the task for storage.
      */
     public String getDataRepresentation() {
@@ -53,6 +61,7 @@ public class Task {
 
     /**
      * Returns the string representation of a task.
+     *
      * @return String representation of a task.
      */
     @Override

@@ -1,11 +1,14 @@
 package bellcurvegod.command;
 
+import java.util.ArrayList;
+
 import bellcurvegod.task.Task;
 import bellcurvegod.tasklist.TaskList;
 import bellcurvegod.ui.Ui;
 
-import java.util.ArrayList;
-
+/**
+ * Encapsulates the listTaskCommand.
+ */
 public class ListTasksCommand implements Runnable {
     /**
      * Lists all tasks stored.
