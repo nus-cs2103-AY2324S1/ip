@@ -1,3 +1,5 @@
+package bareum;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -10,20 +12,20 @@ public class Ui {
        return sc.nextLine();
     }
 
-    static void reply(String reply) {
-        String botName = "Bareum: ";
+    public static void reply(String reply) {
+        String botName = "bareum.Bareum: ";
         String fullReply = botName + reply;
         System.out.println(fullReply);
     }
-    void showWelcomeMessage() {
-        reply("Hello! I'm Bareum! What can I do for you? ^^");
+    public void showWelcomeMessage() {
+        reply("Hello! I'm bareum.Bareum! What can I do for you? ^^");
     }
 
-    void showGoodbyeMessage() {
+    public void showGoodbyeMessage() {
         reply("Bye! Hope to see you again soon ^^");
     }
 
-    void showLine() {
+    public void showLine() {
         System.out.println("________________________");
     }
 }

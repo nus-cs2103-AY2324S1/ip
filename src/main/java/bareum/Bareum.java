@@ -1,3 +1,8 @@
+package bareum;
+
+import bareum.commands.ByeCommand;
+import bareum.commands.Command;
+
 public class Bareum {
     static TaskList taskList = new TaskList();
 

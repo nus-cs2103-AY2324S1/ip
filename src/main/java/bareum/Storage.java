@@ -1,3 +1,5 @@
+package bareum;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -10,7 +12,7 @@ public class Storage {
 
     }
 
-    void loadSavedTaskList(TaskList taskList) {
+    public void loadSavedTaskList(TaskList taskList) {
         File data = new File("./data");
         if (!data.exists()) {
             try {
@@ -54,7 +56,7 @@ public class Storage {
         }
     }
 
-    void saveNewTask(Task newTask) {
+    public void saveNewTask(Task newTask) {
         try {
             FileWriter fw = new FileWriter(storedTasks, true);
             fw.write(newTask.toSavedString());
@@ -64,7 +66,7 @@ public class Storage {
         }
     }
 
-    void saveAllTasks(TaskList taskList) {
+    public void saveAllTasks(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(storedTasks);
             for (int i = 0; i < taskList.size(); i++) {
