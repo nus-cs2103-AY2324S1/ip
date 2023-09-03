@@ -1,12 +1,15 @@
 package command;
 
+import java.util.ArrayList;
+
 import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.UI;
 
-import java.util.ArrayList;
-
+/**
+ * A abstract class for all types of commands to inherit from.
+ */
 public abstract class Command {
     /**
      * Parsed form of user input.

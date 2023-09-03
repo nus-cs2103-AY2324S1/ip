@@ -1,16 +1,20 @@
 package duke;
 
-import command.InvalidCommandException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import command.InvalidCommandException;
+
+/**
+ * A class to handle the tasks in added to the chatbot.
+ */
 public class TaskList {
-    private ArrayList<Task> tasks;
     private static final String DATETIME_INPUT_FORMAT = "yyyy-MM-dd HHmm";
-    private static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
+    private static final DateTimeFormatter DATE_TIME_INPUT_FORMATTER =
+            DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
+    private ArrayList<Task> tasks;
 
     /**
      * Constructor for the TaskList class.
@@ -164,10 +168,10 @@ public class TaskList {
             if (taskArray[0].equals("todo")) {
                 task = new ToDo(taskArray[2]);
             } else if (taskArray[0].equals("deadline")) {
-                task = new Deadline(taskArray[2], LocalDateTime.parse(taskArray[3], dateTimeInputFormatter));
+                task = new Deadline(taskArray[2], LocalDateTime.parse(taskArray[3], DATE_TIME_INPUT_FORMATTER));
             } else {
-                task = new Event(taskArray[2], LocalDateTime.parse(taskArray[3], dateTimeInputFormatter),
-                        LocalDateTime.parse(taskArray[4], dateTimeInputFormatter));
+                task = new Event(taskArray[2], LocalDateTime.parse(taskArray[3], DATE_TIME_INPUT_FORMATTER),
+                        LocalDateTime.parse(taskArray[4], DATE_TIME_INPUT_FORMATTER));
             }
 
             if (taskArray[1].equals("1")) {

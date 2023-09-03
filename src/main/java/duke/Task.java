@@ -2,9 +2,22 @@ package duke;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 
+/**
+ * Abstract class that different types of Tasks inherit from.
+ */
 public abstract class Task {
+    /**
+     * format of output.
+     */
+    private static final String DATETIME_OUTPUT_FORMAT = "dd-MM-yyyy HH:mm";
+
+    /**
+     * Formatter object to format output.
+     */
+    public static final DateTimeFormatter DATE_TIME_OUTPUT_FORMATTER =
+            DateTimeFormatter.ofPattern(DATETIME_OUTPUT_FORMAT);
+
     /**
      * Name of task.
      */
@@ -14,16 +27,6 @@ public abstract class Task {
      * Boolean to track whether the task has been marked as done.
      */
     private boolean isDone;
-
-    /**
-     * format of output.
-     */
-    private static final String DATETIME_OUTPUT_FORMAT = "dd-MM-yyyy HH:mm";
-
-    /**
-     * Formatter object to format output.
-     */
-    public static final DateTimeFormatter dateTimeOutputFormatter = DateTimeFormatter.ofPattern(DATETIME_OUTPUT_FORMAT);
 
     /**
      * Constructor for the task class.

@@ -2,7 +2,10 @@ package duke;
 
 import java.time.LocalDate;
 
-public class ToDo extends Task{
+/**
+ * A Todo type task that can be handled by the chatbot.
+ */
+public class ToDo extends Task {
     /**
      * Constructor for the ToDo class.
      *

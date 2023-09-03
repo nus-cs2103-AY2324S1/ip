@@ -1,9 +1,16 @@
 package command;
 
-import duke.*;
-
 import java.util.ArrayList;
 
+import duke.DukeException;
+import duke.Storage;
+import duke.Task;
+import duke.TaskList;
+import duke.UI;
+
+/**
+ * A command to mark a task.
+ */
 public class MarkCommand extends Command {
     /**
      * Command to mark a task.

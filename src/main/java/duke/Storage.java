@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * A class to handle loading data from and saving data to a file.
+ */
 public class Storage {
     /** Relative path of the location of the file that stores the data **/
     private String filePath;
@@ -26,7 +29,7 @@ public class Storage {
      *
      * @param data ArrayList of the string representation of the data to be stored.
      * @throws IOException If the named file exists but is a directory rather than a regular file, does not exist
-     * but cannot be created, or cannot be opened for any other reason
+     *      but cannot be created, or cannot be opened for any other reason
      */
     public void saveData(ArrayList<String> data) throws StorageException {
         try {

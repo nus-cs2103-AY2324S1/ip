@@ -1,9 +1,11 @@
 package duke;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A class to handle interactions with the user.
+ */
 public class UI {
     private String name;
     private Scanner scanner;

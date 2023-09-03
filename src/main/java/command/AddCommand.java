@@ -1,11 +1,22 @@
 package command;
 
-import duke.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import duke.Deadline;
+import duke.DukeException;
+import duke.Event;
+import duke.Storage;
+import duke.StorageException;
+import duke.Task;
+import duke.TaskList;
+import duke.ToDo;
+import duke.UI;
+
+/**
+ * A command to add either a Todo, Deadline or Event.
+ */
 public class AddCommand extends Command {
     /**
      * Command to add a todo.
@@ -27,7 +38,8 @@ public class AddCommand extends Command {
     /**
      * Formatter object to format user datetime inputs.
      */
-    public static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
+    public static final DateTimeFormatter DATE_TIME_INPUT_FORMATTER =
+            DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
 
     /**
      * Constructor for the Add Command class.
@@ -64,27 +76,26 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) throws StorageException {
         switch (super.params.get(0)) {
-            case AddCommand.COMMAND_ADD_TODO:
-                ToDo newTodo = new ToDo(params.get(1));
-                Task task = tasks.add(newTodo);
-                ui.printTaskAddedMessage(task, tasks.getTaskCount());
-                tasks.saveState(storage);
-                break;
-            case AddCommand.COMMAND_ADD_DEADLINE:
-                Deadline newDeadline = new Deadline(params.get(1),
-                        LocalDateTime.parse(params.get(2), dateTimeInputFormatter));
-                task = tasks.add(newDeadline);
-                ui.printTaskAddedMessage(task, tasks.getTaskCount());
-                tasks.saveState(storage);
-                break;
-            case AddCommand.COMMAND_ADD_EVENT:
-                Event newEvent = new Event(params.get(1),
-                        LocalDateTime.parse(params.get(2), dateTimeInputFormatter),
-                        LocalDateTime.parse(params.get(3), dateTimeInputFormatter));
-                task = tasks.add(newEvent);
-                ui.printTaskAddedMessage(task, tasks.getTaskCount());
-                tasks.saveState(storage);
-                break;
+        case AddCommand.COMMAND_ADD_TODO:
+            ToDo newTodo = new ToDo(params.get(1));
+            Task task = tasks.add(newTodo);
+            ui.printTaskAddedMessage(task, tasks.getTaskCount());
+            tasks.saveState(storage);
+            break;
+        case AddCommand.COMMAND_ADD_DEADLINE:
+            Deadline newDeadline = new Deadline(params.get(1),
+                    LocalDateTime.parse(params.get(2), DATE_TIME_INPUT_FORMATTER));
+            task = tasks.add(newDeadline);
+            ui.printTaskAddedMessage(task, tasks.getTaskCount());
+            tasks.saveState(storage);
+            break;
+        default:
+            Event newEvent = new Event(params.get(1),
+                    LocalDateTime.parse(params.get(2), DATE_TIME_INPUT_FORMATTER),
+                    LocalDateTime.parse(params.get(3), DATE_TIME_INPUT_FORMATTER));
+            task = tasks.add(newEvent);
+            ui.printTaskAddedMessage(task, tasks.getTaskCount());
+            tasks.saveState(storage);
         }
     }
 
