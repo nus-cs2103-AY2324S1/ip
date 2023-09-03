@@ -1,7 +1,8 @@
 package duke.task;
 
-import java.time.LocalDateTime;
-
+/**
+ * Represents a mock deadline task in the Duke chatbot application.
+ */
 public class MockDeadline extends Deadline {
     public MockDeadline(String description) {
         super(description, null);

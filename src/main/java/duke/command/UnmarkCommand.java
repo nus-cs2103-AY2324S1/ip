@@ -1,11 +1,13 @@
 package duke.command;
 
+import java.io.IOException;
+
 import duke.Storage;
 import duke.Ui;
 import duke.exception.InvalidTaskIndexException;
 import duke.task.Task;
 import duke.task.TaskList;
-import java.io.IOException;
+
 
 /**
  * Represents a command to mark a task as not done.
@@ -18,7 +20,7 @@ public class UnmarkCommand extends Command {
      *
      * @param taskIndex The index of the task to be marked as not done.
      */
-    public UnmarkCommand(int taskIndex){
+    public UnmarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
 

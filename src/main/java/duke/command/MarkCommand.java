@@ -1,12 +1,12 @@
 package duke.command;
 
+import java.io.IOException;
+
 import duke.Storage;
 import duke.Ui;
 import duke.exception.InvalidTaskIndexException;
 import duke.task.Task;
 import duke.task.TaskList;
-
-import java.io.IOException;
 
 /**
  * Represents a command to mark a task as done.

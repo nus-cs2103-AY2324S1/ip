@@ -1,12 +1,5 @@
 package duke;
 
-import duke.exception.DukeDatabaseException;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.Todo;
-import duke.task.Deadline;
-import duke.task.Event;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,6 +8,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.exception.DukeDatabaseException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
 
 /**
  * Handles the loading and storing tasks to a file.

@@ -1,13 +1,13 @@
 package duke;
 
-import duke.exception.DukeException;
-import duke.task.Task;
-import duke.task.TaskList;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.exception.DukeException;
+import duke.task.Task;
+import duke.task.TaskList;
 
 /**
  * Represents the user interface for the chatbot.
@@ -77,8 +77,8 @@ public class Ui {
      */
     public void showAdd(Task task, int totalNumTask) {
         System.out.println(LINE);
-        System.out.println("\t Got it. I've added this task:\n" +
-                "\t\t" + task + "\n\t Now you have " + totalNumTask + " tasks in the list.");
+        System.out.println("\t Got it. I've added this task:\n"
+                + "\t\t" + task + "\n\t Now you have " + totalNumTask + " tasks in the list.");
         System.out.println(LINE);
         System.out.println();
     }
@@ -91,9 +91,9 @@ public class Ui {
      */
     public void showDelete(Task task, int totalNumTask) {
         System.out.println(LINE);
-        System.out.println("\t Noted. I've removed this task:\n" +
-                "\t\t" + task +
-                "\n\t Now you have " + totalNumTask + " tasks in the list.");
+        System.out.println("\t Noted. I've removed this task:\n"
+                + "\t\t" + task
+                + "\n\t Now you have " + totalNumTask + " tasks in the list.");
         System.out.println(LINE);
         System.out.println();
     }
@@ -105,8 +105,8 @@ public class Ui {
      */
     public void showDone(Task task) {
         System.out.println(LINE);
-        System.out.println("\t Nice! I've marked this task as done:\n" +
-                "\t\t" + task);
+        System.out.println("\t Nice! I've marked this task as done:\n"
+                + "\t\t" + task);
         System.out.println(LINE);
         System.out.println();
     }
@@ -118,8 +118,8 @@ public class Ui {
      */
     public void showNotDone(Task task) {
         System.out.println(LINE);
-        System.out.println("\t OK, I've marked this task as NOT done yet:\n" +
-                "\t\t" + task);
+        System.out.println("\t OK, I've marked this task as NOT done yet:\n"
+                + "\t\t" + task);
         System.out.println(LINE);
         System.out.println();
     }

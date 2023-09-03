@@ -1,11 +1,16 @@
 package duke.task;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+
 
 public class TaskListTest {
     private TaskList taskList;
@@ -73,18 +78,19 @@ public class TaskListTest {
     }
 
     @Test
-    public void getLength_EmptyList_success() {
+    public void getLength_emptyList_success() {
         taskList = new TaskList(new ArrayList<>());
         assertEquals(0, taskList.getLength());
     }
 
     @Test
-    public void getLength_NonEmptyList_success() {
+    public void getLength_nonEmptyList_success() {
         taskList = new TaskList(new ArrayList<>());
         for (int i = 0; i < 5; i++) {
             taskList.addTask(new MockTodo("Test Task"));
         }
-        assertEquals(5, taskList.getLength());    }
+        assertEquals(5, taskList.getLength());
+    }
 
     @Test
     public void isEmpty_success() {

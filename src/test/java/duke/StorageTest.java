@@ -1,14 +1,24 @@
 package duke;
 
-import duke.exception.DukeDatabaseException;
-import duke.task.*;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+import duke.exception.DukeDatabaseException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
 
 public class StorageTest {
 
@@ -19,7 +29,6 @@ public class StorageTest {
 
         assertThrows(NullPointerException.class, storage::loadData);
     }
-    
     @Test
     public void loadData_existingFile_success() throws DukeDatabaseException {
         String filePath = "test_data.txt";

@@ -1,8 +1,8 @@
 package duke;
 
 import duke.command.Command;
-import duke.exception.DukeException;
 import duke.exception.DukeDatabaseException;
+import duke.exception.DukeException;
 import duke.exception.EmptyCommandException;
 import duke.task.TaskList;
 
