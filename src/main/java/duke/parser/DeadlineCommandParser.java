@@ -18,7 +18,7 @@ public class DeadlineCommandParser extends CommandParser {
      */
     public DeadlineCommandParser() {
         super("deadline",
-                "^(?<command>deadline)(?: ((?!/by)(?<description>.*?))?(?<by> /by.*?)?(?<byTime>\\d{4}-\\d{2}-\\d{2})?)?$");
+                "^(?<command>deadline)(?: ((?!/by)(?<description>.*?))?(?<by> /by.*?)?(?<byTime>\\d{4}-\\d{1,2}-\\d{1,2})?)?$");
     }
 
     @Override

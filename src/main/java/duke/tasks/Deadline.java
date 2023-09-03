@@ -48,6 +48,7 @@ public class Deadline extends Task {
 
     @Override
     public String toFileString() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by.format(DATE_TIME_FORMAT);
+        String escapedDescription = description.replace("|", "\\|");
+        return "D | " + (isDone ? "1" : "0") + " | " + escapedDescription + " | " + by.format(DATE_TIME_FORMAT);
     }
 }

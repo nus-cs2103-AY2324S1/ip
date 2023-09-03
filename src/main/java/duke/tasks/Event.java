@@ -60,6 +60,7 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
+        String escapedDescription = description.replace("|", "\\|");
+        return "E | " + (isDone ? "1" : "0") + " | " + escapedDescription + " | " + from + " | " + to;
     }
 }

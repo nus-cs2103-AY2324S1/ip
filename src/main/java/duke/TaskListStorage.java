@@ -78,7 +78,7 @@ public class TaskListStorage {
             String[] taskInfo = line.split(" \\| ");
             String taskType = taskInfo[0];
             boolean isDone = taskInfo[1].equals("1");
-            String taskDescription = taskInfo[2];
+            String taskDescription = taskInfo[2].replace("\\|", "|");  // Unescape
             try {
                 switch (taskType) {
                 case "T":
