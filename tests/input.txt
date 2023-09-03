@@ -1,11 +1,13 @@
-Download wk 3 files
-Watch L3 recording /by Friday
-Project meeting /from Monday 3pm /to Monday 4:30pm
+wat how to use
+e 
+TODO Download wk 3 files
+deadline Watch L3 recording /by Friday
+event Project meeting /from Monday 3pm /To Monday 4:30pm
 list
 mark a
-mark -7050
-mark 2
+MARK -7050
+Mark 2
 mark 2
 mark 3
 unmark 3
-unmark 3
+un 3
