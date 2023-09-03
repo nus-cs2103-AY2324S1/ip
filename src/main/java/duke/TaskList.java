@@ -66,4 +66,23 @@ public class TaskList {
         }
         return null;
     }
+
+    public void findTask(String input, TaskList list) {
+        int[] indexList = new int[100];
+        int counter = 0;
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < count; i++) {
+            if (list.getTask(i).toString().contains(input)) {
+                indexList[counter] = i;
+                counter++;
+            }
+        }
+        if (counter == 0) {
+            System.out.println("Oops, there are no matching tasks in your list");
+        } else {
+            for(int j = 0; j < counter; j++) {
+                System.out.println((indexList[j] + 1) + "." + list.getTask(indexList[j]).toString());
+            }
+        }
+    }
 }
