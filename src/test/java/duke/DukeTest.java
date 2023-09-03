@@ -1,9 +1,9 @@
 package duke;
 
 import duke.task.TaskList;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
 
 public class DukeTest {
     private Duke duke = new Duke();
