@@ -89,6 +89,12 @@ public class TaskList {
         return Optional.of(task);
     }
 
+    /**
+     * Returns a List of tasks in the taskList with taskName that matches the given keyword.
+     *
+     * @param keyword the keyword to match in the taskList.
+     * @return the list of tasks that contains the keyword in their taskName.
+     */
     public List<Task> searchTasks(String keyword) {
         return taskList.stream()
             .filter(task -> task.getTaskName().contains(keyword))
