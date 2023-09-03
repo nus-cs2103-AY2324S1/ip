@@ -50,7 +50,6 @@ public class Parser {
             return new ChangeMarkCommand(splitText[1], false);
         case "find":
             checkLength();
-
         default:
             throw new InvalidCommandException("I don't understand.");
         }
