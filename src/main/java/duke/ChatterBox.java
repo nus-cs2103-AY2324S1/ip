@@ -61,6 +61,9 @@ public class ChatterBox {
                 this.store.taskListToFile(tl);
                 ui.removedTaskScreen(tempDelete, tl.size());
 
+            } else if (command.equals("find")) {
+
+
             } else {
 
                 if (command.equals("todo")) {
