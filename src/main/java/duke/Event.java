@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /** Task which contains a date to start and date to finish. */
-public class Event extends Task{
+public class Event extends Task {
     private LocalDate from;
     private LocalDate to;
 
@@ -26,8 +26,8 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
-                " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy"))+ ")";
+        return "[E]" + super.toString() + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     /**
