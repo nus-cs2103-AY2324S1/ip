@@ -32,7 +32,7 @@ public class IncorrectCommand extends Command {
      * @throws DukeException Throws DukeException on invalid input.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         throw new DukeException(this.message);
     }
 

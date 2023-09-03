@@ -33,13 +33,13 @@ public class DeleteCommand extends Command {
      * @throws DukeException Throws DukeException on invalid input.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task task = tasks.getTask(this.index - 1);
         tasks.delete(this.index - 1);
-        ui.showLine();
-        ui.showDelete(this.index, task);
-        ui.showLine();
+//        ui.showLine();
+//        ui.showLine();
         storage.writeData(tasks.getAllTasks());
+        return ui.showDelete(this.index, task);
     }
 
     /**

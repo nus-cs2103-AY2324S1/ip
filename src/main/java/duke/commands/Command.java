@@ -18,7 +18,7 @@ public abstract class Command {
      * @param storage Storage of the tasks.
      * @throws DukeException Throws DukeException on invalid input.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 
     /**
      * Returns the exit status of the command.

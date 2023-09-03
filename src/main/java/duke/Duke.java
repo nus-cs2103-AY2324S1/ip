@@ -6,6 +6,7 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
+import javafx.application.Application;
 
 /**
  * Represents the Duke Class.
@@ -33,32 +34,35 @@ public class Duke {
         this.ui = new Ui();
     }
 
-    /** Provides interaction with the user. */
-    public void interact() {
-        this.ui.showLine();
-        this.ui.greet();
-        this.ui.showLine();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String command = ui.readCommand();
-                Command c = Parser.parse(command);
-                c.execute(this.tasks, this.ui, this.storage);
-                isExit = c.isExit();
-            } catch (DukeException exc) {
-                this.ui.showLine();
-                System.out.println(exc.getMessage());
-                this.ui.showLine();
-            }
-        }
+    /**
+     * Constructs the Duke Object with the default file path
+     * being data/tasks.txt.
+     */
+    public Duke() {
+        this.storage = new Storage("data/tasks.txt");
+        this.tasks = new TaskList(this.storage.readData());
+        this.ui = new Ui();
     }
 
     /**
-     * Initialises J.A.R.V.I.S
+     * Initialises Jarvis
      * @param args Input args.
      */
     public static void main(String[] args) {
-        Duke bot = new Duke("data/tasks.txt");
-        bot.interact();
+        Application.launch(Main.class, args);
     }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(this.tasks, this.ui, this.storage);
+        } catch (DukeException exc) {
+            return exc.getMessage();
+        }
+    }
+
 }
