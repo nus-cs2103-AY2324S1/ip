@@ -7,26 +7,33 @@ import java.io.IOException;
 
 public class ChatterBox {
 
+    private Ui ui;
+    private TaskList tl;
+    private Storage store;
+
+    ChatterBox(Ui ui, TaskList tl, Storage store) {
+        this.ui = ui;
+        this.tl = tl;
+        this.store = store;
+    }
+
     public static void main(String[] args) throws DukeException, IOException {
-        ArrayList<Task> taskList = new ArrayList<>();
-        File f = new File("data.txt");
+        ChatterBox cb = new ChatterBox(new Ui(),
+                new TaskList(), new Storage());
+        cb.run();
+    }
+
+    public void run() throws DukeException, IOException {
+        ArrayList<Task> taskList = this.tl.getTaskList();
+
+        /*File f = new File("data.txt");
 
         if (!f.exists()) {
             f.createNewFile();
-        }
+        }*/
 
-        Storage.fileToTaskList(f, taskList);
-
-
-        Ui.linePrinter();
-        Ui.tabPrinter("Hello! I'm ChatterBox");
-        Ui.tabPrinter("What can I do for you?");
-        System.out.println("");
-        // Ui.tabPrinter("Available commands:");
-        // Ui.tabPrinter("todo <TASK>"); 
-        // Ui.tabPrinter("deadline <TASK> /by <DATE>");
-        // Ui.tabPrinter("event <TASK> /from <START> /to <END>");
-        Ui.linePrinter();
+        this.store.fileToTaskList(taskList);
+        ui.startScreen();
 
         Scanner sc = new Scanner(System.in);
 
@@ -34,75 +41,66 @@ public class ChatterBox {
             String fullLine = sc.nextLine();
             String[] inputLine = fullLine.split(" ");
             String input = inputLine[0];
+
             if (input.equals("bye")) {
-                Ui.linePrinter(); 
-                Ui.tabPrinter("Bye. Hope to see you again soon!");
-                Ui.linePrinter();
+                ui.byeScreen();
                 break;
 
             } else if (input.equals("list")) {
-                Ui.linePrinter();
-                Ui.tabPrinter("Here are the tasks in your list:");
-                for (int i = 0; i < taskList.size(); i++) {
-                    Ui.tabPrinter(String.format("%d. %s", i + 1, 
-                                taskList.get(i).toString()));
-                } 
-                Ui.linePrinter();
+                ui.taskListPrinter(tl);
 
             } else if (input.equals("mark")) {
                 int index = Integer.parseInt(inputLine[1]);
                 taskList.get(index - 1).mark();
-                Storage.taskListToFile(f, taskList);
-                Ui.linePrinter();
-                Ui.tabPrinter("Nice! I've marked this task as done:");
-                Ui.tabPrinter(taskList.get(index - 1).toString());
-                Ui.linePrinter();
+                this.store.taskListToFile(taskList);
+
+                /*ui.linePrinter();
+                ui.tabPrinter("Nice! I've marked this task as done:");
+                ui.tabPrinter(taskList.get(index - 1).toString());
+                ui.linePrinter();
+                */
+                ui.markPrinter(tl, index);
 
             } else if (input.equals("unmark")) {
                 int index = Integer.parseInt(inputLine[1]);
                 taskList.get(index - 1).unmark();
-                Storage.taskListToFile(f, taskList);
-                Ui.linePrinter();
-                Ui.tabPrinter("OK, I've marked this task as not done yet:");
-                Ui.tabPrinter(taskList.get(index - 1).toString());
-                Ui.linePrinter();
+                this.store.taskListToFile(taskList);
+                ui.linePrinter();
+                ui.tabPrinter("OK, I've marked this task as not done yet:");
+                ui.tabPrinter(taskList.get(index - 1).toString());
+                ui.linePrinter();
             
             } else if (input.equals("delete")) {
                 int index = Integer.parseInt(inputLine[1]);
                 Task tempDelete = taskList.get(index - 1);
                 taskList.remove(index - 1);
-                Storage.taskListToFile(f, taskList);
-                Ui.linePrinter();
-                Ui.tabPrinter("Noted. I've removed this task:");
-                Ui.tabPrinter(tempDelete.toString());
-                Ui.linePrinter();
+                this.store.taskListToFile(taskList);
+                ui.linePrinter();
+                ui.tabPrinter("Noted. I've removed this task:");
+                ui.tabPrinter(tempDelete.toString());
+                ui.linePrinter();
 
             } else {
 
                 if (input.equals("todo")) {
                     if (fullLine.split("todo ").length < 1) {
-                        Ui.linePrinter();
-                        Ui.tabPrinter("The description of a todo cannot be empty!");
-                        Ui.linePrinter();
+                        ui.linePrinter();
+                        ui.tabPrinter("The description of a todo cannot be empty!");
+                        ui.linePrinter();
                         throw new DukeException(
                                 "The description of a todo cannot be empty!");
                     }
                     String taskName = fullLine.split("todo ")[1];
                     ToDo tempToDo = new ToDo(taskName);
                     taskList.add(tempToDo);
-                    Storage.taskListToFile(f, taskList);
-                    Ui.linePrinter();
-                    Ui.tabPrinter("Got it. I've added this task:");
-                    Ui.tabPrinter(" " + tempToDo.toString());
-                    sizePrinter(taskList);
-                    Ui.linePrinter();
+                    this.store.taskListToFile(taskList);
+
+                    ui.addedTaskScreen(tempToDo, taskList.size());
 
 
                 } else if (input.equals("deadline")) {
                     if (fullLine.split("/by ").length < 1) {
-                        Ui.linePrinter();
-                        Ui.tabPrinter("The due date of a deadline cannot be empty!");
-                        Ui.linePrinter();
+                        ui.slicePrinter("The due date of a deadline cannot be empty!");
                         throw new DukeException(
                                 "The due date of a deadline cannot be empty!");
                     }
@@ -113,18 +111,17 @@ public class ChatterBox {
                         String.format("(by: %s)", date);
                     Deadline tempDeadline = new Deadline(deadlineName);
                     taskList.add(tempDeadline);
-                    Storage.taskListToFile(f, taskList);
-                    Ui.linePrinter();
-                    Ui.tabPrinter("Got it. I've added this task:");
-                    Ui.tabPrinter(" " + tempDeadline.toString());
-                    sizePrinter(taskList);
-                    Ui.linePrinter();
+                    this.store.taskListToFile(taskList);
+
+
+
+                    ui.addedTaskScreen(tempDeadline, taskList.size());
 
                 } else if (input.equals("event")) {
                     if (fullLine.split("/").length < 3) {
-                        Ui.linePrinter();
-                        Ui.tabPrinter("An event must have both start and end date");
-                        Ui.linePrinter();
+                        ui.linePrinter();
+                        ui.tabPrinter("An event must have both start and end date");
+                        ui.linePrinter();
                         throw new DukeException(
                                 "An event must have both start and end date");
                     }
@@ -138,20 +135,17 @@ public class ChatterBox {
                                 fromTime, endTime);
                     Event tempEvent = new Event(eventName);
                     taskList.add(tempEvent);
-                    Storage.taskListToFile(f, taskList);
-                    
-                    Ui.linePrinter();
-                    Ui.tabPrinter("Got it. I've added this task:");
-                    Ui.tabPrinter(" " + tempEvent.toString());
-                    sizePrinter(taskList);
-                    Ui.linePrinter();
+                    this.store.taskListToFile(taskList);
+
+
+                    ui.addedTaskScreen(tempEvent, taskList.size());
 
                 } else {
-                    //Ui.linePrinter();
-                    //Ui.tabPrinter("added: " + fullLine);
-                    //Ui.linePrinter();
+                    //ui.linePrinter();
+                    //ui.tabPrinter("added: " + fullLine);
+                    //ui.linePrinter();
                     //taskList.add(new Task(fullLine));  
-                    Ui.linePrinter();
+                    ui.linePrinter();
                     throw new 
                         DukeException("I'm sorry I don't know what that means.");
                 }
@@ -161,7 +155,7 @@ public class ChatterBox {
 
 
         private static void sizePrinter(ArrayList<Task> tasks) {
-            Ui.tabPrinter(
+            Ui.staticTabPrinter(
                     String.format("Now you have %d tasks in the list.", 
                         tasks.size()));
         }
