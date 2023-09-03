@@ -3,18 +3,30 @@ package duke;
 import duke.commands.Command;
 import duke.data.TaskList;
 import duke.data.exception.DukeException;
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.ui.UI;
 
+import java.io.IOException;
+import java.time.format.DateTimeParseException;
+
+/**
+ * Represents the main program instance of the Duke chatbot.
+ * <p>
+ * The program instance depends on the Parser, Storage, TaskList and UI classes to function.
+ */
 public class Duke {
+
     private Parser parser;
     private Storage storage;
     private TaskList taskList;
     private UI ui;
 
+    /**
+     * Initializes an instance of Duke by providing the file path to the save file.
+     *
+     * @param filePath File path to the directory containing the save file.
+     */
     public Duke(String filePath) {
         parser = new Parser();
         storage = new Storage(filePath);
@@ -31,11 +43,12 @@ public class Duke {
         new Duke("data/tasks.txt").run();
     }
 
+    /**
+     * A method to start running the chatbot.
+     */
     private void run() {
-        // Welcome message
         ui.showWelcome();
         boolean isExit = false;
-        // Program only exits when user enters "bye" command
         do {
             try {
                 String fullCommand = ui.readCommand();
@@ -46,7 +59,7 @@ public class Duke {
             } catch (DukeException | IOException exception) {
                 ui.printMessage(exception.getMessage());
             } catch (NumberFormatException exception) {
-                ui.printMessage("Error: duke.data.task.Task number must be an integer.\n(example: mark 1)");
+                ui.printMessage("Error: Task number must be an integer.\n(example: mark 1)");
             } catch (DateTimeParseException exception) {
                 ui.printMessage("Invalid Datetime Format: it should be dd-mm-yyyy hh:mm!");
             }
