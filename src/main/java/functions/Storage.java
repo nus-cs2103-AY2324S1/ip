@@ -1,3 +1,5 @@
+package functions;
+
 import java.io.IOException;
 
 public class Storage {

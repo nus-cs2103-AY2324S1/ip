@@ -1,7 +1,9 @@
+package tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task{
+public class Event extends Task {
 
     private String TaskIcon = "[E]";
     private LocalDateTime startDate;
@@ -14,7 +16,7 @@ public class Event extends Task{
     }
 
     public Event(String description, LocalDateTime startDate, LocalDateTime endDate, boolean isDone) {
-        // For Load
+        // For functions.Load
         super(description, isDone);
         this.startDate = startDate;
         this.endDate = endDate;

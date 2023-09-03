@@ -1,3 +1,7 @@
+package functions;
+
+import functions.TaskList;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -11,7 +15,7 @@ public class Save {
     private static final String tempFilePath = "temp.txt";
 
     /**
-     * A public constructor to initialize Save
+     * A public constructor to initialize functions.Save
      *
      * @param  taskList  a task list to store tasks
      * @param  saveFilePath file path of saved file

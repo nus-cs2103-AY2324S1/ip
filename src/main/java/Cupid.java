@@ -1,4 +1,8 @@
-import java.io.FileNotFoundException;
+import functions.Parser;
+import functions.Storage;
+import functions.TaskList;
+import functions.Ui;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -39,7 +43,7 @@ public class Cupid {
                 storage.save(taskList);
             } catch (IOException e) {
                 System.out.println(e);
-                System.out.println("Save unsuccessful");
+                System.out.println("functions.Save unsuccessful");
             }
 
         }

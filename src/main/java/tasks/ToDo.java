@@ -1,4 +1,6 @@
-public class ToDo extends Task{
+package tasks;
+
+public class ToDo extends Task {
 
     private String TaskIcon = "[T]";
 
@@ -7,7 +9,7 @@ public class ToDo extends Task{
     }
 
     public ToDo(String description, boolean isDone) {
-        // Constructor for Load
+        // Constructor for functions.Load
         super(description, isDone);
     }
 

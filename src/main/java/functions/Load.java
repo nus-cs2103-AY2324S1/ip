@@ -1,7 +1,11 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+package functions;
+
+import functions.TaskList;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.ToDo;
+
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -55,7 +59,7 @@ public class Load {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
                         deadlineTime = LocalDateTime.parse(deadlineTimeString, formatter);
                     } catch (Exception e) {
-                        System.out.println("Deadline " + description + " cannot be loaded.");
+                        System.out.println("tasks.Deadline " + description + " cannot be loaded.");
                         break;
                     }
                     Deadline deadline = new Deadline(description, deadlineTime, isDone);
@@ -78,7 +82,7 @@ public class Load {
                         fromDateTime = LocalDateTime.parse(fromString, formatter);
                         toDateTime = LocalDateTime.parse(toString, formatter);
                     } catch (Exception e) {
-                        System.out.println("Event " + description + " cannot be loaded.");
+                        System.out.println("tasks.Event " + description + " cannot be loaded.");
                         break;
                     }
 

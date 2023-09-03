@@ -1,8 +1,9 @@
-//import java.util.ArrayList;
+package functions;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import tasks.*;
 
 public class Parser {
 
@@ -203,7 +204,7 @@ public class Parser {
         TaskList matchingTasks = new TaskList();
 
         for (Task task: taskList.getTaskList()) {
-            if (task.description.contains(secondHalfInput)) {
+            if (task.getDescription().contains(secondHalfInput)) {
                 matchingTasks.add(task);
             }
         }

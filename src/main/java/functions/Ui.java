@@ -1,3 +1,5 @@
+package functions;
+
 public class Ui {
 
     public Ui() {
