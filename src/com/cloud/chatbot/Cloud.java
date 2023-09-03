@@ -87,6 +87,19 @@ public final class Cloud {
             Cloud.say(todo.toString(number));
             break;
         }
+        case "delete":
+        case "del":
+        case "yeet": {
+            @Nullable Integer number = Cloud.verifyNumber(manager);
+            if (number == null) {
+                break;
+            }
+
+            Todo todo = Cloud.TODOS.remove(number - 1);
+            Cloud.say("Yeeted:");
+            Cloud.say(todo.toString(number));
+            break;
+        }
         case "bye":
         case "exit":
         case "quit":

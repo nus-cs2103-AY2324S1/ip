@@ -47,12 +47,24 @@ Cloud online.
 
 >>> X | T#4: I tried to make an event by didn't specify flags.
 
->>>   | D#5: another | BY x
+>>>   | D#5: another | BY ???
 
 >>>   | T#1: Download  wk  3  files
 X | D#2: Watch   L3   recording | BY Friday   2359
   | E#3: Project meeting | FROM Monday 3pm | TO Monday 4:30pm
 X | T#4: I tried to make an event by didn't specify flags.
-  | D#5: another | BY x
+  | D#5: another | BY ???
+
+>>> TODO #0 does not exist.
+
+>>> Yeeted:
+  | T#1: Download  wk  3  files
+
+>>> Yeeted:
+X | D#1: Watch   L3   recording | BY Friday   2359
+
+>>>   | E#1: Project meeting | FROM Monday 3pm | TO Monday 4:30pm
+X | T#2: I tried to make an event by didn't specify flags.
+  | D#3: another | BY ???
 
 >>> 

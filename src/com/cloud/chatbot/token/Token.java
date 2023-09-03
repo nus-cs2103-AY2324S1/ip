@@ -66,7 +66,7 @@ public final class Token {
 
         int number = this.toInt();
 
-        if (number < 0 || number > todos.size()) {
+        if (number <= 0 || number > todos.size()) {
             return false;
         }
         return true;
