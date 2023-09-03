@@ -1,3 +1,11 @@
+package bareum.commands;
+
+import bareum.BareumException;
+import bareum.EventTask;
+import bareum.Storage;
+import bareum.TaskList;
+import bareum.Ui;
+
 public class AddEventCommand extends Command {
     String allDetails;
     public AddEventCommand(String[] commandInputs) throws BareumException {

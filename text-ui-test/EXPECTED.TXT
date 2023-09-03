@@ -1,65 +1,65 @@
-Bareum: Hello! I'm Bareum! What can I do for you? ^^
+bareum.Bareum: Hello! I'm bareum.Bareum! What can I do for you? ^^
 ________________________
-Bareum: I have added this task:
+bareum.Bareum: I have added this task:
 [T][ ] borrow book
 You now have 1 task(s) in your list.
 ________________________
-Bareum: I have added this task:
+bareum.Bareum: I have added this task:
 [D][ ] return book (by: Sep 2 2023)
 You now have 2 task(s) in your list.
 ________________________
-Bareum: I have added this task:
+bareum.Bareum: I have added this task:
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
 You now have 3 task(s) in your list.
 ________________________
-Bareum: Here are your current tasks!
+bareum.Bareum: Here are your current tasks!
 1. [T][ ] borrow book
 2. [D][ ] return book (by: Sep 2 2023)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ________________________
-Bareum: Well done! I've marked this task as done:
+bareum.Bareum: Well done! I've marked this task as done:
 [T][X] borrow book
 ________________________
-Bareum: Here are your current tasks!
+bareum.Bareum: Here are your current tasks!
 1. [T][X] borrow book
 2. [D][ ] return book (by: Sep 2 2023)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ________________________
-Bareum: Well done! I've marked this task as done:
+bareum.Bareum: Well done! I've marked this task as done:
 [E][X] project meeting (from: Mon 2pm to: 4pm)
 ________________________
-Bareum: Here are your current tasks!
+bareum.Bareum: Here are your current tasks!
 1. [T][X] borrow book
 2. [D][ ] return book (by: Sep 2 2023)
 3. [E][X] project meeting (from: Mon 2pm to: 4pm)
 ________________________
-Bareum: Okay, I've marked this task as not done yet:
+bareum.Bareum: Okay, I've marked this task as not done yet:
 [T][ ] borrow book
 ________________________
-Bareum: Here are your current tasks!
+bareum.Bareum: Here are your current tasks!
 1. [T][ ] borrow book
 2. [D][ ] return book (by: Sep 2 2023)
 3. [E][X] project meeting (from: Mon 2pm to: 4pm)
 ________________________
-Bareum: Okay, I've deleted this task from the list:
+bareum.Bareum: Okay, I've deleted this task from the list:
 [D][ ] return book (by: Sep 2 2023)
 You now have 2 tasks in your list.
 ________________________
-Bareum: Here are your current tasks!
+bareum.Bareum: Here are your current tasks!
 1. [T][ ] borrow book
 2. [E][X] project meeting (from: Mon 2pm to: 4pm)
 ________________________
-Bareum: Oops! The description of a todo cannot be empty.
+bareum.Bareum: Oops! The description of a todo cannot be empty.
 Correct format: todo <description>
 ________________________
-Bareum: You are missing some arguments :(
+bareum.Bareum: You are missing some arguments :(
 Current number of arguments: 1
 Correct format: deadline <description> /by <due date in YYYY-MM-DD>
 ________________________
-Bareum: You are missing some arguments :(
+bareum.Bareum: You are missing some arguments :(
 Current number of arguments: 1
 Correct format: event <description> /from <start time> /to <end time>
 ________________________
-Bareum: Oops! I'm sorry but I don't know what that means :(
+bareum.Bareum: Oops! I'm sorry but I don't know what that means :(
 ________________________
-Bareum: Bye! Hope to see you again soon ^^
+bareum.Bareum: Bye! Hope to see you again soon ^^

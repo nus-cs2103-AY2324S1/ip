@@ -1,3 +1,11 @@
+package bareum.commands;
+
+import bareum.BareumException;
+import bareum.DeadlineTask;
+import bareum.Storage;
+import bareum.TaskList;
+import bareum.Ui;
+
 public class AddDeadlineCommand extends Command {
     String allDetails;
 
