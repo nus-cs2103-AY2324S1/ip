@@ -4,7 +4,7 @@ import rua.common.Storage;
 import rua.common.Ui;
 import rua.task.TaskList;
 
-public class SearchCommand implements Command{
+public class SearchCommand implements Command {
     private final String keyword;
 
     public SearchCommand(String keyword) {
@@ -17,7 +17,7 @@ public class SearchCommand implements Command{
     }
 
     @Override
-    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception{
+    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
         ui.showMessage(" Here are the matching tasks in your list:\n");
         String result = tasks.search(keyword);
         ui.showMessage(result);

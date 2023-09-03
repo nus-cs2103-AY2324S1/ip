@@ -2,7 +2,6 @@ package rua.task;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.io.IOException;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
@@ -100,7 +99,7 @@ public class TaskList {
      * @return A String with information of all tasks happening on a given date.
      */
     public String searchByDate(LocalDate date) {
-        String res= "";
+        String res = "";
         int index = 1;
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).isHappeningOnThatDate(date)) {
@@ -117,8 +116,8 @@ public class TaskList {
         int index = 1;
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
-                res = res + index +
-                        ": " + task.toString() + "\n";
+                res = res + index
+                        + ": " + task.toString() + "\n";
                 index += 1;
             }
         }

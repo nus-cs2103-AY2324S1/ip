@@ -1,8 +1,6 @@
 package rua.task;
 
-import rua.command.ClearCommand;
-
-public class Todo extends Task{
+public class Todo extends Task {
     /**
      * Constructs a Todo object (assuming unmarked).
      *

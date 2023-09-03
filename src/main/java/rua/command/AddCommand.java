@@ -1,9 +1,10 @@
 package rua.command;
 
-import rua.common.Ui;
 import rua.common.Storage;
-import rua.task.TaskList;
+import rua.common.Ui;
 import rua.task.Task;
+import rua.task.TaskList;
+
 
 public class AddCommand implements Command {
     private final Task task;

@@ -117,6 +117,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" +  (this.isMarked ? "X" : " ") + "] " + this.description;
+        return "[" + (this.isMarked ? "X" : " ") + "] " + this.description;
     }
 }

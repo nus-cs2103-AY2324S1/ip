@@ -34,6 +34,10 @@ run {
     standardInput = System.in
 }
 
+checkstyle {
+    toolVersion = '10.2'
+}
+
 //compile group: 'com.joestelmach', name: 'natty', version: '0.6'
 
 repositories {

@@ -3,8 +3,8 @@ package rua;
 import rua.command.Command;
 import rua.common.Parser;
 import rua.common.Storage;
-import rua.task.TaskList;
 import rua.common.Ui;
+import rua.task.TaskList;
 
 public class Rua {
 

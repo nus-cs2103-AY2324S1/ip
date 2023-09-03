@@ -6,15 +6,15 @@ import java.io.FileWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.IOException;
+import java.util.Scanner;
 
 import rua.task.Deadline;
 import rua.task.Event;
 import rua.task.Task;
-import rua.task.Todo;
 import rua.task.TaskList;
 import rua.exception.InvalidTypeException;
+import rua.task.Todo;
 
 public class Storage {
     private final String filePath;
@@ -35,7 +35,7 @@ public class Storage {
      * @return The corresponding Task object.
      * @throws InvalidTypeException if the task type is not supported.
      */
-    static Task stringToTask(String str) throws InvalidTypeException{
+    static Task stringToTask(String str) throws InvalidTypeException {
         String[] features = str.split(" \\| ");
         Task output;
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM dd yyyy");

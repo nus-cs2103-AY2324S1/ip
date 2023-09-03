@@ -1,8 +1,8 @@
 package rua.command;
 
-import rua.command.Command;
+import rua.common.Storage;
+import rua.common.Ui;
 import rua.task.TaskList;
-import rua.common.*;
 
 public class DeleteCommand implements Command {
     private final int index;
@@ -34,8 +34,8 @@ public class DeleteCommand implements Command {
         ui.showMessage(" Noted. I've removed this task:\n");
         ui.showMessage("    " + tasks.getTasks().get(index - 1) + "\n");
         TaskList newTasks = tasks.delete(index);
-        ui.showMessage("Now you have " + tasks.getTasks().size() +
-                " tasks in the list.\n");
+        ui.showMessage("Now you have " + tasks.getTasks().size()
+                + " tasks in the list.\n");
         return newTasks;
     }
 

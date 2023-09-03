@@ -13,7 +13,7 @@ public class EmptyDescriptionException extends Exception {
      *
      * @return The error message of this exception.
      */
-    public String toString(){
+    public String toString() {
         return (" OOPS!!! The description of a " + type + " cannot be empty.\n");
     }
 }

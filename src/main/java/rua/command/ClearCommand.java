@@ -1,9 +1,10 @@
 package rua.command;
 
 import rua.task.TaskList;
-import rua.common.*;
+import rua.common.Ui;
+import rua.common.Storage;
 
-public class ClearCommand implements Command{
+public class ClearCommand implements Command {
     /**
      * {@inheritDoc}
      *

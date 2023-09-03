@@ -1,5 +1,7 @@
 package rua.common;
 
+import java.time.LocalDate;
+
 import rua.command.AddCommand;
 import rua.command.ClearCommand;
 import rua.command.DateSearchCommand;
@@ -7,15 +9,15 @@ import rua.command.DeleteCommand;
 import rua.command.ExitCommand;
 import rua.command.ListCommand;
 import rua.command.MarkCommand;
-import rua.command.SearchCommand;
 import rua.command.Command;
+import rua.command.SearchCommand;
 import rua.task.Deadline;
 import rua.task.Event;
-import rua.task.Todo;
 import rua.exception.EmptyDescriptionException;
 import rua.exception.InvalidCommandException;
+import rua.task.Todo;
 
-import java.time.LocalDate;
+
 
 public class Parser {
     /**
@@ -26,7 +28,7 @@ public class Parser {
      * @throws EmptyDescriptionException if there is no description for the string representing the input task.
      * @throws InvalidCommandException if the message is not supported.
      */
-    static public Command parse(String message) throws EmptyDescriptionException, InvalidCommandException {
+    public static Command parse(String message) throws EmptyDescriptionException, InvalidCommandException {
         String[] inputs = message.split(" ", 2);
         String command = inputs[0];
         Command output;
