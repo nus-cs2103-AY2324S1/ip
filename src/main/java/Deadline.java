@@ -18,10 +18,10 @@ public class Deadline extends Task {
     public String serialize() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
         return String.format(
-                "deadline|%c|%s|%s",
-                (this.isDone() ? '1' : '0'),
+                "deadline %s /by %s%s",
                 getTaskName(),
-                this.deadline.format(formatter)
+                this.deadline.format(formatter),
+                (this.isDone() ? " /done" : "")
         );
     }
 }

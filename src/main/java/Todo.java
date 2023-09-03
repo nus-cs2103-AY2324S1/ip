@@ -10,6 +10,10 @@ public class Todo extends Task {
 
     @Override
     public String serialize() {
-        return String.format("todo|%c|%s", (this.isDone() ? '1' : '0'), getTaskName());
+        return String.format(
+                "todo %s%s",
+                getTaskName(),
+                (this.isDone() ? " /done" : "")
+        );
     }
 }

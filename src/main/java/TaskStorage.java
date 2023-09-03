@@ -1,11 +1,9 @@
-import java.io.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,26 +41,34 @@ public class TaskStorage {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             // Format: <type>|<isDone>|<taskName>[|...]
+            Parser parser;
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                String[] tokens = line.split("\\|");
                 Task task;
+                parser = Parser.from(line);
 
-                switch(tokens[0]) {
+                switch(parser.getCommand()) {
                 case "todo":
-                    task = new Todo(tokens[2]);
+                    task = new Todo(parser.getArg());
                     break;
                 case "deadline":
-                    task = new Deadline(tokens[2], handleDateTime(tokens[3]));
+                    task = new Deadline(
+                            parser.getArg(),
+                            parser.getOptArgAsDateTime("by")
+                    );
                     break;
                 case "event":
-                    task = new Event(tokens[2], handleDateTime(tokens[3]), handleDateTime(tokens[4]));
+                    task = new Event(
+                            parser.getArg(),
+                            parser.getOptArgAsDateTime("from"),
+                            parser.getOptArgAsDateTime("to")
+                    );
                     break;
                 default:
                     continue;
                 }
 
-                if (tokens[1].equals("1")) {
+                if (parser.getOptArg("done") != null) {
                     task.markDone();
                 }
 
@@ -95,19 +101,5 @@ public class TaskStorage {
         } catch (IOException e) {
             throw new DukeException("Error while storing tasks: " + e.getMessage());
         }
-    }
-
-    private static LocalDateTime handleDateTime(String dateTime) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HHmm");
-        Date parsedDate;
-
-        try {
-            parsedDate = dateFormat.parse(dateTime);
-        } catch (ParseException e) {
-            parsedDate = new Date();
-        }
-        Instant instant = parsedDate.toInstant();
-        LocalDateTime localDateTime = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
-        return localDateTime;
     }
 }

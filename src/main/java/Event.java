@@ -27,11 +27,11 @@ public class Event extends Task {
     public String serialize() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
         return String.format(
-                "event|%c|%s|%s|%s",
-                (this.isDone() ? '1' : '0'),
+                "event %s /from %s /to %s%s",
                 getTaskName(),
                 this.from.format(formatter),
-                this.to.format(formatter)
+                this.to.format(formatter),
+                (this.isDone() ? " /done" : "")
         );
     }
 }
