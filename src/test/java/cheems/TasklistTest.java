@@ -1,8 +1,10 @@
 package cheems;
 
+import cheems.functionalities.Storage;
+import cheems.functionalities.Tasklist;
+import cheems.functionalities.textUi;
 import cheems.tasks.Deadline;
 import cheems.tasks.Event;
-import cheems.tasks.Task;
 import cheems.tasks.Todo;
 import org.junit.jupiter.api.Test;
 import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
@@ -15,7 +17,7 @@ import static org.mockito.Mockito.verify;
 
 
 class TasklistTest {
-    UI uiMock = mock(UI.class);
+    textUi uiMock = mock(textUi.class);
     Storage storageMock = mock(Storage.class);
     @Test
     void addTodoTaskToDatabaseTest() {

@@ -1,6 +1,9 @@
 package cheems;
 
 import cheems.exceptions.EmptyArgumentException;
+import cheems.functionalities.Parser;
+import cheems.functionalities.Tasklist;
+import cheems.functionalities.textUi;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -8,9 +11,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 class ParserTest {
-    UI uiMock = mock(UI.class);
+    textUi uiMock = mock(textUi.class);
     Tasklist tasklistMock = mock(Tasklist.class);
-    private Parser parser = new Parser(tasklistMock, uiMock);
+    private Parser parser = new Parser(tasklistMock);
     @Test
     void parseAndExecute_emptyInput_success() throws Exception {
         parser.parseAndExecute("");
@@ -25,7 +28,7 @@ class ParserTest {
 
         parser.parseAndExecute(input);
 
-        verify(tasklistMock).find("book");
+        verify(tasklistMock).findTasks("book");
     }
 
     @Test

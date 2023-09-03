@@ -1,4 +1,4 @@
-package cheems;
+package cheems.functionalities;
 
 /**
  * Represents different commands recognised by the chatbot.
