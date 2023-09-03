@@ -1,8 +1,8 @@
 package taskutil;
 
-import duke.Parser;
-
 import java.time.LocalDateTime;
+
+import duke.Parser;
 
 /**
  * Class for Deadline task.
