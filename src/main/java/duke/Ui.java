@@ -123,4 +123,21 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints out list of tasks containing a given keyword.
+     *
+     * @param taskList Initial list of tasks to be filtered.
+     * @param keyword String keyword used to filter tasks.
+     */
+    public void showFindCommandList(ArrayList<Task> taskList, String keyword) {
+        if (taskList.isEmpty()) {
+           System.out.println("There are no tasks containing: " + keyword);
+        } else {
+            System.out.println("The following tasks contain '" + keyword + "' :");
+            for (int i = 0; i < taskList.size(); i++) {
+                System.out.println((i + 1) + ". " + taskList.get(i).toString());
+            }
+        }
+    }
+
 }
