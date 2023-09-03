@@ -57,7 +57,7 @@ class ToDo extends Task {
         TaskStatus taskStatus = TaskStatus.UNMARKED;
         String name = "";
 
-        if(Integer.parseInt(splitString[1]) == 1) {
+        if (Integer.parseInt(splitString[1]) == 1) {
             taskStatus = TaskStatus.MARKED;
         }
 

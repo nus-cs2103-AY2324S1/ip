@@ -1,5 +1,8 @@
 package duchess;
 
+/**
+ * An abstract class representing a Task.
+ */
 public abstract class Task {
     public static final String SAVE_STRING_DELIMITER = "\\|";
 
@@ -31,7 +34,8 @@ public abstract class Task {
      * Factory method of Task, creating a Task by parsing a String that represents a Task.
      *
      * @param s - the String that represents the Task.
-     * @return    either the Task that was parsed successfully using the String, or null if the string is an invalid Task.
+     * @return    either the Task that was parsed successfully using the String, or null if the string is
+     *            an invalid Task.
      */
     public static Task parseSaveString(String s) {
         String[] splitString = s.split(Task.SAVE_STRING_DELIMITER);
@@ -75,10 +79,10 @@ public abstract class Task {
      * @return the String representation of this task.
      */
     public String toString() {
-        if(this.status == TaskStatus.UNMARKED) {
+        if (this.status == TaskStatus.UNMARKED) {
             return String.format("[ ] %s", this.name);
         }
-        if(this.status == TaskStatus.MARKED) {
+        if (this.status == TaskStatus.MARKED) {
             return String.format("[X] %s", this.name);
         }
         return "";
@@ -88,10 +92,10 @@ public abstract class Task {
      * Returns a String representation of this task, for the purposes of data saving.
      */
     public String toSaveString() {
-        if(this.status == TaskStatus.UNMARKED) {
+        if (this.status == TaskStatus.UNMARKED) {
             return String.format("0|%s", this.name);
         }
-        if(this.status == TaskStatus.MARKED) {
+        if (this.status == TaskStatus.MARKED) {
             return String.format("1|%s", this.name);
         }
         return "";

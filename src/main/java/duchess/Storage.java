@@ -5,9 +5,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * A class to deal with storage of data, like saving and loading task lists.
+ */
 public class Storage {
-    private static String DATA_DIRECTORY = "./";
-    private static String DATA_FILE = "data.duchess";
+    private static final String DATA_DIRECTORY = "./";
+    private static final String DATA_FILE = "data.duchess";
 
     /**
      * Creates an empty save file to store the tasks in. This save file is specified by DATA_DIRECTORY and DATA_FILE.
@@ -19,7 +22,7 @@ public class Storage {
             // Create a new file if it doesn't already exist.
             file.createNewFile();
 
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println(String.format("An error has occurred: %s", e.getMessage()));
         }
     }
@@ -53,7 +56,8 @@ public class Storage {
     }
 
     /**
-     * Loads Tasks from the data file specified by DATA_DIRECTORY and DATA_FILE and returns a TaskList of the loaded tasks.
+     * Loads Tasks from the data file specified by DATA_DIRECTORY and DATA_FILE and returns a TaskList
+     * of the loaded tasks.
      *
      * @return a TaskList of tasks that were loaded.
      */
@@ -74,7 +78,7 @@ public class Storage {
 
             sc.close();
 
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println(String.format("An error has occurred: %s", e.getMessage()));
         }
 

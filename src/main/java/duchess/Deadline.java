@@ -1,8 +1,10 @@
 package duchess;
 
-import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * A deadline is a Task but with a deadline.
+ */
 class Deadline extends Task {
     private LocalDate deadline;
 
@@ -21,7 +23,8 @@ class Deadline extends Task {
     }
 
     /**
-     * Creates a new Deadline instance with the provided name and deadline. The status will be the default status in Task.
+     * Creates a new Deadline instance with the provided name and deadline.
+     * The status will be the default status in Task.
      *
      * @param name              - the name of the Deadline.
      * @param deadline          - the deadline in String format.
@@ -69,7 +72,7 @@ class Deadline extends Task {
         String name = "";
         String deadline = "";
 
-        if(Integer.parseInt(splitString[1]) == 1) {
+        if (Integer.parseInt(splitString[1]) == 1) {
             taskStatus = TaskStatus.MARKED;
         }
 
@@ -78,7 +81,7 @@ class Deadline extends Task {
 
         try {
             return new Deadline(name, deadline, taskStatus);
-        } catch(DuchessException e) {
+        } catch (DuchessException e) {
             return null;
         }
     }
