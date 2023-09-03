@@ -4,11 +4,15 @@ import java.io.FileNotFoundException;
 import java.time.format.DateTimeFormatter;
 
 import command.Command;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 /**
  * A chatbot. Able to read user input and perform a series of tasks.
  */
-public class Duke {
+public class Duke extends Application {
     private static final String NAME = "DEREK";
     private static final String DATETIME_INPUT_FORMAT = "yyyy-MM-dd HHmm";
     public static final DateTimeFormatter DATE_TIME_INPUT_FORMATTER =
@@ -32,7 +36,20 @@ public class Duke {
             ui.printLoadingErrorMessage();
             this.tasks = new TaskList();
         }
+    }
 
+    /**
+     * Constructor for Duke class.
+     */
+    public Duke() {
+        this.storage = new Storage("./data/state.txt");
+        this.ui = new UI(NAME);
+        try {
+            this.tasks = new TaskList(storage.loadData());
+        } catch (FileNotFoundException e) {
+            ui.printLoadingErrorMessage();
+            this.tasks = new TaskList();
+        }
     }
 
     /**
@@ -54,6 +71,15 @@ public class Duke {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 
     public static void main(String[] args) {
