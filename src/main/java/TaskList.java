@@ -3,9 +3,11 @@ import java.util.List;
 
 public class TaskList {
     private List<Task> tasks;
+    private Ui ui;
 
-    public TaskList(List<Task> tasks) {
+    public TaskList(List<Task> tasks, Ui ui) {
         this.tasks = tasks;
+        this.ui = ui;
     }
 
     public void addTask(Task task) {
@@ -13,7 +15,9 @@ public class TaskList {
     }
 
     public void deleteTask(int index) {
-        this.tasks.remove(index - 1);
+        Task task = tasks.get(index);
+        this.tasks.remove(index);
+        ui.deleteTaskMessage(task, tasks.size());
     }
 
     public void markTaskAsDone(int index) {
@@ -28,10 +32,24 @@ public class TaskList {
         return this.tasks;
     }
 
-    public void displayTasks() {
+    public Task getTask(int index) {
+        return this.tasks.get(index);
+    }
+
+    public int numOfTasks() {
+        return this.tasks.size();
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer outputString = new StringBuffer();
         for(int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i).toString());
+            outputString.append(i + 1);
+            outputString.append(". ");
+            outputString.append(tasks.get(i).toString());
+            outputString.append("\n");
         }
+        return outputString.toString();
     }
 }
 

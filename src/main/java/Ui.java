@@ -10,8 +10,12 @@ public class Ui {
     public static void showLine() {
         System.out.println("-------------------------------");
     }
+
+    public void exit() {
+        this.scanner.close();
+    }
     public String getUserInput() {
-        return scanner.nextLine();
+        return this.scanner.nextLine();
     }
 
     public void welcomeMessage() {
@@ -59,15 +63,19 @@ public class Ui {
     }
 
     public void addTaskMessage(Task task, int numOfTasks) {
+        showLine();
         System.out.println("Got it. I've added this task:");
         System.out.println(task.toString());
         System.out.println("Now you have " + numOfTasks + " tasks in the list.");
+        showLine();
     }
 
     public void deleteTaskMessage(Task task, int numOfTasks) {
+        showLine();
         System.out.println("Noted. I've removed this task:");
         System.out.println(task.toString());
         System.out.println("Now you have " + numOfTasks + " tasks in the list.");
+        showLine();
     }
 
     public void invalidTaskMessage() {
