@@ -3,14 +3,40 @@ package oreo.task;
 import oreo.exception.IllegalCommandException;
 import oreo.exception.IllegalDateTimeException;
 import oreo.datetime.TimeParser;
+
 import java.util.Scanner;
 
+/**
+ * This class implements an abstract class, parent class for
+ * the other specific task.
+ *
+ * @author Daniel Loh
+ * @version 03/09/2023
+ */
 public abstract class Task implements Comparable<Task> {
+
+    /**
+     * id of the task.
+     */
     protected int id;
+
+    /**
+     * description of the task.
+     */
     protected String description;
+
+    /**
+     * whether task is complete.
+     */
     protected boolean completed;
+
     private static int idTracker = 0;
 
+    /**
+     * Constructor of Task.
+     *
+     * @param d description of the task.
+     */
     public Task(String d) {
         this.id = idTracker;
         idTracker++;
@@ -18,6 +44,15 @@ public abstract class Task implements Comparable<Task> {
         this.completed = false;
     }
 
+    /**
+     * Generates the appropriate sub task instance based on user input.
+     *
+     * @param command Command inputted by user.
+     * @param tokeniser String that follows the command as a Scanner.
+     * @return Approriate task base on input by user.
+     * @throws IllegalCommandException when command is invalid.
+     * @throws IllegalDateTimeException when date time input is invalid.
+     */
     public static Task generateTask(String command, Scanner tokeniser) throws IllegalCommandException,
             IllegalDateTimeException {
         Task newTask;
@@ -70,10 +105,23 @@ public abstract class Task implements Comparable<Task> {
         return this.completed;
     }
 
+    /**
+     * Change mark to opposite of the current status.
+     */
     public void switchMark() {
         completed = !completed;
     }
 
+    /**
+     * Generates appropriate task from file data.
+     *
+     * @param id determines type of task.
+     * @param mark determines if task is done.
+     * @param description contains description of task.
+     * @return Appropriate task base on file input.
+     * @throws IllegalDateTimeException date time format is invalid,
+     *                                  file format is corrupt.
+     */
     public static Task generateSavedTask(int id, boolean mark, String description) throws IllegalDateTimeException {
         switch (id) {
         case (1):
@@ -91,6 +139,11 @@ public abstract class Task implements Comparable<Task> {
         }
     }
 
+    /**
+     * Converts task to file data to write to file.
+     *
+     * @return task in file data format.
+     */
     public abstract String writeToFile();
 
     @Override
