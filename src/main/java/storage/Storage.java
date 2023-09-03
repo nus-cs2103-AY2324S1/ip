@@ -1,19 +1,18 @@
 package storage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Scanner;
+
 import duke.Parser;
 import duke.Ui;
-
 import taskutil.Deadline;
 import taskutil.Event;
 import taskutil.TaskList;
 import taskutil.Todo;
-
-import java.util.Scanner;
-import java.time.LocalDateTime;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.FileNotFoundException;
 
 /**
  * Contains methods to create and edit file directory for storing and loading chatbot data.
@@ -81,8 +80,6 @@ public class Storage {
             File dataFile = new File(fileLocation);
             Scanner reader = new Scanner(dataFile);
 
-            // Add error checking for wrong data format (probably as long as split works shld be fine)
-            // Maybe add command to just delete data file and create new one if can't read
             while (reader.hasNextLine()) {
                 String data = reader.nextLine();
                 String[] splitInput = data.split(" \\| ");
@@ -107,6 +104,8 @@ public class Storage {
                     event.changeStatus(isDone);
                     taskList.addTask(event, false);
                     break;
+                default:
+                    Ui.output(String.format("Unknown symbol [%s] detected", splitInput[0]));
                 }
             }
             return true;

@@ -1,9 +1,9 @@
+import java.util.Scanner;
+
 import duke.Parser;
 import duke.Ui;
-import taskutil.TaskList;
 import storage.Storage;
-
-import java.util.Scanner;
+import taskutil.TaskList;
 
 /**
  * Class to initialise and run the chatbot.
@@ -26,7 +26,7 @@ public class Duke {
      * Initialises chatbot by loading data from file, queries user for decision when file cannot be read.
      */
     public void initialise() {
-        if (!storage.loadData(taskList)) {  // Error with loading data file, prompts for user input for next step
+        if (!storage.loadData(taskList)) { // Error with loading data file, prompts for user input for next step
             boolean isUnresolved = true;
             Scanner userInput = new Scanner(System.in);
             while (isUnresolved) {
@@ -46,7 +46,7 @@ public class Duke {
                 }
             }
             userInput.close();
-        } else {    // No error with reading data
+        } else { // No error with reading data
             this.runJyuuni();
         }
     }

@@ -1,8 +1,8 @@
 package taskutil;
 
-import duke.Ui;
-
 import java.util.ArrayList;
+
+import duke.Ui;
 
 /**
  * Class for a list of tasks.
@@ -28,7 +28,7 @@ public class TaskList {
             Task pendingTask = taskList.get(index);
             pendingTask.isDone = isCompleted;
             Ui.output("Task updated as requested:\n       " + pendingTask);
-        } catch (IndexOutOfBoundsException e) {                // When index falls outside ArrayList.
+        } catch (IndexOutOfBoundsException e) { // When index falls outside ArrayList.
             Ui.output("I can't modify a task that doesn't exist...\n     Try a number from the list");
         }
     }
@@ -53,7 +53,7 @@ public class TaskList {
         try {
             Task delete = taskList.remove(index);
             Ui.taskOutput(delete, "removed", taskList.size());
-        } catch (IndexOutOfBoundsException e) {                // When index falls outside ArrayList.
+        } catch (IndexOutOfBoundsException e) { // When index falls outside ArrayList.
             Ui.output("I can't remove a task that doesn't exist...\n     Try a number from the list");
         }
     }
