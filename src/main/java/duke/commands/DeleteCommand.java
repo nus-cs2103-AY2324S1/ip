@@ -24,15 +24,19 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(Tasks tasks, Ui ui, Storage storage, boolean isRestoring) throws DukeException {
+    public String execute(Tasks tasks, Ui ui, Storage storage, boolean isRestoring) throws DukeException {
         Task task = tasks.getTaskByIndex(this.target);
         if (task == null) {
             throw new InvalidCommandException();
         }
         Task t = tasks.remove(this.target - 1);
+
+        String output = "";
         storage.save(tasks);
         if (!isRestoring) {
-            ui.showSuccessDelete(t, tasks.size());
+            output += ui.showSuccessDelete(t, tasks.size());
         }
+
+        return output;
     }
 }

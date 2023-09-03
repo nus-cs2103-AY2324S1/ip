@@ -25,11 +25,15 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(Tasks tasks, Ui ui, Storage storage, boolean isRestoring) {
+    public String execute(Tasks tasks, Ui ui, Storage storage, boolean isRestoring) {
         tasks.add(this.task);
         storage.save(tasks);
+
+        String output = "";
         if (!isRestoring) {
-            ui.showAddTask(this.task, tasks.size());
+            output += ui.showAddTask(this.task, tasks.size());
         }
+
+        return output;
     }
 }

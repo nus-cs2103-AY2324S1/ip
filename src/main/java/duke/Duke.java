@@ -8,7 +8,7 @@ import duke.tasks.Tasks;
 import duke.ui.Ui;
 
 /**
- * Entry point of the Duke application.
+ * Entry point of the Duke application for text-ui based application.
  * Initializes the application and starts the interaction with the user.
  */
 public class Duke {
@@ -28,42 +28,29 @@ public class Duke {
     }
 
     /**
-     * Runs the program and starts to listen to user input.
+     * Handler method for GUI application to respond to user input
+     *
+     * @param input the input passed by user from the GUI
+     * @return string response for the user input
      */
-    public void run() {
-        ui.showGreetings();
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input, false);
 
-        while (true) {
-            try {
-                String text = ui.readCommand();
-                Command c = Parser.parse(text, false);
-
-                // Empty or unknown command
-                if (c == null) {
-                    ui.showUnknownCommand();
-                    continue;
-                }
-
-                // Execute command
-                c.execute(this.tasks, this.ui, this.storage, false);
-
-                // Check if is duke.commands.ExitCommand
-                if (c.isExit()) {
-                    break;
-                }
-            } catch (DukeException ex) {
-                ui.showError(ex.getMessage());
+            // Empty or unknown command
+            if (c == null) {
+                return ui.showUnknownCommand();
             }
 
-        }
-    }
+            // Check if is duke.commands.ExitCommand
+            if (c.isExit()) {
+                return "";
+            }
 
-    /**
-     * Main method of the program, entry point of the application.
-     *
-     * @param args arguments supplied by the user at program launch
-     */
-    public static void main(String[] args) {
-        new Duke().run();
+            // Execute command
+            return c.execute(this.tasks, this.ui, this.storage, false);
+        } catch (DukeException ex) {
+            return ui.showError(ex.getMessage());
+        }
     }
 }
