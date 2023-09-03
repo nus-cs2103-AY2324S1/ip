@@ -60,7 +60,8 @@ public class Parser {
         taskName = parts[0];
         optionalArgs = new HashMap<>();
         for (int i = 1; i < parts.length; i++) {
-            String k, v;
+            String k;
+            String v;
             String part = parts[i];
             int space = part.indexOf(' ');
 

@@ -3,6 +3,10 @@ package duke;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Main driver class for Duke project.
+ * Chatbot that manages a task list.
+ */
 public class Duke {
     public static void main(String[] args) {
         boolean isRunning = true;
