@@ -12,7 +12,7 @@ public class Ui {
             + "                (/ /^\\ \\)-'\n"
             + "                 \"\"' '\"\"\n";
 
-    private String greet = logo + "Woof! I'm Oreo! How may I help you?\n";
+    private String greet = logo + "Woof! I'm oreo.Oreo! How may I help you?\n";
 
     private String exit = "I will be sad to see you go! bye!\n";
 
