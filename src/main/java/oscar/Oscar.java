@@ -1,15 +1,13 @@
 package oscar;
 
-import oscar.command.Command;
+import java.util.Scanner;
 
+import oscar.command.Command;
 import oscar.essential.Parser;
 import oscar.essential.Storage;
 import oscar.essential.TaskList;
 import oscar.essential.Ui;
-
 import oscar.exception.OscarException;
-
-import java.util.Scanner;
 
 /**
  * Chatbot named Oscar that can respond to user input.

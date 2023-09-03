@@ -1,18 +1,17 @@
 package oscar.command;
 
+import java.time.format.DateTimeFormatter;
+
 import oscar.essential.Storage;
 import oscar.essential.TaskList;
-
 import oscar.exception.OscarException;
-
-import java.time.format.DateTimeFormatter;
 
 /**
  * Abstract class for various Oscar commands.
  */
-abstract public class Command {
-    private final boolean isExit;
+public abstract class Command {
     static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private final boolean isExit;
 
     /**
      * Constructor for command subclasses.
@@ -35,7 +34,7 @@ abstract public class Command {
         if (details.isEmpty()) {
             throw new OscarException("Sorry! The task number cannot be empty.\n");
         }
-            int index;
+        int index;
         try {
             index = Integer.parseInt(details) - 1;
             if (index < 0) {
@@ -44,7 +43,7 @@ abstract public class Command {
                 throw new OscarException("Sorry! Task number is too large.\n");
             }
             return index;
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw new OscarException("Sorry! Please enter the number of the task to be marked as done.\n");
         }
     }
@@ -56,7 +55,7 @@ abstract public class Command {
      * @param storage File loading and saving handler.
      * @throws OscarException Failure to execute command.
      */
-    abstract public void execute(TaskList tasks, Storage storage) throws OscarException;
+    public abstract void execute(TaskList tasks, Storage storage) throws OscarException;
 
     /**
      * Checks if command is an exit command.

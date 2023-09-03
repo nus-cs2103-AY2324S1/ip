@@ -1,8 +1,8 @@
 package oscar.essential;
 
-import oscar.exception.OscarException;
-
 import java.util.Scanner;
+
+import oscar.exception.OscarException;
 
 /**
  * Class to deal with user interaction.

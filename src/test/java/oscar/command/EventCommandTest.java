@@ -1,10 +1,11 @@
 package oscar.command;
 
-import org.junit.jupiter.api.Test;
-import oscar.exception.OscarException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import oscar.exception.OscarException;
 
 public class EventCommandTest {
     @Test
@@ -71,7 +72,8 @@ public class EventCommandTest {
             eventCommand.validate();
             fail();
         } catch (OscarException e) {
-            assertEquals("Sorry! Please enter a valid date and time in the format 'yyyy-MM-dd HHmm'.\n", e.getMessage());
+            assertEquals("Sorry! "
+                    + "Please enter a valid date and time in the format 'yyyy-MM-dd HHmm'.\n", e.getMessage());
         }
     }
 

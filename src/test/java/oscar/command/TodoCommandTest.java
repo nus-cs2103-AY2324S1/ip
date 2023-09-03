@@ -1,10 +1,11 @@
 package oscar.command;
 
-import org.junit.jupiter.api.Test;
-import oscar.exception.OscarException;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import oscar.exception.OscarException;
 
 public class TodoCommandTest {
     @Test
