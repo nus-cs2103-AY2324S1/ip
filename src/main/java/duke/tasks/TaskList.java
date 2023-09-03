@@ -88,22 +88,27 @@ public class TaskList {
      * Filters and prints the list of all the tasks matching with the given keyword.
      * @param name Given keyword.
      */
-    public void filterByName(String name) {
+    public String filterByName(String name) {
         int count = 1;
+        StringBuilder filteredString = new StringBuilder();
         for (Task t : this.tasks) {
             if (t.contains(name)) {
-                System.out.println(count + ") " + t.toString());
+                filteredString.append(count).append(") ").append(t.toString()).append("\n");
             }
         }
+        return filteredString.toString();
     }
 
     /**
      * Prints the list of all the tasks.
      */
-    public void print() {
+    @Override
+    public String toString() {
+        StringBuilder taskString = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++) {
-            System.out.println((i + 1) + ") " + tasks.get(i).toString());
+            taskString.append((i + 1) + ") " + tasks.get(i).toString() + "\n");
         }
+        return taskString.toString();
     }
 
 }

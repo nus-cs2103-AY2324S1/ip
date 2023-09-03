@@ -18,10 +18,10 @@ public class ExitCommand extends Command {
      * @param ui Ui for interacting with the user.
      * @param storage Storage of the tasks.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showLine();
-        ui.leave();
-        ui.showLine();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+//        ui.showLine();
+        return ui.leave();
+//        ui.showLine();
     }
 
     /**

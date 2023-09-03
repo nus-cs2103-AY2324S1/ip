@@ -70,7 +70,7 @@ public class AddCommand extends Command {
      * @throws DukeException Thrown if task type is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task task;
         switch (this.type) {
         case "todo":
@@ -86,10 +86,11 @@ public class AddCommand extends Command {
             throw new DukeException("Invalid task type!");
         }
         tasks.add(task);
-        ui.showLine();
-        ui.showAdd(tasks.size(), task);
-        ui.showLine();
+//        ui.showLine();
+//        ui.showAdd(tasks.size(), task);
+//        ui.showLine();
         storage.writeData(tasks.getAllTasks());
+        return ui.showAdd(tasks.size(), task);
     }
 
     /**

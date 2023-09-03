@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="79.0" prefWidth="400.0" stylesheets="@../css/Application.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+      <Pane fx:id="messageOutline" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="306.0" styleClass="text-area" stylesheets="@../css/Application.css">
+         <children>
+              <Label fx:id="dialog" layoutX="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="0.0" stylesheets="@../css/Application.css" text="Label" textFill="WHITE" wrapText="true">
+                  <opaqueInsets>
+                      <Insets />
+                  </opaqueInsets>
+                  <font>
+                      <Font name="Bell MT Bold" size="16.0" />
+                  </font>
+               <padding>
+                  <Insets bottom="15.0" />
+               </padding>
+              </Label>
+         </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </Pane>
+        <ImageView fx:id="displayPicture" fitHeight="49.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true" styleClass="display-picture">
+            <HBox.margin>
+                <Insets left="10.0" right="10.0" />
+            </HBox.margin>
+        </ImageView>
+    </children>
+    <padding>
+        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+    </padding>
+</fx:root>
