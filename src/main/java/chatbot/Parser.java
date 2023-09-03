@@ -2,6 +2,9 @@ package chatbot;
 
 import java.util.List;
 
+/**
+ * Handles the interpretation of user input.
+ */
 public class Parser {
     /** UI to handle the printing of output. */
     private UI ui;
@@ -10,6 +13,9 @@ public class Parser {
     /** Storage to load and write files. */
     private Storage storage;
 
+    /**
+     * Constructor for Parser. Initialises the UI, taskHandler, storage.
+     */
     public Parser(UI ui, TaskList taskHandler, Storage storage) {
         this.ui = ui;
         this.taskHandler = taskHandler;
@@ -17,9 +23,7 @@ public class Parser {
     }
 
     // Purely for testing purposes.
-    public Parser() {
-        
-    }
+    public Parser() {}
 
     /** 
      * Interprets the user string input and
@@ -34,8 +38,8 @@ public class Parser {
             return 1;
 
         } else if (input.equals("list")) {
-            ui.printStorageList(taskHandler.tasks);
-            storage.write(taskHandler.tasks);
+            ui.printStorageList(taskHandler.getTaskList());
+            storage.write(taskHandler.getTaskList());
             return 0;
 
         } else if (input.startsWith("unmark")) {

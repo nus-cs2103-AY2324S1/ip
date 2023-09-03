@@ -3,9 +3,15 @@ package chatbot;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Stores and handles the addition/deletion list of tasks.
+ */
 public class TaskList {
-    public List<Task> tasks;
+    private List<Task> tasks;
 
+    /**
+     * Constructor for TaskList.
+     */
     public TaskList() {
         tasks = new ArrayList<Task>();
     }
@@ -22,7 +28,7 @@ public class TaskList {
     /**
      * The task is removed from the list.
      * 
-     * @param task The task to be removed.
+     * @param index The index of the task to be removed.
      */
     public void delete(int index) {
         tasks.remove(index);
@@ -67,6 +73,13 @@ public class TaskList {
      */
     public int getSize() {
         return tasks.size();
+    }
+
+    /**
+     * Returns the task list
+     */
+    public List<Task> getTaskList() {
+        return tasks;
     }
 
     /**

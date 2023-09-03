@@ -1,9 +1,15 @@
 package chatbot;
 
+/**
+  * Stores the task details for events.
+  */
 public class Event extends Task {
     private String from;
     private String to;
 
+    /**
+     * Constructor for Event. Initialises the description + extras.
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;
