@@ -23,7 +23,6 @@ public class Parser {
     public static boolean processCommand(String scannerIn, TaskList tasks) throws Exception {
         String[] userIn = scannerIn.split(" ");
         String command = userIn[0];
-        Ui.printHorizontalLine();
         switch (command) {
         case "bye":
             System.out.println("Bye. Hope to see you again soon!");
