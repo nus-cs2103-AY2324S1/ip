@@ -39,7 +39,7 @@ public class Parser {
 
             // Validates if the description is empty (or only whitespaces)
             if (desc.isBlank()) {
-                throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                throw new DukeException(":( OOPS!!! The description of a todo cannot be empty.");
             } else {
                 return new AddCommand(new Todo(desc));
             }
@@ -49,23 +49,23 @@ public class Parser {
             int indexOfBy = fullCommand.indexOf("/by");
             // Validates the existence of /by syntax
             if (indexOfBy == -1) {
-                throw new DukeException("☹ OOPS!!! Please specify the deadline using /by.");
+                throw new DukeException(":( OOPS!!! Please specify the deadline using /by.");
             }
 
             desc = fullCommand.substring("deadline".length(), indexOfBy).trim();
             String by = fullCommand.substring(indexOfBy + "/by".length()).trim();
             if (desc.isBlank()) {
-                throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                throw new DukeException(":( OOPS!!! The description of a deadline cannot be empty.");
             }
             if (by.isBlank()) {
-                throw new DukeException("☹ OOPS!!! The 'by' of a deadline cannot be empty.");
+                throw new DukeException(":( OOPS!!! The 'by' of a deadline cannot be empty.");
             }
 
             try {
                 LocalDateTime byDt = parseDateTimeString(by);
                 return new AddCommand(new Deadline(desc, byDt));
             } catch (DateTimeParseException ex) {
-                throw new DukeException("☹ OOPS!!! The 'by' datetime was not in a valid format."
+                throw new DukeException(":( OOPS!!! The 'by' datetime was not in a valid format."
                         + " Example of valid datetime: 26/12/2019 1800");
             }
         case "event":
@@ -74,11 +74,11 @@ public class Parser {
             int indexOfFrom = fullCommand.indexOf("/from");
             int indexOfTo = fullCommand.indexOf("/to");
             if (indexOfFrom == -1 || indexOfTo == -1) {
-                throw new DukeException("☹ OOPS!!! Please specify the start and end of the"
+                throw new DukeException(":( OOPS!!! Please specify the start and end of the"
                         + " event using /from and /to.");
             }
             if (indexOfFrom > indexOfTo) {
-                throw new DukeException("☹ OOPS!!! Please specify the /from before the /to!");
+                throw new DukeException(":( OOPS!!! Please specify the /from before the /to!");
             }
 
             desc = fullCommand.substring("event ".length(), indexOfFrom).trim();
@@ -86,20 +86,20 @@ public class Parser {
             String to = fullCommand.substring(indexOfTo + "/to".length()).trim();
 
             if (desc.isBlank()) {
-                throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+                throw new DukeException(":( OOPS!!! The description of an event cannot be empty.");
             }
             if (from.isBlank()) {
-                throw new DukeException("☹ OOPS!!! The 'from' of an event cannot be empty.");
+                throw new DukeException(":( OOPS!!! The 'from' of an event cannot be empty.");
             }
             if (to.isBlank()) {
-                throw new DukeException("☹ OOPS!!! The 'to' of an event cannot be empty.");
+                throw new DukeException(":( OOPS!!! The 'to' of an event cannot be empty.");
             }
             try {
                 LocalDateTime fromDt = parseDateTimeString(from);
                 LocalDateTime toDt = parseDateTimeString(to);
                 return new AddCommand(new Event(desc, fromDt, toDt));
             } catch (DateTimeParseException ex) {
-                throw new DukeException("☹ OOPS!!! The given datetime was not in a valid format."
+                throw new DukeException(":( OOPS!!! The given datetime was not in a valid format."
                         + " Example of valid datetime: 26/12/2019 1800");
             }
         case "mark":
@@ -112,7 +112,7 @@ public class Parser {
             String keyword = fullCommand.substring("find".length()).trim();
             return new FindCommand(keyword);
         default:
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-("
+            throw new DukeException(":( OOPS!!! I'm sorry, but I don't know what that means :-("
                     + "\nMy supported commands are: list, mark, unmark, todo, deadline, event, find, bye.");
         }
     }
