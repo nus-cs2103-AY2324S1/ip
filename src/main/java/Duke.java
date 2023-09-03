@@ -1,5 +1,9 @@
 import java.io.File;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.IOException;
@@ -13,6 +17,19 @@ import java.io.BufferedWriter;
 public class Duke {
     private static String line = "--------------------------------------------------------------------";
     private static ArrayList<Task> list = new ArrayList<>();
+
+    public static String dateTimeToString(LocalDateTime dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return dateTime.format(formatter);
+    }
+
+    public static LocalDateTime stringToDateTime(String str) throws DateTimeParseException {
+        //check if dateTime has correct format: ie. YYYY-MM-DD 00:00
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateTime = LocalDateTime.now();
+        dateTime = LocalDateTime.parse(str, formatter);
+        return dateTime;
+    }
 
     public static void newTaskAdded(Task task) {
         System.out.println("(｀･ω･´)ﾉ New task added:\n" + task);
@@ -68,13 +85,13 @@ public class Duke {
                     data.add(toDo);
                     break;
                 case "D":
-                    String date = taskDetails[3];
+                    LocalDateTime date = stringToDateTime(taskDetails[3]);
                     Deadline deadline = new Deadline(status, desc, date);
                     data.add(deadline);
                     break;
                 case "E":
-                    String start = taskDetails[3];
-                    String end = taskDetails[4];
+                    LocalDateTime start = stringToDateTime(taskDetails[3]);
+                    LocalDateTime end = stringToDateTime(taskDetails[4]);
                     Event event = new Event(status, desc, start, end);
                     data.add(event);
                     break;
@@ -158,7 +175,7 @@ public class Duke {
     }
 
     public static boolean isValidCommand(String input) throws InvalidCommandException,
-            NoDescException, NoDateException, NoStartException, NoEndException,
+            NoDescException, InvalidDeadlineException, NoStartException, NoEndException,
             IOException {
         boolean isValid = true;
         String[] inputArr = input.split(" ");
@@ -247,29 +264,32 @@ public class Duke {
     }
 
     public static boolean isValidDeadline(String input) throws NoDescException,
-            NoDateException, IOException {
+            InvalidDeadlineException, IOException {
         String[] inputArr = input.split(" ", 2);
         if (inputArr.length == 1) {
             throw new NoDescException();
         } else {
             String afterCommand = inputArr[1];
-            //now we check whether there is a deadline
             String[] arr = afterCommand.split(" /by ", 2);
-            if (arr[0].isBlank()) {
-                throw new NoDescException();
-            } else if (arr.length == 1) {
-                throw new NoDateException();
+            if (arr.length < 2) {
+                throw new InvalidDeadlineException();
             } else {
-                String task = arr[0];
+                String desc = arr[0];
                 String date = arr[1];
-                if (date.isBlank()) {
-                    throw new NoDateException();
+                if (desc.isEmpty()) {
+                    throw new NoDescException();
                 } else {
-                    Deadline deadline = new Deadline(0, task, date);
-                    list.add(deadline);
-                    updateFile();
-                    newTaskAdded(deadline);
-                    getNumberOfTasks(list);
+                    try {
+                        LocalDateTime dateTime = stringToDateTime(date);
+                        Deadline deadline = new Deadline(0, desc, dateTime);
+                        list.add(deadline);
+                        updateFile();
+                        newTaskAdded(deadline);
+                        getNumberOfTasks(list);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("(・´з`・) Uh oh...dates must be of YYYY-MM-DD HH:mm format");
+                        System.out.println(line);
+                    }
                 }
             }
         }
@@ -288,8 +308,8 @@ public class Duke {
             String[] arr = afterCommand.split(" /from ", 2);
             if (arr[0].isBlank()) {
                 throw new NoDescException();
-            } else if (arr.length == 1) { //no start date added
-                throw new NoStartException();
+            } else if (arr.length == 1) {
+                System.out.println("(・´з`・) Uh oh...improper event format!\n" + line);
             } else {
                 String task = arr[0];
                 String start = arr[1].split(" /to ", 2)[0];
@@ -304,11 +324,22 @@ public class Duke {
                         if (end.isBlank()) {
                             throw new NoEndException();
                         } else {
-                            Event event = new Event(0, task, start, end);
-                            list.add(event);
-                            updateFile();
-                            newTaskAdded(event);
-                            getNumberOfTasks(list);
+                            try {
+                                LocalDateTime startDateTime = stringToDateTime(start);
+                                LocalDateTime endDateTime = stringToDateTime(end);
+                                if (startDateTime.isAfter(endDateTime)) {
+                                    System.out.println("(・´з`・) Uh oh...start must be after end!\n" + line);
+                                } else {
+                                    Event event = new Event(0, task, startDateTime, endDateTime);
+                                    list.add(event);
+                                    updateFile();
+                                    newTaskAdded(event);
+                                    getNumberOfTasks(list);
+                                }
+                            } catch (DateTimeParseException e) {
+                                System.out.println("(・´з`・) Uh oh...dates must be of YYYY-MM-DD HH:mm format");
+                                System.out.println(line);
+                            }
                         }
                     }
                 }
@@ -334,7 +365,7 @@ public class Duke {
                 } else {
                     isValidCommand(input);
                 }
-            } catch (InvalidCommandException | NoDescException | NoDateException |
+            } catch (InvalidCommandException | NoDescException | InvalidDeadlineException |
                      NoStartException | NoEndException e) {
                 System.out.println(e.getMessage());
             }
