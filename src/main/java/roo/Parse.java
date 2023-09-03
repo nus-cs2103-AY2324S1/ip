@@ -1,9 +1,9 @@
-package duke;
+package roo;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import roo.task.Deadline;
+import roo.task.Event;
+import roo.task.Task;
+import roo.task.Todo;
 
 public class Parse {
     public static Task makeTask(String str) {
@@ -32,7 +32,7 @@ public class Parse {
                             str.substring(sub2 + 4), false);
                 }
             }
-        } catch (DukeException e) {
+        } catch (RooException e) {
             System.err.println(e.getMessage());
         }
         return null;

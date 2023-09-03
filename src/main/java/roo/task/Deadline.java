@@ -1,6 +1,6 @@
-package duke.task;
+package roo.task;
 
-import duke.DukeException;
+import roo.RooException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,10 +9,10 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     private LocalDateTime date;
 
-    public Deadline(String task, String date) throws DukeException {
+    public Deadline(String task, String date) throws RooException {
         super(task);
         if (date.isEmpty() || date.equals(" ")) {
-            throw new DukeException("What is your DEADLINE???\n");
+            throw new RooException("What is your DEADLINE???\n");
         }
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
@@ -27,10 +27,10 @@ public class Deadline extends Task {
         }
     }
 
-    public Deadline(String task, String date, boolean finish) throws DukeException{
+    public Deadline(String task, String date, boolean finish) throws RooException{
         super(task, finish);
         if (date.isEmpty() || date.equals(" ")) {
-            throw new DukeException("What is your DEADLINE???\n");
+            throw new RooException("What is your DEADLINE???\n");
         }
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
