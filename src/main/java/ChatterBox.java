@@ -18,15 +18,15 @@ public class ChatterBox {
         Storage.fileToTaskList(f, taskList);
 
 
-        linePrinter();
-        tabPrinter("Hello! I'm ChatterBox");
-        tabPrinter("What can I do for you?");
+        Ui.linePrinter();
+        Ui.tabPrinter("Hello! I'm ChatterBox");
+        Ui.tabPrinter("What can I do for you?");
         System.out.println("");
-        // tabPrinter("Available commands:");
-        // tabPrinter("todo <TASK>"); 
-        // tabPrinter("deadline <TASK> /by <DATE>");
-        // tabPrinter("event <TASK> /from <START> /to <END>");
-        linePrinter();
+        // Ui.tabPrinter("Available commands:");
+        // Ui.tabPrinter("todo <TASK>"); 
+        // Ui.tabPrinter("deadline <TASK> /by <DATE>");
+        // Ui.tabPrinter("event <TASK> /from <START> /to <END>");
+        Ui.linePrinter();
 
         Scanner sc = new Scanner(System.in);
 
@@ -35,55 +35,55 @@ public class ChatterBox {
             String[] inputLine = fullLine.split(" ");
             String input = inputLine[0];
             if (input.equals("bye")) {
-                linePrinter(); 
-                tabPrinter("Bye. Hope to see you again soon!");
-                linePrinter();
+                Ui.linePrinter(); 
+                Ui.tabPrinter("Bye. Hope to see you again soon!");
+                Ui.linePrinter();
                 break;
 
             } else if (input.equals("list")) {
-                linePrinter();
-                tabPrinter("Here are the tasks in your list:");
+                Ui.linePrinter();
+                Ui.tabPrinter("Here are the tasks in your list:");
                 for (int i = 0; i < taskList.size(); i++) {
-                    tabPrinter(String.format("%d. %s", i + 1, 
+                    Ui.tabPrinter(String.format("%d. %s", i + 1, 
                                 taskList.get(i).toString()));
                 } 
-                linePrinter();
+                Ui.linePrinter();
 
             } else if (input.equals("mark")) {
                 int index = Integer.parseInt(inputLine[1]);
                 taskList.get(index - 1).mark();
                 Storage.taskListToFile(f, taskList);
-                linePrinter();
-                tabPrinter("Nice! I've marked this task as done:");
-                tabPrinter(taskList.get(index - 1).toString());
-                linePrinter();
+                Ui.linePrinter();
+                Ui.tabPrinter("Nice! I've marked this task as done:");
+                Ui.tabPrinter(taskList.get(index - 1).toString());
+                Ui.linePrinter();
 
             } else if (input.equals("unmark")) {
                 int index = Integer.parseInt(inputLine[1]);
                 taskList.get(index - 1).unmark();
                 Storage.taskListToFile(f, taskList);
-                linePrinter();
-                tabPrinter("OK, I've marked this task as not done yet:");
-                tabPrinter(taskList.get(index - 1).toString());
-                linePrinter();
+                Ui.linePrinter();
+                Ui.tabPrinter("OK, I've marked this task as not done yet:");
+                Ui.tabPrinter(taskList.get(index - 1).toString());
+                Ui.linePrinter();
             
             } else if (input.equals("delete")) {
                 int index = Integer.parseInt(inputLine[1]);
                 Task tempDelete = taskList.get(index - 1);
                 taskList.remove(index - 1);
                 Storage.taskListToFile(f, taskList);
-                linePrinter();
-                tabPrinter("Noted. I've removed this task:");
-                tabPrinter(tempDelete.toString());
-                linePrinter();
+                Ui.linePrinter();
+                Ui.tabPrinter("Noted. I've removed this task:");
+                Ui.tabPrinter(tempDelete.toString());
+                Ui.linePrinter();
 
             } else {
 
                 if (input.equals("todo")) {
                     if (fullLine.split("todo ").length < 1) {
-                        linePrinter();
-                        tabPrinter("The description of a todo cannot be empty!");
-                        linePrinter();
+                        Ui.linePrinter();
+                        Ui.tabPrinter("The description of a todo cannot be empty!");
+                        Ui.linePrinter();
                         throw new DukeException(
                                 "The description of a todo cannot be empty!");
                     }
@@ -91,18 +91,18 @@ public class ChatterBox {
                     ToDo tempToDo = new ToDo(taskName);
                     taskList.add(tempToDo);
                     Storage.taskListToFile(f, taskList);
-                    linePrinter();
-                    tabPrinter("Got it. I've added this task:");
-                    tabPrinter(" " + tempToDo.toString());
+                    Ui.linePrinter();
+                    Ui.tabPrinter("Got it. I've added this task:");
+                    Ui.tabPrinter(" " + tempToDo.toString());
                     sizePrinter(taskList);
-                    linePrinter();
+                    Ui.linePrinter();
 
 
                 } else if (input.equals("deadline")) {
                     if (fullLine.split("/by ").length < 1) {
-                        linePrinter();
-                        tabPrinter("The due date of a deadline cannot be empty!");
-                        linePrinter();
+                        Ui.linePrinter();
+                        Ui.tabPrinter("The due date of a deadline cannot be empty!");
+                        Ui.linePrinter();
                         throw new DukeException(
                                 "The due date of a deadline cannot be empty!");
                     }
@@ -114,17 +114,17 @@ public class ChatterBox {
                     Deadline tempDeadline = new Deadline(deadlineName);
                     taskList.add(tempDeadline);
                     Storage.taskListToFile(f, taskList);
-                    linePrinter();
-                    tabPrinter("Got it. I've added this task:");
-                    tabPrinter(" " + tempDeadline.toString());
+                    Ui.linePrinter();
+                    Ui.tabPrinter("Got it. I've added this task:");
+                    Ui.tabPrinter(" " + tempDeadline.toString());
                     sizePrinter(taskList);
-                    linePrinter();
+                    Ui.linePrinter();
 
                 } else if (input.equals("event")) {
                     if (fullLine.split("/").length < 3) {
-                        linePrinter();
-                        tabPrinter("An event must have both start and end date");
-                        linePrinter();
+                        Ui.linePrinter();
+                        Ui.tabPrinter("An event must have both start and end date");
+                        Ui.linePrinter();
                         throw new DukeException(
                                 "An event must have both start and end date");
                     }
@@ -140,18 +140,18 @@ public class ChatterBox {
                     taskList.add(tempEvent);
                     Storage.taskListToFile(f, taskList);
                     
-                    linePrinter();
-                    tabPrinter("Got it. I've added this task:");
-                    tabPrinter(" " + tempEvent.toString());
+                    Ui.linePrinter();
+                    Ui.tabPrinter("Got it. I've added this task:");
+                    Ui.tabPrinter(" " + tempEvent.toString());
                     sizePrinter(taskList);
-                    linePrinter();
+                    Ui.linePrinter();
 
                 } else {
-                    //linePrinter();
-                    //tabPrinter("added: " + fullLine);
-                    //linePrinter();
+                    //Ui.linePrinter();
+                    //Ui.tabPrinter("added: " + fullLine);
+                    //Ui.linePrinter();
                     //taskList.add(new Task(fullLine));  
-                    linePrinter();
+                    Ui.linePrinter();
                     throw new 
                         DukeException("I'm sorry I don't know what that means.");
                 }
@@ -159,19 +159,9 @@ public class ChatterBox {
         }
     }
 
-        private static void linePrinter() {
-            tabPrinter
-                ("___________________________________________________________");
-            System.out.println(" ");
-        }
-
-        private static void tabPrinter(String s) {
-            System.out.println("      " + s);
-        }
-
 
         private static void sizePrinter(ArrayList<Task> tasks) {
-            tabPrinter(
+            Ui.tabPrinter(
                     String.format("Now you have %d tasks in the list.", 
                         tasks.size()));
         }
