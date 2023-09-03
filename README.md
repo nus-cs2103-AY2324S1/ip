@@ -1,5 +1,5 @@
-DukePro
-“Your mind is for having ideas, not holding them.” – David Allen (source)
+#DukePro
+>“Your mind is for having ideas, not holding them.” – David Allen (source)
 
 DukePro frees your mind of having to remember things you need to do. It's,
 
