@@ -1,0 +1,33 @@
+.root {
+    -fx-background: rgb(30,30,30);
+    -fx-font-size: 14px;
+}
+
+
+.dialog-box {
+    -fx-background-color: rgb(62,62,66);
+    -fx-padding: 6px;
+    -fx-border-insets: 2.5px;
+    -fx-background-insets: 2.5px;
+}
+
+.dialog-box Label {
+    -fx-padding: 8px;
+}
+
+TextField {
+    -fx-background-color: rgb(45,45,48);
+    -fx-padding: 5px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+    -fx-text-fill: white;
+}
+
+Button {
+    -fx-background-color: rgb(0,122,204);
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+    -fx-cursor: hand;
+}

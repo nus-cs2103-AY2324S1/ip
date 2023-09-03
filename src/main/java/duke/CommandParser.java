@@ -1,5 +1,7 @@
 package duke;
 
+import javafx.application.Platform;
+import javafx.scene.image.Image;
 
 /**
  * Parses the command given by the user and returns a corresponding action.
@@ -84,44 +86,40 @@ public class CommandParser {
    * @return action an action to be executed depending on the first word of command
    * @throws DukeException if input string is invalid
    */
-  public Action parseCommand(String command) throws DukeException {
+  public Action parseCommand(String command, Image dukeImage) throws DukeException {
     String[] words = command.trim().split("\\s");
     if (words[0].equals("bye") && words.length == 1) {
-      return (taskList, storage) -> false;
+      return (taskList, storage, pane) -> {
+        Platform.exit();
+      };
     } else if (words[0].equals("list") && words.length == 1) {
-      return (taskList, Storage) -> {
-        taskList.listTasks();
-        return true;
+      return (taskList, Storage, vBox) -> {
+        taskList.listTasks(vBox, dukeImage);
       };
     } else if (words[0].equals("delete") && words.length == 2) {
-      return (taskList, storage) -> {
-        taskList.deleteTask(words[1]);
+      return (taskList, storage, pane) -> {
+        taskList.deleteTask(words[1], pane, dukeImage);
         storage.saveFile(taskList);
-        return true;
       };
     } else if (words[0].equals("mark") && words.length == 2) {
-      return (taskList, storage) -> {
-        taskList.markTask(words[1]);
+      return (taskList, storage, pane) -> {
+        taskList.markTask(words[1], pane, dukeImage);
         storage.saveFile(taskList);
-        return true;
       };
     } else if (words[0].equals("unmark") && words.length == 2) {
-      return (taskList, storage) -> {
-        taskList.unmarkedTask(words[1]);
+      return (taskList, storage, pane) -> {
+        taskList.unmarkedTask(words[1], pane, dukeImage);
         storage.saveFile(taskList);
-        return true;
       };
     } else if ((words[0].equals("deadline") || words[0].equals("todo") || words[0].equals("event"))) {
-      return (taskList, storage) -> {
-        taskList.addTask(this.createTask(words));
+      return (taskList, storage, pane) -> {
+        taskList.addTask(this.createTask(words), pane, dukeImage);
         storage.saveFile(taskList);
-        return true;
       };
     } else if (words[0].equals("find")) {
       String expr = command.trim().substring(4).trim();
-      return (taskList, storage) -> {
-        taskList.findTasks(expr);
-        return true;
+      return (taskList, storage, pane) -> {
+        taskList.findTasks(expr, pane, dukeImage);
       };
     } else {
       throw new InvalidCommandException();

@@ -1,5 +1,7 @@
 package duke;
 
+import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,16 +25,18 @@ public class TaskList {
     return this.tasks;
   }
 
+
   /**
    * List the current state of the tasks list
    */
-  public void listTasks() {
+  public void listTasks(Pane pane, Image dukeImage) {
     int i = 1;
-    System.out.println("     Here are the tasks in your list:");
+    StringBuilder displayMsg = new StringBuilder("Here are the tasks in your list:\n");
     for (Task task : tasks) {
-      System.out.println("     " + i + "." + task);
+      displayMsg.append("    ").append(i).append(". ").append(task).append("\n");
       i += 1;
     }
+    pane.getChildren().add(DialogBox.getDukeDialog(displayMsg.toString(), dukeImage));
   }
 
   /**
@@ -40,11 +44,12 @@ public class TaskList {
    *
    * @param task the task to be added
    */
-  public void addTask(Task task) {
+  public void addTask(Task task, Pane pane, Image dukeImage) {
     tasks.add(task);
-    System.out.println("     " + "Got it. I've added this task:");
-    System.out.println("       " + task.toString());
-    System.out.println("     " + "Now you have " + tasks.size() + " tasks in the list.");
+    String displayMsg = String.format("Got it. I've added this task:\n"+
+            "    %s\n" +
+            "Now you have %s tasks in the list.", task.toString(), tasks.size());
+    pane.getChildren().add(DialogBox.getDukeDialog(displayMsg, dukeImage));
   }
 
   /**
@@ -53,7 +58,7 @@ public class TaskList {
    * @param index position of task to be deleted
    * @throws WrongIndexException when index is out of bounds, or too big to parse
    */
-  public void deleteTask(String index) throws WrongIndexException {
+  public void deleteTask(String index, Pane pane, Image dukeImage) throws WrongIndexException {
     try {
       String regex = "\\d+";
       if (!index.matches(regex) || Integer.parseInt(index, 10) - 1 < 0
@@ -61,10 +66,12 @@ public class TaskList {
         throw new WrongIndexException();
       }
       int i = Integer.parseInt(index, 10) - 1;
+
       Task task = tasks.remove(i);
-      System.out.println("     Noted. I've removed this task:");
-      System.out.println("       " + task.toString());
-      System.out.println("     " + "Now you have " + tasks.size() + " tasks in the list.");
+      String displayMsg = String.format("Noted. I've removed this task:\n " +
+              "    %s\n" +
+              "Now you have %s tasks in the list.", task.toString(), tasks.size());
+      pane.getChildren().add(DialogBox.getDukeDialog(displayMsg, dukeImage));
     } catch (NumberFormatException e) {
       throw new WrongIndexException();
     }
@@ -76,7 +83,7 @@ public class TaskList {
    * @param index the position of the tasks to be mark completed
    * @throws WrongIndexException when index is out of bounds, or too big to parse
    */
-  public void markTask(String index) throws WrongIndexException {
+  public void markTask(String index, Pane pane, Image dukeImage) throws WrongIndexException {
     try {
       String regex = "\\d+";
       if (!index.matches(regex) || Integer.parseInt(index, 10) - 1 < 0
@@ -86,9 +93,9 @@ public class TaskList {
       int i = Integer.parseInt(index, 10) - 1;
       Task task = tasks.get(i);
       task.markCompleted();
-      System.out.println("     Nice! I've marked this task as done:");
-      System.out.println("       " + task.toString());
-
+      String displayMsg = String.format("Nice! I've marked this task as done:\n " +
+              "    %s", task.toString());
+      pane.getChildren().add(DialogBox.getDukeDialog(displayMsg, dukeImage));
     } catch (NumberFormatException e) {
       throw new WrongIndexException();
     }
@@ -100,7 +107,7 @@ public class TaskList {
    * @param index the position of the tasks to be unmarked
    * @throws WrongIndexException when index is out of bounds, or too big to parse
    */
-  public void unmarkedTask(String index) throws WrongIndexException {
+  public void unmarkedTask(String index, Pane pane, Image dukeImage) throws WrongIndexException {
     try {
       String regex = "\\d+";
       if (!index.matches(regex) || Integer.parseInt(index, 10) - 1 < 0
@@ -111,8 +118,9 @@ public class TaskList {
       int i = Integer.parseInt(index, 10) - 1;
       Task task = tasks.get(i);
       task.markNotCompleted();
-      System.out.println("     OK, I've marked this task as not done yet:");
-      System.out.println("       " + task.toString());
+      String displayMsg = String.format("OK, I've marked this task as not done yet:\n " +
+              "    %s", task.toString());
+      pane.getChildren().add(DialogBox.getDukeDialog(displayMsg, dukeImage));
     } catch (NumberFormatException e) {
       throw new WrongIndexException();
     }
@@ -124,8 +132,9 @@ public class TaskList {
    * @param expr the expression to match
    * @return true if there is a match, false otherwise
    */
-  public boolean findTasks(String expr) {
-    System.out.println("     Here are the matching tasks in your list:");
+  public boolean findTasks(String expr, Pane pane, Image dukeImage) {
+    StringBuilder displayMsg = new StringBuilder("Here are the matching tasks in your list:\n");
+
     if (expr.equals("")) {
       return false;
     }
@@ -135,11 +144,12 @@ public class TaskList {
     for (Task task : tasks) {
       Matcher m = p.matcher(task.toString());
       if (m.find()) {
-        System.out.println("     " + i + "." + task);
+        displayMsg.append("    ").append(i).append(". ").append(task).append("\n");
         match = true;
       }
       i += 1;
     }
+    pane.getChildren().add(DialogBox.getDukeDialog(displayMsg.toString(), dukeImage));
     return match;
   }
 }

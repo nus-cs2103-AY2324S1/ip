@@ -1,6 +1,7 @@
 package duke;
 
-import java.util.Scanner;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 
 /**
  * A bot that allows creation, deletion of tasks.
@@ -16,29 +17,20 @@ public class Duke {
 
     private TaskList taskList = new TaskList(storage.loadFile());
 
-    private void handleUI() {
-        ui.greet();
-        Scanner scanner = new Scanner(System.in);
-        String command = "";
-        while (true) {
-            try {
-                command = scanner.nextLine();
-                ui.printLine();
-                Action action = parser.parseCommand(command);
-                if (!action.execute(taskList, storage)) {
-                    break;
-                }
-            } catch (DukeException e) {
-                System.out.println(e);
-            }
-            ui.printLine();
-        }
-        ui.bye();
-        scanner.close();
+    public void greet(Pane pane, Image dukeImage) {
+        ui.greet(pane, dukeImage);
     }
 
-    public static void main(String[] args) {
-        Duke duke = new Duke();
-        duke.handleUI();
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public void addResponse(String input, Pane pane, Image dukeImage) {
+        try {
+            Action action = parser.parseCommand(input, dukeImage);
+            action.execute(taskList, storage, pane);
+        } catch (DukeException e) {
+            pane.getChildren().add(DialogBox.getDukeDialog(e.toString(), dukeImage));
+        }
     }
 }
