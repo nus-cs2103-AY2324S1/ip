@@ -12,6 +12,7 @@ public class Parser {
     //The timeParser to parse and format all times given.
     private static DateAndTime timeParser = new DateAndTime();
 
+
     /**
      * Instantiates a new Parser class
      * @param list the DukeList that contains all tasks at hand.
@@ -40,7 +41,7 @@ public class Parser {
             if (this.groupRun(mt, 1)) {
                 list.store(mt.group(1));
             } else {
-                throw new IllegalArgumentException("Whoops, wrong command! Type todo <task>");
+                UI.inputErrorMessage("todo");
             }
             break;
         case "deadline":
@@ -48,9 +49,13 @@ public class Parser {
             Matcher md = deadlineCmd.matcher(tally);
             if (this.groupRun(md, 2)) {
                 String formattedDeadline = this.timeParse(md.group(2));
-                list.store(md.group(1), formattedDeadline);
+                if (formattedDeadline != null) {
+                    list.store(md.group(1), formattedDeadline);
+                } else {
+                    UI.inputErrorMessage("deadline");
+                }
             } else {
-                throw new IllegalArgumentException("Whoops, wrong command! Type deadline <task> /by <date>");
+                UI.inputErrorMessage("deadline");
             }
             break;
         case "event":
@@ -60,14 +65,14 @@ public class Parser {
                 if (this.isValidTime(ml.group(2), ml.group(3))) {
                     String formattedStart = this.timeParse(ml.group(2));
                     String formattedEnd = this.timeParse(ml.group(3));
-                    list.store(ml.group(1), formattedStart, formattedEnd);
+                    if (formattedStart != null && formattedEnd != null) {
+                        list.store(ml.group(1), formattedStart, formattedEnd);
+                    }
                 } else {
-                    throw new IllegalArgumentException("Please make sure the dates are valid! Format is yyyy-mm-dd " +
-                            "and " + "HH:MM");
+                    UI.inputErrorMessage("event");
                 }
             } else {
-                throw new IllegalArgumentException("Whoops, wrong command! Type event <task> /" +
-                        "from <date> /to <date>");
+                UI.inputErrorMessage("event");
             }
             break;
         case "mark":
@@ -75,15 +80,15 @@ public class Parser {
                 String indexMark = tally.split(" ")[1];
                 list.mark(Integer.parseInt(indexMark));
             } catch (NullPointerException e) {
-                throw new IllegalArgumentException("Ehh? What do you want to mark? Type mark <index>");
+                UI.inputErrorMessage("mark");
             }
             break;
         case "unmark":
             try {
                 String indexunmark = tally.split(" ")[1];
-                list.mark(Integer.parseInt(indexunmark));
+                list.unmark(Integer.parseInt(indexunmark));
             } catch (NullPointerException e) {
-                throw new IllegalArgumentException("Ehh? What do you want to mark? Type unmark <index>");
+                UI.inputErrorMessage("unmark");
             }
             break;
         case "delete":
@@ -91,11 +96,14 @@ public class Parser {
                 String indexUnmark = tally.split(" ")[1];
                 list.delete(Integer.parseInt(indexUnmark));
             } catch (NullPointerException e) {
-                throw new IllegalArgumentException("Ehh? What do you want to mark? Type remove <index>");
+                UI.inputErrorMessage("delete");
             }
             break;
+        case "bye":
+            UI.bye();
+            break;
         default:
-            throw new IllegalArgumentException("Error, unknown command.");
+            UI.inputErrorMessage("other");
         }
 
     }
@@ -130,8 +138,7 @@ public class Parser {
         } else if (dateInfo.length == 2) {
             return timeParser.dayParse(dateInfo[0], dateInfo[1]);
         } else {
-            throw new IllegalArgumentException("Please make sure the dates is valid! It must be in yyyy-mm-dd" +
-                    "and HH:MM format.");
+            return null;
         }
     }
 

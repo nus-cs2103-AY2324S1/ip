@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.io.IOException;
+
 
 
 
@@ -18,10 +20,14 @@ public class DukeList {
      * Instantiates a new DukeList.
      * @param path path directory for the test.s file.
      */
-    public DukeList(String path)  {
+    public DukeList(String path) {
         this.path = path;
-        this.middleman = new DataSaver(path);
-        tasks = middleman.load();
+        try {
+            this.middleman = new DataSaver(path);
+            this.tasks = middleman.load();
+        } catch (IOException | ClassNotFoundException e) {
+            UI.errorMessage(e.getMessage());
+        }
     }
 
     /**
@@ -42,9 +48,7 @@ public class DukeList {
         Task todo = new ToDo(task);
         tasks.add(todo);
         int index = tasks.size();
-        System.out.println("Added! You want to: " + task + "\n" +
-                "Now you have " + index + (index > 1 ? " tasks!" : " task!") + "\n" +
-                "____________________________________________________________");
+        UI.store(task, index);
     }
 
     /**
@@ -57,9 +61,7 @@ public class DukeList {
         Task todo = new Deadline(task, by);
         tasks.add(todo);
         int index = tasks.size();
-        System.out.println("Added! You want to: " + task + "\n" +
-                "Now you have " + index + (index > 1 ? " tasks!" : " task!") + "\n" +
-                "____________________________________________________________");
+        UI.store(task, index);
     }
 
     /**
@@ -73,20 +75,13 @@ public class DukeList {
         Task todo = new Event(task, start, end);
         tasks.add(todo);
         int index = tasks.size();
-        System.out.println("Added! You want to: " + task + "\n" +
-                "Now you have " + index + (index > 1 ? " tasks!" : " task!") + "\n" +
-                "____________________________________________________________");
+        UI.store(task, index);
     }
     /**
      * Displays all contents of the list stored within an instance of DukeList.
      */
     public void display() {
-        for (int i = 0; i < tasks.size(); i++) {
-            int curr = i + 1;
-            System.out.println(curr + ". " + tasks.get(i).toString() +"\n");
-        }
-
-        System.out.println("____________________________________________________________");
+        UI.display(tasks.toArray());
     }
 
     /**
@@ -94,11 +89,10 @@ public class DukeList {
      * @param i takes in the index of the task to be set as done.
      */
     public void mark(int i) {
-        tasks.get(i - 1).done();
+        Task task = tasks.get(i - 1);
+        task.done();
 
-        System.out.println("NICEEEEE. Good job on completing the task!\n" +
-                tasks.get(i - 1).toString() + "\n" +
-                "____________________________________________________________");
+        UI.mark(task.toString());
     }
 
     /**
@@ -106,23 +100,20 @@ public class DukeList {
      * @param i takes in the index of the task to be set as undone.
      */
     public void unmark(int i) {
-        tasks.get(i - 1).undo();
+        Task task = tasks.get(i - 1);
+        task.undo();
 
-        System.out.println("Ohhh... uhm, okay, task undone!\n" +
-                tasks.get(i - 1).toString() + "\n" +
-                "____________________________________________________________");
+        UI.unMark(task.toString());
     }
 
     /**
-     * Removes the i-th.
+     * Removes the i-th task.
      * @param i takes in the index of the task to be removed.
      */
     public void delete(int i) {
         Task task = tasks.remove(i - 1);
         int index = tasks.size();
 
-        System.out.println("Guess you don't want to do that anymore: " + task.toString() + "\n" +
-                "Now you have " + index + (index > 1 ? " tasks!" : " task!") + "\n" +
-                "____________________________________________________________");
+        UI.delete(task.toString(), index);
     }
 }

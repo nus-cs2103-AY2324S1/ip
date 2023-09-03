@@ -18,7 +18,7 @@ public class DataSaver {
      * Returns an instance of DataSaver.
      * @param path the directory of test.s.
      */
-    public DataSaver(String path) {
+    public DataSaver(String path) throws IOException {
         this.path = path;
 
         File file = new File(path);
@@ -29,11 +29,7 @@ public class DataSaver {
         }
 
         if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println("File creation failed... " + e.getMessage());
-            }
+            file.createNewFile();
         }
     }
 
@@ -70,7 +66,7 @@ public class DataSaver {
      */
     @SuppressWarnings("unchecked")
     // Suppresses unchecked cast warning because we know the deserialized object is an ArrayList<Task>.
-    public ArrayList<Task> load() {
+    public ArrayList<Task> load() throws IOException, ClassNotFoundException {
         ArrayList<Task> allTasks = new ArrayList<>();
         ObjectInputStream inputStream = null;
         try {
@@ -78,23 +74,16 @@ public class DataSaver {
 
             inputStream = new ObjectInputStream(fileInput);
 
-
             allTasks = (ArrayList<Task>) inputStream.readObject();
         } catch (EOFException e) {
-            //The error indicates a lack of tasks available, so we can just return allTasks as an empty list.
-            return allTasks;
-        } catch (IOException | ClassNotFoundException c) {
-            System.out.println("Error loading file! " + c.getMessage());
+            //The error indicates a lack of tasks available, so we can just return allTasks as an empty list at the end
         } finally {
-            try {
-                if (inputStream != null) {
-                    inputStream.close();
-                }
-            } catch (IOException e) {
-                System.out.println("Error loading file! " + e.getMessage());
+            if (inputStream != null) {
+                inputStream.close();
             }
+
+            return allTasks;
         }
-        return allTasks;
     }
 
 

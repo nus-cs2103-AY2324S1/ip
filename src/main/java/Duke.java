@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 
 
 /**
@@ -7,6 +5,7 @@ import java.util.Scanner;
  */
 public class Duke {
 
+    //Parses the commands given by the user.
     private Parser parser;
 
 
@@ -15,8 +14,7 @@ public class Duke {
      * @param path The filepath to the data.s file.
      */
     public Duke(String path) {
-        DukeList list = new DukeList(path);
-        this.parser = new Parser(list);
+        this.parser = new Parser(new DukeList(path));
     }
 
     /**
@@ -30,41 +28,27 @@ public class Duke {
 
         Duke lati = new Duke(dataFilePath);
 
-        lati.greet();
+        lati.run();
+    }
 
-        Scanner scan = new Scanner(System.in);
-        String comd = scan.nextLine();
+    /**
+     * Takes inputs and runs the Duke bot.
+     */
+    public void run() {
+        UI.greet();
+        boolean isOpen = true;
 
-        while (!comd.equals("bye")) {
-            lati.messageHandler(comd);
-            comd = scan.nextLine();
+        while (isOpen) {
+            String command = UI.scan();
+            this.messageHandler(command);
+            isOpen = !command.equals("bye");
         }
 
-        lati.bye();
-    }
-
-    /**
-     * Sends a greeting message to the user.
-     */
-    public void greet() {
-        System.out.println("____________________________________________________________\n" +
-                " Hellooooooooooo! I'm Lati!\n" +
-                " What can I do for you? :3\n" +
-                "____________________________________________________________");
-    }
-
-    /**
-     * Sends a goodbye message to the user.
-     */
-    public void bye() {
         this.parser.close();
-        System.out.println(" Byeeeeee. Hope to see you again soon~~\n" +
-                "____________________________________________________________");
     }
 
     /**
      * Parses and manages the user's inputs using the parser.
-     *
      * @param tally takes in the input string.
      */
     public void messageHandler(String tally) {
