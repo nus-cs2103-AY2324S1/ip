@@ -4,12 +4,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-//deals with making sense of the user command (converts command to string)
+/**
+ * Converts user command into a Task
+ */
 public class Parser {
-    private Storage storage;
-    private TaskList list;
 
-
+    /**
+     * Converts user command into Task and adds it into the list
+     *
+     * @param input User command
+     * @param list Task is added into list
+     */
     public void parse(String input, TaskList list) {
         try {
             if (input.equals("list")) {
@@ -70,8 +75,6 @@ public class Parser {
             } else {
                 throw new UnknownCommandException();
             }
-
-
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         } catch (DateTimeParseException e) {
