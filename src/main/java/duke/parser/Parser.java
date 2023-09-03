@@ -1,5 +1,8 @@
 package duke.parser;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import duke.command.AddDeadlineCommand;
 import duke.command.AddEventCommand;
 import duke.command.AddTodoCommand;
@@ -12,9 +15,6 @@ import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
 import duke.data.exception.DukeException;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Represents the parser of user-given commands.

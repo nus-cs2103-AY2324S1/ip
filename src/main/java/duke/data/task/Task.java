@@ -10,6 +10,11 @@ public abstract class Task {
 
     private boolean isDone;
 
+    /**
+     * Returns an instance of {@code Task} with the given description.
+     *
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

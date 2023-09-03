@@ -1,13 +1,16 @@
 package duke.command;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import duke.data.task.Task;
 import duke.data.task.TaskList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Represents a command to find tasks that match the keyword provided.
+ */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
