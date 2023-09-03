@@ -45,6 +45,13 @@ public class Parser {
 
     }
 
+    /**
+     * Helps to decode the user input string and decides what Command object to return based on the user input.
+     * It will also throw the correct errors depending on the user input
+     * @param userInput String that the user entered
+     * @return A Command object depending on what command was called by the user
+     * @throws RichieException Gives useful exception messages depending on the user input
+     */
     public static Command parse(String userInput) throws RichieException {
         if (userInput.equals("bye")) {
             return new ExitCommand();

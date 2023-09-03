@@ -13,9 +13,21 @@ import java.util.ArrayList;
  */
 public class Storage {
     private String filePath;
+
+    /**
+     * Constructor for a new Storage object
+     * @param filePath String that represents the file path that the Storage object should read and write to
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
+    /**
+     * Loads the data stored in the data text file and returns the data as an ArrayList of String
+     * where each element of the ArrayList is each respective line in the text file
+     * @return ArrayList of string that represents each line of the data in the text file
+     * @throws RichieException When there is an IOException when reading and writing to the text file
+     */
     public ArrayList<String> load() throws RichieException {
         ArrayList<String> resultStringArray = new ArrayList<>();
         try {
@@ -37,6 +49,11 @@ public class Storage {
         return resultStringArray;
     }
 
+    /**
+     * Saves the tasks that are currently in the TaskList object of the Richie application into the data text file
+     * by writing to it
+     * @param taskList ArrayList of Task objects denoting the tasks that are currently on the tasklist
+     */
     public void saveCurrentTasks(ArrayList<Task> taskList) {
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(this.filePath));
