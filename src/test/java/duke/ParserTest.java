@@ -45,7 +45,7 @@ public class ParserTest {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         assertThrows(DukeException.class, () -> {
-            Parser.parseCommand("eidcnihevb", tasks, ui);
+            Parser.isValidCommand("eidcnihevb", tasks, ui);
         });
     }
 
@@ -53,49 +53,49 @@ public class ParserTest {
     public void testParseCommandList() throws DukeException {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
-        assertTrue(Parser.parseCommand("list", tasks, ui));
+        assertTrue(Parser.isValidCommand("list", tasks, ui));
     }
 
     @Test
     public void testParseCommandTodo() throws DukeException {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
-        assertTrue(Parser.parseCommand("todo Task Description", tasks, ui));
+        assertTrue(Parser.isValidCommand("todo Task Description", tasks, ui));
     }
 
     @Test
     public void testParseCommandEvent() throws DukeException {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
-        assertTrue(Parser.parseCommand("event Event Description /from 2023-08-23 1800 /to 2023-08-24 1900", tasks, ui));
+        assertTrue(Parser.isValidCommand("event Event Description /from 2023-08-23 1800 /to 2023-08-24 1900", tasks, ui));
     }
 
     @Test
     public void testParseCommandDeadline() throws DukeException {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
-        assertTrue(Parser.parseCommand("deadline Deadline Description /by 2023-08-23 1900", tasks, ui));
+        assertTrue(Parser.isValidCommand("deadline Deadline Description /by 2023-08-23 1900", tasks, ui));
     }
 
     @Test
     public void testParseCommandMark() throws DukeException {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
-        assertTrue(Parser.parseCommand("mark 1", tasks, ui));
+        assertTrue(Parser.isValidCommand("mark 1", tasks, ui));
     }
 
     @Test
     public void testParseCommandUnmark() throws DukeException {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
-        assertTrue(Parser.parseCommand("unmark 1", tasks, ui));
+        assertTrue(Parser.isValidCommand("unmark 1", tasks, ui));
     }
 
     @Test
     public void testParseCommandDelete() throws DukeException {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
-        assertTrue(Parser.parseCommand("delete 1", tasks, ui));
+        assertTrue(Parser.isValidCommand("delete 1", tasks, ui));
     }
 
     @Test
@@ -103,7 +103,7 @@ public class ParserTest {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         assertThrows(DukeException.class, () -> {
-            Parser.parseCommand("unknown", tasks, ui);
+            Parser.isValidCommand("unknown", tasks, ui);
         });
     }
 

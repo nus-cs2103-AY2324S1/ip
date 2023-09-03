@@ -4,10 +4,13 @@ import java.util.Scanner;
 
 public class Ui {
     private Scanner sc;
-    String horizontalLine = "____________________________________________________________";
+
     public Ui() {
         this.sc = new Scanner(System.in);
     }
+
+    String horizontalLine = "____________________________________________________________";
+
     public void showWelcomeMessage() {
         String name = "duke.Tired";
         System.out.println(horizontalLine);

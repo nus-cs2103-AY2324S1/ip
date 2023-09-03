@@ -29,7 +29,7 @@ public class Parser {
         return input.startsWith("delete");
     }
 
-    public static boolean parseCommand(String input, TaskList tasks, Ui ui) throws DukeException {
+    public static boolean isValidCommand(String input, TaskList tasks, Ui ui) throws DukeException {
 
         int taskIndex;
         if (isDeleteCommand(input)) {

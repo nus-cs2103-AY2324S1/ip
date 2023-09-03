@@ -17,7 +17,7 @@ public class Tired {
         } catch (DukeException e) {
             ui.showError(e.getMessage());
             tasks = new TaskList();
-        } finally { }
+        }
     }
 
     public void run() {
@@ -27,7 +27,7 @@ public class Tired {
             System.out.println("____________________________________________________________");
             String input = ui.readCommand().trim();
             try {
-                isActive = Parser.parseCommand(input, tasks, ui);
+                isActive = Parser.isValidCommand(input, tasks, ui);
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
             }
