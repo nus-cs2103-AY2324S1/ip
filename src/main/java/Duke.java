@@ -1,9 +1,11 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
 import Tasks.*;
 import enums.Command;
+import enums.DukeDateFormats;
 import storage.TaskFileHandler;
 
 public class Duke {
@@ -22,10 +24,11 @@ public class Duke {
     }
 
     public static void converse() {
-
         TaskList taskList = new TaskList(TaskFileHandler.readFromFile());
         Scanner scanner = new Scanner(System.in);
         String message;
+        LocalDate startDate;
+        LocalDate endDate;
 
         boolean talk = true;
         while (talk) {
@@ -66,10 +69,13 @@ public class Duke {
                     taskList.addTask(new TodoTask(args.get(1)));
                     break;
                 case DEADLINE:
-                    taskList.addTask(new DeadlineTask(args.get(1), args.get(2)));
+                    endDate = LocalDate.parse(args.get(2), DukeDateFormats.DATE_ONLY.getFormatter());
+                    taskList.addTask(new DeadlineTask(args.get(1), endDate));
                     break;
                 case EVENT:
-                    taskList.addTask(new EventTask(args.get(1), args.get(2), args.get(3)));
+                    startDate = LocalDate.parse(args.get(2), DukeDateFormats.DATE_ONLY.getFormatter());
+                    endDate = LocalDate.parse(args.get(3), DukeDateFormats.DATE_ONLY.getFormatter());
+                    taskList.addTask(new EventTask(args.get(1), startDate, endDate));
                     break;
                 case NULLCOMMAND:
                 default:
