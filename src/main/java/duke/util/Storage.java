@@ -3,8 +3,8 @@ package duke.util;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
-import duke.task.Todo;
 import duke.exception.DukeException;
+import duke.task.Todo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -156,31 +156,31 @@ public class Storage {
                 while ((line = fileReader.readLine()) != null) {
                     String[] formattedLine = line.split(" \\| ");
                     switch (formattedLine[0]) {
-                        case "T": {
-                            Task task = new Todo(formattedLine[2]);
-                            if (formattedLine[1].equals("1")) {
-                                task.setDone();
-                            }
-                            list.add(task);
-                            break;
+                    case "T": {
+                        Task task = new Todo(formattedLine[2]);
+                        if (formattedLine[1].equals("1")) {
+                            task.setDone();
                         }
-                        case "D": {
-                            Task task = new Deadline(formattedLine[2], formattedLine[3]);
-                            if (formattedLine[1].equals("1")) {
-                                task.setDone();
-                            }
-                            list.add(task);
-                            break;
+                        list.add(task);
+                        break;
+                    }
+                    case "D": {
+                        Task task = new Deadline(formattedLine[2], formattedLine[3]);
+                        if (formattedLine[1].equals("1")) {
+                            task.setDone();
                         }
-                        case "E": {
-                            Task task = new Event(formattedLine[2], formattedLine[3], formattedLine[4]);
-                            if (formattedLine[1].equals("1")) {
-                                task.setDone();
-                            }
-                            list.add(task);
-                            break;
+                        list.add(task);
+                        break;
+                    }
+                    case "E": {
+                        Task task = new Event(formattedLine[2], formattedLine[3], formattedLine[4]);
+                        if (formattedLine[1].equals("1")) {
+                            task.setDone();
                         }
-                        default: break;
+                        list.add(task);
+                        break;
+                    }
+                    default: break;
                     }
                 }
                 fileReader.close();

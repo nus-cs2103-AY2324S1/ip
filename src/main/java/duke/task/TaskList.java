@@ -68,9 +68,9 @@ public class TaskList {
             throw new DukeException("Invalid task number");
         } else {
             Task task = list.remove(taskNumber - 1);
-            System.out.printf("Noted. I've removed this task:\n" +
-                    "%s\n" + "Now you have %d tasks in the list.\n" +
-                    "----------\n", task, list.size());
+            System.out.printf("Noted. I've removed this task:\n"
+                    + "%s\n" + "Now you have %d tasks in the list.\n"
+                    + "----------\n", task, list.size());
         }
     }
 
@@ -80,11 +80,15 @@ public class TaskList {
      */
     public void addTask(Task task) {
         list.add(task);
-        System.out.printf("Got it. I've added this task:\n" +
-                "%s\n" + "Now you have %d tasks in the list.\n" +
-                "----------\n", task, list.size());
+        System.out.printf("Got it. I've added this task:\n"
+                + "%s\n" + "Now you have %d tasks in the list.\n"
+                + "----------\n", task, list.size());
     }
 
+    /**
+     * Finds tasks based on keyword.
+     * @param keyword Keyword to search for in tasks.
+     */
     public void findTasks(String keyword) {
         TaskList tasks = new TaskList(this.capacity);
         for (Task task: list) {
