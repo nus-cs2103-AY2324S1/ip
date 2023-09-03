@@ -63,6 +63,9 @@ public class Parser {
         if (input.equals("delete")) {
             return Command.DELETE;
         }
+        if (input.equals("find")) {
+            return Command.FIND;
+        }
         return Command.UNKNOWN;
     }
 
@@ -227,6 +230,10 @@ public class Parser {
                         String result = "    Waku waku! I've removed this task:\n" + t;
                         result += "    Now you have " + tasks.size() + " tasks in the list!";
                         System.out.println(result);
+                        break;
+                    }
+                    case FIND: {
+                        tasks.find(details);
                         break;
                     }
                     default:
