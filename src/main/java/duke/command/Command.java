@@ -1,8 +1,9 @@
 package duke.command;
-import duke.task.TaskList;
-import duke.task.DukeException;
-import duke.helper.Ui;
 import duke.helper.Storage;
+import duke.helper.Ui;
+import duke.task.DukeException;
+import duke.task.TaskList;
+
 
 /**
  * Abstract class Command to provide inheritance and allow for OOP for other Commands
@@ -14,7 +15,13 @@ public abstract class Command {
     /**
      * boolean to check if the command is an ExitCommand
      */
-    boolean isExit;
+    private boolean isExit;
+    /**
+     * Normal constructor for command to initialise the Command class
+     */
+    public Command() {
+        this.isExit = false;
+    }
 
     /**
      * Executes the Command specified in each subclass of Command
@@ -25,15 +32,8 @@ public abstract class Command {
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage store) throws DukeException;
 
-    /**
-     * Normal constructor for command to initialise the Command class
-     */
-    public Command() {
-        this.isExit = false;
-    }
 
     /**
-     *
      * @return returns if the command is an ExitCommand
      */
 

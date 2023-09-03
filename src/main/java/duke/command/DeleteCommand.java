@@ -1,5 +1,6 @@
 package duke.command;
 import java.io.IOException;
+
 import duke.helper.Storage;
 import duke.helper.Ui;
 import duke.task.DukeException;
@@ -15,7 +16,7 @@ public class DeleteCommand extends Command {
     /**
      * taskNum indicates the index in the TaskList class to delete
      */
-    int taskNum;
+    private final int taskNum;
 
     /**
      * Constructor for the DeleteCommand class that deletes the index in the TaskList

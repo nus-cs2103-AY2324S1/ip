@@ -10,9 +10,7 @@ public class TaskList {
      * field tasklist stores the ArrayList of tasks
      * field lines stores the String of lines
      */
-    ArrayList<Task> tasklist;
-    String LINES;
-
+    private ArrayList<Task> tasklist;
     /**
      * constructor for TaskList and initiates the lines
      */
@@ -28,7 +26,6 @@ public class TaskList {
     }
 
     /**
-     *
      * @param task takes in the task generated and stores into the ArrayList
      */
     public void addTask(Task task) {
@@ -36,7 +33,6 @@ public class TaskList {
     }
 
     /**
-     *
      * @param taskNumber takes in the index of the task to be marked as completed
      */
 
@@ -46,7 +42,6 @@ public class TaskList {
     }
 
     /**
-     *
      * @param taskNumber takes in the index of the tasknumber to be marked as uncompleted
      */
     public void unmarkTask(int taskNumber) {
@@ -55,7 +50,6 @@ public class TaskList {
     }
 
     /**
-     *
      * @param tasknumber takes in the index of the tasknumber to be deleted
      */
 
@@ -65,18 +59,22 @@ public class TaskList {
     }
 
     /**
-     *
      * @param taskNumber removes task at the given index
      */
 
     private void removeTask(int taskNumber) {
         this.tasklist.remove(taskNumber);
     }
+
+    /**
+     * searches the TaskList class for names with similar keyword in it
+     * @param keyword keyword to be used for finding through tass
+     * @return returns the string format of tasks with the matching keyword
+     */
     public String findTasks(String keyword) {
-//        System.out.println(this.LINES);
         String res = "";
         int foundcount = 0;
-        for (int i = 0; i < tasklist.size(); i ++) {
+        for (int i = 0; i < tasklist.size(); i++) {
             String check = tasklist.get(i).toString();
             if (check.contains(keyword)) {
                 res += "\n";
@@ -88,7 +86,6 @@ public class TaskList {
     }
 
     /**
-     *
      * @return String format for the TaskList given to be procesed by txt file
      */
 
@@ -97,7 +94,8 @@ public class TaskList {
         int taskNumber = 1;
         while (taskNumber < tasklist.size() + 1) {
             Task task = tasklist.get(taskNumber - 1);
-            String txtformat = task.completed + "|" + task.toString() + "|" + task.type + "|" + task.ogName + "\n";
+            String txtformat = task.isCompleted() + "|" + task.toString() + "|" + task.getType() + "|"
+                    + task.getOgName() + "\n";
             res += txtformat;
             taskNumber++;
         }
