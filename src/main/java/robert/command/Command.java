@@ -3,25 +3,23 @@ package robert.command;
 import robert.exception.RobertException;
 import robert.storage.Storage;
 import robert.task.TaskList;
-import robert.ui.Ui;
 
 /**
- * The base class for commands.
+ * The base abstract class for commands.
  *
  * @author Lee Zhan Peng
  */
-public class Command {
+public abstract class Command {
 
     /**
-     * Executes the intended task for its subclass.
+     * Abstract method that executes the intended task for its subclass.
      *
      * @param tasks the list of tasks to be added onto.
-     * @param ui the ui that is responsible for the output of the CLI.
      * @param storage the storage that loads stored tasks from hard disk.
+     * @return String of output message.
      * @throws RobertException to allow subclasses to override the function with the throw property.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws RobertException {
-    }
+    public abstract String execute(TaskList tasks, Storage storage) throws RobertException;
 
     /**
      * Retrieves a boolean on whether the Command is an Exit Command.

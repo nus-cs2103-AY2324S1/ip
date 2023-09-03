@@ -3,7 +3,6 @@ package robert.command;
 import robert.exception.RobertException;
 import robert.storage.Storage;
 import robert.task.TaskList;
-import robert.ui.Ui;
 
 /**
  * An Unmark extension of the <tt>Command</tt> class. Used to unmark
@@ -29,14 +28,14 @@ public class UnmarkCommand extends Command {
      * Executes the unmarking of the particular task.
      *
      * @param tasks the list of tasks to be added onto.
-     * @param ui the ui that is responsible for the output of the CLI.
      * @param storage the storage that loads stored tasks from hard disk.
+     * @return String of output message.
      * @throws RobertException if index is out of bounds of the list of tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws RobertException {
+    public String execute(TaskList tasks, Storage storage) throws RobertException {
         tasks.unmarkTask(this.unmarkIndex);
-        ui.showMessage("Ok, I've marked this task as not done yet:\n  "
-                + tasks.getTask(this.unmarkIndex));
+        return "Ok, I've marked this task as not done yet:\n  "
+                + tasks.getTask(this.unmarkIndex);
     }
 }

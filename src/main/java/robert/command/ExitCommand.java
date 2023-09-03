@@ -3,7 +3,6 @@ package robert.command;
 import robert.exception.RobertException;
 import robert.storage.Storage;
 import robert.task.TaskList;
-import robert.ui.Ui;
 
 /**
  * An Exit extension of the <tt>Command</tt> class. Used to indicate the exit of
@@ -14,19 +13,6 @@ import robert.ui.Ui;
 public class ExitCommand extends Command {
 
     /**
-     * Executes the display of exit message.
-     *
-     * @param tasks the list of tasks to be added onto.
-     * @param ui the ui that is responsible for the output of the CLI.
-     * @param storage the storage that loads stored tasks from hard disk.
-     * @throws RobertException as a mean of overriding the function.
-     */
-    @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws RobertException {
-        ui.showMessage("Goodbye. Hope to see you again soon!");
-    }
-
-    /**
      * Retrieves a boolean on whether the Command is an Exit Command.
      *
      * @return true.
@@ -34,5 +20,18 @@ public class ExitCommand extends Command {
     @Override
     public boolean isExit() {
         return true;
+    }
+
+    /**
+     * Executes the display of exit message.
+     *
+     * @param tasks the list of tasks to be added onto.
+     * @param storage the storage that loads stored tasks from hard disk.
+     * @return String of output message.
+     * @throws RobertException as a mean of overriding the function.
+     */
+    @Override
+    public String execute(TaskList tasks, Storage storage) throws RobertException {
+        return "Goodbye. Hope to see you again soon! Closing in a few seconds...";
     }
 }

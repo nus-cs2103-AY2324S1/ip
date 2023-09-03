@@ -4,7 +4,6 @@ import robert.exception.RobertException;
 import robert.storage.Storage;
 import robert.task.Task;
 import robert.task.TaskList;
-import robert.ui.Ui;
 
 /**
  * A Find extension of the <tt>Command</tt> class. Used to find tasks
@@ -30,12 +29,12 @@ public class FindCommand extends Command {
      * Executes the finding of associated tasks.
      *
      * @param tasks the list of tasks to be added onto.
-     * @param ui the ui that is responsible for the output of the CLI.
      * @param storage the storage that loads stored tasks from hard disk.
+     * @return String of output message.
      * @throws RobertException as a mean of overriding the function.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws RobertException {
+    public String execute(TaskList tasks, Storage storage) throws RobertException {
         int taskIndex = 0;
         StringBuilder taskListing = new StringBuilder("Below is/are the task(s) associated with '"
                 + this.keyword + "':\n");
@@ -47,12 +46,11 @@ public class FindCommand extends Command {
         }
 
         if (taskIndex != 0) {
-            ui.showMessage(taskListing.toString());
-            return;
+            return taskListing.toString();
         }
 
-        ui.showMessage("Sorry, there are no tasks that are associated with '"
-                + this.keyword + "'.");
+        return "Sorry, there are no tasks that are associated with '"
+                + this.keyword + "'.";
     }
 
 }

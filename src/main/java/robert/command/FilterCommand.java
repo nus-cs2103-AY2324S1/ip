@@ -9,7 +9,6 @@ import robert.task.Deadline;
 import robert.task.Event;
 import robert.task.Task;
 import robert.task.TaskList;
-import robert.ui.Ui;
 
 /**
  * A Filter extension of the <tt>Command</tt> class. Used to filter out
@@ -35,12 +34,12 @@ public class FilterCommand extends Command {
      * Executes the filtering of tasks.
      *
      * @param tasks the list of tasks to be added onto.
-     * @param ui the ui that is responsible for the output of the CLI.
      * @param storage the storage that loads stored tasks from hard disk.
+     * @return String of output message.
      * @throws RobertException as a mean of overriding the function.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws RobertException {
+    public String execute(TaskList tasks, Storage storage) throws RobertException {
 
         int deadlineIndex = 0;
         StringBuilder deadlinesOnDate = new StringBuilder();
@@ -61,9 +60,8 @@ public class FilterCommand extends Command {
         }
 
         if (deadlineIndex == 0 && eventIndex == 0) {
-            ui.showMessage("There are no tasks that are due and happening on "
-                    + this.date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ".");
-            return;
+            return "There are no tasks that are due and happening on "
+                    + this.date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ".";
         }
 
         String output = "";
@@ -79,6 +77,6 @@ public class FilterCommand extends Command {
                     + " happening on " + this.date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":\n";
         }
         output += eventsHappeningOnDate.toString();
-        ui.showMessage(output);
+        return output;
     }
 }
