@@ -137,6 +137,8 @@ public class Jeeves {
                 tasks.addTaskAtIndex(Task.getTaskCount(), newEvent);
                 System.out.println("Event added:\n" +
                         "    " + newEvent + "\n");
+            } else if (currentCommand.equals("find")) {
+                tasks.searchFor(tokens.get(1));
             } else if (currentCommand.equals("bye")) {
                 // Before the actual termination of the program, writes the current task list to the external file.
                 storage.writeTasklistToFile(tasks.getTaskListDataAsString());
