@@ -3,6 +3,8 @@ package duke;
 import exceptions.ParserException;
 import io.Parser;
 import io.Ui;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import storage.Storage;
 import tasks.Task;
@@ -111,6 +113,21 @@ public class Duke {
         }
     }
 
+    public void findTask() {
+        System.out.println("finding task!");
+        String name = parser.getTaskName();
+        List<Task> tasks = taskList.findTasks(name);
+
+        System.out.println("Found:");
+        for (int i = 0; i < tasks.size(); i++) {
+
+            String index = Integer.toString(i + 1);
+            Task selectedTask = tasks.get(i);
+            System.out.println(index + " " + ui.displayTask(selectedTask));
+
+        }
+    }
+
     public void run() {
 
         ui.displayGreetings();
@@ -158,6 +175,10 @@ public class Duke {
                 }
                 case "delete": {
                     deleteTask();
+                    break;
+                }
+                case "find": {
+                    findTask();
                     break;
                 }
                 default:

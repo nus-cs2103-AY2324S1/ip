@@ -1,7 +1,10 @@
 package tasks;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import tasks.Task;
 
 
@@ -9,6 +12,15 @@ public class TaskList {
 
     public TaskList() {
         tasks = new ArrayList<>();
+    }
+
+    @JsonIgnore
+    public List<Task> findTasks(String description) {
+        List<Task> output;
+        output = tasks.stream().filter(task -> task.getDescription().contains(description)).collect(
+            Collectors.toList());
+
+        return output;
     }
 
     @JsonIgnore
