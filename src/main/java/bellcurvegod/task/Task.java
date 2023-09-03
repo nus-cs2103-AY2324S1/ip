@@ -1,3 +1,5 @@
+package bellcurvegod.task;
+
 /**
  * A class encapsulating tasks.
  */
@@ -30,6 +32,15 @@ public class Task {
      */
     public void markAsNotDone() {
         this.isDone = false;
+    }
+
+    /**
+     * Returns a string representing the task for storage.
+     * @return a string representing the task for storage
+     */
+    public String getDataRepresentation() {
+        String binaryStatus = this.isDone ? "1" : "0";
+        return binaryStatus + "|" + this.description;
     }
 
     /**

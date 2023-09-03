@@ -1,5 +1,9 @@
+package bellcurvegod.task;
+
+import bellcurvegod.exception.EmptyDeadlineDescriptionException;
+import bellcurvegod.ui.Ui;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,10 +30,10 @@ public class Deadline extends Task {
     public static Deadline generateDeadlineFromInput(String input) throws EmptyDeadlineDescriptionException {
         if (input.split(" ").length == 1) {
             throw new EmptyDeadlineDescriptionException(
-                    Action.HORIZONTAL_LINE + "\n" +
+                    Ui.getLine() + "\n" +
                             "You did not provide any description to this Deadline.\n" +
                             "To add a Deadline, enter \"deadline <description> /by <yyyy-mm-dd>\".\n" +
-                            Action.HORIZONTAL_LINE);
+                            Ui.getLine());
         }
 
         String front = input.split("/")[0];
@@ -53,6 +57,11 @@ public class Deadline extends Task {
         }
 
         return new Deadline(des, deadline);
+    }
+
+    @Override
+    public String getDataRepresentation() {
+        return "D|" + super.getDataRepresentation() + "|" + this.by;
     }
 
     @Override

@@ -1,5 +1,9 @@
+package bellcurvegod.task;
+
+import bellcurvegod.exception.EmptyEventDescriptionException;
+import bellcurvegod.ui.Ui;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,13 +30,13 @@ public class Event extends Task {
      * @param input input entered by user.
      * @return an Event.
      */
-    public static Event generateEventFromInput(String input) throws EmptyEventDescriptionException{
+    public static Event generateEventFromInput(String input) throws EmptyEventDescriptionException {
         if (input.split(" ").length == 1) {
             throw new EmptyEventDescriptionException(
-                    Action.HORIZONTAL_LINE + "\n" +
+                    Ui.getLine() + "\n" +
                     "You did not provide any description to this Event.\n" +
                     "To add an Event, enter \"event <description> /from <startTime> /to <endTime>\".\n" +
-                    Action.HORIZONTAL_LINE);
+                            Ui.getLine());
         }
 
         String[] wordsSplitBySlash = input.split("/");
@@ -64,6 +68,11 @@ public class Event extends Task {
         }
 
         return new Event(des, from, to);
+    }
+
+    @Override
+    public String getDataRepresentation() {
+        return "D|" + super.getDataRepresentation() + "|" + this.from + "|" + this.to;
     }
 
     @Override
