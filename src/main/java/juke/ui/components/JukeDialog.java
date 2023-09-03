@@ -1,22 +1,33 @@
 package juke.ui.components;
 
-import java.util.Objects;
-
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import juke.Juke;
+import juke.exceptions.JukeInitialisationException;
 
 /**
  * Represents a dialog box containing Juke's response.
  */
 public class JukeDialog extends DialogBox {
-    /** The background color of the dialog box. */
-    private static final Color JUKE_COLOR = Color.LIGHTBLUE;
-
-    /** The profile image for Juke. */
+    /** Container for the dialog box contents. */
     @FXML
-    private static final Image JUKE_IMAGE = new Image(Objects.requireNonNull(
-            JukeDialog.class.getResourceAsStream("/images/DaDuke.png")));
+    private StackPane dialogBubble;
+
+    /** Background of the dialog box contents. */
+    @FXML
+    private Region backgroundRegion;
+
+    /** Text within the dialog box. */
+    @FXML
+    private Label textLabel;
+
+    /** Profile image to display in the chat. */
+    @FXML
+    private ImageView displayImage;
 
     /**
      * Constructs an instance of {@code JukeDialog}.
@@ -24,8 +35,20 @@ public class JukeDialog extends DialogBox {
      * @param text Text to display in the dialog box
      */
     public JukeDialog(String text) {
-        super(text, JukeDialog.JUKE_IMAGE);
-        this.setDialogBubbleColor(JukeDialog.JUKE_COLOR);
-        this.flip();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Juke.class.getResource("/view/JukeDialog.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+
+            textLabel.setText(text);
+            this.backgroundRegion.maxHeightProperty().bind(this.textLabel.heightProperty().add(25.0d));
+            this.backgroundRegion.minHeightProperty().bind(this.textLabel.heightProperty().add(25.0d));
+            this.backgroundRegion.minWidthProperty().bind(this.textLabel.widthProperty().add(25.0d));
+            this.backgroundRegion.maxWidthProperty().bind(this.textLabel.widthProperty().add(25.0d));
+        } catch (Exception e) {
+            throw new JukeInitialisationException("I cannot initialise! There was an issue loading the necessary "
+                                                          + "FXML files to load up the GUI!");
+        }
     }
 }

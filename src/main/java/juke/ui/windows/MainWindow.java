@@ -1,4 +1,4 @@
-package juke.ui.components;
+package juke.ui.windows;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,6 +16,7 @@ import juke.exceptions.storage.JukeStorageException;
 import juke.responses.Response;
 import juke.storage.Storage;
 import juke.tasks.TaskList;
+import juke.ui.components.DialogBox;
 
 /**
  * Controller class for the main window of the application.

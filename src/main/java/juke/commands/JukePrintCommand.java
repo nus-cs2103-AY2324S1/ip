@@ -1,9 +1,7 @@
 package juke.commands;
 
-import juke.Juke;
 import juke.core.JukeObject;
 import juke.responses.Response;
-import juke.utils.StringUtils;
 
 /**
  * Action that invokes a print action on the command line.

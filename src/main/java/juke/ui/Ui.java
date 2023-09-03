@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import juke.exceptions.JukeInitialisationException;
-import juke.ui.components.MainWindow;
+import juke.ui.windows.MainWindow;
 
 /**
  * User interface of Juke. Extends {@link Application} to allow
@@ -31,7 +31,7 @@ public class Ui extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Ui.class.getResource("/view/MainWindowController.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Ui.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
