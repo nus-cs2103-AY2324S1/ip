@@ -35,6 +35,20 @@ public class Duke {
     }
 
     /**
+     * Constructor for Duke
+     */
+    public Duke() {
+        ui = new Ui();
+        storage = new Storage("data/tasks.txt");
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
+
+    /**
      * Runs the chatbot.
      */
     public void run() {
@@ -52,6 +66,16 @@ public class Duke {
             } finally {
                 ui.showLine();
             }
+        }
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+            return ui.getOutput();
+        } catch (DukeException e) {
+            return e.getMessage();
         }
     }
     public static void main(String[] args) {
