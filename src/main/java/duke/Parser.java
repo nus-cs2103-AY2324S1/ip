@@ -23,6 +23,10 @@ public class Parser {
             int i = Integer.parseInt(num);
             return new DeleteCommand(i - 1);
 
+        } else if (input.startsWith("find")) {
+            String keyword = input.substring(5);
+            return new FindCommand(keyword);
+
         } else {
             return new AddCommand(input);
         }

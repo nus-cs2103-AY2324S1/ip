@@ -74,6 +74,14 @@ public class Ui {
         System.out.println(index + ". " + t.toString());
     }
 
+    public void showMatchingTasks(TaskList tasks) {
+        System.out.println("____________________________________________________________\n"
+                + "Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.total(); i++) {
+            System.out.println(tasks.get(i).toString());
+        }
+    }
+
     public void showError(String errorMsg) {
         System.out.println("____________________________________________________________\n"
                 + errorMsg + "\n"
