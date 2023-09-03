@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.Task;
+
 import java.io.Serializable;
 public class Ui implements Serializable{
     String name = "Harry Potter";

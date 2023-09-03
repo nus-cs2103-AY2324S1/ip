@@ -1,6 +1,8 @@
-//The Task class is in charge of creating task objects
+package duke.task;
+
+//The duke.task.Task class is in charge of creating task objects
 //which can be of different types: ToDos, Deadlines and Events
-abstract class Task{
+public abstract class Task{
     protected String description;
     protected boolean isDone;
     public Task(String description) {

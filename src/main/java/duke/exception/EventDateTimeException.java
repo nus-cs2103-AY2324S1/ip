@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class EventDateTimeException extends Exception {
     public EventDateTimeException(String message) {
         super(message + ":" + "\n\tAccio error! I don't know what that means D: Please provide valid date inputs for events" +

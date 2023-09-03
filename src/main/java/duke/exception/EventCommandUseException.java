@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class EventCommandUseException extends Exception{
     public EventCommandUseException(String message) {
         super(message + ":" + "\n\tAccio error! Invalid input as when the event starts " +

@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.Scanner;
 
 //This class has a chatbot which will generate a list based on a set of tasks

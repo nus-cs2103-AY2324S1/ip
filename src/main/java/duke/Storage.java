@@ -1,3 +1,10 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 import java.io.*;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -5,8 +12,8 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-//The Storage class is in charge of writing and reading the tasklists
-//from the Duke.txt file
+//The duke.Storage class is in charge of writing and reading the tasklists
+//from the duke.Duke.txt file
 public class Storage implements Serializable{
     private static final long serialVersionUID = 3017522968017487738L;
 

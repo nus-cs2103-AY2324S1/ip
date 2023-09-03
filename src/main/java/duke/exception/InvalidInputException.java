@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class InvalidInputException extends Exception {
     public InvalidInputException(String message) {
         super(message + ":" + "\n\tAccio error! I don't know what the input means D: Please enter valid inputs. Below are the valid" +
