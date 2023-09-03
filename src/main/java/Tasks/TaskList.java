@@ -1,11 +1,14 @@
+package Tasks;
+
 import java.util.ArrayList;
 
 public class TaskList {
     protected ArrayList<Task> tasks;
 
-    public TaskList(int size) {
-        this.tasks = new ArrayList<>(size);
+    public TaskList(ArrayList<Task> taskList) {
+        this.tasks = taskList;
     }
+
 
     public void addTask(Task task) {
         this.tasks.add(task);
@@ -41,18 +44,23 @@ public class TaskList {
         try {
             Integer.parseInt(text);
         } catch (NumberFormatException e) {
-            System.out.printf("Task index: '%s' is invalid, task index has to be an integer.\n", text);
-            return false;
+            System.out.printf("Tasks.Task index: '%s' is invalid, task index has to be an integer.\n", text);
+            return true;
         }
 
         index = Integer.parseInt(text);
 
         if (index < 1 || index > this.tasks.size()) {
-            System.out.printf("Task index: '%s' is invalid, task index has to be in list.\n", text);
-            return false;
+            System.out.printf("Tasks.Task index: '%s' is invalid, task index has to be in list.\n", text);
+            return true;
         }
 
-        return true;
+        return false;
+    }
+
+    public Task[] getTasks() {
+        Task[] taskArray = new Task[this.tasks.size()];
+        return this.tasks.toArray(taskArray);
     }
 
     public void listAllTasks() {

@@ -1,3 +1,7 @@
+package Tasks;
+
+import enums.TaskType;
+
 public class DeadlineTask extends Task {
 
     protected String deadline;
@@ -7,13 +11,11 @@ public class DeadlineTask extends Task {
         this.deadline = deadline;
     }
 
-    String DEADLINE_TASK_TYPE = "[D]";
-
     public String getDeadline() {
         return String.format(" (by: %s)", this.deadline);
     }
 
     public String toString() {
-        return DEADLINE_TASK_TYPE + super.toString() + this.getDeadline();
+        return TaskType.DEADLINE.toSymbol() + super.toString() + this.getDeadline();
     }
 }
