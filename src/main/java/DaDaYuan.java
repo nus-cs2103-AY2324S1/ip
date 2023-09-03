@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class DaDaYuan {
 
-    private static class Task {
+    private static abstract class Task {
         String description;
         boolean isDone;
 
@@ -21,9 +21,47 @@ public class DaDaYuan {
             this.isDone = false;
         }
 
+        public abstract String toString();
+    }
+
+    private static class Todo extends Task {
+        Todo(String description) {
+            super(description);
+        }
+
         @Override
         public String toString() {
-            return "[" + (isDone ? "X" : " ") + "] " + description;
+            return "[T][" + (isDone ? "X" : " ") + "] " + description;
+        }
+    }
+
+    private static class Deadline extends Task {
+        String by;
+
+        Deadline(String description, String by) {
+            super(description);
+            this.by = by;
+        }
+
+        @Override
+        public String toString() {
+            return "[D][" + (isDone ? "X" : " ") + "] " + description + " (by: " + by + ")";
+        }
+    }
+
+    private static class Event extends Task {
+        String from;
+        String to;
+
+        Event(String description, String from, String to) {
+            super(description);
+            this.from = from;
+            this.to = to;
+        }
+
+        @Override
+        public String toString() {
+            return "[E][" + (isDone ? "X" : " ") + "] " + description + " (from: " + from + " to: " + to + ")";
         }
     }
 
@@ -51,23 +89,25 @@ public class DaDaYuan {
                 for (int i = 0; i < tasks.size(); i++) {
                     System.out.println((i + 1) + "." + tasks.get(i));
                 }
-            } else if (input.startsWith("mark")) {
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                if (index >= 0 && index < tasks.size()) {
-                    tasks.get(index).markAsDone();
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("   " + tasks.get(index));
-                }
-            } else if (input.startsWith("unmark")) {
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                if (index >= 0 && index < tasks.size()) {
-                    tasks.get(index).unmark();
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("   " + tasks.get(index));
-                }
-            } else {
-                tasks.add(new Task(input));
-                System.out.println("added: " + input);
+            } else if (input.startsWith("todo")) {
+                String description = input.substring(5);
+                tasks.add(new Todo(description));
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (input.startsWith("deadline")) {
+                String[] parts = input.split(" /by ");
+                String description = parts[0].substring(9);
+                tasks.add(new Deadline(description, parts[1]));
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (input.startsWith("event")) {
+                String[] parts = input.split(" /from | /to ");
+                tasks.add(new Event(parts[0].substring(6), parts[1], parts[2]));
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             }
 
             System.out.println(line);
@@ -76,5 +116,3 @@ public class DaDaYuan {
         scanner.close();
     }
 }
-
-
