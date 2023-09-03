@@ -15,7 +15,8 @@ public class Parser {
      * @param input User command
      * @param list Task is added into list
      */
-    public void parse(String input, TaskList list) {
+
+    public static void parse(String input, TaskList list) {
         try {
             if (input.equals("list")) {
                 list.printList();
