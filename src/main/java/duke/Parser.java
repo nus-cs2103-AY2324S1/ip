@@ -9,7 +9,6 @@ import java.time.format.DateTimeFormatter;
 
 public class Parser {
     public Parser() {
-
     }
 
     public static String taskData(Task task) {
