@@ -1,4 +1,4 @@
-package buddy;
+package buddy.utils;
 
 public class BuddyException extends Exception {
 

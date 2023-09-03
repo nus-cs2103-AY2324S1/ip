@@ -1,14 +1,16 @@
 package buddy;
 
+import buddy.utils.BuddyException;
+
 import java.io.*;
 import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> tasks;
-    private String filePath = "./data/tasks.txt";
+    private final String filePath = "./data/tasks.txt";
 
     public TaskList() {
-        tasks = new ArrayList<>();
+        tasks = new ArrayList<Task>();
     }
 
     public Task getTask(int taskIndex) {
@@ -121,57 +123,57 @@ public class TaskList {
         }
     }
 
-    public void saveTasks() {
-        try {
-            FileWriter fileWriter = new FileWriter(filePath);
-            for (Task task : tasks) {
-                fileWriter.write(task.toSaveFileFormat() + "\n");
-            }
-            fileWriter.close();
-        } catch (IOException e) {
-            System.out.println("Error saving tasks to file: " + e.getMessage());
-        }
-    }
-
-    public void loadTasks() {
-        try {
-            File file = new File(filePath);
-            if (file.exists()) {
-                BufferedReader reader = new BufferedReader(new FileReader(file));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    parseTask(line);
-                }
-                reader.close();
-            }
-        } catch (IOException | BuddyException e) {
-            System.out.println("Error loading tasks from file: " + e.getMessage());
-        }
-    }
-
-    private void parseTask(String line) throws BuddyException {
-        String[] parts = line.split(" \\| ");
-        String taskType = parts[0];
-        boolean isDone = parts[1].equals("1");
-        String description = parts[2];
-
-        switch (taskType) {
-            case "T":
-                addTask(new Todo(description, isDone));
-                break;
-
-            case "D":
-                String deadlineBy = parts[3];
-                addTask(new Deadline(description, deadlineBy, isDone));
-                break;
-
-            case "E":
-                String start = parts[3];
-                String end = parts[4];
-                addTask(new Event(description, start, end, isDone));
-                break;
-        }
-    }
+//    public void saveTasks() {
+//        try {
+//            FileWriter fileWriter = new FileWriter(filePath);
+//            for (Task task : tasks) {
+//                fileWriter.write(task.toSaveFileFormat() + "\n");
+//            }
+//            fileWriter.close();
+//        } catch (IOException e) {
+//            System.out.println("Error saving tasks to file: " + e.getMessage());
+//        }
+//    }
+//
+//    public void loadTasks() {
+//        try {
+//            File file = new File(filePath);
+//            if (file.exists()) {
+//                BufferedReader reader = new BufferedReader(new FileReader(file));
+//                String line;
+//                while ((line = reader.readLine()) != null) {
+//                    parseTask(line);
+//                }
+//                reader.close();
+//            }
+//        } catch (IOException | BuddyException e) {
+//            System.out.println("Error loading tasks from file: " + e.getMessage());
+//        }
+//    }
+//
+//    private void parseTask(String line) throws BuddyException {
+//        String[] parts = line.split(" \\| ");
+//        String taskType = parts[0];
+//        boolean isDone = parts[1].equals("1");
+//        String description = parts[2];
+//
+//        switch (taskType) {
+//            case "T":
+//                addTask(new Todo(description, isDone));
+//                break;
+//
+//            case "D":
+//                String deadlineBy = parts[3];
+//                addTask(new Deadline(description, deadlineBy, isDone));
+//                break;
+//
+//            case "E":
+//                String start = parts[3];
+//                String end = parts[4];
+//                addTask(new Event(description, start, end, isDone));
+//                break;
+//        }
+//    }
 
     @Override
     public String toString() {

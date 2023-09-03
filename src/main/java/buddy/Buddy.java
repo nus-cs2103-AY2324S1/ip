@@ -1,30 +1,30 @@
 package buddy;
 
-import java.util.ArrayList;
+import buddy.utils.BuddyException;
+import buddy.utils.Storage;
+import buddy.utils.Ui;
+
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Buddy {
     private static String name = "Task Buddy";
-    private List<Task> taskList;
-    private final String filePath = "./data/tasks.txt";
+    private static Storage storage;
 
     public static void main(String[] args) throws BuddyException {
-        String greeting = String.format("Hello! I'm %s\n", name);
-        String inquiry = "What would you like to do?\n";
-        String exit = "Bye. Hope to see you again soon!\n";
 
         Scanner scanner = new Scanner(System.in);
         String command;
-        TaskList tasks = new TaskList();
-        tasks.loadTasks();
 
-        System.out.println(greeting + inquiry);
+        TaskList tasks = storage.readFile();
+
+        Ui.printGreeting(name);
 
         while (true) {
             command = scanner.nextLine();
             if (command.equalsIgnoreCase("bye")) {
-                System.out.println(exit);
+                Ui.printFarewell();
                 break;
             }
             if (command.equalsIgnoreCase("list")) {
@@ -38,15 +38,15 @@ public class Buddy {
                     // Task thisTask = tasks.getTask(taskIndex);
                     if (command.startsWith("mark")) {
                         tasks.markAsDone(taskIndex);
-                        tasks.saveTasks();
+                        storage.writeToFile(tasks);
                     }
                     if (command.startsWith("unmark")) {
                         tasks.markAsNotDone(taskIndex);
-                        tasks.saveTasks();
+                        storage.writeToFile(tasks);
                     }
                     if (command.startsWith("delete")) {
                         tasks.deleteTask(taskIndex);
-                        tasks.saveTasks();
+                        storage.writeToFile(tasks);
                     }
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Invalid task number.");
@@ -54,7 +54,7 @@ public class Buddy {
 
             } else {
                 tasks.processCommand(command);
-                tasks.saveTasks();
+                storage.writeToFile(tasks);
             }
         }
     }

@@ -1,2 +1,5 @@
-package buddy;public class CommandType {
+package buddy;
+
+public enum CommandType {
+    BYE, LIST, MARK, UNMARK, DELETE
 }
