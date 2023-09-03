@@ -33,6 +33,8 @@ public class Parser {
             return new UnmarkCommand(Integer.parseInt(split[1]) - 1);
         } else if (split[0].equals("delete")) {
             return new DeleteCommand(Integer.parseInt(split[1]) - 1);
+        } else if (split[0].equals(("find"))) {
+            return new FindCommand(split[1]);
         } else {
             throw new AllyException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

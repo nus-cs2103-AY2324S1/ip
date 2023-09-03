@@ -29,7 +29,6 @@ public class MarkCommand extends Commands {
     public void run(AllyList allyList, Ui ui, Storage storage) {
         try {
             Task task = allyList.getTask(index);
-            allyList.markAsDone(index);
             ui.showMarked(task);
             storage.appendToFile(task);
         } catch (AllyException e) {

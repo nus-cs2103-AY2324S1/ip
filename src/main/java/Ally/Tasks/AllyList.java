@@ -69,4 +69,5 @@ public class AllyList {
         arr.remove(index);
     }
 
+
 }

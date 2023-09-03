@@ -4,6 +4,7 @@ import Ally.Exceptions.AllyException;
 import Ally.Tasks.AllyList;
 import Ally.Tasks.Task;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -54,12 +55,10 @@ public class Ui {
      * @param allyList
      */
     public void showList(AllyList allyList) {
-        showLine();
         System.out.println("Here are the tasks in your list:\n");
         for (int i = 0, len = allyList.getSize(); i < len; i++) {
             System.out.println((i + 1) +". " + allyList.getTask(i).toString());
         }
-        showLine();
     }
 
     /**
@@ -69,11 +68,9 @@ public class Ui {
      * @param total
      */
     public void showDelete(Task task, int total) {
-        showLine();
         System.out.println("Noted. I've removed this task:");
         System.out.println("\t" + task);
         System.out.println("Now you have " + total + " tasks in the list.");
-        showLine();
     }
 
     /**
@@ -114,5 +111,12 @@ public class Ui {
      */
     public void showError(String message) {
         System.out.println(message);
+    }
+
+    public void showMatchingTask(ArrayList<Task> tasks) {
+        System.out.println("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("\t" + (i + 1) + ". " + tasks.get(i));
+        }
     }
 }
