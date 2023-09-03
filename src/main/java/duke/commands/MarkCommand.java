@@ -28,7 +28,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(Tasks tasks, Ui ui, Storage storage, boolean isRestoring) throws DukeException {
+    public String execute(Tasks tasks, Ui ui, Storage storage, boolean isRestoring) throws DukeException {
         Task task = tasks.getTaskByIndex(this.target);
         if (task == null) {
             throw new InvalidCommandException();
@@ -37,8 +37,11 @@ public class MarkCommand extends Command {
         task.setMarked(this.isMarked);
         storage.save(tasks);
 
+        String output = "";
         if (!isRestoring) {
-            ui.showSuccessMark(this.isMarked, task);
+            output += ui.showSuccessMark(this.isMarked, task);
         }
+
+        return output;
     }
 }
