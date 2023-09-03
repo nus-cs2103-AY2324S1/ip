@@ -28,7 +28,7 @@ public abstract class Command {
      * @throws CommandDetailException If there is an issue with the details or parameters of the command.
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage)
-            throws StorageException, CommandDetailException;
+        throws StorageException, CommandDetailException;
 
     /**
      * Checks if the command instructs the application to exit.
