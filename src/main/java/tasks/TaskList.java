@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import tasks.Task;
 
 
+/**
+ * The TaskList class is a arraylist of Tasks.
+ */
 public class TaskList {
 
   public TaskList() {

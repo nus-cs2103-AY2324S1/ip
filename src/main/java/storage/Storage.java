@@ -16,6 +16,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import tasks.Task;
 import tasks.TaskList;
 
+/**
+ * This class handles the loading and saving of tasks to a JSON file.
+ */
 public class Storage {
 
   private TaskList taskList;

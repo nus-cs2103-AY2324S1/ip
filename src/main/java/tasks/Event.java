@@ -3,6 +3,9 @@ package tasks;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import tasks.Task;
 
+/**
+ * The Event class represents an event. It has a name, a start and end time.
+ */
 @JsonTypeName("tasks.Event")
 public class Event extends Task {
 

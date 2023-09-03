@@ -5,6 +5,9 @@ import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
+/**
+ * The Ui class displays information to the user
+ */
 public class Ui {
 
   /**

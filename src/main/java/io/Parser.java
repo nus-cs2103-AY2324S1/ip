@@ -10,6 +10,9 @@ import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 
+/**
+ * The Parser class handles user input from the command line.
+ */
 public class Parser {
 
   public Parser() {
