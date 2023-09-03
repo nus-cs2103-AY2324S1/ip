@@ -1,5 +1,4 @@
 public class AddEventCommand extends Command {
-    boolean isExit = false;
     String allDetails;
     public AddEventCommand(String[] commandInputs) throws BareumException {
         if (commandInputs.length <= 1) {

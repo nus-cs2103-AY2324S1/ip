@@ -1,7 +1,5 @@
 public class AddTodoCommand extends Command {
-    boolean isExit = false;
     String description;
-
 
     public AddTodoCommand(String[] commandInputs) throws BareumException {
         if (commandInputs.length <= 1) {

@@ -16,7 +16,9 @@ public class Bareum {
                 String input = ui.getUserInput();
                 Command cmd = parser.parse(input);
                 cmd.execute(ui, storage, taskList);
-                isExit = cmd.isExit();
+                if (cmd instanceof ByeCommand) {
+                    isExit = true;
+                }
             } catch (BareumException e) {
                 System.out.println(e.getMessage());
             }

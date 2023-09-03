@@ -1,5 +1,4 @@
 public class UnmarkCommand extends Command {
-    boolean isExit = false;
     private int index;
 
     public UnmarkCommand(int index) {

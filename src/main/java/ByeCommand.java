@@ -1,5 +1,4 @@
 public class ByeCommand extends Command {
-    boolean isExit = true;
     public ByeCommand() {
 
     }

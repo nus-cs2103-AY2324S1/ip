@@ -1,7 +1,4 @@
-import java.time.LocalDate;
-
 public class AddDeadlineCommand extends Command {
-    boolean isExit = false;
     String allDetails;
 
 

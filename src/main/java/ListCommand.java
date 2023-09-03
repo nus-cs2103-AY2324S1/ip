@@ -1,5 +1,4 @@
 public class ListCommand extends Command {
-    boolean isExit = false;
 
     public ListCommand() {
     }

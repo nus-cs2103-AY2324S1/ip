@@ -1,5 +1,4 @@
 public class DeleteCommand extends Command {
-    boolean isExit = false;
     private int index;
 
     public DeleteCommand(int index) {

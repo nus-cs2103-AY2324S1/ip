@@ -1,5 +1,4 @@
 public class MarkCommand extends Command {
-    boolean isExit = false;
     private int index;
 
     public MarkCommand(int index) {
