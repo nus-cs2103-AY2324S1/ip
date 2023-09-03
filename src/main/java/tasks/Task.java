@@ -31,6 +31,11 @@ public class Task {
         return (isDone ? "X" : "");
     }
 
+
+    public String getTaskDescription() {
+        return this.text;
+    }
+
     /**
      * Sets the completion status of the task.
      *
