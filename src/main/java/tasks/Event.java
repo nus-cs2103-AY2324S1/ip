@@ -1,7 +1,10 @@
-import java.time.LocalDate;
+package tasks;
+
+import tasks.Task;
+
 import java.time.LocalDateTime;
 
-public class Event extends UserInput {
+public class Event extends Task {
 
     protected LocalDateTime from;
     protected LocalDateTime to;
