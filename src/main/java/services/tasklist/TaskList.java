@@ -1,7 +1,9 @@
 package services.tasklist;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import command.CommandType;
-import services.TextUi;
 import services.bizerrors.EmptyArgumentException;
 import services.bizerrors.IndexOutOfRangeException;
 import services.bizerrors.JarvisException;
@@ -11,16 +13,12 @@ import services.tasklist.tasks.Event;
 import services.tasklist.tasks.Task;
 import services.tasklist.tasks.Todo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class TaskList implements ITaskList {
     /** The list of tasks. */
     protected List<Task> taskList;
     protected IStorage repo;
     /** The number of tasks in the list. */
     protected int taskCount;
-    protected TextUi textUi;
 
     /**
      * Creates a new TaskList object with the given Storage object and Ui object.
@@ -28,15 +26,14 @@ public class TaskList implements ITaskList {
      * @param repo   the Storage object that stores the list of tasks in a data file.
      * @param textUi the Ui object that prints the formatted task list to the user.
      */
-    public TaskList(IStorage repo, TextUi textUi) {
-        this.textUi = textUi;
+    public TaskList(IStorage repo) {
         this.repo = repo;
         try {
             taskList = repo.load();
             taskCount = taskList.size();
         } catch (JarvisException e) {
             // Fix the problem here in the future.
-            textUi.print(e.toString() + "\nA temporary session is opened for you.");
+            // System.out.println(e.toString() + "\nA temporary session is opened for you.");
             taskList = new ArrayList<>();
             taskCount = 0;
         }

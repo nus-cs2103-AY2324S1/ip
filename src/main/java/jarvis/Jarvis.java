@@ -52,7 +52,7 @@ public class Jarvis {
     public Jarvis(String dataFilePath) {
         textUi = new TextUi();
         try {
-            taskList = new TaskList(new Storage(dataFilePath), textUi);
+            taskList = new TaskList(new Storage(dataFilePath));
             parser = new Parser(taskList);
         } catch (JarvisException e) {
             textUi.print(e.toString());

@@ -30,7 +30,7 @@ public class TaskListTest {
 
     public TaskListTest() {
         repoMock = mock(Storage.class);
-        taskList = new TaskList(repoMock, new TextUi());
+        taskList = new TaskList(repoMock);
     }
 
     @Test
