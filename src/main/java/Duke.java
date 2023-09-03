@@ -1,10 +1,10 @@
-import Database.Dbops;
+import Storage.Dbops;
 import LogicHandlers.CentralCommandHandler;
 import Models.TaskArray;
 
 import java.util.Scanner;
 
-import static Printers.BasicOutputPrinter.printBasicOutput;
+import static Ui.BasicOutputPrinter.printBasicOutput;
 
 public class Duke {
     private static TaskArray tasks;

@@ -3,8 +3,8 @@ package LogicHandlers.CommandHandlers;
 import Models.TaskArray;
 import Models.ToDo;
 
-import static Printers.BasicOutputPrinter.printBasicOutput;
-import static Printers.ErrorOutputPrinter.printErrorOutput;
+import static Ui.BasicOutputPrinter.printBasicOutput;
+import static Ui.ErrorOutputPrinter.printErrorOutput;
 
 /**
  * TodoHandler handles all 'todo' commands.

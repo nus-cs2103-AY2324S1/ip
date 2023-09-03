@@ -2,7 +2,7 @@ package LogicHandlers.CommandHandlers;
 
 import Models.TaskArray;
 
-import static Printers.ErrorOutputPrinter.printErrorOutput;
+import static Ui.ErrorOutputPrinter.printErrorOutput;
 
 /**
  * InvalidInputHandler handles all 'todo' commands.

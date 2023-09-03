@@ -2,8 +2,7 @@ package Models;
 
 import java.util.ArrayList;
 
-import static Database.Dbops.*;
-import static Printers.BasicOutputPrinter.printBasicOutput;
+import static Storage.Dbops.*;
 
 /**
  * TaskArray is used to store tasks.

@@ -6,8 +6,8 @@ import Models.Deadline;
 import Models.TaskArray;
 
 import static LogicHandlers.Parsers.DateTimeParser.parseDateTimeFromString;
-import static Printers.BasicOutputPrinter.printBasicOutput;
-import static Printers.ErrorOutputPrinter.printErrorOutput;
+import static Ui.BasicOutputPrinter.printBasicOutput;
+import static Ui.ErrorOutputPrinter.printErrorOutput;
 
 /**
  * DeadlineHandler handles all 'deadline' commands.

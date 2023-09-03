@@ -2,7 +2,7 @@ package LogicHandlers.CommandHandlers;
 
 import Models.TaskArray;
 
-import static Printers.BasicOutputPrinter.printBasicOutput;
+import static Ui.BasicOutputPrinter.printBasicOutput;
 import static java.lang.System.exit;
 
 /**
