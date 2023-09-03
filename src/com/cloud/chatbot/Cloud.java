@@ -1,14 +1,14 @@
-package cloud.main;
+package com.cloud.chatbot;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import cloud.main.todo.Deadline;
-import cloud.main.todo.Event;
-import cloud.main.todo.Todo;
-import cloud.main.token.Token;
-import cloud.main.token.TokenManager;
+import com.cloud.chatbot.todo.Deadline;
+import com.cloud.chatbot.todo.Event;
+import com.cloud.chatbot.todo.Todo;
+import com.cloud.chatbot.token.Token;
+import com.cloud.chatbot.token.TokenManager;
 
 
 
@@ -95,7 +95,7 @@ public class Cloud {
         if (!numberToken.isInt()) {
             Cloud.say(
                 String.format(
-                    "\"%s\" is not a valid TODO number.",
+                    "\"%s\" is not a valid number.",
                     numberToken.get()
                 )
             );
@@ -119,6 +119,10 @@ public class Cloud {
         System.out.println(text);
     }
 
+    private static void inputMarker() {
+        System.out.print("\n>>> ");
+    }
+
     /**
      * The chatbot's main method.
      *
@@ -126,13 +130,13 @@ public class Cloud {
      */
     public static void main(String[] args) {
         Cloud.say("Cloud online.");
+        Cloud.inputMarker();
 
-        while (true) {
-            System.out.println("");
-            System.out.print(">>> ");
-
+        while (Cloud.SCANNER.hasNextLine()) {
             String input = Cloud.SCANNER.nextLine();
             Cloud.handle(input);
+
+            Cloud.inputMarker();
         }
     }
 }
