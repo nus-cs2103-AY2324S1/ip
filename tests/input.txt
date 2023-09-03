@@ -1,0 +1,11 @@
+Download wk 3 files
+Watch L3 recording /by Friday
+Project meeting /from Monday 3pm /to Monday 4:30pm
+list
+mark a
+mark -7050
+mark 2
+mark 2
+mark 3
+unmark 3
+unmark 3

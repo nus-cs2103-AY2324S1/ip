@@ -1,0 +1,27 @@
+Cloud online.
+
+>>>   | T#1: Download wk 3 files
+
+>>>   | D#2: Watch L3 recording | BY Friday
+
+>>>   | E#3: Project meeting | FROM Monday 3pm | TO Monday 4:30pm
+
+>>>   | T#1: Download wk 3 files
+  | D#2: Watch L3 recording | BY Friday
+  | E#3: Project meeting | FROM Monday 3pm | TO Monday 4:30pm
+
+>>> "a" is not a valid number.
+
+>>> TODO #-7050 does not exist.
+
+>>> X | D#2: Watch L3 recording | BY Friday
+
+>>> X | D#2: Watch L3 recording | BY Friday
+
+>>> X | E#3: Project meeting | FROM Monday 3pm | TO Monday 4:30pm
+
+>>>   | E#3: Project meeting | FROM Monday 3pm | TO Monday 4:30pm
+
+>>>   | E#3: Project meeting | FROM Monday 3pm | TO Monday 4:30pm
+
+>>> 
