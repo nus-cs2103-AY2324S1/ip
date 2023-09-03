@@ -16,7 +16,7 @@ public class UserInputStorage {
 
     public static void printFileContent() {
         try {
-            File userDataFile = new File("../data/Alex.txt");
+            File userDataFile = new File("data/Alex.txt");
             if (!userDataFile.getParentFile().exists()) {
                 userDataFile.getParentFile().mkdir();
             }
@@ -32,7 +32,7 @@ public class UserInputStorage {
 
     public static void storeToFile() {
         try {
-            FileWriter fw = new FileWriter("../data/Alex.txt");
+            FileWriter fw = new FileWriter("data/Alex.txt");
             int numberOfElements = TaskList.getNumberOfElements();
             for (int i = 1; i <= numberOfElements; i++) {
                 Task task = TaskList.getTaskByIndex(i);
@@ -64,7 +64,7 @@ public class UserInputStorage {
 
     public static void loadUserDateFromFile() {
         try {
-            File userDataFile = new File("../data/Alex.txt");
+            File userDataFile = new File("data/Alex.txt");
             if (!userDataFile.getParentFile().exists()) {
                 userDataFile.getParentFile().mkdir();
             }
@@ -170,13 +170,13 @@ public class UserInputStorage {
             }
 
         } catch(FileNotFoundException e) {
-            File userDataFile = new File("../data/Alex.txt");
+            File userDataFile = new File("data/Alex.txt");
             try {
                 userDataFile.createNewFile();
             } catch (IOException e2) {
                 System.err.println("The file Alex.txt does not exits and there is an error creating the file: "
                         + e2.getMessage());
-                System.exit(0);
+                // System.exit(0);
             }
         } catch (AlexException | NumberFormatException | IndexOutOfBoundsException e) {
             String message = "OOPS!!! The program terminates because the data format at line "
