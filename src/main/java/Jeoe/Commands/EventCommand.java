@@ -5,12 +5,35 @@ import Jeoe.Others.Ui;
 import Jeoe.Tasks.Event;
 import Jeoe.Tasks.TaskManager;
 
+/**
+ * This class encapsulates the class EventCommand.
+ * It is meant to execute the creation of an Event object.
+ *
+ * @author Joe Chua
+ * @version Week-3
+ */
 public class EventCommand extends Command {
+
+    /** Contains the components of the event command */
     private String[] eventArr;
-    EventCommand (String input) {
+
+    /**
+     * Constructor for an EventCommand object.
+     * @param input The string input by the user to parse into a command.
+     */
+    EventCommand(String input) {
         super(false);
         this.eventArr = input.replaceFirst("event ", "").split(" /from "); // eventArr have description
     }
+
+    /**
+     * Executes the event command.
+     * Creates an Event object, adds it to the task list, saves it in local storage then displays it.
+     *
+     * @param taskManager Task manager handling tasks operations.
+     * @param ui Ui handling output to users.
+     * @param storageManager Storage manager handling storing & deletion of tasks.
+     */
     @Override
     public void execute(TaskManager taskManager, Ui ui, StorageManager storageManager) {
         String eventDescription = eventArr[0];

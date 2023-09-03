@@ -1,11 +1,12 @@
 package Jeoe.Commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 import Jeoe.Others.StorageManager;
 import Jeoe.Others.Ui;
 import Jeoe.Tasks.TaskManager;
-
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TodoCommandTest {
     protected StorageManager sm;
@@ -23,7 +24,7 @@ public class TodoCommandTest {
             todoTest.execute(tm, ui, sm);
             assertEquals("1. [T][ ] test\n", tm.toString());
         } catch (Exception e) {
-
+            System.out.println("Exception in add to do test");
         }
     }
 }

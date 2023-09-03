@@ -1,12 +1,12 @@
 package Jeoe.Commands;
 
-import Jeoe.Others.StorageManager;
-import Jeoe.Others.Ui;
-import Jeoe.Tasks.Deadline;
-import Jeoe.Tasks.TaskManager;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import Jeoe.Others.StorageManager;
+import Jeoe.Others.Ui;
+import Jeoe.Tasks.TaskManager;
 
 public class DeadlineCommandTest {
     protected StorageManager sm;
@@ -24,7 +24,7 @@ public class DeadlineCommandTest {
             deadline.execute(tm, ui, sm);
             assertEquals("1. [D][ ] test (by: Dec 1 2022 18:00)\n", tm.toString());
         } catch (Exception e) {
-
+            System.out.println("Exception in add deadline test");
         }
     }
 }
