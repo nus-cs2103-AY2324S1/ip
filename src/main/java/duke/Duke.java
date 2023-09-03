@@ -1,5 +1,6 @@
 package duke;
 
+
 /**
  * Class to encapsulate the whole chatbot and its functionality
  */
@@ -42,6 +43,27 @@ public class Duke {
             }
         }
     }
+
+    /**
+     * Runs the chatbot with the given input
+     * @param input the input to run the chatbot with
+     */
+    public void run(String input) {
+        try {
+            Command command = Command.getCommand(input);
+            this.parser.parse(input, command);
+        } catch (InvalidInputException e) {
+            this.ui.showCommandError(input);
+        }
+    }
+
+    /**
+     * Prints the welcome message
+     */
+    public void welcome() {
+        this.ui.showWelcome();;
+    }
+
 
     public static void main(String[] args) {
         new Duke("./data/duke.txt").run();
