@@ -1,6 +1,9 @@
 package kiera.exception;
 
-public class KieraException extends RuntimeException{
+/**
+ * Exception class to catch runtime exceptions.
+ */
+public class KieraException extends RuntimeException {
     public KieraException(String e) {
         super(e);
     }

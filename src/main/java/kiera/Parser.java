@@ -13,11 +13,20 @@ import kiera.command.MarkCommand;
 import kiera.exception.KieraException;
 import kiera.tasktype.TaskType;
 
-
+/**
+ * Parses user input and generating corresponding commands.
+ */
 public class Parser {
     public Parser() {
     }
 
+    /**
+     * Parses the user input and generates the corresponding Command object.
+     *
+     * @param input User input to be parsed.
+     * @return A Command object corresponding to the parsed input.
+     * @throws KieraException If input cannot be parsed or is invalid.
+     */
     public static Command parse(String input) throws KieraException {
 
         if (input.equals("bye")) {

@@ -3,6 +3,11 @@ package kiera;
 import kiera.command.Command;
 import kiera.exception.KieraException;
 
+/**
+ * Main class for the Kiera application. Kiera is a task management application
+ * that allows users to manage tasks, including adding, deleting, marking as done,
+ * and listing tasks.
+ */
 public class Kiera {
 
     protected static String filePath = "./data/storage.txt";
@@ -10,6 +15,10 @@ public class Kiera {
     private Ui ui;
     private TaskList tasks;
 
+    /**
+     * Constructor for Kiera.
+     * @param filePath File path for storing tasks.
+     */
     public Kiera(String filePath) {
 
         try {
@@ -23,6 +32,9 @@ public class Kiera {
 
     }
 
+    /**
+     * Runs the Kiera application, displaying the user interface and handling user commands.
+     */
     public void run() {
         ui.showHello();
         boolean isExit = false;
@@ -40,7 +52,8 @@ public class Kiera {
             }
         }
     }
+
     public static void main(String[] args) {
-            new Kiera(filePath).run();
+        new Kiera(filePath).run();
     }
 }

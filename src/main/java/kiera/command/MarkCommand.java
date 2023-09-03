@@ -1,17 +1,35 @@
 package kiera.command;
 
-import kiera.*;
+import java.util.stream.Collectors;
+
+import kiera.Storage;
+import kiera.TaskList;
+import kiera.Ui;
 import kiera.exception.KieraException;
 import kiera.task.Task;
 
-import java.util.stream.Collectors;
-
+/**
+ * Command to mark a task as done or undone.
+ */
 public class MarkCommand extends Command {
     private boolean mark;
+
+    /**
+     * Constructor for MarkCommand.
+     *
+     * @param desc Description of task to be marked done or undone.
+     * @param mark If true, task will be marked done; else, it will be marked undone.
+     */
     public MarkCommand(String desc, boolean mark) {
         setDescription(desc);
         this.mark = mark;
     }
+
+    /**
+     * @inheritDoc
+     *
+     * @throws KieraException If there is an error with the task type or storage operation.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws KieraException {
 
@@ -39,6 +57,9 @@ public class MarkCommand extends Command {
 
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public boolean isExit() {
         return false;
