@@ -1,5 +1,11 @@
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,10 +53,10 @@ public class TaskStorage {
                     task = new Todo(tokens[2]);
                     break;
                 case "deadline":
-                    task = new Deadline(tokens[2], tokens[3]);
+                    task = new Deadline(tokens[2], handleDateTime(tokens[3]));
                     break;
                 case "event":
-                    task = new Event(tokens[2], tokens[3], tokens[4]);
+                    task = new Event(tokens[2], handleDateTime(tokens[3]), handleDateTime(tokens[4]));
                     break;
                 default:
                     continue;
@@ -89,5 +95,19 @@ public class TaskStorage {
         } catch (IOException e) {
             throw new DukeException("Error while storing tasks: " + e.getMessage());
         }
+    }
+
+    private static LocalDateTime handleDateTime(String dateTime) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HHmm");
+        Date parsedDate;
+
+        try {
+            parsedDate = dateFormat.parse(dateTime);
+        } catch (ParseException e) {
+            parsedDate = new Date();
+        }
+        Instant instant = parsedDate.toInstant();
+        LocalDateTime localDateTime = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+        return localDateTime;
     }
 }
