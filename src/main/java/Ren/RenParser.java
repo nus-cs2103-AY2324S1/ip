@@ -3,11 +3,12 @@ package ren;
 import ren.task.Task;
 import ren.task.TaskList;
 
-import java.util.Set;
 
-
+/**
+ * Represents the parser that parses the input string and executes the corresponding command.
+ */
 public class RenParser {
-    private static Set<String> TASK_TYPES = Set.of(
+    private static final java.util.Set<String> TASK_TYPES = java.util.Set.of(
             "todo", "deadline", "event"
     );
 

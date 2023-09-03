@@ -7,8 +7,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a deadline
@@ -18,7 +16,7 @@ public class Deadline extends Task {
     @JsonProperty("deadline")
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
-    private final LocalDate DEADLINE;
+    private final java.time.LocalDate DEADLINE;
 
     public String getDescription() {
         return this.description;
@@ -32,31 +30,32 @@ public class Deadline extends Task {
         return this.taskType;
     }
 
-    public LocalDate getDEADLINE() {
+    public java.time.LocalDate getDeadline() {
         return this.DEADLINE;
+    }
+
+
+    public Deadline(String deadlineDesc, boolean isDone, TaskType taskType, java.time.LocalDate deadline) {
+        super(deadlineDesc, isDone);
+        this.DEADLINE = deadline;
+        this.taskType = TaskType.DEADLINE;
+    }
+
+    public Deadline(String deadlineDesc, boolean isDone, java.time.LocalDate deadline) {
+        super(deadlineDesc, isDone);
+        this.DEADLINE = deadline;
+        this.taskType = TaskType.DEADLINE;
     }
 
     public Deadline() {
         super();
-        this.DEADLINE = LocalDate.now();
-        this.taskType = TaskType.DEADLINE;
-    }
-
-    public Deadline(String deadlineDesc, boolean isDone, LocalDate deadline) {
-        super(deadlineDesc, isDone);
-        this.DEADLINE = deadline;
-        this.taskType = TaskType.DEADLINE;
-    }
-
-    public Deadline(String deadlineDesc, boolean isDone, TaskType taskType, LocalDate deadline) {
-        super(deadlineDesc, isDone);
-        this.DEADLINE = deadline;
+        this.DEADLINE = java.time.LocalDate.now();
         this.taskType = TaskType.DEADLINE;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() +
-                "by: " + this.DEADLINE.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return "[D]" + super.toString()
+                + "by: " + this.DEADLINE.format(java.time.format.DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 }

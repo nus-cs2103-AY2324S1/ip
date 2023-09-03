@@ -1,6 +1,8 @@
 package ren;
 
-
+/**
+ * Represents the commands that the user can input
+ */
 public enum Commands {
     LS_COMMAND("list"),
 
