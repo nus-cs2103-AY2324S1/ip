@@ -12,8 +12,24 @@ import seedu.duke.task.Deadline;
 
 import java.io.IOException;
 
+/**
+ * The Parser class is responsible for parsing user input and executing corresponding commands.
+ * It handles various user commands such as adding tasks, listing tasks, marking tasks as done, un-marking tasks and
+ * deleting tasks.
+ *
+ * @author Win Sheng
+ * @since 3 September 2023
+ */
 public class Parser {
 
+    /**
+     * Parses the user's input and executes the corresponding commands.
+     *
+     * @param userInput The user's input.
+     * @param taskList The list of tasks.
+     * @param ui The Ui for displaying messages.
+     * @param storage The Storage for saving and loading tasks.
+     */
     public void parseUserInput(String userInput, TaskList taskList, Ui ui, Storage storage) {
         String[] individualWords = userInput.split(" ");
         String firstWord = individualWords[0];
@@ -60,6 +76,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Displays the list of tasks saved.
+     *
+     * @param taskList The list of tasks.
+     * @param ui The Ui for displaying messages.
+     */
     private void listTasks(TaskList taskList, Ui ui) {
         if (taskList.getSize() == 0) {
             ui.showMessage("You have 0 task.");
@@ -74,6 +96,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param userInput The user's input.
+     * @param taskList The list of tasks.
+     * @param ui The Ui for displaying messages.
+     * @throws MissingInputException If the user input is missing required information.
+     */
     private void markTask(String userInput, TaskList taskList, Ui ui) throws MissingInputException {
         String[] individualWords = userInput.split(" ");
         if (individualWords.length <= 1) {
@@ -93,6 +123,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks a task as undone.
+     *
+     * @param userInput The user's input.
+     * @param taskList The list of tasks.
+     * @param ui The Ui for displaying messages.
+     * @throws MissingInputException If the user input is missing required information.
+     */
     private void unmarkTask(String userInput, TaskList taskList, Ui ui) throws MissingInputException {
         String[] individualWords = userInput.split(" ");
         if (individualWords.length <= 1) {
@@ -112,6 +150,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Deletes a task from the list of tasks.
+     *
+     * @param userInput The user's input.
+     * @param taskList The list of tasks.
+     * @param ui The Ui for displaying messages.
+     * @throws MissingInputException If the user input is missing required information.
+     */
     private void deleteTask(String userInput, TaskList taskList, Ui ui) throws MissingInputException {
         String[] individualWords = userInput.split(" ");
         if (individualWords.length <= 1) {
@@ -133,6 +179,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds a ToDo task to the list of tasks.
+     *
+     * @param userInput The user's input.
+     * @param taskList The list of tasks.
+     * @param ui The Ui for displaying messages.
+     * @throws MissingInputException If the user input is missing required information.
+     */
     private void addTodoTask(String userInput, TaskList taskList, Ui ui) throws MissingInputException {
         String[] individualWords = userInput.split(" ");
         if (individualWords.length <= 1) {
@@ -146,6 +200,14 @@ public class Parser {
         ui.printLine();
     }
 
+    /**
+     * Adds a Deadline task to the list of tasks.
+     *
+     * @param userInput The user's input.
+     * @param taskList The list of tasks.
+     * @param ui The Ui for displaying messages.
+     * @throws MissingInputException If the user input is missing required information.
+     */
     private void addDeadlineTask(String userInput, TaskList taskList, Ui ui) throws MissingInputException {
         String[] individualWords = userInput.split(" ");
         if (individualWords.length <= 1) {
@@ -171,6 +233,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds an Event task to the list of tasks.
+     *
+     * @param userInput The user's input.
+     * @param taskList The list of tasks.
+     * @param ui The Ui for displaying messages.
+     * @throws MissingInputException If the user input is missing required information.
+     */
     private void addEventTask(String userInput, TaskList taskList, Ui ui) throws MissingInputException {
         String[] individualWords = userInput.split(" ");
         if (individualWords.length <= 1) {

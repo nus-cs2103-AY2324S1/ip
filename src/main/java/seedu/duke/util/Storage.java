@@ -12,9 +12,20 @@ import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+/**
+ * The Storage class handles loading and saving of tasks to a file specified by a file path.
+ *
+ * @author Win Sheng
+ * @since 3 September 2023
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a new Storage with the specified file path.
+     *
+     * @param filePath The file path that stores the task data in text format.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -41,6 +52,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the list of tasks to the file specified by the file path.
+     *
+     * @param tasks The list of tasks to be saved.
+     * @throws IOException If there are issues saving the tasks to the file.
+     */
     public void save(ArrayList<Task> tasks) throws IOException {
         FileWriter writer = new FileWriter(filePath);
 
@@ -52,6 +69,12 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Creates a Task based on the line of text from the file.
+     *
+     * @param fileLine A line of text from the file that represents a task.
+     * @return The task created from the file line.
+     */
     private static Task createTaskFromFile(String fileLine) {
         String[] parts = fileLine.split("\\|");
         for (int i = 0; i < parts.length; i++) {
