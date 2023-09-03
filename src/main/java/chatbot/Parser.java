@@ -16,9 +16,9 @@ public class Parser {
      *
      * @param input The command inputted by the user.
      * @returns An array containing the type and details of the task.
-     * @throws InvalidTodoException If format of chatbot.task.Todo entered is invalid.
-     * @throws InvalidDeadlineException If format of Deadline entered is invalid.
-     * @throws InvalidEventException If format of chatbot.task.Event entered is invalid.
+     * @throws InvalidTodoException If format of todo entered is invalid.
+     * @throws InvalidDeadlineException If format of deadline entered is invalid.
+     * @throws InvalidEventException If format of event entered is invalid.
      * @throws InvalidCommandException If format of command entered is invalid.
      */
     public List<String> parseAdd(String input) throws InvalidTodoException,
@@ -136,6 +136,26 @@ public class Parser {
             throw new InvalidCommandException();
         }
         return taskIndex;
+    }
+
+    /**
+     * Parses input for the find method. If input is appropriate, returns a String of the keyword to match with.
+     *
+     * @param input The user input.
+     * @returns The String keyword to search for.
+     * @throws InvalidCommandException If format of command entered is invalid.
+     */
+    public String parseFind(String input) throws InvalidCommandException {
+        String keyword;
+        try {
+            keyword = input.substring(5);
+            if (keyword.isBlank()) {
+                throw new InvalidCommandException();
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new InvalidCommandException();
+        }
+        return keyword;
     }
 
     /**

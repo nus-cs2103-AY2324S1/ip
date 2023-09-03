@@ -13,8 +13,8 @@ public class Event extends Task {
      * Constructor for chatbot.task.Event.
      *
      * @param description Description of task.
-     * @param start Start time of chatbot.task.Event.
-     * @param end End time of chatbot.task.Event.
+     * @param start Start time of event.
+     * @param end End time of event.
      */
     public Event(String description, String start, String end) {
         super(description);
@@ -26,8 +26,8 @@ public class Event extends Task {
      * Constructor for chatbot.task.Event loaded from chatbot.Storage.
      *
      * @param description Description of task.
-     * @param start Start time of chatbot.task.Event as LocalDate.
-     * @param end End time of chatbot.task.Event as LocalDate.
+     * @param start Start time of event as LocalDate.
+     * @param end End time of event as LocalDate.
      * */
     public Event(String description, LocalDate start, LocalDate end) {
         super(description);
@@ -38,7 +38,7 @@ public class Event extends Task {
     /**
      * toString method for chatbot.task.Event.
      *
-     * @return String representation of chatbot.task.Event.
+     * @return String representation of eent.
      */
     @Override
     public String toString() {
