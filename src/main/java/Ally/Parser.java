@@ -4,6 +4,15 @@ import Ally.Commands.*;
 import Ally.Exceptions.AllyException;
 
 public class Parser {
+
+    /**
+     * Returns the different Commands according to the user input.
+     * If there is no input matching the conditions, AllyException will be thrown.
+     *
+     * @param ipt
+     * @return
+     * @throws AllyException
+     */
     public static Commands parse(String ipt) throws AllyException {
         String[] split = ipt.split(" ", 2);
         if (split[0].equals("bye")) {

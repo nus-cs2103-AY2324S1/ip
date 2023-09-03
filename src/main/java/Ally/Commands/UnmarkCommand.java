@@ -8,10 +8,22 @@ import Ally.Tasks.Task;
 public class UnmarkCommand extends Commands {
     private final int index;
 
+    /**
+     * Constructor for UnmarkCommand.
+     *
+     * @param index
+     */
     public UnmarkCommand(int index) {
         this.index = index;
     }
 
+    /**
+     * Marks the task as not done and saved the task to the saved file.
+     * 
+     * @param allyList
+     * @param ui
+     * @param storage
+     */
     @Override
     public void run(AllyList allyList, Ui ui, Storage storage) {
         try {

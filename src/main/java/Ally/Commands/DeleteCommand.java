@@ -8,17 +8,28 @@ public class DeleteCommand extends Commands {
 
     private final int index;
 
+    /**
+     * Constructor for DeleteCommand.
+     *
+     * @param index
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }
 
+    /**
+     * Calls showDelete function in Ui.
+     * Deletes the task from allyList.
+     *
+     * @param allyList
+     * @param ui
+     * @param storage
+     */
     @Override
     public void run(AllyList allyList, Ui ui, Storage storage) {
         try {
-            System.out.println("Noted. I've removed this task:");
-            System.out.println("\t" + allyList.getTask(index));
+            ui.showDelete(allyList.getTask(index), allyList.getSize() - 1);
             allyList.deleteElement(index);
-            System.out.println("Now you have " + allyList.getSize() + " tasks in the list.");
         } catch (AllyException e) {
             System.out.println(e.getMessage());
         }

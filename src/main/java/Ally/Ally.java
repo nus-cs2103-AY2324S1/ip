@@ -10,6 +10,14 @@ public class Ally {
     private AllyList tasks;
     private final Ui ui;
 
+    /**
+     * Constructor for Ally.
+     * Creates new instances of ui, storage and tasks.
+     * Catches AllyException.
+     *
+     * @param filePath
+     * @throws AllyException
+     */
     public Ally(String filePath) throws AllyException {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -20,6 +28,9 @@ public class Ally {
         }
     }
 
+    /**
+     * Runs the main code of the chatbot.
+     */
     public void run() {
         ui.start();
         boolean isExit = false;

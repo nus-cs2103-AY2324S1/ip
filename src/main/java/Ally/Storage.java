@@ -14,7 +14,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
+    /** filePath to the saved file */
     private final String filePath;
+
+    /**
+     * Constructor for Storage which calls the load function.
+     *
+     * @param filePath
+     * @throws AllyException
+     */
     public Storage(String filePath) throws AllyException {
         this.filePath = filePath;
         try {
@@ -23,6 +31,13 @@ public class Storage {
             throw new AllyException("Unable to load");
         }
     }
+
+    /**
+     * Returns an ArrayList of Tasks from the saved file.
+     *
+     * @return ArrayList<Task>
+     * @throws AllyException and catch FileNotFoundException
+     */
     public ArrayList<Task> load() throws AllyException {
         ArrayList<Task> loadTasks = new ArrayList<>(100);
         createFile();
@@ -41,6 +56,12 @@ public class Storage {
         return loadTasks;
     }
 
+    /**
+     * Returns the task in each line in the saved file.
+     *
+     * @param data
+     * @return savedTask
+     */
     public Task readData(String data) {
         String[] splits = data.split(" | ");
         Task savedTasks = null;
@@ -59,6 +80,11 @@ public class Storage {
         return savedTasks;
     }
 
+    /**
+     * Adds the formatted task into saved file.
+     * @param task
+     * @throws AllyException
+     */
     public void appendToFile(Task task) throws AllyException {
         try {
             FileWriter fw = new FileWriter(filePath, true);
@@ -69,6 +95,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates the file if the file has yet to be created.
+     *
+     * @throws AllyException and catch IOException
+     */
     public void createFile() throws AllyException {
         File f = new File(filePath);
         File dir = new File(f.getParent());
