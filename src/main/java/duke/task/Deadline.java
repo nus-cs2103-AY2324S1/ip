@@ -1,8 +1,8 @@
 package duke.task;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.LocalDateTime;
 
 /**
  * Represents a deadline task that has a description and a due date/time.
@@ -32,7 +32,8 @@ public class Deadline extends Task {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
             return LocalDateTime.parse(dateTimeString, formatter);
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("☹ OOPS!!! Invalid date/time format. Please use dd/MM/yyyy HHmm");
+            throw new IllegalArgumentException("☹ OOPS!!! Invalid date/time format. " +
+                    "Please use dd/MM/yyyy HHmm");
         }
     }
 

@@ -89,7 +89,8 @@ public class Duke {
     }
 
     /**
-     * Our main method for the Chatbot to work. It starts the Chatbot by calling the run method.
+     * Our main method for the Chatbot to work. It starts the Chatbot by calling
+     * the run method.
      *
      * @param args The command-line arguments.
      */
@@ -183,7 +184,8 @@ public class Duke {
      * @param command The user command.
      * @param taskList The list of tasks to which the task will be added.
      * @throws InvalidDescriptionException If the description for the Deadline task is empty.
-     * @throws InvalidDeadlineException If there is an invalid deadline task given. (without a due date/time)
+     * @throws InvalidDeadlineException If there is an invalid deadline task given. (without
+     * a due date/time)
      * @throws Exception If an error occurs during execution.
      */
     public void addDeadline(String command, TaskList taskList) throws Exception {
@@ -217,7 +219,8 @@ public class Duke {
      * @param command The user command.
      * @param taskList The list of tasks to which the task will be added.
      * @throws InvalidDescriptionException If the description for the Deadline task is empty.
-     * @throws InvalidEventException If there is an invalid event task given. (without a start and/or end date/time)
+     * @throws InvalidEventException If there is an invalid event task given. (without a start
+     * and/or end date/time)
      * @throws Exception If an error occurs during execution.
      */
     public void addEvent(String command, TaskList taskList) throws Exception {
@@ -225,7 +228,8 @@ public class Duke {
             // Description starting index = 6
             String description = command.substring(6, command.indexOf(" /from "));
             // From " " to 'from' date is 7
-            String from = command.substring(command.indexOf(" /from ") + 7, command.indexOf(" /to "));
+            String from = command.substring(command.indexOf(" /from ") + 7,
+                    command.indexOf(" /to "));
             // From " " to 'to' date is 5
             String to = command.substring(command.indexOf(" /to ") + 5);
 
