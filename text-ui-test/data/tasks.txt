@@ -1,2 +1,0 @@
-T | 1 | Read CS2103 Week 2 topics
-T | 0 | Watch ST2334 Pre-Lecture Videos
