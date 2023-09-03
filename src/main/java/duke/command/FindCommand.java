@@ -38,4 +38,10 @@ public class FindCommand extends Command {
         ui.showMessage(String.format("Here are the matching tasks in your list:"
                 + "%s", taskList.findTasks(keyword)));
     }
+
+    @Override
+    public String executeGui(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        return String.format("Here are the matching tasks in your list:"
+                + "%s", taskList.findTasks(keyword));
+    }
 }

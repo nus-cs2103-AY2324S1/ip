@@ -44,4 +44,12 @@ public class DeadlineCommand extends Command {
                 + "%s\nNow you have %d tasks in the list.", deadline, taskList.getListSize()));
         storage.appendFile(deadline);
     }
+
+    @Override
+    public String executeGui(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        taskList.addTask(deadline);
+        storage.appendFile(deadline);
+        return String.format("Got it. I've added this task:\n    "
+                + "%s\nNow you have %d tasks in the list.", deadline, taskList.getListSize());
+    }
 }

@@ -21,6 +21,11 @@ public class ByeCommand extends Command {
     }
 
     @Override
+    public String executeGui(TaskList taskList, Ui ui, Storage storage) {
+        return "Bye. Hope to see you again soon!";
+    }
+
+    @Override
     public boolean isExit() {
         return !super.isExit();
     }

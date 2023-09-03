@@ -41,4 +41,12 @@ public class ToDoCommand extends Command {
                 + "%s\nNow you have %d tasks in the list.", todo, taskList.getListSize()));
         storage.appendFile(todo);
     }
+
+    @Override
+    public String executeGui(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        taskList.addTask(todo);
+        storage.appendFile(todo);
+        return String.format("Got it. I've added this task:\n    "
+                + "%s\nNow you have %d tasks in the list.", todo, taskList.getListSize());
+    }
 }
