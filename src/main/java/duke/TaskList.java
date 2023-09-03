@@ -112,6 +112,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Iterates through the contained list of tasks and outputs them
+     * to the Ui class for printing to standard output, but only
+     * if the task matches the specified search expression.
+     *
+     * @param s The String expression to search.
+     */
     public void findTask(String s) {
         for (int i = 0; i < taskList.size(); i++) {
             if (taskList.get(i).name.contains(s)) {
