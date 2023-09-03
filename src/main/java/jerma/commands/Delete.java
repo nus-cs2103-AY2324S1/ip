@@ -12,8 +12,8 @@ public class Delete extends Command {
         this.task = tasks.get(index - 1);
     }
 
-    public void execute() {
+    public String execute() {
         this.tasks.remove(this.task);
-        this.ui.deleteTask(this.task, tasks.size());
+        return this.ui.deleteTask(this.task, tasks.size());
     }
 }

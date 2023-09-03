@@ -12,8 +12,8 @@ public class Mark extends Command {
         this.task = this.tasks.get(index - 1);
     }
 
-    public void execute() {
+    public String execute() {
         this.task.setDone();
-        this.ui.markTask(this.task);
+        return this.ui.markTask(this.task);
     }
 }

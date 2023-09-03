@@ -8,7 +8,7 @@ public class List extends Command {
         super(ui, tasks);
     }
 
-    public void execute() {
-        this.ui.listTasks(this.tasks);
+    public String execute() {
+        return this.ui.listTasks(this.tasks);
     }
 }

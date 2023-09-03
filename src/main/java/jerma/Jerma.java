@@ -17,38 +17,38 @@ public class Jerma {
     public Jerma() {
         this.ui = new Ui();
         this.running = new Boolean[] { true };
+    }
 
+    public String load() {
         try {
             this.tasks = Storage.load();
+            return "Task list has been loaded";
         } catch (IOException e) {
-            ui.error("Save file not found");
+            return this.ui.error("Save file not found");
         } catch (UnsupportedOperationException e) {
-            ui.error("Corrupted save file");
+            return this.ui.error("Corrupted save file");
         }
     }
 
-    public void run() {
-        ui.hello();
-
-        while (running[0]) {
-            String input = ui.readLine();
-
-            try {
-                Command command = Parser.parse(input, this.ui, this.tasks,
-                        this.running);
-                command.execute();
-            } catch (IndexOutOfBoundsException e) {
-                ui.error("Invalid arguments. Try again!");
-            } catch (UnsupportedOperationException e) {
-                ui.error("Invalid command. Try again!");
-            } catch (DateTimeParseException e) {
-                ui.error("Invalid date format. Try again!");
-            }
-        }
-
+    public String hello() {
+        return this.ui.hello();
     }
 
-    public static void main(String[] args) {
-        new Jerma().run();
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input, this.ui, this.tasks,
+                    this.running);
+            return command.execute();
+        } catch (IndexOutOfBoundsException e) {
+            return ui.error("Invalid arguments. Try again!");
+        } catch (UnsupportedOperationException e) {
+            return ui.error("Invalid command. Try again!");
+        } catch (DateTimeParseException e) {
+            return ui.error("Invalid date format. Try again!");
+        }
     }
 }
