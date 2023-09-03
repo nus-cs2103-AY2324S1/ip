@@ -1,9 +1,12 @@
 package duke;
 
 import duke.task.TaskList;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
 public class DukeTest {
     private Duke duke = new Duke();
     private TaskList taskList = new TaskList();
@@ -49,4 +52,5 @@ public class DukeTest {
             fail("Exception should not be thrown.");
         }
     }
+
 }

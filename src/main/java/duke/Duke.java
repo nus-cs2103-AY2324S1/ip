@@ -68,6 +68,8 @@ public class Duke {
                         addEvent(command, taskList);
                     } else if (command.startsWith("delete ")) {
                         deleteTask(command, taskList);
+                    } else if (command.startsWith("find ")) {
+                        findAndPrintList(command, taskList);
                     } else {
                         if (command.startsWith("todo")) {
                             throw new InvalidDescriptionException("todo");
@@ -75,6 +77,8 @@ public class Duke {
                             throw new InvalidDescriptionException("deadline");
                         } else if (command.startsWith("event")) {
                             throw new InvalidDescriptionException("event");
+                        } else if (command.startsWith("find")) {
+                            throw new InvalidDescriptionException("find");
                         } else {
                             throw new InvalidCommandException();
                         }
@@ -174,7 +178,6 @@ public class Duke {
         taskList.addTask(newTask);
 
         ui.showTaskAdded(newTask, taskList.getSize());
-
     }
 
     /**
@@ -268,7 +271,39 @@ public class Duke {
         } else {
             throw new InvalidNumberException();
         }
+    }
 
+    /**
+     * Displays the list of tasks that matches the keyword indicated.
+     *
+     * @param command The user command.
+     * @param taskList The list of tasks to search from.
+     * @throws InvalidDescriptionException If the keyword is empty.
+     * @throws Exception If an error occurs during execution.
+     */
+    public void findAndPrintList(String command, TaskList taskList) throws Exception {
+        TaskList matchingTaskList = new TaskList();
+
+        // Keyword starting index = 5
+        String keyword = command.substring(5);
+
+        if (keyword.isEmpty()) {
+            throw new InvalidDescriptionException("find");
+        }
+
+        for (int i = 0; i < taskList.getSize(); i++) {
+            Task taskUnderCheck = taskList.getTask(i);
+            if (taskUnderCheck.getDescription().contains(keyword)) {
+                matchingTaskList.addTask(taskUnderCheck);
+            }
+        }
+
+        System.out.println("Here are the matching tasks in your list:");
+
+        for (int i = 1; i <= matchingTaskList.getSize(); i++) {
+            // Adding toString() to use the overridden one in duke.task.Task, etc.
+            System.out.println(i + ". " + matchingTaskList.getTask(i - 1).toString());
+        }
     }
 
 }
