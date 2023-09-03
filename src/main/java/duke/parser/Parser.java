@@ -1,6 +1,13 @@
 package duke.parser;
 
-import duke.command.*;
+import duke.command.Command;
+import duke.command.ByeCommand;
+import duke.command.DeleteCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
+import duke.command.TaskCommand;
+
 import duke.exception.DukeNotTaskException;
 
 public class Parser {

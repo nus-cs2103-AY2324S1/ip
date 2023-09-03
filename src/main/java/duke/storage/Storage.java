@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private String pathFile = "./data/TaskStorage.txt";
+    private final String PATH_FILE = "./data/TaskStorage.txt";
 
-    private File file = new File(pathFile);
+    private File file = new File(PATH_FILE);
     public ArrayList<Task> readFile() throws Exception {
         Scanner sc = new Scanner(file);
         ArrayList<Task> readFile = new ArrayList<>();
@@ -49,11 +49,11 @@ public class Storage {
         return readFile;
     }
 
-    public void writeFile(TaskList taskList) throws Exception {
+    public void writeFile(TaskList taskList) {
         String newData = arrayToDataString(taskList);
 
         try {
-            FileWriter fileWriter = new FileWriter(pathFile, false);
+            FileWriter fileWriter = new FileWriter(PATH_FILE, false);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
             bufferedWriter.write(newData);
@@ -66,14 +66,14 @@ public class Storage {
 
     }
 
-    public void checkFile() throws Exception {
+    public void checkFile() {
         try {
             File directory = new File("./data");
             if (!directory.exists()) {
                 directory.mkdirs();
             }
 
-            File file = new File(pathFile);
+            File file = new File(PATH_FILE);
             if (!file.exists()) {
                 boolean created = file.createNewFile();
             }
