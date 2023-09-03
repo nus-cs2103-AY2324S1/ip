@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.util.Scanner;
 
 import command.CmdBye;
 import command.Command;
@@ -17,7 +16,6 @@ import utility.TextFileHandler;
  * @author Ho Khee Wei
  */
 public class Thorndike {
-    private Scanner scanner;
     private TaskList taskList;
     private Boolean isRunning;
     private Ui ui;
@@ -28,7 +26,6 @@ public class Thorndike {
      * exceptions.
      */
     public Thorndike() {
-        this.scanner = new Scanner(System.in);
         this.isRunning = true;
         this.ui = new Ui();
 
@@ -57,9 +54,7 @@ public class Thorndike {
     }
 
     private void listen() throws ThorndikeException {
-        System.out.print(">> ");
-        String input = scanner.nextLine();
-        Command command = CommandParser.parse(input);
+        Command command = CommandParser.parse(ui.readCommand());
 
         if (command == null) {
             throw new InvalidCommandException();
