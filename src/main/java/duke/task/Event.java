@@ -13,7 +13,7 @@ public class Event extends Task {
     /**
      * the type Icon
      */
-    private String type = "E";
+    private final String TYPE = "E";
     /**
      * start of the event
      */
@@ -42,7 +42,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[" + type + "]" + super.toString() +
+        return "[" + TYPE + "]" + super.toString() +
                 " (from: " + Time.toString(this.from) + " to: " + Time.toString(this.to) + ")";
     }
 
@@ -53,7 +53,7 @@ public class Event extends Task {
      */
     @Override
     public String toDataString() {
-        return this.type + " / " + super.toDataString() + " / " +
+        return this.TYPE + " / " + super.toDataString() + " / " +
                 Time.toDataString(this.from) + " / " + Time.toDataString(this.to);
     }
 }

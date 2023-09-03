@@ -95,6 +95,15 @@ public class Task {
     }
 
     /**
+     * return true if the description contains the input string.
+     * @param str input string
+     * @return true if the description contains the input string
+     */
+    public boolean contains(String str) {
+        return this.description.contains(str);
+    }
+
+    /**
      * override the toString method
      * @return a string
      */

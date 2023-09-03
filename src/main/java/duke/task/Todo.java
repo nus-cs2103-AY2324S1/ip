@@ -9,7 +9,7 @@ public class Todo extends Task{
     /**
      * the type Icon
      */
-    private String type = "T";
+    private final String TYPE = "T";
 
     /**
      * constructor for duke.task.Event duke.task
@@ -25,7 +25,7 @@ public class Todo extends Task{
      */
     @Override
     public String toString() {
-        return "[" + type + "]" + super.toString();
+        return "[" + this.TYPE + "]" + super.toString();
     }
 
     /**
@@ -34,6 +34,6 @@ public class Todo extends Task{
      */
     @Override
     public String toDataString() {
-        return this.type + " / " + super.toDataString();
+        return this.TYPE + " / " + super.toDataString();
     }
 }

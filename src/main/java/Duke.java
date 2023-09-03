@@ -53,6 +53,7 @@ public class Duke {
                 System.out.println(e.getMessage());
             }
         }
+
         storage.writeFile(taskList);
     }
 

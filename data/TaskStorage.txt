@@ -1,5 +1,0 @@
-T / 1 / now
-T / 0 / mario
-T / 0 / mario now
-T / 0 / idk la mario
-T / 0 / ok ok

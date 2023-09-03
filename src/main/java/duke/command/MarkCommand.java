@@ -19,6 +19,7 @@ public class MarkCommand extends Command {
      * @param splitTask Array of String that contains the index for the mark
      */
     public MarkCommand(String[] splitTask) {
+
         this.splitTask = splitTask;
     }
 
@@ -40,9 +41,11 @@ public class MarkCommand extends Command {
             throw new DukeInvalidMarkException(splitTask[0]);
         }
 
-        if (index > 0 && taskList.get(index - 1) != null) {
+        if (index > 0 && index < taskList.size() && taskList.get(index - 1) != null) {
             taskList.get(index - 1).mark();
             ui.printMark(taskList.get(index - 1));
+        } else {
+            throw new DukeInvalidMarkException(Integer.toString(index));
         }
         storage.writeFile(taskList);
     }

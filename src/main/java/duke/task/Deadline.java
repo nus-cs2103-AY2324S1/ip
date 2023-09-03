@@ -13,7 +13,7 @@ public class Deadline extends Task{
     /**
      * the type Icon
      */
-    private String type = "D";
+    private final String TYPE = "D";
     /**
      * the duke.time the deadline must be finished
      */
@@ -37,7 +37,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[" + this.type + "]" + super.toString() +
+        return "[" + this.TYPE + "]" + super.toString() +
                 " (by: " + Time.toString(this.time) + ")";
     }
 
@@ -48,6 +48,6 @@ public class Deadline extends Task{
      */
     @Override
     public String toDataString() {
-        return this.type + " / " + super.toDataString() + " / " + Time.toDataString(this.time);
+        return this.TYPE + " / " + super.toDataString() + " / " + Time.toDataString(this.time);
     }
 }

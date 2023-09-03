@@ -16,10 +16,10 @@ import java.util.Scanner;
  * @author marioalvaro
  */
 public class Storage {
-    private String pathFile = "./data/TaskStorage.txt";
-    private File file = new File(pathFile);
+    private final String PATH_FILE = "./data/TaskStorage.txt";
+    private File file = new File(PATH_FILE);
 
-    /**
+  ` /**
      * A method to read the txt file
      * @return an ArrayList of Task
      * @throws Exception of the scanner and DukeNotTaskException
@@ -59,6 +59,7 @@ public class Storage {
         return readFile;
     }
 
+
     /**
      * A method to write the file with the existing TaskList.
      *
@@ -68,7 +69,7 @@ public class Storage {
         String newData = arrayToDataString(taskList);
 
         try {
-            FileWriter fileWriter = new FileWriter(pathFile, false);
+            FileWriter fileWriter = new FileWriter(PATH_FILE, false);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
             bufferedWriter.write(newData);
@@ -81,6 +82,7 @@ public class Storage {
 
     }
 
+
     /**
      * A method to check if the file exist. If not, create a new .txt file.
      */
@@ -91,7 +93,7 @@ public class Storage {
                 directory.mkdirs();
             }
 
-            File file = new File(pathFile);
+            File file = new File(PATH_FILE);
             if (!file.exists()) {
                 boolean created = file.createNewFile();
             }
