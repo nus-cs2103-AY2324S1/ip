@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -7,7 +9,7 @@ public class Ui {
     private final Scanner scanner;
 
     /**
-     * Initialise Ui handler.
+     * Initialise duke.Ui handler.
      * @param name Name of chatbot.
      */
     public Ui(String name) {
@@ -27,7 +29,7 @@ public class Ui {
 
     /**
      * Prompts user and parses user input.
-     * @return Parser instance for user input.
+     * @return duke.Parser instance for user input.
      * @throws DukeException If error in parsing user input.
      */
     public Parser getParsedInput() throws DukeException {
@@ -55,7 +57,7 @@ public class Ui {
 
     /**
      * Prints add task message to user.
-     * @param task Task added.
+     * @param task duke.Task added.
      */
     public void addTask(Task task) {
         System.out.printf("%s: [Added] %s\n", this.name, task);
@@ -63,7 +65,7 @@ public class Ui {
 
     /**
      * Prints delete task message to user.
-     * @param task Task deleted.
+     * @param task duke.Task deleted.
      */
     public void deleteTask(Task task) {
         System.out.printf("%s: [Deleted] %s\n", this.name, task);
@@ -71,7 +73,7 @@ public class Ui {
 
     /**
      * Prints mark task message to user.
-     * @param task Task marked.
+     * @param task duke.Task marked.
      */
     public void markTask(Task task) {
         System.out.printf("%s: I've marked this task as done.\n", this.name);
@@ -80,7 +82,7 @@ public class Ui {
 
     /**
      * Prints unmark task message to user.
-     * @param task Task unmarked.
+     * @param task duke.Task unmarked.
      */
     public void unmarkTask(Task task) {
         System.out.printf("%s: I've marked this task as not done.\n", this.name);

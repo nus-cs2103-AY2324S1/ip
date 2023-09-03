@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,9 +9,9 @@ public class TaskList {
     private final TaskStorage storage;
 
     /**
-     * Initialises TaskList and restores existing tasks
-     * from TaskStorage provided as argument.
-     * @param storage TaskStorage to use for restore/save of tasks.
+     * Initialises duke.TaskList and restores existing tasks
+     * from duke.TaskStorage provided as argument.
+     * @param storage duke.TaskStorage to use for restore/save of tasks.
      * @throws DukeException If an issue occurs during restore of tasks.
      */
     public TaskList(TaskStorage storage) throws DukeException {
@@ -19,7 +21,7 @@ public class TaskList {
 
     /**
      * Adds task.
-     * @param task Task to add.
+     * @param task duke.Task to add.
      */
     public void addTask(Task task) throws DukeException {
         this.tasks.add(task);
@@ -29,7 +31,7 @@ public class TaskList {
     /**
      * Deletes task by index.
      * @param index Index of task to delete.
-     * @return Task deleted.
+     * @return duke.Task deleted.
      */
     public Task deleteTask(int index) throws DukeException {
         Task task = this.tasks.remove(index - 1);

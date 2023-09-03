@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -17,7 +19,7 @@ public class TaskStorage {
     private final File file;
 
     /**
-     * TaskStorage constructor, uses default path.
+     * duke.TaskStorage constructor, uses default path.
      */
     public TaskStorage() {
         this.file = new File(DEFAULT_PATH);

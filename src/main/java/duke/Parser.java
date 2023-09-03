@@ -1,3 +1,5 @@
+package duke;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -28,7 +30,7 @@ public class Parser {
     /**
      * Parses line of input and extracts task type, name and optional args.
      * @param line User input.
-     * @return Parser instance with parsed information.
+     * @return duke.Parser instance with parsed information.
      * @throws DukeException If input does not match expected format.
      */
     public static Parser from(String line) throws DukeException {
