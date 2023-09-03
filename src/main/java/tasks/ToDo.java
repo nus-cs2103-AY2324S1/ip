@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 /**
  * ToDos are tasks that have no date/time attached to them.

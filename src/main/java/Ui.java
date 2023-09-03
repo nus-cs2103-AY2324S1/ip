@@ -1,8 +1,7 @@
-import Tasks.Task;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import tasks.Task;
 
 /**
  * Ui handles the interactions with user.
@@ -59,9 +58,7 @@ public class Ui {
     public void displayList(ArrayList<Task> tasks) {
         System.out.println("Missions:");
 
-        tasks.forEach( task -> System.out.println(
-                (tasks.indexOf(task) + 1) + "." + task
-        ));
+        tasks.forEach(task -> System.out.println((tasks.indexOf(task) + 1) + "." + task));
 
     }
 
@@ -74,9 +71,7 @@ public class Ui {
     public void displayList(ArrayList<Task> tasks, String message) {
         System.out.println(message);
 
-        tasks.forEach( task -> System.out.println(
-                (tasks.indexOf(task) + 1) + "." + task
-        ));
+        tasks.forEach(task -> System.out.println((tasks.indexOf(task) + 1) + "." + task));
 
     }
 }

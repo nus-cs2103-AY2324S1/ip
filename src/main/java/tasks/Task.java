@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 /**
  * Task is the abstract class that encapsulates the common methods related to other Task classes.
@@ -19,8 +19,8 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
-    public String getDescription(){
-     return this.description;
+    public String getDescription() {
+        return this.description;
     }
 
     /**
@@ -45,7 +45,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() +"] " + getDescription();
+        return "[" + getStatusIcon() + "] " + getDescription();
     }
 
     public abstract String getType();

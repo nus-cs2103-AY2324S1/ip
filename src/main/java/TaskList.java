@@ -1,10 +1,10 @@
-import Tasks.Task;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import tasks.Task;
 
 /**
  * TaskList encapsulates the task lists and operations related to the task lists.
@@ -81,7 +81,7 @@ public class TaskList {
 
             try {
                 storage.updateData(tasks, true);
-            } catch(IOException e) {
+            } catch (IOException e) {
                 System.out.println("Error writing to file.");
             }
 
@@ -160,11 +160,11 @@ public class TaskList {
      * Returns an ArrayList containing tasks that contains the keyword.
      *
      * @param keyword is the word that we are searching for amongst the tasks.
-     * @return an ArrayList<Task>.
+     * @return an ArrayList of tasks.
      */
     public ArrayList<Task> findKeyword(String keyword) {
         //Filter out the tasks without the keyword using Stream
-        List<Task> results= tasks
+        List<Task> results = tasks
                 .stream()
                 .filter((task) -> task.getDescription().toLowerCase().contains(keyword))
                 .collect(Collectors.toList());

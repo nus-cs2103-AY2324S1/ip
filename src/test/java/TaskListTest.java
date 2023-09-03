@@ -1,7 +1,7 @@
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.ToDo;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;

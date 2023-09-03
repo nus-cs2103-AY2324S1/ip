@@ -1,4 +1,4 @@
-package VedaExceptions;
+package vedaexceptions;
 
 /**
  * IncorrectInputException is a form of RuntimeException that is thrown when the user provide an invalid input.
