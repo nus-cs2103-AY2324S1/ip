@@ -1,11 +1,5 @@
 package duke;
 
-import duke.Task;
-import duke.Event;
-import duke.Deadline;
-import duke.Todo;
-import duke.DukeException;
-import duke.TaskList;
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -106,7 +100,7 @@ public class Storage {
         }
         try (FileWriter filewriter = new FileWriter(this.filePath)) {
             //might need a fix for above, todo
-            int size = tasks.size();
+            int size = tasks.getSize();
             for (int i = 0; i < size; i++) {
                 Task curr = tasks.getTask(i);
                 filewriter.write(curr.stringInFile() + "\n");

@@ -1,6 +1,5 @@
 package duke;
 
-import duke.Task;
 import java.util.ArrayList;
 
 /**
@@ -63,10 +62,10 @@ public class TaskList {
     }
 
     /**
-     * size of the task list
-     * @return the size
+     * getSize of the task list
+     * @return the getSize
      */
-    public int size() {
+    public int getSize() {
         return this.tasklist.size();
     }
 }
