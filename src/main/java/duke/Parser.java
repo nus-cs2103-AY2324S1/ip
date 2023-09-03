@@ -7,6 +7,9 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
 
+/**
+ * Helper class to parse user input.
+ */
 public class Parser {
     private static final String DELIMITER_REGEX = " (?=/\\w+)";
 
@@ -28,7 +31,8 @@ public class Parser {
     }
 
     /**
-     * Parses line of input and extracts task type, name and optional args.
+     * Factory method to parses line of input and
+     * extract task type, name and optional args.
      * @param line User input.
      * @return duke.Parser instance with parsed information.
      * @throws DukeException If input does not match expected format.

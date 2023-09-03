@@ -3,6 +3,10 @@ package duke;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Helper class for user interface, handles
+ * user input and outputting to the user.
+ */
 public class Ui {
     private final String name;
 

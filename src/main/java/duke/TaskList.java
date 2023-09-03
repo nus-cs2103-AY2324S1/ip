@@ -3,6 +3,10 @@ package duke;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Helper class encapsulating list of tasks
+ * provides methods for basic operations as well.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 

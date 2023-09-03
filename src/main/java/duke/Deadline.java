@@ -3,8 +3,17 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Encapsulation of a Deadline task.
+ */
 public class Deadline extends Task {
     private final LocalDateTime deadline;
+
+    /**
+     * Deadline constructor.
+     * @param deadlineName Name of deadline.
+     * @param deadline Time and date of the deadline.
+     */
     public Deadline(String deadlineName, LocalDateTime deadline) {
         super(deadlineName);
         this.deadline = deadline;
