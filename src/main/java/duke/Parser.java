@@ -75,7 +75,7 @@ public class Parser {
         String restOfInput = userInput.trim().substring(4).trim();
         try {
             int taskNum = Integer.parseInt(restOfInput);
-            return Duke.mark(taskNum);
+            return Duke.markTask(taskNum);
         } catch (NumberFormatException | DukeException e) {
             throw new InvalidIndexException(taskListSize);
         }
@@ -86,7 +86,7 @@ public class Parser {
         String restOfInput = userInput.trim().substring(6).trim();
         try {
             int taskNum = Integer.parseInt(restOfInput);
-            return Duke.unmark(taskNum);
+            return Duke.unmarkTask(taskNum);
         } catch (NumberFormatException | DukeException e) {
             throw new InvalidIndexException(taskListSize);
         }
