@@ -62,6 +62,11 @@ public class Parser {
                     throw new JoException("Invalid date format. Please use yyyy-MM-dd with a valid date.");
                 }
             }
+        },
+        find {
+            public Command perform(String input) throws JoException {
+                return new SearchCommand(input);
+            }
         };
 
         public abstract Command perform(String s) throws JoException;
@@ -106,7 +111,7 @@ public class Parser {
             throw new JoException("The command cannot be empty.");
         } else if (input.equals("list")) {
             return new ListCommand();
-        } else if (isInEnum(input, STRINGCOMMAND.class)) {
+        } else if (isInEnum(input.trim(), STRINGCOMMAND.class)) {
             throw new JoException(String.format("The description of a %s cannot be empty.", input));
         } else if (isInEnum(input, INTCOMMAND.class)) {
             throw new JoException(String.format("Please specify a valid task number to %s.", input));

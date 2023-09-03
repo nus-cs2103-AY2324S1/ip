@@ -64,6 +64,17 @@ public class Ui {
         }
     }
 
+    public void findResult(ArrayList<Task> resultList) {
+        if (!resultList.isEmpty()) {
+            System.out.println("> Here are the matching tasks in your list: ");
+            for (Task t : resultList) {
+                System.out.println("\t" + t);
+            }
+        } else {
+            System.out.println("> No matching tasks found.");
+        }
+    }
+
     public void printList(TaskList taskList) {
         System.out.println("> Here are the tasks in your list:");
 
