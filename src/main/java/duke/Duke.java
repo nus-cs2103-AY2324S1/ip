@@ -3,13 +3,10 @@ package duke;
 import java.io.FileNotFoundException;
 
 public class Duke {
-    //fields
-    private Storage storage;
-    private Ui ui;
-    private TaskList list;
-    private Parser parser;
+    private final Storage storage;
+    private final Ui ui;
+    private final TaskList list;
 
-    //constuctor
     public Duke(String filePath) throws FileNotFoundException {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -24,7 +21,7 @@ public class Duke {
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
-        parser = new Parser();
+        Parser parser = new Parser();
         while(!isExit){
             String input = ui.getUserCommand();
             parser.parse(input, list);
