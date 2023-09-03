@@ -1,28 +1,35 @@
 #DukePro
->“Your mind is for having ideas, not holding them.” – David Allen [source](https://boulderbugle.com/quotes-185mla85)
+> “Your mind is for having ideas, not holding them.” – David Allen ([source](https://boulderbugle.com/quotes-185mla85))
 
 DukePro frees your mind of having to remember things you need to do. It's,
 
--text-based
--easy to learn
--~~FAST~~ SUPER FAST to use
-All you need to do is,
+- text-based
 
-1.download it from here.
-1.double-click it.
-1.add your tasks.
-1.let it manage your tasks for you :partying_face:
+- easy to learn
+
+- ~~FAST~~ *SUPER* FAST to use
+
+All you need to do is,
+1. download it from here.
+2. double-click it.
+3. add your tasks.
+4. let it manage your tasks for you :partying_face:
+
 And it is **FREE**!
 
 Features:
 
- -[X]Managing tasks
- -[ ]Managing deadlines (coming soon)
- -[ ]Reminders (coming soon)
-If you Java programmer, you can use it to practice Java too. Here's the main method:
-
+ - [x] Managing tasks
+ 
+ - [ ] Managing deadlines (coming soon)
+ 
+ - [ ] Reminders (coming soon)
+ 
+If you Java programmer, you can use it to practice Java too. Here's the `main` method:
+```
 public class Main {
     public static void main(String[] args) {
         Application.launch(MainApp.class, args);
     }
 }
+```
