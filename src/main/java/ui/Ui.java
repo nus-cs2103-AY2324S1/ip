@@ -148,17 +148,21 @@ public class Ui {
         out.println("ADDED deadline FOR YOU!!!!\n" + task.toString());
     }
 
+    /**
+     * Displays search results.
+     *
+     * @param tasks The tasks to search from.
+     */
+    public void showSearchResults(TaskList tasks) {
+        out.println("HERE ARE YOUR MATCHES:");
+        listout(tasks);
+    }
 
     /**
      * Displays a message indicating the addition of a todo task.
      *
-     * @param tasks The todo task that was added.
+     * @param task The todo task that was added.
      */
-    public void showSearchResults(TaskList tasks) {
-        out.println("HERE ARE YOUR MATCHES:\n");
-        listout(tasks);
-    }
-
     public void todoMessage(Task task) {
         out.println("ADDED todo FOR YOU!!!!\n" + task.toString());
     }

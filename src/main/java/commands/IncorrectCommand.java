@@ -10,9 +10,6 @@ import ui.Ui;
  * When executed, it displays an error message to the user.
  */
 public class IncorrectCommand extends Command {
-    /**
-     * The error message to be displayed to the user.
-     */
     public final String messageToUser;
 
     /**

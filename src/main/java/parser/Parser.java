@@ -59,11 +59,15 @@ public class Parser {
         return c;
     }
 
+
     /**
-     * Checks the user input for a "listout" command and returns the corresponding command object.
+     * Processes the "find" command.
      *
-     * @param split The user input string split into tokens.
-     * @return A "ListoutCommand" if the input is a valid listout command, otherwise an "IncorrectCommand."
+     * Checks if a valid search keyword is provided as the second argument in the input array.
+     * If valid, returns a FindCommand with the keyword; otherwise, returns an IncorrectCommand.
+     *
+     * @param split An array of strings representing the split user command.
+     * @return A Command object representing the processed command.
      */
     private static Command checkFind(String[] split) {
         if(split.length == 1 || split[1].isEmpty()){
@@ -75,6 +79,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks the user input for a "listout" command and returns the corresponding command object.
+     *
+     * @param split The user input string split into tokens.
+     * @return A "ListoutCommand" if the input is a valid listout command, otherwise an "IncorrectCommand."
+     */
     private static Command checkListout(String[] split) {
         if (split.length == 1) {
             return new ListoutCommand();
@@ -197,6 +207,7 @@ public class Parser {
         }
 
     }
+
 
     /**
      * Checks the user input for a "delete" command and returns the corresponding command object.
