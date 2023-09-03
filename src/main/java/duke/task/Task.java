@@ -11,7 +11,6 @@ public class Task {
      * Constructs a new task with the given description, initially marked as not done.
      * @param description The description of the task.
      */
-
     public Task (String description) {
         this.description = description;
         this.isDone = false;
@@ -35,7 +34,6 @@ public class Task {
     /**
      * Marks the task as undone.
      */
-
     public void markNotDone() {
         this.isDone = false;
     }
@@ -58,14 +56,17 @@ public class Task {
     }
 
     /**
-     * Converts the task to a string representation for saving to a file.
-     * @return A formatted string representing the task's data.
+     * Retrieves the description of a task.
+     * @return The description of the task as a string.
      */
-
     public String getDescription() {
         return this.description;
     }
 
+    /**
+     * Converts the task to a string representation for saving to a file.
+     * @return A formatted string representing the task's data.
+     */
     public String toFileString() {
         char doneStatus = isDone ? '1' : '0';
         return doneStatus + " | " + description;

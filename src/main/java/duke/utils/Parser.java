@@ -18,7 +18,6 @@ public class Parser {
     /**
      * Constructs a new `Parser` with an empty input array.
      */
-
     public Parser() {
 
     }
@@ -118,6 +117,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Retrieves description of keyword from user input to find matching tasks
+     * @return a String  object that represents the keyword to be used to filter the list
+     * @throws DukeException if format is incorrect
+     */
     public String getStringKeyword() throws DukeException {
         try {
             return String.join(" ", this.inputArray.subList(1, this.inputArray.size()));

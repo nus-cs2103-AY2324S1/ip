@@ -48,7 +48,6 @@ public class Event extends Task {
      * @param taskData The data string containing event task information.
      * @return An `Event` task object created from the data string, or `null` if the data is incomplete or invalid.
      */
-
     public static Event createEventFromData(String taskData) {
         String[] taskParts = taskData.split("\\s*\\|\\s*");
 
