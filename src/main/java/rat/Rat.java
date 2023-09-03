@@ -49,13 +49,17 @@ public class Rat {
         ratInput = new RatInput(sc, ratTaskManager);
     }
 
+    public String getResponse(String input) {
+        return ratInput.handleInput(input);
+    }
+
     /**
      * The main method of Rat.
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
         Rat.initialise();
-        ratInput.handleInput();
+        ratInput.parseInputs();
         sc.close();
     }
 }

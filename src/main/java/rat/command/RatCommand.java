@@ -30,6 +30,8 @@ public abstract class RatCommand {
      */
     public abstract void execute();
 
+    public abstract String getResponse();
+
     /**
      * Validates the time input by the user.
      * @param time The time input by the user.

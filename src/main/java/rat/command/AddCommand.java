@@ -37,12 +37,13 @@ public class AddCommand extends RatCommand {
      * Adds a ToDo task to the task list.
      * @param params The user input passed from RatInput that contains details of the task to be added.
      */
-    private void addToDo(String params) {
+    private String addToDo(String params) {
         try {
             params = params.substring(5);
-            this.ratTaskManager.addToDo(params);
+            return this.ratTaskManager.addToDo(params);
         } catch (StringIndexOutOfBoundsException e) {
             printWithLines("To Do name cannot be empty");
+            return "To Do name cannot be empty";
         }
     }
 
@@ -50,20 +51,23 @@ public class AddCommand extends RatCommand {
      * Adds a Deadline task to the task list.
      * @param params The user input passed from RatInput that contains details of the task to be added.
      */
-    private void addDeadline(String params) {
+    private String addDeadline(String params) {
         try {
             params = params.substring(9);
             String[] paramsArr = params.split(" /by ");
             String name = paramsArr[0];
             String deadline = paramsArr[1];
             validateTime(deadline);
-            this.ratTaskManager.addDeadline(deadline, name);
+            return this.ratTaskManager.addDeadline(deadline, name);
         } catch (StringIndexOutOfBoundsException e) {
             printWithLines("Deadline name cannot be empty");
+            return "Deadline name cannot be empty";
         } catch (ArrayIndexOutOfBoundsException e) {
             printWithLines("Invalid deadline format. Please use \"deadline <name> /by <deadline>\"");
+            return "Invalid deadline format. Please use \"deadline <name> /by <deadline>\"";
         } catch (ParseException e) {
             printWithLines("Invalid date format. Please use \"dd/MM/yyyy HH:mm\"");
+            return "Invalid date format. Please use \"dd/MM/yyyy HH:mm\"";
         }
     }
 
@@ -71,7 +75,7 @@ public class AddCommand extends RatCommand {
      * Adds an Event task to the task list.
      * @param params The user input passed from RatInput that contains details of the task to be added.
      */
-    private void addEvent(String params) {
+    private String addEvent(String params) {
         try {
             params = params.substring(6);
             String eventName = params.split(" /from ")[0];
@@ -83,13 +87,30 @@ public class AddCommand extends RatCommand {
             String endTime = time[1];
             validateTime(startTime);
             validateTime(endTime);
-            this.ratTaskManager.addEvent(startTime, endTime, eventName);
+            return this.ratTaskManager.addEvent(startTime, endTime, eventName);
         } catch (StringIndexOutOfBoundsException e) {
             printWithLines("Event name cannot be empty");
+            return "Event name cannot be empty";
         } catch (ArrayIndexOutOfBoundsException e) {
             printWithLines("Invalid event format. Please use \"event <name> /from <start> /to <end>\"");
+            return "Invalid event format. Please use \"event <name> /from <start> /to <end>\"";
         } catch (ParseException e) {
             printWithLines("Invalid date format. Please use \"dd/MM/yyyy HH:mm\"");
+            return "Invalid date format. Please use \"dd/MM/yyyy HH:mm\"";
+        }
+    }
+
+    @Override
+    public String getResponse() {
+        switch (commandType) {
+        case TODO:
+            return this.addToDo(input);
+        case DEADLINE:
+            return this.addDeadline(input);
+        case EVENT:
+            return this.addEvent(input);
+        default:
+            return "";
         }
     }
 

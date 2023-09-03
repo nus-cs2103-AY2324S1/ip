@@ -23,6 +23,11 @@ public class FindCommand extends RatCommand {
         this.keyword = input.substring(5);
     }
 
+    @Override
+    public String getResponse() {
+        return this.ratTaskManager.printFoundTasks(this.keyword);
+    }
+
     /**
      * Executes the FindCommand.
      */
