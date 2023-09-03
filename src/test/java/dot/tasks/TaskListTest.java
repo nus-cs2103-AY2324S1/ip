@@ -22,8 +22,7 @@ public class TaskListTest {
             Deadline deadline2 = new Deadline("Test Deadline 2", "01/06/2021 2359");
             Deadline deadline3 = new Deadline("Test Deadline 3", "timeDescription");
 
-            Task[] tasks = new Task[] {testEvent1, testEvent2, testEvent3,
-                    deadline1, deadline2, deadline3};
+            Task[] tasks = new Task[] {testEvent1, testEvent2, testEvent3, deadline1, deadline2, deadline3};
             Storage storage = new Storage("./data/junit-test-data.txt");
             TaskList testTaskList = TaskList.getTaskListFromArrayList(100,
                     new ArrayList<>(Arrays.asList(tasks)), storage);
@@ -34,15 +33,15 @@ public class TaskListTest {
 
             ArrayList<String> stringArrayList = testTaskList.getDisplayForTasksFallingOnDate(startOfDay);
             stringArrayList.remove(0);
-            String[] actual_output = stringArrayList.toArray(new String[] {});
-            String[] expected_output = new String[] {
+            String[] actualOutput = stringArrayList.toArray(new String[] {});
+            String[] expectedOutput = new String[] {
                     testEvent1.toString(),
                     testEvent2.toString(),
                     testEvent3.toString(),
                     deadline1.toString(),
                     deadline2.toString()
             };
-            Assertions.assertArrayEquals(expected_output, actual_output);
+            Assertions.assertArrayEquals(expectedOutput, actualOutput);
         } catch (DotException e) {
             e.handleError();
         }

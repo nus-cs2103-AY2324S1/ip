@@ -10,7 +10,7 @@ public class ValidationTest {
     @Test
     public void intIfValidCommandSpaceNumber_invalidCommand_exceptionThrown() {
         try {
-            int number = Validation.getIntIfValidCommandSpaceNumber("mark a",
+            Validation.getIntIfValidCommandSpaceNumber("mark a",
                     TaskError.ERR_USING_MARK);
         } catch (DotException e) {
             Assertions.assertEquals("Invalid number given",
