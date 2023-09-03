@@ -1,10 +1,10 @@
 todo borrow book
 mark 1
 deadline return book /by June 6th
-event project meeting /from Aug 6th 2pm /to 4pm
+event video meeting /from Aug 6th 2pm /to 4pm
 todo join sports club
 mark 4
-todo borrow book
+todo read a book
 list
 deadline return book /by 04/12/2023 1920
 deadline return book /by 04/12/2023 1989

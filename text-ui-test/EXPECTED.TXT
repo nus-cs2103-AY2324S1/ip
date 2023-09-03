@@ -7,20 +7,20 @@ Reply John: Nice! I've marked this task as done:
 [X] borrow book
 Reply John: ☹ OOPS!!! Invalid date/time format. Please use dd/MM/yyyy HHmm
 Reply John: Got it. I've added this task:
-  [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+  [E][ ] video meeting (from: Aug 6th 2pm to: 4pm)
 Now you have 2 tasks in the list.
 Reply John: Got it. I've added this task:
   [T][ ] join sports club
 Now you have 3 tasks in the list.
 Reply John: ☹ OOPS!!! You have indicated an invalid number.
 Reply John: Got it. I've added this task:
-  [T][ ] borrow book
+  [T][ ] read a book
 Now you have 4 tasks in the list.
 Reply John: Here are the tasks in your list:
 1. [T][X] borrow book
-2. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+2. [E][ ] video meeting (from: Aug 6th 2pm to: 4pm)
 3. [T][ ] join sports club
-4. [T][ ] borrow book
+4. [T][ ] read a book
 Reply John: Got it. I've added this task:
   [D][ ] return book (by: 04 Dec 2023 7:20 PM)
 Now you have 5 tasks in the list.
@@ -30,19 +30,19 @@ Reply John: Got it. I've added this task:
 Now you have 6 tasks in the list.
 Reply John: Here are the tasks in your list:
 1. [T][X] borrow book
-2. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+2. [E][ ] video meeting (from: Aug 6th 2pm to: 4pm)
 3. [T][ ] join sports club
-4. [T][ ] borrow book
+4. [T][ ] read a book
 5. [D][ ] return book (by: 04 Dec 2023 7:20 PM)
 6. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 Reply John: ☹ OOPS!!! You have indicated an invalid number.
 Reply John: OK, I've marked this task as not done yet:
-[ ] borrow book
+[ ] read a book
 Reply John: Here are the tasks in your list:
 1. [T][X] borrow book
-2. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+2. [E][ ] video meeting (from: Aug 6th 2pm to: 4pm)
 3. [T][ ] join sports club
-4. [T][ ] borrow book
+4. [T][ ] read a book
 5. [D][ ] return book (by: 04 Dec 2023 7:20 PM)
 6. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 Reply John: ☹ OOPS!!! The description of a todo cannot be empty.
@@ -60,8 +60,8 @@ Now you have 5 tasks in the list.
 Reply John: ☹ OOPS!!! You have indicated an invalid number.
 Reply John: Here are the tasks in your list:
 1. [T][X] borrow book
-2. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-3. [T][ ] borrow book
+2. [E][ ] video meeting (from: Aug 6th 2pm to: 4pm)
+3. [T][ ] read a book
 4. [D][ ] return book (by: 04 Dec 2023 7:20 PM)
 5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 Reply John: ☹ OOPS!!! You have indicated an invalid number.
@@ -70,7 +70,7 @@ Reply John: Noted. I've removed this task:
 Now you have 4 tasks in the list.
 Reply John: Here are the tasks in your list:
 1. [T][X] borrow book
-2. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-3. [T][ ] borrow book
+2. [E][ ] video meeting (from: Aug 6th 2pm to: 4pm)
+3. [T][ ] read a book
 4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 Reply John: Bye for now, hope to see you soon.
