@@ -33,14 +33,8 @@ public final class Cloud {
             return;
         }
 
-        switch (command) {
-        case "todo":
-        case "t":
-        case "deadline":
-        case "d":
-        case "event":
-        case "e":
-        case "add": {
+        switch (CommandType.stringToCommandType(command)) {
+        case ADD: {
             @Nullable Todo todo = Cloud.createTodo(manager);
             if (todo == null) {
                 break;
@@ -50,8 +44,7 @@ public final class Cloud {
             Cloud.say(todo.toString(Cloud.TODOS.size()));
             break;
         }
-        case "list":
-        case "l":{
+        case LIST: {
             if (Cloud.TODOS.size() <= 0) {
                 Cloud.say("Your TODO list is empty.");
                 break;
@@ -63,8 +56,7 @@ public final class Cloud {
             }
             break;
         }
-        case "mark":
-        case "m": {
+        case MARK: {
             @Nullable Integer number = Cloud.verifyNumber(manager);
             if (number == null) {
                 break;
@@ -75,8 +67,7 @@ public final class Cloud {
             Cloud.say(todo.toString(number));
             break;
         }
-        case "unmark":
-        case "un": {
+        case UNMARK: {
             @Nullable Integer number = Cloud.verifyNumber(manager);
             if (number == null) {
                 break;
@@ -87,9 +78,7 @@ public final class Cloud {
             Cloud.say(todo.toString(number));
             break;
         }
-        case "delete":
-        case "del":
-        case "yeet": {
+        case DELETE: {
             @Nullable Integer number = Cloud.verifyNumber(manager);
             if (number == null) {
                 break;
@@ -100,15 +89,12 @@ public final class Cloud {
             Cloud.say(todo.toString(number));
             break;
         }
-        case "bye":
-        case "exit":
-        case "quit":
-        case "q":
-        case "done": {
+        case EXIT: {
             Cloud.say("\\o");
             System.exit(0);
             break;
         }
+        case UNKNOWN:
         default: {
             Cloud.say(
                 String.format(
