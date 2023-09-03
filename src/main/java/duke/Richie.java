@@ -15,13 +15,19 @@ import java.time.LocalDateTime;
 import java.time.LocalDate;
 import duke.command.*;
 
-
+/**
+ * Entry point class for the Richie application
+ */
 public class Richie {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor for a Richie application
+     * @param filePath String representing the filePath of the data text file
+     */
     public Richie(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -33,6 +39,9 @@ public class Richie {
         }
     }
 
+    /**
+     * Runs the Richie application
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -51,6 +60,10 @@ public class Richie {
         }
     }
 
+    /**
+     * Entry point to the Richie application
+     * @param args not used in the application
+     */
     public static void main(String[] args) {
         new Richie("src/data.txt").run();
     }

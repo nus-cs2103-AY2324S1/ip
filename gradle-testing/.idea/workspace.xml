@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63a8c4bd-b950-4add-b63e-c76d0f688893" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/test/java/duke/StorageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/test/java/duke/StorageTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/duke/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/duke/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/duke/Richie.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/duke/Richie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/duke/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/duke/Storage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

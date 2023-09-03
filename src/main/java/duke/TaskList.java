@@ -14,6 +14,11 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private ArrayList<Task> taskList;
+
+    /**
+     * Constructor for a TaskList object
+     * @param data ArrayList of String that represents the data read in from the data text file by the Storage object.
+     */
     public TaskList(ArrayList<String> data) {
         this.taskList = new ArrayList<>();
         for (String taskDataString : data) {
@@ -22,6 +27,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Constructor for a TaskList object where there is no data
+     */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
@@ -57,14 +65,27 @@ public class TaskList {
         }
     }
 
+    /**
+     * Gets the number of tasks in the task list
+     * @return int that represents the number of tasks in the task list
+     */
     public int getSize() {
         return this.taskList.size();
     }
 
+    /**
+     * Gets the Task object that matches the index
+     * @param index int denoting the index of the task in the list
+     * @return Task object that corresponds with the given index
+     */
     public Task getTask(int index) {
         return this.taskList.get(index);
     }
 
+    /**
+     * Gets a copy of the ArrayList<Task>
+     * @return A clone of the ArrayList of the tasks
+     */
     @SuppressWarnings("unchecked")
     public ArrayList<Task> getTaskArray() {
         if (this.taskList.clone() instanceof ArrayList) {
@@ -74,10 +95,18 @@ public class TaskList {
         }
     }
 
+    /**
+     * Removes the Task object at the given index.
+     * @param index int denoting the position of the task to be removed.
+     */
     public void remove(int index) {
         this.taskList.remove(index - 1);
     }
 
+    /**
+     * Adds the Task object given to the TaskList.
+     * @param task Task object that should be added to the TaskList object
+     */
     public void addTask(Task task) {
         this.taskList.add(task);
     }
