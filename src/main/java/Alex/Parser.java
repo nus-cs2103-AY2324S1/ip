@@ -30,6 +30,9 @@ public class Parser {
             c = new AddCommand(command, add);
         } else if (command.equals("bye")) {
             c = new ExitCommand(command);
+        } else if (commandLength >= 4 && command.substring(0, 4).equals("find")) {
+            View view = View.FIND;
+            c = new ViewCommand(command, view);
         } else {
             c = new UnknownCommand(command);
         }

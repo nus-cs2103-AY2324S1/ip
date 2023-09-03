@@ -105,4 +105,14 @@ public class Ui {
         );
     }
 
+    public static void printAlertForFind() {
+        String message = "OOPS!! To find task(s) with matching word, please use the following format:\n"
+                + "    find (description)\n";
+        System.out.println(
+                Ui.horizontalLine
+                + message
+                + Ui.horizontalLine
+        );
+    }
+
 }

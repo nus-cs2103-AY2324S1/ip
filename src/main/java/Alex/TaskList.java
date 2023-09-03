@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TaskList {
     private static ArrayList<Task> userinputs = new ArrayList<>(100);
@@ -110,6 +112,25 @@ public class TaskList {
                         + tobePrinted
                         + Ui.horizontalLine
         );
+    }
+
+    public static void printTaskForMatchWord(String word) {
+        String tobePrinted = Ui.horizontalLine
+                + "Here are the matching tasks in your list:\n";
+        int count = 1;
+        String regex = "\\b" + word + "\\b";
+        Pattern pattern = Pattern.compile(regex);
+
+        for (int i = 0; i < numberOfElements; i++) {
+            Task task = userinputs.get(i);
+            Matcher matcher = pattern.matcher(task.toString());
+            if (matcher.find()) {
+                tobePrinted += count + ". " + task.toString() + "\n";
+                count++;
+            }
+        }
+        tobePrinted += Ui.horizontalLine;
+        System.out.println(tobePrinted);
     }
 
 }
