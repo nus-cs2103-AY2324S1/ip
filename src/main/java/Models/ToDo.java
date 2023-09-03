@@ -1,11 +1,8 @@
+package Models;
+
 public class ToDo extends Task {
     public ToDo(String name, Boolean marked) {
         super(name, marked);
-    }
-
-    @Override
-    public String getType() {
-        return "Todo";
     }
 
     @Override
