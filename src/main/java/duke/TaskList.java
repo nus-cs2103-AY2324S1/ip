@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class TaskList {
 
     private static ArrayList<Task> listOfTasks = new ArrayList<>();
+    private static ArrayList<Task> keywordList = new ArrayList<>();
 
     /**
      * Method to add a new task into the task list.
@@ -78,5 +79,28 @@ public class TaskList {
      */
     public static ArrayList<Task> getList() {
         return listOfTasks;
+    }
+
+    /**
+     * Search for the keyword and add it into the list of task that also contains the keyword
+     *
+     * @param keyword the keyword to search for
+     */
+    public static void findKeyword(String keyword) {
+        keywordList.clear();
+        for (Task task : listOfTasks) {
+            if (task.getTask().contains(keyword)) {
+                keywordList.add(task);
+            }
+        }
+    }
+
+    /**
+     * Getter to get the list of task with the keyword
+     *
+     * @return the list of task containing the keyword
+     */
+    public static ArrayList<Task> getKeywordList() {
+        return keywordList;
     }
 }

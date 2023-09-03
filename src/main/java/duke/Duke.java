@@ -66,6 +66,7 @@ public class Duke {
         String deadlineC = "deadline";
         String eventC = "event";
         String todoC = "todo";
+        String findC = "find";
 
         String userInput;
         do {
@@ -88,7 +89,9 @@ public class Duke {
                         command.handleEvent(userInput, eventC);
                     } else if (userInput.startsWith(todoC)) {
                         command.handleTodo(userInput, todoC);
-                    } else {
+                    } else if (userInput.startsWith(findC)) {
+                        command.handleFind(userInput, findC);
+                    }else {
                         throw new UnknownCommandException();
                     }
                     storage.saveTaskToFile();

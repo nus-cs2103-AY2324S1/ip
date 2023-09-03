@@ -62,6 +62,15 @@ public class Task {
         }
     }
 
+    /**
+     * returns the task description
+     *
+     * @return task description
+     */
+    public String getTask() {
+        return this.task;
+    }
+
     @Override
     public String toString() {
         return "[" + (this.isDone? "X" : " ") + "] " + this.task;

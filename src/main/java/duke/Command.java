@@ -177,9 +177,30 @@ public class Command {
             throw new IncompleteMessageException("duke.ToDo");
         }
 
-        String taskDescription = userInput.substring(keyword.length() + 1);
+        String[] splitInput = Parser.splitInput(userInput);
+        String taskDescription = splitInput[1];
 
         ToDo task = new ToDo(taskDescription);
         this.taskList.addTask(task);
+    }
+
+    /**
+     * method that handles the find command
+     * check if the keyword is entered, else throw the relevant exception
+     *
+     * @param userInput the user input
+     * @param keyword the key command word i.e. find
+     * @return the list of task with the keywords inside
+     * @throws IncompleteMessageException when the user only enter the keyword without the details
+     */
+    public String handleFind(String userInput, String keyword) throws IncompleteMessageException {
+        if (userInput.length() <= keyword.length()) {
+            throw new IncompleteMessageException("Find");
+        }
+
+        String[] splitInput = Parser.splitInput(userInput);
+        String taskDescription = splitInput[1];
+
+        return ui.find(taskDescription);
     }
 }

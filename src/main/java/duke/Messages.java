@@ -25,4 +25,21 @@ public class Messages {
     public static final void Exit() {
         System.out.println("Bye bye! Hope to see you again soon");
     }
+
+    /**
+     * Print the find nothing string when called
+     * @return find nothing String
+     */
+    public static final String findNothing() {
+        return "There is no task matching your description";
+    }
+
+    /**
+     * Print the found something string when called
+     *
+     * @return the found something String
+     */
+    public static final String keywordFound() {
+        return "Here are the matching tasks in your list:" + "\n";
+    }
 }
