@@ -1,5 +1,6 @@
-package Handlers;
+package LogicHandlers;
 
+import LogicHandlers.CommandHandlers.*;
 import Models.TaskArray;
 
 import java.util.HashMap;

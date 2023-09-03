@@ -1,9 +1,11 @@
-package Handlers;
+package LogicHandlers.CommandHandlers;
 
+import Exceptions.DukeInvalidDateTimeException;
 import Exceptions.DukeInvalidFormatException;
 import Models.Deadline;
 import Models.TaskArray;
 
+import static LogicHandlers.Parsers.DateTimeParser.parseDateTimeFromString;
 import static Printers.BasicOutputPrinter.printBasicOutput;
 import static Printers.ErrorOutputPrinter.printErrorOutput;
 
@@ -41,7 +43,8 @@ public class DeadlineHandler implements Command {
                     throw new DukeInvalidFormatException(errorStr);
                 }
 
-                tasks.addTask(new Deadline(taskArr[0].strip(), false, taskArr[1].strip()));
+                tasks.addTask(new Deadline(taskArr[0].strip(),
+                        false, parseDateTimeFromString(taskArr[1].strip())));
 
                 String output = "Got it, I've added this task: \n" +
                         tasks.get(tasks.size() - 1) + "\n" +
@@ -49,7 +52,7 @@ public class DeadlineHandler implements Command {
 
                 printBasicOutput(output);
 
-            } catch (DukeInvalidFormatException e) {
+            } catch (DukeInvalidFormatException | DukeInvalidDateTimeException e) {
                 String errorString = "Something went wrong! Please format the task properly and add it again. \n" +
                         "Error: " + e;
 

@@ -1,4 +1,4 @@
-package Handlers;
+package LogicHandlers.CommandHandlers;
 
 public interface Command {
 

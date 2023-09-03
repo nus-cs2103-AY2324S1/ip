@@ -1,9 +1,8 @@
-package Handlers;
+package LogicHandlers.CommandHandlers;
 
 import Models.TaskArray;
 
 import static Printers.BasicOutputPrinter.printBasicOutput;
-import static java.lang.System.exit;
 
 /**
  * ListTasksHandler handles all list commands.

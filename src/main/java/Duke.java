@@ -1,5 +1,5 @@
 import Database.Dbops;
-import Handlers.CentralCommandHandler;
+import LogicHandlers.CentralCommandHandler;
 import Models.TaskArray;
 
 import java.util.Scanner;

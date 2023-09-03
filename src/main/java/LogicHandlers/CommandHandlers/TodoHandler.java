@@ -1,4 +1,4 @@
-package Handlers;
+package LogicHandlers.CommandHandlers;
 
 import Models.TaskArray;
 import Models.ToDo;

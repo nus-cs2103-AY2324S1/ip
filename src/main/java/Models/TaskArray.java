@@ -33,7 +33,7 @@ public class TaskArray extends ArrayList<Task> {
     public void addTask(Task task) {
         this.add(task);
         // Save tasks to file whenever the list changes
-        saveNewTaskToFile(this);
+        saveTasksToFile(this);
     }
 
     /**

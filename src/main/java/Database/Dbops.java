@@ -1,11 +1,13 @@
 package Database;
 
 import Exceptions.DukeCorruptedDataException;
+import Exceptions.DukeInvalidDateTimeException;
 import Models.*;
 
 import java.io.*;
 import java.util.Objects;
 
+import static LogicHandlers.Parsers.DateTimeParser.parseDateTimeFromString;
 import static Printers.BasicOutputPrinter.printBasicOutput;
 import static Printers.ErrorOutputPrinter.printErrorOutput;
 import static java.lang.System.exit;
@@ -84,9 +86,9 @@ public class Dbops {
                 if (Objects.equals(parts[0], "Todo") && parts.length == 3) {
                     taskArray.add(new ToDo(parts[1], isMarked));
                 } else if (Objects.equals(parts[0], "Deadline") && parts.length == 4) {
-                    taskArray.add(new Deadline(parts[1], isMarked, parts[3]));
+                    taskArray.add(new Deadline(parts[1], isMarked, parseDateTimeFromString(parts[3])));
                 } else if (Objects.equals(parts[0], "Event") && parts.length == 5) {
-                    taskArray.add(new Event(parts[1], isMarked, parts[3], parts[4]));
+                    taskArray.add(new Event(parts[1], isMarked, parseDateTimeFromString(parts[3]), parseDateTimeFromString(parts[4])));
                 } else {
                     throw new DukeCorruptedDataException("Error: file is corrupted. Failed to load data from file.");
                 }
@@ -99,7 +101,7 @@ public class Dbops {
             printBasicOutput(output);
             Dbops.createMemoryFile();
 
-        } catch (DukeCorruptedDataException e) {
+        } catch (DukeCorruptedDataException | DukeInvalidDateTimeException e) {
             printErrorOutput(e + "\n");
             Dbops.deleteMemoryFile();
             Dbops.createMemoryFile();
@@ -107,24 +109,6 @@ public class Dbops {
 
         }
     }
-
-    /**
-     * Adds only the new task to the memory file.
-     *
-     * @param taskArray The TaskArray to load the task from.
-     */
-    public static void saveNewTaskToFile(TaskArray taskArray) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Dbops.FILEPATH + Dbops.FILENAME))) {
-            Task task = taskArray.get(taskArray.size() - 1);
-
-            // Format and write each task to the file
-            writer.write(task.getTaskDetails());
-            writer.newLine();
-        } catch (IOException e) {
-            printErrorOutput("Error saving most recent task to memory file: " + e.getMessage());
-        }
-    }
-
     /**
      * Saves all tasks to the memory file.
      *

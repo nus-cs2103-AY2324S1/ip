@@ -1,4 +1,4 @@
-package Handlers;
+package LogicHandlers.CommandHandlers;
 
 import Exceptions.DukeInvalidIndexException;
 import Models.TaskArray;
