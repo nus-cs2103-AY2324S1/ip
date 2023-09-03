@@ -1,25 +1,39 @@
-import command.Command;
+package duke;
 
-import duke.Parser;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import command.Command;
 
 import exception.*;
 
+/**
+ * Duke is the chatbot program.
+ */
 public class Duke {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
+
+    /**
+     * The constructor of Duke.
+     *
+     * @param filePath The file path to be passed into to load the initial tasks.
+     */
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.taskList = new TaskList(storage.load());
     }
+
+    /**
+     * The main function which will run when the user starts the chatbot.
+     * @param args
+     */
     public static void main(String[] args) {
         new Duke("./data/paimon.txt").run();
     }
 
+    /**
+     * The method to run the chatbot program.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -43,7 +57,7 @@ public class Duke {
             } catch (Exception e) {
                 System.out.println("☹ OOPS!!! Something went wrong D:"
                         + Ui.SEPARATOR);
-                // e.printStackTrace();
+                e.printStackTrace();
             } finally {
                 storage.writeTasks(taskList);
             }

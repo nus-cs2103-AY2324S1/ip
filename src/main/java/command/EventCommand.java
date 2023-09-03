@@ -14,10 +14,19 @@ import java.time.format.DateTimeParseException;
 
 import task.Event;
 
+/**
+ * The Command which indicates that the user wishes to add an event to the task list.
+ */
 public class EventCommand extends Command {
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * The constructor of EventCommand.
+     *
+     * @param taskList The task list which the command would modify when tasked.
+     * @param ui The ui of the chatbot to get the input of the user.
+     */
     public EventCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }

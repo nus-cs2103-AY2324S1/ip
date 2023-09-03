@@ -14,10 +14,19 @@ import java.time.format.DateTimeParseException;
 
 import task.Deadline;
 
+/**
+ * The Command to indicate that the user wishes to add a deadline to the task list.
+ */
 public class DeadlineCommand extends Command {
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * The constructor of DeadlineCommand.
+     *
+     * @param taskList The task list which the command would modify when tasked.
+     * @param ui The ui of the chatbot to get the input of the user.
+     */
     public DeadlineCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }

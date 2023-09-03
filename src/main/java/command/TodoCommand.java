@@ -7,9 +7,19 @@ import exception.EmptyInputException;
 
 import task.Todo;
 
+/**
+ * The Command to indicate that the user wishes to add a todo into the task list.
+ */
 public class TodoCommand extends Command {
     private TaskList taskList;
     private Ui ui;
+
+    /**
+     * The constructor of TodoCommand.
+     *
+     * @param taskList The task list which the command would modify when tasked.
+     * @param ui The ui of the chatbot to get the input of the user.
+     */
     public TodoCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }

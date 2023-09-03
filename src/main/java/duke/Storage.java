@@ -14,13 +14,27 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage deals with loading tasks from the data file and saving tasks into it.
+ */
 public class Storage {
 
     private String filePath;
+
+    /**
+     * The constructor of Storage.
+     *
+     * @param filePath The specific file path to load and save tasks into.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * The method to write and save tasks from the task list into the file.
+     *
+     * @param taskList The task list to get the tasks from.
+     */
     public void writeTasks(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(filePath);
@@ -34,6 +48,13 @@ public class Storage {
         }
     }
 
+    /**
+     * The method to read tasks from the file and add the subsequent tasks read into the
+     * task list in order.
+     *
+     * @param file The file which the tasks are read from.
+     * @return The ArrayList of Tasks which the tasks read are added into.
+     */
     public ArrayList<Task> readTasks(File file) {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -94,6 +115,13 @@ public class Storage {
         }
     }
 
+    /**
+     * The method to load the initial task list from the data file.
+     * If the data file does not exist, a new one will be created and an empty ArrayList
+     * will be returned.
+     *
+     * @return The ArrayList of Tasks with the initial tasks added in where applicable.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {

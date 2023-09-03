@@ -2,26 +2,50 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * UI represents the User Interface of the chatbot and deals with interactions with the user.
+ */
 public class Ui {
     public static final String SEPARATOR = "\n-----------------------------------------------------------------";
     private Scanner scanner;
     private String input;
+
+    /**
+     * The constructor of Ui.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * To read the user's input into the chatbot.
+     *
+     * @return The user's input into the chatbot.
+     */
     public String readCommand() {
         this.input = this.scanner.nextLine();
         return this.input;
     }
 
+    /**
+     * A getter function to get the user's input to the chatbot.
+     *
+     * @return The user's input to the chatbot.
+     */
     public String getInput() {
         return this.input;
     }
 
+    /**
+     * Prints out the line separator.
+     */
     public static void showLine() {
         System.out.println(SEPARATOR);
     }
+
+    /**
+     * Prints out the welcome message of the chatbot.
+     */
     public void showWelcome() {
         String logo =" ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣤⣶⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ \n"
                 + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣾⠿⠛⠋⠉⠩⣄⠘⢿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ \n"
@@ -64,6 +88,9 @@ public class Ui {
         System.out.println(logo + msg);
     }
 
+    /**
+     *  Prints out the goodbye message when the user exits the chatbot.
+     */
     public void showGoodbye() {
         System.out.println("Bye Bye Traveller! See you soon :D"
                 + SEPARATOR);
