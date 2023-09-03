@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+
 import duke.Ui;
 import duke.Parser;
 import duke.Storage;
@@ -36,7 +36,7 @@ public class Duke {
     /** Main driver code for duke class.
      */
     public void run() throws IOException {
-        ui.welcomeMessage();
+        ui.printWelcomeMessage();
         boolean isExit = false;
         while (!isExit) {
             BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
@@ -58,7 +58,7 @@ public class Duke {
                 storage.store(tasks);
                 ui.printUnmark(curr, index);
             } else if (command.equals("bye")) {
-                ui.goodbyeMessage();
+                ui.printGoodbyeMessage();
                 isExit = true;
             } else if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
                 Task curr = parser.parseToTask();
@@ -67,13 +67,13 @@ public class Duke {
                 }
                 tasks.addTask(curr);
                 storage.store(tasks);
-                ui.printAddTask(curr, tasks.size());
+                ui.printAddTask(curr, tasks.getSize());
             } else if (command.equals("delete")){
                 int index = parser.parseToIndex();
                 Task curr = tasks.getTask(index);
                 tasks.deleteTask(index);
                 storage.store(tasks);
-                ui.printDelete(curr, tasks.size());
+                ui.printDelete(curr, tasks.getSize());
             } else {
                 //nothing found
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
