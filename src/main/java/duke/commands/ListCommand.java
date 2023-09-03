@@ -1,0 +1,37 @@
+package duke.commands;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+
+/**
+ * A command to called to mark print the taskList.
+ */
+public class ListCommand extends Command {
+    protected TaskList taskList;
+    protected Storage storage;
+    protected Ui ui;
+
+    /**
+     * ListCommand constructor.
+     *
+     * @param taskList The existing taskList.
+     * @param storage The storage that stores the data of the program.
+     * @param ui The ui interface used to print messages.
+     */
+    public ListCommand(TaskList taskList, Storage storage, Ui ui) {
+        this.taskList = taskList;
+        this.storage = storage;
+        this.ui = ui;
+    }
+
+    /**
+     * Method that prints list.
+     *
+     */
+    @Override
+    public void execute() throws DukeException {
+        ui.printList(taskList);
+    }
+}

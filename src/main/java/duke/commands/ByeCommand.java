@@ -1,11 +1,14 @@
-package Duke.Commands;
+package duke.commands;
 
-import Duke.DukeException;
-import Duke.Storage;
-import Duke.TaskList;
-import Duke.Ui;
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
 
-public class ByeCommand extends Command{
+/**
+ * A command to called to say goodbye.
+ */
+public class ByeCommand extends Command {
     protected TaskList taskList;
     protected Storage storage;
     protected Ui ui;
@@ -13,9 +16,9 @@ public class ByeCommand extends Command{
     /**
      * ByeCommand constructor
      *
-     * @param taskList The existing taskList
-     * @param storage The storage that stores the data of the program
-     * @param ui The ui interface used to print messages
+     * @param taskList The existing taskList.
+     * @param storage The storage that stores the data of the program.
+     * @param ui The ui interface used to print messages.
      */
     public ByeCommand(TaskList taskList, Storage storage, Ui ui) {
         this.taskList = taskList;
@@ -24,7 +27,7 @@ public class ByeCommand extends Command{
     }
 
     /**
-     * Method that prints goodbye
+     * Method that prints goodbye.
      *
      */
     @Override

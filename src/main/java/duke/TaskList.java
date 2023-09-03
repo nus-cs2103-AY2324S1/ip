@@ -1,9 +1,9 @@
-package Duke;
-
-import Duke.Tasks.Task;
+package duke;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import duke.tasks.Task;
 
 /**
  * A list of tasks the user inputs

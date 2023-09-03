@@ -1,21 +1,23 @@
-package Duke.Commands;
+package duke.commands;
 
-import Duke.DukeException;
-import Duke.Storage;
-import Duke.TaskList;
-import Duke.Ui;
+import duke.DukeException;
+import duke.TaskList;
+import duke.Ui;
 
-public class FindCommand extends Command{
-    TaskList taskList;
-    Ui ui;
-    String input;
+/**
+ * A command to find tasks with the keyword specified.
+ */
+public class FindCommand extends Command {
+    private TaskList taskList;
+    private Ui ui;
+    private String input;
 
     /**
-     * Constructor for the find command
+     * Constructor for the find command.
      *
-     * @param taskList The taskList that stores the task
-     * @param ui The UI which will print the output
-     * @param input The keyword for searching
+     * @param taskList The taskList that stores the task.
+     * @param ui The UI which will print the output.
+     * @param input The keyword for searching.
      */
     public FindCommand(String input, TaskList taskList, Ui ui) throws DukeException {
         this.input = input;
@@ -24,7 +26,7 @@ public class FindCommand extends Command{
     }
 
     /**
-     * The function which executes the find function in UI class
+     * The function which executes the find function in UI class.
      *
      */
     @Override

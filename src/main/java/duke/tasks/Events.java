@@ -1,19 +1,22 @@
-package Duke.Tasks;
+package duke.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Events extends Duke.Tasks.Task {
+/**
+ * Represents an event task.
+ */
+public class Events extends duke.tasks.Task {
     // additional start and end time fields for events
-    LocalDateTime startDate;
-    LocalDateTime endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     /**
-     * The event constructor
+     * The event constructor.
      *
-     * @param description The string with description of task
-     * @param startDate The string with start date
-     * @param endDate The string with end date
+     * @param description The string with description of task.
+     * @param startDate The string with start date.
+     * @param endDate The string with end date.
      */
     public Events(String description, String startDate, String endDate) {
         super(description, 'T');
@@ -26,27 +29,27 @@ public class Events extends Duke.Tasks.Task {
     }
 
     /**
-     * Getter for the start date
+     * Getter for the start date.
      *
-     * @return the start date
+     * @return the start date.
      */
     public LocalDateTime getStartDate() {
         return this.startDate;
     }
 
     /**
-     * Getter for the end date
+     * Getter for the end date.
      *
-     * @return the end date
+     * @return the end date.
      */
     public LocalDateTime getEndDate() {
         return this.endDate;
     }
 
     /**
-     * Converts the Start date from numbers to words
+     * Converts the Start date from numbers to words.
      *
-     * @return The converted deadline
+     * @return The converted deadline.
      */
     public String getStartDateInWords() {
         String dayOfWeek = startDate.getDayOfWeek().toString();
@@ -57,9 +60,9 @@ public class Events extends Duke.Tasks.Task {
     }
 
     /**
-     * Converts the end date from numbers to words
+     * Converts the end date from numbers to words.
      *
-     * @return The converted deadline
+     * @return The converted deadline.
      */
     public String getEndDateInWords() {
         String dayOfWeek = endDate.getDayOfWeek().toString();
@@ -71,6 +74,7 @@ public class Events extends Duke.Tasks.Task {
 
     @Override
     public String toString() {
-        return String.format("[E] %s + (from: %s  to: %s",super.toString(),getStartDateInWords(), getEndDateInWords());
+        return String.format("[E] %s + (from: %s  to: %s", super.toString(),
+                getStartDateInWords(), getEndDateInWords());
     }
 }

@@ -1,13 +1,16 @@
-package Duke.Commands;
-
-import Duke.DukeException;
-import Duke.Storage;
-import Duke.TaskList;
-import Duke.Tasks.ToDos;
-import Duke.Ui;
+package duke.commands;
 
 import java.io.IOException;
 
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.tasks.ToDos;
+
+/**
+ * A command to create a ToDo task.
+ */
 public class TodoCommand extends Command {
     protected TaskList taskList;
     protected Storage storage;

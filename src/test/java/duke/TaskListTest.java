@@ -1,20 +1,23 @@
-package Duke;
+package duke;
 
-import Duke.Tasks.*;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
+import org.junit.jupiter.api.Test;
+
+import duke.tasks.Events;
+import duke.tasks.Task;
+
 public class TaskListTest {
     @Test
-    public void EmptyTaskListTest() {
+    public void emptyTaskListTest() {
         TaskList a = new TaskList();
         TaskList b = new TaskList();
-        assertEquals(a.size(),b.size());
+        assertEquals(a.size(), b.size());
     }
 
     @Test
-    public void NonEmptyListTest() {
+    public void nonEmptyListTest() {
         Task temp = new Events("Vacation", "19/02/2022 0000", "20/02/2022 0000");
         Task temp2 = new Events("Vacation", "24/02/2022 1000", "25/02/2022 1000");
         TaskList a = new TaskList();

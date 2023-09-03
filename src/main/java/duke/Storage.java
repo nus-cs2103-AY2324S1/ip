@@ -1,12 +1,16 @@
-package Duke;
+package duke;
 
-import Duke.Tasks.Task;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
-import java.io.*;
-import java.util.ArrayList;
-
+/**
+ * Represents a storage that saves the list of tasks when program is closed
+ */
 public class Storage {
-    String filepath;
+    private String filepath;
 
     public Storage(String filepath) {
         this.filepath = filepath;
@@ -34,12 +38,11 @@ public class Storage {
     /**
      * Saves task list into hard disk
      *
-     * @param taskList
-     * Takes in Task list from current instance and save it into the hard disk
+     * @param taskList Takes in Task list from current instance and save it into the hard disk
      *
      * @throws IOException
      */
-    public void save(TaskList taskList) throws IOException{
+    public void save(TaskList taskList) throws IOException {
         FileOutputStream file = new FileOutputStream(filepath);
         ObjectOutputStream output = new ObjectOutputStream(file);
         output.writeObject(taskList);

@@ -1,19 +1,22 @@
-package Duke;
-
-import Duke.Commands.Command;
+package duke;
 
 import java.io.IOException;
 import java.util.Scanner;
 
+import duke.commands.Command;
+
+/**
+ * Main ChatBot class.
+ */
 public class Duke {
+    private Storage dataBase;
     private TaskList taskList;
-    public Storage dataBase;
     private Ui ui;
     private String filePath = "./tasklist.txt";
 
     /**
-     * Chatbot constructor
-     * @throws IOException if there is an error loading the saved file
+     * ChatBot constructor.
+     * @throws IOException if there is an error loading the saved file.
      */
     public Duke() throws IOException {
         ui = new Ui();
@@ -23,7 +26,7 @@ public class Duke {
 
     /**
      * The factory method to run the chatbot after it has been instantiated. It is responsible for scanning inputs and
-     * passing the inputs to the parsers to parse and instantiate the respective commands
+     * passing the inputs to the parsers to parse and instantiate the respective commands.
      */
     public void run() throws DukeException, IOException {
         String logo = " ____        _        \n"

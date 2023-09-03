@@ -1,28 +1,30 @@
-package Duke.Commands;
-
-import Duke.DukeException;
-import Duke.Storage;
-import Duke.TaskList;
-import Duke.Tasks.Events;
-import Duke.Tasks.ToDos;
-import Duke.Ui;
+package duke.commands;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
-public class EventCommand extends Command{
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.tasks.Events;
+
+/**
+ * A command to called to initialize an event.
+ */
+public class EventCommand extends Command {
     protected TaskList taskList;
     protected Storage storage;
     protected Ui ui;
     protected String input;
 
     /**
-     * Constructor for an event command
+     * Constructor for an event command.
      *
-     * @param input The input for the command
-     * @param taskList The taskList to store the task
-     * @param storage The storage system to store the list
-     * @param ui The ui to print the commands
+     * @param input The input for the command.
+     * @param taskList The taskList to store the task.
+     * @param storage The storage system to store the list.
+     * @param ui The ui to print the commands.
      */
     public EventCommand(String input, TaskList taskList, Storage storage, Ui ui) {
         this.input = input;
@@ -32,9 +34,9 @@ public class EventCommand extends Command{
     }
 
     /**
-     * Executes the method to create the event task
+     * Executes the method to create the event task.
      *
-     * @throws DukeException Throws exception if there is an error parsing the date or saving the file
+     * @throws DukeException Throws exception if there is an error parsing the date or saving the file.
      */
     @Override
     public void execute() throws DukeException {

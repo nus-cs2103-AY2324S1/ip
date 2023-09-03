@@ -1,25 +1,28 @@
-package Duke.Commands;
-
-import Duke.DukeException;
-import Duke.Storage;
-import Duke.TaskList;
-import Duke.Ui;
+package duke.commands;
 
 import java.io.IOException;
 
-public class MarkCommand extends Command{
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+
+/**
+ * A command to mark a task in the tasklist as done.
+ */
+public class MarkCommand extends Command {
     protected TaskList taskList;
     protected Storage storage;
     protected Ui ui;
     protected int index;
 
     /**
-     * ByeCommand constructor
+     * ByeCommand constructor.
      *
-     * @param taskList The existing taskList
-     * @param storage The storage that stores the data of the program
-     * @param ui The ui interface used to print messages
-     * @param index The index of task to update
+     * @param taskList The existing taskList.
+     * @param storage The storage that stores the data of the program.
+     * @param ui The ui interface used to print messages.
+     * @param index The index of task to update.
      */
     public MarkCommand(TaskList taskList, Storage storage, Ui ui, int index) {
         this.taskList = taskList;
@@ -29,7 +32,7 @@ public class MarkCommand extends Command{
     }
 
     /**
-     * Method that marks task as done
+     * Method that marks task as done.
      *
      */
     @Override

@@ -1,12 +1,15 @@
-package Duke.Commands;
-
-import Duke.DukeException;
-import Duke.Storage;
-import Duke.TaskList;
-import Duke.Ui;
+package duke.commands;
 
 import java.io.IOException;
 
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+
+/**
+ * A command to called to delete a task from the taskList.
+ */
 public class DeleteCommand extends Command {
     protected TaskList taskList;
     protected Storage storage;
@@ -14,12 +17,12 @@ public class DeleteCommand extends Command {
     protected int index;
 
     /**
-     * ByeCommand constructor
+     * Delete command constructor to delete a task.
      *
-     * @param taskList The existing taskList
-     * @param storage The storage that stores the data of the program
-     * @param ui The ui interface used to print messages
-     * @param index The index of task to delete
+     * @param taskList The existing taskList.
+     * @param storage The storage that stores the data of the program.
+     * @param ui The ui interface used to print messages.
+     * @param index The index of task to delete.
      */
     public DeleteCommand(TaskList taskList, Storage storage, Ui ui, int index) {
         this.taskList = taskList;
@@ -29,7 +32,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Method that deletes task from list
+     * Method that deletes task from list.
      *
      */
     @Override
