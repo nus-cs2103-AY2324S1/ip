@@ -1,4 +1,4 @@
-package carbonbot;
+package carbonbot.control;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -40,7 +40,6 @@ public class DialogBox extends HBox {
         Circle clip = new Circle(50, 50, 50);
         displayPicture.setClip(clip);
         displayPicture.setImage(img);
-
     }
 
     /**

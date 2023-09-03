@@ -1,5 +1,7 @@
 package carbonbot;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -7,6 +9,7 @@ import java.util.Scanner;
  */
 public class Ui {
     private final Scanner scanner;
+    private final List<String> messageBuffer = new ArrayList<>();
 
     /**
      * Constructs a new Ui that takes input from System.in, and outputs to System.out
@@ -43,12 +46,31 @@ public class Ui {
     }
 
     /**
-     * Displays the message through System.out.
+     * Displays the message through System.out. Also adds the message to buffer.
      *
      * @param message Message to be displayed.
      */
     public void showMessage(String message) {
         System.out.println(message);
+        bufferMessage(message);
+    }
+
+    /**
+     * Adds the message to a buffer
+     * @param message A string message
+     */
+    private void bufferMessage(String message) {
+        messageBuffer.add(message);
+    }
+
+    /**
+     * Returns the messages stored in the buffer and clears the buffer
+     * @return Messages in the buffer
+     */
+    public String flushBuffer() {
+        String combinedMessage = String.join("\n", messageBuffer);
+        messageBuffer.clear();
+        return combinedMessage;
     }
 
     /**

@@ -71,6 +71,15 @@ public class CarbonBot {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        } finally {
+            //ui.printDivider();
+        }
+
+        return ui.flushBuffer();
     }
 }

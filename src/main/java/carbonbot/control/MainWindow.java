@@ -1,5 +1,6 @@
-package carbonbot;
+package carbonbot.control;
 
+import carbonbot.CarbonBot;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -22,15 +23,15 @@ public class MainWindow extends AnchorPane {
 
     private CarbonBot carbonbot;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/carbonbot.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(CarbonBot carbonbot) {
+    public void setBot(CarbonBot carbonbot) {
         this.carbonbot = carbonbot;
     }
 
