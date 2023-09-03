@@ -71,4 +71,8 @@ public class Thorndike {
         ui.print("Meow! I'm Thorndike.");
         ui.print("What can I do for you?");
     }
+
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
 }

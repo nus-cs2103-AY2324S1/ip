@@ -1,17 +1,31 @@
+import java.io.IOException;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
 /**
  * Main class for starting the Thorndike chatbot application.
  *
  * @author Ho Khee Wei
  */
-public class Main {
+public class Main extends Application {
 
-    /**
-     * The main method that initializes and starts the Thorndike chatbot.
-     *
-     * @param args The command-line arguments (not used in this application).
-     */
-    public static void main(String[] args) {
-        Thorndike chatbot = new Thorndike();
-        chatbot.start();
+    private Thorndike duke = new Thorndike();
+
+    @Override
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
