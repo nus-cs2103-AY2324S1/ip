@@ -43,19 +43,19 @@ public class Storage {
     private Task loadTask(String input) {
         String[] data = input.split("\\|");
         switch (data[0]) {
-        case "todo":
+        case "T":
             Todo todo = new Todo(data[2]);
             if (Objects.equals(data[1], "1")) {
                 todo.setDone();
             }
             return todo;
-        case "deadline":
+        case "D":
             Task deadline = new Deadline(data[2], Parser.parseDatetime(data[3]));
             if (Objects.equals(data[1], "1")) {
                 deadline.setDone();
             }
             return deadline;
-        case "event":
+        case "E":
             Event event = new Event(data[2], Parser.parseDatetime(data[3]), Parser.parseDatetime(data[4]));
             if (Objects.equals(data[1], "1")) {
                 event.setDone();

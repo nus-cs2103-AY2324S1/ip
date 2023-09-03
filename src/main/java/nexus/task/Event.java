@@ -27,6 +27,6 @@ public class Event extends Task{
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         String formattedFrom = this.from.format(dateTimeFormatter);
         String formattedTo = this.to.format(dateTimeFormatter);
-        return String.join("|", "event", done, this.description, formattedFrom, formattedTo);
+        return String.join("|", "E", done, this.description, formattedFrom, formattedTo);
     }
 }
