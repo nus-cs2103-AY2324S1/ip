@@ -1,4 +1,4 @@
-package duke;
+package duke.uiux;
 
 import java.io.IOException;
 

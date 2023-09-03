@@ -60,7 +60,11 @@ public class Ui {
                 + commandWord + " is not a valid command");
         String message = "valid commands: ";
         for (int i = 0; i < Command.VALID_COMMANDS.length; i++) {
-            message += ("\n" + Command.VALID_COMMANDS[i]);
+            if (i == 0) {
+                message += (Command.VALID_COMMANDS[i]);
+            } else {
+                message += (", " + Command.VALID_COMMANDS[i]);
+            }
         }
         System.out.println(message);
     }
