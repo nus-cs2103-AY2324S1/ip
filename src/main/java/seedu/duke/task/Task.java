@@ -81,4 +81,8 @@ public abstract class Task {
             System.out.println(undoneMessage);
         }
     }
+
+    public boolean containsKeyword(String keyword) {
+        return description.toLowerCase().contains(keyword.toLowerCase());
+    }
 }

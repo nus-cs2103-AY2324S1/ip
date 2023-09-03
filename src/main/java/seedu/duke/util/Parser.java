@@ -11,6 +11,7 @@ import seedu.duke.task.Event;
 import seedu.duke.task.Deadline;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * The Parser class is responsible for parsing user input and executing corresponding commands.
@@ -65,6 +66,9 @@ public class Parser {
                             break;
                         case "event":
                             addEventTask(userInput, taskList, ui);
+                            break;
+                        case "find":
+                            findByKeyword(userInput, taskList, ui);
                             break;
                         default:
                             throw new InvalidCommandException();
@@ -271,6 +275,35 @@ public class Parser {
 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new MissingInputException("You are missing one or some of these inputs - description/ from/ to.");
+        }
+    }
+
+    private void findByKeyword (String userInput, TaskList taskList, Ui ui) throws MissingInputException {
+        String[] individualWords = userInput.split(" ");
+        if (individualWords.length <= 1) {
+            throw new MissingInputException("Keyword cannot be empty.");
+        } else {
+            String keyword = individualWords[1];
+            ArrayList<Task> matchingTasks = new ArrayList<>();
+            ArrayList<Task> tasks = taskList.getAllTasks();
+
+            for (Task task: tasks) {
+                if (task.containsKeyword(keyword)) {
+                    matchingTasks.add(task);
+                }
+            }
+
+            if (matchingTasks.isEmpty()) {
+                ui.showMessage("No matching tasks found.");
+            } else {
+                System.out.println("Here are the matching tasks in your list:");
+                for (int i = 0; i < matchingTasks.size(); i++) {
+                    Task task = matchingTasks.get(i);
+                    System.out.println((i + 1) + "." + task.toString());
+                }
+                ui.printLine();
+                matchingTasks.clear();
+            }
         }
     }
 }
