@@ -2,11 +2,11 @@ package peko;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class StorageHandler {
     private static Task[] todoList;
+
     private static int size;
     public StorageHandler() {
         todoList = SaveHandler.loadFrom();
