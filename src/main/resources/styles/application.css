@@ -1,6 +1,7 @@
 .root {
     -fx-background: rgb(30,30,30);
-    -fx-font-size: 14px;
+    -fx-font-size: 15px;
+    -fx-font-family: "Roboto Mono";
 }
 
 

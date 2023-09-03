@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,6 +24,8 @@ public class Main extends Application {
       AnchorPane ap = fxmlLoader.load();
 
       Scene scene = new Scene(ap);
+      Font.loadFont(getClass().getResourceAsStream("/styles/RobotoMono.ttf"), 16);
+
       scene.getStylesheets().add(Main.class.getResource("/styles/application.css").toExternalForm());
       stage.setTitle("Duke");
       stage.setResizable(false);
