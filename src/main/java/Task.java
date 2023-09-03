@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -38,6 +38,11 @@ public class Task {
     }
 
     /**
+     * Returns the data representation of the task.
+     */
+    public abstract String toData();
+
+    /**
      * Returns string representation of task
      *
      * @return String representation of task
@@ -46,4 +51,5 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+    
 }

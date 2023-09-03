@@ -1,8 +1,74 @@
-import java.util.Scanner;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Scanner;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Duke {
+
+    private static boolean createFile(File f)  {
+        try {
+            return f.createNewFile();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private static void makeDataDir() {
+        File dataDirectory = new File("./data/");
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdirs();
+        }
+    }
+
+    private static void appendToFile(String filePath, Task taskToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(taskToAdd.toData());
+        fw.write("\n");
+        fw.close();
+    }
+
+    private static ArrayList<Task> loadData(File file, ArrayList<Task> list) {
+        try {
+            Scanner s = new Scanner(file);
+            while (s.hasNextLine()) {
+                String line = s.nextLine();
+                String taskType = line.substring(0, 1);
+                switch (taskType) {
+                case "T":
+                    list.add(Todo.dataToTask(line.substring(4)));
+                    break;
+                case "E":
+                    list.add(Event.dataToTask(line.substring(4)));
+                    break;
+                case "D":
+                    list.add(Deadline.dataToTask(line.substring(4)));
+                    break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+
+    private static void writeAllToFile(ArrayList<Task> list, File f) {
+        try {
+            FileWriter fw = new FileWriter(f);
+            for (int i = 0; i < list.size(); i++) {
+                fw.write(list.get(i).toData());
+                fw.write("\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
     public static void main(String[] args) {
         String line = "──────────────────────────────────────────────────────────────────────────";
         String logo = " _____   __                 _____ _           _   _           _  ___\n"
@@ -24,6 +90,13 @@ public class Duke {
         Scanner input = new Scanner(System.in);
 
         ArrayList<Task> list = new ArrayList<>();
+        String filepath = "data/duke.txt";
+        makeDataDir();
+        File f = new File(filepath);
+        if (!createFile(f)) {
+            loadData(f, list);
+        }
+
         boolean end = false;
         while (!end) {
             try {
@@ -60,7 +133,13 @@ public class Duke {
                             if (todoDesc.isEmpty()) {
                                 throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
                             }
-                            list.add(new Todo(todoDesc));
+                            Task newTodo = new Todo(todoDesc);
+                            list.add(newTodo);
+                            try {
+                                appendToFile(filepath, newTodo);
+                            } catch (IOException e) {
+                                throw new DukeException("☹ OOPS!!! There is something wrong with the description.");
+                            }
                             System.out.println(line
                                     + "\n"
                                     + "Got it. I've added this task:\n"
@@ -79,7 +158,13 @@ public class Duke {
                             }
                             String from = userInput.substring(fromIndex + 6, toIndex - 1);
                             String to = userInput.substring(toIndex + 4);
-                            list.add(new Event(eventDesc, from, to));
+                            Task newEvent = new Event(eventDesc, to, from);
+                            list.add(newEvent);
+                            try {
+                                appendToFile(filepath, newEvent);
+                            } catch (IOException e) {
+                                throw new DukeException("☹ OOPS!!! There is something wrong with the description.");
+                            }
                             System.out.println(line
                                     + "\n"
                                     + "Got it. I've added this task:\n"
@@ -96,7 +181,13 @@ public class Duke {
                                 throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
                             }
                             String by = userInput.substring(byIndex + 4);
-                            list.add(new Deadline(deadlineDesc, by));
+                            Task newDeadline = new Deadline(deadlineDesc, by);
+                            list.add(newDeadline);
+                            try {
+                                appendToFile(filepath, newDeadline);
+                            } catch (IOException e) {
+                                throw new DukeException("☹ OOPS!!! There is something wrong with the description.");
+                            }
                             System.out.println(line
                                     + "\n"
                                     + "Got it. I've added this task:\n"
@@ -109,6 +200,7 @@ public class Duke {
                         case "mark":
                             int i = Integer.parseInt(userInput.split(" ", 2)[1]);
                             list.get(i - 1).markAsDone();
+                            writeAllToFile(list, f);
                             System.out.println(line
                                     + "\n"
                                     + "Nice! I've marked this task as done:\n"
@@ -120,6 +212,7 @@ public class Duke {
                         case "unmark":
                             int j = Integer.parseInt(userInput.split(" ", 2)[1]);
                             list.get(j - 1).markAsNotDone();
+                            writeAllToFile(list, f);
                             System.out.println(line + "\n"
                                     + "OK, I've marked this task as not done yet:\n"
                                     + list.get(j - 1)
@@ -145,11 +238,7 @@ public class Duke {
                 }
             } catch (DukeException e) {
                 System.out.println(line + "\n" + e.getMessage() + "\n" + line + "\n");
-
             }
-
-
-
         }
 
         String sendOff = line
