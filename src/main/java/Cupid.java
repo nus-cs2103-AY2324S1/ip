@@ -8,27 +8,33 @@ import java.util.Scanner;
 
 public class Cupid {
 
-    private static String saveFilePath = "cupid.txt";
+    private static String saveFilePath;
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
 
-    public static void main(String[] args) throws IOException {
-        Ui ui = new Ui();
-        TaskList taskList = null;
-        Storage storage = null;
+    public Cupid(String saveFilePath) throws IOException {
+        this.saveFilePath = saveFilePath;
+        this.ui = new Ui();
+        this.taskList = null;
+        this.storage = null;
 
         try {
-            storage = new Storage(saveFilePath);
-            taskList = storage.load();
+            this.storage = new Storage(saveFilePath);
+            this.taskList = this.storage.load();
         } catch (IOException e) {
-            ui.fileNotFound();
+            this.ui.fileNotFound();
         }
 
-        if (taskList == null) {
-            taskList = new TaskList();
-            storage.save(taskList);
+        if (this.taskList == null) {
+            this.taskList = new TaskList();
+            this.storage.save(this.taskList);
         }
+    }
 
+    public void run() {
         Scanner scanner = new Scanner(System.in);
-        ui.hello();
+        this.ui.hello();
 
         while (true) {
             String input = scanner.nextLine();
@@ -36,19 +42,21 @@ public class Cupid {
             if (input.toLowerCase().equals("bye")) {
                 break;
             }
-            Parser parser = new Parser(input, taskList);
+            Parser parser = new Parser(input, this.taskList);
             parser.parse();
 
             try {
-                storage.save(taskList);
+                this.storage.save(this.taskList);
             } catch (IOException e) {
                 System.out.println(e);
                 System.out.println("functions.Save unsuccessful");
             }
-
         }
-        
         ui.goodbye();
+    }
+
+    public static void main(String[] args) throws IOException {
+        new Cupid("cupid.txt").run();
     }
 
 }

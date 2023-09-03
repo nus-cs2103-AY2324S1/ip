@@ -120,9 +120,9 @@ public class Parser {
             System.out.println("Noted: I've removed this task:");
             System.out.println(task.getTaskAsString());
         } catch (NumberFormatException e) {
-            System.out.println("Invalid number provided. Please provide in the form of 'mark {task number}'. Eg: 'mark 1' to mark task 1.");
+            System.out.println("Invalid number provided. Please provide in the form of 'delete {task number}'. Eg: 'delete 1' to delete task 1.");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid task number provided. Please provide in the form of 'mark {task number}'. Eg: 'mark 1' to mark task 1.");
+            System.out.println("Invalid task number provided. Please provide in the form of 'delete {task number}'. Eg: 'delete 1' to delete task 1.");
         }
     }
 
