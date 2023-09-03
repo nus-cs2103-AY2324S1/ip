@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.exception.DukeException;
-
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -9,7 +8,7 @@ import duke.util.Ui;
  * Deletes a task from the list.
  */
 public class DeleteCommand extends Command {
-    private final int TASK_NUMBER;
+    private final int taskNumber;
 
     /**
      * Constructs a command containing the tasknumber in list to be deleted.
@@ -17,7 +16,7 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand(int taskNumber) {
         super();
-        this.TASK_NUMBER = taskNumber;
+        this.taskNumber = taskNumber;
     }
 
     /**
@@ -29,7 +28,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasklst, Ui ui, Storage storage) throws DukeException {
-        tasklst.deleteTask(TASK_NUMBER, ui);
+        tasklst.deleteTask(taskNumber, ui);
         storage.rewriteFile(tasklst);
     }
 
@@ -38,7 +37,7 @@ public class DeleteCommand extends Command {
      * @return false since task is not an exit task
      */
     @Override
-    public boolean isExit(){
+    public boolean isExit() {
         return false;
     }
 }

@@ -1,11 +1,15 @@
 package duke.util;
 
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
 import duke.exception.DukeException;
 import duke.exception.InvalidArgumentException;
 import duke.exception.UnknownActionException;
-
-import duke.command.*;
-
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -26,29 +30,29 @@ public class Parser {
         switch (fields[0]) {
         case "list":
             if (fields.length > 1) {
-                throw new InvalidArgumentException("Please enter 'list' without any extra arguments " +
-                        "or use a different " +
-                        "keyword");
+                throw new InvalidArgumentException("Please enter 'list' without any extra arguments "
+                        + "or use a different "
+                        + "keyword");
             } else {
                 return new ListCommand();
             }
         case "mark":
             if (fields.length != 2) {
-                throw new InvalidArgumentException("Please enter 'mark {task number}' or use a different " +
-                        "keyword");
+                throw new InvalidArgumentException("Please enter 'mark {task number}' or use a different "
+                        + "keyword");
             }
             return new MarkCommand(Character.getNumericValue(fields[1].charAt(0)));
         case "unmark":
             if (fields.length != 2) {
-                throw new InvalidArgumentException("Please enter 'mark {task number}' or use a different " +
-                        "keyword");
+                throw new InvalidArgumentException("Please enter 'mark {task number}' or use a different "
+                        + "keyword");
             }
             return new UnmarkCommand(Character.getNumericValue(fields[1].charAt(0)));
         case "delete":
             if (fields.length != 2) {
-                throw new InvalidArgumentException("Please enter 'delete {task number}' " +
-                        "or use a different " +
-                        "keyword");
+                throw new InvalidArgumentException("Please enter 'delete {task number}' "
+                        + "or use a different "
+                        + "keyword");
             }
             return new DeleteCommand(Character.getNumericValue(fields[1].charAt(0)));
         case "todo":
@@ -58,19 +62,19 @@ public class Parser {
         case "deadline":
             fields = userInput.replace("deadline", "").split(" /by ");
             if (fields.length != 2) {
-                throw new InvalidArgumentException("Please enter 'deadline {task description} " +
-                        "'/by' {date}' or use a different " +
-                        "keyword");
+                throw new InvalidArgumentException("Please enter 'deadline {task description} "
+                        + "'/by' {date}' or use a different "
+                        + "keyword");
             }
             Task deadline = new Deadline(fields[0], fields[1]);
             return new AddCommand(deadline);
         case "event":
             fields = userInput.replace("event", "").split(" /from | /to ");
             if (fields.length != 3) {
-                throw new InvalidArgumentException("Please enter 'event {task description} " +
-                        "'/from' {start} '/to' {finish} " +
-                        "or use a different " +
-                        "keyword");
+                throw new InvalidArgumentException("Please enter 'event {task description} "
+                        + "'/from' {start} '/to' {finish} "
+                        + "or use a different "
+                        + "keyword");
             }
             Task event = new Event(fields[0], fields[1], fields[2]);
             return new AddCommand(event);

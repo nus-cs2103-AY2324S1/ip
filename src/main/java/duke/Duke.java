@@ -1,40 +1,37 @@
 package duke;
 
+import java.io.IOException;
+
 import duke.command.Command;
-
 import duke.exception.DukeException;
-
 import duke.util.Parser;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
 
-import java.io.IOException;
+
 
 /**
  * This program is a chatbot, somebodyhaha, used to mark completion of tasks
  * marking the completion of tasks.
- *
- * @author: Low Jun Yu
- * @version: CS2103T AY23/24 Semester 1
  */
 public class Duke {
 
-    private final Storage STORAGE;
+    private final Storage storage;
     private TaskList tasklst;
-    private final Ui UI;
+    private final Ui ui;
 
     /**
      * Duke class that initialises a Duke Chatbot.
      * @param filePath path location of the file to read previous stores
      */
     public Duke(String filePath) {
-        UI = new Ui();
-        STORAGE = new Storage(filePath);
+        ui = new Ui();
+        storage = new Storage(filePath);
         try {
-            tasklst = new TaskList(STORAGE.load());
-        } catch (DukeException e){
-            UI.showLoadingError();
+            tasklst = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
             tasklst = new TaskList();
         }
     }
@@ -43,19 +40,19 @@ public class Duke {
      * Runs the duke bot.
      */
     public void run() {
-        UI.showWelcome();
+        ui.showWelcome();
         boolean isExit = false;
-        while(!isExit) {
-            try{
-                String fullCommand = UI.read();
-                UI.showLine();
+        while (!isExit) {
+            try {
+                String fullCommand = ui.read();
+                ui.showLine();
                 Command c = Parser.parseUserInput(fullCommand);
-                c.execute(tasklst, UI, STORAGE);
+                c.execute(tasklst, ui, storage);
                 isExit = c.isExit();
             } catch (DukeException | IOException e) {
-                UI.showError(e.getMessage());
+                ui.showError(e.getMessage());
             } finally {
-                UI.showLine();
+                ui.showLine();
             }
         }
     }

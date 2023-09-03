@@ -6,7 +6,7 @@ import duke.util.Ui;
 /**
  * Command to list the current tasks stored.
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
     /**
      * Constructor for a list command.
      */

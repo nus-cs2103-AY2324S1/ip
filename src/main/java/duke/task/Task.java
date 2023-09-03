@@ -7,9 +7,6 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public String toSaveFormat() {
-        return "";
-    }
     /**
      * Constructs a Task with a given description. Completion of the task
      * is false by default.
@@ -18,6 +15,14 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    /**
+     * Save format function to be overridden.
+     * @return null in case of a Task
+     */
+    public String toSaveFormat() {
+        return null;
     }
 
     /**

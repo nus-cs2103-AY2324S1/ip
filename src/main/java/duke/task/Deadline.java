@@ -1,17 +1,19 @@
 package duke.task;
 
-import duke.exception.InvalidFormatException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import duke.exception.InvalidFormatException;
+
+
+
 /**
  * Deadline instance of a task.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
 
-    private final LocalDate DUE_DATE;
+    private final LocalDate dueDate;
     private String dueTime = "";
 
     /**
@@ -25,7 +27,7 @@ public class Deadline extends Task{
         super(description);
         String[] temp = by.split("\\s+");
         try {
-            this.DUE_DATE = LocalDate.parse(temp[0]);
+            this.dueDate = LocalDate.parse(temp[0]);
         } catch (DateTimeParseException e) {
             throw new InvalidFormatException(e.getMessage() + "The correct format is YYYY-MM-DD HHHH(optional)");
         }
@@ -36,13 +38,12 @@ public class Deadline extends Task{
 
     /**
      * Returns a formatted string of the status of the task.
-     * @return String containing completion status, type, description,
-     * and deadline of task
+     * @return String containing completion status, type, description, and deadline of task
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.DUE_DATE.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
-                + " " + this.dueTime  + ")" ;
+        return "[D]" + super.toString() + " (by: " + this.dueDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
+                + " " + this.dueTime + ")";
     }
 
     /**
@@ -52,6 +53,6 @@ public class Deadline extends Task{
     @Override
     public String toSaveFormat() {
         return "D | " + (this.isDone ? 1 : 0) + " | " + this.description + " | "
-                + this.DUE_DATE + " " + this.dueTime;
+                + this.dueDate + " " + this.dueTime;
     }
 }
