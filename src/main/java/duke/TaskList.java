@@ -65,6 +65,7 @@ public class TaskList {
         return this.taskList.get(index);
     }
 
+    @SuppressWarnings("unchecked")
     public ArrayList<Task> getTaskArray() {
         if (this.taskList.clone() instanceof ArrayList) {
             return (ArrayList<Task>) this.taskList.clone();

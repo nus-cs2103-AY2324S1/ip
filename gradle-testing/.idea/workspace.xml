@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="63a8c4bd-b950-4add-b63e-c76d0f688893" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../src/testData1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/testData2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/data.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/duke/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/duke/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/duke/TaskList.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/duke/TaskList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/test/java/duke/ParserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/test/java/duke/ParserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/test/java/duke/RichieTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/test/java/duke/RichieTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/test/java/duke/StorageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/test/java/duke/StorageTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/test/java/duke/command/DeadlineCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/test/java/duke/command/DeadlineCommandTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2UqevHMPGBMKrTqI30cG5QyHhBU" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy">
+      <setting name="path" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workDir" value="file://$PROJECT_DIR$" />
+      <setting name="debug" value="false" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="63a8c4bd-b950-4add-b63e-c76d0f688893" name="Changes" comment="" />
+      <created>1693671769680</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1693671769680</updated>
+    </task>
+    <servers />
+  </component>
+</project>
