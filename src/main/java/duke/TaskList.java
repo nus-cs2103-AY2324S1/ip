@@ -40,4 +40,20 @@ public class TaskList {
         }
     }
 
+    /**
+     * Filters taskList to find tasks containing given keyword.
+     *
+     * @param keyword String keyword to find tasks containing it.
+     * @return ArrayList containing tasks with given keyword.
+     */
+    public ArrayList<Task> find(String keyword) {
+        ArrayList<Task> filteredList = new ArrayList<>();
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getDescription().contains(keyword)) {
+                filteredList.add(taskList.get(i));
+            }
+        }
+        return filteredList;
+    }
+
 }

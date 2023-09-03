@@ -101,6 +101,14 @@ public class Parser {
                 return new AddCommand(task);
             }
 
+        } else if (fullCommand.contains("find")) {
+            String taskInfo = fullCommand.substring(4);
+            if (taskInfo.isBlank()) {
+                throw new DukeException("More information is required to find tasks");
+            } else {
+                return new FindCommand(fullCommand.substring(5));
+            }
+
         } else {
             throw new DukeException("Un-fur-tunately I don't know what you mean :-(");
         }
