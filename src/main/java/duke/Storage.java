@@ -10,26 +10,42 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class deals with loading tasks from the file and saving tasks in the file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructor with the specified file path.
+     *
+     * @param filePath The path to the data file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Creates a data file and its parent directory if they do not exist.
+     */
     public void createFile() {
         try {
-            // Create if it doesn't exist
+            // Create if it does not exist
             Files.createDirectories(Paths.get("./data/"));
             File dataFile = new File("./data/duke.txt");
             if (!dataFile.exists()) {
                 dataFile.createNewFile();
             }
         } catch (IOException e) {
-            System.out.println("Error creating data folder or file.");
+            System.out.println("Error creating data file.");
         }
     }
 
+    /**
+     * Retrieves the existing task list from the data file.
+     *
+     * @return An ArrayList of Task objects read from the data file.
+     */
     public static ArrayList<Task> retrieveData() {
         ArrayList<Task> taskList = new ArrayList<>();
 
@@ -51,6 +67,11 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the task list to the data file.
+     *
+     * @param taskList The ArrayList of Task objects to be saved.
+     */
     public static void save(ArrayList<Task> taskList) {
         try {
             FileWriter writer = new FileWriter("./data/duke.txt");

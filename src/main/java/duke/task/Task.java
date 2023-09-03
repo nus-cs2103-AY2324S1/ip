@@ -44,10 +44,20 @@ public class Task {
         }
     }
 
+    /**
+     * Returns the description of the task.
+     *
+     * @return The description.
+     */
     public String getDescription() {
         return this.description;
     }
 
+    /**
+     * Returns the completion status of the task.
+     *
+     * @return The completion status.
+     */
     public boolean getIsDone() {
         return this.isDone;
     }

@@ -4,13 +4,19 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
+/**
+ * This class deals with making sense of the storage of data.
+ */
 public class Parser {
-    public Parser() {
-    }
-
+    /**
+     * Converts a Task object into a data string for storage.
+     *
+     * @param task Task to convert.
+     * @return Data string representing the Task.
+     */
     public static String taskData(Task task) {
         String taskType = task instanceof ToDo ? "T" : task instanceof Deadline ? "D" : "E";
         String status = task.getIsDone() ? "1" : "0";
@@ -19,7 +25,7 @@ public class Parser {
         StringBuilder data = new StringBuilder();
         data.append(taskType).append(" | ").append(status).append(" | ").append(description);
 
-        // Add additional information for duke.task.Deadline and duke.task.Event tasks
+        // Add additional information for Deadline and Event tasks
         if (task instanceof Deadline) {
             LocalDateTime deadlineDateTime = ((Deadline) task).getBy();
             String formattedDateTime = deadlineDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
@@ -32,6 +38,12 @@ public class Parser {
 
     }
 
+    /**
+     * Parses a data string and creates a Task from it.
+     *
+     * @param data Data string to parse.
+     * @return A Task object parsed from the data string.
+     */
     public static Task dataToTask(String data) {
         String[] info = data.split(" \\| ");
         String taskType = info[0];
