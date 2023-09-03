@@ -4,17 +4,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    /** Start time of chatbot.task.Event. */
+    /** Start time of Event. */
     protected LocalDate start;
-    /** End time of chatbot.task.Event. */
+    /** End time of Event. */
     protected LocalDate end;
 
     /**
-     * Constructor for chatbot.task.Event.
+     * Constructor for Event.
      *
      * @param description Description of task.
-     * @param start Start time of chatbot.task.Event.
-     * @param end End time of chatbot.task.Event.
+     * @param start Start time of Event.
+     * @param end End time of Event.
      */
     public Event(String description, String start, String end) {
         super(description);
@@ -23,11 +23,11 @@ public class Event extends Task {
     }
 
     /**
-     * Constructor for chatbot.task.Event loaded from chatbot.Storage.
+     * Constructor for Event loaded from Storage.
      *
      * @param description Description of task.
-     * @param start Start time of chatbot.task.Event as LocalDate.
-     * @param end End time of chatbot.task.Event as LocalDate.
+     * @param start Start time of Event as LocalDate.
+     * @param end End time of Event as LocalDate.
      * */
     public Event(String description, LocalDate start, LocalDate end) {
         super(description);
@@ -36,9 +36,9 @@ public class Event extends Task {
     }
 
     /**
-     * toString method for chatbot.task.Event.
+     * toString method for Event.
      *
-     * @return String representation of chatbot.task.Event.
+     * @return String representation of Event.
      */
     @Override
     public String toString() {

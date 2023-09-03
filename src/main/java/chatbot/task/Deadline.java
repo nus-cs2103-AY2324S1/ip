@@ -19,7 +19,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Constructor for Deadline loaded from chatbot.Storage.
+     * Constructor for Deadline loaded from Storage.
      *
      * @param description Description of task.
      * @param by Deadline for Deadline as LocalDate.

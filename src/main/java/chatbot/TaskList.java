@@ -7,18 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-    /** chatbot.TaskList for the Chatbot. */
+    /** TaskList for the Chatbot. */
     private List<Task> taskList;
 
     /**
-     * Constructor for the chatbot.TaskList.
+     * Constructor for the TaskList.
      */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
     /**
-     * Adds given task to the chatbot.TaskList.
+     * Adds given task to the TaskList.
      *
      * @param newTask The task to be added.
      */
@@ -27,7 +27,7 @@ public class TaskList {
     }
 
     /**
-     * Returns the current size of the chatbot.TaskList.
+     * Returns the current size of the TaskList.
      */
     public int size() {
         return this.taskList.size();
