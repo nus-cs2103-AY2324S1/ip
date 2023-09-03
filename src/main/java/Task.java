@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -45,7 +48,9 @@ public abstract class Task {
                 return new ToDo(description);
             case "D":
                 if (parts.length >= 4) {
-                    String by = parts[3];
+                    String byString = parts[3];
+                    LocalDateTime by = LocalDateTime.parse(byString, 
+                            DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
                     return new Deadline(description, by);
                 } else {
                     throw new DukdukException("Invalid Deadline task data format: " + dataString);
@@ -53,11 +58,15 @@ public abstract class Task {
             case "E":
                 if (parts.length >= 4) {
                     String eventTiming = parts[3];
-                    String[] eventParts = eventTiming.split(" ");
+                    String[] eventParts = eventTiming.split("\\|");
                     if (eventParts.length >= 2) {
                         String from = eventParts[0];
                         String to = eventParts[1];
-                        return new Event(description, from, to);
+                        LocalDateTime fromDateTime = LocalDateTime.parse(from, 
+                                DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+                        LocalDateTime toDateTime = LocalDateTime.parse(to, 
+                                DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+                        return new Event(description, fromDateTime, toDateTime);
                     } else {
                         throw new DukdukException("Invalid Event task data format: " + dataString);
                     }

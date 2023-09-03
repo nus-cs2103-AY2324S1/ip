@@ -1,6 +1,9 @@
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Dukduk {
     public static void main(String[] args) {
@@ -34,36 +37,61 @@ public class Dukduk {
                     }
                 } else if (input.startsWith("todo")) {
                     if (input.length() <= 5) {
-                        throw new DukdukException("OOPS!!! The description of a todo cannot be empty.");
+                        throw new DukdukException("OOPS!!! The description cannot be empty.");
                     }
                     tasks.add(new ToDo(input.substring(5)));
                     saveTasksToFile("ip-master/src/main/java/data/duke.txt", tasks);
-                    System.out.println(" Got it. I've added this task:\n   " + tasks.get(tasks.size() - 1).toString());
+                    System.out.println(" Got it. I've added this task:\n   " 
+                            + tasks.get(tasks.size() - 1).toString());
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                 } else if (input.startsWith("deadline")) {
                     int byIndex = input.indexOf("/by");
                     if (byIndex == -1) {
-                        throw new DukdukException("OOPS!!! The deadline format is incorrect. Use '/by' to specify the deadline.");
+                        throw new DukdukException("OOPS!!! The deadline format is incorrect. " +
+                                "Use '/by' to specify the deadline.");
                     }
                     String description = input.substring(9, byIndex).trim();
-                    String by = input.substring(byIndex + 3).trim();
-                    tasks.add(new Deadline(description, by));
-                    saveTasksToFile("ip-master/src/main/java/data/duke.txt", tasks);
-                    System.out.println(" Got it. I've added this task:\n   " + tasks.get(tasks.size() - 1).toString());
-                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                    String byString = input.substring(byIndex + 3).trim();
+                    try {
+                        LocalDateTime by = LocalDateTime.parse(byString, 
+                                DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        tasks.add(new Deadline(description, by));
+                        saveTasksToFile("ip-master/src/main/java/data/duke.txt", tasks);
+                        System.out.println(" Got it. I've added this task:\n   " 
+                                + tasks.get(tasks.size() - 1).toString());
+                        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                    } catch (DateTimeParseException e) {
+                        throw new DukdukException("OOPS!!! The date/time format is incorrect. " +
+                                "Please use 'yyyy-MM-dd HHmm' format.");
+                    }
                 } else if (input.startsWith("event")) {
                     int fromIndex = input.indexOf("/from");
                     int toIndex = input.indexOf("/to");
                     if (fromIndex == -1 || toIndex == -1) {
-                        throw new DukdukException("OOPS!!! The event format is incorrect. Use '/from' and '/to' to specify the timings.");
+                        throw new DukdukException("OOPS!!! The event format is incorrect. " +
+                                "Use '/from' and '/to' to specify the timings.");
                     }
                     String description = input.substring(6, fromIndex).trim();
                     String from = input.substring(fromIndex + 5, toIndex).trim();
                     String to = input.substring(toIndex + 3).trim();
-                    tasks.add(new Event(description, from, to));
-                    saveTasksToFile("ip-master/src/main/java/data/duke.txt", tasks);
-                    System.out.println(" Got it. I've added this task:\n   " + tasks.get(tasks.size() - 1).toString());
-                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                    try {
+                        LocalDateTime fromDateTime = LocalDateTime.parse(from, 
+                                DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        LocalDateTime toDateTime = LocalDateTime.parse(to, 
+                                DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        if (!toDateTime.isAfter(fromDateTime)) {
+                            throw new DukdukException("OOPS!!! The 'to' date/time must be " +
+                                    "after the 'from' date/time.");
+                        }
+                        tasks.add(new Event(description, fromDateTime, toDateTime));
+                        saveTasksToFile("ip-master/src/main/java/data/duke.txt", tasks);
+                        System.out.println(" Got it. I've added this task:\n   " 
+                                + tasks.get(tasks.size() - 1).toString());
+                        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                    } catch (DateTimeParseException e) {
+                        throw new DukdukException("OOPS!!! The date/time format is incorrect. " +
+                                "Please use 'yyyy-MM-dd HHmm' format.");
+                    }
                 } else if (input.startsWith("mark")) {
                     int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
                     if (taskIndex >= 0 && taskIndex < tasks.size()) {
@@ -96,7 +124,8 @@ public class Dukduk {
                             System.out.println(" Noted. I've removed this task:\n   " + removedTask);
                             System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                         } else {
-                            throw new DukdukException("OOPS!!! Task not found. Please provide a valid task number.");
+                            throw new DukdukException("OOPS!!! Task not found. " +
+                                    "Please provide a valid task number.");
                         }
                     } catch (DukdukException e) {
                         System.out.println(" ☹ " + e.getMessage());
