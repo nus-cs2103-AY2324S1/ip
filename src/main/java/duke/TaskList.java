@@ -4,6 +4,7 @@ import duke.task.Task;
 
 import java.util.ArrayList;
 
+
 public class TaskList {
     private final ArrayList<Task> tasklist;
 
@@ -26,7 +27,11 @@ public class TaskList {
     }
 
     public Task getTask(int index) {
-        return tasklist.get(index);
+        try {
+            return tasklist.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException(String.format(DukeException.NO_SUCH_TASK));
+        }
     }
 
     public ArrayList<Task> getTasks() {

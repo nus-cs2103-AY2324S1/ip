@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DateHelper {
-    private final static String dateFormat = "yyyy-MM-dd HHmm";
+    private final static String dateFormat = "dd-MM-yyyy HHmm";
 
     public static LocalDateTime parse(String datetime) {
         return LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern(dateFormat));
