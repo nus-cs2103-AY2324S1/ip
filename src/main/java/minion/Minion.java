@@ -29,8 +29,7 @@ public class Minion {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets the command result from a string input.
      */
     public CommandResult getCommandResult(String input) throws MinionException, IOException {
         return CommandParser
