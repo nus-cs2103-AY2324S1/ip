@@ -50,6 +50,7 @@ public class Jeeves {
         ui.printGreeting();
         
         Scanner sc = new Scanner(System.in);
+        
         // Waits for user input and process it accordingly
         while (true) {
             // Reads the user input and parses the relevant tokens for use
@@ -77,11 +78,13 @@ public class Jeeves {
             } else if (currentCommand.equals("mark")) {
                 // Get the id and try to process the marking
                 int id = Integer.parseInt(tokens.get(1));
+                
                 try {
                     if (tasks.getTask(id) == null) {
                         // If the id to be marked belongs to a deleted task (null), throws the DeletedIdException
                         throw new DeletedIdException(DELETED_ID_EXCEPTION_MESSAGE);
                     }
+                    
                     tasks.markTask(id);
                     System.out.println("Understood, I have marked the following task as done:");
                     System.out.println("    ");
@@ -92,11 +95,13 @@ public class Jeeves {
                 }
             } else if (currentCommand.equals("unmark")) {
                 int id = Integer.parseInt(tokens.get(1));
+                
                 try {
                     if (tasks.getTask(id) == null) {
                         // If the id to be marked belongs to a deleted task (null), throws the DeletedIdException
                         throw new DeletedIdException(DELETED_ID_EXCEPTION_MESSAGE);
                     }
+                    
                     tasks.unmarkTask(id);
                     System.out.println("Understood, I have marked the following task as not done:");
                     System.out.println("    " + tasks.getTask(id).toString() + "\n");
@@ -105,11 +110,13 @@ public class Jeeves {
                 }
             } else if (currentCommand.equals("delete")) {
                 int id = Integer.parseInt(tokens.get(1));
+                
                 try {
                     if (tasks.getTask(id) == null) {
                         // If the id to be marked belongs to a deleted task (null), throws the DeletedIdException
                         throw new DeletedIdException(DELETED_ID_EXCEPTION_MESSAGE);
                     }
+                    
                     System.out.println("Understood, I have deleted the following task:");
                     System.out.println("    " + tasks.getTask(id).toString() + "\n");
                     tasks.setTask(id, null);
@@ -126,6 +133,7 @@ public class Jeeves {
             } else if (currentCommand.equals("deadline")) {
                 // Checks if the Date input is in the accepted format
                 LocalDate deadline = LocalDate.parse(tokens.get(2));
+                
                 // Adds the 'Deadline' Task to the task list
                 Deadline newDeadline = new Deadline(tokens.get(1), deadline);
                 tasks.addTaskAtIndex(Task.getTaskCount(), newDeadline);
