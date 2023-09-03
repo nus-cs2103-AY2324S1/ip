@@ -1,13 +1,11 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        boolean running = true;
-        Scanner scanner = new Scanner(System.in);
-        TaskStorage taskStorage = new TaskStorage();
         ArrayList<Task> tasks;
+        boolean running = true;
+        TaskStorage taskStorage = new TaskStorage();
 
         // Load tasks from TaskStorage
         try {
@@ -17,55 +15,43 @@ public class Duke {
             return;
         }
 
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Pong");
-        System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
+        Ui ui = new Ui("Pong");
+        ui.init();
 
         while (running) {
-            System.out.print("You:  ");
-            String userInput = scanner.nextLine();
-
             try {
-                Parser parser = Parser.from(userInput);
-                running = Duke.handleInput(parser, tasks);
+                Parser parser = ui.getParsedInput();
+                running = Duke.handleInput(parser, tasks, ui);
                 taskStorage.storeTasks(tasks);
             } catch (DukeException e) {
-                System.out.printf("[!] %s\n", e.getMessage());
+                ui.printException(e);
             }
         }
 
-        System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+        ui.exit();
     }
 
-    private static boolean handleInput(Parser parser, ArrayList<Task> tasks) throws DukeException {
+    private static boolean handleInput(Parser parser, ArrayList<Task> tasks, Ui ui) throws DukeException {
         switch (parser.getCommand()) {
         case "bye":
             return false;
         case "list":
-            System.out.println("Pong: ");
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.printf("    %d. %s\n", i+1, tasks.get(i));
-            }
+            ui.listTasks(tasks);
             break;
         case "mark":
             int index = parser.getArgAsInt() - 1;
             tasks.get(index).markDone();
-            System.out.println("Pong: I've marked this task as done.");
-            System.out.printf("    %s\n", tasks.get(index));
+            ui.markTask(tasks.get(index));
             break;
         case "unmark":
             index = parser.getArgAsInt() - 1;
             tasks.get(index).unmarkDone();
-            System.out.println("Pong: I've marked this task as not done.");
-            System.out.printf("    %s\n", tasks.get(index));
+            ui.unmarkTask(tasks.get(index));
             break;
         case "delete":
             index = parser.getArgAsInt() - 1;
             Task task = tasks.remove(index - 1);
-            System.out.printf("Pong: [Deleted] %s\n", task);
+            ui.deleteTask(task);
             break;
         case "todo":
             String todoName = parser.getArg();
@@ -73,7 +59,7 @@ public class Duke {
                 throw new DukeException("Todo name cannot be empty");
             }
             tasks.add(new Todo(todoName));
-            System.out.printf("Pong: [Added] %s\n", tasks.get(tasks.size() - 1));
+            ui.addTask(tasks.get(tasks.size() - 1));
             break;
         case "deadline":
             String deadlineName = parser.getArg();
@@ -89,7 +75,7 @@ public class Duke {
             }
 
             tasks.add(new Deadline(deadlineName, deadline));
-            System.out.printf("Pong: [Added] %s\n", tasks.get(tasks.size() - 1));
+            ui.addTask(tasks.get(tasks.size() - 1));
             break;
         case "event":
             String eventName = parser.getArg();
@@ -106,7 +92,7 @@ public class Duke {
             }
 
             tasks.add(new Event(eventName, from, to));
-            System.out.printf("Pong: [Added] %s\n", tasks.get(tasks.size() - 1));
+            ui.addTask(tasks.get(tasks.size() - 1));
             break;
         }
 
