@@ -37,6 +37,9 @@ public class TaskList {
         System.out.println(this.printTask(taskNum));
         this.tasks.remove(taskNum);
     }
+    public int totalTaskNum() {
+        return this.tasks.size();
+    }
 
     public void printList() {
         for(int i = 0; i < tasks.size(); i++) {

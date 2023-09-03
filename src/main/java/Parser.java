@@ -1,5 +1,8 @@
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import tasks.Deadline;
 import tasks.Event;
@@ -91,6 +94,23 @@ public class Parser {
                         System.out.println("O...Okk... I've re...removed this task:");
                         tasks.deleteTask(taskNum - 1);
                         tasks.numOfTask();
+                        Ui.line();
+                    } else if (parts[0].equals("find")) {
+                        if (parts.length == 1) {
+                            throw new DukeException("AAA...AGHHH!!! The task to find... c...cannot be empty!!!°(°ˊДˋ°) °");
+                        }
+                        String keyword = parts[1];
+                        TaskList store = new TaskList(new ArrayList<Task>());
+                        for (int i = 0; i < tasks.totalTaskNum(); i++) {
+                            String temp = tasks.printTask(i);
+                            List<String> words = Arrays.asList(temp.split(" "));
+                            if (words.contains(keyword)) {
+                                store.addToList(tasks.tasks.get(i));
+                            }
+                        }
+                        Ui.line();
+                        System.out.println("Here are the matching tasks in your list:");
+                        store.printList();
                         Ui.line();
                     } else {
                         throw new DukeException("AAA...AGHHH!!! Go...Gomenasaiii!!! I don't understand!!!°(°ˊДˋ°) °");
