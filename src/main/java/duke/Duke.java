@@ -14,12 +14,20 @@ public class Duke {
     private TaskList tasklist;
     private Storage storage;
 
+    /**
+     * An empty constructor for Duke
+     */
     public Duke() {
         this.messages = new Messages();
         this.ui = new Ui();
         this.tasklist = new TaskList();
     }
 
+    /**
+     * Constructor for Duke. Takes in the path of the file as argument. Load the file if the file exists.
+     *
+     * @param filePath the path to the file
+     */
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -33,10 +41,20 @@ public class Duke {
             e.getMessage();
         }
     }
+
+    /**
+     * invoke the startChatting() method for the chatbot to start running
+     *
+     * @param args
+     */
     public static void main(String[] args) {
+
         new Duke("Level7File/tasks.txt").startChatting();
     }
 
+    /**
+     * Run the chatbot depending on what command the user entered
+     */
     public void startChatting() {
         Messages.Greet();
 

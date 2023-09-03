@@ -11,10 +11,20 @@ import java.util.Scanner;
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructor for Storage class
+     *
+     * @param filePath the path to the storage file
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves all the tasks added into the storage file
+     *
+     * @throws IOException if the storage file cannot be found
+     */
     public void saveTaskToFile() {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath));
@@ -30,6 +40,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Load the task from the file storage to the user interface
+     *
+     * @throws IOException if the storage file cannot be found
+     */
     public void loadTask() throws IOException, DetailsUnknownException {
         File file = new File(this.filePath);
         file.getParentFile().mkdirs();
