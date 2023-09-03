@@ -37,13 +37,6 @@ public class Ui {
     }
 
     /**
-     * Prints out the line separator.
-     */
-    public static void showLine() {
-        System.out.println(SEPARATOR);
-    }
-
-    /**
      * Prints out the welcome message of the chatbot.
      */
     public void showWelcome() {

@@ -1,18 +1,19 @@
 package duke;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
 
 /**
  * Storage deals with loading tasks from the data file and saving tasks into it.
@@ -101,7 +102,6 @@ public class Storage {
                         e.markDone();
                     }
                     tasks.add(e);
-                    // System.out.println("event added");
                 } else {
                     System.out.println("An error has occurred: Unknown task type");
                 }

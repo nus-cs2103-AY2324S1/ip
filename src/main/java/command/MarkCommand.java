@@ -23,8 +23,8 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui) {
         String input = ui.getInput();
-        String indexStr = input.split(" ")[1];
-        int num = Integer.valueOf(indexStr);
+        String indexString = input.split(" ")[1];
+        int num = Integer.valueOf(indexString);
         taskList.markTask(num);
     }
 

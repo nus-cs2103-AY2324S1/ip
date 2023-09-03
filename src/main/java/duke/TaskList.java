@@ -88,15 +88,6 @@ public class TaskList {
     }
 
     /**
-     * Returns the total number of tasks in the user's current list of tasks.
-     *
-     * @return An integer number of the user's total number of tasks.
-     */
-    public int taskSize() {
-        return this.taskList.size();
-    }
-
-    /**
      * A getter function to get the user's current list of tasks.
      *
      * @return The user's current list of tasks.

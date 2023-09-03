@@ -54,6 +54,8 @@ public class Duke {
                 System.out.println(e.getMessage());
             } catch (InvalidDateTimeException e) {
                 System.out.println(e.getMessage());
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
             } catch (Exception e) {
                 System.out.println("☹ OOPS!!! Something went wrong D:"
                         + Ui.SEPARATOR);

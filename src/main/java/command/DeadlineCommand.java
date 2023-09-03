@@ -41,15 +41,15 @@ public class DeadlineCommand extends Command {
         } else if (input.length() <= input.indexOf("/by") + 4) {
             throw new EmptyDateTimeException("deadline");
         } else {
-            String tempDes = input.split(" ", 2)[1];
-            System.out.println(tempDes);
-            String des = tempDes.split(" /by " )[0];
-            String by = tempDes.split(" /by ")[1];
+            String tempDescription = input.split(" ", 2)[1];
+            System.out.println(tempDescription);
+            String description = tempDescription.split(" /by " )[0];
+            String by = tempDescription.split(" /by ")[1];
             try {
                 String[] dateTimeArr = by.split(" ");
                 LocalDate byDate = LocalDate.parse(dateTimeArr[0]);
                 LocalTime byTime = LocalTime.parse(dateTimeArr[1]);
-                Deadline d = new Deadline(des, byDate, byTime);
+                Deadline d = new Deadline(description, byDate, byTime);
                 taskList.addTask(d);
             } catch (DateTimeParseException e) {
                 throw new InvalidDateTimeException("deadline");
