@@ -33,9 +33,10 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        dialog.setWrapText(true); // Enable text wrapping
         dialog.setText(text);
         displayPicture.setImage(img);
+
     }
 
     /**
