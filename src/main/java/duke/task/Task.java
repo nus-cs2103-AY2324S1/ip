@@ -12,17 +12,22 @@ public class Task {
      * field ogName is the original name of the task parsed in
      * field type is the tyoe of Task parsed in
      */
-    boolean completed;
-    String name, ogName, type;
+    private boolean completed;
+    private final String name;
+    private String type;
+    private String ogName;
+
 
     /**
-     *
      * @param name name of the Task object
      */
 
     public Task(String name) {
         this.completed = false;
         this.name = name;
+    }
+    public boolean isCompleted() {
+        return this.completed;
     }
 
 
@@ -40,9 +45,14 @@ public class Task {
     public void markUncompleted() {
         this.completed = false;
     }
+    public String getType() {
+        return this.type;
+    }
+    public String getOgName() {
+        return this.ogName;
+    }
 
     /**
-     *
      * @return returns the String format of the Task class
      */
     @Override

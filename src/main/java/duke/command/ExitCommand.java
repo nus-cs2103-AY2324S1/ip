@@ -1,7 +1,7 @@
 package duke.command;
-import duke.task.TaskList;
-import duke.helper.Ui;
 import duke.helper.Storage;
+import duke.helper.Ui;
+import duke.task.TaskList;
 
 /**
  * ExitCommand to signal to the Parser class to stop MeowBot

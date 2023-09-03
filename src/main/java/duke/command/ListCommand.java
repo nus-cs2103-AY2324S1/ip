@@ -1,7 +1,8 @@
 package duke.command;
-import duke.task.TaskList;
 import duke.helper.Storage;
 import duke.helper.Ui;
+import duke.task.TaskList;
+
 
 /**
  * ListsCommand lists down all the tasks in the TaskList class

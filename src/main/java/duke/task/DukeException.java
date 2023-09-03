@@ -7,10 +7,9 @@ public class DukeException extends Exception {
     /**
      * field message would be the custom message for each type of error
      */
-    String message;
+    private final String message;
 
     /**
-     *
      * @param message custom message for each type of error
      */
     public DukeException(String message) {

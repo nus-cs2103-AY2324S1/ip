@@ -11,8 +11,8 @@ public class Deadline extends Task {
      * field inputs to split the name of the command
      * field date stores the date placed into the Deadline
      */
-    String[] inputs;
-    LocalDate date;
+    private String[] inputs;
+    private LocalDate date;
 
     /**
      * constructor for the Deadline class
@@ -35,7 +35,6 @@ public class Deadline extends Task {
     }
 
     /**
-     *
      * @return String format for the Deadline class
      */
     @Override

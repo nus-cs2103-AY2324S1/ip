@@ -1,19 +1,21 @@
 package duke.command;
 import java.io.IOException;
+
+import duke.helper.Storage;
+import duke.helper.Ui;
 import duke.task.DukeException;
 import duke.task.Task;
 import duke.task.TaskList;
-import duke.helper.Ui;
-import duke.helper.Storage;
+
 
 /**
  * MarkClass marks the task index specified as Completed
  */
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
     /**
      * Indicates the index to mark the task as completed
      */
-    int taskNum;
+    private final int taskNum;
 
     /**
      * Constructor to make the MarkCommand class

@@ -1,9 +1,10 @@
 package duke.command;
+import java.io.IOException;
+
 import duke.helper.Storage;
 import duke.helper.Ui;
 import duke.task.DukeException;
 import duke.task.TaskList;
-import java.io.IOException;
 
 /**
  * FindCommand that searches for tasks with the relevant keyword in it
@@ -11,7 +12,7 @@ import java.io.IOException;
 
 public class FindCommand extends Command {
 
-    String keyword;
+    private final String keyword;
 
     public FindCommand(String keyword) {
         this.keyword = keyword;

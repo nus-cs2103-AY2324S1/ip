@@ -1,33 +1,34 @@
 package duke.command;
-import duke.task.DukeException;
-import duke.task.Task;
-import duke.task.Event;
-import duke.task.Deadline;
-import duke.task.Todo;
-import duke.task.TaskList;
-import duke.helper.Ui;
-import duke.helper.Storage;
 import java.io.IOException;
+
+import duke.helper.Storage;
+import duke.helper.Ui;
+import duke.task.Deadline;
+import duke.task.DukeException;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
+
 
 /**
  * AddCommand used to add the tasks to the Tasklist class via execute method
- * @version 0.1
  * @author tangiansen
+ * @version 0.1
  * @since 2023-08-30
  */
 
-public class AddCommand extends Command{
+public class AddCommand extends Command {
 
     private Task task;
     /**
-     *
      * @param command takes in the format ie. "todo cry"
      * @throws DukeException throws a DukeException which indicates no description if no text description
      */
     public AddCommand(String command) throws DukeException {
         try {
             int firstIndexSpace = command.indexOf(" ");
-            String taskType = command.substring(0,firstIndexSpace);
+            String taskType = command.substring(0, firstIndexSpace);
             String taskName = command.substring(firstIndexSpace + 1);
 
             if (taskType.equals("event")) {

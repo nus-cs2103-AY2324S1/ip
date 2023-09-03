@@ -1,15 +1,17 @@
 package duke.task;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
 
 public class EventTest {
     //Initialise the event
     @Test
-    public void CheckFromToEvent() {
-        Exception except = assertThrows(DukeException.class,() -> {
+    public void checkFromToEvent() {
+        Exception except = assertThrows(DukeException.class, () -> {
             new Event("event project meeting /from 2019-12-08 /to 2019-12-04");
-        } );
+        });
 
         String expectedmessage = "MEEEOOWWWWWW!!!! From is later than To!";
         String actlmessage = except.toString(); //get the full message
@@ -17,7 +19,7 @@ public class EventTest {
         assertEquals(expectedmessage, actlmessage);
     }
     @Test
-    public void InitiliaseEvent() throws DukeException {
+    public void initiliaseEvent() throws DukeException {
         String inputCommand = " project meeting /from 2019-12-02 /to 2019-12-04";
         String expectedName = "[E][ ] project meeting (from: Dec 2 2019 to: Dec 4 2019)";
 
@@ -26,19 +28,18 @@ public class EventTest {
     }
 
     @Test
-    public void CheckPresenceOfEndDate() {
+    public void checkPresenceOfEndDate() {
         String inputCommand = "event project meeting /from 2019-12-02";
-        Exception except = assertThrows(DukeException.class,() -> {
+        Exception except = assertThrows(DukeException.class, () -> {
             new Event(inputCommand);
-        } );
+        });
         String expectedmessage = "MEEEOOWWWWWW!!!! Event has no end date!";
         String actlmessage = except.toString(); //get the full message
     }
 
     @Test
-    public void CheckValidDateInput() {
+    public void checkValidDateInput() {
         String inputCommand = " project meeting /from 2019-12-02 /to 2019-12-04";
-
     }
 
 

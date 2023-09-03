@@ -13,9 +13,9 @@ public class Event extends Task {
      * field startDate stores the from date parsed into the Event
      * field endDate stores the to date parsed into the Event
      */
-    String[] inputs;
-    LocalDate startDate;
-    LocalDate endDate;
+    private final String[] inputs;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     /**
      * constructor for the Event class
@@ -52,6 +52,6 @@ public class Event extends Task {
     public String toString() {
         String fromDate = startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         String toDate = endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        return "[E]" + super.toString() + "(from: " + fromDate  + " to: " + toDate + ")";
+        return "[E]" + super.toString() + "(from: " + fromDate + " to: " + toDate + ")";
     }
 }

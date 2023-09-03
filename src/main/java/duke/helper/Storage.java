@@ -5,11 +5,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import duke.task.DukeException;
-import duke.task.TaskList;
-import duke.task.Task;
-import duke.task.Event;
+
 import duke.task.Deadline;
+import duke.task.DukeException;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
 import duke.task.Todo;
 
 /**
@@ -24,20 +25,19 @@ public class Storage {
      * tempPath stores where the temporary file is at
      */
 
-    private final String FILEPATH;
-    private final String TEMPPATH;
+    private final String FILE_PATH;
+    private final String TEMP_PATH;
 
     /**
      * Constructor for filePath is where the local storage is stored at,
      * parsed in initially in MeowBot
      */
     public Storage(String filePath) {
-        this.FILEPATH = filePath;
-        this.TEMPPATH = "src/main/data/temp.txt";
+        this.FILE_PATH = filePath;
+        this.TEMP_PATH = "src/main/data/temp.txt";
     }
 
     /**
-     *
      * @return returns the TaskList of tasks stored in the txt file
      * @throws FileNotFoundException when the filePath is not valid
      * @throws DukeException when generating the task from String
@@ -45,7 +45,7 @@ public class Storage {
 
     public ArrayList<Task> load() throws FileNotFoundException, DukeException {
         ArrayList<Task> lst = new ArrayList<>();
-        Scanner sc = new Scanner(new File(this.FILEPATH));
+        Scanner sc = new Scanner(new File(this.FILE_PATH));
         int count = 0;
         while (sc.hasNextLine()) {
             Task generatedTask = generateTaskFromString(sc.nextLine());
@@ -102,13 +102,14 @@ public class Storage {
      */
 
     public void save(TaskList tasks) throws IOException {
-        FileWriter tempWriter = new FileWriter(this.TEMPPATH, true);  // Open the file in append mode
+        FileWriter tempWriter = new FileWriter(this.TEMP_PATH, true);
+        // Open the file in append mode
         tempWriter.write(tasks.totxtformat());
         tempWriter.close();
-        File ogFile = new File(this.FILEPATH);
-        File temp = new File(this.TEMPPATH);
+        File ogFile = new File(this.FILE_PATH);
+        File temp = new File(this.TEMP_PATH);
         ogFile.delete();
-        temp.renameTo(new File(this.FILEPATH));
+        temp.renameTo(new File(this.FILE_PATH));
     }
 
     /**
@@ -118,7 +119,7 @@ public class Storage {
     public void createNewFile() throws IOException {
         String folderPath = "src/main/data";
         File folder = new File(folderPath);
-        File file = new File(this.FILEPATH);
+        File file = new File(this.FILE_PATH);
         folder.mkdirs();
         file.createNewFile();
         System.out.println("Meow gotchu! Making local storage to remember your taskzz!");
