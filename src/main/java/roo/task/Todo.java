@@ -1,15 +1,15 @@
-package duke.task;
+package roo.task;
 
-import duke.DukeException;
+import roo.RooException;
 
 import java.time.LocalDateTime;
 
 public class Todo extends Task {
-    public Todo(String task) throws DukeException {
+    public Todo(String task) throws RooException {
         super(task);
     }
 
-    public Todo(String task, boolean finish) throws DukeException{
+    public Todo(String task, boolean finish) throws RooException {
         super(task, finish);
     }
 

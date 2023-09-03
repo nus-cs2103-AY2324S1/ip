@@ -1,6 +1,6 @@
-package duke;
+package roo;
 
-import duke.task.Task;
+import roo.task.Task;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -39,6 +39,17 @@ public class TaskList {
         for (Task dt : data) {
             if (dt.getDate() != null && dt.getDate().getDayOfMonth() == date.getDayOfMonth()) {
                 System.out.println("- " + dt.toString());
+            }
+        }
+        System.out.println(" ");
+    }
+
+    public void find(String keyword) {
+        int count = 1;
+        for (Task dt : data) {
+            if (dt.toString().contains(keyword)) {
+                System.out.println(count + ". " + dt.toString());
+                count++;
             }
         }
         System.out.println(" ");

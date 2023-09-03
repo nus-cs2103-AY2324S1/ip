@@ -1,7 +1,7 @@
-package duke;
+package roo;
 
-public class DukeException extends Exception {
-    public DukeException(String message) {
+public class RooException extends Exception {
+    public RooException(String message) {
         super(message);
     }
 

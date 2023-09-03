@@ -1,19 +1,19 @@
-package duke;
+package roo;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Todo;
+import roo.task.Deadline;
+import roo.task.Event;
+import roo.task.Todo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Duke {
+public class Roo {
 
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
 
-    Duke (String filePath) {
+    Roo(String filePath) {
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(storage);
         this.ui = new Ui(tasks);
@@ -39,49 +39,57 @@ public class Duke {
 
                     case DATE:
                         if (input.length() < 7) {
-                            throw new DukeException("Which day u want oh?? Give in dd-MM-yyyy ahhh\n");
+                            throw new RooException("Which day u want oh?? Give in dd-MM-yyyy ahhh\n");
                         }
                         String date = input.substring(6);
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                         this.ui.listDateEvents(LocalDate.parse(date, formatter));
                         break;
 
+                    case FIND:
+                        if (input.length() < 6) {
+                            throw new RooException("What do you want to find ahh??\n");
+                        }
+                        String keyword = input.substring(6);
+                        this.ui.find(keyword);
+                        break;
+
                     case UNMARK:
                         if (input.length() < 8) {
-                            throw new DukeException("Please unmark your task using this format: "
+                            throw new RooException("Please unmark your task using this format: "
                                     + "\"unmark [serial number]\"\n");
                         }
                         int t = Integer.parseInt(input.substring(7));
                         if (t > this.tasks.size()) {
-                            throw new DukeException("We dunhave so many task lah =_=\n");
+                            throw new RooException("We dunhave so many task lah =_=\n");
                         } else if (!this.tasks.isDone(t - 1)) {
-                            throw new DukeException("Weihh... It's unmark ehhh\n");
+                            throw new RooException("Weihh... It's unmark ehhh\n");
                         }
                         this.ui.markUndone(t - 1);
                         break;
 
                     case MARK:
                         if (input.length() < 6) {
-                            throw new DukeException("Please mark your task using this format: "
+                            throw new RooException("Please mark your task using this format: "
                                     + "\"mark [serial number]\"\n");
                         }
                         int u = Integer.parseInt(input.substring(5));
                         if (u > this.tasks.size()) {
-                            throw new DukeException("We dunhave so many task lah =_=\nq");
+                            throw new RooException("We dunhave so many task lah =_=\nq");
                         } else if (this.tasks.isDone(u - 1)) {
-                            throw new DukeException("Weihh... It's already mark ehhh\n");
+                            throw new RooException("Weihh... It's already mark ehhh\n");
                         }
                         this.ui.markDone(u - 1);
                         break;
 
                     case DELETE:
                         if (input.length() < 8) {
-                            throw new DukeException("Please delete your task using this format: "
+                            throw new RooException("Please delete your task using this format: "
                                     + "\"delete [serial number]\"\n");
                         }
                         int v = Integer.parseInt(input.substring(7));
                         if (v > this.tasks.size()) {
-                            throw new DukeException("We dunhave so many task lah =_=\n");
+                            throw new RooException("We dunhave so many task lah =_=\n");
                         }
                         this.ui.delete(v - 1);
                         break;
@@ -93,7 +101,7 @@ public class Duke {
 
                     case DEADLINE:
                         if (!input.contains("/by")) {
-                            throw new DukeException("Please enter your task with this format: "
+                            throw new RooException("Please enter your task with this format: "
                                     + "\"deadline task_description /by dd-MM-yyyy HH:mm (deadline)\"\n");
                         }
                         String tk = input.substring(8, input.indexOf("/") - 1);
@@ -102,7 +110,7 @@ public class Duke {
 
                     case EVENT:
                         if (!input.contains("/from") || !input.contains("/to")) {
-                            throw new DukeException("Please enter your task with this format: "
+                            throw new RooException("Please enter your task with this format: "
                                     + "\"event task_description /from dd-MM-yyyy HH:mm (start) "
                                     + " /to dd-MM-yyyy HH:mm (end)\"\n");
                         }
@@ -117,16 +125,16 @@ public class Duke {
                         return;
 
                     case UNKNOWN:
-                        throw new DukeException("I dunno what u mean!!!\n");
+                        throw new RooException("I dunno what u mean!!!\n");
                 }
-            } catch (DukeException exception) {
+            } catch (RooException exception) {
                 System.err.println(exception.getMessage());
             }
         }
     }
 
     public static void main(String[] args) {
-        Duke roo = new Duke("roo.txt");
+        Roo roo = new Roo("roo.txt");
         roo.run();
     }
 }

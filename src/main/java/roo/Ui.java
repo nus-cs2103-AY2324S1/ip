@@ -1,6 +1,6 @@
-package duke;
+package roo;
 
-import duke.task.Task;
+import roo.task.Task;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -46,6 +46,11 @@ public class Ui {
     public void listDateEvents(LocalDate date) {
         System.out.println("You need to do...");
         tasks.listDateEvents(date);
+    }
+
+    public void find(String keyword) {
+        System.out.println("Nah, your matching tasks:");
+        tasks.find(keyword);
     }
 
     public void markDone(int i) {

@@ -1,21 +1,21 @@
-package duke.task;
+package roo.task;
 
-import duke.DukeException;
+import roo.RooException;
 import java.time.LocalDateTime;
 
 public abstract class Task {
     private boolean finish;
     private String task;
 
-    public Task (String task) throws DukeException {
+    public Task (String task) throws RooException {
         if (task.isEmpty() || task.equals(" ")) {
-            throw new DukeException("Description is EMPTY!!!\n");
+            throw new RooException("Description is EMPTY!!!\n");
         }
         this.finish = false;
         this.task = task;
     }
 
-    public Task (String task, boolean finish) throws DukeException {
+    public Task (String task, boolean finish) throws RooException {
         this.finish = finish;
         this.task = task;
     }
