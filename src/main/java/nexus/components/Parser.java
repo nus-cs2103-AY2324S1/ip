@@ -126,8 +126,9 @@ public class Parser {
         storage.saveTask(event);
     }
 
-    public void parseFind(TaskList list, String[] data, Storage storage, Ui ui) throws InvalidInputException {
+    public static void parseFind(TaskList list, String[] data, Storage storage, Ui ui) throws InvalidInputException {
         // filter
+
     }
 
     public static boolean parseInput(Ui ui, Storage storage, TaskList list, String input) throws InvalidInputException {
