@@ -1,6 +1,11 @@
 package duke;
+
+/**
+ * Marks a task in task lis as done
+ */
 public class MarkCommand extends Command{
 
+    /** Index of the task in task list */
     private final int index;
     public MarkCommand(int i) {
         index = i;

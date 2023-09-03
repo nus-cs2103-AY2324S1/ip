@@ -1,6 +1,11 @@
 package duke;
 
+/**
+ * Marks a task in task list as not done
+ */
 public class UnmarkCommand extends Command{
+
+    /** Index of the task in task list */
     private final int index;
     public UnmarkCommand(int i) {
         index = i;

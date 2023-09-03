@@ -1,4 +1,9 @@
 package duke;
+
+/**
+ * Entry point of the chatbot.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Duke {
 
     private Storage storage;
@@ -15,6 +20,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the programme until termination
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -33,6 +41,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Initializes duke and runs it.
+     */
     public static void main(String[] args) {
         new Duke("./src/main/data/tasks.txt").run();
     }

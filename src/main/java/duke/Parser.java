@@ -1,6 +1,15 @@
 package duke;
+
+/**
+ * Parses user input.
+ */
 public class Parser {
 
+    /**
+     * Parses user input into command for execution.
+     * @param input full user input string.
+     * @return the command based on the user input.
+     */
     public static Command parse(String input) {
         if (input.equals("bye")) {
             return new ExitCommand();

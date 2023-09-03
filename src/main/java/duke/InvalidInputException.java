@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Signals that given data does not match any command.
+ */
 public class InvalidInputException extends Exception {
 
     public InvalidInputException() {

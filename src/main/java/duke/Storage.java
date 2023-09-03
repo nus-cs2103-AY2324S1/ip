@@ -7,6 +7,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the file used to store tasks.
+ */
 public class Storage {
 
     private File file;
@@ -17,6 +20,11 @@ public class Storage {
         path = filePath;
     }
 
+    /**
+     * Loads data from the file in this storage to the task list.
+     * @return the task list.
+     * @throws IOException if there were errors reading and/or converting data from file.
+     */
     public ArrayList<Task> load() throws IOException{
             if (file.createNewFile()) {
                 return new ArrayList<>();
@@ -53,6 +61,11 @@ public class Storage {
             return arrTask;
     }
 
+    /**
+     * Saves the data in task list to the file in storage.
+     * @param list the task list.
+     * @throws IOException if there were errors converting and/or storing data to file.
+     */
     public void save(TaskList list) throws IOException {
         if (file.delete()) {
             file = new File(path);
@@ -63,6 +76,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes a line of text in the file in storage.
+     * @param pathname path name of the file.
+     * @param textToAdd line of text to write into file.
+     * @throws IOException if there were errors reading and/or writing to file.
+     */
     private void writeToFile(String pathname, String textToAdd) throws IOException{
         FileWriter fw = new FileWriter(pathname, true);
         fw.write(textToAdd + System.lineSeparator());

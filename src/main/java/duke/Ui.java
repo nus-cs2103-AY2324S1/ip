@@ -2,9 +2,14 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * Text UI of the application.
+ */
 public class Ui {
 
+    /** Scanner to read input */
     private final Scanner scanner;
+
     public Ui() {
         scanner = new Scanner(System.in);
     }
@@ -12,6 +17,10 @@ public class Ui {
     public void showLine() {
         System.out.println("____________________________________________________________\n");
     }
+
+    /**
+     * Generates and prints the welcome message upon the start of the application.
+     */
     public void showWelcome() {
         System.out.println(
                 "____________________________________________________________\n"
@@ -21,6 +30,9 @@ public class Ui {
         );
     }
 
+    /**
+     * Generates and prints the exit message upon the termination of the application.
+     */
     public void showExit() {
         System.out.println("____________________________________________________________\n"
                 + "Bye. Hope to see you again soon!\n"
@@ -28,25 +40,43 @@ public class Ui {
         );
     }
 
+    /**
+     * Reads the next command from user.
+     * @return description of the command
+     */
     public String readCommand() {
         return scanner.nextLine();
     }
-    public void showMarked(Task t) {
+
+    /**
+     * Shows the marked task.
+     * @param task task that was marked.
+     */
+    public void showMarked(Task task) {
         System.out.println("____________________________________________________________\n"
                 + "Nice! I've marked this task as done:\n"
-                + t + "\n"
+                + task + "\n"
                 + "____________________________________________________________\n"
         );
     }
 
-    public void showUnmarked(Task t) {
+    /**
+     * Shows the unmarked task
+     * @param task task that was marked.
+     */
+    public void showUnmarked(Task task) {
         System.out.println("____________________________________________________________\n"
                 + "OK, I've marked this task as not done yet:\n"
-                + t + "\n"
+                + task + "\n"
                 + "____________________________________________________________\n"
         );
     }
 
+    /**
+     * Shows task added to task list.
+     * @param task task added to task list
+     * @param num number of task in task list.
+     */
     public void showTaskAdded(Task task, int num) {
         System.out.println("____________________________________________________________\n"
                 + "Got it. I've added this task:\n"
@@ -56,24 +86,37 @@ public class Ui {
         );
     }
 
-    public void showDeleted(Task t, int num) {
+    /**
+     * Shows the task deleted from task list
+     * @param task task deleted from task list
+     * @param num number of task in task list
+     */
+    public void showDeleted(Task task, int num) {
         System.out.println("____________________________________________________________\n"
                 + "Noted. I've removed this task:\n"
-                + t + "\n"
+                + task + "\n"
                 + "Now you have " + num + " tasks in the list.\n"
                 + "____________________________________________________________\n"
         );
     }
 
-    public void showTaskList() {
-        System.out.println("____________________________________________________________\n"
-                + "Here are the tasks in your list:");
+    /**
+     * Shows the list of tasks
+     * @param tasks list of tasks
+     */
+    public void showTaskList(TaskList tasks) {
+        System.out.println("Here are the tasks in your list:");
+
+        for (int i = 1; i <= tasks.total(); i++) {
+            Task t = tasks.get(i - 1);
+            System.out.println(i + ". " + t.toString());
+        }
     }
 
-    public void showTask(Task t, int index) {
-        System.out.println(index + ". " + t.toString());
-    }
-
+    /**
+     * Shows the error message of an exception thrown.
+     * @param errorMsg error message of the exception thrown.
+     */
     public void showError(String errorMsg) {
         System.out.println("____________________________________________________________\n"
                 + errorMsg + "\n"

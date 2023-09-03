@@ -1,16 +1,17 @@
 package duke;
+
+/**
+ * Lists all the tasks in task list
+ */
 public class ListCommand extends Command{
 
     public ListCommand() {}
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showTaskList();
-        for (int i = 1; i <= tasks.total(); i++) {
-            Task t = tasks.get(i - 1);
-            ui.showTask(t, i);
-        }
-       ui.showLine();
+        ui.showLine();
+        ui.showTaskList(tasks);
+        ui.showLine();
     }
 
     @Override
