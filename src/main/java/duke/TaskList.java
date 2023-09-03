@@ -15,7 +15,7 @@ public class TaskList {
         this.ui = ui;
     }
 
-    public void filterTasks(String description) {
+    public String filterTasks(String description) {
         List<Task> filteredTasks = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
@@ -23,40 +23,36 @@ public class TaskList {
                 filteredTasks.add(task);
             }
         }
-        this.ui.listFoundTasks(filteredTasks);
+        return this.ui.listFoundTasks(filteredTasks);
     }
 
     public void save(Storage storage) {
         storage.save(this.tasks);
-        this.ui.exitMessage();
     }
 
-    /**
-     * Prints out the list of tasks tracked by the chatbot
-     */
-    public void listTasks() {
-        this.ui.listMessage(tasks);
+    public String listTasks() {
+        return this.ui.listMessage(tasks);
     }
 
-    public void markTaskAsDone(int taskNumber) {
+    public String markTaskAsDone(int taskNumber) {
         Task task = this.tasks.get(taskNumber);
         task.markAsDone();
-        this.ui.markTaskAsDoneMessage(task);
+        return this.ui.markTaskAsDoneMessage(task);
     }
 
-    public void unmarkTask(int taskNumber) {
+    public String unmarkTask(int taskNumber) {
         Task task = this.tasks.get(taskNumber);
         task.unmark();
-        this.ui.unmarkTaskMessage(task);
+        return this.ui.unmarkTaskMessage(task);
     }
 
-    public void deleteTask(int taskNumber) {
+    public String deleteTask(int taskNumber) {
         Task task = this.tasks.remove(taskNumber);
-        this.ui.deleteTaskMessage(task, this.tasks.size());
+        return this.ui.deleteTaskMessage(task, this.tasks.size());
     }
 
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         this.tasks.add(task);
-        this.ui.addTaskMessage(task, this.tasks.size());
+        return this.ui.addTaskMessage(task, this.tasks.size());
     }
 }
