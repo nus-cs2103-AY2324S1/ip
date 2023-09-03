@@ -58,20 +58,18 @@ public class Parser {
             ui.showTaskList(tasks);
         } else if (isCreateTaskCommand(input)) {
             Task newTask = parseCreateTaskInput(input);
-            tasks.addTask(newTask); // TODO Update this method call accordingly
+            tasks.addTask(newTask);
         } else {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
         return true;
     }
 
-    public static Task convertToTask(String line) {
-
+    public static Task convertToTask(String line) throws DukeException {
         String[] parts = line.split("\\|\\|");
 
         if (parts.length < 5) {
-            System.err.println("Invalid task format in file: " + line);
-            return null;
+            throw new DukeException("Invalid task format in file: " + line);
         }
 
         String taskType = parts[0].trim();
@@ -102,6 +100,44 @@ public class Parser {
         }
         return task;
     }
+
+//
+//    public static Task convertToTask(String line) throws DukeException {
+//
+//        String[] parts = line.split("\\|\\|");
+//
+//        if (parts.length < 5) {
+//            throw new DukeException("Invalid task format in file: " + line);
+//        }
+//
+//        String taskType = parts[0].trim();
+//        String done = parts[1].trim();
+//        String taskDescription = parts[2].trim();
+//        System.out.println(taskDescription);
+//        String start = parts[3].trim();
+//        String end = parts[4].trim();
+//        Task task = null;
+//
+//        try {
+//            switch (taskType) {
+//            case "T":
+//                task = new ToDo(taskDescription);
+//                break;
+//            case "D":
+//                task = new Deadline(taskDescription, end);
+//                break;
+//            case "E":
+//                task = new Event(taskDescription, start, end);
+//                break;
+//            }
+//            if (done.equals("0") && task != null) {
+//                task.isDone = false;
+//            }
+//        } catch (DukeException e) {
+//            System.err.println(e.getMessage());
+//        }
+//        return task;
+//    }
 
     public static Task parseCreateTaskInput(String input) throws DukeException {
         TaskType taskType;

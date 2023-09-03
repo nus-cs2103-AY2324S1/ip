@@ -44,7 +44,7 @@ public class Storage {
                     tasks.add(task);
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | DukeException e) {
             System.err.println(e.getMessage());
         }
         return tasks;
