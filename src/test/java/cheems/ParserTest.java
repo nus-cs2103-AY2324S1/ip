@@ -6,6 +6,7 @@ import cheems.functionalities.Tasklist;
 import cheems.functionalities.textUi;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -16,10 +17,10 @@ class ParserTest {
     private Parser parser = new Parser(tasklistMock);
     @Test
     void parseAndExecute_emptyInput_success() throws Exception {
-        parser.parseAndExecute("");
+        String actual = parser.parseAndExecute("");
 
-        String resp = "Please give me instructions, if not, I'll serve you some fries.";
-        verify(uiMock).printWithFormat(resp);
+        String expected = "Please give me instructions, if not, I'll serve you some fries.";
+        assertEquals(expected, actual);
     }
 
     @Test

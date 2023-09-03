@@ -1,8 +1,13 @@
 plugins {
+    id 'checkstyle'
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'org.openjfx.javafxplugin' version '0.0.8'
+}
+
+checkstyle {
+    toolVersion = '10.2'
 }
 
 repositories {

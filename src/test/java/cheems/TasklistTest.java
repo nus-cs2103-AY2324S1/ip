@@ -17,51 +17,50 @@ import static org.mockito.Mockito.verify;
 
 
 class TasklistTest {
-    textUi uiMock = mock(textUi.class);
     Storage storageMock = mock(Storage.class);
     @Test
-    void addTodoTaskToDatabaseTest() {
-        Tasklist tasklist = new Tasklist(storageMock, uiMock);
+    void addTaskToDatabaseTest_todo_success() {
+        Tasklist tasklist = new Tasklist(storageMock);
         String[] params = {"TODO","Sing a song"};
-        tasklist.addTaskToDatabase(params);
+        String actualOutput = tasklist.addTaskToDatabase(params);
 
         Todo todo = new Todo("Sing a song");
-        String resp = "I have added this task for you!\n" + todo.toString();
-        resp += String.format("\nNow you have %d task(s) in your list!", tasklist.getTotal());
+        String expectedOutput = "I have added this task for you!\n" + todo.toString();
+        expectedOutput += String.format("\nNow you have %d task(s) in your list!", tasklist.getTotal());
 
-        assertEquals(1, tasklist.getTotal());
         assertTrue(new ReflectionEquals(todo).matches(tasklist.getTaskAt(0)));
+        assertEquals(1, tasklist.getTotal());
+        assertEquals(expectedOutput, actualOutput);
         verify(storageMock).saveNewTask(todo.toStorage());
-        verify(uiMock).printWithFormat(resp);
     }
 
     @Test
-    void addDeadlineTaskToDatabaseTest() {
-        Tasklist tasklist = new Tasklist(storageMock, uiMock);
+    void addTaskToDatabaseTest_deadline_success() {
+        Tasklist tasklist = new Tasklist(storageMock);
         String[] params = {"DEADLINE", "do hw", "2019-12-14"};
-        tasklist.addTaskToDatabase(params);
+        String actualOutput = tasklist.addTaskToDatabase(params);
 
         Deadline ddl = new Deadline("do hw", "2019-12-14");
-        String resp = "I have added this task for you!\n" + ddl.toString();
-        resp += String.format("\nNow you have %d task(s) in your list!", tasklist.getTotal());
+        String expectedOutput = "I have added this task for you!\n" + ddl.toString();
+        expectedOutput += String.format("\nNow you have %d task(s) in your list!", tasklist.getTotal());
 
         assertEquals(1, tasklist.getTotal());
+        assertEquals(expectedOutput, actualOutput);
         verify(storageMock).saveNewTask(ddl.toStorage());
-        verify(uiMock).printWithFormat(resp);
     }
 
     @Test
-    void addEventTaskToDatabaseTest() {
-        Tasklist tasklist = new Tasklist(storageMock, uiMock);
+    void addTaskToDatabaseTest_event_success() {
+        Tasklist tasklist = new Tasklist(storageMock);
         String[] params = {"EVENT", "conference", "2022-12-22", "2022-12-24"};
-        tasklist.addTaskToDatabase(params);
+        String expectedOutput = tasklist.addTaskToDatabase(params);
 
         Event event = new Event("conference", "2022-12-22", "2022-12-24");
-        String resp = "I have added this task for you!\n" + event.toString();
-        resp += String.format("\nNow you have %d task(s) in your list!", tasklist.getTotal());
+        String actualOutput = "I have added this task for you!\n" + event.toString();
+        actualOutput += String.format("\nNow you have %d task(s) in your list!", tasklist.getTotal());
 
         assertEquals(1, tasklist.getTotal());
+        assertEquals(expectedOutput, actualOutput);
         verify(storageMock).saveNewTask(event.toStorage());
-        verify(uiMock).printWithFormat(resp);
     }
 }
