@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 public class UtilityTest {
     @Test
     public void matchesRegexTest() {
-        assertTrue(Utility.matchesRegex("abc", "^a")); 
-        assertTrue(Utility.matchesRegex("abc", "c$")); 
-        assertTrue(Utility.matchesRegex("abc", "[0-9A-Za-z]+")); 
+        assertTrue(Utility.matchesRegex("abc", "^a"));
+        assertTrue(Utility.matchesRegex("abc", "c$"));
+        assertTrue(Utility.matchesRegex("abc", "[0-9A-Za-z]+"));
 
         assertFalse(Utility.matchesRegex("abc", "^a$"));
     }

@@ -11,7 +11,7 @@ public class TaskListTest {
 
         ToDo todo = new ToDo("Hello World!");
         taskList.addTask(todo);
-        
+
         assertEquals(0, taskList.indexOf(todo));
 
         taskList.removeTask(0);
