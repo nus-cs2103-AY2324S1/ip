@@ -41,6 +41,8 @@ public class Parser {
             case "event":
                 newTask = Event.initializeFromInput(scannerIn);
                 break;
+            default:
+                throw new UnknownCommandException();
             }
             tasks.addTask(newTask);
             break;

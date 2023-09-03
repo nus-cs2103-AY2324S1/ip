@@ -1,5 +1,6 @@
 package duke;
 
+import duke.exception.UnknownCommandException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -46,7 +47,7 @@ public class Storage {
 
     }
 
-    public ArrayList<Task> load() throws FileNotFoundException {
+    public ArrayList<Task> load() throws FileNotFoundException, UnknownCommandException {
         ArrayList<Task> taskData = new ArrayList<>();
 
         Scanner myReader = new Scanner(file);
@@ -71,6 +72,8 @@ public class Storage {
             case "E":
                 newTask = Event.initializeFromStorage(taskInfo);
                 break;
+            default:
+                throw new UnknownCommandException();
             }
             if (Objects.equals(taskComplete, "X")) {
                 assert newTask != null;
