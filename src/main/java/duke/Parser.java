@@ -5,6 +5,8 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.util.ArrayList;
+
 public class Parser {
     final static String LINE = "────────────────────────────────────────────────────";
 
@@ -15,6 +17,24 @@ public class Parser {
         try {
             String[] commandArr = command.split(" ",2);
             switch (commandArr[0]) {
+                case "find":
+                    if (commandArr[1].isEmpty()) {
+                        throw new DukeException(String.format(DukeException.NON_EMPTY, "FIND"));
+                    }
+                    ArrayList<Task> targetList = new ArrayList<>();
+                    String target = commandArr[1];
+                    for (Task task : tasks.getTasks()) {
+                        if (task.find(target)) {
+                            targetList.add(task);
+                        }
+                    }
+                    System.out.print("Here are the matching tasks in your list: \n");
+                    for (int i = 0; i < targetList.size(); i++) {
+                        int index = i + 1;
+                        Task t = targetList.get(i);
+                        System.out.println(index + "." + t.toString());
+                    }
+                    break;
                 case "list":
                     tasks.print();
                     System.out.print(LINE + "\n");

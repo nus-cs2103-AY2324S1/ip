@@ -26,5 +26,9 @@ public abstract class Task {
         return this.getStatusIcon() + this.description;
     }
 
+    public boolean find(String target) {
+        return this.description.contains(target);
+    }
+
     public abstract String writeToFile();
 }
