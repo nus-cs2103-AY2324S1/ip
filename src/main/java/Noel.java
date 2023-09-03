@@ -1,8 +1,14 @@
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Noel {
 
@@ -48,7 +54,19 @@ public class Noel {
 
     public static void addDeadline(String task, String endDate) {
 
-        Task taskToAdd = new Deadlines(task, endDate);
+        LocalDate date = dateFormat(endDate);
+        if (date == null) {
+            System.out.println("Invalid date!");
+            return;
+        }
+
+        LocalTime time = timeFormat(endDate);
+        if (time == null) {
+            System.out.println("Invalid date!");
+            return;
+        }
+
+        Task taskToAdd = new Deadlines(task, date, time);
 
         if (checkFull()) {
             System.out.println("Array is full!");
@@ -60,11 +78,63 @@ public class Noel {
         String updateAdd = addedMessageStart + "\n" +  taskToAdd + "\n" + addedMessageEnd;
         printFunction(updateAdd);
         updateFile();
+
+    }
+
+    public static LocalTime timeFormat(String date) {
+        LocalTime time = null;
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        try {
+            time = LocalTime.parse(date, formatter1);
+        } catch (DateTimeParseException e1) {
+            try {
+                time = LocalTime.parse(date, formatter2);
+            } catch (DateTimeParseException e2) {
+                System.out.println("Invalid Time Format");
+            }
+        }
+        return time;
+    }
+
+    public static LocalDate dateFormat(String endDate) {
+        LocalDate date = null;
+        System.out.println(endDate);
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        try {
+            date = LocalDate.parse(endDate, formatter1);
+
+            return date;
+        } catch (DateTimeParseException e1) {
+            try {
+                date = LocalDate.parse(endDate, formatter2);
+                return date;
+            } catch (DateTimeParseException e2) {
+                System.out.println("Invalid date format");
+            }
+        }
+        return date;
     }
 
     public static void addEvent(String task, String startDate, String endDate) {
 
-        Task taskToAdd = new Events(task, startDate, endDate);
+        LocalDate startDateFormat = dateFormat(startDate);
+        LocalDate endDateFormat = dateFormat(endDate);
+        LocalTime startTimeFormat = timeFormat(startDate);
+        LocalTime endTimeFormat = timeFormat(endDate);
+
+        if (startDateFormat == null || endDateFormat == null) {
+            System.out.println("Invalid format for start/end date!");
+            return;
+        }
+
+        if (startTimeFormat == null || endTimeFormat == null) {
+            System.out.println("Invalid format for start/end time!");
+            return;
+        }
+
+        Task taskToAdd = new Events(task, startDateFormat, startTimeFormat, endDateFormat, endTimeFormat);
 
         if (checkFull()) {
             System.out.println("Array is full!");
@@ -120,11 +190,36 @@ public class Noel {
         for (String line : listOfStrings) {
             String[] values = line.split(" \\| ");
 
-            if (Objects.equals(values[0], "E")) {
-                if (values.length == 4) {
-                    String[] dates = values[3].split("-");
-                    if (dates.length == 2) {
-                        addEvent(values[2], dates[0], dates[1]);
+            if (values.length != 1) {
+
+                if (Objects.equals(values[0], "E")) {
+                    if (values.length == 4) {
+
+                        // (from: 02 02 2023 06:00 to: 03 02 2023 06:00)
+                        String[] dates = values[3].split("to:");
+                        String[] startDateArray = dates[0].split("\\(from: ")[1].split(" ");
+                        String startDate = startDateArray[0] + " " + startDateArray[1];
+                        String[] endDateArray = dates[1].split("\\)")[0].split(" ");
+                        String endDate = endDateArray[1] + " " + endDateArray[2];
+
+                        if (dates.length == 2) {
+                            addEvent(values[2], startDate, endDate);
+                        } else {
+                            System.out.println("Invalid line! Skipping line...");
+                        }
+                    } else {
+                        System.out.println("Invalid line! Skipping line...");
+                    }
+
+                } else if (Objects.equals(values[0], "T")) {
+                    if (values.length == 3) {
+                        addToDo(values[2]);
+                    } else {
+                        System.out.println("Invalid line! Skipping line...");
+                    }
+                } else if (Objects.equals(values[0], "D")) {
+                    if (values.length == 4) {
+                        addDeadline(values[2], values[3]);
                     } else {
                         System.out.println("Invalid line! Skipping line...");
                     }
@@ -132,24 +227,11 @@ public class Noel {
                     System.out.println("Invalid line! Skipping line...");
                 }
 
-            } else if (Objects.equals(values[0], "T")) {
-                if (values.length == 3) {
-                    addToDo(values[2]);
-                } else {
-                    System.out.println("Invalid line! Skipping line...");
-                }
-            } else if (Objects.equals(values[0], "D")) {
-                if (values.length == 4) {
-                    addDeadline(values[2], values[3]);
-                } else {
-                    System.out.println("Invalid line! Skipping line...");
+                if (Objects.equals(values[1], "1")) {
+                    taskList.get(taskList.size() - 1).markAsDone();
                 }
             } else {
-                System.out.println("Invalid line! Skipping line...");
-            }
-
-            if (Objects.equals(values[1], "1")) {
-                taskList.get(taskList.size()-1).markAsDone();
+                System.out.println("No value in file at " + FILEPATH);
             }
         }
     }
