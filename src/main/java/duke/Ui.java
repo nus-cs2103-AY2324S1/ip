@@ -2,12 +2,23 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * The Ui class is responsible for handling user interaction and displaying messages.
+ */
 public class Ui {
     private Scanner sc;
     String horizontalLine = "____________________________________________________________";
+
+    /**
+     * Constructs a Ui object with a scanner to read user input.
+     */
     public Ui() {
         this.sc = new Scanner(System.in);
     }
+
+    /**
+     * Displays a welcome message when the application starts.
+     */
     public void showWelcomeMessage() {
         String name = "duke.Tired";
         System.out.println(horizontalLine);
@@ -16,23 +27,41 @@ public class Ui {
         System.out.println(horizontalLine + "\n");
     }
 
+    /**
+     * Displays an error message to the user.
+     *
+     * @param message The error message to display.
+     */
     public void showError(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Displays a goodbye message when the application exits.
+     */
     public void showGoodbyeMessage() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Reads a command from the user.
+     *
+     * @return The user's input command.
+     */
     public String readCommand() {
         return sc.nextLine();
     }
 
+    /**
+     * Displays the list of tasks to the user.
+     *
+     * @param tasks The TaskList containing the tasks to display.
+     */
     public void showTaskList(TaskList tasks) {
         System.out.println(tasks);
     }
 
-    // Will use in future
+    // for future use
     public void showAddedTask(Task task) {
         System.out.println(horizontalLine);
         System.out.println("Got it. I've added this task:");
