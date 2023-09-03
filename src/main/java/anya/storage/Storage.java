@@ -1,11 +1,5 @@
 package anya.storage;
 
-import anya.task.Deadline;
-import anya.task.Event;
-import anya.task.Task;
-import anya.task.TaskList;
-import anya.task.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,9 +8,25 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import anya.task.Deadline;
+import anya.task.Event;
+import anya.task.Task;
+import anya.task.TaskList;
+import anya.task.Todo;
+
+/**
+ * The `Storage` class is responsible for managing the storage of task data in the Anya application.
+ * It provides functionality to read, write, and convert task data between the application and the storage file.
+ */
 public class Storage {
     private final String storageFilePath;
 
+    /**
+     * Constructs a new `Storage` instance with the specified storage file path.
+     *
+     * @param path The file path where task data is stored.
+     * @throws InvalidStorageFilePathException If the provided storage file path is invalid (doesn't end with '.txt').
+     */
     public Storage(String path) throws InvalidStorageFilePathException {
         this.storageFilePath = path;
         if (!isValidPath(path)) {
@@ -26,12 +36,20 @@ public class Storage {
 
     /**
      * Returns true if the given path is acceptable as a storage file.
-     * The file path is considered acceptable if it ends with '.txt'
+     *
+     * @param filePath The file path to be checked.
+     * @return true if the file path ends with '.txt', indicating it's a valid storage file path.
      */
     private static boolean isValidPath(String filePath) {
         return filePath.endsWith(".txt");
     }
 
+    /**
+     * Loads task data from the storage file and returns it as a `TaskList`.
+     *
+     * @return A `TaskList` containing the loaded tasks.
+     * @throws StorageOperationException If an error occurs while reading or creating the storage file.
+     */
     public TaskList load() throws StorageOperationException {
         // Check for directory
         File source = new File(storageFilePath);
@@ -52,6 +70,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads task data from the storage file and converts it into a `TaskList`.
+     *
+     * @return A `TaskList` containing the tasks read from the storage file.
+     * @throws FileNotFoundException If the storage file is not found.
+     */
     public TaskList readFile() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner sc = new Scanner(new File(storageFilePath));
@@ -65,6 +89,13 @@ public class Storage {
         return new TaskList(tasks);
     }
 
+    /**
+     * Converts a string representation of a task to a `Task` object.
+     *
+     * @param input The string representation of a task.
+     * @return A `Task` object parsed from the input string.
+     * @throws UnknownTaskException If an unknown task type is encountered in the input.
+     */
     public Task convertStringToTask(String input) throws UnknownTaskException {
         String[] args = input.split("\\|");
 
@@ -86,6 +117,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the tasks from a `TaskList` to the storage file.
+     *
+     * @param tasks The `TaskList` containing the tasks to be saved.
+     */
     public void save(TaskList tasks) {
         try {
             clearFile();
@@ -105,6 +141,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a `Task` object to its string representation for storage.
+     *
+     * @param task The `Task` object to be converted.
+     * @return A string representation of the task suitable for storage.
+     */
     public String convertTaskToString(Task task) {
         return task.formatToSave();
     }
@@ -135,7 +177,7 @@ public class Storage {
     }
 
     /**
-     * Signals that some error has occured while trying to convert and read/write data between the application
+     * Signals that some error has occurred while trying to convert and read/write data between the application
      * and the storage file.
      */
     public static class StorageOperationException extends Exception {
@@ -144,6 +186,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Signals that an unknown task type was encountered during conversion.
+     */
     public static class UnknownTaskException extends Exception {
         public UnknownTaskException(String message) {
             super(message);
