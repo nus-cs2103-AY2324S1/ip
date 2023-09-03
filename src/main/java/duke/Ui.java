@@ -142,4 +142,28 @@ public class Ui {
     public static void eventExcept() {
         System.out.println("Wrong Event Format!");
     }
+
+    /**
+     * Prints the tasks containing the target string when there is a valid find command.
+     *
+     * @param newList a new TaskList that contains the matching tasks
+     */
+    public static void printMatching(TaskList newList) {
+        if (newList.size() == 0) {
+            System.out.println("no matching task found:(");
+            return;
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 1; i <= newList.size(); i++) {
+            String task = String.valueOf(newList.getTask(i));
+            System.out.println(i + ". " + task);
+        }
+    }
+
+    /**
+     * Empty find command description.
+     */
+    public static void matchExcept() {
+        System.out.println("description of a find command cannot be empty");
+    }
 }

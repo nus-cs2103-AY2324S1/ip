@@ -47,6 +47,16 @@ public class Parser {
             this.handleList(taskList);
             return;
         }
+        if (input.startsWith("find")) {
+            String[] arr = input.split("find ");
+            System.out.println("arr: " + arr.length);
+            if (arr.length == 1 || arr.length == 0) {
+                Ui.matchExcept();
+            } else {
+                this.findMatching(arr[1], taskList);
+            }
+            return;
+        }
         if (!isLoading) {
             Ui.printError();
         }
@@ -203,5 +213,30 @@ public class Parser {
         if (!isLoading) {
             Ui.printAddTask(task, taskList);
         }
+    }
+
+    /**
+     * Find tasks based on a target string that the user entered.
+     *
+     * @param keyword the target string followed by "find"
+     * @param taskList an array of tasks
+     */
+
+    public void findMatching(String keyword, TaskList taskList) {
+        TaskList newList = new TaskList();
+        if (taskList.size() == 0) {
+            System.out.println("list is empty!");
+            return;
+        }
+        for (int i = 1; i <= taskList.size(); i ++) {
+            Task matchTask = taskList.getTask(i);
+            System.out.println("name: " + matchTask.getName());
+            System.out.println("keyword: " + keyword);
+            System.out.println("contains: " + matchTask.getName().contains(keyword));
+            if (matchTask.getName().contains(keyword)) {
+                newList.add(matchTask);
+            }
+        }
+        Ui.printMatching(newList);
     }
 }
