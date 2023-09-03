@@ -1,3 +1,7 @@
+package Tasks;
+
+import enums.TaskType;
+
 public class EventTask extends Task {
 
     protected String startDatetime;
@@ -9,13 +13,11 @@ public class EventTask extends Task {
         this.endDatetime = end;
     }
 
-    String EVENT_TASK_TYPE = "[E]";
-
     public String getEventRange() {
         return String.format(" (from: %s to %s)", this.startDatetime, this.endDatetime);
     }
 
     public String toString() {
-        return EVENT_TASK_TYPE + super.toString() + this.getEventRange();
+        return TaskType.EVENT.toSymbol() + super.toString() + this.getEventRange();
     }
 }

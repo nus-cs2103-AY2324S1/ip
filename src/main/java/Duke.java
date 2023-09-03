@@ -2,7 +2,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
+import Tasks.*;
 import enums.Command;
+import storage.TaskFileHandler;
 
 public class Duke {
 
@@ -11,7 +13,6 @@ public class Duke {
     public static void main(String[] args) {
         hello_world();
         converse();
-        goodbye_world();
     }
 
     public static void hello_world() {
@@ -21,11 +22,11 @@ public class Duke {
     }
 
     public static void converse() {
-        TaskList taskList = new TaskList(100);
 
+        TaskList taskList = new TaskList(TaskFileHandler.readFromFile());
         Scanner scanner = new Scanner(System.in);
-
         String message;
+
         boolean talk = true;
         while (talk) {
             System.out.print("You:");
@@ -38,24 +39,25 @@ public class Duke {
             switch (Objects.requireNonNull(command)) {
                 case BYE:
                     talk = false;
+                    System.out.println("Bye. Hope to see you again soon!");
                     break;
                 case LIST:
                     taskList.listAllTasks();
                     break;
                 case MARK:
-                    if (!taskList.validateTaskIndex(args.get(1))) {
+                    if (taskList.validateTaskIndex(args.get(1))) {
                         break;
                     }
                     taskList.markTaskDone(args.get(1));
                     break;
                 case UNMARK:
-                    if (!taskList.validateTaskIndex(args.get(1))) {
+                    if (taskList.validateTaskIndex(args.get(1))) {
                         break;
                     }
                     taskList.markTaskUndone(args.get(1));
                     break;
                 case DELETE:
-                    if (!taskList.validateTaskIndex(args.get(1))) {
+                    if (taskList.validateTaskIndex(args.get(1))) {
                         break;
                     }
                     taskList.deleteTask(args.get(1));
@@ -69,11 +71,14 @@ public class Duke {
                 case EVENT:
                     taskList.addTask(new EventTask(args.get(1), args.get(2), args.get(3)));
                     break;
+                case NULLCOMMAND:
                 default:
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
             print_divider_line();
         }
+
+        TaskFileHandler.saveToFile(taskList);
     }
 
     public static ArrayList<String> getArgs(String text) {
@@ -95,12 +100,6 @@ public class Duke {
 
         result.add(subCommand.toString().trim());
         return result;
-    }
-
-
-    public static void goodbye_world() {
-        System.out.println("Bye. Hope to see you again soon!");
-        print_divider_line();
     }
 
     public static void print_divider_line() {
