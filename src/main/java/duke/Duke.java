@@ -78,7 +78,7 @@ public class Duke {
             return e.getMessage();
         }
     }
-    public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
-    }
+    // public static void main(String[] args) {
+    //     new Duke("data/tasks.txt").run();
+    // }
 }
