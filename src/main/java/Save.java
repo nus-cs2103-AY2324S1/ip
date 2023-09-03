@@ -42,10 +42,8 @@ public class Save {
             }
         };
 
-
         Files.copy( Paths.get(tempFilePath), Paths.get(saveFilePath), StandardCopyOption.REPLACE_EXISTING);
         Files.delete(Paths.get(tempFilePath));
-
     }
 
     public static void addFileContents(String filePath, String contents) throws IOException {
