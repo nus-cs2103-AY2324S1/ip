@@ -26,7 +26,7 @@ public class TaskList {
     /**
      * Retrieves the saved data from file.
      *
-     * @return
+     * @return true if successful. Otherwise, false.
      */
     public boolean load() {
         if (storage.checkFileExists()) {
@@ -35,6 +35,8 @@ public class TaskList {
                 tasks = storage.retrieveTasks();
             } catch (FileNotFoundException e) {
                 System.out.println("Unable to find file.");
+
+                return false;
             }
         } else {
             //File does not exist
@@ -94,7 +96,7 @@ public class TaskList {
     /**
      * Marks the task at the given index as done.
      *
-     * @param taskIndex
+     * @param taskIndex is the index of the task to be marked.
      */
     public boolean markAsDone(int taskIndex) {
         try {
@@ -125,7 +127,7 @@ public class TaskList {
     /**
      * Marks the task at the given index as undone.
      *
-     * @param taskIndex
+     * @param taskIndex is the index of the task to be unmarked.
      */
     public boolean markUndone(int taskIndex) {
         try {
@@ -154,6 +156,12 @@ public class TaskList {
         return false;
     }
 
+    /**
+     * Returns an ArrayList containing tasks that contains the keyword.
+     *
+     * @param keyword is the word that we are searching for amongst the tasks.
+     * @return an ArrayList<Task>.
+     */
     public ArrayList<Task> findKeyword(String keyword) {
         //Filter out the tasks without the keyword using Stream
         List<Task> results= tasks
@@ -162,19 +170,5 @@ public class TaskList {
                 .collect(Collectors.toList());
 
         return new ArrayList<>(results);
-//
-//        ArrayList<Task> results = new ArrayList<>();
-//
-//        for(int i = 0; i < tasks.size(); i++) {
-//            Task task = tasks.get(i);
-//
-//            if (task.getDescription().toLowerCase().contains(keyword)) {
-//                results.add(task);
-//            }
-//        }
-//
-//        return results;
-
-
     }
 }
