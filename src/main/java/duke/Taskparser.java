@@ -1,35 +1,30 @@
 package duke;
 
 public class Taskparser {
-	// Parse a string representation of a task and return the corresponding duke.Task object
-	public static Task parseTask(String taskString) {
-		String[] parts = taskString.split(" \\| ");
-		String type = parts[0];
-		boolean isDone = Integer.parseInt(parts[1]) == 1;
-		String description = parts[2];
 
-		switch (type) {
-		case "T":
-			return new Todo(description);
-			//Fallthrough
-		case "D":
-			String deadline = parts[3];
-			return new Deadline(description, deadline);
-			//Fallthrough
-		case "E":
-			String from = parts[3];
-			String to = parts[4];
-			return new Event(description, from, to);
-			//Fallthrough
-		default:
-			throw new IllegalArgumentException("Invalid task type: " + type);
-		}
-	}
+    public static Task parseTask(String taskString) {
+        String[] parts = taskString.split(" \\| ");
+        String type = parts[0];
+        boolean isDone = Integer.parseInt(parts[1]) == 1;
+        String description = parts[2];
 
-	// Convert a duke.Task object to a string representation
-	public static String taskToString(Task task) {
-		StringBuilder sb = new StringBuilder();
+        switch (type) {
+        case "T":
+            return new Todo(description);
+        case "D":
+            String deadline = parts[3];
+            return new Deadline(description, deadline);
+        case "E":
+             String from = parts[3];
+             String to = parts[4];
+             return new Event(description, from, to);
+        default:
+             throw new IllegalArgumentException("Invalid task type: " + type);
+        }
+    }
 
+    public static String taskToString(Task task) {
+        StringBuilder sb = new StringBuilder();
 		char type = task.toString().charAt(1);
 		sb.append(type).append(" | ");
 		sb.append(task.isDone ? "1" : "0").append(" | ");

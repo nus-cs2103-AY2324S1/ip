@@ -10,11 +10,10 @@ public class Duke {
     private final Ui ui;
     private final TaskList list;
 
-
     public Duke(String filePath) throws FileNotFoundException {
         ui = new Ui();
         storage = new Storage(filePath);
-//       try {
+//        try {
         list = new TaskList(storage.load());
 //        } catch (Exceptions.DukeException e) {
 //            ui.showLoadingError();

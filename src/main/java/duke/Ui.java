@@ -18,7 +18,6 @@ public class Ui {
 //        return input.trim().isEmpty();
 //    }
 
-
     /**
      * Scans user command and returns the command as a string.
      *
