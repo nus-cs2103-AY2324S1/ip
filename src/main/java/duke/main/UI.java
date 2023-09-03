@@ -1,5 +1,7 @@
-import exceptions.DukeException;
-import tasks.Task;
+package duke.main;
+
+import duke.exceptions.DukeException;
+import duke.tasks.Task;
 import java.util.ArrayList;
 
 public class UI {
@@ -21,7 +23,7 @@ public class UI {
 
     public void displayList(ArrayList<Task> list, int numOfTasks) {
         printLine();
-        System.out.println("Here are the tasks in your list:");
+        System.out.println("Here are the duke.tasks in your list:");
         for (int i = 0; i < numOfTasks; i++) {
             System.out.println((i + 1) + ". " + list.get(i));
         }
@@ -43,7 +45,7 @@ public class UI {
         printLine();
         System.out.println("Got it. I've added the task:\n" + taskName);
         if (numOfTasks != 1) {
-            System.out.println("Now you have " + numOfTasks + " tasks in your list, just like how I have 5 Ballon d'Ors.");
+            System.out.println("Now you have " + numOfTasks + " duke.tasks in your list, just like how I have 5 Ballon d'Ors.");
         } else {
             System.out.println("Now you have " + numOfTasks + " task in your list, just like how I have 5 Ballon d'Ors.");
         }
@@ -53,7 +55,7 @@ public class UI {
     public void deleteTask(String taskName, int numOfTasks) {
         printLine();
         System.out.println("Removed task:\n" + taskName);
-        System.out.println("Now you have " + numOfTasks + " tasks in your list.");
+        System.out.println("Now you have " + numOfTasks + " duke.tasks in your list.");
         printLine();
     }
 

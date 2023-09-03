@@ -1,11 +1,13 @@
-import tasks.Task;
-import tasks.ToDo;
-import tasks.Event;
-import tasks.Deadline;
+package duke.main;
 
-import exceptions.StorageException;
+import duke.main.TaskManager;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
+import duke.tasks.Event;
+import duke.tasks.Deadline;
 
-import java.time.LocalDate;
+import duke.exceptions.StorageException;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.io.*;
@@ -36,7 +38,7 @@ public class Storage {
             bw.close();
             fw.close();
         } catch (IOException e) {
-            throw new StorageException("Couldn't save data");
+            throw new StorageException("Couldn't save duke.data");
         }
     }
 
@@ -98,7 +100,7 @@ public class Storage {
             return new Event(taskName, isDone, fromTime, toTime);
         }
 
-        throw new StorageException("There was an issue reading your data");
+        throw new StorageException("There was an issue reading your duke.data");
     }
 
     public void createFile() throws StorageException {

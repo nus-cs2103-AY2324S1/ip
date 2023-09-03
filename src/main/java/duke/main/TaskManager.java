@@ -1,5 +1,8 @@
-import exceptions.InvalidArgumentException;
-import tasks.Task;
+package duke.main;
+
+import duke.exceptions.InvalidArgumentException;
+import duke.main.UI;
+import duke.tasks.Task;
 
 import java.util.ArrayList;
 
@@ -37,7 +40,7 @@ public class TaskManager {
 
     public void mark(int index) throws InvalidArgumentException {
         if (index > numOfTasks) {
-            throw new InvalidArgumentException("I'm sorry but that task does not exist. There are only " + numOfTasks + "tasks.");
+            throw new InvalidArgumentException("I'm sorry but that task does not exist. There are only " + numOfTasks + "duke.tasks.");
         }
         index -= 1; // since 0 indexed
         Task task = list.get(index);
@@ -47,7 +50,7 @@ public class TaskManager {
 
     public void unmark(int index) throws InvalidArgumentException {
         if (index > numOfTasks) {
-            throw new InvalidArgumentException("I'm sorry but that task does not exist. There are only " + numOfTasks + " tasks.");
+            throw new InvalidArgumentException("I'm sorry but that task does not exist. There are only " + numOfTasks + " duke.tasks.");
         }
         index -= 1; // since 0 indexed
         Task task = list.get(index);
@@ -57,7 +60,7 @@ public class TaskManager {
 
     public void delete(int index) throws InvalidArgumentException {
         if (index > numOfTasks) {
-            throw new InvalidArgumentException("I'm sorry but that task does not exist. There are only " + numOfTasks + " tasks.");
+            throw new InvalidArgumentException("I'm sorry but that task does not exist. There are only " + numOfTasks + " duke.tasks.");
         }
         numOfTasks -= 1;
         Task removedTask = list.get(index);

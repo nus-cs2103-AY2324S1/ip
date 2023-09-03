@@ -1,16 +1,17 @@
-import exceptions.InvalidArgumentException;
-import exceptions.StorageException;
-import exceptions.UnknownCommandException;
-import exceptions.DukeException;
-import tasks.Task;
-import tasks.ToDo;
-import tasks.Event;
-import tasks.Deadline;
+package duke.main;
+
+import duke.exceptions.DukeException;
+import duke.exceptions.InvalidArgumentException;
+import duke.exceptions.StorageException;
+import duke.exceptions.UnknownCommandException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
+
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.LocalDateTime;
-
-import java.io.IOException;
 import java.util.Scanner;
 
     public class Duke {
@@ -41,7 +42,7 @@ import java.util.Scanner;
         /**
          * this is the function that runs while the user is using the application.
          * It takes in users input, calls getCommand to decide which function it should to call to handle the input.
-         * It also handles exceptions and waits for user to say bye.
+         * It also handles duke.exceptions and waits for user to say bye.
          */
         protected void run() {
 
@@ -107,7 +108,7 @@ import java.util.Scanner;
             } catch (NumberFormatException e) {
                 throw new InvalidArgumentException("Please enter a numerical index!");
             } catch (StorageException e) {
-                throw new StorageException("Storage Error");
+                throw new StorageException("duke.main.Storage Error");
             }
         }
 

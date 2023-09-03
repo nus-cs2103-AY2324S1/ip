@@ -1,4 +1,6 @@
-import exceptions.InvalidArgumentException;
+package duke.main;
+
+import duke.exceptions.InvalidArgumentException;
 
 
 public class Parser {
