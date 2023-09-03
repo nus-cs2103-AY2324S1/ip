@@ -47,4 +47,12 @@ public class EventCommand extends Command {
                 + "%s\nNow you have %d tasks in the list.", event, taskList.getListSize()));
         storage.appendFile(event);
     }
+
+    @Override
+    public String executeGui(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        taskList.addTask(event);
+        storage.appendFile(event);
+        return String.format("Got it. I've added this task:\n    "
+                + "%s\nNow you have %d tasks in the list.", event, taskList.getListSize());
+    }
 }

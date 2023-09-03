@@ -39,4 +39,11 @@ public class MarkCommand extends Command {
         ui.showMessage(String.format("Nice! I've marked this task as done:\n    %s", markedTask));
         storage.writeFile(taskList.stringToFile());
     }
+
+    @Override
+    public String executeGui(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        Task markedTask = taskList.markTask(index);
+        storage.writeFile(taskList.stringToFile());
+        return String.format("Nice! I've marked this task as done:\n    %s", markedTask);
+    }
 }

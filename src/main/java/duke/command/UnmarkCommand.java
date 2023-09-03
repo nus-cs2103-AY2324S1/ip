@@ -40,4 +40,11 @@ public class UnmarkCommand extends Command {
         ui.showMessage(String.format("OK, I've marked this task as not done yet:\n    %s", unmarkedTask));
         storage.writeFile(taskList.stringToFile());
     }
+
+    @Override
+    public String executeGui(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        Task unmarkedTask = taskList.unmarkTask(index);
+        storage.writeFile(taskList.stringToFile());
+        return String.format("OK, I've marked this task as not done yet:\n    %s", unmarkedTask);
+    }
 }

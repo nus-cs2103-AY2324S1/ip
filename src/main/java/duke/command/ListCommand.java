@@ -20,4 +20,9 @@ public class ListCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         ui.showMessage(taskList.toString());
     }
+
+    @Override
+    public String executeGui(TaskList taskList, Ui ui, Storage storage) {
+        return taskList.toString();
+    }
 }

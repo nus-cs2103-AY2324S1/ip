@@ -42,4 +42,12 @@ public class DeleteCommand extends Command {
                 + "%s\nNow you have %d tasks in the list.", deletedTask, taskList.getListSize()));
         storage.writeFile(taskList.stringToFile());
     }
+
+    @Override
+    public String executeGui(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        Task deletedTask = taskList.deleteTask(index);
+        storage.writeFile(taskList.stringToFile());
+        return String.format("Noted. I've removed this task:\n    "
+                + "%s\nNow you have %d tasks in the list.", deletedTask, taskList.getListSize());
+    }
 }
