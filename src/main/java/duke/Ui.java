@@ -31,7 +31,7 @@ public class Ui {
 
     public void startScreen() {
         this.linePrinter();
-        this.tabPrinter("Hello! I'm duke.ChatterBox");
+        this.tabPrinter("Hello! I'm ChatterBox");
         this.tabPrinter("What can I do for you?");
         System.out.println("");
         this.tabPrinter("Available commands:");
