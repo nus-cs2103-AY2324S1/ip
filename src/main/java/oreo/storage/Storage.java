@@ -10,11 +10,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * This class implements the storage function of the chatbot
+ *
+ * @author Daniel Loh
+ * @version 03/09/2023
+ */
 public class Storage {
     private final File storageFile;
 
     private String filePath;
 
+    /**
+     * Constructor for storage
+     *
+     * @param filePath file path to where file is saved
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.storageFile = new File(filePath);
@@ -29,6 +40,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads saved file if it exists
+     *
+     * @param tasks
+     * @throws FileNotFoundException
+     * @throws IllegalDateTimeException
+     */
     public void readFile(TaskList tasks) throws FileNotFoundException, IllegalDateTimeException {
         Scanner sc = new Scanner(this.storageFile);
         while (sc.hasNext()) {
@@ -40,6 +58,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Clears file in the file path
+     *
+     */
     public void clearFile() {
         try {
             new FileWriter(filePath, false).close();
@@ -48,6 +70,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes file with list of task input upon bye command
+     *
+     * @param tasks TaskList with all the task
+     * @throws IOException for filewriter
+     */
     public void writeFile(TaskList tasks) throws IOException {
         clearFile();
         FileWriter fw = new FileWriter(filePath, true);
