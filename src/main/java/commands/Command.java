@@ -1,7 +1,6 @@
 package commands;
 
 import functions.*;
-
 import java.io.IOException;
 
 public abstract class Command {

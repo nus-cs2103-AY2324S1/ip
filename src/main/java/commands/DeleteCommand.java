@@ -7,6 +7,7 @@ import java.io.IOException;
 
 public class DeleteCommand extends Command {
     protected int num;
+
     public DeleteCommand(int num) {
         this.num = num;
     }

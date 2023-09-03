@@ -23,7 +23,7 @@ public class Parser {
 
         private final DateTimeFormatter formatter;
 
-        DateTimeFormat(String pattern) {
+        DateTimeFormat (String pattern) {
             this.formatter = DateTimeFormatter.ofPattern(pattern);
         }
 

@@ -1,9 +1,8 @@
 package commands;
 
 import functions.*;
-import tasks.*;
-
 import java.io.IOException;
+import tasks.*;
 
 public class UnmarkCommand extends Command {
     protected int num;

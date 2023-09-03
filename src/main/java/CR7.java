@@ -1,6 +1,5 @@
 import commands.*;
 import functions.*;
-import tasks.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,17 +11,13 @@ public class CR7 {
 
     private TaskList tasks;
 
-    public static class CR7Exception extends Throwable {}
-
-    public static class WrongDateException extends CR7Exception {}
-
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
+                ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
