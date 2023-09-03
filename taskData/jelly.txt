@@ -1,0 +1,4 @@
+T | 0 | this 
+D | 1 | that  | 2pm mondayee
+E | 0 | party  | 2pm sunday to 3pm monday
+T | 1 | thing that 

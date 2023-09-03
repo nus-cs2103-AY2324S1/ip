@@ -12,6 +12,14 @@ public class Task {
         // if task is done, mark it with an X
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean getIsDone() {
+        return isDone;
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
@@ -22,5 +30,9 @@ public class Task {
     @Override
     public String toString() {
         return "[" + getTaskStatus() + "] " + description;
+    }
+
+    public String writeToFile() {
+        return "Error";
     }
 }
