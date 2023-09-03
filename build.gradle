@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
 }
 
 repositories {
@@ -37,6 +38,11 @@ shadowJar {
     dependsOn("distZip", "distTar")
 }
 
+checkstyle {
+    toolVersion = '10.2'
+}
+
 run{
     standardInput = System.in
 }
+
