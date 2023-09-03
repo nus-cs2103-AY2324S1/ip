@@ -93,6 +93,8 @@ public class Duke {
             taskList.addTask(task);
             ui.addTask(task);
             break;
+        default:
+            ui.invalidCommand(parser.getCommand());
         }
 
         return true;

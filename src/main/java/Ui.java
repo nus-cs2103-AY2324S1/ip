@@ -97,4 +97,12 @@ public class Ui {
             System.out.printf("    %d. %s\n", i+1, tasks.get(i));
         }
     }
+
+    /**
+     * Prints invalid command message.
+     * @param command Command used.
+     */
+    public void invalidCommand(String command) {
+        System.out.printf("%s: Invalid command (%s)\n", this.name, command);
+    }
 }
