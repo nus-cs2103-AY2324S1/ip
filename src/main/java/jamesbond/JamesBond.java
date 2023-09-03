@@ -1,3 +1,5 @@
+package jamesbond;
+
 import exceptions.JamesBondException;
 import parser.Parser;
 import storage.Storage;
