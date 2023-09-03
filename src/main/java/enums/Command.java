@@ -8,8 +8,8 @@ public enum Command {
     DELETE("delete"),
     TODO("todo"),
     DEADLINE("deadline"),
-    EVENT("event");
-
+    EVENT("event"),
+    NULLCOMMAND("");
     private final String value;
 
     Command(String value) {
@@ -26,6 +26,6 @@ public enum Command {
                 return e;
             }
         }
-        return null;
+        return NULLCOMMAND;
     }
 }
