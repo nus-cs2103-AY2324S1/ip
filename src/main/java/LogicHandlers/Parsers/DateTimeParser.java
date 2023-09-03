@@ -14,6 +14,14 @@ import static Printers.ErrorOutputPrinter.printErrorOutput;
 public class DateTimeParser {
     private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy Hmm");
     private static DateTimeFormatter outputDateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a");
+
+    /**
+     * Parses a String into a LocalDateTime format for storage.
+     *
+     * @param dateTimeString The string.
+     * @return The string parsed into a LocalDateTime.
+     * @throws DukeInvalidDateTimeException In the event where the String is in the incorrect format.
+     */
     public static LocalDateTime parseDateTimeFromString(String dateTimeString) throws DukeInvalidDateTimeException {
         try {
             return LocalDateTime.parse(dateTimeString, dateTimeFormatter);
@@ -22,10 +30,22 @@ public class DateTimeParser {
         }
     }
 
+    /**
+     * Parses a LocalDateTime into a String format for storage in memory.txt.
+     *
+     * @param dateTime The LocalDateTime.
+     * @return A String based on the LocalDateTime.
+     */
     public static String parseStringFromDateTime(LocalDateTime dateTime) {
         return dateTime.format(dateTimeFormatter);
     }
 
+    /**
+     * Parses a LocalDateTime into a String format for outputting.
+     *
+     * @param dateTime The LocalDateTime.
+     * @return A String based on the LocalDateTime.
+     */
     public static String parseDateTimeForOutput(LocalDateTime dateTime) {
         return dateTime.format(outputDateTimeFormatter);
     }
