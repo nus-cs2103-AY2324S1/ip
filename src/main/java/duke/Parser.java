@@ -17,6 +17,7 @@ import duke.command.DeleteCommand;
 import duke.command.DeadlineCommand;
 import duke.command.TodoCommand;
 import duke.command.EventCommand;
+import duke.command.FindCommand;
 
 import java.time.LocalDateTime;
 
@@ -124,6 +125,13 @@ public class Parser {
                             convertInputDateAndTimeIntoLocalDateTime(stringToDateTime));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new RichieException("OOPS!! The description of a event or the duration of the event is incomplete");
+                }
+            }  else if (stringArray[0].equals("find")) {
+                try {
+                    String keyword = stringArray[1];
+                    return new FindCommand(keyword);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new RichieException("Incomplete input, please specify what keyword to find");
                 }
             } else {
                 throw new RichieException("No command detected, please ensure that you leave a space after command word");
