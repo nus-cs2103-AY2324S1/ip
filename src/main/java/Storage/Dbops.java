@@ -31,7 +31,7 @@ public class Dbops {
     /**
      * Initializes the Task Array and loads data from memory file, or initializes a memory file if not found.
      *
-     * @return
+     * @return The initialized TaskArray.
      */
     public static TaskArray initializeDatabase() {
         TaskArray tasks  = new TaskArray();

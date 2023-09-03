@@ -10,6 +10,9 @@ public class Duke {
     private static TaskArray tasks;
     private static CentralCommandHandler commandHandler;
 
+    /**
+     * Initializes the bot.
+     */
     private static void initializeBot() {
         Duke.tasks = Dbops.initializeDatabase();
         Duke.commandHandler = CentralCommandHandler.initializeCommandHandler(tasks);
