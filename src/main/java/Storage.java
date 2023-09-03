@@ -4,6 +4,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.ToDo;
+import tasks.Task;
 
 public class Storage {
     protected String filePath;

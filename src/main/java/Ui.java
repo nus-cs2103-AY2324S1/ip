@@ -12,9 +12,9 @@ public class Ui {
     public void introduction() {
         System.out.println(DIVIDER);
         System.out.println("Hello from\n" + LOGO);
-        System.out.println("Ko...ko...ko..nichi...wa!!! I... I am Gotoh... Hitori desu! Σ(っ °Д °;)っ");
+        System.out.println("Ko...ko...ko..nichi...wa!!! I... I am Gotoh... Hitori desu!");
         System.out.println("You... can call me... Bocchi. They usually... call me Bocchi chan...");
-        System.out.println("What can... can I do for you? (°□°;) ");
+        System.out.println("What can... can I do for you?");
         System.out.println(DIVIDER);
     }
     public static void line() {

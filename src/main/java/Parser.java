@@ -1,6 +1,10 @@
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Scanner;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.ToDo;
+import tasks.Task;
 
 public class Parser {
     public void parse(TaskList tasks) {

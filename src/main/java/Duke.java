@@ -2,6 +2,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.ToDo;
+import tasks.Task;
 
 public class Duke {
     private Ui ui;

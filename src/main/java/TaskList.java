@@ -1,5 +1,8 @@
 import java.util.ArrayList;
-
+import tasks.Deadline;
+import tasks.Event;
+import tasks.ToDo;
+import tasks.Task;
 
 public class TaskList {
     protected ArrayList<Task> tasks;
