@@ -2,6 +2,9 @@ package duke;
 
 import java.io.IOException;
 
+/**
+ * Exits duke and saves task list to storage
+ */
 public class ExitCommand extends Command{
 
     public ExitCommand() {}

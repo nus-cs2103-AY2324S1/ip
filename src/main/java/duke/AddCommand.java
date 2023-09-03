@@ -2,8 +2,12 @@ package duke;
 
 import java.time.LocalDate;
 
+/**
+ * Adds a task to the task list
+ */
 public class AddCommand extends Command{
 
+    /** Description of the task */
     private final String toAdd;
 
     public AddCommand(String str) {
