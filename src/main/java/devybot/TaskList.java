@@ -1,3 +1,4 @@
+package devybot;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -5,12 +6,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-import exceptions.EmptyDescriptionException;
-import exceptions.TaskIndexOutOfBoundsException;
-import tasks.DeadlineTask;
-import tasks.Task;
-import tasks.EventTask;
-import tasks.TodoTask;
+import devybot.exceptions.EmptyDescriptionException;
+import devybot.exceptions.TaskIndexOutOfBoundsException;
+import devybot.tasks.DeadlineTask;
+import devybot.tasks.EventTask;
+import devybot.tasks.Task;
+import devybot.tasks.TodoTask;
 
 public class TaskList {
     private ArrayList<Task> taskList;

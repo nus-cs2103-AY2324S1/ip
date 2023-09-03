@@ -1,7 +1,8 @@
-import exceptions.DevyBotException;
-import exceptions.EmptyDescriptionException;
-import exceptions.NonIntegerInputException;
-import exceptions.UnknownCommandException;
+package devybot;
+import devybot.exceptions.DevyBotException;
+import devybot.exceptions.EmptyDescriptionException;
+import devybot.exceptions.NonIntegerInputException;
+import devybot.exceptions.UnknownCommandException;
 
 public class Parser {
     private static boolean isRun = true;

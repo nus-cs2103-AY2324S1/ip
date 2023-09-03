@@ -1,3 +1,4 @@
+package devybot;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -8,12 +9,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import exceptions.DevyBotException;
-import exceptions.UnknownCommandException;
-import tasks.Task;
-import tasks.DeadlineTask;
-import tasks.EventTask;
-import tasks.TodoTask;
+import devybot.exceptions.DevyBotException;
+import devybot.exceptions.UnknownCommandException;
+import devybot.tasks.DeadlineTask;
+import devybot.tasks.EventTask;
+import devybot.tasks.Task;
+import devybot.tasks.TodoTask;
 
 public class Storage {
     private String filePath;

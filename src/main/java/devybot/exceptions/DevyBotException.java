@@ -1,4 +1,4 @@
-package exceptions;
+package devybot.exceptions;
 
 public class DevyBotException extends Exception {
         public DevyBotException(String message) {

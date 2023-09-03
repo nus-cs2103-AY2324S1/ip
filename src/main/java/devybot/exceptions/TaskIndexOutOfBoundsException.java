@@ -1,4 +1,4 @@
-package exceptions;
+package devybot.exceptions;
 
 public class TaskIndexOutOfBoundsException extends DevyBotException {
     public TaskIndexOutOfBoundsException(int index) {

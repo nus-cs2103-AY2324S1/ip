@@ -1,5 +1,7 @@
-import exceptions.DevyBotException;
+package devybot;
 import java.util.Scanner;
+
+import devybot.exceptions.DevyBotException;
 
 public class DevyBot {
     private Storage storage;

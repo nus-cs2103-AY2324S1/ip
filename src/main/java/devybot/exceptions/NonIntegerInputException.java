@@ -1,4 +1,4 @@
-package exceptions;
+package devybot.exceptions;
 
 public class NonIntegerInputException extends DevyBotException {
     public NonIntegerInputException() {

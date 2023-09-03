@@ -1,4 +1,4 @@
-package exceptions;
+package devybot.exceptions;
 
 public class EmptyDescriptionException extends DevyBotException {
     public EmptyDescriptionException(String taskType) {
