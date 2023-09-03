@@ -5,11 +5,15 @@ import grumpygordon.exceptions.GrumpyGordonInitialisationException;
 import grumpygordon.storage.Storage;
 import grumpygordon.tasks.TaskList;
 import grumpygordon.ui.Ui;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 /**
  * GrumpyGordon Chatbot
  */
-public class GrumpyGordon {
+public class GrumpyGordon extends Application {
     /**
      * Storage for GrumpyGordon.
      */
@@ -57,5 +61,14 @@ public class GrumpyGordon {
         } catch (GrumpyGordonException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 }
