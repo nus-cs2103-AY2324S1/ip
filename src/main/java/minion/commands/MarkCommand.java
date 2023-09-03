@@ -6,7 +6,7 @@ import minion.data.TaskList;
 import minion.data.exception.IllegalValueException;
 import minion.data.task.Task;
 import minion.storage.Storage;
-import minion.ui.Ui;
+import minion.utils.StringFormatter;
 
 /**
  * Represents a mark command.
@@ -26,18 +26,20 @@ public class MarkCommand extends Command {
     /**
      * Executes the mark command.
      * @param tasks Task list.
-     * @param ui Ui of chatbot.
      * @param storage Storage of chatbot.
      * @throws IllegalValueException if any argument(s) are invalid.
      * @throws IOException if there is IO error.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IllegalValueException, IOException {
+    public CommandResult execute(TaskList tasks, Storage storage) throws IllegalValueException, IOException {
         Task task = tasks.markTask(taskIdx);
-        ui.print("Nice! I've marked this task as done:",
-                "\t" + task.toString()
-        );
         storage.writeToFile(tasks);
+        return new CommandResult(
+            StringFormatter.format(
+                "Nice! I've marked this task as done:",
+                "\t" + task.toString()
+            )
+        );
     }
 
     /**

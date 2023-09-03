@@ -6,7 +6,7 @@ import minion.data.TaskList;
 import minion.data.exception.IllegalValueException;
 import minion.data.task.Task;
 import minion.storage.Storage;
-import minion.ui.Ui;
+import minion.utils.StringFormatter;
 
 /**
  * Represents an unmark command.
@@ -26,19 +26,21 @@ public class UnmarkCommand extends Command {
     /**
      * Executes the unmark command.
      * @param tasks Task list.
-     * @param ui Ui of chatbot.
      * @param storage Storage of chatbot.
      * @throws IllegalValueException if any argument(s) are invalid.
      * @throws IOException if there is IO error.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws
+    public CommandResult execute(TaskList tasks, Storage storage) throws
             IllegalValueException, IOException {
         Task task = tasks.unmarkTask(taskIdx);
-        ui.print("OK, I've marked this task as not done yet:",
-                "\t" + task.toString()
-        );
         storage.writeToFile(tasks);
+        return new CommandResult(
+            StringFormatter.format(
+                "OK, I've marked this task as not done yet:",
+                "\t" + task.toString()
+            )
+        );
     }
 
     /**

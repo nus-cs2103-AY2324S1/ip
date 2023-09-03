@@ -2,19 +2,17 @@ package minion;
 
 import java.io.IOException;
 
-import minion.commands.Command;
+import minion.commands.CommandResult;
 import minion.data.TaskList;
 import minion.data.exception.MinionException;
 import minion.parser.CommandParser;
 import minion.storage.Storage;
-import minion.ui.Ui;
 
 /**
  * Represents the Minion chatbot.
  */
 public class Minion {
     private TaskList tasks;
-    private final Ui ui;
     private final Storage storage;
 
     /**
@@ -22,35 +20,21 @@ public class Minion {
      * @param filePath The file path of the file storing the task list.
      */
     public Minion(String filePath) {
-        ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
         } catch (IOException e) {
-            ui.showLoadingError();
             tasks = new TaskList();
         }
     }
 
-    public static void main(String[] args) {
-        new Minion("data/tasks.txt").run();
-    }
-
     /**
-     * Runs the chatbot.
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    private void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String command = ui.readCommand();
-                Command c = CommandParser.parse(command);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (MinionException | IOException e) {
-                ui.print(e.getMessage());
-            }
-        }
+    public CommandResult getCommandResult(String input) throws MinionException, IOException {
+        return CommandParser
+                .parse(input)
+                .execute(tasks, storage);
     }
 }

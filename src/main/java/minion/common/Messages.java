@@ -5,7 +5,7 @@ package minion.common;
  */
 public class Messages {
     public static final String MESSAGE_GOODBYE = "Bye. Hope to see you again soon!";
-    public static final String[] MESSAGE_WELCOME = new String[]{"Hello! I'm minion.Minion!", "What can I do for you?"};
+    public static final String MESSAGE_WELCOME = "Hello! I'm Minion!\n" + "What can I do for you?";
     public static final String MESSAGE_FILE_NOT_FOUND = "Unable to locate the file at /data/tasks.txt. "
             + "Creating a new one now.";
     public static final String MESSAGE_MISSING_COMMAND = ":( OOPS!!! I'm sorry, please input a legit command. :-(";
