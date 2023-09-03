@@ -1,6 +1,6 @@
 # Oscar
 
-> "I understand that, without my agreement, Alpine F1 have put out a press release late this afternoon that I am driving for them next year. This is wrong and I have not signed a contract with Alpine for 2023. I will not be driving for Alpine next year." _ Oscar Piastri ([source](https://twitter.com/OscarPiastri/status/1554527452231262210))
+> "I understand that, without my agreement, Alpine F1 have put out a press release late this afternoon that I am driving for them next year. This is wrong and I have not signed a contract with Alpine for 2023. I will not be driving for Alpine next year." - Oscar Piastri ([source](https://twitter.com/OscarPiastri/status/1554527452231262210))
 
 Oscar is a chatbot named after F1 Driver Oscar Piastri. Oscar is, 
 
