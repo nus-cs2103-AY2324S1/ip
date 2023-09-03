@@ -1,4 +1,2 @@
-T | 0 | this 
-D | 1 | that  | 2pm mondayee
-E | 0 | party  | 2pm sunday to 3pm monday
-T | 1 | thing that 
+E | 0 | do this | 20/12/2020 1900 to 21/12/2020 1001
+D | 1 | finish this | 1/02/1990 0001
