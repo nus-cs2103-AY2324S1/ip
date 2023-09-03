@@ -14,7 +14,6 @@ public class Jelly {
 
     int index = 0;
 
-
     public static void main(String[] args) throws JellyException{
 
         System.out.println("Hello! I'm Jelly");
@@ -216,9 +215,11 @@ public class Jelly {
     private void saveAndExit() {
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
+
             for (int i = 0; i < storage.size(); i++) {
                 fileWriter.write(storage.get(i).writeToFile() + "\n");
             }
+
             fileWriter.close();
         } catch (IOException e) {
             System.out.println("Could not save tasks: " + e.getMessage());
