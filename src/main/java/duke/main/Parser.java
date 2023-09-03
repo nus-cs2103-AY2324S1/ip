@@ -52,5 +52,4 @@ public class Parser {
         return new String[]{taskName, from, to};
     }
 
-
 }
