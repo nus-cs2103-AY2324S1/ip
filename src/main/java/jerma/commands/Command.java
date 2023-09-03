@@ -12,5 +12,5 @@ public abstract class Command {
         this.tasks = tasks;
     }
 
-    public abstract void execute();
+    public abstract String execute();
 }

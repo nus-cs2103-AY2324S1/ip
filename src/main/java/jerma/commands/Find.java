@@ -12,14 +12,14 @@ public class Find extends Command {
         this.keyword = keyword;
     }
 
-    public void execute() {
+    public String execute() {
         TaskList results = new TaskList();
         for (Task task : tasks) {
             if (task.toString().contains(keyword)) {
                 results.add(task);
             }
         }
-        this.ui.listTasks(results);
+        return this.ui.listTasks(results);
     }
 
 }

@@ -12,8 +12,8 @@ public class Unmark extends Command {
         this.task = this.tasks.get(index - 1);
     }
 
-    public void execute() {
+    public String execute() {
         this.task.setUndone();
-        this.ui.unmarkTask(this.task);
+        return this.ui.unmarkTask(this.task);
     }
 }

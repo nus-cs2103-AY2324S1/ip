@@ -14,7 +14,7 @@ public class Bye extends Command {
         this.running = running;
     }
 
-    public void execute() {
+    public String execute() {
         try {
             Storage.save(tasks);
         } catch (IOException e) {
@@ -23,6 +23,6 @@ public class Bye extends Command {
             this.ui.error("Failed to save");
         }
         this.running[0] = false;
-        this.ui.bye();
+        return this.ui.bye();
     }
 }

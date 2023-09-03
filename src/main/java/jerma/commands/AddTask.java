@@ -12,8 +12,8 @@ public class AddTask extends Command {
         this.task = task;
     }
 
-    public void execute() {
+    public String execute() {
         this.tasks.add(this.task);
-        this.ui.newTask(this.task);
+        return this.ui.newTask(this.task);
     }
 }

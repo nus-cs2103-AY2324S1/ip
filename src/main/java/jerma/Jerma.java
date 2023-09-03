@@ -49,26 +49,6 @@ public class Jerma extends Application {
         }
     }
 
-    public void run() {
-        ui.hello();
-
-        while (running[0]) {
-            String input = ui.readLine();
-
-            try {
-                Command command = Parser.parse(input, this.ui, this.tasks,
-                        this.running);
-                command.execute();
-            } catch (IndexOutOfBoundsException e) {
-                ui.error("Invalid arguments. Try again!");
-            } catch (UnsupportedOperationException e) {
-                ui.error("Invalid command. Try again!");
-            } catch (DateTimeParseException e) {
-                ui.error("Invalid date format. Try again!");
-            }
-        }
-    }
-
     @Override
     public void start(Stage stage) {
         this.scrollPane = new ScrollPane();
@@ -113,6 +93,9 @@ public class Jerma extends Application {
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         dialogContainer.heightProperty()
                 .addListener((observable) -> scrollPane.setVvalue(1.0));
+
+        dialogContainer.getChildren().addAll(new DialogBox(
+                new Label(this.ui.hello()), new ImageView(jerma)));
 
         userInput.setPrefWidth(325.0);
         userInput.setOnAction((event) -> {
@@ -166,10 +149,16 @@ public class Jerma extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return "Jerma heard: " + input;
-    }
-
-    public static void main(String[] args) {
-        new Jerma().run();
+        try {
+            Command command = Parser.parse(input, this.ui, this.tasks,
+                    this.running);
+            return command.execute();
+        } catch (IndexOutOfBoundsException e) {
+            return ui.error("Invalid arguments. Try again!");
+        } catch (UnsupportedOperationException e) {
+            return ui.error("Invalid command. Try again!");
+        } catch (DateTimeParseException e) {
+            return ui.error("Invalid date format. Try again!");
+        }
     }
 }
