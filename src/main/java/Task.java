@@ -8,6 +8,8 @@ abstract public class Task {
         this.task = task;
     }
 
+    abstract public String convertTask();
+
     public void mark() {
         if (this.status == 0) {
             this.status = 1;
@@ -28,6 +30,14 @@ abstract public class Task {
             System.out.println("┐(´～｀)┌ This task is already marked as uncompleted!");
             System.out.println(line);
         }
+    }
+
+    public int getStatus() {
+        return this.status;
+    }
+
+    public String getTask() {
+        return this.task;
     }
     @Override
     public String toString() {
