@@ -41,7 +41,7 @@ checkstyle {
 }
 
 application {
-    mainClass.set("jarvis.Jarvis")
+    mainClass.set("jarvis.Launcher")
 }
 
 shadowJar {
