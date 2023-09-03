@@ -10,7 +10,7 @@ public class Parser {
     private TaskList list;
 
 
-    public void parse(String input, TaskList list) {
+    public static void parse(String input, TaskList list) {
         try {
             if (input.equals("list")) {
                 list.printList();
