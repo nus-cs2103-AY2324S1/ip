@@ -6,15 +6,31 @@ Cloud online.
 >>> 
 >>> Please enter a description for your TODO.
 
->>>   | T#1: Download wk 3 files
+>>>   | T#1:   Download wk 3 files
 
 >>>   | D#2: Watch L3 recording | BY Friday
 
 >>>   | E#3: Project meeting | FROM Monday 3pm | TO Monday 4:30pm
 
->>>   | T#1: Download wk 3 files
+>>> Please enter a description for the "by" flag.
+
+>>> Please enter a description for your TODO.
+
+>>>   | D#4:  | BY The deadline has no description 2
+
+>>>   | D#5:   | BY The deadline hasn't proper content!
+
+>>>   | T#6: I tried to make an event by didn't specify flags.
+
+>>>   | E#7: This event has no proper from flag set | FROM   | TO Far future.
+
+>>>   | T#1:   Download wk 3 files
   | D#2: Watch L3 recording | BY Friday
   | E#3: Project meeting | FROM Monday 3pm | TO Monday 4:30pm
+  | D#4:  | BY The deadline has no description 2
+  | D#5:   | BY The deadline hasn't proper content!
+  | T#6: I tried to make an event by didn't specify flags.
+  | E#7: This event has no proper from flag set | FROM   | TO Far future.
 
 >>> "a" is not a valid number.
 

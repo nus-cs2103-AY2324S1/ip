@@ -10,7 +10,7 @@ import com.cloud.chatbot.todo.Todo;
 /**
  * Represents a single word of user input.
  */
-public class Token {
+public final class Token {
     /** The prefix for flags */
     public static final String PREFIX_FLAG = "/";
 
@@ -28,7 +28,8 @@ public class Token {
         }
     }
 
-    public String get() {
+    @Override
+    public String toString() {
         return this.token;
     }
 
@@ -77,13 +78,13 @@ public class Token {
     }
 
     /**
-     * Returns the text portion of the flag.
+     * Returns the text portion of the flag (lowercase).
      *
      * Use isFlag() to check if this makes sense.
      *
      * @return Defaults to "" if the token is not actually a flag.
      */
-    public String getFlag() {
+    public String getFlagText() {
         if (!this.isFlag()) return "";
 
         return this.token.substring(Token.PREFIX_FLAG.length()).toLowerCase();

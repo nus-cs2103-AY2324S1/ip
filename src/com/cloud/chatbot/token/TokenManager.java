@@ -1,94 +1,54 @@
 package com.cloud.chatbot.token;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.cloud.chatbot.annotations.Nullable;
 import com.cloud.chatbot.exceptions.MissingInputException;
 
 
 
 /**
- * Manages all the Tokens representing an instance of user input.
- *
- * Flag sets are stored separate from the list of Tokens. The first token is understood to be the
- * flag, whose flag text is used as the key. The remaining tokens are the sub input, stored in a
- * nested TokenManager.
+ * A general parent Token manager providing children useful shared methods.
  */
-public class TokenManager {
-    private List<Token> tokens = new ArrayList<>();
-    private HashMap<String, TokenManager> flagSets = new HashMap<>();
+public abstract class TokenManager {
+    protected List<Token> tokens = new ArrayList<>();
 
-    public TokenManager(String input) {
-        // Corner case: Passing "" returns [""] instead of []
-        // https://stackoverflow.com/q/4964484/11536796
-        String[] words = input.split(" ");
+    public TokenManager() {}
 
-        boolean encounteredContent = false;
-        for (int i = 0; i < words.length; i++) {
-            String word = words[i];
-
-            // Deal with corner case by ignoring any leading ""
-            if (!word.equals("")) {
-                encounteredContent = true;
-            }
-
-            if (encounteredContent) {
-                Token token = new Token(word);
-                this.tokens.add(token);
-            }
-
-        }
-
-        // Go through tokens to extract flag sets
-        int i = 0;
-        while (i < tokens.size()) {
-            Token token = this.tokens.get(i);
-
-            if (token.isFlag()) {
-                int endIndex = this.findFlagSetEnd(i);
-                List<Token> flagSet = this.removeTokens(i, endIndex);
-
-                // This removal degrades the flag set into a sub input
-                Token flag = flagSet.remove(0);
-                this.flagSets.put(
-                    flag.getFlag(),
-                    new TokenManager(flagSet)
-                );
-                continue;
-            }
-
-            i++;
-        }
-    }
-
-    public TokenManager(List<Token> _tokens) {
-        // Assumption: The passed list will not be mutated externally
-        this.tokens = _tokens;
-    }
-
-    private static String tokensToString(List<Token> tokens) {
+    protected static String tokensToString(List<Token> tokens) {
         return tokens
             .stream()
-            .map(Token::get)
+            .map(Token::toString)
             .collect(Collectors.joining(" "));
     }
 
-    private int findFlagSetEnd(int startIndex) {
-        int lastIndex = this.tokens.size() - 1;
-        int movingIndex = startIndex + 1;
-
-        while (movingIndex <= lastIndex) {
-            Token token = this.tokens.get(movingIndex);
-            if (token.isFlag()) break;
-
-            movingIndex++;
+    /**
+     * Returns the first token as a String.
+     *
+     * @throws MissingInputException If there is no first token.
+     */
+    protected String getHead() throws MissingInputException {
+        if (this.getTokenCount() <= 0) {
+            throw new MissingInputException();
         }
 
-        // Start index inclusive, end index exclusive
-        return movingIndex;
+        return this.tokens.get(0).toString();
+    }
+
+    /**
+     * Returns all tokens except the first as a rejoined String.
+     *
+     * @throws MissingInputException If there are no relevant tokens to join.
+     */
+    protected String getTail() throws MissingInputException {
+        if (this.getTokenCount() <= 1) {
+            throw new MissingInputException();
+        }
+
+        List<Token> tailTokens = new ArrayList<>(this.tokens);
+        tailTokens.remove(0);
+        return TokenManager.tokensToString(tailTokens);
     }
 
     /**
@@ -97,7 +57,7 @@ public class TokenManager {
      * @param startIndex The index to start from (inclusive).
      * @param endIndex The index to end before (exclusive).
      */
-    private List<Token> removeTokens(int startIndex, int endIndex) {
+    protected List<Token> removeTokens(int startIndex, int endIndex) {
         int removeCount = endIndex - startIndex;
         List<Token> removed = new ArrayList<>();
         while (removeCount > 0) {
@@ -114,44 +74,19 @@ public class TokenManager {
         return TokenManager.tokensToString(this.tokens);
     }
 
-    public List<Token> getTokens() {
-        return this.tokens;
+    /**
+     * Returns the Token at the specified index.
+     *
+     * @param index The index.
+     */
+    public Token getToken(int index) {
+        return this.tokens.get(index);
     }
 
     /**
-     * Returns the first token, understood to be the command.
-     *
-     * @throws MissingInputException If the user input is too short.
+     * Returns the total number of Tokens.
      */
-    public String getCommand() throws MissingInputException {
-        if (this.tokens.size() <= 0) {
-            throw new MissingInputException();
-        }
-
-        return this.tokens.get(0).get().toLowerCase();
-    }
-
-    /**
-     * Returns all rejoined tokens except the command.
-     *
-     * @throws MissingInputException If the user input is too short.
-     */
-    public String getDescription() throws MissingInputException {
-        if (this.tokens.size() <= 1) {
-            throw new MissingInputException("Please enter a description for your TODO.");
-        }
-
-        List<Token> descriptionTokens = new ArrayList<>(this.tokens);
-        descriptionTokens.remove(0);
-        return TokenManager.tokensToString(descriptionTokens);
-    }
-
-    /**
-     * Returns the TokenManager for the specified flag, if it exists.
-     *
-     * @return null if no such flag exists.
-     */
-    public @Nullable TokenManager findFlag(String flag) {
-        return this.flagSets.get(flag);
+    public int getTokenCount() {
+        return this.tokens.size();
     }
 }

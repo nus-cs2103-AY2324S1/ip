@@ -5,10 +5,13 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.cloud.chatbot.annotations.Nullable;
+import com.cloud.chatbot.exceptions.MissingFlagInputException;
 import com.cloud.chatbot.exceptions.MissingInputException;
 import com.cloud.chatbot.todo.Deadline;
 import com.cloud.chatbot.todo.Event;
 import com.cloud.chatbot.todo.Todo;
+import com.cloud.chatbot.token.CommandManager;
+import com.cloud.chatbot.token.FlagManager;
 import com.cloud.chatbot.token.Token;
 import com.cloud.chatbot.token.TokenManager;
 
@@ -22,7 +25,7 @@ public final class Cloud {
     private static final List<Todo> TODOS = new ArrayList<>();
 
     private static void handle(String input) {
-        TokenManager manager = new TokenManager(input);
+        CommandManager manager = new CommandManager(input);
         String command;
         try {
             command = manager.getCommand();
@@ -106,40 +109,50 @@ public final class Cloud {
         }
     }
 
-    private static @Nullable Todo createTodo(TokenManager manager) {
+    private static @Nullable Todo createTodo(CommandManager manager) {
         String description;
         try {
-            description = manager.getDescription();
+            description = manager.getDetails();
         } catch (MissingInputException e) {
-            Cloud.say(e.getMessage());
+            Cloud.say("Please enter a description for your TODO.");
             return null;
         }
 
-        @Nullable TokenManager inputBy = manager.findFlag("by");
-        @Nullable TokenManager inputFrom = manager.findFlag("from");
-        @Nullable TokenManager inputTo = manager.findFlag("to");
+        @Nullable FlagManager managerBy = manager.findFlag("by");
+        @Nullable FlagManager managerFrom = manager.findFlag("from");
+        @Nullable FlagManager managerTo = manager.findFlag("to");
 
-        if (inputBy != null) {
-            return new Deadline(description, inputBy.toString());
+        try {
+            if (managerBy != null) {
+                return new Deadline(description, managerBy.getSubInput());
+            }
+            if (managerFrom != null && managerTo != null) {
+                return new Event(description, managerFrom.getSubInput(), managerTo.getSubInput());
+            }
+        } catch (MissingFlagInputException e) {
+            Cloud.say(
+                String.format(
+                    "Please enter a description for the \"%s\" flag.",
+                    e.getFlagText()
+                )
+            );
+            return null;
         }
-        if (inputFrom != null && inputTo != null) {
-            return new Event(description, inputFrom.toString(), inputTo.toString());
-        }
+
         return new Todo(description);
     }
 
-    private static @Nullable Integer verifyNumber(TokenManager manager) {
-        List<Token> tokens = manager.getTokens();
-        if (tokens.size() <= 1) {
+    private static @Nullable Integer verifyNumber(CommandManager manager) {
+        if (manager.getTokenCount() <= 1) {
             return null;
         }
 
-        Token numberToken = tokens.get(1);
+        Token numberToken = manager.getToken(1);
         if (!numberToken.isInt()) {
             Cloud.say(
                 String.format(
                     "\"%s\" is not a valid number.",
-                    numberToken.get()
+                    numberToken.toString()
                 )
             );
             return null;

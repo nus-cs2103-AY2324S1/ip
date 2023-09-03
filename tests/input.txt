@@ -1,10 +1,16 @@
 wat how to use
 
 
-e 
-TODO Download wk 3 files
+t 
+TODO   Download wk 3 files  
 deadline Watch L3 recording /by Friday
 event Project meeting /from Monday 3pm /To Monday 4:30pm
+deadline My deadline flag has no sub input /BY
+deadline /by The deadline has no description
+deadline  /by The deadline has no description 2
+deadline   /by The deadline hasn't proper content!
+e I tried to make an event by didn't specify flags.
+EVENT This event has no proper from flag set /frOM   /to Far future.
 list
 mark a
 MARK -7050
