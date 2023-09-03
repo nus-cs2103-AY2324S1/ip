@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Storage {
 
-    private File file;
+    public File file;
 
     public Storage() throws IOException {
         File f = new File("data.txt");
@@ -16,6 +16,10 @@ public class Storage {
             f.createNewFile();
         }
 
+        this.file = f;
+    }
+
+    public Storage(File f) {
         this.file = f;
     }
 
