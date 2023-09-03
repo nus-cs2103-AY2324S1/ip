@@ -13,4 +13,9 @@ public class Event extends Task {
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(), this.from, this.to);
     }
+
+    @Override
+    public String serialize() {
+        return String.format("event|%c|%s|%s|%s", (this.isDone() ? '1' : '0'), getTaskName(), this.from, this.to);
+    }
 }
