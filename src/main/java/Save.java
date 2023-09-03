@@ -10,6 +10,12 @@ public class Save {
     private String saveFilePath;
     private static final String tempFilePath = "temp.txt";
 
+    /**
+     * Constructor for Save File
+     *
+     * @param  taskList  a task list to store tasks
+     * @param  saveFilePath file path of saved file
+     */
     public Save(TaskList taskList, String saveFilePath) throws IOException {
         this.taskList = taskList;
         this.saveFilePath = saveFilePath;
