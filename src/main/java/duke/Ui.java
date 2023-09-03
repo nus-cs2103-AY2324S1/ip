@@ -2,9 +2,14 @@ package duke;
 
 import java.util.Scanner;
 
-//deals with interactions with the user (user input and chat output)
+/**
+ * Deals with interactions with the user.
+ */
 public class Ui {
 
+    /**
+     * Prints welcome message when chatbot is started.
+     */
     public void showWelcome() {
         System.out.println("Hello! I'm Nicole");
         System.out.println("What can I do for you?");
@@ -13,7 +18,12 @@ public class Ui {
 //        return input.trim().isEmpty();
 //    }
 
-    //gets the input as a string
+
+    /**
+     * Scans user command and returns the command as a string.
+     *
+     * @return user command a s string.
+     */
     public String getUserCommand() {
         Scanner scan = new Scanner(System.in);
         String inData = scan.nextLine();
@@ -22,7 +32,13 @@ public class Ui {
 //        }
         return inData;
     }
-    //checks if input is bye
+
+    /**
+     * Checks if user command is prompting exit.
+     *
+     * @param input user command as string.
+     * @return true is user is prompting exit and false otherwise.
+     */
     public boolean isExit(String input) {
         return input.equals("bye");
     }

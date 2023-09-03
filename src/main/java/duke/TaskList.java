@@ -1,21 +1,24 @@
 package duke;
 
-import duke.Task;
-
 import java.util.ArrayList;
 
-//contains the task list e.g. has operations to add/delete tasks in the list
+/**
+ * Contains the task list with operations such as
+ * add or delete to alter the list
+ */
 public class TaskList {
+
     ArrayList<Task> list;
     int count;
 
-    //constructor
     public TaskList(ArrayList<Task> list) {
         this.list = list;
         this.count = list.size();
     }
 
-    //prints the list
+    /**
+     * Prints the list.
+     */
     public void printList() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < count; i++) {
@@ -23,7 +26,11 @@ public class TaskList {
         }
     }
 
-    //adds tasks into the list
+    /**
+     * Add tasks to the list.
+     *
+     * @param task Task to be added into the list.
+     */
     public void addTask(Task task) {
         this.list.add(task);
         System.out.println("Got it. I've added this task:");
@@ -32,16 +39,25 @@ public class TaskList {
         System.out.println("Now you have " + count + " tasks in the list.");
     }
 
-    //delete tasks from the list
+    /**
+     * Delete tasks from the list.
+     *
+     * @param index Index of the item to be removed from the list.
+     */
     public void deleteTask(int index) {
         this.list.remove(index);
         System.out.println("Noted. I've removed this task:");
         System.out.println(list.get(index));
         count--;
         System.out.println("Now you have " + count + " tasks in the list");
-
     }
 
+    /**
+     * Gets the task from the list.
+     *
+     * @param index Index of item to be accessed
+     * @return Task to be accessed
+     */
     public Task getTask(int index) {
         for (int i = 0; i < count; i++) {
             if (index == i) {
