@@ -23,4 +23,13 @@ public class ToDo extends Task {
     public String toFileString() {
         return super.toFileString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof ToDo) {
+            ToDo todo = (ToDo) obj;
+            return this.description.equals(todo.description);
+        }
+        return false;
+    }
 }

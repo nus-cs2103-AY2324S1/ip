@@ -34,4 +34,14 @@ public class Event extends Task {
     public String toFileString() {
         return super.toFileString() + " | " + startTime + " - " + endTime;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Event) {
+            Event event = (Event) obj;
+            return this.description.equals(event.description) && this.startTime.equals(event.startTime)
+                    && this.endTime.equals(event.endTime);
+        }
+        return false;
+    }
 }

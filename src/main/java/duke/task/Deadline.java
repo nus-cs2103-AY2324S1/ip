@@ -30,4 +30,13 @@ public class Deadline extends Task {
     public String toFileString() {
         return super.toFileString() + " | " + deadlineDate;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Deadline) {
+            Deadline deadline = (Deadline) obj;
+            return this.description.equals(deadline.description) && this.deadlineDate.equals(deadline.deadlineDate);
+        }
+        return false;
+    }
 }

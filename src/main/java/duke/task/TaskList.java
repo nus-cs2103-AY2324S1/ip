@@ -79,4 +79,13 @@ public class TaskList {
         }
         return new TaskList(matchingTasks);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof TaskList) {
+            TaskList taskList = (TaskList) obj;
+            return taskList.list.equals(this.list);
+        }
+        return false;
+    }
 }
