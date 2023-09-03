@@ -1,18 +1,31 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import java.io.File;
+import java.io.IOException;
+
 
 public class ChatterBox {
 
-    public static void main(String[] args) throws DukeException {
-
+    public static void main(String[] args) throws DukeException, IOException {
         ArrayList<Task> taskList = new ArrayList<>();
+        File f = new File("data.txt");
+
+        if (!f.exists()) {
+            f.createNewFile();
+        }
+
+        Storage.fileToTaskList(f, taskList);
+
+
         linePrinter();
         tabPrinter("Hello! I'm ChatterBox");
         tabPrinter("What can I do for you?");
         System.out.println("");
-        tabPrinter("Available commands:");
-        tabPrinter("todo <TASK>"); 
-        tabPrinter("deadline <TASK> /by <DATE>");
-        tabPrinter("event <TASK> /from <START> /to <END>");
+        // tabPrinter("Available commands:");
+        // tabPrinter("todo <TASK>"); 
+        // tabPrinter("deadline <TASK> /by <DATE>");
+        // tabPrinter("event <TASK> /from <START> /to <END>");
         linePrinter();
 
         Scanner sc = new Scanner(System.in);
@@ -39,6 +52,7 @@ public class ChatterBox {
             } else if (input.equals("mark")) {
                 int index = Integer.parseInt(inputLine[1]);
                 taskList.get(index - 1).mark();
+                Storage.taskListToFile(f, taskList);
                 linePrinter();
                 tabPrinter("Nice! I've marked this task as done:");
                 tabPrinter(taskList.get(index - 1).toString());
@@ -47,6 +61,7 @@ public class ChatterBox {
             } else if (input.equals("unmark")) {
                 int index = Integer.parseInt(inputLine[1]);
                 taskList.get(index - 1).unmark();
+                Storage.taskListToFile(f, taskList);
                 linePrinter();
                 tabPrinter("OK, I've marked this task as not done yet:");
                 tabPrinter(taskList.get(index - 1).toString());
@@ -56,6 +71,7 @@ public class ChatterBox {
                 int index = Integer.parseInt(inputLine[1]);
                 Task tempDelete = taskList.get(index - 1);
                 taskList.remove(index - 1);
+                Storage.taskListToFile(f, taskList);
                 linePrinter();
                 tabPrinter("Noted. I've removed this task:");
                 tabPrinter(tempDelete.toString());
@@ -74,6 +90,7 @@ public class ChatterBox {
                     String taskName = fullLine.split("todo ")[1];
                     ToDo tempToDo = new ToDo(taskName);
                     taskList.add(tempToDo);
+                    Storage.taskListToFile(f, taskList);
                     linePrinter();
                     tabPrinter("Got it. I've added this task:");
                     tabPrinter(" " + tempToDo.toString());
@@ -96,6 +113,7 @@ public class ChatterBox {
                         String.format("(by: %s)", date);
                     Deadline tempDeadline = new Deadline(deadlineName);
                     taskList.add(tempDeadline);
+                    Storage.taskListToFile(f, taskList);
                     linePrinter();
                     tabPrinter("Got it. I've added this task:");
                     tabPrinter(" " + tempDeadline.toString());
@@ -120,6 +138,7 @@ public class ChatterBox {
                                 fromTime, endTime);
                     Event tempEvent = new Event(eventName);
                     taskList.add(tempEvent);
+                    Storage.taskListToFile(f, taskList);
                     
                     linePrinter();
                     tabPrinter("Got it. I've added this task:");
@@ -149,6 +168,7 @@ public class ChatterBox {
         private static void tabPrinter(String s) {
             System.out.println("      " + s);
         }
+
 
         private static void sizePrinter(ArrayList<Task> tasks) {
             tabPrinter(

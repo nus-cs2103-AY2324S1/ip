@@ -11,6 +11,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String taskType() {
+        return "D";
+    }
+
+    @Override
     public String toString() {
         return "[D] " + super.toString();
     }

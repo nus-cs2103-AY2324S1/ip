@@ -17,6 +17,9 @@ public class Task {
         this(false, name);
     }
 
+    public String taskType() {
+        return " ";
+    }
 
     public void mark() {
         this.done = true;
@@ -24,7 +27,6 @@ public class Task {
 
     public void unmark() {
         this.done = false;
-
     }
     @Override
     public String toString() {
@@ -33,6 +35,16 @@ public class Task {
         } else {
             return "[ ] " + this.name;
         }
+    }
+
+    public String fileToString() {
+        String finalOut = "";
+        finalOut += this.taskType() + "|";
+        finalOut += this.done ? "1" : "0";
+        finalOut += "|";
+        finalOut += this.name;
+
+        return finalOut;
     }
 }
 
