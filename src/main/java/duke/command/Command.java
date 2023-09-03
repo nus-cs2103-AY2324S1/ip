@@ -1,6 +1,9 @@
 package duke.command;
 
-import duke.*;
+import duke.Ui;
+import duke.Storage;
+import duke.TaskList;
+import duke.RichieException;
 
 /**
  * The parent class for all the commands in the Richie application

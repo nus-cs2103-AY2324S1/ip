@@ -4,11 +4,8 @@ import duke.RichieException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-import duke.task.Deadline;
-import duke.task.Task;
 import duke.task.Todo;
 
-import java.time.LocalDateTime;
 
 public class TodoCommand extends Command {
     private String description;

@@ -1,19 +1,7 @@
 package duke;
 
-import java.io.File;
-import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.time.LocalDateTime;
-import java.time.LocalDate;
-import duke.command.*;
+import duke.command.Command;
+import duke.command.ExitCommand;
 
 
 public class Richie {

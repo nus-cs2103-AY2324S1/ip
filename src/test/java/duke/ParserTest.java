@@ -1,9 +1,13 @@
 package duke;
 
 import org.junit.jupiter.api.Test;
+
 import duke.command.Command;
 import duke.command.ExitCommand;
-import duke.command.*;
+import duke.command.ListCommand;
+import duke.command.DeadlineCommand;
+import duke.command.TodoCommand;
+import duke.command.EventCommand;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -280,21 +284,24 @@ class ParserTest {
             Command c = Parser.parse("event");
             fail("Exception should be thrown by event command without any description");
         } catch (RichieException e) {
-            assertEquals("OOPS!! The description of a event or the duration of the event is incomplete", e.getMessage());
+            assertEquals("OOPS!! The description of a event or the duration of the event is incomplete",
+                    e.getMessage());
         }
 
         try {
             Command a = Parser.parse("event /from 2/12/2002 0400 /to 2/12/2002 0500");
             fail("Exception should be thrown by event command without any description");
         } catch (RichieException e) {
-            assertEquals("OOPS!! The description of a event or the duration of the event is incomplete", e.getMessage());
+            assertEquals("OOPS!! The description of a event or the duration of the event is incomplete",
+                    e.getMessage());
         }
 
         try {
             Command b = Parser.parse("event homework /from /to ");
             fail("Exception should be thrown by event command without any description");
         } catch (RichieException e) {
-            assertEquals("OOPS!! The description of a event or the duration of the event is incomplete", e.getMessage());
+            assertEquals("OOPS!! The description of a event or the duration of the event is incomplete",
+                    e.getMessage());
         }
     }
 
@@ -304,28 +311,32 @@ class ParserTest {
             Command c = Parser.parse("event homework /from2/12/2002 0400 /to 2/12/2002 0500");
             fail("Exception should be thrown by event command without spaces around '/from' and '/to'");
         } catch (RichieException e) {
-            assertEquals("OOPS!! please ensure that there are spaces before and after '/from' and '/to'", e.getMessage());
+            assertEquals("OOPS!! please ensure that there are spaces before and after '/from' and '/to'",
+                    e.getMessage());
         }
 
         try {
             Command a = Parser.parse("event homework/from 2/12/2002 0400 /to 2/12/2002 0500");
             fail("Exception should be thrown by event command without spaces around '/from' and '/to'");
         } catch (RichieException e) {
-            assertEquals("OOPS!! please ensure that there are spaces before and after '/from' and '/to'", e.getMessage());
+            assertEquals("OOPS!! please ensure that there are spaces before and after '/from' and '/to'",
+                    e.getMessage());
         }
 
         try {
             Command b = Parser.parse("event homework /from 2/12/2002 0400/to 2/12/2002 0500");
             fail("Exception should be thrown by event command without spaces around '/from' and '/to'");
         } catch (RichieException e) {
-            assertEquals("OOPS!! please ensure that there are spaces before and after '/from' and '/to'", e.getMessage());
+            assertEquals("OOPS!! please ensure that there are spaces before and after '/from' and '/to'",
+                    e.getMessage());
         }
 
         try {
             Command d = Parser.parse("event homework /from 2/12/2002 0400 /to2/12/2002 0500");
             fail("Exception should be thrown by event command without spaces around '/from' and '/to'");
         } catch (RichieException e) {
-            assertEquals("OOPS!! please ensure that there are spaces before and after '/from' and '/to'", e.getMessage());
+            assertEquals("OOPS!! please ensure that there are spaces before and after '/from' and '/to'",
+                    e.getMessage());
         }
     }
 

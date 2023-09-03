@@ -5,8 +5,15 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-import java.io.*;
 import java.util.ArrayList;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 
 /**
  * Storage class that handles reading and writing to the data text file
@@ -30,7 +37,6 @@ public class Storage {
             while ((taskString = bufferedReader.readLine()) != null) {
                 resultStringArray.add(taskString);
             }
-
         } catch (IOException e) {
             throw new RichieException("Error loading the file");
         }
@@ -43,7 +49,6 @@ public class Storage {
             for (Task task : taskList) {
                 String doneNum = task.getIsDone() ? "1" : "0";
                 if (task instanceof Todo) {
-//                    System.out.println("success");
                     bufferedWriter.append("T/" + doneNum + "/" + task.getDescription());
                     bufferedWriter.append("\n");
                 } else if (task instanceof Deadline) {
@@ -63,7 +68,5 @@ public class Storage {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
     }
-
 }
