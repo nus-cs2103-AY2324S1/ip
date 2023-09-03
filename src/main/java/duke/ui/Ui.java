@@ -9,6 +9,7 @@ public class Ui {
     public void printFinal(String str) {
         System.out.println(this.HORIZONTAL_LINE + str + this.HORIZONTAL_LINE);
     }
+
     public void printGreet() {
         printFinal("     Hello! I'm Siri\n" +
                 "     What can I do for you?\n");
