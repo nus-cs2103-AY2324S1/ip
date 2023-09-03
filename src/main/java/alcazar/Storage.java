@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private String filePath;
+    private final String filePath;
     Storage(String filePath) {
         this.filePath =filePath;
         try {
@@ -31,8 +31,8 @@ public class Storage {
     }
 
     /**
-     * Writes any changes in the tasks to the hard disk
-     * @param TaskList Stores the list of all the objects.
+     * Writes the new tasks to file
+     * @param t Stores the tasks in a TaskList object
      */
     public void writeUp(TaskList t) {
         try {
@@ -102,7 +102,7 @@ public class Storage {
                 wrd += ch;
             }
         }
-        String deadArray[] = new String[2];
+        String[] deadArray = new String[2];
         deadArray[0] = str.trim();
         deadArray[1] = text.substring(i + 1, text.length() - 1);
         Deadline d = new Deadline(deadArray[0], deadArray[1]);

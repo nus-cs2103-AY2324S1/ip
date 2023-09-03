@@ -17,6 +17,12 @@ public class Parser {
             System.out.println("Here are the tasks in your list:\n"
                     + tasks.getTasks());
             ui.showLine();
+        } else  if(prompt.contains("find")) {
+            ui.showLine();
+            System.out.println("Here are the matching tasks in your list:");
+            String search = this.textAfter(prompt);
+            tasks.printEquals(search);
+            ui.showLine();
         } else if (prompt.contains("mark") || prompt.contains("unmark") ||
                 prompt.contains("delete")) {
             int index = Integer.parseInt(prompt.charAt(prompt.length() - 1) + "");
@@ -53,13 +59,12 @@ public class Parser {
             }
         } else {
             if (prompt.contains("deadline")) {
-                String deadLine[] = this.extractDeadline(this.textAfter(prompt));
+                String[] deadLine = this.extractDeadline(this.textAfter(prompt));
                 System.out.println(deadLine[0] + " ,, " + deadLine[1] );
                 tasks.add(new Deadline(deadLine[0], deadLine[1]));
-                System.out.println("LOLOLOL\n"+tasks.elementAt(tasks.size()-1));
                 storage.writeUp(tasks);
             } else if (prompt.contains("event")) {
-                String eventData[] = this.extractEvent(this.textAfter(prompt));
+                String[] eventData = this.extractEvent(this.textAfter(prompt));
                 tasks.add(new Event(eventData[2], eventData[0], eventData[1]));
                 storage.writeUp(tasks);
             } else if (prompt.contains("todo")) {
@@ -83,7 +88,7 @@ public class Parser {
     /**
      * To check if the input passed is an exit request.
      * @param prompt Text input to the class's functions
-     * @return Returs a bookean
+     * @return Returns a boolean
      */
 
     public boolean isExit(String prompt) {
@@ -94,7 +99,7 @@ public class Parser {
      * Method to extract the content of the command
      * @param sent The String that contains the command content after
      *             the specified command.
-     * @throws InvalidArgumentException if there is not content in the command
+     * @throws InvalidArgumentException if there is no content in the command
      * @return Sentinel object of type R.
      */
     public String textAfter(String sent) throws InvalidArgumentException {
@@ -139,7 +144,7 @@ public class Parser {
                 wrd += ch;
             }
         }
-        String deadArray[] = new String[2];
+        String[] deadArray = new String[2];
         deadArray[0] = str.trim();
         deadArray[1] = text.substring(i + 1);
         return deadArray;

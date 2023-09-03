@@ -2,7 +2,7 @@ package alcazar;
 import java.util.Scanner;
 public class Ui {
     /**
-     * Useed to show the Welcome message
+     * Used to show the Welcome message
      */
     public void showWelcome() {
         String line = "____________________________________________________________\n";
@@ -13,13 +13,14 @@ public class Ui {
 
     /**
      * Used to read command from console.
-     * @return String containig the new accaoutn
+     * @return String containing the new command
      */
     public String readCommand() {
         Scanner sc = new Scanner(System.in);
         String st = sc.nextLine();
         return st;
     }
+
     public void showLine() {
         System.out.println("____________________________________________________________\n");
     }
@@ -32,6 +33,7 @@ public class Ui {
         System.out.println(msg);
 
     }
+
     public void showLoadingError() {
         System.out.println("Error loading data from the file");
     }

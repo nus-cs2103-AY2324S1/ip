@@ -29,6 +29,20 @@ public class TaskList {
     public void add(Task t) {
         this.tasks.add(t);
     }
+    public void printEquals(String search) {
+        String listedTasks = "";
+        for(int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).toString().contains(search)) {
+                listedTasks += (i + 1) + ". " + tasks.get(i).toString() + "\n";
+            }
+        }
+        if (listedTasks.equals("")) {
+            System.out.println("Sorry no matching tasks.");
+        } else {
+            System.out.println(listedTasks);
+        }
+
+    }
     /**
      * The method evaluates the list of the passed tasks.
      * @return String of all the passed tasks
@@ -40,5 +54,7 @@ public class TaskList {
         }
         return listedTasks;
     }
+
+
 
 }

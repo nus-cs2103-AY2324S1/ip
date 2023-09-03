@@ -26,7 +26,7 @@ public class Task {
      * @return String form of a Task
      */
     public String toString() {
-        String marked = "";
+        String marked;
         if(this.isMarked) {
             marked = "X";
         } else {

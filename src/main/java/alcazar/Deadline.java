@@ -23,12 +23,12 @@ public class Deadline extends Task {
             LocalDate d = LocalDate.parse(date);
             d1 = d.format(df);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            /* Catch error*/
         }
     }
 
     /**
-     * Used to evaluate String form of a Deadlien
+     * Used to evaluate String form of a Deadline
      * @return String form of a Deadline
      */
     @Override
