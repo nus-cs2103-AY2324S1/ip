@@ -97,9 +97,9 @@ public class Kevin{
 
     public static void unmarkTaskDone(String taskNumber) {
         Task currentTask = taskList.get(Integer.parseInt(taskNumber) - 1);
-        currentTask.setIsDone();
+        currentTask.setNotDone();
         System.out.println(line + "\n");
-        System.out.println("Nice! I've marked this task as done:\n" + currentTask);
+        System.out.println("Nice! I've unmarked this task as done:\n" + currentTask);
         System.out.println(line);
     }
 
@@ -123,7 +123,7 @@ public class Kevin{
             case "deadline":
                 task = Deadline.createNewDeadlineTask(splitMessage[1]);
                 break;
-            case "Event":
+            case "event":
                 task = Event.createNewEventTask(splitMessage[1]);
                 break;
         }
