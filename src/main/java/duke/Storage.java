@@ -1,8 +1,5 @@
 package duke;
 
-import duke.Task;
-import duke.TaskList;
-import duke.ToDo;
 import duke.exception.DetailsUnknownException;
 
 import java.io.*;

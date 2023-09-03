@@ -1,9 +1,6 @@
 package duke;
 
-import duke.Parser;
-import duke.Task;
 import duke.exception.DetailsUnknownException;
-
 import java.time.LocalDateTime;
 
 public class Event extends Task {
