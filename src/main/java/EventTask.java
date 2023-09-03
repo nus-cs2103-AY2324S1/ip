@@ -10,20 +10,20 @@ public class EventTask extends Task {
         // add exceptions for time
     }
 
-    public static EventTask makeEvent(String allDetails) throws IllegalArgumentException {
+    public static EventTask makeEvent(String allDetails) throws BareumException {
         if (allDetails.length() == 0) {
-            throw new IllegalArgumentException("Event description cannot be empty.");
+            throw new BareumException("Event description cannot be empty.");
         }
 
         String[] descriptionStartEndTime = allDetails.split("/from");
         if (descriptionStartEndTime.length <= 1) {
-            throw new IllegalArgumentException("Event start time cannot be empty.");
+            throw new BareumException("Event start time cannot be empty.");
         }
 
         String description = descriptionStartEndTime[0];
         String[] startEndTime = descriptionStartEndTime[1].split("/to");
         if (startEndTime.length <= 1) {
-            throw new IllegalArgumentException("Event end time cannot be empty.");
+            throw new BareumException("Event end time cannot be empty.");
         }
 
         String startDateTime = startEndTime[0];
@@ -31,16 +31,7 @@ public class EventTask extends Task {
         return new EventTask(false, description, startDateTime, endDateTime);
     }
 
-    public static EventTask makeEvent(String[] taskInputs) throws IllegalArgumentException {
-        if (taskInputs.length != 5) {
-            throw new IllegalArgumentException("Wrong number of arguments. " +
-                    "Current number of arguments: " + taskInputs.length);
-        }
-
-        if (taskInputs[2].length() == 0) {
-            throw new IllegalArgumentException("Event description cannot be empty.");
-        }
-
+    public static EventTask makeEvent(String[] taskInputs) {
         boolean isDone = taskInputs[1].equals("1");
         String description = taskInputs[2];
         String startDateTime = taskInputs[3];
@@ -50,7 +41,7 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E][" + this.getStatusIcon() + "]" + this.description
+        return "[E][" + this.getStatusIcon() + "] " + this.description
                 + "(from:" + startDateTime + "to:" + endDateTime + ")";
     }
 
