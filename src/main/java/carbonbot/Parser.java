@@ -65,7 +65,8 @@ public class Parser {
                 LocalDateTime byDt = parseDateTimeString(by);
                 return new AddCommand(new Deadline(desc, byDt));
             } catch (DateTimeParseException ex) {
-                throw new DukeException("☹ OOPS!!! The 'by' datetime was not in a valid format.");
+                throw new DukeException("☹ OOPS!!! The 'by' datetime was not in a valid format."
+                        + " Example of valid datetime: 26/12/2019 1800");
             }
         case "event":
             //event: Adds a event Task to the list
@@ -98,7 +99,8 @@ public class Parser {
                 LocalDateTime toDt = parseDateTimeString(to);
                 return new AddCommand(new Event(desc, fromDt, toDt));
             } catch (DateTimeParseException ex) {
-                throw new DukeException("☹ OOPS!!! The given datetime was not in a valid format.");
+                throw new DukeException("☹ OOPS!!! The given datetime was not in a valid format."
+                        + " Example of valid datetime: 26/12/2019 1800");
             }
         case "mark":
             return new MarkCommand(getIntegerArgument(fullCommand), true);
