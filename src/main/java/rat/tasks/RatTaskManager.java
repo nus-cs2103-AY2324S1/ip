@@ -1,9 +1,9 @@
 package rat.tasks;
 
-import static rat.io.RatPrinter.*;
+import static rat.io.RatPrinter.printWithLines;
 
-import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import rat.storage.RatStorage;
 
@@ -39,6 +39,11 @@ public class RatTaskManager {
         }
     }
 
+    /**
+     * Returns a list of tasks matching a given keyword.
+     * @param keyword The keyword to search for.
+     * @return A list of tasks matching a given keyword.
+     */
     public ArrayList<Task> findTasks(String keyword) {
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : this.taskList) {
@@ -49,6 +54,11 @@ public class RatTaskManager {
         return foundTasks;
     }
 
+    /**
+     * Prints a list of tasks matching a given keyword.
+     * @param keyword The keyword to search for.
+     * @return A String representation of the list of tasks matching a given keyword.
+     */
     public String printFoundTasks(String keyword) {
         ArrayList<Task> foundTasks = this.findTasks(keyword);
         if (foundTasks.isEmpty()) {
@@ -80,7 +90,8 @@ public class RatTaskManager {
                 this.taskList.add(new Deadline(LocalDateTime.parse(taskData[3]), taskData[2]));
                 break;
             case "E":
-                this.taskList.add(new Event(LocalDateTime.parse(taskData[3]), LocalDateTime.parse(taskData[4]), taskData[2]));
+                this.taskList.add(new Event(LocalDateTime.parse(taskData[3]),
+                        LocalDateTime.parse(taskData[4]), taskData[2]));
                 break;
             default:
                 break;

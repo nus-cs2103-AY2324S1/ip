@@ -34,11 +34,15 @@ application {
 
 shadowJar {
     archiveBaseName = "Rat"
-    archiveVersion = "0.1"
+    archiveVersion = "0.2"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
-run{
+checkstyle {
+    toolVersion = '10.2'
+}
+
+run {
     standardInput = System.in
 }

@@ -29,9 +29,11 @@ public class AddCommandTest {
 
     @Test
     public void testAddEvent() {
-        AddCommand addTest = new AddCommand(rtmTest, "event test /from 01/01/2023 00:00 /to 01/01/2023 01:00", CommandType.EVENT);
+        AddCommand addTest = new AddCommand(rtmTest,
+                "event test /from 01/01/2023 00:00 /to 01/01/2023 01:00", CommandType.EVENT);
         addTest.execute();
-        assertEquals("1. [E][ ] test (from: Sun, 1 Jan 2023 00:00 to: Sun, 1 Jan 2023 01:00)", rtmTest.toString().trim());
+        assertEquals("1. [E][ ] test (from: Sun, 1 Jan 2023 00:00 to: Sun, 1 Jan 2023 01:00)",
+                rtmTest.toString().trim());
         rtmTest.deleteAll();
     }
 

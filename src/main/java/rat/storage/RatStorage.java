@@ -1,6 +1,6 @@
 package rat.storage;
 
-import static rat.io.RatPrinter.*;
+import static rat.io.RatPrinter.printWithLines;
 
 import java.io.File;
 import java.io.FileWriter;
