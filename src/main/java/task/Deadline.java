@@ -1,3 +1,5 @@
+package task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -16,9 +18,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Parse from string to a Deadline task
+     * Parse from string to a task.Deadline task
      *
-     * @param line The String that is needed to parse into a Deadline Task
+     * @param line The String that is needed to parse into a task.Deadline Task
       */
     public static Deadline parseFromString(String line) {
         int firstBracketIndex = line.indexOf(']');

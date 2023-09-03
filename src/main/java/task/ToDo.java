@@ -1,3 +1,5 @@
+package task;
+
 public class ToDo extends Task{
 
     public ToDo(String taskName) {
@@ -9,9 +11,9 @@ public class ToDo extends Task{
     }
 
     /**
-     * Parse from string to a ToDo task
+     * Parse from string to a task.ToDo task
      *
-     * @param line The String that is needed to parse into a ToDo Task
+     * @param line The String that is needed to parse into a task.ToDo Task
      */
     public static ToDo parseFromString(String line) {
         int firstBracketIndex = line.indexOf(']');
