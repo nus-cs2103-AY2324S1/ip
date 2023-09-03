@@ -123,15 +123,13 @@ public class Parser {
         try {
             if (idString.isEmpty()) {
                 // id field is empty
-                throw new MissingIdException("I cannot do that as you have not provided me with a Task ID\n");
+                throw new MissingIdException();
             } else if (isNotNumber(idString)) {
                 // id field is not an integer
-                throw new NotIntegerIdException("I cannot do that as that is not a valid Task ID "
-                        + "(ID provided is not an integer)\n");
+                throw new NotIntegerIdException();
             } else if (Integer.parseInt(idString) > Task.getTaskCount()) {
                 // id does not exist
-                throw new OutOfBoundIdException("I cannot do that as that is not a valid Task ID "
-                        + "(ID provided does not exist)\n");
+                throw new OutOfBoundIdException();
             } 
         } catch (MissingIdException | NotIntegerIdException | OutOfBoundIdException e) {
             System.out.println(e.getMessage());
@@ -152,8 +150,7 @@ public class Parser {
         int byDateIndex = cmd.indexOf("/by ");
         if (byDateIndex == -1 || cmd.length() == byDateIndex + FINDFIELD_BY_OFFSET) {
             // If the "/by " block is missing, throws the MissingByException
-            throw new MissingByException("I cannot do that as the deadline has not been provided.\n"
-                    + "Please add ' /by <YYYY-MM-DD>' after the task description\n");
+            throw new MissingByException();
         }
         if ((byDateIndex - 1) <= FINDCOMMAND_DEADLINE_OFFSET) {
             throw new MissingDescriptionException("The description of a deadline cannot be empty\n");
@@ -165,8 +162,7 @@ public class Parser {
         int fromDateIndex = input.indexOf("/from ");
         if (fromDateIndex == -1) {
             // If the "/from " block is missing, throws the MissingFromException
-            throw new MissingFromException("I cannot do that as the start time has not been provided.\n"
-                    + "Please add ' /from <Time/Date>' after the task description\n");
+            throw new MissingFromException();
         }
         return fromDateIndex;
     }
@@ -175,15 +171,13 @@ public class Parser {
             MissingDescriptionException, MissingFromException {
         int toDateIndex = input.indexOf("/to ");
         if (toDateIndex == -1) {
-            // If the "/to " block is missing, throws the MissingByException
-            throw new MissingToException("I cannot do that as the end time has not been provided.\n"
-                    + "Please add ' /to <Time/Date>' after the task end date (after /from block)\n");
+            // If the "/to " block is missing, throws the MissingToException
+            throw new MissingToException();
         }
         if (input.length() == (toDateIndex + FINDFIELD_TO_OFFSET)) {
             // If the /to block is present but no data has been given to the field, throw 
             // the MissingToException
-            throw new MissingToException("I cannot do that as the end time has not been provided.\n"
-                    + "Please add ' /to <Time/Date>' after the task end date (after /from block)\n");
+            throw new MissingToException();
         }
         if ((fromDateIndex - 1) <= FINDCOMMAND_DEADLINE_OFFSET) {
             //If the description is missing, throw the MissingDescription Exception
@@ -192,8 +186,7 @@ public class Parser {
         if ((toDateIndex - 1) <= (fromDateIndex + FINDFIELD_FROM_OFFSET)) {
             // If the /from block is present but no data has been given to the field, throw 
             // the MissingFromException
-            throw new MissingFromException("I cannot do that as the start time has not been provided.\n"
-                    + "Please add ' /from <Time/Date>' after the task description\n");
+            throw new MissingFromException();
         }
         return toDateIndex;
     }
