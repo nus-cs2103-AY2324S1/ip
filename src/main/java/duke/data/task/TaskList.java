@@ -1,11 +1,14 @@
 package duke.data.task;
 
-import duke.data.exception.DukeException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import duke.data.exception.DukeException;
+
+/**
+ * Represents a collection of tasks within the chatbot applicaiton.
+ */
 public class TaskList {
 
     private List<Task> tasks;
@@ -26,6 +29,13 @@ public class TaskList {
         tasks.add(task);
     }
 
+    /**
+     * Returns and removes the task specified from the collection of tasks.
+     *
+     * @param taskNumber The index of the task in the list, starting from 1.
+     * @return The task specified.
+     * @throws DukeException If no such task exists.
+     */
     public Task remove(int taskNumber) throws DukeException {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new DukeException("No such task exists.");
@@ -34,6 +44,13 @@ public class TaskList {
         return tasks.remove(taskNumber - 1);
     }
 
+    /**
+     * Returns and marks the task specified as done.
+     *
+     * @param taskNumber The index of the task in the list, starting from 1.
+     * @return The task specified.
+     * @throws DukeException If no such task exists.
+     */
     public Task mark(int taskNumber) throws DukeException {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new DukeException("No such task exists.");
@@ -44,6 +61,13 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Returns and marks the task specified as not done yet.
+     *
+     * @param taskNumber The index of the task in the list, starting from 1.
+     * @return The task specified.
+     * @throws DukeException If no such task exists.
+     */
     public Task unmark(int taskNumber) throws DukeException {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new DukeException("No such task exists.");

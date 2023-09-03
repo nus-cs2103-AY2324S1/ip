@@ -27,16 +27,6 @@ public class Duke {
 
 
     /**
-     * Runs the application.
-     *
-     * @param args The arguments specified by the user at program launch.
-     */
-    public static void main(String[] args) {
-        Duke duke = new Duke(FILE_PATH);
-        duke.run();
-    }
-
-    /**
      * Initializes the chatbot application with the given file path.
      * Loads up the data from the storage file, and shows the welcome message.
      *
@@ -53,6 +43,16 @@ public class Duke {
             ui.showLoadingError();
             tasks = new TaskList();
         }
+    }
+
+    /**
+     * Runs the application.
+     *
+     * @param args The arguments specified by the user at program launch.
+     */
+    public static void main(String[] args) {
+        Duke duke = new Duke(FILE_PATH);
+        duke.run();
     }
 
     /**

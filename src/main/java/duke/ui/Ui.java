@@ -1,9 +1,9 @@
 package duke.ui;
 
-import duke.data.task.Task;
-
 import java.util.List;
 import java.util.Scanner;
+
+import duke.data.task.Task;
 
 /**
  * Represents the text UI of the chatbot applicaiton.
