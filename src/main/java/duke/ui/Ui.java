@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Ui {
         private String name = "Bob";
-        private String horizontal = "____________________________________________________________";
+        private final String HORIZONTAL = "____________________________________________________________";
         private Scanner sc;
 
         public Ui() {
@@ -12,7 +12,7 @@ public class Ui {
         }
 
         public String messageCard(String message) {
-            return horizontal + "\n" + message + "\n" + horizontal;
+            return HORIZONTAL + "\n" + message + "\n" + HORIZONTAL;
         }
         public void showWelcome() {
             String ln1 = String.format("Hello! I'm %s", this.name);
@@ -36,7 +36,7 @@ public class Ui {
         }
 
         public void showLine() {
-            System.out.println(horizontal);
+            System.out.println(HORIZONTAL);
         }
 
         public void printMessage(String msg) {
