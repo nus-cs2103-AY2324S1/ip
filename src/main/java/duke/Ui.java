@@ -82,6 +82,19 @@ public class Ui {
     }
 
     /**
+     * Prints the list of tasks matching a given expression.
+     * @param tl The given TaskList object.
+     * @param s The string pattern to search.
+     */
+    public void findListPrinter(TaskList tl, String s) {
+        this.linePrinter();
+        this.tabPrinter("Here are the matching tasks in your list:");
+        tl.findTask(s);
+        this.linePrinter();
+    }
+
+
+    /**
      * Prints the process of marking a task as done.
      *
      * @param tl The given TaskList object.

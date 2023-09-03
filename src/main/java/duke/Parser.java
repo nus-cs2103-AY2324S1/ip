@@ -41,6 +41,11 @@ public class Parser {
         return this.number() - 1;
     }
 
+    /** Returns the second value of the parsed input as a String. */
+    public String word() {
+        return this.input[1];
+    }
+
     /**
      * Returns a ToDo object with all relevant information.
      *
@@ -78,7 +83,7 @@ public class Parser {
     }
 
     /**
-     * Returns a Event object with all relevant information.
+     * Returns an Event object with all relevant information.
      *
      * @return The Event object.
      * @throws DukeException If incorrect input.
