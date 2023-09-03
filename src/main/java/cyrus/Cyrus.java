@@ -3,6 +3,7 @@ package cyrus;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -14,10 +15,13 @@ import javafx.stage.Stage;
  * Entry point for Cyrus Gui.
  */
 public class Cyrus extends Application {
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+
     @Override
     public void start(Stage stage) throws Exception {
-        ScrollPane scrollPane = new ScrollPane();
-        VBox dialogContainer = new VBox();
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
 
         TextField userInput = new TextField();
@@ -56,5 +60,22 @@ public class Cyrus extends Application {
         AnchorPane.setBottomAnchor(userInput, 1.0);
         stage.setScene(scene);
         stage.show();
+
+        sendButton.setOnMouseClicked((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+
+        userInput.setOnAction((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+        dialogContainer.heightProperty().addListener((observable -> scrollPane.setVvalue(1.0)));
+    }
+
+    private Label getDialogLabel(String text) {
+        Label textToAdd = new Label(text);
+        textToAdd.setWrapText(true);
+        return textToAdd;
     }
 }
