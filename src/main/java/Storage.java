@@ -41,6 +41,11 @@ public class Storage {
         return false;
     }
 
+    /**
+     * Indicates if the saved file is existing.
+     *
+     * @return true if the saved file does exist, false otherwise.
+     */
     public boolean checkFileExists() {
         return storageFile.exists();
     }
@@ -48,6 +53,7 @@ public class Storage {
     /**
      * Returns the stored task list from the hard disk.
      *
+     * @return an ArrayList<Task> containing the tasks stored in the hard disk.
      * @throws FileNotFoundException If the storageFile is not located in its rightful directory.
      */
     public ArrayList<Task> retrieveTasks() throws FileNotFoundException {

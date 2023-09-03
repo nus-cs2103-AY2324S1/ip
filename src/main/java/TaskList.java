@@ -33,6 +33,7 @@ public class TaskList {
                 tasks = storage.retrieveTasks();
             } catch (FileNotFoundException e) {
                 System.out.println("Unable to find file.");
+                return false;
             }
         } else {
             //File does not exist
