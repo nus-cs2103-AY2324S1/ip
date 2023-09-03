@@ -1,15 +1,14 @@
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
-        ArrayList<Task> tasks;
         boolean running = true;
         TaskStorage taskStorage = new TaskStorage();
+        TaskList taskList;
 
         // Load tasks from TaskStorage
         try {
-            tasks = taskStorage.loadExistingTasks();
+            taskList = new TaskList(taskStorage);
         } catch (DukeException e) {
             System.out.printf("[!] %s\n", e.getMessage());
             return;
@@ -21,8 +20,7 @@ public class Duke {
         while (running) {
             try {
                 Parser parser = ui.getParsedInput();
-                running = Duke.handleInput(parser, tasks, ui);
-                taskStorage.storeTasks(tasks);
+                running = Duke.handleInput(parser, taskList, ui);
             } catch (DukeException e) {
                 ui.printException(e);
             }
@@ -31,26 +29,24 @@ public class Duke {
         ui.exit();
     }
 
-    private static boolean handleInput(Parser parser, ArrayList<Task> tasks, Ui ui) throws DukeException {
+    private static boolean handleInput(Parser parser, TaskList taskList, Ui ui) throws DukeException {
+        Task task;
         switch (parser.getCommand()) {
         case "bye":
             return false;
         case "list":
-            ui.listTasks(tasks);
+            ui.listTasks(taskList.getTasks());
             break;
         case "mark":
-            int index = parser.getArgAsInt() - 1;
-            tasks.get(index).markDone();
-            ui.markTask(tasks.get(index));
+            task = taskList.markTask(parser.getArgAsInt());
+            ui.markTask(task);
             break;
         case "unmark":
-            index = parser.getArgAsInt() - 1;
-            tasks.get(index).unmarkDone();
-            ui.unmarkTask(tasks.get(index));
+            task = taskList.unmarkTask(parser.getArgAsInt());
+            ui.unmarkTask(task);
             break;
         case "delete":
-            index = parser.getArgAsInt() - 1;
-            Task task = tasks.remove(index - 1);
+            task = taskList.deleteTask(parser.getArgAsInt());
             ui.deleteTask(task);
             break;
         case "todo":
@@ -58,8 +54,9 @@ public class Duke {
             if (todoName == null || todoName.equals("")) {
                 throw new DukeException("Todo name cannot be empty");
             }
-            tasks.add(new Todo(todoName));
-            ui.addTask(tasks.get(tasks.size() - 1));
+            task = new Todo(todoName);
+            taskList.addTask(task);
+            ui.addTask(task);
             break;
         case "deadline":
             String deadlineName = parser.getArg();
@@ -74,8 +71,9 @@ public class Duke {
                 throw new DukeException("Use /by to specify deadline date");
             }
 
-            tasks.add(new Deadline(deadlineName, deadline));
-            ui.addTask(tasks.get(tasks.size() - 1));
+            task = new Deadline(deadlineName, deadline);
+            taskList.addTask(task);
+            ui.addTask(task);
             break;
         case "event":
             String eventName = parser.getArg();
@@ -91,8 +89,9 @@ public class Duke {
                 throw new DukeException("Use /from and /to to specify event duration");
             }
 
-            tasks.add(new Event(eventName, from, to));
-            ui.addTask(tasks.get(tasks.size() - 1));
+            task = new Event(eventName, from, to);
+            taskList.addTask(task);
+            ui.addTask(task);
             break;
         }
 
