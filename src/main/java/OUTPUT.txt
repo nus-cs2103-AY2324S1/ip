@@ -1,3 +1,0 @@
-[T] [] 5 
-[D] [] asf (by : Oct 30 1029)
-[E] [] asf (from : Oct 16 2019 to: Oct 16 2019)
