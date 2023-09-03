@@ -1,26 +1,28 @@
 package duke;
 
-import command.InvalidCommandException;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+
+import command.InvalidCommandException;
 
 public class TaskListTest {
     private static final String DATETIME_INPUT_FORMAT = "yyyy-MM-dd HH:mm";
-    public static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
+    public static final DateTimeFormatter DATE_TIME_INPUT_FORMATTER =
+            DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
     @Test
     public void remove_indexWithinRange_success() throws Exception {
         TaskList tasks = new TaskList();
 
         Deadline deadline = new Deadline("chemistry homework",
-                LocalDateTime.parse("2023-08-15 18:00", dateTimeInputFormatter));
+                LocalDateTime.parse("2023-08-15 18:00", DATE_TIME_INPUT_FORMATTER));
         ToDo todo = new ToDo("read book");
-        Event event = new Event("marathon", LocalDateTime.parse("2023-08-16 05:00", dateTimeInputFormatter),
-                LocalDateTime.parse("2023-08-16 07:00", dateTimeInputFormatter));
+        Event event = new Event("marathon", LocalDateTime.parse("2023-08-16 05:00", DATE_TIME_INPUT_FORMATTER),
+                LocalDateTime.parse("2023-08-16 07:00", DATE_TIME_INPUT_FORMATTER));
 
         tasks.add(deadline);
         tasks.add(todo);
@@ -37,10 +39,10 @@ public class TaskListTest {
         TaskList tasks = new TaskList();
 
         Deadline deadline = new Deadline("chemistry homework",
-                LocalDateTime.parse("2023-08-15 18:00", dateTimeInputFormatter));
+                LocalDateTime.parse("2023-08-15 18:00", DATE_TIME_INPUT_FORMATTER));
         ToDo todo = new ToDo("read book");
-        Event event = new Event("marathon", LocalDateTime.parse("2023-08-16 05:00", dateTimeInputFormatter),
-                LocalDateTime.parse("2023-08-16 07:00", dateTimeInputFormatter));
+        Event event = new Event("marathon", LocalDateTime.parse("2023-08-16 05:00", DATE_TIME_INPUT_FORMATTER),
+                LocalDateTime.parse("2023-08-16 07:00", DATE_TIME_INPUT_FORMATTER));
 
         tasks.add(deadline);
         tasks.add(todo);
