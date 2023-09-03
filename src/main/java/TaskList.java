@@ -42,6 +42,8 @@ public class TaskList {
      * @param index Index of task to mark.
      */
     public Task markTask(int index) throws DukeException {
+        index -= 1;
+
         if (index < 0 || index >= this.tasks.size()) {
             throw new DukeException("Index out of bounds");
         }
@@ -57,6 +59,8 @@ public class TaskList {
      * @param index Index of task to unmark.
      */
     public Task unmarkTask(int index) throws DukeException {
+        index -= 1;
+
         if (index < 0 || index >= this.tasks.size()) {
             throw new DukeException("Index out of bounds");
         }
