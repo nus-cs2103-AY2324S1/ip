@@ -22,14 +22,26 @@ public class TaskList {
     }
 
     /**
+<<<<<<< HEAD
      * Retrieves the ArrayList of tasks stored in the task list.
      *
      * @return An ArrayList of tasks.
+=======
+     * Constructs an empty TaskList.
+>>>>>>> branch-Level-9
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Retrieves the ArrayList of tasks stored in the task list.
+     *
+     * @return An ArrayList of tasks.
+     */
+>>>>>>> branch-Level-9
     public ArrayList<Task> getTasks() {
         return tasks;
     }
