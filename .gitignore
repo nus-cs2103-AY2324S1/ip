@@ -1,11 +1,2 @@
-# IDEA files
-/out/
-/*.iml
-
-# Gradle build files
-/.gradle/
-/build/
-src/main/resources/docs/
-
-/text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+bin/
+tests/ACTUAL.txt
