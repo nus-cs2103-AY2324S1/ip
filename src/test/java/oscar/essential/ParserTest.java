@@ -1,16 +1,15 @@
 package oscar.essential;
 
-import oscar.command.Command;
-import oscar.command.ExitCommand;
-import oscar.command.ListCommand;
-
-import oscar.exception.OscarException;
-
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import oscar.command.Command;
+import oscar.command.ExitCommand;
+import oscar.command.ListCommand;
+import oscar.exception.OscarException;
 
 public class ParserTest {
     @Test

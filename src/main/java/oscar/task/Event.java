@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Event task that contains description of event,
  * as well as start and end date/time.
  */
-public class Event extends Task{
+public class Event extends Task {
     private final LocalDateTime start;
     private final LocalDateTime end;
 

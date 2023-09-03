@@ -2,7 +2,6 @@ package oscar.command;
 
 import oscar.essential.Storage;
 import oscar.essential.TaskList;
-
 import oscar.exception.OscarException;
 
 /**
@@ -16,7 +15,7 @@ public class UnmarkCommand extends Command {
      *
      * @param details Task number to be marked.
      */
-    public UnmarkCommand(String details){
+    public UnmarkCommand(String details) {
         super(false);
         this.details = details;
     }
