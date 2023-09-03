@@ -4,7 +4,7 @@ package duke;
  * Represents a Duke exception when an invalid command is entered.
  */
 public class DukeInvalidCommandException extends DukeException {
-    
+
     private String command;
 
     /**

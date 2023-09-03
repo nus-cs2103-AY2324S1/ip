@@ -260,7 +260,7 @@ public class Duke {
         if (info.length() < 1) {
             throw new DukeMissingArgumentException();
         }
-        
+
         TaskList list = tasks.getTaskListWithKeyword(info);
         ui.printList(list, false);
     }

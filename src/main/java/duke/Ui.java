@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Deals with interactions with the user.
  */
 public class Ui {
-    
+
     private Scanner input = new Scanner(System.in);
 
     /**
@@ -28,7 +28,7 @@ public class Ui {
 
     /**
      * Prints the list of tasks in the TaskList given.
-     * 
+     *
      * @param storedTasks TaskList to be printed.
      * @param isListCommand Whether the method is called from a list command.
      */

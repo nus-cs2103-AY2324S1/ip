@@ -80,7 +80,7 @@ public class Storage {
     }
 
     /**
-     * Loads the task list from the text file into an ArrayList<Task>.
+     * Loads the task list from the text file into an ArrayList.
      *
      * @throws DukeInvalidTaskStringException If line in text file is not correctly formatted.
      */
@@ -121,7 +121,7 @@ public class Storage {
             t = new Deadline(strArr[2], LocalDateTime.parse(strArr[3], dateTimeFormatter));
             break;
         case "[E]":
-            t = new Event(strArr[2], LocalDateTime.parse(strArr[3], dateTimeFormatter), 
+            t = new Event(strArr[2], LocalDateTime.parse(strArr[3], dateTimeFormatter),
                     LocalDateTime.parse(strArr[4], dateTimeFormatter));
             break;
         default:

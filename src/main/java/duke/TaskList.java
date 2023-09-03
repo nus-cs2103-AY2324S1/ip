@@ -62,7 +62,7 @@ public class TaskList {
     /**
      * Filters the task list for tasks containing the given keyword.
      *
-     * @param index Index of the task to be deleted.
+     * @param keyword Keyword to be searched and filtered for.
      */
     public TaskList getTaskListWithKeyword(String keyword) {
         TaskList list = new TaskList();

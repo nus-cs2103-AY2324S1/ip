@@ -25,3 +25,8 @@ run {
 test {
     useJUnitPlatform()
 }
+
+checkstyle {
+    toolVersion = '10.2'
+}
+
