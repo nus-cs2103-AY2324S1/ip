@@ -34,10 +34,10 @@ public class Event extends Task {
         }
 
         if (startDateTime == null) {
-            return (taskType + " | " + isTaskDone + " | " + this.description + " | " + this.startTime + " | " +
+            return (taskType + " | " + isTaskDone + " | " + this.description.trim() + " | " + this.startTime + " | " +
                     this.endTime);
         } else {
-            return (taskType + " | " + isTaskDone + " | " + this.description + " | "
+            return (taskType + " | " + isTaskDone + " | " + this.description.trim() + " | "
                     + this.startDateTime.format(outputFormatWithTime) + " | " +
                     this.endDateTime.format(outputFormatWithTime));
         }

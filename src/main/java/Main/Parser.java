@@ -60,7 +60,7 @@ public class Parser {
         }
 
     public static boolean isBye(String fullCommand) {
-        return fullCommand.startsWith("bye");
+        return fullCommand.equals("bye");
     }
 
     public static boolean isList(String fullCommand) {
