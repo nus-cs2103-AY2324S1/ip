@@ -43,4 +43,8 @@ delete 2
 delete 0
 deadline /by
 deadline /by bndehbwhe
+deadline do ip /by 2023-09-02 18:00
+deadline do ip /by 2020
+deadline do ip /by 2020-21-01 22:00
+deadline do ip /by 2024-02-01 29:00
 bye
