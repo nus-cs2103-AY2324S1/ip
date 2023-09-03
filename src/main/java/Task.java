@@ -1,22 +1,32 @@
 public abstract class Task {
-    private boolean done;
+    private boolean isDone;
     private final String taskName;
 
     public Task(String taskName) {
-        this.done = false;
+        this.isDone = false;
         this.taskName = taskName;
     }
 
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     public void markDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void unmarkDone() {
-        this.done = false;
+        this.isDone = false;
+    }
+
+    public String getTaskName() {
+        return this.taskName;
     }
 
     @Override
     public String toString() {
-        return String.format("[%c] %s", (this.done ? 'X' : ' '), this.taskName);
+        return String.format("[%c] %s", (this.isDone ? 'X' : ' '), this.taskName);
     }
+
+    public abstract String serialize();
 }

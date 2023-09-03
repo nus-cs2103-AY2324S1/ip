@@ -5,7 +5,16 @@ public class Duke {
     public static void main(String[] args) {
         boolean running = true;
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+        TaskStorage taskStorage = new TaskStorage();
+        ArrayList<Task> tasks;
+
+        // Load tasks from TaskStorage
+        try {
+            tasks = taskStorage.loadExistingTasks();
+        } catch (DukeException e) {
+            System.out.printf("[!] %s\n", e.getMessage());
+            return;
+        }
 
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Pong");
@@ -18,6 +27,7 @@ public class Duke {
 
             try {
                 running = Duke.handleInput(userInput, tasks);
+                taskStorage.storeTasks(tasks);
             } catch (DukeException e) {
                 System.out.printf("[!] %s\n", e.getMessage());
             }
