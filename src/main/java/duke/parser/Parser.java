@@ -20,6 +20,7 @@ public class Parser {
         TODO,
         DEADLINE,
         EVENT,
+        FIND,
     }
 
     public static Command parse(String input) throws Exception {
@@ -49,6 +50,10 @@ public class Parser {
                 case DEADLINE:
                     if (splitTask.length == 2) {
                         return new TaskCommand(splitTask);
+                    }
+                case FIND:
+                    if (splitTask.length == 2) {
+                        return new FindCommand(splitTask);
                     }
                 default:
                     throw new DukeNotTaskException("");
