@@ -42,7 +42,12 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            String response = parser.parse(input);
+            return response;
+        } catch (DukeException e) {
+            return e.toString();
+        }
     }
 
     /**
