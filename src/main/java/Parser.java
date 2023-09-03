@@ -45,6 +45,9 @@ public class Parser {
         } else if (args.equals("todo") || args.equals("deadline") || args.equals("event")) {
             //User wishes to add a new task
             return 5;
+        } else if (args.equals("find")) {
+            //User wishes to find a task by a keyword
+            return 6;
         }
 
 
@@ -138,5 +141,12 @@ public class Parser {
         }
 
         return newTask;
+    }
+
+    public static String getKeyword(String arg) {
+        //Parse keyword
+        final String KEYWORD = arg.toLowerCase().replaceFirst("find ", "");
+
+        return KEYWORD;
     }
 }

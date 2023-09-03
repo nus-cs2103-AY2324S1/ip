@@ -28,7 +28,7 @@ public class Veda {
             switch (method) {
                 case -1:
                     //Unrecognised input
-                    System.out.println("Unrecognised command.");
+                    ui.displayUnrecognisedInput();
                     break;
 
                 case 0:
@@ -38,7 +38,7 @@ public class Veda {
 
                 case 1:
                     //User wishes to see listed missions
-                    tasks.printList();
+                    ui.displayList(tasks.getTasks());
                     break;
 
                 case 2:
@@ -83,6 +83,17 @@ public class Veda {
                     } catch (DateTimeParseException e) {
                         System.out.println("Ensure your deadline is of the format {dd/MM/yyyy HHmm}");
                     }
+                    break;
+
+                case 6:
+                    //User wishes to find a task by a keyword
+                    final String KEYWORD = Parser.getKeyword(input);
+
+                    ui.displayList(
+                            tasks.findKeyword(KEYWORD),
+                            "Retrieved the following missions containing the keyword \"" + KEYWORD + "\":"
+                    );
+
             }
         }
     }

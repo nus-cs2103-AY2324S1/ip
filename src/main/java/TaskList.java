@@ -3,6 +3,8 @@ import Tasks.Task;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * TaskList encapsulates the task lists and operations related to the task lists.
@@ -152,11 +154,27 @@ public class TaskList {
         return false;
     }
 
-    public void printList() {
-        System.out.println("Missions:");
+    public ArrayList<Task> findKeyword(String keyword) {
+        //Filter out the tasks without the keyword using Stream
+        List<Task> results= tasks
+                .stream()
+                .filter((task) -> task.getDescription().toLowerCase().contains(keyword))
+                .collect(Collectors.toList());
 
-        tasks.forEach( task -> System.out.println(
-                (tasks.indexOf(task) + 1) + "." + task
-        ));
+        return new ArrayList<>(results);
+//
+//        ArrayList<Task> results = new ArrayList<>();
+//
+//        for(int i = 0; i < tasks.size(); i++) {
+//            Task task = tasks.get(i);
+//
+//            if (task.getDescription().toLowerCase().contains(keyword)) {
+//                results.add(task);
+//            }
+//        }
+//
+//        return results;
+
+
     }
 }
