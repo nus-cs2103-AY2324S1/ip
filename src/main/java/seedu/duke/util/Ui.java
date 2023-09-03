@@ -36,23 +36,9 @@ public class Ui {
         scanner.close();
     }
 
-    /**
-     * Displays an error message.
-     *
-     * @param errorMessage The error message to be displayed.
-     */
-    public void showError(String errorMessage) {
-        System.out.println("Error: " + errorMessage);
-        printLine();
-    }
-
-    /**
-     * Displays a message.
-     *
-     * @param message The message to be displayed.
-     */
     public void showMessage(String message) {
         System.out.println(message);
+        printLine();
     }
 
     /**

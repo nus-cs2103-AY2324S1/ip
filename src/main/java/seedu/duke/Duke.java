@@ -1,5 +1,6 @@
 package seedu.duke;
 
+import seedu.duke.exception.InvalidCommandException;
 import seedu.duke.util.TaskList;
 import seedu.duke.util.Ui;
 import seedu.duke.util.Parser;
@@ -54,6 +55,6 @@ public class Duke {
      * @param args Not used.
      */
     public static void main(String[] args) {
-        new Duke("./data/seedu.duke.txt").run();
+        new Duke("./data/duke.txt").run();
     }
 }

@@ -31,48 +31,58 @@ public class Parser {
      * @param storage The Storage for saving and loading tasks.
      */
     public void parseUserInput(String userInput, TaskList taskList, Ui ui, Storage storage) {
-        String[] individualWords = userInput.split(" ");
-        String firstWord = individualWords[0];
-        String lowerCapsFirstWord = firstWord.toLowerCase();
 
         try {
-            switch (lowerCapsFirstWord) {
-                case "bye":
-                    ui.showGoodbye();
-                    Duke.isDone = true;
-                    break;
-                case "list":
-                    listTasks(taskList, ui);
-                    break;
-                case "mark":
-                    markTask(userInput, taskList, ui);
-                    break;
-                case "unmark":
-                    unmarkTask(userInput, taskList, ui);
-                    break;
-                case "delete":
-                    deleteTask(userInput, taskList, ui);
-                    break;
-                case "todo":
-                    addTodoTask(userInput, taskList, ui);
-                    break;
-                case "deadline":
-                    addDeadlineTask(userInput, taskList, ui);
-                    break;
-                case "event":
-                    addEventTask(userInput, taskList, ui);
-                    break;
-                default:
-                    throw new InvalidCommandException();
-            }
+            String[] individualWords = userInput.split(" ");
 
-            try {
-                storage.save(taskList.getAllTasks());
-            } catch (IOException e) {
-                ui.showError("Cannot save tasks.");
+            if (individualWords.length > 0) { // To handle whitespace input
+                String firstWord = individualWords[0];
+                String lowerCapsFirstWord = firstWord.toLowerCase();
+
+                try {
+                    switch (lowerCapsFirstWord) {
+                        case "bye":
+                            ui.showGoodbye();
+                            Duke.isDone = true;
+                            break;
+                        case "list":
+                            listTasks(taskList, ui);
+                            break;
+                        case "mark":
+                            markTask(userInput, taskList, ui);
+                            break;
+                        case "unmark":
+                            unmarkTask(userInput, taskList, ui);
+                            break;
+                        case "delete":
+                            deleteTask(userInput, taskList, ui);
+                            break;
+                        case "todo":
+                            addTodoTask(userInput, taskList, ui);
+                            break;
+                        case "deadline":
+                            addDeadlineTask(userInput, taskList, ui);
+                            break;
+                        case "event":
+                            addEventTask(userInput, taskList, ui);
+                            break;
+                        default:
+                            throw new InvalidCommandException();
+                    }
+
+                    try {
+                        storage.save(taskList.getAllTasks());
+                    } catch (IOException e) {
+                        ui.showMessage("Cannot save tasks.");
+                    }
+                } catch (MissingInputException | InvalidCommandException | IndexOutOfBoundsException e) {
+                    ui.showMessage(e.getMessage());
+                }
+            } else {
+                throw new InvalidCommandException();
             }
-        } catch (MissingInputException | InvalidCommandException | IndexOutOfBoundsException e) {
-            ui.showError(e.getMessage());
+        } catch (InvalidCommandException e) {
+            ui.showMessage(e.getMessage());
         }
     }
 
@@ -85,12 +95,11 @@ public class Parser {
     private void listTasks(TaskList taskList, Ui ui) {
         if (taskList.getSize() == 0) {
             ui.showMessage("You have 0 task.");
-            ui.printLine();
         } else {
-            ui.showMessage("Here are your tasks:");
+            System.out.println("Here are your tasks:"); // Not using ui.printLine() to prevent lines between the tasks
             for (int i = 0; i < taskList.getSize(); i++) {
                 Task task = taskList.getTask(i);
-                ui.showMessage((i + 1) + "." + task.toString());
+                System.out.println((i + 1) + "." + task.toString());
             }
             ui.printLine();
         }
@@ -119,7 +128,7 @@ public class Parser {
             Task task = taskList.getTask(taskNumber);
             task.updateTaskStatus(true, "Task " + (taskNumber + 1) + " is already done!", "Great job! Task " + (taskNumber + 1) + " is done!");
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            ui.showError("Invalid task number.");
+            ui.showMessage("Invalid task number.");
         }
     }
 
@@ -146,7 +155,7 @@ public class Parser {
             Task task = taskList.getTask(taskNumber);
             task.updateTaskStatus(false, "Task " + (taskNumber + 1) + " is still incomplete.", "Okay, I've updated Task " + (taskNumber + 1) + " to be incomplete.");
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            ui.showError("Invalid task number.");
+            ui.showMessage("Invalid task number.");
         }
     }
 
@@ -173,9 +182,8 @@ public class Parser {
             Task deletedTask = taskList.getTask(taskNumber);
             taskList.deleteTask(taskNumber);
             ui.showMessage("This task has been removed:\n  " + deletedTask + "\nYou have a total of " + taskList.getSize() + (taskList.getSize() == 1 ? " task.\n" : " tasks."));
-            ui.printLine();
         } catch (NumberFormatException e) {
-            ui.showError("Invalid task number.");
+            ui.showMessage("Invalid task number.");
         }
     }
 
@@ -197,7 +205,6 @@ public class Parser {
         ToDo task = new ToDo(description);
         taskList.addTask(task);
         ui.showMessage("I've added this task:\n  " + task + "\nYou have a total of " + taskList.getSize() + (taskList.getSize() == 1 ? " task." : " tasks."));
-        ui.printLine();
     }
 
     /**
@@ -224,7 +231,6 @@ public class Parser {
             if (task.dateTime != null) {
                 taskList.addTask(task);
                 ui.showMessage("I've added this task:\n  " + task + "\nYou have a total of " + taskList.getSize() + (taskList.getSize() == 1 ? " task." : " tasks."));
-                ui.printLine();
             } else {
                 ui.printLine();
             }
@@ -259,7 +265,6 @@ public class Parser {
             if (task.fromDateTime != null && task.toDateTime != null) {
                 taskList.addTask(task);
                 ui.showMessage("I've added this task:\n  " + task + "\nYou have a total of " + taskList.getSize() + (taskList.getSize() == 1 ? " task." : " tasks."));
-                ui.printLine();
             } else {
                 ui.printLine();
             }
