@@ -112,7 +112,7 @@ public class Ui {
      * @param task The task that was removed.
      */
     public void showDeleteSuccess(String task) {
-        System.out.println(DIVIDER + "    chirp! chirp! duke.task.Task right out the window!\n" + DIVIDER);
+        System.out.printf(DIVIDER + "    chirp! chirp! %s right out the window!\n" + DIVIDER, task);
     }
 
     /**
