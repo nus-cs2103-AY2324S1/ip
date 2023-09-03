@@ -1,5 +1,16 @@
 package alcazar;
 public class Parser {
+
+    /**
+     * Method to interpret the command input.
+     * @param prompt The input text
+     * @param tasks The TaskList object containing current tasks
+     * @param ui Object to present different UI features
+     * @param storage Storage object containing methods to read and write to files
+     * @throws InvalidArgumentException In the situation when an InvalidArgument is passed
+     * @throws InvalidTaskException In the situation when an unrecognized task was passed
+     * @throws InvalidSerialException In the situation where an invalid serial number is passed
+     */
     public void parse(String prompt, TaskList tasks, Ui ui, Storage storage) throws InvalidArgumentException, InvalidTaskException, InvalidSerialException {
         if (prompt.equals("list")) {
             ui.showLine();
@@ -68,6 +79,12 @@ public class Parser {
         }
 //        prompt = chatBot.inputText();
     }
+
+    /**
+     * To check if the input passed is an exit request.
+     * @param prompt Text input to the class's functions
+     * @return Returs a bookean
+     */
 
     public boolean isExit(String prompt) {
         return prompt.contains("bye");

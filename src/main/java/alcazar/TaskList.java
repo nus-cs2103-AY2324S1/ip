@@ -31,7 +31,6 @@ public class TaskList {
     }
     /**
      * The method evaluates the list of the passed tasks.
-     * @param tasks The ArrayList containing all the passed commands
      * @return String of all the passed tasks
      */
     public String getTasks() {

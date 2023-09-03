@@ -32,8 +32,7 @@ public class Storage {
 
     /**
      * Writes any changes in the tasks to the hard disk
-     * @param filePath Stores the address to the file with the stored tasks
-     * @param tasks The ArrayList containing all the tasks
+     * @param TaskList Stores the list of all the objects.
      */
     public void writeUp(TaskList t) {
         try {
@@ -115,7 +114,6 @@ public class Storage {
 
     /**
      * This method reads a file and converts its text into an ArrayList of Task objects
-     * @param filePath The path to the destination where the Tasks are stored
      * @return ArrayList of Tasks
      */
     public ArrayList<Task> load() {
