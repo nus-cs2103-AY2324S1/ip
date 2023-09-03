@@ -17,7 +17,7 @@ public class Parser {
                         int taskNum = Integer.parseInt(parts[1]);
                         tasks.markDone(taskNum - 1);
                         Ui.line();
-                        System.out.println("O...Omedeto! I have... have marked this as done!!o(〃’▽’〃)o");
+                        System.out.println("O...Omedeto! I have... have marked this as done!!:DD");
                         System.out.println(tasks.printTask(taskNum - 1));
                         Ui.line();
 
@@ -27,7 +27,7 @@ public class Parser {
                         }
                         int taskNum = Integer.parseInt(parts[1]);
                         Ui.line();
-                        System.out.println("Okk... this is not done yet (ᗒᗣᗕ)՞");
+                        System.out.println("Okk... this is not done yet QAQ");
                         tasks.markUndone(taskNum - 1);
                         System.out.println(tasks.printTask(taskNum - 1));
                         Ui.line();

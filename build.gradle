@@ -4,6 +4,10 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+java {
+    compileJava.options.encoding = 'UTF-8'
+}
+
 repositories {
     mavenCentral()
 }
@@ -28,7 +32,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("Duke")
 }
 
 shadowJar {

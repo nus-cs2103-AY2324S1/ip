@@ -1,6 +1,6 @@
 public class Ui {
     private static final String DIVIDER = "____________________________________________________________";
-    private static final String BYE_MESSAGE = "B... b...bye bye!... And ... see you! (〃ω〃)";
+    private static final String BYE_MESSAGE = "B... b...bye bye!... And ... see you! :))";
     private static final String LOGO = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
