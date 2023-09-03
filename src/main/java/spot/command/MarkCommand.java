@@ -31,7 +31,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SpotException {
-        tasks.markTask(position);
+        tasks.markTask(ui, position);
     }
 
     /**

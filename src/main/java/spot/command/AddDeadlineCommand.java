@@ -38,7 +38,7 @@ public class AddDeadlineCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SpotException {
         Deadline d = tasks.addDeadline(description, deadline);
-        ui.sayAdd(tasks, d);
+        ui.setAdd(tasks, d);
     }
 
     /**

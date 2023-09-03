@@ -1,5 +1,6 @@
 package spot;
 
+
 import spot.command.Command;
 import spot.exception.SpotException;
 
@@ -11,6 +12,7 @@ public class Spot {
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
+    private boolean isExit;
 
     /**
      * Constructs a new Spot object.
@@ -26,29 +28,25 @@ public class Spot {
     }
 
     /**
-     * Starts running the Spot chatbot.
+     * Returns String response from the Spot chatbot.
      */
-    public void run() {
-        ui.sayHello();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parseCommand(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (SpotException e) {
-                ui.showError(e.getMessage());
-            }
+    public String getResponse(String input) {
+        try {
+            ui.resetOutput();
+            Command c = Parser.parseCommand(input);
+            c.execute(tasks, ui, storage);
+            isExit = c.isExit();
+            return ui.getOutput();
+        } catch (SpotException e) {
+            ui.setError(e.getMessage());
+            return ui.getOutput();
         }
     }
 
     /**
-     * Starts up the Spot chatbot.
-     *
-     * @param args Command line arguments.
+     * Returns boolean indicating if exit command was received.
      */
-    public static void main(String[] args) {
-        new Spot().run();
+    public boolean getExit() {
+        return isExit;
     }
 }

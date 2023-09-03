@@ -40,7 +40,7 @@ public class AddEventCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SpotException {
         Event e = tasks.addEvent(description, start, end);
-        ui.sayAdd(tasks, e);
+        ui.setAdd(tasks, e);
     }
 
     /**

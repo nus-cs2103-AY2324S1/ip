@@ -31,7 +31,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SpotException {
-        tasks.deleteTask(position);
+        tasks.deleteTask(ui, position);
     }
 
     /**
