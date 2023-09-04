@@ -6,6 +6,7 @@ public class Deadline extends Task {
     private String deadlineString;
     private LocalDate deadlineDate;
 
+
     public Deadline (String name, String deadlineString) {
         super(name);
         this.deadlineString = deadlineString;
