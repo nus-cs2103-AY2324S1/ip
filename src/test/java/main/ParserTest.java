@@ -1,7 +1,7 @@
-package Main;
+package main;
 
-import Command.*;
-import Exception.DukeException;
+import command.*;
+import exception.DukeException;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,14 +1,14 @@
-package Main;
+package main;
 
-import Exception.DukeException;
+import exception.DukeException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import Task.TaskList;
-import Task.ToDo;
-import Task.Deadline;
-import Task.Event;
-import Task.Task;
+import task.TaskList;
+import task.ToDo;
+import task.Deadline;
+import task.Event;
+import task.Task;
 
 import java.io.File;
 import java.io.FileReader;

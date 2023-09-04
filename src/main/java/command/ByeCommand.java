@@ -1,14 +1,15 @@
-package Command;
+package command;
 
-import Task.TaskList;
-import Main.UI;
-import Main.Storage;
+import task.TaskList;
+import main.UI;
+import main.Storage;
 
-import Exception.DukeException;
+import exception.DukeException;
 
 public class ByeCommand extends Command {
 
     public ByeCommand() {}
+
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
         ui.byeMessage();

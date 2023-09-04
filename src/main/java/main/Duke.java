@@ -1,10 +1,10 @@
-package Main;
+package main;
 
-import Command.Command;
+import command.Command;
 
-import Task.TaskList;
+import task.TaskList;
 
-import Exception.DukeException;
+import exception.DukeException;
 
 import java.io.IOException;
 

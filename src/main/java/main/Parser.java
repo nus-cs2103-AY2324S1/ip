@@ -1,16 +1,16 @@
-package Main;
+package main;
 
-import Command.ByeCommand;
-import Command.Command;
-import Command.ListCommand;
-import Command.MarkCommand;
-import Command.UnmarkCommand;
-import Command.ToDoCommand;
-import Command.EventCommand;
-import Command.DeadlineCommand;
-import Command.DeleteCommand;
+import command.ByeCommand;
+import command.Command;
+import command.ListCommand;
+import command.MarkCommand;
+import command.UnmarkCommand;
+import command.ToDoCommand;
+import command.EventCommand;
+import command.DeadlineCommand;
+import command.DeleteCommand;
 
-import Exception.DukeException;
+import exception.DukeException;
 
 import java.util.Arrays;
 
