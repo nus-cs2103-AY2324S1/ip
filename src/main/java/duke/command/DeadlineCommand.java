@@ -1,9 +1,10 @@
 package duke.command;
 
 import duke.exception.KoraException;
+import duke.task.TaskList;
 import duke.task.Task;
 import duke.task.Deadline;
-import duke.task.TaskList;
+
 
 public class DeadlineCommand extends Command {
     private String taskDetails;

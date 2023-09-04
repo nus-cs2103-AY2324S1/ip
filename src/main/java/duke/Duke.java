@@ -1,22 +1,19 @@
 package duke;
 
-import duke.command.Command;
 import duke.exception.KoraException;
+import duke.command.Command;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
-import duke.ui.UI;
-
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import duke.ui.Ui;
 
 public class Duke {
     private TaskList taskList;
     private Storage storage;
-    private UI ui;
+    private Ui ui;
     private boolean isExit = false;
     public Duke(String filePath) {
-        ui = new UI();
+        ui = new Ui();
         storage = new Storage(filePath);
         taskList = new TaskList();
         try {
@@ -24,21 +21,6 @@ public class Duke {
         } catch (KoraException e) {
             System.out.println(e.getMessage());
         }
-
-
-
-/*
-        while (!isExit) {
-            Scanner scanner = new Scanner(System.in);
-            //System.out.println("------------------------------");
-            //getResponse(scanner.nextLine());
-            //System.out.println("------------------------------");
-            while (scanner.hasNextLine()) {
-                getResponse(scanner.nextLine());
-            }
-        }
-
- */
     }
 
     public Command getResponse(String userInput) {

@@ -1,9 +1,8 @@
 package duke.command;
 
 import duke.exception.KoraException;
-import duke.task.Event;
-import duke.task.Task;
 import duke.task.TaskList;
+import duke.task.Task;
 import duke.task.ToDo;
 
 public class ToDoCommand extends Command {

@@ -1,9 +1,8 @@
 package duke.command;
 
 import duke.exception.KoraException;
-import duke.task.Deadline;
-import duke.task.Task;
 import duke.task.TaskList;
+import duke.task.Task;
 import duke.task.Event;
 
 public class EventCommand extends Command {

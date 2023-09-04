@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.exception.KoraException;
-import duke.task.Task;
 import duke.task.TaskList;
 
 public abstract class Command {
