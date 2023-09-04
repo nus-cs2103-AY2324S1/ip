@@ -6,6 +6,7 @@ import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
 
+
 /**
  * Duke is a task management application that interacts with users through a command-line interface.
  * It allows users to manage tasks by adding, marking, and deleting tasks from a task list.
@@ -20,12 +21,11 @@ public class Duke {
     /**
      * Constructs a Duke instance with the specified filepath for storage.
      *
-     * @param filepath The filepath for task storage.
      */
-    public Duke(String filepath) {
-        Duke.filepath = filepath;
+    public Duke() {
+        Duke.filepath = "src/data/tasks.txt";
         ui = new Ui();
-        storage = new Storage(filepath);
+        storage = new Storage(Duke.filepath);
         taskList = new TaskList();
     }
 
@@ -52,11 +52,22 @@ public class Duke {
     }
 
     /**
-     * The main method to start the Duke application.
-     *
-     * @param args Command-line arguments (not used in this application).
+     * Runs the load function in Storage, called in MainWindow.
      */
-    public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+    public void loadByDuke() {
+        Duke.refresh();
+    }
+
+    public static void refresh() {
+        Storage.refresh(taskList);
+    }
+
+    /**
+     * Bridges GUI and Program. Takes in user command scanned by MainWindow and parses it.
+     * @param reply
+     * @return chatbot's reply
+     */
+    public String getResponse(String reply) {
+        return CommandParser.parse(reply).execute(taskList, ui, storage);
     }
 }

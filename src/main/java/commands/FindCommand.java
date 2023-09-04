@@ -28,7 +28,7 @@ public class FindCommand implements Command {
      * @param storage The storage manager to handle data storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.find(keyword);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return tasks.find(keyword);
     }
 }

@@ -27,9 +27,10 @@ public class Ui {
     /**
      * Displays the exit message before closing the application.
      */
-    public void exit() {
+    public String exit() {
         System.out.print("Bye. Hope to see you again soon!");
         System.exit(0);
+        return null;
     }
 
     /**

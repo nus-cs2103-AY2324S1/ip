@@ -33,7 +33,7 @@ public class DeleteCommand implements Command {
      * @param storage The storage to update as needed by the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.delete(pos); // Delete task from the task list
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return tasks.delete(pos);
     }
 }

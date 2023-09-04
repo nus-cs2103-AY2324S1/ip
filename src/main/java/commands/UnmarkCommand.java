@@ -34,12 +34,15 @@ public class UnmarkCommand implements Command {
      * @param storage The storage to update as needed by the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String res = "";
         if (pos > tasks.size() || pos <= 0) {
             ui.showError("Invalid index. Please enter again.");
+            return "Invalid index. Please enter again.";
         } else {
-            tasks.unmark(pos); // Unmark the task in the task list
+            res = tasks.unmark(pos); // Unmark the task in the task list
             Storage.refresh(tasks); // Update storage with the modified task list
         }
+        return res;
     }
 }

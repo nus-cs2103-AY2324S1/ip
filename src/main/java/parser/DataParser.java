@@ -39,11 +39,11 @@ public class DataParser {
      * @return A Deadline object corresponding to the parsed line.
      */
     public static Deadline parseDeadline(String line) {
-        int descriptionStart = "deadline".length() + 1; // Length of "deadline" plus the space
+        int descriptionStart = line.indexOf("] ") + 2;
         int byIndex = line.indexOf("by:");
 
         String description = line.substring(descriptionStart, byIndex).trim();
-        String date = line.substring(byIndex + "/by".length()).trim();
+        String date = line.substring(byIndex + "by:".length()).trim();
 
         boolean isMarked = line.charAt(4) == 'X'; // Assuming index 4 corresponds to the "[ ]" checkmark
 
@@ -57,7 +57,7 @@ public class DataParser {
      * @return An Event object corresponding to the parsed line.
      */
     public static Event parseEvent(String line) {
-        int descriptionStart = line.indexOf("] ") + 2; // Index of the first character after "] "
+        int descriptionStart = line.indexOf("] ") ; // Index of the first character after "] "
         int startFromIndex = line.indexOf("from ") + 6; // Index of the character after "from: "
         int toIndex = line.indexOf("to ", startFromIndex); // Index of the character before "to: "
         int endFromIndex = toIndex + 4; // Index of the character after "to: "

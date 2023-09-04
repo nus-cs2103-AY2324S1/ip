@@ -17,7 +17,7 @@ public class ListCommand implements Command {
      * @param storage The storage (not used in this command).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.print(); // Display the list of tasks through the user interface
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return tasks.print(); // Display the list of tasks through the user interface
     }
 }
