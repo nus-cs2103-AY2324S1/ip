@@ -1,25 +1,24 @@
 package duke.utility;
 
-import duke.exception.BobiException;
-import duke.exception.EmptyTaskException;
-import duke.exception.InvalidEventException;
-import duke.exception.MissingTimeException;
-import duke.task.Event;
-
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
+
+import duke.exception.BobiException;
+import duke.exception.EmptyTaskException;
+import duke.task.Event;
+
 public class ParserTest {
     @Test
-    public void parseEventTest_validInput_success() throws InvalidEventException, EmptyTaskException, MissingTimeException {
+    public void parseEventTest_validInput_success() throws BobiException {
         LocalDateTime start = LocalDateTime.of(2023, 10, 10, 8, 00);
         LocalDateTime end = LocalDateTime.of(2023, 10, 11, 18, 00);
         Event expectedEvent = new Event(false, "Bobi birthday party ", start, end);
-        Event actualEvent = Parser.parseEvent("event Bobi birthday party /from 2023-10-10 0800 /to 2023-10-11 1800");
+        Event actualEvent = Parser
+                .parseEvent("event Bobi birthday party /from 2023-10-10 0800 /to 2023-10-11 1800");
         assertEquals(expectedEvent.toString(), actualEvent.toString());
     }
 
@@ -44,9 +43,10 @@ public class ParserTest {
     }
 
     @Test
-    public void parseEventTest_InvalidDateTime_exceptionThrown() {
+    public void parseEventTest_invalidDateTime_exceptionThrown() {
         try {
-            assertEquals(new Object(), Parser.parseEvent("event Bobi birthday party /from date time /to 2111-50-2131 21394"));
+            assertEquals(new Object(),
+                    Parser.parseEvent("event Bobi birthday party /from date time /to 2111-50-2131 21394"));
             fail();
         } catch (BobiException e) {
             assertEquals(

@@ -1,6 +1,11 @@
 package duke.utility;
 
-import duke.exception.*;
+import duke.exception.EmptyTaskException;
+import duke.exception.FailedSearchException;
+import duke.exception.InvalidDeadlineException;
+import duke.exception.InvalidEventException;
+import duke.exception.InvalidTaskException;
+import duke.exception.MissingTimeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -47,7 +52,6 @@ public class Command {
      * @return A system message to inform user of successful execution or
      * error message to inform user of failed execution
      */
-    // Add to do task
     public String handleToDo(String input) {
         try {
             ToDo task = Parser.parseTodo(input);

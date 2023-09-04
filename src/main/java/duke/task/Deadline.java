@@ -44,10 +44,10 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        if (this.isDone) {
-            return "[D]" + "[X] " + this.taskName + "(by: " + getDeadlineString(this.deadline) + ")";
+        if (this.getStatus()) {
+            return "[D]" + "[X] " + this.getName() + "(by: " + getDeadlineString(this.deadline) + ")";
         } else {
-            return "[D]" + "[ ] " + this.taskName + "(by: " + getDeadlineString(this.deadline) + ")";
+            return "[D]" + "[ ] " + this.getName() + "(by: " + getDeadlineString(this.deadline) + ")";
         }
     }
 
@@ -56,10 +56,10 @@ public class Deadline extends Task {
      */
     @Override
     public String toStoreString() {
-        if (this.isDone) {
-            return "D/@/1/@/" + this.taskName + "/@/" + this.deadline;
+        if (this.getStatus()) {
+            return "D/@/1/@/" + this.getName() + "/@/" + this.deadline;
         } else {
-            return  "D/@/0/@/" + this.taskName + "/@/" + this.deadline;
+            return "D/@/0/@/" + this.getName() + "/@/" + this.deadline;
         }
     }
 
@@ -68,6 +68,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toUpdateString(int i) {
-        return "D/@/" + i + "/@/" + this.taskName + "/@/" + this.deadline;
+        return "D/@/" + i + "/@/" + this.getName() + "/@/" + this.deadline;
     }
 }

@@ -7,7 +7,7 @@ package duke.exception;
  *
  * @author ruo-x
  */
-public class BobiException extends Exception{
+public class BobiException extends Exception {
     /**
      * Constructor of a BobiException object.
      *

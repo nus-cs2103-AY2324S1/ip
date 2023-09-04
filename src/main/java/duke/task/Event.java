@@ -49,16 +49,16 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        if (this.isDone) {
+        if (this.getStatus()) {
             return "[E]"
                     + "[X] "
-                    + this.taskName
+                    + this.getName()
                     + "(from: " + getDateTimeString(this.start)
                     + " to: " + getDateTimeString(this.end) + ")";
         } else {
             return "[E]"
                     + "[ ] "
-                    + this.taskName
+                    + this.getName()
                     + "(from: " + getDateTimeString(this.start)
                     + " to: " + getDateTimeString(this.end) + ")";
         }
@@ -69,10 +69,10 @@ public class Event extends Task {
      */
     @Override
     public String toStoreString() {
-        if (this.isDone) {
-            return "E/@/1/@/" + this.taskName + "/@/" + this.start + "/@/" + this.end;
+        if (this.getStatus()) {
+            return "E/@/1/@/" + this.getName() + "/@/" + this.start + "/@/" + this.end;
         } else {
-            return  "E/@/0/@/" + this.taskName + "/@/" + this.start + "/@/" + this.end;
+            return "E/@/0/@/" + this.getName() + "/@/" + this.start + "/@/" + this.end;
         }
     }
 
@@ -81,7 +81,7 @@ public class Event extends Task {
      */
     @Override
     public String toUpdateString(int i) {
-        return "E/@/" + i + "/@/" + this.taskName + "/@/" + this.start + "/@/" + this.end;
+        return "E/@/" + i + "/@/" + this.getName() + "/@/" + this.start + "/@/" + this.end;
     }
 }
 

@@ -1,9 +1,9 @@
 package duke.utility;
 
+import java.util.Scanner;
+
 import duke.exception.BobiException;
 import duke.task.Task;
-
-import java.util.Scanner;
 
 /**
  * Ui class encapsulates all system messages Bobi displays in different scenarios.
@@ -15,7 +15,7 @@ public class Ui {
     private static final String GREETING = "Hello! I'm Bobi >.<, what can I do for you?\n";
     private static final String EXIT = "Bye! Hope you have a good day today :)\n";
     private static final String ADD_TASK = "New task added to your list:\n";
-    private static String COUNT_TASK;
+    private static String taskCount;
     private static final String LIST_TASKS = "Things you need to do: \n";
     private static final String UPDATE_TASK = "OK! Your task has now been updated to: \n";
     private static final String DELETE_TASK = "Alright! I have deleted this task from the list:\n";
@@ -62,8 +62,8 @@ public class Ui {
      * @param task Task added into Bobi task list.
      */
     public String printAddTask(Task task) {
-        COUNT_TASK = "You currently have " + this.taskList.getLength() + " tasks to do.\n";
-        return SEPARATOR + ADD_TASK + task.toString() + "\n" + COUNT_TASK + SEPARATOR;
+        taskCount = "You currently have " + this.taskList.getLength() + " tasks to do.\n";
+        return SEPARATOR + ADD_TASK + task.toString() + "\n" + taskCount + SEPARATOR;
     }
 
     /**
@@ -97,8 +97,8 @@ public class Ui {
      * @param task Task deleted from the task list.
      */
     public String printDeleteTask(Task task) {
-        COUNT_TASK = "You currently have " + this.taskList.getLength() + " tasks to do.\n";
-        return SEPARATOR + DELETE_TASK + task.toString() + "\n" + COUNT_TASK + SEPARATOR;
+        taskCount = "You currently have " + this.taskList.getLength() + " tasks to do.\n";
+        return SEPARATOR + DELETE_TASK + task.toString() + "\n" + taskCount + SEPARATOR;
     }
 
     /**

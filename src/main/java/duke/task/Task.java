@@ -9,10 +9,10 @@ package duke.task;
  */
 public abstract class Task {
     /** Name of task */
-    String taskName;
+    private final String taskName;
 
     /** Status of task */
-    boolean isDone;
+    private boolean isDone;
 
     /**
      * Constructor of a Task object.
@@ -25,6 +25,16 @@ public abstract class Task {
         this.isDone = status;
     }
 
+    /**
+     * Returns status of task.
+     */
+    public boolean getStatus() {
+        return this.isDone;
+    }
+
+    /**
+     * Returns name of task.
+     */
     public String getName() {
         return this.taskName;
     }

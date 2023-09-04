@@ -24,10 +24,10 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        if (this.isDone) {
-            return "[T]" + "[X] " + this.taskName;
+        if (this.getStatus()) {
+            return "[T]" + "[X] " + this.getName();
         } else {
-            return "[T]" + "[ ] " + this.taskName;
+            return "[T]" + "[ ] " + this.getName();
         }
     }
 
@@ -36,10 +36,10 @@ public class ToDo extends Task {
      */
     @Override
     public String toStoreString() {
-        if (this.isDone) {
-            return "T/@/1/@/" + this.taskName;
+        if (this.getStatus()) {
+            return "T/@/1/@/" + this.getName();
         } else {
-            return  "T/@/0/@/" + this.taskName;
+            return "T/@/0/@/" + this.getName();
         }
     }
 
@@ -48,6 +48,6 @@ public class ToDo extends Task {
      */
     @Override
     public String toUpdateString(int i) {
-        return "T/@/" + i + "/@/" + this.taskName;
+        return "T/@/" + i + "/@/" + this.getName();
     }
 }

@@ -1,10 +1,10 @@
 package duke.utility;
 
+import java.util.ArrayList;
+
 import duke.exception.FailedSearchException;
 import duke.exception.InvalidTaskException;
 import duke.task.Task;
-
-import java.util.ArrayList;
 
 /**
  * TaskList class encapsulates an ArrayList of all the tasks
