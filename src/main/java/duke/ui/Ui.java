@@ -10,65 +10,36 @@ public class Ui {
 
     private String chatBotName = "Carl";
     private Scanner scanner;
-
-    /**
-     * Constructs an Ui object and initializes the Scanner for reading user input from the console.
-     */
-    public Ui() {
-        this.scanner = new Scanner(System.in);
-    }
-
-    /**
-     * Formats a given message into a stylized card with a horizontal line.
-     *
-     * @param message The message to be displayed in the card.
-     * @return The stylized message card.
-     */
-    private String messageCard(String message) {
-        String horizontalLine = "\t____________________________________________________________\n";
-        return horizontalLine + "\t " + message + "\n" + horizontalLine;
-    }
+    private String message = "";
 
     /**
      * Displays a message in the message card.
      *
      * @param message The message to be displayed.
+     * @return String of message.
      */
-    public void sendMessage(String message) {
-        System.out.println(messageCard(message));
-    }
-
-    /**
-     * Displays an error message for loading tasks from a file.
-     */
-    public void showLoadingError() {
-        System.out.println((messageCard("Carl: Error Loading File")));
-    }
-
-    /**
-     * Displays an error message.
-     *
-     * @param message The error message to be displayed.
-     */
-    public void showError(String message) {
-        System.out.println((messageCard(message)));
+    public String sendMessage(String message) {
+        return this.message = message;
     }
 
     /**
      * Displays a welcome message.
+     *
+     * @return The welcome message to be displayed.
      */
-    public void showWelcome() {
-        System.out.println(messageCard("Hello! I'm " + chatBotName
-                + "\n\t What can I do for you?"));
+    public String showWelcome() {
+        return "CARL BOT:\nHello! I'm " + chatBotName
+                + "\nWhat can I do for you?\n" +
+                "Type \"help\" to begin";
     }
 
     /**
-     * Reads and retrieves a command from the user.
+     * Displays a welcome message.
      *
-     * @return The user's input command.
+     * @return The welcome message to be displayed.
      */
-    public String readCommand() {
-        String userInput = this.scanner.nextLine();
-        return userInput;
+    public String displayMessage() {
+        return "CARL:\n" + this.message;
     }
+
 }

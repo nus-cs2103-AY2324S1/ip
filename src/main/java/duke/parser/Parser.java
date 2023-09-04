@@ -6,6 +6,7 @@ import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
 import duke.command.FindCommand;
+import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
@@ -27,6 +28,8 @@ public class Parser {
     public static Command parse(String userInput) throws DukeException {
         if (userInput.equals("bye")) {
             return new ExitCommand();
+        } else if (userInput.equals("help")) {
+            return new HelpCommand();
         } else if (userInput.equals("list")) {
             return new ListCommand();
         } else if (userInput.contains("mark") && userInput.substring(0, 4).equals("mark")) {

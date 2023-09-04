@@ -10,16 +10,6 @@ import duke.ui.Ui;
 public class ExitCommand extends Command {
 
     /**
-     * Message card for the Duke application.
-     *
-     * @param message The message to be wrapped in the messageCard.
-     */
-    private String messageCard(String message) {
-        String horizontalLine = "\t____________________________________________________________\n";
-        return horizontalLine + "\t " + message + "\n" + horizontalLine;
-    }
-
-    /**
      * Executes the exit task command, exiting the Duke application.
      *
      * @param taskList The list of tasks.
@@ -28,7 +18,7 @@ public class ExitCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        System.out.println(messageCard("Bye. Hope to see you again soon!"));
+        ui.sendMessage("Bye. Hope to see you again soon!");
     }
 
     /**

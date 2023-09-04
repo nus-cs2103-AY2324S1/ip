@@ -1,10 +1,13 @@
 package duke;
 
+import java.util.concurrent.TimeUnit;
+
 import duke.command.Command;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
+import javafx.application.Platform;
 
 /**
  * Represents the main class of the Duke application.
@@ -27,36 +30,23 @@ public class Duke {
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
-            ui.showLoadingError();
             tasks = new TaskList();
         }
     }
 
-    /**
-     * Runs the Duke application.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+            if (c.isExit()) {
+                Platform.exit();
+            } else {
+                return ui.displayMessage();
             }
+        } catch (DukeException e) {
+            ui.sendMessage(e.getMessage());
+            return ui.displayMessage();
         }
-    }
-
-    /**
-     * The main method to start the Duke application.
-     * Creates a Duke object and starts the application.
-     *
-     * @param args Command-line arguments.
-     */
-    public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+        return input;
     }
 }
