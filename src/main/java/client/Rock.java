@@ -22,7 +22,10 @@ public class Rock {
     private Ui ui;
     private Invoker invoker;
     private boolean isTerminated = false;
-
+    /**
+     * Initialises the chatbot
+     * @param path Path to save and load chat bot data
+     */
     public Rock(Path path) {
         this.taskList = new TaskList();
         this.ui = new Ui();
@@ -34,7 +37,7 @@ public class Rock {
         }
         this.ui.startup();
     }
-    public void run() {
+    private void run() {
         while (!isTerminated) {
             String userInput = this.ui.getInput();
             try {
@@ -44,30 +47,77 @@ public class Rock {
             }
         }
     }
+    /* Methods for Interactions with task list */
+    /**
+     * Adds the given task to
+     * the task list
+     * @param task Task to be added
+     */
     public void addTask(Task task) {
         taskList.addTask(task);
     }
+    /**
+     * Removes the task at index i
+     * @param i Task to be removed
+     * @return Removed task
+     * @throws IndexOutOfBoundsException Given index is invalid
+     */
     public Task removeTask(int i) throws IndexOutOfBoundsException {
         return taskList.removeTask(i);
     }
-    public void markTask(int index, boolean completed) {
+    /**
+     * Marks given task as the given
+     * state completed
+     * @param index Index of task to be marked
+     * @param completed State to be marked as
+     * @throws IllegalArgumentException Task is already the correct state
+     * @throws IndexOutOfBoundsException Given index is invalid
+     */
+    public void markTask(int index, boolean completed) throws IllegalArgumentException, IndexOutOfBoundsException {
         taskList.mark(index, completed);
     }
+    /**
+     * Set the bot's task list as the given task list
+     * @param taskList Task list to be set to
+     */
     public void setTaskList(TaskList taskList) {
         this.taskList = taskList;
     }
+    /**
+     * Clears the task list
+     */
     public void resetTaskList() {
         taskList.reset();
     }
+    /**
+     * Performs a filtered search of the task
+     * list with the given predicate
+     * @param condiiton Predicate to test against
+     * @return The string representation of the found tasks
+     */
     public String taskListFilteredSearch(Predicate<Task> condiiton) {
         return taskList.filteredSearch(condiiton);
     }
+    /**
+     * Gets the string representation
+     * of the task list
+     * @return String representation
+     */
     public String taskListToString() {
         return taskList.toString();
     }
+    /* Commands that call the UI */
+    /**
+     * Sends a message to the user
+     * @param msg Message to be sent
+     */
     public void say(String msg) {
         ui.say(msg);
     }
+    /* Commands that call the save/load feature */
+    /**
+     * Saves the existing tasklist
+    */
     public void saveFile() {
         try {
             storage.saveSaveFile(taskList);
@@ -75,6 +125,10 @@ public class Rock {
             ui.say(e.getMessage());
         }
     }
+    /**
+     * Saves the given task list
+     * @param tl Task list to be saved
+     */
     public void saveFile(TaskList tl) {
         try {
             storage.saveSaveFile(tl);
@@ -82,6 +136,9 @@ public class Rock {
             ui.say(e.getMessage());
         }
     }
+    /**
+     * Terminates the program
+     */
     public void terminate() {
         // Sets necessary fields to closed.
         this.isTerminated = true;
