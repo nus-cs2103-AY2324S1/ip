@@ -72,12 +72,12 @@ public class Event extends Task {
     @Override
     public String toString() {
         String startString = parsedStartDate != null
-          ? parsedStartDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
-          : start;
+            ? parsedStartDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
+            : start;
 
         String endString = parsedEndDate != null
-          ? parsedEndDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
-          : end;
+            ? parsedEndDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
+            : end;
 
         return "[E]" + super.toString() + " from " + startString + " to " + endString;
     }

@@ -64,8 +64,8 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String dateString = parsedBy != null
-          ? parsedBy.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
-          : by;
+            ? parsedBy.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
+            : by;
 
         return "[D]" + super.toString() + " by: " + dateString;
     }

@@ -20,15 +20,15 @@ public class DataParser {
         String typeIndicator = line.substring(0, 3);
 
         switch (typeIndicator) {
-            case "[D]":
-                return parseDeadline(line);
-            case "[E]":
-                return parseEvent(line);
-            case "[T]":
-                return parseToDo(line);
-            default:
-                System.out.println("Please check the original file for correctness.");
-                return null;
+        case "[D]":
+            return parseDeadline(line);
+        case "[E]":
+            return parseEvent(line);
+        case "[T]":
+            return parseToDo(line);
+        default:
+            System.out.println("Please check the original file for correctness.");
+            return null;
         }
     }
 
