@@ -76,7 +76,7 @@ public class Parser {
             case "load":
                 return new LoadCommand(response);
             case "find":
-                matcher = regexParse("^find\\s([\\w\\s]*)$", response);
+                matcher = this.regexParse("^find\\s([\\w\\s]*)$", response);
                 if (!matcher.find() || matcher.groupCount() != 1) {
                     throw new InvalidTaskException(
                             "Invalid input. Usage: find <description to match>"
