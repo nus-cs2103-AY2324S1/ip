@@ -244,8 +244,7 @@ public class TaskList {
         }
         if (counter == 0) {
             taskInfo += "\tThere are no items matching your search.";
-        }
-        else {
+        } else {
             taskInfo = "\tHere are the tasks matching your search:\n" + taskInfo;
         }
         ui.displayMessage(taskInfo);
