@@ -109,4 +109,28 @@ public class TaskList {
 				"____________________________________________________________", t.toString(), remaining);
 		System.out.println(echo);
 	}
+
+	/**
+	 * Returns String representation of task at a given index, starting from 0.
+ 	 * @param i Index of Task in taskList that we are interested in.
+	 * @return String representation of Task.
+	 */
+	public String getTask(int i) {
+		return taskList.get(i).toString();
+	}
+
+	public void findTask(String keyWord) {
+		int count = 1;
+		StringBuilder br = new StringBuilder();
+		for (Task t: taskList) {
+			String[] words = t.toString().split(" ");
+			for (String w: words) {
+				if (w.equals(keyWord)) {
+					br.append(count).append(". ").append(t.toString()).append("\n");
+				}
+			}
+			count++;
+		}
+		System.out.println(br.toString());
+	}
 }
