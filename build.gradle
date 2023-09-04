@@ -52,13 +52,16 @@ application {
     mainClass.set("duke.Duke")
 }
 
+mainClassName = 'duke.Duke'
+
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "Duke"
+    archiveVersion = "v0.1"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
-run{
+run {
     enableAssertions = true
     standardInput = System.in
 }
