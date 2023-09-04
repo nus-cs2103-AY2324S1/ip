@@ -6,7 +6,7 @@ package duke.exception;
  *
  * @author ruo-x
  */
-public class FailedSearchException extends DukeException {
+public class FailedSearchException extends BobiException {
     /**
      * Constructor for a FailedSearchException object.
      */
