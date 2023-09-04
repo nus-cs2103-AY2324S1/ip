@@ -1,24 +1,24 @@
 .text-area {
-    -fx-border-radius: 20;
     -fx-background-color: #2e333d;
     -fx-border-color: "#2e333d";
 }
 
 .display-picture {
-    -fx-border-radius: 50px;
-    -fx-hgap: 20px;
-    -fx-padding: 40px;
-    -fx-background-color: #2969c0;
-    -fx-background-radius: 50px;
-    -fx-border-width: 5px;
-    -fx-border-color: black;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+    /*-fx-background-radius: 2em;*/
+    -fx-border-radius: 50%;
 }
 
 .message-text {
     -fx-border-radius: 20;
     -fx-background-color: #202329;
     -fx-border-color: "#2e333d";
+}
+
+.message-font {
+
+}
+
+.header {
 }
 
 .scroll-pane {
@@ -28,5 +28,66 @@
 
 .blue-background {
     -fx-background-color: #6b8afd;
+    -fx-background-radius: 1.0em;
+}
+
+.gray-background {
+    -fx-background-color: #2e333d;
+    -fx-background-radius: 1.0em;
+}
+
+.scroll-bar:vertical .track{
+    -fx-background-color :transparent;
+    -fx-border-color :transparent;
+    -fx-background-radius : 2.0em;
+}
+
+.scroll-bar:vertical .track-background {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 10.0 0.0 0.0;
+
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.15em 0.0;
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.0 0.15em;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color : #dddddd;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color : #9e9e9e;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+
+.scroll-bar{
+    -fx-background-color: transparent;
+    -fx-background-radius: 2em;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.scroll-bar:vertical:focused {
+    -fx-background-color: transparent;
 }
 

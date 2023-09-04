@@ -46,14 +46,17 @@ public class DialogBox extends HBox {
         }
         dialog.setText(text);
         dialog.setWrapText(true);
-        dialog.setPrefWidth(280);
+        dialog.setPrefWidth(275);
         displayPicture.setImage(img);
+        messageOutline.setPrefWidth(280);
         messageOutline.prefHeightProperty().bind(dialog.heightProperty());
+        messageOutline.getStyleClass().clear();
         if (isUser) {
-            messageOutline.getStyleClass().clear();
             messageOutline.getStyleClass().add("blue-background");
+        } else {
+            messageOutline.getStyleClass().add("gray-background");
         }
-
+        displayPicture.getStyleClass().add("display-picture");
     }
 
     /**

@@ -7,19 +7,19 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="79.0" prefWidth="400.0" stylesheets="@../css/Application.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="79.0" prefWidth="360.0" stylesheets="@../css/Application.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <Pane fx:id="messageOutline" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="306.0" styleClass="text-area" stylesheets="@../css/Application.css">
+      <Pane fx:id="messageOutline" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="306.0" styleClass="gray-background" stylesheets="@../css/Application.css">
          <children>
-              <Label fx:id="dialog" layoutX="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="0.0" stylesheets="@../css/Application.css" text="Label" textFill="WHITE" wrapText="true">
+              <Label fx:id="dialog" layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="0.0" styleClass="message-font" stylesheets="@../css/Application.css" text="Label" textFill="WHITE" wrapText="true">
                   <opaqueInsets>
                       <Insets />
                   </opaqueInsets>
                   <font>
-                      <Font name="Bell MT Bold" size="16.0" />
+                      <Font name="Segoe UI Bold" size="16.0" />
                   </font>
                <padding>
-                  <Insets bottom="15.0" />
+                  <Insets bottom="20.0" />
                </padding>
               </Label>
          </children>
