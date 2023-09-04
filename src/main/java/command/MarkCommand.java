@@ -11,7 +11,7 @@ import task.TaskList;
  */
 public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";
-    public static final String MESSAGE_SUCCESS = " Nice! I've marked this task as done:\n";
+    public static final String MESSAGE_SUCCESS = "Nice! I've marked this task as done:\n";
 
     /** The index of the task to be marked as done */
     protected int index;
@@ -30,12 +30,12 @@ public class MarkCommand extends Command {
      * @throws DukeException if an invalid index is given
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (this.index >= 0 && this.index < tasks.getSize()) {
             Task task = tasks.getTask(this.index);
             tasks.markTask(task);
             storage.writeToFile(tasks.getList());
-            ui.showMessage(MESSAGE_SUCCESS + "     " + task);
+            return MESSAGE_SUCCESS + task;
         } else {
             // user input is an integer bigger than size of task list
             String message = tasks.isEmpty()

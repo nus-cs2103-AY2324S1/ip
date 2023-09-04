@@ -11,7 +11,7 @@ import task.TaskList;
  */
 public class UnmarkCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
-    public static final String MESSAGE_SUCCESS = " OK, I've marked this task as not done yet:\n";
+    public static final String MESSAGE_SUCCESS = "OK, I've marked this task as not done yet:\n";
 
     /**
      * The index of the task to be marked as undone
@@ -37,12 +37,12 @@ public class UnmarkCommand extends Command {
      * @throws DukeException if an invalid index is given
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (this.index >= 0 && this.index < tasks.getSize()) {
             Task task = tasks.getTask(this.index);
             tasks.unmarkTask(task);
             storage.writeToFile(tasks.getList());
-            ui.showMessage(MESSAGE_SUCCESS + "     " + task);
+            return MESSAGE_SUCCESS + task;
         } else {
             // user input is an integer bigger than size of task list
             String message = tasks.isEmpty()

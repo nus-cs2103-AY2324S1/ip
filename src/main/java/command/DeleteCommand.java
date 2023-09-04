@@ -11,7 +11,7 @@ import task.TaskList;
  */
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
-    public static final String MESSAGE_SUCCESS = " Noted. I've removed this task:\n";
+    public static final String MESSAGE_SUCCESS = "Noted. I've removed this task:\n";
 
     /** The index of the task to be deleted */
     protected int index;
@@ -30,13 +30,14 @@ public class DeleteCommand extends Command {
      * @throws DukeException if an invalid index is given
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (this.index >= 0 && this.index < tasks.getSize()) {
             Task task = tasks.getTask(this.index);
             tasks.deleteTask(task);
             storage.writeToFile(tasks.getList());
-            ui.showMessage(MESSAGE_SUCCESS + "     " + task.toString()
-                    + "\n Now you have " + tasks.getSize() + " tasks in the list");
+            String response = MESSAGE_SUCCESS + task.toString()
+                    + "\nNow you have " + tasks.getSize() + " tasks in the list";
+            return response;
         } else {
             // user input is an integer bigger than size of task list
             String message = tasks.isEmpty()

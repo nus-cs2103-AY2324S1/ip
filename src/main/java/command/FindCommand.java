@@ -29,13 +29,13 @@ public class FindCommand extends Command {
      * @param storage File path where the tasks are stored
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> filteredTasks = tasks.filterTasks(this.keyword);
+        TaskList filteredList = new TaskList(filteredTasks);
         if (filteredTasks.isEmpty()) {
-            ui.showMessage("No matching tasks found");
+            return "No matching tasks found";
         } else {
-            ui.showMessage("Here are the matching tasks in your list:");
-            ui.printTaskList(filteredTasks);
+            return "Here are the matching tasks in your list:\n" + filteredList;
         }
     }
 }

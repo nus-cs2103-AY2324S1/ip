@@ -12,7 +12,7 @@ import task.TaskList;
  */
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
-    public static final String MESSAGE_SUCCESS = " Got it. I've added this task:\n";
+    public static final String MESSAGE_SUCCESS = "Got it. I've added this task:\n";
 
     /** Description of the task */
     protected String description;
@@ -45,11 +45,12 @@ public class EventCommand extends Command {
      * @param storage File path where the tasks are stored
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Event event = new Event(this.description, this.from, this.to);
         tasks.addTask(event);
         storage.writeToFile(tasks.getList());
-        ui.showMessage(MESSAGE_SUCCESS + "     " + event
-                + "\n Now you have " + tasks.getSize() + " tasks in the list");
+        String response = MESSAGE_SUCCESS + event
+                + "\nNow you have " + tasks.getSize() + " tasks in the list";
+        return response;
     }
 }

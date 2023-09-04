@@ -7,7 +7,6 @@ import command.Command;
 import command.DeadlineCommand;
 import command.DeleteCommand;
 import command.EventCommand;
-import command.ExitCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.TodoCommand;
@@ -21,17 +20,6 @@ public class ParserTest {
             String validInput = "list";
             Command command = Parser.parse(validInput);
             assertEquals(ListCommand.class, command.getClass());
-        } catch (DukeException e) {
-            System.out.println("Unexpected DukeException was thrown");
-            fail();
-        }
-    }
-    @Test
-    public void parse_validExitInput_success() {
-        try {
-            String validInput = "bye";
-            Command command = Parser.parse(validInput);
-            assertEquals(ExitCommand.class, command.getClass());
         } catch (DukeException e) {
             System.out.println("Unexpected DukeException was thrown");
             fail();
