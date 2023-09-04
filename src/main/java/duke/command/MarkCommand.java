@@ -27,11 +27,11 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            ui.showMarkMessage(taskList.markAsDone(this.index));
+            return ui.showMarkMessage(taskList.markAsDone(this.index));
         } catch (DukeNoTaskFoundException e) {
-            ui.showError(e);
+            return ui.showError(e);
         }
     }
 }
