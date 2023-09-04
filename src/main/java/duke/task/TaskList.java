@@ -1,8 +1,8 @@
 package duke.task;
 
-import duke.DukeException;
-
 import java.util.ArrayList;
+
+import duke.DukeException;
 
 /**
  * Represents a list of Tasks inherits from ArrayList of Task to contain user tasks.
@@ -15,7 +15,7 @@ public class TaskList extends ArrayList<Task> {
     public TaskList(ArrayList<Task> tasks) {
         super(tasks);
     }
-    
+
     /**
      * Marks task of specified index as done.
      * @param index Specified index

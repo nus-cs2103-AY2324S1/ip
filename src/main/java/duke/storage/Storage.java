@@ -1,9 +1,5 @@
 package duke.storage;
 
-import duke.DukeException;
-import duke.parser.Parser;
-import duke.task.TaskList;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,6 +9,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+import duke.DukeException;
+import duke.parser.Parser;
+import duke.task.TaskList;
+
 /**
  * Handles read and write to file data.
  */
@@ -21,12 +21,19 @@ public class Storage {
     private Path path;
     private String filePath;
 
+    /**
+     * Constructor for storage.
+     */
     public Storage() {
         this.home = System.getProperty("user.dir");
         this.path = Paths.get(home, "data", "duke.txt");
         this.filePath = this.path.toString();
     }
 
+    /**
+     * Constructor for storage with specified filePath.
+     * @param filePath
+     */
     public Storage(String filePath) {
         this.home = System.getProperty("user.dir");
         this.path = Paths.get(home, filePath);

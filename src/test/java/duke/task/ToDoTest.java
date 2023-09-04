@@ -1,11 +1,8 @@
 package duke.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
-
-import duke.DukeException;
 
 public class ToDoTest {
     private ToDo task = new ToDo("task");

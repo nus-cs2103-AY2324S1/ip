@@ -1,12 +1,12 @@
 package duke;
 
-import duke.parser.Parser;
-import duke.storage.Storage;
-import duke.task.*;
-import duke.ui.Ui;
-
 import java.util.List;
 import java.util.Scanner;
+
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * The backbone of the program.
@@ -16,12 +16,19 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor for Duke.
+     */
     public Duke() {
         this.storage = new Storage();
         this.tasks = new TaskList();
         this.ui = new Ui();
     }
 
+    /**
+     * Constructor for Duke with specified filePath.
+     * @param filePath
+     */
     public Duke(String filePath) {
         this.storage = new Storage(filePath);
         this.tasks = new TaskList();
@@ -47,7 +54,7 @@ public class Duke {
             List<String> queryList = Parser.convertToList(response);
             if (queryList.get(0).equals("bye")) {
                 break;
-            } 
+            }
             try {
                 switch (queryList.get(0)) {
                 case "list":

@@ -36,7 +36,7 @@ public class Ui {
      */
     public void date(TaskList tasks, String date) throws DukeException {
         int idx = 0;
-        String dmy = Parser.convertToDMY(date);
+        String dmy = Parser.convertToDmy(date);
         for (Task task: tasks) {
             if (task.isToday(date)) {
                 if (idx == 0) {
@@ -49,7 +49,7 @@ public class Ui {
             print(String.format("There is no task on %s.", dmy));
         }
     }
-    
+
     /**
      * Removes task from TaskList and displays removed task info to user.
      * @param tasks TaskList
@@ -118,7 +118,7 @@ public class Ui {
         Task task = tasks.markDone(index);
         print("Nice! I've marked this task as done:");
         print("  " + task.toString());
-    }    
+    }
 
     public void print(String s) {
         System.out.println(s);
