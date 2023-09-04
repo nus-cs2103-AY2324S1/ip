@@ -1,5 +1,6 @@
 package bot.gui;
 
+import bot.Main;
 import javafx.application.Application;
 
 /**
