@@ -9,7 +9,7 @@ import alyssa.Exceptions.AlyssaArgumentException;
  * This class represents the main program.
  */
 public class Alyssa {
-    private static final String line = "____________________________________________________________";
+    private static final String LINE = "____________________________________________________________";
     private Storage storage;
     private String saveFilePath;
     private String dirPath;
@@ -118,5 +118,13 @@ public class Alyssa {
                 isRunning = false;
             }
         }
+    }
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 }
