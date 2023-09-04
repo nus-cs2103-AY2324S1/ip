@@ -20,8 +20,8 @@ import java.time.LocalDate;
  */
 public class Jeeves {
 
-    private static final String RELATIVEPATH_DATA_DIRECTORY = "data";
-    private static final String RELATIVEPATH_DATA_FILE = "data/JeevesData.txt";
+    private static final String RELATIVE_PATH_DATA_DIRECTORY = "data";
+    private static final String RELATIVE_PATH_DATA_FILE = "data/JeevesData.txt";
     
     private final Storage storage;
     private final TaskList tasks;
@@ -34,7 +34,7 @@ public class Jeeves {
      * Creates a new Storage, TaskList, Parser and Ui object for usage during runtime.
      */
     public Jeeves() {
-        storage = new Storage(RELATIVEPATH_DATA_DIRECTORY, RELATIVEPATH_DATA_FILE);
+        storage = new Storage(RELATIVE_PATH_DATA_DIRECTORY, RELATIVE_PATH_DATA_FILE);
         tasks = new TaskList(storage.readTasklistFromFile());
         parser = new Parser();
         ui = new Ui();

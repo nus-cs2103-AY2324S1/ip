@@ -16,16 +16,16 @@ import java.util.ArrayList;
  */
 public class Parser {
 
-    private static final int FINDCOMMAND_TODO_OFFSET = 5;
-    private static final int FINDCOMMAND_DEADLINE_OFFSET = 9;
-    private static final int FINDCOMMAND_EVENT_OFFSET = 6;
-    private static final int FINDCOMMAND_MARK_OFFSET = 5;
-    private static final int FINDCOMMAND_UNMARK_OFFSET = 7;
-    private static final int FINDCOMMAND_DELETE_OFFSET = 7;
-    private static final int FINDCOMMAND_FIND_OFFSET = 5;
-    private static final int FINDFIELD_TO_OFFSET = 4;
-    private static final int FINDFIELD_FROM_OFFSET = 6;
-    private static final int FINDFIELD_BY_OFFSET = 4;
+    private static final int FIND_COMMAND_TODO_OFFSET = 5;
+    private static final int FIND_COMMAND_DEADLINE_OFFSET = 9;
+    private static final int FIND_COMMAND_EVENT_OFFSET = 6;
+    private static final int FIND_COMMAND_MARK_OFFSET = 5;
+    private static final int FIND_COMMAND_UNMARK_OFFSET = 7;
+    private static final int FIND_COMMAND_DELETE_OFFSET = 7;
+    private static final int FIND_COMMAND_FIND_OFFSET = 5;
+    private static final int FIND_FIELD_TO_OFFSET = 4;
+    private static final int FIND_FIELD_FROM_OFFSET = 6;
+    private static final int FIND_FIELD_BY_OFFSET = 4;
 
     /**
      * Constructor for a Parser object.
@@ -50,7 +50,7 @@ public class Parser {
         } else if (input.startsWith("mark ")) {
             args.add("mark");
             // Gets the task ID that the user wish to mark
-            String idString = input.substring(FINDCOMMAND_MARK_OFFSET);
+            String idString = input.substring(FIND_COMMAND_MARK_OFFSET);
             // Checks if the task ID is invalid, program will throw an error if the id is invalid
             checkIfValidId(idString);
             // Adds the valid id to the args array list and returns args <command,id>
@@ -58,7 +58,7 @@ public class Parser {
         } else if (input.startsWith("unmark ")) {
             args.add("unmark");
             // Gets the task ID that the user wish to unmark
-            String idString = input.substring(FINDCOMMAND_UNMARK_OFFSET);
+            String idString = input.substring(FIND_COMMAND_UNMARK_OFFSET);
             // Checks if the task ID is invalid, program will throw an error if the id is invalid
             checkIfValidId(idString);
             // Adds the valid id to the args array list and returns args <command,id>
@@ -66,7 +66,7 @@ public class Parser {
         } else if (input.startsWith("delete ")) {
             args.add("delete");
             // Gets the task ID that the user wish to delete
-            String idString = input.substring(FINDCOMMAND_DELETE_OFFSET);
+            String idString = input.substring(FIND_COMMAND_DELETE_OFFSET);
             // Checks if the task ID is invalid, program will throw an error if the id is invalid
             checkIfValidId(idString);
             // Adds the valid id to the args array list and returns args <command, id>
@@ -76,7 +76,7 @@ public class Parser {
             // Checks if the user provided a description
             // If so, returns args <command, desc>
             // Else throws the custom MissingDescriptionException error
-            String desc = input.substring(FINDCOMMAND_TODO_OFFSET);
+            String desc = input.substring(FIND_COMMAND_TODO_OFFSET);
             checkIfDescMissing(desc);
             args.add(desc);
         } else if (input.startsWith("deadline ")) {
@@ -86,8 +86,8 @@ public class Parser {
             // then returns args <command, desc, dyDate>
             try {
                 int byDateIndex = getByDateIndex(input);
-                String desc = input.substring(FINDCOMMAND_DEADLINE_OFFSET, byDateIndex - 1);
-                String byDate = input.substring(byDateIndex + FINDFIELD_BY_OFFSET);
+                String desc = input.substring(FIND_COMMAND_DEADLINE_OFFSET, byDateIndex - 1);
+                String byDate = input.substring(byDateIndex + FIND_FIELD_BY_OFFSET);
                 args.add(desc);
                 args.add(byDate);
             } catch (MissingDescriptionException | MissingByException e) {
@@ -101,9 +101,9 @@ public class Parser {
             try {
                 int fromDateIndex = getFromDateIndex(input);
                 int toDateIndex = getToDateIndex(input, fromDateIndex);
-                String desc = input.substring(FINDCOMMAND_EVENT_OFFSET, fromDateIndex - 1);
-                String fromDate = input.substring(fromDateIndex + FINDFIELD_FROM_OFFSET, toDateIndex - 1);
-                String toDate = input.substring(toDateIndex + FINDFIELD_TO_OFFSET);
+                String desc = input.substring(FIND_COMMAND_EVENT_OFFSET, fromDateIndex - 1);
+                String fromDate = input.substring(fromDateIndex + FIND_FIELD_FROM_OFFSET, toDateIndex - 1);
+                String toDate = input.substring(toDateIndex + FIND_FIELD_TO_OFFSET);
                 args.add(desc);
                 args.add(fromDate);
                 args.add(toDate);
@@ -114,7 +114,7 @@ public class Parser {
             // Gets the search term the user wishes to find
             // and returns args <command, findTerm>
             args.add("find");
-            String findTerm = input.substring(FINDCOMMAND_FIND_OFFSET);
+            String findTerm = input.substring(FIND_COMMAND_FIND_OFFSET);
             args.add(findTerm);
         } else if (input.equals("bye")) {
             args.add(input);
@@ -162,11 +162,11 @@ public class Parser {
      * Throws a custom exception with an appropriate error message if it is.
      * Else does nothing.
      *
-     * @param desc The string to be checked.
+     * @param description The string to be checked.
      */
-    static void checkIfDescMissing(String desc) {
+    static void checkIfDescMissing(String description) {
         try {
-            if (desc.isEmpty()) {
+            if (description.isEmpty()) {
                 throw new MissingDescriptionException("The description of a todo cannot be empty\n");
             }
         } catch (MissingDescriptionException e) {
@@ -174,13 +174,13 @@ public class Parser {
         }
     }
 
-    static int getByDateIndex(String cmd) throws MissingByException, MissingDescriptionException {
-        int byDateIndex = cmd.indexOf("/by ");
-        if (byDateIndex == -1 || cmd.length() == byDateIndex + FINDFIELD_BY_OFFSET) {
+    static int getByDateIndex(String command) throws MissingByException, MissingDescriptionException {
+        int byDateIndex = command.indexOf("/by ");
+        if (byDateIndex == -1 || command.length() == byDateIndex + FIND_FIELD_BY_OFFSET) {
             // If the "/by " block is missing, throws the MissingByException
             throw new MissingByException();
         }
-        if ((byDateIndex - 1) <= FINDCOMMAND_DEADLINE_OFFSET) {
+        if ((byDateIndex - 1) <= FIND_COMMAND_DEADLINE_OFFSET) {
             throw new MissingDescriptionException("The description of a deadline cannot be empty\n");
         }
         return byDateIndex;
@@ -202,16 +202,16 @@ public class Parser {
             // If the "/to " block is missing, throws the MissingToException
             throw new MissingToException();
         }
-        if (input.length() == (toDateIndex + FINDFIELD_TO_OFFSET)) {
+        if (input.length() == (toDateIndex + FIND_FIELD_TO_OFFSET)) {
             // If the /to block is present but no data has been given to the field, throw 
             // the MissingToException
             throw new MissingToException();
         }
-        if ((fromDateIndex - 1) <= FINDCOMMAND_DEADLINE_OFFSET) {
+        if ((fromDateIndex - 1) <= FIND_COMMAND_DEADLINE_OFFSET) {
             //If the description is missing, throw the MissingDescription Exception
             throw new MissingDescriptionException("The description of a event cannot be empty\n");
         }
-        if ((toDateIndex - 1) <= (fromDateIndex + FINDFIELD_FROM_OFFSET)) {
+        if ((toDateIndex - 1) <= (fromDateIndex + FIND_FIELD_FROM_OFFSET)) {
             // If the /from block is present but no data has been given to the field, throw 
             // the MissingFromException
             throw new MissingFromException();
