@@ -14,8 +14,8 @@ public class Task {
      */
     private boolean completed;
     private final String name;
-    private String type;
-    private String ogName;
+    String type;
+    String ogName;
 
 
     /**
