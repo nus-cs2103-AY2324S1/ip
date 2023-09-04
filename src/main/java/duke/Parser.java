@@ -79,6 +79,9 @@ public class Parser {
      * @throws DukeException If there is an error in processing the command.
      */
     public static boolean parseCommand(String input, TaskList tasks, Ui ui) throws DukeException {
+=======
+    public static boolean isValidCommand(String input, TaskList tasks, Ui ui) throws DukeException {
+>>>>>>> branch-A-CodingStandard
 
         int taskIndex;
         if (isDeleteCommand(input)) {

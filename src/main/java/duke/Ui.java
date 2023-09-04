@@ -7,18 +7,27 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner sc;
+<<<<<<< HEAD
     String horizontalLine = "____________________________________________________________";
 
     /**
      * Constructs a Ui object with a scanner to read user input.
      */
+=======
+
+>>>>>>> branch-A-CodingStandard
     public Ui() {
         this.sc = new Scanner(System.in);
     }
 
+<<<<<<< HEAD
     /**
      * Displays a welcome message when the application starts.
      */
+=======
+    String horizontalLine = "____________________________________________________________";
+
+>>>>>>> branch-A-CodingStandard
     public void showWelcomeMessage() {
         String name = "duke.Tired";
         System.out.println(horizontalLine);
