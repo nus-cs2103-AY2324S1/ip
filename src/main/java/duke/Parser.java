@@ -1,6 +1,12 @@
 package duke;
 
+import java.util.ArrayList;
+
 public class Parser {
+
+    public static boolean isFindCommand(String input) {
+        return input.startsWith("find");
+    }
 
     public static boolean isCreateTaskCommand(String input) {
         String trimmedInput = input.trim();
@@ -59,6 +65,10 @@ public class Parser {
         } else if (isCreateTaskCommand(input)) {
             Task newTask = parseCreateTaskInput(input);
             tasks.addTask(newTask);
+        } else if (isFindCommand(input)) {
+            String keyword = input.substring(5).trim();
+            ArrayList<Task> matchingTasks = tasks.findTasksWithKeyword(keyword);
+            ui.showMatchingTasks(matchingTasks);
         } else {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
