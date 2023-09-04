@@ -1,9 +1,8 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Frenchie {
-    public List<Task> tasks;
+    public ArrayList<Task> tasks;
 
     //constructor
     public Frenchie() {
@@ -34,6 +33,9 @@ public class Frenchie {
         return this.tasks.size();
     }
 
+    public void deleteTask(int index) {
+        tasks.remove(index);
+    }
     public static void main(String[] args) {
         /*String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -79,6 +81,16 @@ public class Frenchie {
                                 target_task.toString() + "\n" +
                                 "____________________________________________________________");
                     }
+                } else if (input.contains("delete")){
+                    String[] parts = input.split(" ");
+                    int index = Integer.parseInt(parts[1]) - 1;
+                    Task target_task = frenchie.tasks.get(index);
+                    frenchie.deleteTask(index);
+                    System.out.println("____________________________________________________________\n" +
+                            "Noted. I've removed this task: \n" +
+                            target_task.toString()   + "\n" +
+                            "Now you have " + frenchie.getNumOfTasks() + " tasks in the list.\n" +
+                            "____________________________________________________________");
                 } else if (input.contains("event") || input.contains("todo") || input.contains("deadline")) {
                     String[] parts = input.split(" ");
                     String taskType = parts[0];
