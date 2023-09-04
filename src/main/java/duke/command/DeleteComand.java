@@ -1,12 +1,20 @@
+package duke.command;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.Ui;
+import duke.task.Task;
+import duke.task.TaskList;
+
 import java.util.ArrayList;
 
-public class MarkCommand extends Command {
-    public MarkCommand(ArrayList<String> commandDetails) {
+public class DeleteComand extends Command {
+    public DeleteComand(ArrayList<String> commandDetails) {
         super(commandDetails);
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException{
         int taskNumber = 0;
         try {
             taskNumber = Integer.parseInt(commandDetails.get(0));
@@ -16,9 +24,9 @@ public class MarkCommand extends Command {
         if (taskNumber > tasks.size()) {
             throw new DukeException("☹ OOPS!!! The task number is out of range.");
         }
-        Task markedTask = tasks.get(taskNumber - 1);
-        markedTask.markAsDone();
+        Task deletedTask = tasks.get(taskNumber - 1);
+        tasks.remove(taskNumber - 1);
         storage.writeListToFile(tasks);
-        ui.printTaskMarked(markedTask);
+        ui.printTaskDeleted(deletedTask, tasks.size());
     }
 }
