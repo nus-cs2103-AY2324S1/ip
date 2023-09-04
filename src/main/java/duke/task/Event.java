@@ -1,10 +1,20 @@
 package duke.task;
 
 import java.time.LocalDateTime;
-
+/**
+ * Represents an Event Task.
+ * Has a description, startTime and endTime.
+ */
 public class Event extends Task {
 	private final LocalDateTime startTime;
 	private final LocalDateTime endTime;
+
+	/**
+	 * Represents an Event Task.
+	 * @param description Describes the Event.
+	 * @param startTime Time Event starts.
+	 * @param endTime Time Event ends.
+	 */
 
 	public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
 		super(description);
@@ -12,6 +22,10 @@ public class Event extends Task {
 		this.endTime = endTime;
 	}
 
+	/**
+	 * Returns a String to be written into Storage.
+	 * @return Reformatted String suitable for Storage.
+	 */
 	@Override
 	public String writeToFile() {
 		StringBuilder b = new StringBuilder();
@@ -26,6 +40,9 @@ public class Event extends Task {
 		return b.toString();
 	}
 
+	/**
+	 * @return String representation of Event.
+	 */
 	@Override
 	public String toString() {
 		String[] start = this.startTime.toString().split("T");

@@ -11,6 +11,10 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Represents te computer storage system.
+ * Able to write Task to storage text file through writeFile method.
+ */
 public class Storage {
 	private String filePath;
 	private ArrayList<Task> taskList;
@@ -20,7 +24,13 @@ public class Storage {
 	}
 
 
-	// take in new one else double write
+
+	/**
+	 * Writes Task into text file.
+	 * Creates text file if it does not exist.
+	 * @param task Thing to be done.
+	 * @throws IOException If unable to write file.
+	 */
 	public void writeFile(Task task) throws IOException {
 
 		try {
@@ -34,7 +44,11 @@ public class Storage {
 
 	}
 
-
+	/**
+	 * Reads stored text file line by line.
+	 * @return ArrayList of Task.
+	 * @throws IOException If unable to read lines in text file.
+	 */
 	public ArrayList<Task> readFile() throws IOException {
 		try (BufferedReader in = new BufferedReader(new FileReader(filePath))) {
 			StringBuilder br = new StringBuilder();
@@ -52,6 +66,12 @@ public class Storage {
 	}
 
 	// the file stored needs to be reformatted
+
+	/**
+	 * Converts each line into the format shown to reader.
+	 * @param fileLine Each line in the file.
+	 * @throws IOException If unable to read task in file as Deadline[D], Event[E] or ToDos[T].
+	 */
 	public void readTask(String fileLine) throws IOException {
 		String[] str = fileLine.split("\\|");
 		for (int i  = 0; i < str.length; i++) {
@@ -79,8 +99,13 @@ public class Storage {
 				throw new IOException("read fail");
 		}
 	}
+
+	/**
+	 * Deletes tasks from taskList.
+	 * @param i Position of tasks to be deleted.
+	 */
 	public void deleteTask(int i) {
-		taskList.remove(i);
+		taskList.remove(i - 1);
 	}
 
 }
