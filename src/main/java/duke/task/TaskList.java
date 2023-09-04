@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class TaskList {
     private List<Task> tasks;
-    private Storage storage;
+    private final Storage storage;
 
     /**
      * Constructs a TaskList object
