@@ -10,7 +10,7 @@ import kiera.tasktype.TaskType;
  * Displays messages and reads user input.
  */
 public class Ui {
-    private final String Line = "   ---------------------------------------------";
+    private final String line = "   ---------------------------------------------";
 
     public Ui() {
     }
@@ -35,31 +35,31 @@ public class Ui {
      * Displays a horizontal line separator.
      */
     public void showLine() {
-        System.out.println(Line);
+        System.out.println(line);
     }
 
     /**
      * Displays a welcome message when the application starts.
      */
     public void showHello() {
-        System.out.println(Line
+        System.out.println(line
                 + "\n"
                 + "    "
                 + "hi, it's kiera.\n"
                 + "    "
                 + "what do you need?\n"
-                + Line);
+                + line);
     }
 
     /**
      * Displays a farewell message when the user exits the application.
      */
     public void showBye() {
-        System.out.println(Line
+        System.out.println(line
                 + "\n"
                 + "    "
                 + "muaks! <3\n"
-                + Line);
+                + line);
     }
 
     /**
@@ -158,7 +158,9 @@ public class Ui {
                 + listSize
                 + " task"
                 + plural
-                + "that matches your description:\n"
+                + "that matches your keyword ("
+                + desc
+                + "):\n"
                 + content
                 + "    "
         );
