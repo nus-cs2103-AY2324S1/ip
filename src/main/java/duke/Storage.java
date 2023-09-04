@@ -59,7 +59,8 @@ public class Storage {
                 case 'D':
                     splitStringList = line.split("\\|");
                     if (splitStringList.length != 4) {
-                        throw new InvalidFileFormatException("Invalid format for duke.task.Deadline task in the file.");
+                        throw new InvalidFileFormatException("Invalid format for Deadline task in the" +
+                                " file.");
                     }
                     fabricatedUserInput = "deadline " + splitStringList[2] + "/by " + splitStringList[3];
 
@@ -67,7 +68,8 @@ public class Storage {
                     try {
                         d = Task.taskCon(fabricatedUserInput);
                     } catch (InvalidCommandException | InvalidTaskCreationException e) {
-                        throw new InvalidFileFormatException("Invalid format for duke.task.Deadline task in the file.");
+                        throw new InvalidFileFormatException("Invalid format for Deadline task in the" +
+                                " file.");
                     }
 
                     if (splitStringList[1].equals("1")) {
@@ -79,16 +81,17 @@ public class Storage {
                 case 'E':
                     splitStringList = line.split("\\|");
                     if (splitStringList.length != 5) {
-                        throw new InvalidFileFormatException("Invalid format for duke.task.Event task in the file.");
+                        throw new InvalidFileFormatException("Invalid format for Event task in the file.");
                     }
 
-                    fabricatedUserInput = "event " + splitStringList[2] + "/from " + splitStringList[3] + "/to " + splitStringList[4];
+                    fabricatedUserInput = "event " + splitStringList[2] + "/from " + splitStringList[3] + "/to "
+                            + splitStringList[4];
 
                     Task ev;
                     try {
                         ev = Task.taskCon(fabricatedUserInput);
                     } catch (InvalidCommandException | InvalidTaskCreationException e) {
-                        throw new InvalidFileFormatException("Invalid format for duke.task.Event task in the file.");
+                        throw new InvalidFileFormatException("Invalid format for Event task in the file.");
                     }
 
                     if (splitStringList[1].equals("1")) {

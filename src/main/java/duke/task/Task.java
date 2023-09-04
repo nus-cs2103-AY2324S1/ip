@@ -39,7 +39,9 @@ public class Task {
      * @throws InvalidTaskCreationException if there is an issue creating the task from the input.
      * @throws DateTimeParseException       if there is an issue parsing date and time.
      */
-    public static Task taskCon(String userInput) throws InvalidCommandException, InvalidTaskCreationException, DateTimeParseException {
+
+    public static Task taskCon(String userInput) throws InvalidCommandException, InvalidTaskCreationException,
+            DateTimeParseException {
         if (userInput.startsWith("todo")) {
             return ToDo.ToDoCon(userInput.substring(5));
         } else if (userInput.startsWith("deadline")) {
