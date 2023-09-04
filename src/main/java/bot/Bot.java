@@ -13,26 +13,28 @@ import bot.utils.Ui;
  */
 public class Bot {
     /**
-     * Bot.Storage object for storing data.
+     * Storage object for storing data.
      */
-    private Storage storage;
+    private final Storage storage;
     /**
      * User interface for interacting with the user.
      */
-    private Ui ui;
+    private final Ui ui;
     /**
-     * Bot.Task list for storing tasks.
+     * Task list for storing tasks.
      */
     private TaskList tasks;
+    /**
+     * Shows if the bot is active or not.
+     */
+    private boolean isExit = false;
 
     /**
-     * Creates the bot with the given file path as data storage point.
-     *
-     * @param filePath Path to data storage.
+     * Creates the bot.
      */
-    public Bot(String filePath) {
+    public Bot() {
         this.ui = new Ui();
-        this.storage = new Storage(filePath);
+        this.storage = new Storage("/data/tasks.txt");
         try {
             tasks = new TaskList(storage.load(this.ui));
         } catch (LoadingException e) {
@@ -42,30 +44,41 @@ public class Bot {
     }
 
     /**
-     * Main function of program.
+     * Gives the bot's response to a String input.
      *
-     * @param args Optional arguments. It currently does nothing.
+     * @param input Raw input string.
+     * @return Bot's response as a string.
      */
-    public static void main(String[] args) {
-        new Bot("./data/tasks.txt").run();
+    public String getResponse(String input) {
+        String response;
+        try {
+            Command command = Parser.parse(input);
+            response = command.execute(tasks, ui, storage);
+            if (command.isExit()) {
+                isExit = true;
+            }
+            storage.save(tasks);
+        } catch (BotException exception) {
+            response = ui.showError(exception.getMessage());
+        }
+        return response;
     }
 
     /**
-     * Runs the bot with the file path it was constructed with.
+     * Gets the bot's greeting message.
+     *
+     * @return Greeting message.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String rawCommand = ui.readCommand();
-                Command c = Parser.parse(rawCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-                storage.save(tasks);
-            } catch (BotException e) {
-                ui.showError(e.getMessage());
-            }
-        }
+    public String greet() {
+        return ui.showWelcome();
+    }
+
+    /**
+     * Indicates if the bot is active.
+     *
+     * @return True if the bot is active, else false.
+     */
+    public boolean isExit() {
+        return this.isExit;
     }
 }
