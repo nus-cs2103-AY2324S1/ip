@@ -1,15 +1,22 @@
 package duke.parser;
 
-import duke.command.*;
-import duke.exception.DukeException;
-import duke.task.Event;
-import duke.task.Deadline;
-import duke.task.ToDo;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDo;
 
 /**
  * The Parser class deals with interpreting the user inputs
@@ -35,10 +42,10 @@ public class Parser {
         case "event":
             // Add event task into task list
             if (!userInput.matches("event .*/from .* /to .*")) {
-                throw new DukeException("OOPS!!! The format of an event task is " +
-                        "\"event TASK_DESCRIPTION /from START /to END\"");
+                throw new DukeException("OOPS!!! The format of an event task is "
+                        + "\"event TASK_DESCRIPTION /from START /to END\"");
             }
-//            String[] taskParts = splitCommand[1].split("/");
+
             String description = splitCommand[1].split("/from")[0];
             String[] dateAndTime = splitCommand[1].split("/from")[1].split("/to");
             return new AddCommand(new Event(description, dateAndTime[0], dateAndTime[1]));
@@ -69,6 +76,8 @@ public class Parser {
                 return new UnmarkCommand(taskNumber);
             case "delete":
                 return new DeleteCommand(taskNumber);
+            default:
+                throw new DukeException();
             }
         case "find":
             if (!userInput.matches("find .*")) {
@@ -92,8 +101,8 @@ public class Parser {
     public static Command parseDeadlineCommand(String stringCommand)
             throws DateTimeParseException, DukeException {
         // Add deadline task into task list
-        String errorMessage = "OOPS!!! The format of a deadline task is " +
-                "\"deadline TASK_DESCRIPTION /by DD/MM/YYYY 24H_TIME\"";
+        String errorMessage = "OOPS!!! The format of a deadline task is "
+                + "\"deadline TASK_DESCRIPTION /by DD/MM/YYYY 24H_TIME\"";
 
         if (!stringCommand.matches(".*/by \\d{1,2}/\\d{1,2}/\\d{4} \\d{4}")) {
             throw new DukeException(errorMessage);

@@ -1,11 +1,11 @@
 package duke.task;
 
-import duke.parser.Parser;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+
+import duke.parser.Parser;
 
 /**
  * The Deadline class represents a task with a description,

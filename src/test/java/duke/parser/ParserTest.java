@@ -1,9 +1,14 @@
 package duke.parser;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
+
+import org.junit.jupiter.api.Test;
 
 import duke.command.AddCommand;
 import duke.command.Command;
@@ -12,12 +17,7 @@ import duke.command.ExitCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
-
 import duke.exception.DukeException;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 
 public class ParserTest {
 
@@ -57,8 +57,8 @@ public class ParserTest {
             Command command = Parser.parse("event Orbital Splashdown /to 01/01/2023 2000");
             assertTrue(command instanceof AddCommand);
         } catch (DukeException e) {
-            assertEquals("OOPS!!! The format of an event task is " +
-                    "\"event TASK_DESCRIPTION /from START /to END\"", e.getMessage());
+            assertEquals("OOPS!!! The format of an event task is "
+                    + "\"event TASK_DESCRIPTION /from START /to END\"", e.getMessage());
         }
     }
 
@@ -81,8 +81,8 @@ public class ParserTest {
             Command command = Parser.parseDeadlineCommand("deadline Do CS2103T 1800");
             assertTrue(command instanceof AddCommand);
         } catch (DukeException e) {
-            assertEquals("OOPS!!! The format of a deadline task is " +
-                    "\"deadline TASK_DESCRIPTION /by DD/MM/YYYY 24H_TIME\"", e.getMessage());
+            assertEquals("OOPS!!! The format of a deadline task is "
+                    + "\"deadline TASK_DESCRIPTION /by DD/MM/YYYY 24H_TIME\"", e.getMessage());
         }
     }
 
@@ -142,8 +142,8 @@ public class ParserTest {
             Command command = Parser.parse("mark");
             assertTrue(command instanceof MarkCommand);
         } catch (DukeException e) {
-            assertEquals("OOPS!!! The format of marking a task done is \"mark TASK_NUMBER\".\n" +
-                    "Task number must exist in the task list.", e.getMessage());
+            assertEquals("OOPS!!! The format of marking a task done is \"mark TASK_NUMBER\".\n"
+                    + "Task number must exist in the task list.", e.getMessage());
         }
     }
 
@@ -163,8 +163,8 @@ public class ParserTest {
             Command command = Parser.parse("unmark");
             assertTrue(command instanceof UnmarkCommand);
         } catch (DukeException e) {
-            assertEquals("OOPS!!! The format of marking a task done is \"unmark TASK_NUMBER\".\n" +
-                    "Task number must exist in the task list.", e.getMessage());
+            assertEquals("OOPS!!! The format of marking a task done is \"unmark TASK_NUMBER\".\n"
+                    + "Task number must exist in the task list.", e.getMessage());
         }
     }
 
@@ -184,8 +184,8 @@ public class ParserTest {
             Command command = Parser.parse("delete 1");
             assertTrue(command instanceof DeleteCommand);
         } catch (DukeException e) {
-            assertEquals("OOPS!!! The format of marking a task done is \"delete TASK_NUMBER\".\n" +
-                    "Task number must exist in the task list.", e.getMessage());
+            assertEquals("OOPS!!! The format of marking a task done is \"delete TASK_NUMBER\".\n"
+                    + "Task number must exist in the task list.", e.getMessage());
         }
     }
 
@@ -218,12 +218,12 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseTime_invalidHour_ExceptionThrown() {
+    public void testParseTime_invalidHour_exceptionThrown() {
         assertThrows(DateTimeParseException.class, () -> Parser.parseTime("2560"));
     }
 
     @Test
-    public void testParseTime_invalidMinute_ExceptionThrown() {
+    public void testParseTime_invalidMinute_exceptionThrown() {
         assertThrows(DateTimeParseException.class, () -> Parser.parseTime("13160"));
     }
 }

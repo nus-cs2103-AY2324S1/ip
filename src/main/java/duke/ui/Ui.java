@@ -1,29 +1,18 @@
 package duke.ui;
 
-import duke.task.Task;
-
 import java.util.ArrayList;
-import java.util.Scanner;
+
+import duke.task.Task;
 
 /**
  * The Ui class handles interactions with the user by displaying messages and receiving input.
  */
 public class Ui {
 
-    /** The scanner to read user input from the console. */
-    Scanner scanner;
-
-    /**
-     * Constructs a Ui object.
-     */
-    public Ui() {
-        this.scanner = new Scanner(System.in);
-    }
-
-    /** A horizontal line used for formatting. */
-    public static final String HORIZONTAL_LINE = "        ____________________________________________________________\n";
     /** An indentation string used for formatting. */
-    public static final String INDENT = "        ";
+    public static final String INDENT = " ".repeat(8);
+    /** A horizontal line used for formatting. */
+    public static final String HORIZONTAL_LINE = " ".repeat(8) + "_".repeat(60) + "\n";
 
     /**
      * Displays a welcome message when the Duke application starts.

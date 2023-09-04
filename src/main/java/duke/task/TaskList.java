@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * performed on the tasks in the list.
  */
 public class TaskList {
-    ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
