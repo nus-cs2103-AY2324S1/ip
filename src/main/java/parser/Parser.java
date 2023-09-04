@@ -59,6 +59,10 @@ public class Parser {
 
                 }
 
+            } else if (inputArray[0].equals("find")) {
+                String name = inputArray[1];
+                tasklist.chadFindTask(name);
+
             } else if (inputArray[0].equals("todo")) {
                 try {
                     if (inputArray.length == 1 || inputArray[1].isEmpty()) {

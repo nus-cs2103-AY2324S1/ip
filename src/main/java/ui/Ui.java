@@ -57,4 +57,14 @@ public class Ui {
         System.out.println(line);
     }
 
+    public void chadMatchNotFoundOutput(){
+        System.out.println(line);
+        System.out.println("There are no matching tasks!");
+        System.out.println(line);
+    }
+
+    public void chadMatchFoundOutput(String task){
+        System.out.println(task);
+    }
+
 }
