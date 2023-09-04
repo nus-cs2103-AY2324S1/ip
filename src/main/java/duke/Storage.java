@@ -14,12 +14,12 @@ import java.time.format.DateTimeFormatter;
 
 //The duke.Storage class is in charge of writing and reading the tasklists
 //from the duke.Duke.txt file
-public class Storage implements Serializable{
-    private static final long serialVersionUID = 3017522968017487738L;
+public class Storage{
 
     void saveTasks(String filePath, TaskList tasks) {
         try {
             createDirectoryIfNotExists(filePath);
+
             FileWriter fileWriter = new FileWriter(filePath);
 
             for (int i = 0; i < tasks.getSize(); i++) {
@@ -70,12 +70,22 @@ public class Storage implements Serializable{
         }
         return taskList;
     }
+
     private void createDirectoryIfNotExists(String filePath) throws IOException {
         Path path = FileSystems.getDefault().getPath(filePath);
-        if (!Files.exists(path.getParent())) {
-            Files.createDirectories(path.getParent());
+        Path parentDir = path.getParent();
+
+        if (parentDir != null) {
+            if (!Files.exists(parentDir)) {
+                Files.createDirectories(parentDir);
+            }
+
+            if (!Files.exists(path)) {
+                Files.createFile(path);
+            }
         }
     }
-
 }
+
+
 

@@ -8,11 +8,9 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
-
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-public class Parser implements Serializable {
+public class Parser {
 
     public Parser() {
         //empty constructor to initialize class objects
