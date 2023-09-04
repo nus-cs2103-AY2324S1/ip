@@ -1,6 +1,9 @@
 package harvard;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+/**
+ * Represents a task.
+ */
 
 public abstract class Task {
     protected String type;
@@ -57,7 +60,7 @@ public abstract class Task {
      * @return The string representation of the task to be written to file.
      */
 
-    public abstract String toFileString() ;
+    public abstract String toFileString();
 
     /**
      * Returns the task from the file string.
@@ -66,7 +69,7 @@ public abstract class Task {
      * @throws DukeException
      */
 
-    public static Task fromFileString(String fileString) throws DukeException{
+    public static Task fromFileString(String fileString) throws DukeException {
         String[] split = fileString.split(" \\| ");
         String type = split[0];
         boolean isDone = split[1].equals("1");
@@ -74,18 +77,18 @@ public abstract class Task {
         Task task;
         switch (type) {
         case "T":
-            task = new Todo (description);
+            task = new Todo(description);
             break;
         case "D":
             String by = split[3];
-            LocalDateTime dateTime = LocalDateTime.parse(by,DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            LocalDateTime dateTime = LocalDateTime.parse(by, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             task = new Deadline(description, dateTime);
             break;
         case "E":
             String from = split[3];
             String to = split[4];
-            LocalDateTime fromDateTime = LocalDateTime.parse(from,DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-            LocalDateTime toDateTime = LocalDateTime.parse(to,DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            LocalDateTime fromDateTime = LocalDateTime.parse(from, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            LocalDateTime toDateTime = LocalDateTime.parse(to, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             task = new Event(description, fromDateTime, toDateTime);
             break;
         default:

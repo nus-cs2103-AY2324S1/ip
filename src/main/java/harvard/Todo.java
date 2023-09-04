@@ -1,5 +1,8 @@
 package harvard;
-public class Todo extends Task{
+/**
+ * Represents a todo task.
+ */
+public class Todo extends Task {
     /**
      * The type of the task.
      */
@@ -9,7 +12,7 @@ public class Todo extends Task{
      *
      * @param description The description of the task.
      */
-    public Todo (String description) {
+    public Todo(String description) {
         super(description, "T");
     }
     /**

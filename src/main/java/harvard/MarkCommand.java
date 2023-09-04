@@ -1,6 +1,17 @@
 package harvard;
+/**
+ * Represents a mark command.
+ */
 public class MarkCommand extends Command {
     private int index;
+    /**
+     * Constructs a MarkCommand object.
+     *
+     * @param index The index of the task to be marked.
+     */
+    public MarkCommand(int index) {
+        this.index = index;
+    }
     /**
      * Returns true if the command is an exit command.
      *
@@ -10,9 +21,7 @@ public class MarkCommand extends Command {
     public boolean isExit() {
         return false;
     }
-    public MarkCommand(int index) {
-        this.index = index;
-    }
+
 
     /**
      * Executes the command.

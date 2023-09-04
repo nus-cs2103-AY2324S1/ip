@@ -1,5 +1,8 @@
 package harvard;
-public class ListCommand extends Command{
+/**
+ * Represents a list command.
+ */
+public class ListCommand extends Command {
     /**
      * Returns true if the command is an exit command.
      *

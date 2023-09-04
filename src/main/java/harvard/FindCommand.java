@@ -1,5 +1,8 @@
 package harvard;
 
+/**
+ * Represents a find command.
+ */
 public class FindCommand extends Command {
     /**
      * The keyword to be searched.

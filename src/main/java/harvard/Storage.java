@@ -1,4 +1,3 @@
-//write JUnit test for this class
 
 package harvard;
 import java.util.ArrayList;

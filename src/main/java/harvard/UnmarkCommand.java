@@ -1,6 +1,17 @@
 package harvard;
-public class UnmarkCommand extends Command{
+/**
+ * Represents a unmark command.
+ */
+public class UnmarkCommand extends Command {
     private int index;
+    /**
+     * Constructs a UnmarkCommand object.
+     *
+     * @param index The index of the task to be unmarked.
+     */
+    public UnmarkCommand(int index) {
+        this.index = index;
+    }
     /**
      * Returns true if the command is an exit command.
      *
@@ -10,15 +21,6 @@ public class UnmarkCommand extends Command{
     public boolean isExit() {
         return false;
     }
-    /**
-     * Constructs a UnmarkCommand object.
-     *
-     * @param index The index of the task to be unmarked.
-     */
-    public UnmarkCommand(int index) {
-        this.index = index;
-    }
-
     /**
      * Executes the command.
      * @param tasks The task list.

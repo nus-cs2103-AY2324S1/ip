@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task with a deadline.
  */
-public class Event extends Task{
+public class Event extends Task {
     /**
      * The start time of the event.
      */
@@ -14,9 +14,7 @@ public class Event extends Task{
      * The end time of the event.
      */
     protected LocalDateTime to;
-    /**
-     * The type of the task.
-     */
+
     /**
      * Constructs an Event object.
      *
@@ -25,7 +23,7 @@ public class Event extends Task{
      * @param to          The end time of the event.
      */
 
-    public Event (String description, String from, String to) throws DukeException {
+    public Event(String description, String from, String to) throws DukeException {
         super(description, "E");
         try {
             this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
@@ -43,7 +41,7 @@ public class Event extends Task{
      * @param to          The end time of the event.
      */
 
-    public Event (String description, LocalDateTime from, LocalDateTime to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description, "E");
         this.from = from;
         this.to = to;
@@ -56,7 +54,8 @@ public class Event extends Task{
 
     @Override
     public String toFileString() {
-        return this.type + " | " + (this.isDone ? "1" : "0") + " | " + this.description + " | " + this.from + " | " + this.to;
+        return this.type + " | " + (this.isDone ? "1" : "0") + " | "
+                + this.description + " | " + this.from + " | " + this.to;
     }
 
     /**
