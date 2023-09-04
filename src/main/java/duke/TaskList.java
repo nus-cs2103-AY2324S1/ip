@@ -95,4 +95,13 @@ public class TaskList {
     public void unmarkTask(int i) throws DukeException {
         tasks.get(i).unmark();
     }
+
+    /**
+     * getter for task from list
+     * @param i index of task to be gotten
+     * @return task at index i
+     */
+    public Task getTask(int i) {
+        return tasks.get(i);
+    }
 }
