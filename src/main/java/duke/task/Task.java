@@ -19,6 +19,9 @@ public class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Returns the status icon of the task.
+     */
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }

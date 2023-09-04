@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  * Manages a list of tasks.
  */
 public class TaskList {
-    private final ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -25,7 +25,7 @@ public class TaskList {
      * @param taskType taskType.
      * @param description description.
      * @return success message and the task added.
-     * @throws DukeException
+     * @throws DukeException if the description is invalid.
      */
     public String addTask(TaskType taskType, String description) throws DukeException {
         description = description.trim();
@@ -67,6 +67,9 @@ public class TaskList {
                 + size + taskInTotal + "\n\"Be here now.\"";
     }
 
+    /**
+     * Returns the string representation of tasks in a list.
+     */
     public String getTasks() {
         String result = "Here are your tasks:\n";
         for (int i = 0; i < tasks.size(); i++) {
@@ -94,7 +97,7 @@ public class TaskList {
      * @param taskIndex taskIndex.
      * @param isDone task status.
      * @return success message and the task modified.
-     * @throws DukeException
+     * @throws DukeException if the task is not found.
      */
     public String markTask(int taskIndex, boolean isDone) throws DukeException {
         if (taskIndex > tasks.size() || taskIndex <= 0) {
@@ -109,7 +112,7 @@ public class TaskList {
      * Finds tasks that contain the keyword.
      * @param task keyword.
      * @return Strings of valid tasks.
-     * @throws DukeException
+     * @throws DukeException if no task is found.
      */
     public String findTask(String task) throws DukeException{
         ArrayList<Task> foundedTasks = new ArrayList<>();
@@ -128,6 +131,12 @@ public class TaskList {
         return result + "\"One thing at a time.\"";
     }
 
+    /**
+     * Deletes the task.
+     * @param taskIndex taskIndex.
+     * @return success message and the task deleted.
+     * @throws DukeException if the task is not found.
+     */
     public String deleteTask(int taskIndex) throws DukeException {
         //TODO: double check if not completed
         if (taskIndex > tasks.size() || taskIndex <= 0) {
