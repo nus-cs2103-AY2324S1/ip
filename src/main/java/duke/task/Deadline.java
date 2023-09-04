@@ -27,7 +27,7 @@ public class Deadline extends Task {
      * @param dateTimeString String by to be converted.
      * @return LocalDateTime by.
      */
-    private LocalDateTime convertDateTime(String dateTimeString) {
+    public LocalDateTime convertDateTime(String dateTimeString) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
             return LocalDateTime.parse(dateTimeString, formatter);
@@ -43,7 +43,7 @@ public class Deadline extends Task {
      * @param by LocalDateTime by to be formatted.
      * @return Formatted string to show due date/time.
      */
-    private String formatDateTime(LocalDateTime by) {
+    public String formatDateTime(LocalDateTime by) {
         //  "a" represents the AM/PM marker
         return by.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a"));
     }
