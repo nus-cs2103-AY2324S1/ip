@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.ArrayList;
+
 // Solution below adapted and inspired by https://chat.openai.com/share/7f037351-3be6-4105-b138-77f68d428c84
 public class Ui {
     private static final String separators = "____________________________________________________________";
@@ -54,6 +56,15 @@ public class Ui {
         System.out.println(separators);
     }
 
+    public void displaySearched(ArrayList<Task> searchedTask) {
+        System.out.println(separators);
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < searchedTask.size(); i++) {
+            System.out.println((i + 1) + "." + searchedTask.get(i).toString());
+        }
+        System.out.println(separators);
+    }
+
     public void printToDoException() {
         System.out.println("____________________________________________________________");
         System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
@@ -87,6 +98,12 @@ public class Ui {
     public void printUnmarkException() {
         System.out.println("____________________________________________________________");
         System.out.println("☹ OOPS!!! The task to unmark must be specified.");
+        System.out.println("____________________________________________________________");
+    }
+
+    public void printSearchException() {
+        System.out.println("____________________________________________________________");
+        System.out.println("☹ OOPS!!! The task to search must be specified.");
         System.out.println("____________________________________________________________");
     }
 

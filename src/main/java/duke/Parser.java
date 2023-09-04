@@ -1,6 +1,7 @@
 package duke;// Solution below adapted and inspired by https://chat.openai.com/share/7f037351-3be6-4105-b138-77f68d428c84
 
 import duke.command.*;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -15,6 +16,11 @@ public class Parser {
                 return new ByeCommand();
             case "list":
                 return new ListCommand();
+            case "search":
+                if (arguments.isEmpty()) {
+                    throw new DukeException.SearchException();
+                }
+                return new SearchCommand(arguments);
             case "delete":
                 int indexToDelete = Integer.parseInt(arguments) - 1;
                 return new DeleteCommand(indexToDelete);

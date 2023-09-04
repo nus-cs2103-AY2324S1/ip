@@ -41,6 +41,12 @@ public class DukeException extends Exception {
         }
     }
 
+    public static class SearchException extends DukeException{
+        public SearchException() {
+            super("Task to search for not specified");
+        }
+    }
+
     public static class DeadlineFormatException extends DukeException{
         public DeadlineFormatException() {
             super("Deadline not in the correct format");
