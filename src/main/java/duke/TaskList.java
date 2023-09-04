@@ -1,13 +1,17 @@
 package duke;
+import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.io.Serializable;
+
+/**
+ * the collection that contains the list of Tasks
+ */
 public class TaskList implements Serializable {
-    static String indent = "   ";
-    static String megaIndent = "     ";
-    static ArrayList<Task> tasks = new ArrayList<>();
+    private static String indent = "   ";
+    private static String megaIndent = "     ";
+    private static ArrayList<Task> tasks = new ArrayList<>();
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
@@ -16,7 +20,7 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * Gets the number of tasks in ArrayList<duke.Task>
+     * Gets the number of tasks in ArrayList(Task)
      *
      * @return The number of tasks in the collection
      */
@@ -24,7 +28,7 @@ public class TaskList implements Serializable {
         return tasks.size();
     }
     /**
-     * Gets the duke.Task at the specific position of the ArrayList<duke.Task>
+     * Gets the duke.Task at the specific position of the ArrayList(Task)
      *
      * @param i The position of the duke.Task
      * @return The duke.Task
@@ -33,7 +37,7 @@ public class TaskList implements Serializable {
         return tasks.get(i);
     }
     /**
-     * Gets the ArrayList<duke.Task>
+     * Gets the ArrayList(Task)
      *
      * @return The collection
      */
@@ -58,21 +62,21 @@ public class TaskList implements Serializable {
      * @param string the input string
      */
     public void markDescription(String string) throws DukeException {
-            String clean = string.replaceAll("\\D+", ""); //remove non-digits
-            int pos = Integer.parseInt(clean) - 1;
-            if (pos >= tasks.size() ) {
-                throw new DukeException("You are trying to access a duke.Task that does not exist!");
-            }
-            Task curr = tasks.get(pos);
+        String clean = string.replaceAll("\\D+", ""); //remove non-digits
+        int pos = Integer.parseInt(clean) - 1;
+        if (pos >= tasks.size()) {
+            throw new DukeException("You are trying to access a Task that does not exist!");
+        }
+        Task curr = tasks.get(pos);
 
-            if (string.contains("unmark")) {
-                curr.markAsUnDone();
-                System.out.println(indent + "OK, I've marked this task as not done yet:");
-            } else if (string.contains("mark")) {
-                curr.markAsDone();
-                System.out.println(indent + "Nice! I've marked this task as done:");
-            }
-            System.out.println(megaIndent + curr.getStatusIconWithBracket() + " " + curr.description);
+        if (string.contains("unmark")) {
+            curr.markAsUnDone();
+            System.out.println(indent + "OK, I've marked this task as not done yet:");
+        } else if (string.contains("mark")) {
+            curr.markAsDone();
+            System.out.println(indent + "Nice! I've marked this task as done:");
+        }
+        System.out.println(megaIndent + curr.getStatusIconWithBracket() + " " + curr.description);
     }
     /**
      * For deadline and event Tasks, obtains the description of the duke.Task (before the first slash)
@@ -154,7 +158,7 @@ public class TaskList implements Serializable {
      * @param letter the letter corresponding to the first letter of the duke.Task
      * @param string the string corresponding to the chunk of text after the word todo, deadline, or event
      */
-    public static void addTask(String letter, String string) throws DukeException {
+    public void addTask(String letter, String string) throws DukeException {
         if (letter.equals("T")) {
             tasks.add(new ToDo(string));
         }
@@ -181,7 +185,7 @@ public class TaskList implements Serializable {
         String clean = string.replaceAll("\\D+", ""); //remove non-digits
         int pos = Integer.parseInt(clean) - 1;
         if (pos >= tasks.size()) {
-            throw new DukeException("You are trying to delete a duke.Task that does not exist");
+            throw new DukeException("You are trying to delete a Task that does not exist");
         } else {
             System.out.println(indent + "Noted. I've removed this task:");
             System.out.println(megaIndent + tasks.get(pos).toString());
@@ -197,7 +201,7 @@ public class TaskList implements Serializable {
      * @return the LocalDateTime corresponding to the duke.Deadline
      * @throws DukeException if a specific time in 24hr format is not put
      */
-    private static LocalDateTime convertToLocalDateTime(String string) throws DukeException {
+    public static LocalDateTime convertToLocalDateTime(String string) throws DukeException {
         if (string.indexOf('/') != -1) {
             if (string.lastIndexOf('/') + 5 == string.length()) { // "2/12/2019 1800"
                 throw new DukeException("put in a time pls");
@@ -243,8 +247,8 @@ public class TaskList implements Serializable {
     /**
      * A function that helps convert a string to a LocalDateTime
      *
-     * @param input the by part of the duke.Deadline duke.Task, eg. "2/12/2019 1800"
-     * @param c whether or not the duke.Deadline is put in a '-' format or '/' format
+     * @param input the by part of the duke.Deadline duke.Task, e.g. "2/12/2019 1800"
+     * @param c whether the duke.Deadline is put in a '-' format or '/' format
      * @return a LocalDateTime
      * @throws DukeException if a specific time in 24hr format is not put
      */
@@ -282,34 +286,34 @@ public class TaskList implements Serializable {
      * A function that takes in a user input that is the day of the week and returns the
      * corresponding DayOfWeek
      *
-     * @param string the user input that is a day of the week, eg. "sun", "Tuesday", "Mon"
+     * @param string the user input that is a day of the week, e.g. "sun", "Tuesday", "Mon"
      * @return the DayOfWeek as an enum
      */
     public static DayOfWeek getDayOfWeek(String string) {
         DayOfWeek result;
         String day = string.substring(0, 3);
         switch(day) {
-            case "MON":
-                result = DayOfWeek.MONDAY;
-                break;
-            case "TUE":
-                result = DayOfWeek.TUESDAY;
-                break;
-            case "WED":
-                result = DayOfWeek.WEDNESDAY;
-                break;
-            case "THU":
-                result = DayOfWeek.THURSDAY;
-                break;
-            case "FRI":
-                result = DayOfWeek.FRIDAY;
-                break;
-            case "SAT":
-                result = DayOfWeek.SATURDAY;
-                break;
-            default:
-                // case "SUN"
-                result = DayOfWeek.SUNDAY;
+        case "MON":
+            result = DayOfWeek.MONDAY;
+            break;
+        case "TUE":
+            result = DayOfWeek.TUESDAY;
+            break;
+        case "WED":
+            result = DayOfWeek.WEDNESDAY;
+            break;
+        case "THU":
+            result = DayOfWeek.THURSDAY;
+            break;
+        case "FRI":
+            result = DayOfWeek.FRIDAY;
+            break;
+        case "SAT":
+            result = DayOfWeek.SATURDAY;
+            break;
+        default:
+            // case "SUN"
+            result = DayOfWeek.SUNDAY;
         }
         return result;
     }

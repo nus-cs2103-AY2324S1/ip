@@ -1,24 +1,27 @@
 package duke;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+/**
+ * deals with loading tasks from the file and saving tasks in the file
+ */
 public class Storage {
-    static String dukeFilePath = "data/duke.txt";
+    private static String dukeFilePath = "data/duke.txt";
     private String filePath; // "data/temp.txt"
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
     /**
-     * This function reads an ArrayList<duke.Task> object that is stored in memory and returns it
+     * This function reads the ArrayList(Task) object that is stored in memory and returns it
      *
-     * @return an ArrayList<duke.Task>
+     * @return an ArrayList that contains Task objects
      * @throws DukeException this part might not be needed
      * @throws ClassNotFoundException if inputStream.readObject() does not find anything
      * @throws IOException if "data/temp.txt" does not exist/it is empty (not sure which one or both?)

@@ -5,15 +5,22 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Scanner;
 
+/**
+ * class where main is run
+ */
 public class Duke implements Serializable {
-    static String indent = "   ";
-    static String horizontalLines = indent  + "__________________________________________";
-    static String dukeFilePath = "data/duke.txt";
-    static String tempFilePath = "data/temp.txt";
+    protected static String indent = "   ";
+    protected static String horizontalLines = indent + "__________________________________________";
+    protected static String dukeFilePath = "data/duke.txt";
+    protected static String tempFilePath = "data/temp.txt";
     private static Storage storage;
     private static TaskList tasks;
     private Ui ui;
 
+    /**
+     * constructor to initialise the Ui, Storage and TaskList objects
+     * @param filePath the relative path to the file that acts as a temporary storage for the ArrayList(Task) object
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -21,7 +28,7 @@ public class Duke implements Serializable {
             tasks = new TaskList(storage.load());
         } catch (DukeException | IOException | ClassNotFoundException e) {
             //e.printStackTrace();
-            printWithIndent("Hi! You do not have any tasks at the moment");
+            ui.printWithIndent("Hi! You do not have any tasks at the moment");
             createTxtFile();
             tasks = new TaskList();
         }
@@ -40,17 +47,6 @@ public class Duke implements Serializable {
             System.out.println("shag");
         }
     }
-    /**
-     * Prints the input string with horizontal lines above and below it
-     *
-     * @param string the input string
-     */
-    public static void printWithIndent(String string) {
-        System.out.println(horizontalLines);
-        System.out.println(indent + string);
-        System.out.println(horizontalLines);
-    }
-
     /**
      * Runs the program
      */

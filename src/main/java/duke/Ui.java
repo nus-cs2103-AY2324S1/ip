@@ -8,14 +8,15 @@ import java.util.Scanner;
  * This class deals with interactions with the user
  */
 public class Ui {
-    static String indent = "   ";
-    static String horizontalLines = indent  + "__________________________________________";
-    String name = "zac";
-    static String dukeFilePath = "data/duke.txt";
+    private static String indent = "   ";
+    private static String horizontalLines = indent + "__________________________________________";
+    private static String dukeFilePath = "data/duke.txt";
+    private String name = "zac";
 
     /**
      * Read the user's commands
-     * @return the user's command
+     * @param scanner object that is used to read the user's commands
+     * @return the user's command as a String
      */
     public String readCommand(Scanner scanner) {
         if (scanner.hasNextLine()) {
@@ -61,13 +62,22 @@ public class Ui {
     public void showExit() {
         System.out.println(indent + "Bye. Hope to see you again soon!");
     }
-
+    /**
+     * Prints the input string with horizontal lines above and below it
+     *
+     * @param string the input string
+     */
+    public static void printWithIndent(String string) {
+        System.out.println(horizontalLines);
+        System.out.println(indent + string);
+        System.out.println(horizontalLines);
+    }
     /**
      * Prints out all the tasks in the list
      *
      * @param filePath the file where the lists of Tasks are stored. It is hardcoded to be "data/duke.txt"
      * @throws FileNotFoundException if the file at this filePath is not found (though I'm not sure
-     * when this will happen)
+     *     when this will happen)
      */
     private static void printFileContents(String filePath) throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path
