@@ -60,19 +60,20 @@ public class Storage {
     }
 
     private static void handleMissingFile(String filePath) {
-        try{
-            Path directoryPath = Paths.get(".", "data"); // Path to the data directory
-            if (!Files.exists(directoryPath)) {
-                Files.createDirectories(directoryPath); // Create the data directory if it doesn't exist
+        try {
+            Path path = Paths.get(filePath);
+            Path parentDirectory = path.getParent();
+
+            if (parentDirectory != null && !Files.exists(parentDirectory)) {
+                Files.createDirectories(parentDirectory);
             }
 
-            Path path = directoryPath.resolve("urchatbot.tasks.txt"); // Path to the urchatbot.tasks.txt file within the data directory
             if (!Files.exists(path)) {
-                Files.createFile(path); // Create the urchatbot.tasks.txt file if it doesn't exist
+                Files.createFile(path);
             }
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Error loading urchatbot.tasks from file: " + e.getMessage());
+            System.out.println("Error creating or accessing the file: " + e.getMessage());
         }
     }
 
