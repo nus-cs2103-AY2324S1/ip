@@ -2,10 +2,10 @@ package duke.commands;
 
 import java.io.IOException;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import duke.exception.DukeException;
+import duke.utilities.Storage;
+import duke.utilities.TaskList;
+import duke.utilities.Ui;
 
 /**
  * A command to called to mark a task undone from the taskList.

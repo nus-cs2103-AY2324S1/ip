@@ -1,8 +1,8 @@
 package duke.commands;
 
-import duke.DukeException;
-import duke.TaskList;
-import duke.Ui;
+import duke.exception.DukeException;
+import duke.utilities.TaskList;
+import duke.utilities.Ui;
 
 /**
  * A command to find tasks with the keyword specified.

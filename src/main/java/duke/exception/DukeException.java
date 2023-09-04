@@ -1,4 +1,4 @@
-package duke;
+package duke.exception;
 
 /**
  * Duke exception class which encapsulates all the errors.

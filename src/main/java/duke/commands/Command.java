@@ -1,7 +1,7 @@
 package duke.commands;
 
 
-import duke.DukeException;
+import duke.exception.DukeException;
 
 /**
  * An abstract class for all commands.

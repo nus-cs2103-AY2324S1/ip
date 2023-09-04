@@ -1,8 +1,9 @@
-package duke;
+package duke.utilities;
 
 import java.util.Scanner;
 
 import duke.tasks.Task;
+import duke.utilities.TaskList;
 
 /**
  * UI class that prints all messages that is shown to the user.
@@ -20,7 +21,8 @@ public class Ui {
      */
     public String printHello() {
         String output = br
-                        + "Hello! I'm Jose Mourinho, a task planning bot that will record your tasks.\n"
+                        + "My name is Jose Mourinho, I am the special one.\n"
+                        + "I am a task planning bot that will record your tasks.\n"
                         + "If you require help, type \"help\"\n"
                         + br;
         System.out.println(output);
@@ -118,7 +120,7 @@ public class Ui {
      * @param taskList The taskList of tasks.
      */
     public String printList(TaskList taskList) {
-        if (taskList.taskList.isEmpty()) {
+        if (taskList.getTaskList().isEmpty()) {
             String output = br + "Hard work beats talent. Your list is empty. You should train more.\n" + br;
             System.out.println(output);
             return output;

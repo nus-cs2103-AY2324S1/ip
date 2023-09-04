@@ -3,6 +3,7 @@ package duke;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
+import duke.utilities.TaskList;
 import org.junit.jupiter.api.Test;
 
 import duke.tasks.Events;

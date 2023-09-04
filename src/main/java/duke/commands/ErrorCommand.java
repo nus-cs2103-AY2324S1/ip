@@ -1,6 +1,6 @@
 package duke.commands;
 
-import duke.Ui;
+import duke.utilities.Ui;
 
 /**
  * A command creates an error.

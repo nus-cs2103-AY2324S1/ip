@@ -1,9 +1,14 @@
-package duke;
+package duke.main;
 
 import java.io.IOException;
 import java.util.Scanner;
 
+import duke.utilities.TaskList;
+import duke.utilities.Ui;
 import duke.commands.Command;
+import duke.exception.DukeException;
+import duke.utilities.Parser;
+import duke.utilities.Storage;
 
 /**
  * Main ChatBot class.
@@ -45,10 +50,5 @@ public class Duke {
             Command c = Parser.parse(userInput, this.taskList, this.dataBase, ui);
             c.execute();
         } while (!userInput.toLowerCase().equals("bye"));
-    }
-
-    public static void main(String[] args) throws DukeException, IOException {
-        Duke bot = new Duke();
-        bot.run();
     }
 }

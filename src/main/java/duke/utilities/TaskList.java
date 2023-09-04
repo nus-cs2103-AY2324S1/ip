@@ -1,4 +1,4 @@
-package duke;
+package duke.utilities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -64,6 +64,14 @@ public class TaskList implements Serializable {
      */
     public void deleteTask(int index) {
         this.taskList.remove(index);
+    }
+
+    /**
+     * A getter function that returns the taskList itself.
+     * @return The taskList.
+     */
+    public ArrayList getTaskList() {
+        return this.taskList;
     }
 
     /**
