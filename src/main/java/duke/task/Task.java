@@ -38,6 +38,16 @@ public abstract class Task {
     }
 
     /**
+     * Finds the target String within the description of the current task.
+     *
+     * @param target The String to be found.
+     * @return True or False depending on whether the target is found.
+     */
+    public boolean find(String target) {
+        return this.description.contains(target);
+    }
+
+    /**
      * Formats the task into a String to be written into the data file.
      *
      * @return Formatted String Representation of the task.
