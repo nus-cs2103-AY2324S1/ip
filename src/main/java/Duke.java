@@ -18,8 +18,6 @@ public class Duke {
         String logo = "Wiz";
         String folderPath = "./data/";
         String filePath = "./data/duke.txt";
-        //        wizzer.readFile();
-//        List<Task> tasks = new ArrayList<>();
         try {
             tasks = readFile(filePath, folderPath);
         } catch (DukeException e) {
@@ -75,6 +73,7 @@ public class Duke {
             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
         }
     }
+
     public static List<Task> readFile(String filePath, String folderPath) throws DukeException {
         List<Task> tasks = new ArrayList<>();
         try {
@@ -84,26 +83,10 @@ public class Duke {
             while (myReader.hasNextLine()) {
                 count += 1;
                 String data = myReader.nextLine();
-
-//                String[] parts = data.split(" \\| ");
-//                String taskType = parts[0];
-//                int isDone = Integer.parseInt(parts[1]);
-//                String description = parts[2];
-//                String date = parts.length > 3 ? parts[3] : "";
-
-//                String[] parts = data.split("]\\[");
-//                String isDone = parts[1].substring(0, 1); //"X" or " "
-
-                //[E] | [0] | project meeting | Mon 2-4pm
                 String[] parts = data.split(" \\| ");
                 String taskType = parts[0].substring(1,2);
                 String description = parts[2];
                 String date = parts.length > 3 ? parts[3] : "";
-//                String descripNtime[] = parts[1].substring(3).split("\\(");  //description to time
-//                String description1 = descripNtime[0].trim();  // "project meeting"
-//                String[] dates = descripNtime[1].split(" to: ");
-//                String start1 = dates[0].substring(6); // "Mon 2pm"
-//                String end1 = dates[1].substring(0, dates[1].length() - 1); //"4pm"
                 if (taskType.equals("T")) {
                     Task currTask = new ToDo(description);
                     tasks.add(currTask);
@@ -186,7 +169,7 @@ public class Duke {
                 }
             } else if (command.startsWith("deadline")) {
                 try {
-                    String[] parts = command.split("/by");
+                    String[] parts = command.split("/by"); //   2/12/2019 1800
                     String description = parts[0].substring(9).trim();
                     if (description.length() == 0) {
                         throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
