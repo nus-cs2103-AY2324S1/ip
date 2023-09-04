@@ -30,7 +30,7 @@ public class AddEventCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.add(task);             // Add task to the task list
+        tasks.add(task); // Add task to the task list
         storage.addLine(task.toString()); // Update storage with the new task
     }
 }

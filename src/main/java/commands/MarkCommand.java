@@ -9,6 +9,10 @@ import ui.Ui;
  */
 public class MarkCommand implements Command {
 
+    /**
+     * The regular expression pattern for matching the format of a mark command.
+     */
+    public static final String MARK_PATTERN = "^(mark)\\s+\\d+$";
     private int pos;
 
     /**
@@ -19,11 +23,6 @@ public class MarkCommand implements Command {
     public MarkCommand(int pos) {
         this.pos = pos;
     }
-
-    /**
-     * The regular expression pattern for matching the format of a mark command.
-     */
-    public static final String MARK_PATTERN = "^(mark)\\s+\\d+$";
 
     /**
      * Executes the command to mark the task at the specified position as done in the task list.
@@ -38,7 +37,7 @@ public class MarkCommand implements Command {
         if (pos > tasks.size() || pos <= 0) {
             ui.showError("Invalid index. Please enter again.");
         } else {
-            tasks.mark(pos);        // Mark the task as done in the task list
+            tasks.mark(pos); // Mark the task as done in the task list
             Storage.refresh(tasks); // Update storage with the modified task list
         }
     }

@@ -38,7 +38,7 @@ public class UnmarkCommand implements Command {
         if (pos > tasks.size() || pos <= 0) {
             ui.showError("Invalid index. Please enter again.");
         } else {
-            tasks.unmark(pos);      // Unmark the task in the task list
+            tasks.unmark(pos); // Unmark the task in the task list
             Storage.refresh(tasks); // Update storage with the modified task list
         }
     }

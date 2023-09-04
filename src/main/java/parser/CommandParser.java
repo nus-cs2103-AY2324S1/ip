@@ -1,5 +1,8 @@
 package parser;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import commands.AddDeadlineCommand;
 import commands.AddEventCommand;
 import commands.AddTodoCommand;
@@ -13,8 +16,6 @@ import commands.ListCommand;
 import commands.MarkCommand;
 import commands.UnmarkCommand;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * The CommandParser is responsible for parsing input and generating the Command objects.
@@ -58,55 +59,55 @@ public class CommandParser {
         TaskParser taskParser = new TaskParser();
 
         switch (command) {
-            case "mark" -> {
-                Matcher markMatcher = Pattern.compile(MarkCommand.MARK_PATTERN).matcher(input);
-                if (markMatcher.matches()) {
-                    int pos = extractValue(input);
-                    return new MarkCommand(pos);
-                } else {
-                    return new InvalidCommand("Invalid mark command format.");
-                }
+        case "mark" -> {
+            Matcher markMatcher = Pattern.compile(MarkCommand.MARK_PATTERN).matcher(input);
+            if (markMatcher.matches()) {
+                int pos = extractValue(input);
+                return new MarkCommand(pos);
+            } else {
+                return new InvalidCommand("Invalid mark command format.");
             }
-            case "unmark" -> {
-                Matcher unmarkMatcher = Pattern.compile(UnmarkCommand.UNMARK_PATTERN).matcher(input);
-                if (unmarkMatcher.matches()) {
-                    int pos = extractValue(input);
-                    return new UnmarkCommand(pos);
-                } else {
-                    return new InvalidCommand("Invalid unmark command format.");
-                }
+        }
+        case "unmark" -> {
+            Matcher unmarkMatcher = Pattern.compile(UnmarkCommand.UNMARK_PATTERN).matcher(input);
+            if (unmarkMatcher.matches()) {
+                int pos = extractValue(input);
+                return new UnmarkCommand(pos);
+            } else {
+                return new InvalidCommand("Invalid unmark command format.");
             }
-            case "delete" -> {
-                Matcher deleteMatcher = Pattern.compile(DeleteCommand.DELETE_PATTERN).matcher(input);
-                if (deleteMatcher.matches()) {
-                    int pos = extractValue(input);
-                    return new DeleteCommand(pos);
-                } else {
-                    return new InvalidCommand("Invalid delete command format.");
-                }
+        }
+        case "delete" -> {
+            Matcher deleteMatcher = Pattern.compile(DeleteCommand.DELETE_PATTERN).matcher(input);
+            if (deleteMatcher.matches()) {
+                int pos = extractValue(input);
+                return new DeleteCommand(pos);
+            } else {
+                return new InvalidCommand("Invalid delete command format.");
             }
-            case "find" -> {
-                String keyword = input.substring("find".length()).trim();
-                return new FindCommand(keyword);
-            }
-            case "event" -> {
-                return new AddEventCommand(taskParser.parseTask(input));
-            }
-            case "todo" -> {
-                return new AddTodoCommand(taskParser.parseTask(input));
-            }
-            case "deadline" -> {
-                return new AddDeadlineCommand(taskParser.parseTask(input));
-            }
-            case "bye" -> {
-                return new ExitCommand();
-            }
-            case "list" -> {
-                return new ListCommand();
-            }
-            default -> {
-                return new HelpCommand();
-            }
+        }
+        case "find" -> {
+            String keyword = input.substring("find".length()).trim();
+            return new FindCommand(keyword);
+        }
+        case "event" -> {
+            return new AddEventCommand(taskParser.parseTask(input));
+        }
+        case "todo" -> {
+            return new AddTodoCommand(taskParser.parseTask(input));
+        }
+        case "deadline" -> {
+            return new AddDeadlineCommand(taskParser.parseTask(input));
+        }
+        case "bye" -> {
+            return new ExitCommand();
+        }
+        case "list" -> {
+            return new ListCommand();
+        }
+        default -> {
+            return new HelpCommand();
+        }
         }
     }
 }

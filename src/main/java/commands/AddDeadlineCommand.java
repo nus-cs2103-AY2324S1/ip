@@ -30,7 +30,7 @@ public class AddDeadlineCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.add(task);             // Add task to the task list
-        storage.addLine(task.toString()); // Update storage with the new task
+        tasks.add(task);
+        storage.addLine(task.toString());
     }
 }
