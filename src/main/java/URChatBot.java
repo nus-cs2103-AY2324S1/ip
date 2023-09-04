@@ -11,6 +11,11 @@ public class URChatBot {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs the URChatBot class.
+     *
+     * @param filePath Path to store users' tasklist.
+     */
     public URChatBot(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -22,6 +27,9 @@ public class URChatBot {
         }
     }
 
+    /**
+     * Starts the chatbot.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -40,6 +48,11 @@ public class URChatBot {
         }
     }
 
+    /**
+     * Instantiates a URChatBot.
+     *
+     * @param args Arguments.
+     */
     public static void main(String[] args) {
         new URChatBot("data/tasks.txt").run();
     }

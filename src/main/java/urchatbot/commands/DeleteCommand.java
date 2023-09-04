@@ -7,6 +7,11 @@ import urchatbot.ui.Ui;
 
 public class DeleteCommand extends Command{
     private int taskNumber;
+    /**
+     * Constructs the DeleteCommand class.
+     *
+     * @param taskNumber Task number to delete.
+     */
     public DeleteCommand(int taskNumber) {
         super("Delete");
         this.taskNumber = taskNumber;

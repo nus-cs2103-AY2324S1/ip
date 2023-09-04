@@ -9,6 +9,11 @@ import urchatbot.ui.Ui;
 public class MarkCommand extends Command{
     private int taskNumber;
 
+    /**
+     * Constructs the MarkCommand class.
+     *
+     * @param taskNumber Task number to mark.
+     */
     public MarkCommand(int taskNumber) {
         super("Mark");
         this.taskNumber = taskNumber;

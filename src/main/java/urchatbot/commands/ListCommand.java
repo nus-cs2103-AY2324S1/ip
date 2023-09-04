@@ -5,6 +5,11 @@ import urchatbot.taskList.TaskList;
 import urchatbot.ui.Ui;
 
 public class ListCommand extends Command{
+    /**
+     * Constructs the ListCommand class.
+     *
+     * @param taskDescription Task description of the task.
+     */
     public ListCommand(String taskDescription) {
         super(taskDescription);
     }

@@ -9,6 +9,13 @@ import urchatbot.ui.Ui;
 public class EventCommand extends Command{
     public String from;
     public String to;
+    /**
+     * Constructs the EventCommand class.
+     *
+     * @param taskDescription Task description of the task.
+     * @param from Starting date and/or time of the task.
+     * @param to Ending date and/or time of the task.
+     */
     public EventCommand(String taskDescription, String from, String to) {
         super(taskDescription);
         this.from = from;

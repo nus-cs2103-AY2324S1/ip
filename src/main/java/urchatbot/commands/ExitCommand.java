@@ -5,6 +5,11 @@ import urchatbot.taskList.TaskList;
 import urchatbot.ui.Ui;
 
 public class ExitCommand extends Command{
+    /**
+     * Constructs the ExitCommand class.
+     *
+     * @param taskDescription Task description of the task.
+     */
     public ExitCommand(String taskDescription) {
         super(taskDescription);
     }

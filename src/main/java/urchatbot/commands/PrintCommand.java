@@ -7,6 +7,11 @@ import urchatbot.ui.Ui;
 public class PrintCommand extends Command{
     private String formattedDate;
 
+    /**
+     * Constructs the PrintCommand class.
+     *
+     * @param formattedDate Date that the users want to search.
+     */
     public PrintCommand(String formattedDate) {
         super("Print");
         this.formattedDate = formattedDate;

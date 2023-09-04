@@ -26,6 +26,13 @@ public class Parser{
         EVENT
     }
 
+    /**
+     * Categorises and returns subclass of Command type based on entered command.
+     *
+     * @param command Command entered by users.
+     * @return new command class instance
+     * @throws URChatBotException If command undefined.
+     */
     public static Command parse(String command) throws URChatBotException {
         String commandType = getCommandType(command);
         switch (commandType) {
@@ -53,6 +60,14 @@ public class Parser{
                 throw new URChatBotException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
+
+    /**
+     * Categorises and returns subclass of Command type based on entered command.
+     *
+     * @param time Time in the format of "yyyy-MM-dd HH:mm" or "yyyy-MM-dd" or "HH:mm."
+     * @return a String of time in the format of "MMM d yyyy HH:mm" or "MMM d yyyy" or "HH:mm"
+     * @throws URChatBotException If command undefined.
+     */
     public static String changeTimeFormat(String time) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -156,12 +171,5 @@ public class Parser{
     }
     private static Command parseExitCommand(String command) {
         return new ExitCommand(command);
-    }
-
-
-    public static class ParseException extends Exception {
-        ParseException(String message) {
-            super(message);
-        }
     }
 }

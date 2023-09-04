@@ -8,6 +8,13 @@ import urchatbot.ui.Ui;
 
 public class DeadlineCommand extends Command{
     public String by;
+
+    /**
+     * Constructs the DeadlineCommand class.
+     *
+     * @param taskDescription Task description of the task.
+     * @param by The date and/or time of the deadline of the task.
+     */
     public DeadlineCommand(String taskDescription, String by) {
         super(taskDescription);
         this.by = by;

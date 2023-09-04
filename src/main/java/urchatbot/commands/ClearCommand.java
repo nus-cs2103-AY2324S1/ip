@@ -5,6 +5,11 @@ import urchatbot.taskList.TaskList;
 import urchatbot.ui.Ui;
 
 public class ClearCommand extends Command{
+    /**
+     * Constructs the ClearCommand class.
+     *
+     * @param taskDescription Task description of the task.
+     */
     public ClearCommand(String taskDescription) {
         super(taskDescription);
     }

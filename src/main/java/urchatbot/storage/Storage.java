@@ -13,10 +13,21 @@ import java.util.ArrayList;
 public class Storage {
     private static String filePath;
 
+    /**
+     * Constructs the Storage class.
+     *
+     * @param filePath Path to store the tasklist.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the existing tasks from the stored tasklist.
+     *
+     * @return tasklist ArrayList<Task> tasklist.
+     * @throws URChatBotException if Error occurs in loading.
+     */
     public static ArrayList<Task> load() throws URChatBotException {
         ArrayList<Task> tasks = new ArrayList<>();
         handleMissingFile(filePath);
@@ -28,12 +39,16 @@ public class Storage {
                 line = reader.readLine();
             }
         } catch (IOException e) {
-            throw new URChatBotException( "Error loading urchatbot.tasks from file: " + e.getMessage());
+            throw new URChatBotException( "Error loading tasks from file: " + e.getMessage());
         }
         return tasks;
     }
 
-
+    /**
+     * Saves the tasks to the stored file.
+     *
+     * @param tasks Tasklist to be saved.
+     */
     public static void save(TaskList tasks) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
             for (Task task : tasks.getTasks()) {

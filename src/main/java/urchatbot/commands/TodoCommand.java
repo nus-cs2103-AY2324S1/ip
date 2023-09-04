@@ -7,6 +7,11 @@ import urchatbot.tasks.ToDo;
 import urchatbot.ui.Ui;
 
 public class TodoCommand extends Command{
+    /**
+     * Constructs the TodoCommand class.
+     *
+     * @param taskDescription Task description of the task.
+     */
     public TodoCommand(String taskDescription) {
         super(taskDescription);
     }

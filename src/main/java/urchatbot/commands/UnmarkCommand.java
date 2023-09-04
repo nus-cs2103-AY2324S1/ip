@@ -9,6 +9,11 @@ import urchatbot.ui.Ui;
 public class UnmarkCommand extends Command{
     private int taskNumber;
 
+    /**
+     * Constructs the UnmarkCommand class.
+     *
+     * @param taskNumber Task number to unmark.
+     */
     public UnmarkCommand(int taskNumber) {
         super("Unmark");
         this.taskNumber = taskNumber;

@@ -1,6 +1,12 @@
 package urchatbot.tasks;
 
 public class ToDo extends Task {
+    /**
+     * Construct the Todo class.
+     *
+     * @param description Description of the task.
+     * @param isDone If the task is done.
+     */
     public ToDo(String description, boolean isDone) {
         super(description, isDone);
     }
