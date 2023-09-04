@@ -23,8 +23,8 @@ public class Ui {
     /**
      * Prints the error message when cannot locate the storage file
      */
-    public void showLoadingError() {
-        System.out.println("Error! Cannot initialise new Storage");
+    public String showLoadingError() {
+        return "Error! Cannot initialise new Storage";
     }
 
     /**
@@ -41,28 +41,25 @@ public class Ui {
     /**
      * Initial Greeting message by the user
      */
-    public void greet() {
-        this.printLines();
-        System.out.println("Hello! I'm MeowBot!");
-        System.out.println("What can I do for you ?");
-        this.printLines();
+    public String greet() {
+        String res = "";
+        res += this.LINES + "\n";
+        res += "Hello! I'm MeowBot!" + "\n";
+        res += "What can I do for you \n?";
+        res += this.LINES;
+        return res;
     }
 
     /**
      * Goodbye message to the user when closing the bot
      */
-    public void bye() {
-        this.printLines();
-        System.out.println("Bye. Hope to see you again soon!");
+    public String bye() {
+        String res = "";
+        res += this.LINES;
+        res += "Bye. Hope to see you again soon!\n";
+        return res;
     }
 
-    /**
-     * Prints out the lines per command
-     */
-
-    public void printLines() {
-        System.out.println(this.LINES);
-    }
 
     /**
      * Prints out the successful output when a task is added
@@ -70,10 +67,12 @@ public class Ui {
      * @param task task that is added to taslist
      */
 
-    public void printAddTask(int length, Task task) {
-        System.out.println("MEOW got it. I've added this task:\n   " + task);
-        System.out.println("Now you have " + length + " meow-tasks in the list.");
-        this.printLines();
+    public String printAddTask(int length, Task task) {
+        String res = "";
+        res += ("MEOW got it. I've added this task:\n   " + task);
+        res += ("Now you have " + length + " meow-tasks in the list. \n");
+        res += this.LINES;
+        return res;
     }
 
     /**
@@ -82,10 +81,12 @@ public class Ui {
      * @param wantedTask task that has been marked
      */
 
-    public void printMarkTask(int taskNumber, Task wantedTask) {
-        System.out.println("Nice! I've meowrked this task as done: ");
-        System.out.println("   " + wantedTask);
-        System.out.println(this.LINES);
+    public String printMarkTask(int taskNumber, Task wantedTask) {
+        String res = "";
+        res += ("Nice! I've meowrked this task as done: \n");
+        res += ("   " + wantedTask + "\n");
+        res += this.LINES;
+        return res;
     }
 
     /**
@@ -93,10 +94,12 @@ public class Ui {
      * @param taskNumber index of the task in TaskList currently
      * @param wantedTask task that has been unmarked
      */
-    public void printUnmarkTask(int taskNumber, Task wantedTask) {
-        System.out.println("Ok, get your task done soon, I'll be waiting!");
-        System.out.println(" " + wantedTask);
-        System.out.println(this.LINES);
+    public String printUnmarkTask(int taskNumber, Task wantedTask) {
+        String res = "";
+        res += ("Ok, get your task done soon, I'll be waiting!\n");
+        res += (" " + wantedTask + '\n');
+        res += this.LINES + '\n';
+        return res;
     }
 
     /**
@@ -104,24 +107,28 @@ public class Ui {
      * @param length number of tasks in TaskList currently
      * @param wantedTask Task that is be removed from Tasklist
      */
-    public void printDeleteTask(int length, Task wantedTask) {
-        System.out.println("Meow... ok, I've removed this task: ");
-        System.out.println(" " + wantedTask);
-        System.out.println("Now you have " + length + " meow-tasks in the list.");
-        System.out.println(this.LINES);
+    public String printDeleteTask(int length, Task wantedTask) {
+        String res = "";
+        res += ("Meow... ok, I've removed this task: \n");
+        res += (" " + wantedTask + '\n');
+        res += ("Now you have " + length + " meow-tasks in the list. \n");
+        res += this.LINES;
+        return res;
     }
 
     /**
      * Prints out the tasks stored in the TaskList
      * @param tasks TaskList to be printed
      */
-    public void displayTasks(TaskList tasks) {
-        System.out.println(this.LINES);
-        System.out.println("Meoowww here are your tasks");
+    public String displayTasks(TaskList tasks) {
+        String res = "";
+        res += this.LINES + '\n';
+        res += ("Meoowww here are your tasks\n");
         for (int i = 1; i < tasks.size() + 1; i++) {
-            System.out.println(i + ". " + tasks.getTask(i - 1));
+            res += (i + ". " + tasks.getTask(i - 1) + '\n');
         }
-        System.out.println(this.LINES);
+        res += this.LINES + '\n';
+        return res;
     }
 
     /**
@@ -129,8 +136,8 @@ public class Ui {
      * @param keyword keyword to find related tasks
      */
 
-    public void printEmptyFind(String keyword) {
-        System.out.println("Meow :( found no tasks with " + keyword);
+    public String printEmptyFind(String keyword) {
+        return ("Meow :( found no tasks with " + keyword);
     }
 
     /**
@@ -138,10 +145,12 @@ public class Ui {
      * @param res result of the string to be printed
      */
 
-    public void printFindRes(String res) {
-        System.out.println(this.LINES);
-        System.out.println("Meow Here are your matching tasks !" + res);
-        System.out.println(this.LINES);
+    public String printFindRes(String res) {
+        String ans = "";
+        ans += (this.LINES + '\n');
+        ans += ("Meow Here are your matching tasks !" + res + '\n');
+        ans += (this.LINES + '\n');
+        return ans;
     }
 
 

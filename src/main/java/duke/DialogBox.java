@@ -1,15 +1,20 @@
 package duke;
 
+import duke.helper.MainWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+
+import java.io.IOException;
 
 /**
  * Class for DialogBox to represent user interaction with the bot
@@ -40,6 +45,20 @@ public class DialogBox extends HBox {
         this.setBackground(background);
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(text, displayPicture);
+    }
+
+    private DialogBox(String tex, Image img) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/resource/view/DialogBox.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        text.setText(tex);
+        displayPicture.setImage(img);
     }
 
     /**

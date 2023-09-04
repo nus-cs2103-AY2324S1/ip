@@ -1,6 +1,7 @@
 package duke;
 import java.io.IOException;
 import java.util.EnumMap;
+import java.util.Objects;
 
 import duke.command.Command;
 import duke.helper.Parser;
@@ -184,6 +185,7 @@ public class MeowBot extends Application {
     }
 
     private void handleUserInput() {
+
         Label userText = new Label(userInput.getText());
         userText.setPadding(new Insets(5, 5, 5, 5));
         Label dukeText = new Label(getResponse(userInput.getText()));
@@ -210,6 +212,8 @@ public class MeowBot extends Application {
         );
 
         userInput.clear();
+
+
     }
 
 
@@ -217,8 +221,14 @@ public class MeowBot extends Application {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
-        return "MeowBot Purrss: " + input;
+    public String getResponse(String input) {
+        String response = "Invalid";
+        try {
+            response = Parser.parse(input).execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            System.out.println("Broken");
+        }
+        return response;
     }
 
 
