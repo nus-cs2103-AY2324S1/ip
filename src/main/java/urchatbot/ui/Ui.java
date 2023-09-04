@@ -117,7 +117,7 @@ public class Ui {
      * Shows delete message for DeleteCommand.
      */
     public void showDeleteMessage(String deletedTask, int taskSize) {
-        out.println(MESSAGE_ADD + deletedTask + MESSAGE_NOW_YOU_HAVE
+        out.println(MESSAGE_DELETE + deletedTask + MESSAGE_NOW_YOU_HAVE
                 + taskSize + MESSAGE_TASK_IN_THE_LIST);
     }
 
