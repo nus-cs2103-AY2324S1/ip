@@ -12,15 +12,16 @@ public class UnrecognisedCommand extends Command {
     /**
      * Method to encapsulate the execution logic of the command
      *
-     * @param taskList - the task list instance  of the current duke
+     * @param taskList - the task list instance of the current duke
      * @param ui       - the ui instance of DUKE
-     * @param storage  - the storage instance to allow the command to write to the storage
+     * @param storage  - the storage instance to allow the command to write to the
+     *                 storage
      * @throws DukeBadInputException - if the input cannot be used
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
-        ui.println("Quack does not understand your command!!");
-        ui.println("Quack only understands these commands: list, mark, unmark, delete, todo, deadline, event");
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
+        return "Quack does not understand your command!!\n"
+                + "Quack only understands these commands: list, mark, unmark, delete, todo, deadline, event";
     }
 
     /**

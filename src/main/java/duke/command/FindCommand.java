@@ -33,10 +33,11 @@ public class FindCommand extends Command {
      * @param taskList - the task list instance  of the current duke
      * @param ui       - the ui instance of DUKE
      * @param storage  - the storage instance to allow the command to write to the storage
+     * @return the reply of Quack
      * @throws DukeBadInputException - if the input cannot be used
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
         ArrayList<Task> matches = new ArrayList<>();
         String find = this.query.toUpperCase();
 
@@ -50,14 +51,13 @@ public class FindCommand extends Command {
         // Handles no matches
         int size = matches.size();
         if (size == 0) {
-            ui.println("Quack has not found any task matching " + this.query + ", did you spell it correctly?");
-            return;
+            return "Quack has not found any task matching " + this.query + ", did you spell it correctly?";
         }
-
-        ui.println("Quack has found" + matches.size() + "matching tasks in your list:");
+        String ret = "Quack has found " + matches.size() + " matching tasks in your list:";
         for (int i = 0; i < size; i++) {
-            ui.println((i + 1) + "." + matches.get(i).toString());
+            ret += "\n" + (i + 1) + ". " + matches.get(i).toString();
         }
+        return ret;
     }
 
     /**

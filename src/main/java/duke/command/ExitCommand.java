@@ -16,11 +16,13 @@ public class ExitCommand extends Command {
      * @param taskList - the task list instance  of the current duke
      * @param ui       - the ui instance of DUKE
      * @param storage  - the storage instance to allow the command to write to the storage
+     * @return the reply of Quack
      * @throws DukeBadInputException - if the input cannot be used
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
-
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
+        storage.close();
+        return Ui.GOODBYE_MESSAGE;
     }
 
     /**

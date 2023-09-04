@@ -40,10 +40,11 @@ public class MarkCommand extends Command {
      * @param ui       - the ui instance of DUKE
      * @param storage  - the storage instance to allow the command to write to the
      *                 storage
+     * @return the reply of Quack
      * @throws DukeBadInputException - if the input cannot be used
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
         Command.validateIndex(this.index, taskList.length());
         Task task = taskList.get(index);
 
@@ -59,16 +60,15 @@ public class MarkCommand extends Command {
                     : "Quack! you cant unmark something that isn't done yet!!";
         }
 
-        // writes to UI
-        ui.println(resp);
-        ui.println(task.toString());
         try {
             if (!storage.rewriteAll(taskList.getAllTask())) {
-                ui.unexpectedError("not all tasks were successfully written, please contact my mother :( ");
+                return ui.getUnexpectedErrorMessage("not all tasks were successfully written,"
+                        + " please contact my mother :( ");
             }
         } catch (IOException e) {
-            ui.unexpectedError("error when writing to storage: " + e.getMessage());
+            return ui.getUnexpectedErrorMessage("error when writing to storage: " + e.getMessage());
         }
+        return resp + "\n" + task;
     }
 
     /**

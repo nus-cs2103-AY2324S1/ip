@@ -24,6 +24,7 @@ public class Task {
      * The state of the task
      */
     private boolean isComplete = false;
+
     /**
      * Constructor for the duke.task.Task class
      *
@@ -71,7 +72,7 @@ public class Task {
     /**
      * returns the stored form of the task
      *
-     * @return a string which duke.Parser could Parse
+     * @return a string which duke Parser could Parse
      */
     public String getStored() {
         return "";
