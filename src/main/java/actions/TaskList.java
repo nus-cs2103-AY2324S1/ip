@@ -73,4 +73,26 @@ public class TaskList {
 
     }
 
+    public void chadFindTask(String keyword) {
+        ArrayList<Task> matched = new ArrayList<>();
+        for (Task task : taskArrayList) {
+            if (task.name.contains(keyword)) {
+                matched.add(task);
+            }
+        }
+        if (matched.isEmpty()) {
+            System.out.println(line);
+            System.out.println("There are no matching tasks!");
+            System.out.println(line);
+        } else {
+            System.out.println(line);
+            System.out.println("Here are the matching tasks:");
+            for (int i = 0; i < matched.size(); i ++) {
+                System.out.println(matched.get(i).toString());
+            }
+            System.out.println("Total of " + matched.size() + " matched tasks");
+            System.out.println(line);
+        }
+    }
+
 }
