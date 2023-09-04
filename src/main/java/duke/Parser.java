@@ -1,7 +1,9 @@
 package duke;
 
-import duke.command.Command;
+import java.time.LocalDate;
+
 import duke.command.AddCommand;
+import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
 import duke.command.ListCommand;
@@ -11,8 +13,9 @@ import duke.task.DeadlineTask;
 import duke.task.EventTask;
 import duke.task.ToDoTask;
 
-import java.time.LocalDate;
-
+/**
+ * Represents a parser that deals with making sense of the user command.
+ */
 public class Parser {
     /**
      * Returns the Command from the user input.
@@ -45,9 +48,9 @@ public class Parser {
 
         case "DELETE":
             return new DeleteCommand(getTaskNumber(userInput));
+        default:
+            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-
-        throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
 

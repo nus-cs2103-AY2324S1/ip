@@ -1,9 +1,5 @@
 package duke;
 
-import duke.task.DeadlineTask;
-import duke.task.EventTask;
-import duke.task.Task;
-import duke.task.ToDoTask;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +9,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.task.DeadlineTask;
+import duke.task.EventTask;
+import duke.task.Task;
+import duke.task.ToDoTask;
+
+/**
+ * Represents a storage class that deals with loading tasks from the file and saving tasks in the file.
+ */
 public class Storage {
     private final String filePath;
 
@@ -63,6 +67,7 @@ public class Storage {
             }
         }
     }
+
     /**
      * Loads list from disk and then converts it to tasks with their details.
      *

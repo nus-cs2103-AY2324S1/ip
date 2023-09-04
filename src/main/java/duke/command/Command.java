@@ -1,20 +1,13 @@
 package duke.command;
-//public enum duke.command.Command {
-//    BYE,
-//    LIST,
-//    MARK,
-//    UNMARK,
-//    TODO,
-//    DEADLINE,
-//    EVENT,
-//    DELETE,
-//}
 
 import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 
+/**
+ * Represents an abstract Command class that can execute an action.
+ */
 public abstract class Command {
 
     /**

@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Represents a Task class that deals with the task that has a description and can be marked as done.
+ */
 public class Task {
     public static final String DATE_FORMAT = "MMM dd yyyy";
     private final String description;

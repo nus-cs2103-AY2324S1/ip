@@ -1,8 +1,10 @@
 package seedu.duke;
 
+import org.junit.jupiter.api.Test;
+
 import duke.task.TaskList;
 import duke.task.ToDoTask;
-import org.junit.jupiter.api.Test;
+
 
 public class TaskListTest {
     @Test

@@ -1,10 +1,12 @@
 package seedu.duke;
 
-import duke.DukeException;
-import duke.task.EventTask;
-import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
+
+import duke.DukeException;
+import duke.task.EventTask;
 
 public class EventTest {
 

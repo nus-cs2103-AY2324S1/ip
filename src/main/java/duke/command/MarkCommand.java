@@ -4,6 +4,9 @@ import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 
+/**
+ * Represents a MarkCommand class that deals with the command to mark a task as done.
+ */
 public class MarkCommand extends Command {
     private final int index;
 

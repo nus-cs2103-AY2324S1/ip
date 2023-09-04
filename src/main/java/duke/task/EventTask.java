@@ -1,11 +1,14 @@
 package duke.task;
 
-import duke.DukeException;
-import duke.enums.TaskType;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import duke.DukeException;
+import duke.enums.TaskType;
+
+/**
+ * Represents a EventTask class that deals with the event task that has a from and to date attached to it.
+ */
 public class EventTask extends Task {
 
     private final LocalDate from;
@@ -40,10 +43,11 @@ public class EventTask extends Task {
     public String getTo() {
         return this.to.format(DateTimeFormatter.ofPattern(Task.DATE_FORMAT));
     }
-    
+
     @Override
     public String getFileDescriptor() {
-        return super.getFileDescriptor() + String.format("| %s | %s | %s", this.from.toString(), this.to.toString(), TaskType.EVENT);
+        return super.getFileDescriptor()
+                + String.format("| %s | %s | %s", this.from.toString(), this.to.toString(), TaskType.EVENT);
     }
 
     @Override

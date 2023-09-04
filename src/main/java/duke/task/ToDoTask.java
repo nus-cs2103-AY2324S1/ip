@@ -2,6 +2,9 @@ package duke.task;
 
 import duke.enums.TaskType;
 
+/**
+ * Represents a ToDoTask class that deals with the todo task.
+ */
 public class ToDoTask extends Task {
 
     /**

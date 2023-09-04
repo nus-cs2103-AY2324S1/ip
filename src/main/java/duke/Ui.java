@@ -1,10 +1,13 @@
 package duke;
 
+import java.util.ArrayList;
+
 import duke.task.Task;
 import duke.task.TaskList;
 
-import java.util.ArrayList;
-
+/**
+ * Represents a Ui class that deals with the interactions with the user.
+ */
 public class Ui {
     private final String lineSeparator = "____________________________________________________________";
 
@@ -13,8 +16,8 @@ public class Ui {
      */
     public void showWelcomeMessage() {
         String chatbotName = "Gobble Gobble";
-        System.out.println(this.lineSeparator + "\n" + "Hello! I'm " + chatbotName + "\n" +
-                "What can I do for you?" + "\n" + this.lineSeparator);
+        System.out.println(this.lineSeparator + "\n" + "Hello! I'm " + chatbotName + "\n"
+                + "What can I do for you?" + "\n" + this.lineSeparator);
     }
 
     /**
@@ -39,8 +42,8 @@ public class Ui {
      * @param task task to be marked.
      */
     public void showMarkMessage(Task task) {
-        System.out.println(this.lineSeparator + "\n" + "Nice! I've marked this task as done:" + "\n" +
-                task + "\n" + this.lineSeparator);
+        System.out.println(this.lineSeparator + "\n" + "Nice! I've marked this task as done:" + "\n"
+                + task + "\n" + this.lineSeparator);
     }
 
     /**
@@ -49,8 +52,8 @@ public class Ui {
      * @param task task to be unmarked.
      */
     public void showUnmarkMessage(Task task) {
-        System.out.println(this.lineSeparator + "\n" + "OK, I've marked this task as not done yet:" + "\n" +
-                task + "\n" + this.lineSeparator);
+        System.out.println(this.lineSeparator + "\n" + "OK, I've marked this task as not done yet:" + "\n"
+                + task + "\n" + this.lineSeparator);
     }
 
     /**

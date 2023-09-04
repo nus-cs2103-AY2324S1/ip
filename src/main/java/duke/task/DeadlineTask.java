@@ -1,12 +1,15 @@
 package duke.task;
 
-import duke.enums.TaskType;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import duke.enums.TaskType;
+
+/**
+ * Represents a DeadlineTask class that deals with the deadline task that has a deadline `by` attached to it.
+ */
 public class DeadlineTask extends Task {
     private final LocalDate by;
-
 
     /**
      * Constructor for DeadlineTask.

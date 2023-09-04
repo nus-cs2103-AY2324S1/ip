@@ -4,6 +4,9 @@ import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 
+/**
+ * Represents a ExitCommand class that deals with the command to exit the program.
+ */
 public class ExitCommand extends Command {
     /**
      * Displays the bye message.

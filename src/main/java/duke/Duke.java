@@ -1,17 +1,25 @@
 package duke;
 
+import java.util.Scanner;
+
 import duke.command.Command;
 import duke.task.TaskList;
 
-import java.util.Scanner;
-
+/**
+ * Represents a Duke class that deals with the main logic of the program.
+ */
 public class Duke {
 
+    private static final String DUKE_FILEPATH = "./src/main/data/duke.txt";
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
-    private static final String DUKE_FILEPATH = "./src/main/data/duke.txt";
 
+    /**
+     * Constructor for Duke. Initializes the Ui, Storage and TaskList.
+     *
+     * @param filePath path to duke.txt.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);

@@ -1,8 +1,9 @@
 package seedu.duke;
 
+import org.junit.jupiter.api.Test;
+
 import duke.DukeException;
 import duke.Parser;
-import org.junit.jupiter.api.Test;
 
 public class ParserTest {
     @Test
@@ -34,7 +35,8 @@ public class ParserTest {
             assert e.getMessage().equals("Please enter a valid date in the format: yyyy-mm-dd");
         }
     }
-        @Test
+
+    @Test
     public void event_wrongDateFormat_exceptionThrown() {
         try {
             Parser.parse("event test /from 2020-13-10 /to 2020-14-10");

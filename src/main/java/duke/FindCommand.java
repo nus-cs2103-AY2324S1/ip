@@ -3,6 +3,9 @@ package duke;
 import duke.command.Command;
 import duke.task.TaskList;
 
+/**
+ * Represents a FindCommand class that deals with the command to find a task.
+ */
 public class FindCommand extends Command {
 
     private final String keyword;
