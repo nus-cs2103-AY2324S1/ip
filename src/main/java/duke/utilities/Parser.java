@@ -12,6 +12,7 @@ import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
 import duke.commands.TodoCommand;
 import duke.commands.UnMarkCommand;
+import duke.ui.Ui;
 
 /**
  * A parser than handles user inputs.

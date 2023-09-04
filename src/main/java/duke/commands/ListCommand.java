@@ -3,7 +3,7 @@ package duke.commands;
 import duke.exception.DukeException;
 import duke.utilities.Storage;
 import duke.utilities.TaskList;
-import duke.utilities.Ui;
+import duke.ui.Ui;
 
 /**
  * A command to called to mark print the taskList.
@@ -31,7 +31,7 @@ public class ListCommand extends Command {
      *
      */
     @Override
-    public void execute() throws DukeException {
-        ui.printList(taskList);
+    public String execute() throws DukeException {
+        return ui.printList(taskList);
     }
 }

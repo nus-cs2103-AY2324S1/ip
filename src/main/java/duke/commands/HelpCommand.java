@@ -9,7 +9,7 @@ public class HelpCommand extends Command {
      * The command that will display the helper lines.
      */
     @Override
-    public void execute() {
+    public String execute() {
         String commands = (
                 "____________________________________________________________\n"
                         + "I currently can record 3 types of tasks. tasks to do, tasks with deadlines and events \n"
@@ -30,5 +30,6 @@ public class HelpCommand extends Command {
                         + "____________________________________________________________\n"
         );
         System.out.println(commands);
+        return commands;
     }
 }

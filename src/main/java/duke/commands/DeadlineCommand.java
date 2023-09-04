@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 import duke.exception.DukeException;
 import duke.utilities.Storage;
 import duke.utilities.TaskList;
-import duke.utilities.Ui;
+import duke.ui.Ui;
 import duke.tasks.Deadlines;
 
 /**
@@ -39,18 +39,18 @@ public class DeadlineCommand extends Command {
      * @throws DukeException When there is an error saving.
      */
     @Override
-    public void execute() throws DukeException {
+    public String execute() throws DukeException {
         String task = "deadline";
 
         try {
             Deadlines newTask = new Deadlines(getDescription(task, input), getEndDate(task, input));
             taskList.addTask(newTask);
-            ui.printAddTask(taskList, newTask);
             storage.save(taskList);
+            return ui.printAddTask(taskList, newTask);
         } catch (IOException e) {
-            ui.printError(e.getMessage());
+            return ui.printError(e.getMessage());
         } catch (DateTimeParseException e) {
-            ui.printInvalidTimeError();
+            return ui.printInvalidTimeError();
         }
     }
 }

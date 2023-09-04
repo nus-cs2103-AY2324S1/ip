@@ -1,6 +1,6 @@
 package duke.commands;
 
-import duke.utilities.Ui;
+import duke.ui.Ui;
 
 /**
  * A command creates an error.
@@ -24,7 +24,7 @@ public class ErrorCommand extends Command {
      * A function to execute the error.
      */
     @Override
-    public void execute() {
-        ui.printError(error);
+    public String execute() {
+        return ui.printError(error);
     }
 }

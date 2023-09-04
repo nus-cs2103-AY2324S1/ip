@@ -5,7 +5,7 @@ import java.io.IOException;
 import duke.exception.DukeException;
 import duke.utilities.Storage;
 import duke.utilities.TaskList;
-import duke.utilities.Ui;
+import duke.ui.Ui;
 
 /**
  * A command to called to mark a task undone from the taskList.
@@ -36,13 +36,13 @@ public class UnMarkCommand extends Command {
      *
      */
     @Override
-    public void execute() throws DukeException {
-        ui.printMarkedUnDone(taskList, index - 1);
-        taskList.markAsDone(index - 1);
+    public String execute() throws DukeException {
+        taskList.markAsNotDone(index - 1);
         try {
             storage.save(taskList);
         } catch (IOException e) {
             ui.printError(e.getMessage());
         }
+        return ui.printMarkedUnDone(taskList, index - 1);
     }
 }

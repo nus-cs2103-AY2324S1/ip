@@ -1,4 +1,4 @@
-package duke.utilities;
+package duke.ui;
 
 import java.util.Scanner;
 
@@ -10,7 +10,7 @@ import duke.utilities.TaskList;
  */
 public class Ui {
     protected static Scanner sc;
-    protected String br = "____________________________________________________________\n";
+    protected String br = "________________________________________\n";
 
     public Ui() {
         this.sc = new Scanner(System.in);

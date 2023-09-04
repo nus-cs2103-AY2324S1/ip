@@ -2,7 +2,7 @@ package duke.commands;
 
 import duke.exception.DukeException;
 import duke.utilities.TaskList;
-import duke.utilities.Ui;
+import duke.ui.Ui;
 
 /**
  * A command to find tasks with the keyword specified.
@@ -30,15 +30,15 @@ public class FindCommand extends Command {
      *
      */
     @Override
-    public void execute() throws DukeException {
+    public String execute() throws DukeException {
         String[] inputList = this.input.split(" ");
         try {
             if (inputList.length == 1) {
                 throw new DukeException("Your input is wrong. This is unaaceptable");
             }
-            ui.findFilteredTasks(taskList, input.substring(5));
+            return ui.findFilteredTasks(taskList, input.substring(5));
         } catch (DukeException e) {
-            ui.printError(e.getMessage());
+            return ui.printError(e.getMessage());
         }
     }
 }

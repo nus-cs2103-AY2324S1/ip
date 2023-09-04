@@ -11,7 +11,7 @@ public abstract class Command {
      * An abstract method that executes the command the user gives.
      * @throws DukeException
      */
-    public abstract void execute() throws DukeException;
+    public abstract String execute() throws DukeException;
 
     /**
      * A function to obtain the description of the task at hand.

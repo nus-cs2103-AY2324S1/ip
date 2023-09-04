@@ -5,7 +5,7 @@ import java.io.IOException;
 import duke.exception.DukeException;
 import duke.utilities.Storage;
 import duke.utilities.TaskList;
-import duke.utilities.Ui;
+import duke.ui.Ui;
 
 /**
  * A command to mark a task in the tasklist as done.
@@ -36,13 +36,13 @@ public class MarkCommand extends Command {
      *
      */
     @Override
-    public void execute() throws DukeException {
-        ui.printMarkedDone(taskList, index - 1);
+    public String execute() throws DukeException {
         taskList.markAsDone(index - 1);
         try {
             storage.save(taskList);
         } catch (IOException e) {
             ui.printError(e.getMessage());
         }
+        return ui.printMarkedDone(taskList, index - 1);
     }
 }

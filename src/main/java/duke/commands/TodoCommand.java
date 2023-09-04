@@ -5,7 +5,7 @@ import java.io.IOException;
 import duke.exception.DukeException;
 import duke.utilities.Storage;
 import duke.utilities.TaskList;
-import duke.utilities.Ui;
+import duke.ui.Ui;
 import duke.tasks.ToDos;
 
 /**
@@ -38,15 +38,14 @@ public class TodoCommand extends Command {
      * @throws DukeException when theres an error saving the file
      */
     @Override
-    public void execute() throws DukeException {
+    public String execute() throws DukeException {
         ToDos task = new ToDos(input);
         taskList.addTask(task);
-        ui.printAddTask(taskList, task);
-
         try {
             storage.save(taskList);
         } catch (IOException e) {
             ui.printError(e.getMessage());
         }
+        return ui.printAddTask(taskList, task);
     }
 }

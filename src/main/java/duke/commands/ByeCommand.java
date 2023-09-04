@@ -3,7 +3,7 @@ package duke.commands;
 import duke.exception.DukeException;
 import duke.utilities.Storage;
 import duke.utilities.TaskList;
-import duke.utilities.Ui;
+import duke.ui.Ui;
 
 /**
  * A command to called to say goodbye.
@@ -31,12 +31,12 @@ public class ByeCommand extends Command {
      *
      */
     @Override
-    public void execute() throws DukeException {
+    public String execute() throws DukeException {
         try {
             storage.save(taskList);
         } catch (Exception e) {
             ui.printError(e.getMessage());
         }
-        ui.printGoodBye();
+        return ui.printGoodBye();
     }
 }

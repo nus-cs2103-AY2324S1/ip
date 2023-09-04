@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 import duke.exception.DukeException;
 import duke.utilities.Storage;
 import duke.utilities.TaskList;
-import duke.utilities.Ui;
+import duke.ui.Ui;
 import duke.tasks.Events;
 
 /**
@@ -39,19 +39,19 @@ public class EventCommand extends Command {
      * @throws DukeException Throws exception if there is an error parsing the date or saving the file.
      */
     @Override
-    public void execute() throws DukeException {
+    public String execute() throws DukeException {
         String task = "event";
 
 
         try {
             Events newTask = new Events(getDescription(task, input), getStartDate(input), getEndDate(task, input));
             taskList.addTask(newTask);
-            ui.printAddTask(taskList, newTask);
             storage.save(taskList);
+            return ui.printAddTask(taskList, newTask);
         } catch (IOException e) {
-            ui.printError(e.getMessage());
+            return ui.printError(e.getMessage());
         } catch (DateTimeParseException e) {
-            ui.printInvalidTimeError();
+            return ui.printInvalidTimeError();
         }
     }
 }

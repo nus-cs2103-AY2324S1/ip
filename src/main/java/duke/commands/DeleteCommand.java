@@ -5,7 +5,7 @@ import java.io.IOException;
 import duke.exception.DukeException;
 import duke.utilities.Storage;
 import duke.utilities.TaskList;
-import duke.utilities.Ui;
+import duke.ui.Ui;
 
 /**
  * A command to called to delete a task from the taskList.
@@ -36,13 +36,14 @@ public class DeleteCommand extends Command {
      *
      */
     @Override
-    public void execute() throws DukeException {
-        ui.printDeleteTask(taskList, index);
+    public String execute() throws DukeException {
+        String res = ui.printDeleteTask(taskList, index);
         taskList.deleteTask(index);
         try {
             storage.save(taskList);
         } catch (IOException e) {
             ui.printError(e.getMessage());
         }
+        return res;
     }
 }
