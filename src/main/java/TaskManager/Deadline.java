@@ -3,7 +3,7 @@ package taskmanager;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadlines extends Tasks {
+public class Deadline extends Task {
 
     private String taskDesc; //task description
     private String dueDateStr; // due date in String
@@ -18,7 +18,7 @@ public class Deadlines extends Tasks {
      * @param taskDesc  The task description.
      * @param dueDateStr The due date and time of the event.
      */
-    public Deadlines(String taskDesc, String dueDateStr) {
+    public Deadline(String taskDesc, String dueDateStr) {
         this.taskDesc = taskDesc;
         this.dueDateStr = dueDateStr;
         this.dueDate = LocalDateTime.parse(dueDateStr, DATE_TIME_FORMATTER);
@@ -31,7 +31,7 @@ public class Deadlines extends Tasks {
      * @param taskDesc   The task description.
      * @param dueDateStr    The due date and time of the event.
      */
-    public Deadlines(String completion, String taskDesc, String dueDateStr) {
+    public Deadline(String completion, String taskDesc, String dueDateStr) {
         try {
             if (completion.equals("1")){
                 this.taskDesc = taskDesc.trim();
@@ -107,16 +107,16 @@ public class Deadlines extends Tasks {
      */
     @Override
     public boolean equals(Object o) {
-        Deadlines deadlines = (Deadlines) o;
+        Deadline deadline = (Deadline) o;
 
         if (this == o) {
             return true;
         } else if (o == null || getClass() != o.getClass()) {
             return false;
-        } else if (!taskDesc.equals(deadlines.taskDesc)) {
+        } else if (!taskDesc.equals(deadline.taskDesc)) {
             return false;
         } else {
-            return dueDateStr.equals(deadlines.dueDateStr);
+            return dueDateStr.equals(deadline.dueDateStr);
         }
     }
 

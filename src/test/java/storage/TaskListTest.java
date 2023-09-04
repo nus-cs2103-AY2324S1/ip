@@ -1,10 +1,10 @@
 package storage;
 
 import parser.DateTime;
-import taskmanager.Deadlines;
-import taskmanager.Events;
-import taskmanager.Tasks;
-import taskmanager.ToDos;
+import taskmanager.Deadline;
+import taskmanager.Event;
+import taskmanager.Task;
+import taskmanager.ToDo;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
@@ -15,12 +15,12 @@ class TaskListTest {
     @Test
     void testTaskList() {
 
-        ArrayList<Tasks> taskList = new ArrayList<>();
-        ArrayList<Tasks> taskList1 = new ArrayList<>();
-        ArrayList<Tasks> taskList2 = new ArrayList<>();
-        ArrayList<Tasks> taskList3 = new ArrayList<>();
-        ArrayList<Tasks> taskList4 = new ArrayList<>();
-        ArrayList<Tasks> taskList5 = new ArrayList<>();
+        ArrayList<Task> taskList = new ArrayList<>();
+        ArrayList<Task> taskList1 = new ArrayList<>();
+        ArrayList<Task> taskList2 = new ArrayList<>();
+        ArrayList<Task> taskList3 = new ArrayList<>();
+        ArrayList<Task> taskList4 = new ArrayList<>();
+        ArrayList<Task> taskList5 = new ArrayList<>();
 
         TaskList tasks1 = new TaskList(taskList);
         TaskList tasks2 = new TaskList(taskList1);
@@ -34,14 +34,14 @@ class TaskListTest {
         String formattedDate1 = dateTime.formatDateTime("23/08/2023 1830");
         String formattedDate2 = dateTime.formatDateTime("23/08/2024 1800");
 
-        ToDos newtodo = new ToDos("TestTodo");
-        ToDos newtodo1 = new ToDos("TestTodo1");
+        ToDo newtodo = new ToDo("TestTodo");
+        ToDo newtodo1 = new ToDo("TestTodo1");
 
-        Deadlines newdeadline = new Deadlines("TestDeadline", formattedDate);
-        Deadlines newdeadline1 = new Deadlines("TestDeadline", formattedDate1);
+        Deadline newdeadline = new Deadline("TestDeadline", formattedDate);
+        Deadline newdeadline1 = new Deadline("TestDeadline", formattedDate1);
 
-        Events newevent = new Events("TestEvent", formattedDate, formattedDate);
-        Events newevent1 = new Events("TestEvent", formattedDate, formattedDate1);
+        Event newevent = new Event("TestEvent", formattedDate, formattedDate);
+        Event newevent1 = new Event("TestEvent", formattedDate, formattedDate1);
 
 
         //add tasks to tasks1

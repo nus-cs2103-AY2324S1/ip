@@ -3,7 +3,7 @@ package taskmanager;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Events extends Tasks {
+public class Event extends Task {
 
     private String taskDesc; //task description
     private String fromDateStr; //start date and time in String
@@ -20,7 +20,7 @@ public class Events extends Tasks {
      * @param fromDateStr      The starting date and time of the event.
      * @param toDateStr        The ending date and time of the event.
      */
-    public Events(String taskDesc, String fromDateStr, String toDateStr) {
+    public Event(String taskDesc, String fromDateStr, String toDateStr) {
         this.taskDesc = taskDesc;
         this.fromDateStr = fromDateStr;
         this.toDateStr = toDateStr;
@@ -36,7 +36,7 @@ public class Events extends Tasks {
      * @param fromDateStr       The starting date and time of the event.
      * @param toDateStr         The ending date and time of the event.
      */
-    public Events(String completion, String taskDesc, String fromDateStr, String toDateStr) {
+    public Event(String completion, String taskDesc, String fromDateStr, String toDateStr) {
         try {
             if (completion.equals("1")){
                 this.taskDesc = taskDesc.trim();
@@ -116,18 +116,18 @@ public class Events extends Tasks {
      */
     @Override
     public boolean equals(Object o) {
-        Events events = (Events) o;
+        Event event = (Event) o;
 
         if (this == o) {
             return true;
         } else if (o == null || getClass() != o.getClass()) {
             return false;
-        } else if (!taskDesc.equals(events.taskDesc)) {
+        } else if (!taskDesc.equals(event.taskDesc)) {
             return false;
-        } else if (!fromDateStr.equals(events.fromDateStr)) {
+        } else if (!fromDateStr.equals(event.fromDateStr)) {
             return false;
         } else{
-            return toDateStr.equals(events.toDateStr);
+            return toDateStr.equals(event.toDateStr);
         }
     }
 

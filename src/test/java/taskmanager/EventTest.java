@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import parser.DateTime;
 import static org.junit.jupiter.api.Assertions.*;
 
-class EventsTest {
+class EventTest {
 
     @Test
     void testEvents()  {
@@ -14,11 +14,11 @@ class EventsTest {
         String formattedDate1 = dateTime.formatDateTime("23/08/2023 1801");
         String formattedDate2 = dateTime.formatDateTime("23/09/2023 1800");
 
-        Events newevent = new Events("TestEvent", formattedDate, formattedDate1);
-        Events newevent1 = new Events("TestEvent1", formattedDate, formattedDate1);
-        Events newevent2 = new Events("TestEvent", formattedDate, formattedDate2);
-        Events newevent3 = new Events("TestEvent", formattedDate1, formattedDate1);
-        Events newevent4 = new Events("TestEvent", formattedDate, formattedDate1);
+        Event newevent = new Event("TestEvent", formattedDate, formattedDate1);
+        Event newevent1 = new Event("TestEvent1", formattedDate, formattedDate1);
+        Event newevent2 = new Event("TestEvent", formattedDate, formattedDate2);
+        Event newevent3 = new Event("TestEvent", formattedDate1, formattedDate1);
+        Event newevent4 = new Event("TestEvent", formattedDate, formattedDate1);
 
 
 

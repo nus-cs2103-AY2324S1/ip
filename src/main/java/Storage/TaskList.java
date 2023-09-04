@@ -1,6 +1,6 @@
 package storage;
 
-import taskmanager.Tasks;
+import taskmanager.Task;
 
 import java.util.ArrayList;
 
@@ -9,14 +9,14 @@ import java.util.ArrayList;
  * to store a list of tasks.
  */
 public class TaskList {
-    private ArrayList<Tasks> task; //The array list to store all the tasks.
+    private ArrayList<Task> task; //The array list to store all the tasks.
 
     /**
      * Constructs a `TaskList` with the specified list of tasks.
      *
      * @param task The ArrayList containing tasks to initialize the task list.
      */
-    public TaskList(ArrayList<Tasks> task) {
+    public TaskList(ArrayList<Task> task) {
         this.task = task;
     }
 
@@ -29,7 +29,7 @@ public class TaskList {
      *
      * @param t The task to be added to the list.
      */
-    public void add(Tasks t) {
+    public void add(Task t) {
         task.add(t);
     }
 
@@ -63,7 +63,7 @@ public class TaskList {
      *
      * @return The ArrayList of tasks.
      */
-    public ArrayList<Tasks> getAllTasks() {
+    public ArrayList<Task> getAllTasks() {
         return this.task;
     }
 
@@ -73,7 +73,7 @@ public class TaskList {
      * @param index The index of the task to retrieve.
      * @return The task at the index.
      */
-    public Tasks get(int index) {
+    public Task get(int index) {
         return this.task.get(index);
     }
 

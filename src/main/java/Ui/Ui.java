@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 import storage.TaskList;
 
-import taskmanager.Tasks;
-import taskmanager.Events;
-import taskmanager.ToDos;
-import taskmanager.Deadlines;
+import taskmanager.Task;
+import taskmanager.Event;
+import taskmanager.ToDo;
+import taskmanager.Deadline;
 
 /**
  * The Ui class handles user interaction and displays messages to the user.
@@ -66,7 +66,7 @@ public class Ui {
      *
      * @param newTodo The newly added ToDos task.
      */
-    public void addedTodo(ToDos newTodo) {
+    public void addedTodo(ToDo newTodo) {
         System.out.println("   ____________________________________________________________________________________");
         System.out.println("   " +  NAME + ": Help you added a new to-do.\n            " + newTodo.toString());
         System.out.println("          Now you have " + taskList.size() + String.format(" %s in the list.", word));
@@ -78,7 +78,7 @@ public class Ui {
      *
      * @param newDeadLine The newly added Deadlines task.
      */
-    public void addedDeadlines(Deadlines newDeadLine) {
+    public void addedDeadlines(Deadline newDeadLine) {
         System.out.println("   ____________________________________________________________________________________");
         System.out.println("   " + NAME + ": Help you added a new deadline.\n           " + newDeadLine.toString());
         System.out.println("          Now you have " + taskList.size() + String.format(" %s in the list.", word));
@@ -90,7 +90,7 @@ public class Ui {
      *
      * @param newEvent The newly added Events task.
      */
-    public void addedEvent(Events newEvent) {
+    public void addedEvent(Event newEvent) {
         System.out.println("   ____________________________________________________________________________________");
         System.out.println("   " + NAME + ": Help you added a new deadline.\n           " + newEvent.toString());
         System.out.println("          Now you have " + taskList.size() + String.format(" %s in the list.", word));
@@ -131,7 +131,7 @@ public class Ui {
      *
      * @param deleted The deleted task.
      */
-    public void delete(Tasks deleted) {
+    public void delete(Task deleted) {
         System.out.println("   ____________________________________________________________________________________");
         System.out.println("   " + NAME + ": Helped you deleted this task\n           " + deleted.toString());
         System.out.println("          Now you have " + taskList.size() + String.format(" %s in the list.", word));

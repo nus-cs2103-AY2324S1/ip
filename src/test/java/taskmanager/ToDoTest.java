@@ -5,18 +5,18 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-class ToDosTest {
+class ToDoTest {
 
     @Test
     void testToDos() throws IllegalArgumentException {
 
-        ToDos newtodo = new ToDos("TestTodo");
-        ToDos newtodo1 = new ToDos("TestTodo1");
-        ToDos newtodo2 = new ToDos("TestTodo2");
-        ToDos newtodo3 = new ToDos("TestTodo3");
-        ToDos newtodo4 = new ToDos("TestTodo");
-        ToDos newtodo5 = new ToDos("TestTodo5");
-        ToDos newtodo6 = new ToDos("TestTodo");
+        ToDo newtodo = new ToDo("TestTodo");
+        ToDo newtodo1 = new ToDo("TestTodo1");
+        ToDo newtodo2 = new ToDo("TestTodo2");
+        ToDo newtodo3 = new ToDo("TestTodo3");
+        ToDo newtodo4 = new ToDo("TestTodo");
+        ToDo newtodo5 = new ToDo("TestTodo5");
+        ToDo newtodo6 = new ToDo("TestTodo");
 
         assertTrue(newtodo.equals(newtodo));
         assertFalse(newtodo.equals(newtodo1));

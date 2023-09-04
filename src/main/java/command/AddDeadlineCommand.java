@@ -1,6 +1,6 @@
 package command;
 
-import taskmanager.Deadlines;
+import taskmanager.Deadline;
 
 import ui.Ui;
 
@@ -34,7 +34,7 @@ public class AddDeadlineCommand extends Command{
      */
     @Override
     public void execute(TaskList task, Ui ui, FileHandler f) {
-        Deadlines newdeadlines = new Deadlines(taskDesc, dueDateStr);
+        Deadline newdeadlines = new Deadline(taskDesc, dueDateStr);
         if (newdeadlines.isValid()) {
             task.add(newdeadlines);
             FileHandler.writeTasksToFile(task);

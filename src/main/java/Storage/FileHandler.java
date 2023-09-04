@@ -12,10 +12,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import taskmanager.Tasks;
-import taskmanager.Events;
-import taskmanager.ToDos;
-import taskmanager.Deadlines;
+import taskmanager.Task;
+import taskmanager.Event;
+import taskmanager.ToDo;
+import taskmanager.Deadline;
 
 
 /**
@@ -38,8 +38,8 @@ public class FileHandler {
      *
      * @return An ArrayList containing the tasks read from the file.
      */
-    public static ArrayList<Tasks> readTasksFromFile() {
-        ArrayList<Tasks> task = new ArrayList<>();
+    public static ArrayList<Task> readTasksFromFile() {
+        ArrayList<Task> task = new ArrayList<>();
         String folderPath = "data";
 
         try {
@@ -75,7 +75,7 @@ public class FileHandler {
                         } if (split.length < 3) {
                             throw new IndexOutOfBoundsException("There is missing info for your Todos content in the file!");
                         }
-                        ToDos newtodo = new ToDos(split[2], split[1]);
+                        ToDo newtodo = new ToDo(split[2], split[1]);
                         task.add(newtodo);
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println(e.getMessage());
@@ -89,7 +89,7 @@ public class FileHandler {
                         } if (split.length < 4) {
                             throw new IndexOutOfBoundsException("There is missing info for your Deadlines content in the file!");
                         }
-                        Deadlines newdeadline = new Deadlines(split[1], split[2], split[3]);
+                        Deadline newdeadline = new Deadline(split[1], split[2], split[3]);
                         task.add(newdeadline);
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println(e.getMessage());
@@ -103,7 +103,7 @@ public class FileHandler {
                         } if (split.length < 5) {
                             throw new IndexOutOfBoundsException("There is missing info for your Events content in the file!");
                         }
-                        Events newevent = new Events(split[1], split[2], split[3], split[4]);
+                        Event newevent = new Event(split[1], split[2], split[3], split[4]);
                         task.add(newevent);
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println(e.getMessage());
@@ -126,7 +126,7 @@ public class FileHandler {
     public static void writeTasksToFile(TaskList tasks) {
         try {
             FileWriter writer = new FileWriter(filePath);
-            for (Tasks t : tasks.getAllTasks()) {
+            for (Task t : tasks.getAllTasks()) {
                 writer.write(t.toFileString() + "\n");
             }
             writer.close();

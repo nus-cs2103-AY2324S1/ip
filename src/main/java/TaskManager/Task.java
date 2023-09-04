@@ -3,7 +3,7 @@ package taskmanager;
 /**
  * Abstract class for few types of tasks.
  */
-public abstract class Tasks {
+public abstract class Task {
 
     protected boolean isDone; //completion status of the task
 
@@ -19,7 +19,7 @@ public abstract class Tasks {
     /**
      * Constructs a task with an initial status of not done.
      */
-    public Tasks() {
+    public Task() {
         this.isDone = false;
     }
 

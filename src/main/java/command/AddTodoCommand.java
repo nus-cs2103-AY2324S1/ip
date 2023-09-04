@@ -5,7 +5,7 @@ import ui.Ui;
 import storage.TaskList;
 import storage.FileHandler;
 
-import taskmanager.ToDos;
+import taskmanager.ToDo;
 
 /**
  * Command to add a ToDos task.
@@ -32,7 +32,7 @@ public class AddTodoCommand extends Command{
      */
     @Override
     public void execute(TaskList task, Ui ui, FileHandler f) {
-        ToDos newtodo = new ToDos(taskDesc);
+        ToDo newtodo = new ToDo(taskDesc);
         if (newtodo.isValid()) {
             task.add(newtodo);
             f.writeTasksToFile(task);

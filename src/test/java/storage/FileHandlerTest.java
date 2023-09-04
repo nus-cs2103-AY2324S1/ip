@@ -2,8 +2,8 @@ package storage;
 
 import parser.DateTime;
 
-import taskmanager.Deadlines;
-import taskmanager.Events;
+import taskmanager.Deadline;
+import taskmanager.Event;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,8 +12,8 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
-import taskmanager.Tasks;
-import taskmanager.ToDos;
+import taskmanager.Task;
+import taskmanager.ToDo;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -26,15 +26,15 @@ class FileHandlerTest {
         Path tempFile = Files.createTempFile("testFile", ".txt");
         FileHandler fileHandler = new FileHandler(tempFile.toString());
 
-        ArrayList<Tasks> tasksToWrite = new ArrayList<>();
-        TaskList tasks = new TaskList(tasksToWrite);
+        ArrayList<Task> taskToWrite = new ArrayList<>();
+        TaskList tasks = new TaskList(taskToWrite);
 
         DateTime dateTime = new DateTime();
         String formattedDate = dateTime.formatDateTime("23/08/2023 1000");
 
-        ToDos newtodo = new ToDos("TestTodo");
-        Deadlines newdeadline = new Deadlines("TestDeadline", formattedDate);
-        Events newevent = new Events("TestEvent", formattedDate, formattedDate);
+        ToDo newtodo = new ToDo("TestTodo");
+        Deadline newdeadline = new Deadline("TestDeadline", formattedDate);
+        Event newevent = new Event("TestEvent", formattedDate, formattedDate);
 
         tasks.add(newtodo);
         tasks.add(newdeadline);
@@ -45,7 +45,7 @@ class FileHandlerTest {
         fileHandler.writeTasksToFile(tasks);
 
         // Read tasks from the test file
-        ArrayList<Tasks> tasksRead = fileHandler.readTasksFromFile();
+        ArrayList<Task> tasksRead = fileHandler.readTasksFromFile();
         TaskList taskRead = new TaskList(tasksRead);
 
         // Perform assertions to compare the tasksToWrite and tasksRead

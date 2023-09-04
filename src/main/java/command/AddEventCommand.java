@@ -5,7 +5,7 @@ import ui.Ui;
 import storage.TaskList;
 import storage.FileHandler;
 
-import taskmanager.Events;
+import taskmanager.Event;
 
 /**
  * Command to add an Events task.
@@ -40,7 +40,7 @@ public class AddEventCommand extends Command{
     @Override
     public void execute(TaskList task, Ui ui, FileHandler f) {
 
-        Events newEvent = new Events(taskDesc, from, to);
+        Event newEvent = new Event(taskDesc, from, to);
         if (newEvent.isValid()) {
             task.add(newEvent);
             FileHandler.writeTasksToFile(task);

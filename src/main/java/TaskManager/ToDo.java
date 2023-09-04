@@ -1,11 +1,9 @@
 package taskmanager;
 
-import storage.TaskList;
-
 /**
  * The tasks of type "To-Do."
  */
-public class ToDos extends Tasks {
+public class ToDo extends Task {
 
     private String taskDesc;
 
@@ -14,7 +12,7 @@ public class ToDos extends Tasks {
      *
      * @param taskDesc The description of the to-do task.
      */
-    public ToDos(String taskDesc) {
+    public ToDo(String taskDesc) {
         this.taskDesc = taskDesc;
     }
 
@@ -24,7 +22,7 @@ public class ToDos extends Tasks {
      * @param taskDesc  The description of the to-do task.
      * @param completion The completion status (1 for done, 0 for not done).
      */
-    public ToDos(String taskDesc, String completion) {
+    public ToDo(String taskDesc, String completion) {
         try {
             if (completion.equals("1")){
                 this.taskDesc = taskDesc.trim();
@@ -89,13 +87,13 @@ public class ToDos extends Tasks {
      */
     @Override
     public boolean equals(Object o) {
-        ToDos toDos = (ToDos) o;
+        ToDo toDo = (ToDo) o;
         if (this == o) {
             return true;
         } else if (o == null || getClass() != o.getClass()) {
             return false;
         } else {
-            return taskDesc.equals(toDos.taskDesc);
+            return taskDesc.equals(toDo.taskDesc);
         }
     }
 

@@ -5,7 +5,7 @@ import ui.Ui;
 import storage.TaskList;
 import storage.FileHandler;
 
-import taskmanager.Tasks;
+import taskmanager.Task;
 
 /**
  * A command to delete a task from the task list.
@@ -33,7 +33,7 @@ public class DeleteCommand extends Command{
     @Override
     public void execute(TaskList t, Ui ui, FileHandler f) {
         try {
-            Tasks deleted = t.get(index - 1);
+            Task deleted = t.get(index - 1);
             t.remove(index - 1);
             FileHandler.writeTasksToFile(t);
             ui.delete(deleted);

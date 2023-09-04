@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DeadlinesTest {
+class DeadlineTest {
 
     @Test
     void testEvents()  {
@@ -15,11 +15,11 @@ class DeadlinesTest {
         String formattedDate1 = dateTime.formatDateTime("23/08/2023 1801");
         String formattedDate2 = dateTime.formatDateTime("23/09/2023 1800");
 
-        Deadlines newdeadline = new Deadlines("TestEvent", formattedDate);
-        Deadlines newdeadline1 = new Deadlines("TestEvent", formattedDate1);
-        Deadlines newdeadline2 = new Deadlines("TestEvent", formattedDate2);
-        Deadlines newdeadline3 = new Deadlines("TestEvent3", formattedDate);
-        Deadlines newdeadline4 = new Deadlines("TestEvent", formattedDate);
+        Deadline newdeadline = new Deadline("TestEvent", formattedDate);
+        Deadline newdeadline1 = new Deadline("TestEvent", formattedDate1);
+        Deadline newdeadline2 = new Deadline("TestEvent", formattedDate2);
+        Deadline newdeadline3 = new Deadline("TestEvent3", formattedDate);
+        Deadline newdeadline4 = new Deadline("TestEvent", formattedDate);
 
 
 
