@@ -35,7 +35,7 @@ public class CommandTaskDelete extends Command {
             } else {
                 Task removedTask = taskList.removeTask(taskIdx - 1);
                 this.client.getUi().respond("Task successfully removed!\n" + removedTask);
-                this.client.getStorage().saveSaveFile();
+                this.client.getStorage().saveSaveFile(client.getTaskList());
             }
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid index given!");

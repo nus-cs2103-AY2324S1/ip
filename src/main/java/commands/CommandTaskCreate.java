@@ -71,6 +71,6 @@ public class CommandTaskCreate extends Command {
         default:
             throw new IllegalArgumentException("Invalid Task Type given");
         }
-        this.client.getStorage().saveSaveFile();
+        this.client.getStorage().saveSaveFile(client.getTaskList());
     }
 }

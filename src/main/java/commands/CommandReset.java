@@ -24,7 +24,7 @@ public class CommandReset extends Command {
     @Override
      public void accept(Parser input) {
         this.client.getTaskList().reset();
-        this.client.getStorage().saveSaveFile();
+        this.client.getStorage().saveSaveFile(client.getTaskList());
         this.client.getUi().respond("Task List reset.");
     }
 }

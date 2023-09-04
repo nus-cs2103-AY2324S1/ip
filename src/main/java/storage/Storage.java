@@ -6,20 +6,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-<<<<<<< HEAD
-/**
- * Used to handle saving
- * and loading files
- * 
- * @author Alvis Ng (supermii2)
- */
-public class Storage {
-    /** Object representation of file */
-    File saveFile;
-    TaskList taskList;
-    Rock client;
-    public Storage(File file, TaskList taskList, Rock client) {
-=======
 import client.Rock;
 import tasks.TaskList;
 /**
@@ -38,7 +24,6 @@ public class Storage {
      * @param client Chatbot client
      */
     public Storage(File file, Rock client) {
->>>>>>> A-CodingStandard
         this.client = client;
         this.saveFile = file;
         try {
@@ -55,7 +40,10 @@ public class Storage {
     public void createSaveFile() throws StorageException {
         File saveFile = this.saveFile;
         try {
-            saveFile.createNewFile();
+            if (saveFile.createNewFile()) {
+                client.getUi().say("New save file created!");
+                saveSaveFile(new TaskList());
+            };
         } catch (IOException e) {
             throw new StorageException("WARNING: Unable to create save file!");
         }
@@ -64,11 +52,11 @@ public class Storage {
      * Saves existing task list to save file
      * @throws StorageException Thrown if no save file can be found to save to
      */
-    public void saveSaveFile() throws StorageException {
+    public void saveSaveFile(TaskList tl) throws StorageException {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(this.saveFile);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(this.client.getTaskList());
+            objectOutputStream.writeObject(tl);
             objectOutputStream.close();
         } catch (IOException e) {
             throw new StorageException("WARNING: Unable to find save file!");

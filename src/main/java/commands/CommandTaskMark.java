@@ -45,7 +45,7 @@ public class CommandTaskMark extends Command {
 
             } else {
                 taskList.getTask(taskIdx - 1).setCompleted(this.isMarking);
-                this.client.getStorage().saveSaveFile();
+                this.client.getStorage().saveSaveFile(client.getTaskList());
                 String response = "";
                 if (this.isMarking) {
                     response += "Task marked successfully: \n";
