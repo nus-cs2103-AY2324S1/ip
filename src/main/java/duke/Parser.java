@@ -1,6 +1,12 @@
 package duke;
 
-import duke.command.*;
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
 import duke.task.TaskType;
 
 /**
@@ -17,7 +23,8 @@ public class Parser {
      * @throws DukeException If the input cannot be parsed into a valid command.
      */
     public Command parseCommand(String userInput) throws DukeException {
-        String userCommand, args;
+        String userCommand;
+        String args;
         String[] parsedCommand = userInput.split(" ", 2);
         userCommand = parsedCommand[0];
         args = parsedCommand.length > 1 ? parsedCommand[1] : "";
