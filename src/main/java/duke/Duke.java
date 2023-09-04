@@ -45,7 +45,7 @@ public class Duke {
         try {
             Command command = Parser.parse(userInput);
             command.execute(taskList);
-            System.out.println(command.getCommandMessage());
+            command.printOutput(command.getCommandMessage());
             return command;
         } catch (KoraException e) {
             System.out.println(e.getMessage());
