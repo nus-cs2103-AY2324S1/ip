@@ -22,16 +22,40 @@ public class Parser {
     }
 
     /**
-     * Displays the list of tasks to the user.
+     * Processes the user commands and decides the correct output.
      *
-     * @param taskList The list of tasks to display.
+     * @param command The user command.
+     * @param taskList The user's list of tasks.
      */
-    public static void printList(TaskList taskList) {
-        System.out.println("Here are the tasks in your list:");
-
-        for (int i = 1; i <= taskList.getSize(); i++) {
-            // Adding toString() to use the overridden one in duke.task.Task, etc.
-            System.out.println(i + ". " + taskList.getTask(i - 1).toString());
+    public void processCommand(String command, TaskList taskList) throws Exception {
+        if (command.equals("list")) {
+            ui.showList(taskList);
+        } else if (command.startsWith("mark ")) {
+            printMark(command, taskList);
+        } else if (command.startsWith("unmark ")) {
+            printUnmark(command, taskList);
+        } else if (command.startsWith("todo ")) {
+            addToDo(command, taskList);
+        } else if (command.startsWith("deadline ")) {
+            addDeadline(command, taskList);
+        } else if (command.startsWith("event ")) {
+            addEvent(command, taskList);
+        } else if (command.startsWith("delete ")) {
+            deleteTask(command, taskList);
+        } else if (command.startsWith("find ")) {
+            ui.showMatchingList(findMatchingTaskList(command, taskList));
+        } else {
+            if (command.startsWith("todo")) {
+                throw new InvalidDescriptionException("todo");
+            } else if (command.startsWith("deadline")) {
+                throw new InvalidDescriptionException("deadline");
+            } else if (command.startsWith("event")) {
+                throw new InvalidDescriptionException("event");
+            } else if (command.startsWith("find")) {
+                throw new InvalidDescriptionException("find");
+            } else {
+                throw new InvalidCommandException();
+            }
         }
     }
 
@@ -223,58 +247,6 @@ public class Parser {
         }
 
         return matchingTaskList;
-    }
-
-    /**
-     * Displays the list of tasks that matches the keyword indicated.
-     *
-     * @param matchingTaskList A TaskList of matching tasks to display.
-     */
-    public void printMatchingList(TaskList matchingTaskList) {
-        System.out.println("Here are the matching tasks in your list:");
-
-        for (int i = 1; i <= matchingTaskList.getSize(); i++) {
-            // Adding toString() to use the overridden one in duke.task.Task, etc.
-            System.out.println(i + ". " + matchingTaskList.getTask(i - 1).toString());
-        }
-    }
-
-    /**
-     * Processes the user commands and decides the correct output.
-     *
-     * @param command The user command.
-     * @param taskList The user's list of tasks.
-     */
-    public void processCommand(String command, TaskList taskList) throws Exception {
-        if (command.equals("list")) {
-            printList(taskList);
-        } else if (command.startsWith("mark ")) {
-            printMark(command, taskList);
-        } else if (command.startsWith("unmark ")) {
-            printUnmark(command, taskList);
-        } else if (command.startsWith("todo ")) {
-            addToDo(command, taskList);
-        } else if (command.startsWith("deadline ")) {
-            addDeadline(command, taskList);
-        } else if (command.startsWith("event ")) {
-            addEvent(command, taskList);
-        } else if (command.startsWith("delete ")) {
-            deleteTask(command, taskList);
-        } else if (command.startsWith("find ")) {
-            printMatchingList(findMatchingTaskList(command, taskList));
-        } else {
-            if (command.startsWith("todo")) {
-                throw new InvalidDescriptionException("todo");
-            } else if (command.startsWith("deadline")) {
-                throw new InvalidDescriptionException("deadline");
-            } else if (command.startsWith("event")) {
-                throw new InvalidDescriptionException("event");
-            } else if (command.startsWith("find")) {
-                throw new InvalidDescriptionException("find");
-            } else {
-                throw new InvalidCommandException();
-            }
-        }
     }
 
 }
