@@ -7,7 +7,8 @@ import kiera.command.AddCommand;
 import kiera.command.Command;
 import kiera.command.DeleteCommand;
 import kiera.command.ExitCommand;
-import kiera.command.FilterCommand;
+import kiera.command.FilterDateCommand;
+import kiera.command.FilterWordCommand;
 import kiera.command.ListCommand;
 import kiera.command.MarkCommand;
 import kiera.exception.KieraException;
@@ -50,20 +51,25 @@ public class Parser {
             return new DeleteCommand(desc);
         }
 
+        if (input.startsWith("find")) {
+            String desc = input.replace("find ", "");
+            return new FilterWordCommand(desc);
+        }
+
         if (input.startsWith("deadline-date")) {
             String desc = input.replace("deadline-date ", "");
-            return new FilterCommand(TaskType.DEADLINE, desc);
+            return new FilterDateCommand(TaskType.DEADLINE, desc);
         } else if (input.startsWith("event-date")) {
             String desc = input.replace("event-date ", "");
-            return new FilterCommand(TaskType.EVENT, desc);
+            return new FilterDateCommand(TaskType.EVENT, desc);
         }
 
         if (input.startsWith("deadline-today")) {
             String desc = LocalDate.now().toString();
-            return new FilterCommand(TaskType.DEADLINE, desc);
+            return new FilterDateCommand(TaskType.DEADLINE, desc);
         } else if (input.startsWith("event-today")) {
             String desc = LocalDate.now().toString();
-            return new FilterCommand(TaskType.EVENT, desc);
+            return new FilterDateCommand(TaskType.EVENT, desc);
         }
 
         if (input.startsWith("todo")) {
@@ -77,7 +83,8 @@ public class Parser {
             return new AddCommand(TaskType.EVENT, desc);
         }
 
-        throw new KieraException("invalid input, i don't understand...");
+        throw new KieraException("    invalid input, i don't understand...");
+
     }
 
 }

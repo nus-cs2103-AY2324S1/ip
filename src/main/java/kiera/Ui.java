@@ -10,7 +10,7 @@ import kiera.tasktype.TaskType;
  * Displays messages and reads user input.
  */
 public class Ui {
-    private final String Line = "   ---------------------------------------------";
+    private final String line = "   ---------------------------------------------";
 
     public Ui() {
     }
@@ -35,31 +35,31 @@ public class Ui {
      * Displays a horizontal line separator.
      */
     public void showLine() {
-        System.out.println(Line);
+        System.out.println(line);
     }
 
     /**
      * Displays a welcome message when the application starts.
      */
     public void showHello() {
-        System.out.println(Line
+        System.out.println(line
                 + "\n"
                 + "    "
                 + "hi, it's kiera.\n"
                 + "    "
                 + "what do you need?\n"
-                + Line);
+                + line);
     }
 
     /**
      * Displays a farewell message when the user exits the application.
      */
     public void showBye() {
-        System.out.println(Line
+        System.out.println(line
                 + "\n"
                 + "    "
                 + "muaks! <3\n"
-                + Line);
+                + line);
     }
 
     /**
@@ -117,30 +117,54 @@ public class Ui {
     }
 
     /**
-     * Shows a notice indicating filtered tasks based on date and task type.
+     * Shows a notice listing filtered tasks based on date and task type.
      *
      * @param d Date to be filtered by.
      * @param t Type of tasks.
-     * @param content Content of the filtered tasks.
-     * @param listSize Current size of the filtered task list.
+     * @param content String representation of filtered tasks.
+     * @param listSize Size of the filtered task list.
      */
-    public void showFilteredNotice(LocalDate d, TaskType t, String content, int listSize) {
+    public void showFilteredByDateNotice(LocalDate d, TaskType t, String content, int listSize) {
         String plural = listSize == 1 ? " " : "s ";
         String verb = listSize == 1 ? "is " : "are ";
         System.out.println("    "
                 + "there "
                 + verb
                 + listSize
+                + " "
                 + t
                 + plural
                 + "due on "
                 + d
-                + ":\n     "
+                + ":\n"
                 + content
                 + "    "
         );
     }
 
+    /**
+     * Shows a notice listing filtered tasks based on keyword.
+     *
+     * @param desc Keyword to be filtered by.
+     * @param content String representation of filtered tasks.
+     * @param listSize Size of the filtered task list.
+     */
+    public void showFilteredByKeywordNotice(String desc, String content, int listSize) {
+        String plural = listSize == 1 ? " " : "s ";
+        String verb = listSize == 1 ? "is " : "are ";
+        System.out.println("    "
+                + "there "
+                + verb
+                + listSize
+                + " task"
+                + plural
+                + "that matches your keyword ("
+                + desc
+                + "):\n"
+                + content
+                + "    "
+        );
+    }
     /**
      * Displays a list of tasks to the user.
      *

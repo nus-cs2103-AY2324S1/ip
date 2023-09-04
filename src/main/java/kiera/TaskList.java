@@ -95,6 +95,18 @@ public class TaskList {
     }
 
     /**
+     * FIlters tasks in the list of tasks by a keyword.
+     *
+     * @param desc Keyword to filter by.
+     * @return A list of tasks containing the specified keyword.
+     */
+    public ArrayList<Task> filterByKeyword(String desc) {
+        return this.tasks.stream()
+                .filter(task -> task.toString().contains(desc))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
      * Checks if the list of tasks is empty.
      *
      * @return True if the list of tasks is empty, otherwise return false.

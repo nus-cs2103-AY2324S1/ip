@@ -13,7 +13,7 @@ import kiera.tasktype.TaskType;
 /**
  * Command that filters task based on input.
  */
-public class FilterCommand extends Command {
+public class FilterDateCommand extends Command {
 
     /**
      * Constructor for FilterCommand.
@@ -21,7 +21,7 @@ public class FilterCommand extends Command {
      * @param t Type of tasks to be filtered.
      * @param desc Description that tasks are filtered by.
      */
-    public FilterCommand(TaskType t, String desc) {
+    public FilterDateCommand(TaskType t, String desc) {
         setDescription(desc);
         setTaskType(t);
     }
@@ -50,8 +50,9 @@ public class FilterCommand extends Command {
         }
         String content = filtered.stream()
                 .map(task -> "     " + tasks.indexOf(task) + ". " + task + "\n")
-                .collect(Collectors.joining());
-        ui.showFilteredNotice(d, t, content, filtered.size());
+                .collect(Collectors.joining())
+                .stripTrailing();
+        ui.showFilteredByDateNotice(d, t, content, filtered.size());
     }
 
     /**
