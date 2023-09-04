@@ -21,10 +21,11 @@ public class DeleteCommand extends Command {
      * @params storage Storage object that houses database of the program
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.deleteTask(tasks, index);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String out = ui.deleteTask(tasks, index);
         tasks.delete(index);
         storage.update(tasks);
+        return out;
     }
 
 }

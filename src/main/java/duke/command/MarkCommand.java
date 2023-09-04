@@ -23,11 +23,12 @@ public class MarkCommand extends Command {
      * @throws DukeException exception thrown if marking task is not able to be done, possibly due to erroneous indexing
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
             tasks.markTaskAsDone(index);
-            ui.markTask(index, tasks);
+            String out = ui.markTask(index, tasks);
             storage.update(tasks);
+            return out;
         } catch (DukeException e) {
             throw e;
         }

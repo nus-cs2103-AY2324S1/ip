@@ -22,7 +22,7 @@ public class ExitCommand extends Command {
      * @params ui UI interface that is used to print messages to the terminal
      * @params storage Storage object that houses database of the program
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return "Bye. Hope to see you again soon!\n";
     }
 }

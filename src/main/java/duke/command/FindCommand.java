@@ -20,7 +20,7 @@ public class FindCommand extends Command {
      * @param storage Storage object that houses database of the program
      */
     @Override 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.find(tasks, this.keyString);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.find(tasks, this.keyString);
     }
 }

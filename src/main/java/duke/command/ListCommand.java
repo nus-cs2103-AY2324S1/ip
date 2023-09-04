@@ -17,7 +17,7 @@ public class ListCommand extends Command {
      * @throws DukeException exception thrown if database cannot be interpreted correctly
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        ui.list(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        return ui.list(tasks);
     }
 }

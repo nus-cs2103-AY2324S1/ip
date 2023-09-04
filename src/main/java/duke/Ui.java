@@ -9,6 +9,9 @@ public class Ui {
     private String lnspace = "____________________________________________________________";
     private final Scanner sc;
 
+    /**
+     * Constructor for Ui objects
+     */
     public Ui() {
         this.sc = new Scanner(System.in);
     }
@@ -69,7 +72,7 @@ public class Ui {
 
     /**
      * A method that reads the next command that user inputted
-     * @returns string that user inputted
+     * @return string that user inputted
      */
 
     public String readCommand() {
@@ -79,31 +82,40 @@ public class Ui {
     /**
      * A method that prints message during task addition
      * @param arr TaskList object that task object is added to
+     * @return string representing task addition
      */
-    public void addTask(TaskList arr) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(arr.taskToString(arr.length() - 1));
-        System.out.println("Now you have " + (arr.length()) + arr.numTasksToString() + " in the list.");
+    public String addTask(TaskList arr) {
+        String out = "Got it. I've added this task:\n";
+        out += arr.taskToString(arr.length() - 1);
+        out += "\nNow you have " + (arr.length()) + arr.numTasksToString() + " in the list.";
+        System.out.println(out);
+        return out;
     }
 
     /**
      * A method that prints message during task marking
      * @param index index of Task object that user marked in specified TaskList object
      * @param arr TaskList object that contains Task object that user marked
+     * @return string representing task marking
      */
-    public void markTask(int index, TaskList arr) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(arr.taskToString(index));
+    public String markTask(int index, TaskList arr) {
+        String out = "Nice! I've marked this task as done:\n";
+        out += arr.taskToString(index);
+        System.out.println(out);
+        return out;
     }
 
     /**
      * A method that prints message during task unmarking
      * @param index index of Task object that user unmarked in specified TaskList object
      * @param arr TaskList object that contains Task object that user unmarked
+     * @return string representing task unmarking
      */
-    public void unmarkTask(int index, TaskList arr) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(arr.taskToString(index));
+    public String unmarkTask(int index, TaskList arr) {
+        String out = "Nice! I've marked this task as not done yet:\n";
+        out += arr.taskToString(index);
+        System.out.println(out);
+        return out;
     }
 
     /**
@@ -146,10 +158,13 @@ public class Ui {
      * A method that prints message when user deletes a task in TaskList
      * @param arr TaskList where deleted Task is contained in
      * @param index index of Task object that was deleted
+     * @return string representing task deletion
      */
-    public void deleteTask(TaskList arr, int index) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(arr.taskToString(index));
-        System.out.println("Now you have " + (arr.length() - 1) + arr.numTasksToString() + " in the list.");
+    public String deleteTask(TaskList arr, int index) {
+        String out = "Noted. I've removed this task:\n";
+        out += arr.taskToString(index);
+        out += "\nNow you have " + (arr.length() - 1) + arr.numTasksToString() + " in the list.";
+        System.out.println(out);
+        return out;
     }
 }

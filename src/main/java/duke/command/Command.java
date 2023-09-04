@@ -18,7 +18,7 @@ public abstract class Command {
      * @params ui UI interface that is used to print messages to the terminak
      * @params storage Storage object that houses database of the program
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 
     /**
      * A method that returns true when command is to exit program

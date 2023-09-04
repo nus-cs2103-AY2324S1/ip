@@ -24,11 +24,12 @@ public class UnmarkCommand extends Command {
      * possibly due to erroneous indexing
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
             tasks.markTaskAsNotDone(index);
-            ui.unmarkTask(index, tasks);
+            String out = ui.unmarkTask(index, tasks);
             storage.update(tasks);
+            return out;
         } catch (DukeException e) {
             throw e;
         }
