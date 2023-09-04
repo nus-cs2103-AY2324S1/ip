@@ -1,7 +1,10 @@
+package duke;
+
+import duke.task.Task;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class TaskList {
     private ArrayList<Task> taskArrayList;

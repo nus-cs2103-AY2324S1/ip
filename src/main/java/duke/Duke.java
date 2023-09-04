@@ -1,19 +1,15 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
+package duke;
+
+import duke.task.Task;
+
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.sql.SQLOutput;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
 
-//    private ArrayList<Task> taskList;
+//    private ArrayList<duke.task.Task> taskList;
     private LocalDate currentDate;
     private Ui ui;
     private Storage storage;
@@ -31,7 +27,7 @@ public class Duke {
             System.out.println(e.getMessage());
             this.tasks = new TaskList();
 
-            System.out.println("Starting Duke with Empty Task List...");
+            System.out.println("Starting Duke with Empty duke.task.Task List...");
         }
     }
 

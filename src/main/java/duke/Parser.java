@@ -1,3 +1,5 @@
+package duke;
+
 import java.text.ParseException;
 
 public class Parser {
@@ -7,12 +9,12 @@ public class Parser {
         try {
             taskNo = Integer.parseInt(userInput.substring(5));
             if (taskNo > list.getSize() | taskNo < 1) {
-                throw new InvalidTaskNumberException("Please enter valid Task No. to mark!");
+                throw new InvalidTaskNumberException("Please enter valid duke.task.Task No. to mark!");
             }
         } catch (NumberFormatException e) {
-            throw new ParserException("Please enter valid Task No. (INTEGER) to mark in the format: 'mark 4'");
+            throw new ParserException("Please enter valid duke.task.Task No. (INTEGER) to mark in the format: 'mark 4'");
         } catch (InvalidTaskNumberException d) {
-            throw new ParserException("Please enter valid Task No. to mark!");
+            throw new ParserException("Please enter valid duke.task.Task No. to mark!");
         }
         return taskNo;
     }
@@ -22,12 +24,12 @@ public class Parser {
         try {
             taskNo = Integer.parseInt(userInput.substring(7));
             if (taskNo > list.getSize() | taskNo < 1) {
-                throw new InvalidTaskNumberException("Please enter valid Task No. to unmark!");
+                throw new InvalidTaskNumberException("Please enter valid duke.task.Task No. to unmark!");
             }
         } catch (NumberFormatException e) {
-            throw new ParserException("Please enter valid Task No. (INTEGER) to unmark in the format: 'unmark 4'");
+            throw new ParserException("Please enter valid duke.task.Task No. (INTEGER) to unmark in the format: 'unmark 4'");
         } catch (InvalidTaskNumberException d) {
-            throw new ParserException("Please enter valid Task No. to unmark!");
+            throw new ParserException("Please enter valid duke.task.Task No. to unmark!");
         }
         return taskNo;
     }
@@ -37,12 +39,12 @@ public class Parser {
         try {
             taskNo = Integer.parseInt(userInput.substring(7));
             if (taskNo > list.getSize() | taskNo < 1) {
-                throw new InvalidTaskNumberException("Please enter valid Task No. to delete!");
+                throw new InvalidTaskNumberException("Please enter valid duke.task.Task No. to delete!");
             }
         } catch (NumberFormatException e) {
-            throw new ParserException("Please enter valid Task No. (INTEGER) to delete in the format: 'delete 4'");
+            throw new ParserException("Please enter valid duke.task.Task No. (INTEGER) to delete in the format: 'delete 4'");
         } catch (InvalidTaskNumberException d) {
-            throw new ParserException("Please enter valid Task No. to delete!");
+            throw new ParserException("Please enter valid duke.task.Task No. to delete!");
         }
         return taskNo;
     }

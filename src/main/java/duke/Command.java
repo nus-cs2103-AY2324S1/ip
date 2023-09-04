@@ -1,3 +1,5 @@
+package duke;
+
 public class Command {
     public static final String EXIT = "bye";
     public static final String LIST = "list";

@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.InvalidTaskCreationException;
+
 import java.time.LocalDateTime;
 
 public class ToDo extends Task {
