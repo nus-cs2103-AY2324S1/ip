@@ -29,13 +29,15 @@ public class TodoCommand extends Command {
     /**
      * Method to encapsulate the execution logic of the command
      *
-     * @param taskList - the task list instance  of the current duke
+     * @param taskList - the task list instance of the current duke
      * @param ui       - the ui instance of DUKE
-     * @param storage  - the storage instance to allow the command to write to the storage
+     * @param storage  - the storage instance to allow the command to write to the
+     *                 storage
+     * @return the reply of Quack
      * @throws DukeBadInputException - if the input cannot be used
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
         if (taskList.length() >= 100) {
             throw new DukeBadInputException("quack cannot remember any more tasks!!");
         }
@@ -44,14 +46,9 @@ public class TodoCommand extends Command {
         Task newTask = new TodoTask(desc);
         taskList.add(newTask);
         if (!storage.writeToFile(newTask.getStored())) {
-            ui.unexpectedError("unable to write to storage");
-            return;
+            return ui.getUnexpectedErrorMessage("unable to write to storage");
         }
-
-        // writes to the ui
-        ui.println("Quack! I have added this task:");
-        ui.println(newTask.toString());
-        ui.println("Quack! Quack is currently remembering " + taskList.length() + " tasks.");
+        return ui.getNewTaskMessage(newTask, taskList.length());
     }
 
     /**

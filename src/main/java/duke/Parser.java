@@ -136,7 +136,7 @@ public class Parser {
                     String.format("Quack requires exactly one number after the %s command", splitInput[0]));
         }
         int ret = Integer.parseInt(splitInput[1]);
-        if (ret < 0) {
+        if (ret <= 0) {
             throw new DukeBadInputException(
                     "Quack requires a positive number to help you manage tasks!");
         }
