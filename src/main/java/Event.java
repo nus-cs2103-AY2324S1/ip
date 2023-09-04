@@ -8,12 +8,8 @@ public class Event extends Task {
 
     public Event(String description, String from, String to) throws DukeException {
         super(description);
-        try {
-            this.from = parseDate(from);
-            this.to = parseDate(to);
-        } catch (DukeException e) {
-            throw e;
-        }
+        this.from = parseDate(from);
+        this.to = parseDate(to);
     }
 
     @Override

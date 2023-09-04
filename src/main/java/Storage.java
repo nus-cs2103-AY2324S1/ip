@@ -7,12 +7,10 @@ import java.util.Scanner;
 public class Storage {
     private String filePath;
     private File file;
-    private Parser parser;
 
     public Storage(String filePath) {
         this.filePath = filePath;
         this.file = new File(filePath);
-        this.parser = new Parser();
         makeDataDir();
         this.createFile();
     }
@@ -39,7 +37,7 @@ public class Storage {
             Scanner s = new Scanner(file);
             while (s.hasNextLine()) {
                 String line = s.nextLine();
-                tasks.add(parser.dataToTask(line));
+                tasks.add(Parser.dataToTask(line));
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found. Your Chatbot will start from clean slate.");

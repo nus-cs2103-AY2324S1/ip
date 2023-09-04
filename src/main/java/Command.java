@@ -1,11 +1,15 @@
-public abstract class Command {
-    private String fullCommand;
+import java.util.ArrayList;
 
-    public Command(String fullCommand) {
-        this.fullCommand = fullCommand;
+public abstract class Command {
+    protected ArrayList<String> commandDetails;
+
+    public Command(ArrayList<String> commandDetails) {
+        this.commandDetails = commandDetails;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 
+    public boolean isExit() {
+        return false;
     }
 }
