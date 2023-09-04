@@ -1,76 +1,72 @@
 package bot.utils;
 
 import java.util.Iterator;
-import java.util.Scanner;
 
 /**
  * User interface class responsible for dealing with interactions with the user.
  */
 public class Ui {
-    /**
-     * Scanner to read user input.
-     */
-    private Scanner sc = new Scanner(System.in);
 
     /**
      * Default constructor. Creates a Ui object.
      */
-    public Ui() {}
+    public Ui() {
+    }
 
     /**
-     * Prints the error to the screen.
+     * Formats the input string as an error message for the bot.
      *
-     * @param str Error message.
+     * @param str Input string.
+     * @return Input string formatted as an error message.
      */
-    public void showError(String str) {
-        System.out.println("ERROR: " + str);
+    public String showError(String str) {
+        return println("ERROR: " + str);
     }
 
     /**
-     * Prints the message to the screen.
+     * Formats the input string similar to System.out.println().
      *
-     * @param str Message.
+     * @param str Input string.
+     * @return String with line separator.
      */
-    public void println(String str) {
-        System.out.println(str);
+    public String println(String str) {
+        return str + System.lineSeparator();
     }
 
     /**
-     * Returns user input from System.in.
+     * Gets the bot's welcome message.
      *
-     * @return Full command string.
+     * @return Welcome message.
      */
-    public String readCommand() {
-        return sc.nextLine();
+    public String showWelcome() {
+        return println("Hello! I'm the trash gremlin Caelus!")
+                .concat(println("What can I do for you?"));
     }
 
     /**
-     * Returns the welcome message.
-     */
-    public void showWelcome() {
-        println("Hello! I'm the trash gremlin Caelus!\nWhat can I do for you?");
-    }
-
-    /**
-     * Returns the goodbye message.
-     */
-    public void showGoodbye() {
-        println("Bye. I'll be at the nearest trash can!");
-        sc.close();
-    }
-
-    /**
-     * Prints the tasks with their index to the screen.
+     * Gets the bot's farewell message.
      *
-     * @param tasks Tasks to print.
+     * @return Farewell message.
      */
-    public void displayTaskList(TaskList tasks) {
+    public String showGoodbye() {
+        return println("Bye. I'll be at the nearest trash can!");
+    }
+
+    /**
+     * Gets the inputted task list in a string format for printing to a screen.
+     *
+     * @param tasks Input task list.
+     * @return Task list in string format.
+     */
+    public String displayTaskList(TaskList tasks) {
         StringBuilder out = new StringBuilder();
         Iterator<Task> iter = tasks.iterator();
         for (int ctr = 1; iter.hasNext(); ctr++) {
-            out.append(ctr).append(". ").append(iter.next().toString()).append("\n");
+            out.append(ctr).append(". ")
+                    .append(iter.next().toString())
+                    .append(System.lineSeparator());
         }
         out.deleteCharAt(out.length() - 1);
-        println(out.toString());
+        return println(out.toString());
     }
 }

@@ -129,11 +129,12 @@ public abstract class Command {
      * @param tasks   Task list containing tasks.
      * @param ui      User interface for interacting with users.
      * @param storage Storage for storing data.
+     * @return Bot's response to the command.
      * @throws EmptyListException    If an illegal operation is performed on an empty list.
      * @throws InvalidIndexException If the command tries to access an invalid index.
      * @throws InvalidTaskException  If the command creates a task and fails to do so.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyListException,
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws EmptyListException,
             InvalidIndexException, InvalidTaskException;
 
     /**
@@ -157,8 +158,8 @@ public abstract class Command {
          * @param ui      User interface for interacting with users.
          * @param storage Bot.Storage for storing data.
          */
-        public void execute(TaskList tasks, Ui ui, Storage storage) {
-            ui.showGoodbye();
+        public String execute(TaskList tasks, Ui ui, Storage storage) {
+            return ui.showGoodbye();
         }
     }
 
@@ -181,14 +182,14 @@ public abstract class Command {
          * @param tasks   Bot.Task list containing tasks.
          * @param ui      User interface for interacting with users.
          * @param storage Bot.Storage for storing data.
+         * @return Bot's response to the command.
          * @throws EmptyListException If an illegal operation is performed on an empty list.
          */
-        public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyListException {
+        public String execute(TaskList tasks, Ui ui, Storage storage) throws EmptyListException {
             if (tasks.size() == 0) {
                 throw new EmptyListException();
             }
-            ui.println("Here are the tasks in your list:");
-            ui.displayTaskList(tasks);
+            return ui.println("Here are the tasks in your list:").concat(ui.displayTaskList(tasks));
         }
     }
 
@@ -199,11 +200,11 @@ public abstract class Command {
         /**
          * Index to mark the task at.
          */
-        private int index;
+        private final int index;
         /**
          * Mark the task as done or not done.
          */
-        private DoneStatus done;
+        private final DoneStatus done;
 
         /**
          * Creates a MarkCommand with the command to mark or unmark the task
@@ -232,15 +233,16 @@ public abstract class Command {
          * @param tasks   Bot.Task list containing tasks.
          * @param ui      User interface for interacting with users.
          * @param storage Bot.Storage for storing data.
+         * @return Bot's response to the command.
          * @throws InvalidIndexException If the command tries to access an invalid index.
          */
-        public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
+        public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
             if (done.equals(DoneStatus.DONE)) {
                 tasks.mark(index);
-                ui.println("I'll mark this as done:\n" + tasks.get(index).toString());
+                return ui.println("I'll mark this as done:\n" + tasks.get(index).toString());
             } else {
                 tasks.unmark(index);
-                ui.println("I'll mark this as not done:\n" + tasks.get(index).toString());
+                return ui.println("I'll mark this as not done:\n" + tasks.get(index).toString());
             }
         }
     }
@@ -252,7 +254,7 @@ public abstract class Command {
         /**
          * Full command string
          */
-        private String input;
+        private final String input;
 
         /**
          * Creates an AddCommand with the full command string.
@@ -278,13 +280,14 @@ public abstract class Command {
          * @param tasks   Bot.Task list containing tasks.
          * @param ui      User interface for interacting with users.
          * @param storage Bot.Storage for storing data.
+         * @return Bot's response to the command.
          * @throws InvalidTaskException If the command creates a task and fails to do so.
          */
-        public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidTaskException {
+        public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidTaskException {
             Task newTask = Task.makeTask(input);
-            ui.println("Added:\n" + newTask.toString());
             tasks.add(newTask);
-            ui.println("Now you have " + tasks.size() + " task(s) in the list.");
+            return ui.println("Added:\n" + newTask.toString())
+                    .concat(ui.println("Now you have " + tasks.size() + " task(s) in the list."));
         }
     }
 
@@ -295,7 +298,7 @@ public abstract class Command {
         /**
          * Index to delete task at.
          */
-        private int index;
+        private final int index;
 
         /**
          * Creates a DeleteCommand with the given index.
@@ -321,12 +324,13 @@ public abstract class Command {
          * @param tasks   Bot.Task list containing tasks.
          * @param ui      User interface for interacting with users.
          * @param storage Bot.Storage for storing data.
+         * @return Bot's response to the command.
          * @throws InvalidIndexException If the command tries to access an invalid index.
          */
-        public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
+        public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
             Task task = tasks.remove(index);
-            System.out.println("I've removed this task:\n" + task.toString());
-            System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
+            return ui.println("I've removed this task:\n" + task.toString())
+                    .concat(ui.println("Now you have " + tasks.size() + " task(s) in the list."));
         }
     }
 
@@ -337,7 +341,7 @@ public abstract class Command {
         /**
          * Full command string.
          */
-        private String input;
+        private final String input;
 
         /**
          * Creates an FindCommand with the full command string.
@@ -363,14 +367,15 @@ public abstract class Command {
          * @param tasks   Task list containing tasks.
          * @param ui      User interface for interacting with users.
          * @param storage Storage for storing data.
+         * @return Bot's response to the command.
          */
-        public void execute(TaskList tasks, Ui ui, Storage storage) {
+        public String execute(TaskList tasks, Ui ui, Storage storage) {
             TaskList queries = tasks.findAll(input.substring(5).trim());
             if (queries.size() > 0) {
-                ui.println("Here are the matching tasks in your list:");
-                ui.displayTaskList(queries);
+                return ui.println("Here are the matching tasks in your list:")
+                        .concat(ui.displayTaskList(queries));
             } else {
-                ui.println("Sorry, no matching tasks found.");
+                return ui.println("Sorry, no matching tasks found.");
             }
         }
     }
