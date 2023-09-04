@@ -24,6 +24,7 @@ public class Barbie {
         PARTY,
         LIST,
         BYE,
+        FIND
     }
 
     /**
@@ -121,12 +122,20 @@ public class Barbie {
                                 throw new BarbieNoTimingException();
                             }
 
-                            desc = parts2[0];
-                            LocalDate from = LocalDate.parse(parts2[1].strip());
-                            LocalDate to = LocalDate.parse(parts2[2].strip());
+                            Ui.taskAdded(list.get(indexNumber));
+                            indexNumber ++;
+                            break;
+                        case FIND:
+                            if (parts.length <2) {
+                                throw new BarbieNoKeywordException();
+                            }
+                            String keyword = parts[1];
 
-                            list.add(indexNumber, new Party(desc, from, to));
-                            Storage.addToList(path, desc, from, to);
+                            Ui.findTasks(list, indexNumber, keyword);
+                            break;
+                        case LIST:
+                            // No variables to edit, only output (refer to listTasks func)
+                            Ui.listTasks(list, indexNumber);
                             break;
 
                         default:
