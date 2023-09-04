@@ -1,23 +1,34 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
 
-    protected String by;
-    public Deadline(String description, String by) {
+    protected LocalDateTime by;
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
 
-    public static Deadline DeadlineCon(String description, String by) throws InvalidTaskCreationException {
+    public static Deadline DeadlineCon(String description, String by) throws InvalidTaskCreationException, DateTimeParseException {
         if (description.equalsIgnoreCase("")) {
             throw new InvalidTaskCreationException("OOPS!!! The description of a Deadline Task cannot be empty.");
         } else if (by.equalsIgnoreCase("")) {
             throw new InvalidTaskCreationException("OOPS!!! The deadline time of a Deadline Task cannot be empty.");
         } else {
-            return new Deadline(description, by);
+            LocalDateTime deadlineDate = LocalDateTime.parse(by, Task.DTformatter);
+            return new Deadline(description, deadlineDate);
         }
+    }
+
+    public LocalDateTime getUrgencyDate() {
+        return this.by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+
+        // Format the LocalDateTime object to a string
+        String formattedDate = this.by.format(Task.outputFormatter);
+        return "[D]" + super.toString() + " (by: " + formattedDate + ")";
     }
 }

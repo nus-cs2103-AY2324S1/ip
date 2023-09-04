@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 public class ToDo extends Task {
 
     public ToDo(String description) {
@@ -9,6 +11,10 @@ public class ToDo extends Task {
             throw new InvalidTaskCreationException("OOPS!!! The description of a todo cannot be empty.");
         }
         return new ToDo(description);
+    }
+
+    public LocalDateTime getUrgencyDate() {
+        return LocalDateTime.now();
     }
 
     @Override

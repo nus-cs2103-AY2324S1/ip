@@ -3,6 +3,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.sql.SQLOutput;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,10 +14,17 @@ import java.util.Scanner;
 public class Duke {
 
     private ArrayList<Task> taskList;
+    private LocalDate currentDate;
 
     public Duke() {
         this.taskList = new ArrayList<>();
+        this.currentDate = LocalDate.now();
     }
+
+    private void setcurrentDate(LocalDate date) {
+        this.currentDate = date;
+    }
+
     public static String botMessage(String message) {
         String space = "    ";
         String horizontalBar = "-------------------------------------------------";
@@ -81,6 +92,7 @@ public class Duke {
                     if (splitStringList.length != 5) {
                         throw new InvalidFileFormatException("Invalid format for Event task in the file.");
                     }
+
                     fabricatedUserInput = "event " + splitStringList[2] + "/from " + splitStringList[3] + "/to " + splitStringList[4];
 
                     Task ev;
@@ -128,6 +140,40 @@ public class Duke {
             for (int i = 1; i <= list.size(); i++) {
                 botOutput = botOutput + i + "." + " " + list.get(i-1) + "\n    ";
             }
+        } else if (userInput.equalsIgnoreCase("list week")) {
+            ArrayList<Task> listWeek = new ArrayList<>();
+            for (Task t: list) {
+                LocalDateTime taskDueDate = t.getUrgencyDate();
+                long daysDifference = ChronoUnit.DAYS.between(this.currentDate, taskDueDate);
+                // Check if the task's due date is within one week of the current date (7 days)
+                if (daysDifference >= 0 && daysDifference <= 7) {
+                    listWeek.add(t);
+                }
+            }
+
+            //prints the resultant listWeek array
+            botOutput = botOutput + "Here are the tasks in your list that start/due within one week: \n    ";
+            for (int i = 1; i <= listWeek.size(); i++) {
+                botOutput = botOutput + i + "." + " " + listWeek.get(i-1) + "\n    ";
+            }
+
+        } else if (userInput.equalsIgnoreCase("list month")) {
+            ArrayList<Task> listMonth = new ArrayList<>();
+            for (Task t: list) {
+                LocalDateTime taskDueDate = t.getUrgencyDate();
+                long daysDifference = ChronoUnit.DAYS.between(this.currentDate, taskDueDate);
+                // Check if the task's due date is within one week of the current date (7 days)
+                if (daysDifference >= 0 && daysDifference <= 30) {
+                    listMonth.add(t);
+                }
+            }
+
+            //prints the resultant listWeek array
+            botOutput = botOutput + "Here are the tasks in your list that start/due within one month: \n    ";
+            for (int i = 1; i <= listMonth.size(); i++) {
+                botOutput = botOutput + i + "." + " " + listMonth.get(i-1) + "\n    ";
+            }
+
         } else if (userInput.startsWith("mark ")) {
             botOutput = botOutput + "Nice! I've marked this task as done: \n    ";
 
@@ -202,6 +248,8 @@ public class Duke {
                 botOutput = "OOPS!!! I'm sorry, but I'm afraid I don't comprehend Sergeant!";
             } catch (InvalidTaskCreationException t) {
                 botOutput = t.getMessage();
+            } catch (DateTimeParseException d) {
+                botOutput = "Please specify deadlines and dates in the following format, " + Task.dateTimeFormat;
             }
 
         }

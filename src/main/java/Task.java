@@ -1,3 +1,8 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -7,7 +12,13 @@ public class Task {
         this.isDone = false;
     }
 
-    public static Task taskCon(String userInput) throws InvalidCommandException, InvalidTaskCreationException{
+    public static final String dateFormat = "yyyy-MM-dd";
+    public static final String dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+    public static final DateTimeFormatter DTformatter = DateTimeFormatter.ofPattern(dateTimeFormat);
+
+    public static final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm, dd MMMM yyyy");
+
+    public static Task taskCon(String userInput) throws InvalidCommandException, InvalidTaskCreationException, DateTimeParseException {
         if (userInput.startsWith("todo")) {
             return ToDo.ToDoCon(userInput.substring(5));
         } else if (userInput.startsWith("deadline")) {
@@ -16,7 +27,7 @@ public class Task {
             String taskDescription = splitInput[0].substring(9).trim();
             String deadline = splitInput[1].trim();
 
-            return new Deadline(taskDescription, deadline);
+            return Deadline.DeadlineCon(taskDescription, deadline);
 
         } else if (userInput.startsWith("event")) {
 
@@ -26,10 +37,14 @@ public class Task {
             String eventStartTime = eventDetails[0].trim();
             String eventEndTime = eventDetails[1].trim();
 
-            return new Event(taskDescription, eventStartTime, eventEndTime);
+            return Event.EventCon(taskDescription, eventStartTime, eventEndTime);
         } else {
             throw new InvalidCommandException("Invalid command to add task!");
         }
+    }
+
+    public LocalDateTime getUrgencyDate() {
+        return LocalDateTime.now();
     }
 
     public String getStatusIcon() {
