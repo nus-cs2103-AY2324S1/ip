@@ -6,7 +6,7 @@ import urchatbot.tasks.Event;
 import urchatbot.tasks.Task;
 import urchatbot.ui.Ui;
 
-public class EventCommand extends Command{
+public class EventCommand extends Command {
     public String from;
     public String to;
     /**

@@ -4,7 +4,7 @@ import urchatbot.storage.Storage;
 import urchatbot.taskList.TaskList;
 import urchatbot.ui.Ui;
 
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
     /**
      * Constructs the ExitCommand class.
      *

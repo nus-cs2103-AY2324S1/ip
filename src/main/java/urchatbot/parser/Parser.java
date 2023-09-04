@@ -13,18 +13,6 @@ import java.time.format.DateTimeParseException;
 
 public class Parser{
     Ui ui = new Ui();
-    private enum CommandLine {
-        BYE,
-        DELETE,
-        CLEAR,
-        LIST,
-        MARK,
-        UNMARK,
-        TODO,
-        DEADLINE,
-        PRINT,
-        EVENT
-    }
 
     /**
      * Categorises and returns subclass of Command type based on entered command.
@@ -54,6 +42,8 @@ public class Parser{
             return parseDeleteCommand(command);
         case "PRINT":
             return parsePrintCommand(command);
+        case "FIND":
+            return parseFindCommand(command);
         case "BYE":
             return parseExitCommand(command);
         default:
@@ -165,9 +155,16 @@ public class Parser{
         String date = command.substring(command.indexOf("print") + 6).trim();
         String formattedDate = changeTimeFormat(date);
         if (formattedDate == null) {
-            throw new URChatBotException("Wrong DateTime format. Please enter 'yyyy-MM-dd HH:mm' or 'yyyy-MM-dd'");
+            throw new URChatBotException("Wrong DateTime format. Please enter 'yyyy-MM-dd HH:mm' or 'yyyy-MM-dd'.");
         }
         return new PrintCommand(formattedDate);
+    }
+    private static Command parseFindCommand(String command) throws URChatBotException {
+        String searchWord = command.substring(command.indexOf("find") + 5).trim();
+        if (searchWord == null) {
+            throw new URChatBotException("No words input for searching.");
+        }
+        return new FindCommand(searchWord);
     }
     private static Command parseExitCommand(String command) {
         return new ExitCommand(command);

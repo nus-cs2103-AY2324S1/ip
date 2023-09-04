@@ -13,6 +13,7 @@ public class Messages {
     public static final String MESSAGE_CLEAR = "All tasks are cleared";
     public static final String MESSAGE_MARK = "Nice! I've marked this task as done:\n";
     public static final String MESSAGE_UNMARK = "OK, I've marked this task as not done yet:\n";
+    public static final String MESSAGE_FIND = "Here are the matching tasks in your list: ";
     public static final String MESSAGE_DELETE = "Noted. I've removed this task: ";
     public static final String MESSAGE_ADD= "Noted. I've added this task: ";
     public static final String MESSAGE_NOW_YOU_HAVE = "\nNow you have ";

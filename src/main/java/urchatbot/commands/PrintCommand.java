@@ -4,7 +4,7 @@ import urchatbot.storage.Storage;
 import urchatbot.taskList.TaskList;
 import urchatbot.ui.Ui;
 
-public class PrintCommand extends Command{
+public class PrintCommand extends Command {
     private String formattedDate;
 
     /**

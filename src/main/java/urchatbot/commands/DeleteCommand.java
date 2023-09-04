@@ -5,7 +5,7 @@ import urchatbot.storage.Storage;
 import urchatbot.taskList.TaskList;
 import urchatbot.ui.Ui;
 
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     private int taskNumber;
     /**
      * Constructs the DeleteCommand class.

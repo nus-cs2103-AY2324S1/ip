@@ -4,7 +4,7 @@ import urchatbot.storage.Storage;
 import urchatbot.taskList.TaskList;
 import urchatbot.ui.Ui;
 
-public class ClearCommand extends Command{
+public class ClearCommand extends Command {
     /**
      * Constructs the ClearCommand class.
      *

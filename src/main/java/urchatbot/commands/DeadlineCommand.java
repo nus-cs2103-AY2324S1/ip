@@ -6,7 +6,7 @@ import urchatbot.tasks.Deadline;
 import urchatbot.tasks.Task;
 import urchatbot.ui.Ui;
 
-public class DeadlineCommand extends Command{
+public class DeadlineCommand extends Command {
     public String by;
 
     /**

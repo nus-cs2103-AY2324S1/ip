@@ -4,7 +4,7 @@ import urchatbot.storage.Storage;
 import urchatbot.taskList.TaskList;
 import urchatbot.ui.Ui;
 
-public class ListCommand extends Command{
+public class ListCommand extends Command {
     /**
      * Constructs the ListCommand class.
      *

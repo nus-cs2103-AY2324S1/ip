@@ -6,7 +6,7 @@ import urchatbot.taskList.TaskList;
 import urchatbot.tasks.Task;
 import urchatbot.ui.Ui;
 
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
     private int taskNumber;
 
     /**

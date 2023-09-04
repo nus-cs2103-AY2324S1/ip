@@ -50,7 +50,7 @@ public class Ui {
     }
     private boolean isCommentLine(String rawInputLine) {
         return rawInputLine.toUpperCase().trim().matches("\\b(?: BYE | DELETE | CLEAR |" +
-                " LIST | MARK | UNMARK |" +
+                " LIST | MARK | UNMARK | FIND" +
                 " TODO | DEADLINE | EVENT | PRINT)\\b");
     }
 
@@ -85,7 +85,7 @@ public class Ui {
      * Shows list message for ListCommand.
      */
     public void showListMessage() {
-        System.out.println(MESSAGE_LIST);
+        out.println(MESSAGE_LIST);
     }
     /**
      * Shows print message for PrintCommand.
@@ -101,6 +101,13 @@ public class Ui {
         out.println(MESSAGE_PRINT + count
                 + MESSAGE_PRINT_TWO_PLURAL + formattedDate);
     }
+    /**
+     * Shows find message for FindCommand.
+     */
+    public void showFindMessage() {
+        out.println(MESSAGE_FIND);
+    }
+
     /**
      * Shows mark message for MarkCommand.
      */
