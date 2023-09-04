@@ -43,6 +43,20 @@ public class UI {
     }
 
     /**
+     * Print a message to GUI.
+     *
+     * @param msg The message to print
+     */
+    public void sendMessage(String ... msg) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String m: msg) {
+            stringBuilder.append(m + "\n");
+        }
+        mainWindow.addDialog(
+                DialogBox.getDukeDialog(stringBuilder.toString(), mainWindow.getDukeImage(), Colors.NORMAL.code));
+    }
+
+    /**
      * Print an error to GUI.
      *
      * @param msg The error message to print
