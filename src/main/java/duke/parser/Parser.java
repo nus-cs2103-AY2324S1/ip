@@ -4,6 +4,7 @@ import duke.command.AddCommand;
 import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.task.DeadLine;
@@ -72,8 +73,6 @@ public class Parser {
 		try {
 			Date time = inputTime.parse(timeDate[0]);
 			String formatTime = outputTime.format(time);
-			// return the formatTime and formatDate as the stored value
-			// dateTtime
 			if (timeDate.length != 2) {
 				throw new DukeException("Enter time and Date properly");
 			}
@@ -81,8 +80,6 @@ public class Parser {
 			String day;
 			String month;
 			try {
-				// 630pm 29june
-				// if can means is 10 june cannot means is 1 june
 				Integer.parseInt(dayMonth.substring(1, 2));
 				day = dayMonth.substring(0,2);
 				month = dayMonth.substring(2);
@@ -135,8 +132,12 @@ public class Parser {
 				} catch (DukeException e) {
 					System.out.println(e.getMessage());
 				}
+				break;
 			case "mark":
 				try {
+					if (command.length != 2) {
+						throw new DukeException("Please specify where to mark");
+					}
 					int pos = Integer.parseInt(command[1]);
 					return new MarkCommand(true, pos);
 				} catch (IndexOutOfBoundsException e) {
@@ -144,8 +145,12 @@ public class Parser {
 				} catch (NumberFormatException n) {
 					System.out.println("Not a valid position to mark\n" + n.getMessage());
 				}
+				break;
 			case "unmark":
 				try {
+					if (command.length != 2) {
+						throw new DukeException("Please specify where to unmark");
+					}
 					int pos = Integer.parseInt(command[1]);
 					return new MarkCommand(false, pos);
 				} catch (IndexOutOfBoundsException e) {
@@ -153,6 +158,7 @@ public class Parser {
 				} catch (NumberFormatException n) {
 					System.out.println("Not a valid position to mark\n" + n.getMessage());
 				}
+				break;
 			case "delete":
 				try {
 					if (command.length != 2) {
@@ -167,6 +173,7 @@ public class Parser {
 				} catch (NumberFormatException n) {
 					System.out.println("The delete argument is not recognise as an integer\n" + n.getMessage());
 				}
+				break;
 			case "todo":
 				try {
 					if (command.length == 1) {
@@ -181,13 +188,20 @@ public class Parser {
 				} catch (DukeException e) {
 					System.out.println(e.getMessage());
 				}
+				break;
 			case "deadline":
 				try {
-					String[] byCheck = items[1].split(" ");
-					if (items.length != 3 && !byCheck[0].equals("by")) {
+					if (items.length != 2) {
 						throw new DukeException("enter deadline like this, deadline description /by:");
 					}
+					String[] byCheck = items[1].split(" ");
+					if (!byCheck[0].equals("by")) {
+						throw new DukeException("enter deadline like this, deadline description /by: enter the by!");
+					}
 					String[] start = items[0].split(" ");
+					if (start.length == 1) {
+						throw new DukeException("enter deadline with description");
+					}
 					for (String s : Arrays.copyOfRange(start, 1, start.length)) {
 						description.append(s).append(" ");
 					}
@@ -209,11 +223,15 @@ public class Parser {
 				} catch (DukeException e) {
 					System.out.println(e.getMessage());
 				}
+				break;
 			case "event":
 				try {
+					if (items.length != 3) {
+						throw new DukeException("enter event properly, event description /from /to");
+					}
 					String[] startCheck = items[1].split(" ");
 					String[] endCheck = items[2].split(" ");
-					if (items.length != 3 || !endCheck[0].equals("to") || !startCheck[0].equals("from")) {
+					if (!endCheck[0].equals("to") || !startCheck[0].equals("from")) {
 						throw new DukeException("enter event properly, event description /from /to");
 					}
 					for (String s : Arrays.copyOfRange(first, 1, first.length)) {
@@ -221,10 +239,15 @@ public class Parser {
 					}
 					description.deleteCharAt(description.length() - 1);
 					if (items[1].contains("am") || items[1].contains("pm")) {
-						String[] timeDateStart = Arrays.copyOfRange(items[1].split(" "), 1, items[1].split(" ").length);
+						String[] fromTimeStart = items[1].split(" ");
+						String[] byTimeEnd = items[2].split(" ");
+						if (fromTimeStart.length != 3 || byTimeEnd.length != 3) {
+							throw new DukeException("Enter Event properly");
+						}
+						String[] timeDateStart = Arrays.copyOfRange(fromTimeStart, 1,  fromTimeStart.length);
 						String dateFormatStart = formatDate(timeDateStart);
 						LocalDateTime begin = LocalDateTime.parse(dateFormatStart);
-						String[] timeDateEnd = Arrays.copyOfRange(items[2].split(" "), 1, items[1].split(" ").length);
+						String[] timeDateEnd = Arrays.copyOfRange(byTimeEnd, 1, byTimeEnd.length);
 						String dateFormatEnd = formatDate(timeDateEnd);
 						LocalDateTime end = LocalDateTime.parse(dateFormatEnd);
 						if (begin.isAfter(end)) {
@@ -248,9 +271,11 @@ public class Parser {
 				} catch (DukeException e) {
 					System.out.println(e.getMessage());
 				}
+				break;
 			default:
 				throw new DukeException("Invalid command that do not match any known command");
 		}
+		throw new DukeException("Invalid command does not match any known command");
 	}
 }
 
