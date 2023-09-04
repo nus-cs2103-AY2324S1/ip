@@ -1,11 +1,12 @@
 package task;
 
-import exception.DukeException;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import exception.DukeException;
 
 class TaskListTest {
     @Test
