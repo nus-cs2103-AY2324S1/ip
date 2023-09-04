@@ -1,4 +1,6 @@
-public class ToDos extends Task{
+package noel;
+
+public class ToDos extends Task {
 
     final String taskChar = "[T]";
 
