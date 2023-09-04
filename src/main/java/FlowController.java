@@ -1,36 +1,8 @@
 import java.util.*;
 
-public abstract class FlowController {
+public class FlowController {
 
-    //makes class EFFECTIVELY FINAL
-    private FlowController() {}
-
-    public enum Commands {
-        NULL(null), LIST("list"), BYE("bye"), MARK("mark"), UNMARK("unmark"),
-        TODO("todo"), DEADLINE("deadline"), EVENT("event"),
-        DELETE("delete");
-        private final String invocation;
-
-        private Commands(String invocation) {
-            this.invocation = invocation;
-        }
-        private static final HashMap<String, Commands> cmdset = new HashMap<>();
-
-        public static Commands match(String s) {
-            if (s == null) return Commands.NULL;
-            Commands match = cmdset.get(s.toLowerCase());
-            if(match == null) return Commands.NULL;
-            else return match;
-        }
-
-        static {
-            for (Commands cmd : values()) {
-                cmdset.put(cmd.invocation, cmd);
-            }
-        }
-    }
-
-    public static void main(String[] args) { //todo isolate meta-control into separate Catbot class, make FlowController singleton
+    public void run() { //todo isolate meta-control into separate Catbot class, make FlowController singleton
         TaskList taskList = new TaskList();
         Task task; int index;
         IOFormatter io = IOFormatter.ioFormatter;

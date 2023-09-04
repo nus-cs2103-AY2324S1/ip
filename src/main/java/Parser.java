@@ -1,58 +1,48 @@
+import java.util.Arrays;
+
 public class Parser {
 
-    public class CmdArg {
-        public final String command;
-        public final String arg;
+    private final String delimiter;
 
-        public CmdArg(String cmd, String arg){
-            this.command = cmd; this.arg = arg;
-        }
-    }
-
-    private int currentIndex;
-    private String toParse;
-    private char delimiter;
-
-    public Parser (char delimiter) {
+    //region Constructor
+    private Parser(String delimiter) {
         this.delimiter = delimiter;
     }
 
-    public Parser load(String s) {
-        this.currentIndex = 0;
-        this.toParse = s.trim();
-        return this;
-    }
-
-    public CmdArg parse() {
-        if (currentIndex >= toParse.length()) return null;
-
-        int index;
-        CmdArg cmdArg;
-
-        String cmd;
-        if (toParse.charAt(currentIndex) != this.delimiter) cmd = "";
-        else {
-            index = toParse.indexOf(" ", currentIndex);
-            if (index == -1) {
-                cmdArg = new CmdArg(toParse.substring(currentIndex + 1), null);
-                currentIndex = toParse.length();
-                return cmdArg;
-            } else {
-                cmd = toParse.substring(currentIndex + 1, index);
-                currentIndex = index+1;
-            }
-        }
-
-        String arg;
-        index = toParse.indexOf(this.delimiter, currentIndex);
-        if (index == -1) {
-            cmdArg = new CmdArg(cmd, toParse.substring(currentIndex).trim());
-            currentIndex = toParse.length();
+    public Parser by(String delimiter) {
+        if (delimiter == null || delimiter.isEmpty()) {
+            return new SingleParser();
         } else {
-            cmdArg = new CmdArg(cmd, toParse.substring(currentIndex, index).trim());
-            currentIndex = index;
+            return new Parser(delimiter);
         }
-        return cmdArg;
     }
+    //endregion
+
+    public class SingleParser extends Parser {
+
+        private SingleParser() {
+            super(null);
+        }
+
+        @Override
+        public NamedParameterMap parse(String s) {
+            NamedParameterMap cmdArgs = new NamedParameterMap();
+            parseCmdArg(s, cmdArgs);
+            return cmdArgs;
+        }
+    }
+
+    public NamedParameterMap parse(String s) {
+        NamedParameterMap cmdArgs = new NamedParameterMap();
+        Arrays.stream(s.split(delimiter)).forEach((segment) -> parseCmdArg(segment, cmdArgs));
+        return cmdArgs;
+    }
+
+    //region Internal Helpers
+    private void parseCmdArg(String s, NamedParameterMap map) {
+        String[] cmdArg = s.split("\\s", 2);
+        map.put(cmdArg[0], cmdArg[1]);
+    }
+    //endregion
 
 }
