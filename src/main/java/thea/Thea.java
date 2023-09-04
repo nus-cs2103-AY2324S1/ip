@@ -1,3 +1,4 @@
+package thea;
 public class Thea {
     private Storage storage;
     private TaskList tasks;
