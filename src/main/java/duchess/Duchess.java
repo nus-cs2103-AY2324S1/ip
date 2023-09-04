@@ -15,6 +15,7 @@ public class Duchess {
      * An ArrayList to store text in.
      */
     private static TaskList storedTasks = new TaskList();
+
     /**
      * Outputs the same string parameter that was passed in.
      *
@@ -116,7 +117,6 @@ public class Duchess {
             }
         });
     }
-
 
     public static void main(String[] args) {
         Ui.printGreeting();
