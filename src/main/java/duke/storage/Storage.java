@@ -1,5 +1,11 @@
 package duke.storage;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.format.DateTimeParseException;
+import java.util.Scanner;
+
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -7,21 +13,15 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.ToDo;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
-
 /**
  * Stores data of the list of tasks.
  *
  * @author Joseph Oliver Lim
  */
 public class Storage {
-    private final String DIRECTORY = "./data";
-    private final String FILE_PATH = DIRECTORY + "/duke.txt";
-    private File FILE;
+    private String directoryString = "./data";
+    private String filePathString = directoryString + "/duke.txt";
+    private File file;
 
     /**
      * Creates a new file to store data if no file exists yet.
@@ -30,13 +30,13 @@ public class Storage {
      */
     public void initialize() throws DukeException {
         try {
-            File directory = new File(this.DIRECTORY);
+            File directory = new File(directoryString);
             if (!directory.exists()) {
                 directory.mkdir();
             }
-            this.FILE = new File(this.FILE_PATH);
-            if (!this.FILE.exists()) {
-                this.FILE.createNewFile();
+            file = new File(filePathString);
+            if (!file.exists()) {
+                file.createNewFile();
             }
         } catch (IOException e) {
             throw new DukeException("☹ OOPS!!! Failed to create file.");
@@ -52,7 +52,7 @@ public class Storage {
     public TaskList readFile() throws DukeException {
         try {
             TaskList tasks = new TaskList();
-            Scanner sc = new Scanner(this.FILE);
+            Scanner sc = new Scanner(file);
             while (sc.hasNextLine()) {
                 String input = sc.nextLine();
                 String taskType = input.substring(1, 2);
@@ -98,7 +98,7 @@ public class Storage {
      */
     public void writeToFile(TaskList tasks) throws DukeException {
         try {
-            FileWriter fw = new FileWriter(FILE);
+            FileWriter fw = new FileWriter(file);
             for (int i = 0; i < tasks.getCountTasks(); i++) {
                 Task task = tasks.getTask(i);
                 fw.write(task.toString() + "\n");

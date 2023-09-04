@@ -1,13 +1,13 @@
 package duke;
 
+import java.util.Scanner;
+
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
-
-import java.util.Scanner;
 
 /**
  * A chatbot that helps user to maintain their tasks.
@@ -57,7 +57,7 @@ public class Duke {
 
     /**
      * Starts the Duke chatbot.
-     * 
+     *
      * @param args Args.
      */
     public static void main(String[] args) {

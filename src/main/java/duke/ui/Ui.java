@@ -10,7 +10,7 @@ import duke.task.TaskList;
  * @author Joseph Oliver Lim
  */
 public class Ui {
-    private final String HORIZONTAL_LINE = "____________________________________________________________";
+    private static final String HORIZONTAL_LINE = "____________________________________________________________";
 
     private void printWithLines(String s) {
         System.out.println(this.HORIZONTAL_LINE + "\n" + s + "\n" + this.HORIZONTAL_LINE);

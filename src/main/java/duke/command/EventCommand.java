@@ -1,13 +1,13 @@
 package duke.command;
 
+import java.time.format.DateTimeParseException;
+
 import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
-
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents the Command Event that adds an Event to the list.
