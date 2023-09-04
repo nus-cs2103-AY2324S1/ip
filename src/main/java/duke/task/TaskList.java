@@ -1,11 +1,11 @@
 package duke.task;
 
-import duke.DukeException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import duke.DukeException;
 
 /**
  * The TaskList class manages a list of tasks and provides methods for adding, creating, deleting, and modifying tasks.
@@ -24,7 +24,7 @@ public class TaskList {
      *
      * @param tasks The list of tasks to be managed.
      */
-    public TaskList(ArrayList<Task> tasks){
+    public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
         this.numTasks = tasks.size();
     }
@@ -111,8 +111,8 @@ public class TaskList {
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
         try {
-            String eventMsg = "Event tasks should be created in this format: " +
-                    "event [name] /from [start time] /to [end time]";
+            String eventMsg = "Event tasks should be created in this format: "
+                    + "event [name] /from [start time] /to [end time]";
             String[] detailsAndStartEnd = args.split("/from", 2);
             if (detailsAndStartEnd.length != 2) {
                 throw new DukeException(eventMsg);
@@ -233,7 +233,7 @@ public class TaskList {
      */
     public ArrayList<Task> findTasks(String taskToFindDetails) {
         ArrayList<Task> foundTasks = new ArrayList<>();
-        for (int i = 0; i < this.tasks.size(); i ++) {
+        for (int i = 0; i < this.tasks.size(); i++) {
             Task taskInFocus = this.tasks.get(i);
             if (taskInFocus.toString().contains(taskToFindDetails)) {
                 foundTasks.add(taskInFocus);

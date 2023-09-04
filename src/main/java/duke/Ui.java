@@ -1,9 +1,9 @@
 package duke;
 
+import java.util.Scanner;
+
 import duke.task.Task;
 import duke.task.TaskList;
-
-import java.util.Scanner;
 
 /**
  * The Ui class handles interactions with the user interface, providing methods to read input,
@@ -119,7 +119,7 @@ public class Ui {
      */
     public void printHorizontalLine() {
         int width = 50;
-        for (int i  = 0; i < width; i++) {
+        for (int i = 0; i < width; i++) {
             System.out.print("-");
         }
         System.out.println("");

@@ -1,8 +1,9 @@
 package duke.task;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class TaskTest {
     @Test
@@ -13,7 +14,7 @@ public class TaskTest {
     }
 
     @Test
-    public void testMarkUndone(){
+    public void testMarkUndone() {
         Task testTask = new Task("testTask");
         testTask.markDone();
         testTask.markUndone();
