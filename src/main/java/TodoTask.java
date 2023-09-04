@@ -1,6 +1,14 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 class TodoTask extends Task {
-    public TodoTask(String description, boolean isDone) throws DukeException {
+    private LocalDate fromDate;
+    private LocalDate toDate;
+
+    public TodoTask(String description, LocalDate fromDate, LocalDate toDate, boolean isDone) {
         super(description, isDone);
+        this.fromDate = fromDate;
+        this.toDate = toDate;
     }
 
     @Override
@@ -9,26 +17,19 @@ class TodoTask extends Task {
     }
 
     @Override
+    public String toFileString() {
+        return String.format("%s | %d | %s (from: %s to: %s)", getTaskType(), isDone ? 1 : 0, description,
+                fromDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+    }
+
+    @Override
     public String getTaskType() {
         return "T";
     }
 
     private String getDescriptionDetails() {
-        String[] details = description.split(" /from ", 2);
-        if (details.length == 2) {
-            String[] eventParts = details[1].split(" /to ", 2);
-            if (eventParts.length == 2) {
-                return details[0] + " (from: " + eventParts[0] + " to: " + eventParts[1] + ")";
-            } else {
-                return details[0] + " (from: " + eventParts[0] + ")";
-            }
-        } else {
-            String[] eventParts = description.split(" /by ", 2);
-            if (eventParts.length == 2) {
-                return eventParts[0] + " (by: " + eventParts[1] + ")";
-            } else {
-                return eventParts[0] + "";
-            }
-        }
+        return description + " (from: " + fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) +
+                " to: " + toDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

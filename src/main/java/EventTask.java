@@ -1,6 +1,12 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 class EventTask extends Task {
-    public EventTask(String description, boolean isDone) throws DukeException {
+    private LocalDate atDate;
+
+    public EventTask(String description, LocalDate atDate, boolean isDone) {
         super(description, isDone);
+        this.atDate = atDate;
     }
 
     @Override
@@ -9,26 +15,17 @@ class EventTask extends Task {
     }
 
     @Override
+    public String toFileString() {
+        return String.format("%s | %d | %s (at: %s)", getTaskType(), isDone ? 1 : 0, description,
+                atDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+    }
+
+    @Override
     public String getTaskType() {
         return "E";
     }
 
     private String getDescriptionDetails() {
-        String[] details = description.split(" /from ", 2);
-        if (details.length == 2) {
-            String[] eventParts = details[1].split(" /to ", 2);
-            if (eventParts.length == 2) {
-                return details[0] + " (from: " + eventParts[0] + " to: " + eventParts[1] + ")";
-            } else {
-                return details[0] + " (from: " + eventParts[0] + ")";
-            }
-        } else {
-            String[] eventParts = description.split(" /by ", 2);
-            if (eventParts.length == 2) {
-                return eventParts[0] + " (by: " + eventParts[1] + ")";
-            } else {
-                return eventParts[0] + "";
-            }
-        }
+        return description + " (at: " + atDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }
