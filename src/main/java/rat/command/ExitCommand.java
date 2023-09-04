@@ -17,6 +17,14 @@ public class ExitCommand extends RatCommand {
         super(ratTaskManager);
     }
 
+    @Override
+    public String getResponse() {
+        this.ratTaskManager.save();
+        printExit();
+        System.exit(0);
+        return "";
+    }
+
     /**
      * Executes the command.
      */

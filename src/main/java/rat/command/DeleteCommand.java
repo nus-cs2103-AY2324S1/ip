@@ -24,6 +24,25 @@ public class DeleteCommand extends RatCommand {
         this.input = input;
     }
 
+    @Override
+    public String getResponse() {
+        try {
+            String param = this.input.substring(7);
+            if (param.equals("all")) {
+                return this.ratTaskManager.deleteAll();
+            } else {
+                int index = Integer.parseInt(param);
+                return this.ratTaskManager.deleteItem(index);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            printWithLines(e.getMessage());
+            return e.getMessage();
+        } catch (NumberFormatException e) {
+            printWithLines(" \"delete\" command must be followed by a number");
+            return " \"delete\" command must be followed by a number";
+        }
+    }
+
     /**
      * Executes the command.
      */

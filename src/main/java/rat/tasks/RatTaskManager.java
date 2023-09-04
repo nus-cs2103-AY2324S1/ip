@@ -123,13 +123,16 @@ public class RatTaskManager {
      *
      * @param item Name of the ToDo task.
      */
-    public void addToDo(String item) {
+    public String addToDo(String item) {
         ToDo newToDo = new ToDo(item);
         this.taskList.add(newToDo);
-        printWithLines("Got it. I've added this Deadline:\n"
+        String response = "Got it. I've added this Deadline:\n"
                 + newToDo
-                + "\nNow you have " + this.taskList.size() + " tasks in the list.");
+                + "\nNow you have " + this.taskList.size() + " tasks in the list.";
+        printWithLines(response);
+        return response;
     }
+
 
     /**
      * Adds a Deadline task to the taskList, given its deadline and name.
@@ -138,13 +141,14 @@ public class RatTaskManager {
      * @param deadline Deadline of the Deadline task.
      * @param name     Name of the Deadline task.
      */
-    public void addDeadline(String deadline, String name) {
+    public String addDeadline(String deadline, String name) {
         Deadline newDeadline = new Deadline(deadline, name);
         this.taskList.add(newDeadline);
-        String msg = "Got it. I've added this Deadline:\n"
+        String response = "Got it. I've added this Deadline:\n"
                 + newDeadline
                 + "\nNow you have " + this.taskList.size() + " tasks in the list.";
-        printWithLines(msg);
+        printWithLines(response);
+        return response;
     }
 
     /**
@@ -155,13 +159,14 @@ public class RatTaskManager {
      * @param endTime   End time of the Event task.
      * @param name      Name of the Event task.
      */
-    public void addEvent(String startTime, String endTime, String name) {
+    public String addEvent(String startTime, String endTime, String name) {
         Event newEvent = new Event(startTime, endTime, name);
         this.taskList.add(newEvent);
-        String msg = "Got it. I've added this Event:\n"
+        String response = "Got it. I've added this Event:\n"
                 + newEvent
                 + "\nNow you have " + this.taskList.size() + " tasks in the list.";
-        printWithLines(msg);
+        printWithLines(response);
+        return response;
     }
 
     /**
@@ -169,7 +174,7 @@ public class RatTaskManager {
      *
      * @param index Index of the task in the taskList.
      */
-    public void markItemDone(int index) {
+    public String markItemDone(int index) {
         if (index > this.taskList.size() || index < 1) {
             throw new IndexOutOfBoundsException("Task not found");
         } else if (this.taskList.get(index - 1) == null) {
@@ -177,7 +182,9 @@ public class RatTaskManager {
         }
         Task item = this.taskList.get(index - 1);
         item.markDone();
-        printWithLines("Nice! I've marked this task as done: " + taskList.get(index - 1).toString());
+        String response = "Nice! I've marked this task as done: " + taskList.get(index - 1).toString();
+        printWithLines(response);
+        return response;
     }
 
     /**
@@ -185,7 +192,7 @@ public class RatTaskManager {
      *
      * @param index Index of the task in the taskList.
      */
-    public void unmarkItemDone(int index) {
+    public String unmarkItemDone(int index) {
         if (index > this.taskList.size() || index < 1) {
             throw new IndexOutOfBoundsException("Task not found");
         } else if (this.taskList.get(index - 1) == null) {
@@ -193,7 +200,9 @@ public class RatTaskManager {
         }
         Task item = this.taskList.get(index - 1);
         item.unmarkDone();
-        printWithLines("Ok, I've marked this task as not done yet: " + taskList.get(index - 1).toString());
+        String response = "Ok, I've marked this task as not done yet: " + taskList.get(index - 1).toString();
+        printWithLines(response);
+        return response;
     }
 
     /**
@@ -201,7 +210,7 @@ public class RatTaskManager {
      *
      * @param index Index of the task in the taskList.
      */
-    public void deleteItem(int index) {
+    public String deleteItem(int index) {
         if (index > this.taskList.size() || index < 1) {
             throw new IndexOutOfBoundsException("Task not found");
         } else if (this.taskList.get(index - 1) == null) {
@@ -209,31 +218,37 @@ public class RatTaskManager {
         }
         Task item = this.taskList.get(index - 1);
         this.taskList.remove(index - 1);
-        printWithLines("Noted. I've removed this task:\n"
+        String response = "Noted. I've removed this task:\n"
                 + item.toString()
-                + "\nNow you have " + this.taskList.size() + " tasks in the list.");
+                + "\nNow you have " + this.taskList.size() + " tasks in the list.";
+        printWithLines(response);
+        return response;
     }
 
     /**
      * Deletes all tasks from taskList.
      */
-    public void deleteAll() {
+    public String deleteAll() {
         this.taskList.clear();
-        printWithLines("Noted. I've removed all tasks.");
+        String response = "Noted. I've removed all tasks.";
+        printWithLines(response);
+        return response;
     }
 
     /**
      * Displays all tasks in taskList.
      * Formats the taskList's String representation with a message and count.
      */
-    public void listItems() {
+    public String listItems() {
         if (this.taskList.isEmpty()) {
             printWithLines("You have no tasks in the list.");
+            return "You have no tasks in the list.";
         } else {
             String list = "Here are the tasks in your list:\n"
                     + this + "\n"
                     + "You have " + this.taskList.size() + " tasks in the list.";
             printWithLines(list);
+            return list;
         }
     }
 

@@ -24,6 +24,20 @@ public class MarkCommand extends ModifyCommand {
         this.inputs = inputs;
     }
 
+    @Override
+    public String getResponse() {
+        try {
+            int index = Integer.parseInt(inputs[1]);
+            return this.ratTaskManager.markItemDone(index);
+        } catch (IndexOutOfBoundsException e) {
+            printWithLines(e.getMessage());
+            return e.getMessage();
+        } catch (NumberFormatException e) {
+            printWithLines(" \"mark\" command must be followed by a number");
+            return " \"mark\" command must be followed by a number";
+        }
+    }
+
     /**
      * Executes the command.
      */
