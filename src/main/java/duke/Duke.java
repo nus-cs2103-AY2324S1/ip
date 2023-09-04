@@ -3,6 +3,18 @@ package duke;
 import java.io.IOException;
 
 import command.Commandable;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.scene.control.Label;
 import dukeexception.CorruptedFileException;
 import dukeexception.FailureInExecuteException;
 import dukeexception.InvalidCommandException;
@@ -11,7 +23,9 @@ import dukeexception.InvalidVarException;
  * Duke represents a chatbot that parses user inputs and commands, stores tasks given to it in memory and on a file,
  * and provides a user interface for easier correspondence.
  */
-public class Duke {
+public class Duke extends Application {
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     private static final String FILE_PATH = "./data/tasks.txt";
     private static final String LOGO = " _           _        \n"
             + "| |    _   _| | _____ \n"
@@ -31,6 +45,20 @@ public class Duke {
         list = new TaskList(storage);
         parser = new Parser();
         ui = new UserInterface();
+    }
+
+    @Override
+    public void start(Stage stage) {
+        stage.setScene(ui.sceneMaker());
+        stage.show();
+
+        //Step 2. Formatting the window to look as expected
+        stage.setTitle("Duke");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
+        ClassLoader loader = this.getClass().getClassLoader();
+        System.out.println(loader.getResource(""));
     }
 
     /**
@@ -76,30 +104,34 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public void run() {
         boolean isShuttingDown = false;
-        Duke luke = new Duke();
         try {
-            luke.startDuke();
+            startDuke();
         } catch (IOException e) {
-            luke.ui.output("Could not read from file");
+            ui.output("Could not read from file");
             isShuttingDown = true;
         } catch (CorruptedFileException f) {
-            isShuttingDown = luke.corruptedFileHandler();
+            isShuttingDown = corruptedFileHandler();
         }
         while (!isShuttingDown) {
-            String input = luke.ui.input();
+            String input = ui.input();
             try {
-                Commandable command = luke.parser.parse(input);
-                isShuttingDown = command.execute(luke.list, luke.ui);
+                Commandable command = parser.parse(input);
+                isShuttingDown = command.execute(list, ui);
             } catch (InvalidCommandException e) {
-                luke.ui.output("Unknown command given; " + e.getMessage());
+                ui.output("Unknown command given; " + e.getMessage());
             } catch (InvalidVarException e) {
-                luke.ui.output("Invalid input; " + e.getMessage());
+                ui.output("Invalid input; " + e.getMessage());
             } catch (FailureInExecuteException e) {
-                luke.ui.output("Failure to execute command; " + e.getMessage());
+                ui.output("Failure to execute command; " + e.getMessage());
             }
         }
-        luke.closeDuke();
+        closeDuke();
+    }
+
+    public static void main(String[] args) {
+        Duke luke = new Duke();
+        luke.run();
     }
 }
