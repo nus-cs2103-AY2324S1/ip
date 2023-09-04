@@ -16,7 +16,7 @@ public class SpaceSeparatedValuesParser {
     public static String convert(String... params) {
         StringBuilder sb = new StringBuilder();
         for (String param : params) {
-            if (!sb.isEmpty()) {
+            if (sb.length() != 0) {
                 sb.append(" ");
             }
             sb.append(param.replace(" ", "\\ "));
@@ -49,7 +49,7 @@ public class SpaceSeparatedValuesParser {
                 index++;
             }
         }
-        if (!sb.isEmpty()) {
+        if (sb.length() != 0) {
             params.add(sb.toString());
         }
 

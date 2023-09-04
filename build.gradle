@@ -51,3 +51,7 @@ run {
 checkstyle {
     toolVersion = '10.2'
 }
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 11
+}
