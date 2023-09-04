@@ -16,4 +16,5 @@ list
 mark 5
 delete 4
 list
+find book
 bye

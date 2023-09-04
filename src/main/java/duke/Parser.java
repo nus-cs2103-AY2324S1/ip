@@ -18,7 +18,7 @@ public class Parser {
      */
     public static void parse(String userInput, TaskList tasks, Storage storage) throws DukeException {
         if (userInput.equals("list")) {
-            TaskList.displayList();
+            tasks.displayList();
         } else if (userInput.equals("bye")) {
             isExit = true;
         } else if (userInput.contains("unmark")) {
@@ -45,6 +45,8 @@ public class Parser {
             }
         } else if (userInput.contains("delete")) {
             tasks.deleteTask(userInput);
+        } else if (userInput.contains("find")) {
+            tasks.displayMatchingList(userInput.substring(5));
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

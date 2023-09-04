@@ -10,7 +10,6 @@ import java.util.Scanner;
  */
 public class Duke implements Serializable {
     protected static String indent = "   ";
-    protected static String horizontalLines = indent + "__________________________________________";
     protected static String dukeFilePath = "data/duke.txt";
     protected static String tempFilePath = "data/temp.txt";
     private static Storage storage;
@@ -28,7 +27,7 @@ public class Duke implements Serializable {
             tasks = new TaskList(storage.load());
         } catch (DukeException | IOException | ClassNotFoundException e) {
             //e.printStackTrace();
-            ui.printWithIndent("Hi! You do not have any tasks at the moment");
+            Ui.printWithIndent("Hi! You do not have any tasks at the moment");
             createTxtFile();
             tasks = new TaskList();
         }
