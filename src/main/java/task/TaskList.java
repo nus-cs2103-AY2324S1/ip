@@ -1,6 +1,7 @@
 package task;
 
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -17,11 +18,11 @@ public class TaskList {
         tasks.add(new ToDo(description));
     }
 
-    public void addDeadline(String description, String dueDate) {
+    public void addDeadline(String description, LocalDateTime dueDate) {
         tasks.add(new Deadline(description, dueDate));
     }
 
-    public void addEvent(String description, String start, String end) {
+    public void addEvent(String description, LocalDateTime start, LocalDateTime end) {
         tasks.add(new Event(description, start, end));
     }
 

@@ -8,6 +8,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class ChatEngine {
     private final IOHandler ioHandler;
     private TaskList taskList; // stores list of tasks
@@ -114,19 +118,30 @@ public class ChatEngine {
             throw new ChadException.InvalidArgumentException("Invalid format for Deadline. Use: deadline {task} /by {date}");
         }
         String[] deadlineParts = parts[1].split(" /by ", 2);
-        taskList.addDeadline(deadlineParts[0], deadlineParts[1]);
-        ioHandler.writeOutput("Added new Deadline: " + deadlineParts[0] + " by " + deadlineParts[1]);
-        saveTasks();
+        try {
+            LocalDateTime dueDate = LocalDateTime.parse(deadlineParts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            taskList.addDeadline(deadlineParts[0], dueDate);
+            ioHandler.writeOutput("Added new Deadline: " + deadlineParts[0] + " by " + dueDate);
+            saveTasks();
+        } catch (DateTimeParseException e) {
+            throw new ChadException.InvalidFormatException("Invalid date format. Please use yyyy-MM-dd HH:mm.");
+        }
     }
 
     private void handleEvent(String[] parts) throws ChadException {
         if (parts.length < 2 || !parts[1].contains(" /from ") || !parts[1].contains(" /to ")) {
             throw new ChadException.InvalidArgumentException("Invalid format for Event. Use: event {task} /from {start} /to {end}");
         }
-        String[] eventParts = parts[1].split(" /from | /to ", 3);
-        taskList.addEvent(eventParts[0], eventParts[1], eventParts[2]);
-        ioHandler.writeOutput("Added new Event: " + eventParts[0] + " from " + eventParts[1] + " to " + eventParts[2]);
-        saveTasks();
+        try {
+            String[] eventParts = parts[1].split(" /from | /to ", 3);
+            LocalDateTime start = LocalDateTime.parse(eventParts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            LocalDateTime end = LocalDateTime.parse(eventParts[2], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            taskList.addEvent(eventParts[0], start, end);
+            ioHandler.writeOutput("Added new Event: " + eventParts[0] + " from " + start + " to " + end);
+            saveTasks();
+        } catch (DateTimeParseException e) {
+            throw new ChadException.InvalidFormatException("Invalid date format. Please use yyyy-MM-dd HH:mm.");
+        }
     }
 
     private void handleDelete(String[] parts) throws ChadException {

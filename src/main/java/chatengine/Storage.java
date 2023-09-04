@@ -11,6 +11,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import java.time.format.DateTimeFormatter;
+
+
 public class Storage {
     private Path filePath;
 
@@ -34,20 +37,22 @@ public class Storage {
     }
 
     public void saveTasks(TaskList taskList) throws IOException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
             for (Task task : taskList.getTasks()) {
-                writer.write(task.toFileFormat());
+                writer.write(task.toFileFormat(formatter));
                 writer.newLine();
             }
         }
     }
 
     public ArrayList<Task> loadTasks() throws IOException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         ArrayList<Task> tasks = new ArrayList<>();
         try (BufferedReader reader = Files.newBufferedReader(filePath)) {
             String line;
             while ((line = reader.readLine()) != null) {
-                Task task = Task.fromFileFormat(line);
+                Task task = Task.fromFileFormat(line, formatter);
                 tasks.add(task);
             }
         }

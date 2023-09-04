@@ -1,5 +1,8 @@
 package task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -27,9 +30,9 @@ public abstract class Task {
 
     public abstract String toString();
 
-    public abstract String toFileFormat();
+    public abstract String toFileFormat(DateTimeFormatter formatter);
 
-    public static Task fromFileFormat(String line) {
+    public static Task fromFileFormat(String line, DateTimeFormatter formatter) {
         String[] parts = line.split(" \\| ");
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
@@ -41,10 +44,13 @@ public abstract class Task {
                 task = new ToDo(description);
                 break;
             case "D":
-                task = new Deadline(description, parts[3]);
+                LocalDateTime dueDate = LocalDateTime.parse(parts[3], formatter);
+                task = new Deadline(description, dueDate);
                 break;
             case "E":
-                task = new Event(description, parts[3], parts[4]);
+                LocalDateTime start = LocalDateTime.parse(parts[3], formatter);
+                LocalDateTime end = LocalDateTime.parse(parts[4], formatter);
+                task = new Event(description, start, end);
                 break;
         }
 

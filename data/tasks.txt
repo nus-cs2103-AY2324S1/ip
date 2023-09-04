@@ -1,3 +1,1 @@
-T | 0 | sleep
-E | 0 | rehearsal | tues | wed
-D | 0 | exam | friday
+D | 0 | sleep | 2023-09-09T12:00
