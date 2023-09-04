@@ -7,6 +7,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.DukeException;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -43,6 +44,8 @@ public class Parser {
                 return generateDeadlineResponse(tokens, taskList);
             case "event":
                 return generateEventResponse(tokens, taskList);
+            case "find":
+                return generateFindResponse(tokens, taskList);
             default:
                 throw new DukeException("Sorry, I don't understand what that means.");
         }
@@ -215,12 +218,18 @@ public class Parser {
 
         String taskDescription = parts[0].trim();
         String dueByString = parts[1].trim();
-        LocalDate dueBy = LocalDate.parse(dueByString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-        Task newTask = new Deadline(taskDescription, dueBy, "0");
-        taskList.addTask(newTask);
+        try {
+            LocalDate dueBy = LocalDate.parse(dueByString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-        return generateTaskAddedResponse(newTask, taskList);
+            Task newTask = new Deadline(taskDescription, dueBy, "0");
+            taskList.addTask(newTask);
+
+            return generateTaskAddedResponse(newTask, taskList);
+        } catch (DateTimeException e) {
+            throw new DukeException("Please enter valid date in dd/MM/yyyy format.");
+        }
+
     }
 
     /**
@@ -258,8 +267,8 @@ public class Parser {
 
             return generateTaskAddedResponse(newTask, taskList);
 
-        } catch (DateTimeParseException e) {
-            throw new DukeException("Please enter date in dd/MM/yyyy format.");
+        } catch (DateTimeException e) {
+            throw new DukeException("Please enter valid date in dd/MM/yyyy format.");
         }
 
     }
@@ -274,6 +283,25 @@ public class Parser {
         StringBuilder response = new StringBuilder("Got it. I've added this task:\n\t");
         response.append(task.toString()).append("\n");
         response.append("Now you have ").append(taskList.getTasks().size()).append(" tasks in the list.");
+        return response.toString();
+    }
+
+    private static String generateFindResponse(String[] tokens, TaskList taskList) {
+        if (tokens.length < 2) {
+            return "Please specify a keyword to search for.";
+        }
+
+        String keyword = tokens[1].trim();
+        List<Task> matchingTasks = taskList.findTasks(keyword);
+
+        if (matchingTasks.isEmpty()) {
+            return "No matching tasks found.";
+        }
+
+        StringBuilder response = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            response.append((i + 1)).append(". ").append(matchingTasks.get(i).toString()).append("\n");
+        }
         return response.toString();
     }
 

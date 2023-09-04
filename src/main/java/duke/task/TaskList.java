@@ -79,6 +79,17 @@ public class TaskList {
         return tasks;
     }
 
+    public List<Task> findTasks(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.name.contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
+
+
     /**
      * Loads the saved tasks into the current list
      */
