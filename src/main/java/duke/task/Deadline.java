@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.DukeException;
+
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
@@ -7,11 +11,7 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by) throws DukeException {
         super(description);
-        try {
-            this.by = parseDate(by);
-        } catch (DukeException e) {
-            throw e;
-        }
+        this.by = parseDate(by);
     }
 
     @Override

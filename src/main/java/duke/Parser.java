@@ -1,3 +1,18 @@
+package duke;
+
+import duke.command.AddCommand;
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.DeleteComand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
+
+import duke.task.Event;
+import duke.task.Deadline;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.util.ArrayList;
 
 public class Parser {
@@ -118,7 +133,9 @@ public class Parser {
             isDone = taskData.substring(0, firstSplitIndex - 1).equals("1");
             desc = taskData.substring(firstSplitIndex + 2);
             task = new Todo(desc);
-            task.isDone = isDone;
+            if (isDone) {
+                task.markDone();
+            }
             break;
         case "D":
             firstSplitIndex = taskData.indexOf("|");
@@ -127,7 +144,9 @@ public class Parser {
             desc = taskData.substring(firstSplitIndex + 2, secondSplitIndex - 1);
             String by = taskData.substring(secondSplitIndex + 2);
             task =  new Deadline(desc, by);
-            task.isDone = isDone;
+            if (isDone) {
+                task.markDone();
+            }
             break;
         case "E":
             firstSplitIndex = taskData.indexOf("|");
@@ -138,7 +157,9 @@ public class Parser {
             String from = taskData.substring(secondSplitIndex + 2, thirdSplitIndex - 1);
             String to = taskData.substring(thirdSplitIndex + 2);
             task = new Event(desc, from, to);
-            task.isDone = isDone;
+            if (isDone) {
+                task.markDone();
+            }
             break;
         }
         return task;

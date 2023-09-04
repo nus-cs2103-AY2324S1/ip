@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.DukeException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -53,6 +57,10 @@ public abstract class Task {
             throw new DukeException("Incorrect date format. Please enter date in yyyy-mm-dd format");
         }
         return localDate;
+    }
+
+    public void markDone() {
+        isDone = true;
     }
 
     /**
