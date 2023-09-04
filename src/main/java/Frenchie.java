@@ -53,74 +53,80 @@ public class Frenchie {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
-
-            if (input.equals("bye")) {
-                System.out.println("____________________________________________________________\n" +
-                        " Bye. Hope to see you again soon!\n" +
-                        "____________________________________________________________");
-                break;
-
-            } else if (input.equals("list")) { //Checking if user is looking to list all tasks
-                frenchie.listTasks();
-            } else if (input.contains("mark")) { //Checking if user input is to mark/unmark tasks
-                String[] parts = input.split(" ");
-                int index = Integer.parseInt(parts[1]) - 1;
-                Task target_task = frenchie.tasks.get(index);
-                //Checking if user is looking to mark task as done or incomplete
-                if (parts[0].equals("mark")) {
-                    frenchie.completeTask(index);
+            try {
+                if (input.equals("bye")) {
                     System.out.println("____________________________________________________________\n" +
-                            " Nice! I've marked this task as done: \n" +
-                            target_task.toString() + "\n" +
+                            " Bye. Hope to see you again soon!\n" +
                             "____________________________________________________________");
-                } else {
-                    frenchie.uncompleteTask(index);
-                    System.out.println("____________________________________________________________\n" +
-                            " OK, I've marked this task as not done yet: \n" +
-                            target_task.toString() + "\n" +
-                            "____________________________________________________________");
-                }
-            } else {
-                if (input.contains("event") || input.contains("todo") || input.contains("deadline")) {
+                    break;
+                } else if (input.equals("list")) { //Checking if user is looking to list all tasks
+                    frenchie.listTasks();
+                } else if (input.contains("mark")) { //Checking if user input is to mark/unmark tasks
+                    String[] parts = input.split(" ");
+                    int index = Integer.parseInt(parts[1]) - 1;
+                    Task target_task = frenchie.tasks.get(index);
+                    //Checking if user is looking to mark task as done or incomplete
+                    if (parts[0].equals("mark")) {
+                        frenchie.completeTask(index);
+                        System.out.println("____________________________________________________________\n" +
+                                " Nice! I've marked this task as done: \n" +
+                                target_task.toString() + "\n" +
+                                "____________________________________________________________");
+                    } else {
+                        frenchie.uncompleteTask(index);
+                        System.out.println("____________________________________________________________\n" +
+                                " OK, I've marked this task as not done yet: \n" +
+                                target_task.toString() + "\n" +
+                                "____________________________________________________________");
+                    }
+                } else if (input.contains("event") || input.contains("todo") || input.contains("deadline")) {
                     String[] parts = input.split(" ");
                     String taskType = parts[0];
-                    if (taskType.equals("todo")) {
-                        String taskName = input.split("todo")[1];
-                        ToDo currentTask = new ToDo(taskName);
-                        frenchie.addTask(currentTask);
-                        System.out.println("____________________________________________________________\n" +
-                                " Got it! I've added this task: \n" +
-                                currentTask + "\n" +
-                                "Now you have " + frenchie.getNumOfTasks() + " tasks in the list.");
-                    } else if (taskType.equals("deadline")) {
-                        String taskName = input.split("/")[0].split("deadline")[1].trim();
-                        String deadline = input.split("/")[1].replace("by ", "by: ");
-                        Deadline currentTask = new Deadline(taskName, deadline);
-                        frenchie.addTask(currentTask);
-                        System.out.println("____________________________________________________________\n" +
-                                " Got it! I've added this task: \n" +
-                                currentTask + "\n" +
-                                "Now you have " + frenchie.getNumOfTasks() + " tasks in the list.");
+                    if (parts.length <= 1) {
+                        throw new FrenchieException("____________________________________________________________\n" +
+                                "OOPS!!! The description of a " + taskType + " cannot be empty.\n" +
+                                "____________________________________________________________");
                     } else {
-                        String taskName = input.split("/")[0].split("event")[1].trim();
-                        String startTime = input.split("/")[1].replace("from ", "from: ");
-                        String endTime = input.split("/")[2].replace("to ", "to: ");
-                        Event currentTask = new Event(taskName, startTime, endTime);
-                        frenchie.addTask(currentTask);
-                        System.out.println("____________________________________________________________\n" +
-                                " Got it! I've added this task: \n" +
-                                currentTask + "\n" +
-                                "Now you have " + frenchie.getNumOfTasks() + " tasks in the list.");
+                        if (taskType.equals("todo")) {
+                            String taskName = input.split("todo")[1];
+                            ToDo currentTask = new ToDo(taskName);
+                            frenchie.addTask(currentTask);
+                            System.out.println("____________________________________________________________\n" +
+                                    " Got it! I've added this task: \n" +
+                                    currentTask + "\n" +
+                                    "Now you have " + frenchie.getNumOfTasks() + " tasks in the list.\n" +
+                                    "____________________________________________________________");
+                        } else if (taskType.equals("deadline")) {
+                            String taskName = input.split("/")[0].split("deadline")[1].trim();
+                            String deadline = input.split("/")[1].replace("by ", "by: ");
+                            Deadline currentTask = new Deadline(taskName, deadline);
+                            frenchie.addTask(currentTask);
+                            System.out.println("____________________________________________________________\n" +
+                                    " Got it! I've added this task: \n" +
+                                    currentTask + "\n" +
+                                    "Now you have " + frenchie.getNumOfTasks() + " tasks in the list.\n" +
+                                    "____________________________________________________________");
+                        } else {
+                            String taskName = input.split("/")[0].split("event")[1].trim();
+                            String startTime = input.split("/")[1].replace("from ", "from: ");
+                            String endTime = input.split("/")[2].replace("to ", "to: ");
+                            Event currentTask = new Event(taskName, startTime, endTime);
+                            frenchie.addTask(currentTask);
+                            System.out.println("____________________________________________________________\n" +
+                                    " Got it! I've added this task: \n" +
+                                    currentTask + "\n" +
+                                    "Now you have " + frenchie.getNumOfTasks() + " tasks in the list.\n" +
+                                    "____________________________________________________________");
+                        }
+                        }
+                    } else {
+                        throw new FrenchieException("____________________________________________________________\n" +
+                                "OOPS!!! I'm sorry but I don't know what that means! :-(\n" +
+                                "____________________________________________________________");
                     }
-                } else {
-                    ToDo currentTask = new ToDo(input);
-                    frenchie.addTask(currentTask);
-                    System.out.println("____________________________________________________________\n" +
-                            " Got it! I've added this task: \n" +
-                            currentTask + "\n" +
-                            "Now you have " + frenchie.getNumOfTasks() + " tasks in the list.");
+                } catch (FrenchieException e) {
+                    System.err.println(e.getMessage());
                 }
             }
         }
     }
-}
