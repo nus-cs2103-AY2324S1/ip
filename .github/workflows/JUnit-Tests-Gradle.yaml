@@ -3,7 +3,7 @@ run-name: run JUnit and Checkstyle tests with Gradle
 on:
   push:
     branches:
-      - master
+      - branch-test-actions
 jobs:
   JUnit-Gradle:
     runs-on: ubuntu-latest
@@ -16,6 +16,7 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '11'
+          java-package: 'jdk+fx'
 
       - name: Run ./gradlew test
         run: |
@@ -33,6 +34,7 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '11'
+          java-package: 'jdk+fx'
 
       - name: Run Checkstyle
         run: |
