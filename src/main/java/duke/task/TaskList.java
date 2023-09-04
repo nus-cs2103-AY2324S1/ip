@@ -21,6 +21,11 @@ public class TaskList {
     private Task getTask(int index) {
         return this.tasks.get(index);
     }
+
+    /**
+     * Sets the taskList to point to a new taskArray
+     * @param taskArrayList
+     */
     public void setTasks(ArrayList<Task> taskArrayList) {
         this.tasks = taskArrayList;
         this.size = taskArrayList.size();
@@ -54,6 +59,10 @@ public class TaskList {
         return response.substring(0, response.length() - 1);
     }
 
+    /**
+     * Generates the savable format of the tasks in the array to be written to a file and obtained at a later date
+     * @return the savable string
+     */
     public String toTaskSave() {
         String response = "";
         for (int i = 0; i < this.size; i++) {

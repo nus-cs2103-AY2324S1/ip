@@ -6,6 +6,9 @@ import duke.exceptions.TaskIndexOutOfBoundsException;
 import duke.Storage;
 import duke.task.*;
 
+/**
+ * Deletes a task from the taskList
+ */
 public class DeleteCommand extends Command {
     protected int taskIndex;
     public DeleteCommand(int taskIndex) {

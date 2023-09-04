@@ -2,8 +2,10 @@ package duke.task;
 
 import duke.Date;
 import duke.Parser;
-import duke.exceptions.InvalidDateTimeFormatException;
 
+/**
+ * A task with a ending deadline to be met
+ */
 public abstract class TaskWithDeadline extends Task {
     protected Date end;
     public TaskWithDeadline(String description, String by) {

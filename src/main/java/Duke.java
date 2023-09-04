@@ -15,6 +15,9 @@ public class Duke {
     protected static Parser parser = new Parser();
     protected static Storage storage = new Storage("./data/duke.txt");
 
+    /**
+     * Reads the user's input and executes a task based on it
+     */
     public static void reply() {
         String response = ui.readCommand();
         Command command;
@@ -30,6 +33,12 @@ public class Duke {
         };
     }
 
+    /**
+     * A helper function for parsing Strings using regex
+     * @param regex the pattern using regular expression
+     * @param text the string that the pattern will be compared to
+     * @return a Matcher object with the string being parsed using regex
+     */
     public static Matcher regexParse(String regex, String text) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(text);

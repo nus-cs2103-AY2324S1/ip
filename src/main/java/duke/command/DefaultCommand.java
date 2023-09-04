@@ -1,10 +1,12 @@
 package duke.command;
 
 import duke.Ui;
-import duke.command.Command;
 import duke.Storage;
 import duke.task.*;
 
+/**
+ * A command of what to do when user input is not understood
+ */
 public class DefaultCommand extends Command {
     protected String response;
     public DefaultCommand(String response) {

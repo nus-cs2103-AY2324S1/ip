@@ -6,12 +6,23 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * A date object used to store all things related to the date for a task
+ */
 public class Date {
 
     protected LocalDate date;
     protected LocalTime time;
+
+    /**
+     * The constructor for the date object
+     * @param dateString the date of the task
+     * @param timeString the time of the task
+     */
     public Date(String dateString, String timeString) {
         String str = "2016-03-04 11:30";
+
+        // Checking if the date or time String is null since they are optional
         date = dateString == null ? null : LocalDate.parse(dateString);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         time = timeString == null ? null : LocalTime.parse(timeString, formatter);
@@ -25,6 +36,10 @@ public class Date {
         return dateString + additional + timeString;
     }
 
+    /**
+     * Formats the Date into a file savable format to be read again
+     * @return the string to be saved
+     */
     public String toSave() {
         String dateString = date == null ? "" : date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String timeString = time == null ? "" : time.format(DateTimeFormatter.ofPattern("HH:mm"));

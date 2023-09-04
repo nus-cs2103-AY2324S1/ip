@@ -5,6 +5,9 @@ import duke.command.Command;
 import duke.Storage;
 import duke.task.*;
 
+/**
+ * Adds a ToDo task to the taskList
+ */
 public class ToDoCommand extends Command {
     protected String description;
     protected boolean done;

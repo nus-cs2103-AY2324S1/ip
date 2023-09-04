@@ -2,7 +2,6 @@ package duke;
 
 import duke.Date;
 import duke.command.*;
-import duke.exceptions.InvalidDateTimeFormatException;
 import duke.exceptions.InvalidFileTypeException;
 import duke.exceptions.InvalidTaskException;
 import duke.task.Deadlines;
@@ -13,6 +12,9 @@ import duke.task.ToDo;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Used for any parsing of user input
+ */
 public class Parser {
     public Parser() {}
 
@@ -22,21 +24,12 @@ public class Parser {
         return matcher;
     }
 
-    private String getCommand(String input) {
-        if (input == null || input.trim().isEmpty()) {
-            return null; // Return null for empty input or whitespace
-        }
-
-        input = input.trim(); // Remove leading and trailing whitespace
-        int spaceIndex = input.indexOf(' '); // Find the index of the first space
-
-        if (spaceIndex == -1) {
-            return input; // If no space found, the whole string is the first word
-        } else {
-            return input.substring(0, spaceIndex); // Extract the first word using substring
-        }
-    }
-
+    /**
+     * Parses the instruction that has been typed in by a user, returning the command object to be executed
+     * @param response the instruction typed in by the user
+     * @return the command object to be executed
+     * @throws InvalidTaskException
+     */
     public Command parse(String response) throws InvalidTaskException {
         int taskIndex;
         Matcher matcher;
@@ -89,6 +82,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the lines of the save file and returns a Task to be added to the TaskList
+     * @param response line of the save file to be parsed
+     * @return A task generated from the saved line
+     * @throws InvalidFileTypeException
+     */
     public Task parseSave(String response) throws InvalidFileTypeException {
         boolean done;
         String[] responseList = response.split("\\|");
@@ -125,7 +124,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a datetime string to make sure that it complies with the specified format
+     * @param dateTimeString the datetime string to be processed
+     * @return the Date object generated
+     */
     public Date parseDate(String dateTimeString) {
+        // YYYY-MM-DD / HH:mm / a combination of both
         String regex = "^(\\d{4}-\\d{2}-\\d{2})? ?(\\d{2}:\\d{2})?$";
         Matcher matcher1 = regexParse(regex, dateTimeString);
 

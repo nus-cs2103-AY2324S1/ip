@@ -5,6 +5,9 @@ import duke.command.Command;
 import duke.Storage;
 import duke.task.*;
 
+/**
+ * Prints the taskList
+ */
 public class PrintListCommand extends Command {
     public PrintListCommand() {
         super();

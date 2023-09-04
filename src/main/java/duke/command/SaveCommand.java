@@ -5,6 +5,9 @@ import duke.command.Command;
 import duke.Storage;
 import duke.task.*;
 
+/**
+ * Saves the current TaskList tasks to a file
+ */
 public class SaveCommand extends Command {
     protected String response;
     public SaveCommand(String response) {

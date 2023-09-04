@@ -5,6 +5,9 @@ import duke.command.Command;
 import duke.Storage;
 import duke.task.*;
 
+/**
+ * Marks a task as either done or not done
+ */
 public class MarkCommand extends Command {
     protected boolean done;
     protected int taskIndex;

@@ -6,6 +6,9 @@ import duke.exceptions.InvalidFileTypeException;
 import duke.Storage;
 import duke.task.*;
 
+/**
+ * Loads the tasks from a given file
+ */
 public class LoadCommand extends Command {
     protected String response;
     public LoadCommand(String response) {

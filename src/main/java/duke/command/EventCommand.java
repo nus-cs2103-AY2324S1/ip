@@ -5,6 +5,9 @@ import duke.command.Command;
 import duke.Storage;
 import duke.task.*;
 
+/**
+ * Adds an event task to the taskList
+ */
 public class EventCommand extends Command {
     protected String description;
     protected String from;
