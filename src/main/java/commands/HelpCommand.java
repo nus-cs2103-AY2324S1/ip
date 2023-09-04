@@ -16,7 +16,7 @@ public class HelpCommand implements Command {
      * @param storage The storage (not used in this command).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showMessage("Sorry, I don't understand what do you mean.");
         ui.showMessage("Here are some sample usages for your reference:");
         ui.showMessage("1. Add a deadline to your list: deadline + (description) + (deadline)");
@@ -27,5 +27,6 @@ public class HelpCommand implements Command {
         ui.showMessage("5. Mark a task: mark + (line number)");
         ui.showMessage("6. Unmark a class: unmark + (line number)");
         ui.showMessage("content in ( ) is for you to fill out");
+        return null;
     }
 }

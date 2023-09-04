@@ -17,7 +17,7 @@ public class ExitCommand implements Command {
      * @param storage The storage (not used in this command).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.exit(); // Instruct the user interface to exit the application
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.exit(); // Instruct the user interface to exit the application
     }
 }

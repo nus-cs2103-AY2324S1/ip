@@ -16,5 +16,5 @@ public interface Command {
      * @param ui      The user interface to display messages to the user.
      * @param storage The storage to update as needed by the command.
      */
-    void execute(TaskList tasks, Ui ui, Storage storage);
+    String execute(TaskList tasks, Ui ui, Storage storage);
 }

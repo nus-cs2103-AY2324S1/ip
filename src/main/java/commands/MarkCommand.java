@@ -33,12 +33,14 @@ public class MarkCommand implements Command {
      * @param storage The storage to update as needed by the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (pos > tasks.size() || pos <= 0) {
             ui.showError("Invalid index. Please enter again.");
+            return "Invalid index. Please enter again.";
         } else {
-            tasks.mark(pos); // Mark the task as done in the task list
+            String res = tasks.mark(pos); // Mark the task as done in the task list
             Storage.refresh(tasks); // Update storage with the modified task list
+            return res;
         }
     }
 }

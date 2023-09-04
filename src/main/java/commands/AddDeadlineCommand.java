@@ -29,8 +29,8 @@ public class AddDeadlineCommand implements Command {
      * @param storage The storage to update with the new task information.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.add(task);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         storage.addLine(task.toString());
+        return tasks.add(task);
     }
 }
