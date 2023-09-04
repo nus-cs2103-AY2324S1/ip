@@ -1,6 +1,16 @@
 package shiba.parsers;
 
-import shiba.commands.*;
+import shiba.commands.BellyRubCommand;
+import shiba.commands.DeadlineCommand;
+import shiba.commands.DeleteCommand;
+import shiba.commands.EventCommand;
+import shiba.commands.FindCommand;
+import shiba.commands.ListCommand;
+import shiba.commands.MarkCommand;
+import shiba.commands.PatCommand;
+import shiba.commands.ShibaCommand;
+import shiba.commands.TodoCommand;
+import shiba.commands.UnmarkCommand;
 import shiba.exceptions.ShibaException;
 import shiba.tasks.FilePersistentTaskList;
 import shiba.ui.Replier;
