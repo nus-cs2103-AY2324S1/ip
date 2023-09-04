@@ -1,8 +1,9 @@
 package duke.object;
 
+import java.util.ArrayList;
+
 import duke.exception.OutOfBoundsException;
 import duke.object.task.Task;
-import java.util.ArrayList;
 
 /**
  * List containing Tasks.
@@ -11,7 +12,7 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * Marks task at an index.
-     * 
+     *
      * @param index The index at which to mark the task.
      * @throws OutOfBoundsException When the index is not in the list.
      */
@@ -21,7 +22,7 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * Unmarks task at an index.
-     * 
+     *
      * @param index The index at which to unmark the task.
      * @throws OutOfBoundsException When the index is not in the list.
      */
@@ -31,7 +32,7 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * Accesses task at an index.
-     * 
+     *
      * @param index The index at which to access the task.
      * @return The task at the index.
      * @throws OutOfBoundsException When the index is not in the list.
@@ -43,7 +44,7 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * Deletes task at an index.
-     * 
+     *
      * @param index The index at which to delete the task.
      * @return The deleted task.
      * @throws OutOfBoundsException When the index is not in the list.

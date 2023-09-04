@@ -9,7 +9,7 @@ public class StringArgument extends Argument {
 
     /**
      * Constructor for StringArgument.
-     * 
+     *
      * @param text The name of the input field.
      */
     public StringArgument(String text) {
@@ -34,5 +34,5 @@ public class StringArgument extends Argument {
     public String formatOutput(Object val) {
         return val.toString();
     }
-    
+
 }

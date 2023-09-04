@@ -7,7 +7,7 @@ public class InvalidCommandException extends DukeException {
 
     /**
      * Constructor for InvalidCommandException.
-     * 
+     *
      * @param cmd The invalid command entered.
      */
     public InvalidCommandException(String cmd) {

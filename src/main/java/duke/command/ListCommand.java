@@ -1,12 +1,12 @@
 package duke.command;
 
+import java.util.List;
+import java.util.Map;
+
 import duke.object.TaskList;
 import duke.parser.element.CommandElement;
 import duke.storage.Storage;
 import duke.ui.Ui;
-import java.io.File;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Command to list all current tasks.
@@ -15,7 +15,7 @@ public class ListCommand extends Command {
 
     /**
      * Constructor for ListCommand.
-     * 
+     *
      * @param args The arguments entered by the user.
      */
     public ListCommand(Map<String, Object> args) {

@@ -1,5 +1,12 @@
 package duke.parser;
 
+import java.util.AbstractMap.SimpleEntry;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.regex.Matcher;
+
 import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.FindCommand;
@@ -8,20 +15,14 @@ import duke.command.MarkCommand;
 import duke.command.OngoingCommand;
 import duke.command.QueueCommand;
 import duke.command.RemoveCommand;
+import duke.command.UnmarkCommand;
 import duke.command.task.DeadlineCommand;
 import duke.command.task.EventCommand;
 import duke.command.task.ToDoCommand;
-import duke.command.UnmarkCommand;
 import duke.exception.CommandFormatException;
 import duke.exception.DukeException;
 import duke.exception.InvalidCommandException;
 import duke.parser.element.argument.Argument;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.function.Function;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
 
 /**
  * Object to interpret user input.
@@ -43,7 +44,7 @@ public class Parser {
 
     /**
      * Converts input to Command.
-     * 
+     *
      * @param input User input.
      * @return Command based on the input.
      * @throws DukeException When the input is not formatted correctly.

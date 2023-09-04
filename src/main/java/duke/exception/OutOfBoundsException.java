@@ -9,7 +9,7 @@ public class OutOfBoundsException extends DukeException {
 
     /**
      * Constructor for OutOfBoundsException.
-     * 
+     *
      * @param index The index input.
      * @param taskCount The current number of tasks.
      */

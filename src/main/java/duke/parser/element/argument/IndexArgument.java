@@ -9,7 +9,7 @@ public class IndexArgument extends Argument {
 
     /**
      * Constructor for IndexArgument.
-     * 
+     *
      * @param text The name of the input field.
      */
     public IndexArgument(String text) {

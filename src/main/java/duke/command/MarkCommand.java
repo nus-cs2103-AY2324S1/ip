@@ -1,14 +1,14 @@
 package duke.command;
 
+import java.util.List;
+import java.util.Map;
+
 import duke.exception.DukeException;
 import duke.object.TaskList;
 import duke.parser.element.CommandElement;
 import duke.parser.element.argument.IndexArgument;
 import duke.storage.Storage;
 import duke.ui.Ui;
-import java.io.File;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Command to mark a task as complete.
@@ -17,7 +17,7 @@ public class MarkCommand extends Command {
 
     /**
      * Constructor for MarkCommand.
-     * 
+     *
      * @param args The arguments entered by the user.
      */
     public MarkCommand(Map<String, Object> args) {

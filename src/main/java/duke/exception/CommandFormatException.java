@@ -7,7 +7,7 @@ public class CommandFormatException extends DukeException {
 
     /**
      * Constructor for CommandFormatException.
-     * 
+     *
      * @param cmd The command in question.
      * @param format The correct format for the command.
      */

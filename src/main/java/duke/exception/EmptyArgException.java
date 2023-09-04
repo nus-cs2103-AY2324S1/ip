@@ -7,7 +7,7 @@ public class EmptyArgException extends DukeException {
 
     /**
      * Constructor for EmptyArgException.
-     * 
+     *
      * @param arg The name of the argument in question.
      */
     public EmptyArgException(String arg) {

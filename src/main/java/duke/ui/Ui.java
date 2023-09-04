@@ -1,7 +1,7 @@
 package duke.ui;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,7 +15,7 @@ public abstract class Ui {
 
     /**
      * Constructor for Ui.
-     * 
+     *
      * @param sc The scanner from which inputs are read.
      */
     public Ui(Scanner sc) {
@@ -24,7 +24,7 @@ public abstract class Ui {
 
     /**
      * Method to display message.
-     * 
+     *
      * @param msg Message to be displayed.
      */
     public abstract void print(String msg);
@@ -36,7 +36,7 @@ public abstract class Ui {
 
     /**
      * Shared default message for counting tasks.
-     * 
+     *
      * @param n Number of tasks.
      * @return The default message for that number of tasks.
      */
@@ -46,7 +46,7 @@ public abstract class Ui {
 
     /**
      * Converts list to be displayed as a string.
-     * 
+     *
      * @param arr List converted.
      * @return The list as a string.
      */
@@ -61,7 +61,7 @@ public abstract class Ui {
 
     /**
      * Converts date to be displayed as a string.
-     * 
+     *
      * @param date Date converted.
      * @return The date as a string.
      */
@@ -71,7 +71,7 @@ public abstract class Ui {
 
     /**
      * Returns next line read in.
-     * 
+     *
      * @return The line read in.
      */
     public String readCommand() {
@@ -80,7 +80,7 @@ public abstract class Ui {
 
     /**
      * Returns whether or not there is more user input.
-     * 
+     *
      * @return Whether or not there is more user input.
      */
     public boolean hasNext() {

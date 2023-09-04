@@ -1,10 +1,10 @@
 package duke.object.task;
 
-import duke.command.MarkCommand;
-import duke.command.UnmarkCommand;
-import java.time.LocalDate;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map;
+
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
 
 /**
  * Represents a task stored by the program.
@@ -16,7 +16,7 @@ public class Task {
 
     /**
      * Constructor for Task.
-     * 
+     *
      * @param description The user's description of the task.
      */
     public Task(String description) {
@@ -48,7 +48,7 @@ public class Task {
 
     /**
      * Constructs the command needed to create the task.
-     * 
+     *
      * @param idx The task's index in a given list;
      * @return The string command needed to create the task.
      */
@@ -62,7 +62,7 @@ public class Task {
 
     /**
      * Returns whether a key is related to the task description.
-     * 
+     *
      * @param key The key to search for.
      * @return Whether the key is a substring of the task description.
      */

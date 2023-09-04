@@ -1,21 +1,17 @@
 package duke.storage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.object.TaskList;
 import duke.parser.Parser;
 import duke.ui.SilentUi;
 import duke.ui.Ui;
-import duke.ui.VerboseUi;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.regex.Pattern;
-import java.util.Scanner;
 
 /**
  * Writes data to and retrieves data from storage file.
@@ -23,11 +19,15 @@ import java.util.Scanner;
 public class Storage {
 
     private File dataFile;
+    private Ui display;
 
     /**
      * Constructor for storage object.
+     *
+     * @param display The UI to inform user of any failures.
      */
-    public Storage() {
+    public Storage(Ui display) {
+        this.display = display;
         this.dataFile = new File(String.join(File.separator, ".", "duke_data", "data.txt"));
         makeFile(this.dataFile);
     }
@@ -39,12 +39,14 @@ public class Storage {
         }
         try {
             file.createNewFile();
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            display.print("Failed to create data file.");
+        }
     }
 
     /**
      * Generates TaskList from stored data.
-     * 
+     *
      * @return TaskList from stored data.
      */
     public TaskList loadTasks() {
@@ -65,7 +67,7 @@ public class Storage {
                 cmd.execute(tasks, ui, this);
             }
         } catch (DukeException e) {
-            (new VerboseUi("")).print("☹ OOPS!!! Data file is corrupted. Starting from a clear state...");
+            display.print("Data file is corrupted. Starting from a clear state...");
             tasks.clear();
         }
         ui.close();
@@ -74,7 +76,7 @@ public class Storage {
 
     /**
      * Saves TaskList to file.
-     * 
+     *
      * @param tasks TaskList to be saved.
      */
     public void save(TaskList tasks) {
@@ -85,7 +87,9 @@ public class Storage {
             }
             writer.flush();
             writer.close();
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            display.print("Failed to save data file.");
+        }
     }
 
 }

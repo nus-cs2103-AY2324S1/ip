@@ -1,14 +1,14 @@
 package duke.command;
 
+import java.util.List;
+import java.util.Map;
+
 import duke.exception.DukeException;
 import duke.object.TaskList;
 import duke.parser.element.CommandElement;
 import duke.parser.element.argument.IndexArgument;
 import duke.storage.Storage;
 import duke.ui.Ui;
-import java.io.File;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Command to remove an task from the list.
@@ -17,7 +17,7 @@ public class RemoveCommand extends Command {
 
     /**
      * Constructor for RemoveCommand.
-     * 
+     *
      * @param args The arguments entered by the user.
      */
     public RemoveCommand(Map<String, Object> args) {

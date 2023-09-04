@@ -11,7 +11,7 @@ public class Field implements CommandElement {
 
     /**
      * Constructor for Field.
-     * 
+     *
      * @param text The text represented by the field.
      */
     public Field(String text) {
@@ -41,5 +41,5 @@ public class Field implements CommandElement {
     public String toString() {
         return this.text;
     }
-    
+
 }

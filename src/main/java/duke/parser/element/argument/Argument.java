@@ -12,7 +12,7 @@ public abstract class Argument implements CommandElement {
 
     /**
      * Constructor for Argument.
-     * 
+     *
      * @param text The name of the input field.
      */
     public Argument(String text) {
@@ -45,7 +45,7 @@ public abstract class Argument implements CommandElement {
 
     /**
      * Interprets the input.
-     * 
+     *
      * @param input The user input.
      * @return The object interpreted with semantic meaning to the program.
      * @throws DukeException if the input cannot be converted into something of meaning.
@@ -54,10 +54,10 @@ public abstract class Argument implements CommandElement {
 
     /**
      * Converts a value from the program to readable form.
-     * 
+     *
      * @param val Object with semantic meaning to the program.
      * @return The readable form of the object.
      */
     public abstract String formatOutput(Object val);
-    
+
 }

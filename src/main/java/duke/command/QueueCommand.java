@@ -1,15 +1,15 @@
 package duke.command;
 
-import duke.object.TaskList;
-import duke.object.task.Task;
-import duke.object.task.Deadline;
-import duke.parser.element.CommandElement;
-import duke.storage.Storage;
-import duke.ui.Ui;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import duke.object.TaskList;
+import duke.object.task.Deadline;
+import duke.object.task.Task;
+import duke.parser.element.CommandElement;
+import duke.storage.Storage;
+import duke.ui.Ui;
 
 /**
  * Command to list all deadlines in sorted order.
@@ -18,7 +18,7 @@ public class QueueCommand extends Command {
 
     /**
      * Constructor for QueueCommand.
-     * 
+     *
      * @param args The arguments entered by the user.
      */
     public QueueCommand(Map<String, Object> args) {

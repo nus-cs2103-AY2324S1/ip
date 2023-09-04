@@ -1,11 +1,12 @@
 package duke.object.task;
 
-import duke.command.task.EventCommand;
-import duke.exception.DateRangeException;
-import duke.ui.Ui;
 import java.time.LocalDate;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map;
+
+import duke.command.task.EventCommand;
+import duke.exception.DateRangeException;
+import duke.ui.Ui;
 
 /**
  * Task with a start and end date.
@@ -17,7 +18,7 @@ public class Event extends Task {
 
     /**
      * Constructor for Event.
-     * 
+     *
      * @param description The user's description of the task.
      * @param from The start date of the task.
      * @param to The end date of the task.
@@ -55,7 +56,7 @@ public class Event extends Task {
 
     /**
      * Returns whether the event is happening on a given date.
-     * 
+     *
      * @param date The date one is checking.
      * @return Whether the event is happening on that date.
      */

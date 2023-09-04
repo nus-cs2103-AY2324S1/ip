@@ -1,8 +1,9 @@
 package duke.parser.element.argument;
 
-import duke.exception.InvalidDateException;
-import java.time.format.DateTimeParseException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
+import duke.exception.InvalidDateException;
 
 /**
  * Input must be a date.
@@ -11,7 +12,7 @@ public class DateArgument extends Argument {
 
     /**
      * Constructor for DateArgument.
-     * 
+     *
      * @param text The name of the input field.
      */
     public DateArgument(String text) {
@@ -37,5 +38,5 @@ public class DateArgument extends Argument {
     public String formatOutput(Object val) {
         return val.toString();
     }
-    
+
 }

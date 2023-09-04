@@ -13,7 +13,7 @@ public class VerboseUi extends Ui {
 
     /**
      * Constructor for VerboseUi.
-     * 
+     *
      * @param name Name used when greeting users.
      */
     public VerboseUi(String name) {

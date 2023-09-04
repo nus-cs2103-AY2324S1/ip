@@ -12,25 +12,20 @@ import duke.ui.VerboseUi;
  * The main chatbot.
  */
 public class Duke {
-    
+
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    public static void main(String[] args) {
-        Duke bot = new Duke("chatBot");
-        bot.run();
-    }
-
     /**
      * Constructor for Duke.
-     * 
+     *
      * @param name Name of the bot.
      */
     public Duke(String name) {
-        this.storage = new Storage();
-        this.tasks = this.storage.loadTasks();
         this.ui = new VerboseUi(name);
+        this.storage = new Storage(this.ui);
+        this.tasks = this.storage.loadTasks();
     }
 
     /**
@@ -48,6 +43,11 @@ public class Duke {
                 ui.print(e.getMessage());
             }
         }
+    }
+
+    public static void main(String[] args) {
+        Duke bot = new Duke("chatBot");
+        bot.run();
     }
 
 }

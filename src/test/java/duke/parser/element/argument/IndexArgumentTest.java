@@ -1,26 +1,34 @@
 package duke.parser.element.argument;
 
-import duke.exception.InvalidIndexException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
+
+import duke.exception.InvalidIndexException;
 
 public class IndexArgumentTest {
 
     @Test
     public void formatInput_string_invalidIndexException() {
+        IndexArgument tested = new IndexArgument("");
         try {
-            (new IndexArgument("")).formatInput(" ");
+            tested.formatInput(" ");
             fail();
-        } catch (InvalidIndexException e) {}
+        } catch (InvalidIndexException e) {
+            return;
+        }
     }
 
     @Test
     public void formatInput_nonpositiveInteger_invalidIndexException() {
+        IndexArgument tested = new IndexArgument("");
         try {
-            (new IndexArgument("")).formatInput("0");
+            tested.formatInput("0");
             fail();
-        } catch (InvalidIndexException e) {}
+        } catch (InvalidIndexException e) {
+            return;
+        }
     }
 
     @Test

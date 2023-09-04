@@ -1,17 +1,17 @@
 package duke.command;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
 import duke.exception.DukeException;
 import duke.object.TaskList;
 import duke.parser.element.CommandElement;
 import duke.parser.element.argument.Argument;
 import duke.storage.Storage;
 import duke.ui.Ui;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * Actionable representing a command input by the user.
@@ -23,7 +23,7 @@ public abstract class Command {
 
     /**
      * Constructor for command.
-     * 
+     *
      * @param commandName The name of the command.
      * @param args The arguments entered by the user.
      */
@@ -36,7 +36,7 @@ public abstract class Command {
 
     /**
      * Generates regex pattern expected for command.
-     * 
+     *
      * @return Regex pattern expected for command.
      */
     public Pattern getPattern() {
@@ -46,7 +46,7 @@ public abstract class Command {
 
     /**
      * Generates readable expected structure for command.
-     * 
+     *
      * @return Readable expected structure for command.
      */
     public String getStructure() {
@@ -78,7 +78,7 @@ public abstract class Command {
 
     /**
      * Generates list of arguments expected from command.
-     * 
+     *
      * @return List of arguments expected from command.
      */
     public List<Argument> getArguments() {
@@ -96,7 +96,7 @@ public abstract class Command {
 
     /**
      * Get command to act.
-     * 
+     *
      * @param tasks The list of tasks to act on.
      * @param ui The Ui to interact with the user.
      * @param storage The Storage to update data.
@@ -106,7 +106,7 @@ public abstract class Command {
 
     /**
      * Returns whether the command is to terminate the program.
-     * 
+     *
      * @return Whether the command is to terminate the program.
      */
     public abstract boolean isExit();

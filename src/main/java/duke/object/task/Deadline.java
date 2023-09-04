@@ -1,11 +1,12 @@
 package duke.object.task;
 
-import duke.command.task.DeadlineCommand;
-import duke.ui.Ui;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map;
+
+import duke.command.task.DeadlineCommand;
+import duke.ui.Ui;
 
 /**
  * Task with an end date.
@@ -16,7 +17,7 @@ public class Deadline extends Task implements Comparable<Deadline> {
 
     /**
      * Constructor for Deadline.
-     * 
+     *
      * @param description The user's description of the task.
      * @param by The end date of the task.
      */
