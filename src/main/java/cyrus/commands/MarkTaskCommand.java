@@ -2,7 +2,6 @@ package cyrus.commands;
 
 import cyrus.parser.ParseInfo;
 import cyrus.tasks.TaskList;
-import cyrus.ui.Ui;
 
 /**
  * Command to mark a {@code Task} in the given {@code TaskList}.
@@ -19,7 +18,7 @@ public class MarkTaskCommand extends Command {
      *                      a number.
      */
     @Override
-    public void execute() throws CommandError {
+    public String[] execute() throws CommandError {
         if (this.parseInfo.hasNoArgument()) {
             throw new CommandError("Missing task index");
         }
@@ -27,8 +26,10 @@ public class MarkTaskCommand extends Command {
         try {
             int i = Integer.parseInt(this.parseInfo.getArgument());
             this.taskList.setTaskStatus(i - 1, true);
-            Ui.printText("Nice! I've marked this task as done:",
-                    this.taskList.getTask(i - 1).toString());
+            return new String[]{
+                "Nice! I've marked this task as done:",
+                this.taskList.getTask(i - 1).toString()
+            };
         } catch (NumberFormatException e) {
             throw new CommandError("Invalid task index: must be integer");
         } catch (IndexOutOfBoundsException e) {

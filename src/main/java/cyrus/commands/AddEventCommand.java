@@ -7,7 +7,6 @@ import cyrus.parser.ParseInfo;
 import cyrus.tasks.Event;
 import cyrus.tasks.Task;
 import cyrus.tasks.TaskList;
-import cyrus.ui.Ui;
 import cyrus.utility.DateUtility;
 
 /**
@@ -27,7 +26,7 @@ public class AddEventCommand extends Command {
      *                      provided, or date formats are invalid.
      */
     @Override
-    public void execute() throws CommandError {
+    public String[] execute() throws CommandError {
         if (this.parseInfo.hasNoArgument()) {
             throw new CommandError("Event is missing a body!");
         }
@@ -57,6 +56,10 @@ public class AddEventCommand extends Command {
 
         Task event = new Event(eventName, eventFromDate, eventToDate);
         this.taskList.addTask(event);
-        Ui.printAddTask(event, this.taskList.size());
+        return new String[]{
+            "Got it. I've added this task:",
+            event.toString(),
+            String.format("Now you have %d tasks in the list.", this.taskList.size())
+        };
     }
 }

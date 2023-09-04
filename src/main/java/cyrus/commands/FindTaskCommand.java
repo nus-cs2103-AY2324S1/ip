@@ -5,7 +5,6 @@ import java.util.List;
 
 import cyrus.parser.ParseInfo;
 import cyrus.tasks.TaskList;
-import cyrus.ui.Ui;
 
 /**
  * Command to find {@code Task} given keyword.
@@ -19,17 +18,18 @@ public class FindTaskCommand extends Command {
      * Returns list of matching tasks given keyword, taken from argument.
      */
     @Override
-    public void execute() {
+    public String[] execute() {
         var tasks = this.taskList.findTask(this.parseInfo.getArgument());
         if (tasks.size() == 0) {
-            Ui.printText("No tasks found");
-            return;
+            return new String[]{
+                "No tasks found."
+            };
         }
         List<String> lines = new ArrayList<>();
         lines.add("Here are the matching tasks in your list:");
         for (var task : tasks) {
             lines.add(task.toString());
         }
-        Ui.printText(lines.toArray(String[]::new));
+        return lines.toArray(String[]::new);
     }
 }

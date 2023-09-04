@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<fx:root alignment="TOP_RIGHT" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+    </padding>
+    <HBox fx:id="userInfo" prefWidth="200.0">
+        <ImageView fx:id="displayPicture" fitHeight="25.0" fitWidth="25.0" preserveRatio="true" />
+      <Region prefWidth="10.0" />
+        <Label fx:id="username" prefHeight="25.0" prefWidth="57.0" text="Username" wrapText="true">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Label>
+    </HBox>
+    <Label fx:id="dialog" alignment="TOP_RIGHT" text="Label" wrapText="true" />
+</fx:root>

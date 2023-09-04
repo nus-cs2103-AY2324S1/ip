@@ -7,7 +7,6 @@ import cyrus.parser.ParseInfo;
 import cyrus.tasks.Deadline;
 import cyrus.tasks.Task;
 import cyrus.tasks.TaskList;
-import cyrus.ui.Ui;
 import cyrus.utility.DateUtility;
 
 /**
@@ -27,7 +26,7 @@ public class AddDeadlineCommand extends Command {
      *                      format is invalid.
      */
     @Override
-    public void execute() throws CommandError {
+    public String[] execute() throws CommandError {
         if (this.parseInfo.hasNoArgument()) {
             throw new CommandError("Deadline is missing a body!");
         }
@@ -46,6 +45,10 @@ public class AddDeadlineCommand extends Command {
 
         Task deadline = new Deadline(deadlineName, deadlineDate);
         this.taskList.addTask(deadline);
-        Ui.printAddTask(deadline, this.taskList.size());
+        return new String[]{
+            "Got it. I've added this task:",
+            deadline.toString(),
+            String.format("Now you have %d tasks in the list.", this.taskList.size())
+        };
     }
 }
