@@ -1,4 +1,4 @@
-package seedu.james;
+package james;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

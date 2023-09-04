@@ -1,4 +1,4 @@
-package seedu.james;
+package james;
 
 /**
  * Task class to represent a task

@@ -1,4 +1,4 @@
-package seedu.james;
+package james;
 
 /**
  * Represents an exception that occurs during saving.
