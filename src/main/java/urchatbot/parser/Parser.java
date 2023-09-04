@@ -36,28 +36,28 @@ public class Parser{
     public static Command parse(String command) throws URChatBotException {
         String commandType = getCommandType(command);
         switch (commandType) {
-            case "TODO":
-                return parseTodoCommand(command);
-            case "DEADLINE":
-                return parseDeadlineCommand(command);
-            case "EVENT":
-                return parseEventCommand(command);
-            case "LIST":
-                return parseListCommand(command);
-            case "MARK":
-                return parseMarkCommand(command);
-            case "UNMARK":
-                return parseUnmarkCommand(command);
-            case "CLEAR":
-                return parseClearCommand(command);
-            case "DELETE":
-                return parseDeleteCommand(command);
-            case "PRINT":
-                return parsePrintCommand(command);
-            case "BYE":
-                return parseExitCommand(command);
-            default:
-                throw new URChatBotException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        case "TODO":
+            return parseTodoCommand(command);
+        case "DEADLINE":
+            return parseDeadlineCommand(command);
+        case "EVENT":
+            return parseEventCommand(command);
+        case "LIST":
+            return parseListCommand(command);
+        case "MARK":
+            return parseMarkCommand(command);
+        case "UNMARK":
+            return parseUnmarkCommand(command);
+        case "CLEAR":
+            return parseClearCommand(command);
+        case "DELETE":
+            return parseDeleteCommand(command);
+        case "PRINT":
+            return parsePrintCommand(command);
+        case "BYE":
+            return parseExitCommand(command);
+        default:
+            throw new URChatBotException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
