@@ -51,6 +51,8 @@ public class Parser {
                 command = new ToDoCommand(userInputArray);
             } else if (userInputArray[0].contains("delete")) {
                 command = new DeleteCommand(userInputArray);
+            } else if (userInputArray[0].contains("find")) {
+                command = new FindCommand(userInputArray);
             } else {
                 throw new KoraException("I do not understand");
             }

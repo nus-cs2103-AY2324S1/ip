@@ -4,7 +4,6 @@ import duke.task.TaskList;
 
 public class ByeCommand extends Command {
     public ByeCommand() {
-
     }
     String commandMessage = "";
     @Override
