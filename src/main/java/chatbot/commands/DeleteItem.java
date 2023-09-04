@@ -7,17 +7,21 @@ import chatbot.task.TaskList;
 import chatbot.ui.Ui;
 
 /**
- * 
+ * Command that deletes an item from the TaskList, and prints a message.
  */
 public class DeleteItem extends Command{
 
     public DeleteItem(String input, CommandType commandType) {
         super(input, commandType);
     }
+
     /**
      * {@inheritDoc}
      * 
-     * Deletes item from the TaskList.
+     * Deletes item from the TaskList and saves it.
+     * Prints a message on the UI.
+     * 
+     * @throws InvalidIndexEception Thrown when no tasks matches the index.
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) 

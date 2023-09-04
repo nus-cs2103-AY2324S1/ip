@@ -18,7 +18,7 @@ public class DisplayList extends Command{
     /**
      * {@inheritDoc}
      * 
-     * Displays the current list when executed.
+     * Displays the current list on the UI when executed.
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) {

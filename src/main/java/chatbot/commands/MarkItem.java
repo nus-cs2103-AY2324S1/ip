@@ -19,7 +19,10 @@ public class MarkItem extends Command{
     /**
      * {@inheritDoc}
      * 
+     * Marks an item on the tasklist as done, and prints a message on the UI.
+     * Saves the change on the text file.
      * 
+     * @throws InvalidIndexEception Thrown when no tasks matches the index.
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) 

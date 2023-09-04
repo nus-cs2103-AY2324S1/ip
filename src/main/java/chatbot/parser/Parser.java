@@ -10,6 +10,7 @@ import chatbot.commands.DeleteItem;
 import chatbot.commands.DisplayList;
 import chatbot.commands.MarkItem;
 import chatbot.commands.UnmarkItem;
+import chatbot.commands.FindTask;
 
 import chatbot.exceptions.InvalidCommandException;
 import chatbot.exceptions.InvalidDescriptionException;
@@ -65,6 +66,9 @@ public class Parser {
 
             case DELETE:
                 return new DeleteItem(inputStrings[1], CommandType.DELETE);
+
+            case FIND:
+                return new FindTask(inputStrings[1], CommandType.FIND);
 
             default:
                 throw new InvalidCommandException("Don't be stupid, speak english.");

@@ -13,10 +13,21 @@ import chatbot.ui.Ui;
  */
 public class AddDeadline extends Command {
 
+    /**
+     * {@inheritDoc}
+     * @param input
+     * @param commandType
+     */
     public AddDeadline(String input, CommandType commandType) {
         super(input, commandType);
     }
     
+    /**
+     * {@inheritDoc}
+     * 
+     * Adds a Deadline to the TaskList of the chatbot and saves it. 
+     * Prints a message on the UI.
+     */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) {
         try {

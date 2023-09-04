@@ -20,7 +20,8 @@ public class AddToDo extends Command{
     /**
      * {@inheritDoc}
      * 
-     * 
+     * Adds a todo to the TaskList of the chatbot and saves it. 
+     * Prints a message on the UI.
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) {

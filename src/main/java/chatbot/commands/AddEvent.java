@@ -17,6 +17,12 @@ public class AddEvent extends Command {
         super(input, commandType);
     }
     
+    /**
+     * {@inheritDoc}
+     * 
+     * Adds an Event to the TaskList of the chatbot and saves it. 
+     * Prints a message on the UI.
+     */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) {
         try {

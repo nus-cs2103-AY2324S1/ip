@@ -14,6 +14,12 @@ public abstract class Command {
     protected final String input;
     protected final CommandType commandType;
 
+    /**
+     * Constructs a Command instance with a given type and input.
+     * 
+     * @param input String containing task label and other info.
+     * @param commandType type of command instance
+     */
     public Command(String input, CommandType commandType) {
         this.input = input;
         this.commandType = commandType;

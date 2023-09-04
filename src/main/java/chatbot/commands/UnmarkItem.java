@@ -19,7 +19,10 @@ public class UnmarkItem extends Command{
     /**
      * {@inheritDoc}
      * 
-     * unmarks a task as undone.
+     * Unmarks a task on the TaskList as undone, and prints a message.
+     * Saves the change on a data file.
+     * 
+     * @throws InvalidIndexEception Thrown when no tasks matches the index.
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) 
