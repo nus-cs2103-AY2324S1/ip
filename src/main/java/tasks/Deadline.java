@@ -13,12 +13,23 @@ public class Deadline extends Task {
 
     }
 
+
+    /**
+     * Returns a string that represents the Deadline
+     *
+     * @return string with details of the Deadline
+     */
     @Override
     public String toString() {
         String dateString = this.date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         return "[D]" + super.toString() + " (by: " + dateString + ")";
     }
 
+    /**
+     * Returns a string that represents the Deadline to be stored in txt file
+     *
+     * @return a formatted string with details of the Deadline
+     */
     @Override
     public String taskToStringStore(Task task) {
         String dateString = this.date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));

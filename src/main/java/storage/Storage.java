@@ -13,6 +13,9 @@ public class Storage {
 
     private static final String FILE_PATH_NAME = "./data/chadBot.txt";
 
+    /**
+     * Creates a new directory for txt file if it does not exist
+     */
     public void makeNewDirectory() {
         File newDir = new File("./data");
         if (newDir.mkdirs()) {
@@ -22,6 +25,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Makes a new txt file if it does not exist
+     */
     public void makeNewFile() {
         try {
             File newFile = new File(FILE_PATH_NAME);
@@ -35,6 +41,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Prints out tasks that are stored in txt file
+     *
+     * @throws FileNotFoundException if file is not found
+     */
     public void printFile() throws FileNotFoundException {
         File chadFile = new File(FILE_PATH_NAME);
         Scanner s = new Scanner(chadFile);
@@ -43,6 +54,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes data from the ArrayList into the txt file
+     *
+     * @param t is the ArrayList that contains data of all the tasks
+     */
     public void writeFile(ArrayList<Task> t) {
         try {
             FileWriter fw = new FileWriter(FILE_PATH_NAME);
@@ -56,6 +72,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Takes a line of data from txt file and create a new Task from
+     * the information
+     *
+     * @param data a line of data from txt file
+     * @return a Task object with its respective data
+     */
     public Task stringToTask(String data) {
 
         String[] parts = data.split("-", 0);
@@ -86,6 +109,11 @@ public class Storage {
         return null;
     }
 
+    /**
+     * Loads up the txt file and adds the tasks to the ArrayList
+     *
+     * @param task an ArrayList for data to be stored in
+     */
     public void loadFile(ArrayList<Task> task) {
         try {
             File chadFile = new File(FILE_PATH_NAME);
@@ -98,11 +126,8 @@ public class Storage {
                     task.add(t);
                 }
             }
-
-
         } catch (FileNotFoundException e) {
             System.out.println("File not found... Unable to load tasks");
         }
     }
-
 }

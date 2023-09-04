@@ -12,10 +12,21 @@ public class TaskList {
         this.taskArrayList = taskArrayList;
     }
 
+    /**
+     * Adds a task to the current ArrayList
+     *
+     * @param input the task that is to be added
+     */
     public void chadAddList(Task input) {
             taskArrayList.add(input);
     }
 
+    /**
+     * Removes a list from the current ArrayList
+     *
+     * @param index of the task to be removed
+     * @return the name of the removed task
+     */
     public String chadRemoveList(int index){
         try {
             Task removed = taskArrayList.remove(index - 1);
@@ -26,6 +37,9 @@ public class TaskList {
         return null;
     }
 
+    /**
+     * Prints out the whole list of tasks
+     */
     public void chadListTask() {
         if (taskArrayList.size() == 0) {
             System.out.println("Your task list is EMPTY!");
@@ -41,10 +55,20 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as completed
+     *
+     * @param index of task to be marked
+     */
     public void chadMarkTask(int index) {
         taskArrayList.get(index - 1).isComplete = true;
     }
 
+    /**
+     * Unmarks a task that was previously marked
+     *
+     * @param index of task to be unmarked
+     */
     public void chadUnmarkTask(int index) {
         taskArrayList.get(index - 1).isComplete = false;
 

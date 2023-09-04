@@ -24,6 +24,13 @@ public class Parser {
         this.tasklist = new TaskList(taskArrayList);
     }
 
+    /**
+     * Takes in a String array of the instructions from user
+     * Runs the applicable methods based on the instruction from user
+     *
+     * @param inputArray array of string from the input of user
+     * @return false if user gives command to stop bot, else returns true
+     */
     public boolean inputParse(String[] inputArray) {
 
             if (inputArray[0].equals("bye")) {

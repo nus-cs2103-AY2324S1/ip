@@ -15,6 +15,11 @@ public class Event extends Task {
         this.dateTo = LocalDate.parse(to, DateTimeFormatter.ofPattern("d MMM yyyy"));
     }
 
+    /**
+     * Returns a string that represents the Event
+     *
+     * @return string with details of the Event
+     */
     @Override
     public String toString() {
         String dateFromString = this.dateFrom.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
@@ -22,6 +27,11 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + dateFromString + " to: " + dateToString + ")";
     }
 
+    /**
+     * Returns a string that represents the Event to be stored in txt file
+     *
+     * @return a formatted string with details of the Event
+     */
     @Override
     public String taskToStringStore(Task task) {
         String dateFromString = this.dateFrom.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
