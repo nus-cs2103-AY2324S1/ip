@@ -1,9 +1,9 @@
 package duke.util;
 
+import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
-import duke.exception.DukeException;
 import duke.task.Todo;
 
 import java.io.BufferedReader;
