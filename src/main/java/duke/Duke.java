@@ -31,45 +31,33 @@ public class Duke {
     }
 
     public Duke() {
-
+        this(DATAPATH);
     }
 
     /**
-     * Main execution method that runs the chatbot.
+     * Main execution method that processes user input and returns a response string.
+     *
+     * @param userInput The user's input.
+     * @return The response to the user as a string.
      */
-    private void run() {
-        this.ui.showWelcome();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String userInput = ui.readInput();
-
-                if (userInput.trim().isEmpty()) {
-                    throw new EmptyCommandException();
-                }
-
-                Command command = Parser.parseCommand(userInput);
-                command.execute(taskList, ui, storage);
-                isExit = command.isExit();
-
-            } catch (DukeException e) {
-                ui.showDukeException(e);
-            } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                ui.showArrayIndexOutOfBoundsException();
+    public String getResponse(String userInput) {
+        try {
+            if (userInput.trim().isEmpty()) {
+                throw new EmptyCommandException();
             }
+
+            Command command = Parser.parseCommand(userInput);
+            return command.execute(taskList, ui, storage);
+
+        } catch (DukeException e) {
+            return ui.showDukeException(e);
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            return ui.showArrayIndexOutOfBoundsException();
         }
     }
 
     public static void main(String[] args) {
-        new Duke(DATAPATH).run();
+        new Duke(DATAPATH);
     }
 
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
-    }
 }

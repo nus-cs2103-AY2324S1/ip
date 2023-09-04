@@ -14,7 +14,7 @@ import duke.task.TaskList;
 public class TodayCommand extends Command {
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         LocalDate today = LocalDate.now();
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
@@ -25,7 +25,7 @@ public class TodayCommand extends Command {
             }
         }
 
-        ui.showTasksForToday(today, matchingTasks);
+        return ui.showTasksForToday(today, matchingTasks);
     }
 
     @Override

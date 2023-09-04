@@ -18,7 +18,7 @@ public abstract class Command {
      * @param storage The storage instance to manage data.
      * @throws DukeException If an exception specific to Duke's operations occurs.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 
     /**
      * Checks if the command is an exit command.

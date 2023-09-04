@@ -28,7 +28,7 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             if (description.trim().isEmpty()) {
                 throw new EmptyDescriptionException("event");
@@ -36,12 +36,12 @@ public class AddEventCommand extends Command {
 
             Event newEvent = new Event(description, dateTime);
             taskList.addTask(newEvent);
-            ui.showAdd(newEvent, taskList.getLength());
+            return ui.showAdd(newEvent, taskList.getLength());
 
         } catch (EmptyDescriptionException e) {
-            ui.showDukeException(e);
+            return ui.showDukeException(e);
         } catch (DateTimeParseException e) {
-            ui.showInvalidDateTimeFormat();
+            return ui.showInvalidDateTimeFormat();
         }
     }
 

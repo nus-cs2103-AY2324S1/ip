@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             if (taskIndex < 0 || taskIndex >= taskList.getLength()) {
                 throw new InvalidTaskIndexException(taskIndex + 1);
@@ -30,12 +30,12 @@ public class DeleteCommand extends Command {
 
             Task removedTask = taskList.getTask(taskIndex);
             taskList.deleteTask(taskIndex);
-            ui.showDelete(removedTask, taskList.getLength());
+            return ui.showDelete(removedTask, taskList.getLength());
 
         } catch (InvalidTaskIndexException e) {
-            ui.showDukeException(e);
+            return ui.showDukeException(e);
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-            ui.showArrayIndexOutOfBoundsException();
+            return ui.showArrayIndexOutOfBoundsException();
         }
     }
 

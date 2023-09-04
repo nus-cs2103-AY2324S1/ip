@@ -11,7 +11,7 @@ checkstyle {
 }
 
 javafx {
-    version = "20"
+    version = "20.0.1"
     modules = [ 'javafx.controls' ]
 }
 
@@ -54,7 +54,7 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("duke.Launcher")
 }
 
 shadowJar {

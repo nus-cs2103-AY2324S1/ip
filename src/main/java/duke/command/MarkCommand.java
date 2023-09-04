@@ -24,7 +24,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             if (taskIndex < 0 || taskIndex >= taskList.getLength()) {
                 throw new InvalidTaskIndexException(taskIndex + 1);
@@ -32,12 +32,12 @@ public class MarkCommand extends Command {
 
             Task task = taskList.getTask(taskIndex);
             task.markAsDone();
-            ui.showDone(task);
             storage.saveData(taskList);
+            return ui.showDone(task);
         } catch (InvalidTaskIndexException e) {
-            ui.showDukeException(e);
+            return ui.showDukeException(e);
         } catch (IOException e) {
-            ui.showSavingError();
+            return ui.showSavingError();
         }
     }
 

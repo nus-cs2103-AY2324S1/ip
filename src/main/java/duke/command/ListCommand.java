@@ -10,8 +10,8 @@ import duke.task.TaskList;
 public class ListCommand extends Command {
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showList(taskList);
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.showList(taskList);
     }
 
     @Override

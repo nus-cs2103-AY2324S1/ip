@@ -25,7 +25,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             if (taskIndex < 0 || taskIndex >= taskList.getLength()) {
                 throw new InvalidTaskIndexException(taskIndex + 1);
@@ -33,14 +33,14 @@ public class UnmarkCommand extends Command {
 
             Task task = taskList.getTask(taskIndex);
             task.markAsNotDone();
-            ui.showNotDone(task);
             storage.saveData(taskList);
+            return ui.showNotDone(task);
         } catch (InvalidTaskIndexException e) {
-            ui.showDukeException(e);
+            return ui.showDukeException(e);
         } catch (IOException e) {
-            ui.showSavingError();
+            return ui.showSavingError();
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-            ui.showArrayIndexOutOfBoundsException();
+            return ui.showArrayIndexOutOfBoundsException();
         }
     }
 

@@ -12,12 +12,12 @@ import duke.task.TaskList;
 public class ExitCommand extends Command {
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             storage.saveData(taskList);
-            ui.showExit();
+            return ui.showExit();
         } catch (IOException e) {
-            ui.showSavingError();
+            return ui.showSavingError();
         }
     }
 

@@ -22,7 +22,7 @@ public class AddTodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             if (description.trim().isEmpty()) {
                 throw new EmptyDescriptionException("todo");
@@ -30,9 +30,9 @@ public class AddTodoCommand extends Command {
 
             Todo newTodo = new Todo(description);
             taskList.addTask(newTodo);
-            ui.showAdd(newTodo, taskList.getLength());
+            return ui.showAdd(newTodo, taskList.getLength());
         } catch (EmptyDescriptionException e) {
-            ui.showDukeException(e);
+            return ui.showDukeException(e);
         }
     }
 
