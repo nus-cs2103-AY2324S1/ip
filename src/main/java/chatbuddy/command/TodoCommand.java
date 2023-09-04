@@ -1,10 +1,10 @@
 package chatbuddy.command;
 
 import chatbuddy.ChatBuddyException;
-import chatbuddy.storage.Storage;
 import chatbuddy.TaskList;
-import chatbuddy.ui.Ui;
+import chatbuddy.storage.Storage;
 import chatbuddy.task.ToDo;
+import chatbuddy.ui.Ui;
 
 /** TodoCommand represents a command to create a todo task. */
 public class TodoCommand extends Command {

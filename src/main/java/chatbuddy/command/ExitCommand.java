@@ -1,8 +1,8 @@
 package chatbuddy.command;
 
 import chatbuddy.ChatBuddyException;
-import chatbuddy.storage.Storage;
 import chatbuddy.TaskList;
+import chatbuddy.storage.Storage;
 import chatbuddy.ui.Ui;
 
 /** ExitCommand represents a command to exit the chatbot. */

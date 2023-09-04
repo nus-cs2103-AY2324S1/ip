@@ -1,10 +1,10 @@
 package chatbuddy.command;
 
-import chatbuddy.storage.Storage;
-import chatbuddy.TaskList;
-import chatbuddy.ui.Ui;
-
 import java.util.ArrayList;
+
+import chatbuddy.TaskList;
+import chatbuddy.storage.Storage;
+import chatbuddy.ui.Ui;
 
 /** ListCommand represents a command to show the list of tasks. */
 public class ListCommand extends Command {

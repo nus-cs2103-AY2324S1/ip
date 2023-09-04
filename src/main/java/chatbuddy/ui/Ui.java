@@ -1,16 +1,16 @@
 package chatbuddy.ui;
 
-import chatbuddy.task.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import chatbuddy.task.Task;
 
 /**
  * The Ui class handles interactions with the user.
  * It reads inputs from the users and output messages to the user.
  */
 public class Ui {
-    private final String DIVIDER = "    ____________________________________________________________";
+    private static final String DIVIDER = "    ____________________________________________________________";
     private Scanner scanner;
 
     /** Creates an instance of an Ui object. */

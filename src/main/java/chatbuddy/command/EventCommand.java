@@ -1,12 +1,12 @@
 package chatbuddy.command;
 
-import chatbuddy.ChatBuddyException;
-import chatbuddy.storage.Storage;
-import chatbuddy.TaskList;
-import chatbuddy.ui.Ui;
-import chatbuddy.task.Event;
-
 import java.time.LocalDateTime;
+
+import chatbuddy.ChatBuddyException;
+import chatbuddy.TaskList;
+import chatbuddy.storage.Storage;
+import chatbuddy.task.Event;
+import chatbuddy.ui.Ui;
 
 /** EventCommand represents a command to create an event task. */
 public class EventCommand extends Command {

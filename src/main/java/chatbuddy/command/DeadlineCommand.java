@@ -1,12 +1,12 @@
 package chatbuddy.command;
 
-import chatbuddy.ChatBuddyException;
-import chatbuddy.storage.Storage;
-import chatbuddy.TaskList;
-import chatbuddy.ui.Ui;
-import chatbuddy.task.Deadline;
-
 import java.time.LocalDate;
+
+import chatbuddy.ChatBuddyException;
+import chatbuddy.TaskList;
+import chatbuddy.storage.Storage;
+import chatbuddy.task.Deadline;
+import chatbuddy.ui.Ui;
 
 /** DeadlineCommand represents a command to create a deadline task. */
 public class DeadlineCommand extends Command {
