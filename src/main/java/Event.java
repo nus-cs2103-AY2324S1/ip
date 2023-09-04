@@ -1,11 +1,16 @@
 public class Event extends Task {
+<<<<<<< HEAD
     protected String from;
     protected String to;
     private static String LINE = "-----------------------------------------\n";
+=======
+    protected DateTime start;
+    protected DateTime end;
+>>>>>>> branch-Level-8
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        start = new DateTime(from);
+        end = new DateTime(to);
     }
 
     public static Event eventParse(String input) {
@@ -36,6 +41,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + "to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + start.getDate() + "to: " + end.getDate() + ")";
     }
 }

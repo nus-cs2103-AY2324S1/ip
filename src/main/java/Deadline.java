@@ -1,9 +1,15 @@
+import java.time.LocalDate;
+
 public class Deadline extends Task {
+<<<<<<< HEAD
     protected String by;
     private static String LINE = "-----------------------------------------\n";
+=======
+    protected DateTime deadline;
+>>>>>>> branch-Level-8
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.deadline = new DateTime(by);
     }
 
     public static Deadline deadlineParse(String input) {
@@ -30,6 +36,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + deadline.getDate() + ")";
     }
 }
