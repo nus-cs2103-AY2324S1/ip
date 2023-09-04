@@ -1,4 +1,4 @@
-package oscar.essential;
+package oscar.ui;
 
 import java.util.Scanner;
 
