@@ -18,4 +18,3 @@ text-ui-test/EXPECTED-UNIX.TXT
 text-ui-test/shibaData/*
 shibaData/*
 config/*
-src/main/resources/images/*
