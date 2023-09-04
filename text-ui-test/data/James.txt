@@ -1,7 +1,0 @@
-[T][X] read book
-[D][ ] return book (by: Dec 01 2019 20:00)
-[E][ ] project meeting (from: Aug 06 2022 14:00 to: Aug 06 2022 18:00)
-[T][X] join sports club
-[T][ ] borrow book
-[D][ ] return book (by: Dec 02 2019 21:00)
-[E][ ] project meeting (from: Jan 02 2023 09:00 to: Jan 02 2023 16:00)

@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.james.James")
+    mainClass.set("app.Launcher")
 }
 
 shadowJar {

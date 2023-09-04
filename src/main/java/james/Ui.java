@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    private static String line = "____________________________________________________________";
+    private static String line = "_________________________";
 
     /**
      * The parser used to parse user input.
@@ -41,10 +41,15 @@ public class Ui {
 
         String input = in.nextLine();
         while (!input.equals("bye")) {
-            this.parser.parse(tasks, input);
+            String output = this.parser.parse(tasks, input);
+            System.out.println(output);
             System.out.println(line);
             input = in.nextLine();
         }
         System.out.println("Bye. Hope to see you again soon!\n" + line);
+    }
+
+    public String processInput(TaskList tasks, String input) {
+        return this.parser.parse(tasks, input);
     }
 }

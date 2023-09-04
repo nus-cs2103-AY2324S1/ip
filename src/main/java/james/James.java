@@ -2,10 +2,13 @@ package james;
 
 import java.util.ArrayList;
 
+
 /**
  * James is a personal assistant chatbot that helps a person to keep track of various things.
  */
 public class James {
+
+
     /** Handles loading and saving to hard disk */
     private Storage storage;
 
@@ -17,10 +20,10 @@ public class James {
 
     /**
      * Creates a James object.
-     *
-     * @param savePath The path to the save file.
      */
-    public James(String savePath) {
+
+    public James() {
+        String savePath = "data/James.txt";
         Ui ui = new Ui();
         this.ui = ui;
         Storage storage = new Storage(savePath);
@@ -34,7 +37,7 @@ public class James {
         }
     }
     public static void main(String[] args) {
-        new James("data/James.txt").run();
+        new James().run();
     }
 
     /**
@@ -49,4 +52,19 @@ public class James {
         }
     }
 
+    public String processInput(String input) {
+        String output = this.ui.processInput(this.tasks, input);
+        if (output == "Bye. Hope to see you again soon!") {
+            try {
+                this.storage.save(tasks);
+            } catch (SavingException e) {
+                System.out.println("Error saving file");
+            }
+        }
+        return output;
+    }
+
+    public String getWelcomeMessage() {
+        return "Hello! I'm James\nWhat can I do for you?";
+    }
 }

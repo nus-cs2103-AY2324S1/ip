@@ -15,7 +15,7 @@ public class Parser {
     }
 
     private static String sadFace = "\u2639";
-    private static String line = "____________________________________________________________";
+    private static String line = "___________________";
 
     /**
      * Parses the user input and returns a Task object.
@@ -80,50 +80,56 @@ public class Parser {
      * @param tasks TaskList object.
      * @param input User input.
      */
-    public void parse(TaskList tasks, String input) {
+    public String parse(TaskList tasks, String input) {
         String[] inputParts = input.split(" ");
         String command = inputParts[0];
         Integer taskIdx;
+        String output = "";
 
         switch (command) {
+        case "bye":
+            output += "Bye. Hope to see you again soon!";
+            break;
         case "list":
-            System.out.println(tasks);
+            output += "Here are the tasks in your list:\n";
+            output += tasks;
             break;
         case "unmark":
             taskIdx = Integer.parseInt(inputParts[1]);
             tasks.unmarkTask(taskIdx - 1);
-            System.out.println("OK! I've marked this task as not done yet:");
-            System.out.println(tasks.getTask(taskIdx - 1));
+            output += "OK! I've marked this task as not done yet:\n";
+            output += tasks.getTask(taskIdx - 1);
             break;
         case "mark":
             taskIdx = Integer.parseInt(inputParts[1]);
             tasks.markTask(taskIdx - 1);
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(tasks.getTask(taskIdx - 1));
+            output += "Nice! I've marked this task as done:\n";
+            output += tasks.getTask(taskIdx - 1);
             break;
         case "delete":
             taskIdx = Integer.parseInt(inputParts[1]);
             tasks.deleteTask(taskIdx - 1);
-            System.out.println("Noted. I've removed this task:\n"
-                    + tasks.getTask(taskIdx - 1));
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            output += "Noted. I've removed this task:\n";
+            output += tasks.getTask(taskIdx - 1);
+            output += "\nNow you have " + tasks.size() + " tasks in the list.";
             break;
         case "find":
             String keyword = inputParts[1];
-            System.out.println("Here are the matching tasks in your list:");
-            System.out.println(tasks.find(keyword));
+            output += "Here are the matching tasks in your list:\n";
+            output += tasks.find(keyword);
             break;
         default:
             try {
                 Task task = parseTask(input);
                 tasks.addTask(task);
-                System.out.println("Got it. I've added this task:\n" + task + "\n" + line);
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                output += "Got it. I've added this task:\n" + task + "\n" + line + "\n";
+                output += "Now you have " + tasks.size() + " tasks in the list.";
             } catch (JamesException e) {
-                System.out.println(e.getMessage());
+                output += e.getMessage();
             }
             break;
     }
+        return output;
     }
 
 
