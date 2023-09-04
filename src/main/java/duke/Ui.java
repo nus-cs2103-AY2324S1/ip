@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.ArrayList;
+
 // Solution below adapted and inspired by https://chat.openai.com/share/7f037351-3be6-4105-b138-77f68d428c84
 /**
  * Handles user interface-related operations for the Duke application.
@@ -97,6 +99,24 @@ public class Ui {
     }
 
     /**
+     * Displays a list of searched tasks.
+     *
+     * This method takes an ArrayList of Task objects and prints them to the console,
+     * numbering each task for easy reference. It also adds separators before and after
+     * the list to visually separate it from other output.
+     *
+     * @param searchedTask An ArrayList of Task objects containing the tasks to be displayed.
+     */
+    public void displaySearched(ArrayList<Task> searchedTask) {
+        System.out.println(separators);
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < searchedTask.size(); i++) {
+            System.out.println((i + 1) + "." + searchedTask.get(i).toString());
+        }
+        System.out.println(separators);
+    }
+
+    /**
      * Displays an error message for an empty todo description.
      */
     public void printToDoException() {
@@ -153,6 +173,12 @@ public class Ui {
     /**
      * Displays an error message for a deadline task in the wrong format.
      */
+    public void printSearchException() {
+        System.out.println("____________________________________________________________");
+        System.out.println("☹ OOPS!!! The task to search must be specified.");
+        System.out.println("____________________________________________________________");
+    }
+
     public void printDeadlineFormatException() {
         System.out.println("____________________________________________________________");
         System.out.println("☹ OOPS!!! Enter in the format: deadline (task) /by dd/MM/yyyy HHmm");

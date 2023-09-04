@@ -58,11 +58,21 @@ public class Task {
         this.isDone = true;
     }
 
-
     /**
      * Marks the task as not done.
      */
     public void markAsNotDone() {
         this.isDone = false;
+    }
+
+    /**
+     * Gets the description of the task.
+     *
+     * This method returns the description of the task as a String.
+     *
+     * @return The description of the task as a String.
+     */
+    public String getDescription() {
+        return this.description;
     }
 }

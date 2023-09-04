@@ -78,6 +78,8 @@ public class Duke {
                 ui.printDeadlineFormatException();
             } catch (DukeException.EventFormatException e) {
                 ui.printEventFormatException();
+            } catch (DukeException.SearchException e) {
+                ui.printSearchException();
             } catch (DukeException e) {
                 throw new RuntimeException(e);
             }

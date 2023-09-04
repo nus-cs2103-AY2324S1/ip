@@ -6,6 +6,8 @@ import duke.command.DeleteCommand;
 import duke.command.AddCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
+import duke.command.SearchCommand;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -32,6 +34,11 @@ public class Parser {
                 return new ByeCommand();
             case "list":
                 return new ListCommand();
+            case "search":
+                if (arguments.isEmpty()) {
+                    throw new DukeException.SearchException();
+                }
+                return new SearchCommand(arguments);
             case "delete":
                 int indexToDelete = Integer.parseInt(arguments) - 1;
                 return new DeleteCommand(indexToDelete);

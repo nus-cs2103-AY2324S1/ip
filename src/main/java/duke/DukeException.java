@@ -70,6 +70,15 @@ public class DukeException extends Exception {
     }
 
     /**
+     * An exception class for handling cases where the user attemps a search in an incorrect format.
+     */
+    public static class SearchException extends DukeException{
+        public SearchException() {
+            super("Task to search for not specified");
+        }
+    }
+
+    /**
      * An exception class for handling cases where the user provides a deadline in an incorrect format.
      */
     public static class DeadlineFormatException extends DukeException{

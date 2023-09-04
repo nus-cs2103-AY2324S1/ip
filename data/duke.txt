@@ -1,3 +1,5 @@
 T | 1 | buy food
 T | 1 | buy groceries
 T | 0 | buy cheese
+T | 1 | buy food
+T | 0 | eat food
