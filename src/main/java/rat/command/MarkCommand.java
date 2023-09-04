@@ -19,7 +19,7 @@ public class MarkCommand extends ModifyCommand {
      * @param ratTaskManager The RatTaskManager object used to store and process the user's tasks.
      * @param inputs The user input passed from RatInput that contains the index of the task to be marked as done.
      */
-    public MarkCommand(RatTaskManager ratTaskManager, String[] inputs) {
+    public MarkCommand(RatTaskManager ratTaskManager, String... inputs) {
         super(ratTaskManager);
         this.inputs = inputs;
     }

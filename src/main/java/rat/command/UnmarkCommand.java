@@ -19,7 +19,7 @@ public class UnmarkCommand extends ModifyCommand {
      * @param ratTaskManager The RatTaskManager object used to store and process the user's tasks.
      * @param inputs The user input passed from RatInput that contains the index of the task to be marked as not done.
      */
-    public UnmarkCommand(RatTaskManager ratTaskManager, String[] inputs) {
+    public UnmarkCommand(RatTaskManager ratTaskManager, String... inputs) {
         super(ratTaskManager);
         this.inputs = inputs;
     }
