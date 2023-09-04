@@ -114,11 +114,11 @@ public class TaskList {
     }
 
     public void find(String lookupString) {
-        List<Task> matchedTasks = taskList.stream()
-                .filter(task -> task.getDescription().contains(lookupString)).toList();
-
-        for (int i = 0; i < matchedTasks.size(); i++) {
-            System.out.println(i+1 + ": " + matchedTasks.get(i));
+        for (int i = 0; i < taskList.size(); i++) {
+            Task currentTask = taskList.get(i);
+            if (currentTask.getDescription().contains(lookupString)) {
+                System.out.println(i+1 + ": " + currentTask);
+            }
         }
 
 
