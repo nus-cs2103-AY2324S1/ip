@@ -7,9 +7,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Utility class for parsing user input and generating appropriate commands.
+ */
 public class Parser {
-    public Parser() {}
 
+    /**
+     * Enumeration representing different date and time formats for parsing.
+     */
     enum DateTimeFormat {
         FORMAT1("yyyy-MM-dd HH:mm"),
         FORMAT2("dd.MM.yyyy HH:mm"),
@@ -32,6 +37,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a date string using various date and time formats.
+     *
+     * @param dateString The date string to be parsed.
+     * @return A LocalDateTime object if parsing is successful, otherwise null.
+     */
     public static LocalDateTime parseDate(String dateString) {
         for (DateTimeFormat format : DateTimeFormat.values()) {
             try {
@@ -45,6 +56,12 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Parses the user input and generates the corresponding command object.
+     *
+     * @param input The user input string.
+     * @return A Command object representing the parsed command.
+     */
     public static Command parse(String input) {
         if (input.equals("bye")) {
             return new ExitCommand();
@@ -118,3 +135,5 @@ public class Parser {
         }
     }
 }
+
+
