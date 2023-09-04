@@ -1,3 +1,7 @@
+package tasks;
+
+import common.DukeException;
+
 public class Event extends Task {
     private String startTime;
     private String endTime;
@@ -11,14 +15,6 @@ public class Event extends Task {
             throw new DukeException("    End time of an event cannot be blank...\n--------------------------------");
         }
         this.endTime = endTime;
-    }
-
-    public String getStartTime() {
-        return this.startTime;
-    }
-
-    public String getEndTime() {
-        return this.endTime;
     }
 
     @Override

@@ -1,3 +1,7 @@
+package tasks;
+
+import common.DukeException;
+
 public class Task {
     private String title;
     private boolean done;

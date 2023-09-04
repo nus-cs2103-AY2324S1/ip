@@ -1,3 +1,4 @@
+package common;
 public class DukeUnknownCommandException extends DukeException {
 
     public DukeUnknownCommandException() {
