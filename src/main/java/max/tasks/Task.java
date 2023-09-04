@@ -5,7 +5,7 @@ package max.tasks;
  */
 public class Task {
     private String item;
-    private boolean done;
+    private boolean isDone;
 
     /**
      * Initialises Task object with a description and done status to be false.
@@ -24,7 +24,7 @@ public class Task {
      * @param item Description of task
      * @param done Status
      */
-    public Task(String item, boolean done) {
+    public Task(String item, boolean isDone) {
         this.item = item;
         this.isDone = isDone;
     }
