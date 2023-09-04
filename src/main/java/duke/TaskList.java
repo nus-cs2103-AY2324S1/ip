@@ -1,10 +1,13 @@
-/**
- * contains the task list, and methods to modify the tasks in the list
- */
+package duke;
 
+import duke.exceptions.InvalidTaskIDException;
+import duke.tasks.Task;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * contains the task list, and methods to modify the tasks in the list
+ */
 public class TaskList {
     private ArrayList<Task> list;
     private Ui ui;

@@ -1,3 +1,7 @@
+package duke.tasks;
+
+import duke.Ui;
+
 abstract public class Task {
     private int status; //0 for uncompleted, 1 (or any other number) for completed
     private String task;

@@ -1,6 +1,6 @@
-/**
- * deals with loading tasks from the file, and saving tasks in the file
- */
+package duke;
+
+import duke.tasks.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -14,6 +14,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * deals with loading tasks from the file, and saving tasks in the file
+ */
 public class Storage {
     String path;
     public Storage(String path) {

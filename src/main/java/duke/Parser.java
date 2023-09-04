@@ -1,12 +1,17 @@
-/**
- * deals with making sense of the user commands
- */
+package duke;
+
+import duke.exceptions.*;
+import duke.tasks.Event;
+import duke.tasks.ToDo;
+import duke.tasks.Deadline;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
+/**
+ * deals with making sense of the user commands
+ */
 public class Parser {
 
     //credit: https://www.freecodecamp.org/news/java-string-to-int-how-to-convert-a-string-to-an-integer/

@@ -1,3 +1,7 @@
+package duke;
+
+import duke.tasks.Task;
+
 /**
  * deals with interactions with the user
  */
@@ -15,7 +19,7 @@ public class Ui {
         System.out.println(bye + line);
     }
 
-    //get the size by calling storage.getListSize() later in Duke
+    //get the size by calling storage.getListSize() later in duke.Duke
     public void showNumberOfTasks(int size) {
         System.out.println(size == 1
                 ? "Now you have " + size + " task in the list!\n" + line
