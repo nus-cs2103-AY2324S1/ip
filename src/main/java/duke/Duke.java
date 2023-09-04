@@ -26,23 +26,23 @@ public class Duke {
     private Storage storage;
 
     /**
-     * Construct a new Duke object which uses filePath as the storage
+     * Construct a new Duke object which uses storageFilePath as the storage
      *
-     * @param filePath - path to the storage file
+     * @param storageFilePath - path to the storage file
      */
-    public Duke(String filePath) {
+    public Duke(String... storageFilePath) {
         this.ui = new Ui();
 
         // try to establish a connection to the file
         // set this.storage to null if not possible
         try {
-            this.storage = new Storage(filePath);
+            this.storage = new Storage(storageFilePath);
         } catch (IOException e) {
             this.ui.getErrorMessage(
                     "has some internal problem and is unable to help you today, please contact quacks mum");
             this.storage = null;
         } catch (DukeBadInputException e) {
-            this.ui.getErrorMessage(filePath + " is not a text file, please provide a file!");
+            this.ui.getErrorMessage(storageFilePath + " is not a text file, please provide a file!");
             this.storage = null;
         }
 
