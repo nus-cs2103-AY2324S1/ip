@@ -7,6 +7,7 @@ import java.util.List;
 import cyrus.commands.AddDeadlineCommand;
 import cyrus.commands.AddEventCommand;
 import cyrus.commands.AddTodoCommand;
+import cyrus.commands.ByeCommand;
 import cyrus.commands.Command;
 import cyrus.commands.CommandType;
 import cyrus.commands.DeleteTaskCommand;
@@ -38,6 +39,8 @@ public class Parser {
             return new AddEventCommand(taskList, parseInfo);
         case ADD_DEADLINE:
             return new AddDeadlineCommand(taskList, parseInfo);
+        case BYE:
+            return new ByeCommand(taskList, parseInfo);
         case FIND_TASK:
             return new FindTaskCommand(taskList, parseInfo);
         case DELETE_TASK:

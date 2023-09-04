@@ -2,7 +2,6 @@ package cyrus.commands;
 
 import cyrus.parser.ParseInfo;
 import cyrus.tasks.TaskList;
-import cyrus.ui.CliUi;
 
 /**
  * Represents a general command to operate on a {@code TaskList} and a given {@code ParseInfo}
@@ -33,16 +32,5 @@ public abstract class Command {
      *
      * @throws CommandError if there is a validation error with the {@code ParseInfo}
      */
-    public abstract void execute() throws CommandError;
-
-    /**
-     * Executes the command behavior and prints any errors thrown.
-     */
-    public final void run() {
-        try {
-            this.execute();
-        } catch (CommandError e) {
-            CliUi.printText(e.getMessage());
-        }
-    }
+    public abstract String[] execute() throws CommandError;
 }

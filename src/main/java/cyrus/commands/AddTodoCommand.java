@@ -3,7 +3,6 @@ package cyrus.commands;
 import cyrus.parser.ParseInfo;
 import cyrus.tasks.TaskList;
 import cyrus.tasks.ToDo;
-import cyrus.ui.CliUi;
 
 /**
  * Command to add a {@code ToDo} to the given {@code TaskList}.
@@ -20,13 +19,17 @@ public class AddTodoCommand extends Command {
      * @throws CommandError if no arguments are present.
      */
     @Override
-    public void execute() throws CommandError {
+    public String[] execute() throws CommandError {
         if (this.parseInfo.hasNoArgument()) {
             throw new CommandError("ToDo is missing a body!");
         }
         String content = String.join(" ", this.parseInfo.getArgument());
         ToDo todo = new ToDo(content);
         this.taskList.addTask(todo);
-        CliUi.printAddTask(todo, this.taskList.size());
+        return new String[]{
+            "Got it. I've added this task:",
+            todo.toString(),
+            String.format("Now you have %d tasks in the list.", this.taskList.size())
+        };
     }
 }

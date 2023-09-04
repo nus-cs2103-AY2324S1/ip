@@ -1,7 +1,7 @@
 package cyrus;
 
 
-import cyrus.ui.Cyrus;
+import cyrus.ui.Main;
 import javafx.application.Application;
 
 /**
@@ -9,6 +9,6 @@ import javafx.application.Application;
  */
 public class Launcher {
     public static void main(String[] args) {
-        Application.launch(Cyrus.class, args);
+        Application.launch(Main.class, args);
     }
 }

@@ -17,7 +17,7 @@ public class UnknownCommand extends Command {
      * @throws CommandError by default
      */
     @Override
-    public void execute() throws CommandError {
+    public String[] execute() throws CommandError {
         throw new CommandError("I'm sorry, I don't know what that means :(");
     }
 }
