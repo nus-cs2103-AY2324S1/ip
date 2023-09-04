@@ -1,8 +1,8 @@
 package miles;
 
 import miles.command.AddDeadlineCommand;
-import miles.command.AddToDoCommand;
 import miles.command.AddEventCommand;
+import miles.command.AddToDoCommand;
 import miles.command.Command;
 import miles.command.DeleteCommand;
 import miles.command.ExitCommand;
@@ -17,7 +17,6 @@ import miles.command.UnmarkCommand;
 public class Parser {
     /**
      * Parses the input that the user gives.
-     * 
      * @param input  user input
      * @return       a Command object that corresponds to the user input
     */
