@@ -48,13 +48,13 @@ public class CommandTaskCreate extends Command {
         case TODO:
             this.client.addTask(new TaskTodo(taskName));
             this.client.saveFile();
-            return("Todo Task added!");
+            return ("Todo Task added!");
         case DEADLINE:
             try {
                 String deadlineTime = input.getTaggedInput("by");
                 this.client.addTask(new TaskDeadline(taskName, deadlineTime));
                 this.client.saveFile();
-                return("Deadline Task added!");
+                return ("Deadline Task added!");
             } catch (NoSuchElementException e) {
                 throw new IllegalArgumentException("No deadline given. Indicate deadline with tag: /by");
             }
@@ -64,13 +64,12 @@ public class CommandTaskCreate extends Command {
                 String endTime = input.getTaggedInput("to");
                 this.client.addTask(new TaskEvent(taskName, startTime, endTime));
                 this.client.saveFile();
-                return("Event Task added!");
+                return ("Event Task added!");
             } catch (NoSuchElementException e) {
                 throw new IllegalArgumentException("No start or end time given. Indicate with /from and /to.");
             }
         default:
             throw new IllegalArgumentException("Invalid Task Type given");
         }
-        
     }
 }

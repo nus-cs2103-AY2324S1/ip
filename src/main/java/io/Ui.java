@@ -4,7 +4,6 @@ import java.util.Scanner;
 /**
  * Used to handle input
  * and output produced by bot.
- * 
  * @author Alvis Ng (supermii2)
  */
 public class Ui {
@@ -53,7 +52,7 @@ public class Ui {
         respond("Startup successful!");
     }
     /**
-     * Set of methods to run 
+     * Set of methods to run
      * when the bot closing the bot
      */
     public void close() {

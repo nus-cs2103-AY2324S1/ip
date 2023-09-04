@@ -20,13 +20,13 @@ public class Rock {
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
-    private Commands commands;
+    private Invoker invoker;
     private boolean isTerminated = false;
 
     public Rock(Path path) {
         this.taskList = new TaskList();
         this.ui = new Ui();
-        this.commands = new Commands(this);
+        this.invoker = new Invoker(new Commands(this));
         try {
             this.storage = new Storage(path.toAbsolutePath().toFile(), this);
         } catch (StorageException e) {
@@ -35,7 +35,6 @@ public class Rock {
         this.ui.startup();
     }
     public void run() {
-        Invoker invoker = new Invoker(this.commands);
         while (!isTerminated) {
             String userInput = this.ui.getInput();
             try {

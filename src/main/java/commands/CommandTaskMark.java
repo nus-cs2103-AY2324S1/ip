@@ -3,7 +3,6 @@ package commands;
 import client.Rock;
 import io.Parser;
 import storage.StorageException;
-import tasks.TaskList;
 
 /**
  * Representation of a command
@@ -41,7 +40,7 @@ public class CommandTaskMark extends Command {
             } else {
                 response += "Task unmarked successfully: \n";
             }
-            return(response);
+            return (response);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid index given!");
         } catch (IndexOutOfBoundsException e) {

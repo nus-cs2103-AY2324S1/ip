@@ -24,6 +24,6 @@ public class CommandTaskList extends Command {
      */
     @Override
     public String apply(Parser input) {
-        return(this.client.taskListToString());
+        return (this.client.taskListToString());
     }
 }

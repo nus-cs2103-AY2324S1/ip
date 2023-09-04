@@ -43,7 +43,7 @@ public class Storage {
             if (saveFile.createNewFile()) {
                 client.say("New save file created!");
                 saveSaveFile(new TaskList());
-            };
+            }
         } catch (IOException e) {
             throw new StorageException("WARNING: Unable to create save file!");
         }

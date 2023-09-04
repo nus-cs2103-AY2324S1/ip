@@ -32,7 +32,7 @@ public class Invoker {
         String keyword = inputString.split(" ")[0];
         try {
             Function<Parser, String> command = this.commands.getCommand(keyword);
-            return(command.apply(input));
+            return (command.apply(input));
         } catch (IllegalArgumentException e) {
             throw new RockException(e.getMessage());
         }

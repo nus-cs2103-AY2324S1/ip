@@ -11,7 +11,7 @@ import io.Parser;
 public class CommandBye extends Command {
     /**
      * Constructor to create the
-     * Terminate command 
+     * Terminate command
      * @param client Chatbot object
      */
     public CommandBye(Rock client) {
@@ -24,6 +24,6 @@ public class CommandBye extends Command {
     @Override
     public String apply(Parser input) {
         this.client.terminate();
-        return("Client terminated.");
+        return ("Client terminated.");
     }
 }

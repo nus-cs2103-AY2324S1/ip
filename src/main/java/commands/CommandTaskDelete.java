@@ -30,7 +30,7 @@ public class CommandTaskDelete extends Command {
             int taskIdx = Integer.parseInt(inputString);
             Task removedTask = client.removeTask(taskIdx - 1);
             this.client.saveFile();
-            return("Task successfully removed!\n" + removedTask);
+            return ("Task successfully removed!\n" + removedTask);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid index given!");
         } catch (IndexOutOfBoundsException e) {

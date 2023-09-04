@@ -21,7 +21,7 @@ public class TaskList implements Serializable {
             return null;
         }
     }
-    public Task removeTask(int index) throws IndexOutOfBoundsException{
+    public Task removeTask(int index) throws IndexOutOfBoundsException {
         return this.items.remove(index);
     }
 
@@ -55,9 +55,9 @@ public class TaskList implements Serializable {
             }
         }
         if (response == "") {
-            return("No tasks found with given search!");
+            return "No tasks found with given search!";
         } else {
-            return(response);
+            return response;
         }
     }
 

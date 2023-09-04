@@ -30,11 +30,11 @@ public class TaskEvent extends Task {
             throw new IllegalArgumentException("Illegal Date/Time");
         }
     }
-    @Override
     /**
      * Used to get the date of the task object.
      * @return Start date of Event
      */
+    @Override
     public LocalDate getDate() {
         return this.startTime;
     }

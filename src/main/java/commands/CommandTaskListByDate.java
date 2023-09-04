@@ -1,17 +1,14 @@
 package commands;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.List;
 
 import client.Rock;
 import io.Parser;
-import tasks.Task;
 
 /**
  * Representation of a command
  * to list all tasks in list
  * filtering by date.
- * 
  * @author Alvis Ng (supermii2)
  */
 public class CommandTaskListByDate extends Command {
@@ -23,12 +20,12 @@ public class CommandTaskListByDate extends Command {
     public CommandTaskListByDate(Rock client) {
         super(client);
     }
-    @Override
     /**
-     * Lists all tasks with the 
+     * Lists all tasks with the
      * corresponding date
-     * @param client Chatbot object
+     * @param input Chatbot object
      */
+    @Override
     public String apply(Parser input) throws IllegalArgumentException {
         LocalDate filterDate;
         try {
