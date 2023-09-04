@@ -1,9 +1,11 @@
-import command.*;
-import exception.KoraException;
-import parser.Parser;
-import storage.Storage;
-import task.TaskList;
-import ui.UI;
+package duke;
+
+import duke.command.Command;
+import duke.exception.KoraException;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.UI;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -56,11 +58,13 @@ public class Duke {
         while (!isExit) {
                 String userInput = ui.getUserInput();
                 Command command = getResponse(userInput);
-                isExit = command.isExitYet();
-
+                if (command == null) {
+                    isExit = false;
+                } else {
+                    isExit = command.isExitYet();
+                }
         }
         ui.closeScanner();
-
     }
     public static void main(String[] args) {
         Duke kora = new Duke("./data/savedtask.txt");

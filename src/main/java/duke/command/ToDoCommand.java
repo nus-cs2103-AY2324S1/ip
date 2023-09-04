@@ -1,10 +1,10 @@
-package command;
+package duke.command;
 
-import exception.KoraException;
-import task.Event;
-import task.Task;
-import task.TaskList;
-import task.ToDo;
+import duke.exception.KoraException;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.ToDo;
 
 public class ToDoCommand extends Command {
     private String taskDetails;

@@ -1,7 +1,7 @@
-package parser;
+package duke.parser;
 
-import command.*;
-import exception.KoraException;
+import duke.command.*;
+import duke.exception.KoraException;
 
 public class Parser {
 

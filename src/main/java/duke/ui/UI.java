@@ -1,8 +1,8 @@
-package ui;
-import command.Command;
-import exception.KoraException;
-import parser.Parser;
-import task.TaskList;
+package duke.ui;
+import duke.command.Command;
+import duke.exception.KoraException;
+import duke.parser.Parser;
+import duke.task.TaskList;
 
 import java.util.Scanner;
 public class UI {

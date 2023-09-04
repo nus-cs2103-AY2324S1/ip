@@ -1,6 +1,6 @@
-package task;
+package duke.task;
 
-import exception.KoraException;
+import duke.exception.KoraException;
 
 import java.io.*;
 import java.util.Scanner;

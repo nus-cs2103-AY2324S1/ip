@@ -1,6 +1,6 @@
-package command;
+package duke.command;
 
-import task.TaskList;
+import duke.task.TaskList;
 
 public class ByeCommand extends Command {
     public ByeCommand() {

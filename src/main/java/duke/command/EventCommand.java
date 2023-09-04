@@ -1,10 +1,10 @@
-package command;
+package duke.command;
 
-import exception.KoraException;
-import task.Deadline;
-import task.Task;
-import task.TaskList;
-import task.Event;
+import duke.exception.KoraException;
+import duke.task.Deadline;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Event;
 
 public class EventCommand extends Command {
     private String taskDetails;

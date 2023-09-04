@@ -1,8 +1,8 @@
-package command;
+package duke.command;
 
-import exception.KoraException;
-import task.Task;
-import task.TaskList;
+import duke.exception.KoraException;
+import duke.task.Task;
+import duke.task.TaskList;
 
 public abstract class Command {
     public static String line = "------------------------------";

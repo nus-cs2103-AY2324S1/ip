@@ -1,7 +1,7 @@
-package storage;
+package duke.storage;
 
-import exception.KoraException;
-import task.*;
+import duke.exception.KoraException;
+import duke.task.*;
 
 import java.io.File;
 import java.io.FileWriter;
