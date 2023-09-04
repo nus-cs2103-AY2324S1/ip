@@ -1,5 +1,7 @@
 package bot.gui;
 
+import java.util.Objects;
+
 import bot.Bot;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -7,8 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
-import java.util.Objects;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
