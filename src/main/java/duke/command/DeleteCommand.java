@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.Ui;
-import duke.command.Command;
 import duke.exceptions.TaskIndexOutOfBoundsException;
 import duke.Storage;
 import duke.task.*;

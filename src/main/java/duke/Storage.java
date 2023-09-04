@@ -22,11 +22,11 @@ public class Storage {
      * @throws InvalidFileTypeException
      */
     public ArrayList<Task> load() throws InvalidFileTypeException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(this.filePath))) {
-            ArrayList<Task> taskArrayList = new ArrayList<>();
-            String line;
-            Parser parser = new Parser();
+        ArrayList<Task> taskArrayList = new ArrayList<>();
+        String line;
+        Parser parser = new Parser();
 
+        try (BufferedReader reader = new BufferedReader(new FileReader(this.filePath))) {
             while ((line = reader.readLine()) != null) {
                 taskArrayList.add(parser.parseSave(line));
             }

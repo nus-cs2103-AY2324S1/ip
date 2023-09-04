@@ -1,6 +1,5 @@
 package duke;
 
-import duke.Date;
 import duke.command.*;
 import duke.exceptions.InvalidFileTypeException;
 import duke.exceptions.InvalidTaskException;
@@ -76,6 +75,14 @@ public class Parser {
                 return new SaveCommand(response);
             case "load":
                 return new LoadCommand(response);
+            case "find":
+                matcher = regexParse("^find\\s([\\w\\s]*)$", response);
+                if (!matcher.find() || matcher.groupCount() != 1) {
+                    throw new InvalidTaskException(
+                            "Invalid input. Usage: find <description to match>"
+                    );
+                }
+                return new FindCommand(matcher.group(1));
             default: {
                 return new DefaultCommand(response);
             }
@@ -150,5 +157,12 @@ public class Parser {
         }
 
         return null;
+    }
+
+    public boolean parseSearch(String description, String searchString) {
+        String regex = ".*" + searchString + ".*";
+        Matcher matcher = regexParse(regex, description);
+
+        return matcher.find();
     }
 }

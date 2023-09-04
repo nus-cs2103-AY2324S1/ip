@@ -28,6 +28,7 @@ public class EventCommand extends Command {
             task.setDone(done);
             taskList.addTask(task);
             System.out.println(taskList);
+            ui.printLine();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

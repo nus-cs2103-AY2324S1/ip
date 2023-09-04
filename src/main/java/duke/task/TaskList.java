@@ -1,5 +1,6 @@
 package duke.task;
 
+import duke.Parser;
 import duke.Ui;
 import duke.task.Task;
 
@@ -43,6 +44,17 @@ public class TaskList {
     public void deleteTask(int index) {
         this.tasks.remove(index);
         this.size--;
+    }
+
+    public String getSearchTask(String searchString) {
+        String result = "";
+        Parser parser = new Parser();
+        for (Task task : tasks) {
+            if (parser.parseSearch(task.getDescription(), searchString)) {
+                result += task + "\n";
+            }
+        }
+        return result;
     }
 
     public void setTaskDone(int index, boolean done) {

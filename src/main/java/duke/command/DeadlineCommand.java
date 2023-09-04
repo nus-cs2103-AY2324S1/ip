@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.Ui;
-import duke.command.Command;
 import duke.Storage;
 import duke.task.*;
 
@@ -26,6 +25,7 @@ public class DeadlineCommand extends Command {
             task.setDone(this.done);
             taskList.addTask(task);
             System.out.println(taskList);
+            ui.printLine();
         } catch (Exception e) {
             System.out.println(ui.format_response(e.getLocalizedMessage()));
         }

@@ -19,5 +19,6 @@ public class SaveCommand extends Command {
     public void execute(Storage storage, Ui ui, TaskList taskList) {
         storage.save(taskList);
         System.out.println(taskList);
+        ui.printLine();
     }
 }

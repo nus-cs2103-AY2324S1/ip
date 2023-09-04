@@ -21,6 +21,7 @@ public class LoadCommand extends Command {
         try {
             taskList.setTasks(storage.load());
             System.out.println(taskList);
+            ui.printLine();
         } catch (InvalidFileTypeException e) {
             System.out.println(ui.format_response(e.getMessage()));
         }

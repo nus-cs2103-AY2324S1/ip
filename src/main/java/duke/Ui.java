@@ -33,11 +33,19 @@ public class Ui {
     }
 
     /**
-     * Adds the line at the end of each sentence for each reply
+     * formats the reply such that a line is added
      * @param response the generated response by the chatbot
      * @return the new string that will be output to the user
      */
     public String format_response(String response) {
         return response + "\n\n" + line;
+    }
+
+    /**
+     * Adds a line at the end of each sentence for each reply
+     * @return the new string that will be output to the user
+     */
+    public void printLine() {
+        System.out.println("\n" + line);
     }
 }

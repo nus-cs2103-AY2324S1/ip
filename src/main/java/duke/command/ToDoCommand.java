@@ -23,5 +23,6 @@ public class ToDoCommand extends Command {
         task.setDone(this.done);
         taskList.addTask(task);
         System.out.println(taskList);
+        ui.printLine();
     }
 }

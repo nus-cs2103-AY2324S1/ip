@@ -21,5 +21,6 @@ public class MarkCommand extends Command {
     public void execute(Storage storage, Ui ui, TaskList taskList) {
         taskList.setTaskDone(taskIndex, done);
         System.out.println(taskList);
+        ui.printLine();
     }
 }
