@@ -1,11 +1,15 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 public class Avalon {
+
     public static void main(String[] args) {
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
+        List<Task> tasks = loadTasks();
+        int taskCount = tasks.size();
         Scanner scanner = new Scanner(System.in);
+
         //greet
         System.out.println(
                 "   ____________________________________________________________\n" +
@@ -35,9 +39,9 @@ public class Avalon {
                         );
                     } else {
                         System.out.println("   ____________________________________________________________\n" +
-                                "   Here are the tasks in your list:");
+                                "   Here are the quests in thy list:");
                         for (int i = 0; i < taskCount; i++) {
-                            System.out.println("    " + (i + 1) + "." + tasks[i]);
+                            System.out.println("    " + (i + 1) + "." + tasks.get(i));
                         }
                         System.out.println("   ____________________________________________________________");
                     }
@@ -46,11 +50,11 @@ public class Avalon {
                 } else if (userInput.toLowerCase().startsWith("mark ")) {
                     int taskIndex = Integer.parseInt(userInput.substring(5)) - 1;
                     if (taskIndex >= 0 && taskIndex < taskCount) {
-                        tasks[taskIndex].markDone();
+                        tasks.get(taskIndex).markDone();
                         System.out.println("   ____________________________________________________________\n" +
-                                "   Nice! I've marked this task as done:\n  " + "  " +
-                                tasks[taskIndex].getStatusIcon() + " " +
-                                tasks[taskIndex].description +
+                                "   Very well. I have marked this task as accomplished:\n  " + "  " +
+                                tasks.get(taskIndex).getStatusIcon() + " " +
+                                tasks.get(taskIndex).description +
                                 "\n   ____________________________________________________________");
                     } else {
                         throw new IllegalArgumentException("Invalid task number to be marked.");
@@ -59,11 +63,11 @@ public class Avalon {
                 } else if (userInput.toLowerCase().startsWith("unmark ")) {
                     int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
                     if (taskIndex >= 0 && taskIndex < taskCount) {
-                        tasks[taskIndex].markNotDone();
+                        tasks.get(taskIndex).markNotDone();
                         System.out.println("   ____________________________________________________________\n" +
-                                "   Nice! I've marked this task as not done yet:\n  " + "  " +
-                                tasks[taskIndex].getStatusIcon() + " " +
-                                tasks[taskIndex].description +
+                                "   By the heavens! I have declared this task as yet to be completed:\n  " + "  " +
+                                tasks.get(taskIndex).getStatusIcon() + " " +
+                                tasks.get(taskIndex).description +
                                 "\n   ____________________________________________________________");
                     } else {
                         throw new IllegalArgumentException("Invalid task number to be unmarked.");
@@ -74,10 +78,13 @@ public class Avalon {
                     if (description.isEmpty()) {
                         throw new IllegalArgumentException("The description of a todo cannot be empty.");
                     }
-                    tasks[taskCount] = new ToDo(description);
+
+                    ToDo todo = new ToDo(description);
+                    tasks.add(todo);
                     taskCount++;
+
                     System.out.println("   ____________________________________________________________\n" +
-                            "   Got it. I've added this task:\n  " + "  " + tasks[taskCount - 1]);
+                            "   Understood. I have included this quest:\n  " + "  " + tasks.get(taskCount - 1));
                     System.out.println("   Now you have " + taskCount + " tasks in the list.");
                     System.out.println("   ____________________________________________________________");
                 } else if (userInput.toLowerCase().startsWith("deadline ")) {
@@ -87,10 +94,13 @@ public class Avalon {
                     }
                     String description = parts[0];
                     String by = parts[1];
-                    tasks[taskCount] = new Deadline(description, by);
+
+                    Deadline deadline = new Deadline(description, by);
+                    tasks.add(deadline);
                     taskCount++;
+
                     System.out.println("   ____________________________________________________________\n" +
-                            "   Got it. I've added this task:\n  " + "  " + tasks[taskCount - 1]);
+                            "   Understood. I have included this quest:\n  " + "  " + tasks.get(taskCount - 1));
                     System.out.println("   Now you have " + taskCount + " tasks in the list.");
                     System.out.println("   ____________________________________________________________");
                 } else if (userInput.toLowerCase().startsWith("event ")) {
@@ -101,22 +111,24 @@ public class Avalon {
                     String description = parts[0];
                     String from = parts[1];
                     String to = parts[2];
-                    tasks[taskCount] = new Event(description, from, to);
+
+                    Event event = new Event(description, from, to);
+                    tasks.add(event);
                     taskCount++;
+
                     System.out.println("   ____________________________________________________________\n" +
-                            "   Got it. I've added this task:\n  " + "  " + tasks[taskCount - 1]);
+                            "   Understood. I have included this quest:\n  " + "  " + tasks.get(taskCount - 1));
                     System.out.println("   Now you have " + taskCount + " tasks in the list.");
                     System.out.println("   ____________________________________________________________");
                 } else if (userInput.toLowerCase().startsWith("delete ")) {
                     int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
                     if (taskIndex >= 0 && taskIndex < taskCount) {
-                        Task deletedTask = tasks[taskIndex];
-                        for (int i = taskIndex; i < taskCount - 1; i++) {
-                            tasks[i] = tasks[i + 1];
-                        }
+                        Task deletedTask = tasks.get(taskIndex);
+                        tasks.remove(taskIndex);
                         taskCount--;
+
                         System.out.println("   ____________________________________________________________");
-                        System.out.println("   Noted. I've removed this task:");
+                        System.out.println("   Noted. I've removed this quest:");
                         System.out.println("    " + deletedTask);
                         System.out.println("   Now you have " + taskCount + " tasks in the list.");
                         System.out.println("   ____________________________________________________________");
@@ -124,13 +136,48 @@ public class Avalon {
                         throw new IllegalArgumentException("Invalid task number to be deleted.");
                     }
                 } else {
-                    throw new IllegalArgumentException("I'm sorry, but I don't know what that means :-(");
+                    throw new IllegalArgumentException("I humbly apologize, but thy words remain a mystery to me...");
                 }
+
             } catch(IllegalArgumentException e){
                 System.out.println("☹ OOPS!!! " + e.getMessage());
             }
         }
 
         scanner.close();
+        saveTasks(tasks);
+    }
+
+    private static List<Task> loadTasks() {
+        List<Task> tasks = new ArrayList<>();
+        try {
+            File file = new File("src/main/data/Avalon.txt");
+            Scanner scanner = new Scanner(file);
+            System.out.println("Loading...");
+            while (scanner.hasNext()) {
+                String description = scanner.nextLine();
+                Task task = TaskParser.parse(description);
+                tasks.add(task);
+            }
+            scanner.close();
+        } catch (IOException e) {
+            // Handle the case where the file doesn't exist or other IO errors
+            System.out.println("No existing tasks file found. Starting with an empty list.");
+        }
+
+        return tasks;
+    }
+
+    private static void saveTasks(List<Task> tasks) {
+        try {
+            FileWriter writer = new FileWriter("src/main/data/Avalon.txt");
+            for (Task task : tasks) {
+                String taskData = TaskParser.serialize(task);
+                writer.write(taskData + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks to the file.");
+        }
     }
 }
