@@ -22,7 +22,7 @@ public class Ui {
      * Displays a welcome message when the application starts.
      */
     public void showWelcomeMessage() {
-        String name = "duke.Tired";
+        String name = "Tired";
         System.out.println(horizontalLine);
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you?");
@@ -63,6 +63,11 @@ public class Ui {
         System.out.println(tasks);
     }
 
+    /**
+     * Displays the list of matching tasks found using the keyword to the user.
+     *
+     * @param matchingTasks The TaskList containing the tasks to display.
+     */
     public void showMatchingTasks(ArrayList<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
             System.out.println("No matching tasks found.");
