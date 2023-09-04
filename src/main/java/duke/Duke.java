@@ -1,8 +1,13 @@
+package duke;
+
 import duke.exception.DukeException;
-import duke.processors.*;
+import duke.processors.FileHandler;
+import duke.processors.Parser;
+import duke.processors.TaskList;
+import duke.processors.Ui;
 
 public class Duke {
-     private final Ui ui;
+    private final Ui ui;
     private final Parser parser;
 
     public Duke() {
