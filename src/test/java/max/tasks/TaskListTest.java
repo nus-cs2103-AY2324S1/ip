@@ -1,9 +1,9 @@
 package max.tasks;
 
 import max.exception.MaxException;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 public class TaskListTest {
     @Test
     public void delete_taskNumberLargerThanMax_exceptionThrown() {

@@ -1,10 +1,9 @@
 package max.parser;
 
 import max.exception.MaxException;
-import max.tasks.TaskList;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 public class ParserTest {
     @Test
     public void todo_emptyDescription_exceptionThrown() {
