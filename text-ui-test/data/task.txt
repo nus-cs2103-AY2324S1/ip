@@ -1,2 +1,4 @@
-T/@/0/@/nothing
+T/@/1/@/nothing
 D/@/1/@/homework /@/2023-11-01T18:00
+E/@/0/@/book fair /@/2023-10-01T12:00/@/2023-10-01T18:00
+T/@/0/@/return book

@@ -1,9 +1,6 @@
 package duke.utility;
 
-import duke.exception.EmptyTaskException;
-import duke.exception.InvalidDeadlineException;
-import duke.exception.InvalidEventException;
-import duke.exception.MissingTimeException;
+import duke.exception.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
@@ -123,5 +120,20 @@ public class Parser {
             throw new EmptyTaskException();
         }
         return Integer.parseInt(keyword[1]);
+    }
+
+    /**
+     * Parse user's input and returns the keyword user wish to find.
+     *
+     * @param input User's input from the keyboard.
+     * @return Keyword user wish to find.
+     */
+    public static String parseFind(String input) throws InvalidTaskException {
+        String[] keyword = input.split(" ");
+        // checks if user has input a keyword to find
+        if (keyword.length == 1 || keyword[1].equals("")) {
+            throw new InvalidTaskException();
+        }
+        return keyword[1];
     }
 }

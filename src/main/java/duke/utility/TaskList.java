@@ -1,12 +1,14 @@
 package duke.utility;
 
+import duke.exception.FailedSearchException;
 import duke.exception.InvalidTaskException;
 import duke.task.Task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TaskList {
-    private ArrayList<Task> array;
+    private final ArrayList<Task> array;
 
     public TaskList() {
         this.array = new ArrayList<>();
@@ -29,12 +31,48 @@ public class TaskList {
     }
 
     public void deleteTask(Task task) {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < this.array.size(); i++) {
             if (this.array.get(i).equals(task)) {
                 this.array.remove(i);
                 break;
             }
         }
+    }
+
+    /**
+     * Search the given keyword for all the task names in the task list
+     * and returns the filtered task list.
+     *
+     * @param keyword Keyword to search for.
+     * @return A new TaskList object containing all tasks that contains the given keyword.
+     * @throws FailedSearchException if no task matches the given keyword.
+     */
+    public TaskList searchTask(String keyword) throws FailedSearchException {
+
+        // copy all contents of task list into search list
+        TaskList searchList = new TaskList();
+        searchList.array.addAll(this.array);
+
+        int originalSize = searchList.getLength();
+
+        for (int i = 0; i < originalSize; i++) {
+            for (int j = 0; j < searchList.getLength(); j++) {
+                String taskName = searchList.array.get(j).getName();
+
+                // remove tasks that do not contain the keyword
+                if (!taskName.contains(keyword)) {
+                    searchList.array.remove(j);
+                    break;
+                }
+            }
+        }
+
+        // none of the tasks matches the keyword, throw an exception
+        if (searchList.array.isEmpty()) {
+            throw new FailedSearchException();
+        }
+
+        return searchList;
     }
 
     @Override
