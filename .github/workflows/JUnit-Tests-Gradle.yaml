@@ -3,7 +3,7 @@ run-name: run JUnit and Checkstyle tests with Gradle
 on:
   push:
     branches:
-      - branch-test-actions
+      - master
 jobs:
   JUnit-Gradle:
     runs-on: ubuntu-latest
