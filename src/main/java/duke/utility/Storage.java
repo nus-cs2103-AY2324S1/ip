@@ -13,26 +13,45 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
-// stores the duke.task list in a text file
+/**
+ * Storage class encapsulates all actions that can be done to the tasks saved in the backend.
+ *
+ * @author ruo-x
+ */
 public class Storage {
-    // create text file
+    /** Path to the text file the data is saved in */
     private final String pathString;
 
+    /**
+     * Constructor for a Storage object.
+     */
     public Storage() {
         this.pathString = "C:\\Users\\Admin\\ip\\text-ui-test\\data\\task.txt";
     }
 
-    // Update duke.task list in text file
+    /**
+     * Saves a new task into the task list in the text file.
+     *
+     * @param newTask New task to save into the text file.
+     */
     public void saveTask(Task newTask) {
         try {
             Path path = Paths.get("C:\\Users\\Admin\\ip\\text-ui-test", "data", "task.txt");
             String taskString = newTask.toStoreString() + "\n";
+
+            // write task into text file in string format
             Files.writeString(path, taskString, StandardOpenOption.APPEND);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Updates the status of a task saved in the text file.
+     *
+     * @param task Task saved in the text file.
+     * @param i Status to update the task to. 0 for false, 1 for true.
+     */
     public void updateTask(Task task, int i) {
         String oldTask = task.toStoreString();
         String newTask = task.toUpdateString(i);
@@ -74,7 +93,11 @@ public class Storage {
         }
     }
 
-    // Delete duke.task from duke.task list
+    /**
+     * Deletes a task from the text file.
+     *
+     * @param task Task to delete.
+     */
     public void deleteTask(Task task) {
         String oldTask = task.toStoreString();
 
@@ -89,6 +112,7 @@ public class Storage {
             String line = reader.readLine();
 
             while (line != null) {
+                // do not copy contents if it is equals to the task to delete
                 if (!line.equals(oldTask)) {
                     newContent += line + System.lineSeparator();
                 }
@@ -114,7 +138,11 @@ public class Storage {
         }
     }
 
-    // Retrieve duke.task list from text file and convert to readable codes
+    /**
+     * Loads all contents from the text file into the active task list.
+     *
+     * @param list Active task list to load into.
+     */
     public void handleLoad(TaskList list) {
         Scanner sc = null;
         try {
@@ -130,13 +158,16 @@ public class Storage {
             sc = new Scanner(file);
 
             while (sc.hasNext()) {
+                // reads text file line by line
                 String[] keyword = sc.nextLine().split("/@/");
                 switch (keyword[0]) {
                     case "T":
+                        // line is a To-Do Task
                         boolean tStatus = keyword[1].equals("1");
                         list.addTask(new ToDo(tStatus, keyword[2]));
                         break;
                     case "D":
+                        // line is a Deadline Task
                         boolean dStatus = keyword[1].equals("1");
                         list.addTask(new Deadline(
                                 dStatus,
@@ -145,6 +176,7 @@ public class Storage {
                         ));
                         break;
                     case "E":
+                        // line is an Event Task
                         boolean eStatus = keyword[1].equals("1");
                         list.addTask(new Event(
                                 eStatus,
