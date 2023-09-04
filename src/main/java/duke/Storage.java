@@ -29,7 +29,7 @@ public class Storage {
     /**
      * The input string that points to the file
      */
-    private String input;
+    private String[] storageFilePath;
 
     /**
      * Writer instance
@@ -39,14 +39,14 @@ public class Storage {
     /**
      * Constructs a new instance of a duke.Storage object that reads and write to a specific file
      *
-     * @param fileName - the file which your reading/writing to
+     * @param storageFilePath - the file which your reading/writing to
      * @throws IOException           - thrown when there is an IOException
      * @throws DukeBadInputException - thrown when the input provided does not point to a file
      */
-    public Storage(String fileName) throws IOException, DukeBadInputException {
-        this.input = fileName;
+    public Storage(String... storageFilePath) throws IOException, DukeBadInputException {
+        this.storageFilePath = storageFilePath;
         String home = System.getProperty("user.dir");
-        this.path = Paths.get(home, fileName.split("/"));
+        this.path = Paths.get(home, this.storageFilePath);
         this.checkFile();
         this.writer = Files.newBufferedWriter(this.path, StandardOpenOption.APPEND);
     }
@@ -58,17 +58,16 @@ public class Storage {
      * @throws DukeBadInputException if the path does not lead to a file
      */
     private void checkFile() throws IOException, DukeBadInputException {
-        String[] dir = this.input.split("/");
         String home = System.getProperty("user.dir");
 
-        if (!this.input.endsWith(".txt")) {
+        if (!this.storageFilePath[this.storageFilePath.length - 1].endsWith(".txt")) {
             throw new DukeBadInputException(this.path.toString());
         }
 
         if (!Files.exists(this.path)) {
             // Handles folder not existing
-            for (int i = 1; i < dir.length; i++) {
-                Path tmp = Paths.get(home, Arrays.copyOfRange(dir, 0, i));
+            for (int i = 1; i < this.storageFilePath.length; i++) {
+                Path tmp = Paths.get(home, Arrays.copyOfRange(this.storageFilePath, 0, i));
                 if (!Files.exists(tmp)) {
                     Files.createDirectories(tmp);
                 }
