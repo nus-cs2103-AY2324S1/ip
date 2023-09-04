@@ -68,6 +68,8 @@ public class Storage {
                 return taskList;
             }
 
+            assert file.exists();
+
             sc = new Scanner(file);
         }
         catch (IOException e) {
