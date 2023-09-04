@@ -29,12 +29,12 @@ test {
 }
 
 application {
-    mainClass.set("rat.Rat")
+    mainClass.set("rat.RatLauncher")
 }
 
 shadowJar {
     archiveBaseName = "Rat"
-    archiveVersion = "0.2"
+    archiveVersion = "0.3"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

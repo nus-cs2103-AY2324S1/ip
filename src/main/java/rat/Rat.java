@@ -37,6 +37,10 @@ public class Rat {
      */
     private static Scanner sc;
 
+    public Rat() {
+        initialise();
+    }
+
     /**
      * Initialises the Rat program.
      * Instantiates a RatTaskManager object, Scanner object, and a RatInput Object.
@@ -51,6 +55,10 @@ public class Rat {
 
     public String getResponse(String input) {
         return ratInput.handleInput(input);
+    }
+
+    public String getWelcome() {
+        return "Hello! I'm Rat! What can I do for you? Type \"help\" to see a list of commands";
     }
 
     /**
