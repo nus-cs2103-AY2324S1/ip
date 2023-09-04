@@ -51,6 +51,10 @@ public class Task {
         return LocalDateTime.now();
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }

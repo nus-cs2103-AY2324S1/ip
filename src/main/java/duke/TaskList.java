@@ -61,16 +61,29 @@ public class TaskList {
     }
 
     public TaskList dueWithinMonth() {
-        TaskList monthWeek = new TaskList();
+        TaskList listMonth = new TaskList();
         for (Task t: this.taskArrayList) {
             LocalDateTime taskDueDate = t.getUrgencyDate();
             LocalDateTime currentDate = LocalDateTime.now();
             long daysDifference = ChronoUnit.DAYS.between(currentDate, taskDueDate);
             // Check if the task's due date is within one week of the current date (7 days)
             if (daysDifference >= 0 && daysDifference <= 30) {
-                monthWeek.addTask(t);
+                listMonth.addTask(t);
             }
         }
-        return monthWeek;
+        return listMonth;
+    }
+
+    public TaskList searchMatches(String queryString) {
+        TaskList listSearches = new TaskList();
+        for (Task t: this.taskArrayList) {
+            String taskDescription = t.getDescription();
+
+            // Check if the task's description contains the queryString
+            if (taskDescription.contains(queryString)) {
+                listSearches.addTask(t);
+            }
+        }
+        return listSearches;
     }
 }

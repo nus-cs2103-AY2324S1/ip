@@ -94,6 +94,14 @@ public class Duke {
             } catch (ParserException p) {
                 botOutput = p.getMessage();
             }
+        } else if (userInput.startsWith(Command.FIND)) {
+            try {
+                String queryString = parser.parseFind(userInput, list);
+                TaskList listSearchMatches = list.searchMatches(queryString);
+                botOutput = botOutput + "Here are the matching tasks in your list: \n    " + listSearchMatches.toString();
+            } catch (ParserException p) {
+                botOutput = p.getMessage();
+            }
         } else {
 
             try {
