@@ -1,5 +1,8 @@
 package jarvis.exceptions;
 
+/**
+ * Represents an exception thrown when an invalid index is provided to Jarvis.
+ */
 public class InvalidIndexException extends JarvisException {
 
     public InvalidIndexException(String message) {

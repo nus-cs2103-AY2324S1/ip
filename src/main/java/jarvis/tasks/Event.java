@@ -5,6 +5,9 @@ import java.time.format.DateTimeFormatter;
 
 import jarvis.Ui;
 
+/**
+ * Represents the "Event" task in Jarvis app.
+ */
 public class Event extends Task {
 
     private LocalDateTime fromDateTime;
@@ -16,6 +19,11 @@ public class Event extends Task {
         this.toDateTime = toDateTime;
     }
     
+    /**
+     * Overrides the toString method to provide a custom string representation of the Event task.
+     *
+     * @return A string representation of the Event task.
+     */
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Ui.DATE_TIME_FORMAT);

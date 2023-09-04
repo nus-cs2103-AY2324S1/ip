@@ -12,9 +12,17 @@ import java.util.ArrayList;
 import jarvis.exceptions.InvalidTaskFormatException;
 import jarvis.tasks.Task;
 
+/**
+ * Storage class is responsible for storing and loading tasks from file destination.
+ */
 public class Storage {
     private static final String FILE_PATH = "./jarvis/data/jarvis.txt";
 
+    /**
+     * Saves a list of tasks to the file destination.
+     *
+     * @param tasks An ArrayList of task to be saved.
+     */
     public void saveTasks(ArrayList<Task> tasks) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
             for (Task task : tasks) {
@@ -26,6 +34,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file destination.
+     *
+     * @return An ArrayList of tasks loaded from the storage file.
+     */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         
