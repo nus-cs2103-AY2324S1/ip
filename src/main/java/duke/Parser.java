@@ -52,7 +52,7 @@ public class Parser {
         case "mark":
             try {
                 int index = Integer.parseInt(splitInput[1]) - 1;
-                taskList.changeStatusIndex(index, true);
+                taskList.changeStatusByIndex(index, true);
             } catch (NumberFormatException e) { // If argument of "mark" is not a number.
                 Ui.output("You need to provide a valid number");
             }
@@ -60,7 +60,7 @@ public class Parser {
         case "unmark":
             try {
                 int index = Integer.parseInt(splitInput[1]) - 1;
-                taskList.changeStatusIndex(index, false);
+                taskList.changeStatusByIndex(index, false);
             } catch (NumberFormatException e) { // If argument of "unmark" is not a number.
                 Ui.output("You need to provide a valid number");
             }

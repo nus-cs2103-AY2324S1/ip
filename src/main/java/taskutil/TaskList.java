@@ -19,11 +19,12 @@ public class TaskList {
     }
 
     /**
-     * Modify status of task based on index.
+     * Modifies status of task based on index.
+     *
      * @param index ArrayList index of task to be modified.
      * @param isCompleted New status of task.
      */
-    public void changeStatusIndex(int index, boolean isCompleted) {
+    public void changeStatusByIndex(int index, boolean isCompleted) {
         try {
             Task pendingTask = taskList.get(index);
             pendingTask.isDone = isCompleted;
@@ -34,7 +35,8 @@ public class TaskList {
     }
 
     /**
-     * Add task to taskList.
+     * Adds task to taskList.
+     *
      * @param task Task to be added.
      * @param printMessage Determines whether to show task added message.
      */
@@ -46,7 +48,8 @@ public class TaskList {
     }
 
     /**
-     * Delete task from taskList.
+     * Deletes task from taskList.
+     *
      * @param index ArrayList index of task.
      */
     public void deleteTask(int index) {
@@ -60,6 +63,7 @@ public class TaskList {
 
     /**
      * Returns list of all tasks matching input query.
+     *
      * @param query String to match tasks with.
      * @return Numbered list of all tasks matching query.
      */
@@ -76,6 +80,7 @@ public class TaskList {
 
     /**
      * Converts ArrayList of tasks to a formatted string suited for storing in data file.
+     *
      * @return Formatted string of tasks to store in data file.
      */
     public String listToStringData() {
@@ -89,6 +94,7 @@ public class TaskList {
 
     /**
      * Converts ArrayList of tasks to a string as a numbered list for chatbot output.
+     *
      * @return List of all tasks, formatted as numbered list.
      */
     public String listToString() {
