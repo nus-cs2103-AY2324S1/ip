@@ -1,13 +1,13 @@
 package glub.task;
 
-import glub.GlubException;
-import glub.Storage;
-import glub.Ui;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import glub.GlubException;
+import glub.Storage;
+import glub.Ui;
 
 /**
  * Task list that contains all tasks and reads or writes from a storage.
@@ -53,6 +53,7 @@ public class TaskList {
                 addTask(String.format("%s /from %s /to %s", data[2], data[3], data[4]),
                         TaskType.EVENT, isDone);
                 break;
+            default:
             }
         }
 
@@ -105,6 +106,8 @@ public class TaskList {
                         "Invalid start/end format! Please ensure they are in dd/MM/yyyy HH:mm format!\n");
             }
             break;
+        default:
+            throw new GlubException("Oops! Task not recognised!");
         }
         storage.saveTasks(this.taskList);
     }

@@ -1,13 +1,13 @@
 package glub;
 
-import glub.task.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import glub.task.Task;
 
 /**
  * Storage handles the reading of existing tasks and saving of new tasks.
@@ -29,7 +29,7 @@ public class Storage {
      * @return Task details.
      * @throws GlubException If file creation fails.
      */
-    public ArrayList<String> getTaskDetails() throws GlubException{
+    public ArrayList<String> getTaskDetails() throws GlubException {
         File taskFile = new File(this.taskListPath);
         ArrayList<String> taskDetails = new ArrayList<>();
         try {

@@ -1,20 +1,20 @@
 package glub;
 
+import java.util.Scanner;
+
 import glub.task.TaskList;
 import glub.task.TaskType;
-
-import java.util.Scanner;
 
 /**
  * Parser that handles user inputs.
  */
 public class Parser {
     /** Tasklist associated to parser. */
-    TaskList taskList;
+    private TaskList taskList;
     /** Storage associated to parser. */
-    Storage storage;
+    private Storage storage;
     /** Status of parser. */
-    boolean isListening = true;
+    private boolean isListening = true;
 
     /**
      * Initialises Parser object.

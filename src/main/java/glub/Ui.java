@@ -1,9 +1,9 @@
 package glub;
 
+import java.util.ArrayList;
+
 import glub.task.Task;
 import glub.task.TaskList;
-
-import java.util.ArrayList;
 
 /**
  * Ui handles all messages that the user will see.
