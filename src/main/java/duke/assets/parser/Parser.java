@@ -1,11 +1,10 @@
 package duke.assets.parser;
 
-import duke.assets.commands.Command;
+import duke.assets.commands.CommandAbstract;
 import duke.assets.commands.ValidCommands;
-import duke.assets.commands.Bye;
 
 public class Parser {
-    public static Command passCommand(String input) {
+    public static CommandAbstract passCommand(String input) {
 
     }
 

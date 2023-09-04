@@ -1,5 +1,7 @@
 package duke.assets.tasks;
 
+import duke.dukeexceptions.StateCannotBeAlteredException;
+
 public abstract class TaskAbstract {
     protected String description;
     protected boolean isDone;
@@ -17,15 +19,23 @@ public abstract class TaskAbstract {
     /**
      * Completes the task
      */
-    public void completeTask() {
-        this.isDone = true;
+    public void completeTask() throws StateCannotBeAlteredException {
+        if (this.isDone) {
+            throw new StateCannotBeAlteredException();
+        } else {
+            this.isDone = true;
+        }
     }
 
     /**
      * Undo a task which was marked as complete
      */
-    public void undo() {
-        this.isDone = false;
+    public void undo() throws StateCannotBeAlteredException {
+        if (!this.isDone) {
+            throw new StateCannotBeAlteredException();
+        } else {
+            this.isDone = false;
+        }
     }
 
     /**

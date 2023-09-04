@@ -2,8 +2,8 @@ package duke.assets.commands;
 
 import duke.data.TaskList;
 
-public class EditTaskStatus extends Command {
-    public EditTaskStatus(String input) {
+public abstract class OperationOnListCommandAbstract extends CommandAbstract {
+    public OperationOnListCommandAbstract(String input) {
         super(input);
     }
 
@@ -18,6 +18,8 @@ public class EditTaskStatus extends Command {
         } catch (NumberFormatException formatExcept) {
             System.out.println("ChadGPT: Please ensure you input a numerical value for " +
                     "the index of the task to be edited");
+        } catch (IndexOutOfBoundsException indexExcept) {
+            System.out.println("ChadGPT: Please input index of the task you would like to alter.");
         }
         return false;
     }

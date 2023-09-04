@@ -1,6 +1,7 @@
 package duke.data;
 
 import duke.assets.tasks.TaskAbstract;
+import duke.dukeexceptions.StateCannotBeAlteredException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,21 +11,61 @@ import java.io.PrintWriter;
 
 public class TaskList {
     private ArrayList<TaskAbstract> taskList;
+    private int numberOfTasks;
 
     public TaskList () {
         this.taskList = new ArrayList<TaskAbstract>();
+        this.numberOfTasks = 0;
     }
 
     public void addTask(TaskAbstract newTask) {
         this.taskList.add(newTask);
+        this.numberOfTasks++;
     }
 
     public void markTaskAt(int index) {
-        this.taskList.get(index).completeTask();
+        if (index <= 0 || index > this.numberOfTasks) {
+            if (index == -1) {
+                System.out.println("ChadGPT: Can't delete from an empty list :(");
+            } else {
+                System.out.println("ChadGPT: Ensure the index is of in the range 1 - " + this.numberOfTasks);
+            }
+        } else {
+            try {
+                this.taskList.get(index).completeTask();
+            } catch (StateCannotBeAlteredException exp) {
+                System.out.println("ChadGPT: Task is already complete :-)");
+            }
+        }
     }
 
     public void unmarkTaskAt(int index) {
-        this.taskList.get(index).undo();
+        if (index <= 0 || index > this.numberOfTasks) {
+            if (index == -1) {
+                System.out.println("ChadGPT: Can't delete from an empty list :(");
+            } else {
+                System.out.println("ChadGPT: Ensure the index is of in the range 1 - " + this.numberOfTasks);
+            }
+        } else {
+            try {
+                this.taskList.get(index).undo();
+            } catch (StateCannotBeAlteredException exp) {
+                System.out.println("ChadGPT: Task is already incomplete :-)");
+            }
+        }
+    }
+
+    public void deleteTaskAt(int index) {
+        if (index < 0 || index >= this.numberOfTasks) {
+            if (index == -1) {
+                System.out.println("ChadGPT: Can't delete from an empty list :(");
+            } else {
+                System.out.println("ChadGPT: Ensure the index is of in the range 1 - " + this.numberOfTasks);
+            }
+        } else{
+            this.taskList.remove(index);
+            this.numberOfTasks--;
+        }
     }
 
     public void writeToFile() {
