@@ -3,6 +3,7 @@ package duke.command;
 import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
+import duke.ui.GobbleChatContainer;
 
 /**
  * Represents a ExitCommand class that deals with the command to exit the program.
@@ -16,8 +17,8 @@ public class ExitCommand extends Command {
      * @param storage  storage.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showByeMessage();
+    public void execute(TaskList taskList, GobbleChatContainer chat, Storage storage) {
+        chat.addMessage("Bye. Hope to see you again soon!", "Exit");
     }
 
     /**

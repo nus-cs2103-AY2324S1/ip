@@ -25,7 +25,6 @@ public class Parser {
      * @throws DukeException if user input gives an invalid command.
      */
     public static Command parse(String userInput) throws DukeException {
-
         String command = userInput.split(" ", 2)[0].toUpperCase();
         switch (command) {
         case "BYE":

@@ -4,6 +4,8 @@ import duke.Storage;
 import duke.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
+import duke.ui.GobbleChatContainer;
+import javafx.scene.layout.VBox;
 
 /**
  * Represents a AddCommand class that deals with the command to add a task.
@@ -24,13 +26,14 @@ public class AddCommand extends Command {
      * Adds a task to the list.
      *
      * @param taskList list of tasks.
-     * @param ui       user interface.
+     * @param chat     chat box user interface.
      * @param storage  storage.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, GobbleChatContainer chat, Storage storage) {
         taskList.addTask(task);
-        ui.showAddTaskMessage(task, taskList.getSize());
+//        chat.showAddTaskMessage(task, taskList.getSize());
+        chat.addMessage("Got it. I've added this task:\n" + task + "\nNow you have " + taskList.getSize() + " tasks in the list.", "Add");
         storage.saveListToDisk(taskList.getTasks());
     }
 }

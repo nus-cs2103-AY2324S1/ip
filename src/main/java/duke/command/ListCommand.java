@@ -3,6 +3,7 @@ package duke.command;
 import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
+import duke.ui.GobbleChatContainer;
 
 /**
  * R
@@ -16,7 +17,9 @@ public class ListCommand extends Command {
      * @param storage  storage
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showTasks(taskList);
+    public void execute(TaskList taskList, GobbleChatContainer chat, Storage storage) {
+
+//        ui.showTasks(taskList);
+        chat.addMessage(taskList.toString(), "List");
     }
 }
