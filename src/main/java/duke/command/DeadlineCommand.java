@@ -39,14 +39,9 @@ public class DeadlineCommand extends Command {
      *
      * @param taskList - the task list instance of the current duke
      * @param ui       - the ui instance of DUKE
-     *                 <<<<<<< HEAD
-     * @param storage  - the storage instance to allow the command to write to the
-     *                 storage
-     *                 =======
      * @param storage  - the storage instance to allow the command to write to the
      *                 storage
      * @return the reply of Quack
-     *         >>>>>>> branch-Level-9
      * @throws DukeBadInputException - if the input cannot be used
      */
     @Override

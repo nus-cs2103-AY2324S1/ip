@@ -37,7 +37,7 @@ public class Ui {
 
     /**
      * gets the default help message
-     * 
+     *
      * @return the default help message
      */
     public String getHelpMessage() {
@@ -66,7 +66,7 @@ public class Ui {
 
     /**
      * Generate the usually used representation when adding tasks
-     * 
+     *
      * @param newTask - the task being added
      * @param length  - the current number of tasks
      * @return the formatted string
