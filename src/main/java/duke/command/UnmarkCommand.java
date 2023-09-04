@@ -31,12 +31,14 @@ public class UnmarkCommand extends Command {
      * @param tasks List of tasks.
      * @param ui User interface.
      * @param storage Storage system.
+     * @return A confirmation message for unmarking of task.
      * @throws InvalidIndexException If the given index is out of bounds.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
-        tasks.unmarkTask(index);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
+        String output = tasks.unmarkTask(index);
         storage.save(tasks.getTasks());
+        return output;
     }
 
     /**

@@ -32,12 +32,14 @@ public class DeleteCommand extends Command {
      * @param tasks List of tasks.
      * @param ui User interface.
      * @param storage Storage system.
+     * @return A confirmation message for deleting of task.
      * @throws InvalidIndexException If the provided index is not valid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
-        tasks.deleteTask(index);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
+        String output = tasks.deleteTask(index);
         storage.save(tasks.getTasks());
+        return output;
     }
 
     /**

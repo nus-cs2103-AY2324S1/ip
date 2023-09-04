@@ -18,10 +18,11 @@ public class ListCommand extends Command {
      * @param tasks List of tasks to be displayed.
      * @param ui User interface.
      * @param storage Storage system (not used in this command but retained for consistency).
+     * @return A confirmation message for listing of tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.listTasks();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return tasks.listTasks();
     }
 
     /**

@@ -45,11 +45,13 @@ public class AddDeadlineCommand extends Command {
      * @param tasks list of tasks.
      * @param ui user interface.
      * @param storage storage system.
+     * @return A confirmation message for adding of deadline.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.addTask(new Deadline(description, by));
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String output = tasks.addTask(new Deadline(description, by));
         storage.save(tasks.getTasks());
+        return output;
     }
 
     /**

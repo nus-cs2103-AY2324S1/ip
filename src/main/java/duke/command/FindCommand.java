@@ -33,10 +33,11 @@ public class FindCommand extends Command {
      * @param tasks List of duke.tasks.
      * @param ui User interface.
      * @param storage Storage system.
+     * @return A confirmation message for finding tasks from keyword.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.findTasks(keyword);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return tasks.findTasks(keyword);
     }
 
     /**

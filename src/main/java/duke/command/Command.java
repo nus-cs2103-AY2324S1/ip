@@ -15,9 +15,10 @@ public abstract class Command {
      * @param tasks List of tasks.
      * @param ui User interface.
      * @param storage Storage system.
+     * @return A response message indicating the result of the command execution.
      * @throws Exception If there's any error during the command execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws Exception;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws Exception;
 
     /**
      * Checks if this command triggers an exit from the application.

@@ -12,6 +12,10 @@ import duke.tasks.TaskList;
 import duke.util.Parser;
 import duke.util.Storage;
 import duke.util.Ui;
+import javafx.fxml.FXML;
+
+
+
 
 
 /**
@@ -67,5 +71,30 @@ public class Duke {
 
         }
     }
+
+
+
+    @FXML
+    public String getResponse(String input) {
+        StringBuilder response = new StringBuilder();
+
+        try {
+            Command c = Parser.parse(input);
+            response.append(c.execute(tasks, ui, storage));
+
+            if (c.isExit()) {
+                System.exit(0);
+            }
+
+        } catch (DukeException | InvalidIndexException | EmptyTaskException | InvalidDateTimeException e) {
+            response.append(e.getMessage());
+        } catch (Exception e) {
+            response.append("An error occurred: ").append(e.getMessage());
+        }
+
+        return response.toString();
+    }
+
+
 
 }

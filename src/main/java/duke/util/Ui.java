@@ -24,12 +24,16 @@ public class Ui {
 
     /**
      * Displays the welcome message to the user.
+     *
+     * @return A string continaing the welcome message.
      */
-    public void showWelcomeMessage() {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Hello! I'm " + name);
-        System.out.println("What can I do for you?");
-        System.out.println(HORIZONTAL_LINE);
+    public static String showWelcomeMessage() {
+        String output = "";
+        output += HORIZONTAL_LINE + "\n";
+        output += "Hello! I'm " + name + "\n";
+        output += "What can I do for you?\n";
+        output += HORIZONTAL_LINE + "\n";
+        return output;
     }
 
     /**
@@ -43,15 +47,19 @@ public class Ui {
 
     /**
      * Displays the exit message to the user.
+     *
+     * @return A string containing the exit message.
      */
-    public void showExitMessage() {
-        System.out.println("Bye. Hope to see you again soon !");
+    public String showExitMessage() {
+        return "Bye. Hope to see you again soon !\n";
     }
 
     /**
      * Displays a horizontal line for formatting purposes.
+     *
+     * @return A string representing a horizontal line.
      */
-    public void showLine() {
-        System.out.println(HORIZONTAL_LINE);
+    public String showLine() {
+        return HORIZONTAL_LINE + "\n";
     }
 }

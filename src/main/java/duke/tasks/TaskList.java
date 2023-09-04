@@ -32,76 +32,92 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the list and prints a confirmation message.
+     * Adds a task to the list.
      *
-     * @param task The task to be added to the list.
+     * @param task The task to be added.
+     * @return Confirmation message indicating task addition.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         store.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("\t" + task);
-        System.out.println("Now you have " + store.size() + " tasks in the list.");
+        String output = "";
+        output += "Got it. I've added this task:\n";
+        output += "\t" + task + "\n";
+        output += "Now you have " + store.size() + " tasks in the list.\n";
+        return output;
     }
 
     /**
-     * Removes a task from the list based on its index and prints a confirmation message.
+     * Deletes a task from the list based on its index.
      *
-     * @param index The index of the task to be deleted.
+     * @param index Index of the task to be deleted.
+     * @return Confirmation message indicating task deletion.
      * @throws InvalidIndexException If the provided index is out of bounds.
      */
-    public void deleteTask(int index) throws InvalidIndexException {
+    public String deleteTask(int index) throws InvalidIndexException {
         if (index > store.size()) {
             throw new InvalidIndexException();
         }
         Task task = store.get(index - 1);
         store.remove(index - 1);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("\t" + task);
-        System.out.println("Now you have " + store.size() + " tasks in the list.");
+        String output = "";
+        output += "Noted. I've removed this task:\n";
+        output += "\t" + task + "\n";
+        output += "Now you have " + store.size() + " tasks in the list.\n";
+        return output;
     }
 
     /**
-     * Prints all the tasks currently in the list.
+     * Provides a list of all tasks currently in the list.
+     *
+     * @return Formatted string of all tasks.
      */
-    public void listTasks() {
+    public String listTasks() {
         System.out.println("Here are the tasks in your list:");
         int counter = 1;
+        String output = "";
         for (Task task: store) {
-            System.out.println(counter + "." + task);
+            output += counter + "." + task + "\n";
             counter++;
         }
+        return output;
     }
 
     /**
-     * Marks a task as done based on its index and prints a confirmation message.
+     * Marks a task as done based on its index.
      *
-     * @param index The index of the task to be marked as done.
+     * @param index Index of the task to be marked as done.
+     * @return Confirmation message indicating task status change to done.
      * @throws InvalidIndexException If the provided index is out of bounds.
      */
-    public void markTask(int index) throws InvalidIndexException {
+    public String markTask(int index) throws InvalidIndexException {
         if (index > store.size()) {
             throw new InvalidIndexException();
         }
         Task curr = store.get(index - 1);
+        String output = "";
         curr.mark();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("\t" + curr);
+        output += "Nice! I've marked this task as done:\n";
+        output += "\t" + curr + "\n";
+        return output;
     }
 
     /**
-     * Marks a task as not done based on its index and prints a confirmation message.
+     * Marks a task as not done based on its index.
      *
-     * @param index The index of the task to be marked as not done.
+     * @param index Index of the task to be marked as not done.
+     * @return Confirmation message indicating task status change to not done.
      * @throws InvalidIndexException If the provided index is out of bounds.
      */
-    public void unmarkTask(int index) throws InvalidIndexException {
+    public String unmarkTask(int index) throws InvalidIndexException {
         if (index > store.size()) {
             throw new InvalidIndexException();
         }
         Task curr = store.get(index - 1);
+        String output = "";
         curr.unmark();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("\t" + curr);
+        output += "OK, I've marked this task as not done yet\n:";
+        output += "\t" + curr + "\n";
+        return output;
     }
 
     /**
@@ -114,21 +130,24 @@ public class TaskList {
     }
 
     /**
-     * Finds and prints tasks containing the specified keyword.
+     * Searches and provides tasks containing the specified keyword.
      *
-     * @param keyword The keyword to search for in task descriptions.
+     * @param keyword Keyword to search for in task descriptions.
+     * @return Formatted string of matching tasks.
      */
-    public void findTasks(String keyword) {
-        System.out.println("Here are the matching tasks in your list:");
+    public String findTasks(String keyword) {
+        String output = "";
+        output += "Here are the matching tasks in your list:\n";
         boolean found = false;
         for (int i = 0; i < store.size(); i++) {
             if (store.get(i).getDescription().contains(keyword)) {
                 found = true;
-                System.out.println(i + 1 + "." + store.get(i));
+                output += i + 1 + "." + store.get(i) + "\n";
             }
         }
         if (!found) {
-            System.out.println("No matching tasks found.");
+            output += "No matching tasks found.\n";
         }
+        return output;
     }
 }

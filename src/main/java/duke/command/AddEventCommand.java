@@ -51,11 +51,13 @@ public class AddEventCommand extends Command {
      * @param tasks list of tasks.
      * @param ui user interface.
      * @param storage storage system.
+     * @return A confirmation message for adding of event.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.addTask(new Event(description, from, to));
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String output = tasks.addTask(new Event(description, from, to));
         storage.save(tasks.getTasks());
+        return output;
     }
 
     /**
