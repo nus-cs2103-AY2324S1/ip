@@ -3,12 +3,16 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
+    // The list of tasks
     private List<Task> tasks;
+    // The formatter for the date and time
     private final DateTimeFormatter inputFormatter;
 
     /**
@@ -177,6 +181,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Takes in the keyword and find the tasks that
+     * contains the keyword and print the tasks
+     *
+     * @param keyword the keyword to be searched
+     */
     public void findTask(String keyword) {
         if (this.tasks.isEmpty()) {
             System.out.println("There are no matching tasks in the list.");

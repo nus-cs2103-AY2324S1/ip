@@ -1,8 +1,10 @@
 package duke;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 /**
  * Represents a test for Parser class
@@ -29,8 +31,8 @@ public class ParserTest {
             assertArrayEquals(new String[] {"deadline"}, new Parser("deadline").getDeadlineTask());
             fail();
         } catch (DukeException e) {
-            assertEquals("OOPS!!! The description of a deadline cannot be empty and" +
-                    " the deadline for the deadline cannot be empty.", e.getMessage());
+            assertEquals("OOPS!!! The description of a deadline cannot be empty and"
+                    + " the deadline for the deadline cannot be empty.", e.getMessage());
         }
     }
 
@@ -40,8 +42,8 @@ public class ParserTest {
             assertArrayEquals(new String[] {"deadline", "sleep"}, new Parser("deadline sleep /by").getDeadlineTask());
             fail();
         } catch (DukeException e) {
-            assertEquals("OOPS!!! Invalid command. The command for a deadline should be:\n" +
-                    "deadline <task> /by yyyy-mm-dd hh:mm", e.getMessage());
+            assertEquals("OOPS!!! Invalid command. The command for a deadline should be:\n"
+                    + "deadline <task> /by yyyy-mm-dd hh:mm", e.getMessage());
         }
     }
 
@@ -51,8 +53,8 @@ public class ParserTest {
             assertArrayEquals(new String[] {"event"}, new Parser("event").getEventTask());
             fail();
         } catch (DukeException e) {
-            assertEquals("OOPS!!! The description of an event cannot be empty and the start" +
-                    " and end time/date cannot be empty.", e.getMessage());
+            assertEquals("OOPS!!! The description of an event cannot be empty and the start"
+                    + " and end time/date cannot be empty.", e.getMessage());
         }
     }
 
@@ -62,8 +64,8 @@ public class ParserTest {
             assertArrayEquals(new String[] {"event", "sleep"}, new Parser("event sleep /from").getEventTask());
             fail();
         } catch (DukeException e) {
-            assertEquals("OOPS!!! Invalid command. The command for an event should be:\n" +
-                    "event <task> /from yyyy-mm-dd hh:mm /to yyyy-mm-dd hh:mm", e.getMessage());
+            assertEquals("OOPS!!! Invalid command. The command for an event should be:\n"
+                    + "event <task> /from yyyy-mm-dd hh:mm /to yyyy-mm-dd hh:mm", e.getMessage());
         }
     }
 }

@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Represents the user interface of the chatbot
+ */
 public class Ui {
     // Print the greeting message
     public void printGreeting() {
@@ -11,7 +14,9 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    // Print all the available commands
+    /**
+     * Print all the available commands
+     */
     public void printAllCommands() {
         System.out.println("OOPS!!! Invalid command. Try the following commands instead:");
         System.out.println("> todo <task>");

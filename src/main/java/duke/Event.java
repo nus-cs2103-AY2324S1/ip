@@ -33,8 +33,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from.format(formatter) + " to: " +
-                this.to.format(formatter) + ")";
+        return "[E]" + super.toString() + " (from: " + this.from.format(formatter) + " to: "
+                + this.to.format(formatter) + ")";
     }
 
     /**
@@ -44,8 +44,8 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "E | " + this.isDone + " | " + this.description + " | " + this.from.format(formatter) +
-                " | " + this.to.format(formatter);
+        return "E | " + this.isDone + " | " + this.description + " | " + this.from.format(formatter)
+                + " | " + this.to.format(formatter);
     }
 
     /**
