@@ -6,15 +6,16 @@ package duke;
 public class MarkCommand extends Command{
 
     /** Index of the task in task list */
-    private final int index;
+    private final int INDEX;
+
     public MarkCommand(int i) {
-        index = i;
+        INDEX = i;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.markTask(index);
-        ui.showMarked(tasks.get(index));
+        tasks.markTask(INDEX);
+        ui.showMarked(tasks.get(INDEX));
     }
 
     @Override
