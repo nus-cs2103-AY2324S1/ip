@@ -35,7 +35,7 @@ public class MainWindow extends AnchorPane {
      * Greets by chatbot.
      */
     private String greet() {
-        return "  Hello! I'm Jokey :) \n  What can I do for you?";
+        return "  Hello! I'm cc :) \n  What can I do for you?";
     }
 
     public void setDuke(Duke d) {

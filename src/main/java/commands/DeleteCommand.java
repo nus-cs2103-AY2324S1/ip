@@ -34,6 +34,6 @@ public class DeleteCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return tasks.delete(pos); // Delete task from the task list
+        return tasks.delete(pos);
     }
 }

@@ -70,5 +70,4 @@ public class Duke {
     public String getResponse(String reply) {
         return CommandParser.parse(reply).execute(taskList, ui, storage);
     }
-
 }
