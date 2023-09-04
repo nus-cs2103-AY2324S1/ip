@@ -54,7 +54,7 @@ public class Shiba {
     public static void main(String[] args) {
         new Shiba("SHIBA-BOT", "./shibaData/tasks.txt");
 
-        new Thread(() -> Application.launch(MainWindow.class)).start();
+        Application.launch(MainWindow.class);
     }
 
     /**
