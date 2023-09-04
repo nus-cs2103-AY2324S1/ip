@@ -5,6 +5,9 @@ import miles.TaskList;
 import miles.Ui;
 import miles.task.ToDo;
 
+/**
+ * Represents adding a todo task command.
+ */
 public class AddToDoCommand extends Command {
     private String input;
 
