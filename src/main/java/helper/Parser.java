@@ -45,9 +45,9 @@ public class Parser {
             throw new WrongUseOfCommandException();
         }
 
-        if (fullCommand.startsWith("mark") || fullCommand.startsWith("unmark") ||
-                fullCommand.startsWith("delete") || fullCommand.startsWith("due") ||
-                fullCommand.startsWith("find")) {
+        if (fullCommand.startsWith("mark") || fullCommand.startsWith("unmark")
+                || fullCommand.startsWith("delete") || fullCommand.startsWith("due")
+                || fullCommand.startsWith("find")) {
             try {
                 String[] res = fullCommand.split(" ", 2);
                 String taskType = res[0].strip();
@@ -69,6 +69,8 @@ public class Parser {
                     return new UnmarkCommand(index);
                 case DeleteCommand.COMMAND_WORD:
                     return new DeleteCommand(index);
+                default:
+                    break;
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new MissingIndexException(fullCommand);

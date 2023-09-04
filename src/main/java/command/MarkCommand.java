@@ -3,7 +3,7 @@ package command;
 import exception.DukeException;
 import helper.Storage;
 import helper.Ui;
-import task.TaskList;;
+import task.TaskList;
 
 /**
  * Represents a Command that specifically marks a Task at a given Index in the TaskList

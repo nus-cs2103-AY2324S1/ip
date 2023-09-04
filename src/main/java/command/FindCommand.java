@@ -4,6 +4,9 @@ import helper.Storage;
 import helper.Ui;
 import task.TaskList;
 
+/**
+ * Represents a Command that specifically finds a Task by a substring.
+ */
 public class FindCommand extends Command {
     /** Command the user starts with to activate the FindCommand. */
     public static final String COMMAND_WORD = "find";
