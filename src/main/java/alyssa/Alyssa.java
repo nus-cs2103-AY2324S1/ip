@@ -5,126 +5,119 @@ import java.util.Scanner;
 
 import alyssa.Exceptions.AlyssaArgumentException;
 
+import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.application.Application;
+import javafx.scene.control.Label;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.scene.layout.Region;
 /**
  * This class represents the main program.
  */
 public class Alyssa {
-    private static final String LINE = "____________________________________________________________";
+    public static final String LINE = "____________________________________________________________";
+    private static final String FILEPATH = "./data/alyssa.txt";
+    private static final String DIRPATH = "./data";
     private Storage storage;
-    private String saveFilePath;
-    private String dirPath;
     private TaskList taskList;
     private Ui ui;
     private Parser parser;
 
-    /**
+    /*
      * Constructor method for Alyssa.
-     * @param saveFilePath Relative path of the save file.
-     * @param dirPath Directory to be created, where the save file resides.
      */
-    public Alyssa(String saveFilePath, String dirPath) {
-        this.saveFilePath = saveFilePath;
-        this.dirPath = dirPath;
+    public Alyssa() {
         this.ui = new Ui();
         this.parser = new Parser();
+        this.storage = new Storage(FILEPATH, DIRPATH);
+        this.taskList = new TaskList(storage.loadTasks());
     }
-    public static void main(String[] args) {
-        new Alyssa("./data/alyssa.txt", "./data").execute();
-    }
-    private void run(Command command, String rest) {
+
+    private String run(Command command, String rest) {
         switch (command) {
         case BYE:
-            ui.goodbye();
-            break;
+            return ui.goodbye();
         case LIST:
-            taskList.listTasks();
-            break;
+            return taskList.listTasks();
         case MARK:
             try {
-                taskList.markTask(rest);
+                String output = taskList.markTask(rest);
+                return output;
             } catch (NumberFormatException e) {
-                this.ui.printWithLines(e.getMessage());
+                return e.getMessage();
             } catch (AlyssaArgumentException e) {
-                this.ui.printWithLines(e.getMessage());
+                return e.getMessage();
             }
-            break;
         case UNMARK:
             try {
-                taskList.unmarkTask(rest);
+                String output = taskList.unmarkTask(rest);
+                return output;
             } catch (NumberFormatException e) {
-                this.ui.printWithLines(e.getMessage());
+                return e.getMessage();
             } catch (AlyssaArgumentException e) {
-                this.ui.printWithLines(e.getMessage());
+                return e.getMessage();
             }
-            break;
         case TODO:
             try {
-                taskList.addTodo(rest);
+                String output = taskList.addTodo(rest);
+                return output;
             } catch (AlyssaArgumentException e) {
-                this.ui.printWithLines(e.getMessage());
+                return e.getMessage();
             }
-            break;
         case DEADLINE:
             try {
-                taskList.addDeadline(rest);
+                String output = taskList.addDeadline(rest);
+                return output;
             } catch (AlyssaArgumentException e) {
-                this.ui.printWithLines(e.getMessage());
+                return e.getMessage();
             }
-            break;
         case EVENT:
             try {
-                taskList.addEvent(rest);
+                String output = taskList.addEvent(rest);
+                return output;
             } catch (AlyssaArgumentException e) {
-                this.ui.printWithLines(e.getMessage());
+                return e.getMessage();
             }
-            break;
         case DELETE:
             try {
-                taskList.deleteTask(rest);
+                String output = taskList.deleteTask(rest);
+                return output;
             } catch (AlyssaArgumentException e) {
-                this.ui.printWithLines(e.getMessage());
+                return e.getMessage();
             } catch (NumberFormatException e) {
-                this.ui.printWithLines(e.getMessage());
+                return e.getMessage();
             }
-            break;
         case FIND:
-            taskList.printRelevantTasks(rest);
-            break;
+            return taskList.printRelevantTasks(rest);
         default:
-            ui.invalidTaskResponse();
+            return ui.invalidTaskResponse();
         }
     }
-    private void execute() {
-        Scanner sc = new Scanner(System.in);
-        boolean isRunning = true;
-        Command command;
-        this.ui.greet();
-        this.storage = new Storage(saveFilePath, dirPath);
-        this.taskList = new TaskList(storage.loadTasks());
-        while (isRunning) {
-            String nextInput = sc.nextLine();
-            String[] parsedInput = this.parser.parseCommand(nextInput);
-            String commandString = parsedInput[0];
-            command = Command.assignCommand(commandString);
-            String rest = parsedInput.length > 1 ? parsedInput[1] : "";
-            run(command, rest);
-            try {
-                storage.saveTasks(taskList);
-            } catch (IOException e) {
-                System.out.println("Oops... We couldn't save your task data to a file :(");
-                System.out.println(e.getMessage());
-            }
-            if (command == Command.BYE) {
-                isRunning = false;
-            }
-        }
-    }
-    @Override
-    public void start(Stage stage) {
-        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
-        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
 
-        stage.setScene(scene); // Setting the stage to show our screen
-        stage.show(); // Render the stage.
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    @FXML
+    public String getResponse(String input) {
+        String[] parsedInput = this.parser.parseCommand(input);
+        String commandString = parsedInput[0];
+        Command command;
+        command = Command.assignCommand(commandString);
+        String rest = parsedInput.length > 1 ? parsedInput[1] : "";
+        String output = run(command, rest);
+        try {
+            storage.saveTasks(taskList);
+        } catch (IOException e) {
+            return "Oops... We couldn't save your task data to a file :(";
+        }
+        return output;
     }
 }

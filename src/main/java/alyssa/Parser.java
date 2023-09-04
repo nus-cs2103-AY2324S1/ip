@@ -17,7 +17,7 @@ public class Parser {
      * @param storedTask The task to be parsed.
      * @return The parsed task, in the form of a String array of length at most 5.
      */
-    protected String[] parserStoredTask(String storedTask) {
+    protected String[] parseStoredTask(String storedTask) {
         return storedTask.split(" ~ ", 5);
     }
 }

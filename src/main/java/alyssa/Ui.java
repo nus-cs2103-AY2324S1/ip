@@ -15,28 +15,22 @@ public class Ui {
     /**
      * Sends a greeting message via System.out.println.
      */
-    protected void greet() {
-        System.out.println(LOGO);
-        System.out.println(LINE);
-        System.out.println("Hello! I'm Alyssa!");
-        System.out.println("What can I do for you?");
-        System.out.println(LINE);
+    protected String getGreeting() {
+        String output = "Hello! I'm Alyssa!\n";
+        output += "What can I do for you?\n";
+        return output;
     }
     /**
-     * Sends a goodbye message via System.out.println.
+     * Returns a goodbye message.
      */
-    protected void goodbye() {
-        System.out.println(LINE);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(LINE);
+    protected String goodbye() {
+        return "Bye. Hope to see you again soon! Subsequent messages entered will cause the program to close.";
     }
     /**
-     * Sends a error message via System.out.println.
+     * Returns an error message.
      */
-    protected void invalidTaskResponse() {
-        System.out.println(LINE);
-        System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
-        System.out.println(LINE);
+    protected String invalidTaskResponse() {
+        return "OOPS!!! I'm sorry, but I don't know what that means :-(";
     }
     /**
      * Prints any message, surrounded by lines, via System.out.println.
