@@ -286,6 +286,12 @@ public class Parser {
         return response.toString();
     }
 
+    /**
+     * Generates the response for a find command
+     * @param tokens The string array containing the command that has been split into parts
+     * @param taskList Given TaskList of the user
+     * @return String containing the find response
+     */
     private static String generateFindResponse(String[] tokens, TaskList taskList) {
         if (tokens.length < 2) {
             return "Please specify a keyword to search for.";
