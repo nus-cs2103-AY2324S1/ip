@@ -1,4 +1,6 @@
+
 package harvard;
+
 /**
  * Represents a delete command.
  */

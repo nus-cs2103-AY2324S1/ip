@@ -8,7 +8,7 @@ public class Ui {
     /**
      * The scanner.
      */
-    Scanner scanner;
+    private Scanner scanner;
     /**
      * Constructs a Ui object.
      */
@@ -52,8 +52,8 @@ public class Ui {
      */
     public void showAddTask(Task task, TaskList tasks) {
         displayLine();
-        System.out.println("Got it. I've added this task:\n" + task +
-                "\nNow you have " + tasks.size() + " tasks in the list.");
+        System.out.println("Got it. I've added this task:\n" + task
+                + "\nNow you have " + tasks.size() + " tasks in the list.");
         displayLine();
     }
     /**
@@ -76,8 +76,8 @@ public class Ui {
      */
     public void showDelete(Task task, TaskList tasks) {
         displayLine();
-        System.out.println("Noted. I've removed this task:\n" + task +
-                "\nNow you have " + tasks.size() + " tasks in the list.");
+        System.out.println("Noted. I've removed this task:\n" + task
+                + "\nNow you have " + tasks.size() + " tasks in the list.");
         displayLine();
     }
 
@@ -102,8 +102,8 @@ public class Ui {
         displayLine();
     }
     /**
-     * Displays the error message.
-     * @param e The exception.
+     * Shows the find message.
+     * @param matchingTasks The list of matching tasks.
      */
 
     public void showFind(TaskList matchingTasks) {
@@ -114,7 +114,10 @@ public class Ui {
         }
         displayLine();
     }
-
+    /**
+     * Displays the error message.
+     * @param e The error.
+     */
     public void displayError(DukeException e) {
         System.out.println(e.getMessage());
     }

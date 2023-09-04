@@ -1,7 +1,7 @@
 package harvard;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+
 /**
  * Represents a task writer that writes tasks to a file.
  */

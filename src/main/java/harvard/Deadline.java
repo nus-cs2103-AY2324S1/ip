@@ -31,7 +31,12 @@ public class Deadline extends Task {
         }
     }
 
-    public Deadline (String description, LocalDateTime by) {
+    /**
+     * Constructs a Deadline object.
+     * @param description
+     * @param by
+     */
+    public Deadline(String description, LocalDateTime by) {
         super(description, "D");
         this.by = by;
     }

@@ -57,6 +57,11 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * Finds tasks that match the keyword.
+     * @param keyword The keyword to be searched.
+     * @return The list of matching tasks.
+     */
     public TaskList find(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
