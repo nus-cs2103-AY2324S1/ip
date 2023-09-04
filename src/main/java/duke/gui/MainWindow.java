@@ -36,15 +36,21 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         this.scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         this.textBox.setText(Ui.WELCOME_MESSAGE);
+        this.textBoxList.setText("Quack Quack, you have not entered any tasks yet!\n"
+                + "Create new tasks with the todo, deadline or event command");
     }
 
+    /**
+     * set the current duke instance and also update the current tasks stored
+     */
     public void setDuke(Duke d) {
         duke = d;
         this.textBoxList.setText(this.duke.getResponse("list"));
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing
+     * Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -56,11 +62,9 @@ public class MainWindow extends AnchorPane {
 
         String response = duke.getResponse(input);
 
-
         dialogContainer.getChildren().addAll(
                 new DialogBox(input),
-                new DialogBoxQuack(response)
-        );
+                new DialogBoxQuack(response));
 
         if (response.equals(Ui.GOODBYE_MESSAGE)) {
             System.exit(0);
