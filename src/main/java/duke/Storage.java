@@ -6,14 +6,29 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Storage class manages the loading and saving of task data to a file.
+ */
 public class Storage {
     private Path dataPath;
 
+    /**
+     * Constructs a Storage object with the specified file name.
+     * If the file or directory does not exist, it will be created.
+     *
+     * @param fileName The name of the data file.
+     */
     public Storage(String fileName) {
         createFile(fileName);
         this.dataPath = Path.of(".", "data", fileName);
     }
 
+    /**
+     * Loads tasks from the data file and returns them as an ArrayList.
+     *
+     * @return An ArrayList of Task objects.
+     * @throws DukeException If there is an error reading the data file or parsing the tasks.
+     */
     private void createFile(String fileName) {
         try {
             Path dataDirectoryPath = Path.of(".", "data");
@@ -34,6 +49,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the data file and returns them as an ArrayList.
+     *
+     * @return An ArrayList of Task objects.
+     * @throws DukeException If there is an error reading the data file or parsing the tasks.
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -50,6 +71,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the updated list of tasks to the data file.
+     *
+     * @param updatedTasks The TaskList containing the updated tasks.
+     */
     public void saveToFile(TaskList updatedTasks) {
         try {
             if (updatedTasks == null) {
