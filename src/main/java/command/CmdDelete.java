@@ -1,9 +1,10 @@
 package command;
 
+import common.Message;
 import storage.Storage;
 import task.Task;
 import task.TaskList;
-import ui.Ui;
+import utility.StringUtility;
 
 /**
  * Represents a command to delete a task from the task list.
@@ -28,15 +29,17 @@ public class CmdDelete extends Command {
      * the storage.
      *
      * @param taskList The task list from which the task should be deleted.
-     * @param ui       The user interface for displaying feedback to the user.
+     * @return response to the user.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui) {
+    public String execute(TaskList taskList) {
         Task deleted = taskList.deleteTask(index);
-        ui.print("Meow. I've removed this task:");
-        ui.print(deleted.toString());
-        ui.print(String.format("Now you have %d tasks in the list.", taskList.size()));
         Storage.writeToFile(taskList);
+
+        return StringUtility.joinLines(Message.DELETE_TASK,
+                deleted.toString(),
+                String.format(Message.TASKLIST_STATUS, taskList.size()));
+
     }
 
 }

@@ -1,7 +1,6 @@
 package command;
 
 import task.TaskList;
-import ui.Ui;
 
 /**
  * The abstract base class for all commands that is executed by the chatbot.
@@ -16,8 +15,8 @@ public abstract class Command {
      * Executes the specific action associated with this command.
      *
      * @param taskList The task list to operate on.
-     * @param ui       The user interface for displaying messages.
+     * @return response to the user.
      */
-    public abstract void execute(TaskList taskList, Ui ui);
+    public abstract String execute(TaskList taskList);
 
 }

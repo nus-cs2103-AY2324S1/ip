@@ -35,4 +35,31 @@ public abstract class StringUtility {
         return s.substring(0, indexOfSpace);
     }
 
+    /**
+     * Connects lines into a paragraph separated by line separator.
+     *
+     * @param lines The input strings.
+     * @return The first word.
+     */
+    public static String joinLines(String... lines) {
+        String res = "";
+        for (String line : lines) {
+            res += line + System.lineSeparator();
+        }
+        return res;
+    }
+
+    /**
+     * Connects lines into a paragraph separated by line separator.
+     *
+     * @param lines The input strings.
+     * @return The first word.
+     */
+    public static String joinLinesArray(String[] lines) {
+        String res = "";
+        for (String line : lines) {
+            res += line + System.lineSeparator();
+        }
+        return res;
+    }
 }

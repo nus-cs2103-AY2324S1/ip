@@ -1,7 +1,7 @@
 package command;
 
+import javafx.application.Platform;
 import task.TaskList;
-import ui.Ui;
 
 /**
  * Represents a command to exit the application.
@@ -14,11 +14,12 @@ public class CmdBye extends Command {
      * Executes the command to exit the application and displays a farewell message.
      *
      * @param taskList Not used in this command.
-     * @param ui       The user interface for displaying the farewell message.
+     * @return response to the user.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui) {
-        ui.print("Bye meow! Hope to see you again soon!");
+    public String execute(TaskList taskList) {
+        Platform.exit();
+        return "";
     }
 
 }

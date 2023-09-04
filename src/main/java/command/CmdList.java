@@ -1,8 +1,9 @@
 package command;
 
+import common.Message;
 import task.Task;
 import task.TaskList;
-import ui.Ui;
+import utility.StringUtility;
 
 /**
  * Represents a command to list all tasks in the task list.
@@ -15,15 +16,18 @@ public class CmdList extends Command {
      * Executes the command to list all tasks and their indices in the task list.
      *
      * @param taskList The task list to retrieve tasks from.
-     * @param ui       The user interface for displaying the list of tasks.
+     * @return response to the user.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui) {
-        ui.print("Here are the tasks in your list:");
-        for (int i = 1; i < taskList.size() + 1; i++) {
-            Task task = taskList.getTask(i - 1);
-            ui.print(String.format("%d. %s", i, task.toString()));
+    public String execute(TaskList taskList) {
+        String[] lines = new String[taskList.size() + 1];
+        lines[0] = Message.LIST_TASK;
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.getTask(i);
+            lines[i + 1] = task.toString();
         }
+
+        return StringUtility.joinLinesArray(lines);
     }
 
 }

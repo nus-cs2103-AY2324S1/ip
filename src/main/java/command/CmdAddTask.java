@@ -1,8 +1,9 @@
 package command;
 
+import common.Message;
 import task.Task;
 import task.TaskList;
-import ui.Ui;
+import utility.StringUtility;
 
 /**
  * Represents a command to add a task to the task list.
@@ -25,14 +26,15 @@ public class CmdAddTask extends Command {
      * Executes the command to add the task to the task list.
      *
      * @param taskList The task list to which the task should be added.
-     * @param ui       The user interface for displaying feedback to the user.
+     * @return response to the user.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui) {
+    public String execute(TaskList taskList) {
         taskList.addTask(task);
-        ui.print("Got it. I've added this task:");
-        ui.print(task.toString());
-        ui.print(String.format("Now you have %d tasks in the list.", taskList.size()));
+
+        return StringUtility.joinLines(Message.DELETE_TASK,
+                task.toString(),
+                String.format(Message.TASKLIST_STATUS, taskList.size()));
     }
 
 }

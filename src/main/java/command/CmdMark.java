@@ -1,8 +1,9 @@
 package command;
 
+import common.Message;
 import storage.Storage;
 import task.TaskList;
-import ui.Ui;
+import utility.StringUtility;
 
 /**
  * Represents a command to mark a task as done in the task list.
@@ -26,14 +27,13 @@ public class CmdMark extends Command {
      * and updates the storage.
      *
      * @param taskList The task list in which the task should be marked as done.
-     * @param ui       The user interface for displaying feedback to the user.
+     * @return response to the user.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui) {
+    public String execute(TaskList taskList) {
         taskList.markDone(index);
-        ui.print("Meow! I've marked this task as done:");
-        ui.print(taskList.getTask(index).toString());
         Storage.writeToFile(taskList);
+        return StringUtility.joinLines(Message.MARK_DONE, taskList.getTask(index).toString());
     }
 
 }

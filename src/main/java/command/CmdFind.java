@@ -1,8 +1,9 @@
 package command;
 
+import common.Message;
 import task.Task;
 import task.TaskList;
-import ui.Ui;
+import utility.StringUtility;
 
 /**
  * Represents a command to find tasks matching a keyword in the task list.
@@ -25,16 +26,20 @@ public class CmdFind extends Command {
      * Executes the find command on the provided task list.
      *
      * @param taskList The task list to search within.
-     * @param ui       The user interface for displaying result of the search.
+     * @return response to the user.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui) {
+    public String execute(TaskList taskList) {
         Task[] filteredList = taskList.search(keyword);
-        ui.print("Here are the matching tasks in your list:");
-        for (int i = 1; i < filteredList.length + 1; i++) {
-            Task task = filteredList[i - 1];
-            ui.print(String.format("%d. %s", i, task.toString()));
+        String[] lines = new String[filteredList.length + 1];
+        lines[0] = Message.FIND_TASK;
+
+        for (int i = 0; i < filteredList.length; i++) {
+            Task task = filteredList[i];
+            lines[i + 1] = task.toString();
         }
+
+        return StringUtility.joinLinesArray(lines);
     }
 
 }
