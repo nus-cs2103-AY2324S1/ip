@@ -56,7 +56,6 @@ public class Parser {
 
                 } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     System.out.println("The task index is invalid! Try again!");
-
                 }
 
             } else if (inputArray[0].equals("find")) {
