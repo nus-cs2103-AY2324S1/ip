@@ -1,7 +1,10 @@
+package duke;
+
 import java.io.IOException;
 import java.util.Scanner;
+import duke.exceptions.DukeException;
 
-//copy this into the actual Duke file later!1!!!!
+//copy this into the actual duke.Duke file later!1!!!!
 public class Duke {
     private Storage storage;
     private TaskList tasks;
