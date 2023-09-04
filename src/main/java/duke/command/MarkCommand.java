@@ -1,4 +1,9 @@
-import duke.exceptions.TaskIndexOutOfBoundsException;
+package duke.command;
+
+import duke.Ui;
+import duke.command.Command;
+import duke.Storage;
+import duke.task.*;
 
 public class MarkCommand extends Command {
     protected boolean done;

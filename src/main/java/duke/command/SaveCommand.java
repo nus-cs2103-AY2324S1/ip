@@ -1,3 +1,10 @@
+package duke.command;
+
+import duke.Ui;
+import duke.command.Command;
+import duke.Storage;
+import duke.task.*;
+
 public class SaveCommand extends Command {
     protected String response;
     public SaveCommand(String response) {

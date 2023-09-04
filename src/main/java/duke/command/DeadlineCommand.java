@@ -1,5 +1,10 @@
-import duke.exceptions.InvalidTaskException;
-import java.util.regex.Matcher;
+package duke.command;
+
+import duke.Ui;
+import duke.command.Command;
+import duke.Storage;
+import duke.task.*;
+
 public class DeadlineCommand extends Command {
     protected String description;
     protected String by;
@@ -13,9 +18,13 @@ public class DeadlineCommand extends Command {
 
     @Override
     public void execute(Storage storage, Ui ui, TaskList taskList) {
-        Task task = new Deadlines(description, by);
-        task.setDone(this.done);
-        taskList.addTask(task);
-        System.out.println(taskList);
+        try {
+            Task task = new Deadlines(description, by);
+            task.setDone(this.done);
+            taskList.addTask(task);
+            System.out.println(taskList);
+        } catch (Exception e) {
+            System.out.println(ui.format_response(e.getMessage()));
+        }
     }
 }

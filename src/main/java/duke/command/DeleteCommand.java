@@ -1,4 +1,10 @@
+package duke.command;
+
+import duke.Ui;
+import duke.command.Command;
 import duke.exceptions.TaskIndexOutOfBoundsException;
+import duke.Storage;
+import duke.task.*;
 
 public class DeleteCommand extends Command {
     protected int taskIndex;
@@ -14,7 +20,7 @@ public class DeleteCommand extends Command {
                 throw new TaskIndexOutOfBoundsException("Invalid task index");
             }
             taskList.deleteTask(taskIndex);
-            System.out.println(ui.format_response("Task successfully deleted"));
+            System.out.println(ui.format_response("duke.task.Task successfully deleted"));
         } catch (TaskIndexOutOfBoundsException e) {
             System.out.println(ui.format_response("Invalid task index. Please provide a valid index."));
         }

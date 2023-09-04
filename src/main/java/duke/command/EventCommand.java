@@ -1,5 +1,10 @@
-import duke.exceptions.InvalidTaskException;
-import java.util.regex.Matcher;
+package duke.command;
+
+import duke.Ui;
+import duke.command.Command;
+import duke.Storage;
+import duke.task.*;
+
 public class EventCommand extends Command {
     protected String description;
     protected String from;
@@ -15,10 +20,14 @@ public class EventCommand extends Command {
 
     @Override
     public void execute(Storage storage, Ui ui, TaskList taskList) {
-        Task task = new Event(description, from, to);
-        task.setDone(done);
-        taskList.addTask(task);
-        System.out.println(taskList);
+        try {
+            Task task = new Event(description, from, to);
+            task.setDone(done);
+            taskList.addTask(task);
+            System.out.println(taskList);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 }

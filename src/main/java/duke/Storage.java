@@ -1,8 +1,11 @@
+package duke;
+
 import duke.exceptions.InvalidFileTypeException;
 
 import java.io.*;
 
 import java.util.ArrayList;
+import duke.task.*;
 
 public class Storage {
     protected String filePath;

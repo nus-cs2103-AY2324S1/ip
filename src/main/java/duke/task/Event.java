@@ -1,3 +1,8 @@
+package duke.task;
+
+import duke.exceptions.InvalidDateTimeFormatException;
+import duke.task.TaskWithPeriod;
+
 public class Event extends TaskWithPeriod {
     public Event(String description, String from, String to) {
         super(description, from, to);

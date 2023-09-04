@@ -1,6 +1,14 @@
+package duke;
+
+import duke.Date;
+import duke.command.*;
 import duke.exceptions.InvalidDateTimeFormatException;
 import duke.exceptions.InvalidFileTypeException;
 import duke.exceptions.InvalidTaskException;
+import duke.task.Deadlines;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -106,13 +114,13 @@ public class Parser {
             case "E":
                 done = responseList[1] == "X" ? true : false;
                 if (responseList.length != 5) {
-                    throw new InvalidFileTypeException(String.format("line: %s is invalid: Event requires 5 parameters", response));
+                    throw new InvalidFileTypeException(String.format("line: %s is invalid: duke.task.Event requires 5 parameters", response));
                 }
                 newtask = new Event(responseList[2], responseList[3], responseList[4]);
                 newtask.setDone(done);
                 return newtask;
             default: {
-                throw new InvalidFileTypeException(String.format("line: %s is invalid: Event requires 5 parameters", response));
+                throw new InvalidFileTypeException(String.format("line: %s is invalid: duke.task.Event requires 5 parameters", response));
             }
         }
     }
@@ -121,21 +129,18 @@ public class Parser {
         String regex = "^(\\d{4}-\\d{2}-\\d{2})? ?(\\d{2}:\\d{2})?$";
         Matcher matcher1 = regexParse(regex, dateTimeString);
 
-        if (matcher1.find()) {
-            String datePart = matcher1.group(1);
-            String timePart = matcher1.group(2);
+        String datePart = matcher1.group(1);
+        String timePart = matcher1.group(2);
 
-            if (datePart != null && timePart != null) {
-                System.out.println("Date: " + datePart);
-                System.out.println("Time: " + timePart);
-            } else if (datePart != null) {
-                System.out.println("Date: " + datePart);
-            } else if (timePart != null) {
-                System.out.println("Time: " + timePart);
-            }
-            return new Date(datePart, timePart);
+        if (datePart != null && timePart != null) {
+            System.out.println("duke.Date: " + datePart);
+            System.out.println("Time: " + timePart);
+        } else if (datePart != null) {
+            System.out.println("duke.Date: " + datePart);
+        } else if (timePart != null) {
+            System.out.println("Time: " + timePart);
         }
-        System.out.println("Invalid date / time format, format should be yyyy-mm-dd hh:mm");
-        return null;
+        return new Date(datePart, timePart);
+
     }
 }

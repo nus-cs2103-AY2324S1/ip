@@ -1,4 +1,9 @@
+import duke.Parser;
+import duke.Ui;
+import duke.command.Command;
 import duke.exceptions.InvalidTaskException;
+import duke.Storage;
+import duke.task.TaskList;
 
 public class Duke {
     
