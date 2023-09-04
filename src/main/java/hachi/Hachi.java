@@ -1,3 +1,5 @@
+package hachi.main;
+
 import exceptions.*;
 
 import java.io.File;

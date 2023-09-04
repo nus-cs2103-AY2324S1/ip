@@ -1,3 +1,5 @@
+package hachi.command;
+
 public class Command {
 
     private String commandWord;

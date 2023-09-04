@@ -1,3 +1,5 @@
+package hachi.storage;
+
 import exceptions.HachiException;
 
 import java.io.File;
