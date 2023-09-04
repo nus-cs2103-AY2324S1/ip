@@ -3,6 +3,9 @@ package commands;
 import tasks.TaskList;
 import static messages.Message.MESSAGE_INSTRUCTIONS;
 
+/**
+ * This class handles all unsupported or unknown commands the user inputs.
+ */
 public class UnknownCommand extends Command {
 
     @Override
