@@ -1,5 +1,6 @@
 package duke.util;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.task.Task;
@@ -91,6 +92,18 @@ public class Ui {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task.toString());
         System.out.println("Now you have " + (count) + " tasks in the list.");
+    }
+
+    /**
+     * Prints the list of tasks onto the ui.
+     * @param tasks Arraylist of string of formatted tasks to be displayed.
+     */
+    public void showTasks(ArrayList<String> tasks) {
+        int count = 1;
+        for (String task : tasks) {
+            System.out.println(count + ". " + task);
+            count++;
+        }
     }
 
     /**
