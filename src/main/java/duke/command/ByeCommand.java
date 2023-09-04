@@ -3,6 +3,9 @@ package duke.command;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 
 /**
  * Displays a farewell message and indicates that the application should exit.
@@ -18,7 +21,19 @@ public class ByeCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.sendMessage("Bye. Hope to see you again soon!");
+        ui.sendMessage("Bye. Happy to be able to serve you!!!\nShutting down...");
+        closeChatbot();
+    }
+
+    /**
+     * Closes the chatbot after three seconds of pause.
+     */
+    public void closeChatbot() {
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        pause.setOnFinished(event -> {
+            Platform.exit();
+        });
+        pause.play();
     }
 
     /**
@@ -29,15 +44,5 @@ public class ByeCommand implements Command {
     @Override
     public void loadTask(TaskList tasks) {
         //Do nothing
-    }
-
-    /**
-     * Indicates that the command is an exit command.
-     *
-     * @return `true` indicating that the application should exit.
-     */
-    @Override
-    public boolean isExit() {
-        return true;
     }
 }

@@ -13,9 +13,9 @@ import duke.ui.Ui;
  * Duke is a chatbot that help to manage tasks;
  */
 public class Duke {
+    public final Ui ui;
     private final Storage storage;
     private TaskList tasks;
-    private final Ui ui;
 
     /**
      * Constructs a Duke instance with the provided file path.
@@ -35,28 +35,15 @@ public class Duke {
 
     /**
      * Runs the chatbot, displaying welcome messages and processing user commands.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException | DateTimeException e) {
-                ui.showError(e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * The entry point for starting the Duke chatbot.
      *
-     * @param args Command-line arguments.
+     * @param input The user input.
      */
-    public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
+    public void run(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+        } catch (DukeException | DateTimeException e) {
+            ui.showError(e.getMessage());
+        }
     }
 }

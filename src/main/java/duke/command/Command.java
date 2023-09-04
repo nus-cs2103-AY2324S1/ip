@@ -26,11 +26,4 @@ public interface Command {
      * @param tasks The list of tasks to which task data can be added.
      */
     void loadTask(TaskList tasks);
-
-    /**
-     * Checks whether the command signifies an application exit.
-     *
-     * @return `true` if the command indicates an exit, otherwise `false`.
-     */
-    boolean isExit();
 }

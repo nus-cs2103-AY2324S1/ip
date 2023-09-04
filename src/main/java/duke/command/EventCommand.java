@@ -59,14 +59,4 @@ public class EventCommand implements Command {
         Task curr = new Event(partFrom[0], partTo[0].trim(), partTo[1].trim());
         tasks.add(curr);
     }
-
-    /**
-     * Indicates that this command is not an exit command.
-     *
-     * @return `false` indicating that the application should not exit.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

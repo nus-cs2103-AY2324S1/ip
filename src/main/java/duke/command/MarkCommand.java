@@ -52,14 +52,4 @@ public class MarkCommand implements Command {
     public void loadTask(TaskList tasks) {
         //Do nothing
     }
-
-    /**
-     * Indicates that this command is not an exit command.
-     *
-     * @return `false` indicating that the application should not exit.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

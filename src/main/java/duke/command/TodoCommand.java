@@ -54,14 +54,4 @@ public class TodoCommand implements Command {
         Task curr = new Todo(details);
         tasks.add(curr);
     }
-
-    /**
-     * Indicates that this command is not an exit command.
-     *
-     * @return `false` indicating that the application should not exit.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

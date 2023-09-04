@@ -56,14 +56,4 @@ public class DeadlineCommand implements Command {
         Task curr = new Deadline(partDeadline[0], partDeadline[1].trim());
         tasks.add(curr);
     }
-
-    /**
-     * Indicates that this command is not an exit command.
-     *
-     * @return `false` indicating that the application should not exit.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }
