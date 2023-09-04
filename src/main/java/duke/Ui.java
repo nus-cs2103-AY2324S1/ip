@@ -114,6 +114,18 @@ public class Ui {
     }
 
     /**
+     * Shows the list of tasks that match the keyword.
+     * @param tasks tasks that match the keyword.
+     */
+    public void showMatchingTasks(TaskList tasks) {
+        System.out.println("____________________________________________________________\n"
+                + "Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.total(); i++) {
+            System.out.println(tasks.get(i).toString());
+        }
+    }
+
+    /**
      * Shows the error message of an exception thrown.
      * @param errorMsg error message of the exception thrown.
      */
