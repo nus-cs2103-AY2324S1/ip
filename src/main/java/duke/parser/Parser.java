@@ -6,7 +6,7 @@ import duke.command.ByeCommand;
 import duke.command.DeleteCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
-import duke.task.ToDos;
+import duke.task.ToDo;
 import duke.task.DeadLine;
 import duke.task.Event;
 
@@ -144,7 +144,7 @@ public class Parser {
 						description.append(" ");
 					}
 					description.deleteCharAt(description.length() - 1);
-					return new AddCommand(new ToDos(description.toString()));
+					return new AddCommand(new ToDo(description.toString()));
 				} catch (DukeException e) {
 					System.out.println(e.getMessage());
 				}
