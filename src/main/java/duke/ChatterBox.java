@@ -20,6 +20,7 @@ public class ChatterBox {
 
     /**
      * Constructs a ChatterBox object with all parameters specified.
+     *
      * @param ui The supplied Ui object.
      * @param tl The supplied TaskList object.
      * @param store The supplied Storage object.
