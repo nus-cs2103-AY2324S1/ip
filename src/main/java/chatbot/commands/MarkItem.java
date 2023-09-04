@@ -12,8 +12,8 @@ import chatbot.ui.Ui;
  */
 public class MarkItem extends Command{
 
-    public MarkItem(String input) {
-        super(input);
+    public MarkItem(String input, CommandType commandType) {
+        super(input, commandType);
     }
     
     /**

@@ -11,8 +11,8 @@ import chatbot.ui.Ui;
  */
 public class DeleteItem extends Command{
 
-    public DeleteItem(String input) {
-        super(input);
+    public DeleteItem(String input, CommandType commandType) {
+        super(input, commandType);
     }
     /**
      * {@inheritDoc}

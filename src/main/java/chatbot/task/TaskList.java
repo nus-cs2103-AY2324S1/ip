@@ -41,12 +41,12 @@ public class TaskList {
      */
     public void addTask(String taskString, TaskType taskType) 
         throws InvalidDescriptionException {
+        if (taskString == "") {
+                throw new InvalidDescriptionException(
+                    "What? Where's your label? Stop this.");
+            }
         switch(taskType) {
             case TODO:
-                if (taskString.equals(" ")) {
-                    throw new InvalidDescriptionException(
-                        "What? Where's your label? Stop this.");
-                }
                 tasks.add(new ToDo(taskString));
                 break;
 

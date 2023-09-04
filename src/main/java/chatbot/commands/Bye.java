@@ -9,8 +9,8 @@ import chatbot.ui.Ui;
  */
 public class Bye extends Command {
 
-    public Bye(String input) {
-        super(input);
+    public Bye(String input, CommandType commandType) {
+        super(input, commandType);
     }
     
     /**

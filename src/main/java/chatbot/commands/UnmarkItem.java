@@ -12,8 +12,8 @@ import chatbot.ui.Ui;
  */
 public class UnmarkItem extends Command{
 
-    public UnmarkItem(String input) {
-        super(input);
+    public UnmarkItem(String input, CommandType commandType) {
+        super(input, commandType);
     }
     
     /**

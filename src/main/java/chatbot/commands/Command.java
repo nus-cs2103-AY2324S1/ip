@@ -11,10 +11,12 @@ import chatbot.ui.Ui;
  */
 public abstract class Command {
 
-    protected String input;
+    protected final String input;
+    protected final CommandType commandType;
 
-    public Command(String input) {
+    public Command(String input, CommandType commandType) {
         this.input = input;
+        this.commandType = commandType;
     }
 
     /**
@@ -32,5 +34,14 @@ public abstract class Command {
      * @return false
      */
     public boolean isExit() {return false;}
+    
+    /**
+     * Getter for commandType. Mainly used for testing.
+     * 
+     * @return CommandType of the command.
+     */
+    public CommandType getType() {
+        return this.commandType;
+    }
 
 }

@@ -28,9 +28,11 @@ public enum CommandType {
      * @return null if the input in invalid
      */
     public static CommandType parseInput(String input) {
-        for(CommandType command: CommandType.values()) {
-            if (command.input.equals(input)) {
-                return command;
+        String[] parts = input.split(" ", 2);
+
+        for(CommandType commandType: CommandType.values()) {
+            if (commandType.input.equals(parts[0])) {
+                return commandType;
             }
         }
         return null;

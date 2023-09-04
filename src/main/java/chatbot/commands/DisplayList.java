@@ -11,8 +11,8 @@ import chatbot.ui.Ui;
  */
 public class DisplayList extends Command{
 
-    public DisplayList(String input) {
-        super(input);
+    public DisplayList(String input, CommandType commandType) {
+        super(input, commandType);
     }
     
     /**

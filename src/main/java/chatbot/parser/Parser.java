@@ -34,7 +34,7 @@ public class Parser {
      */
     public static Command parse(String input) throws 
         InvalidDescriptionException, InvalidCommandException, InvalidIndexException {
-        //Split the input so that we can read integers.
+        //Split the input so that we can read command and their description (if any).
         String[] inputStrings = input.split(" ", 2);
         CommandType command = CommandType.parseInput(inputStrings[0]);
         if (command == null) {
@@ -43,28 +43,28 @@ public class Parser {
 
         switch(command) {
             case BYE:
-                return new Bye("");
+                return new Bye("", CommandType.BYE);
 
             case DISPLAY_LIST:
-                return new DisplayList("");
+                return new DisplayList("", CommandType.DISPLAY_LIST);
 
             case MARK:
-                return new MarkItem(inputStrings[1]);
+                return new MarkItem(inputStrings[1], CommandType.MARK);
 
             case UNMARK:
-                return new UnmarkItem(inputStrings[1]);
+                return new UnmarkItem(inputStrings[1], CommandType.UNMARK);
 
             case ADD_TODO:
-                return new AddToDo(inputStrings[1]);
+                return new AddToDo(inputStrings[1], CommandType.ADD_TODO);
 
             case ADD_DEADLINE:
-                return new AddDeadline(inputStrings[1]);
+                return new AddDeadline(inputStrings[1], CommandType.ADD_DEADLINE);
             
             case ADD_EVENT:
-                return new AddEvent(inputStrings[1]);
+                return new AddEvent(inputStrings[1], CommandType.ADD_EVENT);
 
             case DELETE:
-                return new DeleteItem(inputStrings[1]);
+                return new DeleteItem(inputStrings[1], CommandType.DELETE);
 
             default:
                 throw new InvalidCommandException("Don't be stupid, speak english.");
