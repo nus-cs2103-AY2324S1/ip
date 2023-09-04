@@ -43,9 +43,6 @@ public class DeleteCommand extends RatCommand {
         }
     }
 
-    /**
-     * Executes the command.
-     */
     @Override
     public void execute() {
         try {

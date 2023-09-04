@@ -9,8 +9,16 @@ import java.text.ParseException;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * This class tests the methods inside the RatCommand class.
+ * Checks if the validateTime method works as intended.
+ * @author Keagan
+ */
 public class RatCommandTest {
 
+    /**
+     * Tests the validateTime method with a valid input.
+     */
     @Test
     public void validateTime_validTime_success() {
         try {
@@ -20,6 +28,9 @@ public class RatCommandTest {
         }
     }
 
+    /**
+     * Tests the validateTime method with an invalid input.
+     */
     @Test
     public void validateTime_invalidTime_exceptionThrown() {
         try {

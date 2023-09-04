@@ -7,10 +7,20 @@ import org.junit.jupiter.api.Test;
 import rat.storage.RatStorage;
 import rat.tasks.RatTaskManager;
 
+/**
+ * This class tests the AddCommand class, together with its subclasses.
+ * @author Keagan
+ */
 public class AddCommandTest {
 
+    /**
+     * The RatTaskManager object used for testing.
+     */
     protected RatTaskManager rtmTest = new RatTaskManager(new RatStorage("testdata/blank.txt"));
 
+    /**
+     * Tests the creation and adding of a ToDo task.
+     */
     @Test
     public void testAddToDo() {
         AddCommand addTest = new AddCommand(rtmTest, "todo test", CommandType.TODO);
@@ -19,6 +29,9 @@ public class AddCommandTest {
         rtmTest.deleteAll();
     }
 
+    /**
+     * Tests the creation and adding of a Deadline task.
+     */
     @Test
     public void testAddDeadline() {
         AddCommand addTest = new AddCommand(rtmTest, "deadline test /by 01/01/2023 00:00", CommandType.DEADLINE);
@@ -27,6 +40,9 @@ public class AddCommandTest {
         rtmTest.deleteAll();
     }
 
+    /**
+     * Tests the creation and adding of an Event task.
+     */
     @Test
     public void testAddEvent() {
         AddCommand addTest = new AddCommand(rtmTest,

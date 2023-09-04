@@ -13,7 +13,7 @@ import rat.tasks.RatTaskManager;
  * Rat is a chatbot that helps the user keep track of their tasks.
  *
  * @author Keagan
- * @version Week-3
+ * @version Week-4
  */
 public class Rat {
 
@@ -37,6 +37,9 @@ public class Rat {
      */
     private static Scanner sc;
 
+    /**
+     * Constructor for a Rat object.
+     */
     public Rat() {
         initialise();
     }
@@ -53,6 +56,11 @@ public class Rat {
         ratInput = new RatInput(sc, ratTaskManager);
     }
 
+    /**
+     * Returns the response to the user's input.
+     * @param input The user's input.
+     * @return The response to the user's input generated from respective commands.
+     */
     public String getResponse(String input) {
         return ratInput.handleInput(input);
     }

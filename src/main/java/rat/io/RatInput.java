@@ -15,6 +15,7 @@ import rat.tasks.RatTaskManager;
 
 /**
  * This class encapsulates the input handling of Rat.
+ * RatInput parses user commands and initialises and executes the corresponding command object.
  *
  * @author Keagan
  */
@@ -43,6 +44,9 @@ public class RatInput {
         this.ratTaskManager = ratTaskManager;
     }
 
+    /**
+     * Handles scanner input and calls handleInput for each scanner input.
+     */
     public void parseInputs() {
         while (sc.hasNext()) {
             String input = sc.nextLine();
@@ -53,6 +57,9 @@ public class RatInput {
     /**
      * Parses and processes the user input based on a set of commands.
      * Creates and executes the corresponding command object.
+     *
+     * @param input The user input.
+     * @return The response to the user input, returned by respective commands.
      */
     public String handleInput(String input) {
         String[] inputArr = input.split(" ");
@@ -85,7 +92,9 @@ public class RatInput {
 
 
     /**
-     * Prints the list of commands that the user can use.
+     * Returns a String containing a list of commands the user can use.
+     *
+     * @return A String containing a list of commands the user can use.
      */
     public String showCommands() {
         String output = "Hello! I'm Rat, your personal task manager.\n"

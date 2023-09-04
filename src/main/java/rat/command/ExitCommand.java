@@ -25,9 +25,6 @@ public class ExitCommand extends RatCommand {
         return "";
     }
 
-    /**
-     * Executes the command.
-     */
     @Override
     public void execute() {
         this.ratTaskManager.save();

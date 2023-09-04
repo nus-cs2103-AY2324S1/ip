@@ -8,7 +8,7 @@
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="385.0" style="-fx-background-color: #212121;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <Label fx:id="time" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" layoutX="265.0" layoutY="25.0" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="25.0" style="-fx-text-fill: white;" text="time" translateX="5.0" wrapText="true">
+      <Label fx:id="time" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" layoutX="265.0" layoutY="25.0" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="30.0" style="-fx-text-fill: white;" text="time" translateX="5.0" wrapText="true">
          <font>
             <Font name="SF Pro Display Light" size="10.0" />
          </font>

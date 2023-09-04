@@ -46,21 +46,12 @@ public class Deadline extends Task {
         this.deadlineString = this.deadline.format(DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm"));
     }
 
-    /**
-     * Returns a String representation of a Deadline task.
-     * The String representation of a Deadline task is its name prefixed by its status and type.
-     * @return A String representation of a Deadline task.
-     */
     @Override
     public String toString() {
         String taskType = "[D]";
         return taskType + super.toString() + " (by: " + this.deadlineString + ")";
     }
 
-    /**
-     * Returns a String representation of a Deadline task that is used to write to a file.
-     * @return The String representation of a Deadline task in the format used to write to a file.
-     */
     @Override
     public String formatForFile() {
         String taskType = "D";

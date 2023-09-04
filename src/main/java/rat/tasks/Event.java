@@ -64,21 +64,12 @@ public class Event extends Task {
         this.endTimeString = this.endTime.format(DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm"));
     }
 
-    /**
-     * Returns a String representation of an Event task.
-     * The String representation of an Event task is its name prefixed by its status and type.
-     * @return A String representation of an Event task.
-     */
     @Override
     public String toString() {
         String taskType = "[E]";
         return taskType + super.toString() + " (from: " + this.startTimeString + " to: " + this.endTimeString + ")";
     }
 
-    /**
-     * Returns a String representation of an Event task that is used to write to a file.
-     * @return The String representation of an Event task in the format used to write to a file.
-     */
     @Override
     public String formatForFile() {
         String taskType = "E";

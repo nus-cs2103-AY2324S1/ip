@@ -19,9 +19,6 @@ public abstract class ModifyCommand extends RatCommand {
     @Override
     public abstract String getResponse();
 
-    /**
-     * Executes the command.
-     */
     @Override
     public abstract void execute();
 }

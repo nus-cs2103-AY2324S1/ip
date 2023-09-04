@@ -14,21 +14,12 @@ public class ToDo extends Task {
         super(name);
     }
 
-    /**
-     * Returns a String representation of a ToDo task.
-     * The String representation of a ToDo task is its name prefixed by its status and type.
-     * @return A String representation of a ToDo task.
-     */
     @Override
     public String toString() {
         String taskType = "[T]";
         return taskType + super.toString();
     }
 
-    /**
-     * Returns a String representation of a ToDo task that is used to write to a file.
-     * @return The String representation of a ToDo task in the format used to write to a file.
-     */
     @Override
     public String formatForFile() {
         String taskType = "T";

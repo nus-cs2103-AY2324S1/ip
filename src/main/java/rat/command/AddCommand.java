@@ -36,6 +36,7 @@ public class AddCommand extends RatCommand {
     /**
      * Adds a ToDo task to the task list.
      * @param params The user input passed from RatInput that contains details of the task to be added.
+     * @return The response to be printed to the user.
      */
     private String addToDo(String params) {
         try {
@@ -50,6 +51,7 @@ public class AddCommand extends RatCommand {
     /**
      * Adds a Deadline task to the task list.
      * @param params The user input passed from RatInput that contains details of the task to be added.
+     * @return The response to be printed to the user.
      */
     private String addDeadline(String params) {
         try {
@@ -74,6 +76,7 @@ public class AddCommand extends RatCommand {
     /**
      * Adds an Event task to the task list.
      * @param params The user input passed from RatInput that contains details of the task to be added.
+     * @return The response to be printed to the user.
      */
     private String addEvent(String params) {
         try {
@@ -114,9 +117,6 @@ public class AddCommand extends RatCommand {
         }
     }
 
-    /**
-     * Executes the command.
-     */
     @Override
     public void execute() {
         switch (commandType) {

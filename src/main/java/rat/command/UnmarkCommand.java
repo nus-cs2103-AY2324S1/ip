@@ -38,9 +38,6 @@ public class UnmarkCommand extends ModifyCommand {
         }
     }
 
-    /**
-     * Executes the command.
-     */
     @Override
     public void execute() {
         try {

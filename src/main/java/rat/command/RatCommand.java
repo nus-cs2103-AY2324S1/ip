@@ -30,6 +30,10 @@ public abstract class RatCommand {
      */
     public abstract void execute();
 
+    /**
+     * Calls the respective methods to modify the task list.
+     * @return The response to be printed to the user.
+     */
     public abstract String getResponse();
 
     /**

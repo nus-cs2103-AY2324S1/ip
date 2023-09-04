@@ -28,9 +28,6 @@ public class FindCommand extends RatCommand {
         return this.ratTaskManager.printFoundTasks(this.keyword);
     }
 
-    /**
-     * Executes the FindCommand.
-     */
     @Override
     public void execute() {
         this.ratTaskManager.printFoundTasks(this.keyword);
