@@ -74,7 +74,7 @@ public class Task {
     /**
      * returns the stored form of the task
      *
-     * @return a string which duke.Duke duke.Parser could Parse
+     * @return a string which duke Parser could Parse
      */
     public String getStored() {
         return "";

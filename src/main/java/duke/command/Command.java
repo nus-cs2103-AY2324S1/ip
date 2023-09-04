@@ -38,9 +38,10 @@ public abstract class Command {
      * @param taskList - the task list instance  of the current duke
      * @param ui       - the ui instance of DUKE
      * @param storage  - the storage instance to allow the command to write to the storage
+     * @return the reply of Quack
      * @throws DukeBadInputException - if the input cannot be used
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException;
 
     /**
      * Checks if the command is the exit command

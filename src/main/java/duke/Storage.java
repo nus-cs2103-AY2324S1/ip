@@ -101,6 +101,7 @@ public class Storage {
         try {
             this.writer.append(input);
             this.writer.newLine();
+            this.writer.flush();
         } catch (IOException e) {
             System.out.println(e.getMessage());
             return false;

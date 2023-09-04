@@ -9,25 +9,27 @@ import duke.exception.DukeBadInputException;
  * Represents the list command
  */
 public class ListCommand extends Command {
+
     /**
      * Method to encapsulate the execution logic of the command
      *
      * @param taskList - the task list instance  of the current duke
      * @param ui       - the ui instance of DUKE
      * @param storage  - the storage instance to allow the command to write to the storage
+     * @return the reply of Quack
      * @throws DukeBadInputException - if the input cannot be used
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
         if (taskList.length() == 0) {
-            ui.println("Quack Quack, you have not entered any tasks yet!");
-            ui.println("Create new tasks with the todo, deadline or event command");
-            return;
+            return "Quack Quack, you have not entered any tasks yet!\n"
+                    + "Create new tasks with the todo, deadline or event command";
         }
-        ui.println("Quack Quack, here are the tasks in quack's memory:");
+        String ret = "Quack Quack, here are the tasks in quack's memory:";
         for (int i = 0; i < taskList.length(); i++) {
-            ui.println((i + 1) + "." + taskList.get(i));
+            ret += "\n " + (i + 1) + ". " + taskList.get(i);
         }
+        return ret;
     }
 
     /**

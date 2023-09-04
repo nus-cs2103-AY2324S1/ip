@@ -33,23 +33,26 @@ public class DeleteCommand extends Command {
      * @param taskList - the task list instance  of the current duke
      * @param ui       - the ui instance of DUKE
      * @param storage  - the storage instance to allow the command to write to the storage
+     * @return the reply of Quack
      * @throws DukeBadInputException - if the input cannot be used
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
         Command.validateIndex(this.index, taskList.length());
         Task removed = taskList.remove(index);
         try {
             if (!storage.rewriteAll(taskList.getAllTask())) {
-                ui.unexpectedError("not all tasks were successfully written, please contact my mother :( ");
+                return ui.getUnexpectedErrorMessage("not all tasks were successfully written,"
+                        + " please contact my mother :( ");
             }
         } catch (IOException e) {
-            ui.unexpectedError("error when writing to storage: " + e.getMessage());
+            return ui.getUnexpectedErrorMessage("error when writing to storage: " + e.getMessage());
         }
-        ui.println("Quack! I have removed this task:");
-        ui.println(removed.toString());
-        ui.println("Quack! Quack is currently remembering " + taskList.length() + " tasks.");
-
+        return "Quack! I have removed this task:\n"
+                + removed.toString()
+                + "\nQuack! Quack is currently remembering "
+                + taskList.length()
+                + " tasks.";
     }
 
     /**

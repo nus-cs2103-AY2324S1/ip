@@ -37,14 +37,14 @@ public class MarkCommand extends Command {
     /**
      * Method to encapsulate the execution logic of the command
      *
-     * @param taskList - the task list instance of the current duke
+     * @param taskList - the task list instance  of the current duke
      * @param ui       - the ui instance of DUKE
-     * @param storage  - the storage instance to allow the command to write to the
-     *                 storage
+     * @param storage  - the storage instance to allow the command to write to the storage
+     * @return the reply of Quack
      * @throws DukeBadInputException - if the input cannot be used
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
         Command.validateIndex(this.index, taskList.length());
         Task task = taskList.get(index);
         // only toggle if mark != completed as if they are the same then there is no
@@ -58,15 +58,16 @@ public class MarkCommand extends Command {
             resp = isMark ? "Quack! This task is already done QUACK!"
                     : "Quack! you cant unmark something that isn't done yet!!";
         }
-        ui.println(resp);
-        ui.println(task.toString());
+
         try {
             if (!storage.rewriteAll(taskList.getAllTask())) {
-                ui.unexpectedError("not all tasks were successfully written, please contact my mother :( ");
+                return ui.getUnexpectedErrorMessage("not all tasks were successfully written,"
+                        + " please contact my mother :( ");
             }
         } catch (IOException e) {
-            ui.unexpectedError("error when writing to storage: " + e.getMessage());
+            return ui.getUnexpectedErrorMessage("error when writing to storage: " + e.getMessage());
         }
+        return resp + "\n" + task;
     }
 
     /**

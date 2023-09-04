@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 import duke.command.Command;
-import duke.command.ListCommand;
 import duke.exception.DukeBadInputException;
+import javafx.application.Application;
 
 /**
  * A task manager duke
@@ -32,19 +32,17 @@ public class Duke {
      */
     public Duke(String filePath) {
         this.ui = new Ui();
-        this.ui.welcomeMessage();
 
         // try to establish a connection to the file
         // set this.storage to null if not possible
         try {
             this.storage = new Storage(filePath);
         } catch (IOException e) {
-            this.ui.errorMessage(
+            this.ui.getErrorMessage(
                     "has some internal problem and is unable to help you today, please contact quacks mum");
-            this.ui.println(e.getMessage());
             this.storage = null;
         } catch (DukeBadInputException e) {
-            this.ui.errorMessage(filePath + " is not a text file, please provide a file!");
+            this.ui.getErrorMessage(filePath + " is not a text file, please provide a file!");
             this.storage = null;
         }
 
@@ -53,77 +51,44 @@ public class Duke {
             try {
                 // check for corrupted files
                 if (this.taskList.loadTasks(this.storage.readFile())) {
-                    this.ui.unexpectedError("Some task are corrupted, attempting to recover uncorrupted tasks");
+                    this.ui.getUnexpectedErrorMessage("Some task are corrupted,"
+                            + " attempting to recover uncorrupted tasks");
                     if (!this.storage.rewriteAll(this.taskList.getAllTask())) {
-                        this.ui.unexpectedError(
+                        this.ui.getUnexpectedErrorMessage(
                                 "not all tasks were successfully written, please contact my mother :( ");
                     }
                 }
             } catch (IOException e) {
-                this.ui.unexpectedError("error when rewriting to storage: " + e.getMessage());
+                this.ui.getUnexpectedErrorMessage("error when rewriting to storage: " + e.getMessage());
             }
         }
     }
 
     public static void main(String[] args) {
-        new Duke("data/data.txt").run();
+        Application.launch(Main.class, args);
+        // new Duke("data/data.txt").run();
     }
 
-    /**
-     * Entry point of the software
-     */
-    private void run() {
-        if (this.storage == null) {
-            this.ui.goodbyeMessage();
-            return;
-        }
-
-        // Prints out the current items in the list
+    public String getResponse(String input) {
         try {
-            new ListCommand().execute(this.taskList, this.ui, this.storage);
+            Command command = Parser.parse(input);
+            return command.execute(this.taskList, this.ui, this.storage);
         } catch (DukeBadInputException e) {
-            this.ui.unexpectedError(e.getMessage());
+            return e.getMessage();
+        } catch (NumberFormatException e) {
+            return e.getMessage()
+                    + ", quack only understand numbers, please input a numeric value!";
+        } catch (DateTimeParseException e) {
+            return e.getMessage()
+                    + "Quack only understands date in this format: "
+                    + "YYYY-MM-DD HH:MM, do give the hours in 24hours format";
         }
-        this.ui.lineBreak();
-        this.ui.println("");
-        this.collectCommand();
-        this.storage.close();
-
-        // Goodbye Message
-        this.ui.goodbyeMessage();
     }
 
     /**
-     * Handles the collection and execution of the command
+     * Ensure that the files are written
      */
-    private void collectCommand() {
-        while (true) {
-            try {
-                String input = this.ui.readCommand().trim();
-                if (input.isBlank()) {
-                    continue;
-                }
-                Command command = Parser.parse(input);
-                if (command.isExit()) {
-                    break;
-                }
-                this.ui.lineBreak();
-                command.execute(this.taskList, this.ui, this.storage);
-            } catch (DukeBadInputException e) {
-                this.ui.errorMessage(e.getMessage());
-            } catch (NumberFormatException e) {
-                this.ui.errorMessage(e.getMessage()
-                        + ", quack only understand numbers, please input a numeric value!");
-            } catch (DateTimeParseException e) {
-                this.ui.errorMessage(e.getMessage());
-                this.ui.println(
-                        "Quack only understands date in this format: "
-                                + "YYYY-MM-DD HH:MM, do give the hours in 24hours format");
-            }
-            this.ui.lineBreak();
-            this.ui.println("");
-        }
-        this.ui.close();
+    public void close() {
+        this.storage.close();
     }
-
 }
