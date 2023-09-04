@@ -6,28 +6,33 @@ import java.time.format.DateTimeParseException;
 
 import linus.exception.LinusException;
 
+/**
+ * Represents a Deadline task.
+ */
 public class Deadline extends Task {
     protected String type = "linus.task.Deadline";
     protected LocalDate by = null;
 
     /**
      * Constructs a Deadline object with the specified description and deadline.
+     *
      * @param description The description of the task.
-     * @param by The deadline of the task.
+     * @param by          The deadline of the task.
      * @throws LinusException
      */
     public Deadline(String description, String by) throws LinusException {
         super(description);
         try {
             this.by = LocalDate.parse(by);
-        } catch( DateTimeParseException e ) {
+        } catch (DateTimeParseException e) {
             throw new LinusException("☹ OOPS!!! Please specify the deadline in the correct format: yyyy-mm-dd");
         }
     }
 
     /**
      * Returns the icon representing the type of task.
-     * @return String
+     *
+     * @return The icon representing the type of task.
      */
     @Override
     public String getTaskTypeIcon() {
@@ -36,7 +41,8 @@ public class Deadline extends Task {
 
     /**
      * Returns a String representation of the Deadline object.
-     * @return String
+     *
+     * @return A String representation of the Deadline object.
      */
     @Override
     public String toString() {

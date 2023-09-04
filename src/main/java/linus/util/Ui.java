@@ -2,11 +2,16 @@ package linus.util;
 
 import java.util.Scanner;
 
+/**
+ * Represents a Ui.
+ * A Ui object deals with interactions with the user.
+ */
 public class Ui {
     private static final Scanner sc = new Scanner(System.in);
 
     /**
      * Prints the specified message in a specific format.
+     *
      * @param message The message to be printed.
      */
     public static void print(String message) {
@@ -43,9 +48,11 @@ public class Ui {
 
     /**
      * Reads the input from the user.
-     * @return String
+     *
+     * @return The input from the user.
      */
     public static String readInput() {
         return sc.nextLine();
     }
+
 }
