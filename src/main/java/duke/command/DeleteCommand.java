@@ -38,6 +38,7 @@ public class DeleteCommand extends Command {
         try {
             Task task = tasks.getTask(taskNum);
             tasks.deleteTask(taskNum);
+            System.out.println("tasks is" + tasks.totxtformat());
             store.save(tasks);
             return ui.printDeleteTask(tasks.size(), task);
         } catch (IOException e) {

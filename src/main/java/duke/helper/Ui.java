@@ -82,6 +82,7 @@ public class Ui {
      */
 
     public String printMarkTask(int taskNumber, Task wantedTask) {
+        wantedTask.markCompleted();
         String res = "";
         res += ("Nice! I've meowrked this task as done: \n");
         res += ("   " + wantedTask + "\n");
@@ -95,6 +96,7 @@ public class Ui {
      * @param wantedTask task that has been unmarked
      */
     public String printUnmarkTask(int taskNumber, Task wantedTask) {
+        wantedTask.markUncompleted();
         String res = "";
         res += ("Ok, get your task done soon, I'll be waiting!\n");
         res += (" " + wantedTask + '\n');

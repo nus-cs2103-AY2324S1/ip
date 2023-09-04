@@ -1,2 +1,2 @@
-false|[T][ ] task|Todo|task
-false|[T][ ] crying|Todo|crying
+true|[T][X] crying|Todo|crying
+true|[E][X]project meeting (from: Dec 2 2019 to: Dec 4 2019)|Event|project meeting /from 2019-12-02 /to 2019-12-04
