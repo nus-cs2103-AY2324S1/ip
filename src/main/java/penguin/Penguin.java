@@ -157,7 +157,7 @@ public class Penguin {
                     taskList.list.get(taskNo - 1).done = false;
                     memory.save(taskList);
                     return UNMARK + taskList.list.get(taskNo - 1).getDisplay();
-                case "todo":
+                case "todo": 
                     spl = command.split("todo ");
                     ToDo newToDo = new ToDo(spl[1]);
                     taskList.addTask(newToDo);
