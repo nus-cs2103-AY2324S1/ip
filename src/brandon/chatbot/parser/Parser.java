@@ -1,7 +1,14 @@
 package parser;
 
-import commands.*;
-
+import commands.AddDeadlineCommand;
+import commands.AddEventCommand;
+import commands.AddTodoCommand;
+import commands.Command;
+import commands.DeleteCommand;
+import commands.ExitCommand;
+import commands.ListCommand;
+import commands.MarkCommand;
+import commands.UnmarkCommand;
 import common.DukeException;
 import common.DukeUnknownCommandException;
 
@@ -39,7 +46,8 @@ public class Parser {
                 return prepareDeadline(arguments);
             case "event":
                 return prepareEvent(arguments);
-
+            case "bye":
+                return new ExitCommand();
             default:
                 break;
         }
