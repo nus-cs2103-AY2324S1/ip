@@ -1,8 +1,8 @@
-package duke.taskClasses;
-
-import duke.exception.InvalidDateTimeException;
+package duke.taskclasses;
 
 import java.util.ArrayList;
+
+import duke.exception.InvalidDateTimeException;
 
 /**
  * Represents a list of tasks.
@@ -111,7 +111,8 @@ public class TaskList {
      * @param end End date and time of the event.
      * @throws InvalidDateTimeException If the provided date strings are not in a valid format.
      */
-    public void addEventToList(Boolean isDone, String description, String start, String end) throws InvalidDateTimeException {
+    public void addEventToList(Boolean isDone, String description, String start, String end)
+            throws InvalidDateTimeException {
         Task newTask = new Event(description, start, end);
         if (isDone) {
             newTask.markAsDone();
@@ -161,7 +162,7 @@ public class TaskList {
     /**
      * Prints the status and description of all tasks in the list that contains the keyword in description.
      */
-    public void printAllStatusAndDescriptionWithKeyword (String keyword) {
+    public void printAllStatusAndDescriptionWithKeyword(String keyword) {
         for (int i = 0; i < taskLists.size(); i++) {
             Task taskToPrint = taskLists.get(i);
             if (taskToPrint.description.contains(keyword)) {

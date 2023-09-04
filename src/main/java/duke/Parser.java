@@ -1,10 +1,18 @@
 package duke;
 
-import duke.exception.*;
-import duke.taskClasses.*;
-
-import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.exception.DukeException;
+import duke.exception.InvalidDeadlineException;
+import duke.exception.InvalidEventException;
+import duke.exception.InvalidFindException;
+import duke.exception.InvalidInputException;
+import duke.exception.InvalidListNumberException;
+import duke.exception.InvalidToDoException;
+import duke.taskclasses.TaskList;
+
+
+
 
 /**
  * Responsible for interpreting user commands and executing the appropriate actions.
@@ -89,70 +97,70 @@ public class Parser {
                 ? getTaskNumber(parts, taskList) : null;
 
         switch (command) {
-            case BYE:
-                ui.printBye();
-                break;
+        case BYE:
+            ui.printBye();
+            break;
 
-            case DELETE:
-                String content = taskList.deleteTask(number);
-                ui.deleteTask(content);
-                ui.printTaskCount(taskList.getTasksCount());
-                break;
+        case DELETE:
+            String content = taskList.deleteTask(number);
+            ui.deleteTask(content);
+            ui.printTaskCount(taskList.getTasksCount());
+            break;
 
-            case LIST:
-                ui.printList(taskList);
-                break;
+        case LIST:
+            ui.printList(taskList);
+            break;
 
-            case UNMARK:
-                taskList.markTaskAsNotDone(number);
-                ui.printTaskMarkAsNotDone(taskList.getStatusAndDescription(number));
-                break;
+        case UNMARK:
+            taskList.markTaskAsNotDone(number);
+            ui.printTaskMarkAsNotDone(taskList.getStatusAndDescription(number));
+            break;
 
-            case MARK:
-                taskList.markTaskAsDone(number);
-                ui.printTaskMarkAsDone(taskList.getStatusAndDescription(number));
-                break;
+        case MARK:
+            taskList.markTaskAsDone(number);
+            ui.printTaskMarkAsDone(taskList.getStatusAndDescription(number));
+            break;
 
-            case TODO:
-                String toDoDescription = details[0].trim();
-                if (toDoDescription.length() <= 4) {
-                    throw new InvalidToDoException();
-                }
-                taskList.addToDoToList(false, toDoDescription.substring(5).trim());
-                break;
+        case TODO:
+            String toDoDescription = details[0].trim();
+            if (toDoDescription.length() <= 4) {
+                throw new InvalidToDoException();
+            }
+            taskList.addToDoToList(false, toDoDescription.substring(5).trim());
+            break;
 
-            case DEADLINE:
-                if (details[0].trim().length() <= 8 || !fullInput.contains("by")) {
-                    throw new InvalidDeadlineException();
-                }
-                String deadlineDescription = details[0].split("/")[0].substring(9).trim();
-                String byTime = fullInput.split("by")[1].trim();
-                taskList.addDeadlineToList(false, deadlineDescription, byTime);
-                break;
+        case DEADLINE:
+            if (details[0].trim().length() <= 8 || !fullInput.contains("by")) {
+                throw new InvalidDeadlineException();
+            }
+            String deadlineDescription = details[0].split("/")[0].substring(9).trim();
+            String byTime = fullInput.split("by")[1].trim();
+            taskList.addDeadlineToList(false, deadlineDescription, byTime);
+            break;
 
-            case EVENT:
-                if (details[0].trim().length() <= 5 || !fullInput.contains("from") || !fullInput.contains("to")) {
-                    throw new InvalidEventException();
-                }
-                String eventDescription = details[0].split("/")[0].substring(6).trim();
-                String fromTime = fullInput.split("from")[1].split("/to")[0].trim();
-                String toTime = fullInput.split("to")[1].trim();
-                taskList.addEventToList(false, eventDescription, fromTime, toTime);
-                break;
+        case EVENT:
+            if (details[0].trim().length() <= 5 || !fullInput.contains("from") || !fullInput.contains("to")) {
+                throw new InvalidEventException();
+            }
+            String eventDescription = details[0].split("/")[0].substring(6).trim();
+            String fromTime = fullInput.split("from")[1].split("/to")[0].trim();
+            String toTime = fullInput.split("to")[1].trim();
+            taskList.addEventToList(false, eventDescription, fromTime, toTime);
+            break;
 
-            case CLEAR:
-                taskList.clear();
-                break;
+        case CLEAR:
+            taskList.clear();
+            break;
 
-            case FIND:
-                String findDescription = details[0].trim();
-                if (findDescription.length() <= 4) {
-                    throw new InvalidFindException();
-                }
-                ui.printTaskContainingKeyword(taskList, findDescription.substring(5).trim());
-                break;
-            default:
-                throw new InvalidInputException();
+        case FIND:
+            String findDescription = details[0].trim();
+            if (findDescription.length() <= 4) {
+                throw new InvalidFindException();
+            }
+            ui.printTaskContainingKeyword(taskList, findDescription.substring(5).trim());
+            break;
+        default:
+            throw new InvalidInputException();
         }
     }
 

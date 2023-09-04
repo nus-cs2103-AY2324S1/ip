@@ -1,11 +1,9 @@
 package taskClasses;
 
 import duke.exception.InvalidDateTimeException;
-import duke.taskClasses.TaskList;
+import duke.taskclasses.TaskList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.time.format.DateTimeParseException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

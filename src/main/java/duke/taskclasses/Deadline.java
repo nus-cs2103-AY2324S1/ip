@@ -1,9 +1,9 @@
-package duke.taskClasses;
+package duke.taskclasses;
+
+import java.time.LocalDateTime;
 
 import duke.exception.InvalidDateTimeException;
 import duke.utils.DateTimeUtils;
-
-import java.time.LocalDateTime;
 
 /**
  * Represents a deadline task.
@@ -42,7 +42,7 @@ public class Deadline extends Task {
      *
      * @return A string representation of the deadline task formatted for database storage.
      */
-    public String getDBString() {
+    public String getDbString() {
         return String.format("%s | %s | %s | %s", "D", this.isDone() ? "1" : "0", this.description,
                 DateTimeUtils.localDateTimeToStringForDb(this.date));
     }

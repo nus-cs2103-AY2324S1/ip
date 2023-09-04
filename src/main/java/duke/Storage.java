@@ -1,9 +1,5 @@
 package duke;
 
-import duke.exception.InvalidDateTimeException;
-import duke.taskClasses.Task;
-import duke.taskClasses.TaskList;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,6 +7,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
+
+import duke.exception.InvalidDateTimeException;
+import duke.taskclasses.Task;
+import duke.taskclasses.TaskList;
+
 
 /**
  * Represents a storage mechanism for saving and loading task lists.
@@ -44,20 +45,20 @@ public class Storage {
                     boolean isDone = taskParts[1].trim().equals("1");
 
                     switch (taskParts[0].trim()) {
-                        case "T":
-                            taskList.addToDoToList(isDone, taskParts[2].trim());
-                            break;
-                        case "D":
-                            taskList.addDeadlineToList(isDone, taskParts[2].trim(), taskParts[3].trim());
-                            break;
-                        case "E":
+                    case "T":
+                        taskList.addToDoToList(isDone, taskParts[2].trim());
+                        break;
+                    case "D":
+                        taskList.addDeadlineToList(isDone, taskParts[2].trim(), taskParts[3].trim());
+                        break;
+                    case "E":
 
-                            taskList.addEventToList(isDone, taskParts[2].trim(), taskParts[3].trim(), taskParts[4].trim());
-                            break;
-                        default:
-                            System.out.println("Unexpected task type encountered: " + line);
-                }
-            } catch (InvalidDateTimeException e) {
+                        taskList.addEventToList(isDone, taskParts[2].trim(), taskParts[3].trim(), taskParts[4].trim());
+                        break;
+                    default:
+                        System.out.println("Unexpected task type encountered: " + line);
+                    }
+                } catch (InvalidDateTimeException e) {
                     System.out.println("Invalid date format encountered in some tasks. Please check.");
                 }
             }
@@ -76,7 +77,7 @@ public class Storage {
     public void writeToDB(TaskList taskList) {
         StringBuilder content = new StringBuilder();
         for (Task task : taskList.getList()) {
-            content.append(task.getDBString()).append("\n");
+            content.append(task.getDbString()).append("\n");
         }
 
         try {

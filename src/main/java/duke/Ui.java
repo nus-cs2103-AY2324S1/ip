@@ -1,6 +1,6 @@
 package duke;
 
-import duke.taskClasses.TaskList;
+import duke.taskclasses.TaskList;
 
 /**
  * Represents the user interface of the application.
@@ -11,13 +11,13 @@ public class Ui {
      * Constructs a new Ui instance and displays the welcome message.
      */
     public Ui() {
-        String logo = " ██▄   ████▄    ▄     ▄▀  \n" +
-                "█  █  █   █     █  ▄▀    \n" +
-                "█   █ █   █ ██   █ █ ▀▄  \n" +
-                "█  █  ▀████ █ █  █ █   █ \n" +
-                "███▀        █  █ █  ███  \n" +
-                "            █   ██       \n" +
-                "                         ";
+        String logo = " ██▄   ████▄    ▄     ▄▀  \n"
+                + "█  █  █   █     █  ▄▀    \n"
+                + "█   █ █   █ ██   █ █ ▀▄  \n"
+                + "█  █  ▀████ █ █  █ █   █ \n"
+                + "███▀        █  █ █  ███  \n"
+                + "            █   ██       \n"
+                + "                         ";
         System.out.println("Hello from\n" + logo);
         System.out.println("What can I do for you?\n");
     }

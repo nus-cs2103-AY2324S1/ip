@@ -1,4 +1,4 @@
-package duke.taskClasses;
+package duke.taskclasses;
 
 /**
  * Abstract class representing a general task.
@@ -41,7 +41,7 @@ public abstract class Task {
      *
      * @return A string suitable for database storage.
      */
-    public abstract String getDBString();
+    public abstract String getDbString();
 
     /**
      * Prints the description of the added task.

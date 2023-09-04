@@ -1,9 +1,10 @@
-package duke.taskClasses;
+package duke.taskclasses;
+
+import java.time.LocalDateTime;
 
 import duke.exception.InvalidDateTimeException;
 import duke.utils.DateTimeUtils;
 
-import java.time.LocalDateTime;
 
 /**
  * Represents an event task.
@@ -39,7 +40,8 @@ public class Event extends Task {
      */
     @Override
     public String getDetails() {
-        return String.format(" (from: %s to: %s)", DateTimeUtils.localDateTimeToString(this.start), DateTimeUtils.localDateTimeToString(this.end));
+        return String.format(" (from: %s to: %s)", DateTimeUtils.localDateTimeToString(this.start),
+                DateTimeUtils.localDateTimeToString(this.end));
     }
 
     /**
@@ -47,7 +49,7 @@ public class Event extends Task {
      *
      * @return A string representation of the event task formatted for database storage.
      */
-    public String getDBString() {
+    public String getDbString() {
         return String.format("%s | %s | %s | %s | %s",
                 "E",
                 this.isDone() ? "1" : "0",

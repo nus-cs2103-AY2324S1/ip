@@ -1,4 +1,4 @@
-package duke.taskClasses;
+package duke.taskclasses;
 
 /**
  * Represents a ToDo task.
@@ -33,7 +33,7 @@ public class ToDo extends Task {
      * @return A formatted string representing the ToDo task for storage.
      */
     @Override
-    public String getDBString() {
+    public String getDbString() {
         return String.format("%s | %s | %s",
                 "T", this.isDone() ? "1" : "0",
                 this.description);
