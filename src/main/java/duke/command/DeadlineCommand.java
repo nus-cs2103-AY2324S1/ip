@@ -24,7 +24,7 @@ public class DeadlineCommand extends Command {
             taskList.addTask(task);
             System.out.println(taskList);
         } catch (Exception e) {
-            System.out.println(ui.format_response(e.getMessage()));
+            System.out.println(ui.format_response(e.getLocalizedMessage()));
         }
     }
 }

@@ -129,18 +129,21 @@ public class Parser {
         String regex = "^(\\d{4}-\\d{2}-\\d{2})? ?(\\d{2}:\\d{2})?$";
         Matcher matcher1 = regexParse(regex, dateTimeString);
 
-        String datePart = matcher1.group(1);
-        String timePart = matcher1.group(2);
+        while (matcher1.find()) {
+            String datePart = matcher1.group(1);
+            String timePart = matcher1.group(2);
 
-        if (datePart != null && timePart != null) {
-            System.out.println("duke.Date: " + datePart);
-            System.out.println("Time: " + timePart);
-        } else if (datePart != null) {
-            System.out.println("duke.Date: " + datePart);
-        } else if (timePart != null) {
-            System.out.println("Time: " + timePart);
+            if (datePart != null && timePart != null) {
+                System.out.println("duke.Date: " + datePart);
+                System.out.println("Time: " + timePart);
+            } else if (datePart != null) {
+                System.out.println("duke.Date: " + datePart);
+            } else if (timePart != null) {
+                System.out.println("Time: " + timePart);
+            }
+            return new Date(datePart, timePart);
         }
-        return new Date(datePart, timePart);
 
+        return null;
     }
 }

@@ -5,6 +5,9 @@ import duke.exceptions.InvalidTaskException;
 import duke.Storage;
 import duke.task.TaskList;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Duke {
     
     protected static Ui ui = new Ui();
@@ -27,6 +30,11 @@ public class Duke {
         };
     }
 
+    public static Matcher regexParse(String regex, String text) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(text);
+        return matcher;
+    }
     public static void main(String[] args) {
         ui.greet();
         reply();

@@ -51,7 +51,7 @@ public class TaskList {
         for (int i = 0; i < this.size; i++) {
             response += String.format("%d. %s\n", i+1, this.getTask(i));
         }
-        return ui.format_response(response.substring(0, response.length() - 1));
+        return response.substring(0, response.length() - 1);
     }
 
     public String toTaskSave() {

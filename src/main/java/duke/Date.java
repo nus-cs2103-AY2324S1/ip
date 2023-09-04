@@ -21,7 +21,8 @@ public class Date {
     public String toString() {
         String dateString = date == null ? "" : date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         String timeString = time == null ? "" : time.format(DateTimeFormatter.ofPattern("hh:mm a"));
-        return dateString + " " + timeString;
+        String additional = time != null && date != null ? " " : "";
+        return dateString + additional + timeString;
     }
 
     public String toSave() {
