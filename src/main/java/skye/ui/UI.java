@@ -1,10 +1,10 @@
 package skye.ui;
 
-import skye.data.task.Task;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
+
+import skye.data.task.Task;
 
 /**
  * Represents the command line user interface which consists of a scanner to read in

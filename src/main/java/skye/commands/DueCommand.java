@@ -1,10 +1,10 @@
 package skye.commands;
 
+import java.time.LocalDate;
+
 import skye.data.TaskList;
 import skye.storage.Storage;
 import skye.ui.UI;
-
-import java.time.LocalDate;
 
 /**
  * Represents the command to check tasks due on a certain date.

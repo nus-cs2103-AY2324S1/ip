@@ -1,17 +1,18 @@
 package skye.parser;
 
-import skye.data.exception.DukeException;
-import skye.data.exception.DukeExceptionType;
-import skye.data.task.Deadline;
-import skye.data.task.Event;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import skye.data.exception.DukeException;
+import skye.data.exception.DukeExceptionType;
+import skye.data.task.Deadline;
+import skye.data.task.Event;
 
 public class ParserTest {
     private Parser parser;

@@ -1,5 +1,11 @@
 package skye.parser;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import skye.commands.AddDeadlineCommand;
 import skye.commands.AddEventCommand;
 import skye.commands.AddToDoCommand;
@@ -13,18 +19,11 @@ import skye.commands.InvalidCommand;
 import skye.commands.ListCommand;
 import skye.commands.MarkCommand;
 import skye.commands.UnmarkCommand;
-
 import skye.data.exception.DukeException;
 import skye.data.exception.DukeExceptionType;
 import skye.data.task.Deadline;
 import skye.data.task.Event;
 import skye.data.task.ToDo;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Represents a service which processes the input the user types into the appropriate commands.
@@ -158,8 +157,8 @@ public class Parser {
         }
 
         String eventDescription = matcher.group("description").trim();
-        String fromDateString  = matcher.group("fromDate").trim();
-        String toDateString  = matcher.group("toDate").trim();
+        String fromDateString = matcher.group("fromDate").trim();
+        String toDateString = matcher.group("toDate").trim();
 
         if (eventDescription.isEmpty()) {
             throw new DukeException(DukeExceptionType.EVENT_NO_DESCRIPTION);
