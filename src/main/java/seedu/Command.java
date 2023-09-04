@@ -28,7 +28,7 @@ public class Command {
         try {
             if (command.equals("bye")) {
                 this.ui.showByeMessage();
-                storage.save(this.tasks);
+                this.storage.save(this.tasks);
                 return true;
             } else if (command.equals("list")) {
                 this.ui.showTask(tasks);
