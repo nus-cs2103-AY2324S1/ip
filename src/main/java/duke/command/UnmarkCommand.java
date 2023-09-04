@@ -27,11 +27,11 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            ui.showUnmarkMessage(taskList.markAsUndone(this.index));
+            return ui.showUnmarkMessage(taskList.markAsUndone(this.index));
         } catch (DukeNoTaskFoundException e) {
-            ui.showError(e);
+            return ui.showError(e);
         }
 
     }

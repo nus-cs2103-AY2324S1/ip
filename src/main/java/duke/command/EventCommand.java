@@ -34,7 +34,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showEventMessage(taskList.addEvent(this.description, this.from, this.to), taskList.getSize());
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.showEventMessage(taskList.addEvent(this.description, this.from, this.to), taskList.getSize());
     }
 }

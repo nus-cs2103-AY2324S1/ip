@@ -10,49 +10,24 @@ import duke.task.Task;
  */
 public class Ui {
 
-    private static final int BOX_WIDTH = 85;
-
     /**
      * Displays a message to the user with a framed border.
      *
      * @param messages The messages to be displayed.
      */
-    public void showToUser(String... messages) {
-        System.out.println("+" + "-".repeat(BOX_WIDTH - 2) + "+");
-
+    public String showToUser(String... messages) {
+        String result = "";
         for (String message : messages) {
-            String[] lines = message.split("\n");
-            for (String line : lines) {
-                StringBuilder paddedLine = new StringBuilder("| ");
-                paddedLine.append(line);
-                int paddingLength = BOX_WIDTH - 4 - line.length();
-                if (paddingLength > 0) {
-                    paddedLine.append(" ".repeat(paddingLength));
-                }
-                paddedLine.append(" |");
-                System.out.println(paddedLine);
-            }
+            result = result + message + "\n";
         }
-
-        System.out.println("+" + "-".repeat(BOX_WIDTH - 2) + "+");
-    }
-
-    /**
-     * Displays a greeting message to the user.
-     */
-    public void showGreetMessage() {
-        showToUser(
-                "Hello! I'm Atlas",
-                "What can I do for you?",
-                "Type 'help' to view available commands"
-        );
+        return result;
     }
 
     /**
      * Displays an exit message to the user.
      */
-    public void showExitMessage() {
-        showToUser(
+    public String showExitMessage() {
+        return showToUser(
                 "Bye. Hope to see you again soon!"
         );
     }
@@ -60,8 +35,8 @@ public class Ui {
     /**
      * Displays a help message to the user, listing available commands.
      */
-    public void showHelpMessage() {
-        showToUser(
+    public String showHelpMessage() {
+        return showToUser(
                 "Here are the available commands:",
                 "1. bye - Exit the program",
                 "2. list - List all tasks",
@@ -82,8 +57,8 @@ public class Ui {
      * @param task The Todo task added.
      * @param size The updated size of the TaskList.
      */
-    public void showTodoMessage(Task task, int size) {
-        showToUser(
+    public String showTodoMessage(Task task, int size) {
+        return showToUser(
                 "Got it. I've added this task:",
                  task.toString(),
                 "Now you have " + size + " task" + (size <= 1 ? "" : "s") + " in the list."
@@ -96,8 +71,8 @@ public class Ui {
      * @param task The Deadline task added.
      * @param size The updated size of the TaskList.
      */
-    public void showDeadlineMessage(Task task, int size) {
-        showToUser(
+    public String showDeadlineMessage(Task task, int size) {
+        return showToUser(
                 "Got it. I've added this deadline task:",
                 task.toString(),
                 "Now you have " + size + " task" + (size <= 1 ? "" : "s") + " in the list."
@@ -110,8 +85,8 @@ public class Ui {
      * @param task The Event task added.
      * @param size The updated size of the TaskList.
      */
-    public void showEventMessage(Task task, int size) {
-        showToUser(
+    public String showEventMessage(Task task, int size) {
+        return showToUser(
                 "Got it. I've added this event task:",
                 task.toString(),
                 "Now you have " + size + " task" + (size <= 1 ? "" : "s") + " in the list."
@@ -123,8 +98,8 @@ public class Ui {
      *
      * @param task The task that was marked done.
      */
-    public void showMarkMessage(Task task) {
-        showToUser(
+    public String showMarkMessage(Task task) {
+        return showToUser(
                 "Nice! I've marked this task as done:",
                 task.toString()
         );
@@ -135,8 +110,8 @@ public class Ui {
      *
      * @param task The task that was marked undone.
      */
-    public void showUnmarkMessage(Task task) {
-        showToUser(
+    public String showUnmarkMessage(Task task) {
+        return showToUser(
                 "OK, I've marked this task as not done yet:",
                 task.toString()
         );
@@ -148,8 +123,8 @@ public class Ui {
      * @param task The task that was deleted.
      * @param size The updated size of the TaskList.
      */
-    public void showDeleteMessage(Task task, int size) {
-        showToUser(
+    public String showDeleteMessage(Task task, int size) {
+        return showToUser(
                 "Noted. I've removed this task:",
                 task.toString(),
                 "Now you have " + size + " task" + (size <= 1 ? "" : "s") + " in the list."
@@ -161,7 +136,7 @@ public class Ui {
      *
      * @param taskList The TaskList to display.
      */
-    public void showListMessage(ArrayList<Task> taskList) {
+    public String showListMessage(ArrayList<Task> taskList) {
         ArrayList<String> msg = new ArrayList<>();
         int num = 1;
         for (Task task : taskList) {
@@ -171,7 +146,7 @@ public class Ui {
         if (taskList.size() == 0) {
             msg.add("You have no task currently.");
         }
-        showToUser(
+        return showToUser(
                 msg.toArray(new String[0])
         );
     }
@@ -181,8 +156,8 @@ public class Ui {
      *
      * @param e The DukeException representing the error.
      */
-    public void showError(DukeException e) {
-        showToUser(
+    public String showError(DukeException e) {
+        return showToUser(
                 e.toString()
         );
     }
@@ -192,7 +167,7 @@ public class Ui {
      *
      * @param filteredTasks The filtered TaskList to display.
      */
-    public void showFilteredTasks(ArrayList<Task> filteredTasks) {
+    public String showFilteredTasks(ArrayList<Task> filteredTasks) {
         ArrayList<String> msg = new ArrayList<>();
         int num = 1;
         for (Task task : filteredTasks) {
@@ -202,7 +177,7 @@ public class Ui {
         if (filteredTasks.size() == 0) {
             msg.add("You have no matching task.");
         }
-        showToUser(
+        return showToUser(
                 msg.toArray(new String[0])
         );
     }

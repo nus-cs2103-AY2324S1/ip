@@ -32,7 +32,7 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showDeadlineMessage(taskList.addDeadline(this.description, this.by), taskList.getSize());
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.showDeadlineMessage(taskList.addDeadline(this.description, this.by), taskList.getSize());
     }
 }

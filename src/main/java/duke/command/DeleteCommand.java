@@ -27,11 +27,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            ui.showDeleteMessage(taskList.delete(this.index), taskList.getSize());
+            return ui.showDeleteMessage(taskList.delete(this.index), taskList.getSize());
         } catch (DukeNoTaskFoundException e) {
-            ui.showError(e);
+            return ui.showError(e);
         }
     }
 }
