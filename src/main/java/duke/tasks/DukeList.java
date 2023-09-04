@@ -1,8 +1,5 @@
 package duke.tasks;
 
-import duke.tasks.Task;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -17,8 +14,8 @@ public class DukeList {
 
 
 
-    public DukeList(ArrayList<Task> ItemList) {
-        dukeList = ItemList;
+    public DukeList(ArrayList<Task> itemList) {
+        dukeList = itemList;
     }
 
     /**
@@ -38,6 +35,11 @@ public class DukeList {
         dukeList.remove(taskNum - 1);
     }
 
+    /**
+     * Returns a filtered arraylist based on the keyword
+     * @param keyword keyword associated with the task
+     * @return
+     */
     public ArrayList<Task> filterByKeyword(String keyword) {
         ArrayList<Task> filteredTasks = new ArrayList<>();
         for (Task task : dukeList) {

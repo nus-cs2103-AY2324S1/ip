@@ -12,7 +12,7 @@ import duke.ui.Ui;
  */
 public class Duke {
 
-    private DukeList ItemList;
+    private DukeList itemList;
     private Storage storage;
     private Ui ui;
 
@@ -26,10 +26,10 @@ public class Duke {
         this.storage = new Storage(filePath);
 
         try {
-            this.ItemList = new DukeList(this.storage.load());
+            this.itemList = new DukeList(this.storage.load());
         } catch (DukeException e) {
             ui.showLoadingError();
-            this.ItemList = new DukeList();
+            this.itemList = new DukeList();
         }
     }
 
@@ -54,7 +54,7 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
-                c.execute(ItemList, ui, storage);
+                c.execute(itemList, ui, storage);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());

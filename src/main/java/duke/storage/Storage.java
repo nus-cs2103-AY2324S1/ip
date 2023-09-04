@@ -1,11 +1,5 @@
 package duke.storage;
 
-import duke.exceptions.DukeException;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,6 +8,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.exceptions.DukeException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
 
 /**
  * Represents the storage manager for saving and loading tasks to/from a file.
@@ -59,28 +59,28 @@ public class Storage {
                 String current = sc.nextLine();
                 String[] splitted = current.split(" \\| ", 4);
                 switch (splitted[0]) {
-                    case "T": {
-                        Task toDo = new ToDo(splitted[2], splitted[1].equals("1"));
-                        savedTasks.add(toDo);
-                        break;
-                    }
-                    case "D": {
-                        Task deadline = new Deadline(splitted[2], formatInputDate(splitted[3]), splitted[1].equals("1"));
-                        savedTasks.add(deadline);
-                        break;
-                    }
-                    case "E": {
-                        String[] timeline = splitted[3].split("--");
-                        LocalDateTime from = formatInputDate(timeline[0]);
-                        LocalDateTime to = formatInputDate(timeline[1]);
-                        Task event = new Event(splitted[2], from, to, splitted[1].equals("1"));
-                        savedTasks.add(event);
-                        break;
-                    }
-                    default: {
-                        throw new DukeException("Error reading data from storage.\n"
-                                + "Creating a task list from scratch.");
-                    }
+                case "T": {
+                    Task toDo = new ToDo(splitted[2], splitted[1].equals("1"));
+                    savedTasks.add(toDo);
+                    break;
+                }
+                case "D": {
+                    Task deadline = new Deadline(splitted[2], formatInputDate(splitted[3]), splitted[1].equals("1"));
+                    savedTasks.add(deadline);
+                    break;
+                }
+                case "E": {
+                    String[] timeline = splitted[3].split("--");
+                    LocalDateTime from = formatInputDate(timeline[0]);
+                    LocalDateTime to = formatInputDate(timeline[1]);
+                    Task event = new Event(splitted[2], from, to, splitted[1].equals("1"));
+                    savedTasks.add(event);
+                    break;
+                }
+                default: {
+                    throw new DukeException("Error reading data from storage.\n"
+                            + "Creating a task list from scratch.");
+                }
                 }
             }
             return savedTasks;
