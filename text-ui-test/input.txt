@@ -1,6 +1,6 @@
 todo Read CS2103 Week 2 topics
-deadline Week 2 Quiz /by Friday, 25 Aug
-event Singapore GP /from Friday, 15 Sep /to Sunday, 17 Sep
+deadline Week 2 Quiz /by 25-08-2023 23:59
+event Singapore GP /from 15-09-2023 14:00 /to 17-09-2023 23:00
 list
 mark 1
 mark 3
@@ -8,7 +8,7 @@ list
 unmark 3
 list
 deadline Claims Submission
-deadline Claims Submission /by 31 Aug
+deadline Claims Submission /by 31-08-2023 23:59
 list
 todo Watch ST2334 Pre-Lecture Videos
 list

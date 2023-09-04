@@ -11,21 +11,21 @@ ________________________________________________________________________________
 
 ____________________________________________________________________________________________________
 Got it. I've added this task:
- [D][ ] Week 2 Quiz (by: Friday, 25 Aug)
+ [D][ ] Week 2 Quiz (by: 25 August 2023 23:59)
 Now you have 2 task(s) in the list.
 ____________________________________________________________________________________________________
 
 ____________________________________________________________________________________________________
 Got it. I've added this task:
- [E][ ] Singapore GP (from: Friday, 15 Sep to: Sunday, 17 Sep)
+ [E][ ] Singapore GP (from: 15 September 2023 14:00 to: 17 September 2023 23:00)
 Now you have 3 task(s) in the list.
 ____________________________________________________________________________________________________
 
 ____________________________________________________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] Read CS2103 Week 2 topics
-2.[D][ ] Week 2 Quiz (by: Friday, 25 Aug)
-3.[E][ ] Singapore GP (from: Friday, 15 Sep to: Sunday, 17 Sep)
+2.[D][ ] Week 2 Quiz (by: 25 August 2023 23:59)
+3.[E][ ] Singapore GP (from: 15 September 2023 14:00 to: 17 September 2023 23:00)
 ____________________________________________________________________________________________________
 
 ____________________________________________________________________________________________________
@@ -35,45 +35,45 @@ ________________________________________________________________________________
 
 ____________________________________________________________________________________________________
 Nice! I've marked this task as done:
- [E][X] Singapore GP (from: Friday, 15 Sep to: Sunday, 17 Sep)
+ [E][X] Singapore GP (from: 15 September 2023 14:00 to: 17 September 2023 23:00)
 ____________________________________________________________________________________________________
 
 ____________________________________________________________________________________________________
 Here are the tasks in your list:
 1.[T][X] Read CS2103 Week 2 topics
-2.[D][ ] Week 2 Quiz (by: Friday, 25 Aug)
-3.[E][X] Singapore GP (from: Friday, 15 Sep to: Sunday, 17 Sep)
+2.[D][ ] Week 2 Quiz (by: 25 August 2023 23:59)
+3.[E][X] Singapore GP (from: 15 September 2023 14:00 to: 17 September 2023 23:00)
 ____________________________________________________________________________________________________
 
 ____________________________________________________________________________________________________
 OK, I've marked this task as not done yet:
- [E][ ] Singapore GP (from: Friday, 15 Sep to: Sunday, 17 Sep)
+ [E][ ] Singapore GP (from: 15 September 2023 14:00 to: 17 September 2023 23:00)
 ____________________________________________________________________________________________________
 
 ____________________________________________________________________________________________________
 Here are the tasks in your list:
 1.[T][X] Read CS2103 Week 2 topics
-2.[D][ ] Week 2 Quiz (by: Friday, 25 Aug)
-3.[E][ ] Singapore GP (from: Friday, 15 Sep to: Sunday, 17 Sep)
+2.[D][ ] Week 2 Quiz (by: 25 August 2023 23:59)
+3.[E][ ] Singapore GP (from: 15 September 2023 14:00 to: 17 September 2023 23:00)
 ____________________________________________________________________________________________________
 
 ____________________________________________________________________________________________________
 Invalid deadline format!
-Correct usage: deadline <description> /by <date>
+Correct usage: deadline <description> /by <dd-mm-yyyy hh:mm>
 ____________________________________________________________________________________________________
 
 ____________________________________________________________________________________________________
 Got it. I've added this task:
- [D][ ] Claims Submission (by: 31 Aug)
+ [D][ ] Claims Submission (by: 31 August 2023 23:59)
 Now you have 4 task(s) in the list.
 ____________________________________________________________________________________________________
 
 ____________________________________________________________________________________________________
 Here are the tasks in your list:
 1.[T][X] Read CS2103 Week 2 topics
-2.[D][ ] Week 2 Quiz (by: Friday, 25 Aug)
-3.[E][ ] Singapore GP (from: Friday, 15 Sep to: Sunday, 17 Sep)
-4.[D][ ] Claims Submission (by: 31 Aug)
+2.[D][ ] Week 2 Quiz (by: 25 August 2023 23:59)
+3.[E][ ] Singapore GP (from: 15 September 2023 14:00 to: 17 September 2023 23:00)
+4.[D][ ] Claims Submission (by: 31 August 2023 23:59)
 ____________________________________________________________________________________________________
 
 ____________________________________________________________________________________________________
@@ -85,23 +85,23 @@ ________________________________________________________________________________
 ____________________________________________________________________________________________________
 Here are the tasks in your list:
 1.[T][X] Read CS2103 Week 2 topics
-2.[D][ ] Week 2 Quiz (by: Friday, 25 Aug)
-3.[E][ ] Singapore GP (from: Friday, 15 Sep to: Sunday, 17 Sep)
-4.[D][ ] Claims Submission (by: 31 Aug)
+2.[D][ ] Week 2 Quiz (by: 25 August 2023 23:59)
+3.[E][ ] Singapore GP (from: 15 September 2023 14:00 to: 17 September 2023 23:00)
+4.[D][ ] Claims Submission (by: 31 August 2023 23:59)
 5.[T][ ] Watch ST2334 Pre-Lecture Videos
 ____________________________________________________________________________________________________
 
 ____________________________________________________________________________________________________
 Noted. I've removed this task:
- [E][ ] Singapore GP (from: Friday, 15 Sep to: Sunday, 17 Sep)
+ [E][ ] Singapore GP (from: 15 September 2023 14:00 to: 17 September 2023 23:00)
 Now you have 4 tasks in the list
 ____________________________________________________________________________________________________
 
 ____________________________________________________________________________________________________
 Here are the tasks in your list:
 1.[T][X] Read CS2103 Week 2 topics
-2.[D][ ] Week 2 Quiz (by: Friday, 25 Aug)
-3.[D][ ] Claims Submission (by: 31 Aug)
+2.[D][ ] Week 2 Quiz (by: 25 August 2023 23:59)
+3.[D][ ] Claims Submission (by: 31 August 2023 23:59)
 4.[T][ ] Watch ST2334 Pre-Lecture Videos
 ____________________________________________________________________________________________________
 
