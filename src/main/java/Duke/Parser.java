@@ -30,7 +30,7 @@ public class Parser {
                 list.mark(false,str,ui,storage);
 
             } else if (str.contains("mark")) {
-                list.mark(false,str,ui,storage);
+                list.mark(true,str,ui,storage);
             } else if (str.startsWith("todo ")) {
                 list.todo(str,ui,storage);
             } else if (str.startsWith("deadline ")) {
@@ -38,9 +38,9 @@ public class Parser {
             } else if (str.startsWith("event ")) {
                 list.event(str,ui,storage);
             } else if (str.startsWith("delete ")) {
-
                 list.delete(str,ui,storage);
-
+            }  else if (str.startsWith("find ")) {
+                list.find(str,ui);
             } else {
                 ui.handleError(new DukeException("\n____________________________________________________________\n" +
                         "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
