@@ -1,5 +1,7 @@
 package duke;
 
+import duke.task.Task;
+
 import java.text.ParseException;
 
 public class Parser {
@@ -47,6 +49,16 @@ public class Parser {
             throw new ParserException("Please enter valid Task No. to delete!");
         }
         return taskNo;
+    }
+
+    public String parseFind(String userInput, TaskList list) throws ParserException {
+        String queryString;
+        try {
+            queryString = userInput.substring(5);
+        } catch (NumberFormatException e) {
+            throw new ParserException("Please enter valid Task No. (INTEGER) to delete in the format: 'delete 4'");
+        }
+        return queryString;
     }
 
 
