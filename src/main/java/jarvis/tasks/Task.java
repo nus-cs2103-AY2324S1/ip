@@ -84,4 +84,12 @@ public class Task {
     public String toString() {
         return getStatusIcon() + getTitle();
     }
+
+    public boolean contains(String keyword) {
+        if (title.contains(keyword)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

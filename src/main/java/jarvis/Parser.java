@@ -13,6 +13,7 @@ import jarvis.commands.Command;
 import jarvis.commands.DeadlineCommand;
 import jarvis.commands.DeleteCommand;
 import jarvis.commands.EventCommand;
+import jarvis.commands.FindCommand;
 import jarvis.commands.ListCommand;
 import jarvis.commands.MarkCommand;
 import jarvis.commands.TodoCommand;
@@ -29,7 +30,6 @@ import java.time.format.DateTimeFormatter;
  * The Paser class is responsible for parsing user input and converting it into executable commands and tasks.
  */
 public class Parser {
-    
     /**
      * Parses user input and returns the corresponding command.
      *
@@ -50,6 +50,8 @@ public class Parser {
             return new UnmarkCommand(userInput);
         } else if (userInputSpilt[0].equalsIgnoreCase("delete")) {
             return new DeleteCommand(userInput);
+        } else if (userInputSpilt[0].equalsIgnoreCase("find")) {
+            return new FindCommand(userInput);
         } else if (userInputSpilt[0].equalsIgnoreCase("todo")) {
             return new TodoCommand(userInput);
         } else if (userInputSpilt[0].equalsIgnoreCase("deadline")) {
@@ -108,22 +110,22 @@ public class Parser {
             String taskType = lineSplit[0].trim();
             boolean isCompleted = Integer.parseInt(lineSplit[1].trim()) == 1 ? true : false;
             String taskDetails = lineSplit[2].trim();
-    
+
             switch (taskType) {
-                case "T":
-                    return new Todo(taskDetails, isCompleted);
-                case "D":
-                    String deadlineByString = lineSplit[3].trim();
-                    LocalDateTime formattedDeadlineBy = parseDateTime(deadlineByString);
-                    return new Deadline(taskDetails, formattedDeadlineBy, isCompleted);
-                case "E":
-                    String fromTime = lineSplit[3].trim();
-                    String toTime = lineSplit[4].trim();
-                    LocalDateTime formattedFromTime = parseDateTime(fromTime);
-                    LocalDateTime formattedToTime = parseDateTime(toTime);
-                    return new Event(taskDetails, formattedFromTime, formattedToTime, isCompleted);
-                default:
-                    throw new InvalidTaskFormatException("Unknown Task Type: " + taskType);
+            case "T":
+                return new Todo(taskDetails, isCompleted);
+            case "D":
+                String deadlineByString = lineSplit[3].trim();
+                LocalDateTime formattedDeadlineBy = parseDateTime(deadlineByString);
+                return new Deadline(taskDetails, formattedDeadlineBy, isCompleted);
+            case "E":
+                String fromTime = lineSplit[3].trim();
+                String toTime = lineSplit[4].trim();
+                LocalDateTime formattedFromTime = parseDateTime(fromTime);
+                LocalDateTime formattedToTime = parseDateTime(toTime);
+                return new Event(taskDetails, formattedFromTime, formattedToTime, isCompleted);
+            default:
+                throw new InvalidTaskFormatException("Unknown Task Type: " + taskType);
             }
         } catch (Exception e) {
             throw new InvalidTaskFormatException("Invalid task format: " + line);
