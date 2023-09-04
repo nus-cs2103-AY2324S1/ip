@@ -1,24 +1,34 @@
 package duke.parser;
+import duke.Duke;
 import duke.DukeException;
-import duke.command.Command;
 import duke.command.AddCommand;
 import duke.command.ByeCommand;
+import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
-import duke.task.ToDos;
 import duke.task.DeadLine;
 import duke.task.Event;
+import duke.task.ToDos;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 
-//package duke.parser;
+/**
+ * Represents a formatting object that formats inputs in known formats.
+ * Reformats these inputs into different forms depending on the Command.
+ */
 public class Parser {
+	/**
+	 * Returns the integer value of a month.
+	 * @param month String representation of month.
+	 * @return Integer representation of month
+	 * @throws IllegalArgumentException Throws exception should the month not be recognised.
+	 */
 	public static String monthValue(String month) throws IllegalArgumentException {
 		switch (month.toLowerCase()) {
 			case "january":
@@ -50,6 +60,11 @@ public class Parser {
 		}
 	}
 
+	/**
+	 * Returns the Date formatted in the form: 2015-02-20T06:30:00.
+	 * @param timeDate Array containing time and date at index 0 and 1.
+	 * @return Formatted String.
+	 */
 	public static String formatDate(String[] timeDate) {
 		SimpleDateFormat inputTime = new SimpleDateFormat("ha");
 		SimpleDateFormat outputTime = new SimpleDateFormat("HH:mm:ss");
@@ -60,6 +75,9 @@ public class Parser {
 			String formatTime = outputTime.format(time);
 			// return the formatTime and formatDate as the stored value
 			// dateTtime
+			if (timeDate.length != 2) {
+				throw new DukeException("Enter time and Date properly");
+			}
 			String dayMonth = timeDate[1];
 			String day;
 			String month;
@@ -78,21 +96,27 @@ public class Parser {
 			dateFormat = br.toString();
 		}   catch (ParseException e) {
 			System.out.println("format of time is not right, enter it as /by 630pm 18june");
+		} catch (DukeException d) {
+			System.out.println(d.getMessage());
 		}
 		return dateFormat;
 	}
 
-	// convert the string into a command
+	/**
+	 * Converts formatted string into a command.
+	 * first String array contains description of command.
+	 * Accepeted inputs for time are,
+	 * /by 06:30:00 2015-06-29
+	 * /by 630am or pm 29 june.
+	 * @param fullCommand String representing the Command with all details.
+	 * @return Command which can be executed.
+	 * @throws DukeException If fullCommand does not match any known Command.
+	 */
 	public static Command parse(String fullCommand) throws DukeException {
-		// !!! many lines now to edit!!!!
 		String[] command = fullCommand.split(" ");
 		String commandWord = fullCommand.split(" ")[0];
-		// delimited by the / for time task like deadline and event
 		String[] items = fullCommand.split("/");
-		// contains description
 		String[] first = items[0].split(" ");
-		// save as I go so the bye is only bye not save
-		// each add command I need to write to file instead of using arraylist add at the end!!!
 		StringBuilder description = new StringBuilder();
 		StringBuilder startTime = new StringBuilder();
 		StringBuilder endTime = new StringBuilder();
@@ -151,7 +175,7 @@ public class Parser {
 			case "deadline":
 				try {
 					String[] byCheck = items[1].split(" ");
-					if (items.length != 2 || !byCheck[0].equals("by")) {
+					if (items.length != 3 && !byCheck[0].equals("by")) {
 						throw new DukeException("enter deadline like this, deadline description /by:");
 					}
 					String[] start = items[0].split(" ");
@@ -159,23 +183,18 @@ public class Parser {
 						description.append(s).append(" ");
 					}
 					description.deleteCharAt(description.length() - 1);
-					// /by 06:30:00 2015-06-29
-					// /by 630am/pm 29 june
 					if (items[1].contains("am") || items[1].contains("pm")) {
-						// take away by and give timeDate 630am 29june
 						String[] timeDate = Arrays.copyOfRange(items[1].split(" "), 1, items[1].split(" ").length);
+						if (timeDate.length != 2) {
+							throw new DukeException("Enter time and date properly");
+						}
 						String dateFormat = formatDate(timeDate);
 						LocalDateTime begin = LocalDateTime.parse(dateFormat);
-//						taskList.add(new Deadline(description.toString(), begin));
 						return new AddCommand(new DeadLine(description.toString(), begin));
 					} else {
-						// /by 06:30:00 2015-06-29
 						String[] time = Arrays.copyOfRange(items[1].split(" "), 1, 3);
 						startTime.append(time[1]).append("T").append(time[0]);
 						LocalDateTime begin = LocalDateTime.parse(startTime.toString());
-						// store datetime object as a string
-						// taskList.add(new Deadline(description.toString(), startTime.toString()));
-//						taskList.add(new Deadline(description.toString(), begin));
 						return new AddCommand(new DeadLine(description.toString(), begin));
 					}
 				} catch (DukeException e) {
@@ -192,10 +211,7 @@ public class Parser {
 						description.append(s).append(" ");
 					}
 					description.deleteCharAt(description.length() - 1);
-					// HEADD
-					// add from and to
 					if (items[1].contains("am") || items[1].contains("pm")) {
-						// take away by and give timeDate 630am 29june
 						String[] timeDateStart = Arrays.copyOfRange(items[1].split(" "), 1, items[1].split(" ").length);
 						String dateFormatStart = formatDate(timeDateStart);
 						LocalDateTime begin = LocalDateTime.parse(dateFormatStart);
@@ -205,10 +221,8 @@ public class Parser {
 						if (begin.isAfter(end)) {
 							throw new DukeException("Start is after end!");
 						}
-//						taskList.add(new Event(description.toString(), begin, end));
 						return new AddCommand(new Event(description.toString(), begin, end));
 					} else {
-						// /by 06:30:00 2015-06-29
 						String[] timeStart = Arrays.copyOfRange(items[1].split(" "), 1, 3);
 						startTime.append(timeStart[1]).append("T").append(timeStart[0]);
 						System.out.println(startTime.toString());
@@ -217,12 +231,9 @@ public class Parser {
 						String[] timeEnd = Arrays.copyOfRange(items[2].split(" "), 1, 3);
 						endTime.append(timeEnd[1]).append("T").append(timeEnd[0]);
 						LocalDateTime end = LocalDateTime.parse(endTime.toString());
-						// store datetime object as a string
-						// taskList.add(new Deadline(description.toString(), startTime.toString()));
 						if (begin.isAfter(end)) {
 							throw new DukeException("Start is after end!");
 						}
-//						taskList.add(new Event(description.toString(), begin, end));
 						return new AddCommand(new Event(description.toString(), begin, end));
 					}
 				} catch (DukeException e) {

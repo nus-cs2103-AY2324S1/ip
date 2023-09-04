@@ -1,14 +1,28 @@
 package duke.task;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a Deadline Task which.
+ * Has a description and Deadline endTime.
+ */
 public class DeadLine extends Task {
 
 	private final LocalDateTime endTime;
+
+	/**
+	 * Represents a DeadLine Task.
+	 * @param description Describes the Task.
+	 * @param endTime By what time must I complete this DeadLine Task.
+	 */
 	public DeadLine(String description, LocalDateTime endTime) {
 		super(description);
 		this.endTime = endTime;
 	}
 
+	/**
+	 * Returns a String to be written into Storage.
+	 * @return Reformatted String suitable for Storage.
+	 */
 	@Override
 	public String writeToFile() {
 		StringBuilder b = new StringBuilder();
@@ -22,6 +36,10 @@ public class DeadLine extends Task {
 		b.append(this.endTime.toString());
 		return b.toString();
 	}
+
+	/**
+	 * @return String representation of DeadLine.
+	 */
 	@Override
 	public String toString() {
 		String[] time = this.endTime.toString().split("T");
