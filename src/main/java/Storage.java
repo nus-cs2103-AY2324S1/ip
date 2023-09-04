@@ -1,7 +1,6 @@
 /**
  * deals with loading tasks from the file, and saving tasks in the file
  */
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -23,8 +22,7 @@ public class Storage {
     public static LocalDateTime stringToDateTime(String str) throws DateTimeParseException {
         //check if dateTime has correct format: ie. YYYY-MM-DD 00:00
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime dateTime = LocalDateTime.now();
-        dateTime = LocalDateTime.parse(str, formatter);
+        LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
         return dateTime;
     }
     public File createDataFile() {

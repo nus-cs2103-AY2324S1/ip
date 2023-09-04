@@ -26,7 +26,7 @@ public class Duke {
                     parser.parseInput(input, storage, tasks, ui);
                 }
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
+                ui.showError(e.getMessage());
             } catch (IOException e) {
                 System.out.println(e);
             }

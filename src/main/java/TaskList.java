@@ -1,6 +1,7 @@
 /**
  * contains the task list, and methods to modify the tasks in the list
  */
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -14,17 +15,16 @@ public class TaskList {
         this.ui = ui;
     }
 
-    public boolean isValidTaskID(int taskID) {
+    public boolean isValidTaskID(int taskID) throws InvalidTaskIDException {
         if (taskID > this.list.size() - 1 || taskID < 0) {
-            ui.showInvalidTaskID();
-            return false;
+            throw new InvalidTaskIDException();
         }
         return true;
     }
 
     public void listTasks() {
         if (list.size() == 0) {
-            System.out.println("(o´ω`o)ﾉ You have no upcoming tasks!\n" + Ui.line);
+            ui.showNoTasks();
         } else {
             String result = "";
             for (int i = 0; i < list.size(); i++) {
@@ -32,41 +32,36 @@ public class TaskList {
                 Task task = list.get(i);
                 result += index + ". " + task.toString() + "\n";
             }
-            System.out.println("(⇀‸↼‶)⊃━☆ﾟ.*･｡ﾟ Here are your tasks for the day:");
-            System.out.println(result + Ui.line);
+            ui.showTasks(result);
         }
     }
-    public void addTask(Task task, Storage storage, Ui ui) throws IOException {
+
+    public void addTask(Task task, Storage storage) throws IOException {
         this.list.add(task);
         storage.updateFile(this.list);
-        ui.newTaskAdded(task);
-        ui.getNumberOfTasks(this.getListSize());
+        ui.showTaskAdded(task, this.getListSize());
     }
 
     //might remove returning of boolean!! see first
-    public boolean deleteTask(int taskID, Storage storage, Ui ui) throws IOException {
-        if (!isValidTaskID(taskID)) {
-            return false;
-        } else {
+    public void deleteTask(int taskID, Storage storage) throws IOException, InvalidTaskIDException {
+        if (isValidTaskID(taskID)) {
             Task toRemove = list.get(taskID);
             list.remove(taskID);
             storage.updateFile(this.list);
-            System.out.println("ଘ(੭ˊᵕˋ)੭ Ok! I've removed this task:");
-            System.out.println(toRemove);
-            ui.getNumberOfTasks(getListSize());
-            return true;
+            ui.showDeleteTask(toRemove, this.getListSize());
         }
     }
 
     public void markTask(int taskID, Storage storage) throws IOException {
-        this.list.get(taskID).mark();
+        this.list.get(taskID).mark(ui);
         storage.updateFile(this.list);
     }
 
     public void unmarkTask(int taskID, Storage storage) throws IOException {
-        this.list.get(taskID).unmark();
+        this.list.get(taskID).unmark(ui);
         storage.updateFile(this.list);
     }
+
     public int getListSize() {
         return this.list.size();
     }
