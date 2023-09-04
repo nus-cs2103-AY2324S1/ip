@@ -1,12 +1,5 @@
 package duke.storage;
 
-import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
-import duke.ui.Ui;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -18,12 +11,19 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+import duke.ui.Ui;
+
 /**
  * The Storage class deals with savings tasks in the file and
  * loading tasks from the file.
  */
 public class Storage {
-    String filePath;
+    private final String filePath;
 
     /**
      * Constructs a Storage object.
