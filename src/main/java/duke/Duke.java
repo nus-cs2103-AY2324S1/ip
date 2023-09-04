@@ -2,27 +2,22 @@ package duke;
 
 import java.util.Scanner;
 
+import duke.exceptions.DukeException;
 import duke.parser.Parser;
-
 import duke.storage.Storage;
-
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
-
 import duke.ui.Ui;
-
 import duke.util.TaskList;
 
-import duke.exceptions.DukeException;
 
-/*
+/**
  * Duke is a personal assistant chatbot that helps a person to keep track of various things.
  */
-
 public class Duke {
-    
+
     public enum CommandType {
         LIST, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN, FIND
     }
@@ -62,7 +57,7 @@ public class Duke {
         ui.printFarewellMessage();
     }
 
-    /*
+    /**
      * Main entry point of the Duke application.
      * @param args Command line arguments.
      */
@@ -70,8 +65,6 @@ public class Duke {
         Duke ekud = new Duke();
         ekud.run();
     }
-
-    
 
     private void handleCommand(CommandType commandType, String command) throws DukeException {
         switch (commandType) {
@@ -95,6 +88,8 @@ public class Duke {
         case UNKNOWN:
             ui.printErrorMessage(new DukeException("I'm sorry, but I don't know what that means :-("));
             break;
+        default:
+            return;
         }
     }
 
@@ -120,7 +115,7 @@ public class Duke {
                 tasks.add(newTask);
                 storage.write(newTask);
                 ui.printAddedTaskConfirmation(newTask, tasks);
-            } 
+            }
         } catch (DukeException e) {
             ui.printErrorMessage(e);
         }
@@ -133,7 +128,7 @@ public class Duke {
             Task task = tasks.get(index);
             task.markAsDone();
             storage.write(tasks.getTasks());
-            ui.printMarkedTaskConfirmation(task);            
+            ui.printMarkedTaskConfirmation(task);
         } catch (NumberFormatException e) {
             ui.printErrorMessage(new DukeException("Invalid command format"));
         } catch (DukeException e) {
@@ -146,13 +141,11 @@ public class Duke {
             int index = Integer.parseInt(command.split(" ")[1]) - 1;
             Task task = tasks.remove(index);
             storage.write(tasks.getTasks());
-            ui.printDeletedTaskConfirmation(task, tasks);    
+            ui.printDeletedTaskConfirmation(task, tasks);
         } catch (NumberFormatException e) {
             ui.printErrorMessage(new DukeException("Invalid command format"));
         } catch (DukeException e) {
             ui.printErrorMessage(e);
-        } 
+        }
     }
-
-
 }

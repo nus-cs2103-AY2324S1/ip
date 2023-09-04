@@ -2,22 +2,22 @@ package duke.storage;
 
 import java.io.File;
 import java.io.FileWriter;
-
-import java.util.Scanner;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
+import duke.exceptions.DukeException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
 
-import duke.exceptions.DukeException;
 
 
 
 
-/*
+
+/**
  * Encapsulates the storage of tasks in duke.txt.
  */
 public class Storage {
@@ -25,7 +25,7 @@ public class Storage {
     private File file;
     private String filePath;
 
-    /*
+    /**
      * Constructs a Storage object with the default file path.
      */
     public Storage() {
@@ -57,9 +57,9 @@ public class Storage {
         return newTask;
     }
 
-    /*
+    /**
      * Reads the tasks from duke.txt and returns them as a list of tasks.
-     * 
+     *
      * @return The list of tasks read from duke.txt.
      * @throws DukeException If there is an error reading from duke.txt.
      */
@@ -78,9 +78,9 @@ public class Storage {
         return tasks;
     }
 
-    /*
+    /**
      * Writes the given list of tasks to duke.txt.
-     * 
+     *
      * @param tasks The list of tasks to be written to duke.txt.
      * @throws DukeException If there is an error writing to duke.txt.
      */
@@ -96,9 +96,9 @@ public class Storage {
         }
     }
 
-    /*
+    /**
      * Writes the given task to duke.txt.
-     * 
+     *
      * @param newTask The task to be written to duke.txt.
      * @throws DukeException If there is an error writing to duke.txt.
      */

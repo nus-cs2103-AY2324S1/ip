@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import duke.exceptions.DukeException;
 
-/*
+/**
  * Encapsulates a task that starts at a specific time and ends at a specific time.
  */
 public class Event extends Task {
@@ -13,9 +13,9 @@ public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
-    /*
+    /**
      * Constructor for an Event object with the given description, start time, and end time.
-     * 
+     *
      * @param description The description of the event.
      * @param from        The start time of the event.
      * @param to          The end time of the event.
@@ -26,14 +26,13 @@ public class Event extends Task {
         this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("d MMM yyyy HHmm"));
     }
 
-    /*
+    /**
      * Constructs an Event object with a given description, start time, end time.
-     * 
+     *
      * @param command The command to create the event.
      * @return The event object constructed from the given command.
      */
     public static Event createEventFromCommand(String command) throws DukeException {
-        
         if (command.length() <= 6) {
             throw new DukeException("The description of an event cannot be empty.");
         } else if (!command.contains(" /from ")) {
@@ -54,9 +53,9 @@ public class Event extends Task {
         return new Event(taskDescription, from, to);
     }
 
-    /*
+    /**
      * Constructs an Event object with the given description, start time, end time, and done status.
-     * 
+     *
      * @param storageString The string from duke.txt representing a row of data for an event.
      * @return The event object constructed from the given string.
      */
@@ -72,22 +71,22 @@ public class Event extends Task {
         }
         return event;
     }
-    
-    /*
+
+    /**
      * Returns the string representation of the event.
-     * 
+     *
      * @return The string representation of the event.
      */
     @Override
     public String toString() {
         String fromString = from.format(DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm"));
         String toString = to.format(DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm"));
-        return "[E]" + super.toString() + " (from: " + fromString + " to: " + toString +")";
+        return "[E]" + super.toString() + " (from: " + fromString + " to: " + toString + ")";
     }
 
-    /*
+    /**
      * Returns the string representation of the event for storage in duke.txt.
-     * 
+     *
      * @return The string representation of the event for storage in duke.txt.
      */
     public String toStorageString() {
@@ -95,5 +94,4 @@ public class Event extends Task {
         String toString = to.format(DateTimeFormatter.ofPattern("d MMM yyyy HHmm"));
         return "E" + super.toStorageString() + " | " + fromString + " | " + toString;
     }
-    
 }

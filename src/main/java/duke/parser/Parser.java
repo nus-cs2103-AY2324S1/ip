@@ -2,14 +2,14 @@ package duke.parser;
 
 import duke.Duke;
 
-/*
+/**
  * Encapsulates a parser that parses user input.
  */
 public class Parser {
 
-    /*
+    /**
      * Returns the command type of the given command.
-     * 
+     *
      * @param command The command to be parsed.
      * @return The command type of the given command.
      */
@@ -28,8 +28,7 @@ public class Parser {
             return Duke.CommandType.EVENT;
         } else if (command.startsWith("find")) {
             return Duke.CommandType.FIND;
-        }
-        else {
+        } else {
             return Duke.CommandType.UNKNOWN;
         }
     }
