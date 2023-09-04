@@ -1,9 +1,9 @@
-import task.Task;
-import task.Todo;
-import task.Deadline;
-import task.Event;
-import exceptions.EmptyDescriptionException;
-import exceptions.UnknownCommandException;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.exceptions.EmptyDescriptionException;
+import duke.exceptions.UnknownCommandException;
 
 import java.util.ArrayList;
 import java.util.List;
