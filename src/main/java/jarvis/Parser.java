@@ -22,8 +22,18 @@ import jarvis.tasks.Event;
 import jarvis.tasks.Task;
 import jarvis.tasks.Todo;
 
+/**
+ * The Paser class is responsible for parsing user input and converting it into executable commands and tasks.
+ */
 public class Parser {
     
+    /**
+     * Parses user input and returns the corresponding command.
+     *
+     * @param userInput The user's input.
+     * @return The corresponding command.
+     * @throws InvalidCommandException If the input is an invalid command.
+     */
     public static Command parseCommand(String userInput) throws InvalidCommandException {
         String[] userInputSpilt = userInput.split(" ");
 
@@ -48,6 +58,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a date and time string into a LocalDateTime object.
+     *
+     * @param inputDateTime The date and time string to parse.
+     * @return A LocalDateTime object representing the parsed date and time.
+     * @throws InvalidDateTimeFormatException If the input date and time format is invalid.
+     */
     public static LocalDateTime parseDateTime(String inputDateTime) throws InvalidDateTimeFormatException {
         List<String> inputFormats = new ArrayList<>();
         inputFormats.add(Ui.DATE_TIME_FORMAT);
@@ -74,6 +91,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a string representation of a task into a Task object.
+     *
+     * @param line The string representation of the task.
+     * @return A Task object representing the parsed task.
+     * @throws InvalidTaskFormatException If the task format is invalid.
+     */
     public static Task parseStringToTask(String line) throws InvalidTaskFormatException {
         try {
             String[] lineSplit = line.split("\\|");

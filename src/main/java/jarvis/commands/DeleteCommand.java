@@ -6,6 +6,9 @@ import jarvis.exceptions.InvalidIndexException;
 import jarvis.tasks.Task;
 import jarvis.tasks.TaskList;
 
+/**
+ * Represents a command to delete a task in the Jarvis app.
+ */
 public class DeleteCommand implements Command {
 
     private String userInput;
@@ -14,6 +17,15 @@ public class DeleteCommand implements Command {
         this.userInput = userInput;
     }
 
+    /**
+     * Executes the delete command by removing the specified task from the task
+     * list.
+     *
+     * @param taskList The TaskList containing the tasks.
+     * @param ui       The Ui for user interface interactions.
+     * @param storage  The Storage for saving tasks.
+     * @throws InvalidIndexException If an invalid index is provided.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidIndexException {
         String[] userInputSpilt = userInput.split(" ");
@@ -25,7 +37,7 @@ public class DeleteCommand implements Command {
             ui.printResponse("Noted Master! I've removed this task:\n" + "\t" + removedTask.toString() + "\n" +
                     "    Master, you have " + taskList.getTaskCount() + " tasks in the list.");
         } else {
-            throw new InvalidIndexException("    Please indicate which task you wish to DELETE?\n" + 
+            throw new InvalidIndexException("    Please indicate which task you wish to DELETE?\n" +
                     "    From 1 to " + taskList.getTaskCount() + "\n" +
                     "    Current Index: " + index);
         }
