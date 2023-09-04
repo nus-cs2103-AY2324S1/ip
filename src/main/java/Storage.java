@@ -30,13 +30,14 @@ public class Storage {
      * @param desc the description of the Task
      */
     protected static void addToList(Path path, String desc) {
-        String line = "P" + "," + 0 + "," + desc + "\n";
+        String line = "T" + "," + 0 + "," + desc + "\n";
         try {
             Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
+
 
     /**
      * Writes to the file given, in the format of [type][status] [desc].
@@ -50,13 +51,14 @@ public class Storage {
      * @param deadline the deadline the task has to be completed by
      */
     protected static void addToList(Path path, String desc, LocalDate deadline) {
-        String line = "P" + "," + 0 + "," + desc + "," + deadline + "\n";
+        String line = "D" + "," + 0 + "," + desc + "," + deadline + "\n";
         try {
             Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
+
 
     /**
      * Writes to the file given, in the format of [type][status] [desc].
@@ -70,7 +72,8 @@ public class Storage {
      * @param from the start time of the event
      * @param to the end time of the event
      */
-    protected static void addToList(Path path, String desc, LocalDate from, LocalDate to) {
+    public static void addToList(Path path, String desc, LocalDate from, LocalDate to) {
+
         String line = "P" + "," + 0 + "," + desc + "," + from + "," + to + "\n";
         try {
             Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
