@@ -34,6 +34,7 @@ public class Task {
 
     /**
      * Convert the task to its file format representation.
+     * 
      * @return String representation of task for file storage.
      */
     public String toFileFormat() {
@@ -42,6 +43,7 @@ public class Task {
 
     /**
      * Convert a file format string back to a Task.
+     * 
      * @param fileFormatString String representation from file.
      * @return A new Task instance.
      */

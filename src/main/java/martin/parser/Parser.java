@@ -30,6 +30,7 @@ public class Parser {
 
     /**
      * Parses the user input and returns the appropriate Command object.
+     * 
      * @param input The entire string of the user's input.
      * @throws MartinException When the command is invalid or there's an error.
      * @return Command The appropriate command to be executed.
