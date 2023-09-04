@@ -1,5 +1,7 @@
 package bot.parsers;
 
+import java.util.Arrays;
+
 public class InputParser {
     private static final String SPLIT_AT_SPACE = " ";
     private static final String SPLIT_AT_BY = " /by ";
