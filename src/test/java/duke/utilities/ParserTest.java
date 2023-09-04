@@ -1,11 +1,11 @@
 package duke.utilities;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
 public class ParserTest {
-    Parser parser = new Parser();
+    private Parser parser = new Parser();
 
     @Test
     public void test1() {
