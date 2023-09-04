@@ -23,7 +23,9 @@ public abstract class ShibaCommand {
         DEADLINE,
         EVENT,
         DELETE,
-        FIND
+        FIND,
+        PAT,
+        BELLYRUB
     }
 
     protected final PersistentTaskList tasks;

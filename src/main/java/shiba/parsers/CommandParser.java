@@ -1,14 +1,6 @@
 package shiba.parsers;
 
-import shiba.commands.DeadlineCommand;
-import shiba.commands.DeleteCommand;
-import shiba.commands.EventCommand;
-import shiba.commands.FindCommand;
-import shiba.commands.ListCommand;
-import shiba.commands.MarkCommand;
-import shiba.commands.ShibaCommand;
-import shiba.commands.TodoCommand;
-import shiba.commands.UnmarkCommand;
+import shiba.commands.*;
 import shiba.exceptions.ShibaException;
 import shiba.tasks.FilePersistentTaskList;
 import shiba.ui.Replier;
@@ -62,6 +54,12 @@ public class CommandParser {
                 break;
             case FIND:
                 shibaCommand = new FindCommand(tasks, input);
+                break;
+            case PAT:
+                shibaCommand = new PatCommand(tasks);
+                break;
+            case BELLYRUB:
+                shibaCommand = new BellyRubCommand(tasks);
                 break;
             case BYE:
                 return true;
