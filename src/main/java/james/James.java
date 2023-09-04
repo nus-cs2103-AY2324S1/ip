@@ -1,4 +1,4 @@
-package seedu.james;
+package james;
 
 import java.util.ArrayList;
 

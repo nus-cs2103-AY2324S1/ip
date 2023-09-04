@@ -1,4 +1,4 @@
-package seedu.james;
+package james;
 
 /**
  * Represents a JamesException.
