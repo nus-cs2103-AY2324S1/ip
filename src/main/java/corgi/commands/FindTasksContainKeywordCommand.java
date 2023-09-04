@@ -10,7 +10,7 @@ import corgi.ui.Ui;
 /**
  * Represents a command to find tasks containing a specific keyword in the task list.
  */
-public class FindTasksContainKeywordCommand extends Command{
+public class FindTasksContainKeywordCommand extends Command {
     /**
      * The predicate used to filter tasks by keyword.
      */
@@ -33,9 +33,11 @@ public class FindTasksContainKeywordCommand extends Command{
     }
 
     /**
-     * Executes the command by filtering the task list based on the given predicate to find tasks containing specific keyword.
-     * It then displays the filtered tasks to the user or a message indicating that no matching tasks were found.
-     * 
+     * Executes the command by filtering the task list based on the given
+     * predicate to find tasks containing specific keyword.
+     * It then displays the filtered tasks to the user or a message indicating
+     * that no matching tasks were found.
+     *
      * @param list The task list to filter.
      * @param ui The user interface for displaying filtered tasks or messages.
      * @param storage The storage for saving and loading tasks (not used in this command).

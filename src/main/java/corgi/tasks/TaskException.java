@@ -3,7 +3,7 @@ package corgi.tasks;
 /**
  * Custom exception class to handle errors related to Task class.
  */
-public class TaskException extends Exception{
+public class TaskException extends Exception {
     /**
      * Constructs a new ParsingException with the specified error message.
      *

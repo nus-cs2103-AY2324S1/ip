@@ -8,14 +8,13 @@ import corgi.tasks.Deadline;
 import corgi.tasks.Event;
 import corgi.tasks.Task;
 import corgi.tasks.TaskList;
-
 import corgi.ui.Ui;
 
 /**
  * Represents a command to find tasks on a specific date in the task list.
  * This command filters the task list based on a given predicate to find tasks on the specified date.
  */
-public class FindTasksOnDateCommand extends Command{
+public class FindTasksOnDateCommand extends Command {
     /**
      * The predicate used to filter tasks by date.
      */
@@ -50,7 +49,7 @@ public class FindTasksOnDateCommand extends Command{
     /**
      * Executes the command by filtering the task list based on the given predicate to find tasks on the specified date.
      * It then displays the filtered tasks to the user or a message indicating that no tasks were found on the date.
-     * 
+     *
      * @param list The task list to filter.
      * @param ui The user interface for displaying filtered tasks or messages.
      * @param storage The storage for saving and loading tasks (not used in this command).

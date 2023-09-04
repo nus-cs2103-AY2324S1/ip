@@ -39,7 +39,7 @@ public class TaskList implements StorableList<Task> {
     public void add(Task t) {
         this.tasks.add(t);
     }
-    
+
     /**
      * Removes a task at the specified index from the TaskList.
      *
@@ -61,11 +61,11 @@ public class TaskList implements StorableList<Task> {
      * @throws TaskListIndexOutOfBoundsException If the index is invalid.
      * @throws TaskStatusException If task was already marked as the given status.
      */
-    public void mark(int index, boolean status) throws TaskListIndexOutOfBoundsException, TaskStatusException{
+    public void mark(int index, boolean status) throws TaskListIndexOutOfBoundsException, TaskStatusException {
         if (!isValidIndex(index)) {
             throw new TaskListIndexOutOfBoundsException(index);
         }
-        
+
         Task task = this.tasks.get(index);
 
         if (status) {
@@ -148,14 +148,14 @@ public class TaskList implements StorableList<Task> {
 
     /**
      * Returns a string representation of task list.
-     * 
+     *
      * @return The string representation of task list.
      */
     @Override
     public String toString() {
         String s = "";
         for (int i = 0; i < this.tasks.size(); i++) {
-            s += (i+1) + ") " + this.tasks.get(i);
+            s += (i + 1) + ") " + this.tasks.get(i);
             if (i < this.tasks.size() - 1) {
                 s += "\n";
             }

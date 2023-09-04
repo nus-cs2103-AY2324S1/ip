@@ -5,6 +5,9 @@ import corgi.tasks.Task;
 import corgi.tasks.TaskList;
 import corgi.ui.Ui;
 
+/**
+ * An abstract class to represent command.
+ */
 public abstract class Command {
     /**
      * A flag indicating whether this command should exit the application.
@@ -26,7 +29,7 @@ public abstract class Command {
         this.isExit = isExit;
         this.type = type;
     }
-    
+
     /**
      * Executes the command, performing its intended action on the provided task list,
      * user interface, and storage.
@@ -37,7 +40,7 @@ public abstract class Command {
      * @throws CommandExecutionException If an error occurs during command execution.
      */
     public abstract void execute(TaskList list, Ui ui, Storage<Task> storage) throws CommandExecutionException;
-    
+
     /**
      * Checks whether this command should exit the application.
      *

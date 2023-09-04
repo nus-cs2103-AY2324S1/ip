@@ -10,7 +10,7 @@ import corgi.ui.Ui;
  * This command adds a specified task to the task list.
  * The type of task (todo, deadline, or event) is determined by the command type.
  */
-public class AddTaskCommand extends Command{
+public class AddTaskCommand extends Command {
     /**
      * The task to be added.
      */

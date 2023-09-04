@@ -7,12 +7,12 @@ import corgi.parsers.TaskParser;
 /**
  * Event task, a type of task that start at a specific date/time and ends at a specific date/time.
  */
-public class Event extends Task{
+public class Event extends Task {
     private LocalDate from;
     private LocalDate to;
-    
+
     /**
-     * Initializes a new event with the given description and duration. 
+     * Initializes a new event with the given description and duration.
      *
      * @param desc The description of the event
      * @param from The start date/time of the event
@@ -45,7 +45,7 @@ public class Event extends Task{
      * @return True if the task's event duration includes the target date, false otherwise.
      */
     public boolean isHappeningOnDate(LocalDate targetDate) {
-        return targetDate.isEqual(this.from) || targetDate.isEqual(this.to) 
+        return targetDate.isEqual(this.from) || targetDate.isEqual(this.to)
                 || (targetDate.isAfter(this.from) && targetDate.isBefore(this.to));
     }
 
@@ -56,7 +56,7 @@ public class Event extends Task{
      */
     @Override
     public String toStorableString() {
-        String[] infos = {"E", this.status ? "1" : "0", this.desc, 
+        String[] infos = {"E", this.status ? "1" : "0", this.desc,
                 this.from.format(Task.DATE_INPUT_FORMATTER), this.to.format(Task.DATE_INPUT_FORMATTER)};
 
         return String.join(TaskParser.SEPARATOR, infos);
@@ -68,8 +68,8 @@ public class Event extends Task{
      * @return Task type, status icon, description, start date/time and end date/time of the task
      */
     @Override
-    public String toString(){
-        return "[E]" + super.toString() + " (from: " + this.from.format(DATE_OUTPUT_FORMATTER) 
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + this.from.format(DATE_OUTPUT_FORMATTER)
                 + " to: " + this.to.format(DATE_OUTPUT_FORMATTER) + ")";
     }
 }

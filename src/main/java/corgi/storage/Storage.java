@@ -30,7 +30,7 @@ public class Storage<T extends Storable<T>> {
     public Storage(Parser<T> parser, String filePath) {
         this.parser = parser;
         this.filePath = filePath;
-        
+
         // Check whether dir exists, create one if not
         File dir = new File(filePath).getParentFile();
         if (!dir.exists()) {
@@ -48,7 +48,7 @@ public class Storage<T extends Storable<T>> {
                 if (!success) {
                     System.err.println("An error occurred when creating file: " + file.getAbsolutePath());
                 } else {
-                    System.out.println("No previous data file found. Created a new data file at: " 
+                    System.out.println("No previous data file found. Created a new data file at: "
                             + file.getAbsolutePath());
                 }
             }
@@ -90,8 +90,8 @@ public class Storage<T extends Storable<T>> {
                     }
                 } catch (ParsingException e) {
                     skipped += 1;
-                    System.err.println("A parsing error occurred when loading data: " + e.getMessage() + 
-                            "\nCorrupted data: " + line + " (Skipped)");
+                    System.err.println("A parsing error occurred when loading data: " + e.getMessage()
+                            + "\nCorrupted data: " + line + " (Skipped)");
                 }
             }
         } catch (IOException e) {

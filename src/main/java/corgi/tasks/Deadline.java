@@ -7,11 +7,11 @@ import corgi.parsers.TaskParser;
 /**
  * Deadline task, a type of task that need to be done before a specific date/time.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     private LocalDate by;
 
     /**
-     * Initializes a new deadline task with the given description and deadline. 
+     * Initializes a new deadline task with the given description and deadline.
      *
      * @param desc The description of the task
      * @param by The deadline of the task
@@ -22,7 +22,7 @@ public class Deadline extends Task{
     }
 
     /**
-     * Initializes a new deadline task with the given status, description, and deadline. 
+     * Initializes a new deadline task with the given status, description, and deadline.
      *
      * @param status The status of the task.
      * @param desc The description of the task.

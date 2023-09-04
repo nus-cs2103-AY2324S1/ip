@@ -13,7 +13,6 @@ import corgi.commands.FindTasksOnDateCommand;
 import corgi.commands.InvalidCommandException;
 import corgi.commands.ListTasksCommand;
 import corgi.commands.MarkTaskCommand;
-
 import corgi.tasks.Deadline;
 import corgi.tasks.Event;
 import corgi.tasks.Task;
@@ -22,11 +21,11 @@ import corgi.tasks.ToDo;
 /**
  * A parser class for interpreting user input and generating corresponding Command objects.
  */
-public class CommandParser extends Parser<Command>{
+public class CommandParser extends Parser<Command> {
 
     /**
      * Parses the given full command string and generates the corresponding Command object.
-     * 
+     *
      * @param fullCommand The full user input command string.
      * @return The Command object representing the parsed command.
      * @throws InvalidCommandFormatException If the command format is invalid.
@@ -78,6 +77,8 @@ public class CommandParser extends Parser<Command>{
         case FIND:
             command = newFindCommand(inputs);
             break;
+        default:
+            throw new InvalidCommandTypeException("Invalid Command!");
         }
 
         return command;
@@ -85,55 +86,55 @@ public class CommandParser extends Parser<Command>{
 
     private Command newExitCommand(String[] inputs) throws InvalidCommandFormatException {
         if (inputs.length > 1) {
-            throw new InvalidCommandFormatException("No argument is needed!" + "\nFormat: " + 
-                    CommandType.BYE.getCommandFormat());
+            throw new InvalidCommandFormatException("No argument is needed!" + "\nFormat: "
+                    + CommandType.BYE.getCommandFormat());
         }
         return new ExitCommand();
     }
 
     private Command newListCommand(String[] inputs) throws InvalidCommandFormatException {
         if (inputs.length > 1) {
-            throw new InvalidCommandFormatException("No argument is needed!" + "\nFormat: " +  
-                    CommandType.LIST.getCommandFormat());
+            throw new InvalidCommandFormatException("No argument is needed!" + "\nFormat: "
+                    + CommandType.LIST.getCommandFormat());
         }
         return new ListTasksCommand();
     }
 
     private Command newMarkCommand(String[] inputs, boolean status) throws InvalidCommandFormatException {
         if (inputs.length == 1) {
-            throw new InvalidCommandFormatException("No argument is provided!" + "\nFormat: " +  
-                    (status ? CommandType.MARK.getCommandFormat() : CommandType.UNMARK.getCommandFormat()));
-        } 
+            throw new InvalidCommandFormatException("No argument is provided!" + "\nFormat: "
+                    + (status ? CommandType.MARK.getCommandFormat() : CommandType.UNMARK.getCommandFormat()));
+        }
 
         try {
             int index = Integer.parseInt(inputs[1]) - 1;
-            return new MarkTaskCommand(index, status, 
+            return new MarkTaskCommand(index, status,
                     status ? CommandType.MARK : CommandType.UNMARK);
         } catch (NumberFormatException e) {
-            throw new InvalidCommandFormatException("Please provide a valid task number!" +  "\nFormat: " + 
-                    (status ? CommandType.MARK.getCommandFormat() : CommandType.UNMARK.getCommandFormat()));
+            throw new InvalidCommandFormatException("Please provide a valid task number!" + "\nFormat: "
+                    + (status ? CommandType.MARK.getCommandFormat() : CommandType.UNMARK.getCommandFormat()));
         }
     }
 
     private Command newDeleteCommand(String[] inputs) throws InvalidCommandFormatException {
         if (inputs.length == 1) {
-            throw new InvalidCommandFormatException("No argument is provided!" + "\nFormat: " +
-                    CommandType.DELETE.getCommandFormat());
-        } 
+            throw new InvalidCommandFormatException("No argument is provided!" + "\nFormat: "
+                    + CommandType.DELETE.getCommandFormat());
+        }
 
         try {
             int index = Integer.parseInt(inputs[1]) - 1;
             return new DeleteTaskCommand(index);
         } catch (NumberFormatException e) {
-            throw new InvalidCommandFormatException("Please provide a valid task number!" + "\nFormat: " +
-                    CommandType.DELETE.getCommandFormat());
+            throw new InvalidCommandFormatException("Please provide a valid task number!" + "\nFormat: "
+                    + CommandType.DELETE.getCommandFormat());
         }
     }
 
     private Command newDateCommand(String[] inputs) throws InvalidCommandFormatException {
         if (inputs.length == 1) {
-            throw new InvalidCommandFormatException("No argument is provided!" + "\nFormat: " +
-                    CommandType.DATE.getCommandFormat());
+            throw new InvalidCommandFormatException("No argument is provided!" + "\nFormat: "
+                    + CommandType.DATE.getCommandFormat());
         }
 
         LocalDate target = null;
@@ -151,8 +152,8 @@ public class CommandParser extends Parser<Command>{
 
     private Command newFindCommand(String[] inputs) throws InvalidCommandFormatException {
         if (inputs.length == 1) {
-            throw new InvalidCommandFormatException("No argument is provided!" + "\nFormat: " +
-                    CommandType.FIND.getCommandFormat());
+            throw new InvalidCommandFormatException("No argument is provided!" + "\nFormat: "
+                    + CommandType.FIND.getCommandFormat());
         }
 
         String keyword = inputs[1];
@@ -162,8 +163,8 @@ public class CommandParser extends Parser<Command>{
 
     private Command newAddCommand(String[] inputs, CommandType type) throws InvalidCommandFormatException {
         if (inputs.length == 1) {
-            throw new InvalidCommandFormatException("No argument is provided!" + "\nFormat: " +
-                    type.getCommandFormat());
+            throw new InvalidCommandFormatException("No argument is provided!" + "\nFormat: "
+                    + type.getCommandFormat());
         }
 
         String taskInfo = inputs[1];
@@ -178,8 +179,8 @@ public class CommandParser extends Parser<Command>{
             String[] deadlineInfos = taskInfo.split(" /by ");
 
             if (deadlineInfos.length == 1) {
-                throw new InvalidCommandFormatException("Missing deadline!" + "\nFormat: " +
-                    type.getCommandFormat());
+                throw new InvalidCommandFormatException("Missing deadline!" + "\nFormat: "
+                        + type.getCommandFormat());
             }
 
             String deadlineDesc = deadlineInfos[0];
@@ -188,8 +189,8 @@ public class CommandParser extends Parser<Command>{
             try {
                 by = LocalDate.parse(deadlineInfos[1], Task.DATE_INPUT_FORMATTER);
             } catch (DateTimeParseException e) {
-                throw new InvalidCommandFormatException("Invalid date format!" + "\nFormat: " +
-                    type.getCommandFormat());
+                throw new InvalidCommandFormatException("Invalid date format!" + "\nFormat: "
+                        + type.getCommandFormat());
             }
 
             Task target = new Deadline(deadlineDesc, by);
@@ -201,22 +202,22 @@ public class CommandParser extends Parser<Command>{
             String[] eventInfos = taskInfo.split(" /from ");
 
             if (eventInfos.length < 2) {
-                throw new InvalidCommandFormatException("Missing /from argument." + "\nFormat: " +
-                    type.getCommandFormat());
+                throw new InvalidCommandFormatException("Missing /from argument." + "\nFormat: "
+                        + type.getCommandFormat());
             } else if (eventInfos.length > 2) {
-                throw new InvalidCommandFormatException("Only one /from argument is needed." + "\nFormat: " +
-                    type.getCommandFormat());
+                throw new InvalidCommandFormatException("Only one /from argument is needed." + "\nFormat: "
+                        + type.getCommandFormat());
             }
 
             String eventDesc = eventInfos[0];
             String[] eventDuration = eventInfos[1].split(" /to ");
 
             if (eventDuration.length < 2) {
-                throw new InvalidCommandFormatException("Missing /to argument!" + "\nFormat: " +
-                    type.getCommandFormat());
+                throw new InvalidCommandFormatException("Missing /to argument!" + "\nFormat: "
+                        + type.getCommandFormat());
             } else if (eventDuration.length > 2) {
-                throw new InvalidCommandFormatException("Only one /to argument is needed." + "\nFormat: " +
-                    type.getCommandFormat());
+                throw new InvalidCommandFormatException("Only one /to argument is needed." + "\nFormat: "
+                        + type.getCommandFormat());
             }
 
             LocalDate from = null;
@@ -226,8 +227,8 @@ public class CommandParser extends Parser<Command>{
                 from = LocalDate.parse(eventDuration[0], Task.DATE_INPUT_FORMATTER);
                 to = LocalDate.parse(eventDuration[1], Task.DATE_INPUT_FORMATTER);
             } catch (DateTimeParseException e) {
-                throw new InvalidCommandFormatException("Invalid date format!" + "\nFormat: " +
-                    type.getCommandFormat());
+                throw new InvalidCommandFormatException("Invalid date format!" + "\nFormat: "
+                        + type.getCommandFormat());
             }
 
             Task target = new Event(eventDesc, from, to);

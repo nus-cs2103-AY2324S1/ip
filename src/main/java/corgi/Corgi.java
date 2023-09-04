@@ -3,26 +3,25 @@ import java.util.Scanner;
 
 import corgi.commands.Command;
 import corgi.commands.CommandExecutionException;
-
 import corgi.parsers.CommandParser;
 import corgi.parsers.InvalidCommandFormatException;
 import corgi.parsers.InvalidCommandTypeException;
 import corgi.parsers.TaskParser;
-
 import corgi.storage.Storage;
 import corgi.tasks.Task;
 import corgi.tasks.TaskList;
 import corgi.ui.Ui;
 
+/**
+ * The `Corgi` class represents a chatbot named Corgi that manages tasks.
+ * It provides a command-line interface for interacting with the chatbot.
+ *
+ * This class initializes the chatbot and handles user input and commands.
+ */
 public class Corgi {
     private TaskList tasks;
     private Storage<Task> storage;
     private Ui ui;
-
-    public static void main(String[] args) {
-        Corgi bot = new Corgi();
-        bot.start();
-    }
 
     /**
      * Constructs new Corgi chatbot with an empty task list.
@@ -48,7 +47,7 @@ public class Corgi {
 
         boolean isExit = false;
 
-        while(!isExit) {
+        while (!isExit) {
             String userInput = this.ui.readCommand();
 
             if (userInput.equals("")) {
@@ -76,5 +75,10 @@ public class Corgi {
         }
 
         sc.close();
+    }
+
+    public static void main(String[] args) {
+        Corgi bot = new Corgi();
+        bot.start();
     }
 }

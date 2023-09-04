@@ -11,14 +11,14 @@ public class ErrorMessage {
     /**
      * A mapping between exception class names and their corresponding error messages.
      */
-    public static final Map<String, String> mapper = new HashMap<>();
+    public static final Map<String, String> MAPPER = new HashMap<>();
 
     static {
-        mapper.put("InvalidCommandTypeException",
+        MAPPER.put("InvalidCommandTypeException",
                 "Can't believe you're asking that! Grrr, what do you want now?");
-        mapper.put("InvalidCommandFormatException",
+        MAPPER.put("InvalidCommandFormatException",
                 "Are you trying to confuse me with this nonsense? Try again hooman!");
-        mapper.put("CommandExecutionException",
+        MAPPER.put("CommandExecutionException",
                 "Argh, something went wrong! Bad hooman, what are you trying to do!?");
     }
 }

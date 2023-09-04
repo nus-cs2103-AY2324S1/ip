@@ -14,7 +14,7 @@ import corgi.tasks.ToDo;
  * the implementation to parse string representations of tasks and
  * convert them into Task objects.
  */
-public class TaskParser extends Parser<Task>{
+public class TaskParser extends Parser<Task> {
     /**
      * The separator used to split task infos in the input string.
      */

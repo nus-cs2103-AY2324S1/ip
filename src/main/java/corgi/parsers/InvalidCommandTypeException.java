@@ -3,7 +3,7 @@ package corgi.parsers;
 /**
  * Represents an exception that is thrown when an error occurs due to an invalid command type.
  */
-public class InvalidCommandTypeException extends InvalidParsingTypeException{
+public class InvalidCommandTypeException extends InvalidParsingTypeException {
     /**
      * Initializes a new InvalidCommandTypeException with the specified error message.
      *

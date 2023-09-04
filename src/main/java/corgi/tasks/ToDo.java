@@ -5,7 +5,6 @@ import corgi.parsers.TaskParser;
  * Todo task, a type of task without any date/time attached to it.
  */
 public class ToDo extends Task {
-    
     /**
      * Initializes a new todo task with the given description. The task's initial status is set to not done.
      *

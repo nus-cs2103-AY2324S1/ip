@@ -6,11 +6,11 @@ import corgi.storage.Storable;
 /**
  * Task class storing description and status.
  */
-public abstract class Task implements Storable<Task>{
-    protected String desc;
-    protected boolean status;
+public abstract class Task implements Storable<Task> {
     public static final DateTimeFormatter DATE_INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     public static final DateTimeFormatter DATE_OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    protected String desc;
+    protected boolean status;
 
     /**
      * Initializes a new task with its description. The task's initial status is set to not done.
@@ -26,8 +26,8 @@ public abstract class Task implements Storable<Task>{
     /**
      * Mark task as done.
      */
-    public void markAsDone() throws TaskStatusException{
-        if(this.status == true) {
+    public void markAsDone() throws TaskStatusException {
+        if (this.status == true) {
             throw new TaskStatusException("The task is already marked as done.");
         }
         this.status = true;
@@ -36,8 +36,8 @@ public abstract class Task implements Storable<Task>{
     /**
      * Mark task as not done.
      */
-    public void markAsNotDone() throws TaskStatusException{
-        if(this.status == false) {
+    public void markAsNotDone() throws TaskStatusException {
+        if (this.status == false) {
             throw new TaskStatusException("The task is already marked as not done.");
         }
         this.status = false;
@@ -45,7 +45,7 @@ public abstract class Task implements Storable<Task>{
 
     /**
      * Returns an icon representing the status of the task.
-     * 
+     *
      * @return An icon ("X" for done, " " for not done).
      */
     public String getStatusIcon() {
