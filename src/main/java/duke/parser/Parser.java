@@ -3,11 +3,23 @@ package duke.parser;
 import duke.command.*;
 import duke.exception.KoraException;
 
+/**
+ * Parser class process user input and generates command.
+ */
 public class Parser {
 
+    /**
+     * Class constructor of Parser.
+     */
     public Parser() {
-
     }
+
+    /**
+     * Processes user input and returns a command based on data processed.
+     * @param userInput String input from user.
+     * @return Command to be executed.
+     * @throws KoraException For invalid input.
+     */
     public static Command parse(String userInput) throws KoraException {
         String line = "------------------------------" + "\n";
         String[] userInputArray = userInput.split("/");

@@ -8,14 +8,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Storage class is to load and save the tasks in the hard disk automatically.
+ */
 public class Storage {
-    public static final String DEFAULT_PATH = "./data/savedtask.txt";
+    private static final String DEFAULT_PATH = "./data/savedtask.txt";
 
     private String path;
+
+    /**
+     * Class constructor of Storage.
+     * @param filePath Location of the data stored.
+     */
     public Storage(String filePath) {
         path = filePath;
     }
 
+    /**
+     * Creates folder and file if they don't exist.
+     * @throws KoraException When unable to create the folder and file.
+     */
     public void createFile() throws KoraException {
         File f = new File("./data");
         if (!f.exists()) {
@@ -33,6 +45,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from data stored.
+     * @param taskList List of tasks that is stored.
+     * @throws KoraException When unable to scan.
+     */
     public void loadTask(TaskList taskList) throws KoraException {
         createFile();
         File f = new File(path);
@@ -49,10 +66,12 @@ public class Storage {
     }
 
 
+    /**
+     * Saves tasks in the current tasklist.
+     * @param taskList Current list of tasks.
+     * @throws KoraException When unable to add.
+     */
     public void saveTask(TaskList taskList) throws KoraException {
-//        FileWriter fw = new FileWriter(path, true);
-//        fw.write(task.saveFormat() + "\n");
-//        fw.close();
 
         try (FileWriter fw = new FileWriter(path, true)) {
             fw.write(taskList.saveFormat());
@@ -61,6 +80,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates task according to different type and with data from array with strings from user input.
+     * @param array String array from user input.
+     * @return Task
+     * @throws KoraException When the type of task is not valid.
+     */
     public Task checkTask(String[] array) throws KoraException {
         Task currentTask;
         if (array[0].contains("E")) {

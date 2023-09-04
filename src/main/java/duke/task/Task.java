@@ -3,6 +3,9 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Task class stores details of the tasks.
+ */
 public class Task {
     //private int num;
     private String details;
@@ -13,6 +16,10 @@ public class Task {
 
     protected LocalDateTime byTime;
 
+    /**
+     * Class constructor of Task.
+     * @param info String that contains details of the task.
+     */
     public Task(String info) {
         //num = index;
         details = info;
@@ -20,18 +27,32 @@ public class Task {
         //taskType = type;
     }
 
+    /**
+     * Formats and returns time in String.
+     * @return Time in String using correct format.
+     */
     public String getTime() {
         return byTime.format(DateTimeFormatter.ofPattern("E, MMM dd yyyy"));
     }
 
+    /**
+     * Marks the task to be done.
+     */
     public void setMarked() {
         isMarked = true;
     }
 
+    /**
+     * Marks the task to be undone.
+     */
     public void setUnmarked() {
         isMarked = false;
     }
 
+    /**
+     * Shows visual representation of status of task.
+     * @return String of [X] or [].
+     */
     public String showMarked() {
         String output;
         if (isMarked) {
@@ -42,24 +63,44 @@ public class Task {
         return output;
     }
 
+    /**
+     * Returns the details of the task.
+     * @return Details in string.
+     */
     public String getDetails() {
         return details;
     }
 
+    /**
+     * Sets task type.
+     * @param type Type of task.
+     */
     public void setTaskType(String type) {
         taskType = type;
     }
 
+    /**
+     * Returns type of task.
+     * @return String which represent task type.
+     */
     public String getTaskType() {
         return taskType;
     }
 
+    /**
+     * Returns format in which the task is saved in the hard disk.
+     * @return String representation of task saved.
+     */
     public String saveFormat() {
         String output;
         output = taskType + " / " + showMarked() + "/ " + details;
         return output;
     }
 
+    /**
+     * Return type, status and description of the task.
+     * @return String representation of task.
+     */
     @Override
     public String toString() {
         String output = "[" + taskType + "]" + showMarked() + details;
