@@ -6,6 +6,7 @@ import main.Duke;
 import storage.Storage;
 import actions.TaskList;
 
+
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
@@ -64,6 +65,10 @@ public class Parser {
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 System.out.println("The task index is invalid! Try again!");
             }
+
+        } else if (inputArray[0].equals("find")) {
+            String name = inputArray[1];
+            tasklist.chadFindTask(name);
 
         } else if (inputArray[0].equals("todo")) {
             try {
