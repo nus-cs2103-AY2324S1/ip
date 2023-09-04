@@ -1,20 +1,37 @@
 package duke.tasks;
 
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
+    private static final String DONE_FLAG = "[X] ";
+    private static final String UNDONE_FLAG = "[ ] ";
+    private final String description;
+    private boolean isDone;
+    private final TaskType type;
 
-    public Task(String description) {
+
+    public Task(String description, TaskType type) {
         this.description = description;
-        this.isDone = false;
+        isDone = false;
+        this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     public void unmark() {
-        this.isDone = false;
+        isDone = false;
+    }
+    @Override
+    public String toString() {
+        return (isDone() ? DONE_FLAG : UNDONE_FLAG) + getDescription();
     }
 }
 
