@@ -1,6 +1,7 @@
 package bob.command;
 
 import bob.exception.BobException;
+import bob.exception.BobInvalidTaskNumberException;
 import bob.storage.StorageFile;
 import bob.task.TaskList;
 import bob.ui.TextUi;
@@ -19,7 +20,7 @@ public abstract class Command {
      * @param ui User Interface reader and writer
      * @throws BobException if the command is constructed with invalid arguments
      */
-    public abstract void execute(TaskList taskList, StorageFile storageFile, TextUi ui) throws BobException;
+    public abstract void execute(TaskList taskList, StorageFile storageFile) throws BobException;
 
     /**
      * Represents whether the current command should terminate the current application.
@@ -27,4 +28,13 @@ public abstract class Command {
      * @return a boolean signifying whether to terminate the program
      */
     public abstract boolean isExit();
+
+    /**
+     * Returns a message to be displayed to the user after command is executed
+     * successfully. This method should only be called after the execute method
+     * has been called.
+     *
+     * @return Message to be displayed
+     */
+    public abstract String getOutputMessage() throws BobException;
 }

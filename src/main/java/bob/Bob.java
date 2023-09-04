@@ -58,7 +58,7 @@ public class Bob {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
+    public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
             c.execute(taskList, storageFile);
@@ -69,5 +69,13 @@ public class Bob {
         } catch (BobException e) {
             return TextGenerator.getErrorMessage(e);
         }
+    }
+
+    public boolean isActive() {
+        return this.isActive;
+    }
+
+    public String getBobWelcomeMessage() {
+        return TextGenerator.getWelcomeMessage();
     }
 }

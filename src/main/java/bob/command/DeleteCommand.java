@@ -4,6 +4,7 @@ import bob.exception.BobException;
 import bob.storage.StorageFile;
 import bob.task.Task;
 import bob.task.TaskList;
+import bob.ui.TextGenerator;
 import bob.ui.TextUi;
 
 /**
@@ -12,6 +13,7 @@ import bob.ui.TextUi;
  */
 public class DeleteCommand extends Command {
     private int taskNumber;
+    private Task task;
 
     /**
      * Constructor of the DeleteCommand Class.
@@ -23,14 +25,19 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, StorageFile storageFile, TextUi ui) throws BobException {
-        Task deletedTask = taskList.deleteTask(taskNumber);
-        ui.printDeleteMessage(deletedTask);
+    public void execute(TaskList taskList, StorageFile storageFile) throws BobException {
+        this.task = taskList.getTask(taskNumber - 1);
+        taskList.deleteTask(taskNumber);
         storageFile.saveTasks(taskList);
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public String getOutputMessage() {
+        return TextGenerator.getDeleteMessage(task);
     }
 }

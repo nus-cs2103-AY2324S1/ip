@@ -158,5 +158,5 @@ public class TextUi {
      */
     public String readTextInput() {
         return scanner.nextLine();
-    }
+    } //TODO: Remove this?
 }
