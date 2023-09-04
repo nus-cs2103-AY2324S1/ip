@@ -1,16 +1,16 @@
 package duke.parser;
 
-import duke.command.ByeCommand;
-import duke.command.Command;
-import duke.exception.DukeException;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.Test;
+
+import duke.command.Command;
+import duke.exception.DukeException;
+
 public class ParserTest {
     @Test
-    public void parse_unknownCommand_exceptionThrown(){
+    public void parse_unknownCommand_exceptionThrown() {
         try {
             Command command = Parser.parse("blah");
             fail();
@@ -20,7 +20,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_invalidDeadlineCommand_exceptionThrown(){
+    public void parse_invalidDeadlineCommand_exceptionThrown() {
         try {
             Command command = Parser.parse("deadline read");
             fail();
