@@ -1,27 +1,31 @@
 import command.*;
+import exception.KoraException;
+import parser.Parser;
+import storage.Storage;
 import task.TaskList;
+import ui.UI;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Duke {
     private TaskList taskList;
+    private Storage storage;
+    private UI ui;
     private boolean isExit = false;
-    public Duke() {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-        String logo = "  _   _   _\n" +
-                " / \\ / \\ / \\\n" +
-                "( 안 | 녕 )\n" +
-                " \\_/ \\_/ \\_/\n";
-        System.out.println(logo + "Hello, I am your chatbot Kora!\nHow can I help you today?");
-        System.out.println("------------------------------");
+    public Duke(String filePath) {
+        ui = new UI();
+        storage = new Storage(filePath);
+        taskList = new TaskList();
+        try {
+            storage.loadTask(taskList);
+        } catch (KoraException e) {
+            System.out.println(e.getMessage());
+        }
 
 
-        taskList = new TaskList("./data/savedtask.txt");
 
+/*
         while (!isExit) {
             Scanner scanner = new Scanner(System.in);
             //System.out.println("------------------------------");
@@ -31,54 +35,35 @@ public class Duke {
                 getResponse(scanner.nextLine());
             }
         }
+
+ */
     }
 
-    public void getResponse(String userInput) {
-        String line = "------------------------------" + "\n";
-        String[] userInputArray = userInput.split("/");
+    public Command getResponse(String userInput) {
         try {
-            if (userInputArray[0].contains("bye")) {
-                Command command = new ByeCommand();
-                command.execute(taskList);
-                command.printOutput(command.getCommandMessage());
-                isExit = true;
-            } else if (userInputArray[0].contains("list")) {
-                Command command = new ListCommand();
-                command.execute(taskList);
-                command.printOutput(command.getCommandMessage());
-            } else if (userInputArray[0].contains("unmark")) {
-                Command command = new UnmarkCommand(userInputArray);
-                command.execute(taskList);
-                command.printOutput(command.getCommandMessage());
-            } else if (userInputArray[0].contains("mark")) {
-                Command command = new MarkCommand(userInputArray);
-                command.execute(taskList);
-                command.printOutput(command.getCommandMessage());
-
-            } else if (userInputArray[0].contains("deadline")) {
-                Command command = new DeadlineCommand(userInputArray);
-                command.execute(taskList);
-                command.printOutput(command.getCommandMessage());
-            } else if (userInputArray[0].contains("event")) {
-                Command command = new EventCommand(userInputArray);
-                command.execute(taskList);
-                command.printOutput(command.getCommandMessage());
-            } else if (userInputArray[0].contains("todo")) {
-                Command command = new ToDoCommand(userInputArray);
-                command.execute(taskList);
-                command.printOutput(command.getCommandMessage());
-            } else if (userInputArray[0].contains("delete")) {
-                Command command = new DeleteCommand(userInputArray);
-                command.execute(taskList);
-                command.printOutput(command.getCommandMessage());
-            } else {
-                System.out.println("I do not understand");
-            }
-        } catch (Exception e) {
+            Command command = Parser.parse(userInput);
+            command.execute(taskList);
+            System.out.println(command.getCommandMessage());
+            return command;
+        } catch (KoraException e) {
             System.out.println(e.getMessage());
+            return null;
         }
     }
+
+    public void run() {
+        ui.greet();
+        while (!isExit) {
+                String userInput = ui.getUserInput();
+                Command command = getResponse(userInput);
+                isExit = command.isExitYet();
+
+        }
+        ui.closeScanner();
+
+    }
     public static void main(String[] args) {
-        Duke kora = new Duke();
+        Duke kora = new Duke("./data/savedtask.txt");
+        kora.run();
     }
 }

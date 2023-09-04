@@ -29,7 +29,7 @@ public class EventCommand extends Command {
         return commandMessage;
     }
     @Override
-    public void execute(TaskList taskList) {
+    public void execute(TaskList taskList) throws KoraException {
         currentTask = new Event(taskDetails, startTimeDetails, endTimeDetails);
         taskList.addTask(currentTask);
         commandMessage = "Okay! I have added this task" + "\n" +

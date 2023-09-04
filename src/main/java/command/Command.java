@@ -14,5 +14,9 @@ public abstract class Command {
         System.out.println(line + "\n" + output + "\n" +line);
     }
     public abstract String getCommandMessage();
-    public abstract void execute(TaskList taskList);
+    public abstract void execute(TaskList taskList) throws KoraException;
+
+    public boolean isExitYet() {
+        return false;
+    }
 }

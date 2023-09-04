@@ -21,7 +21,7 @@ public class DeadlineCommand extends Command {
         return commandMessage;
     }
     @Override
-    public void execute(TaskList taskList) {
+    public void execute(TaskList taskList) throws KoraException {
         Task currentTask = new Deadline(taskDetails, timeDetails);
         taskList.addTask(currentTask);
         commandMessage = "Okay! I have added this task" + "\n" +
