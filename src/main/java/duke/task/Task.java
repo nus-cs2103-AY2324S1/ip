@@ -1,12 +1,52 @@
-class Task {
-    protected final String description;
-    protected boolean isDone;
+package duke.task;
 
+import duke.Ui;
+import duke.exceptions.DukeException;
+
+/**
+ * Represents a Task, a supertype of Event, Deadline and Todo
+ * <code>isDone</code> shows whether the task is completed
+ */
+public abstract class Task {
+    /**
+     * name of task
+     */
+    private final String description;
+    /**
+     * whether the task is done
+     */
+    private boolean isDone;
+    /**
+     * constructor, should not be used because this is an abstract class. For initialising description
+     * and isDone only
+     * @param done whether the task is done
+     * @param description name of task
+     */
     public Task(boolean done, String description) {
         this.description = description;
         this.isDone = done;
     }
 
+    /**
+     * getter for boolean isDone
+     * @return boolean isDone
+     */
+    public boolean getisDone() {
+        return this.isDone;
+    }
+
+    /**
+     * getter for descriptions
+     * @return
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * marks the task as done, if it is undone
+     * @throws DukeException if task is already done
+     */
     public void mark() throws DukeException {
         if (this.isDone) {
             throw new DukeException("Task already done");
@@ -15,6 +55,10 @@ class Task {
         Ui.print("Nice! I've marked this task as done:\n" + toString());
     }
 
+    /**
+     * unmarks the task as undone, if it is done
+     * @throws DukeException if task is still undone
+     */
     public void unmark() throws DukeException {
         if (!this.isDone) {
             throw new DukeException("Task still undone");
@@ -22,16 +66,28 @@ class Task {
         this.isDone = false;
         Ui.print("OK, I've marked this task as not done yet:\n" + toString());
     }
-
+    /**
+     * get String representation of whether the task is done
+     * @return <code>"X"</code> for done, " " for undone
+     */
     private String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
-
+    /**
+     * String representation of task, including whether the task is done
+     * @return string representation of task
+     */
     @Override
     public String toString() {
         return ("[" + this.getStatusIcon() + "] " + this.description);
     }
 
+    /**
+     * converts hard drive's String format of a task into an actual task item
+     * @param text String from hard drive
+     * @return task item
+     * @throws DukeException if string cannot be recognised and cannot be parsed into a task
+     */
     public static Task parse(String text) throws DukeException {
         String[] parts = text.split("\\|");
         String first = parts[0];

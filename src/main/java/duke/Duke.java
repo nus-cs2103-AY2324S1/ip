@@ -1,4 +1,16 @@
+package duke;
+
+import duke.exceptions.DukeException;
+import duke.exceptions.TaskParseException;
+import duke.task.Task;
+
+/**
+ * main program, responsible for running everything and connecting components together
+ */
 public class Duke {
+    /**
+     * types of task
+     */
     public enum TaskType {
         BYE,
         LIST,
@@ -9,6 +21,10 @@ public class Duke {
         TODO,
         DEADLINE
     }
+
+    /**
+     * keeps reading commands and responding accordingly, until command is "bye"
+     */
     public static void run() {
         Ui.printGreeting();
         String inputString = Ui.readCommand();

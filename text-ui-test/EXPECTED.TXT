@@ -22,7 +22,7 @@ now you have 3 tasks in the list
 3.[E][ ] project meeting  (from: 02 December 2019 to: 03 December 2019)
 Nice! I've marked this task as done:
 [D][X] return book    (by: 02 December 2019)
-Task already done
+task.task already done
 1.[T][ ] read book
 2.[D][X] return book     (by: 02 December 2019)
 3.[E][ ] project meeting    (from: 02 December 2019 to: 03 December 2019)
