@@ -1,26 +1,31 @@
 package command;
 
+import java.time.LocalDateTime;
+
 import duke.Storage;
 import duke.Ui;
-
 import task.Deadline;
 import task.TaskList;
-
-import java.time.LocalDateTime;
 
 /**
  * Adds a deadline, which has a description and a date/time to do by, to the todo list
  */
 public class DeadlineCommand extends Command {
+    public static final String COMMAND_WORD = "deadline";
+    public static final String MESSAGE_SUCCESS = " Got it. I've added this task:\n";
 
     /** Description of the task */
     protected String description;
 
     /** Deadline that the task is to be done by */
     protected LocalDateTime by;
-    public static final String COMMAND_WORD = "deadline";
-    public static final String MESSAGE_SUCCESS = " Got it. I've added this task:\n";
 
+    /**
+     * Creates an add deadline command with the given description and date/time the task is to be done by
+     *
+     * @param description description of the task
+     * @param by date/time the task is to be done by
+     */
     public DeadlineCommand(String description, LocalDateTime by) {
         this.description = description;
         this.by = by;

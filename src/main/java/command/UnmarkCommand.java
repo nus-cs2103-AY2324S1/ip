@@ -3,7 +3,6 @@ package command;
 import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
-
 import task.Task;
 import task.TaskList;
 
@@ -11,17 +10,21 @@ import task.TaskList;
  * Unmarks a task on the todo list
  */
 public class UnmarkCommand extends Command {
+    public static final String COMMAND_WORD = "unmark";
+    public static final String MESSAGE_SUCCESS = " OK, I've marked this task as not done yet:\n";
 
     /**
      * The index of the task to be marked as undone
      */
     protected int index;
-    public static final String COMMAND_WORD = "unmark";
-    public static final String MESSAGE_SUCCESS = " OK, I've marked this task as not done yet:\n";
 
+    /**
+     * Creates an unmark command with the given index
+     *
+     * @param index index of the task to unmark
+     */
     public UnmarkCommand(int index) {
         this.index = index;
-        this.isExit = false;
     }
 
     /**

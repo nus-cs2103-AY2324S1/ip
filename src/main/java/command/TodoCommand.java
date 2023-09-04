@@ -2,7 +2,6 @@ package command;
 
 import duke.Storage;
 import duke.Ui;
-
 import task.TaskList;
 import task.Todo;
 
@@ -10,11 +9,11 @@ import task.Todo;
  * Adds a todo, which has a description, to the todo list
  */
 public class TodoCommand extends Command {
+    public static final String COMMAND_WORD = "todo";
+    public static final String MESSAGE_SUCCESS = " Got it. I've added this task:\n";
 
     /** Description of the task */
     protected String description;
-    public static final String COMMAND_WORD = "todo";
-    public static final String MESSAGE_SUCCESS = " Got it. I've added this task:\n";
 
     public TodoCommand(String description) {
         this.description = description;

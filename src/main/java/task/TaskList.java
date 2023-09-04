@@ -13,7 +13,7 @@ public class TaskList {
     }
 
     /**
-     * returns the list of tasks
+     * Returns the list of tasks
      *
      * @return ArrayList of tasks
      */
@@ -78,6 +78,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Filters the task list by the given keyword
+     *
+     * @param keyword keyword to filter the task list by
+     * @return filtered task list with tasks which contain the given keyword
+     */
     public ArrayList<Task> filterTasks(String keyword) {
         ArrayList<Task> filteredTasks = new ArrayList<>();
         String keywordLowercase = keyword.toLowerCase();

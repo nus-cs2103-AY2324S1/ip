@@ -1,20 +1,18 @@
 package duke;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Represents the file used to store the todo list

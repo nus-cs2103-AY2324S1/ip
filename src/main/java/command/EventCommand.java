@@ -1,17 +1,18 @@
 package command;
 
+import java.time.LocalDateTime;
+
 import duke.Storage;
 import duke.Ui;
-
 import task.Event;
 import task.TaskList;
-
-import java.time.LocalDateTime;
 
 /**
  * Adds an event, which has a start date/time and an end date/time, to the todo list
  */
 public class EventCommand extends Command {
+    public static final String COMMAND_WORD = "event";
+    public static final String MESSAGE_SUCCESS = " Got it. I've added this task:\n";
 
     /** Description of the task */
     protected String description;
@@ -21,9 +22,14 @@ public class EventCommand extends Command {
 
     /** Ending date/time of the event */
     protected LocalDateTime to;
-    public static final String COMMAND_WORD = "event";
-    public static final String MESSAGE_SUCCESS = " Got it. I've added this task:\n";
 
+    /**
+     * Creates an add event command with the given description, start date/time and end date/time
+     *
+     * @param description description of the task
+     * @param from starting date/time of the task
+     * @param to ending date/time of the task
+     */
     public EventCommand(String description, LocalDateTime from, LocalDateTime to) {
         this.description = description;
         this.from = from;

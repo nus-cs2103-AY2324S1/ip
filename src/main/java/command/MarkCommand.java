@@ -3,7 +3,6 @@ package command;
 import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
-
 import task.Task;
 import task.TaskList;
 
@@ -11,11 +10,11 @@ import task.TaskList;
  * Marks a task on the todo list
  */
 public class MarkCommand extends Command {
+    public static final String COMMAND_WORD = "mark";
+    public static final String MESSAGE_SUCCESS = " Nice! I've marked this task as done:\n";
 
     /** The index of the task to be marked as done */
     protected int index;
-    public static final String COMMAND_WORD = "mark";
-    public static final String MESSAGE_SUCCESS = " Nice! I've marked this task as done:\n";
 
     public MarkCommand(int index) {
         this.index = index;

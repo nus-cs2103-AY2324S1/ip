@@ -4,13 +4,18 @@ package task;
  * Represents a task
  */
 public class Task {
-    
+
     /** Description of the task */
     protected String description;
 
     /** True if the task is done, false otherwise */
     protected boolean isDone;
 
+    /**
+     * Creates a task with the given description
+     *
+     * @param description description of the task
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
