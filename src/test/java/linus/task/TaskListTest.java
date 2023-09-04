@@ -1,10 +1,11 @@
 package linus.task;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 import linus.exception.LinusException;
 
@@ -12,7 +13,9 @@ public class TaskListTest {
     @Test
     public void add_addDifferentNewTasks_newTasksSuccesfullyAddedInOrder() {
         TaskList tasks = new TaskList();
-        Task toDo, deadline, event;
+        Task toDo = null;
+        Task deadline = null;
+        Task event = null;
         try {
             toDo = new ToDo("task 1");
             tasks.add(toDo);

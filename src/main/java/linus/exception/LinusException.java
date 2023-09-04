@@ -1,5 +1,8 @@
 package linus.exception;
 
+/**
+ * Represents a LinusException.
+ */
 public class LinusException extends Exception {
     /**
      * Constructs a new LinusException with the specified detail message.

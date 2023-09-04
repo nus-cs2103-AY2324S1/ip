@@ -1,12 +1,14 @@
 package linus.task;
 
-import java.util.List;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.List;
 
-import linus.util.Ui;
 import linus.exception.LinusException;
+import linus.util.Ui;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private List<Task> tasks = null;
 
@@ -27,23 +29,22 @@ public class TaskList {
 
     /**
      * Returns the list of tasks.
-     * @return List<Task>
+     * @return The list of tasks.
      */
     public List<Task> getList() {
         return this.tasks;
     }
 
     /**
-     * Returns the number of tasks in the list.
-     * @return int
+     * Prints the number of tasks in the list.
      */
     public void list() {
-        String listOfTasks = "Here are the tasks in your list:\n";
-        for (int i = 0; i < tasks.size(); i++) {
-            listOfTasks += (i + 1) + "."
+        String listOfItems = "Here are the tasks in your list:\n";
+        for (int i = 0; i < tasks.size(); ++i) {
+            listOfItems += (i + 1) + "."
                     + tasks.get(i).toString() + "\n";
         }
-        Ui.print(listOfTasks);
+        Ui.print(listOfItems);
     }
 
     /**
@@ -53,7 +54,7 @@ public class TaskList {
     public void add(Task task) {
         tasks.add(task);
         int numOfTasks = tasks.size();
-        Ui.print("Got it. I've added this linus.task:\n"
+        Ui.print("Got it. I've added this task:\n"
                 + "  " + task + "\n"
                 + "Now you have " + numOfTasks + " task" + (numOfTasks > 1 ? "s" : "") + " in the list.");
     }
@@ -66,12 +67,12 @@ public class TaskList {
     public void delete(int index) throws LinusException {
         index -= 1;
         if (index < 0 || index >= tasks.size()) {
-            throw new LinusException("Cannot delete linus.task. Please provide a valid index.");
+            throw new LinusException("Cannot delete task. Please provide a valid index.");
         }
         Task task = tasks.get(index);
         tasks.remove(index);
         int numOfTasks = tasks.size();
-        Ui.print("Noted. I've removed this linus.task:\n"
+        Ui.print("Noted. I've removed this task:\n"
                 + "  " + task + "\n"
                 + "Now you have " + numOfTasks + " task" + (numOfTasks > 1 ? "s" : "") + " in the list.");
     }
@@ -84,7 +85,7 @@ public class TaskList {
     public void mark(int index) throws LinusException {
         index -= 1;
         if (index < 0 || index >= tasks.size()) {
-            throw new LinusException("Cannot mark linus.task. Please provide a valid index.");
+            throw new LinusException("Cannot mark task. Please provide a valid index.");
         }
         tasks.get(index).mark();
 
@@ -98,7 +99,7 @@ public class TaskList {
     public void unmark(int index) throws LinusException {
         index -= 1;
         if (index < 0 || index >= tasks.size()) {
-            throw new LinusException("Cannot unmark linus.task. Please provide a valid index.");
+            throw new LinusException("Cannot unmark task. Please provide a valid index.");
         }
         tasks.get(index).unmark();
     }

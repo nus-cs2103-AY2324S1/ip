@@ -9,6 +9,9 @@ import linus.util.Parser;
 import linus.util.Storage;
 import linus.util.Ui;
 
+/**
+ * Represents a Linus Chatbot.
+ */
 public class Linus {
     private static final String FILE_PATH = "data/linus.txt";
 
@@ -29,6 +32,7 @@ public class Linus {
 
     /**
      * Constructs a Linus Chatbot with the specified file path.
+     *
      * @param filePath The file path.
      */
     public Linus(String filePath) {
@@ -96,7 +100,10 @@ public class Linus {
 
                     items = data.split(" /by ");
                     if (items.length != 2) {
-                        throw new LinusException("☹ OOPS!!! Please specify the deadline in the correct format: deadline <description> /by <date>");
+                        throw new LinusException(
+                                "☹ OOPS!!! Please specify the deadline in the correct format: "
+                                        + "deadline <description> /by <date>"
+                        );
                     }
 
                     description = items[0];
@@ -111,7 +118,10 @@ public class Linus {
 
                     items = data.split(" /from | /to ");
                     if (items.length != 3) {
-                        throw new LinusException("☹ OOPS!!! Please specify the event in the correct format: event <description> /from <date> /to <date>");
+                        throw new LinusException(
+                                "☹ OOPS!!! Please specify the event in the correct format: "
+                                        + "event <description> /from <date> /to <date>"
+                        );
                     }
                     description = items[0];
                     String from = items[1];
@@ -119,10 +129,12 @@ public class Linus {
 
                     tasks.add(new Event(description, from, to));
                     break;
+                default:
+                    throw new IllegalArgumentException();
                 }
             } catch (IllegalArgumentException e) {
-                Ui.print("☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
-                        "Please start your inputs with a valid command.");
+                Ui.print("☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n"
+                        + "Please start your inputs with a valid command.");
             } catch (LinusException e) {
                 Ui.print(e.getMessage());
             }
@@ -134,4 +146,5 @@ public class Linus {
     public static void main(String[] args) {
         new Linus(FILE_PATH).run();
     }
+
 }

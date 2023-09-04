@@ -1,7 +1,5 @@
 package linus.util;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -9,15 +7,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-import linus.task.Task;
+import org.junit.jupiter.api.Test;
+
 import linus.exception.LinusException;
+import linus.task.Task;
 
 public class StorageTest {
-    String SERIALIZED_LIST = "["
+    public static final String SERIALIZED_LIST = "["
             + "{'type':'linus.task.ToDo','description':'task 1', 'isDone':false},"
             + "{'type':'linus.task.Deadline','description':'task 2','isDone':false,'by':'2023-08-31'},"
-            + "{'type':'linus.task.Event','description':'task 3','isDone':false,'from':'2023-08-31','to':'2023-09-01'}" +
-            "]";
+            + "{'type':'linus.task.Event','description':'task 3','isDone':false,'from':'2023-08-31','to':'2023-09-01'}"
+            + "]";
 
     @Test
     public void load_loadTextFile_objectsSuccessfullyDeserialized() {
