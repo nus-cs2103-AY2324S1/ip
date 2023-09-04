@@ -25,6 +25,10 @@ public abstract class Task {
         this.isDone = status;
     }
 
+    public String getName() {
+        return this.taskName;
+    }
+
     /**
      * Marks a task as done.
      * Status of the task object is changed to true.

@@ -29,6 +29,7 @@ public class Parser {
      */
     public static ToDo parseTodo(String input) throws EmptyTaskException {
         String[] keyword = input.split(" ", 2);
+
         // checks if user has input a task name
         if (keyword.length == 1 || keyword[1].equals("")) {
             throw new EmptyTaskException();

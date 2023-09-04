@@ -13,13 +13,13 @@ import java.util.ArrayList;
  */
 public class TaskList {
     /** ArrayList of tasks in the task list */
-    private ArrayList<Task> array;
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructor of a TaskList object.
      */
     public TaskList() {
-        this.array = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -28,7 +28,8 @@ public class TaskList {
      * @param newTask New task to be added.
      */
     public void addTask(Task newTask) {
-        this.array.add(newTask);
+        // add new task into our tasks
+        this.tasks.add(newTask);
     }
 
     /**
@@ -39,10 +40,10 @@ public class TaskList {
      * @throws InvalidTaskException if task number is not within the length of task list.
      */
     public Task getTask(int taskNumber) throws InvalidTaskException {
-        if (taskNumber > this.array.size() || taskNumber == 0) {
+        if (taskNumber > this.tasks.size() || taskNumber == 0) {
             throw new InvalidTaskException();
         }
-        return this.array.get(taskNumber - 1);
+        return this.tasks.get(taskNumber - 1);
     }
 
     /**
@@ -51,7 +52,7 @@ public class TaskList {
      * @return Length of task list.
      */
     public int getLength() {
-        return this.array.size();
+        return this.tasks.size();
     }
 
     /**
@@ -61,8 +62,8 @@ public class TaskList {
      */
     public void deleteTask(Task task) {
         for (int i = 0; i < 100; i++) {
-            if (this.array.get(i).equals(task)) {
-                this.array.remove(i);
+            if (this.tasks.get(i).equals(task)) {
+                this.tasks.remove(i);
                 break;
             }
         }
@@ -77,8 +78,8 @@ public class TaskList {
     public String toString() {
         // display in numerical pointers
         String list = "";
-        for (int i = 0; i < this.array.size(); i++) {
-            Task task = this.array.get(i);
+        for (int i = 0; i < this.tasks.size(); i++) {
+            Task task = this.tasks.get(i);
             if (task == null) {
                 break;
             } else {
