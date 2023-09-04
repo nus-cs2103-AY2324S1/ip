@@ -52,6 +52,11 @@ public class James {
         }
     }
 
+    /**
+     * Processes the user input and returns the outpu from the bot.
+     * @param input The user input.
+     * @return The output from the bot.
+     */
     public String processInput(String input) {
         String output = this.ui.processInput(this.tasks, input);
         if (output == "Bye. Hope to see you again soon!") {
@@ -64,6 +69,10 @@ public class James {
         return output;
     }
 
+    /**
+     * Returns the welcome message.
+     * @return The welcome message.
+     */
     public String getWelcomeMessage() {
         return "Hello! I'm James\nWhat can I do for you?";
     }

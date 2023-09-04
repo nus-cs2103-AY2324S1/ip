@@ -2,8 +2,6 @@ package james;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import james.TaskList;
-import james.ToDoTask;
 import org.junit.jupiter.api.Test;
 
 public class TaskListTest {

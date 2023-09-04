@@ -2,10 +2,6 @@ package james;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import james.JamesException;
-import james.Parser;
-import james.Task;
-import james.TaskList;
 import org.junit.jupiter.api.Test;
 
 

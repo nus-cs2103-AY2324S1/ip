@@ -2,11 +2,9 @@ package app;
 import james.James;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -29,6 +27,9 @@ public class MainWindow extends AnchorPane {
     private Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image bot = new Image(this.getClass().getResourceAsStream("/images/bot.png"));
 
+    /**
+     * Initializes the MainWindow.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -37,7 +38,11 @@ public class MainWindow extends AnchorPane {
         );
     }
 
-    public void setDuke(James d) {
+    /**
+     * Sets the James object.
+     * @param d The James object.
+     */
+    public void setJames(James d) {
         james = d;
     }
 
@@ -60,7 +65,7 @@ public class MainWindow extends AnchorPane {
      * Returns the response from bot.
      */
     private String getResponse(String input) {
-        String output =  this.james.processInput(input);
+        String output = this.james.processInput(input);
         return output;
     }
 }

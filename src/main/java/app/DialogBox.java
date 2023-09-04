@@ -1,5 +1,6 @@
-package app;import java.io.IOException;
-import java.util.Collections;
+package app;
+
+import java.io.IOException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,9 +14,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
+ * A custom control using FXML.
+ * This control represents a dialog box consisting of an ImageView to represent the speaker's face
+ * and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -51,16 +52,33 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
+    /**
+     * Sets the background color of the dialog box.
+     * @param color The color to set the background to.
+     */
     public void setBackgroundColor(String color) {
         this.setStyle("-fx-background-color: " + color + "; -fx-padding: 10 0 0 0;");
     }
 
+
+    /**
+     * Returns a DialogBox with the user's text and image.
+     * @param text The text to display.
+     * @param img The image to display.
+     * @return A DialogBox with the user's text and image.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox box = new DialogBox(text, img);
         box.setBackgroundColor("#e6f2ff");
         return box;
     }
 
+    /**
+     * Returns a DialogBox with the bot's text and image.
+     * @param text The text to display.
+     * @param img The image to display.
+     * @return A DialogBox with the bot's text and image.
+     */
     public static DialogBox getBotDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

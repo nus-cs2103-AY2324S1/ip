@@ -128,7 +128,7 @@ public class Parser {
                 output += e.getMessage();
             }
             break;
-    }
+        }
         return output;
     }
 
