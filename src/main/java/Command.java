@@ -5,6 +5,5 @@ public abstract class Command {
 
     public Command() {
     }
-
     public abstract void execute(Storage storage, Ui ui, TaskList taskList);
 }
