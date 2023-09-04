@@ -10,6 +10,7 @@ import java.util.List;
 public class Event extends Task {
 
     protected String from;
+
     protected String to;
 
     protected LocalDate fromDate;
