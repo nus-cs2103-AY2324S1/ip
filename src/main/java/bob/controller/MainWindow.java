@@ -1,5 +1,7 @@
-package bob;
+package bob.controller;
 
+import bob.Bob;
+import bob.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -11,8 +13,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
 
+/**
+ * This control represents a text window consisting of a scroll pane, user input text field,
+ * a button to input text, and a dialog box.
+ */
 public class MainWindow extends AnchorPane {
     private final Image userImage = new Image(this.getClass()
             .getResourceAsStream("/images/DefaultUserProfilePic.jpg"));
@@ -30,6 +35,9 @@ public class MainWindow extends AnchorPane {
     private Bob bob;
     private Stage stage;
 
+    /**
+     * Constructor for the MainWindow Controller
+     */
     public MainWindow() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
@@ -49,6 +57,9 @@ public class MainWindow extends AnchorPane {
         this.stage = stage;
     }
 
+    /**
+     * Initialises the interactive components of the chat window.
+     */
     public void initialise() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         userInput.setOnAction((event) -> handleUserInput());

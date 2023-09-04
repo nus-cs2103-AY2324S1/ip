@@ -55,8 +55,12 @@ public class Bob {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Executes a command to read or modify the task list if user input abides
+     * by a given command format. Returns a crafted String message based on
+     * command executed or error prompted.
+     *
+     * @param input User input
+     * @return A message to displayed to user
      */
     public String getResponse(String input) {
         try {
