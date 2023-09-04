@@ -41,11 +41,11 @@ public class Parser {
         }
 
         if (cmd == Commands.COMMANDS.BY || cmd == Commands.COMMANDS.FROM || cmd == Commands.COMMANDS.TO) {
-            String restOfCommand = this.secondWord().trim();
             try {
+                String restOfCommand = this.secondWord().trim();
                 LocalDateTime dateTime = LocalDateTime.parse(restOfCommand, Duke.FORMAT);
                 return Commands.of(cmd, dateTime);
-            } catch (DateTimeParseException e) {
+            } catch (DateTimeParseException | NullPointerException e) {
                 throw new DukeDateTimeParseException(cmd
                         + ": The format for dates&time is 'dd-MM-yyyy hhmm'");
             }

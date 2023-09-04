@@ -39,7 +39,7 @@ public class Duke {
         try {
             Parser cmd = new Parser(command);
             Commands action = cmd.parse();
-            if (action.action(taskList) == 1) {
+            if (action.execute(taskList) == 1) {
                 nextCommand(ui.nextInput());
             } else {
                 ui.exit();

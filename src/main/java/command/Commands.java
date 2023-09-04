@@ -119,7 +119,7 @@ public class Commands {
      * @return Returns 0 if the 'bye' command is executed, returns 1 if any other command is successfully executed.
      * @throws DukeException The exception thrown when encountering any problems in executing.
      */
-    public int action(ListOfTask taskList) throws DukeException {
+    public int execute(ListOfTask taskList) throws DukeException {
         return execute(taskList, 0, null);
     }
 
