@@ -37,11 +37,11 @@ public class Storage {
      * Creates a save file if one doesn't exist
      * @throws StorageException Thrown if save file directory is unreachable
      */
-    public void createSaveFile() throws StorageException {
+    private void createSaveFile() throws StorageException {
         File saveFile = this.saveFile;
         try {
             if (saveFile.createNewFile()) {
-                client.getUi().say("New save file created!");
+                client.say("New save file created!");
                 saveSaveFile(new TaskList());
             };
         } catch (IOException e) {
@@ -66,7 +66,7 @@ public class Storage {
      * Load a save file from the file.
      * @throws StorageException Thrown if the save file is corrupted are cannot be found
      */
-    public void loadSaveFile() throws StorageException {
+    private void loadSaveFile() throws StorageException {
         try {
             FileInputStream fileInputStream = new FileInputStream(this.saveFile);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);

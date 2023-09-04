@@ -23,7 +23,7 @@ public class CommandTaskList extends Command {
      * @throws IllegalArgumentException Thrown when invalid index is given.
      */
     @Override
-    public void accept(Parser input) {
-        this.client.getUi().respond(this.client.getTaskList().toString());
+    public String apply(Parser input) {
+        return(this.client.taskListToString());
     }
 }

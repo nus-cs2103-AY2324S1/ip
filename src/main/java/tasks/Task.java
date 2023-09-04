@@ -35,6 +35,13 @@ public abstract class Task implements Serializable {
      *     of task to.
      */
     public void setCompleted(boolean completed) {
+        if (this.completed == completed) {
+            if (completed) {
+                throw new IllegalArgumentException("Task is already marked!");
+            } else {
+                throw new IllegalArgumentException("Task is already unmarked");
+            }
+        }
         this.completed = completed;
     }
     public String getName() {

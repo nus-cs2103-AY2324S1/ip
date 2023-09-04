@@ -29,34 +29,23 @@ public class CommandTaskMark extends Command {
      * @throws IllegalArgumentException Thrown when invalid index is given.
      */
     @Override
-    public void accept(Parser input) throws IllegalArgumentException, StorageException {
+    public String apply(Parser input) throws IllegalArgumentException, StorageException {
         String inputString = input.getDefaultString();
-        TaskList taskList = this.client.getTaskList();
         try {
             int taskIdx = Integer.parseInt(inputString);
-            if (taskIdx < 1 || taskIdx > taskList.size()) {
-                throw new IllegalArgumentException("Invalid index given!");
-            } else if (taskList.getTask(taskIdx - 1).isCompleted()) {
-                if (this.isMarking) {
-                    throw new IllegalArgumentException("Task already marked!");
-                } else {
-                    throw new IllegalArgumentException("Task already unmarked!");
-                }
-
+            client.markTask(taskIdx, this.isMarking);
+            this.client.saveFile();
+            String response = "";
+            if (this.isMarking) {
+                response += "Task marked successfully: \n";
             } else {
-                taskList.getTask(taskIdx - 1).setCompleted(this.isMarking);
-                this.client.getStorage().saveSaveFile(client.getTaskList());
-                String response = "";
-                if (this.isMarking) {
-                    response += "Task marked successfully: \n";
-                } else {
-                    response += "Task unmarked successfully: \n";
-                }
-                response += taskList.getTask(taskIdx - 1).toString();
-                this.client.getUi().respond(response);
+                response += "Task unmarked successfully: \n";
             }
+            return(response);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid index given!");
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalArgumentException("Illegal index given!");
         }
     }
 }

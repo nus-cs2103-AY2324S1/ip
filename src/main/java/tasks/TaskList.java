@@ -2,6 +2,7 @@ package tasks;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class TaskList implements Serializable {
     private ArrayList<Task> items;
@@ -20,12 +21,8 @@ public class TaskList implements Serializable {
             return null;
         }
     }
-    public Task removeTask(int index) {
-        try {
-            return this.items.remove(index);
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
+    public Task removeTask(int index) throws IndexOutOfBoundsException{
+        return this.items.remove(index);
     }
 
     public int size() {
@@ -43,6 +40,25 @@ public class TaskList implements Serializable {
 
     public List<Task> toList() {
         return items;
+    }
+    public void mark(int index, boolean completed) throws IllegalArgumentException, IndexOutOfBoundsException {
+        items.get(index).setCompleted(completed);
+    }
+
+    public String filteredSearch(Predicate<Task> condition) {
+        String response = "";
+        int counter = 1;
+        for (Task task:this.toArray()) {
+            if (condition.test(task)) {
+                response += "\n" + Integer.toString(counter) + ". " + task.toString();
+                counter++;
+            }
+        }
+        if (response == "") {
+            return("No tasks found with given search!");
+        } else {
+            return(response);
+        }
     }
 
     @Override

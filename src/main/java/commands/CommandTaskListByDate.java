@@ -29,24 +29,13 @@ public class CommandTaskListByDate extends Command {
      * corresponding date
      * @param client Chatbot object
      */
-    public void accept(Parser input) throws IllegalArgumentException {
+    public String apply(Parser input) throws IllegalArgumentException {
         LocalDate filterDate;
         try {
             filterDate = LocalDate.parse(input.getDefaultString());
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("Illegal Date");
         }
-        List<Task> taskList = this.client.getTaskList().toList();
-        String response = "";
-        for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.get(i).getDate().equals(filterDate)) {
-                response += "\n" + taskList.get(i).toString();
-            }
-        }
-        if (response == "") {
-            this.client.getUi().respond("No tasks found!");
-        } else {
-            this.client.getUi().respond(response);
-        }
+        return client.taskListFilteredSearch(task -> task.getDate() == filterDate);
     }
 }

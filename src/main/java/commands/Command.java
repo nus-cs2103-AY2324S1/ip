@@ -1,5 +1,5 @@
 package commands;
-import java.util.function.Consumer;
+import java.util.function.Function;
 
 import client.Rock;
 import io.Parser;
@@ -8,7 +8,7 @@ import io.Parser;
  * that can be issued to the chatbot.
  * @author Alvis Ng (supermii2)
  */
-public abstract class Command implements Consumer<Parser> {
+public abstract class Command implements Function<Parser, String> {
     protected Rock client;
     /**
      * Constructor method for a command
@@ -18,5 +18,5 @@ public abstract class Command implements Consumer<Parser> {
         this.client = client;
     }
     /** Code to be run when command is called. */
-    public abstract void accept(Parser input);
+    public abstract String apply(Parser input);
 }

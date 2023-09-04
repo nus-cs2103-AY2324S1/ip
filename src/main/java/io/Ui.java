@@ -58,7 +58,7 @@ public class Ui {
      */
     public void close() {
         scanner.close();
-        respond("Client closed");
+        respond("Goodbye!");
     }
     /**
      * Used to handle user input

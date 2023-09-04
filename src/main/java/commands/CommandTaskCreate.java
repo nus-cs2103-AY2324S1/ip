@@ -39,22 +39,22 @@ public class CommandTaskCreate extends Command {
      * @throws IllegalArgumentException Thrown when data is missing or invalid data is given.
      */
     @Override
-    public void accept(Parser input) throws IllegalArgumentException {
+    public String apply(Parser input) throws IllegalArgumentException {
         String taskName = input.getDefaultString();
         if (taskName == "") {
             throw new IllegalArgumentException("Name of task cannot be empty!");
         }
         switch (this.taskType) {
         case TODO:
-            this.client.getTaskList().addTask(new TaskTodo(taskName));
-            this.client.getUi().respond("Todo Task added!");
-            break;
+            this.client.addTask(new TaskTodo(taskName));
+            this.client.saveFile();
+            return("Todo Task added!");
         case DEADLINE:
             try {
                 String deadlineTime = input.getTaggedInput("by");
-                this.client.getTaskList().addTask(new TaskDeadline(taskName, deadlineTime));
-                this.client.getUi().respond("Deadline Task added!");
-                break;
+                this.client.addTask(new TaskDeadline(taskName, deadlineTime));
+                this.client.saveFile();
+                return("Deadline Task added!");
             } catch (NoSuchElementException e) {
                 throw new IllegalArgumentException("No deadline given. Indicate deadline with tag: /by");
             }
@@ -62,15 +62,15 @@ public class CommandTaskCreate extends Command {
             try {
                 String startTime = input.getTaggedInput("from");
                 String endTime = input.getTaggedInput("to");
-                this.client.getTaskList().addTask(new TaskEvent(taskName, startTime, endTime));
-                this.client.getUi().respond("Event Task added!");
-                break;
+                this.client.addTask(new TaskEvent(taskName, startTime, endTime));
+                this.client.saveFile();
+                return("Event Task added!");
             } catch (NoSuchElementException e) {
                 throw new IllegalArgumentException("No start or end time given. Indicate with /from and /to.");
             }
         default:
             throw new IllegalArgumentException("Invalid Task Type given");
         }
-        this.client.getStorage().saveSaveFile(client.getTaskList());
+        
     }
 }

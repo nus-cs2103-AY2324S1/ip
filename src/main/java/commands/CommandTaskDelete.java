@@ -3,7 +3,6 @@ package commands;
 import client.Rock;
 import io.Parser;
 import tasks.Task;
-import tasks.TaskList;
 
 /**
  * Representation of a command
@@ -25,20 +24,17 @@ public class CommandTaskDelete extends Command {
      * @throws IllegalArgumentException Thrown when invalid index is given.
      */
     @Override
-    public void accept(Parser input) {
+    public String apply(Parser input) {
         String inputString = input.getDefaultString();
-        TaskList taskList = this.client.getTaskList();
         try {
             int taskIdx = Integer.parseInt(inputString);
-            if (taskIdx < 1 || taskIdx > taskList.size()) {
-                throw new IllegalArgumentException("Invalid index given!");
-            } else {
-                Task removedTask = taskList.removeTask(taskIdx - 1);
-                this.client.getUi().respond("Task successfully removed!\n" + removedTask);
-                this.client.getStorage().saveSaveFile(client.getTaskList());
-            }
+            Task removedTask = client.removeTask(taskIdx - 1);
+            this.client.saveFile();
+            return("Task successfully removed!\n" + removedTask);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid index given!");
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalArgumentException("Index does not exist!");
         }
     }
 }

@@ -1,5 +1,5 @@
 package io;
-import java.util.function.Consumer;
+import java.util.function.Function;
 
 import client.RockException;
 import commands.Commands;
@@ -27,12 +27,12 @@ public class Invoker {
      * Used to handle a given user input and call the corresponding method.
      * @param inputString User's input.
      */
-    public void handle(String inputString) throws RockException {
+    public String handle(String inputString) throws RockException {
         Parser input = new Parser(removeFirstWord(inputString));
         String keyword = inputString.split(" ")[0];
         try {
-            Consumer<Parser> calledConsumer = this.commands.getCommand(keyword);
-            calledConsumer.accept(input);
+            Function<Parser, String> command = this.commands.getCommand(keyword);
+            return(command.apply(input));
         } catch (IllegalArgumentException e) {
             throw new RockException(e.getMessage());
         }

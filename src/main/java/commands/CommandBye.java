@@ -22,7 +22,8 @@ public class CommandBye extends Command {
      * @param input Unused.
      */
     @Override
-    public void accept(Parser input) {
+    public String apply(Parser input) {
         this.client.terminate();
+        return("Client terminated.");
     }
 }
