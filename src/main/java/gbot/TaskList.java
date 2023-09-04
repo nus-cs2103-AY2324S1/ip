@@ -38,18 +38,17 @@ public class TaskList {
     }
 
     /**
-     * Prints the list of existing tasks in the TaskList.
+     * Returns the list of existing tasks in the TaskList.
      */
-    public void listTasks() {
+    public String listTasks() {
         if (taskCount == 0) {
-            Ui.print("No tasks available.");
+            return "No tasks available.";
         } else {
-            System.out.println(LINE);
-            System.out.println("Here are the tasks in your list:");
+            StringBuilder message = new StringBuilder("Here are the tasks in your list:\n");
             for (int i = 0; i < taskCount; i++) {
-                System.out.println((i + 1) + ". " + list.get(i).toString());
+                message.append((i + 1) + ". " + list.get(i).toString() + "\n");
             }
-            System.out.println(LINE);
+            return message.toString();
         }
     }
 
@@ -58,7 +57,7 @@ public class TaskList {
      *
      * @param taskNum The task number provided by the user.
      */
-    public void markTask(int taskNum) {
+    public String markTask(int taskNum) {
         if (taskNum > list.size() || taskNum <= 0) {
             throw new TaskException();
         }
@@ -66,7 +65,7 @@ public class TaskList {
         Task curr = list.get(taskNum - 1);
         curr.markAsDone();
         storage.updateFile(list);
-        Ui.print("Nice, I've marked this task as done:\n" + curr);
+        return "Nice, I've marked this task as done:\n" + curr;
     }
 
     /**
@@ -74,7 +73,7 @@ public class TaskList {
      *
      * @param taskNum The task number provided by the user.
      */
-    public void unmarkTask(int taskNum) {
+    public String unmarkTask(int taskNum) {
         if (taskNum > list.size() || taskNum <= 0) {
             throw new TaskException();
         }
@@ -82,7 +81,7 @@ public class TaskList {
         Task curr = list.get(taskNum - 1);
         curr.markAsUndone();
         storage.updateFile(list);
-        Ui.print("Okay, I've unmarked this task:\n" + curr);
+        return "Okay, I've unmarked this task:\n" + curr;
     }
 
     /**
@@ -90,14 +89,14 @@ public class TaskList {
      *
      * @param str The Todo task description to be added.
      */
-    public void addTodo(String str) {
+    public String addTodo(String str) {
         Todo newTodo = new Todo(str);
         list.add(newTodo);
         storage.appendFile(newTodo.toStringForFile());
         taskCount++;
 
         String count = "\nNow you have " + taskCount + " tasks to do.";
-        Ui.print("Got it. I've added this task:\n" + newTodo + count);
+        return "Got it. I've added this task:\n" + newTodo + count;
     }
 
     /**
@@ -105,7 +104,7 @@ public class TaskList {
      *
      * @param str The Deadline task description to be added.
      */
-    public void addDeadline(String str) {
+    public String addDeadline(String str) {
         String desc = str.split(" /by ")[0];
         String by = str.split(" /by ")[1];
         Deadline newDeadline = new Deadline(desc, by);
@@ -114,7 +113,7 @@ public class TaskList {
         taskCount++;
 
         String count = "\nNow you have " + taskCount + " tasks to do.";
-        Ui.print("Got it. I've added this task:\n" + newDeadline + count);
+        return "Got it. I've added this task:\n" + newDeadline.toString() + count;
     }
 
     /**
@@ -122,7 +121,7 @@ public class TaskList {
      *
      * @param str The Event task description to be added.
      */
-    public void addEvent(String str) {
+    public String addEvent(String str) {
         String desc = str.split(" /from ")[0];
         String from = str.split(" /from ")[1].split(" /to ")[0];
         String to = str.split(" /from ")[1].split(" /to ")[1];
@@ -132,7 +131,7 @@ public class TaskList {
         taskCount++;
 
         String count = "\nNow you have " + taskCount + " tasks to do.";
-        Ui.print("Got it. I've added this task:\n" + newEvent + count);
+        return "Got it. I've added this task:\n" + newEvent + count;
     }
 
     /**
@@ -140,7 +139,7 @@ public class TaskList {
      *
      * @param taskNum The task number provided by the user.
      */
-    public void deleteTask(int taskNum) {
+    public String deleteTask(int taskNum) {
         if (taskNum > list.size() || taskNum <= 0) {
             throw new TaskException();
         }
@@ -151,7 +150,7 @@ public class TaskList {
         taskCount--;
 
         String count = "\nNow you have " + taskCount + " tasks to do.";
-        Ui.print("Noted. I've removed this task:\n" + toDelete + count);
+        return "Noted. I've removed this task:\n" + toDelete + count;
     }
 
     /**
@@ -159,7 +158,7 @@ public class TaskList {
      *
      * @param str The keyword given by user.
      */
-    public void find(String str) {
+    public String find(String str) {
         ArrayList<Task> matchList = new ArrayList<>();
         for (int i = 0; i < taskCount; i++) {
             Task curr = list.get(i);
@@ -169,14 +168,13 @@ public class TaskList {
         }
 
         if (matchList.isEmpty()) {
-            System.out.println("Sorry. There are no matching tasks.");
+            return "Sorry. There are no matching tasks.";
         } else {
-            System.out.println(LINE);
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder message = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < matchList.size(); i++) {
-                System.out.println((i + 1) + ". " + matchList.get(i).toString());
+                message.append((i + 1) + ". " + matchList.get(i).toString() + "\n");
             }
-            System.out.println(LINE);
+            return message.toString();
         }
     }
 }

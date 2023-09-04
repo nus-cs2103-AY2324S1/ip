@@ -14,16 +14,6 @@ import tasks.Todo;
  * @author Gallen Ong
  */
 public class Parser {
-    enum Keyword {
-        MARK,
-        UNMARK,
-        TODO,
-        DEADLINE,
-        EVENT,
-        DELETE,
-        FIND
-    }
-
     /**
      * Returns corresponding methods after parsing user inputs.
      *
@@ -31,74 +21,75 @@ public class Parser {
      * @param tasks The TaskList object that stores tasks.
      * @throws GBotException If user input is invalid.
      */
-    public static void parse(String message, TaskList tasks) throws GBotException {
+    public static String parse(String message, TaskList tasks) throws GBotException {
         if (message.isBlank()) {
-            Ui.showEmptyCommandError();
-            return;
+            return "Please enter a command.";
         } else if (message.equals("list")) {
-            tasks.listTasks();
+            return tasks.listTasks();
         }
 
-        Keyword prefix = Keyword.valueOf(message.split(" ")[0].toUpperCase());
+        String prefix = message.split(" ")[0];
         String str = message.substring(prefix.toString().length() + 1);
+        String result = "";
 
         switch (prefix) {
-        case MARK:
+        case "mark":
             if (str.isBlank()) {
-                Ui.showTaskNumberError();
+                return "Please enter a task number.";
             }
             try {
-                tasks.markTask(Integer.parseInt(str.split(" ")[1]));
+                result = tasks.markTask(Integer.parseInt(str.split(" ")[0]));
             } catch (NumberFormatException e) {
-                Ui.showTaskNumberError();
+                return "Please enter a task number.";
             }
             break;
-        case UNMARK:
+        case "unmark":
             if (str.isBlank()) {
-                Ui.showTaskNumberError();
+                return "Please enter a task number.";
             }
             try {
-                tasks.unmarkTask(Integer.parseInt(str.split(" ")[1]));
+                result = tasks.unmarkTask(Integer.parseInt(str.split(" ")[0]));
             } catch (NumberFormatException e) {
-                Ui.showTaskNumberError();
+                return "Please enter a task number.";
             }
             break;
-        case TODO:
+        case "todo":
             if (str.isBlank()) {
                 throw new TodoException();
             }
-            tasks.addTodo(str);
+            result = tasks.addTodo(str);
             break;
-        case DEADLINE:
+        case "deadline":
             if (str.isBlank()) {
                 throw new DeadlineException();
             }
-            tasks.addDeadline(str);
+            result = tasks.addDeadline(str);
             break;
-        case EVENT:
+        case "event":
             if (str.isBlank()) {
                 throw new EventException();
             }
-            tasks.addEvent(str);
+            result = tasks.addEvent(str);
             break;
-        case DELETE:
+        case "delete":
             if (str.isBlank()) {
-                Ui.showTaskNumberError();
+                return "Please enter a task number.";
             }
             try {
-                tasks.deleteTask(Integer.parseInt(str.split(" ")[1]));
+                result = tasks.deleteTask(Integer.parseInt(str.split(" ")[0]));
             } catch (NumberFormatException e) {
-                Ui.showTaskNumberError();
+                return "Please enter a task number.";
             }
             break;
-        case FIND:
+        case "find":
             if (str.isBlank()) {
-                Ui.showEmptyKeywordError();
+                return "Please enter a keyword.";
             }
-            tasks.find(str);
+            result = tasks.find(str);
         default:
             throw new GBotException();
         }
+        return result;
     }
 
     /**

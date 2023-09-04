@@ -36,7 +36,7 @@ public class GBot {
                 return;
             }
             try {
-                Parser.parse(message, tasks);
+                Ui.print(Parser.parse(message, tasks));
             } catch (GBotException e) {
                 Ui.showError(e.getMessage());
             }

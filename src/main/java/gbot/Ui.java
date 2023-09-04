@@ -23,14 +23,14 @@ public class Ui {
      * Prints the initial greeting to user.
      */
     public void ask() {
-        Ui.print("Hello I'm GBot!\nWhat can I do for you?");
+        print("Hello I'm GBot!\nWhat can I do for you?");
     }
 
     /**
      * Prints the closing message to user.
      */
     public void end() {
-        Ui.print("Bye. Hope to see you again soon!");
+        print("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -39,27 +39,6 @@ public class Ui {
      * @param message The error message to be printed.
      */
     public static void showError(String message) {
-        Ui.print(message);
-    }
-
-    /**
-     * Prints out the empty command error message.
-     */
-    public static void showEmptyCommandError() {
-        print("Please enter a command.");
-    }
-
-    /**
-     * Prints out the task number error message.
-     */
-    public static void showTaskNumberError() {
-        print("Please enter a task number.");
-    }
-
-    /**
-     * Prints the empty keyword error.
-     */
-    public static void showEmptyKeywordError() {
-        print("Please enter a keyword.");
+        print(message);
     }
 }
