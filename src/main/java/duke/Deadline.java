@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * one of the Tasks that user's can add into their listasdfasdf
+ * one of the Tasks that user's can add into their list
  */
 public class Deadline extends Task {
     private LocalDateTime by;
