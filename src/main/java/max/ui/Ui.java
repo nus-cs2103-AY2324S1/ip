@@ -8,7 +8,7 @@ import java.util.Scanner;
  * Handles interactions with user.
  */
 public class Ui {
-    static String line = "____________________________________________________________";
+    private static String line = "____________________________________________________________";
 
     /**
      * Initialises UI.
