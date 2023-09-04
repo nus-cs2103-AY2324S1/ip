@@ -4,7 +4,7 @@ package duke.utilities;
  * Class to declare a Deadline task
  */
 public class Deadline extends Task {
-	
+
     /** Deadline of a deadline task */
     private String deadline;
 

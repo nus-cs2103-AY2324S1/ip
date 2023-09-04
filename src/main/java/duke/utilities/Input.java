@@ -5,13 +5,13 @@ package duke.utilities;
  */
 public class Input {
 
-	/** Variable to store the command section of the input string */
+    /** Variable to store the command section of the input string */
     private String command;
 
-	/** Variable to store the full input */
+    /** Variable to store the full input */
     private String fullInput;
 
-	/** Variable to store the number of words inside the input */
+    /** Variable to store the number of words inside the input */
     private int wordLength;
 
     /**

@@ -2,30 +2,29 @@ package duke.utilities;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import java.util.ArrayList;
 
 /**
  * Handles loading and saving tasks into the tasks.txt file
  */
 public class Storage {
-    
+
     /** Variable to store relative file path */
     private File file;
 
-	/** Variable to check if File already exists */
+    /** Variable to check if File already exists */
     private boolean isCreated;
 
-	/**
-	 * Creates new Storage objects to store filpath and file
-	 * 
-	 * @param filePath Path of the tasks.txt file
-	 */
+    /**
+     * Creates new Storage objects to store filpath and file
+     *
+     * @param filePath Path of the tasks.txt file
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
         try {
@@ -37,7 +36,7 @@ public class Storage {
 
     /**
      * Overwrites existing data in tasks.txt
-     * 
+     *
      * @param tasks List of tasks that will overwrite the data in the file
      */
     public void overwriteTasksData(ArrayList<Task> tasks) {
@@ -56,7 +55,7 @@ public class Storage {
 
     /**
      * Loads the data from tasks.txt
-     * 
+     *
      * @return A list of tasks
      */
     public ArrayList<Task> loadTasksData() {
@@ -76,6 +75,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Checks whether file already exists or not
+     *
+     * @return Value of isCreated
+     */
     public boolean fileExists() {
         return this.isCreated;
     }
