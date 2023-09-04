@@ -11,6 +11,11 @@ public class TaskList {
         this.ui = ui;
     }
 
+    public TaskList(Ui ui) {
+        this.tasks = new ArrayList<>();
+        this.ui = ui;
+    }
+
     public void addTask(Task task) {
         this.tasks.add(task);
     }
