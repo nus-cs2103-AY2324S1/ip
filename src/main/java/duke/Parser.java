@@ -20,6 +20,7 @@ public class Parser {
 
     /**
      * Parses Date from string to LocalDateTime object.
+     *
      * @param dateString String in the DATE_FORMAT form.
      * @return LocalDateTime object.
      * @throws DateTimeParseException To be handled in parseUserInput().
@@ -30,6 +31,7 @@ public class Parser {
 
     /**
      * Converts LocalDateTime object to String for storing in data file.
+     *
      * @param dateTime LocalDateTime object to be parsed.
      * @return String in the DATE_FORMAT form.
      */
@@ -39,6 +41,7 @@ public class Parser {
 
     /**
      * Parses and acts on user input for chatbot.
+     *
      * @param userInput String to be parsed.
      * @param taskList TaskList to be modified based on command used.
      * @return boolean to determine if chatbot should wait for next command.

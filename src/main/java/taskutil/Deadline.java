@@ -13,6 +13,7 @@ public class Deadline extends Task {
 
     /**
      * Constructor for Deadline object.
+     *
      * @param title Description of task.
      * @param limit Deadline of task as a LocalDateTime object.
      */
@@ -28,7 +29,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Convert Deadline task to a string for storing in data file.
+     * Converts Deadline task to a string for storing in data file.
+     *
      * @return Formatted string with data for Deadline task.
      */
     @Override

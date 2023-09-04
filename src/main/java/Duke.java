@@ -15,6 +15,7 @@ public class Duke {
 
     /**
      * Constructor for a chatbot instance.
+     *
      * @param fileDirectory Directory to store chatbot data.
      */
     public Duke(String fileDirectory) {
@@ -68,6 +69,11 @@ public class Duke {
         userInput.close();
     }
 
+    /**
+     * Main method to run program.
+     *
+     * @param args Unused arguments.
+     */
     public static void main(String[] args) {
         new Duke("./data").initialise();
     }

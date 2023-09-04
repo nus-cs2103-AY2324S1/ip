@@ -41,7 +41,7 @@ public class TaskList {
     public void addTask(Task task, boolean printMessage) {
         taskList.add(task);
         if (printMessage) {
-            Ui.taskOutput(task, "added", taskList.size());
+            Ui.taskOutput(task, Ui.Action.ADD, taskList.size());
         }
     }
 
@@ -52,7 +52,7 @@ public class TaskList {
     public void deleteTask(int index) {
         try {
             Task delete = taskList.remove(index);
-            Ui.taskOutput(delete, "removed", taskList.size());
+            Ui.taskOutput(delete, Ui.Action.REMOVE, taskList.size());
         } catch (IndexOutOfBoundsException e) { // When index falls outside ArrayList.
             Ui.output("I can't remove a task that doesn't exist...\n     Try a number from the list");
         }

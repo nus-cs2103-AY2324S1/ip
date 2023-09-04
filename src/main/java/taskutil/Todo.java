@@ -7,6 +7,7 @@ public class Todo extends Task {
 
     /**
      * Constructor for To-do object, using super constructor.
+     *
      * @param title Description of task.
      */
     public Todo(String title) {
@@ -19,7 +20,8 @@ public class Todo extends Task {
     }
 
     /**
-     * Convert To-do task to a string for storing in data file.
+     * Converts To-do task to a string for storing in data file.
+     *
      * @return Formatted string with data for To-do task.
      */
     @Override

@@ -14,6 +14,7 @@ public class Event extends Task {
 
     /**
      * Constructor for Event task.
+     *
      * @param title Description of task.
      * @param start Start of Event as LocalDateTime object.
      * @param end End of Event as LocalDateTime object.
@@ -33,7 +34,8 @@ public class Event extends Task {
     }
 
     /**
-     * Convert Event task to a string for storing in data file.
+     * Converts Event task to a string for storing in data file.
+     *
      * @return Formatted string with data for Event task.
      */
     @Override

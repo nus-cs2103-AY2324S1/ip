@@ -15,6 +15,7 @@ public class Task {
 
     /**
      * Constructor for general Task object, called in subclasses.
+     *
      * @param title Description of task.
      */
     public Task(String title) {
@@ -23,7 +24,8 @@ public class Task {
     }
 
     /**
-     * Get completed status of task.
+     * Gets completed status of task.
+     *
      * @return X if task is completed, a blank space otherwise.
      */
     public String getStatus() {
@@ -31,7 +33,8 @@ public class Task {
     }
 
     /**
-     * Modify status of current task.
+     * Modifies status of current task.
+     *
      * @param isCompleted New status of task.
      */
     public void changeStatus(boolean isCompleted) {
@@ -40,6 +43,7 @@ public class Task {
 
     /**
      * Checks if task title contains input query.
+     *
      * @return True if task contains query.
      */
     public boolean contains(String query) {
@@ -48,6 +52,7 @@ public class Task {
 
     /**
      * Converts a task to a formatted string.
+     *
      * @return Status and title of task in string.
      */
     @Override
@@ -57,6 +62,7 @@ public class Task {
 
     /**
      * Returns a base string to be used for storing in data file.
+     *
      * @return Formatted string, to be further modified by overriding methods in child classes.
      */
     public String toFileString() {

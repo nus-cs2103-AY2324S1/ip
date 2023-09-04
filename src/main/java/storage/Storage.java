@@ -22,10 +22,11 @@ public class Storage {
     private static final String FILE_NAME = "TaskData.txt";
 
     private final String fileDirectory;
-    private final String fileLocation;
+    private final String fileLocation; // fileLocation concatenates fileDirectory and FILE_NAME.
 
     /**
      * Constructor for Storage object, containing location of data tile.
+     *
      * @param fileDirectory File location of data file.
      */
     public Storage(String fileDirectory) {
@@ -35,6 +36,7 @@ public class Storage {
 
     /**
      * Creates directory and txt file for storing task data if they do not exist.
+     *
      * @return True if directory and txt file exist/created successfully.
      */
     private boolean openFile() {
@@ -54,6 +56,7 @@ public class Storage {
 
     /**
      * Write data from ArrayList of tasks to a file.
+     *
      * @param taskList An ArrayList of tasks.
      */
     public void writeToFile(TaskList taskList) {
@@ -68,6 +71,7 @@ public class Storage {
 
     /**
      * Loads task data from txt file to chatbot.
+     *
      * @return True when file data loaded to chatbot successfully.
      */
     public boolean loadData(TaskList taskList) {
