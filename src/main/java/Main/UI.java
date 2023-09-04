@@ -4,15 +4,27 @@ import Task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * UI class - User Interface - Handles the display shown by the program.
+ */
 public class UI {
 
+    /**
+     * Constructor for UI class.
+     */
     public UI() {}
 
+    /**
+     * Generates the divider displayed in the terminal.
+     */
     void divider() {
         String line = "____________________________________________________________";
         System.out.println(line);
     }
 
+    /**
+     * Generates the welcome message displayed in the terminal.
+     */
     void welcomeMessage() {
 
         String logo = " ____        _        \n"
@@ -29,6 +41,10 @@ public class UI {
         this.divider();
     }
 
+    /**
+     * Lists out the tasks stored in the ArrayList<Task> Object.
+     * @param taskArrayList - Contains the list of Tasks.
+     */
     public void list(ArrayList<Task> taskArrayList) {
         this.divider();
         if (taskArrayList.size() == 0) {
@@ -44,6 +60,9 @@ public class UI {
         this.divider();
     }
 
+    /**
+     * Generates the bye message displayed in the terminal.
+     */
     public void byeMessage() {
         System.out.println("Bye. Hope to see you again soon!");
         this.divider();
