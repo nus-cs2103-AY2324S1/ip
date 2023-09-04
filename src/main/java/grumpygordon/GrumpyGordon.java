@@ -5,7 +5,12 @@ import grumpygordon.exceptions.GrumpyGordonInitialisationException;
 import grumpygordon.storage.Storage;
 import grumpygordon.tasks.TaskList;
 import grumpygordon.ui.Ui;
+import grumpygordon.ui.controllers.DialogBox;
+import grumpygordon.ui.controllers.MainWindow;
+
 import javafx.application.Application;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -15,16 +20,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.shape.Circle;
+
+import java.io.IOException;
 
 /**
  * GrumpyGordon Chatbot
  */
 public class GrumpyGordon extends Application {
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/userImage.png"));
-    private Image gordonImage = new Image(this.getClass().getResourceAsStream("/images/gordonImage.png"));
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -81,7 +83,22 @@ public class GrumpyGordon extends Application {
     }
 
     @Override
+    @FXML
     public void start(Stage stage) {
+//        try {
+//            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+//            AnchorPane ap = fxmlLoader.load();
+//            Scene scene = new Scene(ap);
+//            stage.setScene(scene);
+//            grumpyGordon = new GrumpyGordon();
+//            fxmlLoader.<MainWindow>getController().setGrumpyGordon(grumpyGordon);
+//            stage.show();
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (GrumpyGordonException e) {
+//            e.printStackTrace();
+//        }
         //Step 1. Setting up required components
         Label helloWorld = new Label("Hello World!"); // Creating a new Label control
         Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
@@ -133,34 +150,5 @@ public class GrumpyGordon extends Application {
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
-
-        //Step 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
-    }
-    private Label getDialogLabel(String text) {
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
-    }
-
-    private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label gordonText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(userImage)),
-                DialogBox.getGordonDialog(gordonText, new ImageView(gordonImage))
-        );
-        userInput.clear();
-    }
-
-    private String getResponse(String input) {
-        return "Duke heard: " + input;
     }
 }
