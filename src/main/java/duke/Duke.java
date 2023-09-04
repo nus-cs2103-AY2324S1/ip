@@ -27,7 +27,7 @@ public class Duke {
             System.out.println(e.getMessage());
             this.tasks = new TaskList();
 
-            System.out.println("Starting Duke with Empty duke.task.Task List...");
+            System.out.println("Starting Duke with Task List...");
         }
     }
 
@@ -47,7 +47,6 @@ public class Duke {
             this.ui.displayMessage(botOutput);
             userInput = scanner.nextLine();
         }
-
         this.ui.displayExitGreeting();
     }
 
@@ -59,11 +58,13 @@ public class Duke {
 
         } else if (userInput.equalsIgnoreCase(Command.LIST_WITHIN_WEEK)) {
             TaskList listWeek = list.dueWithinWeek();
-            botOutput = botOutput + "Here are the tasks in your list that start/due within one week: \n    " + listWeek.toString();
+            botOutput = botOutput + "Here are the tasks in your list that start/due within one week: \n    " +
+                    listWeek.toString();
 
         } else if (userInput.equalsIgnoreCase(Command.LIST_WITHIN_MONTH)) {
             TaskList monthWeek = list.dueWithinMonth();
-            botOutput = botOutput + "Here are the tasks in your list that start/due within one month: \n    " + monthWeek.toString();
+            botOutput = botOutput + "Here are the tasks in your list that start/due within one month: \n    " +
+                    monthWeek.toString();
 
         } else if (userInput.startsWith(Command.MARK)) {
             botOutput = botOutput + "Nice! I've marked this task as done: \n    ";
@@ -71,7 +72,7 @@ public class Duke {
                 int taskNo = parser.parseMark(userInput, list);
                 Task x = list.getTask(taskNo - 1);
                 x.markAsDone();
-                botOutput = botOutput + x;
+                botOutput += x;
             } catch (ParserException p) {
                 botOutput = p.getMessage();
             }
@@ -81,7 +82,7 @@ public class Duke {
                 int taskNo = parser.parseUnmark(userInput, list);
                 Task x = list.getTask(taskNo - 1);
                 x.markAsUndone();
-                botOutput = botOutput + x;
+                botOutput += x;
             } catch (ParserException p) {
                 botOutput = p.getMessage();
             }
@@ -90,12 +91,11 @@ public class Duke {
             try {
                 int taskNo = parser.parseDelete(userInput, list);
                 Task x = list.deleteTask(taskNo - 1);
-                botOutput = botOutput + x;
+                botOutput += x;
             } catch (ParserException p) {
                 botOutput = p.getMessage();
             }
         } else {
-
             try {
                 Task t = Task.taskCon(userInput);
                 list.addTask(t);
@@ -107,11 +107,8 @@ public class Duke {
             } catch (DateTimeParseException d) {
                 botOutput = "Please specify deadlines and dates in the following format, " + Task.dateTimeFormat;
             }
-
         }
-
         return botOutput;
-
     }
 
     public static void main(String[] args) {

@@ -13,11 +13,12 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    public static Deadline DeadlineCon(String description, String by) throws InvalidTaskCreationException, DateTimeParseException {
+    public static Deadline DeadlineCon(String description, String by) throws InvalidTaskCreationException,
+            DateTimeParseException {
         if (description.equalsIgnoreCase("")) {
-            throw new InvalidTaskCreationException("OOPS!!! The description of a duke.task.Deadline duke.task.Task cannot be empty.");
+            throw new InvalidTaskCreationException("OOPS!!! The description of a Deadline Task cannot be empty.");
         } else if (by.equalsIgnoreCase("")) {
-            throw new InvalidTaskCreationException("OOPS!!! The deadline time of a duke.task.Deadline duke.task.Task cannot be empty.");
+            throw new InvalidTaskCreationException("OOPS!!! The deadline time of a Deadline Task cannot be empty.");
         } else {
             LocalDateTime deadlineDate = LocalDateTime.parse(by, Task.DTformatter);
             return new Deadline(description, deadlineDate);

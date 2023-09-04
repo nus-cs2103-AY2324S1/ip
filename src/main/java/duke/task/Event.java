@@ -16,13 +16,14 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public static Event EventCon(String description, String from, String to) throws InvalidTaskCreationException, DateTimeParseException {
+    public static Event EventCon(String description, String from, String to) throws InvalidTaskCreationException,
+            DateTimeParseException {
         if (description.equalsIgnoreCase("")) {
-            throw new InvalidTaskCreationException("OOPS!!! The description of a duke.task.Event duke.task.Task cannot be empty.");
+            throw new InvalidTaskCreationException("OOPS!!! The description of a Event Task cannot be empty.");
         } else if (from.equalsIgnoreCase("")) {
-            throw new InvalidTaskCreationException("OOPS!!! The from time of a duke.task.Event duke.task.Task cannot be empty.");
+            throw new InvalidTaskCreationException("OOPS!!! The from time of a Event Task cannot be empty.");
         } else if (to.equalsIgnoreCase("")) {
-            throw new InvalidTaskCreationException("OOPS!!! The to time of a duke.task.Event duke.task.Task cannot be empty.");
+            throw new InvalidTaskCreationException("OOPS!!! The to time of a Event Task cannot be empty.");
         } else {
 
             LocalDateTime eventStartTimeDate = LocalDateTime.parse(from, Task.DTformatter);

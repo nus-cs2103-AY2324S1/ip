@@ -22,7 +22,8 @@ public class Task {
 
     public static final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm, dd MMMM yyyy");
 
-    public static Task taskCon(String userInput) throws InvalidCommandException, InvalidTaskCreationException, DateTimeParseException {
+    public static Task taskCon(String userInput) throws InvalidCommandException, InvalidTaskCreationException,
+            DateTimeParseException {
         if (userInput.startsWith("todo")) {
             return ToDo.ToDoCon(userInput.substring(5));
         } else if (userInput.startsWith("deadline")) {
