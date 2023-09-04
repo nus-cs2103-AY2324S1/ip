@@ -1,10 +1,13 @@
 package ax.task;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
 
 class ListItemTest {
 
@@ -47,7 +50,7 @@ class ListItemTest {
         LocalDate date = temp.parseDate("2023-01-01");
         assertEquals(date.getYear(), 2023);
         assertEquals(date.getMonthValue(), 1);
-        assertEquals(date.getDayOfMonth(),1);
+        assertEquals(date.getDayOfMonth(), 1);
     }
 
     @Test
