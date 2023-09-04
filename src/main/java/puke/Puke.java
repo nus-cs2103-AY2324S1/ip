@@ -3,15 +3,27 @@ package puke;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import java.time.LocalDateTime;
-
+/**
+ * A chatbot that uses overly complicated sentences.
+ */
 public class Puke {
+    /**
+     * List of tasks stored by the chatbot
+     */
     private TaskList tasks;
+    /**
+     * The UI of the chatbot that prints all applicable messages
+     */
     private final Ui ui;
+
+    /**
+     * Constructor for the chatbot
+     * @throws IOException when an error occurs with the file reader.
+     */
     public Puke() throws IOException {
         this.ui = new Ui();
         try {
@@ -22,6 +34,9 @@ public class Puke {
         }
     }
 
+    /**
+     * Runs the program
+     */
     public void run() {
         ui.startup();
         boolean isExit = false;
@@ -78,7 +93,8 @@ class Task {
 
 
     /**
-     * Returns a String representation of the task that can be stored and read later when the program is initiated again.
+     * Returns a String representation of the task that can be stored and
+     * read later when the program is initiated again.
      *
      * @return a String representation.
      */
@@ -106,7 +122,7 @@ class Task {
 }
 
 class ToDo extends Task {
-    private final static String tag = "[T]";
+    private static final String tag = "[T]";
 
     /**
      * Creates a Task with no set deadline or time period.
@@ -120,7 +136,7 @@ class ToDo extends Task {
 }
 
 class Deadline extends Task {
-    private final static String tag = "[D]";
+    private static final String tag = "[D]";
     private final LocalDateTime date;
 
     /**
@@ -219,7 +235,8 @@ class Event extends Task {
      */
     @Override
     public String write() {
-        return super.write() + "/" + this.from + "/" + this.to;
+        return super.write() + "/" + this.from + "/"
+                + this.to;
     }
 
     /**
@@ -228,14 +245,20 @@ class Event extends Task {
      * @return a String representation.
      */
     public String toString() {
-        return super.toString() + " (from: " + this.from + " " +
-                "to: " + this.to + ")";
+        return super.toString()
+                + " (from: "
+                + this.from
+                + " "
+                + "to: "
+                + this.to
+                + ")";
     }
 }
 
 class PukeException extends Exception {
     public PukeException() {
-        super("Unfortunately, the circumstances preceding this has necessitated that I issue and apology for the input that I have received is unrecognised.");
+        super("Unfortunately, the circumstances preceding this has necessitated that I issue an apology "
+                + ", for the input that I have received is unrecognised.");
     }
 }
 
@@ -383,7 +406,7 @@ class TaskList {
             }
         }
         return sb.toString();
-        }
+    }
 
     void mark(int index) throws PukeException {
         try {
@@ -411,8 +434,8 @@ class TaskList {
 }
 
 abstract class Command {
-    private final boolean exit;
     protected boolean isValid;
+    private final boolean exit;
 
     Command(boolean exit, boolean valid) {
         this.exit = exit;
@@ -441,8 +464,8 @@ class ExitCommand extends Command {
      */
     void execute(TaskList tl, Ui ui) {
         if (!super.isValid) {
-            System.out.println(Ui.ERROR_MESSAGE);
-            System.out.println(Ui.SEPARATOR);
+            System.out.println(Ui.errorMessage());
+            System.out.println(Ui.separator());
         } else {
             System.out.println(ui.exit());
         }
@@ -475,12 +498,12 @@ class ListCommand extends Command {
      */
     void execute(TaskList tl, Ui ui) {
         if (!super.isValid) {
-            System.out.println(Ui.ERROR_MESSAGE);
-            System.out.println(Ui.SEPARATOR);
+            System.out.println(Ui.errorMessage());
+            System.out.println(Ui.separator());
         } else {
             System.out.println(ui.list());
             System.out.println(tl.printOut());
-            System.out.println(Ui.SEPARATOR);
+            System.out.println(Ui.separator());
         }
     }
 
@@ -515,11 +538,11 @@ class MarkCommand extends Command {
         try {
             tl.mark(this.index);
             System.out.println(ui.mark(this.index));
-            System.out.println(Ui.SEPARATOR);
+            System.out.println(Ui.separator());
             DataHandler.writeToDatabase(tl);
         } catch (Exception PukeException) {
-            System.out.println(Ui.ERROR_MESSAGE);
-            System.out.println(Ui.SEPARATOR);
+            System.out.println(Ui.errorMessage());
+            System.out.println(Ui.separator());
         }
     }
 
@@ -568,11 +591,11 @@ class UnmarkCommand extends Command {
         try {
             tl.unmark(this.index);
             System.out.println(ui.unmark());
-            System.out.println(Ui.SEPARATOR);
+            System.out.println(Ui.separator());
             DataHandler.writeToDatabase(tl);
         } catch (Exception e) {
-            System.out.println(Ui.ERROR_MESSAGE);
-            System.out.println(Ui.SEPARATOR);
+            System.out.println(Ui.errorMessage());
+            System.out.println(Ui.separator());
         }
     }
 
@@ -617,16 +640,17 @@ class TodoCommand extends Command {
         try {
             tl.add(new ToDo(this.desc));
             System.out.println(ui.toDo(tl));
-            System.out.println(Ui.SEPARATOR);
+            System.out.println(Ui.separator());
             DataHandler.writeToDatabase(tl);
         } catch (Exception PukeException) {
-            System.out.println(Ui.ERROR_MESSAGE);
-            System.out.println(Ui.SEPARATOR);
+            System.out.println(Ui.errorMessage());
+            System.out.println(Ui.separator());
         }
     }
 
     /**
-     * Returns a boolean indicating if the other object has the same toString as this command and is an instance of EventCommand.
+     * Returns a boolean indicating if the other object has the same toString as this command and is an instance of
+     * TodoCommand.
      *
      * @param other Another object.
      * @return A boolean.
@@ -671,16 +695,17 @@ class DeadlineCommand extends Command {
         try {
             tl.add(new Deadline(this.rest));
             System.out.println(ui.deadline(tl));
-            System.out.println(Ui.SEPARATOR);
+            System.out.println(Ui.separator());
             DataHandler.writeToDatabase(tl);
         } catch (Exception PukeException) {
-            System.out.println(Ui.ERROR_MESSAGE);
-            System.out.println(Ui.SEPARATOR);
+            System.out.println(Ui.errorMessage());
+            System.out.println(Ui.separator());
         }
     }
 
     /**
-     * Returns a boolean indicating if the other object has the same toString as this command and is an instance of EventCommand.
+     * Returns a boolean indicating if the other object has the same toString as this command and is an instance of
+     * DeadlineCommand.
      *
      * @param other Another object.
      * @return A boolean.
@@ -725,16 +750,17 @@ class EventCommand extends Command {
         try {
             tl.add(new Event(this.rest));
             System.out.println(ui.event(tl));
-            System.out.println(Ui.SEPARATOR);
+            System.out.println(Ui.separator());
             DataHandler.writeToDatabase(tl);
         } catch (Exception PukeException) {
-            System.out.println(Ui.ERROR_MESSAGE);
-            System.out.println(Ui.SEPARATOR);
+            System.out.println(Ui.errorMessage());
+            System.out.println(Ui.separator());
         }
     }
 
     /**
-     * Returns a boolean indicating if the other object has the same toString as this command and is an instance of EventCommand.
+     * Returns a boolean indicating if the other object has the same toString as this command and is an instance of
+     * EventCommand.
      *
      * @param other Another object.
      * @return A boolean.
@@ -779,11 +805,11 @@ class DeleteCommand extends Command {
         try {
             Task hold = tl.delete(this.index);
             System.out.println(ui.delete(hold, tl));
-            System.out.println(Ui.SEPARATOR);
+            System.out.println(Ui.separator());
             DataHandler.writeToDatabase(tl);
         } catch (Exception PukeException) {
-            System.out.println(Ui.ERROR_MESSAGE);
-            System.out.println(Ui.SEPARATOR);
+            System.out.println(Ui.errorMessage());
+            System.out.println(Ui.separator());
         }
     }
 
@@ -823,18 +849,18 @@ class ClearCommand extends Command {
      */
     void execute(TaskList tl, Ui ui) {
         if (!super.isValid) {
-            System.out.println(Ui.ERROR_MESSAGE);
-            System.out.println(Ui.SEPARATOR);
+            System.out.println(Ui.errorMessage());
+            System.out.println(Ui.separator());
         } else {
             try {
                 tl.clear();
                 DataHandler.clearAll();
                 System.out.println(ui.clear());
-                System.out.println(Ui.SEPARATOR);
+                System.out.println(Ui.separator());
             } catch (Exception e) {
                 tl.clear();
                 System.out.println(ui.clear());
-                System.out.println(Ui.SEPARATOR);
+                System.out.println(Ui.separator());
             }
         }
     }
@@ -865,8 +891,8 @@ class ErrorCommand extends Command {
      * @param ui The UI.
      */
     void execute(TaskList tl, Ui ui) {
-        System.out.println(Ui.ERROR_MESSAGE);
-        System.out.println(Ui.SEPARATOR);
+        System.out.println(Ui.errorMessage());
+        System.out.println(Ui.separator());
     }
 
     /**
@@ -884,6 +910,7 @@ class ErrorCommand extends Command {
 
 class FindCommand extends Command {
     private final String key;
+
     FindCommand(String rest) {
         super(false, true);
         this.key = rest;
@@ -893,13 +920,13 @@ class FindCommand extends Command {
         try {
             System.out.println(ui.find());
             System.out.println(tl.find(this.key));
-            System.out.println(Ui.SEPARATOR);
+            System.out.println(Ui.separator());
         } catch (Exception PukeException) {
-            System.out.println(Ui.ERROR_MESSAGE);
-            System.out.println(Ui.SEPARATOR);
+            System.out.println(Ui.errorMessage());
+            System.out.println(Ui.separator());
         }
     }
-    }
+}
 
 class Parser {
     /**
@@ -942,9 +969,7 @@ class Parser {
 }
 
 class Ui {
-
-    public static String ERROR_MESSAGE = "Unfortunately, the circumstances preceding this has necessitated that I issue and apology for the input that I have received is unrecognised.";
-    public static String SEPARATOR = "____________________________________________________________";
+    private static final String SEPARATOR = "____________________________________________________________";
 
     private final Scanner sc;
 
@@ -987,19 +1012,37 @@ class Ui {
                 + "| ___/| |_| |    | __/\n"
                 + "| |    \\__,_|_|\\_\\___|\n"
                 + "|_|";
-        System.out.println("Salutations! I hereby would like to inform you that my identity is that of\n" + logo +
-                "\nAn exceedingly verbose conversation simulation program.");
+        System.out.println("Salutations! I hereby would like to inform you that my identity is that of\n"
+                + logo
+                + "\nAn exceedingly verbose conversation simulation program.");
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * Returns the separator line used after each command.
+     * @return the separator line as a string.
+     */
+    static String separator() {
+        return SEPARATOR;
+    }
+
+    /**
+     * Returns the default error message.
+     * @return the error message as a string.
+     */
+    static String errorMessage() {
+        return "Unfortunately, the circumstances preceding this has necessitated that I issue"
+                + " an apology for the input that I have received is unrecognised.";
+    }
     /**
      * Returns the exit message.
      *
      * @return The exit message.
      */
     String exit() {
-        return "It appears that the user has decided to close the program as indicated by the command of which this is the function being issued and therefore,\n" +
-                "I shall bid thee farewell and wish thee great fortune in your future endeavors.";
+        return "It appears that the user has decided to close the program as indicated by the command of "
+                + "which this is the function being issued and therefore,\n"
+                + "I shall bid thee farewell and wish thee great fortune in your future endeavors.";
     }
 
     /**
@@ -1008,9 +1051,11 @@ class Ui {
      * @return The message for listing tasks in the list.
      */
     String list() {
-        return "Here is the collection of items, previously designated to be known as Tasks, that you have inputted over a previous unspecified period of time\n" +
-                "that may or may not require urgent attention, but will nevertheless necessitate some level of action within an either\n" +
-                "indicated or not indicated time period.";
+        return "Here is the collection of items, previously designated to be known as Tasks, "
+                + "that you have inputted over a previous unspecified period of time\n"
+                + "that may or may not require urgent attention, but will nevertheless necessitate "
+                + "some level of action within an either\n"
+                + "indicated or non indicated time period.";
     }
 
     /**
@@ -1020,8 +1065,9 @@ class Ui {
      * @return The message indicating that the task has been done.
      */
     String mark(int index) {
-        return "I have been made aware of your desire to indicate that the task numbered " + index +
-                " has been since been achieved as of the time at which you hve stipulated as so.";
+        return "I have been made aware of your desire to indicate that the task numbered "
+                + index
+                + " has been since been achieved as of the time at which you hve stipulated as so.";
     }
 
     /**
@@ -1030,8 +1076,10 @@ class Ui {
      * @return The message indicating that that task has been unmarked.
      */
     String unmark() {
-        return "Very well. I have acknowledged your request to unmark the task of specified index as having been completed and\n" +
-                "will now proceed to set said task of specified index to be considered as having not yet been completed.";
+        return "Very well. I have acknowledged your request to unmark the task of "
+                + "specified index as having been completed and\n"
+                + "will now proceed to set said task of specified index to be considered as "
+                + "having not yet been completed.";
     }
 
     /**
@@ -1042,10 +1090,15 @@ class Ui {
      * @throws PukeException If the task or values used in the list are out of bounds.
      */
     String toDo(TaskList tl) throws PukeException {
-        return "Understood. I have hereby created a task known to require doing at a future time but with no such time being specified and inserted it into " +
-                "the overall collection of said tasks that require action.\n" +
-                "Here is a display of the added deadline task: " + tl.get(tl.size() - 1) + "\n" +
-                "You now, in total, have " + tl.size() + " of these tasks recorded within said collection.";
+        return "Understood. I have hereby created a task known to require doing at a future time "
+                + "but with no such time being specified and inserted it into "
+                + "the overall collection of said tasks that require action.\n"
+                + "Here is a display of the added deadline task: "
+                + tl.get(tl.size() - 1)
+                + "\n"
+                + "You now, in total, have "
+                + tl.size()
+                + " of these tasks recorded within said collection.";
     }
 
     /**
@@ -1056,10 +1109,15 @@ class Ui {
      * @throws PukeException If the task or values used in the list are out of bounds.
      */
     String deadline(TaskList tl) throws PukeException {
-        return "Understood. I have hereby created a task known to require doing at a future time alongside the stipulated time that you have indicated and inserted it into " +
-                "the overall collection of these tasks that require action.\n" +
-                "Here is a display of the added deadline task: " + tl.get(tl.size() - 1) + "\n" +
-                "You now, in total, have " + tl.size() + " of these tasks recorded within said collection.";
+        return "Understood. I have hereby created a task known to require doing at a future time "
+                + "alongside the stipulated time that you have indicated and inserted it into "
+                + "the overall collection of these tasks that require action.\n"
+                + "Here is a display of the added deadline task: "
+                + tl.get(tl.size() - 1)
+                + "\n"
+                + "You now, in total, have "
+                + tl.size()
+                + " of these tasks recorded within said collection.";
     }
 
     /**
@@ -1070,10 +1128,15 @@ class Ui {
      * @throws PukeException If the task or values used in the list are out of bounds.
      */
     String event(TaskList tl) throws PukeException {
-        return "Understood. I have hereby created a task known to require participation for a set period of time alongside this stipulated duration that you have indicated and inserted it into " +
-                "the overall collection of these tasks that require action.\n" +
-                "Here is a display of the added deadline task: " + tl.get(tl.size() - 1) + "\n" +
-                "You now, in total, have " + tl.size() + " of these tasks recorded within said collection.";
+        return "Understood. I have hereby created a task known to require participation for a set period of time "
+                + "alongside this stipulated duration that you have indicated and inserted it into "
+                + "the overall collection of these tasks that require action.\n"
+                + "Here is a display of the added deadline task: "
+                + tl.get(tl.size() - 1)
+                + "\n"
+                + "You now, in total, have "
+                + tl.size()
+                + " of these tasks recorded within said collection.";
     }
 
     /**
@@ -1084,10 +1147,15 @@ class Ui {
      * @return The message.
      */
     String delete(Task hold, TaskList tl) {
-        return "I have acknowledged your request to have the task allocated to the specific index at which you have mentioned removed from the collection of all\n" +
-                "such tasks, colloquially known as your To Do list.\n" +
-                "The task in question that has been deleted is: " + hold + "\n" +
-                "As of this current moment, there are a total of " + tl.size() + " occurrences of tasks in your list.";
+        return "I have acknowledged your request to have the task allocated to the specific index at which "
+                + "you have mentioned removed from the collection of all\n"
+                + "such tasks, colloquially known as your To Do list.\n"
+                + "The task in question that has been deleted is: "
+                + hold
+                + "\n"
+                + "As of this current moment, there are a total of "
+                + tl.size()
+                + " occurrences of tasks in your list.";
     }
 
     /**
@@ -1096,12 +1164,15 @@ class Ui {
      * @return The message.
      */
     String clear() {
-        return "Well I certainly hope you had meant to do that because I am not going too ask for your confirmation. As per the aforementioned instructions, I shall now" +
-                "purge all of the tasks that you have previously recorded and designated as requiring attention.";
+        return "Well I certainly hope you had meant to do that because I am not going too ask for your confirmation. "
+                + "As per the aforementioned instructions, I shall now"
+                + "purge all of the tasks that you have previously recorded and designated as requiring attention.";
     }
 
     String find() {
-        return "As per the instructions provided, I shall initiate a search into your list of items, of which we have previously declared to be known as tasks due too their relatively \n" +
-                "urgent need of attention within a specified or unspecified frame of time, for those of which have an alphabetical similarity to the frame of reference that you have provided.";
+        return "As per the instructions provided, I shall initiate a search into your list of items, of which "
+                + "we have previously declared to be known as tasks due too their relatively \n"
+                + "urgent need of attention within a specified or unspecified frame of time, for those of which have "
+                + "an alphabetical similarity to the frame of reference that you have provided.";
     }
 }
