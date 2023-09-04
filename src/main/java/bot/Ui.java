@@ -1,6 +1,7 @@
 package bot;
 
-import bot.command.*;
+import bot.command.Command;
+import bot.command.TerminateCommand;
 import bot.exception.DateTimeParseBotException;
 import bot.exception.FileErrorBotException;
 import bot.exception.IllegalExpressionBotException;
