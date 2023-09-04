@@ -1,6 +1,8 @@
 package cyrus.ui;
 
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import cyrus.Cyrus;
 import cyrus.commands.CommandError;
@@ -8,14 +10,11 @@ import cyrus.commands.CommandType;
 import cyrus.parser.ParseInfo;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * Entry point for Cyrus Gui.
@@ -51,8 +50,13 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        ParseInfo parseInfo = cyrus.parseInput(userText.getText());
+        String userText = userInput.getText();
+        ParseInfo parseInfo = cyrus.parseInput(userText);
+        if (parseInfo.equals(ParseInfo.EMPTY)) {
+            putConversation(userText, "Missing input!");
+            return;
+        }
+
         String cyrusResponse = "";
         boolean isError = false;
         // TODO: Permanently block empty inputs
@@ -62,15 +66,24 @@ public class MainWindow extends AnchorPane {
             cyrusResponse = e.getMessage();
             isError = true;
         } finally {
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(userText, new ImageView(user)),
-                    DialogBox.getDukeDialog(new Label(cyrusResponse), new ImageView(bot))
-            );
-            userInput.clear();
+            putConversation(userText, cyrusResponse);
         }
         if (parseInfo.getCommandType() == CommandType.BYE) {
-            Stage stage = (Stage) this.getScene().getWindow();
-            stage.close();
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    System.exit(0);
+                }
+            }, 1000);
         }
+    }
+
+    private void putConversation(String userText, String cyrusText) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDialog(userText, "User", user),
+                DialogBox.getDialog(cyrusText, "Cyrus", bot)
+        );
+        userInput.clear();
     }
 }

@@ -31,7 +31,7 @@ test {
 }
 
 application {
-    mainClass.set("cyrus.Duke")
+    mainClass.set("cyrus.Launcher")
 }
 
 shadowJar {
@@ -59,4 +59,8 @@ sourceSets {
             srcDirs "src/main/resources"
         }
     }
+}
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

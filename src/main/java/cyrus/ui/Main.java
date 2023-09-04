@@ -22,6 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
             fxmlLoader.<MainWindow>getController().setCyrus(CYRUS);
             primaryStage.show();
         } catch (IOException e) {
