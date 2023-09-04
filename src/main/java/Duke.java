@@ -1,5 +1,4 @@
 import java.nio.file.Paths;
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,8 +96,8 @@ public class Duke {
             Scanner fileScanner = new Scanner(path);
             while(fileScanner.hasNextLine()){
 
-                // Record format: "Type | Status | Name | Time"
-                // example: "D | 0 | return book | June 6th"
+                // Record format: "Type | Status | Name | StartTime(optional) | EndTime(optional)"
+                // example: "D | 0 | return book | 2023-09-04"
                 // "0" for not done and "1" for done
 
                 String line = fileScanner.nextLine();
@@ -108,36 +107,41 @@ public class Duke {
 
 
                 List<String> attributes = new ArrayList<>();
-                String attributeName = "";
+                StringBuilder attributeName = new StringBuilder();
 
                 for (Object element : formattedLine) {
                     if (element.equals("|")) {
-                        attributes.add(attributeName);
-                        attributeName = "";
+                        attributes.add(attributeName.toString());
+                        attributeName = new StringBuilder();
                     } else {
-                        attributeName = attributeName + element + " ";
+                        if (attributeName.length() == 0) {
+                            attributeName.append(element);
+                        } else {
+                            attributeName.append(" ").append(element);
+                        }
+
 
                     }
                 }
 
-                attributes.add(attributeName);
+                attributes.add(attributeName.toString());
                 boolean isDone = attributes.get(1).equals("1");
 
                 switch (attributes.get(0)) {
                     case "T": {
-                        Task task = new Task(attributes.get(2), 1, "Null", isDone);
+                        Task task = new Task(attributes.get(2), 1, "Null", "Null", isDone);
                         userList[positionPointer] = task;
 
                         break;
                     }
                     case "D": {
-                        Task task = new Task(attributes.get(2), 2, attributes.get(3), isDone);
+                        Task task = new Task(attributes.get(2), 2, "Null", attributes.get(3), isDone);
                         userList[positionPointer] = task;
 
                         break;
                     }
                     case "E": {
-                        Task task = new Task(attributes.get(2), 3, attributes.get(3), isDone);
+                        Task task = new Task(attributes.get(2), 3, attributes.get(3), attributes.get(4), isDone);
                         userList[positionPointer] = task;
 
                         break;
@@ -258,7 +262,7 @@ public class Duke {
                     System.out.println("Enter task name:");
                     String taskName = GetUserTaskName();
                     if (!(taskName.isEmpty())) {
-                        userList[listPointer] = new Task(taskName, 1, "Null", false);
+                        userList[listPointer] = new Task(taskName, 1, "Null", "Null", false);
 
                         System.out.println("Got it. I've added this task:");
 
@@ -277,7 +281,7 @@ public class Duke {
                     if (!(taskN.isEmpty())) {
                         System.out.println("Enter deadline:");
                         String timePeriod = getUserInput.nextLine();
-                        userList[listPointer] = new Task(taskN, 2, "by:" + timePeriod, false);
+                        userList[listPointer] = new Task(taskN, 2, "Null", timePeriod, false);
 
                         System.out.println("Got it. I've added this task:");
 
@@ -297,8 +301,8 @@ public class Duke {
                         String startTime = getUserInput.nextLine();
                         System.out.println("Enter end time:");
                         String endTime = getUserInput.nextLine();
-                        String timePeriod = "from: " + startTime + " to: " + endTime;
-                        userList[listPointer] = new Task(tN, 3, timePeriod, false);
+
+                        userList[listPointer] = new Task(tN, 3, startTime, endTime, false);
 
                         System.out.println("Got it. I've added this task:");
 
