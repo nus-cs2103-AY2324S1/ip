@@ -37,7 +37,7 @@ public class ChatterBox {
      * @throws IOException If FileIO presents any issues during runtime.
      */
     public static void main(String[] args) throws DukeException, IOException {
-        ChatterBox cb = new ChatterBox( new Ui(), new TaskList(), new Storage());
+        ChatterBox cb = new ChatterBox(new Ui(), new TaskList(), new Storage());
         cb.run();
     }
 
