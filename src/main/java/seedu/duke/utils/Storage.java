@@ -64,7 +64,7 @@ public class Storage {
             Scanner scanner = new Scanner(myData);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                Task task = parseTaskFromLine(line, taskList);
+                Task task = parseTaskFromLine(line);
                 if (task != null) {
                     // this adds to taskList without printing anything
                     taskList.addAvailTasks(task);
@@ -85,10 +85,9 @@ public class Storage {
      * helper function
      *
      * @param line line
-     * @param taskList tasklist
      * @return Task
      */
-    private Task parseTaskFromLine(String line, TaskList taskList) {
+    private Task parseTaskFromLine(String line) {
         String[] parts = line.split(" \\| ");
         String taskType = parts[0];
         String description = parts[2];
