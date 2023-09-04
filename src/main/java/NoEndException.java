@@ -1,6 +1,5 @@
-public class NoEndException extends Exception {
-    private static String line = "--------------------------------------------------------------------";
+public class NoEndException extends DukeException {
     public NoEndException() {
-        super("(・´з`・) Uh oh... please add an end date\n" + line);
+        super("(・´з`・) Uh oh... please add an end date");
     }
 }

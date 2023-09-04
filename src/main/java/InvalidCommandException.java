@@ -1,6 +1,5 @@
-public class InvalidCommandException extends Exception {
-    private static String line = "--------------------------------------------------------------------";
+public class InvalidCommandException extends DukeException {
     public InvalidCommandException() {
-        super("Sorry, I don't understand what you mean ><\n" + line);
+        super("Sorry, I don't understand what you mean ><");
     }
 }
