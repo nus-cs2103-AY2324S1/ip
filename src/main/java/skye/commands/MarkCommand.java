@@ -1,12 +1,12 @@
 package skye.commands;
 
+import java.io.IOException;
+
 import skye.data.TaskList;
 import skye.data.exception.DukeException;
 import skye.data.task.Task;
 import skye.storage.Storage;
 import skye.ui.UI;
-
-import java.io.IOException;
 
 /**
  * Represents the command to mark a task as complete.
@@ -16,6 +16,11 @@ public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";
     private final int taskNumber;
 
+    /**
+     * Instantiates the mark command which is used to mark a task as complete
+     *
+     * @param taskNumber Index number on the task list
+     */
     public MarkCommand(int taskNumber) {
         super();
         this.taskNumber = taskNumber;

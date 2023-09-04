@@ -3,7 +3,7 @@ package skye.data.task;
 /**
  * Represents a ToDo task that the user wishes to keep track of.
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
 
     /**
      * Initialises an ToDo object

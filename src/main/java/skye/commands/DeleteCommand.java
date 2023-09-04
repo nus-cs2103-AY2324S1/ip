@@ -1,12 +1,12 @@
 package skye.commands;
 
+import java.io.IOException;
+
 import skye.data.TaskList;
 import skye.data.exception.DukeException;
 import skye.data.task.Task;
 import skye.storage.Storage;
 import skye.ui.UI;
-
-import java.io.IOException;
 
 /**
  * Represents the command for deleting tasks
@@ -16,6 +16,11 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
     private final int taskNumber;
 
+    /**
+     * Instantiates the delete command for deleting tasks
+     *
+     * @param taskNumber Index number on the task list
+     */
     public DeleteCommand(int taskNumber) {
         super();
         this.taskNumber = taskNumber;

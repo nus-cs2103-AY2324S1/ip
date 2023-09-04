@@ -7,7 +7,7 @@ import skye.ui.UI;
 /**
  * Represents the command to exit from the program.
  */
-public class ByeCommand extends Command{
+public class ByeCommand extends Command {
 
     public static final String COMMAND_WORD = "bye";
 

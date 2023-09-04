@@ -1,12 +1,12 @@
 package skye.commands;
 
+import java.io.IOException;
+
 import skye.data.TaskList;
 import skye.data.exception.DukeException;
 import skye.data.task.Task;
 import skye.storage.Storage;
 import skye.ui.UI;
-
-import java.io.IOException;
 
 /**
  * Represents the command to mark a completed task as incomplete
@@ -16,6 +16,11 @@ public class UnmarkCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
     private final int taskNumber;
 
+    /**
+     * Instantiates the unmark command to mark a completed task as incomplete.
+     *
+     * @param taskNumber Index number on the task list
+     */
     public UnmarkCommand(int taskNumber) {
         super();
         this.taskNumber = taskNumber;

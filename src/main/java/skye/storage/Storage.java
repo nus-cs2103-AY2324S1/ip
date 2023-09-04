@@ -1,9 +1,5 @@
 package skye.storage;
 
-import skye.data.exception.DukeException;
-import skye.data.task.Task;
-import skye.parser.TaskDecoder;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,6 +8,10 @@ import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+
+import skye.data.exception.DukeException;
+import skye.data.task.Task;
+import skye.parser.TaskDecoder;
 
 /**
  * Represents a storage utility object which provides operations to load task information

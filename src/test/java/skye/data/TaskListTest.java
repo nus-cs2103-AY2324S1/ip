@@ -1,16 +1,20 @@
 package skye.data;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import skye.data.exception.DukeException;
 import skye.data.exception.DukeExceptionType;
 import skye.data.task.Task;
 import skye.data.task.ToDo;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskListTest {
-    TaskList taskList;
+    private TaskList taskList;
     @BeforeEach
     public void init() {
         taskList = new TaskList();

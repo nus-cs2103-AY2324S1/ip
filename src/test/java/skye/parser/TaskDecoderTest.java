@@ -1,19 +1,19 @@
 package skye.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import skye.data.exception.DukeException;
 import skye.data.exception.DukeExceptionType;
 import skye.data.task.Deadline;
 import skye.data.task.Event;
 import skye.data.task.Task;
 import skye.data.task.ToDo;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TaskDecoderTest {
     private TaskDecoder taskDecoder;

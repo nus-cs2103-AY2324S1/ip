@@ -1,16 +1,16 @@
 package skye.commands;
 
+import java.util.List;
+
 import skye.data.TaskList;
 import skye.data.task.Task;
 import skye.storage.Storage;
 import skye.ui.UI;
 
-import java.util.List;
-
 /**
  * Represents the command to find tasks containing the keyword specified by the user.
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
     private final String keyword;
