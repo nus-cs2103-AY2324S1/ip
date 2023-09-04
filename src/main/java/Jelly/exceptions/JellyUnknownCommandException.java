@@ -1,4 +1,4 @@
-package exceptions;
+package Jelly.exceptions;
 
 
 public class JellyUnknownCommandException extends JellyException {

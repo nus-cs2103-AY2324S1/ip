@@ -1,3 +1,5 @@
+package Jelly.task;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -46,7 +48,7 @@ public class Event extends Task {
     }
     @Override
     public String writeToFile() {
-        return "E | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + "| " + from + " to " + to;
+        return "E | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | " + from + " to " + to;
     }
 
     protected LocalDate parseDate(String date) {

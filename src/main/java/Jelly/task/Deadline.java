@@ -1,3 +1,5 @@
+package Jelly.task;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -34,7 +36,7 @@ public class Deadline extends Task {
     }
     @Override
     public String writeToFile() {
-        String printedStuff = "D | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + "| ";
+        String printedStuff = "D | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | ";
             return printedStuff + this.by;
     }
 
