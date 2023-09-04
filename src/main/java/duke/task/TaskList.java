@@ -36,12 +36,14 @@ public class TaskList {
     /**
      * Prints the list of tasks nicely.
      */
-    public void showList() {
+    public String showList() {
         int i;
+        String listDisplay = "Here are your tasks: \n";
         for (i = 0; i < list.size(); i++) {
             Task task = list.get(i);
-            System.out.printf("%d.%s\n", i + 1, task);
+            listDisplay += String.format("%d.%s\n", i + 1, task);
         }
+        return listDisplay;
     }
 
     /**
@@ -63,14 +65,15 @@ public class TaskList {
      * @param taskNumber The index of the task.
      * @throws DukeException Task number is invalid.
      */
-    public void removeTask(Integer taskNumber) throws DukeException {
+    public String removeTask(Integer taskNumber) throws DukeException {
         if (taskNumber > list.size() || taskNumber < 1) {
             throw new DukeException("Invalid task number");
         } else {
             Task task = list.remove(taskNumber - 1);
-            System.out.printf("Noted. I've removed this task:\n"
-                    + "%s\n" + "Now you have %d tasks in the list.\n"
-                    + "----------\n", task, list.size());
+            String output = String.format("Noted. I've removed this task:\n"
+                    + "%s\n" + "Now you have %d tasks in the list.\n",
+                    task, list.size());
+            return output;
         }
     }
 
@@ -78,18 +81,19 @@ public class TaskList {
      * Adds a task.
      * @param task Task to be added.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         list.add(task);
-        System.out.printf("Got it. I've added this task:\n"
-                + "%s\n" + "Now you have %d tasks in the list.\n"
-                + "----------\n", task, list.size());
+        String output = String.format("Got it. I've added this task:\n"
+                + "%s\n" + "Now you have %d tasks in the list.\n",
+                task, list.size());
+        return output;
     }
 
     /**
      * Finds tasks based on keyword.
      * @param keyword Keyword to search for in tasks.
      */
-    public void findTasks(String keyword) {
+    public String findTasks(String keyword) {
         TaskList tasks = new TaskList(this.capacity);
         for (Task task: list) {
             if (task.match(keyword)) {
@@ -97,10 +101,11 @@ public class TaskList {
             }
         }
         if (tasks.isEmpty()) {
-            System.out.println("There are no matching tasks in your list.");
+            return ("There are no matching tasks in your list.");
         } else {
-            System.out.println("Here are the matching tasks in your list:");
-            tasks.showList();
+            String output = String.format("Here are the matching tasks in your list: \n"
+                    + tasks.showList());
+            return output;
         }
     }
 }
