@@ -130,6 +130,13 @@ public class Parser {
         storage.saveTask(event);
     }
 
+    public static void parseFind(TaskList list, String[] data, Ui ui) throws InvalidInputException {
+        data[0] = "";
+        String keyword = String.join(" ", data).trim();
+        System.out.println(keyword);
+        ui.printFind(keyword, list);
+    }
+
     public static boolean parseInput(Ui ui, Storage storage, TaskList list, String input) throws InvalidInputException {
         String[] data = input.split(" ");
 
@@ -138,6 +145,9 @@ public class Parser {
             return true;
         case "list":
             ui.printList(list);
+            break;
+        case "find":
+            Parser.parseFind(list, data, ui);
             break;
         case "mark":
             Parser.parseMark(list, data, storage, ui);

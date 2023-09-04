@@ -42,7 +42,6 @@ public class Nexus {
             try {
                 String input = scanner.nextLine();
                 exit = Parser.parseInput(ui, storage, this.list, input);
-                scanner.reset();
             } catch (InvalidInputException e) {
                 System.out.println(e.getMessage());
             }
@@ -53,7 +52,7 @@ public class Nexus {
 
     public static void main(String[] args) {
         // OS-Independent path
-        String path = "src" + File.separator + "main" + File.separator + "data" + File.separator + "nexus.txt";
+        String path = String.join(File.separator, "src", "main", "data", "nexus.txt");
         new Nexus(path).run();
     }
 }
