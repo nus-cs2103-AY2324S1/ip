@@ -86,13 +86,19 @@ public class MainWindow extends Application {
             @Override
             public void run() {
                 Platform.exit();
-                timer.cancel();
             }
         }, 1500);
     }
 
     public Timer getTimer() {
         return timer;
+    }
+
+    /**
+     * Cleans up the UI window, stopping any resources that may be preventing the program from terminating.
+     */
+    public void cleanUp() {
+        timer.cancel();
     }
 
     /**

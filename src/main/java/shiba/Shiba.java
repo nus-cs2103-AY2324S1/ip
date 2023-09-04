@@ -55,6 +55,8 @@ public class Shiba {
         new Shiba("SHIBA-BOT", "./shibaData/tasks.txt");
 
         Application.launch(MainWindow.class);
+
+        MainWindow.getInstance().cleanUp();
     }
 
     /**
