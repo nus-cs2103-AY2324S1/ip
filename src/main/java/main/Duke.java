@@ -54,10 +54,9 @@ public class Duke {
         scanObj.close();
     }
 
-        public static void main (String[]args){
-            Duke chad = new Duke();
-            chad.run();
-        }
-
+    public static void main (String[]args){
+        Duke chad = new Duke();
+        chad.run();
+    }
 
 }
