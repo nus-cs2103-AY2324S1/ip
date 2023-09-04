@@ -66,7 +66,7 @@ class Task {
     }
 
     /**
-     * Unmarks a task as done
+     * Marks a task as undone
      */
     public void unmark() {
         this.done = false;
@@ -1025,7 +1025,7 @@ class Ui {
     }
 
     /**
-     * Returns the message for unmarking a task as done.
+     * Returns the message for marking a task as undone.
      *
      * @return The message indicating that that task has been unmarked.
      */
