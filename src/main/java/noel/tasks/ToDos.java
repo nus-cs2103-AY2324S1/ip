@@ -1,4 +1,4 @@
-package noel;
+package noel.tasks;
 
 public class ToDos extends Task {
 

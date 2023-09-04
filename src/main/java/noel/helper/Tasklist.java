@@ -1,4 +1,10 @@
-package noel;
+package noel.helper;
+
+import noel.exceptions.NoelException;
+import noel.tasks.Deadlines;
+import noel.tasks.Events;
+import noel.tasks.Task;
+import noel.tasks.ToDos;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -11,8 +17,7 @@ import java.util.Objects;
 
 public class Tasklist {
 
-    private int maxSize = 100;
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
     static String addedMessageStart = "Got it. I've added this task:";
 
     public Tasklist(String listOfTasks) throws NoelException {
@@ -29,6 +34,7 @@ public class Tasklist {
     }
 
     public boolean checkFull() {
+        int maxSize = 100;
         return taskList.size() == maxSize;
     }
 

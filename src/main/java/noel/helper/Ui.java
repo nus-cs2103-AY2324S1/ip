@@ -1,4 +1,4 @@
-package noel;
+package noel.helper;
 
 import java.util.Scanner;
 
