@@ -74,6 +74,10 @@ public class Ui {
         System.out.println(index + ". " + t.toString());
     }
 
+    /**
+     * Shows the list of tasks that match the keyword.
+     * @param tasks tasks that match the keyword.
+     */
     public void showMatchingTasks(TaskList tasks) {
         System.out.println("____________________________________________________________\n"
                 + "Here are the matching tasks in your list:");

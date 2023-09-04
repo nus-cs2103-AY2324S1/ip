@@ -1,7 +1,8 @@
 package duke;
 
-import java.util.ArrayList;
-
+/**
+ * Finds tasks by searching for a keyword.
+ */
 public class FindCommand extends Command{
     private final String KEYWORD;
     public FindCommand(String word) {
