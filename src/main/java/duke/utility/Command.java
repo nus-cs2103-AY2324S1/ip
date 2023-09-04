@@ -1,10 +1,6 @@
 package duke.utility;
 
-import duke.exception.EmptyTaskException;
-import duke.exception.InvalidDeadlineException;
-import duke.exception.InvalidEventException;
-import duke.exception.InvalidTaskException;
-import duke.exception.MissingTimeException;
+import duke.exception.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -209,6 +205,31 @@ public class Command {
             // Return system message to inform action
             return this.ui.printDeleteTask(task);
         } catch (EmptyTaskException | InvalidTaskException e) {
+            return Ui.printError(e);
+        }
+    }
+
+    /**
+     * Breaks down user's input into keyword to find.
+     * Search up keyword in the original task list and return a new filtered task list.
+     * Prints all tasks that matches the keyword if search is successful, otherwise,
+     * prints a failed search message.
+     *
+     * @param input User's input from the keyboard.
+     * @return All tasks that matches the keyword in String format if search is successful, otherwise,
+     * prints a failed search message.
+     */
+    public String handleFind(String input) {
+        try {
+            // breaks down input to obtain keyword to search for
+            String keyword = Parser.parseFind(input);
+
+            // search up key word in the original task list, returning a new filtered TaskList object
+            TaskList filteredList = taskList.searchTask(keyword);
+
+            // Prints system message to inform of results
+            return ui.printSearchTask(filteredList);
+        } catch (InvalidTaskException | FailedSearchException e) {
             return Ui.printError(e);
         }
     }

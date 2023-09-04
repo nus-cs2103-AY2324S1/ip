@@ -68,6 +68,9 @@ public class Bobi {
             } else if (answer.startsWith("delete")) {
                 System.out.println(command.handleDelete(answer));
                 answer = ui.getInput();
+            } else if (answer.startsWith("find")) {
+                System.out.println(command.handleFind(answer));
+                answer = ui.getInput();
             } else if (answer.length() == 0) {
                 System.out.println(Ui.printError(new EmptyCommandException()));
                 answer = ui.getInput();

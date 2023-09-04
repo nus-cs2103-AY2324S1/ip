@@ -1,5 +1,6 @@
 package duke.utility;
 
+import duke.exception.FailedSearchException;
 import duke.exception.InvalidTaskException;
 import duke.task.Task;
 
@@ -67,6 +68,42 @@ public class TaskList {
                 break;
             }
         }
+    }
+
+    /**
+     * Search the given keyword for all the task names in the task list
+     * and returns the filtered task list.
+     *
+     * @param keyword Keyword to search for.
+     * @return A new TaskList object containing all tasks that contains the given keyword.
+     * @throws FailedSearchException if no task matches the given keyword.
+     */
+    public TaskList searchTask(String keyword) throws FailedSearchException {
+
+        // copy all contents of task list into search list
+        TaskList searchList = new TaskList();
+        searchList.tasks.addAll(this.tasks);
+
+        int originalSize = searchList.getLength();
+
+        for (int i = 0; i < originalSize; i++) {
+            for (int j = 0; j < searchList.getLength(); j++) {
+                String taskName = searchList.tasks.get(j).getName();
+
+                // remove tasks that do not contain the keyword
+                if (!taskName.contains(keyword)) {
+                    searchList.tasks.remove(j);
+                    break;
+                }
+            }
+        }
+
+        // none of the tasks matches the keyword, throw an exception
+        if (searchList.tasks.isEmpty()) {
+            throw new FailedSearchException();
+        }
+
+        return searchList;
     }
 
     /**

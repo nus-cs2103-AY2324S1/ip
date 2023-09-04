@@ -19,6 +19,7 @@ public class Ui {
     private static final String LIST_TASKS = "Things you need to do: \n";
     private static final String UPDATE_TASK = "OK! Your task has now been updated to: \n";
     private static final String DELETE_TASK = "Alright! I have deleted this task from the list:\n";
+    private static final String SEARCH_TASK = "Found it! Here are the matching tasks in your list:\n";
 
     private final Scanner sc;
     private final TaskList taskList;
@@ -98,6 +99,15 @@ public class Ui {
     public String printDeleteTask(Task task) {
         COUNT_TASK = "You currently have " + this.taskList.getLength() + " tasks to do.\n";
         return SEPARATOR + DELETE_TASK + task.toString() + "\n" + COUNT_TASK + SEPARATOR;
+    }
+
+    /**
+     * Returns all tasks found from the search in a String format.
+     *
+     * @param filteredList TaskList of all tasks that matches the keyword.
+     */
+    public String printSearchTask(TaskList filteredList) {
+        return SEPARATOR + SEARCH_TASK + filteredList.toString() + "\n" + SEPARATOR;
     }
 
     /**
