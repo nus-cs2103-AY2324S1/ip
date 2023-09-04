@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Ui {
 
     private static final String LINE = "──────────────────────────────"
@@ -72,5 +74,14 @@ public class Ui {
         System.out.println(LINE + "\n"
                 + message + "\n"
                 + LINE + "\n");
+    }
+
+    public void showLine() {
+        System.out.println(LINE);
+    }
+
+    public String readCommand() {
+        Scanner input = new Scanner(System.in);
+        return input.nextLine();
     }
 }

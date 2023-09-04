@@ -12,92 +12,21 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private Parser parser;
 
-    public Duke(String filePath) {
+    public Duke(String filePath) throws DukeException {
         this.ui = new Ui();
-        this.tasks = new TaskList();
-    }
-
-    private static boolean createFile(File f)  {
-        try {
-            return f.createNewFile();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    private static void makeDataDir() {
-        File dataDirectory = new File("./data/");
-        if (!dataDirectory.exists()) {
-            dataDirectory.mkdirs();
-        }
-    }
-
-    private static void appendToFile(String filePath, Task taskToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        fw.write(taskToAdd.toData());
-        fw.write("\n");
-        fw.close();
-    }
-
-    private void loadData(File file) throws DukeException{
-        try {
-            Scanner s = new Scanner(file);
-            while (s.hasNextLine()) {
-                String line = s.nextLine();
-                String taskType = line.substring(0, 1);
-                switch (taskType) {
-                case "T":
-                    tasks.add(Todo.dataToTask(line.substring(4)));
-                    break;
-                case "E":
-                    tasks.add(Event.dataToTask(line.substring(4)));
-                    break;
-                case "D":
-                    tasks.add(Deadline.dataToTask(line.substring(4)));
-                    break;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private void writeAllToFile(File f) {
-        try {
-            FileWriter fw = new FileWriter(f);
-            for (int i = 0; i < tasks.size(); i++) {
-                fw.write(tasks.get(i).toData());
-                fw.write("\n");
-            }
-            fw.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        this.parser = new Parser();
+        this.storage = new Storage(filePath);
+        this.tasks = storage.loadIntoList(new TaskList());
     }
 
     public void run() throws DukeException {
         this.ui.greet();
-        Scanner input = new Scanner(System.in);
-
-        String filepath = "data/duke.txt";
-        makeDataDir();
-        File f = new File(filepath);
-        if (!createFile(f)) {
+        boolean isExit = false;
+        while (!isExit) {
             try {
-                loadData(f);
-            } catch (DukeException e) {
-                throw e;
-            }
-        }
-
-        boolean end = false;
-        while (!end) {
-            try {
-                String userInput = input.nextLine();
-
+                String userInput = ui.readCommand();
                 int spaceIndex = userInput.indexOf(" ");
                 if (spaceIndex == -1) {
                     switch (userInput) {
@@ -105,7 +34,7 @@ public class Duke {
                         ui.printList(tasks);
                         break;
                     case "bye":
-                        end = true;
+                        isExit = true;
                         break;
                     case "todo":
                         throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
@@ -126,7 +55,7 @@ public class Duke {
                         Task newTodo = new Todo(todoDesc);
                         tasks.add(newTodo);
                         try {
-                            appendToFile(filepath, newTodo);
+                            storage.appendToFile(newTodo);
                         } catch (IOException e) {
                             throw new DukeException("☹ OOPS!!! There is something wrong with the description.");
                         }
@@ -144,7 +73,7 @@ public class Duke {
                         Task newEvent = new Event(eventDesc, from, to);
                         tasks.add(newEvent);
                         try {
-                            appendToFile(filepath, newEvent);
+                            storage.appendToFile(newEvent);
                         } catch (IOException e) {
                             throw new DukeException("☹ OOPS!!! There is something wrong with the description.");
                         }
@@ -160,7 +89,7 @@ public class Duke {
                         Task newDeadline = new Deadline(deadlineDesc, by);
                         tasks.add(newDeadline);
                         try {
-                            appendToFile(filepath, newDeadline);
+                            storage.appendToFile(newDeadline);
                         } catch (IOException e) {
                             throw new DukeException("☹ OOPS!!! There is something wrong with the description.");
                         }
@@ -170,14 +99,14 @@ public class Duke {
                         int i = Integer.parseInt(userInput.split(" ", 2)[1]);
                         Task taskToMark = tasks.get(i - 1);
                         taskToMark.markAsDone();
-                        writeAllToFile(f);
+                        storage.writeListToFile(tasks);
                         ui.printTaskMarked(taskToMark);
                         break;
                     case "unmark":
                         int j = Integer.parseInt(userInput.split(" ", 2)[1]);
                         Task taskToUnmark = tasks.get(j - 1);
                         taskToUnmark.markAsNotDone();
-                        writeAllToFile(f);
+                        storage.writeListToFile(tasks);
                         ui.printTaskUnmarked(taskToUnmark);
                         break;
                     case "delete":
@@ -187,7 +116,7 @@ public class Duke {
                         }
                         Task deletedTask = tasks.get(k - 1);
                         tasks.remove(k - 1);
-                        writeAllToFile(f);
+                        storage.writeListToFile(tasks);
                         ui.printTaskDeleted(deletedTask, tasks.size());
 
                         break;
