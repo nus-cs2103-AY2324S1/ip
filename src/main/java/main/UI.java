@@ -6,14 +6,15 @@ import java.util.ArrayList;
 
 public class UI {
 
-    public UI() {}
+    public UI() {
+    }
 
-    void divider() {
+    void printDivider() {
         String line = "____________________________________________________________";
         System.out.println(line);
     }
 
-    void welcomeMessage() {
+    void printWelcomeMessage() {
 
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -23,14 +24,14 @@ public class UI {
 
         System.out.println("Hello from\n" + logo);
 
-        this.divider();
+        this.printDivider();
         System.out.println(" Hello! I'm JARVIS");
         System.out.println("What can I do for you?");
-        this.divider();
+        this.printDivider();
     }
 
-    public void list(ArrayList<Task> taskArrayList) {
-        this.divider();
+    public void printList(ArrayList<Task> taskArrayList) {
+        this.printDivider();
         if (taskArrayList.size() == 0) {
             System.out.println("There are no tasks in your list.");
         } else {
@@ -41,11 +42,11 @@ public class UI {
                 System.out.println(index + "." + t.toString());
             }
         }
-        this.divider();
+        this.printDivider();
     }
 
-    public void byeMessage() {
+    public void printByeMessage() {
         System.out.println("Bye. Hope to see you again soon!");
-        this.divider();
+        this.printDivider();
     }
 }

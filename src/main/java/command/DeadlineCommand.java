@@ -5,9 +5,10 @@ import main.UI;
 import main.Storage;
 
 import exception.DukeException;
+
 public class DeadlineCommand extends Command {
 
-    String fullCommand;
+    private String fullCommand;
 
     public DeadlineCommand(String fullCommand) {
         this.fullCommand = fullCommand;

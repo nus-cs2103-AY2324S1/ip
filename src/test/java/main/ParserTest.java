@@ -1,22 +1,30 @@
 package main;
 
-import command.*;
+import command.ByeCommand;
+
+import command.EventCommand;
+
 import exception.DukeException;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+
+//Underscores may be used in test method names using the
+// following three part format featureUnderTest_testScenario_expectedBehavior()
 
 // Testing the Parser.parse() method
 public class ParserTest {
 
     @Test
-    public void parseTest() throws DukeException {
+    public void parse_correctByeInput() throws DukeException {
         assertEquals(new ByeCommand().end(), Parser.parse("bye").end());
     }
 
     @Test
-    public void byeByeShouldThrowDukeExceptionParseTest() {
+    public void parse_incorrectByeInput() {
         assertThrows(DukeException.class,
                 () -> {
                     Parser.parse("bye bye");
@@ -24,27 +32,22 @@ public class ParserTest {
     }
 
     @Test
-    public void byeShouldReturnByeCommandParseTest() throws DukeException {
-        assertEquals(ByeCommand.class, Parser.parse("bye").getClass());
-    }
-
-    @Test
-    public void shouldReturnEventCommandParseTest() throws DukeException {
+    public void parse_inputStartingWithEvent_shouldReturnEventCommandParseTest() throws DukeException {
         assertEquals(EventCommand.class, Parser.parse("event Amma Birthday Dinner " +
                 "/from 02-08-2023 1800 /to 02-08-2023 2200").getClass());
     }
 
     @Test
-    public void eventSpellingMistakeShouldReturnDukeException() {
+    public void parse_eventSpellingMistake_shouldReturnDukeException() {
         assertThrows(DukeException.class,
                 () -> {
-            Parser.parse("evennt Amma Birthday Dinner " +
-                "/from 02-08-2023 1800 /to 02-08-2023 2200");
-        });
+                    Parser.parse("evennt Amma Birthday Dinner " +
+                            "/from 02-08-2023 1800 /to 02-08-2023 2200");
+                });
     }
 
     @Test
-    public void notIndicatingToShouldReturnDukeException() {
+    public void parse_notIndicatingTo_shouldReturnDukeException() {
         assertThrows(DukeException.class,
                 () -> {
                     Parser.parse("evennt Amma Birthday Dinner " +
@@ -53,7 +56,7 @@ public class ParserTest {
     }
 
     @Test
-    public void notIndicatingFromShouldReturnDukeException() {
+    public void parse_notIndicatingFrom_shouldReturnDukeException() {
         assertThrows(DukeException.class,
                 () -> {
                     Parser.parse("evennt Amma Birthday Dinner " +

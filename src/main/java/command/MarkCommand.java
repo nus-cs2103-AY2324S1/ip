@@ -8,7 +8,7 @@ import exception.DukeException;
 
 public class MarkCommand extends Command {
 
-    int index;
+    private int index;
 
     public MarkCommand(int index) {
         this.index = index;
@@ -22,7 +22,7 @@ public class MarkCommand extends Command {
         } catch (RuntimeException e) {
             throw new DukeException(String.format("Given index is out of range. Index range should be between" +
                             " 1 and %d.",
-                    taskList.size()));
+                    taskList.getSize()));
         }
     }
 }

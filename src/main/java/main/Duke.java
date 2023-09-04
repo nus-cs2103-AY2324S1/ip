@@ -27,7 +27,7 @@ public class Duke {
         this.storage = new Storage(filePath, tasks);
         this.ui = new UI();
 
-        this.ui.welcomeMessage();
+        this.ui.printWelcomeMessage();
 
         try {
             this.storage.loadList();
@@ -46,15 +46,13 @@ public class Duke {
                 command.execute(this.tasks, this.ui, this.storage);
                 isContinue = command.end();
                 if (isContinue) {
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    this.ui.divider();
+                    System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
+                    this.ui.printDivider();
                 }
             } catch (DukeException exception) {
                 System.out.println(exception.getMessage());
             }
         }
-
-
     }
 }
 

@@ -9,6 +9,7 @@ public class Deadline extends Task {
     private LocalDateTime dateTime;
 
     DateTimeFormatter outputFormatWithTime = DateTimeFormatter.ofPattern("dd MMM yyyy h:mma");
+
     public Deadline(String description, String time) {
         super(description);
         this.time = time;
@@ -20,7 +21,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String storeFormat() {
+    public String outputStoreFormat() {
         String taskType = "D";
         String isTaskDone;
 

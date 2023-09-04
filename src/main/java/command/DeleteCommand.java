@@ -7,7 +7,7 @@ import main.Storage;
 import exception.DukeException;
 
 public class DeleteCommand extends Command {
-    String fullCommand;
+    private String fullCommand;
 
     public DeleteCommand(String fullCommand) {
         this.fullCommand = fullCommand;

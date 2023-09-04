@@ -8,6 +8,7 @@ import exception.DukeException;
 
 public class ToDoCommand extends Command {
     String description;
+
     public ToDoCommand(String description) {
         this.description = description;
     }

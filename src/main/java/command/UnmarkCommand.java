@@ -9,6 +9,7 @@ import exception.DukeException;
 public class UnmarkCommand extends Command {
 
     int index;
+
     public UnmarkCommand(int index) {
         this.index = index;
     }
@@ -21,7 +22,7 @@ public class UnmarkCommand extends Command {
         } catch (RuntimeException e) {
             throw new DukeException(String.format("Given index is out of range. Index range should be between" +
                             " 1 and %d.",
-                    taskList.size()));
+                    taskList.getSize()));
         }
     }
 }

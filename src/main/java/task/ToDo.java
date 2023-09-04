@@ -6,8 +6,9 @@ public class ToDo extends Task {
     public ToDo(String description) throws DukeException {
         super(description);
     }
+
     @Override
-    public String storeFormat() {
+    public String outputStoreFormat() {
         String taskType = "T";
         String isTaskDone;
 
@@ -19,6 +20,7 @@ public class ToDo extends Task {
 
         return (taskType + " | " + isTaskDone + " | " + this.description.trim());
     }
+
     @Override
     public String toString() {
         return String.format("[T]%s", super.toString());

@@ -13,11 +13,11 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void taskDone(boolean status) {
+    public void setTaskDone(boolean status) {
         this.isDone = status;
     }
 
-    public String storeFormat() {
+    public String outputStoreFormat() {
         return null;
     }
 

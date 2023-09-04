@@ -7,7 +7,8 @@ import main.Storage;
 import exception.DukeException;
 
 public class EventCommand extends Command {
-    String fullCommand;
+    private String fullCommand;
+
 
     public EventCommand(String fullCommand) {
         this.fullCommand = fullCommand;

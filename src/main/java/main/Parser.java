@@ -17,47 +17,47 @@ import java.util.Arrays;
 public class Parser {
 
     static Command parse(String fullCommand) throws DukeException {
-            if (Parser.isBye(fullCommand)) {
-                return new ByeCommand();
-            } else if (Parser.isList(fullCommand)) {
-                return new ListCommand();
-            } else if (Parser.isMark(fullCommand)) {
+        if (Parser.isBye(fullCommand)) {
+            return new ByeCommand();
+        } else if (Parser.isList(fullCommand)) {
+            return new ListCommand();
+        } else if (Parser.isMark(fullCommand)) {
+            Parser.testMarkAndDelete(fullCommand);
+            int taskIndex = Integer.parseInt(fullCommand.substring(5)) - 1;
+            return new MarkCommand(taskIndex);
+        } else if (Parser.isUnmark(fullCommand)) {
+            Parser.testMarkAndDelete(fullCommand);
+            int taskIndex = Integer.parseInt(fullCommand.substring(7)) - 1;
+            return new UnmarkCommand(taskIndex);
+        } else {
+            if (Parser.isToDo(fullCommand)) {
+
+                String description = fullCommand.substring(4).trim();
+                // test whether the todo is valid
+                Parser.testToDo(description);
+
+                return new ToDoCommand(description);
+
+            } else if (Parser.isEvent(fullCommand)) {
+
+                Parser.testEvent(fullCommand);
+                return new EventCommand(fullCommand);
+
+            } else if (Parser.isDeadline(fullCommand)) {
+
+                Parser.testDeadline(fullCommand);
+                return new DeadlineCommand(fullCommand);
+
+            } else if (Parser.isDelete(fullCommand)) {
+
                 Parser.testMarkAndDelete(fullCommand);
-                int taskIndex = Integer.parseInt(fullCommand.substring(5)) - 1;
-                return new MarkCommand(taskIndex);
-            } else if (Parser.isUnmark(fullCommand)) {
-                Parser.testMarkAndDelete(fullCommand);
-                int taskIndex = Integer.parseInt(fullCommand.substring(7)) - 1;
-                return new UnmarkCommand(taskIndex);
+                return new DeleteCommand(fullCommand);
+
             } else {
-                if (Parser.isToDo(fullCommand)) {
-
-                    String description = fullCommand.substring(4).trim();
-                    // test whether the todo is valid
-                    Parser.testToDo(description);
-
-                    return new ToDoCommand(description);
-
-                } else if (Parser.isEvent(fullCommand)) {
-
-                    Parser.testEvent(fullCommand);
-                    return new EventCommand(fullCommand);
-
-                } else if (Parser.isDeadline(fullCommand)) {
-
-                    Parser.testDeadline(fullCommand);
-                    return new DeadlineCommand(fullCommand);
-
-                } else if (Parser.isDelete(fullCommand)) {
-
-                    Parser.testMarkAndDelete(fullCommand);
-                    return new DeleteCommand(fullCommand);
-
-                } else {
-                    throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-                }
+                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
+    }
 
     public static boolean isBye(String fullCommand) {
         return fullCommand.equals("bye");

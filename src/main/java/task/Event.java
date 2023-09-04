@@ -10,6 +10,7 @@ public class Event extends Task {
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     DateTimeFormatter outputFormatWithTime = DateTimeFormatter.ofPattern("dd MMM yyyy h:mma");
+
     public Event(String description, String startTime, String endTime) {
         super(description);
         this.startTime = startTime;
@@ -23,7 +24,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String storeFormat() {
+    public String outputStoreFormat() {
         String taskType = "E";
         String isTaskDone;
 
