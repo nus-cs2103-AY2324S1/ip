@@ -1,12 +1,9 @@
 import java.time.LocalDate;
 
 public class Deadline extends Task {
-<<<<<<< HEAD
-    protected String by;
     private static String LINE = "-----------------------------------------\n";
-=======
     protected DateTime deadline;
->>>>>>> branch-Level-8
+
     public Deadline(String description, String by) {
         super(description);
         this.deadline = new DateTime(by);

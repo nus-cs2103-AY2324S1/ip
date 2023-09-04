@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import java.util.ArrayList;
-=======
-import java.time.LocalDate;
->>>>>>> branch-Level-8
-
 public class Task {
     protected String description;
     protected boolean isDone;

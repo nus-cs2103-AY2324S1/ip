@@ -1,12 +1,8 @@
 public class Event extends Task {
-<<<<<<< HEAD
-    protected String from;
-    protected String to;
     private static String LINE = "-----------------------------------------\n";
-=======
     protected DateTime start;
     protected DateTime end;
->>>>>>> branch-Level-8
+
     public Event(String description, String from, String to) {
         super(description);
         start = new DateTime(from);
