@@ -3,6 +3,7 @@ package bob.command;
 import bob.exception.BobException;
 import bob.storage.StorageFile;
 import bob.task.TaskList;
+import bob.ui.TextGenerator;
 import bob.ui.TextUi;
 
 /**
@@ -11,13 +12,17 @@ import bob.ui.TextUi;
  */
 public class ExitCommand extends Command {
     @Override
-    public void execute(TaskList taskList, StorageFile storageFile, TextUi ui) throws BobException {
+    public void execute(TaskList taskList, StorageFile storageFile) throws BobException {
         storageFile.saveTasks(taskList);
-        ui.printGoodbyeMessage();
     }
 
     @Override
     public boolean isExit() {
         return true;
+    }
+
+    @Override
+    public String getOutputMessage() {
+        return TextGenerator.getFarewellMessage();
     }
 }

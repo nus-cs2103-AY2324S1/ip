@@ -5,6 +5,7 @@ import bob.exception.BobException;
 import bob.parser.Parser;
 import bob.storage.StorageFile;
 import bob.task.TaskList;
+import bob.ui.TextGenerator;
 import bob.ui.TextUi;
 
 /**
@@ -12,9 +13,12 @@ import bob.ui.TextUi;
  * It can be interacted with via the Command Line Interface
  */
 public class Bob {
+    private static final String defaultDirectoryPath = "data/";
+    private static final String defaultFileName = "Bob.txt";
     private StorageFile storageFile;
     private TaskList taskList;
     private TextUi textUi;
+    private boolean isActive;
 
     /**
      * Constructor of the Bob Class.
@@ -25,6 +29,7 @@ public class Bob {
     public Bob(String fileDirectoryPath, String fileName) {
         textUi = new TextUi();
         storageFile = new StorageFile(fileDirectoryPath, fileName);
+        isActive = true;
         try {
             taskList = storageFile.loadTasks();
         } catch (BobException e) {
@@ -34,27 +39,47 @@ public class Bob {
     }
 
     /**
-     * Main entry point of the ChatBot. Terminates when
-     * an exit command is called.
+     * Default constructor for Bob Class that utilises
+     * default directory path and file name.
      */
-    public void run() {
-        textUi.printWelcomeMessage();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String input = textUi.readTextInput();
-                Command c = Parser.parse(input);
-                c.execute(taskList, storageFile, textUi);
-                isExit = c.isExit();
-            } catch (BobException e) {
-                textUi.printErrorMessage(e);
-            } finally {
-                textUi.printDivider();
-            }
+    public Bob() {
+        textUi = new TextUi();
+        storageFile = new StorageFile(defaultDirectoryPath, defaultFileName);
+        isActive = true;
+        try {
+            taskList = storageFile.loadTasks();
+        } catch (BobException e) {
+            textUi.printErrorMessage(e);
+            taskList = new TaskList();
         }
     }
 
-    public static void main(String[] args) {
-        new Bob("data/", "Bob.txt").run();
+    /**
+     * Executes a command to read or modify the task list if user input abides
+     * by a given command format. Returns a crafted String message based on
+     * command executed or error prompted.
+     *
+     * @param input User input
+     * @return A message to displayed to user
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(taskList, storageFile);
+            if (c.isExit()) {
+                isActive = false;
+            }
+            return c.getOutputMessage();
+        } catch (BobException e) {
+            return TextGenerator.getErrorMessage(e);
+        }
+    }
+
+    public boolean isActive() {
+        return this.isActive;
+    }
+
+    public String getBobWelcomeMessage() {
+        return TextGenerator.getWelcomeMessage();
     }
 }

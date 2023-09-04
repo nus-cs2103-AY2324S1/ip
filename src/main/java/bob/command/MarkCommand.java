@@ -4,7 +4,9 @@ import bob.exception.BobException;
 import bob.storage.StorageFile;
 import bob.task.Task;
 import bob.task.TaskList;
+import bob.ui.TextGenerator;
 import bob.ui.TextUi;
+import org.w3c.dom.Text;
 
 /**
  * The MarkCommand encapsulates logic to be executed to modify the
@@ -13,6 +15,7 @@ import bob.ui.TextUi;
 public class MarkCommand extends Command {
     private int taskNumber;
     private boolean isDone;
+    private Task task;
 
     /**
      * Constructor of the MarkCommand Class.
@@ -26,19 +29,27 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, StorageFile storageFile, TextUi ui) throws BobException {
-        Task task = taskList.getTask(taskNumber - 1);
+    public void execute(TaskList taskList, StorageFile storageFile) throws BobException {
+        this.task = taskList.getTask(taskNumber - 1);
         if (isDone) {
             task.markAsDone();
         } else {
             task.unmarkTask();
         }
-        ui.printMarkMessage(task, isDone);
         storageFile.saveTasks(taskList);
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public String getOutputMessage() throws BobException {
+        if (isDone) {
+            return TextGenerator.getMarkMessage(this.task);
+        } else {
+            return TextGenerator.getUnmarkMessage(this.task);
+        }
     }
 }

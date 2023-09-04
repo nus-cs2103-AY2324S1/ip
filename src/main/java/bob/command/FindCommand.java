@@ -1,8 +1,10 @@
 package bob.command;
 
 import bob.exception.BobException;
+import bob.exception.BobInvalidTaskNumberException;
 import bob.storage.StorageFile;
 import bob.task.TaskList;
+import bob.ui.TextGenerator;
 import bob.ui.TextUi;
 
 /**
@@ -12,19 +14,24 @@ import bob.ui.TextUi;
 public class FindCommand extends Command {
 
     private String keyword;
+    private TaskList filteredTaskList;
 
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
 
     @Override
-    public void execute(TaskList taskList, StorageFile storageFile, TextUi ui) throws BobException {
-        TaskList filteredTaskList = taskList.keywordFilter(keyword);
-        ui.printFindMessage(filteredTaskList);
+    public void execute(TaskList taskList, StorageFile storageFile) throws BobException {
+        filteredTaskList = taskList.keywordFilter(keyword);
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public String getOutputMessage() throws BobInvalidTaskNumberException {
+        return TextGenerator.getFindMessage(filteredTaskList);
     }
 }

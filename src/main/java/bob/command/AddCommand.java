@@ -9,6 +9,7 @@ import bob.task.Event;
 import bob.task.Task;
 import bob.task.TaskList;
 import bob.task.Todo;
+import bob.ui.TextGenerator;
 import bob.ui.TextUi;
 
 
@@ -22,6 +23,7 @@ public class AddCommand extends Command {
     private String description;
     private String startDate;
     private String endDate;
+    private Task task;
 
     /**
      * Constructor of the AddCommand class.
@@ -45,8 +47,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, StorageFile storageFile, TextUi ui) throws BobException {
-        Task task = null;
+    public void execute(TaskList taskList, StorageFile storageFile) throws BobException {
         switch (command) {
         case TODO:
             task = new Todo((this.description));
@@ -60,13 +61,16 @@ public class AddCommand extends Command {
         default:
         }
         taskList.addTask(task);
-        assert task != null;
-        ui.printAddMessage(task);
         storageFile.saveTasks(taskList);
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public String getOutputMessage() {
+        return TextGenerator.getAddTaskMessage(task);
     }
 }
