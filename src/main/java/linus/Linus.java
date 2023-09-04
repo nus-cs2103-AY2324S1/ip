@@ -74,17 +74,21 @@ public class Linus {
                 case MARK:
                     index = Integer.parseInt(data);
                     tasks.mark(index);
+                    storage.store(tasks.getList());
                     break;
                 case UNMARK:
                     index = Integer.parseInt(data);
                     tasks.unmark(index);
+                    storage.store(tasks.getList());
                     break;
                 case DELETE:
                     index = Integer.parseInt(data);
                     tasks.delete(index);
+                    storage.store(tasks.getList());
                     break;
                 case FIND:
                     tasks.find(data);
+                    storage.store(tasks.getList());
                     break;
                 case TODO:
                     if (data == "") {
@@ -92,6 +96,7 @@ public class Linus {
                     }
                     description = data;
                     tasks.add(new ToDo(description));
+                    storage.store(tasks.getList());
                     break;
                 case DEADLINE:
                     if (data == "") {
@@ -110,6 +115,7 @@ public class Linus {
                     String by = items[1];
 
                     tasks.add(new Deadline(description, by));
+                    storage.store(tasks.getList());
                     break;
                 case EVENT:
                     if (data == "") {
@@ -128,6 +134,7 @@ public class Linus {
                     String to = items[2];
 
                     tasks.add(new Event(description, from, to));
+                    storage.store(tasks.getList());
                     break;
                 default:
                     throw new IllegalArgumentException();
@@ -139,7 +146,6 @@ public class Linus {
                 Ui.print(e.getMessage());
             }
         }
-        storage.store(tasks.getList());
         Ui.showExitMessage();
     }
 
