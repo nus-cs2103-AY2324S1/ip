@@ -16,6 +16,7 @@ public class Main extends Application {
         mainWindow.setStage(stage);
         mainWindow.initialise();
 
+        stage.setTitle("It's Bob");
         Scene scene = new Scene(mainWindow);
         stage.setScene(scene);
         stage.show();
