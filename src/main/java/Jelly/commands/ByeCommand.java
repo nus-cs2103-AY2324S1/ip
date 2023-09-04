@@ -10,4 +10,8 @@ public class ByeCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         ui.byeMessage();
     }
+
+    public boolean running() {
+        return false;
+    }
 }
