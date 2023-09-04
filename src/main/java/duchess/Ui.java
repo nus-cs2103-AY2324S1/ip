@@ -29,4 +29,41 @@ public class Ui {
         Ui.duchessPrint("Bye bye!! Hope to see you again (＾▽＾)");
     }
 
+    // Duchess-GUI
+
+    /**
+     * Returns the entered text, but with a consistent formatting in Duchess style.
+     *
+     * @param s - the string to be printed.
+     * @return    the duchess-formatted text.
+     */
+    public static String duchessPrintGUI(String s) {
+        return String.format("[D]: %s\n", s);
+    }
+
+    /**
+     * Returns the duchess greeting to the user.
+     *
+     * @return the Duchess Greeting.
+     */
+    public static String printGreetingGUI() {
+        String returnString = "";
+
+        returnString += Ui.duchessPrintGUI("(^O^)／ Heya~");
+        returnString += Ui.duchessPrintGUI("I am ~~Duchess~~!!");
+        returnString += Ui.duchessPrintGUI("What can I do for you!! o_O");
+
+        return returnString;
+    }
+
+    /**
+     * Prints farewell/exit message.
+     */
+    public static String printFarewellGUI() {
+        String returnString = "";
+
+        returnString += Ui.duchessPrintGUI("Bye bye!! Hope to see you again (＾▽＾)");
+
+        return returnString;
+    }
 }
