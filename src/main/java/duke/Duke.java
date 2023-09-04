@@ -18,24 +18,38 @@ import duke.util.TaskList;
  */
 public class Duke {
 
-    public enum CommandType {
-        LIST, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN, FIND
-    }
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
 
-    private Duke() {
+    /**
+     * Constructs a Duke object.
+     */
+    public Duke() {
         try {
             this.ui = new Ui();
             this.storage = new Storage();
             this.tasks = new TaskList(storage.readTasks());
             this.parser = new Parser();
+
         } catch (DukeException e) {
             ui.printErrorMessage(e);
         }
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        try {
+            CommandType commandType = parser.parseCommandType(input);
+            return handleCommand(commandType, input);
+        } catch (DukeException e) {
+            ui.printErrorMessage(e);
+        }
+        return "Duke heard: " + input;
     }
 
     private void run() {
@@ -66,41 +80,77 @@ public class Duke {
         ekud.run();
     }
 
-    private void handleCommand(CommandType commandType, String command) throws DukeException {
+    // private void handleCommand(CommandType commandType, String command) throws DukeException {
+    //     switch (commandType) {
+    //     case LIST:
+    //         ui.printList(tasks.getTasks());
+    //         break;
+    //     case MARK:
+    //         markTask(command);
+    //         break;
+    //     case DELETE:
+    //         deleteTask(command);
+    //         break;
+    //     case TODO:
+    //     case DEADLINE:
+    //     case EVENT:
+    //         addTask(command);
+    //         break;
+    //     case FIND:
+    //         handleFind(command);
+    //         break;
+    //     case UNKNOWN:
+    //         ui.printErrorMessage(new DukeException("I'm sorry, but I don't know what that means :-("));
+    //         break;
+    //     }
+    // }
+
+    private String handleCommand(CommandType commandType, String command) throws DukeException {
+        Task task;
         switch (commandType) {
         case LIST:
             ui.printList(tasks.getTasks());
-            break;
+            return ui.displayList(tasks.getTasks());
+
         case MARK:
-            markTask(command);
-            break;
+            task = markTask(command);
+            return ui.displayMarkedTaskConfirmation(task);
+
         case DELETE:
-            deleteTask(command);
-            break;
+            task = deleteTask(command);
+            return ui.displayDeletedTaskConfirmation(task, tasks);
+
         case TODO:
         case DEADLINE:
         case EVENT:
-            addTask(command);
-            break;
+            task = addTask(command);
+            return ui.displayAddedTaskConfirmation(task, tasks);
+
         case FIND:
-            handleFind(command);
-            break;
+            TaskList filteredList = handleFind(command);
+            return ui.displayList(filteredList.getTasks());
+
         case UNKNOWN:
             ui.printErrorMessage(new DukeException("I'm sorry, but I don't know what that means :-("));
-            break;
+            return ui.displayErrorMessage(new DukeException("I'm sorry, but I don't know what that means :-("));
+
+        case EXIT:
+            ui.printFarewellMessage();
+            return ui.displayFarewellMessage();
         default:
-            return;
+            return "";
         }
     }
 
-    private void handleFind(String command) {
+    private TaskList handleFind(String command) {
         ui.printFindMessage();
         String keyword = command.split(" ")[1];
         TaskList filtered = tasks.filter(keyword);
         ui.printList(filtered.getTasks());
+        return filtered;
     }
 
-    private void addTask(String task) {
+    private Task addTask(String task) {
         try {
             Task newTask = null;
             if (task.startsWith("todo")) {
@@ -116,36 +166,42 @@ public class Duke {
                 storage.write(newTask);
                 ui.printAddedTaskConfirmation(newTask, tasks);
             }
+            return newTask;
         } catch (DukeException e) {
             ui.printErrorMessage(e);
         }
+        return null;
     }
 
 
-    private void markTask(String command) {
+    private Task markTask(String command) {
         try {
             int index = Integer.parseInt(command.split(" ")[1]) - 1;
             Task task = tasks.get(index);
             task.markAsDone();
             storage.write(tasks.getTasks());
             ui.printMarkedTaskConfirmation(task);
+            return task;
         } catch (NumberFormatException e) {
             ui.printErrorMessage(new DukeException("Invalid command format"));
         } catch (DukeException e) {
             ui.printErrorMessage(e);
         }
+        return null;
     }
 
-    private void deleteTask(String command) {
+    private Task deleteTask(String command) {
         try {
             int index = Integer.parseInt(command.split(" ")[1]) - 1;
             Task task = tasks.remove(index);
             storage.write(tasks.getTasks());
             ui.printDeletedTaskConfirmation(task, tasks);
+            return task;
         } catch (NumberFormatException e) {
             ui.printErrorMessage(new DukeException("Invalid command format"));
         } catch (DukeException e) {
             ui.printErrorMessage(e);
         }
+        return null;
     }
 }

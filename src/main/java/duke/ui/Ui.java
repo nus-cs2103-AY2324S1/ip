@@ -32,11 +32,29 @@ public class Ui {
     }
 
     /**
+     * Returns the welcome message to the user.
+     *
+     * @return The welcome message as a String.
+     */
+    public String displayWelcomeMessage() {
+        return "Hello! I'm \n" + LOGO + "What can I do for you?";
+    }
+
+    /**
      * Prints the farewell message to the user.
      */
     public void printFarewellMessage() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE);
+    }
+
+    /**
+     * Returns the farewell message to the user.
+     *
+     * @return The farewell message as a String.
+     */
+    public String displayFarewellMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -54,6 +72,18 @@ public class Ui {
     }
 
     /**
+     * Returns confirmation when user successfully adds task to the list of tasks.
+     *
+     * @param task The Newly added task
+     * @param tasks The updated list of tasks
+     * @return The confirmation message as a String.
+     */
+    public String displayAddedTaskConfirmation(Task task, TaskList tasks) {
+        return "Got it. I've added this task: \n" + "  " + task + "\n" + "Now you have " + tasks.size()
+                + " tasks in the list.";
+    }
+
+    /**
      * Prints confirmation when user successfully deletes task from the list of tasks.
      *
      * @param task The deleted task
@@ -68,6 +98,18 @@ public class Ui {
     }
 
     /**
+     * Returns confirmation when user successfully deletes task from the list of tasks.
+     *
+     * @param task The deleted task
+     * @param tasks The updated list of tasks
+     * @return The confirmation message as a String.
+     */
+    public String displayDeletedTaskConfirmation(Task task, TaskList tasks) {
+        return "Noted. I've removed this task: \n" + "  " + task + "\n" + "Now you have " + tasks.size()
+                + " tasks in the list.";
+    }
+
+    /**
      * Prints confirmation when user successfully marks task as done.
      *
      * @param task The marked task
@@ -79,6 +121,10 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    public String displayMarkedTaskConfirmation(Task task) {
+        return "Nice! I've marked this task as done: \n" + "  " + task;
+    }
+
     /**
      * Prints the error message to the user.
      *
@@ -88,6 +134,16 @@ public class Ui {
         System.out.println(LINE);
         System.out.println("OOPS!!! " + e.getMessage());
         System.out.println(LINE);
+    }
+
+    /**
+     * Returns the error message to the user.
+     *
+     * @param e The exception that was thrown.
+     * @return The error message as a String.
+     */
+    public String displayErrorMessage(DukeException e) {
+        return "OOPS!!! " + e.getMessage();
     }
 
     /**
@@ -104,10 +160,33 @@ public class Ui {
     }
 
     /**
-     * Prints the message to the user when the find command is executed.
+     * Returns the list of tasks to the user.
+     *
+     * @param tasks
+     * @return The list of tasks as a String.
+     */
+    public String displayList(List<Task> tasks) {
+        String result = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            result += (i + 1) + ". " + tasks.get(i) + "\n";
+        }
+        return result;
+    }
+
+    /**
+     * Prints the header string before the displayed search result.
      */
     public void printFindMessage() {
         System.out.println(LINE);
         System.out.println("Here are the matching tasks in your list:");
+    }
+
+    /**
+     * Returns a header string before the displayed search result.
+     *
+     * @return The header of search result as a String.
+     */
+    public String displayFindMessage() {
+        return "Here are the matching tasks in your list:";
     }
 }
