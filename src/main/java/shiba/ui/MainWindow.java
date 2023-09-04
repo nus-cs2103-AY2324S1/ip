@@ -76,6 +76,8 @@ public class MainWindow extends Application {
         } else {
             System.out.println("Warning: Multiple instances of MainWindow detected!");
         }
+
+        Shiba.getInstance().start();
     }
 
     /**

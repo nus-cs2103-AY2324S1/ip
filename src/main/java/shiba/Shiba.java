@@ -25,7 +25,7 @@ public class Shiba {
         }
     }
 
-    private void start() {
+    public void start() {
         Replier.printGreeting(name);
     }
 
@@ -52,17 +52,9 @@ public class Shiba {
     }
 
     public static void main(String[] args) {
-        Shiba shiba = new Shiba("SHIBA-BOT", "./shibaData/tasks.txt");
+        new Shiba("SHIBA-BOT", "./shibaData/tasks.txt");
 
         new Thread(() -> Application.launch(MainWindow.class)).start();
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            System.out.println("Interrupted");
-        }
-
-        shiba.start();
     }
 
     /**
