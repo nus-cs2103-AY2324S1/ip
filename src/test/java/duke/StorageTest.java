@@ -7,6 +7,10 @@ import org.junit.jupiter.api.Test;
 public class StorageTest {
     private String tempFilePath = "data/temp.txt";
     private Storage storage = new Storage(tempFilePath);
+
+    /**
+     * Tests the load method in Storage. Exception should always be thrown
+     */
     @Test
     public void load_nil_exceptionThrown() {
         try {
