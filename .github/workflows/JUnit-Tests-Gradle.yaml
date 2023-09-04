@@ -14,7 +14,7 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v2
         with:
-          distribution: 'adopt'
+          distribution: 'zulu'
           java-version: '11'
           java-package: 'jdk+fx'
 
@@ -32,7 +32,7 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v2
         with:
-          distribution: 'adopt'
+          distribution: 'zulu'
           java-version: '11'
           java-package: 'jdk+fx'
 
