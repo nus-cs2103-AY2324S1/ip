@@ -1,6 +1,6 @@
 package duke.storage;
 import duke.task.Task;
-import duke.task.ToDos;
+import duke.task.ToDo;
 import duke.task.DeadLine;
 import duke.task.Event;
 
@@ -83,7 +83,7 @@ public class Storage {
 		String isDone = str[1];
 		switch(taskType) {
 			case "T":
-				taskList.add(new ToDos(str[2]));
+				taskList.add(new ToDo(str[2]));
 				break;
 			case "D":
 				LocalDateTime startTime = LocalDateTime.parse(str[3]);

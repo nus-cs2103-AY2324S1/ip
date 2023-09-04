@@ -7,7 +7,7 @@ public class ToDoTest {
 
 	@Test
 	public void writeToFileTest() {
-		ToDos t = new ToDos("hello");
+		ToDo t = new ToDo("hello");
 		String expected = "T | 0 | hello";
 		assertEquals(t.writeToFile(), expected);
 	}

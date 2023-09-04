@@ -1,11 +1,11 @@
 package duke.task;
 
 /**
- * Represents a ToDos Task.
- * Only has a description of what is to be done.
+ * Represents Task to be done.
+ * Contains a description of what is to be done.
  */
-public class ToDos extends Task {
-	public ToDos(String description) {
+public class ToDo extends Task {
+	public ToDo(String description) {
 		super(description);
 	}
 
