@@ -126,9 +126,11 @@ public class Parser {
         storage.saveTask(event);
     }
 
-    public static void parseFind(TaskList list, String[] data, Storage storage, Ui ui) throws InvalidInputException {
-        // filter
-
+    public static void parseFind(TaskList list, String[] data, Ui ui) throws InvalidInputException {
+        data[0] = "";
+        String keyword = String.join(" ", data).trim();
+        System.out.println(keyword);
+        ui.printFind(keyword, list);
     }
 
     public static boolean parseInput(Ui ui, Storage storage, TaskList list, String input) throws InvalidInputException {
@@ -141,7 +143,8 @@ public class Parser {
             ui.printList(list);
             break;
         case "find":
-            Parser.parseFind(list, data, storage, ui);
+            Parser.parseFind(list, data, ui);
+            break;
         case "mark":
             Parser.parseMark(list, data, storage, ui);
             break;

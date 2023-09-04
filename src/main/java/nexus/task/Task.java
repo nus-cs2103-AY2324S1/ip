@@ -16,6 +16,10 @@ public abstract class Task {
         return (isDone ? "X" : " "); // mark done Nexus.task with X
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     public void setDone() {
         this.isDone = true;
     }

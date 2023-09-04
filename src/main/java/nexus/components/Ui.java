@@ -17,23 +17,23 @@ public class Ui {
     }
 
     public void printMark(Task task) {
-        System.out.println("Nice! I've marked this Nexus.task as done:");
+        System.out.println("Nice! I've marked this task as done:");
         this.printTask(task);
     }
 
     public void printUnmark(Task task) {
-        System.out.println("OK, I've marked this Nexus.task as not done yet:");
+        System.out.println("OK, I've marked this task as not done yet:");
         this.printTask(task);
     }
 
     public void printDelete(Task task, TaskList list) {
-        System.out.println("Noted. I've removed this Nexus.task:");
+        System.out.println("Noted. I've removed this task:");
         this.printTask(task);
         System.out.println("Now you have " + list.size() + " tasks in the list.");
     }
 
     public void printAdd(Task task, TaskList list) {
-        System.out.println("Got it. I've added this Nexus.task:");
+        System.out.println("Got it. I've added this task:");
         this.printTask(task);
         System.out.println("Now you have " + list.size() + " tasks in the list.");
     }
@@ -43,7 +43,7 @@ public class Ui {
         int count = 1;
         for (int i = 0; i < list.size(); i++) {
             Task task = list.get(i);
-            if () {
+            if (task.getDescription().contains(keyword)) {
                 System.out.print(count);
                 System.out.println("." + list.get(i));
                 count++;

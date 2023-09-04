@@ -35,7 +35,7 @@ public class Storage {
             }
             return list;
         } catch (IOException e) {
-            System.out.println("Exception occurred: " + e.getMessage());
+            System.out.println("IOException occurred: " + e.getMessage());
             return list;
         }
     }
