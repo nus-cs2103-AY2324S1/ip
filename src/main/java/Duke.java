@@ -218,8 +218,13 @@ public class Duke {
 
             case "delete":
 
-                if (detail.isBlank())
+                if (detail.isBlank()) {
                     throw new DukeException("I can't read your mind. Provide a suitable index.");
+                } else if (detail.toLowerCase().equals("all")) {
+                    tasks.clear();
+                    System.out.println("Your task list has been cleared.");
+                    break;
+                }
                 try {
                     int index = Integer.parseInt(detail) - 1;
                     Task task = tasks.get(index);
