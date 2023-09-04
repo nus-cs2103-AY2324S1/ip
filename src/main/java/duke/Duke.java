@@ -1,10 +1,10 @@
 package duke;
 
+import java.nio.file.Paths;
+
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.exception.DukeStorageException;
-
-import java.nio.file.Paths;
 
 /**
  * Represents a Duke chat-bot which can store and manage tasks.
@@ -30,6 +30,10 @@ public class Duke {
         }
     }
 
+    public static void main(String[] args) {
+        new Duke(Paths.get("data", "duke.txt").toAbsolutePath().toString()).run();
+    }
+
     /**
      * Runs the Duke chat-bot.
      */
@@ -50,9 +54,5 @@ public class Duke {
                 ui.showErrorMessage(e);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        new Duke(Paths.get("data", "duke.txt").toAbsolutePath().toString()).run();
     }
 }

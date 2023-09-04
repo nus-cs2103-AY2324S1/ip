@@ -76,6 +76,9 @@ public class Storage {
                     tasks.add(new Event(description, isDone, LocalDateTime.parse(fields[3]),
                             LocalDateTime.parse(fields[4])));
                     break;
+                default:
+                    // Do nothing if the task is not recognised
+                    break;
                 }
             }
         } catch (FileNotFoundException e) {

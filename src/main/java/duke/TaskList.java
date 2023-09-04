@@ -82,7 +82,7 @@ public class TaskList {
      */
     public TaskList findTasks(String keyword) {
         return new TaskList(tasks.stream()
-                .filter(task -> task.matchDescription(keyword))
+                .filter(task -> task.hasMatchingDescription(keyword))
                 .collect(Collectors.toList()));
     }
 

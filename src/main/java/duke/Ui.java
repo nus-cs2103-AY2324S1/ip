@@ -124,10 +124,18 @@ public class Ui {
                 task, taskSize, taskSize == 1 ? "" : "s"));
     }
 
+    /**
+     * Shows the message when the Duke chat-bot finds matching tasks.
+     */
     public void showNoMatchingTasksMessage() {
         outputMessage(" There are no matching tasks in your list!\n");
     }
 
+    /**
+     * Shows the message when the Duke chat-bot finds matching tasks.
+     *
+     * @param matchingTasks The list of matching tasks.
+     */
     public void showMatchingTasksMessage(TaskList matchingTasks) {
         StringBuilder tasksString = new StringBuilder();
         for (int i = 0; i < matchingTasks.getSize(); i++) {

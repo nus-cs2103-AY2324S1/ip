@@ -1,14 +1,15 @@
 package duke.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 import duke.exception.DukeTaskNotFoundException;
 import duke.task.Todo;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CommandTest {
     @Test
@@ -28,8 +29,8 @@ public class CommandTest {
         Command command = new DeleteCommand(0);
 
         // storage is not used in deleteCommand, so the filePath is not important
-        Exception exception = assertThrows(DukeTaskNotFoundException.class,
-                () -> command.execute(new TaskList(), new Ui(), new Storage("data/duke.txt")));
+        Exception exception = assertThrows(DukeTaskNotFoundException.class, () ->
+                command.execute(new TaskList(), new Ui(), new Storage("data/duke.txt")));
 
         assertEquals("☹ OOPS!!! I can't find that task!\n", exception.getMessage());
     }
@@ -65,8 +66,8 @@ public class CommandTest {
         new AddCommand(new Todo("b")).execute(tasks, ui, storage);
         Command command = new MarkCommand(2);
 
-        Exception exception = assertThrows(DukeTaskNotFoundException.class,
-                () -> command.execute(tasks, ui, storage));
+        Exception exception = assertThrows(DukeTaskNotFoundException.class, () ->
+                command.execute(tasks, ui, storage));
 
         assertEquals("☹ OOPS!!! I can't find that task!\n", exception.getMessage());
     }

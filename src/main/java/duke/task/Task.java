@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task to be used by the Duke chat-bot.
  */
-abstract public class Task {
+public abstract class Task {
     protected static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("d MMM yyyy, HH:mm");
     protected String description;
     protected boolean isDone;
@@ -27,7 +27,7 @@ abstract public class Task {
      * @param keyword The keyword to search for.
      * @return True if the task description matches the specified keyword, false otherwise.
      */
-    public boolean matchDescription(String keyword) {
+    public boolean hasMatchingDescription(String keyword) {
         return this.description.contains(keyword);
     }
 
