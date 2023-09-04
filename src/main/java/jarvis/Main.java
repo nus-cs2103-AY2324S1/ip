@@ -3,7 +3,7 @@ package jarvis;
 import java.util.Scanner;
 
 /**
- * The Main class to initialise Jarvis and prompt for userInput
+ * The Main class to initialise Jarvis and prompt for userInput.
  */
 public class Main {
     /**
@@ -20,8 +20,8 @@ public class Main {
 
         try {
             while (true) {
-            userInput = scanner.nextLine();
-            jarvis.respond(userInput);
+                userInput = scanner.nextLine();
+                jarvis.respond(userInput);
             }
         } finally {
             scanner.close();

@@ -1,7 +1,6 @@
 package jarvis;
 
 import jarvis.commands.Command;
-
 import jarvis.exceptions.JarvisException;
 import jarvis.tasks.TaskList;
 
@@ -16,6 +15,9 @@ public class Jarvis {
     private Ui ui;
     private Storage storage;
 
+    /**
+     * Constructor for Jarvis class.
+     */
     public Jarvis() {
         taskList = new TaskList();
         ui = new Ui();
@@ -35,7 +37,7 @@ public class Jarvis {
      *
      * @param userInput The input provided by the user through CLI.
      */
-    public void respond(String userInput){
+    public void respond(final String userInput) {
         try {
             Command command = Parser.parseCommand(userInput);
             command.execute(taskList, ui, storage);

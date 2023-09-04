@@ -1,9 +1,12 @@
 package jarvis;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import jarvis.tasks.Deadline;
+import jarvis.tasks.Event;
+import jarvis.tasks.Task;
+import jarvis.tasks.Todo;
 
 import jarvis.commands.ByeCommand;
 import jarvis.commands.Command;
@@ -14,13 +17,13 @@ import jarvis.commands.ListCommand;
 import jarvis.commands.MarkCommand;
 import jarvis.commands.TodoCommand;
 import jarvis.commands.UnmarkCommand;
+
 import jarvis.exceptions.InvalidCommandException;
 import jarvis.exceptions.InvalidDateTimeFormatException;
 import jarvis.exceptions.InvalidTaskFormatException;
-import jarvis.tasks.Deadline;
-import jarvis.tasks.Event;
-import jarvis.tasks.Task;
-import jarvis.tasks.Todo;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * The Paser class is responsible for parsing user input and converting it into executable commands and tasks.
@@ -34,7 +37,7 @@ public class Parser {
      * @return The corresponding command.
      * @throws InvalidCommandException If the input is an invalid command.
      */
-    public static Command parseCommand(String userInput) throws InvalidCommandException {
+    public static Command parseCommand(final String userInput) throws InvalidCommandException {
         String[] userInputSpilt = userInput.split(" ");
 
         if (userInput.equalsIgnoreCase("bye")) {
@@ -63,9 +66,10 @@ public class Parser {
      *
      * @param inputDateTime The date and time string to parse.
      * @return A LocalDateTime object representing the parsed date and time.
-     * @throws InvalidDateTimeFormatException If the input date and time format is invalid.
+     * @throws InvalidDateTimeFormatException If the input date and time format is
+     *                                        invalid.
      */
-    public static LocalDateTime parseDateTime(String inputDateTime) throws InvalidDateTimeFormatException {
+    public static LocalDateTime parseDateTime(final String inputDateTime) throws InvalidDateTimeFormatException {
         List<String> inputFormats = new ArrayList<>();
         inputFormats.add(Ui.DATE_TIME_FORMAT);
         inputFormats.add("dd MMM yyyy HHmm");
@@ -83,7 +87,7 @@ public class Parser {
                 continue;
             }
         }
-        
+
         if (result != null) {
             return result;
         } else {
@@ -98,7 +102,7 @@ public class Parser {
      * @return A Task object representing the parsed task.
      * @throws InvalidTaskFormatException If the task format is invalid.
      */
-    public static Task parseStringToTask(String line) throws InvalidTaskFormatException {
+    public static Task parseStringToTask(final String line) throws InvalidTaskFormatException {
         try {
             String[] lineSplit = line.split("\\|");
             String taskType = lineSplit[0].trim();
