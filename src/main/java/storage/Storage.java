@@ -66,22 +66,24 @@ public class Storage {
         boolean mark = marked.equals("X");
 
         switch (type) {
-            case "T":
-                Todo t = new Todo(parts[2]);
-                t.isComplete = mark;
+        case "T":
+            Todo t = new Todo(parts[2]);
+            t.isComplete = mark;
 
-                System.out.println(t.toString());
-                return t;
-            case "D":
-                Deadline d = new Deadline(parts[2], parts[3]);
-                d.isComplete = mark;
-                System.out.println(d.toString());
-                return d;
-            case "E":
-                Event e = new Event(parts[2], parts[3], parts[4]);
-                e.isComplete = mark;
-                System.out.println(e.toString());
-                return e;
+            System.out.println(t.toString());
+            return t;
+
+        case "D":
+            Deadline d = new Deadline(parts[2], parts[3]);
+            d.isComplete = mark;
+            System.out.println(d.toString());
+            return d;
+
+        case "E":
+            Event e = new Event(parts[2], parts[3], parts[4]);
+            e.isComplete = mark;
+            System.out.println(e.toString());
+            return e;
         }
         return null;
     }
@@ -98,8 +100,6 @@ public class Storage {
                     task.add(t);
                 }
             }
-
-
         } catch (FileNotFoundException e) {
             System.out.println("File not found... Unable to load tasks");
         }

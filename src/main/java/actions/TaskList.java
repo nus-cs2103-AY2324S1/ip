@@ -37,7 +37,6 @@ public class TaskList {
             }
             System.out.println("\n" + "Get to work NOW!\n");
             System.out.println(line);
-
         }
     }
 
