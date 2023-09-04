@@ -1,8 +1,5 @@
 package duke.storage;
 
-import duke.DukeException;
-import duke.task.*;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,6 +8,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
 
 /**
  * Manages the reading and updating of tasks from/to a file.
@@ -53,9 +57,9 @@ public class Storage {
                 switch (task[0]) {
                 case "T":
                     Todo todo = new Todo(task[2]);
-                        if (task[1].equals("1")) {
-                            todo.markAsDone();
-                        }
+                    if (task[1].equals("1")) {
+                        todo.markAsDone();
+                    }
                     taskArr.add(todo);
                     break;
                 case "D":
@@ -82,6 +86,7 @@ public class Storage {
                     }
                     taskArr.add(eventTask);
                     break;
+                default:
                 }
             }
             return taskArr;
@@ -103,29 +108,34 @@ public class Storage {
             for (int i = 0; i < taskList.size(); i++) {
                 Task task = taskList.get(i);
                 if (task instanceof Todo) {
-                    String taskType = task.toString().substring(1, 2);  // Extract "T"
-                    String taskStatus = task.toString().substring(4, 5); // Extract " "
+                    String taskType = task.toString().substring(1, 2); // Extract "T"
+                    String taskStatus = task.toString().substring(4, 5);
                     String description = task.toString().substring(7);
-                    String convertedTask = taskType + " | " + (taskStatus.equals(" ") ? "0" : "1") + " | " + description;
+                    String convertedTask = taskType + " | " + (taskStatus.equals(" ") ? "0" : "1") + " | "
+                            + description;
                     fw.write(convertedTask + "\n");
                 } else if (task instanceof Deadline) {
                     String originalTask = task.writeFileString();
-                    String taskType = originalTask.substring(1, 2);  // Extract "D"
+                    String taskType = originalTask.substring(1, 2); // Extract "D"
                     String taskStatus = originalTask.substring(4, 5); // Extract "X"
                     String description = originalTask.substring(7, originalTask.indexOf(" (by:"));
-                    String date = originalTask.substring(originalTask.indexOf("(by: ") + 5, originalTask.indexOf(")"));
+                    String date = originalTask.substring(originalTask.indexOf("(by: ") + 5,
+                            originalTask.indexOf(")"));
 
-                    String convertedTask = taskType + " | " + (taskStatus.equals("X") ? "1" : "0") + " | " + description + " | " + date;
+                    String convertedTask = taskType + " | " + (taskStatus.equals("X") ? "1" : "0") + " | "
+                            + description + " | " + date;
                     fw.write(convertedTask + "\n");
                 } else if (task instanceof Event) {
                     String originalTask = task.writeFileString();
-                    String taskType = originalTask.substring(1, 2);  // Extract "E"
+                    String taskType = originalTask.substring(1, 2); // Extract "E"
                     String taskStatus = originalTask.substring(4, 5); // Extract " "
                     String description = originalTask.substring(7, originalTask.indexOf(" (from:"));
-                    String startTime = originalTask.substring(originalTask.indexOf("(from: ") + 7, originalTask.indexOf(" to:"));
-                    String endTime = originalTask.substring(originalTask.indexOf("to: ") + 4, originalTask.indexOf(")"));
-
-                    String convertedTask = taskType + " | " + (taskStatus.equals(" ") ? "0" : "1") + " | " + description + " | " + startTime + " to " + endTime;
+                    String startTime = originalTask.substring(originalTask.indexOf("(from: ") + 7,
+                            originalTask.indexOf(" to:"));
+                    String endTime = originalTask.substring(originalTask.indexOf("to: ") + 4,
+                            originalTask.indexOf(")"));
+                    String convertedTask = taskType + " | " + (taskStatus.equals(" ") ? "0" : "1") + " | "
+                            + description + " | " + startTime + " to " + endTime;
                     fw.write(convertedTask + "\n");
                 }
             }

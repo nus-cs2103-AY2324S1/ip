@@ -8,14 +8,14 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    private String ChatBotName = "Carl";
-    Scanner SC;
+    private String chatBotName = "Carl";
+    private Scanner scanner;
 
     /**
      * Constructs an Ui object and initializes the Scanner for reading user input from the console.
      */
     public Ui() {
-        this.SC = new Scanner(System.in);
+        this.scanner = new Scanner(System.in);
     }
 
     /**
@@ -58,7 +58,7 @@ public class Ui {
      * Displays a welcome message.
      */
     public void showWelcome() {
-        System.out.println(messageCard("Hello! I'm " + ChatBotName
+        System.out.println(messageCard("Hello! I'm " + chatBotName
                 + "\n\t What can I do for you?"));
     }
 
@@ -68,7 +68,7 @@ public class Ui {
      * @return The user's input command.
      */
     public String readCommand() {
-        String userInput = this.SC.nextLine();
+        String userInput = this.scanner.nextLine();
         return userInput;
     }
 }

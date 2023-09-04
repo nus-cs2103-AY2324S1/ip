@@ -1,20 +1,24 @@
 package duke.command;
 
-import duke.DukeException;
-import duke.storage.Storage;
-import duke.task.*;
-import duke.ui.Ui;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import duke.DukeException;
+import duke.storage.Storage;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.TaskList;
+import duke.task.Todo;
+import duke.ui.Ui;
+
 
 /**
  * Represents a command to add tasks to the task list in the Duke application.
  */
 public class AddCommand extends Command {
     private String fullCommand;
-    char type;
+    private char type;
 
     /**
      * Constructs an AddCommand object with full command and task type.
@@ -84,6 +88,7 @@ public class AddCommand extends Command {
                     + "\n\tNow you have " + taskList.size() + " tasks in the list.");
             storage.updateFileContents(taskList);
             break;
+        default:
         }
     }
 

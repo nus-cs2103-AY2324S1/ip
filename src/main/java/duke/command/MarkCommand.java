@@ -9,7 +9,7 @@ import duke.ui.Ui;
  * Represents a command to mark tasks to the task list in the Duke application.
  */
 public class MarkCommand extends Command {
-    int index;
+    private int index;
 
     /**
      * Constructs an MarkCommand object with full command and task type.

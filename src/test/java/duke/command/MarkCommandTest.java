@@ -1,12 +1,11 @@
 package duke.command;
+
 import org.junit.jupiter.api.Test;
 
 import duke.DukeException;
 import duke.storage.Storage;
-import duke.task.*;
+import duke.task.TaskList;
 import duke.ui.Ui;
-
-import java.time.format.DateTimeParseException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -28,7 +27,8 @@ public class MarkCommandTest {
         Storage storage = new Storage("data/tasks.txt");
         Ui ui = new Ui();
         new AddCommand("todo read book", 'T').execute(testList, ui, storage);
-        new AddCommand("event project meeting /from 2019-09-02 18:00 /to 2019-09-02 19:00", 'E').execute(testList, ui, storage);
+        new AddCommand("event project meeting /from 2019-09-02 18:00 /to 2019-09-02 19:00", 'E')
+                .execute(testList, ui, storage);
         new AddCommand("deadline return book /by 2019-09-02 18:00", 'D').execute(testList, ui, storage);
         new AddCommand("todo join sports", 'T').execute(testList, ui, storage);
         new AddCommand("todo homework", 'T').execute(testList, ui, storage);
@@ -42,8 +42,8 @@ public class MarkCommandTest {
         TaskList testList = new TaskList();
         Storage storage = new Storage("data/tasks.txt");
         Ui ui = new Ui();
-        assertThrows(DukeException.class,
-                () -> new MarkCommand(0).execute(testList, ui, storage));
+        assertThrows(DukeException.class, () ->
+                new MarkCommand(0).execute(testList, ui, storage));
     }
 
     @Test

@@ -27,7 +27,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + byDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + byDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 
     /**
@@ -38,6 +39,7 @@ public class Deadline extends Task {
      */
     @Override
     public String writeFileString() {
-        return "[D]" + super.toString() + " (by: " + byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + ")";
     }
 }
