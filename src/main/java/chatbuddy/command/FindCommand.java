@@ -1,10 +1,10 @@
 package chatbuddy.command;
 
+import java.util.ArrayList;
+
 import chatbuddy.TaskList;
 import chatbuddy.storage.Storage;
 import chatbuddy.ui.Ui;
-
-import java.util.ArrayList;
 
 /** FindCommand represents a command to find a list of tasks containing a keyword. */
 public class FindCommand extends Command {

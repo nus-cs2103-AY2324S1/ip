@@ -1,10 +1,10 @@
 package chatbuddy.command;
 
 import chatbuddy.ChatBuddyException;
-import chatbuddy.storage.Storage;
 import chatbuddy.TaskList;
-import chatbuddy.ui.Ui;
+import chatbuddy.storage.Storage;
 import chatbuddy.task.Task;
+import chatbuddy.ui.Ui;
 
 /** MarkCommand represents a command to mark a task as done. */
 public class MarkCommand extends Command {

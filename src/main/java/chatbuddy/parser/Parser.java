@@ -1,5 +1,10 @@
 package chatbuddy.parser;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import chatbuddy.ChatBuddyException;
 import chatbuddy.command.Command;
 import chatbuddy.command.DeadlineCommand;
@@ -11,16 +16,10 @@ import chatbuddy.command.ListCommand;
 import chatbuddy.command.MarkCommand;
 import chatbuddy.command.TodoCommand;
 import chatbuddy.command.UnmarkCommand;
-
 import chatbuddy.task.Deadline;
 import chatbuddy.task.Event;
 import chatbuddy.task.Task;
 import chatbuddy.task.ToDo;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Parser represents a class to handle the parsing of user commands.
@@ -104,9 +103,9 @@ public class Parser {
         String taskDescription = arr[0].trim();
         // check validity of arguments
         if (taskDescription.equals("") || arr.length == 1 || arr[1].trim().equals("")) {
-            throw new ChatBuddyException("Please input deadlines in the format " +
-                    "'deadline [task description] /by [deadline in dd/MM/yyyy]'.\n" +
-                    "The task description and deadline cannot be empty.");
+            throw new ChatBuddyException("Please input deadlines in the format "
+                    + "'deadline [task description] /by [deadline in dd/MM/yyyy]'.\n"
+                    + "The task description and deadline cannot be empty.");
         }
 
         // parse deadline string to LocalDate object
@@ -127,16 +126,16 @@ public class Parser {
         String[] arr = args.split(" /from ");
         String taskDescription = arr[0].trim();
         if (taskDescription.equals("") || arr.length == 1 || arr[1].trim().equals("")) {
-            throw new ChatBuddyException("Please input events in the format " +
-                    "'event [task description] /from [dd/MM/yyyy HHmm] /to [dd/MM/yyyy HHmm]'.\n" +
-                    "The task description, from datetime and to datetime cannot be empty.");
+            throw new ChatBuddyException("Please input events in the format "
+                    + "'event [task description] /from [dd/MM/yyyy HHmm] /to [dd/MM/yyyy HHmm]'.\n"
+                    + "The task description, from datetime and to datetime cannot be empty.");
         }
 
         String[] dateTimeArgs = arr[1].trim().split(" /to ");
         if (dateTimeArgs[0].trim().equals("") || dateTimeArgs.length == 1 || dateTimeArgs[1].trim().equals("")) {
-            throw new ChatBuddyException("Please input events in the format " +
-                    "'event [task description] /from [dd/MM/yyyy HHmm] /to [dd/MM/yyyy HHmm]'.\n" +
-                    "The task description, from datetime and to datetime cannot be empty.");
+            throw new ChatBuddyException("Please input events in the format "
+                    + "'event [task description] /from [dd/MM/yyyy HHmm] /to [dd/MM/yyyy HHmm]'.\n"
+                    + "The task description, from datetime and to datetime cannot be empty.");
         }
 
         // parse date time arguments to LocalDateTime object

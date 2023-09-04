@@ -1,9 +1,9 @@
 package chatbuddy;
 
-import chatbuddy.task.Task;
-
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+import chatbuddy.task.Task;
 
 /**
  * The TaskList represents a list of tasks.
@@ -47,8 +47,8 @@ public class TaskList {
      */
     private void checkValidTaskNumber(int taskNum) throws ChatBuddyException {
         if (taskNum > tasks.size()) {
-            throw new ChatBuddyException("Please input a valid task number. There are only " +
-                    getSize() + " tasks in the list.");
+            throw new ChatBuddyException("Please input a valid task number. There are only "
+                    + getSize() + " tasks in the list.");
         }
     }
 

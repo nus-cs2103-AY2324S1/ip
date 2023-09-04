@@ -1,16 +1,16 @@
 package chatbuddy.storage;
 
-import chatbuddy.ChatBuddyException;
-import chatbuddy.parser.Parser;
-import chatbuddy.TaskList;
-import chatbuddy.task.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import chatbuddy.ChatBuddyException;
+import chatbuddy.TaskList;
+import chatbuddy.parser.Parser;
+import chatbuddy.task.Task;
 
 /**
  * Storage represents a class to handle operations relating to the local storage of task data.

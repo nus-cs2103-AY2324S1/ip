@@ -1,13 +1,13 @@
 package chatbuddy.parser;
 
-import chatbuddy.ChatBuddyException;
-import chatbuddy.command.Command;
-
-import chatbuddy.command.ListCommand;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import chatbuddy.ChatBuddyException;
+import chatbuddy.command.Command;
+import chatbuddy.command.ListCommand;
 
 public class ParserTest {
     @Test
@@ -63,9 +63,9 @@ public class ParserTest {
 
     @Test
     public void parse_invalidDeadlineInput_chatBuddyExceptionThrown() {
-        String errorMessage = "☹ OOPS!!! Please input deadlines in the format " +
-                    "'deadline [task description] /by [deadline in dd/MM/yyyy]'.\n" +
-                    "The task description and deadline cannot be empty.";
+        String errorMessage = "☹ OOPS!!! Please input deadlines in the format "
+                + "'deadline [task description] /by [deadline in dd/MM/yyyy]'.\n"
+                + "The task description and deadline cannot be empty.";
 
         String dateFormatErrorMessage = "☹ OOPS!!! Please input the deadline date in the format dd/MM/yyyy.";
 

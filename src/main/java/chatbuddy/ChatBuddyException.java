@@ -1,5 +1,6 @@
 package chatbuddy;
 
+/** ChatBuddyException represents exceptions in the ChatBuddy application. */
 public class ChatBuddyException extends Exception {
     protected String description;
 
