@@ -4,7 +4,6 @@ import types.Task;
 import types.Todo;
 import exceptions.*;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -48,112 +47,109 @@ public class Barbie {
                     Ui.barbie();
 
                     switch (command) {
+                    case MARK:
+                    case UNMARK:
+                    case DEL:
+
+                        String desc = parts[1];
+                        int taskNumber;
+                        try {
+                            taskNumber = Integer.parseInt(desc) - 1;
+                        } catch (NumberFormatException e) {
+                            throw new BarbieTaskNumberException();
+                        }
+                        switch (command) {
                         case MARK:
+                            // Editing variables
+                            list.get(taskNumber).mark();
+                            Storage.changeLineStatus(path, "1", taskNumber);
+
+                            // Output
+                            Ui.mark(list.get(taskNumber));
+                            break;
+
                         case UNMARK:
+                            // Editing variables
+                            list.get(taskNumber).unmark();
+                            Storage.changeLineStatus(path, "2", taskNumber);
+
+                            // Output
+                            Ui.unmark(list.get(taskNumber));
+
+                            break;
+
                         case DEL:
+                            // Editing variables
+                            list.remove(taskNumber);
+                            indexNumber -= 1;
+                            Storage.deleteLine(path, taskNumber);
 
-                            String desc = parts[1];
-                            int taskNumber;
-                            try {
-                                taskNumber = Integer.parseInt(desc) - 1;
-                            } catch (NumberFormatException e) {
-                                throw new BarbieTaskNumberException();
-                            }
-
-                            switch (command) {
-                                case MARK:
-                                    // Editing variables
-                                    list.get(taskNumber).mark();
-                                    Storage.changeLineStatus(path, "1", taskNumber);
-
-                                    // Output
-                                    Ui.mark(list.get(taskNumber));
-                                    break;
-
-                                case UNMARK:
-                                    // Editing variables
-                                    list.get(taskNumber).unmark();
-                                    Storage.changeLineStatus(path, "2", taskNumber);
-
-                                    // Output
-                                    Ui.unmark(list.get(taskNumber));
-
-                                    break;
-
-                                case DEL:
-                                    // Editing variables
-                                    list.remove(taskNumber);
-                                    indexNumber -= 1;
-                                    Storage.deleteLine(path, taskNumber);
-
-                                    // Output
-                                    Ui.del();
-                                    break;
-                            }
+                            // Output
+                            Ui.del();
                             break;
+                        }
+                        break;
 
-                        case TODO:
+                    case TODO:
+                    case DEADLINE:
+                    case PARTY:
+                        if (parts.length < 2) {
+                            throw new BarbieNoDescException();
+                        }
+                        desc = parts[1];
+                        String[] parts2 = parts[1].split("/");
+
+                        switch (command) {
                         case DEADLINE:
+                            if (parts2.length < 2) {
+                                throw new BarbieNoDeadlineException();
+                            }
+                            desc = parts2[0];
+                            LocalDate by = LocalDate.parse(parts2[1]);
+                            list.add(indexNumber, new Deadlines(desc, by));
+                            Storage.addToList(path, desc, by);
+
+                            break;
+
                         case PARTY:
-                            if (parts.length < 2) {
-                                throw new BarbieNoDescException();
-                            }
-                            desc = parts[1];
-                            String[] parts2 = parts[1].split("/");
-
-                            switch (command) {
-                                case DEADLINE:
-                                    if (parts2.length < 2) {
-                                        throw new BarbieNoDeadlineException();
-                                    }
-
-                                    desc = parts2[0];
-                                    LocalDate by = LocalDate.parse(parts2[1]);
-                                    list.add(indexNumber, new Deadlines(desc, by));
-                                    Storage.addToList(path, "D", desc, by);
-
-                                    break;
-
-                                case PARTY:
-                                    if (parts2.length < 3) {
-                                        throw new BarbieNoTimingException();
-                                    }
-
-                                    desc = parts2[0];
-                                    LocalDate from = LocalDate.parse(parts2[1].strip());
-                                    LocalDate to = LocalDate.parse(parts2[2].strip());
-
-                                    list.add(indexNumber, new Party(desc, from, to));
-                                    Storage.addToList(path, "P", desc, from, to);
-                                    break;
-
-                                default:
-                                    list.add(indexNumber, new Todo(desc));
-                                    Storage.addToList(path, "T", desc);
-                                    break;
-
+                            if (parts2.length < 3) {
+                                throw new BarbieNoTimingException();
                             }
 
-                            Ui.taskAdded(list.get(indexNumber));
-                            indexNumber ++;
-                            break;
+                            desc = parts2[0];
+                            LocalDate from = LocalDate.parse(parts2[1].strip());
+                            LocalDate to = LocalDate.parse(parts2[2].strip());
 
-                        case LIST:
-                            // No variables to edit, only output (refer to listTasks func)
-                            Ui.listTasks(list, indexNumber);
+                            list.add(indexNumber, new Party(desc, from, to));
+                            Storage.addToList(path, desc, from, to);
                             break;
-
-                        case BYE:
-                            break loop; // break out of the while loop, not switch statement
 
                         default:
-                            // Editing variables
-                            list.add(indexNumber, new Task(input)); // Create a new Task
-                            indexNumber += 1; //Incrementing item counter
-                            // Output
-                            System.out.println("\t Okey Dokey! I've added this task into your list:\n"
-                                    + "\t[ ] " + input);
+                            list.add(indexNumber, new Todo(desc));
+                            Storage.addToList(path, desc);
                             break;
+                        }
+
+                        Ui.taskAdded(list.get(indexNumber));
+                        indexNumber ++;
+                        break;
+
+                    case LIST:
+                        // No variables to edit, only output (refer to listTasks func)
+                        Ui.listTasks(list, indexNumber);
+                        break;
+
+                    case BYE:
+                        break loop; // break out of the while loop, not switch statement
+
+                    default:
+                        // Editing variables
+                        list.add(indexNumber, new Task(input)); // Create a new Task
+                        indexNumber += 1; //Incrementing item counter
+                        // Output
+                        System.out.println("\t Okey Dokey! I've added this task into your list:\n"
+                                + "\t[ ] " + input);
+                        break;
 
                     }
 
@@ -165,7 +161,7 @@ public class Barbie {
                     System.out.println(e.getMessage());
 
                 } catch (Exception ex) {
-                    System.out.println(ex.toString());
+                    System.out.println(ex.getMessage());
 
                 }
 

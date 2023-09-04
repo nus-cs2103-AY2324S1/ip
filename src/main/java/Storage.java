@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class Storage {
-    public static void addToList(Path path, String type, String desc) {
-        String line = type + "," + 0 + "," + desc + "\n";
+    public static void addToList(Path path, String desc) {
+        String line = "T" + "," + 0 + "," + desc + "\n";
         try {
             Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
@@ -26,8 +26,8 @@ public class Storage {
         }
     }
 
-    public static void addToList(Path path, String type, String desc, LocalDate deadline) {
-        String line = type + "," + 0 + "," + desc + "," + deadline + "\n";
+    public static void addToList(Path path, String desc, LocalDate deadline) {
+        String line = "D" + "," + 0 + "," + desc + "," + deadline + "\n";
         try {
             Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
@@ -35,8 +35,8 @@ public class Storage {
         }
     }
 
-    public static void addToList(Path path, String type, String desc, LocalDate from, LocalDate to) {
-        String line = type + "," + 0 + "," + desc + "," + from + "," + to + "\n";
+    public static void addToList(Path path, String desc, LocalDate from, LocalDate to) {
+        String line = "P" + "," + 0 + "," + desc + "," + from + "," + to + "\n";
         try {
             Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {

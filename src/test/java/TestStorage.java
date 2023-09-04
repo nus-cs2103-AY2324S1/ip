@@ -16,7 +16,7 @@ public class TestStorage {
     public void testAddToListCommas() {
         try {
             Path path = Paths.get("barbie.txt");
-            Storage.addToList(path, "T", "do, work,");
+            Storage.addToList(path, "do, work,");
             List<String> list = Files.readAllLines(path);
             String actual = list.get(list.size() - 1);
             assertEquals("T,0,do, work,", actual);
