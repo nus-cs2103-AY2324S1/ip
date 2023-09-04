@@ -15,7 +15,6 @@ public class Ui {
      * @param task Task to be added
      */
     public void addTask(TaskList tasks, Task task) {
-        tasks.add(task);
         print("Got it. I've added this task:");
         print(String.format("  %s\n", task.toString()));
         print(String.format("Now you have %d tasks in the list.", tasks.size()));
@@ -35,32 +34,23 @@ public class Ui {
      * @throws DukeException if invalid date
      */
     public void date(TaskList tasks, String date) throws DukeException {
-        int idx = 0;
         String dmy = Parser.convertToDmy(date);
-        for (Task task: tasks) {
-            if (task.isToday(date)) {
-                if (idx == 0) {
-                    print(String.format("Here are the tasks on %s:", dmy));
-                }
-                print(String.format("%d.%s", ++idx, task.toString()));
-            }
-        }
-        if (idx == 0) {
+        if (tasks.isEmpty()) {
             print(String.format("There is no task on %s.", dmy));
+            return;
+        }
+        print(String.format("Here are the tasks on %s:", dmy));
+        for (int i = 0; i < tasks.size(); i++) {
+            print(String.format("%d.%s", i + 1, tasks.get(i).toString()));
         }
     }
 
     /**
      * Removes task from TaskList and displays removed task info to user.
      * @param tasks TaskList
-     * @param index Index of task removed
-     * @throws DukeException if invalid task index
+     * @param task task to be removed
      */
-    public void deleteTask(TaskList tasks, int index) throws DukeException {
-        if (index < 0 || index >= tasks.size()) {
-            throw new DukeException("Invalid task index");
-        }
-        Task task = tasks.remove(index);
+    public void deleteTask(TaskList tasks, Task task) {
         print("Noted. I've removed this task:");
         print(String.format("  %s\n", task.toString()));
         print(String.format("Now you have %d tasks in the list.", tasks.size()));
@@ -72,17 +62,13 @@ public class Ui {
      * @param keyword String of specified keyword
      */
     public void find(TaskList tasks, String keyword) {
-        int idx = 0;
-        for (Task task: tasks) {
-            if (task.contains(keyword)) {
-                if (idx == 0) {
-                    print("Here are the matching tasks in your list:");
-                }
-                print(String.format("%d.%s", ++idx, task.toString()));
-            }
-        }
-        if (idx == 0) {
+        if (tasks.isEmpty()) {
             print("There is no matching task with: " + keyword);
+            return;
+        }
+        print("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            print(String.format("%d.%s", i + 1, tasks.get(i).toString()));
         }
     }
 
@@ -111,11 +97,9 @@ public class Ui {
     /**
      * Marks specified task as done.
      * @param tasks TaskList
-     * @param index Index of specified task
-     * @throws DukeException if invalid index task
+     * @param task task to be marked
      */
-    public void mark(TaskList tasks, int index) throws DukeException {
-        Task task = tasks.markDone(index);
+    public void mark(TaskList tasks, Task task) {
         print("Nice! I've marked this task as done:");
         print("  " + task.toString());
     }
@@ -131,11 +115,9 @@ public class Ui {
     /**
      * Marks specified task as undone.
      * @param tasks TaskList
-     * @param index Index of specified task
-     * @throws DukeException if invalid index task
+     * @param task task to be unmarked
      */
-    public void unmark(TaskList tasks, int index) throws DukeException {
-        Task task = tasks.unmarkDone(index);
+    public void unmark(TaskList tasks, Task task) {
         print("OK, I've marked this task as not done yet:");
         print("  " + task.toString());
     }

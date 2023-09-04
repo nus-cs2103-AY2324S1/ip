@@ -7,6 +7,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import duke.DukeException;
+import duke.command.AddCommand;
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.DateCommand;
+import duke.command.DeleteCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -43,7 +52,7 @@ public class Parser {
      * @param s String separated by white spaces
      * @return List of String
      */
-    public static List<String> convertToList(String s) {
+    private static List<String> convertToList(String s) {
         String[] queries = s.trim().split("\\s+");
         List<String> queryList = Arrays.asList(queries);
         return queryList;
@@ -80,7 +89,7 @@ public class Parser {
      * @return Deadline instance
      * @throws DukeException if no deadline description, invalid format, or invalid date
      */
-    public static Deadline parseUserDeadline(List<String> queryList) throws DukeException {
+    private static Deadline parseUserDeadline(List<String> queryList) throws DukeException {
         if (queryList.size() < 2) {
             throw new DukeException("The description of a deadline cannot be empty.");
         }
@@ -117,7 +126,7 @@ public class Parser {
      * @return Event instance
      * @throws DukeException if no event description, invalid format, or invalid date
      */
-    public static Event parseUserEvent(List<String> queryList) throws DukeException {
+    private static Event parseUserEvent(List<String> queryList) throws DukeException {
         if (queryList.size() < 2) {
             throw new DukeException("The description of a event cannot be empty.");
         }
@@ -197,5 +206,69 @@ public class Parser {
             keyword += queryList.get(i);
         }
         return keyword;
+    }
+
+    /**
+     * Parses user input and returns the corresponding command.
+     * @param input
+     * @return Command to execute
+     * @throws DukeException if invalid user input
+     */
+    public static Command parse(String input) throws DukeException {
+        List<String> queryList = convertToList(input);
+        switch (queryList.get(0)) {
+
+        case "bye":
+            return new ByeCommand();
+
+        case "date":
+            if (queryList.size() < 2) {
+                throw new DukeException("Please specify date with the following format: YYYY-MM-DD");
+            }
+            return new DateCommand(queryList.get(1));
+
+        case "deadline":
+            return new AddCommand(parseUserDeadline(queryList));
+
+        case "delete":
+            try {
+                int index = Integer.parseInt(queryList.get(1)) - 1;
+                return new DeleteCommand(index);
+            } catch (NumberFormatException e) {
+                throw new DukeException(e);
+            }
+
+        case "event":
+            return new AddCommand(parseUserEvent(queryList));
+
+        case "find":
+            String keyword = Parser.parseUserFind(queryList);
+            return new FindCommand(keyword);
+
+        case "list":
+            return new ListCommand();
+
+        case "mark":
+            try {
+                int index = Integer.parseInt(queryList.get(1)) - 1;
+                return new MarkCommand(index);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Please specify the index of which task you would like to mark.");
+            }
+
+        case "todo":
+            return new AddCommand(parseUserToDo(queryList));
+
+        case "unmark":
+            try {
+                int index = Integer.parseInt(queryList.get(1)) - 1;
+                return new UnmarkCommand(index);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Please specify the index of which task you would like to unmark.");
+            }
+
+        default:
+            throw new DukeException("I'm sorry, but I don't know what that means :-(");
+        }
     }
 }
