@@ -10,16 +10,10 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasks;
 
-    private String path;
-    public TaskList(String filePath) {
-        path = filePath;
+
+    public TaskList() {
         tasks = new ArrayList<>();
 
-        try {
-            loadTask();
-        } catch (KoraException e) {
-            new KoraException("Unable to open file!");
-        }
     }
 
     public void addTask(Task task) {
@@ -31,7 +25,12 @@ public class TaskList {
 //            System.out.println("Couldn't add");
 //        }
 
-        saveTask(task);
+        //saveTask(task);
+
+    }
+
+    public void addNoSaveTask(Task task) {
+        tasks.add(task);
 
     }
 
@@ -51,6 +50,7 @@ public class TaskList {
         return tasks.size();
     }
 
+    /*
     private void createFile(String filePath) throws KoraException {
         File f = new File("./data");
         if (!f.exists()) {
@@ -118,12 +118,20 @@ public class TaskList {
         return currentTask;
     }
 
-
+*/
 //    private String saveTaskFormat(Task task) {
 //        String output;
 //        output = task.getTaskType() + "|" + task.showMarked() + "|" + task.getDetails();
 //        return output;
 //    }
+
+    public String saveFormat() {
+        String output = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            output = output + "\n" + tasks.get(i).saveFormat();
+        }
+        return output;
+    }
     @Override
     public String toString() {
         String output = "";

@@ -1,5 +1,8 @@
 package task;
 
+import exception.KoraException;
+
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,11 +12,17 @@ public class Event extends Task {
 
     LocalDateTime endTime;
     LocalDateTime startTime;
-    public Event(String details, String startTime, String endTime) {
+    public Event(String details, String startTime, String endTime) throws KoraException {
         super(details);
         super.setTaskType(TaskType.E.toString());
-        this.startTime = LocalDateTime.parse(startTime, saveFormatter);
-        this.endTime = LocalDateTime.parse(endTime, saveFormatter);
+        try {
+            this.startTime = LocalDateTime.parse(startTime, saveFormatter);
+            this.endTime = LocalDateTime.parse(endTime, saveFormatter);
+        } catch (DateTimeException e) {
+            throw new KoraException("The date format should be yyyy-MM-dd HH-mm!");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new KoraException("Please ensure there is no space before to!");
+        }
     }
     DateTimeFormatter outFormatter = DateTimeFormatter.ofPattern("E, MMM d yyyy HH:mm");
     DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

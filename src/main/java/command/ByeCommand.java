@@ -16,4 +16,9 @@ public class ByeCommand extends Command {
 
         commandMessage = "Byebye. See you again!";
     }
+
+    @Override
+    public boolean isExitYet() {
+        return true;
+    }
 }

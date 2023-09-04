@@ -7,12 +7,16 @@ import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     //private String byTime;
-    public Deadline(String details, String time) {
+    public Deadline(String details, String time) throws KoraException {
         super(details);
         super.setTaskType(TaskType.D.toString());
         //byTime = time;
+        try {
+            byTime = LocalDateTime.parse(time, saveFormatter);
+        } catch (DateTimeParseException e) {
+            throw new KoraException("The date format should be yyyy-MM-dd HH-mm!");
+        }
 
-        byTime = LocalDateTime.parse(time, saveFormatter);
     }
 
     DateTimeFormatter outFormatter = DateTimeFormatter.ofPattern("E, MMM d yyyy HH:mm");

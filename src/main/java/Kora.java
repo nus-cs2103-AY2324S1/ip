@@ -19,8 +19,7 @@ public class Kora {
         System.out.println(logo + "Hello, I am your chatbot Kora!\nHow can I help you today?");
         System.out.println("------------------------------");
 
-        taskList = new TaskList("./data/savedtask.txt"
-);
+        taskList = new TaskList();
         boolean isExit = false;
         while (!isExit) {
             Scanner scanner = new Scanner(System.in);
