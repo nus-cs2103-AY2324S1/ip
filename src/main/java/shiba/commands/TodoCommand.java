@@ -21,6 +21,9 @@ public class TodoCommand extends ShibaCommand {
         fullCmd = cmd;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute() throws ShibaException {
         TodoTask todo = TodoTask.fromCmd(fullCmd);

@@ -21,6 +21,9 @@ public class EventCommand extends ShibaCommand {
         fullCmd = cmd;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute() throws ShibaException {
         EventTask event = EventTask.fromCmd(fullCmd);

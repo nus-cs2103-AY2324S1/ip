@@ -25,6 +25,9 @@ public class FindCommand extends ShibaCommand {
         fullCmd = cmd;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute() throws ShibaException {
         String[] params = fullCmd.split(" ", 2);

@@ -16,6 +16,9 @@ public class ListCommand extends ShibaCommand {
         super(tasks);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute() {
         for (int i = 0; i < tasks.size(); i++) {

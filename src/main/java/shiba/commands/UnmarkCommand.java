@@ -22,6 +22,9 @@ public class UnmarkCommand extends ShibaCommand {
         params = cmd.split(" ");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute() throws ShibaException {
         int taskNumber = checkTaskNumber(params);

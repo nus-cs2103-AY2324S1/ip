@@ -96,7 +96,7 @@ public class MainWindow extends Application {
     }
 
     /**
-     * Sends the user input to the bot.
+     * Gets the input in the text field box and sends it to the bot.
      */
     private void sendInput() {
         String input = userInput.getText();

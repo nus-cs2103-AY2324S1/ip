@@ -21,6 +21,9 @@ public class DeadlineCommand extends ShibaCommand {
         fullCmd = cmd;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute() throws ShibaException {
         DeadlineTask deadline = DeadlineTask.fromCmd(fullCmd);
