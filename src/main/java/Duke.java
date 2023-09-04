@@ -22,7 +22,11 @@ public class Duke {
                     System.out.println("____________________________________________________________");
                     break;
                 } else if (command.equalsIgnoreCase("list")) {
+<<<<<<< HEAD
                     System.out.println(" Here are the tasks in your list:");
+=======
+                    tasks.saveTasksToFile();
+>>>>>>> master
                     System.out.print(tasks);
                 } else if (command.startsWith("mark")) {
                     tasks.markAsDone(command);

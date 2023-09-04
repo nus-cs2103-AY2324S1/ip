@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 T | 0 | read book (from: 2019-10-15 to: 2019-10-15)
 D | 0 | read book (by: 2019-10-15)
 E | 0 | read book (at: 2019-10-15)
 T | 0 | read book (from: 2019-10-15 to: 2020-10-15)
+=======
+T | 0 | borrow book /by 6th June
+>>>>>>> master
