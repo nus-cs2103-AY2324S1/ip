@@ -2,6 +2,11 @@ package taskpackage;
 
 import dukepackage.DukeException;
 
+/**
+ * Represents a todo task. A Todo object
+ * contains a task, represented by a
+ * Task Object.
+ */
 public class ToDos extends Task {
 
     /**

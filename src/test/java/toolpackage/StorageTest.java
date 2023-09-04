@@ -90,7 +90,6 @@ public class StorageTest {
             tasks.addItem(new ToDos("Todo 1", "0"), ui);
             tasks.addItem(new Deadlines("Deadline 1", "by 203-08-31", "0"), ui);
             tasks.addItem(new Events("Event 1", "from 2023-08-30", "to 2023-08-31", "0"), ui);
-            
         } catch (DukeException e) {
             assertEquals("☹ OOPS!!! Please use the proper format for the deadline (YYYY-MM-DD).", e.getMessage());
         } finally {

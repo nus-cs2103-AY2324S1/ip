@@ -6,6 +6,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task with a deadline. A Deadline
+ * object will contain the task and deadline
+ * represented by a Task object and LocalDate object
+ * respectively.
+ */
 public class Deadlines extends Task {
 
     private LocalDate by;
@@ -20,7 +26,6 @@ public class Deadlines extends Task {
      */
     public Deadlines(String task, String details, String isDone) throws DukeException {
         super(task, isDone);
-        
         try {
             this.by = LocalDate.parse(details.substring(3));
         } catch (DateTimeParseException e) {

@@ -9,6 +9,11 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the tasklist in the Duke bot.
+ * A TaskList object contains a list of tasks
+ * represented by a ArrayList of Task objects.
+ */
 public class TaskList {
 
     private ArrayList<Task> listOfTasks;

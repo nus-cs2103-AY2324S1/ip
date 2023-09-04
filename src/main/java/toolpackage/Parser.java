@@ -6,6 +6,12 @@ import taskpackage.Deadlines;
 import taskpackage.Events;
 import taskpackage.ToDos;
 
+/**
+ * Represents the parser tool for the
+ * Duke bot. A Parser object is used
+ * by the Duke bot to understand
+ * and execute user commands.
+ */
 public class Parser {
 
     public Parser() {
@@ -48,7 +54,7 @@ public class Parser {
             if (parsedCommand.length == 1) {
                 throw new DukeException("☹ OOPS!!! There are missing deadline details.");
             } else {
-                tasks.addItem(new Deadlines(parsedCommand[0], parsedCommand[1],"0"), ui);
+                tasks.addItem(new Deadlines(parsedCommand[0], parsedCommand[1], "0"), ui);
             }
         } else if (command.equals("event")) {
             parsedCommand = task.split("/");
@@ -60,7 +66,6 @@ public class Parser {
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-        
         return true;
     }
 }

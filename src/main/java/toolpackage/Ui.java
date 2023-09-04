@@ -5,11 +5,17 @@ import taskpackage.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the ui of the Duke bot.
+ * A Ui object is responsible for printing
+ * the relevant information onto the terminal
+ * for the user to read.
+ */
 public class Ui {
 
-    private static final String TEXT_GREETING =  "Hello! I'm ChampionSOS\nWhat can I do for you?";
-    private static final String TEXT_GOODBYE =  "Bye. Hope to see you again soon!";
-    private static final String TEXT_NO_DATA =  "No existing data found. New file created!";
+    private static final String TEXT_GREETING = "Hello! I'm ChampionSOS\nWhat can I do for you?";
+    private static final String TEXT_GOODBYE = "Bye. Hope to see you again soon!";
+    private static final String TEXT_NO_DATA = "No existing data found. New file created!";
 
     public Ui() {
     }
@@ -53,7 +59,7 @@ public class Ui {
     public void printList(ArrayList<Task> listOfTasks) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < listOfTasks.size(); i++) {
-            System.out.printf("%d.%s%n", i+1, listOfTasks.get(i).printTask());
+            System.out.printf("%d.%s%n", i + 1, listOfTasks.get(i).printTask());
         }
     }
 
@@ -78,8 +84,8 @@ public class Ui {
      * @param size Updated number of tasks in the list.
      */
     public void removeItem(Task task, int size) {
-        System.out.printf("Noted. I've removed this task:%n %s%nNow you have %d tasks in the list.%n"
-                , task.printTask(), size);
+        System.out.printf("Noted. I've removed this task:%n %s%nNow you have %d tasks in the list.%n",
+                task.printTask(), size);
     }
 
     /**
@@ -101,7 +107,7 @@ public class Ui {
     public void printMatchingTasks(ArrayList<Task> listOfTasks) {
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < listOfTasks.size(); i++) {
-            System.out.printf("%d.%s%n", i+1, listOfTasks.get(i).printTask());
+            System.out.printf("%d.%s%n", i + 1, listOfTasks.get(i).printTask());
         }
     }
 }

@@ -18,6 +18,14 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the storage used by
+ * the Duke bot. A Storage object
+ * contains a file represented by a
+ * File object, and serves as the
+ * interface for reading and writing data
+ * into the file.
+ */
 public class Storage {
 
     private File file;
@@ -88,7 +96,6 @@ public class Storage {
                     listOfTasks.add(new Events(input[2], input[3], input[4], input[1]));
                 }
             }
-            
         } catch (FileNotFoundException | DukeException e) {
             throw new DukeException("☹ OOPS!!! There was an error loading data from the storage.");
         }

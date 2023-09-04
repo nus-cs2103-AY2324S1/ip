@@ -69,7 +69,6 @@ public class TaskListTest {
             tasks.addItem(new ToDos("Todo 1", "0"), ui);
             tasks.addItem(new Deadlines("Deadline 1", "by 2023-08-31", "0"), ui);
             tasks.addItem(new Events("Event 1", "from 2023-08-30", "to 2023-08-31", "0"), ui);
-            
             assertFalse(tasks.removeItem("0", ui));
         } catch (DukeException e) {
             System.out.println(e.getMessage());

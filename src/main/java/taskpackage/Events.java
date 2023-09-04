@@ -6,6 +6,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task with a start and end
+ * date. An Events object contains the task,
+ * represented by a Task object, as well as the
+ * start date and end date both represented by
+ * LocalDate objects.
+ */
 public class Events extends Task {
 
     private LocalDate from;

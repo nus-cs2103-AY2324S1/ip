@@ -4,6 +4,12 @@ import dukepackage.DukeException;
 
 import toolpackage.Ui;
 
+/**
+ * Represents a task. A Task object
+ * contains a task in the form of a
+ * string and a boolean indicating
+ * whether the task is completed.
+ */
 public class Task {
 
     private String task;

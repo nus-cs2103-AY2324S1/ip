@@ -1,12 +1,16 @@
 package dukepackage;
 
+import toolpackage.Parser;
 import toolpackage.Storage;
 import toolpackage.TaskList;
 import toolpackage.Ui;
-import toolpackage.Parser;
 
 import java.util.Scanner;
 
+/**
+ * Represents a Duke bot. A Duke object contains
+ * its own storage, task lists and ui.
+ */
 public class Duke {
 
     private Storage storage;
@@ -54,7 +58,6 @@ public class Duke {
                 System.out.println(e.getMessage());
             }
         }
-        
         inputs.close();
         this.ui.showBye();
     }
