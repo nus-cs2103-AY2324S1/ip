@@ -56,6 +56,10 @@ public abstract class CommandParser {
             return new CmdBye();
         }
 
+        if (command.equals("delete")) {
+            return new CmdDelete(parseIndex(description));
+        }
+
         if (command.equals("mark")) {
             return new CmdMark(parseIndex(description));
         }

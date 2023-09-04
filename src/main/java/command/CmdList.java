@@ -24,7 +24,7 @@ public class CmdList extends Command {
         lines[0] = Message.LIST_TASK;
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.getTask(i);
-            lines[i + 1] = task.toString();
+            lines[i + 1] = (i + 1) + ". " + task.toString();
         }
 
         return StringUtility.joinLinesArray(lines);
