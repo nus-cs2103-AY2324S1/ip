@@ -32,6 +32,10 @@ public class TaskList {
         return taskList.get(index);
     }
 
+    public ArrayList<Task> getTasks() {
+        return taskList;
+    }
+
     public void markAsDone(int index) {
         taskList.get(index).markAsDone();
     }

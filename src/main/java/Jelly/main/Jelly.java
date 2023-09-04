@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Jelly.commands.Command;
 import Jelly.task.Deadline;
 import Jelly.task.Event;
 import Jelly.task.Todo;
@@ -18,9 +19,43 @@ import java.io.FileWriter;
 public class Jelly {
     private static final String FILE_PATH = "./taskData/jelly.txt";
     private final Scanner scanner = new Scanner(System.in);
-    private ArrayList<Task> storage = new ArrayList<>();
+   // private ArrayList<Task> storage = new ArrayList<>();
 
-    int index = 0;
+    private TaskList taskList;
+    private Ui ui;
+    private Storage storage;
+
+    private Jelly(String filePath) throws JellyException {
+        this.storage = new Storage(filePath);
+        this.ui = new Ui();
+
+        try {
+            this.taskList = new TaskList(storage.startUp());
+        } catch (JellyException e) {
+            this.taskList = new TaskList();
+            System.out.println(e.getMessage());
+        }
+    }
+    public static void main(String[] args) throws JellyException {
+        Jelly jelly = new Jelly(FILE_PATH);
+        jelly.run();
+    }
+
+    private void run() {
+        ui.startUpMessage();
+        boolean stopped = false;
+        while (scanner.hasNextLine()) {
+            try {
+                String command = ui.commandMe();
+                Command c = Parser.parse(command);
+                c.execute(taskList, ui, storage);
+            } catch (JellyException e) {
+                //System.out.println(e.getMessage());
+            }
+        }
+    }
+}
+    /*
 
     public static void main(String[] args) throws JellyException{
 
@@ -140,7 +175,6 @@ public class Jelly {
                     index++;
                     System.out.println("Now you have " + storage.size() + " tasks in the list.");
                 } else if (stringArray[0].equals("deadline")) {
-
                     if (stringArray.length == 1) {
                         throw new JellyBlankMessageException("deadline");
                     }
@@ -174,7 +208,7 @@ public class Jelly {
                         throw new JellyBlankMessageException("event");
                     }
 
-                    String deadlineString = "";
+                    String eventString = "";
                     String fromWhen = "";
                     String toWhen = "";
                     for (int i = 1; i < stringArray.length; i++) {
@@ -193,13 +227,13 @@ public class Jelly {
                                 fromWhen = fromWhen.trim();
                                 break;
                             }
-                            deadlineString += stringArray[i] + " ";
+                            eventString += stringArray[i] + " ";
                         } else {
-                            deadlineString = deadlineString.trim();
+                            eventString = eventString.trim();
                             break;
                         }
                     }
-                    storage.add(new Event(deadlineString, fromWhen, toWhen));
+                    storage.add(new Event(eventString, fromWhen, toWhen));
                     System.out.println("Ok! I've added this task: \n" + storage.get(index).toString());
                     index++;
                     System.out.println("Now you have " + storage.size() + " tasks in the list.");
@@ -234,3 +268,4 @@ public class Jelly {
         }
     }
 }
+*/

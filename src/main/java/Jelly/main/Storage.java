@@ -15,10 +15,16 @@ import java.util.Scanner;
 public class Storage {
     private static final String FILE_PATH = "./taskData/jelly.txt";
 
+    private String filePath;
+
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
     public ArrayList<Task> startUp() throws JellyException {
         ArrayList<Task> storage = new ArrayList<>();
         try {
-            File data = new File(FILE_PATH);
+            File data = new File(filePath);
             if (!data.exists()) {
                 data.getParentFile().mkdirs();
                 return storage;
@@ -55,14 +61,13 @@ public class Storage {
         }
     }
 
-    private void saveAndExit(TaskList taskList) {
+    public void saveAndExit(TaskList taskList) {
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
 
             for (int i = 0; i < taskList.size(); i++) {
                 fileWriter.write(taskList.get(i).writeToFile() + "\n");
             }
-
             fileWriter.close();
         } catch (IOException e) {
             System.out.println("Could not save tasks: " + e.getMessage());
