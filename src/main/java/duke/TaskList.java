@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class TaskList implements Serializable {
     private static String indent = "   ";
     private static String megaIndent = "     ";
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks;
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
@@ -47,7 +47,7 @@ public class TaskList implements Serializable {
     /**
      * displays the list of Tasks
      */
-    public static void displayList() {
+    public void displayList() {
         System.out.println(indent + "Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             int num = i + 1;
@@ -56,10 +56,34 @@ public class TaskList implements Serializable {
         }
     }
     /**
+     * Displays the list of Tasks that description matches the user input
+     * @param userInput the String that the user inputs to find similar Tasks
+     */
+    public void displayMatchingList(String userInput) {
+        ArrayList<Task> temp = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            String taskDescription = task.getDescription();
+            if (taskDescription.contains(userInput)) {
+                temp.add(task);
+            }
+        }
+        if (temp.size() == 0) {
+            System.out.println(indent + "There are no matching tasks");
+        } else {
+            System.out.println(indent + "Here are the matching tasks in your list:");
+            for (int i = 0; i < temp.size(); i++) {
+                int num = i + 1;
+                Task curr = temp.get(i);
+                System.out.println(indent + num + "." + curr.toString());
+            }
+        }
+    }
+    /**
      * This method encapsulates the functionality of marking a task as completed or not
      * For example, the input 'mark 1' will mark the duke.Task at position 0 at the TaskArray as 'marked'
-     *
      * @param string the input string
+     * @throws DukeException if input is invalid
      */
     public void markDescription(String string) throws DukeException {
         String clean = string.replaceAll("\\D+", ""); //remove non-digits
