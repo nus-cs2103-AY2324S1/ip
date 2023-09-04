@@ -1,6 +1,5 @@
 package duke;
-
-<<<<<<< HEAD
+import java.util.ArrayList;
 /**
  * The Parser class handles parsing of user commands and input for the Duke application.
  * It provides methods to recognize and process different types of commands and tasks.
@@ -8,21 +7,21 @@ package duke;
 public class Parser {
 
     /**
+     * Checks if the input is a command to find a task (todo, event, or deadline).
+     *
+     * @param input The user input.
+     * @return True if the input is a find task command, false otherwise.
+     */
+    public static boolean isFindCommand(String input) {
+        return input.startsWith("find");
+    }
+
+    /**
      * Checks if the input is a command to create a task (todo, event, or deadline).
      *
      * @param input The user input.
      * @return True if the input is a create task command, false otherwise.
      */
-=======
-import java.util.ArrayList;
-
-public class Parser {
-
-    public static boolean isFindCommand(String input) {
-        return input.startsWith("find");
-    }
-
->>>>>>> branch-Level-9
     public static boolean isCreateTaskCommand(String input) {
         String trimmedInput = input.trim();
         return trimmedInput.startsWith("todo")
@@ -89,10 +88,7 @@ public class Parser {
      * @return True if the application should continue running, false if the user wants to exit.
      * @throws DukeException If there is an error in processing the command.
      */
-    public static boolean parseCommand(String input, TaskList tasks, Ui ui) throws DukeException {
-=======
     public static boolean isValidCommand(String input, TaskList tasks, Ui ui) throws DukeException {
->>>>>>> branch-A-CodingStandard
 
         int taskIndex;
         if (isDeleteCommand(input)) {

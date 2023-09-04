@@ -8,27 +8,19 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner sc;
-<<<<<<< HEAD
-    String horizontalLine = "____________________________________________________________";
 
     /**
-     * Constructs a Ui object with a scanner to read user input.
+     * Constructs an Ui object with a scanner to read user input.
      */
-=======
-
->>>>>>> branch-A-CodingStandard
     public Ui() {
         this.sc = new Scanner(System.in);
     }
 
-<<<<<<< HEAD
+    String horizontalLine = "____________________________________________________________";
+
     /**
      * Displays a welcome message when the application starts.
      */
-=======
-    String horizontalLine = "____________________________________________________________";
-
->>>>>>> branch-A-CodingStandard
     public void showWelcomeMessage() {
         String name = "duke.Tired";
         System.out.println(horizontalLine);
@@ -71,9 +63,6 @@ public class Ui {
         System.out.println(tasks);
     }
 
-<<<<<<< HEAD
-    // for future use
-=======
     public void showMatchingTasks(ArrayList<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
             System.out.println("No matching tasks found.");
@@ -86,7 +75,6 @@ public class Ui {
     }
 
     // Will use in future
->>>>>>> branch-Level-9
     public void showAddedTask(Task task) {
         System.out.println(horizontalLine);
         System.out.println("Got it. I've added this task:");
