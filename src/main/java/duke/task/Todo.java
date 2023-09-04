@@ -24,7 +24,7 @@ public class Todo extends Task {
     public static Todo readFromFile(String[] components) {
         boolean isDone = components[1].equals("1");
         Todo todo = new Todo(components[2]);
-        if(isDone) {
+        if (isDone) {
             todo.markDone();
         }
         return todo;

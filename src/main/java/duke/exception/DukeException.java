@@ -4,7 +4,7 @@ package duke.exception;
  * The DukeException class represents exceptions specific to the Duke application.
  * It is a subclass of RuntimeException and is used to handle custom application-related exceptions.
  */
-public class DukeException extends RuntimeException{
+public class DukeException extends RuntimeException {
 
     /**
      * Constructs a new DukeException with the specified error message.

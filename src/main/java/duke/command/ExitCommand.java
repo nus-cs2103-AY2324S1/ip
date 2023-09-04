@@ -1,11 +1,11 @@
 package duke.command;
 
+import java.io.IOException;
+
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 import duke.exception.DukeException;
-
-import java.io.IOException;
 
 /**
  * The ExitCommand class represents a command to exit the application.

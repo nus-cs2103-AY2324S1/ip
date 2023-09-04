@@ -8,7 +8,7 @@ import duke.Ui;
  * The ListCommand class represents a command to list current tasks.
  * It parses the user input.
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
 
     /**
      * Constructs a new ListCommand object with the specified full command string.
@@ -36,5 +36,4 @@ public class ListCommand extends Command{
     public boolean isExit() {
         return false;
     }
-
 }

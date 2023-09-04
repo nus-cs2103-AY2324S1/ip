@@ -26,7 +26,7 @@ public class FindCommand extends Command {
      * @return false since FindCommand is not an exit command.
      */
     @Override
-    public boolean isExit(){
+    public boolean isExit() {
         return false;
     }
 
@@ -41,7 +41,7 @@ public class FindCommand extends Command {
     @Override
     public void execute(TaskList tasks , Ui ui, Storage storage) {
         String[] words = this.fullCommand.split(" ", 2);
-        if(words.length < 2) {
+        if (words.length < 2) {
             throw new InvalidArgumentException("find");
         }
         tasks.findMatching(words[1]);

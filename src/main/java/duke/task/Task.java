@@ -1,16 +1,12 @@
 package duke.task;
 
-import java.time.format.DateTimeFormatter;
-
 /**
  * The Task class represents a generic task in the Duke application.
  */
 public class Task {
+    protected static final String DATETIME_INPUT_FORMAT = "yyyy-MM-dd HHmm";
     protected String description;
     protected boolean isDone;
-    protected static final String DATETIME_INPUT_FORMAT = "yyyy-MM-dd HHmm";
-    protected static final DateTimeFormatter dateTimeInputFormatter
-            = DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
 
     /**
      * Constructs a new Task object with the specified description.
@@ -19,7 +15,7 @@ public class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.isDone =  false;
+        this.isDone = false;
     }
 
     /**
@@ -31,14 +27,14 @@ public class Task {
     public static Task readFromFile(String line) {
         String[] components = line.split("\\|");
         switch(components[0]) {
-            case("T"):
-                return Todo.readFromFile(components);
-            case("D"):
-                return Deadline.readFromFile(components);
-            case("E"):
-                return Event.readFromFile(components);
-            default:
-                return null;
+        case("T"):
+            return Todo.readFromFile(components);
+        case("D"):
+            return Deadline.readFromFile(components);
+        case("E"):
+            return Event.readFromFile(components);
+        default:
+            return null;
         }
     }
 
@@ -48,7 +44,7 @@ public class Task {
      * @return A string in the file format representing the task.
      */
     public String writeFileFormat() {
-        return (this.isDone ? "1" : "0")  + "|" + this.description;
+        return (this.isDone ? "1" : "0") + "|" + this.description;
     }
 
     /**
@@ -91,7 +87,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return("["
+        return ("["
                 + this.getStatusIcon()
                 + "] "
                 + this.description);

@@ -1,20 +1,21 @@
 package duke;
-import duke.exception.DukeException;
 
 import java.util.Scanner;
+
+import duke.exception.DukeException;
 
 /**
  * The Ui class handles user interface interactions and displays messages to the user.
  */
 public class Ui {
-    final static String HORIZONTAL_LINE = "_____________________________________________________________";
+    private static final String HORIZONTAL_LINE = "_____________________________________________________________";
     private Scanner scanner;
 
     /**
      * Constructs a Ui object and initializes the scanner to read user input.
      */
     public Ui() {
-        this.scanner =  new Scanner(System.in);
+        this.scanner = new Scanner(System.in);
     }
 
     /**

@@ -1,7 +1,9 @@
 package duke;
 
-import duke.task.Task;
 import java.util.ArrayList;
+
+import duke.task.Task;
+
 
 /**
  * A class to represent a list of tasks.
@@ -71,7 +73,7 @@ public class TaskList {
      * @param s The string to search among the tasks
      */
     public void findMatching(String s) {
-        int index =  1;
+        int index = 1;
         Ui.showLine();
         System.out.println("Here are the matching tasks in your list:");
         for (Task t : this.taskList) {
@@ -87,12 +89,12 @@ public class TaskList {
      * Prints the tasks in the list.
      */
     public void printTasks() {
-        int len =this.taskList.size();
+        int len = this.taskList.size();
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < len; i++) {
-            int task_number = i + 1;
+            int taskNumber = i + 1;
             Task t = this.taskList.get(i);
-            System.out.println(task_number
+            System.out.println(taskNumber
                     + "."
                     + t);
         }

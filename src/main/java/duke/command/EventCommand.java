@@ -1,13 +1,14 @@
 package duke.command;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 import duke.exception.InvalidArgumentException;
 import duke.exception.InvalidDateException;
 import duke.task.Event;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 /**
  * The EventCommand class represents a command to add a Event task to the task list in the Duke application.
@@ -53,8 +54,10 @@ public class EventCommand extends Command {
                     throw new InvalidArgumentException("event");
                 } else {
                     try {
-                        LocalDateTime from = LocalDateTime.parse(splitDeadline[0].split(" ", 2)[1].strip(), Storage.dateTimeInputFormatter);
-                        LocalDateTime to = LocalDateTime.parse(splitDeadline[1].split(" ", 2)[1].strip(), Storage.dateTimeInputFormatter);
+                        LocalDateTime from = LocalDateTime.parse(splitDeadline[0].split(" ", 2)[1]
+                                .strip(), Storage.DATE_TIME_INPUT_FORMATTER);
+                        LocalDateTime to = LocalDateTime.parse(splitDeadline[1].split(" ", 2)[1]
+                                .strip(), Storage.DATE_TIME_INPUT_FORMATTER);
                         Event t = new Event(c, from, to);
                         tasks.addTask(t);
                     } catch (DateTimeParseException e) {

@@ -1,8 +1,9 @@
 package duke;
 
+import java.io.FileNotFoundException;
+
 import duke.command.Command;
 import duke.exception.DukeException;
-import java.io.FileNotFoundException;
 
 /**
  * Represents the command line chat application Duke
@@ -20,15 +21,15 @@ public class Duke {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
-            tasks =  new TaskList(this.storage.readTasksFromFile());
+            tasks = new TaskList(this.storage.readTasksFromFile());
         } catch (FileNotFoundException e) {
-            tasks =  new TaskList();
+            tasks = new TaskList();
         }
     }
     private void run() {
         Ui.greet();
         boolean isExit = false;
-        while(!isExit) {
+        while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
