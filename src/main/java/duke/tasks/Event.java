@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import duke.exceptions.InvalidStartEndException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -8,10 +10,14 @@ public class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
 
-    public Event(int status, String task, LocalDateTime start, LocalDateTime end) {
+    public Event(int status, String task, LocalDateTime start, LocalDateTime end) throws InvalidStartEndException {
         super(status, task);
-        this.start = start;
-        this.end = end;
+        if (start.isAfter(end)) {
+            throw new InvalidStartEndException();
+        } else {
+            this.start = start;
+            this.end = end;
+        }
     }
 
     @Override

@@ -4,6 +4,7 @@ import duke.exceptions.*;
 import duke.tasks.Event;
 import duke.tasks.ToDo;
 import duke.tasks.Deadline;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -167,12 +168,8 @@ public class Parser {
                             try {
                                 LocalDateTime startDateTime = stringToDateTime(start);
                                 LocalDateTime endDateTime = stringToDateTime(end);
-                                if (startDateTime.isAfter(endDateTime)) {
-                                    throw new InvalidStartEndException();
-                                } else {
-                                    Event event = new Event(0, task, startDateTime, endDateTime);
-                                    list.addTask(event, storage);
-                                }
+                                Event event = new Event(0, task, startDateTime, endDateTime);
+                                list.addTask(event, storage);
                             } catch (DateTimeParseException e) {
                                 ui.showInvalidDateFormat();
                             }
