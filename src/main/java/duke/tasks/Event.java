@@ -44,8 +44,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + super.localDateTimeToString(from) + " to: " +
-                super.localDateTimeToString(to) + ")";
+        return "[E]" + super.toString() + " (from: " + super.localDateTimeToString(from) + " to: "
+                + super.localDateTimeToString(to) + ")";
     }
 
     /**

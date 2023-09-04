@@ -1,8 +1,8 @@
 package duke.commands;
 
 import duke.exceptions.DukeException;
-import duke.tasks.DukeList;
 import duke.storage.Storage;
+import duke.tasks.DukeList;
 import duke.ui.Ui;
 
 /**
@@ -34,8 +34,8 @@ public class MarkCommand extends Command {
     @Override
     public void execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
         if (tasks.getSize() < index || tasks.getTask(index - 1).isDone() == isDone) {
-            throw new DukeException("The task you are trying to mark is either out of bound, " +
-                    "or has already been marked/unmarked");
+            throw new DukeException("The task you are trying to mark is either out of bound, "
+                    + "or has already been marked/unmarked");
         }
 
         if (isDone) {

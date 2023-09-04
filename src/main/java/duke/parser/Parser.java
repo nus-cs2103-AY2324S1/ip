@@ -1,10 +1,20 @@
 package duke.parser;
 
-import duke.commands.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
+
+import duke.commands.AddCommand;
+import duke.commands.Command;
+import duke.commands.DeleteCommand;
+import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
+import duke.commands.IncorrectCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkCommand;
+
+
+
 
 /**
  * Represents a parser to convert user input into executable commands.
@@ -23,33 +33,33 @@ public class Parser {
         Command c = null;
 
         switch (split[0]) {
-            case "bye":
-                c = validateExit(split);
-                break;
-            case "list":
-                c = validateList(split);
-                break;
-            case "mark":
-            case "unmark":
-                c = validateMark(split);
-                break;
-            case "todo":
-                c = validateTodo(split);
-                break;
-            case "deadline":
-                c = validateDeadline(split);
-                break;
-            case "event":
-                c = validateEvent(split);
-                break;
-            case "delete":
-                c = validateDelete(split);
-                break;
-            case "find":
-                c = validateFind(split);
-                break;
-            default:
-                c = new IncorrectCommand("I'm sorry, but I don't know what that means :-(");
+        case "bye":
+            c = validateExit(split);
+            break;
+        case "list":
+            c = validateList(split);
+            break;
+        case "mark":
+        case "unmark":
+            c = validateMark(split);
+            break;
+        case "todo":
+            c = validateTodo(split);
+            break;
+        case "deadline":
+            c = validateDeadline(split);
+            break;
+        case "event":
+            c = validateEvent(split);
+            break;
+        case "delete":
+            c = validateDelete(split);
+            break;
+        case "find":
+            c = validateFind(split);
+            break;
+        default:
+            c = new IncorrectCommand("I'm sorry, but I don't know what that means :-(");
         }
         return c;
     }
@@ -125,8 +135,8 @@ public class Parser {
             LocalDateTime from = LocalDateTime.parse(to[0], formatter);
             LocalDateTime till = LocalDateTime.parse(to[1], formatter);
             if (from.isAfter(till) || from.isEqual(till)) {
-                return new IncorrectCommand("Please ensure that the start date is not equal to" +
-                        " or later than the end date");
+                return new IncorrectCommand("Please ensure that the start date is not equal to"
+                        + " or later than the end date");
             }
             return new AddCommand(task[0], from, till);
         } catch (DateTimeParseException e) {
@@ -141,7 +151,7 @@ public class Parser {
      * @return An ExitCommand object if input is valid, else an IncorrectCommand object.
      */
 
-    private  static Command validateFind(String[] split) {
+    private static Command validateFind(String[] split) {
         if (split.length == 1 || split[1].isBlank()) {
             return new IncorrectCommand("Please enter a valid find command.");
         }
@@ -150,8 +160,8 @@ public class Parser {
 
     private static Command validateExit(String[] split) {
         if (split.length != 1) {
-            return new IncorrectCommand("The bye command should not have " +
-                    "any additional words appended to it");
+            return new IncorrectCommand("The bye command should not have "
+                    + "any additional words appended to it");
         }
         return new ExitCommand();
     }
@@ -164,8 +174,8 @@ public class Parser {
      */
     public static Command validateList(String[] split) {
         if (split.length != 1) {
-            return new IncorrectCommand("The list command should not have any " +
-                    "additional words appended to it");
+            return new IncorrectCommand("The list command should not have any "
+                    + "additional words appended to it");
         }
         return new ListCommand();
     }

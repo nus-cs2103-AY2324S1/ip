@@ -1,23 +1,23 @@
 package duke.commands;
 
 import duke.exceptions.DukeException;
-import duke.tasks.DukeList;
 import duke.storage.Storage;
+import duke.tasks.DukeList;
 import duke.ui.Ui;
 
 /**
  * Represents a command to handle incorrect or invalid user input.
  */
 public class IncorrectCommand extends Command {
-    private String ErrMessage;
+    private String errMessage;
 
     /**
      * Constructs a command to handle incorrect input.
      *
-     * @param ErrMessage The error message to be thrown.
+     * @param errMessage The error message to be thrown.
      */
-    public IncorrectCommand(String ErrMessage) {
-        this.ErrMessage = ErrMessage;
+    public IncorrectCommand(String errMessage) {
+        this.errMessage = errMessage;
     }
 
     /**
@@ -30,7 +30,7 @@ public class IncorrectCommand extends Command {
      */
     @Override
     public void execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
-        throw new DukeException(this.ErrMessage);
+        throw new DukeException(this.errMessage);
     }
 
     /**

@@ -1,10 +1,17 @@
 package duke.commands;
 
+import java.time.LocalDateTime;
+
+import duke.exceptions.DukeException;
 import duke.storage.Storage;
-import duke.tasks.*;
+import duke.tasks.Deadline;
+import duke.tasks.DukeList;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
 import duke.ui.Ui;
 
-import java.time.LocalDateTime;
+
 
 /**
  * Represents a command to add a task to the task list.
@@ -59,18 +66,20 @@ public class AddCommand extends Command {
      * @param storage The storage manager.
      */
     @Override
-    public void execute(DukeList tasks, Ui ui, Storage storage) {
+    public void execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
         Task task = null;
         switch (this.type) {
-            case "todo":
-                task = new ToDo(this.description);
-                break;
-            case "deadline":
-                task = new Deadline(this.description, this.till);
-                break;
-            case "event":
-                task = new Event(this.description, this.from, this.till);
-                break;
+        case "todo":
+            task = new ToDo(this.description);
+            break;
+        case "deadline":
+            task = new Deadline(this.description, this.till);
+            break;
+        case "event":
+            task = new Event(this.description, this.from, this.till);
+            break;
+        default:
+            throw new DukeException("Invalid task type!");
         }
         tasks.add(task);
         ui.acknowledgeAdd(tasks.getSize(), task);
