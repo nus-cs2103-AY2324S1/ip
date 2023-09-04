@@ -11,6 +11,13 @@ public class Parser {
     public Parser() {
 
     }
+
+    /**
+     * Parses user input into the various commands.
+     *
+     * @param command User input.
+     * @param tasks The list of all Tasks.
+     */
     public void parse(String command, TaskList tasks) {
         try {
             String[] commandArr = command.split(" ",2);

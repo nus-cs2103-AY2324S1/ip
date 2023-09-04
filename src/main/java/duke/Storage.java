@@ -49,6 +49,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the information from the datafile into an ArrayList.
+     *
+     * @return ArrayList containing all the Tasks from the data file.
+     */
     public ArrayList<Task> load()  {
         try {
             ArrayList<Task> storedList = new ArrayList<>();
