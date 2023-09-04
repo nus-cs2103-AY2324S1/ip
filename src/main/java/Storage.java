@@ -1,5 +1,3 @@
-/** This file deals with all file reading from and writing to. */
-
 import types.Deadlines;
 import types.Party;
 import types.Task;
@@ -16,34 +14,77 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * This class deals with all file reading and writing.
+ */
 public class Storage {
-    public static void addToList(Path path, String type, String desc) {
-        String line = type + "," + 0 + "," + desc + "\n";
+
+    /**
+     * Writes to the file given, in the format of [type][status] [desc].
+     * Eg. [T][ ] read book
+     * The status is always 0 when creating a new Task, so this method assumes
+     * that the task is marked as undone in this method.
+     * The type is also always Todo, as it takes in the "desc" parameter only.
+     *
+     * @param path the path of file to write to
+     * @param desc the description of the Task
+     */
+    protected static void addToList(Path path, String desc) {
+        String line = "P" + "," + 0 + "," + desc + "\n";
         try {
             Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
-    public static void addToList(Path path, String type, String desc, LocalDate deadline) {
-        String line = type + "," + 0 + "," + desc + "," + deadline + "\n";
+    /**
+     * Writes to the file given, in the format of [type][status] [desc].
+     * Eg. [T][ ] read book
+     * The status is always 0 when creating a new Task, so this method assumes
+     * that the task is marked as undone in this method.
+     * The type is also always Deadline, as it takes in the "desc" and "deadline" parameter only.
+     *
+     * @param path the path of the file to write to
+     * @param desc the description of the Task
+     * @param deadline the deadline the task has to be completed by
+     */
+    protected static void addToList(Path path, String desc, LocalDate deadline) {
+        String line = "P" + "," + 0 + "," + desc + "," + deadline + "\n";
         try {
             Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
-    public static void addToList(Path path, String type, String desc, LocalDate from, LocalDate to) {
-        String line = type + "," + 0 + "," + desc + "," + from + "," + to + "\n";
+    /**
+     * Writes to the file given, in the format of [type][status] [desc].
+     * Eg. [T][ ] read book
+     * The status is always 0 when creating a new Task, so this method assumes
+     * that the task is marked as undone in this method.
+     * The type is also always Party, as it takes in the "desc", "from" and "to" parameter.
+     *
+     * @param path the path of the file to write to
+     * @param desc the description of the Task
+     * @param from the start time of the event
+     * @param to the end time of the event
+     */
+    protected static void addToList(Path path, String desc, LocalDate from, LocalDate to) {
+        String line = "P" + "," + 0 + "," + desc + "," + from + "," + to + "\n";
         try {
             Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
-    public static ArrayList<Task> getLastList() {
+
+    /**
+     * Returns the latest list from the storage file upon starting up.
+     *
+     * @return the last list loaded from the storage file
+     */
+    protected static ArrayList<Task> getLastList() {
         ArrayList<Task> finalList = new ArrayList<>();
 
         try {
@@ -87,7 +128,14 @@ public class Storage {
 
     }
 
-    public static void changeLineStatus(Path path, String status, int lineToChange) {
+    /**
+     * Changes the status of a Task in the storage file.
+     *
+     * @param path path of the storage file (to allow for saving to a specified list. See Level-7.1)
+     * @param status status to change the current Task to
+     * @param lineToChange the Task number to change
+     */
+    protected static void changeLineStatus(Path path, String status, int lineToChange) {
         try {
             List<String> lines = Files.readAllLines(path);
 
@@ -100,11 +148,17 @@ public class Storage {
                 throw new IllegalArgumentException("Invalid line number to change.");
             }
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
-    public static void deleteLine(Path path, int lineToDelete) {
+    /**
+     * Deletes the line of the task from the list, and shifts the rest accordingly.
+     *
+     * @param path path of the storage file
+     * @param lineToDelete the Task number to delete
+     */
+    protected static void deleteLine(Path path, int lineToDelete) {
         try {
             List<String> lines = Files.readAllLines(path);
 
