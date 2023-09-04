@@ -1,9 +1,13 @@
 package duke;
 
-import duke.command.*;
+import duke.command.ByeCommand;
+import duke.command.ListCommand;
+import duke.command.DeleteCommand;
+import duke.command.AddCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 
 // Solution below adapted and inspired by https://chat.openai.com/share/7f037351-3be6-4105-b138-77f68d428c84
 /**
@@ -41,18 +45,18 @@ public class Parser {
                     throw new DukeException.EventException();
                 }
 
-                String userCommand_e = userInput.split(" ")[0];
-                String args_e = userInput.replaceFirst(userCommand_e, "").trim();
-                String[] split_the_arguments_e = args_e.split("/from", 2);
+                String userCommandE = userInput.split(" ")[0];
+                String argsE = userInput.replaceFirst(userCommandE, "").trim();
+                String[] splitTheArgumentsE = argsE.split("/from", 2);
 
-                if (split_the_arguments_e.length != 2 || !split_the_arguments_e[1].contains("/to")) {
+                if (splitTheArgumentsE.length != 2 || !splitTheArgumentsE[1].contains("/to")) {
                     throw new DukeException.EventFormatException();
                 }
-                String the_description_e = split_the_arguments_e[0].trim();
-                String[] theDateTime_e = split_the_arguments_e[1].trim().split("/to", 2);
+                String the_descriptionE = splitTheArgumentsE[0].trim();
+                String[] theDateTimeE = splitTheArgumentsE[1].trim().split("/to", 2);
 
-                String fromDateTime = theDateTime_e[0].trim();
-                String toDateTime = theDateTime_e[1].trim();
+                String fromDateTime = theDateTimeE[0].trim();
+                String toDateTime = theDateTimeE[1].trim();
 
                 DateTimeValidator validator_e = new DateTimeValidator("yyyy/MM/dd HHmm");
                 boolean isDateValid_e = validator_e.validateDate(fromDateTime) && validator_e.validateDate(toDateTime);
@@ -60,7 +64,7 @@ public class Parser {
                 if (isDateValid_e) {
                     LocalDateTime parsedFromDate = LocalDateTime.parse(fromDateTime, DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
                     LocalDateTime parsedToDate = LocalDateTime.parse(toDateTime, DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
-                    return new AddCommand(AddCommand.TaskType.EVENT, the_description_e, parsedFromDate, parsedToDate);
+                    return new AddCommand(AddCommand.TaskType.EVENT, the_descriptionE, parsedFromDate, parsedToDate);
                 }
             case "deadline":
                 // Solution below adapted and inspired by https://chat.openai.com/share/b706b4df-ab30-4d0f-93eb-b85617616319
@@ -69,19 +73,19 @@ public class Parser {
                     throw new DukeException.DeadlineException();
                 }
 
-                String userCommand_d = userInput.split(" ")[0];
-                String args_d = userInput.replaceFirst(userCommand_d, "").trim();
-                String[] split_the_arguments_d = args_d.split("/by", 2);
+                String userCommandD = userInput.split(" ")[0];
+                String argsD = userInput.replaceFirst(userCommandD, "").trim();
+                String[] splitTheArgumentsD = argsD.split("/by", 2);
 
-                if (split_the_arguments_d.length != 2) {
+                if (splitTheArgumentsD.length != 2) {
                     throw new DukeException.DeadlineFormatException();
                 }
 
-                String the_description_d = split_the_arguments_d[0];
-                String[] theDateTime_d = split_the_arguments_d[1].trim().split(" ", 2);
+                String the_descriptionD = splitTheArgumentsD[0];
+                String[] theDateTimeD = splitTheArgumentsD[1].trim().split(" ", 2);
 
-                String date = theDateTime_d[0];
-                String time = theDateTime_d[1];
+                String date = theDateTimeD[0];
+                String time = theDateTimeD[1];
 
                 DateTimeValidator validator = new DateTimeValidator("dd/MM/yyyy HHmm");
                 boolean isDateValid = validator.validateDate(date + " " + time);
@@ -89,7 +93,7 @@ public class Parser {
                 if (isDateValid) {
                     LocalDateTime parsedDateTime = LocalDateTime.parse(date + " " + time,
                             DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-                    return new AddCommand(AddCommand.TaskType.DEADLINE, the_description_d, parsedDateTime);
+                    return new AddCommand(AddCommand.TaskType.DEADLINE, the_descriptionD, parsedDateTime);
                 }
             case "unmark":
                 if (arguments.isEmpty()) {
