@@ -1,7 +1,7 @@
 public class Parser {
 
     private enum Commands {
-        todo, deadline, event, mark, unmark, list, delete, bye;
+        invalid, todo, deadline, event, mark, unmark, list, delete, bye;
     }
 
     private TaskList taskList;
@@ -12,34 +12,40 @@ public class Parser {
         this.taskList = taskList;
     }
 
-    public boolean parseCommand(String userInput) {
-        if (userInput.equalsIgnoreCase("bye")) {
+    public boolean parseCommand(String command) {
+        Commands cmd = Commands.invalid;
+        for (Commands c : Commands.values()) {
+            if (command.startsWith(c.toString())) {
+                cmd = c;
+            }
+        }
+        if (cmd.equals(Commands.bye)) {
             ui.byeMessage();
             return false;
-        } else if (userInput.equalsIgnoreCase("list")) {
+        } else if (cmd.equals(Commands.list)) {
             ui.showTasks(taskList);
             return true;
-        } else if (userInput.startsWith("mark")) {
+        } else if (cmd.equals(Commands.mark)) {
             try {
-                int id = Integer.parseInt(userInput.split(" ")[1]);
+                int id = Integer.parseInt(command.split(" ")[1]);
                 taskList.markTaskAsDone(id - 1);
                 ui.markedMessage(taskList.getTask(id - 1));
                 return true;
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("To mark a task you need to include the index");
             }
-        } else if (userInput.startsWith("unmark")) {
+        } else if (cmd.equals(Commands.unmark)) {
             try {
-                int id = Integer.parseInt(userInput.split(" ")[1]);
+                int id = Integer.parseInt(command.split(" ")[1]);
                 taskList.markTaskAsUnDone(id - 1);
                 ui.unmarkedMessage(taskList.getTask(id - 1));
                 return true;
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("To unmark a task you need to include the index");
             }
-        } else if (userInput.startsWith("todo")) {
+        } else if (cmd.equals(Commands.todo)) {
             try {
-                String description = userInput.substring(5);
+                String description = command.substring(5);
                 Todo todo = new Todo(description);
                 taskList.addTask(todo);
                 ui.addTaskMessage(todo, taskList.numOfTasks());
@@ -48,11 +54,11 @@ public class Parser {
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
             }
-        } else if (userInput.startsWith("deadline")) {
+        } else if (cmd.equals(Commands.deadline)) {
             try {
-                int index = userInput.indexOf("/");
-                String description = userInput.substring(9, index - 1);
-                String by = userInput.substring(index + 3);
+                int index = command.indexOf("/");
+                String description = command.substring(9, index - 1);
+                String by = command.substring(index + 3);
                 Deadline deadline = new Deadline(description, by.trim());
                 taskList.addTask(deadline);
                 ui.addTaskMessage(deadline, taskList.numOfTasks());
@@ -61,11 +67,11 @@ public class Parser {
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
             }
-        } else if (userInput.startsWith("event")) {
+        } else if (cmd.equals(Commands.event)) {
             try {
-                int indexOfFrom = userInput.indexOf("/");
-                String description = userInput.substring( 6, indexOfFrom - 1);
-                String duration = userInput.substring(indexOfFrom + 4);
+                int indexOfFrom = command.indexOf("/");
+                String description = command.substring( 6, indexOfFrom - 1);
+                String duration = command.substring(indexOfFrom + 4);
                 int indexOfTo = duration.indexOf("/");
                 String from = duration.substring(1, indexOfTo - 1);
                 String to = duration.substring(indexOfTo + 3);
@@ -77,9 +83,9 @@ public class Parser {
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
             }
-        } else if (userInput.startsWith("delete")) {
+        } else if (cmd.equals(Commands.delete)) {
             try {
-                int id = Integer.parseInt(userInput.split(" ")[1]);
+                int id = Integer.parseInt(command.split(" ")[1]);
                 taskList.deleteTask(id - 1);
                 return true;
             } catch (IndexOutOfBoundsException e) {
