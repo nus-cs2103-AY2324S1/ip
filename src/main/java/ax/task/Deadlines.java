@@ -2,9 +2,12 @@ package ax.task;
 
 import java.time.LocalDate;
 
+/**
+ * The Deadlines class contains information about deadlines
+ */
 public class Deadlines extends ListItem {
 
-    LocalDate end;
+    private LocalDate end;
 
     /**
      * Constructor for ax.task.Deadlines.

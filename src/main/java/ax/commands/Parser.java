@@ -1,8 +1,5 @@
 package ax.commands;
 
-import ax.display.Ui;
-import ax.task.*;
-
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -11,6 +8,16 @@ import java.nio.file.Paths;
 import java.util.MissingFormatArgumentException;
 import java.util.Scanner;
 
+import ax.display.Ui;
+import ax.task.Deadlines;
+import ax.task.Events;
+import ax.task.ListItem;
+import ax.task.TaskList;
+import ax.task.Todos;
+
+/**
+ * The Parser class for handling user actions
+ */
 public class Parser {
     /**
      * Gets input from the user and performs the corresponding action.
@@ -85,8 +92,8 @@ public class Parser {
                 }
             } else if (input.startsWith("event")) {
                 if (inputs.length > 1 && dates.length > 2) {
-                    TaskList.getListItems().add(
-                            (new Events(inputs[1].split("/")[0], dates[1], dates[2]))
+                    TaskList.getListItems().add((
+                            new Events(inputs[1].split("/")[0], dates[1], dates[2]))
                     );
                 } else {
                     throw new MissingFormatArgumentException("no arg");

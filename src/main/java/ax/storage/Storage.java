@@ -1,10 +1,4 @@
 package ax.storage;
-
-import ax.task.Deadlines;
-import ax.task.Events;
-import ax.task.TaskList;
-import ax.task.Todos;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,6 +7,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+import ax.task.Deadlines;
+import ax.task.Events;
+import ax.task.TaskList;
+import ax.task.Todos;
+
+
+
+/**
+ * The Storage class to handle saving the todo list
+ */
 public class Storage {
     /**
      * Reads the save file and stores the previous save into the current list
@@ -31,12 +35,14 @@ public class Storage {
                 // check if index 1 is T D or E
                 int startIdx = 8;
                 if (info.charAt(1) == 'T') {
-                    TaskList.getListItems().add(new Todos(info.substring(startIdx)));
+                    TaskList.getListItems().add(
+                            new Todos(info.substring(startIdx)));
                 } else if (info.charAt(1) == 'D') {
                     // find first ( in info
                     int idx = info.indexOf('(') - 1;
                     int end = info.indexOf(')');
-                    TaskList.getListItems().add(new Deadlines(info.substring(startIdx, idx), info.substring(idx + 6, end)));
+                    TaskList.getListItems().add(
+                            new Deadlines(info.substring(startIdx, idx), info.substring(idx + 6, end)));
                 } else if (info.charAt(1) == 'E') {
                     // find first ( in info
                     int idx = info.indexOf('(') - 1;
@@ -44,7 +50,10 @@ public class Storage {
                     int fromEnd = info.indexOf("from: ") + 6;
                     int toEnd = info.indexOf("to: ") + 4;
                     int toStart = info.indexOf("to: ") - 1;
-                    TaskList.getListItems().add(new Events(info.substring(startIdx, idx), info.substring(fromEnd, toStart), info.substring(toEnd, end)));
+                    TaskList.getListItems().add(
+                            new Events(info.substring(startIdx, idx),
+                                    info.substring(fromEnd, toStart),
+                                    info.substring(toEnd, end)));
                 }
                 TaskList.getListItems().get(TaskList.getListItems().size() - 1).setDone(marked);
 

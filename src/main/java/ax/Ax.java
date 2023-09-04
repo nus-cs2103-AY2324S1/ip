@@ -1,11 +1,13 @@
 package ax;
+import java.util.Scanner;
 
 import ax.commands.Parser;
 import ax.display.Ui;
 import ax.storage.Storage;
 
-import java.util.Scanner;
-
+/**
+ * The main Ax Class for the chatbot
+ */
 public class Ax {
 
     /**

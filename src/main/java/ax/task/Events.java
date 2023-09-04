@@ -2,10 +2,13 @@ package ax.task;
 
 import java.time.LocalDate;
 
+/**
+ * The Events class which contains info about events
+ */
 public class Events extends ListItem {
 
-    LocalDate start;
-    LocalDate end;
+    private LocalDate start;
+    private LocalDate end;
 
     /**
      * Constructor for ax.task.Events.
@@ -21,10 +24,7 @@ public class Events extends ListItem {
      */
     @Override
     public String toString() {
-        return (
-                "[E] " +
-                        super.toString() +
-                        String.format(" (from: %s to: %s)", this.start.toString(), this.end.toString())
-        );
+        return ("[E] " + super.toString()
+                + String.format(" (from: %s to: %s)", this.start.toString(), this.end.toString()));
     }
 }
