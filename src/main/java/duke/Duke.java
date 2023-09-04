@@ -44,7 +44,7 @@ public class Duke {
                         tasks.add(new Todo(description));
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + tasks.get(tasks.size() - 1));
-                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                     }
                 } else if (input.startsWith("deadline")) {
                     String[] parts = input.split(" /by ", 2);
@@ -55,7 +55,7 @@ public class Duke {
                         tasks.add(new Deadline(description, parts[1]));
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + tasks.get(tasks.size() - 1));
-                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                     }
                 } else if (input.startsWith("event")) {
                     String[] parts = input.split(" /from | /to ", 3);
@@ -65,13 +65,23 @@ public class Duke {
                         tasks.add(new Event(parts[0].substring(6), parts[1], parts[2]));
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + tasks.get(tasks.size() - 1));
-                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
+                    }
+                } else if (input.startsWith("delete")) {
+                    int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                    if (index >= 0 && index < tasks.size()) {
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println("  " + tasks.get(index));
+                        tasks.remove(index);
+                        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                     }
                 } else {
                     throw new UnknownCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             } catch (EmptyDescriptionException | UnknownCommandException e) {
                 System.out.println(e.getMessage());
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                System.out.println("OOPS!!! The index provided is not valid.");
             }
 
             System.out.println(line);
