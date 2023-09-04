@@ -65,7 +65,7 @@ public class Storage {
             if (!file.exists()) {
                 file.createNewFile();
 
-                return taskList;
+                return taskList; 
             }
 
             assert file.exists();
