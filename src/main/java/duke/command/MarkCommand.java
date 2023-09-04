@@ -1,20 +1,19 @@
 package duke.command;
 
-import duke.task.Task;
 import duke.task.TaskList;
+import duke.task.Task;
 
 public class MarkCommand extends Command {
 
-    String commandMessage = "";
+    private String commandMessage = "";
     private int taskIndex;
-    public MarkCommand(String[] details) {
 
+    public MarkCommand(String[] details) {
         taskIndex = Integer.valueOf(details[0].replace("mark ", ""));
     }
 
     @Override
     public String getCommandMessage() {
-
         return commandMessage;
     }
 
@@ -24,6 +23,4 @@ public class MarkCommand extends Command {
         currentTask.setMarked();
         commandMessage = "Wow you are done!" + "\n" + currentTask.toString();
     }
-
-
 }

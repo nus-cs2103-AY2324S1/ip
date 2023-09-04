@@ -1,13 +1,13 @@
 package duke.command;
 
 import duke.exception.KoraException;
-import duke.task.Event;
-import duke.task.Task;
 import duke.task.TaskList;
+import duke.task.Task;
 import duke.task.ToDo;
 
 public class ToDoCommand extends Command {
     private String taskDetails;
+    private String commandMessage = "";
     public ToDoCommand(String[] details) throws KoraException {
 
         taskDetails = details[0].replace("todo", "").replace(" ", "");
@@ -15,11 +15,12 @@ public class ToDoCommand extends Command {
             throw new KoraException("ToDo must have details!");
         }
     }
-    String commandMessage = "";
+
     @Override
     public String getCommandMessage() {
         return commandMessage;
     }
+
     @Override
     public void execute(TaskList taskList) {
         Task currentTask = new ToDo(taskDetails);

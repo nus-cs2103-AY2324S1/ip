@@ -1,19 +1,18 @@
 package duke.command;
 
-import duke.task.Task;
 import duke.task.TaskList;
+import duke.task.Task;
 
 public class DeleteCommand extends Command {
     private int taskIndex;
+    private String commandMessage = "";
     public DeleteCommand(String[] details) {
-
         taskIndex = Integer.valueOf(details[0].replace("delete ", ""));
     }
-    String commandMessage = "";
+
 
     @Override
     public String getCommandMessage() {
-
         return commandMessage;
     }
 

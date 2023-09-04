@@ -1,19 +1,19 @@
 package duke.command;
 
-import duke.task.Task;
 import duke.task.TaskList;
+import duke.task.Task;
 
 public class UnmarkCommand extends Command {
 
-    String commandMessage = "";
+    private String commandMessage = "";
     private int taskIndex;
+
     public UnmarkCommand(String[] details) {
         taskIndex = Integer.parseInt(details[0].replace("unmark ", ""));
     }
 
     @Override
     public String getCommandMessage() {
-
         return commandMessage;
     }
 
@@ -23,6 +23,4 @@ public class UnmarkCommand extends Command {
         currentTask.setUnmarked();
         commandMessage = "Wow you are not done!" + "\n" + currentTask.toString();
     }
-
-
 }

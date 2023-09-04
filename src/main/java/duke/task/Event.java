@@ -3,15 +3,13 @@ package duke.task;
 import duke.exception.KoraException;
 
 import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    //private String byTime;
-
     LocalDateTime endTime;
     LocalDateTime startTime;
+
     public Event(String details, String startTime, String endTime) throws KoraException {
         super(details);
         super.setTaskType(TaskType.E.toString());
@@ -24,6 +22,7 @@ public class Event extends Task {
             throw new KoraException("Please ensure there is no space before to!");
         }
     }
+
     DateTimeFormatter outFormatter = DateTimeFormatter.ofPattern("E, MMM d yyyy HH:mm");
     DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 

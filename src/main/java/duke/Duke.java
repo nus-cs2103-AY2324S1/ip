@@ -1,11 +1,11 @@
 package duke;
 
-import duke.command.Command;
 import duke.exception.KoraException;
+import duke.command.Command;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
-import duke.ui.UI;
+import duke.ui.Ui;
 
 /**
  * Main class of Kora Chatbot Program.
@@ -13,7 +13,7 @@ import duke.ui.UI;
 public class Duke {
     private TaskList taskList;
     private Storage storage;
-    private UI ui;
+    private Ui ui;
     private boolean isExit = false;
 
     /**
@@ -22,7 +22,7 @@ public class Duke {
      * @param filePath path of file in user's hard disk.
      */
     public Duke(String filePath) {
-        ui = new UI();
+        ui = new Ui();
         storage = new Storage(filePath);
         taskList = new TaskList();
         try {
@@ -41,7 +41,7 @@ public class Duke {
         try {
             Command command = Parser.parse(userInput);
             command.execute(taskList);
-            command.printOutput(command.getCommandMessage());
+            System.out.println(command.getCommandMessage());
             return command;
         } catch (KoraException e) {
             System.out.println(e.getMessage());
