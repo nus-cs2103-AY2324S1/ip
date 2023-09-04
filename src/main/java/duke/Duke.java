@@ -3,6 +3,7 @@ package duke;
 import java.io.IOException;
 import java.util.Scanner;
 import duke.exceptions.DukeException;
+import duke.exceptions.InvalidStartEndException;
 
 //copy this into the actual duke.Duke file later!1!!!!
 public class Duke {
@@ -10,7 +11,7 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
-    public Duke(String filePath) throws IOException {
+    public Duke(String filePath) throws IOException, InvalidStartEndException {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList(storage.loadTasks(), ui);
@@ -37,7 +38,7 @@ public class Duke {
         this.ui.bye();
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InvalidStartEndException {
         new Duke("./data/duke.txt").run();
     }
 }

@@ -1,5 +1,6 @@
 package duke;
 
+import duke.exceptions.InvalidStartEndException;
 import duke.tasks.*;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -44,7 +45,7 @@ public class Storage {
         return dataFile;
     }
 
-    public ArrayList<Task> loadTasks() throws IOException {
+    public ArrayList<Task> loadTasks() throws IOException, InvalidStartEndException {
         File dataFile = new File(this.path);
         if (!dataFile.exists()) {
             dataFile = createDataFile();
