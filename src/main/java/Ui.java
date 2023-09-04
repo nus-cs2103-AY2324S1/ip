@@ -67,6 +67,23 @@ public class Ui {
         }
     }
 
+    protected static void findTasks(ArrayList<Task> list, int indexNumber, String keyword) {
+        if (indexNumber == 0) {
+            System.out.println("Hmm.. your list looks empty. To add items, use the 'todo', 'deadline' or 'party' commands!");
+        }
+
+        System.out.println("\tThese are your tasks with the keyword: " + keyword);
+        int itemNumber = 1;
+        for (int i = 0; i < indexNumber; i++) {
+            String taskDesc = list.get(i).toString();
+            int index = taskDesc.indexOf(keyword);
+            if (index >= 0) {
+                System.out.println("\t" + itemNumber + ". " + list.get(i));
+                itemNumber++;
+            }
+        }
+    }
+
 
 
 

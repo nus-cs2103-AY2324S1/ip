@@ -23,6 +23,7 @@ public class Barbie {
         PARTY,
         LIST,
         BYE,
+        FIND
     }
 
 
@@ -137,7 +138,14 @@ public class Barbie {
                             Ui.taskAdded(list.get(indexNumber));
                             indexNumber ++;
                             break;
+                        case FIND:
+                            if (parts.length <2) {
+                                throw new BarbieNoKeywordException();
+                            }
+                            String keyword = parts[1];
 
+                            Ui.findTasks(list, indexNumber, keyword);
+                            break;
                         case LIST:
                             // No variables to edit, only output (refer to listTasks func)
                             Ui.listTasks(list, indexNumber);
