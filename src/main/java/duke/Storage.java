@@ -7,13 +7,28 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The `Storage` class handles the reading and writing of tasks from/to a data file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a new `Storage` instance with the specified file path.
+     *
+     * @param filePath The file path where task data is stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the data file specified in the constructor.
+     *
+     * @return An ArrayList of Task objects representing the tasks loaded from the file.
+     * @throws IOException              if there is an issue reading the file.
+     * @throws InvalidFileFormatException if the file contains tasks in an invalid format.
+     */
     public ArrayList<Task> load() throws IOException, InvalidFileFormatException {
         BufferedReader reader = new BufferedReader(new FileReader(this.filePath));
         String line;
