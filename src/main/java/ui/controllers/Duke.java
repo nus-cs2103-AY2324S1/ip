@@ -1,3 +1,5 @@
+package ui.controllers;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,20 +13,16 @@ import helpers.Ui;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import uicomponents.DialogBox;
 
 
 /**
- * Main Class of Duke
+ * Main Class of controllers.Duke
  */
 public class Duke extends Application {
 
@@ -37,18 +35,15 @@ public class Duke extends Application {
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/machoduke.jpg"));
-    private Scene scene;
 
     /**
-     * Empty public constructor to load Duke
+     * Empty public constructor to load controllers.Duke
      */
     public Duke() {
     }
 
     /**
-     * Public constructor to load Duke
+     * Public constructor to load controllers.Duke
      *
      * @param filePath File path to get text file data from
      * @throws ErrorStorageException Exception for storage loading error
@@ -94,7 +89,7 @@ public class Duke extends Application {
 
     @Override
     public void start(Stage stage) {
-        //new Duke("/tasks.txt").run();
+        //new controllers.Duke("/tasks.txt").run();
 
         //Step 1. setting up required components
         //Setup container for content to scroll
@@ -110,7 +105,7 @@ public class Duke extends Application {
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("controllers.Duke");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -141,52 +136,22 @@ public class Duke extends Application {
 
         //Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
+            //handleUserInput();
         });
 
         userInput.setOnAction((event) -> {
-            handleUserInput();
+            //handleUserInput();
         });
 
         Scene scene = new Scene(mainLayout);
         stage.setScene(scene);
         stage.show();
     }
-
-    /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     *
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-    private Label getDialogLabel(String text) {
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
-    }
-
-    /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
-    private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
-        );
-        userInput.clear();
-    }
-
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
-        return "Duke heard: " + input;
+    String getResponse(String input) {
+        return "controllers.Duke heard: " + input;
     }
 }

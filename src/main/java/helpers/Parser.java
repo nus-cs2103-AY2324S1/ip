@@ -209,7 +209,7 @@ public class Parser {
     }
 
     /**
-     * Execute the Duke's functions to process user's input.
+     * Execute the controllers.Duke's functions to process user's input.
      *
      * @throws InvalidCommandException if user enters an invalid command
      */
