@@ -19,28 +19,22 @@ public class Parser {
      * @param taskList  The task list to which the task will be added.
      * @throws IllegalArgumentException If the input command is invalid.
      */
-    public static void parseAndAddTask(String userInput, TaskList taskList) {
+    public static String parseAndAddTask(String userInput, TaskList taskList) {
         String[] words = userInput.split(" ", 2);
 
         switch (words[0].toLowerCase()) {
             case COMMAND_TODO:
-                addTodoTask(words[1], taskList);
-                break;
+                return addTodoTask(words[1], taskList);
             case COMMAND_DEADLINE:
-                addDeadlineTask(words[1], taskList);
-                break;
+                return addDeadlineTask(words[1], taskList);
             case COMMAND_EVENT:
-                addEventTask(words[1], taskList);
-                break;
+                return addEventTask(words[1], taskList);
             case COMMAND_MARK:
-                parseMarkTask(words[1], taskList);
-                break;
+                return parseMarkTask(words[1], taskList);
             case COMMAND_UNMARK:
-                parseUnmarkTask(words[1], taskList);
-                break;
+                return parseUnmarkTask(words[1], taskList);
             case COMMAND_DELETE:
-                parseDeleteTask(words[1], taskList);
-                break;
+                return parseDeleteTask(words[1], taskList);
             default:
                 throw new IllegalArgumentException("Invalid command: " + words[0]);
         }
@@ -54,11 +48,11 @@ public class Parser {
      * @throws IllegalArgumentException If the description of the todo task is
      *                                  empty.
      */
-    private static void addTodoTask(String args, TaskList taskList) {
+    private static String addTodoTask(String args, TaskList taskList) {
         if (args.isEmpty()) {
             throw new IllegalArgumentException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
-        taskList.addTodo(args, false);
+        return taskList.addTodo(args, false);
 
     }
 
@@ -69,12 +63,12 @@ public class Parser {
      * @param taskList The task list to which the task will be added.
      * @throws IllegalArgumentException If the deadline format is invalid.
      */
-    private static void addDeadlineTask(String args, TaskList taskList) {
+    private static String addDeadlineTask(String args, TaskList taskList) {
         String[] parts = args.split(" /by ");
         if (parts.length != 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
             throw new IllegalArgumentException("☹ OOPS!!! Invalid deadline format.");
         }
-        taskList.addDeadline(parts[0], false, parts[1]);
+        return taskList.addDeadline(parts[0], false, parts[1]);
     }
 
     /**
@@ -84,12 +78,12 @@ public class Parser {
      * @param taskList The task list to which the task will be added.
      * @throws IllegalArgumentException If the event format is invalid.
      */
-    private static void addEventTask(String args, TaskList taskList) {
+    private static String addEventTask(String args, TaskList taskList) {
         String[] parts = args.split(" /from ");
         String from = parts[1].split(" /to ")[0];
         String to = parts[1].split(" /to ")[1];
 
-        taskList.addEvent(parts[0], false, from, to);
+        return taskList.addEvent(parts[0], false, from, to);
     }
 
     /**
@@ -98,9 +92,9 @@ public class Parser {
      * @param args     The user input arguments.
      * @param taskList The task list containing the tasks.
      */
-    private static void parseMarkTask(String args, TaskList taskList) {
+    private static String parseMarkTask(String args, TaskList taskList) {
         int index = Integer.parseInt(args) - 1;
-        taskList.markTask(index);
+        return taskList.markTask(index);
     }
 
     /**
@@ -109,9 +103,9 @@ public class Parser {
      * @param args     The user input arguments.
      * @param taskList The task list containing the tasks.
      */
-    private static void parseUnmarkTask(String args, TaskList taskList) {
+    private static String parseUnmarkTask(String args, TaskList taskList) {
         int index = Integer.parseInt(args) - 1;
-        taskList.unmarkTask(index);
+        return taskList.unmarkTask(index);
     }
 
     /**
@@ -120,8 +114,8 @@ public class Parser {
      * @param args     The user input arguments.
      * @param taskList The task list containing the tasks.
      */
-    private static void parseDeleteTask(String args, TaskList taskList) {
+    private static String parseDeleteTask(String args, TaskList taskList) {
         int index = Integer.parseInt(args) - 1;
-        taskList.removeTask(index);
+        return taskList.removeTask(index);
     }
 }

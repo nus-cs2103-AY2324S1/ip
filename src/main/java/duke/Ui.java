@@ -1,137 +1,115 @@
 package duke;
 
-import java.util.Scanner;
 import java.util.ArrayList;
 
 /**
  * Represents the user interface for interacting with the chatbot.
  */
 public class Ui {
-    private static final String LINE_SEPARATOR = "____________________________________________________________";
-
-    private Scanner scanner;
 
     /**
      * Constructs a new UI instance with a scanner for user input.
      */
     public Ui() {
-        scanner = new Scanner(System.in);
     }
 
     /**
-     * Displays a greeting message.
+     * Returns a greeting message.
      */
-    public static void showGreeting() {
-        System.out.println(LINE_SEPARATOR);
-        System.out.println("Hello! I'm yourChatBot");
-        System.out.println("What can I do for you?");
-        System.out.println(LINE_SEPARATOR);
+    public static String getGreeting() {
+        return "Hello! I'm yourChatBot\n" +
+                "What can I do for you?\n";
     }
 
     /**
-     * Retrieves user input from the scanner.
-     *
-     * @return The user's input as a string.
-     */
-    public String getUserInput() {
-        return scanner.nextLine();
-    }
-
-    /**
-     * Displays the list of tasks in the task list.
+     * Returns a message displaying the list of tasks in the task list.
      *
      * @param taskList The task list containing the tasks to be displayed.
+     * @return A message displaying the list of tasks.
      */
-    public static void showList(TaskList taskList) {
-        String todolistoutput = "";
+    public static String getList(TaskList taskList) {
+        StringBuilder todolistoutput = new StringBuilder();
         for (int i = 0; i < taskList.getTotalTasks(); i++) {
-            todolistoutput += i + 1 + ". " + taskList.getTasks().get(i) + "\n";
+            todolistoutput.append(i + 1).append(". ").append(taskList.getTasks().get(i)).append("\n");
         }
-        System.out.println(LINE_SEPARATOR);
-        System.out.println(todolistoutput);
-        System.out.println(LINE_SEPARATOR);
+        return todolistoutput.toString();
     }
 
     /**
-     * Displays a message indicating that a task has been marked as done.
+     * Returns a message indicating that a task has been marked as done.
      *
      * @param task The task that has been marked as done.
+     * @return A message indicating the task has been marked as done.
      */
-    public static void showMarkedAsDone(Task task) {
-        System.out.println(LINE_SEPARATOR);
-        System.out.println("Nice! I've marked this task as done:\n" + task);
-        System.out.println(LINE_SEPARATOR);
+    public static String getMarkedAsDone(Task task) {
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
-     * Displays a message indicating that a task has been marked as not done.
+     * Returns a message indicating that a task has been marked as not done.
      *
      * @param task The task that has been marked as not done.
+     * @return A message indicating the task has been marked as not done.
      */
-    public static void showUnmarked(Task task) {
-        System.out.println(LINE_SEPARATOR);
-        System.out.println("OK, I've marked this task as not done yet:\n" + task);
-        System.out.println(LINE_SEPARATOR);
+    public static String getUnmarked(Task task) {
+        return "OK, I've marked this task as not done yet:\n" + task + "\n";
     }
 
     /**
-     * Displays a message indicating that a task has been removed.
+     * Returns a message indicating that a task has been removed.
      *
      * @param task       The task that has been removed.
      * @param totalTasks The total number of tasks remaining.
+     * @return A message indicating the task has been removed.
      */
-    public static void showRemoved(Task task, int totalTasks) {
-        System.out.println(LINE_SEPARATOR);
-        System.out.println("Noted. I've removed this task:\n" + task);
-        System.out.println("Now you have " + totalTasks + " tasks in the list.");
-        System.out.println(LINE_SEPARATOR);
+    public static String getRemoved(Task task, int totalTasks) {
+        return "Noted. I've removed this task:\n" + task + "\n" +
+                "Now you have " + totalTasks + " tasks in the list.";
     }
 
     /**
-     * Displays an error message.
+     * Returns an error message.
      *
      * @param errorMessage The error message to be displayed.
+     * @return An error message.
      */
-    public static void showError(String errorMessage) {
-        System.out.println(LINE_SEPARATOR);
-        System.out.println(errorMessage);
-        System.out.println(LINE_SEPARATOR);
+    public static String getError(String errorMessage) {
+        return errorMessage;
     }
 
     /**
-     * Displays a confirmation message after adding a task.
+     * Returns a confirmation message after adding a task.
      *
      * @param task       The task that has been added.
      * @param totalTasks The total number of tasks in the list.
+     * @return A confirmation message.
      */
-    public static void showAddConfirmation(Task task, int totalTasks) {
-        System.out.println(LINE_SEPARATOR);
-        System.out.println("Got it. I've added this task:\n" + task);
-        System.out.println("Now you have " + totalTasks + " tasks in the list.");
-        System.out.println(LINE_SEPARATOR);
+    public static String getAddConfirmation(Task task, int totalTasks) {
+        return "Got it. I've added this task:\n" + task + "\n" +
+                "Now you have " + totalTasks + " tasks in the list.";
     }
 
     /**
-     * Displays a farewell message.
+     * Returns a farewell message.
+     *
+     * @return A farewell message.
      */
-    public static void showByeMessage() {
-        System.out.println(LINE_SEPARATOR);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(LINE_SEPARATOR);
+    public static String getByeMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
-     * Displays a list of tasks that match the given keyword to the user.
+     * Returns a list of tasks that match the given keyword to the user.
      *
      * @param matchingTasks The list of tasks that match the keyword.
+     * @return A list of matching tasks.
      */
-    public static void showMatchingTasks(ArrayList<Task> matchingTasks) {
-        System.out.println(LINE_SEPARATOR);
-        System.out.println("Here are the matching tasks in your list:");
+    public static String getMatchingTasks(ArrayList<Task> matchingTasks) {
+        StringBuilder matchingTasksOutput = new StringBuilder();
+        matchingTasksOutput.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < matchingTasks.size(); i++) {
-            System.out.println(i + 1 + ". " + matchingTasks.get(i));
+            matchingTasksOutput.append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
         }
-        System.out.println(LINE_SEPARATOR);
+        return matchingTasksOutput.toString();
     }
-
 }

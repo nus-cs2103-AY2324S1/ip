@@ -22,10 +22,10 @@ public class TaskList {
      * @param isDone        Indicates whether the task is done or not.
      * @param byDateAndTime The date and time of the deadline.
      */
-    public void addDeadline(String description, boolean isDone, String byDateAndTime) {
+    public String addDeadline(String description, boolean isDone, String byDateAndTime) {
         Deadline deadline = new Deadline(description, isDone, byDateAndTime);
         tasks.add(deadline);
-        Ui.showAddConfirmation(deadline, this.getTotalTasks());
+        return Ui.getAddConfirmation(deadline, this.getTotalTasks());
     }
 
     /**
@@ -34,10 +34,10 @@ public class TaskList {
      * @param description The description of the todo task.
      * @param isDone      Indicates whether the task is done or not.
      */
-    public void addTodo(String description, boolean isDone) {
+    public String addTodo(String description, boolean isDone) {
         ToDo todo = new ToDo(description, isDone);
         tasks.add(todo);
-        Ui.showAddConfirmation(todo, this.getTotalTasks());
+        return Ui.getAddConfirmation(todo, this.getTotalTasks());
     }
 
     /**
@@ -47,23 +47,28 @@ public class TaskList {
      * @param isDone      Indicates whether the task is done or not.
      * @param from        The starting date and time of the event.
      * @param to          The ending date and time of the event.
+     * @return A message displaying event added to tasklist.
      */
-    public void addEvent(String description, boolean isDone, String from, String to) {
+    public String addEvent(String description, boolean isDone, String from, String to) {
         Event event = new Event(description, isDone, from, to);
         tasks.add(event);
-        Ui.showAddConfirmation(event, this.getTotalTasks());
+        return Ui.getAddConfirmation(event, this.getTotalTasks());
     }
 
     /**
      * Removes a task from the list.
      *
      * @param index The index of the task to be removed.
+     * @return A message displaying event removed from tasklist.
      */
-    public void removeTask(int index) {
-        Ui.showRemoved(tasks.get(index), this.getTotalTasks() - 1);
+    public String removeTask(int index) {
+        Task tmp = tasks.get(index);
+        int tmp1 = this.getTotalTasks() - 1;
         if (index >= 0 && index < tasks.size()) {
             tasks.remove(index);
         }
+        return Ui.getRemoved(tmp, tmp1);
+
     }
 
     /**
@@ -88,20 +93,22 @@ public class TaskList {
      * Marks a task as done.
      *
      * @param index The index of the task to be marked as done.
+     * @return A message displaying tasked marked as done.
      */
-    public void markTask(int index) {
+    public String markTask(int index) {
         tasks.get(index).markAsDone();
-        Ui.showMarkedAsDone(tasks.get(index));
+        return Ui.getMarkedAsDone(tasks.get(index));
     }
 
     /**
      * Unmarks a task as done.
      *
      * @param index The index of the task to be unmarked.
+     *              * @return A message displaying tasked unmarked as not done.
      */
-    public void unmarkTask(int index) {
+    public String unmarkTask(int index) {
         tasks.get(index).unmark();
-        Ui.showUnmarked(tasks.get(index));
+        return Ui.getUnmarked(tasks.get(index));
     }
 
     /**
@@ -118,9 +125,10 @@ public class TaskList {
      * the user.
      *
      * @param keyword The keyword to search for in task descriptions.
+     * @return A message all tasks found.
      */
 
-    public void findTasksByKeyword(String keyword) {
+    public String findTasksByKeyword(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : this.tasks) {
             if (task.toSaveString().contains(keyword)) {
@@ -128,6 +136,6 @@ public class TaskList {
             }
         }
 
-        Ui.showMatchingTasks(matchingTasks);
+        return Ui.getMatchingTasks(matchingTasks);
     }
 }
