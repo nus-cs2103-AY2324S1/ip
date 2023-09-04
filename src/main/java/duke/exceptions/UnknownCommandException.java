@@ -1,4 +1,4 @@
-package exceptions;
+package duke.exceptions;
 
 public class UnknownCommandException extends Exception {
     public UnknownCommandException(String message) {
