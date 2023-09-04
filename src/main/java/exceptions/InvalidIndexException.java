@@ -1,5 +1,7 @@
 package exceptions;
 
+import common.ExceptionMessage;
+
 /**
  * Custom exception class for representing invalid task list indices.
  *
@@ -12,6 +14,6 @@ public class InvalidIndexException extends ThorndikeException {
      * index is invalid.
      */
     public InvalidIndexException() {
-        super("The index given is invalid");
+        super(ExceptionMessage.INVALID_INDEX);
     }
 }

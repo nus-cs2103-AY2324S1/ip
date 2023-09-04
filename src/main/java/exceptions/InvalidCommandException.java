@@ -1,5 +1,7 @@
 package exceptions;
 
+import common.ExceptionMessage;
+
 /**
  * Custom exception class for representing invalid commands.
  *
@@ -12,6 +14,6 @@ public class InvalidCommandException extends ThorndikeException {
      * unrecognized commands.
      */
     public InvalidCommandException() {
-        super("I'm sorry, but I don't know what that means :-(");
+        super(ExceptionMessage.INVALID_COMMAND);
     }
 }

@@ -1,5 +1,7 @@
 package exceptions;
 
+import common.ExceptionMessage;
+
 /**
  * Custom exception class for representing invalid date and time formats.
  *
@@ -12,6 +14,6 @@ public class InvalidDateTimeFormat extends ThorndikeException {
      * the given format is wrong.
      */
     public InvalidDateTimeFormat() {
-        super("The given format is wrong!");
+        super(ExceptionMessage.INVALID_DATETIME);
     }
 }
