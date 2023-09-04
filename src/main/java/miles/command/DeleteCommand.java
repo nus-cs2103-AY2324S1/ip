@@ -5,12 +5,14 @@ import miles.TaskList;
 import miles.Ui;
 import miles.task.Task;
 
+/**
+ * Represents a delete command.
+ */
 public class DeleteCommand extends Command {
     private String input;
 
     /**
      * Constructor to create a new delete command.
-     * 
      * @param input
      */
     public DeleteCommand(String input) {
@@ -19,9 +21,8 @@ public class DeleteCommand extends Command {
 
     /**
      * Return task number from user input.
-     * 
      * @param input user input
-     * @return      task number 
+     * @return      task number
      */
     public int getTaskNumber(String input) {
         return super.getTaskNumber("delete", input);
