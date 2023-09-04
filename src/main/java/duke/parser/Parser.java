@@ -1,11 +1,7 @@
 package duke.parser;
+import duke.Duke;
 import duke.DukeException;
-import duke.command.Command;
-import duke.command.AddCommand;
-import duke.command.ByeCommand;
-import duke.command.DeleteCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
+import duke.command.*;
 import duke.task.ToDos;
 import duke.task.DeadLine;
 import duke.task.Event;
@@ -102,6 +98,16 @@ public class Parser {
 				return new ByeCommand();
 			case "list":
 				return new ListCommand();
+			case "find":
+				try {
+					if (command.length != 2) {
+						throw new DukeException("Enter the find with one keyword");
+					}
+					String keyWord = command[1];
+					return new FindCommand(keyWord);
+				} catch (DukeException e) {
+					System.out.println(e.getMessage());
+				}
 			case "mark":
 				try {
 					int pos = Integer.parseInt(command[1]);
