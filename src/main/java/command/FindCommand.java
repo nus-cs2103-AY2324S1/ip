@@ -1,10 +1,9 @@
 package command;
 
-import duke.Storage;
-import duke.Ui;
-
 import java.util.ArrayList;
 
+import duke.Storage;
+import duke.Ui;
 import task.Task;
 import task.TaskList;
 
@@ -12,10 +11,10 @@ import task.TaskList;
  * Prints a filtered todo list according to the keyword in input
  */
 public class FindCommand extends Command {
+    public static final String COMMAND_WORD = "find";
 
     /** Keyword to filter the todo list */
     protected String keyword;
-    public static final String COMMAND_WORD = "find";
 
     public FindCommand(String keyword) {
         this.keyword = keyword;

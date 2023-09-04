@@ -1,5 +1,8 @@
 package duke;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import command.Command;
 import command.DeadlineCommand;
 import command.DeleteCommand;
@@ -11,15 +14,11 @@ import command.MarkCommand;
 import command.TodoCommand;
 import command.UnmarkCommand;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-
 /**
  * Parses user input
  */
 public class Parser {
-    public static DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
     /**
      * Parses user input into command for execution.
@@ -174,7 +173,7 @@ public class Parser {
         return new EventCommand(eventDetails[0].trim(), from, to);
     }
 
-    private static FindCommand prepareFind (String[] details) throws DukeException {
+    private static FindCommand prepareFind(String[] details) throws DukeException {
         // user input only has the command eg "event"
         if (details.length < 2 || details[1].trim().isEmpty()) {
             throw new DukeException("Invalid command! Please include a search keyword");

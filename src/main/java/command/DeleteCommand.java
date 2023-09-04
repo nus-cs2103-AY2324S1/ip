@@ -3,7 +3,6 @@ package command;
 import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
-
 import task.Task;
 import task.TaskList;
 
@@ -11,11 +10,11 @@ import task.TaskList;
  * Deletes a task from the todo list
  */
 public class DeleteCommand extends Command {
+    public static final String COMMAND_WORD = "delete";
+    public static final String MESSAGE_SUCCESS = " Noted. I've removed this task:\n";
 
     /** The index of the task to be deleted */
     protected int index;
-    public static final String COMMAND_WORD = "delete";
-    public static final String MESSAGE_SUCCESS = " Noted. I've removed this task:\n";
 
     public DeleteCommand(int index) {
         this.index = index;

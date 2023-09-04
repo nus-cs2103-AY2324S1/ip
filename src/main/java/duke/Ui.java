@@ -53,6 +53,11 @@ public class Ui {
         System.out.println("  Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Prints the given task list formatted in an indexed list
+     *
+     * @param tasks the task list to be printed
+     */
     public void printTaskList(ArrayList<Task> tasks) {
         int index = 1;
         System.out.println(" Here are the tasks in your list:");

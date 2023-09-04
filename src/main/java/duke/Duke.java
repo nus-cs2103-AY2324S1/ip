@@ -1,10 +1,9 @@
 package duke;
 
-import command.Command;
-
-import task.TaskList;
-
 import java.time.format.DateTimeParseException;
+
+import command.Command;
+import task.TaskList;
 
 /**
  * Entry point of the Duke application.
@@ -16,6 +15,11 @@ public class Duke {
     private final TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Duke chatbot initialised with the task list saved in the specified file path
+     *
+     * @param filePath file path to the saved task list
+     */
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
