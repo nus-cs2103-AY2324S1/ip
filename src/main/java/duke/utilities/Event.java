@@ -4,7 +4,7 @@ package duke.utilities;
  * Class to declare a Event task
  */
 public class Event extends Task {
-	
+
     /** Start time of the task */
     private String startDate;
 

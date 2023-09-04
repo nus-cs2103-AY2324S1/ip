@@ -18,12 +18,12 @@ import duke.exceptions.MissingTaskNumberException;
  */
 public class Ui {
 
-    /** Variable to detect user input */
-    private Scanner sc = new Scanner(System.in);
-
     /** Variable to show horizontal lines */
     public static final String LINE_BREAK = ("--------------------------------------------------"
             + "---------------------------------");
+
+    /** Variable to detect user input */
+    private Scanner sc = new Scanner(System.in);
 
     /**
      * Prints greetings to the user interface
@@ -37,7 +37,7 @@ public class Ui {
 
     /**
      * Allows users to type in their inputs
-     * 
+     *
      * @return Input as String
      */
     public String startInputSession() {
@@ -209,7 +209,7 @@ public class Ui {
         String taskToBeFound = fullInput.substring(5);
         ArrayList<Task> tasksFiltered = tasks.filterTaskName(taskToBeFound);
         int size = tasksFiltered.size();
-        if (size > 0) {  
+        if (size > 0) {
             System.out.println("Here are the matching tasks in your list:");
             for (int i = 0; i < size; i++) {
                 System.out.println((i + 1) + ". " + tasksFiltered.get(i).convertToString());

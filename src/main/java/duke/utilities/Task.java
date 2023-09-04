@@ -6,10 +6,10 @@ import java.io.Serializable;
  * Class for tasks
  */
 public class Task implements Serializable {
-	
+
     /** Name of task */
     private String name;
-    
+
     /** Task description, including time */
     private String description;
 
@@ -21,7 +21,7 @@ public class Task implements Serializable {
 
     /**
      * Creates a new instance of a Task object
-     * 
+     *
      * @param name Name of task
      * @param type Type of task
      * @param description Task description, which includes by, to, and from
@@ -53,19 +53,19 @@ public class Task implements Serializable {
 
     /**
      * Converts the task object to a String text for display
-     * 
+     *
      * @return the String representation of the task
      */
     public String convertToString() {
-        return "[" + this.getType().charAt(0) + "]" 
-				+ "[" + (this.isDone() ? "X" : " ") + "] "
-				+ this.getName() + this.description;
+        return "[" + this.getType().charAt(0) + "]"
+                + "[" + (this.isDone() ? "X" : " ") + "] "
+                + this.getName() + this.description;
     }
 
     public String getName() {
         return this.name;
     }
-    
+
     public boolean isDone() {
         return this.isDone;
     }

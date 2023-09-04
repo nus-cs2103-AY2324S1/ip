@@ -9,12 +9,12 @@ import java.time.format.DateTimeParseException;
  */
 public class Parser {
 
-	/**
-	 * Parses the user input to identify its important parts
-	 *
-	 * @param input
-	 * @return
-	 */
+    /**
+     * Parses the user input to identify its important parts
+     *
+     * @param input
+     * @return
+     */
     public Input parse(String input) {
         String[] split = input.split(" ");
         String command = split[0].toLowerCase();

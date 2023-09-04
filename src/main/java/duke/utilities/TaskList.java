@@ -14,7 +14,7 @@ public class TaskList {
 
     /**
      * Creates a TaskList with a predefined list
-     * 
+     *
      * @param tasks List to be stored inside the local list variable
      */
     public TaskList(ArrayList<Task> tasks) {
@@ -31,7 +31,7 @@ public class TaskList {
     /**
      * Manipulates the data of existing tasks
      * Includes marking, unmarking, and deleting tasks
-     * 
+     *
      * @param fullInput Full String input by user
      * @param command First word of input that signifies the command to be run
      * @param beginIndex Beginning index of the command description excluding the command itself
@@ -52,6 +52,8 @@ public class TaskList {
         case "delete":
             this.deleteTask(this.getTask(taskNum - 1));
             break;
+        default:
+            break;
         }
     }
 
@@ -67,7 +69,7 @@ public class TaskList {
         System.out.println("\t[T][ ] " + taskName);
         System.out.println("There are now " + tasks.size() + " tasks in the list");
     }
-    
+
     /**
      * Adds a deadline task into the list
      *
@@ -86,8 +88,8 @@ public class TaskList {
      * Adds an event task into the list
      *
      * @param taskName Name of task
-     * @param start Start date of task
-     * @param end End date of task
+     * @param startDate Start date of task
+     * @param endDate End date of task
      */
     public void addEvent(String taskName, String startDate, String endDate) {
         Event task = new Event(taskName, startDate, endDate);
@@ -99,7 +101,7 @@ public class TaskList {
 
     /**
      * Deletes a task from the list
-     * 
+     *
      * @param task Task to be deleted
      */
     public void deleteTask(Task task) {
@@ -109,21 +111,21 @@ public class TaskList {
         System.out.println("There are now " + this.getSize() + " tasks in the list");
     }
 
-	/**
-	 * Copies and filters the task list to only display tasks with the keyword mentioned
-	 *
-	 * @param keyword The keyword that will be compared to the task names
-	 * @return The filtered list
-	 */
-	public ArrayList<Task> filterTaskName(String keyword) {
-		ArrayList<Task> tasksCopied = new ArrayList<>(tasks);
-		tasksCopied.removeIf(task -> !task.getName().toLowerCase().contains(keyword.toLowerCase()));
-		return tasksCopied;
-	}
+    /**
+     * Copies and filters the task list to only display tasks with the keyword mentioned
+     *
+     * @param keyword The keyword that will be compared to the task names
+     * @return The filtered list
+     */
+    public ArrayList<Task> filterTaskName(String keyword) {
+        ArrayList<Task> tasksCopied = new ArrayList<>(tasks);
+        tasksCopied.removeIf(task -> !task.getName().toLowerCase().contains(keyword.toLowerCase()));
+        return tasksCopied;
+    }
 
     /**
      * Overwrites the current list with the list stored in hard drive
-     * 
+     *
      * @param storage Storage object that points to the stored file
      */
     public void overwriteTasksData(Storage storage) {
