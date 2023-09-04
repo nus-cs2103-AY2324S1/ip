@@ -10,10 +10,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
-
+/**
+ * Implements the main Barbie chatbot logic.
+ */
 public class Barbie {
 
-    enum Command {
+    private enum Command {
         MARK,
         UNMARK,
         DEL,
@@ -24,7 +26,10 @@ public class Barbie {
         BYE,
     }
 
-
+    /**
+     * Main wrapper method for the command logic of Barbie chatbot.
+     * @param args to leave empty
+     */
     public static void main(String[] args) {
         // CONSTANTS
         Scanner scanner = new Scanner(System.in);
@@ -162,7 +167,6 @@ public class Barbie {
 
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
-
                 }
 
                 System.out.println("[you]:");

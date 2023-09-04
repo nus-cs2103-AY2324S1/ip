@@ -12,6 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestStorage {
 
+    /**
+     * Tests if the Storage::addToList is able to add a description with commas.
+     */
     @Test
     public void testAddToListCommas() {
         try {
@@ -26,6 +29,9 @@ public class TestStorage {
 
     }
 
+    /**
+     * Tests if the Storage::getLastList is able to return a task of description "do" for an incorrect input of do, work.
+     */
     @Test
     public void testGetListWithCommas() {
         ArrayList<Task> oldList = Storage.getLastList();
@@ -34,6 +40,4 @@ public class TestStorage {
         assertEquals("[T][ ] do", actual);
 
     }
-
-
 }
