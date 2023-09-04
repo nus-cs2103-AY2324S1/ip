@@ -1,7 +1,8 @@
 package core;
 import Duke.storage.Storage;
 import Duke.parser.Parser;
-import Duke.tasks.*;
+import Duke.tasks.TaskList;
+import Duke.tasks.TaskManager;
 import Duke.ui.Ui;
 
 public class Duke {

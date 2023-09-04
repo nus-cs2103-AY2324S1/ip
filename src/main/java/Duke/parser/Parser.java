@@ -148,9 +148,6 @@ public class Parser {
     public TaskList parseMatchingTasks(String userCommand, TaskList allTasks) throws DukeException {
         String[] parts = userCommand.split(" ", 2);
 
-        if (userCommand == null) {
-            throw new DukeException("Please input a valid command.");
-        }
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             return new TaskList();
         }
