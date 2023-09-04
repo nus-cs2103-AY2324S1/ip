@@ -1,6 +1,6 @@
+import duke.exceptions.InvalidDateTimeFormatException;
 import duke.exceptions.InvalidFileTypeException;
 import duke.exceptions.InvalidTaskException;
-import duke.exceptions.TaskIndexOutOfBoundsException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -48,7 +48,7 @@ public class Parser {
                 }
                 return new ToDoCommand(matcher.group(1), false);
             case "deadline":
-                matcher = regexParse("^deadline\\s([\\w\\s]*)\\s\\/by\\s([\\w\\s]*)$", response);
+                matcher = regexParse("^deadline\\s([\\w\\s]*)\\s\\/by\\s([\\w\\s\\:\\-]*)$", response);
                 if (!matcher.find() || matcher.groupCount() != 2) {
                     throw new InvalidTaskException(
                             "Invalid use of deadline. Usage: deadline <task description> /by <date & time>"
@@ -56,7 +56,7 @@ public class Parser {
                 }
                 return new DeadlineCommand(matcher.group(1), matcher.group(2), false);
             case "event":
-                matcher = regexParse("^event\\s([\\w\\s]*)\\s\\/from\\s([\\w\\s]*)\\s\\/to\\s([\\w\\s]*)$", response);
+                matcher = regexParse("^event\\s([\\w\\s]*)\\s\\/from\\s([\\w\\s\\-\\:]*)\\s\\/to\\s([\\w\\s\\-\\:]*)$", response);
                 if (!matcher.find() || matcher.groupCount() != 3) {
                     throw new InvalidTaskException(
                             "Invalid use of event. Usage: event <task description> /from <date & time> /to <date & time>"
@@ -115,5 +115,27 @@ public class Parser {
                 throw new InvalidFileTypeException(String.format("line: %s is invalid: Event requires 5 parameters", response));
             }
         }
+    }
+
+    public Date parseDate(String dateTimeString) {
+        String regex = "^(\\d{4}-\\d{2}-\\d{2})? ?(\\d{2}:\\d{2})?$";
+        Matcher matcher1 = regexParse(regex, dateTimeString);
+
+        if (matcher1.find()) {
+            String datePart = matcher1.group(1);
+            String timePart = matcher1.group(2);
+
+            if (datePart != null && timePart != null) {
+                System.out.println("Date: " + datePart);
+                System.out.println("Time: " + timePart);
+            } else if (datePart != null) {
+                System.out.println("Date: " + datePart);
+            } else if (timePart != null) {
+                System.out.println("Time: " + timePart);
+            }
+            return new Date(datePart, timePart);
+        }
+        System.out.println("Invalid date / time format, format should be yyyy-mm-dd hh:mm");
+        return null;
     }
 }
