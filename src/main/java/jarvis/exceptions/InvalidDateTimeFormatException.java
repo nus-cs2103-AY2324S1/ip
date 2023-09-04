@@ -1,5 +1,8 @@
 package jarvis.exceptions;
 
+/**
+ * Represents an exception thrown when an invalid DateTime format is provided to Jarvis.
+ */
 public class InvalidDateTimeFormatException extends JarvisException{
     public InvalidDateTimeFormatException(String message) {
         super("     Please enter a correct DateTime Format Example: \n" 

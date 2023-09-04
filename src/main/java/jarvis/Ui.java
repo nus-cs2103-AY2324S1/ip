@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import jarvis.tasks.Task;
 
+/**
+ * The user interface class responsible for displaying information to the user on the CLI.
+ */
 public class Ui {
     /**
      * ASCII Art Generated from http://patorjk.com/software/taag/

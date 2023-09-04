@@ -5,6 +5,9 @@ import java.time.format.DateTimeFormatter;
 
 import jarvis.Ui;
 
+/**
+ * Represents the "Deadline" task in Jarvis app.
+ */
 public class Deadline extends Task {
 
     private LocalDateTime dueDate;
@@ -14,6 +17,11 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
     
+     /**
+     * Overrides the toString method to provide a custom string representation of the Deadline task.
+     *
+     * @return A string representation of the Deadline task.
+     */
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Ui.DATE_TIME_FORMAT);
