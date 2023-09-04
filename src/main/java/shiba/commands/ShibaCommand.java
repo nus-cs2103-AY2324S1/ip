@@ -77,10 +77,10 @@ public abstract class ShibaCommand {
     protected void addTask(ShibaTask task) throws ShibaException {
         tasks.addTask(task);
 
-        Replier.printWithLevel2Indent("Woof! I've added this task:");
-        Replier.printWithLevel3Indent(task.toString());
+        Replier.printWithNoIndents("Woof! I've added this task:");
+        Replier.printWithOneIndent(task.toString());
         String taskWord = tasks.size() == 1 ? " task" : " tasks";
-        Replier.printWithLevel2Indent("You now have " + tasks.size() + taskWord
+        Replier.printWithNoIndents("You now have " + tasks.size() + taskWord
                 + " in the list. Now gimme some treats.");
         Replier.reply();
         tasks.save();

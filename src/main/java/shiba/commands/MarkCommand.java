@@ -29,11 +29,11 @@ public class MarkCommand extends ShibaCommand {
         ShibaTask task = tasks.get(taskNumber - 1);
         boolean res = task.markDone();
         if (res) {
-            Replier.printWithLevel2Indent("Woof! I've marked this task as done:");
+            Replier.printWithNoIndents("Woof! I've marked this task as done:");
         } else {
-            Replier.printWithLevel2Indent("Woof! This task is already done!");
+            Replier.printWithNoIndents("Woof! This task is already done!");
         }
-        Replier.printWithLevel3Indent(task.toString());
+        Replier.printWithOneIndent(task.toString());
         Replier.reply();
         tasks.save();
     }

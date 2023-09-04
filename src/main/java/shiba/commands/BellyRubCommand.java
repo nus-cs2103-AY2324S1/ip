@@ -27,7 +27,7 @@ public class BellyRubCommand extends ShibaCommand {
      */
     @Override
     public void execute() {
-        Replier.printWithLevel2Indent(random.nextBoolean() ? msg1 : msg2);
+        Replier.printWithNoIndents(random.nextBoolean() ? msg1 : msg2);
         Replier.reply();
     }
 }

@@ -27,10 +27,10 @@ public class DeleteCommand extends ShibaCommand {
         int taskNumber = checkTaskNumber(params);
         ShibaTask task = tasks.removeIndex(taskNumber - 1);
 
-        Replier.printWithLevel2Indent("Woof! I've deleted this task:");
-        Replier.printWithLevel3Indent(task.toString());
+        Replier.printWithNoIndents("Woof! I've deleted this task:");
+        Replier.printWithOneIndent(task.toString());
         String taskWord = tasks.size() == 1 ? " task" : " tasks";
-        Replier.printWithLevel2Indent("You now have " + tasks.size() + taskWord
+        Replier.printWithNoIndents("You now have " + tasks.size() + taskWord
                 + " in the list. Some headpats please?");
         Replier.reply();
         tasks.save();

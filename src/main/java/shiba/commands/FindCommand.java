@@ -35,11 +35,11 @@ public class FindCommand extends ShibaCommand {
         String keyword = params[1];
         List<ShibaTask> matchingTasks = tasks.findTasksWithKeyword(keyword);
         if (matchingTasks.isEmpty()) {
-            Replier.printWithLevel2Indent("Woof! No tasks containing keyword found!");
+            Replier.printWithNoIndents("Woof! No tasks containing keyword found!");
         } else {
-            Replier.printWithLevel2Indent("Woof! Here are the tasks containing the keyword!");
+            Replier.printWithNoIndents("Woof! Here are the tasks containing the keyword!");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                Replier.printWithLevel2Indent((i + 1) + "." + matchingTasks.get(i));
+                Replier.printWithNoIndents((i + 1) + ". " + matchingTasks.get(i));
             }
         }
         Replier.reply();

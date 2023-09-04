@@ -1,5 +1,6 @@
 package shiba.ui;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -13,6 +14,7 @@ import shiba.Shiba;
 import shiba.ui.components.CommandInput;
 import shiba.ui.components.DialogBox;
 import shiba.ui.components.DialogNode;
+import shiba.ui.components.KeyInputHandler;
 import shiba.ui.components.SendButton;
 
 /**
@@ -26,6 +28,7 @@ public class MainWindow extends Application {
 
     private DialogBox dialogBox;
     private Timer timer;
+    private CommandInput userInput;
 
     /**
      * {@inheritDoc}
@@ -40,28 +43,14 @@ public class MainWindow extends Application {
         root.getChildren().add(dialogBox);
 
         // Text input field
-        CommandInput userInput = new CommandInput();
+        userInput = new CommandInput();
         root.getChildren().add(userInput);
 
+        primaryStage.getScene().setOnKeyPressed(new KeyInputHandler(this::sendInput));
         timer = new Timer();
 
         // Send button
-        Button sendButton = new SendButton((event -> {
-            String input = userInput.getText();
-            if (input.isEmpty()) {
-                return;
-            }
-            userInput.clear();
-            dialogBox.addDialogNode(new DialogNode(input, true));
-
-            // Simulate a delay
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    Shiba.getInstance().processUserInput(input);
-                }
-            }, 1500);
-        }));
+        Button sendButton = new SendButton((event -> sendInput()));
         root.getChildren().add(sendButton);
 
         primaryStage.setTitle(Shiba.getInstance().getName());
@@ -83,10 +72,10 @@ public class MainWindow extends Application {
     /**
      * Adds a dialog node to the dialog box with the bot's reply.
      *
-     * @param boxText Bot text to be displayed in the dialog box
+     * @param boxTexts Bot text nodes to be displayed in the dialog box
      */
-    public void addBotDialogNode(String boxText) {
-        dialogBox.addDialogNode(new DialogNode(boxText, false));
+    public void addBotDialogNode(ArrayList<DialogNode.SubNode> boxTexts) {
+        dialogBox.addDialogNode(new DialogNode(false, boxTexts));
     }
 
     /**
@@ -104,6 +93,28 @@ public class MainWindow extends Application {
 
     public Timer getTimer() {
         return timer;
+    }
+
+    /**
+     * Sends the user input to the bot.
+     */
+    private void sendInput() {
+        String input = userInput.getText();
+        if (input.isEmpty()) {
+            return;
+        }
+        userInput.clear();
+        ArrayList<DialogNode.SubNode> textNodes = new ArrayList<>();
+        textNodes.add(new DialogNode.SubNode(1, input));
+        dialogBox.addDialogNode(new DialogNode(true, textNodes));
+
+        // Simulate a delay
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Shiba.getInstance().processUserInput(input);
+            }
+        }, 1500);
     }
 
     /**

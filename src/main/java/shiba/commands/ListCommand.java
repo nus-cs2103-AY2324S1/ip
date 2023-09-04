@@ -19,10 +19,10 @@ public class ListCommand extends ShibaCommand {
     @Override
     public void execute() {
         for (int i = 0; i < tasks.size(); i++) {
-            Replier.printWithLevel2Indent((i + 1) + "." + tasks.get(i));
+            Replier.printWithNoIndents((i + 1) + ". " + tasks.get(i));
         }
         if (tasks.size() == 0) {
-            Replier.printWithLevel2Indent("Woof! You have no tasks in the list - go browse some Reddit!");
+            Replier.printWithNoIndents("Woof! You have no tasks in the list - go browse some Reddit!");
         }
         Replier.reply();
     }
