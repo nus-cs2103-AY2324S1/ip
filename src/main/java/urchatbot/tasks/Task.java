@@ -24,7 +24,6 @@ public class Task {
         return "";
     };
 
-    // Define this static method in your urchatbot.tasks.Task class
     public static Task fromString(String input) {
         String[] parts = input.split("\\|");
         String taskType = parts[0].trim();
