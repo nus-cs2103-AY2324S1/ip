@@ -21,6 +21,7 @@ public class TaskList {
 
     /**
      * Constructs a TaskList object with the specified list of tasks.
+     *
      * @param tasks The list of tasks.
      */
     public TaskList(List<Task> tasks) {
@@ -29,6 +30,7 @@ public class TaskList {
 
     /**
      * Returns the list of tasks.
+     *
      * @return The list of tasks.
      */
     public List<Task> getList() {
@@ -49,6 +51,7 @@ public class TaskList {
 
     /**
      * Adds the specified task to the list.
+     *
      * @param task The task to be added.
      */
     public void add(Task task) {
@@ -61,6 +64,7 @@ public class TaskList {
 
     /**
      * Deletes the task at the specified index from the list.
+     *
      * @param index The index of the task to be deleted.
      * @throws LinusException
      */
@@ -79,6 +83,7 @@ public class TaskList {
 
     /**
      * Marks the task at the specified index as done.
+     *
      * @param index The index of the task to be marked as done.
      * @throws LinusException
      */
@@ -93,6 +98,7 @@ public class TaskList {
 
     /**
      * Unmarks the task at the specified index as done.
+     *
      * @param index The index of the task to be unmarked as done.
      * @throws LinusException
      */
@@ -104,6 +110,11 @@ public class TaskList {
         tasks.get(index).unmark();
     }
 
+    /**
+     * Finds and prints the tasks that contain the specified keyword.
+     *
+     * @param keyword The keyword to be searched for.
+     */
     public void find(String keyword) {
         String listOfMatchingTasks = "Here are the matching tasks in your list:\n";
         int numOfMatchingTasks = 0;
@@ -111,7 +122,7 @@ public class TaskList {
         for (int i = 0; i < tasks.size(); i++) {
             Task curTask = tasks.get(i);
             if (curTask.description.contains(keyword)) {
-                listOfMatchingTasks += (++numOfMatchingTasks)  + "."
+                listOfMatchingTasks += (++numOfMatchingTasks) + "."
                         + tasks.get(i).toString() + "\n";
             }
         }
