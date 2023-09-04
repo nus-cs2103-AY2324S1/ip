@@ -1,9 +1,18 @@
 package duke;
 
 import java.io.Serializable;
+
+/**
+ * can be considered an abstract class. Can be either a Todo, Deadline, or Event class
+ */
 public class Task implements Serializable {
     protected boolean marked;
     protected String description;
+
+    /**
+     * Constructor to initialise a Task object
+     * @param description the Task description that is obtained from the user input
+     */
     public Task(String description) {
         this.description = description;
         this.marked = false;

@@ -1,7 +1,5 @@
 package duke;
 
-import duke.DukeException;
-
 /**
  * This class deals with making sense of the user command
  */
@@ -31,19 +29,19 @@ public class Parser {
             if (userInput.length() <= 5) {
                 throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
             } else {
-                TaskList.addTask("T", userInput.substring(5));
+                tasks.addTask("T", userInput.substring(5));
             }
         } else if (userInput.contains("deadline")) {
             if (userInput.length() <= 9) {
                 throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
             } else {
-                TaskList.addTask("D", userInput.substring(9));
+                tasks.addTask("D", userInput.substring(9));
             }
         } else if (userInput.contains("event")) {
             if (userInput.length() <= 6) {
                 throw new DukeException("OOPS!!! The description of an event cannot be empty.");
             } else {
-                TaskList.addTask("E", userInput.substring(6));
+                tasks.addTask("E", userInput.substring(6));
             }
         } else if (userInput.contains("delete")) {
             tasks.deleteTask(userInput);
