@@ -13,16 +13,26 @@ import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDate;
 
+/**
+ * Handler to load tasks from the file and save tasks into the file
+ */
 public class Storage {
 
     private String filePath;
 
+    /**
+     * Constructs a Storage object
+     * @param filePath Location of the file to save the tasks into
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         ensureFolderExists();
         ensureFileExists();
     }
 
+    /**
+     * Ensures that the given folder of the filePath exists, and creates the folder if it doesn't
+     */
     private void ensureFolderExists() {
         File folder = new File(filePath).getParentFile();
         if (!folder.exists()) {
@@ -30,6 +40,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Ensures that the given file of the filePath exists, and creates file if it doesn't
+     */
     private void ensureFileExists() {
         File file = new File(filePath);
         if (!file.exists()) {
@@ -41,6 +54,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file
+     * @return List of tasks
+     */
     public List<Task> loadTasks() {
         List<Task> tasks = new ArrayList<>();
 
@@ -90,6 +107,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Parses the saved deadline from the file into the list
+     * @param parts The string array containing the split parts of the task saved into the file
+     * @param isDone Status of whether the deadline is done
+     * @return The deadline task
+     */
     private Deadline parseDeadline(String[] parts, String isDone) {
         String description = parts[2];
         String dueBy = parts[3];
@@ -97,6 +120,13 @@ public class Storage {
         return new Deadline(description, dueDate, isDone);
     }
 
+
+    /**
+     * Parses the saved event from the file into the list
+     * @param parts The string array containing
+     * @param isDone Status of whether the deadline is done
+     * @return The event task
+     */
     private Event parseEvent(String[] parts, String isDone) {
         String description = parts[2];
         String startTiming = parts[3];
@@ -106,6 +136,10 @@ public class Storage {
         return new Event(description, startTime, endTime, isDone);
     }
 
+    /**
+     * Saves the tasks from the list into the file
+     * @param tasks List of tasks to be saved
+     */
     public void saveTasks(List<Task> tasks) {
         try {
             File file = new File(filePath);

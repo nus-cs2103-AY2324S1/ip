@@ -11,7 +11,19 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * Class that parses the user commands
+ */
 public class Parser {
+
+    /**
+     * Parses the given command of the user
+     * @param command Command given by the user
+     * @param taskList TaskList object containing the existing tasks
+     * @return The reply to the given command
+     * @throws DukeException Error message to indicate invalid command
+     */
     public static String parseCommand(String command, TaskList taskList) throws DukeException {
         String[] tokens = command.split(" ", 2);
         String action = tokens[0].trim().toLowerCase();
@@ -36,6 +48,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Runs through the existing TaskList and prints out the string representation of it
+     * @param taskList Given TaskList of the user
+     * @return String representation of the list
+     */
     private static String generateListResponse(TaskList taskList) {
         List<Task> tasks = taskList.getTasks();
         if (tasks.isEmpty()) {
@@ -49,6 +66,13 @@ public class Parser {
         return response.toString();
     }
 
+    /**
+     * Generates the response for a delete command
+     * @param tokens String array containing the command split into parts
+     * @param taskList Given TaskList of the user
+     * @return String containing the deleted task response
+     * @throws DukeException Error message to indicate invalid delete command
+     */
     private static String generateDeleteResponse(String[] tokens, TaskList taskList) throws DukeException {
         if (tokens.length < 2) {
             throw new DukeException("Please specify which task you wish to delete.");
@@ -71,6 +95,12 @@ public class Parser {
         return generateTaskDeletedResponse(deletedTask, taskList);
     }
 
+    /**
+     * Generates the response for a valid delete task command
+     * @param task Task the user wishes to delete
+     * @param taskList Given TaskList of the user
+     * @return String containing the deleted task response
+     */
     private static String generateTaskDeletedResponse(Task task, TaskList taskList) {
         StringBuilder response = new StringBuilder("Noted. I've removed this task:\n\t");
         response.append(task.toString()).append("\n");
@@ -78,6 +108,13 @@ public class Parser {
         return response.toString();
     }
 
+    /**
+     * Generates the response for a mark task command
+     * @param tokens The string array containing the command split into parts
+     * @param taskList Given TaskList of the user
+     * @return String containing the task marked response
+     * @throws DukeException Error message to indicate invalid mark command
+     */
     private static String generateMarkResponse(String[] tokens, TaskList taskList) throws DukeException {
         if (tokens.length < 2) {
             throw new DukeException("Please specify which task you wish to mark.");
@@ -100,6 +137,13 @@ public class Parser {
         return generateTaskMarkedResponse(task, true);
     }
 
+    /**
+     * Generates the response for an unmark task command
+     * @param tokens The string array containing the command split into parts
+     * @param taskList Given TaskList of the user
+     * @return String containing the task unmarked response
+     * @throws DukeException Error message to indicate invalid unmark command
+     */
     private static String generateUnmarkResponse(String[] tokens, TaskList taskList) throws DukeException {
         if (tokens.length < 2) {
             throw new DukeException("Please specify which task you wish to unmark.");
@@ -122,11 +166,24 @@ public class Parser {
         return generateTaskMarkedResponse(task, false);
     }
 
+    /**
+     * Generates the response for a valid mark or unmark task command
+     * @param task Task the user wishes to mark
+     * @param isDone Status of the task to be set
+     * @return String containing the task marked response
+     */
     private static String generateTaskMarkedResponse(Task task, boolean isDone) {
         String status = isDone ? "done" : "not done yet";
         return "OK, I've marked this task as " + status + ":\n\t" + task.toString();
     }
 
+    /**
+     * Generates the response for a todo command
+     * @param tokens The string array containing the command split into parts
+     * @param taskList Given TaskList of the user
+     * @return String containing the todo added response
+     * @throws DukeException Error message to indicate invalid todo command
+     */
     private static String generateTodoResponse(String[] tokens, TaskList taskList) throws DukeException {
         if (tokens.length < 2) {
             throw new DukeException("The description of todo cannot be empty.");
@@ -139,6 +196,13 @@ public class Parser {
         return generateTaskAddedResponse(newTask, taskList);
     }
 
+    /**
+     * Generates the response for a deadline command
+     * @param tokens The string array containing the command split into parts
+     * @param taskList Given TaskList of the user
+     * @return String containing the deadline added response
+     * @throws DukeException Error message to indicate invalid deadline command
+     */
     private static String generateDeadlineResponse(String[] tokens, TaskList taskList) throws DukeException {
         if (tokens.length < 2) {
             throw new DukeException("The description of deadline cannot be empty.");
@@ -159,6 +223,13 @@ public class Parser {
         return generateTaskAddedResponse(newTask, taskList);
     }
 
+    /**
+     * Generates the response for an event command
+     * @param tokens The string array containing the command split into parts
+     * @param taskList Given TaskList of the user
+     * @return String containing the event added response
+     * @throws DukeException Error message to indicate invalid event command
+     */
     private static String generateEventResponse(String[] tokens, TaskList taskList) throws DukeException {
         if (tokens.length < 2) {
             throw new DukeException("The description of event cannot be empty.");
@@ -193,6 +264,12 @@ public class Parser {
 
     }
 
+    /**
+     * Generates the response for a valid task command
+     * @param task Task that has been added to the list
+     * @param taskList Given TaskList of the user
+     * @return String containing the task added response
+     */
     private static String generateTaskAddedResponse(Task task, TaskList taskList) {
         StringBuilder response = new StringBuilder("Got it. I've added this task:\n\t");
         response.append(task.toString()).append("\n");
