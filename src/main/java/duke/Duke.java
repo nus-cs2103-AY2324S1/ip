@@ -36,14 +36,16 @@ public class Duke {
     /**
      * Runs the chatbot, displaying welcome messages and processing user commands.
      *
-     * @param input The user input.
+     * @param inputs The user inputs.
      */
-    public void run(String input) {
-        try {
-            Command c = Parser.parse(input);
-            c.execute(tasks, ui, storage);
-        } catch (DukeException | DateTimeException e) {
-            ui.showError(e.getMessage());
+    public void run(String... inputs) {
+        for (String input : inputs) {
+            try {
+                Command c = Parser.parse(input.trim());
+                c.execute(tasks, ui, storage);
+            } catch (DukeException | DateTimeException e) {
+                ui.showError(e.getMessage());
+            }
         }
     }
 }

@@ -26,10 +26,10 @@ public class ByeCommand implements Command {
     }
 
     /**
-     * Closes the chatbot after three seconds of pause.
+     * Closes the chatbot after two seconds of pause.
      */
     public void closeChatbot() {
-        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(event -> {
             Platform.exit();
         });
