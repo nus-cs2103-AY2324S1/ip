@@ -46,7 +46,7 @@ public class Ui {
      * @return The user's input command.
      */
     public String getUserInput() {
-        System.out.println("Enter your Command: ");
+        System.out.println("Enter your Command:");
         return this.scanner.nextLine();
     }
 
