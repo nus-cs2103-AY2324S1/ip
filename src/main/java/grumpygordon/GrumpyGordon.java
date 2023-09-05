@@ -1,7 +1,10 @@
 package grumpygordon;
 
+import grumpygordon.commands.Command;
 import grumpygordon.exceptions.GrumpyGordonException;
 import grumpygordon.exceptions.GrumpyGordonInitialisationException;
+import grumpygordon.exceptions.GrumpyGordonInvalidCommandException;
+import grumpygordon.parser.Parser;
 import grumpygordon.storage.Storage;
 import grumpygordon.tasks.TaskList;
 import grumpygordon.ui.Ui;
@@ -40,22 +43,23 @@ public class GrumpyGordon {
     }
 
     /**
+     * Gets GrumpyGordon's response to user input.
+     * @param userInput User input
+     * @return GrumpyGordon's response
+     */
+    public String getResponse(String userInput) {
+        try {
+            Command command = Parser.parseCommand(userInput, this.tasks);
+            return command.execute(tasks, this.ui, storage);
+        } catch (GrumpyGordonInvalidCommandException e) {
+            return e.getMessage();
+        }
+    }
+
+    /**
      * Runs GrumpyGordon.
      */
     public void run() {
         this.ui.run();
-    }
-
-    /**
-     * Main loop for GrumpyGordon.
-     *
-     * @param args CLI Arguments
-     */
-    public static void main(String[] args) {
-        try {
-            new GrumpyGordon().run();
-        } catch (GrumpyGordonException e) {
-            System.out.println(e.getMessage());
-        }
     }
 }

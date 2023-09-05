@@ -26,28 +26,27 @@ public class FindCommand extends Command {
      * @param tasks The list of tasks
      * @param ui The user interface
      * @param storage The storage
+     * @return The output string
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.size() == 0) {
-            ui.showCommandMessage("     There are no matching tasks in your list!\n");
+            return "There are no matching tasks in your list!";
         }
         int count = 0;
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.getTask(i).toString().contains(pattern)) {
                 if (count == 0) {
-                    System.out.print(Ui.SEPARATOR);
-                    System.out.println("     Here are the matching tasks in your list:");
+                    sb.append("Here are the matching tasks in your list:\n");
                 }
-                System.out.println("     " + (i + 1) + ". " + tasks.getTask(i).toString());
+                sb.append((i + 1) + ". " + tasks.getTask(i).toString() + "\n");
                 count++;
             }
         }
-        if (count > 0) {
-            System.out.print(Ui.SEPARATOR);
-        }
         if (count == 0) {
-            ui.showCommandMessage("     There are no matching tasks in your list!\n");
+            return "There are no matching tasks in your list!";
         }
+        return sb.toString();
     }
 }

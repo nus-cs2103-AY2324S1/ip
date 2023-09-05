@@ -36,12 +36,12 @@ public class DeadlineCommand extends Command {
      * @param tasks The list of tasks
      * @param ui The user interface
      * @param storage The storage
+     * @return The output string
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(new Deadline(this.description, this.by, false));
-        ui.showCommandMessage("     Deadline task added to list\n     "
-                + tasks.getTask(tasks.size() - 1).toString() + "\n");
         storage.saveTasks(tasks);
+        return "Deadline task added to list\n" + tasks.getTask(tasks.size() - 1).toString();
     }
 }
