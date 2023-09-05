@@ -5,14 +5,31 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * This class implements the thing that loads and saves tasks to the hard disk.
+ */
 public class Storage {
+    /**
+     * File path of the file to load tasks from and save tasks to.
+     */
     private String filePath;
+    /**
+     * The file to load tasks from and save tasks to.
+     */
     private File storedTasks;
 
+    /**
+     * Creates an instance of the Storage class for loading and saving tasks.
+     * @param filePath File path of the file to load tasks from and save tasks to.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks saved on the hard disk using the file path.
+     * @param taskList Task list to load the tasks to.
+     */
     public void loadSavedTaskList(TaskList taskList) {
         File storedTasks = new File(filePath);
         if (!storedTasks.exists()) {
@@ -51,6 +68,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Save a single task to the hard disk.
+     * @param newTask Task to save to the hard disk.
+     */
     public void saveNewTask(Task newTask) {
         try {
             FileWriter fw = new FileWriter(storedTasks, true);
@@ -61,6 +82,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Save all the tasks from the task list into the hard disk.
+     * @param taskList Task list to save the tasks from.
+     */
     public void saveAllTasks(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(storedTasks);

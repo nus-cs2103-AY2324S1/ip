@@ -11,11 +11,20 @@ import bareum.commands.ListCommand;
 import bareum.commands.MarkCommand;
 import bareum.commands.UnmarkCommand;
 
+/**
+ * This class implements the parser which deals with interpreting the user input.
+ */
 public class Parser {
     public Parser() {
 
     }
 
+    /**
+     * Parse the user input and create the corresponding command to execute.
+     * @param input Details of task user inputs
+     * @return An executable command with the details input by the user.
+     * @throws BareumException If input is incorrect.
+     */
     static Command parse(String input) throws BareumException {
         String[] commandInputs = input.split(" ", 2);
         Command cmd = null;
@@ -30,7 +39,15 @@ public class Parser {
                 throw new BareumException("Oops! Please give the index of the task you would like to mark.\n" +
                         "Correct format: mark <index>");
             }
-            int index = Integer.parseInt(commandInputs[1]) - 1;
+            int inputIndex;
+            try {
+                inputIndex = Integer.parseInt(commandInputs[1]);
+            } catch (NumberFormatException e) {
+                System.out.println(e.getMessage());
+                throw new BareumException("Oops! Please give an integer as the index of the task" +
+                        "you would like to delete.\nCorrect format: delete <index>");
+            }
+            int index = inputIndex - 1;
             cmd = new MarkCommand(index);
 
         } else if (commandInputs[0].equals("unmark")) {
@@ -38,7 +55,15 @@ public class Parser {
                 throw new BareumException("Oops! Please give the index of the task you would like to unmark.\n" +
                         "Correct format: unmark <index>");
             }
-            int index = Integer.parseInt(commandInputs[1]) - 1;
+            int inputIndex;
+            try {
+                inputIndex = Integer.parseInt(commandInputs[1]);
+            } catch (NumberFormatException e) {
+                System.out.println(e.getMessage());
+                throw new BareumException("Oops! Please give an integer as the index of the task" +
+                        "you would like to delete.\nCorrect format: delete <index>");
+            }
+            int index = inputIndex - 1;
             cmd = new UnmarkCommand(index);
 
         } else if (commandInputs[0].equals("delete")) {
@@ -46,7 +71,16 @@ public class Parser {
                 throw new BareumException("Oops! Please give the index of the task you would like to delete.\n" +
                         "Correct format: delete <index>");
             }
-            int index = Integer.parseInt(commandInputs[1]) - 1;
+
+            int inputIndex;
+            try {
+                inputIndex = Integer.parseInt(commandInputs[1]);
+            } catch (NumberFormatException e) {
+                System.out.println(e.getMessage());
+                throw new BareumException("Oops! Please give an integer as the index of the task" +
+                        "you would like to delete.\nCorrect format: delete <index>");
+            }
+            int index = inputIndex - 1;
             cmd = new DeleteCommand(index);
 
         } else if (commandInputs[0].equals("todo")) {
