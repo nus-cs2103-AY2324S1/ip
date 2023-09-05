@@ -85,7 +85,7 @@ public class Avalon {
 
                     System.out.println("   ____________________________________________________________\n" +
                             "   Understood. I have included this quest:\n  " + "  " + tasks.get(taskCount - 1));
-                    System.out.println("   Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("   Now you have " + taskCount + " task(s) in the list.");
                     System.out.println("   ____________________________________________________________");
                 } else if (userInput.toLowerCase().startsWith("deadline ")) {
                     String[] parts = userInput.substring(9).split(" /by ");
@@ -101,7 +101,7 @@ public class Avalon {
 
                     System.out.println("   ____________________________________________________________\n" +
                             "   Understood. I have included this quest:\n  " + "  " + tasks.get(taskCount - 1));
-                    System.out.println("   Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("   Now you have " + taskCount + " task(s) in the list.");
                     System.out.println("   ____________________________________________________________");
                 } else if (userInput.toLowerCase().startsWith("event ")) {
                     String[] parts = userInput.substring(6).split(" /from | /to ");
@@ -118,7 +118,7 @@ public class Avalon {
 
                     System.out.println("   ____________________________________________________________\n" +
                             "   Understood. I have included this quest:\n  " + "  " + tasks.get(taskCount - 1));
-                    System.out.println("   Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("   Now you have " + taskCount + " task(s) in the list.");
                     System.out.println("   ____________________________________________________________");
                 } else if (userInput.toLowerCase().startsWith("delete ")) {
                     int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
@@ -130,7 +130,7 @@ public class Avalon {
                         System.out.println("   ____________________________________________________________");
                         System.out.println("   Noted. I've removed this quest:");
                         System.out.println("    " + deletedTask);
-                        System.out.println("   Now you have " + taskCount + " tasks in the list.");
+                        System.out.println("   Now you have " + taskCount + " task(s) in the list.");
                         System.out.println("   ____________________________________________________________");
                     } else {
                         throw new IllegalArgumentException("Invalid task number to be deleted.");
