@@ -12,7 +12,7 @@ public class ParserTest {
 
     @Test
     public void parseTest() throws DukeException {
-        assertEquals(new ByeCommand().end(), Parser.parse("bye").end());
+        assertEquals(new ByeCommand().isContinue(), Parser.parse("bye").isContinue());
     }
 
     @Test

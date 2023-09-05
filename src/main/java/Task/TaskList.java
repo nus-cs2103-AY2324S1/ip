@@ -7,11 +7,22 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Wrapper class that contains ArrayList of type Task.
+ */
 public class TaskList {
 
     ArrayList<Task> taskList = new ArrayList<>();
+
+    /**
+     * Constructor for TaskList class.
+     */
     public TaskList() {}
 
+    /**
+     * Deletes Task from the Task List.
+     * @param input user input specifying the index of the task to be removed.
+     */
     public void deleteTask(String input) {
         int taskIndex = Integer.parseInt(input.substring(7)) - 1;
         System.out.println("Noted. I've removed this task:");
@@ -19,6 +30,10 @@ public class TaskList {
         taskList.remove(taskIndex);
     }
 
+    /**
+     * Adds Event to the Task List.
+     * @param input user input specifying the details of the Event to be added.
+     */
     public void addEvent(String input) {
 
         String[] list = input.split("/");
@@ -52,6 +67,10 @@ public class TaskList {
 
     }
 
+    /**
+     * Adds Deadline to the Task List.
+     * @param input user input specifying the details of the Deadline to be added.
+     */
     public void addDeadline(String input) {
         String[] list = input.split("/");
         String title = list[0].substring(9);
@@ -81,6 +100,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds ToDoTask to the Task List.
+     * @param input user input specifying the details of the ToDoTask to be added.
+     */
     public void addToDo(String input) throws DukeException {
 
         System.out.println("Got it. I've added this task:");
@@ -89,11 +112,18 @@ public class TaskList {
         taskList.add(toDo);
     }
 
-    // method to quickly load up tasks into the tasklist during loading
+    /**
+     * Generic method to add tasks to the Task List.
+     * @param task task object to be added to the tasks list.
+     */
     public void addTask(Task task) {
         taskList.add(task);
     }
 
+    /**
+     * marks the specific task as done.
+     * @param taskIndex index of the task to be marked as done.
+     */
     public void mark(int taskIndex) {
         Task currTask = taskList.get(taskIndex);
         currTask.taskDone(true);
@@ -101,6 +131,10 @@ public class TaskList {
         System.out.println(currTask);
     }
 
+    /**
+     * unmarks the specific task.
+     * @param taskIndex index of the task to be unmarked.
+     */
     public void unmark(int taskIndex) {
         Task currTask = taskList.get(taskIndex);
         currTask.taskDone(false);
@@ -108,10 +142,19 @@ public class TaskList {
         System.out.println(currTask);
     }
 
+    /**
+     * size() method.
+     * @return number of tasks in the task list.
+     */
     public int size() {
         return taskList.size();
     }
 
+    /**
+     * Checks whether given string is made up of just numbers.
+     * @param strNum string to be tested.
+     * @return true - is numeric, false - not numeric.
+     */
     public static boolean isNumeric(String strNum) {
         if (strNum == null) {
             return false;
@@ -124,6 +167,14 @@ public class TaskList {
         return true;
     }
 
+    /**
+     * The method is used to identify dates in the below Local Date Time format :
+     * "dd-MM-yyyy HHmm" with HHmm in the 24 hour format. Note: This method only checks for the
+     * structure of the input. The validity of the Local Date Time Format is validated/tested later.
+     * The method will return 1 if it is in LocalDateTimeFormat, 0 if it is a custom string format
+     * @param input string to run the test on.
+     * @return 1 or 0.
+     */
     int computeDateTimeFormat(String input) {
 
         // returns 1 if correct datetime
@@ -153,6 +204,10 @@ public class TaskList {
         return 0;
     }
 
+    /**
+     * getter method.
+     * @return ArrayList of Task objects.
+     */
     public ArrayList<Task> getTaskArrayList() {
         return taskList;
     }

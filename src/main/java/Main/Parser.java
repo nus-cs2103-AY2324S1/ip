@@ -2,20 +2,28 @@ package Main;
 
 import Command.ByeCommand;
 import Command.Command;
-import Command.ListCommand;
-import Command.MarkCommand;
-import Command.UnmarkCommand;
-import Command.ToDoCommand;
-import Command.EventCommand;
 import Command.DeadlineCommand;
 import Command.DeleteCommand;
-
+import Command.EventCommand;
+import Command.ListCommand;
+import Command.MarkCommand;
+import Command.ToDoCommand;
+import Command.UnmarkCommand;
 import Exception.DukeException;
 
 import java.util.Arrays;
 
+/**
+ * Parser class to read user input
+ */
 public class Parser {
 
+    /**
+     * parse method reads users input and directs the course of action.
+     * @param fullCommand user input
+     * @return return an Object belonging to the command class for further execution.
+     * @throws DukeException organic exception to Duke - subclass of Exception class
+     */
     static Command parse(String fullCommand) throws DukeException {
             if (Parser.isBye(fullCommand)) {
                 return new ByeCommand();
@@ -59,35 +67,35 @@ public class Parser {
             }
         }
 
-    public static boolean isBye(String fullCommand) {
+    private static boolean isBye(String fullCommand) {
         return fullCommand.equals("bye");
     }
 
-    public static boolean isList(String fullCommand) {
+    private static boolean isList(String fullCommand) {
         return fullCommand.startsWith("list");
     }
 
-    public static boolean isMark(String fullCommand) {
+    private static boolean isMark(String fullCommand) {
         return fullCommand.startsWith("mark");
     }
 
-    public static boolean isUnmark(String fullCommand) {
+    private static boolean isUnmark(String fullCommand) {
         return fullCommand.startsWith("unmark");
     }
 
-    public static boolean isToDo(String fullCommand) {
+    private static boolean isToDo(String fullCommand) {
         return fullCommand.startsWith("todo");
     }
 
-    public static boolean isEvent(String fullCommand) {
+    private static boolean isEvent(String fullCommand) {
         return fullCommand.startsWith("event");
     }
 
-    public static boolean isDeadline(String fullCommand) {
+    private static boolean isDeadline(String fullCommand) {
         return fullCommand.startsWith("deadline");
     }
 
-    public static boolean isDelete(String fullCommand) {
+    private static boolean isDelete(String fullCommand) {
         return fullCommand.startsWith("delete");
     }
 
