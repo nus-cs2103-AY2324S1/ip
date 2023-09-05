@@ -31,7 +31,7 @@ public class TaskList {
      */
     public String list() {
         if (tasks.size() == 0) {
-            System.out.println("The Mind sees no task");
+            return "The Mind sees no task";
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
@@ -51,7 +51,7 @@ public class TaskList {
      */
     public String list(List<Task> tasks) {
         if (tasks.size() == 0) {
-            System.out.println("The Mind sees no task");
+            return "The Mind sees no task";
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
@@ -69,17 +69,17 @@ public class TaskList {
      *
      * @param index Index to mark as completed
      */
-    public void mark(int index) {
+    public String mark(int index) {
         if (index == -1) { // Parsing issue
-            // Do nothing
+            return "Thou hast specified an invalid index";
         } else {
             if (tasks.size() < index) {
                 EpochMindException e = new EpochMindException("Thou hast specified an index larger than thy list");
-                System.out.println(e);
+                return e.toString();
             } else {
                 tasks.get(index - 1).mark();
-                System.out.println("The Mind sees that this task is completed \n" +
-                        tasks.get(index - 1));
+                return "The Mind sees that this task is completed \n" +
+                        tasks.get(index - 1);
             }
         }
     }
@@ -89,17 +89,17 @@ public class TaskList {
      *
      * @param index Index to mark as uncompleted
      */
-    public void unmark(int index) {
+    public String unmark(int index) {
         if (index == -1) { // Parsing issue
-            // Do nothing
+            return "Thou hast specified an invalid index";
         } else {
             if (tasks.size() < index) {
                 EpochMindException e = new EpochMindException("Thou hast specified an index larger than thy list");
-                System.out.println(e);
+                return e.toString();
             } else {
                 tasks.get(index - 1).unmark();
-                System.out.println("The Mind sees that this task is not yet completed \n" +
-                        tasks.get(index - 1));
+                return "The Mind sees that this task is not yet completed \n" +
+                        tasks.get(index - 1);
             }
         }
     }
@@ -109,17 +109,17 @@ public class TaskList {
      *
      * @param index Index to delete the task
      */
-    public void delete(int index) {
+    public String delete(int index) {
         if (index == -1) { // Parsing issue
-            // Do nothing
+            return "Thou hast specified an invalid index";
         } else {
             if (tasks.size() < index) {
                 EpochMindException e = new EpochMindException("Thou hast specified an index larger than thy list");
-                System.out.println(e);
+                return e.toString();
             } else {
                 Task task = tasks.remove(index - 1);
-                System.out.println("The Mind has eradicated the task \n" +
-                        task + "\nThere are now " + tasks.size() + " tasks left to complete");
+                return "The Mind has eradicated the task \n" +
+                        task + "\nThere are now " + tasks.size() + " tasks left to complete";
             }
         }
     }
@@ -129,11 +129,11 @@ public class TaskList {
      *
      * @param task Parsed string containing the task description
      */
-    public void todo(String task) {
+    public String todo(String task) {
         ToDo toDo = new ToDo(task);
         tasks.add(toDo);
-        System.out.println("The Mind has added a new task \n" + toDo + "\nThere are now " +
-                tasks.size() + " tasks left to complete");
+        return "The Mind has added a new task \n" + toDo + "\nThere are now " +
+                tasks.size() + " tasks left to complete";
     }
 
     /**
@@ -142,11 +142,11 @@ public class TaskList {
      * @param task           Parsed string containing the task description
      * @param deadlineString Parsed string containing the deadline
      */
-    public void deadline(String task, String deadlineString) {
+    public String deadline(String task, String deadlineString) {
         Deadline deadline = new Deadline(task, deadlineString);
         tasks.add(deadline);
-        System.out.println("The Mind has added a new task \n" + deadline +
-                "\nThere are now " + tasks.size() + " tasks left to complete");
+        return "The Mind has added a new task \n" + deadline +
+                "\nThere are now " + tasks.size() + " tasks left to complete";
     }
 
 
@@ -157,11 +157,11 @@ public class TaskList {
      * @param start       Parsed string containing the start datetime
      * @param end         Parsed string containing the end datetime
      */
-    public void event(String description, String start, String end) {
+    public String event(String description, String start, String end) {
         Event event = new Event(description, start, end);
         tasks.add(event);
-        System.out.println("The Mind has added a new task \n" + event +
-                "\nThere are now " + tasks.size() + " tasks left to complete");
+        return "The Mind has added a new task \n" + event +
+                "\nThere are now " + tasks.size() + " tasks left to complete";
     }
 
     /**

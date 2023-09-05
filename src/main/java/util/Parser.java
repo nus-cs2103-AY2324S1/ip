@@ -65,50 +65,37 @@ public class Parser {
      *
      * @param command User input
      */
-    public void execute(String command) {
+    public String execute(String command) {
         switch (getCommandWord(command)) {
             case "bye":
-                Ui.bye();
-                break;
+                return Ui.bye();
             case "list":
-                System.out.println(tasks.list());
-                break;
+                return tasks.list();
             case "mark":
-                tasks.mark(getIndex(command));
-                break;
+                return tasks.mark(getIndex(command));
             case "unmark":
-                tasks.unmark(getIndex(command));
-                break;
+                return tasks.unmark(getIndex(command));
             case "todo":
-                toDoParser(command);
-                break;
+                return toDoParser(command);
             case "deadline":
-                deadlineParser(command);
-                break;
+                return deadlineParser(command);
             case "event":
-                eventParser(command);
-                break;
+                return eventParser(command);
             case "delete":
-                tasks.delete(getIndex(command));
-                break;
+                return tasks.delete(getIndex(command));
             case "overdue":
-                System.out.println(tasks.overdue());
-                break;
+                return tasks.overdue();
             case "dueby":
-                System.out.println(tasks.dueBy(command));
-                break;
+                return tasks.dueBy(command);
             case "save":
-                storage.save(tasks, removeCommandWord(command));
-                break;
+                return storage.save(tasks, removeCommandWord(command));
             case "find":
-                System.out.println(tasks.find(removeCommandWord(command)));
-                break;
+                return tasks.find(removeCommandWord(command));
 
 
             default:
                 EpochMindException e = new EpochMindException("There is no such command in the Arcana of Knowledge");
-                System.out.println(e);
-                break;
+                return e.toString();
         }
     }
 
@@ -117,13 +104,13 @@ public class Parser {
      *
      * @param command User Input
      */
-    public void toDoParser(String command) {
+    public String toDoParser(String command) {
         String restOfCommand = Parser.removeCommandWord(command);
         if (restOfCommand.equals("")) {
             EpochMindException e = new EpochMindException("Thou hast not specified a task");
-            System.out.println(e);
+            return e.toString();
         } else {
-            tasks.todo(restOfCommand);
+            return tasks.todo(restOfCommand);
         }
     }
 
@@ -132,21 +119,21 @@ public class Parser {
      *
      * @param command User Input
      */
-    public void deadlineParser(String command) {
+    public String deadlineParser(String command) {
         String restOfCommand = Parser.removeCommandWord(command);
         int endIndex = restOfCommand.indexOf("/by ");
         if (endIndex == -1) {
             EpochMindException e = new EpochMindException("The Mind needs a deadline");
-            System.out.println(e);
+            return e.toString();
         } else {
             String taskDescription = restOfCommand.substring(0, endIndex).trim();
             if (taskDescription.trim().equals("")) {
                 EpochMindException e = new EpochMindException("Thou hast not specified a task");
-                System.out.println(e);
+                return e.toString();
             } else {
                 int deadlineIndex = restOfCommand.indexOf("/by ") + 3;
                 String deadlineString = restOfCommand.substring(deadlineIndex);
-                tasks.deadline(taskDescription, deadlineString);
+                return tasks.deadline(taskDescription, deadlineString);
             }
         }
     }
@@ -156,28 +143,28 @@ public class Parser {
      *
      * @param command String obtained from scanner
      */
-    public void eventParser(String command) {
+    public String eventParser(String command) {
         String restOfCommand = Parser.removeCommandWord(command);
         int fromIndex = restOfCommand.indexOf("/from");
         if (fromIndex == -1) {
             EpochMindException e = new EpochMindException("The Mind needs a start time");
-            System.out.println(e);
+            return e.toString();
         } else {
             String description = restOfCommand.substring(0, fromIndex).trim();
             if (description.equals("")) {
                 EpochMindException e = new EpochMindException("Thou hast not specified a task");
-                System.out.println(e);
+                return e.toString();
             } else {
                 fromIndex = restOfCommand.indexOf("/from") + "/from".length();
                 int toIndex = restOfCommand.indexOf("/to");
                 if (toIndex == -1) {
                     EpochMindException e = new EpochMindException("The Mind needs a end time");
-                    System.out.println(e);
+                    return e.toString();
                 } else {
                     String startString = restOfCommand.substring(fromIndex, toIndex).trim();
                     toIndex = restOfCommand.indexOf("/to") + "/to".length();
                     String endString = restOfCommand.substring(toIndex);
-                    tasks.event(description, startString, endString);
+                    return tasks.event(description, startString, endString);
                 }
             }
         }

@@ -36,7 +36,7 @@ public class Storage {
      *
      * @param taskList The task list to write to file
      */
-    public void save(TaskList taskList, String filePath) {
+    public String save(TaskList taskList, String filePath) {
         File file = new File(filePath);
         try (PrintWriter pw = new PrintWriter(file);) {
             File parentDirectory = file.getParentFile();
@@ -46,8 +46,9 @@ public class Storage {
             for (Task task : taskList.getTasks()) {
                 pw.println(task.toString());
             }
+            return "The Mind has saved the tasks to " + file.getAbsolutePath();
         } catch (Exception e) {
-            System.out.println("The Mind has failed to save the tasks. Check thy path.");
+            return "The Mind has failed to save the tasks. Check thy path.";
         }
     }
 }

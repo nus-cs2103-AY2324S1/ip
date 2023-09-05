@@ -27,20 +27,20 @@ public class Ui {
 
     /**
      * Exit message
+     * @return String of bye message
      */
-    public static void bye() {
-        System.out.println(exitMessage[new Random().nextInt(exitMessage.length)]);
-        System.exit(0);
+    public static String bye() {
+        return exitMessage[new Random().nextInt(exitMessage.length)];
     }
 
     /**
      * Greeting message
      */
-    public static void greeting() {
-        System.out.println(logo + "___________________________________________________________________________________________________________\n" +
+    public static String greeting() {
+        return logo + "___________________________________________________________________________________________________________\n" +
                 " Greetings! I'm EpochMind, Seer of the Cosmos, Keeper of Knowledge, Pantheon of Wisdom, the Eternal Truth\n" +
                 " Ask and ye may receive.\n" +
-                "___________________________________________________________________________________________________________\n");
+                "___________________________________________________________________________________________________________\n";
     }
 
     /**
