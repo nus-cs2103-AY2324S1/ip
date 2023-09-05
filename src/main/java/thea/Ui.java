@@ -55,4 +55,15 @@ public class Ui {
                 + ((tasks.size() - 1) == 1 ? " task" : " tasks")
                 + " in the list.");
     }
+
+    public void relevantTasksFound(TaskList relevantTasks) {
+        if (relevantTasks.isEmpty()) {
+            System.out.println("No matching task found. Maybe you have finished them?");
+        } else {
+            System.out.println("Here are the matching tasks on your list:");
+            for (int i = 0; i < relevantTasks.size(); i++) {
+                System.out.println((i + 1) + ". " + relevantTasks.get(i));
+            }
+        }
+    }
 }
