@@ -44,7 +44,8 @@ public class Event extends Task {
      */
     @Override
     public String fileString() {
-        return "E|" + (this.isDone? 1: 0) + "|" + this.description + "|"
+        String digitStatus = this.isDone? "1": "0";
+        return "E|" + digitStatus + "|" + this.description + "|"
                 + fromDate + "|" + toDate;
     }
 }

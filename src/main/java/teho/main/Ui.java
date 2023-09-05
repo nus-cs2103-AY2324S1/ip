@@ -1,7 +1,5 @@
 package teho.main;
-
-import teho.main.Task;
-import teho.main.TaskList;
+import java.lang.StringBuilder;
 /**
  * Deals with interactions with the user through generating messages.
  */
@@ -9,49 +7,55 @@ import teho.main.TaskList;
 public class Ui {
     /**
      * Generates hello message when TehO chatbot starts.
+     *
+     * @return String representation of hello message
      */
-    public static void generateHelloMessage() {
-        System.out.println("Hello! I'm TehO \nWhat can I do for you?");
+    public static String generateHelloMessage() {
+        return "Hello! I'm TehO \nWhat can I do for you?";
     }
 
     /**
      * Generates goodbye message when user types bye and TehO chatbot exits.
+     *
+     * @return String representation of bye message.
      */
-    public static void generateGoodbyeMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public static String generateGoodbyeMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
      * Generates message containing list of tasks.
      *
      * @param taskList List of tasks to be generated.
+     * @return String representation of list of tasks generated.
      */
-    public static void generateList(TaskList taskList) {
-        System.out.println("Here are the tasks in your list:");
+    public static String generateList(TaskList taskList) {
+        String str = "Here are the tasks in your list:\n";
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
-            System.out.println((i + 1) + ". " + task.toString());
+            str += (i + 1) + ". " + task.toString() + "\n";;
         }
+        return str;
     }
 
     /**
      * Generates message to show that task is marked as done.
      *
      * @param task Task marked as done.
+     * @return String representation of marked task message.
      */
-    public static void generateMarkTaskMessage(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task.toString());
+    public static String generateMarkTaskMessage(Task task) {
+        return "Nice! I've marked this task as done:\n" + task.toString();
     }
 
     /**
      * Generates message to show that task is marked as undone.
      *
      * @param task Task marked as undone.
+     * @return String representation of unmarked task message.
      */
-    public void generateUnmarkTaskMessage(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task.toString());
+    public String generateUnmarkTaskMessage(Task task) {
+        return "OK, I've marked this task as not done yet:\n" + task.toString();
     }
 
     /**
@@ -59,11 +63,12 @@ public class Ui {
      *
      * @param task Task added to list.
      * @param taskList List of tasks that added task.
+     * @return String representation of add ToDo task message.
      */
-    public void generateAddToDoMessage(Task task, TaskList taskList) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + taskList.getSize() + " task(s) in the list.");
+    public String generateAddToDoMessage(Task task, TaskList taskList) {
+        return "Got it. I've added this task:\n"
+                + task.toString() + "\n"
+                + "Now you have " + taskList.getSize() + " task(s) in the list.";
     }
 
     /**
@@ -71,11 +76,12 @@ public class Ui {
      *
      * @param task Task added to list.
      * @param taskList List of tasks that added task.
+     * @return String representation of add Deadline task message.
      */
-    public void generateAddDeadlineMessage(Task task, TaskList taskList) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + taskList.getSize() + " task(s) in the list.");
+    public String generateAddDeadlineMessage(Task task, TaskList taskList) {
+        return "Got it. I've added this task:\n"
+                + task.toString() + "\n"
+                + "Now you have " + taskList.getSize() + " task(s) in the list.";
     }
 
     /**
@@ -83,11 +89,12 @@ public class Ui {
      *
      * @param task Task added to list.
      * @param taskList List of tasks that added task.
+     * @return String representation of add Event task message.
      */
-    public void generateAddEventMessage(Task task, TaskList taskList) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + taskList.getSize() + " task(s) in the list.");
+    public String generateAddEventMessage(Task task, TaskList taskList) {
+        return "Got it. I've added this task:\n"
+                + task.toString() + "\n"
+                + "Now you have " + taskList.getSize() + " task(s) in the list.";
     }
 
     /**
@@ -95,30 +102,44 @@ public class Ui {
      *
      * @param task Task deleted from list.
      * @param taskList List of tasks to delete task from.
+     * @return String representation of delete task message.
      */
-    public void generateDeleteMessage(Task task, TaskList taskList) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + taskList.getSize() + " task(s) in the list.");
+    public String generateDeleteMessage(Task task, TaskList taskList) {
+        return "Noted. I've removed this task:\n"
+                + task.toString() + "\n"
+                + "Now you have " + taskList.getSize() + " task(s) in the list.";
     }
 
-    public void showLoadingError() {
-        System.out.println("OHNO! Loading error!");
+    /**
+     * Generates message to show that there is a loading error.
+     *
+     * @return String representation of loading error message.
+     */
+    public String showLoadingError() {
+        return "OHNO! Loading error!";
     }
 
-    public static void generateFindMessage(String toMatch, TaskList taskList) {
-        System.out.println("Here are the matching tasks in your list:");
+    /**
+     * Generates message containing list of tasks that matches the user's command.
+     *
+     * @param toMatch User's command to be matched with tasks in list.
+     * @param taskList List of tasks to be matched from.
+     * @return String representation of list of tasks that matches user's command.
+     */
+    public String generateFindMessage(String toMatch, TaskList taskList) {
+        String str = "Here are the matching tasks in your list:\n";
         int count = 0;
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
             String stringTask =  task.toString();
             if (stringTask.contains(toMatch)) {
                 count++;
-                System.out.println((count) + ". " + stringTask);
+                str += count + ". " + stringTask + "\n";
             }
         }
         if (count == 0) {
-            System.out.println("There is no matching task:(");
+            str += "There is no matching task:(";
         }
+        return str;
     }
 }

@@ -32,6 +32,7 @@ public class ToDo extends Task {
      */
     @Override
     public String fileString() {
-        return "T|" + (this.isDone? 1: 0) + "|" + this.description;
+        String digitStatus = this.isDone? "1": "0";
+        return "T|" + digitStatus + "|" + this.description;
     }
 }

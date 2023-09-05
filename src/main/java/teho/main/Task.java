@@ -30,8 +30,8 @@ public abstract class Task {
      *
      * @return Status icon of task ("X" if task is done, " " if task is undone).
      */
-    public String getStatusIcon() { //change to separate it with the description
-        return "[" + (isDone ? "X" : " ") + "]"; // mark done task with X
+    public String getStatusIcon() {
+        return "[" + (isDone ? "X" : " ") + "]";
     }
 
     /**
@@ -62,10 +62,5 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    /**
-     * Returns a string representation of the task details for saving task in file.
-     *
-     * @return String representation of the Deadline task.
-     */
     public abstract String fileString();
 }

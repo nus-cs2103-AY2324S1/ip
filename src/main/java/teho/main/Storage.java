@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class Storage {
     /** File path for saving and loadings tasks into and from a file */
-    public static String filePath; //check if need switch to private
+    public static String filePath;
 
     /**
      * Constructs new Storage instance with file path.
@@ -51,7 +51,7 @@ public class Storage {
      *
      * @return ArrayList containing the loaded tasks.
      */
-    public static ArrayList<Task> loadTasks() { //change type
+    public static ArrayList<Task> loadTasks() {
         ArrayList<Task> taskList =  new ArrayList<>();
         try {
             File loadedFile = new File(filePath);

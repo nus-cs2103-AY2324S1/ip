@@ -10,7 +10,7 @@ import java.time.LocalDate;
  * Main class that represents a Personal Assistant Chatbot
  * that helps a person to keep track of various things.
  */
-public class TehO {
+public class TehO  {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
@@ -27,41 +27,49 @@ public class TehO {
         taskList = new TaskList(storage.loadTasks());
     }
 
-    /**
-     * Runs TehO to understand user's commands and carry out actions accordingly.
-     */
+    public String getResponse(String userCommand) {
+        String returnMessage = null;
+            if (userCommand.equals("bye")) {
+                storage.saveTasks(taskList);
+                returnMessage = ui.generateGoodbyeMessage();
+            } else if (userCommand.equals("list")) {
+                returnMessage = ui.generateList(taskList);
+            } else if (userCommand.startsWith("mark")) {
+                markTask(userCommand);
+                returnMessage = ui.generateUnmarkTaskMessage(taskList.getTask(parseInt(userCommand.split(" ")[1]) - 1));;
+            } else if (userCommand.startsWith("unmark")) {
+                unmarkTask(userCommand);
+                returnMessage = ui.generateMarkTaskMessage(taskList.getTask(parseInt(userCommand.split(" ")[1]) - 1));
+            } else if (userCommand.startsWith("todo")) {
+                returnMessage = addToDo(userCommand);
+            } else if (userCommand.startsWith("deadline")) {
+                returnMessage =  addDeadline(userCommand);
+            } else if (userCommand.startsWith("event")) {
+                returnMessage = addEvent(userCommand);
+            } else if (userCommand.startsWith("delete")) {
+                returnMessage = delete(userCommand);
+            } else if (userCommand.startsWith("find")){
+                returnMessage = find(userCommand);
+            } else {
+                try {
+                    throw new InvalidCommandException();
+                } catch (InvalidCommandException e) {
+                    return e.toString();
+                }
+            }
+            return returnMessage;
+    }
+
     public void run() {
         Scanner sc = new Scanner(System.in);
         ui.generateHelloMessage();
         storage.loadTasks();
         while (true) {
             String userCommand = sc.nextLine();
+            String response = getResponse(userCommand);
+            System.out.println(response);
             if (userCommand.equals("bye")) {
-                ui.generateGoodbyeMessage();
-                storage.saveTasks(taskList);
                 break;
-            } else if (userCommand.equals("list")) {
-                ui.generateList(taskList);
-            } else if (userCommand.startsWith("mark")) {
-                markTask(userCommand);
-            } else if (userCommand.startsWith("unmark")) {
-                unmarkTask(userCommand);
-            } else if (userCommand.startsWith("todo")) {
-                addToDo(userCommand);
-            } else if (userCommand.startsWith("deadline")) {
-                addDeadline(userCommand);
-            } else if (userCommand.startsWith("event")) {
-                addEvent(userCommand);
-            } else if (userCommand.startsWith("delete")) {
-                delete(userCommand);
-            } else if (userCommand.startsWith("find")){
-                find(userCommand);
-            } else {
-                try {
-                    throw new InvalidCommandException();
-                } catch (InvalidCommandException e) {
-                    System.out.println(e.toString());
-                }
             }
         }
         sc.close();
@@ -76,6 +84,7 @@ public class TehO {
         new TehO("/Users/loomeilinzann/ip/text-ui-test/data/teho.txt").run();
     }
 
+
     /**
      * Represents the marking of task according to user's command.
      *
@@ -87,7 +96,6 @@ public class TehO {
         int taskNumber = parseInt(userCommand.split(" ")[1]) - 1; //counting from 0
         Task task = this.taskList.getTask(taskNumber);
         task.markAsDone(taskNumber);
-        ui.generateMarkTaskMessage(task);
     }
 
     /**
@@ -99,7 +107,6 @@ public class TehO {
         int taskNumber = parseInt(userCommand.split(" ")[1]) - 1; //counting from 0
         Task task = this.taskList.getTask(taskNumber);
         task.markAsNotDone(taskNumber);
-        ui.generateUnmarkTaskMessage(task);
     }
 
     /**
@@ -107,7 +114,7 @@ public class TehO {
      *
      * @param userCommand User's command containing the new ToDo task to be added into taskList.
      */
-    public void addToDo(String userCommand) {
+    public String addToDo(String userCommand) {
         try {
             if (userCommand.length() < 5) {
                 throw new EmptyToDoDescriptionException();
@@ -115,9 +122,9 @@ public class TehO {
             String command = userCommand.substring(5); //"todo " 5 index
             Task task = new ToDo(command);
             this.taskList.add(task);
-            ui.generateAddToDoMessage(task, taskList);
+            return ui.generateAddToDoMessage(task, taskList);
         } catch (EmptyToDoDescriptionException e) {
-            System.out.println(e.toString());
+            return e.toString();
         }
     }
 
@@ -126,7 +133,7 @@ public class TehO {
      *
      * @param userCommand User's command containing the new Deadline task to be added into taskList.
      */
-    public  void addDeadline(String userCommand) {
+    public  String addDeadline(String userCommand) {
         try {
             if (userCommand.length() < 9) {
                 throw new EmptyDeadlineDescriptionException();
@@ -136,9 +143,9 @@ public class TehO {
             LocalDate byDate = LocalDate.parse(commandWithDate.split(" /by ")[1]); //just byDate
             Task task = new Deadline(cDeadline, byDate);
             this.taskList.add(task);
-            ui.generateAddDeadlineMessage(task, taskList);
+            return ui.generateAddDeadlineMessage(task, taskList);
         } catch (EmptyDeadlineDescriptionException e) {
-            System.out.println(e.toString());
+            return e.toString();
         }
     }
 
@@ -147,7 +154,7 @@ public class TehO {
      *
      * @param userCommand User's command containing the new Event task to be added into taskList.
      */
-    public void addEvent(String userCommand) {
+    public String addEvent(String userCommand) {
         try {
             if (userCommand.length() < 6) {
                 throw new EmptyEventDescriptionException();
@@ -159,9 +166,9 @@ public class TehO {
             LocalDate toDate = LocalDate.parse(dates.split(" /to ")[1]); //just toDate
             Task task = new Event(cEvent, fromDate, toDate);
             this.taskList.add(task);
-            ui.generateAddEventMessage(task, taskList);
+            return ui.generateAddEventMessage(task, taskList);
         } catch (EmptyEventDescriptionException e) {
-            System.out.println(e.toString());
+            return e.toString();
         }
     }
 
@@ -170,22 +177,22 @@ public class TehO {
      *
      * @param userCommand User's command containing the task to be deleted from taskList.
      */
-    public  void delete(String userCommand) {
+    public String delete(String userCommand) {
         int taskNumber = parseInt(userCommand.split(" ")[1]) - 1; //counting from 0
         Task task = this.taskList.getTask(taskNumber);
         this.taskList.remove(taskNumber);
-        ui.generateDeleteMessage(task, taskList);
+        return ui.generateDeleteMessage(task, taskList);
     }
 
-    public void find(String userCommand) {
+    public String find(String userCommand) {
         try {
             if (userCommand.length() < 5) {
                 throw new EmptyFindDescriptionException();
             }
             String toMatch = userCommand.substring(5); //"deadline " 9 index
-            ui.generateFindMessage(toMatch, taskList);
+            return ui.generateFindMessage(toMatch, taskList);
         } catch (EmptyFindDescriptionException e) {
-            System.out.println(e.toString());
+            return e.toString();
         }
     }
 }
