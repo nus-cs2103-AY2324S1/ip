@@ -64,8 +64,7 @@ public class Parser {
             } else {
                 throw new DukeException("\tHey bud! Sorry I don't quite know what you mean :-(");
             }
-        }
-        catch (DukeException | DateTimeException | IOException e) {
+        } catch (DukeException | DateTimeException | IOException e) {
             handleException(e);
         }
     }
@@ -151,6 +150,5 @@ public class Parser {
             System.out.println("\tAn unexpected error occurred: " + e.getMessage());
         }
     }
-
 
 }

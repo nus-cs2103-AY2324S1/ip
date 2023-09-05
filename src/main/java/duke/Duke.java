@@ -9,7 +9,7 @@ public class Duke {
 
     public static void main(String[] args) {
         Ui ui = new Ui();
-        TaskList tasks= new TaskList();
+        TaskList tasks = new TaskList();
         Storage storage = new Storage("data/duke.txt", tasks);
         boolean isRunning = true;
         Parser parser = new Parser();

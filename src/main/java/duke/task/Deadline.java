@@ -50,7 +50,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toWriteString() {
-        return "D | " + (isDone ? "X" : "0") + " | " + description + " | " +  by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return "D | " + (isDone ? "X" : "0") + " | " + description + " | "
+                +  by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
 }

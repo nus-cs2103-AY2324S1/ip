@@ -52,6 +52,7 @@ public class Storage {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         Scanner scanner = new Scanner(new File(filepath));
         while (scanner.hasNext()) {
             String[] split = scanner.nextLine().split("\\|");
@@ -62,18 +63,18 @@ public class Storage {
             boolean isDone = split[1].equals("X");
 
             switch (split[0]) {
-                case "T":
-                    tasks.addTask(new ToDo(description, isDone));
-                    break;
-                case "D":
-                    String by = split[3];
-                    tasks.addTask(new Deadline(description, by, isDone));
-                    break;
-                case "E":
-                    String from = split[3];
-                    String to = split[4];
-                    tasks.addTask(new Event(description, split[3], split[4], isDone));
-                    break;
+            case "T":
+                tasks.addTask(new ToDo(description, isDone));
+                break;
+            case "D":
+                String by = split[3];
+                tasks.addTask(new Deadline(description, by, isDone));
+                break;
+            case "E":
+                String from = split[3];
+                String to = split[4];
+                tasks.addTask(new Event(description, split[3], split[4], isDone));
+                break;
             }
         }
     }
@@ -87,7 +88,7 @@ public class Storage {
 
     public void writeTasksToFile(TaskList tasks) throws IOException {
         FileWriter fileWriter = new FileWriter(filepath);
-        for (int i = 0; i < tasks.getSize(); i ++) {
+        for (int i = 0; i < tasks.getSize(); i++) {
             fileWriter.write(tasks.getTask(i).toWriteString()+"\n");
         }
         fileWriter.close();
