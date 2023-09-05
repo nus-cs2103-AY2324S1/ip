@@ -2,6 +2,7 @@ package duke.utils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import duke.DukeException;
 import duke.DukeMissingTaskException;
@@ -132,13 +133,14 @@ public class TaskList {
 
     /**
      * Returns the list of tasks that contains the keyword.
-     * @param searchTerm The keyword to be searched.
+     * @param searchTerms The keywords to be searched.
      * @return The list of tasks that contains the keyword.
      */
-    public TaskList filterTasks(String searchTerm) {
+    public TaskList filterTasks(String... searchTerms) {
+        System.out.println(Arrays.toString(searchTerms));
         ArrayList<Task> filteredTasks = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.getDescription().contains(searchTerm)) {
+            if (Arrays.stream(searchTerms).allMatch(task.getDescription()::contains)) {
                 filteredTasks.add(task);
             }
         }

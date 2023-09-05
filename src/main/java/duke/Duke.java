@@ -76,7 +76,7 @@ public class Duke {
                 break;
             }
             case "FIND": {
-                message = command.handleFindTask(tasks, parser.getSearchTerm());
+                message = command.handleFindTask(tasks, parser.getSearchTerms());
                 break;
             }
             default:

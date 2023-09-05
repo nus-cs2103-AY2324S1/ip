@@ -43,8 +43,8 @@ public class Command {
         Task task = tasks.deleteTask(taskNumber);
         return Message.DELETE_TASK + task + String.format(Message.TASK_STATUS, tasks.getSize());
     }
-    public String handleFindTask(TaskList tasks, String keyword) {
-        TaskList matchingTasks = tasks.filterTasks(keyword);
+    public String handleFindTask(TaskList tasks, String... keywords) {
+        TaskList matchingTasks = tasks.filterTasks(keywords);
         return Message.FIND_TASKS + matchingTasks;
     }
 }
