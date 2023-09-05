@@ -5,9 +5,12 @@ import java.time.LocalDateTime;
 import bongo.helper.BongoException;
 import bongo.helper.DateHelper;
 
+/**
+ * A class for an Event.
+ */
 public class Event extends Task {
-    LocalDateTime from;
-    LocalDateTime to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     /**
      * A constructor for a Event.
@@ -46,7 +49,8 @@ public class Event extends Task {
      *
      * @param from Event from datetime.
      * @param to   Event to datetime.
-     * @throws BongoException If Event from/to datetime is in the past or if Event from datetime is after it's to datetime.
+     * @throws BongoException If Event from/to datetime is in the past or if Event
+     *                        from datetime is after it's to datetime.
      */
     private void validateEventDuration(LocalDateTime from, LocalDateTime to) throws BongoException {
         if (from.isBefore(LocalDateTime.now()) || to.isBefore(LocalDateTime.now())) {
@@ -58,13 +62,15 @@ public class Event extends Task {
     }
 
     @Override
-    public String generateStringForTextFile() {
+    public String generateStringForTextFile() throws BongoException {
         String isTaskMarkedDone = this.isDone ? "1" : "0";
-        return String.join(" | ", "E", isTaskMarkedDone, this.description, DateHelper.formatter.format(this.from), DateHelper.formatter.format(this.to));
+        return String.join(" | ", "E", isTaskMarkedDone, this.description,
+                DateHelper.convertDateTimeToString(this.from), DateHelper.convertDateTimeToString(this.to));
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + String.format(" (from: %s to: %s)", super.generateDateString(from), super.generateDateString(to));
+        return "[E]" + super.toString() + String.format(" (from: %s to: %s)",
+                super.generateDateString(from), super.generateDateString(to));
     }
 }

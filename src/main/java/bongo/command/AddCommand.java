@@ -2,19 +2,22 @@ package bongo.command;
 
 import java.time.LocalDateTime;
 
-import bongo.task.TaskList;
 import bongo.helper.BongoException;
 import bongo.helper.DateHelper;
-import bongo.helper.Ui;
 import bongo.helper.Storage;
+import bongo.helper.Ui;
 import bongo.task.Deadline;
 import bongo.task.Event;
-import bongo.task.Todo;
 import bongo.task.Task;
+import bongo.task.TaskList;
+import bongo.task.Todo;
 
+/**
+ * A class for a AddCommand.
+ */
 public class AddCommand extends Command {
-    String[] command;
-    Task newTask;
+    private final String[] command;
+    private Task newTask;
 
     /**
      * A constructor for a AddCommand.
@@ -58,7 +61,7 @@ public class AddCommand extends Command {
             }
             String deadlineDesc = taskInput.substring(0, index - 1);
             String deadlineStr = taskInput.substring(index + 4);
-            LocalDateTime deadline = DateHelper.formatDateTime(deadlineStr);
+            LocalDateTime deadline = DateHelper.convertStringToDateTime(deadlineStr);
             this.newTask = new Deadline(deadlineDesc, deadline);
             break;
         case "event":
@@ -76,10 +79,12 @@ public class AddCommand extends Command {
             String eventDesc = taskInput.substring(0, fromIndex - 1);
             String eventFrom = taskInput.substring(fromIndex + 6, toIndex - 1);
             String eventTo = taskInput.substring(toIndex + 4);
-            LocalDateTime from = DateHelper.formatDateTime(eventFrom);
-            LocalDateTime to = DateHelper.formatDateTime(eventTo);
+            LocalDateTime from = DateHelper.convertStringToDateTime(eventFrom);
+            LocalDateTime to = DateHelper.convertStringToDateTime(eventTo);
             this.newTask = new Event(eventDesc, from, to);
             break;
+        default:
+            throw new BongoException();
         }
     }
 

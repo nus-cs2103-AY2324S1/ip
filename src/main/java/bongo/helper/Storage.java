@@ -1,28 +1,36 @@
 package bongo.helper;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.*;
+import java.time.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import bongo.task.Deadline;
 import bongo.task.Event;
 import bongo.task.Task;
 import bongo.task.Todo;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-
+/**
+ * A class for a Storage.
+ */
 public class Storage {
 
+    /**
+     * Different types of actions we can take to modify the text file.
+     */
     public enum FileAction {
         MARK_TASK,
         UNMARK_TASK,
         DELETE_TASK
     }
 
-    String pathname;
+    private final String pathname;
 
     /**
      * A constructor for a Storage, with a pathname.
@@ -37,7 +45,7 @@ public class Storage {
      * Loads tasks into the TaskList, if there is an existing text file found.
      * If no file is found, throws a FileNotFound Exception.
      *
-     * @return An ArrayList<Task> of preloaded tasks.
+     * @return An ArrayList of preloaded tasks.
      * @throws FileNotFoundException If file is not found.
      * @throws BongoException        If datetime string has an invalid format.
      */
@@ -45,25 +53,43 @@ public class Storage {
         File file = new File(this.pathname);
         Scanner fileScanner = new Scanner(file);
         ArrayList<Task> loadedTasks = new ArrayList<>();
+        ArrayList<Integer> expiredTaskNumbers = new ArrayList<>();
+        int numOfTasks = 0;
         while (fileScanner.hasNextLine()) {
+            numOfTasks++;
             String line = fileScanner.nextLine();
             String[] arr = line.split("\\|");
             for (int i = 0; i < arr.length; i++) {
                 arr[i] = arr[i].trim();
             }
             boolean isTaskMarkedDone = arr[1].equals("1");
+            LocalDateTime datetime;
             switch (arr[0]) {
             case "T":
                 loadedTasks.add(new Todo(arr[2], isTaskMarkedDone));
                 break;
             case "D":
-                loadedTasks.add(new Deadline(arr[2], isTaskMarkedDone, DateHelper.formatDateTime(arr[3])));
+                datetime = DateHelper.convertStringToDateTime(arr[3]);
+                if (DateHelper.hasTaskExpired(datetime)) {
+                    expiredTaskNumbers.add(numOfTasks);
+                } else {
+                    loadedTasks.add(new Deadline(arr[2], isTaskMarkedDone, DateHelper.convertStringToDateTime(arr[3])));
+                }
                 break;
             case "E":
-                loadedTasks.add(new Event(arr[2], isTaskMarkedDone, DateHelper.formatDateTime(arr[3]), DateHelper.formatDateTime(arr[4])));
+                datetime = DateHelper.convertStringToDateTime(arr[4]);
+                if (DateHelper.hasTaskExpired(datetime)) {
+                    expiredTaskNumbers.add(numOfTasks);
+                } else {
+                    loadedTasks.add(new Event(arr[2], isTaskMarkedDone, DateHelper.convertStringToDateTime(arr[3]),
+                        DateHelper.convertStringToDateTime(arr[4])));
+                }
                 break;
+            default:
+                throw new BongoException("Error reading the text file.");
             }
         }
+        deleteExpiredTasks(expiredTaskNumbers);
         fileScanner.close();
         return loadedTasks;
     }
@@ -97,7 +123,7 @@ public class Storage {
     /**
      * Appends task on a new line in the text file.
      *
-     * @param newTask
+     * @param newTask New Task to add.
      */
     public void add(Task newTask) {
         try {
@@ -109,18 +135,46 @@ public class Storage {
             } else {
                 fw.write(newLine);
             }
-
             fw.close();
         } catch (IOException ioe) {
             System.err.println("IOException: " + ioe.getMessage());
+        } catch (BongoException e) {
+            throw new RuntimeException("There was an error adding the task.");
+        }
+    }
+
+    public void deleteExpiredTasks(ArrayList<Integer> expiredTaskNumbers) {
+        try {
+            File file = new File(this.pathname);
+            BufferedReader fileReader = new BufferedReader(new FileReader(file));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            int currentLine = 1;
+            while ((line = fileReader.readLine()) != null) {
+                if (expiredTaskNumbers.contains(currentLine)) {
+                    currentLine++;
+                    continue;
+                } else {
+                    stringBuilder.append(line).append("\n");
+                }
+                currentLine++;
+            }
+            fileReader.close();
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(stringBuilder.toString().trim());
+            fileWriter.close();
+
+        } catch (Exception e) {
+            System.out.println("Problem editing the file.");
+            e.printStackTrace();
         }
     }
 
     /**
      * Edit the text that corresponds to a certain task in the text file.
      *
-     * @param action
-     * @param taskNumber
+     * @param action Type of FileAction.
+     * @param taskNumber Number of task to delete.
      */
     public void edit(FileAction action, int taskNumber) {
         try {
@@ -147,6 +201,8 @@ public class Storage {
                     case DELETE_TASK:
                         currentLine++;
                         continue;
+                    default:
+                        throw new BongoException("Error modifying the text file.");
                     }
                 } else {
                     stringBuilder.append(line).append("\n");

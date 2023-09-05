@@ -9,6 +9,9 @@ import bongo.command.ListCommand;
 import bongo.command.MarkCommand;
 import bongo.command.UnmarkCommand;
 
+/**
+ * A class for a Parser.
+ */
 public class Parser {
 
     /**

@@ -1,16 +1,19 @@
 package bongo.command;
 
-import bongo.helper.BongoException;
-import bongo.helper.Ui;
-import bongo.helper.Storage;
-import bongo.task.Task;
-import bongo.task.TaskList;
 import java.util.ArrayList;
 
+import bongo.helper.BongoException;
+import bongo.helper.Storage;
+import bongo.helper.Ui;
+import bongo.task.Task;
+import bongo.task.TaskList;
 
+/**
+ * A class for a FindCommand.
+ */
 public class FindCommand extends Command {
-    String[] searchInput;
-    String searchParam;
+    private final String[] searchInput;
+    private String searchParam;
 
     /**
      * A constructor for a FindCommand, with a searchInput.

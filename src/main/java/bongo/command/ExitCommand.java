@@ -1,9 +1,12 @@
 package bongo.command;
 
-import bongo.task.TaskList;
-import bongo.helper.Ui;
 import bongo.helper.Storage;
+import bongo.helper.Ui;
+import bongo.task.TaskList;
 
+/**
+ * A class for a ExitCommand.
+ */
 public class ExitCommand extends Command {
 
     @Override

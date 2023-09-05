@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class DeadlineTest {
     @Test
     public void testDeadlineString() throws BongoException {
-        Deadline sampleDeadline = new Deadline("homework", DateHelper.formatDateTime("14/6/2030 1200"));
+        Deadline sampleDeadline = new Deadline("homework", DateHelper.convertStringToDateTime("14/6/2030 1200"));
         String expectedOutput = "[D][ ] homework (by: Friday, Jun 14, 2030 12:00 PM)";
         assertEquals(expectedOutput, sampleDeadline.toString());
     }

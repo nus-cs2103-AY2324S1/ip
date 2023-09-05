@@ -1,5 +1,8 @@
 package bongo.helper;
 
+/**
+ * A class for a BongoException.
+ */
 public class BongoException extends Exception {
     /**
      * A constructor for a BongoException.

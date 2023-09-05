@@ -1,13 +1,14 @@
 package bongo.command;
 
-import bongo.task.TaskList;
 import bongo.helper.BongoException;
-import bongo.helper.Ui;
 import bongo.helper.Storage;
+import bongo.helper.Ui;
+import bongo.task.TaskList;
 
+/**
+ * A class for a Command.
+ */
 public abstract class Command {
-
-    boolean isExit;
 
     /**
      * Execute the respective details of the Command.
@@ -17,14 +18,8 @@ public abstract class Command {
      * @param storage Storage instance.
      * @throws BongoException If command is invalid.
      */
-    abstract public void execute(TaskList tasks, Ui ui, Storage storage) throws BongoException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws BongoException;
 
-    /**
-     * A constructor for a Command.
-     */
-    public Command() {
-        this.isExit = false;
-    }
 
     /**
      * Returns whether Command is an ExitCommand.

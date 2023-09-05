@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class EventTest {
     @Test
     public void testEventString() throws BongoException {
-        Event sampleEvent = new Event("party", DateHelper.formatDateTime("14/6/2030 1200"), DateHelper.formatDateTime("14/6/2030 1500"));
+        Event sampleEvent = new Event("party", DateHelper.convertStringToDateTime("14/6/2030 1200"), DateHelper.convertStringToDateTime("14/6/2030 1500"));
         String expectedOutput = "[E][ ] party (from: Friday, Jun 14, 2030 12:00 PM to: Friday, Jun 14, 2030 03:00 PM)";
         assertEquals(expectedOutput, sampleEvent.toString());
     }
