@@ -17,6 +17,7 @@ public class Pooh {
     private final Storage taskStorage;
     private final Parser cmdParser;
     private TaskList taskList;
+    private final Ui ui;
 
     /**
      * Constructs a new Pooh chatbot.
@@ -27,50 +28,37 @@ public class Pooh {
 
         cmdParser = new Parser();
         taskStorage = new Storage(filePath);
+        ui = new Ui();
         try {
             taskList = new TaskList(taskStorage.loadTasks());
         } catch (LoadTasksException ex) {
-            Ui.respond(ex.toString());
+            ui.respond(ex.toString());
             List<Task> listOfTasks = new ArrayList<Task>();
             taskList = new TaskList(listOfTasks);
         }
     }
 
     /**
-     * Starts the main event loop of the Pooh chatbot.
+     * Processes a given user command, parses it, and returns an appropriate response.
      * <p>
-     * The method will keep listening for user input until the user chooses to exit
-     * the application. All recognized commands are parsed and executed through the
-     * Parser class.
+     * This method attempts to parse the user's command through the {@code cmdParser}. If the command is
+     * valid, it performs the necessary operations and returns the response. Otherwise, if an exception
+     * occurs, it handles the exception and returns a user-friendly error message.
      * </p>
-     */
-    public void run() {
-        Ui.printWelcomeMsg();
-        Scanner userInput = new Scanner(System.in);
-        while (userInput.hasNextLine()) {
-            try {
-                String userCmd = userInput.nextLine();
-                cmdParser.parseInput(taskStorage, taskList, userCmd);
-            } catch (UnrecognizedCommandException ex) {
-                Ui.respond(ex.toString());
-            } catch (WriteTasksException ex) {
-                Ui.respond(ex.toString());
-            } catch (InvalidTaskException ex) {
-                Ui.respond(ex.toString());
-            }
-        }
-    }
-
-    public String getResponse(String input) {
-        return "hi!";
-    }
-
-    /**
-     * The main entry point of the application.
      *
-     * @param args The command-line arguments.
+     * @param userCmd The command string inputted by the user.
+     * @return A response string that results from processing the user's command.
+     * This could be a successful operation message or an error message.
      */
-    public static void main(String[] args) {
-        new Pooh("pooh.txt").run();
+    public String getResponse(String userCmd) {
+        try {
+            return cmdParser.parseInput(taskStorage, taskList, ui, userCmd);
+        } catch (UnrecognizedCommandException ex) {
+            return ui.respond(ex.toString());
+        } catch (WriteTasksException ex) {
+            return ui.respond(ex.toString());
+        } catch (InvalidTaskException ex) {
+            return ui.respond(ex.toString());
+        }
     }
 }

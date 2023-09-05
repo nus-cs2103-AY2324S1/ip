@@ -1,59 +1,33 @@
 package pooh;
 
 public class Ui {
-    private static final String HORIZONTAL_LINE = "      " +
-            "_______________________________________________________________________________";
 
     /**
-     * Prints the welcome message when the chatbot starts.
+     * Returns the exit message when the user terminates the chatbot.
+     *
+     * @return The exit message.
      */
-    public static void printWelcomeMsg() {
-        String logo = "      .----------------.  .----------------.  .----------------.  .----------------.\n" +
-                "      | .--------------. || .--------------. || .--------------. || .--------------. |\n" +
-                "      | |   ______     | || |     ____     | || |     ____     | || |  ____  ____  | |\n" +
-                "      | |  |_   __ \\   | || |   .'    `.   | || |   .'    `.   | || | |_   ||   _| | |\n" +
-                "      | |    | |__) |  | || |  /  .--.  \\  | || |  /  .--.  \\  | || |   | |__| |   | |\n" +
-                "      | |    |  ___/   | || |  | |    | |  | || |  | |    | |  | || |   |  __  |   | |\n" +
-                "      | |   _| |_      | || |  \\  `--'  /  | || |  \\  `--'  /  | || |  _| |  | |_  | |\n" +
-                "      | |  |_____|     | || |   `.____.'   | || |   `.____.'   | || | |____||____| | |\n" +
-                "      | |              | || |              | || |              | || |              | |\n" +
-                "      | '--------------' || '--------------' || '--------------' || '--------------' |\n" +
-                "       '----------------'  '----------------'  '----------------'  '----------------'";
-
-        String greetings = "      Hi there! Good to see you! I'm Pooh!\n      What can I do for you?";
-        System.out.println(logo);
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(greetings);
-        System.out.println(HORIZONTAL_LINE);
+    public String getExitMsg() {
+        return "How lucky I am to have something that makes saying goodbye so hard. Bye!";
     }
 
     /**
-     * Prints the exit message when the user terminates the chatbot.
-     */
-    public static void printExitMsg() {
-        String byeMessage = "      How lucky I am to have something that makes saying goodbye so hard. Bye!";
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(byeMessage);
-        System.out.println(HORIZONTAL_LINE);
-    }
-
-    /**
-     * Prints a general response message.
+     * Returns the input message as a response.
      *
      * @param message The message to be displayed.
+     * @return The input message as a response.
      */
-    public static void respond(String message) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(message);
-        System.out.println(HORIZONTAL_LINE);
+    public String respond(String message) {
+        return message;
     }
 
     /**
-     * Prints the list of tasks.
+     * Formats and returns a string representation of the tasks in the provided TaskList.
      *
      * @param taskList The list of tasks.
+     * @return A formatted string representation of tasks.
      */
-    public static void printTasksMsg(TaskList taskList) {
+    public String getTasksMsg(TaskList taskList) {
         StringBuilder todoListString = new StringBuilder();
         for (int i = 0; i < taskList.getSize(); i++) {
             String task;
@@ -64,19 +38,16 @@ public class Ui {
             }
             todoListString.append(task);
         }
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("      Here are the tasks in your list:");
-        System.out.println(todoListString.toString().stripTrailing());
-        System.out.println(HORIZONTAL_LINE);
+        return "Here are the tasks in your list:\n" + todoListString.toString().stripTrailing();
     }
 
     /**
-     * Prints tasks from a given TaskList that match a specific keyword.
-     * Outputs a formatted string to the console, where each task starts with an index number.
+     * Formats and returns a string of tasks from a given TaskList that match a specific keyword.
      *
      * @param taskList The TaskList containing tasks that match the keyword.
+     * @return A formatted string representation of matching tasks.
      */
-    public static void printKeywordTasksMsg(TaskList taskList) {
+    public String getKeywordTasksMsg(TaskList taskList) {
         StringBuilder todoListString = new StringBuilder();
         for (int i = 0; i < taskList.getSize(); i++) {
             String task;
@@ -87,41 +58,60 @@ public class Ui {
             }
             todoListString.append(task);
         }
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("      Here are the matching tasks in your list:");
-        System.out.println(todoListString.toString().stripTrailing());
-        System.out.println(HORIZONTAL_LINE);
+        return "Here are the matching tasks in your list:" + todoListString.toString().stripTrailing();
     }
 
     /**
-     * Prints a message to the console indicating that no tasks matching the specified keyword were found.
+     * Returns a message indicating no tasks matched the specified keyword.
+     *
+     * @return Message indicating no matching tasks found.
      */
-    public static void printNoKeywordTasksFound() {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("      No matching tasks found.");
-        System.out.println(HORIZONTAL_LINE);
+    public String getNoKeywordTasksFoundMsg() {
+        return "No matching tasks found.";
     }
 
     /**
-     * Prints a message indicating a task has been marked as done.
+     * Returns a message indicating a task has been marked as done.
      *
      * @param task The task that has been marked as done.
+     * @return Message indicating task marked as done.
      */
-    public static void printTaskDoneMsg(Task task) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("      Nice! I've marked this task as done:\n      " + task);
-        System.out.println(HORIZONTAL_LINE);
+    public String getTaskDoneMsg(Task task) {
+        return "Nice! I've marked this task as done:\n      " + task;
     }
 
     /**
-     * Prints a message indicating a task has been marked as not done.
+     * Returns a message indicating a task has been marked as not done.
      *
      * @param task The task that has been marked as not done.
+     * @return Message indicating task marked as not done.
      */
-    public static void printTaskUndoneMsg(Task task) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("      OK, I've marked this task as not done yet:\n      " + task);
-        System.out.println(HORIZONTAL_LINE);
+    public String getTaskUndoneMsg(Task task) {
+        return "OK, I've marked this task as not done yet:\n      " + task;
+    }
+
+    /**
+     * Returns a message indicating a task has been added to the TaskList.
+     *
+     * @param taskList The updated TaskList.
+     * @param task     The task that has been added.
+     * @return Message indicating task added.
+     */
+    public String getAddTaskMsg(TaskList taskList, Task task) {
+        return String.format("      Got it. I've added this task:\n          %s\n      Now you have " +
+                "%d tasks in the list", task, taskList.getSize());
+    }
+
+    /**
+     * Returns a message indicating a task has been removed from the TaskList.
+     *
+     * @param taskList The updated TaskList.
+     * @param task     The task that has been removed.
+     * @return Message indicating task removed.
+     */
+    public String getDeleteTaskMsg(TaskList taskList, Task task) {
+        return String.format("Noted. I've removed this task:\n          %s\n      Now you have" +
+                " %d tasks in the list", task, taskList.getSize());
     }
 
 }
