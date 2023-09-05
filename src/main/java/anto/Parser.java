@@ -4,16 +4,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
- * Parser class handles all reading of inputs from command line and decides what to do.
+ * Parser class handles all reading of inputs.
  */
 public class Parser {
 
     private Ui ui;
     private TaskList taskList;
-//    private Scanner scanner = new Scanner(System.in);
 
     /**
      * Creates a Parser class.
@@ -27,7 +25,10 @@ public class Parser {
     }
 
     /**
-     * Continuously reads inputs from command line and decide what actions to take.
+     * Reads inputs from argument and decide what actions to take.
+     *
+     * @param input Input from user.
+     * @return Returns String response to user.
      */
     public String readInput(String input) {
         try {

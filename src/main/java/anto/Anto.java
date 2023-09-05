@@ -9,11 +9,11 @@ public class Anto {
 
     private Storage storage;
     private TaskList tasks;
-    Ui ui;
+    private Ui ui;
     private Parser parser;
 
     /**
-     * Creates an Anto chat bot with default filePath.
+     * Creates an Anto chatbot with default filePath.
      */
     public Anto() {
         String filePath = "data/anto.txt";
@@ -44,27 +44,40 @@ public class Anto {
         }
     }
 
-//    /**
-//     * Runs the Anto chatbot and continuously reads inputs.
-//     */
-//    public void run() {
-//        parser = new Parser(ui, tasks);
-//    }
-
     /**
-     * Main method to run program.
+     * Returns response based on input given by user.
      *
-     * @param args String input.
+     * @param input User input.
+     * @return String with response from Chatbot.
      */
-    public static void main(String[] args) {
-//        new Anto("data/anto.txt").run();
+    public String getResponse(String input) {
+        return this.parser.readInput(input);
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Checks if Anto task list has no tasks.
+     *
+     * @return Whether task list has no tasks.
      */
-    String getResponse(String input) {
-        return this.parser.readInput(input);
+    public Boolean hasNoTasks() {
+        return this.tasks.hasNoTasks();
+    }
+
+    /**
+     * Returns Anto's TaskList.
+     *
+     * @return TaskList for Anto.
+     */
+    public TaskList getTaskList() {
+        return this.tasks;
+    }
+
+    /**
+     * Returns Anto's Ui.
+     *
+     * @return Ui for Anto.
+     */
+    public Ui getUi() {
+        return this.ui;
     }
 }

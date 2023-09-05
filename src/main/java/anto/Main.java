@@ -15,6 +15,11 @@ public class Main extends Application {
 
     private Anto anto = new Anto();
 
+    /**
+     * Overriden start method to start Anto and GUI.
+     *
+     * @param stage the primary stage for this application, onto which the application scene can be set.
+     */
     @Override
     public void start(Stage stage) {
         try {
