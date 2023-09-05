@@ -1,18 +1,20 @@
+package duke.tasks;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     private final LocalDate by;
     public Deadline(String name, String by) throws DukeException {
         super(name);
         if (name.trim().isEmpty()) {
-            throw new DukeException("☹ OOPS!!! The description of a Deadline cannot be empty.");
+            throw new DukeException("☹ OOPS!!! The description of a duke.tasks.Deadline cannot be empty.");
         }
         try {
             this.by = LocalDate.parse(by);
         } catch (DateTimeParseException e) {
-            throw new DukeException("☹ OOPS!!! Follow the format for a Deadline.");
+            throw new DukeException("☹ OOPS!!! Follow the format for a duke.tasks.Deadline.");
         }
     }
 

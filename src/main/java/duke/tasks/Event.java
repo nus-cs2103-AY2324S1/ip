@@ -1,3 +1,5 @@
+package duke.tasks;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -8,13 +10,13 @@ public class Event extends Task {
     public Event(String name, String from, String to) throws DukeException {
         super(name);
         if (name.trim().isEmpty()) {
-            throw new DukeException("☹ OOPS!!! The description of a Task cannot be empty.");
+            throw new DukeException("☹ OOPS!!! The description of a duke.tasks.Task cannot be empty.");
         }
         try {
             this.from = LocalDate.parse(from);
             this.to = LocalDate.parse(to);
         } catch (DateTimeParseException e) {
-            throw new DukeException("☹ OOPS!!! Follow the format for an Event.");
+            throw new DukeException("☹ OOPS!!! Follow the format for an duke.tasks.Event.");
         }
     }
 
