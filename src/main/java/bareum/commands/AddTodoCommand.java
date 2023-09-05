@@ -9,13 +9,10 @@ import bareum.Ui;
 public class AddTodoCommand extends Command {
     String description;
 
-    public AddTodoCommand(String[] commandInputs) throws BareumException {
-        if (commandInputs.length <= 1) {
-            throw new BareumException("Oops! The description of a todo cannot be empty.\n" +
-                    "Correct format: todo <description>");
-        }
-        this.description = commandInputs[1];
+    public AddTodoCommand(String description) {
+        this.description = description;
     }
+
     @Override
     public void execute(Ui ui, Storage storage, TaskList taskList) {
         try {

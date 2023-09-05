@@ -4,12 +4,17 @@ import bareum.commands.ByeCommand;
 import bareum.commands.Command;
 
 public class Bareum {
-    static TaskList taskList = new TaskList();
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
+
+    public Bareum(String filePath) {
+        this.storage = new Storage(filePath);
+        this.taskList = new TaskList();
+        this.ui = new Ui();
+    }
 
     public void run() {
-        Ui ui = new Ui();
-        Parser parser = new Parser();
-        Storage storage = new Storage();
         boolean isExit = false;
 
         storage.loadSavedTaskList(taskList);
@@ -19,7 +24,7 @@ public class Bareum {
             try {
                 ui.showLine();
                 String input = ui.getUserInput();
-                Command cmd = parser.parse(input);
+                Command cmd = Parser.parse(input);
                 cmd.execute(ui, storage, taskList);
                 if (cmd instanceof ByeCommand) {
                     isExit = true;
@@ -31,6 +36,6 @@ public class Bareum {
     }
 
     public static void main(String[] args) {
-        new Bareum().run();
+        new Bareum("./data/storedTasks.txt").run();
     }
 }
