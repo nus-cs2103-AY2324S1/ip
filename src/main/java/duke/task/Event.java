@@ -1,10 +1,11 @@
 package duke.task;
 
-import duke.DukeException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import duke.DukeException;
 
 /**
  * Represents an Event task.
@@ -69,6 +70,7 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from.format(formatter) + " | " + to.format(formatter);
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
+                + from.format(formatter) + " | " + to.format(formatter);
     }
 }
