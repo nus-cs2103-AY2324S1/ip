@@ -11,7 +11,7 @@ public abstract class Task {
     /**
      * Description of the task.
      */
-        protected String description;
+    protected String description;
 
     /**
      * Boolean the represents whether task is done or not.

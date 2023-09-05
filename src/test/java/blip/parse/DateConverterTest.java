@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.time.LocalDateTime;
 public class DateConverterTest {
     @Test
-    public void convertDateTimeTest_validDateTime_success() throws DateTimeFormatException{
+    public void convertDateTimeTest_validDateTime_success() throws DateTimeFormatException {
         assertEquals(LocalDateTime.of(2023,10,3,10,20)
                 ,DateConverter.convertToDateTime("2023-10-03 10:20"));
         assertEquals(LocalDateTime.of(2012,12,12,12,12)
@@ -19,7 +19,7 @@ public class DateConverterTest {
     }
 
     @Test
-    public void convertDateTimeTest_throwsException_success() throws DateTimeFormatException{
+    public void convertDateTimeTest_throwsException_success() {
         try {
             assertEquals(LocalDateTime.of(2023,10,3,10,20)
                     ,DateConverter.convertToDateTime("2023 10 03 10 20"));
