@@ -23,7 +23,7 @@ public class Storage {
     }
 
     /**
-     * To write tasks from TaskList into the file
+     * Writes tasks from TaskList into the file
      * @param lst the TaskList we want to copy from
      * @throws InvalidInputException the exception thrown if we receive an InvalidInputException while copying
      */
@@ -66,12 +66,12 @@ public class Storage {
         }
     }
     /**
-     * To load an existing file into a new TaskList object.
+     * Loads an existing file into a new TaskList object.
      * @return new TaskList object loaded
      * @throws InvalidInputException an exception thrown whenever input is invalid
      */
     public List<Task> load() throws InvalidInputException {
-        List<Task> lst = new ArrayList<>();
+        List<Task> list = new ArrayList<>();
 
         try {
             File file = new File(filePath);
@@ -81,19 +81,19 @@ public class Storage {
                 String[] taskDetails = info.split("\\|");
                 if (taskDetails[0].equals("[T]")) {
                     Task tsk = new ToDo(taskDetails[2]);
-                    lst.add(tsk);
+                    list.add(tsk);
                     if (taskDetails[1].equals("1")) {
-                        lst.get(lst.size() - 1).setCompleted();
+                        list.get(list.size() - 1).setCompleted();
                     }
                 } else if (taskDetails[0].equals("[D]")) {
-                    lst.add(new Deadline(taskDetails[2], taskDetails[3]));
+                    list.add(new Deadline(taskDetails[2], taskDetails[3]));
                     if (taskDetails[1].equals("1")) {
-                        lst.get(lst.size() - 1).setCompleted();
+                        list.get(list.size() - 1).setCompleted();
                     }
                 } else if (taskDetails[0].equals("[E]")) {
-                    lst.add(new Event(taskDetails[2], taskDetails[3], taskDetails[4]));
+                    list.add(new Event(taskDetails[2], taskDetails[3], taskDetails[4]));
                     if (taskDetails[1].equals("1")) {
-                        lst.get(lst.size() - 1).setCompleted();
+                        list.get(list.size() - 1).setCompleted();
                     }
                 }
             }
@@ -101,11 +101,11 @@ public class Storage {
         } catch (IOException e) {
             ui.printException(e.getMessage());
         }
-        return lst;
+        return list;
     }
 
     /**
-     * Getter for relative path
+     * Gets relative path
      * @return String instance of relative path
      */
     public static String getRelativePath() {

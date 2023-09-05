@@ -20,13 +20,13 @@ public class AddTask extends Command {
         return false;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.addedMessage(this.task, tasks);
-        tasks.add(this.task);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
+            tasks.add(this.task);
             storage.saveTasks(tasks);
+            return ui.addedMessage(this.task, tasks);
         } catch (InvalidInputException e) {
-            ui.printException(e.getMessage());
+            return e.getMessage();
         }
     }
     @Override

@@ -3,11 +3,11 @@ package duke;
 /**
  * Task class that contains field such as name, completed and done & undone checkboxes
  */
-abstract class Task {
-    private static String doneCheckbox = "[X] ";
-    private static String undoneCheckbox = "[ ] ";
+public class Task {
+    private final static String DONECHECKBOX = "[X] ";
+    private final static String UNDONECHECKBOX = "[ ] ";
     private String name;
-    private boolean completed;
+    private boolean isCompleted;
     public Task(String name) {
         this.name = name;
     }
@@ -18,15 +18,15 @@ abstract class Task {
     }
 
     public boolean getCompleted() {
-        return this.completed;
+        return this.isCompleted;
     }
 
     public void setCompleted() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     public void setUncompleted() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -34,20 +34,19 @@ abstract class Task {
      * @return String value of checkbox
      */
     public String getCheckbox() {
-        if (this.completed) {
-            return Task.doneCheckbox;
+        if (this.isCompleted) {
+            return Task.DONECHECKBOX;
         } else {
-            return Task.undoneCheckbox;
+            return Task.UNDONECHECKBOX;
         }
     }
-    abstract String newFormat();
-
+    public String newFormat() {return "";}
     /**
      * To return string value of int based on completion
      * @return String value 1 if completed and 0 otherwise
      */
     public String getInt() {
-        if (this.completed) {
+        if (this.isCompleted) {
             return "1";
         } else {
             return "0";
@@ -74,5 +73,5 @@ abstract class Task {
         return (s1 + "\n" + this.toString());
     }
 
-    public void execute(TaskList lst, Ui ui, Storage storage) {};
+    public String execute(TaskList lst, Ui ui, Storage storage) {return "";}
 }

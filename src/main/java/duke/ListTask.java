@@ -6,8 +6,8 @@ package duke;
 public class ListTask extends Command {
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.listMessage(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.listMessage(tasks);
     }
 
     @Override

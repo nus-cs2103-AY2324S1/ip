@@ -17,14 +17,17 @@ public class DoneTask extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidInputException {
+        if (taskDone > tasks.size()) {
+            throw new InvalidInputException("OOPS!!! Too few tasks");
+        }
         tasks.get(this.taskDone).setCompleted();
-        ui.completedMessage(this.taskDone, tasks);
         try {
             storage.saveTasks(tasks);
         } catch (InvalidInputException e) {
             ui.printException(e.getMessage());
         }
+        return ui.completedMessage(this.taskDone, tasks);
     }
 
     @Override

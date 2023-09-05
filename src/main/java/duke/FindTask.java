@@ -11,7 +11,7 @@ public class FindTask extends Command {
     }
 
     @Override
-    public void execute(TaskList lst, Ui ui, Storage storage) {
+    public String execute(TaskList lst, Ui ui, Storage storage) {
         TaskList found = new TaskList();
         for (int i = 0; i < lst.size(); i++) {
             Task task = lst.get(i);
@@ -23,7 +23,7 @@ public class FindTask extends Command {
                 }
             }
         }
-        ui.foundMessage(found);
+        return ui.foundMessage(found);
     }
     @Override
     public boolean isExit() {

@@ -15,13 +15,13 @@ public class Parser {
         String[] words = input.split("\\s+");
         String command = words[0];
 
-        switch (command) {
+        switch(command) {
         case "bye":
             return new ExitTask();
         case "list":
             return new ListTask();
         case "delete":
-            return new DeleteTask(Integer.valueOf(words[1]));
+            return new DeleteTask(Integer.valueOf(words[1]) - 1);
         case "mark":
             return new DoneTask(Integer.valueOf(words[1]) - 1);
         case "unmark":

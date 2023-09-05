@@ -12,7 +12,7 @@ public abstract class Command {
      * @param ui the UI that does all printing messages
      * @param storage the storage that reads and writes info into the file
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidInputException;
 
     /**
      * To determine if this task should break the while loop

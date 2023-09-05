@@ -16,14 +16,18 @@ public class DeleteTask extends Command {
         this.indexToDelete = indexToDelete;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidInputException {
+        if (indexToDelete >= tasks.size()) {
+            throw new InvalidInputException("OOPS!!! Too few tasks");
+        }
+        Task tsk = tasks.get(this.indexToDelete);
         tasks.remove(this.indexToDelete);
-        ui.deletedMessage(this.indexToDelete, tasks);
         try {
             storage.saveTasks(tasks);
         } catch (InvalidInputException e) {
             ui.printException(e.getMessage());
         }
+        return ui.deletedMessage(tsk);
     }
 
     @Override

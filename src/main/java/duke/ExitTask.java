@@ -6,9 +6,9 @@ package duke;
 public class ExitTask extends Command {
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ui.closeScanner();
-        ui.exitMessage();
+        return ui.exitMessage();
     }
 
     @Override

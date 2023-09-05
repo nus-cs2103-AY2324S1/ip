@@ -14,14 +14,14 @@ public class UndoTask extends Command {
         this.taskToUndo = taskToUndo;
     }
     @Override
-    public void execute(TaskList lst, Ui ui, Storage storage) {
+    public String execute(TaskList lst, Ui ui, Storage storage) {
         lst.get(taskToUndo).setUncompleted();
-        ui.uncompletedMessage(taskToUndo, lst);
         try {
             storage.saveTasks(lst);
         } catch (InvalidInputException e) {
             System.out.println(e.getMessage());
         }
+        return ui.uncompletedMessage(taskToUndo, lst);
     }
 
     @Override
