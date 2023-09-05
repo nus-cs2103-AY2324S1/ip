@@ -1,15 +1,15 @@
 package chatbot;
 
-import chatbot.exceptions.LocalFileException;
-
 import java.util.Scanner;
+
+import chatbot.exceptions.LocalFileException;
 
 /**
  * Class that represents User Interface which deals with user input and output.
  */
 public class Ui {
-    static final String line = "\t____________________________________________________________";
-    static final Scanner scanner = new Scanner(System.in);
+    private static final String line = "\t____________________________________________________________";
+    private static final Scanner scanner = new Scanner(System.in);
 
     /**
      * Display a separator line in the output.

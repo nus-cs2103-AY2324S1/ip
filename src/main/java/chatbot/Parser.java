@@ -41,7 +41,8 @@ public class Parser {
      * @throws MarkMissingFieldException when the command is not in the expected format (2 words)
      * @throws InvalidTaskIndexException when the second word cannot be interpreted as an integer
      */
-    public static int parseMarkCommand(String[] commandWords) throws MarkMissingFieldException, InvalidTaskIndexException {
+    public static int parseMarkCommand(String[] commandWords)
+            throws MarkMissingFieldException, InvalidTaskIndexException {
         if (commandWords.length != 2) {
             throw new MarkMissingFieldException();
         }
@@ -59,7 +60,8 @@ public class Parser {
      * @throws DeleteMissingFieldException when the command is not in the expected format (2 words)
      * @throws InvalidTaskIndexException when the second word cannot be interpreted as an integer
      */
-    public static int parseDeleteCommand(String[] commandWords) throws DeleteMissingFieldException, InvalidTaskIndexException {
+    public static int parseDeleteCommand(String[] commandWords)
+            throws DeleteMissingFieldException, InvalidTaskIndexException {
         if (commandWords.length != 2) {
             throw new DeleteMissingFieldException();
         }
@@ -76,7 +78,7 @@ public class Parser {
      * @return TodoTask instantiated with the name specified in the command
      * @throws TodoMissingFieldException when no task name is specified in the command
      */
-    public static Task parseTodoTaskCommand(String command) throws TodoMissingFieldException{
+    public static Task parseTodoTaskCommand(String command) throws TodoMissingFieldException {
         try {
             String name = command.substring(5);
             if (name.isEmpty()) {

@@ -1,17 +1,17 @@
 package chatbot;
 
-import chatbot.exceptions.InvalidTaskIndexException;
-import chatbot.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.function.Consumer;
+
+import chatbot.exceptions.InvalidTaskIndexException;
+import chatbot.tasks.Task;
 
 /**
  * Class that represents the list of tasks the user has created.
  */
 public class TaskList {
+    public static final int MAX_NUMBER_OF_TASKS = 100;
     private final ArrayList<Task> taskList;
-    static final int MAX_NUMBER_OF_TASKS = 100;
 
     /**
      * Constructor that instantiates a TaskList object with specified list of task.
@@ -47,7 +47,7 @@ public class TaskList {
         if (index < 1 || index > taskList.size()) {
             throw new InvalidTaskIndexException();
         }
-        Task task = taskList.get(index-1);
+        Task task = taskList.get(index - 1);
         task.markAs(isDone);
         return task.toString();
     }
@@ -62,7 +62,7 @@ public class TaskList {
         if (index < 1 || index > taskList.size()) {
             throw new InvalidTaskIndexException();
         }
-        Task task = taskList.get(index-1);
+        Task task = taskList.get(index - 1);
         taskList.remove(task);
         return task.toString();
     }
@@ -89,7 +89,7 @@ public class TaskList {
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
             sb.append(String.format("\t%d.%s\n",
-                    i+1,
+                    i + 1,
                     task.toString()));
         }
         return sb.toString();

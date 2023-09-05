@@ -1,12 +1,13 @@
 package chatbot.tasks;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
-import java.time.LocalDate;
 
-public class DeadlineTask extends Task{
-    public static String type = "D";
+
+public class DeadlineTask extends Task {
+    private static String type = "D";
     private LocalDate deadline;
     private String deadlineString;
 
