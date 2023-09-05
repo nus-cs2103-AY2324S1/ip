@@ -29,7 +29,7 @@ public class Ui {
      * Prints the number of tasks the user has in their list. Called to update the user
      * when the number of tasks in the list changes.
      *
-     * @param size the size of the list
+     * @param size the size of the list.
      */
     public void showNumberOfTasks(int size) {
         System.out.println(size == 1
@@ -49,7 +49,7 @@ public class Ui {
      * Prints when the user enters 'list' as a command, and there is at least one
      * task in the list.
      *
-     * @param tasks
+     * @param tasks tasks to be printed.
      */
     public void showTasks(String tasks) {
         System.out.println("(⇀‸↼‶)⊃━☆ﾟ.*･｡ﾟ Here are your tasks for the day:");
@@ -59,8 +59,8 @@ public class Ui {
     /**
      * Prints when the user adds a tasks successfully.
      *
-     * @param task     task that was added
-     * @param listSize task list size
+     * @param task     task that was added.
+     * @param listSize task list size.
      */
     public void showTaskAdded(Task task, int listSize) {
         System.out.println("(｀･ω･´)ﾉ New task added:\n" + task);
@@ -70,8 +70,8 @@ public class Ui {
     /**
      * Prints when the user deletes a task successfully.
      *
-     * @param toRemove task to remove
-     * @param listSize task list size
+     * @param toRemove task to remove.
+     * @param listSize task list size.
      */
     public void showDeleteTask(Task toRemove, int listSize) {
         System.out.println("ଘ(੭ˊᵕˋ)੭ Ok! I've removed this task:");
@@ -84,8 +84,8 @@ public class Ui {
      * not marked, success message is printed out. Else, unsuccessful message
      * printed.
      *
-     * @param isMarked true if the task is already marked
-     * @param task     task to be marked
+     * @param isMarked true if the task is already marked.
+     * @param task     task to be marked.
      */
     public void showMarkTask(boolean isMarked, Task task) {
         if (!isMarked) {
@@ -101,8 +101,8 @@ public class Ui {
      * Prints when the user attempts to unmark a task. If task is marked, success
      * message is printed out. Else, an unsuccessful message is printed.
      *
-     * @param isMarked true if the task is already marked
-     * @param task     task to be unmarked
+     * @param isMarked true if the task is already marked.
+     * @param task     task to be unmarked.
      */
     public void showUnmarkTask(boolean isMarked, Task task) {
         if (isMarked) {
@@ -118,7 +118,7 @@ public class Ui {
     /**
      * Prints the inputted error message.
      *
-     * @param message error message to be printed
+     * @param message error message to be printed.
      */
     public void showError(String message) {
         System.out.println(message);

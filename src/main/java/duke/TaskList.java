@@ -22,13 +22,13 @@ public class TaskList {
     /**
      * Returns true if the input taskID is in the range [0, list.size() -1].
      *
-     * @param taskID id to be checked
-     * @return true if the taskID is valid
-     * @throws InvalidTaskIDException if taskID is out of range
+     * @param taskId id to be checked.
+     * @return true if the taskID is valid.
+     * @throws InvalidTaskIdException if taskID is out of range.
      */
-    public boolean isValidTaskID(int taskID) throws InvalidTaskIDException {
-        if (taskID > this.list.size() - 1 || taskID < 0) {
-            throw new InvalidTaskIDException();
+    public boolean isValidTaskId(int taskId) throws InvalidTaskIdException {
+        if (taskId > this.list.size() - 1 || taskId < 0) {
+            throw new InvalidTaskIdException();
         }
         return true;
     }
@@ -65,7 +65,7 @@ public class TaskList {
      * Adds a task to the list. Calls storage.updateFile() to update the
      * data file.
      *
-     * @param task id of task to be added
+     * @param task id of task to be added.
      */
     public void addTask(Task task) {
         this.list.add(task);
@@ -77,13 +77,13 @@ public class TaskList {
      * Deletes a task from the list if the input taskID is valid.
      * Calls storage.updateFile() to update the data file.
      *
-     * @param taskID if of task to delete
-     * @throws InvalidTaskIDException if taskID is invalid
+     * @param taskId if of task to delete.
+     * @throws InvalidTaskIdException if taskID is invalid.
      */
-    public void deleteTask(int taskID) throws InvalidTaskIDException {
-        if (isValidTaskID(taskID)) {
-            Task toRemove = list.get(taskID);
-            list.remove(taskID);
+    public void deleteTask(int taskId) throws InvalidTaskIdException {
+        if (isValidTaskId(taskId)) {
+            Task toRemove = list.get(taskId);
+            list.remove(taskId);
             this.storage.updateFile(this.list);
             ui.showDeleteTask(toRemove, this.getListSize());
         }
@@ -92,10 +92,10 @@ public class TaskList {
     /**
      * Marks a task as completed, and updates storage.
      *
-     * @param taskID id of task to mark
+     * @param taskId id of task to mark.
      */
-    public void markTask(int taskID) {
-        Task task = this.list.get(taskID);
+    public void markTask(int taskId) {
+        Task task = this.list.get(taskId);
         if (task.canMark()) {
             ui.showMarkTask(false, task);
             this.storage.updateFile(this.list);
@@ -107,10 +107,10 @@ public class TaskList {
     /**
      * Marks a task as uncompleted, and updates storage.
      *
-     * @param taskID id of task to unmark
+     * @param taskId id of task to unmark.
      */
-    public void unmarkTask(int taskID) {
-        Task task = this.list.get(taskID);
+    public void unMarkTask(int taskId) {
+        Task task = this.list.get(taskId);
         if (task.canUnMark()) {
             ui.showUnmarkTask(true, task);
             this.storage.updateFile(this.list);
@@ -133,7 +133,7 @@ public class TaskList {
     /**
      * Returns the size of the list.
      *
-     * @return size of list
+     * @return size of list.
      */
     public int getListSize() {
         return this.list.size();

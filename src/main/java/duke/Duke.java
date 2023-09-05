@@ -11,10 +11,10 @@ public class Duke {
     private Ui ui;
 
     /**
-     * Class constructor for Duke. Initialises the ui, storage and tasks
-     * used in for the BUTTER chatbot program.
+     * Class constructor for Duke.
+     * Initialises the ui, storage and tasks used in for the BUTTER chatbot program.
      *
-     * @param filePath the path of the file containing results from previous interactions
+     * @param filePath the path of the file containing results from previous interactions.
      */
     public Duke(String filePath) {
         ui = new Ui();
@@ -23,8 +23,9 @@ public class Duke {
     }
 
     /**
-     * Runs the main logic of the program. Uses a scanner object to scan user input, and
-     * passes it to the parser object for interpretation.
+     * Runs the main logic of the program.
+     * Uses a scanner object to scan user input, and passes it to the
+     * parser object for interpretation.
      */
     public void run() {
         this.ui.greeting();

@@ -1,22 +1,25 @@
 package duke.tasks;
 
+/**
+ * Encapsulates a ToDo. Contains the task description, and
+ * completion status.
+ */
 public class ToDo extends Task {
 
     /**
      * Class constructor for ToDo.
      *
-     * @param status
-     * @param task
+     * @param status 0 for uncompleted, 1 or other numbers for completed.
+     * @param task   task description.
      */
     public ToDo(int status, String task) {
         super(status, task);
     }
 
     /**
-     * Converts ToDo to the correct string format to write to
-     * the data file.
+     * Converts ToDo to the correct string format to write to the data file.
      *
-     * @return string to write to data file
+     * @return string to write to data file.
      */
     @Override
     public String convertTask() {
@@ -24,10 +27,9 @@ public class ToDo extends Task {
     }
 
     /**
-     * Returns string representation of a ToDo
-     * object.
+     * Returns string representation of a ToDo object.
      *
-     * @return string ToDo
+     * @return string ToDo.
      */
     @Override
     public String toString() {
