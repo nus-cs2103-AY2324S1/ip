@@ -2,22 +2,22 @@ Hello I'm YONG
 What can I do for you? 
 ------------------------------------- 
 
-Okay! duke.tasks.Task added
+Okay! yong.tasks.Task added
 [T] [ ] BORROW BOOK
 
-Okay! duke.tasks.Task added
+Okay! yong.tasks.Task added
 [T] [ ] READ BOOK
 
-Okay! duke.tasks.Task added
+Okay! yong.tasks.Task added
 [T] [ ] JOIN CCA
 
 1: [T] [ ] BORROW BOOK
 2: [T] [ ] READ BOOK
 3: [T] [ ] JOIN CCA
-Okay! duke.tasks.Task added
+Okay! yong.tasks.Task added
 [D] [ ] RETURN BOOK  (by: SUNDAY)
 
-Okay! duke.tasks.Task added
+Okay! yong.tasks.Task added
 [E] [ ] PROJECT MEETING  (from: MON 2PM  to: 4PM)
 
 YONG has marked this task as completed! 
