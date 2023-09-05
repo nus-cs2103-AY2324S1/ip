@@ -8,8 +8,8 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    private final String GREETING = "Hello! I'm JED, your personal chat-bot!\nWhat can I do for you?";
-    private final String GOODBYE = "Bye. Hope to see you again soon!";
+    private static final String GREETING = "Hello! I'm JED, your personal chat-bot!\nWhat can I do for you?";
+    private static final String GOODBYE = "Bye. Hope to see you again soon!";
 
     private Scanner sc;
 

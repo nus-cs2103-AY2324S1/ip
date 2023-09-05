@@ -1,12 +1,20 @@
 package duke.parser;
 
-import duke.Duke;
-import duke.command.*;
-import duke.exception.DukeException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.DeadlineCommand;
+import duke.command.DeleteCommand;
+import duke.command.EventCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.ToDoCommand;
+import duke.command.UnmarkCommand;
+import duke.exception.DukeException;
 
 /**
  * The `Parser` class is responsible for parsing user input commands into executable commands.
@@ -64,7 +72,7 @@ public class Parser {
             try {
                 int deleteNumber = Integer.parseInt(commandArr[1].trim());
                 return new DeleteCommand(deleteNumber);
-            }  catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 throw new DukeException("OOPS!! Please indicate a number for the task.");
             }
         case "todo":
@@ -128,7 +136,7 @@ public class Parser {
                 throw new DukeException("OOPS!! Please include when the event is till.");
             }
             try {
-                LocalDateTime fromParsed =  LocalDateTime.parse(eventFrom, DATETIME_INPUT_FORMAT);
+                LocalDateTime fromParsed = LocalDateTime.parse(eventFrom, DATETIME_INPUT_FORMAT);
                 LocalDateTime toParsed = LocalDateTime.parse(eventTo, DATETIME_INPUT_FORMAT);
                 return new EventCommand(eventName, fromParsed, toParsed);
             } catch (DateTimeParseException e) {

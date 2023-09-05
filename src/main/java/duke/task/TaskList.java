@@ -43,7 +43,13 @@ public class TaskList {
     public int getCount() {
         return items.size();
     }
-    
+
+    /**
+     * Finds and returns the task(s) found based on the search keyword.
+     *
+     * @param keyword The text used to search for tasks, based on their names.
+     * @return The task(s) found with matching name(s).
+     */
     public ArrayList<Task> searchFor(String keyword) {
         ArrayList<Task> result = new ArrayList<>();
         for (Task item : items) {
