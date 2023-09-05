@@ -9,8 +9,6 @@ import smolbrain.exception.MissingKeywordException;
 import smolbrain.exception.MissingTimeException;
 import smolbrain.task.TaskList;
 
-import java.io.IOException;
-
 /**
  * Smolbrain class which is the chatbot. It takes in input to create and save tasks.
  */
@@ -26,6 +24,7 @@ public class Smolbrain {
      * Creates a smolbrain object.
      *
      * @param filePath Filepath of the save file.
+     * @param mainwindow MainWindow object for this application.
      */
     public Smolbrain(String filePath, MainWindow mainwindow) {
         ui = new Ui(mainwindow);
@@ -34,15 +33,16 @@ public class Smolbrain {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Processes the given input string to generate and execute commands.
+     *
+     * @param input Input string by user.
      */
     public void process(String input) {
         try {
             Command c = Parser.parse(input);
             c.execute(tasks, ui, storage);
-        } catch (InvalidRangeException | MissingDescriptionException | MissingTimeException |
-                 InvalidNumberException | InvalidDateTimeException | MissingKeywordException e) {
+        } catch (InvalidRangeException | MissingDescriptionException | MissingTimeException
+                 | InvalidNumberException | InvalidDateTimeException | MissingKeywordException e) {
             ui.showError(e);
         }
     }
@@ -51,27 +51,7 @@ public class Smolbrain {
      * Runs the smolbrain chatbot.
      */
     public void run() {
-
         ui.showWelcome();
-
     }
-//    public void run() {
-//
-//        ui.showWelcome();
-//        boolean isExit = false;
-//
-//        while (!isExit) {
-//            try {
-//                String input = ui.readCommand();
-//                ui.showLine();
-//                Command c = Parser.parse(input);
-//                c.execute(tasks, ui, storage);
-//                isExit = c.isExit();
-//            } catch (InvalidRangeException | MissingDescriptionException | MissingTimeException |
-//                     InvalidNumberException | InvalidDateTimeException | MissingKeywordException e) {
-//                ui.showError(e);
-//            }
-//            ui.showLine();
-//        }
-//    }
+
 }

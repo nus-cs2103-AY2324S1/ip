@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -26,19 +27,30 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/bot.png"));
 
+    /**
+     * Constructor for this class.
+     */
+    public MainWindow() {
+    }
+
+    /**
+     * Initialise the scrollPane.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Creates and run a new Smolbrain object.
+     */
     public void createSmolbrain() {
         smolbrain = new Smolbrain("data.txt", this);
         smolbrain.run();
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Retrieves the user's input and processes the command, then clear the user input field.
      */
     @FXML
     private void handleUserInput() {
@@ -48,20 +60,25 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Display the provided input string as a user dialog.
+     *
+     * @param input String to display.
+     */
     public void displayUserText(String input) {
         dialogContainer.getChildren().addAll(
-//                TextBox.getUserDialog(input)
-                UserDialog.getUserDialog(input, userImage)
-//                UserBox.getDialog(input)
+            UserDialog.getDialog(input, userImage)
         );
     }
 
-    public void displayBotText(String response) {
+    /**
+     * Display the provided input string as a bot dialog.
+     *
+     * @param input String to display.
+     */
+    public void displayBotText(String input) {
         dialogContainer.getChildren().addAll(
-//                TextBox.getDukeDialog(response)
-                DialogBox.getDukeDialog(response, dukeImage)
-//                TextBox.getDialog(response)
-
+            BotDialog.getDialog(input, dukeImage)
         );
     }
 

@@ -26,6 +26,7 @@ public class Storage {
      * Creates a storage object.
      *
      * @param filePath Filepath of the save file.
+     * @param ui Ui object used for this application.
      */
     public Storage(String filePath, Ui ui) {
         this.filePath = filePath;

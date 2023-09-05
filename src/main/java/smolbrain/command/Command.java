@@ -21,13 +21,6 @@ public interface Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidRangeException;
 
     /**
-     * Indicates if this command causes chatbot to exit.
-     *
-     * @return Boolean value if this command exits the chatbot.
-     */
-    public boolean isExit();
-
-    /**
      * Sets the flag that chatbot is loading to true.
      */
     public void setLoading();

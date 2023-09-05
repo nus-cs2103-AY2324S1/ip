@@ -18,6 +18,7 @@ public class TaskList {
      * Creates a tasklist with the given ArrayList of tasks.
      *
      * @param tasklist Tasklist using given ArrayList.
+     * @param ui Ui object used for this application.
      */
     public TaskList(ArrayList<Task> tasklist, Ui ui) {
         this.tasklist = tasklist;

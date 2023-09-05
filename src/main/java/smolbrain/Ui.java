@@ -12,6 +12,8 @@ public class Ui {
 
     /**
      * Creates a Ui object.
+     *
+     * @param mainwindow MainWindow object used for this application.
      */
     public Ui(MainWindow mainwindow) {
         sc = new Scanner(System.in);
@@ -56,10 +58,6 @@ public class Ui {
      * @param s Message to display.
      */
     public void showMessage(String s) {
-        mainwindow.displayBotText(s);
-    }
-
-    public void displayMessage(String s) {
         mainwindow.displayBotText(s);
     }
 

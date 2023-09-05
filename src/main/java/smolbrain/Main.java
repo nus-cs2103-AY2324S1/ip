@@ -10,10 +10,21 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Smolbrain chatbot using FXML.
  */
 public class Main extends Application {
 
+    /**
+     * Constructor for this class.
+     */
+    public Main() {
+    }
+
+    /**
+     * Starts the main application.
+     *
+     * @param stage Main primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
         try {
