@@ -58,6 +58,15 @@ public class Bongo {
     public Bongo() {
         this.ui = new Ui();
         this.storage = new Storage(FILEPATH);
+        try {
+            this.tasks = new TaskList(storage.load());
+        } catch (FileNotFoundException e) {
+            ui.showLoadingError();
+            storage.checkIfFilesExist();
+            this.tasks = new TaskList();
+        } catch (BongoException e) {
+            ui.showError(e.getMessage());
+        }
     }
 
     /**
@@ -68,7 +77,7 @@ public class Bongo {
         String response = "";
         try {
             Command c = Parser.parse(input);
-            c.execute(this.tasks, this.ui, this.storage);
+            response = c.execute(this.tasks, this.ui, this.storage);
         } catch (BongoException e) {
             response = e.getMessage();
         }

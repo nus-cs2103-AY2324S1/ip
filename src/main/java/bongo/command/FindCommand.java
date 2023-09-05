@@ -36,7 +36,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BongoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BongoException {
         ArrayList<Task> filteredTaskList = new ArrayList<>();
         ArrayList<Task> allTasks = tasks.getAllTasks();
         for (Task currentTask : allTasks) {
@@ -44,6 +44,6 @@ public class FindCommand extends Command {
                 filteredTaskList.add(currentTask);
             }
         }
-        ui.showSearchedTasks(filteredTaskList);
+        return ui.showSearchedTasks(filteredTaskList);
     }
 }

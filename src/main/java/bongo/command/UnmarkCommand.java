@@ -25,7 +25,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BongoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BongoException {
         if (tasks.getTotalTasks() == 0) {
             throw new BongoException("There are currently no tasks.");
         }
@@ -33,7 +33,7 @@ public class UnmarkCommand extends Command {
             throw new BongoException("Task does not exist.");
         }
         tasks.markTaskUndone(this.taskIndex);
-        ui.showTaskIsUndone(tasks.getTask(this.taskIndex));
         storage.edit(Storage.FileAction.UNMARK_TASK, this.taskIndex + 1);
+        return ui.showTaskIsUndone(tasks.getTask(this.taskIndex));
     }
 }

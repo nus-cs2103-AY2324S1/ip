@@ -16,9 +16,10 @@ public abstract class Command {
      * @param tasks   TaskList instance.
      * @param ui      Ui instance.
      * @param storage Storage instance.
+     * @return String representation after execution of command.
      * @throws BongoException If command is invalid.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws BongoException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws BongoException;
 
 
     /**

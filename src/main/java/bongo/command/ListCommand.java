@@ -10,7 +10,7 @@ import bongo.task.TaskList;
 public class ListCommand extends Command {
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showAllTasks(tasks.getAllTasks());
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showAllTasks(tasks.getAllTasks());
     }
 }

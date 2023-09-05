@@ -25,7 +25,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BongoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BongoException {
         if (tasks.getTotalTasks() == 0) {
             throw new BongoException("There are currently no tasks.");
         }
@@ -33,7 +33,7 @@ public class MarkCommand extends Command {
             throw new BongoException("Task does not exist.");
         }
         tasks.markTaskDone(this.taskIndex);
-        ui.showTaskIsDone(tasks.getTask(this.taskIndex));
         storage.edit(Storage.FileAction.MARK_TASK, this.taskIndex + 1);
+        return ui.showTaskIsDone(tasks.getTask(this.taskIndex));
     }
 }

@@ -59,10 +59,9 @@ public class Ui {
     /**
      * Shows goodbye message.
      */
-    public void showGoodbye() {
-        String goodbyeMessage = " Bye. Hope to see you again soon!";
-        System.out.println(goodbyeMessage);
+    public String showGoodbye() {
         this.inputScanner.close();
+        return " Bye. Hope to see you again soon!";
     }
 
     /**
@@ -70,14 +69,14 @@ public class Ui {
      *
      * @param tasks All user tasks.
      */
-    public void showAllTasks(ArrayList<Task> tasks) {
+    public String showAllTasks(ArrayList<Task> tasks) {
         StringBuilder allTasks = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             allTasks.append(String.format(" %d. %s\n", i + 1, tasks.get(i)));
         }
         String tasksList = " Here are the tasks in your list:\n"
                 + allTasks;
-        System.out.println(tasksList.trim());
+        return tasksList.trim();
     }
 
     /**
@@ -85,14 +84,14 @@ public class Ui {
      *
      * @param tasks All user tasks.
      */
-    public void showSearchedTasks(ArrayList<Task> tasks) {
+    public String showSearchedTasks(ArrayList<Task> tasks) {
         StringBuilder allTasks = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             allTasks.append(String.format(" %d. %s\n", i + 1, tasks.get(i)));
         }
         String tasksList = " Here are the matching tasks in your list:\n"
                 + allTasks;
-        System.out.println(tasksList.trim());
+        return tasksList.trim();
     }
 
     /**
@@ -101,11 +100,10 @@ public class Ui {
      * @param newTask    New Task to be added.
      * @param totalTasks Number of total tasks.
      */
-    public void showAddedTask(Task newTask, int totalTasks) {
-        String addedTaskMessage = " Got it. I've added this task:\n"
+    public String showAddedTask(Task newTask, int totalTasks) {
+        return " Got it. I've added this task:\n"
                 + String.format("  %s\n", newTask)
                 + String.format(" Now you have %d tasks in the list.", totalTasks);
-        System.out.println(addedTaskMessage);
     }
 
     /**
@@ -113,10 +111,10 @@ public class Ui {
      *
      * @param task Recently marked done task.
      */
-    public void showTaskIsDone(Task task) {
+    public String showTaskIsDone(Task task) {
         String taskStatusMessage = " Nice! I've marked this task as done:\n"
                 + task;
-        System.out.println(taskStatusMessage.trim());
+        return taskStatusMessage.trim();
     }
 
     /**
@@ -124,10 +122,10 @@ public class Ui {
      *
      * @param task Recently marked undone task.
      */
-    public void showTaskIsUndone(Task task) {
+    public String showTaskIsUndone(Task task) {
         String taskStatusMessage = " OK, I've marked this task as not done yet:\n"
                 + task;
-        System.out.println(taskStatusMessage.trim());
+        return taskStatusMessage.trim();
     }
 
     /**
@@ -136,11 +134,10 @@ public class Ui {
      * @param task      Task that was recently deleted.
      * @param tasksLeft Number of tasks left.
      */
-    public void showDeleteTask(Task task, int tasksLeft) {
-        String taskDeleteMessage = " Noted. I've removed this task:\n"
+    public String showDeleteTask(Task task, int tasksLeft) {
+        return " Noted. I've removed this task:\n"
                 + String.format("  %s\n", task)
                 + String.format(" Now you have %d tasks in the list.", tasksLeft);
-        System.out.println(taskDeleteMessage);
     }
 
     /**
