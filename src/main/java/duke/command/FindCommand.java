@@ -10,6 +10,7 @@ import duke.ui.Ui;
  * Represents a command to find tasks containing a specific keyword.
  */
 public class FindCommand extends Command {
+
     /** The keyword to search for in task descriptions */
     private final String keyword;
 
