@@ -1,6 +1,6 @@
 package Duke.Tasks;
 
-import Duke.*;
+import Duke.Parser;
 
 public class EventTask extends Task {
     private String event;
@@ -9,6 +9,7 @@ public class EventTask extends Task {
 
     public EventTask(String task) {
         super(task);
+        //Splitsy has been used as the result of the array to separate the words
         String[] splitsy =  task.split("/");
         event = splitsy[0];
         from = splitsy[1].split(" ", 2)[1];

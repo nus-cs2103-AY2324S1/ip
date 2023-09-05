@@ -3,8 +3,9 @@ package Duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import Duke.Tasks.*;
-import Duke.Exceptions.*;
+import Duke.Tasks.TaskList;
+import Duke.Exceptions.IncompleteInput;
+import Duke.Exceptions.InvalidInput;
 
 /**
  * The Parser class is responsible for parsing user input, processing commands, and formatting date and time.
@@ -26,6 +27,7 @@ public class Parser {
     public boolean inputs(String input, TaskList tasks, Ui iu) {
         String[] listOfWords = input.split(" ");
         String prefix = listOfWords[0];
+        //future has been used as the boolean which determines when to terminate program
         boolean future = true;
         try {
             if (input.equals("bye")) {

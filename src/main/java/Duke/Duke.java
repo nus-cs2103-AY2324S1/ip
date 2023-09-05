@@ -1,8 +1,7 @@
 package Duke;
 
 import java.util.Scanner;
-import Duke.Tasks.*;
-import Duke.Exceptions.*;
+import Duke.Tasks.TaskList;
 
 /**
  * The Duke class is the main class that serves as the entry point to the Duke application.

@@ -4,8 +4,6 @@ import Duke.Parser;
 
 public class DeadlineTask extends Task {
 
-    private String by;
-
     String str;
     String deadline;
     public DeadlineTask(String task) {
