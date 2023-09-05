@@ -1,9 +1,8 @@
 package duke.tasks;
 
 public class Deadline extends Task {
-    private static final String DONE_FLAG = "[X] ";
-    private static final String UNDONE_FLAG = "[ ] ";
     private static final String PRINT_FORMAT = "[D]%s %s (%s)";
+    private static final String STORE_FORMAT = "[D] | %s | %s | %s";
     private String by;
 
     public Deadline(String info, String by) {
@@ -12,9 +11,13 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String saveString() {
+        return String.format(STORE_FORMAT, getFlag(), this.getDescription().trim(), by);
+    }
+
+    @Override
     public String toString() {
-        String status = this.isDone() ? DONE_FLAG : UNDONE_FLAG;
-        return String.format(PRINT_FORMAT, status, this.getDescription(), by);
+        return String.format(PRINT_FORMAT, getFlag(), this.getDescription(), by);
     }
 }
 

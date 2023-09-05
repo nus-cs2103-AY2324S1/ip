@@ -1,9 +1,8 @@
 package duke.tasks;
 
 public class Event extends Task {
-    private static final String DONE_FLAG = "[X] ";
-    private static final String UNDONE_FLAG = "[ ] ";
     private static final String PRINT_FORMAT = "[E]%s %s (from: %s to: %s)";
+    private static final String STORE_FORMAT = "[E] | %s %s | %s | %s";
     private String from;
     private String to;
 
@@ -15,10 +14,13 @@ public class Event extends Task {
     }
 
     @Override
-    public String toString() {
+    public String saveString() {
+        return String.format(STORE_FORMAT, getFlag(), this.getDescription().trim(), from, to);
+    }
 
-        String status = this.isDone() ? DONE_FLAG : UNDONE_FLAG;
-        return String.format(PRINT_FORMAT, status, this.getDescription(), from, to);
+    @Override
+    public String toString() {
+        return String.format(PRINT_FORMAT, getFlag(), this.getDescription(), from, to);
 
     }
 }

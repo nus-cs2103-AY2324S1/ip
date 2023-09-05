@@ -29,6 +29,13 @@ public abstract class Task {
     public void unmark() {
         isDone = false;
     }
+
+    public String getFlag() {
+        return this.isDone() ? DONE_FLAG : UNDONE_FLAG;
+    }
+
+    public abstract String saveString();
+
     @Override
     public String toString() {
         return (isDone() ? DONE_FLAG : UNDONE_FLAG) + getDescription();
