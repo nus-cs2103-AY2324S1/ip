@@ -1,6 +1,7 @@
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 class TaskList {
     private ArrayList<Task> tasks;
@@ -8,6 +9,10 @@ class TaskList {
 
     public TaskList() {
         tasks = new ArrayList<>();
+    }
+
+    public TaskList(ArrayList<Task> arr) {
+        tasks = arr;
     }
 
     public void processCommand(String command) throws DukeException {
@@ -205,4 +210,44 @@ class TaskList {
                 throw new DukeException("Unknown task type in file.");
         }
     }
+    public List<Task> getAllTasks() {
+        return tasks;
+    }
+
+    public int getTotalTasks() {
+        return tasks.size();
+    }
+
+    public Task getTask(int index) {
+        if (index >= 0 && index < tasks.size()) {
+            return tasks.get(index);
+        } else {
+            return null;
+        }
+    }
+    public void markAsDone(int taskIndex) throws DukeException {
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            tasks.get(taskIndex).markAsDone();
+        } else {
+            throw new DukeException("Invalid task index.");
+        }
+    }
+
+    public void markAsNotDone(int taskIndex) throws DukeException {
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            tasks.get(taskIndex).markAsNotDone();
+        } else {
+            throw new DukeException("Invalid task index.");
+        }
+    }
+
+    public Task deleteTask(int taskIndex) throws DukeException {
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            Task deletedTask = tasks.remove(taskIndex);
+            return deletedTask;
+        } else {
+            throw new DukeException("Invalid task index.");
+        }
+    }
+
 }

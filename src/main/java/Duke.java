@@ -1,47 +1,64 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.loadTasksFromFile());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
+
+    public void run() {
+        ui.showWelcomeMessage();
+
         Scanner scanner = new Scanner(System.in);
-        TaskList tasks = new TaskList();
-        tasks.loadTasksFromFile();
-        Runtime.getRuntime().addShutdownHook(new Thread(tasks::saveTasksToFile));
-
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Axela");
-        System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
-
         while (true) {
             String command = scanner.nextLine();
-            System.out.println("____________________________________________________________");
 
             try {
-                if (command.equalsIgnoreCase("bye")) {
-                    System.out.println(" Bye. Hope to see you again soon!");
-                    System.out.println("____________________________________________________________");
+                if (Parser.isBye(command)) {
+                    ui.showGoodbyeMessage();
+                    storage.saveTasksToFile(tasks.getAllTasks());
                     break;
-                } else if (command.equalsIgnoreCase("list")) {
-                    System.out.println(" Here are the tasks in your list:");
-                    System.out.print(tasks);
-                } else if (command.startsWith("mark")) {
-                    tasks.markAsDone(command);
-                    tasks.saveTasksToFile();
-                } else if (command.startsWith("unmark")) {
-                    tasks.markAsNotDone(command);
-                    tasks.saveTasksToFile();
-                } else if (command.startsWith("delete")) {
-                    tasks.deleteTask(command);
-                    tasks.saveTasksToFile();
+                } else if (Parser.isList(command)) {
+                    ui.showTaskList(tasks.getAllTasks());
+                } else if (Parser.isMarkDone(command)) {
+                    int taskIndex = Parser.extractTaskIndex(command);
+                    tasks.markAsDone(taskIndex);
+                    ui.showTaskMarkedAsDone(tasks.getTask(taskIndex));
+                    storage.saveTasksToFile(tasks.getAllTasks());
+                } else if (Parser.isMarkNotDone(command)) {
+                    int taskIndex = Parser.extractTaskIndex(command);
+                    tasks.markAsNotDone(taskIndex);
+                    ui.showTaskMarkedAsNotDone(tasks.getTask(taskIndex));
+                    storage.saveTasksToFile(tasks.getAllTasks());
+                } else if (Parser.isDelete(command)) {
+                    int taskIndex = Parser.extractTaskIndex(command);
+                    Task deletedTask = tasks.deleteTask(taskIndex);
+                    ui.showTaskDeleted(deletedTask, tasks.getTotalTasks());
+                    storage.saveTasksToFile(tasks.getAllTasks());
                 } else {
-                    tasks.processCommand(command);
-                    tasks.saveTasksToFile();
+                    Task newTask = Parser.parseTask(command);
+                    tasks.addTask(newTask);
+                    ui.showTaskAdded(newTask, tasks.getTotalTasks());
+                    storage.saveTasksToFile(tasks.getAllTasks());
                 }
             } catch (DukeException e) {
-                System.out.println(" " + e.getMessage());
+                ui.showError(e.getMessage());
             }
-
-            System.out.println("____________________________________________________________");
         }
+    }
+
+    public static void main(String[] args) {
+        new Duke("./src/main/java/duke.txt").run();
     }
 }
