@@ -1,18 +1,20 @@
 package chadbod;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-import java.time.LocalDateTime;
+
 
 /**
  * The ChadBod class represents a task management application.
  */
 public class ChadBod {
     private static final String FILE_PATH = "./data/tasks.txt";
+    private static final int TASKLIST_DISPLAY_OFFSET = 1;
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private static final int TASKLIST_DISPLAY_OFFSET = 1;
+
 
     /**
      * Constructs a ChadBod instance.
@@ -109,8 +111,8 @@ public class ChadBod {
 
     private int getTaskNumber(String details) throws NumberFormatException, TaskIndexOutOfBoundsException {
         int unmarkTaskNumber = Integer.parseInt(details);
-        if (unmarkTaskNumber < ChadBod.TASKLIST_DISPLAY_OFFSET ||
-                unmarkTaskNumber > tasks.getTaskCount() - 1 + TASKLIST_DISPLAY_OFFSET) {
+        if (unmarkTaskNumber < ChadBod.TASKLIST_DISPLAY_OFFSET
+                || unmarkTaskNumber > tasks.getTaskCount() - 1 + TASKLIST_DISPLAY_OFFSET) {
             throw new TaskIndexOutOfBoundsException();
         }
         return unmarkTaskNumber - TASKLIST_DISPLAY_OFFSET;
@@ -152,7 +154,8 @@ public class ChadBod {
         if (eventTimings.length < 2 || eventTimings[1].isEmpty()) {
             throw new InvalidTaskException("Event from and to timings cannot be empty.");
         }
-        LocalDateTime fromDate, toDate;
+        LocalDateTime fromDate;
+        LocalDateTime toDate;
         try {
             fromDate = LocalDateTime.parse(eventTimings[0]);
             toDate = LocalDateTime.parse(eventTimings[1]);
