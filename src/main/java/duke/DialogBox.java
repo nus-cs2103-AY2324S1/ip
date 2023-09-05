@@ -6,17 +6,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 public class DialogBox extends HBox {
-
-    private Label text;
-    private ImageView displayPicture;
-
     public DialogBox(Label text, ImageView displayPicture, boolean isUser) {
-        this.text = text;
-        this.displayPicture = displayPicture;
 
         text.setWrapText(true);
-        displayPicture.setFitWidth(100.0);
-        displayPicture.setFitHeight(100.0);
+        displayPicture.setFitWidth(50);
+        displayPicture.setFitHeight(50);
 
         if (isUser) {
             this.setAlignment(Pos.TOP_RIGHT);

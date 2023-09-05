@@ -1,35 +1,30 @@
 package duke;
 
-import duke.task.TaskList;
-
 import javafx.application.Application;
+
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+
+import duke.task.TaskList;
 
 /**
  * Represents the Duke chatbot.
  */
 public class Duke extends Application {
-    private UI ui;
+    private final UI ui;
     private TaskList list;
-    private Storage storage;
+    private final Storage storage;
     private ScrollPane scrollPane;
-    private VBox dialogContainer;
     private TextField userInput;
+    private VBox dialogContainer;
     private Button sendButton;
-    private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image cortana = new Image(this.getClass().getResourceAsStream("/images/cortana.png"));
 
     /**
      * Constructor for Duke.
@@ -40,67 +35,66 @@ public class Duke extends Application {
         try {
             this.list = new TaskList(storage.loadFile());
         } catch (DukeException e) {
-            ui.displayException(e);
+            ui.displayException(e, dialogContainer);
             this.list = new TaskList();
         }
     }
 
-    private void performCommand(String line) {
+    protected void performCommand(String line, TaskList list, Storage storage) {
         try {
             CommandType command = Parser.parseCommand(line);
             switch (command) {
-            case LIST:
-                ui.displayList(list);
-                break;
-            case MARK:
-                ui.displayDoneTask(list.markDone(Parser.parseOptions(line)));
-                break;
-            case UNMARK:
-                ui.displayNotDoneTask(list.unmarkDone(Parser.parseOptions(line)));
-                break;
-            case TODO:
-                ui.displayAddToList(list.addTodoToList(Parser.parseOptions(line)), list.getSize());
-                break;
-            case DEADLINE:
-                ui.displayAddToList(list.addDeadlineToList(Parser.parseOptions(line)), list.getSize());
-                break;
-            case EVENT:
-                ui.displayAddToList(list.addEventToList(Parser.parseOptions(line)), list.getSize());
-                break;
-            case DELETE:
-                ui.displayRemoveFromList(list.deleteFromList(Parser.parseOptions(line)), list.getSize());
-                break;
-            case DEADLINEBY:
-                ui.displayTasks(list.getDeadlineDateTasks(Parser.parseOptions(line)));
-                break;
-            case EVENTFROM:
-                ui.displayTasks(list.getEventStartDateTasks(Parser.parseOptions(line)));
-                break;
-            case EVENTTO:
-                ui.displayTasks(list.getEventEndDateTasks(Parser.parseOptions(line)));
-                break;
-            case FIND:
-                ui.displayTasks(list.findTasks(Parser.parseOptions(line)));
-                break;
-            case BYE:
-                storage.saveTasksToFile(list);
-                ui.exit();
-            default:
-                break;
+                case LIST:
+                    ui.displayList(list, dialogContainer);
+                    break;
+                case MARK:
+                    ui.displayDoneTask(list.markDone(Parser.parseOptions(line)),
+                            dialogContainer);
+                    break;
+                case UNMARK:
+                    ui.displayNotDoneTask(list.unmarkDone(Parser.parseOptions(line)),
+                            dialogContainer);
+                    break;
+                case TODO:
+                    ui.displayAddToList(list.addTodoToList(Parser.parseOptions(line)),
+                            list.getSize(), dialogContainer);
+                    break;
+                case DEADLINE:
+                    ui.displayAddToList(list.addDeadlineToList(Parser.parseOptions(line)),
+                            list.getSize(), dialogContainer);
+                    break;
+                case EVENT:
+                    ui.displayAddToList(list.addEventToList(Parser.parseOptions(line)),
+                            list.getSize(), dialogContainer);
+                    break;
+                case DELETE:
+                    ui.displayRemoveFromList(list.deleteFromList(Parser.parseOptions(line)),
+                            list.getSize(), dialogContainer);
+                    break;
+                case DEADLINEBY:
+                    ui.displayTasks(list.getDeadlineDateTasks(Parser.parseOptions(line)),
+                            dialogContainer);
+                    break;
+                case EVENTFROM:
+                    ui.displayTasks(list.getEventStartDateTasks(Parser.parseOptions(line)),
+                            dialogContainer);
+                    break;
+                case EVENTTO:
+                    ui.displayTasks(list.getEventEndDateTasks(Parser.parseOptions(line)),
+                            dialogContainer);
+                    break;
+                case FIND:
+                    ui.displayTasks(list.findTasks(Parser.parseOptions(line)), dialogContainer);
+                    break;
+                case BYE:
+                    storage.saveTasksToFile(list);
+                    ui.exit(dialogContainer);
+                default:
+                    break;
             }
         } catch (DukeException e) {
-            ui.displayException(e);
+            ui.displayException(e, dialogContainer);
         }
-    }
-
-    private void handleUserInput() {
-        String input = userInput.getText();
-        Label userText = new Label(input);
-        Label responseText = new Label(input);
-        dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user), true),
-                new DialogBox(responseText, new ImageView(cortana), false)
-        );
     }
 
     @Override
@@ -112,11 +106,10 @@ public class Duke extends Application {
 
         userInput = new TextField();
         sendButton = new Button("Send");
-
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
-        scene = new Scene(mainLayout);
+        Scene scene = new Scene(mainLayout);
 
         // Styling the window
         stage.setTitle("Duke");
@@ -124,9 +117,9 @@ public class Duke extends Application {
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
 
-        mainLayout.setPrefSize(400.0, 600.0);
+        mainLayout.setPrefSize(500.0, 700.0);
 
-        scrollPane.setPrefSize(385, 535);
+        scrollPane.setPrefSize(500, 660);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
@@ -135,7 +128,7 @@ public class Duke extends Application {
 
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
-        userInput.setPrefWidth(325.0);
+        userInput.setPrefWidth(420.0);
 
         sendButton.setPrefWidth(55.0);
 
@@ -147,14 +140,20 @@ public class Duke extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
+        ui.greet(dialogContainer);
+
         // Add functionality to handle user input
         sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
+            String text = userInput.getText();
+            ui.displayUserInput(text, dialogContainer);
+            performCommand(text, list, storage);
             userInput.clear();
         });
 
         userInput.setOnAction((event) -> {
-            handleUserInput();
+            String text = userInput.getText();
+            ui.displayUserInput(text, dialogContainer);
+            performCommand(text, list, storage);
             userInput.clear();
         });
 
