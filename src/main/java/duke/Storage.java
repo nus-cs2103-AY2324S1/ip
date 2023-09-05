@@ -37,17 +37,13 @@ public class Storage {
 
     /**
      * Saves the task list to file.
-     * @param list The tasks list
-     * @throws DukeException if unable to write to file
+     * @param list The task list to be saved
+     * @throws IOException when unable to save to file
      */
-    public void saveTasksToFile(TaskList list) throws DukeException {
-        try {
-            FileWriter writer = new FileWriter(filePath);
-            writer.write(list.toLogString());
-            writer.close();
-        } catch (IOException e) {
-            throw new DukeException("Unable to save command to file");
-        }
+    public void saveTasksToFile(TaskList list) throws IOException {
+        FileWriter writer = new FileWriter(filePath);
+        writer.write(list.toLogString());
+        writer.close();
     }
 
     /**
