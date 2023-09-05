@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * The {@code Ui} class. Deals with interactions with the user.
+ */
 public class Ui {
 
     private final String name;

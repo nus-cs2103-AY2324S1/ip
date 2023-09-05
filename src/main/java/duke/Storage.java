@@ -9,6 +9,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * The {@code Storage} class. Deals with writing to, and reading from, text files.
+ */
 public class Storage {
     private final TaskList tasks;
 
@@ -39,7 +42,7 @@ public class Storage {
      * @param filePath Relative path of the text file containing details on the tasks.
      * @throws FileNotFoundException When the system is unable to find the specified file.
      * @throws IllegalArgumentException When the system is unable to parse the saved tasks,
-     * possibly due to the file being corrupted.
+     *     possibly due to the file being corrupted.
      */
     public void readTasksFromDisk(String filePath) throws FileNotFoundException,
             IllegalArgumentException {
@@ -117,15 +120,15 @@ public class Storage {
                 case DEADLINE:
                     bw.write(String.format("Deadline/%s/%c/%s",
                             t.getDetails(),
-                            t.isCompleted ? 'Y' : 'N',
-                            ((Deadline) t).due));
+                            t.isCompleted ? 'Y' : 'N', (
+                            (Deadline) t).due));
                     break;
                 case EVENT:
                     bw.write(String.format("Event/%s/%c/%s/%s",
                             t.getDetails(),
-                            t.isCompleted ? 'Y' : 'N',
-                            ((Event) t).start,
-                            ((Event) t).end));
+                            t.isCompleted ? 'Y' : 'N', (
+                            (Event) t).start, (
+                            (Event) t).end));
                     break;
                 case TASK:
                     bw.write(String.format("Task/%s/%c",

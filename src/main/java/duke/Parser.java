@@ -1,5 +1,6 @@
 package duke;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -8,12 +9,18 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * The {@code Parser} class. Deals with making sense of the user input.
+ */
 public class Parser {
 
     private final Ui ui;
     private final Duke duke;
     private final TaskList tasks;
 
+    /**
+     * Enumeration of all possible user commands.
+     */
     public enum Command {
         TASK, TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, COMMANDS, BYE, FIND
     }
@@ -43,12 +50,13 @@ public class Parser {
     public void readInput(String message) {
         try {
             executeCommand(Command.valueOf(message.toUpperCase()));
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.printf("I'm just a robot!%n"
                     + "I don't understand what %s is!%n", message);
             ui.incrementInvalidInputs();
             ui.printHorizontalLine();
+        } catch (IOException e) {
+            System.out.printf("Something went wrong: " + e);
         }
     }
 
@@ -57,7 +65,7 @@ public class Parser {
      *
      * @param command Command to be executed.
      */
-    public void executeCommand(Command command) {
+    public void executeCommand(Command command) throws IOException {
         switch (command) {
         case TASK:
             duke.createTask();
@@ -87,7 +95,7 @@ public class Parser {
             ui.printCommands();
             break;
         case BYE:
-            duke.isRunning = false;
+            duke.exit(0);
             break;
         case FIND:
             duke.findTask();
@@ -131,7 +139,7 @@ public class Parser {
      * @param taskType Type of the {@code Task} being instantiated.
      * @param input Description of the date input, to be printed in the UI.
      * @return {@code LocalDate} object corresponding to the user input if valid;
-     * null otherwise.
+     *     null otherwise.
      */
     public LocalDate checkDateInput(String taskType, String input) {
         Scanner sc = new Scanner(System.in);
@@ -162,7 +170,7 @@ public class Parser {
      * @param taskType Type of the {@code Task} being instantiated.
      * @param input Description of the time input, to be printed in the UI.
      * @return {@code LocalTime} object corresponding to the user input if valid;
-     * null otherwise.
+     *     null otherwise.
      */
     public LocalTime checkTimeInput(String taskType, String input) {
         Scanner sc = new Scanner(System.in);
@@ -194,7 +202,7 @@ public class Parser {
      * @param taskType Type of the {@code Task} being instantiated.
      * @param dateTime {@code LocalDateTime} of the {@code Task}.
      * @return {@code true} if the {@code LocalDateTime} is at or after the current system time;
-     * {@code false} otherwise.
+     *     {@code false} otherwise.
      */
     public boolean checkStartDateTime(String taskType, LocalDateTime dateTime) {
         if (dateTime.isBefore(LocalDateTime.now())) {
@@ -255,7 +263,7 @@ public class Parser {
      *
      * @param message Description of the command, to be printed in the UI.
      * @return {@code taskNumber} that corresponds to the index of the {@code Task} in the
-     * {@code TaskList} if input is valid; {@code null} otherwise.
+     *     {@code TaskList} if input is valid; {@code null} otherwise.
      */
     public Integer launchConfirmationScreen(String message) {
         Scanner sc = new Scanner(System.in);
@@ -274,8 +282,7 @@ public class Parser {
             } else {
                 return taskNumber;
             }
-        }
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             System.out.println("Request unsuccessful. (reason: invalid input)");
             return null;
         }

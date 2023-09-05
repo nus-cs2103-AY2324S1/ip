@@ -1,17 +1,16 @@
 package duke;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
 
 public class EventTest {
-
-
     @Test
     public void event_toString_success() {
         Event e = new Event("test",
@@ -24,7 +23,7 @@ public class EventTest {
     }
 
     @Test
-    public void event_completed_toString_success() {
+    public void eventCompleted_toString_success() {
         Event e = new Event("test", true,
                 LocalDateTime.of(LocalDate.of(2023, Month.JANUARY, 1),
                         LocalTime.of(0, 0)),

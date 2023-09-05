@@ -8,19 +8,22 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+/**
+ * The {@code Duke} class. Main class that drives other functions.
+ */
 public class Duke {
 
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
     private final Parser parser;
-    boolean isRunning = true;
 
     /**
      * Initiates a new {@code Duke} object.
      *
      * @throws IOException When the {@code saveTasksToDisk()} method in the {@code Storage} class
-     * fails to function properly.
+     *     fails to function properly.
      */
     public Duke() throws IOException {
         this.tasks = new TaskList();
@@ -35,7 +38,7 @@ public class Duke {
      * Also acts as a driver method for the {@code Parser} to read the user input.
      *
      * @throws IOException When the {@code saveTasksToDisk()} method in the {@code Storage} class
-     * fails to function properly.
+     *     fails to function properly.
      */
     public void run() throws IOException {
         storage.launchOnStart();
@@ -47,7 +50,7 @@ public class Duke {
         }
         ui.printSelfIntroduction();
         Scanner sc = new Scanner(System.in);
-        while (this.isRunning) {
+        while (true) {
             if (ui.getInvalidInputCount() >= 10) {
                 this.exit(1);
                 break;
@@ -139,8 +142,8 @@ public class Duke {
         }
         LocalDateTime start = startTime.atDate(startDate);
         LocalDateTime end = endTime.atDate(endDate);
-        if (parser.checkStartDateTime("event", end) &&
-                parser.checkTimeInterval("event", start, end)) {
+        if (parser.checkStartDateTime("event", end)
+                && parser.checkTimeInterval("event", start, end)) {
             tasks.add(new Event(details, start, end));
             System.out.printf("Wow, you have a %s?%n"
                     + "Uhh, n-not like I wanna join you!%n", details);
@@ -281,13 +284,13 @@ public class Duke {
      *               1 - Excessive invalid inputs from user.
      *               2 - When {@code FileNotFoundException} is thrown.
      * @throws IOException When the {@code saveTasksToDisk()} method in the {@code Storage} class
-     * fails to function properly.
+     *     fails to function properly.
      */
     public void exit(int status) throws IOException {
         storage.saveTasksToDisk("./data/tasks.txt", tasks);
         if (status == 1) {
-            System.out.printf("I've had enough of your nonsense!%n" +
-                    "Don't let me see you again!%n");
+            System.out.printf("I've had enough of your nonsense!%n"
+                    + "Don't let me see you again!%n");
         } else if (status == 0) {
             System.out.println("Finally I can rest. Bye!");
         }

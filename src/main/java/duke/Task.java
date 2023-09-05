@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * The {@code Task} class. Contains all methods that are common to any generic task.
+ */
 public class Task {
 
     protected String details;
@@ -20,7 +23,7 @@ public class Task {
      * The {@code isCompleted} parameter corresponds to the completion status in the last
      * instance of {@code Duke}.
      *
-     * @param details Details of the {@code Task}. 
+     * @param details Details of the {@code Task}.
      * @param isCompleted Completion status of the {@code Task}.
      */
     public Task(String details, boolean isCompleted) {

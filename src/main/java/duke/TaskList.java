@@ -2,11 +2,19 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * The {@code TaskList} class. Deals with storing tasks and performing
+ * operations on tasks.
+ */
 public class TaskList {
 
     private final ArrayList<Task> tasks;
     private int numOfTasks = 0;
     private int numOfCompletedTasks = 0;
+
+    /**
+     * Enumeration of all task types, for type checking purposes.
+     */
     public enum TaskType {
         TASK, TODO, DEADLINE, EVENT
     }
@@ -76,7 +84,7 @@ public class TaskList {
      * Checks if there are completed tasks in the {@code ArrayList}.
      *
      * @return {@code true} iff the {@code ArrayList} contains at least one completed task;
-     * {@code false} otherwise.
+     *     {@code false} otherwise.
      */
     public boolean hasCompletedTasks() {
         return this.numOfCompletedTasks > 0;
@@ -102,7 +110,7 @@ public class TaskList {
      *
      * @param details Details to be checked.
      * @return {@code true} iff there exists a {@code Task} with the given details;
-     * false otherwise.
+     *     false otherwise.
      */
     public boolean checkDuplicates(String details) {
         for (Task t : tasks) {

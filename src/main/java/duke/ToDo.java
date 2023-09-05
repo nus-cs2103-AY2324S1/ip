@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * The {@code ToDo} class.
+ */
 public class ToDo extends Task {
 
 
