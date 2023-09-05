@@ -1,20 +1,19 @@
 package duke.storage;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 /**
  * The `Storage` class handles reading and writing tasks to and from a data
@@ -53,20 +52,20 @@ public class Storage {
                 boolean isDone = Integer.parseInt(lineArr[1]) == 1;
                 String name = lineArr[2];
                 switch (taskType) {
-                    case "T":
-                        items.add(new ToDo(name, isDone));
-                        break;
-                    case "D":
-                        String by = lineArr[3];
-                        items.add(new Deadline(name, LocalDateTime.parse(by), isDone));
-                        break;
-                    case "E":
-                        String from = lineArr[3];
-                        String to = lineArr[4];
-                        items.add(new Event(name, LocalDateTime.parse(from), LocalDateTime.parse(to), isDone));
-                        break;
-                    default:
-                        continue;
+                case "T":
+                    items.add(new ToDo(name, isDone));
+                    break;
+                case "D":
+                    String by = lineArr[3];
+                    items.add(new Deadline(name, LocalDateTime.parse(by), isDone));
+                    break;
+                case "E":
+                    String from = lineArr[3];
+                    String to = lineArr[4];
+                    items.add(new Event(name, LocalDateTime.parse(from), LocalDateTime.parse(to), isDone));
+                    break;
+                default:
+                    continue;
                 }
             }
             reader.close();

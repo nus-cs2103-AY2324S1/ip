@@ -1,12 +1,12 @@
 package duke.command;
 
+import java.time.LocalDateTime;
+
 import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
-
-import java.time.LocalDateTime;
 
 /**
  * The `EventCommand` class represents a command to add an event task to the task list.
