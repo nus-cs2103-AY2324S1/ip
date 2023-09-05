@@ -22,12 +22,12 @@ public class Todo extends Task {
      * @param data Data to be read and stored in list.
      */
     public static void readData(ArrayList<Task> list, String data) {
-        String splitTodo[] = data.split(" \\| ");
+        String[] splitTodo = data.split(" \\| ");
 
         Task todoTask = new Todo(splitTodo[2]);
         list.add(todoTask);
         if (splitTodo[1].equals("1")) {
-            list.get(list.size()-1).markDoneNoPrint();
+            list.get(list.size() - 1).markDoneNoPrint();
         }
     }
 

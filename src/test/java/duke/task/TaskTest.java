@@ -1,13 +1,12 @@
 package duke.task;
 
-import duke.parser.Parser;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 class ParserTest {
 
 
-    Task task = new Task("Test class");
+    private Task task = new Task("Test class");
     @Test
     public void testGetDescription_success() {
         assertEquals("Test class", task.getDescription());

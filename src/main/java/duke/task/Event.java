@@ -29,13 +29,13 @@ public class Event extends Task {
      * @param data Data to be read and stored in list.
      */
     public static void readData(ArrayList<Task> list, String data) {
-        String splitEvent[] = data.split(" \\| ");
+        String[] splitEvent = data.split(" \\| ");
 
 
         Task eventTask = new Event(splitEvent[2], splitEvent[3] + " ", splitEvent[4]);
         list.add(eventTask);
         if (splitEvent[1].equals("1")) {
-            list.get(list.size()-1).markDoneNoPrint();
+            list.get(list.size() - 1).markDoneNoPrint();
         }
     }
 

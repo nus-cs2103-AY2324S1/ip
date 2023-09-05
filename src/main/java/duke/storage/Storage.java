@@ -1,11 +1,14 @@
 package duke.storage;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 import duke.taskList.TaskList;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+
 
 /**
  * deals with loading tasks from the file and saving tasks in the file.
@@ -26,14 +29,14 @@ public class Storage {
     public void load(TaskList list) {
         try {
             File theDir = new File("./src/main/data");
-            if (!theDir.exists()){
+            if (!theDir.exists()) {
                 theDir.mkdirs();
             }
             File myObj = new File("./src/main/data/duke.txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                String type = data.substring(0,1);
+                String type = data.substring(0, 1);
                 switch (type) {
                     case "T":
                         Todo.readData(list.getList(), data);
@@ -43,6 +46,8 @@ public class Storage {
                         break;
                     case "E":
                         Event.readData(list.getList(), data);
+                        break;
+                    default:
                         break;
                 }
             }

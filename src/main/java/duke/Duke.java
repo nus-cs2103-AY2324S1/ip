@@ -1,10 +1,11 @@
 package duke;
 
-import java.util.Scanner;
-import duke.ui.Ui;
+import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.taskList.TaskList;
-import duke.parser.Parser;
+import duke.ui.Ui;
+import java.util.Scanner;
+
 
 /**
  * A chatbot inspired by the Java Mascot: duke.Duke.
@@ -33,10 +34,12 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser();
 
-        while(true) {
+        while (true) {
             String command = sc.nextLine();
             boolean isBye = parser.parseCommand(command, tasks);
-            if (isBye) { break; }
+            if (isBye) {
+                break;
+            }
         }
     }
 

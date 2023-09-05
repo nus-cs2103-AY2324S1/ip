@@ -1,6 +1,7 @@
 package duke.parser;
 
 import java.util.regex.Pattern;
+
 import duke.command.Commands;
 import duke.dukeException.DukeException;
 import duke.taskList.TaskList;
@@ -9,21 +10,21 @@ import duke.taskList.TaskList;
  * deals with making sense of the user duke.command.
  */
 public class Parser {
+
+    private Pattern listRegex = Pattern.compile("^" + Commands.LIST, Pattern.CASE_INSENSITIVE);
+    private Pattern markRegex = Pattern.compile("^" + Commands.MARK, Pattern.CASE_INSENSITIVE);
+    private Pattern unmarkRegex = Pattern.compile("^" + Commands.UNMARK, Pattern.CASE_INSENSITIVE);
+    private Pattern deadlineRegex = Pattern.compile("^" + Commands.DEADLINE, Pattern.CASE_INSENSITIVE);
+    private Pattern todoRegex = Pattern.compile("^" + Commands.TODO, Pattern.CASE_INSENSITIVE);
+    private Pattern eventRegex = Pattern.compile("^" + Commands.EVENT, Pattern.CASE_INSENSITIVE);
+    private Pattern deleteRegex = Pattern.compile("^" + Commands.DELETE, Pattern.CASE_INSENSITIVE);
+    private Pattern findRegex = Pattern.compile("^" + Commands.FIND, Pattern.CASE_INSENSITIVE);
     /**
      * The constructor for the Parser class.
      */
     public Parser() {
 
     }
-    Pattern listRegex = Pattern.compile("^" + Commands.LIST, Pattern.CASE_INSENSITIVE);
-    Pattern markRegex = Pattern.compile("^" + Commands.MARK, Pattern.CASE_INSENSITIVE);
-    Pattern unmarkRegex = Pattern.compile("^" + Commands.UNMARK, Pattern.CASE_INSENSITIVE);
-    Pattern deadlineRegex = Pattern.compile("^" + Commands.DEADLINE, Pattern.CASE_INSENSITIVE);
-    Pattern todoRegex = Pattern.compile("^" + Commands.TODO, Pattern.CASE_INSENSITIVE);
-    Pattern eventRegex = Pattern.compile("^" + Commands.EVENT, Pattern.CASE_INSENSITIVE);
-    Pattern deleteRegex = Pattern.compile("^" + Commands.DELETE, Pattern.CASE_INSENSITIVE);
-    Pattern findRegex = Pattern.compile("^" + Commands.FIND, Pattern.CASE_INSENSITIVE);
-
 
     /**
      * This will be responsible for parsing user duke.command
@@ -69,5 +70,13 @@ public class Parser {
                 return false;
             }
         }
+    }
+
+    public Pattern getListRegex() {
+        return this.listRegex;
+    }
+
+    public Pattern getFindRegex() {
+        return this.findRegex;
     }
 }

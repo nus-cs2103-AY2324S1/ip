@@ -1,9 +1,10 @@
 package duke.task;
 
-import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+
 
 /**
  * The Deadline class, which is a type of class.
@@ -57,7 +58,7 @@ public class Deadline extends Task {
 
         list.add(deadlineTask);
         if (splitDeadline[1].equals("1")) {
-            list.get(list.size()-1).markDoneNoPrint();
+            list.get(list.size() - 1).markDoneNoPrint();
         }
     }
 

@@ -1,10 +1,5 @@
 package duke.taskList;
 
-import duke.dukeException.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,6 +9,11 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import duke.dukeException.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 /**
  * Contains the duke.task list e.g., it has operations to add/delete tasks in the list
@@ -53,7 +53,7 @@ public class TaskList {
      * @param command The duke.command specifying which duke.task to delete.
      */
     public void deleteTask(String command) {
-        String splitCommand[] = command.split(" ");
+        String[] splitCommand = command.split(" ");
         try {
             if (splitCommand.length != 2) {
                 throw new DukeException("Please insert a numerical value to delete");
@@ -66,9 +66,7 @@ public class TaskList {
                     throw new DukeException("The delete value is out of range");
                 }
             }
-
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             printHorizontalLine();
             System.out.println(e.getMessage());
             printHorizontalLine();
@@ -94,7 +92,9 @@ public class TaskList {
                 }
                 currLine++;
                 String data = myReader.nextLine();
-                if (data.equals("")) { break; }
+                if (data.equals("")) {
+                    break;
+                }
                 FileWriter myWriter = new FileWriter("./src/main/data/tmpDuke.txt", true);
                 myWriter.write(data + "\n");
                 myWriter.close();
@@ -108,7 +108,7 @@ public class TaskList {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-        System.out.println("Now you have " + list.size() + " tasks in the list." );
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
         printHorizontalLine();
     }
 
@@ -118,8 +118,7 @@ public class TaskList {
      * @param command The duke.command specifying what Event to add.
      */
     public void addEvent(String command) {
-//        event project meeting /from Mon 2pm /to 4pm
-        String splitCommand[] = command.split(" ");
+        String[] splitCommand = command.split(" ");
 
         try {
             boolean hasFrom = false;
@@ -155,14 +154,10 @@ public class TaskList {
 
             if (hasFrom == false) {
                 throw new DukeException("Please insert event is /from when");
-            }
-
-            if (hasTo == false) {
+            } else if (hasTo == false) {
                 throw new DukeException("Please insert event is /to when");
             }
-
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             printHorizontalLine();
             System.out.println(e.getMessage());
             printHorizontalLine();
@@ -181,14 +176,14 @@ public class TaskList {
         list.add(eventTask);
         try {
             FileWriter myWriter = new FileWriter("./src/main/data/duke.txt", true);
-            myWriter.write(  "E | 0 | " + description + "| " + from + "| " + to +"\n");
+            myWriter.write("E | 0 | " + description + "| " + from + "| " + to + "\n");
             myWriter.close();
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
         System.out.println(eventTask);
-        System.out.println("Now you have " + list.size() + " tasks in the list." );
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
         printHorizontalLine();
     }
 
@@ -199,14 +194,13 @@ public class TaskList {
      */
     public void addTodo(String command) {
 
-        String splitCommand[] = command.split(" ");
+        String[] splitCommand = command.split(" ");
 
         try {
             if (splitCommand.length == 1) {
                 throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
             }
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             printHorizontalLine();
             System.out.println(e.getMessage());
             printHorizontalLine();
@@ -218,7 +212,7 @@ public class TaskList {
         Task todoTask = new Todo(description);
         try {
             FileWriter myWriter = new FileWriter("./src/main/data/duke.txt", true);
-            myWriter.write(  "T | 0 | " + description + "\n");
+            myWriter.write("T | 0 | " + description + "\n");
             myWriter.close();
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -227,7 +221,7 @@ public class TaskList {
 
         list.add(todoTask);
         System.out.println(todoTask);
-        System.out.println("Now you have " + list.size() + " tasks in the list." );
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
         printHorizontalLine();
     }
 
@@ -236,7 +230,7 @@ public class TaskList {
      * @param command Command specifying what deadline to add.
      */
     public void addDeadline(String command) {
-        String splitCommand[] = command.split(" ");
+        String[] splitCommand = command.split(" ");
 
         try {
             boolean hasBy = false;
@@ -262,8 +256,7 @@ public class TaskList {
                 throw new DukeException("Please insert deadline is /by when");
             }
 
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             printHorizontalLine();
             System.out.println(e.getMessage());
             printHorizontalLine();
@@ -285,7 +278,7 @@ public class TaskList {
 
         try {
             FileWriter myWriter = new FileWriter("./src/main/data/duke.txt", true);
-            myWriter.write(  "D | 0 | " + description + "| " + date + "\n");
+            myWriter.write("D | 0 | " + description + "| " + date + "\n");
             myWriter.close();
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -294,7 +287,7 @@ public class TaskList {
 
         list.add(deadlineTask);
         System.out.println(deadlineTask);
-        System.out.println("Now you have " + list.size() + " tasks in the list." );
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
         printHorizontalLine();
     }
 
@@ -332,14 +325,13 @@ public class TaskList {
      * @param command The command specifying the task.
      */
     public void findTasks(String command) {
-        String splitCommand[] = command.split(" ");
+        String[] splitCommand = command.split(" ");
 
         try {
             if (splitCommand.length == 1) {
                 throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
             }
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             printHorizontalLine();
             System.out.println(e.getMessage());
             printHorizontalLine();

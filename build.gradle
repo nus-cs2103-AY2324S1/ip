@@ -5,6 +5,10 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+checkstyle {
+    toolVersion = '10.2'
+}
+
 repositories {
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
@@ -31,7 +35,6 @@ test {
 
 application {
     mainClass.set("duke.Duke")
-    mainClassName = 'duke.Main'
 }
 
 shadowJar {
