@@ -1,7 +1,5 @@
 package duke.util;
 
-import java.util.Scanner;
-
 import duke.task.Task;
 
 /**
@@ -9,38 +7,24 @@ import duke.task.Task;
  */
 public class Ui {
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
-    private Scanner scanner;
     private String message;
 
     /**
      * Constructor for UI class.
      */
     public Ui() {
-        this.scanner = new Scanner(System.in);
         this.message = "";
-    }
-
-    /**
-     * Returns the next line of user input from the user interface.
-     *
-     * @return Next line of user input.
-     */
-    public String nextCommand() {
-        if (!scanner.hasNextLine()) {
-            return "";
-        }
-        return scanner.nextLine();
     }
 
     /**
      * Prints the entry message of the chatbot.
      */
-    public void printEntryMessage() {
+    public String printEntryMessage() {
         String entryMessage = HORIZONTAL_LINE
                 + "Hello! I'm Chad \n"
                 + "What can I do for you? \n"
                 + HORIZONTAL_LINE;
-        System.out.println(entryMessage);
+        return entryMessage;
     }
 
     /**
@@ -58,6 +42,12 @@ public class Ui {
         System.out.print(this.message);
         System.out.println(HORIZONTAL_LINE);
         this.message = "";
+    }
+
+    public String showMessage() {
+        String output = this.message;
+        this.message = "";
+        return output;
     }
 
     /**
