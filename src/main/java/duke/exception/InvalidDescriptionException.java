@@ -12,7 +12,7 @@ public class InvalidDescriptionException extends Exception {
     public InvalidDescriptionException(String task) {
         super("☹ OOPS!!! "
                 + (task.equals("find")
-                ?  "You didn't indicate the keyword."
+                ? "You didn't indicate the keyword."
                 : "The description of a " + task + " cannot be empty."));
     }
 }

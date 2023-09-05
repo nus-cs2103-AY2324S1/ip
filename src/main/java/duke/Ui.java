@@ -11,8 +11,8 @@ public class Ui {
      * Displays a default start message when the program starts.
      */
     public void startMessage() {
-        System.out.println("Hello friend :> My name is John, nice to meet you! " +
-                "What do you have to do today?");
+        System.out.println("Hello friend :> My name is John, nice to meet you! "
+                + "What do you have to do today?");
     }
 
     /**
@@ -36,8 +36,8 @@ public class Ui {
      * @param totalTasks The total number of tasks in the list after adding.
      */
     public void showTaskAdded(Task task, int totalTasks) {
-        System.out.println("Got it. I've added this task:\n  " + task +
-                "\nNow you have " + totalTasks + " tasks in the list.");
+        System.out.println("Got it. I've added this task:\n  " + task
+                + "\nNow you have " + totalTasks + " tasks in the list.");
     }
 
     /**
