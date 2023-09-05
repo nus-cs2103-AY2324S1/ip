@@ -25,8 +25,8 @@ public class TaskList {
         this.taskList.get(index).markAsDone();
     }
 
-    public void markAsUndone(int index) {
-        this.taskList.get(index).markAsUndone();
+    public void unmarkAsDone(int index) {
+        this.taskList.get(index).unmarkAsDone();
     }
 
     public void delete(int index) {
