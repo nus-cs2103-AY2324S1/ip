@@ -1,13 +1,16 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import exceptions.ExcessiveArgumentException;
+import exceptions.IncorrectInputException;
+import exceptions.NoDescriptionException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
-import vedaexceptions.ExcessiveArgumentException;
-import vedaexceptions.IncorrectInputException;
-import vedaexceptions.NoDescriptionException;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 public class ParserTest {
     @Test
@@ -25,21 +28,21 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_statementWithExitFront_negativeOne() {
+    public void parse_statementWithExitFront_returnNegativeOne() {
         int methodType = Parser.parse("bye world");
 
         assertEquals(-1, methodType);
     }
 
     @Test
-    public void parse_statementWithExitMiddle_negativeOne() {
+    public void parse_statementWithExitMiddle_returnNegativeOne() {
         int methodType = Parser.parse("good bye cruel world");
 
         assertEquals(-1, methodType);
     }
 
     @Test
-    public void parse_listCall_One() {
+    public void parse_listCall_returnOne() {
         int methodType = Parser.parse("list");
 
         assertEquals(1, methodType);
@@ -51,7 +54,9 @@ public class ParserTest {
         int methodTypeTwo = Parser.parse("deadline see you /by 08/12/2023 0800");
         int methodTypeThree = Parser.parse("event bye world /from 08/12/2023 0900 /to 0900");
 
-        String actualOutput = String.valueOf(methodTypeOne) + String.valueOf(methodTypeTwo) + String.valueOf(methodTypeThree);
+        String actualOutput = String.valueOf(methodTypeOne)
+                + String.valueOf(methodTypeTwo)
+                + String.valueOf(methodTypeThree);
 
         assertEquals("555", actualOutput);
     }
@@ -93,19 +98,26 @@ public class ParserTest {
 
     @Test
     public void getTask_deadlineTaskArgument_deadlineTask() {
-        final String ARG = "deadline test mission /by 08/08/2023 0800";
-        final Task ACTUAL_TASK = Parser.getTask(ARG);
+        final String arg = "deadline test mission /by 08/08/2023 0800";
+        final Task actualTask = Parser.getTask(arg);
 
         //We test if they are equal if they return the same storage form
-        assertEquals(new Deadline("test mission", "08/08/2023 0800").convertToStorageForm(), ACTUAL_TASK.convertToStorageForm());
+        assertEquals(new Deadline(
+                "test mission",
+                "08/08/2023 0800").convertToStorageForm(),
+                actualTask.convertToStorageForm());
     }
 
     @Test
     public void getTask_eventTaskArgument_eventTask() {
-        final String ARG = "event test mission /from 08/08/2023 0800 /to 0900";
-        final Task ACTUAL_TASK = Parser.getTask(ARG);
+        final String arg = "event test mission /from 08/08/2023 0800 /to 0900";
+        final Task actualTask = Parser.getTask(arg);
 
         //We test if they are equal if they return the same storage form
-        assertEquals(new Event("test mission", "08/08/2023 0800", "0900").convertToStorageForm(), ACTUAL_TASK.convertToStorageForm());
+        assertEquals(new Event(
+                "test mission",
+                "08/08/2023 0800",
+                "0900")
+                .convertToStorageForm(), actualTask.convertToStorageForm());
     }
 }

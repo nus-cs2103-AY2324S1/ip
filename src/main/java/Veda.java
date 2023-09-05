@@ -1,7 +1,8 @@
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-import vedaexceptions.IncorrectInputException;
-import vedaexceptions.NoDescriptionException;
+
+import exceptions.IncorrectInputException;
+import exceptions.NoDescriptionException;
 
 /**
  * Veda is the main class for the chatbot application "Veda".
@@ -9,7 +10,6 @@ import vedaexceptions.NoDescriptionException;
  * @author Sebastian Tay
  */
 public class Veda {
-
     private static final Storage storage = new Storage();
     private static final TaskList tasks = new TaskList(storage);
     private static final Ui ui = new Ui(new Scanner(System.in));

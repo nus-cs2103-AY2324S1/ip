@@ -1,4 +1,4 @@
-package vedaexceptions;
+package exceptions;
 
 /**
  * ExcessiveArgumentException is a form of IncorrectInputException that is thrown when the user provides more arguments

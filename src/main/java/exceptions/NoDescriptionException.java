@@ -1,4 +1,4 @@
-package vedaexceptions;
+package exceptions;
 
 /**
  * NoDescriptionException is a form of IncorrectInputException that is thrown when the user omits certain description
