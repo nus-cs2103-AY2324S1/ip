@@ -6,6 +6,7 @@ import duke.command.AddCommand;
 import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.DeleteComand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
@@ -123,6 +124,17 @@ public class Parser {
             }
             commandDetailList.add(taskToDelete);
             command = new DeleteComand(commandDetailList);
+            break;
+        case "find":
+            if (firstSpaceIndex == -1 || strCommand.length() < 8) {
+                throw new DukeException("☹ OOPS!!! The find keyword cannot be empty.");
+            }
+            String keyword = strCommand.substring(firstSpaceIndex + 1);
+            if (keyword.isBlank()) {
+                throw new DukeException("☹ OOPS!!! The find keyword cannot be empty.");
+            }
+            commandDetailList.add(keyword);
+            command = new FindCommand(commandDetailList);
             break;
         default:
             throw new DukeException("☹ OOPS!!! This command is invalid.");

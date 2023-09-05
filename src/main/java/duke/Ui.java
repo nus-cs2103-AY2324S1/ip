@@ -49,6 +49,13 @@ public class Ui {
      * @param taskList The TaskList to be displayed.
      */
     public void printList(TaskList taskList) {
+        if (taskList.size() == 0) {
+            System.out.println(LINE);
+            System.out.println("There are no tasks on your list.\n"
+                    + "Use todo, event or deadline command to add tasks to your list.");
+            System.out.println(LINE + "\n");
+            return;
+        }
         System.out.println(LINE);
         for (int i = 0; i < taskList.size(); i++) {
             System.out.println(Integer.toString(i + 1)
@@ -138,5 +145,26 @@ public class Ui {
     public String readCommand() {
         Scanner input = new Scanner(System.in);
         return input.nextLine();
+    }
+
+    /**
+     * Prints the list of found tasks to the console.
+     *
+     * @param taskList The TaskList to be displayed.
+     */
+    public void printFind(TaskList taskList) {
+        System.out.println(LINE);
+        if (taskList.size() == 0) {
+            System.out.println("There are no matching tasks in your list.");
+            System.out.println(LINE);
+            return;
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println(Integer.toString(i + 1)
+                    + ". "
+                    + taskList.get(i));
+        }
+        System.out.println(LINE + "\n");
     }
 }
