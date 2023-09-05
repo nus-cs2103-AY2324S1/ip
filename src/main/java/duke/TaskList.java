@@ -92,31 +92,26 @@ public class TaskList {
      * @param typeOfTask the type of the task to be added
      * @throws DukeException if invalid or incorrect command
      */
-    public void addTask(String[] task, String typeOfTask) throws DukeException {
+    public String addTask(String[] task, String typeOfTask) throws DukeException {
         switch (typeOfTask) {
         case "event":
             try {
                 this.tasks.add(new Event(task[0], LocalDateTime.parse(task[1], this.inputFormatter),
                         LocalDateTime.parse(task[2], this.inputFormatter)));
             } catch (DateTimeParseException exception) {
-                System.out.println("Invalid start and end date/time. The format should be yyyy-mm-dd hh:mm");
-                break;
+                return "Invalid start and end date/time. The format should be yyyy-mm-dd hh:mm";
             }
-            System.out.println(printAddTaskSuccessMessage());
-            break;
+            return printAddTaskSuccessMessage();
         case "todo":
             this.tasks.add(new Todo(task[1]));
-            System.out.println(printAddTaskSuccessMessage());
-            break;
+            return printAddTaskSuccessMessage();
         case "deadline":
             try {
                 this.tasks.add(new Deadline(task[0], LocalDateTime.parse(task[1], this.inputFormatter)));
             } catch (DateTimeParseException exception) {
-                System.out.println("Invalid start and end date/time. The format should be yyyy-mm-dd hh:mm");
-                break;
+                return "Invalid start and end date/time. The format should be yyyy-mm-dd hh:mm";
             }
-            System.out.println(printAddTaskSuccessMessage());
-            break;
+            return printAddTaskSuccessMessage();
         default:
             throw new DukeException(ExceptionTypes.INVALIDCOMMAND);
         }
@@ -129,7 +124,7 @@ public class TaskList {
      * @param taskNumber the task number of the task
      * @throws DukeException if invalid or incorrect command
      */
-    public void removeTask(int taskNumber) throws DukeException {
+    public String removeTask(int taskNumber) throws DukeException {
         if (this.tasks.isEmpty()) {
             throw new DukeException(ExceptionTypes.DELETEEMPTYLIST);
         }
@@ -138,7 +133,7 @@ public class TaskList {
         }
         Task task = this.tasks.get(taskNumber - 1);
         this.tasks.remove(task);
-        System.out.println(printRemoveTaskSuccessMessage(task));
+        return printRemoveTaskSuccessMessage(task);
     }
 
     /**
@@ -150,7 +145,7 @@ public class TaskList {
      * @param action to mark or unmark the task
      * @throws DukeException if invalid or incorrect command
      */
-    public void markTask(int taskNumber, String action) throws DukeException {
+    public String markTask(int taskNumber, String action) throws DukeException {
         switch(action) {
         case "mark":
             if (this.tasks.isEmpty()) {
@@ -159,11 +154,12 @@ public class TaskList {
             if (taskNumber > this.tasks.size() || taskNumber <= 0) {
                 throw new DukeException(ExceptionTypes.INVALIDTASKNUMBER);
             }
-            System.out.println("Nice! I've marked this task as done:");
+            StringBuilder markedMessage = new StringBuilder();
+            markedMessage.append("Nice! I've marked this task as done:");
             Task markTask = this.tasks.get(taskNumber - 1);
             markTask.markAsDone();
-            System.out.println(markTask.toString());
-            break;
+            markedMessage.append(markTask.toString());
+            return markedMessage.toString();
         case "unmark":
             if (this.tasks.isEmpty()) {
                 throw new DukeException(ExceptionTypes.UNMARKEMPTYLIST);
@@ -171,11 +167,12 @@ public class TaskList {
             if (taskNumber > this.tasks.size() || taskNumber <= 0) {
                 throw new DukeException(ExceptionTypes.INVALIDTASKNUMBER);
             }
-            System.out.println("OK, I've marked this task as not done yet:");
+            StringBuilder unmarkedMessage = new StringBuilder();
+            unmarkedMessage.append("OK, I've marked this task as not done yet:");
             Task unmarkTask = this.tasks.get(taskNumber - 1);
             unmarkTask.markAsNotDone();
-            System.out.println(unmarkTask.toString());
-            break;
+            unmarkedMessage.append(unmarkTask.toString());
+            return unmarkedMessage.toString();
         default:
             throw new DukeException(ExceptionTypes.INVALIDCOMMAND);
         }
@@ -187,23 +184,26 @@ public class TaskList {
      *
      * @param keyword the keyword to be searched
      */
-    public void findTask(String keyword) {
+    public String findTask(String keyword) {
         if (this.tasks.isEmpty()) {
-            System.out.println("There are no matching tasks in the list.");
-            return;
+            return "There are no matching tasks in the list.";
         }
         int count = 1;
+        StringBuilder list = new StringBuilder();
         for (Task task : this.tasks) {
             if (task.toString().contains(keyword) || task.getTaskType().contains(keyword)) {
                 if (count == 1) {
-                    System.out.println("Here are the matching task(s) in your list:");
+                    list.append("Here are the matching task(s) in your list:");
                 }
-                System.out.println(count + ". " + task.toString());
+                list.append(count);
+                list.append(". ");
+                list.append(task.toString());
                 count++;
             }
         }
         if (count == 1) {
-            System.out.println("There are no matching tasks in the list.");
+            return "There are no matching tasks in the list.";
         }
+        return list.toString();
     }
 }
