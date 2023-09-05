@@ -1,24 +1,30 @@
-# duke project template
+# ToDoBot 📃
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+> "You put the work in and then that confidence builds up and you start to do things you really didn't know you can do."
+>
+> -[James Harden](https://www.google.com/search?sca_esv=562741715&rlz=1C1CHZN_enSG1047SG1047&sxsrf=AB5stBhKYQgnAOVs5-ECKwxh9O1Wb992MA:1693920082402&q=motivational+quotes+athletes&tbm=isch&source=lnms&sa=X&sqi=2&ved=2ahUKEwig-aeGyJOBAxVm2TgGHUnrBXsQ0pQJegQIDhAB&biw=1024&bih=513&dpr=1.88#imgrc=3YTPWsMci9VbFM) (some NBA player)
 
-## Setting up in Intellij
+ToDoBot shows you that a problem written down is a prolem half-solved. It's
+- text-activated
+- easy to use
+- ~~pretty~~ _SUPA_ cool
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## Features
+- [ ] Add
+- [ ] Delete
+- [X] Mark
+- [ ] Unmark
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/duke.java` file, right-click it, and choose `Run duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+# How to download
+1. click [here](https://github.com/yezkez10/ip).
+2. download
+3. use it!
+
+Here's a snippet!
+```
+ public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        tasks = new TaskList(storage.getTaskList());
+    }
+```
