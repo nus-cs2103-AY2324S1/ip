@@ -11,6 +11,11 @@ import duke.util.Ui;
 public class DeleteCommand extends Command {
     private int index;
 
+    /**
+     * Constructor for DeleteCommand class.
+     *
+     * @param index The TaskList index of the Task to be deleted.
+     */
     public DeleteCommand(int index) {
         super(false);
         this.index = index;
