@@ -1,4 +1,4 @@
-package duke.test;
+package test;
 import duke.Storage;
 import org.junit.jupiter.api.Test;
 import duke.TaskList;
@@ -9,10 +9,11 @@ import java.io.FileNotFoundException;
 public class StorageTest {
     Storage storage = new Storage();
 
-    @Test
-    //This test checks whether the files can be created locally on computers
+    //@Test
+        //This test checks whether the files can be created locally on computers
     //and whether the tasks can be saved on the file successfully
     //and can be loaded successfully
+    @Test
     void testSaveAndLoadTasks() {
         TaskList tasks = new TaskList();
         tasks.addTask(new ToDo("go on a holiday"));

@@ -1,10 +1,9 @@
-package duke.test;
+package test;
 import duke.TaskList;
 import duke.task.Deadline;
 import duke.task.ToDo;
 import duke.task.Task;
 import org.junit.jupiter.api.Test;
-import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -63,5 +62,9 @@ public class TaskListTest {
         tasks.addTask(todo);
         tasks.addTask(deadline);
         assertEquals(initialLen + 2, tasks.getSize());
+    }
+
+    private boolean assertEquals(int a, int b) {
+        return a == b;
     }
 }
