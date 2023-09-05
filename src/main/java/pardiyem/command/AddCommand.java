@@ -22,13 +22,11 @@ public class AddCommand extends Command {
             toAdd = new Todo(desc);
             break;
         case 2: {
-            ArrayList<String> args = Deadline.parseDesc(desc);
-            toAdd = new Deadline(args.get(0), args.get(1));
+            toAdd = new Deadline(desc);
             break;
         }
         case 3: {
-            ArrayList<String> args = Event.parseDesc(desc);
-            toAdd = new Event(args.get(0), args.get(1), args.get(2));
+            toAdd = new Event(desc);
             break;
         }
         }

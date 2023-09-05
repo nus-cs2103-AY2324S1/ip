@@ -48,6 +48,11 @@ public class Event extends Task {
         this(description, from, to, false);
     }
 
+    public Event(String command) {
+        this(parseDesc(command).get(0), parseDesc(command).get(1), parseDesc(command).get(2));
+    }
+
+
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s%s to: %s%s)", 
@@ -58,7 +63,7 @@ public class Event extends Task {
                 toTime != null ? " " + toTime.toString() : "");
     }
 
-    public static ArrayList<String> parseDesc(String desc) throws IllegalArgumentException {
+    private static ArrayList<String> parseDesc(String desc) throws IllegalArgumentException {
         int i = desc.indexOf("/from");
         if (i == -1) {
             throw new IllegalArgumentException("Whoops, you forgot to indicate the starting time by using \"/from *insert starting time*\"");

@@ -32,6 +32,10 @@ public class Deadline extends Task {
         this(description, doBy, false);
     }
 
+    public Deadline(String command) {
+        this(parseDesc(command).get(0), parseDesc(command).get(1));
+    }
+
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s%s)",
@@ -40,7 +44,7 @@ public class Deadline extends Task {
                 doByTime != null ? " " + doByTime.toString() : "");
     }
 
-    public static ArrayList<String> parseDesc(String desc) throws IllegalArgumentException {
+    private static ArrayList<String> parseDesc(String desc) throws IllegalArgumentException {
         int i = desc.indexOf("/by");
         if (i == -1) {
             throw new IllegalArgumentException("Whoops, you forgot to indicate the deadline by using \"/by *insert deadline*\"");
