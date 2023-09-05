@@ -1,9 +1,9 @@
-package Remy.command;
+package remy.command;
 
-import Remy.ChatbotException;
-import Remy.Storage;
-import Remy.Task.TaskList;
-import Remy.Ui;
+import remy.ChatbotException;
+import remy.Storage;
+import remy.task.TaskList;
+import remy.Ui;
 import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;

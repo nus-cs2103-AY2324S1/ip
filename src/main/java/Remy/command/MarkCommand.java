@@ -1,9 +1,9 @@
-package Remy.command;
+package remy.command;
 
-import Remy.Task.TaskList;
-import Remy.Ui;
-import Remy.Storage;
-import Remy.ChatbotException;
+import remy.task.TaskList;
+import remy.Ui;
+import remy.Storage;
+import remy.ChatbotException;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -31,7 +31,7 @@ public class MarkCommand extends Command {
         if (!matcher.matches()) {
             throw new ChatbotException("missing info lah.");
         }
-        int index = Integer.parseInt(matcher.group(1));
+        int index = Integer.parseInt(matcher.group(1)) - 1;
         if (index >= 0) {
             this.index = index;
         }

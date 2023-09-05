@@ -1,8 +1,8 @@
-package Remy.command;
-import Remy.Task.TaskList;
-import Remy.Ui;
-import Remy.Storage;
-import Remy.ChatbotException;
+package remy.command;
+import remy.task.TaskList;
+import remy.Ui;
+import remy.Storage;
+import remy.ChatbotException;
 
 /**
  * A representation of a Command that parses user input and follows-up with the relevant action.

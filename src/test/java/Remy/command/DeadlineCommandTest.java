@@ -1,6 +1,6 @@
-package Remy.command;
+package remy.command;
 
-import Remy.ChatbotException;
+import remy.ChatbotException;
 
 import org.junit.jupiter.api.Test;
 

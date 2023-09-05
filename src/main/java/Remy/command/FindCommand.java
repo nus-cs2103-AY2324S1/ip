@@ -1,10 +1,9 @@
-package Remy.command;
-import Remy.ChatbotException;
-import Remy.Storage;
-import Remy.Task.TaskList;
-import Remy.Ui;
+package remy.command;
+import remy.ChatbotException;
+import remy.Storage;
+import remy.task.TaskList;
+import remy.Ui;
 
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

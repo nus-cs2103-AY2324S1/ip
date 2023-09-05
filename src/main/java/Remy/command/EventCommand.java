@@ -1,10 +1,10 @@
-package Remy.command;
+package remy.command;
 
-import Remy.Task.TaskList;
-import Remy.Ui;
-import Remy.Storage;
-import Remy.ChatbotException;
-import Remy.Task.Event;
+import remy.task.TaskList;
+import remy.Ui;
+import remy.Storage;
+import remy.ChatbotException;
+import remy.task.Event;
 
 /**
  * A Command that creates and adds an Event to the TaskList upon executing.

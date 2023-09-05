@@ -1,4 +1,4 @@
-package Remy.Task;
+package remy.task;
 
 public class Event extends Task {
 

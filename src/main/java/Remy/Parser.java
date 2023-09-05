@@ -1,14 +1,15 @@
-package Remy;
+package remy;
 
-import Remy.command.Command;
-import Remy.command.DeadlineCommand;
-import Remy.command.DeleteCommand;
-import Remy.command.EventCommand;
-import Remy.command.ExitCommand;
-import Remy.command.ListCommand;
-import Remy.command.MarkCommand;
-import Remy.command.TodoCommand;
-import Remy.command.UnmarkCommand;
+import remy.command.Command;
+import remy.command.DeadlineCommand;
+import remy.command.DeleteCommand;
+import remy.command.EventCommand;
+import remy.command.ExitCommand;
+import remy.command.FindCommand;
+import remy.command.ListCommand;
+import remy.command.MarkCommand;
+import remy.command.TodoCommand;
+import remy.command.UnmarkCommand;
 
 /**
  * A class that makes sense of user inputs.
@@ -16,7 +17,7 @@ import Remy.command.UnmarkCommand;
 public class Parser {
 
     /**
-     * Parses user input and carries out any follow-up action (e.g. Remy.Remy.Task.Remy.Remy.Task creation).
+     * Parses user input and carries out any follow-up action (e.g. remy.remy.Task.remy.remy.Task creation).
      * Solution below inspired by addressbook Level 2 implementation.
      *
      * @param input

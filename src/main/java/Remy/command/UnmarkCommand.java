@@ -1,9 +1,9 @@
-package Remy.command;
+package remy.command;
 
-import Remy.Task.TaskList;
-import Remy.Ui;
-import Remy.Storage;
-import Remy.ChatbotException;
+import remy.task.TaskList;
+import remy.Ui;
+import remy.Storage;
+import remy.ChatbotException;
 
 /**
  * A Command that marks a given Task as undone upon executing.

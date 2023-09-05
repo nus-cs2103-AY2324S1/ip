@@ -1,7 +1,4 @@
-/**
- * Package name does not follow style guidelines due to Gradle issue.
- */
-package Remy.Task;
+package remy.task;
 
 import java.io.Serializable;
 
@@ -50,6 +47,6 @@ public class Task implements Serializable {
      */
     @Override
     public String toString() {
-        return getStatusIcon() + this.description;
+        return getStatusIcon() + " " + this.description;
     }
 }

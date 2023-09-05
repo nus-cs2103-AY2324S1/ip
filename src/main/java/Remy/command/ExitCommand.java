@@ -1,8 +1,8 @@
-package Remy.command;
+package remy.command;
 
-import Remy.Task.TaskList;
-import Remy.Ui;
-import Remy.Storage;
+import remy.task.TaskList;
+import remy.Ui;
+import remy.Storage;
 
 /**
  * Represents an Exit Command that ends the Chatbot session upon executing.

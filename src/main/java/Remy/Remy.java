@@ -1,7 +1,7 @@
-package Remy;
+package remy;
 
-import Remy.command.Command;
-import Remy.Task.TaskList;
+import remy.command.Command;
+import remy.task.TaskList;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 

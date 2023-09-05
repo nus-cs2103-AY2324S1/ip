@@ -1,7 +1,7 @@
-package Remy;
+package remy;
 
-import Remy.Task.Task;
-import Remy.Task.TaskList;
+import remy.task.Task;
+import remy.task.TaskList;
 
 import java.util.Scanner;
 

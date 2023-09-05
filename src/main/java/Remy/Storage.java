@@ -1,11 +1,11 @@
-package Remy;
+package remy;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import Remy.Task.TaskList;
+import remy.task.TaskList;
 
 public class Storage {
 

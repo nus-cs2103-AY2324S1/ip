@@ -1,12 +1,9 @@
-package Remy.command;
+package remy.command;
 
-import Remy.Task.TaskList;
-import Remy.Ui;
-import Remy.Storage;
-import Remy.ChatbotException;
-
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
+import remy.task.TaskList;
+import remy.Ui;
+import remy.Storage;
+import remy.ChatbotException;
 
 /**
  * A Command that deletes the given Task from the TaskList upon executing.

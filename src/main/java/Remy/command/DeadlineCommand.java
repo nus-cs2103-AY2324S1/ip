@@ -1,10 +1,10 @@
-package Remy.command;
+package remy.command;
 
-import Remy.Task.TaskList;
-import Remy.Ui;
-import Remy.Storage;
-import Remy.ChatbotException;
-import Remy.Task.Deadline;
+import remy.task.TaskList;
+import remy.Ui;
+import remy.Storage;
+import remy.ChatbotException;
+import remy.task.Deadline;
 
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;

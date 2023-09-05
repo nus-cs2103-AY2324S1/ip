@@ -1,4 +1,4 @@
-package Remy;
+package remy;
 
 public class ChatbotException extends Exception {
 

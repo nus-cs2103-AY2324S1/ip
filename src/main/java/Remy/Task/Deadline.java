@@ -1,4 +1,4 @@
-package Remy.Task;
+package remy.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
