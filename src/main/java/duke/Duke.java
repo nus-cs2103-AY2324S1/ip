@@ -10,7 +10,7 @@ import duke.util.TaskList;
 import duke.util.Ui;
 
 /**
- * This program is a chatbot, somebodyhaha, used to mark completion of tasks
+ * This program is a chatbot, B055man, used to mark completion of tasks
  * marking the completion of tasks.
  */
 public class Duke {
@@ -20,7 +20,7 @@ public class Duke {
     private final Ui ui;
 
     /**
-     * Duke class that initialises a Duke Chatbot.
+     * Duke class that initialises a B055man Chatbot.
      * @param filePath path location of the file to read previous stores
      */
     public Duke(String filePath) {
@@ -35,7 +35,7 @@ public class Duke {
     }
 
     /**
-     * Runs the duke bot.
+     * Runs the B055man bot.
      */
     public void run() {
         ui.showWelcome();
