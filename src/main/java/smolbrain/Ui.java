@@ -22,9 +22,7 @@ public class Ui {
      * Displays a welcome message to the user.
      */
     public void showWelcome() {
-//        mainwindow.displayBotText("____________________________________________________________");
         mainwindow.displayBotText("Hello! I'm Smolbrain\nWhat can I do for you?");
-//        mainwindow.displayBotText("____________________________________________________________");
     }
 
     /**
@@ -49,7 +47,7 @@ public class Ui {
      * @param e Exception encountered by program.
      */
     public void showError(Exception e) {
-        mainwindow.displayBotText("☹ OOPS!!! " + e);
+        mainwindow.displayBotText("OOPS!!! " + e);
     }
 
     /**
