@@ -43,6 +43,21 @@ public class Parser {
             } else if (input.startsWith("list")) {
                 ui.printListMessage(tasks);
                 storage.writeTasksToFile(tasks);
+            } else if (input.startsWith("find")) {
+                String keyword = input.substring(5).trim();
+                TaskList foundTasks = new TaskList();
+                for (int i = 0; i < tasks.getSize(); i++) {
+                    Task task = tasks.getTask(i);
+                    if (task.getDescription().contains(keyword)) {
+                        foundTasks.addTask(task);
+                    }
+                }
+
+                if (foundTasks.getSize() > 0) {
+                    ui.printFindTask(foundTasks);
+                } else {
+                    System.out.println("\tNo tasks found containing the keyword: " + keyword);
+                }
             } else {
                 throw new DukeException("\tHey bud! Sorry I don't quite know what you mean :-(");
             }
