@@ -14,25 +14,51 @@ import exceptions.InvalidArgumentException;
 import exceptions.InvalidCommandException;
 import exceptions.NoDeadlineException;
 
+/**
+ * A task list app that allows the user to add Todos, Deadlines, and Events.
+ * The app saves the list locally on the computer, and thus can remember tasks entered previously.
+ * The user can add tasks, delete tasks, mark tasks as done, list all tasks, and search for them by date and name.
+ */
 public class Hachi {
 
-    private static String dataPath = "./data";
-    private static String taskPath = "./data/tasks.txt";
+    private static final String DEFAULT_TASK_PATH = "./data/tasks.txt";
 
     private Ui ui;
 
     private Storage storage;
 
+    private String filePath;
+
+    /**
+     * Overloaded constructor for the Hachi class.
+     * Initialises the UI, Storage, and uses the default filePath to store the tasks at.
+     */
+    public Hachi() {
+        ui = new Ui();
+        storage = new Storage();
+        filePath = DEFAULT_TASK_PATH;
+    }
+
+    /**
+     * Overloaded constructor for the Hachi class.
+     * Initialises the UI, Storage, and takes in a filePath to store the tasks at.
+     * @param filePath The relative location to store the text file for the tasks in.
+     */
     public Hachi(String filePath) {
         ui = new Ui();
         storage = new Storage();
+        this.filePath = filePath;
     }
 
     public static void main(String[] args) throws HachiException {
-        new Hachi(taskPath).run();
+        new Hachi(DEFAULT_TASK_PATH).run();
 
     }
 
+    /**
+     * Runs the task list program.
+     * @throws HachiException
+     */
     public void run() throws HachiException {
         String name = "Hachi";
 
@@ -172,7 +198,7 @@ public class Hachi {
                     Parser.checkArgumentLength(SearchdateCommand.COMMAND_WORD, arguments.length);
                     LocalDate searchDate = LocalDate.parse(arguments[0]);
                     ArrayList<Task> filteredDates = new ArrayList<>();
-                    tasks.forEach(task -> {
+                    taskList.iter(task -> {
                         if (task.isDateWithinRange(searchDate)) {
                             filteredDates.add(task);
                         }

@@ -13,13 +13,27 @@ import exceptions.HachiException;
 import exceptions.NumberOutOfBoundsException;
 import exceptions.TooManyArgumentsException;
 
+/**
+ * Provides all the parsing methods for the other classes to parse user commands.
+ */
 public class Parser {
 
+    /**
+     * Splits the raw user command into two parts, the main command word and an array of the arguments.
+     * @param cmd The raw user command
+     * @return A Command object that encapsulates both the main command word and the array of arguments.
+     */
     public static Command parse(String cmd) {
         String[] words = cmd.split(" ");
         return new Command(words[0], Arrays.copyOfRange(words, 1, words.length));
     }
 
+    /**
+     * Throws the appropriate error if the argument length is wrong. Otherwise, does nothing.
+     * @param commandWord The command word whose arguments we are checking.
+     * @param argumentLength The number of arguments which the user passed in.
+     * @throws HachiException The appropriate exception if argument length is wrong.
+     */
     public static void checkArgumentLength(String commandWord, int argumentLength)
             throws HachiException {
         switch (commandWord) {
@@ -104,6 +118,12 @@ public class Parser {
         return index;
     }
 
+    /**
+     * Parses the array of arguments passed in, depending on the type of task the arguments are for.
+     * @param taskType The type of task for which to parse the arguments for.
+     * @param arg The array of arguments to be parsed.
+     * @return The final parsed string.
+     */
     public static String parseTaskArguments(String taskType, String[] arg) {
         switch (taskType) {
 
@@ -115,6 +135,12 @@ public class Parser {
 
     }
 
+    /**
+     * Converts a list of tasks in string format to a TaskList object.
+     * @param ls The list of tasks in string format
+     * @return The corresponding TaskList object
+     * @throws HachiException
+     */
     public static TaskList parseTaskList(List<String> ls) throws HachiException {
         ArrayList<Task> result = new ArrayList<>();
         for (String s : ls) {
@@ -123,6 +149,15 @@ public class Parser {
         return new TaskList(result);
     }
 
+    /**
+     * Converts a number that is in string format into a number in integer format. Throws an error
+     * if the task number exceeds the total number of tasks in the file.
+     * @param num The number in string format
+     * @param numOfTasks The total number of tasks in the file.
+     * @return The number in integer format
+     * @throws NumberFormatException If the number passed in cannot be parsed into an integer.
+     * @throws NumberOutOfBoundsException If the task number exceeds the total number of tasks in the file.
+     */
     public static int parseTaskNumber(String num, int numOfTasks)
             throws NumberFormatException, NumberOutOfBoundsException {
         int number = Integer.parseInt(num);

@@ -5,9 +5,22 @@ import java.time.format.DateTimeFormatter;
 
 import exceptions.DateWrongOrderException;
 
+/**
+ * Represents a Event object, extending the Task object.
+ * Includes two additional fields to track the start and end date.
+ * Overrides its representations in storage and in string format.
+ */
 public class Event extends Task {
     private LocalDate startDate;
     private LocalDate endDate;
+
+    /**
+     * Constructor for the Event class.
+     * @param taskName Name of the event.
+     * @param startDate Start date of the event.
+     * @param endDate End date of the event.
+     * @throws DateWrongOrderException If the provided dates are in the wrong order.
+     */
     public Event(String taskName, LocalDate startDate, LocalDate endDate) throws DateWrongOrderException {
         super(taskName);
         if (startDate.isAfter(endDate)) {

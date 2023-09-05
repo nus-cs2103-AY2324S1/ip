@@ -1,5 +1,9 @@
 package hachi;
 
+/**
+ * Represents a Todo object, extending the Task object.
+ * Overrides its representations in storage and in string format.
+ */
 public class Todo extends Task {
 
     public Todo(String taskName) {

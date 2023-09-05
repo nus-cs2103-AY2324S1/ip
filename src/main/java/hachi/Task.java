@@ -2,6 +2,10 @@ package hachi;
 
 import java.time.LocalDate;
 
+/**
+ * Represents the individual tasks in the task list.
+ * Includes their completion status, name, and various methods.
+ */
 public class Task {
     private boolean completed = false;
     private String taskName = "";
@@ -10,10 +14,16 @@ public class Task {
         this.taskName = taskName;
     }
 
+    /**
+     * Marks the task as completed.
+     */
     public void mark() {
         this.completed = true;
     }
 
+    /**
+     * Marks the task as not completed.
+     */
     public void unmark() {
         this.completed = false;
     }
