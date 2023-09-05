@@ -6,17 +6,17 @@ package bob.task;
  */
 public class Deadline extends Task {
 
-    protected String by;
+    protected String dueDate;
 
     /**
      * Constructor of the Deadline Class.
      *
      * @param description Text description of Deadline Task
-     * @param by Due date of Deadline task
+     * @param dueDate Due date of Deadline task
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String dueDate) {
         super(description);
-        this.by = DateFormatter.format(by, "MMM d yyyy");
+        this.dueDate = DateFormatter.format(dueDate, "MMM d yyyy");
     }
 
     /**
@@ -30,16 +30,16 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by, boolean isDone) {
         super(description, isDone);
-        this.by = DateFormatter.format(by, "MMM d yyyy");
+        this.dueDate = DateFormatter.format(by, "MMM d yyyy");
     }
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.by);
+        return String.format("[D]%s (by: %s)", super.toString(), this.dueDate);
     }
 
     @Override
     public String convertToFileFormat() {
-        return String.format("D|%s|%s", super.convertToFileFormat(), this.by);
+        return String.format("D|%s|%s", super.convertToFileFormat(), this.dueDate);
     }
 }
