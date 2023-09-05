@@ -12,38 +12,40 @@ public class Parser {
      * Main control flow for recognizing commands and what to do with commands.
      * @throws DukeException Thrown when commands are not inputted correctly.
      */
-    private static void execute() throws DukeException {
-        Scanner sc = new Scanner(System.in);
+    private static String execute(String s) throws DukeException {
+        Scanner sc = new Scanner(s);
         while (true) {
 
             String command = sc.next();
 
 
             if (command.equals("bye")) {
-                Duke.exit();
+                return Duke.exit();
             } else if (command.equals("list")) {
-                Duke.list();
+                return Duke.list();
             } else if (command.equals("mark")) {
                 int taskNum = sc.nextInt();
                 Task task = TaskList.get(taskNum - 1);
                 task.taskIsDone();
                 Storage.write();
+                return Ui.mark(taskNum);
             } else if (command.equals("unmark")) {
                 int taskNum = sc.nextInt();
                 Task task = TaskList.get(taskNum - 1);
                 task.taskNotDone();
 
                 Storage.write();
+                return Ui.unmark(taskNum);
             } else if (command.equals("delete")) {
                 int index = sc.nextInt();
-                Duke.delete(index - 1);
+                return Duke.delete(index - 1);
             } else if (command.equals("todo")) {
 
                 String restOfString = sc.nextLine();
                 if (restOfString.length() != 0) {
                     String taskName = restOfString;
                     Task taskToAdd = new Todo(taskName);
-                    Duke.add(taskToAdd);
+                    return Duke.add(taskToAdd);
 
                 } else {
                     throw new EmptyDescriptionException();
@@ -61,7 +63,7 @@ public class Parser {
                     String date = restOfString.substring(slashIndex + 4);
                     LocalDate d = LocalDate.parse(date);
                     Task taskToAdd = new Deadline(taskName, d);
-                    Duke.add(taskToAdd);
+                    return Duke.add(taskToAdd);
                 } else {
                     throw new EmptyDescriptionException();
                 }
@@ -85,17 +87,17 @@ public class Parser {
                     LocalDate from = LocalDate.parse(fromDate);
                     LocalDate to = LocalDate.parse(toDate);
                     Task taskToAdd = new Event(taskName, from, to);
-                    Duke.add(taskToAdd);
+                    return Duke.add(taskToAdd);
                 } else {
                     throw new EmptyDescriptionException();
                 }
 
 
             } else if (command.equals("clear")){
-                Duke.clear();
+                return Duke.clear();
             } else if (command.equals("find")) {
                 String restOfString = sc.next();
-                Duke.find(restOfString);
+                return Duke.find(restOfString);
             } else {
                 throw new NoSuchCommandException();
             }
@@ -105,13 +107,13 @@ public class Parser {
     /**
      * Method to be used to start parsing of user input.
      */
-    public static void parse() {
+    public static String parse(String s) {
         try {
-            Parser.execute();
+            return Parser.execute(s);
         } catch (DukeException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         } catch (DateTimeException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 }

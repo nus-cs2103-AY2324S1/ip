@@ -16,3 +16,5 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 *.txt
+src/main/resources/images/Eddie.png
+src/main/resources/images/
