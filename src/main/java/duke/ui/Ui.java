@@ -9,134 +9,124 @@ import duke.task.Task;
  */
 public class Ui {
 
-    /** An indentation string used for formatting. */
-    public static final String INDENT = " ".repeat(8);
-    /** A horizontal line used for formatting. */
-    public static final String HORIZONTAL_LINE = " ".repeat(8) + "_".repeat(60) + "\n";
-
     /**
      * Displays a welcome message when the Duke application starts.
+     *
+     * @return The welcome message as a string.
      */
-    public void showWelcomeMessage() {
-        System.out.println(HORIZONTAL_LINE
-                + INDENT + "Hello! I'm Glenda!\n"
-                + INDENT + "What can I do for you?\n"
-                + HORIZONTAL_LINE);
+    public String showWelcomeMessage() {
+        return "Hello! I'm Glenda!\nWhat can I do for you?\n";
     }
 
     /**
      * Displays a goodbye message when the Duke application ends.
+     *
+     * @return The goodbye message as a string.
      */
-    public void showGoodbyeMessage() {
-        System.out.println(HORIZONTAL_LINE
-                + INDENT + "Bye. Hope to see you again soon!\n"
-                + HORIZONTAL_LINE);
+    public String showGoodbyeMessage() {
+        return "Bye. Hope to see you again soon!\n";
     }
 
     /**
      * Displays the task added and the current total number of tasks in the list.
      * @param task The task that was added.
      * @param numberOfTasks The number of tasks in the list currently.
+     * @return The message displaying the added task and the total number of tasks as a string.
      */
-    public void showAddedTask(Task task, int numberOfTasks) {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println(INDENT + "Got it. I've added this task to the list:");
-        System.out.println("          " + task.toString());
-        System.out.println(INDENT + "Now you have " + numberOfTasks + " task(s) in the list.");
-        System.out.println(HORIZONTAL_LINE);
+    public String showAddedTask(Task task, int numberOfTasks) {
+        return "Got it. I've added this task to the list:\n"
+                + task.toString()
+                + "\nNow you have "
+                + numberOfTasks
+                + " task(s) in the list.\n";
     }
 
     /**
      * Displays all the tasks in the task list.
      *
      * @param tasks The list of tasks to be displayed.
+     * @return The message displaying all tasks as a string.
      */
-    public void showAllTasks(ArrayList<Task> tasks) {
-        System.out.print(HORIZONTAL_LINE);
+    public String showAllTasks(ArrayList<Task> tasks) {
+        StringBuilder message = new StringBuilder();
 
         if (tasks.isEmpty()) {
-            // Case where there is no tasks to be displayed
-            System.out.println(INDENT + "No tasks added. ");
+            // Case where there are no tasks to be displayed
+            message.append("No tasks added. \n");
         } else {
-            System.out.println(INDENT + "Here are the task(s) in your list:");
+            message.append("Here are the task(s) in your list:\n");
 
             for (Task task : tasks) {
-                System.out.println(INDENT + (tasks.indexOf(task) + 1) + ". " + task);
+                message.append(tasks.indexOf(task) + 1).append(". ").append(task).append("\n");
             }
         }
-        System.out.println(HORIZONTAL_LINE);
+
+        return message.toString();
     }
 
     /**
      * Displays a message indicating the task was marked as done.
      *
      * @param task The task that was marked as done.
+     * @return The message indicating the completed task as a string.
      */
-    public void showTaskMarkedAsDone(Task task) {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println(INDENT + "Great! I've completed this task!");
+    public String showTaskMarkedAsDone(Task task) {
         task.markAsDone();
-        System.out.println(INDENT + task);
-        System.out.println(HORIZONTAL_LINE);
+        return "Great! I've completed this task!\n" + task.toString() + "\n";
     }
 
     /**
      * Displays a message indicating the task was marked as undone.
      *
      * @param task The task that was marked undone.
+     * @return The message indicating the task was marked as undone as a string.
      */
-    public void showTaskMarkedAsUndone(Task task) {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println(INDENT + "Okay, I have not yet completed this task:");
+    public String showTaskMarkedAsUndone(Task task) {
         task.markAsUndone();
-        System.out.println(INDENT + task);
-        System.out.println(HORIZONTAL_LINE);
+        return "Okay, I have not yet completed this task:\n" + task.toString() + "\n";
     }
 
     /**
-     * Displays a message indicating the tasks that was deleted, and the number of tasks left in the task list.
+     * Displays a message indicating the tasks that were deleted, and the number of tasks left in the task list.
      *
      * @param task The task that was deleted.
      * @param numberOfTasks The number of tasks left in the task list.
+     * @return The message indicating the deleted task and the remaining number of tasks as a string.
      */
-    public void showDeletedTask(Task task, int numberOfTasks) {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println(INDENT + "Okay, I've removed this task:");
-        System.out.println("          " + task.toString());
-        System.out.println(INDENT + "Now you have " + numberOfTasks + " task(s) in the list.");
-        System.out.println(HORIZONTAL_LINE);
+    public String showDeletedTask(Task task, int numberOfTasks) {
+        return "Okay, I've removed this task:\n" + task.toString()
+                + "\nNow you have " + numberOfTasks + " task(s) in the list.\n";
     }
 
     /**
      * Displays an error message to the user.
      *
      * @param errorMessage The error message shown to the user.
+     * @return The error message as a string.
      */
-    public void showErrorMessage(String errorMessage) {
-        System.out.println(HORIZONTAL_LINE
-                + INDENT + errorMessage + "\n"
-                + HORIZONTAL_LINE);
+    public String showErrorMessage(String errorMessage) {
+        return errorMessage + "\n";
     }
 
     /**
      * Displays the list of tasks matching the keyword search.
      *
-     * @param tasks Tasks associated to the keyword search.
+     * @param tasks Tasks associated with the keyword search.
+     * @return The message displaying matching tasks as a string.
      */
-    public void showMatchingTasksToKeyword(ArrayList<Task> tasks) {
-        System.out.print(HORIZONTAL_LINE);
+    public String showMatchingTasksToKeyword(ArrayList<Task> tasks) {
+        StringBuilder message = new StringBuilder();
 
         if (tasks.isEmpty()) {
-            // Case where there is no matching tasks to be displayed
-            System.out.println(INDENT + "No matching tasks in the list. ");
+            // Case where there are no matching tasks to be displayed
+            message.append("No matching tasks in the list. \n");
         } else {
-            System.out.println(INDENT + "Here are the matching task(s) in your list:");
+            message.append("Here are the matching task(s) in your list:\n");
 
-            for (Task task: tasks) {
-                System.out.println(INDENT + (tasks.indexOf(task) + 1) + ". " + task.toString());
+            for (Task task : tasks) {
+                message.append(tasks.indexOf(task) + 1).append(". ").append(task.toString()).append("\n");
             }
         }
-        System.out.println(HORIZONTAL_LINE);
+        return message.toString();
     }
 }
-

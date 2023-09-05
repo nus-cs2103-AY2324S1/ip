@@ -24,7 +24,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
         for (Task task: taskList.getList()) {
@@ -32,6 +32,6 @@ public class FindCommand extends Command {
                 matchingTasks.add(task);
             }
         }
-        ui.showMatchingTasksToKeyword(matchingTasks);
+        return ui.showMatchingTasksToKeyword(matchingTasks);
     }
 }
