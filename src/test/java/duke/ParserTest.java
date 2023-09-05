@@ -1,13 +1,17 @@
 package duke;
 
-import duke.command.Command;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import duke.command.Command;
 
 public class ParserTest {
     @Test
-    public void parse_otherMessage_DukeExceptionThrown() {
+    public void parse_otherMessage_dukeExceptionThrown() {
         try {
             Parser.parse("nonsense");
             fail();
@@ -17,7 +21,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_badEventParams_DukeExceptionThrown() {
+    public void parse_badEventParams_dukeExceptionThrown() {
         try {
             Parser.parse("event /from Jan 2023 /to FSJsf");
             fail();
@@ -27,7 +31,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_emptyEventParams_DukeExceptionThrown() {
+    public void parse_emptyEventParams_dukeExceptionThrown() {
         try {
             Parser.parse("event ");
             fail();
@@ -37,7 +41,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_badDeadlineParams_DukeExceptionThrown() {
+    public void parse_badDeadlineParams_dukeExceptionThrown() {
         try {
             Parser.parse("deadline /by asdk 2023");
             fail();
@@ -47,7 +51,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_emptyDeadlineParams_DukeExceptionThrown() {
+    public void parse_emptyDeadlineParams_dukeExceptionThrown() {
         try {
             Parser.parse("deadline ");
             fail();
@@ -57,7 +61,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_emptyTodoParams_DukeExceptionThrown() {
+    public void parse_emptyTodoParams_dukeExceptionThrown() {
         try {
             Parser.parse("todo ");
             fail();
@@ -67,7 +71,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_emptyMarkParams_DukeExceptionThrown() {
+    public void parse_emptyMarkParams_dukeExceptionThrown() {
         try {
             Parser.parse("mark ");
             fail();
@@ -77,7 +81,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_badMarkParams_DukeExceptionThrown() {
+    public void parse_badMarkParams_dukeExceptionThrown() {
         try {
             Parser.parse("mark test");
             fail();
@@ -87,7 +91,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_emptyUnmarkParams_DukeExceptionThrown() {
+    public void parse_emptyUnmarkParams_dukeExceptionThrown() {
         try {
             Parser.parse("unmark ");
             fail();
@@ -97,7 +101,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_badUnmarkParams_DukeExceptionThrown() {
+    public void parse_badUnmarkParams_dukeExceptionThrown() {
         try {
             Parser.parse("unmark test");
             fail();
@@ -107,7 +111,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_emptyDeleteParams_DukeExceptionThrown() {
+    public void parse_emptyDeleteParams_dukeExceptionThrown() {
         try {
             Parser.parse("delete ");
             fail();
@@ -117,7 +121,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_badDeleteParams_DukeExceptionThrown() {
+    public void parse_badDeleteParams_dukeExceptionThrown() {
         try {
             Parser.parse("delete test");
             fail();

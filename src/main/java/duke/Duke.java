@@ -1,13 +1,15 @@
 package duke;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
+
 import duke.command.Command;
 import duke.task.TaskList;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import java.util.Scanner;
-
+/**
+ * The primary Duke class. Contains the main function to run the Duke chatbot Bob.
+ */
 public class Duke {
 
     /** The TaskList to use in the chatbot. */

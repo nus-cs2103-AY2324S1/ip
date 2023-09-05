@@ -1,24 +1,25 @@
 package duke.command;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class AddCommandTest {
     @Test
-    public void getCommandType_todo_Success() {
+    public void getCommandType_todo_success() {
         AddCommand a = new AddCommand("Hello");
         assertEquals("Add Todo", a.getCommandType());
     }
 
     @Test
-    public void getCommandType_deadline_Success() {
+    public void getCommandType_deadline_success() {
         AddCommand a = new AddCommand("Hello", "2023-10-10T12:34:56");
         assertEquals("Add Deadline", a.getCommandType());
     }
 
     @Test
-    public void getCommandType_event_Success() {
+    public void getCommandType_event_success() {
         AddCommand a = new AddCommand("Hello",
                 "2023-10-10T12:34:56", "2023-10-10T12:34:57");
         assertEquals("Add Event", a.getCommandType());

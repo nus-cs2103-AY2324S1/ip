@@ -1,22 +1,29 @@
 package duke.command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.Ui;
-import duke.task.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+import duke.DukeException;
+import duke.Storage;
+import duke.Ui;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
+
+/**
+ * Represents a command to add tasks (todos, deadlines, and events) into the task list.
+ */
 public class AddCommand extends Command {
 
-    enum COMMAND_TYPE {
+    enum CommandType {
         TODO,
         DEADLINE,
         EVENT
-    };
+    }
 
-    private COMMAND_TYPE type;
+    private CommandType type;
     private String message;
     private String deadline;
     private String from;
@@ -28,7 +35,7 @@ public class AddCommand extends Command {
      * @param message The description for the to-do in the to-do list.
      */
     public AddCommand(String message) {
-        this.type = COMMAND_TYPE.TODO;
+        this.type = CommandType.TODO;
         this.message = message;
         this.deadline = null;
         this.from = null;
@@ -42,7 +49,7 @@ public class AddCommand extends Command {
      * @param deadline The deadline as a String in the format yyyy-mm-ddThh:mm:ss.
      */
     public AddCommand(String message, String deadline) {
-        this.type = COMMAND_TYPE.DEADLINE;
+        this.type = CommandType.DEADLINE;
         this.message = message;
         this.deadline = deadline;
         this.from = null;
@@ -57,7 +64,7 @@ public class AddCommand extends Command {
      * @param to The ending date for the event as a String in the format yyyy-mm-ddThh:mm:ss.
      */
     public AddCommand(String message, String from, String to) {
-        this.type = COMMAND_TYPE.EVENT;
+        this.type = CommandType.EVENT;
         this.message = message;
         this.deadline = null;
         this.from = from;

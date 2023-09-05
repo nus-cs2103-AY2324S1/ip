@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Represents a task, containing a message and whether it is completed or not.
+ */
 public abstract class Task {
     /** The message or description of the task. */
     protected String message;

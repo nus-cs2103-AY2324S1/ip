@@ -5,8 +5,11 @@ import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 
+/**
+ * Represents a command to mark tasks as not completed in the task list.
+ */
 public class UnmarkCommand extends Command {
-    int index;
+    private int index;
 
     /**
      * Initialises an UnmarkCommand object.

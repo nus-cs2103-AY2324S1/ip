@@ -5,6 +5,9 @@ import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 
+/**
+ * Represents a specific command to be executed.
+ */
 public abstract class Command {
 
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;

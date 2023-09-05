@@ -1,10 +1,12 @@
 package duke.command;
 
-import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 
+/**
+ * Represents a command to quit the chatbot program.
+ */
 public class ExitCommand extends Command {
 
     /**
@@ -31,7 +33,7 @@ public class ExitCommand extends Command {
 
     /**
      * Gets the command type for the ExitCommand.
-     * 
+     *
      * @return Exit.
      */
     @Override

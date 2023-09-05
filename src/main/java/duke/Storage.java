@@ -1,7 +1,5 @@
 package duke;
 
-import duke.task.*;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,6 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
+
+/**
+ * Represents a file storage where all tasks will be saved into and retrieved from when the chatbot is run.
+ */
 public class Storage {
 
     /** The file path to store, read and save all tasks within the program. */
@@ -36,20 +43,31 @@ public class Storage {
         Task newTask;
         String[] lineSeq = line.split(" \\| ");
         try {
-            if (line.startsWith("T") && lineSeq.length == 3
-                    && (Objects.equals(lineSeq[1], "1") || Objects.equals(lineSeq[1], "0"))) {
+            boolean isValidCompletion = (lineSeq.length < 2)
+                ? false
+                : (Objects.equals(lineSeq[1], "1") || Objects.equals(lineSeq[1], "0"));
+
+            boolean isValidTodo = (line.startsWith("T") && lineSeq.length == 3);
+            boolean isValidDeadline = (line.startsWith("D") && lineSeq.length == 4);
+            boolean isValidEvent = (line.startsWith("E") && lineSeq.length == 5);
+
+            if (isValidTodo && isValidCompletion) {
                 newTask = new Todo(lineSeq[2]);
-                if (Objects.equals(lineSeq[1], "1")) newTask.markAsDone();
+                if (Objects.equals(lineSeq[1], "1")) {
+                    newTask.markAsDone();
+                }
                 tasks.add(newTask);
-            } else if (line.startsWith("D") && lineSeq.length == 4
-                    && (Objects.equals(lineSeq[1], "1") || Objects.equals(lineSeq[1], "0"))) {
+            } else if (isValidDeadline && isValidCompletion) {
                 newTask = new Deadline(lineSeq[2], LocalDateTime.parse(lineSeq[3]));
-                if (Objects.equals(lineSeq[1], "1")) newTask.markAsDone();
+                if (Objects.equals(lineSeq[1], "1")) {
+                    newTask.markAsDone();
+                }
                 tasks.add(newTask);
-            } else if (line.startsWith("E") && lineSeq.length == 5
-                    && (Objects.equals(lineSeq[1], "1") || Objects.equals(lineSeq[1], "0"))) {
+            } else if (isValidEvent && isValidCompletion) {
                 newTask = new Event(lineSeq[2], LocalDateTime.parse(lineSeq[3]), LocalDateTime.parse(lineSeq[4]));
-                if (Objects.equals(lineSeq[1], "1")) newTask.markAsDone();
+                if (Objects.equals(lineSeq[1], "1")) {
+                    newTask.markAsDone();
+                }
                 tasks.add(newTask);
             } else {
                 // else do nothing, specifying that the task is invalid.
@@ -66,7 +84,7 @@ public class Storage {
      * file.
      *
      * @return TaskList containing all valid tasks processed from the file; else empty TaskList if any error in reading
-     * the file occurs.
+     *         the file occurs.
      */
     public TaskList load() {
         TaskList tasks = new TaskList();

@@ -2,6 +2,9 @@ package duke.task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks (todos/deadlines/events).
+ */
 public class TaskList {
 
     /** The list of tasks present in the TaskList. */
@@ -84,7 +87,13 @@ public class TaskList {
         this.tasks.get(i - 1).unmarkAsDone();
     }
 
-
+    /**
+     * Finds all tasks with description containing the search string, and returns the list of tasks as a TaskList.
+     *
+     * @param findStr The search string to search for the tasks.
+     * @return TaskList containing all tasks with description containing the search string; an empty TaskList if no
+     *         matching tasks are found.
+     */
     public TaskList find(String findStr) {
         TaskList foundTasks = new TaskList();
         for (Task task : tasks) {

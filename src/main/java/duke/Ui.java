@@ -2,6 +2,9 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * Represents a user interface for the user to input their commands and the bot to reply a message.
+ */
 public class Ui {
 
     /** A divider string. */
@@ -11,12 +14,12 @@ public class Ui {
      * Prints a welcome message to the user.
      */
     public void showWelcome() {
-        String intro_message = "\t____________________________________________________________\n"
+        String introMessage = "\t____________________________________________________________\n"
                 + "\t Hello! I'm Bob the Chatbot!\n"
                 + "\t What can I do for you?\n"
                 + "\t____________________________________________________________";
 
-        System.out.println(intro_message);
+        System.out.println(introMessage);
     }
 
     /**
