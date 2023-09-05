@@ -64,7 +64,7 @@ public class TaskListTest {
         assertEquals(initialLen + 2, tasks.getSize());
     }
 
-    private boolean assertEquals(int a, int b) {
+    public boolean assertEquals(int a, int b) {
         return a == b;
     }
 }
