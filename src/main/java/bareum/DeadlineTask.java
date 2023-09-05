@@ -27,17 +27,18 @@ public class DeadlineTask extends Task {
     }
 
     public static DeadlineTask makeDeadline(String[] taskInputs) {
+        boolean isDone = taskInputs[1].equals("1");
         String description = taskInputs[2];
         String dueDateStr = taskInputs[3];
-        LocalDate dueDate = null;
-        dueDate = LocalDate.parse(dueDateStr);
-        boolean isDone = taskInputs[1].equals("1");
+        LocalDate dueDate = LocalDate.parse(dueDateStr);
+
         return new DeadlineTask(isDone, description, dueDate);
     }
 
     @Override
     public String toString() {
         String dueDate = this.dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+
         return "[D][" + this.getStatusIcon() + "] " + this.description
                 + "(by: " + dueDate + ")";
     }

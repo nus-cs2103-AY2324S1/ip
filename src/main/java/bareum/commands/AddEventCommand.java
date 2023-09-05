@@ -22,6 +22,7 @@ public class AddEventCommand extends Command {
         EventTask task = EventTask.makeEvent(this.description, this.startDateTime, this.endDateTime);
         taskList.addTask(task);
         storage.saveNewTask(task);
+
         String added = "I have added this task:\n" + task + "\nYou now have "
                 + taskList.size() + " task(s) in your list.";
         Ui.reply(added);

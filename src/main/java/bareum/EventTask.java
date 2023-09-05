@@ -23,6 +23,7 @@ public class EventTask extends Task {
         String description = taskInputs[2];
         String startDateTime = taskInputs[3];
         String endDateTime = taskInputs[4];
+
         return new EventTask(isDone, description, startDateTime, endDateTime);
     }
 
