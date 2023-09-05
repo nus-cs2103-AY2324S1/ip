@@ -4,12 +4,17 @@ import Duke.parser.Parser;
 import Duke.tasks.TaskList;
 import Duke.tasks.TaskManager;
 import Duke.ui.Ui;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
-public class Duke {
+public class Duke extends Application {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     private TaskManager tm;
+
 
     public enum CommandType {
         LIST,
@@ -30,6 +35,7 @@ public class Duke {
         EVENT,
         UNKNOWN
     }
+    
 
     public Duke(String filePath) {
         ui = new Ui();
@@ -41,6 +47,10 @@ public class Duke {
             tasks = new TaskList();
         }
         tm = new TaskManager(tasks);
+    }
+
+    public Duke() {
+
     }
 
     public void run() {
@@ -80,6 +90,15 @@ public class Duke {
                     break;    
             }
         }
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello my friends!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 
     public static void main(String[] args) {
