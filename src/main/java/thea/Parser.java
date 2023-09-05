@@ -46,6 +46,8 @@ public class Parser {
             int index = Integer.parseInt(commandWords[1]) - 1;
             return new DeleteCommand(index);
         }
+        case "find":
+            return new FindCommand(commandWords[1]);
         case "todo":
             if (commandWordsArray.size() != 1) {
                 ToDo todo = new ToDo(commandWords[1]);

@@ -100,4 +100,14 @@ public class TaskList {
             this.taskArrayList.get(index).unmarkAsDone();
         }
     }
+
+    public TaskList find(String keyword) {
+        TaskList relevantTasks = new TaskList();
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i).getTaskName().contains(keyword)) {
+                relevantTasks.add(this.get(i));
+            };
+        }
+        return relevantTasks;
+    }
 }
