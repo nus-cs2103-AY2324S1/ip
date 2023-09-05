@@ -1,5 +1,9 @@
 package duke;
 
+import duke.ui.graphic.MainWindow;
+import javafx.application.Application;
+
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -8,7 +12,12 @@ import duke.parse.command.Command;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
-import duke.ui.UI;
+import duke.ui.Ui;
+import duke.ui.graphic.DukeApplication;
+import duke.ui.text.TextUi;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  * Main class, where the user interacts with the bot.
@@ -20,13 +29,18 @@ public class Duke {
     private final String myName = "Quack-NKN";
     private TaskList taskList = new TaskList();
     private final Storage storage = new Storage("task-list.txt");
-    private final UI userInterface = new UI("Quack, ", "!");
+    private Ui userInterface;
 
     /**
      * Instantiate the bot, and starts the interaction immediately.
      */
-    public Duke() {
-        interact();
+    public Duke(boolean isCli, Ui userInterface) {
+        this.userInterface = userInterface;
+        if (isCli) {
+            this.interact();
+        } else {
+            this.userInterface.initialise(this.myName, new String[] {});
+        }
     }
 
     /**
@@ -83,7 +97,7 @@ public class Duke {
             }
         }
 
-        this.userInterface.start(this.myName);
+        this.userInterface.initialise(this.myName, new String[] {});
         boolean isContinuing = true;
         while (isContinuing) {
             // receive input
@@ -105,8 +119,8 @@ public class Duke {
      *             null if to not exclude any task by date
      */
     public void showList(boolean isExcludingDone, LocalDate date) {
-        this.userInterface.notifyList(UI.Type.DEFAULT, isExcludingDone, date);
-        this.taskList.displayTasks(isExcludingDone, date);
+        this.userInterface.notifyList(Ui.Type.DEFAULT, isExcludingDone, date);
+        this.taskList.displayTasks(isExcludingDone, date, this.userInterface);
     }
 
     /**
@@ -114,8 +128,8 @@ public class Duke {
      * @param isExcludingDone whether to exclude tasks already done
      */
     public void showTodos(boolean isExcludingDone) {
-        this.userInterface.notifyList(UI.Type.TODO, isExcludingDone, null);
-        this.taskList.displayTodos(isExcludingDone);
+        this.userInterface.notifyList(Ui.Type.TODO, isExcludingDone, null);
+        this.taskList.displayTodos(isExcludingDone, this.userInterface);
     }
 
     /**
@@ -124,8 +138,8 @@ public class Duke {
      * @param date the date to display deadlines before
      */
     public void showDeadlines(boolean isExcludingDone, LocalDate date) {
-        this.userInterface.notifyList(UI.Type.DEADLINE, isExcludingDone, date);
-        this.taskList.displayDeadlines(isExcludingDone, date);
+        this.userInterface.notifyList(Ui.Type.DEADLINE, isExcludingDone, date);
+        this.taskList.displayDeadlines(isExcludingDone, date, this.userInterface);
     }
 
     /**
@@ -134,8 +148,8 @@ public class Duke {
      * @param date the date to display events happening on
      */
     public void showEvents(boolean isExcludingDone, LocalDate date) {
-        this.userInterface.notifyList(UI.Type.EVENT, isExcludingDone, date);
-        this.taskList.displayEvents(isExcludingDone, date);
+        this.userInterface.notifyList(TextUi.Type.EVENT, isExcludingDone, date);
+        this.taskList.displayEvents(isExcludingDone, date, this.userInterface);
     }
 
     /**
@@ -208,7 +222,11 @@ public class Duke {
      * @param input the input from the user
      */
     public void echo(String input) {
-        this.userInterface.echo(input);
+        if (input.equals("quack")) {
+            this.userInterface.displayData("Quack quack quack");
+        } else {
+            this.userInterface.displayData("Quack, what do you mean when you say " + input);
+        }
     }
 
     /**
@@ -217,10 +235,11 @@ public class Duke {
      */
     public void find(String input) {
         this.userInterface.notifyFind(input);
-        this.taskList.showResults(input);
+        this.taskList.showResults(input, this.userInterface);
     }
 
     public static void main(String[] args) {
-        new Duke();
+//        new Duke(true, new TextUi("Quack, ", "!"));
+        Application.launch(DukeApplication.class, args);
     }
 }
