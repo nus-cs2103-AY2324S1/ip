@@ -8,7 +8,7 @@ import yong.tasklist.TaskList;
  */
 public class FindCommand extends Command {
 
-    String inp;
+    private String inp;
 
     /**
      * Constructor for the Find command.

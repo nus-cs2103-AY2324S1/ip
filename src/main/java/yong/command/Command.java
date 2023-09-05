@@ -6,9 +6,9 @@ import yong.tasklist.TaskList;
  */
 public abstract class Command {
 
-    TaskList taskList;
+    protected TaskList taskList;
 
-    String outputString;
+    protected String outputString;
 
     protected boolean isExitCommand = false;
 

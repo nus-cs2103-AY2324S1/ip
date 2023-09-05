@@ -9,7 +9,7 @@ import yong.tasks.Task;
  */
 public class DeleteCommand extends Command {
 
-    String numberString;
+    private String numberString;
 
     /**
      * Constructor for DeleteCommand
