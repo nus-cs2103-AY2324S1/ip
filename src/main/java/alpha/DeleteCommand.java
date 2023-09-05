@@ -11,8 +11,8 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute() {
-        ui.delete(taskList.delete(index), taskList.size());
+    public String execute() {
         fileHandler.delete(index);
+        return ui.delete(taskList.delete(index), taskList.size());
     }
 }

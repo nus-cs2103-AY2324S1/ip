@@ -11,11 +11,13 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         if (task != null) {
             taskList.add(task);
             fileHandler.saveToFile(task);
-            ui.taskAdded(task, taskList.size());
+            return ui.taskAdded(task, taskList.size());
         }
+        return "";
     }
+
 }

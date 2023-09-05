@@ -2,13 +2,16 @@ package alpha;
 
 public class InvalidCommand extends Command {
 
-    public InvalidCommand(TaskList taskList, FileHandler fileHandler, UI ui) {
+    private String errorMessage;
+
+    public InvalidCommand(TaskList taskList, FileHandler fileHandler, UI ui, String errorMessage) {
         super(taskList, fileHandler, ui);
         isExit = false;
+        this.errorMessage = errorMessage;
     }
 
     @Override
-    public void execute() {
-        // Nothing to execute for an invalid command
+    public String execute() {
+        return errorMessage;
     }
 }

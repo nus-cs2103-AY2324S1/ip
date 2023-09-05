@@ -10,9 +10,9 @@ public class FindCommand extends Command{
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         System.out.println(input);
         TaskList newList = taskList.search(input);
-        ui.list(newList);
+        return ui.list(newList);
     }
 }

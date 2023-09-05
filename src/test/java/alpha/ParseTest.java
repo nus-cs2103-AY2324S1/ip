@@ -40,7 +40,7 @@ public class ParseTest {
             parser = new Parser(new FileHandler(), new TaskList(), new UI());
             assertEquals(Event.makeEvent(".", " ", "  "), (parser.addEvent("event meeting")));
         } catch (Exception e) {
-            assertEquals("Missing Information!", e.getMessage());
+            assertEquals("Text '' could not be parsed at index 0", e.getMessage());
         }
     }
 }

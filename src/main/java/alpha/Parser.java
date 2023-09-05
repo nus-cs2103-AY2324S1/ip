@@ -1,5 +1,7 @@
 package alpha;
 
+import java.time.format.DateTimeParseException;
+
 /**
  * Class that handles the user's inputs and makes sense of them. Uses certain key phrases for different commands.
  *
@@ -67,31 +69,37 @@ public class Parser {
                 throw new InvalidInputException("Invalid Input!");
             }
         } catch (MissingIndexException e1) {
-            System.out.println(e1.getMessage() + " Please enter the index of the number you would like to mark.");
-            return new InvalidCommand(taskList, fileHandler, ui);
+            return new InvalidCommand(taskList, fileHandler, ui, e1.getMessage() +
+                    " Please enter the index of the number you would like to mark.");
         } catch (InvalidIndexException e2) {
-            System.out.println(e2.getMessage() + " Please enter a valid index. To check all valid indices, " +
+            return new InvalidCommand(taskList, fileHandler, ui, e2.getMessage() +
+                    " Please enter a valid index. To check all valid indices, " +
                     "type \"list\" and press ENTER");
-            return new InvalidCommand(taskList, fileHandler, ui);
         } catch (InvalidInputException e3) {
-            System.out.println(e3.getMessage() + " Please input something meaningful.");
-            return new InvalidCommand(taskList, fileHandler, ui);
+            return new InvalidCommand(taskList, fileHandler, ui, e3.getMessage()
+                    + " Please input something meaningful.");
         } catch (NumberFormatException e4) {
-            System.out.println("Please enter a number.");
-            return new InvalidCommand(taskList, fileHandler, ui);
+            return new InvalidCommand(taskList, fileHandler, ui, "Please enter a number.");
         } catch (InvalidFormatException | MissingInfoException e5) {
             if (e5.getTask() == TaskException.TaskType.TODO) {
-                System.out.println(e5.getMessage() + " Please enter a todo in the " +
+                return new InvalidCommand(taskList, fileHandler, ui, e5.getMessage()
+                        + " Please enter a todo in the " +
                         "format \"todo YOUR_DESCRIPTION\"");
             } else if (e5.getTask() == TaskException.TaskType.DEADLINE) {
-                System.out.println(e5.getMessage() + " Please enter a deadline in the format " +
+                return new InvalidCommand(taskList, fileHandler, ui, e5.getMessage()
+                        + " Please enter a deadline in the format " +
                         "\"deadline YOUR_DESCRIPTION /by YOUR_TIME\" ");
             } else if (e5.getTask() == TaskException.TaskType.EVENT) {
-                System.out.println(e5.getMessage() + " Please enter an event in the format " +
+                return new InvalidCommand(taskList, fileHandler, ui,
+                        " Please enter an event in the format " +
                         "\"event YOUR_DESCRIPTION " +
                         "/from START_TIME /to END_TIME\" ");
             }
-            return new InvalidCommand(taskList, fileHandler, ui);
+            return new InvalidCommand(taskList, fileHandler, ui, "");
+        } catch (DateTimeParseException e6) {
+            return new InvalidCommand(taskList, fileHandler, ui,
+                    e6.getMessage() +"The date is in an invalid format! " +
+                            "Enter the date in the format YYYY-MM-DD");
         }
     }
 
@@ -150,7 +158,7 @@ public class Parser {
      * @return a Command that adds a ToDo.
      * @throws MissingInfoException If length of splitInput == 1
      */
-    public Command addDeadline(String input) throws MissingInfoException, InvalidFormatException {
+    public Command addDeadline(String input) throws MissingInfoException, InvalidFormatException, DateTimeParseException {
         String[] splitInput = input.split(" ");
         if (splitInput.length < 2) {
             throw new MissingInfoException("Missing Information!", TaskException.TaskType.DEADLINE);

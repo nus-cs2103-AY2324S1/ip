@@ -11,9 +11,10 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         Task unmarkedTask = taskList.unmark(index);
-        ui.unmark(unmarkedTask);
         fileHandler.checkOrUncheck(index, false);
+        return ui.unmark(unmarkedTask);
+
     }
 }

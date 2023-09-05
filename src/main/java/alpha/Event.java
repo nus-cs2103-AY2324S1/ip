@@ -43,38 +43,29 @@ public class Event extends Task {
         this.endDate = endDate;
     }
 
-    public static Event makeEvent(String description, String start, String end) {
+    public static Event makeEvent(String description, String start, String end) throws InvalidFormatException,
+            DateTimeParseException {
         String trimmedDescription = description.trim();
         String trimmedStart = start.trim();
         String trimmedEnd = end.trim();
         String[] splitStart = trimmedStart.split(" ");
         String[] splitEnd = trimmedEnd.split(" ");
-        try {
-            if (trimmedDescription.length() == 0) {
-                throw new InvalidFormatException("Missing a description!", TaskException.TaskType.EVENT);
-            }
-            if (splitStart.length == 2 && splitEnd.length == 2) {
-                return new Event(trimmedDescription, LocalDate.parse(splitStart[0]), LocalTime.parse(splitStart[1],
-                        DateTimeFormatter.ofPattern("HHmm")), LocalDate.parse(splitEnd[0]),
-                        LocalTime.parse(splitEnd[1], DateTimeFormatter.ofPattern("HHmm")));
-            } else if (splitStart.length == 2 && splitEnd.length == 1) {
-                return new Event(trimmedDescription, LocalDate.parse(splitStart[0]), LocalTime.parse(splitStart[1],
-                        DateTimeFormatter.ofPattern("HHmm")), LocalDate.parse(splitEnd[0]));
-            } else if (splitStart.length == 1 && splitEnd.length == 2) {
-                return new Event(trimmedDescription, LocalDate.parse(splitStart[0]), LocalDate.parse(splitEnd[0]),
-                        LocalTime.parse(splitEnd[1], DateTimeFormatter.ofPattern("HHmm")));
-            } else if (splitStart.length == 1 && splitEnd.length == 1) {
-                return new Event(trimmedDescription, LocalDate.parse(splitStart[0]), LocalDate.parse(splitEnd[0]));
-            } else {
-                return null;
-            }
-        } catch (DateTimeParseException e1) {
-            System.out.println("The date/time is in an invalid format! Enter" +
-                    " the date in the format YYYY-MM-DD HHmm");
-            return null;
-        } catch (InvalidFormatException e2) {
-            System.out.println(e2.getMessage() + " Please enter a description between " +
-                    "the start and end timings of the event.");
+        if (trimmedDescription.length() == 0) {
+            throw new InvalidFormatException("Missing a description!", TaskException.TaskType.EVENT);
+        }
+        if (splitStart.length == 2 && splitEnd.length == 2) {
+            return new Event(trimmedDescription, LocalDate.parse(splitStart[0]), LocalTime.parse(splitStart[1],
+                    DateTimeFormatter.ofPattern("HHmm")), LocalDate.parse(splitEnd[0]),
+                    LocalTime.parse(splitEnd[1], DateTimeFormatter.ofPattern("HHmm")));
+        } else if (splitStart.length == 2 && splitEnd.length == 1) {
+            return new Event(trimmedDescription, LocalDate.parse(splitStart[0]), LocalTime.parse(splitStart[1],
+                    DateTimeFormatter.ofPattern("HHmm")), LocalDate.parse(splitEnd[0]));
+        } else if (splitStart.length == 1 && splitEnd.length == 2) {
+            return new Event(trimmedDescription, LocalDate.parse(splitStart[0]), LocalDate.parse(splitEnd[0]),
+                    LocalTime.parse(splitEnd[1], DateTimeFormatter.ofPattern("HHmm")));
+        } else if (splitStart.length == 1 && splitEnd.length == 1) {
+            return new Event(trimmedDescription, LocalDate.parse(splitStart[0]), LocalDate.parse(splitEnd[0]));
+        } else {
             return null;
         }
     }

@@ -8,7 +8,8 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         // No need to do anything here for an ExitCommand
+        return "";
     }
 }

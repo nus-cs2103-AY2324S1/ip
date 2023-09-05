@@ -11,8 +11,8 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute() {
-        ui.mark(taskList.mark(index));
+    public String execute() {
         fileHandler.checkOrUncheck(index, true);
+        return ui.mark(taskList.mark(index));
     }
 }

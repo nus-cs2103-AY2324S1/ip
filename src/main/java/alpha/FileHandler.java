@@ -80,6 +80,8 @@ public class FileHandler {
         } catch (FileNotFoundException e) {
             System.out.println("The file could not be found");
             return taskList;
+        } catch (Exception e) { // The code should never reach this stage since everything saved to the file should be correctly formatted.
+            return taskList;
         }
     }
 

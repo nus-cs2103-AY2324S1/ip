@@ -24,8 +24,8 @@ public class Deadline extends Task {
         this.timeBy = timeBy;
     }
 
-    public static Deadline makeDeadline(String description, String by) {
-        try {
+    public static Deadline makeDeadline(String description, String by) throws InvalidFormatException,
+            DateTimeParseException{
             String trimmedDescription = description.trim();
             String trimmedBy = by.trim();
             if (trimmedDescription.length() == 0) {
@@ -38,12 +38,6 @@ public class Deadline extends Task {
             } else {
                 return new Deadline(trimmedDescription, LocalDate.parse(splitBy[0]));
             }
-        } catch (DateTimeParseException e1) {
-            System.out.println("The date is in an invalid format! Enter the date in the format YYYY-MM-DD");
-        } catch (InvalidFormatException e2) {
-            System.out.println(e2.getMessage() + " Please enter a description before the timing of the deadline.");
-        }
-        return null;
     }
 
     public String getDateBy() {
