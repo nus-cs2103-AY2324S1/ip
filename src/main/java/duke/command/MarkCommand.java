@@ -11,6 +11,11 @@ import duke.util.Ui;
 public class MarkCommand extends Command {
     private int index;
 
+    /**
+     * Constructor for MarkCommand class.
+     *
+     * @param index The TaskList index of the Task to be marked.
+     */
     public MarkCommand(int index) {
         super(false);
         this.index = index;
