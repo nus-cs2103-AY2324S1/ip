@@ -138,7 +138,7 @@ public class Parser {
         int ret = Integer.parseInt(splitInput[1]);
         if (ret <= 0) {
             throw new DukeBadInputException(
-                    "Quack requires a positive number to help you manage tasks!");
+                    "Quack requires a number more than zero to carry out the command!");
         }
         return ret;
     }

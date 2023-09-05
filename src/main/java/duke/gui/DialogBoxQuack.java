@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 
 /**
  * An example of a custom control using FXML.
@@ -14,7 +14,7 @@ import javafx.scene.text.Text;
  */
 public class DialogBoxQuack extends HBox {
     @FXML
-    private Text textBox;
+    private Label textBox;
 
     DialogBoxQuack(String text) {
         try {

@@ -4,11 +4,11 @@ import duke.Duke;
 import duke.Ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -23,9 +23,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
     @FXML
-    private Text textBox;
+    private Label textBox;
     @FXML
-    private Text textBoxList;
+    private Label textBoxList;
 
     private Duke duke;
 
