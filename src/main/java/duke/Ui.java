@@ -1,9 +1,9 @@
 package duke;
 
-import duke.task.Task;
-
 import java.time.LocalDate;
 import java.util.List;
+
+import duke.task.Task;
 
 /**
  * Represents the user interface for the Duke application.
@@ -147,7 +147,16 @@ public class Ui {
         printIndented("Now you have " + size + " tasks in the list.");
         printHorizontalLine();
     }
-
+    /**
+     * Prints the tasks from the given list that match a certain criteria.
+     * <p>
+     * This function first prints a horizontal line, followed by a header indicating the list of
+     * matching tasks. Each task is printed on a separate line with its corresponding index.
+     * Finally, a horizontal line is printed at the end to demarcate the end of the list.
+     * </p>
+     *
+     * @param tasks A list of tasks that match a certain criteria.
+     */
     public void printFindResults(List<Task> tasks) {
         printHorizontalLine();
         printIndented("Here are the matching tasks in your list:");

@@ -1,10 +1,11 @@
 package duke.task;
 
-import duke.DukeException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import duke.DukeException;
 
 /**
  * Represents a list of tasks.
@@ -77,6 +78,18 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Searches for tasks containing the specified description and returns them as a new TaskList.
+     * <p>
+     * This method takes a description string as input and filters out tasks from the current
+     * list that contain the given description. The result is returned as a new TaskList.
+     * If the provided description is blank, a DukeException is thrown.
+     * </p>
+     *
+     * @param description The description to search for in tasks.
+     * @return A new TaskList containing tasks that match the given description.
+     * @throws DukeException If the provided description is blank.
+     */
     public TaskList findTasks(String description) throws DukeException {
         if (description.isBlank()) {
             throw new DukeException("!!!: Please provide a description to search for");
