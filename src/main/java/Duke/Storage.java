@@ -7,8 +7,16 @@ import java.util.List;
 import Duke.Tasks.*;
 import Duke.Exceptions.*;
 
+/**
+ * The Storage class is responsible for saving tasks to and loading tasks from a data file.
+ */
 public class Storage {
 
+    /**
+     * Saves tasks from a TaskList to a data file.
+     *
+     * @param x The TaskList containing tasks to be saved.
+     */
     private static final String path = "./data/data.txt";
     public static void saveTasks(TaskList x) {
         try {
@@ -26,6 +34,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from a data file into an ArrayList of Task objects.
+     *
+     * @return An ArrayList containing the loaded tasks.
+     */
     public static ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -59,7 +72,9 @@ public class Storage {
         return tasks;
     }
 
-
+    /**
+     * Creates an empty data file if it does not exist.
+     */
     public static void createEmptyFile() {
         try {
             File file = new File(path);
@@ -72,6 +87,15 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the file where the tasks are saved and recreates them by breaking it down to components.
+     *
+     * @param type The task type as a string (e.g., "[T] ").
+     * @param completion The task's completion status as a string (e.g., "[X] " for completed, "[ ] " for not completed).
+     * @param item The description of the task.
+     * @param deadline The deadline or additional information associated with the task.
+     * @return A Task object representing the parsed task.
+     */
     public static Task correctTask(String type, String completion, String item, String deadline) {
         if (type.equals("[T] ")) {
             Task t = new ToDoTask(item);
