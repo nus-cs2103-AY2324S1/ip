@@ -121,9 +121,10 @@ public class Parser {
         }
     }
 
-    public String getSearchTerm() throws DukeException {
+    public String[] getSearchTerms() throws DukeException {
         try {
-            return String.join(" ", this.inputArray.subList(1, this.inputArray.size()));
+            String[] tmp = inputArray.toArray(new String[inputArray.size() - 1]);
+            return Arrays.copyOfRange(tmp, 1, tmp.length);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException();
         }
