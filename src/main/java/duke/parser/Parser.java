@@ -71,19 +71,19 @@ public class Parser {
         String byePattern = "bye";
         String listPattern = "list";
         String helpPattern = "help";
-        String todoPattern = "todo (.+)";
-        String deadlinePattern = "deadline (.+) /by (.+)";
-        String eventPattern = "event (.+) /from (.+) /to (.+)";
-        String markPattern = "mark (\\d+)";
-        String unmarkPattern = "unmark (\\d+)";
-        String deletePattern = "delete (\\d+)";
-        String findPattern = "find ([a-zA-Z0-9]+)";
+        String todoPattern = "(?i)todo (.+)";
+        String deadlinePattern = "(?i)deadline (.+) /by (.+)";
+        String eventPattern = "(?i)event (.+) /from (.+) /to (.+)";
+        String markPattern = "(?i)mark (\\d+)";
+        String unmarkPattern = "(?i)unmark (\\d+)";
+        String deletePattern = "(?i)delete (\\d+)";
+        String findPattern = "(?i)find ([a-zA-Z0-9]+)";
 
-        if (input.matches(byePattern)) {
+        if (input.matches("(?i)" + byePattern)) {
             return new ExitCommand();
-        } else if (input.matches(listPattern)) {
+        } else if (input.matches("(?i)" + listPattern)) {
             return new ListCommand();
-        } else if (input.matches(helpPattern)) {
+        } else if (input.matches("(?i)" + helpPattern)) {
             return new HelpCommand();
         } else {
             Matcher matcher;

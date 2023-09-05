@@ -61,7 +61,7 @@ public class MainWindow extends AnchorPane {
         );
 
         // Closes the GUI
-        if (input.equals("bye")) {
+        if (input.toLowerCase().equals("bye")) {
             TimerTask exitTask = new TimerTask() {
                 @Override
                 public void run() {
