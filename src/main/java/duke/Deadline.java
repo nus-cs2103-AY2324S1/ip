@@ -1,7 +1,8 @@
+package duke;
 
 import java.time.*;
 import java.time.format.*;
-public class Deadline extends Task{
+public class Deadline extends Task {
     protected LocalDate by;
 
 

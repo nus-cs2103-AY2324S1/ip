@@ -1,5 +1,7 @@
-import java.util.ArrayList;
-import java.util.ArrayList;
+package duke;
+
+import duke.Task;
+
 import java.util.List;
 
 public class Ui {
@@ -24,6 +26,17 @@ public class Ui {
     public void list(List<Task> list) {
         int index = 1;
         System.out.println("Here are the tasks in your list:");
+        System.out.println("____________________________________________________________");
+        for (Task thing: list) {
+            System.out.println(index +". " + thing.toString());
+            index++;
+        }
+        System.out.println("____________________________________________________________");
+
+    }
+    public void matchingList(List<Task> list) {
+        int index = 1;
+        System.out.println("Here are the matching tasks in your list:");
         System.out.println("____________________________________________________________");
         for (Task thing: list) {
             System.out.println(index +". " + thing.toString());
