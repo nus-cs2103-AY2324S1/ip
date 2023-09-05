@@ -12,11 +12,11 @@ public class TaskList {
     private ArrayList<Task> list;
     private Storage storage;
 
-    /** 
-     * Constructs a TaskList object with the specified file path. 
-     * 
-     * @param filePath the file path to store the tasks 
-     */ 
+    /**
+     * Constructs a TaskList object with the specified file path.
+     *
+     * @param filePath the file path to store the tasks
+     */
     public TaskList(String filePath) {
         this.storage = new Storage(filePath);
         try {
@@ -28,7 +28,7 @@ public class TaskList {
 
     /**
     * Saves the list of tasks to the storage.
-    * 
+    *
     * @throws IOException if an I/O error occurs while saving the tasks
     */
     private void save() {
@@ -38,7 +38,7 @@ public class TaskList {
             System.out.println("Error saving tasks: " + e.getMessage());
         }
     }
-    
+
     /**
      * Adds a task to the task list.
      *
@@ -69,8 +69,8 @@ public class TaskList {
      */
     public void mark(int index) {
         if (index < 1 || index > list.size()) {
-            throw new IndexOutOfBoundsException("Task index is out of range. " +
-                    "Check the number of tasks using the 'list' command.");
+            throw new IndexOutOfBoundsException("Task index is out of range. "
+                    + "Check the number of tasks using the 'list' command.");
         }
         Task taskToEdit = list.get(index - 1);
         taskToEdit.markAsDone();
@@ -86,8 +86,8 @@ public class TaskList {
      */
     public void unMark(int index) {
         if (index < 1 || index > list.size()) {
-            throw new IndexOutOfBoundsException("Task index is out of range. " +
-                    "Check the number of tasks using the 'list' command.");
+            throw new IndexOutOfBoundsException("Task index is out of range. "
+                    + "Check the number of tasks using the 'list' command.");
         }
         Task taskToEdit = list.get(index - 1);
         taskToEdit.unMark();
@@ -103,8 +103,8 @@ public class TaskList {
      */
     public void delete(int index) {
         if (index < 1 || index > list.size()) {
-            throw new IndexOutOfBoundsException("Task index is out of range. " +
-                    "Check the number of tasks using the 'list' command.");
+            throw new IndexOutOfBoundsException("Task index is out of range. "
+                    + "Check the number of tasks using the 'list' command.");
         }
         Task taskToEdit = list.get(index - 1);
         list.remove(index - 1);

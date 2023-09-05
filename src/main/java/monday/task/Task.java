@@ -54,3 +54,4 @@ public class Task implements Serializable {
         return "[" + getStatusIcon() + "] " + this.description;
     }
 }
+

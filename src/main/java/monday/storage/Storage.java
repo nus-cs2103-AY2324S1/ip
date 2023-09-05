@@ -1,13 +1,14 @@
 package monday.storage;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.ObjectInputStream;
-import java.io.FileOutputStream;
-import java.io.FileInputStream;
 import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+
 import monday.task.Task;
 
 
@@ -15,7 +16,11 @@ import monday.task.Task;
  * Class for handling the storage of tasks in a file.
  */
 public class Storage {
+    //CHECKSTYLE.OFF: AbbreviationAsWordInName
+    //CHECKSTYLE.OFF: MemberName
     private final String FILEPATH;
+    //CHECKSTYLE.ON: AbbreviationAsWordInName
+    //CHECKSTYLE.ON: MemberName
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -44,7 +49,7 @@ public class Storage {
      * @throws IOException if an I/O error occurs while saving the tasks
      */
     public void save(ArrayList<Task> tasks) throws IOException {
-        try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(FILEPATH))){
+        try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(FILEPATH))) {
             output.writeObject(tasks);
         }
     }
@@ -57,7 +62,7 @@ public class Storage {
      * @throws IOException if an I/O error occurs while loading the tasks
      */
     public ArrayList<Task> load() throws ClassNotFoundException, IOException {
-        try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(FILEPATH))){
+        try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(FILEPATH))) {
             // We know the objects inside are all Tasks,therefore we can suppress the unchecked warning.
             @SuppressWarnings("unchecked")
             ArrayList<Task> tasklists = (ArrayList<Task>) input.readObject();

@@ -1,7 +1,8 @@
 package monday;
 
-import monday.task.ToDo;
 import org.junit.jupiter.api.Test;
+
+import monday.task.ToDo;
 
 /**
  * The ToDoTest class is responsible for testing the functionality of the ToDo class.

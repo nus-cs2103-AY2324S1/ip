@@ -1,4 +1,4 @@
-package monday.monday.dateTime;
+package monday.monday.datetime;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,8 +22,8 @@ public class DateFormatter {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
             return LocalDateTime.parse(dateTime, formatter);
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Invalid date format. " +
-                    "Please use the format: " + pattern);
+            throw new IllegalArgumentException("Invalid date format. "
+                    + "Please use the format: " + pattern);
         }
     }
 

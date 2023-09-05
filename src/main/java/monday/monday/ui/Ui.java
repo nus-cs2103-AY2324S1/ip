@@ -1,8 +1,8 @@
 package monday.monday.ui;
 
-/** 
- * Ui class is responsible for handling user interface related functions. 
- */ 
+/**
+ * Ui class is responsible for handling user interface related functions.
+ */
 public class Ui {
     /**
      * Prints a greeting message to the console.

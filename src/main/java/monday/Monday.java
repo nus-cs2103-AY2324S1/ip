@@ -2,22 +2,22 @@ package monday;
 
 import java.util.Scanner;
 
+import monday.monday.exception.MondayExceptions;
+import monday.monday.parser.Parser;
 import monday.monday.ui.Ui;
 import monday.task.TaskList;
-import monday.monday.parser.Parser;
-import monday.monday.exception.MondayExceptions;
 
 /**
  * Monday is a task management ChatBot. Users can add, mark, unmark,
  * delete, keep track of the tasks they have.
  */
 public class Monday {
-    /** 
-     * Starts the Monday application. 
-     * Initializes necessary components, greets the user, handles user input, and handles errors. 
-     * 
-     * @param filepath the filepath to store the tasks 
-     */ 
+    /**
+     * Starts the Monday application.
+     * Initializes necessary components, greets the user, handles user input, and handles errors.
+     *
+     * @param filepath the filepath to store the tasks
+     */
     private static void startMonday(String filepath) {
         Scanner scanner = new Scanner(System.in);
         TaskList taskList = new TaskList(filepath);

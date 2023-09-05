@@ -2,15 +2,15 @@ package monday.monday.parser;
 
 import monday.monday.exception.MondayExceptions;
 import monday.monday.ui.Ui;
+import monday.task.Deadline;
+import monday.task.Event;
 import monday.task.TaskList;
 import monday.task.ToDo;
-import monday.task.Event;
-import monday.task.Deadline;
 
 
-/** 
- * Parser class is responsible for parsing user input and performing the corresponding actions. 
- */ 
+/**
+ * Parser class is responsible for parsing user input and performing the corresponding actions.
+ */
 public class Parser {
     /**
      * An enumeration of available commands.
@@ -27,15 +27,15 @@ public class Parser {
         FIND
     }
 
-    /** 
-     * Parses the user input and performs the corresponding action. 
-     * 
-     * @param userInput the user input to be parsed 
-     * @param taskList the TaskList object to perform actions on 
-     * @return true if the application should continue running, false otherwise 
-     * @throws MondayExceptions if there are errors related to the Monday application 
-     * @throws IllegalArgumentException if the user input is in the wrong format 
-     */ 
+    /**
+     * Parses the user input and performs the corresponding action.
+     *
+     * @param userInput the user input to be parsed
+     * @param taskList the TaskList object to perform actions on
+     * @return true if the application should continue running, false otherwise
+     * @throws MondayExceptions if there are errors related to the Monday application
+     * @throws IllegalArgumentException if the user input is in the wrong format
+     */
     public static boolean mondayParser(String userInput, TaskList taskList) throws MondayExceptions {
         String[] input = userInput.split(" ", 2);
         String command = input[0];
@@ -72,8 +72,8 @@ public class Parser {
         }
         case TODO:
             if (content == null) {
-                throw new MondayExceptions("The description of a todo cannot be empty.\n" +
-                        "Usage: todo (task)");
+                throw new MondayExceptions("The description of a todo cannot be empty.\n"
+                        + "Usage: todo (task)");
             }
 
             taskList.addToTask(new ToDo(content));
@@ -81,25 +81,25 @@ public class Parser {
         case DEADLINE:
             try {
                 if (content == null) {
-                    throw new MondayExceptions("The description of a deadline cannot be empty.\n" +
-                            "Usage: deadline (task) /by (time)");
+                    throw new MondayExceptions("The description of a deadline cannot be empty.\n"
+                            + "Usage: deadline (task) /by (time)");
                 }
 
-                String[] taskDetails = content.split("/by",2);
+                String[] taskDetails = content.split("/by", 2);
                 String description = taskDetails[0];
                 String date = taskDetails[1];
 
                 taskList.addToTask(new Deadline(description.trim(), date.trim()));
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new IllegalArgumentException("Invalid Format. " +
-                        "Usage: deadline (task) /by (time)");
+                throw new IllegalArgumentException("Invalid Format. "
+                        + "Usage: deadline (task) /by (time)");
             }
             break;
         case EVENT:
             try {
                 if (content == null) {
-                    throw new MondayExceptions("The description of a event cannot be empty.\n" +
-                            "Usage: event (task) /from (start time) /to (end time)");
+                    throw new MondayExceptions("The description of a event cannot be empty.\n"
+                            + "Usage: event (task) /from (start time) /to (end time)");
                 }
 
                 String[] taskDetails = content.split("/from", 2);
@@ -112,8 +112,8 @@ public class Parser {
                         start.trim(),
                         end.trim()));
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new IllegalArgumentException("Invalid Format. " +
-                        "Usage: event (task) /from (start time) /to (end time)");
+                throw new IllegalArgumentException("Invalid Format. "
+                        + "Usage: event (task) /from (start time) /to (end time)");
             }
             break;
         case DELETE:
@@ -132,15 +132,15 @@ public class Parser {
             String[] keywordDetails = content.split(" ");
 
             if (keywordDetails.length > 1) {
-                throw new IllegalArgumentException("Invalid Format. " +
-                        "Usage: find (keyword), there should only be one keyword.");
+                throw new IllegalArgumentException("Invalid Format. "
+                        + "Usage: find (keyword), there should only be one keyword.");
             }
 
             taskList.find(keywordDetails[0]);
             break;
         default:
-            throw new MondayExceptions("Sorry, I do not understand what that means.\n" +
-                    "Please provide a valid input/command. e.g todo read book");
+            throw new MondayExceptions("Sorry, I do not understand what that means.\n"
+                    + "Please provide a valid input/command. e.g todo read book");
         }
         return true;
     }

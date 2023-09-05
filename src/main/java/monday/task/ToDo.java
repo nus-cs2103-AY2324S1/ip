@@ -2,7 +2,7 @@ package monday.task;
 
 /**
  * The ToDos class extends the Task class.
- * It contains a description and inherits the 
+ * It contains a description and inherits the
  * completion status functionality from the Task class.
  */
 public class ToDo extends Task {
