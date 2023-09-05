@@ -21,26 +21,7 @@ public class Ui {
      *
      * @param e OscarException.
      */
-    public void showError(OscarException e) {
-        System.out.println(e.getMessage());
+    public String showError(OscarException e) {
+        return e.getMessage();
     }
-
-    /**
-     * Instantiates a scanner to take in user input.
-     *
-     * @return User input.
-     */
-    public String readCommand() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
-    }
-
-    /**
-     * Prints divider line in output.
-     */
-    public void showLine() {
-        System.out.println("___________________________________\n");
-    }
-
-
 }

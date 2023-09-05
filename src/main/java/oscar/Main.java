@@ -10,11 +10,11 @@ import javafx.stage.Stage;
 import oscar.ui.MainWindow;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Oscar using FXML.
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Oscar oscar = new Oscar(Oscar.FILE_PATH);
 
     @Override
     public void start(Stage stage) {
@@ -23,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setOscar(oscar);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

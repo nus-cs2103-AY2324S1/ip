@@ -17,11 +17,12 @@ public class ExitCommand extends Command {
     /**
      * Displays message when terminating Oscar.
      *
-     * @param tasks ArrayList of tasks.
+     * @param tasks   ArrayList of tasks.
      * @param storage File loading and saving handler.
+     * @return
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) {
-        System.out.println("Goodbye for now. Oscar hopes to see you again soon!\n");
+    public String execute(TaskList tasks, Storage storage) {
+        return "Goodbye for now. Oscar hopes to see you again soon!\n";
     }
 }
