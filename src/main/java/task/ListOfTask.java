@@ -1,8 +1,8 @@
 package task;
 
+import command.Commands;
 import dukeExceptions.DukeException;
 import storage.Storage;
-import ui.Ui;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,53 +19,50 @@ public class ListOfTask {
         return listOfTask.size();
     }
 
-    /**
-     * Adds a task into the task list.
-     *
-     * @param task The task that is to be added.
-     * @param print True to print messages, false to not print messages.
-     */
-    public void addTask(String task, boolean print) {
-        Task temp = Task.of(task);
-        listOfTask.add(temp);
+
+    private void addTask(Task task, boolean print) {
+        listOfTask.add(task);
         if (print) {
-            System.out.println("added: " + temp);
+            System.out.println("added: " + task);
             Storage.save(listOfTask);
         }
     }
 
     /**
-     * Adds a task into the task list.
+     * Adds the ToDo task into the task list.
+     *
+     * @param task The task that is to be added.
+     * @param print True to print messages, false to not print messages.
+     */
+    public void addToDo(String task, boolean print) {
+        Task temp = new ToDo(task);
+        addTask(temp, print);
+    }
+
+    /**
+     * Adds the Deadline task into the task list.
      *
      * @param task The task that is to be added.
      * @param dayDate The deadline of the task.
      * @param print True to print messages, false to not print messages.
      */
-    public void addTask(String task, LocalDateTime dayDate, boolean print) {
-        Task temp = Task.of(task, dayDate);
-        listOfTask.add(temp);
-        if (print) {
-            System.out.println("added: " + temp);
-            Storage.save(listOfTask);
-        }
+    public void addDeadline(String task, LocalDateTime dayDate, boolean print) {
+        Task temp = new Deadline(task, dayDate);
+        addTask(temp, print);
     }
 
     /**
-     * Adds a task into the task list.
+     * Adds the Event task into the task list.
      *
      * @param task The task that is to be added.
      * @param startDayDateTime The date and time of the start of the task.
      * @param endDayDateTime The date and time of the end of the task.
      * @param print True to print messages, false to not print messages.
      */
-    public void addTask(String task, LocalDateTime startDayDateTime,
+    public void addEvent(String task, LocalDateTime startDayDateTime,
                         LocalDateTime endDayDateTime, boolean print) {
-        Task temp = Task.of(task, startDayDateTime, endDayDateTime);
-        listOfTask.add(temp);
-        if (print) {
-            System.out.println("added: " + temp);
-            Storage.save(listOfTask);
-        }
+        Task temp = new Event(task, startDayDateTime, endDayDateTime);
+        addTask(temp, print);
     }
 
     /**
@@ -88,39 +85,38 @@ public class ListOfTask {
      * @param str The string that will be searched.
      */
     public void find(String str) {
-        int[] start = new int[1];
-        start[0] = 0;
+        int[] foundCounter = new int[1];
+        foundCounter[0] = 0;
         int size = listOfTask.size();
-        int[] rememberIndex = new int[size];
-        Task[] rememberTask = new Task[size];
-        int[] i = new int[1];
-        i[0] = 1;
-        listOfTask.forEach(x -> {
-            if (x.getTaskName().contains(str)) {
-                rememberTask[start[0]] = x;
-                rememberIndex[start[0]] = i[0];
-                start[0]++;
+        int[] counter = new int[1];
+        counter[0] = 1;
+        listOfTask.forEach(task -> {
+            if (task.getTaskDescription().contains(str)) {
+                System.out.println(counter[0] + "." + task);
+                foundCounter[0]++;
             }
-            i[0]++;
+            counter[0]++;
         });
-        for (int j = 0; j < (start[0]); j++) {
-            System.out.println(rememberIndex[j] + "." + rememberTask[j]);
-        }
-        if (start[0] == 0) {
+        if (foundCounter[0] == 0) {
             System.out.println("Whoopys uWu, sorry I couldnyt fynd any taysk that contyain that strying. XD uWu");
         }
     }
 
     /**
-     * Mark a task as done.
+     * Mark or unmark a task as done.
      *
      * @param index The index of the task based on the current task list.
+     * @param markOrUnmark True to mark, false to unmark.
      * @param print True to print messages, false to not print messages.
      * @throws DukeException If the number is outside the range of indexes in the list.
      */
-    public void mark(int index, boolean print) throws DukeException {
+    public void markOrUnmark(int index, boolean markOrUnmark, boolean print) throws DukeException {
         try {
-            listOfTask.get(index - 1).setDone();
+            if (markOrUnmark) {
+                listOfTask.get(index - 1).setDone();
+            } else {
+                listOfTask.get(index - 1).setNotDone();
+            }
             if (print) {
                 System.out.println(listOfTask.get(index - 1).toString());
                 Storage.save(listOfTask);
@@ -130,24 +126,6 @@ public class ListOfTask {
         }
     }
 
-    /**
-     * Mark a task as undone.
-     *
-     * @param index The index of the task based on the current task list.
-     * @param print True to print messages, false to not print messages.
-     * @throws DukeException If the number is outside the range of indexes in the list.
-     */
-    public void unMark(int index, boolean print) throws DukeException {
-        try {
-            listOfTask.get(index - 1).setNotDone();
-            if (print) {
-                System.out.println(listOfTask.get(index - 1).toString());
-            }
-            Storage.save(listOfTask);
-        } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Please select from index 1 to " + listOfTask.size());
-        }
-    }
 
     /**
      * Delete a task from the task list.

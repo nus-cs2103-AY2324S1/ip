@@ -139,7 +139,7 @@ public class CommandsTest {
             try {
                 final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
                 System.setOut(new PrintStream(outContent));
-                taskList.mark(indexes[i] + 1, true);
+                taskList.markOrUnmark(indexes[i] + 1, true, true);
                 assertEquals(cmdi[i] + "\r\n", outContent.toString());
             } catch (DukeNumberFormatException e) {
                 assertEquals("Place a number after the command", e.getMessage());
@@ -185,7 +185,7 @@ public class CommandsTest {
             try {
                 final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
                 System.setOut(new PrintStream(outContent));
-                taskList.unMark(indexes[i] + 1, true);
+                taskList.markOrUnmark(indexes[i] + 1, false, true);
                 assertEquals(cmdi[i] + "\r\n", outContent.toString());
             } catch (DukeNumberFormatException e) {
                 assertEquals("Place a number after the command", e.getMessage());
