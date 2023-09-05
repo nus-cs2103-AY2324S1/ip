@@ -105,6 +105,11 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Prints the tasks found when filtered using the specific keyword
+     *
+     * @param findTasks
+     */
     public void printFoundTasks(TaskList findTasks) {
         System.out.println(LINE);
         System.out.println("Here are the matching tasks in your list:");

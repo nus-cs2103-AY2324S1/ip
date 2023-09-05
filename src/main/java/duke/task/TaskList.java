@@ -51,11 +51,4 @@ public class TaskList {
         return this.tasks.size();
     }
 
-//    /**
-//     * Gets the number of tasks in the task list
-//     */
-//    public int getLength() {
-//        return tasks.size();
-//    }
-
 }

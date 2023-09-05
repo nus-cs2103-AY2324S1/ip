@@ -1,7 +1,5 @@
 package duke.exception;
 
-import java.lang.Exception;
-
 /**
  * Represents the exceptions for the Duke Chat bot.
  *
