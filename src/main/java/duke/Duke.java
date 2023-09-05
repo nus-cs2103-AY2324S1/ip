@@ -1,9 +1,7 @@
 package duke;
 
-import java.util.Scanner;
-
-import duke.command.Command;
 import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * Represents a Duke class that deals with the main logic of the program.
@@ -16,13 +14,12 @@ public class Duke {
     private final Ui ui;
 
     /**
-     * Constructor for Duke. Initializes the Ui, Storage and TaskList.
-     *
-     * @param filePath path to duke.txt.
+     * Constructor for Duke. Creates a new Ui, Storage and TaskList.
+     * If there is an error loading the file, a new TaskList is created.
      */
-    public Duke(String filePath) {
+    public Duke() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(DUKE_FILEPATH);
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
@@ -32,30 +29,20 @@ public class Duke {
     }
 
     /**
-     * Runs the program by waiting for user input and responding to it.
-     * If user input is "bye", the program will exit.
+     * Returns a list of tasks.
+     *
+     * @return a list of tasks.
      */
-    public void run() {
-        ui.showWelcomeMessage();
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String userInput = scanner.nextLine().trim();
-            try {
-                Command command = Parser.parse(userInput);
-                command.execute(tasks, ui, storage);
-                if (command.isExit()) {
-                    break;
-                }
-
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            }
-
-        }
-        scanner.close();
+    public TaskList getTasks() {
+        return tasks;
     }
 
-    public static void main(String[] args) {
-        new Duke(DUKE_FILEPATH).run();
+    /**
+     * Returns the storage.
+     *
+     * @return the storage.
+     */
+    public Storage getStorage() {
+        return storage;
     }
 }

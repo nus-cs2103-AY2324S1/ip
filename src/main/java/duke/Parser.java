@@ -2,12 +2,13 @@ package duke;
 
 import java.time.LocalDate;
 
-import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
+import duke.command.TodoCommand;
 import duke.command.UnmarkCommand;
 import duke.task.DeadlineTask;
 import duke.task.EventTask;
@@ -25,7 +26,6 @@ public class Parser {
      * @throws DukeException if user input gives an invalid command.
      */
     public static Command parse(String userInput) throws DukeException {
-
         String command = userInput.split(" ", 2)[0].toUpperCase();
         switch (command) {
         case "BYE":
@@ -37,11 +37,11 @@ public class Parser {
         case "UNMARK":
             return new UnmarkCommand(getTaskNumber(userInput));
         case "TODO":
-            return new AddCommand(parseTodo(userInput));
+            return new TodoCommand(parseTodo(userInput));
         case "DEADLINE":
-            return new AddCommand(parseDeadline(userInput));
+            return new TodoCommand(parseDeadline(userInput));
         case "EVENT":
-            return new AddCommand(parseEvent(userInput));
+            return new TodoCommand(parseEvent(userInput));
 
         case "FIND":
             return new FindCommand(getKeyword(userInput));

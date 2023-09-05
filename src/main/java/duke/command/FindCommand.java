@@ -1,7 +1,8 @@
-package duke;
+package duke.command;
 
-import duke.command.Command;
+import duke.Storage;
 import duke.task.TaskList;
+import duke.ui.GobbleMessage;
 
 /**
  * Represents a FindCommand class that deals with the command to find a task.
@@ -23,11 +24,10 @@ public class FindCommand extends Command {
      * Prints the list of tasks that contains the keyword.
      *
      * @param taskList list of tasks that contains the keyword.
-     * @param ui       ui object to print the list of tasks.
      * @param storage  storage object to save the list of tasks.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.printResultList(taskList.findTask(this.keyword));
+    public GobbleMessage execute(TaskList taskList, Storage storage) {
+        return GobbleMessage.getDukeDialog(taskList.findTask(this.keyword).toString(), "Find");
     }
 }

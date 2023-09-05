@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+      <Label fx:id="from" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="46.0" text="Label" wrapText="true">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font>
+      </Label>
+        <Label fx:id="message" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Label" wrapText="true" HBox.hgrow="ALWAYS">
+         <font>
+            <Font name="Arial" size="13.0" />
+         </font>
+         <padding>
+            <Insets bottom="5.0" />
+         </padding></Label>
+    </children>
+    <padding>
+        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+    </padding>
+</fx:root>

@@ -1,4 +1,4 @@
-package duke;
+package duke.ui;
 
 import java.util.ArrayList;
 
@@ -10,6 +10,7 @@ import duke.task.TaskList;
  */
 public class Ui {
     private final String lineSeparator = "____________________________________________________________";
+
 
     /**
      * Prints the welcome message.
@@ -96,12 +97,13 @@ public class Ui {
      *
      * @param list list of tasks.
      */
-    public void printResultList(ArrayList<Task> list) {
-        System.out.println(lineSeparator);
-        System.out.println("Here are the matching tasks in your list:");
+    public String printResultList(ArrayList<Task> list) {
+        String result;
+        result = this.lineSeparator + "\n" + "Here are the matching tasks in your list:" + "\n";
         for (int i = 0; i < list.size(); i++) {
-            System.out.println((i + 1) + "." + list.get(i));
+            result += (i + 1) + "." + list.get(i) + "\n";
         }
-        System.out.println(lineSeparator);
+        result += this.lineSeparator;
+        return result;
     }
 }

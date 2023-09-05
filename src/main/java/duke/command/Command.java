@@ -2,8 +2,8 @@ package duke.command;
 
 import duke.DukeException;
 import duke.Storage;
-import duke.Ui;
 import duke.task.TaskList;
+import duke.ui.GobbleMessage;
 
 /**
  * Represents an abstract Command class that can execute an action.
@@ -15,11 +15,10 @@ public abstract class Command {
      * subclasses. By default, it throws a DukeException.
      *
      * @param taskList list of tasks
-     * @param ui       user interface
      * @param storage  storage
      * @throws DukeException if there is an error executing the command
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public GobbleMessage execute(TaskList taskList, Storage storage) throws DukeException {
         throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
