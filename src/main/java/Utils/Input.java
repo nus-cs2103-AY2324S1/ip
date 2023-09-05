@@ -5,40 +5,29 @@ import java.util.Set;
 import java.util.HashSet;
 
 public class Input {
-    private static final Set<String> commands = Set.of(
-        "mark",
-        "unmark",
-        "list",
-        "todo",
-        "deadline",
-        "event"
-      );
     private static Scanner scanner = new Scanner(System.in);
     private TaskList tasks;
     private String input;
-    private boolean active;
 
     public Input() {
-        this.active = true;
         this.tasks = new TaskList();
     }
-
-    public void readCommand() {
+    
+    public Response command() {
         this.input = Input.scanner.nextLine();
+        return executeCommand();
     }
 
     public Response executeCommand() {
-        String[] commandArgs = this.input.split(" ");
-        String command = commandArgs[0];
+        String command = this.input.split(" ")[0];
         if (command.equals("bye")) {
-            this.active = false;
-            return new TerminateResponse();
+            return Response.TERMINATE;
         }
-        return this.tasks.execute(this.input,commandArgs);
-    }
-
-    public boolean isActive() {
-        return this.active;
+        try {
+            return this.tasks.execute(this.input, command);
+        } catch (DukeException e) {
+            return Response.generate(e.toString());
+        }
     }
 }
 

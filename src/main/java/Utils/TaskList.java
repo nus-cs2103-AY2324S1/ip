@@ -2,11 +2,7 @@ package Utils;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Map.*;
 import java.util.HashMap;
-import java.util.stream.Stream;
-import java.util.stream.Collectors;
-import java.util.Arrays;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -16,9 +12,10 @@ public class TaskList {
         LIST,
         TODO,
         DEADLINE,
-        EVENT
+        EVENT,
+        NOTFOUND
     }
-    private HashMap<String,Type> commandMap = new HashMap<>(Map.of(
+    private final HashMap<String,Type> commandMap = new HashMap<>(Map.of(
         "mark", Type.MARK,
         "unmark", Type.UNMARK,
         "list", Type.LIST,
@@ -31,86 +28,84 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    private String getArg(String input, String targetArg) {
-        String[] args = input.split("/");
-        for (String arg : args) {
-            String[] words = arg.split(" ");
-            String argName = words[0];
-            if (argName.equals(targetArg)) {
-                return Arrays.stream(words).skip(1).collect(Collectors.joining(" "));
-            }
-        }
-        return "";
-    }
-
-    protected Response execute(String input, String[] commandArgs) {
-        String command = commandArgs[0];
+    protected Response execute(String input, String command) throws DukeException {
         Task task;
-        int idx;
-        switch(commandMap.get(command)) {
+        Type commandVal = commandMap.get(command) == null ? Type.NOTFOUND : commandMap.get(command);
+
+        switch(commandVal) {
             case TODO:
-                task = new Todo(getArg(input,command));
+                task = new Todo(Command.assertString(input,command));
                 break;
             case DEADLINE:
-                task = new Deadline(getArg(input,command), getArg(input,"by"));
+                task = new Deadline(
+                    Command.assertString(input,command), 
+                    Command.assertString(input,"by")
+                    );
                 break;
             case EVENT:
-                task = new Event(getArg(input,command), getArg(input,"from"), getArg(input,"to"));
+                task = new Event(
+                    Command.assertString(input, command), 
+                    Command.assertString(input,"from"), 
+                    Command.assertString(input,"to")
+                    );
                 break;
             case MARK:
-                idx = Integer.parseInt(commandArgs[1]);
-                return this.mark(idx);
+                return this.mark(Command.assertInteger(input, command));
             case UNMARK:
-                idx = Integer.parseInt(commandArgs[1]);
-                return this.unmark(idx);
+                return this.unmark(Command.assertInteger(input, command));
             case LIST:
                 return this.list();
             default:
-                return new InputResponse("No such Command");
+                throw new CommandNotFoundException();
         }
-        InputResponse taskResponse = new InputResponse("Got it. I've added this task:");
         this.tasks.add(task);
-        taskResponse.add("  " + task.toString());
-        taskResponse.add(String.format("Now you have %d tasks in the list.", tasks.size()));
-        return taskResponse;
+        return Response.generate(new String[]{
+            "Got it. I've added this task:",
+            "  " + task.toString(),
+            String.format("Now you have %d tasks in the list.", tasks.size())
+        });
     }
 
     protected Response list() {
-        InputResponse taskResponse = new InputResponse();
-        taskResponse.add("Here are the tasks in your list:");
+        ArrayList<String> output = new ArrayList<>();
+        output.add("Here are the tasks in your list:");
         int count = 0;
         for (Task task : this.tasks) {
-            taskResponse.add(String.format("%d.%s",
+            output.add(String.format("%d.%s",
                 ++count,
                 task.toString()
               ));
         }
-        return taskResponse;
+        return Response.generate(output);
     }
 
     private boolean inRange(int idx) {
-        return (this.tasks.size() > --idx);
+        return (idx > 0 && this.tasks.size() > --idx);
     }
 
-    protected Response mark(int idx) {
-        InputResponse taskResponse = new InputResponse();
-        if (this.inRange(idx)) {
-            Task task = this.tasks.get(--idx);
-            task.mark();
-            taskResponse.add("Nice! I've marked this task as done:");
-            taskResponse.add("  " + task.toString());
+    protected Response mark(int idx) throws DukeException{
+        ArrayList<String> output = new ArrayList<>();
+        if (!this.inRange(idx)) {
+            throw new TaskNotFoundException();
         }
-        return taskResponse;
+        Task task = this.tasks.get(--idx);
+        task.mark();
+        output.add("Nice! I've marked this task as done:");
+        output.add("  " + task.toString());
+
+        return Response.generate(output);
     }
 
     protected Response unmark(int idx) {
-        InputResponse taskResponse = new InputResponse();
-        if (this.inRange(idx)) {
-            Task task = this.tasks.get(--idx);
-            task.unmark();
-            taskResponse.add("OK, I've marked this task as not done yet:");
-            taskResponse.add("  " + task.toString());
+        ArrayList<String> output = new ArrayList<>();
+        if (!this.inRange(idx)) {
+            throw new TaskNotFoundException();
         }
-        return taskResponse;
+        Task task = this.tasks.get(--idx);
+        task.unmark();
+        output.add("OK, I've marked this task as not done yet:");
+        output.add("  " + task.toString());
+
+        return Response.generate(output);
     }
 }

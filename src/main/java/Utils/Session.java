@@ -1,19 +1,21 @@
 package Utils;
 
 public class Session {
-    private final GreetingResponse GREETINGS = new GreetingResponse();
     private Response response;
     private Input input;
 
     public Session() {}
 
     public void start() {
-        GREETINGS.print();
+        print(Response.GREETINGS);
         this.input = new Input();
-        while (this.input.isActive()) {
-            this.input.readCommand();
-            this.response = this.input.executeCommand();
-            this.response.print();
+        while (this.response != Response.TERMINATE) {
+            this.response = this.input.command();
+            print(this.response);
         }
+    }
+
+    private void print(Response r) {
+        System.out.println(r);
     }
 }

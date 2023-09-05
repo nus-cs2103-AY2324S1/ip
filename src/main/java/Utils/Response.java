@@ -1,25 +1,59 @@
 package Utils;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public abstract class Response {
-    private ArrayList<String> messageList;
-    private static final String LINE = "____________________________________________________________";
+public class Response {
+    private String messageOutput;
+    private static final String LINE = "    ____________________________________________________________\n";
     private static final String TAB = "    ";
+    protected static final Response GREETINGS = Response.greeting();
+    protected static final Response TERMINATE = Response.terminate();
 
-    protected Response() {
-        this.messageList = new ArrayList<>();
+    private Response() {
+        this.messageOutput = "";
     }
 
-    protected void add(String message) {
-        messageList.add(Response.TAB + message);
+    private void add(String message) {
+        this.messageOutput += Response.TAB + message + "\n";
     }
 
-    protected void print() {
-        System.out.println(Response.TAB + Response.LINE);
-        for (String message : messageList) {
-            System.out.println(message);
+    protected static Response generate(String message) {
+        Response response = new Response();
+        response.add(message);
+        return response;
+    }
+
+    protected static Response generate(String[] messageArray) {
+        Response response = new Response();
+        for (int i = 0; i < messageArray.length; i++) {
+            response.add(messageArray[i]);
         }
-        System.out.println(Response.TAB + Response.LINE + '\n');
+        return response;
+    }
+
+    protected static Response generate(List<String> messageList) {
+        Response response = new Response();
+        for (String s : messageList) {
+            response.add(s);
+        }
+        return response;
+    }
+
+    protected static Response greeting() {
+        Response response = new Response();
+        response.add("Hello! I'm Duke");
+        response.add("What can I do for you?");
+        return response;
+    }
+
+    protected static Response terminate() {
+        Response response = new Response();
+        response.add("Bye. Hope to see you again soon!");
+        return response;
+    }
+
+    @Override
+    public String toString() {
+        return Response.LINE + this.messageOutput + Response.LINE;
     }
 }
