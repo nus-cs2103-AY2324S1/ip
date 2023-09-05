@@ -1,6 +1,9 @@
 package juke.commands;
 
+import juke.Juke;
+import juke.commons.utils.StringUtils;
 import juke.exceptions.storage.JukeStorageException;
+import juke.responses.Response;
 import juke.tasks.TaskList;
 
 /**
@@ -27,11 +30,15 @@ public class JukeMarkTaskDoneCommand extends JukeCommand {
     /**
      * Carries out an action when the command is executed.
      *
-     * @throws JukeStorageException if there are any errors encountered when reading the data
+     * @param response {@code Response} object that contains response from Juke and the user
+     * @return {@code Response} object that contains response from Juke and the user
+     * @throws JukeStorageException if there are any errors encountered when reading the data file
      */
     @Override
-    public void execute() {
+    public Response execute(Response response) {
         this.taskList.setAsComplete(this.index);
-        System.out.print("Task Marked as Done!\n" + this.taskList.getTaskInformation(this.index));
+        return response.withJuke(
+                StringUtils.wrap("Task marked as done: " + this.taskList.getTaskInformation(this.index),
+                                 Juke.MAX_STRING_LENGTH));
     }
 }

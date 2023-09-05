@@ -1,6 +1,9 @@
 package juke.commands;
 
+import juke.Juke;
+import juke.commons.utils.StringUtils;
 import juke.exceptions.storage.JukeStorageException;
+import juke.responses.Response;
 import juke.tasks.JukeTask;
 import juke.tasks.TaskList;
 
@@ -28,11 +31,14 @@ public class JukeAddTaskCommand extends JukeCommand {
     /**
      * Carries out an action when the command is executed.
      *
-     * @throws JukeStorageException if there is an issue with storing changes
+     * @param response {@code Response} object that contains response from Juke and the user
+     * @return {@code Response} object that contains response from Juke and the user
+     * @throws JukeStorageException if there are any errors encountered when reading the data file
      */
     @Override
-    public void execute() {
+    public Response execute(Response response) {
         this.taskList.addTask(this.task);
-        System.out.print("Task added: " + this.task);
+        return response.withJuke(
+                StringUtils.wrap("Task added: " + this.task, Juke.MAX_STRING_LENGTH));
     }
 }

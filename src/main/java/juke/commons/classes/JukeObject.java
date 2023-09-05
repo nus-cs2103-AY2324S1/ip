@@ -1,4 +1,4 @@
-package juke.core;
+package juke.commons.classes;
 
 /**
  * Abstract Class that represents objects that Juke can handle.

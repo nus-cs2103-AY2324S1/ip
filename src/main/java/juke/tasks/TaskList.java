@@ -3,7 +3,8 @@ package juke.tasks;
 import java.util.LinkedList;
 import java.util.List;
 
-import juke.core.JukeObject;
+import juke.commons.classes.JukeObject;
+import juke.commons.utils.StringUtils;
 import juke.exceptions.JukeStateException;
 import juke.exceptions.arguments.JukeIllegalArgumentException;
 import juke.exceptions.storage.JukeStorageException;
@@ -15,11 +16,13 @@ import juke.storage.Storage;
  */
 public class TaskList extends JukeObject {
     /** Header for {@code TaskList} String representation. */
-    private static final String TASK_LIST_HEADER = "\n\t>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TASK LIST <<<<<<<<<<<<<<"
-            + "<<<<<<<<<<<<<<<<<<<<<\n";
+    private static final String TASK_LIST_HEADER = "Here's your list of tasks:\n\n";
 
     /** String representation of the {@code TaskList} when it is empty. */
-    private static final String NO_TASKS_PRESENT_STRING = "\t\t\t\t\t\t\t\t\t!No Tasks Present!";
+    private static final String NO_TASKS_PRESENT_STRING = "No Tasks Present!";
+
+    /** Max number of characters on a line. */
+    private static final int MAX_LINE_LENGTH = 35;
 
     /** List of JukeTasks under this {@code TaskList}'s control. */
     private final LinkedList<JukeTask> tasks;
@@ -164,20 +167,18 @@ public class TaskList extends JukeObject {
      */
     @Override
     public String toString() {
+        if (this.tasks.isEmpty()) {
+            return TaskList.NO_TASKS_PRESENT_STRING;
+        }
+
         StringBuilder builder = new StringBuilder();
         builder.append(TaskList.TASK_LIST_HEADER);
 
-        if (this.tasks.isEmpty()) {
-            builder.append(TaskList.NO_TASKS_PRESENT_STRING);
-        } else {
-            for (int i = 0; i < this.tasks.size(); i++) {
-                builder.append("\t")
-                       .append((i + 1) + ". ")
-                       .append(this.tasks.get(i))
-                       .append("\n");
-            }
+        for (int i = 0; i < this.tasks.size(); i++) {
+            String built = (i + 1) + ". " + this.tasks.get(i) + "\n";
+            builder.append(StringUtils.wrap(built, TaskList.MAX_LINE_LENGTH));
         }
 
-        return builder.toString();
+        return builder.toString().strip();
     }
 }

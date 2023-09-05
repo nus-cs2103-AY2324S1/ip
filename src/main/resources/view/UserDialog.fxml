@@ -1,0 +1,46 @@
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.image.Image?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.Label?>
+
+<fx:root alignment="TOP_RIGHT" maxHeight="Infinity" maxWidth="450.0"
+         prefWidth="450.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1" spacing="10.0">
+    <children>
+        <StackPane fx:id="dialogBubble">
+            <children>
+                <Region fx:id="backgroundRegion" maxWidth="350.0">
+                    <background>
+                        <Background>
+                            <fills>
+                                <BackgroundFill fill="lightgreen">
+                                    <radii>
+                                        <CornerRadii radius="20.0" />
+                                    </radii>
+                                </BackgroundFill>
+                            </fills>
+                        </Background>
+                    </background>
+                </Region>
+                <Label fx:id="textLabel" wrapText="true"/>
+            </children>
+        </StackPane>
+        <ImageView fx:id="displayImage" fitHeight="100.0d" fitWidth="100.0d">
+            <clip>
+                <Circle radius="50.0d" centerX="50.0" centerY="50.0"/>
+            </clip>
+            <image>
+                <Image url="@/images/DaUser.png" />
+            </image>
+        </ImageView>
+    </children>
+    <alignment>
+        <Pos fx:constant="TOP_RIGHT"/>
+    </alignment>
+    <padding>
+        <Insets top="10.0" right="5.0" bottom="10.0" left="5.0"/>
+    </padding>
+</fx:root>

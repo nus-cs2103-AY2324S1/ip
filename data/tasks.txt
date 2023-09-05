@@ -1,5 +1,8 @@
 E|T|splashdown|2022-04-24T00:00|2022-04-25T00:00
-D|F|finish cs career|9999-12-31T00:00
+D|T|finish cs career|9999-12-31T00:00
 T|F|finish cs2100 lecture
 E|F|very big event oh no|2023-12-25T00:00|2023-12-26T00:00
 T|F|oh no is this a bug
+T|F|thing
+T|F|event
+T|F|bye
