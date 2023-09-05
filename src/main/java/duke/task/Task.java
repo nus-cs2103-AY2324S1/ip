@@ -7,11 +7,22 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Initializes a task with the given description and sets the completion status to false.
+     *
+     * @param description Description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Initializes a task with the given description and completion status.
+     *
+     * @param description Description of the task.
+     * @param isDone Completion status of the task.
+     */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;

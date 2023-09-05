@@ -1,19 +1,19 @@
 package commands;
 
-import duke.commands.Command;
-import duke.commands.Parser;
-import duke.exception.DeadlineException;
-import duke.exception.EventException;
-import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import duke.commands.Command;
+import duke.commands.Parser;
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Task;
+import duke.task.Todo;
 
 public class ParserTest {
 

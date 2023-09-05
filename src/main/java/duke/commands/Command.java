@@ -28,7 +28,8 @@ public class Command {
         this.description = description;
     }
 
-    /** Initializes a command with the given command type and task index.
+    /**
+     * Initializes a command with the given command type and task index.
      *
      * @param commandType The command type.
      * @param taskIndex The task index.

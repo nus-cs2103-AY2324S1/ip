@@ -144,9 +144,9 @@ public class Duke {
             Task newTask = new Event(description, eventFromDate, eventToDate);
             taskList.addTask(newTask);
             Ui.showMessage(
-                    " Got it. I've added this task:\n" +
-                            newTask +
-                            "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n");
+                    " Got it. I've added this task:\n"
+                            + newTask
+                            + "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n");
         }
     }
 
