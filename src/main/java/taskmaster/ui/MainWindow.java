@@ -1,23 +1,17 @@
 package taskmaster.ui;
 
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
-import javafx.scene.text.Text;
 import taskmaster.Taskmaster;
-import taskmaster.tasks.TaskList;
 
 /**
  * A launcher class to workaround classpath issues.
  */
 public class MainWindow extends AnchorPane {
-    public static final int WINDOW_HEIGHT = 800;
-    public static final int WINDOW_WIDTH = 600;
     private static final Image USER_PROFILE = new Image(Main.class.getResourceAsStream("/images/profile.png"));
     private static final Image TASKMASTER_PROFILE = new Image(Main.class.getResourceAsStream("/images/robot.png"));
 
@@ -28,18 +22,12 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
-    @FXML
-    private Text textBox;
-    private Text textBoxList;
     private Taskmaster taskmaster;
 
 
     @FXML
     public void initialize() {
         this.scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-//        this.textBox.setText(Ui.WELCOME_MESSAGE);
     }
 
     public void setTaskmaster(Taskmaster tm) {
