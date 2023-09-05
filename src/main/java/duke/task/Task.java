@@ -1,9 +1,9 @@
 package duke.task;
 
-import duke.DukeException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import duke.DukeException;
 
 /**
  * The Task class represents a generic task. It is an abstract class
@@ -88,5 +88,4 @@ public abstract class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
-    
 }

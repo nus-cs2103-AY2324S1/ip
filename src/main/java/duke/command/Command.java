@@ -1,11 +1,12 @@
 package duke.command;
 
+import java.util.ArrayList;
+
 import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 
-import java.util.ArrayList;
 
 /**
  * The Command abstract class represents a generic command.

@@ -1,12 +1,12 @@
 package duke.command;
 
+import java.util.ArrayList;
+
 import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
-
-import java.util.ArrayList;
 
 public class DeleteComand extends Command {
 
@@ -20,7 +20,7 @@ public class DeleteComand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         int taskNumber = 0;
         try {
             taskNumber = Integer.parseInt(commandDetails.get(0));

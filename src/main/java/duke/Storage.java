@@ -1,14 +1,13 @@
 package duke;
 
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.Parser;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import duke.task.Task;
+import duke.task.TaskList;
 
 /**
  * The Storage class manages the reading and writing of task data to and from a file for the Duke application.
@@ -44,7 +43,7 @@ public class Storage {
      *
      * @return True if the file was created successfully, false otherwise.
      */
-    private boolean createFile()  {
+    private boolean createFile() {
         try {
             return file.createNewFile();
         } catch (IOException e) {
