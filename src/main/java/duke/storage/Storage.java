@@ -14,9 +14,8 @@ import duke.task.Task;
  * Represents a class for managing data storage and retrieval.
  */
 public class Storage {
-    private final String filepath;
     private static final String LINE = "___________________________________\n";
-
+    private final String filepath;
     /**
      * Constructs a Storage object with the specified file path.
      *
@@ -41,8 +40,8 @@ public class Storage {
                 Task.readListFromFile(arr, temp);
             }
         } catch (FileNotFoundException e) {
-            throw new DukeException("Looks like this is your first time!\n" +
-                    "Let's start with a new list!\n" + LINE);
+            throw new DukeException("Looks like this is your first time!\n"
+                    + "Let's start with a new list!\n" + LINE);
         }
         return temp;
     }
@@ -54,7 +53,9 @@ public class Storage {
      */
     public void saveDataToFile(ArrayList<Task> list) {
         File folder = new File("./data/");
-        if (!folder.exists()) folder.mkdirs();
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
         try (PrintWriter writer = new PrintWriter(this.filepath)) {
             for (Task task : list) {
                 writer.println(task.toStringFile());

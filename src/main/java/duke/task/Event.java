@@ -1,16 +1,17 @@
 package duke.task;
 
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+
 import duke.DukeException;
 
 
 /**
  * Represents a task with a start and end date.
  * */
-public class Event extends Task{
+public class Event extends Task {
     private String description;
     private LocalDate from;
     private LocalDate to;
@@ -37,8 +38,8 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() +
-                "(from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+        return "[E]" + super.toString()
+                + "(from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                 + " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
@@ -125,8 +126,8 @@ public class Event extends Task{
             if (obj == this) {
                 return true;
             }
-            return this.description.equals(event.description) &&
-                    this.to.equals(event.to) && this.from.equals(event.from);
+            return this.description.equals(event.description)
+                    && this.to.equals(event.to) && this.from.equals(event.from);
         }
         return false;
     }

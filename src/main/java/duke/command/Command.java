@@ -1,8 +1,8 @@
 package duke.command;
-import duke.ui.Ui;
-import duke.task.TaskList;
-import duke.storage.Storage;
 import duke.DukeException;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * Represents an abstract command that can be executed.

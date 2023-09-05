@@ -1,14 +1,15 @@
 package duke.parser;
 
+import duke.DukeException;
 import duke.command.AddCommand;
+import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
-import duke.command.Command;
-import duke.command.MarkCommand;
-import duke.command.ListCommand;
 import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
 import duke.ui.Ui;
-import duke.DukeException;
+
 
 /**
  * Represents a parser for handling user inputs and generating corresponding commands.
