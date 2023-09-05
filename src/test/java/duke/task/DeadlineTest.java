@@ -1,6 +1,5 @@
-package test;
+package duke.task;
 import org.junit.jupiter.api.Test;
-import duke.task.Deadline;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

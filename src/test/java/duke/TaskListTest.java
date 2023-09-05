@@ -1,5 +1,4 @@
-package test;
-import duke.TaskList;
+package duke;
 import duke.task.Deadline;
 import duke.task.ToDo;
 import duke.task.Task;

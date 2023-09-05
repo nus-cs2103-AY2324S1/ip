@@ -1,7 +1,5 @@
-package test;
-import duke.Storage;
+package duke;
 import org.junit.jupiter.api.Test;
-import duke.TaskList;
 import duke.task.ToDo;
 
 import java.io.FileNotFoundException;
