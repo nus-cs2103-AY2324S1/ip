@@ -19,7 +19,7 @@ public class TaskList {
      * @param tasks The string that holds the saved data.
      */
     public TaskList(String tasks) { // tasks is a string
-        String[] stringTasks =  tasks.split("\n");
+        String[] stringTasks = tasks.split("\n");
         Pattern todoPattern = Pattern.compile(
                 "\\[T\\]\\[(X|\\s)\\] (.+)"); // [T][-] xxxx
         Pattern deadlinePattern = Pattern.compile(

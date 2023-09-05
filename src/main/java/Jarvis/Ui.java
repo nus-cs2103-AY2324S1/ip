@@ -107,7 +107,7 @@ public class Ui {
     public static void printTaskList(TaskList tasks) {
         System.out.println(line);
         System.out.println(listInforming);
-        for (int i = 0; i < tasks.countTask() ; i++) { // listing out the current task
+        for (int i = 0; i < tasks.countTask(); i++) { // listing out the current task
             int count = i + 1;
             Task currentTask = tasks.getTask(i);
             System.out.println(count + "." + currentTask.toString());
@@ -118,7 +118,7 @@ public class Ui {
     public static void printFoundTask(ArrayList<Task> foundTasks) {
         System.out.println(line);
         System.out.println(findInforming);
-        for (int i = 0; i < foundTasks.size() ; i++) { // listing out the current task
+        for (int i = 0; i < foundTasks.size(); i++) { // listing out the current task
             int count = i + 1;
             Task currentTask = foundTasks.get(i);
             System.out.println(count + "." + currentTask.toString());

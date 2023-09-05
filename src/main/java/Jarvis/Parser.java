@@ -59,7 +59,8 @@ public class Parser {
 
         if (!isValidCommand) {
             try {
-                throw new IncorrectJarvisCommandException("Apologies Sir, the command " + inputCommand + " is not a valid command.");
+                throw new IncorrectJarvisCommandException(
+                        "Apologies Sir, the command " + inputCommand + " is not a valid command.");
             } catch (IncorrectJarvisCommandException e) {
                 Ui.printListOfCommands(validCommands, inputCommand, e);
             }
@@ -91,31 +92,36 @@ public class Parser {
 
         if (validInputCommand.equals("mark") && !markMatch) { // if mark command but wrong format
             try {
-                throw new WrongJarvisCommandFormatException("Apologies Sir, the format of the mark command you provided is incorrect.");
+                throw new WrongJarvisCommandFormatException(
+                        "Apologies Sir, the format of the mark command you provided is incorrect.");
             } catch (WrongJarvisCommandFormatException e) {
                 Ui.printWrongFormat("mark", e);
             }
         } else if (validInputCommand.equals("uncheck") && !uncheckMatch) { // if uncheck command but wrong format
             try {
-                throw new WrongJarvisCommandFormatException("Apologies Sir, the format of the uncheck command you provided is incorrect.");
+                throw new WrongJarvisCommandFormatException(
+                        "Apologies Sir, the format of the uncheck command you provided is incorrect.");
             } catch (WrongJarvisCommandFormatException e) {
                 Ui.printWrongFormat("uncheck", e);
             }
         } else if (validInputCommand.equals("todo") && !todoMatch) { // if todo command but wrong format
             try {
-                throw new WrongJarvisCommandFormatException("Apologies Sir, the format of the todo command you provided is incorrect.");
+                throw new WrongJarvisCommandFormatException(
+                        "Apologies Sir, the format of the todo command you provided is incorrect.");
             } catch (WrongJarvisCommandFormatException e) {
                 Ui.printWrongFormat("todo", e);
             }
         } else if (validInputCommand.equals("deadline") && !deadlineMatch) { // if deadline command but wrong format
             try {
-                throw new WrongJarvisCommandFormatException("Apologies Sir, the format of the deadline command you provided is incorrect.");
+                throw new WrongJarvisCommandFormatException(
+                        "Apologies Sir, the format of the deadline command you provided is incorrect.");
             } catch (WrongJarvisCommandFormatException e) {
                 Ui.printWrongFormat("deadline", e);
             }
         } else if (validInputCommand.equals("event") && !eventMatch) { // if event command but wrong format
             try {
-                throw new WrongJarvisCommandFormatException("Apologies Sir, the format of the event command you provided is incorrect.");
+                throw new WrongJarvisCommandFormatException(
+                        "Apologies Sir, the format of the event command you provided is incorrect.");
             } catch (WrongJarvisCommandFormatException e) {
                 Ui.printWrongFormat("event", e);
             }
@@ -133,6 +139,7 @@ public class Parser {
      * @throws InvalidTaskNumberException If the task number is out of the range of the number of tasks.
      * @throws WrongJarvisCommandFormatException If the command is correct but its formatted incorrectly.
      */
+    @SuppressWarnings("checkstyle:RightCurly")
     public static void parseCommand(Storage storage, TaskList tasks, String userInput) throws
             IncorrectJarvisCommandException, InvalidTaskNumberException, WrongJarvisCommandFormatException {
         Pattern todoPattern = Pattern.compile("(todo) (.+)");
@@ -156,11 +163,11 @@ public class Parser {
             Ui.printBye();
             System.exit(0);
 
-        } else if (userInput.matches("mark \\d+") ||
-                userInput.matches("uncheck \\d+")) { // if "mark" or "uncheck" is entered
+        } else if (userInput.matches("mark \\d+")
+                || userInput.matches("uncheck \\d+")) { // if "mark" or "uncheck" is entered
 
             int taskNum = Integer.parseInt(userInput.substring(userInput.length() - 1));
-            if (!tasks.isValidTaskNumber(taskNum)) {return;}
+            if (!tasks.isValidTaskNumber(taskNum)) { return; }
 
             Task currentTask = tasks.getTask(taskNum - 1);
             if (userInput.matches("uncheck \\d+")) { // if "uncheck" is entered
@@ -172,9 +179,9 @@ public class Parser {
                 Ui.printMark(currentTask);
             }
 
-        } else if (todoMatcher.matches() ||
-                deadlineMatcher.matches() ||
-                eventMatcher.matches()) { // if task command is entered
+        } else if (todoMatcher.matches()
+                || deadlineMatcher.matches()
+                || eventMatcher.matches()) { // if task command is entered
             Task newTask;
             if (todoMatcher.matches()) { // if "todo" is entered
                 String taskDescription = todoMatcher.group(2);
@@ -193,14 +200,14 @@ public class Parser {
 
             }
             tasks.appendTask(newTask);
-            Ui.printTask(tasks ,newTask);
+            Ui.printTask(tasks, newTask);
 
         } else if (deleteMatcher.matches()) { // if delete is entered
             int taskNum = Integer.parseInt(deleteMatcher.group(2));
             if (tasks.isValidTaskNumber(taskNum)) {
                 Task deletedTask = tasks.getTask(taskNum - 1);
                 tasks.deleteTask(taskNum - 1);
-                Ui.printDelete(tasks ,deletedTask);
+                Ui.printDelete(tasks, deletedTask);
             }
 
         } else if (findMatcher.matches()) { // if find is entered
