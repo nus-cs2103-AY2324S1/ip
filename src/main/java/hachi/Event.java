@@ -1,9 +1,9 @@
 package hachi;
 
-import exceptions.DateWrongOrderException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import exceptions.DateWrongOrderException;
 
 public class Event extends Task {
     private LocalDate startDate;
