@@ -4,48 +4,23 @@ import java.util.Scanner;
 
 import duke.task.Task;
 import duke.task.TaskList;
-import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
-
 
 /**
  * Represents the object that displays output from the chatbot.
  */
 public class UI {
     private final Scanner scanner = new Scanner(System.in);
-    private final Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private final Image cortana = new Image(this.getClass().getResourceAsStream("/images/cortana.png"));
-
-    /**
-     * Displays user input in GUI.
-     * @param input The user input
-     * @param dialogContainer The GUI dialog container
-     */
-    public void displayUserInput(String input, VBox dialogContainer) {
-        dialogContainer.getChildren().add(DialogBox.getUserDialogBox(input, user));
-    }
-
-    private void displayResponse(String response, VBox dialogContainer) {
-        dialogContainer.getChildren().add(DialogBox.getDukeDialogBox(response, cortana));
-    }
-
-    /**
-     * Display greetings to user.
-     */
-    public void greet(VBox dialogContainer) {
-        displayResponse("Hello I'm Cortana, Microsoft killed me so now I'm here. \n"
-                + "What do you want me to do?", dialogContainer);
-    }
 
     /**
      * Displays the current tasks list.
      * @param list The current tasks list
+     * @return The response string
      */
-    public void displayList(TaskList list, VBox dialogContainer) {
+    public String displayList(TaskList list) {
         if (list.isEmpty()) {
-            displayResponse("There are no tasks in the list", dialogContainer);
+            return "There are no tasks in the list";
         } else {
-            displayResponse(list.toString(), dialogContainer);
+            return list.toString();
         }
     }
 
@@ -53,63 +28,69 @@ public class UI {
      * Displays what task is added to the list.
      * @param task The task to be added
      * @param totalSize The total size of the list
+     * @return The response string
      */
-    public void displayAddToList(Task task, int totalSize, VBox dialogContainer) {
+    public String displayAddToList(Task task, int totalSize) {
         String response = "";
         response += "This task is added to the list\n";
         response += task.toString();
         response += String.format("\nYou now have %d tasks in your list%n", totalSize);
-        displayResponse(response, dialogContainer);
+        return response;
     }
 
     /**
      * Displays what task is removed from the list.
      * @param task The task to be removed
      * @param totalSize The total size of the list
+     * @return The response string
      */
-    public void displayRemoveFromList(Task task, int totalSize, VBox dialogContainer) {
+    public String displayRemoveFromList(Task task, int totalSize) {
         String response = "";
         response += "This task is deleted to the list\n";
         response += task.toString();
         response += String.format("\nYou now have %d tasks in your list%n", totalSize);
-        displayResponse(response, dialogContainer);
+        return response;
     }
 
     /**
      * Displays what task is marked as done.
      * @param task The task to be marked as done
+     * @return The response string
      */
-    public void displayDoneTask(Task task, VBox dialogContainer) {
+    public String displayDoneTask(Task task) {
         String response = "";
         response += "This task is marked as done\n";
         response += task.toString();
-        displayResponse(response, dialogContainer);
+        return response;
     }
 
     /**
      * Displays what task is marked as not done.
      * @param task The task to be marked as not done
+     * @return The response string
      */
-    public void displayNotDoneTask(Task task, VBox dialogContainer) {
+    public String displayNotDoneTask(Task task) {
         String response = "";
         response += "This task is marked as not done\n";
         response += task.toString();
-        displayResponse(response, dialogContainer);
+        return response;
     }
 
     /**
      * Displays a specified list of tasks.
      * @param tasks The string representing the specified list of tasks
+     * @return The response string
      */
-    public void displayTasks(String tasks, VBox dialogContainer) {
-        displayResponse(tasks, dialogContainer);
+    public String displayTasks(String tasks) {
+        return tasks.toString();
     }
 
     /**
      * Displays the DukeException
      * @param exception The DukeException to be displayed
+     * @return The response string
      */
-    public void displayException(DukeException exception, VBox dialogContainer) {
-        displayResponse(exception.getMessage(), dialogContainer);
+    public String displayException(DukeException exception) {
+        return exception.getMessage();
     }
 }
