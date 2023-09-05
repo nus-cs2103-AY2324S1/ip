@@ -13,8 +13,7 @@ public class Avalon {
         //greet
         System.out.println(
                 "   ____________________________________________________________\n" +
-                        "    Hello! I'm Arthur Pendragon.\n" +
-                        "    What can I do for you?\n" +
+                        "    Hello! I'm Arthur Pendragon.\n    What can I do for you?\n" +
                         "   ____________________________________________________________\n"
         );
 
