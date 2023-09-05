@@ -15,8 +15,9 @@ public class UiSample extends Ui {
      * @param tasks the list of tasks
      */
     @Override
-    public void printTasks(TaskList tasks) {
+    public String printTasks(TaskList tasks) {
         printTasksCount++;
+        return super.printTasks(tasks);
     }
 
     /**
@@ -25,8 +26,9 @@ public class UiSample extends Ui {
      * @param e the exception
      */
     @Override
-    public void printException(Exception e) {
+    public String printException(Exception e) {
         printExceptionCount++;
+        return super.printException(e);
     }
 
     /**
