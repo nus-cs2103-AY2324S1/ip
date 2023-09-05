@@ -1,5 +1,5 @@
-T | [X] | read book
-D | [ ] | return book  | 20230607 1400
-T | [X] | join sports club
-E | [ ] | project meeting  | 20230808 1500-1600
-E | [ ] | project meeting  | 20230709 1600-1800
+T | [ ] | read book
+D | [ ] | return book | 20230607 1400
+E | [ ] | project meeting | 20230709 1600-1800
+T | [ ] | join sports club
+E | [ ] | project meeting | 20230808 1500-1600

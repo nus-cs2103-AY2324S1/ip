@@ -84,7 +84,7 @@ public class Ui {
      */
     public void printAfterUnmark(int index, TaskList tasks) {
         printLine();
-        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("\tOK, I've marked this task as not done yet:");
         System.out.println("\t  " + tasks.getTasks().get(index).toString());
         printLine();
     }

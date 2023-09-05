@@ -50,7 +50,7 @@ public class Parser {
                 Task deadline = new Deadline(dl, deadLineDateTime, false);
                 tasks.addTask(deadline);
                 storage.appendToFile("D | " + deadline.getStatusIcon() + " | "
-                        + deadline.taskDescription + " | " + by + System.lineSeparator());
+                        + deadline.taskDescription + "| " + by + System.lineSeparator());
                 ui.printAddedTask(tasks.getSize(), deadline);
                 break;
             case "event":
@@ -63,7 +63,7 @@ public class Parser {
                 Task event = new Event(ev, eventStartDateTime, eventEndDateTime, false);
                 tasks.addTask(event);
                 storage.appendToFile("E | " + event.getStatusIcon() + " | "
-                        + event.taskDescription + " | " + from + "-" + to + System.lineSeparator());
+                        + event.taskDescription + "| " + from + "-" + to + System.lineSeparator());
                 ui.printAddedTask(tasks.getSize(), event);
                 break;
             case "mark":
