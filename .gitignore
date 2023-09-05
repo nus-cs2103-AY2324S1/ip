@@ -13,9 +13,12 @@ src/main/resources/docs/
 *.iml
 bin/
 
-/text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
 *.class
 text-ui-test/input.txt
 data/tasks.ser
-.vscode/settings.json
+.vscode/
+/config/
+/text-ui-test/
+build.gradle
+gradlew
+gradlew.bat
