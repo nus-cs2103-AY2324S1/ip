@@ -11,10 +11,6 @@ public class TaskList {
 
     private ArrayList<Task> storagePile;
 
-    public TaskList(String test) {
-        storagePile = new ArrayList<>();
-    }
-
     public TaskList() {
         storagePile = Storage.loadTasks();
     }
