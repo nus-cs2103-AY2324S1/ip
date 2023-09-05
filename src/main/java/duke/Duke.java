@@ -1,7 +1,5 @@
 package duke;
 
-import java.util.Scanner;
-
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.parser.Parser;
@@ -15,7 +13,6 @@ import duke.ui.Ui;
  *
  */
 public class Duke {
-    public static final String FILE_PATH = "data/duke.txt";
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
@@ -27,7 +24,7 @@ public class Duke {
      */
     public Duke(String filePath) {
         ui = new Ui();
-        storage = new Storage(FILE_PATH);
+        storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
@@ -37,32 +34,31 @@ public class Duke {
     }
 
     /**
-     * Runs the Duke application, handling user interactions.
+     * Retrieves a welcome message for the user.
+     *
+     * @return A welcome message to greet the user.
      */
-    public void run() {
-        ui.showWelcomeMessage();
-        boolean isExit = false;
-        Scanner scanner = new Scanner(System.in);
-        while (!isExit) {
-            try {
-                // Get the next task input
-                String command = scanner.nextLine();
-                Command c = Parser.parse(command);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showErrorMessage(e.getMessage());
-            }
-        }
-        scanner.close();
+    public String getGreetings() {
+        return ui.showWelcomeMessage();
     }
 
     /**
-     * The main method to start the Duke application.
+     * Generates a response to user input.
+     * This method parses the user input, executes the corresponding command, and returns the response.
      *
-     * @param args Command-line arguments.
+     * @param input The user's input.
+     * @return A response generated based on the user's input.
      */
-    public static void main(String[] args) {
-        new Duke(FILE_PATH).run();
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            return ui.showErrorMessage(e.getMessage());
+        }
     }
 }
+
+
+
+

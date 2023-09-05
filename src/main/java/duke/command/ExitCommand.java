@@ -9,7 +9,7 @@ import duke.ui.Ui;
  */
 public class ExitCommand extends Command {
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showGoodbyeMessage();
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.showGoodbyeMessage();
     }
 }

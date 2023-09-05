@@ -21,11 +21,12 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (taskNumber > taskList.getNumberOfTasks()) {
             throw new DukeException("OOPS!!! Task " + taskNumber + " does not exist.");
         }
-        ui.showTaskMarkedAsDone(taskList.getTask(taskNumber));
+        String message = ui.showTaskMarkedAsDone(taskList.getTask(taskNumber));
         storage.save(taskList.getList(), ui);
+        return message;
     }
 }
