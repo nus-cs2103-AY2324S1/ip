@@ -17,7 +17,7 @@
          </HBox.margin></ImageView>
       <Label fx:id="textBox" maxWidth="250.0" minHeight="10.0" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF;" text="label" wrapText="true">
          <HBox.margin>
-            <Insets left="10.0" right="15.0" />
+            <Insets left="10.0" right="10.0" />
          </HBox.margin>
          <padding>
             <Insets bottom="15.0" left="10.0" right="10.0" top="15.0" />
