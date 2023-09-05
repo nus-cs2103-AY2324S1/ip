@@ -22,6 +22,13 @@ public class TaskList {
 
     /**
      * Constructor for duke.task.TaskList class.
+     */
+    public TaskList() {
+        this.list = new ArrayList<>();
+    }
+
+    /**
+     * Constructor for duke.task.TaskList class.
      *
      * @param list The array list of tasks.
      */
@@ -79,8 +86,9 @@ public class TaskList {
      * Marks the task as done.
      *
      * @param command The command given by the user.
+     * @return The message after marking the task.
      */
-    public void mark(String command) {
+    public String mark(String command) {
         try {
             String[] result = command.split(" ");
             if (result.length == 1 && !command.startsWith("mark ") && command.length() > 4) {
@@ -91,11 +99,11 @@ public class TaskList {
             int idx = Character.getNumericValue(command.charAt(5));
             Task t = getTask(idx - 1);
             t.markAsDone();
-            Duke.getUi().printMarkTask(t);
+            return Duke.getUi().printMarkTask(t);
         } catch (IndexOutOfBoundsException e) {
-            Duke.getUi().printIndexOutOfBoundsException(getList());
+            return Duke.getUi().printIndexOutOfBoundsException(getList());
         } catch (NoSpaceAfterException | EmptyTaskException e) {
-            Duke.getUi().showError(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -103,8 +111,9 @@ public class TaskList {
      * Marks the task as undone.
      *
      * @param command The command given by the user.
+     * @return The message after unmarking the task.
      */
-    public void unmark(String command) {
+    public String unmark(String command) {
         try {
             String[] result = command.split(" ");
             if (result.length == 1 && !command.startsWith("unmark ") && command.length() > 6) {
@@ -115,11 +124,11 @@ public class TaskList {
             int idx = Character.getNumericValue(command.charAt(7));
             Task t = getTask(idx - 1);
             t.markAsUndone();
-            Duke.getUi().printUnmarkTask(t);
+            return Duke.getUi().printUnmarkTask(t);
         } catch (IndexOutOfBoundsException e) {
-            Duke.getUi().printIndexOutOfBoundsException(getList());
+            return Duke.getUi().printIndexOutOfBoundsException(getList());
         } catch (NoSpaceAfterException | EmptyTaskException e) {
-            Duke.getUi().showError(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -127,8 +136,9 @@ public class TaskList {
      * Adds a todo to the list of tasks.
      *
      * @param command The command given by the user.
+     * @return The message after adding a todo.
      */
-    public void todo(String command) {
+    public String todo(String command) {
         try {
             String[] result = command.split(" ");
             if ((result.length == 1 && !command.startsWith("todo ") && command.length() > 4)
@@ -139,9 +149,9 @@ public class TaskList {
             }
             Todo todo = new Todo(command.substring(5));
             addTask(todo);
-            Duke.getUi().printAddTask(todo, getLength());
+            return Duke.getUi().printAddTask(todo, getLength());
         } catch (NoSpaceAfterException | EmptyDescriptionException e) {
-            Duke.getUi().showError(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -149,8 +159,9 @@ public class TaskList {
      * Adds a deadline to the list of tasks.
      *
      * @param command The command given by the user.
+     * @return The message after adding a deadline.
      */
-    public void deadline(String command) {
+    public String deadline(String command) {
         try {
             String[] result1 = command.split(" ");
             String[] result2 = command.split("/by");
@@ -173,11 +184,11 @@ public class TaskList {
             Deadline deadline = new Deadline(command.substring(9, command.indexOf("/") - 1),
                     command.substring(command.indexOf("/by") + 4));
             addTask(deadline);
-            Duke.getUi().printAddTask(deadline, getLength());
+            return Duke.getUi().printAddTask(deadline, getLength());
         } catch (DateTimeParseException e) {
-            Duke.getUi().printDateTimeParseException();
+            return Duke.getUi().printDateTimeParseException();
         } catch (NoSpaceAfterException | EmptyDescriptionException | NoSpaceBeforeException | DukeException e) {
-            Duke.getUi().showError(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -185,8 +196,9 @@ public class TaskList {
      * Adds an event to the list of tasks.
      *
      * @param command The command given by the user.
+     * @return The message after adding an event.
      */
-    public void event(String command) {
+    public String event(String command) {
         try {
             String[] result1 = command.split(" ");
             String[] result2 = command.split("/to");
@@ -219,11 +231,11 @@ public class TaskList {
                     command.substring(command.indexOf("/from") + 6, command.indexOf("/to") - 1),
                     command.substring(command.indexOf("/to") + 4));
             addTask(event);
-            Duke.getUi().printAddTask(event, getLength());
+            return Duke.getUi().printAddTask(event, getLength());
         } catch (DateTimeParseException e) {
-            Duke.getUi().printDateTimeParseException();
+            return Duke.getUi().printDateTimeParseException();
         } catch (NoSpaceAfterException | EmptyDescriptionException | NoSpaceBeforeException | DukeException e) {
-            Duke.getUi().showError(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -231,8 +243,9 @@ public class TaskList {
      * Deletes the task.
      *
      * @param command The command given by the user.
+     * @return The message after deleting the task.
      */
-    public void delete(String command) {
+    public String delete(String command) {
         try {
             String[] result = command.split(" ");
             if (result.length == 1 && !command.startsWith("delete ") && command.length() > 6) {
@@ -243,11 +256,11 @@ public class TaskList {
             int idx = Character.getNumericValue(command.charAt(7));
             Task t = getTask(idx - 1);
             deleteTask(idx - 1);
-            Duke.getUi().printDeleteTask(t, getLength());
+            return Duke.getUi().printDeleteTask(t, getLength());
         } catch (IndexOutOfBoundsException e) {
-            Duke.getUi().printIndexOutOfBoundsException(getList());
+            return Duke.getUi().printIndexOutOfBoundsException(getList());
         } catch (NoSpaceAfterException | EmptyTaskException e) {
-            Duke.getUi().showError(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -255,8 +268,9 @@ public class TaskList {
      * Finds the task.
      *
      * @param command The command given by the user.
+     * @return The message after finding the task.
      */
-    public void find(String command) {
+    public String find(String command) {
         try {
             String[] result = command.split(" ");
             if (result.length == 1 && !command.startsWith("find ") && command.length() > 4) {
@@ -271,9 +285,9 @@ public class TaskList {
                     matchList.add(t);
                 }
             }
-            Duke.getUi().printFindTask(matchList);
+            return Duke.getUi().printFindTask(matchList);
         } catch (NoSpaceAfterException | EmptyKeywordException e) {
-            Duke.getUi().showError(e.getMessage());
+            return e.getMessage();
         }
     }
 

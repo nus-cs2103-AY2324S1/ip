@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -23,6 +25,7 @@ import duke.task.Todo;
 
 public class Storage {
     private final String pathname;
+    private boolean hasFile;
 
     /**
      * Constructor for duke.util.Storage class.
@@ -31,6 +34,33 @@ public class Storage {
      */
     public Storage(String pathname) {
         this.pathname = pathname;
+        File f = new File(pathname);
+        try {
+            this.hasFile = !f.createNewFile();
+        } catch (IOException e) {
+            System.out.println("IOException: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Checks the existence of the file.
+     */
+    public void checkFile() {
+        Path path = Paths.get(this.pathname);
+        String directory = path.getParent().toString();
+        String filename = path.getFileName().toString();
+        File dir = new File(directory);
+        File file = new File(filename);
+        try {
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("IOException: " + e.getMessage());
+        }
     }
 
     /**
@@ -39,6 +69,7 @@ public class Storage {
      * @return An array list of the tasks.
      */
     public ArrayList<Task> loadData() {
+        checkFile();
         ArrayList<Task> list = new ArrayList<>();
         try {
             File file = new File(this.pathname);
@@ -82,9 +113,9 @@ public class Storage {
                 throw new DukeException("☹ OOPS!!! Invalid task type");
             }
         } catch (DateTimeParseException e) {
-            Duke.getUi().printDateTimeParseException();
+            System.out.println(Duke.getUi().printDateTimeParseException());
         } catch (DukeException e) {
-            Duke.getUi().showError(e.getMessage());
+            System.out.println(e.getMessage());
         }
         return task;
     }
@@ -103,7 +134,16 @@ public class Storage {
             }
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("IOException: " + e.getMessage());
         }
+    }
+
+    /**
+     * Returns true if the file exists, false if otherwise.
+     *
+     * @return true if the file exists, false if otherwise.
+     */
+    public boolean getHasFile() {
+        return this.hasFile;
     }
 }
