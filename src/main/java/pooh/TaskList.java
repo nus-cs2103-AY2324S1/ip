@@ -95,9 +95,6 @@ public class TaskList {
             task = new Event(description, eventStartTime, eventEndTime);
         }
         taskList.add(task);
-        String addTaskMessage = String.format("      Got it. I've added this task:\n          %s\n      Now you have " +
-                "%d tasks in the list", task, taskList.getSize());
-        Ui.respond(addTaskMessage);
     }
 
     /**
@@ -110,9 +107,6 @@ public class TaskList {
     public static void deleteTask(TaskList taskList, int index) throws InvalidTaskException {
         Task task = taskList.getTask(index);
         taskList.remove(index);
-        String delTaskMessage = String.format("      Noted. I've removed this task:\n          %s\n      Now you have" +
-                " %d tasks in the list", task, taskList.getSize());
-        Ui.respond(delTaskMessage);
     }
 
     /**

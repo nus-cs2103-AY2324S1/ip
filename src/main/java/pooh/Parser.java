@@ -20,57 +20,56 @@ public class Parser {
      * @throws InvalidTaskException         If the task specified for certain operations is invalid.
      * @throws WriteTasksException          If there is an error while writing tasks to storage.
      */
-    public void parseInput(Storage taskStorage, TaskList taskList, String userInput) throws
+    public String parseInput(Storage taskStorage, TaskList taskList, Ui ui, String userInput) throws
             UnrecognizedCommandException, InvalidTaskException, WriteTasksException {
         String userAction = userInput.split(" ")[0];
         if (userAction.equalsIgnoreCase("list")) {
-            Ui.printTasksMsg(taskList);
+            return ui.getTasksMsg(taskList);
         } else {
             switch (userAction.toLowerCase()) {
-            case "list":
-                Ui.printTasksMsg(taskList);
             case "bye":
-                Ui.printExitMsg();
-                System.exit(0);
+                taskStorage.writeTask(taskList);
+                return ui.getExitMsg();
             case "mark":
                 int markIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 Task markTask = taskList.getTask(markIndex);
                 markTask.markAsDone();
-                Ui.printTaskDoneMsg(markTask);
-                break;
+                taskStorage.writeTask(taskList);
+                return ui.getTaskDoneMsg(markTask);
             case "unmark":
                 int unmarkIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 Task unmarkTask = taskList.getTask(unmarkIndex);
                 unmarkTask.markAsUndone();
-                Ui.printTaskUndoneMsg(unmarkTask);
-                break;
+                taskStorage.writeTask(taskList);
+                return ui.getTaskUndoneMsg(unmarkTask);
             case "todo":
             case "event":
             case "deadline":
                 try {
                     TaskList.addTask(taskList, userAction, userInput);
+                    Task task = taskList.getTask(taskList.getSize() - 1);
+                    taskStorage.writeTask(taskList);
+                    return ui.getAddTaskMsg(taskList, task);
                 } catch (EmptyTaskDescriptorsException ex) {
-                    Ui.respond(ex.toString());
+                    return ui.respond(ex.toString());
                 }
-                break;
             case "delete":
                 int delIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                Task task = taskList.getTask(delIndex);
                 TaskList.deleteTask(taskList, delIndex);
-                break;
+                taskStorage.writeTask(taskList);
+                return ui.getDeleteTaskMsg(taskList, task);
             case "find":
                 String keyword = userInput.split(" ")[1];
                 TaskList keywordTaskList = taskList.getTasksWithKeyword(keyword);
                 if (keywordTaskList.getSize() >= 1) {
-                    Ui.printKeywordTasksMsg(keywordTaskList);
+                    return ui.getKeywordTasksMsg(keywordTaskList);
                 } else {
-                    Ui.printNoKeywordTasksFound();
+                    return ui.getNoKeywordTasksFoundMsg();
                 }
-                break;
             default:
                 throw new UnrecognizedCommandException();
             }
-            taskStorage.writeTask(taskList);
         }
     }
-
 }
