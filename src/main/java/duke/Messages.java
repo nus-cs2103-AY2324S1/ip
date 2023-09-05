@@ -12,6 +12,8 @@ public class Messages {
 
     public static final String LIST_MESSAGE = " Here are the tasks in your list:";
 
+    public static final String FIND_MESSAGE = " Here are the matching tasks in your list:";
+
     public static final String INSERT_MESSAGE = " Got it. I've added this task:\n   %s\n Now you " +
             "have %d %s in the list.";
     public static final String MARKED_MESSAGE = " Nice! I've marked this task as done:\n   %s";
