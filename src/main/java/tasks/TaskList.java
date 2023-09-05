@@ -131,6 +131,19 @@ public class TaskList {
         printNumTasks();
     }
 
+    public ArrayList<Task> findByKeyword(String keyword) {
+        ArrayList<Task> filteredTaskList = new ArrayList<>();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            String taskDescription = task.description;
+            if (taskDescription.contains(keyword)) {
+                filteredTaskList.add(task);
+            }
+        }
+        return filteredTaskList;
+    }
+
     public void printNumTasks() {
         System.out.println("you now have " + tasks.size() + " tasks in your list." + "\n");
     }
