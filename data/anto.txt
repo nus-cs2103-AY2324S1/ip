@@ -1,22 +1,11 @@
-D | 1 | return book | 18-05-2023 18:00
+D | 1 | Return book | 18-05-2023 18:00
 T | 1 | Buy Book
-D | 0 | Read Book | 18-05-2023 18:00
+D | 1 | Read Book | 18-05-2023 18:00
 E | 1 | Book Review Meeting | 18-05-2023 18:00 | 18-05-2023 20:00
 D | 0 | LOL1 | 01-09-2023 00:00
-D | 0 | return book | 01-09-2023 23:59
-D | 0 | return book | 18-05-2023 18:00
-D | 0 | return book | 18-11-2001 18:00
-D | 0 | Test | 20-05-2001 18:00
-D | 0 | Test1 | 18-05-2001 18:00
-E | 0 | Test | 13-11-2023 18:00 | 13-11-2023 20:00
-D | 0 | dadlajs | 20-12-2024 01:00
-T | 0 | Test1
-
-T | 0 | jdasldjas
-D | 1 | sjdklasjdlas | 18-09-2023 14:00
-E | 1 | jadljas | 18-08-2001 19:00 | 18-08-2001 20:00
-
-T | 0 | dajskldaj
-
-D | 0 | Borrow book | 01-09-2023 23:59
+D | 1 | Borrow book | 01-09-2023 23:59
 T | 0 | Test Test
+T | 0 | Test1
+T | 0 | Test Test Test
+D | 0 | dl test | 18-05-2001 18:00
+E | 1 | event test | 20-04-2023 16:00 | 20-04-2023 18:00

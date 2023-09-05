@@ -14,6 +14,15 @@ public class Todo extends Task {
     }
 
     /**
+     * Return string for writing to storage.
+     *
+     * @return Task in storage format.
+     */
+    public String getStoreFormat() {
+        return String.format("\nT | %s | %s", this.isDone ? "1" : "0", this.description);
+    }
+
+    /**
      * Overridden toString to represent a Todo task.
      *
      * @return String representing a Todo task.

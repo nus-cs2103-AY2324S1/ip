@@ -52,7 +52,7 @@ public class Ui {
      * Prints current list of tasks.
      */
     public void printList() {
-        ArrayList<Task> storage = taskList.getStorage();
+        ArrayList<Task> storage = taskList.getTaskArrayList();
         int length = taskList.getLength();
         this.printBlock();
         System.out.println("Here are the tasks in your list:");
@@ -69,7 +69,7 @@ public class Ui {
      * @param index Index of deleted task.
      */
     public void printMarkAsDone(int index) {
-        ArrayList<Task> storage = taskList.getStorage();
+        ArrayList<Task> storage = taskList.getTaskArrayList();
         this.printBlock();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(storage.get(index));
@@ -82,7 +82,7 @@ public class Ui {
      * @param index Index of task unmarked.
      */
     public void printUnmark(int index) {
-        ArrayList<Task> storage = taskList.getStorage();
+        ArrayList<Task> storage = taskList.getTaskArrayList();
         this.printBlock();
         System.out.println("Okay, I've marked this task as not done yet:");
         System.out.println(storage.get(index));
