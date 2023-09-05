@@ -1,7 +1,5 @@
 package duke;
 import java.io.IOException;
-import java.util.EnumMap;
-import java.util.Objects;
 
 import duke.command.Command;
 import duke.helper.Parser;
@@ -38,6 +36,10 @@ public class MeowBot extends Application {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
+    /**
+     * Represents the 2 possible inputs, that is either User Dialog or response from MeowBot
+     */
 
     public enum dialog {
         USER,
@@ -226,7 +228,7 @@ public class MeowBot extends Application {
         try {
             response = Parser.parse(input).execute(tasks, ui, storage);
         } catch (DukeException e) {
-            System.out.println("Broken");
+            response = e.toString();
         }
         return response;
     }

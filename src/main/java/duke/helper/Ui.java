@@ -10,13 +10,10 @@ import duke.task.TaskList;
 
 public class Ui {
     private Scanner scan;
-    private final String LINES;
-
     /**
      * Initialises the Ui class and sets the line string
      */
     public Ui() {
-        this.LINES = "______________________________";
         this.scan = new Scanner(System.in);
     }
 
@@ -43,10 +40,8 @@ public class Ui {
      */
     public String greet() {
         String res = "";
-        res += this.LINES + "\n";
         res += "Hello! I'm MeowBot!" + "\n";
         res += "What can I do for you \n";
-        res += this.LINES;
         return res;
     }
 
@@ -55,7 +50,6 @@ public class Ui {
      */
     public String bye() {
         String res = "";
-        res += this.LINES;
         res += "Bye. Hope to see you again soon!\n";
         return res;
     }
@@ -71,7 +65,6 @@ public class Ui {
         String res = "";
         res += ("MEOW got it. I've added this task:\n   " + task);
         res += ("Now you have " + length + " meow-tasks in the list. \n");
-        res += this.LINES;
         return res;
     }
 
@@ -86,7 +79,6 @@ public class Ui {
         String res = "";
         res += ("Nice! I've meowrked this task as done: \n");
         res += ("   " + wantedTask + "\n");
-        res += this.LINES;
         return res;
     }
 
@@ -100,7 +92,6 @@ public class Ui {
         String res = "";
         res += ("Ok, get your task done soon, I'll be waiting!\n");
         res += (" " + wantedTask + '\n');
-        res += this.LINES + '\n';
         return res;
     }
 
@@ -114,7 +105,6 @@ public class Ui {
         res += ("Meow... ok, I've removed this task: \n");
         res += (" " + wantedTask + '\n');
         res += ("Now you have " + length + " meow-tasks in the list. \n");
-        res += this.LINES;
         return res;
     }
 
@@ -124,12 +114,10 @@ public class Ui {
      */
     public String displayTasks(TaskList tasks) {
         String res = "";
-        res += this.LINES + '\n';
         res += ("Meoowww here are your tasks\n");
         for (int i = 1; i < tasks.size() + 1; i++) {
             res += (i + ". " + tasks.getTask(i - 1) + '\n');
         }
-        res += this.LINES + '\n';
         return res;
     }
 
@@ -149,9 +137,7 @@ public class Ui {
 
     public String printFindRes(String res) {
         String ans = "";
-        ans += (this.LINES + '\n');
         ans += ("Meow Here are your matching tasks !" + res + '\n');
-        ans += (this.LINES + '\n');
         return ans;
     }
 

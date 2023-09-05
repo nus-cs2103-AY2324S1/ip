@@ -1,20 +1,18 @@
 package duke;
 
-import duke.helper.MainWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
-import java.io.IOException;
 
 /**
  * Class for DialogBox to represent user interaction with the bot
@@ -36,8 +34,19 @@ public class DialogBox extends HBox {
         displayPicture = iv;
 
         text.setWrapText(true);
+        text.setPadding(new Insets(5, 5, 5, 5));
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
+
+        double radius = Math.max(iv.getFitWidth() / 2, iv.getFitHeight() / 2);
+        double centerX = iv.getFitWidth() / 2 + 10;
+        double centerY = iv.getFitHeight() / 2;
+
+        Circle dpClip = new Circle(centerX, centerY, radius);
+        displayPicture.setClip(dpClip);
+        displayPicture.setX(10);
+
+
         Background background = new Background(new BackgroundFill(Color.LIGHTBLUE, null, null));
         if (type == MeowBot.dialog.MEOWBOT) {
             background = new Background(new BackgroundFill(Color.LIGHTPINK, null, null));
@@ -45,20 +54,6 @@ public class DialogBox extends HBox {
         this.setBackground(background);
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(text, displayPicture);
-    }
-
-    private DialogBox(String tex, Image img) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/resource/view/DialogBox.fxml"));
-            fxmlLoader.setController(this);
-            fxmlLoader.setRoot(this);
-            fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        text.setText(tex);
-        displayPicture.setImage(img);
     }
 
     /**

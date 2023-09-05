@@ -14,8 +14,8 @@ public class Task {
      */
     private boolean completed;
     private final String name;
-    String type;
-    String ogName;
+    private String type;
+    private String ogName;
 
 
     /**
@@ -47,6 +47,12 @@ public class Task {
     }
     public String getType() {
         return this.type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+    public void setOgName(String ogName) {
+        this.ogName = ogName;
     }
     public String getOgName() {
         return this.ogName;
