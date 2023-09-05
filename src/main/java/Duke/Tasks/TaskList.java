@@ -15,6 +15,10 @@ public class TaskList {
         storagePile = Storage.loadTasks();
     }
 
+    public TaskList(String test) {
+        storagePile = new ArrayList<>();
+    }
+
     public String toString() {
         int leng = storagePile.size();
         String listed = "";
