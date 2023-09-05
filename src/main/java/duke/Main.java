@@ -8,6 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Main class to drive the application.
+ */
 public class Main extends Application {
     private Duke duke = new Duke();
 

@@ -35,7 +35,7 @@ public class MarkCommand extends Command {
      * @param tasks   List of tasks.
      * @param ui      UI of the application.
      * @param storage Object to handle data storage.
-     * @return
+     * @return Message to be shown to the user.
      * @throws DukeException If error encountered when saving data.
      */
     @Override

@@ -9,6 +9,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+/**
+ * Controller for MainWindow.
+ */
 public class MainWindow {
     @FXML
     private ScrollPane scrollPane;
@@ -39,7 +42,7 @@ public class MainWindow {
      */
     @FXML
     private void handleUserInput() {
-        Label input =  new Label(userInput.getText());
+        Label input = new Label(userInput.getText());
         Label response = new Label(duke.getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, new ImageView(userImage)),

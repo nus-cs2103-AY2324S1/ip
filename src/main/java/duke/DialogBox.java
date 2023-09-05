@@ -13,6 +13,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * Controller for DialogBox.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog = new Label();
