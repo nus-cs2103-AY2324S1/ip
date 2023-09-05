@@ -47,7 +47,7 @@ public class DialogBox extends HBox {
         }
         dialog.setText(text);
         dialog.setWrapText(true);
-        dialog.setPrefWidth(275);
+        dialog.setPrefWidth(260);
         circle.setFill(new ImagePattern(img));
         messageOutline.setPrefWidth(280);
         messageOutline.prefHeightProperty().bind(dialog.heightProperty());
