@@ -18,7 +18,7 @@ public class Duke {
 
         // Load tasks from storage
         try {
-            Storage storage = new Storage();
+            Storage storage = new DukeStorage();
             taskList.setStorage(storage);
             taskList.loadTasks();
         } catch (IOException | InsufficientArgumentsException |
