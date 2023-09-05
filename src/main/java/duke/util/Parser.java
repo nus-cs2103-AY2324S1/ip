@@ -14,36 +14,39 @@ public class Parser {
 
     /**
      * Parses the user command.
+     *
+     * @return The result of parsing the user command.
      */
-    public static void parse(String command, TaskList taskList) {
-        Duke.getUi().printLine();
+    public static String parse(String command, TaskList taskList) {
+        //Duke.getUi().printLine();
         try {
             if (command.equals("bye")) {
                 Duke.setExit(true);
                 Duke.getStorage().saveData(Duke.getTaskList().getList());
-                Duke.getUi().showExit();
+                return Duke.getUi().showExit();
             } else if (command.equals("list")) {
-                Duke.getUi().printList(taskList.getList());
+                return Duke.getUi().printList(taskList.getList());
             } else if (command.startsWith("mark")) {
-                taskList.mark(command);
+                return taskList.mark(command);
             } else if (command.startsWith("unmark")) {
-                taskList.unmark(command);
+                return taskList.unmark(command);
             } else if (command.startsWith("todo")) {
-                taskList.todo(command);
+                return taskList.todo(command);
             } else if (command.startsWith("deadline")) {
-                taskList.deadline(command);
+                return taskList.deadline(command);
             } else if (command.startsWith("event")) {
-                taskList.event(command);
+                return taskList.event(command);
             } else if (command.startsWith("delete")) {
-                taskList.delete(command);
+                return taskList.delete(command);
             } else if (command.startsWith("find")) {
-                taskList.find(command);
+                return taskList.find(command);
             } else {
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (DukeException e) {
-            Duke.getUi().showError(e.getMessage());
+            //Duke.getUi().showError(e.getMessage());
+            return e.getMessage();
         }
-        Duke.getUi().printLine();
+        //Duke.getUi().printLine();
     }
 }
