@@ -1,7 +1,5 @@
 package dot.errors;
 
-import dot.ui.Ui;
-
 /**
  * This contains the main logic of error handling.
  * Each enum value has an associated method and
@@ -29,7 +27,9 @@ public enum TaskError {
     ERR_USING_WHATSGOINGON("..o.o..beep..Error using command 'whatsgoingon', "
             + "use: \"whatsgoingon <dd/MM/yyyy>\""),
     ERR_USING_FIND("..o.o..beep..Error using command 'find', "
-            + "use: \"find <query>\"");
+            + "use: \"find <query>\""),
+    ERR_READING_FXML("..o.o..beep..There seems to be an error loading your messages."
+            + " Restart the app is this persists, or file a bug report.");
 
 
     private final String errorMessage;
@@ -45,14 +45,13 @@ public enum TaskError {
      * @param e This is the DotException (or any other exception),
      *          which is passed along with the TaskError enum, to be
      *          handled.
+     * @return  Full error message.
      */
-    public void printErrorMessage(Exception e) {
+    public String getFullErrorMessage(Exception e) {
         if (e instanceof NumberFormatException) {
-            Ui.wrapPrintWithHorizontalRules(this.errorMessage
-                    + "\nConnecting the dots: An index number was not specified.");
+            return this.errorMessage + "\nConnecting the dots: An index number was not specified.";
         } else {
-            Ui.wrapPrintWithHorizontalRules(this.errorMessage
-                    + String.format("\nConnecting the dots: %s", e));
+            return this.errorMessage + String.format("\nConnecting the dots: %s", e);
         }
     }
 
