@@ -34,7 +34,7 @@ public class Ui {
      *
      * @param task marked task.
      */
-    public void taskMark(Task task) {
+    public void taskMarked(Task task) {
         System.out.printf("Great job! ˊᗜˋ I've marked this task as done:\n  %s\n", task);
     }
 
@@ -43,7 +43,7 @@ public class Ui {
      *
      * @param task unmarked task.
      */
-    public void taskUnmark(Task task) {
+    public void taskUnmarked(Task task) {
         System.out.printf("Okay, I've marked this task as not done yet:\n  %s\n", task);
     }
 
@@ -68,7 +68,7 @@ public class Ui {
      * @param task added task.
      * @param tasks new task list.
      */
-    public void taskAdd(Task task, TaskList tasks) {
+    public void taskAdded(Task task, TaskList tasks) {
         System.out.println("I have added the following task to your list:\n  "
                 + task.toString() + "\nNow you have " + tasks.size()
                 + (tasks.size() == 1 ? " task" : " tasks")
@@ -99,7 +99,7 @@ public class Ui {
      * @param task deleted task.
      * @param tasks old task list before deletion.
      */
-    public void taskDelete(Task task, TaskList tasks) {
+    public void taskDeleted(Task task, TaskList tasks) {
         System.out.println("I have removed the following task to your list:\n  "
                 + task.toString() + "\nNow you have " + (tasks.size() - 1)
                 + ((tasks.size() - 1) == 1 ? " task" : " tasks")

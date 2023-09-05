@@ -29,7 +29,7 @@ public class MarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             tasks.mark(this.index);
-            ui.taskMark(tasks.get(this.index));
+            ui.taskMarked(tasks.get(this.index));
         } catch (IndexOutOfBoundsException e) {
             ui.showError(e.getMessage());
         }

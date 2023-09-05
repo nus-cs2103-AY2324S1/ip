@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             try {
-                ui.taskDelete(tasks.get(this.index), tasks);
+                ui.taskDeleted(tasks.get(this.index), tasks);
             } catch (java.lang.IndexOutOfBoundsException e){
                 throw new IndexOutOfBoundsException("There is currently no task " + (index + 1));
             }

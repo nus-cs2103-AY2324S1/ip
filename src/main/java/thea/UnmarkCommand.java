@@ -29,7 +29,7 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             tasks.unmark(this.index);
-            ui.taskUnmark(tasks.get(this.index));
+            ui.taskUnmarked(tasks.get(this.index));
         } catch (IndexOutOfBoundsException e) {
             ui.showError(e.getMessage());
         }
