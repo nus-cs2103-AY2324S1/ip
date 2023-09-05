@@ -1,4 +1,4 @@
-package hachi.task;
+package hachi;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,7 +20,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Converts hachi.task.Deadline object to its string representation when stored in the hard drive.
+     * Converts hachi.Deadline object to its string representation when stored in the hard drive.
      *
      * @return String representation when stored in text file on user's hard drive
      */

@@ -1,4 +1,4 @@
-package hachi.command;
+package hachi;
 
 public class Command {
 

@@ -1,4 +1,4 @@
-package hachi.task;
+package hachi;
 
 import exceptions.DateWrongOrderException;
 
@@ -27,7 +27,7 @@ public class Event extends Task {
     }
 
     /**
-     * Converts hachi.task.Event object to its string representation when stored in the hard drive.
+     * Converts hachi.Event object to its string representation when stored in the hard drive.
      *
      * @return String representation when stored in text file on user's hard drive
      */

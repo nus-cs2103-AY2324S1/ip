@@ -1,4 +1,4 @@
-package hachi.parser;
+package hachi;
 
 import exceptions.*;
 
@@ -110,7 +110,7 @@ public class Parser {
     public static TaskList parseTaskList(List<String> ls) throws HachiException {
         ArrayList<Task> result = new ArrayList<>();
         for (String s : ls) {
-            result.add(txtToTask(s));
+            result.add(convertTextToTask(s));
         }
         return new TaskList(result);
     }
@@ -124,20 +124,32 @@ public class Parser {
         return number - 1;
     }
 
-    private static Task txtToTask(String txt) throws HachiException {
+    private static Task convertTextToTask(String txt) throws HachiException {
         String[] s = txt.split(" \\| "); // need to escape | character as it means something in regex
         Task temp = null;
         // set Task to the respective task type
         try {
             if (s[0].equals("T")) {
+                if (s.length > 3) {
+                    throw new HachiException(
+                            "Todo stored in the wrong format! Please check the file at 'data/tasks.txt'");
+                }
                 temp = new Todo(s[2]);
             } else if (s[0].equals("D")) {
+                if (s.length > 4) {
+                    throw new HachiException(
+                            "Deadline stored in the wrong format! Please check the file at 'data/tasks.txt'");
+                }
                 try {
                     temp = new Deadline(s[2], LocalDate.parse(s[3]));
                 } catch (DateTimeParseException e) {
                     throw new DateFormatWrongException(s[3]);
                 }
             } else if (s[0].equals("E")) {
+                if (s.length > 5) {
+                    throw new HachiException(
+                            "Event stored in the wrong format! Please check the file at 'data/tasks.txt'");
+                }
                 try {
                     temp = new Event(s[2], LocalDate.parse(s[3]), LocalDate.parse(s[4]));
                 } catch (DateTimeParseException e) {
@@ -145,7 +157,7 @@ public class Parser {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Task stored in the wrong format! Please check the file at 'data/tasks.txt'");
+            throw new HachiException("Task stored in the wrong format! Please check the file at 'data/tasks.txt'");
         }
 
         // mark task based on '0' or '1' in the file

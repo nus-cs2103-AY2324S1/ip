@@ -1,4 +1,4 @@
-package hachi.command;
+package hachi;
 
 public class SearchdateCommand {
     public static final String COMMAND_WORD = "search-date";

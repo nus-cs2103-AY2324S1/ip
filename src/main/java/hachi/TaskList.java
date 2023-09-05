@@ -1,3 +1,5 @@
+package hachi;
+
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
@@ -40,7 +42,10 @@ public class TaskList {
         String result = "";
         for (int i = 0; i < taskList.size(); i++) {
             int num = i + 1;
-            result += (num + ". " + taskList.get(i) + "/n");
+            result += (num + ". " + taskList.get(i));
+            if (i != taskList.size() - 1) {
+                result += "\n";
+            }
         }
         return result;
     }

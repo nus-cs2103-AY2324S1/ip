@@ -1,4 +1,4 @@
-package hachi.task;
+package hachi;
 
 import java.time.LocalDate;
 
