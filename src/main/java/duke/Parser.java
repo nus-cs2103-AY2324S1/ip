@@ -21,13 +21,6 @@ public class Parser {
     private TaskList tasks;
     private Ui ui;
 
-    /**
-     * Parser class constructor. Initialises the storage, tasks and ui required.
-     *
-     * @param storage stores tasks created from previous runs
-     * @param tasks   contains the list of tasks
-     * @param ui      displays the relevant output to user
-     */
     public Parser(Storage storage, TaskList tasks, Ui ui) {
         this.storage = storage;
         this.tasks = tasks;
@@ -37,8 +30,8 @@ public class Parser {
     /**
      * Returns true if the string can be parsed as an integer.
      *
-     * @param s the string to be tested
-     * @return true if s can be parsed as an integer
+     * @param s the string to be tested.
+     * @return true if s can be parsed as an integer.
      */
     //credit: https://www.freecodecamp.org/news/java-string-to-int-how-to-convert-a-string-to-an-integer/
     private static boolean isNumber(String s) {
@@ -48,8 +41,8 @@ public class Parser {
     /**
      * Returns true if the input string is "bye".
      *
-     * @param input the input entered by user
-     * @return true if input is "bye"
+     * @param input the input entered by user.
+     * @return true if input is "bye".
      */
     public boolean isGoodbye(String input) {
         if (input.equals("bye")) {
@@ -59,12 +52,11 @@ public class Parser {
     }
 
     /**
-     * Converts a string of the format YYYY-MM-dd HH:mm to a
-     * LocalDateTime object.
+     * Converts a string of the format YYYY-MM-dd HH:mm to a LocalDateTime object.
      *
-     * @param str a datetime string
-     * @return the corresponding LocalDateTime object
-     * @throws DateTimeParseException if str is not of the correct format
+     * @param str a datetime string.
+     * @return the corresponding LocalDateTime object.
+     * @throws DateTimeParseException if str is not of the correct format.
      */
     public static LocalDateTime convertToDateTime(String str) {
         //check if dateTime has correct format: ie. YYYY-MM-DD 00:00
@@ -81,7 +73,7 @@ public class Parser {
      * This method catches all DukeExceptions, and displays the error
      * messages using the ui.showError() command.
      *
-     * @param input user input
+     * @param input user input.
      */
     public void parseInput(String input) {
         String[] inputs = input.split(" ");
@@ -112,12 +104,13 @@ public class Parser {
     }
 
     /**
-     * Handles the deleting of a specified task. Checks if a taskID is provided.
-     * Calls tasks.deleteTask(index) function to attempt task deletion.
+     * Handles the deleting of a specified task.
+     * Checks if a taskID is provided. Calls tasks.deleteTask(index) function to
+     * attempt task deletion.
      *
-     * @param input user input
-     * @throws NoTaskIdException      if no taskID is provided
-     * @throws InvalidTaskIdException if a non-numerical id is provided
+     * @param input user input.
+     * @throws NoTaskIdException      if no taskID is provided.
+     * @throws InvalidTaskIdException if a non-numerical id is provided.
      */
     public void parseDelete(String input) throws NoTaskIdException, InvalidTaskIdException {
         String[] inputArr = input.split(" ");
@@ -136,12 +129,13 @@ public class Parser {
     }
 
     /**
-     * Handles the marking of a specified task. Checks if a taskID is provided.
-     * Calls the tasks.markTask(index) function to attempt task marking.
+     * Handles the marking of a specified task.
+     * Checks if a taskID is provided. Calls the tasks.markTask(index) function to
+     * attempt task marking.
      *
-     * @param input user input
-     * @throws NoTaskIdException      if no taskID is provided
-     * @throws InvalidTaskIdException If a non-numerical id is provided
+     * @param input user input.
+     * @throws NoTaskIdException      if no taskID is provided.
+     * @throws InvalidTaskIdException If a non-numerical id is provided.
      */
     public void parseMark(String input) throws NoTaskIdException, InvalidTaskIdException {
         String[] inputArr = input.split(" ", 2);
@@ -161,12 +155,13 @@ public class Parser {
     }
 
     /**
-     * Handles the unmarking of a specified task. Checks if a taskID is provided.
-     * Calls the tasks.unmarkTask(index) function to attempt task unmarking.
+     * Handles the unmarking of a specified task.
+     * Checks if a taskID is provided. Calls tasks.unMarkTask(index)
+     * to attempt task unmarking.
      *
-     * @param input user input
-     * @throws NoTaskIdException      if no taskID is provided
-     * @throws InvalidTaskIdException If a non-numerical id is provided
+     * @param input user input.
+     * @throws NoTaskIdException      if no taskID is provided.
+     * @throws InvalidTaskIdException If a non-numerical id is provided.
      */
     public void parseUnMark(String input) throws NoTaskIdException, InvalidTaskIdException {
         String[] inputs = input.split(" ", 2);
@@ -185,13 +180,12 @@ public class Parser {
         }
     }
 
-
     /**
      * Handles the creation of a ToDo.
      * Creates successfully if a description is provided.
      *
-     * @param input user input
-     * @throws NoDescException if no description is provided
+     * @param input user input.
+     * @throws NoDescException if no description is provided.
      */
     public void parseToDo(String input) throws NoDescException {
         String[] inputs = input.split(" ", 2);
@@ -208,17 +202,15 @@ public class Parser {
         }
     }
 
-
     /**
      * Handles the creation of a Deadline.
      * Creates successfully if a description and an appropriate datetime is provided
      * in the format 'deadline desc /by datetime' is provided.
      *
-     * @param input user input
-     * @throws NoDescException          if no description is provided
-     * @throws InvalidDeadlineException if command is not of the correct format
+     * @param input user input.
+     * @throws NoDescException          if no description is provided.
+     * @throws InvalidDeadlineException if command is not of the correct format.
      */
-
     public void parseDeadline(String input) throws NoDescException, InvalidDeadlineException {
         String[] inputs = input.split(" ", 2);
         if (inputs.length == 1) {
@@ -253,12 +245,12 @@ public class Parser {
      * Creates successfully if a description, appropriate start datetime and end
      * date time is provided in the format 'event desc /from start /to end'.
      *
-     * @param input user input
-     * @throws NoDescException          if no description provided
-     * @throws NoStartException         if no start datetime provided
-     * @throws NoEndException           if no end datetime provided
-     * @throws InvalidStartEndException if start datetime is after end datetime
-     * @throws InvalidEventException    if command is not of the correct format
+     * @param input user input.
+     * @throws NoDescException          if no description provided.
+     * @throws NoStartException         if no start datetime provided.
+     * @throws NoEndException           if no end datetime provided.
+     * @throws InvalidStartEndException if start datetime is after end datetime.
+     * @throws InvalidEventException    if command is not of the correct format.
      */
     public void parseEvent(String input) throws NoDescException, NoStartException, NoEndException,
             InvalidStartEndException, InvalidEventException {
@@ -307,6 +299,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the finding of tasks that match the specified keyword.
+     *
+     * @param input user input.
+     * @throws InvalidFindTaskException if 0 or more than 1 keyword is specified.
+     */
     public void findTask(String input) throws InvalidFindTaskException {
         String[] inputs = input.split(" ");
         if (inputs.length != 2) {

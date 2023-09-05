@@ -1,5 +1,9 @@
 package duke.tasks;
 
+/**
+ * Encapsulates a Task. Contains methods that allows users to interact with a Task
+ * object, such as marking, unmarking or deleting tasks.
+ */
 abstract public class Task {
     private int status;
     private String task;
@@ -7,8 +11,8 @@ abstract public class Task {
     /**
      * Class constructor for Task.
      *
-     * @param status 0 for uncompleted, 1 or other number for completed
-     * @param task task description
+     * @param status 0 for uncompleted, 1 or other number for completed.
+     * @param task   task description.
      */
     public Task(int status, String task) {
         this.status = status;
@@ -18,10 +22,9 @@ abstract public class Task {
     abstract public String convertTask();
 
     /**
-     * Marks this task as completed. Return false if the task is already
-     * marked.
+     * Marks this task as completed.
      *
-     * @return true if the task is marked successfully
+     * @return true if the task is marked successfully.
      */
     public boolean canMark() {
         if (this.status == 0) {
@@ -33,9 +36,9 @@ abstract public class Task {
     }
 
     /**
-     * Unmarks this task. Returns false if the task is not marked yet.
+     * Marks this task as uncompleted.
      *
-     * @return true if task if unmarked
+     * @return true if task is unmarked.
      */
     public boolean canUnMark() {
         if (this.status != 0) {
@@ -47,9 +50,9 @@ abstract public class Task {
     }
 
     /**
-     * Returns the status of the task. 0 for uncompleted,
-     * 1 or any other number for uncompleted.
-     * @return
+     * Returns the status of the task.
+     *
+     * @return 0 if uncompleted, 1 or other number for completed.
      */
     public int getStatus() {
         return this.status;
@@ -58,7 +61,7 @@ abstract public class Task {
     /**
      * Returns the task description.
      *
-     * @return task description
+     * @return task description.
      */
     public String getTask() {
         return this.task;
@@ -67,7 +70,7 @@ abstract public class Task {
     /**
      * Returns the string representation of a task object.
      *
-     * @return a string task
+     * @return a string task.
      */
     @Override
     public String toString() {

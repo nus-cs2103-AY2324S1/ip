@@ -5,19 +5,23 @@ import duke.exceptions.InvalidStartEndException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Encapsulates an Event. Contains the task description, completion status,
+ * start and end date times.
+ */
 public class Event extends Task {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private LocalDateTime start;
     private LocalDateTime end;
 
     /**
-     * Event class constructor.
+     * Class constructor for Event.
      *
-     * @param status 0 for uncompleted, 1 or other numbers for completed
-     * @param task task description
-     * @param start start datetime
-     * @param end end datetime
-     * @throws InvalidStartEndException if start after end
+     * @param status 0 for uncompleted, 1 or other numbers for completed.
+     * @param task   task description.
+     * @param start  start datetime.
+     * @param end    end datetime.
+     * @throws InvalidStartEndException if start after end.
      */
     public Event(int status, String task, LocalDateTime start, LocalDateTime end) throws InvalidStartEndException {
         super(status, task);
@@ -30,10 +34,9 @@ public class Event extends Task {
     }
 
     /**
-     * Converts Event to the correct string format to write to
-     * data file.
+     * Converts Event to the correct string format to write to data file.
      *
-     * @return string to write to data file
+     * @return string to write to data file.
      */
     @Override
     public String convertTask() {
@@ -44,7 +47,7 @@ public class Event extends Task {
     /**
      * Returns string representation of an Event object.
      *
-     * @return string Event
+     * @return string Event.
      */
     @Override
     public String toString() {
