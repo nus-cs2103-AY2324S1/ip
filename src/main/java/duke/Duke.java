@@ -1,7 +1,8 @@
 package duke;
 
-import duke.task.TaskList;
 import java.util.Scanner;
+
+import duke.task.TaskList;
 
 /**
  * Represents Duke, a Personal Assistant Chatbot that helps a person to keep track of
@@ -62,4 +63,6 @@ public class Duke {
     public static void main(String[] args) {
         new Duke().run();
     }
+
 }
+

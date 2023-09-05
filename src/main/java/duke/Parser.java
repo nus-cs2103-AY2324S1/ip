@@ -130,8 +130,7 @@ public class Parser {
      * @param command The user command.
      * @param taskList The list of tasks to which the task will be added.
      * @throws InvalidDescriptionException If the description for the Deadline task is empty.
-     * @throws InvalidDeadlineException If there is an invalid deadline task given. (without
-     * a due date/time)
+     * @throws InvalidDeadlineException If there is an invalid deadline task given. (without by)
      * @throws Exception If an error occurs during execution.
      */
     public void addDeadline(String command, TaskList taskList) throws Exception {
@@ -165,8 +164,7 @@ public class Parser {
      * @param command The user command.
      * @param taskList The list of tasks to which the task will be added.
      * @throws InvalidDescriptionException If the description for the Deadline task is empty.
-     * @throws InvalidEventException If there is an invalid event task given. (without a start
-     * and/or end date/time)
+     * @throws InvalidEventException If there is an invalid event task given. (without from/to)
      * @throws Exception If an error occurs during execution.
      */
     public void addEvent(String command, TaskList taskList) throws Exception {
