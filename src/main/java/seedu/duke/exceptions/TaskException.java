@@ -6,6 +6,10 @@ package seedu.duke.exceptions;
 public class TaskException extends Exception {
     private String message;
 
+    /**
+     * Exception for error in task
+     * @param message error message
+     */
     public TaskException(String message) {
         super("TaskException: " + message + "\n");
         this.message = message;
@@ -14,6 +18,6 @@ public class TaskException extends Exception {
 
     @Override
     public String getMessage() {
-        return "message\n";
+        return message + "\n";
     }
 }

@@ -1,4 +1,4 @@
-package seedu.duke.Ui;
+package seedu.duke.ui;
 
 import java.util.List;
 import java.util.Scanner;
@@ -31,8 +31,8 @@ public class Ui {
                 + "|____/ \\__,_|___|\\___|\n"
                 + "I'm Duke!\nWhat can I do for you?\n";
 
-//        System.out.println("Hello from\n" + logo);
-//        System.out.println("I'm Duke!\nWhat can I do for you?\n");
+        // System.out.println("Hello from\n" + logo);
+        //System.out.println("I'm Duke!\nWhat can I do for you?\n");
         return logo;
     }
 
@@ -40,7 +40,7 @@ public class Ui {
      * prints exit message
      */
     public String printExit() {
-//        System.out.println("Bye. Hope to see you again soon!");
+        //System.out.println("Bye. Hope to see you again soon!");
         return "Bye. Hope to see you again soon!";
     }
 
@@ -54,11 +54,11 @@ public class Ui {
         if (taskList.isEmpty()) {
             System.out.println("You have no tasks.\n");
         } else {
-//            System.out.println(taskList.size() + " tasks: ");
+            // System.out.println(taskList.size() + " tasks: ");
             showFindDetailsString.append(taskList.size() + " tasks: \n");
             for (int i = 0; i < taskList.size(); i++) {
                 Task task = taskList.get(i);
-//                System.out.println((i + 1) + ". " + task);
+                // System.out.println((i + 1) + ". " + task);
                 showFindDetailsString.append((i + 1) + ". " + task + "\n");
             }
         }
@@ -75,7 +75,7 @@ public class Ui {
         String message = String.format("Got it. I've added this task:\n  "
                 + task
                 + "\nNow you have %s tasks in the list\n", taskList.size());
-//        System.out.println(message);
+        // System.out.println(message);
         return message;
     }
 
@@ -90,13 +90,13 @@ public class Ui {
         if (taskList.isEmpty()) {
             System.out.println("You have no tasks.\n");
         } else {
-//            System.out.println("Here are your tasks:");
+            // System.out.println("Here are your tasks:");
             for (int i = 0; i < taskList.size(); i++) {
                 Task task = taskList.get(i);
-//                System.out.println((i + 1) + ". " + task);
+                // System.out.println((i + 1) + ". " + task);
                 showAllTasks.append((i + 1) + ". " + task + "\n");
             }
-//            System.out.println("");
+            // System.out.println("");
         }
         return showAllTasks.toString();
     }
@@ -107,7 +107,7 @@ public class Ui {
      * @param task Task to delete
      */
     public String printDeleteTask(Task task) {
-        System.out.println("Noted. I've removed this task:" + "\n  " + task + "\n");
+        // System.out.println("Noted. I've removed this task:" + "\n  " + task + "\n");
         return "Noted. I've removed this task:" + "\n  " + task + "\n";
     }
 
@@ -119,10 +119,10 @@ public class Ui {
      */
     public String printMarkTask(Task task, boolean beforeMarking) {
         if (beforeMarking) {
-//            System.out.println("Error! Task already marked!\n");
+            // System.out.println("Error! Task already marked!\n");
             return "Error! Task already marked!\n";
         } else {
-//            System.out.println("Nice! I've marked this task as done:\n  " + task + "\n");
+            //System.out.println("Nice! I've marked this task as done:\n  " + task + "\n");
             return "Nice! I've marked this task as done:\n  " + task + "\n";
         }
     }
@@ -134,10 +134,10 @@ public class Ui {
      */
     public String printUnMarkTask(Task task, boolean beforeMarking) {
         if (beforeMarking) {
-//            System.out.println("I've unmarked this task:\n  " + task + "\n");
+            // System.out.println("I've unmarked this task:\n  " + task + "\n");
             return "I've unmarked this task:\n  " + task + "\n";
         } else {
-//            System.out.println("Error! Task already unmarked\n");
+            //System.out.println("Error! Task already unmarked\n");
             return "Error! Task already unmarked\n";
         }
     }

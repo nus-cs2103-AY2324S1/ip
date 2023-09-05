@@ -6,13 +6,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-import seedu.duke.Ui.Ui;
 import seedu.duke.tasks.Deadline;
 import seedu.duke.tasks.Event;
 import seedu.duke.tasks.Task;
 import seedu.duke.tasks.Todo;
+import seedu.duke.ui.Ui;
 
 /**
  * Storage
@@ -53,12 +55,12 @@ public class Storage {
     /**
      * Read from duke.txt file
      *
-     * @param ui UI to display to users
      * @return Tasklist
      * @throws IOException throws any error
      */
-    public TaskList readFile(Ui ui) throws IOException {
-        TaskList taskList = new TaskList(ui); // Create an empty task list
+    public List<Task> readFile() throws IOException {
+        // TaskList taskList = new TaskList(ui); // Create an empty task list
+        List<Task> taskList = new ArrayList<>();
         try {
             File myData = new File(filePath);
             Scanner scanner = new Scanner(myData);
@@ -67,7 +69,8 @@ public class Storage {
                 Task task = parseTaskFromLine(line);
                 if (task != null) {
                     // this adds to taskList without printing anything
-                    taskList.addAvailTasks(task);
+//                    taskList.addAvailTasks(task);
+                    taskList.add(task);
                 }
             }
             scanner.close();

@@ -2,7 +2,7 @@ package seedu.duke;
 
 import java.io.IOException;
 
-import seedu.duke.Ui.Ui;
+import seedu.duke.ui.Ui;
 import seedu.duke.utils.Parser;
 import seedu.duke.utils.Storage;
 import seedu.duke.utils.TaskList;
@@ -23,10 +23,11 @@ public class Duke {
      */
     public Duke(String filePath) {
         this.storage = new Storage(filePath);
-        this.parser = new Parser(this.storage);
+        this.parser = new Parser(storage);
         this.ui = new Ui();
         try {
-            this.taskList = storage.readFile(this.ui);
+            this.taskList = new TaskList(storage.readFile(), ui);
+            //this.taskList = storage.readFile(this.ui);
         } catch (IOException e) {
             System.out.println(e);
         }

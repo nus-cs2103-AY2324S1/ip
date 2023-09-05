@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.duke.Ui.Ui;
 import seedu.duke.exceptions.TaskException;
 import seedu.duke.tasks.Deadline;
 import seedu.duke.tasks.Event;
 import seedu.duke.tasks.Task;
+import seedu.duke.ui.Ui;
 
 /**
  * TaskList class
@@ -22,9 +22,9 @@ public class TaskList {
      *
      * @param ui Ui instance it uses to display messages to user
      */
-    public TaskList(Ui ui) {
+    public TaskList(List<Task> taskList, Ui ui) {
+        this.taskList = taskList;
         this.ui = ui;
-        this.taskList = new ArrayList<>(100);
     }
 
     public String exit() {
@@ -39,15 +39,6 @@ public class TaskList {
     public String addTask(Task task) {
         taskList.add(task);
         return ui.printAddingTask(task, taskList);
-    }
-
-    /**
-     * Adds task to TaskList. Used for initial read of duke.txt, no interface/ comments to user
-     *
-     * @param task task to add from duke.txt
-     */
-    public void addAvailTasks(Task task) {
-        taskList.add(task);
     }
 
     /**

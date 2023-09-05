@@ -1,5 +1,6 @@
-package seedu.duke.Ui;
+package seedu.duke.ui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -10,6 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import seedu.duke.Duke;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -51,15 +55,18 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
-        userInput.clear();
-    }
 
-    private ImageView makeCircularImage(Image image) {
-        ImageView circularImageView = new ImageView(image);
-        circularImageView.setClip(new Circle(25, 25, 25));
-        circularImageView.setPreserveRatio(true);
-        circularImageView.setFitWidth(50); // Adjust the size as needed
-        circularImageView.setFitHeight(50); // Adjust the size as needed
-        return circularImageView;
+        // Closes the GUI
+        if (input.toLowerCase().equals("bye")) {
+            TimerTask exitTask = new TimerTask() {
+                @Override
+                public void run() {
+                    Platform.exit();
+                }
+            };
+            Timer timer = new Timer("Delay");
+            timer.schedule(exitTask, 1200L);
+        }
+        userInput.clear();
     }
 }

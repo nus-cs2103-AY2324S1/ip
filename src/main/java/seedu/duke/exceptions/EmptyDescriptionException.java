@@ -5,6 +5,11 @@ package seedu.duke.exceptions;
  */
 public class EmptyDescriptionException extends Exception {
     private String message;
+
+    /**
+     * Exception for empty description in user input
+     * @param message error message
+     */
     public EmptyDescriptionException(String message) {
         super("EmptyDescriptionException: " + message + "\n");
         this.message = message;
@@ -12,6 +17,6 @@ public class EmptyDescriptionException extends Exception {
 
     @Override
     public String getMessage() {
-        return message;
+        return message + "\n";
     }
 }
