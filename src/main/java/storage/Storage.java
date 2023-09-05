@@ -44,7 +44,7 @@ public class Storage {
         File dataFile = new File(fileDirectory + "/" + FILE_NAME);
         try {
             if (directory.mkdir() && dataFile.createNewFile()) {
-                Ui.output("File to store task data have been created and stored at:\n       "
+                Ui.setOutMessage("File to store task data have been created and stored at:\n       "
                         + fileDirectory + "/" + FILE_NAME);
             }
             return true;
@@ -74,9 +74,9 @@ public class Storage {
      *
      * @return True when file data loaded to chatbot successfully.
      */
-    public boolean loadData(TaskList taskList) {
+    public boolean loadFromFile(TaskList taskList) {
         if (!this.openFile()) {
-            Ui.output("An error occured where the file cannot be read");
+            Ui.setOutMessage("An error occured where the file cannot be read");
             return false;
         }
 
@@ -109,12 +109,12 @@ public class Storage {
                     taskList.addTask(event, false);
                     break;
                 default:
-                    Ui.output(String.format("Unknown symbol [%s] detected", splitInput[0]));
+                    Ui.setOutMessage(String.format("Unknown symbol [%s] detected", splitInput[0]));
                 }
             }
             return true;
         } catch (ArrayIndexOutOfBoundsException e) { // File formatted with wrong no. of " | " dividers for task types.
-            Ui.output("There seems to be a problem with reading in data from:\n      [" + fileLocation
+            Ui.setOutMessage("There seems to be a problem with reading in data from:\n      [" + fileLocation
                     + "]\n\n     Proceeding will overwrite the current data file [Y/N]:");
         } catch (FileNotFoundException e) {
             e.printStackTrace();

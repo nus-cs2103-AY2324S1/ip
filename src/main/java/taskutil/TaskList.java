@@ -28,9 +28,9 @@ public class TaskList {
         try {
             Task pendingTask = taskList.get(index);
             pendingTask.isDone = isCompleted;
-            Ui.output("Task updated as requested:\n       " + pendingTask);
+            Ui.setOutMessage("Task updated as requested:\n       " + pendingTask);
         } catch (IndexOutOfBoundsException e) { // When index falls outside ArrayList.
-            Ui.output("I can't modify a task that doesn't exist...\n     Try a number from the list");
+            Ui.setOutMessage("I can't modify a task that doesn't exist...\n     Try a number from the list");
         }
     }
 
@@ -57,7 +57,7 @@ public class TaskList {
             Task delete = taskList.remove(index);
             Ui.taskOutput(delete, Ui.Action.REMOVE, taskList.size());
         } catch (IndexOutOfBoundsException e) { // When index falls outside ArrayList.
-            Ui.output("I can't remove a task that doesn't exist...\n     Try a number from the list");
+            Ui.setOutMessage("I can't remove a task that doesn't exist...\n     Try a number from the list");
         }
     }
 
