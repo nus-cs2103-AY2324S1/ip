@@ -32,8 +32,9 @@ public class DueCommand extends Command {
      * @param storage
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public String execute(TaskList list, Ui ui, Storage storage) {
         String message = list.dueOn(dueDate);
-        ui.print(message);
+        //        ui.print(message);
+        return message;
     }
 }
