@@ -1,16 +1,17 @@
 package duke.storage;
 
-import duke.exception.KoraException;
-import duke.task.TaskList;
-import duke.task.Task;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.ToDo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import duke.exception.KoraException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.ToDo;
+
 
 /**
  * Storage class is to load and save the tasks in the hard disk automatically.
@@ -43,7 +44,7 @@ public class Storage {
             if (!ff.exists()) {
                 ff.createNewFile();
             }
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new KoraException("Unable to create file!");
 
         }

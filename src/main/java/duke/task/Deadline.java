@@ -1,17 +1,20 @@
 package duke.task;
 
-import duke.exception.KoraException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import duke.exception.KoraException;
+
 public class Deadline extends Task {
-    //private String byTime;
+    private DateTimeFormatter outFormatter;
+    private DateTimeFormatter saveFormatter;
     public Deadline(String details, String time) throws KoraException {
         super(details);
         super.setTaskType(TaskType.D.toString());
-        //byTime = time;
+        outFormatter = DateTimeFormatter.ofPattern("E, MMM d yyyy HH:mm");
+        saveFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         try {
             byTime = LocalDateTime.parse(time, saveFormatter);
         } catch (DateTimeParseException e) {
@@ -19,9 +22,6 @@ public class Deadline extends Task {
         }
 
     }
-
-    DateTimeFormatter outFormatter = DateTimeFormatter.ofPattern("E, MMM d yyyy HH:mm");
-    DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @Override
     public String getTime() {

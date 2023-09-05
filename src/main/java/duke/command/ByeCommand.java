@@ -3,9 +3,10 @@ package duke.command;
 import duke.task.TaskList;
 
 public class ByeCommand extends Command {
+    private String commandMessage = "";
     public ByeCommand() {
     }
-    String commandMessage = "";
+
     @Override
     public String getCommandMessage() {
         return commandMessage;

@@ -1,9 +1,9 @@
 package duke.command;
 
 import duke.exception.KoraException;
-import duke.task.TaskList;
-import duke.task.Task;
 import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
 
 public class EventCommand extends Command {
     private String taskDetails;
@@ -33,8 +33,8 @@ public class EventCommand extends Command {
     public void execute(TaskList taskList) throws KoraException {
         currentTask = new Event(taskDetails, startTimeDetails, endTimeDetails);
         taskList.addTask(currentTask);
-        commandMessage = "Okay! I have added this task" + "\n" +
-                currentTask.toString() + "\n" +
-                    String.format("Now you have %d tasks!", taskList.getLength());
+        commandMessage = "Okay! I have added this task" + "\n"
+                + currentTask.toString() + "\n"
+                + String.format("Now you have %d tasks!", taskList.getLength());
     }
 }

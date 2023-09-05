@@ -7,14 +7,13 @@ import java.time.format.DateTimeFormatter;
  * Task class stores details of the tasks.
  */
 public class Task {
-    //private int num;
+    protected LocalDateTime byTime;
     private String details;
 
     private boolean isMarked;
 
     private String taskType;
 
-    protected LocalDateTime byTime;
 
     /**
      * Class constructor of Task.
