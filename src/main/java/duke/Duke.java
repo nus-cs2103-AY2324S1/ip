@@ -1,13 +1,14 @@
-package Duke;
-
-import Duke.Exceptions.DukeException;
-import Duke.Storage.Storage;
-import Duke.Tasks.*;
-import Duke.UI.Ui;
+package duke;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+
+import duke.exceptions.DukeException;
+import duke.storage.Storage;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
+
 
 /**
  * Contains the Duke Chatbot.
@@ -15,8 +16,7 @@ import java.util.ArrayList;
  * @author Marcus Soh
  */
 public class Duke {
-    private static Path SAVE_FILE_LOCATION = Paths.get("data", "duke.txt");
-    private Storage storage;
+    private static final Path SAVE_FILE_LOCATION = Paths.get("data", "duke.txt");
     private Ui ui;
     private TaskList listContainer = new TaskList(new ArrayList<>());
 
@@ -27,11 +27,11 @@ public class Duke {
      */
     public Duke(String filePath) {
 
-        this.storage = new Storage(filePath);
+        Storage storage = new Storage(filePath);
 
         try {
             this.listContainer = new TaskList(storage.load());
-            ui = new Ui(this.listContainer, this.storage);
+            ui = new Ui(this.listContainer, storage);
         } catch (DukeException e) {
             System.out.println(e.getErrorMessage());
         }

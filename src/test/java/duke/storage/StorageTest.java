@@ -1,18 +1,17 @@
-package Duke.Storage;
-
-import Duke.Duke;
-import Duke.Exceptions.DukeException;
-import Duke.Tasks.EventTask;
-import Duke.Tasks.Task;
-import Duke.Tasks.TodoTask;
-import org.junit.jupiter.api.Test;
+package duke.storage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import duke.exceptions.DukeException;
+import duke.tasks.EventTask;
+import duke.tasks.Task;
+import duke.tasks.TodoTask;
+
 
 public class StorageTest {
     /**

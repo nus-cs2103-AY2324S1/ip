@@ -1,35 +1,41 @@
-package Duke.Parser;
+package duke.parser;
 
-import Duke.Exceptions.DukeException;
-import Duke.Storage.Storage;
-import Duke.Tasks.*;
+import static duke.ui.Ui.printResult;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static Duke.UI.Ui.printResult;
+import duke.exceptions.DukeException;
+import duke.storage.Storage;
+import duke.tasks.Commands;
+import duke.tasks.DeadlineTask;
+import duke.tasks.EventTask;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.TodoTask;
+
+
 
 /**
  * Controls the parsing of commands and arguments entered by the user.
  */
 public class Parser {
-    private static String UNKNOWN_COMMAND = "\uD83D\uDE21 This command is not something I can handle!";
+    private static final String UNKNOWN_COMMAND = "\uD83D\uDE21 This command is not something I can handle!";
 
-    private static String NAME_EMPTY = "\uD83D\uDE21 Your item name cannot be empty!";
-    private static String DEADLINE_EMPTY = "\uD83D\uDE21 Missing deadline!";
+    private static final String NAME_EMPTY = "\uD83D\uDE21 Your item name cannot be empty!";
+    private static final String DEADLINE_EMPTY = "\uD83D\uDE21 Missing deadline!";
 
-    private static String FROM_EMPTY = "\uD83D\uDE21 Missing from!";
-    private static String TO_EMPTY = "\uD83D\uDE21 Missing to!";
-    private static String TIME_FORMAT_ERROR = "\uD83D\uDE21 Time format invalid!";
-    private static String INVALID_DATE_FORMAT = "\uD83D\uDE21 Invalid date format! Try using YYYY-MM-DD";
+    private static final String FROM_EMPTY = "\uD83D\uDE21 Missing from!";
+    private static final String TO_EMPTY = "\uD83D\uDE21 Missing to!";
+    private static final String TIME_FORMAT_ERROR = "\uD83D\uDE21 Time format invalid!";
+    private static final String INVALID_DATE_FORMAT = "\uD83D\uDE21 Invalid date format! Try using YYYY-MM-DD";
 
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Parses the input string by the user.

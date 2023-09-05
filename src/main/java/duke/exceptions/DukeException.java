@@ -1,4 +1,4 @@
-package Duke.Exceptions;
+package duke.exceptions;
 
 /**
  * Contains the main Custom Exception for DukeBot.

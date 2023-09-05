@@ -1,11 +1,11 @@
-package Duke.Tasks;
+package duke.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Encapsulates a specific task of type Deadline.
- *
+ * <p>
  * Stores the deadline as a LocalDateTime.
  */
 public class DeadlineTask extends Task {
@@ -14,7 +14,7 @@ public class DeadlineTask extends Task {
     /**
      * Constructor for a Deadline Task.
      *
-     * @param itemName The name of the task
+     * @param itemName         The name of the task
      * @param deadlineDateTime The deadline
      */
     public DeadlineTask(String itemName, LocalDateTime deadlineDateTime) {
@@ -35,6 +35,8 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadlineDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a")) + ")";
+        return "[D]"
+                + super.toString()
+                + " (by: " + this.deadlineDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a")) + ")";
     }
 }
