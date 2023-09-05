@@ -9,10 +9,8 @@ import java.time.format.DateTimeFormatter;
  * @author selwyn
  */
 public class Task {
-    /** The description of the task. */
     private String detail;
 
-    /** The completion status of the task. */
     private boolean isDone;
 
     /**

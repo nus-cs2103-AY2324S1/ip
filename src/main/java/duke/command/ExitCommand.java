@@ -5,21 +5,21 @@ import duke.Ui;
 import duke.task.TaskList;
 
 /**
- * The ExitCommand class represents a command to exit the Duke application.
+ * The ExitCommand class represents a command for exiting the Duke chatbot application.
  *
  * @author selwyn
  */
 public class ExitCommand extends Command {
     /**
-     * Executes the ExitCommand by changing the exit status and displaying an exit message.
+     * Executes the ExitCommand by changing the exit status and returning an exit message.
      *
-     * @param taskList The TaskList object containing the list of tasks.
-     * @param ui The Ui object handling user interface interactions.
-     * @param storage The Storage object handling storage-related operations.
+     * @param taskList The task list (not used in this command).
+     * @param storage  The storage object (not used in this command).
+     * @return A message indicating the application should exit.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         super.changeExitStatus();
-        ui.printExit();
+        return Ui.printExit();
     }
 }

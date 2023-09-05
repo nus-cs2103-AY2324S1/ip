@@ -9,10 +9,8 @@ import java.time.LocalDateTime;
  * @author selwyn
  */
 public class Event extends Task {
-    /** Start date and time of the event */
     private LocalDateTime startDateTime;
 
-    /** End date and time of the event */
     private LocalDateTime endDateTime;
 
     /**

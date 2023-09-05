@@ -2,39 +2,38 @@ package duke.command;
 
 import duke.DukeException;
 import duke.Storage;
-import duke.Ui;
 import duke.task.TaskList;
 
 /**
- * The Command class represents a command that can be executed in the Duke application.
+ * The Command class represents a generic command that can be executed in the Duke chatbot.
  *
  * @author selwyn
  */
 public abstract class Command {
-    /** Indicates whether the command triggers an exit from the application. */
     private boolean isExit = false;
 
     /**
-     * Executes the command using the provided TaskList, Ui, and Storage objects.
+     * Executes the command by performing specific actions on the task list and storage.
      *
-     * @param taskList The TaskList object containing the list of tasks.
-     * @param ui The Ui object handling user interface interactions.
-     * @param storage The Storage object handling storage-related operations.
-     * @throws DukeException If there is an issue executing the duke.command.
+     * @param taskList The task list to which the command is applied.
+     * @param storage  The storage object used for saving or retrieving data.
+     * @return A string representing the result of executing the command.
+     * @throws DukeException If there is an error executing the command.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList taskList, Storage storage) throws DukeException;
 
     /**
-     * Toggles the exit status of the duke.command.
+     * Toggles the exit status of the command.
+     * If set to true, it indicates that the command should exit the application.
      */
     public void changeExitStatus() {
         this.isExit = !this.isExit;
     }
 
     /**
-     * Checks whether the command triggers an exit from the application.
+     * Checks if the command should exit the application.
      *
-     * @return True if the command triggers an exit, false otherwise.
+     * @return true if the command should exit, false otherwise.
      */
     public boolean isExit() {
         return this.isExit;

@@ -203,26 +203,33 @@ public class TaskList {
      *
      * @param isMatching Determine which statements to print (true for matching tasks, false for all tasks)
      */
-    public void displayTaskList(boolean isMatching) {
+    public String taskListRepresentation(boolean isMatching) {
+        String strToReturn = "";
         if (isMatching) {
-            if (this.numTasks == 0 || this.numTasks == 1) {
-                System.out.println("Here is the matching task in your list:");
+            if (this.numTasks == 0) {
+                strToReturn += "There are no matching tasks in your list!\n";
+            } else if (this.numTasks == 1) {
+                strToReturn += "Here is the matching task in your list:\n";
             } else {
-                System.out.println("Here are the matching tasks in your list:");
+                strToReturn += "Here are the matching tasks in your list:\n";
             }
         } else {
-            if (this.numTasks == 0 || this.numTasks == 1) {
-                System.out.println("Here is the task in your list:");
+            if (this.numTasks == 0) {
+                strToReturn += "You have no tasks in your list at the moment!\n";
+            } else if (this.numTasks == 1) {
+                strToReturn += "Here is the task in your list:\n";
             } else {
-                System.out.println("Here are the tasks in your list:");
+                strToReturn += "Here are the tasks in your list:\n";
             }
         }
 
         for (int i = 0; i < this.numTasks; i++) {
             int bullet = i + 1;
-            System.out.print(bullet + ". ");
-            System.out.println(this.tasks.get(i).toString());
+            strToReturn += bullet + ". ";
+            strToReturn += this.tasks.get(i).toString() + "\n";
         }
+
+        return strToReturn;
     }
 
     /**

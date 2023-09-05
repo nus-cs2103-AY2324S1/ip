@@ -5,21 +5,20 @@ import duke.Ui;
 import duke.task.TaskList;
 
 /**
- * The ListCommand class represents a command to list all tasks in the task list.
+ * The ListCommand class represents a command for listing all tasks in the task list.
  *
  * @author selwyn
  */
 public class ListCommand extends Command {
-
     /**
-     * Executes the ListCommand by displaying the list of tasks.
+     * Executes the ListCommand by displaying all tasks in the task list.
      *
-     * @param taskList The TaskList object containing the list of tasks.
-     * @param ui The Ui object handling user interface interactions.
-     * @param storage The Storage object handling storage-related operations.
+     * @param taskList The task list to be displayed.
+     * @param storage  The storage object (not used in this command).
+     * @return A message displaying all tasks in the task list.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.printTaskList(taskList, false);
+    public String execute(TaskList taskList, Storage storage) {
+        return Ui.printTaskList(taskList, false);
     }
 }
