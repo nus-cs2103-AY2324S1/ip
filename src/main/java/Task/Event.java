@@ -3,9 +3,26 @@ package task;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+/**
+ * Event class is used for tasks that are held specific date and time.
+ */
 public class Event extends Task{
+    /**
+     * The From.
+     */
     protected LocalDateTime from;
+    /**
+     * The To.
+     */
     protected LocalTime to;
+
+    /**
+     * Instantiates a new Event.
+     *
+     * @param description the description
+     * @param from        the from
+     * @param to          the to
+     */
     public Event(String description, LocalDateTime from, LocalTime to) {
         super(description);
         this.from = from;

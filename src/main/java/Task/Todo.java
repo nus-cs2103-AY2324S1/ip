@@ -1,7 +1,15 @@
 package task;
 
+/**
+ * Todo class is used for tasks that need to done.
+ */
 public class Todo extends Task{
 
+    /**
+     * Instantiates a new Todo.
+     *
+     * @param description the description
+     */
     public Todo(String description) {
         super(description);
     }
