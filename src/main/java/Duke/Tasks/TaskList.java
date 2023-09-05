@@ -11,10 +11,18 @@ public class TaskList {
 
     private ArrayList<Task> storagePile;
 
+    /**
+     * Constructs a TaskList and loads tasks from storage.
+     */
     public TaskList() {
         storagePile = Storage.loadTasks();
     }
 
+    /**
+     * Constructs an empty TaskList.
+     *
+     * @param test just to set it off.
+     */
     public TaskList(String test) {
         storagePile = new ArrayList<>();
     }
@@ -47,6 +55,13 @@ public class TaskList {
         return storagePile.size();
     }
 
+    /**
+     * Adds a task to the TaskList based on user input.
+     *
+     * @param item The user input representing a task.
+     * @throws InvalidInput    If the input is invalid.
+     * @throws IncompleteInput If the input is incomplete.
+     */
     public void input(String item) throws InvalidInput, IncompleteInput  {
         String firstWord = item.split(" ")[0];
 
@@ -68,6 +83,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Filters the TaskList and returns a new TaskList containing tasks with descriptions that match the provided description.
+     *
+     * @param desc The description to filter tasks by.
+     * @return A filtered TaskList containing matching tasks.
+     */
     public TaskList filterTaskList(String desc) {
         TaskList filtered = new TaskList("empty");
         for (Task task : this.storagePile) {
@@ -78,6 +99,12 @@ public class TaskList {
         return filtered;
     }
 
+
+    /**
+     * Saves the tasks in the TaskList to a PrintWriter.
+     *
+     * @param pw The PrintWriter to write tasks to.
+     */
     public void saveToFile(PrintWriter pw) {
         for (Task item : storagePile) {
             String str = item.toString();
