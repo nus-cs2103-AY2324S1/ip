@@ -5,6 +5,7 @@ package enums;
  */
 public enum CommandWord {
     BYE("bye"),
+    FIND("find"),
     LIST("list"),
     MARK("mark"),
     UNMARK("unmark"),

@@ -144,4 +144,27 @@ public class TaskList {
         }
         System.out.printf("You have %d tasks in the task list.\n", this.size());
     }
+
+    /**
+     * Finds and displays tasks that contain a specified keyword in their descriptions.
+     *
+     * @param keyword The keyword to search for within task descriptions.
+     */
+    public void findTask(String keyword) {
+        boolean hasMatch = false;
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 1; i <= this.tasks.size(); ++i) {
+            Task currTask = this.tasks.get(i - 1);
+            if (currTask.hasKeyWord(keyword)) {
+                hasMatch = true;
+                String taskNumber = String.format("%3d.", i);
+                System.out.printf("%s %s\n", taskNumber, currTask);
+            }
+        }
+
+        if (!hasMatch) {
+            System.out.println("No tasks matched your keyword!");
+        }
+        System.out.printf("You have %d tasks in the task list.\n", this.size());
+    }
 }
