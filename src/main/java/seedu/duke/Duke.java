@@ -1,6 +1,7 @@
 package seedu.duke;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
@@ -10,6 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 
 /**
  * Represents my version of a chatbot.
@@ -20,12 +24,15 @@ import javafx.stage.Stage;
  * @since 2023-08-29
  */
 public class Duke extends Application {
-
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+
+
 
     private TaskList taskList;
     private Ui ui;
@@ -132,6 +139,20 @@ public class Duke extends Application {
     }
 
     /**
+     * Iteration 1:
+     * Creates a label with the specified text and adds it to the dialog container.
+     * @param text String containing text to add
+     * @return a label with the specified text that has word wrap enabled.
+     */
+    private Label getDialogLabel(String text) {
+        // You will need to import `javafx.scene.control.Label`.
+        Label textToAdd = new Label(text);
+        textToAdd.setWrapText(true);
+
+        return textToAdd;
+    }
+
+    /**
      * Starts JavaFX service.
      *
      * @param stage the primary stage for this application, onto which
@@ -139,7 +160,6 @@ public class Duke extends Application {
      * Applications may create other stages, if needed, but they will not be
      * primary stages.
      */
-    @Override
     public void start(Stage stage) {
 
         this.scrollPane = new ScrollPane();
@@ -183,10 +203,21 @@ public class Duke extends Application {
         AnchorPane.setLeftAnchor(this.userInput , 1.0);
         AnchorPane.setBottomAnchor(this.userInput, 1.0);
 
+        //Scroll down to the end every time dialogContainer's height changes.
+        this.dialogContainer.heightProperty().addListener((observable) -> this.scrollPane.setVvalue(1.0));
+
 
 
         stage.setScene(scene); // Setting the stage to show our screen
         stage.show(); // Render the stage.
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    String getResponse(String input) {
+        return "Duke heard: " + input;
     }
 
     /**
