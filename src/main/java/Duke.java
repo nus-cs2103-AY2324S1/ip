@@ -2,6 +2,7 @@ package seedu;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -45,7 +46,6 @@ public class Duke extends Application {
         try {
             this.tasks = storage.load();
         } catch (Exception e) {
-            ui.showError(e.getMessage());
             tasks = new TaskList(null);
         }
     }
@@ -66,14 +66,13 @@ public class Duke extends Application {
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
-    private void handleUserInput() {
+    private String handleUserInput() {
         Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-                custom.DialogBox.getUserDialog( userText.toString(), user),
-                custom.DialogBox.getDukeDialog(dukeText.toString(), duke)
+                custom.DialogBox.getUserDialog( userText.toString(), user)
         );
         userInput.clear();
+        return userText.toString();
     }
 
     /**
@@ -86,8 +85,17 @@ public class Duke extends Application {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
+    public String[] getResponse(String input) {
+        try {
+            Command c = Parser.parse(input, this.ui, this.storage, this.tasks);
+            ArrayList<String> s = new ArrayList<>();
+            s = c.execute();
+            return s.toArray(new String[0]);
+        } catch (Exception e) {
+            String[] s = new String[1];
+            s[0] = this.ui.showError("Something wrong!" + e.getMessage());
+            return s;
+        }
     }
 
     @Override
@@ -144,14 +152,17 @@ public class Duke extends Application {
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
         // more code to be added here later
 
+        String filename = "src/save.txt";
+        new Duke(filename).run();
+        boolean isExit = false;
 
         //Part 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
+
         });
 
         userInput.setOnAction((event) -> {
-            handleUserInput();
+
         });
     }
 
@@ -172,28 +183,12 @@ public class Duke extends Application {
 
 
     public void run() {
-        this.ui.showWelcome();
-        boolean isExit = false;
-        while(!isExit) {
-            try {
-                String input = this.ui.getUserCommand();
+        this.ui.showWelcome(dialogContainer);
 
-                Command c = Parser.parse(input, this.ui, this.storage, this.tasks);
-                if (c.execute()) {
-                    isExit = true;
-                    break;
-                }
-            } catch (Exception e) {
-                this.ui.showError("Something wrong!" + e.getMessage());
-            } finally {
-                this.ui.showLine();
-            }
-        }
 
     }
 
     public static void main(String[] args) {
         String filename = "src/save.txt";
-        new Duke(filename).run();
     }
 }

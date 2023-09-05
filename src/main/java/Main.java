@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private seedu.Duke duke = new seedu.Duke();
+    private seedu.Duke duke = new seedu.Duke( "src/save.txt");
 
     @Override
     public void start(Stage stage) {
@@ -29,10 +29,8 @@ public class Main extends Application {
             fxmlLoader.<ui.MainWindow>getController().setDuke(duke);
             stage.show();
         } catch (IOException e) {
-            System.out.println("sasa");
             e.printStackTrace();
         } catch (Exception e) {
-            System.out.println("SASasasas");
             System.out.println(e.getMessage());
         }
     }

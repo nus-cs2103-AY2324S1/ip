@@ -1,5 +1,8 @@
 package seedu;
 
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+
 import java.io.PrintStream;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -16,18 +19,19 @@ public class Ui {
     /**
      * Prints welcome message to the user
      */
-    public void showWelcome() {
+    public String showWelcome(VBox dialogContainer) {
         String logo = "Bacon Pancake";
-        out.println(" Hello from " + logo + "\n What can I do for you? \n" + "---------------------------------- \n");
+        return (" Hello from " + logo + "\n What can I do for you? \n" + "---------------------------------- \n");
     }
 
     /**
      * Prints ending message to the user
      */
-    public boolean showByeMessage() {
-        out.println("Bacon Pancake : \n" + "Bye! See you again soon ");
-        return false;
+    public String showByeMessage() {
+        return ("Bacon Pancake : \n" + "Bye! See you again soon ");
     }
+
+
 
 
     /**
@@ -35,30 +39,25 @@ public class Ui {
      *
      * @param tasks the TaskList class that contains all the current tasks
      */
-    public void showTask(TaskList tasks) {
-        out.println("Bacon Pancake : Below are the lists\n");
+    public String showTask(TaskList tasks) {
+        StringBuilder s = new StringBuilder();
+        s.append("Bacon Pancake : Below are the lists\n");
         int curr = 1;
         for (int i = 0; i < tasks.getLen(); i++) {
             if (tasks.get(i) != null) {
                 Task t = tasks.get(i);
-                out.println((curr++) + ". " + t.getStatus());
+                s.append((curr++) + ". " + t.getStatus() + "\n");
             }
         }
+        return s.toString();
     }
 
     /**
      * Generates and prints the error message upon any exceptions.
      * @param m message of the error
      */
-    public void showError(String m) {
-        out.println(m);
-    }
-
-    /**
-     * Generates and prints a horizontal line.
-     */
-    public void showLine() {
-        out.println("----------------------------------");
+    public String showError(String m) {
+        return m;
     }
 
     /**
@@ -78,17 +77,19 @@ public class Ui {
      * @param t Task that is to be removed
      * @param currentLength to show the current number of tasks after removal
      */
-    public void removeTask(Task t, int currentLength) {
-        out.println("Noted. I've removed this task: \n");
-        out.println(t);
-        out.println("Now you have " + currentLength + " tasks left.");
+    public String removeTask(Task t, int currentLength) {
+        StringBuilder s = new StringBuilder();
+        s.append("Noted. I've removed this task: \n");
+        s.append(t.toString() + "\n");
+        s.append("Now you have " + currentLength + " tasks left. \n");
+        return s.toString();
     }
 
     /**
      * Marks and checks the current task to be true
      */
-    public void showMarked() {
-        out.println("Bacon Pancake : Nice! I've marked this task as done:");
+    public String showMarked() {
+        return ("Bacon Pancake : Nice! I've marked this task as done:");
     }
 
     /**
@@ -97,14 +98,16 @@ public class Ui {
      * @param curr Task that is supposed to be added to the lists of tasks
      */
 
-    public void addTask(Task curr) {
-        out.println("Bacon Pancake : \n Added : " + curr.description);
+    public String addTask(Task curr) {
+        return ("Bacon Pancake : \n Added : " + curr.description);
     }
 
-    public void showFoundWords(ArrayList<Task> tasks) {
+    public String showFoundWords(ArrayList<Task> tasks) {
+        StringBuilder s = new StringBuilder();
         for(Task task : tasks) {
-            System.out.println(task.getStatus());
+            s.append(task.getStatus());
         }
+        return s.toString();
     }
 
 }

@@ -1,5 +1,7 @@
 package seedu;
 
+import javafx.scene.layout.VBox;
+
 import java.util.ArrayList;
 
 public class Command {
@@ -24,34 +26,34 @@ public class Command {
         this.tasks = tasks;
     }
 
-    public boolean execute() throws Exception {
+    public ArrayList<String> execute() throws Exception {
+        ArrayList<String> s = new ArrayList<>();
         try {
             if (command.equals("bye")) {
-                this.ui.showByeMessage();
+                s.add(this.ui.showByeMessage());
                 this.storage.save(this.tasks);
-                return true;
             } else if (command.equals("list")) {
-                this.ui.showTask(tasks);
+                s.add(this.ui.showTask(tasks));
             } else if (command.equals("delete")) {
                 Task removed = this.tasks.remove(this.index);
-                this.ui.removeTask(removed, this.tasks.getLen());
+                s.add(this.ui.removeTask(removed, this.tasks.getLen()));
             } else if (command.equals("mark")) {
                 this.tasks.mark(this.index);
-                this.ui.showMarked();
+                s.add(this.ui.showMarked());
             } else if (command.startsWith("find")) {
                 String keyword = command.substring(4).trim();
                 ArrayList<Task> foundWords = this.tasks.find(keyword);
-                this.ui.showFoundWords(foundWords);
+                s.add(this.ui.showFoundWords(foundWords));
             } else {
                 Task curr = new Task(command.substring(command.indexOf(" ")),
                         command.substring(0, command.indexOf(" ")));
-                this.ui.addTask(curr);
+                s.add(this.ui.addTask(curr));
                 this.tasks.add(curr);
             }
         } catch (Exception e) {
             throw new Exception("Some error occurred " + e.getMessage());
         }
-        return false;
+        return s;
 
     }
 

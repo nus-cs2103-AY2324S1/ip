@@ -8,6 +8,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import seedu.Command;
+import seedu.Parser;
+
+import java.util.Arrays;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -43,11 +48,25 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        if(input.equals("exit")) {
+            dialogContainer.getChildren().addAll(
+                    custom.DialogBox.getUserDialog(input, userImage)
+            );
+            dialogContainer.getChildren().add(
+                    custom.DialogBox.getDukeDialog("Press exit close", dukeImage)
+            );
+            userInput.clear();
+        }
+        String[] response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
-                custom.DialogBox.getUserDialog(input, userImage),
-                custom.DialogBox.getDukeDialog(response, dukeImage)
+                custom.DialogBox.getUserDialog(input, userImage)
         );
+        for (int i = 0; i < response.length; i++) {
+            dialogContainer.getChildren().add(
+                    custom.DialogBox.getDukeDialog(response[i], dukeImage)
+            );
+        }
+
         userInput.clear();
     }
 }
