@@ -2,7 +2,7 @@ package chad.chatengine;
 public class Parser {
 
     public enum CommandType {
-        BYE, MARK, UNMARK, LIST, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
+        BYE, MARK, UNMARK, LIST, TODO, DEADLINE, EVENT, DELETE, FIND, UNKNOWN
     }
 
     public static CommandType parseCommandType(String command) {
@@ -46,6 +46,11 @@ public class Parser {
                 break;
             case LIST:
             case BYE:
+                break;
+            case FIND:
+                if (parts.length < 2) {
+                    throw new ChadException.InvalidArgumentException("Missing keyword for find.");
+                }
                 break;
             case UNKNOWN:
             default:

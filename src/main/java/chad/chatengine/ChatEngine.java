@@ -75,6 +75,9 @@ public class ChatEngine {
             case DELETE:
                 handleDelete(parsedInput);
                 break;
+            case FIND:
+                handleFind(parsedInput);
+                break;
             case BYE:
                 return false;
             default:
@@ -138,6 +141,13 @@ public class ChatEngine {
         ioHandler.writeOutput(response);
         saveTasks();
     }
+
+    void handleFind(String[] parsedInput) {
+        String keyword = parsedInput[1];
+        String matchingTasks = taskList.findTasks(keyword);
+        ioHandler.writeOutput(matchingTasks);
+    }
+
     void saveTasks() {
         try {
             storage.saveTasks(taskList);
