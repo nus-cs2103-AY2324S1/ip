@@ -33,7 +33,6 @@ public class Duke {
         }
     }
 
-
     /**
      * Returns response to the GUI.
      *
@@ -43,9 +42,5 @@ public class Duke {
     public String getResponse(String userInput) {
         String toReturn = parser.parse(userInput, taskList);
         return toReturn;
-    }
-
-    public String greet() {
-        return ui.printGreet();
     }
 }

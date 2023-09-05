@@ -14,6 +14,7 @@ import seedu.duke.tasks.Deadline;
 import seedu.duke.tasks.Event;
 import seedu.duke.tasks.Task;
 import seedu.duke.tasks.Todo;
+import seedu.duke.ui.Ui;
 
 /**
  * Paraser class
@@ -35,7 +36,7 @@ public class Parser {
      * ENUMS
      */
     public enum Operation {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, CHECKDATE, FIND
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, CHECKDATE, FIND, HELP
     }
 
     /**
@@ -55,6 +56,9 @@ public class Parser {
             }
             String toReturn;
             switch (operation) {
+            case HELP:
+                toReturn = Ui.help();
+                break;
             case BYE:
                 toReturn = taskList.exit();
                 break;

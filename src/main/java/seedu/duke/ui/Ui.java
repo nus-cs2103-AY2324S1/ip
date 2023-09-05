@@ -6,34 +6,24 @@ import java.util.Scanner;
 import seedu.duke.tasks.Task;
 
 /**
- * UI class
+ * UI class. handles all responses to the user
  */
 public class Ui {
-
     /**
-     * gets user input into system
+     * returns the list of available commands
      *
-     * @return user input
+     * @return list
      */
-    public String getUserInput() {
-        Scanner sc = new Scanner(System.in);
-        return sc.nextLine();
-    }
-
-    /**
-     * prints the greeting message
-     */
-    public String printGreet() {
-        String logo = "Hello from\n" + " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | | / _ \\\n"
-                + "| |_| | |_| |  |_   __/\n"
-                + "|____/ \\__,_|___|\\___|\n"
-                + "I'm Duke!\nWhat can I do for you?\n";
-
-        // System.out.println("Hello from\n" + logo);
-        //System.out.println("I'm Duke!\nWhat can I do for you?\n");
-        return logo;
+    public static String help() {
+        return "Available commands are:\n\n" +
+                "list - displays current list\n" +
+                "todo - adds a task to do\n" +
+                "deadline - adds a task with deadline\n" +
+                "event - adds a upcoming event\n" +
+                "delete - removes specified index\n" +
+                "checkdate - tasks on specified date\n" +
+                "find - task with specified keyword\n" +
+                "bye - exit program";
     }
 
     /**
