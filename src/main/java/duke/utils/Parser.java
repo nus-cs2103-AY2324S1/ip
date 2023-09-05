@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import duke.Command;
+import duke.common.Command;
 import duke.DukeException;
 import duke.DukeInvalidCommandException;
 import duke.DukeMissingArgumentException;
@@ -32,12 +32,12 @@ public class Parser {
      * Returns the command keyword.
      * @return The command keyword.
      */
-    public Command getCommand() {
-        Command keyword = Command.INVALID;
+    public String getCommand() {
+        String keyword = "";
         try {
-            keyword = Command.valueOf(inputArray.get(0).toUpperCase());
+            keyword = inputArray.get(0).toUpperCase();
         } catch (IllegalArgumentException e) {
-            return Command.INVALID;
+            return "";
         }
         return keyword;
     }
