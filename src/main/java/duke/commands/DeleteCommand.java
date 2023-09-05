@@ -17,16 +17,16 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         try {
             Task temp = taskList.getTask(this.deleteIdx - 1);
             taskList.removeTask(this.deleteIdx - 1);
-            String output1 = Ui.divider + "\nNoted. I've removed this task:\n" + "    " + temp
-                    + "\nNow you have " + Integer.toString(taskList.size())
-                    + " tasks in the list.\n" + Ui.divider + "\n";
-            System.out.println(output1);
+            String output1 = "Noted. I've removed this task:\n" + "    " + temp
+                    + "\nNow you have " + taskList.size()
+                    + " tasks in the list.";
+            return output1;
         } catch (InvalidTaskIndexException ex) {
-            System.out.println(ex);
+            return ex.toString();
         }
     }
 }

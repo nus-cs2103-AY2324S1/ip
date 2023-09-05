@@ -16,14 +16,12 @@ public class TaskCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         taskList.addTask(this.task);
-        String output = Ui.divider + "\n"
-                + "Got it. I've added this task:\n"
+        String output = "Got it. I've added this task:\n"
                 + "    " + task.toString()
                 + "\nNow you have " + taskList.size()
-                + " tasks in the list.\n"
-                + Ui.divider + "\n";
-        System.out.println(output);
+                + " tasks in the list.";
+        return output;
     }
 }
