@@ -6,13 +6,23 @@ import java.time.format.DateTimeParseException;
 import Duke.Tasks.*;
 import Duke.Exceptions.*;
 
-
+/**
+ * The Parser class is responsible for parsing user input, processing commands, and formatting date and time.
+ */
 public class Parser {
 
     public Parser() {
 
     }
 
+    /**
+     * Process user input and perform corresponding actions on the task list and user interface.
+     *
+     * @param input The user's input.
+     * @param tasks The TaskList object to manage tasks.
+     * @param iu The Ui object to interact with the user.
+     * @return True if the application should continue running; false if it should exit.
+     */
     public boolean inputs(String input, TaskList tasks, Ui iu) {
         String[] listOfWords = input.split(" ");
         String prefix = listOfWords[0];
@@ -75,6 +85,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Formats a date and time string into a specific output format.
+     *
+     * @param time The input date and time string in "yyyy-MM-dd HHmm" format.
+     * @return The formatted date and time string in "MMM d yyyy HHmm" format, or the original input if parsing fails.
+     * @throws DateTimeParseException If the input string is not in the expected format.
+     */
     public String formatTime(String time) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         LocalDateTime dateTime = LocalDateTime.parse(time, formatter);
@@ -83,6 +100,12 @@ public class Parser {
         return formattedStringOutput;
     }
 
+    /**
+     * Converts a date and time string using the formatTime method, handling any exceptions that may occur.
+     *
+     * @param time The input date and time string.
+     * @return The formatted date and time string or the original input if parsing fails.
+     */
     public static String dateToString(String time) {
         try {
             Parser dud = new Parser();
