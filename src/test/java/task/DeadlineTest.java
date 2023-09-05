@@ -1,7 +1,7 @@
 package task;
 
-import Duke.exception.DukeException;
-import Duke.task.Deadline;
+import duke.exception.DukeException;
+import duke.task.Deadline;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

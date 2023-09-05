@@ -1,7 +1,7 @@
 package task;
 
-import Duke.exception.EmptyTaskDescException;
-import Duke.task.Todo;
+import duke.exception.EmptyTaskDescException;
+import duke.task.Todo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,12 +1,13 @@
-package Duke.storage;
+package duke.storage;
 
-import Duke.exception.FileNotFoundException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import duke.exception.FileNotFoundException;
+
 public class Storage {
-    String filePath;
+    private final String filePath;
     private File file;
     private BufferedWriter bufferedWriter;
 
@@ -25,7 +26,7 @@ public class Storage {
             bufferedWriter.write(line);
             bufferedWriter.newLine();
             bufferedWriter.flush();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -36,7 +37,7 @@ public class Storage {
             String line;
             int currentLine = 1;
             while ((line = bufferedReader.readLine()) != null) {
-                if(index == currentLine) {
+                if (index == currentLine) {
                     return line;
                 }
                 currentLine++;
@@ -76,7 +77,8 @@ public class Storage {
         }
     }
 
-    public void clear() {   // Create a FileWriter with the given file path
+    public void clear() {
+        // Create a FileWriter with the given file path
         try {
             FileWriter fileWriter = new FileWriter(file);
             // Overwrite the file content with an empty string

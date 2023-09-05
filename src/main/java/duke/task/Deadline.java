@@ -1,24 +1,31 @@
-package Duke.task;
-
-import Duke.exception.DukeException;
-import Duke.exception.InvalidTaskFormatException;
-import Duke.exception.InvalidTimeFormatException;
+package duke.task;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
+import duke.exception.DukeException;
+import duke.exception.InvalidTaskFormatException;
+import duke.exception.InvalidTimeFormatException;
+
+
+
 /**
  * Represents a deadline task that has a name and deadline time.
  * Extends the {@link Task} class.
  */
-public class Deadline extends Task{
-    final private LocalDateTime deadlineTime;
+public class Deadline extends Task {
+    private final LocalDateTime deadlineTime;
 
+    /**
+     * Constructor for a Deadline task.
+     * @param task The information about the Deadline task.
+     * @throws DukeException when formatting errors occur.
+     */
     public Deadline(String task) throws DukeException {
-        super(task.split("/",2)[0]);
-        String[] taskComponents = task.split("/",2);
+        super(task.split("/", 2)[0]);
+        String[] taskComponents = task.split("/", 2);
         String[] timeComponents;
         try {
             timeComponents = taskComponents[1].split(" ", 3);
@@ -35,13 +42,21 @@ public class Deadline extends Task{
             throw new InvalidTimeFormatException(taskComponents[1]);
         }
     }
-    public static Deadline unpackSaveFormat(String savedTask) throws DukeException {
+
+    /**
+     * Returns a Deadline object parsed from the save format.
+     * @param savedTask The string representing the task in the save format.
+     * @return A new Deadline object.
+     * @throws DukeException when the formatting is wrong.
+     */
+    public static Deadline parseSaveFormat(String savedTask) throws DukeException {
         String[] components = savedTask.split("\\|", 3);
         Deadline task = new Deadline(components[1] + "/by " + components[0]);
-        if(components[2].equals("true"))
+        if (components[2].equals("true")) {
             task.setCompleted();
-        else
+        } else {
             task.setUncompleted();
+        }
         return task;
     }
 
@@ -50,7 +65,12 @@ public class Deadline extends Task{
         return "[D]" + super.toString() + " (by: " + deadlineTime.toLocalDate().toString() + ","
                 + deadlineTime.toLocalTime().toString() + ")";
     }
-    public String toSaveFormat(){
+
+    /**
+     * Converts this Deadline into a save format string.
+     * @return A string representing this Deadline.
+     */
+    public String toSaveFormat() {
         return "deadline:" + deadlineTime.toLocalDate().toString() + " "
                 + deadlineTime.toLocalTime().toString() + "|" + super.toSaveFormat();
     }

@@ -1,14 +1,14 @@
-package Duke.message;
-
-import Duke.task.Task;
-import Duke.task.TaskList;
+package duke.message;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import duke.task.Task;
+import duke.task.TaskList;
+
 public class Message {
-    final private static String horizontalLine = "____________________________________________________________";
-    final private String content;
+    private static final String horizontalLine = "____________________________________________________________";
+    private final String content;
 
     public Message(String content) {
         this.content = content;

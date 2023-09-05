@@ -1,16 +1,16 @@
-package Duke.parser;
-
-import Duke.command.Command;
-import Duke.exception.DukeException;
-import Duke.message.Message;
+package duke.parser;
 
 import java.util.Scanner;
+
+import duke.command.Command;
+import duke.exception.DukeException;
+import duke.message.Message;
 
 /**
  * Handles user interactions, input parsing, and displaying messages.
  */
 public class Ui {
-    Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
     private final InputParser parser = new InputParser();
 
     /**

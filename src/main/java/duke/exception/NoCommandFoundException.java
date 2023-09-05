@@ -1,12 +1,12 @@
-package Duke.exception;
+package duke.exception;
 
-import Duke.message.ErrorMessage;
+import duke.message.ErrorMessage;
 
 /**
  * An exception that is thrown when a no matching command is found.
  */
 public class NoCommandFoundException extends DukeException {
-    public NoCommandFoundException(String message){
+    public NoCommandFoundException(String message) {
         super(message);
     }
 

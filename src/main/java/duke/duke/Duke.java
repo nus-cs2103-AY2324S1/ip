@@ -1,10 +1,10 @@
-package Duke.duke;
+package duke.duke;
 
-import Duke.exception.DukeException;
-import Duke.message.Message;
-import Duke.parser.Ui;
-import Duke.storage.Storage;
-import Duke.application.Application;
+import duke.application.Application;
+import duke.exception.DukeException;
+import duke.message.Message;
+import duke.parser.Ui;
+import duke.storage.Storage;
 
 /**
  * Represents the main class of the Duke application, responsible for initializing and running the application.
@@ -38,11 +38,12 @@ public class Duke {
      */
     public void run() {
         ui.showMessage(Message.onGreeting(name));
-        while(isAwake){
+        while (isAwake) {
             try {
-                if(ui.hasNext())
+                if (ui.hasNext()) {
                     ui.showMessage(ui.parseLine().execute(application));
-            } catch (DukeException de){
+                }
+            } catch (DukeException de) {
                 ui.showError(de);
             }
         }

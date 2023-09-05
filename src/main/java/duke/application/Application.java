@@ -1,10 +1,10 @@
-package Duke.application;
+package duke.application;
 
-import Duke.duke.Duke;
-import Duke.exception.DukeException;
-import Duke.storage.Storage;
-import Duke.task.Task;
-import Duke.task.TaskList;
+import duke.duke.Duke;
+import duke.exception.DukeException;
+import duke.storage.Storage;
+import duke.task.Task;
+import duke.task.TaskList;
 
 /**
  * The application that manages UI and the taskList.
@@ -55,7 +55,6 @@ public class Application {
         storage.removeLine(taskList.findTaskIndex(task) + 1);
         taskList.removeTask(task);
     }
-
     /**
      * Loads the task list from storage into the application.
      *
@@ -65,15 +64,17 @@ public class Application {
         taskList = new TaskList();
         String line;
         int currentLine = 1;
-        while(!(line = storage.getLine(currentLine)).equals("")) {
+        while (!(line = storage.getLine(currentLine)).equals("")) {
             taskList.addTask(Task.parse(line));
             currentLine++;
         }
     }
-
+    /**
+     * Saves the task list into storage.
+     */
     public void saveTaskList() {
         storage.clear();
-        for(int i = 0; i < getTaskCount(); i++) {
+        for (int i = 0; i < getTaskCount(); i++) {
             Task task = taskList.getTask(i);
             storage.addLine(task.toSaveFormat());
         }
@@ -102,10 +103,15 @@ public class Application {
         return taskList;
     }
 
+    /**
+     * Retrieves a TaskList containing all the tasks that contain a substring.
+     * @param content The substring to search for.
+     * @return A TaskList containing matching Tasks.
+     */
     public TaskList findMatchingTasks(String content) {
         TaskList matchingTasks = new TaskList();
-        for(int i = 0; i < getTaskCount(); i++) {
-            if(taskList.getTask(i).containsString(content)) {
+        for (int i = 0; i < getTaskCount(); i++) {
+            if (taskList.getTask(i).containsString(content)) {
                 matchingTasks.addTask(taskList.getTask(i));
             }
         }

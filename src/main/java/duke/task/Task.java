@@ -1,16 +1,21 @@
-package Duke.task;
+package duke.task;
 
-import Duke.exception.DukeException;
-import Duke.exception.EmptyTaskDescException;
-import Duke.exception.NoCommandFoundException;
+import duke.exception.DukeException;
+import duke.exception.EmptyTaskDescException;
+import duke.exception.NoCommandFoundException;
 
 /**
  * Represents a task with a name and completion status.
  */
 public abstract class Task {
-    final private String name;
+    private final String name;
     private boolean completed = false;
-
+    public Task(String name) throws EmptyTaskDescException {
+        if (name.isBlank()) {
+            throw new EmptyTaskDescException("Name cannot be blank.");
+        }
+        this.name = name;
+    }
 
     /**
      * Parses a task from a line of text.
@@ -30,9 +35,9 @@ public abstract class Task {
         case TODO:
             return Todo.unpackSaveFormat(content);
         case DEADLINE:
-            return Deadline.unpackSaveFormat(content);
+            return Deadline.parseSaveFormat(content);
         case EVENT:
-            return Event.unpackSaveFormat(content);
+            return Event.parseSaveFormat(content);
         default:
             throw new NoCommandFoundException(taskType.name());
         }
@@ -47,13 +52,6 @@ public abstract class Task {
         DEADLINE,
         EVENT
     }
-    public Task(String name) throws EmptyTaskDescException {
-        if(name.isBlank()) {
-            throw new EmptyTaskDescException("Name cannot be blank.");
-        }
-        this.name = name;
-    }
-
     /**
      * Creates a Task object based on the provided content and task type.
      *
@@ -65,20 +63,20 @@ public abstract class Task {
     public static Task of(String task, TaskType taskType)
             throws DukeException {
         switch (taskType) {
-            case TODO:
-                return new Todo(task);
-            case DEADLINE:
-                return new Deadline(task);
-            case EVENT:
-                return new Event(task);
-            default:
-                throw new NoCommandFoundException(taskType.name());
+        case TODO:
+            return new Todo(task);
+        case DEADLINE:
+            return new Deadline(task);
+        case EVENT:
+            return new Event(task);
+        default:
+            throw new NoCommandFoundException(taskType.name());
         }
     }
-    public void setCompleted(){
+    public void setCompleted() {
         completed = true;
     }
-    public void setUncompleted(){
+    public void setUncompleted() {
         completed = false;
     }
     @Override
@@ -88,7 +86,7 @@ public abstract class Task {
 
     }
 
-    public String toSaveFormat(){
+    public String toSaveFormat() {
         return name + "|" + completed;
     }
 }

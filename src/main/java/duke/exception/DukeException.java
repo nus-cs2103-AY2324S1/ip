@@ -1,11 +1,11 @@
-package Duke.exception;
+package duke.exception;
 
-import Duke.message.ErrorMessage;
+import duke.message.ErrorMessage;
 
 /**
  * An abstract class for custom exceptions specific to Duke.
  */
-public abstract class DukeException extends Exception{
+public abstract class DukeException extends Exception {
     protected DukeException(String message) {
         super(message);
     }

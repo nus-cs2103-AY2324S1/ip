@@ -1,16 +1,16 @@
-package Duke.command;
+package duke.command;
 
-import Duke.exception.*;
-import Duke.message.Message;
-import Duke.task.Task;
-import Duke.application.Application;
+import duke.application.Application;
+import duke.exception.*;
+import duke.message.Message;
+import duke.task.Task;
 
 /**
  * Represents an abstract command that interacts with the application with some content string.
  */
 public abstract class Command {
     protected String content;
-    protected Command(String content){
+    protected Command(String content) {
         this.content = content;
     }
 

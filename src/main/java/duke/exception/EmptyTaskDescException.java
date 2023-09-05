@@ -1,6 +1,6 @@
-package Duke.exception;
+package duke.exception;
 
-import Duke.message.ErrorMessage;
+import duke.message.ErrorMessage;
 
 /**
  * An exception that is thrown when a task description is empty.
