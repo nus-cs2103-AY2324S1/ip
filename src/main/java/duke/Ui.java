@@ -115,4 +115,15 @@ public class Ui{
         }
         System.out.println();
     }
+
+    public void printMatchingTasks(TaskList tasks){
+        int i = 1;
+        System.out.print("\tHere are the tasks in your list:");
+        for (int j = 0; j < tasks.getSize(); j++) {
+            System.out.println();
+            System.out.print("\t" + i + "." + tasks.getTask(j).taskString());
+            i++;
+        }
+        System.out.println();
+    }
 }

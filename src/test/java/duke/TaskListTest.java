@@ -3,6 +3,7 @@ import duke.task.Deadline;
 import duke.task.ToDo;
 import duke.task.Task;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -66,9 +67,5 @@ public class TaskListTest {
         tasks.addTask(todo);
         tasks.addTask(deadline);
         assertEquals(initialLen + 2, tasks.getSize());
-    }
-
-    public boolean assertEquals(int a, int b) {
-        return a == b;
     }
 }
