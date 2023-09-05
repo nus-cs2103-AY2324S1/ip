@@ -137,7 +137,7 @@ public class TaskList {
             linesToPrint.set(0, "Cannot find any tasks with this keyword");
         }
 
-        String lines[] = new String[linesToPrint.size()];
+        String[] lines = new String[linesToPrint.size()];
 
         for (int i = 0; i < linesToPrint.size(); i++) {
             lines[i] = linesToPrint.get(i);

@@ -1,25 +1,21 @@
 package duke;
 
 import java.io.IOException;
-
 import java.util.Scanner;
 
-import duke.exceptions.DukeException;
+import duke.command.Command;
 import duke.exceptions.DukeEmptyArgumentException;
+import duke.exceptions.DukeException;
 import duke.exceptions.DukeInvalidDateException;
 import duke.exceptions.DukeInvalidIndexException;
 import duke.exceptions.DukeUnknownCommandException;
-
-import duke.command.Command;
 import duke.parser.Parser;
 import duke.storage.Storage;
-
-import duke.task.TaskList;
-import duke.task.Task;
 import duke.task.Deadline;
 import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
 import duke.task.ToDo;
-
 import duke.ui.Ui;
 
 /**
@@ -72,7 +68,7 @@ public class Duke {
      * @param command Edit command of input.
      * @param taskIndex Index of task to edit.
      */
-    private static void editTask (Command command, int taskIndex) {
+    private static void editTask(Command command, int taskIndex) {
         if (command == Command.DELETE) {
             tasks.deleteTask(taskIndex);
         } else if (command == Command.MARK) {
@@ -206,7 +202,9 @@ public class Duke {
                 Command command = parser.parseInput(userInput);
                 String[] inputs = userInput.split(" ", 2);
 
-                if (!Duke.runCommand(command, inputs)) break;
+                if (!Duke.runCommand(command, inputs)) {
+                    break;
+                }
                 storage.writeTasks(tasks);
 
             } catch (Exception exception) {

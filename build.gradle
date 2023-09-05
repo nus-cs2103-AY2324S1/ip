@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -37,6 +38,10 @@ shadowJar {
     mainClassName = "duke.Duke"
     archiveFileName = "duke.jar"
     dependsOn("distZip", "distTar")
+}
+
+checkstyle {
+    toolVersion = '10.2'
 }
 
 run{

@@ -1,8 +1,7 @@
 package duke.parser;
 
-import duke.exceptions.DukeUnknownCommandException;
-
 import duke.command.Command;
+import duke.exceptions.DukeUnknownCommandException;
 
 /**
  * Represents a parser to parse

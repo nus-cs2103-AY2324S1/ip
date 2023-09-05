@@ -1,10 +1,10 @@
 package duke.task;
 
-import duke.exceptions.DukeInvalidDateException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import duke.exceptions.DukeInvalidDateException;
 
 /**
  * A class which represents
@@ -26,7 +26,7 @@ public class Event extends Task {
      * @param startTime Start time of the task.
      * @param endTime End time of the task.
      */
-    public Event(String description, String startTime, String endTime) throws  DukeInvalidDateException {
+    public Event(String description, String startTime, String endTime) throws DukeInvalidDateException {
         super(description);
         try {
             this.startTime = LocalDate.parse(startTime);
@@ -51,8 +51,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() +
-                " (from: " + this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
-                " to: " + this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[E]" + super.toString()
+                + " (from: " + this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: " + this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
