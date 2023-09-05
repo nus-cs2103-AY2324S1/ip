@@ -52,8 +52,9 @@ public class TaskList {
      * Deletes a duke.task from ArrayList.
      * @param command The duke.command specifying which duke.task to delete.
      */
-    public void deleteTask(String command) {
+    public String deleteTask(String command) {
         String[] splitCommand = command.split(" ");
+        String strToPrint = "";
         try {
             if (splitCommand.length != 2) {
                 throw new DukeException("Please insert a numerical value to delete");
@@ -70,13 +71,12 @@ public class TaskList {
             printHorizontalLine();
             System.out.println(e.getMessage());
             printHorizontalLine();
-            return;
+            return e.getMessage();
         }
-        printHorizontalLine();
-        System.out.println("Noted. I've removed this duke.task:");
+        strToPrint += ("Noted. I've removed this duke.task:\n");
         int indexToRemove = Integer.parseInt(command.substring(7)) - 1;
         Task taskToRemove = list.get(indexToRemove);
-        System.out.println(taskToRemove);
+        strToPrint += (taskToRemove) + "\n";
         list.remove(indexToRemove);
         try {
             File myObj = new File("./src/main/data/tmpDuke.txt");
@@ -104,12 +104,13 @@ public class TaskList {
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
+            return "An error occurred";
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
+            return "An error occurred";
         }
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
-        printHorizontalLine();
+        return strToPrint += ("Now you have " + list.size() + " tasks in the list.");
     }
 
 
@@ -117,9 +118,9 @@ public class TaskList {
      * Adds a event into ArrayList.
      * @param command The duke.command specifying what Event to add.
      */
-    public void addEvent(String command) {
+    public String addEvent(String command) {
         String[] splitCommand = command.split(" ");
-
+        String strToPrint = "";
         try {
             boolean hasFrom = false;
             boolean hasTo = false;
@@ -161,10 +162,10 @@ public class TaskList {
             printHorizontalLine();
             System.out.println(e.getMessage());
             printHorizontalLine();
-            return;
+            return e.getMessage();
         }
         printHorizontalLine();
-        System.out.println("Got it, I've added this event.");
+        strToPrint += ("Got it, I've added this event.\n");
         String currStr = command.substring(6);
         int fromIndex = currStr.indexOf("/");
         String description = currStr.substring(0, fromIndex);
@@ -181,10 +182,10 @@ public class TaskList {
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
+            return "An error occurred";
         }
-        System.out.println(eventTask);
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
-        printHorizontalLine();
+        strToPrint += (eventTask) + "\n";
+        return strToPrint += ("Now you have " + list.size() + " tasks in the list.");
     }
 
 
@@ -192,9 +193,11 @@ public class TaskList {
      * Add a Todo into the ArrayList.
      * @param command The duke.command specifying what todo to add.
      */
-    public void addTodo(String command) {
+    public String addTodo(String command) {
 
         String[] splitCommand = command.split(" ");
+
+        String strToPrint = "";
 
         try {
             if (splitCommand.length == 1) {
@@ -204,10 +207,9 @@ public class TaskList {
             printHorizontalLine();
             System.out.println(e.getMessage());
             printHorizontalLine();
-            return;
+            return e.getMessage();
         }
-        printHorizontalLine();
-        System.out.println("Got it, I've added this duke.task.");
+        strToPrint += ("Got it, I've added this duke.task.\n");
         String description = command.substring(5);
         Task todoTask = new Todo(description);
         try {
@@ -217,20 +219,22 @@ public class TaskList {
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
+            return "An error occurred";
         }
 
         list.add(todoTask);
-        System.out.println(todoTask);
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
-        printHorizontalLine();
+        strToPrint += (todoTask) + "\n";
+        return strToPrint += ("Now you have " + list.size() + " tasks in the list.");
     }
 
     /**
      * Add a deadline into the list.
      * @param command Command specifying what deadline to add.
      */
-    public void addDeadline(String command) {
+    public String addDeadline(String command) {
         String[] splitCommand = command.split(" ");
+
+        String strToPrint = "";
 
         try {
             boolean hasBy = false;
@@ -257,13 +261,10 @@ public class TaskList {
             }
 
         } catch (DukeException e) {
-            printHorizontalLine();
             System.out.println(e.getMessage());
-            printHorizontalLine();
-            return;
+            return e.getMessage();
         }
-        printHorizontalLine();
-        System.out.println("Got it, I've added this deadline.");
+        strToPrint += ("Got it, I've added this deadline.\n");
         String currStr = command.substring(9);
         int dateIndex = currStr.indexOf("/");
         String date = currStr.substring(dateIndex + 4);
@@ -283,49 +284,52 @@ public class TaskList {
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
+            return "An error occurred";
         }
 
         list.add(deadlineTask);
-        System.out.println(deadlineTask);
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
-        printHorizontalLine();
+        strToPrint += (deadlineTask) + "\n";
+        return strToPrint += ("Now you have " + list.size() + " tasks in the list.");
     }
 
     /**
      * Mark the duke.task if duke.task is undone.
      * @param index Specifying which duke.task in the ArrayList.
      */
-    public void markCurrentTaskUndone(int index) {
-        list.get(index).markUndone();
+    public String markCurrentTaskUndone(int index) {
+        return list.get(index).markUndone();
     }
 
     /**
      * Mark the duke.task if duke.task is done,
      * @param index Specifying which duke.task in the ArrayList.
      */
-    public void markCurrentTaskDone(int index) {
+    public String markCurrentTaskDone(int index) {
         list.get(index).markDone();
+        return list.get(index).markDone();
     }
 
     /**
      * Print out all the tasks in the ArrayList.
      */
-    public void printList() {
-        printHorizontalLine();
-        System.out.println("Here are the tasks in your list:");
+    public String printList() {
+        String strToPrint = "Here are the tasks in your list:\n";
         for (int i = 0; i < list.size(); i++) {
             int printIndex = i + 1;
-            System.out.println(printIndex + "." + list.get(i).toString());
+            strToPrint = strToPrint + (printIndex + "." + list.get(i).toString() + "\n");
         }
-        printHorizontalLine();
+
+        return strToPrint;
     }
 
     /**
      * Finds the tasks in the command and print them out.
      * @param command The command specifying the task.
      */
-    public void findTasks(String command) {
+    public String findTasks(String command) {
         String[] splitCommand = command.split(" ");
+
+        String strToPrint = "";
 
         try {
             if (splitCommand.length == 1) {
@@ -335,20 +339,19 @@ public class TaskList {
             printHorizontalLine();
             System.out.println(e.getMessage());
             printHorizontalLine();
-            return;
+            return e.getMessage();
         }
         String toFind = command.substring(5);
         int printIndex = 0;
-        printHorizontalLine();
-        System.out.println("Here are the matching tasks in your list: ");
+        strToPrint += ("Here are the matching tasks in your list: \n");
         for (Task task : list) {
             if (task.getDescription().contains(toFind)) {
                 printIndex = printIndex + 1;
-                System.out.println(printIndex + "." + task.toString());
+                strToPrint += (printIndex + "." + task.toString()) + "\n";
 
             }
         }
-        printHorizontalLine();
+        return strToPrint;
     }
 
 

@@ -21,6 +21,7 @@ public class Duke {
     private Storage storage;
 
     private String dukeCurrOutput;
+    Parser parser;
 
     /**
      * Constructor for duke.Duke.
@@ -29,6 +30,7 @@ public class Duke {
         this.ui = new Ui();
         this.storage = new Storage();
         this.tasks = new TaskList();
+        this.parser = new Parser();
         storage.load(this.tasks);
     }
 
@@ -40,14 +42,9 @@ public class Duke {
      */
     public void run() {
         Scanner sc = new Scanner(System.in);
-        Parser parser = new Parser();
-
         while (true) {
             String command = sc.nextLine();
-            boolean isBye = parser.parseCommand(command, tasks);
-            if (isBye) {
-                break;
-            }
+            String stringToPrint = parser.parseCommand(command, tasks);
         }
     }
 
@@ -61,7 +58,7 @@ public class Duke {
     }
 
     public String getCommandResponse(String command) {
-//        parser.parseCommand(command, tasks);
+        return parser.parseCommand(command, tasks);
     }
 
 

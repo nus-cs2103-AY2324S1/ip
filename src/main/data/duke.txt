@@ -1,2 +1,7 @@
 D | 0 | test | now
-T | 0 | 1
+D | 0 | cs2202 | 22 jan
+E | 0 | jcf | today | tmr
+T | 0 | help
+T | 0 | no
+T | 0 | meow
+T | 0 | help
