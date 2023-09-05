@@ -1,14 +1,14 @@
 package duke.task;
 
 import java.util.ArrayList;
+
 import duke.DukeException;
 
 /**
  * Represents a ToDo task.
  */
 public class ToDo extends Task {
-    public String description;
-
+    private String description;
     /**
      * Constructs a ToDo task with the given description.
      *

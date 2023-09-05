@@ -2,15 +2,15 @@ package duke.ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import duke.task.Task;
 
 /**
  * The Ui class handles the user interface interactions of the Duke application.
  */
 public class Ui {
-    private Scanner scanner;
     private static final String DIVIDER = "___________________________________\n";
-
+    private Scanner scanner;
     /**
      * Constructs an Ui object and initializes the scanner for user input.
      */
@@ -37,7 +37,7 @@ public class Ui {
         }
         String welcome = String.format("Hi I'm Duke but BETTTERRRR!!!\n%s", msg);
         System.out.println(welcome + DIVIDER);
-        if (!list.isEmpty()){
+        if (!list.isEmpty()) {
             showList(list);
             showDivider();
         }
@@ -66,8 +66,8 @@ public class Ui {
      * @param list The updated list of tasks.
      */
     public void showDelete(Task task, ArrayList<Task> list) {
-        String msg = String.format("Okay I have deleted this task from the list\n\t %s\n" +
-                "Now you have %d items in your list\n", task.toString(), list.size());
+        String msg = String.format("Okay I have deleted this task from the list\n\t %s\n"
+                + "Now you have %d items in your list\n", task.toString(), list.size());
         System.out.println(msg);
     }
 
@@ -78,8 +78,8 @@ public class Ui {
      * @param list The updated list of tasks.
      */
     public void showTaskAdded(Task task, ArrayList<Task> list) {
-        String msg = String.format("Okay!! I have added a new %s\n\t %s\n" +
-                "You now have %d items in your list!", task.getType(), task.toString(), list.size());
+        String msg = String.format("Okay!! I have added a new %s\n\t %s\n"
+                + "You now have %d items in your list!", task.getType(), task.toString(), list.size());
         System.out.println(msg);
     }
 

@@ -1,9 +1,9 @@
 package duke;
 
 import duke.command.Command;
-import duke.task.TaskList;
-import duke.storage.Storage;
 import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
@@ -13,6 +13,22 @@ public class Duke {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
+
+    /**
+     * Constructs a Duke object with the given file path.
+     *
+     * @param filePath The path to the file for storing task data.
+     */
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
+            tasks = new TaskList();
+        }
+    }
 
     /**
      * Runs the Duke application.
@@ -35,21 +51,7 @@ public class Duke {
         }
     }
 
-    /**
-     * Constructs a Duke object with the given file path.
-     *
-     * @param filePath The path to the file for storing task data.
-     */
-    public Duke(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-        try {
-            tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
-            ui.showError(e.getMessage());
-            tasks = new TaskList();
-        }
-    }
+
 
     /**
      * The main method to start the Duke application.

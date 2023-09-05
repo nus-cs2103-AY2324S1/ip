@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.util.ArrayList;
+
 import duke.DukeException;
 
 /**
@@ -34,8 +35,8 @@ public class Task {
      */
     public static void readListFromFile(String[] arr, ArrayList<Task> list) throws DukeException {
         if (arr.length != 3) {
-            throw new DukeException("Uh Oh! There seems to be a problem with the file!\n" +
-                    "Some of the tasks may be gone! Sorry!!\n");
+            throw new DukeException("Uh Oh! There seems to be a problem with the file!\n"
+                    + "Some of the tasks may be gone! Sorry!!\n");
         }
 
         String type = arr[0].strip();

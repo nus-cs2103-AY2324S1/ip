@@ -1,15 +1,14 @@
 package duke.task;
 
-import duke.Duke;
-import duke.DukeException;
-import org.junit.jupiter.api.Test;
-
-
-import java.util.ArrayList;
-import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
+import duke.DukeException;
 public class EventTest {
 
     @Test

@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.util.ArrayList;
+
 import duke.DukeException;
 
 /**
@@ -57,7 +58,9 @@ public class TaskList {
             throw new DukeException("☹ OOPS!!! Please indicate which item you wish to delete");
         }
         int amt = Integer.parseInt(pos.strip()) - 1;
-        if (amt >= list.size()) throw new DukeException("☹ OOPS!!! That's not a valid item!");
+        if (amt >= list.size()) {
+            throw new DukeException("☹ OOPS!!! That's not a valid item!");
+        }
 
         Task temp = list.get(amt);
         list.remove(amt);
@@ -78,7 +81,9 @@ public class TaskList {
             throw new DukeException("☹ OOPS!!! Please indicate which item you wish to mark");
         }
         int amt = Integer.parseInt(pos.strip()) - 1;
-        if (amt >= list.size()) throw new DukeException("☹ OOPS!!! That's not a valid item!");
+        if (amt >= list.size()) {
+            throw new DukeException("☹ OOPS!!! That's not a valid item!");
+        }
         Task newTask = list.get(amt);
 
         if (type.equals("mark")) {
