@@ -11,7 +11,7 @@ import duke.ui.Ui;
  */
 public class EventCommand extends Command {
     /** Represents an Event object */
-    private final Event event;
+    private Event event;
 
     /**
      * Constructor method.

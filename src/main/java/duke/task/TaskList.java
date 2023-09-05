@@ -11,7 +11,7 @@ import duke.exception.DukeException;
 public class TaskList {
 
     /** List of Task objects, encapsulated in the class. */
-    private final List<Task> taskList;
+    private List<Task> taskList;
 
     public TaskList(List<Task> tasks) {
         this.taskList = tasks;

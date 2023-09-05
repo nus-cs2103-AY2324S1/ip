@@ -11,7 +11,7 @@ import duke.ui.Ui;
  */
 public class DeadlineCommand extends Command {
     /** Represents a Deadline object. */
-    private final Deadline deadline;
+    private Deadline deadline;
 
     /**
      * Constructor method.

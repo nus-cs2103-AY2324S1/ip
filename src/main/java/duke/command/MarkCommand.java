@@ -11,7 +11,7 @@ import duke.ui.Ui;
  */
 public class MarkCommand extends Command {
     /** Index of command to be marked. */
-    private final int index;
+    private int index;
 
     /**
      * Constructor method.

@@ -11,7 +11,7 @@ import duke.ui.Ui;
  */
 public class UnmarkCommand extends Command {
     /** Index of Task object to be unmarked. */
-    private final int index;
+    private int index;
 
     /**
      * Constructor method.

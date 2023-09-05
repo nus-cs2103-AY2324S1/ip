@@ -12,7 +12,7 @@ import duke.ui.Ui;
 public class DeleteCommand extends Command {
 
     /** Index of Task object to be deleted. */
-    private final int index;
+    private int index;
 
     /**
      * Constructor method.

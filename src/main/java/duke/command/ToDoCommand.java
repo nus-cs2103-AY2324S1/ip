@@ -11,7 +11,7 @@ import duke.ui.Ui;
  */
 public class ToDoCommand extends Command {
     /** Represents a ToDo object. */
-    private final ToDo todo;
+    private ToDo todo;
 
     /**
      * Constructor method.

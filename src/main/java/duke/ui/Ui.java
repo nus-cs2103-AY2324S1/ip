@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Ui {
     /** Horizontal line and Scanner used to scan user input. */
     private static final String HORIZONTAL_LINE = "----------------------------(≧▽≦)----------------------------";
-    private final Scanner scanner;
+    private Scanner scanner;
 
     public Ui() {
         this.scanner = new Scanner(System.in);
