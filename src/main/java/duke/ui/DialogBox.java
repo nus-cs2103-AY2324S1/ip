@@ -9,20 +9,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 
 /**
  * DialogBox Controller.
  */
 public class DialogBox extends HBox {
     @FXML
-    private Label dialog;
+    private Text dialog;
+
     @FXML
-    private ImageView displayPicture;
+    private Circle displayPicture;
 
     private DialogBox(String text, Image img) {
         try {
@@ -33,9 +35,8 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         dialog.setText(text);
-        displayPicture.setImage(img);
+        displayPicture.setFill(new ImagePattern(img));
     }
 
     /**
@@ -83,7 +84,7 @@ public class DialogBox extends HBox {
     public static DialogBox getDukeDialog(String text, Image img, String color) {
         DialogBox db = new DialogBox(text, img);
         db.setStyle("-fx-background-color: #E0E0E0");
-        db.dialog.setTextFill(Color.valueOf(color));
+        db.dialog.setFill(Color.valueOf(color));
         db.flip();
         return db;
     }

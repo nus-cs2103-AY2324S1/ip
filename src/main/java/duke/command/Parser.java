@@ -26,6 +26,7 @@ public class Parser {
         case "bye":
             return new ByeCommand();
         case "list":
+        case "ls":
             return new ListCommand(arguments);
         case "mark":
             return new MarkCommand(arguments);

@@ -39,7 +39,9 @@ public class UI {
      * @param msg The message to print
      */
     public void sendMessage(String msg) {
-        mainWindow.addDialog(DialogBox.getDukeDialog(msg, mainWindow.getDukeImage(), Colors.NORMAL.code));
+        mainWindow.addDialog(DialogBox.getDukeDialog(msg.trim(),
+                mainWindow.getDukeImage(),
+                Colors.NORMAL.code));
     }
 
     /**
@@ -53,7 +55,9 @@ public class UI {
             stringBuilder.append(m + "\n");
         }
         mainWindow.addDialog(
-                DialogBox.getDukeDialog(stringBuilder.toString(), mainWindow.getDukeImage(), Colors.NORMAL.code));
+                DialogBox.getDukeDialog(stringBuilder.toString().trim(),
+                        mainWindow.getDukeImage(),
+                        Colors.NORMAL.code));
     }
 
     /**
@@ -62,6 +66,9 @@ public class UI {
      * @param msg The error message to print
      */
     public void sendError(String msg) {
-        mainWindow.addDialog(DialogBox.getDukeDialog(msg, mainWindow.getDukeImage(), Colors.ERROR.code));
+        mainWindow.addDialog(
+                DialogBox.getDukeDialog(msg.trim(),
+                    mainWindow.getDukeImage(),
+                    Colors.ERROR.code));
     }
 }
