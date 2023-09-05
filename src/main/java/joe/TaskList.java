@@ -1,10 +1,10 @@
 package joe;
 
-import joe.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import joe.tasks.Task;
 
 /**
  * Represents a list of tasks.

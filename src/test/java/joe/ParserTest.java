@@ -1,5 +1,9 @@
 package joe;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import joe.commands.ByeCommand;
 import joe.commands.Command;
 import joe.commands.DeadlineCommand;
@@ -10,9 +14,6 @@ import joe.commands.ListCommand;
 import joe.commands.MarkCommand;
 import joe.commands.TodoCommand;
 import joe.commands.UnmarkCommand;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParserTest {
 

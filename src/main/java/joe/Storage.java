@@ -1,8 +1,5 @@
 package joe;
 
-import joe.exceptions.JoeException;
-import joe.tasks.TodoTask;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,6 +9,9 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import joe.exceptions.JoeException;
+import joe.tasks.TodoTask;
 
 /**
  * Handles the storage of tasks to a file.

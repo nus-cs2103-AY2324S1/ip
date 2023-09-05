@@ -4,10 +4,10 @@ package joe.tasks;
  * An abstract class representing a task with a description and completion status.
  */
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
     private static final String DONE_SYMBOL = "X";
     private static final String NOT_DONE_SYMBOL = " ";
+    protected String description;
+    protected boolean isDone;
 
     /**
      * Constructs a Task object with the given description.

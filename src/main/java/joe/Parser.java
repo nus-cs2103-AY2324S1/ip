@@ -1,5 +1,11 @@
 package joe;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import joe.commands.ByeCommand;
 import joe.commands.Command;
 import joe.commands.DeadlineCommand;
@@ -13,12 +19,6 @@ import joe.commands.TodoCommand;
 import joe.commands.UnmarkCommand;
 import joe.exceptions.JoeException;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * Parses user input and generates corresponding Command objects.
  */
@@ -29,8 +29,24 @@ public class Parser {
 
     private static final Pattern COMMAND_PATTERN = Pattern.compile("^(\\S+)\\s?(.*)$");
     private static final String DATETIME_FORMAT = "d/M/yyyy HHmm";
-    private static final String FAILED_TO_PARSE_DATE_MESSAGE = "Failed to parse the date.\nPlease ensure it is a valid datetime following the format <d/M/yyyy HHmm>";
+    private static final String FAILED_TO_PARSE_DATE_MESSAGE = "Failed to parse the date.\n"
+            + "Please ensure it is a valid datetime following the format <d/M/yyyy HHmm>";
     private static final String FAILED_TO_PARSE_INDEX_MESSAGE = "Failed to parse index";
+    private static final String INVALID_ARGS_MARK_MESSAGE = "Invalid arguments for mark\n"
+            + "Please follow: mark <task_num>";
+    private static final String INVALID_ARGS_UNMARK_MESSAGE = "Invalid arguments for unmark\n"
+            + "Please follow: unmark <task_num>";
+    private static final String INVALID_ARGS_DELETE_MESSAGE = "Invalid arguments for delete\n"
+            + "Please follow: delete <task_num>";
+    private static final String INVALID_ARGS_FIND_MESSAGE = "Invalid arguments for find\n"
+            + "Please follow: find <search_word>";
+    private static final String INVALID_ARGS_TODO_MESSAGE = "Invalid arguments for todo\n"
+            + "Please follow: todo <task>";
+    private static final String INVALID_ARGS_DEADLINE_MESSAGE = "Invalid arguments for deadline\n"
+            + "Please follow: deadline <task> /by <d/M/yyyy HHmm>";
+    private static final String INVALID_ARGS_EVENT_MESSAGE = "Invalid arguments for event\n"
+            + "Please follow: event <task> /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>";
+
 
     /**
      * Parses the user input and returns the corresponding Command object.
@@ -91,7 +107,7 @@ public class Parser {
             int idx = parseIndexArgs(args);
             return new MarkCommand(idx);
         } catch (JoeException e) {
-            return new InvalidCommand("Invalid arguments for mark\nPlease follow: mark <task_num>");
+            return new InvalidCommand(INVALID_ARGS_MARK_MESSAGE);
         }
     }
 
@@ -100,7 +116,7 @@ public class Parser {
             int idx = parseIndexArgs(args);
             return new UnmarkCommand(idx);
         } catch (JoeException e) {
-            return new InvalidCommand("Invalid arguments for unmark\nPlease follow: unmark <task_num>");
+            return new InvalidCommand(INVALID_ARGS_UNMARK_MESSAGE);
         }
     }
 
@@ -109,7 +125,7 @@ public class Parser {
         Matcher m = p.matcher(args.trim());
 
         if (!m.matches()) {
-            return new InvalidCommand("Invalid arguments for todo\nPlease follow: todo <task>");
+            return new InvalidCommand(INVALID_ARGS_TODO_MESSAGE);
         }
         return new TodoCommand(m.group(1));
     }
@@ -119,7 +135,7 @@ public class Parser {
         Matcher m = p.matcher(args.trim());
 
         if (!m.matches()) {
-            return new InvalidCommand("Invalid arguments for deadline\nPlease follow: deadline <task> /by <d/M/yyyy HHmm>");
+            return new InvalidCommand(INVALID_ARGS_DEADLINE_MESSAGE);
         }
 
         try {
@@ -132,10 +148,11 @@ public class Parser {
     }
 
     private static Command handleEvent(String args) {
-        Pattern p = Pattern.compile("(\\S.*)\\s+/from\\s+(\\d{1,2}/\\d{1,2}/\\d{4} \\d{4})\\s+/to\\s+(\\d{1,2}/\\d{1,2}/\\d{4} " + "\\d{4})");
+        Pattern p = Pattern.compile("(\\S.*)\\s+/from\\s+(\\d{1,2}/\\d{1,2}/\\d{4} \\d{4})\\s+"
+                + "/to\\s+(\\d{1,2}/\\d{1,2}/\\d{4} \\d{4})");
         Matcher m = p.matcher(args.trim());
         if (!m.matches()) {
-            return new InvalidCommand("Invalid arguments for event\nPlease follow: event <task> /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>");
+            return new InvalidCommand(INVALID_ARGS_EVENT_MESSAGE);
         }
         try {
             LocalDateTime from = LocalDateTime.parse(m.group(2), DateTimeFormatter.ofPattern(DATETIME_FORMAT));
@@ -152,13 +169,13 @@ public class Parser {
             int idx = parseIndexArgs(args);
             return new DeleteCommand(idx);
         } catch (JoeException e) {
-            return new InvalidCommand("Invalid arguments for delete\nPlease follow: delete <task_num>");
+            return new InvalidCommand(INVALID_ARGS_DELETE_MESSAGE);
         }
     }
 
     private static Command handleFind(String args) {
         if (args.trim().isEmpty()) {
-            return new InvalidCommand("Invalid arguments for find\nPlease follow: find <search_word>");
+            return new InvalidCommand(INVALID_ARGS_FIND_MESSAGE);
         }
         return new FindCommand(args.trim());
     }
