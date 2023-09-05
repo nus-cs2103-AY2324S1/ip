@@ -26,7 +26,7 @@ public class Parser {
      * Parses the user input and converts it into an executable command.
      *
      * @param input The user input.
-     * @return A Command object based on the parsed input.
+     * @return A Command object based on the parsed input
      */
     public static Command parse(String input) {
         String[] split = input.split(" ", 2);
