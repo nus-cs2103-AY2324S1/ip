@@ -102,6 +102,10 @@ public class Duke {
         }
     }
 
+    public String getResponse(String userInput) {
+        return "Hi, we are currently still building the chatbot. Please try again later :)";
+    }
+
     /**
      * Runs the command from the user input.
      *
