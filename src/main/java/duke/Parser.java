@@ -136,13 +136,11 @@ public class Parser {
                 Ui.showError("Invalid command format");
             }
 
-<<<<<<< HEAD
         } else if (userInput.startsWith("find")) {
             // IF user wants to find a task
             String keyword = userInput.substring(5).trim();
             taskList.findTasks(keyword);
-=======
->>>>>>> branch-A-CheckStyle
+
         } else {
             Ui.showError("I'm sorry, but I don't know what that means");
         }
