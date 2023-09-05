@@ -2,7 +2,7 @@ import java.time.LocalDate;
 import java.util.Comparator;
 
 public class Parser {
-    public static Command parse(String command) {
+    public static Command parse(String command) throws QiException {
         if (command.equals("bye")) {
             return new ExitCommand();
         }
@@ -11,54 +11,78 @@ public class Parser {
             return new ListCommand();
         }
 
-        if (command.startsWith("mark ")) {
-            int taskId = Integer.parseInt(command.substring(5));
-            return new MarkCommand(taskId);
+        if (command.startsWith("mark")) {
+            try {
+                int taskId = Integer.parseInt(command.substring(5));
+                return new MarkCommand(taskId);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new QiException("☹ OOPS!!! Please specify which task you want to mark.");
+            }
         }
 
-        if (command.startsWith("unmark ")) {
-            int taskId = Integer.parseInt(command.substring(7));
-            return new UnmarkedCommand(taskId);
+        if (command.startsWith("unmark")) {
+            try {
+                int taskId = Integer.parseInt(command.substring(7));
+                return new UnmarkedCommand(taskId);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new QiException("☹ OOPS!!! Please specify which task you want to unmark.");
+            }
         }
 
         if (command.startsWith("todo")) {
-            String task = command.substring(5);
-            return new AddCommand(task);
+            try {
+                String task = command.substring(5);
+                return new AddCommand(task);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new QiException("☹ OOPS!!! The description of a todo cannot be empty.");
+            }
         }
 
         if (command.startsWith("deadline")) {
-            int idx = 9;
-            while (idx < command.length() && command.charAt(idx) != '/') {
-                idx++;
-            }
-            String task = command.substring(9, idx - 1);
-            String deadline = command.substring(idx + 4);
+            try {
+                int idx = 9;
+                while (idx < command.length() && command.charAt(idx) != '/') {
+                    idx++;
+                }
+                String task = command.substring(9, idx - 1);
+                String deadline = command.substring(idx + 4);
 
-            return new AddCommand(task, LocalDate.parse(deadline));
+                return new AddCommand(task, LocalDate.parse(deadline));
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new QiException("☹ OOPS!!! The description of a deadline cannot be empty.");
+            }
         }
 
         if (command.startsWith("event")) {
-            // find the first slash
-            int idx1 = 6;
-            while (idx1 < command.length() && command.charAt(idx1) != '/') {
-                idx1++;
-            }
+            try {
+                // find the first slash
+                int idx1 = 6;
+                while (idx1 < command.length() && command.charAt(idx1) != '/') {
+                    idx1++;
+                }
 
-            // find the second slash
-            int idx2 = idx1 + 1;
-            while (idx2 < command.length() && command.charAt(idx2) != '/') {
-                idx2++;
-            }
+                // find the second slash
+                int idx2 = idx1 + 1;
+                while (idx2 < command.length() && command.charAt(idx2) != '/') {
+                    idx2++;
+                }
 
-            String task = command.substring(6, idx1 - 1);
-            String startTime = command.substring(idx1 + 6, idx2 - 1);
-            String endTime = command.substring(idx2 + 4);
-            return new AddCommand(task, startTime, endTime);
+                String task = command.substring(6, idx1 - 1);
+                String startTime = command.substring(idx1 + 6, idx2 - 1);
+                String endTime = command.substring(idx2 + 4);
+                return new AddCommand(task, startTime, endTime);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new QiException("☹ OOPS!!! The description of an event cannot be empty.");
+            }
         }
 
         if (command.startsWith("delete")) {
-            int taskId = Integer.parseInt(command.substring(7));
-            return new DeleteCommand(taskId);
+            try {
+                int taskId = Integer.parseInt(command.substring(7));
+                return new DeleteCommand(taskId);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new QiException("☹ OOPS!!! Please specify which task you want to delete.");
+            }
         }
 
         return new InvalidCommand();
