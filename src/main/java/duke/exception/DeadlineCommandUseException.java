@@ -5,7 +5,7 @@ package duke.exception;
  * This exception is thrown when the '/by' part of the deadline command is missing or not followed
  * by a valid date and time.
  */
-public class DeadlineCommandUseException extends Exception{
+public class DeadlineCommandUseException extends Exception {
 
     /**
      * Constructs a DeadlineCommandUseException with a custom error message.

@@ -49,9 +49,11 @@ public class Event extends Task {
      */
     @Override
     public String taskString() {
-        return "[E]" + super.taskString() + " (from: " + startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"))
-                + " to: " + endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + ")";
+        return "[E]" + super.taskString() + " (from: " +
+                startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) +
+                " to: " + endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + ")";
     }
+
     /**
      * Returns a string representation of the Event Task that can be used for
      * saving the event tasks to a txt file, including its type, completion status,

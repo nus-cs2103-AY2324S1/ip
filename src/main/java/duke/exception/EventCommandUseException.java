@@ -5,7 +5,7 @@ package duke.exception;
  * This exception is thrown when the '/from' or '/to' parts of the event command are missing or
  * not followed by valid date and time.
  */
-public class EventCommandUseException extends Exception{
+public class EventCommandUseException extends Exception {
 
     /**
      * Constructs an EventCommandUseException with a custom error message.
