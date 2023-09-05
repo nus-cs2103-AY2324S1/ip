@@ -49,16 +49,19 @@ public abstract class Task {
         return this.isDone;
     }
 
-    /** Mark the task as done. */
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone() {
         isDone = true;
     }
 
-    /** Mark the task as not done. */
+    /**
+     * Marks the task as not done.
+     * */
     public void markAsNotDone() {
         isDone = false;
     }
-
     public abstract boolean isOnDate(LocalDate date);
     /**
      * Returns the string representation of the task.

@@ -27,10 +27,6 @@ public class Event extends Task {
         return this.dateTime;
     }
 
-    public String getDescription() {
-        return this.description;
-    }
-
     @Override
     public String toFileString() {
         return "E | " + (isDone ? "1" : "0") + " | " + description

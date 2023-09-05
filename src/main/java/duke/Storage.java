@@ -40,11 +40,11 @@ public class Storage {
     public ArrayList<Task> loadData() throws DukeDatabaseException {
         ArrayList<Task> loadedTasks = new ArrayList<>();
         File file = new File(this.filePath);
-        boolean createdFile = false;
+        boolean isFileCreated = false;
 
         if (!file.exists()) {
             createFile();
-            createdFile = true;
+            isFileCreated = true;
         }
 
         try {
@@ -56,7 +56,7 @@ public class Storage {
 
             scanner.close();
 
-            if (createdFile) {
+            if (isFileCreated) {
                 return new ArrayList<>();
             } else {
                 return loadedTasks;

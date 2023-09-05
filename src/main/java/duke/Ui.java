@@ -22,20 +22,10 @@ public class Ui {
     }
 
     /**
-     * Reads the user input from the CLI.
-     *
-     * @return The user input;
-     */
-    public String readInput() {
-        return this.input.nextLine();
-    }
-
-    /**
      * Shows user the welcome message when chatbot is started.
      */
     public String showWelcome() {
         String message = "Hello! I'm Bard.\nWhat can I do for you?";
-        display(message);
         return message;
     }
 
@@ -44,7 +34,8 @@ public class Ui {
      */
     public String showExit() {
         this.input.close();
-        return "Bye. Hope to see you again soon!";
+        String message = "Bye. Hope to see you again soon!";
+        return message;
     }
 
     /**
@@ -62,7 +53,7 @@ public class Ui {
                 message.append("\n").append(i + 1).append(". ").append(taskList.getTask(i));
             }
         }
-        display(message.toString());
+        appendMessage(message.toString());
         return message.toString();
     }
 
@@ -73,8 +64,9 @@ public class Ui {
      * @param totalNumTask The total number of tasks in the list.
      */
     public String showAdd(Task task, int totalNumTask) {
-        return "Got it. I've added this task:\n"
+        String message = "Got it. I've added this task:\n"
                 + task + "\nNow you have " + totalNumTask + " tasks in the list.";
+        return message;
     }
 
     /**
@@ -84,8 +76,9 @@ public class Ui {
      * @param totalNumTask The total number of tasks in the list.
      */
     public String showDelete(Task task, int totalNumTask) {
-        return "Noted. I've removed this task:\n"
+        String message = "Noted. I've removed this task:\n"
                 + task + "\nNow you have " + totalNumTask + " tasks in the list.";
+        return message;
     }
 
     /**
@@ -94,7 +87,8 @@ public class Ui {
      * @param task The task marked as done.
      */
     public String showDone(Task task) {
-        return "Nice! I've marked this task as done:\n" + task;
+        String message = "Nice! I've marked this task as done:\n";
+        return message + task;
     }
 
     /**
@@ -103,7 +97,8 @@ public class Ui {
      * @param task The task marked as not done.
      */
     public String showNotDone(Task task) {
-        return "OK, I've marked this task as NOT done yet:\n" + task;
+        String message = "OK, I've marked this task as NOT done yet:\n";
+        return message + task;
     }
 
     /**
@@ -115,10 +110,10 @@ public class Ui {
     public String showTasksOnDate(LocalDate date, ArrayList<Task> matchingTasks) {
         StringBuilder message = new StringBuilder();
         message.append("Tasks on ").append(date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))).append(":");
-        boolean foundTasks = !matchingTasks.isEmpty();
+        boolean hasTask = !matchingTasks.isEmpty();
         int taskNumber = 1;
 
-        if (foundTasks) {
+        if (hasTask) {
             for (Task task : matchingTasks) {
                 message.append("\n").append(taskNumber).append(". ").append(task);
                 taskNumber++;
@@ -128,7 +123,7 @@ public class Ui {
                     .append(date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))).append(" :D");
         }
 
-        display(message.toString());
+        appendMessage(message.toString());
         return message.toString();
     }
 
@@ -142,10 +137,10 @@ public class Ui {
         StringBuilder message = new StringBuilder();
         message.append("Tasks for today (")
                 .append(today.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))).append("):");
-        boolean foundTasks = !matchingTasks.isEmpty();
+        boolean hasTask = !matchingTasks.isEmpty();
         int taskNumber = 1;
 
-        if (foundTasks) {
+        if (hasTask) {
             for (Task task : matchingTasks) {
                 message.append("\n").append(taskNumber).append(". ").append(task);
                 taskNumber++;
@@ -154,7 +149,7 @@ public class Ui {
             message.append("\nYay! You have no tasks today :D");
         }
 
-        display(message.toString());
+        appendMessage(message.toString());
         return message.toString();
     }
 
@@ -173,7 +168,7 @@ public class Ui {
                 message.append("\n").append(i + 1).append(". ").append(matchingTasks.get(i));
             }
         }
-        display(message.toString());
+        appendMessage(message.toString());
         return message.toString();
     }
 
@@ -184,7 +179,6 @@ public class Ui {
      */
     public String showDukeException(DukeException e) {
         String message = e.getMessage();
-        display(message);
         return message;
     }
 
@@ -193,7 +187,6 @@ public class Ui {
      */
     public String showInvalidDateTimeFormat() {
         String message = "Please enter the time in the format of <d/M/yyyy HHmm>!";
-        display(message);
         return message;
     }
 
@@ -202,7 +195,6 @@ public class Ui {
      */
     public String showInvalidDateFormat() {
         String message = "Please enter the date in the format of <d/M/yyyy>!";
-        display(message);
         return message;
     }
 
@@ -211,7 +203,6 @@ public class Ui {
      */
     public String showSavingError() {
         String message = "Error saving tasks to the data file.";
-        display(message);
         return message;
     }
 
@@ -220,13 +211,16 @@ public class Ui {
      */
     public String showArrayIndexOutOfBoundsException() {
         String message = "☹ OOPS!!! Please provide a valid task number.";
-        display(message);
         return message;
     }
 
-    // New method to display messages
-    private void display(String message) {
-        messages.append(message).append("\n"); // Append the message to the StringBuilder
+    /**
+     * Appends the message to the StringBuilder.
+     *
+     * @param message Message to append.
+     */
+    private void appendMessage(String message) {
+        messages.append(message).append("\n");
     }
 
 }

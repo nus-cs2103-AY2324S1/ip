@@ -7,10 +7,10 @@ import duke.exception.EmptyCommandException;
 import duke.task.TaskList;
 
 /**
- * Main class representing the chatbot.
+ * Represents the chatbot.
  */
 public class Duke {
-    private static final String DATAPATH = "./data/duke.txt";
+    private static final String DATA_PATH = "./data/duke.txt";
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
@@ -31,11 +31,11 @@ public class Duke {
     }
 
     public Duke() {
-        this(DATAPATH);
+        this(DATA_PATH);
     }
 
     /**
-     * Main execution method that processes user input and returns a response string.
+     * Processes user input and returns a response string.
      *
      * @param userInput The user's input.
      * @return The response to the user as a string.
@@ -57,7 +57,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke(DATAPATH);
+        new Duke(DATA_PATH);
     }
 
 }

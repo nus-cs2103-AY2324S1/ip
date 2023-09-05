@@ -22,7 +22,7 @@ import duke.exception.UnknownCommandException;
 
 
 /**
- * Parser for user input.
+ * Represents the parser for user input.
  */
 public class Parser {
 
