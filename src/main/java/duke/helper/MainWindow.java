@@ -2,8 +2,6 @@ package duke.helper;
 
 import duke.DialogBox;
 import duke.MeowBot;
-import duke.helper.Ui;
-import duke.task.DukeException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

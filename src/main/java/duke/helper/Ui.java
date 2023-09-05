@@ -45,7 +45,7 @@ public class Ui {
         String res = "";
         res += this.LINES + "\n";
         res += "Hello! I'm MeowBot!" + "\n";
-        res += "What can I do for you \n?";
+        res += "What can I do for you \n";
         res += this.LINES;
         return res;
     }

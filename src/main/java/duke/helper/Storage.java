@@ -85,9 +85,9 @@ public class Storage {
             generatedTask = new Todo(ogname);
         }
 
-        if (mark.equals("1")) {
+        if (mark.equals("true")) {
             generatedTask.markCompleted();
-        } else if (mark.equals("0")) {
+        } else if (mark.equals("false")) {
             generatedTask.markUncompleted();
         }
 
