@@ -1,7 +1,7 @@
 package dot.tasks;
 
 import java.time.LocalDateTime;
-
+import java.util.function.Consumer;
 import dot.ui.Ui;
 
 /**
@@ -29,7 +29,7 @@ public abstract class Task {
      * This is the overloaded constructor for Task.
      *
      * @param description This is the description for the Task.
-     * @param isCompleted   This is the boolean representing the completeness of the Task.
+     * @param isCompleted This is the boolean representing the completeness of the Task.
      */
     public Task(String description, boolean isCompleted) {
         this.description = description;
@@ -61,17 +61,19 @@ public abstract class Task {
     /**
      * Toggles the done status of the Task.
      *
-     * @param isCompleted This is the status of the Task to change to.
+     * @param isCompleted     This is the status of the Task to change to.
+     * @param handleDotOutput This is the consumer used to display any output
+     *                        due the execution of the command to the GUI.
      */
-    public void setComplete(boolean isCompleted) {
+    public void setComplete(boolean isCompleted, Consumer<String> handleDotOutput) {
         if (this.isCompleted == isCompleted) {
             // Already marked / unmarked
-            Ui.wrapPrintWithHorizontalRules(this.isCompleted
+            handleDotOutput.accept(Ui.wrapStringWithHorizontalRules(this.isCompleted
                     ? "Already marked done."
-                    : "Already unmarked.");
+                    : "Already unmarked."));
         } else {
             this.isCompleted = isCompleted;
-            Ui.displayMarkOrUnmark(this.isCompleted, this.toString());
+            handleDotOutput.accept(Ui.getDisplayMarkOrUnmarkMessage(this.isCompleted, this.toString()));
         }
     }
 

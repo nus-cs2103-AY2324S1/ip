@@ -2,6 +2,7 @@ package dot.tasks;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 import dot.errors.DotException;
 import dot.storage.Storage;
@@ -37,37 +38,10 @@ public class TaskList {
     }
 
     protected TaskList(int maxSize, ArrayList<Task> tasks, Storage storage) {
+        // We will set maxSize to 2x of length of tasks, or maxSize, whichever is larger
         this.tasks = tasks;
-        this.maxSize = maxSize;
+        this.maxSize = Math.max(tasks.size() * 2, maxSize);
         this.storage = storage;
-    }
-
-    /**
-     * Adds the given task to the TaskList.
-     *
-     * @param newTask New task to add.
-     */
-    public void addTask(Task newTask) {
-        if (this.tasks.size() < this.maxSize) {
-            this.tasks.add(newTask);
-            Ui.wrapPrintWithHorizontalRules(String.format("Got it. I've added this task:\n"
-                    + "  %s\nNow you have %d tasks in the list.", newTask, this.tasks.size()));
-        } else {
-            Ui.wrapPrintWithHorizontalRules(String.format("Your task list has reached the limit of %d tasks. "
-                    + "Please remove some tasks to proceed.", this.maxSize));
-        }
-    }
-
-    /**
-     * Lists out all tasks in the TaskList.
-     */
-    public void list() {
-        ArrayList<String> linesToBePrinted = new ArrayList<>();
-        for (int i = 0; i < this.tasks.size(); i++) {
-            Task currTask = this.tasks.get(i);
-            linesToBePrinted.add(String.format("%d.%s", i + 1, currTask));
-        }
-        Ui.displayArrayList(linesToBePrinted);
     }
 
     /**
@@ -98,33 +72,73 @@ public class TaskList {
     }
 
     /**
+     * Adds the given task to the TaskList.
+     *
+     * @param newTask         New task to add.
+     * @param handleDotOutput This is the consumer used to display any output
+     *                        due the execution of the command to the GUI.
+     */
+    public void addTask(Task newTask, Consumer<String> handleDotOutput) {
+        if (this.tasks.size() < this.maxSize) {
+            this.tasks.add(newTask);
+            handleDotOutput.accept(Ui.wrapStringWithHorizontalRules(
+                    String.format("Got it. I've added this task:\n"
+                            + "  %s\nNow you have %d tasks in the list.", newTask, this.tasks.size())));
+        } else {
+            handleDotOutput.accept(Ui.wrapStringWithHorizontalRules(
+                    String.format("Your task list has reached the limit of %d tasks. "
+                            + "Please remove some tasks to proceed.", this.maxSize)));
+        }
+    }
+
+    /**
+     * Lists out all tasks in the TaskList.
+     *
+     * @param handleDotOutput This is the consumer used to display any output
+     *                        due the execution of the command to the GUI.
+     */
+    public void list(Consumer<String> handleDotOutput) {
+        ArrayList<String> linesToBePrinted = new ArrayList<>();
+        for (int i = 0; i < this.tasks.size(); i++) {
+            Task currTask = this.tasks.get(i);
+            linesToBePrinted.add(String.format("%d.%s", i + 1, currTask));
+        }
+        handleDotOutput.accept(Ui.concatArrayList(linesToBePrinted));
+    }
+
+    /**
      * Changes the taskStatus of the Task as position
      * to boolean isCompleted.
      *
-     * @param position    This is the position which Task resides
-     *                    as shown in ListCommand.
-     * @param isCompleted This is the done status of the Task.
+     * @param position        This is the position which Task resides
+     *                        as shown in ListCommand.
+     * @param isCompleted     This is the done status of the Task.
+     * @param handleDotOutput This is the consumer used to display any output
+     *                        due the execution of the command to the GUI.
      */
-    public void setTaskComplete(int position, boolean isCompleted) {
+    public void setTaskComplete(int position, boolean isCompleted, Consumer<String> handleDotOutput) {
         if (position >= 0 && position < this.tasks.size()) {
-            this.tasks.get(position).setComplete(isCompleted);
+            this.tasks.get(position).setComplete(isCompleted, handleDotOutput);
         } else {
-            Ui.wrapPrintWithHorizontalRules("Invalid position.");
+            handleDotOutput.accept(Ui.wrapStringWithHorizontalRules("Invalid position."));
         }
     }
 
     /**
      * Deletes the Task at a given position.
      *
-     * @param position This is the position which Task resides
-     *                 as shown in ListCommand.
+     * @param position        This is the position which Task resides
+     *                        as shown in ListCommand.
+     * @param handleDotOutput This is the consumer used to display any output
+     *                        due the execution of the command to the GUI.
      */
-    public void deleteTask(int position) {
+    public void deleteTask(int position, Consumer<String> handleDotOutput) {
         if (position >= 0 && position < this.tasks.size()) {
             Task removedTask = this.tasks.remove(position);
-            Ui.wrapPrintWithHorizontalRules(String.format("Task \"%s\" removed successfully!", removedTask));
+            handleDotOutput.accept(Ui.wrapStringWithHorizontalRules(
+                    String.format("Task \"%s\" removed successfully!", removedTask)));
         } else {
-            Ui.wrapPrintWithHorizontalRules("Invalid position.");
+            handleDotOutput.accept(Ui.wrapStringWithHorizontalRules("Invalid position."));
         }
     }
 
