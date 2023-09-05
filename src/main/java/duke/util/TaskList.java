@@ -1,8 +1,8 @@
 package duke.util;
 
-import duke.task.Task;
-
 import java.util.ArrayList;
+
+import duke.task.Task;
 
 /**
  * Represent a list consisting of Task objects.
@@ -35,7 +35,7 @@ public class TaskList {
     public String toString() {
         String output = "";
         for (int i = 0; i < list.size(); i++) {
-            output += (i + 1) + "."+ list.get(i).toString() + "\n";
+            output += (i + 1) + "." + list.get(i).toString() + "\n";
         }
         return output;
     }
@@ -102,6 +102,12 @@ public class TaskList {
         return this.list.size();
     }
 
+    /**
+     * Returns a list of Task with matching description as the given string.
+     *
+     * @param string The given String to be searched on the TaskList.
+     * @return TaskList with Task of matching descriptions.
+     */
     public TaskList find(String string) {
         ArrayList<Task> filteredList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
