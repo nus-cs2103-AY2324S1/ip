@@ -1,4 +1,8 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,9 +13,9 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public ToDoList loadTask() {
+    public ArrayList<Task> loadTask() {
         File file = new File(this.filePath);
-        ToDoList toDoList = new ToDoList();
+        ArrayList<Task> toDoList = new ArrayList<Task>();
         try {
             if (file.exists()) {
                 BufferedReader fileReader = new BufferedReader(new FileReader(file));

@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
 public class ToDoList {
-    private ArrayList<Task> list;
+    private final ArrayList<Task> list;
 
-    public ToDoList() {
-        list = new ArrayList<>();
+    public ToDoList(ArrayList<Task> list) {
+        this.list = list;
     }
 
     public void add(Task task) {

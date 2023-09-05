@@ -1,8 +1,4 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+
 import java.util.Scanner;
 
 public class Iris {
@@ -13,7 +9,7 @@ public class Iris {
     public Iris(String filePath) {
         commandParser = new Parser();
         taskStorage = new Storage(filePath);
-        toDoList = new ToDoList();
+        toDoList = new ToDoList(taskStorage.loadTask());
     }
 
     public void run() {
