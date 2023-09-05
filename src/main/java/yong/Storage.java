@@ -10,7 +10,6 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -23,7 +22,7 @@ public class Storage {
 
     static final String FILE_PATH = "./data/dataFile";
 
-    TaskList taskList;
+    private TaskList taskList;
 
     /**
      * Constructor of the duke.Storage class.
@@ -57,7 +56,7 @@ public class Storage {
     public void readFile() {
         try {
             File dataFile = new File(FILE_PATH);
-            if (dataFile.exists() && (!dataFile.isDirectory())){
+            if (dataFile.exists() && (!dataFile.isDirectory())) {
                 FileInputStream dataFileStream = new FileInputStream(dataFile);
                 ObjectInputStream objectStream = new ObjectInputStream(dataFileStream);
                 this.taskList.set((ArrayList<Task>) objectStream.readObject());

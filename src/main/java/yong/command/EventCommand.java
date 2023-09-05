@@ -13,7 +13,7 @@ import yong.exception.DukeException;
  */
 public class EventCommand extends Command {
 
-    String inp;
+    private String inp;
 
     /**
      * Constructor for the event command.

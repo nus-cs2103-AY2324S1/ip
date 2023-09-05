@@ -9,11 +9,11 @@ import yong.tasks.Task;
  */
 public class MarkCommand extends Command {
 
-    String numberString;
+    private String numberString;
 
     /**
      * Constructor for the mark command.
-
+     *
      * @param taskList TaskList object being used to maintain the list of tasks in the chatbot.
      * @param numberString Line of input from the CLI.
      */

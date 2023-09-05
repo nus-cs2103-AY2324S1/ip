@@ -41,7 +41,9 @@ public class Task implements Serializable {
     /**
      * Marks the task as undone
      */
-    public void unmarkAsDone() { this.isDone = false; }
+    public void unmarkAsDone() {
+        this.isDone = false;
+    }
 
     /**
      * String representation of the task

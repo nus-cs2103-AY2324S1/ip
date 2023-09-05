@@ -12,7 +12,7 @@ import yong.exception.DukeException;
  */
 public class ToDoCommand extends Command {
 
-    String inp;
+    private String inp;
 
     /**
      * Constructor for the todo command.

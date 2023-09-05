@@ -13,7 +13,7 @@ import yong.exception.DukeException;
  */
 public class DeadlineCommand extends Command {
 
-    String inp;
+    private String inp;
 
     /**
      * Constructor for the deadline command.

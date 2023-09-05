@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-    ArrayList<Task> taskList;
+    private ArrayList<Task> taskList;
 
     /**
      * Constructor for the taskList object.
@@ -31,7 +31,7 @@ public class TaskList {
             throw new DukeException("Wrong Param");
         }
 
-        Task task = taskList.get(number-1);
+        Task task = taskList.get(number - 1);
 
         task.markAsDone();
 
@@ -49,7 +49,7 @@ public class TaskList {
             throw new DukeException("Wrong Param");
         }
 
-        Task task = taskList.get(number-1);
+        Task task = taskList.get(number - 1);
 
         task.unmarkAsDone();
 
@@ -67,7 +67,7 @@ public class TaskList {
             throw new DukeException("Wrong Param");
         }
 
-        Task task = taskList.remove(number-1);
+        Task task = taskList.remove(number - 1);
 
         return task;
     }
@@ -89,9 +89,9 @@ public class TaskList {
 
         for (int i = 0; i < taskList.size(); i++) {
             if (i != 0) {
-                outputString = outputString.concat("\n" + (i+1) + ": " + taskList.get(i));
+                outputString = outputString.concat("\n" + (i + 1) + ": " + taskList.get(i));
             } else {
-                outputString = outputString.concat((i+1) + ": " + taskList.get(i));
+                outputString = outputString.concat((i + 1) + ": " + taskList.get(i));
             }
         }
 
@@ -126,9 +126,9 @@ public class TaskList {
             Task currentTask = taskList.get(i);
             if (currentTask.getDescription().contains(lookupString)) {
                 if (i != 0) {
-                    outputString = outputString.concat("\n" + (i+1) + ": " + currentTask);
+                    outputString = outputString.concat("\n" + (i + 1) + ": " + currentTask);
                 } else {
-                    outputString = outputString.concat((i+1) + ": " + currentTask);
+                    outputString = outputString.concat((i + 1) + ": " + currentTask);
                 }
             }
         }

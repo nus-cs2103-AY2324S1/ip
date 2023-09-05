@@ -9,7 +9,7 @@ import yong.tasks.Task;
  */
 public class UnmarkCommand extends Command {
 
-    String numberString;
+    private String numberString;
 
     /**
      * Constructor for the unmark command.

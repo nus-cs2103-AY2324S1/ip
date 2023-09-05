@@ -23,8 +23,8 @@ public class StartCommand extends Command {
     @Override
     public String execute() {
         String logo = "YONG";
-        outputString = "Hello I'm " + logo + "\n" +
-                "What can I do for you? \n";
+        outputString = "Hello I'm " + logo + "\n"
+                + "What can I do for you? \n";
 
         return outputString;
     }
