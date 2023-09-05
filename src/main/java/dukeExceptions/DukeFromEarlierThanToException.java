@@ -8,4 +8,3 @@ public class DukeFromEarlierThanToException extends DukeException {
         super(message);
     }
 }
-
