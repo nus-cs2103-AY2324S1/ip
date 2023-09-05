@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Text?>
 
-<fx:root alignment="TOP_RIGHT" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <ImageView fx:id="displayPicture" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Quack.png" />
          </image>
          <HBox.margin>
-            <Insets left="5.0" />
+            <Insets left="10.0" />
          </HBox.margin></ImageView>
-      <Text fx:id="textBox" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="250.0">
+      <Label fx:id="textBox" maxWidth="250.0" minHeight="10.0" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF;" text="With the JLabel class, you can display unselectable text and images. If you need to create a component that displays a string, an image, or both, you can do so by using or extending JLabel. If the component is interactive and has a certain state, use a button instead of a label.By specifying HTML code in a label's text, you can give the label various characteristics such as multiple lines, multiple fonts or multiple colors. If the label uses just a single color or font, you can avoid the overhead of HTML processing by using the setForeground or setFont method instead. See Using HTML in Swing Components for details.Note that labels are not opaque by default. If you need to paint the label's background, it is recommended that you turn its opacity property to &quot;true&quot;. The following code snippet shows how to do this.label.setOpaque(true);The following picture introduces an application that displays three labels. The window is divided into three rows of equal height; the label in each row is as wide as possible." wrapText="true">
          <HBox.margin>
-            <Insets left="15.0" right="10.0" />
+            <Insets left="10.0" right="15.0" />
          </HBox.margin>
-      </Text>
+         <padding>
+            <Insets bottom="15.0" left="10.0" right="10.0" top="15.0" />
+         </padding>
+      </Label>
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
