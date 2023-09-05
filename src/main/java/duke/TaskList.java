@@ -57,12 +57,12 @@ public class TaskList {
 
     /**
      * Marks the specified task.
-     * @param task_no the index of the task in the task list to be marked.
-     * @throws DukeException exception thrown when the <code>task_no</code> given exceeds the size of the task list.
+     * @param taskNo the index of the task in the task list to be marked.
+     * @throws DukeException exception thrown when the <code>taskNo</code> given exceeds the size of the task list.
      */
-    public static void mark(Integer task_no) throws DukeException {
-        if (task_no <= toDo.size()) {
-            Task target = toDo.get(task_no - 1);
+    public static void mark(Integer taskNo) throws DukeException {
+        if (taskNo <= toDo.size()) {
+            Task target = toDo.get(taskNo - 1);
             target.mark();
             String description = target.getDescription();
             Ui.markMsg(description);

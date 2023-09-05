@@ -2,9 +2,9 @@ package duke;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import java.io.FileWriter;
 
 /**
  * Deals with loading tasks from the file in the user's hard disk and saving tasks in the file.
@@ -15,7 +15,8 @@ public class Storage {
 
     /**
      * Constructs new <code>Storage</code> object.
-     * @param filepath the filepath to the file that stores existing tasks. New file created if the file specified does not exist at the start.
+     * @param filepath the filepath to the file that stores existing tasks.
+     *                 New file created if the file specified does not exist at the start.
      */
     public Storage(String filepath) {
         File tasks = new File(filepath);

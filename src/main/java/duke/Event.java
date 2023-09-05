@@ -4,7 +4,7 @@ package duke;
  * Represents a <code>Event</code> object that extends from <code>Task</code>.
  * An <code>Event</code> object contains a description, a start time, and an end time.
  */
-public class Event extends Task{
+public class Event extends Task {
     protected String startTime;
     protected String endTime;
 

@@ -1,7 +1,5 @@
 package duke;
 
-import java.util.List;
-
 /**
  * Deals with user interactions.
  */
