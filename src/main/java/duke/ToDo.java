@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Class to hanlde todo tasks
+ */
 public class ToDo extends Task {
     public ToDo(String list, TaskType type) {
         super(list, type);
@@ -33,5 +36,4 @@ public class ToDo extends Task {
     public String toString() {
         return super.toString();
     }
-    
- }
+}

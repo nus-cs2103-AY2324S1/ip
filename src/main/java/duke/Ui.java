@@ -1,18 +1,18 @@
 package duke;
 
+/**
+ * Class to take care of UI
+ */
 public class Ui {
+    private String divider = "------------------------------------\n";
+    private String greet = divider
+            + "Hello! I'm Khaleelur!\n"
+            + "What can I do for you?\n "
+            + divider;
 
-    String divider = "------------------------------------\n";
-
-    String greet = divider +
-            "Hello! I'm Khaleelur!\n" +
-            "What can I do for you?\n " +
-            divider;
-
-    String exit = divider +
-            "Bye. Hope to see you again soon!\n" +
-            divider;
-    
+    private String exit = divider
+            + "Bye. Hope to see you again soon!\n"
+            + divider;
     /**
      * Displays a greeting message.
      */

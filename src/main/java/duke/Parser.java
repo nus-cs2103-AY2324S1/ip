@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Class to parse the input
+ */
 public class Parser {
 
     /**
@@ -30,7 +33,9 @@ public class Parser {
             } else if (userInput.startsWith("find")) {
                 return new String[]{"find", userInput};
             } else {
-                throw new InvalidInputExpression("Invalid input!! Specify commands as list, mark, unmark, or deadline, event and todo followed by the task please la dei!\n");
+                throw new InvalidInputExpression("Invalid input!! "
+                        + "Specify commands as list, mark, unmark, or deadline, event "
+                        + "and todo followed by the task please la dei!\n");
             }
         } catch (InvalidInputExpression e) {
             System.out.println(e.getMessage());

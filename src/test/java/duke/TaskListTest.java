@@ -1,10 +1,10 @@
 package duke;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskListTest {
 
@@ -34,7 +34,8 @@ public class TaskListTest {
             TaskList taskList = new TaskList();
             taskList.handleEventTask("event /from 2022-10-12 20:00 /to 2022-11-10 00:00", "user");
         } catch (DukeException | IOException e) {
-            assertEquals("No description specified la dei!! How to do work when no work is said!! Enter again!\n", e.getMessage());
+            assertEquals("No description specified la dei!! How to do work when no work is said!! "
+                    + "Enter again!\n", e.getMessage());
         }
     }
 

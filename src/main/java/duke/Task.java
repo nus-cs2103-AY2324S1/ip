@@ -1,12 +1,18 @@
 package duke;
 
-import duke.DukeException;
-
+/**
+ * Class to handle the task
+ */
 public class Task {
-    String list;
-    boolean isCompleted;
-    TaskType type;
+    private String list;
+    private boolean isCompleted;
+    private TaskType type;
 
+    /**
+     * Constructor
+     * @param list user list
+     * @param type user input type
+     */
     public Task(String list, TaskType type) {
         this.list = list;
         this.type = type;
@@ -19,7 +25,7 @@ public class Task {
      * @throws DukeException If the task has already been marked as done.
      */
     public String setMarked() throws DukeException {
-        if(this.isCompleted) {
+        if (this.isCompleted) {
             throw new DukeException("This task has already been marked as done!\n");
         }
         this.isCompleted = true;
@@ -33,7 +39,7 @@ public class Task {
      * @throws DukeException If the task has already been marked as not done.
      */
     public String setUnmarked() throws DukeException {
-        if(!this.isCompleted) {
+        if (!this.isCompleted) {
             throw new DukeException("This task has already been marked as not done!\n");
         }
         this.isCompleted = false;
@@ -44,17 +50,17 @@ public class Task {
     public String toString() {
         String typeSymbol = "";
         switch (type) {
-         case TODO:
-             typeSymbol = "[T]";
-             break;
-         case EVENT:
-             typeSymbol = "[E]";
-             break;
-         case DEADLINE:
-             typeSymbol = "[D]";
-             break;
-         default:
-             break;
+        case TODO:
+            typeSymbol = "[T]";
+            break;
+        case EVENT:
+            typeSymbol = "[E]";
+            break;
+        case DEADLINE:
+            typeSymbol = "[D]";
+            break;
+        default:
+            break;
         }
         return typeSymbol + (this.isCompleted ? "[X] " : "[ ] ") + this.list;
     }

@@ -5,9 +5,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Class to handle the tasklist operations
+ */
 public class TaskList {
 
-    ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks = new ArrayList<>();
 
     public TaskList(String tasksFromFile) throws DukeException, IOException {
         convertTasksToList(tasksFromFile);
@@ -85,7 +88,9 @@ public class TaskList {
 
             res.append(i + 1).append(".")
                     .append(tasks.get(i).toString());
-            if (i != tasks.size() - 1) res.append("\n");
+            if (i != tasks.size() - 1) {
+                res.append("\n");
+            }
         }
         return res.toString();
     }
@@ -108,7 +113,7 @@ public class TaskList {
             throw new DukeException("Specify index to mark task!\n");
         }
 
-        if (parts.length > 2 ) {
+        if (parts.length > 2) {
             throw new DukeException("Enter mark command properly!\n");
         }
 
@@ -126,7 +131,8 @@ public class TaskList {
 
                 //index entered is more than totalTodos
                 if (index > tasks.size() || index <= 0) {
-                    throw new DukeException("Enter mark command with positive index lesser than " + (tasks.size() + 1) + "\n");
+                    throw new DukeException("Enter mark command with positive index lesser than "
+                            + (tasks.size() + 1) + "\n");
                 }
 
                 res = tasks.get(index - 1).setMarked();
@@ -156,7 +162,7 @@ public class TaskList {
             throw new DukeException("Specify index to unmark task!\n");
         }
 
-        if (parts.length > 2 ) {
+        if (parts.length > 2) {
             throw new DukeException("Enter unmark command properly!\n");
         }
 
@@ -174,7 +180,8 @@ public class TaskList {
 
                 //index entered is more than totalTodos
                 if (index > tasks.size() || index <= 0) {
-                    throw new DukeException("Enter umark command with positive index lesser than " + (tasks.size() + 1) + "\n");
+                    throw new DukeException("Enter umark command with positive index lesser than "
+                            + (tasks.size() + 1) + "\n");
                 }
                 res = tasks.get(index - 1).setUnmarked();
 
@@ -243,7 +250,8 @@ public class TaskList {
         }
 
         if (task.equals("")) {
-            throw new DukeException("No description specified la dei!! How to do work when no work is said?! Enter again!\n");
+            throw new DukeException("No description specified la dei!! How to do work when no work is said?! "
+                    + "Enter again!\n");
         }
 
         tasks.add(new ToDo(task, TaskType.TODO));
@@ -263,7 +271,7 @@ public class TaskList {
      * @return A message indicating the success of adding the duke.Deadline task.
      * @throws DukeException If there's an issue with the input, task description, or deadline.
      */
-    public String handleDeadlineTask(String input,String from) throws DukeException, IOException {
+    public String handleDeadlineTask(String input, String from) throws DukeException, IOException {
         String task = "";
         String by = "";
         String endTime = "";
@@ -285,9 +293,7 @@ public class TaskList {
             for (int i = 1; i < taskArray.length; i++) {
                 task += taskArray[i] + " ";
             }
-        }
-
-        else if (from.equals("file")) {
+        } else if (from.equals("file")) {
             String [] parts = input.split("by: ");
             String[] taskArray = parts[0].split(" ");
             String[] deadlineInfo = parts[1].split(" ");
@@ -300,7 +306,7 @@ public class TaskList {
                 by += deadlineInfo[i] + " ";
             }
 
-            by = by.substring(0,11);
+            by = by.substring(0, 11);
 
             endTime = deadlineInfo[3];
             endTime = endTime.substring(0, endTime.length() - 1);
@@ -312,14 +318,15 @@ public class TaskList {
         }
 
         if (task.equals("")) {
-            throw new DukeException("No description specified la dei!! How to do work when no work is said!! Enter again!\n");
+            throw new DukeException("No description specified la dei!! How to do work when no work is said!! "
+                    + "Enter again!\n");
         }
 
         if (by.isEmpty()) {
             throw new DukeException("deadline task must have /by date and time\n");
         }
 
-        tasks.add(new Deadline(task, by, endTime+":00", TaskType.DEADLINE));
+        tasks.add(new Deadline(task, by, endTime + ":00", TaskType.DEADLINE));
 
         String str = tasks.get(tasks.size() - 1).toString();
         String res = "Got it. I've added this task :\n" + str + "\n";
@@ -336,7 +343,7 @@ public class TaskList {
      * @return A message indicating the success of adding the duke.Event task.
      * @throws DukeException If there's an issue with the input, task description, or event timings.
      */
-    public String handleEventTask(String input,String from) throws DukeException, IOException {
+    public String handleEventTask(String input, String from) throws DukeException, IOException {
         String task = "";
         String startDate = "";
         String endDate = "";
@@ -352,18 +359,21 @@ public class TaskList {
             String[] taskInfo = parts[1].split("/to ");
 
             if (taskInfo.length != 2) {
-                throw new DukeException("Specify both date and time for /from and /to in the following manner : yyyy-mm-dd hh:mm");
+                throw new DukeException("Specify both date and time for /from and /to in the following manner "
+                        + ": yyyy-mm-dd hh:mm");
             }
 
             String[] fromInfo = taskInfo[0].split(" ");
             String[] toInfo = taskInfo[1].split(" ");
 
             if (fromInfo.length != 2) {
-                throw new DukeException("Specify both date and time for /from in the following manner : yyyy-mm-dd hh:mm");
+                throw new DukeException("Specify both date and time for /from in the following manner "
+                        + ": yyyy-mm-dd hh:mm");
             }
 
             if (toInfo.length != 2) {
-                throw new DukeException("Specify both date and time for /to in the following manner : yyyy-mm-dd hh:mm");
+                throw new DukeException("Specify both date and time for /to in the following manner "
+                        + ": yyyy-mm-dd hh:mm");
             }
 
             startDate = fromInfo[0];
@@ -399,8 +409,8 @@ public class TaskList {
                 endDate += toInfo[i] + " ";
             }
 
-            startDate = startDate.substring(0,11);
-            endDate = endDate.substring(0,11);
+            startDate = startDate.substring(0, 11);
+            endDate = endDate.substring(0, 11);
             startTime = fromInfo[3];
             endTime = toInfo[3];
             endTime = endTime.substring(0, endTime.length() - 1);
@@ -414,14 +424,15 @@ public class TaskList {
         }
 
         if (task.equals("")) {
-            throw new DukeException("No description specified la dei!! How to do work when no work is said!! Enter again!\n");
+            throw new DukeException("No description specified la dei!! How to do work when no work is said!! "
+                    + "Enter again!\n");
         }
 
         if (startDate.isEmpty() || endDate.isEmpty()) {
             throw new DukeException("event task must have both /from and /to times\n");
         }
 
-        tasks.add(new Event(task, startDate, endDate, startTime+":00", endTime+":00", TaskType.EVENT));
+        tasks.add(new Event(task, startDate, endDate, startTime + ":00", endTime + ":00", TaskType.EVENT));
 
         String str = tasks.get(tasks.size() - 1).toString();
         String res = "Got it. I've added this task :\n" + str + "\n";
@@ -430,9 +441,16 @@ public class TaskList {
         return res;
     }
 
-    public String handleFindTask(String input) throws DukeException{
+    /**
+     * method to handle find operation
+     * @param input user's input
+     * @return string representation of operayion
+     * @throws DukeException
+     */
+
+    public String handleFindTask(String input) throws DukeException {
         String results = "";
-        String parts[] = input.split(" ");
+        String[] parts = input.split(" ");
 
         if (parts.length == 1) {
             throw new DukeException("Specify keyword to search for!\n");
@@ -444,7 +462,7 @@ public class TaskList {
 
         int resultCounter = 1;
         String keyword = " " + parts[1] + " ";
-        for (int i = 0;i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).toString().contains(keyword)) {
                 results += resultCounter + "." + tasks.get(i).toString() + "\n";
                 resultCounter++;

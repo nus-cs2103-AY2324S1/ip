@@ -1,11 +1,18 @@
 package duke;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class to handle storage of tasks
+ */
 public class Storage {
-    String filePath;
+    private String filePath;
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -15,7 +22,7 @@ public class Storage {
      * The tasks are parsed and passed to respective handler methods.
      * Handles Todo, duke.Deadline, and duke.Event tasks stored in the file.
      */
-    public String handleReadAllTasksFromFile() {
+    public String handleReadAllTasksFromFile() throws FileNotFoundException {
 
         try {
             File obj = new File(filePath);
@@ -49,8 +56,8 @@ public class Storage {
         try {
             Writer writer = new FileWriter(filePath, false);
 
-            for(int i = 0;i < list.size();i++) {
-                writer.append("" + (i+1)).append(".").append(list.get(i).toString()).append("\n");
+            for (int i = 0; i < list.size(); i++) {
+                writer.append("" + (i + 1)).append(".").append(list.get(i).toString()).append("\n");
             }
 
             writer.close();

@@ -3,12 +3,24 @@ package duke;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * Class to maintain the deadline tasks entered by user.
+ */
 public class Deadline extends Task {
     protected LocalDate deadline;
 
     protected LocalTime endTime;
 
-    public Deadline (String list, String deadline, String endTime, TaskType type) {
+    /**
+     * Constructor for Deadline class.
+     * @param list List to add
+     * @param deadline deadline
+     * @param endTime end time of deadline task
+     * @param type enum type
+     */
+
+    public Deadline(String list, String deadline, String endTime, TaskType type) {
         super(list, type);
         this.deadline = LocalDate.parse(deadline);
         this.endTime = LocalTime.parse(endTime);
@@ -40,7 +52,9 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + "(by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + this.endTime + ")";
+        return super.toString()
+                + "(by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " " + this.endTime + ")";
     }
 
 }

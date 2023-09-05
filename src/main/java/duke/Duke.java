@@ -1,14 +1,22 @@
 package duke;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Main to class to handle duke operations
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
+
+    /**
+     * Constructor
+     * @param filePath path to file
+     */
 
     public Duke(String filePath) {
         ui = new Ui();
@@ -22,7 +30,10 @@ public class Duke {
         }
     }
 
-    public void run(){
+    /**
+     * Method to get the user input and run the respective methods.
+     */
+    public void run() {
         ui.greet();
         Scanner obj = new Scanner(System.in);
         while (true) {
@@ -42,6 +53,15 @@ public class Duke {
         }
         ui.exit();
     }
+
+    /**
+     * Method to handle input
+     * @param command command of user
+     * @param input inout of user
+     * @return String representing the process performed
+     * @throws DukeException
+     * @throws IOException
+     */
 
     public String handleCommand(String command, String input) throws DukeException, IOException {
         switch (command) {
