@@ -1,12 +1,12 @@
 package chatbot.tasks;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
-import java.time.LocalDate;
 
-public class EventTask extends Task{
-    public static String type = "E";
+public class EventTask extends Task {
+    private static String type = "E";
     private LocalDate from;
     private LocalDate to;
     private String fromAsString;

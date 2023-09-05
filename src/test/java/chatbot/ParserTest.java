@@ -1,13 +1,18 @@
 package chatbot;
 
-import chatbot.exceptions.*;
-import chatbot.tasks.EventTask;
-import chatbot.tasks.Task;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import chatbot.exceptions.DeleteMissingFieldException;
+import chatbot.exceptions.EventMissingFieldException;
+import chatbot.exceptions.InvalidTaskIndexException;
+import chatbot.exceptions.MarkMissingFieldException;
+import chatbot.exceptions.MissingFieldException;
+import chatbot.tasks.EventTask;
+import chatbot.tasks.Task;
 
 public class ParserTest {
     @Test

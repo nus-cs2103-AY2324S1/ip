@@ -16,8 +16,8 @@ public class ChatBot {
     private final Ui ui;
     private final Storage storage;
     private TaskList tasks;
-    private boolean isExit = false;    // Whether the user has indicated to exit the program.
-    private boolean noLocalFileAccess = false;    // Whether the data file cannot be accessed due to permission issue.
+    private boolean isExit = false; // Whether the user has indicated to exit the program.
+    private boolean noLocalFileAccess = false; // Whether the data file cannot be accessed due to permission issue.
 
     /**
      * Constructor to instantiate a new ChatBot object.
@@ -79,8 +79,8 @@ public class ChatBot {
         case "delete":
             taskString = this.tasks.deleteTask(Parser.parseDeleteCommand(words));
             this.writeTaskList();
-            this.ui.output(String.format("\tNoted. I've removed this task:\n\t%s\n" +
-                            "\tNow you have %d tasks in the list.",
+            this.ui.output(String.format("\tNoted. I've removed this task:\n\t%s\n"
+                            + "\tNow you have %d tasks in the list.",
                     taskString,
                     this.tasks.getSize()));
             break;
@@ -94,8 +94,8 @@ public class ChatBot {
                     : Parser.parseEventTaskCommand(command);
             this.tasks.addTask(task);
             this.writeTaskList();
-            this.ui.output(String.format("\tGot it. I've added this task:\n\t\t%s" +
-                            "\n\tNow you have %d tasks in the list",
+            this.ui.output(String.format("\tGot it. I've added this task:\n\t\t%s"
+                            + "\n\tNow you have %d tasks in the list",
                     task,
                     this.tasks.getSize()
             ));

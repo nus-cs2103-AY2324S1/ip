@@ -1,5 +1,13 @@
 package chatbot;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import chatbot.exceptions.FileCorruptedException;
 import chatbot.exceptions.FilePermissionException;
 import chatbot.exceptions.InvalidTaskStringException;
@@ -9,14 +17,9 @@ import chatbot.tasks.EventTask;
 import chatbot.tasks.Task;
 import chatbot.tasks.ToDoTask;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Scanner;
-
+/**
+ * Class that interact with user's local storage.
+ */
 public class Storage {
     private final String localDirectoryPath;
     private final String localFilePath;
@@ -105,7 +108,7 @@ public class Storage {
             String fromWholeString = taskString.substring(idOfFrom, idOfTo);
             String toWholeString = taskString.substring(idOfTo);
             String from = fromWholeString.substring(7, fromWholeString.length() - 1);
-            String to  = toWholeString.substring(4, toWholeString.length() - 1);
+            String to = toWholeString.substring(4, toWholeString.length() - 1);
             return new EventTask(taskName, isDone, from, to);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskStringException();
