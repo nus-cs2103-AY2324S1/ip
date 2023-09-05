@@ -1,7 +1,18 @@
 package chadbod;
 
+/**
+ * Represents a parser that is responsible for parsing user input
+ * and generating ParsedCommand objects.
+ */
 public class Parser {
 
+    /**
+     * Parse the user input into a ParsedCommand object.
+     *
+     * @param userInput The user input to be parsed.
+     * @return A ParsedCommand object containing the parsed command and details.
+     * @throws InvalidInputException If the input does not match any valid command.
+     */
     public static ParsedCommand parseCommand(String userInput) throws InvalidInputException {
         Command command = null;
         String[] commandSegments = userInput.split(" ", 2);

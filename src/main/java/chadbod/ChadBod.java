@@ -17,7 +17,7 @@ public class ChadBod {
     /**
      * Constructs a ChadBod instance.
      *
-     * @param filePath The file path for storing task data.
+     * @param filePath the file path for storing task data.
      */
     public ChadBod(String filePath) {
         ui = new Ui();
@@ -107,14 +107,6 @@ public class ChadBod {
         }
     }
 
-    /**
-     * Retrieves the task number from the input details.
-     *
-     * @param details The input details containing the task number.
-     * @return The task number.
-     * @throws NumberFormatException      If the task number cannot be parsed as an integer.
-     * @throws TaskIndexOutOfBoundsException If the task number is out of bounds.
-     */
     private int getTaskNumber(String details) throws NumberFormatException, TaskIndexOutOfBoundsException {
         int unmarkTaskNumber = Integer.parseInt(details);
         if (unmarkTaskNumber < ChadBod.TASKLIST_DISPLAY_OFFSET ||
@@ -124,13 +116,6 @@ public class ChadBod {
         return unmarkTaskNumber - TASKLIST_DISPLAY_OFFSET;
     }
 
-    /**
-     * Creates a Deadline task from the given details.
-     *
-     * @param details The input details containing the deadline information.
-     * @return The created Deadline task.
-     * @throws InvalidTaskException If the details are invalid.
-     */
     private static Deadline createDeadline(String details) throws InvalidTaskException {
         if (details.isEmpty()) {
             throw new InvalidTaskException("Description of deadline cannot be empty.");
@@ -151,9 +136,9 @@ public class ChadBod {
     /**
      * Creates an Event task from the given details.
      *
-     * @param details The input details containing the event information.
-     * @return The created Event task.
-     * @throws InvalidTaskException If the details are invalid.
+     * @param details the input details containing the event information.
+     * @return the created Event task.
+     * @throws InvalidTaskException if the details are invalid.
      */
     public static Event createEvent(String details) throws InvalidTaskException {
         if (details.isEmpty()) {
