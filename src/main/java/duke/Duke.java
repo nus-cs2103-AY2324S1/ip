@@ -1,9 +1,20 @@
+<<<<<<< HEAD
+package duke;
+
+import duke.task.Task;
+import duke.task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.io.Loader;
+import duke.io.Saver;
+=======
 import duke.tasks.Deadline;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 import duke.tasks.Event;
 import duke.exceptions.EmptyDescriptionException;
 import duke.exceptions.UnknownCommandException;
+>>>>>>> branch-Level-7
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,25 +22,30 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        List<Task> tasks = new ArrayList<>();
-        String line = "____________________________________________________________";
+    private List<Task> tasks;
+    private static final String LINE = "____________________________________________________________";
 
-        System.out.println(line);
+    public Duke() {
+        tasks = Loader.loadFromFile();
+    }
+
+    public void run() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println(LINE);
         System.out.println("Hello! I'm DaDaYuan");
         System.out.println("What can I do for you?");
-        System.out.println(line);
+        System.out.println(LINE);
 
         while (true) {
             String input = scanner.nextLine();
-
-            System.out.println(line);
+            System.out.println(LINE);
 
             try {
                 if (input.equals("bye")) {
                     System.out.println("Bye. Hope to see you again soon!");
-                    System.out.println(line);
+                    System.out.println(LINE);
+                    Saver.saveToFile(tasks);
                     break;
                 } else if (input.equals("list")) {
                     System.out.println("Here are the tasks in your list:");
@@ -39,7 +55,7 @@ public class Duke {
                 } else if (input.startsWith("todo")) {
                     String description = input.length() > 5 ? input.substring(5) : "";
                     if (description.isEmpty()) {
-                        throw new EmptyDescriptionException("OOPS!!! The description of a todo cannot be empty.");
+                        throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
                     } else {
                         tasks.add(new Todo(description));
                         System.out.println("Got it. I've added this task:");
@@ -49,7 +65,7 @@ public class Duke {
                 } else if (input.startsWith("deadline")) {
                     String[] parts = input.split(" /by ", 2);
                     if (parts.length < 2) {
-                        throw new EmptyDescriptionException("OOPS!!! The deadline of a task cannot be empty.");
+                        throw new DukeException("OOPS!!! The deadline of a task cannot be empty.");
                     } else {
                         String description = parts[0].substring(9);
                         tasks.add(new Deadline(description, parts[1]));
@@ -60,7 +76,7 @@ public class Duke {
                 } else if (input.startsWith("event")) {
                     String[] parts = input.split(" /from | /to ", 3);
                     if (parts.length < 3) {
-                        throw new EmptyDescriptionException("OOPS!!! The event timing details are incomplete.");
+                        throw new DukeException("OOPS!!! The event timing details are incomplete.");
                     } else {
                         tasks.add(new Event(parts[0].substring(6), parts[1], parts[2]));
                         System.out.println("Got it. I've added this task:");
@@ -76,17 +92,25 @@ public class Duke {
                         System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                     }
                 } else {
-                    throw new UnknownCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
-            } catch (EmptyDescriptionException | UnknownCommandException e) {
+
+                Saver.saveToFile(tasks); // saving to file after each operation
+
+            } catch (DukeException e) {
                 System.out.println(e.getMessage());
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 System.out.println("OOPS!!! The index provided is not valid.");
             }
 
-            System.out.println(line);
+            System.out.println(LINE);
         }
 
         scanner.close();
     }
+
+    public static void main(String[] args) {
+        new Duke().run();
+    }
 }
+
