@@ -13,6 +13,7 @@ public class TaskList {
         TODO,
         DEADLINE,
         EVENT,
+        DELETE,
         NOTFOUND
     }
     private final HashMap<String,Type> commandMap = new HashMap<>(Map.of(
@@ -21,7 +22,8 @@ public class TaskList {
         "list", Type.LIST,
         "todo", Type.TODO,
         "deadline", Type.DEADLINE,
-        "event", Type.EVENT
+        "event", Type.EVENT,
+        "delete", Type.DELETE
       ));
 
     protected TaskList() {
@@ -53,6 +55,8 @@ public class TaskList {
                 return this.mark(Command.assertInteger(input, command));
             case UNMARK:
                 return this.unmark(Command.assertInteger(input, command));
+            case DELETE:
+                return this.delete(Command.assertInteger(input, command));
             case LIST:
                 return this.list();
             default:
@@ -96,7 +100,7 @@ public class TaskList {
         return Response.generate(output);
     }
 
-    protected Response unmark(int idx) {
+    protected Response unmark(int idx) throws DukeException {
         ArrayList<String> output = new ArrayList<>();
         if (!this.inRange(idx)) {
             throw new TaskNotFoundException();
@@ -105,6 +109,20 @@ public class TaskList {
         task.unmark();
         output.add("OK, I've marked this task as not done yet:");
         output.add("  " + task.toString());
+
+        return Response.generate(output);
+    }
+
+    protected Response delete(int idx) throws DukeException {
+        ArrayList<String> output = new ArrayList<>();
+        if (!this.inRange(idx)) {
+            throw new TaskNotFoundException();
+        }
+        Task task = this.tasks.get(--idx);
+        output.add("Noted. I've removed this task:");
+        output.add("  " + task.toString());
+        this.tasks.remove(idx);
+        output.add(String.format("Now you have %d tasks in the list.", tasks.size()));
 
         return Response.generate(output);
     }
