@@ -4,8 +4,6 @@ import duke.exceptions.*;
 import duke.tasks.Event;
 import duke.tasks.ToDo;
 import duke.tasks.Deadline;
-
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -14,6 +12,15 @@ import java.time.format.DateTimeParseException;
  * deals with making sense of the user commands
  */
 public class Parser {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Parser(Storage storage, TaskList tasks, Ui ui) {
+        this.storage = storage;
+        this.tasks = tasks;
+        this.ui = ui;
+    }
 
     //credit: https://www.freecodecamp.org/news/java-string-to-int-how-to-convert-a-string-to-an-integer/
     private static boolean isNumber(String s) {
@@ -27,7 +34,7 @@ public class Parser {
         return false;
     }
 
-    public static LocalDateTime stringToDateTime(String str) throws DateTimeParseException {
+    public static LocalDateTime stringToDateTime(String str) {
         //check if dateTime has correct format: ie. YYYY-MM-DD 00:00
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.now();
@@ -35,66 +42,69 @@ public class Parser {
         return dateTime;
     }
 
-    public void parseInput(String input, Storage storage, TaskList list, Ui ui)
-            throws DukeException, IOException {
+    public void parseInput(String input) {
         String[] inputArr = input.split(" ");
         String command = inputArr[0];
 
-        if (command.equals("list")) {
-            list.listTasks();
-        } else if (command.equals("delete")) {
-            if (inputArr.length == 1) {
-                throw new NoTaskIDException();
-            } else {
-                String strIndex = inputArr[1];
-                if (isNumber(strIndex)) {
-                    int index = Integer.parseInt(strIndex) - 1; //because index starts from 1
-                    list.deleteTask(index, storage);
+        try {
+            if (command.equals("list")) {
+                tasks.listTasks();
+            } else if (command.equals("delete")) {
+                if (inputArr.length == 1) {
+                    throw new NoTaskIDException();
                 } else {
-                    //case where a number was not provided
-                    throw new InvalidTaskIDException();
-                }
-            }
-        } else if (command.equals("mark")) {
-            if (inputArr.length == 1) {
-                throw new NoTaskIDException();
-            } else {
-                String strIndex = inputArr[1];
-                if (isNumber(strIndex)) {
-                    int index = Integer.parseInt(strIndex) - 1; //because index starts from 1
-                    if (list.isValidTaskID(index)) {
-                        list.markTask(index, storage);
+                    String strIndex = inputArr[1];
+                    if (isNumber(strIndex)) {
+                        int index = Integer.parseInt(strIndex) - 1; //because index starts from 1
+                        tasks.deleteTask(index, storage);
+                    } else {
+                        //case where a number was not provided
+                        throw new InvalidTaskIDException();
                     }
-                } else {
-                    throw new InvalidTaskIDException();
                 }
-            }
-        } else if (command.equals("unmark")) {
-            if (inputArr.length == 1) {
-                throw new NoTaskIDException();
-            } else {
-                String strIndex = inputArr[1];
-                if (isNumber(strIndex)) {
-                    int index = Integer.parseInt(strIndex) - 1; //because index starts from 1
-                    if (list.isValidTaskID(index)) {
-                        list.unmarkTask(index, storage);
+            } else if (command.equals("mark")) {
+                if (inputArr.length == 1) {
+                    throw new NoTaskIDException();
+                } else {
+                    String strIndex = inputArr[1];
+                    if (isNumber(strIndex)) {
+                        int index = Integer.parseInt(strIndex) - 1; //because index starts from 1
+                        if (tasks.isValidTaskID(index)) {
+                            tasks.markTask(index, storage);
+                        }
+                    } else {
+                        throw new InvalidTaskIDException();
                     }
-                } else {
-                    throw new InvalidTaskIDException();
                 }
+            } else if (command.equals("unmark")) {
+                if (inputArr.length == 1) {
+                    throw new NoTaskIDException();
+                } else {
+                    String strIndex = inputArr[1];
+                    if (isNumber(strIndex)) {
+                        int index = Integer.parseInt(strIndex) - 1; //because index starts from 1
+                        if (tasks.isValidTaskID(index)) {
+                            tasks.unmarkTask(index, storage);
+                        }
+                    } else {
+                        throw new InvalidTaskIDException();
+                    }
+                }
+            } else if (command.equals("todo")) {
+                parseToDo(input);
+            } else if (command.equals("deadline")) {
+                parseDeadline(input);
+            } else if (command.equals("event")) {
+                parseEvent(input);
+            } else {
+                throw new InvalidCommandException();
             }
-        } else if (command.equals("todo")) {
-            parseToDo(input, storage, list, ui);
-        } else if (command.equals("deadline")) {
-            parseDeadline(input, storage, list, ui);
-        } else if (command.equals("event")) {
-            parseEvent(input, storage, list, ui);
-        } else {
-            throw new InvalidCommandException();
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
         }
     }
 
-    public void parseToDo(String input, Storage storage, TaskList list, Ui ui) throws DukeException, IOException {
+    public void parseToDo(String input) throws DukeException {
         String[] inputArr = input.split(" ", 2);
         if (inputArr.length == 1) {
             throw new NoDescException();
@@ -104,13 +114,12 @@ public class Parser {
             } else {
                 //0 for unmarked, any other number for marked
                 ToDo toDo = new ToDo(0, inputArr[1]);
-                list.addTask(toDo, storage);
+                tasks.addTask(toDo, storage);
             }
         }
     }
 
-    public void parseDeadline(String input, Storage storage, TaskList list, Ui ui) throws DukeException,
-            IOException {
+    public void parseDeadline(String input) throws DukeException {
         String[] inputArr = input.split(" ", 2);
         if (inputArr.length == 1) {
             throw new NoDescException();
@@ -128,7 +137,7 @@ public class Parser {
                     try {
                         LocalDateTime dateTime = stringToDateTime(date);
                         Deadline deadline = new Deadline(0, desc, dateTime);
-                        list.addTask(deadline, storage);
+                        tasks.addTask(deadline, storage);
                     } catch (DateTimeParseException e) {
                         ui.showInvalidDateFormat();
                     }
@@ -137,8 +146,7 @@ public class Parser {
         }
     }
 
-    public void parseEvent(String input, Storage storage, TaskList list, Ui ui) throws DukeException,
-            IOException {
+    public void parseEvent(String input) throws DukeException {
         String[] inputArr = input.split(" ", 2);
         if (inputArr.length == 1) {
             throw new NoDescException();
@@ -169,7 +177,7 @@ public class Parser {
                                 LocalDateTime startDateTime = stringToDateTime(start);
                                 LocalDateTime endDateTime = stringToDateTime(end);
                                 Event event = new Event(0, task, startDateTime, endDateTime);
-                                list.addTask(event, storage);
+                                tasks.addTask(event, storage);
                             } catch (DateTimeParseException e) {
                                 ui.showInvalidDateFormat();
                             }

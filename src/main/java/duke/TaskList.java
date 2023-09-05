@@ -2,7 +2,6 @@ package duke;
 
 import duke.exceptions.InvalidTaskIDException;
 import duke.tasks.Task;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -39,14 +38,14 @@ public class TaskList {
         }
     }
 
-    public void addTask(Task task, Storage storage) throws IOException {
+    public void addTask(Task task, Storage storage) {
         this.list.add(task);
         storage.updateFile(this.list);
         ui.showTaskAdded(task, this.getListSize());
     }
 
     //might remove returning of boolean!! see first
-    public void deleteTask(int taskID, Storage storage) throws IOException, InvalidTaskIDException {
+    public void deleteTask(int taskID, Storage storage) throws InvalidTaskIDException {
         if (isValidTaskID(taskID)) {
             Task toRemove = list.get(taskID);
             list.remove(taskID);
@@ -55,12 +54,12 @@ public class TaskList {
         }
     }
 
-    public void markTask(int taskID, Storage storage) throws IOException {
+    public void markTask(int taskID, Storage storage) {
         this.list.get(taskID).mark(ui);
         storage.updateFile(this.list);
     }
 
-    public void unmarkTask(int taskID, Storage storage) throws IOException {
+    public void unmarkTask(int taskID, Storage storage) {
         this.list.get(taskID).unmark(ui);
         storage.updateFile(this.list);
     }

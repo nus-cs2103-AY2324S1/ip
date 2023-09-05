@@ -2,6 +2,7 @@ package duke;
 
 import java.io.IOException;
 import java.util.Scanner;
+
 import duke.exceptions.DukeException;
 import duke.exceptions.InvalidStartEndException;
 
@@ -11,34 +12,28 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
-    public Duke(String filePath) throws IOException, InvalidStartEndException {
+    public Duke(String filePath) {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(filePath, ui);
         tasks = new TaskList(storage.loadTasks(), ui);
     }
 
     public void run() {
         this.ui.greeting();
-        Parser parser = new Parser();
+        Parser parser = new Parser(this.storage, this.tasks, this.ui);
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
-            try {
-                if (parser.isGoodbye(input)) {
-                    break;
-                } else {
-                    parser.parseInput(input, storage, tasks, ui);
-                }
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } catch (IOException e) {
-                System.out.println(e);
+            if (parser.isGoodbye(input)) {
+                break;
+            } else {
+                parser.parseInput(input);
             }
         }
         this.ui.bye();
     }
 
-    public static void main(String[] args) throws IOException, InvalidStartEndException {
+    public static void main(String[] args) {
         new Duke("./data/duke.txt").run();
     }
 }

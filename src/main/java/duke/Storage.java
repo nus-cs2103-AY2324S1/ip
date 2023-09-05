@@ -19,8 +19,9 @@ import java.util.Scanner;
  * deals with loading tasks from the file, and saving tasks in the file
  */
 public class Storage {
-    String path;
-    public Storage(String path) {
+    private String path;
+    private Ui ui;
+    public Storage(String path, Ui ui) {
         this.path = path;
     }
     public static LocalDateTime stringToDateTime(String str) throws DateTimeParseException {
@@ -45,47 +46,55 @@ public class Storage {
         return dataFile;
     }
 
-    public ArrayList<Task> loadTasks() throws IOException, InvalidStartEndException {
+    public ArrayList<Task> loadTasks() {
         File dataFile = new File(this.path);
         if (!dataFile.exists()) {
             dataFile = createDataFile();
         }
-        Scanner sc = new Scanner(dataFile);
         ArrayList<Task> list = new ArrayList<>();
-        while (sc.hasNextLine()) {
-            String task = sc.nextLine();
-            if (!task.isBlank()) {
-                // | is a special symbol
-                String[] taskDetails = task.split(" " + "\\|" + " ");
-                String type = taskDetails[0];
-                int status = Integer.parseInt(taskDetails[1]);
-                String desc = taskDetails[2];
-                switch (type) {
-                case "T":
-                    ToDo toDo = new ToDo(status, desc);
-                    list.add(toDo);
-                    break;
-                case "D":
-                    LocalDateTime date = stringToDateTime(taskDetails[3]);
-                    Deadline deadline = new Deadline(status, desc, date);
-                    list.add(deadline);
-                    break;
-                case "E":
-                    LocalDateTime start = stringToDateTime(taskDetails[3]);
-                    LocalDateTime end = stringToDateTime(taskDetails[4]);
-                    Event event = new Event(status, desc, start, end);
-                    list.add(event);
-                    break;
+        try {
+            Scanner sc = new Scanner(dataFile);
+            while (sc.hasNextLine()) {
+                String task = sc.nextLine();
+                if (!task.isBlank()) {
+                    // | is a special symbol
+                    String[] taskDetails = task.split(" " + "\\|" + " ");
+                    String type = taskDetails[0];
+                    int status = Integer.parseInt(taskDetails[1]);
+                    String desc = taskDetails[2];
+                    switch (type) {
+                    case "T":
+                        ToDo toDo = new ToDo(status, desc);
+                        list.add(toDo);
+                        break;
+                    case "D":
+                        LocalDateTime date = stringToDateTime(taskDetails[3]);
+                        Deadline deadline = new Deadline(status, desc, date);
+                        list.add(deadline);
+                        break;
+                    case "E":
+                        LocalDateTime start = stringToDateTime(taskDetails[3]);
+                        LocalDateTime end = stringToDateTime(taskDetails[4]);
+                        try {
+                            Event event = new Event(status, desc, start, end);
+                            list.add(event);
+                        } catch (InvalidStartEndException e) {
+                            ui.showError(e.getMessage());
+                        }
+                        break;
+                    }
                 }
             }
+            sc.close();
+        } catch (IOException e) {
+            ui.showError(e.getMessage());
         }
-        sc.close();
         return list;
     }
 
     //this method should be called by the tasklist class ONLY!!! because we want to
     //keep the tasklist private
-    public void updateFile(ArrayList<Task> list) throws IOException {
+    public void updateFile(ArrayList<Task> list) {
         try {
             //check if file exists, else create
             File dataFile = new File("./data/duke.txt");
