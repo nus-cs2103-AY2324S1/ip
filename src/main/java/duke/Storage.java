@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+/**
+ * Represents the generic interface for the storage of the application.
+ */
 public interface Storage {
     /**
      * Reads the tasks from storage.

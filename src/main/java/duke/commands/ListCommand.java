@@ -4,11 +4,11 @@ import duke.TaskList;
 import duke.Ui;
 
 /**
- * Lists items from application state.
+ * Lists items from the application's task list.
  */
 public class ListCommand implements Command {
     /**
-     * Lists all the items in the application state.
+     * Lists all the items in the application's task list.
      *
      * @param input    The user input.
      * @param taskList The application's task list.

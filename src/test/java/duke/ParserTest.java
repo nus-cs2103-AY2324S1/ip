@@ -13,6 +13,9 @@ import static org.junit.jupiter.api.Assertions.fail;
  * Tests the {@code Parser} class.
  */
 public class ParserTest {
+    /**
+     * Tests whether the {@code parseDate} appropriately parses all allowed date time formats.
+     */
     @Test
     public void parseDate_validFormat_success() {
         LocalDateTime dateTimeMidnight = LocalDateTime.of(2023, 9, 5, 0, 0);
@@ -37,6 +40,9 @@ public class ParserTest {
         assertEquals(dateTimeNoon, Parser.parseDate("2023-09-05 1200"));
     }
 
+    /**
+     * Tests whether the {@code parseDate} appropriately throws exception for invalid formats.
+     */
     @Test
     public void parseDate_invalidFormat_exceptionThrown() {
         String dateTimeString = "2023-09-05, 1200";

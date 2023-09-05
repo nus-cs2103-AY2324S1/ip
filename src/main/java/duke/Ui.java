@@ -27,14 +27,30 @@ public class Ui {
         return stringBuilder.toString();
     }
 
+    /**
+     * Reads the next user input from the command line.
+     *
+     * @return The next user input.
+     */
     public String getInput() {
         return this.scanner.nextLine();
     }
 
+    /**
+     * Displays a message to the user, formatted for the application.
+     *
+     * @param message      The message to be displayed.
+     */
     public void displayMessage(String message) {
         this.displayMessage(message, true);
     }
 
+    /**
+     * Displays a message to the user, formatted for the application.
+     *
+     * @param message      The message to be displayed.
+     * @param hasLowerLine Whether to display a bottom line.
+     */
     public void displayMessage(String message, boolean hasLowerLine) {
         this.displayMessage(message, hasLowerLine, true);
     }

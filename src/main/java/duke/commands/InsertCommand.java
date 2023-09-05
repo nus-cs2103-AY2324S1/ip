@@ -11,11 +11,11 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 /**
- * Inserts item into application state.
+ * Inserts item into the task list.
  */
 public class InsertCommand implements Command {
     /**
-     * Adds an item to the application state.
+     * Adds an item to the application's task list.
      *
      * @param input    The user input of the item to add.
      * @param taskList The application's task list.

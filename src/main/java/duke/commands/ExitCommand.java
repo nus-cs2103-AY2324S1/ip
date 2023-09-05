@@ -9,7 +9,7 @@ import duke.Ui;
  */
 public class ExitCommand implements Command {
     /**
-     * Prints an exit message and exit the application.
+     * Prints an exit message and terminates the program.
      *
      * @param input    The user input.
      * @param taskList The application's task list.
