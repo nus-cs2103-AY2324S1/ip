@@ -1,5 +1,10 @@
 package duke;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.parser.Parser;
@@ -12,7 +17,7 @@ import duke.list.FunnyList;
  * This class initializes and manages the Duke application. It handles user interaction,
  * task processing, and exception handling.
  */
-public class Duke {
+public class Duke extends Application {
     private Storage storage;
     private FunnyList tasks;
     private Ui ui;
@@ -20,11 +25,10 @@ public class Duke {
     /**
      * Constructs a Duke instance with the specified file path.
      *
-     * @param filePath The file path to the text file to load and save task data.
      */
-    public Duke(String filePath) {
+    public Duke() {
         this.ui = new Ui();
-        this.storage = new Storage(filePath);
+        this.storage = new Storage("./tasks.txt");
         try {
             this.tasks = new FunnyList(storage.load());
         } catch (DukeException e) {
@@ -33,13 +37,22 @@ public class Duke {
         }
     }
 
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
+    }
+
     /**
-     * Main method to start the Duke application.
+     * Start the Duke application.
      *
      * @param args Command-line arguments (Not applicable).
      */
     public static void main(String[] args) {
-        new Duke("./tasks.txt").run();
+        new Duke().run();
     }
 
     /**

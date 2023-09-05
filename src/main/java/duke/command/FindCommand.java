@@ -10,17 +10,17 @@ import java.util.ArrayList;
 
 public class FindCommand extends Command {
 
-	public static final String COMMAND_WORD = "find";
+    public static final String COMMAND_WORD = "find";
 
-	private String search;
+    private String search;
 
-	public FindCommand(String search) {
-		this.search = search;
-	}
+    public FindCommand(String search) {
+        this.search = search;
+    }
 
-	@Override
-	public void execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException {
-		ArrayList<Task> matchingTasks = taskList.findTasks(this.search);
-		ui.showMatchingTasks(matchingTasks);
-	}
+    @Override
+    public void execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException {
+        ArrayList<Task> matchingTasks = taskList.findTasks(this.search);
+        ui.showMatchingTasks(matchingTasks);
+    }
 }

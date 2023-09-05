@@ -12,23 +12,23 @@ import duke.ui.Ui;
  */
 public class DeleteCommand extends Command {
 
-	public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "delete";
 
-	private int index;
+    private int index;
 
-	public DeleteCommand(int index) {
-		this.index = index;
-	}
+    public DeleteCommand(int index) {
+        this.index = index;
+    }
 
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public void execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException {
-		Task task = taskList.deleteTask(this.index);
-		storage.write(taskList);
-		ui.showDeleteMessage(task, taskList);
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException {
+        Task task = taskList.deleteTask(this.index);
+        storage.write(taskList);
+        ui.showDeleteMessage(task, taskList);
 
-	}
+    }
 
 }
