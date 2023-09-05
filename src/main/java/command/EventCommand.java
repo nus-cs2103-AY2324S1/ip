@@ -14,11 +14,13 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui) {
+    public String execute(TaskList taskList, Ui ui) {
+        StringBuilder str = new StringBuilder();
         taskList.addTask(this.task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + this.task);
-        System.out.println("Now you have " + taskList.numOfTasks() + " tasks in the list.\n");
+        str.append("Got it. I've added this task:\n");
+        str.append("  " + this.task + "\n");
+        str.append("Now you have " + taskList.numOfTasks() + " tasks in the list.\n");
+        return str.toString();
     }
 
 }

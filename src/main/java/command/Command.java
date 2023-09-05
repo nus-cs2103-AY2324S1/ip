@@ -9,5 +9,5 @@ import main.java.ui.Ui;
  */
 public abstract class Command {
 
-    public abstract void execute(TaskList taskList, Ui ui);
+    public abstract String execute(TaskList taskList, Ui ui);
 }

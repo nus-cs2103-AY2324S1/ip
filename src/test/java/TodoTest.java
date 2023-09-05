@@ -10,6 +10,7 @@ public class TodoTest {
         Task t = new Todo("test 1");
         t.markDone();
         assertEquals("X", t.getStatusIcon());
+
     }
 
     @Test

@@ -6,14 +6,16 @@ import main.java.ui.Ui;
 
 public class ListCommand extends Command {
     @Override
-    public void execute(TaskList taskList, Ui ui) {
-        System.out.println("Here are the tasks in your list:");
+    public String execute(TaskList taskList, Ui ui) {
+        StringBuilder str = new StringBuilder();
+        str.append("Here are the tasks in your list:\n");
         for (int i = 0; i < taskList.numOfTasks(); i++) {
             Task currTask = taskList.getTask(i);
             String listCounter = (i + 1) + ".";
-            System.out.println(listCounter + currTask.toString());
+            str.append(listCounter + currTask.toString() + "\n");
         }
-        System.out.println();
+        str.append("\n");
+        return str.toString();
     }
 
 }

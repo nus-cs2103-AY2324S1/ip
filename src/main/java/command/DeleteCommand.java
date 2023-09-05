@@ -11,11 +11,13 @@ public class DeleteCommand extends Command {
         this.deleteTaskIndex = i;
     }
     @Override
-    public void execute(TaskList taskList, Ui ui) {
-        System.out.println("Noted. I've removed this task:");
+    public String execute(TaskList taskList, Ui ui) {
+        StringBuilder str = new StringBuilder();
+        str.append("Noted. I've removed this task:\n");
         Task deletedTask = taskList.getTask(this.deleteTaskIndex);
-        System.out.println("  " + deletedTask);
+        str.append("  " + deletedTask + "\n");
         taskList.removeTask(deletedTask);
-        System.out.println("Now you have " + taskList.numOfTasks() + " tasks in the list.\n");
+        str.append("Now you have " + taskList.numOfTasks() + " tasks in the list.\n");
+        return str.toString();
     }
 }

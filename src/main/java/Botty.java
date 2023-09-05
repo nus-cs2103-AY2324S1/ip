@@ -41,6 +41,21 @@ public class Botty {
      * Runs the main application loop, interacting with the user, processing commands, and managing tasks.
      * The loop continues until the user enters the "bye" command.
      */
+
+    public String getResponse(String input) {
+        try {
+            Command command = this.parser.parseInstruction(input);
+            this.storage.saveTaskList(this.taskList);
+            return command.execute(this.taskList, this.ui);
+        } catch (UnknownCommandException e) {
+            System.out.println(e.getMessage());
+        } catch (EmptyTodoException e) {
+            System.out.println(e.getMessage());
+        } catch (EmptyChoiceException e) {
+            System.out.println(e.getMessage());
+        }
+        return "Sorry, I don't recognise the command";
+    }
     public void run() {
         String name = "Botty";
         String tmp = "";
