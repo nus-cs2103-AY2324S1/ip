@@ -1,8 +1,8 @@
 package command;
 
+import enums.CommandWord;
 import parser.Parser;
 import tasks.TaskList;
-import enums.CommandWord;
 
 /**
  * The `ListCommand` class represents a command to list all tasks.
@@ -20,19 +20,6 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Executes the "list" command. It validates the command and displays
-     * a list of all tasks in the task list.
-     *
-     * @param taskList The task list from which tasks are listed.
-     */
-    public void execute(TaskList taskList) {
-        if (!validate(super.getRawCommand())) {
-            return;
-        }
-        taskList.listAllTasks();
-    }
-
-    /**
      * Validates the "list" command.
      * It checks if the command is correctly formatted.
      *
@@ -45,10 +32,19 @@ public class ListCommand extends Command {
             return false;
         }
 
-        if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.LIST)) {
-            return false;
+        return CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.LIST);
+    }
+  
+    /**
+     * Executes the "list" command. It validates the command and displays
+     * a list of all tasks in the task list.
+     *
+     * @param taskList The task list from which tasks are listed.
+     */
+    public void execute(TaskList taskList) {
+        if (!validate(super.getRawCommand())) {
+            return;
         }
-
-        return true;
+        taskList.listAllTasks();
     }
 }

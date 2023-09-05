@@ -1,8 +1,8 @@
 package command;
 
+import enums.CommandWord;
 import parser.Parser;
 import tasks.TaskList;
-import enums.CommandWord;
 
 /**
  * The `MarkCommand` class represents a command to mark a task as done.
@@ -18,22 +18,6 @@ public class MarkCommand extends Command {
      */
     public MarkCommand(String rawCommand) {
         super(rawCommand);
-    }
-
-    /**
-     * Executes the "mark" command. It parses the command, validates it, and marks
-     * the specified task as done in the task list if the command is valid.
-     *
-     * @param taskList The task list in which the task is marked as done.
-     */
-    public void execute(TaskList taskList) {
-        String rawCommand = super.getRawCommand();
-        if (!validate(rawCommand, taskList)) {
-            return;
-        }
-        String[] args = Parser.getArgs(rawCommand);
-        String taskIndex = args[1];
-        taskList.markTaskDone(taskIndex);
     }
 
     /**
@@ -55,5 +39,21 @@ public class MarkCommand extends Command {
         }
 
         return taskList.validateTaskIndex(args[1]);
+    }
+  
+    /**
+     * Executes the "mark" command. It parses the command, validates it, and marks
+     * the specified task as done in the task list if the command is valid.
+     *
+     * @param taskList The task list in which the task is marked as done.
+     */
+    public void execute(TaskList taskList) {
+        String rawCommand = super.getRawCommand();
+        if (!validate(rawCommand, taskList)) {
+            return;
+        }
+        String[] args = Parser.getArgs(rawCommand);
+        String taskIndex = args[1];
+        taskList.markTaskDone(taskIndex);
     }
 }

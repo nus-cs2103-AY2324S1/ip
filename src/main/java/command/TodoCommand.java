@@ -1,9 +1,9 @@
 package command;
 
+import enums.CommandWord;
 import parser.Parser;
 import tasks.TaskList;
 import tasks.TodoTask;
-import enums.CommandWord;
 
 /**
  * The `TodoCommand` class represents a command to create a new todo task.
@@ -11,8 +11,8 @@ import enums.CommandWord;
  * a new todo task to the task list if the command is valid.
  */
 public class TodoCommand extends Command {
-    private String description;
     private final boolean valid;
+    private String description;
 
     /**
      * Constructs a new `TodoCommand` with the specified raw command string.
@@ -22,6 +22,26 @@ public class TodoCommand extends Command {
     public TodoCommand(String rawCommand) {
         super(rawCommand);
         this.valid = validate(rawCommand);
+    }
+  
+    /**
+     * Validates the "todo" command.
+     * It checks if the command is correctly formatted.
+     *
+     * @param rawCommand The raw command string.
+     * @return `true` if the command is valid, `false` otherwise.
+     */
+    public static boolean validate(String rawCommand) {
+        String[] args = Parser.getArgs(rawCommand);
+        if (args.length != 2) {
+            return false;
+        }
+
+        if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.TODO)) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -48,25 +68,5 @@ public class TodoCommand extends Command {
         }
         this.deconstruct(super.getRawCommand());
         taskList.addTask(new TodoTask(this.description));
-    }
-
-    /**
-     * Validates the "todo" command.
-     * It checks if the command is correctly formatted.
-     *
-     * @param rawCommand The raw command string.
-     * @return `true` if the command is valid, `false` otherwise.
-     */
-    public static boolean validate(String rawCommand) {
-        String[] args = Parser.getArgs(rawCommand);
-        if (args.length != 2) {
-            return false;
-        }
-
-        if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.TODO)) {
-            return false;
-        }
-
-        return true;
     }
 }

@@ -1,10 +1,10 @@
 package storage;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import exceptions.DukeStorageException;
 import tasks.Task;
 import tasks.TaskList;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.FileReader;

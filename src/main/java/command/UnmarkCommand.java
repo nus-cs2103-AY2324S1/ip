@@ -1,8 +1,8 @@
 package command;
 
+import enums.CommandWord;
 import parser.Parser;
 import tasks.TaskList;
-import enums.CommandWord;
 
 /**
  * The `UnmarkCommand` class represents a command to unmark a task as done.
@@ -17,21 +17,6 @@ public class UnmarkCommand extends Command {
      */
     public UnmarkCommand(String rawCommand) {
         super(rawCommand);
-    }
-
-    /**
-     * Executes the "unmark" command. It parses the command, validates it, and marks the specified task as undone in the task list if the command is valid.
-     *
-     * @param taskList The task list in which the task is marked as undone.
-     */
-    public void execute(TaskList taskList) {
-        String rawCommand = super.getRawCommand();
-        if (!validate(rawCommand, taskList)) {
-            return;
-        }
-        String[] args = Parser.getArgs(rawCommand);
-        String taskIndex = args[1];
-        taskList.markTaskUndone(taskIndex);
     }
 
     /**
@@ -53,5 +38,20 @@ public class UnmarkCommand extends Command {
         }
 
         return taskList.validateTaskIndex(args[1]);
+    }
+
+    /**
+     * Executes the "unmark" command. It parses the command, validates it, and marks the specified task as undone in the task list if the command is valid.
+     *
+     * @param taskList The task list in which the task is marked as undone.
+     */
+    public void execute(TaskList taskList) {
+        String rawCommand = super.getRawCommand();
+        if (!validate(rawCommand, taskList)) {
+            return;
+        }
+        String[] args = Parser.getArgs(rawCommand);
+        String taskIndex = args[1];
+        taskList.markTaskUndone(taskIndex);
     }
 }

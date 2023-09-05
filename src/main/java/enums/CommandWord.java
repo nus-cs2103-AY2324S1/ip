@@ -30,15 +30,6 @@ public enum CommandWord {
     }
 
     /**
-     * Gets the string representation of the command word.
-     *
-     * @return The string representation of the command word.
-     */
-    public String getValue() {
-        return value;
-    }
-
-    /**
      * Maps a string value to the corresponding `CommandWord` enum.
      * If no match is found, it returns the `NULL_COMMAND` enum.
      *
@@ -52,5 +43,14 @@ public enum CommandWord {
             }
         }
         return NULL_COMMAND;
+    }
+
+    /**
+     * Gets the string representation of the command word.
+     *
+     * @return The string representation of the command word.
+     */
+    public String getValue() {
+        return value;
     }
 }

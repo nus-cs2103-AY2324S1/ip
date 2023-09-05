@@ -1,9 +1,9 @@
 package command;
 
 import duke.Duke;
+import enums.CommandWord;
 import parser.Parser;
 import tasks.TaskList;
-import enums.CommandWord;
 
 import java.time.format.DateTimeFormatter;
 
@@ -29,6 +29,7 @@ public abstract class Command {
      *
      * @param rawCommand The raw command string.
      */
+
     public Command(String rawCommand) {
         this.rawCommand = rawCommand;
     }

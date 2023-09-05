@@ -1,8 +1,8 @@
 package command;
 
+import enums.CommandWord;
 import parser.Parser;
 import tasks.TaskList;
-import enums.CommandWord;
 
 /**
  * The `DeleteCommand` class represents a command to delete a task.
@@ -18,21 +18,6 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand(String rawCommand) {
         super(rawCommand);
-    }
-
-    /**
-     * Executes the "delete" command. It parses the command, validates it, and deletes
-     * the specified task from the task list if the command is valid.
-     *
-     * @param taskList The task list from which the task is deleted.
-     */
-    public void execute(TaskList taskList) {
-        String rawCommand = super.getRawCommand();
-        if (!validate(rawCommand, taskList)) {
-            return;
-        }
-        String[] args = Parser.getArgs(rawCommand);
-        taskList.deleteTask(args[1]);
     }
 
     /**
@@ -55,5 +40,20 @@ public class DeleteCommand extends Command {
         }
 
         return taskList.validateTaskIndex(args[1]);
+    }
+  
+    /**
+     * Executes the "delete" command. It parses the command, validates it, and deletes
+     * the specified task from the task list if the command is valid.
+     *
+     * @param taskList The task list from which the task is deleted.
+     */
+    public void execute(TaskList taskList) {
+        String rawCommand = super.getRawCommand();
+        if (!validate(rawCommand, taskList)) {
+            return;
+        }
+        String[] args = Parser.getArgs(rawCommand);
+        taskList.deleteTask(args[1]);
     }
 }

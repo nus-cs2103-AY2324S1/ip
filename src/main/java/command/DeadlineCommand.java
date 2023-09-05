@@ -1,10 +1,10 @@
 package command;
 
 import duke.Duke;
+import enums.CommandWord;
 import parser.Parser;
 import tasks.DeadlineTask;
 import tasks.TaskList;
-import enums.CommandWord;
 
 import java.time.LocalDate;
 
@@ -21,23 +21,6 @@ public class DeadlineCommand extends Command {
      */
     public DeadlineCommand(String rawCommand) {
         super(rawCommand);
-    }
-
-    /**
-     * Executes the "deadline" command. It parses the command, validates it, and adds a new
-     * deadline task to the task list if the command is valid.
-     *
-     * @param taskList The task list to which the deadline task is added.
-     */
-    public void execute(TaskList taskList) {
-        String rawCommand = super.getRawCommand();
-        if (!validate(rawCommand)) {
-            return;
-        }
-        String[] args = Parser.getArgs(rawCommand);
-        String description = args[1];
-        LocalDate endDate = LocalDate.parse(args[3], super.DATE_FORMATTER);
-        taskList.addTask(new DeadlineTask(description, endDate));
     }
 
     /**
@@ -62,10 +45,23 @@ public class DeadlineCommand extends Command {
             return false;
         }
 
-        if (!Duke.validateDateTime(args[3])) {
-            return false;
+        return Duke.validateDateTime(args[3]);
+    }
+  
+    /**
+     * Executes the "deadline" command. It parses the command, validates it, and adds a new
+     * deadline task to the task list if the command is valid.
+     *
+     * @param taskList The task list to which the deadline task is added.
+     */
+    public void execute(TaskList taskList) {
+        String rawCommand = super.getRawCommand();
+        if (!validate(rawCommand)) {
+            return;
         }
-
-        return true;
+        String[] args = Parser.getArgs(rawCommand);
+        String description = args[1];
+        LocalDate endDate = LocalDate.parse(args[3], super.DATE_FORMATTER);
+        taskList.addTask(new DeadlineTask(description, endDate));
     }
 }

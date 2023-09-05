@@ -1,10 +1,10 @@
 package command;
 
 import duke.Duke;
+import enums.CommandWord;
 import parser.Parser;
 import tasks.EventTask;
 import tasks.TaskList;
-import enums.CommandWord;
 
 import java.time.LocalDate;
 
@@ -21,24 +21,6 @@ public class EventCommand extends Command {
      */
     public EventCommand(String rawCommand) {
         super(rawCommand);
-    }
-
-    /**
-     * Executes the "event" command. It parses the command, validates it, and adds a new
-     * event task to the task list if the command is valid.
-     *
-     * @param taskList The task list to which the event task is added.
-     */
-    public void execute(TaskList taskList) {
-        String rawCommand = super.getRawCommand();
-        if (!validate(rawCommand)) {
-            return;
-        }
-        String[] args = Parser.getArgs(rawCommand);
-        String description = args[1];
-        LocalDate startDate = LocalDate.parse(args[3], super.DATE_FORMATTER);
-        LocalDate endDate = LocalDate.parse(args[5], super.DATE_FORMATTER);
-        taskList.addTask(new EventTask(description, startDate, endDate));
     }
 
     /**
@@ -71,10 +53,24 @@ public class EventCommand extends Command {
             return false;
         }
 
-        if (!Duke.validateDateTime(args[5])) {
-            return false;
+        return Duke.validateDateTime(args[5]);
+    }
+  
+    /**
+     * Executes the "event" command. It parses the command, validates it, and adds a new
+     * event task to the task list if the command is valid.
+     *
+     * @param taskList The task list to which the event task is added.
+     */
+    public void execute(TaskList taskList) {
+        String rawCommand = super.getRawCommand();
+        if (!validate(rawCommand)) {
+            return;
         }
-
-        return true;
+        String[] args = Parser.getArgs(rawCommand);
+        String description = args[1];
+        LocalDate startDate = LocalDate.parse(args[3], super.DATE_FORMATTER);
+        LocalDate endDate = LocalDate.parse(args[5], super.DATE_FORMATTER);
+        taskList.addTask(new EventTask(description, startDate, endDate));
     }
 }

@@ -1,21 +1,22 @@
 package duke;
 
+import command.Command;
+import parser.Parser;
+import storage.TaskFileHandler;
+import tasks.TaskList;
+import ui.Ui;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-
-import command.Command;
-import parser.Parser;
-import tasks.TaskList;
-import ui.Ui;
-import storage.TaskFileHandler;
 
 /**
  * The `Duke` class is the main class for the Duke application.
  * It handles user interactions and the core functionality of the application.
  */
 public class Duke {
+
     /**
      * The date-time formatter used for parsing and formatting dates.
      */

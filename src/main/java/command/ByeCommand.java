@@ -1,9 +1,9 @@
 package command;
 
+import enums.CommandWord;
 import parser.Parser;
 import tasks.TaskList;
 import ui.Ui;
-import enums.CommandWord;
 
 /**
  * The `ByeCommand` class represents a command to exit the application.
@@ -21,18 +21,6 @@ public class ByeCommand extends Command {
     }
 
     /**
-     * Executes the "bye" command. It shows the bye message to the user.
-     *
-     * @param taskList The task list (not used in this command).
-     */
-    public void execute(TaskList taskList) {
-        if (!validate(super.getRawCommand())) {
-            return;
-        }
-        Ui.showByeUser();
-    }
-
-    /**
      * Validates the "bye" command.
      * It checks if the command is correctly formatted.
      *
@@ -45,10 +33,18 @@ public class ByeCommand extends Command {
             return false;
         }
 
-        if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.BYE)) {
-            return false;
+        return CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.BYE);
+    }
+  
+    /**
+     * Executes the "bye" command. It shows the bye message to the user.
+     *
+     * @param taskList The task list (not used in this command).
+     */
+    public void execute(TaskList taskList) {
+        if (!validate(super.getRawCommand())) {
+            return;
         }
-
-        return true;
+        Ui.showByeUser();
     }
 }
