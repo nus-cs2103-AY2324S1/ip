@@ -1,8 +1,5 @@
 package Duke.Tasks;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 public class Task {
     private Boolean done = false;
 
@@ -11,14 +8,6 @@ public class Task {
     public Task(String input) {
         task = input;
     }
-
-    private String type;
-
-    private String desc;
-
-    private String checkBox;
-
-    private String deadline;
 
     public void markDone() {
         done = true;

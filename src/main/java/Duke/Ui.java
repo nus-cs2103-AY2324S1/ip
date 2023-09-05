@@ -1,7 +1,6 @@
 package Duke;
 
-import Duke.Tasks.*;
-import Duke.Exceptions.*;
+import Duke.Tasks.TaskList;
 
 public class Ui {
 
