@@ -1,13 +1,23 @@
 package duke.main;
-import duke.task.*;
-import duke.exception.*;
-import duke.storage.Storage;
-import duke.ui.Ui;
-import duke.commands.*;
-
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import duke.commands.Command;
+import duke.commands.Parser;
+import duke.exception.DeadlineException;
+import duke.exception.DeleteException;
+import duke.exception.DukeException;
+import duke.exception.EventException;
+import duke.exception.TodoException;
+import duke.storage.Storage;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
+import duke.ui.Ui;
+
 
 /**
  * The main class that initiates the chatbot application.
@@ -15,8 +25,8 @@ import java.util.ArrayList;
 public class Duke {
 
     private final TaskList taskList;
-    private final String FILE_PATH = "./src/main/data/duke.txt";
-    private final Storage storage = new Storage(FILE_PATH);
+    private final String filePath = "./src/main/data/duke.txt";
+    private final Storage storage = new Storage(filePath);
 
 
     /**
@@ -24,6 +34,11 @@ public class Duke {
      */
     public Duke() {
         this.taskList = new TaskList();
+    }
+
+    public static void main(String[] args) {
+        Duke duke = new Duke();
+        duke.start();
     }
 
     /**
@@ -52,10 +67,9 @@ public class Duke {
 
         taskList.markTaskAsNotDone(taskIndex - 1);
         saveTasksToFile(this.taskList);
-        Ui.showMessage(" OK, I've marked this task as not done yet:\n" +
-                taskList.getTaskDetails(taskIndex - 1));
+        Ui.showMessage(" OK, I've marked this task as not done yet:\n"
+                + taskList.getTaskDetails(taskIndex - 1));
     }
-
 
     /**
      * Deletes a task from the task list based on the provided input.
@@ -67,13 +81,12 @@ public class Duke {
         if (taskIndex < 1 || taskIndex > taskList.getTaskCount()) {
             throw new DeleteException("Invalid Index of task!");
         } else {
-            Ui.showMessage(" Noted. I've removed this task:\n" +
-                    this.taskList.getTaskDetails(taskIndex - 1) +
-                    "\n Now you have " + (taskList.getTaskCount() - 1) + " tasks in the list.\n");
+            Ui.showMessage(" Noted. I've removed this task:\n"
+                    + this.taskList.getTaskDetails(taskIndex - 1)
+                    + "\n Now you have " + (taskList.getTaskCount() - 1) + " tasks in the list.\n");
             taskList.deleteTask(taskIndex - 1);
         }
     }
-
 
     /**
      * Adds a todo task to the task list and provides user feedback
@@ -89,16 +102,16 @@ public class Duke {
             newTask = new Todo(description);
             taskList.addTask(newTask);
             Ui.showMessage(
-                    " Got it. I've added this task:\n" +
-                            newTask +
-                            "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n");
+                    " Got it. I've added this task:\n"
+                            + newTask
+                            + "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n");
         }
     }
 
     /**
      * Adds a deadline task to the task list and provides user feedback
      *
-     * @param description The description of the deadline task
+     * @param description  The description of the deadline task
      * @param deadlineDate The deadline date of the deadline task
      * @throws DeadlineException If the description or deadline date is empty
      */
@@ -110,18 +123,18 @@ public class Duke {
             Task newTask = new Deadline(description, deadlineDate);
             taskList.addTask(newTask);
             Ui.showMessage(
-                    " Got it. I've added this task:\n" +
-                            newTask +
-                            "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n");
+                    " Got it. I've added this task:\n"
+                            + newTask
+                            + "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n");
         }
     }
 
     /**
      * Adds an event task to the task list and provides user feedback
      *
-     * @param description The description of the event task
+     * @param description   The description of the event task
      * @param eventFromDate The start date of the event task
-     * @param eventToDate The end date of the event task
+     * @param eventToDate   The end date of the event task
      * @throws EventException If the description, start date or end date is empty
      */
     public void addEvent(String description, LocalDate eventFromDate, LocalDate eventToDate) throws EventException {
@@ -244,15 +257,10 @@ public class Duke {
                 isContinuing = handleCommand(parsedCommand);
                 this.saveTasksToFile(this.taskList);
             } catch (DukeException e) {
-               Ui.showErrorMessage(e.getMessage());
+                Ui.showErrorMessage(e.getMessage());
             }
         }
 
         Ui.showGoodByeMessage();
-    }
-
-    public static void main(String[] args) {
-        Duke duke = new Duke();
-        duke.start();
     }
 }
