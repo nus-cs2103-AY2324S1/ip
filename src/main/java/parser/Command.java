@@ -19,7 +19,9 @@ public enum Command {
     }
     public static Command getCommand(String inputCommand) {
         for (Command command : Command.values()) {
-            if (command.command.equals(inputCommand)) return command;
+            if (command.command.equals(inputCommand)) {
+                return command;
+            }
         }
         return null;
     }
