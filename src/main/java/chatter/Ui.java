@@ -17,9 +17,11 @@ public class Ui {
 
     /**
      * Prints a welcome message when user starts the chatbot.
+     *
+     * @return Welcome message for the user.
      */
-    public void showWelcome() {
-        System.out.println(DIVIDER + "\nHello! I'm chatter.Chatter!" + "\nHow can i help you today?\n" + DIVIDER);
+    public String showWelcome() {
+        return("Hello! I'm chatter.Chatter!\n" + "How can i help you today?\n");
     }
 
     /**
@@ -31,10 +33,12 @@ public class Ui {
 
     /**
      * Prints a welcome message when user exits the chatbot.
+     *
+     * @return Exit message for the user.
      */
-    public void showExit() {
+    public String showExit() {
         scanner.close();
-        System.out.println("Bye. Hope to see you again soon!");
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -57,31 +61,38 @@ public class Ui {
      * Prints task string when task is added to the list.
      *
      * @param task chatter.task.Task object being added to the list.
+     * @param numOfTasks Number of tasks in the list after adding the new task.
+     * @return Chatter's response to user adding task.
      */
-    public void showAddedTask(Task task, int numOfTasks) {
-        System.out.println("Got it. I have added this task to do:");
-        System.out.println("  " + task.toString());
-        System.out.println("You now have " + numOfTasks + " task(s) in the list.");
+    public String showAddedTask(Task task, int numOfTasks) {
+        String output = "Got it. I have added this task to do:\n";
+        output += "  " + task.toString() + "\n";
+        output += "You now have " + numOfTasks + " task(s) in the list.\n";
+        return output;
     }
 
     /**
      * Prints completed task string.
      *
-     * @param task chatter.task.Task that is being marked done.
+     * @param task Task that is being marked done.
+     * @return Task being marked as done message.
      */
-    public void showMarkedTask(Task task) {
-        System.out.println("Good job! I've marked this task as completed:");
-        System.out.println("  " + task);
+    public String showMarkedTask(Task task) {
+        String output = "Good job! I've marked this task as completed:\n";
+        output += "  " + task;
+        return output;
     }
 
     /**
      * Prints unmarked task string.
      *
      * @param task chatter.task.Task that is being unmarked.
+     * @return Task being unmarked message.
      */
-    public void showUnmarkedTask(Task task) {
-        System.out.println("OK! I've marked this task as not done yet:");
-        System.out.println("  " + task);
+    public String showUnmarkedTask(Task task) {
+        String output = "OK! I've marked this task as not done yet:\n";
+        output += "  " + task;
+        return output;
     }
 
     /**
@@ -89,34 +100,47 @@ public class Ui {
      *
      * @param task Task to be deleted.
      * @param numOfTasks Number of tasks left in the list after deletion.
+     * @return String message indicating that task has been deleted.
      */
-    public void showDeletedTask(Task task, int numOfTasks) {
-        System.out.println("Noted! I have removed this task:");
-        System.out.println("  " + task);
-        System.out.println("You now have " + numOfTasks + " task(s) in the list.");
+    public String showDeletedTask(Task task, int numOfTasks) {
+        String output = "Noted! I have removed this task:\n";
+        output += "  " + task + "\n";
+        output += "You now have " + numOfTasks + " task(s) in the list.\n";
+        return output;
     }
 
     /**
      * Prints out list of tasks to display to the user.
+     *
+     * @param tasks List of tasks.
+     * @param numOfTasks Number of tasks in the list.
+     * @return String showing the tasks in the list.
      */
-    public void showListTasks(TaskList tasks, int numOfTasks) {
-        System.out.println("These are all the task(s) in your list:");
+    public String showListTasks(TaskList tasks, int numOfTasks) {
+        String output = "These are all the task(s) in your list:\n";
         for (int i = 0; i < numOfTasks; i++) {
-            System.out.println("  " + (i + 1) + "." + tasks.getTask(i).toString());
+            output += "  " + (i + 1) + "." + tasks.getTask(i).toString() + "\n";
         }
+        return output;
     }
 
     /**
      * Prints out list of tasks with keyword to display to the user.
+     *
+     * @param tasks List of tasks.
+     * @param numOfTasks Number of tasks in the list.
+     * @param keyword Keyword that the user is finding for.
+     * @return Tasks that contain the keyword.
      */
-    public void showFoundTasks(TaskList tasks, int numOfTasks, String keyword) {
+    public String showFoundTasks(TaskList tasks, int numOfTasks, String keyword) {
         int count = 1;
-        System.out.println("Here are the matching tasks in your list:");
+        String output = "Here are the matching tasks in your list:\n";
         for (int i = 0; i < numOfTasks; i++) {
             if (tasks.getTask(i).toString().contains(keyword)) {
-                System.out.println("  " + count + "." + tasks.getTask(i).toString());
+                output += "  " + count + "." + tasks.getTask(i).toString() + "\n";
                 count++;
             }
         }
+        return output;
     }
 }

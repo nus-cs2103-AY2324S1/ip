@@ -36,12 +36,12 @@ public class MarkCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (isDone) {
             tasks.markTaskAsDone(taskNumber);
-            ui.showMarkedTask(tasks.getTask(taskNumber - 1));
+            storage.saveFile(tasks.toStorageString());
+            return ui.showMarkedTask(tasks.getTask(taskNumber - 1));
         } else {
             tasks.markTaskAsNotDone(taskNumber);
-            ui.showUnmarkedTask(tasks.getTask(taskNumber - 1));
+            storage.saveFile(tasks.toStorageString());
+            return ui.showUnmarkedTask(tasks.getTask(taskNumber - 1));
         }
-        storage.saveFile(tasks.toStorageString());
-        return "test";
     }
 }

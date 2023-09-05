@@ -3,6 +3,7 @@ package chatter.command;
 import chatter.Storage;
 import chatter.TaskList;
 import chatter.Ui;
+import chatter.task.Task;
 
 /**
  * Represents a Command class that is responsible for deleting a Task object from TaskList.
@@ -32,9 +33,9 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showDeletedTask(tasks.getTask(taskNumber - 1), tasks.getNumOfTasks() - 1);
+        Task deletedTask = tasks.getTask(taskNumber - 1);
         tasks.delete(taskNumber);
         storage.saveFile(tasks.toStorageString());
-        return "test";
+        return ui.showDeletedTask(deletedTask, tasks.getNumOfTasks());
     }
 }
