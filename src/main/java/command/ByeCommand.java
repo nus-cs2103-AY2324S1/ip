@@ -11,12 +11,14 @@ import duke.Ui;
  */
 public class ByeCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store) {
+    public String execute(TaskList tasks, Ui ui, Storage store) {
         try {
             store.writeFile(tasks);
         } catch (IOException e) {
             ui.showWritingError();
         }
+
+        return ui.endBot();
     }
 
     @Override

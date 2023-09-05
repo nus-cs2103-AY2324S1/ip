@@ -27,9 +27,8 @@ public class EditCommand extends Command {
         this.ind = ind;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
-        String action = tasks.editTask(editType, ind);
-        ui.respondUser(action);
+    public String execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
+        return tasks.editTask(editType, ind);
     }
     @Override
     public boolean isExit() {

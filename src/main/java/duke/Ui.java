@@ -1,7 +1,6 @@
 package duke;
 
 import java.io.PrintStream;
-import java.util.Scanner;
 
 import exception.DukeException;
 
@@ -11,8 +10,6 @@ import exception.DukeException;
 public class Ui {
 
     private static final String NAME = "Obi-wan Kenobi";
-    private static final String DIVIDER = "_____________________________________";
-    private final Scanner in;
     private final PrintStream out;
 
     /**
@@ -20,41 +17,21 @@ public class Ui {
      * information to the user.
      */
     public Ui() {
-        this.in = new Scanner(System.in);
         this.out = System.out;
     }
 
     /**
      * Generates and prints welcome message when Chat Bot is started.
      */
-    public void startBot() {
-        System.out.println("Hello There! I am " + NAME);
-        System.out.println("What can I do for you?");
-        System.out.println(DIVIDER);
+    public String startBot() {
+        return "Hello There! I am " + NAME + "\nWhat can I do for you?\n";
     }
 
     /**
      * Generates and prints closing message when Chat Bot is stopped.
      */
-    public void endBot() {
-        System.out.println("Bye. May the force be with you!");
-    }
-
-    /**
-     * Prints the response to the user's request. Prints a description of the
-     * action being executed by the user's command.
-     *
-     * @param response The description of the command executed.
-     */
-    public void respondUser(String response) {
-        out.println(response);
-    }
-
-    /**
-     * Gets user's input with a Scanner object.
-     */
-    public String getUserInput() {
-        return in.nextLine();
+    public String endBot() {
+        return "Bye. May the force be with you!";
     }
 
     /**
@@ -62,15 +39,8 @@ public class Ui {
      *
      * @param e If user inputs invalid commands to the Chat Bot.
      */
-    public void showErrorMessage(DukeException e) {
-        out.println(e.getMessage());
-    }
-
-    /**
-     * Prints a divider between each user's commands.
-     */
-    public void showLine() {
-        out.println(DIVIDER);
+    public String showErrorMessage(DukeException e) {
+        return e.getMessage();
     }
 
     /**
