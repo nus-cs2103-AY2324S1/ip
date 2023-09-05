@@ -24,3 +24,4 @@ public class ListCommand extends Command {
         ui.displayTaskList(taskList);
     }
 }
+

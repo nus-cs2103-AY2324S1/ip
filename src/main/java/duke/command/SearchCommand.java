@@ -1,14 +1,18 @@
 package duke.command;
 
-import duke.Command;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
-import duke.Task;
-
 import java.util.ArrayList;
 
+import duke.Command;
+import duke.Storage;
+import duke.Task;
+import duke.TaskList;
+import duke.Ui;
+
 // Solution below adapted and inspired from https://chat.openai.com/share/3bd2c2a8-57c4-480a-9055-646c61983a60
+/**
+ * Represents a command to search for a task in the task list.
+ * The SearchCommand is responsible for finding tasks that match the search string.
+ */
 public class SearchCommand extends Command {
 
     private String taskToFind;

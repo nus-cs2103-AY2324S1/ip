@@ -9,8 +9,8 @@ import java.util.ArrayList;
  */
 public class Ui {
     private static final String separators = "____________________________________________________________";
-    String text1 = " Hello! I'm Novo\n" + " What can I do for you?\n" + separators + "\n";
-    String text2 = " Bye. Hope to see you again soon!";
+    private String text1 = " Hello! I'm Novo\n" + " What can I do for you?\n" + separators + "\n";
+    private String text2 = " Bye. Hope to see you again soon!";
 
     /**
      * Displays the welcome text to the user.
@@ -171,7 +171,7 @@ public class Ui {
     }
 
     /**
-     * Displays an error message for a deadline task in the wrong format.
+     * Displays an error message for a search command in the wrong format.
      */
     public void printSearchException() {
         System.out.println("____________________________________________________________");
@@ -179,6 +179,9 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays an error message for a deadline task in the wrong format.
+     */
     public void printDeadlineFormatException() {
         System.out.println("____________________________________________________________");
         System.out.println("☹ OOPS!!! Enter in the format: deadline (task) /by dd/MM/yyyy HHmm");

@@ -18,7 +18,7 @@ public class DukeException extends Exception {
     /**
      * An exception class for handling cases where the user attempts to create a todo task with an empty description.
      */
-    public static class ToDoException extends DukeException{
+    public static class ToDoException extends DukeException {
         public ToDoException() {
             super("todo cannot be empty");
         }
@@ -27,7 +27,7 @@ public class DukeException extends Exception {
     /**
      * An exception class for handling cases where the user provides an invalid command.
      */
-    public static class NoSuchItemException extends DukeException{
+    public static class NoSuchItemException extends DukeException {
         public NoSuchItemException() {
             super("invalid command");
         }
@@ -36,16 +36,16 @@ public class DukeException extends Exception {
     /**
      * An exception class for handling cases where the user attempts to create an event task with an empty description.
      */
-    public static class EventException extends DukeException{
+    public static class EventException extends DukeException {
         public EventException() {
             super("event cannot be empty");
         }
     }
 
     /**
-     * An exception class for handling cases where the user attempts to create a deadline task with an empty description.
+     * An exception class for handling cases where the user attempts to create a deadline task with an empty description
      */
-    public static class DeadlineException extends DukeException{
+    public static class DeadlineException extends DukeException {
         public DeadlineException() {
             super("deadline cannot be empty");
         }
@@ -54,7 +54,7 @@ public class DukeException extends Exception {
     /**
      * An exception class for handling cases where the user attempts to mark a task without specifying the task.
      */
-    public static class MarkException extends DukeException{
+    public static class MarkException extends DukeException {
         public MarkException() {
             super("Task to mark not specified");
         }
@@ -63,7 +63,7 @@ public class DukeException extends Exception {
     /**
      * An exception class for handling cases where the user attempts to unmark a task without specifying the task.
      */
-    public static class UnmarkException extends DukeException{
+    public static class UnmarkException extends DukeException {
         public UnmarkException() {
             super("Task to unmark not specified");
         }
@@ -72,7 +72,7 @@ public class DukeException extends Exception {
     /**
      * An exception class for handling cases where the user attemps a search in an incorrect format.
      */
-    public static class SearchException extends DukeException{
+    public static class SearchException extends DukeException {
         public SearchException() {
             super("Task to search for not specified");
         }
@@ -81,7 +81,7 @@ public class DukeException extends Exception {
     /**
      * An exception class for handling cases where the user provides a deadline in an incorrect format.
      */
-    public static class DeadlineFormatException extends DukeException{
+    public static class DeadlineFormatException extends DukeException {
         public DeadlineFormatException() {
             super("Deadline not in the correct format");
         }
@@ -90,7 +90,7 @@ public class DukeException extends Exception {
     /**
      * An exception class for handling cases where the user provides an event in an incorrect format.
      */
-    public static class EventFormatException extends DukeException{
+    public static class EventFormatException extends DukeException {
         public EventFormatException() {
             super("Event not in the correct format");
         }

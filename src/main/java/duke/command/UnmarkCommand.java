@@ -2,9 +2,9 @@ package duke.command;
 
 import duke.Command;
 import duke.Storage;
+import duke.Task;
 import duke.TaskList;
 import duke.Ui;
-import duke.Task;
 
 /**
  * Represents a command to unmark a task as not done in the task list.

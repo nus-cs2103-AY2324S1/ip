@@ -11,23 +11,26 @@ import java.util.Scanner;
 and end, by moving
 the statement outside the for loop
  */
-// Solution below inspired by ChatGPT, regarding the method .contains("mark"), as it might be a bug if the input contains mark,
-// without a corresponding integer.
+// Solution below inspired by ChatGPT, regarding the method .contains("mark"), as it might be a bug if the input
+// contains mark, without a corresponding integer.
 // Solution below inspired by https://stackoverflow.com/questions/12973871/read-multiple-user-input-words-and-split-them
 // Solution below inspired by ChatGPT, employed its help to solve my indexing problem. (ie mark 1 and unmark 1 refers to
 // diff items)
 /* Solution below inspired by ChatGPT, employed its help to solve the list not updating and showing the items with their
 correct status icon, by creating a new task array of tasks instead of a string array.
  */
-// Solution below inspired by https://stackoverflow.com/questions/10405789/regex-append-or-replace-only-the-first-letter-of-each-word
+// Solution below inspired by https://stackoverflow.com/questions/10405789/regex-append-or-replace-only-the-first-
+// letter-of-each-word
 // Solution below inspired by https://www.programiz.com/java-programming/library/string/replacefirst
-// Solution below adapted by ChatGPT, to solve the exception error when invoking last line of the loop. when there is no next line.
+// Solution below adapted by ChatGPT, to solve the exception error when invoking last line of the loop.
+// when there is no next line.
 // Solution below inspired by https://stackoverflow.com/questions/32733084/pass-a-simple-enum-into-a-constructor-in-java
-// Solution below inspired from ChatGPT, seeked clarification if the enums have to be passed into the child classes of parent class Task's constructor
+// Solution below inspired from ChatGPT, seeked clarification if the enums have to be passed into the child classes of
+// parent class Task's constructor
 
 /**
  * The main class for the Duke application.
- * Duke is a task management application that allows users to manage their tasks, including todos, deadlines, and events.
+ * Duke is a task management application that allows users to manage their tasks, including todos, deadlines, and events
  */
 public class Duke {
     private static String filePath = "./data/duke.txt";
@@ -37,7 +40,8 @@ public class Duke {
      *
      * @param args Command-line arguments (not used in this application).
      */
-    public static void main(String[] args) throws DukeException.NoSuchItemException, DukeException.ToDoException, IOException {
+    public static void main(String[] args) throws DukeException.NoSuchItemException,
+            DukeException.ToDoException, IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         Ui ui = new Ui();
         Storage storage = new Storage(filePath);
@@ -56,11 +60,11 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         // int num_items = tasks.size();
 
-        String user_text = sc.nextLine();
+        String userText = sc.nextLine();
 
-        while (!user_text.isEmpty()) {
+        while (!userText.isEmpty()) {
             try {
-                Command command = parser.parseCommand(user_text);
+                Command command = parser.parseCommand(userText);
                 command.execute(taskList, ui, storage);
             } catch (DukeException.ToDoException e) {
                 ui.printToDoException();
@@ -83,7 +87,7 @@ public class Duke {
             } catch (DukeException e) {
                 throw new RuntimeException(e);
             }
-            user_text = sc.hasNextLine() ? sc.nextLine() : "";
+            userText = sc.hasNextLine() ? sc.nextLine() : "";
         }
         sc.close();
     }

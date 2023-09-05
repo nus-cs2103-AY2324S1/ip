@@ -1,16 +1,18 @@
 package duke.command;
 
 import java.time.LocalDateTime;
-import duke.Ui;
-import duke.Storage;
-import duke.TaskList;
+
 import duke.Command;
+import duke.Storage;
 import duke.Task;
-import duke.task.Todo;
+import duke.TaskList;
+import duke.Ui;
 import duke.task.Deadline;
 import duke.task.Event;
+import duke.task.Todo;
 
 // Solution below adapted and inspired by https://chat.openai.com/share/7f037351-3be6-4105-b138-77f68d428c84
+
 /**
  * Represents a command to add tasks to the task list.
  * This command can handle adding different types of tasks such as Todo, Deadline, and Event.
@@ -34,7 +36,7 @@ public class AddCommand extends Command {
     /**
      * Constructs an AddCommand for a Todo task.
      *
-     * @param taskType       The type of the task to be added.
+     * @param taskType        The type of the task to be added.
      * @param taskDescription The description of the task.
      */
     public AddCommand(TaskType taskType, String taskDescription) {
@@ -45,7 +47,7 @@ public class AddCommand extends Command {
     /**
      * Constructs an AddCommand for a Deadline task.
      *
-     * @param taskType       The type of the task to be added.
+     * @param taskType        The type of the task to be added.
      * @param taskDescription The description of the task.
      * @param parsedDateTime  The parsed date and time for the deadline.
      */
@@ -58,12 +60,13 @@ public class AddCommand extends Command {
     /**
      * Constructs an AddCommand for an Event task.
      *
-     * @param taskType       The type of the task to be added.
+     * @param taskType        The type of the task to be added.
      * @param taskDescription The description of the task.
-     * @param parsedFromDate The parsed start date and time for the event.
-     * @param parsedToDate   The parsed end date and time for the event.
+     * @param parsedFromDate  The parsed start date and time for the event.
+     * @param parsedToDate    The parsed end date and time for the event.
      */
-    public AddCommand(TaskType taskType, String taskDescription, LocalDateTime parsedFromDate, LocalDateTime parsedToDate) {
+    public AddCommand(TaskType taskType, String taskDescription, LocalDateTime parsedFromDate,
+                      LocalDateTime parsedToDate) {
         this.taskType = taskType;
         this.taskDescription = taskDescription;
         this.parsedFromDate = parsedFromDate;
@@ -82,15 +85,17 @@ public class AddCommand extends Command {
         try {
             Task newTask = null;
             switch (taskType) {
-                case TODO:
-                    newTask = new Todo(taskDescription);
-                    break;
-                case DEADLINE:
-                    newTask = new Deadline(taskDescription, parsedDateTime);
-                    break;
-                case EVENT:
-                    newTask = new Event(taskDescription, parsedFromDate, parsedToDate);
-                    break;
+            case TODO:
+                newTask = new Todo(taskDescription);
+                break;
+            case DEADLINE:
+                newTask = new Deadline(taskDescription, parsedDateTime);
+                break;
+            case EVENT:
+                newTask = new Event(taskDescription, parsedFromDate, parsedToDate);
+                break;
+            default:
+                newTask = new Task(taskDescription, Task.Type.OTHERS);
             }
             taskList.addTask(newTask);
             ui.displayAddedTask(newTask, taskList.numTasks());

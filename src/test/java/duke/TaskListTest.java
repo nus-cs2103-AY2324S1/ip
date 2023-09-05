@@ -1,9 +1,11 @@
 package duke;
 
 import static duke.Task.Type.TODO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test cases for the TaskList class.
@@ -27,7 +29,7 @@ public class TaskListTest {
      */
     @Test
     public void testMarkAsDone() {
-        Task task = new Task("Sample Task", Task.Type.TODO);
+        Task task = new Task("Sample Task", TODO);
         assertFalse(task.isDone);
         task.markAsDone();
         assertTrue(task.isDone);

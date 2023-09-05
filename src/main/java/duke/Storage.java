@@ -1,25 +1,23 @@
 package duke;
 
-import duke.task.Event;
-import duke.task.Todo;
-import duke.task.Deadline;
-
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.BufferedReader;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import java.util.ArrayList;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
 
 /**
  * Handles saving and loading tasks to and from a file.
  */
 public class Storage {
-    static String filePath = "./data/duke.txt";
+    private static String filePath = "./data/duke.txt";
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -31,6 +29,7 @@ public class Storage {
     }
 
     // Solution below adapted and inspired by https://chat.openai.com/share/7f037351-3be6-4105-b138-77f68d428c84
+
     /**
      * Saves a list of tasks to the file specified by the file path.
      *
@@ -54,18 +53,18 @@ public class Storage {
 
                 if (taskType.equals("Event")) {
                     Event event = (Event) task;
-                    LocalDateTime fromDateTime = event.fromDateAndTime;
-                    LocalDateTime toDateTime = event.toDateAndTime;
+                    LocalDateTime fromDateTime = event.fromDateAndTime();
+                    LocalDateTime toDateTime = event.toDateAndTime();
                     String formattedFromDateTime = fromDateTime.format(DateTimeFormatter.ofPattern("MMMM d yyyy ha"));
                     String formattedToDateTime = toDateTime.format(DateTimeFormatter.ofPattern("MMMM d yyyy ha"));
-                    writer.write("E " + "| " + statusIcon + " | " + event.description +
-                            " | " + formattedFromDateTime + " - " + formattedToDateTime + "\n");
+                    writer.write("E " + "| " + statusIcon + " | " + event.description
+                        + " | " + formattedFromDateTime + " - " + formattedToDateTime + "\n");
                 } else if (taskType.equals("Deadline")) {
                     Deadline deadline = (Deadline) task;
-                    LocalDateTime dateTime = deadline.DateAndTime;
+                    LocalDateTime dateTime = deadline.getDateAndTime();
                     String formattedDateTime = dateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mma"));
                     writer.write("D " + "| " + statusIcon + " | " + deadline.description
-                            + " | " + formattedDateTime + "\n");
+                        + " | " + formattedDateTime + "\n");
                 } else if (taskType.equals("Todo")) {
                     Todo todo = (Todo) task;
                     writer.write("T " + "| " + statusIcon + " | " + todo.description + "\n");
@@ -76,9 +75,11 @@ public class Storage {
         }
     }
 
-    // Solution adapted and inspired by https://stackoverflow.com/questions/3090761/how-to-create-a-new-file-together-with-missing-parent-directories
+    // Solution adapted and inspired by
+    // https://stackoverflow.com/questions/3090761/how-to-create-a-new-file-together-with-missing-parent-directories
     // Solution below adapted and inspired by https://www.guru99.com/buffered-reader-in-java.html
     // Solution below adapted and inspired by https://chat.openai.com/share/4f6c03e6-99d5-47c0-8887-1762a36b15fb
+
     /**
      * Loads tasks from the file specified by the file path.
      *
@@ -94,7 +95,8 @@ public class Storage {
                 // Handling data file to be in a specific folder
                 if (file.getParentFile() != null) {
                     // Solution below adapted from
-                    // https://www.oreilly.com/library/view/java-cookbook/0596001703/ch10s10.html#:~:text=Of%20the%20two%20methods%20used,%2Fian%2Fbin%22).
+                    // https://www.oreilly.com/library/view/java-cookbook/0596001703/ch10s10.html#:~:
+                    // text=Of%20the%20two%20methods%20used,%2Fian%2Fbin%22).
                     file.getParentFile().mkdirs();
                 }
                 file.createNewFile();
@@ -118,23 +120,27 @@ public class Storage {
 
                         switch (taskType) {
 
-                            case "E":
-                                String[] eventParts = taskOtherInfo.trim().split("-");
-                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d yyyy ha");
-                                LocalDateTime parsedFromStartDateTime = LocalDateTime.parse(eventParts[0].trim(), formatter);
-                                LocalDateTime parsedFromEndDateTime = LocalDateTime.parse(eventParts[1].trim(), formatter);
-                                if (eventParts.length == 2) {
-                                    task = new Event(taskDescription, parsedFromStartDateTime, parsedFromEndDateTime);
-                                }
-                                break;
-                            case "D":
-                                DateTimeFormatter formatter_d = DateTimeFormatter.ofPattern("dd MMM yyyy h:mma");
-                                LocalDateTime dateTime_d = LocalDateTime.parse(taskOtherInfo, formatter_d);
-                                task = new Deadline(taskDescription, dateTime_d);
-                                break;
-                            case "T":
-                                task = new Todo(taskDescription);
-                                break;
+                        case "E":
+                            String[] eventParts = taskOtherInfo.trim().split("-");
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d yyyy ha");
+                            LocalDateTime parsedFromStartDateTime = LocalDateTime.parse(eventParts[0].trim(),
+                                formatter);
+                            LocalDateTime parsedFromEndDateTime = LocalDateTime.parse(eventParts[1].trim(),
+                                formatter);
+                            if (eventParts.length == 2) {
+                                task = new Event(taskDescription, parsedFromStartDateTime, parsedFromEndDateTime);
+                            }
+                            break;
+                        case "D":
+                            DateTimeFormatter formatterD = DateTimeFormatter.ofPattern("dd MMM yyyy h:mma");
+                            LocalDateTime dateTimeD = LocalDateTime.parse(taskOtherInfo, formatterD);
+                            task = new Deadline(taskDescription, dateTimeD);
+                            break;
+                        case "T":
+                            task = new Todo(taskDescription);
+                            break;
+                        default:
+                            task = new Task(taskDescription, Task.Type.OTHERS);
                         }
 
                         if (task != null) {

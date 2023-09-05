@@ -2,9 +2,10 @@ package duke.command;
 
 import duke.Command;
 import duke.Storage;
+import duke.Task;
 import duke.TaskList;
 import duke.Ui;
-import duke.Task;
+
 
 /**
  * Represents a command to mark a task as done in the task list.
