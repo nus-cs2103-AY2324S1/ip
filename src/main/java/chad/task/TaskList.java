@@ -1,6 +1,7 @@
 package chad.task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 import java.time.LocalDateTime;
 
 /**
@@ -121,4 +122,21 @@ public class TaskList {
     public void setTasks(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
+
+    public String findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = (ArrayList<Task>) tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+
+        if (matchingTasks.isEmpty()) {
+            return "No tasks found with that keyword.";
+        }
+
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            sb.append((i + 1) + "." + matchingTasks.get(i).toString()).append("\n");
+        }
+        return sb.toString();
+    }
+
 }

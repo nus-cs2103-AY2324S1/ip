@@ -24,6 +24,7 @@ public class ChatEngine {
 
     /**
      * Constructs a new ChatEngine.
+     * 
      * @param filePath the path where tasks are stored.
      */
     public ChatEngine(String filePath) {
@@ -38,9 +39,10 @@ public class ChatEngine {
 
     /**
      * Constructs a new ChatEngine for testing.
+     * 
      * @param ioHandler mock io handler for testing.
-     * @param taskList mock task list for testing.
-     * @param filePath mock file path for testing.
+     * @param taskList  mock task list for testing.
+     * @param filePath  mock file path for testing.
      */
     ChatEngine(IOHandler ioHandler, TaskList taskList, String filePath) {
         this.ioHandler = ioHandler;
@@ -54,8 +56,9 @@ public class ChatEngine {
     public void start() {
         ioHandler.greet();
         boolean canContinueChat = true;
-        while(canContinueChat) {
-            String input = ioHandler.readInput();;
+        while (canContinueChat) {
+            String input = ioHandler.readInput();
+            ;
             try {
                 String[] parsedInput = Parser.parseInput(input);
                 canContinueChat = commandHandler(parsedInput);
@@ -68,6 +71,7 @@ public class ChatEngine {
 
     /**
      * Handles various commands parsed from the input.
+     * 
      * @param parsedInput the parsed input array.
      * @return true if chat should continue, false otherwise.
      * @throws ChadException if an invalid command or argument is encountered.
@@ -75,37 +79,41 @@ public class ChatEngine {
     boolean commandHandler(String[] parsedInput) throws ChadException {
         Parser.CommandType command = Parser.parseCommandType(parsedInput[0]);
         switch (command) {
-        case MARK:
-            handleMark(parsedInput);
-            break;
-        case UNMARK:
-            handleUnmark(parsedInput);
-            break;
-        case LIST:
-            handleList();
-            break;
-        case TODO:
-            handleTodo(parsedInput);
-            break;
-        case DEADLINE:
-            handleDeadline(parsedInput);
-            break;
-        case EVENT:
-            handleEvent(parsedInput);
-            break;
-        case DELETE:
-            handleDelete(parsedInput);
-            break;
-        case BYE:
-            return false;
-        default:
-            throw new ChadException.InvalidCommandException("Unknown command: " + parsedInput[0]);
+            case MARK:
+                handleMark(parsedInput);
+                break;
+            case UNMARK:
+                handleUnmark(parsedInput);
+                break;
+            case LIST:
+                handleList();
+                break;
+            case TODO:
+                handleTodo(parsedInput);
+                break;
+            case DEADLINE:
+                handleDeadline(parsedInput);
+                break;
+            case EVENT:
+                handleEvent(parsedInput);
+                break;
+            case DELETE:
+                handleDelete(parsedInput);
+                break;
+            case FIND:
+                handleFind(parsedInput);
+                break;
+            case BYE:
+                return false;
+            default:
+                throw new ChadException.InvalidCommandException("Unknown command: " + parsedInput[0]);
         }
         return true;
     }
 
     /**
      * Marks a task as done.
+     * 
      * @param parsedInput the parsed input array.
      * @throws ChadException if an invalid index is provided.
      */
@@ -118,6 +126,7 @@ public class ChatEngine {
 
     /**
      * Marks a task as not done.
+     * 
      * @param parsedInput the parsed input array.
      * @throws ChadException if an invalid index is provided.
      */
@@ -137,6 +146,7 @@ public class ChatEngine {
 
     /**
      * Adds a new ToDo task.
+     * 
      * @param parts the parsed input array containing the task description.
      */
     void handleTodo(String[] parts) {
@@ -147,6 +157,7 @@ public class ChatEngine {
 
     /**
      * Adds a new Deadline task.
+     * 
      * @param parts the parsed input array containing the task and deadline details.
      * @throws ChadException if the date format is incorrect.
      */
@@ -164,6 +175,7 @@ public class ChatEngine {
 
     /**
      * Adds a new Event task.
+     * 
      * @param parts the parsed input array containing the event and time details.
      * @throws ChadException if the date format is incorrect.
      */
@@ -182,13 +194,21 @@ public class ChatEngine {
 
     /**
      * Deletes a task.
-     * @param parts the parsed input array containing the index of the task to be deleted.
+     * 
+     * @param parts the parsed input array containing the index of the task to be
+     *              deleted.
      */
     void handleDelete(String[] parts) {
         int index = Integer.parseInt(parts[1]) - 1;
         String response = taskList.deleteTask(index);
         ioHandler.writeOutput(response);
         saveTasks();
+    }
+
+    void handleFind(String[] parsedInput) {
+        String keyword = parsedInput[1];
+        String matchingTasks = taskList.findTasks(keyword);
+        ioHandler.writeOutput(matchingTasks);
     }
 
     /**
