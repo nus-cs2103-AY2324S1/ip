@@ -26,7 +26,7 @@ public class TaskList {
     }
 
     /**
-     * Lists out all the tasks.
+     * Lists out all the tasks into an output string.
      *
      * @return The output string.
      */
@@ -119,11 +119,6 @@ public class TaskList {
     }
 
     /**
-     * Loads all tasks from the data/duke.txt file.
-     * If the file does not exist, it will be created.
-     */
-
-    /**
      * Loads all tasks from storage.
      *
      * @throws InsufficientArgumentsException If there are not enough arguments to create tasks.
@@ -131,8 +126,7 @@ public class TaskList {
      * @throws StorageCreationException       If the storage file and directory creation failed.
      * @throws IOException                    If the storage file creation failed.
      */
-    public void loadTasks() throws InsufficientArgumentsException,
-            DateTimeParseException,
+    public void loadTasks() throws InsufficientArgumentsException, DateTimeParseException,
             StorageCreationException, IOException {
         List<Task> tasks = this.storage.readStorage();
         this.tasks.clear();

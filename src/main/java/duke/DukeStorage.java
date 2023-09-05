@@ -13,6 +13,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Represents the interface between the application and the storage file.
+ * Allows the application to read and write to a storage txt file.
+ */
 public class DukeStorage implements Storage {
     private static final String DIRECTORY_PATH = "data";
     private static final String FILE_PATH = "duke.txt";
@@ -74,6 +78,12 @@ public class DukeStorage implements Storage {
     }
 
 
+    /**
+     * Initialises the storage directory and file if they do not exist.
+     *
+     * @throws StorageCreationException       If the storage file and directory creation failed.
+     * @throws IOException                    If the storage file creation failed.
+     */
     private void initialiseStorage() throws IOException, StorageCreationException {
         String directoryPath = String.format("./%s", DIRECTORY_PATH);
         String storagePath = String.format("./%s/%s", DIRECTORY_PATH,
@@ -92,8 +102,7 @@ public class DukeStorage implements Storage {
                             Messages.FAILED_TO_CREATE_FILE_ERROR_MESSAGE);
                 }
             } catch (IOException e) {
-                throw new IOException(
-                        Messages.FAILED_TO_CREATE_FILE_ERROR_MESSAGE);
+                throw new IOException(Messages.FAILED_TO_CREATE_FILE_ERROR_MESSAGE);
             }
         }
     }

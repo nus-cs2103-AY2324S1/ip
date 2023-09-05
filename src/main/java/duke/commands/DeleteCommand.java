@@ -11,7 +11,7 @@ import java.io.IOException;
  */
 public class DeleteCommand implements Command {
     /**
-     * Deletes a task from the application.
+     * Deletes a task from the application's task list.
      *
      * @param input    The user input of the task to be deleted.
      * @param taskList The application's task list.

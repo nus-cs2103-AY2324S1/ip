@@ -19,13 +19,15 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents the Application object responsible for storing and executing
- * commands.
+ * Represents the Application object responsible for storing and executing commands.
  */
 public class Parser {
     public static final String OUTPUT_DATE_TIME_PATTERN = "d MMM yyyy, HHmm";
     public static final String STORAGE_DATE_TIME_PATTERN = "yyyy-MM-dd HHmm";
 
+    /**
+     * All supported date time formats for our application.
+     */
     private static final List<String> dateTimeFormats = Arrays.asList(
             "d/M/yyyy", "d/M/yyyy HHmm",
             "d/MM/yyyy", "d/MM/yyyy HHmm",
@@ -54,6 +56,12 @@ public class Parser {
         this.addCommand(new String[]{"bye", "exit", "leave", "quit"}, new ExitCommand());
     }
 
+    /**
+     * Parses a date time string to get a local date time object.
+     *
+     * @param dateTimeString The date time string to be parsed.
+     * @return The local date time object based on the string.
+     */
     public static LocalDateTime parseDate(String dateTimeString) {
         for (String format : dateTimeFormats) {
             try {
@@ -80,8 +88,7 @@ public class Parser {
      * @param taskType The string representing the task type.
      * @param input    The input string used for creating a new task.
      * @return The created task.
-     * @throws InsufficientArgumentsException If input is insufficient to
-     *                                        create task.
+     * @throws InsufficientArgumentsException If input is insufficient to create task.
      */
     public static Task createTask(String taskType, String input)
             throws InsufficientArgumentsException, DateTimeParseException {
@@ -120,8 +127,7 @@ public class Parser {
      * @param taskCode The char representing the task type.
      * @param input    The input string used for creating a new task.
      * @return The created task.
-     * @throws InsufficientArgumentsException If input is insufficient to
-     *                                        create task.
+     * @throws InsufficientArgumentsException If input is insufficient to create task.
      * @throws DateTimeParseException         If the date in storage is formatted wrongly.
      */
     public static Task parse(String taskCode, String input)
@@ -199,8 +205,7 @@ public class Parser {
      *
      * @param input         The input string used to create task.
      * @param parameterName The parameter name to be checked.
-     * @throws InsufficientArgumentsException If input is missing arguments
-     *                                        from task.
+     * @throws InsufficientArgumentsException If input is missing arguments from task.
      */
     private static void validateContainsArgument(String input,
                                                  String taskType,

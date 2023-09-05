@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 public class TaskListTest {
     /**
-     * Tests whether the task list appropriately lists tasks.
+     * Tests whether {@code listTasks} appropriately lists tasks.
      */
     @Test
     public void listTasks_tasksInList_success() {
@@ -35,7 +35,7 @@ public class TaskListTest {
     }
 
     /**
-     * Tests whether the task list appropriately handles no tasks.
+     * Tests whether {@code listTasks} appropriately handles no tasks.
      */
     @Test
     public void listTasks_emptyList_success() {
