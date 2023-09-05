@@ -1,14 +1,15 @@
 package main;
 
-import command.ByeCommand;
-import command.Command;
-import command.ListCommand;
-import command.MarkCommand;
-import command.UnmarkCommand;
-import command.ToDoCommand;
-import command.EventCommand;
-import command.DeadlineCommand;
-import command.DeleteCommand;
+import Command.ByeCommand;
+import Command.Command;
+import Command.ListCommand;
+import Command.MarkCommand;
+import Command.UnmarkCommand;
+import Command.ToDoCommand;
+import Command.EventCommand;
+import Command.DeadlineCommand;
+import Command.DeleteCommand;
+import Command.FindCommand;
 
 import exception.DukeException;
 
@@ -62,6 +63,9 @@ public class Parser {
                 Parser.testMarkAndDelete(fullCommand);
                 return new DeleteCommand(fullCommand);
 
+            } else if (Parser.isFind(fullCommand)) {
+                return new FindCommand(fullCommand);
+
             } else {
                 throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
@@ -98,6 +102,11 @@ public class Parser {
 
     private static boolean isDelete(String fullCommand) {
         return fullCommand.startsWith("delete");
+    }
+
+    public static boolean isFind(String fullCommand) {
+        String[] inputArray = fullCommand.split(" ");
+        return inputArray[0].equals("find");
     }
 
     private static void testToDo(String description) throws DukeException {

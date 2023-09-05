@@ -60,6 +60,28 @@ public class UI {
         this.printDivider();
     }
 
+    public void list(ArrayList<Task> taskArrayList, Boolean isMatchingList) {
+        this.printDivider();
+        if (taskArrayList.size() == 0) {
+            System.out.println("There are no matching tasks in your list.");
+        } else if (isMatchingList) {
+            System.out.println("Here are the " + taskArrayList.size() + " matching tasks in your list:");
+            for (int i = 0; i < taskArrayList.size(); i++) {
+                int index = i + 1;
+                Task t = taskArrayList.get(i);
+                System.out.println(index + "." + t.toString());
+            }
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < taskArrayList.size(); i++) {
+                int index = i + 1;
+                Task t = taskArrayList.get(i);
+                System.out.println(index + "." + t.toString());
+            }
+        }
+        this.printDivider();
+    }
+
     /**
      * Generates the bye message displayed in the terminal.
      */
