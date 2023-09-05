@@ -9,14 +9,22 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private ArrayList<Task> list;
+    private Storage storage;
     private Ui ui;
 
-    //case where there are no existing tasks in storage
-    public TaskList(ArrayList<Task> list, Ui ui) {
+    public TaskList(ArrayList<Task> list, Storage storage, Ui ui) {
         this.list = list;
+        this.storage = storage;
         this.ui = ui;
     }
 
+    /**
+     * Returns true if the input taskID is in the range [0, list.size() -1].
+     *
+     * @param taskID id to be checked
+     * @return true if the taskID is valid
+     * @throws InvalidTaskIDException if taskID is out of range
+     */
     public boolean isValidTaskID(int taskID) throws InvalidTaskIDException {
         if (taskID > this.list.size() - 1 || taskID < 0) {
             throw new InvalidTaskIDException();
@@ -24,6 +32,10 @@ public class TaskList {
         return true;
     }
 
+    /**
+     * Appends all the tasks into a string, and passes it to ui object
+     * for printing. If no tasks, calls ui.showNoTasks().
+     */
     public void listTasks() {
         if (list.size() == 0) {
             ui.showNoTasks();
@@ -38,32 +50,69 @@ public class TaskList {
         }
     }
 
-    public void addTask(Task task, Storage storage) {
+    /**
+     * Adds a task to the list. Calls storage.updateFile() to update the
+     * data file.
+     *
+     * @param task id of task to be added
+     */
+    public void addTask(Task task) {
         this.list.add(task);
-        storage.updateFile(this.list);
+        this.storage.updateFile(this.list);
         ui.showTaskAdded(task, this.getListSize());
     }
 
-    //might remove returning of boolean!! see first
-    public void deleteTask(int taskID, Storage storage) throws InvalidTaskIDException {
+    /**
+     * Deletes a task from the list if the input taskID is valid.
+     * Calls storage.updateFile() to update the data file.
+     *
+     * @param taskID if of task to delete
+     * @throws InvalidTaskIDException if taskID is invalid
+     */
+    public void deleteTask(int taskID) throws InvalidTaskIDException {
         if (isValidTaskID(taskID)) {
             Task toRemove = list.get(taskID);
             list.remove(taskID);
-            storage.updateFile(this.list);
+            this.storage.updateFile(this.list);
             ui.showDeleteTask(toRemove, this.getListSize());
         }
     }
 
-    public void markTask(int taskID, Storage storage) {
-        this.list.get(taskID).mark(ui);
-        storage.updateFile(this.list);
+    /**
+     * Marks a task as completed, and updates storage.
+     *
+     * @param taskID id of task to mark
+     */
+    public void markTask(int taskID) {
+        Task task = this.list.get(taskID);
+        if (task.mark()) {
+            ui.showMarkTask(false, task);
+            this.storage.updateFile(this.list);
+        } else {
+            ui.showMarkTask(true, task);
+        }
     }
 
-    public void unmarkTask(int taskID, Storage storage) {
-        this.list.get(taskID).unmark(ui);
-        storage.updateFile(this.list);
+    /**
+     * Marks a task as uncompleted, and updates storage.
+     *
+     * @param taskID id of task to unmark
+     */
+    public void unmarkTask(int taskID) {
+        Task task = this.list.get(taskID);
+        if (task.unmark()) {
+            ui.showUnmarkTask(true, task);
+            this.storage.updateFile(this.list);
+        } else {
+            ui.showUnmarkTask(false, task);
+        }
     }
 
+    /**
+     * Returns the size of the list.
+     *
+     * @return size of list
+     */
     public int getListSize() {
         return this.list.size();
     }
