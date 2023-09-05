@@ -8,9 +8,9 @@ import nobita.task.TaskList;
 import nobita.ui.Ui;
 
 /**
- *  Class that encapsulates a robot application name Nobita.
+ * Class that encapsulates a robot application name Nobita.
  *
- *  @author Zheng Chenglong
+ * @author Zheng Chenglong
  */
 public class Nobita {
 

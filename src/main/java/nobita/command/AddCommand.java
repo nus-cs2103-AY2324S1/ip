@@ -10,9 +10,9 @@ import nobita.task.ToDo;
 import nobita.ui.Ui;
 
 /**
- *  Class that encapsulates AddCommand which extends from Command.
+ * Class that encapsulates AddCommand which extends from Command.
  *
- *  @author Zheng Chenglong
+ * @author Zheng Chenglong
  *
  */
 public class AddCommand extends Command {
@@ -51,11 +51,11 @@ public class AddCommand extends Command {
     }
 
     /**
-     *  Command that executes the task to be added.
+     * Command that executes the task to be added.
      *
-     *  @param tasks Contains all current tasks.
-     *  @param ui Ui for interacting with user.
-     *  @param storage Storage that the data file is stored in.
+     * @param tasks Contains all current tasks.
+     * @param ui Ui for interacting with user.
+     * @param storage Storage that the data file is stored in.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

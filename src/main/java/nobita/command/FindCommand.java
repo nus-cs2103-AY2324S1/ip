@@ -4,6 +4,12 @@ import nobita.storage.Storage;
 import nobita.task.TaskList;
 import nobita.ui.Ui;
 
+/**
+ * Class that encapsulates FindCommand which extends from Command.
+ *
+ * @author Zheng Chenglong
+ *
+ */
 public class FindCommand extends Command {
 
     /** The query string to search for */
@@ -11,6 +17,7 @@ public class FindCommand extends Command {
 
     /**
      * Constructs FindCommand with a query String.
+     *
      * @param query The item to search  for.
      */
     public FindCommand(String query) {

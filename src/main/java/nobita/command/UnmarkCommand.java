@@ -27,12 +27,12 @@ public class UnmarkCommand extends Command{
     }
 
     /**
-     *  Command that executes the unmarking of task.
+     * Command that executes the unmarking of task.
      *
-     *  @param tasks Contains all current tasks.
-     *  @param ui Ui for interacting with user.
-     *  @param storage Storage that the data file is stored in.
-     *  @throws NobitaException If the task is not inside tasklist.
+     * @param tasks Contains all current tasks.
+     * @param ui Ui for interacting with user.
+     * @param storage Storage that the data file is stored in.
+     * @throws NobitaException If the task is not inside tasklist.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NobitaException {

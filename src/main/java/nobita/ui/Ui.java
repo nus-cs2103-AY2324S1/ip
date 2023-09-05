@@ -6,10 +6,10 @@ import nobita.task.TaskList;
 import java.util.Scanner;
 
 /**
- *  Class that encapsulates Ui.
- *  Ui is used to display message to the user.
+ * Class that encapsulates Ui.
+ * Ui is used to display message to the user.
  *
- *  @author Zheng Chenglong
+ * @author Zheng Chenglong
  */
 public class Ui {
 
@@ -62,6 +62,11 @@ public class Ui {
         System.out.println(message);
     }
 
+    /**
+     * Print the content of the TaskList.
+     *
+     * @param list The list of tasks to be printed.
+     */
     public void showList(TaskList list) {
         if (list.getTotalTask() < 1) {
             System.out.println("There are no tasks to be shown.");
