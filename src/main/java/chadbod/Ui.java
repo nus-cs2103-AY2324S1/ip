@@ -1,7 +1,7 @@
 package chadbod;
 
 /**
- * The Ui class handles user interface interactions and displays messages to the user.
+ * The Ui class handles user interface interactions by displaying messages to the user.
  */
 public class Ui {
     /**
@@ -44,7 +44,7 @@ public class Ui {
     }
 
     /**
-     * Prints a message indicating that a task has been added.
+     * Prints a message indicating that a given task has been added as well as the new task count.
      *
      * @param newTask   The task that has been added.
      * @param taskCount The total number of tasks in the list after adding the new task.
@@ -56,7 +56,7 @@ public class Ui {
     }
 
     /**
-     * Prints a message indicating that a task has been removed.
+     * Prints a message indicating that a given task has been removed as well as the new task count.
      *
      * @param removedTask The task that has been removed.
      * @param taskCount   The total number of tasks in the list after removing the task.
@@ -68,7 +68,7 @@ public class Ui {
     }
 
     /**
-     * Prints the list of tasks to the console.
+     * Prints the given list of tasks to the console.
      *
      * @param tasks The list of tasks to be printed.
      */

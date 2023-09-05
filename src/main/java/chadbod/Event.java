@@ -3,11 +3,19 @@ package chadbod;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event task in the ChadBod application, extending the Task class.
+ */
 public class Event extends Task {
 
     protected LocalDateTime from;
     protected LocalDateTime to;
 
+    /**
+     * Constructor for the Event class.
+     *
+     * @param description the description of the event task.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;

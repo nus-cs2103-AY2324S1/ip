@@ -2,10 +2,18 @@ package chadbod;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a deadline task in the ChadBod application, extending the Task class.
+ */
 public class Deadline extends Task {
 
     protected LocalDateTime by;
 
+    /**
+     * Constructor for the Deadline class.
+     *
+     * @param description the description of the deadline task.
+     */
     public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;

@@ -1,15 +1,15 @@
 package chadbod;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.BufferedWriter;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
 
 /**
- * Handles the saving and loading of tasks to/from a file.
+ * The Storage class handles the saving and loading of tasks to/from a file.
  */
 public class Storage {
 
