@@ -1,8 +1,8 @@
 package duke.ui;
 
 import duke.exception.DukeException;
-import duke.task.TaskList;
 import duke.task.Task;
+import duke.task.TaskList;
 
 /**
  * Represents the user interface of the Duke chatbot.

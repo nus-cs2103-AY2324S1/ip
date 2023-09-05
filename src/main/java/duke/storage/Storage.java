@@ -1,13 +1,13 @@
 package duke.storage;
 
-import duke.exception.DukeException;
-import duke.task.Task;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.exception.DukeException;
+import duke.task.Task;
 
 /**
  * Represents the storage component of the Duke chatbot.

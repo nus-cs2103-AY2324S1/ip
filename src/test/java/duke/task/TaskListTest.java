@@ -3,11 +3,12 @@ package duke.task;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import duke.exception.DukeException;
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import duke.exception.DukeException;
 
 /**
  * A JUnit test class for the TaskList class.
