@@ -1,21 +1,21 @@
 package duke.components;
 
-import duke.exceptions.DukeException;
-
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+
+import duke.exceptions.DukeException;
 
 /**
  * Class handling interactions with users
  */
 public class Ui {
-    static final String LOGO = "        _______ _                _____ \n" +
-            "     /\\|__   __| |        /\\    / ____|\n" +
-            "    /  \\  | |  | |       /  \\  | (___  \n" +
-            "   / /\\ \\ | |  | |      / /\\ \\  \\___ \\ \n" +
-            "  / ____ \\| |  | |____ / ____ \\ ____) |\n" +
-            " /_/    \\_\\_|  |______/_/    \\_\\_____/ \n";
+    static final String LOGO = "        _______ _                _____ \n"
+            + "     /\\|__   __| |        /\\    / ____|\n"
+            + "    /  \\  | |  | |       /  \\  | (___  \n"
+            + "   / /\\ \\ | |  | |      / /\\ \\  \\___ \\ \n"
+            + "  / ____ \\| |  | |____ / ____ \\ ____) |\n"
+            + " /_/    \\_\\_|  |______/_/    \\_\\_____/ \n";
     // Chatbot name
     static final String NAME = "Atlas";
     final BufferedReader inputReader;

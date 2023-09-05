@@ -1,12 +1,12 @@
 package duke.commands;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import duke.components.Storage;
 import duke.components.TaskList;
 import duke.components.Ui;
 import duke.tasks.Task;
-
-import java.time.LocalDate;
-import java.util.List;
 
 /**
  * Command to list all events that occur on date

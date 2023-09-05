@@ -1,10 +1,10 @@
 package duke.components;
 
-import duke.tasks.Task;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import duke.tasks.Task;
 
 /**
  * List that contains tasks and methods to interact with the tasks

@@ -3,7 +3,7 @@ package duke.tasks;
 /**
  * Todo is a Task with no dates
  */
-public class Todo extends Task{
+public class Todo extends Task {
     /**
      * Constructs a new Todo object
      * @param name Name of Todo

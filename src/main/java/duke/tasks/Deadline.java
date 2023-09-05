@@ -1,14 +1,14 @@
 package duke.tasks;
 
-import duke.components.Parser;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import duke.components.Parser;
 
 /**
  * Deadline is a task with a deadline date.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     protected LocalDateTime by;
 

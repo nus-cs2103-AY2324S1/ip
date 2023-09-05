@@ -9,6 +9,9 @@ import duke.components.Ui;
  */
 public abstract class Command {
 
+    /**
+     * Types of commands: TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, DATE, FIND
+     */
     public enum Type {
         TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, DATE, FIND
     }
