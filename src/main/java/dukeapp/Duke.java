@@ -1,28 +1,41 @@
 package dukeapp;
 
+import dukeapp.exceptions.InsufficientArgumentsException;
+import dukeapp.exceptions.StorageCreationException;
 import dukeapp.exceptions.UnknownCommandException;
 
-import java.util.Scanner;
+import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 /**
  * Serves as the entry point to run the application.
  */
 public class Duke {
     public static void main(String[] args) {
-        DukeApp app = new DukeApp();
+        Ui ui = new Ui();
+        TaskList taskList = new TaskList();
+        Parser app = new Parser();
+
+        // Load tasks from storage
+        try {
+            Storage storage = new Storage();
+            taskList.setStorage(storage);
+            taskList.loadTasks();
+        } catch (IOException | InsufficientArgumentsException |
+                 DateTimeParseException | StorageCreationException e) {
+            ui.displayError(e.getMessage());
+        }
 
         // Greet the user
-        System.out.println(DukeConstants.GREETING_MESSAGE);
-
-        Scanner scanner = new Scanner(System.in);
+        ui.displayMessage(Messages.GREETING_MESSAGE, true, true);
 
         // Read user input until program exits
         while (true) {
-            String input = scanner.nextLine();
+            String input = ui.getInput();
             try {
-                app.executeCommand(input);
+                app.executeCommand(input, taskList, ui);
             } catch (UnknownCommandException e) {
-                System.out.println(e.getMessage());
+                ui.displayError(e.getMessage());
             }
         }
     }

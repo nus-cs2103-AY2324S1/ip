@@ -1,25 +1,23 @@
 package dukeapp.commands;
 
-import dukeapp.DukeState;
+import dukeapp.TaskList;
+import dukeapp.Ui;
 
 /**
  * Lists items from application state.
  */
 public class ListCommand implements Command {
-    private final DukeState state;
-
-    public ListCommand(DukeState state) {
-        this.state = state;
-    }
-
     /**
      * Lists all the items in the application state.
      *
-     * @param input The user input.
+     * @param input    The user input.
+     * @param taskList The application's task list.
+     * @param ui       The UI of the application.
      */
     @Override
-    public void run(String input) {
-        this.state.listTasks();
+    public void run(String input, TaskList taskList, Ui ui) {
+        String output = taskList.listTasks();
+        ui.displayMessage(output);
     }
 }
 
