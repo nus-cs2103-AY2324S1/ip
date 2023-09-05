@@ -112,7 +112,6 @@ public class TaskList {
      */
     public TaskList findKeyword(String str) {
         TaskList matchedList = new TaskList();
-        System.out.println("here");
 
         for (int i = 0; i < task.size(); i ++) {
             if (this.task.get(i).isMatch(str)) {
