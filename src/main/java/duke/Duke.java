@@ -21,7 +21,7 @@ public class Duke {
     /**
      * Duke constructor initializes all required fields such as Ui, Storage and TaskList
      */
-    public Duke(String filePath) {
+    public Duke() {
         ui = new Ui();
         storage = new Storage("duke.txt", "data");
         tasks = new TaskList();
@@ -51,13 +51,21 @@ public class Duke {
     }
 
     /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
+
+    /**
      * Entry point of the Duke application.
      * Creates a new instance of Duke and starts the application.
      *
      * @param args Command-line arguments (unused in this context).
      */
     public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+        new Duke().run();
     }
 }
 
