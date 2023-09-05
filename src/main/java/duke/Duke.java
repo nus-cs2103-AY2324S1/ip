@@ -64,10 +64,6 @@ public class Duke {
 
 
     public static void main(String[] args) {
-//        bob.ui.printStart();
-//        bob.run();
-//        bob.ui.printEnd();
         Application.launch(Main.class, args);
-
     }
 }
