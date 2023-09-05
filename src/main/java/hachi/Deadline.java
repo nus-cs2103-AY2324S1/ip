@@ -3,8 +3,19 @@ package hachi;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a Deadline object, extending the Task object.
+ * Includes an additional field to track the deadline.
+ * Overrides its representations in storage and in string format.
+ */
 public class Deadline extends Task {
     private LocalDate deadline;
+
+    /**
+     * Constructor for the Deadline object.
+     * @param taskName Name of the task.
+     * @param deadline Deadline of the task.
+     */
     public Deadline(String taskName, LocalDate deadline) {
         super(taskName);
         this.deadline = deadline;

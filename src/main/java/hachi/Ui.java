@@ -4,6 +4,9 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+/**
+ * Handles all interaction with the user on the UI front.
+ */
 public class Ui {
 
     private static String name = "Hachi";
@@ -12,10 +15,18 @@ public class Ui {
 
     private final PrintStream out;
 
+    /**
+     * Overridden constructor that uses the default input and output from the system.
+     */
     public Ui() {
         this(System.in, System.out);
     }
 
+    /**
+     * Overridden constructor that initialises the input and output.
+     * @param in Input of UI.
+     * @param out Output of UI.
+     */
     public Ui(InputStream in, PrintStream out) {
         this.in = new Scanner(in);
         this.out = out;
@@ -68,12 +79,16 @@ public class Ui {
     }
 
     /**
-     * Prints out the error message of the exception
+     * Prints out the error message of the exception.
      */
     public void showError(Exception e) {
         System.out.println(e.getMessage());
     }
 
+    /**
+     * Shows a message in the UI along with decorative lines.
+     * @param msg The message to be shown in the UI.
+     */
     public void showMessage(String msg) {
         showLine();
         out.println(msg);
