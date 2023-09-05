@@ -1,11 +1,61 @@
 package duke.utility;
 
 import duke.DukeException;
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
 
 /**
  * A utility class for parsing and validating user commands in the Duke application.
  */
 public class Parser {
+
+    /**
+     * Handles the user input and performs corresponding actions.
+     *
+     * @param input The user's input command.
+     */
+    public static Command handleInput(String input, Ui ui) {
+        String[] inputArr = input.split(" ");
+        String command = inputArr[0];
+
+        try {
+            switch (command) {
+            case "list":
+                return new ListCommand();
+            case "mark":
+                int markTaskNumber = Parser.parseInt(inputArr[1]);
+                return new MarkCommand(markTaskNumber);
+            case "unmark":
+                int unmarkTaskNumber = Parser.parseInt(inputArr[1]);
+                return new UnmarkCommand(unmarkTaskNumber);
+            case "todo":
+                String todoDescription = Parser.validateToDoCommand(input);
+                return new AddCommand(todoDescription);
+            case "deadline":
+                String deadlineDescription = Parser.validateDeadlineCommand(input);
+                return new AddCommand(deadlineDescription);
+            case "event":
+                String eventDescription = Parser.validateEventCommand(input);
+                return new AddCommand(eventDescription);
+            case "delete":
+                int deleteTaskNumber = Parser.parseInt(inputArr[1]);
+                return new DeleteCommand(deleteTaskNumber);
+            case "find":
+                String keyword = input.replace("find", "").trim();
+                return new FindCommand(keyword);
+            default:
+                throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+        } catch (DukeException e) {
+            ui.formatPrintMessage(e.getMessage());
+        }
+        return null;
+    }
 
     /**
      * Validates and extracts the description from a todo command.

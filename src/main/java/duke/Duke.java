@@ -1,5 +1,6 @@
 package duke;
 
+import duke.command.Command;
 import duke.task.TaskList;
 import duke.utility.Parser;
 import duke.utility.Storage;
@@ -41,64 +42,17 @@ public class Duke {
     }
 
     /**
-     * Handles the user input and performs corresponding actions.
-     *
-     * @param input The user's input command.
-     */
-    public void handleInput(String input) {
-        String[] inputArr = input.split(" ");
-        String command = inputArr[0];
-
-        try {
-            switch (command) {
-            case "list":
-                this.taskList.showAllTasks(this.ui);
-                break;
-            case "mark":
-                int markTaskNumber = Parser.parseInt(inputArr[1]);
-                this.taskList.markTaskAsDone(markTaskNumber, this.storage, this.ui);
-                break;
-            case "unmark":
-                int unmarkTaskNumber = Parser.parseInt(inputArr[1]);
-                this.taskList.unmarkTaskAsDone(unmarkTaskNumber, this.storage, this.ui);
-                break;
-            case "todo":
-                String todoDescription = Parser.validateToDoCommand(input);
-                this.taskList.addTask(todoDescription, this.storage, this.ui);
-                break;
-            case "deadline":
-                String deadlineDescription = Parser.validateDeadlineCommand(input);
-                this.taskList.addTask(deadlineDescription, this.storage, this.ui);
-                break;
-            case "event":
-                String eventDescription = Parser.validateEventCommand(input);
-                this.taskList.addTask(eventDescription, this.storage, this.ui);
-                break;
-            case "delete":
-                int deleteTaskNumber = Parser.parseInt(inputArr[1]);
-                this.taskList.deleteTask(deleteTaskNumber, this.storage, this.ui);
-                break;
-            case "find":
-                String keyword = input.replace("find", "").trim();
-                this.taskList.findTasks(keyword, this.ui);
-                break;
-            default:
-                throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-            }
-        } catch (DukeException e) {
-            ui.formatPrintMessage(e.getMessage());
-        }
-    }
-
-    /**
      * Runs the Duke application, handling user input and commands.
      */
     public void run() {
         ui.greet(this.name);
-        String command = ui.readCommand();
-        while (!command.equals("bye")) {
-            handleInput(command);
-            command = ui.readCommand();
+        String input = ui.readCommand();
+        while (!input.equals("bye")) {
+            Command command = Parser.handleInput(input, this.ui);
+            if (command != null) {
+                command.execute(this.taskList, this.storage, this.ui);
+            }
+            input = ui.readCommand();
         }
         ui.exit();
     }
