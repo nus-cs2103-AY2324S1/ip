@@ -20,14 +20,17 @@ import smolbrain.task.Task;
 public class Storage {
 
     private String filePath;
+    private Ui ui;
 
     /**
      * Creates a storage object.
      *
      * @param filePath Filepath of the save file.
+     * @param ui Ui object used for this application.
      */
-    public Storage(String filePath) {
+    public Storage(String filePath, Ui ui) {
         this.filePath = filePath;
+        this.ui = ui;
     }
 
     /**
@@ -103,14 +106,14 @@ public class Storage {
                     }
                 } catch (InvalidNumberException | InvalidRangeException | MissingTimeException
                          | InvalidDateTimeException | MissingDescriptionException e) {
-                    new Ui().showError(e);
+                    ui.showError(e);
                 }
             }
         } catch (FileNotFoundException e) {
             try {
                 f.createNewFile();
             } catch (IOException e1) {
-                new Ui().showError(e1);
+                ui.showError(e1);
             }
         }
         return tasklist;

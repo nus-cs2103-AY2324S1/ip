@@ -45,13 +45,4 @@ public class AddCommand implements Command {
         tasks.updateTasks(storage);
     }
 
-    /**
-     * Indicates if this command causes chatbot to exit.
-     *
-     * @return Boolean value if this command exits the chatbot.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

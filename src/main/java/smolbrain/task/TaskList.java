@@ -12,14 +12,17 @@ import smolbrain.Ui;
 public class TaskList {
 
     private ArrayList<Task> tasklist;
+    private Ui ui;
 
     /**
      * Creates a tasklist with the given ArrayList of tasks.
      *
      * @param tasklist Tasklist using given ArrayList.
+     * @param ui Ui object used for this application.
      */
-    public TaskList(ArrayList<Task> tasklist) {
+    public TaskList(ArrayList<Task> tasklist, Ui ui) {
         this.tasklist = tasklist;
+        this.ui = ui;
     }
 
     /**
@@ -69,9 +72,11 @@ public class TaskList {
      * @param ui Ui manager of chatbot.
      */
     public void displayTasks(Ui ui) {
+        String message = "Here are the tasks in your list: \n";
         for (int i = 0; i < tasklist.size(); i++) {
-            ui.showMessage((i + 1) + ". " + tasklist.get(i));
+            message += (i + 1) + ". " + tasklist.get(i) + "\n";
         }
+        ui.showMessage(message);
     }
 
     /**
@@ -102,7 +107,7 @@ public class TaskList {
                 }
             }
         } catch (IOException e) {
-            new Ui().showError(e);
+            ui.showError(e);
         }
     }
 

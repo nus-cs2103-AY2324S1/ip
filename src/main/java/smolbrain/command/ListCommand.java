@@ -27,18 +27,7 @@ public class ListCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showMessage("Here are the tasks in your list: ");
         tasks.displayTasks(ui);
-    }
-
-    /**
-     * Indicates if this command causes chatbot to exit.
-     *
-     * @return Boolean value if this command exits the chatbot.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
     }
 
     /**

@@ -32,16 +32,6 @@ public class InvalidCommand implements Command {
     }
 
     /**
-     * Indicates if this command causes chatbot to exit.
-     *
-     * @return Boolean value if this command exits the chatbot.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    /**
      * Sets the flag that chatbot is loading to true.
      */
     @Override

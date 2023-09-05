@@ -1,5 +1,6 @@
 package smolbrain.command;
 
+import javafx.application.Platform;
 import smolbrain.Storage;
 import smolbrain.Ui;
 import smolbrain.task.TaskList;
@@ -15,7 +16,6 @@ public class ExitCommand implements Command {
      * Creates an exit command.
      */
     public ExitCommand() {
-
     }
 
     /**
@@ -28,16 +28,7 @@ public class ExitCommand implements Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showMessage("Bye. Hope to see you again soon!");
-    }
-
-    /**
-     * Indicates if this command causes chatbot to exit.
-     *
-     * @return Boolean value if this command exits the chatbot.
-     */
-    @Override
-    public boolean isExit() {
-        return true;
+        Platform.exit();
     }
 
     /**

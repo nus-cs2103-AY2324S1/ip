@@ -24,42 +24,34 @@ public class Smolbrain {
      * Creates a smolbrain object.
      *
      * @param filePath Filepath of the save file.
+     * @param mainwindow MainWindow object for this application.
      */
-    public Smolbrain(String filePath) {
-        storage = new Storage(filePath);
-        ui = new Ui();
-        tasks = new TaskList(storage.load());
+    public Smolbrain(String filePath, MainWindow mainwindow) {
+        ui = new Ui(mainwindow);
+        storage = new Storage(filePath, ui);
+        tasks = new TaskList(storage.load(), ui);
+    }
+
+    /**
+     * Processes the given input string to generate and execute commands.
+     *
+     * @param input Input string by user.
+     */
+    public void process(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+        } catch (InvalidRangeException | MissingDescriptionException | MissingTimeException
+                 | InvalidNumberException | InvalidDateTimeException | MissingKeywordException e) {
+            ui.showError(e);
+        }
     }
 
     /**
      * Runs the smolbrain chatbot.
      */
     public void run() {
-
         ui.showWelcome();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String input = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(input);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (InvalidRangeException | MissingDescriptionException | MissingTimeException
-                     | InvalidNumberException | InvalidDateTimeException | MissingKeywordException e) {
-                ui.showError(e);
-            }
-            ui.showLine();
-        }
     }
 
-    /**
-     * Creates a new Smolbrain chatbot object with specified save file path and runs the chatbot.
-     *
-     * @param args User inputs for commands.
-     */
-    public static void main(String[] args) {
-        new Smolbrain("data.txt").run();
-    }
 }
