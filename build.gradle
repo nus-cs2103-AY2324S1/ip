@@ -14,7 +14,7 @@ dependencies {
 }
 
 test {
-    useJUnitPlatform()
+     useJUnitPlatform()
 
     testLogging {
         events "passed", "skipped", "failed"
@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("Duke")
 }
 
 shadowJar {
