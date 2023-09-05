@@ -5,6 +5,7 @@ public class Event extends Task {
 
     private String description1;
     private String description2;
+    private String addMessage = "Roger that. Preparations will be underway.";
 
     LocalDateTime startDate;
     LocalDateTime endDate;
@@ -30,6 +31,10 @@ public class Event extends Task {
                 ? endDate.format(DateTimeFormatter.ofPattern("hh':'mma',' d MMM uuuu',' eee"))
                 : description2;
         return "[E]" + super.toString() + " (from: " + detail1 + " to: " + detail2 + ")";
+    }
+
+    public String getAddMessage() {
+        return addMessage;
     }
 
 }
