@@ -11,10 +11,20 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+/**
+ * Handles the storage and loading of the text file.
+ */
 public class Storage {
 
     private String filepath;
     private TaskList tasks;
+
+    /**
+     * Constructor for storage.
+     *
+     * @param filepath the filepath of the file that will be used for storage
+     * @param tasks the TaskList that will be used
+     */
 
     public Storage(String filepath, TaskList tasks) {
         this.filepath = filepath;
@@ -22,6 +32,11 @@ public class Storage {
     }
 
 
+    /**
+     * Creates the file and loads tasks from the file to the taskList.
+     *
+     * @throws IOException
+     */
 
     public void saveTasks() throws IOException {
         try {
@@ -62,6 +77,13 @@ public class Storage {
             }
         }
     }
+
+    /**
+     * Writes the data from the tasklist into the file.
+     *
+     * @param tasks TaskList being used to store the data
+     * @throws IOException
+     */
 
     public void writeTasksToFile(TaskList tasks) throws IOException {
         FileWriter fileWriter = new FileWriter(filepath);

@@ -9,8 +9,26 @@ import duke.task.ToDo;
 import java.io.IOException;
 import java.time.DateTimeException;
 
+/**
+ *
+ * Interpretes and executes the inputs that the user passes in.
+ */
 public class Parser {
     public static Ui ui = new Ui();
+
+
+    /**
+     * Method that deals with user inputs beginning with mark, unmark,
+     * delete, list.
+     * It also deals with what happens when the user types in an unrecognised
+     * command.
+     *
+     * @param input what the user is typing in
+     * @param storage the storage that is being used
+     * @param tasks the TaskList that is being used to store the tasks
+     * @throws DukeException
+     * @throws NumberFormatException
+     */
 
     public static void userCommand(String input, Storage storage, TaskList tasks) throws DukeException, NumberFormatException {
         try {
@@ -52,6 +70,16 @@ public class Parser {
         }
     }
 
+
+    /**
+     * Deals with user commands to add a task to the tasklist.
+     * If the command is not one that adds a task, it will call the userCommand
+     * method.
+     *
+     * @param input what the user is typing in
+     * @param storage the storage that is being used
+     * @param tasks the TaskList that is being used to store the tasks
+     */
     public static void addToList(String input, Storage storage, TaskList tasks) {
         try {
             if (input.startsWith("todo")) {
@@ -104,6 +132,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Method to handle the various exceptions being thrown.
+     *
+     * @param e Exception that is being handled
+     */
     private static void handleException(Exception e) {
         if (e instanceof DukeException) {
             System.out.println(e.getMessage());

@@ -1,6 +1,10 @@
 package duke;
 
 import java.util.Scanner;
+
+/**
+ * Main class of the chatbot
+ */
 public class Duke {
 
     public static void main(String[] args) {
