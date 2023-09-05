@@ -11,7 +11,8 @@ public class ErrorMessages {
     public static final String INVALID_TASK_INDEX_ERROR = "OOPS!!! The input task index is not a number. "
             + "Please input a valid task index.";
 
-
+    public static final String INVALID_DATE_ERROR = "OOPS!!! The input date format is invalid. ";
+    public static final String INVALID_DATETIME_ERROR = "OOPS!!! The input date time format is invalid. ";
     public static final String INVALID_DEADLINE_FORMAT_ERROR = "OOPS!!! Please input the deadline task in the "
             + "correct format. Example: deadline Quiz 1 /by 01/09/2023 2030";
     public static final String INVALID_EVENT_FORMAT_ERROR = "OOPS!!! Please input the event task in the "

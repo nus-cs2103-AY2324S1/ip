@@ -68,52 +68,27 @@ public class Loader {
 
     private void interpretAndAddTask(TaskList tasks, String lineContent) throws UnknownCommandException {
         String[] taskData = lineContent.split("\\s\\|\\s");
-        String taskType = taskData[0];
         boolean isTaskCompleted = taskData[1].equals(IS_DONE_FLAG);
 
-        switch (taskType) {
+        switch (taskData[0]) {
             case TODO_FLAG:
-                readTodo(tasks, taskData[2], isTaskCompleted);
+                addTask(tasks, new Todo(taskData[2].strip()), isTaskCompleted);
                 break;
             case DEADLINE_FLAG:
-                readDeadline(tasks, taskData[2], isTaskCompleted, taskData[3]);
+                addTask(tasks, new Deadline(taskData[2].trim(), taskData[3]), isTaskCompleted);
                 break;
             case EVENT_FLAG:
-                readEvent(tasks, taskData[2], isTaskCompleted, taskData[3], taskData[4]);
+                addTask(tasks, new Event(taskData[2].strip(), taskData[3], taskData[4]), isTaskCompleted);
                 break;
             default:
-                String errorMessage = "OOPS!!! Unrecognized task type: ";
-                throw new UnknownCommandException( errorMessage + taskType);
+                throw new UnknownCommandException("OOPS!!! Unrecognized task type: " + taskData[0]);
         }
     }
 
-    public static void readTodo(TaskList list, String description, boolean isDone) {
-        Todo todo = new Todo(description.strip());
-
+    private static void addTask(TaskList list, Task task, boolean isDone) {
         if (isDone) {
-            todo.markAsDone();
+            task.markAsDone();
         }
-
-        list.addTask(todo);
-    }
-
-    public static void readDeadline(TaskList list, String description, boolean isDone, String date) {
-        Deadline deadline = new Deadline(description.trim(), date);
-
-        if (isDone) {
-            deadline.markAsDone();
-        }
-
-        list.addTask(deadline);
-    }
-
-    public static void readEvent(TaskList list, String description, boolean isDone, String from, String to) {
-        Event event = new Event(description.strip(), from, to);
-
-        if (isDone) {
-            event.markAsDone();
-        }
-
-        list.addTask(event);
+        list.addTask(task);
     }
 }
