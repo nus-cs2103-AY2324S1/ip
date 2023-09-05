@@ -5,11 +5,11 @@ package duke.task;
  *
  * @author marioalvaro
  */
-public class Todo extends Task{
+public class Todo extends Task {
     /**
      * the type Icon
      */
-    private final String TYPE = "T";
+    private static final String TYPE = "T";
 
     /**
      * constructor for duke.task.Event duke.task
@@ -25,7 +25,7 @@ public class Todo extends Task{
      */
     @Override
     public String toString() {
-        return "[" + this.TYPE + "]" + super.toString();
+        return "[" + TYPE + "]" + super.toString();
     }
 
     /**
@@ -34,6 +34,6 @@ public class Todo extends Task{
      */
     @Override
     public String toDataString() {
-        return this.TYPE + " / " + super.toDataString();
+        return TYPE + " / " + super.toDataString();
     }
 }

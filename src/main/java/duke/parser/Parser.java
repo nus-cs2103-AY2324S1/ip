@@ -1,13 +1,13 @@
 package duke.parser;
 
-import duke.command.Command;
 import duke.command.ByeCommand;
+import duke.command.Command;
 import duke.command.DeleteCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
-import duke.command.UnmarkCommand;
 import duke.command.TaskCommand;
-
+import duke.command.UnmarkCommand;
 import duke.exception.DukeNotTaskException;
 
 /**
@@ -43,34 +43,39 @@ public class Parser {
 
             String[] splitTask = input.split(" ", 2);
             switch (commandWord) {
-                case BYE:
-                    return new ByeCommand();
-                case DELETE:
-                    if (splitTask.length == 2) {
-                        return new DeleteCommand(splitTask);
-                    }
-                case LIST:
-                    return new ListCommand();
-                case MARK:
-                    if (splitTask.length == 2) {
-                        return new MarkCommand(splitTask);
-                    }
-                case UNMARK:
-                    if (splitTask.length == 2) {
-                        return new UnmarkCommand(splitTask);
-                    }
-                case TODO:
-                case EVENT:
-                case DEADLINE:
-                    if (splitTask.length == 2) {
-                        return new TaskCommand(splitTask);
-                    }
-                case FIND:
-                    if (splitTask.length == 2) {
-                        return new FindCommand(splitTask);
-                    }
-                default:
-                    throw new DukeNotTaskException("");
+            case BYE:
+                return new ByeCommand();
+            case DELETE:
+                if (splitTask.length == 2) {
+                    return new DeleteCommand(splitTask);
+                }
+                throw new DukeNotTaskException("");
+            case LIST:
+                return new ListCommand();
+            case MARK:
+                if (splitTask.length == 2) {
+                    return new MarkCommand(splitTask);
+                }
+                throw new DukeNotTaskException("");
+            case UNMARK:
+                if (splitTask.length == 2) {
+                    return new UnmarkCommand(splitTask);
+                }
+                throw new DukeNotTaskException("");
+            case TODO:
+            case EVENT:
+            case DEADLINE:
+                if (splitTask.length == 2) {
+                    return new TaskCommand(splitTask);
+                }
+                throw new DukeNotTaskException("");
+            case FIND:
+                if (splitTask.length == 2) {
+                    return new FindCommand(splitTask);
+                }
+                throw new DukeNotTaskException("");
+            default:
+                throw new DukeNotTaskException("");
             }
         } catch (IllegalArgumentException e) {
             throw new DukeNotTaskException(e.getMessage());

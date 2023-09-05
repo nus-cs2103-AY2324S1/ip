@@ -9,7 +9,7 @@ import duke.task.TaskList;
  *
  */
 public class Ui {
-    private final String HORIZONTAL_LINE = "    ____________________________________________________________\n";
+    private static final String HORIZONTAL_LINE = "    ____________________________________________________________\n";
 
     /**
      * A method that print the message with the line.
@@ -23,8 +23,8 @@ public class Ui {
      * A method that print greeting message
      */
     public void printGreet() {
-        printFinal("     Hello! I'm Siri\n" +
-                "     What can I do for you?\n");
+        printFinal("     Hello! I'm Siri\n"
+                + "     What can I do for you?\n");
     }
 
     /**
@@ -41,9 +41,9 @@ public class Ui {
      * @param numberOfTask The number of tasks in the TaskList
      */
     public void printAddTask(Task newTask, int numberOfTask) {
-        printFinal("     Got it. I've added this duke.task:\n" +
-                "      " + newTask + "\n" +
-                "     Now you have " + numberOfTask + " tasks in the list." + "\n");
+        printFinal("     Got it. I've added this duke.task:\n"
+                + "      " + newTask + "\n"
+                + "     Now you have " + numberOfTask + " tasks in the list." + "\n");
     }
 
     /**
@@ -53,9 +53,9 @@ public class Ui {
      * @param numberOfTask the number of tasks in the TaskList
      */
     public void printDeleteTask(Task deletedTask, int numberOfTask) {
-        printFinal("     Noted. I've removed this duke.task:" + "\n" +
-                "       " + deletedTask + "\n" +
-                "     Now you have " + numberOfTask + " tasks in the list." + "\n");
+        printFinal("     Noted. I've removed this duke.task:" + "\n"
+                + "       " + deletedTask + "\n"
+                + "     Now you have " + numberOfTask + " tasks in the list." + "\n");
     }
 
     /**
@@ -82,8 +82,8 @@ public class Ui {
      * @param task The marked task.
      */
     public void printMark(Task task) {
-        printFinal("     Nice! I've marked this duke.task as done:" + "\n" +
-                "       " + task + "\n");
+        printFinal("     Nice! I've marked this duke.task as done:" + "\n"
+                + "       " + task + "\n");
 
     }
 
@@ -93,8 +93,8 @@ public class Ui {
      * @param task the unmark task
      */
     public void printUnmark(Task task) {
-        printFinal("     OK, I've marked this duke.task as not done yet:" + "\n" +
-                "       " + task + "\n");
+        printFinal("     OK, I've marked this duke.task as not done yet:" + "\n"
+                + "       " + task + "\n");
     }
 
     /**

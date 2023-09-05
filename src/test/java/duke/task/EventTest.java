@@ -1,11 +1,12 @@
 package duke.task;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.format.DateTimeParseException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+
 
 public class EventTest {
     @Test
@@ -24,6 +25,5 @@ public class EventTest {
         Task event = new Event("Supernova", "2024-04-05 1900", "2024-04-05 2200");
         assertEquals("E / 0 / Supernova / 2024-04-05 1900 / 2024-04-05 2200", event.toDataString());
     }
-
 
 }

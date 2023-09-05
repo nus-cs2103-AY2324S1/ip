@@ -5,7 +5,7 @@ package duke.exception;
  *
  * @author marioalvaro
  */
-public class DukeInvalidDeleteException extends DukeException{
+public class DukeInvalidDeleteException extends DukeException {
 
     /**
      * Constructor for DukeInvalidDeleteException.
@@ -13,9 +13,9 @@ public class DukeInvalidDeleteException extends DukeException{
      * @param e The Exception message
      */
     public DukeInvalidDeleteException(String e) {
-        super("    ____________________________________________________________\n" +
-                "     ☹ OOPS!!! The index for deleting is invalid.\n" +
-                "    ____________________________________________________________\n");
+        super("    ____________________________________________________________\n"
+                + "     ☹ OOPS!!! The index for deleting is invalid.\n"
+                + "    ____________________________________________________________\n");
 
     }
 }

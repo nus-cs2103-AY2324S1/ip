@@ -13,9 +13,9 @@ public class DukeInvalidMarkException extends DukeException {
      * @param e The Exception message
      */
     public DukeInvalidMarkException(String e) {
-        super("    ____________________________________________________________\n" +
-                "     ☹ OOPS!!! The index for marking is invalid.\n" +
-                "    ____________________________________________________________\n");
+        super("    ____________________________________________________________\n"
+                + "     ☹ OOPS!!! The index for marking is invalid.\n"
+                + "    ____________________________________________________________\n");
 
     }
 }

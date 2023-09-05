@@ -36,13 +36,7 @@ public class Task {
      * @throws DukeException throws duke.exception.DukeException
      */
     public static Task createTaskType(String[] splitTask) throws DukeException {
-        /**
-         * variable to store the type of duke.task
-         */
         String type = splitTask[0];
-        /**
-         * variable to store description
-         */
         String description = "";
 
         if (!(type.equals("deadline") || type.equals("todo") || type.equals("event"))) {
@@ -112,6 +106,11 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + description;
     }
 
+    /**
+     * Convert task to string with storing format.
+     *
+     * @return String with data format
+     */
     public String toDataString() {
         if (this.isDone) {
             return "1 / " + this.description;

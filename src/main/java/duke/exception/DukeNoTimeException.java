@@ -5,7 +5,7 @@ package duke.exception;
  *
  * @author marioalvaro
  */
-public class DukeNoTimeException extends DukeException{
+public class DukeNoTimeException extends DukeException {
 
     /**
      * Constructor for DukeNoTimeException.
@@ -13,8 +13,8 @@ public class DukeNoTimeException extends DukeException{
      * @param e The Exception message
      */
     public DukeNoTimeException(String e) {
-        super("    ____________________________________________________________\n" +
-                "     ☹ OOPS!!! Please enter the correct duke.time format.\n" +
-                "    ____________________________________________________________\n");
+        super("    ____________________________________________________________\n"
+                + "     ☹ OOPS!!! Please enter the correct duke.time format.\n"
+                + "    ____________________________________________________________\n");
     }
 }

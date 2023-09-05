@@ -1,8 +1,5 @@
 package duke.storage;
 
-import duke.exception.DukeNotTaskException;
-import duke.task.*;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -10,16 +7,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.exception.DukeNotTaskException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
+
+
 /**
  * A Class to handle file reading and writing.
  *
  * @author marioalvaro
  */
 public class Storage {
-    private final String PATH_FILE = "./data/TaskStorage.txt";
+    private static final String PATH_FILE = "./data/TaskStorage.txt";
     private File file = new File(PATH_FILE);
 
-  ` /**
+    /**
      * A method to read the txt file
      * @return an ArrayList of Task
      * @throws Exception of the scanner and DukeNotTaskException
@@ -36,17 +41,17 @@ public class Storage {
 
             Task task;
             switch (singleTaskArray[0]) {
-                case "T":
-                    task  = new Todo(singleTaskArray[2]);
-                    break;
-                case "D":
-                    task = new Deadline(singleTaskArray[2], singleTaskArray[3]);
-                    break;
-                case "E":
-                    task = new Event(singleTaskArray[2], singleTaskArray[3], singleTaskArray[4]);
-                    break;
-                default:
-                    throw new DukeNotTaskException(singleTaskArray[0]);
+            case "T":
+                task = new Todo(singleTaskArray[2]);
+                break;
+            case "D":
+                task = new Deadline(singleTaskArray[2], singleTaskArray[3]);
+                break;
+            case "E":
+                task = new Event(singleTaskArray[2], singleTaskArray[3], singleTaskArray[4]);
+                break;
+            default:
+                throw new DukeNotTaskException(singleTaskArray[0]);
             }
 
             if (singleTaskArray[1].equals("1")) {

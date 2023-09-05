@@ -5,7 +5,7 @@ package duke.exception;
  *
  * @author marioalvaro
  */
-public class DukeIndexOutOfBoundException extends DukeException{
+public class DukeIndexOutOfBoundException extends DukeException {
 
     /**
      * Constructor for DukeIndexOutOfBoundException.
@@ -13,8 +13,8 @@ public class DukeIndexOutOfBoundException extends DukeException{
      * @param e The Exception message
      */
     public DukeIndexOutOfBoundException(String e) {
-        super("    ____________________________________________________________\n" +
-                "     ☹ OOPS!!! The description cannot be empty.\n" +
-                "    ____________________________________________________________\n");
+        super("    ____________________________________________________________\n"
+                + "     ☹ OOPS!!! The description cannot be empty.\n"
+                + "    ____________________________________________________________\n");
     }
 }
