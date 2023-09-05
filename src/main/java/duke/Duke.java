@@ -3,19 +3,7 @@ package duke;
 import java.io.IOException;
 
 import duke.task.TaskList;
-<<<<<<< HEAD
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-=======
->>>>>>> branch-Level-10
+
 
 /**
  * Represents the Duke chatbot.
@@ -78,15 +66,5 @@ public class Duke {
      */
     public void save() throws IOException {
         storage.saveTasksToFile(list);
-    }
-
-    @Override
-    public void stop() {
-        try {
-            storage.saveTasksToFile(list);
-            Platform.exit();
-        } catch (DukeException e) {
-            ui.displayException(e, dialogContainer);
-        }
     }
 }
