@@ -66,9 +66,9 @@ public class Storage {
     /**
      * Loads data from the file.
      *
-     * @return An array list of the tasks.
+     * @return An array of the tasks.
      */
-    public ArrayList<Task> loadData() {
+    public Task[] loadData() {
         checkFile();
         ArrayList<Task> list = new ArrayList<>();
         try {
@@ -82,7 +82,7 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println("No file found.");
         }
-        return list;
+        return list.toArray(new Task[0]);
     }
 
     /**
