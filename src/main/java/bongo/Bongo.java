@@ -25,6 +25,8 @@ import bongo.task.TaskList;
  * The Bongo class, the class for the BongoBot.
  */
 public class Bongo extends Application {
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image bongo = new Image(this.getClass().getResourceAsStream("/images/bongo.jpeg"));
     private static final String FILEPATH = "data/bongo.txt";
     private final Storage storage;
     private final Ui ui;
@@ -121,6 +123,15 @@ public class Bongo extends Application {
             userInput.clear();
         });
 
+        //Part 3. Add functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
@@ -137,6 +148,30 @@ public class Bongo extends Application {
 
         return textToAdd;
     }
+
+    /**
+     * Iteration 2:
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    private void handleUserInput() {
+        Label userText = new Label(userInput.getText());
+        Label dukeText = new Label(getResponse(userInput.getText()));
+        dialogContainer.getChildren().addAll(
+                new DialogBox(userText, new ImageView(user)),
+                new DialogBox(dukeText, new ImageView(bongo))
+        );
+        userInput.clear();
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    private String getResponse(String input) {
+        return "Bongo heard: " + input;
+    }
+
 
     /**
      * Runs the Bongo bot.
