@@ -3,20 +3,17 @@ package duke.storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import duke.exceptions.DukeInvalidDateException;
-
-import duke.task.TaskList;
-import duke.task.Task;
 import duke.task.Deadline;
 import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
 import duke.task.ToDo;
-
 import duke.ui.Ui;
 
 /**
@@ -70,17 +67,17 @@ public class Storage {
 
             try {
                 switch (taskType) {
-                    case "T":
-                        task = new ToDo(taskInfo[1]);
-                        break;
-                    case "D":
-                        task = new Deadline(taskInfo[1], taskInfo[2]);
-                        break;
-                    case "E":
-                        task = new Event(taskInfo[1], taskInfo[2], taskInfo[3]);
-                        break;
-                    default:
-                        continue;
+                case "T":
+                    task = new ToDo(taskInfo[1]);
+                    break;
+                case "D":
+                    task = new Deadline(taskInfo[1], taskInfo[2]);
+                    break;
+                case "E":
+                    task = new Event(taskInfo[1], taskInfo[2], taskInfo[3]);
+                    break;
+                default:
+                    continue;
                 }
             } catch (DukeInvalidDateException exception) {
                 Ui.printLines("Something went wrong when loading tasks :(");

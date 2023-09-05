@@ -5,7 +5,7 @@ package duke.exceptions;
  *
  * @author Andrew Daniel Janong
  */
-public class DukeInvalidDateException extends DukeException{
+public class DukeInvalidDateException extends DukeException {
     public DukeInvalidDateException(String message) {
         super(message);
     }
