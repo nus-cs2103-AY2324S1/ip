@@ -24,6 +24,12 @@ public class Task {
         done = true;
     }
 
+    public boolean filterMatchDesc(String desc) {
+        String[] splitsy = this.toString().split(" \\| ");
+        System.out.println(splitsy[2].trim());
+        return splitsy[2].trim().equals(desc.trim());
+    }
+
 
     public void markUndone() {
         done = false;

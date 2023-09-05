@@ -24,6 +24,8 @@ public class Parser {
                 future = false;
             } else if (input.equals("list")) {
                 iu.printList(tasks);
+            } else if (prefix.equals("find")) {
+                iu.printMatchingTasks(tasks, input.split(" ",2)[1]);
             } else if (prefix.equals("mark")) {
                 int index = Integer.parseInt(listOfWords[1]);
 

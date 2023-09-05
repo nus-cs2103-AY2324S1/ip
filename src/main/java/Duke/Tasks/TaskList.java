@@ -68,6 +68,16 @@ public class TaskList {
         }
     }
 
+    public TaskList filterTaskList(String desc) {
+        TaskList filtered = new TaskList("empty");
+        for (Task task : this.storagePile) {
+            if (task.filterMatchDesc(desc.trim())) {
+                filtered.storagePile.add(task);
+            }
+        }
+        return filtered;
+    }
+
     public void saveToFile(PrintWriter pw) {
         for (Task item : storagePile) {
             String str = item.toString();

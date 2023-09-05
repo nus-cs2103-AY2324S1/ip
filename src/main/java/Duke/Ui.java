@@ -27,6 +27,13 @@ public class Ui {
         System.out.println(logo);
     }
 
+    public void printMatchingTasks(TaskList tasks, String desc) {
+        String condemn = upper
+                + "Let's say what you've cooked, if you could. \n"
+                + String.format("%s \n_______________ \n", tasks.filterTaskList(desc.trim()));
+        System.out.println(condemn);
+    }
+
     public void printList(TaskList tasks) {
         String condemn = upper
                 + "What a terrible day to be alive. \n"
