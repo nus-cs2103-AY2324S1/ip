@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -75,9 +74,9 @@ public class Storage {
     /**
      * Saves the task list to the file
      */
-    public static void saveTasksToFile() {
+    public void saveTasksToFile() {
         try {
-            FileWriter writer = new FileWriter(filePath);
+            FileWriter writer = new FileWriter(filePath, false);
 
             for (Task task : TaskList.list) {
                 writer.write(task.toString() + System.lineSeparator());

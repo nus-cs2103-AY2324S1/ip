@@ -4,7 +4,10 @@ import taskmaster.exceptions.DukeException;
 import taskmaster.parser.Parser;
 import taskmaster.storage.Storage;
 import taskmaster.tasks.TaskList;
+import taskmaster.ui.Main;
 import taskmaster.ui.Ui;
+
+import javafx.application.Application;
 
 import java.util.Scanner;
 public class Taskmaster {
@@ -22,21 +25,22 @@ public class Taskmaster {
         this.ui = new Ui();
         this.parser = new Parser();
         this.taskList = new TaskList();
-    }
-
-    private void run() throws DukeException {
         this.storage.loadTasksFromFile();
         this.ui.printHello();
-
-        while (Taskmaster.activated) {
-            String userInput = scanner.nextLine();
-            parser.parse(userInput, this.storage, this.taskList);
-        }
-        this.ui.printGoodbye();
     }
 
     public static void main(String[] args) throws DukeException {
-        new Taskmaster().run();
+//        new Taskmaster().run();
+        Application.launch(Main.class);
+    }
+
+    public String getResponse(String input) {
+        try {
+            String response = parser.parse(input, this.storage, this.taskList);
+            return response;
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 
 }
