@@ -60,6 +60,12 @@ public abstract class Task {
 
         return task;
     }
+    String getDescription() {
+        return description;
+    }
 
+    boolean isDone() {
+        return isDone;
+    }
 
 }

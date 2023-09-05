@@ -1,3 +1,8 @@
+/* Gradle commands to run in project root dir:
+    ./gradlew build
+    ./gradlew run
+*/
+
 plugins {
     id 'java'
     id 'application'
@@ -10,6 +15,7 @@ repositories {
 
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.5.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
 
@@ -28,11 +34,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("chad.Main")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "chad"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

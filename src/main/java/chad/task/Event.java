@@ -23,4 +23,12 @@ public class Event extends Task {
         return String.format("E | %s | %s | %s | %s", super.isDoneString(), description, start.format(formatter),
                 end.format(formatter));
     }
+
+    LocalDateTime getStart() {
+        return start;
+    }
+
+    LocalDateTime getEnd() {
+        return end;
+    }
 }

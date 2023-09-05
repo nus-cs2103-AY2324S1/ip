@@ -19,4 +19,8 @@ public class Deadline extends Task {
     public String toFileFormat(DateTimeFormatter formatter) {
         return String.format("D | %s | %s | %s", super.isDoneString(), description, dueDate.format(formatter));
     }
+
+    LocalDateTime getDueDate() {
+        return dueDate;
+    }
 }

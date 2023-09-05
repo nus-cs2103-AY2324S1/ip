@@ -13,11 +13,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class ChatEngine {
-    private final IOHandler ioHandler;
-    private TaskList taskList; // stores list of tasks
-    private final Storage storage;
+    final IOHandler ioHandler;
+    TaskList taskList; // stores list of tasks
+    final Storage storage;
 
-    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm";
+    static final String DATE_FORMAT = "yyyy-MM-dd HH:mm";
 
     public ChatEngine(String filePath) {
         this.ioHandler = new ConsoleIO();
@@ -27,6 +27,13 @@ public class ChatEngine {
         } catch (IOException e) {
             this.taskList = new TaskList();
         }
+    }
+
+    // New constructor for testing
+    ChatEngine(IOHandler ioHandler, TaskList taskList, String filePath) {
+        this.ioHandler = ioHandler;
+        this.taskList = taskList;
+        this.storage = new Storage(filePath);
     }
 
     public void start() {
@@ -44,7 +51,7 @@ public class ChatEngine {
         ioHandler.sayGoodbye();
     }
 
-    private boolean commandHandler(String[] parsedInput) throws ChadException {
+    boolean commandHandler(String[] parsedInput) throws ChadException {
         Parser.CommandType command = Parser.parseCommandType(parsedInput[0]);
         switch (command) {
             case MARK:
@@ -76,31 +83,31 @@ public class ChatEngine {
         return true;
     }
 
-    private void handleMark(String[] parsedInput) throws ChadException {
+    void handleMark(String[] parsedInput) throws ChadException {
         int index = Integer.parseInt(parsedInput[1]) - 1;
         String response = taskList.markTaskAsDone(index);
         ioHandler.writeOutput(response);
         saveTasks();
     }
 
-    private void handleUnmark(String[] parsedInput) throws ChadException {
+    void handleUnmark(String[] parsedInput) throws ChadException {
         int index = Integer.parseInt(parsedInput[1]) - 1;
         String response = taskList.markTaskAsNotDone(index);
         ioHandler.writeOutput(response);
         saveTasks();
     }
 
-    private void handleList() {
+    void handleList() {
         ioHandler.writeOutput(taskList.displayTasks());
     }
 
-    private void handleTodo(String[] parts) {
+    void handleTodo(String[] parts) {
         taskList.addTodo(parts[1]);
         ioHandler.writeOutput("Added new ToDo: " + parts[1]);
         saveTasks();
     }
 
-    private void handleDeadline(String[] parts) throws ChadException {
+    void handleDeadline(String[] parts) throws ChadException {
         String[] deadlineParts = parts[1].split(" /by ", 2);
         try {
             LocalDateTime dueDate = LocalDateTime.parse(deadlineParts[1], DateTimeFormatter.ofPattern(DATE_FORMAT));
@@ -112,10 +119,10 @@ public class ChatEngine {
         }
     }
 
-    private void handleEvent(String[] parts) throws ChadException {
+    void handleEvent(String[] parts) throws ChadException {
         try {
             String[] eventParts = parts[1].split(" /from | /to ", 3);
-                LocalDateTime start = LocalDateTime.parse(eventParts[1], DateTimeFormatter.ofPattern(DATE_FORMAT));
+            LocalDateTime start = LocalDateTime.parse(eventParts[1], DateTimeFormatter.ofPattern(DATE_FORMAT));
             LocalDateTime end = LocalDateTime.parse(eventParts[2], DateTimeFormatter.ofPattern(DATE_FORMAT));
             taskList.addEvent(eventParts[0], start, end);
             ioHandler.writeOutput("Added new Event: " + eventParts[0] + " from " + start + " to " + end);
@@ -125,13 +132,13 @@ public class ChatEngine {
         }
     }
 
-    private void handleDelete(String[] parts) {
+    void handleDelete(String[] parts) {
         int index = Integer.parseInt(parts[1]) - 1;
         String response = taskList.deleteTask(index);
         ioHandler.writeOutput(response);
         saveTasks();
     }
-    private void saveTasks() {
+    void saveTasks() {
         try {
             storage.saveTasks(taskList);
         } catch (FileNotFoundException e) {
