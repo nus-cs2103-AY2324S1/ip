@@ -10,6 +10,8 @@ public class Parser {
         switch (CommandWord.commandWordToValueMap(getArgs(rawCommand)[0])) {
             case BYE:
                 return new ByeCommand(rawCommand);
+            case FIND:
+                return new FindCommand(rawCommand);
             case LIST:
                 return new ListCommand(rawCommand);
             case MARK:
