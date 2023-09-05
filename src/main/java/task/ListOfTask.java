@@ -1,12 +1,14 @@
 package task;
 
-import command.Commands;
-import dukeExceptions.DukeException;
-import storage.Storage;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import dukeExceptions.DukeException;
+import storage.Storage;
+
+/**
+ * This class holds and controls all interactions with tasks and holds a list of them.
+ */
 public class ListOfTask {
     private ArrayList<Task> listOfTask = new ArrayList<>();
 

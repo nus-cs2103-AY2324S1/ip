@@ -1,22 +1,31 @@
 package command;
 
-import dukeExceptions.*;
-import org.junit.jupiter.api.Test;
-import parser.ParserStud;
-import task.ListOfTask;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import org.junit.jupiter.api.Test;
 
+import dukeExceptions.DukeDateTimeParseException;
+import dukeExceptions.DukeException;
+import dukeExceptions.DukeFromEarlierThanToException;
+import dukeExceptions.DukeNullPointerException;
+import dukeExceptions.DukeNumberFormatException;
+import dukeExceptions.DukeUnknownCommandException;
+import parser.Parser;
+import task.ListOfTask;
+
+/**
+ * This class test the Commands class and thus test the Parser class and ListOfTask class.
+ */
 public class CommandsTest {
 
     @Test
     public void commandsEqualCommands() {
-        for (Commands.COMMANDS c : Commands.COMMANDS.values()) {
-            for (Commands.COMMANDS d : Commands.COMMANDS.values()) {
+        for (Commands.CommandEnum c : Commands.CommandEnum.values()) {
+            for (Commands.CommandEnum d : Commands.CommandEnum.values()) {
                 if (c == d) {
                     assertEquals(Commands.of(c), Commands.of(d));
                 } else {
@@ -32,7 +41,7 @@ public class CommandsTest {
         String cmd2 = "CS2103T A-JUnit";
         String cmd3 = "added: [T][ ] ";
         for (int i = 0; i < cmd.length; i++) {
-            ParserStud cm = new ParserStud(cmd[i]);
+            Parser cm = new Parser(cmd[i]);
             ByteArrayOutputStream outContent = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outContent));
             try {
@@ -49,13 +58,13 @@ public class CommandsTest {
     @Test
     public void commandsExecuteDeadline() {
         String[] cmd = {"deadline CS2103T A-JUnit /by 18-09-2023 0000",
-                "deadline gyrdefsf /by 8411",
-                "deadline gyrdefsf /by ", "deadline /b"};
+            "deadline gyrdefsf /by 8411",
+            "deadline gyrdefsf /by ", "deadline /b"};
         String cmd2 = "CS2103T A-JUnit";
         String cmd3 = "added: [D][ ] ";
         String cmd4 = " (by: 18-09-2023 0000)";
         for (String str : cmd) {
-            ParserStud cm = new ParserStud(str);
+            Parser cm = new Parser(str);
             final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outContent));
             try {
@@ -75,27 +84,27 @@ public class CommandsTest {
     @Test
     public void commandsExecuteEvent() {
         String[] cmd = {"event CS2103T A-JUnit /from 18-09-2023 0000 /to 18-09-2024 0000",
-                "event CS2103T A-JUnit /from 18-09-2023 0000 /to 18-09-2023 0000",
-                "event CS2103T A-JUnit /from 18-09-2023 0000 /to 18-09-2024 9999",
-                "event CS2103T A-JUnit /from 18-09-2023 0000 /to 18-09-2024 ",
-                "event CS2103T A-JUnit /from 18-09-2023 /to 18-09-2024 0000",
-                "event CS2103T A-JUnit /from 18-09-2023 0000 /to",
-                "event CS2103T A-JUnit /from 18-09-2023 0000 /t 18-09-2024 0000",
-                "event CS2103T A-JUnit /from 18-09-2023 0000 / 18-09-2024 0000",
-                "event CS2103T A-JUnit /from 18-09-2023 0000 18-09-2024 0000",
-                "event CS2103T A-JUnit /from 18-09-2023 0000",
-                "event CS2103T A-JUnit /from 18-09-2023 000",
-                "event CS2103T A-JUnit /from 18-09-2023 9999",
-                "event CS2103T A-JUnit /from 18-09 1010",
-                "event CS2103T A-JUnit /from",
-                "event CS2103T A-JUnit /fro",
-                "event CS2103T A-JUnit /from /to ",
-                "event CS2103T A-JUnit"};
+            "event CS2103T A-JUnit /from 18-09-2023 0000 /to 18-09-2023 0000",
+            "event CS2103T A-JUnit /from 18-09-2023 0000 /to 18-09-2024 9999",
+            "event CS2103T A-JUnit /from 18-09-2023 0000 /to 18-09-2024 ",
+            "event CS2103T A-JUnit /from 18-09-2023 /to 18-09-2024 0000",
+            "event CS2103T A-JUnit /from 18-09-2023 0000 /to",
+            "event CS2103T A-JUnit /from 18-09-2023 0000 /t 18-09-2024 0000",
+            "event CS2103T A-JUnit /from 18-09-2023 0000 / 18-09-2024 0000",
+            "event CS2103T A-JUnit /from 18-09-2023 0000 18-09-2024 0000",
+            "event CS2103T A-JUnit /from 18-09-2023 0000",
+            "event CS2103T A-JUnit /from 18-09-2023 000",
+            "event CS2103T A-JUnit /from 18-09-2023 9999",
+            "event CS2103T A-JUnit /from 18-09 1010",
+            "event CS2103T A-JUnit /from",
+            "event CS2103T A-JUnit /fro",
+            "event CS2103T A-JUnit /from /to ",
+            "event CS2103T A-JUnit"};
         String cmd2 = "CS2103T A-JUnit";
         String cmd3 = "added: [E][ ] ";
         String cmd4 = " (from: 18-09-2023 0000 to: 18-09-2024 0000)";
         for (String str : cmd) {
-            ParserStud cm = new ParserStud(str);
+            Parser cm = new Parser(str);
             final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outContent));
             try {
@@ -119,14 +128,14 @@ public class CommandsTest {
     @Test
     public void commandsExecuteMark() {
         String[] cmd = {"todo CS2103T A-JUnit",
-                "deadline CS2103T A-JUnit /by 18-09-2023 0000",
-                "event CS2103T A-JUnit /from 18-09-2023 0000 /to 18-09-2024 0000"};
+            "deadline CS2103T A-JUnit /by 18-09-2023 0000",
+            "event CS2103T A-JUnit /from 18-09-2023 0000 /to 18-09-2024 0000"};
         String[] cmdi = {"[T][X] CS2103T A-JUnit",
-                "[D][X] CS2103T A-JUnit (by: 18-09-2023 0000)",
-                "[E][X] CS2103T A-JUnit (from: 18-09-2023 0000 to: 18-09-2024 0000)"};
+            "[D][X] CS2103T A-JUnit (by: 18-09-2023 0000)",
+            "[E][X] CS2103T A-JUnit (from: 18-09-2023 0000 to: 18-09-2024 0000)"};
         ListOfTask taskList = new ListOfTask();
         for (String str : cmd) {
-            ParserStud cm = new ParserStud(str);
+            Parser cm = new Parser(str);
             try {
                 Commands c = cm.parse();
                 c.execute(taskList);
@@ -151,7 +160,7 @@ public class CommandsTest {
         final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         String s = "mark a";
-        ParserStud p = new ParserStud(s);
+        Parser p = new Parser(s);
         try {
             Commands c = p.parse();
         } catch (DukeException e) {
@@ -162,17 +171,17 @@ public class CommandsTest {
     @Test
     public void commandsExecuteUnMark() {
         String[] cmd = {"todo CS2103T A-JUnit",
-                "mark 1",
-                "deadline CS2103T A-JUnit /by 18-09-2023 0000",
-                "mark 2",
-                "event CS2103T A-JUnit /from 18-09-2023 0000 /to 18-09-2024 0000",
-                "mark 3"};
+            "mark 1",
+            "deadline CS2103T A-JUnit /by 18-09-2023 0000",
+            "mark 2",
+            "event CS2103T A-JUnit /from 18-09-2023 0000 /to 18-09-2024 0000",
+            "mark 3"};
         String[] cmdi = {"[T][ ] CS2103T A-JUnit",
-                "[D][ ] CS2103T A-JUnit (by: 18-09-2023 0000)",
-                "[E][ ] CS2103T A-JUnit (from: 18-09-2023 0000 to: 18-09-2024 0000)"};
+            "[D][ ] CS2103T A-JUnit (by: 18-09-2023 0000)",
+            "[E][ ] CS2103T A-JUnit (from: 18-09-2023 0000 to: 18-09-2024 0000)"};
         ListOfTask taskList = new ListOfTask();
         for (String str : cmd) {
-            ParserStud cm = new ParserStud(str);
+            Parser cm = new Parser(str);
             try {
                 Commands c = cm.parse();
                 c.execute(taskList);
@@ -198,7 +207,7 @@ public class CommandsTest {
         final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         String s = "unmark a";
-        ParserStud p = new ParserStud(s);
+        Parser p = new Parser(s);
         try {
             Commands c = p.parse();
             assertEquals("Place a number after the command", outContent.toString());
@@ -210,14 +219,14 @@ public class CommandsTest {
     @Test
     public void commandsExecuteDelete() {
         String[] cmd = {"todo CS2103T A-JUnit",
-                "deadline CS2103T A-JUnit /by 18-09-2023 0000",
-                "event CS2103T A-JUnit /from 18-09-2023 0000 /to 18-09-2024 0000"};
+            "deadline CS2103T A-JUnit /by 18-09-2023 0000",
+            "event CS2103T A-JUnit /from 18-09-2023 0000 /to 18-09-2024 0000"};
         String[] cmdi = {"[T][ ] CS2103T A-JUnit has been deleted",
-                "[D][ ] CS2103T A-JUnit (by: 18-09-2023 0000) has been deleted",
-                "[E][ ] CS2103T A-JUnit (from: 18-09-2023 0000 to: 18-09-2024 0000) has been deleted"};
+            "[D][ ] CS2103T A-JUnit (by: 18-09-2023 0000) has been deleted",
+            "[E][ ] CS2103T A-JUnit (from: 18-09-2023 0000 to: 18-09-2024 0000) has been deleted"};
         ListOfTask taskList = new ListOfTask();
         for (String str : cmd) {
-            ParserStud cm = new ParserStud(str);
+            Parser cm = new Parser(str);
             try {
                 Commands c = cm.parse();
                 c.execute(taskList);
@@ -229,7 +238,7 @@ public class CommandsTest {
             try {
                 final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
                 System.setOut(new PrintStream(outContent));
-                taskList.delete( 1, true);
+                taskList.delete(1, true);
                 assertEquals(cmdi[i] + "\r\n", outContent.toString());
             } catch (DukeNumberFormatException e) {
                 assertEquals("Place a number after the command", e.getMessage());
@@ -241,7 +250,7 @@ public class CommandsTest {
         final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         String s = "mark a";
-        ParserStud p = new ParserStud(s);
+        Parser p = new Parser(s);
         try {
             Commands c = p.parse();
         } catch (DukeException e) {
@@ -252,14 +261,14 @@ public class CommandsTest {
     @Test
     public void commandsExecuteList() {
         String[] cmd = {"todo CS2103T A-JUnit",
-                "deadline CS2103T A-JUnit /by 18-09-2023 0000",
-                "event CS2103T A-JUnit /from 18-09-2023 0000 /to 18-09-2024 0000"};
+            "deadline CS2103T A-JUnit /by 18-09-2023 0000",
+            "event CS2103T A-JUnit /from 18-09-2023 0000 /to 18-09-2024 0000"};
         String cmdi = "1.[T][ ] CS2103T A-JUnit\r\n"
-                + "2.[D][ ] CS2103T A-JUnit (by: 18-09-2023 0000)\r\n"
-                + "3.[E][ ] CS2103T A-JUnit (from: 18-09-2023 0000 to: 18-09-2024 0000)\r\n";
+            + "2.[D][ ] CS2103T A-JUnit (by: 18-09-2023 0000)\r\n"
+            + "3.[E][ ] CS2103T A-JUnit (from: 18-09-2023 0000 to: 18-09-2024 0000)\r\n";
         ListOfTask taskList = new ListOfTask();
         for (String str : cmd) {
-            ParserStud cm = new ParserStud(str);
+            Parser cm = new Parser(str);
             try {
                 Commands c = cm.parse();
                 c.execute(taskList);
@@ -271,7 +280,7 @@ public class CommandsTest {
         for (String str : cmdj) {
             final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outContent));
-            ParserStud p = new ParserStud(str);
+            Parser p = new Parser(str);
             try {
                 Commands c = p.parse();
                 c.execute(taskList);
@@ -285,15 +294,15 @@ public class CommandsTest {
     @Test
     public void commandsExecuteFind() {
         String[] cmd = {"todo CS2103T A-JUnit",
-                "deadline CS2103T B-JUnit /by 18-09-2023 0000",
-                "event CS2103T C-JUnit /from 18-09-2023 0000 /to 18-09-2024 0000"};
+            "deadline CS2103T B-JUnit /by 18-09-2023 0000",
+            "event CS2103T C-JUnit /from 18-09-2023 0000 /to 18-09-2024 0000"};
         String[] cmdi = {"3.[E][ ] CS2103T C-JUnit (from: 18-09-2023 0000 to: 18-09-2024 0000)\r\n",
-                "2.[D][ ] CS2103T B-JUnit (by: 18-09-2023 0000)\r\n",
-                "1.[T][ ] CS2103T A-JUnit\r\n",
-                "Whoopys uWu, sorry I couldnyt fynd any taysk that contyain that strying. XD uWu\r\n"};
+            "2.[D][ ] CS2103T B-JUnit (by: 18-09-2023 0000)\r\n",
+            "1.[T][ ] CS2103T A-JUnit\r\n",
+            "Whoopys uWu, sorry I couldnyt fynd any taysk that contyain that strying. XD uWu\r\n"};
         ListOfTask taskList = new ListOfTask();
         for (String str : cmd) {
-            ParserStud cm = new ParserStud(str);
+            Parser cm = new Parser(str);
             try {
                 Commands c = cm.parse();
                 c.execute(taskList);
@@ -307,7 +316,7 @@ public class CommandsTest {
             try {
                 final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
                 System.setOut(new PrintStream(outContent));
-                ParserStud p = new ParserStud(cmdj[i]);
+                Parser p = new Parser(cmdj[i]);
                 Commands c = p.parse();
                 c.execute(taskList);
                 assertEquals(cmdi[i - 3], outContent.toString());

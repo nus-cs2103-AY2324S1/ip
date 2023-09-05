@@ -1,18 +1,16 @@
 package storage;
 
-import command.Commands;
-import dukeExceptions.DukeException;
-import parser.Parser;
-import task.ListOfTask;
-import task.Task;
-import ui.Ui;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import command.Commands;
+import dukeExceptions.DukeException;
+import parser.Parser;
+import task.ListOfTask;
+import task.Task;
 
 /**
  * This class handles all the reads and writes of the program.
@@ -51,8 +49,8 @@ public class Storage {
      *
      * @param taskList The task list that tasks are loaded into.
      * @param startLine The line number to start loading from.
-     * @return Returns false if it is unable to load and the user does not want to
-     * be able to save the task list. True if otherwise.
+     * @return Returns false if it is unable to load and the user does not want to be able to save the task list.
+     *     True if otherwise.
      */
     public static boolean load(ListOfTask taskList, int startLine) {
         File saveData = new File("./src/data/duke.txt");

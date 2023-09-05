@@ -1,30 +1,53 @@
 package command;
 
-
-import task.ListOfTask;
-import dukeExceptions.DukeException;
-import task.Task;
-
 import java.time.LocalDateTime;
 
+import dukeExceptions.DukeException;
+import task.ListOfTask;
+
+/**
+ * This class uses its state to execute commands.
+ * The Commands factory methods should only be used by Parser class.
+ */
 public class Commands {
 
     /**
      * List of both primary and secondary commands.
      */
-    public enum COMMANDS {BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, BY, FROM, TO, SORT, FIND, UNKNOWN}
+    public enum CommandEnum { BYE, LIST, TODO, DEADLINE, EVENT, MARK,
+            UNMARK, DELETE, BY, FROM, TO, SORT, FIND, UNKNOWN }
 
-    private COMMANDS primaryCommand;
+    private CommandEnum primaryCommand;
     private String taskDescription;
     private int index;
     private LocalDateTime dateTime;
+
+    private Commands(CommandEnum command) {
+        this.primaryCommand = command;
+    }
+
+    private Commands(CommandEnum command, String task) {
+        this.primaryCommand = command;
+        this.taskDescription = task;
+    }
+
+    private Commands(CommandEnum command, int index) {
+        this.primaryCommand = command;
+        this.index = index;
+    }
+
+
+    private Commands(CommandEnum command, LocalDateTime dateTime) {
+        this.primaryCommand = command;
+        this.dateTime = dateTime;
+    }
 
     /**
      * Constructs a Commands object with only the primary command.
      *
      * @param command The command or action given by the Parse object.
      */
-    public static Commands of(COMMANDS command) {
+    public static Commands of(CommandEnum command) {
         return new Commands(command);
     }
 
@@ -34,7 +57,7 @@ public class Commands {
      * @param command The command or action given by the Parse object.
      * @param task The task name or description.
      */
-    public static Commands of(COMMANDS command, String task) {
+    public static Commands of(CommandEnum command, String task) {
         return new Commands(command, task);
     }
 
@@ -44,7 +67,7 @@ public class Commands {
      * @param command The command or action given by the Parse object.
      * @param index The index of the task that the command should act on.
      */
-    public static Commands of(COMMANDS command, int index) {
+    public static Commands of(CommandEnum command, int index) {
         return new Commands(command, index);
     }
 
@@ -54,7 +77,7 @@ public class Commands {
      * @param command The command or action given by the Parse object.
      * @param dateTime The date and time of a command giving in the format of 'dd-MM-yyyy HHmm'.
      */
-    public static Commands of(COMMANDS command, LocalDateTime dateTime) {
+    public static Commands of(CommandEnum command, LocalDateTime dateTime) {
         return new Commands(command, dateTime);
     }
 
@@ -65,7 +88,7 @@ public class Commands {
      * @param task The task name or description.
      * @param secondaryCommand A sub-command that supplements the main command.
      */
-    public static Commands of(COMMANDS command, String task, Commands secondaryCommand) {
+    public static Commands of(CommandEnum command, String task, Commands secondaryCommand) {
         return new Commands.TwoCommands(command, task, secondaryCommand);
     }
 
@@ -77,28 +100,8 @@ public class Commands {
      * @param secondaryCommand A sub-command that supplements the main command.
      * @param tertiaryCommand A sub-command that supplements the main command and comes after the secondaryCommand.
      */
-    public static Commands of(COMMANDS command, String task, Commands secondaryCommand, Commands tertiaryCommand) {
+    public static Commands of(CommandEnum command, String task, Commands secondaryCommand, Commands tertiaryCommand) {
         return new Commands.ThreeCommands(command, task, secondaryCommand, tertiaryCommand);
-    }
-
-    private Commands(COMMANDS command) {
-        this.primaryCommand = command;
-    }
-
-    private Commands(COMMANDS command, String task) {
-        this.primaryCommand = command;
-        this.taskDescription = task;
-    }
-
-    private Commands(COMMANDS command, int index) {
-        this.primaryCommand = command;
-        this.index = index;
-    }
-
-
-    private Commands(COMMANDS command, LocalDateTime dateTime) {
-        this.primaryCommand = command;
-        this.dateTime = dateTime;
     }
 
     /**
@@ -107,7 +110,7 @@ public class Commands {
      * @param command The COMMANDS enum that you want to compare
      * @return Returns true same, false otherwise.
      */
-    public boolean checkCommand(COMMANDS command) {
+    public boolean checkCommand(CommandEnum command) {
         if (this.primaryCommand == command) {
             return true;
         }
@@ -138,54 +141,56 @@ public class Commands {
         if (lineNumber == 0 && error == null) {
             load = false;
         }
-            switch (this.primaryCommand) {
+        switch (this.primaryCommand) {
+        case BYE:
+            return 0;
 
-            case BYE:
-                return 0;
+        case LIST:
+            taskList.listTasks();
+            break;
 
-            case LIST:
-                taskList.listTasks();
-                break;
-
-            case TODO:
-                if (!load) {
-                    taskList.addToDo(this.taskDescription, true);
-                } else {
-                    taskList.addToDo(this.taskDescription, false);
-                }
-                break;
-
-            case FIND:
-                taskList.find(this.taskDescription);
-                break;
-
-            case SORT:
-                break;
-
-            case MARK:
-                if (!load) {
-                    taskList.markOrUnmark(this.index, true, true);
-                } else {
-                    taskList.markOrUnmark(this.index, true, false);
-                }
-                break;
-
-            case UNMARK:
-                if (!load) {
-                    taskList.markOrUnmark(this.index, false, true);
-                } else {
-                    taskList.markOrUnmark(this.index, false, false);
-                }
-                break;
-
-            case DELETE:
-                if (!load) {
-                    taskList.delete(this.index, true);
-                } else {
-                    taskList.delete(this.index, false);
-                }
-                break;
+        case TODO:
+            if (!load) {
+                taskList.addToDo(this.taskDescription, true);
+            } else {
+                taskList.addToDo(this.taskDescription, false);
             }
+            break;
+
+        case FIND:
+            taskList.find(this.taskDescription);
+            break;
+
+        case SORT:
+            break;
+
+        case MARK:
+            if (!load) {
+                taskList.markOrUnmark(this.index, true, true);
+            } else {
+                taskList.markOrUnmark(this.index, true, false);
+            }
+            break;
+
+        case UNMARK:
+            if (!load) {
+                taskList.markOrUnmark(this.index, false, true);
+            } else {
+                taskList.markOrUnmark(this.index, false, false);
+            }
+            break;
+
+        case DELETE:
+            if (!load) {
+                taskList.delete(this.index, true);
+            } else {
+                taskList.delete(this.index, false);
+            }
+            break;
+
+        default:
+
+        }
         return 1;
     }
 
@@ -230,17 +235,17 @@ public class Commands {
     }
 
     private static class TwoCommands extends Commands {
-        private COMMANDS backUpSecondaryCommand;
+        private CommandEnum backUpSecondaryCommand;
         private String backUpSecondaryString;
         private Commands secondaryCommand;
-        private TwoCommands(COMMANDS command, String str, COMMANDS backUpSecondaryCommand,
+        private TwoCommands(CommandEnum command, String str, CommandEnum backUpSecondaryCommand,
                             String backUpSecondaryString) {
             super(command, str);
             this.backUpSecondaryCommand = backUpSecondaryCommand;
             this.backUpSecondaryString = backUpSecondaryString;
         }
-        private TwoCommands(COMMANDS command, String str, Commands secondaryCommand) {
-            super(command,str);
+        private TwoCommands(CommandEnum command, String str, Commands secondaryCommand) {
+            super(command, str);
             this.secondaryCommand = secondaryCommand;
         }
 
@@ -262,6 +267,9 @@ public class Commands {
                     taskList.addDeadline(super.taskDescription, this.secondaryCommand.dateTime, false);
                 }
                 break;
+
+            default:
+
             }
             return 1;
         }
@@ -288,23 +296,23 @@ public class Commands {
     }
 
     private static class ThreeCommands extends Commands {
-        private COMMANDS backUpSecondaryCommand;
+        private CommandEnum backUpSecondaryCommand;
         private String backUpSecondaryDescription;
-        private COMMANDS backUpTertiaryCommand;
+        private CommandEnum backUpTertiaryCommand;
         private String backUpTertiaryDescription;
         private Commands phaseTwo;
         private Commands phaseThree;
-        private ThreeCommands(COMMANDS command, String str, COMMANDS command2,
-                              String str2, COMMANDS command3, String str3) {
-            super(command,str);
+        private ThreeCommands(CommandEnum command, String str, CommandEnum command2,
+                              String str2, CommandEnum command3, String str3) {
+            super(command, str);
             this.backUpSecondaryCommand = command2;
             this.backUpSecondaryDescription = str2;
             this.backUpTertiaryCommand = command3;
             this.backUpTertiaryDescription = str3;
         }
 
-        private ThreeCommands(COMMANDS command, String str, Commands phaseTwo, Commands phaseThree) {
-            super(command,str);
+        private ThreeCommands(CommandEnum command, String str, Commands phaseTwo, Commands phaseThree) {
+            super(command, str);
             this.phaseTwo = phaseTwo;
             this.phaseThree = phaseThree;
         }
@@ -329,6 +337,9 @@ public class Commands {
                             this.phaseThree.dateTime, false);
                 }
                 break;
+
+            default:
+
             }
             return 1;
         }

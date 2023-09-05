@@ -1,8 +1,8 @@
 package task;
 
-import duke.Duke;
-
 import java.time.LocalDateTime;
+
+import duke.Duke;
 
 /**
  * This class represents the task type Event.
@@ -32,7 +32,7 @@ class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + "(from: " + startDayDateTime.format(Duke.FORMAT)
-                + " to: " + endDayDateTime.format(Duke.FORMAT) +")";
+                + " to: " + endDayDateTime.format(Duke.FORMAT) + ")";
     }
 
     /**

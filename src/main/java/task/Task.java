@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 /**
  * This is an abstract class that contain the factory methods and all the methods that a task will have.
  */
-abstract public class Task {
+public abstract class Task {
 
     private String taskDescription;
     private Boolean isDone;

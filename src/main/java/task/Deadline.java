@@ -1,7 +1,8 @@
 package task;
 
-import duke.Duke;
 import java.time.LocalDateTime;
+
+import duke.Duke;
 
 /**
  * This class represents the task type Deadline.

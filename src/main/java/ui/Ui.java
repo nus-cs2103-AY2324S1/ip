@@ -2,6 +2,9 @@ package ui;
 
 import java.util.Scanner;
 
+/**
+ * This class deals with the next user input and contains some standard prints.
+ */
 public class Ui {
 
     /**
@@ -24,8 +27,8 @@ public class Ui {
      * Prints the greeting of the program.
      */
     public void greet() {
-        System.out.println("Hello. I am Luxion. \n" +
-                "What can I do for you?");
+        System.out.println("Hello. I am Luxion. \n"
+                + "What can I do for you?");
     }
 
     /**
