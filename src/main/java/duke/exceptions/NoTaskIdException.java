@@ -1,7 +1,7 @@
 package duke.exceptions;
 
-public class NoTaskIDException extends DukeException {
-    public NoTaskIDException() {
+public class NoTaskIdException extends DukeException {
+    public NoTaskIdException() {
         super("(・´з`・) Uh oh... please provide a taskID");
     }
 }

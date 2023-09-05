@@ -1,15 +1,6 @@
 package duke;
 
-import duke.exceptions.DukeException;
-import duke.exceptions.InvalidCommandException;
-import duke.exceptions.InvalidDeadlineException;
-import duke.exceptions.InvalidEventException;
-import duke.exceptions.InvalidStartEndException;
-import duke.exceptions.InvalidTaskIdException;
-import duke.exceptions.NoDescException;
-import duke.exceptions.NoEndException;
-import duke.exceptions.NoStartException;
-import duke.exceptions.NoTaskIdException;
+import duke.exceptions.*;
 
 import duke.tasks.Event;
 import duke.tasks.Task;
@@ -125,13 +116,13 @@ public class Parser {
      * Calls tasks.deleteTask(index) function to attempt task deletion.
      *
      * @param input user input
-     * @throws NoTaskIDException      if no taskID is provided
-     * @throws InvalidTaskIDException if a non-numerical id is provided
+     * @throws NoTaskIdException      if no taskID is provided
+     * @throws InvalidTaskIdException if a non-numerical id is provided
      */
-    public void parseDelete(String input) throws NoTaskIDException, InvalidTaskIDException {
+    public void parseDelete(String input) throws NoTaskIdException, InvalidTaskIdException {
         String[] inputArr = input.split(" ");
         if (inputArr.length == 1) {
-            throw new NoTaskIDException();
+            throw new NoTaskIdException();
         } else {
             String strIndex = inputArr[1];
             if (isNumber(strIndex)) {
@@ -139,33 +130,32 @@ public class Parser {
                 tasks.deleteTask(index);
             } else {
                 //case where a number was not provided
-                throw new InvalidTaskIDException();
+                throw new InvalidTaskIdException();
             }
         }
     }
-
 
     /**
      * Handles the marking of a specified task. Checks if a taskID is provided.
      * Calls the tasks.markTask(index) function to attempt task marking.
      *
      * @param input user input
-     * @throws NoTaskIDException      if no taskID is provided
-     * @throws InvalidTaskIDException If a non-numerical id is provided
+     * @throws NoTaskIdException      if no taskID is provided
+     * @throws InvalidTaskIdException If a non-numerical id is provided
      */
-    public void parseMark(String input) throws NoTaskIDException, InvalidTaskIDException {
+    public void parseMark(String input) throws NoTaskIdException, InvalidTaskIdException {
         String[] inputArr = input.split(" ", 2);
         if (inputArr.length == 1) {
-            throw new NoTaskIDException();
+            throw new NoTaskIdException();
         } else {
             String strIndex = inputArr[1];
             if (isNumber(strIndex)) {
                 int index = Integer.parseInt(strIndex) - 1; //because index starts from 1
-                if (tasks.isValidTaskID(index)) {
+                if (tasks.isValidTaskId(index)) {
                     tasks.markTask(index);
                 }
             } else {
-                throw new InvalidTaskIDException();
+                throw new InvalidTaskIdException();
             }
         }
     }
@@ -175,10 +165,10 @@ public class Parser {
      * Calls the tasks.unmarkTask(index) function to attempt task unmarking.
      *
      * @param input user input
-     * @throws NoTaskIDException      if no taskID is provided
-     * @throws InvalidTaskIDException If a non-numerical id is provided
+     * @throws NoTaskIdException      if no taskID is provided
+     * @throws InvalidTaskIdException If a non-numerical id is provided
      */
-public void parseUnMark(String input) throws NoTaskIdException, InvalidTaskIdException {
+    public void parseUnMark(String input) throws NoTaskIdException, InvalidTaskIdException {
         String[] inputs = input.split(" ", 2);
         if (inputs.length == 1) {
             throw new NoTaskIdException();
@@ -228,8 +218,8 @@ public void parseUnMark(String input) throws NoTaskIdException, InvalidTaskIdExc
      * @throws NoDescException          if no description is provided
      * @throws InvalidDeadlineException if command is not of the correct format
      */
-        
-        public void parseDeadline(String input) throws NoDescException, InvalidDeadlineException {
+
+    public void parseDeadline(String input) throws NoDescException, InvalidDeadlineException {
         String[] inputs = input.split(" ", 2);
         if (inputs.length == 1) {
             throw new NoDescException();
