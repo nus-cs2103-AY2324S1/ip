@@ -15,11 +15,9 @@ import java.time.format.DateTimeParseException;
 public class ChatEngine {
     private final IOHandler ioHandler;
     private TaskList taskList; // stores list of tasks
-    private final Storage storage   ;
+    private final Storage storage;
 
-    public enum CommandType {
-        BYE, MARK, UNMARK, LIST, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
-    }
+    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm";
 
     public ChatEngine(String filePath) {
         this.ioHandler = new ConsoleIO();
@@ -37,7 +35,8 @@ public class ChatEngine {
         while(canContinueChat) {
             String input = ioHandler.readInput();;
             try {
-                canContinueChat = commandHandler(input);
+                String[] parsedInput = Parser.parseInput(input);
+                canContinueChat = commandHandler(parsedInput);
             } catch (ChadException e) {
                 ioHandler.writeOutput("Error: " + e.getMessage());
             }
@@ -45,109 +44,88 @@ public class ChatEngine {
         ioHandler.sayGoodbye();
     }
 
-    private CommandType parseCommandType(String command) {
-        try {
-            return CommandType.valueOf(command.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            return CommandType.UNKNOWN;
-        }
-    }
-
-    private boolean commandHandler(String input) throws ChadException {
-        if (input.trim().isEmpty()) {
-            throw new ChadException.InvalidArgumentException("Input cannot be empty.");
-        }
-
-        String[] parts = input.split(" ", 2);
-        CommandType command = parseCommandType(parts[0]);
-
-        try {
-            switch (command) {
-                case MARK:
-                case UNMARK:
-                    handleMarkUnmark(parts, command);
-                    break;
-                case LIST:
-                    ioHandler.writeOutput(taskList.displayTasks());
-                    break;
-                case TODO:
-                    handleTodo(parts);
-                    break;
-                case DEADLINE:
-                    handleDeadline(parts);
-                    break;
-                case EVENT:
-                    handleEvent(parts);
-                    break;
-                case DELETE:
-                    handleDelete(parts);
-                    break;
-                case BYE:
-                    return false;
-                case UNKNOWN:
-                default:
-                    throw new ChadException.InvalidCommandException("Unknown command: " + parts[0]);
-            }
-        } catch (NumberFormatException e) {
-            throw new ChadException.InvalidFormatException("Invalid number format.");
+    private boolean commandHandler(String[] parsedInput) throws ChadException {
+        Parser.CommandType command = Parser.parseCommandType(parsedInput[0]);
+        switch (command) {
+            case MARK:
+                handleMark(parsedInput);
+                break;
+            case UNMARK:
+                handleUnmark(parsedInput);
+                break;
+            case LIST:
+                handleList();
+                break;
+            case TODO:
+                handleTodo(parsedInput);
+                break;
+            case DEADLINE:
+                handleDeadline(parsedInput);
+                break;
+            case EVENT:
+                handleEvent(parsedInput);
+                break;
+            case DELETE:
+                handleDelete(parsedInput);
+                break;
+            case BYE:
+                return false;
+            default:
+                throw new ChadException.InvalidCommandException("Unknown command: " + parsedInput[0]);
         }
         return true;
     }
 
-    private void handleMarkUnmark(String[] parts, CommandType command) throws ChadException {
-        if (parts.length < 2) {
-            throw new ChadException.InvalidArgumentException("Missing index for " + command);
-        }
-        int index = Integer.parseInt(parts[1]) - 1;
-        String response = (command == CommandType.MARK) ? taskList.markTaskAsDone(index) : taskList.markTaskAsNotDone(index);
+    private void handleMark(String[] parsedInput) throws ChadException {
+        int index = Integer.parseInt(parsedInput[1]) - 1;
+        String response = taskList.markTaskAsDone(index);
         ioHandler.writeOutput(response);
         saveTasks();
     }
 
-    private void handleTodo(String[] parts) throws ChadException {
-        if (parts.length < 2) {
-            throw new ChadException.InvalidArgumentException("Missing task description for ToDo.");
-        }
+    private void handleUnmark(String[] parsedInput) throws ChadException {
+        int index = Integer.parseInt(parsedInput[1]) - 1;
+        String response = taskList.markTaskAsNotDone(index);
+        ioHandler.writeOutput(response);
+        saveTasks();
+    }
+
+    private void handleList() {
+        ioHandler.writeOutput(taskList.displayTasks());
+    }
+
+    private void handleTodo(String[] parts) {
         taskList.addTodo(parts[1]);
         ioHandler.writeOutput("Added new ToDo: " + parts[1]);
         saveTasks();
     }
 
     private void handleDeadline(String[] parts) throws ChadException {
-        if (parts.length < 2 || !parts[1].contains(" /by ")) {
-            throw new ChadException.InvalidArgumentException("Invalid format for Deadline. Use: deadline {task} /by {date}");
-        }
         String[] deadlineParts = parts[1].split(" /by ", 2);
         try {
-            LocalDateTime dueDate = LocalDateTime.parse(deadlineParts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            LocalDateTime dueDate = LocalDateTime.parse(deadlineParts[1], DateTimeFormatter.ofPattern(DATE_FORMAT));
             taskList.addDeadline(deadlineParts[0], dueDate);
             ioHandler.writeOutput("Added new Deadline: " + deadlineParts[0] + " by " + dueDate);
             saveTasks();
         } catch (DateTimeParseException e) {
-            throw new ChadException.InvalidFormatException("Invalid date format. Please use yyyy-MM-dd HH:mm.");
+            throw new ChadException.InvalidFormatException("Invalid date format. Please use " + DATE_FORMAT);
         }
     }
 
     private void handleEvent(String[] parts) throws ChadException {
-        if (parts.length < 2 || !parts[1].contains(" /from ") || !parts[1].contains(" /to ")) {
-            throw new ChadException.InvalidArgumentException("Invalid format for Event. Use: event {task} /from {start} /to {end}");
-        }
         try {
             String[] eventParts = parts[1].split(" /from | /to ", 3);
-            LocalDateTime start = LocalDateTime.parse(eventParts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-            LocalDateTime end = LocalDateTime.parse(eventParts[2], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                LocalDateTime start = LocalDateTime.parse(eventParts[1], DateTimeFormatter.ofPattern(DATE_FORMAT));
+            LocalDateTime end = LocalDateTime.parse(eventParts[2], DateTimeFormatter.ofPattern(DATE_FORMAT));
             taskList.addEvent(eventParts[0], start, end);
             ioHandler.writeOutput("Added new Event: " + eventParts[0] + " from " + start + " to " + end);
             saveTasks();
         } catch (DateTimeParseException e) {
-            throw new ChadException.InvalidFormatException("Invalid date format. Please use yyyy-MM-dd HH:mm.");
+            throw new ChadException.InvalidFormatException("Invalid date format. Please use " + DATE_FORMAT);
         }
     }
 
-    private void handleDelete(String[] parts) throws ChadException {
-        if (parts.length < 2) {
-            throw new ChadException.InvalidArgumentException("Invalid format for Delete Task Operation. Use: delete {taskIndex}");
-        }
+    private void handleDelete(String[] parts) {
         int index = Integer.parseInt(parts[1]) - 1;
         String response = taskList.deleteTask(index);
         ioHandler.writeOutput(response);

@@ -20,6 +20,7 @@ public class Event extends Task {
 
     @Override
     public String toFileFormat(DateTimeFormatter formatter) {
-        return String.format("E | %s | %s | %s | %s", super.isDoneString(), description, start, end);
+        return String.format("E | %s | %s | %s | %s", super.isDoneString(), description, start.format(formatter),
+                end.format(formatter));
     }
 }

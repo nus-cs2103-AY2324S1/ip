@@ -17,6 +17,6 @@ public class Deadline extends Task {
 
     @Override
     public String toFileFormat(DateTimeFormatter formatter) {
-        return String.format("D | %s | %s | %s", super.isDoneString(), description, dueDate);
+        return String.format("D | %s | %s | %s", super.isDoneString(), description, dueDate.format(formatter));
     }
 }
