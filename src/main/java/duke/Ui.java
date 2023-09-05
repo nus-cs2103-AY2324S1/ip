@@ -4,38 +4,41 @@ package duke;
  * Represents a Ui object that deals with interactions with the user.
  */
 public class Ui {
-    private final String DIVIDER = "\t____________________________________________________________";
-    private final String LOGO = "\t░█████╗░██╗░░██╗░█████╗░████████╗████████╗██╗░░░██╗\n"
-            + "\t██╔══██╗██║░░██║██╔══██╗╚══██╔══╝╚══██╔══╝╚██╗░██╔╝\n"
-            + "\t██║░░╚═╝███████║███████║░░░██║░░░░░░██║░░░░╚████╔╝░\n"
-            + "\t██║░░██╗██╔══██║██╔══██║░░░██║░░░░░░██║░░░░░╚██╔╝░░\n"
-            + "\t╚█████╔╝██║░░██║██║░░██║░░░██║░░░░░░██║░░░░░░██║░░░\n"
-            + "\t░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░░░░╚═╝░░░░░░╚═╝░░░\n";
-    private final String GREETING = "\tHello! I'm Chatty.\n\tWhat can I do for you?";
-    private final String FAREWELL = "\tBye. Have \"fun\" in school!";
-    private final String ERROR = "\tError: ";
+    private final String DIVIDER = "____________________________________________________________";
+    private final String LOGO = "░█████╗░██╗░░██╗░█████╗░████████╗████████╗██╗░░░██╗\n"
+            + "██╔══██╗██║░░██║██╔══██╗╚══██╔══╝╚══██╔══╝╚██╗░██╔╝\n"
+            + "██║░░╚═╝███████║███████║░░░██║░░░░░░██║░░░░╚████╔╝░\n"
+            + "██║░░██╗██╔══██║██╔══██║░░░██║░░░░░░██║░░░░░╚██╔╝░░\n"
+            + "╚█████╔╝██║░░██║██║░░██║░░░██║░░░░░░██║░░░░░░██║░░░\n"
+            + "░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░░░░╚═╝░░░░░░╚═╝░░░\n";
+    private final String GREETING = "Hello! I'm Chatty.\nWhat can I do for you?";
+    private final String FAREWELL = "Bye. Have \"fun\" in school!";
+    private final String ERROR = "Error: ";
 
     /**
      * Prints the introduction message to console.
      */
-    public void showIntroduction() {
-        System.out.println("\n\tWelcome to Chatty.\n" + LOGO);
-        sendGreeting();
+    public String showIntroduction() {
+        // System.out.println("\nWelcome to Chatty.\n" + LOGO);
+        return GREETING;
     }
 
-    private void sendGreeting() {
-        System.out.println(DIVIDER);
-        System.out.println(GREETING);
-        System.out.println(DIVIDER);
-    }
+    // private String sendGreeting() {
+    //     // System.out.println(DIVIDER);
+    //     // System.out.println(GREETING);
+    //     // System.out.println(DIVIDER);
+    //     return GREETING;
+
+    // }
 
     /**
      * Prints the concluding message to console.
      */
-    public void sendFarewell() {
-        System.out.println(DIVIDER);
-        System.out.println(FAREWELL);
-        System.out.println(DIVIDER);
+    public String sendFarewell() {
+        // System.out.println(DIVIDER);
+        // System.out.println(FAREWELL);
+        // System.out.println(DIVIDER);
+        return FAREWELL;
     }
 
     /**
@@ -49,54 +52,61 @@ public class Ui {
      * Prints the task list to console.
      * @param taskList String representation of the task list.
      */
-    public void printTaskList(String taskList) {
-        System.out.println("\tHere are the tasks in your list:");
+    public String printTaskList(String taskList) {
+        System.out.println("Here are the tasks in your list:");
         System.out.println(taskList);
+        return "Here are the tasks in your list:\n" + taskList;
     }
 
     /**
      * Prints the matching tasks to console.
      * @param matchingTasks String representation of the matching tasks.
      */
-    public void addTaskOutputText(Task newTask, int taskListSize) {
-        System.out.println("\tGot it. I've added this task:");
+    public String addTaskOutputText(Task newTask, int taskListSize) {
+        System.out.println("Got it. I've added this task:");
         // can use -1 because we just added it
-        System.out.println("\t\t" + newTask.toString());
+        System.out.println("" + newTask.toString());
         String taskWord = taskListSize == 1 ? "task" : "tasks";
-        System.out.println("\tNow you have " + taskListSize + " " + taskWord + " in your list.");
+        System.out.println("Now you have " + taskListSize + " " + taskWord + " in your list.");
+        return "Got it. I've added this task:\n" + newTask.toString() + "\nNow you have " + taskListSize
+                + " " + taskWord + " in your list.";
     }
 
     /**
      * Prints the matching tasks to console.
      */
-    public void showLoadingError() {
+    public String showLoadingError() {
         System.out.println(ERROR + "Error loading file.");
+        return ERROR + "Error loading file.";
     }
 
     /**
      * Prints the message when a task is marked as done to console.
      * @param taskString String representation of the task that is marked as done.
      */
-    public void markTaskAsDoneMessage(String taskString) {
-        System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t" + taskString);
+    public String markTaskAsDoneMessage(String taskString) {
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("" + taskString);
+        return "Nice! I've marked this task as done:\n" + taskString;
     }
 
     /**
      * Prints the message when a task is marked as not done to console.
      * @param taskString String representation of the task that is marked as not done.
      */
-    public void unmarkTaskAsDoneMessage(String taskString) {
-        System.out.println("\tOK, I've marked this task as not done yet:");
-        System.out.println("\t" + taskString);
+    public String unmarkTaskAsDoneMessage(String taskString) {
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("" + taskString);
+        return "OK, I've marked this task as not done yet:\n" + taskString;
     }
 
     /**
      * Prints the error message to console.
      * @param errorMessage Error message to be printed.
      */
-    public void showErrorMessage(String errorMessage) {
+    public String showErrorMessage(String errorMessage) {
         System.out.println(ERROR + errorMessage);
+        return ERROR + errorMessage;
     }
 
     /**
@@ -105,12 +115,14 @@ public class Ui {
      * @param taskIndex Index of the task that is deleted.
      * @param taskListSize Size of the task list.
      */
-    public void printDeleteMessage(String taskToString, int taskIndex, int taskListSize) {
-        System.out.println("\tNoted. I've removed task " + (taskIndex + 1) + ":");
-        System.out.println("\t\t" + taskToString);
+    public String printDeleteMessage(String taskToString, int taskIndex, int taskListSize) {
+        System.out.println("Noted. I've removed task " + (taskIndex + 1) + ":");
+        System.out.println("" + taskToString);
         taskListSize -= 1;
         String taskWord = taskListSize == 1 ? "task" : "tasks";
-        System.out.println("\tNow you have " + taskListSize + " " + taskWord + " in your list.");
+        System.out.println("Now you have " + taskListSize + " " + taskWord + " in your list.");
+        return "Noted. I've removed task " + (taskIndex + 1) + ":\n" + taskToString + "\nNow you have "
+                + taskListSize + " " + taskWord + " in your list.";
     }
 
 }

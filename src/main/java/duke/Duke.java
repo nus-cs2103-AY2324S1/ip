@@ -26,6 +26,21 @@ public class Duke {
         }
     }
 
+    public Duke() {
+        ui = new Ui();
+        storage = new Storage("data/tasks.txt");
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
+
+    public String showIntroduction() {
+        return ui.showIntroduction();
+    }
+
     /**
      * Runs the program.
      */
@@ -49,37 +64,34 @@ public class Duke {
         ui.sendFarewell();
     }
 
-    private void handleTextInput(String inputString) {
-        ui.printDivider();
+    private String handleTextInput(String inputString) {
         // handle key logic here.
         String command = inputString.split(" ")[0];
         int taskIndex;
 
         switch (command) {
+        case "bye":
+            return ui.sendFarewell();
         case "list":
-            ui.printTaskList(tasks.toString());
-            break;
+            return ui.printTaskList(tasks.toString());
         case "mark":
             taskIndex = Integer.parseInt(inputString.split(" ")[1]) - 1;
             // tasks.get(taskIndex).markAsDone();
             tasks.markTaskAsDone(taskIndex);
-            ui.markTaskAsDoneMessage(tasks.taskToString(taskIndex));
-            break;
+            return ui.markTaskAsDoneMessage(tasks.taskToString(taskIndex));
         case "unmark":
             taskIndex = Integer.parseInt(inputString.split(" ")[1]) - 1;
             tasks.unmarkTaskAsDone(taskIndex);
-            ui.unmarkTaskAsDoneMessage(tasks.taskToString(taskIndex));
-            break;
+            return ui.unmarkTaskAsDoneMessage(tasks.taskToString(taskIndex));
         case "todo":
             try {
                 String taskName = inputString.substring(5);
                 Task newTask = new ToDo(taskName);
                 tasks.addToTaskList(newTask);
-                ui.addTaskOutputText(newTask, tasks.size());
+                return ui.addTaskOutputText(newTask, tasks.size());
             } catch (StringIndexOutOfBoundsException e) {
-                ui.showErrorMessage("\t☹ OOPS!!! The description of a todo cannot be empty.");
+                return ui.showErrorMessage("\t☹ OOPS!!! The description of a todo cannot be empty.");
             }
-            break;
         case "deadline":
             try {
                 // stop before /by
@@ -90,15 +102,14 @@ public class Duke {
 
                     Task newTask = new Deadline(taskName, deadline);
                     tasks.addToTaskList(newTask);
-                    ui.addTaskOutputText(newTask, tasks.size());
+                    return ui.addTaskOutputText(newTask, tasks.size());
                 } catch (java.time.format.DateTimeParseException e) {
                     // System.out.println("Error: " + e.getMessage());
-                    ui.showErrorMessage("\tInvalid date format. Please use yyyy-mm-dd.");
+                    return ui.showErrorMessage("\tInvalid date format. Please use yyyy-mm-dd.");
                 }
             } catch (StringIndexOutOfBoundsException e) {
-                ui.showErrorMessage("\t☹ OOPS!!! The description of a deadline cannot be empty.");
+                return ui.showErrorMessage("\t☹ OOPS!!! The description of a deadline cannot be empty.");
             }
-            break;
         case "event":
             try {
                 String taskName = inputString.substring(6, inputString.indexOf("/from") - 1);
@@ -106,16 +117,15 @@ public class Duke {
                 String to = inputString.substring(inputString.indexOf("/to") + 4);
                 Task newTask = new Event(taskName, from, to);
                 tasks.addToTaskList(newTask);
-                ui.addTaskOutputText(newTask, tasks.size());
+                return ui.addTaskOutputText(newTask, tasks.size());
             } catch (StringIndexOutOfBoundsException e) {
-                ui.showErrorMessage("\t☹ OOPS!!! The description of an event cannot be empty.");
+                return ui.showErrorMessage("\t☹ OOPS!!! The description of an event cannot be empty.");
             }
-            break;
         case "delete":
             taskIndex = Integer.parseInt(inputString.split(" ")[1]) - 1;
-            ui.printDeleteMessage(tasks.taskToString(taskIndex), taskIndex, tasks.size());
+            String msg = ui.printDeleteMessage(tasks.taskToString(taskIndex), taskIndex, tasks.size());
             tasks.deleteTask(taskIndex);
-            break;
+            return msg;
         case "find":
             String keyword = inputString.substring(5);
             String outputString = "";
@@ -124,18 +134,24 @@ public class Duke {
                     outputString += tasks.taskToString(i) + "\n";
                 }
             }
-            ui.printTaskList(outputString);
-            break;
+            return ui.printTaskList(outputString);
         default:
-            ui.showErrorMessage(
+            return ui.showErrorMessage(
                     "\t☹ OOPS!!! I'm sorry, but I don't know what that means. Try again using either mark <index>, unmark <index>, todo <task>, deadline <task /by ..>, event <task /from .. /to ..>, or bye.");
-        }
-        ui.printDivider();
+                }
+
+    }
+
+    // this handles the response to the input
+    // the response is then sent to the GUI
+    public String getResponse(String input) {
+        String resp = handleTextInput(input);
         try {
             storage.save(tasks);
         } catch (DukeException e) {
-            ui.showErrorMessage("\tError saving file." + " " + e.getMessage());
+            return ui.showErrorMessage("\tError saving file." + " " + e.getMessage());
         }
+        return resp;
     }
 
     /**
