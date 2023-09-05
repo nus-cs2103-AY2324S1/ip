@@ -1,10 +1,22 @@
 package chad.chatengine;
+
+/**
+ * Utility class for parsing chat commands and input.
+ */
 public class Parser {
 
+    /**
+     * Enumeration of possible command types.
+     */
     public enum CommandType {
         BYE, MARK, UNMARK, LIST, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
     }
 
+    /**
+     * Parses the type of command.
+     * @param command the command string.
+     * @return the type of command.
+     */
     public static CommandType parseCommandType(String command) {
         try {
             return CommandType.valueOf(command.toUpperCase());
@@ -13,6 +25,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input string into command and arguments.
+     * @param input the user's input string.
+     * @return a String array containing the command and its arguments.
+     * @throws ChadException if the input is invalid or incomplete.
+     */
     public static String[] parseInput(String input) throws ChadException {
         if (input.trim().isEmpty()) {
             throw new ChadException.InvalidArgumentException("Input cannot be empty.");

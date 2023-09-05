@@ -12,6 +12,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Core engine for handling chat interactions and tasks.
+ */
 public class ChatEngine {
     final IOHandler ioHandler;
     TaskList taskList; // stores list of tasks
@@ -19,6 +22,10 @@ public class ChatEngine {
 
     static final String DATE_FORMAT = "yyyy-MM-dd HH:mm";
 
+    /**
+     * Constructs a new ChatEngine.
+     * @param filePath the path where tasks are stored.
+     */
     public ChatEngine(String filePath) {
         this.ioHandler = new ConsoleIO();
         this.storage = new Storage(filePath);
@@ -29,13 +36,21 @@ public class ChatEngine {
         }
     }
 
-    // New constructor for testing
+    /**
+     * Constructs a new ChatEngine for testing.
+     * @param ioHandler mock io handler for testing.
+     * @param taskList mock task list for testing.
+     * @param filePath mock file path for testing.
+     */
     ChatEngine(IOHandler ioHandler, TaskList taskList, String filePath) {
         this.ioHandler = ioHandler;
         this.taskList = taskList;
         this.storage = new Storage(filePath);
     }
 
+    /**
+     * Starts the chat interaction.
+     */
     public void start() {
         ioHandler.greet();
         boolean canContinueChat = true;
@@ -51,6 +66,12 @@ public class ChatEngine {
         ioHandler.sayGoodbye();
     }
 
+    /**
+     * Handles various commands parsed from the input.
+     * @param parsedInput the parsed input array.
+     * @return true if chat should continue, false otherwise.
+     * @throws ChadException if an invalid command or argument is encountered.
+     */
     boolean commandHandler(String[] parsedInput) throws ChadException {
         Parser.CommandType command = Parser.parseCommandType(parsedInput[0]);
         switch (command) {
@@ -83,6 +104,11 @@ public class ChatEngine {
         return true;
     }
 
+    /**
+     * Marks a task as done.
+     * @param parsedInput the parsed input array.
+     * @throws ChadException if an invalid index is provided.
+     */
     void handleMark(String[] parsedInput) throws ChadException {
         int index = Integer.parseInt(parsedInput[1]) - 1;
         String response = taskList.markTaskAsDone(index);
@@ -90,6 +116,11 @@ public class ChatEngine {
         saveTasks();
     }
 
+    /**
+     * Marks a task as not done.
+     * @param parsedInput the parsed input array.
+     * @throws ChadException if an invalid index is provided.
+     */
     void handleUnmark(String[] parsedInput) throws ChadException {
         int index = Integer.parseInt(parsedInput[1]) - 1;
         String response = taskList.markTaskAsNotDone(index);
@@ -97,16 +128,28 @@ public class ChatEngine {
         saveTasks();
     }
 
+    /**
+     * Lists all the tasks.
+     */
     void handleList() {
         ioHandler.writeOutput(taskList.displayTasks());
     }
 
+    /**
+     * Adds a new ToDo task.
+     * @param parts the parsed input array containing the task description.
+     */
     void handleTodo(String[] parts) {
         taskList.addTodo(parts[1]);
         ioHandler.writeOutput("Added new ToDo: " + parts[1]);
         saveTasks();
     }
 
+    /**
+     * Adds a new Deadline task.
+     * @param parts the parsed input array containing the task and deadline details.
+     * @throws ChadException if the date format is incorrect.
+     */
     void handleDeadline(String[] parts) throws ChadException {
         String[] deadlineParts = parts[1].split(" /by ", 2);
         try {
@@ -119,6 +162,11 @@ public class ChatEngine {
         }
     }
 
+    /**
+     * Adds a new Event task.
+     * @param parts the parsed input array containing the event and time details.
+     * @throws ChadException if the date format is incorrect.
+     */
     void handleEvent(String[] parts) throws ChadException {
         try {
             String[] eventParts = parts[1].split(" /from | /to ", 3);
@@ -132,12 +180,20 @@ public class ChatEngine {
         }
     }
 
+    /**
+     * Deletes a task.
+     * @param parts the parsed input array containing the index of the task to be deleted.
+     */
     void handleDelete(String[] parts) {
         int index = Integer.parseInt(parts[1]) - 1;
         String response = taskList.deleteTask(index);
         ioHandler.writeOutput(response);
         saveTasks();
     }
+
+    /**
+     * Saves the current state of tasks to the storage.
+     */
     void saveTasks() {
         try {
             storage.saveTasks(taskList);

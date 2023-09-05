@@ -13,15 +13,24 @@ import java.util.ArrayList;
 
 import java.time.format.DateTimeFormatter;
 
-
+/**
+ * Manages storage operations for tasks.
+ */
 public class Storage {
     private Path filePath;
 
+    /**
+     * Constructs a new Storage instance.
+     * @param filePath the path to the file for storing tasks.
+     */
     public Storage(String filePath) {
         this.filePath = Paths.get(filePath);
         ensureFileExists();
     }
 
+    /**
+     * Ensures the file for storage exists.
+     */
     private void ensureFileExists() {
         try {
             if (Files.notExists(filePath)) {
@@ -36,6 +45,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the tasks to the file.
+     * @param taskList the list of tasks.
+     * @throws IOException if an I/O error occurs.
+     */
     public void saveTasks(TaskList taskList) throws IOException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
@@ -46,6 +60,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the storage file.
+     * @return an ArrayList of Task objects loaded from the storage file.
+     * @throws IOException if an I/O error occurs.
+     */
     public ArrayList<Task> loadTasks() throws IOException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         ArrayList<Task> tasks = new ArrayList<>();
