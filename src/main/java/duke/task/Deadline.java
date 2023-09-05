@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
  * @author selwyn
  */
 public class Deadline extends Task {
-    /** The end date and time of the deadline. */
     private LocalDateTime endDateTime;
 
     /**

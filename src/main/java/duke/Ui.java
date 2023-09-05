@@ -1,136 +1,112 @@
 package duke;
 
-import java.util.Scanner;
-
 import duke.task.Task;
 import duke.task.TaskList;
 
 /**
- * The Ui class handles interactions with the user interface, providing methods to read input,
- * display messages, and print various types of information.
+ * The Ui class handles user interface-related operations and generates user-friendly messages for the Duke chatbot.
  *
  * @author selwyn
  */
 public class Ui {
-    /** Name of the chatbot */
-    private static String name;
+    private static final String NAME = "DUKE PRINCE";
 
     /**
-     * Constructs an Ui object with the specified name to be used in greetings and messages.
+     * Generates a representation of the task list, optionally filtered by a search query.
      *
-     * @param name The name of the application.
+     * @param taskList   The task list to be represented.
+     * @param isMatching Whether the task list is filtered by a search query.
+     * @return A string representation of the task list.
      */
-    public Ui(String name) {
-        this.name = name;
+    public static String printTaskList(TaskList taskList, boolean isMatching) {
+        return taskList.taskListRepresentation(isMatching);
     }
 
     /**
-     * Reads a command input from the user.
+     * Generates a message indicating that a task has been successfully added to the task list.
      *
-     * @return The command input provided by the user as a string.
+     * @param addedTask            The task that has been added.
+     * @param noOfTasksAfterAdding The number of tasks in the list after adding the new task.
+     * @return A message indicating the successful addition of the task.
      */
-    public String readCommand() {
-        Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.nextLine();
-        return userInput;
-    }
-
-    /**
-     * Prints the task list to the console.
-     *
-     * @param taskList The task list to be displayed.
-     * @param isMatching Determines which statements to print (true for matching tasks, false for all tasks)
-     */
-    public void printTaskList(TaskList taskList, boolean isMatching) {
-        taskList.displayTaskList(isMatching);
-    }
-
-    /**
-     * Prints a message indicating that a task has been added, along with the new task's details.
-     *
-     * @param addedTask The task that was added.
-     * @param noOfTasksAfterAdding The number of tasks after adding the new task.
-     */
-    public void printAddedTask(Task addedTask, int noOfTasksAfterAdding) {
-        System.out.println("Got it. I've added this task:");
-        System.out.print("   ");
-        System.out.println(addedTask.toString());
+    public static String printAddedTask(Task addedTask, int noOfTasksAfterAdding) {
+        String strToReturn = "";
+        strToReturn += "Got it. I've added this task: \n" + addedTask.toString() + "\n";
 
         if (noOfTasksAfterAdding == 1) {
-            System.out.println("Now you have " + noOfTasksAfterAdding + " task in the list.");
+            strToReturn += "Now you have " + noOfTasksAfterAdding + " task in the list.";
         } else {
-            System.out.println("Now you have " + noOfTasksAfterAdding + " tasks in the list.");
+            strToReturn += "Now you have " + noOfTasksAfterAdding + " tasks in the list.";
         }
+
+        return strToReturn;
     }
 
     /**
-     * Prints a message indicating the change in task done status.
+     * Generates a message indicating that the done status of a task has been changed.
      *
-     * @param taskToChange The task for which the status changed.
-     * @param isDone Whether the task is marked as done or not done.
+     * @param taskToChange The task whose done status has been changed.
+     * @param isDone       Whether the task is marked as done or not.
+     * @return A message indicating the change in task done status.
      */
-    public void printChangeTaskDoneStatus(Task taskToChange, boolean isDone) {
+    public static String printChangeTaskDoneStatus(Task taskToChange, boolean isDone) {
+        String strToReturn = "";
         if (isDone) {
-            System.out.println("Nice! I've marked this task done:");
+            strToReturn += "Nice! I've marked this task done:\n";
         } else {
-            System.out.println("OK, I've marked this task as not done yet:");
+            strToReturn += "OK, I've marked this task as not done yet:\n";
         }
 
-        System.out.println(taskToChange.toString());
+        strToReturn += taskToChange.toString();
+        return strToReturn;
     }
 
     /**
-     * Prints a message indicating that a task has been deleted, along with the remaining tasks count.
+     * Generates a message indicating that a task has been successfully deleted from the task list.
      *
-     * @param deletedTask The task that was deleted.
-     * @param numOfTasksLeft The number of tasks remaining after deletion.
+     * @param deletedTask    The task that has been deleted.
+     * @param numOfTasksLeft The number of tasks remaining in the list after deletion.
+     * @return A message indicating the successful deletion of the task.
      */
-    public void printDeletedTask(Task deletedTask, int numOfTasksLeft) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.print("   ");
-        System.out.println(deletedTask.toString());
+    public static String printDeletedTask(Task deletedTask, int numOfTasksLeft) {
+        String strToReturn = "";
+        strToReturn += "Noted. I've removed this task:\n";
+        strToReturn += deletedTask.toString() + "\n";
 
         if (numOfTasksLeft == 1 || numOfTasksLeft == 0) {
-            System.out.println("Now you have " + numOfTasksLeft + " task in the list.");
+            strToReturn += "Now you have " + numOfTasksLeft + " task in the list.";
         } else {
-            System.out.println("Now you have " + numOfTasksLeft + " tasks in the list.");
+            strToReturn += "Now you have " + numOfTasksLeft + " tasks in the list.";
         }
+
+        return strToReturn;
     }
 
     /**
-     * Prints a greeting message to the user.
-     */
-    public void greet() {
-        this.printHorizontalLine();
-        System.out.println("Hello! I'm " + name);
-        System.out.println("What can I do for you?");
-        this.printHorizontalLine();
-    }
-
-    /**
-     * Prints a farewell message to the user.
-     */
-    public void printExit() {
-        System.out.println("Bye. Hope to see you again soon!");
-    }
-
-    /**
-     * Prints a horizontal line for visual separation.
-     */
-    public void printHorizontalLine() {
-        int width = 50;
-        for (int i = 0; i < width; i++) {
-            System.out.print("-");
-        }
-        System.out.println("");
-    }
-
-    /**
-     * Prints an error message.
+     * Generates a welcome greeting message.
      *
-     * @param errorMsg The error message to be displayed.
+     * @return A welcome message for the user.
      */
-    public void printError(String errorMsg) {
-        System.out.println("OOPS! " + errorMsg);
+    public static String printGreet() {
+        return "Hello! I'm " + NAME + "\n" + "What can I do for you?";
+    }
+
+    /**
+     * Generates a farewell message for when the user exits the application.
+     *
+     * @return A farewell message.
+     */
+    public static String printExit() {
+        return "Bye. Hope to see you again soon!";
+    }
+
+    /**
+     * Generates an error message for the user.
+     *
+     * @param errorMsg The error message to display.
+     * @return An error message for the user.
+     */
+    public static String printError(String errorMsg) {
+        return "OOPS! " + errorMsg;
     }
 }

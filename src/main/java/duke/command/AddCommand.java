@@ -8,44 +8,44 @@ import duke.task.TaskList;
 import duke.task.TaskType;
 
 /**
- * The AddCommand class represents a command to add a new task to the task list.
+ * The AddCommand class represents a command for adding tasks to the task list.
  *
  * @author selwyn
  */
 public class AddCommand extends Command {
-    /** The type of task to be added. */
     private TaskType taskType;
 
-    /** The details for creating the duke.task. */
     private String addCommandDetails;
 
     /**
-     * Constructs an AddCommand object with the specified task type and details.
+     * Constructs an AddCommand with the specified task type and command details.
      *
-     * @param taskType The type of task to be added.
-     * @param args The arguments for creating the duke.task.
+     * @param taskType          The type of task to be added.
+     * @param addCommandDetails The details of the task to be added.
      */
-    public AddCommand(TaskType taskType, String args) {
+    public AddCommand(TaskType taskType, String addCommandDetails) {
         this.taskType = taskType;
-        this.addCommandDetails = args;
+        this.addCommandDetails = addCommandDetails;
     }
 
     /**
-     * Executes the AddCommand by adding a new task to the task list and updating the storage.
+     * Executes the AddCommand by adding a task to the task list and saving it to storage.
      *
-     * @param taskList The TaskList object containing the list of tasks.
-     * @param ui The Ui object handling user interface interactions.
-     * @param storage The Storage object handling storage-related operations.
-     * @throws DukeException If there is an issue adding the task or updating storage.
+     * @param taskList The task list to which the task will be added.
+     * @param storage  The storage object used for saving tasks.
+     * @return A message indicating the successful addition of the task.
+     * @throws DukeException If there is an error adding the task.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Storage storage) throws DukeException {
+        Task addedTask;
         try {
-            Task addedTask = taskList.addTask(this.taskType, this.addCommandDetails);
-            ui.printAddedTask(addedTask, taskList.getNumTasks());
+            addedTask = taskList.addTask(this.taskType, this.addCommandDetails);
             storage.saveTasks(taskList.getTaskList());
         } catch (DukeException e) {
             throw new DukeException(e.getMessage());
         }
+
+        return Ui.printAddedTask(addedTask, taskList.getNumTasks());
     }
 }
