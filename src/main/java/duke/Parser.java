@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.ArrayList;
+
 import duke.command.AddCommand;
 import duke.command.ByeCommand;
 import duke.command.Command;
@@ -7,17 +9,14 @@ import duke.command.DeleteComand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
-
-import duke.task.Event;
 import duke.task.Deadline;
+import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-import java.util.ArrayList;
-
 public class Parser {
 
-    public static Command parse(String strCommand) throws DukeException{
+    public static Command parse(String strCommand) throws DukeException {
         int firstSpaceIndex = strCommand.indexOf(" ");
         Command command = null;
         String commandType = firstSpaceIndex != -1
@@ -145,7 +144,7 @@ public class Parser {
             isDone = taskData.substring(0, firstSplitIndex - 1).equals("1");
             desc = taskData.substring(firstSplitIndex + 2, secondSplitIndex - 1);
             String by = taskData.substring(secondSplitIndex + 2);
-            task =  new Deadline(desc, by);
+            task = new Deadline(desc, by);
             if (isDone) {
                 task.markDone();
             }
@@ -163,6 +162,8 @@ public class Parser {
                 task.markDone();
             }
             break;
+        default:
+            throw new DukeException("Wrong task type.");
         }
         return task;
     }

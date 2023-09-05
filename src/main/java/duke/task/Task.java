@@ -1,9 +1,9 @@
 package duke.task;
 
-import duke.DukeException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import duke.DukeException;
 
 public abstract class Task {
     protected String description;
@@ -49,7 +49,7 @@ public abstract class Task {
      */
     public abstract String toData();
 
-    protected LocalDate parseDate(String date) throws DukeException{
+    protected LocalDate parseDate(String date) throws DukeException {
         LocalDate localDate = null;
         try {
             localDate = LocalDate.parse(date);
@@ -72,5 +72,4 @@ public abstract class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
-    
 }

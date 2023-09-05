@@ -1,11 +1,12 @@
 package duke.command;
 
+import java.util.ArrayList;
+
 import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 
-import java.util.ArrayList;
 
 public abstract class Command {
     protected ArrayList<String> commandDetails;

@@ -1,12 +1,12 @@
 package duke.command;
 
+import java.util.ArrayList;
+
 import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
-
-import java.util.ArrayList;
 
 public class MarkCommand extends Command {
     public MarkCommand(ArrayList<String> commandDetails) {

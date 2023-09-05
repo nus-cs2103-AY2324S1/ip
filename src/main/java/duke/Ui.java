@@ -1,8 +1,9 @@
 package duke;
 
+import java.util.Scanner;
+
 import duke.task.Task;
 import duke.task.TaskList;
-import java.util.Scanner;
 
 public class Ui {
 
@@ -51,21 +52,21 @@ public class Ui {
                 + LINE
                 + "\n");
     }
-    
+
     public void printTaskMarked(Task task) {
         System.out.println(LINE
                 + "\nNice! I've marked this task as done:\n"
                 + task + "\n"
                 + LINE + "\n");
     }
-    
+
     public void printTaskUnmarked(Task task) {
         System.out.println(LINE + "\n"
                 + "OK, I've marked this task as not done yet:\n"
                 + task + "\n"
                 + LINE);
     }
-    
+
     public void printTaskDeleted(Task task, int listSize) {
         System.out.println(LINE + "\n"
                 + "Noted. I've removed this task:\n"
@@ -73,7 +74,7 @@ public class Ui {
                 + "\nNow you have " + listSize + " tasks in the list.\n"
                 + LINE + "\n");
     }
-    
+
     public void printException(String message) {
         System.out.println(LINE + "\n"
                 + message + "\n"

@@ -1,19 +1,18 @@
 package duke.command;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
-import duke.command.Command;
-
+import duke.task.Deadline;
+import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
-import duke.task.Event;
-import duke.task.Deadline;
-import duke.task.Task;
 import duke.task.Todo;
 
-import java.io.IOException;
-import java.util.ArrayList;
+
 
 public class AddCommand extends Command {
     private String taskType;
@@ -55,6 +54,8 @@ public class AddCommand extends Command {
             }
             ui.printTaskAdded(newEvent, tasks.size());
             break;
+        default:
+            throw new DukeException("☹ OOPS!!! Something went wrong when adding the task.");
         }
     }
 

@@ -1,14 +1,13 @@
 package duke;
 
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.Parser;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import duke.task.Task;
+import duke.task.TaskList;
 
 public class Storage {
     private String filePath;
@@ -28,7 +27,7 @@ public class Storage {
         }
     }
 
-    private boolean createFile()  {
+    private boolean createFile() {
         try {
             return file.createNewFile();
         } catch (IOException e) {
