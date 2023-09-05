@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import duke.common.Command;
 import duke.DukeException;
 import duke.DukeInvalidCommandException;
 import duke.DukeMissingArgumentException;

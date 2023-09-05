@@ -1,5 +1,8 @@
 package duke.common;
 
+/**
+ * Represents a message.
+ */
 public abstract class Message {
     public static final String GREET = "Hello from Duke!";
     public static final String FAREWELL = "Bye. Hope to see you again soon! \uD83D\uDD19 \uD83D\uDD1B \uD83D\uDD1D";

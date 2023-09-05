@@ -5,11 +5,9 @@ import duke.DukeException;
 import duke.common.Message;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -36,10 +34,17 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the Duke chatbot.
+     * @param d
+     */
     public void setDuke(Duke d) {
         duke = d;
     }
 
+    /**
+     * Greets the user when the chatbot is launched.
+     */
     public void greet() {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(Message.GREET, dukeImage)
