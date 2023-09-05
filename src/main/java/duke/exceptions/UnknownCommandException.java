@@ -1,4 +1,4 @@
-package dukeapp.exceptions;
+package duke.exceptions;
 
 /**
  * Represents an exception when an unknown command is passed in.

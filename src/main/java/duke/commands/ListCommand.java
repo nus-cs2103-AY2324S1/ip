@@ -1,7 +1,7 @@
-package dukeapp.commands;
+package duke.commands;
 
-import dukeapp.TaskList;
-import dukeapp.Ui;
+import duke.TaskList;
+import duke.Ui;
 
 /**
  * Lists items from application state.

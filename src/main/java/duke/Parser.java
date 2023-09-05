@@ -1,18 +1,18 @@
-package dukeapp;
+package duke;
 
-import dukeapp.commands.Command;
-import dukeapp.commands.DeleteCommand;
-import dukeapp.commands.ExitCommand;
-import dukeapp.commands.InsertCommand;
-import dukeapp.commands.ListCommand;
-import dukeapp.commands.MarkCommand;
-import dukeapp.commands.UnmarkCommand;
-import dukeapp.exceptions.InsufficientArgumentsException;
-import dukeapp.exceptions.UnknownCommandException;
-import dukeapp.tasks.Deadline;
-import dukeapp.tasks.Event;
-import dukeapp.tasks.Task;
-import dukeapp.tasks.ToDo;
+import duke.commands.Command;
+import duke.commands.DeleteCommand;
+import duke.commands.ExitCommand;
+import duke.commands.InsertCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkCommand;
+import duke.commands.UnmarkCommand;
+import duke.exceptions.InsufficientArgumentsException;
+import duke.exceptions.UnknownCommandException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

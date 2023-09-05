@@ -1,8 +1,8 @@
-package dukeapp.commands;
+package duke.commands;
 
-import dukeapp.Messages;
-import dukeapp.TaskList;
-import dukeapp.Ui;
+import duke.Messages;
+import duke.TaskList;
+import duke.Ui;
 
 /**
  * Terminates the program.

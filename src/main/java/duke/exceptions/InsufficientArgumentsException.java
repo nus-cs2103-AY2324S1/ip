@@ -1,4 +1,4 @@
-package dukeapp.exceptions;
+package duke.exceptions;
 
 /**
  * Represents an exception when there are insufficient arguments when creating a

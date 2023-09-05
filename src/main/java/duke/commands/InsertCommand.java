@@ -1,11 +1,11 @@
-package dukeapp.commands;
+package duke.commands;
 
-import dukeapp.Messages;
-import dukeapp.Parser;
-import dukeapp.TaskList;
-import dukeapp.Ui;
-import dukeapp.exceptions.InsufficientArgumentsException;
-import dukeapp.tasks.Task;
+import duke.Messages;
+import duke.Parser;
+import duke.TaskList;
+import duke.Ui;
+import duke.exceptions.InsufficientArgumentsException;
+import duke.tasks.Task;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;

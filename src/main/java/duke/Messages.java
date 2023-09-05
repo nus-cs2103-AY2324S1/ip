@@ -1,4 +1,4 @@
-package dukeapp;
+package duke;
 
 /**
  * Stores the string messages of the application.

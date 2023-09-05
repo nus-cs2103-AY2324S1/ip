@@ -1,4 +1,4 @@
-package dukeapp.tasks;
+package duke.tasks;
 
 /**
  * Represents a generic task containing the description and own task state.

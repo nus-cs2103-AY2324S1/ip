@@ -1,8 +1,8 @@
-package dukeapp;
+package duke;
 
-import dukeapp.exceptions.InsufficientArgumentsException;
-import dukeapp.exceptions.StorageCreationException;
-import dukeapp.exceptions.UnknownCommandException;
+import duke.exceptions.InsufficientArgumentsException;
+import duke.exceptions.StorageCreationException;
+import duke.exceptions.UnknownCommandException;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;

@@ -1,4 +1,4 @@
-package dukeapp.exceptions;
+package duke.exceptions;
 
 /**
  * Represents an exception when creating the storage directory or storage file fails.

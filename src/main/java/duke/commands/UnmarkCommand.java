@@ -1,19 +1,19 @@
-package dukeapp.commands;
+package duke.commands;
 
-import dukeapp.Messages;
-import dukeapp.TaskList;
-import dukeapp.Ui;
+import duke.Messages;
+import duke.TaskList;
+import duke.Ui;
 
 import java.io.IOException;
 
 /**
- * Marks a task.
+ * Unmarks a task.
  */
-public class MarkCommand implements Command {
+public class UnmarkCommand implements Command {
     /**
-     * Sets a given task to be marked.
+     * Sets a given task to be unmarked.
      *
-     * @param input    The user input of the task to be marked.
+     * @param input    The user input of the task to be unmarked.
      * @param taskList The application's task list.
      * @param ui       The UI of the application.
      */
@@ -23,8 +23,8 @@ public class MarkCommand implements Command {
         String indexString = args[1];
         int index = Integer.parseInt(indexString) - 1;
         try {
-            String taskString = taskList.markTask(index);
-            ui.displayMessage(String.format(Messages.MARKED_MESSAGE, taskString));
+            String taskString = taskList.unmarkTask(index);
+            ui.displayMessage(String.format(Messages.UNMARKED_MESSAGE, taskString));
         } catch (IOException e) {
             ui.displayError(e.getMessage());
         }
