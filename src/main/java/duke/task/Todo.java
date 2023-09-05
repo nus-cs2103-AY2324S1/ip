@@ -10,8 +10,8 @@ public class Todo extends Task {
      */
     public Todo(String name) throws DukeException {
         super(" " + name);
-        this.ogName = name;
-        this.type = "Todo";
+        super.setType("Todo");
+        super.setOgName(name);
         if (name.isEmpty()) {
             throw new DukeException(" No Description given!");
         }

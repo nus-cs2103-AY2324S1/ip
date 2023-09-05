@@ -24,8 +24,8 @@ public class Event extends Task {
      */
     public Event(String name) throws DukeException {
         super(name.split("/")[0]);
-        this.ogName = name;
-        this.type = "Event";
+        super.setType("Event");
+        super.setOgName(name);
 
         this.inputs = name.split("/");
         if (this.inputs.length < 3) {

@@ -30,7 +30,7 @@ public abstract class Command {
      * @param store reference to the Storage class
      * @throws DukeException throws a DukeException which indicates no description
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage store) throws DukeException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage store) throws DukeException;
 
 
     /**

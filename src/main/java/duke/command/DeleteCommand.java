@@ -34,12 +34,13 @@ public class DeleteCommand extends Command {
      * @throws DukeException throws a DukeException which indicates no desc if no text left
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
         try {
             Task task = tasks.getTask(taskNum);
             tasks.deleteTask(taskNum);
+            System.out.println("tasks is" + tasks.totxtformat());
             store.save(tasks);
-            ui.printDeleteTask(tasks.size(), task);
+            return ui.printDeleteTask(tasks.size(), task);
         } catch (IOException e) {
             throw new DukeException(" umable to locate local file!");
         }

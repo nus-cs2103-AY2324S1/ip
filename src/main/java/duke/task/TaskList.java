@@ -37,7 +37,7 @@ public class TaskList {
      */
 
     public void markTask(int taskNumber) {
-        Task wantedtask = this.tasklist.get(taskNumber - 1); //account for 0 indexing
+        Task wantedtask = this.tasklist.get(taskNumber); //account for 0 indexing
         wantedtask.markCompleted();
     }
 
@@ -45,7 +45,7 @@ public class TaskList {
      * @param taskNumber takes in the index of the tasknumber to be marked as uncompleted
      */
     public void unmarkTask(int taskNumber) {
-        Task wantedtask = this.tasklist.get(taskNumber - 1); //account for 0 indexing
+        Task wantedtask = this.tasklist.get(taskNumber);
         wantedtask.markUncompleted();
     }
 
@@ -54,8 +54,8 @@ public class TaskList {
      */
 
     public void deleteTask(int tasknumber) {
-        Task wantedtask = this.tasklist.get(tasknumber - 1);
-        this.removeTask(tasknumber - 1); //this would also be the line number to delete in the txt file
+        Task wantedtask = this.tasklist.get(tasknumber);
+        this.removeTask(tasknumber); //this would also be the line number to delete in the txt file
     }
 
     /**

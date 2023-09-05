@@ -32,12 +32,12 @@ public class UnmarkCommand extends Command {
      * @throws DukeException
      */
 
-    public void execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
         try {
             Task task = tasks.getTask(taskNum);
             tasks.unmarkTask(taskNum);
             store.save(tasks);
-            ui.printUnmarkTask(taskNum, task);
+            return ui.printUnmarkTask(taskNum, task);
         } catch (IOException e) {
             throw new DukeException(" unable to locate local file!");
         }

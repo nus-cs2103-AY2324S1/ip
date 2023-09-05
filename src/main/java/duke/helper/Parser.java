@@ -42,15 +42,15 @@ public class Parser {
 
             } else if (command.startsWith("mark")) {
                 String tasknum = command.split(" ")[1];
-                return new MarkCommand(Integer.parseInt(tasknum));
+                return new MarkCommand(Integer.parseInt(tasknum) - 1);
 
             } else if (command.startsWith("unmark")) {
                 String tasknum = command.split(" ")[1];
-                return new UnmarkCommand(Integer.parseInt(tasknum));
+                return new UnmarkCommand(Integer.parseInt(tasknum) - 1);
 
             } else if (command.startsWith("delete")) {
                 String tasknum = command.split(" ")[1];
-                return new DeleteCommand(Integer.parseInt(tasknum));
+                return new DeleteCommand(Integer.parseInt(tasknum) - 1);
             } else if (command.startsWith("find")) {
                 String keyword = command.split(" ")[1];
                 return new FindCommand(keyword);

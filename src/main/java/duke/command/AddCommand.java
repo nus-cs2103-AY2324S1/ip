@@ -52,11 +52,11 @@ public class AddCommand extends Command {
      * @throws DukeException throws a DukeException which indicates no description if no text description
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
         try {
             tasks.addTask(task);
             store.save(tasks);
-            ui.printAddTask(tasks.size(), task);
+            return ui.printAddTask(tasks.size(), task);
 
         } catch (IOException e) {
             throw new DukeException(" umable to locate local file!");

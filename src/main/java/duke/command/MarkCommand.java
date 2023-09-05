@@ -31,12 +31,12 @@ public class MarkCommand extends Command {
      * @param store reference
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
         try {
             Task task = tasks.getTask(taskNum);
             tasks.markTask(taskNum);
             store.save(tasks);
-            ui.printMarkTask(taskNum, task);
+            return ui.printMarkTask(taskNum, task);
         } catch (IOException e) {
             throw new DukeException(" umable to locate local file!");
         }

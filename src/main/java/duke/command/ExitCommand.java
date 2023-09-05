@@ -15,7 +15,8 @@ public class ExitCommand extends Command {
      * @param store reference
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store) {
+    public String execute(TaskList tasks, Ui ui, Storage store) {
+        return "Goodbye";
     }
 
     /**
