@@ -13,12 +13,12 @@ public class Ui {
     }
 
     public static void reply(String reply) {
-        String botName = "bareum.Bareum: ";
+        String botName = "Bareum: ";
         String fullReply = botName + reply;
         System.out.println(fullReply);
     }
     public void showWelcomeMessage() {
-        reply("Hello! I'm bareum.Bareum! What can I do for you? ^^");
+        reply("Hello! I'm Bareum! What can I do for you? ^^");
     }
 
     public void showGoodbyeMessage() {

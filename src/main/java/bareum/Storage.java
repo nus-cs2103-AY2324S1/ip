@@ -6,31 +6,25 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Storage {
-    File storedTasks;
+    private String filePath;
+    private File storedTasks;
 
-    public Storage() {
-
+    public Storage(String filePath) {
+        this.filePath = filePath;
     }
 
     public void loadSavedTaskList(TaskList taskList) {
-        File data = new File("./data");
-        if (!data.exists()) {
-            try {
-                data.mkdirs();
-            } catch (SecurityException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        File storedTasks = new File("./data/storedTasks.txt");
+        File storedTasks = new File(filePath);
         if (!storedTasks.exists()) {
             try {
+                storedTasks.getParentFile().mkdirs();
                 storedTasks.createNewFile();
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
         }
         this.storedTasks = storedTasks;
+
         StringBuilder savedTasks = new StringBuilder();
         int currChar;
         try {

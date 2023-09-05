@@ -14,25 +14,14 @@ public class DeadlineTask extends Task {
         // add exceptions for time
     }
 
-    public static DeadlineTask makeDeadline(String allDetails) throws BareumException {
-        if (allDetails.length() == 0) {
-            throw new BareumException("Deadline description cannot be empty.");
-
-        }
-
-        String[] descriptionDueTime = allDetails.split("/by ");
-        if (descriptionDueTime.length <= 1) {
-            throw new BareumException("Deadline due date cannot be empty.");
-        }
-
-        String description = descriptionDueTime[0];
-        String dueDateStr = descriptionDueTime[1];
+    public static DeadlineTask makeDeadline(String description, String dueDateStr) throws BareumException {
         LocalDate dueDate = null;
         try {
             dueDate = LocalDate.parse(dueDateStr);
         } catch (DateTimeParseException e) {
             System.out.println(e.getMessage());
-            throw new BareumException("Wrong date format.");
+            throw new BareumException("Oops! Please enter the due date in YYYY-MM-DD :(\n" +
+                    "Correct format: deadline <description> /by <due date in YYYY-MM-DD>");
         }
         return new DeadlineTask(false, description, dueDate);
     }

@@ -1,8 +1,9 @@
 package bareum;
 
 public class EventTask extends Task {
-    String startDateTime;
-    String endDateTime;
+    private String startDateTime;
+    private String endDateTime;
+
 
     private EventTask(boolean isDone, String description, String startDateTime,
                      String endDateTime) {
@@ -12,24 +13,8 @@ public class EventTask extends Task {
         // add exceptions for time
     }
 
-    public static EventTask makeEvent(String allDetails) throws BareumException {
-        if (allDetails.length() == 0) {
-            throw new BareumException("Event description cannot be empty.");
-        }
-
-        String[] descriptionStartEndTime = allDetails.split("/from");
-        if (descriptionStartEndTime.length <= 1) {
-            throw new BareumException("Event start time cannot be empty.");
-        }
-
-        String description = descriptionStartEndTime[0];
-        String[] startEndTime = descriptionStartEndTime[1].split("/to");
-        if (startEndTime.length <= 1) {
-            throw new BareumException("Event end time cannot be empty.");
-        }
-
-        String startDateTime = startEndTime[0];
-        String endDateTime = startEndTime[1];
+    public static EventTask makeEvent(String description, String startDateTime,
+                                      String endDateTime) {
         return new EventTask(false, description, startDateTime, endDateTime);
     }
 
@@ -39,6 +24,14 @@ public class EventTask extends Task {
         String startDateTime = taskInputs[3];
         String endDateTime = taskInputs[4];
         return new EventTask(isDone, description, startDateTime, endDateTime);
+    }
+
+    public String getStartDateTime() {
+        return this.startDateTime;
+    }
+
+    public String getEndDateTime() {
+        return this.endDateTime;
     }
 
     @Override
