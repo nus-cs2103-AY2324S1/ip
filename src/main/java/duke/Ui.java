@@ -6,7 +6,7 @@ import duke.tasks.Task;
  * deals with interactions with the user
  */
 public class Ui {
-    public static String line = "--------------------------------------------------------------------";
+    private String line = "--------------------------------------------------------------------";
 
     public void greeting() {
         String intro = "(｡･o･｡)ﾉ Hey there! I'm BUTTER.\n" +
@@ -27,12 +27,12 @@ public class Ui {
     }
 
     public void showNoTasks() {
-        System.out.println("(o´ω`o)ﾉ You have no upcoming tasks!\n" + Ui.line);
+        System.out.println("(o´ω`o)ﾉ You have no upcoming tasks!\n" + line);
     }
 
     public void showTasks(String tasks) {
         System.out.println("(⇀‸↼‶)⊃━☆ﾟ.*･｡ﾟ Here are your tasks for the day:");
-        System.out.println(tasks + Ui.line);
+        System.out.println(tasks + line);
     }
 
     public void showTaskAdded(Task task, int listSize) {
@@ -73,8 +73,13 @@ public class Ui {
         System.out.println("(・´з`・) Uh oh...dates must be of YYYY-MM-DD HH:mm format");
         System.out.println(line);
     }
-
-    public void showLoadingError() {
-        System.out.println("(・´з`・) Uh oh... error loading BUTTER");
+    public void showMatches(String tasks) {
+        if (!tasks.isEmpty()) {
+            System.out.println("(⇀‸↼‶)⊃━☆ﾟ.*･｡ﾟ Here are the matching tasks in your list:");
+            System.out.println(tasks + line);
+        } else {
+            System.out.println("(・´з`・) Uh oh...there are no matching tasks!");
+            System.out.println(line);
+        }
     }
 }

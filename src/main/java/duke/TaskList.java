@@ -2,6 +2,7 @@ package duke;
 
 import duke.exceptions.InvalidTaskIDException;
 import duke.tasks.Task;
+
 import java.util.ArrayList;
 
 /**
@@ -9,11 +10,13 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private ArrayList<Task> list;
+    private Storage storage;
     private Ui ui;
 
     //case where there are no existing tasks in storage
-    public TaskList(ArrayList<Task> list, Ui ui) {
+    public TaskList(ArrayList<Task> list, Storage storage, Ui ui) {
         this.list = list;
+        this.storage = storage;
         this.ui = ui;
     }
 
@@ -38,30 +41,61 @@ public class TaskList {
         }
     }
 
-    public void addTask(Task task, Storage storage) {
+    public String listTasks(ArrayList<Task> tasks) {
+        String result = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            int index = i + 1;
+            Task task = tasks.get(i);
+            result += index + ". " + task.toString() + "\n";
+        }
+        return result;
+    }
+
+    public void addTask(Task task) {
         this.list.add(task);
-        storage.updateFile(this.list);
+        this.storage.updateFile(this.list);
         ui.showTaskAdded(task, this.getListSize());
     }
 
     //might remove returning of boolean!! see first
-    public void deleteTask(int taskID, Storage storage) throws InvalidTaskIDException {
+    public void deleteTask(int taskID) throws InvalidTaskIDException {
         if (isValidTaskID(taskID)) {
             Task toRemove = list.get(taskID);
             list.remove(taskID);
-            storage.updateFile(this.list);
+            this.storage.updateFile(this.list);
             ui.showDeleteTask(toRemove, this.getListSize());
         }
     }
 
-    public void markTask(int taskID, Storage storage) {
-        this.list.get(taskID).mark(ui);
-        storage.updateFile(this.list);
+    public void markTask(int taskID) {
+        Task task = this.list.get(taskID);
+        if (task.mark()) {
+            ui.showMarkTask(false, task);
+            this.storage.updateFile(this.list);
+        } else {
+            ui.showMarkTask(true, task);
+        }
     }
 
-    public void unmarkTask(int taskID, Storage storage) {
-        this.list.get(taskID).unmark(ui);
-        storage.updateFile(this.list);
+    public void unmarkTask(int taskID) {
+        Task task = this.list.get(taskID);
+        if (task.unmark()) {
+            ui.showUnmarkTask(true, task);
+            this.storage.updateFile(this.list);
+        } else {
+            ui.showUnmarkTask(false, task);
+        }
+    }
+
+    public ArrayList<Task> findMatches(String keyword) {
+        ArrayList<Task> matches = new ArrayList<>();
+        for (Task task : list) {
+            String desc = task.getTask();
+            if (desc.contains(keyword)) {
+                matches.add(task);
+            }
+        }
+        return matches;
     }
 
     public int getListSize() {

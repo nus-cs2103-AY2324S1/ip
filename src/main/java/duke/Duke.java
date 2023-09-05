@@ -1,12 +1,7 @@
 package duke;
 
-import java.io.IOException;
 import java.util.Scanner;
 
-import duke.exceptions.DukeException;
-import duke.exceptions.InvalidStartEndException;
-
-//copy this into the actual duke.Duke file later!1!!!!
 public class Duke {
     private Storage storage;
     private TaskList tasks;
@@ -15,7 +10,7 @@ public class Duke {
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath, ui);
-        tasks = new TaskList(storage.loadTasks(), ui);
+        tasks = new TaskList(storage.loadTasks(), storage, ui);
     }
 
     public void run() {

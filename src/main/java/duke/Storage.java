@@ -23,6 +23,7 @@ public class Storage {
     private Ui ui;
     public Storage(String path, Ui ui) {
         this.path = path;
+        this.ui = ui;
     }
     public static LocalDateTime stringToDateTime(String str) throws DateTimeParseException {
         //check if dateTime has correct format: ie. YYYY-MM-DD 00:00

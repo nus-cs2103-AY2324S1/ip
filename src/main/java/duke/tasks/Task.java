@@ -13,21 +13,21 @@ abstract public class Task {
 
     abstract public String convertTask();
 
-    public void mark(Ui ui) {
+    public boolean mark() {
         if (this.status == 0) {
             this.status = 1;
-            ui.showMarkTask(false, this);
+            return true;
         } else {
-            ui.showMarkTask(true, this);
+            return false;
         }
     }
 
-    public void unmark(Ui ui) {
+    public boolean unmark() {
         if (this.status != 0) {
             this.status = 0;
-            ui.showUnmarkTask(true, this);
+            return true;
         } else {
-           ui.showUnmarkTask(false, this);
+            return false;
         }
     }
 
