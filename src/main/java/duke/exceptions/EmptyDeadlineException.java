@@ -11,7 +11,7 @@ public class EmptyDeadlineException extends DukeException {
      * The error message informs the user about the correct format for adding a deadline.
      */
     public EmptyDeadlineException() {
-        super("I DON'T LIKE WHAT YOU'VE GOT! Missing entry. ENTER deadline (title) /by (dueDate) to" +
-                " add a deadline");
+        super("I DON'T LIKE WHAT YOU'VE GOT! Missing entry. ENTER deadline (title) /by (dueDate) to"
+                + " add a deadline");
     }
 }

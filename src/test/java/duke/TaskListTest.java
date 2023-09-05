@@ -1,25 +1,21 @@
 package duke;
-<<<<<<< HEAD
 
-import duke.Exceptions.DukeException;
-import duke.Tasks.Task;
-import duke.Tasks.Todo;
-=======
-import duke.exceptions.DukeException;
-import duke.tasks.Task;
-import duke.tasks.Todo;
->>>>>>> branch-A-CodingStandard
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import duke.exceptions.DukeException;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 /**
  * Test class for the TaskList class.
  * Contains test cases for the markTask method.
  */
+//CHECKSTYLE.OFF: MethodName
 public class TaskListTest {
     /**
      * Test marking a task with an input index greater than the list size.
@@ -110,4 +106,5 @@ public class TaskListTest {
             assertEquals("You have provided a number out of index of the stored tasks", e.getMessage());
         }
     }
+    //CHECKSTYLE.ON: MethodName
 }

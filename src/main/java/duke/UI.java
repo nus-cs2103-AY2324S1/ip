@@ -6,23 +6,23 @@ import java.util.Scanner;
  * The UI class handles user interactions and printing messages in the Duke application.
  */
 public class UI {
-    private final String LOGO = "       ___\n" +
-            "    . -^   `--,\n" +
-            "   /# =========`-_\n" +
-            "  /# (--====___====\\\n" +
-            " /#   .- --.  . --.|\n" +
-            "/##   |  * ) (   * ),\n" +
-            "|##   \\    /\\ \\   / |\n" +
-            "|###   ---   \\ ---  |\n" +
-            "|####      ___)    #|\n" +
-            "|######           ##|\n" +
-            " \\##### ---------- /\n" +
-            "  \\####           (\n" +
-            "   `\\###          |\n" +
-            "     \\###         |\n" +
-            "      \\##        |\n" +
-            "       \\###.    .)\n" +
-            "        `======/";
+    private final String logo = "       ___\n"
+            + "    . -^   `--,\n"
+            + "   /# =========`-_\n"
+            + "  /# (--====___====\\\n"
+            + " /#   .- --.  . --.|\n"
+            + "/##   |  * ) (   * ),\n"
+            + "|##   \\    /\\ \\   / |\n"
+            + "|###   ---   \\ ---  |\n"
+            + "|####      ___)    #|\n"
+            + "|######           ##|\n"
+            + " \\##### ---------- /\n"
+            + "  \\####           (\n"
+            + "   `\\###          |\n"
+            + "     \\###         |\n"
+            + "      \\##        |\n"
+            + "       \\###.    .)\n"
+            + "        `======/";
 
     /**
      * Constructs a UI object.
@@ -34,7 +34,7 @@ public class UI {
      * Prints the introduction message with the Duke logo.
      */
     public void printIntro() {
-        System.out.println("Hello from\n" + LOGO);
+        System.out.println("Hello from\n" + logo);
         System.out.println("Hello I'm HEAD");
     }
 

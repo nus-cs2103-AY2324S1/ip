@@ -13,12 +13,12 @@ public class Duke {
     /**
      * Constructs a Duke instance with the specified file path.
      *
-     * @param FILEPATH file path for storing task data.
+     * @param filePath file path for storing task data.
      */
 
-    public Duke(String FILEPATH) {
+    public Duke(String filePath) {
         ui = new UI();
-        storage = new Storage(FILEPATH);
+        storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
     }
 
@@ -41,11 +41,9 @@ public class Duke {
                     tasks.unmarkTask(input);
                 } else if (input.startsWith("delete")) {
                     tasks.deleteTask(input);
-                }
-                else if (input.startsWith("find")){
+                } else if (input.startsWith("find")) {
                     tasks.find(input);
-                }
-                else {
+                } else {
                     tasks.addTask(input);
                 }
                 storage.save(tasks);

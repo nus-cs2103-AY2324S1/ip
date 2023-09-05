@@ -11,7 +11,7 @@ public class InvalidInputException extends DukeException {
      * The error message informs the user about the correct format to start various types of tasks.
      */
     public InvalidInputException() {
-        super("I DON'T LIKE WHAT YOU'VE GOT! START WITH todo (title) or " +
-                "deadline (title) /by (dueDate) or event (title) /from (from) /to (to)");
+        super("I DON'T LIKE WHAT YOU'VE GOT! START WITH todo (title) or "
+                + "deadline (title) /by (dueDate) or event (title) /from (from) /to (to)");
     }
 }

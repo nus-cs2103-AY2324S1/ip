@@ -1,16 +1,19 @@
 package duke;
 
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.Todo;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+
+
 
 /**
  * Test class for the Storage class.
@@ -21,6 +24,8 @@ public class StorageTest {
      * Test loading a Todo task with valid input.
      * Verifies that the task is created and added to the list correctly.
      */
+
+    //CHECKSTYLE.OFF: MethodName
     @Test
     public void loadTask_Todo_ValidInput_TaskCreatedAndAddedToList() {
         List<Task> list = new ArrayList<>();
@@ -68,7 +73,7 @@ public class StorageTest {
 
         assertEquals(1, list.size());
         assertEquals("Event Title", list.get(0).getTitle());
-        assertEquals(true,list.get(0).getIsMarked());
+        assertEquals(true, list.get(0).getIsMarked());
         assertEquals(LocalDateTime.of(2023, 1, 1, 14, 0), ((Event) list.get(0)).getFrom());
         assertEquals(LocalDateTime.of(2023, 1, 1, 16, 0), ((Event) list.get(0)).getTo());
     }
@@ -87,4 +92,5 @@ public class StorageTest {
 
         assertEquals(0, list.size());
     }
+    //CHECKSTYLE.ON: MethodName
 }
