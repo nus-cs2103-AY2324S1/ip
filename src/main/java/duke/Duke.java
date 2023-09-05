@@ -48,7 +48,7 @@ public class Duke {
         ui.greet(this.name);
         String input = ui.readCommand();
         while (!input.equals("bye")) {
-            Command command = Parser.handleInput(input, this.ui);
+            Command command = Parser.processInputIntoCommand(input, this.ui);
             if (command != null) {
                 command.execute(this.taskList, this.storage, this.ui);
             }

@@ -15,11 +15,13 @@ import duke.command.UnmarkCommand;
 public class Parser {
 
     /**
-     * Handles the user input and performs corresponding actions.
+     * Processes user input into a corresponding command object.
      *
-     * @param input The user's input command.
+     * @param input The user's input as a string.
+     * @param ui The user interface for displaying messages.
+     * @return A command object based on the user's input, or null if input is invalid.
      */
-    public static Command handleInput(String input, Ui ui) {
+    public static Command processInputIntoCommand(String input, Ui ui) {
         String[] inputArr = input.split(" ");
         String command = inputArr[0];
 
