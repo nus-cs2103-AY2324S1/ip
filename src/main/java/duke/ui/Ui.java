@@ -17,111 +17,133 @@ public class Ui {
     /**
      * Prints the welcome message when the program starts.
      */
-    public void showHelloMessage() {
-        showDottedLine();
-        System.out.println("Hello! I'm Snake CYQJ");
-        System.out.println("What can I do for you?");
-        showDottedLine();
+    public String getHelloMessage() {
+        StringBuilder output = new StringBuilder();
+        output.append(getDottedLine());
+        output.append("Hello! I'm " + this.name + "\n");
+        output.append("What can I do for you?\n");
+        output.append(getDottedLine());
+        return output.toString();
     }
 
     /**
-     * Prints dotted line.
+     * Prints dotted line with new line.
      */
-    public static void showDottedLine() {
-        System.out.println("____________________________________________________________");
+    public static String getDottedLine() {
+        return "________________________\n";
     }
 
     /**
      * Prints the goodbye message.
+     * @return the goodbye message
      */
-    public static void showGoodbyeMessage() {
-        Ui.showDottedLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        Ui.showDottedLine();
+    public static String getGoodbyeMessage() {
+        StringBuilder output = new StringBuilder();
+        output.append(getDottedLine());
+        output.append("Bye. Hope to see you again soon!\n");
+        output.append(getDottedLine());
+        return output.toString();
     }
 
     /**
      * Prints the delete message.
      * @param tasks the list of tasks
      * @param index the index of the task to be deleted
+     * @return the delete message
      */
-    public static void showDeleteTaskMessage(List<Task> tasks, int index) {
-        showDottedLine();
-        System.out.println("Noted. I've removed this duke.task:");
-        System.out.println(tasks.get(index - 1));
-        tasks.remove(index - 1);
+    public static String getDeleteTaskMessage(List<Task> tasks, int index) {
+        StringBuilder output = new StringBuilder();
+        output.append(getDottedLine());
+        output.append("Noted. I've removed this duke.task:\n");
+        output.append(tasks.get(index - 1) + "\n");
         String placeholder = tasks.size() == 1 ? "task" : "tasks";
-        System.out.println("Now you have " + tasks.size() + " " + placeholder + " in the list.");
-        showDottedLine();
+        output.append("Now you have " + tasks.size() + " " + placeholder + " in the list.\n");
+        output.append(getDottedLine());
+        return output.toString();
     }
 
     /**
      * Prints the add task message.
      * @param tasks the list of tasks
+     * @return the add task message
      */
-    public static void showAddTaskMessage(List<Task> tasks) {
-        showDottedLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(tasks.get(tasks.size() - 1));
+    public static String getAddTaskMessage(List<Task> tasks) {
+        StringBuilder output = new StringBuilder();
+        output.append(getDottedLine());
+        output.append("Got it. I've added this duke.task:\n");
+        output.append(tasks.get(tasks.size() - 1) + "\n");
         String placeholder = tasks.size() == 1 ? "task" : "tasks";
-        System.out.println("Now you have " + tasks.size() + " " + placeholder + " in the list.");
-        showDottedLine();
+        output.append("Now you have " + tasks.size() + " " + placeholder + " in the list.\n");
+        output.append(getDottedLine());
+        return output.toString();
     }
 
     /**
      * Prints the list tasks message.
      * @param tasks the list of tasks
+     * @return the list tasks message
      */
-    public static void showListTasksMessage(List<Task> tasks) {
-        showDottedLine();
+    public static String getListTasksMessage(List<Task> tasks) {
+        StringBuilder output = new StringBuilder();
+        output.append(getDottedLine());
         if (tasks.isEmpty()) {
-            System.out.println("There are no tasks in your list.");
+            output.append("There are no tasks in your list.\n");
         } else {
+            output.append("Here are the tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i));
+                output.append((i + 1) + "." + tasks.get(i) + "\n");
             }
         }
-        showDottedLine();
+        output.append(getDottedLine());
+        return output.toString();
     }
 
     /**
      * Prints the done task message.
      * @param tasks the list of tasks
      * @param index the index of the completed task
+     * @return the done task message
      */
-    public static void showMarkAsDoneMessage(List<Task> tasks, int index) {
-        showDottedLine();
-        System.out.println("Nice! I've marked this task as done:");
+    public static String getMarkAsDoneMessage(List<Task> tasks, int index) {
+        StringBuilder output = new StringBuilder();
+        output.append(getDottedLine());
+        output.append("Nice! I've marked this task as done:\n");
         tasks.get(index - 1).markAsDone();
-        System.out.println(tasks.get(index - 1));
-        showDottedLine();
+        output.append(tasks.get(index - 1) + "\n");
+        output.append(getDottedLine());
+        return output.toString();
     }
 
     /**
      * Prints the undone task message.
      * @param tasks the list of tasks
      * @param index the index of the uncompleted task
+     * @return the undone task message
      */
-    public static void showMarkAsUndoneMessage(List<Task> tasks, int index) {
-        showDottedLine();
-        System.out.println("OK, I've marked this task as not done yet:");
+    public static String getMarkAsUndoneMessage(List<Task> tasks, int index) {
+        StringBuilder output = new StringBuilder();
+        output.append(getDottedLine());
+        output.append("OK, I've marked this task as not done yet:\n");
         tasks.get(index - 1).markAsUndone();
-        System.out.println(tasks.get(index - 1));
-        showDottedLine();
+        output.append(tasks.get(index - 1) + "\n");
+        output.append(getDottedLine());
+        return output.toString();
     }
 
     /**
      * Shows the error message when saving file.
+     * @return the error message when saving file
      */
-    public static void showErrorSavingToFileMessage() {
-        System.out.println("Error saving data to file.");
+    public static String getErrorSavingToFileMessage() {
+        return "Error saving data to file.";
     }
 
     /**
      * Shows the error message when loading file.
+     * @return the error message when loading file
      */
-    public static void showErrorLoadingFromFileMessage() {
-        System.out.println("Error loading data from file.");
+    public static String getErrorLoadingFromFileMessage() {
+        return "Error loading data from file.";
     }
 
 

@@ -94,7 +94,7 @@ public class TaskList {
         try {
             this.tasks = storage.load();
         } catch (IOException e) {
-            Ui.showErrorLoadingFromFileMessage();
+            Ui.getErrorLoadingFromFileMessage();
             this.tasks = new ArrayList<>();
         }
     }
@@ -102,11 +102,12 @@ public class TaskList {
     /**
      * Adds a task to the list of tasks.
      * @param command The command that the user inputted.
+     * @return The add task message.
      * @throws InvalidArgumentException If the task's format is invalid.
      */
-    public void addTask(String command) throws InvalidArgumentException {
+    public String addTask(String command) throws InvalidArgumentException {
+        StringBuilder output = new StringBuilder();
         String[] splitCommand = command.split("\\s", 2);
-
         if (splitCommand.length < 2) {
             throw new InvalidArgumentException("☹ OOPS!!! The description cannot be empty.");
         }
@@ -122,68 +123,81 @@ public class TaskList {
         try {
             storage.save(tasks);
         } catch (IOException e) {
-            Ui.showErrorSavingToFileMessage();
+            output.append(Ui.getErrorSavingToFileMessage());
         }
-        Ui.showAddTaskMessage(tasks);
+        output.append(Ui.getAddTaskMessage(tasks));
+        return output.toString();
     }
 
     /**
      * Lists all the tasks.
+     * @return The list tasks message.
      */
-    public void listTasks() {
-        Ui.showListTasksMessage(tasks);
+    public String listTasks() {
+        return Ui.getListTasksMessage(tasks);
     }
 
     /**
      * Marks a duke.task as done.
      * @param index The index of the task to be marked as done.
+     * @return The mark as done message.
      * @throws IllegalTaskIndexException If the index is invalid.
      */
-    public void markAsDone(int index) throws IllegalTaskIndexException {
+    public String markAsDone(int index) throws IllegalTaskIndexException {
+        StringBuilder output = new StringBuilder();
         if (index > tasks.size() || index < 1) {
             throw new IllegalTaskIndexException();
         }
-        Ui.showMarkAsDoneMessage(tasks, index);
+        output.append(Ui.getMarkAsDoneMessage(tasks, index));
         try {
             storage.save(tasks);
         } catch (IOException e) {
-            Ui.showErrorSavingToFileMessage();
+            output.append(Ui.getErrorSavingToFileMessage());
         }
+        return output.toString();
+
     }
 
     /**
      * Marks a duke.task as undone.
      * @param index The index of the task to be marked as undone.
+     * @return The mark as undone message.
      * @throws IllegalTaskIndexException If the index is invalid.
      */
-    public void markAsUndone(int index) throws IllegalTaskIndexException {
+    public String markAsUndone(int index) throws IllegalTaskIndexException {
+        StringBuilder output = new StringBuilder();
         if (index > tasks.size() || index < 1) {
             throw new IllegalTaskIndexException();
         }
-        Ui.showMarkAsUndoneMessage(tasks, index);
+        output.append(Ui.getMarkAsUndoneMessage(tasks, index));
         try {
             storage.save(tasks);
         } catch (IOException e) {
-            Ui.showErrorSavingToFileMessage();
+            output.append(Ui.getErrorSavingToFileMessage());
         }
+        return output.toString();
     }
 
     /**
      * Delete a task from the list of tasks.
      * @param index The index of the task to be deleted.
+     * @return The delete message.
      * @throws IllegalTaskIndexException If the index is invalid.
      */
-    public void deleteTask(int index) throws IllegalTaskIndexException {
+    public String deleteTask(int index) throws IllegalTaskIndexException {
+        StringBuilder output = new StringBuilder();
         if (index > tasks.size() || index < 1) {
             throw new IllegalTaskIndexException();
         }
         // Calls delete message from duke.ui.Ui class
-        Ui.showDeleteTaskMessage(tasks, index);
+        output.append(Ui.getDeleteTaskMessage(tasks, index));
+        tasks.remove(index - 1);
         try {
             storage.save(tasks);
         } catch (IOException e) {
-            Ui.showErrorSavingToFileMessage();
+            output.append(Ui.getErrorSavingToFileMessage());
         }
+        return output.toString();
     }
 
     /**
@@ -194,7 +208,7 @@ public class TaskList {
         try {
             storage.save(tasks);
         } catch (IOException e) {
-            Ui.showErrorSavingToFileMessage();
+            Ui.getErrorSavingToFileMessage();
         }
     }
 
@@ -202,23 +216,25 @@ public class TaskList {
      * Find tasks with the given keyword.
      * @param keyword The keyword to search for.
      */
-    public void findTasks(String keyword) {
-        Ui.showDottedLine();
+    public String findTasks(String keyword) {
+        StringBuilder output = new StringBuilder();
+        output.append(Ui.getDottedLine());
         if (tasks.isEmpty()) {
-            System.out.println("There are no tasks in your list.");
+            output.append("There are no tasks in your list.\n");
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            output.append("Here are the matching tasks in your list:\n");
             int matchingTasks = 0;
             for (int i = 0; i < tasks.size(); i++) {
                 if (tasks.get(i).getDescription().contains(keyword)) {
-                    System.out.println((matchingTasks+1) + "." + tasks.get(i));
+                    output.append((matchingTasks + 1) + "." + tasks.get(i) + "\n");
                     matchingTasks++;
                 }
             }
             if (matchingTasks == 0) {
-                System.out.println("Sorry there are no matching tasks!");
+                output.append("Sorry there are no matching tasks!\n");
             }
         }
-        Ui.showDottedLine();
+        output.append(Ui.getDottedLine());
+        return output.toString();
     }
 }
