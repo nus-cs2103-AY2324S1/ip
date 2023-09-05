@@ -1,10 +1,8 @@
 package peko;
 
-import java.util.Arrays;
-
 public class Find {
-    Task[] tempTaskList;
-    String searchQuery;
+    private Task[] tempTaskList;
+    private String searchQuery;
 
     public Find(String s) {
         System.out.println("Find: " + s);

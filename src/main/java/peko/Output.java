@@ -4,9 +4,9 @@ public class Output {
 
 
     private static final String lineBreak = "------------------------------------------"; //42
-    private static final String introText = "Konpeko, Konpeko, Konpeko! \n" +
-            "Hololive san kisei no\n" +
-            "Usada Pekora-peko! almondo almondo!";
+    private static final String introText = "Konpeko, Konpeko, Konpeko! \n"
+            + "Hololive san kisei no\n"
+            + "Usada Pekora-peko! almondo almondo!";
     private static final String exitText = "Otsupeko! Bye bye!";
 
 
