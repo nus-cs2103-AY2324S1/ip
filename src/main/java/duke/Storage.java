@@ -2,6 +2,7 @@ package duke;
 
 import duke.exceptions.InvalidStartEndException;
 import duke.tasks.*;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -16,20 +17,36 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * deals with loading tasks from the file, and saving tasks in the file
+ * Handles interactions between task list and hard drive.
  */
 public class Storage {
     private String path;
     private Ui ui;
+
     public Storage(String path, Ui ui) {
         this.path = path;
+        this.ui = ui;
     }
+
+    /**
+     * Converts a string of the format YYYY-MM-dd HH:mm to a
+     * LocalDateTime object.
+     *
+     * @param str a datetime string
+     * @return the corresponding LocalDateTime object
+     * @throws DateTimeParseException if str is not of the correct format
+     */
     public static LocalDateTime stringToDateTime(String str) throws DateTimeParseException {
-        //check if dateTime has correct format: ie. YYYY-MM-DD 00:00
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
         return dateTime;
     }
+
+    /**
+     * Creates a file with the path .data/duke.txt (hardcoded value).
+     *
+     * @return a File object to store tasks
+     */
     public File createDataFile() {
         File dataFile = new File(this.path);
         try {
@@ -46,6 +63,13 @@ public class Storage {
         return dataFile;
     }
 
+    /**
+     * Retrieves the tasks stored in the ./data/duke.txt file, and converts each
+     * task string into their corresponding Task object. Tasks are then added to an
+     * ArrayList.
+     *
+     * @return an ArrayList of Task objects
+     */
     public ArrayList<Task> loadTasks() {
         File dataFile = new File(this.path);
         if (!dataFile.exists()) {
@@ -92,8 +116,12 @@ public class Storage {
         return list;
     }
 
-    //this method should be called by the tasklist class ONLY!!! because we want to
-    //keep the tasklist private
+    /**
+     * Writes the tasks in the given list to the data file. This overwrites the
+     * existing data in the file.
+     *
+     * @param list list of Task objects
+     */
     public void updateFile(ArrayList<Task> list) {
         try {
             //check if file exists, else create

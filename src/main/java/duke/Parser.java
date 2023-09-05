@@ -4,29 +4,50 @@ import duke.exceptions.*;
 import duke.tasks.Event;
 import duke.tasks.ToDo;
 import duke.tasks.Deadline;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * deals with making sense of the user commands
+ * Interprets user commands, and controls what the user can or cannot do. An object acts as a
+ * parser to parse commands and carry them out.
  */
 public class Parser {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Parser class constructor. Initialises the storage, tasks and ui required.
+     *
+     * @param storage stores tasks created from previous runs
+     * @param tasks   contains the list of tasks
+     * @param ui      displays the relevant output to user
+     */
     public Parser(Storage storage, TaskList tasks, Ui ui) {
         this.storage = storage;
         this.tasks = tasks;
         this.ui = ui;
     }
 
+    /**
+     * Returns true if the string can be parsed as an integer.
+     *
+     * @param s the string to be tested
+     * @return true if s can be parsed as an integer
+     */
     //credit: https://www.freecodecamp.org/news/java-string-to-int-how-to-convert-a-string-to-an-integer/
     private static boolean isNumber(String s) {
         return s != null && s.matches("[0-9.]+");
     }
 
+    /**
+     * Returns true if the input string is "bye".
+     *
+     * @param input the input entered by user
+     * @return true if input is "bye"
+     */
     public boolean isGoodbye(String input) {
         if (input.equals("bye")) {
             return true;
@@ -34,62 +55,42 @@ public class Parser {
         return false;
     }
 
-    public static LocalDateTime stringToDateTime(String str) {
-        //check if dateTime has correct format: ie. YYYY-MM-DD 00:00
+    /**
+     * Converts a string of the format YYYY-MM-dd HH:mm to a
+     * LocalDateTime object.
+     *
+     * @param str a datetime string
+     * @return the corresponding LocalDateTime object
+     * @throws DateTimeParseException if str is not of the correct format
+     */
+    public static LocalDateTime stringToDateTime(String str) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime dateTime = LocalDateTime.now();
-        dateTime = LocalDateTime.parse(str, formatter);
+        LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
         return dateTime;
     }
 
+    /**
+     * Takes in the user input, and identifies whether it is a valid command.
+     * If commands are valid, calls the corresponding methods to carry out
+     * them out. Else, will throw an InvalidCommandException.
+     * <p>
+     * This method catches all DukeExceptions, and displays the error
+     * messages using the ui.showError() command.
+     *
+     * @param input user input
+     */
     public void parseInput(String input) {
         String[] inputArr = input.split(" ");
         String command = inputArr[0];
-
         try {
             if (command.equals("list")) {
                 tasks.listTasks();
             } else if (command.equals("delete")) {
-                if (inputArr.length == 1) {
-                    throw new NoTaskIDException();
-                } else {
-                    String strIndex = inputArr[1];
-                    if (isNumber(strIndex)) {
-                        int index = Integer.parseInt(strIndex) - 1; //because index starts from 1
-                        tasks.deleteTask(index, storage);
-                    } else {
-                        //case where a number was not provided
-                        throw new InvalidTaskIDException();
-                    }
-                }
+                parseDelete(input);
             } else if (command.equals("mark")) {
-                if (inputArr.length == 1) {
-                    throw new NoTaskIDException();
-                } else {
-                    String strIndex = inputArr[1];
-                    if (isNumber(strIndex)) {
-                        int index = Integer.parseInt(strIndex) - 1; //because index starts from 1
-                        if (tasks.isValidTaskID(index)) {
-                            tasks.markTask(index, storage);
-                        }
-                    } else {
-                        throw new InvalidTaskIDException();
-                    }
-                }
+                parseMark(input);
             } else if (command.equals("unmark")) {
-                if (inputArr.length == 1) {
-                    throw new NoTaskIDException();
-                } else {
-                    String strIndex = inputArr[1];
-                    if (isNumber(strIndex)) {
-                        int index = Integer.parseInt(strIndex) - 1; //because index starts from 1
-                        if (tasks.isValidTaskID(index)) {
-                            tasks.unmarkTask(index, storage);
-                        }
-                    } else {
-                        throw new InvalidTaskIDException();
-                    }
-                }
+                parseUnmark(input);
             } else if (command.equals("todo")) {
                 parseToDo(input);
             } else if (command.equals("deadline")) {
@@ -104,7 +105,88 @@ public class Parser {
         }
     }
 
-    public void parseToDo(String input) throws DukeException {
+    /**
+     * Handles the deleting of a specified task. Checks if a taskID is provided.
+     * Calls tasks.deleteTask(index) function to attempt task deletion.
+     *
+     * @param input user input
+     * @throws NoTaskIDException      if no taskID is provided
+     * @throws InvalidTaskIDException if a non-numerical id is provided
+     */
+    public void parseDelete(String input) throws NoTaskIDException, InvalidTaskIDException {
+        String[] inputArr = input.split(" ");
+        if (inputArr.length == 1) {
+            throw new NoTaskIDException();
+        } else {
+            String strIndex = inputArr[1];
+            if (isNumber(strIndex)) {
+                int index = Integer.parseInt(strIndex) - 1; //because index starts from 1
+                tasks.deleteTask(index);
+            } else {
+                //case where a number was not provided
+                throw new InvalidTaskIDException();
+            }
+        }
+    }
+
+    /**
+     * Handles the marking of a specified task. Checks if a taskID is provided.
+     * Calls the tasks.markTask(index) function to attempt task marking.
+     *
+     * @param input user input
+     * @throws NoTaskIDException      if no taskID is provided
+     * @throws InvalidTaskIDException If a non-numerical id is provided
+     */
+    public void parseMark(String input) throws NoTaskIDException, InvalidTaskIDException {
+        String[] inputArr = input.split(" ", 2);
+        if (inputArr.length == 1) {
+            throw new NoTaskIDException();
+        } else {
+            String strIndex = inputArr[1];
+            if (isNumber(strIndex)) {
+                int index = Integer.parseInt(strIndex) - 1; //because index starts from 1
+                if (tasks.isValidTaskID(index)) {
+                    tasks.markTask(index);
+                }
+            } else {
+                throw new InvalidTaskIDException();
+            }
+        }
+    }
+
+    /**
+     * Handles the unmarking of a specified task. Checks if a taskID is provided.
+     * Calls the tasks.unmarkTask(index) function to attempt task unmarking.
+     *
+     * @param input user input
+     * @throws NoTaskIDException      if no taskID is provided
+     * @throws InvalidTaskIDException If a non-numerical id is provided
+     */
+    public void parseUnmark(String input) throws NoTaskIDException, InvalidTaskIDException {
+        String[] inputArr = input.split(" ", 2);
+        if (inputArr.length == 1) {
+            throw new NoTaskIDException();
+        } else {
+            String strIndex = inputArr[1];
+            if (isNumber(strIndex)) {
+                int index = Integer.parseInt(strIndex) - 1; //because index starts from 1
+                if (tasks.isValidTaskID(index)) {
+                    tasks.unmarkTask(index);
+                }
+            } else {
+                throw new InvalidTaskIDException();
+            }
+        }
+    }
+
+    /**
+     * Handles the creation of a ToDo.
+     * Creates successfully if a description is provided.
+     *
+     * @param input user input
+     * @throws NoDescException if no description is provided
+     */
+    public void parseToDo(String input) throws NoDescException {
         String[] inputArr = input.split(" ", 2);
         if (inputArr.length == 1) {
             throw new NoDescException();
@@ -114,12 +196,21 @@ public class Parser {
             } else {
                 //0 for unmarked, any other number for marked
                 ToDo toDo = new ToDo(0, inputArr[1]);
-                tasks.addTask(toDo, storage);
+                tasks.addTask(toDo);
             }
         }
     }
 
-    public void parseDeadline(String input) throws DukeException {
+    /**
+     * Handles the creation of a Deadline.
+     * Creates successfully if a description and an appropriate datetime is provided
+     * in the format 'deadline desc /by datetime' is provided.
+     *
+     * @param input user input
+     * @throws NoDescException          if no description is provided
+     * @throws InvalidDeadlineException if command is not of the correct format
+     */
+    public void parseDeadline(String input) throws NoDescException, InvalidDeadlineException {
         String[] inputArr = input.split(" ", 2);
         if (inputArr.length == 1) {
             throw new NoDescException();
@@ -137,7 +228,7 @@ public class Parser {
                     try {
                         LocalDateTime dateTime = stringToDateTime(date);
                         Deadline deadline = new Deadline(0, desc, dateTime);
-                        tasks.addTask(deadline, storage);
+                        tasks.addTask(deadline);
                     } catch (DateTimeParseException e) {
                         ui.showInvalidDateFormat();
                     }
@@ -146,7 +237,20 @@ public class Parser {
         }
     }
 
-    public void parseEvent(String input) throws DukeException {
+    /**
+     * Handles the creation of an Event.
+     * Creates successfully if a description, appropriate start datetime and end
+     * date time is provided in the format 'event desc /from start /to end'.
+     *
+     * @param input user input
+     * @throws NoDescException          if no description provided
+     * @throws NoStartException         if no start datetime provided
+     * @throws NoEndException           if no end datetime provided
+     * @throws InvalidStartEndException if start datetime is after end datetime
+     * @throws InvalidEventException    if command is not of the correct format
+     */
+    public void parseEvent(String input) throws NoDescException, NoStartException, NoEndException,
+            InvalidStartEndException, InvalidEventException {
         String[] inputArr = input.split(" ", 2);
         if (inputArr.length == 1) {
             throw new NoDescException();
@@ -177,7 +281,7 @@ public class Parser {
                                 LocalDateTime startDateTime = stringToDateTime(start);
                                 LocalDateTime endDateTime = stringToDateTime(end);
                                 Event event = new Event(0, task, startDateTime, endDateTime);
-                                tasks.addTask(event, storage);
+                                tasks.addTask(event);
                             } catch (DateTimeParseException e) {
                                 ui.showInvalidDateFormat();
                             }
