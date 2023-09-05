@@ -10,12 +10,20 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-//The duke.Storage class is in charge of writing and reading the tasklists
-//from the duke.Duke.txt file
+/**
+ * The Storage class is responsible for reading and writing tasklists
+ * to and from the Duke.txt file.
+ */
 public class Storage{
 
+    /**
+     * Saves the tasks in the task list to the specified file path.
+     *
+     * @param filePath The path to the file where tasks will be saved.
+     * @param tasks    The task list to be saved.
+     * @throws FileNotFoundException If the specified file is not found.
+     */
     public void saveTasks(String filePath, TaskList tasks) throws FileNotFoundException{
         try {
             createDirectoryIfNotExists(filePath);
@@ -34,11 +42,23 @@ public class Storage{
             System.out.println("Error saving tasks: " + e.getMessage());
         }
     }
+    /**
+     * Formats a task into a string representation suitable for saving to a file.
+     *
+     * @param task The task to be formatted.
+     * @return A formatted string representation of the task.
+     */
     String formatTaskData(Task task) {
         // Customize this method based on your Task class structure.
         String str = task.saveTaskString();
         return str;
     }
+    /**
+     * Loads tasks from the specified file path and returns them as a TaskList.
+     *
+     * @param filePath The path to the file from which tasks will be loaded.
+     * @return A TaskList containing the loaded tasks.
+     */
     public TaskList loadTasks(String filePath) {
         TaskList taskList = new TaskList();
         try {
@@ -76,6 +96,12 @@ public class Storage{
         return taskList;
     }
 
+    /**
+     * Creates the necessary directory and file if they do not exist.
+     *
+     * @param filePath The path to the file to be created.
+     * @throws IOException If an error occurs during directory or file creation.
+     */
     private void createDirectoryIfNotExists(String filePath) throws IOException {
         Path path = FileSystems.getDefault().getPath(filePath);
         Path parentDir = path.getParent();

@@ -4,6 +4,10 @@ import duke.task.ToDo;
 
 import java.io.FileNotFoundException;
 
+/**
+ * This class contains JUnit test cases to verify the functionality of the Storage class.
+ * It tests the saving and loading of tasks to and from a txt file.
+ */
 public class StorageTest {
     Storage storage = new Storage();
 

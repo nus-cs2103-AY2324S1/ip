@@ -3,13 +3,14 @@ package duke;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-//This class has a chatbot which will generate a list based on a set of tasks
-//that have been input by the user. These tasks include deadlines, events and ToDos
-//The user input will be parsed to extract the date and time of the events and deadlines
+/**
+ * The Duke class represents a chatbot that generates a list of tasks based on user input.
+ * These tasks can include deadlines, events, and ToDos. The user input is parsed to extract
+ * dates and times for events and deadlines.
+ */
 public class Duke {
     public static void main(String[] args) {
         Storage storage = new Storage();
-        //System.out.println(tasks);
         Ui ui = new Ui();
         ui.printHello();
         Scanner scanner = new Scanner(System.in);

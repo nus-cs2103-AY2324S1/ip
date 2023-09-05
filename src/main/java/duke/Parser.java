@@ -10,12 +10,27 @@ import duke.task.Task;
 import duke.task.ToDo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * The Parser class is responsible for parsing user input and executing commands to manage tasks.
+ * It handles various command types such as adding ToDos, Deadlines, and Events, marking tasks as done,
+ * deleting tasks, and listing tasks.
+ */
 public class Parser {
 
+    /**
+     * Default constructor to initialize the Parser class.
+     */
     public Parser() {
         //empty constructor to initialize class objects
     }
 
+    /**
+     * Parses user input and executes various instructions to manage tasks.
+     *
+     * @param str    The user input string.
+     * @param tasks  The task list to which tasks are added or manipulated.
+     */
     public void chat(String str, TaskList tasks) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         Ui ui = new Ui();
@@ -79,7 +94,7 @@ public class Parser {
                                 ui.printAddTask(task, tasks);
                             }
                         } else if (str.startsWith("event")) {
-                            if (!str.contains("from")) {
+                            if (!str.contains("/from")) {
                                 throw new EventCommandUseException(str);
                             } else {
                                 String fromMarker = "/from "; //mark the /from index of the string

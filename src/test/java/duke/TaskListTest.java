@@ -7,6 +7,11 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This class contains JUnit test cases to verify the functionality of the TaskList class.
+ * It tests various methods of the TaskList class, such as adding, removing,
+ * and marking tasks from the list of tasks.
+ */
 public class TaskListTest {
     TaskList tasks = new TaskList();
     Task todo = new ToDo("todo go on a hike");
