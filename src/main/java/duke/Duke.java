@@ -4,7 +4,11 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.taskList.TaskList;
 import duke.ui.Ui;
+
 import java.util.Scanner;
+
+import javafx.application.Application;
+
 
 
 /**
@@ -16,6 +20,8 @@ public class Duke {
     private TaskList tasks;
     private Storage storage;
 
+    private String dukeCurrOutput;
+
     /**
      * Constructor for duke.Duke.
      */
@@ -25,6 +31,8 @@ public class Duke {
         this.tasks = new TaskList();
         storage.load(this.tasks);
     }
+
+
 
     /**
      * This runs the duke programs main chat functionality,
@@ -44,10 +52,25 @@ public class Duke {
     }
 
 
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
+
+    public String getCommandResponse(String command) {
+//        parser.parseCommand(command, tasks);
+    }
+
+
+
     public static void main(String[] args) {
-        Duke bob = new Duke();
-        bob.ui.printStart();
-        bob.run();
-        bob.ui.printEnd();
+//        bob.ui.printStart();
+//        bob.run();
+//        bob.ui.printEnd();
+        Application.launch(Main.class, args);
+
     }
 }
