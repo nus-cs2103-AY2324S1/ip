@@ -35,6 +35,9 @@ public class Parser {
             }
             String argName = currArg.substring(0, argEndIndex).toLowerCase();
             String argArgs = currArg.substring(argEndIndex).strip();
+            if (argName.isEmpty()) {
+                continue;
+            }
             args.put(argName, argArgs);
         }
         return new Pair<>(commandNameStr, args);
