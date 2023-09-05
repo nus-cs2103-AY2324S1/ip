@@ -35,40 +35,22 @@ public class Duke {
     }
 
     /**
-     * Runs the program.
-     */
-    public void run() {
-        this.ui.printEntryMessage();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String fullCommand = ui.nextCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(taskList, ui, storage);
-                isExit = c.isExit();
-            } catch (TaskException e) {
-                ui.addErrorMessage(e);
-            } finally {
-                ui.printMessage();
-            }
-        };
-    }
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns a response based on the given input.
+     *
+     * @param input The given user input from the GUI.
+     * @return The String of the response from Chad.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
-    }
-
-    /**
-     * The main entry point for Duke.
-     * @param args The given String array.
-     */
-    public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
+        String output = "";
+        try {
+            Command c = Parser.parse(input);
+            c.execute(taskList, ui, storage);
+        } catch (TaskException e) {
+            ui.addErrorMessage(e);
+        } finally {
+            output = ui.showMessage();
+        }
+        return output;
     }
 
 }
