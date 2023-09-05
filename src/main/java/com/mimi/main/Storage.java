@@ -3,6 +3,7 @@ package com.mimi.main;
 import java.util.ArrayList;
 
 import com.mimi.tasks.Task;
+import com.mimi.ui.Ui;
 
 /**
  * A class which represents the tasks previously executed and their status.
@@ -44,13 +45,16 @@ public class Storage {
      * Lists out all the items in the storage in the order that they were added.
      */
     public void listItems() {
-        System.out.println("Here are the tasks in your list:\n");
+
+        String result = "Here are the tasks in your list:\n";
 
         for (int i = 0; i < this.previousCommands.size(); ++i) {
             Task task = this.previousCommands.get(i);
 
-            ui.listTask(i + 1, task);
+            result += ui.listTask(i + 1, task);
         }
+
+        ui.showResponse(result);
     }
 
     /**
@@ -129,18 +133,25 @@ public class Storage {
      */
     public void search(String searchTerm) {
         int index = 1;
+
+        String result = "";
+
         for (Task task: this.previousCommands) {
             //convert both strings to lower case to ignore casing
             if (task.toString().toLowerCase()
                 .contains(searchTerm.toLowerCase())) {
-                ui.returnSearchTerm(task, index);
+
+                result += ui.returnSearchTerm(task, index);
                 index++;
             }
         }
 
         if (index == 1) {
             ui.noSearchResults();
+            return;
         }
+
+        ui.showResponse(result);
     }
 
 

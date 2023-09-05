@@ -2,7 +2,7 @@ package com.mimi.commands;
 
 import com.mimi.main.ReadWriteData;
 import com.mimi.main.Storage;
-import com.mimi.main.Ui;
+import com.mimi.ui.Ui;
 
 /**
  * Representation of the Mark Command.
@@ -52,7 +52,5 @@ public class MarkCommand extends Command {
             ui.incompleteMarkCommand();
             return;
         }
-
-        ui.separator();
     }
 }

@@ -2,27 +2,66 @@ package com.mimi.main;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
 
 import com.mimi.commands.Command;
+import com.mimi.ui.Ui;
+
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
  * The main class of the Mimi program.
  * @author Yuheng
  */
-public class Mimi {
+public class Mimi extends Application implements DataCallback {
 
     private Storage storage;
     private Ui ui;
     private ReadWriteData readWriteData;
 
     /**
-     * Creates an instance of the Mimi bot.
-     * @param directory the directory for the data to be stored in
-     * @param dataPath the path for the data to be stored in
+     * Default constructor.
      */
-    public Mimi(String directory, String dataPath) {
-        this.ui = new Ui();
+    public Mimi() {
+
+    }
+
+    /**
+     * Runs the program.
+     */
+    public void run() {
+        this.readWriteData.initialise();
+
+        this.ui.initialise();
+    }
+
+
+    /**
+     * Receives data from the Ui and processes it.
+     * @param input the string that the user enters.
+     */
+    @Override
+    public void onDataReceived(String input) {
+        Parser parser = new Parser(input, this.storage, this.readWriteData);
+
+        Command c = parser.parse();
+
+        c.execute();
+        c.uiResponse(this.ui);
+
+
+    }
+
+    /**
+     * Starts the program.
+     * @param stage the primary stage for this application, onto which the application scene can be set.
+     */
+    @Override
+    public void start(Stage stage) {
+        String directory = "./data/";
+        String dataPath = "./data/Mimi.txt";
+
+        this.ui = new Ui(stage, this);
         this.storage = new Storage(this.ui);
 
         File directoryFile = new File(directory);
@@ -38,43 +77,7 @@ public class Mimi {
         } catch (IOException e) {
             this.ui.showLoadingError();
         }
+
+        run();
     }
-
-    /**
-     * Runs the program.
-     */
-    public void run() {
-        this.readWriteData.initialise();
-
-        this.ui.welcomeMessage();
-
-        Scanner inputReader = new Scanner(System.in);
-
-        while (true) {
-            String input = inputReader.nextLine();
-
-            ui.separator();
-
-            Parser parser = new Parser(input, this.storage, this.readWriteData);
-
-            Command c = parser.parse();
-
-            c.execute();
-
-            c.uiResponse(this.ui);
-
-            if (c.isExit()) {
-                break;
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        String directory = "./data/";
-        String dataPath = "./data/Mimi.txt";
-        new Mimi(directory, dataPath).run();
-    }
-
-
-
 }

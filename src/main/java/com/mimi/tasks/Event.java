@@ -35,7 +35,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("[%s][%s] %s (from: %s to: %s)",
+        return String.format("[%s][%s] %s\nfrom: %s\nto: %s",
                 this.eventCode(),
                 this.getStatusIcon(),
                 this.taskName(),

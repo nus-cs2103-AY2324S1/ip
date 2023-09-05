@@ -1,5 +1,5 @@
 package com.mimi.commands;
-import com.mimi.main.Ui;
+import com.mimi.ui.Ui;
 
 /**
  * A representation of the abstract idea of Commands.

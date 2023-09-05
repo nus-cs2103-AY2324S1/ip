@@ -1,7 +1,7 @@
 package com.mimi.commands;
 
 import com.mimi.main.Storage;
-import com.mimi.main.Ui;
+import com.mimi.ui.Ui;
 
 /**
  * Representation of the find Command.
@@ -39,6 +39,5 @@ public class FindCommand extends Command {
         if (this.searchTerm == null || this.searchTerm.equals("")) {
             ui.incompleteSearchCommand();
         }
-        ui.separator();
     }
 }
