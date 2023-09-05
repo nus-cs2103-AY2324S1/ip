@@ -25,19 +25,19 @@ public class Parser {
             return new ExitCommand();
         } else if (input.equals("list")) {
             return new ListCommand();
-        } else if (input.contains("unmark")) {
+        } else if (input.startsWith("unmark")) {
             return new UnmarkCommand(input);
-        } else if (input.contains("mark")) {
+        } else if (input.startsWith("mark")) {
             return new MarkCommand(input);
-        } else if (input.contains("todo")) {
+        } else if (input.startsWith("todo")) {
             return new AddToDoCommand(input);
-        } else if (input.contains("deadline")) {
+        } else if (input.startsWith("deadline")) {
             return new AddDeadlineCommand(input);
-        } else if (input.contains("event")) {
+        } else if (input.startsWith("event")) {
             return new AddEventCommand(input);
-        } else if (input.contains("delete")) {
+        } else if (input.startsWith("delete")) {
             return new DeleteCommand(input);
-        } else if (input.contains("find")) {
+        } else if (input.startsWith("find")) {
             return new FindCommand(input);
         } else if (input.equals("")) {
             String errorMsg = "Input a task my brother.";

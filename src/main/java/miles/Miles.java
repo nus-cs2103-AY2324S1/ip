@@ -71,7 +71,6 @@ public class Miles {
      * @return      the response of the bot
      */
     public String getResponse(String input) {
-        System.out.println("input: " + input);
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         // redirect System.out to output stream to capture everything that is printed
@@ -79,7 +78,6 @@ public class Miles {
         run(input);
         // restore the original output stream
         System.setOut(originalOut);
-        System.out.println(output.toString());
         return output.toString();
     }
 

@@ -13,7 +13,6 @@ import miles.ui.MainWindow;
  * A GUI for Miles using FXML.
  */
 public class Main extends Application {
-
     private Miles miles = new Miles("./data/miles.txt");
 
     @Override
