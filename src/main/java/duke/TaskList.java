@@ -95,11 +95,6 @@ public class TaskList {
     }
 
     /**
-     * Loads all tasks from the data/duke.txt file.
-     * If the file does not exist, it will be created.
-     */
-
-    /**
      * Loads all tasks from storage.
      *
      * @throws InsufficientArgumentsException If there are not enough arguments to create tasks.

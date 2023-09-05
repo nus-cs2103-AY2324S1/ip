@@ -35,16 +35,13 @@ public class DukeStorage implements Storage {
             StorageCreationException, IOException {
         initialiseStorage();
         List<Task> tasks = new ArrayList<>();
-        String storagePath = String.format("./%s/%s", DIRECTORY_PATH,
-                FILE_PATH);
+        String storagePath = String.format("./%s/%s", DIRECTORY_PATH, FILE_PATH);
         File file = new File(storagePath);
         Scanner scanner = new Scanner(file);
         while (Objects.requireNonNull(scanner).hasNext()) {
             String input = scanner.nextLine();
             String taskCode = input.substring(0, 1);
-            String taskInput = input.length() > 4
-                    ? input.substring(4)
-                    : "";
+            String taskInput = input.length() > 4 ? input.substring(4) : "";
             Task task = Parser.parse(taskCode, taskInput);
             tasks.add(task);
         }
@@ -59,11 +56,9 @@ public class DukeStorage implements Storage {
      */
     @Override
     public void updateStorage(List<Task> tasks) throws IOException {
-        String storagePath = String.format("./%s/%s", DIRECTORY_PATH,
-                FILE_PATH);
-        FileWriter fw;
+        String storagePath = String.format("./%s/%s", DIRECTORY_PATH, FILE_PATH);
         try {
-            fw = new FileWriter(storagePath);
+            FileWriter fw = new FileWriter(storagePath);
             for (Task task : tasks) {
                 fw.write(task.encode() + System.lineSeparator());
             }
@@ -76,8 +71,7 @@ public class DukeStorage implements Storage {
 
     private void initialiseStorage() throws IOException, StorageCreationException {
         String directoryPath = String.format("./%s", DIRECTORY_PATH);
-        String storagePath = String.format("./%s/%s", DIRECTORY_PATH,
-                FILE_PATH);
+        String storagePath = String.format("./%s/%s", DIRECTORY_PATH, FILE_PATH);
         File directory = new File(directoryPath);
         if (!directory.exists()) {
             if (!directory.mkdir()) {
@@ -88,12 +82,10 @@ public class DukeStorage implements Storage {
         if (!file.exists()) {
             try {
                 if (!file.createNewFile()) {
-                    throw new StorageCreationException(
-                            Messages.FAILED_TO_CREATE_FILE_ERROR_MESSAGE);
+                    throw new StorageCreationException(Messages.FAILED_TO_CREATE_FILE_ERROR_MESSAGE);
                 }
             } catch (IOException e) {
-                throw new IOException(
-                        Messages.FAILED_TO_CREATE_FILE_ERROR_MESSAGE);
+                throw new IOException(Messages.FAILED_TO_CREATE_FILE_ERROR_MESSAGE);
             }
         }
     }

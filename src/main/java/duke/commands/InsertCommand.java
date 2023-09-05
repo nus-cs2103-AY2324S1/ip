@@ -31,8 +31,8 @@ public class InsertCommand implements Command {
             Task task = Parser.createTask(taskType, taskInput);
             taskList.insertTask(task);
             int taskCount = taskList.getTaskCount();
-            ui.displayMessage(String.format(Messages.INSERT_MESSAGE,
-                    task, taskCount, taskCount == 1 ? "task" : "tasks"));
+            ui.displayMessage(String.format(Messages.INSERT_MESSAGE, task, taskCount,
+                    taskCount == 1 ? "task" : "tasks"));
         } catch (InsufficientArgumentsException | DateTimeParseException | IOException e) {
             ui.displayError(e.getMessage());
         }
