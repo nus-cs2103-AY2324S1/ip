@@ -33,7 +33,7 @@ public class Ui {
      */
     public static void showError(String error) {
         showLine();
-        System.out.println("        ERROR: " + error + "!");
+        System.out.println("        " + error + "!");
         showLine();
     }
 
