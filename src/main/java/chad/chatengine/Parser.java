@@ -1,4 +1,4 @@
-package chatengine;
+package chad.chatengine;
 public class Parser {
 
     public enum CommandType {

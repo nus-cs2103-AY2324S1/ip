@@ -1,4 +1,4 @@
-package chatengine;
+package chad.chatengine;
 
 public class ChadException extends Exception {
     public ChadException(String message) {

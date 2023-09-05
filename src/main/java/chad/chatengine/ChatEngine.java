@@ -1,8 +1,8 @@
-package chatengine;
+package chad.chatengine;
 
-import io.IOHandler;
-import io.ConsoleIO;
-import task.TaskList;
+import chad.io.IOHandler;
+import chad.io.ConsoleIO;
+import chad.task.TaskList;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

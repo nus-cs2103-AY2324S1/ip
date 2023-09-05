@@ -1,4 +1,4 @@
-package io;
+package chad.io;
 
 public interface IOHandler {
     String readInput();

@@ -1,4 +1,6 @@
-import chatengine.ChatEngine;
+package chad;
+
+import chad.chatengine.ChatEngine;
 
 public class Main {
     public static void main(String[] args) {

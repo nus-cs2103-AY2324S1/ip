@@ -1,7 +1,7 @@
-package chatengine;
+package chad.chatengine;
 
-import task.Task;
-import task.TaskList;
+import chad.task.Task;
+import chad.task.TaskList;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
