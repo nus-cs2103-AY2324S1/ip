@@ -1,0 +1,31 @@
+.transparent-background {
+    -fx-background-color: transparent;
+}
+
+.transculent-background {
+    -fx-background-color: rgba(0, 0, 0, 0.8);
+    -fx-background-insets: 0.2;
+}
+
+.image-background {
+    -fx-background-image: url('../images/MainWindowBackground.png');
+    -fx-background-attachment: fixed;
+}
+
+.top-border {
+    -fx-border-style: solid;
+    -fx-border-width: 1px 0px 0px 0px;
+    -fx-border-color: rgb(102, 255, 0);
+}
+
+#inputTextField {
+    -fx-text-fill: rgb(102, 255, 0);
+    -fx-font-weight: bold;
+}
+
+#submitButton {
+    -fx-text-fill: rgb(102, 255, 0);
+    -fx-background-color: rgba(58, 58, 57, 0.9);
+    -fx-background-radius: 40.0;
+}
+

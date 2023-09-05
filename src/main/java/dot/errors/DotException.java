@@ -1,5 +1,7 @@
 package dot.errors;
 
+import java.util.function.Consumer;
+
 /**
  * The exception for Dot.
  */
@@ -35,9 +37,11 @@ public class DotException extends Exception {
      * It takes the TaskError enum value which attaches the header
      * error message to the aforementioned sub-message and displays
      * it to the user in a non-cryptic manner.
+     *
+     * @param handleUiErrorMessage This is the GUI handler for error messages.
      */
-    public void handleError() {
-        this.taskError.printErrorMessage(this);
+    public void handleError(Consumer<String> handleUiErrorMessage) {
+        handleUiErrorMessage.accept(this.taskError.getFullErrorMessage(this));
     }
 
 }

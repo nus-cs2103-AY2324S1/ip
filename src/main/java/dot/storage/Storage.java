@@ -26,7 +26,7 @@ public class Storage {
      * Current Storage is only designed to handle path names in the
      * following format: <code>{@literal ./<directory>/<filename>}</code>.
      *
-     * @param storageLocation Pathname in format <code>{@literal 。/<directory>/<filename>}</code>
+     * @param storageLocation Pathname in format <code>{@literal ./<directory>/<filename>}</code>
      */
     public Storage(String storageLocation) {
         this.storageLocation = storageLocation;

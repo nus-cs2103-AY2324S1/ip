@@ -1,6 +1,7 @@
 package dot.commands;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 import dot.errors.DotException;
 import dot.tasks.TaskList;
@@ -18,7 +19,7 @@ public class FindCommand extends Command {
     /**
      * Constructor for FindCommand.
      *
-     * @param query This is the query for the search.
+     * @param query       This is the query for the search.
      * @param dotTaskList This is the TaskList to search from.
      */
     public FindCommand(String query, TaskList dotTaskList) {
@@ -26,9 +27,16 @@ public class FindCommand extends Command {
         this.dotTaskList = dotTaskList;
     }
 
+    /**
+     * Finds and displays queried tasks.
+     *
+     * @param handleDotOutput This is the consumer used to display any output
+     *                        due the execution of the command to the GUI.
+     * @throws DotException On detected error.
+     */
     @Override
-    public void execute() throws DotException {
+    public void execute(Consumer<String> handleDotOutput) throws DotException {
         ArrayList<String> queriedTasks = dotTaskList.getDisplayForQueriedTasks(this.query);
-        Ui.displayArrayList(queriedTasks);
+        handleDotOutput.accept(Ui.concatArrayList(queriedTasks));
     }
 }

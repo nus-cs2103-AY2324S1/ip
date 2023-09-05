@@ -1,5 +1,7 @@
 package dot.commands;
 
+import java.util.function.Consumer;
+
 import dot.errors.DotException;
 import dot.tasks.Event;
 import dot.tasks.Task;
@@ -34,12 +36,14 @@ public class EventCommand extends Command {
     /**
      * Creates and inserts the Event into dotTaskList.
      *
+     * @param handleDotOutput This is the consumer used to display any output
+     *                        due the execution of the command to the GUI.
      * @throws DotException On detected error.
      */
     @Override
-    public void execute() throws DotException {
+    public void execute(Consumer<String> handleDotOutput) throws DotException {
         Task newEventTask = new Event(this.description, this.start, this.end);
-        dotTaskList.addTask(newEventTask);
+        dotTaskList.addTask(newEventTask, handleDotOutput);
         dotTaskList.saveTaskListToStorage();
     }
 

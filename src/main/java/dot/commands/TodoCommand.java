@@ -1,5 +1,7 @@
 package dot.commands;
 
+import java.util.function.Consumer;
+
 import dot.errors.DotException;
 import dot.tasks.Task;
 import dot.tasks.TaskList;
@@ -28,12 +30,14 @@ public class TodoCommand extends Command {
     /**
      * Creates and inserts the Deadline into dotTaskList.
      *
+     * @param handleDotOutput This is the consumer used to display any output
+     *                        due the execution of the command to the GUI.
      * @throws DotException On detected error.
      */
     @Override
-    public void execute() throws DotException {
+    public void execute(Consumer<String> handleDotOutput) throws DotException {
         Task newTodoTask = new Todo(this.description);
-        dotTaskList.addTask(newTodoTask);
+        dotTaskList.addTask(newTodoTask, handleDotOutput);
         dotTaskList.saveTaskListToStorage();
     }
 
