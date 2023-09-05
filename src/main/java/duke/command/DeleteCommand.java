@@ -11,7 +11,7 @@ import duke.ui.Ui;
  *
  * @author marioalvaro
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     private String[] splitTask;
 
     /**
@@ -42,7 +42,7 @@ public class DeleteCommand extends Command{
         }
 
         if (index > 0 && index < taskList.size() && taskList.get(index - 1) != null) {
-            ui.printDeleteTask(taskList.get(index-1), taskList.size() - 1);
+            ui.printDeleteTask(taskList.get(index - 1), taskList.size() - 1);
             taskList.remove(index - 1);
         } else {
             throw new DukeInvalidMarkException(Integer.toString(index));

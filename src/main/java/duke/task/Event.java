@@ -1,8 +1,9 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+
 import duke.time.Time;
 
-import java.time.LocalDateTime;
 
 /**
  * A Class that handle Event.
@@ -13,7 +14,7 @@ public class Event extends Task {
     /**
      * the type Icon
      */
-    private final String TYPE = "E";
+    private static final String TYPE = "E";
     /**
      * start of the event
      */
@@ -42,8 +43,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[" + TYPE + "]" + super.toString() +
-                " (from: " + Time.toString(this.from) + " to: " + Time.toString(this.to) + ")";
+        return "[" + TYPE + "]" + super.toString()
+                + " (from: " + Time.toString(this.from) + " to: " + Time.toString(this.to) + ")";
     }
 
     /**
@@ -53,7 +54,7 @@ public class Event extends Task {
      */
     @Override
     public String toDataString() {
-        return this.TYPE + " / " + super.toDataString() + " / " +
-                Time.toDataString(this.from) + " / " + Time.toDataString(this.to);
+        return this.TYPE + " / " + super.toDataString() + " / "
+                + Time.toDataString(this.from) + " / " + Time.toDataString(this.to);
     }
 }

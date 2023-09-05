@@ -1,19 +1,20 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+
 import duke.time.Time;
 
-import java.time.LocalDateTime;
 
 /**
  * A Class that handle deadline
  *
  * @author marioalvaro
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     /**
      * the type Icon
      */
-    private final String TYPE = "D";
+    private static final String TYPE = "D";
     /**
      * the duke.time the deadline must be finished
      */
@@ -37,8 +38,8 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[" + this.TYPE + "]" + super.toString() +
-                " (by: " + Time.toString(this.time) + ")";
+        return "[" + TYPE + "]" + super.toString()
+                + " (by: " + Time.toString(this.time) + ")";
     }
 
     /**
@@ -48,6 +49,6 @@ public class Deadline extends Task{
      */
     @Override
     public String toDataString() {
-        return this.TYPE + " / " + super.toDataString() + " / " + Time.toDataString(this.time);
+        return TYPE + " / " + super.toDataString() + " / " + Time.toDataString(this.time);
     }
 }

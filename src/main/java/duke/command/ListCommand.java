@@ -9,7 +9,7 @@ import duke.ui.Ui;
  *
  * @author marioalvaro
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
     /**
      * Method to execute the list out.
      *
