@@ -79,34 +79,34 @@ public class ChatEngine {
     boolean commandHandler(String[] parsedInput) throws ChadException {
         Parser.CommandType command = Parser.parseCommandType(parsedInput[0]);
         switch (command) {
-            case MARK:
-                handleMark(parsedInput);
-                break;
-            case UNMARK:
-                handleUnmark(parsedInput);
-                break;
-            case LIST:
-                handleList();
-                break;
-            case TODO:
-                handleTodo(parsedInput);
-                break;
-            case DEADLINE:
-                handleDeadline(parsedInput);
-                break;
-            case EVENT:
-                handleEvent(parsedInput);
-                break;
-            case DELETE:
-                handleDelete(parsedInput);
-                break;
-            case FIND:
-                handleFind(parsedInput);
-                break;
-            case BYE:
-                return false;
-            default:
-                throw new ChadException.InvalidCommandException("Unknown command: " + parsedInput[0]);
+        case MARK:
+            handleMark(parsedInput);
+            break;
+        case UNMARK:
+            handleUnmark(parsedInput);
+            break;
+        case LIST:
+            handleList();
+            break;
+        case TODO:
+            handleTodo(parsedInput);
+            break;
+        case DEADLINE:
+            handleDeadline(parsedInput);
+            break;
+        case EVENT:
+            handleEvent(parsedInput);
+            break;
+        case DELETE:
+            handleDelete(parsedInput);
+            break;
+        case FIND:
+            handleFind(parsedInput);
+            break;
+        case BYE:
+            return false;
+        default:
+            throw new ChadException.InvalidCommandException("Unknown command: " + parsedInput[0]);
         }
         return true;
     }
