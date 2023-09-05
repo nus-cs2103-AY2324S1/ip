@@ -29,4 +29,19 @@ public class MarkCommand extends Command {
         storage.writeListToFile(tasks);
         ui.printTaskMarked(markedTask);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj instanceof MarkCommand) {
+            MarkCommand other = (MarkCommand) obj;
+            if (this.commandDetails == null || other.commandDetails == null) {
+                return false;
+            }
+            return this.commandDetails.equals(other.commandDetails);
+        }
+        return false;
+    }
 }

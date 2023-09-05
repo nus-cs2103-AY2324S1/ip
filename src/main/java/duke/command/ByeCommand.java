@@ -23,4 +23,18 @@ public class ByeCommand extends Command {
         return true;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj instanceof ByeCommand) {
+            ByeCommand other = (ByeCommand) obj;
+            if (this.commandDetails == null || other.commandDetails == null) {
+                return false;
+            }
+            return this.commandDetails.equals(other.commandDetails);
+        }
+        return false;
+    }
 }

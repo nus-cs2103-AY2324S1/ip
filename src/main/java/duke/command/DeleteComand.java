@@ -29,4 +29,19 @@ public class DeleteComand extends Command {
         storage.writeListToFile(tasks);
         ui.printTaskDeleted(deletedTask, tasks.size());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj instanceof DeleteComand) {
+            DeleteComand other = (DeleteComand) obj;
+            if (this.commandDetails == null || other.commandDetails == null) {
+                return false;
+            }
+            return this.commandDetails.equals(other.commandDetails);
+        }
+        return false;
+    }
 }
