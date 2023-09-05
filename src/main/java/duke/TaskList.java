@@ -31,7 +31,6 @@ public class TaskList {
      *
      * @param input User input.
      */
-
     public void showList(String[] input) {
         try {
             if (!(input.length == 1 || input[1].strip().equals(""))) {
@@ -52,7 +51,6 @@ public class TaskList {
      *
      * @param input User input.
      */
-
     public void markTask(String[] input) {
         try {
             int toMark = Integer.parseInt(input[1]);
@@ -140,7 +138,6 @@ public class TaskList {
      *
      * @param input User input.
      */
-
     public void addDeadline(String[] input) {
         try {
             String[] s = input[1].split("/by", 2);
@@ -162,7 +159,6 @@ public class TaskList {
             System.out.println("    Enter valid date yyyy-mm-dd");
         }
     }
-
 
     /**
      * Adds a ToDo to the task list.
