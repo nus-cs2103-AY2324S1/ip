@@ -8,11 +8,11 @@ import java.time.format.DateTimeFormatter;
  */
 public class DeadlineTask extends Task {
 
-    protected static final DateTimeFormatter INPUT_FORMAT =
+    private static final DateTimeFormatter INPUT_FORMAT =
             DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    protected static final DateTimeFormatter DISPLAY_FORMAT =
+    private static final DateTimeFormatter DISPLAY_FORMAT =
             DateTimeFormatter.ofPattern("dd-MMM-yyyy HHmm");
-    protected LocalDateTime deadline;
+    private final LocalDateTime deadline;
 
     /**
      * Constructor, initializes task description, deadline and isMarked.
