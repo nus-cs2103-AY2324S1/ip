@@ -47,4 +47,13 @@ public class BanterBot {
     public static void main(String[] args) {
         new BanterBot("data/tasks.txt").run();
     }
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
+    }
 }

@@ -31,8 +31,9 @@ public class FindCommand extends Command {
      * @param storage
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public String execute(TaskList list, Ui ui, Storage storage) {
         String message = list.find(substring);
-        ui.print(message);
+        //        ui.print(message);
+        return message;
     }
 }
