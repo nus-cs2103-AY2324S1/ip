@@ -12,7 +12,7 @@ public class Deadline extends Task {
      * String to put at the front of string rep of this, represents the name,
      * D for [D]eadline
      */
-    private final static String PREPEND = "[D]";
+    private static final String PREPEND = "[D]";
 
     /**
      * String representing the deadline of this Deadline

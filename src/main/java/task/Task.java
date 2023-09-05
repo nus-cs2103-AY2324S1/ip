@@ -34,7 +34,7 @@ public abstract class Task implements Serializable {
      * Marks this task as done, does NOT check for if it was already done
      */
     public void markAsDone() {
-        this.isDone = true  ;
+        this.isDone = true;
     }
 
     /**

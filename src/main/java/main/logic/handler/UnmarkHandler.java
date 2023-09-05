@@ -1,5 +1,7 @@
 package main.logic.handler;
 
+import java.util.List;
+import java.util.Map;
 
 import exceptions.syntax.ArgFormatException;
 import exceptions.syntax.MissingUnnamedArgsException;
@@ -8,13 +10,12 @@ import main.KniazSession;
 import storage.TaskList;
 import task.Task;
 
-import java.util.List;
-import java.util.Map;
+
 
 /**
  * Handles the unmark command by un-marking specified task
  */
-public  class UnmarkHandler implements CommandHandler {
+public class UnmarkHandler implements CommandHandler {
 
 
     private static final String[] ARG_ORDER = new String[]{""};
@@ -27,7 +28,7 @@ public  class UnmarkHandler implements CommandHandler {
      * @param namedArgs  the named arguments to this command
      * @return the user-facing string representation of the unmarked task
      * @throws MissingUnnamedArgsException when there is a problem with the arguments,
-     * like index being out of bounds/unparseable
+     *     like index being out of bounds/unparseable
      */
     @Override
     public String handle(KniazSession session,
@@ -42,17 +43,17 @@ public  class UnmarkHandler implements CommandHandler {
         int index;
         try {
             index = Integer.parseInt(indexAsString) - 1;
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw new ArgFormatException(String.format("%s was invalid", indexAsString),
-                    String.format("I could not interpret %s as an integer, what is this?",indexAsString),
+                    String.format("I could not interpret %s as an integer, what is this?", indexAsString),
                     e);
         }
 
 
         TaskList sessionTaskList = session.getTaskList();
 
-        if ((index < 0 ) || (index >= sessionTaskList.size())) {
-            throw new TaskListBoundsException(session.getTaskList().size(),index,null);
+        if ((index < 0) || (index >= sessionTaskList.size())) {
+            throw new TaskListBoundsException(session.getTaskList().size(), index, null);
         }
 
         Task unmarkedTask = session.getTaskList().markAsUndone(index);

@@ -1,11 +1,12 @@
 package exceptions.syntax;
 
 /**
- * Exception to be thrown when a CommandHandler is missing unnamed arguments
+ * Exception to be thrown when a CommandHandler is missing unnamed arguments.
  */
 public class MissingUnnamedArgsException extends ArgErrorException {
+
     /**
-     * Constructor for the exception
+     * Constructor for the exception.
      *
      * @param numGivenArgs     How many arguments were actually provided
      * @param numExpectedArgs How many arguments were expected

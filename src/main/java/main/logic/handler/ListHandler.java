@@ -1,15 +1,16 @@
 package main.logic.handler;
 
+import java.util.List;
+import java.util.Map;
 
 import main.KniazSession;
 
-import java.util.List;
-import java.util.Map;
+
 
 /**
  * Handles the list command, by getting the user-facing string representation of the session's TaskList
  */
-public class ListHandler implements  CommandHandler{
+public class ListHandler implements CommandHandler {
 
     // no arguments allowed
     /**

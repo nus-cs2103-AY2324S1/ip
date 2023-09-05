@@ -1,16 +1,20 @@
 package main.logic.handler;
 
-import exceptions.syntax.MissingNamedArgsException;
-import main.KniazSession;
-import org.junit.jupiter.api.Test;
-import storage.TaskList;
-import task.Deadline;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import exceptions.syntax.MissingNamedArgsException;
+import main.KniazSession;
+import storage.TaskList;
+import task.Deadline;
+
+
+
 class DeadlineHandlerTest {
 
     @Test
@@ -26,9 +30,9 @@ class DeadlineHandlerTest {
 
         String out = new DeadlineHandler().handle(dummySession,
                 List.of("test"),
-                Map.of("by","time"));
+                Map.of("by", "time"));
 
-        assertEquals(out, new Deadline("test","time").toPrintString());
+        assertEquals(out, new Deadline("test", "time").toPrintString());
 
 
 
@@ -50,8 +54,8 @@ class DeadlineHandlerTest {
                     Map.of());
             fail();
         } catch (MissingNamedArgsException e) {
-            assertEquals(e.getUserMessage(), new MissingNamedArgsException(List.of("by")
-                    ,List.of(""),
+            assertEquals(e.getUserMessage(), new MissingNamedArgsException(List.of("by"),
+                    List.of(""),
                     null).getUserMessage());
         }
 

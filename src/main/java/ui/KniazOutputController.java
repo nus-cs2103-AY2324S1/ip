@@ -1,7 +1,7 @@
 package ui;
 
 import main.logic.command.KniazCommand;
-import ui.inputparser.InstructionType;
+
 
 /**
  * Class handling printing of output, including delegation of how to 'pretty' up output to user
@@ -28,7 +28,7 @@ public class KniazOutputController {
      * @param toPrint the line to print to output
      * @return the successfully printed line
      */
-    public String printToOutput(String toPrint){
+    public String printToOutput(String toPrint) {
         System.out.println(toPrint);
         System.out.println(SEPERATOR);
         return toPrint;
@@ -38,7 +38,7 @@ public class KniazOutputController {
      * Prints the expected startup message to output, using same format as printToOutput
      * @return the expected startup message
      */
-    public String printStartupMessage(){
+    public String printStartupMessage() {
         return printToOutput(GREETING);
     }
 

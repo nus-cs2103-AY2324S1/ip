@@ -1,6 +1,8 @@
 package main.logic.command;
 
-
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 
 import main.logic.handler.CommandHandler;
 import main.logic.handler.DeadlineHandler;
@@ -15,9 +17,6 @@ import main.logic.handler.ToDoHandler;
 import main.logic.handler.UnmarkHandler;
 import ui.inputparser.InstructionType;
 
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Class encapsulating a command given to Kniaz, should only be instantiated via KniazParser when it parses a command
@@ -46,9 +45,7 @@ public abstract class CommandFactory {
      */
     public static KniazCommand makeCommand(InstructionType instruction,
                                            List<String> unnamedArgs,
-                                           Map<? extends String, ? extends  String> namedArgs){
-
-
+                                           Map<? extends String, ? extends String> namedArgs) {
         CommandHandler handler = INSTRUCT_TO_HANDLER.getOrDefault(instruction, new InvalidHandler());
 
         return new KniazCommand(instruction, handler, unnamedArgs, namedArgs);

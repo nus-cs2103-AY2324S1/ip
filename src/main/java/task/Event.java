@@ -2,13 +2,16 @@ package task;
 
 import task.taskdatetime.TaskDateTime;
 
+/**
+ * Class encapsulating an Event, a task with a start and an end.
+ */
 public class Event extends Task {
 
     /**
      * String to put at the front of string rep of this, represents the name,
      * E for [E]vent
      */
-    private final static String PREPEND = "[E]";
+    private static final String PREPEND = "[E]";
 
     /**
      * String representing whene this Event starts

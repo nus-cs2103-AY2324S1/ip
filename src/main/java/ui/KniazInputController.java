@@ -1,9 +1,11 @@
 package ui;
 
+import java.util.Scanner;
+
 import main.logic.command.KniazCommand;
 import ui.inputparser.KniazLineParser;
 
-import java.util.Scanner;
+
 
 /**
  * Class encapsulating a controller for input, takes in input from system.in and delegates parsing to
@@ -19,7 +21,7 @@ public class KniazInputController {
     /**
      * Constructor for KniazInputController
      */
-    public KniazInputController(){
+    public KniazInputController() {
         this.parser = new KniazLineParser();
         this.input = new Scanner(System.in);
     }
@@ -29,7 +31,7 @@ public class KniazInputController {
      * Reads in the next line from input and automatically parses to a KniazCommand
      * @return the KniazCommand representing the commmand that was entered into input
      */
-    public KniazCommand nextLine(){
+    public KniazCommand nextLine() {
         return readCommand(input.nextLine());
     }
 

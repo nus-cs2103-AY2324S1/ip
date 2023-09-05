@@ -2,6 +2,9 @@
 
 import main.KniazSession;
 
+/**
+ * Entry point for the Kniaz program
+ */
 public class Kniaz {
 
     /**

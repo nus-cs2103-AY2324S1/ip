@@ -1,17 +1,16 @@
 package main;
 
 import exceptions.KniazRuntimeException;
-import main.logic.command.CommandFactory;
 import main.logic.command.KniazCommand;
-import main.logic.handler.CommandHandler;
 import storage.TaskList;
 import storage.save.KniazLoader;
 import storage.save.KniazSaver;
 import ui.KniazInputController;
 import ui.KniazOutputController;
 
-import java.io.IOException;
-
+/**
+ * Encapsulates a session of Kniaz.
+ */
 public class KniazSession {
     private TaskList taskList;
     private KniazLoader loader;
@@ -23,21 +22,24 @@ public class KniazSession {
 
     private boolean isRunning;
 
-    /**
-     * Getter for the tasklist of this session
-     * @return the tasklist of this session
-     */
-    public TaskList getTaskList() {
-        return taskList;
-    }
+
 
     /**
-     * Dummy constructor that does nothing
+     * Dummy constructor that does nothing.
      */
     public KniazSession() {
 
     }
 
+    /**
+     * Private constructor for initializing a KniazSession.
+     *
+     * @param taskList          The TaskList to use.
+     * @param loader            The KniazLoader to use.
+     * @param saver             The KniazSaver to use.
+     * @param inputController   The KniazInputController to use.
+     * @param outputController  The KniazOutputController to use.
+     */
     private KniazSession(TaskList taskList,
                          KniazLoader loader,
                          KniazSaver saver,
@@ -49,7 +51,6 @@ public class KniazSession {
         this.inputController = inputController;
         this.outputController = outputController;
         this.isRunning = true;
-
     }
 
     /**
@@ -68,13 +69,21 @@ public class KniazSession {
         try {
             tasks = loader.load();
             output.printToOutput("I managed to load your tasks from last time.");
-        } catch (KniazRuntimeException e){
+        } catch (KniazRuntimeException e) {
             output.printToOutput(e.getMessage());
         }
 
 
-        return new KniazSession(tasks,loader,saver,input,output);
+        return new KniazSession(tasks, loader, saver, input, output);
 
+    }
+
+    /**
+     * Getter for the tasklist of this session
+     * @return the tasklist of this session
+     */
+    public TaskList getTaskList() {
+        return taskList;
     }
 
 
@@ -91,9 +100,9 @@ public class KniazSession {
      * Start the main loop of this Session, to run it
      * @return a boolean true
      */
-    public boolean run(){
+    public boolean run() {
         isRunning = true;
-        while (isRunning){
+        while (isRunning) {
             KniazCommand nextCommand = inputController.nextLine();
             String printString;
             String flavour = outputController.getFlavourFor(nextCommand);
@@ -101,7 +110,7 @@ public class KniazSession {
                 String feedback = nextCommand.execute(this);
                 printString = flavour + '\n' + feedback;
 
-            } catch (KniazRuntimeException e){
+            } catch (KniazRuntimeException e) {
                 printString = e.getUserMessage();
             }
 

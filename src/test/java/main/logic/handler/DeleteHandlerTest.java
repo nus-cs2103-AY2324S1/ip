@@ -1,16 +1,19 @@
 package main.logic.handler;
 
-import exceptions.syntax.ArgFormatException;
-import main.KniazSession;
-import org.junit.jupiter.api.Test;
-import storage.TaskList;
-import task.Task;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import exceptions.syntax.ArgFormatException;
+import main.KniazSession;
+import storage.TaskList;
+import task.Task;
+
 
 class DeleteHandlerTest {
 
@@ -24,14 +27,14 @@ class DeleteHandlerTest {
                 List.of("1.1"),
                 List.of("\n"),
                 List.of("0.2"));
-        Map<String,String> emptyNamedArgs = new HashMap<>();
+        Map<String, String> emptyNamedArgs = new HashMap<>();
         for (int i = 0; i < badUnnamedList.size(); i++) {
             String currArg = badUnnamedList.get(i).get(0);
             try {
-                handler.handle(null, badUnnamedList.get(i),emptyNamedArgs);
+                handler.handle(null, badUnnamedList.get(i), emptyNamedArgs);
                 fail();
-            } catch (ArgFormatException e){
-                assertEquals(String.format("I could not interpret %s as an integer, what is this?",currArg),
+            } catch (ArgFormatException e) {
+                assertEquals(String.format("I could not interpret %s as an integer, what is this?", currArg),
                         e.getUserMessage());
             }
         }
@@ -39,7 +42,7 @@ class DeleteHandlerTest {
 
 
     @Test
-    public void deleteHandler_goodArgs_goodDelete(){
+    public void deleteHandler_goodArgs_goodDelete() {
 
         DeleteHandler handler = new DeleteHandler();
 
@@ -57,11 +60,11 @@ class DeleteHandlerTest {
                 1,
                 0
         ); // internals uses 0-based, interface via string should be 1-based
-        class DummyTask extends Task{
+        class DummyTask extends Task {
 
             public final int identifier;
             protected DummyTask(int identifier) {
-                super(null,false);
+                super(null, false);
                 this.identifier = identifier;
             }
 
@@ -90,7 +93,7 @@ class DeleteHandlerTest {
         };
 
 
-        assertEquals(dummySession.getTaskList() ,expectedList); // must match expected result
+        assertEquals(dummySession.getTaskList(), expectedList); // must match expected result
 
         for (int i = 0; i < goodUnnamedList.size(); i++) {
             TaskList toTest = dummySession.getTaskList();

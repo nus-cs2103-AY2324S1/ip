@@ -8,24 +8,24 @@ package ui.inputparser;
 public enum InstructionType {
     TODO("todo", 1, 0, new String[]{}),
     DEADLINE("deadline", 1, 1, new String[]{"by"}),
-    EVENT("event", 1, 2, new String[]{"from","to"}),
+    EVENT("event", 1, 2, new String[]{"from", "to"}),
     MARK("mark", 1, 0, new String[]{}),
     UNMARK("unmark", 1, 0, new String[]{}),
     LIST("list", 0, 0, new String[]{}),
     QUIT("bye", 0 , 0, new String[]{}),
     DELETE("delete", 1, 0, new String[]{}),
-    FIND("find", 1, 0,new String[]{}),
+    FIND("find", 1, 0, new String[]{}),
     INVALID("", 0 , 0, new String[]{}); // placeholder for anything not recognised
 
+
+    public static final String[] EMPTY = new String[]{};
     public final String alias;
     public final int numUnnamedArgs;
 
     public final int numNamedArgs;
-
     public final String[] argNames;
 
 
-    public static final String[] EMPTY = new String[]{};
 
     private InstructionType(String alias, int numUnnamedArgs, int namedArgs, String[] argNames)
             throws ExceptionInInitializerError {
@@ -33,10 +33,10 @@ public enum InstructionType {
         this.numUnnamedArgs = numUnnamedArgs;
         this.numNamedArgs = namedArgs;
         this.argNames = argNames;
-        if (this.numNamedArgs != argNames.length){
+        if (this.numNamedArgs != argNames.length) {
             throw new ExceptionInInitializerError(String.format(
-                    "InstructionType should have %s named args specified, " +
-                    "but only has %s!", namedArgs, argNames.length));
+                    "InstructionType should have %s named args specified, "
+                            + "but only has %s!", namedArgs, argNames.length));
         }
     }
 

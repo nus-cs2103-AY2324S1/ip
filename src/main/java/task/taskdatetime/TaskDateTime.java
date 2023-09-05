@@ -59,7 +59,7 @@ public abstract class TaskDateTime implements Serializable {
     /**
      * Subclass of a TaskDateTime, representing a TaskDateTime that holds a parseable date & time
      */
-    private static class ParseableTaskDateTime extends  TaskDateTime {
+    private static class ParseableTaskDateTime extends TaskDateTime {
 
 
         /**
@@ -67,32 +67,41 @@ public abstract class TaskDateTime implements Serializable {
          */
         private LocalDateTime date;
 
-        /**
-         * String representation, formatted. See TaskDateTime for details.
-         * @return the string representation of the date
-         */
-        public String getDateTimeAsString() {
-            return this.date.format(TaskDateTime.DATE_TIME_FORMATTER);
-        }
 
         /**
          * Constructor for a parseable date time. Attempts to parse.
          * @param dateTimeAsString the provided date & time
          * @throws DateTimeParseException if parsing failed
          */
-        private ParseableTaskDateTime (String dateTimeAsString)  throws DateTimeParseException {
+        private ParseableTaskDateTime(String dateTimeAsString) throws DateTimeParseException {
 
-            this.date = LocalDateTime.parse(dateTimeAsString,DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            this.date = LocalDateTime.parse(dateTimeAsString, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         }
 
     }
 
-    private static class UnparseableTaskDateTime extends  TaskDateTime {
+    /**
+     * String representation, formatted. See TaskDateTime for details.
+     * @return the string representation of the date
+     */
+    public String getDateTimeAsString() {
+        return this.date.format(TaskDateTime.DATE_TIME_FORMATTER);
+    }
+
+    private static class UnparseableTaskDateTime extends TaskDateTime {
 
         /**
          * The entire string provided. Could not parse, so storage.save the whole string instead
          */
         private String dateTimeAsString;
+
+        /**
+         * Constructor for this class
+         * @param dateTimeAsString the string that we should try to construct with
+         */
+        private UnparseableTaskDateTime(String dateTimeAsString) {
+            this.dateTimeAsString = dateTimeAsString;
+        }
 
         /**
          * The string that was provided to this on instantiation
@@ -102,13 +111,8 @@ public abstract class TaskDateTime implements Serializable {
             return this.dateTimeAsString;
         }
 
-        /**
-         * Constructor for this class
-         * @param dateTimeAsString the string that we should try to construct with
-         */
-        private UnparseableTaskDateTime(String dateTimeAsString) {
-            this.dateTimeAsString = dateTimeAsString;
-        }
+
+
 
     }
 }

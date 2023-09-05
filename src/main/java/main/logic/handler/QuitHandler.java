@@ -2,15 +2,16 @@ package main.logic.handler;
 
 
 
-import main.KniazSession;
-
 import java.util.List;
 import java.util.Map;
+
+import main.KniazSession;
+
 
 /**
  * handles the bye command by instructing the session to quit
  */
-public class QuitHandler implements CommandHandler{
+public class QuitHandler implements CommandHandler {
 
     private static final String[] ARG_ORDER = new String[]{};
     // no arguments allowed

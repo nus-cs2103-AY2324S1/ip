@@ -1,12 +1,13 @@
 package storage.save;
 
-import exceptions.KniazRuntimeException;
-import storage.TaskList;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+
+import exceptions.KniazRuntimeException;
+import storage.TaskList;
+
 
 /**
  *  Encapsulates a class to help load Kniaz tasklist data from disk.
@@ -49,7 +50,7 @@ public class KniazLoader {
         if (!this.saveFile.exists()) {
             throw new KniazRuntimeException("Savefile does not exist",
                     "There is no saved data of your tasklist. We shall start from scratch.",
-                    new IOException(String.format("%s does not exist",this.saveFile.getAbsolutePath())));
+                    new IOException(String.format("%s does not exist", this.saveFile.getAbsolutePath())));
         }
 
         if (!this.saveFile.canRead()) {
@@ -83,7 +84,7 @@ public class KniazLoader {
         } catch (IOException e) {
             throw new KniazRuntimeException("Savefile does not exist",
                     "There is no saved data of your tasklist. We shall start from scratch.",
-                    new IOException(String.format("%s does not exist",this.saveFile.getAbsolutePath())));
+                    new IOException(String.format("%s does not exist", this.saveFile.getAbsolutePath())));
             // should not normally be thrown because we verify up above, but to satisfy compiler requirements
         }
 

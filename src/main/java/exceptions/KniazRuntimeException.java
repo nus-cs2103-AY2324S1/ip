@@ -6,7 +6,7 @@ package exceptions;
  * Most importantly, contains an additional user message that is meant to be seen by the user
  * And NOT for debugging/development purposes
  */
-public class KniazRuntimeException extends RuntimeException{
+public class KniazRuntimeException extends RuntimeException {
 
     /**
      * The message that is meant to be seen by the user
@@ -21,7 +21,7 @@ public class KniazRuntimeException extends RuntimeException{
      * @param cause what caused this, see java.Exceptions for more details
      */
     public KniazRuntimeException(String message, String userMessage, Throwable cause) {
-        super(message,cause);
+        super(message, cause);
         this.userMessage = userMessage;
 
     }

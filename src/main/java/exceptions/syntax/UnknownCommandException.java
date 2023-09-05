@@ -1,5 +1,8 @@
 package exceptions.syntax;
 
+/**
+ * Exception for when there is a command that is unknown
+ */
 public class UnknownCommandException extends ArgErrorException {
     /**
      * Constructor for an exception, which constructs it with a non-user facing message, a user-facing message and
@@ -10,6 +13,6 @@ public class UnknownCommandException extends ArgErrorException {
      * @param cause       what caused this, see java.Exceptions for more details
      */
     public UnknownCommandException(String message, String userMessage, Throwable cause) {
-        super(message,  userMessage,  cause);
+        super(message, userMessage, cause);
     }
 }

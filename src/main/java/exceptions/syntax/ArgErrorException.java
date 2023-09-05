@@ -2,6 +2,9 @@ package exceptions.syntax;
 
 import exceptions.KniazRuntimeException;
 
+/**
+ * Exception thrown for when something is wrong with the arguments to a command.
+ */
 public abstract class ArgErrorException extends KniazRuntimeException {
 
     /**

@@ -1,15 +1,16 @@
 package main.logic.handler;
 
-import exceptions.syntax.MissingNamedArgsException;
+import java.util.List;
+import java.util.Map;
+
 import exceptions.syntax.MissingUnnamedArgsException;
-import exceptions.syntax.UnknownCommandException;
 import main.KniazSession;
 import storage.TaskList;
 import task.Task;
 
-import java.util.List;
-import java.util.Map;
-
+/**
+ * Class encapsulating the handling of the find command.
+ */
 public class FindHandler implements CommandHandler {
 
     /**

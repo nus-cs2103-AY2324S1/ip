@@ -1,10 +1,13 @@
 package storage.save;
 
-import storage.TaskList;
-
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
+
+import storage.TaskList;
+
+
 
 /**
  * Encapsulates a class to help storage.save Kniaz tasklist data to disk.
@@ -14,7 +17,7 @@ public class KniazSaver {
     /**
      * The default path KniazSaver will try to storage.save to
      */
-    public final static String DEFAULT_PATH = "./data/Kniaz.dat";
+    public static final String DEFAULT_PATH = "./data/Kniaz.dat";
 
     /**
      * Internal File object for writing
@@ -38,13 +41,12 @@ public class KniazSaver {
 
     /**
      * Saves the provided TaskList at the location this class was constructed with.
-     * @param taskList the TaskList to storage.save to disk
-     * @throws java.io.IOException If there is an error with I/O,
-     * typically when an error occured in creating file or writing to file
-     * @throws java.lang.SecurityException If the security manager did not allow this class to write to file
      *
+     * @param taskList the TaskList to save to disk.
+     * @throws IOException If there is an I/O error, typically when creating or writing to a file.
+     * @throws SecurityException If the security manager denies write access to the file.
      */
-    public void save(TaskList taskList) throws java.io.IOException,java.lang.SecurityException {
+    public void save(TaskList taskList) throws java.io.IOException, java.lang.SecurityException {
 
         if (!this.saveFile.getParentFile().exists()) {
             // Strictly speaking, do not need to wrap in an if.

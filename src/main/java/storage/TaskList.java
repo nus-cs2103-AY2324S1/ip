@@ -1,9 +1,11 @@
 package storage;
 
-import task.Task;
-
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import task.Task;
+
+
 
 
 /**
@@ -28,7 +30,7 @@ public class TaskList extends ArrayList<Task> implements Serializable {
             Task currTask = this.get(i);
 
             String newLine = String.format(
-                    "%d. %s\n", i+1 , currTask.toPrintString());
+                    "%d. %s\n", i + 1 , currTask.toPrintString());
             // User probably expects to start counting from 1 instead of 0
             // so need to add 1 here
             out.append(newLine);

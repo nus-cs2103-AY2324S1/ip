@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Exception thrown when an expected named argument is missing
  */
-public class MissingNamedArgsException extends ArgErrorException{
+public class MissingNamedArgsException extends ArgErrorException {
 
     /**
      * Constructor for this exception

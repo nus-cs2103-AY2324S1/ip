@@ -10,14 +10,14 @@ public class ToDo extends Task {
      * String to put at the front of string rep of this, represents the name,
      * T for [T]oDo
      */
-    private final static String PREPEND = "[T]";
+    private static final String PREPEND = "[T]";
 
     /**
      * Constructor for a ToDo.
      * @param toDoName the name of this ToDo
      */
     public ToDo(String toDoName) {
-        super(toDoName,false);
+        super(toDoName, false);
     }
 
     /**

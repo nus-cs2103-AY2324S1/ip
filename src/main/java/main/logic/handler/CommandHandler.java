@@ -1,11 +1,12 @@
 package main.logic.handler;
 
+import java.util.List;
+import java.util.Map;
+
 import exceptions.syntax.MissingUnnamedArgsException;
 import exceptions.syntax.UnknownCommandException;
 import main.KniazSession;
 
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -27,7 +28,7 @@ public interface CommandHandler {
 
     public String handle(KniazSession session,
                          List<? extends String> unnamedArgs,
-                         Map<? extends  String, ? extends  String> namedArgs)
+                         Map<? extends String, ? extends String> namedArgs)
             throws UnknownCommandException,
             MissingUnnamedArgsException;
 
