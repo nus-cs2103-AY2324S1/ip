@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-public class Task implements Serializable {
+public abstract class Task implements Serializable {
 
     private boolean isDone;
     private String name;
@@ -30,5 +30,7 @@ public class Task implements Serializable {
     public String toString() {
         return this.isDone ? "[X] " + name : "[ ] " + name;
     }
+
+    public abstract String getAddMessage();
 
 }

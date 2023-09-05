@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
 
     private String description;
+    private String addMessage = "Alright. I'll make sure you don't forget it.";
     private LocalDateTime deadline;
 
     public Deadline(String name, String description) {
@@ -22,6 +23,10 @@ public class Deadline extends Task {
                 ? deadline.format(DateTimeFormatter.ofPattern("hh':'mma',' d MMM uuuu',' eee"))
                 : description;
         return "[D]" + super.toString() + " (by: " + detail + ")";
+    }
+
+    public String getAddMessage() {
+        return addMessage;
     }
 
 }
