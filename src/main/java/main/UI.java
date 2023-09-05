@@ -45,7 +45,7 @@ public class UI {
      * Lists out the tasks stored in the ArrayList<Task> Object.
      * @param taskArrayList - Contains the list of Tasks.
      */
-    public void list(ArrayList<Task> taskArrayList) {
+    public void printList(ArrayList<Task> taskArrayList) {
         this.printDivider();
         if (taskArrayList.size() == 0) {
             System.out.println("There are no tasks in your list.");
