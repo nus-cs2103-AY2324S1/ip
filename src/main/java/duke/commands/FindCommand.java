@@ -26,10 +26,10 @@ public class FindCommand extends Command {
      * @param storage The storage manager.
      * @throws DukeException
      */
-    public void execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
         ArrayList<Task> filteredTasks = tasks.filterByKeyword(this.keyword);
-        ui.acknowledgeFind(filteredTasks);
         storage.updateStorage(tasks.getArrayList());
+        return ui.acknowledgeFind(filteredTasks);
     }
 
     @Override

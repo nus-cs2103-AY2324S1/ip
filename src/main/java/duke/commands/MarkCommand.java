@@ -32,7 +32,7 @@ public class MarkCommand extends Command {
      * @throws DukeException If the specified index is out of bounds or the task is already marked/unmarked.
      */
     @Override
-    public void execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
         if (tasks.getSize() < index || tasks.getTask(index - 1).isDone() == isDone) {
             throw new DukeException("The task you are trying to mark is either out of bound, "
                     + "or has already been marked/unmarked");
@@ -40,13 +40,13 @@ public class MarkCommand extends Command {
 
         if (isDone) {
             tasks.setTaskAsDone(index);
-            ui.acknowledgeMark(index, tasks.getTask(index - 1));
+            storage.updateStorage(tasks.getArrayList());
+            return ui.acknowledgeMark(index, tasks.getTask(index - 1));
         } else {
             tasks.setTaskAsUndone(index);
-            ui.acknowledgeUnmark(index, tasks.getTask(index - 1));
+            storage.updateStorage(tasks.getArrayList());
+            return ui.acknowledgeUnmark(index, tasks.getTask(index - 1));
         }
-
-        storage.updateStorage(tasks.getArrayList());
     }
 
     /**

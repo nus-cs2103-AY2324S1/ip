@@ -29,10 +29,13 @@ public class DukeList {
 
     /**
      * This method deletes a task from the tasklist
+     *
      * @param taskNum index of the task
+     * @return
      */
-    public void deleteTask(int taskNum) {
-        dukeList.remove(taskNum - 1);
+    public Task deleteTask(int taskNum) {
+        Task task = dukeList.remove(taskNum - 1);
+        return task;
     }
 
     /**

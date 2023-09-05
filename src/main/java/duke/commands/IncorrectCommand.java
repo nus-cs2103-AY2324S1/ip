@@ -29,7 +29,7 @@ public class IncorrectCommand extends Command {
      * @throws DukeException Always thrown with the error message provided during construction.
      */
     @Override
-    public void execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
         throw new DukeException(this.errMessage);
     }
 

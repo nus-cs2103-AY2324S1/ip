@@ -6,24 +6,24 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.DukeList;
 import duke.ui.Ui;
+import javafx.application.Application;
+
 
 /**
  * Represents the main application class for Duke.
  */
 public class Duke {
-
     private DukeList itemList;
     private Storage storage;
     private Ui ui;
 
     /**
-     * Constructs a Duke instance with the given file path.
-     *
-     * @param filePath The path to the data file.
+     * initialises a duke chat bot object
      */
-    public Duke(String filePath) {
+    public Duke() {
         ui = new Ui();
-        this.storage = new Storage(filePath);
+        ui = new Ui();
+        this.storage = new Storage("data/duke.txt");
 
         try {
             this.itemList = new DukeList(this.storage.load());
@@ -34,33 +34,30 @@ public class Duke {
     }
 
     /**
+     * Constructs a Duke instance with the given file path.
+     *
+     * @param filePath The path to the data file.
+     */
+    public Duke(String filePath) {
+
+    }
+
+    /**
      * The main method that initializes and runs the Duke application.
      *
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
+        Application.launch(Main.class, args);
     }
 
-    /**
-     * Runs the Duke application.
-     */
-    public void run() {
-        // Initializing Scanner
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(itemList, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(itemList, ui, storage);
+        } catch (DukeException err) {
+            return err.getMessage();
         }
     }
 }
