@@ -1,8 +1,8 @@
 package juke;
 
-import java.util.Scanner;
-import java.util.ArrayList;
 import java.time.LocalDate;
+
+import java.util.ArrayList;
 public class Juke {
     private final Storage storage;
     private TaskList tasks;
@@ -11,6 +11,18 @@ public class Juke {
     private final Parser parser;
 
     private boolean isEnded;
+
+    public Juke(String filePath) {
+        ui = new Ui();
+        parser = new Parser(this);
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (JukeError e) {
+            ui.printError(e);
+            tasks = new TaskList(new ArrayList<>());
+        }
+    }
 
     public void closeBot() {
         ui.printBye();
@@ -63,18 +75,6 @@ public class Juke {
         tasks.add(newTask);
         storage.write(newTask);
         ui.createTask(newTask, tasks.getSize());
-    }
-
-    public Juke(String filePath) {
-        ui = new Ui();
-        parser = new Parser(this);
-        storage = new Storage(filePath);
-        try {
-            tasks = new TaskList(storage.load());
-        } catch (JukeError e) {
-            ui.printError(e);
-            tasks = new TaskList(new ArrayList<>());
-        }
     }
 
     public void run() {
