@@ -14,8 +14,16 @@ import javafx.stage.Stage;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
+    /**
+     * Grumpy Gordon instance.
+     */
     private GrumpyGordon grumpyGordon;
 
+    /**
+     * Starts the GUI.
+     *
+     * @param stage Stage to start GUI on.
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -26,7 +34,6 @@ public class Main extends Application {
             grumpyGordon = new GrumpyGordon();
             fxmlLoader.<MainWindow>getController().setGrumpyGordon(grumpyGordon);
             stage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (GrumpyGordonException e) {

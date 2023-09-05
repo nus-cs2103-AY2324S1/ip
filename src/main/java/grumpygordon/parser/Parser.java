@@ -38,6 +38,10 @@ public class Parser {
      */
     private static final String SPACE_REGEX = " ";
     /**
+     * Regex for todo command.
+     */
+    private static final String TODO_REGEX = "todo\\s.*";
+    /**
      * Regex for mark command.
      */
     private static final String MARK_REGEX = "mark\\s([0-9]+)$";
@@ -74,6 +78,7 @@ public class Parser {
         datetime = datetime.strip();
         return Pattern.matches(DATETIME_REGEX, datetime);
     }
+
     /**
      * Parses a string to a LocalDateTime object.
      * @param datetime String to be parsed
@@ -81,8 +86,8 @@ public class Parser {
      * @throws GrumpyGordonDateTimeFormatException If the datetime format is invalid
      */
     public static LocalDateTime parseDateTime(String datetime) throws GrumpyGordonDateTimeFormatException {
-        try {
-            if (isValidDateTime(datetime)) {
+        if (isValidDateTime(datetime)) {
+            try {
                 datetime = datetime.strip();
                 String[] arr = datetime.split(" ");
                 String[] date = arr[0].split("-");
@@ -93,11 +98,12 @@ public class Parser {
                         Integer.parseInt(date[2]),
                         Integer.parseInt(time[0]),
                         Integer.parseInt(time[1]));
+            } catch (DateTimeException e) {
+                throw new GrumpyGordonDateTimeFormatException("That datetime does not exist.\n");
             }
-        } catch (DateTimeException e) {
-            throw new GrumpyGordonDateTimeFormatException("Invalid datetime.\n");
+        } else {
+            throw new GrumpyGordonDateTimeFormatException("Invalid datetime format.\n");
         }
-        throw new GrumpyGordonDateTimeFormatException("Invalid datetime.\n");
     }
     /**
      * Parses a string to a Task object.
@@ -119,7 +125,7 @@ public class Parser {
         try {
             switch (type) {
             case "T":
-                // Parse the saved format for Deadline
+                // Parse the saved format for Todo
                 // Example: "T | 0 | Sleep"
                 return new Todo(description, isDone);
             case "D":
@@ -134,12 +140,12 @@ public class Parser {
                 String eventTo = parts[4];
                 return new Event(description, parseDateTime(eventFrom), parseDateTime(eventTo), isDone);
             default:
-                throw new GrumpyGordonInitialisationException("Saved data cannot be parsed.\n");
+                break;
             }
-        } catch (GrumpyGordonInitialisationException e) {
-            System.out.println(e.getMessage());
+        } catch (GrumpyGordonDateTimeFormatException e) {
+            throw new GrumpyGordonInitialisationException("Saved data could not be parsed.\n");
         }
-        return null;
+        throw new GrumpyGordonInitialisationException("Saved data could not be parsed.\n");
     }
 
     /**
@@ -170,7 +176,7 @@ public class Parser {
      * @return TaskList object
      * @throws GrumpyGordonException If the command is invalid
      */
-    public static Command parseCommand(String userInput, TaskList tasks) throws GrumpyGordonException {
+    public static Command parseCommand(String userInput, TaskList tasks) throws GrumpyGordonInvalidCommandException {
         userInput = userInput.strip();
         String[] parts = userInput.split(SPACE_REGEX, 2);
 
@@ -188,6 +194,9 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "mark":
+            if (parts.length == 1) {
+                throw new GrumpyGordonInvalidCommandException("Command syntax for mark is incorrect.\n");
+            }
             if (!Pattern.matches(MARK_REGEX, userInput)) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for mark is incorrect.\n");
             }
@@ -204,6 +213,9 @@ public class Parser {
 
             return new MarkCommand(taskIndex);
         case "unmark":
+            if (parts.length == 1) {
+                throw new GrumpyGordonInvalidCommandException("Command syntax for unmark is incorrect.\n");
+            }
             if (!Pattern.matches(UNMARK_REGEX, userInput)) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for unmark is incorrect.\n");
             }
@@ -220,6 +232,9 @@ public class Parser {
 
             return new UnmarkCommand(taskIndex);
         case "delete":
+            if (parts.length == 1) {
+                throw new GrumpyGordonInvalidCommandException("Command syntax for delete is incorrect.\n");
+            }
             if (!Pattern.matches(DELETE_REGEX, userInput)) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for delete is incorrect.\n");
             }
@@ -236,31 +251,51 @@ public class Parser {
 
             return new DeleteCommand(taskIndex);
         case "find":
+            if (parts.length == 1) {
+                throw new GrumpyGordonInvalidCommandException("Command syntax for find is incorrect.\n");
+            }
             if (!Pattern.matches(FIND_REGEX, userInput)) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for find is incorrect.\n");
             }
             String pattern = userInput.split(" ", 2)[1];
             return new FindCommand(pattern);
         case "todo":
+            if (parts.length == 1) {
+                throw new GrumpyGordonInvalidCommandException("Command syntax for todo is incorrect.\n");
+            }
             String todoInfo = parts[1];
             if (todoInfo.isBlank()) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for todo is incorrect.\n");
             }
             return new TodoCommand(todoInfo);
         case "deadline":
+            if (parts.length == 1) {
+                throw new GrumpyGordonInvalidCommandException("Command syntax for deadline is incorrect.\n");
+            }
             String deadlineInfo = parts[1];
             if (!Pattern.matches(DEADLINE_INFO_REGEX, deadlineInfo)) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for deadline is incorrect.\n");
             }
             args = Parser.parseDeadlineInfo(deadlineInfo);
-            return new DeadlineCommand(args[0], parseDateTime(args[1]));
+            try {
+                return new DeadlineCommand(args[0], parseDateTime(args[1]));
+            } catch (GrumpyGordonDateTimeFormatException e) {
+                throw new GrumpyGordonInvalidCommandException(e.getMessage());
+            }
         case "event":
+            if (parts.length == 1) {
+                throw new GrumpyGordonInvalidCommandException("Command syntax for event is incorrect.\n");
+            }
             String eventInfo = parts[1];
             if (!Pattern.matches(EVENT_INFO_REGEX, eventInfo)) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for event is incorrect.\n");
             }
             args = Parser.parseEventInfo(eventInfo);
-            return new EventCommand(args[0], parseDateTime(args[1]), parseDateTime(args[2]));
+            try {
+                return new EventCommand(args[0], parseDateTime(args[1]), parseDateTime(args[2]));
+            } catch (GrumpyGordonDateTimeFormatException e) {
+                throw new GrumpyGordonInvalidCommandException(e.getMessage());
+            }
         default:
             break;
         }

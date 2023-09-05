@@ -44,12 +44,12 @@ public class EventCommand extends Command {
      * @param tasks The list of tasks
      * @param ui The user interface
      * @param storage The storage
+     * @return The output string
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(new Event(this.description, this.from, this.to, false));
-        ui.showCommandMessage("     Event task added to list\n     "
-                + tasks.getTask(tasks.size() - 1).toString() + "\n");
         storage.saveTasks(tasks);
+        return "Event task added to list\n" + tasks.getTask(tasks.size() - 1).toString();
     }
 }

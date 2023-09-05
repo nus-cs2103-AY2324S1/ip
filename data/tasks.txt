@@ -1,0 +1,11 @@
+T | 0 | eat
+T | 1 | sleep
+T | 0 | eat
+T | 0 | eat
+T | 0 | eat
+T | 0 | eat
+T | 0 | eat
+T | 0 | eat
+T | 0 | eat
+T | 0 | eat
+T | 0 | eat again
