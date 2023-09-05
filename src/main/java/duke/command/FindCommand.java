@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.Storage;
-import duke.command.Command;
 import duke.task.TaskList;
 import duke.ui.GobbleMessage;
 
@@ -25,7 +24,6 @@ public class FindCommand extends Command {
      * Prints the list of tasks that contains the keyword.
      *
      * @param taskList list of tasks that contains the keyword.
-     * @param ui       ui object to print the list of tasks.
      * @param storage  storage object to save the list of tasks.
      */
     @Override

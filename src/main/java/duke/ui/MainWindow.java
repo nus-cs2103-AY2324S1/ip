@@ -4,7 +4,6 @@ import duke.Duke;
 import duke.DukeException;
 import duke.Parser;
 import duke.command.Command;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

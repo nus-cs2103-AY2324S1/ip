@@ -2,7 +2,6 @@ package duke;
 
 import java.io.IOException;
 
-import duke.Duke;
 import duke.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,8 +14,13 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private final Duke duke = new Duke();
 
+    /**
+     * Starts the GUI.
+     *
+     * @param stage stage to be displayed.
+     */
     @Override
     public void start(Stage stage) {
         try {
