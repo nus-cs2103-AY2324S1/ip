@@ -12,8 +12,19 @@ import commands.TodoCommand;
 import commands.UnknownCommand;
 import commands.UnmarkCommand;
 
+/**
+ * This class parses the user input to make sense of user commands.
+ * The Parser object then returns Command objects that tell the
+ * application what to do.
+ */
 public class Parser {
 
+    /**
+     * Returns a Command object based on the user input.
+     *
+     * @param userInput
+     * @return A subclass of the Command object.
+     */
     public Command parse(String userInput) {
         String commandWord;
         String arguments = null;
@@ -61,11 +72,23 @@ public class Parser {
         }
     }
 
+    /**
+     * Formats the parameters needed for a ToDo task.
+     *
+     * @param args The user input.
+     * @return A ToDoCommand object.
+     */
     public Command prepareTodo(String args) {
 
         return new TodoCommand(args);
     }
 
+    /**
+     * Formats the parameters needed for a Deadline task.
+     *
+     * @param args The user input.
+     * @return A DeadlineCommand object.
+     */
     public Command prepareDeadline(String args) {
 
         String[] arr = args.split("/");
@@ -74,6 +97,12 @@ public class Parser {
         return new DeadlineCommand(description, endTime);
     }
 
+    /**
+     * Formats the parameters needed for an Event task.
+     *
+     * @param args The user input.
+     * @return An EventCommand object.
+     */
     public Command prepareEvent(String args) {
 
         String[] arr = args.split("/");
@@ -83,21 +112,45 @@ public class Parser {
         return new EventCommand(description, startTime, endTime);
     }
 
+    /**
+     * Formats the parameters needed to mark a Task as done.
+     *
+     * @param args The user input.
+     * @return A MarkCommand object.
+     */
     public Command prepareMark(String args) {
         int taskNum = Integer.parseInt(args);
         return new MarkCommand(taskNum);
     }
 
+    /**
+     * Formats the parameters needed to mark a Task as not done.
+     *
+     * @param args The user input.
+     * @return An UnmarkCommand object.
+     */
     public Command prepareUnmark(String args) {
         int taskNum = Integer.parseInt(args);
         return new UnmarkCommand(taskNum);
     }
 
+    /**
+     * Formats the parameters needed to delete a task.
+     *
+     * @param args The user input.
+     * @return A DeleteCommand object.
+     */
     public Command prepareDelete(String args) {
         int taskNum = Integer.parseInt(args);
         return new DeleteCommand(taskNum);
     }
 
+    /**
+     * Determines if the input contains only one word, or is more than one word.
+     *
+     * @param input The user input.
+     * @return true if input is one word, false otherwise.
+     */
     public boolean isSingleWord(String input) {
         return input.length() == input.trim().length();
     }

@@ -5,11 +5,22 @@ import tasks.Task;
 import java.io.*;
 import java.util.ArrayList;
 
-
+/**
+ * This class handles loading and saving user inputs for
+ * continuity between sessions. Inputs are formatted correctly before
+ * saved into the file path specified.
+ */
 public class Storage {
 
+    /**
+     * The file to load from and save into.
+     */
     private static final String FILE_PATH = "data/duke.txt";
 
+    /**
+     * Constructs a Storage object.
+     * Creates the directory and file of the specified file path if it does not already exist.
+     */
     public Storage() {
         File directory = new File("data");
         File file = new File(FILE_PATH);
@@ -28,6 +39,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the save data from the previous session.
+     *
+     * @return String representation of the Task objects created in the previous session.
+     */
     public String load() {
 
         try {
@@ -50,6 +66,11 @@ public class Storage {
 
     }
 
+    /**
+     * Saves the current task list into the specified file path.
+     *
+     * @param taskList A TaskList object that stores all current tasks.
+     */
     public void save(ArrayList<Task> taskList) {
         File file = new File(FILE_PATH);
 

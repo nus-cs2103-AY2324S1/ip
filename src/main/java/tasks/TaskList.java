@@ -8,20 +8,38 @@ import tasks.ToDo;
 
 import java.util.ArrayList;
 
+/**
+ * This class encapsulates a TaskList that stores all the Task objects
+ * the user has created, and handles updating of tasks.
+ */
 public class TaskList {
 
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs a TaskList object with an empty task list.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>(0);
     }
 
+    /**
+     * Constructs a TaskList object that creates Task objects and
+     * stores them in the task list.
+     *
+     * @param content A String containing information of the Task objects to be added.
+     */
     public TaskList(String content) {
         this.tasks = new ArrayList<>(0);
 
         addTextToTask(content);
     }
 
+    /**
+     * Converts the String to Task objects to be added to the task list.
+     *
+     * @param content A String containing information of the Task objects to be added.
+     */
     public void addTextToTask(String content) {
         String[] lines = content.split("\n");
 
@@ -53,6 +71,9 @@ public class TaskList {
         return this.tasks;
     }
 
+    /**
+     * Prints onto the console all tasks on the current task list.
+     */
     public void listTasks() {
         System.out.println("Here are the tasks in your list:\n");
 
@@ -66,7 +87,12 @@ public class TaskList {
     }
 
 
-
+    /**
+     * Sets a particular task to 'Done' status.
+     *
+     * @param taskNumber The task to be set to 'Done' based on the order of the task list. Starts at 1.
+     * @throws IndexOutOfBoundsException
+     */
     public void markTaskDone(int taskNumber) throws IndexOutOfBoundsException {
 
         if (taskNumber < 0 || taskNumber > tasks.size()) {
@@ -79,6 +105,12 @@ public class TaskList {
                 tasks.get(taskNumber - 1) + "\n");
     }
 
+    /**
+     * Sets a particular task to 'Not Done' status.
+     *
+     * @param taskNumber The task to be set to 'Not Done' based on the order of the task list. Starts at 1.
+     * @throws IndexOutOfBoundsException
+     */
     public void unmarkTaskDone(int taskNumber) throws IndexOutOfBoundsException {
 
         if (taskNumber < 0 || taskNumber > tasks.size()) {
@@ -91,6 +123,12 @@ public class TaskList {
                 tasks.get(taskNumber - 1) + "\n");
     }
 
+    /**
+     * Deletes a Task from the task list.
+     *
+     * @param taskNumber The task to be set to deleted based on the order of the task list. Starts at 1.
+     * @throws IndexOutOfBoundsException
+     */
     public void deleteTask(int taskNumber) throws IndexOutOfBoundsException {
 
         if (taskNumber < 0 || taskNumber > tasks.size()) {
@@ -104,6 +142,11 @@ public class TaskList {
         printNumTasks();
     }
 
+    /**
+     * Adds a ToDo task object to the task list.
+     *
+     * @param description Description of the ToDo object.
+     */
     public void addTodoTask(String description) {
 
         ToDo todo = new ToDo(description);
@@ -113,6 +156,12 @@ public class TaskList {
         printNumTasks();
     }
 
+    /**
+     * Adds a Deadline task object to the task list.
+     *
+     * @param description Description of the Deadline object.
+     * @param end end Date/Time of the Deadline object.
+     */
     public void addDeadlineTask(String description, String end) {
 
         Deadline deadline = new Deadline(description, end);
@@ -122,6 +171,13 @@ public class TaskList {
         printNumTasks();
     }
 
+    /**
+     * Adds an Event task object to the task list.
+     *
+     * @param description Description of the Event object.
+     * @param start start Date/Time of the Event object.
+     * @param end end Date/Time of the Event object.
+     */
     public void addEventTask(String description, String start, String end) {
 
         Event event = new Event(description, start, end);
@@ -131,6 +187,9 @@ public class TaskList {
         printNumTasks();
     }
 
+    /**
+     * Prints onto the console the number of tasks currently in the task list.
+     */
     public void printNumTasks() {
         System.out.println("you now have " + tasks.size() + " tasks in your list." + "\n");
     }
