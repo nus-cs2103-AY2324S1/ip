@@ -61,6 +61,6 @@ public abstract class Task {
      *
      * @return The formatted string representation of the task.
      */
-    public abstract String convertTaskToString();
+    public abstract String convertTaskToStorageFormat();
 
 }

@@ -36,7 +36,7 @@ public class Deadline extends Task {
      *
      * @return The formatted string for storage.
      */
-    public String convertTaskToString() {
+    public String convertTaskToStorageFormat() {
         return "D | " + (super.getIsDone() ? "1" : "0") + " | " + super.getName() + " | "
                 + DateParser.convertDateTimeToString(this.by);
     }

@@ -40,7 +40,7 @@ public class Event extends Task {
      *
      * @return The formatted string for storage.
      */
-    public String convertTaskToString() {
+    public String convertTaskToStorageFormat() {
         return "E | " + (super.getIsDone() ? "1" : "0") + " | " + super.getName() + " | "
                 + DateParser.convertDateTimeToString(this.from) + " | " + DateParser.convertDateTimeToString(this.to);
     }

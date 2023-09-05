@@ -133,8 +133,13 @@ public class Parser {
             }
         }
 
-        if (fromIndex == -1 || toIndex == -1 || fromIndex == 0 || toIndex == 0 || fromIndex >= toIndex || fromIndex == description.length - 1 || toIndex == description.length - 1) {
-            throw new DukeException("☹ OOPS!!! The format of a event is invalid. Format: event <task name> " + "/from <date> /to <date>");
+        boolean isFromIndexBeforeToIndex = fromIndex < toIndex;
+        boolean isFromIndexValid = fromIndex != -1 && fromIndex != 0 && fromIndex != description.length - 1;
+        boolean isToIndexValid = toIndex != -1 && toIndex != 0 && toIndex != description.length - 1;
+
+        if (!isFromIndexBeforeToIndex || !isFromIndexValid || !isToIndexValid) {
+            throw new DukeException("☹ OOPS!!! The format of a event is invalid. Format: event <task name> "
+                    + "/from <date> /to <date>");
         }
 
         return input.replace("event", "");

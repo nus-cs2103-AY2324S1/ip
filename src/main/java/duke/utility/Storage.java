@@ -146,7 +146,7 @@ public class Storage {
         try {
             File file = new File(filePath);
             java.io.FileWriter fileWriter = new java.io.FileWriter(file, true);
-            fileWriter.write(task.convertTaskToString() + "\n");
+            fileWriter.write(task.convertTaskToStorageFormat() + "\n");
             fileWriter.close();
         } catch (java.io.IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
@@ -169,7 +169,7 @@ public class Storage {
             while (scanner.hasNext()) {
                 String dataString = scanner.nextLine();
                 if (count == taskNumber - 1) {
-                    newContents.append(newTask.convertTaskToString() + "\n");
+                    newContents.append(newTask.convertTaskToStorageFormat() + "\n");
                 } else {
                     newContents.append(dataString + "\n");
                 }

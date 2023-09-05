@@ -28,7 +28,7 @@ public class ToDo extends Task {
      *
      * @return The formatted string for storage.
      */
-    public String convertTaskToString() {
+    public String convertTaskToStorageFormat() {
         return "T | " + (super.getIsDone() ? "1" : "0") + " | " + super.getName();
     }
 }
