@@ -10,7 +10,7 @@ public abstract class Command {
     protected String desc;
 
     public Command(String desc) {
-        this.desc= desc;
+        this.desc = desc;
     }
 
     public abstract boolean isExit();

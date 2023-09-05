@@ -34,11 +34,13 @@ public class TaskList {
         try {
             int i = Integer.parseInt(ind) - 1;
             if (i < 0 || i >= tasklist.size()) {
-                throw new ArrayIndexOutOfBoundsException("Whoops, that number is not an index in the list. Please select a valid index");
+                throw new ArrayIndexOutOfBoundsException(
+                        "Whoops, that number is not an index in the list. Please select a valid index");
             }
             Task curr = tasklist.get(i);
             tasklist.remove(i);
-            return String.format("Noted. I've removed this task:\n%s\nNow you have %d task(s) on the list", curr.toString(), tasklist.size());
+            return String.format("Noted. I've removed this task:\n%s\nNow you have %d task(s) on the list",
+                    curr.toString(), tasklist.size());
         } catch (NumberFormatException e) {
             throw new NumberFormatException("Whoops, you need to type in a valid integer");
         }

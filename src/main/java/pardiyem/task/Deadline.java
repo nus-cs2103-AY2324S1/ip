@@ -21,10 +21,11 @@ public class Deadline extends Task {
                 this.doByDate = LocalDate.parse(doBy);
             } else {
                 this.doByDate = LocalDate.parse(doBy.substring(0, ind));
-                this.doByTime = LocalTime.parse(doBy.substring(ind+1));
+                this.doByTime = LocalTime.parse(doBy.substring(ind + 1));
             }
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Please input your time in the format of either \"YYYY-MM-DD\" or \"YYYY-MM-DD HH:MM:SS\"");
+            throw new IllegalArgumentException(
+                    "Please input your time in the format of either \"YYYY-MM-DD\" or \"YYYY-MM-DD HH:MM:SS\"");
         }
     }
 
@@ -39,15 +40,16 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s%s)",
-                super.toString(), 
-                doByDate.toString(), 
+                super.toString(),
+                doByDate.toString(),
                 doByTime != null ? " " + doByTime.toString() : "");
     }
 
     private static ArrayList<String> parseDesc(String desc) throws IllegalArgumentException {
         int i = desc.indexOf("/by");
         if (i == -1) {
-            throw new IllegalArgumentException("Whoops, you forgot to indicate the deadline by using \"/by *insert deadline*\"");
+            throw new IllegalArgumentException(
+                    "Whoops, you forgot to indicate the deadline by using \"/by *insert deadline*\"");
         }
         ArrayList<String> out = new ArrayList<String>();
         out.add(i == 0 ? "" : desc.substring(0, i - 1));

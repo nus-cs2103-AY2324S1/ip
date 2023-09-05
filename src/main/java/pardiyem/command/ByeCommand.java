@@ -5,7 +5,6 @@ import pardiyem.task.TaskList;
 import pardiyem.ui.Ui;
 
 public class ByeCommand extends Command {
-    
     public ByeCommand(String desc) {
         super(desc);
         if (!this.desc.isEmpty()) {

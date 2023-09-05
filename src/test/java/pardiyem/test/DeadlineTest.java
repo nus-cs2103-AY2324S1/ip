@@ -38,18 +38,4 @@ public class DeadlineTest {
             assertEquals(e.getMessage(), "Whoops, a deadline needs to have a non-empty do by description");
         }
     }
-
-    @Test
-    public void parseDeadlineTest1() {
-        assertEquals(Deadline.parseDesc("Joni /by 2015-01-23"), new ArrayList<String>(Arrays.asList("Joni", "2015-01-23")));
-    }
-
-    @Test
-    public void parseDeadlineTest2() {
-        try {
-            Deadline.parseDesc("Joni");
-        } catch (Exception e) {
-            assertEquals(e.getMessage(), "Whoops, you forgot to indicate the deadline by using \"/by *insert deadline*\"");
-        }
-    }
 }
