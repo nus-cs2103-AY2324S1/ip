@@ -6,8 +6,6 @@ import java.util.Scanner;
  * Represents the user interface for interacting with GeraldBot.
  */
 public class Ui {
-    private final String line = "_____________________________________________________";
-
     private Scanner sc = new Scanner(System.in);
 
     /**
@@ -18,23 +16,15 @@ public class Ui {
     }
 
     /**
-     * Displays a farewell message.
+     * Returns a farewell message.
      */
-    public void bye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String bye() {
+        String message = "Bye. Hope to see you again soon!";
+        return message;
     }
-
     /**
-     * Displays a horizontal line separator.
-     */
-    public void showLine() {
-        System.out.println(line);
-    }
-
-    /**
-     * Reads user input from the console.
-     *
-     * @return The input provided by the user.
+     * Reads the next line of input from the user.
+     * @return The next line of input from the user.
      */
     public String readInput() {
         String input = this.sc.nextLine();

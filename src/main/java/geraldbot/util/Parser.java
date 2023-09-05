@@ -24,6 +24,8 @@ public class Parser {
 
     private final TaskList lst;
 
+    private final Ui ui;
+
     private enum TaskType {
         TODO,
         DEADLINE,
@@ -39,6 +41,7 @@ public class Parser {
     public Parser(Storage storage, ArrayList<Task> taskList) {
         this.storage = storage;
         this.lst = new TaskList(taskList);
+        this.ui = new Ui();
     }
 
     /**
@@ -50,6 +53,8 @@ public class Parser {
     public String parse(String input) throws DukeException {
         if (input.equals("list")) {
             return this.printList();
+        } else if (input.equals("bye")) {
+            return this.ui.bye();
         } else if (input.startsWith("find")) {
 
             if (input.replaceAll("\\s", "").equals(input)) {

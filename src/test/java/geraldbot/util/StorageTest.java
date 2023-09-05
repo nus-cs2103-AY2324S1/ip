@@ -1,17 +1,21 @@
 package geraldbot.util;
 
-import geraldbot.task.Deadline;
-import geraldbot.task.Event;
-import geraldbot.task.Task;
-import geraldbot.task.Todo;
-
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
+import geraldbot.task.Deadline;
+import geraldbot.task.Event;
+import geraldbot.task.Task;
+import geraldbot.task.Todo;
+
 
 public class StorageTest {
 
