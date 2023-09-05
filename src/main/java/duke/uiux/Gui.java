@@ -34,7 +34,6 @@ public class Gui extends Application {
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
-
         //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
@@ -50,6 +49,7 @@ public class Gui extends Application {
 
         stage.setScene(scene);
         stage.show();
+
 
         //Step 2. Formatting the window to look as expected
         stage.setTitle("Duke");
@@ -103,6 +103,8 @@ public class Gui extends Application {
         userInput.setOnAction((event) -> {
             handleUserInput();
         });
+
+
     }
 
     /**
@@ -133,6 +135,8 @@ public class Gui extends Application {
         );
         userInput.clear();
     }
+
+
 
     /**
      * You should have your own function to generate a response to user input.

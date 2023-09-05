@@ -1,4 +1,6 @@
 package duke.uiux;
+import duke.ModelViewController;
+import duke.Response;
 import duke.uiux.DialogBox;
 import duke.uiux.Gui;
 import javafx.fxml.FXML;
@@ -29,6 +31,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        createWelcomeMessage();
     }
 
     public void setGui(Gui g) {
@@ -48,6 +51,17 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+    }
+
+    /**
+     * Creates a welcome message for the user
+     */
+    public void createWelcomeMessage() {
+        ModelViewController mvc = new ModelViewController();
+        Response welcomeResponse = mvc.createWelcomeMessage();
+        String welcomeMessage = welcomeResponse.getResponse();
+        DialogBox welcomeDialog = DialogBox.getDukeDialog(welcomeMessage, dukeImage);
+        dialogContainer.getChildren().addAll(welcomeDialog);
     }
 }
 

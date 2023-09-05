@@ -47,13 +47,7 @@ public class ModelViewController {
      * @return  a response object that stores the welcome message.
      */
     public Response createWelcomeMessage() {
-        ConsoleOutputStream consoleOutputStream = new ConsoleOutputStream();
-        PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(consoleOutputStream));
-        chatBot.welcome();
-        System.setOut(originalOut);
-        String welcomeMessage = consoleOutputStream.getContent();
-        Response response = new Response(welcomeMessage);
+        Response response = new Response(chatBot.craftWelcome());
         return response;
     }
 }

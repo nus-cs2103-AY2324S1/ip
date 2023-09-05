@@ -28,9 +28,9 @@ public class Duke {
      * Runs the chatbot
      */
     public void run() {
-        this.ui.showWelcome();
+        ModelViewController mvc = new ModelViewController();
+        mvc.createWelcomeMessage();
         boolean hasCommands = true;
-
         while (hasCommands) {
             String input = this.ui.readCommand();
             try {
@@ -60,8 +60,8 @@ public class Duke {
     /**
      * Prints the welcome message
      */
-    public void welcome() {
-        this.ui.showWelcome();;
+    public String craftWelcome() {
+        return this.ui.welcomeMessage();
     }
 
 
