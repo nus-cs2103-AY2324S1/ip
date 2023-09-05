@@ -30,7 +30,6 @@ public class TaskList {
 
     /**
      * Adds task into a task list.
-     * 
      * @param task
      */
     public void addTask(Task task) {
@@ -39,7 +38,6 @@ public class TaskList {
 
     /**
      * Deletes a task from a task list.
-     * 
      * @param taskNum the task number to be deleted
      * @return        the deleted task
      */

@@ -6,12 +6,12 @@ import miles.task.Task;
  * Represents the user interface of the chatbot.
  */
 public class Ui {
-    private final String DIVIDER = "____________________________________________________________";
-    private final String INDENT = "     ";
+    // private final String DIVIDER = "____________________________________________________________";
+    private final String DIVIDER = "";
+    private final String INDENT = "";
 
-    /*
+    /**
      * Adds indentation to the string given and prints it out.
-     * 
      * @params s the string to be indented
      */
     public void formatString(String s) {
@@ -39,7 +39,6 @@ public class Ui {
 
     /**
      * Prints the task that was just added.
-     * 
      * @param task the task that was just added
      * @param n    the number of tasks currently in the list
      */
@@ -53,7 +52,6 @@ public class Ui {
 
     /**
      * Prints the task that was just deleted.
-     * 
      * @param task the task that was just deleted
      * @param n    the number of tasks currently in the list
      */
@@ -67,7 +65,6 @@ public class Ui {
     
     /**
      * Prints the error message when an exception is raised.
-     * 
      * @param errorMsg error message to be printed
      */
     public void printErrorMsg(String errorMsg) {
@@ -78,7 +75,6 @@ public class Ui {
 
     /**
      * Prints the error message when the task number is invalid.
-     * 
      * @param number the task number that is invalid
      */
     public void printInvalidTaskNumber(int number) {
