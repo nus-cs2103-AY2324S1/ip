@@ -17,3 +17,5 @@ T | 0 | hi
 T | 0 | hi
 T | 0 | hi
 T | 0 | hi
+T | 0 | hii
+T | 0 | go to scool

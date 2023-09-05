@@ -2,6 +2,7 @@ package seedu.duke;
 
 import java.io.IOException;
 
+import seedu.duke.Ui.Ui;
 import seedu.duke.utils.Parser;
 import seedu.duke.utils.Storage;
 import seedu.duke.utils.TaskList;
@@ -31,26 +32,17 @@ public class Duke {
         }
     }
 
-    /**
-     * to run the bot
-     */
-    private void run() {
-        ui.printGreet();
-        boolean ongoing = true;
-        while (ongoing) {
-            String userInput = ui.getUserInput();
-            ongoing = parser.parse(userInput, taskList);
-        }
-        ui.printExit();
-    }
 
     /**
-     * main function
-     * @param args args
-     * @throws IOException exception thrown
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public static void main(String[] args) throws IOException {
-        Duke main = new Duke("data/duke.txt");
-        main.run();
+    public String getResponse(String userInput) {
+        String toReturn = parser.parse(userInput, taskList);
+        return toReturn;
+    }
+
+    public String greet() {
+        return ui.printGreet();
     }
 }

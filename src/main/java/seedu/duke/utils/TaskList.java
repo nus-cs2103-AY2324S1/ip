@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.duke.Ui;
+import seedu.duke.Ui.Ui;
 import seedu.duke.exceptions.TaskException;
 import seedu.duke.tasks.Deadline;
 import seedu.duke.tasks.Event;
@@ -27,14 +27,18 @@ public class TaskList {
         this.taskList = new ArrayList<>(100);
     }
 
+    public String exit() {
+        return ui.printExit();
+    }
+
     /**
      * Adds task to the TaskList
      *
      * @param task Task to add
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         taskList.add(task);
-        ui.printAddingTask(task, taskList);
+        return ui.printAddingTask(task, taskList);
     }
 
     /**
@@ -49,8 +53,8 @@ public class TaskList {
     /**
      * uses Ui to print to user all avail tasks
      */
-    public void listAllTasks() {
-        ui.printAllTasks(taskList);
+    public String listAllTasks() {
+        return ui.printAllTasks(taskList);
     }
 
     /**
@@ -68,13 +72,13 @@ public class TaskList {
      * @param i index of Task to be removed
      * @throws TaskException if any error
      */
-    public void deleteTask(int i) throws TaskException {
+    public String deleteTask(int i) throws TaskException {
         if (i > taskList.size()) {
             throw new TaskException("Invalid task index. Valid indexes from 1 to " + taskList.size());
         }
         Task taskToDekete = taskList.get(i - 1);
         taskList.remove(i - 1);
-        ui.printDeleteTask(taskToDekete);
+        return ui.printDeleteTask(taskToDekete);
     }
 
     /**
@@ -83,7 +87,7 @@ public class TaskList {
      * @param i task to mark
      * @throws TaskException error thrown
      */
-    public void mark(int i) throws TaskException {
+    public String mark(int i) throws TaskException {
         if (i > taskList.size() || i <= 0) {
             throw new TaskException("Invalid task index. Valid indexes from 1 to " + taskList.size());
         }
@@ -92,7 +96,7 @@ public class TaskList {
         if (!taskToMark.isMarked()) {
             taskToMark.mark();
         }
-        ui.printMarkTask(taskToMark, beforeMarking);
+        return ui.printMarkTask(taskToMark, beforeMarking);
     }
 
     /**
@@ -101,7 +105,7 @@ public class TaskList {
      * @param i task to unmark
      * @throws TaskException error thrown
      */
-    public void unMark(int i) throws TaskException {
+    public String unMark(int i) throws TaskException {
         if (i > taskList.size() || i <= 0) {
             throw new TaskException("Invalid task index. Valid indexes from 1 to " + taskList.size());
         }
@@ -110,7 +114,7 @@ public class TaskList {
         if (taskToMark.isMarked()) {
             taskToMark.mark();
         }
-        ui.printUnMarkTask(taskToMark, beforeMarking);
+        return ui.printUnMarkTask(taskToMark, beforeMarking);
     }
 
     /**
@@ -118,7 +122,7 @@ public class TaskList {
      *
      * @param date date to check
      */
-    public void getTasksOnDate(LocalDate date) {
+    public String getTasksOnDate(LocalDate date) {
         List<Task> tasksOnDate = new ArrayList<>();
         for (Task task : taskList) {
             if (task instanceof Deadline) {
@@ -133,7 +137,7 @@ public class TaskList {
                 }
             }
         }
-        ui.printTasksOnDate(tasksOnDate);
+        return ui.printTasksOnDateOrKeyword(tasksOnDate);
     }
 
     /**
@@ -142,7 +146,7 @@ public class TaskList {
      * @param keyword keyword to check
      * @param taskList tasklist to operate on
      */
-    public void findTasks(String keyword, TaskList taskList) {
+    public String findTasks(String keyword, TaskList taskList) {
         List<Task> tasksWithKeyword = new ArrayList<>();
         for (Task task : taskList.returnTaskList()) {
             String description = task.getDescription();
@@ -150,6 +154,6 @@ public class TaskList {
                 tasksWithKeyword.add(task);
             }
         }
-        ui.printTasksOnDate(tasksWithKeyword);
+        return ui.printTasksOnDateOrKeyword(tasksWithKeyword);
     }
 }

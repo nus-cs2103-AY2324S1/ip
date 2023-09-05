@@ -45,7 +45,7 @@ public class Parser {
      * @param taskList TaskList to operate on
      * @return boolean to signal if it is the BYE opeartion or not
      */
-    public boolean parse(String userInput, TaskList taskList) {
+    public String parse(String userInput, TaskList taskList) {
         Operation operation;
         try {
             try {
@@ -53,45 +53,48 @@ public class Parser {
             } catch (Exception e) {
                 throw new InvalidCommandException();
             }
+            String toReturn;
             switch (operation) {
             case BYE:
-                return false;
+                toReturn = taskList.exit();
+                break;
             case LIST:
-                taskList.listAllTasks();
+                toReturn = taskList.listAllTasks();
                 break;
             case DELETE:
-                delete(userInput, taskList);
+                toReturn = delete(userInput, taskList);
                 break;
             case MARK:
-                mark(userInput, taskList);
+                toReturn = mark(userInput, taskList);
                 break;
             case UNMARK:
-                unmark(userInput, taskList);
+                toReturn = unmark(userInput, taskList);
                 break;
             case TODO:
-                todo(userInput, taskList);
+                toReturn = todo(userInput, taskList);
                 break;
             case DEADLINE:
-                deadline(userInput, taskList);
+                toReturn = deadline(userInput, taskList);
                 break;
             case EVENT:
-                event(userInput, taskList);
+                toReturn = event(userInput, taskList);
                 break;
             case CHECKDATE:
-                checkDate(userInput, taskList);
+                toReturn = checkDate(userInput, taskList);
                 break;
             case FIND:
-                find(userInput, taskList);
+                toReturn = find(userInput, taskList);
                 break;
             default:
                 throw new InvalidCommandException();
             }
             storage.writeFile(taskList);
+            return toReturn;
         } catch (TaskException | InvalidCommandException | EmptyDescriptionException
                  | NotIntegerException | MissingKeywordException e) {
-            System.out.println(e.getMessage());
+//            System.out.println(e.getMessage());
+            return e.getMessage();
         }
-        return true;
     }
 
     /**
@@ -102,7 +105,7 @@ public class Parser {
      * @throws TaskException exception thrown
      * @throws NotIntegerException exception thrown
      */
-    public void delete(String userInput, TaskList taskList) throws TaskException, NotIntegerException {
+    public String delete(String userInput, TaskList taskList) throws TaskException, NotIntegerException {
         String[] parts = userInput.split(" ", 2);
         if (!isInteger(parts[1])) {
             throw new NotIntegerException();
@@ -110,7 +113,7 @@ public class Parser {
         int taskIndex = Integer.parseInt(parts[1]);
         // error of out of bounds handled in TaskList itself
         // since the size is better/ easier to get in TaskList class
-        taskList.deleteTask(taskIndex);
+        return taskList.deleteTask(taskIndex);
     }
 
     /**
@@ -122,14 +125,14 @@ public class Parser {
      * @throws NotIntegerException exception
      * @throws TaskException exception
      */
-    public void mark(String userInput, TaskList taskList) throws EmptyDescriptionException,
+    public String mark(String userInput, TaskList taskList) throws EmptyDescriptionException,
             NotIntegerException, TaskException {
         String details = extractNoKeywordsDetails(userInput);
         if (!isInteger(details)) {
             throw new NotIntegerException();
         }
         int taskIndex = Integer.parseInt(details);
-        taskList.mark(taskIndex);
+        return taskList.mark(taskIndex);
     }
 
     /**
@@ -141,14 +144,14 @@ public class Parser {
      * @throws TaskException exception
      * @throws NotIntegerException exception
      */
-    public void unmark(String userInput, TaskList taskList) throws EmptyDescriptionException,
+    public String unmark(String userInput, TaskList taskList) throws EmptyDescriptionException,
             TaskException, NotIntegerException {
         String details = extractNoKeywordsDetails(userInput);
         if (!isInteger(details)) {
             throw new NotIntegerException();
         }
         int taskIndex = Integer.parseInt(details);
-        taskList.unMark(taskIndex);
+        return taskList.unMark(taskIndex);
     }
 
     /**
@@ -158,10 +161,10 @@ public class Parser {
      * @param taskList TaskList to operate on
      * @throws EmptyDescriptionException exception
      */
-    public void todo(String userInput, TaskList taskList) throws EmptyDescriptionException {
+    public String todo(String userInput, TaskList taskList) throws EmptyDescriptionException {
         String details = extractNoKeywordsDetails(userInput);
         Task todoTask = new Todo(details, false);
-        taskList.addTask(todoTask);
+        return taskList.addTask(todoTask);
     }
 
     /**
@@ -171,17 +174,20 @@ public class Parser {
      * @throws EmptyDescriptionException exception
      * @throws MissingKeywordException exception
      */
-    public void deadline(String userInput, TaskList taskList) throws EmptyDescriptionException,
+    public String deadline(String userInput, TaskList taskList) throws EmptyDescriptionException,
             MissingKeywordException {
         String details = extractTaskDetails(userInput, "deadline", "/by");
         String dateString = extractAfterKeyword(userInput, "/by");
+        String toReturn = "";
         try {
             LocalDateTime date = LocalDateTime.parse(dateString.trim(), timeFormat);
             Task deadlineTask = new Deadline(details, date, false);
-            taskList.addTask(deadlineTask);
+            toReturn = taskList.addTask(deadlineTask);
+//            return toReturn;
         } catch (DateTimeParseException e) {
             System.out.println("Error: Invalid date format. Please use the format yyyy-MM-dd HH:mm");
         }
+        return toReturn;
     }
 
     /**
@@ -192,19 +198,21 @@ public class Parser {
      * @throws EmptyDescriptionException exception
      * @throws MissingKeywordException exception
      */
-    public void event(String userInput, TaskList taskList) throws EmptyDescriptionException,
+    public String event(String userInput, TaskList taskList) throws EmptyDescriptionException,
             MissingKeywordException {
         String details = extractTaskDetails(userInput, "event", "/from");
         String from = extractAfterKeyword(userInput, "/from", "/to");
         String to = extractAfterKeyword(userInput, "/to");
+        String toReturn = "";
         try {
             LocalDateTime dateFrom = LocalDateTime.parse(from.trim(), timeFormat);
             LocalDateTime dateTo = LocalDateTime.parse(to.trim(), timeFormat);
             Task eventTask = new Event(details, dateFrom, dateTo, false);
-            taskList.addTask(eventTask);
+            toReturn = taskList.addTask(eventTask);
         } catch (DateTimeParseException e) {
             System.out.println("Error: Invalid date format. Please use the format yyyy-MM-dd HH:mm");
         }
+        return toReturn;
     }
 
     /**
@@ -214,14 +222,16 @@ public class Parser {
      * @param taskList TaskList to operate on
      * @throws EmptyDescriptionException exception
      */
-    public void checkDate(String userInput, TaskList taskList) throws EmptyDescriptionException {
+    public String checkDate(String userInput, TaskList taskList) throws EmptyDescriptionException {
         String details = extractNoKeywordsDetails(userInput);
+        String toReturn = "";
         try {
             LocalDate detailsDate = LocalDate.parse(details.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            taskList.getTasksOnDate(detailsDate);
+            toReturn = taskList.getTasksOnDate(detailsDate);
         } catch (DateTimeParseException e) {
             System.out.println("Error: Invalid date format. Please use the format yyyy-MM-dd");
         }
+        return toReturn;
     }
 
     /**
@@ -231,9 +241,9 @@ public class Parser {
      * @param taskList TaskList to operate on
      * @throws EmptyDescriptionException exception
      */
-    public void find(String userInput, TaskList taskList) throws EmptyDescriptionException {
+    public String find(String userInput, TaskList taskList) throws EmptyDescriptionException {
         String keyword = extractNoKeywordsDetails(userInput);
-        taskList.findTasks(keyword, taskList);
+        return taskList.findTasks(keyword, taskList);
     }
 
     /**

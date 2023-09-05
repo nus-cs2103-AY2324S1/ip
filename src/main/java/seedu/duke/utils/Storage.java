@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-import seedu.duke.Ui;
+import seedu.duke.Ui.Ui;
 import seedu.duke.tasks.Deadline;
 import seedu.duke.tasks.Event;
 import seedu.duke.tasks.Task;
