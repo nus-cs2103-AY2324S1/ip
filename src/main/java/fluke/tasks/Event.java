@@ -1,18 +1,18 @@
 package fluke.tasks;
 
-import fluke.exceptions.FlukeException;
-import fluke.exceptions.InvalidInputException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 
+import fluke.exceptions.FlukeException;
+import fluke.exceptions.InvalidInputException;
+
 /**
  * An event refers to a task which has a starting "from" date and an ending "to" date.
  */
 public class Event extends Task {
-    private final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
 
     /**
      * Date which this event begins.

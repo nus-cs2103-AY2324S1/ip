@@ -1,14 +1,14 @@
 package fluke;
 
-import fluke.exceptions.FlukeException;
-import fluke.tasks.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import fluke.exceptions.FlukeException;
+import fluke.tasks.Task;
 
 /**
  * Handles storing of task list data.
