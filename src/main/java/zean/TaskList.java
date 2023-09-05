@@ -85,7 +85,7 @@ public class TaskList {
     }
 
     private String printAddTask(Task task) {
-        return "\tGot it. I've added this task:\n\t  " + task + "\n" + this.printNumOfTasks();
+        return "Got it. I've added this task:\n  " + task + "\n" + this.printNumOfTasks();
     }
 
     /**
@@ -95,11 +95,11 @@ public class TaskList {
      */
     public String list() {
         if (this.count == 0) {
-            return "\tThere are currently no tasks in your list:\n";
+            return "There are currently no tasks in your list:\n";
         } else {
-            StringBuilder output = new StringBuilder("\tAs requested, here are the tasks in your list:\n");
+            StringBuilder output = new StringBuilder("As requested, here are the tasks in your list:\n");
             for (int i = 0; i < this.count; i++) {
-                output.append(String.format("\t%d.%s\n", i + 1, this.tasks.get(i)));
+                output.append(String.format("%d.%s\n", i + 1, this.tasks.get(i)));
             }
             return output.toString();
         }
@@ -114,11 +114,11 @@ public class TaskList {
      */
     public String markTaskDone(int index) throws DukeException {
         if (index > this.count || index <= 0) {
-            throw new DukeException("\tHmm, this task does not exist :|");
+            throw new DukeException("Hmm, this task does not exist :|");
         }
-        this.storage.rewriteToDisk(this.tasks);
         String taskOutput = this.tasks.get(index - 1).markTaskDone();
-        return "\tNice! I've marked this task as done:\n" + taskOutput;
+        this.storage.rewriteToDisk(this.tasks);
+        return "Nice! I've marked this task as done:\n" + taskOutput;
     }
 
     /**
@@ -130,19 +130,19 @@ public class TaskList {
      */
     public String markTaskNotDone(int index) {
         if (index > this.count || index <= 0) {
-            throw new DukeException("\tHmm, this task does not exist :|");
+            throw new DukeException("Hmm, this task does not exist :|");
         }
-        this.storage.rewriteToDisk(this.tasks);
         String taskOutput = this.tasks.get(index - 1).markTaskNotDone();
-        return "\tSure, I've marked this task as not done yet:\n" + taskOutput;
+        this.storage.rewriteToDisk(this.tasks);
+        return "Sure, I've marked this task as not done yet:\n" + taskOutput;
 
     }
 
     private String printNumOfTasks() {
         if (this.count < 2) {
-            return String.format("\tNow you have %d task in the list.", this.count);
+            return String.format("Now you have %d task in the list.", this.count);
         } else {
-            return String.format("\tNow you have %d tasks in the list.", this.count);
+            return String.format("Now you have %d tasks in the list.", this.count);
         }
     }
 
@@ -155,12 +155,12 @@ public class TaskList {
      */
     public String deleteTask(int index) throws DukeException {
         if (index < 1 || index > this.count) {
-            throw new DukeException("\tHmm, this task does not exist :|");
+            throw new DukeException("Hmm, this task does not exist :|");
         }
         this.tasks.remove(index - 1);
         this.count--;
         this.storage.rewriteToDisk(this.tasks);
-        return "\tNoted. I've removed this task.\n" + printNumOfTasks();
+        return "Noted. I've removed this task.\n" + printNumOfTasks();
     }
 
     /**
@@ -177,11 +177,11 @@ public class TaskList {
             }
         });
         if (subList.isEmpty()) {
-            return "\tThere are no matching tasks in your list.";
+            return "There are no matching tasks in your list.";
         } else {
-            StringBuilder output = new StringBuilder("\tHere are the matching tasks in your list:\n");
+            StringBuilder output = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < subList.size(); i++) {
-                output.append(String.format("\t%d.%s\n", i + 1, subList.get(i)));
+                output.append(String.format("%d.%s\n", i + 1, subList.get(i)));
             }
             return output.toString();
         }

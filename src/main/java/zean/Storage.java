@@ -44,14 +44,14 @@ public class Storage {
         File dir = new File("./data");
         if (!dir.exists()) {
             if (!dir.mkdir()) {
-                throw new DukeException("\tOOPS! The file cannot be created.");
+                throw new DukeException("OOPS! The file cannot be created.");
             }
         }
         File f = new File(this.filePath);
         this.f = f;
         if (!f.exists()) {
             f.createNewFile();
-            System.out.println("\tA new folder and file to store your tasks has been created.");
+            System.out.println("A new folder and file to store your tasks has been created.");
         }
     }
 
@@ -69,7 +69,7 @@ public class Storage {
                 Parser.parseToTask(tasks, sc.nextLine());
             }
         } catch (FileNotFoundException e) {
-            throw new DukeException("\tOOPS! The file cannot be created.");
+            throw new DukeException("OOPS! The file cannot be created.");
         } finally {
             if (sc != null) {
                 sc.close();
@@ -89,7 +89,7 @@ public class Storage {
             fw.write(task.toStringForFile() + System.lineSeparator());
             fw.close();
         } catch (IOException e) {
-            throw new DukeException("\tOOPS! The file is not available!");
+            throw new DukeException("OOPS! The file is not available!");
         }
     }
 
@@ -106,7 +106,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new DukeException("\tOOPS! The file is not available!");
+            throw new DukeException("OOPS! The file is not available!");
         }
     }
 }
