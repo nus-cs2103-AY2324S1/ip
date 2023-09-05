@@ -28,8 +28,10 @@ public class Duke {
      */
     public void run() {
         this.ui.greeting();
+
         Parser parser = new Parser(this.storage, this.tasks, this.ui);
         Scanner scanner = new Scanner(System.in);
+
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
             if (parser.isGoodbye(input)) {

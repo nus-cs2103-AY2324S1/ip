@@ -1,9 +1,7 @@
 package duke.tasks;
 
-import duke.Ui;
 import org.junit.jupiter.api.Test;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskTest {
@@ -21,65 +19,61 @@ public class TaskTest {
     }
 
     @Test
-    public void testMarkSuccess() {
+    public void canMark_successful() {
         concreteTask task = new concreteTask(0, "Set up unit tests");
-        task.mark();
+        task.canMark();
+>>>>>>> branch-A-CodingStandard
         assertEquals(1, task.getStatus());
     }
 
     @Test
-    public void testMarkNotSuccessful() {
+    public void canMark_unsuccessful() {
         concreteTask task = new concreteTask(1, "Set up unit tests");
-        task.mark();
+        task.canMark();
         assertEquals(1, task.getStatus());
     }
 
     @Test
-    public void testUnmarkSuccessful() {
+    public void canUnMark_successful() {
         concreteTask task = new concreteTask(1, "Set up unit tests");
-        task.unmark();
+        task.canUnMark();
         assertEquals(0, task.getStatus());
     }
 
     @Test
-    public void testUnmarkNotSuccessful() {
+    public void canUnMark_unsuccessful() {
         concreteTask task = new concreteTask(0, "Set up unit tests");
-        task.unmark();
+        task.canUnMark();
         assertEquals(0, task.getStatus());
     }
 
     @Test
-    public void testGetStatus1() {
+    public void getStatus_uncompleted() {
         concreteTask task = new concreteTask(0, "Set up unit tests");
         assertEquals(0, task.getStatus());
     }
 
     @Test
-    public void testGetStatus2() {
+    public void getStatus_completed() {
         concreteTask task = new concreteTask(1, "Set up unit tests");
         assertEquals(1, task.getStatus());
     }
 
     @Test
-    public void testTask1() {
+    public void getTask_completed() {
         concreteTask task = new concreteTask(1, "Set up unit tests");
         assertEquals("Set up unit tests", task.getTask());
     }
 
     @Test
-    public void testToString1() {
+    public void toString_uncompleted() {
         concreteTask task = new concreteTask(0, "Set up unit tests");
         assertEquals("[ ] " + "Set up unit tests", task.toString());
     }
 
     @Test
-    public void testToString2() {
+    public void toString_completed() {
         concreteTask task = new concreteTask(1, "Set up unit tests");
-        assertEquals("[X] " + "Set up unit tests", task.toString());
-    }
-    @Test
-    public void testToString3() {
-        concreteTask task = new concreteTask(3, "Set up unit tests");
         assertEquals("[X] " + "Set up unit tests", task.toString());
     }
 }

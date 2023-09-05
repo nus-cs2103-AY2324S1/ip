@@ -37,8 +37,8 @@ public class Event extends Task {
      */
     @Override
     public String convertTask() {
-        return "E | " + super.getStatus() + " | " + super.getTask() +
-                " | " + this.start.format(formatter) + " | " + this.end.format(formatter);
+        return "E | " + super.getStatus() + " | " + super.getTask()
+                + " | " + this.start.format(formatter) + " | " + this.end.format(formatter);
     }
 
     /**
@@ -48,7 +48,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (from: " +
-                this.start.format(formatter) + " to: " + this.end.format(formatter) + ")";
+        return "[E] " + super.toString() + " (from: " + this.start.format(formatter)
+                + " to: " + this.end.format(formatter) + ")";
     }
 }

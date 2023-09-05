@@ -6,7 +6,7 @@ import duke.tasks.Task;
  * Handles interactions with the user.
  */
 public class Ui {
-    public static String line = "--------------------------------------------------------------------";
+    private String line = "--------------------------------------------------------------------";
 
     /**
      * Prints welcome words to the user.
@@ -42,7 +42,7 @@ public class Ui {
      * tasks in the list.
      */
     public void showNoTasks() {
-        System.out.println("(o´ω`o)ﾉ You have no upcoming tasks!\n" + Ui.line);
+        System.out.println("(o´ω`o)ﾉ You have no upcoming tasks!\n" + line);
     }
 
     /**
@@ -53,7 +53,7 @@ public class Ui {
      */
     public void showTasks(String tasks) {
         System.out.println("(⇀‸↼‶)⊃━☆ﾟ.*･｡ﾟ Here are your tasks for the day:");
-        System.out.println(tasks + Ui.line);
+        System.out.println(tasks + line);
     }
 
     /**
