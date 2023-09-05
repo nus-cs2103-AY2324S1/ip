@@ -9,7 +9,7 @@ import duke.utility.Ui;
  */
 public class DeleteCommand extends Command {
 
-    private int taskNumber;
+    private final int taskNumber;
 
     /**
      * Creates a new DeleteCommand with the specified task number.

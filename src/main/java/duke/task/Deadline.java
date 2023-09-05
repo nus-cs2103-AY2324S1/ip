@@ -37,7 +37,7 @@ public class Deadline extends Task {
      * @return The formatted string for storage.
      */
     public String convertTaskToString() {
-        return "D | " + (super.isDone() ? "1" : "0") + " | " + super.getName() + " | "
+        return "D | " + (super.getIsDone() ? "1" : "0") + " | " + super.getName() + " | "
                 + DateParser.convertDateTimeToString(this.by);
     }
 }

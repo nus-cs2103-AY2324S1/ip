@@ -8,7 +8,7 @@ import duke.utility.Ui;
  * Represents a command to mark a task as done in the task list.
  */
 public class MarkCommand extends Command {
-    private int taskNumber;
+    private final int taskNumber;
 
     /**
      * Creates a new MarkCommand with the specified task number.

@@ -9,7 +9,7 @@ import duke.utility.Ui;
  */
 public class AddCommand extends Command {
 
-    private String taskDescription;
+    private final String taskDescription;
 
     /**
      * Creates a new AddCommand with the specified task description.

@@ -8,7 +8,7 @@ import duke.utility.Ui;
  * Represents a command to find tasks that match a given keyword in the task list.
  */
 public class FindCommand extends Command {
-    private String keyword;
+    private final String keyword;
 
     /**
      * Creates a new FindCommand with the specified keyword.

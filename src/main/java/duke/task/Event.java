@@ -41,7 +41,7 @@ public class Event extends Task {
      * @return The formatted string for storage.
      */
     public String convertTaskToString() {
-        return "E | " + (super.isDone() ? "1" : "0") + " | " + super.getName() + " | "
+        return "E | " + (super.getIsDone() ? "1" : "0") + " | " + super.getName() + " | "
                 + DateParser.convertDateTimeToString(this.from) + " | " + DateParser.convertDateTimeToString(this.to);
     }
 }

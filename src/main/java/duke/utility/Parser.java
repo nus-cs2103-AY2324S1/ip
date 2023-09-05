@@ -18,7 +18,7 @@ public class Parser {
      * Processes user input into a corresponding command object.
      *
      * @param input The user's input as a string.
-     * @param ui The user interface for displaying messages.
+     * @param ui    The user interface for displaying messages.
      * @return A command object based on the user's input, or null if input is invalid.
      */
     public static Command processInputIntoCommand(String input, Ui ui) {
@@ -133,10 +133,8 @@ public class Parser {
             }
         }
 
-        if (fromIndex == -1 || toIndex == -1 || fromIndex == 0 || toIndex == 0 || fromIndex >= toIndex
-                || fromIndex == description.length - 1 || toIndex == description.length - 1) {
-            throw new DukeException("☹ OOPS!!! The format of a event is invalid. Format: event <task name> "
-                    + "/from <date> /to <date>");
+        if (fromIndex == -1 || toIndex == -1 || fromIndex == 0 || toIndex == 0 || fromIndex >= toIndex || fromIndex == description.length - 1 || toIndex == description.length - 1) {
+            throw new DukeException("☹ OOPS!!! The format of a event is invalid. Format: event <task name> " + "/from <date> /to <date>");
         }
 
         return input.replace("event", "");

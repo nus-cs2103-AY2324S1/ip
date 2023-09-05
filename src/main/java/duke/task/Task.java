@@ -6,7 +6,7 @@ package duke.task;
 public abstract class Task {
 
     private final String name;
-    private boolean done;
+    private boolean isDone;
 
     /**
      * Constructs a Task object with a specified name.
@@ -15,17 +15,17 @@ public abstract class Task {
      */
     public Task(String name) {
         this.name = name;
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
      * Marks the task as done and optionally displays a message.
      *
-     * @param display Whether to display a message indicating the task was marked as done.
+     * @param willDisplayMessage Whether to display a message indicating the task was marked as done.
      */
-    public void markAsDone(boolean display) {
-        this.done = true;
-        if (display) {
+    public void markAsDone(boolean willDisplayMessage) {
+        this.isDone = true;
+        if (willDisplayMessage) {
             System.out.println("\nNice! I've marked this task as done:\n  " + this + "\n");
         }
     }
@@ -33,18 +33,18 @@ public abstract class Task {
     /**
      * Unmarks the task as done and optionally displays a message.
      *
-     * @param display Whether to display a message indicating the task was marked as not done.
+     * @param willDisplayMessage Whether to display a message indicating the task was marked as not done.
      */
-    public void unmarkAsDone(boolean display) {
-        this.done = false;
-        if (display) {
+    public void unmarkAsDone(boolean willDisplayMessage) {
+        this.isDone = false;
+        if (willDisplayMessage) {
             System.out.println("\nNice! I've unmarked this task as done:\n  " + this + "\n");
         }
     }
 
     @Override
     public String toString() {
-        char markDone = this.done ? 'X' : ' ';
+        char markDone = this.isDone ? 'X' : ' ';
         return "[" + markDone + "] " + this.name;
     }
 
@@ -52,8 +52,8 @@ public abstract class Task {
         return this.name;
     }
 
-    public boolean isDone() {
-        return this.done;
+    public boolean getIsDone() {
+        return this.isDone;
     }
 
     /**

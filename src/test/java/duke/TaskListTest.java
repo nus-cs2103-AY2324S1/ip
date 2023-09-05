@@ -50,7 +50,7 @@ public class TaskListTest {
     public void testMarkTaskAsDone() {
         taskList.addTask("Buy groceries /by 06-03-2007 13:44", new StorageStub(), new Ui());
         taskList.markTaskAsDone(1, new StorageStub(), new Ui());
-        assertEquals(true, taskList.getTask(0).isDone());
+        assertEquals(true, taskList.getTask(0).getIsDone());
     }
 
     @Test
@@ -58,6 +58,6 @@ public class TaskListTest {
         taskList.addTask("Buy groceries /by 06-03-2007 13:44", new StorageStub(), new Ui());
         taskList.markTaskAsDone(1, new StorageStub(), new Ui());
         taskList.unmarkTaskAsDone(1, new StorageStub(), new Ui());
-        assertEquals(false, taskList.getTask(0).isDone());
+        assertEquals(false, taskList.getTask(0).getIsDone());
     }
 }

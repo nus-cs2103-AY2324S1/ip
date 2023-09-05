@@ -69,8 +69,7 @@ public class TaskList {
         Task task = this.tasks.get(taskNumber - 1);
         this.tasks.remove(task);
         storage.deleteTask(taskNumber);
-        ui.formatPrintMessage("Noted. I've removed this task:\n  " + task + "\nNow you have " + this.tasks.size()
-                + " task(s) in the list.");
+        ui.formatPrintMessage("Noted. I've removed this task:\n  " + task + "\nNow you have " + this.tasks.size() + " task(s) in the list.");
     }
 
     /**
@@ -84,8 +83,7 @@ public class TaskList {
             return;
         }
 
-        System.out.println();
-        System.out.println("Here are the tasks in your list:");
+        System.out.println("\nHere are the tasks in your list:");
 
         for (int i = 0; i < this.tasks.size(); i++) {
             System.out.println(i + 1 + "." + this.tasks.get(i));
@@ -142,8 +140,7 @@ public class TaskList {
             ui.formatPrintMessage("No matching tasks found.");
             return;
         }
-        System.out.println();
-        System.out.println("Here are the matching tasks in your list:");
+        System.out.println("\nHere are the matching tasks in your list:");
         for (int i = 0; i < foundTasks.size(); i++) {
             System.out.println(i + 1 + "." + foundTasks.get(i));
         }

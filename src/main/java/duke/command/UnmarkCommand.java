@@ -8,7 +8,7 @@ import duke.utility.Ui;
  * Represents a command to unmark a task as done in the task list.
  */
 public class UnmarkCommand extends Command {
-    private int taskNumber;
+    private final int taskNumber;
 
     /**
      * Creates a new UnmarkCommand with the specified task number.

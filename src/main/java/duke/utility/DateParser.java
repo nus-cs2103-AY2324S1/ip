@@ -9,6 +9,8 @@ import java.time.format.DateTimeParseException;
  */
 public class DateParser {
 
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
     /**
      * Converts a date and time string to a LocalDateTime object.
      *
@@ -16,9 +18,8 @@ public class DateParser {
      * @return A LocalDateTime object representing the parsed date and time.
      */
     public static LocalDateTime convertStringToDateTime(String datetime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         try {
-            return LocalDateTime.parse(datetime, formatter);
+            return LocalDateTime.parse(datetime, DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {
             e.printStackTrace();
             System.out.println("Invalid date format. Please enter in the format 01-01-2001 01:01");
@@ -33,7 +34,6 @@ public class DateParser {
      * @return A formatted date and time string.
      */
     public static String convertDateTimeToString(LocalDateTime datetime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        return datetime.format(formatter);
+        return datetime.format(DATE_TIME_FORMATTER);
     }
 }

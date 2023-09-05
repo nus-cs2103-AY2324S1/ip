@@ -17,18 +17,15 @@ public class Ui {
     }
 
     public void greet(String name) {
-        System.out.println();
-        formatPrintMessage("Hello! I'm " + name + "\nWhat can I do for you?");
+        formatPrintMessage("\nHello! I'm " + name + "\nWhat can I do for you?");
     }
 
     public void exit() {
-        System.out.println();
-        formatPrintMessage("Bye. Hope to see you again soon!");
+        formatPrintMessage("\nBye. Hope to see you again soon!");
     }
 
     public void formatPrintMessage(String message) {
-        System.out.println(message);
-        System.out.println();
+        System.out.println(message + "\n");
     }
 
     public String readCommand() {
