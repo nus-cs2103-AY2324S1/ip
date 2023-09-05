@@ -2,6 +2,7 @@ package duke.task;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import duke.Duke;
 import duke.exception.DukeException;
@@ -18,22 +19,15 @@ import duke.exception.NoSpaceBeforeException;
  */
 
 public class TaskList {
-    private ArrayList<Task> list;
-
-    /**
-     * Constructor for duke.task.TaskList class.
-     */
-    public TaskList() {
-        this.list = new ArrayList<>();
-    }
+    private final ArrayList<Task> list = new ArrayList<>();
 
     /**
      * Constructor for duke.task.TaskList class.
      *
-     * @param list The array list of tasks.
+     * @param list The array of tasks.
      */
-    public TaskList(ArrayList<Task> list) {
-        this.list = list;
+    public TaskList(Task... list) {
+        this.list.addAll(Arrays.asList(list));
     }
 
     /**
