@@ -158,8 +158,8 @@ public class Bongo extends Application {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(bongo))
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getBongoDialog(dukeText, new ImageView(bongo))
         );
         userInput.clear();
     }
@@ -171,7 +171,6 @@ public class Bongo extends Application {
     private String getResponse(String input) {
         return "Bongo heard: " + input;
     }
-
 
     /**
      * Runs the Bongo bot.
