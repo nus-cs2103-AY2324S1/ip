@@ -1,10 +1,7 @@
 package duke;
 
 import java.time.format.DateTimeParseException;
-<<<<<<< HEAD
-=======
 import java.util.List;
->>>>>>> branch-Level-9
 import java.util.Scanner;
 
 import duke.exceptions.DukeException;
