@@ -18,6 +18,7 @@ public class Ui {
 
     /**
      * Reads the next line of input from the user.
+     *
      * @return The next line of input from the user.
      */
     public String readCommand() {

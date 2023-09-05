@@ -1,5 +1,8 @@
-T | 0 | test
 D | 0 | test | 2023-12-06
 E | 0 | test | 2023-10-06 | 2023-11-06
-T | 0 | run
 T | 1 | test
+T | 0 | event
+T | 0 | 1
+T | 0 | 2
+T | 0 | homework
+T | 0 | 1
