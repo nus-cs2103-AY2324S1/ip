@@ -9,6 +9,12 @@ import duke.task.TaskList;
 import java.util.ArrayList;
 
 public class DeleteComand extends Command {
+
+    /**
+     * Constructs a DeleteCommand object with the provided command details.
+     *
+     * @param commandDetails The list of command details, which includes the task number to delete.
+     */
     public DeleteComand(ArrayList<String> commandDetails) {
         super(commandDetails);
     }
@@ -30,6 +36,13 @@ public class DeleteComand extends Command {
         ui.printTaskDeleted(deletedTask, tasks.size());
     }
 
+    /**
+     * Checks if this DeleteCommand is equal to another object. Two DeleteCommands are considered equal
+     * if they have the same command details.
+     *
+     * @param obj The object to compare to this DeleteCommand.
+     * @return True if the objects are equal, false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

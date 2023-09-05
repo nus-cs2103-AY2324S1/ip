@@ -15,8 +15,19 @@ import duke.task.Todo;
 
 import java.util.ArrayList;
 
+/**
+ * The Parser class is responsible for parsing user input and converting data strings
+ * into task objects for the Duke application.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input command and returns the corresponding Command object.
+     *
+     * @param strCommand The user input command to be parsed.
+     * @return A Command object representing the parsed command.
+     * @throws DukeException If the input command is invalid or contains errors.
+     */
     public static Command parse(String strCommand) throws DukeException{
         int firstSpaceIndex = strCommand.indexOf(" ");
         Command command = null;
@@ -119,6 +130,13 @@ public class Parser {
         return command;
     }
 
+    /**
+     * Converts a data string into a Task object.
+     *
+     * @param data The data string representing a Task.
+     * @return A Task object created from the data string.
+     * @throws DukeException If there are errors in the data string, or it is in an invalid format.
+     */
     public static Task dataToTask(String data) throws DukeException {
         String taskType = data.substring(0, 1);
         String taskData = data.substring(4);

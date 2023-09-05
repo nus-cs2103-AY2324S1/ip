@@ -15,8 +15,19 @@ import duke.task.Todo;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The AddCommand class represents a command to add a task.
+ * It is a subclass of the Command class.
+ */
 public class AddCommand extends Command {
     private String taskType;
+
+    /**
+     * Constructs an AddCommand object with the provided command details and task type.
+     *
+     * @param commandDetails The list of command details, which may include task information.
+     * @param taskType       The type of task to add (e.g., "T" for Todo, "D" for Deadline, "E" for Event).
+     */
     public AddCommand(ArrayList<String> commandDetails, String taskType) {
         super(commandDetails);
         this.taskType = taskType;
@@ -58,6 +69,13 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Checks if this AddCommand is equal to another object. Two AddCommands are considered equal
+     * if they have the same command details and task type.
+     *
+     * @param obj The object to compare to this AddCommand.
+     * @return True if the objects are equal, false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
