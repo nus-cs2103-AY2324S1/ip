@@ -18,14 +18,17 @@ public class Storage {
             if (file.exists()) {
                 BufferedReader reader = new BufferedReader(new FileReader(file));
                 String line;
+                TaskList taskList = new TaskList();
                 while ((line = reader.readLine()) != null) {
-                    parseTask(line);
+                    taskList = parseTask(line);
                 }
                 reader.close();
+                return taskList;
             }
         } catch (IOException | BuddyException e) {
             System.out.println("Error loading tasks from file: " + e.getMessage());
         }
+        return new TaskList();
     }
 
     public void writeToFile(TaskList tasks) { // save tasks
@@ -41,7 +44,7 @@ public class Storage {
         }
     }
 
-    private void parseTask(String line) throws BuddyException {
+    private TaskList parseTask(String line) throws BuddyException {
         String[] parts = line.split(" \\| ");
         String taskType = parts[0];
         boolean isDone = parts[1].equals("1");
@@ -65,5 +68,7 @@ public class Storage {
                 tasks.addTask(new Event(description, start, end, isDone));
                 break;
         }
+
+        return tasks;
     }
 }
