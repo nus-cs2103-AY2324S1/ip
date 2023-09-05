@@ -1,9 +1,20 @@
 package thea;
+
+/**
+ * Thea is a chatbot that manages user tasks.
+ * The name Thea comes from Alethea which means "truth".
+ */
 public class Thea {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a new Thea object.
+     * Initializes Ui, Storage and TaskList objects.
+     *
+     * @param fileName the fileName in which the task data is/should be saved.
+     */
     public Thea(String fileName) {
         this.ui = new Ui();
         this.storage = new Storage(fileName);
@@ -15,6 +26,9 @@ public class Thea {
         }
     }
 
+    /**
+     * Contains logic the main logic of Thea that needs to be run.
+     */
     public void run() {
         ui.greet();
         boolean isExit = false;
@@ -31,6 +45,9 @@ public class Thea {
         }
     }
 
+    /**
+     * Starts the program.
+     */
     public static void main(String[] args) {
         new Thea("thea.txt").run();
     }
