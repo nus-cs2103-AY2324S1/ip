@@ -1,16 +1,20 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+
 public class DeadlineTask extends Task {
   /**
    * Deadline
    */
-  protected String deadline;
+  protected LocalDateTime deadline;
 
   /**
    * Constructor for Deadline task.
    *
-   * @param description Description of task
-   * @param deadline    Deadline for task
+   * @param description Description of task.
+   * @param deadline    Deadline for task.
    */
-  public DeadlineTask(String description, String deadline) {
+  public DeadlineTask(String description, LocalDateTime deadline) {
     super(description);
     this.deadline = deadline;
   }
@@ -22,11 +26,10 @@ public class DeadlineTask extends Task {
    * @param isDone      Boolean representing task completion status
    * @param deadline    Deadline for task
    */
-  public DeadlineTask(String description, String deadline, boolean isDone) {
+  public DeadlineTask(String description, LocalDateTime deadline, boolean isDone) {
     super(description, isDone);
     this.deadline = deadline;
   }
-
 
   /**
    * Returns Deadline task formatted with type and status icon
@@ -35,15 +38,16 @@ public class DeadlineTask extends Task {
    */
   @Override
   public String toString() {
-    return String.format("<D>%s (BY: %s)", super.toString(), this.deadline);
+    return String.format("<D>%s (BY: %s)", super.toString(),
+      deadline.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)));
   }
 
   /**
    * Parses save file data into a deadline task instance.
    *
-   * @param data line from save file
-   * @return Task instance
-   * @throws InvalidTaskDataException if data is not in the expected format
+   * @param data Line from save file.
+   * @return Task instance.
+   * @throws InvalidTaskDataException If data is not in the expected format.
    */
   public static DeadlineTask fromData(String data) throws InvalidTaskDataException {
      /*
@@ -58,7 +62,8 @@ public class DeadlineTask extends Task {
     }
     String taskType = splitData[0];
     String taskCompleted = splitData[1];
-    String taskDeadline = splitData[2];
+    String taskDeadlineString = splitData[2];
+    LocalDateTime taskDeadline = LocalDateTime.parse(taskDeadlineString);
     String taskDescription = splitData[3];
     if (!taskCompleted.equals("1") && !taskCompleted.equals("0")) {
       throw new InvalidTaskDataException();
@@ -78,7 +83,7 @@ public class DeadlineTask extends Task {
        completed: 1, incomplete: 0
        deadline: D || 1/0 || deadline || description
      */
-    String taskCompleted = this.isDone ? "1" : "0";
-    return String.join(DELIMITER, "D", taskCompleted, this.deadline, this.description) + "\n";
+    String taskCompleted = isDone ? "1" : "0";
+    return String.join(DELIMITER, "D", taskCompleted, deadline.toString(), description) + "\n";
   }
 }

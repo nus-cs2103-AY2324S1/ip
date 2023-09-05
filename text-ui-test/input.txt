@@ -6,11 +6,14 @@ todo learn how to use the deadline command /by now
 deadline
 deaDline discussion post
 deadline essay /by sunday 2359
+deadline essay /by 5/9/2023 2359
 event
 event anyhow
-event project meeting /to 1330h /from 1300h
-event project meeting /from mon 1300h /to 1330h
-event party /from mon 2200h /to tue 0330h
+event project meeting /to 1/2/2023 1300
+event project meeting /from 1/2/2023 1400
+event project meeting /from mon 1300h /to 1400h
+event project meeting /from 1/2/2023 1300 /to 1/2/2023 1400
+event party /from 1/2/2023 2200 /to 2/2/2023 0330
 list
 mark 2
 mark 5

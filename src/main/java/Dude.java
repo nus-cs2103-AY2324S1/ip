@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -107,6 +109,31 @@ public class Dude {
   }
 
   /**
+   * Converts datetime argument in task command into a LocalDateTime object.
+   *
+   * @param dateTimeString String argument for date and time.
+   * @return LocalDateTime object parsed from string.
+   * @throws InvalidDateTimeArgumentException If datetime cannot be parsed from the string.
+   */
+  public static LocalDateTime parseDateTime(String dateTimeString) throws InvalidDateTimeArgumentException {
+    String[] splitDateTime = dateTimeString.split(" ", 2);
+    try {
+      String dateString = splitDateTime[0];
+      String timeString = splitDateTime[1];
+      String[] splitDate = dateString.split("/", 3);
+      int date = Integer.parseInt(splitDate[0]);
+      int month = Integer.parseInt(splitDate[1]);
+      int year = Integer.parseInt(splitDate[2]);
+      int hour = Integer.parseInt(timeString.substring(0, 2));
+      int minute = Integer.parseInt(timeString.substring(2));
+
+      return LocalDateTime.of(year, month, date, hour, minute);
+    } catch (IndexOutOfBoundsException | NumberFormatException | DateTimeException e) {
+      throw new InvalidDateTimeArgumentException();
+    }
+  }
+
+  /**
    * Parses command with task number with format `{cmd} {index}`, getting corresponding task.
    *
    * @param input command.
@@ -193,11 +220,13 @@ public class Dude {
    * Parses deadline task command.
    *
    * @param input command.
-   * @throws TaskDescriptionMissingException if task description is missing
-   * @throws TaskDeadlineMissingException    if task deadline is missing
+   * @throws TaskDescriptionMissingException  If task description is missing.
+   * @throws TaskDeadlineMissingException     If task deadline is missing.
+   * @throws InvalidDateTimeArgumentException If datetime cannot be parsed from the string argument.
    */
   public static void parseDeadline(String input)
-    throws TaskDescriptionMissingException, TaskDeadlineMissingException, SaveFileException {
+    throws TaskDescriptionMissingException, TaskDeadlineMissingException, SaveFileException,
+    InvalidDateTimeArgumentException {
     String[] splitInput = input.split(" ", 2);
     if (splitInput.length < 2) {
       // task description not specified
@@ -209,7 +238,8 @@ public class Dude {
       throw new TaskDeadlineMissingException();
     }
     String description = splitDeadline[0].trim();
-    String deadline = splitDeadline[1].trim();
+    String deadlineArg = splitDeadline[1].trim();
+    LocalDateTime deadline = parseDateTime(deadlineArg);
     Task task = new DeadlineTask(description, deadline);
     addTask(task);
     printMessage(String.format(addedTask, task, getNumTasks()));
@@ -219,12 +249,13 @@ public class Dude {
    * Parses event task command.
    *
    * @param input command.
-   * @throws TaskDescriptionMissingException if task description is missing
-   * @throws EventStartMissingException      if event start is missing
-   * @throws EventEndMissingException        if event end is missing
+   * @throws TaskDescriptionMissingException If task description is missing.
+   * @throws EventStartMissingException      If event start is missing.
+   * @throws EventEndMissingException        If event end is missing.
    */
   public static void parseEvent(String input)
-    throws TaskDescriptionMissingException, EventStartMissingException, EventEndMissingException, SaveFileException {
+    throws TaskDescriptionMissingException, EventStartMissingException, EventEndMissingException, SaveFileException,
+    InvalidDateTimeArgumentException {
     String[] splitInput = input.split(" ", 2);
     if (splitInput.length < 2) {
       // task description not specified
@@ -241,8 +272,10 @@ public class Dude {
       throw new EventEndMissingException();
     }
     String description = splitStart[0].trim();
-    String start = splitEnd[0].trim();
-    String end = splitEnd[1].trim();
+    String startArg = splitEnd[0].trim();
+    LocalDateTime start = parseDateTime(startArg);
+    String endArg = splitEnd[1].trim();
+    LocalDateTime end = parseDateTime(endArg);
     Task task = new EventTask(description, start, end);
     addTask(task);
     printMessage(String.format(addedTask, task, getNumTasks()));
