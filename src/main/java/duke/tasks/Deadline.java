@@ -14,8 +14,8 @@ public class Deadline extends Task {
 
     @Override
     public String convertTask() {
-        return "D | " +  super.getStatus() + " | " + super.getTask() +
-                " | " + this.date.format(formatter);
+        return "D | " + super.getStatus() + " | " + super.getTask()
+                + " | " + this.date.format(formatter);
     }
 
     @Override

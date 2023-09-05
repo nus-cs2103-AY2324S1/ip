@@ -7,7 +7,7 @@ public class ToDo extends Task {
 
     @Override
     public String convertTask() {
-        return "T | " +  super.getStatus() + " | " + super.getTask();
+        return "T | " + super.getStatus() + " | " + super.getTask();
     }
 
     @Override

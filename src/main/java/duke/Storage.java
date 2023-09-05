@@ -2,6 +2,7 @@ package duke;
 
 import duke.exceptions.InvalidStartEndException;
 import duke.tasks.*;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -21,15 +22,19 @@ import java.util.Scanner;
 public class Storage {
     private String path;
     private Ui ui;
+
     public Storage(String path, Ui ui) {
         this.path = path;
+        this.ui = ui;
     }
-    public static LocalDateTime stringToDateTime(String str) throws DateTimeParseException {
+
+    public static LocalDateTime convertToDateTime(String str) throws DateTimeParseException {
         //check if dateTime has correct format: ie. YYYY-MM-DD 00:00
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
         return dateTime;
     }
+
     public File createDataFile() {
         File dataFile = new File(this.path);
         try {
@@ -52,8 +57,10 @@ public class Storage {
             dataFile = createDataFile();
         }
         ArrayList<Task> list = new ArrayList<>();
+
         try {
             Scanner sc = new Scanner(dataFile);
+
             while (sc.hasNextLine()) {
                 String task = sc.nextLine();
                 if (!task.isBlank()) {
@@ -62,19 +69,20 @@ public class Storage {
                     String type = taskDetails[0];
                     int status = Integer.parseInt(taskDetails[1]);
                     String desc = taskDetails[2];
+
                     switch (type) {
                     case "T":
                         ToDo toDo = new ToDo(status, desc);
                         list.add(toDo);
                         break;
                     case "D":
-                        LocalDateTime date = stringToDateTime(taskDetails[3]);
+                        LocalDateTime date = convertToDateTime(taskDetails[3]);
                         Deadline deadline = new Deadline(status, desc, date);
                         list.add(deadline);
                         break;
                     case "E":
-                        LocalDateTime start = stringToDateTime(taskDetails[3]);
-                        LocalDateTime end = stringToDateTime(taskDetails[4]);
+                        LocalDateTime start = convertToDateTime(taskDetails[3]);
+                        LocalDateTime end = convertToDateTime(taskDetails[4]);
                         try {
                             Event event = new Event(status, desc, start, end);
                             list.add(event);
@@ -92,8 +100,6 @@ public class Storage {
         return list;
     }
 
-    //this method should be called by the tasklist class ONLY!!! because we want to
-    //keep the tasklist private
     public void updateFile(ArrayList<Task> list) {
         try {
             //check if file exists, else create
@@ -105,6 +111,7 @@ public class Storage {
             //create a FileWriter object to write to file. Note that this overwrites the existing data!
             FileWriter file = new FileWriter("./data/duke.txt");
             BufferedWriter writer = new BufferedWriter(file);
+
             for (int i = 0; i < list.size(); i++) {
                 Task task = list.get(i);
                 String taskStr = task.convertTask();
@@ -112,6 +119,7 @@ public class Storage {
                 writer.newLine();
                 writer.flush();
             }
+
             writer.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());

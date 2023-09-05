@@ -1,9 +1,7 @@
 package duke.tasks;
 
-import duke.Ui;
-
 abstract public class Task {
-    private int status; //0 for uncompleted, 1 (or any other number) for completed
+    private int status;
     private String task;
 
     public Task(int status, String task) {
@@ -13,21 +11,21 @@ abstract public class Task {
 
     abstract public String convertTask();
 
-    public void mark(Ui ui) {
+    public boolean canMark() {
         if (this.status == 0) {
             this.status = 1;
-            ui.showMarkTask(false, this);
+            return true;
         } else {
-            ui.showMarkTask(true, this);
+            return false;
         }
     }
 
-    public void unmark(Ui ui) {
+    public boolean canUnMark() {
         if (this.status != 0) {
             this.status = 0;
-            ui.showUnmarkTask(true, this);
+            return true;
         } else {
-           ui.showUnmarkTask(false, this);
+            return false;
         }
     }
 
@@ -38,6 +36,7 @@ abstract public class Task {
     public String getTask() {
         return this.task;
     }
+
     @Override
     public String toString() {
         if (status == 0) {
