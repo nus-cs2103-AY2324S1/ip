@@ -106,7 +106,13 @@ public class Parser {
                 }
 
             case "list":
-                return new ListCommand();
+
+                if (detail.isBlank()) {
+                    return new ListCommand();
+                } else {
+                    throw new DukeException("Sorry, were you trying to ask for a list?" +
+                            "If so, only input the word \"list\".");
+                }
 
             case "delete":
 
