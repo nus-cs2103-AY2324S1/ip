@@ -1,7 +1,4 @@
-package Duke.Storage;
-
-import Duke.Exceptions.DukeException;
-import Duke.Tasks.*;
+package duke.storage;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -13,6 +10,16 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Scanner;
+
+import duke.exceptions.DukeException;
+import duke.tasks.DeadlineTask;
+import duke.tasks.EventTask;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.TodoTask;
+
+
+
 
 /**
  * Controls the storage and retrieving of saved data on the hard disk.
@@ -84,7 +91,7 @@ public class Storage {
 
 
                 }
-//                System.out.println("✅ Loaded " + listContainer.getSize() + " previous tasks.");
+
                 return tasks;
 
             } else {

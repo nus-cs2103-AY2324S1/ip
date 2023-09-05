@@ -1,24 +1,23 @@
-package Duke.UI;
-
-import Duke.Parser.Parser;
-import Duke.Storage.Storage;
-import Duke.Tasks.Commands;
-import Duke.Tasks.Task;
-import Duke.Tasks.TaskList;
+package duke.ui;
 
 import java.util.Optional;
 import java.util.Scanner;
+
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.tasks.Commands;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+
 
 /**
  * Controls any user interaction with the user.
  * Examples: text output, error messages
  */
 public class Ui {
-
+    private static final String SEPARATOR_LINE = "____________________________________________________________";
     private TaskList taskList;
     private Storage storage;
-
-    private static final String SEPARATOR_LINE = "____________________________________________________________";
 
     /**
      * Constructor for an Ui handler.
@@ -37,8 +36,8 @@ public class Ui {
     public void beginLogging() {
 
         printDivider();
-        String entranceMsg = "Hello! I'm Elon Musk.\n" +
-                "What can I do for you?";
+        String entranceMsg = "Hello! I'm Elon Musk.\n"
+                + "What can I do for you?";
         System.out.println(entranceMsg);
         printDivider();
 
@@ -110,6 +109,11 @@ public class Ui {
         case BYE: {
             String exitMsg = "Bye! Hope to see you again soon.";
             System.out.println(exitMsg);
+
+            break;
+        }
+        default: {
+            System.out.println("Unhandled enum error!");
 
             break;
         }

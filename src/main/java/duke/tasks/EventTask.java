@@ -1,4 +1,4 @@
-package Duke.Tasks;
+package duke.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -39,8 +39,8 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() +
-                " (from: " + this.fromDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a")) +
-                " to: " + this.toDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a")) + ")";
+        return "[E]" + super.toString()
+                + " (from: " + this.fromDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"))
+                + " to: " + this.toDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a")) + ")";
     }
 }
