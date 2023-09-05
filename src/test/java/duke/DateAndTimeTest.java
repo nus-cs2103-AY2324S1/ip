@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test cases for the {@link DateAndTime} class.
+ * Test cases for the DateAndTime class.
  */
 public class DateAndTimeTest {
 
     /**
-     * Test the {@link DateAndTime#isValidDate()} method.
+     * Test the DateAndTime::isValidDate() method.
      */
     @Test
     public void validTest() {
@@ -21,7 +21,7 @@ public class DateAndTimeTest {
     }
 
     /**
-     * Test the {@link DateAndTime#dayParse()} method.
+     * Test the DateAndTim::dayParse() method.
      */
     @Test
     public void dateStringTest() {
@@ -30,7 +30,7 @@ public class DateAndTimeTest {
     }
 
     /**
-     * Test the {@link DateAndTime#dayParse()} method.
+     * Test the DateAndTime::dayParse() method.
      */
     @Test
     public void dateTimeStringTest() {
