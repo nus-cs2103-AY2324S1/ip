@@ -3,9 +3,9 @@ package duke;
  * Event class that is a Task with fields startTime, endTime and a symbol
  */
 public class Event extends Task {
+    private static final String SYMBOL = "[E]";
     private String startTime;
     private String endTime;
-    private String symbol = "[E]";
 
     /**
      * Constructor for Event task
@@ -28,11 +28,10 @@ public class Event extends Task {
     }
     @Override
     public String toString() {
-        return this.symbol + this.getCheckbox() + this.getName() + " " + this.getDetails();
+        return Event.SYMBOL + this.getCheckbox() + this.getName() + " " + this.getDetails();
     }
-
     @Override
     public String newFormat() {
-        return this.symbol + " | " + this.getInt() + " | " + this.getName() + " | " + this.getDetails();
+        return Event.SYMBOL + " | " + this.getInt() + " | " + this.getName() + " | " + this.getDetails();
     }
 }

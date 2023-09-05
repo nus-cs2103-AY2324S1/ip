@@ -6,6 +6,10 @@ package duke;
 public class FindTask extends Command {
     private String keyword;
 
+    /**
+     * Constructor for FindTask object
+     * @param keyword String which we are looking for in the task
+     */
     public FindTask(String keyword) {
         this.keyword = keyword;
     }

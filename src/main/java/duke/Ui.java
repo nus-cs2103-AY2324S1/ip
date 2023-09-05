@@ -22,8 +22,9 @@ public class Ui {
     }
 
     /**
-     * To list all the tasks present in the list.
+     * Lists all the tasks present in the list.
      * @param lst the TaskList we want to be iterating through
+     * @return String instance of all tasks in the TaskList
      */
     public String listMessage(TaskList lst) {
         String output = "Here are the tasks in your list: ";
@@ -41,9 +42,10 @@ public class Ui {
     }
 
     /**
-     * To print confirmation message when something is unmarked
+     * Prints confirmation message when something is unmarked
      * @param index the index of the task we want to undo
      * @param lst TaskList containing all the tasks
+     * @return String confirmation for something marked undone
      */
     public String uncompletedMessage(int index, TaskList lst) {
         Task tsk = lst.get(index);
@@ -52,9 +54,10 @@ public class Ui {
     }
 
     /**
-     * To print confirmation message when something is marked
+     * Prints confirmation message when something is marked
      * @param index the index of the task completed
      * @param lst TaskList containing all the tasks
+     * @return String instance to confirm something marked done
      */
     public String completedMessage(int index, TaskList lst) {
         Task tsk = lst.get(index);
@@ -63,18 +66,19 @@ public class Ui {
     }
 
     /**
-     * To print confirmation message once a Task has been deleted
-     * @param index index of task deleted
-     * @param lst TaskList storing all the tasks
+     * Prints a confirmation message once a Task has been deleted
+     * @param task Task to be removed
+     * @return String instance to confirm Task is removed
      */
     public String deletedMessage(Task task) {
         return task.removed();
     }
 
     /**
-     * To print confirmation message once a Task has been deleted
+     * Prints a confirmation message once a Task has been deleted
      * @param tsk The task added to the list
      * @param lst TaskList containing all the tasks
+     * @return String instance to confirm Task is added
      */
     public String addedMessage(Task tsk, TaskList lst) {
         return tsk.confirmation(lst.size());
@@ -90,8 +94,9 @@ public class Ui {
     }
 
     /**
-     * To print the message for the tasks found based on keyword
+     * Prints the message for the tasks found based on keyword
      * @param found TaskList of all the tasks with the keyword
+     * @return String instance of all Tasks that match keyword
      */
     public String foundMessage(TaskList found) {
         String s1 = "Here are the matching tasks in your lists:";

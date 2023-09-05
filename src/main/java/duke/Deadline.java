@@ -9,8 +9,8 @@ import java.time.format.DateTimeParseException;
  * @author wj331
  */
 public class Deadline extends Task {
+    private static final String SYMBOL = "[D]";
     private String deadline;
-    private String symbol = "[D]";
 
     /**
      * Constructor for Deadline Task
@@ -41,15 +41,15 @@ public class Deadline extends Task {
 
     @Override
     public String newFormat() {
-        return this.symbol + " | " + this.getInt() + " | " + this.getName() + " | " + this.deadline;
+        return Deadline.SYMBOL + " | " + this.getInt() + " | " + this.getName() + " | " + this.deadline;
     }
     @Override
     public String toString() {
-        return this.symbol + this.getCheckbox() + this.getName() + " (by: " + deadline + ")";
+        return Deadline.SYMBOL + this.getCheckbox() + this.getName() + " (by: " + deadline + ")";
     }
 
     /**
-     * Getter for deadline of deadline object
+     * Gets the deadline of deadline object
      * @return String value of the deadline
      */
     public String getDeadline() {

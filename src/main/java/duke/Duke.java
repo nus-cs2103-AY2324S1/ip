@@ -6,12 +6,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  * Duke bot class with a storage, TaskList and Ui
@@ -122,7 +121,13 @@ public class Duke extends Application {
                 DialogBox.getDukeDialog(dukeText, duke));
         userInput.clear();
     }
-    String getResponse(String input) {
+
+    /**
+     * Gets the input and parses it
+     * @param input the input of the user
+     * @return String message that is the response of the bot
+     */
+    public String getResponse(String input) {
         try {
             Command command = Parser.parse(input);
             return command.execute(tasks, ui, storage);

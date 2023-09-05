@@ -4,8 +4,8 @@ package duke;
  * Task class that contains field such as name, completed and done & undone checkboxes
  */
 public class Task {
-    private final static String DONECHECKBOX = "[X] ";
-    private final static String UNDONECHECKBOX = "[ ] ";
+    private static final String DONECHECKBOX = "[X] ";
+    private static final String UNDONECHECKBOX = "[ ] ";
     private String name;
     private boolean isCompleted;
     public Task(String name) {
@@ -30,7 +30,7 @@ public class Task {
     }
 
     /**
-     * To return the correct checkbox according to the task completion
+     * Returns the correct checkbox according to the task completion
      * @return String value of checkbox
      */
     public String getCheckbox() {
@@ -40,9 +40,11 @@ public class Task {
             return Task.UNDONECHECKBOX;
         }
     }
-    public String newFormat() {return "";}
+    public String newFormat() {
+        return "";
+    }
     /**
-     * To return string value of int based on completion
+     * Returns string value of int based on completion
      * @return String value 1 if completed and 0 otherwise
      */
     public String getInt() {
@@ -54,7 +56,7 @@ public class Task {
     }
 
     /**
-     * To return confirmation message when a task is successfully added.
+     * Returns confirmation message when a task is successfully added.
      * @param size the length of the TaskList
      * @return String of confirmation message
      */
@@ -65,13 +67,21 @@ public class Task {
     }
 
     /**
-     * To return confirmation message when a task is succesfully deleted.
+     * Returns confirmation message when a task is succesfully deleted.
      * @return String of deletion message
      */
     public String removed() {
         String s1 = "Noted. I've removed this task:";
         return (s1 + "\n" + this.toString());
     }
-
-    public String execute(TaskList lst, Ui ui, Storage storage) {return "";}
+    /**
+     * Executes the current task
+     * @param lst the TaskList object we are adding this task to
+     * @param ui Ui object
+     * @param storage Storage object
+     * @return empty String
+     */
+    public String execute(TaskList lst, Ui ui, Storage storage) {
+        return "";
+    }
 }
