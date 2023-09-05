@@ -9,9 +9,9 @@ import duke.task.TaskList;
  * The Ui class for the user interaction of the program
  */
 public class Ui {
-    private static String SPACE = "    ";
-    private static String DASH = "____________________________________________________________";
-    Scanner sc;
+    private static final String SPACE = "    ";
+    private static final String DASH = "____________________________________________________________";
+    private Scanner sc;
 
     public Ui() {
         this.sc = new Scanner(System.in);
@@ -40,7 +40,7 @@ public class Ui {
 
     /**
      * Prints if exception occur
-     * 
+     *
      * @param e the exception
      */
     public void printException(Exception e) {
@@ -51,7 +51,7 @@ public class Ui {
 
     /**
      * Prints the list of tasks
-     * 
+     *
      * @param tasks the list of tasks
      */
     public void printTasks(TaskList tasks) {
@@ -63,7 +63,7 @@ public class Ui {
 
     /**
      * Prints the output of marking task
-     * 
+     *
      * @param task the task marked
      */
     public void printMarkTask(Task task) {
@@ -75,7 +75,7 @@ public class Ui {
 
     /**
      * Prints the output of unmarking task
-     * 
+     *
      * @param task the task unmarked
      */
     public void printUnmarkTask(Task task) {
@@ -87,7 +87,7 @@ public class Ui {
 
     /**
      * Prints the output of adding task
-     * 
+     *
      * @param task the new task
      * @param size the number of tasks
      */
@@ -101,7 +101,7 @@ public class Ui {
 
     /**
      * Prints the output of removing task
-     * 
+     *
      * @param task the task removed
      * @param size the number of tasks
      */
@@ -113,6 +113,11 @@ public class Ui {
         System.out.println(SPACE + DASH);
     }
 
+    /**
+     * Prints the output of find task
+     *
+     * @param tasks the list of tasks
+     */
     public void printFindTask(TaskList tasks) {
         System.out.println(SPACE + DASH);
         if (tasks.isEmpty()) {

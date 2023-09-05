@@ -2,7 +2,7 @@ package duke.exception;
 /**
  * The Exception for invalid event command
  */
-public class InvalidEventException extends Exception{
+public class InvalidEventException extends Exception {
     /**
      * The constructor of InvalidEventException
      */

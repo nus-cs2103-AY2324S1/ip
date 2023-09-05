@@ -15,15 +15,20 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.ToDo;
 
-/*
+/**
  * Storage class that save the data
  */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Instantiates the Storage class
+     *
+     * @param directoryName the name of the directory
+     * @param fileName the name of the file
+     */
     public Storage(String directoryName, String fileName) {
         this.filePath = directoryName + "/" + fileName;
-        
         // Make new file to store
         try {
             File directory = new File(directoryName);
@@ -48,7 +53,7 @@ public class Storage {
 
     /**
      * Loads the tasks from the storage
-     * 
+     *
      * @return the tasks loaded
      * @throws IOException when the task stored is invalid (usually the date)
      */
@@ -67,32 +72,32 @@ public class Storage {
         reader.close();
         return loadedTasks;
     }
-    
+
     /**
      * Reads a task stored in the storage
-     * 
+     *
      * @param taskStoredInString the string representative of the task stored in the storage
      * @return the task
-     * @throws IOException
+     * @throws IOException if the task read is invalid
      */
     public static Task readTask(String taskStoredInString) throws IOException {
         String[] taskInStringSplit = taskStoredInString.split(" \\| ");
         String type = taskInStringSplit[0];
         String mark = taskInStringSplit[1];
         String description = taskInStringSplit[2];
-        Task task = type.equals("T") 
-            ? new ToDo(description) 
-            : type.equals("D") 
-            ? new Deadline(description, LocalDate.parse(taskInStringSplit[3])) 
+        Task task = type.equals("T")
+            ? new ToDo(description)
+            : type.equals("D")
+            ? new Deadline(description, LocalDate.parse(taskInStringSplit[3]))
             : new Event(description, LocalDate.parse(taskInStringSplit[3]), LocalDate.parse(taskInStringSplit[4]));
-        if(mark.equals("1")) {
+        if (mark.equals("1")) {
             task.mark();
         }
         return task;
     }
     /**
      * Adds new task to the storage
-     * 
+     *
      * @param task the new task added
      */
     public void addTask(Task task) {
@@ -108,14 +113,14 @@ public class Storage {
 
     /**
      * Updates the storage based on current tasks
-     * 
+     *
      */
     public void updateTask(TaskList tasks) {
-        try{
+        try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath));
             writer.write(tasks.storeInString());
             writer.close();
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println("Failed to update task: " + e.getMessage());
         }
     }

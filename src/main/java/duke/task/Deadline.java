@@ -10,6 +10,12 @@ import duke.exception.InvalidDeadlineException;
 public class Deadline extends Task {
     private LocalDate deadline;
 
+    /**
+     * Instantiates deadline
+     *
+     * @param name the name of the deadline
+     * @param deadline the date of the deadline
+     */
     public Deadline(String name, LocalDate deadline) {
         super(name);
         this.deadline = deadline;
@@ -17,7 +23,7 @@ public class Deadline extends Task {
 
     /**
      * Creates a new deadline based on the message
-     * 
+     *
      * @param message the message to create the new deadline
      * @return the new deadline
      * @throws InvalidDeadlineException when the deadline command message is invalid
@@ -40,7 +46,7 @@ public class Deadline extends Task {
         String deadlineMonth = deadline.getMonth().toString().substring(0, 3);
         String deadlineDay = deadline.toString().split("-")[2];
         String deadlineYear = deadline.toString().split("-")[0];
-        return "[D]" + super.toString() + " (by: " + deadlineMonth + " " 
+        return "[D]" + super.toString() + " (by: " + deadlineMonth + " "
                 + deadlineDay + " " + deadlineYear + " )";
     }
 

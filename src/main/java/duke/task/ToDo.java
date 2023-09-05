@@ -9,10 +9,10 @@ public class ToDo extends Task {
     public ToDo(String name) {
         super(name);
     };
-    
+
     /**
      * Creates a new ToDo based on the message
-     * 
+     *
      * @param message the message to create the new todo
      * @return the new todo
      * @throws InvalidToDoException when the todo command message is invalid
