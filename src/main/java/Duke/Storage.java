@@ -30,6 +30,14 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
 
         try {
+
+            File file = new File(path);
+
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+
             BufferedReader reader = new BufferedReader(new FileReader(path));
             String line = reader.readLine();
             while (line != null) {
@@ -43,11 +51,25 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println("File");
             e.printStackTrace();
+            Storage.createEmptyFile();
         } catch (IOException e) {
             System.out.println("IO");
             e.printStackTrace();
         }
         return tasks;
+    }
+
+
+    public static void createEmptyFile() {
+        try {
+            File file = new File(path);
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+            System.out.println("New file created at path: " + path);
+        } catch (IOException e) {
+            System.out.println("Error creating the file: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public static Task correctTask(String type, String completion, String item, String deadline) {
