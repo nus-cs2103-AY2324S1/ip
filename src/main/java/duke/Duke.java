@@ -7,6 +7,7 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.ui.Ui;
 import duke.ui.VerboseUi;
+import javafx.application.Platform;
 
 /**
  * The main chatbot.
@@ -29,25 +30,41 @@ public class Duke {
     }
 
     /**
-     * Runs the chatbot, receiving commands and terminating only on bye.
+     * Returns default greeting message.
+     *
+     * @return Default greeting message.
      */
-    public void run() {
+    public String greet() {
         ui.greet();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                Command cmd = Parser.parse(ui.readCommand());
-                cmd.execute(tasks, ui, storage);
-                isExit = cmd.isExit();
-            } catch (DukeException e) {
-                ui.print(e.getMessage());
-            }
-        }
+        return ui.flush();
     }
 
-    public static void main(String[] args) {
-        Duke bot = new Duke("chatBot");
-        bot.run();
+    /**
+     * Generates response to command.
+     *
+     * @param input Command from user.
+     * @return Response by chatbot.
+     */
+    public String getResponse(String input) {
+        boolean isExit = false;
+        try {
+            Command cmd = Parser.parse(input);
+            cmd.execute(tasks, ui, storage);
+            isExit = cmd.isExit();
+        } catch (DukeException e) {
+            ui.print(e.getMessage());
+        }
+        if (isExit) {
+            Platform.exit();
+        }
+        return ui.flush();
+    }
+
+    /**
+     * Saves tasks to file.
+     */
+    public void save() {
+        storage.save(tasks);
     }
 
 }

@@ -12,6 +12,7 @@ import java.util.Scanner;
 public abstract class Ui {
 
     protected Scanner sc;
+    protected String msg;
 
     /**
      * Constructor for Ui.
@@ -20,10 +21,11 @@ public abstract class Ui {
      */
     public Ui(Scanner sc) {
         this.sc = sc;
+        this.msg = "";
     }
 
     /**
-     * Method to display message.
+     * Method to set display message.
      *
      * @param msg Message to be displayed.
      */
@@ -76,6 +78,15 @@ public abstract class Ui {
      */
     public String readCommand() {
         return sc.nextLine().replaceAll("\n", "").trim();
+    }
+
+    /**
+     * Returns message to be displayed.
+     *
+     * @return Message to be displayed.
+     */
+    public String flush() {
+        return this.msg;
     }
 
     /**
