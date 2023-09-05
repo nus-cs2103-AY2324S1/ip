@@ -2,11 +2,13 @@ public class Event extends Task{
     String from;
     String to;
 
-    public Event(String task, String from, String to) {
-        super(task);
+    public Event(String task, Boolean isNotSaved, String from, String to) {
+        super(task, isNotSaved);
         this.from = from;
         this.to = to;
-        saveToFile();
+        if (isNotSaved) {
+            saveToFile();
+        }
     }
 
     @Override
@@ -19,9 +21,14 @@ public class Event extends Task{
                 + "Now you have " + Task.getCounter() + " tasks in the list\n" + Duke.horizontalLine);
     }
 
-    public void saveToFile() {
-        String taskString =  "E | " + (this.getStatus() == TaskStatus.DONE ? 1 : 0)
+    public String generateStr() {
+        return "E | " + (this.getStatus() == TaskStatus.DONE ? 1 : 0)
                 + " | " + this.getTask() + " | " + from + " | "+to;
-        Duke.saveTaskToFile(taskString);
     }
+
+    @Override
+    public void saveToFile() {
+        Duke.saveTaskToFile(generateStr());
+    }
+
 }
