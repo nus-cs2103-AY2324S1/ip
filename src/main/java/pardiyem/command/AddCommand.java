@@ -11,9 +11,18 @@ import pardiyem.task.TaskList;
 import pardiyem.task.Todo;
 import pardiyem.ui.Ui;
 
+/**
+ * Represents a command that involves adding Task objects to the tasklist
+ */
 public class AddCommand extends Command {
     private Task toAdd;
 
+    /**
+     * A constructor for the AddCommand class
+     *
+     * @param desc additional arguments to construct a Task class
+     * @param type indicates which child of the Task class will it add: 1 for Todo, 2 for Deadline, 3 for Event
+     */
     public AddCommand(String desc, int type) {
         super(desc);
         
@@ -32,16 +41,39 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Utility inherited method to indicate whether this command will end the program
+     *
+     * @return false
+     */
     public boolean isExit() {
         return false;
     }
 
+    /**
+     * Inherited method to execute the command.
+     * Will add the constructed Task object to the tasklist,
+     * send a message to the UI, and store the current state of the tasklist
+     *
+     * @param taskList the TaskList object to modify
+     * @param ui the Ui object to send the message to
+     * @param storage the Storage object that will handle the saving to the data file
+     * @throws IOException if the Storage object fails to write to the data file
+     */
     public void execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
         taskList.add(toAdd);
         ui.showOutput(String.format("Got it. I've added this task:\n%s\nNow you have %d task(s) in the list",
                 toAdd.toString(), taskList.size()));
         storage.save(taskList);
     };
+
+    /**
+     * Utility inherited method to compare two objects.
+     * Comparison between two AddCommand objects will be done through comparison of their toAdd attribute
+     *
+     * @param obj the object to compare with
+     * @return whether the two objects are equal
+     */
     @Override
     public boolean equals(Object obj) {
         boolean result = false;

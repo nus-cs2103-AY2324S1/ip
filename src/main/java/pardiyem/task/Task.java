@@ -16,6 +16,11 @@ public class Task {
         this(description, false);
     }
 
+    /**
+     * Utility function to convert the "done-ness" of a task to a string
+     *
+     * @return "X" if the isDone attribute is true, " " otherwise
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
@@ -25,6 +30,11 @@ public class Task {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
 
+    /**
+     * Utility function to mark a task as done and return a status message
+     *
+     * @return status message corresponding to whether the isDone attribute is already true prior to the function-call
+     */
     public String markAsDone() {
         if (this.isDone) {
             return "Hey, just letting you know that the task has already been done previously :)";
@@ -34,6 +44,11 @@ public class Task {
         }
     }
 
+    /**
+     * Utility function to mark a task as undone and return a status message
+     *
+     * @return status message corresponding to whether the isDone attribute is already false prior to the function-call
+     */
     public String markAsUndone() {
         if (!this.isDone) {
             return "Hey, just letting you know that the task has already been marked as undone previously:)";
@@ -42,6 +57,15 @@ public class Task {
             return "Va bene, I've marked this task as undone";
         }
     }
+
+    /**
+     * Overriden comparison function to compare with other objects.
+     * Comparison of 2 Task objects will be done through the value returned when
+     * toString() is called on both objects
+     *
+     * @param obj object to be compared with
+     * @return whether the two objects are the same
+     */
     @Override
     public boolean equals(Object obj) {
         boolean result = false;

@@ -13,22 +13,51 @@ public class TaskList {
         tasklist = list;
     }
 
+    /**
+     * Getter method for the tasklist attribute
+     *
+     * @return the tasklist attribute
+     */
     public ArrayList<Task> getList() {
         return tasklist;
     }
 
+    /**
+     * Getter method for members of the tasklist attribute
+     *
+     * @param i index of the item to be accessed from the tasklist attribute
+     * @return the corresponding task
+     */
     public Task getTask(int i) {
         return tasklist.get(i);
     }
 
+    /**
+     * Utility method to add a Task object to the tasklist
+     *
+     * @param newTask the Task object to be added
+     */
     public void add(Task newTask) {
         tasklist.add(newTask);
     }
 
+    /**
+     * Utility method to get the size of the tasklist
+     *
+     * @return the size of the tasklist
+     */
     public int size() {
         return tasklist.size();
     }
 
+    /**
+     * Utility method to delete a task in the tasklist
+     *
+     * @param ind the index of the Task object to be deleted
+     * @return status message to indicate the completion of the operation
+     * @throws ArrayIndexOutOfBoundsException if the given index is not within the bounds of the tasklist
+     * @throws NumberFormatException if the given index string is not parseable to an integer
+     */
     public String delete(String ind) {
         ind = ind.trim();
         try {

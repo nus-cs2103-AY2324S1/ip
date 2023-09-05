@@ -11,6 +11,13 @@ import pardiyem.command.UnmarkCommand;
 public class Parser {
     private static final String SPACE = " ";
 
+    /**
+     * Parser method that takes in a string of arguments and outputs a corresponding command
+     *
+     * @param in string of arguments inputted by the user
+     * @return Command object corresponding to inputted string
+     * @throws NoSuchMethodException if the first word in the string, the command argument, cannot be recognized
+     */
     public static Command parseCommand(String in) throws NoSuchMethodException {
         int x = in.indexOf(SPACE);
         String command;

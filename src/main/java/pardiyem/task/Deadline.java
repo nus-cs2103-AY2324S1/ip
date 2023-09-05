@@ -10,6 +10,14 @@ public class Deadline extends Task {
     protected LocalTime doByTime;
     protected LocalDate doByDate;
 
+    /**
+     * A constructor to the Deadline class. Parses the do-by string argument into date and time format
+     *
+     * @param description string argument to describe the task
+     * @param doBy string argument to indicate the due date, must be entered in the format "YYYY-MM-DD" or "YYYY-MM-DD HH:MM:SS"
+     * @param isDone boolean argument to indicate whether the task has been done
+     * @throws IllegalArgumentException if any of the argument are empty or invalid
+     */
     public Deadline(String description, String doBy, boolean isDone) throws IllegalArgumentException {
         super(description, isDone);
         if (doBy.isEmpty()) {
