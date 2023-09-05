@@ -1,6 +1,6 @@
-package Task;
+package task;
 
-import Exception.DukeException;
+import exception.DukeException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -126,7 +126,7 @@ public class TaskList {
      */
     public void mark(int taskIndex) {
         Task currTask = taskList.get(taskIndex);
-        currTask.taskDone(true);
+        currTask.setTaskDone(true);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(currTask);
     }
@@ -137,7 +137,7 @@ public class TaskList {
      */
     public void unmark(int taskIndex) {
         Task currTask = taskList.get(taskIndex);
-        currTask.taskDone(false);
+        currTask.setTaskDone(false);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(currTask);
     }
@@ -146,7 +146,7 @@ public class TaskList {
      * size() method.
      * @return number of tasks in the task list.
      */
-    public int size() {
+    public int getSize() {
         return taskList.size();
     }
 
@@ -181,7 +181,7 @@ public class TaskList {
         // returns 2 if correct date
         // returns 0 if random string input
 
-       // Assume that the date input is dd/MM/yyyy 16-08-1977 1800
+        // Assume that the date input is dd/MM/yyyy 16-08-1977 1800
 
         String[] blankArray = input.split(" ");
 

@@ -1,4 +1,4 @@
-package Task;
+package task;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +15,7 @@ public class TaskListTest {
 
 
     @Test
-    public void localDateTimeShouldReturnOne() {
+    public void computeDateTimeFormat_localDateTimeInput_shouldReturnOne() {
         TaskList task = new TaskList();
         String input = "16-08-1977 1700";
 
@@ -23,7 +23,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void customInputShouldReturnZero() {
+    public void computeDateTimeFormat_customInput_shouldReturnZero() {
         TaskList task = new TaskList();
         String input = "16 August 1977 5pm";
 

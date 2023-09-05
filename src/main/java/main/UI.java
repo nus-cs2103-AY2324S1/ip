@@ -1,6 +1,6 @@
-package Main;
+package main;
 
-import Task.Task;
+import task.Task;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ public class UI {
     /**
      * Generates the divider displayed in the terminal.
      */
-    void divider() {
+    void printDivider() {
         String line = "____________________________________________________________";
         System.out.println(line);
     }
@@ -25,7 +25,7 @@ public class UI {
     /**
      * Generates the welcome message displayed in the terminal.
      */
-    void welcomeMessage() {
+    void printWelcomeMessage() {
 
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -35,10 +35,10 @@ public class UI {
 
         System.out.println("Hello from\n" + logo);
 
-        this.divider();
+        this.printDivider();
         System.out.println(" Hello! I'm JARVIS");
         System.out.println("What can I do for you?");
-        this.divider();
+        this.printDivider();
     }
 
     /**
@@ -46,7 +46,7 @@ public class UI {
      * @param taskArrayList - Contains the list of Tasks.
      */
     public void list(ArrayList<Task> taskArrayList) {
-        this.divider();
+        this.printDivider();
         if (taskArrayList.size() == 0) {
             System.out.println("There are no tasks in your list.");
         } else {
@@ -57,14 +57,14 @@ public class UI {
                 System.out.println(index + "." + t.toString());
             }
         }
-        this.divider();
+        this.printDivider();
     }
 
     /**
      * Generates the bye message displayed in the terminal.
      */
-    public void byeMessage() {
+    public void printByeMessage() {
         System.out.println("Bye. Hope to see you again soon!");
-        this.divider();
+        this.printDivider();
     }
 }

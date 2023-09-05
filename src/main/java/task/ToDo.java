@@ -1,6 +1,6 @@
-package Task;
+package task;
 
-import Exception.DukeException;
+import exception.DukeException;
 
 /**
  * ToDo class is a subclass of Task class.
@@ -21,7 +21,7 @@ public class ToDo extends Task {
      * @return the specific format in which the task should be saved in the data file.
      */
     @Override
-    public String storeFormat() {
+    public String outputStoreFormat() {
         String taskType = "T";
         String isTaskDone;
 

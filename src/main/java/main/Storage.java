@@ -1,11 +1,15 @@
-package Main;
+package main;
 
-import Exception.DukeException;
-import Task.Deadline;
-import Task.Event;
-import Task.Task;
-import Task.TaskList;
-import Task.ToDo;
+import exception.DukeException;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import task.TaskList;
+import task.ToDo;
+import task.Deadline;
+import task.Event;
+import task.Task;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -47,7 +51,7 @@ public class Storage {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 
             for (Task task : taskList.getTaskArrayList()) {
-                writer.append(task.storeFormat()).append("\n");
+                writer.append(task.outputStoreFormat()).append("\n");
             }
 
             writer.close();
@@ -72,37 +76,37 @@ public class Storage {
             while ((line = reader.readLine()) != null) {
                 String[] inputArray = line.split(" \\| ");
 
-                switch(inputArray[0]) {
-                    case "T":
-                        ToDo toDo = new ToDo(inputArray[2]);
-                        int status = Integer.parseInt(inputArray[1]);
-                        if (status == 1) {
-                            toDo.taskDone(true);
-                        }
-                        this.taskList.addTask(toDo);
-                        break;
+                switch (inputArray[0]) {
+                case "T":
+                    ToDo toDo = new ToDo(inputArray[2]);
+                    int status = Integer.parseInt(inputArray[1]);
+                    if (status == 1) {
+                        toDo.setTaskDone(true);
+                    }
+                    this.taskList.addTask(toDo);
+                    break;
 
-                    case "E":
-                        Event event = new Event(inputArray[2], inputArray[3], inputArray[4]);
+                case "E":
+                    Event event = new Event(inputArray[2], inputArray[3], inputArray[4]);
 
-                        if (inputArray[1] == "1") {
-                            event.taskDone(true);
-                        }
-                        this.taskList.addTask(event);
-                        break;
+                    if (inputArray[1] == "1") {
+                        event.setTaskDone(true);
+                    }
+                    this.taskList.addTask(event);
+                    break;
 
-                    case "D":
-                        Deadline deadline = new Deadline(inputArray[2], inputArray[3]);
+                case "D":
+                    Deadline deadline = new Deadline(inputArray[2], inputArray[3]);
 
-                        if (inputArray[1] == "1") {
-                            deadline.taskDone(true);
-                        }
-                        this.taskList.addTask(deadline);
-                        break;
+                    if (inputArray[1] == "1") {
+                        deadline.setTaskDone(true);
+                    }
+                    this.taskList.addTask(deadline);
+                    break;
 
-                    default:
-                        throw new DukeException("An unexpected error occurred while reading the text file. Error Code:" +
-                                " 01");
+                default:
+                    throw new DukeException("An unexpected error occurred while reading the text file. Error Code:" +
+                            " 01");
                 }
             }
 

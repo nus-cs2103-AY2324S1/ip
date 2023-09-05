@@ -1,4 +1,4 @@
-package Exception;
+package exception;
 
 /**
  * DukeException class is subclass of the Exception class

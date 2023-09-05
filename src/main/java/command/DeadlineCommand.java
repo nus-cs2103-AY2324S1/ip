@@ -1,27 +1,29 @@
-package Command;
+package command;
 
-import Exception.DukeException;
-import Main.Storage;
-import Main.UI;
-import Task.TaskList;
+import task.TaskList;
+import main.UI;
+import main.Storage;
+
+import exception.DukeException;
 
 /**
- * EventCommand is a subclass of Command.
- * Used to execute Event Commands.
+ * DeadlineCommand is a subclass of Command.
+ * Used to execute Deadline Commands.
  */
-public class EventCommand extends Command {
-    String fullCommand;
+public class DeadlineCommand extends Command {
+
+    private String fullCommand;
 
     /**
-     * Constructor for EventCommand
+     * Constructor for DeadlineCommand
      * @param fullCommand full user input
      */
-    public EventCommand(String fullCommand) {
+    public DeadlineCommand(String fullCommand) {
         this.fullCommand = fullCommand;
     }
 
     /**
-     * method to execute the event sequence
+     * method to execute the deadline sequence
      * @param taskList object containing the ArrayList of tasks
      * @param ui user interface responsible for terminal messages
      * @param storage object to communicate with data.txt file
@@ -29,7 +31,7 @@ public class EventCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
-        taskList.addEvent(fullCommand);
+        taskList.addDeadline(fullCommand);
         storage.saveList(taskList);
     }
 }

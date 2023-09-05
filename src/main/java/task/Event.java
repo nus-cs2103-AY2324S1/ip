@@ -1,4 +1,4 @@
-package Task;
+package task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -43,7 +43,7 @@ public class Event extends Task {
      * @return the specific format in which the task should be saved in the data file.
      */
     @Override
-    public String storeFormat() {
+    public String outputStoreFormat() {
         String taskType = "E";
         String isTaskDone;
 

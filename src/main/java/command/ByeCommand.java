@@ -1,9 +1,10 @@
-package Command;
+package command;
 
-import Exception.DukeException;
-import Main.Storage;
-import Main.UI;
-import Task.TaskList;
+import task.TaskList;
+import main.UI;
+import main.Storage;
+
+import exception.DukeException;
 
 /**
  * ByeCommand is a subclass of Command.
@@ -24,7 +25,7 @@ public class ByeCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
-        ui.byeMessage();
+        ui.printByeMessage();
         storage.saveList(taskList);
     }
 

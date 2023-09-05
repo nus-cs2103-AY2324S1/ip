@@ -1,4 +1,4 @@
-package Task;
+package task;
 
 /**
  * Task class.
@@ -25,7 +25,7 @@ public class Task {
      * @param status boolean value which represents whether a task is done
      *               true - task is done, false - task is not done
      */
-    public void taskDone(boolean status) {
+    public void setTaskDone(boolean status) {
         this.isDone = status;
     }
 
@@ -33,7 +33,7 @@ public class Task {
      * storeFormat() method.
      * @return the specific format in which the task should be saved in the data file.
      */
-    public String storeFormat() {
+    public String outputStoreFormat() {
         return null;
     }
 
