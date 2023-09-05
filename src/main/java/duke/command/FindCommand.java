@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.exception.KoraException;
+import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -22,7 +23,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList) throws KoraException {
+    public void execute(TaskList taskList, Storage storage) throws KoraException {
         int taskListSize = taskList.getLength();
         for (int i = 0; i < taskListSize; i++) {
             Task task = taskList.getTask(i + 1);

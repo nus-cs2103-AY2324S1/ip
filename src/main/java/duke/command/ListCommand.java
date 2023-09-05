@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.storage.Storage;
 import duke.task.TaskList;
 
 public class ListCommand extends Command {
@@ -14,7 +15,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList) {
+    public void execute(TaskList taskList, Storage storage) {
         if (taskList.getLength() == 0) {
             commandMessage = "Wow! You have no tasks!";
         } else {

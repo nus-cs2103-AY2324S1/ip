@@ -7,14 +7,24 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+
 /**
  * Main class of Kora Chatbot Program.
  */
 public class Duke {
+
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
     private boolean isExit = false;
+
+
+    public Duke() {
+
+    }
 
     /**
      * Class constructor of Duke.
@@ -40,7 +50,7 @@ public class Duke {
     public Command getResponse(String userInput) {
         try {
             Command command = Parser.parse(userInput);
-            command.execute(taskList);
+            command.execute(taskList, storage);
             command.printOutput(command.getCommandMessage());
             return command;
         } catch (KoraException e) {
@@ -66,12 +76,18 @@ public class Duke {
         ui.closeScanner();
     }
 
+
     /**
      * Runs the main programme.
      * @param args The command-line arguments
      */
     public static void main(String[] args) {
-        Duke kora = new Duke("./data/savedtask.txt");
-        kora.run();
+        try {
+            Duke kora = new Duke("./data/savedtask.txt");
+            kora.run();
+        } catch (Exception e) {
+            System.out.println("haha,,");
+        }
+
     }
 }

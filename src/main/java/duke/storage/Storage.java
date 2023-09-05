@@ -78,7 +78,7 @@ public class Storage {
      */
     public void saveTask(TaskList taskList) throws KoraException {
 
-        try (FileWriter fw = new FileWriter(path, true)) {
+        try (FileWriter fw = new FileWriter(path, false)) {
             fw.write(taskList.saveFormat());
         } catch (IOException e) {
             throw new KoraException("Couldn't add!");
