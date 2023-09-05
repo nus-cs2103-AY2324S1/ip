@@ -145,5 +145,65 @@ public class UserInterface {
         return String.format("%s\n%s", line, frame);
     }
 
-
+    /**
+     * Gives the response of parsing the line.
+     *
+     * @param line The line to be parsed
+     * @return The response.
+     */
+    public String parseLine(String line) {
+        if (line.length() == 0) {
+            return wrapper("Err: No command input");
+        }
+        String[] instructions = line.split(" ", 2);
+        Commands cmd = Commands.get(instructions[0]);
+        String response;
+        switch (cmd) {
+        case bye:
+            this.save();
+            return wrapper("Bye");
+        case list:
+            response = list.toString();
+            return wrapper(response);
+        case deadline:
+            // Fallthrough
+        case todo:
+            // Fallthrough
+        case event:
+            try {
+                Task task = Parser.parseTask(cmd, instructions);
+                response = list.add(task);
+                return wrapper(response);
+            } catch (DukeException e) {
+                return wrapper(e.toString());
+            }
+        case mark:
+            try {
+                response = list.markDone(instructions[1]);
+                return wrapper(response);
+            } catch (IndexOutOfBoundsException e) {
+                return wrapper("Err: Index not in range of list.");
+            }
+        case unmark:
+            try {
+                response = list.markUndone(instructions[1]);
+                return wrapper(response);
+            } catch (IndexOutOfBoundsException e) {
+                return wrapper("Err: Index not in range of list.");
+            }
+        case delete:
+            try {
+                response = list.delete(instructions[1]);
+                return wrapper(response);
+            } catch (IndexOutOfBoundsException e) {
+                return wrapper("Err: Index not in range of list.");
+            }
+        case find:
+            response = Parser.findAll(instructions, list);
+            return wrapper(response);
+        default:
+            response = "Err: Unknown command - " + instructions[0];
+            return wrapper(response);
+        }
+    }
 }
