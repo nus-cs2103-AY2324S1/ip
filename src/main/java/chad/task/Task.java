@@ -62,5 +62,48 @@ public abstract class Task {
      */
     public abstract String toFileFormat(DateTimeFormatter formatter);
 
-    // ... rest of the code
+    /**
+     * Creates a Task object from a string representation in a file.
+     *
+     * @param line The string representation of the task read from a file.
+     * @param formatter The DateTimeFormatter to use for parsing any LocalDateTime objects.
+     * @return A Task object corresponding to the provided string.
+     */
+    public static Task fromFileFormat(String line, DateTimeFormatter formatter) {
+        String[] parts = line.split(" \\| ");
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        Task task = null;
+        switch (type) {
+            case "T":
+                task = new ToDo(description);
+                break;
+            case "D":
+                LocalDateTime dueDate = LocalDateTime.parse(parts[3], formatter);
+                task = new Deadline(description, dueDate);
+                break;
+            case "E":
+                LocalDateTime start = LocalDateTime.parse(parts[3], formatter);
+                LocalDateTime end = LocalDateTime.parse(parts[4], formatter);
+                task = new Event(description, start, end);
+                break;
+        }
+
+        if (task != null && isDone) {
+            task.mark();
+        }
+
+        return task;
+    }
+
+    String getDescription() {
+        return description;
+    }
+
+    boolean isDone() {
+        return isDone;
+    }
+
 }

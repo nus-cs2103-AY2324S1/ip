@@ -58,7 +58,6 @@ public class ChatEngine {
         boolean canContinueChat = true;
         while (canContinueChat) {
             String input = ioHandler.readInput();
-            ;
             try {
                 String[] parsedInput = Parser.parseInput(input);
                 canContinueChat = commandHandler(parsedInput);
@@ -115,9 +114,8 @@ public class ChatEngine {
      * Marks a task as done.
      * 
      * @param parsedInput the parsed input array.
-     * @throws ChadException if an invalid index is provided.
      */
-    void handleMark(String[] parsedInput) throws ChadException {
+    void handleMark(String[] parsedInput) {
         int index = Integer.parseInt(parsedInput[1]) - 1;
         String response = taskList.markTaskAsDone(index);
         ioHandler.writeOutput(response);
@@ -128,9 +126,8 @@ public class ChatEngine {
      * Marks a task as not done.
      * 
      * @param parsedInput the parsed input array.
-     * @throws ChadException if an invalid index is provided.
      */
-    void handleUnmark(String[] parsedInput) throws ChadException {
+    void handleUnmark(String[] parsedInput){
         int index = Integer.parseInt(parsedInput[1]) - 1;
         String response = taskList.markTaskAsNotDone(index);
         ioHandler.writeOutput(response);
