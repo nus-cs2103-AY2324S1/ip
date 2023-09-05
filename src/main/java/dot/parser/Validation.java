@@ -90,7 +90,7 @@ public class Validation {
      * This is capable of spotting format errors such as overflowing parameters
      *
      * @param input from user
-     * @return { description, deadline > if valid
+     * @return { description, deadline } if valid
      * @throws DotException if input is invalid
      */
     public static String[] getArgsIfValidDeadlineFormat(String input) throws DotException {
