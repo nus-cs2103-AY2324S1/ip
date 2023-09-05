@@ -1,3 +1,5 @@
 T | 0 | eat
 D | 0 | study | 2023-09-02 10:00
 E | 0 | sleep | 2023-09-01 22:00 | 2023-09-02 10:00
+T | 0 | eat dinner
+T | 0 | eat breakfast
