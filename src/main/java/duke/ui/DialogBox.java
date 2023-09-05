@@ -11,7 +11,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
@@ -25,9 +26,9 @@ public class DialogBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
-    private ImageView displayPicture;
-    @FXML
     private Pane messageOutline;
+    @FXML
+    private Circle circle;
 
     /**
      * Constructs the DialogBox.
@@ -47,7 +48,7 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         dialog.setWrapText(true);
         dialog.setPrefWidth(275);
-        displayPicture.setImage(img);
+        circle.setFill(new ImagePattern(img));
         messageOutline.setPrefWidth(280);
         messageOutline.prefHeightProperty().bind(dialog.heightProperty());
         messageOutline.getStyleClass().clear();
@@ -56,7 +57,6 @@ public class DialogBox extends HBox {
         } else {
             messageOutline.getStyleClass().add("gray-background");
         }
-        displayPicture.getStyleClass().add("display-picture");
     }
 
     /**

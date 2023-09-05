@@ -1,10 +1,20 @@
 .text-area {
+    -fx-border-color: #2e333d;
+    -fx-text-fill: #ffffff;
+    -fx-control-inner-background: #2e333d;
+    -fx-border-radius: 20;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-text-box-border: transparent;
     -fx-background-color: #2e333d;
-    -fx-border-color: "#2e333d";
+}
+
+.chat {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 
 .display-picture {
-    /*-fx-background-radius: 2em;*/
     -fx-border-radius: 50%;
 }
 
@@ -36,7 +46,7 @@
     -fx-background-radius: 1.0em;
 }
 
-.scroll-bar:vertical .track{
+.scroll-bar:vertical .track {
     -fx-background-color :transparent;
     -fx-border-color :transparent;
     -fx-background-radius : 2.0em;
@@ -57,30 +67,24 @@
 }
 
 .scroll-bar .increment-arrow,
-.scroll-bar .decrement-arrow{
+.scroll-bar .decrement-arrow {
     -fx-shape : " ";
     -fx-padding :0.15em 0.0;
 }
 
 .scroll-bar:vertical .increment-arrow,
-.scroll-bar:vertical .decrement-arrow{
+.scroll-bar:vertical .decrement-arrow {
     -fx-shape : " ";
     -fx-padding :0.0 0.15em;
 }
 
 .scroll-bar:vertical .thumb {
-    -fx-background-color : #dddddd;
+    -fx-background-color : #ffffff;
     -fx-background-insets : 2.0, 0.0, 0.0;
     -fx-background-radius : 2.0em;
 }
 
-.scroll-bar:vertical .thumb:hover {
-    -fx-background-color : #9e9e9e;
-    -fx-background-insets : 2.0, 0.0, 0.0;
-    -fx-background-radius : 2.0em;
-}
-
-.scroll-bar{
+.scroll-bar {
     -fx-background-color: transparent;
     -fx-background-radius: 2em;
     -fx-focus-color: transparent;

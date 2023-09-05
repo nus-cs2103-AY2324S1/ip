@@ -21,16 +21,17 @@
             </Label>
          </children>
       </Pane>
-      <TextArea id="textField" fx:id="textField" layoutX="14.0" layoutY="535.0" onKeyPressed="#onEnter" prefHeight="38.0" prefWidth="372.0" promptText="Enter Something!" styleClass="text-area" stylesheets="@../css/Application.css" wrapText="true">
+      <TextArea id="textField" fx:id="textField" layoutX="14.0" layoutY="535.0" onKeyPressed="#onEnter" prefHeight="38.0" prefWidth="372.0" style="-fx-border-color: #2e333d;" styleClass="text-area" stylesheets="@../css/Application.css" wrapText="true">
          <font>
             <Font name="Segoe UI" size="17.0" />
-         </font></TextArea>
+         </font>
+      </TextArea>
       <ImageView fx:id="sendButton" fitHeight="39.0" fitWidth="38.0" layoutX="338.0" layoutY="542.0" onMousePressed="#onClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/send.png" />
          </image>
       </ImageView>
-      <ScrollPane fx:id="dialogContainer" layoutX="14.0" layoutY="53.0" prefHeight="476.0" prefWidth="379.0" stylesheets="@../css/Application.css">
+      <ScrollPane fx:id="dialogContainer" layoutX="14.0" layoutY="53.0" prefHeight="476.0" prefWidth="379.0" styleClass="chat" stylesheets="@../css/Application.css">
          <content>
             <VBox fx:id="dialogBox" prefHeight="314.0" prefWidth="324.0" />
          </content></ScrollPane>
