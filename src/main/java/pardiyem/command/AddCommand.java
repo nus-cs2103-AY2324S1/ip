@@ -44,4 +44,12 @@ public class AddCommand extends Command {
                 toAdd.toString(), taskList.size()));
         storage.save(taskList);
     };
+    @Override
+    public boolean equals(Object obj) {
+        boolean result = false;
+        if (obj instanceof AddCommand) {
+            result = this.toAdd.equals(((AddCommand) obj).toAdd);
+        }
+        return result;
+    }
 }

@@ -31,5 +31,13 @@ public class UnmarkCommand extends Command {
         }
         storage.save(taskList);
     };
+    @Override
+    public boolean equals(Object obj) {
+        boolean result = false;
+        if (obj instanceof UnmarkCommand) {
+            result = this.desc.equals(((UnmarkCommand) obj).desc);
+        }
+        return result;
+    }
 }
 

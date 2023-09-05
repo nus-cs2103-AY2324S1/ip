@@ -42,4 +42,12 @@ public class Task {
             return "Va bene, I've marked this task as undone";
         }
     }
+    @Override
+    public boolean equals(Object obj) {
+        boolean result = false;
+        if (obj instanceof Task) {
+            result = this.toString().equals(obj.toString());
+        }
+        return result;
+    }
 }

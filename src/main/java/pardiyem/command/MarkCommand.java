@@ -31,4 +31,12 @@ public class MarkCommand extends Command {
         }
         storage.save(taskList);
     };
+    @Override
+    public boolean equals(Object obj) {
+        boolean result = false;
+        if (obj instanceof MarkCommand) {
+            result = this.desc.equals(((MarkCommand) obj).desc);
+        }
+        return result;
+    }
 }

@@ -21,4 +21,8 @@ public class ByeCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         ui.showOutput("Ciao! See you again!");
     };
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof ByeCommand;
+    }
 }

@@ -21,4 +21,12 @@ public class DeleteCommand extends Command {
         storage.save(taskList);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        boolean result = false;
+        if (obj instanceof DeleteCommand) {
+            result = this.desc.equals(((DeleteCommand) obj).desc);
+        }
+        return result;
+    }
 }
