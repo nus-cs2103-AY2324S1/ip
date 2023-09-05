@@ -1,15 +1,17 @@
 package seedu.duke.parser;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import seedu.duke.Exceptions.LemonException;
-import seedu.duke.Tasks.Todo;
-import seedu.duke.datafile.Storage;
-import seedu.duke.tasklist.TaskList;
-import seedu.duke.ui.Ui;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import seedu.duke.datafile.Storage;
+import seedu.duke.exceptions.LemonException;
+import seedu.duke.tasklist.TaskList;
+import seedu.duke.tasks.Todo;
+import seedu.duke.ui.Ui;
+
 
 public class ParserTest {
     private TaskList tasks;
@@ -50,7 +52,9 @@ public class ParserTest {
         try {
             Parser.parseTasks("??", tasks, storage, ui);
         } catch (Exception e) {
-            assertEquals(":( OPPS!!! I'm sorry, but I don't know what ?? means :-( \n Please add todo/ deadline / event before your task description~ or other commands like mark, unmark & delete", e.getMessage());
+            assertEquals(":( OPPS!!! I'm sorry, but I don't know what ?? means :-( \n "
+                    + "Please add todo/ deadline / event before your task description~ or other commands "
+                    + "like mark, unmark & delete", e.getMessage());
         }
     }
 

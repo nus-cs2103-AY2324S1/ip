@@ -1,13 +1,10 @@
 package seedu.duke.ui;
 
-import seedu.duke.Exceptions.InvalidTaskIndexException;
-import seedu.duke.Exceptions.KeywordNotFoundException;
-import seedu.duke.Tasks.Task;
-import seedu.duke.Tasks.Task;
-import seedu.duke.tasklist.TaskList;
-
 import java.util.ArrayList;
-import java.util.Scanner;
+
+import seedu.duke.exceptions.InvalidTaskIndexException;
+import seedu.duke.tasklist.TaskList;
+import seedu.duke.tasks.Task;
 
 /**
  * The Ui class is responsible for handling user interface interactions and displaying messages to the user.
@@ -40,7 +37,7 @@ public class Ui {
      * Displays a message after marking a task as done.
      *
      * @param toMarkTask The task that was marked as done.
-     * @param tasks      The TaskList object containing the task list.
+     * @param tasks The TaskList object containing the task list.
      */
     public void markPrint(String toMarkTask, TaskList tasks) {
         System.out.println("Nice! I've marked this task as done:\n " + toMarkTask + "\n");
@@ -51,7 +48,7 @@ public class Ui {
      * Displays a message after unmarking a task as undone.
      *
      * @param toUnmarkTask The task that was marked as undone.
-     * @param tasks        The TaskList object containing the task list.
+     * @param tasks The TaskList object containing the task list.
      */
     public void unmarkPrint(String toUnmarkTask, TaskList tasks) {
         System.out.println("OK, I've marked this task as not done yet:\n " + toUnmarkTask + "\n");
@@ -62,7 +59,7 @@ public class Ui {
      * Displays a message after deleting a task.
      *
      * @param toDeleteTask The task that was deleted.
-     * @param tasks        The TaskList object containing the task list without the deleted task.
+     * @param tasks The TaskList object containing the task list without the deleted task.
      */
     public void deletePrint(String toDeleteTask, TaskList tasks) {
         System.out.println("Noted. I've removed this task:\n" + toDeleteTask);
@@ -73,7 +70,7 @@ public class Ui {
      * Displays a message after adding a task.
      *
      * @param toAddTask The task that was added.
-     * @param tasks     The TaskList object containing the task list with the added task.
+     * @param tasks The TaskList object containing the task list with the added task.
      */
     public void addTasks(String toAddTask, TaskList tasks) {
         System.out.println("Got it. I've added this task: " + toAddTask);
@@ -96,6 +93,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Lists all tasks in the task list.
+     *
+     * @param tasks The TaskList object containing the task list.
+     */
     public void listMatching(ArrayList<Task> tasks) {
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println(i + 1 + ". " + tasks.get(i).toString());
