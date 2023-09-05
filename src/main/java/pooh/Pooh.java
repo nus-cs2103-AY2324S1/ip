@@ -61,6 +61,10 @@ public class Pooh {
         }
     }
 
+    public String getResponse(String input) {
+        return "hi!";
+    }
+
     /**
      * The main entry point of the application.
      *
