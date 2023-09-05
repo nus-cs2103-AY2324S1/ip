@@ -41,6 +41,7 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         profile.setFill(new ImagePattern(img));
+        profile.setStyle("-fx-padding: 20 20 20 20;");
     }
 
     /**

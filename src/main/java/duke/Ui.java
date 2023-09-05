@@ -23,6 +23,12 @@ public class Ui {
         System.out.println("Hello! I'm " + chatBotName);
         System.out.println("What can I do for you?");
     }
+
+    public String welcomeMessage() {
+        String chatBotName = "Benedict Cucumber Badge";
+        String welcomeMessage = "Hello! I'm " + chatBotName + "\n" + "What can I do for you?";
+        return welcomeMessage;
+    }
     /**
      * Reads the user's command
      * @return the user's command
