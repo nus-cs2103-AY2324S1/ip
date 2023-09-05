@@ -8,7 +8,17 @@ import duke.task.TaskList;
 
 import java.util.ArrayList;
 
+/**
+ * The UnmarkCommand class represents a command to mark a task as not done.
+ * It is a subclass of the Command class.
+ */
 public class UnmarkCommand extends Command {
+
+    /**
+     * Constructs an UnmarkCommand object with the provided command details.
+     *
+     * @param commandDetails The list of command details, which includes the task number to mark as not done.
+     */
     public UnmarkCommand(ArrayList<String> commandDetails) {
         super(commandDetails);
     }
@@ -30,6 +40,13 @@ public class UnmarkCommand extends Command {
         ui.printTaskMarked(unmarkedTask);
     }
 
+    /**
+     * Checks if this UnmarkCommand is equal to another object. Two UnmarkCommands are considered equal
+     * if they have the same command details.
+     *
+     * @param obj The object to compare to this UnmarkCommand.
+     * @return True if the objects are equal, false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

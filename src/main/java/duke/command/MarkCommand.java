@@ -8,7 +8,17 @@ import duke.task.TaskList;
 
 import java.util.ArrayList;
 
+/**
+ * The MarkCommand class represents a command to mark a task as done.
+ * It is a subclass of the Command class.
+ */
 public class MarkCommand extends Command {
+
+    /**
+     * Constructs a MarkCommand object with the provided command details.
+     *
+     * @param commandDetails The list of command details, which includes the task number to mark as done.
+     */
     public MarkCommand(ArrayList<String> commandDetails) {
         super(commandDetails);
     }
@@ -30,6 +40,13 @@ public class MarkCommand extends Command {
         ui.printTaskMarked(markedTask);
     }
 
+    /**
+     * Checks if this MarkCommand is equal to another object. Two MarkCommands are considered equal
+     * if they have the same command details.
+     *
+     * @param obj The object to compare to this MarkCommand.
+     * @return True if the objects are equal, false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
