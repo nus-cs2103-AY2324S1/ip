@@ -1,5 +1,9 @@
-find skd
-mark 4
-unmark 2
+todo asdkfja 25/25
+deadline as /by 2012/06/06
+event hi /from 10:00 /to 08:00 23/12/2023
+list
+mark 2
+unmark 1
+find as
 list
 bye

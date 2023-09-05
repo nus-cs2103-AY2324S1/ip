@@ -1,5 +1,8 @@
 package duke.utils;
 
+/**
+ * @author juzzztinsoong
+ */
 public enum DukeEnum {
 
     LIST("list"),
@@ -12,7 +15,7 @@ public enum DukeEnum {
     BYE("bye"),
     FIND("find");
 
-    public String text;
+    private String text;
 
     DukeEnum(String text) {
         this.text = text;
@@ -20,8 +23,6 @@ public enum DukeEnum {
 
     /**
      * Returns the string associated with each enum to enable the enum mapping.
-     * 
-     * 
      * @return the text associated with each enum.
      */
     public String getText() {

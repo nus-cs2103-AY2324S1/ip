@@ -1,9 +1,11 @@
 package duke.exceptions;
 
-public class InvalidNumberException extends DukeException{
+/**
+ * @author juzzztinsoong
+ */
+public class InvalidNumberException extends DukeException {
 
     public InvalidNumberException() {
         super("You didn't specify the task number!");
     }
-    
 }

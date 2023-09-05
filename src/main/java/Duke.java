@@ -5,12 +5,19 @@ import duke.utils.Parser;
 import duke.utils.Storage;
 import duke.utils.Ui;
 
+/**
+ * @author juzzztinsoong
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasklist;
     private Ui ui;
 
+    /**
+     * Constructor method for Duke.
+     * @param filepath duke.txt filepath.
+     */
     public Duke(String filepath) {
         ui = new Ui();
         storage = new Storage(filepath);
@@ -50,7 +57,6 @@ public class Duke {
 
     /**
      * Entry point for Duke. This is the main method that will be called.
-     * 
      * @param args Command line arguments not used in this program.
      */
     public static void main(String[] args) {

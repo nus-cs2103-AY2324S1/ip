@@ -3,12 +3,23 @@ package duke.utils;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import duke.commands.*;
+import duke.commands.ByeCommand;
+import duke.commands.Command;
+import duke.commands.DeadlineCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.EventCommand;
+import duke.commands.FindCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkDoneCommand;
+import duke.commands.TodoCommand;
 import duke.exceptions.DukeException;
 import duke.exceptions.IncorrectFormatException;
 import duke.exceptions.InvalidCommandException;
 import duke.exceptions.InvalidNumberException;
 
+/**
+ * @author juzzztinsoong
+ */
 public class Parser {
 
     public Parser() {
@@ -29,7 +40,6 @@ public class Parser {
      * Strings.
      * If there is only one word in the input it returns an array of the input and
      * an empty string.
-     * 
      * @param input the command given by the user.
      */
     private static String[] parseInput(String input) {
@@ -46,7 +56,6 @@ public class Parser {
     /**
      * Parses file path and returns array of Strings representing each level in the
      * file path.
-     * 
      * @param input path to be parsed.
      */
     public static String[] parseFilePath(String input) {
@@ -63,7 +72,6 @@ public class Parser {
     /**
      * Parses an input into an integer. This is used to determine which element in a
      * list to perform an operation on.
-     * 
      * @param input string to be parsed. Must be non-null and a valid integer.
      * @return The index of the input if input is valid.
      * @throws InvalidNumberException if input isn't valid.
@@ -80,7 +88,6 @@ public class Parser {
      * Parses the input and returns a DateTimeWrapper. This is a convenience method
      * for deadlineParser and eventParser that will try to parse the date and time
      * out of the input.
-     * 
      * @param input the input to parse. Must be non-null and a valid date or time or
      *              both.
      * @return a DateTimeWrapper that contains the date and time of the input if
@@ -132,7 +139,6 @@ public class Parser {
     /**
      * Parses a string and returns a ToDoCommand. If the string is empty an
      * IncorrectFormatException is thrown.
-     * 
      * @param input the description of the task.
      * @param isDone true if task is completed.
      * @return a ToDoCommand that can be executed on behalf of the user.
@@ -150,7 +156,6 @@ public class Parser {
 
     /**
      * Parses the input and returns a DeadlineCommand.
-     * 
      * @param input the string to parse. Must be in the format
      *              "description isDone /by time/date/both".
      * @param isDone true if task is completed.
@@ -181,7 +186,6 @@ public class Parser {
 
     /**
      * Parses the input string and returns an EventCommand.
-     * 
      * @param input the string to parse. Must be in the format
      *              "description isDone /from time/date/both /to time/date/both".
      * @param isDone true if task is completed.
@@ -233,7 +237,6 @@ public class Parser {
     /**
      * Parses a file line and returns a Command. This is a helper method for loading
      * stored data into the tasklist.
-     * 
      * @param input the input to be parsed.
      * @return a Command based on the input string or null if there was an error
      *         parsing the input.
@@ -260,7 +263,6 @@ public class Parser {
     /**
      * Parses the input and returns a Command. This method is used to parse command
      * arguments that are sent to Duke.
-     * 
      * @param input String that contains the command and arguments. Must be non-null
      *              and valid.
      * @return Command parsed from the input.
@@ -304,7 +306,6 @@ public class Parser {
     /**
      * Maps a Duke command to a Duke enum. This is used to determine which command
      * to run for each user input.
-     * 
      * @param command String representation of the command.
      * @return The enum corresponding to the command or null if none is found in the
      *         enum.

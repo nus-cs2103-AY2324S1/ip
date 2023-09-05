@@ -15,10 +15,17 @@ import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.tasks.TaskList;
 
+/**
+ * @author juzzztinsoong
+ */
 public class Storage {
 
     private Path path;
 
+    /**
+     * Constructor method for Storage.
+     * @param filepath duke.txt filepath.
+     */
     public Storage(String filepath) {
         String homedir = new File(System.getProperty("user.dir")).getParent();
         String[] splitFilepath = Parser.parseFilePath(filepath);
@@ -27,7 +34,6 @@ public class Storage {
 
     /**
      * Loads saved data and returns the tasklist.
-     * 
      * @return the tasklist that was loaded from the file.
      */
     public TaskList loadFromFile() throws DukeException {
@@ -55,7 +61,6 @@ public class Storage {
     /**
      * Writes tasklist to file. This method is used to write a file to the file
      * system. The file is created if it does not exist.
-     * 
      * @param tasklist the tasklist to write to file.
      */
     public void writeToFile(TaskList tasklist) throws DukeException {

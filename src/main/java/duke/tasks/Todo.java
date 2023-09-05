@@ -1,5 +1,8 @@
 package duke.tasks;
 
+/**
+ * @author juzzztinsoong
+ */
 public class Todo extends Task {
 
     public Todo(String description, boolean isDone) {
@@ -9,7 +12,6 @@ public class Todo extends Task {
     /**
      * Returns a String representation of this Todo. The format is "[T][StatusIcon]
      * Description"
-     * 
      * @return a String representation of this Todo.
      */
     @Override
@@ -22,7 +24,6 @@ public class Todo extends Task {
      * Description.
      * Note that this is different from toString() as it is used for encoding data
      * in the file.
-     * 
      * @return a string representation of this Todo for storage in the file.
      */
     @Override

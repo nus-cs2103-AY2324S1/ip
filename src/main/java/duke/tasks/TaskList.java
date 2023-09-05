@@ -1,14 +1,16 @@
 package duke.tasks;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import duke.exceptions.DukeException;
 import duke.exceptions.InvalidNumberException;
 import duke.exceptions.NoSuchEntryException;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
+/**
+ * @author juzzztinsoong
+ */
 public class TaskList {
     protected ArrayList<Task> list;
 
@@ -18,7 +20,6 @@ public class TaskList {
 
     /**
      * Adds a Todo to the list.
-     * 
      * @param description the description of the todo.
      * @param isDone true if todo is done, false otherwise.
      * @return the string format of the newly added Todo in the list to display to
@@ -32,7 +33,6 @@ public class TaskList {
 
     /**
      * Adds a Deadline to the list.
-     *
      * @param description the description of the deadline. Cannot be empty.
      * @param isDone true if the deadline is done, false otherwise.
      * @param byDate the date to use for the deadline. Will not be displayed if null.
@@ -48,7 +48,6 @@ public class TaskList {
 
     /**
      * Adds an Event to the list.
-     * 
      * @param description the description of the deadline. Cannot be empty.
      * @param isDone true if the deadline is done, false otherwise.
      * @param fromDate the date to use for the event start. Will not be displayed if null.
@@ -67,7 +66,6 @@ public class TaskList {
 
     /**
      * Sets or unsets task as done at the specified index.
-     * 
      * @param isDone true to mark the task as done, false to unmark it.
      * @param index the index of the task.
      * @return a string describing the status of the operation to display to the
@@ -106,7 +104,6 @@ public class TaskList {
     /**
      * Deletes the entry at the specified index. This method is called by Duke to
      * delete an entry from the list.
-     * 
      * @param index index of the entry to delete.
      * @return a String with information about the operation that was performed.
      * @throws DukeException if the operation was not successful or index was
@@ -130,7 +127,6 @@ public class TaskList {
 
     /**
      * Returns a string containing all the tasks with the given description.
-     * 
      * @return a string representation of the list in the form of a list of Task
      *         objects separated by new lines.
      */
@@ -151,11 +147,10 @@ public class TaskList {
         }
         return String.format("There were no tasks containing %s.", description);
     }
-    
+
     /**
      * Returns a string representation of the list of all tasks to display to the
      * user.
-     * 
      * @return a string representation of the list in the form of a list of Task
      *         objects separated by new lines.
      */
@@ -174,10 +169,8 @@ public class TaskList {
         return list.size() == 0;
     }
 
-    
     /**
      * Removes and retreives the first item in the list to save to file.
-     * 
      * @return String containing the file
      */
     public String clearList() {

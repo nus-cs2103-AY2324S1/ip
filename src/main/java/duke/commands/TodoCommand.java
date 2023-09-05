@@ -4,6 +4,9 @@ import duke.tasks.TaskList;
 import duke.utils.Storage;
 import duke.utils.Ui;
 
+/**
+ * @author juzzztinsoong
+ */
 public class TodoCommand extends TaskCommand {
 
     public TodoCommand(String description, boolean isDone) {

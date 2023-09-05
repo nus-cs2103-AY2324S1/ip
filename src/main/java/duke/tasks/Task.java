@@ -1,5 +1,8 @@
 package duke.tasks;
 
+/**
+ * @author juzzztinsoong
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -11,7 +14,6 @@ public abstract class Task {
 
     /**
      * Returns the icon to use for the status.
-     * 
      * @return the icon to use for the status or blank if task is not done.
      */
     protected String getStatusIcon() {
@@ -20,7 +22,6 @@ public abstract class Task {
 
     /**
      * Sets the status of the task as done or not done.
-     * 
      * @param isDone true if done, false otherwise.
      */
     protected void setDone(boolean isDone) {
@@ -28,9 +29,8 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string representation of this Task. The string is formatted as 
+     * Returns a string representation of this Task. The string is formatted as
      * "[ ][StatusIcon] Description"
-     * 
      * @return a string representation of this Task.
      */
     public String toString() {
@@ -42,8 +42,6 @@ public abstract class Task {
      * Description.
      * Note that this is different from toString() as it is used for encoding data
      * in the file.
-     * 
-     * 
      * @return a string representation of this Task for storage in the file.
      */
     public String toFileString() {
