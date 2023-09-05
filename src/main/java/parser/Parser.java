@@ -5,7 +5,16 @@ import enums.CommandWord;
 
 import java.util.ArrayList;
 
+/**
+ * The `Parser` class is responsible for parsing user commands and creating corresponding `Command` objects.
+ */
 public class Parser {
+    /**
+     * Parses a raw user command and returns the corresponding `Command` object.
+     *
+     * @param rawCommand The raw user command.
+     * @return A `Command` object representing the parsed command.
+     */
     public static Command parse(String rawCommand) {
         switch (CommandWord.commandWordToValueMap(getArgs(rawCommand)[0])) {
             case BYE:
@@ -29,6 +38,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Splits a raw user command into individual arguments.
+     *
+     * @param rawCommand The raw user command.
+     * @return An array of individual arguments.
+     */
     public static String[] getArgs(String rawCommand) {
         ArrayList<String> result = new ArrayList<>();
         String[] words = rawCommand.split("\\s+");
