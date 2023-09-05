@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- <fx:root> is a special element used to define the root element of a CUSTOM component.
+     For maxHeight/maxWidth, might as well use -Infinity? type="extending control/layout" -->
+
+<!-- Alignment and clipping is set programmatically -->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="400.0" type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/19.0.4" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="messageText" text="Label" wrapText="true" HBox.hgrow="ALWAYS" textFill="black">
+            <padding>
+                <Insets topRightBottomLeft="5.0"/>
+            </padding>
+            <font>
+                <Font name="Baskerville" size="13.0"/>
+            </font>
+            <HBox.margin>
+                <Insets right="10.0"/>
+            </HBox.margin>
+        </Label>
+        <AnchorPane>
+            <children>
+                <!-- fitWidth & fitHeight sets the dimensions to which displayPicture will be displayed.
+                     pickOnBounds specifies that ImageView should respond to mouse events based on its
+                     visual bounds.-->
+                <ImageView fx:id="messageImage" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true"
+                           preserveRatio="true" AnchorPane.bottomAnchor="0.0"/>
+            </children>
+            <HBox.margin>
+                <Insets right="10.0"/>
+            </HBox.margin>
+        </AnchorPane>
+    </children>
+    <padding>
+        <!-- I assume that this is applied to the entire custom component. -->
+        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0"/>
+    </padding>
+    <cursor>
+        <Cursor fx:constant="TEXT"/>
+    </cursor>
+</fx:root>
