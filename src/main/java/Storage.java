@@ -4,14 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.FileOutputStream;
 
+/**
+ * Manages the loading and saving of tasks from/to a file.
+ */
 public class Storage {
     private File file;
     private String filePath;
 
+    /**
+     * Initializes a storage manager with the specified file path.
+     *
+     * @param filePath The path to the file where tasks will be stored.
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
     }
 
+    /**
+     * Loads tasks from the file and returns them as a list.
+     *
+     * @return A list of tasks loaded from the file.
+     */
     public List<Task> loadTasks() {
         List<Task> tasks = new ArrayList<>();
         try {
@@ -57,6 +70,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks from a task list to the file.
+     *
+     * @param taskList The task list containing tasks to be saved.
+     */
     public void saveTasks(TaskList taskList) {
         StringBuffer inputString = new StringBuffer();
         for (Task task: taskList.getTasks()) {

@@ -1,3 +1,6 @@
+/**
+ * Parses user commands and performs actions based on the parsed command.
+ */
 public class Parser {
 
     private enum Commands {
@@ -7,11 +10,23 @@ public class Parser {
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Initializes a parser with a user interface and a task list.
+     *
+     * @param ui       The user interface for displaying messages.
+     * @param taskList The task list for managing tasks.
+     */
     public Parser(Ui ui, TaskList taskList) {
         this.ui = ui;
         this.taskList = taskList;
     }
 
+    /**
+     * Parses a user command and performs the corresponding action.
+     *
+     * @param command The user's input command.
+     * @return True if the command was successfully parsed and executed, false otherwise.
+     */
     public boolean parseCommand(String command) {
         Commands cmd = Commands.invalid;
         for (Commands c : Commands.values()) {
