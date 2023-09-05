@@ -30,13 +30,14 @@ public class ListCommand extends Command {
     /**
      * Executes the command.
      *
-     * @param tasks List of tasks.
-     * @param ui UI of the application.
+     * @param tasks   List of tasks.
+     * @param ui      UI of the application.
      * @param storage Object to handle data storage.
+     * @return
      */
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
-        tasks.printContents();
+    public String execute(TaskList tasks, UI ui, Storage storage) {
+        return ui.getAllTasksMessage(tasks);
     }
 
     /**

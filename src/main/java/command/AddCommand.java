@@ -68,34 +68,33 @@ public class AddCommand extends Command {
     /**
      * Executes the command.
      *
-     * @param tasks List of tasks.
-     * @param ui UI of the application.
+     * @param tasks   List of tasks.
+     * @param ui      UI of the application.
      * @param storage Object to handle data storage.
+     * @return
      * @throws DukeException If error encountered when saving data.
      */
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws StorageException {
+    public String execute(TaskList tasks, UI ui, Storage storage) throws StorageException {
         switch (super.params.get(0)) {
         case AddCommand.COMMAND_ADD_TODO:
             ToDo newTodo = new ToDo(params.get(1));
             Task task = tasks.add(newTodo);
-            ui.printTaskAddedMessage(task, tasks.getTaskCount());
             tasks.saveState(storage);
-            break;
+            return ui.getTaskAddedMessage(task, tasks.getTaskCount());
         case AddCommand.COMMAND_ADD_DEADLINE:
             Deadline newDeadline = new Deadline(params.get(1),
                     LocalDateTime.parse(params.get(2), DATE_TIME_INPUT_FORMATTER));
             task = tasks.add(newDeadline);
-            ui.printTaskAddedMessage(task, tasks.getTaskCount());
             tasks.saveState(storage);
-            break;
+            return ui.getTaskAddedMessage(task, tasks.getTaskCount());
         default:
             Event newEvent = new Event(params.get(1),
                     LocalDateTime.parse(params.get(2), DATE_TIME_INPUT_FORMATTER),
                     LocalDateTime.parse(params.get(3), DATE_TIME_INPUT_FORMATTER));
             task = tasks.add(newEvent);
-            ui.printTaskAddedMessage(task, tasks.getTaskCount());
             tasks.saveState(storage);
+            return ui.getTaskAddedMessage(task, tasks.getTaskCount());
         }
     }
 

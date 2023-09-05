@@ -30,14 +30,15 @@ public class ExitCommand extends Command {
     /**
      * Executes the command.
      *
-     * @param tasks List of tasks.
-     * @param ui UI of the application.
+     * @param tasks   List of tasks.
+     * @param ui      UI of the application.
      * @param storage Object to handle data storage.
+     * @return
      */
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
-        ui.printGoodbyeMessage();
+    public String execute(TaskList tasks, UI ui, Storage storage) {
         ui.closeUi();
+        return ui.getGoodbyeMessage();
     }
 
     /**

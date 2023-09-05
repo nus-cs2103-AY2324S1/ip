@@ -32,15 +32,16 @@ public class OnCommand extends Command {
     /**
      * Executes the command.
      *
-     * @param tasks List of tasks.
-     * @param ui UI of the application.
+     * @param tasks   List of tasks.
+     * @param ui      UI of the application.
      * @param storage Object to handle data storage.
+     * @return
      */
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
+    public String execute(TaskList tasks, UI ui, Storage storage) {
         LocalDate date = LocalDate.parse(params.get(1));
         ArrayList<Task> tasksOnDate = tasks.getTasksOn(date);
-        ui.printTasksOn(tasksOnDate);
+        return ui.getTasksOn(tasksOnDate);
     }
 
     /**

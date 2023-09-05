@@ -155,6 +155,15 @@ public class TaskList {
         storage.saveData(stringRepresentation);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < this.tasks.size(); i++) {
+            sb.append((i + 1) + "." + this.tasks.get(i) + "\n");
+        }
+        return sb.toString();
+    }
+
     /**
      * Loads the tasks from a file.
      *

@@ -4,18 +4,6 @@ import java.io.FileNotFoundException;
 import java.time.format.DateTimeFormatter;
 
 import command.Command;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * A chatbot. Able to read user input and perform a series of tasks.
@@ -41,7 +29,7 @@ public class Duke {
         try {
             this.tasks = new TaskList(storage.loadData());
         } catch (FileNotFoundException e) {
-            ui.printLoadingErrorMessage();
+            ui.getLoadingErrorMessage();
             this.tasks = new TaskList();
         }
     }
@@ -55,7 +43,7 @@ public class Duke {
         try {
             this.tasks = new TaskList(storage.loadData());
         } catch (FileNotFoundException e) {
-            ui.printLoadingErrorMessage();
+            ui.getLoadingErrorMessage();
             this.tasks = new TaskList();
         }
     }
@@ -64,7 +52,7 @@ public class Duke {
      * Runs the chatbot.
      */
     public void run() {
-        ui.printWelcomeMessage();
+        ui.getWelcomeMessage();
         String input;
 
         while (true) {
@@ -85,11 +73,13 @@ public class Duke {
         new Duke("./data/state.txt").run();
     }
 
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
     String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            Command command = Parser.parseUserInput(input);
+            String response = command.execute(tasks, ui, storage);
+            return response;
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 }

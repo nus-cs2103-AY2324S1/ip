@@ -31,14 +31,15 @@ public class FindCommand extends Command {
     /**
      * Executes the command.
      *
-     * @param tasks List of tasks.
-     * @param ui UI of the application.
+     * @param tasks   List of tasks.
+     * @param ui      UI of the application.
      * @param storage Object to handle data storage.
+     * @return
      */
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
+    public String execute(TaskList tasks, UI ui, Storage storage) {
         ArrayList<Task> tasksContainingKeyword = tasks.getTasksContainingKeyword(params.get(1));
-        ui.printTasksMatching(tasksContainingKeyword);
+        return ui.getTasksMatching(tasksContainingKeyword);
     }
 
     /**
