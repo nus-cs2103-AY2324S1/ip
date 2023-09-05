@@ -2,6 +2,7 @@ package duke.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JTextArea;
 
 /**
  * Represents a deadline task.
@@ -30,12 +31,13 @@ public class Deadline extends Task {
     }
 
     /**
-     * Converts the deadline task into a string.
+     * Converts the deadline task into a string and display it.
      *
-     * @return String representation of the deadline task.
+     * @param chatArea JTextArea where the message will be displayed.
      */
-    @Override
-    public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+    public void display(JTextArea chatArea) {
+        chatArea.append("[D]");
+        super.display(chatArea);
+        chatArea.append(" (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")\n");
     }
 }

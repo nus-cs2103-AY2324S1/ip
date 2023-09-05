@@ -3,6 +3,7 @@ package duke.command;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import javax.swing.JTextArea;
 
 import duke.exception.DukeException;
 import duke.parser.Parser;
@@ -44,13 +45,13 @@ public class AddCommand extends Command {
      * @param tasks   The list of tasks.
      * @param ui      The user interface.
      * @param storage The data storage.
+     * @param chatArea JTextArea for displaying messages in the GUI.
      */
     @Override
-    public void doCommand(ArrayList<Task> tasks, Ui ui, Storage storage) {
+    public void doCommand(ArrayList<Task> tasks, Ui ui, Storage storage, JTextArea chatArea) {
         try {
             if (taskDescription.isEmpty()) {
-                Ui.showHorizontalLine();
-                throw new DukeException("    Unable to add new task. Task description cannot be empty.");
+                throw new DukeException("Unable to add new task. Task description cannot be empty.");
             }
 
             Task newTask;
@@ -60,12 +61,15 @@ public class AddCommand extends Command {
                 newTask = new Todo(taskDescription);
                 break;
             case DEADLINE:
-                LocalDate byDate = Parser.parseDate(additionalInfo1);
+                LocalDate byDate = Parser.parseDate(additionalInfo1, chatArea);
                 newTask = new Deadline(taskDescription, byDate);
                 break;
             case EVENT:
-                LocalDateTime fromDate = Parser.parseDateTime(additionalInfo1);
-                LocalDateTime toDate = Parser.parseDateTime(additionalInfo2);
+                LocalDateTime fromDate = Parser.parseDateTime(additionalInfo1, chatArea);
+                LocalDateTime toDate = Parser.parseDateTime(additionalInfo2, chatArea);
+                if (fromDate == null || toDate == null) {
+                    return;
+                }
                 newTask = new Event(taskDescription, fromDate, toDate);
                 break;
             default:
@@ -74,13 +78,13 @@ public class AddCommand extends Command {
 
             tasks.add(newTask);
 
-            Ui.showHorizontalLine();
-            System.out.println("    Got it. I've added this task:\n" + "     " + newTask);
-            System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
-            Ui.showHorizontalLine();
-            storage.saveTasks(tasks);
+            chatArea.append("Got it. I've added this task:\n");
+            newTask.display(chatArea);
+            chatArea.append("Now you have " + tasks.size() + " tasks in the list.\n");
+
+            storage.saveTasks(tasks, chatArea);
         } catch (DukeException e) {
-            System.out.println(e.getMessage());
+            chatArea.append(e.getMessage() + "\n");
         }
     }
 }

@@ -2,6 +2,7 @@ package duke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JTextArea;
 
 /**
  * Represents an event task.
@@ -42,13 +43,14 @@ public class Event extends Task {
     }
 
     /**
-     * Converts the event task into a string.
+     * Converts the event task into a string and displays it in the given JTextArea.
      *
-     * @return String representation of the event task.
+     * @param chatArea JTextArea where the message will be displayed.
      */
-    @Override
-    public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a"))
-                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a")) + ")";
+    public void display(JTextArea chatArea) {
+        chatArea.append("[E]");
+        super.display(chatArea);
+        chatArea.append(" (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a"))
+                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a")) + ")\n");
     }
 }

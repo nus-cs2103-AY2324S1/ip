@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import javax.swing.JTextArea;
 
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +33,7 @@ public class MarkCommandTest {
         tasks.add(task3);
 
         MarkCommand markCommand = new MarkCommand(2);
-        markCommand.doCommand(tasks, new Ui(), new Storage("./data/dummy.txt"));
+        markCommand.doCommand(tasks, new Ui(), new Storage("./data/dummy.txt"), new JTextArea());
 
         assertTrue(task2.isTaskDone());
     }
@@ -52,7 +53,7 @@ public class MarkCommandTest {
         tasks.add(task3);
 
         MarkCommand markCommand = new MarkCommand(1);
-        markCommand.doCommand(tasks, new Ui(), new Storage("./data/dummy.txt"));
+        markCommand.doCommand(tasks, new Ui(), new Storage("./data/dummy.txt"), new JTextArea());
 
         assertFalse(task3.isTaskDone());
     }

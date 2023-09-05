@@ -3,6 +3,7 @@ package duke.command;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import javax.swing.JTextArea;
 
 import duke.storage.Storage;
 import duke.task.Deadline;
@@ -31,31 +32,30 @@ public class MarkCommand extends Command {
      * @param tasks   The list of tasks.
      * @param ui      The user interface.
      * @param storage The data storage.
+     * @param chatArea JTextArea for displaying messages in the GUI.
      */
     @Override
-    public void doCommand(ArrayList<Task> tasks, Ui ui, Storage storage) {
+    public void doCommand(ArrayList<Task> tasks, Ui ui, Storage storage, JTextArea chatArea) {
         if (taskNum >= 1 && taskNum <= tasks.size()) {
             Task task = tasks.get(taskNum - 1);
 
             task.mark();
-            Ui.showHorizontalLine();
-            System.out.println("    Nice! I've marked this task as done:");
-            System.out.print("      [" + task.getStatusIcon() + "] " + task.getDescription());
+            chatArea.append("Nice! I've marked this task as done:\n");
+            chatArea.append("[" + task.getStatusIcon() + "] " + task.getDescription());
 
             // Additional information
             if (task instanceof Event) {
                 LocalDateTime from = ((Event) task).getFrom();
                 LocalDateTime to = ((Event) task).getTo();
-                System.out.print(" (from: " + from + " to: " + to + ")");
+                chatArea.append(" (from: " + from + " to: " + to + ")");
             } else if (task instanceof Deadline) {
                 LocalDate by = ((Deadline) task).getBy();
-                System.out.print(" (by: " + by + ")");
+                chatArea.append(" (by: " + by + ")");
             }
 
-            System.out.print("\n");
+            chatArea.append("\n");
 
-            Ui.showHorizontalLine();
-            storage.saveTasks(tasks); // Save after marking
+            storage.saveTasks(tasks, chatArea); // Save after marking
         }
     }
 }

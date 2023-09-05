@@ -1,6 +1,7 @@
 package duke.command;
 
 import java.util.ArrayList;
+import javax.swing.JTextArea;
 
 import duke.storage.Storage;
 import duke.task.Task;
@@ -23,8 +24,9 @@ public abstract class Command {
      * @param tasks   The list of tasks.
      * @param ui      The user interface.
      * @param storage The data storage.
+     * @param chatArea JTextArea for displaying messages in the GUI.
      */
-    public abstract void doCommand(ArrayList<Task> tasks, Ui ui, Storage storage);
+    public abstract void doCommand(ArrayList<Task> tasks, Ui ui, Storage storage, JTextArea chatArea);
 
     /**
      * Extracts the task number from the user input.

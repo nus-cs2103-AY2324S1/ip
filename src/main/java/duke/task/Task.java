@@ -3,6 +3,7 @@ package duke.task;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JTextArea;
 
 /**
  * Represents a task.
@@ -147,12 +148,11 @@ public class Task {
     }
 
     /**
-     * Converts the task into a string.
+     * Displays the task information.
      *
-     * @return String representation of the task.
+     * @param chatArea JTextArea where the message will be displayed.
      */
-    @Override
-    public String toString() {
-        return "[" + getStatusIcon() + "]" + " " + getDescription();
+    public void display(JTextArea chatArea) {
+        chatArea.append("[" + getStatusIcon() + "] " + getDescription());
     }
 }

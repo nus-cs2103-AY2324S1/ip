@@ -6,3 +6,13 @@ D | 1 | buy book | 2023-09-21
 D | 0 | buy food | 2023-08-29
 T | 0 | watch movie
 D | 1 | return book | 2023-10-02
+T | 1 | buy lunch
+T | 1 | shower
+T | 0 | eat
+T | 0 | buy jam
+T | 0 | eat
+T | 0 | eat waffle
+T | 0 | swimming
+D | 0 | do laundry | 2023-09-06
+D | 0 | sleep | 2023-09-06
+E | 0 | meeting2 | 2023-10-10 1400 | 2023-10-10 1530

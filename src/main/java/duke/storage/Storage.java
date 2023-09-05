@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextArea;
 
 import duke.task.Task;
 
@@ -31,7 +32,7 @@ public class Storage {
      *
      * @return The list of tasks.
      */
-    public ArrayList<Task> loadTasks() {
+    public ArrayList<Task> loadTasks(JTextArea chatArea) {
         // Load tasks from the file and return them
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -39,13 +40,13 @@ public class Storage {
 
         // Create the parent folder if it doesn't exist
         if (!folder.exists() && !folder.mkdirs()) {
-            System.err.println("Unable to create directory: " + folder.getAbsolutePath());
+            chatArea.append("Unable to create directory: " + folder.getAbsolutePath() + "\n");
             return tasks; // Return an empty list
         }
 
         try {
             if (!file.exists() && !file.createNewFile()) {
-                System.err.println("Unable to create file: " + filePath);
+                chatArea.append("Unable to create file: " + filePath + "\n");
                 return tasks; // Return an empty list
             }
 
@@ -65,12 +66,12 @@ public class Storage {
                     Logger logger = Logger.getLogger(Storage.class.getName());
                     logger.log(Level.SEVERE, "Corrupted data: " + formattedTask, e);
                 } catch (IllegalArgumentException e) {
-                    System.out.println("Invalid data: " + formattedTask);
+                    chatArea.append("Invalid data: " + formattedTask + "\n");
                 }
             }
             scanner.close();
         } catch (IOException e) {
-            System.err.println("An error occurred while handling file operations: " + e.getMessage());
+            chatArea.append("An error occurred while handling file operations: " + e.getMessage() + "\n");
         } catch (Exception e) {
             Logger logger = Logger.getLogger(Storage.class.getName());
             logger.log(Level.SEVERE, "An error occurred while loading tasks", e);
@@ -79,20 +80,21 @@ public class Storage {
         return tasks;
     }
 
+
     /**
      * Saves the list of tasks to the file.
      *
-     * @param tasks The list of tasks.
+     * @param tasks    The list of tasks.
+     * @param chatArea JTextArea where the message will be displayed.
      */
-    public void saveTasks(ArrayList<Task> tasks) {
+    public void saveTasks(ArrayList<Task> tasks, JTextArea chatArea) {
         // Save tasks to the file
         try (PrintWriter writer = new PrintWriter(filePath)) {
             for (Task task : tasks) {
                 writer.println(task.toFileString());
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Error saving tasks: " + e.getMessage());
+            chatArea.append("Error saving tasks: " + e.getMessage() + "\n");
         }
     }
-
 }

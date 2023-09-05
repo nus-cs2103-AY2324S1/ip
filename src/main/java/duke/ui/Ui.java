@@ -1,6 +1,7 @@
 package duke.ui;
 
 import java.util.ArrayList;
+import javax.swing.JTextArea;
 
 import duke.task.Task;
 
@@ -11,8 +12,8 @@ public class Ui {
     /**
      * Displays the EchoBot logo.
      */
-    public static void showLogo() {
-        System.out.println("     ____        _        \n"
+    public static void showLogo(JTextArea chatArea) {
+        chatArea.append("     ____        _        \n"
                 + "    |  _ \\ _   _| | _____ \n"
                 + "    | | | | | | | |/ / _ \\\n"
                 + "    | |_| | |_| |   <  __/\n"
@@ -20,45 +21,38 @@ public class Ui {
     }
 
     /**
-     * Displays a horizontal line separator.
-     */
-    public static void showHorizontalLine() {
-        System.out.println("   ____________________________________________________________________________________");
-    }
-
-    /**
      * Displays the welcome message.
+     *
+     * @param chatArea JTextArea where the message will be displayed.
      */
-    public void showWelcomeMessage() {
-        showHorizontalLine();
-        System.out.println("    Hello! I'm EchoBot");
-        showLogo();
-        System.out.println("    What can I do for you?\n");
+    public void showWelcomeMessage(JTextArea chatArea) {
+        chatArea.append("Hello! I'm EchoBot\n");
+        showLogo(chatArea);
+        chatArea.append("What can I do for you?\n");
     }
 
     /**
      * Displays the list of tasks.
      *
-     * @param tasks The list of tasks.
+     * @param tasks    The list of tasks.
+     * @param chatArea JTextArea where the message will be displayed.
      */
-    public static void showTasks(ArrayList<Task> tasks) {
-        showHorizontalLine();
-        System.out.println("    Here are the tasks in your list:");
+    public void showTasks(ArrayList<Task> tasks, JTextArea chatArea) {
+        chatArea.append("Here are the tasks in your list:\n");
 
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.println("    " + (i + 1) + "." + task.toString());
+            chatArea.append("    " + (i + 1) + ". ");
+            task.display(chatArea);
         }
-
-        showHorizontalLine();
     }
 
     /**
      * Displays the goodbye message.
+     *
+     * @param chatArea JTextArea where the message will be displayed.
      */
-    public static void showByeMessage() {
-        showHorizontalLine();
-        System.out.println("    Bye. Hope to see you again soon!");
-        showHorizontalLine();
+    public void showByeMessage(JTextArea chatArea) {
+        chatArea.append("Bye. Hope to see you again soon!\n");
     }
 }

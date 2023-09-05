@@ -1,6 +1,7 @@
 package duke.command;
 
 import java.util.ArrayList;
+import javax.swing.JTextArea;
 
 import duke.storage.Storage;
 import duke.task.Task;
@@ -39,25 +40,23 @@ public class FindCommand extends Command {
      * @param tasks   The list of tasks.
      * @param ui      The user interface.
      * @param storage The data storage.
+     * @param chatArea JTextArea for displaying messages in the GUI.
      */
     @Override
-    public void doCommand(ArrayList<Task> tasks, Ui ui, Storage storage) {
+    public void doCommand(ArrayList<Task> tasks, Ui ui, Storage storage, JTextArea chatArea) {
         ArrayList<Task> matchingTasks = findTasks(tasks, keyword);
 
         if (!matchingTasks.isEmpty()) {
-            Ui.showHorizontalLine();
-            System.out.println("    Here are the matching tasks in your list:");
+            chatArea.append("Here are the matching tasks in your list:\n");
 
             for (int i = 0; i < matchingTasks.size(); i++) {
                 Task task = matchingTasks.get(i);
-                System.out.println("    " + (i + 1) + "." + task.toString());
+                chatArea.append((i + 1) + ". ");
+                task.display(chatArea);
             }
 
-            Ui.showHorizontalLine();
         } else {
-            Ui.showHorizontalLine();
-            System.out.println("    No tasks match the keyword: " + keyword);
-            Ui.showHorizontalLine();
+            chatArea.append("No tasks match the keyword: " + keyword + "\n");
         }
     }
 }

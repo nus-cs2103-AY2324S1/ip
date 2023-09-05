@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import javax.swing.JTextArea;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +23,7 @@ public class AddCommandTest {
 
         AddCommand addCommand = new AddCommand(Command.TaskType.TODO, "Attend lecture",
                 null, null);
-        addCommand.doCommand(tasks, ui, storage);
+        addCommand.doCommand(tasks, ui, storage, new JTextArea());
 
         assertEquals(1, tasks.size()); // Check if the task was added to the tasks list
         assertTrue(tasks.get(0) instanceof Todo); // Check if the added task is a Todo
@@ -37,7 +38,7 @@ public class AddCommandTest {
 
         AddCommand addCommand = new AddCommand(Command.TaskType.DEADLINE, "Return book",
                 "2023-09-01", null);
-        addCommand.doCommand(tasks, ui, storage);
+        addCommand.doCommand(tasks, ui, storage, new JTextArea());
 
         assertEquals(1, tasks.size());
         assertTrue(tasks.get(0) instanceof Deadline);

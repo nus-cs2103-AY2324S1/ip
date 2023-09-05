@@ -1,5 +1,7 @@
 package duke.task;
 
+import javax.swing.JTextArea;
+
 /**
  * Represents a Todo task.
  */
@@ -14,12 +16,14 @@ public class Todo extends Task {
     }
 
     /**
-     * Converts the Todo task in string representation.
+     * Converts the todo task into a string and display it.
      *
-     * @return String representation of the task.
+     * @param chatArea JTextArea where the message will be displayed.
      */
     @Override
-    public String toString() {
-        return "[T]" + super.toString();
+    public void display(JTextArea chatArea) {
+        chatArea.append("[T]");
+        super.display(chatArea);
+        chatArea.append("\n");
     }
 }
