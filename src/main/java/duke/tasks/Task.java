@@ -24,6 +24,15 @@ public abstract class Task {
     public abstract String encode();
 
     /**
+     * Gets the description of the task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
      * Gets the appropriate status icon string for the task.
      *
      * @return The status icon for the task.

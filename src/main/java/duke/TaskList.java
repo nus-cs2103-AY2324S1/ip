@@ -42,6 +42,30 @@ public class TaskList {
         return stringBuilder.toString();
     }
 
+
+    /**
+     * Searches for matching tasks.
+     *
+     * @param input The search string.
+     * @return The output string.
+     */
+    public String searchTasks(String input) {
+        StringBuilder stringBuilder = new StringBuilder(Messages.FIND_MESSAGE + "\n");
+        int filteredCount = 0;
+        for (Task task : this.tasks) {
+            if (!task.getDescription().contains(input)) {
+                continue;
+            }
+            filteredCount++;
+            stringBuilder.append(String.format(" %d.%s", filteredCount, task));
+            stringBuilder.append("\n");
+        }
+        if (filteredCount > 0) {
+            stringBuilder.setLength(stringBuilder.length() - 1);
+        }
+        return stringBuilder.toString();
+    }
+
     /**
      * Inserts a task into the list of items.
      *

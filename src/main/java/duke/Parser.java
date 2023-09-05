@@ -1,12 +1,6 @@
 package duke;
 
-import duke.commands.Command;
-import duke.commands.DeleteCommand;
-import duke.commands.ExitCommand;
-import duke.commands.InsertCommand;
-import duke.commands.ListCommand;
-import duke.commands.MarkCommand;
-import duke.commands.UnmarkCommand;
+import duke.commands.*;
 import duke.exceptions.InsufficientArgumentsException;
 import duke.exceptions.UnknownCommandException;
 import duke.tasks.Deadline;
@@ -53,6 +47,8 @@ public class Parser {
 
         this.addCommand("mark", new MarkCommand());
         this.addCommand("unmark", new UnmarkCommand());
+
+        this.addCommand("find", new FindCommand());
 
         this.addCommand(new String[]{"deadline", "event", "todo"}, new InsertCommand());
         this.addCommand(new String[]{"bye", "exit", "leave", "quit"}, new ExitCommand());
