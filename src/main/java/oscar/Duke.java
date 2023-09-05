@@ -25,10 +25,6 @@ public class Duke extends Application {
     private final Image user = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/22.png")));
     private final Image duke = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/11.png")));
 
-    public static void main(String[] args) {
-        // ...
-    }
-
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
