@@ -43,7 +43,7 @@ public class TaskListTest {
             };
             Assertions.assertArrayEquals(expectedOutput, actualOutput);
         } catch (DotException e) {
-            e.handleError();
+            System.err.println("getDisplayForTasksFallingOnDate_boundaryAndNormalDates_success test failed.");
         }
     }
 }

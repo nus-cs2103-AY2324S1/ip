@@ -1,5 +1,7 @@
 package dot.parser;
 
+import java.util.function.Consumer;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +12,8 @@ import dot.tasks.TaskList;
 
 public class ParserTest {
 
+    private final Consumer<String> consumerStub = (s) -> {};
+
     @Test
     public void parseInputToCommand_validTodoCommand_success() {
         try {
@@ -17,7 +21,7 @@ public class ParserTest {
             TaskList dotTaskList = TaskList.getNewTaskList(100, storage);
             Command cmd = Parser.parseInputToCommand("todo "
                     + " send email", dotTaskList);
-            cmd.execute();
+            cmd.execute(consumerStub);
         } catch (DotException e) {
             Assertions.fail();
         }
@@ -30,7 +34,7 @@ public class ParserTest {
             TaskList dotTaskList = TaskList.getNewTaskList(100, storage);
             Command cmd = Parser.parseInputToCommand("deadline cs2103t "
                     + "ip /by 30/8/2023 2359", dotTaskList);
-            cmd.execute();
+            cmd.execute(consumerStub);
         } catch (DotException e) {
             Assertions.fail();
         }
@@ -44,7 +48,7 @@ public class ParserTest {
             Command cmd = Parser.parseInputToCommand("event carnival "
                             + "/from 12/3/2022 1800 /to 12/4/2022 1600",
                     dotTaskList);
-            cmd.execute();
+            cmd.execute(consumerStub);
         } catch (DotException e) {
             Assertions.fail();
         }
@@ -57,7 +61,7 @@ public class ParserTest {
             TaskList dotTaskList = TaskList.getNewTaskList(100, storage);
             Command cmd = Parser.parseInputToCommand("deadline cs2103t "
                     + "ip /by", dotTaskList);
-            cmd.execute();
+            cmd.execute(consumerStub);
         } catch (DotException e) {
             Assertions.assertEquals("No deadline description given.",
                     e.getMessage());
