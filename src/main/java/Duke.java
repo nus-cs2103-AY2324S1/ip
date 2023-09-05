@@ -1,11 +1,11 @@
+import java.util.Scanner;
+
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
-
-import java.util.Scanner;
 
 /**
  * A chatbot that helps the user take note of tasks.
@@ -18,6 +18,9 @@ public class Duke {
     private Ui ui;
     private Scanner scanner;
 
+    /**
+     * Constructs an instance of the chat bot.
+     */
     public Duke() {
         this.scanner = new Scanner(System.in);
         this.ui = new Ui();

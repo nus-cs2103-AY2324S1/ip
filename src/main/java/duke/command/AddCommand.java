@@ -1,11 +1,15 @@
 package duke.command;
 
+import java.time.format.DateTimeParseException;
+
 import duke.exception.DukeException;
 import duke.storage.Storage;
-import duke.task.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
 import duke.ui.Ui;
-
-import java.time.format.DateTimeParseException;
 
 /**
  * Represent commands Todo, Deadline, Event which add tasks to the list.
@@ -47,7 +51,7 @@ public class AddCommand extends Command {
             try {
                 Task currTask = new Event(s[0], s[1], s[2]);
                 tasks.add(currTask);
-                ui.taskPrint(currTask,tasks.getTaskCount());
+                ui.taskPrint(currTask, tasks.getTaskCount());
             } catch (DateTimeParseException e) {
                 throw new DukeException("Invalid date format! Please command date using the format yyyy-MM-dd");
             }
@@ -56,7 +60,7 @@ public class AddCommand extends Command {
             try {
                 Task currTask = new Deadline(s[0], s[1]);
                 tasks.add(currTask);
-                ui.taskPrint(currTask,tasks.getTaskCount());
+                ui.taskPrint(currTask, tasks.getTaskCount());
             } catch (DateTimeParseException e) {
                 throw new DukeException("Invalid date format! Please command date using the format yyyy-MM-dd");
             }

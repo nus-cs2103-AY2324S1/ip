@@ -1,14 +1,19 @@
 package duke.storage;
 
-import duke.exception.DukeException;
-import duke.task.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Scanner;
+
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
 
 /**
  * Stores the tasks of the user.
@@ -16,9 +21,9 @@ import java.time.format.DateTimeParseException;
  * @author Armando Jovan Kusuma
  */
 public class Storage {
-    private final String DIRECTORY = "./data";
-    private final String FILE_PATH = DIRECTORY + "/duke.txt";
-    private File STORAGE_FILE;
+    private String directory = "./data";
+    private String filePath = directory + "/duke.txt";
+    private File storageFile;
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
@@ -29,14 +34,14 @@ public class Storage {
      */
     public void init() throws DukeException {
         try {
-            File dir = new File(this.DIRECTORY);
+            File dir = new File(this.directory);
             if (!dir.exists()) {
                 dir.mkdir();
             }
 
-            this.STORAGE_FILE = new File(this.FILE_PATH);
-            if (!STORAGE_FILE.exists()) {
-                STORAGE_FILE.createNewFile();
+            this.storageFile = new File(this.filePath);
+            if (!storageFile.exists()) {
+                storageFile.createNewFile();
             }
         } catch (IOException e) {
             throw new DukeException("OOPS !!! It seems that a new file cannot be created.");
@@ -52,7 +57,7 @@ public class Storage {
     public TaskList readFromFile() throws DukeException {
         try {
             TaskList listOfTasks = new TaskList();
-            Scanner scanner = new Scanner(this.STORAGE_FILE);
+            Scanner scanner = new Scanner(this.storageFile);
             while (scanner.hasNextLine()) {
                 String task = scanner.nextLine();
                 String type = task.substring(1, 2);
@@ -103,7 +108,7 @@ public class Storage {
      */
     public void writeToFile(TaskList tasks) throws DukeException {
         try {
-            FileWriter fileWriter = new FileWriter(STORAGE_FILE);
+            FileWriter fileWriter = new FileWriter(storageFile);
             for (int i = 0; i < tasks.getTaskCount(); i++) {
                 Task currTask = tasks.getTask(i);
                 fileWriter.write(currTask.toString() + "\n");

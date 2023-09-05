@@ -6,8 +6,9 @@ package duke.task;
  * @author Armando Jovan Kusuma
  */
 public class Task {
-    protected String description;
+
     private static final String LINE = "____________________________________________________________";
+    protected String description;
     protected boolean isDone;
 
     /**
