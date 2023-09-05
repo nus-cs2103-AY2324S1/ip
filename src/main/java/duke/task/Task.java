@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 /**
  * Represents a task that can be marked as done or undone.
@@ -61,6 +61,6 @@ public abstract class Task {
      *
      * @return The formatted string representation of the task.
      */
-    abstract String convertTaskToString();
+    public abstract String convertTaskToString();
 
 }

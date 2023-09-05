@@ -1,4 +1,6 @@
-package duke;
+package duke.utility;
+
+import duke.DukeException;
 
 /**
  * A utility class for parsing and validating user commands in the Duke application.

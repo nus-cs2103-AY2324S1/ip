@@ -1,5 +1,10 @@
 package duke;
 
+import duke.task.TaskList;
+import duke.utility.Parser;
+import duke.utility.Storage;
+import duke.utility.Ui;
+
 /**
  * Duke is a task management application that allows users to manage tasks
  * by adding, marking as done, deleting, and listing tasks.

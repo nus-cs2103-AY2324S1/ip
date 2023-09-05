@@ -1,7 +1,9 @@
 package duke;
 
+import duke.utility.Ui;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import duke.task.TaskList;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

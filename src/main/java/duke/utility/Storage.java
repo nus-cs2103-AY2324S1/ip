@@ -1,4 +1,11 @@
-package duke;
+package duke.utility;
+
+import duke.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.ToDo;
 
 import java.io.BufferedReader;
 import java.io.File;
