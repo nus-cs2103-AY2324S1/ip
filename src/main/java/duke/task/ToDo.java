@@ -12,7 +12,7 @@ public class ToDo extends Task {
 
     /**
      * Constructor with description.
-     * @param description the description of the todo being added
+     * @param description the description of the todo being added.
      */
 
     public ToDo(String description) {
@@ -22,7 +22,7 @@ public class ToDo extends Task {
 
     /**
      * Constructor with description and whether it has been marked as done.
-     * @param description the description of the todo being added
+     * @param description the description of the todo being added.
      * @param isDone whether it has been marked as done.
      */
     public ToDo(String description, boolean isDone) {
@@ -32,7 +32,7 @@ public class ToDo extends Task {
 
 
     /**
-     * The toString representation of a todo task.
+     * Returns the toString representation of a todo task.
      * @return the String representation of the task.
      */
     @Override
@@ -42,7 +42,7 @@ public class ToDo extends Task {
 
 
     /**
-     * The String representation of the task that will be written to the
+     * Returns the String representation of the task that will be written to the
      * text file.
      * @return The String representation of the task for the text file.
      */

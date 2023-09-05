@@ -83,7 +83,7 @@ public class Ui {
 
     /**
      * Prints that a task has been deleted.
-     * @param pos
+     * @param pos the index of the element.
      * @param tasks the TaskList being used.
      * @param element the Task that is to be deleted.
      * @throws DukeException

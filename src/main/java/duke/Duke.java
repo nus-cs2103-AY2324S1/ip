@@ -3,7 +3,7 @@ package duke;
 import java.util.Scanner;
 
 /**
- * Main class of the chatbot
+ * Main class of the chatbot.
  */
 public class Duke {
 

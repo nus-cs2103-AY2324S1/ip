@@ -18,14 +18,14 @@ public class Parser {
 
 
     /**
-     * Method that deals with user inputs beginning with mark, unmark,
+     * Deals with user inputs beginning with mark, unmark,
      * delete, list.
      * It also deals with what happens when the user types in an unrecognised
      * command.
      *
-     * @param input what the user is typing in
-     * @param storage the storage that is being used
-     * @param tasks the TaskList that is being used to store the tasks
+     * @param input what the user is typing in.
+     * @param storage the storage that is being used.
+     * @param tasks the TaskList that is being used to store the tasks.
      * @throws DukeException
      * @throws NumberFormatException
      */
@@ -76,9 +76,9 @@ public class Parser {
      * If the command is not one that adds a task, it will call the userCommand
      * method.
      *
-     * @param input what the user is typing in
-     * @param storage the storage that is being used
-     * @param tasks the TaskList that is being used to store the tasks
+     * @param input what the user is typing in.
+     * @param storage the storage that is being used.
+     * @param tasks the TaskList that is being used to store the tasks.
      */
     public static void addToList(String input, Storage storage, TaskList tasks) {
         try {
@@ -133,9 +133,9 @@ public class Parser {
     }
 
     /**
-     * Method to handle the various exceptions being thrown.
+     * Handles the various exceptions being thrown.
      *
-     * @param e Exception that is being handled
+     * @param e Exception that is being handled.
      */
     private static void handleException(Exception e) {
         if (e instanceof DukeException) {

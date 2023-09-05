@@ -22,8 +22,8 @@ public class Storage {
     /**
      * Constructor for storage.
      *
-     * @param filepath the filepath of the file that will be used for storage
-     * @param tasks the TaskList that will be used
+     * @param filepath the filepath of the file that will be used for storage.
+     * @param tasks the TaskList that will be used.
      */
 
     public Storage(String filepath, TaskList tasks) {
@@ -81,7 +81,7 @@ public class Storage {
     /**
      * Writes the data from the tasklist into the file.
      *
-     * @param tasks TaskList being used to store the data
+     * @param tasks TaskList being used to store the data.
      * @throws IOException
      */
 

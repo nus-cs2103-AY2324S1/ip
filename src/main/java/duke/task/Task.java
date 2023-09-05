@@ -31,37 +31,37 @@ public abstract class Task {
 
 
     /**
-     * The status icon of the task.
-     * @return "X" if the task is marked as done
+     * Returns the status icon of the task.
+     * @return "X" if the task is marked as done.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done duke.task with X
     }
 
     /**
-     * Method that returns the description of the task.
-     * @return te description of the task
+     * Returns the description of the task.
+     * @return te description of the task.
      */
     public String getDescription() {
         return this.description;
     }
 
     /**
-     * Method that marks the task as done by changing the boolean value to true.
+     * Marks the task as done by changing the boolean value to true.
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Method that marks the task as not done by changing the boolean value to false.
+     * Marks the task as not done by changing the boolean value to false.
      */
     public void markAsNotDone() {
         this.isDone = false;
     }
 
     /**
-     * The toString representation of the task.
+     * Returns the toString representation of the task.
      * @return the String representation of the task.
      */
     @Override
@@ -70,7 +70,7 @@ public abstract class Task {
     }
 
     /**
-     * Abstract method to create the String representation of the task that will be written to the
+     * Creates the String representation of the task that will be written to the
      * text file.
      * @return String representation of the task.
      */

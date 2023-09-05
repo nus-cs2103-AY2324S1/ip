@@ -19,7 +19,7 @@ public class TaskList {
     }
 
     /**
-     * Method that returns the size of the tasklist.
+     * Returns the size of the tasklist.
      * @return the integer size of the tasklist.
      */
     public int getSize() {
@@ -27,17 +27,17 @@ public class TaskList {
     }
 
     /**
-     * Method that gets the task.
-     * @param index the task's index in the TaskList
-     * @return the Task
+     * Returns the task.
+     * @param index the task's index in the TaskList.
+     * @return the Task.
      */
     public Task getTask(int index) {
         return this.tasks.get(index);
     }
 
     /**
-     * Method that adds the task to the TaskList.
-     * @param task the Task that will be added
+     * Adds the task to the TaskList.
+     * @param task the Task that will be added.
      */
 
     public void addTask(Task task) {
@@ -45,15 +45,15 @@ public class TaskList {
     }
 
     /**
-     * Method that deletes the task from the TaskList.
-     * @param index the task's index in the TaskList
+     * Deletes the task from the TaskList.
+     * @param index the task's index in the TaskList.
      */
     public void deleteTask(int index) {
         this.tasks.remove(index);
     }
 
     /**
-     * Method that marks a particular task as done.
+     * Marks a particular task as done.
      * @param index the index of the task that is to be marked.
      */
     public void markTaskAsDone(int index) {
@@ -61,7 +61,7 @@ public class TaskList {
     }
 
     /**
-     * Method that marks a particular task as not done.
+     * Marks a particular task as not done.
      * @param index the index of the task that is to be unmarked.
      */
 
@@ -70,7 +70,7 @@ public class TaskList {
     }
 
     /**
-     * Method that prints the TaskList.
+     * Prints the TaskList.
      */
     public void printTasks() {
         try {
