@@ -38,7 +38,16 @@ public abstract class Task {
     }
 
     /**
-     * Match the keyword to task description for query.
+     * Returns the completion status of the task.
+     *
+     * @return the completion status of the task
+     */
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    /**
+     * Matches the keyword to task description for query.
      */
     public abstract boolean isMatch(String keyword);
 

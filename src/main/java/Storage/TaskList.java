@@ -105,7 +105,7 @@ public class TaskList {
     }
 
     /**
-     * Match the taskDesc with keyword for query.
+     * Matches the taskDesc with keyword for query.
      *
      * @param str The keyword for matching.
      * @return A tasklist containing all the task that passed the matching.

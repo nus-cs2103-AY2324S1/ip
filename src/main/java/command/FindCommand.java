@@ -32,7 +32,7 @@ public class FindCommand extends Command{
     }
 
     /**
-     * Check whether the command is an exit command.
+     * Checks whether the command is an exit command.
      *
      * @return `false` because this command does not exit the application.
      */

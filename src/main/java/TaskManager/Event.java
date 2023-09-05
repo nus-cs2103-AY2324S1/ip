@@ -132,7 +132,7 @@ public class Event extends Task {
     }
 
     /**
-     * Match the taskDesc with keyword for query.
+     * Matches the taskDesc with keyword for query.
      *
      * @param keyword The keyword for matching.
      * @return True if there is matching keyword; otherwise, false.

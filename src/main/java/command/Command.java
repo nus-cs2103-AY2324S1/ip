@@ -23,7 +23,7 @@ public abstract class Command {
     public abstract void execute(TaskList t, Ui ui, FileHandler f);
 
     /**
-     * Check whether the command is an exit command.
+     * Checks whether the command is an exit command.
      */
     public abstract boolean isExit();
 

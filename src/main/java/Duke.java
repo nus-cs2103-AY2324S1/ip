@@ -19,7 +19,7 @@ public class Duke {
     private static final String DATA_FILE_PATH = "data/TaskList.txt"; //The file path of the .txt file
 
     /**
-     * Construct a Duke instance with the specified file path.
+     * Constructs a Duke instance with the specified file path.
      *
      * @param filePath The file path to store task data.
      */

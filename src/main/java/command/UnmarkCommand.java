@@ -22,7 +22,7 @@ public class UnmarkCommand extends Command{
     }
 
     /**
-     * Mark the specified task as not done.
+     * Marks the specified task as not done.
      *
      * @param t  The task list containing the tasks.
      * @param ui The user interface to display the result.
@@ -40,7 +40,7 @@ public class UnmarkCommand extends Command{
     }
 
     /**
-     * Check whether the command is an exit command.
+     * Checks whether the command is an exit command.
      *
      * @return `false` because this command does not exit the application.
      */

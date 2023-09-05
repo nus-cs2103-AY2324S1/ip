@@ -98,7 +98,7 @@ public class Ui {
     }
 
     /**
-     * Display all the task in the tasklist.
+     * Displays all the task in the tasklist.
      */
     public void list() {
         System.out.println("   ____________________________________________________________________________________");
@@ -108,7 +108,7 @@ public class Ui {
     }
 
     /**
-     * Display all the task that match the keyword.
+     * Displays all the task that match the keyword.
      *
      * @param matchedList The list of task that matched the keyword
      */
@@ -144,10 +144,16 @@ public class Ui {
      * @param index The index of the task marked as done.
      */
     public void mark(int index) {
-        System.out.println("   ____________________________________________________________________________________");
-        System.out.println("   " + NAME + ": Well done! I've marked this task as done :");
-        System.out.println("   " + taskList.get(index - 1).toString());
-        System.out.println("   ____________________________________________________________________________________");
+        if (taskList.get(index - 1).isDone()) {
+            System.out.println("   ____________________________________________________________________________________");
+            System.out.println("   " + NAME + ": The task has been marked as done.");
+            System.out.println("   ____________________________________________________________________________________");
+        } else {
+            System.out.println("   ____________________________________________________________________________________");
+            System.out.println("   " + NAME + ": Well done! I've marked this task as done :");
+            System.out.println("   " + taskList.get(index - 1).toString());
+            System.out.println("   ____________________________________________________________________________________");
+        }
     }
 
     /**
@@ -156,10 +162,16 @@ public class Ui {
      * @param index The index of the task marked as not done.
      */
     public void unmark(int index) {
-        System.out.println("   ____________________________________________________________________________________");
-        System.out.println("   " + NAME + ": Alright, I've marked this task as not done yet");
-        System.out.println("   " + taskList.get(index - 1).toString());
-        System.out.println("   ____________________________________________________________________________________");
+        if (!taskList.get(index - 1).isDone()) {
+            System.out.println("   ____________________________________________________________________________________");
+            System.out.println("   " + NAME + ": The task has been unmarked");
+            System.out.println("   ____________________________________________________________________________________");
+        } else {
+            System.out.println("   ____________________________________________________________________________________");
+            System.out.println("   " + NAME + ": Alright, I've marked this task as not done yet");
+            System.out.println("   " + taskList.get(index - 1).toString());
+            System.out.println("   ____________________________________________________________________________________");
+        }
     }
 
     /**

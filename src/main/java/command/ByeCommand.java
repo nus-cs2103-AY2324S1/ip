@@ -29,7 +29,7 @@ public class ByeCommand extends Command{
     }
 
     /**
-     * Check whether the command is an exit command.
+     * Checks whether the command is an exit command.
      *
      * @return `true` because this command exit the application.
      */
