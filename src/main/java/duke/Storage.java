@@ -32,12 +32,11 @@ public class Storage {
     }
 
     /**
-     * Converts a string of the format YYYY-MM-dd HH:mm to a
-     * LocalDateTime object.
+     * Converts a string of the format YYYY-MM-dd HH:mm to a LocalDateTime object.
      *
-     * @param str a datetime string
-     * @return the corresponding LocalDateTime object
-     * @throws DateTimeParseException if str is not of the correct format
+     * @param str a datetime string.
+     * @return the corresponding LocalDateTime object.
+     * @throws DateTimeParseException if str is not of the correct format.
      */
     public static LocalDateTime convertToDateTime(String str) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -48,7 +47,7 @@ public class Storage {
     /**
      * Creates a file with the path .data/duke.txt (hardcoded value).
      *
-     * @return a File object to store tasks
+     * @return a File object to store tasks.
      */
     public File createDataFile() {
         File dataFile = new File(this.path);
@@ -67,11 +66,11 @@ public class Storage {
     }
 
     /**
-     * Retrieves the tasks stored in the ./data/duke.txt file, and converts each
-     * task string into their corresponding Task object. Tasks are then added to an
-     * ArrayList.
+     * Retrieves the tasks stored in the ./data/duke.txt file.
+     * Converts each task string into their corresponding Task object.
+     * Tasks are then added to an ArrayList.
      *
-     * @return an ArrayList of Task objects
+     * @return an ArrayList of Task objects.
      */
     public ArrayList<Task> loadTasks() {
         File dataFile = new File(this.path);
@@ -123,10 +122,10 @@ public class Storage {
     }
 
     /**
-     * Writes the tasks in the given list to the data file. This overwrites the
-     * existing data in the file.
+     * Writes the tasks in the given list to the data file.
+     * This overwrites the existing data in the file.
      *
-     * @param list list of Task objects
+     * @param list list of Task objects.
      */
     public void updateFile(ArrayList<Task> list) {
         try {

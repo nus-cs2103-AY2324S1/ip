@@ -26,8 +26,8 @@ public class Ui {
     }
 
     /**
-     * Prints the number of tasks the user has in their list. Called to update the user
-     * when the number of tasks in the list changes.
+     * Prints the number of tasks the user has in their list.
+     * Called to update the user when the number of tasks in the list changes.
      *
      * @param size the size of the list.
      */
@@ -38,16 +38,14 @@ public class Ui {
     }
 
     /**
-     * Prints when the user enters 'list' as a command, and there are 0
-     * tasks in the list.
+     * Prints when there are 0 tasks in the list, and list is the command.
      */
     public void showNoTasks() {
         System.out.println("(o´ω`o)ﾉ You have no upcoming tasks!\n" + line);
     }
 
     /**
-     * Prints when the user enters 'list' as a command, and there is at least one
-     * task in the list.
+     * Prints when there are at least 1 task in the list, and list is the command.
      *
      * @param tasks tasks to be printed.
      */
@@ -80,9 +78,9 @@ public class Ui {
     }
 
     /**
-     * Prints when the user attempts to mark a task as completed. If task is
-     * not marked, success message is printed out. Else, unsuccessful message
-     * printed.
+     * Prints when the user attempts to mark a task as completed.
+     * If task is not marked, success message is printed out. Else,
+     * unsuccessful message printed.
      *
      * @param isMarked true if the task is already marked.
      * @param task     task to be marked.
@@ -98,8 +96,9 @@ public class Ui {
     }
 
     /**
-     * Prints when the user attempts to unmark a task. If task is marked, success
-     * message is printed out. Else, an unsuccessful message is printed.
+     * Prints when the user attempts to unmark a task.
+     * If task is marked, success message is printed out. Else,
+     * an unsuccessful message is printed.
      *
      * @param isMarked true if the task is already marked.
      * @param task     task to be unmarked.
@@ -132,6 +131,13 @@ public class Ui {
         System.out.println("(・´з`・) Uh oh...dates must be of YYYY-MM-DD HH:mm format");
         System.out.println(line);
     }
+
+    /**
+     * Prints the given list of tasks, which contain tasks matching the
+     * keyword specified by user.
+     *
+     * @param tasks String format of tasks that match keyword.
+     */
     public void showMatches(String tasks) {
         if (!tasks.isEmpty()) {
             System.out.println("(⇀‸↼‶)⊃━☆ﾟ.*･｡ﾟ Here are the matching tasks in your list:");

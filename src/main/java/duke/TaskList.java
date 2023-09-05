@@ -6,7 +6,7 @@ import duke.tasks.Task;
 import java.util.ArrayList;
 
 /**
- * contains the task list, and methods to modify the tasks in the list
+ * Contains the task list, and methods to modify the tasks in the list
  */
 public class TaskList {
     private ArrayList<Task> list;
@@ -34,8 +34,8 @@ public class TaskList {
     }
 
     /**
-     * Appends all the tasks into a string, and passes it to ui object
-     * for printing. If no tasks, calls ui.showNoTasks().
+     * Appends all the tasks into a string, and passes it to ui object for printing.
+     * If no tasks, calls ui.showNoTasks().
      */
     public void listTasks() {
         if (list.size() == 0) {
@@ -51,6 +51,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Appends all tasks in the given list into a single string.
+     *
+     * @param tasks list of Tasks to be printed.
+     * @return a String of tasks.
+     */
     public String listTasks(ArrayList<Task> tasks) {
         String result = "";
         for (int i = 0; i < tasks.size(); i++) {
@@ -62,8 +68,7 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the list. Calls storage.updateFile() to update the
-     * data file.
+     * Adds a task to the list. Calls storage.updateFile() to update the data file.
      *
      * @param task id of task to be added.
      */
@@ -119,6 +124,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns a list of tasks that contains the keyword.
+     *
+     * @param keyword specified keyword to be searched for.
+     * @return list of tasks.
+     */
     public ArrayList<Task> findMatches(String keyword) {
         ArrayList<Task> matches = new ArrayList<>();
         for (Task task : list) {
