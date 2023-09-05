@@ -1,4 +1,3 @@
-[T][ ] student
-[T][ ] student life fair
-[E][ ] student life fair (from: 2pm to 3pm)
-[D][ ] student life fair (by: 3pm)
+[T][ ] hello
+[T][ ] task
+[E][ ] fair (from: 2pm to 4pm)

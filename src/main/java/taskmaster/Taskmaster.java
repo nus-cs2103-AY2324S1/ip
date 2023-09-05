@@ -25,22 +25,22 @@ public class Taskmaster {
         this.ui = new Ui();
         this.parser = new Parser();
         this.taskList = new TaskList();
-    }
-
-    private void run() throws DukeException {
         this.storage.loadTasksFromFile();
         this.ui.printHello();
-
-        while (Taskmaster.activated) {
-            String userInput = scanner.nextLine();
-            parser.parse(userInput, this.storage, this.taskList);
-        }
-        this.ui.printGoodbye();
     }
 
     public static void main(String[] args) throws DukeException {
 //        new Taskmaster().run();
         Application.launch(Main.class);
+    }
+
+    public String getResponse(String input) {
+        try {
+            String response = parser.parse(input, this.storage, this.taskList);
+            return response;
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 
 }

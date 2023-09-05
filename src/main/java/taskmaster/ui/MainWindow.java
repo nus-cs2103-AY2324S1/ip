@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import taskmaster.Taskmaster;
+import taskmaster.tasks.TaskList;
 
 /**
  * A launcher class to workaround classpath issues.
@@ -52,7 +53,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = "String";
+        String response = taskmaster.getResponse(input);
+        if (response == Ui.GOODBYE_MESSAGE) {
+            System.exit(0);
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, USER_PROFILE),
                 DialogBox.getDukeDialog(response, TASKMASTER_PROFILE)

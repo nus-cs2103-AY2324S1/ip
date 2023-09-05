@@ -6,6 +6,7 @@ public class Ui {
     public static final String line = "____________________________________________________________";
 
     public static final String WELCOME_MESSAGE = "Hello! I am TaskMaster!\n" + "What can I do for you today?\n";
+    public static final String GOODBYE_MESSAGE = "Bye! Hope to see you again";
 
     /**
      * Prints a welcome message.
@@ -16,12 +17,5 @@ public class Ui {
         System.out.println("What can I do for you today?");
         System.out.println(line);
     }
-    /**
-     * Prints a goodbye message.
-     */
-    public void printGoodbye() {
-        System.out.println(line);
-        System.out.println("Bye! Hope to see you again!");
-        System.out.println(line);
-    }
+
 }
