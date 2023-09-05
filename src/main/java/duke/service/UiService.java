@@ -181,6 +181,12 @@ public class UiService {
                 + "Specify a number between %s - %s", taskId, 1, taskListSize + 1));
     }
 
+    /**
+     * Notifies the user about the tasks that contains the given keyword.
+     *
+     * @param matchedTasks the list of tasks that matches the given keyword.
+     * @param keyword the keyword to match the tasks against.
+     */
     public void printFoundTasks(List<Task> matchedTasks, String keyword) {
         if (matchedTasks.isEmpty()) {
             outputService.echo(String.format("No tasks contains the keyword: %s! :<", keyword));
