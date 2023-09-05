@@ -9,6 +9,9 @@ public abstract class Task {
     protected String name;
     protected boolean isDone;
 
+    /**
+     * Types of events (TODO, DEADLINE, EVENT)
+     */
     public enum Types {
         TODO, DEADLINE, EVENT
     }
@@ -28,7 +31,7 @@ public abstract class Task {
      */
     private String getStatusIcon() {
 
-        return this.isDone? "X" : " ";
+        return this.isDone ? "X" : " ";
     }
 
     /**

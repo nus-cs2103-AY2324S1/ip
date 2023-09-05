@@ -1,5 +1,10 @@
 package duke.components;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import duke.commands.AddTaskCommand;
 import duke.commands.Command;
 import duke.commands.DeleteTaskCommand;
@@ -10,16 +15,10 @@ import duke.commands.ListCommand;
 import duke.commands.MarkTaskCommand;
 import duke.commands.UnknownCommand;
 import duke.commands.UnmarkTaskCommand;
-
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
-
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * Class that parses user commands
@@ -114,7 +113,7 @@ public class Parser {
      * @param fileArgs Line containing task saved data
      * @return Task initialised with arguments
      * @throws UnsupportedTaskType Thrown if task type specified in fileArgs do not match
-     * any known task types
+     *     any known task types
      * @throws IllegalArgumentException Thrown if line does not have 2 delimiters " | "
      */
     public static Task parseFileTasks(String fileArgs) throws UnsupportedTaskType, IllegalArgumentException {
@@ -125,17 +124,17 @@ public class Parser {
         boolean isMarked = args[1].equals("true");
         Task loadedTask;
         switch (args[0]) {
-            case "T":
-                loadedTask = parseTaskArgs(Task.Types.TODO, args[2]);
-                break;
-            case "D":
-                loadedTask = parseTaskArgs(Task.Types.DEADLINE, args[2]);
-                break;
-            case "E":
-                loadedTask = parseTaskArgs(Task.Types.EVENT, args[2]);
-                break;
-            default:
-                throw new UnsupportedTaskType(args[0]);
+        case "T":
+            loadedTask = parseTaskArgs(Task.Types.TODO, args[2]);
+            break;
+        case "D":
+            loadedTask = parseTaskArgs(Task.Types.DEADLINE, args[2]);
+            break;
+        case "E":
+            loadedTask = parseTaskArgs(Task.Types.EVENT, args[2]);
+            break;
+        default:
+            throw new UnsupportedTaskType(args[0]);
         }
         if (isMarked) {
             loadedTask.markDone();
@@ -155,35 +154,35 @@ public class Parser {
             UnsupportedTaskType {
         String name;
         switch (taskType) {
-            case TODO:
-                name = parseNonEmptyString(args);
-                return new Todo(name);
-            case DEADLINE:
-                String[] deadlineArgs = args.split(" /by ");
-                if (deadlineArgs.length != 2) {
-                    throw new IllegalArgumentException("Deadlines should be created with the following format:\n"
-                            + "deadline [name] /by [date]");
-                }
-                name = parseNonEmptyString(deadlineArgs[0]);
-                LocalDateTime byTime = parseDateTime(deadlineArgs[1]);
-                return new Deadline(name, byTime);
-            case EVENT:
-                IllegalArgumentException badFormat = new IllegalArgumentException("Events should be created "
-                        + "with the following format:\n event [name] /from [start time] /to [end time]");
-                String[] splitNameDates = args.split(" /from ");
-                if (splitNameDates.length != 2) {
-                    throw badFormat;
-                }
-                name = splitNameDates[0];
-                String[] splitTime = splitNameDates[1].split(" /to ");
-                if (splitTime.length != 2) {
-                    throw badFormat;
-                }
-                LocalDateTime startTime = parseDateTime(splitTime[0]);
-                LocalDateTime endTime = parseDateTime(splitTime[1]);
-                return new Event(name, startTime, endTime);
-            default:
-                throw new UnsupportedTaskType(taskType.toString());
+        case TODO:
+            name = parseNonEmptyString(args);
+            return new Todo(name);
+        case DEADLINE:
+            String[] deadlineArgs = args.split(" /by ");
+            if (deadlineArgs.length != 2) {
+                throw new IllegalArgumentException("Deadlines should be created with the following format:\n"
+                        + "deadline [name] /by [date]");
+            }
+            name = parseNonEmptyString(deadlineArgs[0]);
+            LocalDateTime byTime = parseDateTime(deadlineArgs[1]);
+            return new Deadline(name, byTime);
+        case EVENT:
+            IllegalArgumentException badFormat = new IllegalArgumentException("Events should be created "
+                    + "with the following format:\n event [name] /from [start time] /to [end time]");
+            String[] splitNameDates = args.split(" /from ");
+            if (splitNameDates.length != 2) {
+                throw badFormat;
+            }
+            name = splitNameDates[0];
+            String[] splitTime = splitNameDates[1].split(" /to ");
+            if (splitTime.length != 2) {
+                throw badFormat;
+            }
+            LocalDateTime startTime = parseDateTime(splitTime[0]);
+            LocalDateTime endTime = parseDateTime(splitTime[1]);
+            return new Event(name, startTime, endTime);
+        default:
+            throw new UnsupportedTaskType(taskType.toString());
         }
     }
 
@@ -191,7 +190,7 @@ public class Parser {
      * Exception class for unsupported task types
      */
     public static class UnsupportedTaskType extends RuntimeException {
-        final protected String taskType;
+        protected final String taskType;
 
         /**
          * Constructs an UnsupportedTaskType exception

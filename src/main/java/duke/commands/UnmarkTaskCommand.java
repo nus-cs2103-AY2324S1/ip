@@ -1,11 +1,11 @@
 package duke.commands;
 
+import java.io.IOException;
+
 import duke.components.Storage;
 import duke.components.TaskList;
 import duke.components.Ui;
 import duke.tasks.Task;
-
-import java.io.IOException;
 
 /**
  * Command to unmark a Task in the TaskList

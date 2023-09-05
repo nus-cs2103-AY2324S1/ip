@@ -1,11 +1,12 @@
 package duke.commands;
 
+import java.io.IOException;
+
 import duke.components.Storage;
 import duke.components.TaskList;
 import duke.components.Ui;
 import duke.tasks.Task;
 
-import java.io.IOException;
 
 /**
  * Command to delete a Task from the TaskList
@@ -25,8 +26,8 @@ public class DeleteTaskCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             Task t = taskList.deleteTask(idx);
-            ui.printToScreen("Noted. I've removed this task:\n" +
-                    "\t" + t);
+            ui.printToScreen("Noted. I've removed this task:\n"
+                    + "\t" + t);
             ui.printToScreen(taskList.getCountString());
             storage.save(taskList);
         } catch (IndexOutOfBoundsException e) {

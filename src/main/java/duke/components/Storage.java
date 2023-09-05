@@ -1,7 +1,5 @@
 package duke.components;
 
-import duke.tasks.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -9,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import duke.tasks.Task;
 
 /**
  * Handler to load tasks from file and save tasks to file
@@ -87,10 +87,10 @@ public class Storage {
      */
     public void write(Task task) throws IOException {
         createFileIfNotExists();
-        try (FileWriter taskListWriter = new FileWriter(getFilePath())){
+        try (FileWriter taskListWriter = new FileWriter(getFilePath())) {
             taskListWriter.append(String.format("%s\n", task.generateSaveString()));
         } catch (IOException e) {
-            throw new IOException("Unable to save task list to destination: "  + getFilePath() + "\n"
+            throw new IOException("Unable to save task list to destination: " + getFilePath() + "\n"
                     + "Reason: " + e.getMessage());
         }
     }
