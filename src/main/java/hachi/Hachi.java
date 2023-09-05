@@ -172,6 +172,21 @@ public class Hachi {
                     });
                     ui.showMessage(new TaskList(filteredDates).toString());
                     break;
+                case FindCommand.COMMAND_WORD:
+                    Parser.checkArgumentLength(FindCommand.COMMAND_WORD, arguments.length);
+                    String str = Parser.parseTaskArguments(FindCommand.COMMAND_WORD, arguments);
+                    ArrayList<Task> filteredTasks = new ArrayList<>();
+                    tasks.forEach(task -> {
+                        if (task.isStringWithinTaskName(str)) {
+                            filteredTasks.add(task);
+                        }
+                    });
+                    if (filteredTasks.isEmpty()) {
+                        ui.showMessage("No tasks found! Maybe try changing your search terms.");
+                    } else {
+                        ui.showMessage(new TaskList(filteredTasks).toString());
+                    }
+                    break;
                 default:
                     throw new InvalidCommandException(command);
                 }

@@ -28,6 +28,15 @@ public class Task {
     }
 
     /**
+     * Returns true if string is within the task name.
+     *
+     * @return true if string is within the task name.
+     */
+    public boolean isStringWithinTaskName(String str) {
+        return taskName.contains(str);
+    }
+
+    /**
      * Converts Task object to its string representation when stored in the hard drive.
      *
      * @return String representation when stored in text file on user's hard drive

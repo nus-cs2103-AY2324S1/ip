@@ -75,6 +75,10 @@ public class Parser {
                 throw new DateFormatWrongException("");
             }
             break;
+        case FindCommand.COMMAND_WORD:
+            if (argumentLength < 1) {
+                throw new HachiException("Please include the word or words you are searching for!");
+            }
         }
 
     }
@@ -100,10 +104,9 @@ public class Parser {
     public static String parseTaskArguments(String taskType, String[] arg) {
         switch (taskType) {
 
-        case "todo":
+        default:
             return String.join(" ", arg);
         }
-        return "";
 
     }
 
