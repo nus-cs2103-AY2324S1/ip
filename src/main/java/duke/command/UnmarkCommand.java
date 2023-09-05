@@ -11,6 +11,11 @@ import duke.util.Ui;
 public class UnmarkCommand extends Command {
     private int index;
 
+    /**
+     * Constructor for UnmarkCommand class.
+     *
+     * @param index The TaskList index of the Task to be unmarked.
+     */
     public UnmarkCommand(int index) {
         super(false);
         this.index = index;

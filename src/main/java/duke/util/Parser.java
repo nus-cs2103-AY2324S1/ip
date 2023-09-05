@@ -1,5 +1,7 @@
 package duke.util;
 
+import java.time.LocalDate;
+
 import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
@@ -9,7 +11,6 @@ import duke.command.MarkCommand;
 import duke.command.PrintListCommand;
 import duke.command.UnknownCommand;
 import duke.command.UnmarkCommand;
-
 import duke.task.Deadline;
 import duke.task.DeadlineException;
 import duke.task.Event;
@@ -17,8 +18,6 @@ import duke.task.EventException;
 import duke.task.TaskException;
 import duke.task.ToDo;
 import duke.task.ToDoException;
-
-import java.time.LocalDate;
 
 /**
  * Converts a given String into Tasks and Commands.

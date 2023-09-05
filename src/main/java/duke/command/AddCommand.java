@@ -11,6 +11,11 @@ import duke.util.Ui;
 public class AddCommand extends Command {
     private Task task;
 
+    /**
+     * Constructor for AddCommand class.
+     *
+     * @param task The given Task to be added to a TaskList.
+     */
     public AddCommand(Task task) {
         super(false);
         this.task = task;
