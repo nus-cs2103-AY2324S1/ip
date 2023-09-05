@@ -5,3 +5,4 @@ T | 0 | work?
 T | 0 | read books
 E | 0 | reading session | friday - sunday
 T | 1 | hahaha
+T | 0 | something
