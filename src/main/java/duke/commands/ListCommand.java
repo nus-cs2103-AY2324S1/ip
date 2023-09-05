@@ -10,15 +10,15 @@ import duke.Ui;
  */
 public class ListCommand extends Command {
     @Override
-    public void execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         try {
-            System.out.println(Ui.divider + "\n" + "Here are the tasks in your list:");
+            String output = "Here are the tasks in your list:\n";
             for (int i = 0; i < taskList.size(); i++) {
-                System.out.println((i + 1) + "." + taskList.getTask(i));
+                output += (i + 1) + "." + taskList.getTask(i) + "\n";
             }
-            System.out.println(Ui.divider + "\n");
+            return output;
         } catch (InvalidTaskIndexException ex) {
-            System.out.println("Something went wrong.");
+            return "Something went wrong.";
         }
     }
 }

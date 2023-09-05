@@ -15,13 +15,14 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         try {
             taskList.getTask(this.unmarkIdx - 1).unMarkDone();
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("\t" + taskList.getTask(this.unmarkIdx - 1));
+            String output = "OK, I've marked this task as not done yet:\n";
+            output += "\t" + taskList.getTask(this.unmarkIdx - 1);
+            return output;
         } catch (InvalidTaskIndexException ex) {
-            System.out.println(ex);
+            return ex.toString();
         }
     }
 }

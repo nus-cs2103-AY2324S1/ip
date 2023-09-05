@@ -16,19 +16,19 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         int count = 0;
         try {
-            System.out.println(Ui.divider + "\n" + "Here are the matching tasks in your list:");
+            String output = "Here are the matching tasks in your list:\n";
             for (int i = 0; i < taskList.size(); i++) {
                 if (taskList.getTask(i).getTaskName().matches("(.*)" + this.prefix + "(.*)")) {
-                    System.out.println((count + 1) + "." + taskList.getTask(i));
+                    output += (count + 1) + "." + taskList.getTask(i) + "\n";
                     count++;
                 }
             }
-            System.out.println(Ui.divider + "\n");
+            return output;
         } catch (InvalidTaskIndexException ex) {
-            System.out.println("Something went wrong.");
+            return "Something went wrong.";
         }
     }
 }

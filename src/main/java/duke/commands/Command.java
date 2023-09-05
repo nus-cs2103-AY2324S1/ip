@@ -13,7 +13,7 @@ public abstract class Command {
      * @param tasklist
      * @param storage
      */
-    public abstract void execute(TaskList tasklist, Storage storage);
+    public abstract String execute(TaskList tasklist, Storage storage);
 }
 
 
