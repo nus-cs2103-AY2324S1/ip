@@ -38,6 +38,7 @@ application {
 
 shadowJar {
     archiveBaseName = "mattbot"
+    archiveVersion = "0.1"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
