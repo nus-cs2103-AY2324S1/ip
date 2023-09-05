@@ -1,5 +1,8 @@
 package bongo.task;
 
+/**
+ * A class for a Todo.
+ */
 public class Todo extends Task {
 
     /**

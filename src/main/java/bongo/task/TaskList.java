@@ -2,6 +2,9 @@ package bongo.task;
 
 import java.util.ArrayList;
 
+/**
+ * A class for holding the list of tasks.
+ */
 public class TaskList {
     protected ArrayList<Task> tasks;
 

@@ -1,12 +1,15 @@
 package bongo.command;
 
-import bongo.task.TaskList;
 import bongo.helper.BongoException;
-import bongo.helper.Ui;
 import bongo.helper.Storage;
+import bongo.helper.Ui;
+import bongo.task.TaskList;
 
+/**
+ * A class for a MarkCommand.
+ */
 public class MarkCommand extends Command {
-    int taskIndex;
+    private final int taskIndex;
 
     /**
      * A constructor for a MarkCommand, with a taskIndex.
@@ -18,7 +21,7 @@ public class MarkCommand extends Command {
         if (command.length <= 1) {
             throw new BongoException("Please include the task index.");
         }
-        this.taskIndex = Integer.parseInt(command[1]) - 1 ;
+        this.taskIndex = Integer.parseInt(command[1]) - 1;
     }
 
     @Override

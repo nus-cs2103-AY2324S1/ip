@@ -1,13 +1,16 @@
 package bongo.helper;
 
-import bongo.task.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import bongo.task.Task;
+
+/**
+ * A class for a Ui.
+ */
 public class Ui {
 
-    Scanner inputScanner;
+    private final Scanner inputScanner;
 
     /**
      * A constructor for a Ui.
@@ -32,9 +35,9 @@ public class Ui {
      * @return A message sandwiched between two lines.
      */
     private String insertLines(String message) {
-        return "____________________________________________________________\n" +
-                message +
-                "____________________________________________________________";
+        return "____________________________________________________________\n"
+                + message
+                + "____________________________________________________________";
     }
 
     /**
@@ -48,8 +51,8 @@ public class Ui {
      * Shows welcome message.
      */
     public void showWelcome() {
-        String welcomeMessage = " Hello! I'm Bongo!\n" +
-                " What can I do for you?\n";
+        String welcomeMessage = " Hello! I'm Bongo!\n"
+                + " What can I do for you?\n";
         System.out.println(insertLines(welcomeMessage));
     }
 
@@ -72,8 +75,8 @@ public class Ui {
         for (int i = 0; i < tasks.size(); i++) {
             allTasks.append(String.format(" %d. %s\n", i + 1, tasks.get(i)));
         }
-        String tasksList = " Here are the tasks in your list:\n" +
-                allTasks;
+        String tasksList = " Here are the tasks in your list:\n"
+                + allTasks;
         System.out.println(tasksList.trim());
     }
 
@@ -87,8 +90,8 @@ public class Ui {
         for (int i = 0; i < tasks.size(); i++) {
             allTasks.append(String.format(" %d. %s\n", i + 1, tasks.get(i)));
         }
-        String tasksList = " Here are the matching tasks in your list:\n" +
-                allTasks;
+        String tasksList = " Here are the matching tasks in your list:\n"
+                + allTasks;
         System.out.println(tasksList.trim());
     }
 
@@ -99,9 +102,9 @@ public class Ui {
      * @param totalTasks Number of total tasks.
      */
     public void showAddedTask(Task newTask, int totalTasks) {
-        String addedTaskMessage = " Got it. I've added this task:\n" +
-                String.format("  %s\n", newTask) +
-                String.format(" Now you have %d tasks in the list.", totalTasks);
+        String addedTaskMessage = " Got it. I've added this task:\n"
+                + String.format("  %s\n", newTask)
+                + String.format(" Now you have %d tasks in the list.", totalTasks);
         System.out.println(addedTaskMessage);
     }
 
@@ -111,7 +114,8 @@ public class Ui {
      * @param task Recently marked done task.
      */
     public void showTaskIsDone(Task task) {
-        String taskStatusMessage = " Nice! I've marked this task as done:\n" + task;
+        String taskStatusMessage = " Nice! I've marked this task as done:\n"
+                + task;
         System.out.println(taskStatusMessage.trim());
     }
 
@@ -121,7 +125,8 @@ public class Ui {
      * @param task Recently marked undone task.
      */
     public void showTaskIsUndone(Task task) {
-        String taskStatusMessage = " OK, I've marked this task as not done yet:\n" + task;
+        String taskStatusMessage = " OK, I've marked this task as not done yet:\n"
+                + task;
         System.out.println(taskStatusMessage.trim());
     }
 
@@ -132,9 +137,9 @@ public class Ui {
      * @param tasksLeft Number of tasks left.
      */
     public void showDeleteTask(Task task, int tasksLeft) {
-        String taskDeleteMessage = " Noted. I've removed this task:\n" +
-                String.format("  %s\n", task) +
-                String.format(" Now you have %d tasks in the list.", tasksLeft);
+        String taskDeleteMessage = " Noted. I've removed this task:\n"
+                + String.format("  %s\n", task)
+                + String.format(" Now you have %d tasks in the list.", tasksLeft);
         System.out.println(taskDeleteMessage);
     }
 

@@ -5,8 +5,11 @@ import java.time.LocalDateTime;
 import bongo.helper.BongoException;
 import bongo.helper.DateHelper;
 
+/**
+ * A class for a Deadline.
+ */
 public class Deadline extends Task {
-    LocalDateTime deadline;
+    private final LocalDateTime deadline;
 
     /**
      * A constructor for a Deadline.
@@ -49,9 +52,10 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String generateStringForTextFile() {
+    public String generateStringForTextFile() throws BongoException {
         String isTaskMarkedDone = this.isDone ? "1" : "0";
-        return String.join(" | ", "D", isTaskMarkedDone, this.description, DateHelper.formatter.format(this.deadline));
+        return String.join(" | ", "D", isTaskMarkedDone, this.description,
+                DateHelper.convertDateTimeToString(this.deadline));
     }
 
     @Override

@@ -3,6 +3,10 @@ package bongo.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import bongo.helper.BongoException;
+/**
+ * A class for a Task.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -54,7 +58,7 @@ public abstract class Task {
      *
      * @return String to save in text file.
      */
-    public abstract String generateStringForTextFile();
+    public abstract String generateStringForTextFile() throws BongoException;
 
     /**
      * Returns string representation of task.

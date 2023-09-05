@@ -1,5 +1,7 @@
 package bongo;
 
+import java.io.FileNotFoundException;
+
 import bongo.command.Command;
 import bongo.helper.BongoException;
 import bongo.helper.Parser;
@@ -7,8 +9,9 @@ import bongo.helper.Storage;
 import bongo.helper.Ui;
 import bongo.task.TaskList;
 
-import java.io.*;
-
+/**
+ * The Bongo class, the class for the BongoBot.
+ */
 public class Bongo {
     private final Storage storage;
     private final Ui ui;
@@ -16,6 +19,7 @@ public class Bongo {
 
     /**
      * Initializes Bongo object with filepath.
+     *
      * @param filepath
      */
     public Bongo(String filepath) {

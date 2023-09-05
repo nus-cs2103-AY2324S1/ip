@@ -1,13 +1,16 @@
 package bongo.command;
 
-import bongo.task.TaskList;
 import bongo.helper.BongoException;
-import bongo.helper.Ui;
 import bongo.helper.Storage;
+import bongo.helper.Ui;
 import bongo.task.Task;
+import bongo.task.TaskList;
 
+/**
+ * A class for a DeleteCommand.
+ */
 public class DeleteCommand extends Command {
-    int taskIndex;
+    private final int taskIndex;
 
     /**
      * A constructor for a DeleteCommand, with a taskIndex.
@@ -19,7 +22,7 @@ public class DeleteCommand extends Command {
         if (command.length <= 1) {
             throw new BongoException("Please include the task index.");
         }
-        this.taskIndex = Integer.parseInt(command[1]) - 1 ;
+        this.taskIndex = Integer.parseInt(command[1]) - 1;
     }
 
     @Override
