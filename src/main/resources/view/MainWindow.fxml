@@ -13,11 +13,6 @@
     <children>
         <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="524.0" AnchorPane.bottomAnchor="1.0" />
         <Button fx:id="sendButton" layoutX="524.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
-        <ScrollPane fx:id="scrollPane" hvalue="1.0" pannable="true" prefHeight="557.0" prefWidth="600.0" vvalue="1.0">
-            <content>
-                <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="588.0" />
-            </content>
-        </ScrollPane>
       <MenuBar prefHeight="28.0" prefWidth="600.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
@@ -37,5 +32,10 @@
           </Menu>
         </menus>
       </MenuBar>
+        <ScrollPane fx:id="scrollPane" hvalue="1.0" layoutX="1.0" layoutY="27.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pannable="true" prefHeight="528.0" prefWidth="600.0" vvalue="1.0">
+            <content>
+                <VBox fx:id="dialogContainer" prefHeight="524.0" prefWidth="595.0" />
+            </content>
+        </ScrollPane>
     </children>
 </AnchorPane>
