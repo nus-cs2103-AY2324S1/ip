@@ -22,7 +22,7 @@ public class TaskListTest {
         taskList.handleTodo("todo Sample todo task");
 
         assertEquals(1, taskList.taskCount);
-        assertTrue(taskList.tasks.get(0) instanceof ToDos);
+        assertTrue(taskList.tasks.get(0) instanceof ToDo);
     }
 
     @Test
@@ -32,7 +32,7 @@ public class TaskListTest {
         taskList.delete("delete 2");
 
         assertEquals(1, taskList.taskCount);
-        assertTrue(taskList.tasks.get(0) instanceof ToDos);
+        assertTrue(taskList.tasks.get(0) instanceof ToDo);
     }
 }
 

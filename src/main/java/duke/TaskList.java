@@ -24,7 +24,7 @@ public class TaskList {
      */
     public TaskList(File file) throws FileNotFoundException {
         taskList = file;
-        taskList.deleteOnExit();
+//        taskList.deleteOnExit();
     }
 
     /**
@@ -50,22 +50,6 @@ public class TaskList {
         }
     }
 
-    public void printFileContents(String itemToFind) {
-        try {
-            Scanner s = new Scanner(taskList);
-            while (s.hasNext()) {
-                String nextLine = s.nextLine();
-                if (nextLine.contains(itemToFind)){
-                    System.out.println(nextLine);
-                } else {
-                    continue;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("Error: There are no items in the list!");
-        }
-    }
-
     /**
      * Writes the task list contents to the file.
      */
@@ -85,6 +69,31 @@ public class TaskList {
      * @return The formatted string representation of the task list.
      */
     public static String displayList() {
+        StringBuilder res;
+        try {
+            if (taskCount == 0) {
+                throw new DukeException("Error: There are no items in the list!");
+            }
+            res = new StringBuilder(Ui.line);
+            for (int i = 0; i < taskCount; i++) {
+                Task task = tasks.get(i);
+                int index = i + 1;
+                res.append(index).append(task.getTask()).append("\n");
+            }
+            res.append(Ui.line);
+        } catch (DukeException emptyList) {
+            res = new StringBuilder(Ui.line + emptyList.getMessage() + "\n" + Ui.line);
+        }
+        return res.toString();
+    }
+
+    /**
+     * Displays the task list as a formatted string.
+     *
+     * @param tasks the task list to be displayed
+     * @return The formatted string representation of the task list.
+     */
+    public static String displayList(ArrayList<Task> tasks) {
         StringBuilder res;
         try {
             if (taskCount == 0) {
@@ -235,7 +244,14 @@ public class TaskList {
     }
 
     public void handleFind(String input) {
+        ArrayList<Task> findTasks = new ArrayList<>();
         String itemToFind = input.substring(5);
-        printFileContents(itemToFind);
+        for (Task value : tasks) {
+            String task = value.getTask();
+            if (task.contains(itemToFind)) {
+                findTasks.add(value);
+            }
+        }
+        displayList(findTasks);
     }
 }
