@@ -1,6 +1,11 @@
 package duke;
 
-import duke.task.*;
+import duke.task.DeadlineTask;
+import duke.task.EventTask;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.ToDoTask;
+
 /**
  * The Parser class is responsible for parsing user input and executing
  * the corresponding commands on the task list.
@@ -150,7 +155,7 @@ public class Parser {
             int taskNumber = Integer.parseInt(parts[1]);
             return taskNumber;
         } catch (NumberFormatException e) {
-        throw new DukeException("Please pick a number instead of using letters!");
+            throw new DukeException("Please pick a number instead of using letters!");
         }
     }
     /**

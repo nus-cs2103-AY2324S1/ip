@@ -1,10 +1,10 @@
 package duke.task;
 
-import duke.DukeException;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import duke.DukeException;
 
 /**
  * Represents an event task, which extends the base `Task` class.

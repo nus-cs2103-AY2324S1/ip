@@ -1,10 +1,10 @@
 package duke.task;
 
-import duke.DukeException;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import duke.DukeException;
 
 /**
  * Represents a task with a deadline, which extends the base `Task` class.
@@ -35,13 +35,13 @@ public class DeadlineTask extends Task {
      * @param date The deadline date in the "YYYY-MM-DD" format.
      */
     public void setDeadlineByDate(String date) throws DukeException {
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                this.byDate = LocalDate.parse(date, formatter);
-            } catch (DateTimeException e) {
-                throw new DukeException("There is no such data!");
-            }
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            this.byDate = LocalDate.parse(date, formatter);
+        } catch (DateTimeException e) {
+            throw new DukeException("There is no such data!");
         }
+    }
 
     /**
      * Gets the formatted deadline date.

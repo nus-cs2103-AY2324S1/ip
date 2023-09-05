@@ -1,9 +1,11 @@
 package duke.task;
 
+import java.util.ArrayList;
+
 import duke.DukeException;
 import duke.Ui;
 
-import java.util.ArrayList;
+
 /**
  * Represents a list of tasks and provides operations to manage them.
  */
@@ -116,7 +118,7 @@ public class TaskList {
             System.out.println("List is empty!");
         } else {
             System.out.println("Here are the tasks in your list:");
-            for (int item = 0; item < this.getTotalTasks(); item++)  {
+            for (int item = 0; item < this.getTotalTasks(); item++) {
                 System.out.println(item + 1 + ". " + this.tasks.get(item));
             }
         }

@@ -1,21 +1,23 @@
 package duke;
 
-import duke.task.Task;
-
-import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.task.Task;
+
 /**
  * The `Storage` class handles loading and saving tasks to a data file.
  */
 public class Storage {
-    private String filePath;
 
     private static final String FOLDER_PATH = "./data";
 
     private static final String DATA_FILE_PATH = "./data/duke.txt";
+
+    private String filePath;
 
     /**
      * Constructs a `Storage` object with the default data file path.

@@ -1,8 +1,11 @@
 package duke;
 
-import duke.task.Task;
-
 import java.util.Scanner;
+
+import duke.task.Task;
+/**
+ * Represents a User interface
+ */
 public class Ui {
     private Scanner scanner;
 
