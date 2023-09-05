@@ -106,6 +106,11 @@ public class Ui {
                 + " in the list.");
     }
 
+    /**
+     * Shows user the relevant tasks found from a keyword.
+     *
+     * @param relevantTasks list of the relevant tasks.
+     */
     public void relevantTasksFound(TaskList relevantTasks) {
         if (relevantTasks.isEmpty()) {
             System.out.println("No matching task found. Maybe you have finished them?");

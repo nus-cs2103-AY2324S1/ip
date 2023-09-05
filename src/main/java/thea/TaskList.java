@@ -101,6 +101,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds a task containing the specified keyword
+     *
+     * @param keyword keyword.
+     * @return a TaskList of the relevant tasks.
+     */
     public TaskList find(String keyword) {
         TaskList relevantTasks = new TaskList();
         for (int i = 0; i < this.size(); i++) {
