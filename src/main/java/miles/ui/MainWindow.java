@@ -33,9 +33,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(
-                DialogBox.getMilesDialog(miles.getGreeting(), milesImage)
-        );
     }
 
     /**
@@ -44,6 +41,9 @@ public class MainWindow extends AnchorPane {
      */
     public void setMiles(Miles m) {
         miles = m;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getMilesDialog(miles.getGreeting(), milesImage)
+        );
     }
 
     /**

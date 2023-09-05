@@ -1,6 +1,7 @@
 package miles;
 
 import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,10 +14,12 @@ import miles.ui.MainWindow;
  */
 public class Main extends Application {
 
-    private Miles miles = new Miles("../../../data/miles.txt");
+    private Miles miles = new Miles("ip/data/miles.txt");
 
     @Override
     public void start(Stage stage) {
+        stage.setTitle("Miles");
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
