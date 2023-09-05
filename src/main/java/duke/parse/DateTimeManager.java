@@ -11,6 +11,9 @@ import java.time.LocalTime;
  * and vice versa.
  */
 public class DateTimeManager {
+    /**
+     * Thrown when the date string given by the user cannot be parsed properly.
+     */
     public static class DateParseException extends Exception {
         private DateParseException() {}
     }
@@ -85,7 +88,8 @@ public class DateTimeManager {
         if (possibleAmPm.equals("am") || possibleAmPm.equals("pm")) {
             if (possibleAmPm.equals("pm")) {
                 isPm = true;
-            } if (possibleAmPm.equals("am")) {
+            }
+            if (possibleAmPm.equals("am")) {
                 isAm = true;
             }
             input = input.substring(0, input.length() - 2);
@@ -97,10 +101,7 @@ public class DateTimeManager {
             }
             int hour = Integer.parseInt(timeData[0]);
             try {
-                return LocalTime.of(
-                        (hour == 12 ? (isAm ? 0 : isPm ? 0 : 12) : hour) + (isPm ? 12 : 0),
-                        0
-                );
+                return LocalTime.of((hour == 12 ? (isAm ? 0 : isPm ? 0 : 12) : hour) + (isPm ? 12 : 0), 0);
             } catch (DateTimeException e) {
                 throw new DateParseException();
             }
@@ -112,8 +113,7 @@ public class DateTimeManager {
             }
             int hour = Integer.parseInt(timeData[0]);
             try {
-                return LocalTime.of(
-                        (hour == 12 ? (isAm ? 0 : isPm ? 0 : 12) : hour) + (isPm ? 12 : 0),
+                return LocalTime.of((hour == 12 ? (isAm ? 0 : isPm ? 0 : 12) : hour) + (isPm ? 12 : 0),
                         Integer.parseInt(timeData[1])
                 );
             } catch (DateTimeException e) {

@@ -1,9 +1,9 @@
 package duke.task;
 
-import duke.parse.DateTimeManager;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import duke.parse.DateTimeManager;
 
 /**
  * A class to represent an event.

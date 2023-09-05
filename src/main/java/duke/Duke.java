@@ -1,14 +1,14 @@
 package duke;
 
-import duke.parse.command.Command;
-import duke.parse.Parser;
-import duke.storage.Storage;
-import duke.ui.UI;
-import duke.task.Task;
-import duke.task.TaskList;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import duke.parse.Parser;
+import duke.parse.command.Command;
+import duke.storage.Storage;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.ui.UI;
 
 /**
  * Main class, where the user interacts with the bot.
@@ -17,10 +17,10 @@ import java.util.ArrayList;
  * manage the current task list through the TaskList class.
  */
 public class Duke {
-    private final String MY_NAME = "Quack-NKN";
+    private final String myName = "Quack-NKN";
     private TaskList taskList = new TaskList();
-    private final Storage STORAGE = new Storage("task-list.txt");
-    private final UI USER_INTERFACE = new UI("Quack, ", "!");
+    private final Storage storage = new Storage("task-list.txt");
+    private final UI userInterface = new UI("Quack, ", "!");
 
     /**
      * Instantiate the bot, and starts the interaction immediately.
@@ -37,13 +37,13 @@ public class Duke {
      * and continue with an empty task list.
      */
     private void readFromDisk() throws Storage.FileCorruptedException {
-        this.USER_INTERFACE.notifyDataLoading();
+        this.userInterface.notifyDataLoading();
         try {
-            ArrayList<Task> taskList = this.STORAGE.readFromDisk();
+            ArrayList<Task> taskList = this.storage.readFromDisk();
             this.taskList = new TaskList(taskList);
-            this.USER_INTERFACE.notifyDataLoaded();
-        } catch (Storage.FileIOException e) {
-            this.USER_INTERFACE.notifyLoadingIOError();
+            this.userInterface.notifyDataLoaded();
+        } catch (Storage.FileIoException e) {
+            this.userInterface.notifyLoadingIoError();
         }
     }
 
@@ -51,7 +51,7 @@ public class Duke {
      * Leaves an exit message.
      */
     public void exit() {
-        this.USER_INTERFACE.exit();
+        this.userInterface.exit();
     }
 
     /**
@@ -77,22 +77,22 @@ public class Duke {
         try {
             this.readFromDisk();
         } catch (Storage.FileCorruptedException e) {
-            boolean isContinuing = this.USER_INTERFACE.handleFileCorrupted();
+            boolean isContinuing = this.userInterface.handleFileCorrupted();
             if (!isContinuing) {
                 return;
             }
         }
 
-        this.USER_INTERFACE.start(this.MY_NAME);
+        this.userInterface.start(this.myName);
         boolean isContinuing = true;
         while (isContinuing) {
             // receive input
-            String input = this.USER_INTERFACE.takeInput("In: ");
+            String input = this.userInterface.takeInput("In: ");
             try {
                 Command command = Parser.parse(input);
                 isContinuing = command.execute(this);
             } catch (Parser.ParseError e) {
-                this.USER_INTERFACE.notifyError(e.getMessage());
+                this.userInterface.notifyError(e.getMessage());
             }
         }
     }
@@ -105,7 +105,7 @@ public class Duke {
      *             null if to not exclude any task by date
      */
     public void showList(boolean isExcludingDone, LocalDate date) {
-        this.USER_INTERFACE.notifyList(UI.Type.DEFAULT, isExcludingDone, date);
+        this.userInterface.notifyList(UI.Type.DEFAULT, isExcludingDone, date);
         this.taskList.displayTasks(isExcludingDone, date);
     }
 
@@ -114,7 +114,7 @@ public class Duke {
      * @param isExcludingDone whether to exclude tasks already done
      */
     public void showTodos(boolean isExcludingDone) {
-        this.USER_INTERFACE.notifyList(UI.Type.TODO, isExcludingDone, null);
+        this.userInterface.notifyList(UI.Type.TODO, isExcludingDone, null);
         this.taskList.displayTodos(isExcludingDone);
     }
 
@@ -124,7 +124,7 @@ public class Duke {
      * @param date the date to display deadlines before
      */
     public void showDeadlines(boolean isExcludingDone, LocalDate date) {
-        this.USER_INTERFACE.notifyList(UI.Type.DEADLINE, isExcludingDone, date);
+        this.userInterface.notifyList(UI.Type.DEADLINE, isExcludingDone, date);
         this.taskList.displayDeadlines(isExcludingDone, date);
     }
 
@@ -134,7 +134,7 @@ public class Duke {
      * @param date the date to display events happening on
      */
     public void showEvents(boolean isExcludingDone, LocalDate date) {
-        this.USER_INTERFACE.notifyList(UI.Type.EVENT, isExcludingDone, date);
+        this.userInterface.notifyList(UI.Type.EVENT, isExcludingDone, date);
         this.taskList.displayEvents(isExcludingDone, date);
     }
 
@@ -144,8 +144,8 @@ public class Duke {
      */
     public void addTaskToList(Task task) {
         this.taskList.add(task);
-        this.USER_INTERFACE.notifyAdded(task);
-        this.USER_INTERFACE.showTaskCount(this.taskList.size());
+        this.userInterface.notifyAdded(task);
+        this.userInterface.showTaskCount(this.taskList.size());
     }
 
     /**
@@ -156,9 +156,9 @@ public class Duke {
     public void markTaskAsDone(int index) {
         try {
             Task task = this.taskList.markTaskAsDone(index);
-            this.USER_INTERFACE.notifyMarkDone(task);
+            this.userInterface.notifyMarkDone(task);
         } catch (TaskList.TaskIndexOutOfRange e) {
-            this.USER_INTERFACE.notifyError("invalid task index");
+            this.userInterface.notifyError("invalid task index");
         }
     }
 
@@ -170,9 +170,9 @@ public class Duke {
     public void markTaskAsNotDone(int index) {
         try {
             Task task = this.taskList.markTaskAsNotDone(index);
-            this.USER_INTERFACE.notifyMarkNotDone(task);
+            this.userInterface.notifyMarkNotDone(task);
         } catch (TaskList.TaskIndexOutOfRange e) {
-            this.USER_INTERFACE.notifyError("invalid task index");
+            this.userInterface.notifyError("invalid task index");
         }
     }
 
@@ -184,9 +184,9 @@ public class Duke {
     public void deleteTask(int index) {
         try {
             Task taskDeleted = this.taskList.deleteTask(index);
-            this.USER_INTERFACE.notifyRemoved(taskDeleted);
+            this.userInterface.notifyRemoved(taskDeleted);
         } catch (TaskList.TaskIndexOutOfRange e) {
-            this.USER_INTERFACE.notifyError("invalid task index");
+            this.userInterface.notifyError("invalid task index");
         }
     }
 
@@ -194,12 +194,12 @@ public class Duke {
      * Save data to hard disk, with the current task list.
      */
     public void saveData() {
-        this.USER_INTERFACE.notifyDataSaving();
+        this.userInterface.notifyDataSaving();
         try {
-            this.taskList.saveData(this.STORAGE);
-            this.USER_INTERFACE.notifyDataSaved();
-        } catch (Storage.FileIOException e) {
-            this.USER_INTERFACE.notifyError("an error has occurred while writing to hard disk");
+            this.taskList.saveData(this.storage);
+            this.userInterface.notifyDataSaved();
+        } catch (Storage.FileIoException e) {
+            this.userInterface.notifyError("an error has occurred while writing to hard disk");
         }
     }
 
@@ -208,7 +208,7 @@ public class Duke {
      * @param input the input from the user
      */
     public void echo(String input) {
-        this.USER_INTERFACE.echo(input);
+        this.userInterface.echo(input);
     }
 
     /**
@@ -216,7 +216,7 @@ public class Duke {
      * @param input the input from the user
      */
     public void find(String input) {
-        this.USER_INTERFACE.notifyFind(input);
+        this.userInterface.notifyFind(input);
         this.taskList.showResults(input);
     }
 

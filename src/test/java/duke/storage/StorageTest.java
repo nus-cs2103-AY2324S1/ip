@@ -1,20 +1,20 @@
 package duke.storage;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
 
 public class StorageTest {
     private void notifyError() {
@@ -76,8 +76,8 @@ public class StorageTest {
                     "fnewopvnqwpiniw bjweipgjqwpjp"
             );
             assertThrows(
-                    Storage.FileCorruptedException.class,
-                    () -> new Storage("task-list.txt").readFromDisk()
+                    Storage.FileCorruptedException.class, () ->
+                            new Storage("task-list.txt").readFromDisk()
             );
 
             writeBeforeTest(
@@ -85,8 +85,8 @@ public class StorageTest {
                     "T t task 7"
             );
             assertThrows(
-                    Storage.FileCorruptedException.class,
-                    () -> new Storage("task-list.txt").readFromDisk()
+                    Storage.FileCorruptedException.class, () ->
+                            new Storage("task-list.txt").readFromDisk()
             );
 
             writeBeforeTest(
@@ -94,8 +94,8 @@ public class StorageTest {
                     "D 0 no end time"
             );
             assertThrows(
-                    Storage.FileCorruptedException.class,
-                    () -> new Storage("task-list.txt").readFromDisk()
+                    Storage.FileCorruptedException.class, () ->
+                            new Storage("task-list.txt").readFromDisk()
             );
         } catch (IOException e) {
             notifyIO();

@@ -1,9 +1,9 @@
 package duke.task;
 
-import duke.storage.Storage;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import duke.storage.Storage;
 
 /**
  * Represents and organises a list of task.
@@ -110,6 +110,17 @@ public class TaskList {
     }
 
     /**
+     * Displays tasks with the given filters.
+     * Assume that there is no filtering by task type (todo/deadline/event)
+     * @param isExcludingDone whether to exclude tasks already done
+     * @param date the date to filter in deadlines before and events happening on
+     */
+    public void displayTasks(boolean isExcludingDone, LocalDate date) {
+        ArrayList<Task> taskList = (ArrayList<Task>) this.taskList.clone();
+        TaskList.displayTasks(taskList, isExcludingDone, date);
+    }
+
+    /**
      * Displays to-do tasks with the given filters.
      * @param isExcludingDone whether to filter out tasks already done
      */
@@ -144,17 +155,6 @@ public class TaskList {
     }
 
     /**
-     * Displays tasks with the given filters.
-     * Assume that there is no filtering by task type (todo/deadline/event)
-     * @param isExcludingDone whether to exclude tasks already done
-     * @param date the date to filter in deadlines before and events happening on
-     */
-    public void displayTasks(boolean isExcludingDone, LocalDate date) {
-        ArrayList<Task> taskList = (ArrayList<Task>) this.taskList.clone();
-        TaskList.displayTasks(taskList, isExcludingDone, date);
-    }
-
-    /**
      * Returns the number of tasks in this task list.
      * @return number of tasks in this task list
      */
@@ -166,9 +166,9 @@ public class TaskList {
      * Save data to a given storage,
      * by first converting this list of task to storage-readable form.
      * @param storage the storage to save data to
-     * @throws Storage.FileIOException if there is an IO error
+     * @throws Storage.FileIoException if there is an IO error
      */
-    public void saveData(Storage storage) throws Storage.FileIOException {
+    public void saveData(Storage storage) throws Storage.FileIoException {
         StringBuilder data = new StringBuilder();
         for (Task task: this.taskList) {
             data.append(task.data()).append("\n");

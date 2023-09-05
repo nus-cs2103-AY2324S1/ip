@@ -1,11 +1,5 @@
 package duke.storage;
 
-import duke.parse.DateTimeManager;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,6 +8,12 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.parse.DateTimeManager;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
 
 /**
  * Handles access to the storage, both read and write.
@@ -31,8 +31,8 @@ public class Storage {
     /**
      * Thrown where there is an IO error.
      */
-    public class FileIOException extends IOException {
-        public FileIOException() {
+    public class FileIoException extends IOException {
+        public FileIoException() {
             super();
         }
     }
@@ -51,9 +51,9 @@ public class Storage {
      * Reads data from disk and return a list of task recorded.
      * @return the list of task in order
      * @throws FileCorruptedException when file is corrupted
-     * @throws FileIOException when there is an IO error
+     * @throws FileIoException when there is an IO error
      */
-    public ArrayList<Task> readFromDisk() throws FileCorruptedException, FileIOException {
+    public ArrayList<Task> readFromDisk() throws FileCorruptedException, FileIoException {
         File f = new File(this.fileName);
         try {
             ArrayList<Task> taskList = new ArrayList<>();
@@ -119,7 +119,7 @@ public class Storage {
                 f.createNewFile();
                 return new ArrayList<>();
             } catch (IOException ioError) {
-                throw new FileIOException();
+                throw new FileIoException();
             }
         }
     }
@@ -127,15 +127,15 @@ public class Storage {
     /**
      * Save data to disk
      * @param data the data to save
-     * @throws FileIOException when there is an IO error
+     * @throws FileIoException when there is an IO error
      */
-    public void saveData(String data) throws FileIOException {
+    public void saveData(String data) throws FileIoException {
         try {
             FileWriter writer = new FileWriter(this.fileName);
             writer.write(data);
             writer.close();
         } catch (IOException e) {
-            throw new FileIOException();
+            throw new FileIoException();
         }
     }
 }

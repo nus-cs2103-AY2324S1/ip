@@ -2,6 +2,10 @@ package duke.parse.command;
 
 import duke.Duke;
 
+/**
+ * Represents a find command.
+ * Contains the search parameter given by the user.
+ */
 public class FindCommand implements Command {
     private String query;
 

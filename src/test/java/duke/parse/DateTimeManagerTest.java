@@ -1,14 +1,15 @@
 package duke.parse;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class DateTimeManagerTest {
     private void notifyError() {
@@ -40,16 +41,16 @@ public class DateTimeManagerTest {
                     DateTimeManager.inputToDate("20/12/2023 12:13pm")
             );
             assertThrows(
-                    DateTimeManager.DateParseException.class,
-                    () -> DateTimeManager.inputToDate("today 13pm")
+                    DateTimeManager.DateParseException.class, () ->
+                            DateTimeManager.inputToDate("today 13pm")
             );
             assertThrows(
-                    DateTimeManager.DateParseException.class,
-                    () -> DateTimeManager.inputToDate("30/2/2024 10am")
+                    DateTimeManager.DateParseException.class, () ->
+                            DateTimeManager.inputToDate("30/2/2024 10am")
             );
             assertThrows(
-                    DateTimeManager.DateParseException.class,
-                    () -> DateTimeManager.inputToDate("10/2/2024 10:70am")
+                    DateTimeManager.DateParseException.class, () ->
+                            DateTimeManager.inputToDate("10/2/2024 10:70am")
             );
         } catch (DateTimeManager.DateParseException | DateTimeException e) {
             notifyError();
@@ -76,8 +77,8 @@ public class DateTimeManagerTest {
                     DateTimeManager.parseDate("1/1/2023")
             );
             assertThrows(
-                    DateTimeManager.DateParseException.class,
-                    () -> DateTimeManager.parseDate("31/9/2023")
+                    DateTimeManager.DateParseException.class, () ->
+                            DateTimeManager.parseDate("31/9/2023")
             );
         } catch (DateTimeManager.DateParseException | DateTimeException e) {
             notifyError();
@@ -100,12 +101,12 @@ public class DateTimeManagerTest {
                     DateTimeManager.parseTime("16:33")
             );
             assertThrows(
-                    DateTimeManager.DateParseException.class,
-                    () -> DateTimeManager.parseTime("24:13")
+                    DateTimeManager.DateParseException.class, () ->
+                            DateTimeManager.parseTime("24:13")
             );
             assertThrows(
-                    DateTimeManager.DateParseException.class,
-                    () -> DateTimeManager.parseTime("15:00pm")
+                    DateTimeManager.DateParseException.class, () ->
+                            DateTimeManager.parseTime("15:00pm")
             );
         } catch (DateTimeManager.DateParseException | DateTimeException e) {
             notifyError();

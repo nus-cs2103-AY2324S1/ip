@@ -1,8 +1,8 @@
 package duke.parse.command;
 
-import duke.Duke;
-
 import java.time.LocalDate;
+
+import duke.Duke;
 
 /**
  * Represents a list command.
@@ -14,6 +14,10 @@ public class ListCommand implements Command {
     private LocalDate date;
     private Type type;
 
+    /**
+     * Denotes the type of task to be listed.
+     * If there is no filter on type of task, the type indicated should be DEFAULT.
+     */
     public enum Type {
         TODO,
         DEADLINE,
@@ -43,18 +47,18 @@ public class ListCommand implements Command {
     @Override
     public boolean execute(Duke bot) {
         switch (this.type) {
-            case TODO:
-                bot.showTodos(this.isExcludingDone);
-                break;
-            case DEADLINE:
-                bot.showDeadlines(this.isExcludingDone, this.date);
-                break;
-            case EVENT:
-                bot.showEvents(this.isExcludingDone, this.date);
-                break;
-            case DEFAULT:
-                bot.showList(this.isExcludingDone, this.date);
-                break;
+        case TODO:
+            bot.showTodos(this.isExcludingDone);
+            break;
+        case DEADLINE:
+            bot.showDeadlines(this.isExcludingDone, this.date);
+            break;
+        case EVENT:
+            bot.showEvents(this.isExcludingDone, this.date);
+            break;
+        default:
+            bot.showList(this.isExcludingDone, this.date);
+            break;
         }
         return true;
     }

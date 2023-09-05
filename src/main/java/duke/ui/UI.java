@@ -1,21 +1,21 @@
 package duke.ui;
 
-import duke.parse.DateTimeManager;
-import duke.task.Task;
-
 import java.time.LocalDate;
 import java.util.Scanner;
+
+import duke.parse.DateTimeManager;
+import duke.task.Task;
 
 /**
  * Deals with standard input and output.
  * Prints out the output and takes in input as requested.
  */
 public class UI {
-    private static String HORIZONTAL_LINE = "____________________________________________________________";
+    private static final String HORIZONTAL_LINE = "____________________________________________________________";
 
-    private final Scanner SCANNER = new Scanner(System.in);
-    private final String ERROR_PREPEND;
-    private final String ERROR_APPEND;
+    private final Scanner scanner = new Scanner(System.in);
+    private final String errorPrepend;
+    private final String errorAppend;
 
     /**
      * Instantiates a UI, with a string to prepend and a string to append every error message.
@@ -23,8 +23,8 @@ public class UI {
      * @param errorAppend the string to append every error message
      */
     public UI(String errorPrepend, String errorAppend) {
-        this.ERROR_PREPEND = errorPrepend;
-        this.ERROR_APPEND = errorAppend;
+        this.errorPrepend = errorPrepend;
+        this.errorAppend = errorAppend;
     }
 
     /**
@@ -57,7 +57,7 @@ public class UI {
     /**
      * Invoked when there is an IO error upon loading
      */
-    public void notifyLoadingIOError() {
+    public void notifyLoadingIoError() {
         System.out.println("Quack, an error has occurred while trying to save data to hard disk.");
         System.out.println("Starting with an empty task list.");
     }
@@ -94,7 +94,7 @@ public class UI {
     public String takeInput(String prompt) {
         System.out.println(UI.HORIZONTAL_LINE);
         System.out.print(prompt);
-        String input = this.SCANNER.nextLine();
+        String input = this.scanner.nextLine();
         System.out.println(UI.HORIZONTAL_LINE);
         return input;
     }
@@ -105,14 +105,14 @@ public class UI {
     public void exit() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(UI.HORIZONTAL_LINE);
-        this.SCANNER.close();
+        this.scanner.close();
     }
 
     /**
      * Notifies user of a user-input error.
      */
     public void notifyError(String message) {
-        System.out.println(this.ERROR_PREPEND + message + this.ERROR_APPEND);
+        System.out.println(this.errorPrepend + message + this.errorAppend);
     }
 
     /**
@@ -142,6 +142,9 @@ public class UI {
         System.out.println(task);
     }
 
+    /**
+     * Denotes the type of task to be indicated.
+     */
     public enum Type {
         TODO,
         DEADLINE,

@@ -1,5 +1,15 @@
 package duke.parse;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+import org.junit.jupiter.api.Test;
+
 import duke.parse.command.AddCommand;
 import duke.parse.command.EchoCommand;
 import duke.parse.command.EmptyCommand;
@@ -10,15 +20,6 @@ import duke.parse.command.SaveCommand;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
     private void notifyError() {
@@ -76,12 +77,12 @@ public class ParserTest {
                     Parser.parse("list event 5/9/2023")
             );
             assertThrows(
-                    Parser.ParseError.class,
-                    () -> Parser.parse("list event 31/9/2023")
+                    Parser.ParseError.class, () ->
+                            Parser.parse("list event 31/9/2023")
             );
             assertThrows(
-                    Parser.ParseError.class,
-                    () -> Parser.parse("list event 12-12")
+                    Parser.ParseError.class, () ->
+                            Parser.parse("list event 12-12")
             );
         } catch (Parser.ParseError e) {
             notifyError();
@@ -104,12 +105,12 @@ public class ParserTest {
                     Parser.parse("unmark 4")
             );
             assertThrows(
-                    Parser.ParseError.class,
-                    () -> Parser.parse("mark 0")
+                    Parser.ParseError.class, () ->
+                            Parser.parse("mark 0")
             );
             assertThrows(
-                    Parser.ParseError.class,
-                    () -> Parser.parse("unmark -1")
+                    Parser.ParseError.class, () ->
+                            Parser.parse("unmark -1")
             );
         } catch (Parser.ParseError e) {
             notifyError();
@@ -139,12 +140,12 @@ public class ParserTest {
                     Parser.parse("event attend sth /from today 10am /to 5/9/2023 9:02pm")
             );
             assertThrows(
-                    Parser.ParseError.class,
-                    () -> Parser.parse("event /from today 10am /to tmr 9pm")
+                    Parser.ParseError.class, () ->
+                            Parser.parse("event /from today 10am /to tmr 9pm")
             );
             assertThrows(
-                    Parser.ParseError.class,
-                    () -> Parser.parse("event do sth /from today 19:70 /to tmr 10am")
+                    Parser.ParseError.class, () ->
+                            Parser.parse("event do sth /from today 19:70 /to tmr 10am")
             );
         } catch (Parser.ParseError e) {
             notifyError();
