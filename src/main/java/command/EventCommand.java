@@ -1,10 +1,10 @@
 package command;
 
 import duke.Duke;
+import enums.CommandWord;
 import parser.Parser;
 import tasks.EventTask;
 import tasks.TaskList;
-import enums.CommandWord;
 
 import java.time.LocalDate;
 
@@ -13,19 +13,7 @@ public class EventCommand extends Command {
         super(rawCommand);
     }
 
-    public void execute(TaskList taskList) {
-        String rawCommand = super.getRawCommand();
-        if (!validate(rawCommand)) {
-            return;
-        }
-        String[] args = Parser.getArgs(rawCommand);
-        String description = args[1];
-        LocalDate startDate = LocalDate.parse(args[3], super.DATE_FORMATTER);
-        LocalDate endDate = LocalDate.parse(args[5], super.DATE_FORMATTER);
-        taskList.addTask(new EventTask(description, startDate, endDate));
-    }
-
-   public static boolean validate(String rawCommand) {
+    public static boolean validate(String rawCommand) {
         String[] args = Parser.getArgs(rawCommand);
 
         if (args.length != 6) {
@@ -48,11 +36,19 @@ public class EventCommand extends Command {
             return false;
         }
 
-        if (!Duke.validateDateTime(args[5])) {
-            return false;
-        }
+        return Duke.validateDateTime(args[5]);
+    }
 
-        return true;
+    public void execute(TaskList taskList) {
+        String rawCommand = super.getRawCommand();
+        if (!validate(rawCommand)) {
+            return;
+        }
+        String[] args = Parser.getArgs(rawCommand);
+        String description = args[1];
+        LocalDate startDate = LocalDate.parse(args[3], super.DATE_FORMATTER);
+        LocalDate endDate = LocalDate.parse(args[5], super.DATE_FORMATTER);
+        taskList.addTask(new EventTask(description, startDate, endDate));
     }
 
 }

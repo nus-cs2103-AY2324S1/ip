@@ -1,23 +1,22 @@
 package command;
 
 import duke.Duke;
+import enums.CommandWord;
 import parser.Parser;
 import tasks.TaskList;
-import enums.CommandWord;
 
 import java.time.format.DateTimeFormatter;
 
-public abstract class Command{
-
-    private final String rawCommand;
+public abstract class Command {
 
     protected final DateTimeFormatter DATE_FORMATTER = Duke.DATETIME_FORMATTER;
-
-    public abstract void execute(TaskList tasklist);
+    private final String rawCommand;
 
     public Command(String rawCommand) {
         this.rawCommand = rawCommand;
     }
+
+    public abstract void execute(TaskList tasklist);
 
     public String getRawCommand() {
         return this.rawCommand;

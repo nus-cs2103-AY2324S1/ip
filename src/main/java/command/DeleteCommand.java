@@ -1,21 +1,12 @@
 package command;
 
+import enums.CommandWord;
 import parser.Parser;
 import tasks.TaskList;
-import enums.CommandWord;
 
 public class DeleteCommand extends Command {
     public DeleteCommand(String rawCommand) {
         super(rawCommand);
-    }
-
-    public void execute(TaskList taskList) {
-        String rawCommand = super.getRawCommand();
-        if (!validate(rawCommand, taskList)) {
-            return;
-        }
-        String[] args = Parser.getArgs(rawCommand);
-        taskList.deleteTask(args[1]);
     }
 
     public static boolean validate(String rawCommand, TaskList taskList) {
@@ -30,6 +21,15 @@ public class DeleteCommand extends Command {
         }
 
         return taskList.validateTaskIndex(args[1]);
+    }
+
+    public void execute(TaskList taskList) {
+        String rawCommand = super.getRawCommand();
+        if (!validate(rawCommand, taskList)) {
+            return;
+        }
+        String[] args = Parser.getArgs(rawCommand);
+        taskList.deleteTask(args[1]);
     }
 
 }

@@ -28,7 +28,7 @@ public class DeadlineTask extends Task {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof DeadlineTask)){
+        if (!(o instanceof DeadlineTask)) {
             return false;
         }
         if (!super.equals(o)) {

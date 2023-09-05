@@ -1,17 +1,26 @@
 package command;
 
+import enums.CommandWord;
 import parser.Parser;
 import tasks.TaskList;
 import tasks.TodoTask;
-import enums.CommandWord;
 
 public class TodoCommand extends Command {
-    private String description;
     private final boolean valid;
+    private String description;
 
     public TodoCommand(String rawCommand) {
         super(rawCommand);
         this.valid = validate(rawCommand);
+    }
+
+    public static boolean validate(String rawCommand) {
+        String[] args = Parser.getArgs(rawCommand);
+        if (args.length != 2) {
+            return false;
+        }
+
+        return CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.TODO);
     }
 
     private void deconstruct(String rawCommand) {
@@ -27,19 +36,6 @@ public class TodoCommand extends Command {
         }
         this.deconstruct(super.getRawCommand());
         taskList.addTask(new TodoTask(this.description));
-    }
-
-    public static boolean validate(String rawCommand) {
-        String[] args = Parser.getArgs(rawCommand);
-        if (args.length != 2) {
-            return false;
-        }
-
-        if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.TODO)) {
-            return false;
-        }
-
-        return true;
     }
 
 }

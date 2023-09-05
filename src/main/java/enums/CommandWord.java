@@ -20,10 +20,6 @@ public enum CommandWord {
         this.value = value;
     }
 
-    public String getValue() {
-        return value;
-    }
-
     public static CommandWord commandWordToValueMap(String value) {
         for (CommandWord e : values()) {
             if (e.getValue().equals(value)) {
@@ -31,5 +27,9 @@ public enum CommandWord {
             }
         }
         return NULL_COMMAND;
+    }
+
+    public String getValue() {
+        return value;
     }
 }

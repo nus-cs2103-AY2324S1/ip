@@ -1,21 +1,22 @@
 package duke;
 
+import command.Command;
+import parser.Parser;
+import storage.TaskFileHandler;
+import tasks.TaskList;
+import ui.Ui;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-import command.Command;
-import parser.Parser;
-import tasks.TaskList;
-import ui.Ui;
-import storage.TaskFileHandler;
-
 public class Duke {
+    public final static DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
+
     public static void main(String[] args) {
         runDuke();
     }
-    public final static DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
 
     public static void runDuke() {
         Scanner scanner = new Scanner(System.in);
