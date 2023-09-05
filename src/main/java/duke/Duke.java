@@ -1,5 +1,19 @@
 package duke;
 
+import javafx.application.Application;
+import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.Region;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import gui.DialogBox;
 import command.Commands;
 import dukeExceptions.DukeException;
 import parser.Parser;
@@ -10,6 +24,7 @@ import ui.Ui;
 import java.time.format.DateTimeFormatter;
 
 public class Duke {
+
 
     /**
      * This is the format for all date and time input.
@@ -39,7 +54,7 @@ public class Duke {
         try {
             Parser cmd = new Parser(command);
             Commands action = cmd.parse();
-            if (action.action(taskList) == 1) {
+            if (action.execute(taskList) == 1) {
                 nextCommand(ui.nextInput());
             } else {
                 ui.exit();
@@ -49,4 +64,9 @@ public class Duke {
             nextCommand(ui.nextInput());
         }
     }
+
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
+
 }

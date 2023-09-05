@@ -13,6 +13,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+/**
+ * This class handles all the reads and writes of the program.
+ * It will save the list and load the list.
+ */
 public class Storage {
 
     /**

@@ -4,7 +4,6 @@ import dukeExceptions.*;
 import org.junit.jupiter.api.Test;
 import parser.ParserStud;
 import task.ListOfTask;
-import ui.Ui;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -38,7 +37,7 @@ public class CommandsTest {
             System.setOut(new PrintStream(outContent));
             try {
                 Commands c = cm.parse();
-                c.action(new task.ListOfTask());
+                c.execute(new task.ListOfTask());
                 assertEquals(cmd3 + cmd2 + "\r\n", outContent.toString());
             } catch (DukeException e) {
                 assertEquals("Please add the task name\r\n", e.getMessage() + "\r\n");
@@ -61,7 +60,7 @@ public class CommandsTest {
             System.setOut(new PrintStream(outContent));
             try {
                 Commands c = cm.parse();
-                c.action(new task.ListOfTask());
+                c.execute(new task.ListOfTask());
                 assertEquals(cmd3 + cmd2 + cmd4 + "\r\n", outContent.toString());
             } catch (DukeDateTimeParseException e) {
                 assertEquals("The format for dates&time is 'dd-MM-yyyy hhmm'", e.getMessage());
@@ -101,7 +100,7 @@ public class CommandsTest {
             System.setOut(new PrintStream(outContent));
             try {
                 Commands c = cm.parse();
-                c.action(new task.ListOfTask());
+                c.execute(new task.ListOfTask());
                 assertEquals(cmd3 + cmd2 + cmd4 + "\r\n", outContent.toString());
             } catch (DukeFromEarlierThanToException e) {
                 assertEquals("From must be earlier than To", e.getMessage());
@@ -130,7 +129,7 @@ public class CommandsTest {
             ParserStud cm = new ParserStud(str);
             try {
                 Commands c = cm.parse();
-                c.action(taskList);
+                c.execute(taskList);
             } catch (DukeException e) {
                 System.out.println("check the test cases again");
             }
@@ -140,7 +139,7 @@ public class CommandsTest {
             try {
                 final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
                 System.setOut(new PrintStream(outContent));
-                taskList.mark(indexes[i] + 1, true);
+                taskList.markOrUnmark(indexes[i] + 1, true, true);
                 assertEquals(cmdi[i] + "\r\n", outContent.toString());
             } catch (DukeNumberFormatException e) {
                 assertEquals("Place a number after the command", e.getMessage());
@@ -176,7 +175,7 @@ public class CommandsTest {
             ParserStud cm = new ParserStud(str);
             try {
                 Commands c = cm.parse();
-                c.action(taskList);
+                c.execute(taskList);
             } catch (DukeException e) {
                 System.out.println("check the test cases again");
             }
@@ -186,7 +185,7 @@ public class CommandsTest {
             try {
                 final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
                 System.setOut(new PrintStream(outContent));
-                taskList.unMark(indexes[i] + 1, true);
+                taskList.markOrUnmark(indexes[i] + 1, false, true);
                 assertEquals(cmdi[i] + "\r\n", outContent.toString());
             } catch (DukeNumberFormatException e) {
                 assertEquals("Place a number after the command", e.getMessage());
@@ -221,7 +220,7 @@ public class CommandsTest {
             ParserStud cm = new ParserStud(str);
             try {
                 Commands c = cm.parse();
-                c.action(taskList);
+                c.execute(taskList);
             } catch (DukeException e) {
                 System.out.println("check the test cases again");
             }
@@ -263,7 +262,7 @@ public class CommandsTest {
             ParserStud cm = new ParserStud(str);
             try {
                 Commands c = cm.parse();
-                c.action(taskList);
+                c.execute(taskList);
             } catch (DukeException e) {
                 System.out.println("check the test cases again");
             }
@@ -275,7 +274,7 @@ public class CommandsTest {
             ParserStud p = new ParserStud(str);
             try {
                 Commands c = p.parse();
-                c.action(taskList);
+                c.execute(taskList);
                 assertEquals(cmdi, outContent.toString());
             } catch (DukeException e) {
                 assertEquals("Unknown command", e.getMessage());
@@ -297,7 +296,7 @@ public class CommandsTest {
             ParserStud cm = new ParserStud(str);
             try {
                 Commands c = cm.parse();
-                c.action(taskList);
+                c.execute(taskList);
             } catch (DukeException e) {
                 System.out.println("check the test cases again");
             }
@@ -310,7 +309,7 @@ public class CommandsTest {
                 System.setOut(new PrintStream(outContent));
                 ParserStud p = new ParserStud(cmdj[i]);
                 Commands c = p.parse();
-                c.action(taskList);
+                c.execute(taskList);
                 assertEquals(cmdi[i - 3], outContent.toString());
             } catch (DukeUnknownCommandException e) {
                 assertEquals("Unknown command", e.getMessage());
