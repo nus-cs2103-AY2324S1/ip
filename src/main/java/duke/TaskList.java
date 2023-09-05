@@ -1,15 +1,25 @@
 package duke;
 
-import duke.exceptions.*;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.Todo;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import duke.exceptions.EmptyDeadlineException;
+import duke.exceptions.EmptyEventException;
+import duke.exceptions.EmptyTodoException;
+import duke.exceptions.InvalidDateFormatException;
+import duke.exceptions.InvalidFindException;
+import duke.exceptions.InvalidInputException;
+import duke.exceptions.MissingByException;
+import duke.exceptions.MissingFromException;
+import duke.exceptions.MissingTitleException;
+import duke.exceptions.MissingToException;
+import duke.exceptions.OutOfIndexException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 /**
  * Represents an archive of tasks in the Duke application.
@@ -22,7 +32,7 @@ public class TaskList {
      *
      * @param list The initial list of tasks to be managed.
      */
-    public TaskList(List<Task> list){
+    public TaskList(List<Task> list) {
         this.list = list;
     }
 
@@ -100,8 +110,9 @@ public class TaskList {
      * @throws MissingTitleException  If a task is missing its title.
      * @throws InvalidInputException  If the input doesn't match any valid task format.
      */
-    public void addTask(String input) throws InvalidDateFormatException, EmptyDeadlineException, EmptyTodoException, EmptyEventException,
-            MissingByException, MissingFromException, MissingToException, MissingTitleException, InvalidInputException {
+    public void addTask(String input) throws InvalidDateFormatException, EmptyDeadlineException,
+            EmptyTodoException, EmptyEventException, MissingByException, MissingFromException,
+            MissingToException, MissingTitleException, InvalidInputException {
         Task added = null;
         if (input.startsWith("todo")) {
             if (input.length() < 6) {
@@ -160,7 +171,7 @@ public class TaskList {
      * @return A LocalDateTime instance parsed from the input string.
      * @throws InvalidDateFormatException If the input string has an invalid date-time format.
      */
-    public LocalDateTime parseDate(String input) throws InvalidDateFormatException{
+    public LocalDateTime parseDate(String input) throws InvalidDateFormatException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             LocalDateTime dateTime = LocalDateTime.parse(input, formatter);
@@ -177,7 +188,7 @@ public class TaskList {
      * @return A list of tasks that match the search criteria.
      * @throws InvalidFindException If the provided search input is too short to be valid.
      */
-    public List<Task> find(String input) throws InvalidFindException{
+    public List<Task> find(String input) throws InvalidFindException {
         if (input.length() < 5) {
             throw new InvalidFindException();
         }
