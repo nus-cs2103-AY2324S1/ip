@@ -1,10 +1,9 @@
-package duke.test;
-import duke.TaskList;
+package duke;
 import duke.task.Deadline;
 import duke.task.ToDo;
 import duke.task.Task;
 import org.junit.jupiter.api.Test;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

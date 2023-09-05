@@ -1,4 +1,4 @@
-package duke.test;
+package duke;
 import org.junit.jupiter.api.Test;
 import duke.task.Deadline;
 
