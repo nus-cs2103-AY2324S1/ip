@@ -12,12 +12,14 @@ import duke.exceptions.NoStartException;
 import duke.exceptions.NoTaskIdException;
 
 import duke.tasks.Event;
+import duke.tasks.Task;
 import duke.tasks.ToDo;
 import duke.tasks.Deadline;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 /**
  * Interprets user commands, and controls what the user can or cannot do. An object acts as a
@@ -65,7 +67,6 @@ public class Parser {
         return false;
     }
 
-<<<<<<< HEAD
     /**
      * Converts a string of the format YYYY-MM-dd HH:mm to a
      * LocalDateTime object.
@@ -74,11 +75,8 @@ public class Parser {
      * @return the corresponding LocalDateTime object
      * @throws DateTimeParseException if str is not of the correct format
      */
-    public static LocalDateTime stringToDateTime(String str) throws DateTimeParseException {
-=======
     public static LocalDateTime convertToDateTime(String str) {
         //check if dateTime has correct format: ie. YYYY-MM-DD 00:00
->>>>>>> branch-A-CodingStandard
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
         return dateTime;
@@ -95,13 +93,8 @@ public class Parser {
      * @param input user input
      */
     public void parseInput(String input) {
-<<<<<<< HEAD
-        String[] inputArr = input.split(" ");
-        String command = inputArr[0];
-=======
         String[] inputs = input.split(" ");
         String command = inputs[0];
->>>>>>> branch-A-CodingStandard
         try {
             if (command.equals("list")) {
                 tasks.listTasks();
@@ -110,17 +103,15 @@ public class Parser {
             } else if (command.equals("mark")) {
                 parseMark(input);
             } else if (command.equals("unmark")) {
-<<<<<<< HEAD
-                parseUnmark(input);
-=======
                 parseUnMark(input);
->>>>>>> branch-A-CodingStandard
             } else if (command.equals("todo")) {
                 parseToDo(input);
             } else if (command.equals("deadline")) {
                 parseDeadline(input);
             } else if (command.equals("event")) {
                 parseEvent(input);
+            } else if (command.equals("find")) {
+                findTask(input);
             } else {
                 throw new InvalidCommandException();
             }
@@ -129,7 +120,6 @@ public class Parser {
         }
     }
 
-<<<<<<< HEAD
     /**
      * Handles the deleting of a specified task. Checks if a taskID is provided.
      * Calls tasks.deleteTask(index) function to attempt task deletion.
@@ -153,6 +143,7 @@ public class Parser {
             }
         }
     }
+
 
     /**
      * Handles the marking of a specified task. Checks if a taskID is provided.
@@ -187,90 +178,7 @@ public class Parser {
      * @throws NoTaskIDException      if no taskID is provided
      * @throws InvalidTaskIDException If a non-numerical id is provided
      */
-    public void parseUnmark(String input) throws NoTaskIDException, InvalidTaskIDException {
-        String[] inputArr = input.split(" ", 2);
-        if (inputArr.length == 1) {
-            throw new NoTaskIDException();
-        } else {
-            String strIndex = inputArr[1];
-            if (isNumber(strIndex)) {
-                int index = Integer.parseInt(strIndex) - 1; //because index starts from 1
-                if (tasks.isValidTaskID(index)) {
-                    tasks.unmarkTask(index);
-                }
-            } else {
-                throw new InvalidTaskIDException();
-            }
-        }
-    }
-
-    /**
-     * Handles the creation of a ToDo.
-     * Creates successfully if a description is provided.
-     *
-     * @param input user input
-     * @throws NoDescException if no description is provided
-     */
-    public void parseToDo(String input) throws NoDescException {
-        String[] inputArr = input.split(" ", 2);
-        if (inputArr.length == 1) {
-            throw new NoDescException();
-=======
-    public void parseDelete(String input) throws NoTaskIdException, InvalidTaskIdException {
-        String[] inputs = input.split(" ");
-        if (inputs.length == 1) {
-            throw new NoTaskIdException();
->>>>>>> branch-A-CodingStandard
-        } else {
-            String strIndex = inputs[1];
-            if (isNumber(strIndex)) {
-                int index = Integer.parseInt(strIndex) - 1; //because index starts from 1
-                tasks.deleteTask(index);
-            } else {
-<<<<<<< HEAD
-                //0 for unmarked, any other number for marked
-                ToDo toDo = new ToDo(0, inputArr[1]);
-                tasks.addTask(toDo);
-=======
-                //case where a number was not provided
-                throw new InvalidTaskIdException();
->>>>>>> branch-A-CodingStandard
-            }
-        }
-    }
-
-<<<<<<< HEAD
-    /**
-     * Handles the creation of a Deadline.
-     * Creates successfully if a description and an appropriate datetime is provided
-     * in the format 'deadline desc /by datetime' is provided.
-     *
-     * @param input user input
-     * @throws NoDescException          if no description is provided
-     * @throws InvalidDeadlineException if command is not of the correct format
-     */
-    public void parseDeadline(String input) throws NoDescException, InvalidDeadlineException {
-        String[] inputArr = input.split(" ", 2);
-        if (inputArr.length == 1) {
-=======
-    public void parseMark(String input) throws NoTaskIdException, InvalidTaskIdException {
-        String[] inputs = input.split(" ", 2);
-        if (inputs.length == 1) {
-            throw new NoTaskIdException();
-        } else {
-            String strIndex = inputs[1];
-            if (isNumber(strIndex)) {
-                int index = Integer.parseInt(strIndex) - 1;
-                if (tasks.isValidTaskId(index)) {
-                    tasks.markTask(index);
-                }
-            } else {
-                throw new InvalidTaskIdException();
-            }
-        }
-    }
-
-    public void parseUnMark(String input) throws NoTaskIdException, InvalidTaskIdException {
+public void parseUnMark(String input) throws NoTaskIdException, InvalidTaskIdException {
         String[] inputs = input.split(" ", 2);
         if (inputs.length == 1) {
             throw new NoTaskIdException();
@@ -287,10 +195,17 @@ public class Parser {
         }
     }
 
+
+    /**
+     * Handles the creation of a ToDo.
+     * Creates successfully if a description is provided.
+     *
+     * @param input user input
+     * @throws NoDescException if no description is provided
+     */
     public void parseToDo(String input) throws NoDescException {
         String[] inputs = input.split(" ", 2);
         if (inputs.length == 1) {
->>>>>>> branch-A-CodingStandard
             throw new NoDescException();
         } else {
             if (inputs[1].isBlank()) {
@@ -303,7 +218,18 @@ public class Parser {
         }
     }
 
-    public void parseDeadline(String input) throws NoDescException, InvalidDeadlineException {
+
+    /**
+     * Handles the creation of a Deadline.
+     * Creates successfully if a description and an appropriate datetime is provided
+     * in the format 'deadline desc /by datetime' is provided.
+     *
+     * @param input user input
+     * @throws NoDescException          if no description is provided
+     * @throws InvalidDeadlineException if command is not of the correct format
+     */
+        
+        public void parseDeadline(String input) throws NoDescException, InvalidDeadlineException {
         String[] inputs = input.split(" ", 2);
         if (inputs.length == 1) {
             throw new NoDescException();
@@ -332,7 +258,6 @@ public class Parser {
         }
     }
 
-<<<<<<< HEAD
     /**
      * Handles the creation of an Event.
      * Creates successfully if a description, appropriate start datetime and end
@@ -347,14 +272,8 @@ public class Parser {
      */
     public void parseEvent(String input) throws NoDescException, NoStartException, NoEndException,
             InvalidStartEndException, InvalidEventException {
-        String[] inputArr = input.split(" ", 2);
-        if (inputArr.length == 1) {
-=======
-    public void parseEvent(String input) throws NoDescException, NoStartException, NoEndException,
-            InvalidStartEndException, InvalidEventException {
         String[] inputs = input.split(" ", 2);
         if (inputs.length == 1) {
->>>>>>> branch-A-CodingStandard
             throw new NoDescException();
         } else if (inputs[1].isBlank()) {
             throw new NoDescException();
@@ -395,6 +314,17 @@ public class Parser {
                     }
                 }
             }
+        }
+    }
+
+    public void findTask(String input) throws InvalidFindTaskException {
+        String[] inputs = input.split(" ");
+        if (inputs.length != 2) {
+            throw new InvalidFindTaskException();
+        } else {
+            String keyword = inputs[1];
+            ArrayList<Task> matches = tasks.findMatches(keyword);
+            ui.showMatches(tasks.listTasks(matches));
         }
     }
 }

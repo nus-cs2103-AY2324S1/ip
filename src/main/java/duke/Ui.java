@@ -132,4 +132,13 @@ public class Ui {
         System.out.println("(・´з`・) Uh oh...dates must be of YYYY-MM-DD HH:mm format");
         System.out.println(line);
     }
+    public void showMatches(String tasks) {
+        if (!tasks.isEmpty()) {
+            System.out.println("(⇀‸↼‶)⊃━☆ﾟ.*･｡ﾟ Here are the matching tasks in your list:");
+            System.out.println(tasks + line);
+        } else {
+            System.out.println("(・´з`・) Uh oh...there are no matching tasks!");
+            System.out.println(line);
+        }
+    }
 }

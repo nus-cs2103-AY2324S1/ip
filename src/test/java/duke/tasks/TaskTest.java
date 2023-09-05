@@ -22,7 +22,6 @@ public class TaskTest {
     public void canMark_successful() {
         concreteTask task = new concreteTask(0, "Set up unit tests");
         task.canMark();
->>>>>>> branch-A-CodingStandard
         assertEquals(1, task.getStatus());
     }
 

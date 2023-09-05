@@ -13,7 +13,6 @@ public class TaskList {
     private Storage storage;
     private Ui ui;
 
-
     public TaskList(ArrayList<Task> list, Storage storage, Ui ui) {
         this.list = list;
         this.storage = storage;
@@ -52,6 +51,16 @@ public class TaskList {
         }
     }
 
+    public String listTasks(ArrayList<Task> tasks) {
+        String result = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            int index = i + 1;
+            Task task = tasks.get(i);
+            result += index + ". " + task.toString() + "\n";
+        }
+        return result;
+    }
+
     /**
      * Adds a task to the list. Calls storage.updateFile() to update the
      * data file.
@@ -87,7 +96,7 @@ public class TaskList {
      */
     public void markTask(int taskID) {
         Task task = this.list.get(taskID);
-        if (task.mark()) {
+        if (task.canMark()) {
             ui.showMarkTask(false, task);
             this.storage.updateFile(this.list);
         } else {
@@ -102,12 +111,23 @@ public class TaskList {
      */
     public void unmarkTask(int taskID) {
         Task task = this.list.get(taskID);
-        if (task.unmark()) {
+        if (task.canUnMark()) {
             ui.showUnmarkTask(true, task);
             this.storage.updateFile(this.list);
         } else {
             ui.showUnmarkTask(false, task);
         }
+    }
+
+    public ArrayList<Task> findMatches(String keyword) {
+        ArrayList<Task> matches = new ArrayList<>();
+        for (Task task : list) {
+            String desc = task.getTask();
+            if (desc.contains(keyword)) {
+                matches.add(task);
+            }
+        }
+        return matches;
     }
 
     /**
