@@ -22,6 +22,7 @@ public class Duke {
         Ui.helloWorld();
         boolean isConversing = true;
         while (isConversing) {
+
             String rawCommand = Ui.getUserInput(scanner);
             TaskList taskList = TaskFileHandler.readFromFile();
             Ui.getBotMessage();
