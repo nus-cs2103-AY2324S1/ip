@@ -1,5 +1,10 @@
 package seedu.duke;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 /**
  * Represents my version of a chatbot.
  * It is mainly used for recording tasks like
@@ -8,10 +13,18 @@ package seedu.duke;
  * @author KAM JIA YUE
  * @since 2023-08-29
  */
-public class Duke {
+public class Duke extends Application {
 
     private TaskList taskList;
     private Ui ui;
+
+    /**
+     * An alternative constructor for this chatbot.
+     */
+    public Duke() {
+        this.taskList = new TaskList();
+        this.ui = new Ui("Kam_BOT");
+    }
 
     /**
      * The main constructor for this chatbot.
@@ -104,6 +117,23 @@ public class Duke {
 
         Ui.line();
         startService();
+    }
+
+    /**
+     * Starts JavaFX service.
+     *
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     */
+    @Override
+    public void start(Stage stage) {
+        Label helloDuke = new Label("Hello Duke!"); // Creating a new Label control
+        Scene scene = new Scene(helloDuke); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 
     /**
