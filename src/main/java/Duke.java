@@ -8,7 +8,7 @@ import java.time.LocalDate;
 class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String botName = "Aaronbot";
+        String botName = "Aaaronbot";
         String savedString = "";
         Storage storage = new Storage("data/duke.txt");
         savedString = storage.load();
