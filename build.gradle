@@ -34,6 +34,7 @@ application {
 shadowJar {
     archiveBaseName = "thea"
     archiveClassifier = null
+    archiveFileName = 'thea.jar'
     dependsOn("distZip", "distTar")
 }
 
