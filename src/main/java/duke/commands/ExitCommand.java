@@ -17,8 +17,8 @@ public class ExitCommand extends Command {
      * @param storage The storage manager.
      */
     @Override
-    public void execute(DukeList tasks, Ui ui, Storage storage) {
-        ui.exit();
+    public String execute(DukeList tasks, Ui ui, Storage storage) {
+        return ui.exit();
     }
 
     /**

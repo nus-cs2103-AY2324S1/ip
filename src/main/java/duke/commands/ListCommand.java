@@ -17,9 +17,8 @@ public class ListCommand extends Command {
      * @param storage The storage manager.
      */
     @Override
-    public void execute(DukeList tasks, Ui ui, Storage storage) {
-        ui.showList(tasks);
-        ui.showLine();
+    public String execute(DukeList tasks, Ui ui, Storage storage) {
+        return ui.showList(tasks);
     }
 
     /**

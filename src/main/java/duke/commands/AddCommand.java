@@ -66,7 +66,7 @@ public class AddCommand extends Command {
      * @param storage The storage manager.
      */
     @Override
-    public void execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
         Task task = null;
         switch (this.type) {
         case "todo":
@@ -82,8 +82,8 @@ public class AddCommand extends Command {
             throw new DukeException("Invalid task type!");
         }
         tasks.add(task);
-        ui.acknowledgeAdd(tasks.getSize(), task);
         storage.updateStorage(tasks.getArrayList());
+        return ui.acknowledgeAdd(tasks.getSize(), task);
     }
 
     /**
