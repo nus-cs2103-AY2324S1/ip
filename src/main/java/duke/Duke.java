@@ -34,13 +34,14 @@ public class Duke {
             while (!isExit) {
                 try {
                     String command = ui.readCommand();
-                    if (parser.parse(command, ui, tasks, storage) == -1) {
+                    if (parser.parse(command, ui, tasks, storage).equals("Goodbye. Hope to be of service again soon!"))
+                    {
                         break;
                     };
 
                 } catch (DukeException e) {
                     ui.printline();
-                    System.out.println(e.message);
+                    System.out.println(e.getMessage());
                     ui.printline();
                 }
             }

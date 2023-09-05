@@ -4,3 +4,8 @@ todo sleep
 todo sleeping
 mark 4
 todo abc
+mark 5
+delete 5
+delete 3
+todo dance
+todo cry
