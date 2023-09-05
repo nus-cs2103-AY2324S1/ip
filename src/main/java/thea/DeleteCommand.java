@@ -1,7 +1,7 @@
 package thea;
 
 public class DeleteCommand extends Command {
-     int index;
+    int index;
     public DeleteCommand(int index) {
         super(false);
         this.index = index;
