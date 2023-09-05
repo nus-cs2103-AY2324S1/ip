@@ -1,5 +1,11 @@
 package fluke;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import fluke.exceptions.EmptyDescriptionException;
 import fluke.exceptions.FlukeException;
 import fluke.exceptions.InvalidInputException;
@@ -9,17 +15,11 @@ import fluke.tasks.Event;
 import fluke.tasks.Task;
 import fluke.tasks.Todo;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * Handles parsing for Fluke.
  */
 public class Parser {
-    private final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
 
     /**
      * Parses a command (input as a string by the user) into an Enum value
@@ -44,7 +44,7 @@ public class Parser {
             return Fluke.Command.DEADLINE;
         } else if (command.startsWith("event")) {
             return Fluke.Command.EVENT;
-        } else if (nextCommand.startsWith("find")) {
+        } else if (command.startsWith("find")) {
             return Fluke.Command.FIND;
         } else {
             throw new InvalidInputException();

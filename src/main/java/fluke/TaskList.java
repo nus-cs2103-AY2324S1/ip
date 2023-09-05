@@ -1,5 +1,7 @@
 package fluke;
 
+import java.util.ArrayList;
+
 import fluke.exceptions.FlukeException;
 import fluke.exceptions.TaskDoesNotExistException;
 import fluke.tasks.Deadline;
@@ -7,8 +9,10 @@ import fluke.tasks.Event;
 import fluke.tasks.Task;
 import fluke.tasks.Todo;
 
-import java.util.ArrayList;
-
+/**
+ * TaskList is a wrapper class that manages the internal list of tasks by implementing
+ * various methods related to managing the list of tasks, such as adding and deleting.
+ */
 public class TaskList {
     private final ArrayList<Task> listOfTasks;
 

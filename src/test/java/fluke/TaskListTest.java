@@ -1,13 +1,13 @@
 package fluke;
 
-import fluke.exceptions.FlukeException;
-import fluke.tasks.Deadline;
-import fluke.tasks.Event;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.Test;
+
+import fluke.exceptions.FlukeException;
+import fluke.tasks.Deadline;
+import fluke.tasks.Event;
 
 public class TaskListTest {
     @Test

@@ -6,17 +6,17 @@ import fluke.tasks.Task;
  * This class contains all user interface related functionalities.
  */
 public class Ui {
-    private final static String CHATBOT_NAME = "Fluke";
-    private final static String LOGO =
-            "    ________      __\n" +
-                    "   / ____/ /_  __/ /_____\n" +
-                    "  / /_  / / / / / //_/ _ \\\n" +
-                    " / __/ / / /_/ / ,< /  __/\n" +
-                    "/_/   /_/\\__,_/_/|_|\\___/";
-    private final static String GREETING =
-            "Hello! I'm " + CHATBOT_NAME + ", everything I do is down to luck!" + "\n" +
-                    "Feeling lucky today?";
-    private final static String GOODBYE = "Bye. Good luck!";
+    private static final String CHATBOT_NAME = "Fluke";
+    private static final String LOGO =
+            "    ________      __\n"
+                    + "   / ____/ /_  __/ /_____\n"
+                    + "  / /_  / / / / / //_/ _ \\\n"
+                    + " / __/ / / /_/ / ,< /  __/\n"
+                    + "/_/   /_/\\__,_/_/|_|\\___/";
+    private static final String GREETING =
+            "Hello! I'm " + CHATBOT_NAME + ", everything I do is down to luck!" + "\n"
+                    + "Feeling lucky today?";
+    private static final String GOODBYE = "Bye. Good luck!";
 
     /**
      * Greets the user.

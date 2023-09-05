@@ -1,10 +1,11 @@
 package fluke;
 
-import fluke.exceptions.FlukeException;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import fluke.exceptions.FlukeException;
 
 public class ParserTest {
     @Test

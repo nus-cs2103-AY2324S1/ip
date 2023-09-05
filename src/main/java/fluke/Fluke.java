@@ -1,17 +1,17 @@
 package fluke;
 
+import java.io.IOException;
+import java.util.Scanner;
+
 import fluke.exceptions.FlukeException;
 import fluke.exceptions.InvalidInputException;
 import fluke.tasks.Task;
-
-import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * Fluke is a chatbot which gets your commands right by fluke. Fluke's main goal is to help manage tasks.
  */
 public class Fluke {
-    private final static String SAVE_FILE_NAME = "fluke.txt";
+    private static final String SAVE_FILE_NAME = "fluke.txt";
 
     /**
      * Enumerates all possible commands.

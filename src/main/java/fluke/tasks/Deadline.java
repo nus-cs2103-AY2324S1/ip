@@ -1,18 +1,18 @@
 package fluke.tasks;
 
-import fluke.exceptions.FlukeException;
-import fluke.exceptions.InvalidInputException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 
+import fluke.exceptions.FlukeException;
+import fluke.exceptions.InvalidInputException;
+
 /**
  * A deadline task refers to a task which has a deadline.
  */
 public class Deadline extends Task {
-    private final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
 
     /**
      * The deadline of the task.
@@ -35,7 +35,6 @@ public class Deadline extends Task {
     }
 
     /**
-     *
      * Constructs a Deadline. Takes in a description and a by date.
      * @param description Description of the task.
      * @param isDone Whether the deadline is marked as done.
