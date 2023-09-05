@@ -2,7 +2,6 @@ package roo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import roo.task.Deadline;
 import roo.task.Event;
 import roo.task.Todo;
@@ -12,15 +11,18 @@ import roo.task.Todo;
  */
 public class Roo {
 
-    private final Storage storage;
-    private final TaskList tasks;
-    private final Ui ui;
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Roo() {
+    }
 
     /**
      * Constructs a Roo object with the specified file path.
      * @param filePath The path to the file where tasks are stored.
      */
-    Roo(String filePath) {
+    public Roo(String filePath) {
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(storage);
         this.ui = new Ui(tasks);
@@ -145,8 +147,18 @@ public class Roo {
         }
     }
 
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        return "Roo knows: " + input;
+    }
+
     public static void main(String[] args) {
         Roo roo = new Roo("roo.txt");
         roo.run();
     }
+
 }
+
