@@ -1,18 +1,21 @@
 package duke.util;
 
-import duke.task.Task;
-
 import java.util.Scanner;
+
+import duke.task.Task;
 
 /**
  * Represents user interface of the chatbot.
  */
 public class Ui {
+    private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
     private Scanner scanner;
     private String message;
-    private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
 
-    public Ui () {
+    /**
+     * Constructor for UI class.
+     */
+    public Ui() {
         this.scanner = new Scanner(System.in);
         this.message = "";
     }
