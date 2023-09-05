@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.DukeException;
+
 import java.io.Serializable;
 
 public abstract class Task implements Serializable {
@@ -10,7 +14,7 @@ public abstract class Task implements Serializable {
         this.isDone = false;
     }
 
-    public void markDone() throws DukeException{
+    public void markDone() throws DukeException {
         if (!this.isDone) {
             this.isDone = true;
         } else {
