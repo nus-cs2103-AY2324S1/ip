@@ -9,8 +9,6 @@ import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
 
-
-
 /**
  * This program is a chatbot, somebodyhaha, used to mark completion of tasks
  * marking the completion of tasks.
