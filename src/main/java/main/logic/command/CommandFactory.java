@@ -1,7 +1,18 @@
 package main.logic.command;
 
 
-import main.logic.handler.*;
+
+import main.logic.handler.CommandHandler;
+import main.logic.handler.DeadlineHandler;
+import main.logic.handler.DeleteHandler;
+import main.logic.handler.EventHandler;
+import main.logic.handler.FindHandler;
+import main.logic.handler.InvalidHandler;
+import main.logic.handler.ListHandler;
+import main.logic.handler.MarkHandler;
+import main.logic.handler.QuitHandler;
+import main.logic.handler.ToDoHandler;
+import main.logic.handler.UnmarkHandler;
 import ui.inputparser.InstructionType;
 
 import java.util.EnumMap;
