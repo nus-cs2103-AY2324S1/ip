@@ -47,9 +47,7 @@ public class TaskList {
         if (tasks.size() == 0) {
             throw new DukeException("There are no tasks yet");
         }
-        for (int i = 0; i < tasks.size(); i++) {
-            Ui.print((i + 1) + "." + tasks.get(i));
-        }
+        Ui.printArrayList(tasks);
     }
 
     /**
@@ -103,5 +101,21 @@ public class TaskList {
      */
     public Task getTask(int i) {
         return tasks.get(i);
+    }
+
+    /**
+     * find tasks containing a certain word
+     * @param word word to look for
+     * @return ArrayList of Tasks containing the word
+     */
+    public ArrayList<Task> find(String word) {
+        String wordToFind = word.split(" ")[1];
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(wordToFind)) {
+                result.add(task);
+            }
+        }
+        return result;
     }
 }

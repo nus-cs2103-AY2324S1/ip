@@ -1,5 +1,8 @@
 package duke;
 
+import duke.task.Task;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -35,5 +38,11 @@ public class Ui {
 
         System.out.println("Hello! I'm " + name + "\n"
                 + "What can I do for you?" + "\n\n");
+    }
+
+    public static void printArrayList(ArrayList list) {
+        for (int i = 0; i < list.size(); i++) {
+            Ui.print((i + 1) + "." + list.get(i));
+        }
     }
 }

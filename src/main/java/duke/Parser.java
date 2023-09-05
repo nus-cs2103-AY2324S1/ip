@@ -117,6 +117,10 @@ public class Parser {
             return Duke.TaskType.BYE;
         }
 
+        case "find": {
+            return Duke.TaskType.FIND;
+        }
+
         default: {
             throw new TaskParseException("Not a TaskType");
         }

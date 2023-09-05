@@ -4,6 +4,8 @@ import duke.exceptions.DukeException;
 import duke.exceptions.TaskParseException;
 import duke.task.Task;
 
+import java.util.ArrayList;
+
 /**
  * main program, responsible for running everything and connecting components together
  */
@@ -19,7 +21,8 @@ public class Duke {
         DELETE,
         EVENT,
         TODO,
-        DEADLINE
+        DEADLINE,
+        FIND
     }
 
     /**
@@ -66,6 +69,17 @@ public class Duke {
                     break;
                 }
 
+                case FIND: {
+                    ArrayList<Task> list = taskList.find(inputString);
+                    if (list.size() == 0) {
+                        Ui.print("there are no matching tasks!");
+                    } else {
+                        Ui.print("Here are the matching tasks in your list:");
+                        Ui.printArrayList(list);
+                    }
+                    break;
+                }
+
                 default: {
                     throw new DukeException("I can't identify your command!");
                 }
@@ -73,6 +87,7 @@ public class Duke {
                 taskList.saveList();
                 inputString = Ui.readCommand();
                 taskType = Parser.parseType(inputString);
+
             } catch (DukeException e) {
                 inputString = Ui.readCommand();
                 Ui.print(e.getMessage());
