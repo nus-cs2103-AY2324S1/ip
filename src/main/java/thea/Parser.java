@@ -4,9 +4,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a Parser that translates the user input from String to Command class.
+ * Returns the user input as subclasses of Command class.
+ */
 public class Parser {
 
-    public static Command parse(String fullCommand) throws EmptyDescriptionException, WrongCommandException, WrongDateTimeFormatException {
+    /**
+     * Translates the user input as Command class.
+     *
+     * @param fullCommand user input in String.
+     * @return executable Command class.
+     * @throws EmptyDescriptionException if user tries
+     * to add a new task with no description.
+     * @throws WrongCommandException if user write the
+     * wrong command (first word input).
+     * @throws WrongDateTimeFormatException if the inputted
+     * date time fails to follow the expected date time format.
+     */
+    public static Command parse(String fullCommand) throws EmptyDescriptionException,
+            WrongCommandException, WrongDateTimeFormatException {
         String[] commandWords = fullCommand.split(" ", 2);
         ArrayList<String> commandWordsArray = new ArrayList<>();
         Collections.addAll(commandWordsArray, commandWords);

@@ -8,13 +8,28 @@ import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
+/**
+ * Represents a class that deals with saving and loading data.
+ */
 public class Storage {
     String fileName;
 
+    /**
+     * Constructs a new Storage object.
+     *
+     * @param fileName name of file containing past data.
+     */
     public Storage(String fileName) {
         this.fileName = fileName;
     }
 
+    /**
+     * Loads data from file.
+     *
+     * @return a past saved task list from last time use
+     * of program if present, an empty task list if no past data found.
+     * @throws FileCorruptedException when the data is not in expected format.
+     */
     public ArrayList<Task> retrieveTasks() throws FileCorruptedException{
         String currentDir = System.getProperty("user.dir");
         Path dataDirPath = Paths.get(currentDir, "data");
@@ -53,6 +68,13 @@ public class Storage {
         return retrievedTasks;
     }
 
+    /**
+     * Saves the current task list to the file.
+     * If the file does not exist, makes a new file with
+     * file name as specified during the creation of the Storage object.
+     *
+     * @param tasks list of current tasks.
+     */
     public void saveTaskList(TaskList tasks) {
         String currentDir = System.getProperty("user.dir");
         Path dataDirPath =Paths.get(currentDir, "data");
