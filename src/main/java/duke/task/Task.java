@@ -7,7 +7,8 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task.
  */
-public class Task  {
+public class Task {
+
     protected String description;
     protected boolean isDone;
 
@@ -37,8 +38,8 @@ public class Task  {
             dateTime = " | " + ((Deadline) this).getBy().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } else if (this instanceof Event) {
             type = "E";
-            dateTime = " | " + ((Event) this).getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | " +
-                    ((Event) this).getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            dateTime = " | " + ((Event) this).getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | "
+                    + ((Event) this).getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         }
 
         return type + " | " + (isDone ? "1" : "0") + " | " + description + dateTime;
@@ -59,22 +60,22 @@ public class Task  {
         Task task;
 
         switch (type) {
-            case "T":
-                task = new Todo(description);
-                break;
-            case "D":
-                String by = parts[3];
-                // Use parseDate method to convert to LocalDate
-                task = new Deadline(description, parseDate(by));
-                break;
-            case "E":
-                String from = parts[3];
-                String to = parts[4];
-                // Use parseDateTime method to convert to LocalDateTime
-                task = new Event(description, parseDateTime(from), parseDateTime(to));
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid task type: " + type);
+        case "T":
+            task = new Todo(description);
+            break;
+        case "D":
+            String by = parts[3];
+            // Use parseDate method to convert to LocalDate
+            task = new Deadline(description, parseDate(by));
+            break;
+        case "E":
+            String from = parts[3];
+            String to = parts[4];
+            // Use parseDateTime method to convert to LocalDateTime
+            task = new Event(description, parseDateTime(from), parseDateTime(to));
+            break;
+        default:
+            throw new IllegalArgumentException("Invalid task type: " + type);
         }
 
         if (isDone) {

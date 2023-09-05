@@ -1,10 +1,10 @@
 package duke.command;
 
+import java.util.ArrayList;
+
+import duke.storage.Storage;
 import duke.task.Task;
 import duke.ui.Ui;
-import duke.storage.Storage;
-
-import java.util.ArrayList;
 
 /**
  * Represents a command to find specific task based on the keyword

@@ -1,14 +1,17 @@
 package duke.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
 import duke.storage.Storage;
-import duke.ui.Ui;
 import duke.task.Deadline;
 import duke.task.Task;
 import duke.task.Todo;
-import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import duke.ui.Ui;
 
 public class AddCommandTest {
     @Test

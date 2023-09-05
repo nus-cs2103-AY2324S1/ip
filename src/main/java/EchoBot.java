@@ -1,15 +1,15 @@
-import duke.command.Command;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import duke.command.AddCommand;
+import duke.command.Command;
 import duke.command.DeleteCommand;
+import duke.command.FindCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
-import duke.command.FindCommand;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.ui.Ui;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * The main class that represents the EchoBot application.
@@ -35,7 +35,7 @@ public class EchoBot {
             System.out.println("An error occurred while loading tasks: " + e.getMessage());
         }
 
-        while(true) {
+        while (true) {
             // Read the user input
             String userInput = scanner.nextLine().trim();
 
