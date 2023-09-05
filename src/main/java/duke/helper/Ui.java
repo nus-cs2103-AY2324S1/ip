@@ -63,7 +63,7 @@ public class Ui {
 
     public String printAddTask(int length, Task task) {
         String res = "";
-        res += ("MEOW got it. I've added this task:\n   " + task);
+        res += ("MEOW got it. I've added this task:\n   " + task + "\n");
         res += ("Now you have " + length + " meow-tasks in the list. \n");
         return res;
     }
