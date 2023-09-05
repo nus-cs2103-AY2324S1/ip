@@ -11,7 +11,7 @@ import Jeoe.Tasks.TaskManager;
 /**
  * This class encapsulates the class FindCommand.
  * It is meant to help the user find a task in the list of tasks,
- * with description matching the user input.
+ * with description matching the user input, and ran checkstyle on my current code.
  *
  * @author Joe Chua
  * @version Week-3
