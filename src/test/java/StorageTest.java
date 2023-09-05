@@ -1,3 +1,6 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.util.ArrayList;
 import duke.DukeException;
 import duke.Storage;
@@ -6,8 +9,6 @@ import duke.task.EventTask;
 import duke.task.Task;
 import duke.task.ToDoTask;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class StorageTest {
 
