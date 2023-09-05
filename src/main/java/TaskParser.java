@@ -31,10 +31,11 @@ public class TaskParser {
             return "T | " + doneStatus + " | " + task.description;
         } else if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            return "D | " + doneStatus + " | " + task.description + " | " + deadline.by;
+            return "D | " + doneStatus + " | " + task.description + " | " + DateTimeParser.dateTimeToString(deadline.by);
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return "E | " + doneStatus + " | " + task.description + " | " + event.from + " | " + event.to;
+            return "E | " + doneStatus + " | " + task.description + " | " + DateTimeParser.dateTimeToString(event.from)
+                    + " | " + DateTimeParser.dateTimeToString(event.to);
         } else {
             return "Wrong formatting";
         }
