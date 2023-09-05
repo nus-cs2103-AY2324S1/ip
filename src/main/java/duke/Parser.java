@@ -56,6 +56,8 @@ public class Parser {
             return parseDeadline(userInput);
         case "event":
             return parseEvent(userInput);
+        case "bye":
+            return Ui.getOutroMessage();
         default:
             throw new UnknownCommandException();
         }
@@ -76,7 +78,7 @@ public class Parser {
         try {
             int taskNum = Integer.parseInt(restOfInput);
             return Duke.markTask(taskNum);
-        } catch (NumberFormatException | DukeException e) {
+        } catch (NumberFormatException e) {
             throw new InvalidIndexException(taskListSize);
         }
     }
@@ -87,7 +89,7 @@ public class Parser {
         try {
             int taskNum = Integer.parseInt(restOfInput);
             return Duke.unmarkTask(taskNum);
-        } catch (NumberFormatException | DukeException e) {
+        } catch (NumberFormatException e) {
             throw new InvalidIndexException(taskListSize);
         }
     }
@@ -98,7 +100,7 @@ public class Parser {
         try {
             int taskNum = Integer.parseInt(restOfInput);
             return Duke.deleteTask(taskNum);
-        } catch (NumberFormatException | DukeException e) {
+        } catch (NumberFormatException e) {
             throw new InvalidIndexException(taskListSize);
         }
     }

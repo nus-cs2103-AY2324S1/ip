@@ -50,6 +50,11 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
             return new TaskList();
+        } catch (Exception e) {
+            System.out.println("There was an error parsing the data in the data file; "
+                    + "the file might have been tampered with externally.");
+            System.out.println("Hence, the data will be cleared.");
+            return new TaskList();
         }
     }
 

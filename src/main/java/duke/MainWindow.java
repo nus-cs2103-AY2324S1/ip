@@ -2,11 +2,11 @@ package duke;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 /**
@@ -29,11 +29,8 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
-        Label textToAdd = new Label(Ui.getIntroMessage());
-        textToAdd.setWrapText(true);
-
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(Ui.getIntroMessage(), dukeImage));
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(textToAdd);
     }
 
     public void setDuke(Duke d) {
@@ -48,9 +45,15 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = duke.getResponse(input);
+
+        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
+        userDialog.setMinHeight(Region.USE_PREF_SIZE);
+        DialogBox dukeDialog = DialogBox.getDukeDialog(response, dukeImage);
+        dukeDialog.setMinHeight(Region.USE_PREF_SIZE);
+
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                userDialog,
+                dukeDialog
         );
         userInput.clear();
     }

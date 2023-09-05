@@ -3,8 +3,6 @@ package duke;
 import java.time.format.DateTimeParseException;
 
 import exceptions.DukeException;
-import javafx.application.Platform;
-import javafx.scene.image.Image;
 import tasks.Task;
 import tasks.TaskList;
 
@@ -15,8 +13,6 @@ public class Duke {
 
     protected static TaskList taskList = new TaskList();
     protected static Storage storage;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/userAvatar.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/dukeAvatar.png"));
 
     /**
      * Marks task as done.
@@ -129,9 +125,6 @@ public class Duke {
      * @return The response string.
      */
     protected String getResponse(String userInput) {
-        if (userInput.trim().toLowerCase().equals("bye")) {
-            Platform.exit();
-        }
         String output = "";
         try {
             output = Parser.parseUserInput(userInput, Duke.taskList.getSize());

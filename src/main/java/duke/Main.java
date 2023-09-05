@@ -18,7 +18,6 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-
             Storage storage = new Storage("duke.txt");
             duke.storage = storage;
             duke.taskList = storage.retrieveSavedData();

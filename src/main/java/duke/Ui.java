@@ -7,14 +7,11 @@ import tasks.Task;
  */
 public class Ui {
 
-    private static final String INTRO_MESSAGE =
-            " ____  _   _   ____  _____  ____   _     ____  _____\n"
-            + "/ (__`| |_| | / () \\|_   _|/ () \\ | |__ / () \\|_   _|\n"
-            + "\\____)|_| |_|/__/\\__\\ |_| /__/\\__\\|____|\\____/  |_|\n\n"
-            + "Hello! I'm ChatALot.\n"
+    private static final String INTRO_MESSAGE = "Hello! I'm ChatALot.\n"
             + "What can I do for you?\n";
     private static final String OUTRO_MESSAGE =
-            "Bye. Hope to see you again soon!\n";
+            "Bye. Hope to see you again soon!\n"
+            + "You may close the window to end the chat.\n";
 
     public static String getIntroMessage() {
         return INTRO_MESSAGE;
