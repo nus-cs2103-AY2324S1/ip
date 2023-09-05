@@ -2,16 +2,11 @@ package duke;
 
 import java.util.Scanner;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-
 import duke.task.Task;
 import duke.task.TaskList;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+
 
 /**
  * Represents the object that displays output from the chatbot.
@@ -21,14 +16,17 @@ public class UI {
     private final Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private final Image cortana = new Image(this.getClass().getResourceAsStream("/images/cortana.png"));
 
+    /**
+     * Displays user input in GUI.
+     * @param input The user input
+     * @param dialogContainer The GUI dialog container
+     */
     public void displayUserInput(String input, VBox dialogContainer) {
-        Label userText = new Label(input);
-        dialogContainer.getChildren().add(new DialogBox(userText, new ImageView(user), true));
+        dialogContainer.getChildren().add(DialogBox.getUserDialogBox(input, user));
     }
 
     private void displayResponse(String response, VBox dialogContainer) {
-        Label responseText = new Label(response);
-        dialogContainer.getChildren().add(new DialogBox(responseText, new ImageView(cortana), false));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialogBox(response, cortana));
     }
 
     /**
@@ -37,14 +35,6 @@ public class UI {
     public void greet(VBox dialogContainer) {
         displayResponse("Hello I'm Cortana, Microsoft killed me so now I'm here. \n"
                 + "What do you want me to do?", dialogContainer);
-    }
-
-    /**
-     * Displays bye to user.
-     */
-    public void exit(VBox dialogContainer) {
-        scanner.close();
-        displayResponse("Bye. ", dialogContainer);
     }
 
     /**

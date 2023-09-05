@@ -1,18 +1,15 @@
 package duke;
 
+import duke.task.TaskList;
 import javafx.application.Application;
-
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-
-import duke.task.TaskList;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * Represents the Duke chatbot.
@@ -44,53 +41,50 @@ public class Duke extends Application {
         try {
             CommandType command = Parser.parseCommand(line);
             switch (command) {
-                case LIST:
-                    ui.displayList(list, dialogContainer);
-                    break;
-                case MARK:
-                    ui.displayDoneTask(list.markDone(Parser.parseOptions(line)),
-                            dialogContainer);
-                    break;
-                case UNMARK:
-                    ui.displayNotDoneTask(list.unmarkDone(Parser.parseOptions(line)),
-                            dialogContainer);
-                    break;
-                case TODO:
-                    ui.displayAddToList(list.addTodoToList(Parser.parseOptions(line)),
-                            list.getSize(), dialogContainer);
-                    break;
-                case DEADLINE:
-                    ui.displayAddToList(list.addDeadlineToList(Parser.parseOptions(line)),
-                            list.getSize(), dialogContainer);
-                    break;
-                case EVENT:
-                    ui.displayAddToList(list.addEventToList(Parser.parseOptions(line)),
-                            list.getSize(), dialogContainer);
-                    break;
-                case DELETE:
-                    ui.displayRemoveFromList(list.deleteFromList(Parser.parseOptions(line)),
-                            list.getSize(), dialogContainer);
-                    break;
-                case DEADLINEBY:
-                    ui.displayTasks(list.getDeadlineDateTasks(Parser.parseOptions(line)),
-                            dialogContainer);
-                    break;
-                case EVENTFROM:
-                    ui.displayTasks(list.getEventStartDateTasks(Parser.parseOptions(line)),
-                            dialogContainer);
-                    break;
-                case EVENTTO:
-                    ui.displayTasks(list.getEventEndDateTasks(Parser.parseOptions(line)),
-                            dialogContainer);
-                    break;
-                case FIND:
-                    ui.displayTasks(list.findTasks(Parser.parseOptions(line)), dialogContainer);
-                    break;
-                case BYE:
-                    storage.saveTasksToFile(list);
-                    ui.exit(dialogContainer);
-                default:
-                    break;
+            case LIST:
+                ui.displayList(list, dialogContainer);
+                break;
+            case MARK:
+                ui.displayDoneTask(list.markDone(Parser.parseOptions(line)),
+                        dialogContainer);
+                break;
+            case UNMARK:
+                ui.displayNotDoneTask(list.unmarkDone(Parser.parseOptions(line)),
+                        dialogContainer);
+                break;
+            case TODO:
+                ui.displayAddToList(list.addTodoToList(Parser.parseOptions(line)),
+                        list.getSize(), dialogContainer);
+                break;
+            case DEADLINE:
+                ui.displayAddToList(list.addDeadlineToList(Parser.parseOptions(line)),
+                        list.getSize(), dialogContainer);
+                break;
+            case EVENT:
+                ui.displayAddToList(list.addEventToList(Parser.parseOptions(line)),
+                        list.getSize(), dialogContainer);
+                break;
+            case DELETE:
+                ui.displayRemoveFromList(list.deleteFromList(Parser.parseOptions(line)),
+                        list.getSize(), dialogContainer);
+                break;
+            case DEADLINEBY:
+                ui.displayTasks(list.getDeadlineDateTasks(Parser.parseOptions(line)),
+                        dialogContainer);
+                break;
+            case EVENTFROM:
+                ui.displayTasks(list.getEventStartDateTasks(Parser.parseOptions(line)),
+                        dialogContainer);
+                break;
+            case EVENTTO:
+                ui.displayTasks(list.getEventEndDateTasks(Parser.parseOptions(line)),
+                        dialogContainer);
+                break;
+            case FIND:
+                ui.displayTasks(list.findTasks(Parser.parseOptions(line)), dialogContainer);
+                break;
+            default:
+                break;
             }
         } catch (DukeException e) {
             ui.displayException(e, dialogContainer);
