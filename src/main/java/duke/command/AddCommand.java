@@ -14,7 +14,7 @@ public class AddCommand implements Command {
      *
      * @param task Task.
      */
-    public AddCommand (Task task) {
+    public AddCommand(Task task) {
         this.task = task;
     }
 
@@ -29,7 +29,7 @@ public class AddCommand implements Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.add(task);
         storage.save(taskList.getTasks());
-        ui.showMessage("Task " + task.task + " successfully added");
+        ui.showMessage("Task " + task.getTask() + " successfully added");
         taskList.printSize();
     }
 

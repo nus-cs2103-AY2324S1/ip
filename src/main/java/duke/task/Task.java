@@ -5,16 +5,16 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 /** Task class that contains a task string */
 @JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME
+    use = JsonTypeInfo.Id.NAME
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = ToDo.class, name = "ToDo"),
-        @JsonSubTypes.Type(value = Event.class, name = "Event"),
-        @JsonSubTypes.Type(value = Deadline.class, name = "Deadline")
+    @JsonSubTypes.Type(value = ToDo.class, name = "ToDo"),
+    @JsonSubTypes.Type(value = Event.class, name = "Event"),
+    @JsonSubTypes.Type(value = Deadline.class, name = "Deadline")
 })
 public class Task {
-    public boolean done = false;
-    public String task;
+    private boolean done = false;
+    private final String task;
 
     /**
      * Initialize Task.
@@ -39,8 +39,12 @@ public class Task {
         done = false;
     }
 
+    public String getTask() {
+        return task;
+    }
+
     @Override
     public String toString() {
-        return "[" + ((done)?"X":" ") + "] " + task;
+        return "[" + ((done) ? "X" : " ") + "] " + task;
     }
 }
