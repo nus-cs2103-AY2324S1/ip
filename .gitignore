@@ -17,4 +17,4 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 
 # Data files
-src/main/data/duke.txt
+src/main/data
