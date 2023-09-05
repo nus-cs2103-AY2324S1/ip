@@ -120,7 +120,7 @@ public class TaskList {
         TaskList out = new TaskList();
         while (iter.hasNext()) {
             Task task = iter.next();
-            if (task.getName().contains(str)) {
+            if (task.getName().toLowerCase().contains(str.toLowerCase())) {
                 out.add(task);
             }
         }
