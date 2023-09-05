@@ -187,6 +187,19 @@ public class TaskList {
         printNumTasks();
     }
 
+    public ArrayList<Task> findByKeyword(String keyword) {
+        ArrayList<Task> filteredTaskList = new ArrayList<>();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            String taskDescription = task.description;
+            if (taskDescription.contains(keyword)) {
+                filteredTaskList.add(task);
+            }
+        }
+        return filteredTaskList;
+    }
+
     /**
      * Prints onto the console the number of tasks currently in the task list.
      */

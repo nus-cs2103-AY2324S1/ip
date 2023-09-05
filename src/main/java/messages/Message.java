@@ -20,5 +20,6 @@ public class Message {
                                                       "deadline <task name> /by <yyyy-MM-dd HH-mm>\n"  +
                                                       "event <task name> /from <yyyy-MM-dd HH-mm> /to <yyyy-MM-dd HH-mm>\n" +
                                                       "mark <task number>\n" + "unmark <task number>\n" +
+                                                      "find <task description>\n" +
                                                       "delete <task number>\n" + "exit";
 }
