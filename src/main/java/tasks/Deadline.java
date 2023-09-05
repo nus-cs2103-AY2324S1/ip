@@ -1,3 +1,7 @@
+package tasks;
+
+import dogebot.DateTimeHandler;
+
 public class Deadline extends Task {
     private DateTimeHandler by;
 
