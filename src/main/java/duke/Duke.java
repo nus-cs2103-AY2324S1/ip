@@ -2,6 +2,7 @@ package duke;
 
 import duke.task.TaskList;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -155,5 +156,15 @@ public class Duke extends Application {
 
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void stop() {
+        try {
+            storage.saveTasksToFile(list);
+            Platform.exit();
+        } catch (DukeException e) {
+            ui.displayException(e, dialogContainer);
+        }
     }
 }
