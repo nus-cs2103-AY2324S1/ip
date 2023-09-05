@@ -192,7 +192,7 @@ public class TaskList {
      *
      * @param input User input.
      */
-    public void find(String[] input) {
+    public void findTasks(String[] input) {
         try {
             String keyword = input[1];
             if (keyword.strip().equals("")) {

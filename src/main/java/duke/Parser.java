@@ -8,7 +8,7 @@ package duke;
 public class Parser {
     private Ui ui;
     private TaskList tasks;
-    private boolean finish;
+    private boolean isFinished;
 
     /**
      * Constructor to create a Parser.
@@ -19,7 +19,7 @@ public class Parser {
     public Parser(Ui ui, TaskList tasks) {
         this.ui = ui;
         this.tasks = tasks;
-        this.finish = false;
+        this.isFinished = false;
     }
 
     /**
@@ -46,12 +46,12 @@ public class Parser {
         } else if (command.equals("todo")) {
             tasks.addToDo(input);
         } else if (command.equals("find")) {
-            tasks.find(input);
+            tasks.findTasks(input);
         } else if (command.equals("bye")) {
-            this.finish = true;
+            this.isFinished = true;
             ui.bye();
         } else {
-            ui.oops();
+            ui.printErrorMessage();
         }
         ui.horizontalLine();
     }
@@ -62,6 +62,6 @@ public class Parser {
      * @return A boolean value to indicate when to stop asking for user input.
      */
     public boolean isDone() {
-        return finish;
+        return isFinished;
     }
 }

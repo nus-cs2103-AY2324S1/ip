@@ -46,7 +46,7 @@ public class Duke {
     }
 
     /**
-     * Main function that starts the program loading in the saved task list.
+     * Starts the program and loads in the saved task list.
      *
      * @param args The command line arguments.
      */
