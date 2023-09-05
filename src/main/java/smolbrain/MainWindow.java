@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -30,8 +31,9 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Smolbrain d) {
-        smolbrain = d;
+    public void createSmolbrain() {
+        smolbrain = new Smolbrain("data.txt", this);
+        smolbrain.run();
     }
 
     /**
@@ -41,11 +43,26 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = smolbrain.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
-        );
+        displayUserText(input);
+        smolbrain.process(input);
         userInput.clear();
     }
+
+    public void displayUserText(String input) {
+        dialogContainer.getChildren().addAll(
+//                TextBox.getUserDialog(input)
+                DialogBox.getUserDialog(input, userImage)
+//                UserBox.getDialog(input)
+        );
+    }
+
+    public void displayBotText(String response) {
+        dialogContainer.getChildren().addAll(
+//                TextBox.getDukeDialog(response)
+                DialogBox.getDukeDialog(response, dukeImage)
+//                TextBox.getDialog(response)
+
+        );
+    }
+
 }

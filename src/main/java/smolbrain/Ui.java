@@ -8,28 +8,30 @@ import java.util.Scanner;
 public class Ui {
 
     private Scanner sc;
+    private MainWindow mainwindow;
 
     /**
      * Creates a Ui object.
      */
-    public Ui() {
+    public Ui(MainWindow mainwindow) {
         sc = new Scanner(System.in);
+        this.mainwindow = mainwindow;
     }
 
     /**
      * Displays a welcome message to the user.
      */
     public void showWelcome() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Smolbrain\nWhat can I do for you?");
-        System.out.println("____________________________________________________________");
+//        mainwindow.displayBotText("____________________________________________________________");
+        mainwindow.displayBotText("Hello! I'm Smolbrain\nWhat can I do for you?");
+//        mainwindow.displayBotText("____________________________________________________________");
     }
 
     /**
      * Displays a straight line to the user.
      */
     public void showLine() {
-        System.out.println("____________________________________________________________");
+        mainwindow.displayBotText("____________________________________________________________");
     }
 
     /**
@@ -47,7 +49,7 @@ public class Ui {
      * @param e Exception encountered by program.
      */
     public void showError(Exception e) {
-        System.out.println("☹ OOPS!!! " + e);
+        mainwindow.displayBotText("☹ OOPS!!! " + e);
     }
 
     /**
@@ -56,7 +58,11 @@ public class Ui {
      * @param s Message to display.
      */
     public void showMessage(String s) {
-        System.out.println(s);
+        mainwindow.displayBotText(s);
+    }
+
+    public void displayMessage(String s) {
+        mainwindow.displayBotText(s);
     }
 
 }

@@ -9,6 +9,8 @@ import smolbrain.exception.MissingKeywordException;
 import smolbrain.exception.MissingTimeException;
 import smolbrain.task.TaskList;
 
+import java.io.IOException;
+
 /**
  * Smolbrain class which is the chatbot. It takes in input to create and save tasks.
  */
@@ -25,18 +27,24 @@ public class Smolbrain {
      *
      * @param filePath Filepath of the save file.
      */
-    public Smolbrain(String filePath) {
-        storage = new Storage(filePath);
-        ui = new Ui();
-        tasks = new TaskList(storage.load());
+    public Smolbrain(String filePath, MainWindow mainwindow) {
+        ui = new Ui(mainwindow);
+        storage = new Storage(filePath, ui);
+        tasks = new TaskList(storage.load(), ui);
     }
 
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    String getResponse(String input) {
-        return "Duke replies: " + input;
+    public void process(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+        } catch (InvalidRangeException | MissingDescriptionException | MissingTimeException |
+                 InvalidNumberException | InvalidDateTimeException | MissingKeywordException e) {
+            ui.showError(e);
+        }
     }
 
     /**
@@ -45,29 +53,25 @@ public class Smolbrain {
     public void run() {
 
         ui.showWelcome();
-        boolean isExit = false;
 
-        while (!isExit) {
-            try {
-                String input = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(input);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (InvalidRangeException | MissingDescriptionException | MissingTimeException
-                     | InvalidNumberException | InvalidDateTimeException | MissingKeywordException e) {
-                ui.showError(e);
-            }
-            ui.showLine();
-        }
     }
-
-    /**
-     * Creates a new Smolbrain chatbot object with specified save file path and runs the chatbot.
-     *
-     * @param args User inputs for commands.
-     */
-    public static void main(String[] args) {
-        new Smolbrain("data.txt").run();
-    }
+//    public void run() {
+//
+//        ui.showWelcome();
+//        boolean isExit = false;
+//
+//        while (!isExit) {
+//            try {
+//                String input = ui.readCommand();
+//                ui.showLine();
+//                Command c = Parser.parse(input);
+//                c.execute(tasks, ui, storage);
+//                isExit = c.isExit();
+//            } catch (InvalidRangeException | MissingDescriptionException | MissingTimeException |
+//                     InvalidNumberException | InvalidDateTimeException | MissingKeywordException e) {
+//                ui.showError(e);
+//            }
+//            ui.showLine();
+//        }
+//    }
 }
