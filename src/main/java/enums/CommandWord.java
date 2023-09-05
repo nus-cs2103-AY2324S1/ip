@@ -10,7 +10,7 @@ public enum CommandWord {
     TODO("todo"),
     DEADLINE("deadline"),
     EVENT("event"),
-    NULLCOMMAND(""),
+    NULL_COMMAND(""),
     BY("/by"),
     FROM("/from"),
     TO("/to");
@@ -30,6 +30,6 @@ public enum CommandWord {
                 return e;
             }
         }
-        return NULLCOMMAND;
+        return NULL_COMMAND;
     }
 }

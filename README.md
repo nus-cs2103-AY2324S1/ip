@@ -1,4 +1,4 @@
-# Jing Sheng's Duke project
+# Jing Sheng's duke.Duke project
 
 This is Jing Sheng's project, created from a template for a greenfield Java project.
 It's named after the Java mascot _Duke_.
