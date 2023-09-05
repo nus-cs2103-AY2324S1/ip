@@ -1,5 +1,6 @@
 package anto;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -33,34 +34,34 @@ public class Ui {
     /**
      * Greets the user.
      */
-    public void greet() {
-        this.printBlock();
-        System.out.println("Hello I'm Anto\nWhat can I do for you?");
-        this.printBlock();
+    public String greet() {
+        return "Hello I'm Anto\n" +
+                "What can I do for you?";
     }
 
     /**
      * Says bye to the user.
      */
-    public void sayBye() {
-        this.printBlock();
-        System.out.println("Bye. Hope to see you again soon!");
-        this.printBlock();
+    public String sayBye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
      * Prints current list of tasks.
      */
-    public void printList() {
+    public String printList() {
         ArrayList<Task> storage = taskList.getTaskArrayList();
         int length = taskList.getLength();
-        this.printBlock();
-        System.out.println("Here are the tasks in your list:");
+
+        ArrayList<String> stringOutputArr = new ArrayList<>();
+        stringOutputArr.add("Here are the tasks in your list:");
+
         for (int i = 0; i < length; i++) {
-            System.out.println(String.format("%d. %s",
+            stringOutputArr.add(String.format("%d. %s",
                     i + 1, storage.get(i)));
         }
-        this.printBlock();
+
+        return String.join("\n", stringOutputArr);
     }
 
     /**
@@ -68,12 +69,12 @@ public class Ui {
      *
      * @param index Index of deleted task.
      */
-    public void printMarkAsDone(int index) {
+    public String printMarkAsDone(int index) {
         ArrayList<Task> storage = taskList.getTaskArrayList();
-        this.printBlock();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(storage.get(index));
-        this.printBlock();
+
+        return String.format("Nice! I've marked this task as done:\n" +
+                        "%s",
+                storage.get(index));
     }
 
     /**
@@ -81,12 +82,12 @@ public class Ui {
      *
      * @param index Index of task unmarked.
      */
-    public void printUnmark(int index) {
+    public String printUnmark(int index) {
         ArrayList<Task> storage = taskList.getTaskArrayList();
-        this.printBlock();
-        System.out.println("Okay, I've marked this task as not done yet:");
-        System.out.println(storage.get(index));
-        this.printBlock();
+
+        return String.format("Okay, I've marked this task as not done yet:\n" +
+                        "%s",
+                storage.get(index));
     }
 
     /**
@@ -94,12 +95,12 @@ public class Ui {
      *
      * @param task Task that was added.
      */
-    public void printAdded(Task task) {
-        this.printBlock();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println(String.format("Now you have %d tasks in the list.", taskList.getLength()));
-        this.printBlock();
+    public String printAdded(Task task) {
+        return String.format("Got it. I've added this task:\n" +
+                        "%s\n" +
+                        "Now you have %d tasks in the list.",
+                task,
+                taskList.getLength());
     }
 
     /**
@@ -107,10 +108,8 @@ public class Ui {
      *
      * @param e AntoException that was thrown.
      */
-    public void printError(AntoException e) {
-        this.printBlock();
-        System.out.println(e.getMessage());
-        this.printBlock();
+    public String printError(AntoException e) {
+        return e.getMessage();
     }
 
     /**
@@ -118,21 +117,19 @@ public class Ui {
      *
      * @param task Task that was deleted.
      */
-    public void printDelete(Task task) {
-        this.printBlock();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.println(String.format("Now you have %d tasks in the list.", taskList.getLength()));
-        this.printBlock();
+    public String printDelete(Task task) {
+        return String.format("Noted. I've removed this task:\n" +
+                        "%s\n" +
+                        "Now you have %d tasks in the list.",
+                task,
+                taskList.getLength());
     }
 
     /**
      * Tells user there are no current tasks on the list.
      */
-    public void printNoTasks() {
-        this.printBlock();
-        System.out.println("Sorry, you currently have no tasks on the list.");
-        this.printBlock();
+    public String printNoTasks() {
+        return "Sorry, you currently have no tasks on the list.";
     }
 
     /**
@@ -168,23 +165,21 @@ public class Ui {
      *
      * @param foundTasks List of tasks found.
      */
-    public void printFoundTasks(ArrayList<Task> foundTasks) {
+    public String printFoundTasks(ArrayList<Task> foundTasks) {
         if (foundTasks.size() == 0) {
-            this.printBlock();
-            System.out.println("There are no matching tasks in your list.");
-            this.printBlock();
-            return;
+            return "There are no matching tasks in your list.";
         }
 
-        this.printBlock();
+        ArrayList<String> stringOutputArr = new ArrayList<>();
+        stringOutputArr.add("Here are the matching tasks in your list:");
 
         int length = foundTasks.size();
-        System.out.println("Here are the matching tasks in your list:");
+
         for (int i = 0; i < length; i++) {
-            System.out.println(String.format("%d. %s",
+            stringOutputArr.add(String.format("%d. %s",
                     i + 1, foundTasks.get(i)));
         }
 
-        this.printBlock();
+        return String.join("\n", stringOutputArr);
     }
 }
