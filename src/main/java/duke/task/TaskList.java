@@ -1,9 +1,8 @@
 package duke.task;
 
-import duke.exception.DukeException;
-
 import java.util.ArrayList;
-import java.util.List;
+
+import duke.exception.DukeException;
 
 /**
  * Represents a list of tasks.
@@ -75,7 +74,7 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as not done.
      */
-    public void markTaskAsUndone (int index) {
+    public void markTaskAsUndone(int index) {
         tasks.get(index).markAsNotDone();
     }
 

@@ -22,7 +22,7 @@ public class Event extends Task {
      * @param from The start time of the task in the format "yyyy-MM-dd HH:mm".
      * @param to The end time of the task in the format "yyyy-MM-dd HH:mm".
      */
-    public Event(String description, String from, String to){
+    public Event(String description, String from, String to) {
         super(description);
         this.from = LocalDateTime.parse(from);
         this.to = LocalDateTime.parse(to);
