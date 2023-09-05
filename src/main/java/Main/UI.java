@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 public class UI {
 
-    public UI() {}
+    public UI() {
+    }
 
     void divider() {
         String line = "____________________________________________________________";
@@ -33,6 +34,28 @@ public class UI {
         this.divider();
         if (taskArrayList.size() == 0) {
             System.out.println("There are no tasks in your list.");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < taskArrayList.size(); i++) {
+                int index = i + 1;
+                Task t = taskArrayList.get(i);
+                System.out.println(index + "." + t.toString());
+            }
+        }
+        this.divider();
+    }
+
+    public void list(ArrayList<Task> taskArrayList, Boolean isMatchingList) {
+        this.divider();
+        if (taskArrayList.size() == 0) {
+            System.out.println("There are no matching tasks in your list.");
+        } else if (isMatchingList) {
+            System.out.println("Here are the " + taskArrayList.size() + " matching tasks in your list:");
+            for (int i = 0; i < taskArrayList.size(); i++) {
+                int index = i + 1;
+                Task t = taskArrayList.get(i);
+                System.out.println(index + "." + t.toString());
+            }
         } else {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < taskArrayList.size(); i++) {
