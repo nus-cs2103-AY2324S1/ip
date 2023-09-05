@@ -3,7 +3,12 @@ package parser;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The <code>Parser</code> class provides methods for parsing and extracting information
+ * from user input and task information stored in text files.
+ */
 public class Parser {
+
     /**
      * Extracts and returns a number from the given input string.
      *

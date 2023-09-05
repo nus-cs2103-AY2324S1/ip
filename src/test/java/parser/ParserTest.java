@@ -1,7 +1,7 @@
 package parser;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * The ParserTest class contains unit tests for the Parser class.

@@ -1,17 +1,30 @@
 package storage;
-import java.io.IOException;
-import java.util.Scanner;
+
 import java.io.File;
 import java.io.FileWriter;
-import tasks.*;
+import java.io.IOException;
+import java.util.Scanner;
+
 import parser.Parser;
+import tasks.Deadlines;
+import tasks.Events;
+import tasks.Task;
+import tasks.TaskList;
+import tasks.ToDos;
 import ui.Ui;
 
+
+/**
+ * The `Storage` class is responsible for managing the persistence of tasks by
+ * reading and writing them to an external file named "OUTPUT.txt". It provides
+ * methods to load tasks from the file, write tasks to the file, and overwrite
+ * the file with updated task information.
+ */
 public class Storage {
     private FileWriter pw;
     private String currdir;
     private TaskList tasks;
-    Ui userUi = new Ui();
+    private Ui userUi = new Ui();
 
     /**
      * Constructor for the Storage class.
@@ -47,22 +60,20 @@ public class Storage {
                     String taskName = parser.taskNameFromTextFile(taskInfo, "[E] ");
                     String taskFrom = parser.taskFromFromTextFile(taskInfo);
                     String taskTo = parser.taskToFromTextFile(taskInfo);
-
                     Task newTask = new Events(taskName, taskFrom, taskTo, isDone);
                     tasks.add(newTask);
                     System.out.println(i + ". " + newTask);
                 } else if (taskInfo.contains("[D]")) {
-                    String taskName = parser.taskNameFromTextFile(taskInfo,"[D] ");
+                    String taskName = parser.taskNameFromTextFile(taskInfo, "[D] ");
                     String taskBy = parser.taskByFromTextFile(taskInfo);
-
                     Task newTask = new Deadlines(taskName, taskBy, isDone);
                     tasks.add(newTask);
                     System.out.println(i + ". " + newTask);
                 }
             }
         } catch (IOException e) {
-            System.out.println("\nERROR: OUTPUT.txt file is not found in directory ./src/main/java/OUTPUT.txt!\n" +
-                    "Creating OUTPUT.txt in the given directory now.");
+            System.out.println("\nERROR: OUTPUT.txt file is not found in directory ./src/main/java/OUTPUT.txt!\n"
+                    + "Creating OUTPUT.txt in the given directory now.");
         } finally {
             // Instance of PrintWriter to write new outputs to the file
             pw = new FileWriter("./src/main/java/OUTPUT.txt", true);

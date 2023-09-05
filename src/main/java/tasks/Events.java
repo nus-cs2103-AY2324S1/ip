@@ -4,12 +4,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The `Events` class represents a task that is an event with a specified date range.
+ * It extends the `Task` class and adds functionality to handle event dates and provide
+ * formatted representations of events.
+ */
 public class Events extends Task {
     private LocalDate from;
     private LocalDate to;
 
     /**
-     * Constructor for the Events class.
+     * Constructs an `Events` task.
      *
      * @param name   The name of the event task.
      * @param from   The starting date of the event.
@@ -24,9 +29,10 @@ public class Events extends Task {
     }
 
     /**
-     * Returns a string representation of the event task, including its name, status, and date range.
+     * Returns a formatted string representation of the `Events` task, including its name,
+     * status, and date range.
      *
-     * @return A formatted string representing the event task.
+     * @return A formatted string representing the `Events` task.
      */
     @Override
     public String toString() {
@@ -35,7 +41,7 @@ public class Events extends Task {
     }
 
     /**
-     * Marks the event task as done and provides feedback.
+     * Marks the `Events` task as done and provides feedback.
      */
     @Override
     public void markDone() {
@@ -44,7 +50,7 @@ public class Events extends Task {
     }
 
     /**
-     * Unmarks the event task as done and provides feedback.
+     * Unmarks the `Events` task as done and provides feedback.
      */
     @Override
     public void unmarkDone() {

@@ -1,9 +1,10 @@
 package tasks;
+
 public class Task {
     private boolean isDone;
     private final String NAME;
-    final String DONE = "[X] ";
-    final String NOTDONE = "[] ";
+    private final String DONE = "[X] ";
+    private final String NOTDONE = "[] ";
 
     /**
      * Constructor for the Task class.

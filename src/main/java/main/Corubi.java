@@ -1,10 +1,17 @@
 package main;
-import tasks.*;
-import parser.Parser;
-import ui.Ui;
-import storage.Storage;
+
 import java.io.IOException;
 
+import parser.Parser;
+import storage.Storage;
+import tasks.TaskList;
+import ui.Ui;
+
+/**
+ * The <code>Corubi</code> class represents the main class for the Corubi chatbot application.
+ * It serves as the entry point and orchestrates the interaction between the user interface,
+ * task management, storage, and command parsing.
+ */
 public class Corubi {
     private static Ui userUi;
     private static Storage store;
@@ -14,7 +21,7 @@ public class Corubi {
     private static final String DIRECTORY = "./src/main/java/OUTPUT.txt";
 
     /**
-     * Constructs a Corubi instance.
+     * Constructs a new <code>Corubi</code> instance.
      *
      * @param dir The directory path for storing the data.
      */
