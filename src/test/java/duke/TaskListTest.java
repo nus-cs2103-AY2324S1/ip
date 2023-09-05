@@ -5,34 +5,59 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.nio.file.Files;
 
-public class TaskListTest {
-    private TaskList taskList;
+class TaskListTest {
+    private File tempFile;
 
     @BeforeEach
-    public void setup() throws IOException {
-        File tempFile = File.createTempFile("tempTaskList", ".txt");
-        taskList = new TaskList(tempFile);
+    void setUp() throws IOException {
+        tempFile = Files.createTempFile(null, null).toFile();
     }
 
     @Test
-    public void testHandleTodo() {
-        taskList.handleTodo("todo Sample todo task");
+    void testAddToList() throws FileNotFoundException {
+        TaskList taskList = new TaskList(tempFile);
+        ToDo todo = new ToDo("Buy groceries");
+        taskList.addToList(todo, 0);
+        assertEquals(1, taskList.tasks.size());
+    }
 
-        assertEquals(1, taskList.taskCount);
+    @Test
+    void testHandleTodo() throws FileNotFoundException {
+        TaskList taskList = new TaskList(tempFile);
+        taskList.handleTodo("todo Buy groceries");
+        assertEquals(1, taskList.tasks.size());
         assertTrue(taskList.tasks.get(0) instanceof ToDo);
     }
 
     @Test
-    public void testDelete() {
-        taskList.handleTodo("todo Sample todo task");
-        taskList.handleTodo("todo Sample todo task 2");
-        taskList.delete("delete 2");
+    void testHandleDeadline() throws FileNotFoundException {
+        TaskList taskList = new TaskList(tempFile);
+        taskList.handleDeadline("deadline Complete assignment /by 2023-09-30");
+        assertEquals(1, taskList.tasks.size());
+        assertTrue(taskList.tasks.get(0) instanceof Deadline);
+    }
 
-        assertEquals(1, taskList.taskCount);
+    @Test
+    void testHandleEvent() throws FileNotFoundException {
+        TaskList taskList = new TaskList(tempFile);
+        taskList.handleEvent("event Conference /from 2023-09-01 /to 2023-09-05");
+        assertEquals(1, taskList.tasks.size());
+        assertTrue(taskList.tasks.get(0) instanceof Event);
+    }
+
+    @Test
+    void testHandleFind() throws FileNotFoundException {
+        TaskList taskList = new TaskList(tempFile);
+        ToDo todo = new ToDo("Buy groceries");
+        taskList.addToList(todo, 0);
+        ArrayList<Task> findTasks = new ArrayList<>();
+        taskList.handleFind("find groceries");
+        assertEquals(1, taskList.tasks.size());
         assertTrue(taskList.tasks.get(0) instanceof ToDo);
     }
 }
-
