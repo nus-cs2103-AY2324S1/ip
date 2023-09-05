@@ -82,15 +82,6 @@ public class TaskList {
     }
 
     /**
-     * Displays the list of tasks stored in the tasklist.
-     */
-    public void displayTasks() {
-        for (Task task : tasklst) {
-            System.out.println(task.toString());
-        }
-    }
-
-    /**
      * Unmarks a task with the given task number in the tasklist.
      * @param taskNumber task number to be unmarked
      * @param ui instance of user interface
@@ -144,5 +135,32 @@ public class TaskList {
             tasks.add(task.toSaveFormat());
         }
         return tasks;
+    }
+
+    /**
+     * Returns string representations of tasks in an arraylist to be printed by the UI.
+     * @return ArrayList of strings to be printed onto ui
+     */
+    public ArrayList<String> getTaskStrings() {
+        ArrayList<String> listOfStrings = new ArrayList<>();
+        for (Task task : tasklst) {
+            listOfStrings.add(task.toString());
+        }
+        return listOfStrings;
+    }
+
+    /**
+     * Filters tasklist to search for a keyword.
+     * @param keyword keyword to search if task description contains
+     * @return Arraylist containing filtered tasks
+     */
+    public ArrayList<String> filterToList(String keyword) {
+        ArrayList<String> filteredList = new ArrayList<>();
+        for (Task task : tasklst) {
+            if (task.contains(keyword)) {
+                filteredList.add(task.toString());
+            }
+        }
+        return filteredList;
     }
 }

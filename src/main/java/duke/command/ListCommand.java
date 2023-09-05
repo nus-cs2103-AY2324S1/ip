@@ -22,7 +22,7 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList tasklst, Ui ui, Storage storage) {
-        tasklst.displayTasks();
+        ui.showTasks(tasklst.getTaskStrings());
     }
 
     /**

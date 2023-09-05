@@ -54,4 +54,13 @@ public class Task {
     public void unmarkAsDone() {
         this.isDone = false;
     }
+
+    /**
+     * Checks if description of task contains given keyword.
+     * @param keyword keyword to be checked
+     * @return true if contains keyword else false
+     */
+    public boolean contains(String keyword) {
+        return this.description.contains(keyword);
+    }
 }

@@ -4,6 +4,7 @@ import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
@@ -36,6 +37,13 @@ public class Parser {
             } else {
                 return new ListCommand();
             }
+        case "find":
+            if (fields.length != 2) {
+                throw new InvalidArgumentException("Please enter 'find {keyword}' without any extra arguments "
+                        + "or use a different "
+                        + "keyword");
+            }
+            return new FindCommand(fields[1]);
         case "mark":
             if (fields.length != 2) {
                 throw new InvalidArgumentException("Please enter 'mark {task number}' or use a different "
