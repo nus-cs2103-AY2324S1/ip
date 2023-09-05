@@ -1,8 +1,15 @@
 package juke;
 
+import javafx.application.Application;
+import javafx.application.Platform;
+
 import java.time.LocalDate;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class Juke {
     private final Storage storage;
     private TaskList tasks;
@@ -10,84 +17,100 @@ public class Juke {
 
     private final Parser parser;
 
-    private boolean isEnded;
+    private Application main;
 
-    public Juke(String filePath) {
+    private boolean isEnded;
+    public Juke(String filePath, Application main) {
         ui = new Ui();
         parser = new Parser(this);
         storage = new Storage(filePath);
+        this.main = main;
         try {
             tasks = new TaskList(storage.load());
         } catch (JukeError e) {
-            ui.printError(e);
+            System.out.println(ui.printError(e));
             tasks = new TaskList(new ArrayList<>());
         }
     }
 
-    public void closeBot() {
-        ui.printBye();
-        isEnded = true;
+    public String getResponse(String input) {
+        try {
+            return parser.parse(input);
+        } catch (JukeError error) {
+            return ui.printError(error);
+        } catch (Exception error) {
+            System.out.println("Something went wrong.");
+        }
+        return "Something went wrong. Please try again!";
     }
 
-    public void printList() {
-        ui.printList(tasks.tasks);
+    public String closeBot() throws Exception {
+        // Create a ScheduledExecutorService with a single-thread pool
+        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+
+        // Schedule the main.stop() to run after 2 seconds
+        executorService.schedule(() -> {
+            Platform.runLater(() -> {
+                try {
+                    main.stop();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }, 2, TimeUnit.SECONDS);
+
+        // Shutdown the executor service after scheduling the task
+        executorService.shutdown();
+
+        // Return ui.printBye() immediately
+        return ui.printBye();
     }
 
-    public void unmark(int index) throws JukeError {
+    public String printList() {
+        return ui.printList(tasks.tasks);
+    }
+
+    public String unmark(int index) throws JukeError {
         Task currTask = tasks.markAsUndone(index);
-        ui.unmark(currTask);
         storage.updateAll(tasks.tasks);
+        return ui.unmark(currTask);
     }
 
-    public void mark(int index) throws JukeError {
+    public String mark(int index) throws JukeError {
         Task currTask = tasks.markAsDone(index);
-        ui.mark(currTask);
         storage.updateAll(tasks.tasks);
+        return ui.mark(currTask);
     }
 
-    public void delete(int index) throws JukeError {
+    public String delete(int index) throws JukeError {
         Task currTask = tasks.delete(index);
-        ui.delete(currTask, tasks.getSize());
         storage.updateAll(tasks.tasks);
+        return ui.delete(currTask, tasks.getSize());
     }
 
-    public void find(String searchTerm) {
+    public String find(String searchTerm) {
         ArrayList<Task> results = tasks.find(searchTerm);
-        ui.find(results);
+        return ui.find(results);
     }
 
-    public void createTodo(String desc) throws JukeError {
+    public String createTodo(String desc) throws JukeError {
         Task newTask = new Todo(desc);
         tasks.add(newTask);
         storage.write(newTask);
-        ui.createTask(newTask, tasks.getSize());
+        return ui.createTask(newTask, tasks.getSize());
     }
 
-    public void createDeadline(String desc, LocalDate by) throws JukeError {
+    public String createDeadline(String desc, LocalDate by) throws JukeError {
         Task newTask = new Deadline(desc, by);
         tasks.add(newTask);
         storage.write(newTask);
-        ui.createTask(newTask, tasks.getSize());
+        return ui.createTask(newTask, tasks.getSize());
     }
 
-    public void createEvent(String desc, LocalDate start, LocalDate end) throws JukeError {
+    public String createEvent(String desc, LocalDate start, LocalDate end) throws JukeError {
         Task newTask = new Event(desc, start, end);
         tasks.add(newTask);
         storage.write(newTask);
-        ui.createTask(newTask, tasks.getSize());
-    }
-
-    public void run() {
-        ui.printStart();
-        while (!isEnded) {
-            try {
-                parser.parse(ui.readInput());
-            } catch (JukeError error) {
-                ui.printError(error);
-            }
-        }
-    }
-    public static void main(String[] args) {
-        new Juke("./savefile.txt").run();
+        return ui.createTask(newTask, tasks.getSize());
     }
 }

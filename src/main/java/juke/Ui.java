@@ -1,86 +1,62 @@
 package juke;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Ui {
-    Scanner scanner;
-
-    public Ui() {
-        scanner = new Scanner(System.in);
-    }
-
-    /**
-     * Prints a line to separate different sections.
-     */
-    static void printLine() {
-        System.out.println("_______________________________________________________");
-    }
-
-    /**
-     * Reads the input from the user.
-     * @return The input from the user.
-     */
-    public String readInput() {
-        return scanner.nextLine();
-    }
 
     /**
      * Prints the message to welcome the user.
      */
-    public void printStart() {
+    public static String printStart() {
         //Introduce itself to the user
-        System.out.println("Hello! I'm Juke!");
-        System.out.println("What can I do for you?");
-        printLine();
+        return "Hello! I'm Juke!\n"
+        + "What can I do for you?\n";
     }
 
     /**
      * Prints the error message.
      * @param error The JukeError which was encountered.
      */
-    public void printError(JukeError error) {
-        System.out.println(error.getMessage());
-        printLine();
+    public String printError(JukeError error) {
+        return error.getMessage();
     }
 
     /**
      * Prints bye to the user.
      */
-    public void printBye() {
+    public String printBye() {
         //Say goodbye
-        System.out.println("Bye. Hope to see you again soon!");
-        printLine();
-        scanner.close();  // Close the scanner before exiting
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
      * Prints the lists of tasks that the user has saved.
      * @param tasks The list of tasks to be printed.
      */
-    public void printList(ArrayList<Task> tasks) {
+    public String printList(ArrayList<Task> tasks) {
         int count = 1;
+        StringBuilder list = new StringBuilder();
         for (Task task : tasks) {
-            System.out.println(count + ": " + task.toString());
+            list.append(count).append(": ").append(task.toString()).append("\n");
             count++;
         }
-        printLine();
+        return list.toString();
     }
 
     /**
      * Prints message after a task is marked as uncompleted.
      * @param task The task which was unmarked.
      */
-    public void unmark(Task task) {
-        System.out.println("OK, I've marked this task as not done yet: \n" + task.toString());
+    public String unmark(Task task) {
+        return "OK, I've marked this task as not done yet: \n" + task.toString();
     }
 
     /**
      * Prints message after a task is marked as completed.
      * @param task The task which was marked.
      */
-    public void mark(Task task) {
-        System.out.println("Nice! I've marked this task as done: \n" + task.toString());
+    public String mark(Task task) {
+        return "Nice! I've marked this task as done: \n" + task.toString();
     }
 
     /**
@@ -88,10 +64,10 @@ public class Ui {
      * @param task The task which was deleted.
      * @param size The number of tasks in the TaskList.
      */
-    public void delete(Task task, int size) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("\t" + task.toString());
-        System.out.println("Now you have " + size + " tasks in the list.");
+    public String delete(Task task, int size) {
+        return "Noted. I've removed this task:\n"
+        + "\t" + task.toString() + "\n"
+        + "Now you have " + size + " tasks in the list.";
     }
 
     /**
@@ -99,28 +75,28 @@ public class Ui {
      * @param task The task which was created.
      * @param size The number of tasks in the TaskList.
      */
-    public void createTask(Task task, int size) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("\t" + task.toString());
-        System.out.println("Now you have " + size + " tasks in the list.");
+    public String createTask(Task task, int size) {
+        return "Got it. I've added this task:\n"
+        + "\t" + task.toString() + "\n"
+        + "Now you have " + size + " tasks in the list.";
     }
 
     /**
      * Prints out corresponding tasks based on search term.
      * @param results The results of the search.
      */
-    public void find(ArrayList<Task> results) {
+    public String find(ArrayList<Task> results) {
         if (results.size() == 0) {
-            System.out.println("No results found.");
+            return "No results found.";
         } else {
             int count = 1;
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder tasks = new StringBuilder();
             for (Task task : results) {
-                System.out.println(count + ". " + task.toString());
+                tasks.append(count).append(". ").append(task.toString()).append("\n");
                 count++;
             }
+            return tasks.toString();
         }
-        printLine();
     }
 
 }

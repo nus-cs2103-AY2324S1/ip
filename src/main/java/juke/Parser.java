@@ -17,37 +17,37 @@ public class Parser {
      * @param input Input from the user.
      * @throws JukeError If there was a problem parsing the input.
      */
-    void parse(String input) throws JukeError {
+    String parse(String input) throws Exception {
         if (input.equalsIgnoreCase("bye")) {
-            juke.closeBot();
+            return juke.closeBot();
         }
         else if (input.equalsIgnoreCase("list")) {
-            juke.printList();
+            return juke.printList();
         }
         else if (input.contains("unmark ")) {
             int index = Integer.parseInt(input.substring(7));
-            juke.unmark(index);
+            return juke.unmark(index);
         }
         else if (input.contains("mark ")) {
             int index = Integer.parseInt(input.substring(5));
-            juke.mark(index);
+            return juke.mark(index);
         }
         else if (input.startsWith("delete ")) {
             int index = Integer.parseInt(input.substring(7));
-            juke.delete(index);
+            return juke.delete(index);
         }
         else if (input.startsWith("find ")) {
             if (input.length() < 6) {
                 throw new JukeError("Please specify a search term.");
             }
             String searchTerm = input.substring(5);
-            juke.find(searchTerm);
+            return juke.find(searchTerm);
         }
         else if (input.startsWith("todo")) {
             if (input.length() < 5 || input.substring(5).length() == 0) {
                 throw new JukeError("The description of a todo cannot be empty.");
             }
-            juke.createTodo(input.substring(5));
+            return juke.createTodo(input.substring(5));
         }
         else if (input.startsWith("deadline")) {
             final Pattern deadlinePattern = Pattern.compile(
@@ -55,7 +55,7 @@ public class Parser {
             Matcher matcher = deadlinePattern.matcher(input);
             if (matcher.matches()) {
                 try {
-                    juke.createDeadline(matcher.group(1), LocalDate.parse(matcher.group(2)));
+                    return juke.createDeadline(matcher.group(1), LocalDate.parse(matcher.group(2)));
                 } catch (DateTimeParseException e) {
                     throw new JukeError("Failed to parse date.");
                 }
@@ -67,7 +67,7 @@ public class Parser {
             Matcher matcher = eventPattern.matcher(input);
             if (matcher.matches()) {
                 try {
-                    juke.createEvent(matcher.group(1),
+                    return juke.createEvent(matcher.group(1),
                             LocalDate.parse(matcher.group(2)),
                             LocalDate.parse(matcher.group(3)));
                 } catch (DateTimeParseException e) {
@@ -78,5 +78,6 @@ public class Parser {
         else {
             throw new JukeError("I'm sorry, but I don't know what that means :-(");
         }
+        return "Juke may have encountered a problem - please try that again!";
     }
 }
