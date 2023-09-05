@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" style="-fx-background-color: blue;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label fx:id="dialog" alignment="TOP_LEFT" style="-fx-background-color: #1B2940; -fx-padding: 10 12 10 12; -fx-background-radius: 12;" text="Label" textFill="WHITE" wrapText="true" HBox.hgrow="ALWAYS">
             <font>
@@ -22,7 +22,7 @@
             <Image url="@../images/DaUser.png" />
          </image>
          <HBox.margin>
-            <Insets bottom="4.0" left="4.0" />
+            <Insets />
          </HBox.margin></ImageView>
     </children>
    <padding>

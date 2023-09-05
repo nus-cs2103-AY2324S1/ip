@@ -23,8 +23,8 @@ public class MainWindow extends AnchorPane {
 
     private Smolbrain smolbrain;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/bot.png"));
 
     @FXML
     public void initialize() {
