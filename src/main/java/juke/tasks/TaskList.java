@@ -3,12 +3,12 @@ package juke.tasks;
 import java.util.LinkedList;
 import java.util.List;
 
-import juke.core.JukeObject;
+import juke.commons.classes.JukeObject;
+import juke.commons.utils.StringUtils;
 import juke.exceptions.JukeStateException;
 import juke.exceptions.arguments.JukeIllegalArgumentException;
 import juke.exceptions.storage.JukeStorageException;
 import juke.storage.Storage;
-import juke.utils.StringUtils;
 
 /**
  * Manages {@code JukeTasks}. This class handles the addition/deletion/manipulation of

@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
-import juke.core.JukeObject;
+import juke.commons.classes.JukeObject;
 import juke.exceptions.JukeException;
 import juke.exceptions.arguments.JukeIllegalArgumentException;
 import juke.exceptions.arguments.JukeIllegalCommandArgumentException;

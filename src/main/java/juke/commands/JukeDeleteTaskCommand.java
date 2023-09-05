@@ -1,11 +1,11 @@
 package juke.commands;
 
 import juke.Juke;
+import juke.commons.utils.StringUtils;
 import juke.exceptions.storage.JukeStorageException;
 import juke.responses.Response;
 import juke.tasks.JukeTask;
 import juke.tasks.TaskList;
-import juke.utils.StringUtils;
 
 /**
  * Action that deletes a Task from the {@code TaskList}.

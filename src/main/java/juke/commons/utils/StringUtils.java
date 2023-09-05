@@ -1,4 +1,4 @@
-package juke.utils;
+package juke.commons.utils;
 
 import java.util.StringTokenizer;
 

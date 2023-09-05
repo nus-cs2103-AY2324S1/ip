@@ -1,6 +1,6 @@
 package juke.responses;
 
-import juke.core.JukeObject;
+import juke.commons.classes.JukeObject;
 
 /**
  * Simple class that represents the responses from Juke or the user.

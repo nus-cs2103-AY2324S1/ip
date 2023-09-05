@@ -3,10 +3,10 @@ package juke.commands;
 import java.util.List;
 
 import juke.Juke;
+import juke.commons.utils.StringUtils;
 import juke.responses.Response;
 import juke.tasks.JukeTask;
 import juke.tasks.TaskList;
-import juke.utils.StringUtils;
 
 /**
  * Action that finds a Task in the {@code TaskList} according to the

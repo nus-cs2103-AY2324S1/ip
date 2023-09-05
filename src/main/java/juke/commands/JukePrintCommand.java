@@ -1,6 +1,6 @@
 package juke.commands;
 
-import juke.core.JukeObject;
+import juke.commons.classes.JukeObject;
 import juke.responses.Response;
 
 /**

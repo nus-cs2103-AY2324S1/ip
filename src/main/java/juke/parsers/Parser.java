@@ -2,7 +2,7 @@ package juke.parsers;
 
 import java.util.regex.Pattern;
 
-import juke.core.JukeObject;
+import juke.commons.classes.JukeObject;
 
 /**
  * Contains methods used to parse the commands given by the user. Note that excessive whitespaces surrounding

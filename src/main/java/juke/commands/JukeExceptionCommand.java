@@ -1,9 +1,9 @@
 package juke.commands;
 
 import juke.Juke;
+import juke.commons.utils.StringUtils;
 import juke.exceptions.JukeException;
 import juke.responses.Response;
-import juke.utils.StringUtils;
 
 /**
  * Action class that corresponds to an error action.

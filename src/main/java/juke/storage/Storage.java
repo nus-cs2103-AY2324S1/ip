@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 
-import juke.core.JukeObject;
+import juke.commons.classes.JukeObject;
 import juke.exceptions.JukeInitialisationException;
 import juke.exceptions.storage.JukeStorageException;
 import juke.exceptions.storage.JukeStorageReadException;

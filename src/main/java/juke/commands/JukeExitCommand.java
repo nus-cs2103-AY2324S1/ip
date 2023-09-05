@@ -1,8 +1,8 @@
 package juke.commands;
 
 import juke.Juke;
+import juke.commons.utils.StringUtils;
 import juke.responses.Response;
-import juke.utils.StringUtils;
 
 /**
  * Action that is invoked when the user wishes to quit the assistant.

@@ -1,6 +1,6 @@
 package juke.tasks;
 
-import juke.core.JukeObject;
+import juke.commons.classes.JukeObject;
 import juke.exceptions.JukeStateException;
 
 /**
