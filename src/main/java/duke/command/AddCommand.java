@@ -57,4 +57,19 @@ public class AddCommand extends Command {
             break;
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj instanceof AddCommand) {
+            AddCommand other = (AddCommand) obj;
+            if (this.commandDetails == null || other.commandDetails == null) {
+                return false;
+            }
+            return this.commandDetails.equals(other.commandDetails) && this.taskType.equals(other.taskType);
+        }
+        return false;
+    }
 }

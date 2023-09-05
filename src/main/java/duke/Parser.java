@@ -113,6 +113,8 @@ public class Parser {
             commandDetailList.add(taskToDelete);
             command = new DeleteComand(commandDetailList);
             break;
+        default:
+            throw new DukeException("☹ OOPS!!! This command is invalid.");
         }
         return command;
     }

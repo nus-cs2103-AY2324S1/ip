@@ -29,4 +29,19 @@ public class UnmarkCommand extends Command {
         storage.writeListToFile(tasks);
         ui.printTaskMarked(unmarkedTask);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj instanceof UnmarkCommand) {
+            UnmarkCommand other = (UnmarkCommand) obj;
+            if (this.commandDetails == null || other.commandDetails == null) {
+                return false;
+            }
+            return this.commandDetails.equals(other.commandDetails);
+        }
+        return false;
+    }
 }
