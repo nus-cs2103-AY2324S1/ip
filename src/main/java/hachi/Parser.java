@@ -1,12 +1,17 @@
 package hachi;
 
-import exceptions.*;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import exceptions.DateFormatWrongException;
+import exceptions.EmptyNumberException;
+import exceptions.EmptyTaskException;
+import exceptions.HachiException;
+import exceptions.NumberOutOfBoundsException;
+import exceptions.TooManyArgumentsException;
 
 public class Parser {
 
@@ -75,6 +80,8 @@ public class Parser {
                 throw new DateFormatWrongException("");
             }
             break;
+        default:
+            break;
         }
 
     }
@@ -102,8 +109,9 @@ public class Parser {
 
         case "todo":
             return String.join(" ", arg);
+        default:
+            return "";
         }
-        return "";
 
     }
 
