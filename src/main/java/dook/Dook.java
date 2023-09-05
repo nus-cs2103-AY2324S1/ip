@@ -18,11 +18,18 @@ public class Dook {
     private final Parser parser;
     private TaskList taskList = new TaskList(null);
 
+    /**
+     * Assigns the proper file path to Storage.
+     */
     public Dook() {
         this.storage = new Storage(PROPER_PATH);
         this.parser = new Parser();
     }
 
+    /**
+     * Sets up the task list from the saved list.
+     * @return The saved task list, or an error message otherwise.
+     */
     public String initialise() {
         try {
             taskList = new TaskList(storage.load());

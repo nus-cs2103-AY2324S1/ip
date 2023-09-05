@@ -1,16 +1,19 @@
 package dook.services;
 
-import dook.DookException;
-import dook.task.Deadline;
-import dook.task.Event;
-import dook.task.Task;
-import dook.task.Todo;
-import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import dook.DookException;
+import dook.task.Task;
+import dook.task.Todo;
+
 
 public class TaskListTest {
     @Test
@@ -30,8 +33,8 @@ public class TaskListTest {
         taskList.addTask(new Todo("BBB", false));
         assertDoesNotThrow(() -> taskList.markTask(1, true));
         String expected = "1. [T][X] BBB\nYou have 1 task in the list.";
-        assertEquals(expected
-        , taskList.toString());
+        assertEquals(expected,
+                taskList.toString());
     }
 
     @Test

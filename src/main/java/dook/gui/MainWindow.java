@@ -51,6 +51,9 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Prompts Dook to greet the user and get the saved task list from file (if found).
+     */
     public void startUpDook() {
         String response = dook.initialise();
         dialogContainer.getChildren().addAll(

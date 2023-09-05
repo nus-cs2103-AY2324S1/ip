@@ -9,25 +9,25 @@ import dook.services.TimeProcessor;
  * Task with a deadline.
  */
 public class Deadline extends Task implements TimedTask {
-    protected String by;
+    protected String byString;
     protected LocalDate byDateTime;
 
-    public Deadline(String description, String by) {
-        super(description);
-        this.by = by;
-        processDateTimes();
-    }
-
+    /**
+     * Instantiates a deadline with given description, deadline and done status.
+     * @param description Given description
+     * @param by Given deadline string
+     * @param isDone Given done status.
+     */
     public Deadline(String description, String by, boolean isDone) {
         super(description, isDone);
-        this.by = by;
+        this.byString = by;
         processDateTimes();
     }
     @Override
     public void processDateTimes() {
         try {
-            byDateTime = TimeProcessor.getLocalDateFromString(this.by);
-            this.by = TimeProcessor.getStringFromLocalDate(byDateTime);
+            byDateTime = TimeProcessor.getLocalDateFromString(this.byString);
+            this.byString = TimeProcessor.getStringFromLocalDate(byDateTime);
         } catch (DateTimeParseException e) {
             System.out.println("Failed to parse date. Date related operations will not work on this task.");
         }
@@ -59,11 +59,11 @@ public class Deadline extends Task implements TimedTask {
 
     @Override
     public String getSaveableString() {
-        return String.format("D//%s//%s//%s", getStatusIcon(), description, by);
+        return String.format("D//%s//%s//%s", getStatusIcon(), description, byString);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + byString + ")";
     }
 }

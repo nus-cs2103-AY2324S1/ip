@@ -10,6 +10,7 @@ import dook.task.Task;
  */
 public class AddTaskCommand extends Command {
     private final Task task;
+
     public AddTaskCommand(Task task) {
         this.task = task;
     }
@@ -19,8 +20,8 @@ public class AddTaskCommand extends Command {
      * Displays the resultant task list after addition.
      * @param storage Given storage.
      * @param taskList Given task list.
-     * @throws DookException Exception thrown by Dook.
      * @return  Message to be displayed in GUI.
+     * @throws DookException Exception thrown by Dook.
      */
     @Override
     public String execute(Storage storage, TaskList taskList) throws DookException {

@@ -9,6 +9,7 @@ import dook.services.TaskList;
  */
 public class FindCommand extends Command {
     private final String query;
+
     public FindCommand(String query) {
         this.query = query;
     }
@@ -18,8 +19,8 @@ public class FindCommand extends Command {
      * Displays the result to the user.
      * @param storage Given storage.
      * @param taskList Given task list.
-     * @throws DookException Exception thrown by Dook.
      * @return  Message to be displayed in GUI.
+     * @throws DookException Exception thrown by Dook.
      */
     @Override
     public String execute(Storage storage, TaskList taskList) throws DookException {

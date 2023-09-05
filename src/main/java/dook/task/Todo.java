@@ -4,12 +4,11 @@ package dook.task;
  * Simple task with a description.
  */
 public class Todo extends Task {
-
-    public Todo(String description) {
-        super(description);
-
-    }
-
+    /**
+     * Instantiates a Task with given description and done status.
+     * @param description Given description
+     * @param isDone Given done status
+     */
     public Todo(String description, boolean isDone) {
         super(description, isDone);
 
