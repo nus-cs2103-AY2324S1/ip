@@ -72,6 +72,8 @@ public class Duke {
                     storage.saveTasksToFile(list);
                     ui.exit();
                     return;
+                default:
+                    break;
                 }
             } catch (DukeException e) {
                 ui.displayException(e);

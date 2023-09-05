@@ -3,7 +3,6 @@ package duke.task;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import duke.DukeException;
@@ -65,7 +64,7 @@ public class TaskList {
     public String getDeadlineDateTasks(String date) {
         String output = "";
         if (deadlinesDateTable.containsKey(date)) {
-            output =  taskListToString(deadlinesDateTable.get(date));
+            output = taskListToString(deadlinesDateTable.get(date));
         }
         if (output.isBlank()) {
             return "No tasks on this date";
@@ -82,8 +81,9 @@ public class TaskList {
     public String getEventStartDateTasks(String date) {
         String output = "";
         if (eventsStartDateTable.containsKey(date)) {
-            output =  taskListToString(eventsStartDateTable.get(date));
+            output = taskListToString(eventsStartDateTable.get(date));
         }
+
         if (output.isBlank()) {
             return "No tasks on this date";
         } else {
@@ -99,7 +99,7 @@ public class TaskList {
     public String getEventEndDateTasks(String date) {
         String output = "";
         if (eventsEndDateTable.containsKey(date)) {
-            output =  taskListToString(eventsEndDateTable.get(date));
+            output = taskListToString(eventsEndDateTable.get(date));
         }
         if (output.isBlank()) {
             return "No tasks on this date";
@@ -136,13 +136,13 @@ public class TaskList {
     public Task markDone(String options) throws DukeException {
         try {
             Integer.parseInt(options);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new DukeException("!!!: Please provide a number for the task to be marked done");
         }
         int index = Integer.parseInt(options) - 1;
         if (index < 0 || index >= size) {
-            throw new DukeException(String.format("!!!: Please provide a valid number, " +
-                    "there are currently %d items in the list", size));
+            throw new DukeException(String.format("!!!: Please provide a valid number, "
+                    + "there are currently %d items in the list", size));
         }
         Task task = list.get(index);
         task.markDone();
@@ -158,13 +158,13 @@ public class TaskList {
     public Task unmarkDone(String options) throws DukeException {
         try {
             Integer.parseInt(options);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new DukeException("!!!: Please provide a number for the task to be marked not done");
         }
         int index = Integer.parseInt(options) - 1;
         if (index < 0 || index >= size) {
-            throw new DukeException(String.format("!!!: Please provide a valid number, " +
-                    "there are currently %d items in the list", size));
+            throw new DukeException(String.format("!!!: Please provide a valid number, "
+                    + "there are currently %d items in the list", size));
         }
         Task task = list.get(index);
         task.unmarkDone();
@@ -290,13 +290,13 @@ public class TaskList {
     public Task deleteFromList(String options) throws DukeException {
         try {
             Integer.parseInt(options);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new DukeException("!!!: Please provide a number for the task to be deleted");
         }
         int index = Integer.parseInt(options) - 1;
         if (index < 0 || index >= size) {
-            throw new DukeException(String.format("!!!: Please provide a valid number, " +
-                    "there are currently %d items in the list", size));
+            throw new DukeException(String.format("!!!: Please provide a valid number, "
+                    + "there are currently %d items in the list", size));
         }
         Task task = list.get(index);
         list.remove(index);
