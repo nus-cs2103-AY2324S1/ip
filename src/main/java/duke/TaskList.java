@@ -48,18 +48,10 @@ public class TaskList {
             for (int i = 1; i <= tasks.size(); i++) {
                 System.out.println("\t" + i + ". " + tasks.get(i - 1).toString());
             }
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             e.printMessage();
         }
     }
-
-
-
-
-
-
-
 
 
 }
