@@ -1,22 +1,26 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+
 public class EventTask extends Task {
 
   /**
    * Start time
    */
-  protected String startTime;
+  protected LocalDateTime startTime;
   /**
    * End time
    */
-  protected String endTime;
+  protected LocalDateTime endTime;
 
   /**
    * Constructor for Event task.
    *
-   * @param description Description of task
-   * @param startTime   Start time of event
-   * @param endTime     End time of event
+   * @param description Description of task.
+   * @param startTime   Start time of event.
+   * @param endTime     End time of event.
    */
-  public EventTask(String description, String startTime, String endTime) {
+  public EventTask(String description, LocalDateTime startTime, LocalDateTime endTime) {
     super(description);
     this.startTime = startTime;
     this.endTime = endTime;
@@ -25,12 +29,12 @@ public class EventTask extends Task {
   /**
    * Constructor for Event task, specifying completion status.
    *
-   * @param description Description of task
-   * @param startTime   Start time of event
-   * @param endTime     End time of event
-   * @param isDone      Boolean representing task completion status
+   * @param description Description of task.
+   * @param startTime   Start time of event.
+   * @param endTime     End time of event.
+   * @param isDone      Boolean representing task completion status.
    */
-  public EventTask(String description, String startTime, String endTime, boolean isDone) {
+  public EventTask(String description, LocalDateTime startTime, LocalDateTime endTime, boolean isDone) {
     super(description, isDone);
     this.startTime = startTime;
     this.endTime = endTime;
@@ -43,7 +47,9 @@ public class EventTask extends Task {
    */
   @Override
   public String toString() {
-    return String.format("<E>%s (FROM: %s, TO: %s)", super.toString(), this.startTime, this.endTime);
+    return String.format("<E>%s (FROM: %s | TO: %s)", super.toString(),
+      startTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
+      endTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)));
   }
 
 
@@ -67,8 +73,10 @@ public class EventTask extends Task {
     }
     String taskType = splitData[0];
     String taskCompleted = splitData[1];
-    String taskStart = splitData[2];
-    String taskEnd = splitData[3];
+    String taskStartString = splitData[2];
+    LocalDateTime taskStart = LocalDateTime.parse(taskStartString);
+    String taskEndString = splitData[3];
+    LocalDateTime taskEnd = LocalDateTime.parse(taskEndString);
     String taskDescription = splitData[4];
     if (!taskCompleted.equals("1") && !taskCompleted.equals("0")) {
       throw new InvalidTaskDataException();
@@ -78,9 +86,9 @@ public class EventTask extends Task {
   }
 
   /**
-   * Parses event task instance into save file string data
+   * Parses event task instance into save file string data.
    *
-   * @return Task data as string
+   * @return Task data as string.
    */
   public String toData() {
      /*
@@ -88,8 +96,8 @@ public class EventTask extends Task {
        completed: 1, incomplete: 0
        event: E || 1/0 || start || end || description
      */
-    String taskCompleted = this.isDone ? "1" : "0";
+    String taskCompleted = isDone ? "1" : "0";
     return String.join(DELIMITER, "E", taskCompleted,
-      this.startTime, this.endTime, this.description) + "\n";
+      startTime.toString(), endTime.toString(), description) + "\n";
   }
 }

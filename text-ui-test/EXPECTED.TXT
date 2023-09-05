@@ -36,12 +36,18 @@
 
 -----------------------------------------------------------
   Please specify a task deadline after the task
-  description, prefixed by `\by`.
+  description, prefixed by `/by`.
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+  Invalid date/time format. Check if the date and time is
+  in the format: "DD/MM/YYYY hhmm"
+  e.g. 31/12/2023 2359
 -----------------------------------------------------------
 
 -----------------------------------------------------------
   Got it! I've added this task:
-  	<D>[ ] essay (BY: sunday 2359)
+  	<D>[ ] essay (BY: 5 Sep 2023, 11:59 PM)
   You now have a total of 2 task(s).
 -----------------------------------------------------------
 
@@ -51,37 +57,48 @@
 
 -----------------------------------------------------------
   Please specify the event start date after the task
-  description, prefixed by `\from`.
+  description, prefixed by `/from`.
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+  Please specify the event start date after the task
+  description, prefixed by `/from`.
 -----------------------------------------------------------
 
 -----------------------------------------------------------
   Please specify the event end date after the task
-   description and start date, prefixed by `\to`.
+   description and start date, prefixed by `/to`.
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+  Invalid date/time format. Check if the date and time is
+  in the format: "DD/MM/YYYY hhmm"
+  e.g. 31/12/2023 2359
 -----------------------------------------------------------
 
 -----------------------------------------------------------
   Got it! I've added this task:
-  	<E>[ ] project meeting (FROM: mon 1300h, TO: 1330h)
+  	<E>[ ] project meeting (FROM: 1 Feb 2023, 1:00 PM | TO: 1 Feb 2023, 2:00 PM)
   You now have a total of 3 task(s).
 -----------------------------------------------------------
 
 -----------------------------------------------------------
   Got it! I've added this task:
-  	<E>[ ] party (FROM: mon 2200h, TO: tue 0330h)
+  	<E>[ ] party (FROM: 1 Feb 2023, 10:00 PM | TO: 2 Feb 2023, 3:30 AM)
   You now have a total of 4 task(s).
 -----------------------------------------------------------
 
 -----------------------------------------------------------
   Here's your tasks list:
     1-<T>[ ] learn how to use the deadline command /by now
-    2-<D>[ ] essay (BY: sunday 2359)
-    3-<E>[ ] project meeting (FROM: mon 1300h, TO: 1330h)
-    4-<E>[ ] party (FROM: mon 2200h, TO: tue 0330h)
+    2-<D>[ ] essay (BY: 5 Sep 2023, 11:59 PM)
+    3-<E>[ ] project meeting (FROM: 1 Feb 2023, 1:00 PM | TO: 1 Feb 2023, 2:00 PM)
+    4-<E>[ ] party (FROM: 1 Feb 2023, 10:00 PM | TO: 2 Feb 2023, 3:30 AM)
 -----------------------------------------------------------
 
 -----------------------------------------------------------
   Nice! I've marked this task as done:
-  	<D>[X] essay (BY: sunday 2359)
+  	<D>[X] essay (BY: 5 Sep 2023, 11:59 PM)
 -----------------------------------------------------------
 
 -----------------------------------------------------------
@@ -97,22 +114,22 @@
 -----------------------------------------------------------
   Here's your tasks list:
     1-<T>[ ] learn how to use the deadline command /by now
-    2-<D>[X] essay (BY: sunday 2359)
-    3-<E>[ ] project meeting (FROM: mon 1300h, TO: 1330h)
-    4-<E>[ ] party (FROM: mon 2200h, TO: tue 0330h)
+    2-<D>[X] essay (BY: 5 Sep 2023, 11:59 PM)
+    3-<E>[ ] project meeting (FROM: 1 Feb 2023, 1:00 PM | TO: 1 Feb 2023, 2:00 PM)
+    4-<E>[ ] party (FROM: 1 Feb 2023, 10:00 PM | TO: 2 Feb 2023, 3:30 AM)
 -----------------------------------------------------------
 
 -----------------------------------------------------------
   Got it. I've marked this task as not done:
-  	<D>[ ] essay (BY: sunday 2359)
+  	<D>[ ] essay (BY: 5 Sep 2023, 11:59 PM)
 -----------------------------------------------------------
 
 -----------------------------------------------------------
   Here's your tasks list:
     1-<T>[ ] learn how to use the deadline command /by now
-    2-<D>[ ] essay (BY: sunday 2359)
-    3-<E>[ ] project meeting (FROM: mon 1300h, TO: 1330h)
-    4-<E>[ ] party (FROM: mon 2200h, TO: tue 0330h)
+    2-<D>[ ] essay (BY: 5 Sep 2023, 11:59 PM)
+    3-<E>[ ] project meeting (FROM: 1 Feb 2023, 1:00 PM | TO: 1 Feb 2023, 2:00 PM)
+    4-<E>[ ] party (FROM: 1 Feb 2023, 10:00 PM | TO: 2 Feb 2023, 3:30 AM)
 -----------------------------------------------------------
 
 -----------------------------------------------------------
@@ -136,9 +153,9 @@
 -----------------------------------------------------------
   Here's your tasks list:
     1-<T>[ ] learn how to use the deadline command /by now
-    2-<D>[ ] essay (BY: sunday 2359)
-    3-<E>[ ] project meeting (FROM: mon 1300h, TO: 1330h)
-    4-<E>[ ] party (FROM: mon 2200h, TO: tue 0330h)
+    2-<D>[ ] essay (BY: 5 Sep 2023, 11:59 PM)
+    3-<E>[ ] project meeting (FROM: 1 Feb 2023, 1:00 PM | TO: 1 Feb 2023, 2:00 PM)
+    4-<E>[ ] party (FROM: 1 Feb 2023, 10:00 PM | TO: 2 Feb 2023, 3:30 AM)
     5-<T>[ ] a
     6-<T>[ ] b
     7-<T>[ ] c
@@ -146,20 +163,20 @@
 
 -----------------------------------------------------------
   Got it! I've removed this task:
-  	<D>[ ] essay (BY: sunday 2359)
+  	<D>[ ] essay (BY: 5 Sep 2023, 11:59 PM)
   You now have a total of 6 task(s).
 -----------------------------------------------------------
 
 -----------------------------------------------------------
   Got it! I've removed this task:
-  	<E>[ ] project meeting (FROM: mon 1300h, TO: 1330h)
+  	<E>[ ] project meeting (FROM: 1 Feb 2023, 1:00 PM | TO: 1 Feb 2023, 2:00 PM)
   You now have a total of 5 task(s).
 -----------------------------------------------------------
 
 -----------------------------------------------------------
   Here's your tasks list:
     1-<T>[ ] learn how to use the deadline command /by now
-    2-<E>[ ] party (FROM: mon 2200h, TO: tue 0330h)
+    2-<E>[ ] party (FROM: 1 Feb 2023, 10:00 PM | TO: 2 Feb 2023, 3:30 AM)
     3-<T>[ ] a
     4-<T>[ ] b
     5-<T>[ ] c
