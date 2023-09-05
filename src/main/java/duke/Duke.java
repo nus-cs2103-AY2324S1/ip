@@ -4,12 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import duke.exception.DukeStorageException;
-import duke.service.CliParserService;
-import duke.service.CommandFactory;
-import duke.service.OutputService;
 import duke.service.StorageService;
-import duke.service.TaskFactory;
-import duke.service.UiService;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 
@@ -23,33 +18,12 @@ public class Duke {
     /**
      * Constructs a new Duke instance with a given name and storage service.
      *
-     * @param botName Name of the Duke chat bot.
+     * @param botName Name of the Duke bot.
      * @param storageService Service responsible for reading and writing tasks to storage.
      */
     public Duke(String botName, StorageService storageService) {
         this.botName = botName;
         this.taskList = new TaskList(storageService);
-    }
-
-    public static void main(String[] args) {
-        OutputService outputService = new OutputService();
-        UiService uiService = new UiService(outputService);
-        try {
-            StorageService storageService = new StorageService();
-            if (storageService.wasFileCorrupted()) {
-                uiService.printStorageFileCorrupted();
-            }
-            Duke changooseBot = new Duke("Changoose", storageService);
-            TaskFactory taskFactory = new TaskFactory();
-            CommandFactory commandFactory = new CommandFactory(taskFactory, changooseBot, uiService);
-            CliParserService cliParserService = new CliParserService(uiService, commandFactory);
-
-            uiService.printGreet(changooseBot.getBotName());
-            cliParserService.parse();
-            uiService.printBye();
-        } catch (DukeStorageException e) {
-            uiService.printStorageInitializationFailure();
-        }
     }
 
     /**
