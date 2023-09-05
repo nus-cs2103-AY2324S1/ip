@@ -1,17 +1,15 @@
 package seedu.duke.tasks;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import seedu.duke.Exceptions.LemonException;
-import seedu.duke.Tasks.Deadline;
-import seedu.duke.Tasks.Event;
-import seedu.duke.Tasks.Todo;
-import seedu.duke.datafile.Storage;
-import seedu.duke.tasklist.TaskList;
-import seedu.duke.ui.Ui;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import seedu.duke.exceptions.LemonException;
+import seedu.duke.tasklist.TaskList;
+
+
 
 public class TaskTest {
 
@@ -24,7 +22,7 @@ public class TaskTest {
     }
 
     @Test
-    public void TodoTask() {
+    public void toDoTask() {
         try {
             assertEquals("[T][ ] Jump 20 times", this.tasks.getTask(0).toString());
         } catch (LemonException e) {
@@ -33,7 +31,7 @@ public class TaskTest {
     }
 
     @Test
-    public void DeadlineTask() {
+    public void deadlineTask() {
         try {
             tasks.addTasks(new Deadline("Quiz", "2022-10-15"));
             assertEquals("[D][ ] Quiz (by: Oct 15 2022)", this.tasks.getTask(1).toString());
@@ -42,7 +40,7 @@ public class TaskTest {
         }
     }
     @Test
-    public void EventTask() {
+    public void eventTask() {
         try {
             tasks.addTasks(new Event("Welcome Tea", "2022-10-15", "2022-10-21"));
             assertEquals("[E][ ] Welcome Tea (from: 2022-10-15 to: 2022-10-21)", this.tasks.getTask(1).toString());

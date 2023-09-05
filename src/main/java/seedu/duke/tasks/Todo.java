@@ -1,5 +1,8 @@
-package seedu.duke.Tasks;
+package seedu.duke.tasks;
 
+/**
+ * A child class of duke.Tasks, it represents tasks to complete.
+ */
 public class Todo extends Task {
 
     public Todo(String description) {

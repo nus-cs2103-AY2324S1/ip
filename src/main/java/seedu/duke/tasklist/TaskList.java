@@ -1,11 +1,9 @@
 package seedu.duke.tasklist;
 
-import seedu.duke.Exceptions.InvalidTaskIndexException;
-import seedu.duke.Exceptions.LemonException;
-import seedu.duke.Tasks.Task;
-import seedu.duke.ui.Ui;
-
 import java.util.ArrayList;
+
+import seedu.duke.exceptions.InvalidTaskIndexException;
+import seedu.duke.tasks.Task;
 
 /**
  * The TaskList class represents a collection of tasks and provides methods
@@ -43,7 +41,7 @@ public class TaskList {
             Task toMark = tasks.get(index);
             toMark.markAsDone();
             return toMark.toString();
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException("");
         }
     }
@@ -60,7 +58,7 @@ public class TaskList {
             Task toMark = tasks.get(index);
             toMark.markAsUndone();
             return toMark.toString();
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException("");
         }
     }
@@ -112,7 +110,7 @@ public class TaskList {
     }
 
     /**
-     * Retrieves the entire list of tasks.
+     * Returns the entire list of tasks.
      *
      * @return An ArrayList containing all the tasks in the task list.
      */
@@ -120,11 +118,15 @@ public class TaskList {
         return this.tasks;
     }
 
-
+    /**
+     * Returns an ArrayList of Tasks with task description that matches the keyword.
+     * @param keyword the keyword to find.
+     * @return An ArrayList of tasks with the matching keyword in task description.
+     */
     public ArrayList<Task> findKeyword(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task : this.getTaskList()){
-            if (task.getDescription().contains(keyword)){
+        for (Task task : this.getTaskList()) {
+            if (task.getDescription().contains(keyword)) {
                 matchingTasks.add(task);
             }
         }

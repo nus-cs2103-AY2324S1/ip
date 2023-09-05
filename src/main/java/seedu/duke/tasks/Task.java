@@ -1,10 +1,11 @@
-package seedu.duke.Tasks;
+package seedu.duke.tasks;
 
+/**
+ * Taken from the Partial Solution given on https://nus-cs2103-ay2324s1.github.io/website/schedule/week2/project.html.
+ * A class of duke.Tasks to create tasks that need to be in list of tasks.
+ */
 public class Task {
-    /**
-     * Taken from the Partial Solution given on https://nus-cs2103-ay2324s1.github.io/website/schedule/week2/project.html
-     * A class of duke.Tasks to create tasks that need to be in list of tasks.
-     */
+
     protected String description;
     protected boolean isDone;
 
