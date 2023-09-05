@@ -5,6 +5,8 @@ public class Ui {
      */
     public static final String line = "____________________________________________________________";
 
+    public static final String WELCOME_MESSAGE = "Hello! I am TaskMaster!\n" + "What can I do for you today?\n";
+
     /**
      * Prints a welcome message.
      */
