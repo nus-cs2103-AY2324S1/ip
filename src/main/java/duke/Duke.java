@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 import command.Command;
 import parser.Parser;
-import tasks.*;
+import tasks.TaskList;
 import ui.Ui;
 import storage.TaskFileHandler;
 
@@ -20,17 +20,16 @@ public class Duke {
     public static void runDuke() {
         Scanner scanner = new Scanner(System.in);
         Ui.helloWorld();
-        boolean converse = true;
-        while (converse) {
+        boolean isConversing = true;
+        while (isConversing) {
+
             String rawCommand = Ui.getUserInput(scanner);
             TaskList taskList = TaskFileHandler.readFromFile();
             Ui.getBotMessage();
             Command command = Parser.parse(rawCommand);
             command.execute(taskList);
             TaskFileHandler.saveToFile(taskList);
-            if (command.isByeCommand()) {
-                converse = false;
-            }
+            isConversing = !command.isByeCommand();
         }
     }
 
