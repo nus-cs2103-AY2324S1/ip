@@ -31,9 +31,10 @@ public class DeleteCommand extends Command {
      * @param storage chatter.Storage class to read and store tasks by the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showDeletedTask(tasks.getTask(taskNumber - 1), tasks.getNumOfTasks() - 1);
         tasks.delete(taskNumber);
         storage.saveFile(tasks.toStorageString());
+        return "test";
     }
 }
