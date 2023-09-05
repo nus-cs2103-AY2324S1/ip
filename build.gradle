@@ -49,7 +49,7 @@ test {
 }
 
 application {
-    mainClass.set("dot.Main")
+    mainClass.set("dot.Launcher")
 }
 
 shadowJar {
