@@ -4,7 +4,10 @@ import taskmaster.exceptions.DukeException;
 import taskmaster.parser.Parser;
 import taskmaster.storage.Storage;
 import taskmaster.tasks.TaskList;
+import taskmaster.ui.Main;
 import taskmaster.ui.Ui;
+
+import javafx.application.Application;
 
 import java.util.Scanner;
 public class Taskmaster {
@@ -36,7 +39,8 @@ public class Taskmaster {
     }
 
     public static void main(String[] args) throws DukeException {
-        new Taskmaster().run();
+//        new Taskmaster().run();
+        Application.launch(Main.class);
     }
 
 }
