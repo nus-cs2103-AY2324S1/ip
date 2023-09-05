@@ -11,6 +11,13 @@ public class Event extends Task {
     private LocalDate start;
     private LocalDate end;
 
+    /**
+     * Instantiates event
+     *
+     * @param name the name of the event
+     * @param start the starting time of the event
+     * @param end the end time of the event
+     */
     public Event(String name, LocalDate start, LocalDate end) {
         super(name);
         this.start = start;
@@ -19,7 +26,7 @@ public class Event extends Task {
 
     /**
      * Creates a new event based on the message
-     * 
+     *
      * @param message the message to create the new event
      * @return the new event
      * @throws InvalidEventException when the event command message is invalid
@@ -49,8 +56,9 @@ public class Event extends Task {
         String endMonth = end.getMonth().toString().substring(0, 3);
         String endDay = end.toString().split("-")[2];
         String endYear = end.toString().split("-")[0];
-        return "[E]" + super.toString() + " (from: " 
-                + startMonth + " " + startDay + " " + startYear + " to: " + endMonth + " " + endDay + " " + endYear + " )";
+        return "[E]" + super.toString() + " (from: "
+                + startMonth + " " + startDay + " " + startYear
+                + " to: " + endMonth + " " + endDay + " " + endYear + " )";
     }
 
     @Override

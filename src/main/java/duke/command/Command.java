@@ -19,7 +19,7 @@ public class Command {
 
     /**
      * Lists all the tasks
-     * 
+     *
      * @param message the command message
      * @param ui the ui of the program
      * @param tasks the list of tasks
@@ -27,7 +27,7 @@ public class Command {
      * @throws InvalidCommandException
      */
     public static void list(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
-        if(message.equals("list"))  {
+        if (message.equals("list")) {
             ui.printTasks(tasks);
         } else {
             throw new InvalidCommandException();
@@ -36,7 +36,7 @@ public class Command {
 
     /**
      * Marks task
-     * 
+     *
      * @param message the command message
      * @param ui the ui of the program
      * @param tasks the list of tasks
@@ -65,7 +65,7 @@ public class Command {
 
     /**
      * Unmarks task
-     * 
+     *
      * @param message the command message
      * @param ui the ui of the program
      * @param tasks the list of tasks
@@ -95,7 +95,7 @@ public class Command {
 
     /**
      * Adds to do
-     * 
+     *
      * @param message the command message
      * @param ui the ui of the program
      * @param tasks the list of tasks
@@ -111,14 +111,15 @@ public class Command {
 
     /**
      * Adds deadline
-     * 
+     *
      * @param message the command message
      * @param ui the ui of the program
      * @param tasks the list of tasks
      * @param storage the storage of the program
      * @throws InvalidDeadlineException when the deadline command is invalid
      */
-    public static void addDeadline(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidDeadlineException {
+    public static void addDeadline(String message, Ui ui, TaskList tasks, Storage storage)
+            throws InvalidDeadlineException {
         Task newTask = Deadline.create(message);
         tasks.addTask(newTask);
         storage.addTask(newTask);
@@ -127,7 +128,7 @@ public class Command {
 
     /**
      * Adds event
-     * 
+     *
      * @param message the command message
      * @param ui the ui of the program
      * @param tasks the list of tasks
@@ -143,7 +144,7 @@ public class Command {
 
     /**
      * Deletes task
-     * 
+     *
      * @param message the command message
      * @param ui the ui of the program
      * @param tasks the list of tasks
@@ -170,6 +171,15 @@ public class Command {
         }
     }
 
+    /**
+     * Finds the compatible tasks
+     *
+     * @param message the message
+     * @param ui the ui
+     * @param tasks the list of tasks
+     * @param storage the storage to store
+     * @throws InvalidCommandException if the command is invalid
+     */
     public static void find(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
         try {
             String[] messageWords = message.split(" ");

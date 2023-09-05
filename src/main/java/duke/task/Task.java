@@ -27,7 +27,7 @@ public abstract class Task {
 
     /**
      * Gets the name of the task
-     * 
+     *
      * @return the name of the to do
      */
     public String getName() {
@@ -36,7 +36,7 @@ public abstract class Task {
 
     /**
      * Gets whether the task is marked
-     * 
+     *
      * @return whether the task is marked
      */
     public boolean getMark() {
@@ -45,7 +45,7 @@ public abstract class Task {
 
     /**
      * Check whether the name of the task containing the keyword
-     * 
+     *
      * @param keyWord the keyword
      * @return whether the name of the task containing the keyword
      */
@@ -55,12 +55,12 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + (isMarked ? "X" : " ") +"] " + name;
+        return "[" + (isMarked ? "X" : " ") + "] " + name;
     }
 
     /**
      * Gets string format of the task in the storage
-     * 
+     *
      * @return the string format of the task in the storage
      */
     public abstract String storeInString();

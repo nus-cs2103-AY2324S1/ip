@@ -1,23 +1,26 @@
 package duke.parser;
 
-import duke.storage.Storage;
-import duke.task.TaskList;
-import duke.ui.UiSample;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.UiSample;
+
+
 
 /**
  * The test class for Parser
  */
 public class ParserTest {
-    Parser parser;
-    UiSample ui;
-    TaskList tasks;
-    Storage storage;
+    private Parser parser;
+    private UiSample ui;
+    private TaskList tasks;
+    private Storage storage;
 
     /**
      * Sets things up before each tests
@@ -35,7 +38,7 @@ public class ParserTest {
     @Test
     public void parse_list_success() {
         Parser.parse("list", ui, tasks, storage);
-        assertEquals(ui.printTasksCount, 1);
+        assertEquals(ui.getPrintTasksCount(), 1);
     }
 
     /**
@@ -44,6 +47,6 @@ public class ParserTest {
     @Test
     public void parse_invalid_fail() {
         Parser.parse("invalid", ui, tasks, storage);
-        assertEquals(ui.printExceptionCount, 1);
+        assertEquals(ui.getPrintExceptionCount(), 1);
     }
 }

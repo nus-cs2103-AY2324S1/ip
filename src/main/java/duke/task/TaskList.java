@@ -14,7 +14,7 @@ public class TaskList {
 
     /**
      * Gets the task with a certain index
-     * 
+     *
      * @param index the index of the task
      * @return the task with the certain index
      */
@@ -24,7 +24,7 @@ public class TaskList {
 
     /**
      * Adds a new task
-     * 
+     *
      * @param task the new task
      */
     public void addTask(Task task) {
@@ -33,7 +33,7 @@ public class TaskList {
 
     /**
      * Removes the task with a certain index
-     * 
+     *
      * @param index the index of the removed task
      */
     public void removeTask(int index) {
@@ -42,7 +42,7 @@ public class TaskList {
 
     /**
      * Marks the task with a certain index
-     * 
+     *
      * @param index the index of the marked task
      */
     public void markTask(int index) {
@@ -51,7 +51,7 @@ public class TaskList {
 
     /**
      * Unmarks the task with a certain index
-     * 
+     *
      * @param index the index of the unmarked task
      */
     public void unmarkTask(int index) {
@@ -60,16 +60,15 @@ public class TaskList {
 
     /**
      * Gets the number of tasks
-     * 
+     *
      * @return the number of tasks
      */
     public int getSize() {
         return tasks.size();
     }
-    
     /**
      * Gets the string representation to store the TaskList
-     * 
+     *
      * @return the string representation to store the TaskList
      */
     public String storeInString() {
@@ -82,7 +81,7 @@ public class TaskList {
 
     /**
      * Finds list of task containing the keyword
-     * 
+     *
      * @param keyWord the keyword
      * @return the list of task containing the keyword
      */
@@ -100,7 +99,7 @@ public class TaskList {
 
     /**
      * Checks whether the TaskList is empty
-     * 
+     *
      * @return whether the TaskList is empty
      */
     public boolean isEmpty() {

@@ -15,14 +15,14 @@ import duke.ui.Ui;
 public class Parser {
     /**
      * Parses the message given
-     * 
+     *
      * @param message the message given
      * @param ui the ui of the program
      * @param tasks the list of tasks
      * @param storage the storage program
      */
     public static void parse(String message, Ui ui, TaskList tasks, Storage storage) {
-        try{
+        try {
             String messageType = message.split(" ")[0];
             if (messageType.equals("list")) {
                 Command.list(message, ui, tasks, storage);

@@ -12,11 +12,17 @@ import duke.ui.Ui;
  */
 public class Duke {
     static final String DIRECTORY_NAME = "./data";
-    static final String  FILE_NAME = "storage.txt";
-    Ui ui;
-    Storage storage;
-    TaskList tasks;
+    static final String FILE_NAME = "storage.txt";
+    private Ui ui;
+    private Storage storage;
+    private TaskList tasks;
 
+    /**
+     * Constructs the Duke
+     *
+     * @param directoryName the name of the directory
+     * @param fileName the name of the file
+     */
     public Duke(String directoryName, String fileName) {
         this.ui = new Ui();
         this.storage = new Storage(directoryName, fileName);
@@ -30,7 +36,7 @@ public class Duke {
 
     /**
      * The main method
-     * 
+     *
      * @param args the input argument
      */
     public static void main(String[] args) {
