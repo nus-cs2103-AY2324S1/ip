@@ -25,9 +25,8 @@ public class AddCommand extends Command {
         this.args = args;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store) {
-        String action = tasks.addTask(taskType, args);
-        ui.respondUser(action);
+    public String execute(TaskList tasks, Ui ui, Storage store) {
+        return tasks.addTask(taskType, args);
     }
 
     @Override

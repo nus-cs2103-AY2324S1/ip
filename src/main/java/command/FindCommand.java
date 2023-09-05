@@ -15,14 +15,14 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store) {
+    public String execute(TaskList tasks, Ui ui, Storage store) {
         String input = keyword.toLowerCase();
         String action = tasks.findMatchingTasks(input);
 
         if (action.equals("")) {
-            ui.respondUser("No task matching keyword found!");
+            return "No task matching keyword found!";
         } else {
-            ui.respondUser("Here are the matching tasks in your list:\n" + action);
+            return "Here are the matching tasks in your list:\n" + action;
         }
     }
 

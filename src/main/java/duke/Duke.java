@@ -40,38 +40,16 @@ public class Duke {
     }
 
     /**
-     * Controls the flow of events of the ChatBot. When active, ChatBot will get user input
-     * and execute the given commands.
+     * Returns the response to the user input. Parses the user input and initialise a new Command,
+     * the Command is then executed to return the correct response.
      */
-    public void run() {
-        ui.startBot();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String fullCommand = ui.getUserInput();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showErrorMessage(e);
-            } finally {
-                ui.showLine();
-            }
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            return ui.showErrorMessage(e);
         }
-
-        ui.endBot();
-    }
-
-    /**
-     * The main entry point for the duke.Duke ChatBot application.
-     * Initialise an instance of duke.Duke with the specified file path
-     * and starts the duke.Duke application.
-     *
-     * @param args command.Command-line arguments provided when running the application (not used).
-     */
-    public static void main(String[] args) {
-        new Duke("./src/main/data/duke.txt").run();
     }
 
 }
