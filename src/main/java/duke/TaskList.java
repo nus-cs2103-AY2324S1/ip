@@ -12,9 +12,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.text.SimpleDateFormat;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     String task;
     private static List<Task> list = new ArrayList<Task>();
+
+    /**
+     * Trims leading and trailing spaces from a string.
+     *
+     * @param input The input string to be trimmed.
+     * @return The trimmed string or null if input is null.
+     */
     public static String trimString(String input) {
         if (input == null) {
             return null; // Handle null input if needed
@@ -22,7 +32,11 @@ public class TaskList {
         return input.trim();
     }
 
-
+    /**
+     * Converts a string representation of a task into a Task object and adds it to the list.
+     *
+     * @param str The string representation of the task.
+     */
     private static void StringToArray(String str) {
         // might need to add corrupted file exception
         String arr[] = str.split(" ", 2);
@@ -99,6 +113,12 @@ public class TaskList {
             }
         }
     }
+
+    /**
+     * Handles user input and performs various actions based on the input.
+     *
+     * @throws Exception If an error occurs during execution.
+     */
 
     public void Answer() throws Exception{ // just a reader for additional files inputted by the users.
         // my plan is to make sure every line inputted by the user, it is saved to the zenith.txt file directly.
@@ -291,16 +311,34 @@ public class TaskList {
 
 
     }
+
+    /**
+     * Appends text to a specified file.
+     *
+     * @param filePath      The path to the file to which text will be appended.
+     * @param textToAppend  The text to append to the file.
+     * @throws IOException  If an I/O error occurs.
+     */
     private static void appendToFile(String filePath, String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         fw.write("\n" + textToAppend);
         fw.close();
     }
+
+    /**
+     * Displays the list of tasks to the user.
+     */
     public void List() {
         Ui ui = new Ui();
         ui.list(list);
     }
 
+    /**
+     * Converts a date string from "yyyy-MM-dd" format to "dd/MM/yyyy" format.
+     *
+     * @param inputDateStr The input date string in "yyyy-MM-dd" format.
+     * @return The date string in "dd/MM/yyyy" format.
+     */
     public static String convertDateFormat(String inputDateStr) {
         // Split the input date string by the '-' delimiter
         String[] parts = inputDateStr.split("-");
@@ -320,6 +358,10 @@ public class TaskList {
 
         return outputDateStr;
     }
+
+    /**
+     * Refreshes the data in the storage file to match the current list of tasks.
+     */
     private static void refreshData() {
         String zenithData = "src/main/java/data/zenith.txt";
         SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -383,19 +425,36 @@ public class TaskList {
             }
         }
     }
+
+    /**
+     * Constructs a TaskList object with a specified task.
+     *
+     * @param task The initial task for the TaskList.
+     */
     public TaskList(String task) {
         this.task = task;
 
     }
 
+    /**
+     * Constructs an empty TaskList object.
+     */
     public TaskList() {
 
     }
 
+    /**
+     * Gets the current task.
+     *
+     * @return The current task.
+     */
     public String getTask() {
         return this.task;
     }
 
+    /**
+     * Loads tasks from the task string into the list.
+     */
     public void load() {
         StringToArray(getTask());
     }
