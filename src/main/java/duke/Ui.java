@@ -3,7 +3,7 @@ package duke;
 import duke.task.Task;
 
 import java.io.Serializable;
-public class Ui implements Serializable{
+public class Ui{
     String name = "Harry Potter";
     String question = "Introducing the Wizarding World Organizer: Your Trusted Guide" +
             " to Efficient & Effective Magical Planning";

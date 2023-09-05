@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 //from the duke.Duke.txt file
 public class Storage{
 
-    void saveTasks(String filePath, TaskList tasks) {
+    public void saveTasks(String filePath, TaskList tasks) throws FileNotFoundException{
         try {
             createDirectoryIfNotExists(filePath);
 
@@ -39,27 +39,32 @@ public class Storage{
         String str = task.saveTaskString();
         return str;
     }
-    TaskList loadTasks(String filePath) {
+    public TaskList loadTasks(String filePath) {
         TaskList taskList = new TaskList();
         try {
             createDirectoryIfNotExists(filePath);
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             while ((line = reader.readLine()) != null) {
                 String[] components = line.split("\\|");
                 String taskType = components[0];
                 boolean isDone = components[1].equals("1");
                 String description = components[2];
-                if ("T".equals(taskType)) {
-                    taskList.addTask(new ToDo(description, isDone));
-                } else if ("D".equals(taskType)) {
-                    LocalDateTime by = LocalDateTime.parse(components[3]);
-                    taskList.addTask(new Deadline(description, isDone, by));
-                } else if ("E".equals(components[0])) {
-                    LocalDateTime from = LocalDateTime.parse(components[3]);
-                    LocalDateTime to = LocalDateTime.parse(components[4]);
-                    taskList.addTask(new Event(description, isDone, from, to));
+                switch (taskType) {
+                    case "T":
+                        taskList.addTask(new ToDo(description, isDone));
+                        break;
+
+                    case "D":
+                        LocalDateTime by = LocalDateTime.parse(components[3]);
+                        taskList.addTask(new Deadline(description, isDone, by));
+                        break;
+
+                    case "E":
+                        LocalDateTime from = LocalDateTime.parse(components[3]);
+                        LocalDateTime to = LocalDateTime.parse(components[4]);
+                        taskList.addTask(new Event(description, isDone, from, to));
+                        break;
                 }
             }
             reader.close(); // Close the reader when done.

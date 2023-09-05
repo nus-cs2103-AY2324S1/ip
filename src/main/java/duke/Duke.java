@@ -1,5 +1,6 @@
 package duke;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 //This class has a chatbot which will generate a list based on a set of tasks
@@ -19,7 +20,11 @@ public class Duke {
             parser.chat(str, tasks);
             str = scanner.nextLine();
         }
-        storage.saveTasks("src/data/Duke.txt", tasks);
+        try {
+            storage.saveTasks("src/data/Duke.txt", tasks);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         scanner.close();
         ui.printBye();
     }

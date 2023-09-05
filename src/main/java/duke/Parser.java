@@ -20,36 +20,36 @@ public class Parser {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         Ui ui = new Ui();
         try {
-                if (!str.equals("list")) {
-                    if (str.startsWith("mark ")) {
-                        String num = str.substring(5);
-                        int number = Integer.valueOf(num);
-                        if (number <= 0 || number > tasks.getSize()) {
-                            throw new InvalidInputException(str);
-                        }
-                        int index = number - 1; //index for task list
-                        tasks.markDone(index);
-                        Task done = tasks.getTask(index);
-                        ui.printDone(done);
-                    } else if (str.startsWith("unmark ")) {
-                        String num = str.substring(7);
-                        int number = Integer.valueOf(num);
-                        if (number <= 0 || number > tasks.getSize()) {
-                            throw new InvalidInputException(str);
-                        }
-                        int index = number - 1; //index for task list
-                        tasks.markNotDone(index);
-                        Task notDone = tasks.getTask(index);
-                        ui.printNotDone(notDone);
+            if (!str.equals("list")) {
+                if (str.startsWith("mark ")) {
+                    String num = str.substring(5);
+                    int number = Integer.valueOf(num);
+                    if (number <= 0 || number > tasks.getSize()) {
+                        throw new InvalidInputException(str);
+                    }
+                    int index = number - 1; //index for task list
+                    tasks.markDone(index);
+                    Task done = tasks.getTask(index);
+                    ui.printDone(done);
+                } else if (str.startsWith("unmark ")) {
+                    String num = str.substring(7);
+                    int number = Integer.valueOf(num);
+                    if (number <= 0 || number > tasks.getSize()) {
+                        throw new InvalidInputException(str);
+                    }
+                    int index = number - 1; //index for task list
+                    tasks.markNotDone(index);
+                    Task notDone = tasks.getTask(index);
+                    ui.printNotDone(notDone);
                     } else if (str.startsWith("delete ")) {
-                        String num = str.substring(7);
-                        int number = Integer.valueOf(num);
-                        if (number <= 0 || number > tasks.getSize()) {
-                            throw new InvalidInputException(str);
-                        }
-                        int index = number - 1;
-                        Task toBeDeleted = tasks.removeTask(index);
-                        ui.printDelete(toBeDeleted, tasks);
+                    String num = str.substring(7);
+                    int number = Integer.valueOf(num);
+                    if (number <= 0 || number > tasks.getSize()) {
+                        throw new InvalidInputException(str);
+                    }
+                    int index = number - 1;
+                    Task toBeDeleted = tasks.removeTask(index);
+                    ui.printDelete(toBeDeleted, tasks);
                     } else {
                         if (str.startsWith("todo")) {
                             String todo = str.substring(4);
@@ -73,7 +73,7 @@ public class Parser {
                                 if (deadline.trim().isEmpty()) { //needs to check whether there is anything after /by
                                     throw new DeadlineCommandUseException(str);
                                 }
-                                String workToDo = str.substring(9, index);
+                                String workToDo = str.substring(9, index - 1);
                                 Task task = new Deadline(workToDo, LocalDateTime.parse(deadline, formatter));
                                 tasks.addTask(task);
                                 ui.printAddTask(task, tasks);
@@ -87,7 +87,7 @@ public class Parser {
                                 int secondIndex;
                                 String fromWhen;
                                 String toWhen;
-                                String workToDo = str.substring(6, firstIndex);
+                                String workToDo = str.substring(6, firstIndex - 1);
                                 String afterFirstIndex = str.substring(firstIndex + 6);
                                 if (!afterFirstIndex.contains("/to ")) { //to check the input of /to after /from
                                     throw new EventCommandUseException(str);
