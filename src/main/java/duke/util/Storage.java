@@ -1,10 +1,5 @@
 package duke.util;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -12,12 +7,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 /**
  * Represents a storage for the list of Tasks.
  */
 public class Storage {
     private File file;
 
+    /**
+     * Constructor for Storage object.
+     *
+     * @param path The given path to the data file.
+     */
     public Storage(String path) {
         this.file = new File(path);
         if (!this.file.getParentFile().exists()) {
