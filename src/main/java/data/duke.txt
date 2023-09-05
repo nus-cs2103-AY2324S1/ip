@@ -1,7 +1,5 @@
 T | 1 | read book
 T | 0 | join sports club
 D | 0 | Finish report | 31-12-2023 18:00
-D | 0 | return book | 12-01-2023 12:00
 D | 1 | finish homework | 12-12-2023 18:00
-E | 0 | meeting | 12-12-2023 18:00|14-12-2023 19:00
 E | 1 | project | 13-12-2023 19:00|15-12-2023 19:00
