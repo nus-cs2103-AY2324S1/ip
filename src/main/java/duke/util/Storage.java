@@ -115,7 +115,6 @@ public class Storage {
         } catch (DateTimeParseException e) {
             System.out.println(Duke.getUi().printDateTimeParseException());
         } catch (DukeException e) {
-            //Duke.getUi().showError(e.getMessage());
             System.out.println(e.getMessage());
         }
         return task;

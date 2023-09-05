@@ -18,7 +18,6 @@ public class Parser {
      * @return The result of parsing the user command.
      */
     public static String parse(String command, TaskList taskList) {
-        //Duke.getUi().printLine();
         try {
             if (command.equals("bye")) {
                 Duke.setExit(true);
@@ -44,9 +43,7 @@ public class Parser {
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (DukeException e) {
-            //Duke.getUi().showError(e.getMessage());
             return e.getMessage();
         }
-        //Duke.getUi().printLine();
     }
 }

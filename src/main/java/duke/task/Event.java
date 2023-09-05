@@ -11,14 +11,10 @@ import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
 
-    /**
-     * The start date/time of the event.
-     */
+    /** The start date/time of the event. */
     protected LocalDateTime from;
 
-    /**
-     * The end date/time of the event.
-     */
+    /** The end date/time of the event. */
     protected LocalDateTime to;
 
     /**
