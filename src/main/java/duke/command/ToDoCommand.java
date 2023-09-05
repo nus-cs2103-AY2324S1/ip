@@ -1,9 +1,10 @@
 package duke.command;
 
 import duke.exception.KoraException;
-import duke.task.TaskList;
 import duke.task.Task;
+import duke.task.TaskList;
 import duke.task.ToDo;
+
 
 public class ToDoCommand extends Command {
     private String taskDetails;
@@ -25,7 +26,7 @@ public class ToDoCommand extends Command {
     public void execute(TaskList taskList) {
         Task currentTask = new ToDo(taskDetails);
         taskList.addTask(currentTask);
-        commandMessage = "Okay! I have added this task" + "\n" +
-                currentTask.toString() + "\n" + String.format("Now you have %d tasks!", taskList.getLength());
+        commandMessage = "Okay! I have added this task" + "\n"
+                + currentTask.toString() + "\n" + String.format("Now you have %d tasks!", taskList.getLength());
     }
 }

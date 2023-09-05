@@ -1,7 +1,7 @@
 package duke;
 
-import duke.exception.KoraException;
 import duke.command.Command;
+import duke.exception.KoraException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
@@ -55,13 +55,13 @@ public class Duke {
     public void run() {
         ui.greet();
         while (!isExit) {
-                String userInput = ui.getUserInput();
-                Command command = getResponse(userInput);
-                if (command == null) {
-                    isExit = false;
-                } else {
-                    isExit = command.isExitYet();
-                }
+            String userInput = ui.getUserInput();
+            Command command = getResponse(userInput);
+            if (command == null) {
+                isExit = false;
+            } else {
+                isExit = command.isExitYet();
+            }
         }
         ui.closeScanner();
     }

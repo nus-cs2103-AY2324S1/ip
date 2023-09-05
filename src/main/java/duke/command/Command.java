@@ -1,14 +1,13 @@
 package duke.command;
 
 import duke.exception.KoraException;
-import duke.task.Task;
 import duke.task.TaskList;
 
 /**
  * Command class executes and sets messages for different types of commands.
  */
 public abstract class Command {
-    public static String line = "------------------------------";
+    private static String line = "------------------------------";
 
     /**
      * Class constructor of Command.
@@ -21,7 +20,7 @@ public abstract class Command {
      * @param output Message after command is executed.
      */
     public void printOutput(String output) {
-        System.out.println(line + "\n" + output + "\n" +line);
+        System.out.println(line + "\n" + output + "\n" + line);
     }
 
     /**

@@ -1,18 +1,23 @@
 package duke.task;
 
-import duke.exception.KoraException;
-
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import duke.exception.KoraException;
+
 public class Event extends Task {
-    LocalDateTime endTime;
-    LocalDateTime startTime;
+    private LocalDateTime endTime;
+    private LocalDateTime startTime;
+
+    private DateTimeFormatter outFormatter;
+    private DateTimeFormatter saveFormatter;
 
     public Event(String details, String startTime, String endTime) throws KoraException {
         super(details);
         super.setTaskType(TaskType.E.toString());
+        outFormatter = DateTimeFormatter.ofPattern("E, MMM d yyyy HH:mm");
+        saveFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         try {
             this.startTime = LocalDateTime.parse(startTime, saveFormatter);
             this.endTime = LocalDateTime.parse(endTime, saveFormatter);
@@ -22,9 +27,6 @@ public class Event extends Task {
             throw new KoraException("Please ensure there is no space before to!");
         }
     }
-
-    DateTimeFormatter outFormatter = DateTimeFormatter.ofPattern("E, MMM d yyyy HH:mm");
-    DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @Override
     public String getTime() {
@@ -41,7 +43,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         String output;
-        output = super.toString() + "(from: " + startTime.format(outFormatter) + " to: " + endTime.format(outFormatter) + ")";
+        output = super.toString()
+                + "(from: " + startTime.format(outFormatter) + " to: " + endTime.format(outFormatter) + ")";
         return output;
     }
 }
