@@ -3,6 +3,12 @@ package seedu.duke;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 /**
@@ -14,6 +20,12 @@ import javafx.stage.Stage;
  * @since 2023-08-29
  */
 public class Duke extends Application {
+
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
 
     private TaskList taskList;
     private Ui ui;
@@ -129,8 +141,49 @@ public class Duke extends Application {
      */
     @Override
     public void start(Stage stage) {
-        Label helloDuke = new Label("Hello Duke!"); // Creating a new Label control
-        Scene scene = new Scene(helloDuke); // Setting the scene to be our Label
+
+        this.scrollPane = new ScrollPane();
+        this.dialogContainer = new VBox();
+        this.scrollPane.setContent(dialogContainer);
+
+        this.userInput = new TextField();
+        this.sendButton = new Button("Send");
+
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(this.scrollPane, this.userInput, this.sendButton);
+
+        Scene scene = new Scene(mainLayout); // Setting the scene to be our Label
+
+        stage.setTitle("Duke");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
+
+        mainLayout.setPrefSize(400.0, 600.0);
+
+        this.scrollPane.setPrefSize(385, 535);
+        this.scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        this.scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        this.scrollPane.setVvalue(1.0);
+        this.scrollPane.setFitToWidth(true);
+
+        // You will need to import `javafx.scene.layout.Region` for this.
+        this.dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        this.userInput.setPrefWidth(325.0);
+
+        this.sendButton.setPrefWidth(55.0);
+
+        AnchorPane.setTopAnchor(this.scrollPane, 1.0);
+
+        AnchorPane.setBottomAnchor(this.sendButton, 1.0);
+        AnchorPane.setRightAnchor(this.sendButton, 1.0);
+
+        AnchorPane.setLeftAnchor(this.userInput , 1.0);
+        AnchorPane.setBottomAnchor(this.userInput, 1.0);
+
+
 
         stage.setScene(scene); // Setting the stage to show our screen
         stage.show(); // Render the stage.
