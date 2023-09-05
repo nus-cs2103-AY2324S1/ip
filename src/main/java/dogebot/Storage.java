@@ -1,3 +1,10 @@
+package dogebot;
+
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDos;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

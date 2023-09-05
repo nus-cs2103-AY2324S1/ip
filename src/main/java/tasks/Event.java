@@ -1,3 +1,7 @@
+package tasks;
+
+import dogebot.DateTimeHandler;
+
 public class Event extends Task {
     private DateTimeHandler start;
     private DateTimeHandler end;
