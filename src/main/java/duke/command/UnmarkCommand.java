@@ -4,9 +4,17 @@ import duke.task.TaskList;
 import duke.utility.Storage;
 import duke.utility.Ui;
 
-public class UnmarkCommand extends Command{
+/**
+ * Represents a command to unmark a task as done in the task list.
+ */
+public class UnmarkCommand extends Command {
     private int taskNumber;
 
+    /**
+     * Creates a new UnmarkCommand with the specified task number.
+     *
+     * @param taskNumber The number of the task to be unmarked as done.
+     */
     public UnmarkCommand(int taskNumber) {
         this.taskNumber = taskNumber;
     }
