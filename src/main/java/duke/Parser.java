@@ -76,9 +76,8 @@ public class Parser {
             } catch (DateTimeParseException ignored) {
             }
         }
-        throw new DateTimeParseException(String.format(Messages.ERROR_PREFIX,
-                String.format(Messages.INVALID_DATE_TIME_FORMAT, dateTimeString)),
-                dateTimeString, 0);
+        throw new DateTimeParseException(String.format(Messages.ERROR_PREFIX, String.format(
+                Messages.INVALID_DATE_TIME_FORMAT, dateTimeString)), dateTimeString, 0);
     }
 
 
@@ -94,8 +93,7 @@ public class Parser {
             throws InsufficientArgumentsException, DateTimeParseException {
         if (Objects.equals(input, "")) {
             throw new InsufficientArgumentsException(String.format(
-                    Messages.INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE,
-                    "description", taskType));
+                    Messages.INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE, "description", taskType));
         }
         String description = input;
         String[] args;
@@ -154,8 +152,7 @@ public class Parser {
         }
         if (input.length() < 5) {
             throw new InsufficientArgumentsException(String.format(
-                    Messages.INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE,
-                    "description", taskType));
+                    Messages.INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE, "description", taskType));
         }
         boolean isDone = input.charAt(0) == '1';
         String description;
@@ -165,8 +162,7 @@ public class Parser {
             description = input.substring(0, input.indexOf(" | "));
             if (Objects.equals(input.substring(input.indexOf(" | ") + 3), "")) {
                 throw new InsufficientArgumentsException(String.format(
-                        Messages.INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE,
-                        "by", taskType));
+                        Messages.INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE, "by", taskType));
             }
             LocalDateTime by = Parser.parseDate(input.substring(
                     input.indexOf(" | ") + 3));
@@ -177,20 +173,17 @@ public class Parser {
             input = input.substring(input.indexOf(" | ") + 3);
             if (input.length() < OUTPUT_DATE_TIME_PATTERN.length()) {
                 throw new InsufficientArgumentsException(String.format(
-                        Messages.INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE,
-                        "from", taskType));
+                        Messages.INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE, "from", taskType));
             }
             if (input.length() < STORAGE_DATE_TIME_PATTERN.length() * 2 + 1) {
                 throw new InsufficientArgumentsException(String.format(
-                        Messages.INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE,
-                        "to", taskType));
+                        Messages.INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE, "to", taskType));
             }
             // dates in storage should be formatted consistently
             LocalDateTime from =
                     Parser.parseDate(input.substring(0, OUTPUT_DATE_TIME_PATTERN.length() - 1));
             LocalDateTime to =
-                    Parser.parseDate(input.substring(OUTPUT_DATE_TIME_PATTERN.length()
-                    ));
+                    Parser.parseDate(input.substring(OUTPUT_DATE_TIME_PATTERN.length()));
             return new Event(description, isDone, from, to);
         case "T":
             description = input.substring(4);
@@ -207,8 +200,7 @@ public class Parser {
      * @param parameterName The parameter name to be checked.
      * @throws InsufficientArgumentsException If input is missing arguments from task.
      */
-    private static void validateContainsArgument(String input,
-                                                 String taskType,
+    private static void validateContainsArgument(String input, String taskType,
                                                  String parameterName)
             throws InsufficientArgumentsException {
         if (!input.contains(String.format("/%s", parameterName))) {
@@ -256,8 +248,7 @@ public class Parser {
         if (command != null) {
             command.run(input, taskList, ui);
         } else {
-            throw new UnknownCommandException(
-                    Messages.UNKNOWN_COMMAND_ERROR_MESSAGE);
+            throw new UnknownCommandException(Messages.UNKNOWN_COMMAND_ERROR_MESSAGE);
         }
     }
 }

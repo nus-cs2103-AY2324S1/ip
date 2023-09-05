@@ -20,7 +20,7 @@ public class TaskListTest {
      * Tests whether {@code listTasks} appropriately lists tasks.
      */
     @Test
-    public void listTasks_tasksInList_success() {
+    public void listTasks() {
         TaskList taskList = new TaskList();
         Storage storage = new StorageStub();
         taskList.setStorage(storage);
@@ -38,7 +38,7 @@ public class TaskListTest {
      * Tests whether {@code listTasks} appropriately handles no tasks.
      */
     @Test
-    public void listTasks_emptyList_success() {
+    public void listTasks_emptyList() {
         List<Task> tasks = new ArrayList<>();
         TaskList taskList = new TaskList();
         Storage storage = new StorageStub();

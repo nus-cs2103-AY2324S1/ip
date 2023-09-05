@@ -17,7 +17,7 @@ public class ParserTest {
      * Tests whether the {@code parseDate} appropriately parses all allowed date time formats.
      */
     @Test
-    public void parseDate_validFormat_success() {
+    public void parseDate() {
         LocalDateTime dateTimeMidnight = LocalDateTime.of(2023, 9, 5, 0, 0);
         LocalDateTime dateTimeNoon = LocalDateTime.of(2023, 9, 5, 12, 0);
 
@@ -52,14 +52,8 @@ public class ParserTest {
             assertEquals(dateTimeNoon, Parser.parseDate(dateTimeString));
             fail();
         } catch (DateTimeParseException e) {
-            assertEquals(
-                    String.format(
-                            Messages.ERROR_PREFIX,
-                            String.format(
-                                    Messages.INVALID_DATE_TIME_FORMAT, dateTimeString
-                            )
-                    ),
-                    e.getMessage()
+            assertEquals(String.format(Messages.ERROR_PREFIX, String.format(
+                                    Messages.INVALID_DATE_TIME_FORMAT, dateTimeString)), e.getMessage()
             );
         }
     }
