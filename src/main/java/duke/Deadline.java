@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Represents a <code>Deadline</code> object that extends from <code>Task</code>.
  * A <code>Deadline</code> object contains a deadline and a description.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     protected LocalDate deadline;
 
     /**

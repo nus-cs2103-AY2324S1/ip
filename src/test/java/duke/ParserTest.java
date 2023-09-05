@@ -1,6 +1,9 @@
 package duke;
-import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 
 public class ParserTest {
     @Test
@@ -9,7 +12,8 @@ public class ParserTest {
         try {
             p.parseAndRespond();
         } catch (DukeException e) {
-            assertEquals("Huhhhhhhh??? (o_O) ? Please use one of the command words: todo, event, deadline, list, mark, unmark, delete, bye",
+            assertEquals("Huhhhhhhh??? (o_O) ? Please use one of the command words: "
+                            + "todo, event, deadline, list, mark, unmark, delete, bye",
                         e.getMessage());
         }
     }

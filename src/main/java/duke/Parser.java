@@ -28,8 +28,8 @@ public class Parser {
             if (splitted.length <= 1) {
                 throw new DukeException("Please indicate which task to mark!");
             } else {
-                int task_no = Integer.parseInt(splitted[1]);
-                TaskList.mark(task_no);
+                int taskNo = Integer.parseInt(splitted[1]);
+                TaskList.mark(taskNo);
                 Storage.save();
             }
             break;
@@ -42,7 +42,7 @@ public class Parser {
                 Storage.save();
             }
             break;
-        case "find" :
+        case "find":
             if (splitted.length <= 1) {
                 throw new DukeException("Please provide a term to search for! (⋟﹏⋞)");
             } else {
@@ -105,8 +105,8 @@ public class Parser {
             }
             break;
         default:
-            throw new DukeException("Huhhhhhhh??? (o_O) ? " +
-                    "Please use one of the command words: todo, event, deadline, list, mark, unmark, delete, bye");
+            throw new DukeException("Huhhhhhhh??? (o_O) ? "
+                    + "Please use one of the command words: todo, event, deadline, list, mark, unmark, delete, bye");
         }
     }
 }

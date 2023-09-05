@@ -4,7 +4,7 @@ package duke;
  * Represents a <code>Todo</code> object that extends from <code>Task</code>.
  * A <code>Todo</code> object contains a description.
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * Constructs a new <code>Todo</code> object.

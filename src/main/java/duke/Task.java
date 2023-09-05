@@ -35,7 +35,7 @@ public class Task {
      * @return String representation of the task to be displayed.
      */
     public String getDescription() {
-        return this.isDone ? "[X] " + this.description: "[ ] " + this.description;
+        return this.isDone ? "[X] " + this.description : "[ ] " + this.description;
     }
 
     /**
