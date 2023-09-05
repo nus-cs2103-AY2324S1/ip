@@ -108,6 +108,15 @@ public class Ui {
         System.out.println("\tNow you have " + tasks.getSize() + " tasks in the list");
         printHorizontalLine();
     }
+    public void printFindTask(TaskList foundTasks) {
+        System.out.println("\tSure, I can do that! What are buddies for afterall?");
+        System.out.println("\tHere are the matching tasks in your list:");
+        for (int i = 0; i < foundTasks.getSize(); i++) {
+            Task task = foundTasks.getTask(i);
+            System.out.println("\t" + (i + 1) + ". " + task.toString());
+        }
+    }
+
 
 
 }
