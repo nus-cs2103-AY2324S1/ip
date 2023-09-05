@@ -1,9 +1,16 @@
 package task;
 
+/**
+ * Parent task class
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructor for Task (Will be super'd by specific tasks)
+     * @param description Task description
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

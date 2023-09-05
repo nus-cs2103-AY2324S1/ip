@@ -6,12 +6,20 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Deadline task class
+ */
 public class Deadline extends Task {
 
     protected String deadlineString;
     protected LocalDateTime deadlineDateTime;
     protected boolean isDateTime = false;
 
+    /**
+     * Constructor for deadline
+     * @param description Task description
+     * @param deadlineString String representation of the date of deadline
+     */
     public Deadline(String description, String deadlineString) {
         super(description);
         this.deadlineString = deadlineString;

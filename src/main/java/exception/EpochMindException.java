@@ -1,5 +1,8 @@
 package exception;
 
+/**
+ * Exception class for errors from EpochMind
+ */
 public class EpochMindException {
 
     protected String error;

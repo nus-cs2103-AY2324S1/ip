@@ -1,10 +1,13 @@
+import java.util.Scanner;
+
 import task.TaskList;
 import util.Parser;
 import util.Storage;
 import util.Ui;
 
-import java.util.Scanner;
-
+/**
+ * Entry point to application
+ */
 public class EpochMind {
 
     public static void main(String[] args) {

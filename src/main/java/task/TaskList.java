@@ -1,11 +1,14 @@
 package task;
 
-import exception.EpochMindException;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import exception.EpochMindException;
+
+/**
+ * Class that contains list of tasks and operations on those tasks
+ */
 public class TaskList {
 
     private List<Task> tasks = new ArrayList<>();
@@ -129,7 +132,8 @@ public class TaskList {
     public void todo(String task) {
         ToDo toDo = new ToDo(task);
         tasks.add(toDo);
-        System.out.println("The Mind has added a new task \n" + toDo + "\nThere are now " + tasks.size() + " tasks left to complete");
+        System.out.println("The Mind has added a new task \n" + toDo + "\nThere are now " +
+                tasks.size() + " tasks left to complete");
     }
 
     /**
@@ -141,7 +145,8 @@ public class TaskList {
     public void deadline(String task, String deadlineString) {
         Deadline deadline = new Deadline(task, deadlineString);
         tasks.add(deadline);
-        System.out.println("The Mind has added a new task \n" + deadline + "\nThere are now " + tasks.size() + " tasks left to complete");
+        System.out.println("The Mind has added a new task \n" + deadline +
+                "\nThere are now " + tasks.size() + " tasks left to complete");
     }
 
 
@@ -155,7 +160,8 @@ public class TaskList {
     public void event(String description, String start, String end) {
         Event event = new Event(description, start, end);
         tasks.add(event);
-        System.out.println("The Mind has added a new task \n" + event + "\nThere are now " + tasks.size() + " tasks left to complete");
+        System.out.println("The Mind has added a new task \n" + event +
+                "\nThere are now " + tasks.size() + " tasks left to complete");
     }
 
     /**
