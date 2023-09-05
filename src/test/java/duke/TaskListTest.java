@@ -2,20 +2,17 @@ package duke;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.nio.file.Files;
+
 
 class TaskListTest {
-    private File tempFile;
+    private final File tempFile;
 
-    @BeforeEach
-    void setUp() throws IOException {
-        tempFile = Files.createTempFile(null, null).toFile();
+    TaskListTest() {
+        tempFile = new File("./src/main/data/tasklist.txt");
     }
 
     @Test
@@ -24,6 +21,7 @@ class TaskListTest {
         ToDo todo = new ToDo("Buy groceries");
         taskList.addToList(todo, 0);
         assertEquals(1, taskList.tasks.size());
+        tempFile.deleteOnExit();
     }
 
     @Test
@@ -32,6 +30,7 @@ class TaskListTest {
         taskList.handleTodo("todo Buy groceries");
         assertEquals(1, taskList.tasks.size());
         assertTrue(taskList.tasks.get(0) instanceof ToDo);
+        tempFile.deleteOnExit();
     }
 
     @Test
@@ -40,6 +39,7 @@ class TaskListTest {
         taskList.handleDeadline("deadline Complete assignment /by 2023-09-30");
         assertEquals(1, taskList.tasks.size());
         assertTrue(taskList.tasks.get(0) instanceof Deadline);
+        tempFile.deleteOnExit();
     }
 
     @Test
@@ -48,6 +48,7 @@ class TaskListTest {
         taskList.handleEvent("event Conference /from 2023-09-01 /to 2023-09-05");
         assertEquals(1, taskList.tasks.size());
         assertTrue(taskList.tasks.get(0) instanceof Event);
+        tempFile.deleteOnExit();
     }
 
     @Test
@@ -59,5 +60,6 @@ class TaskListTest {
         taskList.handleFind("find groceries");
         assertEquals(1, taskList.tasks.size());
         assertTrue(taskList.tasks.get(0) instanceof ToDo);
+        tempFile.deleteOnExit();
     }
 }

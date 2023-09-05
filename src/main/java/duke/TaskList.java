@@ -94,22 +94,14 @@ public class TaskList {
      * @return The formatted string representation of the task list.
      */
     public static String displayList(ArrayList<Task> tasks) {
-        StringBuilder res;
-        try {
-            if (taskCount == 0) {
-                throw new DukeException("Error: There are no items in the list!");
-            }
-            res = new StringBuilder(Ui.line);
-            for (int i = 0; i < taskCount; i++) {
+        String res = Ui.line + "\n";
+            for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.get(i);
                 int index = i + 1;
-                res.append(index).append(task.getTask()).append("\n");
+                res = res + index +task.getTask() + "\n";
             }
-            res.append(Ui.line);
-        } catch (DukeException emptyList) {
-            res = new StringBuilder(Ui.line + emptyList.getMessage() + "\n" + Ui.line);
-        }
-        return res.toString();
+            res += Ui.line;
+        return res;
     }
 
     /**
@@ -252,6 +244,6 @@ public class TaskList {
                 findTasks.add(value);
             }
         }
-        displayList(findTasks);
+        System.out.println(displayList(findTasks));
     }
 }

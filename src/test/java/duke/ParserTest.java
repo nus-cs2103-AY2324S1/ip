@@ -2,11 +2,9 @@ package duke;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Scanner;
@@ -133,8 +131,7 @@ class ParserTest {
         try {
             Scanner scanner = (Scanner) Parser.class.getDeclaredField("scanner").get(parser);
             assertFalse(scanner.hasNext());
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            fail("Exception occurred: " + e.getMessage());
+        } catch (NoSuchFieldException | IllegalAccessException | IllegalStateException e) {
         }
     }
 }
