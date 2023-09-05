@@ -2,9 +2,8 @@ package com.mimi.commands;
 
 import com.mimi.main.ReadWriteData;
 import com.mimi.main.Storage;
-import com.mimi.main.Ui;
 import com.mimi.tasks.Todo;
-
+import com.mimi.ui.Ui;
 /**
  * Representation of the todo Command.
  */
@@ -42,7 +41,5 @@ public class TodoCommand extends Command {
      * @param ui Ui class instance
      */
     @Override
-    public void uiResponse(Ui ui) {
-        ui.separator();
-    }
+    public void uiResponse(Ui ui) { }
 }

@@ -33,7 +33,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("[%s][%s] %s (by: %s)",
+        return String.format("[%s][%s] %s\nby: %s",
                 this.eventCode(),
                 this.getStatusIcon(),
                 this.taskName(),

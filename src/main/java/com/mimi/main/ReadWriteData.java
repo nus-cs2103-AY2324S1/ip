@@ -12,6 +12,7 @@ import com.mimi.tasks.Deadline;
 import com.mimi.tasks.Event;
 import com.mimi.tasks.Task;
 import com.mimi.tasks.Todo;
+import com.mimi.ui.Ui;
 
 /**
  * A class that reads from and writes data to the hard drive.

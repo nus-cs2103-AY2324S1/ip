@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 
 import com.mimi.main.ReadWriteData;
 import com.mimi.main.Storage;
-import com.mimi.main.Ui;
 import com.mimi.tasks.Deadline;
+import com.mimi.ui.Ui;
 
 /**
  * Representation of the deadline Command.
@@ -62,8 +62,6 @@ public class DeadlineCommand extends Command {
         } else if (this.deadlineTime == LocalDateTime.MIN) {
             ui.wrongTimeFormat();
         }
-
-        ui.separator();
     }
 
 }

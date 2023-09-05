@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 
 import com.mimi.main.ReadWriteData;
 import com.mimi.main.Storage;
-import com.mimi.main.Ui;
 import com.mimi.tasks.Event;
+import com.mimi.ui.Ui;
 
 /**
  * Representation of the Event Command.
@@ -64,7 +64,5 @@ public class EventCommand extends Command {
         } else if (this.startTime == LocalDateTime.MIN || this.endTime == LocalDateTime.MIN) {
             ui.wrongTimeFormat();
         }
-
-        ui.separator();
     }
 }

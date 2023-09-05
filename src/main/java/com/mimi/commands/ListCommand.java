@@ -1,7 +1,7 @@
 package com.mimi.commands;
 
 import com.mimi.main.Storage;
-import com.mimi.main.Ui;
+import com.mimi.ui.Ui;
 
 /**
  * Representation of the List Command.
@@ -31,7 +31,5 @@ public class ListCommand extends Command {
      * @param ui Ui class instance
      */
     @Override
-    public void uiResponse(Ui ui) {
-        ui.separator();
-    }
+    public void uiResponse(Ui ui) { }
 }

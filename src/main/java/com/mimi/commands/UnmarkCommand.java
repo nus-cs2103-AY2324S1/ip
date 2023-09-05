@@ -2,7 +2,7 @@ package com.mimi.commands;
 
 import com.mimi.main.ReadWriteData;
 import com.mimi.main.Storage;
-import com.mimi.main.Ui;
+import com.mimi.ui.Ui;
 
 /**
  * Representation of the un-mark Command.
@@ -49,7 +49,6 @@ public class UnmarkCommand extends Command {
             return;
         }
 
-        ui.separator();
     }
 
 

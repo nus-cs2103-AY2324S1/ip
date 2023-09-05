@@ -1,6 +1,6 @@
 package com.mimi.commands;
 
-import com.mimi.main.Ui;
+import com.mimi.ui.Ui;
 
 /**
  * Representation of the Exit Command.

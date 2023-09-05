@@ -2,7 +2,7 @@ package com.mimi.commands;
 
 import com.mimi.main.ReadWriteData;
 import com.mimi.main.Storage;
-import com.mimi.main.Ui;
+import com.mimi.ui.Ui;
 
 /**
  * Representation of the Delete Command.
@@ -48,6 +48,5 @@ public class DeleteCommand extends Command {
             ui.incompleteDeleteCommand();
             return;
         }
-        ui.separator();
     }
 }
