@@ -1,7 +1,6 @@
 package seedu.duke.ui;
 
 import java.util.List;
-import java.util.Scanner;
 
 import seedu.duke.tasks.Task;
 
@@ -15,15 +14,15 @@ public class Ui {
      * @return list
      */
     public static String help() {
-        return "Available commands are:\n\n" +
-                "list - displays current list\n" +
-                "todo - adds a task to do\n" +
-                "deadline - adds a task with deadline\n" +
-                "event - adds a upcoming event\n" +
-                "delete - removes specified index\n" +
-                "checkdate - tasks on specified date\n" +
-                "find - task with specified keyword\n" +
-                "bye - exit program";
+        return "Available commands are:\n\n"
+                + "list - displays current list\n"
+                + "todo - adds a task to do\n"
+                + "deadline - adds a task with deadline\n"
+                + "event - adds a upcoming event\n"
+                + "delete - removes specified index\n"
+                + "checkdate - tasks on specified date\n"
+                + "find - task with specified keyword\n"
+                + "bye - exit program";
     }
 
     /**

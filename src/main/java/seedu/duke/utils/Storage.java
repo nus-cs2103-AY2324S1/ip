@@ -14,7 +14,6 @@ import seedu.duke.tasks.Deadline;
 import seedu.duke.tasks.Event;
 import seedu.duke.tasks.Task;
 import seedu.duke.tasks.Todo;
-import seedu.duke.ui.Ui;
 
 /**
  * Storage
@@ -69,7 +68,7 @@ public class Storage {
                 Task task = parseTaskFromLine(line);
                 if (task != null) {
                     // this adds to taskList without printing anything
-//                    taskList.addAvailTasks(task);
+                    //taskList.addAvailTasks(task);
                     taskList.add(task);
                 }
             }

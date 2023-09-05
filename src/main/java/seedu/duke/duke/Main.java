@@ -1,4 +1,4 @@
-package seedu.duke.ui;
+package seedu.duke.duke;
 
 import java.io.IOException;
 
@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import seedu.duke.Duke;
 
 /**
  * A GUI for Duke using FXML.

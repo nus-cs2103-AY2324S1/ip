@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.duke.duke;
 
 import java.io.IOException;
 
