@@ -56,7 +56,8 @@ public class Parser {
                     tasks.markNotDone(index);
                     Task notDone = tasks.getTask(index);
                     ui.printNotDone(notDone);
-                    } else if (str.startsWith("delete ")) {
+
+                } else if (str.startsWith("delete ")) {
                     String num = str.substring(7);
                     int number = Integer.valueOf(num);
                     if (number <= 0 || number > tasks.getSize()) {
@@ -124,10 +125,10 @@ public class Parser {
                         } else {
                             throw new InvalidInputException(str);
                         }
-                    }
-                } else {
-                    ui.listTasks(tasks);
                 }
+            } else {
+                ui.listTasks(tasks);
+            }
         } catch (java.time.format.DateTimeParseException e) {
             //detect inputs that don't follow the yyyy-MM-dd HHmm format
             ui.printException();

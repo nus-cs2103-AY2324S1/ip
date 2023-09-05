@@ -32,8 +32,6 @@ public class Deadline extends Task {
         this.date = date;
     }
 
-
-
     /**
      * Returns a formatted string representation of the Deadline Task, including
      * its type, completion status, description, and due date/time.
@@ -42,7 +40,8 @@ public class Deadline extends Task {
      */
     @Override
     public String taskString() {
-        return "[D]" + super.taskString() + " (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + ")";
+        return "[D]" + super.taskString() + " (by: " +
+                date.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + ")";
     }
     /**
      * Returns a string representation of the Deadline Task that can be used for

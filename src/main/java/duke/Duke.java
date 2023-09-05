@@ -8,6 +8,7 @@ import java.util.Scanner;
  * These tasks can include deadlines, events, and ToDos. The user input is parsed to extract
  * dates and times for events and deadlines.
  */
+
 public class Duke {
     public static void main(String[] args) {
         Storage storage = new Storage();
@@ -20,8 +21,7 @@ public class Duke {
         while (!str.equals("bye")) {
             parser.chat(str, tasks);
             str = scanner.nextLine();
-        }
-        try {
+        } try {
             storage.saveTasks("src/data/Duke.txt", tasks);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
