@@ -102,7 +102,6 @@ public class Ui{
 
     /**
      * Lists the tasks in the task list.
-     *
      * @param tasks The task list to be printed.
      */
     public void listTasks(TaskList tasks) {
@@ -116,6 +115,11 @@ public class Ui{
         System.out.println();
     }
 
+    /**
+     * Lists the tasks in the task list
+     * containing tasks with matching keywords
+     * @param tasks The task list to be printed.
+     */
     public void printMatchingTasks(TaskList tasks){
         int i = 1;
         System.out.print("\tHere are the tasks in your list:");
