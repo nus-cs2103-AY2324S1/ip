@@ -26,6 +26,15 @@ public class Duke {
     }
 
     /**
+     * Constructor for Duke class.
+     */
+    public Duke() {
+        this.ui = new Ui();
+        this.storage = new Storage("data/duke.txt");
+        this.taskList = new TaskList(storage.load());
+    }
+
+    /**
      * Runs the program.
      */
     public void run() {
@@ -44,6 +53,14 @@ public class Duke {
                 ui.printMessage();
             }
         };
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
     }
 
     /**
