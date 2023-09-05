@@ -1,6 +1,11 @@
-package duke;
+package duke.task;
 
 
+import duke.exception.DukeException;
+
+/**
+ * Represents a todo task.
+ */
 public class Todo extends Task {
     private static String parseTodo(String task) throws DukeException {
         String todoTask = task.trim();

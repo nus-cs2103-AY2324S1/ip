@@ -1,4 +1,12 @@
-package duke;
+package duke.parser;
+
+import duke.exception.DukeException;
+import duke.data.TaskList;
+import duke.storage.Storage;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 import java.util.Arrays;
 
@@ -52,9 +60,9 @@ public class CommandProcessor {
 
             String [] splitCommand = parseCommand(command);
             String commandType = splitCommand[0];
+
             // print the list of tasks
             if (commandType.equals("list")) {
-
                 return this.tasks.listContent();
             }
 

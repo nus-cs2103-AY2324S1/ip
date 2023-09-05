@@ -1,6 +1,8 @@
 package duke;
 
 
+import duke.parser.CommandProcessor;
+
 public class Duke {
 
     private final CommandProcessor commandProcessor;
@@ -27,7 +29,7 @@ public class Duke {
 
             //break out of the loop when it is "bye"
             if (command.equals("bye")) {
-                ui.bye();
+                ui.message("Bye!!! Hope to see you again!\n");
                 break;
             }
 

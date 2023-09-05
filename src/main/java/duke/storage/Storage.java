@@ -1,4 +1,10 @@
-package duke;
+package duke.storage;
+
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -7,8 +13,10 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Storage {
-    private static final String DATA_FILE_PATH = "\\data\\duke.txt";
-    private static final String DIRECTORY_PATH = "\\data";
+
+    private static final String home = System.getProperty("user.home");
+    private static final String DATA_FILE_PATH = home + "/data/duke.txt";
+    private static final String DIRECTORY_PATH = home + "/data";
 
     /**
      * writes to hard disk

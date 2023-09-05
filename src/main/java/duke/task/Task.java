@@ -1,6 +1,6 @@
-package duke;
+package duke.task;
 
-abstract class Task {
+public abstract class Task {
     private final String task;
     private final boolean isDone;
 
@@ -16,13 +16,13 @@ abstract class Task {
         this.isDone = isDone;
     }
 
-    abstract Task done();
+    public abstract Task done();
 
-    abstract Task undone();
+    public abstract Task undone();
 
-    abstract String storageText();
+    public abstract String storageText();
 
-    protected String getTask() {
+    public String getTask() {
         return this.task;
     }
 

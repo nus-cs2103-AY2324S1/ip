@@ -1,7 +1,15 @@
-package duke;
+package duke.data;
+
+import duke.exception.DukeException;
+import duke.storage.Storage;
+import duke.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a task list that stores  a list of tasks
+ * Performs add, delete, mark, unmark
+ */
 public class TaskList {
     private ArrayList<Task> tasklist;
     private static final Storage STORAGE = new Storage();

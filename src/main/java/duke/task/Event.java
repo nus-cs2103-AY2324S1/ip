@@ -1,9 +1,15 @@
-package duke;
+package duke.task;
+
+import duke.exception.DukeException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents an event.
+ * It has a start date and end date.
+ */
 public class Event extends Task {
     private final LocalDate deadlineDate;
     private final LocalDate startDate;
