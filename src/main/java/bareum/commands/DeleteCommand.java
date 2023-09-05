@@ -34,6 +34,8 @@ public class DeleteCommand extends Command {
         String deletedTask = taskList.get(index).toString();
         taskList.delete(index);
         storage.saveAllTasks(taskList);
+        // exception for if index doesn't exist
+
         Ui.reply("Okay, I've deleted this task from the list:\n" + deletedTask
                 + "\nYou now have " + taskList.size() + " tasks in your list.");
     }

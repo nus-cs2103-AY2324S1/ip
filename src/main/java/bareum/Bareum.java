@@ -44,6 +44,7 @@ public class Bareum {
             try {
                 ui.showLine();
                 String input = ui.getUserInput();
+
                 Command cmd = Parser.parse(input);
                 cmd.execute(ui, storage, taskList);
                 if (cmd instanceof ByeCommand) {

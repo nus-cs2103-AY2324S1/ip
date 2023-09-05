@@ -44,6 +44,7 @@ public class Storage {
 
         StringBuilder savedTasks = new StringBuilder();
         int currChar;
+
         try {
             FileReader fr = new FileReader(storedTasks);
             while ((currChar = fr.read()) != -1) {
