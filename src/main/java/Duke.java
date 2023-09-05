@@ -26,7 +26,7 @@ class WrongFormatException extends Exception {
 
 class UnknownCommandException extends Exception {
     public UnknownCommandException() {
-        super("☹ OOPS!!! I'm sorry, but I don't know what that means :-P");
+        super("OOPS I'm sorry, but I don't know what that means :-P");
     }
 }
 
@@ -366,7 +366,7 @@ class Duke {
                 String to = eventParts[2];
                 tasks.add(new Event(description, from, to));
             } catch (Exception e) {
-                throw new WrongFormatException("OOPS!!! events need to be in this format, event project meeting /from Mon 2pm /to 4pm");
+                throw new WrongFormatException("OOPS events need to be in this format, event project meeting /from Mon 2pm /to 4pm");
             }
         } else {
             throw new UnknownCommandException();
