@@ -39,6 +39,19 @@ public class Event extends Task {
     }
 
     /**
+     * Return string for writing to storage.
+     *
+     * @return Task in storage format.
+     */
+    public String getStoreFormat() {
+        return String.format("\nE | %s | %s | %s | %s",
+                this.isDone ? "1" : "0",
+                this.description,
+                this.from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
+                this.to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+    }
+
+    /**
      * Overridden toString method to represent Event task.
      *
      * @return String representing Event task.

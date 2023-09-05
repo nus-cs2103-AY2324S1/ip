@@ -21,7 +21,7 @@ public class Anto {
         ui = new Ui();
         storage = new Storage(ui, filePath);
         try {
-            tasks = new TaskList(storage.loadSave());
+            tasks = new TaskList(storage.loadSave(), storage);
             ui.setTaskList(tasks);
         } catch (AntoException e) {
             ui.printError(e);

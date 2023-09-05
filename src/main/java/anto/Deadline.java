@@ -15,6 +15,7 @@ public class Deadline extends Task {
 
     /**
      * Creates a Deadline task with specified description and by date.
+     *
      * @param description Description of the deadline task.
      * @param by String with DateTime format that represents when deadline task
      *           must be completed by.
@@ -28,6 +29,18 @@ public class Deadline extends Task {
             throw new InvalidDateTimeException();
         }
         this.by = LocalDateTime.parse(by, formatter);
+    }
+
+    /**
+     * Return string for writing to storage.
+     *
+     * @return Task in storage format.
+     */
+    public String getStoreFormat() {
+        return String.format("\nD | %s | %s | %s",
+                this.isDone ? "1" : "0",
+                this.description,
+                this.by.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
     }
 
     /**

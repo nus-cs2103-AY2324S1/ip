@@ -16,6 +16,7 @@ public class Task {
 
     /**
      * Creates a task.
+     *
      * @param description Description of task.
      */
     public Task(String description) {
@@ -48,6 +49,7 @@ public class Task {
 
     /**
      * Returns string representing task.
+     *
      * @return String with task description.
      */
     public String toString() {

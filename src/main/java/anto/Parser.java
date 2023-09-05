@@ -17,6 +17,7 @@ public class Parser {
 
     /**
      * Creates a Parser class.
+     *
      * @param ui Ui class that handles printing to command line.
      * @param taskList TaskList with all the current tasks.
      */
@@ -191,6 +192,7 @@ public class Parser {
 
     /**
      * Check if String given is in correct datetime format.
+     *
      * @param dateStr String to be checked.
      * @param formatter Format of DateTime to check with.
      * @return True if string is in correct DateTime format.
