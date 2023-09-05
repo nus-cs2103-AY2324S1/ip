@@ -1,10 +1,9 @@
 package anto;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
- * Ui handles all printing to command line.
+ * Ui handles all responses.
  */
 public class Ui {
 
@@ -25,29 +24,28 @@ public class Ui {
     }
 
     /**
-     * Prints a border.
-     */
-    public void printBlock() {
-        System.out.println("===---===---===---===---===---===---===---===");
-    }
-
-    /**
-     * Greets the user.
+     * Returns string that greets the user.
+     *
+     * @return String that greets the user.
      */
     public String greet() {
-        return "Hello I'm Anto\n" +
-                "What can I do for you?";
+        return "Hello I'm Anto\n"
+                + "What can I do for you?";
     }
 
     /**
      * Says bye to the user.
+     *
+     * @return String that says bye to the user.
      */
     public String sayBye() {
         return "Bye. Hope to see you again soon!";
     }
 
     /**
-     * Prints current list of tasks.
+     * Returns string with current list of tasks.
+     *
+     * @return String with current list of tasks.
      */
     public String printList() {
         ArrayList<Task> storage = taskList.getTaskArrayList();
@@ -65,105 +63,114 @@ public class Ui {
     }
 
     /**
-     * Tells user task is deleted.
+     * Returns String with task marked as done.
      *
-     * @param index Index of deleted task.
+     * @param index Index of task marked as done.
+     * @return String with information of task marked as done.
      */
     public String printMarkAsDone(int index) {
         ArrayList<Task> storage = taskList.getTaskArrayList();
 
-        return String.format("Nice! I've marked this task as done:\n" +
-                        "%s",
+        return String.format("Nice! I've marked this task as done:\n"
+                        + "%s",
                 storage.get(index));
     }
 
     /**
-     * Tells user task is unmarked.
+     * Returns string with message for task unmarked.
      *
      * @param index Index of task unmarked.
+     * @return String with message for task unmarked.
      */
     public String printUnmark(int index) {
         ArrayList<Task> storage = taskList.getTaskArrayList();
 
-        return String.format("Okay, I've marked this task as not done yet:\n" +
-                        "%s",
+        return String.format("Okay, I've marked this task as not done yet:\n"
+                        + "%s",
                 storage.get(index));
     }
 
     /**
-     * Tells user task is added.
+     * Returns string of message of task added.
      *
      * @param task Task that was added.
+     * @return String with message of task added.
      */
     public String printAdded(Task task) {
-        return String.format("Got it. I've added this task:\n" +
-                        "%s\n" +
-                        "Now you have %d tasks in the list.",
+        return String.format("Got it. I've added this task:\n"
+                        + "%s\n"
+                        + "Now you have %d tasks in the list.",
                 task,
                 taskList.getLength());
     }
 
     /**
-     * Tells user there is an exception.
+     * Returns string of message for exception.
      *
      * @param e AntoException that was thrown.
+     * @return String with message of AntoException.
      */
     public String printError(AntoException e) {
         return e.getMessage();
     }
 
     /**
-     * Tells user task is deleted.
+     * Returns message of task deleted.
      *
      * @param task Task that was deleted.
+     * @return String with message of task deleted.
      */
     public String printDelete(Task task) {
-        return String.format("Noted. I've removed this task:\n" +
-                        "%s\n" +
-                        "Now you have %d tasks in the list.",
+        return String.format("Noted. I've removed this task:\n"
+                        + "%s\n"
+                        + "Now you have %d tasks in the list.",
                 task,
                 taskList.getLength());
     }
 
     /**
-     * Tells user there are no current tasks on the list.
+     * Returns string with message of no tasks.
+     *
+     * @return String with message of no tasks.
      */
     public String printNoTasks() {
         return "Sorry, you currently have no tasks on the list.";
     }
 
     /**
-     * Tells user there is no saved filed.
+     * Returns message that there is no saved file.
+     *
+     * @return String with message that there is no saved file.
      */
-    public void printNoSavedFile() {
-        this.printBlock();
-        System.out.println("No saved file found.");
-        this.printBlock();
+    public String printNoSavedFile() {
+        return "No saved file found.";
     }
 
     /**
-     * Tells user saved file is found and loaded.
+     * Returns message with saved file information.
      *
      * @param taskArrayList Current array list of tasks.
+     * @return Message with saved file information.
      */
-    public void printSavedFileFound(ArrayList<Task> taskArrayList) {
-        this.printBlock();
-        System.out.println("Saved file found.");
+    public String printSavedFileFound(ArrayList<Task> taskArrayList) {
+        ArrayList<String> stringOutputArr = new ArrayList<>();
+        stringOutputArr.add("Saved file found.");
+        stringOutputArr.add("Here are the tasks in your list:");
 
         int length = taskArrayList.size();
-        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < length; i++) {
-            System.out.println(String.format("%d. %s",
+            stringOutputArr.add(String.format("%d. %s",
                     i + 1, taskArrayList.get(i)));
         }
 
-        this.printBlock();
+        return String.join("\n", stringOutputArr);
     }
 
     /**
      * Prints list of tasks found.
      *
      * @param foundTasks List of tasks found.
+     * @return String with list of tasks found.
      */
     public String printFoundTasks(ArrayList<Task> foundTasks) {
         if (foundTasks.size() == 0) {

@@ -101,4 +101,12 @@ public class TaskList {
         return foundTasks;
     }
 
+    /**
+     * Checks if task list has no tasks.
+     *
+     * @return Whether task list has no tasks.
+     */
+    public Boolean hasNoTasks() {
+        return taskList.size() == 0;
+    }
 }
