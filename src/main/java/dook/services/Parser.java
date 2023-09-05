@@ -36,8 +36,6 @@ public class Parser {
         CommandInfo command = parseKeyword(tmp[0].trim());
         String body = tmp.length == 1 ? "" : tmp[1].trim();
         switch (command) {
-        case bye:
-            return new ByeCommand();
         case list:
             return new ListCommand();
         case save:

@@ -3,7 +3,6 @@ package dook.command;
 import dook.DookException;
 import dook.services.Storage;
 import dook.services.TaskList;
-import dook.services.UiDisplay;
 
 /**
  * Command for deleting a task.
@@ -18,12 +17,12 @@ public class DeleteTaskCommand extends Command {
      * Displays a confirmation message notifying the user which task they just deleted.
      *
      * @param storage Given storage.
-     * @param uiDisplay Given UI display.
      * @param taskList Given task list.
      * @throws DookException Exception thrown by Dook.
+     * @return  Message to be displayed in GUI.
      */
     @Override
-    public void execute(Storage storage, UiDisplay uiDisplay, TaskList taskList) throws DookException {
-        uiDisplay.printMessage(taskList.deleteTask(index));
+    public String execute(Storage storage, TaskList taskList) throws DookException {
+        return taskList.deleteTask(index);
     }
 }

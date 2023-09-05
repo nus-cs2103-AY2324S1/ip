@@ -3,7 +3,6 @@ package dook.command;
 import dook.DookException;
 import dook.services.Storage;
 import dook.services.TaskList;
-import dook.services.UiDisplay;
 
 
 /**
@@ -11,10 +10,6 @@ import dook.services.UiDisplay;
  */
 public abstract class Command {
     protected boolean isExit = false;
-    protected Storage storage;
-    protected UiDisplay uiDisplay;
-    protected TaskList taskList;
-
     public boolean getIsExit() {
         return this.isExit;
     }
@@ -22,10 +17,11 @@ public abstract class Command {
     /**
      * Abstract method that can be called from all Commands.
      * @param storage Given storage.
-     * @param uiDisplay Given UI display.
      * @param taskList Given task list.
      * @throws DookException Exception thrown by Dook.
+     * @return  Message to be displayed in GUI.
+     * @return  Message to be displayed in GUI.
      */
-    public abstract void execute(Storage storage, UiDisplay uiDisplay, TaskList taskList) throws DookException;
+    public abstract String execute(Storage storage, TaskList taskList) throws DookException;
 
 }

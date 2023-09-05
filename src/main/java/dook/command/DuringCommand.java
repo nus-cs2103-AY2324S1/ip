@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import dook.DookException;
 import dook.services.Storage;
 import dook.services.TaskList;
-import dook.services.UiDisplay;
 import dook.task.TimedTask;
 
 
@@ -21,18 +20,18 @@ public class DuringCommand extends Command {
      * Displays a list of all tasks in the given task list that occur during the stored
      * local date.
      * @param storage Given storage.
-     * @param uiDisplay Given UI display.
      * @param taskList Given task list.
      * @throws DookException Exception thrown by Dook.
+     * @return  Message to be displayed in GUI.
      */
     @Override
-    public void execute(Storage storage, UiDisplay uiDisplay, TaskList taskList) throws DookException {
-        uiDisplay.printMessage(taskList.filterTasks((task) -> {
+    public String execute(Storage storage, TaskList taskList) throws DookException {
+        return taskList.filterTasks((task) -> {
             if (task instanceof TimedTask) {
                 TimedTask t = (TimedTask) task;
                 return t.isDuring(localDate);
             }
             return false;
-        }));
+        });
     }
 }

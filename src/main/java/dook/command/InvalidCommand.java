@@ -3,7 +3,6 @@ package dook.command;
 import dook.DookException;
 import dook.services.Storage;
 import dook.services.TaskList;
-import dook.services.UiDisplay;
 
 
 /**
@@ -14,12 +13,17 @@ public class InvalidCommand extends Command {
      * Displays a list of all possible commands and their descriptions.
      *
      * @param storage Given storage.
-     * @param uiDisplay Given UI display.
      * @param taskList Given task list.
      * @throws DookException Exception thrown by Dook.
+     * @return  Message to be displayed in GUI.
      */
     @Override
-    public void execute(Storage storage, UiDisplay uiDisplay, TaskList taskList) throws DookException {
-        uiDisplay.displayHelp();
+    public String execute(Storage storage, TaskList taskList) throws DookException {
+        StringBuilder result = new StringBuilder();
+        result.append("Available commands:\n");
+        for (CommandInfo c : CommandInfo.values()) {
+            result.append(c.toString()).append("\n");
+        }
+        return result.toString();
     }
 }
