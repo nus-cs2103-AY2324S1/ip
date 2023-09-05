@@ -135,8 +135,8 @@ public class Parser {
                 // Invalid command format
                 Ui.showError("Invalid command format");
             }
+
         } else {
-            // Other inputs
             Ui.showError("I'm sorry, but I don't know what that means");
         }
     }
@@ -177,6 +177,8 @@ public class Parser {
             String to = parts[4].trim();
 
             task = new Events(description, from, to);
+            break;
+        default:
             break;
         }
 

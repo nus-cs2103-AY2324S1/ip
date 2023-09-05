@@ -21,5 +21,4 @@ public class ParserTest {
         assertEquals("Buy groceries", result.getDescription());
         assertFalse(result.isDone());
     }
-
 }

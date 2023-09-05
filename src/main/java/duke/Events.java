@@ -16,7 +16,7 @@ public class Events extends Task {
      * @param from When the event is from.
      * @param to Until when the event is to.
      */
-    public Events(String description, String from,  String to) {
+    public Events(String description, String from, String to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -35,6 +35,7 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E][%s] %s (from: %s to: %s)", this.getStatusIcon(), this.description, this.from, this.to);
+        return String.format("[E][%s] %s (from: %s to: %s)", this.getStatusIcon(), this.description,
+                this.from, this.to);
     }
 }
