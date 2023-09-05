@@ -18,9 +18,8 @@ public abstract class Command {
      * Abstract method that can be called from all Commands.
      * @param storage Given storage.
      * @param taskList Given task list.
+     * @return  Message to be displayed in GUI.
      * @throws DookException Exception thrown by Dook.
-     * @return  Message to be displayed in GUI.
-     * @return  Message to be displayed in GUI.
      */
     public abstract String execute(Storage storage, TaskList taskList) throws DookException;
 

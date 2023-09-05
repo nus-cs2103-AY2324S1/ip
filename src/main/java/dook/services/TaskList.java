@@ -92,8 +92,8 @@ public class TaskList {
      * Accumulates task list to a result of type T.
      * @param acc Given accumulator function.
      * @param identity Identity value of result.
-     * @return The accumulated result.
      * @param <T> Type of result.
+     * @return The accumulated result.
      */
     public <T> T accumulateTasks(BiFunction<? super Task, ? super T, ? extends T> acc, T identity) {
         T result = identity;

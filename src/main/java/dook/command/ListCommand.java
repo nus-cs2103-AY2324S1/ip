@@ -13,8 +13,8 @@ public class ListCommand extends Command {
      * Displays a list of all tasks in the given task list.
      * @param storage Given storage.
      * @param taskList Given task list.
-     * @throws DookException Exception thrown by Dook.
      * @return  Message to be displayed in GUI.
+     * @throws DookException Exception thrown by Dook.
      */
     @Override
     public String execute(Storage storage, TaskList taskList) throws DookException {

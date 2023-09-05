@@ -1,8 +1,13 @@
 package dook.gui;
+
+import java.io.IOException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -11,11 +16,10 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import java.io.IOException;
 
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-
+/**
+ * Class representing a dialog box for displaying both user and Dook input/response.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
@@ -37,7 +41,7 @@ public class DialogBox extends HBox {
     }
 
 
-        /**
+    /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
     private void flip() {
@@ -47,12 +51,24 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
-    public static DialogBox getUserDialog(String  l, Image iv) {
+    /**
+     * Instantiates a dialogue box for the user dialogue.
+     * @param l User message
+     * @param iv User icon
+     * @return DialogBox to display user dialogue.
+     */
+    public static DialogBox getUserDialog(String l, Image iv) {
         var db = new DialogBox(l, iv);
         db.setBackground(new Background(new BackgroundFill(Color.web("#B5CEF6"), null, new Insets(5))));
         return db;
     }
 
+    /**
+     * Instantiates a dialogue box for Dook's responses
+     * @param l Dook response
+     * @param iv Dook icon
+     * @return DialogBox to dislay Dook's response.
+     */
     public static DialogBox getDukeDialog(String l, Image iv) {
         var db = new DialogBox(l, iv);
         db.flip();

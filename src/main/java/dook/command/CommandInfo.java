@@ -12,13 +12,13 @@ public enum CommandInfo {
         after("Displays all tasks after a certain date."), during("Displays all tasks during a certain date."),
         find("Searches for a task with matching keyword."), invalid("You entered an invalid command.");
 
-    private final String desc;
+    private final String description;
 
-    CommandInfo(String desc) {
-        this.desc = desc;
+    CommandInfo(String description) {
+        this.description = description;
     }
     @Override
     public String toString() {
-        return this.name() + ": " + this.desc;
+        return this.name() + ": " + this.description;
     }
 }

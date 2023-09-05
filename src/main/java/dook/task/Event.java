@@ -11,31 +11,32 @@ import dook.services.TimeProcessor;
  */
 public class Event extends Task implements TimedTask {
 
-    protected String from;
-    protected String to;
+    protected String fromString;
+    protected String toString;
     protected LocalDate fromDateTime = null;
     protected LocalDate toDateTime = null;
-    public Event(String description, String from, String to) {
-        super(description);
-        this.from = from;
-        this.to = to;
-        processDateTimes();
-    }
 
-    public Event(String description, String from, String to, boolean isDone) {
+    /**
+     * Instantiates a event with given description, timeframe and done status.
+     * @param description Given description
+     * @param fromString Given start date string
+     * @param toString Given end date string
+     * @param isDone Given done status.
+     */
+    public Event(String description, String fromString, String toString, boolean isDone) {
         super(description, isDone);
-        this.from = from;
-        this.to = to;
+        this.fromString = fromString;
+        this.toString = toString;
         processDateTimes();
     }
 
     @Override
     public void processDateTimes() {
         try {
-            fromDateTime = TimeProcessor.getLocalDateFromString(this.from);
-            toDateTime = TimeProcessor.getLocalDateFromString(this.to);
-            this.from = TimeProcessor.getStringFromLocalDate(fromDateTime);
-            this.to = TimeProcessor.getStringFromLocalDate(toDateTime);
+            fromDateTime = TimeProcessor.getLocalDateFromString(this.fromString);
+            toDateTime = TimeProcessor.getLocalDateFromString(this.toString);
+            this.fromString = TimeProcessor.getStringFromLocalDate(fromDateTime);
+            this.toString = TimeProcessor.getStringFromLocalDate(toDateTime);
         } catch (DateTimeParseException e) {
             System.out.println("Failed to parse date. Date related operations will not work on this task.");
         }
@@ -68,11 +69,11 @@ public class Event extends Task implements TimedTask {
 
     @Override
     public String getSaveableString() {
-        return String.format("E//%s//%s//%s//%s", getStatusIcon(), description, from, to);
+        return String.format("E//%s//%s//%s//%s", getStatusIcon(), description, fromString, toString);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + fromString + " to: " + toString + ")";
     }
 }

@@ -1,9 +1,10 @@
 package dook.services;
 
-import dook.DookException;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import dook.DookException;
 
 public class ParserTest {
     @Test

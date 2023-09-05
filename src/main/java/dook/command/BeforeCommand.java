@@ -14,6 +14,7 @@ import dook.task.TimedTask;
  */
 public class BeforeCommand extends Command {
     private final LocalDate localDate;
+
     public BeforeCommand(LocalDate localDate) {
         this.localDate = localDate;
     }
@@ -22,8 +23,8 @@ public class BeforeCommand extends Command {
      * local date.
      * @param storage Given storage.
      * @param taskList Given task list.
-     * @throws DookException Exception thrown by Dook.
      * @return  Message to be displayed in GUI.
+     * @throws DookException Exception thrown by Dook.
      */
     @Override
     public String execute(Storage storage, TaskList taskList) throws DookException {
