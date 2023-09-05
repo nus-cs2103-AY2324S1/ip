@@ -38,6 +38,8 @@ public class Sally {
         while (true) {
             try {
                 String input = scanner.nextLine();
+                String response = getResponse(input);
+                System.out.println(response);
                 if (input.equals("bye")) {
                     ui.showGoodbyeMessage();
                     break;
@@ -66,6 +68,9 @@ public class Sally {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
+        if (input.equals("bye")) {
+            return "Bye. Hope to see you again soon!";
+        }
         return "Sally heard: " + input;
     }
 }

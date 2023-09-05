@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import sally.SallyException;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -31,6 +33,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String hello = "Hello! It's Sally here!\nHow can I help you today?";
+        dialogContainer.getChildren().add(
+                DialogBox.getSallyDialog(hello, sallyImage)
+        );
     }
 
     public void setSally(Sally s) {
@@ -42,7 +48,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws SallyException {
         String input = userInput.getText();
         String response = sally.getResponse(input);
         dialogContainer.getChildren().addAll(
@@ -50,5 +56,6 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getSallyDialog(response, sallyImage)
         );
         userInput.clear();
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 }
