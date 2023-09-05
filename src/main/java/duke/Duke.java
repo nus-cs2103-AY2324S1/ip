@@ -7,17 +7,27 @@ import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
 
+/**
+ * Represents a Task Management Chat Bot.
+ */
 public class Duke {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Constructor for Duke class.
+     * @param filePath The given file path to the data file.
+     */
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.taskList = new TaskList(storage.load());
     }
 
+    /**
+     * Runs the program.
+     */
     public void run() {
         this.ui.printEntryMessage();
         boolean isExit = false;
@@ -36,6 +46,10 @@ public class Duke {
         };
     }
 
+    /**
+     * The main entry point for Duke.
+     * @param args The given String array.
+     */
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
     }
