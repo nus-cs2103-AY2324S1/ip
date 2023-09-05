@@ -3,7 +3,6 @@ package duke.task;
 import duke.exception.DukeException;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents a list of tasks.
