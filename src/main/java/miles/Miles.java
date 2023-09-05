@@ -10,8 +10,8 @@ import miles.command.Command;
  * Represents our chat bot, Miles.
  */
 public class Miles {
-    private static String filePath = "../../../data/miles.txt";
-    private static String directoryPath = "../../../data";
+    private String filePath;
+    private static String directoryPath = "./data";
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
@@ -21,8 +21,9 @@ public class Miles {
      * @param filePath The path to the file where the tasks are stored.
      */
     public Miles(String filePath) {
+        this.filePath = filePath;
         this.ui = new Ui();
-        this.storage = new Storage(filePath, directoryPath);
+        this.storage = new Storage(this.filePath, directoryPath);
         this.taskList = this.storage.loadFile();
     }
 
@@ -43,7 +44,6 @@ public class Miles {
                 shouldExit = c.isExit();
             } catch (MilesException e) {
                 this.ui.printErrorMsg(e.getMessage());
-                continue;
             }
         }
 
@@ -71,6 +71,7 @@ public class Miles {
      * @return      the response of the bot
      */
     public String getResponse(String input) {
+        System.out.println("input: " + input);
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         // redirect System.out to output stream to capture everything that is printed
@@ -78,6 +79,7 @@ public class Miles {
         run(input);
         // restore the original output stream
         System.setOut(originalOut);
+        System.out.println(output.toString());
         return output.toString();
     }
 
@@ -95,6 +97,7 @@ public class Miles {
     }
     
     public static void main(String[] args) {
+        String filePath = "../../../data/miles.txt";
         new Miles(filePath).run();
     }
 }

@@ -14,7 +14,7 @@ import miles.ui.MainWindow;
  */
 public class Main extends Application {
 
-    private Miles miles = new Miles("ip/data/miles.txt");
+    private Miles miles = new Miles("./data/miles.txt");
 
     @Override
     public void start(Stage stage) {
