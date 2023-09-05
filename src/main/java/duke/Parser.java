@@ -15,22 +15,28 @@ public class Parser {
                 if (list.get(i) == null) {
                     break;
                 } else {
-                    ui.buildMessage(String.format("%d. [%s] [%s] %s \n", i + 1, list.get(i).tag,
-                            list.get(i).getStatusIcon(), list.get(i)));
+                    if (i == list.size() - 1) {
+                        ui.buildMessage(String.format("%d. [%s] [%s] %s", i + 1, list.get(i).tag,
+                                list.get(i).getStatusIcon(), list.get(i)));
+                    } else {
+                        ui.buildMessage(String.format("%d. [%s] [%s] %s \n", i + 1, list.get(i).tag,
+                                list.get(i).getStatusIcon(), list.get(i)));
                     }
-                } System.out.println(ui.sendMessage());
+                }
+            } return ui.sendMessage();
 
         } else if (text.startsWith("unmark")) {
+
+            String[] splitText = text.split(" ");
+            int numToUnmark = Integer.parseInt(splitText[1]) - 1;
+            list.get(numToUnmark).markAsIncomplete();
+
             try {
                 storage.appendToFile(text + "\n");
             } catch (IOException e) {
                 ui.buildMessage("Something went wrong: " + e.getMessage() + "\n");
                 return ui.sendMessage();
             }
-            String[] splitText = text.split(" ");
-            int numToUnmark = Integer.parseInt(splitText[1]) - 1;
-            list.get(numToUnmark).markAsIncomplete();
-
 
             ui.buildMessage("Alright! I'll uncheck this task for you: \n");
             ui.buildMessage(String.format("\t [%s] [%s] %s", list.get(numToUnmark).tag,
@@ -40,15 +46,16 @@ public class Parser {
 
         } else if (text.startsWith("mark")) {
 
+            String[] splitText = text.split(" ");
+            int numToMark = Integer.parseInt(splitText[1]) - 1;
+            list.get(numToMark).markAsComplete();
+
             try {
                 storage.appendToFile(text + "\n");
             } catch (IOException e) {
                 ui.buildMessage("Something went wrong: " + e.getMessage() + "\n");
                 return ui.sendMessage();
             }
-            String[] splitText = text.split(" ");
-            int numToMark = Integer.parseInt(splitText[1]) - 1;
-            list.get(numToMark).markAsComplete();
 
             ui.buildMessage("Alright! I'll check this task as complete for you: \n");
             ui.buildMessage(String.format("\t [%s] [%s] %s", list.get(numToMark).tag,
@@ -112,7 +119,7 @@ public class Parser {
                 } catch (DateTimeParseException e) {
                      ui.buildMessage("Invalid Date Format: should be YYYY-MM-DDTHH:MM:SS. " +
                                 "Example: 2023-12-12T06:30:00 \n");
-                     ui.sendMessage();
+                     return ui.sendMessage();
                     }
 
                 try {
