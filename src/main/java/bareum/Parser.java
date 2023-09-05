@@ -6,6 +6,7 @@ import bareum.commands.AddEventCommand;
 import bareum.commands.AddTodoCommand;
 import bareum.commands.ByeCommand;
 import bareum.commands.DeleteCommand;
+import bareum.commands.FindCommand;
 import bareum.commands.IncorrectCommand;
 import bareum.commands.ListCommand;
 import bareum.commands.MarkCommand;
@@ -44,6 +45,13 @@ public class Parser {
             }
             int index = Integer.parseInt(commandInputs[1]) - 1;
             cmd = new DeleteCommand(index);
+        } else if (commandInputs[0].equals("find")) {
+            if (commandInputs.length == 1) {
+                throw new BareumException("Oops! Please give the keyword you would like to search for.\n" +
+                        "Correct format: find <keyword>");
+            }
+
+            cmd = new FindCommand(commandInputs[1]);
         } else if (commandInputs[0].equals("todo")) {
             if (commandInputs.length == 1) {
                 throw new BareumException("Oops! Please include the description of your todo :(\n" +
