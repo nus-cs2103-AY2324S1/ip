@@ -32,7 +32,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveFileName = 'bareum.jar'
+    archiveBaseName = 'bareum'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
