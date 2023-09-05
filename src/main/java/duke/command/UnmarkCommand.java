@@ -1,9 +1,8 @@
 package duke.command;
 
 import duke.Storage;
-import duke.Ui;
 import duke.task.TaskList;
-import duke.ui.GobbleChatContainer;
+import duke.ui.GobbleMessage;
 
 /**
  * Represents a UnmarkCommand class that deals with the command to unmark a task.
@@ -24,14 +23,13 @@ public class UnmarkCommand extends Command {
      * Unmarks a task as done and displays it as undone.
      *
      * @param taskList list of tasks
-     * @param ui       user interface
      * @param storage  storage
      */
     @Override
-    public void execute(TaskList taskList, GobbleChatContainer chat, Storage storage) {
+    public GobbleMessage execute(TaskList taskList, Storage storage) {
         taskList.unmarkTask(index);
-//        ui.showUnmarkMessage(taskList.getTask(index));
-        chat.addMessage("Nice! I've unmarked this task as undone:\n" + taskList.getTask(index), "Unmark");
         storage.saveListToDisk(taskList.getTasks());
+        return GobbleMessage.getDukeDialog("Nice! I've unmarked this task as undone:\n" + taskList.getTask(index), "Unmark");
+
     }
 }

@@ -1,22 +1,22 @@
 package duke;
 
-import java.util.Scanner;
-
-import duke.command.Command;
 import duke.task.TaskList;
-import javafx.application.Application;
-import javafx.stage.Stage;
+import duke.ui.Ui;
 
 /**
  * Represents a Duke class that deals with the main logic of the program.
  */
-public class Duke extends Application {
+public class Duke {
 
     private static final String DUKE_FILEPATH = "./src/main/data/duke.txt";
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Constructor for Duke. Creates a new Ui, Storage and TaskList.
+     * If there is an error loading the file, a new TaskList is created.
+     */
     public Duke() {
         ui = new Ui();
         storage = new Storage(DUKE_FILEPATH);
@@ -28,50 +28,21 @@ public class Duke extends Application {
         }
     }
 
-    @Override
-    public void start(Stage stage) {
-//        new Duke(DUKE_FILEPATH).run();
-        ui.initialiseStage(stage);
-        ui.handleSubmit(storage, tasks);
-    }
-
     /**
-     * Constructor for Duke. Initializes the Ui, Storage and TaskList.
+     * Returns a list of tasks.
      *
-     * @param filePath path to duke.txt.
+     * @return a list of tasks.
      */
-    public Duke(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-        try {
-            tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
-            ui.showError(e.getMessage());
-            tasks = new TaskList();
-        }
+    public TaskList getTasks() {
+        return tasks;
     }
 
     /**
-     * Runs the program by waiting for user input and responding to it.
-     * If user input is "bye", the program will exit.
+     * Returns the storage.
+     *
+     * @return the storage.
      */
-    public void run() {
-        ui.showWelcomeMessage();
-//        Scanner scanner = new Scanner(System.in);
-//        while (true) {
-//            String userInput = scanner.nextLine().trim();
-//            try {
-//                Command command = Parser.parse(userInput);
-//                command.execute(tasks, ui, storage);
-//                if (command.isExit()) {
-//                    break;
-//                }
-//
-//            } catch (DukeException e) {
-//                ui.showError(e.getMessage());
-//            }
-//
-//        }
-//        scanner.close();
+    public Storage getStorage() {
+        return storage;
     }
 }

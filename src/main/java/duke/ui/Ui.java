@@ -1,75 +1,16 @@
-package duke;
+package duke.ui;
 
 import java.util.ArrayList;
-import java.util.function.Function;
 
-import duke.command.Command;
 import duke.task.Task;
 import duke.task.TaskList;
-import duke.ui.*;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * Represents a Ui class that deals with the interactions with the user.
  */
 public class Ui {
     private final String lineSeparator = "____________________________________________________________";
-    GobbleChatContainer dialogContainer;
-    TextField userInput;
-    ScrollPane scrollPane;
-    GobbleAnchorPane mainLayout;
-    Button sendButton;
 
-    public void initialiseStage(Stage stage) {
-        stage.setTitle("Gobble Gobble");
-        stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
-        stage.setScene(initialScene());
-        stage.show();
-    }
-
-    public void layout() {
-
-    }
-
-    public Scene initialScene() {
-        this.dialogContainer = new GobbleChatContainer();
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        this.userInput = new GobbleTextField();
-        this.scrollPane = new GobbleScrollPane();
-        this.mainLayout = new GobbleAnchorPane();
-        this.sendButton = new GobbleButton("Send");
-
-
-        scrollPane.setContent(dialogContainer);
-        this.mainLayout.setElements(scrollPane, userInput, sendButton);
-
-        // Make it so that the scroll pane is always at the bottom when dialogContainer's height changes.
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-        return new Scene(mainLayout);
-    }
-
-    public void handleSubmit(Storage storage, TaskList taskList) {
-        this.sendButton.setOnMouseClicked((event) -> {
-            String input = userInput.getText();
-            try {
-                Command command = Parser.parse(input);
-                command.execute(taskList, dialogContainer, storage);
-            } catch (DukeException e) {
-                System.out.println("ADASD");
-                System.out.println(e.getMessage());
-            }
-            userInput.clear();
-        });
-    }
 
     /**
      * Prints the welcome message.
@@ -145,11 +86,11 @@ public class Ui {
      *
      * @param taskList list of tasks.
      */
-//    public void showTasks(TaskList taskList) {
-//        System.out.println(this.lineSeparator);
-//        System.out.println("Here are the tasks in your list:");
-//        System.out.println(taskList);
-//    }
+    public void showTasks(TaskList taskList) {
+        System.out.println(this.lineSeparator);
+        System.out.println("Here are the tasks in your list:");
+        System.out.println(taskList);
+    }
 
     /**
      * Prints the result list.
@@ -164,11 +105,5 @@ public class Ui {
         }
         result += this.lineSeparator;
         return result;
-//        System.out.println(lineSeparator);
-//        System.out.println("Here are the matching tasks in your list:");
-//        for (int i = 0; i < list.size(); i++) {
-//            System.out.println((i + 1) + "." + list.get(i));
-//        }
-//        System.out.println(lineSeparator);
     }
 }

@@ -1,10 +1,9 @@
 package duke.command;
 
 import duke.Storage;
-import duke.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
-import duke.ui.GobbleChatContainer;
+import duke.ui.GobbleMessage;
 
 /**
  * Represents a DeleteCommand class that deals with the command to delete a task.
@@ -22,13 +21,19 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Deletes a task and displays the task deleted.
+     *
+     * @param taskList list of tasks
+     * @param storage  storage
+     * @return
+     */
     @Override
-    public void execute(TaskList taskList, GobbleChatContainer chat, Storage storage) {
+    public GobbleMessage execute(TaskList taskList, Storage storage) {
         Task task = taskList.getTask(index);
         taskList.deleteTask(index);
-//        ui.showDeleteMessage(task, taskList.getSize());
-        chat.addMessage("Noted. I've removed this task:\n" + task + "\nNow you have " + taskList.getSize() + " tasks in the list.", "Delete");
         storage.saveListToDisk(taskList.getTasks());
+        return GobbleMessage.getDukeDialog("Noted. I've removed this task:\n" + task + "\nNow you have " + taskList.getSize() + " tasks in the list.", "Delete");
     }
 
 }
