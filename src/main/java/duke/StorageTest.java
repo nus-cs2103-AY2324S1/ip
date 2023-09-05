@@ -1,4 +1,4 @@
-package duke.test;
+package duke;
 import duke.Storage;
 import org.junit.jupiter.api.Test;
 import duke.TaskList;
@@ -10,9 +10,6 @@ public class StorageTest {
     Storage storage = new Storage();
 
     @Test
-    //This test checks whether the files can be created locally on computers
-    //and whether the tasks can be saved on the file successfully
-    //and can be loaded successfully
     void testSaveAndLoadTasks() {
         TaskList tasks = new TaskList();
         tasks.addTask(new ToDo("go on a holiday"));
