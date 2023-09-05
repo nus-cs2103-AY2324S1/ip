@@ -1,13 +1,23 @@
 package duke.main;
 
-import duke.command.*;
-import duke.exception.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
+import duke.command.AddCommand;
+import duke.command.ChangeMarkCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.exception.InvalidCommandException;
+import duke.exception.InvalidDateFormatException;
+import duke.exception.InvalidParametersException;
+import duke.exception.MissingCommandException;
+import duke.exception.MissingParametersException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 /** Deals with making sense of user command, manages error handling based on user input */
 public class Parser {

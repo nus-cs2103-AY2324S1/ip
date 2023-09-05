@@ -1,14 +1,14 @@
 package duke.task;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /** Task class contains an Event with from and to dates */
 public class Event extends Task {
-    public LocalDate from;
-    public LocalDate to;
+    private final LocalDate from;
+    private final LocalDate to;
 
     /**
      * Initialize Event class.

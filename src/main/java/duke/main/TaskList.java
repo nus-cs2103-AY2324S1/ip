@@ -1,8 +1,9 @@
 package duke.main;
 
+import java.util.ArrayList;
+
 import duke.task.Task;
 
-import java.util.ArrayList;
 
 /** Contains a list of tasks, used for manipulating or displaying the list of tasks */
 public class TaskList {
@@ -66,7 +67,7 @@ public class TaskList {
             System.out.println("     You have no tasks added yet :(");
         } else {
             for (int i = 0; i < tasks.size(); i++) {
-                if (tasks.get(i).task.contains(searchString)) {
+                if (tasks.get(i).getTask().contains(searchString)) {
                     System.out.println("     " + (i + 1) + ". " + tasks.get(i));
                 }
             }

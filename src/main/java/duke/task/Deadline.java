@@ -1,13 +1,13 @@
 package duke.task;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /** Task class with a deadline date (by) */
 public class Deadline extends Task {
-    public LocalDate dateTime;
+    private final LocalDate dateTime;
 
     /**
      * Initialize Deadline class.
