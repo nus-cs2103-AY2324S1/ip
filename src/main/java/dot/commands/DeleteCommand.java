@@ -1,5 +1,7 @@
 package dot.commands;
 
+import java.util.function.Consumer;
+
 import dot.errors.DotException;
 import dot.tasks.TaskList;
 
@@ -26,11 +28,13 @@ public class DeleteCommand extends Command {
     /**
      * Deletes the task and saves all Tasks to storage.
      *
+     * @param handleDotOutput This is the consumer used to display any output
+     *                        due the execution of the command to the GUI.
      * @throws DotException On detected error.
      */
     @Override
-    public void execute() throws DotException {
-        dotTaskList.deleteTask(position - 1);
+    public void execute(Consumer<String> handleDotOutput) throws DotException {
+        dotTaskList.deleteTask(position - 1, handleDotOutput);
         dotTaskList.saveTaskListToStorage();
     }
 

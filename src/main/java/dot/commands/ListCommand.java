@@ -1,5 +1,7 @@
 package dot.commands;
 
+import java.util.function.Consumer;
+
 import dot.errors.DotException;
 import dot.tasks.TaskList;
 
@@ -23,11 +25,13 @@ public class ListCommand extends Command {
     /**
      * Lists out all the tasks in dotTaskList.
      *
+     * @param handleDotOutput This is the consumer used to display any output
+     *                        due the execution of the command to the GUI.
      * @throws DotException On detected error.
      */
     @Override
-    public void execute() throws DotException {
-        this.dotTaskList.list();
+    public void execute(Consumer<String> handleDotOutput) throws DotException {
+        this.dotTaskList.list(handleDotOutput);
     }
 
 }

@@ -1,5 +1,7 @@
 package dot.commands;
 
+import java.util.function.Consumer;
+
 import dot.errors.DotException;
 import dot.tasks.Deadline;
 import dot.tasks.Task;
@@ -15,7 +17,6 @@ public class DeadlineCommand extends Command {
     /**
      * Deadline as String as this is still the command layer.
      */
-
     private final String deadline;
 
     private final TaskList dotTaskList;
@@ -36,12 +37,14 @@ public class DeadlineCommand extends Command {
     /**
      * Creates and inserts the Deadline into dotTaskList.
      *
+     * @param handleDotOutput This is the consumer used to display any output
+     *                        due the execution of the command to the GUI.
      * @throws DotException On detected error.
      */
     @Override
-    public void execute() throws DotException {
+    public void execute(Consumer<String> handleDotOutput) throws DotException {
         Task newDeadlineTask = new Deadline(this.description, this.deadline);
-        dotTaskList.addTask(newDeadlineTask);
+        dotTaskList.addTask(newDeadlineTask, handleDotOutput);
         dotTaskList.saveTaskListToStorage();
     }
 

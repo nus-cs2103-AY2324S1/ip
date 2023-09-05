@@ -2,6 +2,7 @@ package dot.commands;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 import dot.errors.DotException;
 import dot.tasks.TaskList;
@@ -31,11 +32,13 @@ public class WhatsgoingonCommand extends Command {
     /**
      * Queries and displays all tasks falling on parsedLocalDateTime.
      *
+     * @param handleDotOutput This is the consumer used to display any output
+     *                        due the execution of the command to the GUI.
      * @throws DotException On detected error
      */
-    public void execute() throws DotException {
+    public void execute(Consumer<String> handleDotOutput) throws DotException {
         ArrayList<String> queriedTasks = dotTaskList.getDisplayForTasksFallingOnDate(parsedLocalDateTime);
-        Ui.displayArrayList(queriedTasks);
+        handleDotOutput.accept(Ui.concatArrayList(queriedTasks));
     }
 
 }
