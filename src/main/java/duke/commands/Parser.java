@@ -1,5 +1,9 @@
 package duke.commands;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import duke.exception.DeadlineException;
 import duke.exception.DukeException;
 import duke.exception.EventException;
@@ -7,10 +11,6 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents a parser that parses the user input.
@@ -88,6 +88,8 @@ public class Parser {
             String from = parts[3].trim();
             String to = parts[4].trim();
             task = new Event(description, from, to);
+            break;
+        default:
             break;
         }
 
