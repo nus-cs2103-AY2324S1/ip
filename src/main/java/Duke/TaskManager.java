@@ -10,20 +10,20 @@ import task.Task;
 import task.Todo;
 
 /**
- * TaskManager is the class deals with editing the taskList.
+ * TaskManager is the class deals with editing the tasks.
  */
 public class TaskManager {
 
-    private ArrayList<Task> taskList;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructor for TaskManager.
      *
-     * @param taskList the taskList
+     * @param taskList the tasks
      */
 
     public TaskManager(ArrayList<Task> taskList) {
-        this.taskList = taskList;
+        this.tasks = taskList;
     }
 
     /**
@@ -32,7 +32,7 @@ public class TaskManager {
      * @return the array list
      */
     public ArrayList<Task> displayList() {
-        return taskList;
+        return tasks;
     }
 
     /**
@@ -41,7 +41,7 @@ public class TaskManager {
      * @param index the index
      */
     public void mark(int index) {
-        taskList.get(index).markAsDone();
+        tasks.get(index).markAsDone();
     }
 
     /**
@@ -50,16 +50,16 @@ public class TaskManager {
      * @param index the index
      */
     public void unmark(int index) {
-        taskList.get(index).unmark();
+        tasks.get(index).unmark();
     }
 
     /**
-     * delete method will delete the mentioned task from the taskList.
+     * delete method will delete the mentioned task from the tasks.
      *
      * @param index the index
      */
     public void delete(int index) {
-        taskList.remove(index);
+        tasks.remove(index);
     }
 
     /**
@@ -68,7 +68,7 @@ public class TaskManager {
      * @param description the description
      */
     public void todo(String description) {
-        taskList.add(new Todo(description));
+        tasks.add(new Todo(description));
     }
 
     /**
@@ -78,7 +78,7 @@ public class TaskManager {
      * @param by          the by
      */
     public void deadline(String description, LocalDateTime by) {
-        taskList.add(new Deadline(description, by));
+        tasks.add(new Deadline(description, by));
     }
 
     /**
@@ -89,7 +89,7 @@ public class TaskManager {
      * @param to          the to
      */
     public void event(String description, LocalDateTime from, LocalTime to) {
-        taskList.add(new Event(description, from, to));
+        tasks.add(new Event(description, from, to));
     }
 
     /**
@@ -101,7 +101,7 @@ public class TaskManager {
     public ArrayList<Task> find(String description) {
         ArrayList<Task> tasksFound = new ArrayList<Task>();
 
-        for (Task task: taskList) {
+        for (Task task: tasks) {
             if (task.getStatusIcon().contains(description)) {
                 tasksFound.add(task);
             }
