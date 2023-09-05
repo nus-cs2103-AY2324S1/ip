@@ -16,8 +16,7 @@ public class TodoTask extends Task {
     /**
      * Converts the TodoTask object to a formatted string.
      *
-     * @return A string representation of the to-do task, including its completion status and
-     * description.
+     * @return A string representation of the to-do task, with its completion status and description.
      */
     @Override
     public String toString() {

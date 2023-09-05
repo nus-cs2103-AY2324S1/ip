@@ -1,19 +1,19 @@
 package joe;
 
-import joe.commands.Command;
-import joe.exceptions.JoeException;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import joe.commands.Command;
+import joe.exceptions.JoeException;
 
 /**
  * Represents the Joe chatbot.
  */
 public class Joe {
+    private static final String FILE_NOT_FOUND_MESSAGE = "No saved task list was found.";
     private final Storage storage;
     private final Ui ui;
     private TaskList tasks;
-    private static final String FILE_NOT_FOUND_MESSAGE = "No saved task list was found.";
 
     /**
      * Constructs a Joe object with the specified file path for task storage.

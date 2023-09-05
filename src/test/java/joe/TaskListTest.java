@@ -1,14 +1,15 @@
 package joe;
 
-import joe.tasks.DeadlineTask;
-import joe.tasks.EventTask;
-import joe.tasks.TodoTask;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import joe.tasks.DeadlineTask;
+import joe.tasks.EventTask;
+import joe.tasks.TodoTask;
 
 public class TaskListTest {
     @Test
@@ -66,8 +67,8 @@ public class TaskListTest {
         tasks.add(newDeadline);
         tasks.add(newEvent);
         TaskList res = tasks.find("Deadline");
-        assertEquals("Here are your tasks:\n" +
-                "1.[D][ ] Deadline (by: 01 Jan 2000 00:00)", res.toString());
+        assertEquals("Here are your tasks:\n"
+                + "1.[D][ ] Deadline (by: 01 Jan 2000 00:00)", res.toString());
     }
 
     @Test
@@ -97,10 +98,10 @@ public class TaskListTest {
         tasks.add(newDeadline);
         tasks.add(newEvent);
         TaskList res = tasks.find("");
-        assertEquals("Here are your tasks:\n" +
-                "1.[T][ ] Todo\n" +
-                "2.[D][ ] Deadline (by: 01 Jan 2000 00:00)\n" +
-                "3.[E][ ] Event (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)", res.toString());
+        assertEquals("Here are your tasks:\n"
+                + "1.[T][ ] Todo\n"
+                + "2.[D][ ] Deadline (by: 01 Jan 2000 00:00)\n"
+                + "3.[E][ ] Event (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)", res.toString());
     }
 
     @Test
@@ -115,9 +116,9 @@ public class TaskListTest {
         tasks.add(newDeadline);
         tasks.add(newEvent);
         TaskList res = tasks.find("cAsE");
-        assertEquals("Here are your tasks:\n" +
-                "1.[T][ ] all lower case\n" +
-                "2.[D][ ] ALL UPPER CASE (by: 01 Jan 2000 00:00)\n" +
-                "3.[E][ ] rAnDoM CaSe (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)", res.toString());
+        assertEquals("Here are your tasks:\n"
+                + "1.[T][ ] all lower case\n"
+                + "2.[D][ ] ALL UPPER CASE (by: 01 Jan 2000 00:00)\n"
+                + "3.[E][ ] rAnDoM CaSe (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)", res.toString());
     }
 }
