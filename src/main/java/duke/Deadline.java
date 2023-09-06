@@ -1,11 +1,8 @@
 package duke;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-import java.time.*;
-import java.time.format.*;
 
-/**
- * Represents a task with a specific deadline.
- */
 public class Deadline extends Task {
     protected LocalDate by;
 

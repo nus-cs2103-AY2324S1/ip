@@ -1,6 +1,5 @@
 package duke;
 
-import duke.*;
 
 import java.io.FileWriter;
 import java.io.IOException;

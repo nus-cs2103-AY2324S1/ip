@@ -1,20 +1,17 @@
 package duke;
 
 import java.io.IOException;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
-/**
- * Represents the main class for the Duke program.
- */
-public class Duke {
-    private static StringBuilder tempData = new StringBuilder();
 
-    /**
-     * Constructs a Duke object with the specified file path and initializes the program.
-     *
-     * @param filePath The file path to the data file.
-     * @throws Exception If an error occurs during initialization.
-     */
-    public Duke(String filePath) throws Exception{
+public class Duke extends Application{
+
+    public Duke() throws Exception{
+        String filePath = "/Users/william/Desktop/ip/src/main/java/data/zenith.txt";
+
         try {
             LoadFile loadFile = new LoadFile(filePath);
             loadFile.load();
@@ -27,16 +24,19 @@ public class Duke {
         }
     }
 
-    /**
-     * The main method to start the Duke program.
-     *
-     * @param args Command-line arguments (not used in this program).
-     * @throws Exception If an error occurs during program execution.
-     */
-    public static void main(String[] args) throws Exception {
-        String logo = "Zenith";
 
-        String zenithData = "/Users/william/Desktop/ip/src/main/java/data/zenith.txt";
-        Duke duke = new Duke(zenithData);
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
+    }
+
+    public static void main(String[] args) throws Exception {
+
+        Duke duke = new Duke();
+
     }
 }
