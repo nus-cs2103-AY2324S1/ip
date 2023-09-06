@@ -1,11 +1,10 @@
 package duke;
-
-import duke.task.Task;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+
+import duke.task.Task;
 
 /**
  * Duke is a task management bot that helps you keep track of your tasks.
@@ -96,14 +95,14 @@ public class Duke {
         } else if (userInput.equalsIgnoreCase(Command.LIST_WITHIN_WEEK)) {
             // Generate a list of tasks due within a week and display it to the user.
             TaskList listWeek = list.dueWithinWeek();
-            botOutput = botOutput + "Here are the tasks in your list that start/due within one week: \n    " +
-                    listWeek.toString();
+            botOutput = botOutput + "Here are the tasks in your list that start/due within one week: \n    "
+                    + listWeek.toString();
 
         } else if (userInput.equalsIgnoreCase(Command.LIST_WITHIN_MONTH)) {
             // Generate a list of tasks due within a month and display it to the user.
             TaskList monthWeek = list.dueWithinMonth();
-            botOutput = botOutput + "Here are the tasks in your list that start/due within one month: \n    " +
-                    monthWeek.toString();
+            botOutput = botOutput + "Here are the tasks in your list that start/due within one month: \n    "
+                    + monthWeek.toString();
 
         } else if (userInput.startsWith(Command.MARK)) {
             // Process a command to mark a task as done and display the result.
@@ -144,7 +143,8 @@ public class Duke {
             try {
                 String queryString = parser.parseFind(userInput, list);
                 TaskList listSearchMatches = list.searchMatches(queryString);
-                botOutput = botOutput + "Here are the matching tasks in your list: \n    " + listSearchMatches.toString();
+                botOutput = botOutput + "Here are the matching tasks in your list: \n    "
+                        + listSearchMatches.toString();
             } catch (ParserException p) {
                 botOutput = p.getMessage();
             }
@@ -162,7 +162,7 @@ public class Duke {
                 botOutput = t.getMessage();
             } catch (DateTimeParseException d) {
                 // Handle date and time format exceptions.
-                botOutput = "Please specify deadlines and dates in the following format, " + Task.dateTimeFormat;
+                botOutput = "Please specify deadlines and dates in the following format, " + Task.DATE_TIME_FORMAT;
             }
         }
         // Return the generated bot response to run() method.

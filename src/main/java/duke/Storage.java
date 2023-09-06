@@ -1,11 +1,10 @@
 package duke;
-
-import duke.task.Task;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import duke.task.Task;
 
 /**
  * The `Storage` class handles the reading and writing of tasks from/to a data file.
@@ -29,6 +28,7 @@ public class Storage {
      * @throws IOException              if there is an issue reading the file.
      * @throws InvalidFileFormatException if the file contains tasks in an invalid format.
      */
+    //CHECKSTYLE.OFF: Indentation
     public ArrayList<Task> load() throws IOException, InvalidFileFormatException {
         BufferedReader reader = new BufferedReader(new FileReader(this.filePath));
         String line;
@@ -59,8 +59,8 @@ public class Storage {
                 case 'D':
                     splitStringList = line.split("\\|");
                     if (splitStringList.length != 4) {
-                        throw new InvalidFileFormatException("Invalid format for Deadline task in the" +
-                                " file.");
+                        throw new InvalidFileFormatException("Invalid format for Deadline task in the"
+                                + " file.");
                     }
                     fabricatedUserInput = "deadline " + splitStringList[2] + "/by " + splitStringList[3];
 
@@ -68,8 +68,8 @@ public class Storage {
                     try {
                         d = Task.taskCon(fabricatedUserInput);
                     } catch (InvalidCommandException | InvalidTaskCreationException e) {
-                        throw new InvalidFileFormatException("Invalid format for Deadline task in the" +
-                                " file.");
+                        throw new InvalidFileFormatException("Invalid format for Deadline task in the"
+                                + " file.");
                     }
 
                     if (splitStringList[1].equals("1")) {
@@ -107,5 +107,6 @@ public class Storage {
         }
         return taskList;
     }
+    //CHECKSTYLE.ON: Indentation
 
 }
