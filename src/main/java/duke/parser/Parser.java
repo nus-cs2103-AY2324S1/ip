@@ -1,15 +1,6 @@
 package duke.parser;
 
-import duke.command.ByeCommand;
-import duke.command.Command;
-import duke.command.DeadlineCommand;
-import duke.command.DeleteCommand;
-import duke.command.EventCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.ToDoCommand;
-import duke.command.UnmarkCommand;
+import duke.command.*;
 import duke.exception.KoraException;
 
 /**
@@ -53,7 +44,7 @@ public class Parser {
             } else if (userInputArray[0].contains("find")) {
                 command = new FindCommand(userInputArray);
             } else {
-                throw new KoraException("I do not understand");
+                command = new InvalidCommand();
             }
         } catch (Exception e) {
             throw new KoraException(e.getMessage());

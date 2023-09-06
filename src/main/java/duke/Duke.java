@@ -22,18 +22,14 @@ public class Duke {
     private boolean isExit = false;
 
 
-    public Duke() {
 
-    }
 
     /**
      * Class constructor of Duke.
-     *
-     * @param filePath path of file in user's hard disk.
      */
-    public Duke(String filePath) {
+    public Duke() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage("./data/savedtask.txt");
         taskList = new TaskList();
         try {
             storage.loadTask(taskList);
@@ -83,7 +79,7 @@ public class Duke {
      */
     public static void main(String[] args) {
         try {
-            Duke kora = new Duke("./data/savedtask.txt");
+            Duke kora = new Duke();
             kora.run();
         } catch (Exception e) {
             System.out.println("haha,,");
