@@ -6,7 +6,6 @@ import java.util.stream.Stream;
 import duke.core.DukeException;
 import duke.core.Storage;
 import duke.core.Ui;
-
 import duke.task.TaskList;
 
 /**
@@ -16,7 +15,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Constructor for DeleteCommand.
-     * 
+     *
      * @param parameterMap Map of parameters for the command.
      */
     public DeleteCommand(Map<String, String> parameterMap) {
@@ -55,7 +54,7 @@ public class DeleteCommand extends Command {
             }
 
             Ui.respond(Stream.of("Noted. I've removed this task:",
-                    String.format("  %s",deletedTaskInfo),
+                    String.format("  %s", deletedTaskInfo),
                     String.format("Now you have %d tasks in the list.", tasks.size())));
             tasks.storeTasks();
         } catch (NumberFormatException e) {

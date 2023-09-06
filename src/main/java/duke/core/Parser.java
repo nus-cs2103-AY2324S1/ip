@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAccessor;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,20 +21,20 @@ import duke.command.UnmarkCommand;
  * Class to parse user input.
  */
 public class Parser {
-    
+
     /* DateTimeFormatter for parsing date and time input */
-    public static DateTimeFormatter dateTimeParser = DateTimeFormatter.ofPattern("dd-MM-yyyy[ HHmm]");
+    private static DateTimeFormatter dateTimeParser = DateTimeFormatter.ofPattern("dd-MM-yyyy[ HHmm]");
 
     /**
      * Parses a date and time input string into a TemporalAccessor object.
      * The input string must be in the format "DD-MM-YYYY [HHMM]".
      * The TemporalAccessor object returned is either a LocalDate or LocalDateTime object.
-     * 
+     *
      * @param dateTimeString Date and time input string.
      * @return TemporalAccessor object representing the date and time input.
      * @throws DukeException If the input string is not in the correct format.
      */
-    public static TemporalAccessor parseDateTimeInput(String dateTimeString) throws DukeException{
+    public static TemporalAccessor parseDateTimeInput(String dateTimeString) throws DukeException {
         try {
             return dateTimeParser.parseBest(dateTimeString,
                     LocalDateTime::from,
@@ -47,7 +46,7 @@ public class Parser {
 
     /**
      * Parses a user input string into a Command object.
-     * 
+     *
      * @param fullCommand User input string.
      * @return Command object representing the user input.
      */
@@ -79,7 +78,7 @@ public class Parser {
         case "event":
             parameterMap.put("event", "");
             return new AddCommand(parameterMap);
-        case "delete": 
+        case "delete":
             return new DeleteCommand(parameterMap);
         case "find":
             return new FindCommand(parameterMap);
@@ -118,7 +117,7 @@ public class Parser {
     /**
      * Parses a task data string into an AddCommand object.
      * Primarily used for parsing task data from storage.
-     * 
+     *
      * @param taskDataString Task data string.
      * @return AddCommand object representing the task data.
      */
@@ -171,6 +170,8 @@ public class Parser {
         case "E":
             parameterMap.put("event", "");
             break;
+        default:
+            return null;
         }
 
         return new AddCommand(parameterMap);

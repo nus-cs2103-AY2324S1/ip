@@ -14,25 +14,25 @@ public class Ui {
 
     /**
      * Responds to the user with a formatted message.
-     * 
+     *
      * @param message Message to be sent to the user.
      */
     public static <T> void respond(T message) {
         Ui.showSeparator();
-        System.out.println(String.format("     %s",  message.toString()));
+        System.out.println(String.format("     %s", message.toString()));
         Ui.showSeparator();
         Ui.showInputArrow();
     }
 
     /**
      * Responds to the user with a formatted message.
-     * 
+     *
      * @param messages Messages to be sent to the user.
      */
     public static <T> void respond(List<T> messages) {
         Ui.showSeparator();
         for (T message: messages) {
-            System.out.println(String.format("     %s",  message.toString()));
+            System.out.println(String.format("     %s", message.toString()));
         }
         Ui.showSeparator();
         Ui.showInputArrow();
@@ -40,12 +40,12 @@ public class Ui {
 
     /**
      * Responds to the user with a formatted message.
-     * 
+     *
      * @param messages Messages to be sent to the user.
      */
     public static <T> void respond(Stream<T> messages) {
         Ui.showSeparator();
-        messages.forEach(message -> System.out.println(String.format("     %s",  message.toString())));
+        messages.forEach(message -> System.out.println(String.format("     %s", message.toString())));
         Ui.showSeparator();
         Ui.showInputArrow();
     }
@@ -72,7 +72,8 @@ public class Ui {
 
     /** Shows the greeting message when user starts the program. */
     public static void showGreetMessage() {
-        Ui.respond(Stream.of("Hello! I'm A-CAT (Automated Chatbot Assistant for Tasks)", "What do you want to do today?"));
+        Ui.respond(Stream.of("Hello! I'm A-CAT (Automated Chatbot Assistant for Tasks)",
+                "What do you want to do today?"));
     }
 
     /** Shows the exit message when user exits the program. */

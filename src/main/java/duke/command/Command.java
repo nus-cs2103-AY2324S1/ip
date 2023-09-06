@@ -5,7 +5,6 @@ import java.util.Map;
 import duke.core.DukeException;
 import duke.core.Storage;
 import duke.core.Ui;
-
 import duke.task.TaskList;
 
 /**
@@ -18,18 +17,13 @@ public abstract class Command {
     /**
      * Constructor for Command.
      */
-    /**
-     * Adds a parameter map to the command.
-     * 
-     * @param parameterMap Map of parameters to be added.
-     */
     public Command(Map<String, String> parameterMap) {
         this.parameterMap = parameterMap;
     }
 
     /**
      * Returns the parameter map of the command.
-     * 
+     *
      * @return Parameter map of the command.
      */
     public Map<String, String> getParameterMap() {
@@ -42,7 +36,7 @@ public abstract class Command {
 
     /**
      * Executes the command.
-     * 
+     *
      * @param tasks TaskList to be used by the command.
      * @param ui Ui to be used by the command.
      * @param storage Storage to be used by the command.

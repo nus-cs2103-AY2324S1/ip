@@ -15,13 +15,13 @@ public class FindCommand extends Command {
 
     /**
      * Constructor for FindCommand.
-     * 
+     *
      * @param parameterMap Map of parameters for the command.
      */
     public FindCommand(Map<String, String> parameterMap) {
         super(parameterMap);
     }
-    
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (!super.getParameterMap().containsKey("default")) {

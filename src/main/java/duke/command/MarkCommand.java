@@ -6,7 +6,6 @@ import java.util.stream.Stream;
 import duke.core.DukeException;
 import duke.core.Storage;
 import duke.core.Ui;
-
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -17,7 +16,7 @@ public class MarkCommand extends Command {
 
     /**
      * Constructor for MarkCommand.
-     * 
+     *
      * @param parameterMap Map of parameters for the command.
      */
     public MarkCommand(Map<String, String> parameterMap) {
@@ -50,13 +49,13 @@ public class MarkCommand extends Command {
             }
 
             Task taskMarked = tasks.markAsDone(taskIndex);
-    
+
             if (taskMarked == null) {
                 return;
             }
-    
+
             Ui.respond(Stream.of("Nice! I've marked this task as done:",
-                    String.format("  %s",taskMarked.toString())));
+                    String.format("  %s", taskMarked.toString())));
             tasks.storeTasks();
         } catch (NumberFormatException e) {
             throw new DukeException(String.format("Task number provided \"%s\" is not a number.\n     "

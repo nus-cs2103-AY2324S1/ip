@@ -3,7 +3,6 @@ package duke.command;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAccessor;
-
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -11,7 +10,6 @@ import duke.core.DukeException;
 import duke.core.Parser;
 import duke.core.Storage;
 import duke.core.Ui;
-
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -31,7 +29,7 @@ public class AddCommand extends Command {
 
     /**
      * Constructor for AddCommand.
-     * 
+     *
      * @param parameterMap Map of parameters for the command.
      */
     public AddCommand(Map<String, String> parameterMap) {
@@ -122,6 +120,8 @@ public class AddCommand extends Command {
 
                 taskToAdd = new Event(eventDescription, eventStartDate, eventEndDate);
                 break;
+            default:
+                throw new DukeException("Invalid task type.");
             }
 
             if (!taskToAdd.equals(null) && super.getParameterMap().containsKey("completed")) {
@@ -139,7 +139,7 @@ public class AddCommand extends Command {
                     String.format("  %s", taskToAdd.toString()),
                     String.format("Now you have %d tasks in the list.", tasks.size())));
             tasks.storeTasks();
-        } catch (DukeException e) {            
+        } catch (DukeException e) {
             throw e;
         }
 

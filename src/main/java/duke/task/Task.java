@@ -12,18 +12,18 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
-    /** Returns a string representation of the task to be stored in the data file. */
-    abstract public String getDataString();
-
-    /*
+    /**
      * Constructor for Task.
-     * 
+     *
      * @param description Description of the task.
      */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
+
+    /** Returns a string representation of the task to be stored in the data file. */
+    public abstract String getDataString();
 
     protected String getStatusIcon() {
         return (isDone ? "X" : " ");
@@ -49,7 +49,7 @@ public abstract class Task {
 
     /**
      * Marks the task as done.
-     * 
+     *
      * @return The task itself.
      */
     public Task markAsDone() {
@@ -59,7 +59,7 @@ public abstract class Task {
 
     /**
      * Marks the task as not done.
-     * 
+     *
      * @return The task itself.
      */
     public Task markAsUndone() {
