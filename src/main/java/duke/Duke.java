@@ -14,7 +14,6 @@ import javafx.scene.layout.VBox;
  * can add, delete, mark tasks as done.
  */
 public class Duke {
-
     private Storage storage;
     private Ui ui;
     private TaskList tasks;
