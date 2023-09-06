@@ -70,7 +70,7 @@ public class Dude {
     }
 
     public static void main(String[] args) {
-        String greeting = "Hello, I'm Dude! \n" +
+        String greeting = "Hello, I'm Dude!\n" +
                 "What can I do for you?";
         System.out.println(greeting);
 
