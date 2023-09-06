@@ -38,19 +38,20 @@ public class Ui {
     /**
      * Shows the welcome message.
      */
-    public void showWelcome() {
+    public String showWelcome() {
         showLine();
         String message = "Hello! I'm " + CHATBOT_NAME + "\nWhat can I do for you?";
-        showMessage(message);
+        String output = showMessage(message);
         showLine();
+        return output;
     }
 
     /**
      * Shows the goodbye message.
      */
-    public void showGoodbye() {
+    public String showGoodbye() {
         String message = "Bye. Hope to see you again soon!";
-        showMessage(message);
+        return showMessage(message);
     }
 
     /**
@@ -58,10 +59,12 @@ public class Ui {
      *
      * @param tasks The list of tasks.
      */
-    public void showTaskList(TaskList tasks) {
+    public String showTaskList(TaskList tasks) {
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            showInputWithIndentation((i + 1) + "." + tasks.get(i));
+            sb.append(showInputWithIndentation((i + 1) + "." + tasks.get(i)));
         }
+        return sb.toString();
     }
 
     /**
@@ -69,10 +72,9 @@ public class Ui {
      *
      * @param tasks The list of filtered tasks.
      */
-    public void showFilteredTaskList(TaskList tasks) {
+    public String showFilteredTaskList(TaskList tasks) {
         String message = "Here are the matching tasks in your list:";
-        showMessage(message);
-        showTaskList(tasks);
+        return showMessage(message) + showTaskList(tasks);
     }
 
     /**
@@ -81,10 +83,10 @@ public class Ui {
      * @param task          The task that was added.
      * @param numberOfTasks The number of tasks in the list.
      */
-    public void showAddTask(Task task, int numberOfTasks) {
+    public String showAddTask(Task task, int numberOfTasks) {
         String message = "Got it. I've added this task:\n  " + task + "\nNow you have " + numberOfTasks
             + (numberOfTasks == 1 ? " task" : " tasks") + " in the list.";
-        showMessage(message);
+        return showMessage(message);
     }
 
     /**
@@ -93,10 +95,10 @@ public class Ui {
      * @param task          The task that was deleted.
      * @param numberOfTasks The number of tasks in the list.
      */
-    public void showDeleteTask(Task task, int numberOfTasks) {
+    public String showDeleteTask(Task task, int numberOfTasks) {
         String message = "Noted. I've removed this task:\n  " + task + "\nNow you have " + numberOfTasks
             + (numberOfTasks == 1 ? " task" : " tasks") + " in the list.";
-        showMessage(message);
+        return showMessage(message);
     }
 
     /**
@@ -104,9 +106,9 @@ public class Ui {
      *
      * @param task The task that was marked as done.
      */
-    public void showMarkTaskAsDone(Task task) {
+    public String showMarkTaskAsDone(Task task) {
         String message = "Nice! I've marked this task as done:\n  " + task;
-        showMessage(message);
+        return showMessage(message);
     }
 
     /**
@@ -114,25 +116,30 @@ public class Ui {
      *
      * @param task The task that was marked as not done.
      */
-    public void showUnmarkTaskAsDone(Task task) {
+    public String showUnmarkTaskAsDone(Task task) {
         String message = "OK, I've marked this task as not done yet:\n  " + task;
-        showMessage(message);
+        return showMessage(message);
     }
 
     /**
      * Shows a horizontal line to separate the chatbot's response from the user's input.
+     *
+     * @return The horizontal line.
      */
-    public void showLine() {
-        showInputWithIndentation(HORIZONTAL_LINE);
+    public String showLine() {
+        return showInputWithIndentation(HORIZONTAL_LINE);
     }
 
     /**
      * Shows the given input with indentation to indicate that it is the chatbot's response.
      *
      * @param input The input to be shown.
+     * @return The input with indentation.
      */
-    private void showInputWithIndentation(String input) {
-        System.out.println("    " + input);
+    private String showInputWithIndentation(String input) {
+        String output = "    " + input + "\n";
+        System.out.print(output);
+        return output;
     }
 
     /**
@@ -140,26 +147,31 @@ public class Ui {
      *
      * @param input The input to be shown.
      */
-    private void showMessage(String input) {
+    private String showMessage(String input) {
         String[] lines = input.split("\n");
+        StringBuilder sb = new StringBuilder();
         for (String line : lines) {
-            showInputWithIndentation(line);
+            sb.append(showInputWithIndentation(line));
         }
+        return sb.toString();
     }
 
     /**
      * Shows the given error message.
      *
      * @param input The error message to be shown.
+     * @return The error message.
      */
-    public void showError(String input) {
-        showMessage(input);
+    public String showError(String input) {
+        return showMessage(input);
     }
 
     /**
      * Shows the error message when there are problems loading the task list from the file.
+     *
+     * @return The error message.
      */
-    public void showLoadingError() {
-        showError("OOPS!!! I have problems loading your tasks.");
+    public String showLoadingError() {
+        return showError("OOPS!!! I have problems loading your tasks.");
     }
 }

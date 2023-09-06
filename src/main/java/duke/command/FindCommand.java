@@ -17,13 +17,13 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         TaskList filteredTasks = new TaskList();
         for (Task task : tasks.getTasks()) {
             if (task.getDescription().contains(this.keyword)) {
                 filteredTasks.add(task);
             }
         }
-        ui.showFilteredTaskList(filteredTasks);
+        return ui.showFilteredTaskList(filteredTasks);
     }
 }

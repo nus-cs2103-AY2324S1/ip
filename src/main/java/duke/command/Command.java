@@ -17,9 +17,10 @@ public class Command {
      * @param tasks   The list of tasks.
      * @param ui      The user interface.
      * @param storage The storage.
+     * @return The response to the command.
      * @throws DukeException If an error occurs during execution.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         throw new DukeException("OOPS!!! I don't know what that means :-(");
     }
 
