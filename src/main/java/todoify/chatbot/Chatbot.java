@@ -319,7 +319,9 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             // Mark the task as done or not accordingly
             boolean completed = chatCommand.getOperation() == ChatCommand.Operation.MARK_COMPLETE;
             if (task.isCompleted() == completed) {
-                throw new ChatbotCommandException(completed ? "The task was already done!" : "The task was already not done!");
+                throw new ChatbotCommandException(completed
+                        ? "The task was already done!"
+                        : "The task was already not done!");
             }
             task.setCompleted(completed);
 
