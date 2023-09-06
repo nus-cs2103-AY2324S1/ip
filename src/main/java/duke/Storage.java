@@ -61,13 +61,13 @@ public class Storage {
      *
      * @return A list of tasks loaded from the storage file.
      */
-    public List<Task> loadTasks() {
+    public Task[] loadTasks() {
         List<Task> tasks = new ArrayList<>();
         try {
             ensureDirectoryExists();
             File f = new File(FILE_PATH);
             if (!f.exists()) {
-                return tasks;
+                return tasks.toArray(new Task[0]);
             }
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
@@ -81,7 +81,7 @@ public class Storage {
         } catch (DukeException e) {
             System.out.println("    Data file is corrupted: " + e.getMessage());
         }
-        return tasks;
+        return tasks.toArray(new Task[0]);
     }
 
     /**

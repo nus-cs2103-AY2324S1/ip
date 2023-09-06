@@ -2,6 +2,7 @@ package duke.task;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,22 +14,14 @@ import duke.DukeException;
  * such as adding, getting, and removing tasks.
  */
 public class TaskList {
-    private final List<Task> tasks;
-
-    /**
-     * Initializes an empty task list.
-     */
-    public TaskList() {
-        this.tasks = new ArrayList<>();
-    }
-
+    private ArrayList<Task> tasks = new ArrayList<>();
     /**
      * Initializes a task list with the given list of tasks.
      *
      * @param tasks The list of tasks to initialize with.
      */
-    public TaskList(List<Task> tasks) {
-        this.tasks = tasks;
+    public TaskList(Task... tasks) {
+        this.tasks.addAll(Arrays.asList(tasks));
     }
 
     /**
@@ -86,16 +79,17 @@ public class TaskList {
      * If the provided description is blank, a DukeException is thrown.
      * </p>
      *
-     * @param description The description to search for in tasks.
+     * @param keyword The keyword to search for in tasks.
      * @return A new TaskList containing tasks that match the given description.
      * @throws DukeException If the provided description is blank.
      */
-    public TaskList findTasks(String description) throws DukeException {
-        if (description.isBlank()) {
+    public TaskList findTasks(String keyword) throws DukeException {
+        if (keyword.isBlank()) {
             throw new DukeException("!!!: Please provide a description to search for");
         }
-        return new TaskList(tasks.stream()
-                .filter(task -> task.description.contains(description))
-                .collect(Collectors.toCollection(ArrayList::new)));
+        return new TaskList(this.tasks.stream()
+                .filter(t -> t.description.contains(keyword))
+                .toArray(Task[]::new)
+        );
     }
 }
