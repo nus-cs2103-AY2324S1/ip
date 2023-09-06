@@ -12,6 +12,7 @@ import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
 import duke.command.FindCommand;
+import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.TodayCommand;
@@ -67,6 +68,8 @@ public class Parser {
             return new CheckCommand(Parser.parseArgument(parts));
         case TODAY:
             return new TodayCommand();
+        case HELP:
+            return new HelpCommand();
         default:
             throw new UnknownCommandException();
         }

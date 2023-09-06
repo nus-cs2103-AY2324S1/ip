@@ -173,6 +173,24 @@ public class Ui {
     }
 
     /**
+     * Shows user the list of commands.
+     */
+    public String showListOfCommands() {
+        String message = "Here are the available commands:\n"
+                + "1. todo <description>: Add a new todo task.\n"
+                + "2. deadline <description> /by <datetime>: Add a new deadline task.\n"
+                + "3. event <description> /at <datetime>: Add a new event task.\n"
+                + "4. list: List all tasks.\n"
+                + "5. mark <task_index>: Mark a task as done.\n"
+                + "6. unmark <task_index>: Mark a task as not done.\n"
+                + "7. delete <task_index>: Delete a task.\n"
+                + "8. find <keyword>: Find tasks by keyword.\n"
+                + "9. help: Show this help message.\n"
+                + "10. bye: Exit the application.";
+        return message;
+    }
+
+    /**
      * Shows user an error message for Duke exceptions.
      *
      * @param e The Duke exception to display.
