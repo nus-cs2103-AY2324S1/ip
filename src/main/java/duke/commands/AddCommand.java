@@ -37,10 +37,10 @@ public class AddCommand extends Command {
     /**
      * Executes the add command, adding the appropriate task to the task list.
      *
-     * @return String The reply of Duke.
      * @param tasks   The list of tasks.
      * @param ui      The user interface for displaying messages.
      * @param storage The storage handler to manage data persistence.
+     * @return String The reply of Duke.
      * @throws NoDescriptionException   If the task description is missing.
      * @throws UnknownTimeException     If the task time is not recognized.
      * @throws BackwardsTimeException   If an event's end time is before its start time.

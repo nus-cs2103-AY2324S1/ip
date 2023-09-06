@@ -1,13 +1,13 @@
 package duke;
 
+import java.io.File;
+import java.io.IOException;
+
 import duke.commands.Command;
 import duke.tools.Parser;
 import duke.tools.Storage;
 import duke.tools.TaskList;
 import duke.tools.Ui;
-
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Represents the main class for the chat bot.
@@ -41,6 +41,9 @@ public class Duke {
         tasks = tasks1;
     }
 
+    /**
+     * Constructs a Duke instance with a default file path.
+     */
     public Duke() {
         TaskList tasks1;
         ui = new Ui();
@@ -84,8 +87,10 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Retrieves the response to the input given via GUI
+     *
+     * @param input   The String of the full command.
+     * @return String The reply of Duke.
      */
     public String getResponse(String input) {
         try {
