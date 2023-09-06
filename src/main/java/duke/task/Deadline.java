@@ -1,7 +1,7 @@
 package duke.task;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task with a description, completion status, and a deadline date.
@@ -22,7 +22,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the deadline task, including its completion status icon, description, and deadline date.
+     * Returns a string representation of the deadline task,
+     * including its completion status icon, description, and deadline date.
      *
      * @return A formatted string representing the deadline task.
      */

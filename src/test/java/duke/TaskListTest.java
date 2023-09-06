@@ -1,9 +1,14 @@
 package duke;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import duke.task.Task;
 import duke.task.TaskList;
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
+
 
 /**
  * Test class for the TaskList class.

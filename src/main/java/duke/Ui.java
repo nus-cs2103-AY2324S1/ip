@@ -1,8 +1,9 @@
 package duke;
 
+import java.util.ArrayList;
+
 import duke.task.Task;
 import duke.task.TaskList;
-import java.util.ArrayList;
 
 /**
  * Represents the user interface for interacting with the task list.
