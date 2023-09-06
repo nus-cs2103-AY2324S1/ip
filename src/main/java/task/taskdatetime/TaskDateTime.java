@@ -78,17 +78,15 @@ public abstract class TaskDateTime implements Serializable {
             this.date = LocalDateTime.parse(dateTimeAsString, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         }
 
-        public String getDateTimeAsString() {
-            return this.date.format(TaskDateTime.DATE_TIME_FORMATTER);
-        }
-
     }
 
     /**
      * String representation, formatted. See TaskDateTime for details.
      * @return the string representation of the date
      */
-
+    public String getDateTimeAsString() {
+        return this.date.format(TaskDateTime.DATE_TIME_FORMATTER);
+    }
 
     private static class UnparseableTaskDateTime extends TaskDateTime {
 
