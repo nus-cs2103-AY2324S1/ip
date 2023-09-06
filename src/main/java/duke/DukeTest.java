@@ -1,16 +1,15 @@
 package duke;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
 import duke.exceptions.DukeException;
 import duke.exceptions.TaskParseException;
 import duke.task.Deadline;
 import duke.task.Task;
 import duke.task.Todo;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 
 public class DukeTest {
@@ -38,7 +37,7 @@ public class DukeTest {
     }
 
     @Test
-    public void markTasFromTaskListTest(){
+    public void markTasFromTaskListTest() {
         try {
             Task expected = new Todo(true, "todo mark");
             TaskList list = new TaskList();

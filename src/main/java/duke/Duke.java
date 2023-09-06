@@ -1,10 +1,10 @@
 package duke;
 
+import java.util.ArrayList;
+
 import duke.exceptions.DukeException;
 import duke.exceptions.TaskParseException;
 import duke.task.Task;
-
-import java.util.ArrayList;
 
 /**
  * main program, responsible for running everything and connecting components together
