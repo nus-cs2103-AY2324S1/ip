@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.DukeException;
+import duke.Storage;
 import duke.Ui;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.Locale;
 public class TaskList {
     private ArrayList<Task> tasks;
     private Ui ui;
+
 
     /**
      * Constructs a TaskList Object, with the ArrayList of Tasks being empty.
@@ -37,9 +39,9 @@ public class TaskList {
      *
      * @param task Task to be added to the list.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         this.tasks.add(task);
-        this.ui.addTaskMessage(task, tasks.size());
+        return this.ui.addTaskMessage(task, tasks.size());
 
     }
 
@@ -49,11 +51,11 @@ public class TaskList {
      * @param index Integer containing index of Task to be deleted.
      * @throws DukeException When selected index is out of the list range.
      */
-    public void deleteTask(int index) throws DukeException {
+    public String deleteTask(int index) throws DukeException {
         try {
             Task deletedTask = tasks.get(index - 1);
             tasks.remove(index - 1);
-            this.ui.deleteTaskMessage(deletedTask, tasks.size());
+            return this.ui.deleteTaskMessage(deletedTask, tasks.size());
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Index is out of bounds! Please choose a valid index");
         }
@@ -62,14 +64,16 @@ public class TaskList {
     /**
      * Prints the current list of tasks.
      */
-    public void listTask() {
+    public String listTask() {
         if (tasks.size() == 0) {
             this.ui.emptyTaskMessage();
         }
+        String output = "";
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.println(i + 1 + ". " + task);
+            output += i + 1 + ". " + task + "\n";
         }
+        return output;
     }
 
     /**
@@ -79,15 +83,15 @@ public class TaskList {
      * @param index Integer containing index of task to be modified.
      * @throws DukeException When selected index is out of the list range.
      */
-    public void modifyTask(String input, int index) throws DukeException{
+    public String modifyTask(String input, int index) throws DukeException{
         try {
             Task task = tasks.get(index - 1);
             if (input.equals("mark")) {
                 task.markAsDone();
-                this.ui.markDoneMessage(task);
+                return this.ui.markDoneMessage(task);
             } else {
                 task.markAsUndone();
-                this.ui.unmarkDoneMessage(task);
+                return this.ui.unmarkDoneMessage(task);
             }
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Index is out of bounds! Please choose a valid index");
@@ -100,7 +104,7 @@ public class TaskList {
      *
      * @param keyword String containing keyword to use.
      */
-    public void findTask(String keyword) {
+    public String findTask(String keyword) {
         ArrayList<Integer> taskIndexArray = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             Task currentTask = tasks.get(i);
@@ -109,12 +113,13 @@ public class TaskList {
             }
         }
         if (taskIndexArray.size() == 0) {
-            ui.noMatchMessage();
+            return ui.noMatchMessage();
         } else {
-            ui.displayMatchMessage();
+            String output = ui.displayMatchMessage() + "\n";
             for (int i = 0; i < taskIndexArray.size(); i++) {
-                ui.displayTaskMessage(i+1, tasks.get(taskIndexArray.get(i)));
+                output = output + ui.displayTaskMessage(i + 1, tasks.get(taskIndexArray.get(i))) + "\n";
             }
+            return output;
         }
     }
 

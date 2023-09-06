@@ -1,6 +1,12 @@
 package duke;
 
 import duke.task.TaskList;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+
 
 
 /**
@@ -8,11 +14,15 @@ import duke.task.TaskList;
  * can add, delete, mark tasks as done.
  */
 public class Duke {
-
     private Storage storage;
     private Ui ui;
     private TaskList tasks;
     private Parser parser;
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
 
     /**
      * Constructs a Duke Object. It will attempt to load saved data
@@ -32,35 +42,21 @@ public class Duke {
         this.parser = new Parser(this.tasks);
     }
 
-    /**
-     * Starts the Duke interaction with the User, allowing users to continuously input
-     * and modify the TaskList until they type bye.
-     */
-    public void start() {
-        try {
-            this.ui.introMessage();
-            while (true) {
-                String command = ui.getInput();
-                if (command.equalsIgnoreCase("bye")) {
-                    break;
-                }
-                this.parser.parse(command);
-            }
-            this.ui.closeScanner();
-            this.storage.writeTasks(this.tasks.getTasks());
-            this.ui.byeMessage();
-        } catch (DukeException e) {
-            System.out.println("OOPS!" + e.toString().split("DukeException:")[1]);
-        }
-    }
 
     /**
-     * Acts as the main entry Point for the Duke Application.
+     * Parses the user's input and gives a response based on input.
      *
-     * @param args Command line arguments
+     * @param input to be taken in from user.
+     * @return The response based on input parsed.
      */
-    public static void main(String[] args){
-        Duke duke = new Duke();
-        duke.start();
+    public String getResponse(String input) {
+        String response = "Invalid";
+        try {
+            response = parser.parse(input);
+        } catch (DukeException e) {
+            response = e.toString();
+        }
+        return response;
     }
+
 }
