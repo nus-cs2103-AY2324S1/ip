@@ -15,12 +15,20 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Manages saving and loading of data.
+ */
 public class Storage {
     private String path;
     public Storage(String path) {
         this.path = path;
     }
 
+    /**
+     * Load tasks stored on hard disk.
+     *
+     * @return ArrayList of tasks.
+     */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> list = new ArrayList<>();
         try {
@@ -66,6 +74,12 @@ public class Storage {
         }
     }
 
+
+    /**
+     * Save a task to hard disk.
+     *
+     * @param task Task to be saved.
+     */
     public void saveTask(Task task) {
         FileWriter fileWriter;
         try {

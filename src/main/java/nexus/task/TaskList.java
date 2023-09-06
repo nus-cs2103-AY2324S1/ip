@@ -11,7 +11,7 @@ public class TaskList {
     /**
      * Create TaskList given a list.
      *
-     * @param list ArrayList
+     * @param list ArrayList.
      */
     public TaskList(ArrayList<Task> list) {
         this.list = list;
@@ -20,8 +20,8 @@ public class TaskList {
     /**
      * Getter for tasks.
      *
-     * @param index Index of the task
-     * @return The task retrieved
+     * @param index Index of the task.
+     * @return The task retrieved.
      */
     public Task get(int index) {
         return this.list.get(index);
@@ -30,7 +30,7 @@ public class TaskList {
     /**
      * Get the size of the list.
      *
-     * @return An int that is the size of list
+     * @return An int that is the size of list.
      */
     public int size() {
         return this.list.size();
@@ -39,7 +39,7 @@ public class TaskList {
     /**
      * Add task.
      *
-     * @param task Task to be added
+     * @param task Task to be added.
      */
     public void add(Task task) {
         this.list.add(task);
@@ -48,7 +48,7 @@ public class TaskList {
     /**
      * Remove task.
      *
-     * @param index Index of task to be removed
+     * @param index Index of task to be removed.
      */
     public void remove(int index) {
         this.list.remove(index);

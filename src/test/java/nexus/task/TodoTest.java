@@ -18,12 +18,4 @@ public class TodoTest {
         todo.setDone();
         assertEquals("T|1|2103 tut", todo.toStorageString());
     }
-
-    // think this does not count because it depends on Parser class
-//    @Test
-//    public void testEmptyTodo() {
-//        String path = "src" + File.separator + "test" + File.separator + "data" + File.separator + "nexus.txt";
-//        assertThrows(InvalidInputException.class,
-//                () -> Parser.parseInput(new Ui(), new Storage(path), new TaskList(),"todo"));
-//    }
 }

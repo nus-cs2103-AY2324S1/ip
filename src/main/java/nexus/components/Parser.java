@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Parser {
-    private static void parseMark(TaskList list, String[] data, Storage storage, Ui ui) throws InvalidInputException {
+    private static void parseMark(TaskList list, String[] data, Storage storage, Ui ui)
+            throws InvalidInputException {
         if (data.length == 1) {
             throw new InvalidInputException("Task index must be specified");
         }
@@ -20,7 +21,8 @@ public class Parser {
         ui.printMark(list.get(index));
         storage.editTask("mark", index);
     }
-    private static void parseUnmark(TaskList list, String[] data, Storage storage, Ui ui) throws InvalidInputException {
+    private static void parseUnmark(TaskList list, String[] data, Storage storage, Ui ui)
+            throws InvalidInputException {
         if (data.length == 1) {
             throw new InvalidInputException("Task index must be specified");
         }
@@ -31,7 +33,8 @@ public class Parser {
         ui.printUnmark(list.get(index));
         storage.editTask("unmark", index);
     }
-    private static void parseDelete(TaskList list, String[] data, Storage storage, Ui ui) throws InvalidInputException {
+    private static void parseDelete(TaskList list, String[] data, Storage storage, Ui ui)
+            throws InvalidInputException {
         if (data.length == 1) {
             throw new InvalidInputException("Task index must be specified");
         }
@@ -41,7 +44,8 @@ public class Parser {
         ui.printDelete(deleted, list);
         storage.editTask("delete", index);
     }
-    private static void parseTodo(TaskList list, String[] data, Storage storage, Ui ui) throws InvalidInputException {
+    private static void parseTodo(TaskList list, String[] data, Storage storage, Ui ui)
+            throws InvalidInputException {
         StringBuilder builder = new StringBuilder();
         if (data.length == 1) {
             throw new InvalidInputException("Todo description cannot be empty");
@@ -55,7 +59,8 @@ public class Parser {
         ui.printAdd(todo, list);
         storage.saveTask(todo);
     }
-    private static void parseDeadline(TaskList list, String[] data, Storage storage, Ui ui) throws InvalidInputException {
+    private static void parseDeadline(TaskList list, String[] data, Storage storage, Ui ui)
+            throws InvalidInputException {
         StringBuilder builder = new StringBuilder();
         if (data.length == 1) {
             throw new InvalidInputException("Deadline description cannot be empty");
@@ -65,32 +70,33 @@ public class Parser {
             builder.append(data[index]).append(" ");
             index++;
             if (index == data.length) {
-                throw new InvalidInputException("Deadline must include /by [DD/MM/YYYY HHMM]");
+                throw new InvalidInputException("Deadline must include /by [D/M/YYYY HHMM]");
             }
         }
         String desc = builder.toString().trim();
         builder.setLength(0);
         index++;
         if (index == data.length) {
-            throw new InvalidInputException("Deadline must include /by [DD/MM/YYYY HHMM]");
+            throw new InvalidInputException("Deadline must include /by [D/M/YYYY HHMM]");
         }
         while (index < data.length) {
             builder.append(data[index]).append(" ");
             index++;
         }
-        String by = builder.toString().trim();
-        LocalDateTime dateTime = Parser.parseDatetime(by);
+        String endDateTimeString = builder.toString().trim();
+        LocalDateTime dateTime = Parser.parseDatetime(endDateTimeString);
         Deadline deadline = new Deadline(desc, dateTime);
         list.add(deadline);
         ui.printAdd(deadline, list);
         storage.saveTask(deadline);
     }
 
-    public static LocalDateTime parseDatetime(String by) {
-        return LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+    public static LocalDateTime parseDatetime(String endDateTimeString) {
+        return LocalDateTime.parse(endDateTimeString, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
     }
 
-    private static void parseEvent(TaskList list, String[] data, Storage storage, Ui ui) throws InvalidInputException {
+    private static void parseEvent(TaskList list, String[] data, Storage storage, Ui ui)
+            throws InvalidInputException {
         StringBuilder builder = new StringBuilder();
         if (data.length == 1) {
             throw new InvalidInputException("Event description cannot be empty");
@@ -137,7 +143,8 @@ public class Parser {
         ui.printFind(keyword, list);
     }
 
-    public static boolean parseInput(Ui ui, Storage storage, TaskList list, String input) throws InvalidInputException {
+    public static boolean parseInput(Ui ui, Storage storage, TaskList list, String input)
+            throws InvalidInputException {
         String[] data = input.split(" ");
 
         switch (data[0]) {

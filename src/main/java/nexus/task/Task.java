@@ -10,7 +10,7 @@ public abstract class Task {
     /**
      * Create task from description.
      *
-     * @param description String
+     * @param description String.
      */
     public Task(String description) {
         this.description = description;

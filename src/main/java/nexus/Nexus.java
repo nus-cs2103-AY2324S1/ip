@@ -20,7 +20,7 @@ public class Nexus {
     /**
      * Create ChatBot from data path.
      *
-     * @param path String
+     * @param path String.
      */
     public Nexus(String path) {
         this.storage = new Storage(path);
