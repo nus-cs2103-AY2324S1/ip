@@ -145,6 +145,22 @@ public class MattBot {
                         System.out.println(t);
                         tasks.removeTask(Integer.parseInt(arguments));
                         mattmory.writeBack(tasks);
+                    } else if (command.equals("find")) {
+                        ArrayList<Task> found = new ArrayList<Task>();
+                        for (int i = 1; i <= tasks.size(); i++) {
+                            Task t = tasks.getTask(i);
+                            if (t.showName().contains(arguments)) {
+                                found.add(t);
+                            }
+                        }
+                        if (found.size() == 0) {
+                            System.out.println("Oh no, I can't seem to find any tasks matching " + arguments + ".");
+                            continue;
+                        }
+                        System.out.println("I have found " + found.size() + " tasks matching your search!");
+                        for (int i = 0; i < found.size(); i++) {
+                            System.out.println(String.format("%d. %s", i + 1, t));
+                        }
                     } else {
                         System.out.println("I didn't quite understand your input.");
                         continue;
