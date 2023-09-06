@@ -1,12 +1,18 @@
 package duke.parser;
 
 import duke.Event;
+import duke.command.Command;
+import duke.command.DeadlineCommand;
+import duke.command.InvalidCommand;
+import duke.command.ListCommand;
+import duke.command.TodoCommand;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
@@ -42,5 +48,21 @@ public class ParserTest {
         } catch (DukeParseException e) {
             assertEquals("Event cannot be parsed", e.getMessage());
         }
+    }
+
+    @Test
+    public void commandParsing_validCommand_success() {
+        Parser parser = new Parser();
+        Command command = parser.parseCommand("todo return book");
+        assertTrue(command instanceof TodoCommand);
+
+        command = parser.parseCommand("deadline return book /by 2023-11-11");
+        assertTrue(command instanceof DeadlineCommand);
+
+        command = parser.parseCommand("list");
+        assertTrue(command instanceof ListCommand);
+
+        command = parser.parseCommand("when is this");
+        assertTrue(command instanceof InvalidCommand);
     }
 }
