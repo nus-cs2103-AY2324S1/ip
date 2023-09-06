@@ -26,13 +26,23 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns true if pattern is present in task name (description), false otherwise
+     *
+     * @param pattern String pattern to find
+     * @return boolean based on presence of pattern in task name
+     */
+    public boolean hasPattern(String pattern) {
+        return this.name.contains(pattern);
+    }
+
     public String fileWriteFormatted() {
         if (this.isDone) {
             return "true" + Task.UNIQUE_FILE_SEPARATOR + this.name;
         } else {
             return "false" + Task.UNIQUE_FILE_SEPARATOR + this.name;
         }
-    };
+    }
 
     @Override
     public String toString() {

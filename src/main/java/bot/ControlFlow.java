@@ -9,6 +9,7 @@ import bot.command.MarkCommand;
 import bot.command.TerminateCommand;
 import bot.command.TodoCommand;
 import bot.command.UnmarkCommand;
+import bot.command.FindCommand;
 
 import bot.exception.DateTimeParseBotException;
 import bot.exception.FileErrorBotException;
@@ -29,6 +30,7 @@ public class ControlFlow {
     private static final String DEADLINE = "deadline";
     private static final String TERMINATE = "bye";
     private static final String DELETE = "delete";
+    private static final String FIND = "find";
 
     private final TaskList taskList;
 
@@ -113,6 +115,8 @@ public class ControlFlow {
             } else {
                 return new DeleteCommand(this.taskList, remainder);
             }
+        case ControlFlow.FIND:
+            return new FindCommand(this.taskList, remainder);
         default:
             throw new IllegalExpressionBotException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
