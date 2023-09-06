@@ -28,116 +28,107 @@ public class Roo {
         this.ui = new Ui(tasks);
     }
 
+    public String greet() {
+        return this.ui.greet();
+    }
+
     /**
      * Starts the Roo application. Initializes the task list, greets the user, and handles user commands.
      */
-    public void run() {
+    public String run(String input) {
         this.storage.initialise(tasks);
-        this.ui.greet();
-        String input;
         Commands c;
         while (true) {
-            input = this.ui.read();
+//            input = this.ui.read();
             c = Parse.parse(input);
             try {
                 switch (c) {
                 case LIST:
-                    this.ui.list();
-                    break;
+                    return this.ui.list();
 
                 case CLEAR:
-                    this.ui.clear();
-                    break;
+                    return this.ui.clear();
 
                 case DATE:
                     if (input.length() < 7) {
-                        throw new RooException("Which day u want oh?? Give in dd-MM-yyyy ahhh\n");
+                        return "Which day u want oh?? Give in dd-MM-yyyy ahhh\n";
                     }
                     String date = input.substring(6);
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                    this.ui.listDateEvents(LocalDate.parse(date, formatter));
-                    break;
+                    return this.ui.listDateEvents(LocalDate.parse(date, formatter));
 
                 case FIND:
                     if (input.length() < 6) {
-                        throw new RooException("What do you want to find ahh??\n");
+                        return "What do you want to find ahh??\n";
                     }
                     String keyword = input.substring(6);
-                    this.ui.find(keyword);
-                    break;
+                    return this.ui.find(keyword);
 
                 case UNMARK:
                     if (input.length() < 8) {
-                        throw new RooException("Please unmark your task using this format: "
-                                + "\"unmark [serial number]\"\n");
+                        return "Please unmark your task using this format: "
+                                + "\"unmark [serial number]\"\n";
                     }
                     int t = Integer.parseInt(input.substring(7));
                     if (t > this.tasks.size()) {
-                        throw new RooException("We dunhave so many task lah =_=\n");
+                        return "We dunhave so many task lah =_=\n";
                     } else if (!this.tasks.isDone(t - 1)) {
-                        throw new RooException("Weihh... It's unmark ehhh\n");
+                        return "Weihh... It's unmark ehhh\n";
                     }
-                    this.ui.markUndone(t - 1);
-                    break;
+                    return this.ui.markUndone(t - 1);
 
                 case MARK:
                     if (input.length() < 6) {
-                        throw new RooException("Please mark your task using this format: "
-                                + "\"mark [serial number]\"\n");
+                        return "Please mark your task using this format: "
+                                + "\"mark [serial number]\"\n";
                     }
                     int u = Integer.parseInt(input.substring(5));
                     if (u > this.tasks.size()) {
-                        throw new RooException("We dunhave so many task lah =_=\nq");
+                        return "We dunhave so many task lah =_=\n";
                     } else if (this.tasks.isDone(u - 1)) {
-                        throw new RooException("Weihh... It's already mark ehhh\n");
+                        return "Weihh... It's already mark ehhh\n";
                     }
-                    this.ui.markDone(u - 1);
-                    break;
+                    return this.ui.markDone(u - 1);
 
                 case DELETE:
                     if (input.length() < 8) {
-                        throw new RooException("Please delete your task using this format: "
-                                + "\"delete [serial number]\"\n");
+                        return "Please delete your task using this format: "
+                                + "\"delete [serial number]\"\n";
                     }
                     int v = Integer.parseInt(input.substring(7));
                     if (v > this.tasks.size()) {
-                        throw new RooException("We dunhave so many task lah =_=\n");
+                        return "We dunhave so many task lah =_=\n";
                     }
-                    this.ui.delete(v - 1);
-                    break;
+                    return this.ui.delete(v - 1);
 
                 case TODO:
                     String tsk = input.substring(4);
-                    this.ui.add(new Todo(tsk));
-                    break;
+                    return this.ui.add(new Todo(tsk));
 
                 case DEADLINE:
                     if (!input.contains("/by")) {
-                        throw new RooException("Please enter your task with this format: "
-                                + "\"deadline task_description /by dd-MM-yyyy HH:mm (deadline)\"\n");
+                        return "Please enter your task with this format: "
+                                + "\"deadline task_description /by dd-MM-yyyy HH:mm (deadline)\"\n";
                     }
                     String tk = input.substring(8, input.indexOf("/") - 1);
-                    this.ui.add(new Deadline(tk, input.substring(input.indexOf("/by") + 4)));
-                    break;
+                    return this.ui.add(new Deadline(tk, input.substring(input.indexOf("/by") + 4)));
 
                 case EVENT:
                     if (!input.contains("/from") || !input.contains("/to")) {
-                        throw new RooException("Please enter your task with this format: "
+                        return "Please enter your task with this format: "
                                 + "\"event task_description /from dd-MM-yyyy HH:mm (start) "
-                                + " /to dd-MM-yyyy HH:mm (end)\"\n");
+                                + " /to dd-MM-yyyy HH:mm (end)\"\n";
                     }
                     String ts = input.substring(5, input.indexOf("/from") - 1);
                     String start = input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
                     String end = input.substring(input.indexOf("/to") + 4);
-                    this.ui.add(new Event(ts, start, end));
-                    break;
+                    return this.ui.add(new Event(ts, start, end));
 
                 case END:
-                    this.ui.close();
-                    return;
+                    return this.ui.close();
 
                 default:
-                    throw new RooException("I dunno what u mean!!!\n");
+                    return "I dunno what u mean!!!\n";
 
                 }
 
@@ -147,17 +138,133 @@ public class Roo {
         }
     }
 
+//    public void run() {
+//        this.storage.initialise(tasks);
+//        this.ui.greet();
+//        String input;
+//        Commands c;
+//        while (true) {
+//            input = this.ui.read();
+//            c = Parse.parse(input);
+//            try {
+//                switch (c) {
+//                    case LIST:
+//                        this.ui.list();
+//                        break;
+//
+//                    case CLEAR:
+//                        this.ui.clear();
+//                        break;
+//
+//                    case DATE:
+//                        if (input.length() < 7) {
+//                            throw new RooException("Which day u want oh?? Give in dd-MM-yyyy ahhh\n");
+//                        }
+//                        String date = input.substring(6);
+//                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//                        this.ui.listDateEvents(LocalDate.parse(date, formatter));
+//                        break;
+//
+//                    case FIND:
+//                        if (input.length() < 6) {
+//                            throw new RooException("What do you want to find ahh??\n");
+//                        }
+//                        String keyword = input.substring(6);
+//                        this.ui.find(keyword);
+//                        break;
+//
+//                    case UNMARK:
+//                        if (input.length() < 8) {
+//                            throw new RooException("Please unmark your task using this format: "
+//                                    + "\"unmark [serial number]\"\n");
+//                        }
+//                        int t = Integer.parseInt(input.substring(7));
+//                        if (t > this.tasks.size()) {
+//                            throw new RooException("We dunhave so many task lah =_=\n");
+//                        } else if (!this.tasks.isDone(t - 1)) {
+//                            throw new RooException("Weihh... It's unmark ehhh\n");
+//                        }
+//                        this.ui.markUndone(t - 1);
+//                        break;
+//
+//                    case MARK:
+//                        if (input.length() < 6) {
+//                            throw new RooException("Please mark your task using this format: "
+//                                    + "\"mark [serial number]\"\n");
+//                        }
+//                        int u = Integer.parseInt(input.substring(5));
+//                        if (u > this.tasks.size()) {
+//                            throw new RooException("We dunhave so many task lah =_=\nq");
+//                        } else if (this.tasks.isDone(u - 1)) {
+//                            throw new RooException("Weihh... It's already mark ehhh\n");
+//                        }
+//                        this.ui.markDone(u - 1);
+//                        break;
+//
+//                    case DELETE:
+//                        if (input.length() < 8) {
+//                            throw new RooException("Please delete your task using this format: "
+//                                    + "\"delete [serial number]\"\n");
+//                        }
+//                        int v = Integer.parseInt(input.substring(7));
+//                        if (v > this.tasks.size()) {
+//                            throw new RooException("We dunhave so many task lah =_=\n");
+//                        }
+//                        this.ui.delete(v - 1);
+//                        break;
+//
+//                    case TODO:
+//                        String tsk = input.substring(4);
+//                        this.ui.add(new Todo(tsk));
+//                        break;
+//
+//                    case DEADLINE:
+//                        if (!input.contains("/by")) {
+//                            throw new RooException("Please enter your task with this format: "
+//                                    + "\"deadline task_description /by dd-MM-yyyy HH:mm (deadline)\"\n");
+//                        }
+//                        String tk = input.substring(8, input.indexOf("/") - 1);
+//                        this.ui.add(new Deadline(tk, input.substring(input.indexOf("/by") + 4)));
+//                        break;
+//
+//                    case EVENT:
+//                        if (!input.contains("/from") || !input.contains("/to")) {
+//                            throw new RooException("Please enter your task with this format: "
+//                                    + "\"event task_description /from dd-MM-yyyy HH:mm (start) "
+//                                    + " /to dd-MM-yyyy HH:mm (end)\"\n");
+//                        }
+//                        String ts = input.substring(5, input.indexOf("/from") - 1);
+//                        String start = input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
+//                        String end = input.substring(input.indexOf("/to") + 4);
+//                        this.ui.add(new Event(ts, start, end));
+//                        break;
+//
+//                    case END:
+//                        this.ui.close();
+//                        return;
+//
+//                    default:
+//                        throw new RooException("I dunno what u mean!!!\n");
+//
+//                }
+//
+//            } catch (RooException exception) {
+//                System.err.println(exception.getMessage());
+//            }
+//        }
+//    }
+
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Roo knows: " + input;
+        return "Roo: " + run(input);
     }
 
     public static void main(String[] args) {
         Roo roo = new Roo("roo.txt");
-        roo.run();
+        roo.run("list");
     }
 
 }

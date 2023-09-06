@@ -53,7 +53,7 @@ test {
 }
 
 application {
-    mainClass.set("roo.Roo")
+    mainClass.set("roo.Launcher")
 }
 
 shadowJar {
