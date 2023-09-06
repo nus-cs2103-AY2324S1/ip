@@ -1,4 +1,9 @@
 T | 0 | read book
 E | 1 | NUS GreyHats | 19/09/2023 1800 | 21/09/2023 1800
 D | 0 | submit lab | 19/08/2023 1900
-T | 0 | return book
+E | 0 | nus hackers | 28/09/2023 1900 | 28/09/2023 2100
+T | 0 | find key
+T | 0 | r
+T | 0 | a
+T | 0 | b
+T | 0 | c

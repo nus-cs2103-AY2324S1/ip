@@ -150,34 +150,17 @@ public class Parser {
      * @throws DukeException If there are user input errors.
      */
     public Task deadline(String input) throws DukeException {
-        if (input.length() == 8) {
-            throw new DukeException(Ui.I5 + "☹ OOPS!!! The description of a deadline cannot be empty.");
-        }
-        if (input.charAt(8) != ' ') {
-            throw new DukeException(Ui.I5 + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-        }
-        if (input.length() == 9) {
-            throw new DukeException(Ui.I5 + "☹ OOPS!!! The description of a deadline cannot be empty.");
-        }
-        if (!input.contains("/by")) {
-            throw new DukeException(Ui.I5
-                    + "☹ OOPS!!! The format of a deadline should be 'deadline YOUR_TASK /by YOUR_DEADLINE'.");
-        }
+        try {
 
-        int slashIndex = input.indexOf("/by");
+            int slashIndex = input.indexOf("/by");
 
-        if (input.length() < slashIndex + 4) {
-            throw new DukeException(Ui.I5
-                    + "☹ OOPS!!! The format of a deadline should be 'deadline YOUR_TASK /by YOUR_DEADLINE'.");
+            String by = input.substring(slashIndex + 4);
+
+            return new Deadline(input.substring(9, slashIndex - 1), by);
+        } catch (Exception e) {
+            throw new DukeException("☹ OOPS!!! The format of a deadline should be " +
+                    "'deadline YOUR_TASK /by DD/MM/YYYY HHmm'.");
         }
-
-        String by = input.substring(slashIndex + 4);
-
-        if (slashIndex <= 9) {
-            throw new DukeException(Ui.I5 + "☹ OOPS!!! The title of your deadline cannot be empty.");
-        }
-
-        return new Deadline(input.substring(9, slashIndex - 1), by);
     }
 
     /**
@@ -202,42 +185,22 @@ public class Parser {
                     + "☹ OOPS!!! The format of an event should be 'event YOUR_EVENT /from START_TIME /to END_TIME'.");
         }
 
-        int fromIndex = input.indexOf("/from");
-        int toIndex = input.indexOf("/to");
+        try {
 
-        if (input.charAt(fromIndex + 5) != ' ') {
-            throw new DukeException(Ui.I5
-                    + "☹ OOPS!!! The format of an event should be 'event YOUR_EVENT /from START_TIME /to END_TIME'.");
-        }
-        if (fromIndex >= toIndex) {
-            throw new DukeException(Ui.I5
-                    + "☹ OOPS!!! The format of an event should be 'event YOUR_EVENT /from START_TIME /to END_TIME'.");
-        }
-        if (toIndex - 1 - (fromIndex + 6) < 1) {
-            throw new DukeException(Ui.I5 + "☹ OOPS!!! The starting time of an event should not be empty.");
-        }
+            int fromIndex = input.indexOf("/from");
+            int toIndex = input.indexOf("/to");
 
-        String from = input.substring(fromIndex + 6, toIndex - 1);
 
-        if (input.length() < toIndex + 3) {
-            throw new DukeException(Ui.I5 + "☹ OOPS!!! The ending time of an event should not be empty.");
-        }
-        if (input.charAt(toIndex + 3) != ' ') {
-            throw new DukeException(Ui.I5
-                    + "☹ OOPS!!! The format of an event should be 'event YOUR_EVENT /from START_TIME /to END_TIME'.");
-        }
+            String from = input.substring(fromIndex + 6, toIndex - 1);
 
-        String to = input.substring(toIndex + 4);
 
-        if (fromIndex - 1 - 6 < 1) {
-            throw new DukeException(Ui.I5 + "☹ OOPS!!! The title of an event should not be empty.");
-        }
-        if (input.charAt(fromIndex - 1) != ' ') {
-            throw new DukeException(Ui.I5
-                    + "☹ OOPS!!! The format of an event should be 'event YOUR_EVENT /from START_TIME /to END_TIME'.");
-        }
+            String to = input.substring(toIndex + 4);
 
-        return new Event(input.substring(6, fromIndex - 1), from, to);
+            return new Event(input.substring(6, fromIndex - 1), from, to);
+        } catch (Exception e) {
+            throw new DukeException("☹ OOPS!!! The format of an event should be "
+                    + "'event YOUR_EVENT /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm'.");
+        }
     }
 
     /**

@@ -40,11 +40,12 @@ public class TaskList {
     /**
      * Lists out all the tasks in task list.
      */
-    public void listOutEverything() {
-        System.out.println(Ui.I5 + "Here are the tasks in your list:");
+    public String listOutEverything() {
+        String response = "Here are the tasks in your list:\n";
         for (int i = 0; i < this.list.size(); i++) {
-            System.out.println(Ui.I5 + (i + 1) + "." + this.list.get(i));
+            response += (Ui.I5 + (i + 1) + "." + this.list.get(i) + "\n");
         }
+        return response;
     }
 
     /**
@@ -64,9 +65,10 @@ public class TaskList {
      *
      * @param index Index of a task in the task list.
      */
-    public void mark(int index) {
-        this.list.get(index).mark();
+    public String mark(int index) {
+        String response = this.list.get(index).mark();
         this.storage.updateHardDisk(this.list);
+        return response;
     }
 
     /**
@@ -75,9 +77,10 @@ public class TaskList {
      *
      * @param index Index of a task in the task list.
      */
-    public void unmark(int index) {
-        this.list.get(index).unmark();
+    public String unmark(int index) {
+        String response = this.list.get(index).unmark();
         this.storage.updateHardDisk(this.list);
+        return response;
     }
 
     /**
@@ -85,25 +88,28 @@ public class TaskList {
      *
      * @param task Given task object.
      */
-    public void add(Task task) {
+    public String add(Task task) {
         this.list.add(task);
-        System.out.println(Ui.I5 + "Got it. I've added this task:");
-        System.out.println(Ui.I7 + task);
-        System.out.println(Ui.I5 + "Now you have " + this.list.size() + " tasks in the list.");
         this.storage.updateHardDisk(this.list);
+        String response = "Got it. I've added this task:\n"
+                + task + "\n"
+                + "Now you have " + this.list.size() + " tasks in the list.\n";
+        return response;
     }
 
     /**
-     * Removes the given task from the task listI
+     * Removes the given task from the task list.
      *
      * @param index Index of the task to be removed.
+     * @return A remove task response.
      */
-    public void remove(int index) {
+    public String remove(int index) {
         Task t = this.list.remove(index);
-        System.out.println(Ui.I5 + "Noted. I've removed this task:");
-        System.out.println(Ui.I7 + t);
-        System.out.println(Ui.I5 + "Now you have " + this.list.size() + " tasks in the list.");
+        String response = "Noted. I've removed this task:"
+                + t + "\n"
+                + "Now you have " + this.list.size() + " tasks in the list.\n";
         this.storage.updateHardDisk(this.list);
+        return response;
     }
 
     /**
@@ -113,14 +119,15 @@ public class TaskList {
      * @param toFind String representation of what the users
      *               intend to find.
      */
-    public void find(String toFind) {
-        System.out.println(Ui.I5 + "Here are the matching tasks in your list:");
+    public String find(String toFind) {
+        String response = "Here are the matching tasks in your list:\n";
         for (int i = 0, j = 0; j < this.list.size(); j++) {
             String currInput = this.list.get(j).toString();
             if (!currInput.contains(toFind)) {
                 continue;
             }
-            System.out.println(Ui.I5 + (++i) + "." + currInput);
+            response += (++i) + "." + currInput + "\n";
         }
+        return response;
     }
 }
