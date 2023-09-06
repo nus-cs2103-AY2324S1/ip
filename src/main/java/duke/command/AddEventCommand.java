@@ -1,21 +1,20 @@
 package duke.command;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import duke.DateParserService;
-import duke.Duke;
 import duke.DukeList;
 import duke.Storage;
 import duke.Ui;
 import duke.exceptions.DukeException;
 import duke.task.Event;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-
 /**
  * The AddEventCommand class represents a command to add a new Event task to the list.
  */
-public class AddEventCommand extends Command{
+public class AddEventCommand extends Command {
     /**
      * Constructs a new AddEventCommand object with the specified command.
      *

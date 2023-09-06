@@ -1,12 +1,12 @@
 package duke.command;
 
+import java.io.IOException;
+
 import duke.DukeList;
 import duke.Storage;
 import duke.Ui;
 import duke.exceptions.DukeException;
 import duke.task.Task;
-
-import java.io.IOException;
 
 /**
  * The MarkCommand class represents a command to mark a task as done.

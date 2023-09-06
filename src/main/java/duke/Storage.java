@@ -1,11 +1,5 @@
 package duke;
 
-import duke.task.Deadline;
-import duke.exceptions.DukeException;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,6 +10,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import duke.exceptions.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
 
 /**
  * The Storage class handles loading and saving tasks to a file.
@@ -52,8 +52,7 @@ public class Storage {
         if (fileExists) {
             BufferedReader reader = null;
             try {
-                reader = new BufferedReader(
-                        new FileReader(this.filePath));
+                reader = new BufferedReader(new FileReader(this.filePath));
             } catch (FileNotFoundException e) {
                 throw new DukeException("File not found.");
             }

@@ -1,11 +1,5 @@
 package duke.task;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * The Task class represents a task with a description and a completion status.
  * Tasks can be marked as done or undone.

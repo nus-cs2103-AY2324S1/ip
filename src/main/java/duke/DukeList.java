@@ -1,13 +1,9 @@
 package duke;
 
-import duke.task.Task;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import duke.task.Task;
 
 /**
  * The DukeList class represents a list of tasks.

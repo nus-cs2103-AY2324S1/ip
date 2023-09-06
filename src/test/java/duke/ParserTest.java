@@ -1,7 +1,9 @@
 package duke;
-import static org.junit.jupiter.api.Assertions.*;
 
-import duke.command.FindCommand;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
 import duke.command.AddDeadlineCommand;
@@ -11,6 +13,7 @@ import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.DisplayCommand;
+import duke.command.FindCommand;
 import duke.command.MarkCommand;
 import duke.command.UnMarkCommand;
 import duke.exceptions.DukeException;
