@@ -12,6 +12,12 @@ then
     rm ACTUAL.TXT
 fi
 
+# Create the 'data' directory
+mkdir -p data
+
+# Create the 'data/duke.txt' file
+touch data/duke.txt
+
 # compile the code into the bin folder, terminates if error occurred
 if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/duke/*.java
 then

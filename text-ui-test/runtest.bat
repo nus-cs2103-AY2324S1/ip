@@ -14,6 +14,12 @@ IF ERRORLEVEL 1 (
 )
 REM no error here, errorlevel == 0
 
+REM Create the 'data' directory
+mkdir data
+
+REM Create the 'data/duke.txt' file
+copy NUL data\duke.txt
+
 REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -classpath ..\bin duke.Duke < input.txt > ACTUAL.TXT
 
