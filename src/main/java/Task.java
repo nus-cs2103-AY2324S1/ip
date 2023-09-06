@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public abstract class Task {
     protected String name;
@@ -13,6 +15,11 @@ public abstract class Task {
     public Task(String name) {
         this.name = name;
         this.isDone = false;
+    }
+
+    public Task(String name, Boolean isDone) {
+        this.name = name;
+        this.isDone = isDone;
     }
 
     public String getStatusIcon() {
@@ -25,23 +32,43 @@ public abstract class Task {
         return "[" + statusIcon + "] " + this.name;
     }
 
-    public void markAsDone() {
+    public String getDescription() {
+        return this.name;
+    }
+
+    public abstract String getEncodedString();
+
+    public static ToDo getDecodedToDo(String encodedString) {
+        String[] args = encodedString.split(" \\| ");
+        Boolean isDone = args[1] == "1" ? true : false;
+        return new ToDo(isDone, args[2]);
+    }
+
+    public static Deadline getDecodedDeadline(String encodedString) {
+        String[] args = encodedString.split(" \\| ");
+        Boolean isDone = args[1] == "1" ? true : false;
+        return new Deadline(isDone, args[2], args[3]);
+    }
+
+    public static Event getDecodedEvent(String encodedString) {
+        String[] args = encodedString.split(" \\| ");
+        Boolean isDone = args[1] == "1" ? true : false;
+        return new Event(isDone, args[2], args[3], args[4]);
+    }
+
+    public void markAsDone() throws DuplicatedMarkException {
         if (this.isDone) {
-            System.out.println("You have already finished this task.");
+            throw new DuplicatedMarkException("The task has already been marked as done.");
         } else {
             this.isDone = true;
-            String statusIcon = getStatusIcon();
-            System.out.println("Nice! I've marked this task as done:\n" + "  " + this);
         }
     }
 
-    public void markAsNotDone() {
+    public void markAsNotDone() throws DuplicatedMarkException {
         if (!this.isDone) {
-            System.out.println("You have not marked this task as done.");
+            throw new DuplicatedMarkException("The task is currently undone.");
         } else {
             this.isDone = false;
-            String statusIcon = getStatusIcon();
-            System.out.println("OK, I've marked this task as not done yet:\n" + "  " + this);
         }
     }
 }
