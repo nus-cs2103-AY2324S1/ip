@@ -32,17 +32,18 @@ public class MarkCommand extends Command {
     /**
      * Executes the command.
      *
-     * @param tasks List of tasks.
-     * @param ui UI of the application.
+     * @param tasks   List of tasks.
+     * @param ui      UI of the application.
      * @param storage Object to handle data storage.
+     * @return Message to be shown to the user.
      * @throws DukeException If error encountered when saving data.
      */
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
         int index = Integer.parseInt(params.get(1)) - 1;
         Task task = tasks.mark(index);
-        ui.printTaskMarkedMessage(task);
         tasks.saveState(storage);
+        return ui.getTaskMarkedMessage(task);
     }
 
     /**

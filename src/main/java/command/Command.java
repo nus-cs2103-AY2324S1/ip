@@ -28,12 +28,13 @@ public abstract class Command {
     /**
      * Executes the command.
      *
-     * @param tasks List of tasks.
-     * @param ui UI of the application.
+     * @param tasks   List of tasks.
+     * @param ui      UI of the application.
      * @param storage Object to handle data storage.
+     * @return Message to be shown to the user.
      * @throws DukeException If error is encountered during execution
      */
-    public abstract void execute(TaskList tasks, UI ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, UI ui, Storage storage) throws DukeException;
 
     /**
      * Returns a boolean representing whether the command requires the application to exit.

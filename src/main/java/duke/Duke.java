@@ -29,34 +29,39 @@ public class Duke {
         try {
             this.tasks = new TaskList(storage.loadData());
         } catch (FileNotFoundException e) {
-            ui.printLoadingErrorMessage();
+            ui.getLoadingErrorMessage();
             this.tasks = new TaskList();
         }
-
     }
 
     /**
-     * Runs the chatbot.
+     * Constructor for Duke class.
      */
-    public void run() {
-        ui.printWelcomeMessage();
-        String input;
-
-        while (true) {
-            input = ui.readCommand();
-            try {
-                Command command = Parser.parseUserInput(input);
-                command.execute(tasks, ui, storage);
-                if (command.isExit()) {
-                    break;
-                }
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            }
+    public Duke() {
+        this.storage = new Storage("./data/state.txt");
+        this.ui = new UI(NAME);
+        try {
+            this.tasks = new TaskList(storage.loadData());
+        } catch (FileNotFoundException e) {
+            ui.getLoadingErrorMessage();
+            this.tasks = new TaskList();
         }
     }
 
-    public static void main(String[] args) {
-        new Duke("./data/state.txt").run();
+    String getResponse(String input) {
+        try {
+            Command command = Parser.parseUserInput(input);
+            String response = command.execute(tasks, ui, storage);
+            if (command.isExit()) {
+                javafx.application.Platform.exit();
+            }
+            return response;
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
+    }
+
+    String getWelcomeMessage() {
+        return ui.getWelcomeMessage();
     }
 }
