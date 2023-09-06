@@ -1,0 +1,8 @@
+T | 1 | blah
+T | 1 | asda
+T | 0 | asd
+D | 0 | return book | 2019-10-15 1800
+T | 1 | help
+T | 0 | ls
+T | 1 | blah
+D | 1 |  | 2019-10-10 1900
