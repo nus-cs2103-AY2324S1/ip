@@ -19,6 +19,3 @@ data/tasks.ser
 .vscode/
 /config/
 /text-ui-test/
-build.gradle
-gradlew
-gradlew.bat
