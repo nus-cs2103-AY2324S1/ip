@@ -47,7 +47,7 @@ public class Parser {
             throw new InvalidInputException("Todo description cannot be empty");
         }
         for (int i = 1; i < data.length; i++) {
-            builder.append(data[i]);
+            builder.append(data[i]).append(" ");
         }
         String desc = builder.toString().trim();
         Todo todo = new Todo(desc);
