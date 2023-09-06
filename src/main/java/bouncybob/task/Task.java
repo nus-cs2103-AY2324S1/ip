@@ -18,6 +18,13 @@ public class Task {
     }
 
     /**
+     * Toggles the done status of the task.
+     */
+    public void toggleDone() {
+        this.isDone = !this.isDone;
+    }
+
+    /**
      * Marks the task as done.
      */
     public void setDone() {
