@@ -1,4 +1,4 @@
-package exceptions;
+package ekud.exceptions;
 
 /**
  * Represents an error reading or writing to the saved tasks file.

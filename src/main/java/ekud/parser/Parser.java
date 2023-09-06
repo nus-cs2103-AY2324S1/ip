@@ -1,20 +1,27 @@
-package parser;
+package ekud.parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
+import java.util.Locale;
 
-import exceptions.EkudException;
-import exceptions.EkudIllegalArgException;
-import exceptions.EkudInvalidCommandException;
-import tasks.TaskList;
+import ekud.exceptions.EkudException;
+import ekud.exceptions.EkudIllegalArgException;
+import ekud.exceptions.EkudInvalidCommandException;
+import ekud.tasks.TaskList;
 
 /**
  * The Parser class serves as an interface between the user and the chatbot by
  * converting user inputs into commands and arguments that the chatbot understands,
- * before finally calling the chatbot's TaskList to execute these commands.
+ * before finally executing these commands on the chatbot's TaskList and returning
+ * a String response.
  */
 public class Parser {
+    private static final String INPUT_DATETIME_FORMAT = "d MMM HHmm";
+    private static final String SAVED_DATETIME_FORMAT = "dd MMM yyyy h:mm a";
+
     /**
      * Splits the user's input into command and arguments.
      */
@@ -26,53 +33,48 @@ public class Parser {
     }
 
     /**
-     * Core function for parsing user arguments based on the command and handling any invalid commands
-     * or arguments, before the command is even executed.
+     * Core function for parsing user arguments based on the command and handling any invalid
+     * arguments before returning them.
      * @param userCommand Input command by the user.
      * @param userArgs Args for the command supplied by the user.
      * @throws EkudException Either invalid commands or illegal arguments for the commands.
      */
-    public void parseAndExecute(String userCommand, String userArgs, TaskList taskList)
-            throws EkudException {
+    public String parseAndExecute(String userCommand, String userArgs, TaskList taskList) throws EkudException {
         Command command = Command.getCommand(userCommand); // Command enum
         if (command == null) {
-            throw new EkudInvalidCommandException("Command not found :(");
+            throw new EkudInvalidCommandException(String.format(
+                    "Command '%s' not found :(",
+                    userCommand));
         }
         switch (command) {
         case SHOWTASKS:
-            taskList.showTasks();
-            break;
+            return taskList.showTasks();
         case MARKTASKASDONE:
-            try {
-                int index = Integer.valueOf(userArgs) - 1;
-                taskList.markTaskAsDone(index);
-                break;
-            } catch (NumberFormatException e) {
-                throw new EkudIllegalArgException("Please input a valid index number :o");
-            }
+            int doneTaskNum = this.parseTaskNum(userArgs);
+            return taskList.markTaskAsDone(doneTaskNum - 1);
         case MARKTASKASNOTDONE:
-            try {
-                int index = Integer.valueOf(userArgs) - 1;
-                taskList.markTaskAsNotDone(index);
-                break;
-            } catch (NumberFormatException e) {
-                throw new EkudIllegalArgException("Please input a valid index number :o");
-            }
+            int notDoneTaskNum = this.parseTaskNum(userArgs);
+            return taskList.markTaskAsNotDone(notDoneTaskNum - 1);
         case ADDTODO:
-            taskList.addToDo(userArgs);
-            break;
+            if (userArgs.isBlank()) { // isBlank() checks if string is all whitespace
+                throw new EkudIllegalArgException("Description shouldn't be empty :(");
+            }
+            return taskList.addToDo(userArgs);
         case ADDDEADLINE:
             try {
                 String[] deadlineArgs = userArgs.split(" /by ");
                 String description = deadlineArgs[0];
                 LocalDateTime dateTime = this.parseDateTime(deadlineArgs[1]);
-                taskList.addDeadline(description, dateTime);
-                break;
+                if (description.isBlank()) {
+                    throw new EkudIllegalArgException("Description shouldn't be empty :(");
+                }
+                return taskList.addDeadline(description, dateTime);
             } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-                throw new EkudIllegalArgException("Deadline formatted wrongly\n"
-                        + "-> Ensure 'deadline <description> /by <dd-mm-yyyy> OR <dd-MM-yyyy hhmm>' "
-                        + "is followed\n"
-                        + "-> For example: deadline finish quiz /by 03-10-2023 1830");
+                throw new EkudIllegalArgException(String.format(
+                        "Deadline formatted wrongly\n"
+                        + "-> Please ensure 'deadline <description> /by <%s>' is followed\n"
+                        + "-> For example: deadline finish quiz /by 3 Jun 1830",
+                        INPUT_DATETIME_FORMAT));
             }
         case ADDEVENT:
             try {
@@ -84,50 +86,77 @@ public class Parser {
                 }
                 LocalDateTime fromDateTime = this.parseDateTime(timings[0]);
                 LocalDateTime toDateTime = this.parseDateTime(timings[1]);
-                taskList.addEvent(description, fromDateTime, toDateTime);
-                break;
+                return taskList.addEvent(description, fromDateTime, toDateTime);
             } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-                throw new EkudIllegalArgException("Event formatted wrongly\n"
-                        + "-> Ensure 'event <description> /from <dd-MM-yyyy hhmm> /to <dd-MM-yyyy hhmm>' "
-                        + "is followed\n"
-                        + "-> For example: event company dinner /from 03-10-2023 1730 /to "
-                        + "03-10-2023 2215");
+                throw new EkudIllegalArgException(String.format(
+                        "Event formatted wrongly\n"
+                        + "-> Ensure 'event <description> /from <%s> /to <%s>' is followed\n"
+                        + "-> For example: event company dinner /from 20 Oct 1730 /to 20 Oct 2215",
+                        INPUT_DATETIME_FORMAT,
+                        INPUT_DATETIME_FORMAT));
             }
         case DELETETASK:
-            try {
-                int index = Integer.valueOf(userArgs) - 1;
-                taskList.deleteTask(index);
-                break;
-            } catch (NumberFormatException e) {
-                throw new EkudIllegalArgException("Please input a valid index number :o");
-            }
+            int deleteTaskNum = this.parseTaskNum(userArgs);
+            return taskList.deleteTask(deleteTaskNum - 1);
         case FIND:
-            String[] keyword = userArgs.split(" ");
-            if (keyword.length == 0 || keyword[0].isBlank()) {
-                throw new EkudIllegalArgException("Keyword shouldn't be empty :(");
-            }
-            if (keyword.length > 1) {
-                throw new EkudIllegalArgException("Please input a valid keyword (multiple words "
-                        + "are not accepted) :(");
-            }
-            taskList.findTasks(keyword[0]);
-            break;
+            String keyword = this.parseKeyword(userArgs);
+            return taskList.findTasks(keyword);
+        case CLEAR:
+            return taskList.clear();
+        case UNDOCLEAR:
+            return taskList.undoClear();
         default:
-            throw new EkudInvalidCommandException("Command not found :(");
+            throw new EkudIllegalArgException("Error parsing arguments :(");
         }
     }
 
     /**
+     * Helper function to check for a valid task number.
+     * @param userArgs Number String supplied by the user.
+     * @return An integer index number.
+     * @throws EkudIllegalArgException
+     */
+    private int parseTaskNum(String userArgs) throws EkudIllegalArgException {
+        try {
+            int index = Integer.valueOf(userArgs);
+            if (index <= 0) {
+                throw new EkudIllegalArgException("Index number cannot be 0 or negative :o");
+            }
+            return index;
+        } catch (NumberFormatException e) {
+            throw new EkudIllegalArgException("Please input a valid index number :o");
+        }
+    }
+
+    /**
+     * Helper function to check for a valid keyword.
+     * @param userArgs
+     * @return
+     * @throws EkudIllegalArgException
+     */
+    private String parseKeyword(String userArgs) throws EkudIllegalArgException {
+        String[] keyword = userArgs.split(" ");
+        if (keyword.length == 0 || keyword[0].isBlank()) {
+            throw new EkudIllegalArgException("Keyword shouldn't be empty :(");
+        }
+        if (keyword.length > 1) {
+            throw new EkudIllegalArgException("Please input a valid keyword (multiple words "
+                    + "are not accepted) :(");
+        }
+        return keyword[0];
+    }
+
+    /**
      * Parses the user's input date and time into a LocalDateTime object.
-     * @param inputDateTime User's input dateTime in the format dd-MM-yyyy HHmm.
+     * @param inputDateTime User's input dateTime in the format dd-MM HHmm.
      * @return LocalDateTime
      */
     public LocalDateTime parseDateTime(String inputDateTime) {
-        String[] splitDateTime = inputDateTime.split(" ");
-        String time = splitDateTime.length == 2 ? splitDateTime[1] : "2359";
-        String date = splitDateTime[0];
-        return LocalDateTime.parse(
-                date + " " + time, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+        DateTimeFormatter parseFormatter = new DateTimeFormatterBuilder()
+                .parseDefaulting(ChronoField.YEAR, 2023)
+                .appendPattern(INPUT_DATETIME_FORMAT)
+                .toFormatter(Locale.ENGLISH);
+        return LocalDateTime.parse(inputDateTime, parseFormatter);
     }
 
     /**
@@ -136,6 +165,6 @@ public class Parser {
      * @return LocalDateTime
      */
     public LocalDateTime parseSavedDateTime(String savedDateTime) {
-        return LocalDateTime.parse(savedDateTime, DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a"));
+        return LocalDateTime.parse(savedDateTime, DateTimeFormatter.ofPattern(SAVED_DATETIME_FORMAT));
     }
 }

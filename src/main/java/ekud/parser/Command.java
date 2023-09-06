@@ -1,4 +1,4 @@
-package parser;
+package ekud.parser;
 
 /**
  * Represents a fixed set of input command strings which can be assigned to the
@@ -12,7 +12,9 @@ public enum Command {
     ADDDEADLINE("deadline"),
     ADDEVENT("event"),
     DELETETASK("delete"),
-    FIND("find");
+    FIND("find"),
+    CLEAR("clear"),
+    UNDOCLEAR("undoclear");
     private String command;
     private Command(String command) {
         this.command = command;

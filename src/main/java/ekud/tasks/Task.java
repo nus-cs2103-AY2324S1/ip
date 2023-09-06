@@ -1,4 +1,4 @@
-package tasks;
+package ekud.tasks;
 /**
  * Represents a task created by the user.
  */

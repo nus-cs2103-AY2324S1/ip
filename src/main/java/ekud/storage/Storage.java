@@ -1,17 +1,18 @@
-package storage;
+package ekud.storage;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Scanner;
 
-import exceptions.EkudIOException;
-import parser.Parser;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.TaskList;
-import tasks.ToDo;
+import ekud.exceptions.EkudIOException;
+import ekud.parser.Parser;
+import ekud.tasks.Deadline;
+import ekud.tasks.Event;
+import ekud.tasks.TaskList;
+import ekud.tasks.ToDo;
 
 /**
  * The Storage class deals with handling the saved tasks file on the hard disk, by loading its contents
@@ -27,7 +28,7 @@ public class Storage {
      * @param path Filepath for the saved tasks file.
      * @throws EkudIOException Exception involving the creation of the saved tasks file.
      */
-    public Storage(String path) throws EkudIOException {
+    public Storage(String path) {
         this.path = path;
         File file = new File(path);
         try {
@@ -39,9 +40,10 @@ public class Storage {
                 file.createNewFile();
                 System.out.println("Task file created successfully");
             }
-            this.savedTasks = file;
         } catch (IOException e) {
-            throw new EkudIOException("Error with creating task file: " + e);
+            System.out.println("Error with creating task file: " + e);
+        } finally {
+            this.savedTasks = file;
         }
     }
 
@@ -50,17 +52,18 @@ public class Storage {
      * @param taskList The chatbot's TaskList to load tasks into.
      * @throws EkudIOException Exception involving improper loading of saved tasks into TaskList.
      */
-    public void loadData(TaskList taskList) throws EkudIOException {
+    public String loadData(TaskList taskList) throws EkudIOException {
         Parser parser = new Parser(); // For parsing dateTime
-        System.out.println("Loading up saved tasks...");
+        taskList.clear();
         try {
             Scanner scanner = new Scanner(this.savedTasks);
-            int curTask = 0;
-            while (scanner.hasNext()) {
+            int curTaskIndex = 0;
+            int numDoneTasks = 0;
+            while (scanner.hasNextLine()) {
                 // Saved tasks format eg:
-                // T | 0 | task1
-                // D | 1 | task2 | 1st Sep
-                // E | 0 | task 3 | 1st Sep 2pm | 3rd Sep 2pm
+                // T |   | task1
+                // D | X | task2 | 1st Sep
+                // E |   | task 3 | 1st Sep 2pm | 3rd Sep 2pm
                 String[] taskDetails = scanner.nextLine().split(" \\| ");
                 String taskType = taskDetails[0];
                 boolean isDone = taskDetails[1].equals("X");
@@ -75,15 +78,20 @@ public class Storage {
                     taskList.addTask(new Event(taskDetails[2], fromDateTime, toDateTime));
                 }
                 if (isDone) {
-                    taskList.markDoneOnStart(curTask);
+                    taskList.markDoneOnStart(curTaskIndex);
+                    numDoneTasks++;
                 }
-                curTask++;
+                curTaskIndex++;
             }
-            if (curTask == 0) {
-                System.out.println("No saved tasks found");
+            String response;
+            if (curTaskIndex == 0) {
+                response = "[No previous tasks saved]";
             } else {
-                System.out.println("Saved tasks loaded successfully");
-            }
+                response = String.format(
+                        "[You currently have (%d) unfinished task(s)]",
+                        curTaskIndex - numDoneTasks);
+            };
+            return response;
         } catch (IOException e) {
             throw new EkudIOException("Error with loading saved tasks: " + e);
         } catch (IndexOutOfBoundsException e) {
@@ -96,7 +104,7 @@ public class Storage {
      * @param taskList The chatbot's TaskList to save tasks from.
      * @throws EkudIOException Exception involving improper saving of tasks.
      */
-    public void saveData(TaskList taskList) throws EkudIOException {
+    public String saveData(TaskList taskList) throws EkudIOException {
         try {
             FileWriter fw = new FileWriter(this.path);
             int len = taskList.getSize();
@@ -104,6 +112,7 @@ public class Storage {
                 fw.write(taskList.getSaveTaskFormat(i) + "\n");
             }
             fw.close();
+            return String.format("[(%d) task(s) saved successfully]", len);
         } catch (IOException e) {
             throw new EkudIOException("Error with saving tasks: " + e);
         }
