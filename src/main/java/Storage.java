@@ -11,7 +11,7 @@ public class Storage {
   /**
    * Path to save file.
    */
-  private String filePath;
+  private final String filePath;
 
   /**
    * Constructor for storage class.
