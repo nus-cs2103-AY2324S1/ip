@@ -141,6 +141,9 @@ public class Parser {
                     return modifyTask(ModifyTask.DELETE, input);
                 case("find"):
                     return tasks.findTasks(inputSplit[1]);
+                case("bye"):
+                    System.exit(0);
+                    // return Ui.exit();
                 default:
                     return Ui.returnErrorString(new DukeException("I'm sorry, but I don't know what that means :-("));
                 }
