@@ -1,3 +1,4 @@
+/*
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -6,44 +7,37 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+*/
 import HelperClass.Task;
 import HelperClass.Storage;
+import HelperClass.Ui;
+import HelperClass.Parser;
+import HelperClass.TaskList;
+
 public class Duke {
-    private static void printOneLine() {
-        System.out.println("---------------------------");
-    }
 
-    private static final String MyName = "Rio";
-    public static void Greet() {
-        printOneLine();
-        System.out.println("Hello! I'm " + MyName);
-        System.out.println("What can I do for you?");
-        printOneLine();
-    }
 
-    public  static void Exit() {
 
-        System.out.println(" Bye. Hope to see you again soon!");
+    private Ui ui;
+    private Storage storage;
+    private TaskList tasks;
+    private Parser parser;
 
-    }
 
-    private static String GetUserTaskName() {
-        Scanner getUserInput = new Scanner(System.in);
-        String taskName = getUserInput.nextLine();
-        if (taskName.isEmpty()) {
-            System.out.println("OOPS!!! The name of a task cannot be empty.");
-            return "";
-        } else {
-            return taskName;
+    public Duke(String fileName, String dirName) {
+        ui = new Ui("Rio");
+        storage = new Storage(fileName, dirName);
+        try {
+            tasks = new TaskList(storage.LoadList(), storage.getListPointer());
+        } catch (Exception e) {
+            ui.Speak(e.toString());
+            tasks = new TaskList();
         }
-
+        parser = new Parser();
     }
-    private Storage storage = new Storage("list.txt", "data");
 
-
-    public static void main(String[] args) {
-
-
+    public void run() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -51,161 +45,89 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
 
-
-
-
-        Greet();
+        ui.Speak(ui.Greet());
 
         boolean wantToExit = false;
-        Scanner getUserInput = new Scanner(System.in);
-        Scanner getUserIndex = new Scanner(System.in);
-        Task[] userList = this.storage.getUserList();
+        boolean userListHaveChanges;
 
-        int listPointer = 0;
+
 
         while (!(wantToExit)) {
-            String userInput = getUserInput.nextLine();
 
-            printOneLine();
-            switch (userInput) {
+            userListHaveChanges = false;
+
+            parser.processUserCommand();
+
+            switch (parser.getCommand()) {
 
                 case "bye":
+                    //bye
+
                     wantToExit = true;
-                    getUserInput.close();
-                    getUserIndex.close();
-                    Exit();
+                    ui.Speak(ui.Exit());
 
                     break;
 
                 case "list":
-
-                    if (listPointer < 1) {
-                        System.out.println("No items in the list yet");
-                    } else {
-                        for (int i = 0; i < listPointer; i++) {
-                            int num = i + 1;
-                            System.out.println(num + userList[i].display());
-
-
-                        }
-                    }
-
+                    //list
+                    tasks.displayList();
                     break;
 
                 case "mark":
-                    System.out.println("Enter index:");
-                    int index = getUserIndex.nextInt() - 1;
-                    if (index < 0 || index >= listPointer) {
-                        System.out.println("Invalid index.");
-                    } else {
+                    //mark 1
 
-                        userList[index].markDone();
-
+                    try {
+                        int i = Integer.parseInt(parser.getTaskName()) - 1;
+                        tasks.markTask(i);
+                        userListHaveChanges = true;
+                    } catch (NumberFormatException e) {
+                        ui.Speak("need to provide an integer index of task.");
                     }
+
 
                     break;
 
                 case "unmark":
-                    System.out.println("Enter index:");
-                    int i = getUserIndex.nextInt() - 1;
-                    if (i < 0 || i >= listPointer) {
-                        System.out.println("Invalid index.");
-                    } else {
-
-                        userList[i].unmarkDone();
-
+                    //unmark 1
+                    try {
+                        int i = Integer.parseInt(parser.getTaskName()) - 1;
+                        tasks.unmarkTask(i);
+                        userListHaveChanges = true;
+                    } catch (NumberFormatException e) {
+                        ui.Speak("need to provide an integer index of task.");
                     }
 
                     break;
 
                 case "todo":
-                    System.out.println("Enter task name:");
-                    String taskName = GetUserTaskName();
-                    if (!(taskName.isEmpty())) {
-                        userList[listPointer] = new Task(taskName, 1, "Null", "Null", false);
-
-                        System.out.println("Got it. I've added this task:");
-
-                        System.out.println(userList[listPointer].display());
-
-                        listPointer = listPointer + 1;
-
-                        System.out.println("Now you have " + listPointer + " tasks in the list.");
-                    }
-
+                    //todo read book
+                    ui.Speak(tasks.addTask(new Task(parser.getTaskName(),
+                            1, "Null", "Null", false)));
+                    userListHaveChanges = true;
                     break;
 
                 case "deadline":
-                    System.out.println("Enter task name:");
-                    String taskN = GetUserTaskName();
-                    if (!(taskN.isEmpty())) {
-                        System.out.println("Enter deadline:");
-                        String timePeriod = getUserInput.nextLine();
-                        userList[listPointer] = new Task(taskN, 2, "Null", timePeriod, false);
-
-                        System.out.println("Got it. I've added this task:");
-
-                        System.out.println(userList[listPointer].display());
-
-                        listPointer = listPointer + 1;
-
-                        System.out.println("Now you have " + listPointer + " tasks in the list.");
-                    }
+                    //deadline read book /by 2022-01-01
+                    ui.Speak(tasks.addTask(new Task(parser.getTaskName(),
+                            2, "Null", parser.getFirstEnteredTime(), false)));
+                    userListHaveChanges = true;
                     break;
 
                 case "event":
-                    System.out.println("Enter task name:");
-                    String tN = GetUserTaskName();
-                    if (!(tN.isEmpty())) {
-                        System.out.println("Enter start time:");
-                        String startTime = getUserInput.nextLine();
-                        System.out.println("Enter end time:");
-                        String endTime = getUserInput.nextLine();
-
-                        userList[listPointer] = new Task(tN, 3, startTime, endTime, false);
-
-                        System.out.println("Got it. I've added this task:");
-
-                        System.out.println(userList[listPointer].display());
-
-                        listPointer = listPointer + 1;
-
-                        System.out.println("Now you have " + listPointer + " tasks in the list.");
-                    }
+                    //event read book /from 2022-01-01 /to 2022-01-02
+                    ui.Speak(tasks.addTask(new Task(parser.getTaskName(),
+                            3, parser.getFirstEnteredTime(), parser.getSecondEnteredTime(), false)));
+                    userListHaveChanges = true;
                     break;
 
                 case "delete":
-                    System.out.println("Enter index:");
-                    int ind = getUserIndex.nextInt() - 1;
-                    if (ind < 0 || ind >= listPointer) {
-                        System.out.println("Invalid index.");
-                    } else {
-
-                        System.out.println("Noted. I've removed this task:");
-
-                        System.out.println(userList[listPointer].display());
-
-                        Task[] newUserList = new Task[100];
-
-                        for (int a = 0, k = 0; a < listPointer; a++) {
-
-                            // if the index is
-                            // the removal element index
-                            if (a == ind) {
-                                continue;
-                            }
-
-                            // if the index is not
-                            // the removal element index
-                            newUserList[k++] = userList[a];
-                        }
-
-                        listPointer = listPointer - 1;
-
-                        userList = newUserList;
-
-                        System.out.println("Now you have " + listPointer + " tasks in the list.");
-
+                    //delete 1
+                    try {
+                        int i = Integer.parseInt(parser.getTaskName()) - 1;
+                        tasks.deleteTask(i);
+                        userListHaveChanges = true;
+                    } catch (NumberFormatException e) {
+                        ui.Speak("need to provide an integer index of task.");
                     }
 
                     break;
@@ -216,13 +138,28 @@ public class Duke {
 
 
             }
-            printOneLine();
 
-            SaveList(userList, listPointer);
+
+            if (userListHaveChanges) {
+                storage.SaveList(tasks.getUserList(), tasks.getUserListPointer());
+            }
+
+
+
+
 
         }
 
 
+
+
+
+    }
+
+
+    public static void main(String[] args) {
+
+        new Duke("list.txt", "data").run();
 
 
     }

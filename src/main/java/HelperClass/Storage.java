@@ -14,7 +14,7 @@ public class Storage {
     private String fileName;
     private String dirName;
     private String filePath;
-    private Task[] userList;
+
     private int listPointer;
 
 
@@ -51,8 +51,6 @@ public class Storage {
 
 
 
-
-
     private List<String> ReadLine(String line) {
         List<String> formattedLine = new ArrayList<>();
         Scanner lineScanner = new Scanner(line);
@@ -69,7 +67,24 @@ public class Storage {
 
 
 
-    private Task[] LoadList() {
+
+
+
+    //public methods below
+
+    public Storage (String fileName, String dirName) {
+        this.fileName = fileName;
+        this.dirName = dirName;
+        this.filePath = this.dirName + "/" + this.fileName;
+
+        BackgroundSetUp();
+
+    }
+
+
+
+
+    public Task[] LoadList() {
         Task[] userList = new Task[100];
         int positionPointer = 0;
 
@@ -92,7 +107,7 @@ public class Storage {
                 List<String> attributes = new ArrayList<>();
                 StringBuilder attributeName = new StringBuilder();
 
-                for (Object element : formattedLine) {
+                for (String element : formattedLine) {
                     if (element.equals("|")) {
                         attributes.add(attributeName.toString());
                         attributeName = new StringBuilder();
@@ -152,21 +167,6 @@ public class Storage {
     }
 
 
-
-
-
-    //public methods below
-
-    public Storage (String fileName, String dirName) {
-        this.fileName = fileName;
-        this.dirName = dirName;
-        this.filePath = this.dirName + "/" + this.fileName;
-
-        BackgroundSetUp();
-        this.userList = LoadList();
-
-    }
-
     public void SaveList(Task[] userList, int numberOfElements) {
 
         try (FileWriter writer = new FileWriter(filePath)) {
@@ -179,10 +179,6 @@ public class Storage {
             throw new RuntimeException(e);
         }
 
-    }
-
-    public Task[] getUserList() {
-        return this.userList;
     }
 
     public int getListPointer() {
