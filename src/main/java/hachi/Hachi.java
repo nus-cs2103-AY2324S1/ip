@@ -52,7 +52,6 @@ public class Hachi {
 
     public static void main(String[] args) throws HachiException {
         new Hachi(DEFAULT_TASK_PATH).run();
-
     }
 
     /**
