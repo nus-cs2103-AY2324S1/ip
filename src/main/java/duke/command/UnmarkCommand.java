@@ -6,7 +6,6 @@ import java.util.stream.Stream;
 import duke.core.DukeException;
 import duke.core.Storage;
 import duke.core.Ui;
-
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -17,7 +16,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * Constructor for UnmarkCommand.
-     * 
+     *
      * @param parameterMap Map of parameters for the command.
      */
     public UnmarkCommand(Map<String, String> parameterMap) {
@@ -50,13 +49,13 @@ public class UnmarkCommand extends Command {
             }
 
             Task taskUnmarked = tasks.markAsUndone(taskIndex);
-    
+
             if (taskUnmarked == null) {
                 return;
             }
-    
+
             Ui.respond(Stream.of("OK, I've marked this task as not done yet:",
-                    String.format("  %s",taskUnmarked.toString())));
+                    String.format("  %s", taskUnmarked.toString())));
             tasks.storeTasks();
         } catch (NumberFormatException e) {
             throw new DukeException(String.format("Task number provided \"%s\" is not a number.\n     "

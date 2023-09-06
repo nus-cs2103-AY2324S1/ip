@@ -7,14 +7,14 @@ import java.time.temporal.TemporalAccessor;
  * Class to represent an event task.
  */
 public class Event extends Task {
-    private static String SYMBOL = "E";
-    
+    private static final String SYMBOL = "E";
+
     protected TemporalAccessor startDatetime;
     protected TemporalAccessor endDatetime;
 
     /**
      * Constructor for Event.
-     * 
+     *
      * @param description Description of the event task.
      * @param startDatetime Start date (and time) of the event task.
      * @param endDatetime End date (and time) of the event task.

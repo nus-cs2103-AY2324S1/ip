@@ -7,13 +7,13 @@ import java.time.temporal.TemporalAccessor;
  * Class to represent a deadline task.
  */
 public class Deadline extends Task {
-    private static String SYMBOL = "D";
-    
+    private static final String SYMBOL = "D";
+
     protected TemporalAccessor dueDatetime;
 
     /**
      * Constructor for Deadline.
-     * 
+     *
      * @param description Description of the deadline task.
      * @param dueDatetime Due date (and time) of the deadline task.
      */
