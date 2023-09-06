@@ -2,10 +2,8 @@ package duke.commands;
 
 import duke.tasks.Task;
 import duke.utils.Storage;
-import duke.commands.ListCommand;
+import duke.utils.Ui;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class FindCommand extends Command {
@@ -15,6 +13,12 @@ public class FindCommand extends Command {
         this.fullCommand = fullCommand;
     }
 
+    /**
+     * Finds all tasks with the given keyword and lists them out.
+     *
+     * @param storage
+     * @param tasks
+     */
     public void execute(Storage storage, ArrayList<Task> tasks) {
         String[] words = fullCommand.split(" ");
 
@@ -32,6 +36,7 @@ public class FindCommand extends Command {
             new ListCommand().execute(storage, validTasks);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! The description of a find cannot be empty.");
+            Ui.printLine();
         }
     }
 }
