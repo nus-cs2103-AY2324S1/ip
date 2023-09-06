@@ -1,0 +1,18 @@
+.dark-gray-background{
+    -fx-background-color: #46474A;
+}
+.gray-background{
+     -fx-background-color: #636566;
+ }
+
+.white-background{
+    -fx-background-color: #FFFFFFF;
+}
+
+.radius{
+    -fx-background-radius: 100px
+}
+
+.green-border {
+    -fx-background-color: #00FF00;
+}
