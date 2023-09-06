@@ -7,7 +7,6 @@ import tong.command.CommandResult;
  * Lists all tong.task.Task in the tong.TaskList to the user.
  */
 public class ListCommand extends Command {
-
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
