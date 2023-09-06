@@ -1,11 +1,11 @@
 package duke;
 
 import exceptions.ParserException;
+
+import javafx.application.Platform;
 import io.Parser;
 import io.Ui;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import storage.Storage;
 import tasks.Task;
 import tasks.TaskList;
@@ -26,13 +26,14 @@ public class Duke {
         this.parser = new Parser();
         this.ui = new Ui();
         this.storage = new Storage(this.taskList);
+        storage.loadTasks();
     }
 
 
     public void listTasks() {
 
         if (taskList.isEmpty()) {
-            System.out.println("list is empty!");
+            ui.addPrintStatement("list is empty!");
             return;
         }
 
@@ -40,7 +41,7 @@ public class Duke {
 
             String index = Integer.toString(i + 1);
             Task selectedTask = taskList.get(i);
-            System.out.println(index + " " + ui.displayTask(selectedTask));
+            ui.addPrintStatement(index + " " + ui.displayTask(selectedTask));
 
         }
     }
@@ -52,7 +53,7 @@ public class Duke {
             selectedTask.setUnDone();
             ui.displayAction("Marked selected task as un-done desu", selectedTask);
         } catch (IndexOutOfBoundsException ex) {
-            System.out.println("Please enter a valid index!");
+            ui.addPrintStatement("Please enter a valid index!");
         }
     }
 
@@ -63,7 +64,7 @@ public class Duke {
             selectedTask.setDone();
             ui.displayAction("Marked selected task as done", selectedTask);
         } catch (IndexOutOfBoundsException ex) {
-            System.out.println("Please enter a valid index!");
+            ui.addPrintStatement("Please enter a valid index!");
         }
     }
 
@@ -71,10 +72,9 @@ public class Duke {
         try {
             Task curentTask = new Todo(parser.getTaskName());
             taskList.add(curentTask);
-            System.out.println("added:\t" + ui.displayTask(curentTask));
+            ui.addPrintStatement("added:\t" + ui.displayTask(curentTask));
         } catch (StringIndexOutOfBoundsException ex) {
-
-            System.out.println("Please enter a name after the todo command!");
+            ui.addPrintStatement("Please enter a name after the todo command!");
         }
     }
 
@@ -83,9 +83,9 @@ public class Duke {
         try {
             Task curentTask = parser.parseDeadline();
             taskList.add(curentTask);
-            System.out.println("added:\t" + ui.displayTask(curentTask));
+            ui.addPrintStatement("added:\t" + ui.displayTask(curentTask));
         } catch (ParserException ex) {
-            System.out.println(ex.getMessage());
+            ui.addPrintStatement(ex.getMessage());
         }
 
 
@@ -95,15 +95,15 @@ public class Duke {
         try {
             Task curentTask = parser.parseEvent();
             taskList.add(curentTask);
-            System.out.println("added:\t" + ui.displayTask(curentTask));
+            ui.addPrintStatement("added:\t" + ui.displayTask(curentTask));
         } catch (ParserException ex) {
-            System.out.println(ex.getMessage());
+            ui.addPrintStatement(ex.getMessage());
         }
     }
 
     public void deleteTask() {
         if (taskList.isEmpty()) {
-            System.out.println("The list is empty!");
+            ui.addPrintStatement("The list is empty!");
             return;
         }
         try {
@@ -112,93 +112,79 @@ public class Duke {
             taskList.remove(parser.getIndex());
             ui.displayAction("Deleting selected task!", selectedTask);
         } catch (IndexOutOfBoundsException ex) {
-            System.out.println("Please enter a valid index!");
+            ui.addPrintStatement("Please enter a valid index!");
         }
     }
 
     public void findTask() {
-        System.out.println("finding task!");
+        ui.addPrintStatement("finding task!");
         String name = parser.getTaskName();
         List<Task> tasks = taskList.findTasks(name);
 
-        System.out.println("Found:");
+        ui.addPrintStatement("Found:");
         for (int i = 0; i < tasks.size(); i++) {
 
             String index = Integer.toString(i + 1);
             Task selectedTask = tasks.get(i);
-            System.out.println(index + " " + ui.displayTask(selectedTask));
-
+            ui.addPrintStatement(index + " " + ui.displayTask(selectedTask));
         }
     }
 
-    public void run() {
-
+    public String start() {
         ui.displayGreetings();
-        storage.loadTasks();
+        return ui.getPrintStatement();
+    }
 
-        label:
-        while (true) {
+    public void run(String input) {
 
-            try {
-                parser.update();
-            } catch (NoSuchElementException ex) {
+        parser.update(input);
+        // there is no input
+        switch (parser.getCommandString()) {
+            case "bye":
+                ui.displayGoodbye();
+                storage.saveTasks();
+                Platform.exit();
+                System.exit(0);
+                break;
+            case "list":
+                listTasks();
+                break;
+            case "mark": {
+                markTaskAsDone();
                 break;
             }
-
-            // there is no input
-            if (parser.isInputThere()) {
+            case "unmark": {
+                unmarkTask();
                 break;
             }
-
-            switch (parser.getCommandString()) {
-                case "bye":
-                    break label;
-                case "list":
-                    listTasks();
-                    break;
-                case "mark": {
-                    markTaskAsDone();
-                    break;
-                }
-                case "unmark": {
-                    unmarkTask();
-                    break;
-                }
-                case "todo": {
-                    addTodo();
-                    break;
-                }
-                case "deadline": {
-                    addDeadline();
-                    break;
-                }
-                case "event": {
-                    addEvent();
-                    break;
-                }
-                case "delete": {
-                    deleteTask();
-                    break;
-                }
-                case "find": {
-                    findTask();
-                    break;
-                }
-                default:
-                    System.out.println("Please enter a suitable task!");
+            case "todo": {
+                addTodo();
+                break;
             }
+            case "deadline": {
+                addDeadline();
+                break;
+            }
+            case "event": {
+                addEvent();
+                break;
+            }
+            case "delete": {
+                deleteTask();
+                break;
+            }
+            case "find": {
+                findTask();
+                break;
+            }
+            default:
+                ui.addPrintStatement("Please enter a suitable task!");
         }
-
-        ui.displayGoodbye();
-        storage.saveTasks();
-
 
     }
 
-    public static void main(String[] args) {
-
-        Duke duke = new Duke();
-        duke.run();
-
+    public String getResponse(String input) {
+        run(input);
+        return ui.getPrintStatement();
     }
 }
