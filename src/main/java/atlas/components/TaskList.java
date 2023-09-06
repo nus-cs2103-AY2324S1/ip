@@ -25,25 +25,33 @@ public class TaskList {
     }
 
     /**
-     * Marks task as done
-     * @param idx 0-based task index
-     * @return Task marked as undone
+     * Marks tasks as done
+     * @param idx One or more 0-based task indices
+     * @return Tasks marked as done
      */
-    public Task markTask(int idx) {
-        Task selectedTask = tasks.get(idx);
-        selectedTask.markDone();
-        return selectedTask;
+    public List<Task> markTasks(int... idx) {
+        List<Task> markedTasks = new ArrayList<>();
+        for (int i : idx) {
+            Task selectedTask = tasks.get(i);
+            selectedTask.markDone();
+            markedTasks.add(selectedTask);
+        }
+        return markedTasks;
     }
 
     /**
      * Marks task as not done
-     * @param idx 0-based task index
-     * @return Task marked as undone
+     * @param idx One or more 0-based task indices
+     * @return Tasks marked as undone
      */
-    public Task unmarkTask(int idx) {
-        Task selectedTask = tasks.get(idx);
-        selectedTask.markNotDone();
-        return selectedTask;
+    public List<Task> unmarkTasks(int... idx) {
+        List<Task> unmarkedTasks = new ArrayList<>();
+        for (int i : idx) {
+            Task selectedTask = tasks.get(i);
+            selectedTask.markNotDone();
+            unmarkedTasks.add(selectedTask);
+        }
+        return unmarkedTasks;
     }
 
     /**
