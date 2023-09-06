@@ -1,8 +1,8 @@
-package duke.utilities;
+package echobot.utilities;
 
 import java.util.ArrayList;
 
-import duke.exceptions.InvalidTaskNumberException;
+import echobot.exceptions.InvalidTaskNumberException;
 
 /**
  * Contains the task list and its operations

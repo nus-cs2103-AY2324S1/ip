@@ -1,4 +1,4 @@
-package duke.exceptions;
+package echobot.exceptions;
 
 /**
  * Parent exception for all custom exceptions

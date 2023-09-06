@@ -1,17 +1,17 @@
-package duke.utilities;
+package echobot.utilities;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import duke.exceptions.DukeException;
-import duke.exceptions.EmptyListException;
-import duke.exceptions.InvalidCommandException;
-import duke.exceptions.InvalidCommandSyntaxException;
-import duke.exceptions.InvalidTaskNumberException;
-import duke.exceptions.InvalidTaskTimeException;
-import duke.exceptions.MissingTaskDescriptionException;
-import duke.exceptions.MissingTaskNameException;
-import duke.exceptions.MissingTaskNumberException;
+import echobot.exceptions.DukeException;
+import echobot.exceptions.EmptyListException;
+import echobot.exceptions.InvalidCommandException;
+import echobot.exceptions.InvalidCommandSyntaxException;
+import echobot.exceptions.InvalidTaskNumberException;
+import echobot.exceptions.InvalidTaskTimeException;
+import echobot.exceptions.MissingTaskDescriptionException;
+import echobot.exceptions.MissingTaskNameException;
+import echobot.exceptions.MissingTaskNumberException;
 
 /**
  * Handles user interaction

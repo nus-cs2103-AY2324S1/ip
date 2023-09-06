@@ -1,4 +1,4 @@
-package duke.utilities;
+package echobot.utilities;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

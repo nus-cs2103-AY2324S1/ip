@@ -1,4 +1,4 @@
-package duke.utilities;
+package echobot.utilities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

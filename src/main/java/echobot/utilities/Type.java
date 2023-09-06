@@ -1,4 +1,4 @@
-package duke.utilities;
+package echobot.utilities;
 
 /**
  * Enum class to declare types of tasks

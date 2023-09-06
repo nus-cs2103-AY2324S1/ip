@@ -1,10 +1,10 @@
-package duke;
+package echobot;
 
-import duke.utilities.Input;
-import duke.utilities.Parser;
-import duke.utilities.Storage;
-import duke.utilities.TaskList;
-import duke.utilities.Ui;
+import echobot.utilities.Input;
+import echobot.utilities.Parser;
+import echobot.utilities.Storage;
+import echobot.utilities.TaskList;
+import echobot.utilities.Ui;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -20,9 +20,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * The main class for Duke Chatbot
+ * The main class for EchoBot Chatbot
  */
-public class Duke extends Application {
+public class EchoBot extends Application {
 
     /** File path to the tasks.txt */
     public static final String FILE_PATH = "./tasks.txt";
@@ -51,9 +51,9 @@ public class Duke extends Application {
     private Parser parser;
 
     /**
-     * Creates a new instance of Duke chatbot
+     * Creates a new instance of EchoBot chatbot
      */
-    public Duke() {
+    public EchoBot() {
         ui = new Ui();
         parser = new Parser();
         storage = new Storage(FILE_PATH);
@@ -65,7 +65,7 @@ public class Duke extends Application {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing EchoBot's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
@@ -73,7 +73,7 @@ public class Duke extends Application {
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                DialogBox.getEchoBotDialog(dukeText, new ImageView(duke))
         );
         userInput.clear();
     }
@@ -83,7 +83,7 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return "Duke heard: " + input;
+        return "EchoBot heard: " + input;
     }
 
     /**
@@ -101,7 +101,7 @@ public class Duke extends Application {
     }
 
     public static void main(String[] args) {
-        new Duke().run();
+        new EchoBot().run();
     }
 
     @Override
@@ -126,7 +126,7 @@ public class Duke extends Application {
         stage.show();
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("EchoBot");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);

@@ -1,4 +1,4 @@
-package duke.utilities;
+package echobot.utilities;
 
 /**
  * Deals with storing input data

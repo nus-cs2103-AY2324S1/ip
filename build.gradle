@@ -44,11 +44,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("echobot.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "echobot"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

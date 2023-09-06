@@ -1,4 +1,4 @@
-package duke.exceptions;
+package echobot.exceptions;
 
 /**
  * Exception class that indicates the task has no name

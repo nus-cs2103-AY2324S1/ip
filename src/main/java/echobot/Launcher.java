@@ -1,12 +1,12 @@
-package duke;
+package echobot;
 
 import javafx.application.Application;
 
 /**
- * A launcher class to workaround classpath issues.
+ * A launcher class to workaround classpath issues
  */
 public class Launcher {
     public static void main(String[] args) {
-        Application.launch(Duke.class, args);
+        Application.launch(EchoBot.class, args);
     }
 }

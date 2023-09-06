@@ -1,4 +1,4 @@
-package duke.exceptions;
+package echobot.exceptions;
 
 /**
  * Exception class that indicates there is missing information on time inputs

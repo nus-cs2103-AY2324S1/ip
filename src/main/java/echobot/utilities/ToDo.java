@@ -1,4 +1,4 @@
-package duke.utilities;
+package echobot.utilities;
 
 /**
  * Class to declare a Todo task
