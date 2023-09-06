@@ -1,10 +1,11 @@
 package duke;
 
+import duke.exceptions.DukeException;
+import duke.parser.Parser;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import duke.TaskList;
-import duke.Parser;
 
 import java.util.ArrayList;
 

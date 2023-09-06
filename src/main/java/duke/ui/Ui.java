@@ -1,4 +1,7 @@
-package duke;
+package duke.ui;
+
+import duke.tasks.Task;
+import duke.tasks.TaskList;
 
 public class Ui {
     private static final String BAR = "____________________________________________________________";

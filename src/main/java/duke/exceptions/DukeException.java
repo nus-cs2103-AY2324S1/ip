@@ -1,6 +1,6 @@
-package duke;
+package duke.exceptions;
 
-class DukeException extends Exception {
+public class DukeException extends Exception {
     /**
      * Throws an exception for the Duke program.
      *

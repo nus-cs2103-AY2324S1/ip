@@ -1,6 +1,6 @@
-package duke;
+package duke.tasks;
 
-class Todo extends Task{
+class Todo extends Task {
     private final char taskType = 'T';
 
     public Todo(String name) {

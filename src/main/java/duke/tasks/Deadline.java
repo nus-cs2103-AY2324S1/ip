@@ -1,10 +1,10 @@
-package duke;
+package duke.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-class Deadline extends Task {
+public class Deadline extends Task {
     private final char taskType = 'D';
     private LocalDate date;
     private boolean hasDate = false;
@@ -21,7 +21,8 @@ class Deadline extends Task {
     }
 
     /**
-     * Returns string representation of deadline, including marked or not, date of deadline and contents.
+     * Returns string representation of deadline, including marked or not, date of
+     * deadline and contents.
      *
      * @return String representation of the deadline.
      */

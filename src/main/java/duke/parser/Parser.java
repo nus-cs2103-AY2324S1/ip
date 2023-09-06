@@ -1,12 +1,17 @@
-package duke;
+package duke.parser;
+
+import duke.exceptions.DukeException;
+import duke.dataFile.Storage;
+import duke.ui.Ui;
+import duke.tasks.TaskList;
 
 public class Parser {
-    enum modifyStatus {
+    public enum modifyStatus {
         MARK,
         UNMARK
     }
 
-    enum taskType {
+    public enum taskType {
         EVENT,
         DEADLINE,
         TODO

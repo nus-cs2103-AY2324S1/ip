@@ -123,7 +123,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>duke.TaskList</li>
+<li>duke.tasks.TaskList</li>
 </ul>
 </li>
 </ul>
@@ -140,7 +140,7 @@ extends java.lang.Object
 implements java.io.Serializable</pre>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../serialized-form.html#duke.TaskList">Serialized Form</a></dd>
+<dd><a href="../serialized-form.html#duke.tasks.TaskList">Serialized Form</a></dd>
 </dl>
 </li>
 </ul>
@@ -212,7 +212,7 @@ implements java.io.Serializable</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addItem(duke.Parser.taskType,java.lang.String)">addItem</a></span>&#8203;(duke.Parser.taskType&nbsp;task,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addItem(duke.parser.Parser.taskType,java.lang.String)">addItem</a></span>&#8203;(duke.parser.Parser.taskType&nbsp;task,
        java.lang.String&nbsp;input)</code></th>
 <td class="colLast">
 <div class="block">Adds item to the list of tasks.</div>
@@ -270,7 +270,7 @@ implements java.io.Serializable</pre>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#modifyStatus(duke.Parser.modifyStatus,java.lang.String)">modifyStatus</a></span>&#8203;(duke.Parser.modifyStatus&nbsp;status,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#modifyStatus(duke.parser.Parser.modifyStatus,java.lang.String)">modifyStatus</a></span>&#8203;(duke.parser.Parser.modifyStatus&nbsp;status,
             java.lang.String&nbsp;input)</code></th>
 <td class="colLast">
 <div class="block">Marks/Un marks the task.</div>
@@ -369,51 +369,51 @@ implements java.io.Serializable</pre>
 <li class="blockList">
 <h4>deleteItem</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;deleteItem&#8203;(java.lang.String&nbsp;input)
-                throws duke.DukeException</pre>
+                throws duke.exceptions.DukeException</pre>
 <div class="block">Removes an item from the list of tasks.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>input</code> - input from the user.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>duke.DukeException</code> - Lets the user know if task cannot be removed.</dd>
+<dd><code>duke.exceptions.DukeException</code> - Lets the user know if task cannot be removed.</dd>
 </dl>
 </li>
 </ul>
-<a id="addItem(duke.Parser.taskType,java.lang.String)">
+<a id="addItem(duke.parser.Parser.taskType,java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>addItem</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;addItem&#8203;(duke.Parser.taskType&nbsp;task,
+<pre class="methodSignature">public&nbsp;void&nbsp;addItem&#8203;(duke.parser.Parser.taskType&nbsp;task,
                     java.lang.String&nbsp;input)
-             throws duke.DukeException</pre>
+             throws duke.exceptions.DukeException</pre>
 <div class="block">Adds item to the list of tasks.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>task</code> - type of task.</dd>
 <dd><code>input</code> - input from the user.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>duke.DukeException</code> - Lets the user know if the task cannot be added.</dd>
+<dd><code>duke.exceptions.DukeException</code> - Lets the user know if the task cannot be added.</dd>
 </dl>
 </li>
 </ul>
-<a id="modifyStatus(duke.Parser.modifyStatus,java.lang.String)">
+<a id="modifyStatus(duke.parser.Parser.modifyStatus,java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>modifyStatus</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;modifyStatus&#8203;(duke.Parser.modifyStatus&nbsp;status,
+<pre class="methodSignature">public&nbsp;void&nbsp;modifyStatus&#8203;(duke.parser.Parser.modifyStatus&nbsp;status,
                          java.lang.String&nbsp;input)
-                  throws duke.DukeException</pre>
+                  throws duke.exceptions.DukeException</pre>
 <div class="block">Marks/Un marks the task.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>status</code> - To mark of un mark the task.</dd>
 <dd><code>input</code> - input from the user.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>duke.DukeException</code> - Lets the user know if the task cannot be modified.</dd>
+<dd><code>duke.exceptions.DukeException</code> - Lets the user know if the task cannot be modified.</dd>
 </dl>
 </li>
 </ul>
@@ -500,13 +500,13 @@ implements java.io.Serializable</pre>
 <li class="blockList">
 <h4>checkOutOfBounds</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;checkOutOfBounds&#8203;(int&nbsp;index)
-                      throws duke.DukeException</pre>
+                      throws duke.exceptions.DukeException</pre>
 <div class="block">Checks of the index given exceeds the size of the list.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>index</code> - index to check.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>duke.DukeException</code> - Lets the user know if the index exceeds the list.</dd>
+<dd><code>duke.exceptions.DukeException</code> - Lets the user know if the index exceeds the list.</dd>
 </dl>
 </li>
 </ul>
@@ -518,14 +518,14 @@ implements java.io.Serializable</pre>
 <h4>checkEmpty</h4>
 <pre class="methodSignature">public static&nbsp;void&nbsp;checkEmpty&#8203;(java.lang.String&nbsp;input,
                               java.lang.String&nbsp;taskName)
-                       throws duke.DukeException</pre>
+                       throws duke.exceptions.DukeException</pre>
 <div class="block">Checks if the input is empty.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>input</code> - input from the user.</dd>
 <dd><code>taskName</code> - content for the task.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>duke.DukeException</code> - Lets the user know if the description is invalid.</dd>
+<dd><code>duke.exceptions.DukeException</code> - Lets the user know if the description is invalid.</dd>
 </dl>
 </li>
 </ul>
