@@ -23,14 +23,18 @@ public class ParserTest {
 
     @Test
     public void testParseCommand() {
-        assertEquals(new Pair<>("", new HashMap<String, String>()), Parser.parseCommand(""));
-        assertEquals(new Pair<>("asdf", new HashMap<String, String>()), Parser.parseCommand("asdf"));
+        Map<String, String> m0 = new HashMap<>();
+        m0.put("", "");
+        assertEquals(new Pair<>("", m0), Parser.parseCommand(""));
+        assertEquals(new Pair<>("asdf", m0), Parser.parseCommand("asdf"));
         Map<String, String> m1 = new HashMap<>();
+        m1.put("", "");
         m1.put("arg1", "a");
         m1.put("arg2", "");
         assertEquals(new Pair<>("asdf", m1), Parser.parseCommand("asdf  /arg1 a /arg2 "));
         Map<String, String> m2 = new HashMap<>();
+        m2.put("", "a");
         m2.put("arg1", "1");
-        assertEquals(new Pair<>("asdf", m2), Parser.parseCommand("asdf  /arg1 /arg1 1"));
+        assertEquals(new Pair<>("asdf", m2), Parser.parseCommand("asdf a /arg1 /arg1 1"));
     }
 }
