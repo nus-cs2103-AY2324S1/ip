@@ -1,78 +1,73 @@
 package chadbod;
 
 /**
- * The Ui class handles user interface interactions by displaying messages to the user.
+ * The Ui class handles user interface interactions by generating messages as strings.
  */
 public class Ui {
     /**
-     * Displays a greeting message to the user.
+     * Generates a farewell message as a string.
      */
-    public void showGreeting() {
-        System.out.println("Hello! I'm ChadBod.");
-        System.out.println("What can I do for you?");
+    public String displayFarewell() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
-     * Displays a farewell message to the user.
-     */
-    public void showFarewell() {
-        System.out.println("Bye. Hope to see you again soon!");
-    }
-
-    /**
-     * Prints an error message to the console.
+     * Generates an error message as a string.
      *
-     * @param str The error message to be displayed.
+     * @param str The error message to be generated.
      */
-    public void printErrorMessage(String str) {
-        System.out.println(str);
+    public String displayErrorMessage(String str) {
+        return str;
     }
 
     /**
-     * Prints a status update message for a task.
+     * Generates a status update message for a task as a string.
      *
      * @param done If true, the task is marked as done; if false, marked as not done.
-     * @param task The task for which the status update is displayed.
+     * @param task The task for which the status update message is generated.
      */
-    public void printStatusUpdate(Boolean done, Task task) {
+    public String displayStatusUpdate(Boolean done, Task task) {
         if (done) {
-            System.out.println("Nice! I've marked this task as done:");
+            StringBuilder s = new StringBuilder("Nice! I've marked this task as done:\n");
+            s.append(task).append("\n");
+            return s.toString();
         } else {
-            System.out.println("OK, I've marked this task as not done yet:");
+            return "OK, I've marked this task as not done yet:\n" + task + "\n";
         }
-        System.out.printf("%s\n", task);
     }
 
     /**
-     * Prints a message indicating that a given task has been added as well as the new task count.
+     * Generates a message indicating that a given task has been added as a string, as well as the new task count.
      *
      * @param newTask   The task that has been added.
      * @param taskCount The total number of tasks in the list after adding the new task.
      */
-    public void printTaskAddedMessage(Task newTask, int taskCount) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(newTask);
-        System.out.printf("Now you have %d tasks in the list.\n", taskCount);
+    public String displayTaskAddedMessage(Task newTask, int taskCount) {
+        StringBuilder s = new StringBuilder("Got it. I've added this task:\n");
+        s.append(newTask).append("\n");
+        s.append("Now you have ").append(taskCount).append(" tasks in the list.\n");
+        return s.toString();
     }
 
     /**
-     * Prints a message indicating that a given task has been removed as well as the new task count.
+     * Generates a message indicating that a given task has been removed as a string, as well as the new task count.
      *
      * @param removedTask The task that has been removed.
      * @param taskCount   The total number of tasks in the list after removing the task.
      */
-    public void printTaskRemovedMessage(Task removedTask, int taskCount) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.printf("%s\n", removedTask);
-        System.out.printf("Now you have %d tasks in the list.\n", taskCount);
+    public String displayTaskRemovedMessage(Task removedTask, int taskCount) {
+        StringBuilder s = new StringBuilder("Noted. I've removed this task:\n");
+        s.append(removedTask).append("\n");
+        s.append("Now you have ").append(taskCount).append(" tasks in the list.\n");
+        return s.toString();
     }
 
     /**
-     * Prints the given list of tasks to the console.
+     * Generates the string representation of the given list of tasks.
      *
-     * @param tasks The list of tasks to be printed.
+     * @param tasks The list of tasks to be represented as a string.
      */
-    public void printTasks(TaskList tasks) {
-        System.out.print(tasks);
+    public String displayTasks(TaskList tasks) {
+        return tasks.toString();
     }
 }

@@ -2,8 +2,12 @@ package chadbod;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 
 /**
  * The ChadBod class represents a task management application.
@@ -15,9 +19,21 @@ public class ChadBod {
     private TaskList tasks;
     private Ui ui;
 
+    // JavaFX components
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
 
     /**
-     * Constructs a ChadBod instance.
+     * Constructs a ChadBod instance using a default (pre-set) filepath "./data/tasks.txt".
+     */
+    public ChadBod() {
+        this(FILE_PATH);
+    }
+    /**
+     * Constructs a ChadBod instance using the given filepath.
      *
      * @param filePath the file path for storing task data.
      */
@@ -27,86 +43,82 @@ public class ChadBod {
         try {
             tasks = storage.loadTasks();
         } catch (ChadBodException e) {
-            ui.printErrorMessage(e.getMessage());
+            ui.displayErrorMessage(e.getMessage());
             tasks = new TaskList();
         }
     }
-
     /**
-     * Starts the ChadBod application.
+     * Parses the given user input, runs it if it is a valid command and generates a response string.
+     *
+     * @param input The user input to parse.
+     * @return A response string generated based on the user input.
      */
-    public void run() {
-        ui.showGreeting();
-        Scanner sc = new Scanner(System.in);
-        boolean shouldExit = false;
-
-        while (!shouldExit) {
-            String input = sc.nextLine();
-            try {
-                ParsedCommand parsedCommand = Parser.parseCommand(input);
-                String details = parsedCommand.getDetails();
-                switch (parsedCommand.getCommand()) {
-                case BYE:
-                    ui.showFarewell();
-                    shouldExit = true;
-                    break;
-                case LIST:
-                    ui.printTasks(tasks);
-                    break;
-                case MARK:
-                    int markTaskNumber = getTaskNumber(details);
-                    Task markedTask = tasks.getTask(markTaskNumber);
-                    markedTask.markDone();
-                    ui.printStatusUpdate(true, markedTask);
-                    storage.saveTasks(tasks);
-                    break;
-                case UNMARK:
-                    int unmarkTaskNumber = getTaskNumber(details);
-                    Task unmarkedTask = tasks.getTask(unmarkTaskNumber);
-                    unmarkedTask.markUndone();
-                    ui.printStatusUpdate(false, unmarkedTask);
-                    storage.saveTasks(tasks);
-                    break;
-                case TODO:
-                    if (details.isEmpty()) {
-                        throw new InvalidTaskException("Description of todo cannot be empty.");
-                    }
-                    Todo newTodo = new Todo(details);
-                    tasks.addTask(newTodo);
-                    ui.printTaskAddedMessage(newTodo, tasks.getTaskCount());
-                    storage.saveTasks(tasks);
-                    break;
-                case DEADLINE:
-                    Deadline newDeadline = createDeadline(details);
-                    tasks.addTask(newDeadline);
-                    ui.printTaskAddedMessage(newDeadline, tasks.getTaskCount());
-                    storage.saveTasks(tasks);
-                    break;
-                case EVENT:
-                    Event newEvent = createEvent(details);
-                    tasks.addTask(newEvent);
-                    ui.printTaskAddedMessage(newEvent, tasks.getTaskCount());
-                    storage.saveTasks(tasks);
-                    break;
-                case DELETE:
-                    int taskNumber = getTaskNumber(details);
-                    Task removedTask = tasks.removeTask(taskNumber);
-                    ui.printTaskRemovedMessage(removedTask, tasks.getTaskCount());
-                    storage.saveTasks(tasks);
-                    break;
-                case FIND:
-                    TaskList matchingTasks = tasks.findTasksByKeyword(details);
-                    ui.printTasks(matchingTasks);
-                    break;
-                default:
-                    throw new InvalidInputException();
+    public String getResponse(String input) {
+        String outcome;
+        try {
+            ParsedCommand parsedCommand = Parser.parseCommand(input);
+            String details = parsedCommand.getDetails();
+            switch (parsedCommand.getCommand()) {
+            case BYE:
+                outcome = ui.displayFarewell();
+                break;
+            case LIST:
+                outcome = ui.displayTasks(tasks);
+                break;
+            case MARK:
+                int markTaskNumber = getTaskNumber(details);
+                Task markedTask = tasks.getTask(markTaskNumber);
+                storage.saveTasks(tasks);
+                markedTask.markDone();
+                outcome = ui.displayStatusUpdate(true, markedTask);
+                break;
+            case UNMARK:
+                int unmarkTaskNumber = getTaskNumber(details);
+                Task unmarkedTask = tasks.getTask(unmarkTaskNumber);
+                unmarkedTask.markUndone();
+                storage.saveTasks(tasks);
+                outcome = ui.displayStatusUpdate(false, unmarkedTask);
+                break;
+            case TODO:
+                if (details.isEmpty()) {
+                    throw new InvalidTaskException("Description of todo cannot be empty.");
                 }
-            } catch (NumberFormatException e) {
-                ui.printErrorMessage("☹ OOPS!!! Invalid task index.");
-            } catch (ChadBodException e) {
-                ui.printErrorMessage(e.getMessage());
+                Todo newTodo = new Todo(details);
+                tasks.addTask(newTodo);
+                storage.saveTasks(tasks);
+                outcome = ui.displayTaskAddedMessage(newTodo, tasks.getTaskCount());
+                break;
+            case DEADLINE:
+                Deadline newDeadline = createDeadline(details);
+                tasks.addTask(newDeadline);
+                storage.saveTasks(tasks);
+                outcome = ui.displayTaskAddedMessage(newDeadline, tasks.getTaskCount());
+                break;
+            case EVENT:
+                Event newEvent = createEvent(details);
+                tasks.addTask(newEvent);
+                storage.saveTasks(tasks);
+                outcome = ui.displayTaskAddedMessage(newEvent, tasks.getTaskCount());
+                break;
+            case DELETE:
+                int taskNumber = getTaskNumber(details);
+                Task removedTask = tasks.removeTask(taskNumber);
+                storage.saveTasks(tasks);
+                outcome = ui.displayTaskRemovedMessage(removedTask, tasks.getTaskCount());
+                break;
+            case FIND:
+                TaskList matchingTasks = tasks.findTasksByKeyword(details);
+                outcome = ui.displayTasks(matchingTasks);
+                break;
+            default:
+                throw new InvalidInputException();
             }
+        } catch (NumberFormatException e) {
+            outcome = ui.displayErrorMessage("☹ OOPS!!! Invalid task index.");
+        } catch (ChadBodException e) {
+            outcome = ui.displayErrorMessage(e.getMessage());
         }
+        return outcome;
     }
 
     private int getTaskNumber(String details) throws NumberFormatException, TaskIndexOutOfBoundsException {
@@ -130,7 +142,7 @@ public class ChadBod {
         try {
             byDate = LocalDateTime.parse(deadlineDetails[1]);
         } catch (DateTimeParseException e) {
-            throw new InvalidTaskException("Deadline due date/time not in ISO format. (e.g. 2007-12-03T10:15:30)");
+            throw new InvalidTaskException("Deadline due date/time not in ISO format (e.g. 2007-12-03T10:15:30).");
         }
         return new Deadline(deadlineDetails[0], byDate);
     }
@@ -160,17 +172,8 @@ public class ChadBod {
             fromDate = LocalDateTime.parse(eventTimings[0]);
             toDate = LocalDateTime.parse(eventTimings[1]);
         } catch (DateTimeParseException e) {
-            throw new InvalidTaskException("Deadline due date/time not in ISO format. (e.g. 2007-12-03T10:15:30)");
+            throw new InvalidTaskException("Deadline due date/time not in ISO format (e.g. 2007-12-03T10:15:30).");
         }
         return new Event(eventDetails[0], fromDate, toDate);
-    }
-
-    /**
-     * The entry point for the ChadBod application.
-     *
-     * @param args Command-line arguments (not used in this application).
-     */
-    public static void main(String[] args) {
-        new ChadBod(FILE_PATH).run();
     }
 }
