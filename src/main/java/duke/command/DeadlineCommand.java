@@ -31,12 +31,13 @@ public class DeadlineCommand extends Command {
      *
      * @param tasks The task list.
      * @param ui    The user interface.
+     * @return The response to the user input.
      */
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         Task task = new Deadline(description, by);
         tasks.addTask(task);
-        ui.showDeadlineMessage(task);
-        ui.showTaskListSizeMessage(tasks.getSize(), true);
+        return ui.showDeadlineMessage(task) + "\n" +
+                ui.showTaskListSizeMessage(tasks.getSize(), true);
     }
 
     @Override

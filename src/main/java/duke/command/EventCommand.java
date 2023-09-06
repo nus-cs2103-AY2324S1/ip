@@ -34,12 +34,12 @@ public class EventCommand extends Command {
      *
      * @param tasks The task list.
      * @param ui    The user interface.
+     * @return The response to the user input.
      */
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         Task task = new Event(description, from, to);
         tasks.addTask(task);
-        ui.showEventMessage(task);
-        ui.showTaskListSizeMessage(tasks.getSize(), true);
+        return ui.showEventMessage(task) + ui.showTaskListSizeMessage(tasks.getSize(), true);
     }
 
     @Override

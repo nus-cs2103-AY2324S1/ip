@@ -31,6 +31,7 @@ public abstract class Command {
      *
      * @param tasks The task list.
      * @param ui    The user interface.
+     * @return The response to the user input.
      */
-    public abstract void execute(TaskList tasks, Ui ui);
+    public abstract String execute(TaskList tasks, Ui ui);
 }

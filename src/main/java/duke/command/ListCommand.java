@@ -20,9 +20,10 @@ public class ListCommand extends Command {
      *
      * @param tasks The task list.
      * @param ui    The user interface.
+     * @return The response to the user input.
      */
-    public void execute(TaskList tasks, Ui ui) {
-        ui.listTasks(tasks, false);
+    public String execute(TaskList tasks, Ui ui) {
+        return ui.listTasks(tasks, false);
     }
 
     @Override

@@ -28,14 +28,15 @@ public class MarkCommand extends Command {
      * @param tasks The task list.
      * @param ui    The user interface.
      * @throws IndexOutOfBoundsException If the task number is invalid.
+     * @return The response to the user input.
      */
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         try {
             Task task = tasks.getTask(taskNum - 1);
             task.changeStatus(true);
-            ui.showMarkTaskMessage(task);
+            return ui.showMarkTaskMessage(task);
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("You have no such task, mortal.");
+            return ui.showError("You have no such task, mortal.");
         }
     }
 
