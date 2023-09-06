@@ -1,3 +1,8 @@
 [T][X] homework
 [D][X] do this (by: 2012-12-20)
 [D][ ] fish (by: 2000-12-20)
+[T][ ] homework
+[D][ ] cook (by: 2022-12-20)
+[T][X] homework
+[D][ ] hw2 (by: 2012-01-12)
+[E][ ] party (from: monday to: tuesday)
