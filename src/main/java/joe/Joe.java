@@ -35,6 +35,11 @@ public class Joe {
         }
     }
 
+    public Joe() {
+        ui = new Ui();
+        storage = new Storage("joe.txt");
+    }
+
     /**
      * Starts the Joe application.
      */
@@ -58,6 +63,14 @@ public class Joe {
             }
         }
 
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    protected String getResponse(String input) {
+        return "Joe heard: " + input;
     }
 
     /**
