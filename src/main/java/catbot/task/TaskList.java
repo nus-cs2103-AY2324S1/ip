@@ -1,9 +1,31 @@
 package catbot.task;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-public class TaskList extends ArrayList<Task> {
+public class TaskList {
+
+    private ArrayList<Task> tasks;
+    private final String path;
+
+    public TaskList(String path) {
+        this.path = path;
+        this.tasks = new ArrayList<>();
+        readSerializedFromFile();
+    }
+
+
+    public void addTask(Task task) {
+        tasks.add(task);
+        update();
+    }
+
+    public Task removeTask(int index) {
+        Task removed = tasks.remove(index);
+        update();
+        return removed;
+    }
 
     public void ifValidIndexElse(int index, Consumer<Integer> ifValid, Consumer<Integer> otherwise) {
         Bounds bounds = getIndexBounds();
@@ -15,7 +37,7 @@ public class TaskList extends ArrayList<Task> {
     }
 
     public Bounds getIndexBounds() {
-        return new Bounds(1, super.size());
+        return new Bounds(1, tasks.size());
     }
 
     public static class Bounds {
@@ -32,15 +54,55 @@ public class TaskList extends ArrayList<Task> {
     }
 
     public void markTask(int index) {
-        super.get(index).setDone();
+        tasks.get(index).setDone();
+        update();
     }
 
     public void unmarkTask(int index) {
-        super.get(index).setUndone();
+        tasks.get(index).setUndone();
+        update();
     }
 
-    public Task removeTask(int index) {
-        return super.remove(index);
+    public int size() {
+        return tasks.size();
     }
+
+    public Task getTask(int index) {
+        return tasks.get(index);
+    }
+
+    public ArrayList<Task> getTasks() { //todo clean up and also clear up every returned reference for tasks
+        return tasks;
+    }
+
+    private void update() {
+        writeSerializedToFile();
+    }
+
+    //region FileIO
+
+    private void writeSerializedToFile() {
+        try {
+            ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path));
+            output.writeObject(this.tasks);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void readSerializedFromFile() {
+        try {
+            ObjectInputStream input = new ObjectInputStream(new FileInputStream(path));
+            Object readObject = input.readObject();
+            //noinspection unchecked
+            tasks = (ArrayList<Task>) readObject;
+            input.close();
+        } catch (IOException ignored) {
+        } catch (ClassNotFoundException e) { //save corrupted
+            throw new RuntimeException(e);
+        }
+    }
+
+    //endregion
 
 }

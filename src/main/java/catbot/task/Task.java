@@ -3,10 +3,11 @@ package catbot.task;
 import catbot.internal.NamedParameterMap;
 import catbot.io.ErrorIndicatorIo.InvalidState;
 
+import java.io.Serializable;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
-public abstract class Task {
+public abstract class Task implements Serializable {
 
     //region Fields
 

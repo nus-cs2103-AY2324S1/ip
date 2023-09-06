@@ -18,7 +18,7 @@ public class CatBot {
 
     private static final CommandMap commands = new CommandMap();
     static final UserIo io = new CatbotConsoleIO();
-    private static final TaskList taskList = new TaskList();
+    private static final TaskList taskList = new TaskList("Tasks.txt");
     static {
         addSupportedCommandsToCommandMap();
     }
@@ -72,7 +72,7 @@ public class CatBot {
                             namedParameterMap,
                             io::indicateArgumentInvalid
                     ).ifPresent(task -> {
-                        taskList.add(task);
+                        taskList.addTask(task);
                         io.printTaskAdded(taskList);
                     })
             );
@@ -96,12 +96,7 @@ public class CatBot {
         io.initialize();
         do {
             commandArgument = io.getNextCommand();
-//            System.out.println("---");
-//            System.out.println(commandArgument.getCommand());
-//            System.out.println(commandArgument.getArgument());
-//            System.out.println("---");
             commands.run(commandArgument.getCommand(), commandArgument.getArgument());
-
         } while (!Objects.equals(commandArgument.getCommand(), "bye"));
     }
 }

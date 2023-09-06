@@ -172,7 +172,7 @@ public class CatbotConsoleIO implements UserIo {
         int i = 1;
         int intlen = 0;
         for (int len = taskList.size(); len>0; intlen++) len/=10;
-        for (Task t : taskList) {
+        for (Task t : taskList.getTasks()) {
             send(String.format("%" + intlen + "d", i++) + ". " + t);
         }
     }
@@ -180,7 +180,7 @@ public class CatbotConsoleIO implements UserIo {
     @Override
     public void printTaskAdded(TaskList taskList) {
         int index = taskList.size()-1;
-        send("Added: " + (index+1) + ". " + taskList.get(index));
+        send("Added: " + (index+1) + ". " + taskList.getTask(index));
     }
 
     @Override
@@ -190,7 +190,7 @@ public class CatbotConsoleIO implements UserIo {
 
     @Override
     public void printTaskModified(TaskList taskList, int index) {
-        send((index+1) + ". " + taskList.get(index));
+        send((index+1) + ". " + taskList.getTask(index));
     }
     //endregion
 
