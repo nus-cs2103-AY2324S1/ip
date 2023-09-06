@@ -25,15 +25,18 @@ public class UnmarkTaskCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public CommandResult execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             tasks.markTaskAsNotDone(index);
             ui.printMessage(Message.UNMARK_TASK, "\t" + tasks.getTask(index));
             storage.saveTasksToFile(tasks);
+            return new CommandResult(Message.UNMARK_TASK, "\t" + tasks.getTask(index));
         } catch (DukeException e) {
             ui.showError(e.getMessage());
+            return new IncorrectCommand(e.getMessage()).execute(tasks, ui, storage);
         } catch (IOException e) {
             ui.showError(Message.FAILED_TO_SAVE + e.getMessage());
+            return new IncorrectCommand(Message.FAILED_TO_SAVE + e.getMessage()).execute(tasks, ui, storage);
         }
     }
 }

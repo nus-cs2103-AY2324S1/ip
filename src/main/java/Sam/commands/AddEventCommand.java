@@ -33,14 +33,15 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public CommandResult execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task event = new Event(this.description, this.from, this.to);
             tasks.addTask(event);
             ui.printMessage(Message.ADD_TASKS, "\t" + event, tasks.getTaskCountSummary());
             storage.saveTasksToFile(tasks);
+            return new CommandResult(Message.ADD_TASKS, "\t" + event, tasks.getTaskCountSummary());
         } catch (IOException e) {
-            ui.showError(Message.FAILED_TO_SAVE + e.getMessage());
+            return new IncorrectCommand(Message.FAILED_TO_SAVE + e.getMessage()).execute(tasks, ui, storage);
         }
     }
 

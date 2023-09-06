@@ -26,14 +26,16 @@ public class AddToDoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public CommandResult execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task todo = new ToDo(description);
             tasks.addTask(todo);
             ui.printMessage(Message.ADD_TASKS, "\t" + todo, tasks.getTaskCountSummary());
             storage.saveTasksToFile(tasks);
+            return new CommandResult(Message.ADD_TASKS, "\t" + todo, tasks.getTaskCountSummary());
         } catch (IOException e) {
             ui.showError(Message.FAILED_TO_SAVE + e.getMessage());
+            return new IncorrectCommand(Message.FAILED_TO_SAVE + e.getMessage()).execute(tasks, ui, storage);
         }
     }
 

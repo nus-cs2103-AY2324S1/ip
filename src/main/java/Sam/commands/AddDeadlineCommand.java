@@ -30,14 +30,16 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public CommandResult execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task deadline = new Deadline(this.description, this.by);
             tasks.addTask(deadline);
             ui.printMessage(Message.ADD_TASKS, "\t" + deadline, tasks.getTaskCountSummary());
             storage.saveTasksToFile(tasks);
+            return new CommandResult(Message.ADD_TASKS, "\t" + deadline, tasks.getTaskCountSummary());
         } catch (IOException e) {
             ui.showError(Message.FAILED_TO_SAVE + e.getMessage());
+            return new IncorrectCommand(Message.FAILED_TO_SAVE + e.getMessage()).execute(tasks, ui, storage);
         }
     }
 

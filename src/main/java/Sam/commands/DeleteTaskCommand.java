@@ -26,15 +26,18 @@ public class DeleteTaskCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public CommandResult execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task removedTask = tasks.deleteTask(index);
             ui.printMessage(Message.DELETE_TASK, "\t" + removedTask, tasks.getTaskCountSummary());
             storage.saveTasksToFile(tasks);
+            return new CommandResult(Message.DELETE_TASK, "\t" + removedTask, tasks.getTaskCountSummary());
         } catch (DukeException e) {
             ui.showError(e.getMessage());
+            return new IncorrectCommand(e.getMessage()).execute(tasks, ui, storage);
         } catch (IOException e) {
             ui.showError(Message.FAILED_TO_SAVE + e.getMessage());
+            return new IncorrectCommand(Message.FAILED_TO_SAVE + e.getMessage()).execute(tasks, ui, storage);
         }
     }
 }
