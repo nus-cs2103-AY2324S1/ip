@@ -19,11 +19,18 @@ public class Ui {
         printArray = new ArrayList<>();
     }
 
-
+    /**
+     * Adds input string to the print array.
+     * @param input the String to add to the print array
+     */
     public void addPrintStatement(String input) {
         printArray.add(input);
     }
 
+    /**
+     * Returns everything in the print array as a single string. Also resets the print array
+     * @return A string representing the output from duke.
+     */
     public String getPrintStatement() {
         StringBuilder output = new StringBuilder();
         for (String x : printArray) {
