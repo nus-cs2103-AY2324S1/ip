@@ -1,11 +1,11 @@
 package dogebot;
 
+import java.util.ArrayList;
+
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDos;
-
-import java.util.ArrayList;
 
 public class TaskList {
     private static ArrayList<Task> tasks;
@@ -42,7 +42,7 @@ public class TaskList {
         System.out.println("\t" + tasks.get(index).toString());
     }
 
-    public static void unmark (int index) throws DogeBotException {
+    public static void unmark(int index) throws DogeBotException {
         if (tasks.size() == 0) {
             throw new DogeBotException("Oops ! Try adding some tasks first c:");
         }
