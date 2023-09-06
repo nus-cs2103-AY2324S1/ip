@@ -13,9 +13,9 @@ import java.util.regex.Pattern;
  */
 public class TaskList {
     /** List of tasks. **/
-    ArrayList<Task> list;
+    private ArrayList<Task> list;
     /** File storing information to create the list of tasks. **/
-    File startFile;
+    private File startFile;
 
     /**
      * Instantiates an instance of TaskList.
@@ -28,6 +28,7 @@ public class TaskList {
         Scanner scan = new Scanner(System.in);
         try {
             Scanner fileScan = new Scanner(startFile);
+            DateTimeFormatter fileDateFormat = DateTimeFormatter.ofPattern("MMM d yyyy HHmm");
             while (fileScan.hasNext()) {
                 String taskString = fileScan.nextLine();
                 if (taskString.charAt(0) == 'T') {
@@ -38,7 +39,7 @@ public class TaskList {
                     list.add(task);
                 } else if (taskString.charAt(0) == 'D') {
                     String[] details = taskString.substring(8).split(Pattern.quote(" | "));
-                    LocalDateTime dateTime = LocalDateTime.parse(details[1], DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
+                    LocalDateTime dateTime = LocalDateTime.parse(details[1], fileDateFormat);
                     Task task = new Deadline(details[0], dateTime);
                     if (taskString.charAt(4) == '1') {
                         task.setMark(true);
@@ -47,8 +48,8 @@ public class TaskList {
                 } else if (taskString.charAt(0) == 'E') {
                     String[] details = taskString.substring(8).split(Pattern.quote(" | "));
                     String[] duration = details[1].split(" -> ");
-                    LocalDateTime fromDateTime = LocalDateTime.parse(duration[0], DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
-                    LocalDateTime toDateTime = LocalDateTime.parse(duration[1], DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
+                    LocalDateTime fromDateTime = LocalDateTime.parse(duration[0], fileDateFormat);
+                    LocalDateTime toDateTime = LocalDateTime.parse(duration[1], fileDateFormat);
                     Task task = new Event(details[0], fromDateTime, toDateTime);
                     if (taskString.charAt(4) == '1') {
                         task.setMark(true);
@@ -136,6 +137,12 @@ public class TaskList {
         return list.size();
     }
 
+    /**
+     * Returns a list of tasks being search for.
+     *
+     * @param search Task being searched.
+     * @return List of tasks that contain the string search.
+     */
     public String showSpecificTasks(String search) {
         String selectedTasks = "";
         for (int i = 0; i < list.size(); i++) {

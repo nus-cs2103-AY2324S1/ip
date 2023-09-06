@@ -23,7 +23,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + this.dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + ")";
     }
 
     @Override
@@ -34,6 +35,7 @@ public class Deadline extends Task {
         } else {
             mark = 0;
         }
-        return "D | " + mark + " | " + super.writeToFile() + " | " + this.dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
+        return "D | " + mark + " | " + super.writeToFile() + " | "
+                + this.dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
     }
 }

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * The Storage class represents the file information.
@@ -13,7 +12,7 @@ public class Storage {
     /** The file's information **/
     private File file;
     /** The file path **/
-    String filePath;
+    private String filePath;
 
     /**
      * Instantiates an instance of Storage.
