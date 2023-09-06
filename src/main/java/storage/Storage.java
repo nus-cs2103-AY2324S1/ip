@@ -24,29 +24,29 @@ public class Storage {
     private TaskList taskList;
     private ObjectMapper taskMapper;
 
-  /**
-   * Initializes the Storage object with the provided TaskList. The TaskList object passed as a
-   * parameter will be populated with tasks from the "task.json" file.
-   *
-   * @param tasks The TaskList object to be initialized with tasks from the file.
-   */
-  public Storage(TaskList tasks) {
-    this.taskList = tasks;
-    this.taskMapper = new ObjectMapper();
-    this.taskMapper.registerModule(new JavaTimeModule());
-    PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
-        .allowIfSubType("java.util.ArrayList")
-        .allowIfSubType("ReceivedTasks")
-        .allowIfSubType("tasks.Task")
-        .build();
-    this.taskMapper.activateDefaultTyping(ptv, DefaultTyping.NON_FINAL);
-    this.taskMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
-  }
+    /**
+     * Initializes the Storage object with the provided TaskList. The TaskList object passed as a
+     * parameter will be populated with tasks from the "task.json" file.
+     *
+     * @param tasks The TaskList object to be initialized with tasks from the file.
+     */
+    public Storage(TaskList tasks) {
+        this.taskList = tasks;
+        this.taskMapper = new ObjectMapper();
+        this.taskMapper.registerModule(new JavaTimeModule());
+        PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
+            .allowIfSubType("java.util.ArrayList")
+            .allowIfSubType("ReceivedTasks")
+            .allowIfSubType("tasks.Task")
+            .build();
+        this.taskMapper.activateDefaultTyping(ptv, DefaultTyping.NON_FINAL);
+        this.taskMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
+    }
 
-  /**
-   * Loads tasks from the "tasks.json" file.
-   */
-  public void loadTasks() {
+    /**
+     * Loads tasks from the "tasks.json" file.
+     */
+    public void loadTasks() {
 
         try {
             Path filePath = Paths.get("tasks.json");
@@ -64,10 +64,10 @@ public class Storage {
     }
 
 
-  /**
-   * Saves tasks from the current TaskList to the "tasks.json" file.
-   */
-  public void saveTasks() {
+    /**
+     * Saves tasks from the current TaskList to the "tasks.json" file.
+     */
+    public void saveTasks() {
 
         try {
 

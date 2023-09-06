@@ -1,12 +1,11 @@
 package duke;
 
 import exceptions.ParserException;
+
+import javafx.application.Platform;
 import io.Parser;
 import io.Ui;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 import storage.Storage;
 import tasks.Task;
 import tasks.TaskList;
@@ -42,7 +41,7 @@ public class Duke {
 
             String index = Integer.toString(i + 1);
             Task selectedTask = taskList.get(i);
-            System.out.println(index + " " + ui.displayTask(selectedTask));
+            ui.addPrintStatement(index + " " + ui.displayTask(selectedTask));
 
         }
     }
@@ -144,6 +143,8 @@ public class Duke {
             case "bye":
                 ui.displayGoodbye();
                 storage.saveTasks();
+                Platform.exit();
+                System.exit(0);
                 break;
             case "list":
                 listTasks();
@@ -185,20 +186,5 @@ public class Duke {
     public String getResponse(String input) {
         run(input);
         return ui.getPrintStatement();
-    }
-
-    public static void main(String[] args) {
-
-        Duke duke = new Duke();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println(duke.start());
-        String newinp = "";
-        while (true) {
-            newinp = scanner.nextLine();
-            System.out.println(duke.getResponse(newinp));
-        }
-
-//        duke.run();
-
     }
 }
