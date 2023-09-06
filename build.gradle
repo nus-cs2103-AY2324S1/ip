@@ -33,6 +33,7 @@ application {
 
 shadowJar {
     archiveBaseName = "tong"
+    archiveFileName = 'tong.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

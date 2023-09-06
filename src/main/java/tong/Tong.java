@@ -4,6 +4,10 @@ import tong.command.Command;
 import tong.command.CommandResult;
 import tong.command.ExitCommand;
 
+/**
+ * Entry point of the TaskList application.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Tong {
     private Storage storage;
     private TaskList tasks;
@@ -17,6 +21,9 @@ public class Tong {
         parser = new Parser();
     }
 
+    /**
+     * Runs the program until termination.
+     */
     public void run() {
         ui.showWelcomeMessage();
         boolean isExit = false;
