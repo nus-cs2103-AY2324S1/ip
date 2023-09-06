@@ -18,115 +18,116 @@ public class Ui {
     }
 
     /**
-     * Displays a welcome message when Duke starts.
+     * Displays a welcome message when Duke starts and returns it as a String.
      */
-    public static void showWelcome() {
+    public String showWelcome() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\t Hello! I'm Duke.");
-        System.out.println("\t What can I do for you?");
-        System.out.println("\t____________________________________________________________");
+        String welcomeMessage = "Hello from\n" + logo + "\n"
+                + "\t____________________________________________________________\n"
+                + "\t Hello! I'm Duke.\n"
+                + "\t What can I do for you?\n"
+                + "\t____________________________________________________________";
+        return welcomeMessage;
     }
 
     /**
-     * Displays an exit message when Duke is exited.
+     * Displays an exit message when Duke is exited and returns it as a String.
      */
-    public static void showExit() {
-        System.out.println("\t Bye. Hope to see you again soon!");
+    public String showExit() {
+        return "\t Bye. Hope to see you again soon!";
     }
 
     /**
-     * Displays an error message when loading tasks from storage fails.
+     * Displays an error message when loading tasks from storage fails and returns it as a String.
      */
-    public static void showLoadingError() {
-        System.out.println("No saved tasks found.");
+    public String showLoadingError() {
+        return "No saved tasks found.";
     }
 
     /**
-     * Displays an error message with the provided error message.
+     * Displays an error message with the provided error message and returns it as a String.
      *
      * @param errorMessage The error message to display.
      */
-
-    public static void showError(String errorMessage) {
-        System.out.println(errorMessage);
+    public String showError(String errorMessage) {
+        return errorMessage;
     }
 
     /**
-     * Displays a horizontal line separator.
+     * Returns a horizontal line separator as a String.
      */
-    public static void showLine() {
-        System.out.println("\t____________________________________________________________");
+    public String showLine() {
+        return "\t____________________________________________________________";
     }
 
     /**
-     * Displays a message when a task is added.
+     * Returns a message when a task is added as a String.
      *
      * @param task The task that was added.
      * @param size The number of tasks in the list after adding.
      */
-    public static void showAdded(Task task, int size) {
-        System.out.println("\t Got it. I've added this task: ");
-        System.out.println("\t\t" + task);
-        System.out.println("\t Now you have " + size + " task(s) in the list.");
+    public String showAdded(Task task, int size) {
+        return "\t Got it. I've added this task:\n"
+                + "\t\t" + task + "\n"
+                + "\t Now you have " + size + " task(s) in the list.";
     }
 
     /**
-     * Displays a message when a task is deleted.
+     * Returns a message when a task is deleted as a String.
      *
      * @param task The task that was deleted.
      * @param size The number of tasks in the list after deletion.
      */
-    public static void showDeleted(Task task, int size) {
-        System.out.println("\t Noted. I've removed this task:");
-        System.out.println("\t   " + task);
-        System.out.println("\t Now you have " + size + " tasks in the list.");
+    public String showDeleted(Task task, int size) {
+        return "\t Noted. I've removed this task:\n"
+                + "\t   " + task + "\n"
+                + "\t Now you have " + size + " tasks in the list.";
     }
 
     /**
-     * Displays a message when a task is marked as done.
+     * Returns a message when a task is marked as done as a String.
      *
      * @param task The task that was marked as done.
      */
-    public static void showMarked(Task task) {
-        System.out.println("\t Nice! I've marked this task as done:");
-        System.out.println("\t   " + task);
+    public String showMarked(Task task) {
+        return "\t Nice! I've marked this task as done:\n"
+                + "\t   " + task;
     }
 
     /**
-     * Displays a message when a task is marked as not done.
+     * Returns a message when a task is marked as not done as a String.
      *
      * @param task The task that was marked as not done.
      */
-    public static void showUnmarked(Task task) {
-        System.out.println("\t OK, I've marked this task as not done yet:");
-        System.out.println("\t   " + task);
+    public String showUnmarked(Task task) {
+        return "\t OK, I've marked this task as not done yet:\n"
+                + "\t   " + task;
     }
 
     /**
-     * Displays the list of tasks.
+     * Returns a list of tasks as a String.
      *
      * @param tasks The list of tasks to display.
      */
-    public static void showList(TaskList tasks) {
-        tasks.listTasks();
+    public String showList(TaskList tasks) {
+        return tasks.listTasks();
     }
 
     /**
-     * Displays matching tasks from a TaskList.
+     * Returns matching tasks from a TaskList as a String.
      *
      * @param matchingTasks The TaskList containing matching tasks.
      */
-    public void showMatchingTasks(TaskList matchingTasks) {
-        System.out.println("\t Here are the matching tasks in your list:");
+    public String showMatchingTasks(TaskList matchingTasks) {
+        StringBuilder result = new StringBuilder("\t Here are the matching tasks in your list:\n");
         for (int i = 0; i < matchingTasks.size(); i++) {
-            System.out.println("\t " + (i + 1) + "." + matchingTasks.get(i));
+            result.append("\t ").append(i + 1).append(".").append(matchingTasks.get(i)).append("\n");
         }
+        return result.toString();
     }
 
     /**

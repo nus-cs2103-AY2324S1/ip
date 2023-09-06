@@ -29,10 +29,10 @@ public class MarkCommand extends Command {
      * @param storage The Storage for loading and saving tasks.
      * @throws DukeException If there is an error while executing the command.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         tasks.markTaskAsDone(taskIndexToMark);
-        ui.showMarked(tasks.getTask(taskIndexToMark));
         storage.saveTasks(tasks);
+        return ui.showMarked(tasks.getTask(taskIndexToMark));
     }
 
     /**

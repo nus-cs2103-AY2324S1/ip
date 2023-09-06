@@ -35,7 +35,7 @@ public class Storage {
      */
     public TaskList load() throws DukeException {
         try {
-            FileReader fileReader = new FileReader(filePath);
+            FileReader fileReader = new FileReader("./data/tasks.txt");
             Scanner scanner = new Scanner(fileReader);
 
             while (scanner.hasNext()) {
@@ -60,7 +60,7 @@ public class Storage {
                     tasks.add(new Event(description, isDone, from, to));
                     break;
                 default:
-                    throw new DukeException("☹ OOPS!!! Couldn't load file.");
+                    throw new DukeException("OOPS!!! Couldn't load file.");
                 }
             }
             fileReader.close();

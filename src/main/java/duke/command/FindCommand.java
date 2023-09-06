@@ -25,9 +25,9 @@ public class FindCommand extends Command {
      * @param ui      The Ui for user interface interactions.
      * @param storage The Storage for loading and saving tasks (not used in this command).
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         TaskList matchingTasks = tasks.findTasks(keyword);
-        ui.showMatchingTasks(matchingTasks);
+        return ui.showMatchingTasks(matchingTasks);
     }
 
     /**

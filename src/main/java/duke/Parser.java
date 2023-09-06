@@ -34,7 +34,7 @@ public class Parser {
             return new UnmarkCommand(taskIndex3);
         case "todo":
             if (input.length() <= 5) {
-            throw new DukeException("\t ☹ OOPS!!! The description of a todo" +
+            throw new DukeException("\t OOPS!!! The description of a todo" +
              " cannot be empty.");
             }
             return new AddCommand(new Todo(input.substring(5), false));
@@ -42,12 +42,12 @@ public class Parser {
         // Parse deadline command and create DeadlineTask object
             int byIndex = input.indexOf("/by");
             if (byIndex == -1) {
-                throw new DukeException("\t ☹ OOPS!!! The deadline description" +
+                throw new DukeException("\t OOPS!!! The deadline description" +
                  " must include a /by date.");
             }
             String description = input.substring(9, byIndex).trim();
             if (description.isEmpty()) {
-                throw new DukeException("☹ OOPS!!! The deadline description" +
+                throw new DukeException("\t OOPS!!! The deadline description" +
                  " cannot be empty.");
             }
             String by = input.substring(byIndex + 3).trim();
@@ -56,12 +56,12 @@ public class Parser {
             int fromIndex = input.indexOf("/from");
             int toIndex = input.indexOf("/to");
             if (fromIndex == -1 && toIndex == -1) {
-                throw new DukeException("\t ☹ OOPS!!! The event description" +
+                throw new DukeException("\t OOPS!!! The event description" +
                  " must include both /from and /to dates.");
             }
             String description2 = input.substring(6, fromIndex).trim();
             if (description2.isEmpty()) {
-                throw new DukeException("☹ OOPS!!! The event description cannot" +
+                throw new DukeException("\t OOPS!!! The event description cannot" +
                  " be empty.");
             }
             String from = input.substring(fromIndex + 5, toIndex).trim();
@@ -75,7 +75,7 @@ public class Parser {
             String keyword = input.substring(5).trim();
             return new FindCommand(keyword);
         default:
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know" +
+            throw new DukeException("\t OOPS!!! I'm sorry, but I don't know" +
              " what that means :-(");
         }
     }

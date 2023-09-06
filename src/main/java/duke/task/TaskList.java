@@ -29,16 +29,19 @@ public class TaskList extends ArrayList<Task>{
     /**
      * Lists all the tasks in the TaskList.
      */
-    public void listTasks() {
+    public String listTasks() {
+        StringBuilder result = new StringBuilder();
         if (tasks.size() == 0) {
-            System.out.println("\t No tasks added yet.");
+            result.append("\t No tasks added yet.");
         } else {
-            System.out.println("\t Here are the tasks in your list:");
+            result.append("\t Here are the tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println("\t " + (i + 1) + "." + tasks.get(i));
+                result.append("\t ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
             }
         }
+        return result.toString();
     }
+
 
     /**
      * Gets the number of tasks in the TaskList.

@@ -29,10 +29,10 @@ public class UnmarkCommand extends Command {
      * @param storage The Storage for loading and saving tasks.
      * @throws DukeException If there is an error while executing the command.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         tasks.markTaskAsUndone(taskIndexToUnmark);
-        ui.showUnmarked(tasks.getTask(taskIndexToUnmark));
         storage.saveTasks(tasks);
+        return ui.showUnmarked(tasks.getTask(taskIndexToUnmark));
     }
 
     /**
