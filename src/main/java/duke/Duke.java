@@ -4,7 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import duke.exception.DukeStorageException;
+import duke.service.CliParserService;
+import duke.service.CommandFactory;
+import duke.service.OutputService;
 import duke.service.StorageService;
+import duke.service.TaskFactory;
+import duke.service.UiService;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 
@@ -14,16 +19,38 @@ import duke.tasks.TaskList;
 public class Duke {
     private final String botName;
     private final TaskList taskList;
+    private final UiService uiService;
+    private final CliParserService cliParserService;
 
     /**
-     * Constructs a new Duke instance with a given name and storage service.
-     *
-     * @param botName Name of the Duke bot.
-     * @param storageService Service responsible for reading and writing tasks to storage.
+     * No-args constructor for Duke.
      */
-    public Duke(String botName, StorageService storageService) {
-        this.botName = botName;
-        this.taskList = new TaskList(storageService);
+    public Duke() {
+        this.botName = "Changoose";
+        this.taskList = new TaskList();
+        OutputService outputService = new OutputService();
+        this.uiService = new UiService(outputService);
+        TaskFactory taskFactory = new TaskFactory();
+        CommandFactory commandFactory = new CommandFactory(taskFactory, this, uiService);
+        this.cliParserService = new CliParserService(uiService, commandFactory);
+        try {
+            StorageService storageService = new StorageService();
+            if (storageService.wasFileCorrupted()) {
+                uiService.printStorageFileCorrupted();
+            }
+            taskList.loadFromStorage(storageService);
+        } catch (DukeStorageException e) {
+            uiService.printStorageInitializationFailure();
+        }
+    }
+
+    /**
+     * Starts accepting user input.
+     */
+    public void run() {
+        uiService.printGreet(getBotName());
+        cliParserService.parse();
+        uiService.printBye();
     }
 
     /**

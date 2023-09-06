@@ -17,12 +17,18 @@ public class TaskList {
     private StorageService storageService;
 
     /**
-     * Constructs a new TaskList instance associated with a given storage service.
-     * Loads tasks from storage upon initialization.
-     *
-     * @param storageService Service responsible for reading and writing tasks to storage.
+     * Constructs a new TaskList instance.
      */
-    public TaskList(StorageService storageService) {
+    public TaskList() {
+        this.taskList = new ArrayList<>();
+    }
+
+    /**
+     * Loads the stored tasks from the storageService into the taskList.
+     *
+     * @param storageService the given storageService.
+     */
+    public void loadFromStorage(StorageService storageService) {
         this.storageService = storageService;
         this.taskList = new ArrayList<>(storageService.loadTasks());
     }
