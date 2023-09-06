@@ -12,7 +12,6 @@ public class Parser {
             throw new DukeException("Oops, idk what you saying");
         }
     }
-
     public static String doWhat(String s) throws DukeException {
         try {
             return s.split(" ",2)[1];
