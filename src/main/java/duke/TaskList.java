@@ -150,7 +150,7 @@ class TaskList {
      * String to show the user the current state of the Task ArrayList.
      * @return String containing all information of the current Task ArrayList
      */
-    public String totalTasks() {
+    public String countTotalTasks() {
         int size = taskArr.size();
 
         return "\nNow you have " + size + " tasks in the list.";
