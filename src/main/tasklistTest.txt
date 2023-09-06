@@ -1,0 +1,4 @@
+T | 1 | eat cereal
+D | 1 | buy milk | 05 Sep 2023 3:23PM
+E | 0 | project meeting | 03 Sep 2023 2:00PM - 15 Oct 2023 8:00AM
+E | 0 | finish cereal | 05 Sep 2023 8:00AM - 05 Sep 2023 1:00PM
