@@ -63,7 +63,7 @@ public class TaskList {
      */
     public void listAllTasks() {
         System.out.println("Here are the tasks in your list: ~Bzzz~");
-        for (int i = 0; i < this.tasks.size() ; i++) {
+        for (int i = 0; i < this.tasks.size(); i++) {
             System.out.println((i + 1) + ". " + this.tasks.get(i).toString());
         }
     }
@@ -98,7 +98,7 @@ public class TaskList {
             throw new BeeException("OOPS!! Please enter a valid task number.");
         }
         this.tasks.get(taskIndex - 1).setDone();
-        System.out.println("Nice! I've marked task " + taskIndex +  " as done: ~Bzzz~");
+        System.out.println("Nice! I've marked task " + taskIndex + " as done: ~Bzzz~");
         System.out.println(this.tasks.get(taskIndex - 1).toString());
     }
 
@@ -113,7 +113,7 @@ public class TaskList {
             throw new BeeException("OOPS!! Please enter a valid task number.");
         }
         this.tasks.get(taskIndex - 1).setNotDone();
-        System.out.println("OK, I've marked task " + taskIndex +  " as not done yet: ~Bzzzz");
+        System.out.println("OK, I've marked task " + taskIndex + " as not done yet: ~Bzzzz");
         System.out.println(this.tasks.get(taskIndex - 1).toString());
     }
 
@@ -143,64 +143,64 @@ public class TaskList {
      */
     public void createTask(Parser.TaskClass task, String userInput) throws BeeException {
         switch (task) {
-            case TODO:
-                try {
-                    String editedInput = userInput.substring(5);
-                    if (editedInput.isEmpty()) {
-                        throw new BeeException("OOPS!! The description of a todo cannot be empty.");
-                    }
-                    Todo todo = new Todo(editedInput);
-                    this.addTask(todo);
-                } catch (StringIndexOutOfBoundsException e) {
+        case TODO:
+            try {
+                String editedInput = userInput.substring(5);
+                if (editedInput.isEmpty()) {
                     throw new BeeException("OOPS!! The description of a todo cannot be empty.");
                 }
-                break;
-            case DEADLINE:
-                try {
-                    String editedInput = userInput.substring(9);
-                    if (editedInput.isEmpty()) {
-                        throw new BeeException("OOPS!! The description of a deadline cannot be empty.");
-                    }
-                    String[] splitEditedInput = editedInput.split(" /by ");
-                    String deadlineDescription = splitEditedInput[0];
-                    String deadlineDateString = splitEditedInput[1];
-
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-                    LocalDateTime deadlineDate = LocalDateTime.parse(deadlineDateString, formatter);
-
-                    Deadline deadlineTask = new Deadline(deadlineDescription, deadlineDate);
-                    this.addTask(deadlineTask);
-                } catch (DateTimeParseException e) {
-                    throw new BeeException("OOPS!! Invalid deadline date format. Please use yyyy-MM-dd HHmm");
-                }
-                catch (StringIndexOutOfBoundsException e) {
+                Todo todo = new Todo(editedInput);
+                this.addTask(todo);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new BeeException("OOPS!! The description of a todo cannot be empty.");
+            }
+            break;
+        case DEADLINE:
+            try {
+                String editedInput = userInput.substring(9);
+                if (editedInput.isEmpty()) {
                     throw new BeeException("OOPS!! The description of a deadline cannot be empty.");
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new BeeException("OOPS!! The date of the deadline cannot be empty.");
                 }
-                break;
-            case EVENT:
-                try {
-                    String editedInput = userInput.substring(6);
-                    if (editedInput.isEmpty()) {
-                        throw new BeeException("OOPS!! The description of an event cannot be empty.");
-                    }
-                    String[] splitEditedInput = editedInput.split(" /from ");
-                    String[] splitEditedInput2 = splitEditedInput[1].split(" /to ");
-                    String eventDescription = splitEditedInput[0];
-                    String eventStartDate = splitEditedInput2[0];
-                    String eventEndDate = splitEditedInput2[1];
-                    Event event = new Event(eventDescription, eventStartDate, eventEndDate);
-                    this.addTask(event);
-                } catch (StringIndexOutOfBoundsException e) {
-                    throw new BeeException("OOPS!! The description of an event cannot be empty.");
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new BeeException("OOPS!! The date of an event cannot be empty.");
-                }
-                break;
+                String[] splitEditedInput = editedInput.split(" /by ");
+                String deadlineDescription = splitEditedInput[0];
+                String deadlineDateString = splitEditedInput[1];
 
-            default:
-                this.addTask(new Task(userInput));
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                LocalDateTime deadlineDate = LocalDateTime.parse(deadlineDateString, formatter);
+
+                Deadline deadlineTask = new Deadline(deadlineDescription, deadlineDate);
+                this.addTask(deadlineTask);
+            } catch (DateTimeParseException e) {
+                throw new BeeException("OOPS!! Invalid deadline date format. Please use yyyy-MM-dd HHmm");
+            }
+            catch (StringIndexOutOfBoundsException e) {
+                throw new BeeException("OOPS!! The description of a deadline cannot be empty.");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new BeeException("OOPS!! The date of the deadline cannot be empty.");
+            }
+            break;
+        case EVENT:
+            try {
+                String editedInput = userInput.substring(6);
+                if (editedInput.isEmpty()) {
+                    throw new BeeException("OOPS!! The description of an event cannot be empty.");
+                }
+                String[] splitEditedInput = editedInput.split(" /from ");
+                String[] splitEditedInput2 = splitEditedInput[1].split(" /to ");
+                String eventDescription = splitEditedInput[0];
+                String eventStartDate = splitEditedInput2[0];
+                String eventEndDate = splitEditedInput2[1];
+                Event event = new Event(eventDescription, eventStartDate, eventEndDate);
+                this.addTask(event);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new BeeException("OOPS!! The description of an event cannot be empty.");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new BeeException("OOPS!! The date of an event cannot be empty.");
+            }
+            break;
+
+        default:
+            this.addTask(new Task(userInput));
         }
     }
 
@@ -214,41 +214,45 @@ public class TaskList {
     public void updateTask(Parser.TaskAction action, String userInput) throws BeeException {
         String[] splitInput = userInput.split(" ");
         switch (action) {
-            case MARK:
-                try {
-                    int taskIndex = Integer.parseInt(splitInput[1]);
-                    this.setTaskDone(taskIndex);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new BeeException("OOPS!! The task number cannot be empty.");
-                } catch (NumberFormatException e) {
-                    throw new BeeException("OOPS!! You must have entered an invalid task number.");
-                }
-                break;
-            case UNMARK:
-                try {
-                    int taskIndex = Integer.parseInt(splitInput[1]);
-                    this.setTaskNotDone(taskIndex);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new BeeException("OOPS!! The task number cannot be empty.");
-                } catch (NumberFormatException e) {
-                    throw new BeeException("OOPSS!! You must have entered an invalid task number.");
-                }
-                break;
-            case DELETE:
-                try {
-                    int taskIndex = Integer.parseInt(splitInput[1]);
-                    this.deleteTask(taskIndex);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new BeeException("OOPSS!! Please enter a task number");
-                } catch (NumberFormatException e) {
-                    throw new BeeException("OOPSS!! You must have entered an invalid task number.");
-                }
-                break;
-            default:
-                throw new BeeException("OOPSS!! I can't do that!!!");
+        case MARK:
+            try {
+                int taskIndex = Integer.parseInt(splitInput[1]);
+                this.setTaskDone(taskIndex);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new BeeException("OOPS!! The task number cannot be empty.");
+            } catch (NumberFormatException e) {
+                throw new BeeException("OOPS!! You must have entered an invalid task number.");
+            }
+            break;
+        case UNMARK:
+            try {
+                int taskIndex = Integer.parseInt(splitInput[1]);
+                this.setTaskNotDone(taskIndex);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new BeeException("OOPS!! The task number cannot be empty.");
+            } catch (NumberFormatException e) {
+                throw new BeeException("OOPSS!! You must have entered an invalid task number.");
+            }
+            break;
+        case DELETE:
+            try {
+                int taskIndex = Integer.parseInt(splitInput[1]);
+                this.deleteTask(taskIndex);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new BeeException("OOPSS!! Please enter a task number");
+            } catch (NumberFormatException e) {
+                throw new BeeException("OOPSS!! You must have entered an invalid task number.");
+            }
+            break;
+        default:
+            throw new BeeException("OOPSS!! I can't do that!!!");
         }
     }
 
+    /**
+     * Finds a task that contains a keyword
+     * @param userInput
+     */
     public void findTasksByKeyword(String userInput) {
         String keyword = userInput.substring(5).trim();
         ArrayList<Task> matchingTasks = new ArrayList<>();

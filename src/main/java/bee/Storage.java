@@ -40,46 +40,47 @@ public class Storage {
         String taskDescription = taskDataSplit[2].substring(1);
 
         switch (taskType) {
-            case "T":
-                Todo todo = new Todo(taskDescription, isDone);
-                tasks.quietlyAddTask(todo);
-                break;
-            case "D":
-                try {
-                    String[] splitEditedInput = taskDescription.split("by: ");
-                    String deadlineDescription = splitEditedInput[0];
-                    deadlineDescription = deadlineDescription.substring(0, deadlineDescription.indexOf("(") - 1);
-                    String deadlineDateString = splitEditedInput[1];
-                    deadlineDateString = deadlineDateString.substring(0, deadlineDateString.indexOf(")"));
+        case "T":
+            Todo todo = new Todo(taskDescription, isDone);
+            tasks.quietlyAddTask(todo);
+            break;
+        case "D":
+            try {
+                String[] splitEditedInput = taskDescription.split("by: ");
+                String deadlineDescription = splitEditedInput[0];
+                deadlineDescription = deadlineDescription.substring(0, deadlineDescription.indexOf("(") - 1);
+                String deadlineDateString = splitEditedInput[1];
+                deadlineDateString = deadlineDateString.substring(0, deadlineDateString.indexOf(")"));
 
-                    DateTimeFormatter storageFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-                    LocalDateTime deadlineDate = LocalDateTime.parse(deadlineDateString, storageFormatter);
+                DateTimeFormatter storageFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+                LocalDateTime deadlineDate = LocalDateTime.parse(deadlineDateString, storageFormatter);
 
-                    Deadline deadlineTask = new Deadline(deadlineDescription, deadlineDate, isDone);
-                    tasks.quietlyAddTask(deadlineTask);
-                } catch (StringIndexOutOfBoundsException e) {
-                    throw new BeeException("OOPS!! The description of a deadline cannot be empty.");
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new BeeException("OOPS!! The date of the deadline cannot be empty.");
-                }
-                break;
-            case "E":
-                try {
-                    String[] splitEditedInput = taskDescription.split("from: ");
-                    String[] splitEditedInput2 = splitEditedInput[1].split(" to: ");
-                    String eventDescription = splitEditedInput[0];
-                    eventDescription = eventDescription.substring(0, eventDescription.indexOf("(") - 1);
-                    String eventStartDate = splitEditedInput2[0];
-                    String eventEndDate = splitEditedInput2[1];
-                    eventEndDate = eventEndDate.substring(0, eventEndDate.indexOf(")"));
-                    Event event = new Event(eventDescription, eventStartDate, eventEndDate, isDone);
-                    tasks.quietlyAddTask(event);
-                } catch (StringIndexOutOfBoundsException e) {
-                    throw new BeeException("OOPS!! The description of an event cannot be empty.");
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new BeeException("OOPS!! The date of an event cannot be empty.");
-                }
-                break;
+                Deadline deadlineTask = new Deadline(deadlineDescription, deadlineDate, isDone);
+                tasks.quietlyAddTask(deadlineTask);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new BeeException("OOPS!! The description of a deadline cannot be empty.");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new BeeException("OOPS!! The date of the deadline cannot be empty.");
+            }
+            break;
+        case "E":
+            try {
+                String[] splitEditedInput = taskDescription.split("from: ");
+                String[] splitEditedInput2 = splitEditedInput[1].split(" to: ");
+                String eventDescription = splitEditedInput[0];
+                eventDescription = eventDescription.substring(0, eventDescription.indexOf("(") - 1);
+                String eventStartDate = splitEditedInput2[0];
+                String eventEndDate = splitEditedInput2[1];
+                eventEndDate = eventEndDate.substring(0, eventEndDate.indexOf(")"));
+                Event event = new Event(eventDescription, eventStartDate, eventEndDate, isDone);
+                tasks.quietlyAddTask(event);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new BeeException("OOPS!! The description of an event cannot be empty.");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new BeeException("OOPS!! The date of an event cannot be empty.");
+            }
+            break;
+        default:
         }
     }
 

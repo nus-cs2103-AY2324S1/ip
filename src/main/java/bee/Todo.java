@@ -4,7 +4,7 @@ package bee;
  * Represents a todo task that needs to be done.
  * Inherits from the parent class Task.
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * Constructs a new todo task with the given description.
@@ -21,7 +21,9 @@ public class Todo extends Task{
      * @param description The description of the todo task.
      * @param isDone      The completion status of the todo task.
      */
-    public Todo(String description, Boolean isDone) { super(description, isDone); }
+    public Todo(String description, Boolean isDone) {
+        super(description, isDone);
+    }
 
     /**
      * Returns a string representation of the todo task.

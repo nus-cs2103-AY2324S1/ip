@@ -22,10 +22,11 @@ public class BeeException extends Exception {
      */
     @Override
     public String toString() {
-        return "    _  _\n" +
-                "   | )/ )\n" +
-                "\\\\ |//,' __\n" +
-                "(\")(_)-\"()))=-\n" +
-                "   (\\\\ " + super.getMessage();
+        return "    _  _\n"
+                + "   | )/ )\n"
+                + "\\\\ |//,' __\n"
+                + "(\")(_)-\"()))=-\n"
+                + "   (\\\\ "
+                + super.getMessage();
     }
 }

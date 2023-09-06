@@ -4,9 +4,9 @@ package bee;
  * Represents an event task with start and end dates.
  * Extends the base class Task and provides functionality for handling events.
  */
-public class Event extends Task{
-    String startDate;
-    String endDate;
+public class Event extends Task {
+    private String startDate;
+    private String endDate;
 
     /**
      * Constructs a new Event task with start and end dates.

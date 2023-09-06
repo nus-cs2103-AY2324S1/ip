@@ -10,13 +10,13 @@ public class Ui {
      * Displays a greeting message along with the chatbot's logo.
      */
     public void greet() {
-        String logo = "\n" +
-                "__________\n" +
-                "\\______   \\ ____   ____\n" +
-                " |    |  _// __ \\_/ __ \\\n" +
-                " |    |   \\  ___/\\  ___/\n" +
-                " |______  /\\___  >\\___  >\n" +
-                "        \\/     \\/     \\/\n";
+        String logo = "\n"
+                + "__________\n"
+                + "\\______   \\ ____   ____\n"
+                + " |    |  _// __ \\_/ __ \\\n"
+                + " |    |   \\  ___/\\  ___/\n"
+                + " |______  /\\___  >\\___  >\n"
+                + "        \\/     \\/     \\/\n";
         System.out.println("Hello! I'm" + logo);
         System.out.println("~Bzzzz~ What may I assist you with today? ~Bzzzz~\n");
     }

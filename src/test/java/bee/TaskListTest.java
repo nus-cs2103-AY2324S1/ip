@@ -1,22 +1,18 @@
 package bee;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import bee.TaskList;
-import bee.Parser;
+import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 public class TaskListTest {
     @Test
-    public void initialiseTest_1() {
+    public void initialiseTest1() {
         TaskList tasks = new TaskList();
         assertEquals(0, tasks.size());
     }
 
     @Test
-    public void initialiseTest_2() {
+    public void initialiseTest2() {
         TaskList tasks = new TaskList();
         assertEquals(0, tasks.size());
     }

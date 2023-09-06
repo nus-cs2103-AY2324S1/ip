@@ -7,11 +7,10 @@ import java.util.Scanner;
  * Orchestrates the initialization, execution, and termination of the chatbot.
  */
 public class Bee {
+    private static final String DATA_FILE_PATH = "./data/bee.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
-    private static final String DATA_FILE_PATH = "./data/bee.txt";
 
     /**
      * Constructs a new Bee chatbot instance.
