@@ -53,29 +53,32 @@ public class Parser {
             try {
                 int index = Integer.parseInt(splitInput[1]) - 1;
                 taskList.changeStatusByIndex(index, true);
-            } catch (NumberFormatException e) { // If argument of "mark" is not a number.
-                Ui.output("You need to provide a valid number");
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                // If argument of "mark" is not a number.
+                Ui.setOutMessage("You need to provide a valid number:\n" + "       eg. mark 1");
             }
             break;
         case "unmark":
             try {
                 int index = Integer.parseInt(splitInput[1]) - 1;
                 taskList.changeStatusByIndex(index, false);
-            } catch (NumberFormatException e) { // If argument of "unmark" is not a number.
-                Ui.output("You need to provide a valid number");
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                // If argument of "unmark" is not a number.
+                Ui.setOutMessage("You need to provide a valid number:\n" + "       eg. unmark 2");
             }
             break;
         case "delete":
             try {
                 int index = Integer.parseInt(splitInput[1]) - 1;
                 taskList.deleteTask(index);
-            } catch (NumberFormatException e) { // If argument of "delete" is not a number.
-                Ui.output("You need to provide a valid number:\n" + "       eg. delete 1");
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                // If argument of "delete" is not a number.
+                Ui.setOutMessage("You need to provide a valid number:\n" + "       eg. delete 3");
             }
             break;
         case "todo":
-            if (splitInput.length != 2) { // Checks for description before creating task.
-                Ui.output("Wrong format, make sure your command is in the format:\n"
+            if (splitInput.length != 2) { // Checks for presence of description before creating task.
+                Ui.setOutMessage("Wrong format, make sure your command is in the format:\n"
                         + "       todo [DESCRIPTION]");
             } else {
                 Task todo = new Todo(splitInput[1]);
@@ -88,10 +91,10 @@ public class Parser {
                 Task deadline = new Deadline(deadVar[0], parseDate(deadVar[1]));
                 taskList.addTask(deadline, true);
             } catch (ArrayIndexOutOfBoundsException e) { // String not split due to improper format
-                Ui.output("Wrong format, make sure your command is in the format:\n"
+                Ui.setOutMessage("Wrong format, make sure your command is in the format:\n"
                         + "      deadline [DESCRIPTION] /by [dd.mm.yyyy]");
             } catch (DateTimeParseException e) { // Date not formatted properly
-                Ui.output("Try the date format [dd.mm.yyyy tttt]:"
+                Ui.setOutMessage("Try the date format [dd.mm.yyyy tttt]:"
                         + "\n       eg. [05.08.2020 1500] for 5 Aug 2020, 3PM");
             }
             break;
@@ -103,30 +106,30 @@ public class Parser {
                 LocalDateTime start = parseDate(times[0]);
                 LocalDateTime end = parseDate(times[1]);
                 if (start.isAfter(end)) { // Checks that event start <= end
-                    Ui.output("An event cannot end before it starts... might wanna check your dates");
+                    Ui.setOutMessage("An event cannot end before it starts... might wanna check your dates");
                 } else {
                     Task event = new Event(eventVar[0], start, end);
                     taskList.addTask(event, true);
                 }
             } catch (ArrayIndexOutOfBoundsException e) { // String not split due to improper format
-                Ui.output("Wrong format, make sure your command is in the format:\n"
+                Ui.setOutMessage("Wrong format, make sure your command is in the format:\n"
                         + "      event [DESCRIPTION] /from [dd.mm.yyyy] /to [dd.mm.yyyy]");
             } catch (DateTimeParseException e) { // Date not formatted properly
-                Ui.output("Try the date format [dd.mm.yyyy tttt]:"
+                Ui.setOutMessage("Try the date format [dd.mm.yyyy tttt]:"
                         + "\n       eg. [05.08.2020 1500] for 5 Aug 2020, 3PM");
             }
             break;
         case "find":
-            Ui.output(taskList.queryList(splitInput[1]));
+            Ui.setOutMessage(taskList.queryList(splitInput[1]));
             break;
         case "list":
-            Ui.output(taskList.listToString());
+            Ui.setOutMessage(taskList.listToString());
             break;
         case "end":
-            Ui.output("Come back if you need anything else!");
+            Ui.setOutMessage("Come back if you need anything else!");
             return false;
         default:
-            Ui.output("Sorry, I don't recognise this comment :(");
+            Ui.setOutMessage("Sorry, I don't recognise this comment :(");
             break;
         }
         return true;

@@ -44,7 +44,7 @@ public class Storage {
         File dataFile = new File(fileDirectory + "/" + FILE_NAME);
         try {
             if (directory.mkdir() && dataFile.createNewFile()) {
-                Ui.output("File to store task data have been created and stored at:\n       "
+                System.out.println("File to store task data have been created and stored at:\n       "
                         + fileDirectory + "/" + FILE_NAME);
             }
             return true;
@@ -72,12 +72,11 @@ public class Storage {
     /**
      * Loads task data from txt file to chatbot.
      *
-     * @return True when file data loaded to chatbot successfully.
+     * @return String representing result of loading data from file.
      */
-    public boolean loadData(TaskList taskList) {
+    public String loadFromFile(TaskList taskList) {
         if (!this.openFile()) {
-            Ui.output("An error occured where the file cannot be read");
-            return false;
+            return "An error occured where the file cannot be read";
         }
 
         try {
@@ -109,16 +108,15 @@ public class Storage {
                     taskList.addTask(event, false);
                     break;
                 default:
-                    Ui.output(String.format("Unknown symbol [%s] detected", splitInput[0]));
+                    return String.format("Unknown symbol [%s] detected", splitInput[0]);
                 }
             }
-            return true;
         } catch (ArrayIndexOutOfBoundsException e) { // File formatted with wrong no. of " | " dividers for task types.
-            Ui.output("There seems to be a problem with reading in data from:\n      [" + fileLocation
-                    + "]\n\n     Proceeding will overwrite the current data file [Y/N]:");
+            return "There seems to be a problem with reading in data from:\n      [" + fileLocation
+                    + "]\n\n     Proceeding will overwrite the current data file.";
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return false;
+        return "File loaded successfully :D";
     }
 }
