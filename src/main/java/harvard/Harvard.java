@@ -34,25 +34,22 @@ public class Harvard {
      * Runs the program.
      */
 
-    public void run() {
+    public String run(String fullCommand) {
         ui.displayWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
-                String fullCommand = ui.readCommand();
                 Command c = parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
                 isExit = c.isExit();
+                return c.execute(tasks, ui, storage);
             } catch (DukeException e) {
                 ui.displayError(e);
             }
         }
+        return "";
     }
     /**
      * The main method.
      * @param args The command line arguments.
      */
-    public static void main(String[] args) {
-        new Harvard("data/tasks.txt").run();
-    }
 }

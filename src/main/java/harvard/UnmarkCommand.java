@@ -29,13 +29,14 @@ public class UnmarkCommand extends Command {
      * @throws DukeException
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (index >= tasks.size() || index < 0) {
             throw new DukeException("OOPS!!! The task number does not exist.");
         }
         Task task = tasks.get(index);
         task.markAsUndone();
-        ui.showUndone(task);
+
         storage.save(tasks);
+        return ui.showUndone(task);
     }
 }

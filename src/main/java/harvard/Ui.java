@@ -5,44 +5,36 @@ import java.util.Scanner;
  */
 
 public class Ui {
-    /**
-     * The scanner.
-     */
-    private Scanner scanner;
-    /**
-     * Constructs a Ui object.
-     */
-    public Ui() {
-        scanner = new Scanner(System.in);
-    }
+
+
     /**
      * Displays the welcome message.
      */
-    public void displayWelcome() {
-        displayLine();
-        System.out.println("Hello! I'm Harvard\nWhat can I do for you?");
-        displayLine();
+    public String displayWelcome() {
+        return "Hello! I'm Duke\n" + "What can I do for you?";
     }
-    /**
-     * Reads the command.
-     * @return The command in String.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
-    }
+//    /**
+//     * Reads the command.
+//     * @return The command in String.
+//     */
+//    public String readCommand() {
+//        return scanner.nextLine();
+//    }
     /**
      * Displays a line.
      */
-    public void displayLine() {
-        System.out.println("____________________________________________________________");
+    public String displayLine() {
+//        System.out.println("____________________________________________________________");
+        return "____________________________________________________________";
     }
     /**
      * Displays the bye message.
      */
-    public void displayBye() {
-        displayLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        displayLine();
+    public String displayBye() {
+//        displayLine();
+//        System.out.println("Bye. Hope to see you again soon!");
+//        displayLine();
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -50,23 +42,30 @@ public class Ui {
      * @param task The task to be added.
      * @param tasks The list of tasks.
      */
-    public void showAddTask(Task task, TaskList tasks) {
-        displayLine();
-        System.out.println("Got it. I've added this task:\n" + task
-                + "\nNow you have " + tasks.size() + " tasks in the list.");
-        displayLine();
+    public String showAddTask(Task task, TaskList tasks) {
+//        displayLine();
+//        System.out.println("Got it. I've added this task:\n" + task
+//                + "\nNow you have " + tasks.size() + " tasks in the list.");
+//        displayLine();
+        return "Got it. I've added this task:\n" + task
+                + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
     /**
      * Displays the list of tasks.
      * @param tasks The list of tasks.
      */
-    public void showList(TaskList tasks) {
-        displayLine();
-        System.out.println("Here are the tasks in your list:");
+    public String showList(TaskList tasks) {
+//        displayLine();
+//        System.out.println("Here are the tasks in your list:");
+//        for (int i = 0; i < tasks.size(); i++) {
+//            System.out.println((i + 1) + "." + tasks.get(i));
+//        }
+//        displayLine();
+        String result = "Here are the tasks in your list:";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+            result += "\n" + (i + 1) + "." + tasks.get(i);
         }
-        displayLine();
+        return result;
     }
 
     /**
@@ -74,21 +73,24 @@ public class Ui {
      * @param task The task to be deleted.
      * @param tasks The list of tasks.
      */
-    public void showDelete(Task task, TaskList tasks) {
-        displayLine();
-        System.out.println("Noted. I've removed this task:\n" + task
-                + "\nNow you have " + tasks.size() + " tasks in the list.");
-        displayLine();
+    public String showDelete(Task task, TaskList tasks) {
+//        displayLine();
+//        System.out.println("Noted. I've removed this task:\n" + task
+//                + "\nNow you have " + tasks.size() + " tasks in the list.");
+//        displayLine();
+        return "Noted. I've removed this task:\n" + task
+                + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
      * Shows the done message.
      * @param task The task to be marked as done.
      */
-    public void showDone(Task task) {
-        displayLine();
-        System.out.println("Nice! I've marked this task as done:\n" + task);
-        displayLine();
+    public String showDone(Task task) {
+//        displayLine();
+//        System.out.println("Nice! I've marked this task as done:\n" + task);
+//        displayLine();
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
@@ -96,29 +98,36 @@ public class Ui {
      * @param task The task to be marked as undone.
      */
 
-    public void showUndone(Task task) {
-        displayLine();
-        System.out.println("Ok! I've marked this task as not done yet:");
-        displayLine();
+    public String showUndone(Task task) {
+//        displayLine();
+//        System.out.println("Ok! I've marked this task as not done yet:");
+//        displayLine();
+        return "Ok! I've marked this task as not done yet:";
     }
     /**
      * Shows the find message.
      * @param matchingTasks The list of matching tasks.
      */
 
-    public void showFind(TaskList matchingTasks) {
-        displayLine();
-        System.out.println("Here are the matching tasks in your list:");
+    public String showFind(TaskList matchingTasks) {
+//        displayLine();
+//        System.out.println("Here are the matching tasks in your list:");
+//        for (int i = 0; i < matchingTasks.size(); i++) {
+//            System.out.println((i + 1) + "." + matchingTasks.get(i));
+//        }
+//        displayLine();
+        String result = "Here are the matching tasks in your list:";
         for (int i = 0; i < matchingTasks.size(); i++) {
-            System.out.println((i + 1) + "." + matchingTasks.get(i));
+            result += "\n" + (i + 1) + "." + matchingTasks.get(i);
         }
-        displayLine();
+        return result;
     }
     /**
      * Displays the error message.
      * @param e The error.
      */
-    public void displayError(DukeException e) {
-        System.out.println(e.getMessage());
+    public String displayError(DukeException e) {
+//        System.out.println(e.getMessage());
+        return e.getMessage();
     }
 }

@@ -22,7 +22,7 @@ public class ExitCommand extends Command {
      * @throws DukeException If there is an error executing the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        ui.displayBye();
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        return ui.displayBye();
     }
 }
