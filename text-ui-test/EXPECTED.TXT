@@ -1,41 +1,43 @@
+Directory created: C:\Users\aslam\Desktop\OneDrive - National University of Singapore\Modules\Y2S1\CS2103T\ip\text-ui-test\.\data
+File created: C:\Users\aslam\Desktop\OneDrive - National University of Singapore\Modules\Y2S1\CS2103T\ip\text-ui-test\.\data\duke.txt
 ____________________________________________________________
-Hello! I'm David.
+Hello! I'm David
 What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
 [T][ ] borrow book
-Now you have 1 duke.tasks in the list.
+Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
 [T][ ] read book
-Now you have 2 duke.tasks in the list.
+Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-[D][ ] return book (by: June 6th)
-Now you have 3 duke.tasks in the list.
+[D][ ] return book (by: 12 Dec 2019 06:00 PM)
+Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-Now you have 4 duke.tasks in the list.
+[E][ ] project meeting (from: 21 Sep 2023 09:00 AM to: 21 Sep 2023 09:50 PM)
+Now you have 4 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
 [T][ ] go out and play
-Now you have 5 duke.tasks in the list.
+Now you have 5 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-1.[T][ ] borrow book
-2.[T][ ] read book
-3.[D][ ] return book (by: June 6th)
-4.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-5.[T][ ] go out and play
+1. [T][ ] borrow book
+2. [T][ ] read book
+3. [D][ ] return book (by: 12 Dec 2019 06:00 PM)
+4. [E][ ] project meeting (from: 21 Sep 2023 09:00 AM to: 21 Sep 2023 09:50 PM)
+5. [T][ ] go out and play
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
@@ -43,40 +45,40 @@ Nice! I've marked this task as done:
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
-[D][X] return book (by: June 6th)
+[D][X] return book (by: 12 Dec 2019 06:00 PM)
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
 [T][X] go out and play
 ____________________________________________________________
 ____________________________________________________________
-1.[T][X] borrow book
-2.[T][ ] read book
-3.[D][X] return book (by: June 6th)
-4.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-5.[T][X] go out and play
+1. [T][X] borrow book
+2. [T][ ] read book
+3. [D][X] return book (by: 12 Dec 2019 06:00 PM)
+4. [E][ ] project meeting (from: 21 Sep 2023 09:00 AM to: 21 Sep 2023 09:50 PM)
+5. [T][X] go out and play
 ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
-[D][ ] return book (by: June 6th)
+[D][ ] return book (by: 12 Dec 2019 06:00 PM)
 ____________________________________________________________
 ____________________________________________________________
-1.[T][X] borrow book
-2.[T][ ] read book
-3.[D][ ] return book (by: June 6th)
-4.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-5.[T][X] go out and play
+1. [T][X] borrow book
+2. [T][ ] read book
+3. [D][ ] return book (by: 12 Dec 2019 06:00 PM)
+4. [E][ ] project meeting (from: 21 Sep 2023 09:00 AM to: 21 Sep 2023 09:50 PM)
+5. [T][X] go out and play
 ____________________________________________________________
 ____________________________________________________________
 Noted. I've removed this task:
 [T][X] go out and play
-Now you have 4 duke.tasks in the list.
+Now you have 4 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-1.[T][X] borrow book
-2.[T][ ] read book
-3.[D][ ] return book (by: June 6th)
-4.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+1. [T][X] borrow book
+2. [T][ ] read book
+3. [D][ ] return book (by: 12 Dec 2019 06:00 PM)
+4. [E][ ] project meeting (from: 21 Sep 2023 09:00 AM to: 21 Sep 2023 09:50 PM)
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!

@@ -1,8 +1,8 @@
 todo borrow book
 todo read book
 deadlne return book /by June 6th (note that first word is misspelled)
-deadline return book /by June 6th
-event project meeting /from Aug 6th 2pm /to 4pm
+deadline return book /by 12/12/2019 1800
+event project meeting /from 21/09/2023 0900 /to 21/09/2023 2150
 todo go out and play
 list
 mark 1
