@@ -27,7 +27,7 @@ public class DukeTaskList {
 
     /**
      * Constructs an instance of the DukeTaskList. Initialises the
-     * required Duke utility classes.
+     * required DukeLauncher.Duke utility classes.
      *
      * @author Tan Kerway
      */

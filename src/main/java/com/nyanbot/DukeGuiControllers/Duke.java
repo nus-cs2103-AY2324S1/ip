@@ -1,3 +1,5 @@
+package DukeGuiControllers;
+
 import DukeParsers.DukeParser;
 import DukeStorage.DukeStorageDatabase;
 import DukeTaskList.DukeTaskList;
@@ -9,6 +11,7 @@ import java.io.IOException;
  * This class encapsulates the nyanbot.
  *
  * @author Tan Kerway
+ * @see <a href="https://se-education.org/guides/tutorials/javaFxPart2.html">credits</a>
  */
 public class Duke {
     // ui class for normal ui displays to the user
@@ -19,6 +22,8 @@ public class Duke {
     private final DukeTaskList taskList;
     // parser class to parse input
     private final DukeParser parser;
+    // duke instance
+    private final Duke duke = new Duke();
 
     /**
      * Constructs an instance of a chatbot class.
@@ -46,6 +51,17 @@ public class Duke {
         this.parser.handleUserInput(); // take in the user input
         this.ui.sayGoodBye();      // say goodbye to the user
         this.databaseController.saveTaskList();    // save the user's task to the database
+    }
+
+    /**
+     * Gets the response from the user.
+     *
+     * @author Tan Kerway
+     * @see <a href="https://se-education.org/guides/tutorials/javaFxPart2.html">credits</a>
+     *
+     */
+    String getResponse(String input) {
+        return "Duke heard: " + input;
     }
 
     /**

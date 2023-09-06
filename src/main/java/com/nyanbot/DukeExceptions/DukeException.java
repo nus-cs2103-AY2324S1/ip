@@ -1,7 +1,7 @@
 package DukeExceptions;
 
 /**
- * Encapsulates a general Exception class for Duke.
+ * Encapsulates a general Exception class for DukeLauncher.Duke.
  *
  * @author Tan Kerway
  */

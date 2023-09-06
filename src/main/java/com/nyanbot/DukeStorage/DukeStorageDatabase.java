@@ -28,7 +28,7 @@ public class DukeStorageDatabase {
      * Constructs the database controller.
      *
      * @author Tan Kerway
-     * @param tasks the DukeTaskList object tied to the Duke instance that created this instance
+     * @param tasks the DukeTaskList object tied to the DukeLauncher.Duke instance that created this instance
      *                 of the class.
      */
     public DukeStorageDatabase(DukeTaskList tasks) {
@@ -58,7 +58,7 @@ public class DukeStorageDatabase {
             // since the database is empty, just return an empty arraylist
             return taskList;
         }
-        // else, we need to load the tasks onto the Duke instance
+        // else, we need to load the tasks onto the DukeLauncher.Duke instance
         // use a scanner to read each line
         Scanner reader = new Scanner(database);
         while (reader.hasNextLine()) {

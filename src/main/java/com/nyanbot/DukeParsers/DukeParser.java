@@ -17,7 +17,7 @@ public class DukeParser {
     private final DukeTaskList taskListUtility;
 
     /**
-     * Constructs a parser for Duke.
+     * Constructs a parser for DukeLauncher.Duke.
      *
      * @author Tan Kerway
      */
