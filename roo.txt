@@ -1,3 +1,8 @@
-[T][ ]  borrow book
-[T][ ]  abcde
-[T][ ]  abcd
+[T][ ] borrow book
+[T][x] abcde
+[T][ ] abcd
+[T][ ] qwerty
+[T][ ] borrow book
+[T][ ] abcde
+[T][ ] abcd
+[T][ ] qwerty
