@@ -8,11 +8,11 @@ import java.util.regex.Pattern;
 
 public abstract class Task {
     private final String desc;
-    private boolean marked;
+    private boolean isMarked;
 
     public Task(String desc) {
         this.desc = desc;
-        marked = false;
+        isMarked = false;
     }
 
     public static Task decode(String encodedTask) {
@@ -50,7 +50,7 @@ public abstract class Task {
     }
 
     public boolean isMarked() {
-        return marked;
+        return isMarked;
     }
 
     public String getDesc() {
@@ -58,19 +58,19 @@ public abstract class Task {
     }
 
     public void mark() {
-        marked = true;
+        isMarked = true;
     }
 
     public void unmark() {
-        marked = false;
+        isMarked = false;
     }
 
     public String encode() {
-        return String.format("%s|%s", marked ? "1" : "0", desc);
+        return String.format("%s|%s", isMarked ? "1" : "0", desc);
     }
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", marked ? "X" : " ", desc);
+        return String.format("[%s] %s", isMarked ? "X" : " ", desc);
     }
 }
