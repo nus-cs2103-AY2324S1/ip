@@ -25,44 +25,47 @@ public class Parser {
      * @param storage storage for the tasks to be housed.
      * @return lets the program know to stop
      */
-    public static boolean parseCommands(String nextLine, TaskList tasks, Storage storage) {
+    public static String parseCommands(String nextLine, TaskList tasks, Storage storage) {
         String firstWord = nextLine.split(" ")[0];
+        String statement;
         try {
             switch(firstWord) {
             case "bye":
-                Ui.bidFarewell();
-                return false;
+                System.exit(0);
+                return Ui.bidFarewell();
             case "list":
-                Ui.printItems(tasks);
-                break;
+                return Ui.printItems(tasks);
             case "unmark":
-                tasks.modifyStatus(modifyStatus.UNMARK, nextLine);
-                break;
+                statement = tasks.modifyStatus(modifyStatus.UNMARK, nextLine);
+                storage.write(tasks);
+                return statement;
             case "mark":
-                tasks.modifyStatus(modifyStatus.MARK, nextLine);
-                break;
+                statement = tasks.modifyStatus(modifyStatus.MARK, nextLine);
+                storage.write(tasks);
+                return statement;
             case "delete":
-                tasks.deleteItem(nextLine);
-                break;
+                statement = tasks.deleteItem(nextLine);
+                storage.write(tasks);
+                return statement;
             case "event":
-                tasks.addItem(taskType.EVENT, nextLine);
-                break;
+                statement = tasks.addItem(taskType.EVENT, nextLine);
+                storage.write(tasks);
+                return statement;
             case "deadline":
-                tasks.addItem(taskType.DEADLINE, nextLine);
-                break;
+                statement = tasks.addItem(taskType.DEADLINE, nextLine);
+                storage.write(tasks);
+                return statement;
             case "todo":
-                tasks.addItem(taskType.TODO, nextLine);
-                break;
+                statement = tasks.addItem(taskType.TODO, nextLine);
+                storage.write(tasks);
+                return statement;
             case "find":
-                tasks.findItems(nextLine);
-                break;
+                return tasks.findItems(nextLine);
             default:
-                throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new DukeException(":(( OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-            storage.write(tasks);
         } catch (DukeException e) {
-            Ui.printWrapped(e.getMessage());
+            return e.getMessage();
         }
-        return true;
     }
 }

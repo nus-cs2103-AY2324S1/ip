@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
-    private final char taskType = 'D';
     private LocalDate date;
     private boolean hasDate = false;
 
@@ -29,7 +28,8 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String checkBox = super.isMarked() ? "[X]" : "[ ]";
-        String taskType = String.format("[%c]", this.taskType);
+        char taskType1 = 'D';
+        String taskType = String.format("[%c]", taskType1);
         if (hasDate) {
             return String.format(
                     "%s%s %s (by: %s)",

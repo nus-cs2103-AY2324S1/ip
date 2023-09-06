@@ -1,7 +1,6 @@
 package duke.tasks;
 
 class Todo extends Task {
-    private final char taskType = 'T';
 
     public Todo(String name) {
         super(name);
@@ -15,7 +14,8 @@ class Todo extends Task {
     @Override
     public String toString() {
         String checkBox;
-        String taskType = String.format("[%c]", this.taskType);
+        char taskType1 = 'T';
+        String taskType = String.format("[%c]", taskType1);
         if (super.isMarked()) {
             checkBox = "[X]";
         } else {

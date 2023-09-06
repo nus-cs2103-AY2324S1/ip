@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Task implements Serializable {
     private String name;
-    private boolean marked = false;
+    private boolean marked;
 
     /**
      * Returns the name of the task.
@@ -13,6 +13,7 @@ public class Task implements Serializable {
      */
     public Task(String name) {
         this.name = name;
+        this.marked = false;
     }
 
     /**
@@ -30,7 +31,7 @@ public class Task implements Serializable {
     }
 
     /**
-     * Returns the boolean of whether the task is marked.
+     * Returns the boolean result of whether the task is marked.
      *
      * @return true if marked and false otherwise.
      */

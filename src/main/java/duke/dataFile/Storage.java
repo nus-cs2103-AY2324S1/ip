@@ -3,7 +3,6 @@ package duke.dataFile;
 import duke.exceptions.DukeException;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
-import duke.ui.Ui;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,7 +25,7 @@ public class Storage {
                 file.createNewFile();
             }
         } catch (IOException e) {
-            Ui.printWrapped("\u2639 OOPS!!! An error occurred while creating the file.");
+            System.out.println(":(( OOPS!!! An error occurred while creating the file.");
         }
     }
 
@@ -46,7 +45,7 @@ public class Storage {
             ArrayList<Task> loadedList = (ArrayList<Task>) objectIn.readObject();
             return loadedList;
         } catch (IOException | ClassNotFoundException e) {
-            throw new DukeException("\u2639 OOPS!!! An error occurred while reading data.");
+            throw new DukeException(":(( OOPS!!! An error occurred while reading data.");
         }
     }
 
@@ -63,7 +62,7 @@ public class Storage {
 
             objectOut.writeObject(tasks.getTasks());
         } catch (IOException e) {
-            throw new DukeException("\u2639 OOPS!!! Something went wrong when saving data");
+            throw new DukeException(":(( OOPS!!! Something went wrong when saving data");
         }
     }
 }

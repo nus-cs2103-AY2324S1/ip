@@ -1,7 +1,6 @@
 package duke.tasks;
 
 class Event extends Task {
-    private final char taskType = 'E';
 
     public Event(String name) {
         super(name);
@@ -15,7 +14,8 @@ class Event extends Task {
     @Override
     public String toString() {
         String checkBox;
-        String taskType = String.format("[%c]", this.taskType);
+        char taskType1 = 'E';
+        String taskType = String.format("[%c]", taskType1);
         if (super.isMarked()) {
             checkBox = "[X]";
         } else {
