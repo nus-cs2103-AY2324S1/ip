@@ -3,9 +3,9 @@ package exception;
 /**
  * Exception for the event where user input has missing arguments.
  */
-public class MissingArgumentException extends Exception{
+public class MissingArgumentException extends Exception {
 
-    String missingArgument;
+    private String missingArgument;
 
     /**
      * Constructor for MissingArgumentException

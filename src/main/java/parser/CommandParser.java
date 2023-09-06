@@ -1,9 +1,8 @@
 package parser;
 
 import enums.Command;
-
-import exception.MissingArgumentException;
 import exception.InvalidCommandException;
+import exception.MissingArgumentException;
 
 /**
  * Class to help parse complex strings from user input
@@ -38,7 +37,7 @@ public class CommandParser {
             case UNMARK:
                 throw new MissingArgumentException("task index number");
             case DELETE:
-                    throw new MissingArgumentException("task index number");
+                throw new MissingArgumentException("task index number");
             default:
                 throw new InvalidCommandException();
             }

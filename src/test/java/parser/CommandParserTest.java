@@ -1,11 +1,15 @@
 package parser;
 
-import exception.InvalidCommandException;
-import exception.MissingArgumentException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import exception.InvalidCommandException;
+import exception.MissingArgumentException;
+
+
 
 public class CommandParserTest {
     @Test
@@ -51,6 +55,6 @@ public class CommandParserTest {
 
     @Test
     public void noArguments() {
-        assertThrows(MissingTaskArgumentException.class, () -> CommandParser.getCommandArguments("delete"));
+        assertThrows(MissingArgumentException.class, () -> CommandParser.getCommandArguments("delete"));
     }
 }

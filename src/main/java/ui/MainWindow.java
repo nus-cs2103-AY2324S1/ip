@@ -1,5 +1,6 @@
-package chatbot.evan;
+package ui;
 
+import chatbot.evan.Evan;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import ui.DialogBox;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -22,8 +25,8 @@ public class MainWindow extends AnchorPane {
 
     private Evan evan;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/alex.jpg"));
-    private Image evanImage = new Image(this.getClass().getResourceAsStream("/images/majesty.jpg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image evanImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
 
     @FXML
     public void initialize() {
@@ -47,5 +50,12 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getEvanDialog(response, evanImage)
         );
         userInput.clear();
+    }
+
+    public void onStart() {
+        String message = evan.getIntro();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getEvanDialog(message, evanImage)
+        );
     }
 }

@@ -1,7 +1,8 @@
-package chatbot.evan;
+package ui;
 
 import java.io.IOException;
 
+import chatbot.evan.Evan;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,8 +23,13 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setEvan(evan);
+            MainWindow window = fxmlLoader.<MainWindow>getController();
+            window.setEvan(evan);
+            window.onStart();
             stage.show();
+
+            //Initialise introductory message
+
         } catch (IOException e) {
             e.printStackTrace();
         }

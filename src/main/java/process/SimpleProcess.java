@@ -1,2 +1,4 @@
-package process;public interface SimpleProcess {
+package process;
+
+public interface SimpleProcess extends Process {
 }

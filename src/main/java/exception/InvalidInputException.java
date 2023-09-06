@@ -3,7 +3,7 @@ package exception;
 /**
  * Checked Exception for the event where the input is not valid.
  */
-public class InvalidInputException extends Exception{
+public class InvalidInputException extends Exception {
 
     /**
      * Returns a string to inform users that the input is invalid
@@ -11,6 +11,6 @@ public class InvalidInputException extends Exception{
      */
     @Override
     public String toString() {
-        return "Your given input is invalid. Returning to homepage...";
+        return "Your given input is invalid. Please type an appropriate input.";
     }
 }

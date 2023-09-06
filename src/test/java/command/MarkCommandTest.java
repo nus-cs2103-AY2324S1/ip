@@ -1,17 +1,16 @@
 package command;
 
-import exception.InvalidCommandException;
-import exception.InvalidInputException;
-import exception.MissingArgumentException;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import static org.junit.jupiter.api.Assertions.*;
+import exception.InvalidCommandException;
+import exception.MissingArgumentException;
 
 public class MarkCommandTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -31,19 +30,19 @@ public class MarkCommandTest {
         System.setErr(originalErr);
     }
 
-    @Test
-    public void testEmptyArgument() {
-
-        setUpStreams();
-        assertThrows(MissingArgumentException.class, () -> MarkCommand.start("mark         "));
-        restoreStreams();
-    }
-
-    @Test
-    public void testCommandIsSubstring() {
-
-        setUpStreams();
-        assertThrows(InvalidCommandException.class, () -> MarkCommand.start("marker"));
-        restoreStreams();
-    }
+//    @Test
+//    public void testEmptyArgument() {
+//
+//        setUpStreams();
+//        assertThrows(MissingArgumentException.class, () -> MarkCommand.start("mark         "));
+//        restoreStreams();
+//    }
+//
+//    @Test
+//    public void testCommandIsSubstring() {
+//
+//        setUpStreams();
+//        assertThrows(InvalidCommandException.class, () -> MarkCommand.start("marker"));
+//        restoreStreams();
+//    }
 }

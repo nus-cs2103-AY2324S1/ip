@@ -1,11 +1,11 @@
 package parser;
 
-import exception.InvalidDateException;
-import exception.InvalidTimeException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import exception.InvalidDateException;
+import exception.InvalidTimeException;
 
 /**
  * Class for the parsing of a string of date/time data
@@ -140,8 +140,9 @@ public class Time {
     }
 
     /**
-     * Takes in a string containing date, validates if its a valid date and then returns the date in a standardized format
-     * @param date string containign the user input date
+     * Takes in a string containing date, validates if its a valid date and then
+     * returns the date in a standardized format
+     * @param date string containing the user input date
      * @return date string in a standardised format
      * @throws InvalidDateException if date is an invalid date
      */
@@ -152,7 +153,8 @@ public class Time {
     }
 
     /**
-     * Takes in a string containing time, validates if its a valid time and then returns the date/time in a standardized format
+     * Takes in a string containing time, validates if its a valid time and then
+     * returns the date/time in a standardized format
      * @param date string date input by user
      * @param time string time input by user
      * @return date and time string in standardised format

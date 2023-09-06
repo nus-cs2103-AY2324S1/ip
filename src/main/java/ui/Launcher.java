@@ -1,4 +1,4 @@
-package chatbot.evan;
+package ui;
 
 import javafx.application.Application;
 
