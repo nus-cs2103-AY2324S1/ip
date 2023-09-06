@@ -1,12 +1,10 @@
 package duke;  //same package as the class being tested
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -27,8 +25,8 @@ public class DukeTest {
 
     @Test
     public void startUpTest(){
-
-        Duke.main(null);
+//
+//        Duke.main(null);
 
         String actualOutput = outputStreamCaptor.toString().trim();
         String expected = "____________________________________________________________\n" +

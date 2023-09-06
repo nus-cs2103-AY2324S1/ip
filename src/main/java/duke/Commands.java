@@ -2,6 +2,7 @@ package duke;
 
 
 import java.util.Scanner;
+
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.ItemList;
@@ -19,6 +20,7 @@ public class Commands {
         MARK, UNMARK, LIST, EVENT, DEADLINE, TODO, BYE, DELETE, FIND
 
     }
+
 
 
     /**
@@ -40,35 +42,35 @@ public class Commands {
                 CommandType given = CommandType.valueOf(command);
 
                 switch (given) {
-                    case BYE:
-                        isRunning = false;
-                        break;
-                    case LIST:
-                        items.showitems();
-                        break;
-                    case MARK:
-                        parser.parseMark(items);
-                        break;
-                    case UNMARK:
-                        parser.parseUnmark(items);
-                        break;
-                    case DELETE:
-                        parser.parseDelete(items);
-                        break;
-                    case DEADLINE:
-                        parser.parseDeadline(items);
-                        break;
-                    case TODO:
-                        parser.parseTodo(items);
-                        break;
-                    case EVENT:
-                        parser.parseEvent(items);
-                        break;
-                    case FIND:
-                        parser.parseFind(items);
-                        break;
-                    default:
-                        throw new DukeException();
+                case BYE:
+                    isRunning = false;
+                    break;
+                case LIST:
+                    items.showitems();
+                    break;
+                case MARK:
+                    parser.parseMark(items);
+                    break;
+                case UNMARK:
+                    parser.parseUnmark(items);
+                    break;
+                case DELETE:
+                    parser.parseDelete(items);
+                    break;
+                case DEADLINE:
+                    parser.parseDeadline(items);
+                    break;
+                case TODO:
+                    parser.parseTodo(items);
+                    break;
+                case EVENT:
+                    parser.parseEvent(items);
+                    break;
+                case FIND:
+                    parser.parseFind(items);
+                    break;
+                default:
+                    throw new DukeException();
 
                 }
             } catch (DukeException e) {

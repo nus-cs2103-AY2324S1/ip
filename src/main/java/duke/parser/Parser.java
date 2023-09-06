@@ -36,59 +36,59 @@ public class Parser {
     /**
      * Execute mark operation on the item list based on the line String
      */
-    public void parseMark(ItemList items) {
+    public String parseMark(ItemList items) {
         Pattern markpattern = Pattern.compile("mark (\\d+).*");
         Matcher matcher = markpattern.matcher(this.line);
         if (matcher.matches()) {
             String digitString = matcher.group(1);
             int number = Integer.parseInt(digitString);
-            items.markDone(number);
+            return items.markDone(number);
         } else {
             UI.printMessage("Invalid mark input");
+            return "Invalid mark input";
         }
     }
 
     /**
      * Execute unmark operation on the item list based on the line String
      */
-    public void parseUnmark(ItemList items) {
+    public String parseUnmark(ItemList items) {
         Pattern unmarkpattern = Pattern.compile("unmark (\\d+).*");
         Matcher matcher = unmarkpattern.matcher(this.line);
         if (matcher.matches()) {
             String digitString = matcher.group(1);
             int number = Integer.parseInt(digitString);
-            items.markUndone(number);
+            return items.markUndone(number);
         } else {
-            UI.printMessage("Invalid unmark input");
+            return UI.printMessage("Invalid unmark input");
         }
     }
 
     /**
      * Execute delete operation on the item list based on the line String
      */
-    public void parseDelete(ItemList items) {
+    public String parseDelete(ItemList items) {
         Pattern deletepattern = Pattern.compile("delete (\\d+).*");
         Matcher matcher = deletepattern.matcher(this.line);
         if (matcher.matches()) {
             String digitString = matcher.group(1);
             int number = Integer.parseInt(digitString);
-            items.delete(number);
+            return items.delete(number);
         } else {
-            UI.printMessage("Invalid delete input");
+            return UI.printMessage("Invalid delete input");
         }
     }
 
     /**
      * Execute adding Deadline operation on the item list based on the line String
      */
-    public void parseDeadline(ItemList items) throws DeadlineException {
+    public String parseDeadline(ItemList items) throws DeadlineException {
         Pattern deadlinepattern = Pattern.compile("deadline (.*?) /by (.*)");
         Matcher matcher = deadlinepattern.matcher(this.line);
         if (matcher.matches()) {
             String task = matcher.group(1);
             String by = matcher.group(2);
-
-            items.addDeadline(task, by);
+            return items.addDeadline(task, by);
         } else {
             throw new DeadlineException();
         }
@@ -97,12 +97,12 @@ public class Parser {
     /**
      * Execute adding ToDo operation on the item list based on the line String
      */
-    public void parseTodo(ItemList items) throws ToDoException {
+    public String parseTodo(ItemList items) throws ToDoException {
         Pattern todopattern = Pattern.compile("todo (.*)");
         Matcher matcher = todopattern.matcher(line);
         if (matcher.matches()) {
             String task = matcher.group(1);
-            items.addTodo(task);
+            return items.addTodo(task);
         } else {
             throw new ToDoException();
         }
@@ -111,27 +111,27 @@ public class Parser {
     /**
      * Execute adding Event operation on the item list based on the line String
      */
-    public void parseEvent(ItemList items) throws EventException {
+    public String parseEvent(ItemList items) throws EventException {
         Pattern eventpattern = Pattern.compile("event (.*?) /from (.*?) /to (.*)");
         Matcher matcher = eventpattern.matcher(this.line);
         if (matcher.matches()) {
             String task = matcher.group(1);
             String from = matcher.group(2);
             String to = matcher.group(3);
-            items.addEvent(task, from, to);
+            return items.addEvent(task, from, to);
         } else {
             throw new EventException();
         }
     }
 
-    public void parseFind(ItemList items) {
+    public String parseFind(ItemList items) {
         Pattern eventpattern = Pattern.compile("find (.*?)");
         Matcher matcher = eventpattern.matcher(this.line);
         if (matcher.matches()) {
             String task = matcher.group(1);
-            items.find(task);
+            return items.find(task);
         } else {
-            UI.printMessage("Invalid find input");
+            return UI.printMessage("Invalid find input");
         }
     }
 

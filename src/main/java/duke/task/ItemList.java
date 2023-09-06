@@ -38,16 +38,14 @@ public class ItemList {
      * @param by the string of the time the task ends.
      */
     @SuppressWarnings("unchecked")
-    public void addDeadline(String name, String by) {
+    public String addDeadline(String name, String by) {
 
         if (name.equals("")) {
-            UI.printMessage("Please enter an item");
-            return;
+            return UI.printMessage("Please enter an item");
         }
 
         if (by.equals("")) {
-            UI.printMessage("Please enter an end date");
-            return;
+            return UI.printMessage("Please enter an end date");
         }
         Deadline deadline;
         if (Dates.checkDateinput(by)) {
@@ -62,12 +60,12 @@ public class ItemList {
             this.items.add(deadline);
             this.len++;
             this.saveAll();
-            UI.printMessage("Got it. I've added this task:", this.items.get(this.len - 1).showTaskinList(),
+            return UI.printMessage("Got it. I've added this task:" , this.items.get(this.len - 1).showTaskinList(),
                     "Now you have " + String.valueOf(len) + " tasks in this list");
         } catch (IOException e) {
             this.items = copy;
             this.len--;
-            UI.printFileError();
+            return UI.printFileError();
         }
 
 
@@ -79,23 +77,22 @@ public class ItemList {
      * @param newitem the string name of the todo task.
      */
     @SuppressWarnings("unchecked")
-    public void addTodo(String newitem) {
+    public String addTodo(String newitem) {
         if (newitem.equals("")) {
-            UI.printMessage("Please enter an item");
-            return;
+            return UI.printMessage("Please enter an item");
         }
         ArrayList<Task> copy = (ArrayList<Task>) this.items.clone();
         try {
             this.items.add(new ToDo(newitem));
             this.len++;
             this.saveAll();
-            UI.printMessage("Got it. I've added this task:", this.items.get(this.len - 1).showTaskinList(),
-                    "Now you have " + String.valueOf(len) + " tasks in this list");
+            return UI.printMessage("Got it. I've added this task:" , this.items.get(this.len - 1).showTaskinList()
+                    , "\n" + "Now you have " + String.valueOf(len) + " tasks in this list");
 
         } catch (IOException e) {
             this.items = copy;
             this.len--;
-            UI.printFileError();
+            return UI.printFileError();
         }
     }
     /**
@@ -106,21 +103,18 @@ public class ItemList {
      * @param to the string name of the end date.
      */
     @SuppressWarnings("unchecked")
-    public void addEvent(String newitem, String from, String to) {
+    public String addEvent(String newitem, String from, String to) {
 
         if (newitem.equals("")) {
-            UI.printMessage("Please enter an item");
-            return;
+            return UI.printMessage("Please enter an item");
         }
 
         if (from.equals("")) {
-            UI.printMessage("Please enter a start date");
-            return;
+            return UI.printMessage("Please enter an item");
         }
 
         if (to.equals("")) {
-            UI.printMessage("Please enter an end date");
-            return;
+            return UI.printMessage("Please enter an end date");
         }
         Event event;
         if (Dates.checkDateinput(from) && Dates.checkDateinput(to)) {
@@ -133,12 +127,12 @@ public class ItemList {
             this.items.add(event);
             this.len++;
             this.saveAll();
-            UI.printMessage("Got it. I've added this task:", this.items.get(this.len - 1).showTaskinList(),
+            return UI.printMessage("Got it. I've added this task:", this.items.get(this.len - 1).showTaskinList(),
                  "Now you have " + String.valueOf(len) + " tasks in this list");
         } catch (IOException e) {
             this.items = copy;
             this.len--;
-            UI.printFileError();
+            return UI.printFileError();
         }
 
 
@@ -148,12 +142,11 @@ public class ItemList {
      * This method print out the items currently in the list
      *
      */
-    public void showitems() {
+    public String showitems() {
         if (this.len <= 0) {
-            UI.printMessage("No item in the list.");
-            return;
+            return UI.printMessage("No item in the list.");
         }
-        UI.printList(this.items);
+        return UI.printList(this.items);
     }
 
     /**
@@ -163,19 +156,18 @@ public class ItemList {
      */
 
 
-    public void markDone(int index) {
+    public String markDone(int index) {
         int i = index - 1;
         if (i < 0 || i >= this.len) {
-            UI.noSuchTaskError();
-            return;
+            return UI.noSuchTaskError();
         }
         try {
             this.items.get(i).setDone();
             this.saveAll();
-            UI.printMessage("Nice! I've marked this task as done:", this.items.get(i).showTaskinList());
+            return UI.printMessage("Nice! I've marked this task as done:" , this.items.get(i).showTaskinList());
         } catch (IOException e) {
             this.items.get(i).setUndone();
-            UI.printFileError();
+            return UI.printFileError();
         }
 
     }
@@ -186,20 +178,20 @@ public class ItemList {
      * @param index the index of the task to be marked undone
      */
 
-    public void markUndone(int index) {
+    public String markUndone(int index) {
         int i = index - 1;
         if (i < 0 || i >= this.len) {
-            UI.noSuchTaskError();
-            return;
+            return UI.noSuchTaskError();
         }
 
         try {
             this.items.get(i).setUndone();
             this.saveAll();
-            UI.printMessage("OK, I've marked this task as not done yet:", this.items.get(i).showTaskinList());
+            return UI.printMessage("OK, I've marked this task as not done yet:" , this.items.get(i).showTaskinList());
+
         } catch (IOException e) {
             this.items.get(i).setDone();
-            UI.printFileError();
+            return UI.printFileError();
 
         }
 
@@ -211,10 +203,9 @@ public class ItemList {
      * @param index the index of the task to be deleted.
      */
     @SuppressWarnings("unchecked")
-    public void delete(int index) {
+    public String delete(int index) {
         if (this.len <= 0) {
-            UI.printMessage("Nothing to Delete");
-            return;
+            return UI.printMessage("Nothing to Delete");
         }
         ArrayList<Task> copy = (ArrayList<Task>) this.items.clone();
         try {
@@ -222,11 +213,11 @@ public class ItemList {
             this.items.remove(index - 1);
             this.len--;
             this.saveAll();
-            UI.printMessage("Noted. I've removed this task:", todelete);
+            return UI.printMessage("Noted. I've removed this task:" , todelete);
         } catch (IOException e) {
             this.items = copy;
             this.len++;
-            UI.printFileError();
+            return UI.printFileError();
         }
 
 
@@ -245,14 +236,14 @@ public class ItemList {
         writer.close();
     }
 
-    public void find(String key) {
+    public String find(String key) {
         ArrayList<Task> filteredTasks = this.items.stream()
                 .filter(task -> task.showTask().contains(key))
                 .collect(Collectors.toCollection(ArrayList::new));
         if (filteredTasks.isEmpty()) {
-            UI.printMessage("No matched item");
+            return UI.printMessage("No matched item");
         } else {
-            UI.printFound(filteredTasks);
+            return UI.printFound(filteredTasks);
         }
     }
 
