@@ -18,9 +18,21 @@ public class Duke {
             tasks = new TaskList();
         }
     }
+
+    public Duke() {
+        this(SAVED_TASKS_FILEPATH);
+    }
     public static void main(String[] args) {
         Duke luke = new Duke(SAVED_TASKS_FILEPATH);
         luke.run();
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        return executeCommand(input);
     }
 
     /**
@@ -32,11 +44,7 @@ public class Duke {
 
         String input = ui.readNextInput();
         while (!input.equals("bye")) {
-            try {
-                executeCommand(input);
-            } catch (LukeException e) {
-                ui.displayError(e.getMessage());
-            }
+            executeCommand(input);
             input = ui.readNextInput();
         }
 
@@ -56,32 +64,30 @@ public class Duke {
      * @throws LukeException If the leading word in the command is not a recognised command, or
      *         if the processes associated with executing the command encounters an error
      */
-    private void executeCommand(String command) throws LukeException {
-        switch(command.split(" ")[0]) {
-        case "list":
-            ui.displayMessage(tasks.list());
-            break;
-        case "mark":
-            ui.displayMessage("Nice! I've marked this task as done: \n" + tasks.markAsDone(command));
-            break;
-        case "unmark":
-            ui.displayMessage("OK, I've marked this task as not done yet: \n" + tasks.markAsUndone(command));
-            break;
-        case "delete":
-            ui.displayMessage("Noted. I've removed this task: \n" + tasks.delete(command));
-            break;
-        case "todo":
-            // Fallthrough
-        case "deadline":
-            // Fallthrough
-        case "event":
-            ui.displayMessage("added : " + tasks.add(command));
-            break;
-        case "find":
-            ui.displayMessage(tasks.find(command));
-            break;
-        default:
-            throw new LukeException("I'm sorry, but I don't know what that means :-(");
+    private String executeCommand(String command) {
+        try {
+            switch(command.split(" ")[0]) {
+                case "list":
+                    return ui.displayMessage(tasks.list());
+                case "mark":
+                    return ui.displayMessage("Nice! I've marked this task as done: \n" + tasks.markAsDone(command));
+                case "unmark":
+                    return ui.displayMessage("OK, I've marked this task as not done yet: \n" + tasks.markAsUndone(command));
+                case "delete":
+                    return ui.displayMessage("Noted. I've removed this task: \n" + tasks.delete(command));
+                case "todo":
+                    // Fallthrough
+                case "deadline":
+                    // Fallthrough
+                case "event":
+                    return ui.displayMessage("added : " + tasks.add(command));
+                case "find":
+                    return ui.displayMessage(tasks.find(command));
+                default:
+                    throw new LukeException("I'm sorry, but I don't know what that means :-(");
+            }
+        } catch (LukeException e) {
+            return ui.displayError(e.getMessage());
         }
     }
 

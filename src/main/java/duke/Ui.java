@@ -18,14 +18,17 @@ public class Ui {
      *
      * @param msg String to output
      */
-    public void displayMessage(String msg) {
+    public String displayMessage(String msg) {
+        String indentedMsg = indent(msg);
         System.out.println(LINE_BREAK);
-        System.out.println(indent(msg));
+        System.out.println(indentedMsg);
         System.out.println(LINE_BREAK);
+
+        return indentedMsg;
     }
 
-    public void displayError(String msg) {
-        displayMessage("☹ OOPS!!! \n" + msg);
+    public String displayError(String msg) {
+        return displayMessage("☹ OOPS!!! \n" + msg);
     }
 
     public String readNextInput() {
