@@ -1,4 +1,4 @@
-# DukePro
+# RuaPro
 > “Your mind is for having ideas, not holding them.” – David Allen ([source](https://dansilvestre.com/productivity-quotes/))
 
 DukePro frees your mind of having to remember things you need to do. It's,
@@ -22,7 +22,7 @@ Features:
 - [ ] Reminders (coming soon)
 
 If you Java programmer, you can use it to practice Java too. Here's the `main` method:
-```
+```ruby
 public class Main {
     public static void main(String[] args) {
         Application.launch(MainApp.class, args);
