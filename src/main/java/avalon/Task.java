@@ -1,3 +1,5 @@
+package avalon;
+
 public class Task {
 
     enum TaskType {

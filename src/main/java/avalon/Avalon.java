@@ -1,3 +1,5 @@
+package avalon;
+
 public class Avalon {
 
     private Ui ui;

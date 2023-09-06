@@ -1,3 +1,5 @@
+package avalon;
+
 public class TaskParser {
     public static Task parse(String line) {
         String[] parts = line.split(" \\| ");
@@ -23,7 +25,7 @@ public class TaskParser {
     }
 
 
-    // Serialize a Task object to a string for saving to the file
+    // Serialize a avalon.Task object to a string for saving to the file
     public static String serialize(Task task) {
         String doneStatus = task.isDone ? "1" : "0";
 
