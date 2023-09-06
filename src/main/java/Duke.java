@@ -2,9 +2,6 @@ import java.io.*;
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
-
-
-
 public class Duke {
 
     public static String horizontalLine = "_".repeat(60) + "\n";
@@ -95,6 +92,8 @@ public class Duke {
             allTasks.addAll(loadedTasks);
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
+        } catch (DukeException e) {
+
         }
     }
 
@@ -227,46 +226,46 @@ public class Duke {
                         todo.print();
                     }
                     else if (instruction.equals("deadline")) {
-                        String[] taskAndDeadline = actualTask.split("/by");
-                        if (taskAndDeadline.length == 1 || taskAndDeadline.length == 0) {
-                            throw new DukeException(Duke.horizontalLine + "OOPS!!! Invalid format for deadline :-(\n" + Duke.horizontalLine);
-                        }
+                            String[] taskAndDeadline = actualTask.split("/by");
+                            if (taskAndDeadline.length == 1 || taskAndDeadline.length == 0) {
+                                throw new DukeException(Duke.horizontalLine + "OOPS!!! Invalid format for deadline :-(\n" + Duke.horizontalLine);
+                            }
 //                            String onlyTask = taskAndDeadline[0];
 //                            String by = taskAndDeadline[1];
-                        if (taskAndDeadline.length == 1 || taskAndDeadline.length == 0) {
-                            throw new DukeException(Duke.horizontalLine + "OOPS!!! Invalid format for deadline :-(\n" + Duke.horizontalLine);
-                        }
-                        String onlyTask = taskAndDeadline[0].trim(); // Trim to remove extra spaces
-                        String by = taskAndDeadline[1].trim();// Trim to remove extra spaces
-                        if (!by.contains(" ")) {
-                            by += " 2359";
-                        }
-                        Deadline deadline = new Deadline(onlyTask, true, by);
-                        deadline.print();
+                            if (taskAndDeadline.length == 1 || taskAndDeadline.length == 0) {
+                                throw new DukeException(Duke.horizontalLine + "OOPS!!! Invalid format for deadline :-(\n" + Duke.horizontalLine);
+                            }
+                            String onlyTask = taskAndDeadline[0].trim(); // Trim to remove extra spaces
+                            String by = taskAndDeadline[1].trim();// Trim to remove extra spaces
+                            if (!by.contains(" ")) {
+                                by += " 2359";
+                            }
+                            Deadline deadline = new Deadline(onlyTask, true, by);
+                            deadline.print();
                     }
                     else if (instruction.equals("event")) {
-                        String[] taskAndToFrom = actualTask.split("/from");
-                        if (taskAndToFrom.length == 1 || taskAndToFrom.length == 0) {
-                            throw new DukeException(Duke.horizontalLine + "OOPS!!! Invalid format for event :-(\n" + Duke.horizontalLine);
-                        }
-                        String onlyTask = taskAndToFrom[0].trim(); // Trim to remove extra spaces
-                        if (onlyTask.isEmpty()) {
-                            throw new DukeException(Duke.horizontalLine + "OOPS!!! Invalid format for event :-(\n" + Duke.horizontalLine);
-                        }
-                        String[] ToFrom = taskAndToFrom[1].split("/to");
-                        if (ToFrom.length == 1 || ToFrom.length == 0) {
-                            throw new DukeException(Duke.horizontalLine + "OOPS!!! Invalid format for event :-(\n" + Duke.horizontalLine);
-                        }
-                        String from = ToFrom[0].trim(); // Trim to remove extra spaces
-                        String to = ToFrom[1].trim(); // Trim to remove extra spaces
-                        if (!from.contains(" ")) {
-                            from += " 2359";
-                        }
-                        if (!to.contains(" ")) {
-                            to += " 2359";
-                        }
-                        Event event = new Event(onlyTask, true, from, to);
-                        event.print();
+                            String[] taskAndToFrom = actualTask.split("/from");
+                            if (taskAndToFrom.length == 1 || taskAndToFrom.length == 0) {
+                                throw new DukeException(Duke.horizontalLine + "OOPS!!! Invalid format for event :-(\n" + Duke.horizontalLine);
+                            }
+                            String onlyTask = taskAndToFrom[0].trim(); // Trim to remove extra spaces
+                            if (onlyTask.isEmpty()) {
+                                throw new DukeException(Duke.horizontalLine + "OOPS!!! Invalid format for event :-(\n" + Duke.horizontalLine);
+                            }
+                            String[] ToFrom = taskAndToFrom[1].split("/to");
+                            if (ToFrom.length == 1 || ToFrom.length == 0) {
+                                throw new DukeException(Duke.horizontalLine + "OOPS!!! Invalid format for event :-(\n" + Duke.horizontalLine);
+                            }
+                            String from = ToFrom[0].trim(); // Trim to remove extra spaces
+                            String to = ToFrom[1].trim(); // Trim to remove extra spaces
+                            if (!from.contains(" ")) {
+                                from += " 2359";
+                            }
+                            if (!to.contains(" ")) {
+                                to += " 2359";
+                            }
+                            Event event = new Event(onlyTask, true, from, to);
+                            event.print();
                     }
                     else {
                         throw new DukeException(Duke.horizontalLine + "OOPS!!! I'm sorry, but I don't know what that means :-(\n" + Duke.horizontalLine);
@@ -284,5 +283,6 @@ public class Duke {
         System.out.println(horizontalLine+ "Bye. Hope to see you again soon!\n" + horizontalLine);
     }
 }
+
 
 

@@ -6,15 +6,21 @@ public class Deadline extends Task {
     private String byStr;
     private LocalDateTime by;
 
-    public Deadline(String task, Boolean isNotSaved, String by) {
+    public Deadline(String task, Boolean isNotSaved, String by) throws DukeException {
         super(task, isNotSaved);
-        this.byStr = by;
-        this.by = parseDateTime(by);
+        try {
+            this.by = parseDateTime(by);
+            this.byStr = by;
+
+        } catch (Exception e) {
+            throw new DukeException(Duke.horizontalLine + "Invalid date format :< Please use dd/MM/yyyy\n" + Duke.horizontalLine);
+        }
         if (isNotSaved) {
             saveToFile();
         }
     }
-    
+
+
     public String toString() {
         // Format LocalDateTime as a string in your desired output format
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a");

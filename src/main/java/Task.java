@@ -58,30 +58,30 @@ public class Task {
         return this.task;
     }
 
-    public LocalDateTime parseDateTime(String dateTimeString) {
-        // Split the input string into date and time parts
-        String[] parts = dateTimeString.split(" ", 2);
+    public LocalDateTime parseDateTime(String dateTimeString) throws DukeException {
+            // Split the input string into date and time parts
+            String[] parts = dateTimeString.split(" ", 2);
 
-        // Check if there are exactly two parts (date and time)
-        if (parts.length != 2) {
-            throw new IllegalArgumentException("Invalid date/time format: " + dateTimeString);
-        }
+            // Check if there are exactly two parts (date and time)
+            if (parts.length != 2) {
+                throw new IllegalArgumentException("Invalid date/time format: " + dateTimeString);
+            }
 
-        String datePart = parts[0];
-        String timePart = parts[1];
+            String datePart = parts[0];
+            String timePart = parts[1];
 
-        // Define a formatter for the date part, e.g., "dd/MM/yyyy"
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        // Parse the date part into a LocalDate object
-        LocalDate date = LocalDate.parse(datePart, dateFormatter);
+            // Define a formatter for the date part, e.g., "dd/MM/yyyy"
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            // Parse the date part into a LocalDate object
+            LocalDate date = LocalDate.parse(datePart, dateFormatter);
 
-        // Define a formatter for the time part, e.g., "HHmm"
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
-        // Parse the time part into a LocalTime object
-        LocalTime time = LocalTime.parse(timePart, timeFormatter);
+            // Define a formatter for the time part, e.g., "HHmm"
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
+            // Parse the time part into a LocalTime object
+            LocalTime time = LocalTime.parse(timePart, timeFormatter);
 
-        // Combine the date and time into a LocalDateTime object
-        return LocalDateTime.of(date, time);
+            // Combine the date and time into a LocalDateTime object
+            return LocalDateTime.of(date, time);
     }
 
     public void printList() {

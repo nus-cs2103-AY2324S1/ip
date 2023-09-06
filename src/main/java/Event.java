@@ -8,16 +8,39 @@ public class Event extends Task{
     private LocalDateTime from;
     private LocalDateTime to;
 
-    public Event(String task, Boolean isNotSaved, String from, String to) {
+//    public Event(String task, Boolean isNotSaved, String from, String to) {
+//        super(task, isNotSaved);
+//        this.fromStr = from;
+//        this.toStr = to;
+//        try {
+//            this.from = parseDateTime(from);
+//            this.to = parseDateTime(to);
+//        } catch (Exception e) {
+//            System.out.println(Duke.horizontalLine + "Invalid date format :< Please use dd/MM/yyyy\n" + Duke.horizontalLine);
+//        }
+//
+//        if (isNotSaved) {
+//            saveToFile();
+//        }
+//    }
+    public Event(String task, Boolean isNotSaved, String from, String to) throws DukeException {
         super(task, isNotSaved);
         this.fromStr = from;
         this.toStr = to;
-        this.from = parseDateTime(from);
-        this.to = parseDateTime(to);
+        try {
+            this.from = parseDateTime(from);
+            this.to = parseDateTime(to);
+        } catch (Exception e) {
+            // Display the error message here
+           // System.err.println(Duke.horizontalLine + "Invalid date format :< Please use dd/MM/yyyy\n" + Duke.horizontalLine);
+            throw new DukeException(Duke.horizontalLine + "Invalid date format :< Please use dd/MM/yyyy\n" + Duke.horizontalLine);
+        }
+
         if (isNotSaved) {
             saveToFile();
         }
     }
+
 
     @Override
     public String toString() {
