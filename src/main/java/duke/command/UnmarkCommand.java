@@ -21,15 +21,15 @@ public class UnmarkCommand extends Command {
 
     /**
      * Executes the current unmark command.
-     * @param tasklst current list of tasks
+     * @param taskList current list of tasks
      * @param ui instance of user interface
      * @param storage instance of storage to read and write files
      * @throws DukeException Exception thrown whilst executing the command
      */
     @Override
-    public void execute(TaskList tasklst, Ui ui, Storage storage) throws DukeException {
-        tasklst.unmarkTask(taskNumber, ui);
-        storage.rewriteFile(tasklst);
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        taskList.unmarkTask(taskNumber, ui);
+        storage.rewriteFile(taskList);
     }
 
     /**
