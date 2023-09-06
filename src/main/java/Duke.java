@@ -70,7 +70,7 @@ public class Duke {
 
                 case "list":
                     //list
-                    tasks.displayList();
+                    ui.Speak(tasks.displayList());
                     break;
 
                 case "mark":
@@ -78,7 +78,7 @@ public class Duke {
 
                     try {
                         int i = Integer.parseInt(parser.getTaskName()) - 1;
-                        tasks.markTask(i);
+                        ui.Speak(tasks.markTask(i));
                         userListHaveChanges = true;
                     } catch (NumberFormatException e) {
                         ui.Speak("need to provide an integer index of task.");
@@ -91,7 +91,7 @@ public class Duke {
                     //unmark 1
                     try {
                         int i = Integer.parseInt(parser.getTaskName()) - 1;
-                        tasks.unmarkTask(i);
+                        ui.Speak(tasks.unmarkTask(i));
                         userListHaveChanges = true;
                     } catch (NumberFormatException e) {
                         ui.Speak("need to provide an integer index of task.");
@@ -124,7 +124,7 @@ public class Duke {
                     //delete 1
                     try {
                         int i = Integer.parseInt(parser.getTaskName()) - 1;
-                        tasks.deleteTask(i);
+                        ui.Speak(tasks.deleteTask(i));
                         userListHaveChanges = true;
                     } catch (NumberFormatException e) {
                         ui.Speak("need to provide an integer index of task.");
@@ -134,7 +134,7 @@ public class Duke {
 
 
                 default:
-                    System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    ui.Speak("OOPS!!! I'm sorry, but I don't know what that means :-(");
 
 
             }

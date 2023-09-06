@@ -36,16 +36,18 @@ public class Task {
 
     }
 
-    public void markDone() {
-        System.out.println("Nice! I've marked this task as done:");
+    public String markDone() {
         isDone = true;
-        System.out.println("[X] " + taskName);
+        String message = "Nice! I've marked this task as done:";
+        message = message + "\n" + "[X] " + taskName;
+        return message;
     }
 
-    public void unmarkDone() {
-        System.out.println("OK, I've marked this task as not done yet:");
+    public String unmarkDone() {
         isDone = false;
-        System.out.println("[ ] " + taskName);
+        String message = "OK, I've marked this task as not done yet:";
+        message = message + "\n" + "[ ] " + taskName;
+        return message;
     }
 
     public String display() {

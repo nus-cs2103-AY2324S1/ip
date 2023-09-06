@@ -92,16 +92,18 @@ public class TaskList {
         return userListPointer;
     }
 
-    public void displayList() {
+    public String displayList() {
         if (userListPointer < 1) {
-            System.out.println("No items in the list yet");
+            return "No items in the list yet";
         } else {
+            StringBuilder message = new StringBuilder();
             for (int i = 0; i < userListPointer; i++) {
                 int num = i + 1;
-                System.out.println(num + userList[i].display());
+                message.append(num).append(userList[i].display()).append("\n");
 
 
             }
+            return message.toString();
         }
     }
 }

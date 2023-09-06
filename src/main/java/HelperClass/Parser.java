@@ -17,6 +17,7 @@ public class Parser {
     public void processUserCommand() {
         Scanner getUserInput = new Scanner(System.in);
         String userInput = getUserInput.nextLine();
+
         List<String> formattedLine = new ArrayList<>();
         Scanner lineScanner = new Scanner(userInput);
         while (lineScanner.hasNext()) {
@@ -27,10 +28,13 @@ public class Parser {
         }
         lineScanner.close();
 
+        command = formattedLine.get(0);
+
         List<String> attributes = new ArrayList<>();
         StringBuilder attributeName = new StringBuilder();
 
-        for (String element : formattedLine) {
+        for (int a = 1; a < formattedLine.size(); a++) {
+            String element = formattedLine.get(a);
             if (element.charAt(0) == '/') {
                 attributes.add(attributeName.toString());
                 attributeName = new StringBuilder();
@@ -48,18 +52,18 @@ public class Parser {
         attributes.add(attributeName.toString());
 
         switch (attributes.size()) {
-            case 4:
-                secondEnteredTime = attributes.get(3);
-
             case 3:
-                firstEnteredTime = attributes.get(2);
+                secondEnteredTime = attributes.get(2);
 
             case 2:
-                taskName = attributes.get(1);
+                firstEnteredTime = attributes.get(1);
 
             case 1:
-                command = attributes.get(0);
+                taskName = attributes.get(0);
+
         }
+
+        System.out.println(command);
 
 
 
