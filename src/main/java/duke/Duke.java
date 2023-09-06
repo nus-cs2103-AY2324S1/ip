@@ -1,14 +1,12 @@
 package duke;
 
+import java.util.ArrayList;
+import java.io.IOException;
 import duke.exception.DukeException;
 import duke.task.CommandEnum;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.util.Storage;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Encapsulates an instance of a chatbot program.
@@ -18,6 +16,15 @@ public class Duke {
     private Ui ui;
     private TaskList tasks;
     private Storage storage;
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        String output = this.run(input);
+        return output;
+    }
 
     /**
      * Constructor method for Duke.
@@ -34,69 +41,50 @@ public class Duke {
         }
     }
 
-    private void run() {
-        Scanner scanner = new Scanner(System.in);
-        String nextTask = scanner.nextLine();
+    private String run(String input) {
+        String nextTask = input;
         CommandEnum taskEnum = CommandEnum.assignEnum(nextTask);
 
-        while (!taskEnum.equals(CommandEnum.BYE)) {
-            switch (taskEnum) {
-            case LIST:
-                this.tasks.printTasks();
-                break;
-            case MARK:
-            case UNMARK:
-                try {
-                    this.tasks.handleMark(nextTask);
-                } catch (DukeException e) {
-                    this.ui.explainException(e);
-                }
-                break;
-            case TODO:
-            case DEADLINE:
-            case EVENT:
-                try {
-                    this.tasks.handleTask(nextTask);
-                } catch (DukeException e) {
-                    this.ui.explainException(e);
-                }
-                break;
-            case DELETE:
-                try {
-                    this.tasks.handleDelete(nextTask);
-                } catch (DukeException e) {
-                    this.ui.explainException(e);
-                }
-                break;
-            case FIND:
-                try {
-                    this.tasks.find(nextTask);
-                } catch (DukeException e) {
-                    this.ui.explainException(e);
-                }
-                break;
-            default:
-                this.ui.handleInvalid();
+        switch (taskEnum) {
+        case LIST:
+            return this.tasks.printTasks();
+        case MARK:
+        case UNMARK:
+            try {
+                return this.tasks.handleMark(nextTask);
+            } catch (DukeException e) {
+                return this.ui.explainException(e);
             }
-
-            nextTask = scanner.nextLine();
-            taskEnum = CommandEnum.assignEnum(nextTask);
+        case TODO:
+        case DEADLINE:
+        case EVENT:
+            try {
+                return this.tasks.handleTask(nextTask);
+            } catch (DukeException e) {
+                return this.ui.explainException(e);
+            }
+        case DELETE:
+            try {
+                return this.tasks.handleDelete(nextTask);
+            } catch (DukeException e) {
+                return this.ui.explainException(e);
+            }
+        case FIND:
+            try {
+                return this.tasks.find(nextTask);
+            } catch (DukeException e) {
+                return this.ui.explainException(e);
+            }
+        case BYE:
+            try {
+                this.storage.saveTasks(this.tasks.getList());
+            } catch (IOException e) {
+                String output = "Unable to save your tasks to a file. Try Again.";
+                return output;
+            }
+            return this.ui.bye();
+        default:
+            return this.ui.handleInvalid();
         }
-
-        scanner.close();
-
-        try {
-            this.storage.saveTasks(this.tasks.getList());
-        } catch (IOException e) {
-            System.out.println("Unable to save your tasks to a file. Try Again.");
-        }
-
-        this.ui.bye();
-    }
-
-    public static void main(String[] args) {
-        Duke chatBot = new Duke();
-        chatBot.ui.greet();
-        chatBot.run();
     }
 }

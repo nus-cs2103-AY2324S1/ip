@@ -33,22 +33,24 @@ public class TaskList {
 
     /**
      * Prints the list of tasks.
+     * @return The list of tasks.
      */
-    public void printTasks() {
-        System.out.println(line);
-        System.out.println("Here are the tasks in your list:");
+    public String printTasks() {
+        String output = "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
             int index = i + 1;
 
-            System.out.println(index + "." + this.tasks.get(i).toString());
+            output += index + "." + this.tasks.get(i).toString() + "\n";
         }
-        System.out.println(line);
+
+        return output;
     }
 
     /**
      * Handles the adding of a task.
+     * @return Acknowledgement.
      */
-    public void handleTask(String task) throws DukeException {
+    public String handleTask(String task) throws DukeException {
         String nextTaskString = null;
 
         if (task.startsWith("todo")) {
@@ -59,11 +61,11 @@ public class TaskList {
             nextTaskString = handleEvent(task);
         }
 
-        System.out.println(line);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(nextTaskString);
-        System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
-        System.out.println(line);
+        String output = "Got it. I've added this task:\n";
+        output += nextTaskString + "\n";
+        output += "Now you have " + this.tasks.size() + " tasks in the list.";
+
+        return output;
     }
 
     /**
@@ -140,7 +142,7 @@ public class TaskList {
     /**
      * Handles the deletion of a task.
      */
-    public void handleDelete(String nextTask) throws DukeException {
+    public String handleDelete(String nextTask) throws DukeException {
         String[] split = nextTask.split(" ");
 
         if (split.length <= 1) {
@@ -164,17 +166,17 @@ public class TaskList {
         Task taskToRemove = this.tasks.get(taskIndex);
         this.tasks.remove(taskIndex);
 
-        System.out.println(line);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(taskToRemove.toString());
-        System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
-        System.out.println(line);
+        String output = "Noted. I've removed this task:\n";
+        output += taskToRemove.toString() + "\n";
+        output += "Now you have " + this.tasks.size() + " tasks in the list.\n";
+
+        return output;
     }
 
     /**
      * Handles the marking of a task.
      */
-    public void handleMark(String nextTask) throws DukeException {
+    public String handleMark(String nextTask) throws DukeException {
         String[] split = nextTask.split(" ");
 
         if (split.length <= 1) {
@@ -198,34 +200,35 @@ public class TaskList {
         }
 
         if (action.equals("mark")) {
-            this.markTask(taskIndex);
-        } else if (action.equals("unmark")) {
-            this.unmarkTask(taskIndex);
+            return this.markTask(taskIndex);
+        } else {
+            return this.unmarkTask(taskIndex);
         }
     }
 
-    private void markTask(int taskIndex) {
+    private String markTask(int taskIndex) {
         this.tasks.get(taskIndex).doTask();
 
-        System.out.println(line);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this.tasks.get(taskIndex).toString());
-        System.out.println(line);
+
+        String output = "Nice! I've marked this task as done:\n";
+        output += this.tasks.get(taskIndex).toString() + "\n";
+
+        return output;
     }
 
-    private void unmarkTask(int taskIndex) {
+    private String unmarkTask(int taskIndex) {
         this.tasks.get(taskIndex).undoTask();
 
-        System.out.println(line);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(this.tasks.get(taskIndex).toString());
-        System.out.println(line);
+        String output = "OK, I've marked this task as not done yet:\n";
+        output += this.tasks.get(taskIndex).toString() + "\n";
+
+        return output;
     }
 
     /**
      * Finds the specified task.
      */
-    public void find(String task) throws DukeException {
+    public String find(String task) throws DukeException {
         String[] split = task.split("find ");
 
         if (split.length <= 1) {
@@ -244,12 +247,12 @@ public class TaskList {
         if (similarTasks.isEmpty()) {
             throw new DukeException("There is no such task.");
         } else {
-            System.out.println(line);
-            System.out.println("Here are the matching tasks in your list:");
+            String output = "Here are the matching tasks in your list:\n";
             for (int i = 0; i < similarTasks.size(); i++) {
-                System.out.println(i + 1 + ". " + similarTasks.get(i).toString());
+                output += i + 1 + ". " + similarTasks.get(i).toString() + "\n";
             }
-            System.out.println(line);
+
+            return output;
         }
     }
 }
