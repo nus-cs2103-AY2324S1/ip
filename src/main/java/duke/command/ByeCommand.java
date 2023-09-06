@@ -16,11 +16,12 @@ public class ByeCommand extends Command {
      * @param taskList The used TaskList
      * @param ui The ui object
      * @param storage The storage used
+     * @return Message response from running the command.
      * @throws Exception throw Exception from writeFile
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws Exception {
-        ui.printBye();
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws Exception {
         storage.writeFile(taskList);
+        return ui.printBye();
     }
 }

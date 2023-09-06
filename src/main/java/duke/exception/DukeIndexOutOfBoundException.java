@@ -13,8 +13,6 @@ public class DukeIndexOutOfBoundException extends DukeException {
      * @param e The Exception message
      */
     public DukeIndexOutOfBoundException(String e) {
-        super("    ____________________________________________________________\n"
-                + "     ☹ OOPS!!! The description cannot be empty.\n"
-                + "    ____________________________________________________________\n");
+        super("     ☹ OOPS!!! The description cannot be empty.\n");
     }
 }

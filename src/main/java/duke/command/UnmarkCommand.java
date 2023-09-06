@@ -28,11 +28,13 @@ public class UnmarkCommand extends Command {
      * @param taskList The used TaskList
      * @param ui The ui object
      * @param storage The storage used
+     * @return Message response from running the command.
      * @throws Exception If there is an incorrect marking index
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws Exception {
         int index;
+        String result;
 
         try {
             index = Integer.parseInt(splitTask[1]);
@@ -40,12 +42,14 @@ public class UnmarkCommand extends Command {
             throw new DukeInvalidMarkException(splitTask[0]);
         }
 
-        if (index > 0 && index < taskList.size() && taskList.get(index - 1) != null) {
+        if (index > 0 && index <= taskList.size() && taskList.get(index - 1) != null) {
             taskList.get(index - 1).unmark();
-            ui.printUnmark(taskList.get(index - 1));
+            result = ui.printUnmark(taskList.get(index - 1));
         } else {
             throw new DukeInvalidMarkException(Integer.toString(index));
         }
         storage.writeFile(taskList);
+
+        return result;
     }
 }

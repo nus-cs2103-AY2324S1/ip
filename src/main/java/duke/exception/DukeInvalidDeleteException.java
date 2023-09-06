@@ -13,9 +13,7 @@ public class DukeInvalidDeleteException extends DukeException {
      * @param e The Exception message
      */
     public DukeInvalidDeleteException(String e) {
-        super("    ____________________________________________________________\n"
-                + "     ☹ OOPS!!! The index for deleting is invalid.\n"
-                + "    ____________________________________________________________\n");
+        super("     ☹ OOPS!!! The index for deleting is invalid.\n");
 
     }
 }

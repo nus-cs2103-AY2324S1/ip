@@ -29,11 +29,13 @@ public class DeleteCommand extends Command {
      * @param taskList The used TaskList
      * @param ui The ui object
      * @param storage The storage used
+     * @return Message response from running the command.
      * @throws Exception Throw Exception if index is incorrect
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws Exception {
         int index;
+        String result;
 
         try {
             index = Integer.parseInt(splitTask[1]);
@@ -41,12 +43,14 @@ public class DeleteCommand extends Command {
             throw new DukeInvalidDeleteException(splitTask[0]);
         }
 
-        if (index > 0 && index < taskList.size() && taskList.get(index - 1) != null) {
-            ui.printDeleteTask(taskList.get(index - 1), taskList.size() - 1);
+        if (index > 0 && index <= taskList.size() && taskList.get(index - 1) != null) {
+            result = ui.printDeleteTask(taskList.get(index - 1), taskList.size() - 1);
             taskList.remove(index - 1);
         } else {
             throw new DukeInvalidMarkException(Integer.toString(index));
         }
         storage.writeFile(taskList);
+
+        return result;
     }
 }

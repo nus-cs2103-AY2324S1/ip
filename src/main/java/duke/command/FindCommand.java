@@ -29,9 +29,10 @@ public class FindCommand extends Command {
      * @param taskList The original TaskList
      * @param ui The Ui
      * @param storage The storage object used
+     * @return Message response from running the command.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         TaskList findTasks = new TaskList();
 
         for (int i = 0; i < taskList.size(); i++) {
@@ -41,6 +42,6 @@ public class FindCommand extends Command {
             }
         }
 
-        ui.printTaskList(findTasks);
+        return ui.printTaskList(findTasks);
     }
 }
