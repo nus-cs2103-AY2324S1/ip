@@ -1,7 +1,6 @@
 package pardiyem.command;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import pardiyem.storage.Storage;
 import pardiyem.task.Deadline;
@@ -25,7 +24,6 @@ public class AddCommand extends Command {
      */
     public AddCommand(String desc, int type) {
         super(desc);
-        
         switch (type) {
         case 1:
             toAdd = new Todo(desc);
@@ -38,6 +36,8 @@ public class AddCommand extends Command {
             toAdd = new Event(desc);
             break;
         }
+        default:
+            break;
         }
     }
 

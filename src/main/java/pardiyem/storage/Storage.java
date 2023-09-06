@@ -1,28 +1,27 @@
 package pardiyem.storage;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.ArrayList;
 
-import pardiyem.task.TaskList;
-import pardiyem.task.Task;
 import pardiyem.task.Deadline;
-import pardiyem.task.Todo;
 import pardiyem.task.Event;
+import pardiyem.task.Task;
+import pardiyem.task.TaskList;
+import pardiyem.task.Todo;
+
 
 public class Storage {
     static final String DEFAULT_PATH = "./data/storagefile.txt";
-    File f;
+    private final File f;
 
     /**
      * A constructor for the Storage class. Initialises the default data directory and file.
      */
-    public Storage() throws IOException{
+    public Storage() throws IOException {
         f = new File(DEFAULT_PATH);
         f.getParentFile().mkdirs();
         f.createNewFile();
@@ -72,7 +71,6 @@ public class Storage {
     }
 
     private Task parseLine(String line) throws IllegalArgumentException {
-        
         boolean isDone = (line.charAt(4) == 'X');
 
         switch (line.charAt(1)) {
@@ -81,7 +79,7 @@ public class Storage {
         case 'E':
             int indFrom = line.indexOf("from:");
             int indTo = line.indexOf("to:");
-            return new Event(line.substring(7, indFrom - 2), 
+            return new Event(line.substring(7, indFrom - 2),
                     line.substring(indFrom + 6, indTo - 1),
                     line.substring(indTo + 4, line.length() - 1),
                     isDone);

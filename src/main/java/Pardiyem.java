@@ -1,14 +1,12 @@
-import pardiyem.parser.Parser;
-
 import java.io.IOException;
 
 import pardiyem.command.Command;
+import pardiyem.parser.Parser;
 import pardiyem.storage.Storage;
-import pardiyem.ui.Ui;
 import pardiyem.task.TaskList;
- 
-public class Pardiyem {
+import pardiyem.ui.Ui;
 
+public class Pardiyem {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;

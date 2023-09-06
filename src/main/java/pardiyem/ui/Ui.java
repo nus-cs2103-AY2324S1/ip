@@ -6,7 +6,7 @@ public class Ui {
     static final String WELCOME = "Salve, I'm Pardi\nWhat can I do for you?";
     static final String BYE = "Ciao! See you again!";
 
-    Scanner scanner;
+    private final Scanner scanner;
 
     public Ui() {
         scanner = new Scanner(System.in);
@@ -30,7 +30,7 @@ public class Ui {
         System.out.println(s);
     }
 
-    public String readCommand() throws IllegalArgumentException{
+    public String readCommand() throws IllegalArgumentException {
         if (!scanner.hasNext()) {
             throw new IllegalArgumentException("Out of commands, are we?");
         }

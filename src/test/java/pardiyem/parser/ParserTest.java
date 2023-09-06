@@ -1,10 +1,11 @@
 package pardiyem.parser;
 
-import org.junit.jupiter.api.Test;
-import pardiyem.command.AddCommand;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import pardiyem.command.AddCommand;
 
 public class ParserTest {
     @Test
@@ -13,7 +14,8 @@ public class ParserTest {
     }
     @Test
     public void parseTest2() throws NoSuchMethodException {
-        assertEquals(new AddCommand("hahahahaha /by 2015-02-23", 2), Parser.parseCommand("deadline hahahahaha /by 2015-02-23"));
+        assertEquals(new AddCommand("hahahahaha /by 2015-02-23", 2),
+                Parser.parseCommand("deadline hahahahaha /by 2015-02-23"));
     }
 
     @Test
@@ -22,7 +24,8 @@ public class ParserTest {
             Parser.parseCommand("bye hahahaha");
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("You used \"hahahaha\" as an argument. A bye command shouldn't have any arguments", e.getMessage());
+            assertEquals("You used \"hahahaha\" as an argument. A bye command shouldn't have any arguments",
+                    e.getMessage());
         }
     }
 
@@ -32,7 +35,8 @@ public class ParserTest {
             Parser.parseCommand("list hahahaha");
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("You used \"hahahaha\" as an argument. A bye command shouldn't have any arguments", e.getMessage());
+            assertEquals("You used \"hahahaha\" as an argument. A bye command shouldn't have any arguments",
+                    e.getMessage());
         }
     }
 

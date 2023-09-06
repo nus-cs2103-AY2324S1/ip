@@ -40,8 +40,8 @@ public class MarkCommand extends Command {
                 throw new ArrayIndexOutOfBoundsException(
                     "Whoops, that number is not an index in the list. Please select a valid index");
             }
-            ui.showOutput(String.format("%s\n%s", 
-                    taskList.getTask(i).markAsDone(), 
+            ui.showOutput(String.format("%s\n%s",
+                    taskList.getTask(i).markAsDone(),
                     taskList.getTask(i).toString()));
         } catch (NumberFormatException e) {
             throw new NumberFormatException("Whoops, you need to type in a valid integer");
