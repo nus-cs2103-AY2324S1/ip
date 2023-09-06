@@ -24,7 +24,6 @@ public class TaskList {
 
     /**
      * Adds a Task object to the specified list of tasks.
-     * 
      * @param task The list of tasks.
      */
     public String addTask(Task task) {
@@ -57,7 +56,6 @@ public class TaskList {
 
     /**
      * Returns the list of tasks that contain the specified keyword.
-     * 
      * @param taskNumber The keyword to be searched.
      */
     public String markTaskAsDone(int taskNumber) {
@@ -73,12 +71,11 @@ public class TaskList {
 
     /**
      * Returns the list of tasks that contain the specified keyword.
-     * 
      * @param taskNumber The keyword to be searched.
      */
-    public String markTaskAsUndone(int taskNumber){
+    public String markTaskAsUndone(int taskNumber) {
         if (taskNumber > this.tasks.size() || taskNumber < 1) {
-            return Ui.returnErrorString( new DukeException("Please enter a valid task number."));
+            return Ui.returnErrorString(new DukeException("Please enter a valid task number."));
         }
         Task tsk = this.tasks.get(taskNumber - 1);
         tsk.markAsUndone();

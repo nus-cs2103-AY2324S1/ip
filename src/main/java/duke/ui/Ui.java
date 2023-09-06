@@ -26,7 +26,6 @@ public class Ui {
 
     /**
      * Prints the error message.
-     * 
      * @param err The error message.
      */
     public static String returnErrorString(DukeException err) {
@@ -39,13 +38,12 @@ public class Ui {
      * @param taskNumber
      */
     public static String addTask(Task tsk, int taskNumber) {
-        return "Got it. I've added this task:\n" + tsk.toString() + "\nNow you have " +
-                taskNumber + " tasks in the list.";
+        return "Got it. I've added this task:\n" + tsk.toString() + "\nNow you have "
+                + taskNumber + " tasks in the list.";
     }
 
     /**
      * Deletes a Task object from the specified list of tasks.
-     * 
      * @param tsk The task to be deleted.
      * @param taskNumber The number of tasks in the list.
      */
@@ -56,7 +54,6 @@ public class Ui {
 
     /**
      * Lists all the tasks in the specified list of tasks.
-     * 
      * @param tasks The list of tasks.
      */
     public static String listAllTasks(ArrayList<Task> tasks) {
@@ -69,7 +66,6 @@ public class Ui {
 
     /**
      * Marks a Task object in the specified list of tasks as done.
-     * 
      * @param tsk The task to be marked as done.
      */
     public static String markAsDone(Task tsk) {
@@ -78,7 +74,6 @@ public class Ui {
 
     /**
      * Marks a Task object in the specified list of tasks as not done.
-     * 
      * @param tsk The task to be marked as not done.
      */
     public static String markAsUndone(Task tsk) {
@@ -87,7 +82,6 @@ public class Ui {
 
     /**
      * Finds the tasks that contain the specified keyword.
-     * 
      * @param tsk The list of tasks that contain the specified keyword.
      */
     public static String findTasks(ArrayList<Task> tsk) {

@@ -1,8 +1,8 @@
 package duke;
 
-import duke.ui.Ui;
-
 import java.util.Scanner;
+
+import duke.ui.Ui;
 
 /**
  * Represents a chat bot that helps the user to keep track of tasks.
