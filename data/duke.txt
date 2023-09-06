@@ -33,3 +33,4 @@ t false eat bread
 t false buy bread
 t false buy bread
 t false deadline
+t false eat 
