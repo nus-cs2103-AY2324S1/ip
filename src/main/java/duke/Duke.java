@@ -71,6 +71,17 @@ public class Duke {
 
 
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            Command c = parser.parse(input);
+            return c.executeGui(storage.load(), ui, storage);
+        } catch (CommandNotRecognizedException e) {
+            return ui.showErrorGui(e) + ui.showCommandNotRecognizedGui();
+        } catch (CommandDetailException e) {
+            return ui.showErrorGui(e) + ui.showNoCommandDetailGui();
+        } catch (TimeParsingException e) {
+            return ui.showErrorGui(e) + ui.showTimeParsingErrorGui();
+        } catch (StorageException e) {
+            return ui.showErrorGui(e) + ui.showLoadingErrorGui();
+        }
     }
 }

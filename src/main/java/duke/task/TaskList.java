@@ -1,9 +1,12 @@
 package duke.task;
 
 import java.util.ArrayList;
+
 import duke.exceptions.CommandDetailException;
 
-
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     protected ArrayList<Task> tasks;
 
@@ -18,7 +21,12 @@ public class TaskList {
     public void add(Task task) {
         tasks.add(task);
     }
-
+    /**
+     * Deletes a task from the list.
+     *
+     * @param index The index of the task to be deleted.
+     * @throws CommandDetailException If the index is out of bounds.
+     */
     public void deleteTask(int index) throws CommandDetailException {
         try {
             tasks.remove(index);
@@ -35,7 +43,12 @@ public class TaskList {
             throw new CommandDetailException("OOPS!!! There is no such task!");
         }
     }
-
+    /**
+     * Marks a task as done.
+     *
+     * @param index The index of the task to be marked as done.
+     * @throws CommandDetailException If the index is out of bounds.
+     */
     public void markTask(int index) throws CommandDetailException {
         this.getTask(index).setDone();
     }
@@ -43,7 +56,12 @@ public class TaskList {
     public void unmarkTask(int index) throws CommandDetailException {
         this.getTask(index).setUndone();
     }
-
+    /**
+     * Finds tasks that contain the specified keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return An {@link ArrayList} of tasks that contain the specified keyword.
+     */
     public ArrayList<Task> findTasks(String keyword) {
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {
@@ -58,6 +76,14 @@ public class TaskList {
         return tasks.size();
     }
 
+    public void clearTasks() {
+        tasks = new ArrayList<>();
+    }
+    /**
+     * Converts the list of tasks to a string representation.
+     *
+     * @return A string representation of the list of tasks.
+     */
     public String toStorage() {
         StringBuilder sb = new StringBuilder();
         for (Task task : tasks) {
