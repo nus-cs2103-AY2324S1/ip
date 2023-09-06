@@ -4,6 +4,7 @@ package Jelly.task;
  * Corresponds to a task.
  */
 public class Task {
+
     protected boolean isDone;
     protected String description;
 

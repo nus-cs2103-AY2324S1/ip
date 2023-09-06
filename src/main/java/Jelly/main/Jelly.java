@@ -1,6 +1,7 @@
 package Jelly.main;
 
 import java.util.Scanner;
+
 import Jelly.commands.Command;
 import Jelly.exceptions.JellyException;
 
@@ -48,14 +49,16 @@ public class Jelly {
      * Runs the commands given to the Jelly Chat bot.
      */
     private void run() {
+
         ui.startUpMessage();
-        boolean running = true;
-        while (running) {
+        boolean isRunning = true;
+
+        while (isRunning) {
             try {
                 String command = ui.commandMe();
                 Command c = Parser.parse(command);
                 c.execute(taskList, ui, storage);
-                running = c.running();
+                isRunning = c.isRunning();
             } catch (JellyException e) {
             }
         }
