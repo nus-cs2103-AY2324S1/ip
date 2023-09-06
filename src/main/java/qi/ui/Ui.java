@@ -51,7 +51,12 @@ public class Ui {
 
     public void showList(TaskList list) {
         System.out.println("     Here are the tasks in your list:");
-        System.out.println(list);
+        System.out.print(list);
+    }
+
+    public void showMatching(String matchingTasks) {
+        System.out.println("     Here are the matching tasks in your list:");
+        System.out.print(matchingTasks);
     }
 
     public void showLine() {

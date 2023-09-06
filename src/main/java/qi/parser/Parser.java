@@ -89,6 +89,15 @@ public class Parser {
             }
         }
 
+        if (command.startsWith("find")) {
+            try {
+                String keyWord = command.substring(5);
+                return new FindCommand(keyWord);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new QiException("☹ OOPS!!! Please specify the keyword you want to find.");
+            }
+        }
+
         return new InvalidCommand();
     }
 }

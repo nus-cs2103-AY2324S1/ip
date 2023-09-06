@@ -7,12 +7,22 @@ import qi.storage.Storage;
 import qi.tasklist.TaskList;
 import qi.ui.Ui;
 
+/**
+ * Serves as the driver program for
+ * all the functionalities of the chatbot.
+ */
 public class Qi {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Takes in the file path as a string.
+     * Initializes a chatbot with data from the given file path.
+     *
+     * @param filePath File path to the data stored
+     */
     public Qi(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -25,6 +35,9 @@ public class Qi {
         }
     }
 
+    /**
+     * Starts the interaction with users once being called.
+     */
     public void run() {
         ui.showWelcome();
 
