@@ -1,13 +1,13 @@
 package duke;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.ToDo;
-import duke.task.Task;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
 
 /**
  * The Parser class handles the parsing of user commands and executes corresponding actions.

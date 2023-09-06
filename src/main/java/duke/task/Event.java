@@ -47,7 +47,8 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the Event task, including its completion status, description, and time interval.
+     * Returns a string representation of the Event task,
+     * including its completion status, description, and time interval.
      *
      * @return A formatted string indicating the task type, completion status, and time interval.
      */
