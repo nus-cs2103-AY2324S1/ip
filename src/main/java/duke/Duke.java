@@ -80,4 +80,8 @@ public class Duke {
             helper.bye();
         }
     }
+
+    public String getResponse(String input) {
+        return "Duke heard: " + input + "\n";
+    }
 }
