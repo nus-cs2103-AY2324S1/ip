@@ -1,7 +1,12 @@
 package peko;
 
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -24,15 +29,14 @@ public class GUIController extends Application implements Initializable {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Circle headerCircle;
+    private Image user = new Image(this.getClass().getResourceAsStream("/Pics/tumblr_67c47d22da73ac2ba89e1e97bce6e525_76dfa232_400.png"));
 
     public static void main(String[] args) {
 
     }
-    public void start(Stage stage) {
-        //Step 1. Setting up required components
 
-        //The container for the content of the chat to scroll.
+    @Override
+    public void start(Stage stage) {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -48,8 +52,88 @@ public class GUIController extends Application implements Initializable {
         stage.setScene(scene);
         stage.show();
 
-        // more code to be added here later
+        stage.setTitle("Peko");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
+
+        mainLayout.setPrefSize(400.0, 600.0);
+
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+
+        // You will need to import `javafx.scene.layout.Region` for this.
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        userInput.setPrefWidth(325.0);
+
+        sendButton.setPrefWidth(55.0);
+
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0);
+
+        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
     }
+    private Label getDialogLabel(String text) {
+        // You will need to import `javafx.scene.control.Label`.
+        Label textToAdd = new Label(text);
+        textToAdd.setWrapText(true);
+
+        return textToAdd;
+    }
+
+    public class DialogBox extends HBox {
+
+        private Label text;
+        private ImageView displayPicture;
+
+        public DialogBox(Label l, ImageView iv) {
+            text = l;
+            displayPicture = iv;
+
+            text.setWrapText(true);
+            displayPicture.setFitWidth(100.0);
+            displayPicture.setFitHeight(100.0);
+
+            this.setAlignment(Pos.TOP_RIGHT);
+            this.getChildren().addAll(text, displayPicture);
+        }
+    }
+
+    private void handleUserInput() {
+        Label userText = new Label(userInput.getText());
+        Label dukeText = new Label(getResponse(userInput.getText()));
+        dialogContainer.getChildren().addAll(
+                new DialogBox(userText, new ImageView(user)),
+                new DialogBox(dukeText, new ImageView(user))
+        );
+        userInput.clear();
+    }
+    private String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
+    private Circle headerCircle;
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         headerCircle.setStroke(Color.color(0,255,0));
