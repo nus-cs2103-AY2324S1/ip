@@ -67,8 +67,10 @@ public class Event extends Task {
                 this.getTitle(),
                 this.startTimestamp == null
                         ? null
-                        : EpochConverter.getUserReadableStringFromEpoch(this.getStartTimestamp()),
-                this.endTimestamp == null ? null : EpochConverter.getUserReadableStringFromEpoch(this.getEndTimestamp())
+                        : EpochConverter.getUserReadableDateTimeStringFromEpoch(this.getStartTimestamp()),
+                this.endTimestamp == null
+                        ? null
+                        : EpochConverter.getUserReadableDateTimeStringFromEpoch(this.getEndTimestamp())
         );
     }
 }
