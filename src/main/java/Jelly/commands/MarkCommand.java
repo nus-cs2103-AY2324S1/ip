@@ -1,6 +1,5 @@
 package Jelly.commands;
 
-import Jelly.exceptions.JellyBlankMessageException;
 import Jelly.main.Storage;
 import Jelly.main.TaskList;
 import Jelly.main.Ui;

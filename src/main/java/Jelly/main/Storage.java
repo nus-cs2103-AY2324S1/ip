@@ -1,16 +1,16 @@
 package Jelly.main;
 
-import Jelly.exceptions.JellyException;
-import Jelly.task.Deadline;
-import Jelly.task.Event;
-import Jelly.task.Task;
-import Jelly.task.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import Jelly.exceptions.JellyException;
+import Jelly.task.Deadline;
+import Jelly.task.Event;
+import Jelly.task.Task;
+import Jelly.task.Todo;
 
 public class Storage {
     private static final String FILE_PATH = "./taskData/jelly.txt";
@@ -25,12 +25,15 @@ public class Storage {
         ArrayList<Task> storage = new ArrayList<>();
         try {
             File data = new File(filePath);
+
             if (!data.exists()) {
                 data.getParentFile().mkdirs();
                 return storage;
             }
+
             int index = storage.size();
             Scanner sc = new Scanner(data);
+
             while (sc.hasNextLine()) {
                 String str = sc.nextLine();
                 String[] taskDetails = str.split(" \\| ");

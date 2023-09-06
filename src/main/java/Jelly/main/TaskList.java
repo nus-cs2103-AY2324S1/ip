@@ -1,8 +1,8 @@
 package Jelly.main;
 
-import Jelly.task.Task;
-
 import java.util.ArrayList;
+
+import Jelly.task.Task;
 
 public class TaskList {
 

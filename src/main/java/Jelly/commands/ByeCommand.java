@@ -11,7 +11,7 @@ public class ByeCommand extends Command {
         ui.byeMessage();
     }
 
-    public boolean running() {
+    public boolean isRunning() {
         return false;
     }
 }

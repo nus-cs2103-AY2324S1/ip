@@ -1,9 +1,10 @@
 package Jelly.task;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
+
         String fromWhen = from;
         String toWhen = to;
 
@@ -47,12 +49,14 @@ public class Event extends Task {
         }
         return "[E]" + super.toString() + "(from: " + fromWhen + " to: " + toWhen + ")";
     }
+
     @Override
     public String writeToFile() {
         return "E | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | " + from + " to " + to;
     }
 
     protected LocalDate parseDate(String date) {
+
         List<DateTimeFormatter> formats = new ArrayList<>();
         formats.add(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         formats.add(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
@@ -69,6 +73,7 @@ public class Event extends Task {
     }
 
     protected LocalDateTime parseDateTime(String date) {
+
         List<DateTimeFormatter> formats = new ArrayList<>();
         formats.add(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         formats.add(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
@@ -82,7 +87,6 @@ public class Event extends Task {
 
             }
         }
-
         return null;
     }
 }

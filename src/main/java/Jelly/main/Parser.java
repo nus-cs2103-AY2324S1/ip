@@ -1,6 +1,15 @@
 package Jelly.main;
 
-import Jelly.commands.*;
+import Jelly.commands.ByeCommand;
+import Jelly.commands.Command;
+import Jelly.commands.DeadlineCommand;
+import Jelly.commands.DeleteCommand;
+import Jelly.commands.EventCommand;
+import Jelly.commands.ListCommand;
+import Jelly.commands.MarkCommand;
+import Jelly.commands.ToDoCommand;
+import Jelly.commands.UnmarkCommand;
+
 import Jelly.exceptions.JellyBlankMessageException;
 import Jelly.exceptions.JellyException;
 import Jelly.exceptions.JellyUnknownCommandException;
@@ -8,8 +17,10 @@ import Jelly.exceptions.JellyUnknownCommandException;
 public class Parser {
 
     public static Command parse(String command) throws JellyException  {
+
         try {
             String[] stringArray = command.split(" ");
+
             if (stringArray[0].equals("list")) {
                 return new ListCommand();
             } else if (stringArray[0].equals("bye")) {
@@ -70,6 +81,7 @@ public class Parser {
                 String eventString = "";
                 String fromWhen = "";
                 String toWhen = "";
+
                 for (int i = 1; i < stringArray.length; i++) {
                     if (stringArray[i] != null) {
                         if (stringArray[i].equals("/from")) {
@@ -92,6 +104,7 @@ public class Parser {
                         break;
                     }
                 }
+                return new EventCommand(eventString, fromWhen, toWhen);
             } else if (stringArray[0].equals("delete")) {
                 if (stringArray.length == 1) {
                     throw new JellyBlankMessageException("delete");
