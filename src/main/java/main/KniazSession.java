@@ -7,6 +7,9 @@ import storage.save.KniazLoader;
 import storage.save.KniazSaver;
 import ui.KniazInputController;
 import ui.KniazOutputController;
+import ui.inputparser.KniazLineParser;
+
+import java.io.IOException;
 
 /**
  * Encapsulates a session of Kniaz.
@@ -16,7 +19,7 @@ public class KniazSession {
     private KniazLoader loader;
     private KniazSaver saver;
 
-    private KniazInputController inputController;
+    private KniazLineParser lineParser;
 
     private KniazOutputController outputController;
 
@@ -43,12 +46,12 @@ public class KniazSession {
     private KniazSession(TaskList taskList,
                          KniazLoader loader,
                          KniazSaver saver,
-                         KniazInputController inputController,
+                         KniazLineParser lineParser,
                          KniazOutputController outputController) {
         this.taskList = taskList;
         this.loader = loader;
         this.saver = saver;
-        this.inputController = inputController;
+        this.lineParser = lineParser;
         this.outputController = outputController;
         this.isRunning = true;
     }
@@ -61,7 +64,7 @@ public class KniazSession {
     public static KniazSession init() {
         KniazLoader loader = new KniazLoader();
         KniazSaver saver = new KniazSaver();
-        KniazInputController input = new KniazInputController();
+        KniazLineParser lineParser = new KniazLineParser();
         KniazOutputController output = new KniazOutputController();
         TaskList tasks = new TaskList();
 
@@ -73,8 +76,9 @@ public class KniazSession {
             output.printToOutput(e.getMessage());
         }
 
-
-        return new KniazSession(tasks, loader, saver, input, output);
+        KniazSession out = new KniazSession(tasks, loader, saver, lineParser, output);
+        out.isRunning = true;
+        return out;
 
     }
 
@@ -96,32 +100,34 @@ public class KniazSession {
         return "QUIT";
     }
 
-    /**
-     * Start the main loop of this Session, to run it
-     * @return a boolean true
-     */
-    public boolean run() {
-        isRunning = true;
-        while (isRunning) {
-            KniazCommand nextCommand = inputController.nextLine();
-            String printString;
-            String flavour = outputController.getFlavourFor(nextCommand);
-            try {
-                String feedback = nextCommand.execute(this);
-                printString = flavour + '\n' + feedback;
 
-            } catch (KniazRuntimeException e) {
-                printString = e.getUserMessage();
-            }
+    public String runOneIter(String input) {
 
-
-            outputController.printToOutput(printString);
-            try {
-                saver.save(this.taskList);
-            } catch (Exception e) {
-                outputController.printToOutput(e.toString());
-            }
+        if (!isRunning) {
+            return "";
         }
-        return true;
+
+        KniazCommand nextCommand = lineParser.parseLine(input);
+        String printString;
+        String flavour = outputController.getFlavourFor(nextCommand);
+
+        try {
+            String feedback = nextCommand.execute(this);
+            printString = flavour + '\n' + feedback;
+
+        } catch (KniazRuntimeException e) {
+            printString = e.getUserMessage();
+        }
+
+        try {
+            saver.save(this.taskList);
+        } catch (IOException e) {
+            System.err.println(e.toString());
+        }
+
+        return printString;
+
+
     }
+
 }
