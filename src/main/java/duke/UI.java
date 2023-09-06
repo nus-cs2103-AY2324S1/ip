@@ -1,6 +1,8 @@
 package duke;
 
 import java.util.Scanner;
+import java.lang.StringBuilder;
+
 
 /**
  * This class is in charge of the user interface.
@@ -9,6 +11,7 @@ import java.util.Scanner;
  */
 public class UI {
     private static String name;
+    private StringBuilder stringBuilder = new StringBuilder();
 
     /**
      * Constructs a UI which has a name.
@@ -33,11 +36,10 @@ public class UI {
      * This is the first message the user will receive upon
      * using the program.
      */
-    public void welcomeMessage() {
-        printline();
-        System.out.println(String.format("Hello I'm %s, your personal assistant.", UI.name));
-        System.out.println("What can I do for you today, sir?");
-        printline();
+    public String welcomeMessage() {
+        stringBuilder.append((String.format("Hello I'm %s, your personal assistant. \n", UI.name)));
+        stringBuilder.append("What can I do for you today, sir?");
+        return stringBuilder.toString();
     }
 
     /**
@@ -59,8 +61,15 @@ public class UI {
      *
      * @param message The message that it to be sent to the user.
      */
-    public void sendMessage(String message) {
-        System.out.println(message);
+    public void buildMessage(String message) {
+        stringBuilder.append(message);
     }
 
+    public String sendMessage() {
+        return stringBuilder.toString();
+    }
+
+    public void clearStringBuilder() {
+        stringBuilder.setLength(0);
+    }
 }
