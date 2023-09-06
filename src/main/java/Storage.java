@@ -10,7 +10,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public void loadTasks(TaskList taskList) {
+    public TaskList loadTasks(TaskList taskList) {
         try {
             File file = new File(filePath);
             Scanner scanner = new Scanner(file);
@@ -27,6 +27,7 @@ public class Storage {
             System.exit(1);
         }
         System.out.println("Tasks loaded successfully!");
+        return taskList;
     }
 
     public void saveTasks(TaskList taskList) {

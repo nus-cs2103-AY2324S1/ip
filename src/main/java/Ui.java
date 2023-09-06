@@ -10,10 +10,14 @@ public class Ui {
     public String getUserInput() {
         return this.scanner.nextLine();
     }
+
+    public void linePrint() {
+        System.out.print("   _________________________________________________________________________________\n");
+    }
     public void styleMessage(String message) {
-        System.out.print("   ____________________________________________________________\n");
+        linePrint();
         System.out.print(message);
-        System.out.print("   ____________________________________________________________\n");
+        linePrint();
     }
     public void greetMessage() {
         styleMessage("    Hello! I'm Arthur Pendragon.\n    What can I do for you?\n");
@@ -27,20 +31,44 @@ public class Ui {
         if (tasks.isEmpty()) {
             styleMessage("    You haven't added anything, my sire.\n");
         } else {
-            System.out.println("   ____________________________________________________________\n" +
-                    "   Here are the quests in thy list:");
+            linePrint();
+            System.out.println("   Here are the quests in thy list:");
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.println("    " + (i + 1) + "." + tasks.get(i));
             }
-            System.out.println("   ____________________________________________________________");
+            linePrint();
         }
     }
 
-    public void showUnknownCommandMessage() {
-        styleMessage("I'm sorry, but I don't know what that means :-(");
+    public void showMarkMessage(TaskList tasks, int taskIndex) {
+        linePrint();
+        System.out.println("   Very well. I have marked this task as accomplished:\n  " + "  " +
+                tasks.get(taskIndex).getStatusIcon() + " " +
+                tasks.get(taskIndex).description);
+        linePrint();
     }
 
-    public void showLoadingErrorMessage() {
-        styleMessage("Error loading tasks from file.");
+    public void showUnmarkMessage(TaskList tasks, int taskIndex) {
+        linePrint();
+        System.out.println("   By the heavens! I have declared this task as yet to be completed:\n  " +
+                "  " + tasks.get(taskIndex).getStatusIcon() +
+                " " + tasks.get(taskIndex).description);
+        linePrint();
+    }
+
+    public void showAddTaskMessage(TaskList tasks) {
+        linePrint();
+        System.out.println("   Understood. I have included this quest:\n  " +
+                "  " + tasks.get(tasks.size() - 1));
+        System.out.println("   Now you have " + tasks.size() + " task(s) in the list.");
+        linePrint();
+    }
+
+    public void showDeleteTaskMessage(TaskList tasks, Task deletedTask) {
+        linePrint();
+        System.out.println("   Noted. I've removed this quest:");
+        System.out.println("    " + deletedTask);
+        System.out.println("   Now you have " + tasks.size() + " task(s) in the list.");
+        linePrint();
     }
 }

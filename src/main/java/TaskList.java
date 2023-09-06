@@ -27,5 +27,8 @@ public class TaskList {
         this.tasks.add(task);
     }
 
+    public void removeTask(int i) {
+        this.tasks.remove(i);
+    }
 
 }
