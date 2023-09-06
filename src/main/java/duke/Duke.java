@@ -1,5 +1,7 @@
 package duke;
 
+import javafx.application.Application;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -15,11 +17,14 @@ public class Duke {
         }
     }
 
+    public Duke() {
+
+    }
+
     /**
      * Runs the program.
      */
     public void run() {
-
         Ui.greetUser();
         Scanner scanObj = new Scanner(System.in);
         boolean isRunning = true;
@@ -36,5 +41,13 @@ public class Duke {
      */
     public static void main(String[] args) {
         new Duke("./data/data.ser").run();
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        return input;
     }
 }
