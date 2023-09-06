@@ -10,13 +10,13 @@ import duke.util.TaskList;
 import duke.util.Ui;
 
 /**
- * This program is a chatbot, B055man, used to mark completion of tasks
+ * This program is a chat-bot, B055man, used to mark completion of tasks
  * marking the completion of tasks.
  */
 public class Duke {
 
     private final Storage storage;
-    private TaskList tasklst;
+    private TaskList tasklist;
     private final Ui ui;
 
     /**
@@ -27,10 +27,10 @@ public class Duke {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasklst = new TaskList(storage.load());
+            tasklist = new TaskList(storage.load());
         } catch (DukeException e) {
             ui.showLoadingError();
-            tasklst = new TaskList();
+            tasklist = new TaskList();
         }
     }
 
@@ -45,7 +45,7 @@ public class Duke {
                 String fullCommand = ui.read();
                 ui.showLine();
                 Command c = Parser.parseUserInput(fullCommand);
-                c.execute(tasklst, ui, storage);
+                c.execute(tasklist, ui, storage);
                 isExit = c.isExit();
             } catch (DukeException | IOException e) {
                 ui.showError(e.getMessage());

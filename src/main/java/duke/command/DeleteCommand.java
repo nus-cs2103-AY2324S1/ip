@@ -21,15 +21,15 @@ public class DeleteCommand extends Command {
 
     /**
      * Executes the delete command.
-     * @param tasklst list of tasks
+     * @param tasklist list of tasks
      * @param ui ui component of the program
      * @param storage storage componenet of the program
      * @throws DukeException Errors that occur when trying to delete the task
      */
     @Override
-    public void execute(TaskList tasklst, Ui ui, Storage storage) throws DukeException {
-        tasklst.deleteTask(taskNumber, ui);
-        storage.rewriteFile(tasklst);
+    public void execute(TaskList tasklist, Ui ui, Storage storage) throws DukeException {
+        tasklist.deleteTask(taskNumber, ui);
+        storage.rewriteFile(tasklist);
     }
 
     /**

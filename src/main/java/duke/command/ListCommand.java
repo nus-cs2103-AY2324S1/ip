@@ -16,13 +16,13 @@ public class ListCommand extends Command {
 
     /**
      * Executes the current list command.
-     * @param tasklst current list of tasks
+     * @param tasklist current list of tasks
      * @param ui instance of user interface
      * @param storage instance of storage to read and write files
      */
     @Override
-    public void execute(TaskList tasklst, Ui ui, Storage storage) {
-        ui.showTasks(tasklst.getTaskStrings());
+    public void execute(TaskList tasklist, Ui ui, Storage storage) {
+        ui.showTasks(tasklist.getTaskStrings());
     }
 
     /**
