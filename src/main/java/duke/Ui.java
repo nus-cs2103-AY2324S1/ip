@@ -2,167 +2,207 @@ package duke;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Scanner;
 
 import duke.task.Task;
 
 /**
  * Represents the user interface for the Duke application.
  *
- * This class handles printing of user-facing messages, including greetings, errors,
- * and task-related information. Messages are consistently formatted with indentation and horizontal lines.
+ * Handles the creation of user-facing messages, including greetings, task-related information, and errors.
+ * The UI displays messages with consistent formatting, including indentation and horizontal lines.
  */
 public class Ui {
-
     private static final String INDENT = "    ";
+    private Scanner input = new Scanner(System.in);
 
     /**
-     * Prints the greeting message.
+     * Read the input from the user.
+     *
+     * @return string representation of user's input in the CLI
      */
-    public void printGreeting() {
-        printHorizontalLine();
-        printIndented("Hello! I'm Davidson");
-        printIndented("What can I do for you?");
-        printHorizontalLine();
+    public String readInput() {
+        return this.input.nextLine();
+    }
+
+
+    /**
+     * Close the input scanner.
+     */
+    public void closeInput() {
+        this.input.close();
+    }
+
+
+    /**
+     * Returns a greeting message.
+     *
+     * @return A string containing the greeting message.
+     */
+    public String displayGreeting() {
+        return displayHorizontalLine()
+                + displayIndented("Hello! I'm Davidson")
+                + displayIndented("What can I do for you?")
+                + displayHorizontalLine();
     }
 
     /**
-     * Prints the exit message.
+     * Returns an exit message.
+     *
+     * @return A string containing the exit message.
      */
-    public void printExit() {
-        printHorizontalLine();
-        printIndented("Bye. Hope to see you again soon!");
-        printHorizontalLine();
+    public String displayExit() {
+        return displayHorizontalLine()
+                + displayIndented("Bye. Hope to see you again soon!")
+                + displayHorizontalLine();
     }
 
     /**
-     * Prints a horizontal line for UI formatting.
+     * Returns a horizontal line for UI formatting.
+     *
+     * @return A string containing the horizontal line.
      */
-    public void printHorizontalLine() {
-        System.out.print(INDENT);
+    public String displayHorizontalLine() {
+        StringBuilder line = new StringBuilder(INDENT);
         for (int i = 0; i < 60; i++) {
-            System.out.print("-");
+            line.append("-");
         }
-        System.out.println();
+        return line.append("\n").toString();
     }
 
     /**
-     * Prints the given message with consistent indentation.
+     * Returns a message with consistent indentation.
      *
-     * @param message The message to be printed.
+     * @param message The message to be indented.
+     * @return An indented string.
      */
-    public void printIndented(String message) {
-        System.out.println(INDENT + message);
+    public String displayIndented(String message) {
+        return INDENT + message + "\n";
     }
 
     /**
-     * Prints the tasks in the user's list.
+     * Returns a list of tasks in the user's list.
      *
-     * @param tasks The list of tasks to be printed.
+     * @param tasks The list of tasks.
+     * @return A string representing the list of tasks.
      */
-    public void printList(List<Task> tasks) {
-        printHorizontalLine();
-        printIndented("Here are the tasks in your list:");
+    public String displayList(List<Task> tasks) {
+        StringBuilder sb = new StringBuilder(displayHorizontalLine());
+        sb.append(displayIndented("Here are the tasks in your list:"));
         for (int i = 0; i < tasks.size(); i++) {
-            printIndented((i + 1) + "." + tasks.get(i));
+            sb.append(displayIndented((i + 1) + "." + tasks.get(i)));
         }
-        printHorizontalLine();
+        sb.append(displayHorizontalLine());
+        return sb.toString();
     }
 
     /**
-     * Prints the information about a task that has been added.
+     * Returns a message indicating a task has been added.
      *
      * @param task The task that was added.
      * @param size The current number of tasks in the list.
+     * @return A string containing information about the task addition.
      */
-    public void printTaskAdded(Task task, int size) {
-        printHorizontalLine();
-        printIndented("Got it. I've added this task:");
-        printIndented("  " + task.toFileString());
-        printIndented("Now you have " + size + " tasks in the list.");
-        printHorizontalLine();
+    public String displayTaskAdded(Task task, int size) {
+        return displayHorizontalLine()
+                + displayIndented("Got it. I've added this task:")
+                + displayIndented("  " + task.toFileString())
+                + displayIndented("Now you have " + size + " tasks in the list.")
+                + displayHorizontalLine();
     }
 
     /**
-     * Displays an error message.
+     * Returns a formatted message for a given {@code DukeException}.
      *
-     * @param message The error message to be displayed.
+     * This method retrieves the message from the provided exception and formats it
+     * for consistent display using the internal indentation method.
+     *
+     * @param e The {@code DukeException} whose message is to be displayed.
+     * @return A string containing the indented exception message.
      */
-    public void showError(String message) {
-        printIndented(message);
+    public String displayException(DukeException e) {
+        return displayIndented(e.getMessage());
     }
 
     /**
-     * Prints the tasks that fall on a specific date.
+     * Returns tasks for a specific date.
      *
-     * @param tasksOnDate The list of tasks on the given date.
-     * @param date The date for which tasks are to be displayed.
+     * @param tasksOnDate The list of tasks for the given date.
+     * @param date The date.
+     * @return A string listing the tasks on the specified date.
      */
-    public void printTasksOnDate(List<Task> tasksOnDate, LocalDate date) {
-        printHorizontalLine();
+    public String displayTasksOnDate(List<Task> tasksOnDate, LocalDate date) {
+        StringBuilder sb = new StringBuilder(displayHorizontalLine());
         if (tasksOnDate.isEmpty()) {
-            printIndented("No tasks on " + date);
-            return;
+            sb.append(displayIndented("No tasks on " + date));
+        } else {
+            sb.append(displayIndented("Here are the tasks on " + date + ":"));
+            for (Task task : tasksOnDate) {
+                sb.append(displayIndented(task.toFileString()));
+            }
         }
-        printIndented("Here are the tasks on " + date + ":");
-        for (Task task : tasksOnDate) {
-            printIndented(task.toFileString());
-        }
-        printHorizontalLine();
+        sb.append(displayHorizontalLine());
+        return sb.toString();
     }
 
     /**
-     * Prints the information about a task that has been marked as done.
+     * Returns a message indicating a task has been marked as done.
      *
      * @param task The task that was marked as done.
+     * @return A string containing the message.
      */
-    public void printMarkedAsDone(Task task) {
-        printHorizontalLine();
-        printIndented("Nice! I've marked this task as done:");
-        printIndented("  " + task);
-        printHorizontalLine();
+    public String displayMarkedAsDone(Task task) {
+        return displayHorizontalLine()
+                + displayIndented("Nice! I've marked this task as done:")
+                + displayIndented("  " + task)
+                + displayHorizontalLine();
     }
 
     /**
-     * Prints the information about a task that has been marked as not done.
+     * Returns a message indicating a task has been marked as not done.
      *
      * @param task The task that was marked as not done.
+     * @return A string containing the message.
      */
-    public void printMarkedAsNotDone(Task task) {
-        printHorizontalLine();
-        printIndented("Okay! I've marked this task as not done:");
-        printIndented("  " + task);
-        printHorizontalLine();
+    public String displayMarkedAsNotDone(Task task) {
+        return displayHorizontalLine()
+                + displayIndented("Okay! I've marked this task as not done:")
+                + displayIndented("  " + task)
+                + displayHorizontalLine();
     }
 
     /**
-     * Prints the information about a task that has been deleted.
+     * Returns a message indicating a task has been deleted.
      *
      * @param removedTask The task that was removed.
      * @param size The current number of tasks in the list after removal.
+     * @return A string containing the deletion message.
      */
-    public void printTaskDeleted(Task removedTask, int size) {
-        printHorizontalLine();
-        printIndented("Noted. I've removed this task:");
-        printIndented("  " + removedTask);
-        printIndented("Now you have " + size + " tasks in the list.");
-        printHorizontalLine();
+    public String displayTaskDeleted(Task removedTask, int size) {
+        return displayHorizontalLine()
+                + displayIndented("Noted. I've removed this task:")
+                + displayIndented("  " + removedTask)
+                + displayIndented("Now you have " + size + " tasks in the list.")
+                + displayHorizontalLine();
     }
+
     /**
-     * Prints the tasks from the given list that match a certain criteria.
-     * <p>
-     * This function first prints a horizontal line, followed by a header indicating the list of
-     * matching tasks. Each task is printed on a separate line with its corresponding index.
-     * Finally, a horizontal line is printed at the end to demarcate the end of the list.
-     * </p>
+     * Returns the tasks that match a certain criteria.
      *
-     * @param tasks A list of tasks that match a certain criteria.
+     * @param tasks A list of tasks that match the criteria.
+     * @return A string listing the matching tasks.
      */
-    public void printFindResults(List<Task> tasks) {
-        printHorizontalLine();
-        printIndented("Here are the matching tasks in your list:");
+    public String displayFindResults(List<Task> tasks) {
+        StringBuilder sb = new StringBuilder(displayHorizontalLine());
+        sb.append(displayIndented("Here are the matching tasks in your list:"));
         for (int i = 0; i < tasks.size(); i++) {
-            printIndented((i + 1) + "." + tasks.get(i));
+            sb.append(displayIndented((i + 1) + "." + tasks.get(i)));
         }
-        printHorizontalLine();
+        sb.append(displayHorizontalLine());
+        return sb.toString();
+    }
+
+    public String displayDukeException(DukeException e) {
+        return String.format("%s\n", e);
     }
 }

@@ -22,16 +22,6 @@ import duke.task.ToDo;
  */
 public class Storage {
     private static final String FILE_PATH = "./data/duke.txt";
-    private final Ui ui;
-
-    /**
-     * Constructs a new {@code Storage} object with a reference to the UI.
-     *
-     * @param ui The UI instance for displaying storage-related messages.
-     */
-    public Storage(Ui ui) {
-        this.ui = ui;
-    }
 
     /**
      * Ensures the storage directory exists.
@@ -62,7 +52,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            ui.printIndented("Error saving tasks to file.");
+            System.out.println("    Error saving tasks to file.");
         }
     }
 
@@ -87,9 +77,9 @@ public class Storage {
             }
             s.close();
         } catch (IOException e) {
-            ui.printIndented("Error loading tasks from file.");
+            System.out.println("    Error loading tasks from file.");
         } catch (DukeException e) {
-            ui.printIndented("Data file is corrupted: " + e.getMessage());
+            System.out.println("    Data file is corrupted: " + e.getMessage());
         }
         return tasks;
     }

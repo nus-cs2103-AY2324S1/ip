@@ -2,7 +2,6 @@ package duke;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import duke.task.Deadline;
@@ -21,121 +20,130 @@ import duke.task.ToDo;
  */
 public class Duke {
     /** Task list to store and manage all tasks. */
-    private static final TaskList taskList = new TaskList();
+    private TaskList taskList;
 
     /** User interface object for interacting with the user. */
-    private static final Ui ui = new Ui();
+    private final Ui ui;
 
     /** Storage object for saving and loading tasks to/from a file. */
-    private static final Storage storage = new Storage(ui);
+    private final Storage storage;
+
+    private boolean isRunning;
 
     /**
-     * Processes user input commands and interacts with the user.
-     * <p>
-     * This method listens for user inputs, parses the commands, processes them,
-     * and provides appropriate responses. It handles task creation, modification,
-     * deletion, listing, and other related operations.
-     * </p>
+     * Initializes a new instance of the {@code Duke} class.
+     * This constructor creates a new {@code Storage} instance to manage saving and loading tasks.
+     * It also initializes the {@code Ui} for user interaction and sets the {@code isRunning} state to true.
+     * Additionally, it loads any saved tasks from the storage into the {@code TaskList}.
      */
-    public static void echoMessages() {
-        Scanner scanner = new Scanner(System.in);
-        String input;
+    public Duke() {
+        this.storage = new Storage();
+        this.ui = new Ui();
+        this.isRunning = true;
+        this.taskList = new TaskList(this.storage.loadTasks());
+    }
 
-        taskList.getTasks().addAll(storage.loadTasks());
-        ui.printGreeting();
+    private void run() {
+        System.out.println(this.ui.displayGreeting());
+        while (this.isRunning) {
+            String input = this.ui.readInput().strip();
+            System.out.println(this.getResponse(input));
+        }
+    }
+    /**
+     * Exits the Duke application and performs necessary cleanup operations.
+     * <p>
+     * Before exiting, this method ensures the application is currently running using an assertion.
+     * It then closes the user input interface, saves any current tasks to storage,
+     * and sets the {@code isRunning} state to false.
+     * </p>
+     *
+     * @throws DukeException If any error occurs during the exit operations,
+     *                       such as issues with saving tasks to storage.
+     */
+    private void exit() throws DukeException {
+        assert this.isRunning;
+        this.ui.closeInput();
+        this.storage.saveTasks(this.taskList.getTasks());
+        this.isRunning = false;
+    }
 
-        while (true) {
-            input = scanner.nextLine();
-            CommandType command = Parser.parseCommand(input);
-
-            ui.printHorizontalLine();
-
-            try {
-                switch (command) {
-                case BYE:
-                    ui.printExit();
-                    scanner.close();
-                    return;
-
-                case LIST:
-                    ui.printList(taskList.getTasks());
-                    break;
-
-                case TODO:
-                    ToDo todo = new ToDo(input.substring(5));
-                    taskList.add(todo);
-                    ui.printTaskAdded(todo, taskList.getSize());
-                    storage.saveTasks(taskList.getTasks());
-                    break;
-
-                case DEADLINE:
-                    String[] parts = input.substring(9).split(" /by ");
-                    if (parts.length < 2) {
-                        throw new DukeException("duke.task.Deadline format is incorrect.");
-                    }
-                    Deadline deadline = new Deadline(parts[0], parts[1]);
-                    taskList.add(deadline);
-                    ui.printTaskAdded(deadline, taskList.getSize());
-                    storage.saveTasks(taskList.getTasks());
-                    break;
-
-                case EVENT:
-                    String[] eventParts = input.substring(6).split(" /from ");
-                    String[] timeParts = eventParts[1].split(" /to ");
-                    if (timeParts.length < 2) {
-                        throw new DukeException("duke.task.Event format is incorrect.");
-                    }
-                    Event event = new Event(eventParts[0], timeParts[0], timeParts[1]);
-                    taskList.add(event);
-                    ui.printTaskAdded(event, taskList.getSize());
-                    storage.saveTasks(taskList.getTasks());
-                    break;
-
-                case MARK:
-                    int taskNumberMark = Integer.parseInt(input.split(" ")[1]);
-                    taskList.get(taskNumberMark - 1).markAsDone();
-                    ui.printMarkedAsDone(taskList.get(taskNumberMark - 1));
-                    storage.saveTasks(taskList.getTasks());
-                    break;
-
-                case UNMARK:
-                    int taskNumberUnmark = Integer.parseInt(input.split(" ")[1]);
-                    taskList.get(taskNumberUnmark - 1).unmark();
-                    ui.printMarkedAsNotDone(taskList.get(taskNumberUnmark - 1));
-                    storage.saveTasks(taskList.getTasks());
-                    break;
-
-                case DELETE:
-                    int taskNumberDelete = Integer.parseInt(input.split(" ")[1]);
-                    Task removedTask = taskList.remove(taskNumberDelete - 1);
-                    ui.printTaskDeleted(removedTask, taskList.getSize());
-                    storage.saveTasks(taskList.getTasks());
-                    break;
-
-                case TASKS_ON_DATE:
-                    LocalDate givenDate = Parser.getLocalDate(input);
-                    List<Task> tasksOnGivenDate = taskList.getTasks().stream()
-                            .filter(task -> (task instanceof Deadline && ((Deadline) task).getBy()
-                                            .toLocalDate().isEqual(givenDate)) || (task
-                                    instanceof Event && Parser.isWithinEventDate((Event) task, givenDate)))
-                            .collect(Collectors.toList());
-                    ui.printTasksOnDate(tasksOnGivenDate, givenDate);
-                    break;
-
-                case FIND:
-                    String keyword = input.substring(5);
-                    TaskList resultList = taskList.findTasks(keyword);
-                    ui.printFindResults(resultList.getTasks());
-                    break;
-
-                default:
-                    ui.showError("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+    /**
+     * Processes the user's input command and returns the appropriate response.
+     * This method takes in a user's command string, interprets the command type using
+     * the {@code Parser} class, and then performs the respective operations based on the command type.
+     * Some of the operations include adding tasks, marking tasks as done, deleting tasks, and more.
+     * Any tasks-related modifications are saved to the storage.
+     * In case of an unrecognized command or error in the command format, a {@code DukeException} is thrown
+     * and the error message is returned to the user.
+     *
+     * @param input The user's input command string.
+     * @return A string containing the response after processing the user's command.
+     */
+    public String getResponse(String input) {
+        try {
+            switch (Parser.parseCommand(input)) {
+            case BYE:
+                this.exit();
+                return this.ui.displayExit();
+            case LIST:
+                return this.ui.displayList(taskList.getTasks());
+            case TODO:
+                ToDo todo = new ToDo(input.substring(5));
+                this.taskList.add(todo);
+                this.storage.saveTasks(taskList.getTasks());
+                return this.ui.displayTaskAdded(todo, taskList.getSize());
+            case DEADLINE:
+                String[] parts = input.substring(9).split(" /by ");
+                if (parts.length < 2) {
+                    throw new DukeException("duke.task.Deadline format is incorrect.");
                 }
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
+                Deadline deadline = new Deadline(parts[0], parts[1]);
+                this.taskList.add(deadline);
+                this.storage.saveTasks(taskList.getTasks());
+                return this.ui.displayTaskAdded(deadline, taskList.getSize());
+            case EVENT:
+                String[] eventParts = input.substring(6).split(" /from ");
+                String[] timeParts = eventParts[1].split(" /to ");
+                if (timeParts.length < 2) {
+                    throw new DukeException("duke.task.Event format is incorrect.");
+                }
+                Event event = new Event(eventParts[0], timeParts[0], timeParts[1]);
+                this.taskList.add(event);
+                this.storage.saveTasks(taskList.getTasks());
+                return this.ui.displayTaskAdded(event, taskList.getSize());
+            case MARK:
+                int taskNumberMark = Integer.parseInt(input.split(" ")[1]);
+                this.taskList.get(taskNumberMark - 1).markAsDone();
+                this.storage.saveTasks(taskList.getTasks());
+                return this.ui.displayMarkedAsDone(taskList.get(taskNumberMark - 1));
+            case UNMARK:
+                int taskNumberUnmark = Integer.parseInt(input.split(" ")[1]);
+                this.taskList.get(taskNumberUnmark - 1).unmark();
+                this.storage.saveTasks(taskList.getTasks());
+                return this.ui.displayMarkedAsNotDone(taskList.get(taskNumberUnmark - 1));
+            case DELETE:
+                int taskNumberDelete = Integer.parseInt(input.split(" ")[1]);
+                Task removedTask = taskList.remove(taskNumberDelete - 1);
+                this.storage.saveTasks(taskList.getTasks());
+                return this.ui.displayTaskDeleted(removedTask, taskList.getSize());
+            case TASKS_ON_DATE:
+                LocalDate givenDate = Parser.getLocalDate(input);
+                List<Task> tasksOnGivenDate = taskList.getTasks().stream()
+                        .filter(task -> (task instanceof Deadline && ((Deadline) task).getBy()
+                                .toLocalDate().isEqual(givenDate)) || (task
+                                instanceof Event && Parser.isWithinEventDate((Event) task, givenDate)))
+                        .collect(Collectors.toList());
+                return this.ui.displayTasksOnDate(tasksOnGivenDate, givenDate);
+            case FIND:
+                String keyword = input.substring(5);
+                TaskList resultList = taskList.findTasks(keyword);
+                return this.ui.displayFindResults(resultList.getTasks());
+            default:
+                throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-
-            ui.printHorizontalLine();
+        } catch (DukeException e) {
+            return this.ui.displayException(e);
         }
     }
 
@@ -145,6 +153,6 @@ public class Duke {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        echoMessages();
+        new Duke().run();
     }
 }
