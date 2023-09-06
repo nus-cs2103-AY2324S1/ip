@@ -61,41 +61,6 @@ public class Event extends Task {
     public String getType() {
         return "Event";
     }
-
-    /**
-     * Adds a new Event task to the list based on the description provided.
-     *
-     * @param description The description of the task and its start and end dates.
-     * @param list        The ArrayList of tasks to add the new task to.
-     * @return The newly added Event task.
-     * @throws DukeException If there is an issue adding the task.
-     */
-    public static Event addEvent(String description, ArrayList<Task> list) throws DukeException {
-        String[] event = description.stripTrailing().split("/from |/to ");
-        if (event[0].isEmpty()) {
-            throw new DukeException("☹ OOPS!!! The description of an Event cannot be empty.");
-        }
-        if (event.length < 3) {
-            throw new DukeException("☹ OOPS!!! Please provide a valid start and end date");
-        }
-
-        Event newTask = null;
-        try {
-            LocalDate start = LocalDate.parse(event[1].stripTrailing());
-            LocalDate end = LocalDate.parse(event[2].stripTrailing());
-            if (start.isAfter(end)) {
-                throw new DukeException("☹ OOPS!!! Your start date has to be before your end date!");
-            }
-            newTask = new Event(event[0], start, end);
-
-            list.add(newTask);
-        } catch (DateTimeParseException e) {
-            System.out.println("Your date should be formatted as YYYY-MM-DD");
-        }
-
-        return newTask;
-    }
-
     /**
      * Adds an Event task to the list based on the saved description and mark status.
      *
