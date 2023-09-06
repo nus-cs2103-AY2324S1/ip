@@ -3,7 +3,7 @@ package corgi.commands;
 import corgi.storage.Storage;
 import corgi.tasks.Task;
 import corgi.tasks.TaskList;
-import corgi.ui.Ui;
+import corgi.ui.TextRenderer;
 
 /**
  * An abstract class to represent command.
@@ -39,7 +39,7 @@ public abstract class Command {
      * @param storage The storage for saving and loading tasks (if applicable).
      * @throws CommandExecutionException If an error occurs during command execution.
      */
-    public abstract void execute(TaskList list, Ui ui, Storage<Task> storage) throws CommandExecutionException;
+    public abstract String execute(TaskList list, TextRenderer renderer, Storage<Task> storage) throws CommandExecutionException;
 
     /**
      * Checks whether this command should exit the application.

@@ -5,7 +5,7 @@ import corgi.tasks.Task;
 import corgi.tasks.TaskList;
 import corgi.tasks.TaskListIndexOutOfBoundsException;
 import corgi.tasks.TaskStatusException;
-import corgi.ui.Ui;
+import corgi.ui.TextRenderer;
 
 /**
  * Represents a command to mark a task as done or undone in the task list.
@@ -45,14 +45,14 @@ public class MarkTaskCommand extends Command {
      * @throws CommandExecutionException If an error occurs during command execution.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage<Task> storage) throws CommandExecutionException {
+    public String execute(TaskList list, TextRenderer renderer, Storage<Task> storage) throws CommandExecutionException {
         try {
             list.mark(this.index, this.status);
             storage.save(list);
             if (status) {
-                ui.showTaskDone(list.getTaskInfo(this.index));
+                return renderer.showTaskDone(list.getTaskInfo(this.index));
             } else {
-                ui.showTaskUndone(list.getTaskInfo(this.index));
+                return renderer.showTaskUndone(list.getTaskInfo(this.index));
             }
         } catch (TaskListIndexOutOfBoundsException e) {
             throw new CommandExecutionException("Invalid index provided!");

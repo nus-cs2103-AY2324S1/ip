@@ -3,7 +3,7 @@ package corgi.commands;
 import corgi.storage.Storage;
 import corgi.tasks.Task;
 import corgi.tasks.TaskList;
-import corgi.ui.Ui;
+import corgi.ui.TextRenderer;
 
 /**
  * Represents a command to exit the application.
@@ -26,7 +26,7 @@ public class ExitCommand extends Command {
      * @param storage The storage for saving and loading tasks (not used in this command).
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage<Task> storage) {
-        ui.showExitMsg();
+    public String execute(TaskList list, TextRenderer renderer, Storage<Task> storage) {
+        return renderer.showExitMsg();
     }
 }
