@@ -4,7 +4,6 @@ package duke;
 
 public class Parser {
 
-
     public static CommandType parseCommand(String s) throws DukeException {
         String res = s.split(" ",2)[0];
         try {
