@@ -26,32 +26,31 @@ public class Duke {
     }
 
     /**
-     * Runs the program.
+     * Constructor for Duke class.
      */
-    public void run() {
-        this.ui.printEntryMessage();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String fullCommand = ui.nextCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(taskList, ui, storage);
-                isExit = c.isExit();
-            } catch (TaskException e) {
-                ui.addErrorMessage(e);
-            } finally {
-                ui.printMessage();
-            }
-        };
+    public Duke() {
+        this.ui = new Ui();
+        this.storage = new Storage("data/duke.txt");
+        this.taskList = new TaskList(storage.load());
     }
 
     /**
-     * The main entry point for Duke.
-     * @param args The given String array.
+     * Returns a response based on the given input.
+     *
+     * @param input The given user input from the GUI.
+     * @return The String of the response from Chad.
      */
-    public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
+    public String getResponse(String input) {
+        String output = "";
+        try {
+            Command c = Parser.parse(input);
+            c.execute(taskList, ui, storage);
+        } catch (TaskException e) {
+            ui.addErrorMessage(e);
+        } finally {
+            output = ui.showMessage();
+        }
+        return output;
     }
 
 }
