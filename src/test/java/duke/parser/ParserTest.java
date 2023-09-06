@@ -1,6 +1,6 @@
 package duke.parser;
 
-import duke.Duke;
+import duke.ui.Ui;
 import duke.exception.DukeException;
 import org.junit.jupiter.api.Test;
 
@@ -45,7 +45,7 @@ public class ParserTest {
         });
         String expected = "Hey, the Deadline given is Invalid! " +
                 "Make sure that you follow this format:\n" +
-                Duke.INDENTATION + "'taskDescription /by time'";
+                Ui.INDENTATION + "'taskDescription /by time'";
         assertEquals(expected, exception.getMessage());
     }
 
@@ -75,7 +75,7 @@ public class ParserTest {
         });
         String expected = "Hey, the Event given is Invalid!" +
                 " Make sure that you follow this format:\n" +
-                Duke.INDENTATION + " 'eventDescription /from startTime /to endTime'";
+                Ui.INDENTATION + " 'eventDescription /from startTime /to endTime'";
         assertEquals(expected, exception.getMessage());
     }
 

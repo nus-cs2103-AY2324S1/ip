@@ -11,9 +11,6 @@ import java.util.ArrayList;
  * Represents a Task List to store User's Tasks.
  */
 public class TaskList {
-    /** The Indentation Level to format text. */
-    private static final String INDENTATION = Ui.INDENTATION;
-
     /** The ArrayList to represent the Task List. */
     private ArrayList<Task> taskList;
 
@@ -43,7 +40,7 @@ public class TaskList {
         for (int i = 0; i < len; i++) {
             str = str + (i + 1) + ". " + taskList.get(i);
             if (i != (len - 1)) {
-                str += "\n " + INDENTATION;
+                str += "\n";
             }
         }
         return str;
@@ -64,22 +61,20 @@ public class TaskList {
             String buffer = "";
 
             if (index > taskList.size() - 1 || index < 0) {
-                throw new DukeException("Invalid duke.tasks.Task Index provided!");
+                throw new DukeException("Invalid Task Index provided!");
             }
             Task selectedTask = taskList.get(index);
             if (status.equals("mark")) {
                 selectedTask.markTask();
-                buffer = "Nice! I've marked the task as done:\n   " +
-                        INDENTATION + selectedTask;
+                buffer = "Nice! I've marked the task as done:\n" + selectedTask;
             } else if (status.equals("unmark")) {
                 selectedTask.unmarkTask();
-                buffer = "OK, I've marked this task as not done yet:\n   " +
-                        INDENTATION + selectedTask;
+                buffer = "OK, I've marked this task as not done yet:\n" + selectedTask;
             }
             this.saveList();
             return buffer;
         } catch (NumberFormatException e) {
-            throw new DukeException("Invalid duke.tasks.Task Index provided!");
+            throw new DukeException("Invalid Task Index provided!");
         }
     }
 
@@ -95,16 +90,15 @@ public class TaskList {
             int index = Integer.parseInt(commandNum) - 1;
 
             if (index > taskList.size() - 1 || index < 0) {
-                throw new DukeException("Invalid duke.tasks.Task Index provided!");
+                throw new DukeException("Invalid Task Index provided!");
             }
             Task selectedTask = taskList.remove(index);
             this.saveList();
-            return "Noted. I've removed this task:\n   " +
-                    INDENTATION + selectedTask + "\n " + INDENTATION + "Now you have " +
+            return "Noted. I've removed this task:\n" + selectedTask + "\nNow you have " +
                     taskList.size() + " tasks in the list.";
 
         } catch (NumberFormatException e) {
-            throw new DukeException("Invalid duke.tasks.Task Index provided!");
+            throw new DukeException("Invalid Task Index provided!");
         }
     }
 
@@ -118,8 +112,7 @@ public class TaskList {
         ToDo item = new ToDo(task);
         taskList.add(item);
         this.saveList();
-        return "Got it. I've added this task:\n   " +
-                INDENTATION + item + "\n " + INDENTATION + "Now you have " +
+        return "Got it. I've added this task:\n" + item + "\nNow you have " +
                 taskList.size() + " tasks in the list.";
     }
 
@@ -136,8 +129,7 @@ public class TaskList {
         Deadline item = new Deadline(desc, by);
         taskList.add(item);
         this.saveList();
-        return "Got it. I've added this task:\n   " +
-                INDENTATION + item + "\n " + INDENTATION + "Now you have " +
+        return "Got it. I've added this task:\n" + item + "\nNow you have " +
                 taskList.size() + " tasks in the list.";
     }
 
@@ -154,8 +146,7 @@ public class TaskList {
         Event item = new Event(desc, start, end);
         taskList.add(item);
         this.saveList();
-        return "Got it. I've added this task:\n   " +
-                INDENTATION + item + "\n " + INDENTATION + "Now you have " +
+        return "Got it. I've added this task:\n" + item + "\nNow you have " +
                 taskList.size() + " tasks in the list.";
     }
 
