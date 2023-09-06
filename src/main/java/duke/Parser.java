@@ -1,11 +1,5 @@
 package duke;
 
-
-import duke.Task;
-import duke.Event;
-import duke.Deadline;
-import duke.Todo;
-
 /**
  * Parser class for the command
  */
