@@ -3,10 +3,14 @@ package duke;
 import java.io.IOException;
 import java.io.File;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 /**
  * Class for the ChatBot
  */
-class Duke {
+public class Duke extends Application {
     public static String TEXTFILE = "duke.txt";
     public static String DATAFILE = "data.txt";
     public static String DELIM = " ";
@@ -36,6 +40,7 @@ class Duke {
             tasks = new TaskList();
         }
     }
+    public Duke(){}
     /**
      * Method to initiate the chatbot.
      */
@@ -101,7 +106,14 @@ class Duke {
             }
         }
     }
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
 
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
+    }
     public static void main(String[] args) {
         new Duke(TEXTFILE).run();
     }
