@@ -52,6 +52,9 @@ public class Duke {
         try {
             Command command = Parser.parseUserInput(input);
             String response = command.execute(tasks, ui, storage);
+            if (command.isExit()) {
+                javafx.application.Platform.exit();
+            }
             return response;
         } catch (DukeException e) {
             return e.getMessage();
