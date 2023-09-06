@@ -10,6 +10,10 @@ import java.util.regex.Pattern;
 
 import cheese.Task.Task;
 
+/**
+ * Parser class to parse user input
+ */
+
 public class Parser {
   final static String BY_PATTERN_STRING = "\\(by: (.*?)\\)";
   final static String FROM_PATTERN_STRING = "from: (.*?) to:";
@@ -19,42 +23,80 @@ public class Parser {
   final static Pattern fromPattern = Pattern.compile(FROM_PATTERN_STRING);
   final static Pattern toPattern = Pattern.compile(TO_PATTERN_STRING);
 
+
+  /**
+     * Parses user input and valid dates
+     * @param input User input
+     * @return booleon
+     */
   public boolean isBy(String input) {
     Matcher byMatcher = byPattern.matcher(input);
     return byMatcher.find();
   }
 
+  /**
+     * Matches user input and return matcher
+     *
+     * @param input User input
+     * @return Matcher
+     */
   public Matcher matchBy(String input) {
     Matcher byMatcher = byPattern.matcher(input);
-
+    //Required to find() to return Matcher
     byMatcher.find();
     return byMatcher;
   }
 
 
 
+  /**
+     * Similar to isBy but for from
+     * @param input User input
+     * @return booleon
+     */
   public boolean isFrom(String input) {
     Matcher fromMatcher = fromPattern.matcher(input);
     return fromMatcher.find();
   }
 
+
+  /**
+     * Similar to matchBy but for from
+     * @param input User input
+     * @return Matcher
+     */
   public Matcher matchFrom(String input) {
     Matcher fromMatcher = fromPattern.matcher(input);
     fromMatcher.find();
     return fromMatcher;
   }
 
+  /**
+     * Similar to isBy but for to
+     * @param input User input
+     * @return booleon
+     */
   public boolean isTo(String input) {
     Matcher toMatcher = toPattern.matcher(input);
     return toMatcher.find();
   }
 
+  /**
+     * Similar to matchBy but for to
+     * @param input User input
+     * @return Matcher
+     */
   public Matcher matchTo(String input) {
     Matcher toMatcher = toPattern.matcher(input);
     toMatcher.find();
     return toMatcher;
   }
 
+  /**
+     * Converts user input to LocalDate or null
+     * @param dateInput User input
+     * @return LocalDate
+     */
   public LocalDate convertDateTime(String dateInput) {
     DateTimeFormatter inputformat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     DateTimeFormatter outputformat = DateTimeFormatter.ofPattern("MMM dd yyyy");
@@ -71,6 +113,12 @@ public class Parser {
     return null;
   }
 
+  /**
+     * Converts user input to LocalDate
+     * @param dateInput User input
+     * @param outputformat DateTimeFormatter
+     * @return LocalDate
+     */
   private LocalDate parseMMMFormat(String dateInput, DateTimeFormatter outputformat) {
     try {
       return LocalDate.parse(dateInput, outputformat);
@@ -79,6 +127,13 @@ public class Parser {
     }
   }
 
+
+  /**
+     * Converts user input to Optional<LocalDate>
+     * @param dateInput User input
+     * @param inputformat DateTimeFormatter
+     * @return LocalDate
+     */
   private Optional<LocalDate> parseDate(String dateInput, DateTimeFormatter inputformat) {
     try {
       return Optional.of(LocalDate.parse(dateInput, inputformat));
@@ -87,6 +142,11 @@ public class Parser {
     }
   }
 
+  /**
+     * Checks if user input is a command
+     * @param input User input
+     * @return booleon
+     */
   public boolean isCommand(String input) {
     String[] inputSplit = input.split(" ");
     switch (inputSplit[0]) {
@@ -97,22 +157,29 @@ public class Parser {
       case "deadline":
       case "event":
       case "delete":
-      case "find":
       return true;
       default:
       return false;
     }
   }
 
+
+  /**
+     * Gets command from user input
+     * @param input User input
+     * @return String
+     */
   public String getCommand(String input) {
     String[] inputSplit = input.split(" ");
     return inputSplit[0];
   }
+
+
   /**
-   * Parses input during load and returns a Task object
-   * @param input
-   * @return Task object
-   */
+     * Parses user input and returns Task
+     * @param input User input
+     * @return Task
+     */
   public Task parseTask(String input) {
     String[] inputSplit = input.split(" ", 2);
     String command = inputSplit[0];
@@ -146,7 +213,6 @@ public class Parser {
         String[] eventInfoTwo = eventInfo[1].split(" /to ", 2);
         newTask = new Task('E',eventInfo[0].trim(), eventInfoTwo[0].trim(), eventInfoTwo[1].trim());
         break;
-        
 
         default:
         throw new IllegalArgumentException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -157,4 +223,3 @@ public class Parser {
     return newTask;
   }
 }
-
