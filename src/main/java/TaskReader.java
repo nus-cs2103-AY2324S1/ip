@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class TaskReader {
     public static ArrayList<Tasks> readTasksFromFile(String filename) {
@@ -32,7 +33,7 @@ public class TaskReader {
             // Parse Deadline task
             String description = line.substring(6, line.indexOf("(by:")).trim();
             boolean isMarked = line.charAt(4) == 'X';
-            String deadline = extractDeadline(line);
+            LocalDate deadline = LocalDate.parse(extractDeadline(line));
             return new Deadline(description, isMarked, deadline);
         } else if (line.startsWith("[E]")) {
             // Parse Event task
