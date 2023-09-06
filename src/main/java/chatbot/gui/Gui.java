@@ -76,8 +76,8 @@ public class Gui {
         Label userText = new Label(this.userInput.getText());
         Label chatBotText = new Label(getResponse(this.userInput.getText()));
         this.chatContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(userImage)),
-                new DialogBox(chatBotText, new ImageView(chatBotImage))
+                DialogBox.getUserDialogBox(userText, new ImageView(userImage)),
+                DialogBox.getChatBotDialogBox(chatBotText, new ImageView(chatBotImage))
         );
 
         this.userInput.clear();
