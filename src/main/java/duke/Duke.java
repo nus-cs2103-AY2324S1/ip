@@ -1,15 +1,13 @@
 package duke;
 
 import java.nio.file.Path;
-import java.util.Scanner;
 
 import duke.commands.Command;
-import duke.commands.CommandType;
 import duke.exceptions.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
-import duke.ui.Ui;
+import duke.ui.CliUi;
 
 /**
  * Duke is a chatbot that helps you keep track of your tasks.
@@ -23,23 +21,31 @@ public class Duke {
     /** The storage that is used to save and load the user's tasks. */
     private final Storage storage;
 
+    /** The parser that is used to parse the user's input. */
+    private final Parser parser = new Parser(this.taskList);
+
     /**
-     * Constructs a new Duke object.
+     * Constructs a new Duke object with default path to save file.
+     */
+    public Duke() {
+        this("data/tasks.txt");
+    }
+
+    /**
+     * Constructs a new Duke object with specified path to save file.
      *
      * @param path The path to the save file.
      */
     public Duke(String path) {
-        Ui.greet();
-        Ui.println("Checking for a save file...");
+        CliUi.println("Checking for a save file...");
         String projectRoot = System.getProperty("user.dir");
         String fullPath = Path.of(projectRoot, path).toString();
         this.storage = new Storage(fullPath);
         try {
             storage.load(this.taskList);
         } catch (DukeException e) {
-            Ui.println(e.getMessage());
+            CliUi.println(e.getMessage());
         }
-        Ui.println("OK, ready to roll");
     }
 
     /**
@@ -48,31 +54,33 @@ public class Duke {
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+        Launcher.main(args);
     }
 
     /**
-     * Runs the program to interact with the user.
+     * Greets the user.
+     *
+     * @return The greeting message.
      */
-    public void run() {
-        Scanner scanner = new Scanner(System.in);
-        Parser parser = new Parser(this.taskList);
-        while (true) {
-            String input = scanner.nextLine();
-            try {
-                Command command = parser.parse(input);
-                if (command.getCommandType() == CommandType.EXIT) {
-                    break;
-                }
-                command.execute();
-            } catch (DukeException e) {
-                Ui.println(e.getMessage());
-            }
-        }
+    public String greet() {
+        return "Hello! I'm LilBro!\nWhat can I do for you?";
+    }
 
-        scanner.close();
-        Ui.println("Before you go, let me save your tasks...");
+    /**
+     * Stores current task list into local storage.
+     */
+    public void exit() {
+        CliUi.println("Before you go, let me save your tasks...");
         storage.save(this.taskList);
-        Ui.bye();
+    }
+
+    /**
+     * Parses the user's input and returns the corresponding command.
+     *
+     * @param input The user's input.
+     * @return The command corresponding to the user's input.
+     */
+    public Command parseInput(String input) {
+        return this.parser.parse(input);
     }
 }

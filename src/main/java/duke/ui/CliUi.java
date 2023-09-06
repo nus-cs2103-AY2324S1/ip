@@ -3,7 +3,7 @@ package duke.ui;
 /**
  * Handles user interface outputs
  */
-public class Ui {
+public class CliUi {
 
     /** The divider to be used to separate outputs */
     public static final String DIVIDER = "____________________________________________________________";
@@ -36,13 +36,13 @@ public class Ui {
      * Greets the user.
      */
     public static void greet() {
-        Ui.printlns(new String[] { "Hello! I'm LilBro!", "What can I do for you?" });
+        CliUi.printlns(new String[] { "Hello! I'm LilBro!", "What can I do for you?" });
     }
 
     /**
      * Bids the user goodbye.
      */
     public static void bye() {
-        Ui.println("Bye. Hope to see you again soon!");
+        CliUi.println("Bye. Hope to see you again soon!");
     }
 }

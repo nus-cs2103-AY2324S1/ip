@@ -12,7 +12,7 @@ import duke.exceptions.DukeException;
 import duke.exceptions.DukeIoException;
 import duke.tasks.TaskList;
 import duke.tasks.TaskType;
-import duke.ui.Ui;
+import duke.ui.CliUi;
 
 /**
  * The storage is used to save and load tasks from the local disk.
@@ -32,7 +32,7 @@ public class Storage {
         this.path = path;
         File file = new File(path);
         if (!file.exists()) {
-            Ui.printlns(new String[] { "...No saved tasks found.", "Creating new save file for you..." });
+            CliUi.printlns(new String[] { "...No saved tasks found.", "Creating new save file for you..." });
             try {
                 file.getParentFile().mkdirs();
                 FileWriter writer = new FileWriter(file);
@@ -53,11 +53,11 @@ public class Storage {
         try {
             boolean isEmpty = Files.size(Path.of(path)) == 0;
             if (isEmpty) {
-                Ui.println("Save file empty, you're good to go.");
+                CliUi.println("Save file empty, you're good to go.");
                 return;
             }
 
-            Ui.println("Found some old tasks, replaying some commands...");
+            CliUi.println("Found some old tasks, replaying some commands...");
             BufferedReader reader = new BufferedReader(new FileReader(path));
             String line;
             while ((line = reader.readLine()) != null) {
@@ -81,7 +81,7 @@ public class Storage {
      * @param tasklist The task list to be used.
      * @throws DukeException If there is an error saving tasks to the save file.
      */
-    public void save(TaskList tasklist) {
+    public void save(TaskList tasklist) throws DukeException {
         try {
             String content = "";
             FileWriter fileWriter = new FileWriter(path, false);
@@ -92,7 +92,7 @@ public class Storage {
 
             fileWriter.write(content);
             fileWriter.close();
-            Ui.println("...Successfully saved your tasks!");
+            CliUi.println("...Successfully saved your tasks!");
         } catch (IOException e) {
             throw new DukeIoException("Error saving tasks to local disk: " + e);
         }

@@ -3,7 +3,7 @@ package duke.tasks;
 import java.util.ArrayList;
 
 import duke.exceptions.DukeInvalidArgumentException;
-import duke.ui.Ui;
+import duke.ui.CliUi;
 
 /**
  * The task list is used to store the user's tasks.
@@ -35,9 +35,10 @@ public class TaskList {
      *
      * @param type       The type of task to be added.
      * @param taskString Information about the task to be added.
+     * @return Duke's response to the user.
      * @throws DukeInvalidArgumentException If the given taskString is invalid.
      */
-    public void addTask(TaskType type, String taskString) throws DukeInvalidArgumentException {
+    public String addTask(TaskType type, String taskString) throws DukeInvalidArgumentException {
         switch (type) {
         case TODO:
             if (taskString.equals("")) {
@@ -76,74 +77,88 @@ public class TaskList {
             throw new DukeInvalidArgumentException("I'm gonna be honest, no idea what you're saying.");
         }
 
-        Ui.printlns(new String[] {
+        CliUi.printlns(new String[] {
             "Got it. I've added this task:",
             this.list.get(this.list.size() - 1).toString(),
             "Now you have " + this.list.size() + " tasks in the list."
         });
+        return String.format("Got it. I've added this task:\n%s\nNow you have %s tasks in the list.",
+                this.list.get(this.list.size() - 1), this.list.size());
     }
 
     /**
      * Marks specified task as done.
      *
      * @param index The index of the task to be marked as done.
+     * @return Duke's response to the user.
      * @throws DukeInvalidArgumentException If the index is invalid.
      */
-    public void markTaskDone(int index) throws DukeInvalidArgumentException {
+    public String markTaskDone(int index) throws DukeInvalidArgumentException {
         if (index <= 0 || index > this.list.size()) {
             throw new DukeInvalidArgumentException(
                     "You've specified an invalid task number. Check your task list again with the \"list\" command.");
         }
 
         this.list.get(index - 1).markDone();
-        Ui.printlns(new String[] { "Nice! I've marked this task as done:", this.list.get(index - 1).toString() });
+        CliUi.printlns(new String[] { "Nice! I've marked this task as done:", this.list.get(index - 1).toString() });
+        return String.format("Nice! I've marked this task as done:%s", this.list.get(index - 1));
     }
 
     /**
      * Unmarks specified task as not done.
      *
      * @param index The index of the task to be unmarked as not done.
+     * @return Duke's response to the user.
      * @throws DukeInvalidArgumentException If the index is invalid.
      */
-    public void unmarkTaskDone(int index) throws DukeInvalidArgumentException {
+    public String unmarkTaskDone(int index) throws DukeInvalidArgumentException {
         if (index <= 0 || index > this.list.size()) {
             throw new DukeInvalidArgumentException(
                     "You've specified an invalid task number. Check your task list again with the \"list\" command.");
         }
 
         this.list.get(index - 1).unmarkDone();
-        Ui.printlns(new String[] { "OK, I've marked this task as not done yet:", this.list.get(index - 1).toString() });
+        CliUi.printlns(
+                new String[] { "OK, I've marked this task as not done yet:", this.list.get(index - 1).toString() });
+        return String.format("OK, I've marked this task as not done yet:%s", this.list.get(index - 1));
     }
 
     /**
      * Deletes specified task.
      *
      * @param index The index of the task to be deleted.
+     * @return Duke's response to the user.
      * @throws DukeInvalidArgumentException If the index is invalid.
      */
-    public void deleteTask(int index) throws DukeInvalidArgumentException {
+    public String deleteTask(int index) throws DukeInvalidArgumentException {
         if (index <= 0 || index > this.list.size()) {
             throw new DukeInvalidArgumentException(
                     "You've specified an invalid task number. Check your task list again with the \"list\" command.");
         }
 
-        Ui.printlns(new String[] { "Noted. I've removed this task:", this.list.get(index - 1).toString() });
+        CliUi.printlns(new String[] { "Noted. I've removed this task:", this.list.get(index - 1).toString() });
+        String output = String.format("Noted. I've removed this task:%s", this.list.get(index - 1));
         this.list.remove(index - 1);
+        return output;
     }
 
     /**
      * Lists all tasks.
+     *
+     * @return Duke's response to the user.
      */
-    public void listTasks() {
+    public String listTasks() {
         if (this.list.isEmpty()) {
-            Ui.println("You have no tasks so far.");
+            CliUi.println("You have no tasks so far.");
+            return "You have no tasks so far.";
         } else {
             String[] lines = new String[1 + this.list.size()];
             lines[0] = "Here are the tasks in your list:";
             for (int i = 0; i < this.list.size(); i++) {
                 lines[i + 1] = (i + 1) + ". " + this.list.get(i);
             }
-            Ui.printlns(lines);
+            CliUi.printlns(lines);
+            return String.join("\n", lines);
         }
     }
 

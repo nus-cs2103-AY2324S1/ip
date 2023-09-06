@@ -12,7 +12,7 @@ public class AddDeadlineCommand extends Command {
      * Constructs a new AddDeadlineCommand object.
      *
      * @param taskList The current list of tasks.
-     * @param args The arguments supplied by the user.
+     * @param args     The arguments supplied by the user.
      */
     public AddDeadlineCommand(TaskList taskList, String args) {
         super(CommandType.ADD_DEADLINE, taskList, args);
@@ -20,9 +20,11 @@ public class AddDeadlineCommand extends Command {
 
     /**
      * Adds a deadline task to the list of tasks.
+     *
+     * @return The response to the user.
      */
     @Override
-    public void execute() {
-        this.taskList.addTask(TaskType.DEADLINE, args);
+    public String execute() {
+        return this.taskList.addTask(TaskType.DEADLINE, args);
     }
 }
