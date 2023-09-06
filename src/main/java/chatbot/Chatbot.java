@@ -2,52 +2,52 @@ package chatbot;
 
 import chatbot.command.Command;
 import chatbot.task.TaskManager;
+import javafx.scene.image.Image;
 
-/**
- * The Chatbot class initialises the chatbot application and handles the main
- * event.
- */
+import java.io.InputStream;
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Chatbot {
     private TaskManager taskManager;
-    private Ui ui;
+    private Image userImage;
+    private Image botImage;
 
-    /**
-     * contructor for Chatbot class.
-     */
     public Chatbot() {
         this.taskManager = new TaskManager();
-        this.ui = new Ui();
+        userImage = loadImage("/DaDuke.png");
+        botImage = loadImage("/DaUser.png");
     }
 
-    /**
-    Run chatbot class.
-     */
-    public void run() {
-        ui.showGreeting();
-        boolean isExit = false;
+    public String processUserInput(String input) {
+        try {
+            Command command = Parser.parseCommand(input);
+            String botResponse = command.execute(taskManager);
+            if (command.isExit()) {
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        System.exit(0);  // Terminates the currently running Java Virtual Machine
+                    }
+                }, 1000);  // Delay in milliseconds (3000ms = 3s)
 
-        while (!isExit) {
-            try {
-                String userInput = ui.readCommand();
-                Command command = Parser.parseCommand(userInput);
-                command.execute(taskManager, ui);
-                isExit = command.isExit();
-            } catch (ChatbotException e) {
-                ui.showError(e.getMessage());
-            } catch (Exception e) {
-                ui.showError("An unexpected error occurred.");
+                return botResponse;
             }
+            return botResponse;
+        } catch (ChatbotException e) {
+            return e.getMessage();
+        } catch (Exception e) {
+            return "An unexpected error occurred.";
         }
     }
 
-    /**
-     * The Chatbot class initialises the chatbot application and handles the main
-     * event loop.
-     */
-    public static void main(String[] args) {
-        Chatbot sara = new Chatbot();
-        sara.run();
+    private Image loadImage(String path) {
+        InputStream imageStream = this.getClass().getResourceAsStream(path);
+        if (imageStream == null) {
+            System.err.println("Failed to load image from path: " + path);
+            throw new RuntimeException("Image not found: " + path);
+        }
+        return new Image(imageStream);
     }
 }
-
-

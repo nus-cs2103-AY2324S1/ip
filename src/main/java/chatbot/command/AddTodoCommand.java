@@ -20,8 +20,12 @@ public class AddTodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskManager taskManager, Ui ui) throws ChatbotException {
-        taskManager.addTodo(description);
+    public String execute(TaskManager taskManager) throws ChatbotException {
+        try {
+            return taskManager.addTodo(description);
+        } catch (ChatbotException e) {
+            return e.getMessage();
+        }
     }
 
     @Override

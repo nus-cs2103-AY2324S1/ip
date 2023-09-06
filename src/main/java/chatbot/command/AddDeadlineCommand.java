@@ -24,8 +24,13 @@ public class AddDeadlineCommand extends chatbot.command.Command {
     }
 
     @Override
-    public void execute(chatbot.task.TaskManager taskManager, Ui ui) throws ChatbotException {
-        taskManager.addDeadlines(description, time);
+    public String execute(chatbot.task.TaskManager taskManager) throws ChatbotException {
+        try {
+            String response = taskManager.addDeadlines(description, time);
+            return response;
+        } catch (ChatbotException e) {
+            return e.getMessage();
+        }
     }
 
     @Override
