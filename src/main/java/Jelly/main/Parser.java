@@ -45,6 +45,11 @@ public class Parser {
                     throw new JellyBlankMessageException("unmark");
                 }
                 return new UnmarkCommand(Integer.parseInt(stringArray[1]));
+            } else if (stringArray[0].equals("find")) {
+                if (stringArray.length == 1) {
+                    throw new JellyBlankMessageException("find");
+                }
+                return new FindCommand(stringArray[1]);
             } else if (stringArray[0].equals("todo")) {
                 String toDoString = "";
                 if (stringArray.length == 1) {
