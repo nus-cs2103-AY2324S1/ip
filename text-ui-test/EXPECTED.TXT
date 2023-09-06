@@ -6,41 +6,47 @@ What can I do for you?
 --------------------------------------------------
 Got it. I've added this Duke.task:
 [E][ ] dating her (from: Jun 14 2004 to: Jul 14 2004)
-Now you have 1 tasks in the list.
+Now you have 4 tasks in the list.
 --------------------------------------------------
 --------------------------------------------------
 Got it. I've added this Duke.task:
 [D][ ] finish CS2103 homework (by: Jun 14 2004)
-Now you have 2 tasks in the list.
+Now you have 5 tasks in the list.
 --------------------------------------------------
 --------------------------------------------------
 Got it. I've added this Duke.task:
 [T][ ] listen to the lecture
-Now you have 3 tasks in the list.
---------------------------------------------------
---------------------------------------------------
-Here are the tasks in your list:
-1.[E][ ] dating her (from: Jun 14 2004 to: Jul 14 2004)
-2.[D][ ] finish CS2103 homework (by: Jun 14 2004)
-3.[T][ ] listen to the lecture
---------------------------------------------------
---------------------------------------------------
-Nice! I've marked this Duke.task as done:
-[D][ ] finish CS2103 homework (by: Jun 14 2004)
---------------------------------------------------
---------------------------------------------------
-Nice! I've marked this Duke.task as undone:
-[D][X] finish CS2103 homework (by: Jun 14 2004)
---------------------------------------------------
---------------------------------------------------
-Noted. I've removed this Duke.task:
-[T][ ] listen to the lecture
-Now you have 2 tasks in the list.
+Now you have 6 tasks in the list.
 --------------------------------------------------
 --------------------------------------------------
 Here are the tasks in your list:
 1.[E][ ] dating her (from: Jun 14 2004 to: Jul 14 2004)
 2.[T][ ] listen to the lecture
+3.[E][ ] fuck around (from: Apr 04 2004 to: May 01 2004)
+4.[E][ ] dating her (from: Jun 14 2004 to: Jul 14 2004)
+5.[D][ ] finish CS2103 homework (by: Jun 14 2004)
+6.[T][ ] listen to the lecture
+--------------------------------------------------
+--------------------------------------------------
+Nice! I've marked this Duke.task as done:
+[T][ ] listen to the lecture
+--------------------------------------------------
+--------------------------------------------------
+Nice! I've marked this Duke.task as undone:
+[T][X] listen to the lecture
+--------------------------------------------------
+--------------------------------------------------
+Noted. I've removed this Duke.task:
+[E][ ] fuck around (from: Apr 04 2004 to: May 01 2004)
+Now you have 5 tasks in the list.
+--------------------------------------------------
+--------------------------------------------------
+Here are the tasks in your list:
+1.[E][ ] dating her (from: Jun 14 2004 to: Jul 14 2004)
+2.[E][ ] fuck around (from: Apr 04 2004 to: May 01 2004)
+3.[E][ ] dating her (from: Jun 14 2004 to: Jul 14 2004)
+4.[D][ ] finish CS2103 homework (by: Jun 14 2004)
+5.[T][ ] listen to the lecture
 --------------------------------------------------
 --------------------------------------------------
 Bye. Hope to see you again soon!

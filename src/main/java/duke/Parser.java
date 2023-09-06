@@ -1,6 +1,7 @@
 package duke;
 
 import duke.commands.AddCommand;
+import duke.commands.ClearCommand;
 import duke.commands.Command;
 import duke.commands.DeleteCommand;
 import duke.commands.ExitCommand;
@@ -36,9 +37,9 @@ public class Parser {
      * @throws CommandDetailException        If there's an error in the command details.
      */
     public Command parse(String input)
-        throws TimeParsingException, CommandNotRecognizedException, CommandDetailException {
-        String trimedInput = input.trim();
-        String[] splitInput = trimedInput.split(" ", 2);
+            throws TimeParsingException, CommandNotRecognizedException, CommandDetailException {
+        String trimmedInput = input.trim();
+        String[] splitInput = trimmedInput.split(" ", 2);
         String command = splitInput[0].toLowerCase();
         try {
             switch (command) {
@@ -64,8 +65,11 @@ public class Parser {
                 String keyword = splitInput[1];
                 return new FindCommand(keyword);
             }
+            case "clear": {
+                return new ClearCommand();
+            }
             default: {
-                Task task = parseTask(trimedInput);
+                Task task = parseTask(trimmedInput);
                 if (task != null) {
                     return new AddCommand(task);
                 } else {

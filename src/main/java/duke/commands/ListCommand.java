@@ -5,6 +5,9 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents a list command in the Duke application.
+ */
 public class ListCommand extends Command {
 
     public ListCommand() {
@@ -13,6 +16,11 @@ public class ListCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws CommandDetailException {
         ui.showList(tasks);
+    }
+
+    @Override
+    public String executeGui(TaskList tasks, Ui ui, Storage storage) throws CommandDetailException {
+        return ui.showListGui(tasks);
     }
 
     @Override
