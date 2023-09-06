@@ -16,86 +16,87 @@ public class Duke {
     private static TaskList tasks;
     private static String directoryPath;
     private static String filePath;
-    protected static final String horizontalLine = "    ____________________________________________________________";
-    enum TASK { MARK, UNMARK, DELETE, TODO, EVENT, DEADLINE, BYE, LIST, INVALID, FIND}
+    protected static final String HORIZONTAL_LINE = "    ____________________________________________________________";
+    enum Command { MARK, UNMARK, DELETE, TODO, EVENT, DEADLINE, BYE, LIST, INVALID, FIND }
 
-    public static TASK commandCheck(String command) {
+    public static Command commandCheck(String command) {
         switch(command) {
-            case "bye":
-                return TASK.BYE;
-            case "unmark":
-                return TASK.UNMARK;
-            case "mark":
-                return TASK.MARK;
-            case "delete":
-                return TASK.DELETE;
-            case "list":
-                return TASK.LIST;
-            case "todo":
-                return TASK.TODO;
-            case "deadline":
-                return TASK.DEADLINE;
-            case "event":
-                return TASK.EVENT;
-            case "find":
-                return TASK.FIND;
-            default:
-                return TASK.INVALID;
+        case "bye":
+            return Command.BYE;
+        case "unmark":
+            return Command.UNMARK;
+        case "mark":
+            return Command.MARK;
+        case "delete":
+            return Command.DELETE;
+        case "list":
+            return Command.LIST;
+        case "todo":
+            return Command.TODO;
+        case "deadline":
+            return Command.DEADLINE;
+        case "event":
+            return Command.EVENT;
+        case "find":
+            return Command.FIND;
+        default:
+            return Command.INVALID;
         }
     }
-    public static void printCommand(TASK command, String info) throws DukeException, IOException, DukeArgumentException {
+    public static void printCommand(Command command, String info)
+            throws DukeException, IOException, DukeArgumentException {
         switch(command) {
-            case BYE:
-                ui.exit();
-                break;
-            case UNMARK:
-                System.out.println(horizontalLine);
-                tasks.unmark(info);
-                System.out.println(horizontalLine);
-                break;
-            case MARK:
-                System.out.println(horizontalLine);
-                tasks.mark(info);
-                System.out.println(horizontalLine);
-                break;
-            case DELETE:
-                System.out.println(horizontalLine);
-                tasks.deleteTask(info);
-                System.out.println(horizontalLine);
-                break;
-            case LIST:
-                System.out.println(horizontalLine);
-                tasks.listTask();
-                System.out.println(horizontalLine);
-                break;
-            case TODO:
-                tasks.todoTask(info);
-                break;
-            case EVENT:
-                tasks.eventTask(info);
-                break;
-            case DEADLINE:
-                tasks.deadlineTask(info);
-                break;
-            case FIND:
-                System.out.println(horizontalLine);
-                tasks.findTask(info);
-                System.out.println(horizontalLine);
-                break;
-            default:
-                throw new DukeException("     OOPS!!! I'm sorry, but I don't know what that means :-(");
+        case BYE:
+            ui.exit();
+            break;
+        case UNMARK:
+            System.out.println(HORIZONTAL_LINE);
+            tasks.unmark(info);
+            System.out.println(HORIZONTAL_LINE);
+            break;
+        case MARK:
+            System.out.println(HORIZONTAL_LINE);
+            tasks.mark(info);
+            System.out.println(HORIZONTAL_LINE);
+            break;
+        case DELETE:
+            System.out.println(HORIZONTAL_LINE);
+            tasks.deleteTask(info);
+            System.out.println(HORIZONTAL_LINE);
+            break;
+        case LIST:
+            System.out.println(HORIZONTAL_LINE);
+            tasks.listTask();
+            System.out.println(HORIZONTAL_LINE);
+            break;
+        case TODO:
+            tasks.todoTask(info);
+            break;
+        case EVENT:
+            tasks.eventTask(info);
+            break;
+        case DEADLINE:
+            tasks.deadlineTask(info);
+            break;
+        case FIND:
+            System.out.println(HORIZONTAL_LINE);
+            tasks.findTask(info);
+            System.out.println(HORIZONTAL_LINE);
+            break;
+        default:
+            throw new DukeException("     OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
     /**
      * Constructor method for Duke.
-     * @param filePath Relative path of the save file.
      * @param directoryPath Directory to be created, where the save file resides.
+     * @param filePath Relative path of the save file.
      */
     public Duke(String directoryPath, String filePath) {
-        ui = new Ui();
-        parser = new Parser();
         this.directoryPath = directoryPath;
         this.filePath = filePath;
+        ui = new Ui();
+        parser = new Parser();
     }
     public void run() {
         ui.greet();
@@ -105,12 +106,12 @@ public class Duke {
         while (input.hasNext()) {
             String command = input.nextLine();
             String[] findCommand = parser.commandSplit(command);
-            TASK order = commandCheck(findCommand[0]);
+            Command order = commandCheck(findCommand[0]);
             try {
                 printCommand(order, command);
                 storage.saveTask(tasks.getTaskArray());
             } catch (DukeException | DukeArgumentException message) {
-                System.out.println(horizontalLine + "\n" + message.getMessage() + "\n" + horizontalLine);
+                System.out.println(HORIZONTAL_LINE + "\n" + message.getMessage() + "\n" + HORIZONTAL_LINE);
             } catch (IOException e) {
                 System.out.println("     Oh no, seems like something is not working.. We can't save your data.");
             }

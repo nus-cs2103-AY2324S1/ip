@@ -61,7 +61,7 @@ public class TaskList {
         numTask--;
         System.out.println("     Noted. I've removed this task:\n"
                 + "     " + removed.printDesc() + "\n"
-                + "     Now you have " + numTask +" tasks in the list.");
+                + "     Now you have " + numTask + " tasks in the list.");
     }
     public static void listTask() {
         System.out.println("     Here are the tasks in your list:\n");

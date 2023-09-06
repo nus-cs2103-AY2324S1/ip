@@ -24,8 +24,8 @@ public class Event extends Task {
 
     @Override
     public String printDesc() {
-        String fromMessage =  this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy H:mm"));
-        String toMessage =  this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy H:mm"));
+        String fromMessage = this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy H:mm"));
+        String toMessage = this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy H:mm"));
         return "[E]" + super.printDesc() + " (from: " + fromMessage + " to: " + toMessage + ")";
     }
 

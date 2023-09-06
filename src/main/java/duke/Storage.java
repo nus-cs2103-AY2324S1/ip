@@ -23,7 +23,7 @@ public class Storage {
      * @param filePath The relative path of duke.txt.
      * @param dirPath the relative path to the data directory.
      */
-    public Storage (String dirPath, String filePath) {
+    public Storage(String dirPath, String filePath) {
         this.directoryPath = dirPath;
         this.filePath = filePath;
         this.parser = new Parser();
@@ -59,30 +59,30 @@ public class Storage {
                 String taskStatus = taskDetails[1];
                 String taskDescription = taskDetails[2];
                 switch (taskType) {
-                    case "T":
-                        Todo addTodo = new Todo(taskDescription);
-                        if (Objects.equals(taskStatus, "done")) {
-                            addTodo.updateAsDone();
-                        }
-                        taskArray.add(addTodo);
-                        break;
-                    case "D":
-                        Deadline addDeadline = new Deadline(taskDescription, taskDetails[3]);
-                        if (Objects.equals(taskStatus, "Y")) {
-                            addDeadline.markAsDone();
-                        }
-                        taskArray.add(addDeadline);
-                        break;
-                    case "E":
-                        String[] timeDetails = parser.storageTimeSplit(taskDetails[3]);
-                        Event addEvent = new Event(taskDescription, timeDetails[0], timeDetails[1]);
-                        if (Objects.equals(taskStatus, "Y")) {
-                            addEvent.markAsDone();
-                        }
-                        taskArray.add(addEvent);
-                        break;
-                    default:
-                        throw new DukeException("     invalid task in the hard disk");
+                case "T":
+                    Todo addTodo = new Todo(taskDescription);
+                    if (Objects.equals(taskStatus, "done")) {
+                        addTodo.updateAsDone();
+                    }
+                    taskArray.add(addTodo);
+                    break;
+                case "D":
+                    Deadline addDeadline = new Deadline(taskDescription, taskDetails[3]);
+                    if (Objects.equals(taskStatus, "Y")) {
+                        addDeadline.markAsDone();
+                    }
+                    taskArray.add(addDeadline);
+                    break;
+                case "E":
+                    String[] timeDetails = parser.storageTimeSplit(taskDetails[3]);
+                    Event addEvent = new Event(taskDescription, timeDetails[0], timeDetails[1]);
+                    if (Objects.equals(taskStatus, "Y")) {
+                        addEvent.markAsDone();
+                    }
+                    taskArray.add(addEvent);
+                    break;
+                default:
+                    throw new DukeException("     invalid task in the hard disk");
                 }
 
             }
