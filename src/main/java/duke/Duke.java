@@ -22,7 +22,7 @@ public class Duke {
     private static String PATH = "./data/duke.txt";
     private boolean isRunning = true;
 
-    private Duke() {
+    public Duke() {
         this.storage = new Storage(Duke.PATH);
         this.ui = new Ui();
         try {
@@ -40,8 +40,7 @@ public class Duke {
         }
     }
 
-    private void end() {
-        this.ui.bye();
+    private void end() throws DukeException {
         this.storage.save(this.tasklist);
         this.isRunning = false;
     }
@@ -73,7 +72,7 @@ public class Duke {
      * @param s the string
      * @return the Deadline Tasked added
      */
-    public Task addDeadline(String s) {
+    public Task addDeadline(String s) throws DukeException {
         //E|1|descr|12/4/2020 1600|12/4/2020 1700
         try {
             String[] temp = s.split(" /by ", 2);
@@ -95,7 +94,7 @@ public class Duke {
      * @param s the string
      * @return the todo Tasked added
      */
-    public Task addToDo(String s) {
+    public Task addToDo(String s) throws DukeException {
         try {
             System.out.println(s);
             Task res = new Todo(s);
@@ -112,7 +111,7 @@ public class Duke {
      * @param s the string
      * @return the Event Tasked added
      */
-    public Task addEvent(String s) {
+    public Task addEvent(String s) throws DukeException {
         //E|1|descr|12/4/2020 1600|12/4/2020 1700
         //event project meeting /from 12/4/2020 1600 /to 12/4/2020 1700
         try {
@@ -141,7 +140,7 @@ public class Duke {
      * @return the Task deleted
      */
 
-    public Task delTask(int idx) {
+    public Task delTask(int idx) throws DukeException {
         try {
 
             Task t = this.tasklist.get(idx);
@@ -152,50 +151,42 @@ public class Duke {
         }
     }
 
-    private void respond(String s) {
+    protected String respond(String s) {
         try {
             switch (Parser.parseCommand(s)) {
                 case LIST:
-                    this.ui.displayList(this.tasklist);
-                    break;
+                    return this.ui.displayList(this.tasklist);
                 case BYE:
                     end();
-                    return;
+                    return this.ui.bye();
                 case MARK:
                     int idx = Integer.parseInt(Parser.doWhat(s));
                     Task t = done(idx);
-                    this.ui.showDone(t);
-                    break;
+                    return this.ui.showDone(t);
                 case UNMARK:
                     int idx1 = Integer.parseInt(Parser.doWhat(s));
                     Task t1 = undone(idx1);
-                    this.ui.showUnDone(t1);
-                    break;
+                    return this.ui.showUnDone(t1);
                 case DEADLINE:
                     Task t2 = addDeadline(Parser.doWhat(s));
-                    this.ui.showAdded(t2, this.tasklist.getSize());
-                    break;
+                    return this.ui.showAdded(t2, this.tasklist.getSize());
                 case TODO:
                     Task t3 = addToDo(Parser.doWhat(s));
-                    this.ui.showAdded(t3, this.tasklist.getSize());
-                    break;
+                    return this.ui.showAdded(t3, this.tasklist.getSize());
                 case EVENT:
                     Task t4 = addEvent(Parser.doWhat(s));
-                    this.ui.showAdded(t4, this.tasklist.getSize());
-                    break;
+                    return this.ui.showAdded(t4, this.tasklist.getSize());
                 case DELETE:
                     int id3 = Integer.parseInt(Parser.doWhat(s));
                     Task t5 = delTask(id3);
-                    this.ui.showDel(t5, this.tasklist.getSize());
-                    break;
+                    return this.ui.showDel(t5, this.tasklist.getSize());
                 case FIND:
-                    this.ui.displayList(this.tasklist.filter(Parser.doWhat(s)));
-                    break;
+                    return this.ui.displayList(this.tasklist.filter(Parser.doWhat(s)));
                 default:
                     throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (DukeException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 

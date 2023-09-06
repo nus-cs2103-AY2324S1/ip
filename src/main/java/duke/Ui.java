@@ -17,45 +17,53 @@ public class Ui {
         System.out.println("__________________________________________________________");
     }
 
-    public void bye() {
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("__________________________________________________________");
+    public String bye() {
         sc.close();
+        return "Bye. Hope to see you again soon!\n__________________________________________________________";
     }
 
     public String readInput() {
         return sc.nextLine();
     }
 
-    public void displayList(TaskList list) {
-        System.out.println("Here are the tasks in your list:");
-        System.out.println(list.toString());
-        System.out.println("__________________________________________________________");
+    public String displayList(TaskList list) {
+        String res = "";
+        res += "Here are the tasks in your list:\n";
+        res += list.toString();
+        res += "\n__________________________________________________________";
+        return res;
     }
 
-    public void showAdded(Task task, int len) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
-        System.out.println("Now I have " + len + " tasks in the list");
+    public String showAdded(Task task, int len) {
+        String res = "";
+        res += "Got it. I've added this task:\n";
+        res += task.toString();
+        res += "\nNow I have " + len + " tasks in the list";
+        return res;
     }
 
-    public void showDel(Task task, int len) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + len +  " tasks in the list");
+    public String showDel(Task task, int len) {
+        String res = "";
+        res += "Noted. I've removed this task:\n";
+        res += task.toString();
+        res += "\nNow you have " + len +  " tasks in the list";
+        return res;
     }
 
-    public void showDone(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task.toString());
+    public String showDone(Task task) {
+        String res = "";
+        res += "Nice! I've marked this task as done:\n" + task.toString();
+        return res;
     }
 
-    public void showUnDone(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task.toString());
+    public String showUnDone(Task task) {
+        String res = "";
+        res += "OK, I've marked this task as not done yet:\n";
+        res += task.toString();
+        return res;
     }
 
-    public void showException(Exception e) {
-        System.out.println(e.getMessage());
+    public String showException(Exception e) {
+        return (e.getMessage());
     }
 }
