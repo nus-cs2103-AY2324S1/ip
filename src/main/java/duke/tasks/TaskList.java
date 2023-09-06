@@ -1,20 +1,23 @@
 package duke.tasks;
 
-import duke.storage.Storage;
-import duke.exception.DukeException;
-import duke.ui.Ui;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+import duke.exception.DukeException;
+import duke.storage.Storage;
+
 
 /**
  * Represents a Task List to store User's Tasks.
  */
 public class TaskList {
-    /** The ArrayList to represent the Task List. */
+    /**
+     * The ArrayList to represent the Task List.
+     */
     private ArrayList<Task> taskList;
 
-    /** The Storage for the Chatbot. */
+    /**
+     * The Storage for the Chatbot.
+     */
     private Storage storage;
 
 
@@ -22,7 +25,7 @@ public class TaskList {
      * The Constructor for the TaskList.
      *
      * @param taskList The ArrayList to initialise as the TaskList.
-     * @param storage The Storage of the Chatbot.
+     * @param storage  The Storage of the Chatbot.
      */
     public TaskList(ArrayList<Task> taskList, Storage storage) {
         this.taskList = taskList;
@@ -50,7 +53,7 @@ public class TaskList {
      * Handles the Marking of the Tasks in the Task List.
      *
      * @param commandNum The Index of the Task as a String.
-     * @param status The status of the marking as either 'mark' or 'unmark'.
+     * @param status     The status of the marking as either 'mark' or 'unmark'.
      * @return The Success output as a String.
      * @throws DukeException If Task Index provided is invalid.
      */
@@ -94,8 +97,8 @@ public class TaskList {
             }
             Task selectedTask = taskList.remove(index);
             this.saveList();
-            return "Noted. I've removed this task:\n" + selectedTask + "\nNow you have " +
-                    taskList.size() + " tasks in the list.";
+            return "Noted. I've removed this task:\n" + selectedTask + "\nNow you have "
+                    + taskList.size() + " tasks in the list.";
 
         } catch (NumberFormatException e) {
             throw new DukeException("Invalid Task Index provided!");
@@ -112,15 +115,15 @@ public class TaskList {
         ToDo item = new ToDo(task);
         taskList.add(item);
         this.saveList();
-        return "Got it. I've added this task:\n" + item + "\nNow you have " +
-                taskList.size() + " tasks in the list.";
+        return "Got it. I've added this task:\n" + item + "\nNow you have "
+                + taskList.size() + " tasks in the list.";
     }
 
     /**
      * Handles the Adding of a Deadline Task to the Task List.
      *
      * @param desc The Description of the Task.
-     * @param by The deadline of the Task.
+     * @param by   The deadline of the Task.
      * @return The Success output as a String.
      * @throws DukeException if there is an Error in creating the Deadline Task.
      */
@@ -129,16 +132,16 @@ public class TaskList {
         Deadline item = new Deadline(desc, by);
         taskList.add(item);
         this.saveList();
-        return "Got it. I've added this task:\n" + item + "\nNow you have " +
-                taskList.size() + " tasks in the list.";
+        return "Got it. I've added this task:\n" + item + "\nNow you have "
+                + taskList.size() + " tasks in the list.";
     }
 
     /**
      * Handles the Adding of an Event Task to the Task List.
      *
-     * @param desc The Description of the Task.
+     * @param desc  The Description of the Task.
      * @param start The start time of the Task.
-     * @param end The end time of the Task.
+     * @param end   The end time of the Task.
      * @return The Success output as a String.
      * @throws DukeException if there is an Error in creating the Event Task.
      */
@@ -146,8 +149,8 @@ public class TaskList {
         Event item = new Event(desc, start, end);
         taskList.add(item);
         this.saveList();
-        return "Got it. I've added this task:\n" + item + "\nNow you have " +
-                taskList.size() + " tasks in the list.";
+        return "Got it. I've added this task:\n" + item + "\nNow you have "
+                + taskList.size() + " tasks in the list.";
     }
 
     /**

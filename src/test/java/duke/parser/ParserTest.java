@@ -44,8 +44,7 @@ public class ParserTest {
             parseLine.parseDeadlineArguments();
         });
         String expected = "Hey, the Deadline given is Invalid! " +
-                "Make sure that you follow this format:\n" +
-                Ui.INDENTATION + "'taskDescription /by time'";
+                "Make sure that you follow this format:\n" + " 'taskDescription /by yyyy-mm-dd hh:mm'";
         assertEquals(expected, exception.getMessage());
     }
 
@@ -74,8 +73,8 @@ public class ParserTest {
             parseLine.parseEventArguments();
         });
         String expected = "Hey, the Event given is Invalid!" +
-                " Make sure that you follow this format:\n" +
-                Ui.INDENTATION + " 'eventDescription /from startTime /to endTime'";
+                " Make sure that you follow this format:\n"
+                + " 'eventDescription /from yyyy-mm-dd hh:mm /to yyyy-mm-dd hh:mm'";
         assertEquals(expected, exception.getMessage());
     }
 

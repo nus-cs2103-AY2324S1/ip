@@ -7,10 +7,14 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    /** The Indentation Level to format text. */
+    /**
+     * The Indentation Level to format text.
+     */
     public static final String INDENTATION = "    ";
 
-    /** Scanner to read user input. */
+    /**
+     * Scanner to read user input.
+     */
     private Scanner sc = new Scanner(System.in);
 
 
@@ -31,8 +35,8 @@ public class Ui {
      */
     private static String formatOutput(String output) {
         String horizontalLine = "____________________________________________________________";
-        return INDENTATION + horizontalLine + "\n " +
-                INDENTATION + output + '\n' + INDENTATION + horizontalLine + '\n';
+        return INDENTATION + horizontalLine + "\n "
+                + INDENTATION + output + '\n' + INDENTATION + horizontalLine + '\n';
     }
 
     /**

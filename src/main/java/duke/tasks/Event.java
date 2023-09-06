@@ -1,34 +1,43 @@
 package duke.tasks;
 
-import duke.exception.DukeException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import duke.exception.DukeException;
+
 
 /**
  * A Task that starts at a specific date/time and ends at a specific date/time.
  */
 public class Event extends Task {
 
-    /** The start time of the Event task. */
+    /**
+     * The start time of the Event task.
+     */
     protected String start;
 
-    /** The end time of the Event task. */
+    /**
+     * The end time of the Event task.
+     */
     protected String end;
 
-    /** The input formatter to parse Date and Time input. */
+    /**
+     * The input formatter to parse Date and Time input.
+     */
     private DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    /** The output formatter to format Date and Time output. */
+    /**
+     * The output formatter to format Date and Time output.
+     */
     private DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm");
 
     /**
      * Constructor for an Event task.
      *
      * @param description The description of the Event task.
-     * @param startTime The start time of the Event task. Must follow the format yyyy-MM-dd HH:mm.
-     * @param endTime The end time of the Event task. Must follow the format yyyy-MM-dd HH:mm.
+     * @param startTime   The start time of the Event task. Must follow the format yyyy-MM-dd HH:mm.
+     * @param endTime     The end time of the Event task. Must follow the format yyyy-MM-dd HH:mm.
      * @throws DukeException If the times do not follow the format yyyy-MM-dd HH:mm.
      */
     public Event(String description, String startTime, String endTime) throws DukeException {

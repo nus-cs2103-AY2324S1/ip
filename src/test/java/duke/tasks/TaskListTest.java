@@ -17,8 +17,7 @@ public class TaskListTest {
         Storage storage = new Storage("data/test.txt");
         TaskList testList = new TaskList(new ArrayList<>(), storage);
         String actual = testList.handleToDo("test desc");
-        String expected = "Got it. I've added this task:\n   " +
-                INDENTATION + "[T][ ] test desc" + "\n " + INDENTATION + "Now you have " +
+        String expected = "Got it. I've added this task:\n" + "[T][ ] test desc" + "\nNow you have " +
                 1 + " tasks in the list.";
         assertEquals(expected, actual);
     }
@@ -33,8 +32,7 @@ public class TaskListTest {
         } catch (DukeException e) {
             fail("Did not add Deadline successfully");
         }
-        String expected = "Got it. I've added this task:\n   " +
-                INDENTATION + "[D][ ] boo (by: 22 October 2001 11:12)" + "\n " + INDENTATION + "Now you have " +
+        String expected = "Got it. I've added this task:\n" + "[D][ ] boo (by: 22 October 2001 11:12)" + "\nNow you have " +
                 1 + " tasks in the list.";
         assertEquals(expected, actual);
     }
@@ -60,9 +58,8 @@ public class TaskListTest {
         } catch (DukeException e) {
             fail("Did not add Event successfully");
         }
-        String expected = "Got it. I've added this task:\n   " +
-                INDENTATION + "[E][ ] boo (from: 22 October 2001 11:12 to: 22 November 2001 11:12)" + "\n " +
-                INDENTATION + "Now you have " + 1 + " tasks in the list.";
+        String expected = "Got it. I've added this task:\n" + "[E][ ] boo (from: 22 October 2001 11:12 to: 22 November 2001 11:12)"
+                + "\nNow you have " + 1 + " tasks in the list.";
         assertEquals(expected, actual);
     }
 

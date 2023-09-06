@@ -1,12 +1,12 @@
 package duke;
 
+import java.util.ArrayList;
+
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
-
-import java.util.ArrayList;
 
 /**
  * Duke is a Chatbot that helps you keep track of your tasks.
@@ -14,17 +14,25 @@ import java.util.ArrayList;
  */
 public class Duke {
 
-    /** The storage that is used to save and load the user's tasks. */
+    /**
+     * The file path to store the User's Task Data.
+     */
+    private static final String FILE_PATH = "./data/duke.txt";
+
+    /**
+     * The storage that is used to save and load the user's tasks.
+     */
     private static Storage storage;
 
-    /** The task list that is used to store the user's tasks. */
+    /**
+     * The task list that is used to store the user's tasks.
+     */
     private TaskList tasks;
 
 
-    /** The file path to store the User's Task Data. */
-    private static final String FILEPATH = "./data/duke.txt";
-
-    /** Boolean value to check if the chat has ended. */
+    /**
+     * Boolean value to check if the chat has ended.
+     */
     private boolean isChatEnd = false;
 
     /**
@@ -45,30 +53,30 @@ public class Duke {
 
         try {
             switch (command) {
-                case BYE:
-                    isChatEnd = true;
-                    return "Chat has ended! Please Exit.";
-                case LIST:
-                    return tasks.formatList();
-                case MARK:
-                case UNMARK:
-                    return tasks.handleMarking(parseLine.getArguments(), command.getCommandName());
-                case DELETE:
-                    return tasks.handleDelete(parseLine.getArguments());
-                case TODO:
-                    String todoData = parseLine.parseToDoArguments();
-                    return tasks.handleToDo(todoData);
-                case DEADLINE:
-                    String[] deadlineData = parseLine.parseDeadlineArguments();
-                    return tasks.handleDeadline(deadlineData[0], deadlineData[1]);
-                case EVENT:
-                    String[] eventData = parseLine.parseEventArguments();
-                    return tasks.handleEvent(eventData[0], eventData[1], eventData[2]);
-                case FIND:
-                    String findQuery = parseLine.parseFindQuery();
-                    return tasks.findTasks(findQuery).formatList();
-                default:
-                    return "I don't understand what you're saying.";
+            case BYE:
+                isChatEnd = true;
+                return "Chat has ended! Please Exit.";
+            case LIST:
+                return tasks.formatList();
+            case MARK:
+            case UNMARK:
+                return tasks.handleMarking(parseLine.getArguments(), command.getCommandName());
+            case DELETE:
+                return tasks.handleDelete(parseLine.getArguments());
+            case TODO:
+                String todoData = parseLine.parseToDoArguments();
+                return tasks.handleToDo(todoData);
+            case DEADLINE:
+                String[] deadlineData = parseLine.parseDeadlineArguments();
+                return tasks.handleDeadline(deadlineData[0], deadlineData[1]);
+            case EVENT:
+                String[] eventData = parseLine.parseEventArguments();
+                return tasks.handleEvent(eventData[0], eventData[1], eventData[2]);
+            case FIND:
+                String findQuery = parseLine.parseFindQuery();
+                return tasks.findTasks(findQuery).formatList();
+            default:
+                return "I don't understand what you're saying.";
             }
         } catch (DukeException e) {
             return e.getMessage();
@@ -79,7 +87,7 @@ public class Duke {
      * Runs the Chatbot program.
      */
     public void run() {
-        storage = new Storage(FILEPATH);
+        storage = new Storage(FILE_PATH);
 
         try {
             tasks = new TaskList(storage.load(), storage);

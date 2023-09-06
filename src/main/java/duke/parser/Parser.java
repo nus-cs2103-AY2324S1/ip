@@ -1,9 +1,7 @@
 package duke.parser;
 
-import duke.Duke;
 import duke.command.Command;
 import duke.exception.DukeException;
-import duke.ui.Ui;
 
 /**
  * The Parser to parse input for the Chatbot.
@@ -98,7 +96,7 @@ public class Parser {
      * Parses the Deadline arguments from the input.
      *
      * @return The String Array containing the description as the first element
-     * and time as the second element.
+     *     and time as the second element.
      * @throws DukeException if description is empty.
      */
     public String[] parseDeadlineArguments() throws DukeException {
@@ -109,8 +107,8 @@ public class Parser {
         String[] arr = this.arguments.split(" /by ");
 
         if (arr.length != 2) {
-            throw new DukeException("Hey, the Deadline given is Invalid! " +
-                    "Make sure that you follow this format:\n" + " 'taskDescription /by yyyy-mm-dd hh:mm'");
+            throw new DukeException("Hey, the Deadline given is Invalid! "
+                    + "Make sure that you follow this format:\n" + " 'taskDescription /by yyyy-mm-dd hh:mm'");
         }
 
         return arr;
@@ -120,7 +118,7 @@ public class Parser {
      * Parses the Event arguments from the input.
      *
      * @return The String array containing the description as the first element,
-     * start time as the second element and end time as the third element.
+     *     start time as the second element and end time as the third element.
      * @throws DukeException if description is empty.
      */
     public String[] parseEventArguments() throws DukeException {
@@ -129,16 +127,16 @@ public class Parser {
         }
         String[] arr = this.arguments.split(" /from ");
         if (arr.length != 2) {
-            throw new DukeException("Hey, the Event given is Invalid!" +
-                    " Make sure that you follow this format:\n"
+            throw new DukeException("Hey, the Event given is Invalid!"
+                    + " Make sure that you follow this format:\n"
                     + " 'eventDescription /from yyyy-mm-dd hh:mm /to yyyy-mm-dd hh:mm'");
         }
         String desc = arr[0];
 
         String[] startEnd = arr[1].split(" /to ");
         if (startEnd.length != 2) {
-            throw new DukeException("Hey, the Event given is Invalid!" +
-                    " Make sure that you follow this format:\n"
+            throw new DukeException("Hey, the Event given is Invalid!"
+                    + " Make sure that you follow this format:\n"
                     + " 'eventDescription /from yyyy-mm-dd hh:mm /to yyyy-mm-dd hh:mm'");
         }
         String start = startEnd[0];
