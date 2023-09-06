@@ -130,7 +130,7 @@ public class ChadBod {
         try {
             byDate = LocalDateTime.parse(deadlineDetails[1]);
         } catch (DateTimeParseException e) {
-            throw new InvalidTaskException("Deadline due date/time not in ISO format. (e.g. 2007-12-03T10:15:30)");
+            throw new InvalidTaskException("Deadline due date/time not in ISO format (e.g. 2007-12-03T10:15:30).");
         }
         return new Deadline(deadlineDetails[0], byDate);
     }
@@ -160,7 +160,7 @@ public class ChadBod {
             fromDate = LocalDateTime.parse(eventTimings[0]);
             toDate = LocalDateTime.parse(eventTimings[1]);
         } catch (DateTimeParseException e) {
-            throw new InvalidTaskException("Deadline due date/time not in ISO format. (e.g. 2007-12-03T10:15:30)");
+            throw new InvalidTaskException("Deadline due date/time not in ISO format (e.g. 2007-12-03T10:15:30).");
         }
         return new Event(eventDetails[0], fromDate, toDate);
     }
