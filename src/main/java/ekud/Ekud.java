@@ -51,10 +51,10 @@ public class Ekud {
         }
         // Handle main commands
         try {
-            // commands will elicit a response from the taskList object
-            return parser.parseAndExecute(userCommand, userArgs, this.taskList);
+            // executed commands will elicit a String response from the taskList object
+            return parser.parseAndExecute(this.taskList, userCommand, userArgs);
         } catch (EkudException e) {
-            return e.toString(); // catch and return the EkudException error message
+            return e.toString(); // catch and return error messages for invalid inputs
         }
 
     }
