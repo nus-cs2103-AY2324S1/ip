@@ -1,33 +1,34 @@
 package tasks;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
+
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.DateTimeException;
 
 public class Event extends Task {
-    String[] split1;
-    String[] splitStart;
-    String[] splitEnd;
+    String[] splitSlash;
+    String[] startTime;
+    String[] endTime;
     String startDate;
 
     public Event(String content, boolean status) {
         super(content, status);
-        split1 = content.split("/", 2);
-        splitStart = split1[1].split(" ", 3);
-        String[] split2 = splitStart[2].split("/", 2);
-        splitEnd = split2[1].split(" ", 2);
+        splitSlash = content.split("/", 2);
+        startTime = splitSlash[1].split(" ", 3);
+        String[] split2 = startTime[2].split("/", 2);
+        endTime = split2[1].split(" ", 2);
         try {
-            this.startDate = LocalDate.parse(splitStart[1].replace("/", "-")).
+            this.startDate = LocalDate.parse(startTime[1].replace("/", "-")).
                     format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + split2[0];
         } catch (DateTimeParseException e) {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-                this.startDate = LocalDate.parse(splitStart[1], formatter).
+                this.startDate = LocalDate.parse(startTime[1], formatter).
                         format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + split2[0];
 
             } catch (DateTimeException ex) {
-                this.startDate = splitStart[1] + " " + split2[0];
+                this.startDate = startTime[1] + " " + split2[0];
             }
         }
 
@@ -51,12 +52,11 @@ public class Event extends Task {
     }
 
     public String toString() {
-        String[] result = split1[0].split(" ", 2);
+        String[] result = splitSlash[0].split(" ", 2);
         if (!super.isMarked()) {
-            return String.format("[E][ ] %s(%s: %s%s: %s)", result[1], splitStart[0], startDate, splitEnd[0], splitEnd[1]);
+            return String.format("[E][ ] %s(%s: %s%s: %s)", result[1], startTime[0], startDate, endTime[0], endTime[1]);
         } else {
-            return String.format("[E][X] %s(%s: %s%s: %s)", result[1], splitStart[0], startDate, splitEnd[0], splitEnd[1]);
+            return String.format("[E][X] %s(%s: %s%s: %s)", result[1], startTime[0], startDate, endTime[0], endTime[1]);
         }
     }
-    // main branch commit for Event
 }
