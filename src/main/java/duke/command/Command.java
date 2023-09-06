@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
 import duke.exception.DukeException;
 
 /**
@@ -13,11 +12,11 @@ public abstract class Command {
      * Executes the command.
      *
      * @param tasks   The list of tasks.
-     * @param ui      The user interface.
      * @param storage The storage.
+     * @return The response to the command.
      * @throws DukeException If an error occurs during execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Storage storage) throws DukeException;
 
     /**
      * Returns true iff the command is an exit command.

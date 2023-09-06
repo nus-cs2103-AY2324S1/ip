@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
 import duke.exception.DukeTaskNotFoundException;
 import duke.task.Todo;
 
@@ -15,11 +14,10 @@ public class CommandTest {
     @Test
     public void testSeriesOfAddCommands() {
         TaskList tasks = new TaskList();
-        Ui ui = new Ui();
         Storage storage = new Storage("data/duke.txt");
-        new AddCommand(new Todo("a")).execute(tasks, ui, storage);
-        new AddCommand(new Todo("b")).execute(tasks, ui, storage);
-        new AddCommand(new Todo("c")).execute(tasks, ui, storage);
+        new AddCommand(new Todo("a")).execute(tasks, storage);
+        new AddCommand(new Todo("b")).execute(tasks, storage);
+        new AddCommand(new Todo("c")).execute(tasks, storage);
 
         assertEquals(tasks.stringifyTasks(), "T; ;a\nT; ;b\nT; ;c");
     }
@@ -30,7 +28,7 @@ public class CommandTest {
 
         // storage is not used in deleteCommand, so the filePath is not important
         Exception exception = assertThrows(DukeTaskNotFoundException.class, () ->
-                command.execute(new TaskList(), new Ui(), new Storage("data/duke.txt")));
+                command.execute(new TaskList(), new Storage("data/duke.txt")));
 
         assertEquals("☹ OOPS!!! I can't find that task!\n", exception.getMessage());
     }
@@ -38,17 +36,16 @@ public class CommandTest {
     @Test
     public void testMarkUnmarkCommands() {
         TaskList tasks = new TaskList();
-        Ui ui = new Ui();
         Storage storage = new Storage("data/duke.txt");
-        new AddCommand(new Todo("a")).execute(tasks, ui, storage);
-        new AddCommand(new Todo("b")).execute(tasks, ui, storage);
+        new AddCommand(new Todo("a")).execute(tasks, storage);
+        new AddCommand(new Todo("b")).execute(tasks, storage);
 
         try {
-            new MarkCommand(0).execute(tasks, ui, storage);
-            new MarkCommand(1).execute(tasks, ui, storage);
+            new MarkCommand(0).execute(tasks, storage);
+            new MarkCommand(1).execute(tasks, storage);
 
-            new UnmarkCommand(0).execute(tasks, ui, storage);
-            new UnmarkCommand(1).execute(tasks, ui, storage);
+            new UnmarkCommand(0).execute(tasks, storage);
+            new UnmarkCommand(1).execute(tasks, storage);
         } catch (DukeTaskNotFoundException e) {
             // should not reach here
         }
@@ -59,15 +56,14 @@ public class CommandTest {
     @Test
     public void testOutOfBoundsMarkCommand() {
         TaskList tasks = new TaskList();
-        Ui ui = new Ui();
         Storage storage = new Storage("data/duke.txt");
 
-        new AddCommand(new Todo("a")).execute(tasks, ui, storage);
-        new AddCommand(new Todo("b")).execute(tasks, ui, storage);
+        new AddCommand(new Todo("a")).execute(tasks, storage);
+        new AddCommand(new Todo("b")).execute(tasks, storage);
         Command command = new MarkCommand(2);
 
         Exception exception = assertThrows(DukeTaskNotFoundException.class, () ->
-                command.execute(tasks, ui, storage));
+                command.execute(tasks, storage));
 
         assertEquals("☹ OOPS!!! I can't find that task!\n", exception.getMessage());
     }

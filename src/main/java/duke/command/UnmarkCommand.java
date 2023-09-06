@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
 import duke.exception.DukeTaskNotFoundException;
 
 /**
@@ -24,14 +23,15 @@ public class UnmarkCommand extends Command {
      * Executes the command: marks the task as undone and displays a "Undone" message.
      *
      * @param tasks   The list of tasks.
-     * @param ui      The user interface.
      * @param storage The storage.
+     * @return The undone message.
      * @throws DukeTaskNotFoundException If the task to be marked as undone does not exist.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeTaskNotFoundException {
+    public String execute(TaskList tasks, Storage storage) throws DukeTaskNotFoundException {
         try {
-            ui.showUndoneMessage(tasks.getTask(taskIndex).markAsUndone());
+            return String.format("OK, I've marked this task as not done yet:\n  %s\n",
+                    tasks.getTask(taskIndex).markAsUndone());
         } catch (IndexOutOfBoundsException e) {
             throw new DukeTaskNotFoundException();
         }

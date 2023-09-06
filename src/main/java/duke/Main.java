@@ -1,6 +1,7 @@
 package duke;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 
 import duke.ui.MainWindow;
 import javafx.application.Application;
@@ -14,7 +15,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private final Duke duke = new Duke();
+    private final Duke duke = new Duke(Paths.get("data", "duke.txt").toAbsolutePath().toString());
 
     @Override
     public void start(Stage stage) {

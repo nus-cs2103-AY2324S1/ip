@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
 import duke.task.Task;
 
 /**
@@ -24,13 +23,14 @@ public class AddCommand extends Command {
      * Executes the command: adds the task to the list of tasks and displays an "Added" message.
      *
      * @param tasks   The list of tasks.
-     * @param ui      The user interface.
      * @param storage The storage.
+     * @return The added message.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         tasks.addTask(task);
-        ui.showAddMessage(tasks.getSize(), task);
+        return String.format("Got it. I've added this task:\n  %s\n Now you have %d task%s in the list.",
+                task, tasks.getSize(), tasks.getSize() == 1 ? "" : "s");
     }
 
     /**

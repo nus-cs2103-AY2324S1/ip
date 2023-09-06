@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
 
 /**
  * Represents a command to find tasks in the task list based on a keyword.
@@ -23,15 +22,19 @@ public class FindCommand extends Command {
      * Executes the find command.
      *
      * @param tasks   The task list to search for tasks.
-     * @param ui      The user interface to show messages to the user.
      * @param storage The storage to save the task list to.
+     * @return The response to the find command.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         TaskList matchingTasks = tasks.findTasks(keyword);
         if (matchingTasks.getSize() == 0) {
-            ui.showNoMatchingTasksMessage();
+            return "There are no matching tasks in your list!";
         } else {
-            ui.showMatchingTasksMessage(matchingTasks);
+            StringBuilder tasksString = new StringBuilder();
+            for (int i = 0; i < matchingTasks.getSize(); i++) {
+                tasksString.append(String.format("  %d. %s\n", i + 1, matchingTasks.getTask(i).toString()));
+            }
+            return String.format(" Here are the matching tasks in your list:\n%s", tasksString);
         }
     }
 

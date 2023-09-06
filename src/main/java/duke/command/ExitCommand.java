@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
 import duke.exception.DukeStorageException;
 
 /**
@@ -13,16 +12,16 @@ public class ExitCommand extends Command {
      * Executes the command: displays a "Goodbye" message and exits Duke.
      *
      * @param tasks   The list of tasks.
-     * @param ui      The user interface.
      * @param storage The storage.
+     * @return The goodbye message.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.closeAndGoodbyeMessage();
+    public String execute(TaskList tasks, Storage storage) {
         try {
             storage.saveData(tasks);
+            return "Bye. Hope to see you again soon!";
         } catch (DukeStorageException e) {
-            ui.showErrorMessage(e);
+            return e.getMessage();
         }
     }
 
