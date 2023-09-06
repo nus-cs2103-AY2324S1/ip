@@ -34,7 +34,6 @@ public abstract class Command {
      * @param storage Storage object responsible for saving and loading date.
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage);
-
     /**
      * Checks if this command is an exit command.
      */
