@@ -58,7 +58,7 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
-        new Duke(DATA_FILE_PATH).run();
+    public String getResponse(String input) {
+        return "";
     }
 }
