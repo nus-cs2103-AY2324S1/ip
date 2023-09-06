@@ -17,5 +17,4 @@ bin/
 text-ui-test/input.txt
 data/tasks.ser
 .vscode/
-/config/
 /text-ui-test/
