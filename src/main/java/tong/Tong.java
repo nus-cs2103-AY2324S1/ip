@@ -1,12 +1,8 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Scanner;
-import java.util.Arrays;
+package tong;
+
+import tong.command.Command;
+import tong.command.CommandResult;
+import tong.command.ExitCommand;
 
 public class Tong {
     private Storage storage;

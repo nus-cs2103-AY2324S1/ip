@@ -1,7 +1,11 @@
+package tong.command;
+
+import tong.task.*;
+
 /**
- * Adds a new Task to the TaskList.
+ * Adds a new tong.task.Task to the tong.TaskList.
  */
-public class AddCommand extends Command{
+public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new task to the tasklist. "
@@ -19,7 +23,7 @@ public class AddCommand extends Command{
     private final Task toAdd;
 
     /**
-     * Constructor using the Task to be added.
+     * Constructor using the tong.task.Task to be added.
      *
      */
     public AddCommand(Task toAdd) {

@@ -1,8 +1,11 @@
+package tong;
+
+import tong.exception.DecodingException;
+import tong.task.Task;
+
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -10,8 +13,8 @@ import java.util.*;
  * Deals with loading tasks from the file and saving tasks in the file
  */
 public class Storage {
-    public static final String FILE = "./data";
-    public static final String FILEPATH = "./data/tong.txt";
+    public static final String FILE = "../data";
+    public static final String FILEPATH = "../data/tong.txt";
 
     public Storage() {
         initializeStorage();
@@ -34,7 +37,7 @@ public class Storage {
     }
 
     /**
-     * Saves the TaskList to the storage file.
+     * Saves the tong.TaskList to the storage file.
      */
     public void save(TaskList tasklist) {
         List<String> encodedTaskList = encode(tasklist);
@@ -46,7 +49,7 @@ public class Storage {
     }
 
     /**
-     * Loads the Tasks from the storage file, and returns a TaskList with previously saved Tasks.
+     * Loads the Tasks from the storage file, and returns a tong.TaskList with previously saved Tasks.
      */
     public TaskList load() {
         try {
@@ -62,7 +65,7 @@ public class Storage {
     }
 
     /**
-     * Encodes each Task in the TaskList into a String representation.
+     * Encodes each tong.task.Task in the tong.TaskList into a String representation.
      */
     private static List<String> encode(TaskList tasklist) {
         List<String> encodedTaskList = new ArrayList<>();

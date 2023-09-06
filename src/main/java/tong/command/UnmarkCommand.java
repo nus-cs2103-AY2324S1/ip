@@ -1,7 +1,13 @@
-import java.util.ArrayList;
+package tong.command;
+
+import tong.command.Command;
+import tong.command.CommandResult;
+import tong.exception.TaskNotFoundException;
+import tong.task.*;
+import tong.exception.DuplicatedMarkException;
 
 /**
- * Marks a Task as not done.
+ * Marks a tong.task.Task as not done.
  */
 public class UnmarkCommand extends Command {
 
@@ -27,6 +33,9 @@ public class UnmarkCommand extends Command {
             Task toUnmark = taskList.getTask(targetVisibleIndex);
             taskList.unmarkTask(toUnmark);
             return new CommandResult(String.format(MESSAGE_UNMARK_TASK_SUCCESS, toUnmark));
+        } catch (TaskNotFoundException e) {
+            return new CommandResult("You don't seem to have so many tasks. " +
+                    "Which task have you not done?");
         } catch (DuplicatedMarkException e) {
             return new CommandResult(MESSAGE_UNMARK_TASK_FAILURE);
         }

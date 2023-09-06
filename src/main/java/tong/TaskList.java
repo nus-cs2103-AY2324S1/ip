@@ -1,3 +1,9 @@
+package tong;
+
+import tong.exception.TaskNotFoundException;
+import tong.task.Task;
+import tong.exception.DuplicatedMarkException;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -14,7 +20,7 @@ public class TaskList {
     @Override
     public String toString() {
         if (this.taskList.isEmpty()) {
-            return "Osps! Your to-do list is empty. Add some tasks now:)";
+            return "Oops! Your to-do list is empty. Add some tasks now:)";
         }
 
         String result = "YOUR TO-DO LIST:\n";
@@ -31,8 +37,11 @@ public class TaskList {
         return this.taskList;
     }
 
-    public Task getTask(int targetVisibleIndex) {
+    public Task getTask(int targetVisibleIndex) throws TaskNotFoundException {
         int targetInvisibleIndex = targetVisibleIndex - 1;
+        if (targetInvisibleIndex >= taskList.size()) {
+            throw new TaskNotFoundException("Input task index out of bound.");
+        }
         return taskList.get(targetInvisibleIndex);
     }
 

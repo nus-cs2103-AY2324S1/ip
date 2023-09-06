@@ -1,3 +1,5 @@
+package tong.exception;
+
 /**
  * Signals an error caused by requesting to mark a marked task
  * or requesting to unmark an unmarked task.

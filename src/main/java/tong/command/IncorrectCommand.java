@@ -1,3 +1,8 @@
+package tong.command;
+
+import tong.command.Command;
+import tong.command.CommandResult;
+
 /**
  * Represents an incorrect command. Upon execution, produces some feedback to the user.
  */

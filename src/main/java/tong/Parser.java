@@ -1,3 +1,11 @@
+package tong;
+
+import tong.command.*;
+import tong.exception.TaskNotFoundException;
+import tong.task.Deadline;
+import tong.task.Event;
+import tong.task.ToDo;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -137,7 +145,7 @@ public class Parser {
         try {
             int targetVisibleIndex = Integer.parseInt(args);
             return new DeleteCommand(targetVisibleIndex);
-        } catch (NumberFormatException nfe) {
+        } catch (NumberFormatException e) {
             return new IncorrectCommand("Invalid Format:(\n"
                     + "Could you talk in the ways that I can understand:D\n"
                     + DeleteCommand.MESSAGE_USAGE);
@@ -145,8 +153,8 @@ public class Parser {
     }
 
     private Command prepareMark(String args) {
-            int targetVisibleIndex = Integer.parseInt(args);
-            return new MarkCommand(targetVisibleIndex);
+        int targetVisibleIndex = Integer.parseInt(args);
+        return new MarkCommand(targetVisibleIndex);
     }
 
     private Command prepareUnmark(String args) {

@@ -1,12 +1,9 @@
-import java.io.FileNotFoundException;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.regex.Pattern;
+package tong.task;
+
+import tong.task.Deadline;
+import tong.task.Event;
+import tong.task.ToDo;
+import tong.exception.DuplicatedMarkException;
 
 public abstract class Task {
     protected String name;

@@ -1,3 +1,5 @@
+package tong.command;
+
 /**
  * Shows help instructions.
  */

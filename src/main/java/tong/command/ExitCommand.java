@@ -1,3 +1,5 @@
+package tong.command;
+
 /**
  * Terminates the program.
  */

@@ -1,5 +1,13 @@
+package tong.command;
+
+import tong.command.Command;
+import tong.command.CommandResult;
+import tong.exception.DuplicatedMarkException;
+import tong.exception.TaskNotFoundException;
+import tong.task.*;
+
 /**
- * Marks a Task as done.
+ * Marks a tong.task.Task as done.
  */
 public class MarkCommand extends Command {
 
@@ -25,6 +33,9 @@ public class MarkCommand extends Command {
             Task toMark = taskList.getTask(targetVisibleIndex);
             taskList.markTask(toMark);
             return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, toMark));
+        }  catch (TaskNotFoundException e) {
+            return new CommandResult("You don't seem to have so many tasks. " +
+                    "Which task have you not done?");
         } catch (DuplicatedMarkException e) {
             return new CommandResult(MESSAGE_MARK_TASK_FAILURE);
         }
