@@ -41,7 +41,7 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Adds circular border to ImageView object for profile picture.
+     * Adds circular border to ImageView object for profile picture .
      *
      * @param img ImageView object to be modified.
      */

@@ -15,7 +15,7 @@ public class Ui {
      * @param task Task added to list.
      */
     public static void taskOutput(Task task, Action action, int size) {
-        String taskMessage = "I've %s the following task as requested:\n       %s\n     "
+        String taskMessage = "I've %s the following task as requested:\n       %s\n"
                 + "There are currently %d tasks in your list.";
         if (action == Action.ADD) {
             Ui.setOutMessage(String.format(taskMessage, "added", task.toString(), size));
