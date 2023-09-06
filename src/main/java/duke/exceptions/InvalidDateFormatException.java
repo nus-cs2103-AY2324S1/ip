@@ -17,7 +17,7 @@ public class InvalidDateFormatException extends DukeException {
      */
     public InvalidDateFormatException() {
         super("Invalid date format! Input dates for 'by', 'from', or 'to' should use the following format:"
-                + " dd/MM/yyyy HH:mm");
+                + " dd/MM/yyyy HH:mm or dd/MM/yyyy");
     }
 }
 

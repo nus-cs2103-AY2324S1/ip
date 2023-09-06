@@ -13,8 +13,6 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 
-
-
 /**
  * Test class for the Storage class.
  * Contains test cases for the loadTask method.
