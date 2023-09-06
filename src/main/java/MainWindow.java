@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -5,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import ui.UiCommand;
 //@@author Jeffry Lium
 //Reused from https://se-education.org/guides/tutorials/javaFxPart4.html
 // with minor modifications
@@ -42,12 +44,17 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void grabUserInput() {
         String input = userInput.getText();
-        String response = kniaz.getResponse(input);
+        UiCommand todo = kniaz.getResponse(input);
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(todo.getArg(), dukeImage)
         );
+
         userInput.clear();
+        if (todo.getInstructType() == UiCommand.UiInstructType.QUIT) {
+            Platform.exit();
+        }
     }
 }
 //@@author

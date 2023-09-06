@@ -5,7 +5,7 @@ import main.logic.command.KniazCommand;
 import storage.TaskList;
 import storage.save.KniazLoader;
 import storage.save.KniazSaver;
-import ui.KniazInputController;
+import ui.UiCommand;
 import ui.KniazOutputController;
 import ui.inputparser.KniazLineParser;
 
@@ -101,10 +101,10 @@ public class KniazSession {
     }
 
 
-    public String runOneIter(String input) {
+    public UiCommand runOneIter(String input) {
 
         if (!isRunning) {
-            return "";
+            return new UiCommand(UiCommand.UiInstructType.QUIT, "");
         }
 
         KniazCommand nextCommand = lineParser.parseLine(input);
@@ -124,8 +124,10 @@ public class KniazSession {
         } catch (IOException e) {
             System.err.println(e.toString());
         }
+        UiCommand.UiInstructType uiInstructType = (this.isRunning ? UiCommand.UiInstructType.PRINT
+               : UiCommand.UiInstructType.QUIT);
 
-        return printString;
+        return new UiCommand(uiInstructType, printString);
 
 
     }
