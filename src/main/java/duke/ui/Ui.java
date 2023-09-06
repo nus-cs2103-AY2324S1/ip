@@ -11,9 +11,9 @@ public class Ui {
     }
 
     public void hello() {
-        System.out.println(HORIZONTAL_LINE);
+        printHorizontalLine();
         System.out.println("    Hello! I'm Thinh's chatbot\n    What can I do for you?");
-        System.out.println(HORIZONTAL_LINE);
+        printHorizontalLine();
     }
 
     public void bye() {
