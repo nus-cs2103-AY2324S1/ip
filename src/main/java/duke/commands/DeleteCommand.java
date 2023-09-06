@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
      * @throws NoIndexException If the provided index is invalid or missing.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NoIndexException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NoIndexException {
         String desc = fullCommand.replaceAll("[^0-9]", "");
         if (desc.equals("")) {
             throw new NoIndexException("No Index");
@@ -42,5 +42,6 @@ public class DeleteCommand extends Command {
         Task task = tasks.get(index - 1);
         tasks.remove(index - 1);
         ui.showDeleteMessage(task, tasks.size());
+        return "Deleted " + task;
     }
 }

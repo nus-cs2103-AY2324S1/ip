@@ -33,8 +33,8 @@ public class CheckCommand extends Command {
      * @param storage The storage handler.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         String content = fullCommand.replaceAll("^\\s*check\\s*", "");
-        ui.printScheduledTasks(tasks, LocalDateTime.parse(content, formatter));
+        return ui.printScheduledTasks(tasks, LocalDateTime.parse(content, formatter));
     }
 }

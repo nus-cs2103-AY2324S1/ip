@@ -36,7 +36,7 @@ public abstract class Command {
      * @param storage The storage handler for data persistence.
      * @throws Exception Any exceptions that may occur during command execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws Exception;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws Exception;
 
     /**
      * Checks if the command is an exit command to determine whether bot should end.

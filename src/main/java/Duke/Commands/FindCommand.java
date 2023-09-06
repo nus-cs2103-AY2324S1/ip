@@ -28,8 +28,8 @@ public class FindCommand extends Command {
      * @throws Exception Any exceptions that may occur during command execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
         String content = fullCommand.replaceAll("^\\s*find\\s*", "");
-        ui.printRelatedTasks(tasks, content);
+        return ui.printRelatedTasks(tasks, content);
     }
 }

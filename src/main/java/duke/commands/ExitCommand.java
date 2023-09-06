@@ -25,9 +25,10 @@ public class ExitCommand extends Command {
      * @param storage The storage handler for data persistence.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         isExit = true;
         storage.writeFile(tasks.retrieveForStorage());
         ui.showOutro();
+        return "See you around!";
     }
 }

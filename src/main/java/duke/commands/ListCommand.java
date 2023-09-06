@@ -26,10 +26,10 @@ public class ListCommand extends Command {
      * @throws EmptyTaskListException If the task list is empty.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyTaskListException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws EmptyTaskListException {
         if (tasks.size() == 0) {
             throw new EmptyTaskListException();
         }
-        ui.printTasks(tasks);
+        return ui.printTasks(tasks);
     }
 }

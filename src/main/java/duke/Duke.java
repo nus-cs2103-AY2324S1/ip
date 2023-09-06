@@ -42,6 +42,22 @@ public class Duke {
     }
 
     /**
+     * Constructs a Duke instance with a default file path.
+     */
+    public Duke() {
+        TaskList tasks1;
+        ui = new Ui();
+        storage = new Storage(DIR_NAME + File.separator + FILE_NAME);
+        try {
+            tasks1 = new TaskList(storage.loadTasksFromStorage());
+        } catch (IOException e) {
+            ui.showLoadingError();
+            tasks1 = new TaskList();
+        }
+        tasks = tasks1;
+    }
+
+    /**
      * Runs the chat bot by displaying a welcome message
      * and processing user commands.
      */
@@ -68,5 +84,23 @@ public class Duke {
      */
     public static void main(String[] args) {
         new Duke(DIR_NAME + File.separator + FILE_NAME).run();
+    }
+
+    /**
+     * Retrieves the response to the input given via GUI
+     *
+     * @param input   The String of the full command.
+     * @return String The reply of Respironix.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (Exception e) {
+            System.out.println(e);
+            return "Respironix heard unknown command: " + input;
+        }
+
+
     }
 }

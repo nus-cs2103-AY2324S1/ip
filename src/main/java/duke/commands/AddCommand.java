@@ -40,13 +40,14 @@ public class AddCommand extends Command {
      * @param tasks   The list of tasks.
      * @param ui      The user interface for displaying messages.
      * @param storage The storage handler to manage data persistence.
+     * @return String The reply of Duke.
      * @throws NoDescriptionException   If the task description is missing.
      * @throws UnknownTimeException     If the task time is not recognized.
      * @throws BackwardsTimeException   If an event's end time is before its start time.
      * @throws UnknownCommandException  If the command is not recognized.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NoDescriptionException,
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NoDescriptionException,
             UnknownTimeException, BackwardsTimeException, UnknownCommandException {
         Parser.Operations operation = Parser.Operations.valueOf(
                 fullCommand.replaceAll("^\\W*\\b(\\w+).*", "$1").toUpperCase());
@@ -62,7 +63,7 @@ public class AddCommand extends Command {
             task = new ToDo(desc);
             tasks.add(task);
             ui.showAddMessage(task, tasks.size());
-            break;
+            return "Added " + task;
         case DEADLINE:
             String deadlineTime = fullCommand.replaceAll("^\\s*deadline\\s*", "");
 
@@ -79,7 +80,7 @@ public class AddCommand extends Command {
                     LocalDateTime.parse(strings[1], formatter));
             tasks.add(task);
             ui.showAddMessage(task, tasks.size());
-            break;
+            return "Added " + task;
         case EVENT:
             String content = fullCommand.replaceAll("^\\s*event\\s*", "");
             if (content.equals("")) {
@@ -103,7 +104,7 @@ public class AddCommand extends Command {
             task = new Event(descTime[0], start, end);
             tasks.add(task);
             ui.showAddMessage(task, tasks.size());
-            break;
+            return "Added " + task;
         default:
             throw new UnknownCommandException(fullCommand);
         }
