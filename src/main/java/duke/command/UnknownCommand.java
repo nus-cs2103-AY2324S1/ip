@@ -1,13 +1,13 @@
 package duke.command;
 
 import duke.storage.Storage;
-import duke.task.*;
+import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
  * Represents a command for handling unknown user inputs.
  */
-public class UnknownCommand extends Command{
+public class UnknownCommand extends Command {
     private boolean isExit = false;
 
     /**

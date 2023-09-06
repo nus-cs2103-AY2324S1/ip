@@ -1,33 +1,30 @@
 package duke.command;
 
-import duke.exception.DukeException;
-import duke.storage.Storage;
-import duke.task.*;
-import duke.ui.Ui;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.format.DateTimeParseException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import duke.exception.DukeException;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
 
 public class UnmarkCommandTest {
     @Test
-    public void UnmarkOutOfRangeIndex() {
+    public void execute_unmarkOutOfRangeIndex_exceptionThrown() {
         TaskList testList = new TaskList();
         Storage storage = new Storage("data/tasks.txt");
         Ui ui = new Ui();
-        assertThrows(DukeException.class,
-                () -> new UnmarkCommand(20).execute(testList, ui, storage));
+        assertThrows(DukeException.class, () ->
+                new UnmarkCommand(20).execute(testList, ui, storage));
     }
 
     @Test
-    public void InvalidUnmarkIndex() {
+    public void execute_invalidUnmarkIndex_exceptionThrown() {
         TaskList testList = new TaskList();
         Storage storage = new Storage("data/tasks.txt");
         Ui ui = new Ui();
-        assertThrows(DukeException.class,
-                () -> new UnmarkCommand(1).execute(testList, ui, storage));
+        assertThrows(DukeException.class, () ->
+                new UnmarkCommand(1).execute(testList, ui, storage));
     }
 }

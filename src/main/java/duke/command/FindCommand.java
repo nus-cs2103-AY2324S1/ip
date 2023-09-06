@@ -1,13 +1,14 @@
 package duke.command;
 
 import duke.storage.Storage;
-import duke.task.*;
+import duke.task.Task;
+import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
  * Represents a command to search for tasks that match a given keyword.
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
     private String keyword;
     private boolean isExit = false;
 
@@ -35,7 +36,7 @@ public class FindCommand extends Command{
         for (int i = 1; i <= tasks.size(); i++) {
             Task task = tasks.get(i - 1);
 
-            if(task.getDescription().contains(this.keyword)) {
+            if (task.getDescription().contains(this.keyword)) {
                 res += "\n" + count + ". " + task;
                 count++;
             }
