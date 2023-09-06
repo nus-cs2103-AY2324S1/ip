@@ -17,10 +17,18 @@ public class Deadline extends Task {
         super(input.split("/")[0]);
         try {
             setDeadline(input.split("/")[1].replace("by ", ""));
+        } catch (IndexOutOfBoundsException e) {
+            throw new KieraException(("    "
+                    + "invalid input!"
+                    + "write a deadline in the format: (title) /by yyyy-mm-dd"));
         } catch (NullPointerException e) {
-            throw new KieraException("     write a date for your deadline in the form: /by yyyy-mm-dd 2359");
+            throw new KieraException("     "
+                    + "invalid input!"
+                    + "write a date for your deadline in the format: /by yyyy-mm-dd 2359");
         } catch (DateTimeException e) {
-            throw new KieraException("     fill in the date in this format: /by yyyy-mm-dd!");
+            throw new KieraException("     "
+                    + "invalid input!"
+                    + "fill in the date in this format: /by yyyy-mm-dd");
         }
     }
 
