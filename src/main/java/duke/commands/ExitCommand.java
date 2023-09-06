@@ -21,11 +21,13 @@ public class ExitCommand extends Command {
     /**
      * Executes the command to exit Duke, although the actual exit mechanism
      * is handled outside this class.
+     *
+     * @return A String literal "EXIT".
      */
     @Override
-    public void execute() {
+    public String execute() {
         // will be handled outside of this class.
-        return;
+        return "EXIT";
     }
 
     /**

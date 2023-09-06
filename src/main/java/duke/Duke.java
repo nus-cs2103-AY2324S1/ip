@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,37 +20,51 @@ import duke.tasks.TaskList;
 public class Duke {
     private final String botName;
     private final TaskList taskList;
+    private final UiService uiService;
+    private final CliParserService cliParserService;
 
     /**
-     * Constructs a new Duke instance with a given name and storage service.
-     *
-     * @param botName Name of the Duke chat bot.
-     * @param storageService Service responsible for reading and writing tasks to storage.
+     * No-args constructor for Duke. Sets up the various services.
      */
-    public Duke(String botName, StorageService storageService) {
-        this.botName = botName;
-        this.taskList = new TaskList(storageService);
+    public Duke() {
+        this.botName = "Changoose";
+        this.taskList = new TaskList();
+        OutputService outputService = new OutputService();
+        this.uiService = new UiService(outputService);
+        TaskFactory taskFactory = new TaskFactory();
+        CommandFactory commandFactory = new CommandFactory(taskFactory, this, uiService);
+        this.cliParserService = new CliParserService(uiService, commandFactory);
     }
 
-    public static void main(String[] args) {
-        OutputService outputService = new OutputService();
-        UiService uiService = new UiService(outputService);
+    /**
+     * Initializes the StorageService and attempts to load the stored tasks into taskList.
+     *
+     * @return A string containing the greet message, and any additional info about the initialization of the
+     *         StorageService.
+     */
+    public String initStorage() {
         try {
             StorageService storageService = new StorageService();
+            List<String> displayText = new ArrayList<>();
             if (storageService.wasFileCorrupted()) {
-                uiService.printStorageFileCorrupted();
+                displayText.add(uiService.storageFileCorruptedMessage());
             }
-            Duke changooseBot = new Duke("Changoose", storageService);
-            TaskFactory taskFactory = new TaskFactory();
-            CommandFactory commandFactory = new CommandFactory(taskFactory, changooseBot, uiService);
-            CliParserService cliParserService = new CliParserService(uiService, commandFactory);
-
-            uiService.printGreet(changooseBot.getBotName());
-            cliParserService.parse();
-            uiService.printBye();
+            taskList.loadFromStorage(storageService);
+            displayText.add(uiService.greetMessage(getBotName()));
+            return uiService.formatGenericMessage(displayText);
         } catch (DukeStorageException e) {
-            uiService.printStorageInitializationFailure();
+            return uiService.formatStorageInitializationFailure();
         }
+    }
+
+    /**
+     * Returns the result of parsing and executing the input.
+     *
+     * @param input The given input to be parsed and executed.
+     * @return A string representing the result of executing the parsed input.
+     */
+    public String getResponse(String input) {
+        return cliParserService.parse(input);
     }
 
     /**
@@ -65,11 +80,10 @@ public class Duke {
      * Adds a new task to the internal task list.
      *
      * @param task The task to be added.
-     * @return True if the task was added successfully, false otherwise.
      * @throws DukeStorageException If an error occurs while saving to storage.
      */
-    public boolean addTask(Task task) throws DukeStorageException {
-        return taskList.addTask(task);
+    public void addTask(Task task) throws DukeStorageException {
+        taskList.addTask(task);
     }
 
     /**
@@ -126,5 +140,4 @@ public class Duke {
     public int getNumberOfTasks() {
         return taskList.getNumberOfTasks();
     }
-
 }

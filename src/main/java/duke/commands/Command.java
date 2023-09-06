@@ -26,8 +26,10 @@ public abstract class Command {
 
     /**
      * Executes the command.
+     *
+     * @return a String describing the output of the Command.
      */
-    public abstract void execute();
+    public abstract String execute();
 
     /**
      * Indicates if the command should cause the program to exit.

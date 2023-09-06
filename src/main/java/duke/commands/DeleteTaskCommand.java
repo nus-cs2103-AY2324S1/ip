@@ -27,17 +27,18 @@ public class DeleteTaskCommand extends Command {
 
     /**
      * Executes the command to delete a task.
+     *
+     * @return A string representing the status of the task deletion.
+     *         It either confirms the task deletion or details any errors encountered.
      */
     @Override
-    public void execute() {
+    public String execute() {
         try {
             Optional<Task> optionalTask = dukeBot.deleteTask(taskId - 1);
-            optionalTask.ifPresentOrElse(
-                    task -> uiService.printDeleteTask(task, dukeBot.getNumberOfTasks()), () ->
-                    uiService.printInvalidTaskIndexProvided(taskId, dukeBot.getNumberOfTasks())
-            );
+            return optionalTask.map(task -> uiService.formatDeleteTask(task, dukeBot.getNumberOfTasks()))
+                    .orElseGet(() -> uiService.formatInvalidTaskIndexProvided(taskId, dukeBot.getNumberOfTasks()));
         } catch (DukeStorageException e) {
-            uiService.printStorageDeleteFailure();
+            return uiService.formatStorageDeleteFailure();
         }
     }
 }

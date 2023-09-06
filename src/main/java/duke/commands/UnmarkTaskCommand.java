@@ -27,17 +27,17 @@ public class UnmarkTaskCommand extends Command {
 
     /**
      * Executes the command to unmark a task as completed.
+     *
+     * @return A string that represents the task that was unmarked.
      */
     @Override
-    public void execute() {
+    public String execute() {
         try {
             Optional<Task> optionalTask = dukeBot.unmarkTask(taskId - 1);
-            optionalTask.ifPresentOrElse(
-                    uiService::printUnmarkTask, () ->
-                    uiService.printInvalidTaskIndexProvided(taskId, dukeBot.getNumberOfTasks())
-            );
+            return optionalTask.map(task -> uiService.formatDeleteTask(task, dukeBot.getNumberOfTasks()))
+                .orElseGet(() -> uiService.formatInvalidTaskIndexProvided(taskId, dukeBot.getNumberOfTasks()));
         } catch (DukeStorageException e) {
-            uiService.printStorageUnmarkFailure();
+            return uiService.formatStorageUnmarkFailure();
         }
     }
 }

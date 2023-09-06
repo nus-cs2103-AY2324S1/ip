@@ -2,7 +2,6 @@ package duke.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import duke.commands.Command;
 import duke.exception.InvalidCommandInputException;
@@ -33,27 +32,25 @@ public class CliParserService {
     /**
      * Reads and executes commands from the command line interface continuously.
      * <p>
-     * This method will repeatedly read lines of input from the CLI, parse the lines into command
-     * components, create the associated {@link Command} objects using the {@link CommandFactory},
-     * and then execute the commands. If an "exit" command is encountered, this method will return.
+     * This method will parse the given input into command components, create the associated {@link Command} objects
+     * using the {@link CommandFactory}, and then execute the commands.
      * </p>
+     *
+     * @param input The input to be parsed.
+     * @return The String returned from executing the commands.
      */
-    public void parse() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String line = scanner.nextLine();
-            ParseResult parseResult = parseCommandAndArguments(line);
-            String commandType = parseResult.getCommandType();
-            List<String> arguments = parseResult.getArguments();
-            try {
-                Command command = commandFactory.createCommand(commandType, arguments);
-                if (command.isExit()) {
-                    return;
-                }
-                command.execute();
-            } catch (UnknownCommandException | InvalidCommandInputException e) {
-                uiService.printGenericMessage(e.getMessage());
+    public String parse(String input) {
+        ParseResult parseResult = parseCommandAndArguments(input);
+        String commandType = parseResult.getCommandType();
+        List<String> arguments = parseResult.getArguments();
+        try {
+            Command command = commandFactory.createCommand(commandType, arguments);
+            if (command.isExit()) {
+                return uiService.formatBye();
             }
+            return command.execute();
+        } catch (UnknownCommandException | InvalidCommandInputException e) {
+            return uiService.formatGenericMessage(e.getMessage());
         }
     }
 
@@ -64,11 +61,11 @@ public class CliParserService {
      * @return A {@link ParseResult} object containing the parsed command and its arguments.
      */
     public ParseResult parseCommandAndArguments(String line) {
-        line = line.trim();
+        String trimmedLine = line.trim();
         List<String> arguments = new ArrayList<>();
 
         // Split the command and its primary argument
-        String[] splitBySpace = line.split(" ", 2);
+        String[] splitBySpace = trimmedLine.split(" ", 2);
         String commandType = splitBySpace[0].toLowerCase();
 
         // If there's more than just the command, handle the arguments
