@@ -32,8 +32,8 @@ public class DeleteCommand extends Command {
             taskList.deleteTask(toDelete);
             return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, toDelete));
         } catch (TaskNotFoundException e) {
-            return new CommandResult("You don't seem to have so many tasks. " +
-                        "Which task do you want to delete?");
+            return new CommandResult("You don't seem to have so many tasks. "
+                    + "Which task do you want to delete?");
         }
     }
 }
