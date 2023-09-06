@@ -1,9 +1,13 @@
 package bouncybob.util;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import bouncybob.task.Deadlines;
 import bouncybob.task.Events;
 import bouncybob.task.Task;
 import bouncybob.task.ToDos;
+import javafx.collections.ObservableList;
 
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
@@ -24,8 +28,16 @@ public class TaskFileHandler {
      * @param taskList The list of tasks to be saved.
      */
     public static void saveTasksToDisk(TaskList taskList) {
+        saveTasksToFile(taskList.getTasks());
+    }
+
+    public static void saveTasksToDisk(ObservableList<Task> taskList) {
+        saveTasksToFile(new ArrayList<>(taskList));
+    }
+
+    private static void saveTasksToFile(List<Task> tasks) {
         StringBuilder builder = new StringBuilder();
-        for(Task task : taskList.getTasks()) {
+        for (Task task : tasks) {
             builder.append(task.toFileFormat()).append("\n");
         }
 
