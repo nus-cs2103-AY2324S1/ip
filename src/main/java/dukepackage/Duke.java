@@ -1,11 +1,11 @@
 package dukepackage;
 
+import java.util.Scanner;
+
 import toolpackage.Parser;
 import toolpackage.Storage;
 import toolpackage.TaskList;
 import toolpackage.Ui;
-
-import java.util.Scanner;
 
 /**
  * Represents a Duke bot. A Duke object contains
@@ -21,8 +21,6 @@ public class Duke {
      * Constructs the respective components to
      * initialise Duke, namely the UI, Storage,
      * and TaskList.
-     *
-     * @param filePath File path of storage.
      */
     public Duke(String filePath) {
         try {
@@ -43,23 +41,46 @@ public class Duke {
 
     /**
      * Runs a loop to listen for commands by user.
+     * This function is used for the CLI UI.
      */
     private void run() {
         this.ui.showWelcome();
         Scanner inputs = new Scanner(System.in);
 
-        boolean shouldContinue = true;
-        while (shouldContinue) {
+        String response;
+        while (true) {
             String command = this.ui.readCommands(inputs);
             try {
-                shouldContinue = Parser.parse(command, this.tasks, this.ui);
+                response = Parser.parse(command, this.tasks, this.ui);
                 this.storage.saveStorage(this.tasks);
+                if (response.equals("bye")) {
+                    break;
+                }
+                System.out.println(response);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
         }
         inputs.close();
         this.ui.showBye();
+    }
+
+    /**
+     * Parses the input by user and returns a response.
+     * Also saves list of tasks into the storage file.
+     * This function is used for the JavaFX GUI.
+     *
+     * @param command Input from user.
+     * @return String Response from Duke.
+     */
+    public String getResponse(String command) {
+        try {
+            String response = Parser.parse(command, this.tasks, this.ui);
+            this.storage.saveStorage(this.tasks);
+            return response;
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 
     public static void main(String[] args) {
