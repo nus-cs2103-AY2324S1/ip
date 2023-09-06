@@ -13,7 +13,7 @@ public abstract class Command {
     /**
      * Executes the command and returns the result.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+    public abstract CommandResult execute(TaskList tasks, Ui ui, Storage storage);
 
     /**
      * Flag that it is the end of the conversation.

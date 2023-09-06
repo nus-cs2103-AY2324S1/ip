@@ -1,5 +1,6 @@
 package sam.commands;
 
+import sam.constants.Message;
 import sam.services.Storage;
 import sam.services.TaskList;
 import sam.services.Ui;
@@ -16,7 +17,9 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public CommandResult execute(TaskList tasks, Ui ui, Storage storage) {
+
         ui.shutDown();
+        return new CommandResult(Message.BYE);
     }
 }

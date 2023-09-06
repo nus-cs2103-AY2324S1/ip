@@ -22,12 +22,14 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public CommandResult execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             TaskList list = tasks.findTasks(search);
             ui.printMessage(Message.SEARCH_TASK_SUCCESS, list.listTasks());
+            return new CommandResult(Message.SEARCH_TASK_SUCCESS, list.listTasks());
         } catch (DukeException e) {
             ui.showError(e.getMessage());
+            return new IncorrectCommand( e.getMessage()).execute(tasks, ui, storage);
         }
     }
 }

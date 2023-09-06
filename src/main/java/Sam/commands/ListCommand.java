@@ -20,12 +20,14 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public CommandResult execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             String list = tasks.listTasks();
             ui.printMessage(Message.LIST_TASKS, list);
+            return new CommandResult(Message.LIST_TASKS, list);
         } catch (DukeException e) {
             ui.showError(e.getMessage());
+            return new IncorrectCommand(e.getMessage()).execute(tasks, ui, storage);
         }
     }
 }
