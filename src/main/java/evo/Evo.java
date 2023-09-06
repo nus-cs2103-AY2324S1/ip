@@ -2,26 +2,30 @@ package evo;
 
 import java.io.IOException;
 
+import evo.commands.ByeCommand;
+import evo.commands.Command;
+import evo.exceptions.EvoException;
+import evo.parser.Parser;
 import evo.storage.Storage;
 import evo.tasks.TaskList;
 import evo.ui.Ui;
-import evo.parser.Parser;
-import evo.commands.Command;
-import evo.commands.ByeCommand;
-import evo.exceptions.EvoException;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 /**
  * Evo is a Personal Assistant Chatbot that helps a person to keep track of various things.
  * Tasks are represented by the nested static class Task.
  */
-public class Evo {
+public class Evo extends Application {
 
     /**
      * The file path where task data is stored.
      */
     private static final String FILE_PATH = "./data/evo.txt";
     /**
-     * The TaskList that holds and manages tasks.
+     * The tasksList that holds and manages tasks.
      */
     private TaskList tasksList;
     /**
@@ -62,6 +66,7 @@ public class Evo {
                 Command c = p.parse(fullCommand);
                 if (c instanceof ByeCommand) {
                     c.execute(tasksList, ui, storage);
+                    isExit = true;
                     break;
                 }
                 if (c == null) {
@@ -70,9 +75,18 @@ public class Evo {
                 c.execute(tasksList, ui, storage);
                 storage.saveTasksInFile(tasksList);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                ui.showText("Something went wrong: " + e.getMessage());
             }
         }
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 
     /**

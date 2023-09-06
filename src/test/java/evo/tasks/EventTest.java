@@ -53,8 +53,8 @@ public class EventTest {
             event.outputMsg();
             fail();
         } catch (InvalidDateAndTimeInputException invalidDateAndTimeInputException) {
-            assertEquals("Please type in a valid date/time input. Eg: event project meeting /from " +
-                    "2019-12-15 1800 /to 2000\n", invalidDateAndTimeInputException.getMessage());
+            assertEquals("Please type in a valid date/time input. Eg: event project meeting /from "
+                    + "2019-12-15 1800 /to 2000\n", invalidDateAndTimeInputException.getMessage());
         }
     }
 
@@ -70,8 +70,8 @@ public class EventTest {
             event.outputMsg();
             fail();
         } catch (InvalidDateAndTimeInputException invalidDateAndTimeInputException) {
-            assertEquals("Please type in a valid date/time input. Eg: event project meeting /from " +
-                    "2019-12-15 1800 /to 2000\n", invalidDateAndTimeInputException.getMessage());
+            assertEquals("Please type in a valid date/time input. Eg: event project meeting /from "
+                    + "2019-12-15 1800 /to 2000\n", invalidDateAndTimeInputException.getMessage());
         }
     }
 

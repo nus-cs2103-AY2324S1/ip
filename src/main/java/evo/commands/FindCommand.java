@@ -11,8 +11,11 @@ import evo.ui.Ui;
  */
 public class FindCommand extends Command {
 
-    // The keyword that will or not match the task's description
+    /** The keyword that will or not match the task's description. */
     protected String keyword;
+
+    /** Keep track the index number once a task's description with matched keyword was found. */
+    private int listIndexNumber = 1;
 
     /**
      * Constructs a new FindCommand with the specified keyword.
@@ -22,9 +25,6 @@ public class FindCommand extends Command {
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
-
-    // Keep track the index number once a task's description with matched keyword was found
-    int listIndexNumber = 1;
 
     /**
      * Executes the FindCommand by searching for tasks matching the specified keyword in the task list

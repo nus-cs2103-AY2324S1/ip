@@ -16,6 +16,7 @@ public class DeadlineCommand extends Command {
      * An array containing action and description components from user input.
      */
     protected String[] actionAndDesc;
+
     /**
      * An array containing action type and date/time components from user input.
      */
@@ -34,7 +35,8 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Executes the DeadlineCommand to create a deadline task from user input, add it to the TaskList, and update the UI.
+     * Executes the DeadlineCommand to create a deadline task from user input, add it to the TaskList, and update
+     * the UI.
      *
      * @param tasksList The TaskList containing the tasks to be managed.
      * @param ui The user interface for displaying messages to the user.
@@ -61,7 +63,7 @@ public class DeadlineCommand extends Command {
                 taskBy += dates[i] + " ";
             }
         }
-        // Create the deadline object with the taskDescription and taskBy
+        // Creates the deadline object with the taskDescription and taskBy
         Deadline deadline = new Deadline(taskDescription, taskBy);
         tasksList.addTask(deadline);
         ui.showText("Got it. I've added this task:");

@@ -22,7 +22,7 @@ public class TaskList {
     }
 
     /**
-     * Constructs a TaskList with an existing list of tasks.
+     * Constructs a taskList with an existing list of tasks.
      *
      * @param tasksList The ArrayList of Task objects to initialize the TaskList with.
      */
@@ -31,7 +31,7 @@ public class TaskList {
     }
 
     /**
-     * Gets a task from the TaskList at a specific index.
+     * Gets a task from the taskList at a specific index.
      *
      * @param index The index of the task to retrieve.
      * @return The Task object at the specified index.
@@ -59,34 +59,34 @@ public class TaskList {
     }
 
     /**
-     * Returns the number of tasks in the TaskList.
+     * Returns the number of tasks in the taskList.
      *
-     * @return The number of tasks in the TaskList.
+     * @return The number of tasks in the taskList.
      */
     public int tasksListLength() {
         return this.tasksList.size();
     }
 
     /**
-     * Checks if the TaskList is empty.
+     * Checks if the taskList is empty.
      *
-     * @return true if the TaskList is empty, false otherwise.
+     * @return true if the taskList is empty, false otherwise.
      */
     public boolean isEmpty() {
         return this.tasksList.isEmpty();
     }
 
     /**
-     * Adds a new task to the TaskList.
+     * Adds a new task to the taskList.
      *
-     * @param task The Task object to be added to the TaskList.
+     * @param task The Task object to be added to the taskList.
      */
     public void addTask(Task task) {
         tasksList.add(task);
     }
 
     /**
-     * Deletes a task from the TaskList based on its index.
+     * Deletes a task from the taskList based on its index.
      *
      * @param taskNumberToDelete The index of the task to be deleted.
      */

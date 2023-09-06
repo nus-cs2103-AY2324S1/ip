@@ -8,8 +8,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import evo.tasks.*;
-import evo.exceptions.*;
+import evo.exceptions.EvoException;
+import evo.exceptions.InvalidDateAndTimeInputException;
+import evo.exceptions.NoDataFileFoundException;
+import evo.exceptions.NoFolderFoundException;
+import evo.exceptions.UnexpectedTaskTypeException;
+import evo.tasks.Deadline;
+import evo.tasks.Event;
+import evo.tasks.Task;
+import evo.tasks.TaskList;
+import evo.tasks.ToDo;
 
 /**
  * The Storage class handles reading and writing tasks data to/from a file.
@@ -54,8 +62,8 @@ public class Storage {
                 writer.append("\n");
             }
         } catch (InvalidDateAndTimeInputException invalidDateAndTimeInputException) {
-            System.out.println("Please type in a valid date/time input. Eg: event project meeting /from " +
-                    "2019-12-15 1800 /to 2000.\n");
+            System.out.println("Please type in a valid date/time input. Eg: event project meeting /from "
+                    + "2019-12-15 1800 /to 2000.\n");
         } catch (IOException ioException) {
             System.out.println("Something went wrong: " + ioException.getMessage() + "\n");
         } finally {
@@ -68,7 +76,8 @@ public class Storage {
      * Loads tasks from a file and returns them as an ArrayList of Task objects.
      *
      * @return An ArrayList of Task objects loaded from the file.
-     * @throws EvoException If an error occurs during the loading process, including file not found or unexpected task type.
+     * @throws EvoException If an error occurs during the loading process, including file not found or unexpected
+     *     task type.
      */
     public ArrayList<Task> loadTasksFromFile() throws EvoException {
         try {

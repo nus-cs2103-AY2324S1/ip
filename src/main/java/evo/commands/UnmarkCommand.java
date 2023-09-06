@@ -8,7 +8,6 @@ import evo.ui.Ui;
  * The UnmarkCommand class represents a command to mark a task as not done in a TaskList.
  * When executed, it sets the specified task as not completed and displays a confirmation message to the user.
  */
-
 public class UnmarkCommand extends Command {
 
     /**
@@ -26,7 +25,8 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Executes the UnmarkCommand to mark a task as not done in the TaskList, updates the UI, and optionally the storage.
+     * Executes the UnmarkCommand to mark a task as not done in the TaskList, updates the UI, and optionally the
+     * storage.
      *
      * @param tasksList The TaskList containing the tasks to be managed.
      * @param ui The user interface for displaying messages to the user.

@@ -40,7 +40,7 @@ public class Deadline extends Task {
      * The date should be in the "yyyy-MM-d" format, and the time should be in "HHmm" format.
      *
      * @throws InvalidDateAndTimeInputException If the input "by" string is not in the expected format or if the
-     * date/time values are invalid.
+     *     date/time values are invalid.
      */
     public void setFormatDateAndTime() {
         String[] dateInput = this.by.split(" ");
@@ -65,7 +65,8 @@ public class Deadline extends Task {
                 formatDateAndTime = formatDate + " " + formatTime;
             }
         } catch (InvalidDateAndTimeInputException invalidDateAndTimeInputException) {
-            System.out.println("Please type in a valid date/time input. Eg: deadline return book /by 2019-10-15 1800\n");
+            System.out.println("Please type in a valid date/time input. Eg: deadline return book /by "
+                    + "2019-10-15 1800\n");
         }
     }
 

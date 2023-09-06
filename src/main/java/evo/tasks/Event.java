@@ -40,7 +40,7 @@ public class Event extends Task {
      * The date should be in the "yyyy-MM-d" format, and the start and end times should be in "HHmm" format.
      *
      * @throws InvalidDateAndTimeInputException If the input duration is not in the expected format or if the
-     * date/time values are invalid.
+     *     date/time values are invalid.
      */
     public void setFormatDateAndTime() {
         String[] dateInput = this.duration.split(" ");
@@ -72,7 +72,7 @@ public class Event extends Task {
      *
      * @return A formatted string representing the Event task details.
      * @throws InvalidDateAndTimeInputException If the input duration is not in the expected format or if the date/time
-     * values are invalid.
+     *     values are invalid.
      */
     @Override
     public String outputMsg() throws InvalidDateAndTimeInputException {

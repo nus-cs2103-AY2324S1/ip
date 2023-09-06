@@ -2,8 +2,33 @@ package evo.parser;
 
 import java.util.Objects;
 
-import evo.commands.*;
-import evo.exceptions.*;
+import evo.commands.ByeCommand;
+import evo.commands.Command;
+import evo.commands.DeadlineCommand;
+import evo.commands.DeleteCommand;
+import evo.commands.EventCommand;
+import evo.commands.FindCommand;
+import evo.commands.ListCommand;
+import evo.commands.MarkCommand;
+import evo.commands.ToDoCommand;
+import evo.commands.UnmarkCommand;
+import evo.exceptions.InvalidDateAndTimeInputException;
+import evo.exceptions.InvalidDateInputException;
+import evo.exceptions.InvalidInputException;
+import evo.exceptions.InvalidOperationException;
+import evo.exceptions.MissingDeadlineException;
+import evo.exceptions.MissingDescriptionAndDeadlineException;
+import evo.exceptions.MissingDescriptionAndDurationException;
+import evo.exceptions.MissingDurationException;
+import evo.exceptions.MissingTaskToDeleteException;
+import evo.exceptions.MissingTaskToFindException;
+import evo.exceptions.MissingTaskToMarkException;
+import evo.exceptions.MissingTaskToUnmarkException;
+import evo.exceptions.MissingToDoDescriptionException;
+import evo.exceptions.NoSuchTaskDeleteException;
+import evo.exceptions.NoSuchTaskException;
+import evo.exceptions.NoTaskDeleteException;
+import evo.exceptions.NoTaskFindException;
 import evo.tasks.TaskList;
 
 /**
@@ -59,7 +84,8 @@ public class Parser {
                 if (!isInteger(actionType[1])) {
                     throw new InvalidInputException("Please type in a valid integer after the command.");
                 }
-                if (tasksList.tasksListLength() < Integer.parseInt(actionType[1]) || Integer.parseInt(actionType[1]) <= 0) {
+                if (tasksList.tasksListLength() < Integer.parseInt(actionType[1])
+                        || Integer.parseInt(actionType[1]) <= 0) {
                     throw new NoSuchTaskException();
                 }
                 return new MarkCommand(actionType[1]);
@@ -71,7 +97,8 @@ public class Parser {
                 if (!isInteger(actionType[1])) {
                     throw new InvalidInputException("Please type in a valid integer after the command.");
                 }
-                if (tasksList.tasksListLength() < Integer.parseInt(actionType[1]) || Integer.parseInt(actionType[1]) <= 0) {
+                if (tasksList.tasksListLength() < Integer.parseInt(actionType[1])
+                        || Integer.parseInt(actionType[1]) <= 0) {
                     throw new NoSuchTaskException();
                 }
                 return new UnmarkCommand(actionType[1]);
@@ -86,7 +113,8 @@ public class Parser {
                 if (!isInteger(actionType[1])) {
                     throw new InvalidInputException("Please type in a valid integer after the command.");
                 }
-                if (tasksList.tasksListLength() < Integer.parseInt(actionType[1]) || Integer.parseInt(actionType[1]) <= 0) {
+                if (tasksList.tasksListLength() < Integer.parseInt(actionType[1])
+                        || Integer.parseInt(actionType[1]) <= 0) {
                     throw new NoSuchTaskDeleteException();
                 }
                 return new DeleteCommand(actionType[1]);
@@ -126,8 +154,8 @@ public class Parser {
                     throw new MissingDurationException();
                 }
                 if (count != 2) {
-                    throw new InvalidDateAndTimeInputException("Please type in a valid date/time input. Eg: event" +
-                            " project meeting /from 2019-12-15 1800 /to 2000\n");
+                    throw new InvalidDateAndTimeInputException("Please type in a valid date/time input. Eg: event"
+                            + " project meeting /from 2019-12-15 1800 /to 2000\n");
                 }
                 return new EventCommand(actionAndDesc, typeAndDate);
             } else {
@@ -136,30 +164,30 @@ public class Parser {
             }
         } catch (InvalidDateAndTimeInputException invalidDateAndTimeInputException) {
             // Catch the exception when the user types in an invalid date and time
-            System.out.println("Please type in a valid date/time input. Eg: event project meeting /from " +
-                    "2019-12-15 1800 /to 2000\n");
+            System.out.println("Please type in a valid date/time input. Eg: event project meeting /from "
+                    + "2019-12-15 1800 /to 2000\n");
         } catch (InvalidDateInputException invalidDateInputException) {
             // Catch the exception when the user types in an invalid date
-            System.out.println("Please type in a valid date input. Eg: deadline return book /from " +
-                    "2019-12-15 1800\n");
+            System.out.println("Please type in a valid date input. Eg: deadline return book /from "
+                    + "2019-12-15 1800\n");
         } catch (InvalidInputException invalidInputException) {
             // Catch the exception when the user types in an invalid integer after the command
             System.out.println("Please type in a valid integer after the command.\n");
         } catch (MissingDescriptionAndDeadlineException missingDescriptionAndDeadlineException) {
             // Catch the exception when the description and deadline of Deadline object are missing
-            System.out.println("Description and deadline of this task are missing. " +
-                    "Please specify the description and the deadline of this task.\n");
+            System.out.println("Description and deadline of this task are missing. "
+                    + "Please specify the description and the deadline of this task.\n");
         } catch (MissingDeadlineException missingDeadlineException) {
             // Catch the exception when the deadline of Deadline object are missing
             System.out.println("Deadline of this task are missing. Please specify the deadline of this task.\n");
         } catch (MissingDescriptionAndDurationException missingDescAndDurationExp) {
             // Catch the exception when the description and duration of Event object are missing
-            System.out.println("Description and duration of this event are missing. " +
-                    "Please specify the description and the duration of this event.\n");
+            System.out.println("Description and duration of this event are missing. "
+                    + "Please specify the description and the duration of this event.\n");
         } catch (MissingDurationException missingDurationException) {
             // Catch the exception when the duration of Event object is missing
-            System.out.println("Duration of this event is incomplete. " +
-                    "Please specify the start date/time and/or end date/time.\n");
+            System.out.println("Duration of this event is incomplete. "
+                    + "Please specify the start date/time and/or end date/time.\n");
         } catch (MissingTaskToDeleteException missingTaskToDeleteException) {
             // Catch the exception when user never specifies which task to be deleted
             System.out.println("Please specify the task to be deleted.\n");
@@ -174,8 +202,8 @@ public class Parser {
             System.out.println("Please specify the task to be unmarked.\n");
         } catch (MissingToDoDescriptionException missingToDoDescriptionException) {
             // Catch the exception when the description of ToDo task is missing
-            System.out.println("Description of this task is missing. " +
-                    "Please specify the description of this task.\n");
+            System.out.println("Description of this task is missing. "
+                    + "Please specify the description of this task.\n");
         } catch (NoTaskDeleteException noTaskDeleteException) {
             // Catch the exception when user tries to delete task from an empty taskList
             System.out.println("This task cannot be deleted as there is no task in the list.\n");
@@ -195,6 +223,12 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Checks if a given string represents an integer value.
+     *
+     * @param input A string that may or may not represent an integer.
+     * @return true if the input string represents an integer, false otherwise.
+     */
     public boolean isInteger(String input) {
         try {
             int value = Integer.parseInt(input);

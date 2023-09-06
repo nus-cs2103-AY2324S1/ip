@@ -11,10 +11,12 @@ import evo.ui.Ui;
  * confirmation message to the user.
  */
 public class EventCommand extends Command {
+
     /**
      * An array containing action and description components from user input.
      */
     protected String[] actionAndDesc;
+
     /**
      * An array containing action type and date/time components from user input.
      */

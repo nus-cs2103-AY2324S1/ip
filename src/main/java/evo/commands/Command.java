@@ -12,12 +12,6 @@ import evo.ui.Ui;
 public abstract class Command {
 
     /**
-     * Constructs a generic Command object.
-     */
-    public Command() {
-    }
-
-    /**
      * Executes the command, which performs a specific action based on its type.
      * This method should be overridden by subclasses to implement specific command functionality.
      *
