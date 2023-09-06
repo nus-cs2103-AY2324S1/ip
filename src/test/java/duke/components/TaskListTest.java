@@ -24,7 +24,7 @@ public class TaskListTest {
     public void testMark() throws DukeException {
         TaskList tasks = new TaskList(list);
         tasks.addTask(test);
-        tasks.mark(1);
+        tasks.mark(0);
         assertEquals("[T][X] test", tasks.getTask(0).toString());
     }
 
@@ -32,9 +32,9 @@ public class TaskListTest {
     public void testUnmark() throws DukeException {
         TaskList tasks = new TaskList(list);
         tasks.addTask(test);
-        tasks.mark(1);
+        tasks.mark(0);
         assertEquals("[T][X] test", tasks.getTask(0).toString());
-        tasks.unmark(1);
+        tasks.unmark(0);
         assertEquals("[T][ ] test", tasks.getTask(0).toString());
     }
 
@@ -43,7 +43,7 @@ public class TaskListTest {
         TaskList tasks = new TaskList(list);
         tasks.addTask(test);
         assertEquals("[T][ ] test", tasks.getTask(0).toString());
-        tasks.delete(1);
+        tasks.delete(0);
         assertEquals(0, tasks.getSize());
     }
 

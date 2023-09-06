@@ -63,7 +63,7 @@ public class Parser {
                 throw new DukeException("I'm afraid I do not quite understand. Could you kindly repeat it?");
             }
         } catch (Exception ex) {
-            throw new DukeException("Could you repeat that last part? I did not quite catch it.");
+            throw new DukeException(ex.getMessage());
         }
     }
 

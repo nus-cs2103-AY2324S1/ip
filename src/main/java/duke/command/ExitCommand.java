@@ -23,14 +23,15 @@ public class ExitCommand extends Command {
     /**
      * Executes the thank method before the bot terminates.
      *
-     * @param tasks List of tasks in taskList.
-     * @param ui Instance of the user interface.
+     * @param tasks   List of tasks in taskList.
+     * @param ui      Instance of the user interface.
      * @param storage Instance of the storage.
+     * @return String in response to user input.
      * @throws DukeException
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        ui.thank();
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        return ui.thank();
     }
 
     @Override

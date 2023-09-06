@@ -31,16 +31,17 @@ public class FilterCommand extends Command {
     /**
      * Executes the command based on user input.
      *
-     * @param tasks List of tasks in taskList.
-     * @param ui Instance of the user interface.
+     * @param tasks   List of tasks in taskList.
+     * @param ui      Instance of the user interface.
      * @param storage Instance of the storage.
+     * @return String in response to user input.
      * @throws DukeException Invalid input.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
             String list = tasks.filter(keyword);
-            ui.showFilteredList(list);
+            return ui.showFilteredList(list);
         } catch (Exception ex) {
             throw new DukeException("I'm afraid such a task do not exist.");
         }

@@ -77,27 +77,31 @@ public class AddCommand extends Command {
     /**
      * Executes the command based on user input.
      *
-     * @param tasks List of tasks in taskList.
-     * @param ui Instance of the user interface.
+     * @param tasks   List of tasks in taskList.
+     * @param ui      Instance of the user interface.
      * @param storage Instance of the storage.
+     * @return String in response to user input.
      * @throws DukeException If input is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (type.equals("T")) {
             Task tasking = new Todo(task);
             tasks.addTask(tasking);
-            ui.showTaskAdded(tasking, tasks.getSize());
+            storage.saveTasks(tasks.getTasks());
+            return ui.showTaskAdded(tasking, tasks.getSize());
         } else if (type.equals("D")) {
             Task tasking = new Deadline(task, deadline);
             tasks.addTask(tasking);
-            ui.showTaskAdded(tasking, tasks.getSize());
+            storage.saveTasks(tasks.getTasks());
+            return ui.showTaskAdded(tasking, tasks.getSize());
         } else if (type.equals("E")) {
             Task tasking = new Event(task, from, to);
             tasks.addTask(tasking);
-            ui.showTaskAdded(tasking, tasks.getSize());
+            storage.saveTasks(tasks.getTasks());
+            return ui.showTaskAdded(tasking, tasks.getSize());
         }
-        storage.saveTasks(tasks.getTasks());
+        return null;
     }
 
     @Override

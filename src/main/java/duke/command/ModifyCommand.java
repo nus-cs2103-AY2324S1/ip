@@ -35,33 +35,37 @@ public class ModifyCommand extends Command {
     /**
      * Executes the command based on user input.
      *
-     * @param tasks List of tasks in taskList.
-     * @param ui Instance of the user interface.
+     * @param tasks   List of tasks in taskList.
+     * @param ui      Instance of the user interface.
      * @param storage Instance of the storage.
+     * @return String in response to user input.
      * @throws DukeException Invalid input.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
             if (type.equals("L")) {
-                ui.showList(tasks);
+                return ui.showList(tasks);
             } else {
                 Task task = tasks.getTask(index);
                 if (type.equals("M")) {
                     tasks.mark(index);
-                    ui.showTaskCompleted(task);
+                    storage.saveTasks(tasks.getTasks());
+                    return ui.showTaskCompleted(task);
                 } else if (type.equals("U")) {
                     tasks.unmark(index);
-                    ui.showTaskUnmarked(task);
+                    storage.saveTasks(tasks.getTasks());
+                    return ui.showTaskUnmarked(task);
                 } else if (type.equals("D")) {
                     tasks.delete(index);
-                    ui.showTaskDeleted(task, tasks.getSize());
+                    storage.saveTasks(tasks.getTasks());
+                    return ui.showTaskDeleted(task, tasks.getSize());
                 }
-                storage.saveTasks(tasks.getTasks());
             }
         } catch (Exception ex) {
             throw new DukeException("I'm afraid such a task do not exist.");
         }
+        return null;
     }
 
     @Override

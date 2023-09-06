@@ -8,12 +8,10 @@ import duke.components.Storage;
 import duke.components.TaskList;
 import duke.components.Ui;
 
-
-
 /**
  * Contains the main method to be executed.
  */
-public class Duke {
+public class ButlerBot {
     /**
      * storage contains the instance of the storage.
      *
@@ -32,9 +30,20 @@ public class Duke {
      * @param filePath Contains the path to the save file.
      * @throws DukeException If filePath is invalid.
      */
-    public Duke(String filePath) throws DukeException {
+    public ButlerBot(String filePath) throws DukeException {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
+        this.tasks = new TaskList(storage.loadTasks());
+    }
+
+    /**
+     * Constructor for the Duke class.
+     *
+     * @throws DukeException
+     */
+    public ButlerBot() throws DukeException {
+        this.ui = new Ui();
+        this.storage = new Storage("data/tasks.txt");
         this.tasks = new TaskList(storage.loadTasks());
     }
 
@@ -57,6 +66,23 @@ public class Duke {
     }
 
     public static void main(String[] args) throws DukeException {
-        new Duke("data/tasks.txt").run();
+        new ButlerBot("data/tasks.txt").run();
+    }
+
+    /**
+     * Returns a response to the user's inputs.
+     *
+     * @param input
+     * @return A String in response to user input.
+     * @throws DukeException
+     * @throws IOException
+     */
+    public String getResponse(String input) throws DukeException, IOException {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (DukeException | IOException | DateTimeParseException | IndexOutOfBoundsException e) {
+            return ui.showError(e.getMessage());
+        }
     }
 }
