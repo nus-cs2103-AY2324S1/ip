@@ -12,11 +12,8 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    // private Sally sally = new Sally();
-
     @Override
     public void start(Stage stage) {
-        // stage.setTitle("Sally");
         Sally sally = new Sally(stage);
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));

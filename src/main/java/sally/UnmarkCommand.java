@@ -5,6 +5,7 @@ package sally;
  */
 public class UnmarkCommand implements Command {
     private final int taskIndex;
+    private Message message;
 
     /**
      * Constructs an UnmarkCommand object with the provided input.
@@ -30,6 +31,8 @@ public class UnmarkCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws SallyException {
+        message = new Message();
+
         if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
             throw new SallyException("OOPS! Provide a valid task number to unmark.");
         }
@@ -37,8 +40,6 @@ public class UnmarkCommand implements Command {
         Task task = tasks.getTask(taskIndex);
         task.unmark();
         storage.saveTasksToFile(tasks);
-        //edit String below
-        String res = "Nice! I've unmarked this task as not done:\n" + task.toString();
-        return res;
+        return message.unmarkMessage(task);
     }
 }

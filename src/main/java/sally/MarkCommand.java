@@ -6,6 +6,7 @@ package sally;
 public class MarkCommand implements Command {
 
     private final int taskIndex;
+    private Message message;
 
     /**
      * Constructs a MarkCommand with the specified task index to mark.
@@ -31,6 +32,8 @@ public class MarkCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws SallyException {
+        message = new Message();
+
         if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
             throw new SallyException("OOPS! Provide a valid task number to mark.");
         }
@@ -38,8 +41,6 @@ public class MarkCommand implements Command {
         Task task = tasks.getTask(taskIndex);
         task.mark();
         storage.saveTasksToFile(tasks);
-        //edit String below
-        String res = "Nice! I've marked this task as done:\n" + task.toString();
-        return res;
+        return message.markMessage(task);
     }
 }

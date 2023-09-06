@@ -7,6 +7,8 @@ package sally;
  */
 public class ListCommand implements Command {
 
+    private Message message;
+
     /**
      * Executes the list command by showing all tasks in the TaskList.
      *
@@ -15,11 +17,7 @@ public class ListCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
-        //add String below
-        String res = "Here are the tasks in your list:\n";
-        for (int i = 0; i < tasks.getSize(); i++) {
-            res += (i + 1) + "." + tasks.getTask(i).toString() + "\n";
-        }
-        return res;
+        message = new Message();
+        return message.listMessage(tasks);
     }
 }

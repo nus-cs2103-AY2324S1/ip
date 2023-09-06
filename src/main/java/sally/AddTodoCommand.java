@@ -5,6 +5,7 @@ package sally;
  */
 public class AddTodoCommand implements Command {
     private final String description;
+    private Message message;
 
     /**
      * Constructs an AddTodoCommand with the provided task description.
@@ -29,12 +30,10 @@ public class AddTodoCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws SallyException {
+        message = new Message();
         Todo newTodo = new Todo(description);
         tasks.addTask(newTodo);
         storage.saveTasksToFile(tasks);
-        //put String below into another file
-        String res = "Got it. I've added this task:\n" + newTodo.toString() + "\n"
-                + "Now you have " + tasks.getTaskList().size() + " tasks in the list.";
-        return res;
+        return message.addMessage(newTodo, tasks.getTaskList().size());
     }
 }

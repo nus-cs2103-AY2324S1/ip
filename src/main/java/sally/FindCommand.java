@@ -5,6 +5,7 @@ package sally;
  */
 public class FindCommand implements Command {
     private String keyword;
+    private Message message;
 
     /**
      * Constructs a FindCommand with the specified keyword to search for.
@@ -25,12 +26,8 @@ public class FindCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws SallyException {
+        message = new Message();
         TaskList matchingTasks = tasks.findTasks(keyword);
-        //edit String below
-        String res = "Here are the matching tasks in your list:\n";
-        for (int i = 0; i < matchingTasks.getSize(); i++) {
-            res += (i + 1) + "." + matchingTasks.getTask(i).toString() + "\n";
-        }
-        return res;
+        return message.findMessage(matchingTasks);
     }
 }
