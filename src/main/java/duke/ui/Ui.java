@@ -10,7 +10,6 @@ import duke.utilities.TaskList;
  */
 public class Ui {
     protected static Scanner sc;
-    protected String br = "________________________________________\n";
 
     public Ui() {
         this.sc = new Scanner(System.in);
@@ -19,12 +18,10 @@ public class Ui {
     /**
      * Prints the message hello when program starts.
      */
-    public String printHello() {
-        String output = br
-                        + "My name is Jose Mourinho, I am the special one.\n"
+    public static String printHello() {
+        String output = "My name is Jose Mourinho, I am the special one.\n"
                         + "I am a task planning bot that will record your tasks.\n"
-                        + "If you require help, type \"help\"\n"
-                        + br;
+                        + "If you require help, type \"help\"\n";
         System.out.println(output);
         return output;
     }
@@ -54,10 +51,8 @@ public class Ui {
                     + "If it happens I will be a millionaire "
                     + "and get another club a couple of months later",
             "I have top players and, I’m sorry, we have a top manager."};
-        String output = br
-                + famousQuotes[(int) Math.floor(Math.random() * famousQuotes.length)]
-                + "\n"
-                + br;
+        String output = famousQuotes[(int) Math.floor(Math.random() * famousQuotes.length)]
+                + "\n";
         System.out.println(output);
         return output;
     }
@@ -82,7 +77,7 @@ public class Ui {
      * @param task The task to be added.
      */
     public String printAddTask(TaskList taskList, Task task) {
-        String output = br + "You must train hard and complete your task:\n" + task
+        String output = "You must train hard and complete your task:\n" + task
                 + "\nYou now have " + taskList.size() + " tasks to complete.\n";
         System.out.println(output);
         return output;
@@ -121,16 +116,15 @@ public class Ui {
      */
     public String printList(TaskList taskList) {
         if (taskList.getTaskList().isEmpty()) {
-            String output = br + "Hard work beats talent. Your list is empty. You should train more.\n" + br;
+            String output = "Hard work beats talent. Your list is empty. You should train more.\n";
             System.out.println(output);
             return output;
         }
 
-        String output = br + "If you want to be the best in the world, work hard and follow me:\n";
+        String output = "If you want to be the best in the world, work hard and follow me:\n";
         for (int i = 0; i < taskList.size(); i++) {
             output += String.format("%d. %s \n", i + 1, taskList.getTask(i).toString());
         }
-        output += br;
         System.out.println(output);
         return output;
     }
@@ -141,7 +135,7 @@ public class Ui {
      * @param message The error received from try catch.
      */
     public String printError(String message) {
-        String output = br + message + "\n" + br;
+        String output = message + "\n";
         System.out.println(output);
         return output;
     }
@@ -150,7 +144,7 @@ public class Ui {
      * Prints special error when time to parse is invalid.
      */
     public String printInvalidTimeError() {
-        String output = br + "\n Your timing is wrong. This is unacceptable \n" + br;
+        String output = "\n Your timing is wrong. This is unacceptable \n";
         System.out.println(output);
         return output;
     }
@@ -162,10 +156,10 @@ public class Ui {
      * @param input The input keyword to filter with.
      */
     public String findFilteredTasks(TaskList tasks, String input) {
-        String output = br;
+        String output = "";
         TaskList filteredList = tasks.filter(input);
         if (filteredList.size() == 0) {
-            output += "There are no tasks with that word.\n" + br;
+            output += "There are no tasks with that word.\n";
             System.out.println(output);
             return output;
         }
@@ -173,7 +167,6 @@ public class Ui {
         for (int i = 0; i < filteredList.size(); i++) {
             output += String.format("%d. %s\n", i + 1, filteredList.getTask(i).toString());
         }
-        output += br;
         System.out.println(output);
         return output;
     }
