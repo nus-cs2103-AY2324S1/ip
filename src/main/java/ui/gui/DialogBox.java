@@ -1,3 +1,5 @@
+package ui.gui;
+
 import java.io.IOException;
 import java.util.Collections;
 
@@ -61,7 +63,7 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Wraps the given text in the javafx structure needed to display in the UI for Kniaz's side
+     * Wraps the given text in the javafx structure needed to display in the UI for kniaz.Kniaz's side
      * @param text the text to wrap
      * @param img the image to use
      * @return the dialogbox that contains the text and image

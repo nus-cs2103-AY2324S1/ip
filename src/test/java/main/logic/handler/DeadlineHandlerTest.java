@@ -9,9 +9,11 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import exceptions.syntax.MissingNamedArgsException;
-import main.KniazSession;
+import kniaz.KniazSession;
+import kniaz.logic.handler.DeadlineHandler;
 import storage.TaskList;
 import task.Deadline;
+
 
 
 

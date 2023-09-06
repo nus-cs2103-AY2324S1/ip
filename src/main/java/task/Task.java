@@ -3,7 +3,7 @@ package task;
 import java.io.Serializable;
 
 /**
- * Class encapsulating a single task to be done (by the user) in Kniaz
+ * Class encapsulating a single task to be done (by the user) in kniaz.Kniaz
  */
 public abstract class Task implements Serializable {
 

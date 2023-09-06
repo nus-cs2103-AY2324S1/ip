@@ -1,10 +1,10 @@
+package kniaz;
 
 
-import main.KniazSession;
 import ui.UiCommand;
 
 /**
- * Entry point for the Kniaz program, functions mostly as a wrapper around KniazSession
+ * Entry point for the kniaz.Kniaz program, functions mostly as a wrapper around KniazSession
  */
 public class Kniaz {
 

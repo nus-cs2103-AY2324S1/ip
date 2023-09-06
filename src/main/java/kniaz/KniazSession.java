@@ -1,20 +1,20 @@
-package main;
+package kniaz;
 
 import java.io.IOException;
 
 import exceptions.KniazRuntimeException;
-import main.logic.command.KniazCommand;
+import kniaz.logic.command.KniazCommand;
 import storage.TaskList;
 import storage.save.KniazLoader;
 import storage.save.KniazSaver;
-import ui.KniazOutputController;
+import ui.KniazOutputFlavourer;
 import ui.UiCommand;
 import ui.inputparser.KniazLineParser;
 
 
 
 /**
- * Encapsulates a session of Kniaz.
+ * Encapsulates a session of kniaz.Kniaz.
  */
 public class KniazSession {
     private TaskList taskList;
@@ -23,7 +23,7 @@ public class KniazSession {
 
     private KniazLineParser lineParser;
 
-    private KniazOutputController outputController;
+    private KniazOutputFlavourer outputFlavourer;
 
     private boolean isRunning;
 
@@ -43,18 +43,18 @@ public class KniazSession {
      * @param loader            The KniazLoader to use.
      * @param saver             The KniazSaver to use.
      * @param lineParser   The lineparser to use.
-     * @param outputController  The KniazOutputController to use.
+     * @param outputFlavourer  The KniazOutputFlavourer to use.
      */
     private KniazSession(TaskList taskList,
                          KniazLoader loader,
                          KniazSaver saver,
                          KniazLineParser lineParser,
-                         KniazOutputController outputController) {
+                         KniazOutputFlavourer outputFlavourer) {
         this.taskList = taskList;
         this.loader = loader;
         this.saver = saver;
         this.lineParser = lineParser;
-        this.outputController = outputController;
+        this.outputFlavourer = outputFlavourer;
         this.isRunning = true;
     }
 
@@ -67,18 +67,18 @@ public class KniazSession {
         KniazLoader loader = new KniazLoader();
         KniazSaver saver = new KniazSaver();
         KniazLineParser lineParser = new KniazLineParser();
-        KniazOutputController output = new KniazOutputController();
+        KniazOutputFlavourer flavourer = new KniazOutputFlavourer();
         TaskList tasks = new TaskList();
 
-        output.printStartupMessage();
+
         try {
             tasks = loader.load();
-            output.printToOutput("I managed to load your tasks from last time.");
+
         } catch (KniazRuntimeException e) {
-            output.printToOutput(e.getMessage());
+            System.out.println(e.getMessage());
         }
 
-        KniazSession out = new KniazSession(tasks, loader, saver, lineParser, output);
+        KniazSession out = new KniazSession(tasks, loader, saver, lineParser, flavourer);
         out.isRunning = true;
         return out;
 
@@ -116,7 +116,7 @@ public class KniazSession {
 
         KniazCommand nextCommand = lineParser.parseLine(input);
         String printString;
-        String flavour = outputController.getFlavourFor(nextCommand);
+        String flavour = outputFlavourer.getFlavourFor(nextCommand.getInstruct());
 
         try {
             String feedback = nextCommand.execute(this);

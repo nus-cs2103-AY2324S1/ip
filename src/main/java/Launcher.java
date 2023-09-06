@@ -1,5 +1,6 @@
 
 import javafx.application.Application;
+import kniaz.Main;
 
 //@@author Jeffry Lium
 //Reused from https://se-education.org/guides/tutorials/javaFxPart1.html

@@ -1,11 +1,10 @@
-package main.logic.handler;
+package kniaz.logic.handler;
 
 import java.util.List;
 import java.util.Map;
 
 import exceptions.syntax.UnknownCommandException;
-import main.KniazSession;
-
+import kniaz.KniazSession;
 
 
 /**

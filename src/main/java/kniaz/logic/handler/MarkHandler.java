@@ -1,4 +1,5 @@
-package main.logic.handler;
+package kniaz.logic.handler;
+
 
 import java.util.List;
 import java.util.Map;
@@ -6,34 +7,34 @@ import java.util.Map;
 import exceptions.syntax.ArgFormatException;
 import exceptions.syntax.MissingUnnamedArgsException;
 import exceptions.syntax.TaskListBoundsException;
-import main.KniazSession;
+import kniaz.KniazSession;
 import storage.TaskList;
 import task.Task;
 
 
-
 /**
- * Handles the unmark command by un-marking specified task
+ * Handles the mark command, by marking the specified task as done
  */
-public class UnmarkHandler implements CommandHandler {
+public class MarkHandler implements CommandHandler {
 
 
-    private static final String[] ARG_ORDER = new String[]{""};
+    // argument not expected to have prefix, just an index
 
     /**
-     * Handles unmark command by un-marking specified task
+     * Handles the mark command by marking the specified task as done, returning the user-facing string representation
+     * of the marked task
      *
      * @param session     the linked KniazSession that this command is to execute in
-     * @param unnamedArgs the arguments to this command, should just be index
-     * @param namedArgs  the named arguments to this command
-     * @return the user-facing string representation of the unmarked task
-     * @throws MissingUnnamedArgsException when there is a problem with the arguments,
-     *     like index being out of bounds/unparseable
+     * @param unnamedArgs the arguments to this command, should just be the index of the task to mark
+     * @param namedArgs   the named arguments to this command, should be none
+     * @return the user-facing string representation of the marked task
+     * @throws MissingUnnamedArgsException when the arguments are invalid, like when the index is out of bounds
      */
     @Override
     public String handle(KniazSession session,
                          List<? extends String> unnamedArgs,
                          Map<? extends String, ? extends String> namedArgs) throws MissingUnnamedArgsException {
+
 
 
         if (unnamedArgs.size() < 1) {
@@ -56,8 +57,9 @@ public class UnmarkHandler implements CommandHandler {
             throw new TaskListBoundsException(session.getTaskList().size(), index, null);
         }
 
-        Task unmarkedTask = session.getTaskList().markAsUndone(index);
+        Task markedTask = session.getTaskList().markAsDone(index);
 
-        return unmarkedTask.toPrintString();
+        return markedTask.toPrintString();
     }
+
 }

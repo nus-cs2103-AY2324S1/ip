@@ -10,14 +10,14 @@ import storage.TaskList;
 
 
 /**
- * Encapsulates a class to help storage.save Kniaz tasklist data to disk.
+ * Encapsulates a class to help storage.save kniaz.Kniaz tasklist data to disk.
  */
 public class KniazSaver {
 
     /**
      * The default path KniazSaver will try to storage.save to
      */
-    public static final String DEFAULT_PATH = "./data/Kniaz.dat";
+    public static final String DEFAULT_PATH = "./data/kniaz.Kniaz.dat";
 
     /**
      * Internal File object for writing

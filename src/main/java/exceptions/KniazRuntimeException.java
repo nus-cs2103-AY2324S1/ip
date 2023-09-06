@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * Exception that encapsulations typical Kniaz excpetions we expect to run into at runtime
+ * Exception that encapsulations typical kniaz.Kniaz excpetions we expect to run into at runtime
  * Typically, these involve I/O of some kind, such as invalid commands or invalid inputs
  * Most importantly, contains an additional user message that is meant to be seen by the user
  * And NOT for debugging/development purposes

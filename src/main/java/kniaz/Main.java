@@ -1,3 +1,5 @@
+package kniaz;
+
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -5,6 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import ui.gui.MainWindow;
+
 
 //@@author Jeffry Lium
 //Reused from https://se-education.org/guides/tutorials/javaFxPart4.html
@@ -14,7 +18,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Kniaz duke = new Kniaz();
+    private Kniaz kniaz = new Kniaz();
 
     /**
      * The method to start this application.
@@ -27,7 +31,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setKniaz(duke);
+            fxmlLoader.<MainWindow>getController().setKniaz(kniaz);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
