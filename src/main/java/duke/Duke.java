@@ -24,13 +24,79 @@ public class Duke {
 
     /**
      * Constructor for creating a Duke.
-     * @param path Location of the list of tasks.
      */
-    public Duke(String path) {
+    public Duke() {
         this.ui = new Ui();
-        this.storage = new Storage(path);
+        this.storage = new Storage();
         this.tasks = new TaskList(storage.readFile());
     }
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+
+        String output;
+        Commands command = Parser.determineCommand(input);
+
+        try {
+
+            switch (command) {
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                Task t = TaskList.createTask(input, command, 0);
+                tasks.addTask(t);
+                output = ui.showTaskAdded(t.getTask());
+                break;
+
+            case LIST:
+                if (tasks.isEmpty()) {
+                    output =  ui.showNoTasks();
+                } else {
+                    output =  ui.showTasks(tasks.getTasksDes(1), 0);
+                }
+                break;
+
+
+            case UNMARK:
+            case MARK:
+                String completionStatus = tasks.changeTaskCompletion(input, command);
+                output =  ui.showStatusChanged(completionStatus);
+                break;
+
+            case FIND:
+                List<String> matchingTasks = tasks.findTask(input);
+                output = ui.showTasks(matchingTasks, 1);
+                break;
+
+            case DELETE:
+                String deleteStatus = tasks.deleteTask(input);
+                output = ui.showStatusChanged(deleteStatus);
+                break;
+
+            case BYE:
+                String savedStatus = storage.saveToDisk(tasks.getTasksDes(0));
+                output = savedStatus + "\n" + ui.showStatusChanged(savedStatus);
+                break;
+
+            case UNKNOWN:
+            default:
+                throw new InvalidInputException("Invalid input");
+            }
+        } catch (DukeException e) {
+            output = ui.showDukeError(e);
+        } catch (DateTimeParseException e) {
+            output = ui.showDateError();
+        } catch (Exception e) {
+            output = ui.showGeneralError();
+        }
+
+        return output;
+    }
+
+
+
 
     /**
      * Starts the chatbot.
@@ -105,7 +171,4 @@ public class Duke {
         ui.farewell();
     }
 
-    public static void main(String[] args) {
-        new Duke("toothless.txt").run();
-    }
 }
