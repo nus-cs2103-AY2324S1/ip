@@ -1,7 +1,7 @@
 package puke.command;
 
-import puke.TaskList;
-import puke.Ui;
+import puke.managers.TaskList;
+import puke.managers.Ui;
 
 /**
  * A Command class that when executed, looks for tasks in the task list that match the keywords provided.

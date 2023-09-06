@@ -1,9 +1,9 @@
 package puke.command;
 
-import puke.DataHandler;
-import puke.PukeException;
-import puke.TaskList;
-import puke.Ui;
+import puke.managers.DataHandler;
+import puke.managers.PukeException;
+import puke.managers.TaskList;
+import puke.managers.Ui;
 import puke.task.Event;
 
 /**

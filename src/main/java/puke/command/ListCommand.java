@@ -1,7 +1,7 @@
 package puke.command;
 
-import puke.TaskList;
-import puke.Ui;
+import puke.managers.TaskList;
+import puke.managers.Ui;
 
 /**
  * A Command class that when executed, prints the string representation of the task list.

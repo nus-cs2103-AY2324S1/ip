@@ -1,4 +1,4 @@
-package puke;
+package puke.managers;
 
 import java.util.Scanner;
 
@@ -12,7 +12,7 @@ public class Ui {
 
     private final Scanner sc;
 
-    Ui() {
+    public Ui() {
         this.sc = new Scanner(System.in);
     }
 
@@ -44,7 +44,7 @@ public class Ui {
     /**
      * Prints the welcome logo and message.
      */
-    void startup() {
+    public void startup() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| |_| | | | | |/ / _ \\\n"

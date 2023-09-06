@@ -1,7 +1,7 @@
 package puke.command;
 
-import puke.TaskList;
-import puke.Ui;
+import puke.managers.TaskList;
+import puke.managers.Ui;
 
 /**
  * A Class that represents an action to be taken by the chatbot.

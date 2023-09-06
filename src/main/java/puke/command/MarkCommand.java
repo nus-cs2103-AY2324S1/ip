@@ -1,8 +1,8 @@
 package puke.command;
 
-import puke.DataHandler;
-import puke.TaskList;
-import puke.Ui;
+import puke.managers.DataHandler;
+import puke.managers.TaskList;
+import puke.managers.Ui;
 
 /**
  * A Command class that when executed, prints the message to mark a task as complete.

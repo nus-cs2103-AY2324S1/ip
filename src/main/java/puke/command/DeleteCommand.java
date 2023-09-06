@@ -1,8 +1,8 @@
 package puke.command;
 
-import puke.DataHandler;
-import puke.TaskList;
-import puke.Ui;
+import puke.managers.DataHandler;
+import puke.managers.TaskList;
+import puke.managers.Ui;
 import puke.task.Task;
 
 

@@ -1,4 +1,4 @@
-package puke;
+package puke.managers;
 
 import java.io.File;
 import java.io.FileWriter;

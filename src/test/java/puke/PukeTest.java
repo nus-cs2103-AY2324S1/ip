@@ -2,6 +2,9 @@ package puke;
 
 import org.junit.jupiter.api.Test;
 import puke.command.*;
+import puke.managers.Parser;
+import puke.managers.PukeException;
+import puke.managers.Ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

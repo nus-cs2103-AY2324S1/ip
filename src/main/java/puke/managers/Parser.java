@@ -1,4 +1,4 @@
-package puke;
+package puke.managers;
 
 import puke.command.ClearCommand;
 import puke.command.Command;
@@ -13,8 +13,10 @@ import puke.command.MarkCommand;
 import puke.command.TodoCommand;
 import puke.command.UnmarkCommand;
 
-
-class Parser {
+/**
+ * A class that takes in input and parses it to return a command.
+ */
+public class Parser {
     /**
      * Parses the command string as input from the UI and returns its corresponding command
      *
