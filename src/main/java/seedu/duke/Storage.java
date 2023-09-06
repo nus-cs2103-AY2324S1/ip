@@ -194,13 +194,26 @@ public class Storage {
         File newFile = new File(this.filePath);
 
         try {
-            FileWriter fileWriter = new FileWriter(newFile);
-            for (Task task : list) {
-                fileWriter.write(task.toStringForSave() + "\n");
-            }
-            fileWriter.close();
+            Task[] tasks = new Task[list.size()];
+            list.toArray(tasks);
+            writeToHardDisk(newFile, tasks);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    /**
+     * Writes to the Hard Disk File.
+     *
+     * @param newFile File to write to.
+     * @param tasks List of tasks.
+     * @throws IOException If there are any IO error.
+     */
+    public void writeToHardDisk(File newFile, Task ... tasks) throws IOException {
+        FileWriter fileWriter = new FileWriter(newFile);
+        for (Task task : tasks) {
+            fileWriter.write(task.toStringForSave() + "\n");
+        }
+        fileWriter.close();
     }
 }

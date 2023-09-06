@@ -1,7 +1,5 @@
 package seedu.duke;
 
-import java.util.Scanner;
-
 /**
  * Represents the UI used by this chatbot.
  * A UI is responsible for the managing the

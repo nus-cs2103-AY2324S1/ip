@@ -26,6 +26,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the main window of the chat bot.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -51,6 +54,9 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Greets the user.
+     */
     public void dukeGreet() {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(Duke.greet(), dukeImage)
