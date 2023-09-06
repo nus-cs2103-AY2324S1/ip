@@ -39,8 +39,9 @@ public class Brotherman {
                 command.execute(taskList, ui, storage);
                 isExit = command.isExit();
             } catch (BrothermanException e) {
-                System.out.println("should be a show error message");
-                ui.showLine();
+//                System.out.println("should be a show error message");
+//                ui.showLine();
+                ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
             }

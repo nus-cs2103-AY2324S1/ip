@@ -35,7 +35,7 @@ public class Parser {
             return new ExitCommand();
         }
 
-        isValidCommands(userCommand);
+        Parser.isValidCommands(userCommand);
 
         if (userCommand.equals("list")) {
             return new ListCommand();
@@ -187,25 +187,28 @@ public class Parser {
                 "[yyyy-MM-dd HH:mm:ss][yyyy-MM-dd][MM/dd/yyyy HH:mm:ss][dd/MM/yyyy][d MMM yyyy HHmm]"
         );
 
-        LocalDateTime startDateTimeObj = null;
-        LocalDateTime endDateTimeObj = null;
+        LocalDateTime startDateTimeObj = tryParseDateTime(startTime, formatter);
+        LocalDateTime endDateTimeObj = tryParseDateTime(endTime, formatter);
 
-
-        try {
-            startDateTimeObj = LocalDateTime.parse(startTime, formatter);
-            endDateTimeObj = LocalDateTime.parse(endTime, formatter);
-        } catch (DateTimeParseException e) {
-            // If datetime parsing fails, try parsing as date-only
-            try {
-                LocalDate startDate = LocalDate.parse(startTime, formatter);
-                LocalDate endDate = LocalDate.parse(endTime, formatter);
-                startDateTimeObj = startDate.atStartOfDay();
-                endDateTimeObj = endDate.atStartOfDay();
-            } catch (DateTimeParseException ex) {
-                System.out.println("Error parsing datetime: " + ex.getMessage());
-            }
+        if (startDateTimeObj == null || endDateTimeObj == null) {
+            System.out.println("Error parsing datetime");
+            return null;
         }
 
         return new Event(description, startDateTimeObj, endDateTimeObj);
+    }
+
+    private static LocalDateTime tryParseDateTime(String dateTimeStr, DateTimeFormatter formatter) {
+        try {
+            return LocalDateTime.parse(dateTimeStr, formatter);
+        } catch (DateTimeParseException e) {
+            try {
+                LocalDate date = LocalDate.parse(dateTimeStr, formatter);
+                return date.atStartOfDay();
+            } catch (DateTimeParseException ex) {
+                System.out.println("Error parsing datetime: " + ex.getMessage());
+                return null;
+            }
+        }
     }
 }

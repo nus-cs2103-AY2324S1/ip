@@ -111,4 +111,8 @@ public class Ui {
             System.out.println(listItems.toString());
         }
     }
+
+    public void showError(String errorMessage) {
+        System.out.println(errorMessage);
+    }
 }

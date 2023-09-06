@@ -8,7 +8,7 @@ import brotherman.ui.Ui;
  * Represents a command
  */
 
-public class Command {
+public abstract class Command {
     /**
      * Whether the command is an exit command
      */
@@ -28,9 +28,7 @@ public class Command {
      * @param ui Ui to show the user the task has been added
      * @param storage Storage to save the task list
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-
-    }
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
 
     /**
      * Returns whether the command is an exit command
