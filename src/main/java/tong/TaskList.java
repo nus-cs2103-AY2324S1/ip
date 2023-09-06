@@ -39,7 +39,7 @@ public class TaskList {
 
     public Task getTask(int targetVisibleIndex) throws TaskNotFoundException {
         int targetInvisibleIndex = targetVisibleIndex - 1;
-        if (targetInvisibleIndex >= taskList.size()) {
+        if (targetInvisibleIndex >= taskList.size() || targetVisibleIndex < 1) {
             throw new TaskNotFoundException("Input task index out of bound.");
         }
         return taskList.get(targetInvisibleIndex);
