@@ -31,8 +31,10 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Corgi c) {
+    public void setCorgi(Corgi c) {
         corgi = c;
+        dialogContainer.getChildren().add(
+                DialogBox.getCorgiDialog(corgi.getIntro(), corgiImage));
     }
 
     /**
