@@ -74,22 +74,27 @@ public class Duke extends Application {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
 
-//        ImageView userImageView = new ImageView(user);
-//        ImageView dukeImageView = new ImageView(duke);
-//
-//        Circle clip = new Circle();
-//        clip.setCenterX(50); // Adjust the center coordinates as needed
-//        clip.setCenterY(50);
-//        clip.setRadius(50); // Adjust the radius to control the size of the circle
-//
-//        userImageView.setClip(clip);
-//        dukeImageView.setClip(clip);
+        ImageView userImageView = new ImageView(user);
+        ImageView dukeImageView = new ImageView(duke);
+
+        Circle clip = new Circle();
+        Circle clip2 = new Circle();
+        clip.setCenterX(40); // Adjust the center coordinates as needed
+        clip.setCenterY(40);
+        clip.setRadius(40); // Adjust the radius to control the size of the circle
+
+        clip2.setCenterX(40); // Adjust the center coordinates as needed
+        clip2.setCenterY(40);
+        clip2.setRadius(40); // Adjust the radius to control the size of the circle
+
+        userImageView.setClip(clip);
+        dukeImageView.setClip(clip2);
 
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
-//                DialogBox.getUserDialog(userText, userImageView),
-//                DialogBox.getDukeDialog(dukeText, dukeImageView)
+//                DialogBox.getUserDialog(userText, new ImageView(user)),
+//                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(userText, userImageView),
+                DialogBox.getDukeDialog(dukeText, dukeImageView)
         );
         userInput.clear();
     }
