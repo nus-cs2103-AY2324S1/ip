@@ -143,7 +143,7 @@ public class Parser {
                     return tasks.findTasks(inputSplit[1]);
                 case("bye"):
                     System.exit(0);
-                    // return Ui.exit();
+                    return Ui.exit();
                 default:
                     return Ui.returnErrorString(new DukeException("I'm sorry, but I don't know what that means :-("));
                 }
