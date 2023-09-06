@@ -12,10 +12,14 @@ public class ListCommand implements Command {
      *
      * @param tasks The TaskList containing tasks to be displayed.
      * @param storage The Storage for tasks (not used in this command).
-     * @param ui The Ui for user interaction to display tasks.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
-        ui.showTasks(tasks);
+    public String execute(TaskList tasks, Storage storage) {
+        //add String below
+        String res = "Here are the tasks in your list:\n";
+        for (int i = 0; i < tasks.getSize(); i++) {
+            res += (i + 1) + "." + tasks.getTask(i).toString() + "\n";
+        }
+        return res;
     }
 }

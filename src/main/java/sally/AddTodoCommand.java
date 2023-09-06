@@ -25,14 +25,16 @@ public class AddTodoCommand implements Command {
      *
      * @param tasks The TaskList containing tasks.
      * @param storage The Storage for tasks.
-     * @param ui The Ui for user interaction.
      * @throws SallyException If there's an issue while executing the command.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws SallyException {
+    public String execute(TaskList tasks, Storage storage) throws SallyException {
         Todo newTodo = new Todo(description);
         tasks.addTask(newTodo);
         storage.saveTasksToFile(tasks);
-        ui.showAddedTask(newTodo, tasks.getSize());
+        //put String below into another file
+        String res = "Got it. I've added this task:\n" + newTodo.toString() + "\n"
+                + "Now you have " + tasks.getTaskList().size() + " tasks in the list.";
+        return res;
     }
 }

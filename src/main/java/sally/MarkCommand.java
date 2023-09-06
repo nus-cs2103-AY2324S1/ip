@@ -27,11 +27,10 @@ public class MarkCommand implements Command {
      *
      * @param tasks   The TaskList containing tasks.
      * @param storage The Storage for tasks.
-     * @param ui      The Ui for user interaction.
      * @throws SallyException If the specified task index is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws SallyException {
+    public String execute(TaskList tasks, Storage storage) throws SallyException {
         if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
             throw new SallyException("OOPS! Provide a valid task number to mark.");
         }
@@ -39,6 +38,8 @@ public class MarkCommand implements Command {
         Task task = tasks.getTask(taskIndex);
         task.mark();
         storage.saveTasksToFile(tasks);
-        ui.showMarkedTask(task);
+        //edit String below
+        String res = "Nice! I've marked this task as done:\n" + task.toString();
+        return res;
     }
 }

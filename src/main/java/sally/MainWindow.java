@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import sally.SallyException;
 
 /**
@@ -50,12 +51,15 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() throws SallyException {
         String input = userInput.getText();
-        String response = sally.getResponse(input);
+        String response = getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getSallyDialog(response, sallyImage)
         );
         userInput.clear();
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+    }
+
+    private String getResponse(String input) {
+        return sally.execute(input);
     }
 }

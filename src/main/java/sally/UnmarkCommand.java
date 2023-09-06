@@ -26,11 +26,10 @@ public class UnmarkCommand implements Command {
      *
      * @param tasks The TaskList containing tasks.
      * @param storage The Storage for tasks.
-     * @param ui The Ui for user interaction.
      * @throws SallyException If the task index is invalid or an error occurs during execution.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws SallyException {
+    public String execute(TaskList tasks, Storage storage) throws SallyException {
         if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
             throw new SallyException("OOPS! Provide a valid task number to unmark.");
         }
@@ -38,6 +37,8 @@ public class UnmarkCommand implements Command {
         Task task = tasks.getTask(taskIndex);
         task.unmark();
         storage.saveTasksToFile(tasks);
-        ui.showUnmarkedTask(task);
+        //edit String below
+        String res = "Nice! I've unmarked this task as not done:\n" + task.toString();
+        return res;
     }
 }
