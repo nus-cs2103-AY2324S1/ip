@@ -15,7 +15,7 @@ public class Messages {
     public static final String MESSAGE_UNMARK = "OK, I've marked this task as not done yet:\n";
     public static final String MESSAGE_FIND = "Here are the matching tasks in your list: ";
     public static final String MESSAGE_DELETE = "Noted. I've removed this task: ";
-    public static final String MESSAGE_ADD= "Noted. I've added this task: ";
+    public static final String MESSAGE_ADD= "Noted. I've added this task:\n ";
     public static final String MESSAGE_NOW_YOU_HAVE = "\nNow you have ";
     public static final String MESSAGE_TASK_IN_THE_LIST = " task in the list.";
     public static final String MESSAGE_MESSAGE_TASK_IN_THE_LIST_PLURAL = " tasks in the list.";

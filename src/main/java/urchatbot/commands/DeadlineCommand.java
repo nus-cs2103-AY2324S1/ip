@@ -26,9 +26,9 @@ public class DeadlineCommand extends Command {
         Storage.save(tasks);
         int taskSize = tasks.getSize();
         if (taskSize == 1 || taskSize ==0) {
-            ui.showDeadlineMessage(taskDescription, taskSize);
+            ui.showDeadlineMessage(newTask.toString(), taskSize);
         } else {
-            ui.showDeadlineMessagePlural(taskDescription, taskSize);
+            ui.showDeadlineMessagePlural(newTask.toString(), taskSize);
         }
     }
 }

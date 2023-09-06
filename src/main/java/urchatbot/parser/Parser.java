@@ -62,11 +62,11 @@ public class Parser{
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime d = LocalDateTime.parse(time, formatter);
-            return d.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
+            return d.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
         } catch (DateTimeParseException e){
             try {
                 LocalDate d = LocalDate.parse(time);
-                return d.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                return d.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             } catch (DateTimeParseException err) {
                 try {
                     LocalTime t = LocalTime.parse(time);
@@ -88,13 +88,15 @@ public class Parser{
             throw new URChatBotException("OOPS!!! The description of a todo cannot be empty.");
         }
         String task = command.substring(command.indexOf("todo") + 5);
-        return new TodoCommand(command);
+        return new TodoCommand(task);
     }
     private static Command parseDeadlineCommand(String command) throws URChatBotException {
         if (command.length() <= 5) {
             throw new URChatBotException("OOPS!!! The description of a deadline cannot be empty.");
         }
-        if (!command.contains("/by") || command.substring(command.indexOf("/by") + 3).trim().length() < 1) {
+        if (!command.contains("/by")
+                || command.substring(command.indexOf("deadline") + 9, command.indexOf("/by")).trim().length() < 1
+                || command.substring(command.indexOf("/by") + 3).trim().length() < 1) {
             throw new URChatBotException("OOPS!!! The deadline cannot be empty.");
         }
         String task = command.substring(command.indexOf("deadline") + 9, command.indexOf("/by") - 1);
@@ -115,11 +117,6 @@ public class Parser{
                 || command.substring(command.indexOf("/from") + 5, command.indexOf("/to") - 1).trim().length() < 1
                 || command.substring(command.indexOf("/to") + 3).trim().length() < 1) {
             throw new URChatBotException("OOPS!!! The task name or/and from or/and to cannot be empty.");
-        }
-        if (!command.contains("/from") || !command.contains("/to")
-                || command.substring(command.indexOf("/from") + 5, command.indexOf("/to") - 1).trim().length() < 1
-                || command.substring(command.indexOf("/to") + 3).trim().length() < 1) {
-            throw new URChatBotException("OOPS!!! The from or/and to cannot be empty.");
         }
 
         String task = command.substring(command.indexOf("event") + 6, command.indexOf("/from") - 1);
