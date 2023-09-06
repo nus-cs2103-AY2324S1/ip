@@ -91,7 +91,7 @@ public class Storage {
   public void save(ArrayList<Task> tasks) throws SaveFileException {
     StringBuilder s = new StringBuilder();
     for (int i = 1; i <= tasks.size(); i++) {
-      s.append(tasks.get(i).toData());
+      s.append(tasks.get(i - 1).toData());
     }
     try {
       FileWriter fw = new FileWriter(filePath);
