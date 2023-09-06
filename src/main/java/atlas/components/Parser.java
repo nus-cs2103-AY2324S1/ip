@@ -88,9 +88,9 @@ public class Parser {
                 LocalDate searchDate = parseDate(args);
                 return new ListByDateCommand(searchDate);
             case MARK:
-                return new MarkTaskCommand(parseOneBasedIndexToZeroBased(args));
+                return new MarkTaskCommand(parseMultipleOneBasedIndicesToZeroBased(args));
             case UNMARK:
-                return new UnmarkTaskCommand(parseOneBasedIndexToZeroBased(args));
+                return new UnmarkTaskCommand(parseMultipleOneBasedIndicesToZeroBased(args));
             case DELETE:
                 return new DeleteTaskCommand(parseOneBasedIndexToZeroBased(args));
             case FIND:
@@ -252,5 +252,14 @@ public class Parser {
      */
     protected int parseOneBasedIndexToZeroBased(String input) {
         return Integer.parseUnsignedInt(input) - 1;
+    }
+
+    protected int[] parseMultipleOneBasedIndicesToZeroBased(String input) {
+        String[] splitIndices = input.split(" ");
+        int[] output = new int[splitIndices.length];
+        for (int i = 0; i < splitIndices.length; ++i) {
+            output[i] = parseOneBasedIndexToZeroBased(splitIndices[i]);
+        }
+        return output;
     }
 }
