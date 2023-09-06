@@ -81,22 +81,48 @@ public class TaskList {
   }
 
   /**
+   * Finds list of tasks with descriptions containing given substring.
+   *
+   * @param substring Substring to search (case-insensitive).
+   * @return ArrayList of tasks with given keyword.
+   */
+  public ArrayList<Task> searchDescriptions(String substring) {
+    ArrayList<Task> results = new ArrayList<>();
+    for (Task task : tasks) {
+      if (task.description.toLowerCase().contains(substring.strip().toLowerCase())) {
+        results.add(task);
+      }
+    }
+    return results;
+  }
+
+  /**
+   * Returns list of given tasks as a string.
+   *
+   * @param tasks ArrayList of tasks to list.
+   * @return Tasks list formatted as a string.
+   */
+  public static String displayList(ArrayList<Task> tasks) {
+    if (tasks.isEmpty()) {
+      return emptyTaskList;
+    }
+    StringBuilder tasksList = new StringBuilder();
+    for (int i = 0; i < tasks.size(); i++) {
+      String taskNumberPrefix = String.format("%3s-", i + 1);
+      String taskStr = taskNumberPrefix + tasks.get(i).toString() + "\n";
+      tasksList.append(taskStr);
+    }
+    return tasksList.toString();
+  }
+
+  /**
    * Returns list of all tasks as a string.
    *
    * @return Tasks list formatted as a string.
    */
   @Override
   public String toString() {
-    if (tasks.isEmpty()) {
-      return emptyTaskList;
-    }
-    StringBuilder tasksList = new StringBuilder(taskListPrefix);
-    for (int i = 0; i < getNumTasks(); i++) {
-      String taskNumberPrefix = String.format("%3s-", i + 1);
-      String taskStr = taskNumberPrefix + tasks.get(i).toString() + "\n";
-      tasksList.append(taskStr);
-    }
-    return tasksList.toString();
+    return taskListPrefix + displayList(tasks);
   }
 
   /**
