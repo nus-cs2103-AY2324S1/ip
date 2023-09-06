@@ -1,4 +1,4 @@
-package Dukduk;
+package dukduk;
 
 import java.io.*;
 import java.util.ArrayList;

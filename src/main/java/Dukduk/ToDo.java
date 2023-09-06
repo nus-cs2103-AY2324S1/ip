@@ -1,4 +1,4 @@
-package Dukduk;
+package dukduk;
 
 public class ToDo extends Task {
 
