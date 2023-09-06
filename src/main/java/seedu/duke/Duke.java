@@ -79,6 +79,9 @@ class Duke {
             case EVENT:
                 handleTaskCreation(userInput, tasks, commandType);
                 break;
+            case FIND:
+                handleFind(tasks, userInput);
+                break;
             default:
                 throw new UnknownCommandException();
         }
@@ -98,6 +101,16 @@ class Duke {
             System.out.println((i + 1) + ". " + tasks.get(i));
         }
     }
+    public static void handleFind(TaskList tasks, String filterWord) {
+        System.out.println("Here are the matching in your list:");
+        TaskList filteredTaskList = tasks.findmatching(filterWord.substring(5));
+        for (int i = 0; i < filteredTaskList.size(); i++) {
+            System.out.println((i + 1) + ". " + filteredTaskList.get(i).toString());
+        }
+    }
+
+
+
 
     public static void handleTaskCreation(String userInput, TaskList tasks, CommandType commandType)
             throws EmptyDescriptionException, UnknownCommandException, WrongFormatException {
@@ -162,6 +175,6 @@ class UnknownCommandException extends Exception {
 }
 
 enum CommandType {
-    LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN
+    LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND, UNKNOWN
 }
 
