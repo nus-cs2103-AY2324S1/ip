@@ -3,14 +3,14 @@ public class Task {
     protected boolean isDone;
     private static String LINE = "-----------------------------------------\n";
 
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public static Task parse(String input) {
         if (input.startsWith("todo ")) {
-            return Todo.todoParse(input.substring(5));
+            return Todo.todoParse(input.substring(5), "0");
 
         } else if (input.startsWith("deadline ")) {
             // empty deadline
@@ -28,30 +28,41 @@ public class Task {
     }
 
     public static Task savedParse(String input) {
-        if (input.startsWith("[T]")) {
-            // split using | and read everything including mark
-            return Todo.todoParse(input.substring(7));
+        String[] parts = input.split(" \\| ");
+        System.out.println(parts[0]);
+        System.out.println(parts[1]);
+        System.out.println(parts[2]);
 
-        } else if (input.startsWith("[D]")) {
-            // empty deadline
-            // no by
-            return Deadline.deadlineSavedParse(input.substring(7));
-
-        } else if (input.startsWith("[E]")) {
-            // empty event
-            // no from
-            // no to
-            return Event.eventSavedParse(input.substring(7));
-        } else {
-            return null;
+        switch (parts[0]) {
+            case "T":
+                System.out.println("its todo");
+                return Todo.todoParse(parts[2], parts[1]);
+            case "D":
+                // empty deadline
+                // no by
+                return Deadline.deadlineSavedParse(parts);
+            case "E":
+                // empty event
+                // no from
+                // no to
+                return Event.eventSavedParse(parts);
+            default:
+                return null;
         }
     }
+
     public String getStatus() {
         return (isDone ? "X" : " ");
     }
+
     public void setStatus(boolean bool) {
         isDone = bool;
     }
+
+    public String toSave() {
+        return "";
+    }
+
     public String toString() {
         return "[" + getStatus() + "] " + description;
     }
