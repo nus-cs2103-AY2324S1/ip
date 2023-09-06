@@ -1,4 +1,9 @@
-import java.io.IOException;
+package qi.command;
+
+import qi.qiexception.QiException;
+import qi.storage.Storage;
+import qi.tasklist.TaskList;
+import qi.ui.Ui;
 
 public class ExitCommand extends Command {
     public ExitCommand() {

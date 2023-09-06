@@ -1,5 +1,9 @@
+package qi.parser;
+
+import qi.command.*;
+import qi.qiexception.QiException;
+
 import java.time.LocalDate;
-import java.util.Comparator;
 
 public class Parser {
     public static Command parse(String command) throws QiException {
