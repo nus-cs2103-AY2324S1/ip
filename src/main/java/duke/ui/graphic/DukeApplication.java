@@ -20,6 +20,7 @@ public class DukeApplication extends Application {
             Duke duke = new Duke(false, graphicInterface);
             graphicInterface.setDuke(duke);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

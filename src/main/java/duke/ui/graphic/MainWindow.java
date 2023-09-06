@@ -26,8 +26,6 @@ public class MainWindow extends VBox implements Ui {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
     private Duke duke;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duck.png"));
@@ -42,6 +40,16 @@ public class MainWindow extends VBox implements Ui {
         String data = "Hello from " + name + "\n"
                 + "What can I do for you?";
         this.displayData(data);
+        this.dialogContainer.heightProperty().addListener((observable) -> {
+            this.scrollPane.setVvalue(1.0);
+        });
+        this.dialogContainer.maxWidthProperty().bind(this.scrollPane.widthProperty());
+        this.dialogContainer.minWidthProperty().bind(this.scrollPane.widthProperty());
+        this.scrollPane.getContent().setOnScroll(scrollEvent -> {
+            this.scrollPane.setVvalue((this.scrollPane.getVvalue() * this.dialogContainer.getHeight() -
+                    scrollEvent.getDeltaY()) /
+                    this.dialogContainer.getHeight());
+        });
     }
 
     public void setDuke(Duke duke) {
@@ -58,6 +66,7 @@ public class MainWindow extends VBox implements Ui {
         this.dialogContainer.getChildren().add(
                 DialogBox.getUserDialog(input, userImage)
         );
+        this.userInput.clear();
         try {
             Command command = Parser.parse(input);
             command.execute(this.duke);
@@ -104,7 +113,6 @@ public class MainWindow extends VBox implements Ui {
         this.dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(message, this.dukeImage)
         );
-        this.userInput.clear();
     }
 
     /**
@@ -200,6 +208,5 @@ public class MainWindow extends VBox implements Ui {
         this.dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(data, this.dukeImage)
         );
-        this.userInput.clear();
     };
 }
