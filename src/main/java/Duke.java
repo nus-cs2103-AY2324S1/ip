@@ -1,9 +1,12 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.*;
 
 public class Duke {
+    private static final String FILE_PATH = "src/main/java/task.txt";
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        ArrayList<Task> tasks = loadTasksFromFile();
         String logo = "██╗░░░██╗██████╗░██████╗░░█████╗░██╗\n"
                     + "██║░░░██║██╔══██╗██╔══██╗██╔══██╗██║\n"
                     + "██║░░░██║██████╔╝██████╦╝██║░░██║██║\n"
@@ -14,7 +17,7 @@ public class Duke {
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
 
-        ArrayList<Task> tasks = new ArrayList<>(100);
+        //ArrayList<Task> tasks = new ArrayList<>(100);
 
         while (true) {
             String command = scanner.nextLine();
@@ -36,11 +39,13 @@ public class Duke {
                     tasks.add(new Todo(description));
                     System.out.println("Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1));
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    saveTasksToFile(tasks);
                 } else if (command.startsWith("deadline")) {
                     String description = command.substring(9, command.indexOf("/by")).trim();
                     String by = command.substring(command.indexOf("/by") + 4).trim();
                     tasks.add(new Deadline(description, by));
                     System.out.println("Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1));
+                    saveTasksToFile(tasks);
                 } else if (command.startsWith("event")) {
                     String description = command.substring(6, command.indexOf("/from")).trim();
                     String from = command.substring(command.indexOf("/from") + 6, command.indexOf("/to")).trim();
@@ -48,6 +53,7 @@ public class Duke {
                     tasks.add(new Event(description, from, to));
                     System.out.println("Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1));
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    saveTasksToFile(tasks);
                 } else if (command.startsWith("mark")) {
                     int index = Integer.parseInt(command.split(" ")[1]) - 1;
                     if (index >= 0 && index < tasks.size()) {
@@ -56,6 +62,7 @@ public class Duke {
                     } else {
                         System.out.println("Invalid task index.");
                     }
+                    saveTasksToFile(tasks);
                 } else if (command.startsWith("unmark")) {
                     int index = Integer.parseInt(command.split(" ")[1]) - 1;
                     if (index >= 0 && index < tasks.size()) {
@@ -64,6 +71,7 @@ public class Duke {
                     } else {
                         System.out.println("Invalid task index.");
                     }
+                    saveTasksToFile(tasks);
                 }  else if (command.startsWith("delete")) {
                     int index = Integer.parseInt(command.split(" ")[1]) - 1;
                     if (index >= 0 && index < tasks.size()) {
@@ -73,9 +81,11 @@ public class Duke {
                     } else {
                         System.out.println("Invalid task index.");
                     }
+                    saveTasksToFile(tasks);
                 } else {
                     throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }
+
             }
             catch (DukeException e) {
                 System.out.println("☹ OOPS!!! " + e.getMessage());
@@ -86,6 +96,43 @@ public class Duke {
 
 
         scanner.close();
+    }
+    private static void saveTasksToFile(ArrayList<Task> tasks) {
+        try (FileOutputStream fos = new FileOutputStream(FILE_PATH);
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+
+            oos.writeObject(tasks);
+            System.out.println("Tasks saved to file: " + FILE_PATH);
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    private static ArrayList<Task> loadTasksFromFile() {
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        File file = new File(FILE_PATH);
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile(); // Create a blank file if it doesn't exist
+                System.out.println("Created new data file: " + FILE_PATH);
+            } catch (IOException e) {
+                System.out.println("Error creating data file: " + e.getMessage());
+            }
+        }
+
+        if (file.exists()) {
+            try (FileInputStream fis = new FileInputStream(FILE_PATH);
+                 ObjectInputStream ois = new ObjectInputStream(fis)) {
+
+                tasks = (ArrayList<Task>) ois.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Error loading tasks from file: " + e.getMessage());
+            }
+        }
+
+        return tasks;
     }
 }
 
@@ -115,7 +162,10 @@ class Task {
     }
 }
 
-class Todo extends Task {
+class Todo extends Task implements Serializable{
+    public Todo() {
+        super("");
+    }
     public Todo(String description) {
         super(description);
     }
@@ -126,9 +176,11 @@ class Todo extends Task {
     }
 }
 
-class Deadline extends Task {
+class Deadline extends Task implements Serializable{
     protected String by;
-
+    public Deadline() {
+        super("");
+    }
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
@@ -141,10 +193,12 @@ class Deadline extends Task {
 }
 
 
-class Event extends Task {
+class Event extends Task implements Serializable{
     protected String from;
     protected String to;
-
+    public Event() {
+        super("");
+    }
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;
