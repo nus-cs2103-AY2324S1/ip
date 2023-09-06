@@ -18,6 +18,10 @@ public class Event extends Task {
         super(input.split("/")[0]);
         try {
             setStartEnd(input);
+        } catch (IndexOutOfBoundsException e) {
+            throw new KieraException("     "
+                    + "invalid input! "
+                    + "write your event in the form: (title) /from yyyy-mm-dd 0000 /to 2359)");
         } catch (NullPointerException e) {
             throw new KieraException("     "
                     + "invalid input! "
