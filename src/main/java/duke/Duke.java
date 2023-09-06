@@ -12,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -27,6 +29,8 @@ import javafx.stage.Stage;
 public class Duke extends Application {
 
     private static final String DEFAULT_FILE_PATH = "src/data/duke.txt";
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/Darwin.png"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/Gumball.png"));
     private Storage storage;
     private TaskList items;
     private Ui ui;
@@ -121,33 +125,40 @@ public class Duke extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        // Handle user input
+        // Functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
+            handleUserInput(dialogContainer, userInput);
         });
-
         userInput.setOnAction((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
+            handleUserInput(dialogContainer, userInput);
         });
 
-        //Scroll down to the end every time dialogContainer's height changes.
+        // Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
     /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
      */
-    private Label getDialogLabel(String text) {
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
+    private void handleUserInput(VBox dialogContainer, TextField userInput) {
+        Label userText = new Label(userInput.getText());
+        Label dukeText = new Label(getResponse(userInput.getText()));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+        );
+        userInput.clear();
     }
+
+    /**
+     * Returns Duke's response given the input.
+     */
+    private String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
+
+
 
     /**
      * The main method that starts the Duke application.
