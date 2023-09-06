@@ -1,6 +1,6 @@
-package duke.task;
+package ratspeak.task;
 
-import duke.exception.DukeException;
+import ratspeak.exception.DukeException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +13,6 @@ import java.time.format.DateTimeParseException;
 public class Event extends Task {
     private final LocalDate deadlineDate;
     private final LocalDate startDate;
-
 
 
     private static String[] parseEvent(String task) throws DukeException {

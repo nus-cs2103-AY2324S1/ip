@@ -1,10 +1,10 @@
-package duke.storage;
+package ratspeak.storage;
 
-import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import ratspeak.exception.DukeException;
+import ratspeak.task.Deadline;
+import ratspeak.task.Event;
+import ratspeak.task.Task;
+import ratspeak.task.Todo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -84,8 +84,6 @@ public class Storage {
                         }
                         tasks.add(task);
                     }
-
-
                 }
                 sc.close();
 

@@ -1,7 +1,6 @@
-package duke;
+package ratspeak;
 
-
-import duke.parser.CommandProcessor;
+import ratspeak.parser.CommandProcessor;
 
 public class Duke {
 
@@ -9,16 +8,11 @@ public class Duke {
     private final Ui ui;
     private final InputReceiver inputReceiver;
 
-
-
-
     public Duke() {
         commandProcessor = new CommandProcessor();
         ui = new Ui();
         inputReceiver = new InputReceiver();
     }
-
-
 
     public void run() {
         ui.greeting();
@@ -32,24 +26,16 @@ public class Duke {
                 ui.message("Bye!!! Hope to see you again!\n");
                 break;
             }
-
             // process the command
             ui.message(commandProcessor.processCommand(command));
-
-
         }
 
         inputReceiver.closeParser();
     }
 
-
     public static void main(String[] args) {
         new Duke().run();
     }
-
-
-
-
 
     public String getResponse(String command) {
         return commandProcessor.processCommand(command);

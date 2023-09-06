@@ -1,6 +1,5 @@
-package duke.gui;
-import duke.Duke;
-import duke.gui.DialogBox;
+package ratspeak.gui;
+import ratspeak.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

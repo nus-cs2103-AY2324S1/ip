@@ -1,4 +1,4 @@
-package duke.gui;
+package ratspeak.gui;
 import javafx.application.Application;
 
 /**

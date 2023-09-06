@@ -1,4 +1,4 @@
-package duke.gui;
+package ratspeak.gui;
 
 import java.io.IOException;
 import java.util.Collections;

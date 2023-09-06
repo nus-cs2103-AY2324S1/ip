@@ -1,12 +1,12 @@
-package duke.parser;
+package ratspeak.parser;
 
-import duke.exception.DukeException;
-import duke.data.TaskList;
-import duke.storage.Storage;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import ratspeak.exception.DukeException;
+import ratspeak.data.TaskList;
+import ratspeak.storage.Storage;
+import ratspeak.task.Deadline;
+import ratspeak.task.Event;
+import ratspeak.task.Task;
+import ratspeak.task.Todo;
 
 import java.util.Arrays;
 

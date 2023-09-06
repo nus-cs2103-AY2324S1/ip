@@ -1,8 +1,8 @@
-package duke.gui;
+package ratspeak.gui;
 
 import java.io.IOException;
 
-import duke.Duke;
+import ratspeak.Duke;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

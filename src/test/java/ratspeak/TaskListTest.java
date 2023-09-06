@@ -1,9 +1,9 @@
-package duke;
+package ratspeak;
 
-import duke.data.TaskList;
-import duke.exception.DukeException;
-import duke.task.Task;
-import duke.task.Todo;
+import ratspeak.data.TaskList;
+import ratspeak.exception.DukeException;
+import ratspeak.task.Task;
+import ratspeak.task.Todo;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;

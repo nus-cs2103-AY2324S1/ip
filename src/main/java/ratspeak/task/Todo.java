@@ -1,7 +1,7 @@
-package duke.task;
+package ratspeak.task;
 
 
-import duke.exception.DukeException;
+import ratspeak.exception.DukeException;
 
 /**
  * Represents a todo task.
@@ -10,9 +10,8 @@ public class Todo extends Task {
     private static String parseTodo(String task) throws DukeException {
         String todoTask = task.trim();
         if (todoTask.isEmpty()) {
-            throw new DukeException("Please enter valid deadline: Do not leave it empty");
+            throw new DukeException("Please enter valid todo: Do not leave it empty");
         }
-
         return todoTask;
     }
 

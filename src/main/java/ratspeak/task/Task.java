@@ -1,4 +1,4 @@
-package duke.task;
+package ratspeak.task;
 
 public abstract class Task {
     private final String task;

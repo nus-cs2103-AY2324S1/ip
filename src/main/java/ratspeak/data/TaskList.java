@@ -1,14 +1,14 @@
-package duke.data;
+package ratspeak.data;
 
-import duke.exception.DukeException;
-import duke.storage.Storage;
-import duke.task.Task;
+import ratspeak.exception.DukeException;
+import ratspeak.storage.Storage;
+import ratspeak.task.Task;
 
 import java.util.ArrayList;
 
 /**
- * Represents a task list that stores  a list of tasks
- * Performs add, delete, mark, unmark
+ * represents a task list that stores  a list of tasks
+ * performs add, delete, mark, unmark
  */
 public class TaskList {
     private ArrayList<Task> tasklist;

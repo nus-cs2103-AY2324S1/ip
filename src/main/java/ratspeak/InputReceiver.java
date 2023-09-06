@@ -1,4 +1,4 @@
-package duke;
+package ratspeak;
 
 import java.util.Scanner;
 public class InputReceiver {

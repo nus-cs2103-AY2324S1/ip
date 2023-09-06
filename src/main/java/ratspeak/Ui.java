@@ -1,4 +1,4 @@
-package duke;
+package ratspeak;
 
 public class Ui {
     private static final String ANSWER_BORDER = "=========================================";
@@ -27,7 +27,6 @@ public class Ui {
         System.out.println(ANSWER_BORDER);
         System.out.print(commandMessage);
         System.out.println(ANSWER_BORDER);
-
     }
 
 }
