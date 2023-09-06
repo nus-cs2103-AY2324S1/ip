@@ -1,3 +1,12 @@
+package dude;
+
+import dude.exception.InvalidTaskDataException;
+import dude.exception.SaveFileException;
+import dude.task.DeadlineTask;
+import dude.task.EventTask;
+import dude.task.Task;
+import dude.task.ToDoTask;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -45,9 +54,9 @@ public class Storage {
   }
 
   /**
-   * Reads save file contents and returns TaskList.
+   * Reads save file contents and returns dude.task.TaskList.
    *
-   * @return TaskList instance.
+   * @return dude.task.TaskList instance.
    * @throws SaveFileException        if there is an error reading the file
    * @throws InvalidTaskDataException if the text data format is invalid
    */
@@ -85,7 +94,7 @@ public class Storage {
   /**
    * Saves given list of tasks to save file.
    *
-   * @param tasks ArrayList of Task instances.
+   * @param tasks ArrayList of dude.task.Task instances.
    * @throws SaveFileException If there is an error saving the file.
    */
   public void save(ArrayList<Task> tasks) throws SaveFileException {

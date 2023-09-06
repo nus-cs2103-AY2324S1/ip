@@ -1,3 +1,9 @@
+package dude.command;
+
+import dude.Storage;
+import dude.Ui;
+import dude.task.TaskList;
+
 /**
  * Command to exit Dude.
  */

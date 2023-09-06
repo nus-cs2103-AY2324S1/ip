@@ -1,3 +1,7 @@
+package dude.task;
+
+import dude.exception.InvalidTaskDataException;
+
 public class Task {
   protected boolean isDone;
   protected String description;

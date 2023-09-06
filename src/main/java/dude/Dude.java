@@ -1,3 +1,9 @@
+package dude;
+
+import dude.command.DudeCommand;
+import dude.exception.DudeException;
+import dude.task.TaskList;
+
 /**
  * Dude (Duke, but renamed)
  */

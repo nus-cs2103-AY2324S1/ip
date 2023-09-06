@@ -1,3 +1,7 @@
+package dude.task;
+
+import dude.exception.InvalidTaskIndexException;
+
 import java.util.ArrayList;
 
 /**
@@ -104,4 +108,3 @@ public class TaskList {
     return tasks;
   }
 }
-

@@ -1,3 +1,5 @@
+package dude.exception;
+
 public class InvalidCommandException extends DudeException {
   public InvalidCommandException() {
     super(

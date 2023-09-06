@@ -1,3 +1,5 @@
+package dude.exception;
+
 public class InvalidTaskDataException extends DudeException {
   public InvalidTaskDataException() {
     super(

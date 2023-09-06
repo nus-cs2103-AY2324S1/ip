@@ -1,3 +1,10 @@
+package dude.command;
+
+import dude.Storage;
+import dude.Ui;
+import dude.exception.DudeException;
+import dude.task.TaskList;
+
 /**
  * Handles command actions.
  */
