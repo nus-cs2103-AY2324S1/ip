@@ -19,22 +19,16 @@ public class UI {
     /**
      * Displays the greeting at the start of the program.
      */
-    public void displayGreeting() {
-        String logo = "                ;~~,__,\n" + ":-….,———-‘`----/   ._.*\n" + " `-,,,   BRUNO   ,’\n"
-                + "     ;   ,~.——;  /\n" + "     :  |     :  |\n" + "     `_ ’     `_ ‘";
-        System.out.println(logo);
+    public String displayGreeting() {
         String name = "Bruno";
-        System.out.println("Woof Woof! I'm " + name + " 🐾");
-        System.out.println("How can I help you?");
-        System.out.println("[Please not that date/time must be in \"yyyy-MM-dd HH:mm\" format]");
+        return "Woof Woof! I'm " + name + " 🐾" + "\nHow can I help you?";
     }
 
     /**
      * Displays the "bye" message when the command "bye" is entered.
      */
-    public void displayBye() {
-        System.out.print("\t");
-        System.out.println("Bye Bye! Hope to see you again soon! 🐶");
+    public String displayBye() {
+        return "Bye Bye! Hope to see you again soon! 🐶";
     }
 
     /**
