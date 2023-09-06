@@ -1,16 +1,20 @@
 package duke.task;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import duke.InvalidCommandException;
 import duke.InvalidTaskCreationException;
-
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 /**
  * The `Task` class represents a task in the Duke application. It serves as the base class for different types of tasks.
  */
 public class Task {
+    // Date and Time formats
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
+    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+    public static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("HH:mm, dd MMMM yyyy");
     protected String description;
     protected boolean isDone;
 
@@ -23,12 +27,6 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
-
-    // Date and Time formats
-    public static final String dateFormat = "yyyy-MM-dd";
-    public static final String dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
-    public static final DateTimeFormatter DTformatter = DateTimeFormatter.ofPattern(dateTimeFormat);
-    public static final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm, dd MMMM yyyy");
 
     /**
      * Parses user input and creates a specific type of task (Todo, Deadline, or Event).
@@ -43,14 +41,14 @@ public class Task {
     public static Task taskCon(String userInput) throws InvalidCommandException, InvalidTaskCreationException,
             DateTimeParseException {
         if (userInput.startsWith("todo")) {
-            return ToDo.ToDoCon(userInput.substring(5));
+            return ToDo.toDoCon(userInput.substring(5));
         } else if (userInput.startsWith("deadline")) {
 
             String[] splitInput = userInput.split("/by");
             String taskDescription = splitInput[0].substring(9).trim();
             String deadline = splitInput[1].trim();
 
-            return Deadline.DeadlineCon(taskDescription, deadline);
+            return Deadline.deadlineCon(taskDescription, deadline);
 
         } else if (userInput.startsWith("event")) {
 
@@ -60,7 +58,7 @@ public class Task {
             String eventStartTime = eventDetails[0].trim();
             String eventEndTime = eventDetails[1].trim();
 
-            return Event.EventCon(taskDescription, eventStartTime, eventEndTime);
+            return Event.eventCon(taskDescription, eventStartTime, eventEndTime);
         } else {
             throw new InvalidCommandException("Invalid command to add task!");
         }
@@ -74,7 +72,6 @@ public class Task {
     public LocalDateTime getUrgencyDate() {
         return LocalDateTime.now();
     }
-    
     public String getDescription() {
         return this.description;
     }

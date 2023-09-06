@@ -1,9 +1,9 @@
 package duke.task;
 
-import duke.InvalidTaskCreationException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import duke.InvalidTaskCreationException;
 
 /**
  * The `Event` class represents a task with a specific event time range in the Duke application.
@@ -21,7 +21,7 @@ public class Event extends Task {
      * @param from        The start time of the event as a LocalDateTime object.
      * @param to          The end time of the event as a LocalDateTime object.
      */
-    public Event (String description, LocalDateTime from, LocalDateTime to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -37,7 +37,7 @@ public class Event extends Task {
      * @throws InvalidTaskCreationException if the description, start time, or end time is empty.
      * @throws DateTimeParseException       if there is an issue parsing the start or end time strings to LocalDateTime.
      */
-    public static Event EventCon(String description, String from, String to) throws InvalidTaskCreationException,
+    public static Event eventCon(String description, String from, String to) throws InvalidTaskCreationException,
             DateTimeParseException {
         if (description.equalsIgnoreCase("")) {
             throw new InvalidTaskCreationException("OOPS!!! The description of a Event Task cannot be empty.");
@@ -47,8 +47,8 @@ public class Event extends Task {
             throw new InvalidTaskCreationException("OOPS!!! The to time of a Event Task cannot be empty.");
         } else {
 
-            LocalDateTime eventStartTimeDate = LocalDateTime.parse(from, Task.DTformatter);
-            LocalDateTime eventEndTimeDate = LocalDateTime.parse(to, Task.DTformatter);
+            LocalDateTime eventStartTimeDate = LocalDateTime.parse(from, Task.DATE_TIME_FORMATTER);
+            LocalDateTime eventEndTimeDate = LocalDateTime.parse(to, Task.DATE_TIME_FORMATTER);
             return new Event(description, eventStartTimeDate, eventEndTimeDate);
         }
     }
@@ -69,8 +69,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String formattedDateFrom = this.from.format(Task.outputFormatter);
-        String formattedDateTo = this.to.format(Task.outputFormatter);
+        String formattedDateFrom = this.from.format(Task.OUTPUT_FORMATTER);
+        String formattedDateTo = this.to.format(Task.OUTPUT_FORMATTER);
         return "[E]" + super.toString() + " (from: " + formattedDateFrom + " to: " + formattedDateTo + ")";
     }
 }

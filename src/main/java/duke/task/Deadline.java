@@ -1,9 +1,9 @@
 package duke.task;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 import duke.InvalidTaskCreationException;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 /**
  * The `Deadline` class represents a task with a specific deadline in the Duke application.
@@ -33,14 +33,14 @@ public class Deadline extends Task {
      * @throws InvalidTaskCreationException if the description or deadline is empty.
      * @throws DateTimeParseException       if there is an issue parsing the deadline string to LocalDateTime.
      */
-    public static Deadline DeadlineCon(String description, String by) throws InvalidTaskCreationException,
+    public static Deadline deadlineCon(String description, String by) throws InvalidTaskCreationException,
             DateTimeParseException {
         if (description.equalsIgnoreCase("")) {
             throw new InvalidTaskCreationException("OOPS!!! The description of a Deadline Task cannot be empty.");
         } else if (by.equalsIgnoreCase("")) {
             throw new InvalidTaskCreationException("OOPS!!! The deadline time of a Deadline Task cannot be empty.");
         } else {
-            LocalDateTime deadlineDate = LocalDateTime.parse(by, Task.DTformatter);
+            LocalDateTime deadlineDate = LocalDateTime.parse(by, Task.DATE_TIME_FORMATTER);
             return new Deadline(description, deadlineDate);
         }
     }
@@ -63,7 +63,7 @@ public class Deadline extends Task {
     public String toString() {
 
         // Format the LocalDateTime object to a string
-        String formattedDate = this.by.format(Task.outputFormatter);
+        String formattedDate = this.by.format(Task.OUTPUT_FORMATTER);
         return "[D]" + super.toString() + " (by: " + formattedDate + ")";
     }
 }

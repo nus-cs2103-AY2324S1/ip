@@ -1,7 +1,8 @@
 package duke;
 
 /**
- * The `InvalidTaskNumberException` class is a custom exception that is thrown when an invalid task number is encountered in the Duke application.
+ * The `InvalidTaskNumberException` class is a custom exception that is thrown when an
+ * invalid task number is encountered in the Duke application.
  * This exception is used to handle cases where an invalid task number is provided as input.
  */
 public class InvalidTaskNumberException extends Exception {

@@ -1,11 +1,8 @@
 package duke;
 
-import duke.task.Task;
-
-import java.text.ParseException;
-
 /**
- * The `Parser` class is responsible for parsing user input and extracting relevant information for processing in the Duke application.
+ * The `Parser` class is responsible for parsing user input and extracting relevant information
+ * for processing in the Duke application.
  */
 public class Parser {
 
@@ -87,6 +84,14 @@ public class Parser {
         return taskNo;
     }
 
+    /**
+     * Parses a user input string to search for a specific task.
+     *
+     * @param userInput The user's input command.
+     * @param list      The task list to validate the task number against.
+     * @return The query string to search for.a
+     * @throws ParserException if parsing or validation fails.
+     */
     public String parseFind(String userInput, TaskList list) throws ParserException {
         String queryString;
         try {

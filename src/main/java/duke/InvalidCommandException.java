@@ -1,7 +1,8 @@
 package duke;
 
 /**
- * The `InvalidCommandException` class is a custom exception that is thrown when an invalid command is encountered in the Duke application.
+ * The `InvalidCommandException` class is a custom exception that is thrown when an invalid command
+ * is encountered in the Duke application.
  * This exception is used to handle cases where the user provides an unrecognized command.
  */
 public class InvalidCommandException extends Exception {

@@ -1,10 +1,10 @@
 package duke;
-
-import duke.task.Task;
-
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+
+import duke.task.Task;
+
 
 /**
  * The `TaskList` class manages a list of tasks in the Duke application.
@@ -76,7 +76,7 @@ public class TaskList {
     public String toString() {
         String botOutput = "";
         for (int i = 1; i <= this.taskArrayList.size(); i++) {
-            botOutput = botOutput + i + "." + " " + this.taskArrayList.get(i-1) + "\n    ";
+            botOutput = botOutput + i + "." + " " + this.taskArrayList.get(i - 1) + "\n    ";
         }
         return botOutput;
     }
@@ -119,6 +119,12 @@ public class TaskList {
         return listMonth;
     }
 
+    /**
+     * Searches for relevant or matching tasks within the tasklist.
+     *
+     * @param queryString The user's input query string.
+     * @return The TaskList of matching tasks.
+     */
     public TaskList searchMatches(String queryString) {
         TaskList listSearches = new TaskList();
         for (Task t: this.taskArrayList) {

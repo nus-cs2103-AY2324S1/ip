@@ -1,7 +1,8 @@
 package duke;
 
 /**
- * The `ParserException` class is a custom exception that is thrown when an error occurs during parsing user input in the Duke application.
+ * The `ParserException` class is a custom exception that is thrown when an error occurs during parsing
+ * user input in the Duke application.
  * This exception is used to handle parsing-related errors.
  */
 public class ParserException extends Exception {
