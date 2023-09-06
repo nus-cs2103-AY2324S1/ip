@@ -2,6 +2,10 @@ package duke;
 
 import java.time.LocalDate;
 
+/**
+ * An Abstraction that represents the task object.
+ * Inherit this class to create different kinds of task
+ */
 public abstract class Task {
 
     protected final String task;
