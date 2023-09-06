@@ -1,5 +1,6 @@
 package bouncybob;
 
+import javafx.collections.ObservableList;
 import jdk.jfr.Event;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -13,17 +14,21 @@ import bouncybob.util.TaskFileHandler;
 import bouncybob.util.Parser;
 import bouncybob.util.Ui;
 
+import bouncybob.gui.TaskCell;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.ComboBox;
+
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 
 import javafx.geometry.Insets;
 import javafx.stage.Stage;
@@ -34,60 +39,57 @@ import javafx.stage.Stage;
 public class BouncyBob extends Application {
     private TaskList taskList = new TaskList();
 
+    /**
+     * Starts the BouncyBob application.
+     *
+     * @param stage The stage to be used for the application.
+     */
     @Override
     public void start(Stage stage) {
         Label titleLabel = new Label("BouncyBob's List");
-        ListView<Task> taskListView = new ListView<>();
+        ListView<Task> taskListView = initializeTaskListView();
 
-        // Load tasks from disk
+        HBox inputBox = createTaskInputBox(taskListView);
+
+        VBox rootLayout = new VBox(20, titleLabel, taskListView, inputBox);
+        rootLayout.setPadding(new Insets(20));
+
+        Scene scene = new Scene(rootLayout, 800, 800);
+        stage.setTitle("BouncyBob To-Do List Manager");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /**
+     * Initializes the list view that displays the tasks.
+     *
+     * @return The list view.
+     */
+    private ListView<Task> initializeTaskListView() {
+        ListView<Task> taskListView = new ListView<>();
         TaskFileHandler.loadTasksFromDisk(taskList);
         taskListView.getItems().addAll(taskList.getTasks());
+        taskListView.setCellFactory(task -> new TaskCell());
+        return taskListView;
+    }
 
-        taskListView.setCellFactory(task -> new ListCell<Task>() {
-            @Override
-            protected void updateItem(Task item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setGraphic(null);
-                } else {
-                    Button markDoneButton = new Button("Toggle status");
-                    markDoneButton.setOnAction(e -> {
-                        item.toggleDone();
-                        updateItem(item, false); // Refresh the cell
-                    });
-
-                    Label statusLabel = new Label();
-                    if (item.isDone()) {
-                        statusLabel.setText("[Done] " + statusLabel.getText());
-                    } else {
-                        statusLabel.setText("[Not Done] " + statusLabel.getText());
-                    }
-
-                    Label taskLabel = new Label(item.getDescription());
-                    HBox.setHgrow(taskLabel, Priority.ALWAYS);
-
-                    Region spacerLeft = new Region();
-                    HBox.setHgrow(spacerLeft, Priority.ALWAYS);
-                    Region spacerRight = new Region();
-                    HBox.setHgrow(spacerRight, Priority.ALWAYS);
-
-
-                    HBox hbox = new HBox(10, statusLabel, spacerLeft, taskLabel, spacerRight, markDoneButton);
-                    setGraphic(hbox);
-                }
-            }
-
-        });
-
+    /**
+     * Creates the input box for users to add tasks.
+     *
+     * @param taskListView The list view that displays the tasks.
+     * @return The input box.
+     */
+    private HBox createTaskInputBox(ListView<Task> taskListView) {
+        ComboBox<TaskType> taskTypeComboBox = new ComboBox<>();
+        taskTypeComboBox.getItems().addAll(TaskType.TODO, TaskType.DEADLINE, TaskType.EVENT);
+        taskTypeComboBox.setValue(TaskType.TODO);
 
         TextField taskInputField = new TextField();
         taskInputField.setPromptText("Enter a task...");
 
-        // Add button for adding tasks
         Button addButton = new Button("Add");
         addButton.setOnAction(e -> {
-            String userInput = taskInputField.getText().trim();
+            String userInput = taskTypeComboBox.getValue().toString().toLowerCase() + " " + taskInputField.getText().trim();
             if (!userInput.isEmpty()) {
                 String[] parts = userInput.split(" ");
 
@@ -95,8 +97,10 @@ public class BouncyBob extends Application {
                     Task newTask = createTask(parts);
                     taskListView.getItems().add(newTask);
                     taskInputField.clear();
+                    ObservableList<Task> tasksFromListView = taskListView.getItems();
+                    TaskFileHandler.saveTasksToDisk(tasksFromListView);
                 } catch (IllegalArgumentException ex) {
-                    // Handle invalid inputs (e.g., show a dialog to the user).
+                    showErrorDialog("Error", "Invalid Input", ex.getMessage());
                 }
             }
         });
@@ -107,21 +111,27 @@ public class BouncyBob extends Application {
             if (selectedItem != null) {
                 taskListView.getItems().remove(selectedItem);
             }
+            ObservableList<Task> tasksFromListView = taskListView.getItems();
+            TaskFileHandler.saveTasksToDisk(tasksFromListView);
         });
 
-        // Horizontal box for TextField and Buttons
-        HBox inputBox = new HBox(10, taskInputField, addButton, deleteButton);
-
-        // Vertical box for entire layout
-        VBox rootLayout = new VBox(20, titleLabel, taskListView, inputBox);
-        rootLayout.setPadding(new Insets(20));
-
-        Scene scene = new Scene(rootLayout, 800, 800);
-        stage.setTitle("BouncyBob To-Do List Manager");
-        stage.setScene(scene);
-        stage.show();
+        return new HBox(10, taskTypeComboBox, taskInputField, addButton, deleteButton);
     }
 
+    /**
+     * Displays an error dialog with the given title, header, and content.
+     *
+     * @param title   The title of the dialog.
+     * @param header  The header of the dialog.
+     * @param content The content of the dialog.
+     */
+    private void showErrorDialog(String title, String header, String content) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
     /**
      * Enum representing the types of tasks.
      */
@@ -257,7 +267,6 @@ public class BouncyBob extends Application {
                 break;
         }
     }
-
 
     /**
      * The main method for the BouncyBob application.
