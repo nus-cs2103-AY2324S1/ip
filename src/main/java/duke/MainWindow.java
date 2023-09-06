@@ -36,6 +36,9 @@ public class MainWindow {
         duke = d;
     }
 
+    /**
+     * Adds the welcome message to screen.
+     */
     public void addWelcomeMessage() {
         Label welcomeLabel = new Label(duke.getWelcomeMessage());
         dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(welcomeLabel, new ImageView(dukeImage)));
