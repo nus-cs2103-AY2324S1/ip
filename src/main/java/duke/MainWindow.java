@@ -1,6 +1,8 @@
 package duke;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.concurrent.Task;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -41,6 +43,17 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        if (input.equals("bye")) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog(duke.bye(), dukeImage)
+            );
+            userInput.clear();
+            duke.saveData();
+            delay(2000, Platform::exit);
+            return;
+        }
+
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
@@ -48,4 +61,20 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
     }
+
+    //@@author HEEaZ-reused
+    // Reused from https://stackoverflow.com/questions/26454149
+    public static void delay(long millis, Runnable continuation) {
+        Task<Void> sleeper = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try { Thread.sleep(millis); }
+                catch (InterruptedException e) { }
+                return null;
+            }
+        };
+        sleeper.setOnSucceeded(event -> continuation.run());
+        new Thread(sleeper).start();
+    }
+    //@@author
 }

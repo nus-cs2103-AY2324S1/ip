@@ -1,5 +1,7 @@
 package duke;
 
+import javafx.application.Platform;
+
 public class Duke {
     private static final String SAVED_TASKS_FILEPATH = "./data/savedTasks.txt";
 
@@ -49,6 +51,10 @@ public class Duke {
         }
 
         bye();
+        saveData();
+    }
+
+    public void saveData() {
         try {
             storage.save(tasks.toSaveString());
             ui.displayMessage("Tasks successfully saved");
@@ -67,32 +73,32 @@ public class Duke {
     private String executeCommand(String command) {
         try {
             switch(command.split(" ")[0]) {
-                case "list":
-                    return ui.displayMessage(tasks.list());
-                case "mark":
-                    return ui.displayMessage("Nice! I've marked this task as done: \n" + tasks.markAsDone(command));
-                case "unmark":
-                    return ui.displayMessage("OK, I've marked this task as not done yet: \n" + tasks.markAsUndone(command));
-                case "delete":
-                    return ui.displayMessage("Noted. I've removed this task: \n" + tasks.delete(command));
-                case "todo":
-                    // Fallthrough
-                case "deadline":
-                    // Fallthrough
-                case "event":
-                    return ui.displayMessage("added : " + tasks.add(command));
-                case "find":
-                    return ui.displayMessage(tasks.find(command));
-                default:
-                    throw new LukeException("I'm sorry, but I don't know what that means :-(");
+            case "list":
+                return ui.displayMessage(tasks.list());
+            case "mark":
+                return ui.displayMessage("Nice! I've marked this task as done: \n" + tasks.markAsDone(command));
+            case "unmark":
+                return ui.displayMessage("OK, I've marked this task as not done yet: \n" + tasks.markAsUndone(command));
+            case "delete":
+                return ui.displayMessage("Noted. I've removed this task: \n" + tasks.delete(command));
+            case "todo":
+                // Fallthrough
+            case "deadline":
+                // Fallthrough
+            case "event":
+                return ui.displayMessage("added : " + tasks.add(command));
+            case "find":
+                return ui.displayMessage(tasks.find(command));
+            default:
+                throw new LukeException("I'm sorry, but I don't know what that means :-(");
             }
         } catch (LukeException e) {
             return ui.displayError(e.getMessage());
         }
     }
 
-    private void bye() {
-        ui.displayMessage("Bye. Hope to see you again soon!");
+    public String bye() {
+        return ui.displayMessage("Bye. Hope to see you again soon!");
     }
 
     private void greet() {
