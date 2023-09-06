@@ -5,8 +5,17 @@ import ipbot.model.Pair;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A class to parse user input.
+ */
 public class Parser {
-
+    /**
+     * Processes the index argument given by the user as a String.
+     *
+     * @param indexArg The index argument given by the user as a String.
+     * @param lstSize The size of the list to index.
+     * @return The task index to use if the index argument given is valid. -1 otherwise.
+     */
     public static int checkIndexArg(String indexArg, int lstSize){
         if (!indexArg.matches("^\\d+$")) {
             return -1;
@@ -18,6 +27,13 @@ public class Parser {
         return index;
     }
 
+    /**
+     * Parses the command given by the user and extracts the command as a String and the arguments as a Map.
+     *
+     * @param command The command given by the user.
+     * @return A Pair of String and Map.
+     * The String is the command String, while the Map contains the arguments given by the user.
+     */
     public static Pair<String, Map<String, String>> parseCommand(String command) {
         int commandEndIndex = command.indexOf(" ");
         if (commandEndIndex == -1) {

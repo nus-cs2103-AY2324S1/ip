@@ -1,5 +1,11 @@
 package ipbot.model;
 
+/**
+ * Defines a pair object for returning multiple values from functions.
+ *
+ * @param <S> The type of the first pair object.
+ * @param <T> The type of the second pair object.
+ */
 public class Pair <S, T> {
     private S first;
     private T second;

@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents the general structure of a task to be added to the list.
+ */
 public class Task implements Serializable {
     public static final DateTimeFormatter INPUT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(
             "uuuu-MM-dd HHmm");
@@ -12,15 +15,30 @@ public class Task implements Serializable {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Defines a task with a description and marks it as unmarked.
+     *
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Returns a String to represent whether the task has been marked.
+     *
+     * @return "X" if task has been marked. " " otherwise.
+     */
     private String getStatusIcon() {
         return (this.isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Marks this task as done.
+     *
+     * @return True if task was not marked before. False otherwise.
+     */
     public boolean markDone() {
         if(this.isDone){
             return false;
@@ -29,6 +47,11 @@ public class Task implements Serializable {
         return true;
     }
 
+    /**
+     * Marks this task as undone.
+     *
+     * @return True if task was not unmarked before. False otherwise.
+     */
     public boolean unmarkDone() {
         if(!this.isDone){
             return false;
@@ -37,6 +60,14 @@ public class Task implements Serializable {
         return true;
     }
 
+    /**
+     * Creates a task from its String representation in CSV format.
+     *
+     * @param string The String representation in CSV format.
+     * @return The corresponding created Task object.
+     * @throws TaskFormatException
+     * @throws DateTimeParseException
+     */
     public static Task fromString(String string) throws TaskFormatException, DateTimeParseException {
         String[] args = string.split(",");
         if (args.length < 2) {
@@ -85,6 +116,11 @@ public class Task implements Serializable {
         return retTask;
     }
 
+    /**
+     * Returns the CSV representation of the task object.
+     *
+     * @return The CSV representation of the task object.
+     */
     public String toCommaString() {
         throw new UnsupportedOperationException();
     }
