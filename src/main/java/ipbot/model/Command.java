@@ -1,5 +1,8 @@
 package ipbot.model;
 
+/**
+ * Represents a command available in ipbot.
+ */
 public enum Command {
     BYE ("bye"),
     LIST ("list"),
@@ -18,6 +21,12 @@ public enum Command {
         this.command = command;
     }
 
+    /**
+     * Returns the corresponding command based on the command String.
+     *
+     * @param command The String version of the command.
+     * @return The corresponding command if it exists. Otherwise, return null.
+     */
     public static Command commandEnum(String command) {
         for(Command currCmd: values()){
             if(currCmd.command.equals(command)){

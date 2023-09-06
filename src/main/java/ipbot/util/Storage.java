@@ -12,15 +12,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A class to read and write from the task file storage.
+ */
 public class Storage {
 
     private String saveFile;
 
+    /**
+     * Defines a Storage object with the save file path where the tasks are stored.
+     *
+     * @param saveFile The save file path where the tasks are stored.
+     */
     public Storage(String saveFile) {
         this.saveFile = saveFile;
         this.createFileIfNotExists();
     }
 
+    /**
+     * Creates the save file to store tasks if it does not exist.
+     */
     public void createFileIfNotExists() {
         File saveFile = new File(this.saveFile);
         if (!saveFile.exists()) {
@@ -35,6 +46,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the tasks from the tasks save file.
+     *
+     * @return A TaskList containing all the Task in the save file.
+     * @throws TaskFormatException
+     * @throws DateTimeParseException
+     */
     public TaskList readTasksFromFile() throws TaskFormatException, DateTimeParseException {
         TaskList taskList = new TaskList();
         try {
@@ -53,6 +71,11 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Writes the tasks to the tasks save file.
+     *
+     * @param taskList The TaskList object that contains the tasks to write.
+     */
     public void writeTasksToFile(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(this.saveFile);

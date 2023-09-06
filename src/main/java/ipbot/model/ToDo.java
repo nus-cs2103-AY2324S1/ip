@@ -1,6 +1,14 @@
 package ipbot.model;
 
+/**
+ * Represents a todo, with a description.
+ */
 public class ToDo extends Task {
+    /**
+     * Defines a ToDo object with the given description.
+     *
+     * @param description The description of the todo.
+     */
     public ToDo(String description){
         super(description);
     }
