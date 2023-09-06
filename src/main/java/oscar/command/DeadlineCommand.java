@@ -28,12 +28,13 @@ public class DeadlineCommand extends Command {
     /**
      * Creates a new deadline task and save it to the task list.
      *
-     * @param tasks ArrayList of tasks.
+     * @param tasks   ArrayList of tasks.
      * @param storage File loading and saving handler.
+     * @return String output of deadline task.
      * @throws OscarException Incorrect format of deadline command.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) throws OscarException {
+    public String execute(TaskList tasks, Storage storage) throws OscarException {
         String[] validatedDetails = validate();
         String description = validatedDetails[0];
         String deadline = validatedDetails[1];
@@ -41,8 +42,7 @@ public class DeadlineCommand extends Command {
         Task newDeadline = new Deadline(description, deadlineDateTime);
         tasks.add(newDeadline);
         storage.save(tasks);
-        System.out.println("Oscar has added:\n" + newDeadline + "\n");
-        tasks.listCount();
+        return "Oscar has added:\n" + newDeadline + "\n\n" + tasks.listCount();
     }
 
     /**

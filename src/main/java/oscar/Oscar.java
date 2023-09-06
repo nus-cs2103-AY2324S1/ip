@@ -1,12 +1,9 @@
 package oscar;
 
-import java.util.Scanner;
-
 import oscar.command.Command;
 import oscar.essential.Parser;
 import oscar.essential.Storage;
 import oscar.essential.TaskList;
-import oscar.essential.Ui;
 import oscar.exception.OscarException;
 
 /**
@@ -17,7 +14,6 @@ public class Oscar {
 
     private final Storage storage;
     private TaskList tasks;
-    private final Ui ui;
 
     /**
      * Instantiates Oscar with saved data.
@@ -25,44 +21,36 @@ public class Oscar {
      * @param filePath Location of saved task list.
      */
     public Oscar(String filePath) {
-        ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
         } catch (OscarException e) {
-            ui.showError(e);
             tasks = new TaskList();
         }
     }
 
     /**
-     * Runs Oscar and allows for user input.
+     * Obtains the response of Oscar based on the given user input.
+     *
+     * @param input Typed user input
+     * @return Response to command of user.
      */
-    public void run() {
-        Scanner scanner = new Scanner(System.in);
-        boolean isExit = false;
-        ui.greet();
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, storage);
-                isExit = c.isExit();
-            } catch (OscarException e) {
-                ui.showError(e);
-            } finally {
-                ui.showLine();
-            }
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, storage);
+        } catch (OscarException e) {
+            return e.getMessage();
         }
-        scanner.close();
     }
 
     /**
-     * Programme flow to run Oscar.
-     * @param args Arguments for main method.
+     * Greets user upon initialisation.
+     *
+     * @return Greeting message.
      */
-    public static void main(String[] args) {
-        new Oscar(FILE_PATH).run();
+    public String greet() {
+        return "Hello! This is Oscar, your friendly chatbot :)\n"
+                + "What can Oscar do for you?\n";
     }
 }

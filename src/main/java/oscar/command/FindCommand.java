@@ -25,12 +25,13 @@ public class FindCommand extends Command {
      *
      * @param tasks   ArrayList of tasks.
      * @param storage File loading and saving handler.
+     * @return String output of find command.
      * @throws OscarException Failure to execute command.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) throws OscarException {
+    public String execute(TaskList tasks, Storage storage) throws OscarException {
         validate();
-        tasks.find(keyword);
+        return tasks.find(keyword);
     }
 
     /**

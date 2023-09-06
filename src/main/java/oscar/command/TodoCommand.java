@@ -25,18 +25,19 @@ public class TodoCommand extends Command {
     /**
      * Creates a new todo task and save it to the task list.
      *
-     * @param tasks ArrayList of tasks.
+     * @param tasks   ArrayList of tasks.
      * @param storage File loading and saving handler.
+     * @return String output of todo task.
      * @throws OscarException Incorrect format of todo command.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) throws OscarException {
+    public String execute(TaskList tasks, Storage storage) throws OscarException {
         validate();
         Task newTodo = new Todo(details);
         tasks.add(newTodo);
         storage.save(tasks);
-        System.out.println("Oscar has added:\n" + newTodo + "\n");
         tasks.listCount();
+        return "Oscar has added:\n" + newTodo + "\n";
     }
 
     /**

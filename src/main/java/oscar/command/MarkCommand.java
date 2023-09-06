@@ -23,16 +23,16 @@ public class MarkCommand extends Command {
     /**
      * Marks a task as done using the task number.
      *
-     * @param tasks ArrayList of tasks.
+     * @param tasks   ArrayList of tasks.
      * @param storage File loading and saving handler.
+     * @return String output of mark command.
      * @throws OscarException Failure to validate task number.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) throws OscarException {
+    public String execute(TaskList tasks, Storage storage) throws OscarException {
         int index = validateInt(details, tasks);
         String currentTask = tasks.mark(index);
         storage.save(tasks);
-        System.out.println("Nice! Oscar has marked this task as done:\n");
-        System.out.println(currentTask + "\n");
+        return "Nice! Oscar has marked this task as done:\n" + currentTask + "\n";
     }
 }

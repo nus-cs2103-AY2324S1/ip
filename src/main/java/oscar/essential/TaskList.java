@@ -78,27 +78,31 @@ public class TaskList {
 
     /**
      * Lists stored tasks in chronological order of addition.
+     *
+     * @return Tasks in task list.
      */
-    public void list() {
-        System.out.println("Here are the tasks in your list:");
+    public String list() {
+        StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 1; i <= taskList.size(); i++) {
             Task currentTask = taskList.get(i - 1);
-            System.out.println(i + "." + currentTask);
+            result.append(i).append(".").append(currentTask).append("\n");
         }
-        System.out.println();
+        return result.append("\n").toString();
     }
 
     /**
      * Displays the number of tasks stored in the task list.
+     *
+     * @return Message that informs users of number of tasks in task list.
      */
-    public void listCount() {
+    public String listCount() {
         int listSize = getSize();
         if (listSize == 0) {
-            System.out.println("You have no tasks in the list. Add some now!\n");
+            return "You have no tasks in the list. Add some now!\n";
         } else if (listSize == 1) {
-            System.out.println("You have 1 task in the list.\n");
+            return "You have 1 task in the list.\n";
         } else {
-            System.out.println("You now have " + listSize + " tasks in the list.\n");
+            return "You now have " + listSize + " tasks in the list.\n";
         }
     }
 
@@ -150,15 +154,16 @@ public class TaskList {
      * Lists all tasks in the task list containing the keyword.
      *
      * @param keyword String to match.
+     * @return List of tasks containing keyword.
      */
-    public void find(String keyword) {
-        System.out.println("Here are the matching tasks in your list:");
+    public String find(String keyword) {
+        StringBuilder result = new StringBuilder("Here are the matching tasks in your list:");
         for (int i = 1; i <= taskList.size(); i++) {
             Task currentTask = taskList.get(i - 1);
             if (currentTask.getDescription().contains(keyword)) {
-                System.out.println(i + "." + currentTask);
+                result.append(i).append(".").append(currentTask);
             }
         }
-        System.out.println();
+        return result.append("\n").toString();
     }
 }

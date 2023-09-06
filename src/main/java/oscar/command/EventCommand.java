@@ -28,12 +28,13 @@ public class EventCommand extends Command {
     /**
      * Creates a new event task and save it to the task list.
      *
-     * @param tasks ArrayList of tasks.
+     * @param tasks   ArrayList of tasks.
      * @param storage File loading and saving handler.
+     * @return String output of event task.
      * @throws OscarException Incorrect format of event command.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) throws OscarException {
+    public String execute(TaskList tasks, Storage storage) throws OscarException {
         String[] validatedDetails = validate();
         String description = validatedDetails[0];
         String start = validatedDetails[1];
@@ -43,8 +44,7 @@ public class EventCommand extends Command {
         Task newEvent = new Event(description, startDateTime, endDateTime);
         tasks.add(newEvent);
         storage.save(tasks);
-        System.out.println("Oscar has added:\n" + newEvent + "\n");
-        tasks.listCount();
+        return "Oscar has added:\n" + newEvent + "\n" + tasks.listCount();
     }
 
     /**

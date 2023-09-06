@@ -51,11 +51,12 @@ public abstract class Command {
     /**
      * Carries out the intended function of a command.
      *
-     * @param tasks ArrayList of tasks.
+     * @param tasks   ArrayList of tasks.
      * @param storage File loading and saving handler.
+     * @return String output of command.
      * @throws OscarException Failure to execute command.
      */
-    public abstract void execute(TaskList tasks, Storage storage) throws OscarException;
+    public abstract String execute(TaskList tasks, Storage storage) throws OscarException;
 
     /**
      * Checks if command is an exit command.

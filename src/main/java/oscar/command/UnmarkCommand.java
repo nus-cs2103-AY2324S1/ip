@@ -23,16 +23,16 @@ public class UnmarkCommand extends Command {
     /**
      * Marks a task as not done using the task number.
      *
-     * @param tasks ArrayList of tasks.
+     * @param tasks   ArrayList of tasks.
      * @param storage File loading and saving handler.
+     * @return String output of unmark command.
      * @throws OscarException Failure to validate task number.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) throws OscarException {
+    public String execute(TaskList tasks, Storage storage) throws OscarException {
         int index = validateInt(details, tasks);
         String currentTask = tasks.unmark(index);
         storage.save(tasks);
-        System.out.println("Oscar has marked this task as not done yet:\n");
-        System.out.println(currentTask + "\n");
+        return "Oscar has marked this task as not done yet:\n" + currentTask + "\n";
     }
 }
