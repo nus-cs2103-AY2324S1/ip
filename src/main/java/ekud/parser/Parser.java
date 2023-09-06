@@ -24,6 +24,8 @@ public class Parser {
 
     /**
      * Splits the user's input into command and arguments.
+     * @param userInput The given line of raw user input.
+     * @return String[] containing the user command and user args.
      */
     public String[] parseInput(String userInput) {
         int firstSpace = userInput.indexOf(' ');
@@ -34,12 +36,14 @@ public class Parser {
 
     /**
      * Core function for parsing user arguments based on the command and handling any invalid
-     * arguments before returning them.
-     * @param userCommand Input command by the user.
-     * @param userArgs Args for the command supplied by the user.
+     * arguments, before executing the command and returning a String response.
+     * @param userInputs The inputs given by the user which includes the command and respective args.
+     * @return String response message for the user.
      * @throws EkudException Either invalid commands or illegal arguments for the commands.
      */
-    public String parseAndExecute(String userCommand, String userArgs, TaskList taskList) throws EkudException {
+    public String parseAndExecute(TaskList taskList, String ... userInputs) throws EkudException {
+        String userCommand = userInputs[0];
+        String userArgs = userInputs[1];
         Command command = Command.getCommand(userCommand); // Command enum
         if (command == null) {
             throw new EkudInvalidCommandException(String.format(
