@@ -8,10 +8,8 @@ public class NoDeadlineException extends DukeException {
      * Creates a NoDeadlineException instance.
      */
     public NoDeadlineException() {
-        super("____________________________________________________________\n" +
-                " ☹ OOPS!!! There is no deadline given.\n" +
+        super("\u2639 OOPS!!! There is no deadline given.\n" +
                 "Please input the duration in the following format:\n" +
-                "/from DD-MM-YYYY TTTT /to DD-MM-YYYY TTTT\n" +
-                "____________________________________________________________");
+                "/from DD-MM-YYYY TTTT /to DD-MM-YYYY TTTT");
     }
 }

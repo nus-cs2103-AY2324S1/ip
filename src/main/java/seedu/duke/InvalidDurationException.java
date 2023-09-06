@@ -10,10 +10,8 @@ public class InvalidDurationException extends DukeException {
      * @param duration The duration given by the user.
      */
     public InvalidDurationException(String duration) {
-        super("____________________________________________________________\n" +
-                " ☹ OOPS!!! " + duration + " is not a valid duration.\n" +
+        super("\u2639 OOPS!!! " + duration + " is not a valid duration.\n" +
                 "Please input the duration in the following format:\n" +
-                "/from DD-MM-YYYY TTTT /to DD-MM-YYYY TTTT\n" +
-                "____________________________________________________________");
+                "/from DD-MM-YYYY TTTT /to DD-MM-YYYY TTTT");
     }
 }

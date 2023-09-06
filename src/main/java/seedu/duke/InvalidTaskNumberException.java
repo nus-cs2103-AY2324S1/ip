@@ -11,8 +11,6 @@ public class InvalidTaskNumberException extends DukeException {
      * @param number The number given by the user.
      */
     public InvalidTaskNumberException(int number) {
-        super("____________________________________________________________\n" +
-                " ☹ OOPS!!! " + number + " is not a valid task number.\n" +
-                "____________________________________________________________");
+        super("\u2639 OOPS!!! " + number + " is not a valid task number.");
     }
 }

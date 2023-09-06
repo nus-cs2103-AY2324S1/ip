@@ -10,10 +10,8 @@ public class InvalidDeadlineException extends DukeException {
      * @param deadline The deadline given by the user.
      */
     public InvalidDeadlineException(String deadline) {
-        super("____________________________________________________________\n" +
-                " ☹ OOPS!!! " + deadline + " is not a valid deadline.\n" +
+        super("\u2639 OOPS!!! " + deadline + " is not a valid deadline.\n" +
                 "Please input the deadline in the following format:\n" +
-                "/DD-MM-YYYY TTTT\n" +
-                "____________________________________________________________");
+                "/DD-MM-YYYY TTTT");
     }
 }
