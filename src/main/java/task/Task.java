@@ -38,6 +38,14 @@ public class Task {
     }
 
     /**
+     * getter function
+     * @return retrieves the saved description.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
      * toString() method.
      * @return string text of the task in which the task will be displayed in the terminal.
      */
@@ -46,3 +54,4 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 }
+

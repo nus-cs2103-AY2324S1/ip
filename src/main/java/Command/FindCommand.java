@@ -1,9 +1,9 @@
-package Command;
+package command;
 
-import Main.Storage;
-import Main.UI;
-import Task.Task;
-import Task.TaskList;
+import main.Storage;
+import main.UI;
+import task.Task;
+import task.TaskList;
 
 public class FindCommand extends Command {
 
