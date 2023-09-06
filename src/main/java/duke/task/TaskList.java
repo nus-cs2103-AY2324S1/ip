@@ -1,13 +1,14 @@
 package duke.task;
 
-import duke.exception.DukeException;
 import java.util.ArrayList;
+
+import duke.exception.DukeException;
 
 /**
  * Manages a list of tasks and provides methods to perform operations on them.
  */
 public class TaskList {
-    ArrayList<Task> taskArr;
+    private ArrayList<Task> taskArr;
 
     /**
      * Constructs an empty TaskList.

@@ -1,14 +1,18 @@
 package duke.storage;
 
-import duke.task.*;
-import duke.exception.DukeException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
 
 /**
  * Represents a storage which handles loading tasks from a file and updating tasks to a file.
@@ -70,6 +74,8 @@ public class Storage {
                     }
                     taskArr.add(e);
                     break;
+                default:
+                    break;
                 }
             }
             return taskArr;
@@ -107,8 +113,8 @@ public class Storage {
                 } else {
                     //event
                     Event e = (Event) t;
-                    fWriter2.write("E | " + e.getNumber() + " | " + e.getDescription() + " | " + e.getFrom() + " to " +
-                            e.getTo() + "\n");
+                    fWriter2.write("E | " + e.getNumber() + " | " + e.getDescription() + " | " + e.getFrom()
+                            + " to " + e.getTo() + "\n");
                 }
             }
 

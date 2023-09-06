@@ -1,6 +1,14 @@
 package duke.parser;
 
-import duke.command.*;
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnknownCommand;
+import duke.command.UnmarkCommand;
 import duke.exception.DukeException;
 
 /**
@@ -15,7 +23,7 @@ public class Parser {
      * @return The parsed Command object corresponding to the input.
      * @throws DukeException If there is an issue parsing the command.
      */
-    public static Command parse(String fullCommand) throws DukeException{
+    public static Command parse(String fullCommand) throws DukeException {
         String[] words = fullCommand.split(" ", 2);
         String firstWord = words[0];
 

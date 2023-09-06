@@ -3,7 +3,7 @@ package duke.task;
 /**
  * Represents a todo task.
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * Constructs a Todo instance with the given description.

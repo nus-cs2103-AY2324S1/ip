@@ -1,14 +1,15 @@
 package duke.command;
 
-import duke.storage.Storage;
-import duke.task.*;
-import duke.ui.Ui;
 import duke.exception.DukeException;
+import duke.storage.Storage;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * Represents a command to mark a task as done in the task list.
  */
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
     private int index;
     private boolean isExit = false;
 
@@ -30,10 +31,10 @@ public class MarkCommand extends Command{
      * @throws DukeException If there is an issue executing the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (this.index + 1 > tasks.size()) {
-            throw new DukeException(ui.messageCard("The current number of tasks is " + tasks.size() + ", " +
-                    "so you can't mark task " + (index + 1) + "!!."));
+            throw new DukeException(ui.messageCard("The current number of tasks is " + tasks.size()
+                    + ", so you can't mark task " + (index + 1) + "!!."));
         }
         //update
         Task task = tasks.get(index);
@@ -51,7 +52,7 @@ public class MarkCommand extends Command{
      * @return False since marking a task as done does not trigger an exit.
      */
     @Override
-    public boolean isExit(){
+    public boolean isExit() {
         return this.isExit;
     }
 }

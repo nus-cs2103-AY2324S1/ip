@@ -1,16 +1,19 @@
 package duke.command;
 
-import duke.storage.Storage;
-import duke.task.*;
-import duke.ui.Ui;
-import duke.exception.DukeException;
-
 import java.time.format.DateTimeParseException;
+
+import duke.exception.DukeException;
+import duke.storage.Storage;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.TaskList;
+import duke.task.Todo;
+import duke.ui.Ui;
 
 /**
  * Represents a command to add tasks to the task list.
  */
-public class AddCommand extends Command{
+public class AddCommand extends Command {
     private String[] words;
     private String category;
     private boolean isExit = false;
@@ -61,8 +64,8 @@ public class AddCommand extends Command{
                 storage.updateFile(tasks);
 
                 //printing messages
-                String message = "Got it. I've added this task: \n" + todo +
-                        "\nNow you have " + tasks.size() + " tasks in the list.";
+                String message = "Got it. I've added this task: \n" + todo
+                        + "\nNow you have " + tasks.size() + " tasks in the list.";
 
                 ui.printMessage(message);
                 break;
@@ -82,8 +85,8 @@ public class AddCommand extends Command{
                 storage.updateFile(tasks);
 
                 //printing the messages
-                String dlMessage = "Got it. I've added this task: \n" + dl +
-                        "\nNow you have " + tasks.size() + " tasks in the list.";
+                String dlMessage = "Got it. I've added this task: \n" + dl
+                        + "\nNow you have " + tasks.size() + " tasks in the list.";
                 ui.printMessage(dlMessage);
                 break;
             case "E":
@@ -105,12 +108,13 @@ public class AddCommand extends Command{
                 storage.updateFile(tasks);
 
                 //print messages
-                String eMessage = "Got it. I've added this task: \n" + e +
-                        "\nNow you have " + tasks.size() + " tasks in the list. ";
+                String eMessage = "Got it. I've added this task: \n" + e
+                        + "\nNow you have " + tasks.size() + " tasks in the list. ";
                 ui.printMessage(eMessage);
                 break;
             default:
-                throw new DukeException(ui.messageCard("There may be wrong parameters inputted in, please check again!"));
+                throw new DukeException(ui.messageCard("There may be wrong parameters inputted in, "
+                        + "please check again!"));
             }
         } catch (DateTimeParseException e) {
             throw new DukeException(e.getMessage());

@@ -1,11 +1,11 @@
 package duke;
 
-import duke.storage.Storage;
-import duke.task.*;
-import duke.ui.Ui;
-import duke.command.*;
-import duke.parser.Parser;
+import duke.command.Command;
 import duke.exception.DukeException;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * The main class that runs the Duke chatbot.

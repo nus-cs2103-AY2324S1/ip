@@ -3,7 +3,7 @@ package duke.exception;
 /**
  * Represents a custom exception specific to the Duke application.
  */
-public class DukeException extends Exception{
+public class DukeException extends Exception {
     /**
      * Constructs a DukeException with the specified error message.
      *
