@@ -63,7 +63,7 @@ public class TaskList {
         return res.toString();
     }
 
-    public TaskList filter(String s) {
+    public TaskList filter(String s) throws DukeException {
         ArrayList<Task> res = this.l.stream()
                 .filter(x -> x.description.contains(s))
                 .collect(Collectors.toCollection(ArrayList::new));

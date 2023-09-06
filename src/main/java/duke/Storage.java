@@ -32,7 +32,7 @@ public class Storage {
      * Load the saved text file into a list of tasks.
      * @return the arraylist with the tasks
      */
-    public ArrayList<Task> load() {
+    public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> res = new ArrayList<>();
         try {
             File f = new File(this.filePath);
@@ -53,7 +53,7 @@ public class Storage {
      * @param s line in the file
      * @return the tasks after processing
      */
-    public Task restore(String s) {
+    public Task restore(String s) throws DukeException {
         String[] arr = s.split("\\|");
         Task t;
         switch (arr[0]) {
@@ -97,7 +97,7 @@ public class Storage {
      * Upon termination save the tasks into the textfile after formatting.
      * @param list the tasklist of tasks to be saved
      */
-    public void save(TaskList list) {
+    public void save(TaskList list) throws DukeException {
         try {
             FileWriter writer = new FileWriter(filePath);
             writer.write(list.format());
