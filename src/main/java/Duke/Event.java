@@ -10,6 +10,7 @@ public class Event extends Task {
 
     /**
      * An Event task constructor.
+     *
      * @param description The description of the Event task.
      * @param from the indicated starting time.
      * @param to the indicated ending time.
@@ -24,6 +25,7 @@ public class Event extends Task {
     /**
      * Returns a String representation of the Event task, including the symbol, status icon, description,
      * and from and to indicators.
+     *
      * @return a String to be printed to the user.
      */
     @Override
@@ -34,6 +36,7 @@ public class Event extends Task {
 
     /**
      * Reads a line in a .txt file that represents an Event task and converts it to an Event task.
+     *
      * @param segments A string array that is split by " | ", separating the line into useful chunks.
      * @return An Event task.
      */
@@ -50,7 +53,8 @@ public class Event extends Task {
     }
 
     /**
-     * returns A String to be written into the .txt file.
+     * Returns a String to be written into the .txt file.
+     *
      * @return A formatted String for the Deadline task with " | " separators.
      */
     @Override

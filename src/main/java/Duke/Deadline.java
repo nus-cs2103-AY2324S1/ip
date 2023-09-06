@@ -15,8 +15,9 @@ public class Deadline extends Task{
 
     /**
      * Returns a String that is formatted accordingly to the outputFormat, represents a date and time.
+     *
      * @param s String that is in the specified inputFormat, represents a date and time.
-     * @return the string of date and time to be printed to the user.
+     * @return String of date and time to be printed to the user.
      */
     public String getDateTime(String s) {
         LocalDateTime localDateTime = LocalDateTime.parse(s, inputFormat);
@@ -26,6 +27,7 @@ public class Deadline extends Task{
 
     /**
      * A Deadline task constructor.
+     *
      * @param description The description of the Deadline task.
      * @param by The deadline.
      */
@@ -37,6 +39,7 @@ public class Deadline extends Task{
     /**
      * Returns A string representation of the Deadline Task, including the symbol, status icon,
      * description and deadline.
+     *
      * @return a String to be printed to the user.
      */
     @Override
@@ -46,6 +49,7 @@ public class Deadline extends Task{
 
     /**
      * Reads a line in a .txt file that represents a Deadline task and converts it to a Deadline Task.
+     *
      * @param segments A string array that is split by " | ", separating the line into useful chunks.
      * @return A deadline task.
      */
@@ -61,7 +65,8 @@ public class Deadline extends Task{
     }
 
     /**
-     * returns A String to be written into the .txt file.
+     * Returns A String to be written into the .txt file.
+     *
      * @return A formatted String for the Deadline task with " | " separators.
      */
     @Override

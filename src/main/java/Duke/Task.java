@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Task class that Todo, Event and Deadline inherit from.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -9,21 +12,28 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns a String representation of the Task, including the status icon and description only.
+     *
+     * @return a String to be printed to the user.
+     */
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+    /**
+     * Returns a symbol depending on whether the Task is done.
+     *
+     * @return a String of a symbol.
+     */
     public String getStatusIcon() { //for tasks
         return (isDone ? "[X]" : "[ ]");
     }
 
-    /*public void mark() {
-        if (isDone == false) {
-            isDone = true;
-        } else {
-            System.out.println("Haha nice going... This task is already done, bozo!");
-        }
-    } */
+    /**
+     * Marks an undone Task as done.
+     */
     public void mark(){
         try {
             if (isDone == true) {
@@ -35,6 +45,9 @@ public class Task {
         }
     }
 
+    /**
+     * Marks a done Task as undone.
+     */
     public void unmark() {
         try {
             if (isDone == false) {
@@ -46,7 +59,14 @@ public class Task {
         }
     }
 
-    public static Task readFromFile(String line) throws GmanException {
+    /**
+     * Reads a line in a .txt file that represents an Event task and converts it into either a Todo,
+     * Deadline, or Event.
+     *
+     * @param line each line from the .txt file.
+     * @return A Todo, Deadline or Event Task.
+     */
+    public static Task readFromFile(String line) {
         String[] segments = line.split(" \\| ");
         if (segments[0].equals("T")) {
             return Todo.readFromFile(segments);
@@ -59,6 +79,11 @@ public class Task {
         }
     }
 
+    /**
+     * Returns a String to be written into the .txt file. Overridden by all child classes.
+     *
+     * @return A formatted String for the Task with a " | " separator.
+     */
     public String toWriteString() {
         String symbol = "O";
         if (this.isDone) {
@@ -67,6 +92,10 @@ public class Task {
         return (symbol + " | " + this.description);
     }
 
+    /**
+     * Returns the description of the target Task.
+     * @return String description to be printed to the user.
+     */
     public String getDescription() {
         return this.description;
     }
