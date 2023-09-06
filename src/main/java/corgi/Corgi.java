@@ -36,6 +36,10 @@ public class Corgi {
         // }
     }
 
+    public String getIntro() {
+        return renderer.showIntro();
+    }
+
     /**
      * Starts the chatbot - Corgi.
      */
