@@ -10,6 +10,8 @@ public class Parser {
     private TaskList tasks;
     private Ui ui;
 
+    private Storage storage;
+
     /**
      * Constructs a Parser object.
      *
@@ -19,6 +21,7 @@ public class Parser {
 
         this.tasks = tasks;
         this.ui = new Ui();
+        this.storage = new Storage();
     }
 
     /**
@@ -45,6 +48,7 @@ public class Parser {
                     throw new DukeException("Please specify the task to mark.");
                 }
                 output = this.tasks.modifyTask(mainCommand, Integer.parseInt(spacedCommand[1]));
+                this.storage.writeTasks(this.tasks.getTasks());
                 break;
             case "unmark":
                 if (spacedCommand.length == 1) {
@@ -57,6 +61,7 @@ public class Parser {
                     throw new DukeException("Please specify the task to delete.");
                 }
                 output = this.tasks.deleteTask(Integer.parseInt(spacedCommand[1]));
+                this.storage.writeTasks(this.tasks.getTasks());
                 break;
             case "todo":
                 if (spacedCommand.length == 1) {
@@ -64,6 +69,7 @@ public class Parser {
                 }
                 task = new Todo(command.substring(5));
                 output = this.tasks.addTask(task);
+                this.storage.writeTasks(this.tasks.getTasks());
                 break;
             case "deadline":
                 if (spacedCommand.length == 1) {
@@ -76,6 +82,7 @@ public class Parser {
                 }
                 task = new Deadline(command.substring(9, spacer), command.substring(spacer + 4));
                 output = this.tasks.addTask(task);
+                this.storage.writeTasks(this.tasks.getTasks());
                 break;
             case "event":
                 if (spacedCommand.length == 1) {
@@ -89,12 +96,16 @@ public class Parser {
                 task = new Event(command.substring(6, startSpacer),
                         command.substring(startSpacer + 6, endSpacer - 1), command.substring(endSpacer + 4));
                 output = this.tasks.addTask(task);
+                this.storage.writeTasks(this.tasks.getTasks());
                 break;
             case "/help":
                 output = this.ui.helpMessage();
                 break;
             case "":
                 output = this.ui.emptyCommandMessage();
+                break;
+            case "bye":
+                output = this.ui.byeMessage();
                 break;
             default:
                 output = this.ui.noCommandMessage();

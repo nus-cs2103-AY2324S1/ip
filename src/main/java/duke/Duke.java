@@ -52,27 +52,6 @@ public class Duke {
         this.parser = new Parser(this.tasks);
     }
 
-    /**
-     * Starts the Duke interaction with the User, allowing users to continuously input
-     * and modify the TaskList until they type bye.
-     */
-    public void run() {
-        try {
-            this.ui.introMessage();
-            while (true) {
-                String command = ui.getInput();
-                if (command.equalsIgnoreCase("bye")) {
-                    break;
-                }
-                this.parser.parse(command);
-            }
-            this.ui.closeScanner();
-            this.storage.writeTasks(this.tasks.getTasks());
-            this.ui.byeMessage();
-        } catch (DukeException e) {
-            System.out.println("OOPS!" + e.toString().split("DukeException:")[1]);
-        }
-    }
 
     /**
      * You should have your own function to generate a response to user input.
@@ -88,13 +67,4 @@ public class Duke {
         return response;
     }
 
-    /**
-     * Acts as the main entry Point for the Duke Application.
-     *
-     * @param args Command line arguments
-     */
-    public static void main(String[] args){
-        Duke duke = new Duke();
-        duke.run();
-    }
 }

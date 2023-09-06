@@ -1,5 +1,2 @@
-T|Y|run 
 D|Y|homeowrk |2002-07-22
-T|N|homework
 D|Y|homework |2000-12-09
-E|Y|dance |2000-12-09|2000-12-09

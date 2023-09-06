@@ -69,8 +69,8 @@ public class Ui {
     /**
      * Prints farewell message when user exits the bot.
      */
-    public void byeMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String byeMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
