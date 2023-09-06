@@ -47,7 +47,8 @@ public class Storage {
                 throw new IOException("Couldn't create dir: "
                     + parent);
             }
-            file.createNewFile();
+            System.out.println(file.createNewFile());
+            //file.createNewFile();
         } catch (IOException e) {
             throw new FileIoException(e.getMessage());
         }

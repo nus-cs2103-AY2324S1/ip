@@ -8,7 +8,7 @@ import duck.Parser;
 
 public class ParserTest {
     @Test
-    public void identifyTestWithCommand() {
+    public void testIdentify_TaskCommandInput_TaskName() {
         Parser parser = new Parser();
         String command = parser.identify("deadline return book /by 2023-03-03 1220");
         assertEquals("deadline", command);

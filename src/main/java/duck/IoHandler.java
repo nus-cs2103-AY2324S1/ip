@@ -21,11 +21,10 @@ public class IoHandler {
     /**
      * Displays welcome Message.
      */
-    public void welcomeMessage() {
-        divider();
-        System.out.println("Hello! I'm Duck");
-        System.out.println("What can I do for you?");
-        divider();
+    public String welcomeMessage() {
+        String result = "Hello! I'm Duckbot\n\n";
+        result += "What can I do for you?";
+        return result;
     }
     /**
      * Divides the paragraphs.
@@ -46,23 +45,26 @@ public class IoHandler {
      *
      * @param taskList The TaskList containing tasks to be displayed.
      */
-    public void display(TaskList taskList) {
+    public String display(TaskList taskList) {
         int count = 0;
         int serial = 1;
-        divider();
+        StringBuilder result = new StringBuilder();
+        if (taskList.size() == 0) {
+            return "There are no tasks in your lists.";
+        }
+        result.append("Here are all the tasks in your list: \n");
         while (count < taskList.size()) {
-            System.out.println(serial + "." + taskList.get(count));
+            result.append(serial).append(".").append(taskList.get(count)).append("\n");
             count++;
             serial++;
         }
-        divider();
+        return result.toString();
     }
     /**
      * Displays an exit message.
      */
-    public void exit() {
-        System.out.println("Bye. Hope to see you again soon !");
-        divider();
+    public String exit() {
+        return "Bye. Hope to see you again soon !";
     }
 
     /**
@@ -70,21 +72,24 @@ public class IoHandler {
      * @param t
      * @param taskList
      */
-    public void echoAdd(Task t, TaskList taskList) {
-        divider();
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + t);
-        taskList.size();
-        divider();
+    public String echoAdd(Task t, TaskList taskList) {
+        StringBuilder result = new StringBuilder();
+        result.append("Got it. I've added this task:\n");
+        result.append("  ").append(t).append("\n");
+        result.append("Now you have ").append(taskList.size()).append(" tasks in the list.\n");
+        return result.toString();
     }
 
-    public void displaySearchResults(ArrayList<Task> list) {
-        divider();
-        System.out.println("Here are the matching tasks in your list: ");
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(i+1 + "." + list.get(i));
+    public String displaySearchResults(ArrayList<Task> list) {
+        StringBuilder result = new StringBuilder();
+        if (list.isEmpty()) {
+            return "I couldn't find any matching tasks in your lists.";
         }
-        divider();
+        result.append("Here are the matching tasks in your list: \n");
+        for (int i = 0; i < list.size(); i++) {
+            result.append(i + 1).append(".").append(list.get(i)).append("\n");
+        }
+        return result.toString();
     }
 
 }
