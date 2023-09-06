@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class Parser {
 
     private final String delimiter;
-    private boolean emptyArgument;
+    private final boolean emptyArgument;
 
     //region Constructor
 
@@ -61,15 +61,15 @@ public class Parser {
     private static void parseCmdArg(String s, NamedParameterMap map) {
         String[] cmdArg = s.split("\\s", 2);
         if (cmdArg.length == 2) {
-            map.put(cmdArg[0].trim(), cmdArg[1].trim());
+            map.addNamedParameter(cmdArg[0].trim(), cmdArg[1].trim());
         } else {
-            map.put(cmdArg[0].trim(), "");
+            map.addNamedParameter(cmdArg[0].trim(), "");
         }
     }
 
     private static void parseCmdArg(String s, NamedParameterMap map, boolean emptyArgument) {
         if (emptyArgument) {
-            map.put("", s.trim());
+            map.addNamedParameter("", s.trim());
         } else {
             parseCmdArg(s, map);
         }

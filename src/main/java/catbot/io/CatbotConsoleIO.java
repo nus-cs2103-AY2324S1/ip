@@ -1,5 +1,6 @@
-package catbot;
+package catbot.io;
 
+import catbot.Parser;
 import catbot.internal.NamedParameterMap;
 import catbot.io.UserIo;
 import catbot.task.Task;
@@ -158,8 +159,13 @@ public class CatbotConsoleIO implements UserIo {
                 }
                 send("please make sure to include them next time!");
                 break;
+            case NOT_A_DATE:
+                for (String arg : namedParameterMap.keySet()) {
+                    warn(arg + " is set to \"" + namedParameterMap.get(arg) + "\", which is not a date!");
+                }
+                break;
             default:
-                assert false; //something has gone wrong
+                throw new RuntimeException();
         }
     }
 
