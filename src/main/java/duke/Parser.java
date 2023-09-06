@@ -9,6 +9,7 @@ import duke.command.AddEventCommand;
 import duke.command.AddTodoCommand;
 import duke.command.CheckCommand;
 import duke.command.Command;
+import duke.command.CommandType;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
 import duke.command.FindCommand;
@@ -34,13 +35,13 @@ public class Parser {
      * @return The Command object based on user input.
      * @throws DukeException If there is an issue parsing the input or creating the Command.
      */
-    public static Command parseCommand(String input) throws DukeException {
-        String[] parts = input.split(" ", 2);
-        String command = parts[0].toUpperCase();
+    public static Command parseUserInput(String input) throws DukeException {
+        String[] inputParts = input.split(" ", 2);
+        String userCommand = inputParts[0].toUpperCase();
         CommandType commandType;
 
         try {
-            commandType = CommandType.valueOf(command);
+            commandType = CommandType.valueOf(userCommand);
         } catch (IllegalArgumentException e) {
             throw new UnknownCommandException();
         }
@@ -51,21 +52,21 @@ public class Parser {
         case LIST:
             return new ListCommand();
         case MARK:
-            return new MarkCommand(Integer.parseInt(parseArgument(parts)) - 1);
+            return new MarkCommand(Integer.parseInt(parseArgument(inputParts)) - 1);
         case UNMARK:
-            return new UnmarkCommand(Integer.parseInt(parseArgument(parts)) - 1);
+            return new UnmarkCommand(Integer.parseInt(parseArgument(inputParts)) - 1);
         case TODO:
-            return new AddTodoCommand(parseArgument(parts));
+            return new AddTodoCommand(parseArgument(inputParts));
         case DEADLINE:
-            return parseAddDeadlineCommand(parseArgument(parts));
+            return parseAddDeadlineCommand(parseArgument(inputParts));
         case EVENT:
-            return parseAddEventCommand(parseArgument(parts));
+            return parseAddEventCommand(parseArgument(inputParts));
         case DELETE:
-            return new DeleteCommand(Integer.parseInt(parseArgument(parts)) - 1);
+            return new DeleteCommand(Integer.parseInt(parseArgument(inputParts)) - 1);
         case FIND:
-            return new FindCommand(parseArgument(parts));
+            return new FindCommand(parseArgument(inputParts));
         case CHECK:
-            return new CheckCommand(Parser.parseArgument(parts));
+            return new CheckCommand(Parser.parseArgument(inputParts));
         case TODAY:
             return new TodayCommand();
         case HELP:
@@ -78,12 +79,12 @@ public class Parser {
     /**
      * Parses the argument from a user input and returns it.
      *
-     * @param parts The split user input.
+     * @param inputParts The split user input.
      * @return The argument portion of the user input.
      */
-    public static String parseArgument(String[] parts) {
-        if (parts.length > 1) {
-            return parts[1];
+    public static String parseArgument(String[] inputParts) {
+        if (inputParts.length > 1) {
+            return inputParts[1];
         }
         return "";
     }

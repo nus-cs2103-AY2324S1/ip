@@ -46,7 +46,7 @@ public class Duke {
                 throw new EmptyCommandException();
             }
 
-            Command command = Parser.parseCommand(userInput);
+            Command command = Parser.parseUserInput(userInput);
             return command.execute(taskList, ui, storage);
 
         } catch (DukeException e) {
