@@ -22,6 +22,7 @@ public class Task {
     public String getType() {
         return "task";
     }
+    public String saveTask () {return this.description; }
 
     @Override
     public String toString() {

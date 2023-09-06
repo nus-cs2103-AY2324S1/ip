@@ -1,11 +1,13 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Dude {
 
-//    static Task[] taskList = new Task[100];
     static ArrayList<Task> taskList = new ArrayList<Task>();
     static int nTasks = 0;
+
+    private static final String FILE_PATH = "./data/dude.txt";
 
     public static void addTodo(String task) {
         ToDo newTask = new ToDo(task);
@@ -51,14 +53,12 @@ public class Dude {
     }
 
     public static void mark(int n) {
-//        taskList[n-1].setDone(true);
         taskList.get(n-1).setDone(true);
         System.out.println("Nice! I've marked this task as done:");
         System.out.printf("%d. %s\n", n, taskList.get(n-1).toString());
     }
 
-    public static void unmark(int n) {
-//        taskList[n-1].setDone(false);
+    public static void unmark(int n) throws IOException {
         taskList.get(n-1).setDone(false);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.printf("%d. %s\n", n, taskList.get(n-1).toString());
@@ -69,11 +69,87 @@ public class Dude {
         System.out.println(greeting);
     }
 
-    public static void main(String[] args) {
+    public static void saveTasksToDisk() throws IOException {
+        String directoryPath = "./data";
+        String filePath = "./data/dude.txt";
+
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            if (directory.mkdirs()) {
+                System.out.println("Directory created at: " + directoryPath);
+            } else {
+                System.err.println("Failed to create directory.");
+                return;
+            }
+        }
+
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("File created at: " + filePath);
+                } else {
+                    System.err.println("Failed to create the file.");
+                }
+            } catch (IOException e) {
+                System.err.println("An error occurred while creating the file: " + e.getMessage());
+            }
+        }
+
+        String data = "";
+        for (int i = 0; i < nTasks; i++) {
+            Task task = taskList.get(i);
+            data += task.saveTask();
+        }
+        try {
+            FileWriter fw = new FileWriter(file);
+            fw.write(data);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    public static void loadTasksFromDisk() throws FileNotFoundException {
+        String filePath = "./data/dude.txt";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] taskInfo = line.split("\\s+\\|\\s+");
+
+                Task task;
+
+                if (taskInfo[0].equals("T")) {
+                    task = new ToDo(taskInfo[2]);
+                    task.setDone(taskInfo[1] == "1");
+                    taskList.add(task);
+                    nTasks += 1;
+                } else if (taskInfo[0].equals("D")) {
+                    task = new Deadline(taskInfo[2], taskInfo[3]);
+                    task.setDone(taskInfo[1] == "1");
+                    taskList.add(task);
+                    nTasks += 1;
+                } else if (taskInfo[0].equals("E")) {
+                    task = new Event(taskInfo[2], taskInfo[3], taskInfo[4]);
+                    task.setDone(taskInfo[1] == "1");
+                    taskList.add(task);
+                    nTasks += 1;
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred while reading the file: " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
         String greeting = "Hello, I'm Dude!\n" +
                 "What can I do for you?";
         System.out.println(greeting);
 
+        loadTasksFromDisk();
+        System.out.printf("You have %d saved tasks:\n", nTasks);
+        list();
         while (true) {
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
@@ -86,11 +162,14 @@ public class Dude {
                 break;
             } else if (words[0].equals("mark")) {
                 mark(Integer.valueOf(words[1]));
+                saveTasksToDisk();
             } else if (words[0].equals("unmark")) {
                 unmark(Integer.valueOf(words[1]));
+                saveTasksToDisk();
             } else if (words[0].equals("todo")) {
                 if (words.length > 1) {
                     addTodo(input.substring(5));
+                    saveTasksToDisk();
                 } else {
                     System.out.println("OOPS!!! The description of a todo cannot be empty.");
                 }
@@ -101,6 +180,7 @@ public class Dude {
                 String[] taskWords = input.substring(9).split(" /");
                 String by = taskWords[1].substring(3);
                 addDeadline(taskWords[0], by);
+                saveTasksToDisk();
             } else if (words[0].equals("event")) {
                 if (words.length == 1) {
                     System.out.println("OOPS!!! The description of an event cannot be empty.");
@@ -109,6 +189,7 @@ public class Dude {
                 String from = taskWords[1].substring(5);
                 String to = taskWords[2].substring(3);
                 addEvent(taskWords[0], from, to);
+                saveTasksToDisk();
             } else if (words[0].equals("delete")) {
                 delete(Integer.valueOf(words[1]));
             } else {
