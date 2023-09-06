@@ -12,9 +12,9 @@ public class DeleteCommand extends Command {
     private final int idx;
     private final Task task;
 
-    public DeleteCommand(TaskList taskList, String taskDetail) {
+    public DeleteCommand(TaskList taskList, String idx) {
         this.taskList = taskList;
-        this.idx = Integer.parseInt(taskDetail) - 1;
+        this.idx = Integer.parseInt(idx) - 1;
         this.task = this.taskList.get(this.idx);
     }
 

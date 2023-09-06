@@ -13,8 +13,8 @@ public class MarkCommand extends Command {
     private final TaskList taskList;
 
 
-    public MarkCommand(TaskList taskList, String taskDetail) {
-        this.task = taskList.get(Integer.parseInt(taskDetail) - 1);
+    public MarkCommand(TaskList taskList, String idx) {
+        this.task = taskList.get(Integer.parseInt(idx) - 1);
         this.taskList = taskList;
     }
 
