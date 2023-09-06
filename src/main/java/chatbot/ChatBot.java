@@ -1,5 +1,10 @@
 package chatbot;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 import chatbot.exceptions.ChatBotException;
 import chatbot.exceptions.FilePermissionException;
 import chatbot.exceptions.IllegalCommandException;
@@ -9,11 +14,12 @@ import chatbot.tasks.Task;
 /**
  * Main ChatBot class which instantiates a ChatBot object that coordinates other components.
  */
-public class ChatBot {
+public class ChatBot extends Application {
     static final String NAME = "4F5DA2";
     static final String LOCAL_DIRECTORY_PATH = "./data";
     static final String LOCAL_FILE_PATH = LOCAL_DIRECTORY_PATH + "/chatbot.txt";
     private final Ui ui;
+    private final Gui gui;
     private final Storage storage;
     private TaskList tasks;
     private boolean isExit = false; // Whether the user has indicated to exit the program.
@@ -21,12 +27,11 @@ public class ChatBot {
 
     /**
      * Constructor to instantiate a new ChatBot object.
-     * @param directoryPath String path to the data file's directory
-     * @param filePath String path to the data file
      */
-    public ChatBot(String directoryPath, String filePath) {
+    public ChatBot() {
         this.ui = new Ui();
-        this.storage = new Storage(directoryPath, filePath);
+        this.gui = new Gui();
+        this.storage = new Storage(LOCAL_DIRECTORY_PATH, LOCAL_FILE_PATH);
         try {
             this.tasks = new TaskList(storage.readData());
         } catch (LocalFileException e) {
@@ -111,7 +116,17 @@ public class ChatBot {
         }
     }
 
+    @Override
+    public void start(Stage stage) {
+        stage.setScene(this.gui.getScene());
+        stage.setTitle("ChatBot");
+        stage.setResizable(false);
+        stage.setMinHeight(600);
+        stage.setMinWidth(400);
+        stage.show();
+    }
+
     public static void main(String[] args) {
-        new ChatBot(ChatBot.LOCAL_DIRECTORY_PATH, ChatBot.LOCAL_FILE_PATH).run();
+        new ChatBot().run();
     }
 }
