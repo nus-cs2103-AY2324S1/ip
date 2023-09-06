@@ -14,7 +14,7 @@ public class Storage {
     public void saveTask(ArrayList<Task> tasks) throws IOException {
         FileWriter writer = new FileWriter(path);
         for (Task t : tasks) {
-            writer.write(t.toString() + "\n");
+            writer.write(t.toSave() + "\n");
         }
         writer.close();
     }
@@ -27,7 +27,6 @@ public class Storage {
             try {
                 Scanner scanner = new Scanner(file);
                 while (scanner.hasNextLine()) {
-                    // System.out.println(scanner.nextLine());
                     tasks.add(Task.savedParse(scanner.nextLine()));
                 }
                 scanner.close();
