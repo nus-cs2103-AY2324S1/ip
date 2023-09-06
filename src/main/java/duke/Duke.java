@@ -15,6 +15,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
+
+
+
+
+
 /**
  * The Duke class represents a task management application that allows users to interact with tasks.
  * It provides methods to manage tasks, mark them as done, and perform various operations on tasks.
@@ -186,8 +191,8 @@ public class Duke extends Application {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
         );
         userInput.clear();
     }
@@ -199,5 +204,4 @@ public class Duke extends Application {
     private String getResponse(String input) {
         return "Duke heard: " + input;
     }
-
 }
