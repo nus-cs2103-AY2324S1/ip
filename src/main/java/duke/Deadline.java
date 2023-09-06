@@ -4,7 +4,7 @@ package duke;
  * Special kind of task that has a description and a deadline
  */
 class Deadline extends Task {
-    protected String type = "D";
+    protected final String type = "D";
     protected String date;
 
     /**
