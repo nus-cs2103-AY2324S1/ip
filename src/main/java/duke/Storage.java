@@ -27,7 +27,7 @@ public class Storage {
      * Loads tasks from the specified file path. Create the folder if necessary.
      * @throws FileNotFoundException
      */
-    public ArrayList<Task> load() throws FileNotFoundException {
+    public ArrayList<Task> loadFile() throws FileNotFoundException {
         File folder = new File("data");
         if (!folder.exists()) {
             folder.mkdir();
