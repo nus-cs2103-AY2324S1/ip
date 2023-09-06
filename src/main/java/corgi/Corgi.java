@@ -11,6 +11,10 @@ import corgi.storage.Storage;
 import corgi.tasks.Task;
 import corgi.tasks.TaskList;
 import corgi.ui.Ui;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 /**
  * The `Corgi` class represents a chatbot named Corgi that manages tasks.
@@ -18,7 +22,7 @@ import corgi.ui.Ui;
  *
  * This class initializes the chatbot and handles user input and commands.
  */
-public class Corgi {
+public class Corgi extends Application {
     private TaskList tasks;
     private Storage<Task> storage;
     private Ui ui;
@@ -36,10 +40,19 @@ public class Corgi {
         }
     }
 
+    @Override
+    public void start (Stage stage) {
+        Label helloWorld = new Label("Hello World!");
+        Scene scene = new Scene(helloWorld);
+        
+        stage.setScene(scene);
+        stage.show();
+    }
+
     /**
      * Starts the chatbot - Corgi.
      */
-    public void start() {
+    public void getResponse() {
         Scanner sc = new Scanner(System.in);
         this.ui.setScanner(sc);
 
@@ -75,10 +88,5 @@ public class Corgi {
         }
 
         sc.close();
-    }
-
-    public static void main(String[] args) {
-        Corgi bot = new Corgi();
-        bot.start();
     }
 }
